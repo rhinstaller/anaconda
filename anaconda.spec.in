@@ -221,6 +221,28 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Tue Jan 04 2011 Martin Sivak <msivak@redhat.com> - 13.21.85-1
+- Merge rsyslogd from master, the buildinstall parts. (akozumpl)
+  Related: rhbz#601337
+- Use cio_ignore and *_cio_free commands in linuxrc.s390 (dcantrell)
+  Resolves: rhbz#633469
+- Add /sbin/cio_ignore to the KEEPFILE list on s390x (dcantrell)
+  Related: rhbz#633469
+- Remove MainframeDiskDevice class, use description property. (dcantrell)
+  Related: rhbz#632325
+- Change the device reinitialization dialog (mgracik)
+  Resolves: rhbz#657376
+- Fix looking up storage device IDs when writing out anaconda-ks.cfg (clumens).
+  Resolves: rhbz#591713
+- mpath: make sure /var/log exists exists early. (akozumpl)
+  Related: rhbz#636570
+- mpath: flush mpath devices in iw/filter_gui.py (akozumpl)
+  Resolves: rhbz#636570
+- mpath: log the /etc/multipath.conf contents (akozumpl)
+  Related: rhbz#636570
+- logging: put timestamps in /tmp/syslog. (akozumpl)
+  Related: rhbz#636570
+
 * Mon Dec 13 2010 Martin Sivak <msivak@redhat.com> - 13.21.84-1
 - memory: bump epsilon in within_available_memory() (akozumpl).
   Resolves: rhbz#624355

@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anaconda FC12\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2010-07-29 04:08-1000\n"
+"POT-Creation-Date: 2011-01-04 14:19+0100\n"
 "PO-Revision-Date: 2009-08-31 13:18+0200\n"
 "Last-Translator: Kjartan Maraas <kmaraas@broadpark.no>\n"
 "Language-Team: Norwegian/Bokmaal <i18n-nb@lister.ping.uio.no>\n"
@@ -15,42 +15,42 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: anaconda:362
+#: anaconda:363
 msgid "Press <enter> for a shell"
 msgstr "Trykk <linjeskift> for et skall"
 
-#: anaconda:393 rescue.py:353 rescue.py:379 rescue.py:392 rescue.py:470
-#: rescue.py:483 rescue.py:494 text.py:654 loader/windows.h:31
+#: anaconda:394 rescue.py:353 rescue.py:379 rescue.py:392 rescue.py:470
+#: rescue.py:483 rescue.py:494 text.py:655 loader/windows.h:31
 #: loader/cdinstall.c:228 loader/cdinstall.c:232 loader/cdinstall.c:248
 #: loader/cdinstall.c:251 loader/cdinstall.c:427 loader/cdinstall.c:431
 #: loader/cdinstall.c:504 loader/dirbrowser.c:128 loader/driverdisk.c:228
-#: loader/driverdisk.c:410 loader/driverdisk.c:442 loader/driverdisk.c:473
-#: loader/driverdisk.c:508 loader/driverdisk.c:524 loader/driverdisk.c:536
-#: loader/driverdisk.c:544 loader/driverdisk.c:711 loader/driverdisk.c:750
+#: loader/driverdisk.c:411 loader/driverdisk.c:443 loader/driverdisk.c:474
+#: loader/driverdisk.c:509 loader/driverdisk.c:525 loader/driverdisk.c:537
+#: loader/driverdisk.c:545 loader/driverdisk.c:717 loader/driverdisk.c:756
 #: loader/driverselect.c:78 loader/driverselect.c:178 loader/hdinstall.c:115
 #: loader/hdinstall.c:266 loader/hdinstall.c:325 loader/hdinstall.c:360
 #: loader/hdinstall.c:440 loader/hdinstall.c:483 loader/hdinstall.c:496
 #: loader/kbd.c:119 loader/kickstart.c:135 loader/kickstart.c:145
 #: loader/kickstart.c:187 loader/kickstart.c:192 loader/kickstart.c:299
 #: loader/kickstart.c:331 loader/kickstart.c:520 loader/lang.c:114
-#: loader/lang.c:373 loader/loader.c:433 loader/loader.c:469
-#: loader/loader.c:509 loader/loader.c:527 loader/loader.c:544
-#: loader/loader.c:581 loader/loader.c:1203 loader/loader.c:1402
-#: loader/mediacheck.c:46 loader/mediacheck.c:85 loader/mediacheck.c:92
-#: loader/mediacheck.c:96 loader/mediacheck.c:105 loader/method.c:277
-#: loader/method.c:351 loader/modules.c:382 loader/modules.c:398
-#: loader/net.c:603 loader/net.c:971 loader/net.c:1568 loader/net.c:1589
-#: loader/net.c:1897 loader/net.c:1916 loader/net.c:1928
+#: loader/lang.c:373 loader/loader.c:434 loader/loader.c:470
+#: loader/loader.c:510 loader/loader.c:528 loader/loader.c:545
+#: loader/loader.c:582 loader/loader.c:1204 loader/loader.c:1223
+#: loader/loader.c:1434 loader/mediacheck.c:46 loader/mediacheck.c:85
+#: loader/mediacheck.c:92 loader/mediacheck.c:96 loader/mediacheck.c:105
+#: loader/method.c:277 loader/method.c:351 loader/modules.c:382
+#: loader/modules.c:398 loader/net.c:605 loader/net.c:985 loader/net.c:1583
+#: loader/net.c:1604 loader/net.c:1912 loader/net.c:1931 loader/net.c:1943
 #: loader/nfsinstall.c:91 loader/nfsinstall.c:279 loader/nfsinstall.c:296
 #: loader/nfsinstall.c:384 loader/telnetd.c:92 loader/urlinstall.c:137
-#: loader/urlinstall.c:159 loader/urlinstall.c:221 loader/urlinstall.c:372
-#: loader/urlinstall.c:383 loader/urlinstall.c:390 loader/urls.c:259
-#: loader/urls.c:330 loader/urls.c:336 loader/urls.c:345
+#: loader/urlinstall.c:159 loader/urlinstall.c:221 loader/urlinstall.c:374
+#: loader/urlinstall.c:385 loader/urlinstall.c:392 loader/urls.c:268
+#: loader/urls.c:339 loader/urls.c:345 loader/urls.c:354
 #: textw/constants_text.py:44
 msgid "OK"
 msgstr "OK"
 
-#: anaconda:402
+#: anaconda:403
 msgid ""
 "You do not have enough RAM to use the graphical installer.  Starting text "
 "mode."
@@ -62,26 +62,26 @@ msgstr ""
 msgid "Starting graphical installation."
 msgstr "Starter grafisk installasjon."
 
-#: anaconda:893
+#: anaconda:898
 msgid "Would you like to use VNC?"
 msgstr "Vil du bruke VNC?"
 
-#: anaconda:894
+#: anaconda:899
 msgid ""
 "Text mode provides a limited set of installation options.  It does not allow "
 "you to specify your own partitioning layout or package selections.  Would "
 "you like to use VNC mode instead?"
 msgstr ""
 
-#: anaconda:922
+#: anaconda:927
 msgid "Install class forcing text mode installation"
 msgstr "Installasjonsklassen krever installasjon i tekstmodus"
 
-#: anaconda:941
+#: anaconda:946
 msgid "Graphical installation is not available. Starting text mode."
 msgstr "Grafisk installasjon er ikke tilgjengelig. Starter tekstmodus."
 
-#: anaconda:949
+#: anaconda:954
 msgid "DISPLAY variable not set. Starting text mode."
 msgstr "DISPLAY-variabelen er ikke satt. Starter tekstmodus."
 
@@ -120,35 +120,34 @@ msgstr ""
 "har sannsynligvis sluppet opp for diskplass."
 
 #: backend.py:185 image.py:289 livecd.py:198 livecd.py:440
-#: partIntfHelpers.py:233 text.py:351 text.py:355 yuminstall.py:460
-#: yuminstall.py:871 yuminstall.py:989 yuminstall.py:994 yuminstall.py:1269
-#: yuminstall.py:1336 yuminstall.py:1526 yuminstall.py:1548
-#: iw/advanced_storage.py:86 iw/advanced_storage.py:96
-#: iw/advanced_storage.py:170 iw/advanced_storage.py:173
-#: iw/advanced_storage.py:201 iw/autopart_type.py:95 iw/cleardisks_gui.py:44
-#: iw/cleardisks_gui.py:54 iw/filter_gui.py:421 iw/osbootwidget.py:211
-#: iw/osbootwidget.py:220 iw/raid_dialog_gui.py:223 iw/task_gui.py:54
-#: iw/task_gui.py:155 iw/task_gui.py:302 iw/task_gui.py:463
+#: partIntfHelpers.py:239 text.py:352 text.py:356 yuminstall.py:422
+#: yuminstall.py:929 yuminstall.py:1047 yuminstall.py:1052 yuminstall.py:1327
+#: yuminstall.py:1394 yuminstall.py:1587 yuminstall.py:1609
+#: iw/advanced_storage.py:369 iw/advanced_storage.py:379
+#: iw/advanced_storage.py:429 iw/autopart_type.py:95 iw/cleardisks_gui.py:44
+#: iw/cleardisks_gui.py:54 iw/filter_gui.py:427 iw/osbootwidget.py:211
+#: iw/osbootwidget.py:220 iw/raid_dialog_gui.py:224 iw/task_gui.py:54
+#: iw/task_gui.py:152 iw/task_gui.py:305 iw/task_gui.py:469
 #: loader/windows.h:31 loader/cdinstall.c:228 loader/cdinstall.c:504
-#: loader/driverdisk.c:228 loader/driverdisk.c:473 loader/driverdisk.c:508
-#: loader/driverdisk.c:536 loader/driverdisk.c:544 loader/driverdisk.c:611
+#: loader/driverdisk.c:228 loader/driverdisk.c:474 loader/driverdisk.c:509
+#: loader/driverdisk.c:537 loader/driverdisk.c:545 loader/driverdisk.c:617
 #: loader/hdinstall.c:115 loader/hdinstall.c:325 loader/hdinstall.c:440
 #: loader/hdinstall.c:483 loader/hdinstall.c:496 loader/kickstart.c:299
-#: loader/lang.c:114 loader/loader.c:433 loader/loader.c:544
-#: loader/loader.c:1203 loader/mediacheck.c:46 loader/mediacheck.c:85
+#: loader/lang.c:114 loader/loader.c:434 loader/loader.c:545
+#: loader/loader.c:1204 loader/mediacheck.c:46 loader/mediacheck.c:85
 #: loader/mediacheck.c:92 loader/mediacheck.c:96 loader/method.c:277
 #: loader/method.c:351 loader/nfsinstall.c:279 loader/nfsinstall.c:296
 #: loader/telnetd.c:92 loader/urlinstall.c:137 loader/urlinstall.c:159
-#: loader/urlinstall.c:221 loader/urls.c:330 loader/urls.c:336
-#: loader/urls.c:345 storage/__init__.py:216 storage/__init__.py:1803
-#: storage/__init__.py:1890 storage/zfcp.py:375 textw/netconfig_text.py:282
-#: textw/upgrade_text.py:179 textw/upgrade_text.py:186
+#: loader/urlinstall.c:221 loader/urls.c:339 loader/urls.c:345
+#: loader/urls.c:354 storage/__init__.py:216 storage/__init__.py:1801
+#: storage/__init__.py:1888 storage/zfcp.py:375 textw/upgrade_text.py:179
+#: textw/upgrade_text.py:186
 msgid "Error"
 msgstr "Feil"
 
-#: bootloader.py:55 bootloader.py:221 bootloader.py:227 gui.py:1178
-#: gui.py:1238 image.py:82 installinterfacebase.py:46 text.py:481 text.py:541
-#: yuminstall.py:1505 yuminstall.py:1715 yuminstall.py:1750
+#: bootloader.py:55 bootloader.py:221 bootloader.py:227 gui.py:1289
+#: image.py:82 installinterfacebase.py:46 text.py:482 text.py:542
+#: yuminstall.py:1566 yuminstall.py:1776 yuminstall.py:1811
 #: iw/blpasswidget.py:148 iw/upgrade_swap_gui.py:190
 #: iw/upgrade_swap_gui.py:198 iw/upgrade_swap_gui.py:205
 #: textw/upgrade_text.py:191
@@ -167,19 +166,19 @@ msgstr ""
 "\n"
 "Vil du fortsette installasjonsprosessen?"
 
-#: bootloader.py:60 gui.py:1129 gui.py:1274 gui.py:1489 image.py:91
-#: kickstart.py:155 livecd.py:205 livecd.py:447 packages.py:161 upgrade.py:58
-#: upgrade.py:199 yuminstall.py:252 yuminstall.py:991 yuminstall.py:996
-#: yuminstall.py:1076 yuminstall.py:1082 yuminstall.py:1238 yuminstall.py:1265
-#: yuminstall.py:1326 yuminstall.py:1513 yuminstall.py:1532 yuminstall.py:1555
+#: bootloader.py:60 gui.py:1192 gui.py:1325 gui.py:1544 image.py:91
+#: livecd.py:205 livecd.py:447 packages.py:162 upgrade.py:58 upgrade.py:199
+#: yuminstall.py:252 yuminstall.py:1049 yuminstall.py:1054 yuminstall.py:1134
+#: yuminstall.py:1140 yuminstall.py:1296 yuminstall.py:1323 yuminstall.py:1384
+#: yuminstall.py:1574 yuminstall.py:1593 yuminstall.py:1616
 #: storage/__init__.py:100 storage/__init__.py:109 storage/__init__.py:220
-#: storage/__init__.py:1984
+#: storage/__init__.py:1982
 msgid "_Exit installer"
 msgstr "A_vslutt installering"
 
-#: bootloader.py:60 image.py:92 image.py:251 kickstart.py:1371
-#: kickstart.py:1410 upgrade.py:58 yuminstall.py:1331 yuminstall.py:1514
-#: iw/partition_gui.py:1601 storage/__init__.py:1985
+#: bootloader.py:60 image.py:92 image.py:251 kickstart.py:1394
+#: kickstart.py:1433 upgrade.py:58 yuminstall.py:1389 yuminstall.py:1575
+#: iw/partition_gui.py:1601 storage/__init__.py:1983
 msgid "_Continue"
 msgstr "_Fortsett"
 
@@ -213,8 +212,8 @@ msgstr "Ferdig"
 msgid "In progress"
 msgstr "Pågår"
 
-#: cmdline.py:88 gui.py:1269 kickstart.py:1155 kickstart.py:1235
-#: kickstart.py:1243 kickstart.py:1281 kickstart.py:1289 text.py:388
+#: cmdline.py:88 gui.py:1320 kickstart.py:1177 kickstart.py:1257
+#: kickstart.py:1265 kickstart.py:1303 kickstart.py:1311 text.py:389
 #, python-format
 msgid ""
 "The following error was found while parsing the kickstart configuration "
@@ -237,7 +236,7 @@ msgstr ""
 msgid "Can't have a question in command line mode!"
 msgstr "Kan ikke stille spørsmål i kommandolinjemodus!"
 
-#: constants.py:74
+#: constants.py:75
 msgid ""
 "An unhandled exception has occurred.  This is most likely a bug.  Please "
 "save a copy of the detailed exception and file a bug report"
@@ -245,11 +244,11 @@ msgstr ""
 "Et uhåndtert unntak har oppstått. Dette er sannsynligvis en feil. Kopier "
 "hele teksten fra feilmeldingen og send inn en feilrapport"
 
-#: constants.py:80
+#: constants.py:81
 msgid " with the provider of this software."
 msgstr " hos den som har levert dene programvaren."
 
-#: constants.py:84
+#: constants.py:85
 #, python-format
 msgid " against anaconda at %s"
 msgstr " for anaconda på %s"
@@ -329,82 +328,53 @@ msgid ""
 "installation you must enter the device's passphrase below."
 msgstr ""
 
-#: gui.py:733 gui.py:1489 partIntfHelpers.py:153 partIntfHelpers.py:338
+#: gui.py:733 gui.py:1544 partIntfHelpers.py:159 partIntfHelpers.py:344
 #: text.py:100 text.py:101 iw/account_gui.py:131 loader/dirbrowser.c:128
-#: loader/driverdisk.c:411 loader/kickstart.c:331 loader/loader.c:469
-#: loader/loader.c:581 textw/constants_text.py:48
+#: loader/driverdisk.c:412 loader/kickstart.c:331 loader/loader.c:470
+#: loader/loader.c:582 textw/constants_text.py:48
 msgid "Cancel"
 msgstr "Avbryt"
 
-#: gui.py:745 gui.py:746 gui.py:864 gui.py:865 ui/anaconda.glade.h:3
+#: gui.py:745 gui.py:746 gui.py:842 gui.py:914 gui.py:915
+#: ui/anaconda.glade.h:3
 msgid "_Debug"
 msgstr "_Feilsøk"
 
-#: gui.py:1003 textw/netconfig_text.py:276
+#: gui.py:1056 textw/netconfig_text.py:399
 msgid "Waiting for NetworkManager"
 msgstr "Venter på NetworkManager"
 
-#: gui.py:1004
+#: gui.py:1057
 #, fuzzy, python-format
 msgid "Waiting for NetworkManager to activate these devices: %s"
 msgstr "Venter på at NetworkManager skal konfigurere %s.\n"
 
-#: gui.py:1025
+#: gui.py:1078
 #, fuzzy, python-format
 msgid "Failed to activate these network interfaces: %s"
 msgstr "Ønsker du å starte nettverksgrensesnittene på dette systemet?"
 
-#: gui.py:1028
+#: gui.py:1081
 #, fuzzy
 msgid "Network Configuration"
 msgstr "VNC-konfigurasjon"
 
-#: gui.py:1037
+#: gui.py:1090
 #, fuzzy, python-format
 msgid "An error occurred trying to bring up the %s network interface."
 msgstr "En feil oppstod under kopiering av skjermdump."
 
-#: gui.py:1039
+#: gui.py:1092
 #, fuzzy
 msgid "Error Enabling Network"
 msgstr "Feil under konfigurasjon av nettverksenhet"
 
-#: gui.py:1179 text.py:482
-#, python-format
-msgid ""
-"Error processing drive:\n"
-"\n"
-"%(path)s\n"
-"%(size)-0.fMB\n"
-"%(description)s\n"
-"\n"
-"This device may need to be reinitialized.\n"
-"\n"
-"REINITIALIZING WILL CAUSE ALL DATA TO BE LOST!\n"
-"\n"
-"This action may also be applied to all other disks needing reinitialization."
-"%(details)s"
-msgstr ""
-
-#: gui.py:1188 gui.py:1246 installinterfacebase.py:74 text.py:491 text.py:549
-msgid "_Ignore"
-msgstr "_Ignorer"
-
-#: gui.py:1189 gui.py:1247 text.py:492 text.py:550
+#: gui.py:1241 ui/reinitialize-dialog.glade.h:4
 #, fuzzy
-msgid "Ignore _all"
-msgstr "_Ignorer alle"
+msgid "Storage Device Warning"
+msgstr "Finner lagringsenheter"
 
-#: gui.py:1190 gui.py:1248 text.py:493 text.py:551
-msgid "_Re-initialize"
-msgstr "_Re-initier"
-
-#: gui.py:1191 gui.py:1249 text.py:494 text.py:552
-#, fuzzy
-msgid "Re-ini_tialize all"
-msgstr "_Re-initier"
-
-#: gui.py:1239 text.py:542
+#: gui.py:1290 text.py:543
 #, python-format
 msgid ""
 "Error processing LVM.\n"
@@ -414,19 +384,37 @@ msgid ""
 "with inconsistent metadata."
 msgstr ""
 
-#: gui.py:1271 text.py:390
+#: gui.py:1297 installinterfacebase.py:74 text.py:492 text.py:550
+msgid "_Ignore"
+msgstr "_Ignorer"
+
+#: gui.py:1298 text.py:493 text.py:551
+#, fuzzy
+msgid "Ignore _all"
+msgstr "_Ignorer alle"
+
+#: gui.py:1299 text.py:494 text.py:552
+msgid "_Re-initialize"
+msgstr "_Re-initier"
+
+#: gui.py:1300 text.py:495 text.py:553
+#, fuzzy
+msgid "Re-ini_tialize all"
+msgstr "_Re-initier"
+
+#: gui.py:1322 text.py:391
 msgid "Error Parsing Kickstart Config"
 msgstr "Feil under lesing av kickstart-konfigurasjon"
 
-#: gui.py:1314
+#: gui.py:1369
 msgid "default:LTR"
 msgstr "default:LTR"
 
-#: gui.py:1394 text.py:619
+#: gui.py:1449 text.py:620
 msgid "Error!"
 msgstr "Feil!"
 
-#: gui.py:1395 text.py:620
+#: gui.py:1450 text.py:621
 #, python-format
 msgid ""
 "An error occurred when attempting to load an installer interface component.\n"
@@ -438,46 +426,46 @@ msgstr ""
 "\n"
 "className = %s"
 
-#: gui.py:1400 image.py:164 image.py:194 packages.py:360
-#: storage/__init__.py:1802
+#: gui.py:1455 image.py:164 image.py:194 packages.py:361
+#: storage/__init__.py:1800
 msgid "_Exit"
 msgstr "A_vslutt"
 
-#: gui.py:1401 image.py:164 image.py:194 livecd.py:205 yuminstall.py:861
-#: yuminstall.py:1265 yuminstall.py:1326 yuminstall.py:1532
+#: gui.py:1456 image.py:164 image.py:194 livecd.py:205 yuminstall.py:919
+#: yuminstall.py:1323 yuminstall.py:1384 yuminstall.py:1593
 msgid "_Retry"
 msgstr "P_røv igjen"
 
-#: gui.py:1403 storage/partitioning.py:287
+#: gui.py:1458 storage/partitioning.py:290
 msgid "The system will now reboot."
 msgstr "Systemet vil nå startes på nytt."
 
-#: gui.py:1404 image.py:251 packages.py:364 yuminstall.py:1573
+#: gui.py:1459 image.py:251 packages.py:365 yuminstall.py:1634
 msgid "_Reboot"
 msgstr "Sta_rt på nytt"
 
-#: gui.py:1406
+#: gui.py:1461
 msgid "Exiting"
 msgstr "Avslutter"
 
-#: gui.py:1486 livecd.py:126 text.py:267 upgrade.py:190
+#: gui.py:1541 livecd.py:126 text.py:267 upgrade.py:190
 msgid "Exit installer"
 msgstr "Avslutt installering"
 
-#: gui.py:1487
+#: gui.py:1542
 msgid "Are you sure you wish to exit the installer?"
 msgstr "Er du sikker på at du vil avslutte installasjonen?"
 
-#: gui.py:1496
+#: gui.py:1551
 #, python-format
 msgid "%s Installer"
 msgstr "%s installering"
 
-#: gui.py:1502
+#: gui.py:1557
 msgid "Unable to load title bar"
 msgstr "Kunne ikke laste tittellinjen"
 
-#: gui.py:1571
+#: gui.py:1626
 msgid "Install Window"
 msgstr "Installasjonsvindu"
 
@@ -552,9 +540,9 @@ msgstr ""
 "Vennligst ha disse klar før du fortsetter med installasjonen. Hvis du må "
 "avbryte installasjonen og avslutte, vennligst trykk på «Start på nytt»."
 
-#: image.py:251 livecd.py:446 packages.py:364 upgrade.py:198 yuminstall.py:996
-#: yuminstall.py:1082 yuminstall.py:1513 yuminstall.py:1555 yuminstall.py:1573
-#: ui/anaconda.glade.h:2
+#: image.py:251 livecd.py:446 packages.py:365 upgrade.py:198
+#: yuminstall.py:1054 yuminstall.py:1140 yuminstall.py:1574 yuminstall.py:1616
+#: yuminstall.py:1634 ui/anaconda.glade.h:2
 msgid "_Back"
 msgstr "Til_bake"
 
@@ -609,85 +597,19 @@ msgstr[1] ""
 msgid "_Format"
 msgstr "_Formater"
 
-#: iutil.py:852
-#, python-format
-msgid ""
-"Error: On open, cannot set reIPL method to %(reipl_type)s (%(filename)s: "
-"%(e)s)"
-msgstr ""
-
-#: iutil.py:863
-#, python-format
-msgid ""
-"Error: On write, cannot set reIPL method to %(reipl_type)s (%(filename)s: "
-"%(e)s)"
-msgstr ""
-
-#: iutil.py:872
-#, python-format
-msgid ""
-"Error: On close, cannot set reIPL method to %(reipl_type)s (%(filename)s: "
-"%(e)s)"
-msgstr ""
-
-#: iutil.py:891
-#, python-format
-msgid "Error: Could not set %(device)s as reIPL device (%(e)s)"
-msgstr ""
-
-#: iutil.py:901
-#, python-format
-msgid "Error: Could not reset loadparm (%s)"
-msgstr ""
-
-#: iutil.py:910
-#, python-format
-msgid "Warning: Could not reset parm (%s)"
-msgstr ""
-
-#: iutil.py:923
-#, python-format
-msgid ""
-"After shutdown, please perform a manual IPL from DASD device %s to continue "
-"installation"
-msgstr ""
-
-#: iutil.py:945
-#, python-format
-msgid "Error: reading FCP property %(syspath_property)s for reIPL (%(e)s)"
-msgstr ""
-
-#: iutil.py:960
-#, python-format
-msgid "Error: writing FCP property %(reipl_property)s for reIPL (%(e)s)"
-msgstr ""
-
-#: iutil.py:975
-#, python-format
-msgid ""
-"Error: writing default FCP property %(reipl_property)s for reIPL (%(e)s)"
-msgstr ""
-
-#: iutil.py:990
-#, python-format
-msgid ""
-"After shutdown, please perform a manual IPL from FCP %(device)s with WWPN "
-"%(wwpn)s and LUN %(lun)s to continue installation"
-msgstr ""
-
-#: iutil.py:1007
-msgid ""
-"After shutdown, please perform a manual IPL from the device now containing /"
-"boot to continue installation"
-msgstr ""
-
-#: iutil.py:1018
+#: iutil.py:809
 #, fuzzy
 msgid "Error determining boot device's disk name"
 msgstr "Feil ved bestemming av type monteringspunkt"
 
-#: iutil.py:1022
-msgid "The mount point /boot or / is on a disk that we are not familiar with"
+#: iutil.py:831
+msgid "the device containing /boot"
+msgstr ""
+
+#: iutil.py:833
+#, python-format
+msgid ""
+"After shutdown, please perform a manual IPL from %s to continue installation."
 msgstr ""
 
 #: kickstart.py:114
@@ -705,17 +627,14 @@ msgstr ""
 msgid "Scriptlet Failure"
 msgstr "Feil med skript"
 
-#: kickstart.py:149 rescue.py:262 yuminstall.py:1233 iw/task_gui.py:308
-msgid "No Network Available"
-msgstr "Nettverk er ikke tilgjengelig"
-
-#: kickstart.py:150
+#: kickstart.py:148
+#, python-format
 msgid ""
-"Encryption key escrow requires networking, but there was an error enabling "
-"the network on your system."
+"Escrow certificate with url %s requires network to be enabled in loader or "
+"configured in kickstart file."
 msgstr ""
 
-#: kickstart.py:164
+#: kickstart.py:163
 #, fuzzy, python-format
 msgid ""
 "The following error was encountered while downloading the escrow "
@@ -727,37 +646,37 @@ msgstr ""
 "\n"
 "%s"
 
-#: kickstart.py:1254
+#: kickstart.py:1276
 #, python-format
 msgid "Error processing %%ksappend lines: %s"
 msgstr "Feil under prosessering av %%ksappend-linjer: %s"
 
-#: kickstart.py:1257
+#: kickstart.py:1279
 #, python-format
 msgid "Unknown error processing %%ksappend lines: %s"
 msgstr "Ukjent feil under prosessering av %%ksappend linjer: %s"
 
-#: kickstart.py:1312 livecd.py:228
+#: kickstart.py:1334 livecd.py:228
 msgid "Post-Installation"
 msgstr "Etter installasjon"
 
-#: kickstart.py:1313
+#: kickstart.py:1335
 msgid "Running post-installation scripts"
 msgstr "Kjører skript etter installasjon"
 
-#: kickstart.py:1329
+#: kickstart.py:1351
 msgid "Pre-Installation"
 msgstr "Før installasjon"
 
-#: kickstart.py:1330
+#: kickstart.py:1352
 msgid "Running pre-installation scripts"
 msgstr "Kjører skript før installasjon"
 
-#: kickstart.py:1362
+#: kickstart.py:1385
 msgid "Missing Package"
 msgstr "Manglende pakke"
 
-#: kickstart.py:1363
+#: kickstart.py:1386
 #, fuzzy, python-format
 msgid ""
 "You have specified that the package '%s' should be installed.  This package "
@@ -766,19 +685,19 @@ msgstr ""
 "Du har oppgitt en at pakken '%s' skal installeres. Denne pakken finnes ikke. "
 "Ønsker du å fortsette installasjonen?"
 
-#: kickstart.py:1369 kickstart.py:1408
+#: kickstart.py:1392 kickstart.py:1431
 msgid "_Abort"
 msgstr "_Avbryt"
 
-#: kickstart.py:1370 kickstart.py:1409
+#: kickstart.py:1393 kickstart.py:1432
 msgid "_Ignore All"
 msgstr "_Ignorer alle"
 
-#: kickstart.py:1400
+#: kickstart.py:1423
 msgid "Missing Group"
 msgstr "Manglende gruppe"
 
-#: kickstart.py:1401
+#: kickstart.py:1424
 #, fuzzy, python-format
 msgid ""
 "You have specified that the group '%s' should be installed. This group does "
@@ -787,7 +706,7 @@ msgstr ""
 "Du har oppgitt at gruppen «%s» skal installeres. Denne gruppen eksisterer "
 "ikke. Vil du fortsette eller avbryte installasjonen?"
 
-#: kickstart.py:1517
+#: kickstart.py:1540
 #, python-format
 msgid ""
 "The kickstart configuration file is missing required information that "
@@ -845,111 +764,111 @@ msgid ""
 msgstr ""
 "Rotfilsystemet tu laget er ikke stort nok for dette bildet (%.2f MB kreves)."
 
-#: network.py:62
+#: network.py:70
 msgid "Hostname must be 255 or fewer characters in length."
 msgstr "Vertsnavnet må være maksimum 255 tegn langt."
 
-#: network.py:68
+#: network.py:76
 msgid ""
 "Hostname must start with a valid character in the ranges 'a-z', 'A-Z', or "
 "'0-9'"
 msgstr ""
 "Vertsnavnet på begynne med et gyldig tegn i området «a-z», «A-Z» eller «0-9»"
 
-#: network.py:73
+#: network.py:81
 msgid ""
 "Hostnames can only contain the characters 'a-z', 'A-Z', '0-9', '-', or '.'"
 msgstr "Vertsnavn kan kun inneholde tegnene «a-z», «A-Z», «0-9», «-» eller «.»"
 
-#: network.py:117
+#: network.py:125
 msgid "IP address is missing."
 msgstr "IP-adresse mangler."
 
-#: network.py:121
+#: network.py:129
 msgid ""
 "IPv4 addresses must contain four numbers between 0 and 255, separated by "
 "periods."
 msgstr ""
 "IPv4-adresser må inneholde fire tall mellom 0 og 255, adskilt med punktum."
 
-#: network.py:124
+#: network.py:132
 #, python-format
 msgid "'%s' is not a valid IPv6 address."
 msgstr "«%s» er ikke en gyldig IPv6-adresse."
 
-#: network.py:126
+#: network.py:134
 #, python-format
 msgid "'%s' is an invalid IP address."
 msgstr "«%s» er ikke en gyldig IP-adresse."
 
-#: packages.py:113
+#: packages.py:114
 msgid "Device Resize Failed"
 msgstr "Endring av størrelse for enhet feilet"
 
-#: packages.py:114
+#: packages.py:115
 #, python-format
 msgid "An error was encountered while resizing device %s."
 msgstr "Det oppsto en feil under endring av størrelse på enhet %s."
 
-#: packages.py:118
+#: packages.py:119
 msgid "Device Creation Failed"
 msgstr "Oppretting av enhet feilet"
 
-#: packages.py:119
+#: packages.py:120
 #, fuzzy, python-format
 msgid "An error was encountered while creating device %s."
 msgstr "Det oppsto en feil under endring av størrelse på enhet %s."
 
-#: packages.py:123
+#: packages.py:124
 msgid "Device Removal Failed"
 msgstr "Fjerning av enhet feilet"
 
-#: packages.py:124
+#: packages.py:125
 #, fuzzy, python-format
 msgid "An error was encountered while removing device %s."
 msgstr "Det oppsto en feil under endring av størrelse på enhet %s."
 
-#: packages.py:128
+#: packages.py:129
 msgid "Device Setup Failed"
 msgstr "Oppsett av enhet feilet"
 
-#: packages.py:129
+#: packages.py:130
 #, fuzzy, python-format
 msgid "An error was encountered while setting up device %s."
 msgstr "Det oppsto en feil under endring av størrelse på enhet %s."
 
-#: packages.py:133
+#: packages.py:134
 msgid "Resizing Failed"
 msgstr "Endring av størrelse feilet"
 
-#: packages.py:134
+#: packages.py:135
 #, python-format
 msgid "There was an error encountered while resizing the device %s."
 msgstr "Det oppsto en feil under endring av størrelse på enhet %s."
 
-#: packages.py:142
+#: packages.py:143
 msgid "Migration Failed"
 msgstr "Migrering feilet"
 
-#: packages.py:143
+#: packages.py:144
 #, fuzzy, python-format
 msgid "An error was encountered while migrating filesystem on device %s."
 msgstr "Det oppsto en feil under endring av størrelse på enhet %s."
 
-#: packages.py:147
+#: packages.py:148
 msgid "Formatting Failed"
 msgstr "Formatering feilet"
 
-#: packages.py:148
+#: packages.py:149
 #, fuzzy, python-format
 msgid "An error was encountered while formatting device %s."
 msgstr "Det oppsto en feil under endring av størrelse på enhet %s."
 
-#: packages.py:153
+#: packages.py:154
 msgid "Storage Activation Failed"
 msgstr "Aktivering av lagring feilet"
 
-#: packages.py:154
+#: packages.py:155
 #, fuzzy
 msgid "An error was encountered while activating your storage configuration."
 msgstr ""
@@ -957,15 +876,15 @@ msgstr ""
 "\n"
 "%s"
 
-#: packages.py:161
+#: packages.py:162
 msgid "_File Bug"
 msgstr "_Rapporter feil"
 
-#: packages.py:344 packages.py:365
+#: packages.py:345 packages.py:366
 msgid "Warning! This is pre-release software!"
 msgstr "Advarsel! Dette er en ikke ferdig utprøvet programvare!"
 
-#: packages.py:345
+#: packages.py:346
 #, fuzzy, python-format
 msgid ""
 "Thank you for downloading this pre-release of %(productName)s.\n"
@@ -992,28 +911,28 @@ msgstr ""
 "\n"
 "og send inn en rapport under «%s».\n"
 
-#: packages.py:360
+#: packages.py:361
 msgid "_Install anyway"
 msgstr "_Installer likevel"
 
-#: packages.py:363
+#: packages.py:364
 msgid "Your system will now be rebooted..."
 msgstr "Maskinen vil nå startes på nytt..."
 
-#: partIntfHelpers.py:41
+#: partIntfHelpers.py:47
 msgid "Please enter a volume group name."
 msgstr "Vennligst oppgi et gruppenavn for volumet."
 
-#: partIntfHelpers.py:45
+#: partIntfHelpers.py:51
 msgid "Volume Group Names must be less than 128 characters"
 msgstr "Gruppenavn for volumer må være mindre enn 128 tegn"
 
-#: partIntfHelpers.py:48
+#: partIntfHelpers.py:54
 #, python-format
 msgid "Error - the volume group name %s is not valid."
 msgstr "Feil - gruppenavn for volum, %s, er ikke gyldig."
 
-#: partIntfHelpers.py:53
+#: partIntfHelpers.py:59
 msgid ""
 "Error - the volume group name contains illegal characters or spaces.  "
 "Acceptable characters are letters, digits, '.' or '_'."
@@ -1021,20 +940,20 @@ msgstr ""
 "Feil - gruppenavn for volum inneholder ugyldige tegn eller mellomrom.\n"
 "Gyldige tegn er bokstaver, tall «.» eller «_»."
 
-#: partIntfHelpers.py:63
+#: partIntfHelpers.py:69
 msgid "Please enter a logical volume name."
 msgstr "Vennligst oppgi navn på logisk volum."
 
-#: partIntfHelpers.py:67
+#: partIntfHelpers.py:73
 msgid "Logical Volume Names must be less than 128 characters"
 msgstr "Navn på logiske volum må være mindre enn 128 tegn"
 
-#: partIntfHelpers.py:71
+#: partIntfHelpers.py:77
 #, python-format
 msgid "Error - the logical volume name %s is not valid."
 msgstr "Feil - navn på logisk volum, %s, er ikke gyldig."
 
-#: partIntfHelpers.py:77
+#: partIntfHelpers.py:83
 msgid ""
 "Error - the logical volume name contains illegal characters or spaces.  "
 "Acceptable characters are letters, digits, '.' or '_'."
@@ -1042,7 +961,7 @@ msgstr ""
 "Feil - navn på logisk volum inneholder ugyldige tegn eller mellomrom.\n"
 "Gyldige tegn er bokstaver, tall, «.» eller «_»."
 
-#: partIntfHelpers.py:105
+#: partIntfHelpers.py:111
 #, python-format
 msgid ""
 "The mount point %s is invalid.  Mount points must start with '/' and cannot "
@@ -1051,34 +970,34 @@ msgstr ""
 "Monteringspunktet %s er ugyldig. Monteringspunkter må begynne med «/», kan "
 "ikke slutte med «/», og må bare inneholde gyldige tegn uten mellomrom."
 
-#: partIntfHelpers.py:117 partIntfHelpers.py:124
+#: partIntfHelpers.py:123 partIntfHelpers.py:130
 msgid "Unable To Delete"
 msgstr "Kan ikke slette"
 
-#: partIntfHelpers.py:118
+#: partIntfHelpers.py:124
 msgid "You must first select a partition to delete."
 msgstr "Du må først velge en partisjon som skal slettes."
 
-#: partIntfHelpers.py:149 partIntfHelpers.py:337 iw/lvm_dialog_gui.py:877
+#: partIntfHelpers.py:155 partIntfHelpers.py:343 iw/lvm_dialog_gui.py:878
 msgid "Confirm Delete"
 msgstr "Bekreft sletting"
 
-#: partIntfHelpers.py:150
+#: partIntfHelpers.py:156
 #, fuzzy, python-format
 msgid "You are about to delete all partitions on the device '%s'."
 msgstr "Du er i ferd med å slette alle partisjoner på enheten «/dev/%s»."
 
-#: partIntfHelpers.py:153 partIntfHelpers.py:338 iw/lvm_dialog_gui.py:880
-#: iw/lvm_dialog_gui.py:1450 iw/osbootwidget.py:104 iw/partition_gui.py:1814
+#: partIntfHelpers.py:159 partIntfHelpers.py:344 iw/lvm_dialog_gui.py:881
+#: iw/lvm_dialog_gui.py:1451 iw/osbootwidget.py:104 iw/partition_gui.py:1814
 #: iw/partition_gui.py:1826
 msgid "_Delete"
 msgstr "_Slett"
 
-#: partIntfHelpers.py:200
+#: partIntfHelpers.py:206
 msgid "Notice"
 msgstr "Melding"
 
-#: partIntfHelpers.py:201
+#: partIntfHelpers.py:207
 #, python-format
 msgid ""
 "The following partitions were not deleted because they are in use:\n"
@@ -1089,11 +1008,11 @@ msgstr ""
 "\n"
 "%s"
 
-#: partIntfHelpers.py:216
+#: partIntfHelpers.py:222
 msgid "Format as Swap?"
 msgstr "Formater som swap?"
 
-#: partIntfHelpers.py:217
+#: partIntfHelpers.py:223
 #, fuzzy, python-format
 msgid ""
 "%s has a partition type of 0x82 (Linux swap) but does not appear to be "
@@ -1106,12 +1025,12 @@ msgstr ""
 "\n"
 "Ønsker du å formatere denne partisjonen som en swappartisjon?"
 
-#: partIntfHelpers.py:232
+#: partIntfHelpers.py:238
 #, python-format
 msgid "You need to select at least one hard drive to install %s."
 msgstr "Du må velge minst en harddisk du vil installere %s på."
 
-#: partIntfHelpers.py:237
+#: partIntfHelpers.py:243
 msgid ""
 "You have chosen to use a pre-existing partition for this installation "
 "without formatting it. We recommend that you format this partition to make "
@@ -1127,23 +1046,23 @@ msgstr ""
 "du ønsker å beholde, slik som hjemmekateloger for brukere, bør du velge å "
 "fortsette uten å formattere denne partisjonen."
 
-#: partIntfHelpers.py:245
+#: partIntfHelpers.py:251
 msgid "Format?"
 msgstr "Formatere?"
 
-#: partIntfHelpers.py:245 iw/partition_gui.py:1599
+#: partIntfHelpers.py:251 iw/partition_gui.py:1599
 msgid "_Modify Partition"
 msgstr "_Endre partisjon"
 
-#: partIntfHelpers.py:245
+#: partIntfHelpers.py:251
 msgid "Do _Not Format"
 msgstr "_Ikke formater"
 
-#: partIntfHelpers.py:253
+#: partIntfHelpers.py:259
 msgid "Error with Partitioning"
 msgstr "Feil under partisjonering"
 
-#: partIntfHelpers.py:254
+#: partIntfHelpers.py:260
 #, fuzzy, python-format
 msgid ""
 "The following critical errors exist with your requested partitioning scheme. "
@@ -1157,11 +1076,11 @@ msgstr ""
 "\n"
 "%s"
 
-#: partIntfHelpers.py:270
+#: partIntfHelpers.py:276
 msgid "Partitioning Warning"
 msgstr "Advarsel fra partisjonering"
 
-#: partIntfHelpers.py:271
+#: partIntfHelpers.py:277
 #, python-format
 msgid ""
 "The following warnings exist with your requested partition scheme.\n"
@@ -1176,7 +1095,7 @@ msgstr ""
 "\n"
 "Vil du fortsette med det forespurte partisjoneringsopplegget?"
 
-#: partIntfHelpers.py:285
+#: partIntfHelpers.py:291
 msgid ""
 "The following pre-existing partitions have been selected to be formatted, "
 "destroying all data."
@@ -1184,7 +1103,7 @@ msgstr ""
 "Disse eksisterende partisjonene er merket for formatering, som vil ødelegge "
 "alle data."
 
-#: partIntfHelpers.py:288
+#: partIntfHelpers.py:294
 msgid ""
 "Select 'Yes' to continue and format these partitions, or 'No' to go back and "
 "change these settings."
@@ -1192,11 +1111,11 @@ msgstr ""
 "Velg 'Ja' for å fortsette med formatering av disse partisjonene, eller 'Nei' "
 "for å tilbake og endre disse innstillingene."
 
-#: partIntfHelpers.py:294
+#: partIntfHelpers.py:300
 msgid "Format Warning"
 msgstr "Formateringsadvarsel"
 
-#: partIntfHelpers.py:321
+#: partIntfHelpers.py:327
 #, python-format
 msgid ""
 "You are about to delete the volume group \"%s\".\n"
@@ -1207,47 +1126,91 @@ msgstr ""
 "\n"
 "ALLE logisske volum i denne volumgruppen vil gå tapt!"
 
-#: partIntfHelpers.py:325
+#: partIntfHelpers.py:331
 #, python-format
 msgid "You are about to delete the logical volume \"%s\"."
 msgstr "Du er i ferd med å slette logisk volum «%s»."
 
-#: partIntfHelpers.py:328
+#: partIntfHelpers.py:334
 msgid "You are about to delete a RAID device."
 msgstr "Du er i ferd med å slette en RAID-enhet."
 
-#: partIntfHelpers.py:330
+#: partIntfHelpers.py:336
 #, fuzzy, python-format
 msgid "You are about to delete the %s partition."
 msgstr "Du er i ferd med å slette partisjonen /dev/%s."
 
-#: partIntfHelpers.py:334
+#: partIntfHelpers.py:340
 #, fuzzy, python-format
 msgid "You are about to delete the %(type)s %(name)s"
 msgstr "Du er i ferd med å slette partisjonen /dev/%s."
 
-#: partIntfHelpers.py:345
+#: partIntfHelpers.py:351
 msgid "Confirm Reset"
 msgstr "Bekreft nullstilling"
 
-#: partIntfHelpers.py:346
+#: partIntfHelpers.py:352
 msgid ""
 "Are you sure you want to reset the partition table to its original state?"
 msgstr ""
 "Er du sikker på at du vil nullstille partisjonstabellen til opprinnelig "
 "tilstand?"
 
-#: platform.py:98 platform.py:339 platform.py:407 platform.py:514
+#: partIntfHelpers.py:361
+msgid "No credentials (discovery authentication disabled)"
+msgstr ""
+
+#: partIntfHelpers.py:362
+#, fuzzy
+msgid "CHAP pair"
+msgstr "CHAP-passord"
+
+#: partIntfHelpers.py:363
+msgid "CHAP pair and a reverse pair"
+msgstr ""
+
+#: partIntfHelpers.py:364
+msgid "Use the credentials from the discovery step"
+msgstr ""
+
+#: partIntfHelpers.py:472
+#, fuzzy
+msgid "iSCSI Nodes"
+msgstr "Søker gjennom iSCSI-noder"
+
+#: partIntfHelpers.py:473 storage/iscsi.py:334
+msgid "No new iSCSI nodes discovered"
+msgstr "Ingen nye iSCSI-noder oppdaget"
+
+#: partIntfHelpers.py:514
+#, fuzzy
+msgid "iSCSI Error"
+msgstr "Feil"
+
+#: partIntfHelpers.py:519
+msgid "Discovery"
+msgstr ""
+
+#: partIntfHelpers.py:519
+msgid "Login"
+msgstr ""
+
+#: partIntfHelpers.py:520
+#, python-format
+msgid "iSCSI %s Error"
+msgstr ""
+
+#: platform.py:98 platform.py:339 platform.py:407 platform.py:515
 #: ui/create-storage.glade.h:15
 msgid "RAID Device"
 msgstr "RAID-enhet"
 
 #: platform.py:99 platform.py:102 platform.py:340 platform.py:408
-#: platform.py:515 platform.py:518
+#: platform.py:516 platform.py:519
 msgid "Master Boot Record (MBR)"
 msgstr "Master Boot Record (MBR)"
 
-#: platform.py:101 platform.py:517
+#: platform.py:101 platform.py:518
 msgid "First sector of boot partition"
 msgstr "Første sektor på oppstartspartisjonen"
 
@@ -1339,15 +1302,19 @@ msgstr "Oppsett av nettverk"
 msgid "Do you want to start the network interfaces on this system?"
 msgstr "Ønsker du å starte nettverksgrensesnittene på dette systemet?"
 
-#: rescue.py:256 loader/driverdisk.c:651 loader/driverdisk.c:661
+#: rescue.py:256 loader/driverdisk.c:657 loader/driverdisk.c:667
 #: loader/hdinstall.c:212 textw/constants_text.py:56
 msgid "Yes"
 msgstr "Ja"
 
-#: rescue.py:256 rescue.py:258 loader/driverdisk.c:651 loader/driverdisk.c:661
+#: rescue.py:256 rescue.py:258 loader/driverdisk.c:657 loader/driverdisk.c:667
 #: textw/constants_text.py:60
 msgid "No"
 msgstr "Nei"
+
+#: rescue.py:262 yuminstall.py:1291 iw/task_gui.py:311
+msgid "No Network Available"
+msgstr "Nettverk er ikke tilgjengelig"
 
 #: rescue.py:263
 msgid ""
@@ -1383,8 +1350,8 @@ msgstr ""
 "\n"
 
 #: rescue.py:311 iw/partition_gui.py:785 loader/cdinstall.c:206
-#: loader/cdinstall.c:214 loader/driverdisk.c:612 storage/__init__.py:155
-#: storage/devicetree.py:90
+#: loader/cdinstall.c:214 loader/driverdisk.c:618 storage/__init__.py:155
+#: storage/devicetree.py:92
 msgid "Continue"
 msgstr "Fortsett"
 
@@ -1393,7 +1360,7 @@ msgid "Read-Only"
 msgstr "Kun lesbart"
 
 #: rescue.py:311 rescue.py:313 loader/cdinstall.c:248 loader/cdinstall.c:251
-#: loader/method.c:324 storage/__init__.py:1802 textw/upgrade_text.py:137
+#: loader/method.c:324 storage/__init__.py:1800 textw/upgrade_text.py:137
 msgid "Skip"
 msgstr "Hopp over"
 
@@ -1410,7 +1377,7 @@ msgstr "System som skal reddes"
 msgid "Which device holds the root partition of your installation?"
 msgstr "Hvilken partisjon inneholder rotpartisjonen til din installasjon?"
 
-#: rescue.py:353 rescue.py:357 text.py:624 text.py:626
+#: rescue.py:353 rescue.py:357 text.py:625 text.py:627
 msgid "Exit"
 msgstr "Avslutt"
 
@@ -1506,21 +1473,21 @@ msgstr "Passord"
 msgid "This is a global passphrase"
 msgstr "Dette er et globalt passord"
 
-#: text.py:352 text.py:356
+#: text.py:353 text.py:357
 msgid "Repository editing is not available in text mode."
 msgstr "Redigering av lager er ikke tilgjengelig i tekstmodus."
 
-#: text.py:418
+#: text.py:419
 #, fuzzy, python-format
 msgid "Welcome to %(productName)s for %(productArch)s"
 msgstr "Velkommen til %s for %s"
 
-#: text.py:420
+#: text.py:421
 #, python-format
 msgid "Welcome to %s"
 msgstr "Velkommen til %s"
 
-#: text.py:422
+#: text.py:423
 msgid ""
 "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
 "screen"
@@ -1528,16 +1495,34 @@ msgstr ""
 "  <Tab>/Alt-Tab> mellom elementer   | <Mellomrom> velger | <F12> neste "
 "skjerm "
 
-#: text.py:624 loader/net.c:110 loader/net.c:495 loader/net.c:550
-#: loader/net.c:692 loader/net.c:700 loader/net.c:1118 loader/net.c:1126
+#: text.py:483
+#, python-format
+msgid ""
+"Error processing drive:\n"
+"\n"
+"%(path)s\n"
+"%(size)-0.fMB\n"
+"%(description)s\n"
+"\n"
+"This device may need to be reinitialized.\n"
+"\n"
+"REINITIALIZING WILL CAUSE ALL DATA TO BE LOST!\n"
+"\n"
+"This action may also be applied to all other disks needing reinitialization."
+"%(details)s"
+msgstr ""
+
+#: text.py:625 loader/net.c:110 loader/net.c:497 loader/net.c:552
+#: loader/net.c:694 loader/net.c:702 loader/net.c:1132 loader/net.c:1140
+#: textw/constants_text.py:68
 msgid "Retry"
 msgstr "Prøv igjen"
 
-#: text.py:650
+#: text.py:651
 msgid "Cancelled"
 msgstr "Avbrutt"
 
-#: text.py:651
+#: text.py:652
 msgid "I can't go to the previous step from here. You will have to try again."
 msgstr "Kan ikke gå tilbake til forrige steg herfra. Du må forsøke igjen."
 
@@ -1843,11 +1828,11 @@ msgid ""
 "errors when reading the installation media.  Installation cannot continue."
 msgstr ""
 
-#: yuminstall.py:396 iw/task_gui.py:321
+#: yuminstall.py:358 iw/task_gui.py:324
 msgid "Error Setting Up Repository"
 msgstr "Feil ved oppsett av lager"
 
-#: yuminstall.py:397
+#: yuminstall.py:359
 #, fuzzy, python-format
 msgid ""
 "The following error occurred while setting up the installation repository:\n"
@@ -1862,42 +1847,42 @@ msgstr ""
 "\n"
 "Trykk «OK» for å avslutte installasjonsprogrammet."
 
-#: yuminstall.py:442
+#: yuminstall.py:404
 msgid "Change Disc"
 msgstr "Bytt disk"
 
-#: yuminstall.py:443
+#: yuminstall.py:405
 #, fuzzy, python-format
 msgid "Please insert %(productName)s disc %(discnum)d to continue."
 msgstr "Sett inn %s CD %d for å fortsette."
 
-#: yuminstall.py:453
+#: yuminstall.py:415
 msgid "Wrong Disc"
 msgstr "Feil disk"
 
-#: yuminstall.py:454
+#: yuminstall.py:416
 #, python-format
 msgid "That's not the correct %s disc."
 msgstr "Dette er ikke riktig disk for %s."
 
-#: yuminstall.py:461
+#: yuminstall.py:423
 msgid "Unable to access the disc."
 msgstr "Kan ikke aksessere disken."
 
-#: yuminstall.py:622
+#: yuminstall.py:587
 #, python-format
 msgid "Repository %r is missing name in configuration, using id"
 msgstr ""
 
-#: yuminstall.py:859 yuminstall.py:861
+#: yuminstall.py:917 yuminstall.py:919
 msgid "Re_boot"
 msgstr "St_art på nytt"
 
-#: yuminstall.py:859
+#: yuminstall.py:917
 msgid "_Eject"
 msgstr "_Løs ut"
 
-#: yuminstall.py:872
+#: yuminstall.py:930
 #, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file, a corrupt "
@@ -1914,62 +1899,62 @@ msgstr ""
 "sannsynligvis vil kreve at det installeres på nytt.\n"
 "\n"
 
-#: yuminstall.py:920
+#: yuminstall.py:978
 msgid "Retrying"
 msgstr "Prøver på nytt"
 
-#: yuminstall.py:920
+#: yuminstall.py:978
 msgid "Retrying download."
 msgstr "Prøver nedlasting på nytt."
 
-#: yuminstall.py:985
+#: yuminstall.py:1043
 #, python-format
 msgid ""
 "There was an error running your transaction for the following reason: %s\n"
 msgstr ""
 "Det oppsto en feil under kjøring av transaksjonen med følgende årsak: %s\n"
 
-#: yuminstall.py:1028 yuminstall.py:1029
+#: yuminstall.py:1086 yuminstall.py:1087
 msgid "file conflicts"
 msgstr "filen er i konflikt"
 
-#: yuminstall.py:1030
+#: yuminstall.py:1088
 msgid "older package(s)"
 msgstr "eldre pakker"
 
-#: yuminstall.py:1031
+#: yuminstall.py:1089
 msgid "insufficient disk space"
 msgstr "ikke nok diskplass"
 
-#: yuminstall.py:1032
+#: yuminstall.py:1090
 msgid "insufficient disk inodes"
 msgstr "ikke nok inoder på disken"
 
-#: yuminstall.py:1033
+#: yuminstall.py:1091
 msgid "package conflicts"
 msgstr " konflikt mellom pakker"
 
-#: yuminstall.py:1034
+#: yuminstall.py:1092
 msgid "package already installed"
 msgstr "pakken er allerede installert"
 
-#: yuminstall.py:1035
+#: yuminstall.py:1093
 msgid "required package"
 msgstr "nødvendig pakke"
 
-#: yuminstall.py:1036
+#: yuminstall.py:1094
 msgid "package for incorrect arch"
 msgstr "pakke for ugyldig arkitektur"
 
-#: yuminstall.py:1037
+#: yuminstall.py:1095
 msgid "package for incorrect os"
 msgstr "pakke for feil OS"
 
-#: yuminstall.py:1051
+#: yuminstall.py:1109
 msgid "You need more space on the following file systems:\n"
 msgstr "Du trenger mer plass på følgende filsystemer:\n"
 
-#: yuminstall.py:1064
+#: yuminstall.py:1122
 #, python-format
 msgid ""
 "There were file conflicts when checking the packages to be installed:\n"
@@ -1978,7 +1963,7 @@ msgstr ""
 "Filkonflikter ble funnet under sjekk av pakkene som skal installeres:\n"
 "%s\n"
 
-#: yuminstall.py:1067
+#: yuminstall.py:1125
 #, python-format
 msgid ""
 "There was an error running your transaction for the following reason(s): "
@@ -1986,17 +1971,17 @@ msgid ""
 msgstr ""
 "Det oppsto en feil under kjøring av transaksjonen av følgende årsak(er): %s\n"
 
-#: yuminstall.py:1074 yuminstall.py:1079
+#: yuminstall.py:1132 yuminstall.py:1137
 msgid "Error Running Transaction"
 msgstr "Feil under kjøring av transaksjon"
 
-#: yuminstall.py:1234 iw/task_gui.py:309
+#: yuminstall.py:1292 iw/task_gui.py:312
 msgid ""
 "Some of your software repositories require networking, but there was an "
 "error enabling the network on your system."
 msgstr ""
 
-#: yuminstall.py:1270
+#: yuminstall.py:1328
 msgid ""
 "Unable to read group information from repositories.  This is a problem with "
 "the generation of your install tree."
@@ -2004,11 +1989,11 @@ msgstr ""
 "Kan ikke lese gruppeinformasjonen fra lageret. Det er et problem med "
 "genereringen av ditt installasjonstre."
 
-#: yuminstall.py:1326 textw/constants_text.py:64
+#: yuminstall.py:1384 textw/constants_text.py:64
 msgid "Edit"
 msgstr "Rediger"
 
-#: yuminstall.py:1337 yuminstall.py:1527
+#: yuminstall.py:1395 yuminstall.py:1588
 #, python-format
 msgid ""
 "Unable to read package metadata. This may be due to a missing repodata "
@@ -2023,7 +2008,7 @@ msgstr ""
 "\n"
 "%s"
 
-#: yuminstall.py:1506
+#: yuminstall.py:1567
 msgid ""
 "Some of the packages you have selected for install are missing "
 "dependencies.  You can exit the installation, go back and change your "
@@ -2031,7 +2016,7 @@ msgid ""
 "dependencies."
 msgstr ""
 
-#: yuminstall.py:1549
+#: yuminstall.py:1610
 #, python-format
 msgid ""
 "Your selected packages require %d MB of free space for installation, but you "
@@ -2042,15 +2027,15 @@ msgstr ""
 "ikke nok ledig plass.  Du kan endre dine valg eller avslutte "
 "installasjonsprogrammet."
 
-#: yuminstall.py:1570
+#: yuminstall.py:1631
 msgid "Reboot?"
 msgstr "Start på nytt?"
 
-#: yuminstall.py:1571
+#: yuminstall.py:1632
 msgid "The system will be rebooted now."
 msgstr "Systemet vil nå startes på nytt."
 
-#: yuminstall.py:1716
+#: yuminstall.py:1777
 #, python-format
 msgid ""
 "You appear to be upgrading from a system which is too old to upgrade to this "
@@ -2060,7 +2045,7 @@ msgstr ""
 "oppgradere til denne versjonen av %s. Er du sikker på at du ønsker å "
 "fortsette oppgraderingen?"
 
-#: yuminstall.py:1751
+#: yuminstall.py:1812
 #, fuzzy, python-format
 msgid ""
 "The arch of the release of %(productName)s you are upgrading to appears to "
@@ -2073,51 +2058,51 @@ msgstr ""
 "dette ikke vil fungere. Er du sikker på at du ønsker å fortsette "
 "oppgraderingen?"
 
-#: yuminstall.py:1798
+#: yuminstall.py:1859
 msgid "Post Upgrade"
 msgstr "Etter oppgradering"
 
-#: yuminstall.py:1799
+#: yuminstall.py:1860
 #, fuzzy
 msgid "Performing post-upgrade configuration"
 msgstr "Utfører konfigurasjon etter oppgradering..."
 
-#: yuminstall.py:1801
+#: yuminstall.py:1862
 msgid "Post Installation"
 msgstr "Etter installasjon"
 
-#: yuminstall.py:1802
+#: yuminstall.py:1863
 #, fuzzy
 msgid "Performing post-installation configuration"
 msgstr "Utfører konfigurasjon etter installering..."
 
-#: yuminstall.py:2040
+#: yuminstall.py:2101
 msgid "Installation Starting"
 msgstr "Starter installasjon"
 
-#: yuminstall.py:2041
+#: yuminstall.py:2102
 msgid "Starting installation process"
 msgstr "Starter installasjonsprosess"
 
-#: yuminstall.py:2079
+#: yuminstall.py:2140
 msgid "Dependency Check"
 msgstr "Sjekk av avhengigheter"
 
-#: yuminstall.py:2080
+#: yuminstall.py:2141
 #, fuzzy
 msgid "Checking dependencies in packages selected for installation"
 msgstr "Sjekker avhengigheter i pakker valgt for installasjon..."
 
-#: yuminstall.py:2136 yuminstall.py:2152
+#: yuminstall.py:2197 yuminstall.py:2213
 msgid "Retrieving installation information."
 msgstr "Henter informasjon om installasjonen."
 
-#: yuminstall.py:2138 yuminstall.py:2154
+#: yuminstall.py:2199 yuminstall.py:2215
 #, python-format
 msgid "Retrieving installation information for %s."
 msgstr "Henter installasjonsinformasjon for %s."
 
-#: yuminstall.py:2139 yuminstall.py:2155
+#: yuminstall.py:2200 yuminstall.py:2216
 msgid "Installation Progress"
 msgstr "Fremdrift for installasjonen"
 
@@ -2234,22 +2219,14 @@ msgid ""
 "Requested password contains non-ASCII characters, which are not allowed."
 msgstr "Oppgitt passord inneholder ugyldige tegn. Bruk kun ASCII-tegn."
 
-#: iw/advanced_storage.py:87
+#: iw/advanced_storage.py:250
+msgid "Node Name"
+msgstr ""
+
+#: iw/advanced_storage.py:370
 #, fuzzy
 msgid "You must select a NIC to use."
 msgstr "Du må velge en partisjon for redigering"
-
-#: iw/advanced_storage.py:132
-msgid "Invalid Initiator Name"
-msgstr "Ugyldig navn på initiator"
-
-#: iw/advanced_storage.py:133
-msgid "You must provide an initiator name."
-msgstr "Du må oppgi et navn på initiatoren."
-
-#: iw/advanced_storage.py:162
-msgid "Error with Data"
-msgstr "Feil med data"
 
 #: iw/autopart_type.py:96
 msgid ""
@@ -2276,12 +2253,12 @@ msgstr "Feil ved endring av størrelse på enhet"
 msgid "%(name)s: %(msg)s"
 msgstr ""
 
-#: iw/autopart_type.py:241
+#: iw/autopart_type.py:249
 #, fuzzy
 msgid "Use All Space"
 msgstr "Brukt plass:"
 
-#: iw/autopart_type.py:243
+#: iw/autopart_type.py:251
 msgid ""
 "Removes all partitions on the selected device(s).  This includes partitions "
 "created by other operating systems.\n"
@@ -2290,12 +2267,12 @@ msgid ""
 "sure you have backups."
 msgstr ""
 
-#: iw/autopart_type.py:249
+#: iw/autopart_type.py:257
 #, fuzzy
 msgid "Replace Existing Linux System(s)"
 msgstr "Erstatt eksisterende Linux-system"
 
-#: iw/autopart_type.py:251
+#: iw/autopart_type.py:259
 msgid ""
 "Removes only Linux partitions (created from a previous Linux installation).  "
 "This does not remove other partitions you may have on your storage device(s) "
@@ -2305,34 +2282,34 @@ msgid ""
 "sure you have backups."
 msgstr ""
 
-#: iw/autopart_type.py:259
+#: iw/autopart_type.py:267
 #, fuzzy
 msgid "Shrink Current System"
 msgstr "Krymp eksisterende system"
 
-#: iw/autopart_type.py:261
+#: iw/autopart_type.py:269
 msgid ""
 "Shrinks existing partitions to create free space for the default layout."
 msgstr ""
 
-#: iw/autopart_type.py:263
+#: iw/autopart_type.py:271
 #, fuzzy
 msgid "Use Free Space"
 msgstr "Bruk ledig plass"
 
-#: iw/autopart_type.py:265
+#: iw/autopart_type.py:273
 msgid ""
 "Retains your current data and partitions and uses only the unpartitioned "
 "space on the selected device(s), assuming you have enough free space "
 "available."
 msgstr ""
 
-#: iw/autopart_type.py:269
+#: iw/autopart_type.py:277
 #, fuzzy
 msgid "Create Custom Layout"
 msgstr "Opprett egendefinert utforming"
 
-#: iw/autopart_type.py:271
+#: iw/autopart_type.py:279
 msgid ""
 "Manually create your own custom layout on the selected device(s) using our "
 "partitioning tool."
@@ -2412,7 +2389,7 @@ msgstr "_Bytt enhet"
 msgid "Clear Disks Selector"
 msgstr ""
 
-#: iw/cleardisks_gui.py:45 iw/filter_gui.py:422
+#: iw/cleardisks_gui.py:45 iw/filter_gui.py:428
 #, fuzzy
 msgid "You must select at least one drive to be used for installation."
 msgstr "Du må velge minst en harddisk du vil installere %s på."
@@ -2422,30 +2399,30 @@ msgstr "Du må velge minst en harddisk du vil installere %s på."
 msgid "You must select one drive to boot from."
 msgstr "Du må velge en partisjon for redigering"
 
-#: iw/cleardisks_gui.py:127 iw/cleardisks_gui.py:147 iw/filter_gui.py:483
-#: iw/filter_gui.py:495 iw/filter_gui.py:525
+#: iw/cleardisks_gui.py:127 iw/cleardisks_gui.py:147 iw/filter_gui.py:489
+#: iw/filter_gui.py:501 iw/filter_gui.py:531
 msgid "Model"
 msgstr ""
 
-#: iw/cleardisks_gui.py:128 iw/cleardisks_gui.py:148 iw/filter_gui.py:484
-#: iw/filter_gui.py:496 iw/filter_gui.py:504 iw/filter_gui.py:515
-#: iw/filter_gui.py:526
+#: iw/cleardisks_gui.py:128 iw/cleardisks_gui.py:148 iw/filter_gui.py:490
+#: iw/filter_gui.py:502 iw/filter_gui.py:510 iw/filter_gui.py:521
+#: iw/filter_gui.py:532
 msgid "Capacity"
 msgstr ""
 
-#: iw/cleardisks_gui.py:129 iw/filter_gui.py:485 iw/filter_gui.py:505
-#: iw/filter_gui.py:516 iw/filter_gui.py:527
+#: iw/cleardisks_gui.py:129 iw/filter_gui.py:491 iw/filter_gui.py:511
+#: iw/filter_gui.py:522 iw/filter_gui.py:533
 msgid "Vendor"
 msgstr ""
 
-#: iw/cleardisks_gui.py:130 iw/cleardisks_gui.py:149 iw/filter_gui.py:488
-#: iw/filter_gui.py:503 iw/filter_gui.py:514 iw/filter_gui.py:530
+#: iw/cleardisks_gui.py:130 iw/cleardisks_gui.py:149 iw/filter_gui.py:494
+#: iw/filter_gui.py:509 iw/filter_gui.py:520 iw/filter_gui.py:536
 #, fuzzy
 msgid "Identifier"
 msgstr "Identifiser"
 
-#: iw/cleardisks_gui.py:131 iw/filter_gui.py:486 iw/filter_gui.py:506
-#: iw/filter_gui.py:517 iw/filter_gui.py:528
+#: iw/cleardisks_gui.py:131 iw/filter_gui.py:492 iw/filter_gui.py:512
+#: iw/filter_gui.py:523 iw/filter_gui.py:534
 msgid "Interconnect"
 msgstr ""
 
@@ -2555,7 +2532,7 @@ msgstr ""
 "Velg dette alternativet hvis du ønsker å oppgradere ditt eksisterende %s-"
 "system. Dette alternativet vil bevare eksisterende data på diskene dine."
 
-#: iw/examine_gui.py:105
+#: iw/examine_gui.py:115
 #, fuzzy
 msgid ""
 "At least one existing installation has been detected on your system.  What "
@@ -2563,49 +2540,49 @@ msgid ""
 msgstr ""
 "Ingen enhetsdrivere er lastet for ditt system. Ønsker du å gjøre dette nå?"
 
-#: iw/examine_gui.py:124
+#: iw/examine_gui.py:134
 #, fuzzy, python-format
 msgid "<b>Which %s installation would you like to upgrade?</b>"
 msgstr "Hva vil du gjøre?"
 
-#: iw/examine_gui.py:138
+#: iw/examine_gui.py:148
 msgid "Unknown Linux system"
 msgstr "Ukjent Linux-system"
 
-#: iw/filter_gui.py:151
+#: iw/filter_gui.py:154
 #, python-format
 msgid "<b>%s device(s) (%s MB) selected</b> out of %s device(s) (%s MB) total."
 msgstr ""
 
-#: iw/filter_gui.py:401
+#: iw/filter_gui.py:404
 #, fuzzy
 msgid "Device Filter"
 msgstr "Oppsett av enhet feilet"
 
-#: iw/filter_gui.py:487 iw/filter_gui.py:518 iw/filter_gui.py:529
+#: iw/filter_gui.py:493 iw/filter_gui.py:524 iw/filter_gui.py:535
 msgid "Serial Number"
 msgstr ""
 
-#: iw/filter_gui.py:489 iw/filter_gui.py:497 iw/filter_gui.py:508
-#: iw/filter_gui.py:519 iw/filter_gui.py:534 iw/osbootwidget.py:66
+#: iw/filter_gui.py:495 iw/filter_gui.py:503 iw/filter_gui.py:514
+#: iw/filter_gui.py:525 iw/filter_gui.py:540 iw/osbootwidget.py:66
 #: iw/partition_gui.py:611
 msgid "Device"
 msgstr "Enhet"
 
-#: iw/filter_gui.py:507
+#: iw/filter_gui.py:513
 #, fuzzy
 msgid "Paths"
 msgstr "St_i"
 
-#: iw/filter_gui.py:531
+#: iw/filter_gui.py:537
 msgid "Port"
 msgstr ""
 
-#: iw/filter_gui.py:532
+#: iw/filter_gui.py:538
 msgid "Target"
 msgstr ""
 
-#: iw/filter_gui.py:533
+#: iw/filter_gui.py:539
 msgid "LUN"
 msgstr ""
 
@@ -2646,8 +2623,8 @@ msgid "What language would you like to use during the installation process?"
 msgstr "Hvilket språk ønsker du å bruke under installeringen?"
 
 #: iw/lvm_dialog_gui.py:126 iw/lvm_dialog_gui.py:172 iw/lvm_dialog_gui.py:186
-#: iw/lvm_dialog_gui.py:225 iw/lvm_dialog_gui.py:302 iw/lvm_dialog_gui.py:697
-#: iw/lvm_dialog_gui.py:718
+#: iw/lvm_dialog_gui.py:225 iw/lvm_dialog_gui.py:302 iw/lvm_dialog_gui.py:698
+#: iw/lvm_dialog_gui.py:719
 msgid "Not enough space"
 msgstr "Ikke nok plass"
 
@@ -2734,99 +2711,99 @@ msgstr ""
 "Du kan ikke fjerne dette fysiske volumet fordi volumgruppen da vil være for "
 "liten til å holde definerte logiske volum."
 
-#: iw/lvm_dialog_gui.py:402
+#: iw/lvm_dialog_gui.py:403
 msgid "Make Logical Volume"
 msgstr "Lag logisk volum"
 
-#: iw/lvm_dialog_gui.py:404
+#: iw/lvm_dialog_gui.py:405
 #, python-format
 msgid "Edit Logical Volume: %s"
 msgstr "Rediger logisk volum: %s"
 
-#: iw/lvm_dialog_gui.py:443 iw/raid_dialog_gui.py:451
+#: iw/lvm_dialog_gui.py:444 iw/raid_dialog_gui.py:452
 msgid "_File System Type:"
 msgstr "_Filsystemtype:"
 
-#: iw/lvm_dialog_gui.py:449
+#: iw/lvm_dialog_gui.py:450
 msgid "_Logical Volume Name:"
 msgstr "Navn på _logisk volum:"
 
-#: iw/lvm_dialog_gui.py:458 iw/partition_dialog_gui.py:492
+#: iw/lvm_dialog_gui.py:459 iw/partition_dialog_gui.py:498
 msgid "_Size (MB):"
 msgstr "_Størrelse (MB):"
 
-#: iw/lvm_dialog_gui.py:465
+#: iw/lvm_dialog_gui.py:466
 #, python-format
 msgid "(Max size is %s MB)"
 msgstr "(Maksimal størrelse er %s MB)"
 
-#: iw/lvm_dialog_gui.py:470 iw/partition_dialog_gui.py:544
-#: iw/partition_ui_helpers_gui.py:337 iw/raid_dialog_gui.py:423
+#: iw/lvm_dialog_gui.py:471 iw/partition_dialog_gui.py:550
+#: iw/partition_ui_helpers_gui.py:335 iw/raid_dialog_gui.py:424
 msgid "_Encrypt"
 msgstr "Krypt_er"
 
-#: iw/lvm_dialog_gui.py:479 iw/partition_dialog_gui.py:474
-#: iw/raid_dialog_gui.py:461
+#: iw/lvm_dialog_gui.py:480 iw/partition_dialog_gui.py:480
+#: iw/raid_dialog_gui.py:462
 msgid "Original File System Type:"
 msgstr "_Opprinnelig filsystemtype:"
 
-#: iw/lvm_dialog_gui.py:484 iw/partition_dialog_gui.py:482
-#: iw/raid_dialog_gui.py:468
+#: iw/lvm_dialog_gui.py:485 iw/partition_dialog_gui.py:488
+#: iw/raid_dialog_gui.py:469
 msgid "Original File System Label:"
 msgstr "Opprinnelig etikett for filsystem:"
 
-#: iw/lvm_dialog_gui.py:489
+#: iw/lvm_dialog_gui.py:490
 msgid "Logical Volume Name:"
 msgstr "Navn på logisk volum:"
 
-#: iw/lvm_dialog_gui.py:493
+#: iw/lvm_dialog_gui.py:494
 msgid "Size (MB):"
 msgstr "Størrelse (MB):"
 
-#: iw/lvm_dialog_gui.py:520 iw/partition_dialog_gui.py:430
-#: iw/raid_dialog_gui.py:442
+#: iw/lvm_dialog_gui.py:521 iw/partition_dialog_gui.py:431
+#: iw/raid_dialog_gui.py:443
 msgid "_Mount Point:"
 msgstr "_Monteringspunkt:"
 
-#: iw/lvm_dialog_gui.py:601 iw/partition_dialog_gui.py:118
-#: iw/raid_dialog_gui.py:176
+#: iw/lvm_dialog_gui.py:602 iw/partition_dialog_gui.py:118
+#: iw/raid_dialog_gui.py:177
 #, fuzzy
 msgid "Mount Point Error"
 msgstr "Monteringspunkt"
 
-#: iw/lvm_dialog_gui.py:611
+#: iw/lvm_dialog_gui.py:612
 msgid "Illegal Logical Volume Name"
 msgstr "Ugyldig navn på logisk volum"
 
-#: iw/lvm_dialog_gui.py:626
+#: iw/lvm_dialog_gui.py:627
 msgid "Illegal logical volume name"
 msgstr "Ugyldig navn på logisk volum"
 
-#: iw/lvm_dialog_gui.py:627
+#: iw/lvm_dialog_gui.py:628
 #, python-format
 msgid "The logical volume name \"%s\" is already in use. Please pick another."
 msgstr "Navn på logisk volum «%s» er allerede i bruk. Vennligst velg et annet."
 
-#: iw/lvm_dialog_gui.py:668 iw/partition_dialog_gui.py:133
-#: iw/raid_dialog_gui.py:191
+#: iw/lvm_dialog_gui.py:669 iw/partition_dialog_gui.py:133
+#: iw/raid_dialog_gui.py:192
 msgid "Mount point in use"
 msgstr "Monteringspunktet er i bruk"
 
-#: iw/lvm_dialog_gui.py:669 iw/partition_dialog_gui.py:134
-#: iw/raid_dialog_gui.py:192
+#: iw/lvm_dialog_gui.py:670 iw/partition_dialog_gui.py:134
+#: iw/raid_dialog_gui.py:193
 #, python-format
 msgid "The mount point \"%s\" is in use. Please pick another."
 msgstr "Monteringspunktet «%s» er allerede i bruk. Velg et annet."
 
-#: iw/lvm_dialog_gui.py:684
+#: iw/lvm_dialog_gui.py:685
 msgid "Illegal size"
 msgstr "Ugyldig størrelse"
 
-#: iw/lvm_dialog_gui.py:685
+#: iw/lvm_dialog_gui.py:686
 msgid "The requested size as entered is not a valid number greater than 0."
 msgstr "Forespurt størrelse som oppgitt er ikke et gyldig tall større enn 0."
 
-#: iw/lvm_dialog_gui.py:698
+#: iw/lvm_dialog_gui.py:699
 #, fuzzy, python-format
 msgid ""
 "The current requested size (%(size)10.2f MB) is larger than the maximum "
@@ -2839,7 +2816,7 @@ msgstr ""
 "volumer fra diskplass som ikke er partisjonert og legge dem til i denne "
 "volumgruppen."
 
-#: iw/lvm_dialog_gui.py:719
+#: iw/lvm_dialog_gui.py:720
 #, python-format
 msgid ""
 "The size entered for this logical volume (%(size)d MB) combined with the "
@@ -2848,22 +2825,22 @@ msgid ""
 "volume smaller."
 msgstr ""
 
-#: iw/lvm_dialog_gui.py:829
+#: iw/lvm_dialog_gui.py:830
 msgid "No free slots"
 msgstr "Ingen ledige plasser"
 
-#: iw/lvm_dialog_gui.py:830
+#: iw/lvm_dialog_gui.py:831
 #, python-format
 msgid "You cannot create more than %d logical volume per volume group."
 msgid_plural "You cannot create more than %d logical volumes per volume group."
 msgstr[0] ""
 msgstr[1] ""
 
-#: iw/lvm_dialog_gui.py:840
+#: iw/lvm_dialog_gui.py:841
 msgid "No free space"
 msgstr "Ingen ledig plass"
 
-#: iw/lvm_dialog_gui.py:841
+#: iw/lvm_dialog_gui.py:842
 msgid ""
 "There is no room left in the volume group to create new logical volumes. To "
 "add a logical volume you must reduce the size of one or more of the "
@@ -2873,29 +2850,29 @@ msgstr ""
 "å legge til et logisk volum, må du redusere størrelsen på ett eller flere av "
 "de eksisterende logiske volumene."
 
-#: iw/lvm_dialog_gui.py:878
+#: iw/lvm_dialog_gui.py:879
 #, python-format
 msgid "Are you sure you want to delete the logical volume \"%s\"?"
 msgstr "Er du sikker på at du vil slette logisk volum «%s»?"
 
-#: iw/lvm_dialog_gui.py:984
+#: iw/lvm_dialog_gui.py:985
 msgid "Invalid Volume Group Name"
 msgstr "Ugyldig gruppenavn for volum"
 
-#: iw/lvm_dialog_gui.py:993
+#: iw/lvm_dialog_gui.py:994
 msgid "Name in use"
 msgstr "Navn i bruk"
 
-#: iw/lvm_dialog_gui.py:994
+#: iw/lvm_dialog_gui.py:995
 #, python-format
 msgid "The volume group name \"%s\" is already in use. Please pick another."
 msgstr "Gruppenavn for volum «%s» er allerede i bruk. Vennligst velg et annet."
 
-#: iw/lvm_dialog_gui.py:1281
+#: iw/lvm_dialog_gui.py:1282
 msgid "Not enough physical volumes"
 msgstr "Ikke nok fysiske volumer"
 
-#: iw/lvm_dialog_gui.py:1282
+#: iw/lvm_dialog_gui.py:1283
 msgid ""
 "At least one unused physical volume partition is needed to create an LVM "
 "Volume Group.\n"
@@ -2909,70 +2886,70 @@ msgstr ""
 "Opprett en partisjon eller et RAID av type «fysisk volum (LVM)» og velg så "
 "alternativet «LVM» igjen."
 
-#: iw/lvm_dialog_gui.py:1293
+#: iw/lvm_dialog_gui.py:1294
 msgid "Make LVM Volume Group"
 msgstr "Lag LVM-volumgruppe"
 
-#: iw/lvm_dialog_gui.py:1296
+#: iw/lvm_dialog_gui.py:1297
 #, python-format
 msgid "Edit LVM Volume Group: %s"
 msgstr "Rediger LVM-volumgruppe: %s"
 
-#: iw/lvm_dialog_gui.py:1298
+#: iw/lvm_dialog_gui.py:1299
 msgid "Edit LVM Volume Group"
 msgstr "Rediger LVM-volumgruppe"
 
-#: iw/lvm_dialog_gui.py:1314
+#: iw/lvm_dialog_gui.py:1315
 msgid "_Volume Group Name:"
 msgstr "Gruppenavn for _volum:"
 
-#: iw/lvm_dialog_gui.py:1322
+#: iw/lvm_dialog_gui.py:1323
 msgid "Volume Group Name:"
 msgstr "Gruppenavn for volum:"
 
-#: iw/lvm_dialog_gui.py:1330
+#: iw/lvm_dialog_gui.py:1331
 msgid "_Physical Extent:"
 msgstr "_Fysisk utbredelse:"
 
-#: iw/lvm_dialog_gui.py:1345
+#: iw/lvm_dialog_gui.py:1346
 msgid "Physical Volumes to _Use:"
 msgstr "Fysiske volumer som skal br_ukes:"
 
-#: iw/lvm_dialog_gui.py:1351
+#: iw/lvm_dialog_gui.py:1352
 msgid "Used Space:"
 msgstr "Brukt plass:"
 
-#: iw/lvm_dialog_gui.py:1368
+#: iw/lvm_dialog_gui.py:1369
 msgid "Free Space:"
 msgstr "Ledig plass:"
 
-#: iw/lvm_dialog_gui.py:1386
+#: iw/lvm_dialog_gui.py:1387
 msgid "Total Space:"
 msgstr "Total størrelse:"
 
-#: iw/lvm_dialog_gui.py:1424
+#: iw/lvm_dialog_gui.py:1425
 msgid "Logical Volume Name"
 msgstr "Navn på logisk volum"
 
-#: iw/lvm_dialog_gui.py:1427 iw/partition_gui.py:614
+#: iw/lvm_dialog_gui.py:1428 iw/partition_gui.py:614
 #: iw/upgrade_swap_gui.py:138 textw/upgrade_text.py:122
 msgid "Mount Point"
 msgstr "Monteringspunkt"
 
-#: iw/lvm_dialog_gui.py:1430 iw/partition_gui.py:613
+#: iw/lvm_dialog_gui.py:1431 iw/partition_gui.py:613
 msgid "Size (MB)"
 msgstr "Størrelse (MB)"
 
-#: iw/lvm_dialog_gui.py:1444 iw/osbootwidget.py:96
+#: iw/lvm_dialog_gui.py:1445 iw/osbootwidget.py:96
 msgid "_Add"
 msgstr "_Legg til"
 
-#: iw/lvm_dialog_gui.py:1447 iw/osbootwidget.py:100 iw/partition_gui.py:1813
+#: iw/lvm_dialog_gui.py:1448 iw/osbootwidget.py:100 iw/partition_gui.py:1813
 #: iw/partition_gui.py:1823
 msgid "_Edit"
 msgstr "R_ediger"
 
-#: iw/lvm_dialog_gui.py:1462
+#: iw/lvm_dialog_gui.py:1463
 msgid "_Logical Volumes"
 msgstr "_Logiske volumer"
 
@@ -3000,7 +2977,7 @@ msgstr ""
 msgid "Select network interface"
 msgstr "Aktiver nettverksgrensesnitt"
 
-#: iw/network_gui.py:141 textw/netconfig_text.py:91
+#: iw/network_gui.py:141
 msgid ""
 "This requires that you have an active network connection during the "
 "installation process.  Please configure a network interface."
@@ -3102,24 +3079,24 @@ msgstr "Fyll opp til m_aksimal tillatt størrelse"
 msgid "Error With Request"
 msgstr "Feil med data"
 
-#: iw/partition_dialog_gui.py:400
+#: iw/partition_dialog_gui.py:401
 msgid "Add Partition"
 msgstr "Legg til partisjon"
 
-#: iw/partition_dialog_gui.py:402
+#: iw/partition_dialog_gui.py:403
 #, fuzzy, python-format
 msgid "Edit Partition: %s"
 msgstr "Rediger partisjon: /dev/%s"
 
-#: iw/partition_dialog_gui.py:439
+#: iw/partition_dialog_gui.py:440
 msgid "File System _Type:"
 msgstr "Filsystem_type:"
 
-#: iw/partition_dialog_gui.py:455
+#: iw/partition_dialog_gui.py:456
 msgid "Allowable _Drives:"
 msgstr "Tillatte _stasjoner:"
 
-#: iw/partition_dialog_gui.py:531
+#: iw/partition_dialog_gui.py:537
 msgid "Force to be a _primary partition"
 msgstr "Gjør til en _primærpartisjon"
 
@@ -3147,7 +3124,7 @@ msgstr ""
 msgid "Type"
 msgstr "Type"
 
-#: iw/partition_gui.py:616 storage/__init__.py:1802
+#: iw/partition_gui.py:616 storage/__init__.py:1800
 msgid "Format"
 msgstr "Formater"
 
@@ -3316,8 +3293,8 @@ msgstr ""
 msgid "About LVM"
 msgstr ""
 
-#: iw/partition_gui.py:1587 storage/partitioning.py:207
-#: storage/partitioning.py:250
+#: iw/partition_gui.py:1587 storage/partitioning.py:210
+#: storage/partitioning.py:253
 msgid "Error Partitioning"
 msgstr "Feil under partisjonering"
 
@@ -3363,19 +3340,19 @@ msgstr "Vennligst velg en kildestasjon."
 msgid "<Not Applicable>"
 msgstr "<Ikke relevant>"
 
-#: iw/partition_ui_helpers_gui.py:318
+#: iw/partition_ui_helpers_gui.py:316
 msgid "_Format as:"
 msgstr "_Formater som:"
 
-#: iw/partition_ui_helpers_gui.py:340
+#: iw/partition_ui_helpers_gui.py:338
 msgid "Mi_grate filesystem to:"
 msgstr "Mi_grer filsystem til:"
 
-#: iw/partition_ui_helpers_gui.py:370
+#: iw/partition_ui_helpers_gui.py:368
 msgid "_Resize"
 msgstr "End_re størrelse"
 
-#: iw/partition_ui_helpers_gui.py:425
+#: iw/partition_ui_helpers_gui.py:423
 #, python-format
 msgid ""
 "Partitions of type '%s' must be constrained to a single drive.  To do this, "
@@ -3384,7 +3361,7 @@ msgstr ""
 "Partisjoner av type «%s» må begrenses til en enkelt stasjon. Dette gjøres "
 "ved å velge stasjonen i avkryssingslisten «Tillatte stasjoner»."
 
-#: iw/raid_dialog_gui.py:390
+#: iw/raid_dialog_gui.py:391
 msgid ""
 "At least two unused software RAID partitions are needed to create a RAID "
 "device.\n"
@@ -3398,36 +3375,36 @@ msgstr ""
 "Opprett først minst to partisjoner av type «programvare-RAID» og velg så "
 "alternativet «RAID» igjen."
 
-#: iw/raid_dialog_gui.py:404
+#: iw/raid_dialog_gui.py:405
 msgid "Make RAID Device"
 msgstr "Lag RAID-enhet"
 
-#: iw/raid_dialog_gui.py:407
+#: iw/raid_dialog_gui.py:408
 #, fuzzy, python-format
 msgid "Edit RAID Device: %s"
 msgstr "Rediger RAID-enhet"
 
-#: iw/raid_dialog_gui.py:409
+#: iw/raid_dialog_gui.py:410
 msgid "Edit RAID Device"
 msgstr "Rediger RAID-enhet"
 
-#: iw/raid_dialog_gui.py:476
+#: iw/raid_dialog_gui.py:477
 msgid "RAID _Device:"
 msgstr "RAI_D-enhet:"
 
-#: iw/raid_dialog_gui.py:494
+#: iw/raid_dialog_gui.py:495
 msgid "RAID _Level:"
 msgstr "RAID-_nivå:"
 
-#: iw/raid_dialog_gui.py:536
+#: iw/raid_dialog_gui.py:537
 msgid "_RAID Members:"
 msgstr "_RAID-medlemmer:"
 
-#: iw/raid_dialog_gui.py:553
+#: iw/raid_dialog_gui.py:554
 msgid "Number of _spares:"
 msgstr "Antall re_servedisker:"
 
-#: iw/raid_dialog_gui.py:563
+#: iw/raid_dialog_gui.py:564
 msgid "_Format partition?"
 msgstr "_Formater partisjon?"
 
@@ -3446,11 +3423,11 @@ msgstr ""
 "\n"
 "%s"
 
-#: iw/task_gui.py:132
+#: iw/task_gui.py:129
 msgid "Edit Repository"
 msgstr "Rediger lager"
 
-#: iw/task_gui.py:156
+#: iw/task_gui.py:153
 #, python-format
 msgid ""
 "The repository %s has already been added.  Please choose a different "
@@ -3459,37 +3436,37 @@ msgstr ""
 "Datalageret %s er allerede lagt til. Vennligst angi et annet navn og URL på "
 "datalageret."
 
-#: iw/task_gui.py:236
+#: iw/task_gui.py:239
 msgid "Invalid Proxy URL"
 msgstr "Ugyldig proxy-URL"
 
-#: iw/task_gui.py:237
+#: iw/task_gui.py:240
 msgid "You must provide an HTTP, HTTPS, or FTP URL to a proxy."
 msgstr "Du må oppgi en HTTP, HTTPS eller FTP URL til en proxy."
 
-#: iw/task_gui.py:249 iw/task_gui.py:430
+#: iw/task_gui.py:252 iw/task_gui.py:436
 msgid "Invalid Repository URL"
 msgstr "Ugyldig URL til lager"
 
-#: iw/task_gui.py:250 iw/task_gui.py:431
+#: iw/task_gui.py:253 iw/task_gui.py:437
 msgid "You must provide an HTTP, HTTPS, or FTP URL to a repository."
 msgstr "Du må oppgi en HTTP, HTTPS eller FTP URL til et lager."
 
-#: iw/task_gui.py:271 iw/task_gui.py:440
+#: iw/task_gui.py:274 iw/task_gui.py:446
 msgid "No Media Found"
 msgstr "Ingen medie funnet"
 
-#: iw/task_gui.py:272 iw/task_gui.py:441
+#: iw/task_gui.py:275 iw/task_gui.py:447
 msgid ""
 "No installation media was found. Please insert a disc into your drive and "
 "try again."
 msgstr ""
 
-#: iw/task_gui.py:303 iw/task_gui.py:464
+#: iw/task_gui.py:306 iw/task_gui.py:470
 msgid "Please enter an NFS server and path."
 msgstr "Vennligst oppgi navn og sti til NFS-tjener."
 
-#: iw/task_gui.py:322
+#: iw/task_gui.py:325
 #, fuzzy, python-format
 msgid ""
 "The following error occurred while setting up the repository:\n"
@@ -3500,23 +3477,23 @@ msgstr ""
 "\n"
 "%s"
 
-#: iw/task_gui.py:345
+#: iw/task_gui.py:348
 msgid "Invalid Repository Name"
 msgstr "Ugyldig navn på lager"
 
-#: iw/task_gui.py:346
+#: iw/task_gui.py:349
 msgid "You must provide a repository name."
 msgstr "Du må oppgi et navn på lageret."
 
-#: iw/task_gui.py:496 ui/addrepo.glade.h:3
+#: iw/task_gui.py:502 ui/addrepo.glade.h:3
 msgid "Add Repository"
 msgstr "Legg til lager"
 
-#: iw/task_gui.py:501
+#: iw/task_gui.py:507
 msgid "No Software Repos Enabled"
 msgstr "Ingen programvarelager aktivert"
 
-#: iw/task_gui.py:502
+#: iw/task_gui.py:508
 #, fuzzy
 msgid ""
 "You must have at least one software repository enabled to continue "
@@ -3756,7 +3733,7 @@ msgstr "Kjerneparametere"
 msgid "Chandev Parameters"
 msgstr "Chandev-parametere"
 
-#: loader/net.h:27
+#: loader/net.h:27 textw/netconfig_text.py:164
 #, fuzzy
 msgid "Dynamic IP configuration (DHCP)"
 msgstr "Bruk dynamisk konfigurasjon av IP (DHCP)"
@@ -3771,7 +3748,7 @@ msgstr "Manuell TCP/IP-konfigurasjon"
 msgid "Dynamic IP configuration (DHCPv6)"
 msgstr "Bruk dynamisk konfigurasjon av IP (DHCP)"
 
-#: loader/net.h:31
+#: loader/net.h:31 textw/netconfig_text.py:201
 msgid "Automatic neighbor discovery"
 msgstr ""
 
@@ -3863,14 +3840,14 @@ msgstr ""
 msgid "Disc Not Found"
 msgstr "Disk ikke funnet"
 
-#: loader/cdinstall.c:431 loader/driverdisk.c:411 loader/driverdisk.c:443
-#: loader/driverdisk.c:524 loader/driverselect.c:78 loader/driverselect.c:152
+#: loader/cdinstall.c:431 loader/driverdisk.c:412 loader/driverdisk.c:444
+#: loader/driverdisk.c:525 loader/driverselect.c:78 loader/driverselect.c:152
 #: loader/driverselect.c:178 loader/hdinstall.c:212 loader/hdinstall.c:266
-#: loader/kbd.c:119 loader/loader.c:510 loader/loader.c:527
-#: loader/loader.c:1402 loader/loader.c:1435 loader/net.c:603 loader/net.c:971
-#: loader/net.c:1897 loader/net.c:1916 loader/nfsinstall.c:91
-#: loader/urls.c:259 storage/__init__.py:109 storage/__init__.py:155
-#: storage/devicetree.py:90 textw/constants_text.py:52
+#: loader/kbd.c:119 loader/loader.c:511 loader/loader.c:528
+#: loader/loader.c:1434 loader/loader.c:1467 loader/net.c:605 loader/net.c:985
+#: loader/net.c:1912 loader/net.c:1931 loader/nfsinstall.c:91
+#: loader/urls.c:268 storage/__init__.py:109 storage/__init__.py:155
+#: storage/devicetree.py:92 textw/constants_text.py:52
 msgid "Back"
 msgstr "Tilbake"
 
@@ -3891,11 +3868,11 @@ msgstr "Laster"
 msgid "Reading driver disk"
 msgstr "Leser driverdisk"
 
-#: loader/driverdisk.c:405 loader/driverdisk.c:438
+#: loader/driverdisk.c:406 loader/driverdisk.c:439
 msgid "Driver Disk Source"
 msgstr "Kilde for driverdisk"
 
-#: loader/driverdisk.c:406
+#: loader/driverdisk.c:407
 msgid ""
 "You have multiple devices which could serve as sources for a driver disk.  "
 "Which would you like to use?"
@@ -3903,7 +3880,7 @@ msgstr ""
 "Du har flere enheter som kan være kilde for en driverdisk. Hvilken vil du "
 "bruke?"
 
-#: loader/driverdisk.c:439
+#: loader/driverdisk.c:440
 msgid ""
 "There are multiple partitions on this device which could contain the driver "
 "disk image.  Which would you like to use?"
@@ -3911,49 +3888,49 @@ msgstr ""
 "Det er flere partisjoner på denne stasjonen som kan inneholde "
 "driverdisketten. Hvilken vil du bruke?"
 
-#: loader/driverdisk.c:474
+#: loader/driverdisk.c:475
 msgid "Failed to mount partition."
 msgstr "Kunne ikke montere partisjonen."
 
-#: loader/driverdisk.c:479
+#: loader/driverdisk.c:480
 msgid "Select driver disk image"
 msgstr "Velg driverdisk"
 
-#: loader/driverdisk.c:480
+#: loader/driverdisk.c:481
 msgid "Select the file which is your driver disk image."
 msgstr "Velg filen som er din driverdiskett."
 
-#: loader/driverdisk.c:509
+#: loader/driverdisk.c:510
 msgid "Failed to load driver disk from file."
 msgstr "Kunne ikke laste driverdiskett fra fil."
 
-#: loader/driverdisk.c:521
+#: loader/driverdisk.c:522
 #, c-format
 msgid "Insert your driver disk into /dev/%s and press \"OK\" to continue."
 msgstr "Sett inn driverdisken i /dev/%s og trykk «OK» for å fortsette."
 
-#: loader/driverdisk.c:524
+#: loader/driverdisk.c:525
 msgid "Insert Driver Disk"
 msgstr "Sett inn driverdisk"
 
-#: loader/driverdisk.c:537
+#: loader/driverdisk.c:538
 msgid "Failed to mount driver disk."
 msgstr "Kunne ikke montere driverdisketten."
 
-#: loader/driverdisk.c:545
+#: loader/driverdisk.c:546
 #, c-format
 msgid "Driver disk is invalid for this release of %s."
 msgstr "Driverdisken er ugyldig for denne versjonen av %s."
 
-#: loader/driverdisk.c:611
+#: loader/driverdisk.c:617
 msgid "Manually choose"
 msgstr "Velg manuelt"
 
-#: loader/driverdisk.c:612
+#: loader/driverdisk.c:618
 msgid "Load another disk"
 msgstr "Last en annen disk"
 
-#: loader/driverdisk.c:613
+#: loader/driverdisk.c:619
 msgid ""
 "No devices of the appropriate type were found on this driver disk.  Would "
 "you like to manually select the driver, continue anyway, or load another "
@@ -3962,37 +3939,37 @@ msgstr ""
 "Ingen enheter av passende type ble funnet på denne driverdisketten. Vil du "
 "velge driveren manuelt, fortsette likevel, eller laste en ny driverdiskett?"
 
-#: loader/driverdisk.c:651
+#: loader/driverdisk.c:657
 msgid "Driver disk"
 msgstr "Driverdisk"
 
-#: loader/driverdisk.c:652
+#: loader/driverdisk.c:658
 msgid "Do you have a driver disk?"
 msgstr "Har du en driverdisk?"
 
-#: loader/driverdisk.c:661
+#: loader/driverdisk.c:667
 msgid "More Driver Disks?"
 msgstr "Flere driverdisker?"
 
-#: loader/driverdisk.c:662
+#: loader/driverdisk.c:668
 msgid "Do you wish to load any more driver disks?"
 msgstr "Ønsker du å laste flere driverdisker?"
 
-#: loader/driverdisk.c:711 loader/driverdisk.c:750 loader/hdinstall.c:360
+#: loader/driverdisk.c:717 loader/driverdisk.c:756 loader/hdinstall.c:360
 #: loader/kickstart.c:135 loader/kickstart.c:145 loader/kickstart.c:187
 #: loader/kickstart.c:192 loader/kickstart.c:520 loader/modules.c:382
-#: loader/modules.c:398 loader/net.c:1568 loader/net.c:1589
-#: loader/nfsinstall.c:384 loader/urlinstall.c:372 loader/urlinstall.c:383
-#: loader/urlinstall.c:390
+#: loader/modules.c:398 loader/net.c:1583 loader/net.c:1604
+#: loader/nfsinstall.c:384 loader/urlinstall.c:374 loader/urlinstall.c:385
+#: loader/urlinstall.c:392
 msgid "Kickstart Error"
 msgstr "Kickstart-feil"
 
-#: loader/driverdisk.c:712
+#: loader/driverdisk.c:718
 #, c-format
 msgid "Unknown driver disk kickstart source: %s"
 msgstr "Ukjent kickstart-kilde for driverdisk: %s"
 
-#: loader/driverdisk.c:751
+#: loader/driverdisk.c:757
 #, fuzzy, c-format
 msgid ""
 "The following invalid argument was specified for the kickstart driver disk "
@@ -4152,7 +4129,7 @@ msgstr "Feil under nedlasting av kickstart-fil"
 msgid "Bad argument to shutdown kickstart method command: %s"
 msgstr "Ugyldig argument til kommando for nedstenging av kickstart %s: %s"
 
-#: loader/lang.c:63 loader/loader.c:227
+#: loader/lang.c:63 loader/loader.c:228
 #, c-format
 msgid "Welcome to %s for %s"
 msgstr "Velkommen til %s for %s"
@@ -4162,7 +4139,7 @@ msgstr "Velkommen til %s for %s"
 msgid "Welcome to %s for %s - Rescue Mode"
 msgstr "Velkommen til %s for %s - redningsmodus"
 
-#: loader/lang.c:65 loader/loader.c:251
+#: loader/lang.c:65 loader/loader.c:252
 msgid ""
 "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
 msgstr ""
@@ -4172,23 +4149,23 @@ msgstr ""
 msgid "Choose a Language"
 msgstr "Velg et språk"
 
-#: loader/loader.c:134
+#: loader/loader.c:135
 msgid "Local CD/DVD"
 msgstr "Lokal CD/DVD"
 
-#: loader/loader.c:135
+#: loader/loader.c:136
 msgid "Hard drive"
 msgstr "Harddisk"
 
-#: loader/loader.c:136
+#: loader/loader.c:137
 msgid "NFS directory"
 msgstr "NFS-katalog"
 
-#: loader/loader.c:464 loader/loader.c:505
+#: loader/loader.c:465 loader/loader.c:506
 msgid "Update Disk Source"
 msgstr "Oppdater diskkilde"
 
-#: loader/loader.c:465
+#: loader/loader.c:466
 msgid ""
 "You have multiple devices which could serve as sources for an update disk.  "
 "Which would you like to use?"
@@ -4196,7 +4173,7 @@ msgstr ""
 "Du har flere enheter som kan tjene som kilde for en oppdateringsdisk. "
 "Hvilken vil du bruke?"
 
-#: loader/loader.c:506
+#: loader/loader.c:507
 msgid ""
 "There are multiple partitions on this device which could contain the update "
 "disk image.  Which would you like to use?"
@@ -4204,28 +4181,28 @@ msgstr ""
 "Det er flere partisjoner på denne enheten som kan inneholde diskbildet for "
 "driveroppdateringer. Hvilken vil du bruke?"
 
-#: loader/loader.c:524
+#: loader/loader.c:525
 #, c-format
 msgid "Insert your updates disk into %s and press \"OK\" to continue."
 msgstr "Sett inn oppdateringsdisketten i %s og trykk «OK» for å fortsette."
 
-#: loader/loader.c:527
+#: loader/loader.c:528
 msgid "Updates Disk"
 msgstr "Oppdateringsdiskett"
 
-#: loader/loader.c:545
+#: loader/loader.c:546
 msgid "Failed to mount updates disk"
 msgstr "Kunne ikke montere oppdateringsdisketten"
 
-#: loader/loader.c:550
+#: loader/loader.c:551
 msgid "Updates"
 msgstr "Oppdateringer"
 
-#: loader/loader.c:550
+#: loader/loader.c:551
 msgid "Reading anaconda updates"
 msgstr "Leser anaconda-oppdateringer"
 
-#: loader/loader.c:586
+#: loader/loader.c:587
 msgid ""
 "Unable to download the updates image.  Please modify the updates location "
 "below or press Cancel to proceed without updates.."
@@ -4233,52 +4210,63 @@ msgstr ""
 "Kan ikke laste ned oppdateringsbildet. Vennligst endre lokasjonen under, "
 "eller velg «Avbryt» for å fortsette uten oppdateringer."
 
-#: loader/loader.c:595
+#: loader/loader.c:596
 msgid "Error downloading updates image"
 msgstr "Feil under nedlasting av oppdateringsbilde"
 
-#: loader/loader.c:1199
+#: loader/loader.c:1200
 #, c-format
 msgid "You do not have enough RAM to install %s on this machine."
 msgstr "Du har ikke nok RAM til å installere %s på denne maskinen."
 
-#: loader/loader.c:1259
+#: loader/loader.c:1223
+msgid "Unsupported Hardware Detected"
+msgstr ""
+
+#: loader/loader.c:1224
+msgid ""
+"This hardware (or a combination thereof) is not supported by Red Hat.  For "
+"more information on supported hardware, please refer to http://www.redhat."
+"com/hardware."
+msgstr ""
+
+#: loader/loader.c:1283
 msgid "Media Detected"
 msgstr "Medie funnet"
 
-#: loader/loader.c:1260
+#: loader/loader.c:1284
 msgid "Found local installation media"
 msgstr "Lokalt installasjonsmedie funnet"
 
-#: loader/loader.c:1394
+#: loader/loader.c:1426
 msgid "Rescue Method"
 msgstr "Redningsmetode"
 
-#: loader/loader.c:1395
+#: loader/loader.c:1427
 msgid "Installation Method"
 msgstr "Installasjonsmetode"
 
-#: loader/loader.c:1397
+#: loader/loader.c:1429
 msgid "What type of media contains the rescue image?"
 msgstr "Hvilken type media inneholder redningsbildet?"
 
-#: loader/loader.c:1399
+#: loader/loader.c:1431
 msgid "What type of media contains the installation image?"
 msgstr "Hvilken type media inneholder installasjonsbildet?"
 
-#: loader/loader.c:1434
+#: loader/loader.c:1466
 msgid "No driver found"
 msgstr "Ingen driver funnet"
 
-#: loader/loader.c:1434
+#: loader/loader.c:1466
 msgid "Select driver"
 msgstr "Velg driver"
 
-#: loader/loader.c:1435
+#: loader/loader.c:1467
 msgid "Use a driver disk"
 msgstr "Bruk en driverdisk"
 
-#: loader/loader.c:1436
+#: loader/loader.c:1468
 msgid ""
 "Unable to find any devices of the type needed for this installation type.  "
 "Would you like to manually select your driver or use a driver disk?"
@@ -4286,40 +4274,40 @@ msgstr ""
 "Kan ikke finne noen enhter av typen som kreves for denne installasjonstypen. "
 "Vil du velge din driver manuelt eller bruke en driverdiskett?"
 
-#: loader/loader.c:1666
+#: loader/loader.c:1699
 msgid "The following devices have been found on your system."
 msgstr "Følgende enheter ble funnet på ditt system."
 
-#: loader/loader.c:1668
+#: loader/loader.c:1701
 msgid ""
 "No device drivers have been loaded for your system.  Would you like to load "
 "any now?"
 msgstr ""
 "Ingen enhetsdrivere er lastet for ditt system. Ønsker du å gjøre dette nå?"
 
-#: loader/loader.c:1672
+#: loader/loader.c:1705
 msgid "Devices"
 msgstr "Enheter"
 
-#: loader/loader.c:1673
+#: loader/loader.c:1706
 msgid "Done"
 msgstr "Ferdig"
 
-#: loader/loader.c:1674
+#: loader/loader.c:1707
 msgid "Add Device"
 msgstr "Legg til enhet"
 
-#: loader/loader.c:1952
+#: loader/loader.c:1985
 #, c-format
 msgid "loader has already been run.  Starting shell.\n"
 msgstr "laster er allerede kjørt. Starter skall.\n"
 
-#: loader/loader.c:2412
+#: loader/loader.c:2451
 #, c-format
 msgid "Running anaconda %s, the %s rescue mode - please wait.\n"
 msgstr "Kjører anaconda %s, feilrettingsmodus for %s - vennligst vent.\n"
 
-#: loader/loader.c:2414
+#: loader/loader.c:2453
 #, c-format
 msgid "Running anaconda %s, the %s system installer - please wait.\n"
 msgstr "Kjører anaconda %s, installeringsprogrammet for %s - vennligst vent.\n"
@@ -4410,12 +4398,12 @@ msgstr ""
 "Prefiks må være mellom 1 og 32 for IPv4-nettverk eller mellom 1 og 128 for "
 "IPv6-nettverk"
 
-#: loader/net.c:488 loader/net.c:496 loader/net.c:551
+#: loader/net.c:490 loader/net.c:498 loader/net.c:553
 #, c-format
 msgid "There was an error configuring your network interface."
 msgstr "Det oppsto en feil under konfigurasjon av nettverksgrensesnittet."
 
-#: loader/net.c:490
+#: loader/net.c:492
 #, c-format
 msgid ""
 "\n"
@@ -4423,59 +4411,59 @@ msgid ""
 "Halting.\n"
 msgstr ""
 
-#: loader/net.c:495 loader/net.c:550
+#: loader/net.c:497 loader/net.c:552 textw/netconfig_text.py:403
 msgid "Network Error"
 msgstr "Nettverksfeil"
 
-#: loader/net.c:581 textw/netconfig_text.py:133
+#: loader/net.c:583
 msgid "Enable IPv4 support"
 msgstr "Aktiver støtte for IPv4"
 
-#: loader/net.c:595
+#: loader/net.c:597
 msgid "Enable IPv6 support"
 msgstr "Aktiver støtte for IPv6"
 
-#: loader/net.c:635
+#: loader/net.c:637
 msgid "Configure TCP/IP"
 msgstr "Konfigurer TCP/IP"
 
-#: loader/net.c:692
+#: loader/net.c:694
 msgid "Missing Protocol"
 msgstr "Mangler protokoll"
 
-#: loader/net.c:693
+#: loader/net.c:695
 msgid "You must select at least one protocol (IPv4 or IPv6)."
 msgstr "Du må velge minst en protokoll (IPv4 eller IPv6)."
 
-#: loader/net.c:700
+#: loader/net.c:702
 msgid "IPv4 Needed for NFS"
 msgstr "IPv4 kreves for NFS"
 
-#: loader/net.c:701
+#: loader/net.c:703
 msgid "NFS installation method requires IPv4 support."
 msgstr "NFS-installasjonsmetoden krever støtte for IPv4."
 
-#: loader/net.c:797
+#: loader/net.c:811
 msgid "IPv4 address:"
 msgstr "IPv4-adresse:"
 
-#: loader/net.c:809 loader/net.c:876
+#: loader/net.c:823 loader/net.c:890
 msgid "/"
 msgstr "/"
 
-#: loader/net.c:864
+#: loader/net.c:878
 msgid "IPv6 address:"
 msgstr "IPv6-adresse:"
 
-#: loader/net.c:930 textw/netconfig_text.py:160
+#: loader/net.c:944 textw/netconfig_text.py:184 textw/netconfig_text.py:224
 msgid "Gateway:"
 msgstr "Gateway:"
 
-#: loader/net.c:938
+#: loader/net.c:952
 msgid "Name Server:"
 msgstr "Navnetjener:"
 
-#: loader/net.c:977
+#: loader/net.c:991
 msgid ""
 "Enter the IPv4 and/or the IPv6 address and prefix (address / prefix).  For "
 "IPv4, the dotted-quad netmask or the CIDR-style prefix are acceptable. The "
@@ -4485,44 +4473,44 @@ msgstr ""
 "erpunkt-kvadruppel nettmaske eller prefiks i CIDR-stil tillatt. Feltet "
 "gateway og navnetjener må være gyldige IPv4- eller IPv6-adresser."
 
-#: loader/net.c:994
+#: loader/net.c:1008
 msgid "Manual TCP/IP Configuration"
 msgstr "Manuell TCP/IP-konfigurasjon"
 
-#: loader/net.c:1118 loader/net.c:1126
+#: loader/net.c:1132 loader/net.c:1140
 msgid "Missing Information"
 msgstr "Manglende informasjon"
 
-#: loader/net.c:1119
+#: loader/net.c:1133
 msgid ""
 "You must enter both a valid IPv4 address and a network mask or CIDR prefix."
 msgstr ""
 "Du må skrive inn en gyldig IPv4-adresse og en nettmaske eller et CIDR-"
 "prefiks."
 
-#: loader/net.c:1127
+#: loader/net.c:1141
 msgid "You must enter both a valid IPv6 address and a CIDR prefix."
 msgstr "Du må skrive inn både en gyldig IPv6-adresse og et CIDR-prefiks."
 
-#: loader/net.c:1569
+#: loader/net.c:1584
 #, fuzzy, c-format
 msgid "Bad argument to kickstart network command: %s"
 msgstr "Ugyldig argument til nettverks-kommando for kickstart %s: %s"
 
-#: loader/net.c:1590
+#: loader/net.c:1605
 #, c-format
 msgid "Bad bootproto %s specified in network command"
 msgstr "Ugyldig bootproto %s spesifisert i nettverkskommandoen"
 
-#: loader/net.c:1695
+#: loader/net.c:1710
 msgid "Seconds:"
 msgstr "Sekunder:"
 
-#: loader/net.c:1892
+#: loader/net.c:1907
 msgid "Networking Device"
 msgstr "Nettverksenhet"
 
-#: loader/net.c:1893
+#: loader/net.c:1908
 msgid ""
 "You have multiple network devices on this system. Which would you like to "
 "install through?"
@@ -4530,38 +4518,38 @@ msgstr ""
 "Du har flere nettverksenheter på dette systemet. Hvilken enhet skal du bruke "
 "til installasjonen?"
 
-#: loader/net.c:1897
+#: loader/net.c:1912
 msgid "Identify"
 msgstr "Identifiser"
 
-#: loader/net.c:1906
+#: loader/net.c:1921
 msgid "You can identify the physical port for"
 msgstr "Du kan identifisere fysisk port for"
 
-#: loader/net.c:1908
+#: loader/net.c:1923
 msgid ""
 "by flashing the LED lights for a number of seconds.  Enter a number between "
 "1 and 30 to set the duration to flash the LED port lights."
 msgstr ""
 
-#: loader/net.c:1915
+#: loader/net.c:1930
 msgid "Identify NIC"
 msgstr "Identifiser nettverkskort"
 
-#: loader/net.c:1928
+#: loader/net.c:1943
 msgid "Invalid Duration"
 msgstr "Ugyldig varighet"
 
-#: loader/net.c:1929
+#: loader/net.c:1944
 msgid "You must enter the number of seconds as an integer between 1 and 30."
 msgstr "Du må oppgi antall sekunder som et heltall mellom 1 og 30."
 
-#: loader/net.c:1941
+#: loader/net.c:1956
 #, c-format
 msgid "Flashing %s port lights for %d seconds."
 msgstr "Blinker med lysene for port %s i %d sekunder."
 
-#: loader/net.c:2109 loader/net.c:2113
+#: loader/net.c:2124 loader/net.c:2128
 #, c-format
 msgid "Waiting for NetworkManager to configure %s.\n"
 msgstr "Venter på at NetworkManager skal konfigurere %s.\n"
@@ -4625,63 +4613,63 @@ msgstr "Kan ikke hente %s://%s%s."
 msgid "Unable to retrieve the install image."
 msgstr "Kunne ikke hente installasjonsbildet."
 
-#: loader/urlinstall.c:373
+#: loader/urlinstall.c:375
 #, fuzzy, c-format
 msgid "Bad argument to URL kickstart method command: %s"
 msgstr "Ugyldig argument til kommando for URL-kickstartmetode %s: %s"
 
-#: loader/urlinstall.c:384
+#: loader/urlinstall.c:386
 msgid "Must supply a --url argument to Url kickstart method."
 msgstr "Må oppgi et --url argument til kickstartmetoden for URL."
 
-#: loader/urlinstall.c:391
+#: loader/urlinstall.c:393
 #, c-format
 msgid "Unknown Url method %s"
 msgstr "Ukjent URL-metode %s"
 
-#: loader/urls.c:168 loader/urls.c:176
+#: loader/urls.c:177 loader/urls.c:185
 msgid "Retrieving"
 msgstr "Henter"
 
-#: loader/urls.c:262
+#: loader/urls.c:271
 #, fuzzy, c-format
 msgid ""
 "Please enter the URL containing the %s installation image on your server."
 msgstr "Vennligst oppgi URL som inneholder bildene for %s på din tjener."
 
-#: loader/urls.c:280
+#: loader/urls.c:289
 #, fuzzy
 msgid "Enable HTTP proxy"
 msgstr "Aktiver støtte for IPv4"
 
-#: loader/urls.c:294
+#: loader/urls.c:303
 #, fuzzy
 msgid "Proxy URL"
 msgstr "Ugyldig proxy-URL"
 
-#: loader/urls.c:299
+#: loader/urls.c:308
 #, fuzzy
 msgid "Username"
 msgstr "CHAP-brukernavn"
 
-#: loader/urls.c:304
+#: loader/urls.c:313
 #, fuzzy
 msgid "Password"
 msgstr "Passord:"
 
-#: loader/urls.c:323
+#: loader/urls.c:332
 msgid "URL Setup"
 msgstr "URL-oppsett"
 
-#: loader/urls.c:331
+#: loader/urls.c:340
 msgid "You must enter a URL."
 msgstr "Du må oppgi en URL."
 
-#: loader/urls.c:337
+#: loader/urls.c:346
 msgid "URL must be either an ftp or http URL"
 msgstr "URL må være enten ftp eller http"
 
-#: loader/urls.c:346
+#: loader/urls.c:355
 #, fuzzy
 msgid "Proxy must be either an ftp or http URL"
 msgstr "URL må være enten ftp eller http"
@@ -4777,50 +4765,50 @@ msgstr ""
 msgid "Error storing an encryption key: %s\n"
 msgstr ""
 
-#: storage/__init__.py:362
+#: storage/__init__.py:360
 #, fuzzy
 msgid "Examining Devices"
 msgstr "Finner enheter"
 
-#: storage/__init__.py:363
+#: storage/__init__.py:361
 #, fuzzy
 msgid "Examining storage devices"
 msgstr "Finner lagringsenheter"
 
-#: storage/__init__.py:642
+#: storage/__init__.py:640
 msgid "This partition is holding the data for the hard drive install."
 msgstr "Denne partisjonen inneholder data for harddisk-installasjonen."
 
-#: storage/__init__.py:647
+#: storage/__init__.py:645
 msgid "You cannot delete a partition of a LDL formatted DASD."
 msgstr "Du kan ikke slette en partisjon fra en LDL-formatert DASD."
 
-#: storage/__init__.py:653
+#: storage/__init__.py:651
 #, python-format
 msgid "This device is part of the RAID device %s."
 msgstr "Denne enheten er en del av RAID-enhet %s."
 
-#: storage/__init__.py:656
+#: storage/__init__.py:654
 msgid "This device is part of a RAID device."
 msgstr "Denne enheten er en del av en RAID-enhet."
 
-#: storage/__init__.py:661
+#: storage/__init__.py:659
 #, python-format
 msgid "This device is part of the LVM volume group '%s'."
 msgstr "Denne enheten er en del av LVM-volumgruppe «%s»."
 
-#: storage/__init__.py:664
+#: storage/__init__.py:662
 msgid "This device is part of a LVM volume group."
 msgstr "Denne enheten er en del av en LVM-volumgruppe."
 
-#: storage/__init__.py:680
+#: storage/__init__.py:678
 msgid ""
 "This device is an extended partition which contains logical partitions that "
 "cannot be deleted:\n"
 "\n"
 msgstr ""
 
-#: storage/__init__.py:955
+#: storage/__init__.py:953
 #, python-format
 msgid ""
 "You have not defined a root partition (/), which is required for "
@@ -4829,7 +4817,7 @@ msgstr ""
 "Du har ikke definert en rot-partisjon (/). Dette må gjøres før "
 "installasjonen av %s kan fortsette."
 
-#: storage/__init__.py:960
+#: storage/__init__.py:958
 #, python-format
 msgid ""
 "Your root partition is less than 250 megabytes which is usually too small to "
@@ -4838,7 +4826,7 @@ msgstr ""
 "Din rot-partisjon er mindre enn 250 megabyte og dette er vanligvis for lite "
 "for å installere %s."
 
-#: storage/__init__.py:966
+#: storage/__init__.py:964
 #, fuzzy, python-format
 msgid ""
 "Your / partition is less than %(min)s MB which is lower than recommended for "
@@ -4847,19 +4835,19 @@ msgstr ""
 "Din %s-partisjon er mindre enn %s megabyte og dette er lavere enn anbefalt "
 "for en vanlig installasjon av %s."
 
-#: storage/__init__.py:973
+#: storage/__init__.py:971
 #, python-format
 msgid "Placing the root partition on an XFS filesystem is not supported in %s."
 msgstr ""
 
-#: storage/__init__.py:981
+#: storage/__init__.py:979
 #, python-format
 msgid ""
 "Your / partition does not match the the live image you are installing from.  "
 "It must be formatted as %s."
 msgstr ""
 
-#: storage/__init__.py:988
+#: storage/__init__.py:986
 #, fuzzy, python-format
 msgid ""
 "Your %(mount)s partition is less than %(size)s megabytes which is lower than "
@@ -4868,14 +4856,14 @@ msgstr ""
 "Din %s-partisjon er mindre enn %s megabyte og dette er lavere enn anbefalt "
 "for en vanlig installasjon av %s."
 
-#: storage/__init__.py:1017
+#: storage/__init__.py:1015
 msgid ""
 "Installing on a USB device.  This may or may not produce a working system."
 msgstr ""
 "Installerer på en USB-enhet. Det er ikke sikkert at dette gir et fungerende "
 "system."
 
-#: storage/__init__.py:1020
+#: storage/__init__.py:1018
 msgid ""
 "Installing on a FireWire device.  This may or may not produce a working "
 "system."
@@ -4883,7 +4871,7 @@ msgstr ""
 "Installerer på en FireWire-enhet. Det er ikke sikkert at dette gir et "
 "fungerende system."
 
-#: storage/__init__.py:1027
+#: storage/__init__.py:1025
 #, fuzzy
 msgid ""
 "You have not specified a swap partition.  Due to the amount of memory "
@@ -4893,7 +4881,7 @@ msgstr ""
 "krav om dette i alle tilfeller, så vil det øke ytelsen for de fleste "
 "installasjoner."
 
-#: storage/__init__.py:1032
+#: storage/__init__.py:1030
 msgid ""
 "You have not specified a swap partition.  Although not strictly required in "
 "all cases, it will significantly improve performance for most installations."
@@ -4902,22 +4890,22 @@ msgstr ""
 "krav om dette i alle tilfeller, så vil det øke ytelsen for de fleste "
 "installasjoner."
 
-#: storage/__init__.py:1039
+#: storage/__init__.py:1037
 #, python-format
 msgid ""
 "This mount point is invalid.  The %s directory must be on the / file system."
 msgstr ""
 
-#: storage/__init__.py:1043
+#: storage/__init__.py:1041
 #, fuzzy, python-format
 msgid "The mount point %s must be on a linux file system."
 msgstr "Monteringspunktet «%s» er allerede i bruk. Velg et annet."
 
-#: storage/__init__.py:1054
+#: storage/__init__.py:1052
 msgid "No Drives Found"
 msgstr "Ingen stasjoner funnet"
 
-#: storage/__init__.py:1055
+#: storage/__init__.py:1053
 msgid ""
 "An error has occurred - no valid devices were found on which to create new "
 "file systems. Please check your hardware for the cause of this problem."
@@ -4925,11 +4913,11 @@ msgstr ""
 "En feil har oppstått - ingen gyldige enheter for oppretting av filsystemer "
 "ble funnet. Sjekk maskinvaren din for å finne årsaken til problemet."
 
-#: storage/__init__.py:1348 storage/__init__.py:1357
+#: storage/__init__.py:1346 storage/__init__.py:1355
 msgid "Dirty File Systems"
 msgstr "Skitne filsystemer"
 
-#: storage/__init__.py:1349
+#: storage/__init__.py:1347
 #, python-format
 msgid ""
 "The following file systems for your Linux system were not unmounted "
@@ -4942,7 +4930,7 @@ msgstr ""
 "sjekk, og steng ned på riktig måte for å oppgradere.\n"
 "%s"
 
-#: storage/__init__.py:1358
+#: storage/__init__.py:1356
 #, python-format
 msgid ""
 "The following file systems for your Linux system were not unmounted "
@@ -4953,7 +4941,7 @@ msgstr ""
 "montere dem likevel?\n"
 "%s"
 
-#: storage/__init__.py:1835
+#: storage/__init__.py:1833
 #, python-format
 msgid ""
 "The swap device:\n"
@@ -4964,7 +4952,7 @@ msgid ""
 "swap space, you must reformat as a new-style Linux swap partition."
 msgstr ""
 
-#: storage/__init__.py:1846
+#: storage/__init__.py:1844
 #, fuzzy, python-format
 msgid ""
 "The swap device:\n"
@@ -4983,7 +4971,7 @@ msgstr ""
 "noe som betyr at ditt system er i hvilemodus. For å utføre en oppgradering, "
 "vennligst slå av systemet, enn å sette det i hvilemodus."
 
-#: storage/__init__.py:1854
+#: storage/__init__.py:1852
 #, fuzzy, python-format
 msgid ""
 "The swap device:\n"
@@ -5003,7 +4991,7 @@ msgstr ""
 "du utfører en ny installasjon, sjekk at installasjonsprogrammet er satt opp "
 "til å formatere alle swap-partisjonene."
 
-#: storage/__init__.py:1866
+#: storage/__init__.py:1864
 #, python-format
 msgid ""
 "The swap device:\n"
@@ -5014,7 +5002,7 @@ msgid ""
 "installation, you will need to format the device or skip it."
 msgstr ""
 
-#: storage/__init__.py:1877
+#: storage/__init__.py:1875
 #, fuzzy, python-format
 msgid ""
 "Error enabling swap device %(name)s: %(msg)s\n"
@@ -5031,7 +5019,7 @@ msgstr ""
 "\n"
 "Trykk OK for å avslutte installasjonsprogrammet"
 
-#: storage/__init__.py:1884
+#: storage/__init__.py:1882
 #, fuzzy, python-format
 msgid ""
 "Error enabling swap device %(name)s: %(msg)s\n"
@@ -5046,11 +5034,11 @@ msgstr ""
 "\n"
 "Trykk OK for å avslutte installasjonsprogrammet."
 
-#: storage/__init__.py:1947 storage/__init__.py:1959
+#: storage/__init__.py:1945 storage/__init__.py:1957
 msgid "Invalid mount point"
 msgstr "Ugyldig monteringspunkt"
 
-#: storage/__init__.py:1948
+#: storage/__init__.py:1946
 #, python-format
 msgid ""
 "An error occurred when trying to create %s.  Some element of this path is "
@@ -5064,7 +5052,7 @@ msgstr ""
 "\n"
 "Trykk <Linjeskift> for å avslutte installasjonsprogrammet."
 
-#: storage/__init__.py:1960
+#: storage/__init__.py:1958
 #, fuzzy, python-format
 msgid ""
 "An error occurred when trying to create %(mountpoint)s: %(msg)s.  This is a "
@@ -5077,11 +5065,11 @@ msgstr ""
 "\n"
 "Trykk <Linjeskift> for å avslutte installasjonsprogrammet."
 
-#: storage/__init__.py:1976 storage/__init__.py:2000
+#: storage/__init__.py:1974 storage/__init__.py:1998
 msgid "Unable to mount filesystem"
 msgstr "Kan ikke montere filsystem"
 
-#: storage/__init__.py:1977
+#: storage/__init__.py:1975
 #, fuzzy, python-format
 msgid ""
 "An error occurred mounting device %(path)s as %(mountpoint)s.  You may "
@@ -5090,7 +5078,7 @@ msgstr ""
 "En feil oppsto under montering av enhet %s som %s.  Du kan fortsette "
 "installasjonen, men det kan ha oppstått problemer."
 
-#: storage/__init__.py:2001
+#: storage/__init__.py:1999
 #, fuzzy, python-format
 msgid ""
 "An error occurred mounting device %(path)s as %(mountpoint)s: %(msg)s. This "
@@ -5117,43 +5105,43 @@ msgid_plural "Preparing %d DASD devices for use with Linux..."
 msgstr[0] ""
 msgstr[1] ""
 
-#: storage/devicelibs/lvm.py:316
+#: storage/devicelibs/lvm.py:320
 #, python-format
 msgid "vginfo failed for %s"
 msgstr "vginfo feilet for %s"
 
-#: storage/devicelibs/lvm.py:345
+#: storage/devicelibs/lvm.py:349
 #, python-format
 msgid "lvs failed for %s"
 msgstr "lvs feilet for %s"
 
-#: storage/devices.py:1296 storage/devices.py:1994 storage/devices.py:2410
-#: storage/devices.py:2903 storage/devices.py:3377
+#: storage/devices.py:1296 storage/devices.py:2001 storage/devices.py:2417
+#: storage/devices.py:2910 storage/devices.py:3398
 #, fuzzy
 msgid "Creating"
 msgstr "Formaterer"
 
-#: storage/devices.py:1297 storage/devices.py:1995 storage/devices.py:2411
-#: storage/devices.py:2904
+#: storage/devices.py:1297 storage/devices.py:2002 storage/devices.py:2418
+#: storage/devices.py:2911
 #, fuzzy, python-format
 msgid "Creating device %s"
 msgstr "_Bytt enhet"
 
-#: storage/devices.py:2504
+#: storage/devices.py:2511
 #, python-format
 msgid "A RAID%d set requires atleast %d members"
 msgstr ""
 
-#: storage/devices.py:3378
+#: storage/devices.py:3399
 #, fuzzy, python-format
 msgid "Creating file %s"
 msgstr "Lager filsystem på %s"
 
-#: storage/devicetree.py:99
+#: storage/devicetree.py:101
 msgid "Confirm"
 msgstr "Bekreft"
 
-#: storage/devicetree.py:100
+#: storage/devicetree.py:102
 #, python-format
 msgid ""
 "Are you sure you want to skip entering a passphrase for device %s?\n"
@@ -5162,7 +5150,7 @@ msgid ""
 "installation."
 msgstr ""
 
-#: storage/devicetree.py:1905 storage/devicetree.py:1953
+#: storage/devicetree.py:1928 storage/devicetree.py:1976
 msgid "This partition is part of an inconsistent LVM Volume Group."
 msgstr "Denne partisjonen er en del av en inkonsistent LVM-volumgruppe."
 
@@ -5226,7 +5214,7 @@ msgid ""
 "problems on the filesystem."
 msgstr ""
 
-#: storage/formats/fs.py:535 storage/partitioning.py:286
+#: storage/formats/fs.py:535 storage/partitioning.py:289
 msgid "Unrecoverable Error"
 msgstr "Fatal feil"
 
@@ -5276,65 +5264,71 @@ msgstr "Krypt_er"
 msgid "Creating %s on %s"
 msgstr "Lager filsystem på %s"
 
-#: storage/iscsi.py:83 storage/iscsi.py:84
-msgid "Scanning iSCSI nodes"
-msgstr "Søker gjennom iSCSI-noder"
-
-#: storage/iscsi.py:135
+#: storage/iscsi.py:125
 msgid "Unable to change iSCSI initiator name once set"
 msgstr ""
 
-#: storage/iscsi.py:137
+#: storage/iscsi.py:127
 #, fuzzy
 msgid "Must provide an iSCSI initiator name"
 msgstr "Du må oppgi et navn på initiatoren."
 
-#: storage/iscsi.py:176 storage/iscsi.py:177
+#: storage/iscsi.py:157 storage/iscsi.py:158
+msgid "Scanning iSCSI nodes"
+msgstr "Søker gjennom iSCSI-noder"
+
+#: storage/iscsi.py:178 storage/iscsi.py:179
 msgid "Initializing iSCSI initiator"
 msgstr "Initierer iSCSI-initiator"
 
-#: storage/iscsi.py:213
+#: storage/iscsi.py:229 storage/iscsi.py:289
 msgid "iSCSI not available"
 msgstr "iSCSI er ikke tilgjengelig"
 
-#: storage/iscsi.py:215
+#: storage/iscsi.py:231 storage/iscsi.py:291
 #, fuzzy
 msgid "No initiator name set"
 msgstr "Navn på iSCSI-initiator"
 
-#: storage/iscsi.py:229
-msgid "No iSCSI nodes discovered"
-msgstr "Ingen iSCSI-noder oppdaget"
-
-#: storage/iscsi.py:232 storage/iscsi.py:233
-msgid "Logging in to iSCSI nodes"
+#: storage/iscsi.py:257
+#, fuzzy
+msgid "Logging in to iSCSI node"
 msgstr "Logger inn på iSCSI-noder"
 
 #: storage/iscsi.py:258
-msgid "No new iSCSI nodes discovered"
-msgstr "Ingen nye iSCSI-noder oppdaget"
+#, fuzzy, python-format
+msgid "Logging in to iSCSI node %s"
+msgstr "Logger inn på iSCSI-noder"
 
-#: storage/iscsi.py:261
+#: storage/iscsi.py:305
+msgid "No iSCSI nodes discovered"
+msgstr "Ingen iSCSI-noder oppdaget"
+
+#: storage/iscsi.py:308 storage/iscsi.py:309
+msgid "Logging in to iSCSI nodes"
+msgstr "Logger inn på iSCSI-noder"
+
+#: storage/iscsi.py:337
 msgid "Could not log in to any of the discovered nodes"
 msgstr "Kunne ikke logge inn på noen av de oppdagete nodene"
 
-#: storage/partitioning.py:201
+#: storage/partitioning.py:204
 msgid ""
 "Could not find enough free space for automatic partitioning.  Press 'OK' to "
 "exit the installer."
 msgstr ""
 
-#: storage/partitioning.py:204
+#: storage/partitioning.py:207
 msgid ""
 "Could not find enough free space for automatic partitioning, please use "
 "another partitioning method."
 msgstr ""
 
-#: storage/partitioning.py:233
+#: storage/partitioning.py:236
 msgid "Warnings During Automatic Partitioning"
 msgstr "Advarsler under automatisk partisjonering"
 
-#: storage/partitioning.py:235
+#: storage/partitioning.py:238
 #, python-format
 msgid ""
 "Following warnings occurred during automatic partitioning:\n"
@@ -5345,7 +5339,7 @@ msgstr ""
 "\n"
 "%s"
 
-#: storage/partitioning.py:249 storage/partitioning.py:270
+#: storage/partitioning.py:252 storage/partitioning.py:273
 msgid ""
 "\n"
 "\n"
@@ -5355,7 +5349,7 @@ msgstr ""
 "\n"
 "Trykk «OK» for å avslutte installasjonsprogrammet."
 
-#: storage/partitioning.py:251
+#: storage/partitioning.py:254
 #, fuzzy, python-format
 msgid ""
 "Could not allocate requested partitions: \n"
@@ -5366,7 +5360,7 @@ msgstr ""
 "\n"
 "%s.%s"
 
-#: storage/partitioning.py:272
+#: storage/partitioning.py:275
 msgid ""
 "\n"
 "\n"
@@ -5376,11 +5370,11 @@ msgstr ""
 "\n"
 "Trykk «OK» for å velge et annet alternativ for partisjonering."
 
-#: storage/partitioning.py:274
+#: storage/partitioning.py:277
 msgid "Automatic Partitioning Errors"
 msgstr "Feil under automatisk partisjonering"
 
-#: storage/partitioning.py:275
+#: storage/partitioning.py:278
 #, fuzzy, python-format
 msgid ""
 "The following errors occurred with your partitioning:\n"
@@ -5518,67 +5512,124 @@ msgstr ""
 msgid "A value is required for the field %s"
 msgstr "En verdi kreves for felt %s"
 
-#: textw/netconfig_text.py:88
+#: textw/netconfig_text.py:126 textw/netconfig_text.py:152
 msgid "Enable network interface"
 msgstr "Aktiver nettverksgrensesnitt"
 
-#: textw/netconfig_text.py:130
-msgid "Use dynamic IP configuration (DHCP)"
-msgstr "Bruk dynamisk konfigurasjon av IP (DHCP)"
+#: textw/netconfig_text.py:129
+#, fuzzy
+msgid ""
+"This requires that you have an active network connection during the "
+"installation process.  Please select network interface to configure."
+msgstr ""
+"Dette krever at du har en fungerende nettverkstilkobling under "
+"installasjonen. Vennligst konfigurer en nettverkstilkobling."
 
-#: textw/netconfig_text.py:140
+#: textw/netconfig_text.py:155
+#, fuzzy, python-format
+msgid "Configure interface %s to be used during installation process."
+msgstr "Hvilket språk ønsker du å bruke under installeringen?"
+
+#: textw/netconfig_text.py:160
+#, fuzzy
+msgid "Enable IPv4 Support"
+msgstr "Aktiver støtte for IPv4"
+
+#: textw/netconfig_text.py:167 textw/netconfig_text.py:207
+#, fuzzy
+msgid "Manual Configuration"
+msgstr "Manuell TCP/IP-konfigurasjon"
+
+#: textw/netconfig_text.py:175
 msgid "IPv4 Address:"
 msgstr "IPv4-adresse:"
 
-#: textw/netconfig_text.py:163
+#: textw/netconfig_text.py:189 textw/netconfig_text.py:229
 msgid "Nameserver:"
 msgstr "Navnetjener:"
 
-#: textw/netconfig_text.py:193
-msgid "Missing Device"
-msgstr "Mangler enhet"
+#: textw/netconfig_text.py:197
+#, fuzzy
+msgid "Enable IPv6 Support"
+msgstr "Aktiver støtte for IPv6"
 
-#: textw/netconfig_text.py:194
-msgid "You must select a network device"
-msgstr "Du må velge en nettverksenhet"
+#: textw/netconfig_text.py:204
+#, fuzzy
+msgid "Dynamic IP Configuration (DHCPv6)"
+msgstr "Bruk dynamisk konfigurasjon av IP (DHCP)"
 
-#: textw/netconfig_text.py:225 textw/netconfig_text.py:228
-msgid "IP Address"
-msgstr "IP-adresse"
+#: textw/netconfig_text.py:215
+#, fuzzy
+msgid "IPv6 Address:"
+msgstr "IPv6-adresse:"
 
-#: textw/netconfig_text.py:235
+#: textw/netconfig_text.py:270
+#, fuzzy
+msgid "Missing protocol"
+msgstr "Mangler protokoll"
+
+#: textw/netconfig_text.py:271
+#, fuzzy
+msgid "You must select at least one protocol version"
+msgstr "Du må velge minst en protokoll (IPv4 eller IPv6)."
+
+#: textw/netconfig_text.py:279 textw/netconfig_text.py:282
+#, fuzzy
+msgid "IPv4 Address"
+msgstr "IPv4-adresse:"
+
+#: textw/netconfig_text.py:286 textw/netconfig_text.py:291
+#, fuzzy
+msgid "IPv4 Prefix"
+msgstr "Ugyldig prefiks"
+
+#: textw/netconfig_text.py:290
 msgid "IPv4 CIDR prefix must be between 0 and 32."
 msgstr "CIDR-prefiks for IPv4 må være mellom 0 og 32."
 
-#: textw/netconfig_text.py:236 textw/netconfig_text.py:242
-#: textw/netconfig_text.py:250
-msgid "IPv4 Network Mask"
-msgstr "IPv4-nettmaske"
-
-#: textw/netconfig_text.py:253
-msgid "IPv4 Network Mask "
-msgstr "IPv4-nettmaske "
-
-#: textw/netconfig_text.py:263
-msgid "Gateway"
+#: textw/netconfig_text.py:298
+#, fuzzy
+msgid "IPv4 Gateway"
 msgstr "Gateway"
 
-#: textw/netconfig_text.py:273
-msgid "Nameserver"
+#: textw/netconfig_text.py:307
+#, fuzzy
+msgid "IPv4 Nameserver"
 msgstr "Navnetjener"
 
-#: textw/netconfig_text.py:276
+#: textw/netconfig_text.py:315 textw/netconfig_text.py:318
+#, fuzzy
+msgid "IPv6 Address"
+msgstr "IP-adresse"
+
+#: textw/netconfig_text.py:322 textw/netconfig_text.py:327
+#, fuzzy
+msgid "IPv6 Prefix"
+msgstr "Ugyldig prefiks"
+
+#: textw/netconfig_text.py:326
+#, fuzzy
+msgid "IPv6 CIDR prefix must be between 0 and 128."
+msgstr "CIDR-prefiks for IPv4 må være mellom 0 og 32."
+
+#: textw/netconfig_text.py:334
+#, fuzzy
+msgid "IPv6 Gateway"
+msgstr "Gateway"
+
+#: textw/netconfig_text.py:342
+#, fuzzy
+msgid "IPv6 Nameserver"
+msgstr "Navnetjener"
+
+#: textw/netconfig_text.py:399
 msgid "Configuring Network Interfaces"
 msgstr "Konfigurerer nettverksgrensesnitt"
 
-#: textw/netconfig_text.py:282
-msgid "Error configuring network device"
-msgstr "Feil under konfigurasjon av nettverksenhet"
-
-#: textw/netconfig_text.py:282
+#: textw/netconfig_text.py:404
 #, fuzzy, python-format
-msgid "Error configuring network device %s"
-msgstr "Feil under konfigurasjon av nettverksenhet: "
+msgid "There was an error configuring network device %s"
+msgstr "Det oppsto en feil under konfigurasjon av nettverksgrensesnittet."
 
 #: textw/partition_text.py:62
 msgid "Partitioning Type"
@@ -6046,8 +6097,9 @@ msgid ""
 msgstr ""
 
 #: ui/create-storage.glade.h:7
-msgid "Create"
-msgstr ""
+#, fuzzy
+msgid "C_reate"
+msgstr "Formaterer"
 
 #: ui/create-storage.glade.h:8
 msgid "Create LVM"
@@ -6227,35 +6279,53 @@ msgstr ""
 msgid "Target:"
 msgstr "Målstasjon(er):"
 
-#: ui/iscsi-config.glade.h:1
-msgid "<b>CHAP _Password:</b>"
-msgstr "<b>CHAP _passord:</b>"
+#: ui/iscsi-dialogs.glade.h:1
+#, fuzzy
+msgid "CHAP Password:"
+msgstr "CHAP-passord"
 
-#: ui/iscsi-config.glade.h:2
-msgid "<b>CHAP _Username:</b>"
+#: ui/iscsi-dialogs.glade.h:2
+#, fuzzy
+msgid "CHAP Username:"
 msgstr "<b>CHAP br_ukernavn:</b>"
 
-#: ui/iscsi-config.glade.h:3
-msgid "<b>Reverse CHAP P_assword:</b>"
-msgstr "<b>Omvendt CHAP-p_assord:</b>"
+#: ui/iscsi-dialogs.glade.h:3
+msgid "Check the nodes you wish to log into:"
+msgstr ""
 
-#: ui/iscsi-config.glade.h:4
-msgid "<b>Reverse CHAP U_sername:</b>"
-msgstr "<b>Omvendt CHAP-b_rukernavn:</b>"
+#: ui/iscsi-dialogs.glade.h:4
+msgid "Reason:"
+msgstr ""
 
-#: ui/iscsi-config.glade.h:5
-msgid "<b>_Target IP Address:</b>"
-msgstr "<b>IP-adresse for _mål:</b>"
+#: ui/iscsi-dialogs.glade.h:5
+#, fuzzy
+msgid "Retry _Login"
+msgstr "Prøver på nytt"
 
-#: ui/iscsi-config.glade.h:6
-msgid "<b>iSCSI Initiator _Name:</b>"
-msgstr "<b>_Navn på iSCSI-initiator:</b>"
+#: ui/iscsi-dialogs.glade.h:6
+#, fuzzy
+msgid "Reverse CHAP Password:"
+msgstr "Omvendt CHAP-passord"
 
-#: ui/iscsi-config.glade.h:7
-msgid "Configure iSCSI Parameters"
-msgstr "Konfigurer parametere for iSCSI"
+#: ui/iscsi-dialogs.glade.h:7
+#, fuzzy
+msgid "Reverse CHAP Username:"
+msgstr "Omvendt CHAP-brukernavn"
 
-#: ui/iscsi-config.glade.h:8
+#: ui/iscsi-dialogs.glade.h:8
+msgid "Start _Discovery"
+msgstr ""
+
+#: ui/iscsi-dialogs.glade.h:9
+msgid "Successfully logged in and attached the following nodes:"
+msgstr ""
+
+#: ui/iscsi-dialogs.glade.h:10
+#, fuzzy
+msgid "Target IP Address:"
+msgstr "IP-adresse for mål"
+
+#: ui/iscsi-dialogs.glade.h:11
 msgid ""
 "To use iSCSI disks, you must provide the address of your iSCSI target and "
 "the iSCSI initiator name you've configured for your host."
@@ -6263,9 +6333,54 @@ msgstr ""
 "For å bruke iSCSI-disker, må du oppgi adressen til ditt iSCSI-mål og iSCSI-"
 "initiatorens navn, som du har konfigurert for din maskin."
 
-#: ui/iscsi-config.glade.h:9
-msgid "_Add target"
-msgstr "Legg til _mål"
+#: ui/iscsi-dialogs.glade.h:12
+msgid ""
+"What kind of iSCSI <b>discovery authentication</b> do you wish to perform:"
+msgstr ""
+
+#: ui/iscsi-dialogs.glade.h:13
+msgid "What kind of iSCSI <b>login authentication</b> do you wish to perform:"
+msgstr ""
+
+#: ui/iscsi-dialogs.glade.h:14
+#, fuzzy
+msgid "_Cancel"
+msgstr "Avbryt"
+
+#: ui/iscsi-dialogs.glade.h:15
+msgid "_Login"
+msgstr ""
+
+#: ui/iscsi-dialogs.glade.h:16
+#, fuzzy
+msgid "_OK"
+msgstr "OK"
+
+#: ui/iscsi-dialogs.glade.h:17
+#, fuzzy
+msgid "iSCSI Discovered Nodes"
+msgstr "Ingen iSCSI-noder oppdaget"
+
+#: ui/iscsi-dialogs.glade.h:18
+msgid "iSCSI Discovery Details"
+msgstr ""
+
+#: ui/iscsi-dialogs.glade.h:19
+#, fuzzy
+msgid "iSCSI Initiator Name:"
+msgstr "Navn på iSCSI-initiator"
+
+#: ui/iscsi-dialogs.glade.h:20
+msgid "iSCSI Login Results"
+msgstr ""
+
+#: ui/iscsi-dialogs.glade.h:21
+msgid "iSCSI Nodes Login"
+msgstr ""
+
+#: ui/iscsi-dialogs.glade.h:22
+msgid "iSCSI login has failed for the following nodes:"
+msgstr ""
 
 #: ui/lukspassphrase.glade.h:1
 #, fuzzy
@@ -6375,6 +6490,39 @@ msgstr ""
 "zSeries-maskiner kan aksessere industristandard SCSI-enheter via Fibre "
 "Channel (FCP). Du må oppgi et 16-bit enhetsnummer, en 64-bit World Wide Port "
 "Number (WWPN) og et 64-bit FCP-LUN for hver enhet."
+
+#: ui/reinitialize-dialog.glade.h:1
+msgid ""
+"<span size=\"large\" weight=\"bold\">The storage device below may contain "
+"data.</span>"
+msgstr ""
+
+#: ui/reinitialize-dialog.glade.h:2
+msgid ""
+"Apply my choice to all devices with undetected partitions or filesystems"
+msgstr ""
+
+#: ui/reinitialize-dialog.glade.h:3
+msgid "No, keep any data"
+msgstr ""
+
+#: ui/reinitialize-dialog.glade.h:5
+msgid ""
+"We could not detect partitions or filesystems on this device.\n"
+"\n"
+"This could be because the device is <b>blank</b>, <b>unpartitioned</b>, or "
+"<b>virtual</b>. If not,\n"
+"there may be data on the device that can not be recovered if you use it in "
+"this\n"
+"installation. We can remove the device from this installation to protect the "
+"data.\n"
+"\n"
+"Are you sure this device does not contain valuable data?"
+msgstr ""
+
+#: ui/reinitialize-dialog.glade.h:12
+msgid "Yes, discard any data"
+msgstr ""
 
 #: lang-table.h:1
 msgid "Afrikaans"
@@ -6619,6 +6767,58 @@ msgstr ""
 #: lang-table.h:61
 msgid "Zulu"
 msgstr ""
+
+#~ msgid "Invalid Initiator Name"
+#~ msgstr "Ugyldig navn på initiator"
+
+#~ msgid "You must provide an initiator name."
+#~ msgstr "Du må oppgi et navn på initiatoren."
+
+#~ msgid "Error with Data"
+#~ msgstr "Feil med data"
+
+#~ msgid "Use dynamic IP configuration (DHCP)"
+#~ msgstr "Bruk dynamisk konfigurasjon av IP (DHCP)"
+
+#~ msgid "Missing Device"
+#~ msgstr "Mangler enhet"
+
+#~ msgid "You must select a network device"
+#~ msgstr "Du må velge en nettverksenhet"
+
+#~ msgid "IPv4 Network Mask"
+#~ msgstr "IPv4-nettmaske"
+
+#~ msgid "IPv4 Network Mask "
+#~ msgstr "IPv4-nettmaske "
+
+#~ msgid "Error configuring network device"
+#~ msgstr "Feil under konfigurasjon av nettverksenhet"
+
+#, fuzzy
+#~ msgid "Error configuring network device %s"
+#~ msgstr "Feil under konfigurasjon av nettverksenhet: "
+
+#~ msgid "<b>CHAP _Password:</b>"
+#~ msgstr "<b>CHAP _passord:</b>"
+
+#~ msgid "<b>Reverse CHAP P_assword:</b>"
+#~ msgstr "<b>Omvendt CHAP-p_assord:</b>"
+
+#~ msgid "<b>Reverse CHAP U_sername:</b>"
+#~ msgstr "<b>Omvendt CHAP-b_rukernavn:</b>"
+
+#~ msgid "<b>_Target IP Address:</b>"
+#~ msgstr "<b>IP-adresse for _mål:</b>"
+
+#~ msgid "<b>iSCSI Initiator _Name:</b>"
+#~ msgstr "<b>_Navn på iSCSI-initiator:</b>"
+
+#~ msgid "Configure iSCSI Parameters"
+#~ msgstr "Konfigurer parametere for iSCSI"
+
+#~ msgid "_Add target"
+#~ msgstr "Legg til _mål"
 
 #~ msgid "The installer will now exit."
 #~ msgstr "Installasjonsprogrammet avsluttes nå."
@@ -6938,21 +7138,6 @@ msgstr ""
 
 #~ msgid "%s is not a valid NIC device name."
 #~ msgstr "%s er ikke et gyldig enhetsnavn for NIC."
-
-#~ msgid "Target IP Address"
-#~ msgstr "IP-adresse for mål"
-
-#~ msgid "iSCSI Initiator Name"
-#~ msgstr "Navn på iSCSI-initiator"
-
-#~ msgid "CHAP password"
-#~ msgstr "CHAP-passord"
-
-#~ msgid "Reverse CHAP username"
-#~ msgstr "Omvendt CHAP-brukernavn"
-
-#~ msgid "Reverse CHAP password"
-#~ msgstr "Omvendt CHAP-passord"
 
 #~ msgid "Disable _dmraid device"
 #~ msgstr "Deaktiver _dmraid-tjeneste"

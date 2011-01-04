@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pl\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2010-12-13 15:08+0100\n"
+"POT-Creation-Date: 2011-01-04 14:19+0100\n"
 "PO-Revision-Date: 2010-12-14 15:33+0100\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <trans-pl@lists.fedoraproject.org>\n"
@@ -68,15 +68,15 @@ msgstr ""
 "Brak wystarczającej ilości pamięci RAM, aby użyć instalatora graficznego. "
 "Uruchamianie trybu tekstowego."
 
-#: anaconda:538
+#: anaconda:537
 msgid "Starting graphical installation."
 msgstr "Rozpoczynanie instalacji graficznej."
 
-#: anaconda:897
+#: anaconda:898
 msgid "Would you like to use VNC?"
 msgstr "Użyć VNC?"
 
-#: anaconda:898
+#: anaconda:899
 msgid ""
 "Text mode provides a limited set of installation options.  It does not allow "
 "you to specify your own partitioning layout or package selections.  Would "
@@ -86,15 +86,15 @@ msgstr ""
 "podanie własnego układu partycjonowania ani wyboru pakietów. Użyć trybu VNC "
 "zamiast tego?"
 
-#: anaconda:926
+#: anaconda:927
 msgid "Install class forcing text mode installation"
 msgstr "Klasa instalacji wymusza instalację w trybie tekstowym"
 
-#: anaconda:945
+#: anaconda:946
 msgid "Graphical installation is not available. Starting text mode."
 msgstr "Instalacja graficzna jest niedostępna. Uruchamianie trybu tekstowego."
 
-#: anaconda:953
+#: anaconda:954
 msgid "DISPLAY variable not set. Starting text mode."
 msgstr "Zmienna DISPLAY nie jest ustawiona. Uruchamianie trybu tekstowego."
 
@@ -138,7 +138,7 @@ msgstr ""
 #: yuminstall.py:1394 yuminstall.py:1587 yuminstall.py:1609
 #: iw/advanced_storage.py:369 iw/advanced_storage.py:379
 #: iw/advanced_storage.py:429 iw/autopart_type.py:95 iw/cleardisks_gui.py:44
-#: iw/cleardisks_gui.py:54 iw/filter_gui.py:424 iw/osbootwidget.py:211
+#: iw/cleardisks_gui.py:54 iw/filter_gui.py:427 iw/osbootwidget.py:211
 #: iw/osbootwidget.py:220 iw/raid_dialog_gui.py:224 iw/task_gui.py:54
 #: iw/task_gui.py:152 iw/task_gui.py:305 iw/task_gui.py:469
 #: loader/windows.h:31 loader/cdinstall.c:228 loader/cdinstall.c:504
@@ -158,8 +158,8 @@ msgstr ""
 msgid "Error"
 msgstr "Błąd"
 
-#: bootloader.py:55 bootloader.py:221 bootloader.py:227 gui.py:1181
-#: gui.py:1241 image.py:82 installinterfacebase.py:46 text.py:482 text.py:542
+#: bootloader.py:55 bootloader.py:221 bootloader.py:227 gui.py:1289
+#: image.py:82 installinterfacebase.py:46 text.py:482 text.py:542
 #: yuminstall.py:1566 yuminstall.py:1776 yuminstall.py:1811
 #: iw/blpasswidget.py:148 iw/upgrade_swap_gui.py:190
 #: iw/upgrade_swap_gui.py:198 iw/upgrade_swap_gui.py:205
@@ -179,7 +179,7 @@ msgstr ""
 "\n"
 "Kontynuować instalację?"
 
-#: bootloader.py:60 gui.py:1132 gui.py:1277 gui.py:1496 image.py:91
+#: bootloader.py:60 gui.py:1192 gui.py:1325 gui.py:1544 image.py:91
 #: livecd.py:205 livecd.py:447 packages.py:162 upgrade.py:58 upgrade.py:199
 #: yuminstall.py:252 yuminstall.py:1049 yuminstall.py:1054 yuminstall.py:1134
 #: yuminstall.py:1140 yuminstall.py:1296 yuminstall.py:1323 yuminstall.py:1384
@@ -227,7 +227,7 @@ msgstr "Ukończono"
 msgid "In progress"
 msgstr "W trakcie wykonywania"
 
-#: cmdline.py:88 gui.py:1272 kickstart.py:1177 kickstart.py:1257
+#: cmdline.py:88 gui.py:1320 kickstart.py:1177 kickstart.py:1257
 #: kickstart.py:1265 kickstart.py:1303 kickstart.py:1311 text.py:389
 #, python-format
 msgid ""
@@ -349,90 +349,51 @@ msgstr ""
 "Urządzenie %s jest zaszyfrowane. Aby uzyskać dostęp do zawartości urządzenia "
 "podczas instalacji, należy podać poniżej hasło urządzenia."
 
-#: gui.py:733 gui.py:1496 partIntfHelpers.py:159 partIntfHelpers.py:344
+#: gui.py:733 gui.py:1544 partIntfHelpers.py:159 partIntfHelpers.py:344
 #: text.py:100 text.py:101 iw/account_gui.py:131 loader/dirbrowser.c:128
 #: loader/driverdisk.c:412 loader/kickstart.c:331 loader/loader.c:470
 #: loader/loader.c:582 textw/constants_text.py:48
 msgid "Cancel"
 msgstr "Anuluj"
 
-#: gui.py:745 gui.py:746 gui.py:864 gui.py:865 ui/anaconda.glade.h:3
+#: gui.py:745 gui.py:746 gui.py:842 gui.py:914 gui.py:915
+#: ui/anaconda.glade.h:3
 msgid "_Debug"
 msgstr "_Debuguj"
 
-#: gui.py:1006 textw/netconfig_text.py:399
+#: gui.py:1056 textw/netconfig_text.py:399
 msgid "Waiting for NetworkManager"
 msgstr "Oczekiwanie na Menedżera sieci"
 
-#: gui.py:1007
+#: gui.py:1057
 #, python-format
 msgid "Waiting for NetworkManager to activate these devices: %s"
 msgstr "Oczekiwanie na Menedżera sieci, aby aktywować te urządzenia: %s"
 
-#: gui.py:1028
+#: gui.py:1078
 #, python-format
 msgid "Failed to activate these network interfaces: %s"
 msgstr "Aktywowanie tych interfejsów sieciowych się nie powiodło: %s"
 
-#: gui.py:1031
+#: gui.py:1081
 msgid "Network Configuration"
 msgstr "Konfiguracja sieci"
 
-#: gui.py:1040
+#: gui.py:1090
 #, python-format
 msgid "An error occurred trying to bring up the %s network interface."
 msgstr "Wystąpił błąd podczas próby podniesienia interfejsu sieciowego %s."
 
-#: gui.py:1042
+#: gui.py:1092
 msgid "Error Enabling Network"
 msgstr "Błąd podczas włączania sieci"
 
-#: gui.py:1182 text.py:483
-#, python-format
-msgid ""
-"Error processing drive:\n"
-"\n"
-"%(path)s\n"
-"%(size)-0.fMB\n"
-"%(description)s\n"
-"\n"
-"This device may need to be reinitialized.\n"
-"\n"
-"REINITIALIZING WILL CAUSE ALL DATA TO BE LOST!\n"
-"\n"
-"This action may also be applied to all other disks needing reinitialization."
-"%(details)s"
-msgstr ""
-"Błąd podczas przetwarzania dysku:\n"
-"\n"
-"%(path)s\n"
-"%(size)-0.f MB\n"
-"%(description)s\n"
-"\n"
-"Te urządzenie musi zostać ponownie zainicjowane.\n"
-"\n"
-"PONOWNE ZAINICJOWANIE SPOWODUJE UTRATĘ WSZYSTKICH DANYCH.\n"
-"\n"
-"Tę czynność można zastosować także do wszystkich innych dysków wymagających "
-"ponownego zainicjowania.%(details)s"
+#: gui.py:1241 ui/reinitialize-dialog.glade.h:4
+#, fuzzy
+msgid "Storage Device Warning"
+msgstr "Podstawowe urządzenia przechowywania danych"
 
-#: gui.py:1191 gui.py:1249 installinterfacebase.py:74 text.py:492 text.py:550
-msgid "_Ignore"
-msgstr "_Zignoruj"
-
-#: gui.py:1192 gui.py:1250 text.py:493 text.py:551
-msgid "Ignore _all"
-msgstr "Zignoruj _wszystkie"
-
-#: gui.py:1193 gui.py:1251 text.py:494 text.py:552
-msgid "_Re-initialize"
-msgstr "_Ponownie zainicjuj"
-
-#: gui.py:1194 gui.py:1252 text.py:495 text.py:553
-msgid "Re-ini_tialize all"
-msgstr "Ponownie za_inicjuj wszystkie"
-
-#: gui.py:1242 text.py:543
+#: gui.py:1290 text.py:543
 #, python-format
 msgid ""
 "Error processing LVM.\n"
@@ -447,19 +408,35 @@ msgstr ""
 "LVM lub zignorować, co zachowa zawartość. Tę czynność można zastosować także "
 "do wszystkich innych woluminów fizycznych z niespójnymi metadanymi."
 
-#: gui.py:1274 text.py:391
+#: gui.py:1297 installinterfacebase.py:74 text.py:492 text.py:550
+msgid "_Ignore"
+msgstr "_Zignoruj"
+
+#: gui.py:1298 text.py:493 text.py:551
+msgid "Ignore _all"
+msgstr "Zignoruj _wszystkie"
+
+#: gui.py:1299 text.py:494 text.py:552
+msgid "_Re-initialize"
+msgstr "_Ponownie zainicjuj"
+
+#: gui.py:1300 text.py:495 text.py:553
+msgid "Re-ini_tialize all"
+msgstr "Ponownie za_inicjuj wszystkie"
+
+#: gui.py:1322 text.py:391
 msgid "Error Parsing Kickstart Config"
 msgstr "Błąd podczas przetwarzania konfiguracji kickstart"
 
-#: gui.py:1321
+#: gui.py:1369
 msgid "default:LTR"
 msgstr "default:LTR"
 
-#: gui.py:1401 text.py:620
+#: gui.py:1449 text.py:620
 msgid "Error!"
 msgstr "Błąd."
 
-#: gui.py:1402 text.py:621
+#: gui.py:1450 text.py:621
 #, python-format
 msgid ""
 "An error occurred when attempting to load an installer interface component.\n"
@@ -470,46 +447,46 @@ msgstr ""
 "\n"
 "className = %s"
 
-#: gui.py:1407 image.py:164 image.py:194 packages.py:361
+#: gui.py:1455 image.py:164 image.py:194 packages.py:361
 #: storage/__init__.py:1800
 msgid "_Exit"
 msgstr "_Zakończ"
 
-#: gui.py:1408 image.py:164 image.py:194 livecd.py:205 yuminstall.py:919
+#: gui.py:1456 image.py:164 image.py:194 livecd.py:205 yuminstall.py:919
 #: yuminstall.py:1323 yuminstall.py:1384 yuminstall.py:1593
 msgid "_Retry"
 msgstr "_Ponów"
 
-#: gui.py:1410 storage/partitioning.py:290
+#: gui.py:1458 storage/partitioning.py:290
 msgid "The system will now reboot."
 msgstr "System zostanie teraz ponownie uruchomiony."
 
-#: gui.py:1411 image.py:251 packages.py:365 yuminstall.py:1634
+#: gui.py:1459 image.py:251 packages.py:365 yuminstall.py:1634
 msgid "_Reboot"
 msgstr "U_ruchom ponownie"
 
-#: gui.py:1413
+#: gui.py:1461
 msgid "Exiting"
 msgstr "Kończenie działania"
 
-#: gui.py:1493 livecd.py:126 text.py:267 upgrade.py:190
+#: gui.py:1541 livecd.py:126 text.py:267 upgrade.py:190
 msgid "Exit installer"
 msgstr "Zakończ instalator"
 
-#: gui.py:1494
+#: gui.py:1542
 msgid "Are you sure you wish to exit the installer?"
 msgstr "Na pewno zakończyć instalator?"
 
-#: gui.py:1503
+#: gui.py:1551
 #, python-format
 msgid "%s Installer"
 msgstr "Instalator systemu %s"
 
-#: gui.py:1509
+#: gui.py:1557
 msgid "Unable to load title bar"
 msgstr "Nie można wczytać paska tytułowego"
 
-#: gui.py:1578
+#: gui.py:1626
 msgid "Install Window"
 msgstr "Okno instalacji"
 
@@ -1576,6 +1553,35 @@ msgstr ""
 "  <Tab>/<Alt-Tab> między elementami   |  <Spacja> wybór   |  <F12> następny "
 "ekran"
 
+#: text.py:483
+#, python-format
+msgid ""
+"Error processing drive:\n"
+"\n"
+"%(path)s\n"
+"%(size)-0.fMB\n"
+"%(description)s\n"
+"\n"
+"This device may need to be reinitialized.\n"
+"\n"
+"REINITIALIZING WILL CAUSE ALL DATA TO BE LOST!\n"
+"\n"
+"This action may also be applied to all other disks needing reinitialization."
+"%(details)s"
+msgstr ""
+"Błąd podczas przetwarzania dysku:\n"
+"\n"
+"%(path)s\n"
+"%(size)-0.f MB\n"
+"%(description)s\n"
+"\n"
+"Te urządzenie musi zostać ponownie zainicjowane.\n"
+"\n"
+"PONOWNE ZAINICJOWANIE SPOWODUJE UTRATĘ WSZYSTKICH DANYCH.\n"
+"\n"
+"Tę czynność można zastosować także do wszystkich innych dysków wymagających "
+"ponownego zainicjowania.%(details)s"
+
 #: text.py:625 loader/net.c:110 loader/net.c:497 loader/net.c:552
 #: loader/net.c:694 loader/net.c:702 loader/net.c:1132 loader/net.c:1140
 #: textw/constants_text.py:68
@@ -2483,7 +2489,7 @@ msgstr "_Zmień urządzenie"
 msgid "Clear Disks Selector"
 msgstr "Wyczyść wybór dysków"
 
-#: iw/cleardisks_gui.py:45 iw/filter_gui.py:425
+#: iw/cleardisks_gui.py:45 iw/filter_gui.py:428
 msgid "You must select at least one drive to be used for installation."
 msgstr "Należy wybrać co najmniej jeden dysk dla instalacji."
 
@@ -2491,29 +2497,29 @@ msgstr "Należy wybrać co najmniej jeden dysk dla instalacji."
 msgid "You must select one drive to boot from."
 msgstr "Należy wybrać jeden dysk, z którego będzie uruchamiany system."
 
-#: iw/cleardisks_gui.py:127 iw/cleardisks_gui.py:147 iw/filter_gui.py:486
-#: iw/filter_gui.py:498 iw/filter_gui.py:528
+#: iw/cleardisks_gui.py:127 iw/cleardisks_gui.py:147 iw/filter_gui.py:489
+#: iw/filter_gui.py:501 iw/filter_gui.py:531
 msgid "Model"
 msgstr "Model"
 
-#: iw/cleardisks_gui.py:128 iw/cleardisks_gui.py:148 iw/filter_gui.py:487
-#: iw/filter_gui.py:499 iw/filter_gui.py:507 iw/filter_gui.py:518
-#: iw/filter_gui.py:529
+#: iw/cleardisks_gui.py:128 iw/cleardisks_gui.py:148 iw/filter_gui.py:490
+#: iw/filter_gui.py:502 iw/filter_gui.py:510 iw/filter_gui.py:521
+#: iw/filter_gui.py:532
 msgid "Capacity"
 msgstr "Pojemność"
 
-#: iw/cleardisks_gui.py:129 iw/filter_gui.py:488 iw/filter_gui.py:508
-#: iw/filter_gui.py:519 iw/filter_gui.py:530
+#: iw/cleardisks_gui.py:129 iw/filter_gui.py:491 iw/filter_gui.py:511
+#: iw/filter_gui.py:522 iw/filter_gui.py:533
 msgid "Vendor"
 msgstr "Producent"
 
-#: iw/cleardisks_gui.py:130 iw/cleardisks_gui.py:149 iw/filter_gui.py:491
-#: iw/filter_gui.py:506 iw/filter_gui.py:517 iw/filter_gui.py:533
+#: iw/cleardisks_gui.py:130 iw/cleardisks_gui.py:149 iw/filter_gui.py:494
+#: iw/filter_gui.py:509 iw/filter_gui.py:520 iw/filter_gui.py:536
 msgid "Identifier"
 msgstr "Identyfikator"
 
-#: iw/cleardisks_gui.py:131 iw/filter_gui.py:489 iw/filter_gui.py:509
-#: iw/filter_gui.py:520 iw/filter_gui.py:531
+#: iw/cleardisks_gui.py:131 iw/filter_gui.py:492 iw/filter_gui.py:512
+#: iw/filter_gui.py:523 iw/filter_gui.py:534
 msgid "Interconnect"
 msgstr "Połączenie"
 
@@ -2648,38 +2654,38 @@ msgstr "<b>Którą instalację systemu %s zaktualizować?</b>"
 msgid "Unknown Linux system"
 msgstr "Nieznany system Linux"
 
-#: iw/filter_gui.py:151
+#: iw/filter_gui.py:154
 #, python-format
 msgid "<b>%s device(s) (%s MB) selected</b> out of %s device(s) (%s MB) total."
 msgstr "<b>Wybrano urządzeń: %s (%s MB).</b> Razem urządzeń: %s (%s MB)."
 
-#: iw/filter_gui.py:401
+#: iw/filter_gui.py:404
 msgid "Device Filter"
 msgstr "Filtr urządzeń"
 
-#: iw/filter_gui.py:490 iw/filter_gui.py:521 iw/filter_gui.py:532
+#: iw/filter_gui.py:493 iw/filter_gui.py:524 iw/filter_gui.py:535
 msgid "Serial Number"
 msgstr "Numer seryjny"
 
-#: iw/filter_gui.py:492 iw/filter_gui.py:500 iw/filter_gui.py:511
-#: iw/filter_gui.py:522 iw/filter_gui.py:537 iw/osbootwidget.py:66
+#: iw/filter_gui.py:495 iw/filter_gui.py:503 iw/filter_gui.py:514
+#: iw/filter_gui.py:525 iw/filter_gui.py:540 iw/osbootwidget.py:66
 #: iw/partition_gui.py:611
 msgid "Device"
 msgstr "Urządzenie"
 
-#: iw/filter_gui.py:510
+#: iw/filter_gui.py:513
 msgid "Paths"
 msgstr "Ścieżki"
 
-#: iw/filter_gui.py:534
+#: iw/filter_gui.py:537
 msgid "Port"
 msgstr "Port"
 
-#: iw/filter_gui.py:535
+#: iw/filter_gui.py:538
 msgid "Target"
 msgstr "Cel"
 
-#: iw/filter_gui.py:536
+#: iw/filter_gui.py:539
 msgid "LUN"
 msgstr "LUN"
 
@@ -5298,16 +5304,6 @@ msgstr "Zestaw RAID%d wymaga co najmniej %d elementów"
 msgid "Creating file %s"
 msgstr "Tworzenie pliku %s"
 
-#: storage/devices.py:3600
-#, python-format
-msgid "FCP device %(device)s with WWPN %(wwpn)s and LUN %(lun)s"
-msgstr "Urządzenie FCP %(device)s z WWPN %(wwpn)s i LUN %(lun)s"
-
-#: storage/devices.py:3627
-#, python-format
-msgid "DASD device %s"
-msgstr "Urządzenia DASD %s"
-
 #: storage/devicetree.py:101
 msgid "Confirm"
 msgstr "Potwierdzenie"
@@ -6672,6 +6668,39 @@ msgstr ""
 "Channel (FCP). Należy podać 16 bitowy numer urządzenia, 64 bitowy World Wide "
 "Port Name (WWPN) oraz 64 bitowy FCP LUN dla każdego urządzenia."
 
+#: ui/reinitialize-dialog.glade.h:1
+msgid ""
+"<span size=\"large\" weight=\"bold\">The storage device below may contain "
+"data.</span>"
+msgstr ""
+
+#: ui/reinitialize-dialog.glade.h:2
+msgid ""
+"Apply my choice to all devices with undetected partitions or filesystems"
+msgstr ""
+
+#: ui/reinitialize-dialog.glade.h:3
+msgid "No, keep any data"
+msgstr ""
+
+#: ui/reinitialize-dialog.glade.h:5
+msgid ""
+"We could not detect partitions or filesystems on this device.\n"
+"\n"
+"This could be because the device is <b>blank</b>, <b>unpartitioned</b>, or "
+"<b>virtual</b>. If not,\n"
+"there may be data on the device that can not be recovered if you use it in "
+"this\n"
+"installation. We can remove the device from this installation to protect the "
+"data.\n"
+"\n"
+"Are you sure this device does not contain valuable data?"
+msgstr ""
+
+#: ui/reinitialize-dialog.glade.h:12
+msgid "Yes, discard any data"
+msgstr ""
+
 #: lang-table.h:1
 msgid "Afrikaans"
 msgstr "afrykanerski"
@@ -6915,3 +6944,9 @@ msgstr "walijski"
 #: lang-table.h:61
 msgid "Zulu"
 msgstr "zulu"
+
+#~ msgid "FCP device %(device)s with WWPN %(wwpn)s and LUN %(lun)s"
+#~ msgstr "Urządzenie FCP %(device)s z WWPN %(wwpn)s i LUN %(lun)s"
+
+#~ msgid "DASD device %s"
+#~ msgstr "Urządzenia DASD %s"
