@@ -1307,7 +1307,6 @@ class DeviceTree(object):
             md_array._addDevice(device)
         else:
             # create the array with just this one member
-            # FIXME: why does this exact block appear twice?
             try:
                 # level is reported as, eg: "raid1"
                 md_level = udev_device_get_md_level(info)
