@@ -300,12 +300,7 @@ $LIBDIR/libnssdbm3.so
 $LIBDIR/libnssdbm3.chk
 $LIBDIR/libsoftokn3.so
 $LIBDIR/libsoftokn3.chk
-$LIBDIR/libnss3.so
-$LIBDIR/libnssckbi.so
-$LIBDIR/libnsspem.so
 $LIBDIR/libwrap*.so*
-$LIBDIR/libsmime3.so
-$LIBDIR/libssl3.so
 $LIBDIR/multipath/*
 $LIBDIR/rsyslog/*
 $LIBDIR/security/pam_*
@@ -531,6 +526,11 @@ usr/$LIBDIR/libstrata_client*
 usr/$LIBDIR/xorg/modules
 usr/$LIBDIR/libnssdbm3.so
 usr/$LIBDIR/libnssdbm3.chk
+usr/$LIBDIR/libnss3.so
+usr/$LIBDIR/libnssckbi.so
+usr/$LIBDIR/libnsspem.so
+usr/$LIBDIR/libsmime3.so
+usr/$LIBDIR/libssl3.so
 usr/$LIBDIR/xserver/SecurityPolicy
 usr/$LIBDIR/.*.hmac
 $LIBDIR/.libgcrypt*.hmac
