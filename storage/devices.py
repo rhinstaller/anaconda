@@ -2749,6 +2749,11 @@ class MDRaidArrayDevice(StorageDevice):
 
         device.setup()
         udev_settle()
+
+        if self.spares:
+            # mdadm doesn't like it when you try to incrementally add spares
+            return
+
         try:
             mdraid.mdadd(device.path)
             # mdadd causes udev events
