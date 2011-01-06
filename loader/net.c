@@ -1458,6 +1458,11 @@ int writeEnabledNetInfo(iface_t *iface) {
         fprintf(fp, "MACADDR=%s\n", iface->macaddr);
     }
 
+    if (!iface->defroute) {
+        fprintf(fp, "DEFROUTE=no\n");
+        logMessage(INFO, "not setting default route via %s", iface->device);
+    }
+
     if (fclose(fp) == EOF) {
         free(ofile);
         free(nfile);
@@ -1537,7 +1542,7 @@ void setKickstartNetwork(struct loaderData_s * loaderData, int argc,
     gchar *bootProto = NULL, *device = NULL, *class = NULL, *ethtool = NULL;
     gchar *essid = NULL, *wepkey = NULL, *onboot = NULL, *gateway = NULL;
     gint mtu = 1500, dhcpTimeout = -1;
-    gboolean noipv4 = FALSE, noipv6 = FALSE, noDns = FALSE, noksdev = FALSE, activate = FALSE;
+    gboolean noipv4 = FALSE, noipv6 = FALSE, noDns = FALSE, noksdev = FALSE, activate = FALSE, nodefroute=FALSE;
     GOptionContext *optCon = g_option_context_new(NULL);
     GError *optErr = NULL;
     struct in_addr addr;
@@ -1571,6 +1576,7 @@ void setKickstartNetwork(struct loaderData_s * loaderData, int argc,
         { "onboot", 0, 0, G_OPTION_ARG_STRING, &onboot, NULL, NULL },
         { "notksdevice", 0, 0, G_OPTION_ARG_NONE, &noksdev, NULL, NULL },
         { "activate", 0, 0, G_OPTION_ARG_NONE, &activate, NULL, NULL },
+        { "nodefroute", 0, 0, G_OPTION_ARG_NONE, &nodefroute, NULL, NULL },
         { "dhcptimeout", 0, 0, G_OPTION_ARG_INT, &dhcpTimeout, NULL, NULL },
         { NULL },
     };
@@ -1693,6 +1699,10 @@ void setKickstartNetwork(struct loaderData_s * loaderData, int argc,
 
     if (noDns) {
         loaderData->noDns = 1;
+    }
+
+    if (nodefroute) {
+        iface.defroute = 0;
     }
 
     if (!is_nm_connected()) {
