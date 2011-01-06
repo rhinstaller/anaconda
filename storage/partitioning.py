@@ -94,9 +94,17 @@ def _schedulePartitions(anaconda, disks):
 
         if request.fstype is None:
             request.fstype = anaconda.id.storage.defaultFSType
-        elif request.fstype == "prepboot" and anaconda.platform.bootDevice():
-            # there should never be a need for more than one PReP partition
-            continue
+        elif request.fstype == "prepboot":
+            # make sure there never is more than one prepboot per disk
+            bootdev = anaconda.platform.bootDevice()
+            if (bootdev and
+                anaconda.id.bootloader.drivelist and
+                anaconda.id.bootloader.drivelist[0] == bootdev.disk.name):
+                # do not allow creating the new PReP boot on the same drive
+                log.info("partitioning: skipping a PReP boot "
+                         "partition request on %s" % bootdev.disk.name)
+                continue
+            log.debug("partitioning: allowing a PReP boot partition request")
 
         # This is a little unfortunate but let the backend dictate the rootfstype
         # so that things like live installs can do the right thing
