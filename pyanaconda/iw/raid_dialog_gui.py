@@ -101,18 +101,20 @@ class RaidEditor:
 
     def createRaidMinorMenu(self, minors, reqminor):
         minorcombo = datacombo.DataComboBox()
-	defindex = 0
-	i = 0
-	for minor in minors:
-            minorcombo.append("md%d" %(minor,), minor)
-	    if reqminor and minor == reqminor:
-		defindex = i
-	    i = i + 1
+        defindex = 0
+        i = 0
+        for minor in minors:
+            name = "md%d" % minor
+            if name in self.storage.devicetree._ignoredDisks:
+                continue
+            minorcombo.append(name, minor)
+            if reqminor and minor == reqminor:
+                defindex = i
+            i = i + 1
 
         minorcombo.set_active(defindex)
 
-	return minorcombo
-
+        return minorcombo
 
     def raidlevelchangeCB(self, widget, sparesb):
 	raidlevel = widget.get_model()[widget.get_active()][0]
