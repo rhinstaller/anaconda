@@ -908,6 +908,9 @@ class DeviceTree(object):
 
         if self.isIgnored(info):
             log.debug("ignoring %s (%s)" % (name, sysfs_path))
+            if name not in self._ignoredDisks:
+                self.addIgnoredDisk(name)
+
             if udev_device_is_multipath_member(info):
                 # last time we are seeing this mpath member is now, so make sure
                 # LVM ignores its partitions too else a duplicate VG name could
