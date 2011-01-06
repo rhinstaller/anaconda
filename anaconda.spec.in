@@ -221,6 +221,13 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Thu Jan 06 2011 Martin Sivak <msivak@redhat.com> - 13.21.86-1
+- Use a different method to get the sysfs_path for device-mapper devices.
+  (clumens)
+  Related: rhbz#591713
+- Allow existing /var/log during liveinst (bcl)
+  Resolves: rhbz#667606
+
 * Tue Jan 04 2011 Martin Sivak <msivak@redhat.com> - 13.21.85-1
 - Merge rsyslogd from master, the buildinstall parts. (akozumpl)
   Related: rhbz#601337
