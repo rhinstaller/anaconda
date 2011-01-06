@@ -1549,31 +1549,28 @@ class InstallControlWindow:
 
     def createWidgets (self):
         self.window.set_title(_("%s Installer") %(productName,))
-        
-        i = self.mainxml.get_widget("headerImage")        
+
+        i = self.mainxml.get_widget("headerImage")
         p = readImageFromFile("anaconda_header.png",
                               dither = False, image = i)
         if p is None:
             print(_("Unable to load title bar"))
-        if (gtk.gdk.screen_height() < 600) or \
-                (gtk.gdk.screen_height() <= 675 and flags.livecdInstall):
+
+        if flags.livecdInstall:
             i.hide()
             self.window.set_resizable(True)
-            self.window.set_size_request(-1, -1)
+            self.window.maximize()
+        elif flags.preexisting_x11:
+            # Forwarded X11, don't take over their whole screen
+            i.hide()
+            self.window.set_resizable(True)
         else:
-            # if we're running in the live mode and the dpi is something weird,
-            # give ourselves as much space as we can.  this gets things to fit
-            # with a dpi of up to 147
-            if flags.livecdInstall:
+            # Normal install, full screen
+            self.window.set_type_hint(gtk.gdk.WINDOW_TYPE_HINT_DESKTOP)
+            if gtk.gdk.screen_height() < 600:
                 i.hide()
-            elif self.anaconda.id.x_already_set:
-                # running on a pre-existing X, probably through X11 forwarding
-                pass
-            else:
-                # normal graphical install or a VNC session
-                self.window.set_type_hint(gtk.gdk.WINDOW_TYPE_HINT_DESKTOP)
 
-        self.window.maximize()
+            self.window.maximize()
 
         if flags.debug:
             self.mainxml.get_widget("debugButton").show_now()
