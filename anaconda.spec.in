@@ -229,6 +229,13 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Thu Jan 06 2011 Chris Lumens <clumens@redhat.com> - 15.14-1
+- Adjust main window size based on install type (#667566) (bcl)
+- Remove mknod-stub.  We have the full one around now. (clumens)
+- Use a different method to get the sysfs_path for device-mapper devices
+  (#665643). (clumens)
+- Allow existing /var/log (bcl)
+
 * Wed Dec 22 2010 Chris Lumens <clumens@redhat.com> - 15.13-1
 - Fix a syntax error in f16a565aa3a879a94862f4c3e5b2ede792ed05ef. (clumens)
 - Pass --noeject to anaconda (#477887) (bcl)
