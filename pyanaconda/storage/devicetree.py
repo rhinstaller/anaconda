@@ -679,6 +679,7 @@ class DeviceTree(object):
                                   sysfsPath=sysfs_path, exists=True,
                                   parents=[slave_dev])
                 device.protected = True
+                device.controllable = False
                 self._addDevice(device)
 
             # if we get here, we found all of the slave devices and
@@ -891,6 +892,11 @@ class DeviceTree(object):
                             parents=[file_device],
                             sysfsPath=sysfs_path,
                             exists=True)
+        if not self._cleanup or file_device not in self.diskImages.values():
+            # don't allow manipulation of loop devices other than those
+            # associated with disk images, and then only during cleanup
+            file_device.controllable = False
+            device.controllable = False
         self._addDevice(device)
         return device
 
