@@ -478,6 +478,7 @@ class StorageDevice(Device):
 
         self.protected = False
         self.immutable = None
+        self.controllable = True
 
         self.format = format
         self.originalFormat = self.format
@@ -627,9 +628,13 @@ class StorageDevice(Device):
 
     def setup(self, intf=None, orig=False):
         """ Open, or set up, a device. """
-        log_method_call(self, self.name, orig=orig, status=self.status)
+        log_method_call(self, self.name, orig=orig, status=self.status,
+                        controllable=self.controllable)
         if not self.exists:
             raise DeviceError("device has not been created", self.name)
+
+        if not self.controllable:
+            return
 
         self.setupParents(orig=orig)
         for parent in self.parents:
@@ -640,9 +645,13 @@ class StorageDevice(Device):
 
     def teardown(self, recursive=None):
         """ Close, or tear down, a device. """
-        log_method_call(self, self.name, status=self.status)
+        log_method_call(self, self.name, status=self.status,
+                        controllable=self.controllable)
         if not self.exists and not recursive:
             raise DeviceError("device has not been created", self.name)
+
+        if not self.controllable:
+            return
 
         if self.status:
             if self.originalFormat.exists:
@@ -882,7 +891,8 @@ class DiskDevice(StorageDevice):
 
     def setup(self, intf=None, orig=False):
         """ Open, or set up, a device. """
-        log_method_call(self, self.name, orig=orig, status=self.status)
+        log_method_call(self, self.name, orig=orig, status=self.status,
+                        controllable=self.controllable)
         if not os.path.exists(self.path):
             raise DeviceError("device does not exist", self.name)
 
@@ -1397,9 +1407,13 @@ class PartitionDevice(StorageDevice):
 
     def teardown(self, recursive=None):
         """ Close, or tear down, a device. """
-        log_method_call(self, self.name, status=self.status)
+        log_method_call(self, self.name, status=self.status,
+                        controllable=self.controllable)
         if not self.exists and not recursive:
             raise DeviceError("device has not been created", self.name)
+
+        if not self.controllable:
+            return
 
         if self.status:
             if self.originalFormat.exists:
@@ -1662,9 +1676,13 @@ class DMLinearDevice(DMDevice):
 
     def setup(self, intf=None, orig=False):
         """ Open, or set up, a device. """
-        log_method_call(self, self.name, orig=orig, status=self.status)
+        log_method_call(self, self.name, orig=orig, status=self.status,
+                        controllable=self.controllable)
         if not self.exists:
             raise DeviceError("device has not been created", self.name)
+
+        if not self.controllable:
+            return
 
         if self.status:
             return
@@ -1704,7 +1722,8 @@ class DMLinearDevice(DMDevice):
 
     def teardown(self, recursive=None):
         """ Close, or tear down, a device. """
-        log_method_call(self, self.name, status=self.status)
+        log_method_call(self, self.name, status=self.status,
+                        controllable=self.controllable)
         if not self.exists and not recursive:
             raise DeviceError("device has not been created", self.name)
 
@@ -1798,9 +1817,13 @@ class LUKSDevice(DMCryptDevice):
 
     def setup(self, intf=None, orig=False):
         """ Open, or set up, a device. """
-        log_method_call(self, self.name, orig=orig, status=self.status)
+        log_method_call(self, self.name, orig=orig, status=self.status,
+                        controllable=self.controllable)
         if not self.exists:
             raise DeviceError("device has not been created", self.name)
+
+        if not self.controllable:
+            return
 
         self.slave.setup(orig=orig)
         if orig:
@@ -1815,9 +1838,13 @@ class LUKSDevice(DMCryptDevice):
 
     def teardown(self, recursive=False):
         """ Close, or tear down, a device. """
-        log_method_call(self, self.name, status=self.status)
+        log_method_call(self, self.name, status=self.status,
+                        controllable=self.controllable)
         if not self.exists and not recursive:
             raise DeviceError("device has not been created", self.name)
+
+        if not self.controllable:
+            return
 
         if self.status:
             if self.originalFormat.exists:
@@ -2078,9 +2105,13 @@ class LVMVolumeGroupDevice(DMDevice):
             XXX we don't do anything like "vgchange -ay" because we don't
                 want all of the LVs activated, just the VG itself.
         """
-        log_method_call(self, self.name, orig=orig, status=self.status)
+        log_method_call(self, self.name, orig=orig, status=self.status,
+                        controllable=self.controllable)
         if not self.exists:
             raise DeviceError("device has not been created", self.name)
+
+        if not self.controllable:
+            return
 
         if self.status:
             return
@@ -2092,9 +2123,13 @@ class LVMVolumeGroupDevice(DMDevice):
 
     def teardown(self, recursive=None):
         """ Close, or tear down, a device. """
-        log_method_call(self, self.name, status=self.status)
+        log_method_call(self, self.name, status=self.status,
+                        controllable=self.controllable)
         if not self.exists and not recursive:
             raise DeviceError("device has not been created", self.name)
+
+        if not self.controllable:
+            return
 
         if self.status:
             lvm.vgdeactivate(self.name)
@@ -2489,11 +2524,15 @@ class LVMLogicalVolumeDevice(DMDevice):
 
     def setup(self, intf=None, orig=False):
         """ Open, or set up, a device. """
-        log_method_call(self, self.name, orig=orig, status=self.status)
+        log_method_call(self, self.name, orig=orig, status=self.status,
+                        controllable=self.controllable)
         if not self.exists:
             raise DeviceError("device has not been created", self.name)
 
         if self.status:
+            return
+
+        if not self.controllable:
             return
 
         self.vg.setup(orig=orig)
@@ -2505,9 +2544,13 @@ class LVMLogicalVolumeDevice(DMDevice):
 
     def teardown(self, recursive=None):
         """ Close, or tear down, a device. """
-        log_method_call(self, self.name, status=self.status)
+        log_method_call(self, self.name, status=self.status,
+                        controllable=self.controllable)
         if not self.exists and not recursive:
             raise DeviceError("device has not been created", self.name)
+
+        if not self.controllable:
+            return
 
         if self.status:
             if self.originalFormat.exists:
@@ -2947,11 +2990,15 @@ class MDRaidArrayDevice(StorageDevice):
 
     def setup(self, intf=None, orig=False):
         """ Open, or set up, a device. """
-        log_method_call(self, self.name, orig=orig, status=self.status)
+        log_method_call(self, self.name, orig=orig, status=self.status,
+                        controllable=self.controllable)
         if not self.exists:
             raise DeviceError("device has not been created", self.name)
 
         if self.status:
+            return
+
+        if not self.controllable:
             return
 
         disks = []
@@ -2977,9 +3024,13 @@ class MDRaidArrayDevice(StorageDevice):
 
     def teardown(self, recursive=None):
         """ Close, or tear down, a device. """
-        log_method_call(self, self.name, status=self.status)
+        log_method_call(self, self.name, status=self.status,
+                        controllable=self.controllable)
         if not self.exists and not recursive:
             raise DeviceError("device has not been created", self.name)
+
+        if not self.controllable:
+            return
 
         if self.status:
             if self.originalFormat.exists:
@@ -3203,13 +3254,18 @@ class DMRaidArrayDevice(DMDevice):
 
     def setup(self, intf=None, orig=False):
         """ Open, or set up, a device. """
-        log_method_call(self, self.name, orig=orig, status=self.status)
+        log_method_call(self, self.name, orig=orig, status=self.status,
+                        controllable=self.controllable)
+        if not self.controllable:
+            return
+
         StorageDevice.setup(self, intf=intf, orig=orig)
         self.activate()
 
     def teardown(self, recursive=None):
         """ Close, or tear down, a device. """
-        log_method_call(self, self.name, status=self.status)
+        log_method_call(self, self.name, status=self.status,
+                        controllable=self.controllable)
         if not self.exists and not recursive:
             raise DeviceError("device has not been created", self.name)
 
@@ -3319,10 +3375,14 @@ class MultipathDevice(DMDevice):
 
     def teardown(self, recursive=None):
         """ Tear down the mpath device. """
-        log_method_call(self, self.name, status=self.status)
+        log_method_call(self, self.name, status=self.status,
+                        controllable=self.controllable)
 
         if not self.exists and not recursive:
             raise DeviceError("device has not been created", self.name)
+
+        if not self.controllable:
+            return
 
         if self.status:
             # in case format is not a disklabel but a filesystem
@@ -3363,9 +3423,13 @@ class MultipathDevice(DMDevice):
 
     def setup(self, intf=None, orig=False):
         """ Open, or set up, a device. """
-        log_method_call(self, self.name, orig=orig, status=self.status)
+        log_method_call(self, self.name, orig=orig, status=self.status,
+                        controllable=self.controllable)
 
         if self.status:
+            return
+
+        if not self.controllable:
             return
 
         StorageDevice.setup(self, intf=intf, orig=orig)
@@ -3412,11 +3476,13 @@ class NoDevice(StorageDevice):
 
     def setup(self, intf=None, orig=False):
         """ Open, or set up, a device. """
-        log_method_call(self, self.name, orig=orig, status=self.status)
+        log_method_call(self, self.name, orig=orig, status=self.status,
+                        controllable=self.controllable)
 
     def teardown(self, recursive=False):
         """ Close, or tear down, a device. """
-        log_method_call(self, self.name, status=self.status)
+        log_method_call(self, self.name, status=self.status,
+                        controllable=self.controllable)
 
     def create(self, intf=None):
         """ Create the device. """
@@ -3489,6 +3555,9 @@ class FileDevice(StorageDevice):
         return os.path.normpath("%s%s" % (root, self.name))
 
     def setup(self, intf=None, orig=False):
+        if not self.controllable:
+            return
+
         StorageDevice.setup(self, orig=orig)
         if self.format and self.format.exists and not self.format.status:
             self.format.device = self.path
@@ -3500,6 +3569,9 @@ class FileDevice(StorageDevice):
                 parent.format.setup()
 
     def teardown(self, recursive=None):
+        if not self.controllable:
+            return
+
         StorageDevice.teardown(self)
         if self.format and self.format.exists and not self.format.status:
             self.format.device = self.path
@@ -3635,11 +3707,15 @@ class LoopDevice(StorageDevice):
 
     def setup(self, intf=None, orig=False):
         """ Open, or set up, a device. """
-        log_method_call(self, self.name, orig=orig, status=self.status)
+        log_method_call(self, self.name, orig=orig, status=self.status,
+                        controllable=self.controllable)
         if not self.exists:
             raise DeviceError("device has not been created", self.name)
 
         if self.status:
+            return
+
+        if not self.controllable:
             return
 
         loop.loop_setup(self.slave.path)
@@ -3650,9 +3726,13 @@ class LoopDevice(StorageDevice):
 
     def teardown(self, recursive=False):
         """ Close, or tear down, a device. """
-        log_method_call(self, self.name, status=self.status)
+        log_method_call(self, self.name, status=self.status,
+                        controllable=self.controllable)
         if not self.exists and not recursive:
             raise DeviceError("device has not been created", self.name)
+
+        if not self.controllable:
+            return
 
         if self.status:
             if self.originalFormat.exists:
@@ -3887,11 +3967,13 @@ class NFSDevice(StorageDevice, NetworkStorageDevice):
 
     def setup(self, intf=None, orig=False):
         """ Open, or set up, a device. """
-        log_method_call(self, self.name, orig=orig, status=self.status)
+        log_method_call(self, self.name, orig=orig, status=self.status,
+                        controllable=self.controllable)
 
     def teardown(self, recursive=None):
         """ Close, or tear down, a device. """
-        log_method_call(self, self.name, status=self.status)
+        log_method_call(self, self.name, status=self.status,
+                        controllable=self.controllable)
 
     def create(self, intf=None):
         """ Create the device. """
