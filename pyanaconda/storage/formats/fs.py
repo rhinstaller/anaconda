@@ -682,6 +682,13 @@ class FS(DeviceFormat):
         self.label = label
         self.notifyKernel()
 
+    def _getRandomUUID(self):
+        uuid = iutil.execWithCapture("uuidgen").strip()
+        return uuid
+
+    def writeRandomUUID(self):
+        raise NotImplementedError("FS does not implement writeRandomUUID")
+
     @property
     def isDirty(self):
         return False
@@ -946,6 +953,27 @@ class Ext2FS(FS):
                                         stderr = "/dev/tty5")
         except Exception as e:
             log.error("failed to run tune2fs on %s: %s" % (self.device, e))
+
+    def writeRandomUUID(self):
+        if not self.exists:
+            raise FSError("filesystem does not exist")
+
+        err = None
+        try:
+            rc = iutil.execWithRedirect("tune2fs",
+                                        ["-U",
+                                         "random",
+                                         self.device],
+                                        stdout="/dev/tty5",
+                                        stderr="/dev/tty5")
+        except Exception as e:
+            err = str(e)
+        else:
+            if rc:
+                err = rc
+
+        if err:
+            raise FSError("failed to set UUID for %s: %s" % (self.device, err))
 
     @property
     def minSize(self):

@@ -615,6 +615,14 @@ class Storage(object):
         protected.sort(key=lambda d: d.name)
         return protected
 
+    @property
+    def liveImage(self):
+        """ The OS image used by live installs. """
+        _image = None
+        if flags.livecdInstall:
+            _image = self.devicetree.getDeviceByPath(self.anaconda.methodstr[9:])
+        return _image
+
     def exceptionDisks(self):
         """ Return a list of removable devices to save exceptions to.
 
@@ -1000,20 +1008,25 @@ class Storage(object):
 
         if (root and
             root.size < self.anaconda.backend.getMinimumSizeMB("/")):
+            if flags.livecdInstall:
+                live = " Live"
+            else:
+                live = ""
             errors.append(_("Your / partition is less than %(min)s "
                             "MB which is lower than recommended "
-                            "for a normal %(productName)s install.")
+                            "for a normal %(productName)s%(live)s install.")
                           % {'min': self.anaconda.backend.getMinimumSizeMB("/"),
-                             'productName': productName})
+                             'productName': productName,
+                             'live': live})
 
         # livecds have to have the rootfs type match up
         if (root and
-            self.anaconda.backend.rootFsType and
-            root.format.type != self.anaconda.backend.rootFsType):
+            self.liveImage and
+            root.format.type != self.liveImage.format.type):
             errors.append(_("Your / partition does not match the "
                             "the live image you are installing from.  "
                             "It must be formatted as %s.")
-                          % (self.anaconda.backend.rootFsType,))
+                          % (self.liveImage.format.type,))
 
         for (mount, size) in checkSizes:
             if mount in filesystems and filesystems[mount].size < size:

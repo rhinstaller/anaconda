@@ -116,8 +116,8 @@ class LiveCDCopyBackend(backend.AnacondaBackend):
         self.supportsPackageSelection = False
         self.skipFormatRoot = True
 
-        self.osimg = anaconda.methodstr[8:]
-        if not stat.S_ISBLK(os.stat(self.osimg)[stat.ST_MODE]):
+        osimg_path = anaconda.methodstr[9:]
+        if not stat.S_ISBLK(os.stat(osimg_path)[stat.ST_MODE]):
             anaconda.intf.messageWindow(_("Unable to find image"),
                                _("The given location isn't a valid %s "
                                  "live CD to use as an installation source.")
@@ -125,28 +125,6 @@ class LiveCDCopyBackend(backend.AnacondaBackend):
                                custom_icon="error",
                                custom_buttons=[_("Exit installer")])
             sys.exit(0)
-        self.rootFsType = isys.readFSType(self.osimg)
-
-    def _getLiveBlockDevice(self):
-        return os.path.normpath(self.osimg)
-
-    def _getLiveSize(self):
-        def parseField(output, field):
-            for line in output.split("\n"):
-                if line.startswith(field + ":"):
-                    return line[len(field) + 1:].strip()
-            raise KeyError("Failed to find field '%s' in output" % field)
-
-        output = subprocess.Popen(['/sbin/dumpe2fs', '-h', self.osimg],
-                                  stdout=subprocess.PIPE,
-                                  stderr=open('/dev/null', 'w')
-                                  ).communicate()[0]
-        blkcnt = int(parseField(output, "Block count"))
-        blksize = int(parseField(output, "Block size"))
-        return blkcnt * blksize
-
-    def _getLiveSizeMB(self):
-        return self._getLiveSize() / 1048576
 
     def postAction(self, anaconda):
         try:
@@ -165,15 +143,14 @@ class LiveCDCopyBackend(backend.AnacondaBackend):
         progress.set_label(_("Copying live image to hard drive."))
         progress.processEvents()
 
-        osimg = self._getLiveBlockDevice() # the real image
-        osfd = os.open(osimg, os.O_RDONLY)
+        osfd = os.open(self.anaconda.storage.liveImage.path, os.O_RDONLY)
 
         rootDevice = anaconda.storage.rootDevice
         rootDevice.setup()
         rootfd = os.open(rootDevice.path, os.O_WRONLY)
 
         readamt = 1024 * 1024 * 8 # 8 megs at a time
-        size = self._getLiveSize()
+        size = self.anaconda.storage.liveImage.format.currentSize * 1024 * 1024
         copied = 0
         while copied < size:
             try:
@@ -214,22 +191,17 @@ class LiveCDCopyBackend(backend.AnacondaBackend):
                                         _("Performing post-installation filesystem changes.  This may take several minutes."))
 
         # resize rootfs first, since it is 100% full due to genMinInstDelta
-        self._resizeRootfs(anaconda, wait)
+        rootDevice = anaconda.storage.rootDevice
+        rootDevice.setup()
+        rootDevice.format.targetSize = rootDevice.format.minSize
+        rootDevice.format.doResize(intf=anaconda.intf)
+
+        # ensure we have a random UUID on the rootfs
+        rootDevice.format.writeRandomUUID()
 
         # remount filesystems
         anaconda.storage.mountFilesystems()
 
-        # restore the label of / to what we think it is
-        rootDevice = anaconda.storage.rootDevice
-        rootDevice.setup()
-        # ensure we have a random UUID on the rootfs
-        # FIXME: this should be abstracted per filesystem type
-        iutil.execWithRedirect("tune2fs",
-                               ["-U",
-                                "random",
-                                rootDevice.path],
-                               stdout="/dev/tty5",
-                               stderr="/dev/tty5")
         # and now set the uuid in the storage layer
         rootDevice.updateSysfsPath()
         iutil.notify_kernel("/sys%s" %rootDevice.sysfsPath)
@@ -337,36 +309,6 @@ class LiveCDCopyBackend(backend.AnacondaBackend):
 
         wait.pop()
 
-    def _resizeRootfs(self, anaconda, win = None):
-        log.info("going to do resize")
-        rootDevice = anaconda.storage.rootDevice
-
-        # FIXME: we'd like to have progress here to give an idea of
-        # how long it will take.  or at least, to give an indefinite
-        # progress window.  but, not for this time
-        cmd = ["resize2fs", rootDevice.path, "-p"]
-        out = open("/dev/tty5", "w")
-        proc = subprocess.Popen(cmd, stdout=out, stderr=out)
-        rc = proc.poll()
-        while rc is None:
-            win and win.refresh()
-            time.sleep(0.5)
-            rc = proc.poll()
-
-        if rc:
-            log.error("error running resize2fs; leaving filesystem as is")
-            return
-
-        # we should also do a fsck afterwards
-        cmd = ["e2fsck", "-f", "-y", rootDevice.path]
-        out = open("/dev/tty5", "w")
-        proc = subprocess.Popen(cmd, stdout=out, stderr=out)
-        rc = proc.poll()
-        while rc is None:
-            win and win.refresh()
-            time.sleep(0.5)
-            rc = proc.poll()
-
     def doPostInstall(self, anaconda):
         import rpm
 
@@ -402,28 +344,11 @@ class LiveCDCopyBackend(backend.AnacondaBackend):
 
     def getMinimumSizeMB(self, part):
         if part == "/":
-            return self._getLiveSizeMB()
+            return self.anaconda.storage.liveImage.format.size
         return 0
 
     def doBackendSetup(self, anaconda):
-        # ensure there's enough space on the rootfs
-        # FIXME: really, this should be in the general sanity checking, but
-        # trying to weave that in is a little tricky at present.
-        ossize = self._getLiveSizeMB()
-        slash = anaconda.storage.rootDevice
-        if slash.size < ossize:
-            rc = anaconda.intf.messageWindow(_("Error"),
-                                        _("The root filesystem you created is "
-                                          "not large enough for this live "
-                                          "image (%.2f MB required).") % ossize,
-                                        type = "custom",
-                                        custom_icon = "error",
-                                        custom_buttons=[_("_Back"),
-                                                        _("_Exit installer")])
-            if rc == 0:
-                return DISPATCH_BACK
-            else:
-                sys.exit(1)
+        pass
 
     # package/group selection doesn't apply for this backend
     def groupExists(self, group):

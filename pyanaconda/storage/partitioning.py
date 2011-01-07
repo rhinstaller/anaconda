@@ -99,8 +99,8 @@ def _schedulePartitions(anaconda, disks):
 
         # This is a little unfortunate but let the backend dictate the rootfstype
         # so that things like live installs can do the right thing
-        if request.mountpoint == "/" and anaconda.backend.rootFsType != None:
-            request.fstype = anaconda.backend.rootFsType
+        if request.mountpoint == "/" and anaconda.storage.liveImage:
+            request.fstype = anaconda.storage.liveImage.format.type
 
         dev = anaconda.storage.newPartition(fmt_type=request.fstype,
                                             size=request.size,
@@ -152,8 +152,8 @@ def _scheduleLVs(anaconda, devs):
 
         # This is a little unfortunate but let the backend dictate the rootfstype
         # so that things like live installs can do the right thing
-        if request.mountpoint == "/" and anaconda.backend.rootFsType != None:
-            request.fstype = anaconda.backend.rootFsType
+        if request.mountpoint == "/" and anaconda.storage.liveImage:
+            request.fstype = anaconda.storage.liveImage.format.type
 
         # FIXME: move this to a function and handle exceptions
         dev = anaconda.storage.newLV(vg=vg,
