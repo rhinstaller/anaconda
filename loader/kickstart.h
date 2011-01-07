@@ -50,5 +50,6 @@ int isKickstartFileRemote(char *ksFile);
 void getKickstartFile(struct loaderData_s * loaderData);
 void runKickstart(struct loaderData_s * loaderData);
 int getKickstartFromBlockDevice(char *device, char *path);
+void addActivateToFirstKsNetworkCommand();
 
 #endif

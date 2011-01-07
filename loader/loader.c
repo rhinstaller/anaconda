@@ -2227,6 +2227,7 @@ int main(int argc, char ** argv) {
             getKickstartFile(&loaderData);
         if (FL_KICKSTART(flags) && 
             (ksReadCommands((ksFile)?ksFile:loaderData.ksFile)!=LOADER_ERROR)) {
+            addActivateToFirstKsNetworkCommand();
             runKickstart(&loaderData);
         }
     }

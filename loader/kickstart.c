@@ -543,6 +543,22 @@ static void setMediaCheck(struct loaderData_s * loaderData, int argc,
     return;
 }
 
+void addActivateToFirstKsNetworkCommand() {
+    int i = 0;
+
+    for (i = 0; i < numCommands; i++) {
+        if (commands[i].code == KS_CMD_NETWORK) {
+            logMessage(INFO, "adding --activate to first kickstart network command");
+            commands[i].argc++;
+            commands[i].argv = g_realloc(commands[i].argv,
+                    sizeof(gchar *) * (commands[i].argc + 1));
+            commands[i].argv[commands[i].argc -1] = "--activate";
+            commands[i].argv[commands[i].argc] = NULL;
+            break;
+        }
+    }
+}
+
 void runKickstart(struct loaderData_s * loaderData) {
     struct ksCommandNames * cmd;
     int argc;
