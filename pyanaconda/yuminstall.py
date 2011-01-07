@@ -796,6 +796,18 @@ class AnacondaYum(yum.YumBase):
 
         if self.anaconda.ksdata:
             for ksrepo in self.anaconda.ksdata.repo.repoList:
+                # If no location was given, this must be a repo pre-configured
+                # through /etc/yum.repos.d that we just want to enable.
+                if not ksrepo.baseurl and not ksrepo.mirrorlist:
+                    try:
+                        repo = self.repos.getRepo(ksrepo.name)
+                        repo.enable()
+                        log.info("enabled repository %s with URL %s" % (repo.name, repo.mirrorlist or repo.baseurl[0]))
+                    except RepoError:
+                        log.error("Could not find the pre-configured repo %s, skipping" % ksrepo.name)
+
+                    continue
+
                 anacondaBaseURLs = [ksrepo.baseurl]
 
                 # yum doesn't understand nfs:// and doesn't want to.  We need
