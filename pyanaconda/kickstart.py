@@ -1202,6 +1202,7 @@ class AnacondaKSHandler(superclass):
     def execute(self):
         try:
             for obj in filter(lambda o: hasattr(o, "execute"), self._dataObjs):
+                obj.anaconda = self.anaconda
                 obj.execute()
         except KickstartError as e:
             if self.anaconda.intf:
