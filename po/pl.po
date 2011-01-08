@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: pl\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
 "POT-Creation-Date: 2011-01-04 14:19+0100\n"
-"PO-Revision-Date: 2010-12-14 15:33+0100\n"
+"PO-Revision-Date: 2011-01-08 08:56+0100\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <trans-pl@lists.fedoraproject.org>\n"
 "Language: pl\n"
@@ -389,9 +389,8 @@ msgid "Error Enabling Network"
 msgstr "Błąd podczas włączania sieci"
 
 #: gui.py:1241 ui/reinitialize-dialog.glade.h:4
-#, fuzzy
 msgid "Storage Device Warning"
-msgstr "Podstawowe urządzenia przechowywania danych"
+msgstr "Ostrzeżenie urządzenia przechowywania danych"
 
 #: gui.py:1290 text.py:543
 #, python-format
@@ -6673,15 +6672,19 @@ msgid ""
 "<span size=\"large\" weight=\"bold\">The storage device below may contain "
 "data.</span>"
 msgstr ""
+"<span size=\"large\" weight=\"bold\">Poniższe urządzenie przechowywania "
+"danych może zawierać dane.</span>"
 
 #: ui/reinitialize-dialog.glade.h:2
 msgid ""
 "Apply my choice to all devices with undetected partitions or filesystems"
 msgstr ""
+"Zastosuj wybór do wszystkich urządzeń z niewykrytymi partycjami lub "
+"systemami plików"
 
 #: ui/reinitialize-dialog.glade.h:3
 msgid "No, keep any data"
-msgstr ""
+msgstr "Nie, zachowaj wszystkie dane"
 
 #: ui/reinitialize-dialog.glade.h:5
 msgid ""
@@ -6696,10 +6699,19 @@ msgid ""
 "\n"
 "Are you sure this device does not contain valuable data?"
 msgstr ""
+"Nie można wykryć partycji ani systemów plików na tym urządzeniu.\n"
+"\n"
+"Może to być spowodowane tym, że to urządzenie jest <b>puste</b>,\n"
+"<b>nie podzielone na partycje</b> lub <b>wirtualne</b>. Jeśli nie jest,\n"
+"mogą znajdować się na nim dane, których nie będzie można przywrócić po\n"
+"użyciu urządzenia w tej instalacji. Można usunąć to urządzenie z tej\n"
+"instalacji, aby ochronić dane.\n"
+"\n"
+"Na pewno to urządzenie nie zawiera żadnych wartościowych danych?"
 
 #: ui/reinitialize-dialog.glade.h:12
 msgid "Yes, discard any data"
-msgstr ""
+msgstr "Tak, usuń wszystkie dane"
 
 #: lang-table.h:1
 msgid "Afrikaans"
@@ -6944,9 +6956,3 @@ msgstr "walijski"
 #: lang-table.h:61
 msgid "Zulu"
 msgstr "zulu"
-
-#~ msgid "FCP device %(device)s with WWPN %(wwpn)s and LUN %(lun)s"
-#~ msgstr "Urządzenie FCP %(device)s z WWPN %(wwpn)s i LUN %(lun)s"
-
-#~ msgid "DASD device %s"
-#~ msgstr "Urządzenia DASD %s"
