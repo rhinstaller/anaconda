@@ -328,6 +328,10 @@ function init_main() {
         # make /tmp/ramfs
         mount -t ramfs none /tmp
 
+        # start rsyslogd after mount of /tmp ramfs since it logs to /tmp/syslog
+        echo $"Starting rsyslogd..."
+        rsyslogd -c 4
+
         ifconfig lo 127.0.0.1 netmask 255.0.0.0
         route add -host 127.0.0.1 dev lo
 
