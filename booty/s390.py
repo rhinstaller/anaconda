@@ -154,11 +154,11 @@ class s390BootloaderInfo(bootloaderInfo):
         f.close()
 
         if not justConfigFile:
-            rc = iutil.execWithRedirect("/sbin/zipl", [], root = instRoot,
-                                        stdout = "/dev/stdout",
-                                        stderr = "/dev/stderr")
-            if rc:
-                return rc
+            rc = iutil.execWithCapture("zipl", [], root = instRoot,
+                                       stderr = "/dev/stderr")
+            for line in rc.splitlines():
+                if line.startswith("Preparing boot device: "):
+                    self.setDevice(line.split()[-1].replace('.', ''))
 
         return 0
 

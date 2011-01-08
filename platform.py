@@ -43,6 +43,7 @@ class Platform(object):
     _isEfi = iutil.isEfi()
     _minimumSector = 0
     _packages = []
+    _supportsLvmBoot = False
     _supportsMdRaidBoot = False
     _minBootPartSize = 50
     _maxBootPartSize = 0
@@ -115,8 +116,8 @@ class Platform(object):
         if req.type == "mdarray" and req.level != 1:
             errors.append(_("Bootable partitions can only be on RAID1 devices."))
 
-        # can't have bootable partition on LV
-        if req.type == "lvmlv":
+        # most arches can't have boot on a logical volume
+        if req.type == "lvmlv" and not self.supportsLvmBoot:
             errors.append(_("Bootable partitions cannot be on a logical volume."))
 
         # most arches can't have boot on RAID
@@ -162,6 +163,11 @@ class Platform(object):
         """Return the default platform-specific partitioning information."""
         return [PartSpec(mountpoint="/boot", fstype=self.defaultBootFSType, size=500,
                          weight=self.weight(mountpoint="/boot"))]
+
+    @property
+    def supportsLvmBoot(self):
+        """Does the platform support /boot on LVM logical volume?"""
+        return self._supportsLvmBoot
 
     @property
     def supportsMdRaidBoot(self):
@@ -461,6 +467,7 @@ class PS3(PPC):
 class S390(Platform):
     _bootFSTypes = ["ext4", "ext3", "ext2"]
     _packages = ["s390utils"]
+    _supportsLvmBoot = True
 
     def __init__(self, anaconda):
         Platform.__init__(self, anaconda)
@@ -471,6 +478,11 @@ class S390(Platform):
             return "dasd"
         else:
             return Platform.diskLabelType(self, deviceType)
+
+    def setDefaultPartitioning(self):
+        """Return the default platform-specific partitioning information."""
+        return [PartSpec(mountpoint="/boot", fstype=self.defaultBootFSType, size=500,
+                         weight=self.weight(mountpoint="/boot"), asVol=True)]
 
 class Sparc(Platform):
     _diskLabelType = "sun"

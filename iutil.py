@@ -804,7 +804,7 @@ def numeric_type(num):
 
 def reIPL(anaconda, loader_pid):
     try:
-        ipldev = anaconda.platform.bootDevice().disk.name
+        ipldev = anaconda.id.bootloader.getDevice()
     except:
         message = _("Error determining boot device's disk name")
         log.warning(message)
