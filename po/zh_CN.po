@@ -57,7 +57,6 @@ msgid "Not enough RAM"
 msgstr "内存不足"
 
 #: anaconda:339
-#, fuzzy
 msgid ""
 " Try the text mode installer by running:\n"
 "\n"
@@ -72,9 +71,8 @@ msgstr ""
 "尝试文本模式安装。"
 
 #: anaconda:342
-#, fuzzy
 msgid " Starting text mode."
-msgstr "启动文本模式。"
+msgstr " 正在启动文本模式。"
 
 #: anaconda:366 pyanaconda/rescue.py:361 pyanaconda/rescue.py:393
 #: pyanaconda/rescue.py:406 pyanaconda/rescue.py:490 pyanaconda/rescue.py:507
@@ -491,7 +489,6 @@ msgid "Missing ISO 9660 Image"
 msgstr "缺少 ISO 9660图像"
 
 #: pyanaconda/image.py:163
-#, fuzzy
 msgid ""
 "The installer has tried to mount the installation image, but cannot find it "
 "on the hard drive.\n"
@@ -631,7 +628,7 @@ msgid "the device containing /boot"
 msgstr "设备包含 /boot"
 
 #: pyanaconda/iutil.py:843
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "After shutdown, please perform a manual IPL from %s to continue installation."
 msgstr "关机后，请在 DASD 设备 %s 中执行手动 IPL 以便继续安装"
@@ -670,9 +667,8 @@ msgstr ""
 "%s"
 
 #: pyanaconda/kickstart.py:405
-#, fuzzy
 msgid "Could not log into any iSCSI nodes at the portal."
-msgstr "无法登录到任意找到的节点"
+msgstr "不能在入口登陆到任何iSCSI节点。"
 
 #: pyanaconda/kickstart.py:1310
 #, python-format
@@ -1142,14 +1138,12 @@ msgid "iSCSI Error"
 msgstr "iSCSI错误"
 
 #: pyanaconda/partIntfHelpers.py:519
-#, fuzzy
 msgid "Discovery"
-msgstr "目录（_D）"
+msgstr "发现"
 
 #: pyanaconda/partIntfHelpers.py:519
-#, fuzzy
 msgid "Login"
-msgstr "载入"
+msgstr "登陆"
 
 #: pyanaconda/partIntfHelpers.py:520
 #, python-format
@@ -1344,23 +1338,19 @@ msgid "Exit"
 msgstr "退出"
 
 #: pyanaconda/rescue.py:379 pyanaconda/rescue.py:479
-#, fuzzy
 msgid "The system will reboot automatically when you exit from the shell."
-msgstr ""
-"您没有任何 Linux 分区，请按 <return> 键进入 shell。当您退出 shell 时，系统将"
-"会自动被重新引导。"
+msgstr "当您退出 shell 时，系统将会自动被重新引导。"
 
 #: pyanaconda/rescue.py:390
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Your system had dirty file systems which you chose not to mount.  Press "
 "return to get a shell from which you can fsck and mount your partitions. %s"
 msgstr ""
-"系统中存在您选择不挂载的有问题的文件系统，按回车键进入 shell，您便可以执行 "
-"fsck 命令并挂载分区。当您退出 shell 后，系统会自动被重新引导。"
+"系统中存在您选择不挂载的有问题的文件系统，按回车键进入 shell，您便可以执行fsck 命令并挂载分区。%s"
 
 #: pyanaconda/rescue.py:400
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Your system has been mounted under %(rootPath)s.\n"
 "\n"
@@ -1377,10 +1367,10 @@ msgstr ""
 "\n"
 "\tchroot %(rootPath)s\n"
 "\n"
-"当您退出 shell 后，系统将会自动重启。"
+"%(msg)s"
 
 #: pyanaconda/rescue.py:486
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error occurred trying to mount some or all of your system. Some of it may "
 "be mounted under %s.\n"
@@ -1389,27 +1379,25 @@ msgid ""
 msgstr ""
 "在挂载您的系统时出错。某些分区可能已经被挂载在 %s 之下。\n"
 "\n"
-"请按 <return> 键进入 shell，当您退出 shell 时，系统将会自动被重新引导。"
+"请按 <return> 键进入 shell。%s"
 
 #: pyanaconda/rescue.py:496
 msgid "You don't have any Linux partitions.  Rebooting.\n"
 msgstr "您没有任何 Linux 分区。重启。\n"
 
 #: pyanaconda/rescue.py:500
-#, fuzzy
 msgid " The system will reboot automatically when you exit from the shell."
 msgstr ""
-"您没有任何 Linux 分区，请按 <return> 键进入 shell。当您退出 shell 时，系统将"
-"会自动被重新引导。"
+"当您退出 shell 时，系统将会自动被重新引导。"
 
 #: pyanaconda/rescue.py:504
 msgid "Rescue Mode"
 msgstr "救援模式"
 
 #: pyanaconda/rescue.py:505
-#, fuzzy, python-format
+#, python-format
 msgid "You don't have any Linux partitions. Press return to get a shell.%s"
-msgstr "您没有任何 Linux 分区。重启。\n"
+msgstr "您没有任何 Linux 分区。%s"
 
 #: pyanaconda/rescue.py:517
 #, python-format
@@ -1761,9 +1749,9 @@ msgid "Preparing transaction from installation source"
 msgstr "准备从安装源传送"
 
 #: pyanaconda/yuminstall.py:166
-#, fuzzy, python-format
+#, python-format
 msgid "<b>Upgrading %(pkgStr)s</b> (%(size)s)\n"
-msgstr "<b>安装 %(pkgStr)s</b> (%(size)s)\n"
+msgstr "<b>%(pkgStr)s 升级中</b> (%(size)s)\n"
 
 #: pyanaconda/yuminstall.py:169
 #, python-format
@@ -1816,9 +1804,9 @@ msgid "Change Disc"
 msgstr "更换光盘"
 
 #: pyanaconda/yuminstall.py:406
-#, fuzzy, python-format
+#, python-format
 msgid "Please insert the %(productName)s disc to continue."
-msgstr "请插入 %(productName)s 光盘 %(discnum)d 以继续。"
+msgstr "请插入 %(productName)s 光盘以继续。"
 
 #: pyanaconda/yuminstall.py:415
 msgid "Wrong Disc"
@@ -2198,9 +2186,8 @@ msgid "%(name)s: %(msg)s"
 msgstr "%(name)s: %(msg)s"
 
 #: pyanaconda/iw/autopart_type.py:250
-#, fuzzy
 msgid "Use _All Space"
-msgstr "使用全部空间"
+msgstr "使用全部空间(_A)"
 
 #: pyanaconda/iw/autopart_type.py:252
 msgid ""
@@ -2215,9 +2202,8 @@ msgstr ""
 "<b>提示：</b> 该选项将移除选定设备上的数据。请确认您保留有备份。"
 
 #: pyanaconda/iw/autopart_type.py:258
-#, fuzzy
 msgid "Replace Existing _Linux System(s)"
-msgstr "替换现有 Linux 系统"
+msgstr "替换现有 Linux 系统(s)"
 
 #: pyanaconda/iw/autopart_type.py:260
 msgid ""
@@ -2234,19 +2220,17 @@ msgstr ""
 "<b>提示：</b> 该选项将移除选定设备上的数据。请确认您保留有备份。"
 
 #: pyanaconda/iw/autopart_type.py:268
-#, fuzzy
 msgid "_Shrink Current System"
-msgstr "缩小当前系统"
+msgstr "缩小当前系统(_S)"
 
 #: pyanaconda/iw/autopart_type.py:270
 msgid ""
 "Shrinks existing partitions to create free space for the default layout."
-msgstr "收缩现有分区来为默认分区结构创建空余空间。"
+msgstr "缩小现有分区来为默认分区结构创建空余空间。"
 
 #: pyanaconda/iw/autopart_type.py:272
-#, fuzzy
 msgid "Use _Free Space"
-msgstr "使用空余空间"
+msgstr "使用空余空间(_F)"
 
 #: pyanaconda/iw/autopart_type.py:274
 msgid ""
@@ -2258,9 +2242,8 @@ msgstr ""
 "空间。"
 
 #: pyanaconda/iw/autopart_type.py:278
-#, fuzzy
 msgid "Create _Custom Layout"
-msgstr "建立自定义的分区结构"
+msgstr "建立自定义布局(_C)"
 
 #: pyanaconda/iw/autopart_type.py:280
 msgid ""
@@ -2542,9 +2525,8 @@ msgid "What type of devices will your installation involve?"
 msgstr "您的安装涉及哪种驱动器？"
 
 #: pyanaconda/iw/filter_type.py:61
-#, fuzzy
 msgid "B_asic Storage Devices"
-msgstr "基本存储设备"
+msgstr "基本存储设备(_a)"
 
 #: pyanaconda/iw/filter_type.py:62
 msgid ""
@@ -2554,9 +2536,8 @@ msgstr ""
 "安装或者升级典型的存储设备。 如果您不确定哪个选项适合您，那么通常就是这个了。"
 
 #: pyanaconda/iw/filter_type.py:66
-#, fuzzy
 msgid "_Specialized Storage Devices"
-msgstr "专业存储设备"
+msgstr "专业存储设备(_S)"
 
 #: pyanaconda/iw/filter_type.py:67
 msgid ""
@@ -3705,14 +3686,14 @@ msgid "Scanning"
 msgstr "扫描"
 
 #: loader/cdinstall.c:266
-#, fuzzy, c-format
+#, c-format
 msgid "Looking for installation media on CD device %s\n"
-msgstr "在光盘设备 %s 中查找安装映像\n"
+msgstr "正在CD设备 %s 中查找安装映像\n"
 
 #: loader/cdinstall.c:268
-#, fuzzy, c-format
+#, c-format
 msgid "Looking for installation media on CD device %s"
-msgstr "在光盘设备 %s 中查找安装映像"
+msgstr "正在在光盘设备 %s 中查找安装映像"
 
 #: loader/cdinstall.c:335
 #, c-format
@@ -3927,9 +3908,8 @@ msgid "Select Partition"
 msgstr "选择分区"
 
 #: loader/hdinstall.c:283 loader/hdinstall.c:301 loader/hdinstall.c:310
-#, fuzzy
 msgid "That directory does not contain installation media."
-msgstr "该目录似乎不包含 %s 安装映像。"
+msgstr "该目录不包含 %s 安装映像。"
 
 #: loader/hdinstall.c:349
 #, c-format
@@ -4458,9 +4438,8 @@ msgid "NFS Setup"
 msgstr "NFS 设置"
 
 #: loader/nfsinstall.c:196 loader/urlinstall.c:214
-#, fuzzy
 msgid "The URL provided does not contain installation media."
-msgstr "设备 %s 似乎不包含安装映像。"
+msgstr "所提供的网址不包含安装媒体。"
 
 #: loader/nfsinstall.c:277
 #, c-format
@@ -4693,12 +4672,12 @@ msgid ""
 msgstr "正在一个 FireWire 设备上安装。不能保证可以成功安装。"
 
 #: pyanaconda/storage/__init__.py:1065
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "You have not specified a swap partition.  %s MB of memory is required to "
 "continue installation without a swap partition, but you only have %s MB."
 msgstr ""
-"您还没有指定一个交换分区。根据所显示的内存量，需要有交换分区才可完成安装。"
+"您还没有指定一个交换分区。不使用交换分区必须有%sMB内存，但你只有%sMB。"
 
 #: pyanaconda/storage/__init__.py:1070
 msgid ""
@@ -4991,9 +4970,9 @@ msgid "Formatting"
 msgstr "正在格式化"
 
 #: pyanaconda/storage/formats/fs.py:355
-#, fuzzy, python-format
+#, python-format
 msgid "Creating %(type)s filesystem on %(device)s"
-msgstr "正在 %s 中创建文件系统 %s"
+msgstr "正在 %(device)s 中创建文件系统 %(type)s"
 
 #: pyanaconda/storage/formats/fs.py:457
 msgid "Resizing"
@@ -5080,9 +5059,9 @@ msgstr "加密中 %s"
 
 #: pyanaconda/storage/formats/lvmpv.py:104
 #: pyanaconda/storage/formats/swap.py:162
-#, fuzzy, python-format
+#, python-format
 msgid "Creating %(type)s on %(device)s"
-msgstr "正在 %s 中创建文件系统 %s"
+msgstr "正在 %(device)s 中创建文件系统 %(type)s"
 
 #: pyanaconda/storage/iscsi.py:120
 msgid "Unable to change iSCSI initiator name once set"
@@ -5109,14 +5088,13 @@ msgid "No initiator name set"
 msgstr "没有设置启动器名称"
 
 #: pyanaconda/storage/iscsi.py:253
-#, fuzzy
 msgid "Logging in to iSCSI node"
-msgstr "登录到 iSCSI 节点"
+msgstr "正在登录到 iSCSI 节点"
 
 #: pyanaconda/storage/iscsi.py:254
-#, fuzzy, python-format
+#, python-format
 msgid "Logging in to iSCSI node %s"
-msgstr "登录到 iSCSI 节点"
+msgstr "正在登录到 iSCSI 节点 %s"
 
 #: pyanaconda/storage/partitioning.py:197
 msgid ""
@@ -6037,21 +6015,17 @@ msgstr "只显示使用如下的驱动器："
 msgid "Target:"
 msgstr "目标:"
 
-# Fuzzy
 #: data/ui/filter.glade.h:25
-#, fuzzy
 msgid "_Add Advanced Target"
-msgstr "添加高级目标"
+msgstr "添加高级目标(_A)"
 
 #: data/ui/iscsi-dialogs.glade.h:1
-#, fuzzy
 msgid "CHAP Password:"
-msgstr "密码："
+msgstr "CHAP密码："
 
 #: data/ui/iscsi-dialogs.glade.h:2
-#, fuzzy
 msgid "CHAP Username:"
-msgstr "<b>CHAP 用户名（_U）：</b>"
+msgstr "CHAP 用户名："
 
 #: data/ui/iscsi-dialogs.glade.h:3
 msgid "Check the nodes you wish to log into:"
@@ -6062,32 +6036,28 @@ msgid "Reason:"
 msgstr "原因："
 
 #: data/ui/iscsi-dialogs.glade.h:5
-#, fuzzy
 msgid "Retry _Login"
-msgstr "重试中"
+msgstr "重试登陆（_L）"
 
 #: data/ui/iscsi-dialogs.glade.h:6
-#, fuzzy
 msgid "Reverse CHAP Password:"
-msgstr "<b>逆向 CHAP 密码（_P）：</b>"
+msgstr "逆向 CHAP 密码："
 
 #: data/ui/iscsi-dialogs.glade.h:7
-#, fuzzy
 msgid "Reverse CHAP Username:"
-msgstr "<b>逆向 CHAP 用户名（_U）：</b>"
+msgstr "逆向 CHAP 用户名："
 
 #: data/ui/iscsi-dialogs.glade.h:8
 msgid "Start _Discovery"
-msgstr "发现启动(_D)"
+msgstr "启动发现(_D)"
 
 #: data/ui/iscsi-dialogs.glade.h:9
 msgid "Successfully logged in and attached the following nodes:"
 msgstr "成功登陆到并附加以下节点："
 
 #: data/ui/iscsi-dialogs.glade.h:10
-#, fuzzy
 msgid "Target IP Address:"
-msgstr "<b>(_T)目标 IP 地址:</b>"
+msgstr "目标 IP 地址:"
 
 #: data/ui/iscsi-dialogs.glade.h:11
 msgid ""
@@ -6106,22 +6076,18 @@ msgid "What kind of iSCSI <b>login authentication</b> do you wish to perform:"
 msgstr "什么样的iSCSI登录认证要执行？"
 
 #: data/ui/iscsi-dialogs.glade.h:14
-#, fuzzy
 msgid "_Cancel"
-msgstr "取消"
+msgstr "取消(_C)"
 
 #: data/ui/iscsi-dialogs.glade.h:15
-#, fuzzy
 msgid "_Login"
-msgstr "载入"
+msgstr "登陆(_L)"
 
 #: data/ui/iscsi-dialogs.glade.h:16
-#, fuzzy
 msgid "_OK"
-msgstr "确定"
+msgstr "确定(_O)"
 
 #: data/ui/iscsi-dialogs.glade.h:17
-#, fuzzy
 msgid "iSCSI Discovered Nodes"
 msgstr "没有找到 iSCSI 节点"
 
@@ -6130,9 +6096,8 @@ msgid "iSCSI Discovery Details"
 msgstr "iSCSI的发现详情"
 
 #: data/ui/iscsi-dialogs.glade.h:19
-#, fuzzy
 msgid "iSCSI Initiator Name:"
-msgstr "<b>(_N)iSCSI 启动器名称:</b>"
+msgstr "iSCSI 载入器名称:"
 
 #: data/ui/iscsi-dialogs.glade.h:20
 msgid "iSCSI Login Results"
