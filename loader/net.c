@@ -1143,6 +1143,22 @@ int writeDisabledNetInfo(void) {
     return 0;
 }
 
+int removeIfcfgFile(char *device) {
+    char *fname = NULL;
+    checked_asprintf(&fname, "%s/ifcfg-%s",
+                     NETWORK_SCRIPTS_PATH,
+                     device);
+
+    if (!access(fname, R_OK|W_OK)) {
+        if (unlink(fname)) {
+            logMessage(ERROR, "error removing %s", fname);
+        }
+    }
+
+    free(fname);
+    return 0;
+}
+
 int removeDhclientConfFile(char *device) {
     char *ofile = NULL;
     if (asprintf(&ofile, "/etc/dhcp/dhclient-%s.conf", device) == -1) {
@@ -1982,6 +1998,35 @@ int kickstartNetworkUp(struct loaderData_s * loaderData, iface_t * iface) {
 
 }
 
+int disconnectDevice(char *device) {
+    int rc;
+
+    if ((rc = removeDhclientConfFile(device)) != 0) {
+        logMessage(ERROR, "removeDhclientConfFile failure (%s): %d",
+                   __func__, rc);
+    }
+
+    /*
+     * This will disconnect the device
+     */
+    if ((rc = removeIfcfgFile(device)) != 0) {
+        logMessage(ERROR, "removeIfcfgFile failure (%s): %d",
+                   __func__, rc);
+        return rc;
+    }
+
+    if ((rc = wait_for_iface_disconnection(device)) != 0) {
+        return rc;
+    }
+
+    if ((rc = writeDisabledIfcfgFile(device)) != 0) {
+        logMessage(ERROR, "writeDisabledIfcfgFile failure (%s): %d",
+                   __func__, rc);
+        return rc;
+    }
+    return 0;
+}
+
 int activateDevice(struct loaderData_s * loaderData, iface_t * iface) {
     int rc;
 
@@ -2007,7 +2052,10 @@ int activateDevice(struct loaderData_s * loaderData, iface_t * iface) {
 
         if (is_iface_activated(iface->device)) {
             logMessage(INFO, "device %s is already activated", iface->device);
-            return 0;
+            if ((rc = disconnectDevice(iface->device)) != 0) {
+                logMessage(ERROR, "device disconnection failed with return code %d", rc);
+                return -1;
+            }
         }
 
         /* we don't want to end up asking about interface more than once
@@ -2180,4 +2228,80 @@ int wait_for_iface_activation(char *ifname) {
     return 3;
 }
 
+/*
+ * Wait for disconnection of iface by NetworkManager, return non-zero on error.
+ */
+int wait_for_iface_disconnection(char *ifname) {
+    int count = 0, i;
+    NMClient *client = NULL;
+    NMState state;
+    GMainLoop *loop;
+    GMainContext *ctx;
+    const GPtrArray *devices;
+    NMDevice *device = NULL;
+
+    if (ifname == NULL) {
+        return 1;
+    }
+
+    logMessage(INFO, "disconnecting device %s", ifname);
+
+    g_type_init();
+
+    client = nm_client_new();
+    if (!client) {
+        logMessage(ERROR, "%s (%d): could not connect to system bus",
+                   __func__, __LINE__);
+        return 2;
+    }
+
+    devices = nm_client_get_devices(client);
+    for (i = 0; i < devices->len; i++) {
+        NMDevice *candidate = g_ptr_array_index(devices, i);
+        const char *name = nm_device_get_iface(candidate);
+        if (!strcmp(name, ifname)) {
+            device = candidate;
+            break;
+        }
+    }
+    if (device == NULL) {
+        logMessage(ERROR, "%s (%d): network device %s not found",
+                   __func__, __LINE__, ifname);
+        g_object_unref(client);
+        return 3;
+    }
+
+    /* Create a loop for processing dbus signals */
+    loop = g_main_loop_new(NULL, FALSE);
+    ctx = g_main_loop_get_context(loop);
+
+    /* pump the loop until all the messages are clear */
+    while (g_main_context_pending (ctx)) {
+        g_main_context_iteration (ctx, FALSE);
+    }
+
+    /* send message and block until a reply or error comes back */
+    while (count < 5) {
+        /* pump the loop again to clear the messages */
+        while (g_main_context_pending (ctx)) {
+            g_main_context_iteration (ctx, FALSE);
+        }
+        state = nm_device_get_state(device);
+        if (state == NM_DEVICE_STATE_DISCONNECTED) {
+            logMessage(INFO, "%s (%d): device %s disconnected",
+                       __func__, __LINE__, ifname);
+            res_init();
+            g_main_loop_unref(loop);
+            g_object_unref(client);
+            return 0;
+        }
+
+        sleep(1);
+        count++;
+    }
+
+    g_main_loop_unref(loop);
+    g_object_unref(client);
+    return 3;
+}
 /* vim:set shiftwidth=4 softtabstop=4: */
