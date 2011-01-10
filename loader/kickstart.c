@@ -23,6 +23,8 @@
  *            Jeremy Katz <katzj@redhat.com>
  */
 
+#include <Python.h>
+
 #include <alloca.h>
 #include <ctype.h>
 #include <errno.h>
@@ -115,6 +117,135 @@ struct ksCommandNames ksTable[] = {
 
 struct ksCommand * commands = NULL;
 int numCommands = 0;
+
+/* INTERNAL PYTHON INTERFACE FUNCTIONS */
+
+static PyObject *getCallable(PyObject *module, const char *name) {
+    PyObject *obj = NULL;
+
+    obj = PyObject_GetAttrString(module, name);
+    if (!obj || !PyCallable_Check(obj)) {
+        Py_XDECREF(obj);
+        return NULL;
+    }
+
+    return obj;
+}
+
+static PyObject *import(const char *moduleName) {
+    PyObject *module = NULL;
+
+    module = PyImport_ImportModule(moduleName);
+    return module;
+}
+
+static PyObject *makeHandler(PyObject *module) {
+    PyObject *func, *handler;
+
+    func = getCallable(module, "makeVersion");
+    if (!func)
+        return NULL;
+
+    handler = PyObject_CallObject(func, NULL);
+    if (!handler) {
+        Py_DECREF(func);
+        return NULL;
+    }
+
+    Py_DECREF(func);
+    return handler;
+}
+
+static PyObject *makeParser(PyObject *parserClass, PyObject *handler) {
+    PyObject *parser = NULL, *args, *kwargs;
+
+    args = PyTuple_New(1);
+    PyTuple_SetItem(args, 0, handler);
+
+    kwargs = PyDict_New();
+    Py_INCREF(Py_True);
+    PyDict_SetItemString(kwargs, "followIncludes", Py_True);
+    Py_INCREF(Py_True);
+    PyDict_SetItemString(kwargs, "errorsAreFatal", Py_True);
+    Py_INCREF(Py_True);
+    PyDict_SetItemString(kwargs, "missingIncludeIsFatal", Py_True);
+
+    parser = PyObject_Call(parserClass, args, kwargs);
+
+    Py_DECREF(kwargs);
+    Py_DECREF(args);
+
+    return parser;
+}
+
+static void handleException() {
+    PyObject *ptype, *pvalue, *ptraceback;
+
+    if (!PyErr_Occurred())
+        return;
+
+    PyErr_Fetch(&ptype, &pvalue, &ptraceback);
+
+    startNewt();
+    newtWinMessage(_("Kickstart Error"), _("OK"),
+                   PyString_AsString(PyObject_Str(pvalue)));
+
+    Py_XDECREF(ptype);
+    Py_XDECREF(pvalue);
+    Py_XDECREF(ptraceback);
+}
+
+/* Returns the handler.<command>.<attr> object if it exists, or NULL on error. */
+static PyObject *getattr(PyObject *handler, const char *command, const char *attr) {
+    PyObject *commandObj, *attrObj;
+
+    commandObj = PyObject_GetAttrString(handler, command);
+    if (!commandObj)
+        return NULL;
+
+    attrObj = PyObject_GetAttrString(commandObj, attr);
+    if (!attrObj) {
+        Py_DECREF(commandObj);
+        return NULL;
+    }
+
+    return attrObj;
+}
+
+/* Perform the same tasks as pykickstart.parser.preprocessKickstart.  Currently
+ * this is just fetching and expanding %ksappend lines.
+ */
+static PyObject *preprocessKickstart(PyObject *module, const char *inputFile) {
+    PyObject *output = NULL, *func;
+
+    func = getCallable(module, "preprocessKickstart");
+    if (!func)
+        return NULL;
+
+    output = PyObject_CallFunctionObjArgs(func, PyString_FromString(inputFile), NULL);
+    if (!output) {
+        handleException();
+        return NULL;
+    }
+
+    return output;
+}
+
+/* Process a kickstart file given by the filename f, as a PyObject.  This sets
+ * attributes on the parser object as a side effect, returning that object or
+ * NULL on exception.
+ */
+static PyObject *readKickstart(PyObject *parser, PyObject *f) {
+    PyObject *retval;
+
+    retval = PyObject_CallMethodObjArgs(parser, PyString_FromString("readKickstart"), f, NULL);
+    if (!retval) {
+        handleException();
+        return NULL;
+    }
+
+    return retval;
+}
 
 int ksReadCommands(char * cmdFile) {
     int fd;
