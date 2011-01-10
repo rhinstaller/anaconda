@@ -247,142 +247,6 @@ static PyObject *readKickstart(PyObject *parser, PyObject *f) {
     return retval;
 }
 
-int ksReadCommands(char * cmdFile) {
-    int fd;
-    char * buf;
-    struct stat sb;
-    char * start, * end, * chptr;
-    char oldch;
-    int line = 0;
-    gint argc = 0;
-    gchar **argv = NULL;
-    GError *optErr = NULL;
-    int inSection = 0; /* in a section such as %post, %pre or %packages */
-    struct ksCommandNames * cmd;
-    int commandsAlloced = 5;
-
-    if ((fd = open(cmdFile, O_RDONLY)) < 0) {
-        startNewt();
-        newtWinMessage(_("Kickstart Error"), _("OK"),
-                       _("Error opening kickstart file %s: %m"),
-                       cmdFile);
-        return LOADER_ERROR;
-    }
-
-    fstat(fd, &sb);
-    buf = alloca(sb.st_size + 1);
-    if (read(fd, buf, sb.st_size) != sb.st_size) {
-        startNewt();
-        newtWinMessage(_("Kickstart Error"), _("OK"),
-                       _("Error reading contents of kickstart file %s: %m"),
-                       cmdFile);
-        close(fd);
-        return LOADER_ERROR;
-    }
-
-    close(fd);
-
-    buf[sb.st_size] = '\0';
-
-    commands = malloc(sizeof(*commands) * commandsAlloced);
-
-    start = buf;
-    while (*start && !inSection) {
-        line++;
-        if (!(end = strchr(start, '\n')))
-            end = start + strlen(start);
-
-        oldch = *end;
-        *end = '\0';
-
-        while (*start && isspace(*start)) start++;
-
-        chptr = end - 1;
-        while (chptr > start && isspace(*chptr)) chptr--;
-        
-        if (isspace(*chptr)) 
-            *chptr = '\0';
-        else
-            *(chptr + 1) = '\0';
-
-        if (!*start || *start == '#' || !strncmp(start, "%include", 8)) {
-            /* keep parsing the file */
-        } else if (*start == '%') {
-            /* assumed - anything starting with %something is a section */
-            inSection = 1;
-        } else if  (*chptr == '\\') {
-            /* JKFIXME: this should be handled better, but at least we 
-             * won't segfault now */
-        } else {
-            if (!g_shell_parse_argv(start, &argc, &argv, &optErr) && argc) {
-                newtWinMessage(_("Kickstart Error"), _("OK"),
-                               _("Error in %s on line %d of kickstart "
-                                 "file %s."), argv[0], line, cmdFile);
-                g_error_free(optErr);
-            } else if (!argc) {
-                newtWinMessage(_("Kickstart Error"), _("OK"),
-                               _("Missing options on line %d of kickstart "
-                                 "file %s."), line, cmdFile);
-            } else {
-                for (cmd = ksTable; cmd->name; cmd++)
-                    if (!strcmp(cmd->name, argv[0])) break;
-                
-                if (cmd->name) {
-                    if (numCommands == commandsAlloced) {
-                        commandsAlloced += 5;
-                        commands = realloc(commands,
-                                           sizeof(*commands) * commandsAlloced);
-                    }
-                    
-                    commands[numCommands].code = cmd->code;
-                    commands[numCommands].argc = argc;
-                    commands[numCommands].argv = argv;
-                    numCommands++;
-                }
-            }
-        }
-        
-        if (oldch)
-            start = end + 1;
-        else
-            start = end;
-    }
-    
-    return 0;
-}
-
-
-int ksHasCommand(int cmd) {
-    int i;
-
-    for(i = 0; i < numCommands; i++)
-	if (commands[i].code == cmd) return 1;
-
-    return 0;
-}
-
-int ksGetCommand(int cmd, char ** last, int * argc, char *** argv) {
-    int i = 0;
-    
-    if (last) {
-        for (i = 0; i < numCommands; i++) {
-            if (commands[i].argv == last) break;
-        }
-        
-        i++;
-    }
-
-    for (; i < numCommands; i++) {    
-        if (commands[i].code == cmd) {
-            if (argv) *argv = commands[i].argv;
-            if (argc) *argc = commands[i].argc;
-            return 0;
-        }
-    }
-    
-    return 1;
-}
-
 int kickstartFromRemovable(char *kssrc) {
     struct device ** devices;
     char *p, *kspath;
@@ -725,17 +589,60 @@ static void setMediaCheck(struct loaderData_s * loaderData, int argc,
     return;
 }
 
-void runKickstart(struct loaderData_s * loaderData) {
-    struct ksCommandNames * cmd;
-    int argc;
-    char ** argv;
+int runKickstart(struct loaderData_s * loaderData, const char *file) {
+    PyObject *versionMod, *parserMod = NULL;
+    PyObject *handler, *parser;
+    PyObject *processedFile;
+    int rc = 0;
+
+    PyObject *callable = NULL;
 
     logMessage(INFO, "setting up kickstart");
-    for (cmd = ksTable; cmd->name; cmd++) {
-        if ((!ksGetCommand(cmd->code, NULL, &argc, &argv)) && cmd->setupData) {
-            cmd->setupData(loaderData, argc, argv);
-        }
+
+    Py_Initialize();
+
+    if ((versionMod = import("pykickstart.version")) == NULL)
+        goto quit;
+
+    if ((parserMod = import("pykickstart.parser")) == NULL)
+        goto quit;
+
+    /* make the KickstartHandler object */
+    if ((handler = makeHandler(versionMod)) == NULL)
+        goto quit;
+
+    /* make the KickstartParser object */
+    if ((callable = getCallable(parserMod, "KickstartParser")) == NULL)
+        goto quit;
+    else
+        parser = makeParser(callable, handler);
+
+    /* call preprocessKickstart */
+    processedFile = preprocessKickstart(parserMod, file);
+
+    /* call readKickstart */
+    if (processedFile) {
+        struct ksCommandNames *cmd;
+
+        if (!readKickstart(parser, processedFile))
+            goto quit;
+
+        /* Now handler is set up with all the kickstart data.  Run through
+         * every element of the ksTable and run its function.  The functions
+         * themselves will decide if they should do anything or not.
+         */
+        for (cmd = ksTable; cmd->name; cmd++)
+            cmd->setupData(loaderData, 0, NULL);
     }
+
+    rc = 1;
+
+quit:
+    Py_XDECREF(versionMod);
+    Py_XDECREF(callable);
+    Py_XDECREF(parserMod);
+    Py_Finalize();
+    return rc;
 }
 
 /* vim:set sw=4 sts=4 et: */

@@ -42,13 +42,9 @@
 #define KS_CMD_UPDATES     18
 #define KS_CMD_VNC         19
 
-int ksReadCommands(char * cmdFile);
-int ksGetCommand(int cmd, char ** last, int * argc, char *** argv);
-int ksHasCommand(int cmd);
-
 int isKickstartFileRemote(char *ksFile);
 void getKickstartFile(struct loaderData_s * loaderData);
-void runKickstart(struct loaderData_s * loaderData);
+int runKickstart(struct loaderData_s * loaderData, const char *file);
 int getKickstartFromBlockDevice(char *device, char *path);
 void loadKickstartModule(struct loaderData_s *, int, char **);
 

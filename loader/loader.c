@@ -2138,10 +2138,8 @@ int main(int argc, char ** argv) {
 
         if (!ksFile)
             getKickstartFile(&loaderData);
-        if (FL_KICKSTART(flags) && 
-            (ksReadCommands((ksFile)?ksFile:loaderData.ksFile)!=LOADER_ERROR)) {
-            runKickstart(&loaderData);
-        }
+        if (FL_KICKSTART(flags))
+            runKickstart(&loaderData, (ksFile)?ksFile:loaderData.ksFile);
     }
 
     if (FL_EARLY_NETWORKING(flags)) {
