@@ -1158,10 +1158,7 @@ int manualNetConfig(char * device, iface_t * iface,
  * bring up the ones the user wants.
  */
 int writeDisabledNetInfo(void) {
-    int i = 0;
-    char *ofile = NULL;
-    char *nfile = NULL;
-    FILE *fp = NULL;
+    int i = 0, rc;
     struct device **devs = NULL;
 
     devs = getDevices(DEVICE_NETWORK);
@@ -1172,59 +1169,74 @@ int writeDisabledNetInfo(void) {
 
     for (i = 0; devs[i]; i++) {
         /* remove dhclient-DEVICE.conf if we have it */
-        if (asprintf(&ofile, "/etc/dhcp/dhclient-%s.conf", devs[i]->device) == -1) {
-            return 5;
+        if ((rc = removeDhclientConfFile(devs[i]->device)) != 0) {
+            return rc;
         }
-
-        if (!access(ofile, R_OK|W_OK)) {
-            if (unlink(ofile)) {
-                logMessage(ERROR, "error removing %s", ofile);
-            }
-        }
-
-        if (ofile) {
-            free(ofile);
-            ofile = NULL;
-        }
-
         /* write disabled ifcfg-DEVICE file */
-        
-        checked_asprintf(&ofile, "%s/.ifcfg-%s",
-                         NETWORK_SCRIPTS_PATH,
-                         devs[i]->device);
-        checked_asprintf(&nfile, "%s/ifcfg-%s",
-                         NETWORK_SCRIPTS_PATH,
-                         devs[i]->device);
-
-        if ((fp = fopen(ofile, "w")) == NULL) {
-            free(ofile);
-            return 2;
+        if ((rc = writeDisabledIfcfgFile(devs[i]->device)) != 0) {
+            return rc;
         }
+    }
 
-        fprintf(fp, "DEVICE=%s\n", devs[i]->device);
-        fprintf(fp, "HWADDR=%s\n", iface_mac2str(devs[i]->device));
-        fprintf(fp, "ONBOOT=no\n");
-        fprintf(fp, "NM_CONTROLLED=no\n");
+    return 0;
+}
 
-        if (fclose(fp) == EOF) {
-            return 3;
-        }
+int removeDhclientConfFile(char *device) {
+    char *ofile = NULL;
+    if (asprintf(&ofile, "/etc/dhcp/dhclient-%s.conf", device) == -1) {
+	return 5;
+    }
 
-        if (rename(ofile, nfile) == -1) {
-            free(ofile);
-            free(nfile);
-            return 4;
-        }
+    if (!access(ofile, R_OK|W_OK)) {
+	if (unlink(ofile)) {
+	    logMessage(ERROR, "error removing %s", ofile);
+	}
+    }
 
-        if (ofile) {
-            free(ofile);
-            ofile = NULL;
-        }
+    free(ofile);
+    return 0;
+}
 
-        if (nfile) {
-            free(nfile);
-            nfile = NULL;
-        }
+int writeDisabledIfcfgFile(char *device) {
+    char *ofile = NULL;
+    char *nfile = NULL;
+    FILE *fp = NULL;
+
+    checked_asprintf(&ofile, "%s/.ifcfg-%s",
+		     NETWORK_SCRIPTS_PATH,
+		     device);
+    checked_asprintf(&nfile, "%s/ifcfg-%s",
+		     NETWORK_SCRIPTS_PATH,
+		     device);
+
+    if ((fp = fopen(ofile, "w")) == NULL) {
+	free(ofile);
+	return 2;
+    }
+
+    fprintf(fp, "DEVICE=%s\n", device);
+    fprintf(fp, "HWADDR=%s\n", iface_mac2str(device));
+    fprintf(fp, "ONBOOT=no\n");
+    fprintf(fp, "NM_CONTROLLED=no\n");
+
+    if (fclose(fp) == EOF) {
+	return 3;
+    }
+
+    if (rename(ofile, nfile) == -1) {
+	free(ofile);
+	free(nfile);
+	return 4;
+    }
+
+    if (ofile) {
+	free(ofile);
+	ofile = NULL;
+    }
+
+    if (nfile) {
+	free(nfile);
+	nfile = NULL;
     }
 
     return 0;
@@ -2066,8 +2078,12 @@ int activateDevice(struct loaderData_s * loaderData, iface_t * iface) {
              * we set before attempting to bring the incorrect interface up.
              */
             logMessage(ERROR, "unable to activate device %s", iface->device);
-            if ((rc = writeDisabledNetInfo()) != 0) {
-                logMessage(ERROR, "writeDisabledNetInfo failure (%s): %d",
+            if ((rc = removeDhclientConfFile(iface->device)) != 0) {
+                logMessage(ERROR, "removeDhclientConfFile failure (%s): %d",
+                           __func__, rc);
+            }
+            if ((rc = writeDisabledIfcfgFile(iface->device)) != 0) {
+                logMessage(ERROR, "writeDisabledIfcfgFile failure (%s): %d",
                            __func__, rc);
             }
 
