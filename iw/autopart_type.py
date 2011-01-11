@@ -110,7 +110,9 @@ def whichToShrink(storage, intf):
             return (rc, [])
 
         request = getActive(combo)
-        newSize = dxml.get_widget("shrinkSB").get_value_as_int()
+        sb = dxml.get_widget("shrinkSB")
+        sb.update()
+        newSize = sb.get_value_as_int()
         actions = []
 
         try:

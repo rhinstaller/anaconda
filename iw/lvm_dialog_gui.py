@@ -777,7 +777,9 @@ class VolumeGroupEditor:
                     format.migrate = True
 
                 if self.fsoptionsDict.has_key("resizecb") and self.fsoptionsDict["resizecb"].get_active():
-                    targetSize = self.fsoptionsDict["resizesb"].get_value_as_int()
+                    sb = self.fsoptionsDict["resizesb"]
+                    sb.update()
+                    targetSize = sb.get_value_as_int()
                     templv.targetSize = targetSize
 
             if format.exists and format.mountable and format.mountpoint:
