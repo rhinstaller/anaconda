@@ -303,3 +303,10 @@ blacklist {
         ret += '}\n'
 
         return ret
+
+    def write_bindings(self):
+        ret = "# created by Anaconda\n"
+        for mpath in self.mpaths:
+            if ('alias' in mpath.config) and ('wwid' in mpath.config):
+                ret += "%s %s\n" % (mpath.config['alias'], mpath.config['wwid'])
+        return ret
