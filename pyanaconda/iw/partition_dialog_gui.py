@@ -364,7 +364,9 @@ class PartitionEditor:
 
                 if self.fsoptionsDict.has_key("resizecb") and \
                    self.fsoptionsDict["resizecb"].get_active():
-                    size = self.fsoptionsDict["resizesb"].get_value_as_int()
+                    sb = self.fsoptionsDict["resizesb"]
+                    sb.update()
+                    size = sb.get_value_as_int()
 
                     try:
                         actions.append(ActionResizeDevice(request, size))
