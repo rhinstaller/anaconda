@@ -22,8 +22,6 @@
 
 #include "method.h"
 
-void setKickstartNfs(struct loaderData_s * loaderData, int argc,
-                     char ** argv);
 int kickstartFromNfs(char * url, struct loaderData_s * loaderData);
 int promptForNfs(struct loaderData_s *loaderData);
 int loadNfsImages(struct loaderData_s *loaderData);

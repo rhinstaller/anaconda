@@ -39,10 +39,9 @@ int loadDriverDisks(int class, struct loaderData_s *loaderData, GTree *moduleSta
 int getRemovableDevices(char *** devNames);
 
 int chooseManualDriver(int class, struct loaderData_s *loaderData);
-void useKickstartDD(struct loaderData_s * loaderData, int argc, 
-                    char ** argv);
 
 void getDDFromSource(struct loaderData_s * loaderData, char * src, GTree *moduleState);
+void getDDFromDev(struct loaderData_s * loaderData, char * dev, GTree *moduleState);
 
 int loadDriverDiskFromPartition(struct loaderData_s *loaderData, char* device);
 

@@ -26,6 +26,7 @@
 #include <Python.h>
 
 #include <alloca.h>
+#include <arpa/inet.h>
 #include <ctype.h>
 #include <errno.h>
 #include <fcntl.h>
@@ -52,6 +53,7 @@
 #include "cdinstall.h"
 #include "hdinstall.h"
 
+#include "../pyanaconda/isys/eddsupport.h"
 #include "../pyanaconda/isys/imount.h"
 #include "../pyanaconda/isys/isys.h"
 #include "../pyanaconda/isys/log.h"
@@ -85,6 +87,21 @@ static void setUpdates(struct loaderData_s * loaderData, int argc,
                        char ** argv);
 static void setVnc(struct loaderData_s * loaderData, int argc,
                        char ** argv);
+static void useKickstartDD(struct loaderData_s * loaderData,
+                    int argc, char ** argv);
+static void setKickstartKeyboard(struct loaderData_s * loaderData, int argc, 
+                          char ** argv);
+static void setKickstartLanguage(struct loaderData_s * loaderData, int argc, 
+                          char ** argv);
+static void setKickstartNetwork(struct loaderData_s * loaderData, int argc, 
+                         char ** argv);
+static void setKickstartCD(struct loaderData_s * loaderData, int argc, char ** argv);
+static void setKickstartHD(struct loaderData_s * loaderData, int argc,
+                     char ** argv);
+static void setKickstartNfs(struct loaderData_s * loaderData, int argc,
+                     char ** argv);
+static void setKickstartUrl(struct loaderData_s * loaderData, int argc,
+                     char ** argv);
 
 struct ksCommandNames ksTable[] = {
     { "cdrom", setKickstartCD },
@@ -578,6 +595,425 @@ static void setMediaCheck(struct loaderData_s * loaderData, int argc,
                           char ** argv) {
     flags |= LOADER_FLAGS_MEDIACHECK;
     return;
+}
+
+static void useKickstartDD(struct loaderData_s * loaderData,
+                    int argc, char ** argv) {
+    char * dev = NULL;
+    char * biospart = NULL, * p = NULL; 
+    gchar *fstype = NULL, *src = NULL;
+    gint usebiosdev = 0;
+    gchar **remaining = NULL;
+    GOptionContext *optCon = g_option_context_new(NULL);
+    GError *optErr = NULL;
+    GOptionEntry ksDDOptions[] = {
+        /* The --type option is deprecated and now has no effect. */
+        { "type", 0, 0, G_OPTION_ARG_STRING, &fstype, NULL, NULL },
+        { "source", 0, 0, G_OPTION_ARG_STRING, &src, NULL, NULL },
+        { "biospart", 0, 0, G_OPTION_ARG_INT, &usebiosdev, NULL, NULL },
+        { G_OPTION_REMAINING, 0, 0, G_OPTION_ARG_STRING_ARRAY, &remaining,
+          NULL, NULL },
+        { NULL },
+    };
+
+    g_option_context_set_help_enabled(optCon, FALSE);
+    g_option_context_add_main_entries(optCon, ksDDOptions, NULL);
+
+    if (!g_option_context_parse(optCon, &argc, &argv, &optErr)) {
+        newtWinMessage(_("Kickstart Error"), _("OK"),
+                       _("The following invalid argument was specified for "
+                         "the kickstart driver disk command: %s"),
+                       optErr->message);
+        g_error_free(optErr);
+        g_option_context_free(optCon);
+        g_strfreev(remaining);
+        return;
+    }
+
+    g_option_context_free(optCon);
+
+    if ((remaining != NULL) && (g_strv_length(remaining) == 1)) {
+        dev = remaining[0];
+    }
+
+    if (!dev && !src) {
+        logMessage(ERROR, "bad arguments to kickstart driver disk command");
+        return;
+    }
+
+    if (usebiosdev != 0) {
+        p = strchr(dev,'p');
+        if (!p){
+            logMessage(ERROR, "Bad argument for biospart");
+            return;
+        }
+        *p = '\0';
+        
+        biospart = getBiosDisk(dev);
+        if (biospart == NULL) {
+            logMessage(ERROR, "Unable to locate BIOS dev %s",dev);
+            return;
+        }
+        dev = malloc(strlen(biospart) + strlen(p + 1) + 2);
+        sprintf(dev, "%s%s", biospart, p + 1);
+    }
+
+    if (dev) {
+        getDDFromDev(loaderData, dev, NULL);
+    } else {
+        getDDFromSource(loaderData, src, NULL);
+    }
+
+    g_strfreev(remaining);
+    return;
+}
+
+static void setKickstartKeyboard(struct loaderData_s * loaderData, int argc, 
+                          char ** argv) {
+    if (argc < 2) {
+        logMessage(ERROR, "no argument passed to keyboard kickstart command");
+        return;
+    }
+
+    loaderData->kbd = argv[1];
+    loaderData->kbd_set = 1;
+}
+
+static void setKickstartLanguage(struct loaderData_s * loaderData, int argc, 
+                          char ** argv) {
+    if (argc < 2) {
+        logMessage(ERROR, "no argument passed to lang kickstart command");
+        return;
+    }
+
+    loaderData->lang = argv[1];
+    loaderData->lang_set = 1;
+}
+
+static void setKickstartNetwork(struct loaderData_s * loaderData, int argc, 
+                         char ** argv) {
+    iface_t iface;
+    gchar *bootProto = NULL, *device = NULL, *class = NULL, *ethtool = NULL;
+    gchar *essid = NULL, *wepkey = NULL, *onboot = NULL, *gateway = NULL;
+    gint mtu = 1500, dhcpTimeout = -1;
+    gboolean noipv4 = FALSE, noipv6 = FALSE, noDns = FALSE, noksdev = FALSE;
+    GOptionContext *optCon = g_option_context_new(NULL);
+    GError *optErr = NULL;
+    struct in_addr addr;
+#ifdef ENABLE_IPV6
+    struct in6_addr addr6;
+#endif
+    int rc;
+    GOptionEntry ksOptions[] = {
+        { "bootproto", 0, 0, G_OPTION_ARG_STRING, &bootProto, NULL, NULL },
+        { "device", 0, 0, G_OPTION_ARG_STRING, &device, NULL, NULL },
+        { "dhcpclass", 0, 0, G_OPTION_ARG_STRING, &class, NULL, NULL },
+        { "gateway", 'g', 0, G_OPTION_ARG_STRING, &gateway,
+          NULL, NULL },
+        { "ip", 'i', 0, G_OPTION_ARG_STRING, &loaderData->ipv4, NULL, NULL },
+#ifdef ENABLE_IPV6
+        { "ipv6", 0, 0, G_OPTION_ARG_STRING, &loaderData->ipv6, NULL, NULL },
+#endif
+        { "mtu", 0, 0, G_OPTION_ARG_INT, &mtu, NULL, NULL },
+        { "nameserver", 'n', 0, G_OPTION_ARG_STRING, &loaderData->dns,
+          NULL, NULL },
+        { "netmask", 'm', 0, G_OPTION_ARG_STRING, &loaderData->netmask,
+          NULL, NULL },
+        { "noipv4", 0, 0, G_OPTION_ARG_NONE, &noipv4, NULL, NULL },
+        { "noipv6", 0, 0, G_OPTION_ARG_NONE, &noipv6, NULL, NULL },
+        { "nodns", 0, 0, G_OPTION_ARG_NONE, &noDns, NULL, NULL },
+        { "hostname", 'h', 0, G_OPTION_ARG_STRING, &loaderData->hostname,
+          NULL, NULL },
+        { "ethtool", 0, 0, G_OPTION_ARG_STRING, &ethtool, NULL, NULL },
+        { "essid", 0, 0, G_OPTION_ARG_STRING, &essid, NULL, NULL },
+        { "wepkey", 0, 0, G_OPTION_ARG_STRING, &wepkey, NULL, NULL },
+        { "onboot", 0, 0, G_OPTION_ARG_STRING, &onboot, NULL, NULL },
+        { "notksdevice", 0, 0, G_OPTION_ARG_NONE, &noksdev, NULL, NULL },
+        { "dhcptimeout", 0, 0, G_OPTION_ARG_INT, &dhcpTimeout, NULL, NULL },
+        { NULL },
+    };
+
+    iface_init_iface_t(&iface);
+
+    g_option_context_set_help_enabled(optCon, FALSE);
+    g_option_context_add_main_entries(optCon, ksOptions, NULL);
+
+    if (!g_option_context_parse(optCon, &argc, &argv, &optErr)) {
+        newtWinMessage(_("Kickstart Error"), _("OK"),
+                       _("Bad argument to kickstart network command: %s"),
+                       optErr->message);
+        g_error_free(optErr);
+    }
+
+    g_option_context_free(optCon);
+
+    /* if they've specified dhcp/bootp use dhcp for the interface */
+    if (bootProto && (!strncmp(bootProto, "dhcp", 4) || 
+                       !strncmp(bootProto, "bootp", 4))) {
+        loaderData->ipv4 = strdup("dhcp");
+        loaderData->ipinfo_set = 1;
+    } else if (loaderData->ipv4) {
+        /* JKFIXME: this assumes a bit... */
+        loaderData->ipinfo_set = 1;
+    }
+
+    /* now make sure the specified bootproto is valid */
+    if (bootProto && strcmp(bootProto, "dhcp") && strcmp(bootProto, "bootp") &&
+        strcmp(bootProto, "static") && strcmp(bootProto, "query")) {
+        newtWinMessage(_("Kickstart Error"), _("OK"),
+                       _("Bad bootproto %s specified in network command"),
+                       bootProto);
+    }
+
+    /* --gateway is common for ipv4 and ipv6, same as in loader UI */
+    if (gateway) {
+        if ((rc = inet_pton(AF_INET, gateway, &addr)) == 1) {
+            loaderData->gateway = strdup(gateway);
+        } else if (rc == 0) {
+#ifdef ENABLE_IPV6
+            if ((rc = inet_pton(AF_INET6, gateway, &addr6)) == 1) {
+                loaderData->gateway6 = strdup(gateway);
+            } else if (rc == 0) {
+#endif
+                logMessage(WARNING,
+                           "invalid address in kickstart --gateway");
+#ifdef ENABLE_IPV6
+            } else {
+                 logMessage(ERROR, "%s (%d): %s", __func__, __LINE__,
+                               strerror(errno));
+            }
+#endif
+        } else {
+            logMessage(ERROR, "%s (%d): %s", __func__, __LINE__,
+                       strerror(errno));
+        }
+    }
+
+    if (!noksdev) {
+        if (device) {
+            /* If --device=MAC was given, translate into a device name now. */
+            if (index(device, ':') != NULL)
+                loaderData->netDev = iface_mac2device(device);
+            else
+                loaderData->netDev = strdup(device);
+
+            loaderData->netDev_set = 1;
+        }
+
+        if (class) {
+            loaderData->netCls = strdup(class);
+            loaderData->netCls_set = 1;
+        }
+
+        if (ethtool) {
+            if (loaderData->ethtool)
+                free(loaderData->ethtool);
+            loaderData->ethtool = strdup(ethtool);
+            free(ethtool);
+        }
+
+        if (essid) {
+            if (loaderData->essid)
+                free(loaderData->essid);
+            loaderData->essid = strdup(essid);
+            free(essid);
+        }
+
+        if (wepkey) {
+            if (loaderData->wepkey)
+                free(loaderData->wepkey);
+            loaderData->wepkey = strdup(wepkey);
+            free(wepkey);
+        }
+
+        if (mtu) {
+           loaderData->mtu = mtu;
+        }
+
+        if (noipv4)
+            flags |= LOADER_FLAGS_NOIPV4;
+
+#ifdef ENABLE_IPV6
+        if (noipv6)
+            flags |= LOADER_FLAGS_NOIPV6;
+
+        if (loaderData->ipv6) {
+            loaderData->ipv6info_set = 1;
+        }
+#endif
+    }
+
+    if (noDns) {
+        loaderData->noDns = 1;
+    }
+
+    /* Make sure the network is always up if there's a network line in the
+     * kickstart file, as %post/%pre scripts might require that.
+     */
+    if (loaderData->method != METHOD_NFS && loaderData->method != METHOD_URL) {
+        if (kickstartNetworkUp(loaderData, &iface))
+            logMessage(ERROR, "unable to bring up network");
+    }
+}
+
+static void setKickstartCD(struct loaderData_s * loaderData, int argc, char ** argv) {
+    logMessage(INFO, "kickstartFromCD");
+    loaderData->method = METHOD_CDROM;
+}
+
+static void setKickstartHD(struct loaderData_s * loaderData, int argc,
+                     char ** argv) {
+    char *p;
+    gchar *biospart = NULL, *partition = NULL, *dir = NULL;
+    GOptionContext *optCon = g_option_context_new(NULL);
+    GError *optErr = NULL;
+    GOptionEntry ksHDOptions[] = {
+        { "biospart", 0, 0, G_OPTION_ARG_STRING, &biospart, NULL, NULL },
+        { "partition", 0, 0, G_OPTION_ARG_STRING, &partition, NULL, NULL },
+        { "dir", 0, 0, G_OPTION_ARG_STRING, &dir, NULL, NULL },
+        { NULL },
+    };
+
+    logMessage(INFO, "kickstartFromHD");
+
+    g_option_context_set_help_enabled(optCon, FALSE);
+    g_option_context_add_main_entries(optCon, ksHDOptions, NULL);
+
+    if (!g_option_context_parse(optCon, &argc, &argv, &optErr)) {
+        startNewt();
+        newtWinMessage(_("Kickstart Error"), _("OK"),
+                       _("Bad argument to HD kickstart method "
+                         "command: %s"), optErr->message);
+        g_error_free(optErr);
+        g_option_context_free(optCon);
+        return;
+    }
+
+    g_option_context_free(optCon);
+
+    if (biospart) {
+        char * dev;
+
+        p = strchr(biospart,'p');
+        if(!p){
+            logMessage(ERROR, "Bad argument for --biospart");
+            return;
+        }
+        *p = '\0';
+        dev = getBiosDisk(biospart);
+        if (dev == NULL) {
+            logMessage(ERROR, "Unable to location BIOS partition %s", biospart);
+            return;
+        }
+        partition = malloc(strlen(dev) + strlen(p + 1) + 2);
+        sprintf(partition, "%s%s", dev, p + 1);
+    }
+
+    loaderData->method = METHOD_HD;
+    checked_asprintf(&loaderData->instRepo, "hd:%s:%s", partition, dir);
+
+    logMessage(INFO, "results of hd ks, partition is %s, dir is %s", partition,
+               dir);
+}
+
+static void setKickstartNfs(struct loaderData_s * loaderData, int argc,
+                     char ** argv) {
+    gchar *host = NULL, *dir = NULL, *mountOpts = NULL;
+    GOptionContext *optCon = g_option_context_new(NULL);
+    GError *optErr = NULL;
+    GOptionEntry ksNfsOptions[] = {
+        { "server", 0, 0, G_OPTION_ARG_STRING, &host, NULL, NULL },
+        { "dir", 0, 0, G_OPTION_ARG_STRING, &dir, NULL, NULL },
+        { "opts", 0, 0, G_OPTION_ARG_STRING, &mountOpts, NULL, NULL },
+        { NULL },
+    };
+
+    logMessage(INFO, "kickstartFromNfs");
+
+    g_option_context_set_help_enabled(optCon, FALSE);
+    g_option_context_add_main_entries(optCon, ksNfsOptions, NULL);
+
+    if (!g_option_context_parse(optCon, &argc, &argv, &optErr)) {
+        startNewt();
+        newtWinMessage(_("Kickstart Error"), _("OK"),
+                       _("Bad argument to NFS kickstart method "
+                         "command: %s"), optErr->message);
+        g_error_free(optErr);
+        g_option_context_free(optCon);
+        return;
+    }
+
+    g_option_context_free(optCon);
+
+    if (!host || !dir) {
+        logMessage(ERROR, "host and directory for nfs kickstart not specified");
+        return;
+    }
+
+    logMessage(INFO, "results of nfs, host is %s, dir is %s, opts are '%s'",
+               host, dir, mountOpts);
+
+    loaderData->method = METHOD_NFS;
+    if (mountOpts) {
+        checked_asprintf(&loaderData->instRepo, "nfs:%s:%s:%s", host, mountOpts, dir);
+    } else {
+        checked_asprintf(&loaderData->instRepo, "nfs:%s:%s", host, dir);
+    }
+}
+
+static void setKickstartUrl(struct loaderData_s * loaderData, int argc,
+                     char ** argv) {
+    gchar *url = NULL, *proxy = NULL;
+    gboolean noverifyssl = FALSE;
+    GOptionContext *optCon = g_option_context_new(NULL);
+    GError *optErr = NULL;
+    GOptionEntry ksUrlOptions[] = {
+        { "url", 0, 0, G_OPTION_ARG_STRING, &url, NULL, NULL },
+        { "proxy", 0, 0, G_OPTION_ARG_STRING, &proxy, NULL, NULL },
+        { "noverifyssl", 0, 0, G_OPTION_ARG_NONE, &noverifyssl, NULL, NULL },
+        { NULL },
+    };
+
+    logMessage(INFO, "kickstartFromUrl");
+
+    g_option_context_set_help_enabled(optCon, FALSE);
+    g_option_context_add_main_entries(optCon, ksUrlOptions, NULL);
+
+    if (!g_option_context_parse(optCon, &argc, &argv, &optErr)) {
+        startNewt();
+        newtWinMessage(_("Kickstart Error"), _("OK"),
+                       _("Bad argument to URL kickstart method "
+                         "command: %s"), optErr->message);
+        g_error_free(optErr);
+        g_option_context_free(optCon);
+        return;
+    }
+
+    g_option_context_free(optCon);
+
+    if (!url) {
+        newtWinMessage(_("Kickstart Error"), _("OK"),
+                       _("Must supply a --url argument to Url kickstart method."));
+        return;
+    }
+
+    /* determine install type */
+    if (strncmp(url, "http", 4) && strncmp(url, "ftp://", 6)) {
+        newtWinMessage(_("Kickstart Error"), _("OK"),
+                       _("Unknown Url method %s"), url);
+        return;
+    }
+
+    loaderData->instRepo = strdup(url);
+    loaderData->instRepo_noverifyssl = noverifyssl;
+    loaderData->method = METHOD_URL;
+
+    if (proxy) {
+        splitProxyParam(proxy, &loaderData->proxyUser,
+			       &loaderData->proxyPassword,
+			       &loaderData->proxy);
+    }
+    logMessage(INFO, "results of url ks, url %s", url);
 }
 
 int runKickstart(struct loaderData_s * loaderData, const char *file) {

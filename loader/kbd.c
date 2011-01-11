@@ -150,14 +150,3 @@ int chooseKeyboard(struct loaderData_s * loaderData, char ** kbdtypep) {
 
     return rc;
 }
-
-void setKickstartKeyboard(struct loaderData_s * loaderData, int argc, 
-                          char ** argv) {
-    if (argc < 2) {
-        logMessage(ERROR, "no argument passed to keyboard kickstart command");
-        return;
-    }
-
-    loaderData->kbd = argv[1];
-    loaderData->kbd_set = 1;
-}

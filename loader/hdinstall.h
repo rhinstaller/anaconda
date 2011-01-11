@@ -22,8 +22,6 @@
 
 #include "method.h"
 
-void setKickstartHD(struct loaderData_s * loaderData, int argc,
-		    char ** argv);
 int promptForHardDrive(struct loaderData_s *loaderData);
 int loadHdImages(struct loaderData_s *loaderData);
 int kickstartFromHD(char *kssrc);

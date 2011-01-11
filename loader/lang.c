@@ -380,14 +380,3 @@ int chooseLanguage(char ** lang) {
 
     return setupLanguage(choice, 0);
 }
-
-void setKickstartLanguage(struct loaderData_s * loaderData, int argc, 
-                          char ** argv) {
-    if (argc < 2) {
-        logMessage(ERROR, "no argument passed to lang kickstart command");
-        return;
-    }
-
-    loaderData->lang = argv[1];
-    loaderData->lang_set = 1;
-}

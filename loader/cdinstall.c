@@ -374,12 +374,6 @@ int loadCdromImages(struct loaderData_s *loaderData) {
     return 1;
 }
 
-void setKickstartCD(struct loaderData_s * loaderData, int argc, char ** argv) {
-
-    logMessage(INFO, "kickstartFromCD");
-    loaderData->method = METHOD_CDROM;
-}
-
 int kickstartFromCD(char *kssrc) {
     int rc, i;
     char *p, *kspath;

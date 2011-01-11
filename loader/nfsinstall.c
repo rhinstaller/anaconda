@@ -254,51 +254,6 @@ int loadNfsImages(struct loaderData_s *loaderData) {
     return 1;
 }
 
-void setKickstartNfs(struct loaderData_s * loaderData, int argc,
-                     char ** argv) {
-    gchar *host = NULL, *dir = NULL, *mountOpts = NULL;
-    GOptionContext *optCon = g_option_context_new(NULL);
-    GError *optErr = NULL;
-    GOptionEntry ksNfsOptions[] = {
-        { "server", 0, 0, G_OPTION_ARG_STRING, &host, NULL, NULL },
-        { "dir", 0, 0, G_OPTION_ARG_STRING, &dir, NULL, NULL },
-        { "opts", 0, 0, G_OPTION_ARG_STRING, &mountOpts, NULL, NULL },
-        { NULL },
-    };
-
-    logMessage(INFO, "kickstartFromNfs");
-
-    g_option_context_set_help_enabled(optCon, FALSE);
-    g_option_context_add_main_entries(optCon, ksNfsOptions, NULL);
-
-    if (!g_option_context_parse(optCon, &argc, &argv, &optErr)) {
-        startNewt();
-        newtWinMessage(_("Kickstart Error"), _("OK"),
-                       _("Bad argument to NFS kickstart method "
-                         "command: %s"), optErr->message);
-        g_error_free(optErr);
-        g_option_context_free(optCon);
-        return;
-    }
-
-    g_option_context_free(optCon);
-
-    if (!host || !dir) {
-        logMessage(ERROR, "host and directory for nfs kickstart not specified");
-        return;
-    }
-
-    logMessage(INFO, "results of nfs, host is %s, dir is %s, opts are '%s'",
-               host, dir, mountOpts);
-
-    loaderData->method = METHOD_NFS;
-    if (mountOpts) {
-        checked_asprintf(&loaderData->instRepo, "nfs:%s:%s:%s", host, mountOpts, dir);
-    } else {
-        checked_asprintf(&loaderData->instRepo, "nfs:%s:%s", host, dir);
-    }
-}
-
 int getFileFromNfs(char * url, char * dest, struct loaderData_s * loaderData) {
     char * host = NULL, *path = NULL, * file = NULL, * opts = NULL;
     char * chk = NULL, *ip = NULL;

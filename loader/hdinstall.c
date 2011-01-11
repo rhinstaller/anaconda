@@ -325,61 +325,6 @@ int promptForHardDrive(struct loaderData_s *loaderData) {
     return LOADER_OK;
 }
 
-void setKickstartHD(struct loaderData_s * loaderData, int argc,
-                     char ** argv) {
-    char *p;
-    gchar *biospart = NULL, *partition = NULL, *dir = NULL;
-    GOptionContext *optCon = g_option_context_new(NULL);
-    GError *optErr = NULL;
-    GOptionEntry ksHDOptions[] = {
-        { "biospart", 0, 0, G_OPTION_ARG_STRING, &biospart, NULL, NULL },
-        { "partition", 0, 0, G_OPTION_ARG_STRING, &partition, NULL, NULL },
-        { "dir", 0, 0, G_OPTION_ARG_STRING, &dir, NULL, NULL },
-        { NULL },
-    };
-
-    logMessage(INFO, "kickstartFromHD");
-
-    g_option_context_set_help_enabled(optCon, FALSE);
-    g_option_context_add_main_entries(optCon, ksHDOptions, NULL);
-
-    if (!g_option_context_parse(optCon, &argc, &argv, &optErr)) {
-        startNewt();
-        newtWinMessage(_("Kickstart Error"), _("OK"),
-                       _("Bad argument to HD kickstart method "
-                         "command: %s"), optErr->message);
-        g_error_free(optErr);
-        g_option_context_free(optCon);
-        return;
-    }
-
-    g_option_context_free(optCon);
-
-    if (biospart) {
-        char * dev;
-
-        p = strchr(biospart,'p');
-        if(!p){
-            logMessage(ERROR, "Bad argument for --biospart");
-            return;
-        }
-        *p = '\0';
-        dev = getBiosDisk(biospart);
-        if (dev == NULL) {
-            logMessage(ERROR, "Unable to location BIOS partition %s", biospart);
-            return;
-        }
-        partition = malloc(strlen(dev) + strlen(p + 1) + 2);
-        sprintf(partition, "%s%s", dev, p + 1);
-    }
-
-    loaderData->method = METHOD_HD;
-    checked_asprintf(&loaderData->instRepo, "hd:%s:%s", partition, dir);
-
-    logMessage(INFO, "results of hd ks, partition is %s, dir is %s", partition,
-               dir);
-}
-
 int kickstartFromHD(char *kssrc) {
     int rc;
     char *ksdev, *kspath;
