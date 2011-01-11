@@ -43,8 +43,9 @@ COMMON_CFLAGS      = -DUSE_LOGDEV -DVERSION='"$(PACKAGE_VERSION)"'
 
 loader_CFLAGS      = $(COMMON_CFLAGS) $(GLIB_CFLAGS) $(LIBNM_GLIB_CFLAGS) \
                      $(LIBCURL_CFLAGS) $(IPV6_CFLAGS) $(LIBARCHIVE_CFLAGS) \
-                     $(RPM_CFLAGS) -DINCLUDE_LOCAL -DINCLUDE_NETWORK
-loader_LDADD       = $(NEWT_LIBS) $(GLIB_LIBS) $(LIBNL_LIBS) \
+                     $(RPM_CFLAGS) $(PYTHON_INCLUDES) -DINCLUDE_LOCAL -DINCLUDE_NETWORK \
+                     -fno-strict-aliasing
+loader_LDADD       = $(NEWT_LIBS) $(GLIB_LIBS) $(LIBNL_LIBS) $(PYTHON_EMBED_LIBS) \
                      $(LIBNM_GLIB_LIBS) $(CHECKISOMD5_LIBS) \
                      $(LIBCURL_LIBS) $(LIBARCHIVE_LIBS) $(RPM_LIBS) \
                      $(ISCSI_LIBS) $(top_srcdir)/pyanaconda/isys/libisys.la -lm
