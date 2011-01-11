@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: anaconda.master\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
 "POT-Creation-Date: 2010-12-22 13:33-0500\n"
-"PO-Revision-Date: 2011-01-11 11:39+0530\n"
+"PO-Revision-Date: 2011-01-11 17:12+0530\n"
 "Last-Translator: Rajesh Ranjan <rranjan@redhat.com>\n"
 "Language-Team: Hindi <hindi@hindi>\n"
 "MIME-Version: 1.0\n"
@@ -19,6 +19,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.4\n"
 "Plural-Forms: nplurals=2; plural=(n!=1);\n\n"
+"\n"
 "\n"
 "\n"
 "\n"
@@ -3242,11 +3243,11 @@ msgstr ""
 "\n"
 
 #: pyanaconda/iw/partition_gui.py:1481
-#, fuzzy, python-format
+#, python-format
 msgid "You currently have %d software RAID partition free to use."
 msgid_plural "You currently have %d software RAID partitions free to use."
-msgstr[0] "एक सॉफ़्टवेयर RAID विभाजन बनाएँ (_p)."
-msgstr[1] "एक सॉफ़्टवेयर RAID विभाजन बनाएँ (_p)."
+msgstr[0] "आपके पास %d सॉफ़्टवेयर RAID विभाजन है जो उपयोग के लिए खाली है."
+msgstr[1] "आपके पास %d सॉफ़्टवेयर RAID विभाजन है जो उपयोग के लिए खाली है"
 
 #: pyanaconda/iw/partition_gui.py:1485
 msgid "About RAID"
@@ -4030,9 +4031,9 @@ msgid "Cannot find ks.cfg on removable media."
 msgstr "विस्थापनीय मीडिया पर ks.cfg खोज नहीं सकता है."
 
 #: loader/kickstart.c:340
-#, fuzzy, c-format
+#, c-format
 msgid "Bad argument to device kickstart method command: %s"
-msgstr "%s युक्ति किकस्टार्ट प्रक्रिया कमांड को बुरा तर्क: %s"
+msgstr "युक्ति किकस्टार्ट प्रक्रिया कमांड को बुरा तर्क: %s"
 
 #: loader/kickstart.c:356
 msgid "A module name must be specified for the kickstart device command."
@@ -4051,9 +4052,9 @@ msgid "Error downloading kickstart file"
 msgstr "किकस्टार्ट फ़ाइल डाउनलोड करने में त्रुटि"
 
 #: loader/kickstart.c:572
-#, fuzzy, c-format
+#, c-format
 msgid "Bad argument to shutdown kickstart method command: %s"
-msgstr "किकस्टार्ट विधि कमांड %s को बंद करने के लिए गलत तर्क: %s"
+msgstr "किकस्टार्ट विधि कमांड को बंद करने के लिए गलत तर्क: %s"
 
 #: loader/lang.c:62 loader/loader.c:228
 #, c-format
@@ -4232,18 +4233,16 @@ msgid "Driver disc was detected in %s. Do you want to use it?."
 msgstr ""
 
 #: loader/loader.c:2065
-#, fuzzy
 msgid "Driver disc detected"
-msgstr "माध्यम खोजा गया"
+msgstr "ड्राइवर डिस्क खोजा गया"
 
 #: loader/loader.c:2065
 msgid "Use it"
-msgstr ""
+msgstr "इसे प्रयोग करें"
 
 #: loader/loader.c:2065
-#, fuzzy
 msgid "Skip it"
-msgstr "छोड़ें"
+msgstr "इसे छोड़ें"
 
 #: loader/loader.c:2378
 #, c-format
@@ -4284,9 +4283,8 @@ msgstr ""
 "checksum को जोड़ें बिना डिस्क बनाई गई थी."
 
 #: loader/mediacheck.c:94
-#, fuzzy
 msgid "Unable to open the image."
-msgstr "छवि ढ़ूढ़नें में असमर्थ"
+msgstr "छवि खोलने में असमर्थ"
 
 #: loader/mediacheck.c:98
 msgid ""
@@ -4355,6 +4353,9 @@ msgid ""
 "This cannot be corrected in cmdline mode.\n"
 "Halting.\n"
 msgstr ""
+"\n"
+"इसे कमांड लाइन विधि में सही नहीं किया जा सकता है.\n"
+"रोक रहा है.\n"
 
 #: loader/net.c:513 loader/net.c:571 pyanaconda/textw/netconfig_text.py:403
 msgid "Network Error"
@@ -4436,9 +4437,9 @@ msgid "You must enter both a valid IPv6 address and a CIDR prefix."
 msgstr "आपको जरूर वैध IPv6 पता और CIDR उपसर्ग दोनों के लिये डालना चाहिए."
 
 #: loader/net.c:1656
-#, fuzzy, c-format
+#, c-format
 msgid "Bad argument to kickstart network command: %s"
-msgstr "%s किकस्टार्ट संजाल कमांड को बुरा तर्क: %s"
+msgstr "किकस्टार्ट संजाल कमांड को बुरा तर्क: %s"
 
 #: loader/net.c:1677
 #, c-format
@@ -4508,7 +4509,7 @@ msgstr "%s निर्देशिका:"
 
 #: loader/nfsinstall.c:77
 msgid "NFS mount options (optional):"
-msgstr ""
+msgstr "NFS आरोह बिंदु (वैकल्पिक):"
 
 #: loader/nfsinstall.c:83
 #, fuzzy, c-format
@@ -4522,24 +4523,23 @@ msgid "NFS Setup"
 msgstr "NFS व्यवस्था"
 
 #: loader/nfsinstall.c:196 loader/urlinstall.c:214
-#, fuzzy
 msgid "The URL provided does not contain installation media."
-msgstr "लगता है कि %s युक्ति संस्थापन छवि समाहित नहीं रखता है."
+msgstr "संस्थापन मीडिया को URL समाहित नहीं रखता है."
 
 #: loader/nfsinstall.c:277
-#, fuzzy, c-format
+#, c-format
 msgid "Bad argument to NFS kickstart method command: %s"
-msgstr "%s NFS किकस्टार्ट विधि कमांड को बुरा तर्क: %s"
+msgstr "NFS किकस्टार्ट विधि कमांड को बुरा तर्क: %s"
 
 #: loader/urlinstall.c:140
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to retrieve %s."
-msgstr "%s की पुनःप्राप्ति में असमर्थ://%s%s."
+msgstr "%s पुनःप्राप्ति में असमर्थ"
 
 #: loader/urlinstall.c:280
-#, fuzzy, c-format
+#, c-format
 msgid "Bad argument to URL kickstart method command: %s"
-msgstr " %s Url किकस्टार्ट विधि कमांड को बुरा तर्क: %s"
+msgstr "URL किकस्टार्ट विधि कमांड को बुरा तर्क: %s"
 
 #: loader/urlinstall.c:291
 msgid "Must supply a --url argument to Url kickstart method."
@@ -4560,24 +4560,20 @@ msgid "Please enter the URL containing the %s installation image on your server.
 msgstr "आपके सर्वर पर समाहित %s छवि का URL दाखिल करें."
 
 #: loader/urls.c:285
-#, fuzzy
 msgid "Enable HTTP proxy"
-msgstr "IPv4 समर्थन सक्रिय करें"
+msgstr "HTTP प्रॉक्सी सक्रिय करें"
 
 #: loader/urls.c:299
-#, fuzzy
 msgid "Proxy URL"
-msgstr "अवैध प्रॉक्सी URL"
+msgstr "प्रॉक्सी URL"
 
 #: loader/urls.c:304
-#, fuzzy
 msgid "Username"
 msgstr "उपयोक्तानाम"
 
 #: loader/urls.c:309
-#, fuzzy
 msgid "Password"
-msgstr "पासवर्ड"
+msgstr "कूटशब्द"
 
 #: loader/urls.c:328
 msgid "URL Setup"
@@ -4610,9 +4606,8 @@ msgstr ""
 "और फिर कोशिश करें."
 
 #: pyanaconda/storage/__init__.py:120
-#, fuzzy
 msgid "No disks found"
-msgstr "कोई ड्राइवर नहीं मिला"
+msgstr "कोई डिस्क नहीं मिला"
 
 #: pyanaconda/storage/__init__.py:121
 msgid "No usable disks have been found."
@@ -4658,12 +4653,10 @@ msgstr ""
 "विभाजन पर कोई आंकड़ा नष्ट हो जायेगा"
 
 #: pyanaconda/storage/__init__.py:194
-#, fuzzy
 msgid "Go _Back"
-msgstr "पीछे जाएँ (_b)"
+msgstr "पीछे जाएँ (_B)"
 
 #: pyanaconda/storage/__init__.py:195
-#, fuzzy
 msgid "_Write Changes to Disk"
 msgstr "डिस्क में परिवर्तन लिखें (_W)"
 
@@ -4681,14 +4674,12 @@ msgid "Error storing an encryption key: %s\n"
 msgstr "किसी गोपन कुंजी के जमा करने में त्रुटि: %s\n"
 
 #: pyanaconda/storage/__init__.py:399
-#, fuzzy
 msgid "Examining Devices"
-msgstr "युक्ति ढूँढ़ रहा है"
+msgstr "युक्ति जाँच रहा है"
 
 #: pyanaconda/storage/__init__.py:400
-#, fuzzy
 msgid "Examining storage devices"
-msgstr "भंडार युक्ति ढूँढ़ रहा है"
+msgstr "भंडार युक्ति जाँच रहा है"
 
 #: pyanaconda/storage/__init__.py:676
 msgid "This partition is holding the data for the hard drive install."
@@ -4745,11 +4736,11 @@ msgstr ""
 "संस्थापन नहीं हो सकता."
 
 #: pyanaconda/storage/__init__.py:1004
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Your / partition is less than %(min)s MB which is lower than recommended for "
 "a normal %(productName)s install."
-msgstr "आपका / विभाजन %s मेगाबाइट से कम है जो कि साधारण %s संस्थापन के लिए अनुशंसित से कम है."
+msgstr "आपका / विभाजन %(min)s मेगाबाइट से कम है जो कि साधारण %(productName)s संस्थापन के लिए अनुशंसित से कम है."
 
 #: pyanaconda/storage/__init__.py:1014
 #, python-format
@@ -4761,11 +4752,11 @@ msgstr ""
 "संरूपित करने की जरूरी है."
 
 #: pyanaconda/storage/__init__.py:1021
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Your %(mount)s partition is less than %(size)s megabytes which is lower than "
 "recommended for a normal %(productName)s install."
-msgstr "आपका %s विभाजन %s मेगाबाइट से कम है जो कि साधारण %s संस्थापन के लिए अनुशंसित से कम है."
+msgstr "आपका %(mount)s विभाजन %(size)s मेगाबाइट से कम है जो कि साधारण %(productName)s संस्थापन के लिए अनुशंसित से कम है."
 
 #: pyanaconda/storage/__init__.py:1050
 msgid "Installing on a USB device.  This may or may not produce a working system."
@@ -4778,13 +4769,11 @@ msgid ""
 msgstr "FireWire युक्ति पर संस्थापित कर रहा है.  यह कार्यशील तंत्र उत्पन्न कर सकता है या नहीं भी."
 
 #: pyanaconda/storage/__init__.py:1065
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "You have not specified a swap partition.  %s MB of memory is required to "
 "continue installation without a swap partition, but you only have %s MB."
-msgstr ""
-"आपने एक स्वैप विभाजन निर्दिष्ट नहीं किया है. उपस्थित स्मृति की मात्रा के कारण, किसी स्वैप "
-"विभाजन संस्थापन पूर्ण करने के लिए जरूरी है."
+msgstr "आपने एक स्वैप विभाजन निर्दिष्ट नहीं किया है. %s MB स्मृति को बिना स्वैप विभाजन के संस्थापन के लिए जारी रखना जरूरी है, लेकिन आपके पास %s MB है."
 
 #: pyanaconda/storage/__init__.py:1070
 msgid ""
@@ -4900,7 +4889,7 @@ msgstr ""
 "संस्थापक सारे स्वैप युक्ति के प्रारूपण के लिये सेट किया हुआ है."
 
 #: pyanaconda/storage/__init__.py:1883
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The swap device:\n"
 "\n"
@@ -4913,11 +4902,11 @@ msgstr ""
 "\n"
 "     %s\n"
 "\n"
-"किसी स्वैप आयतन का समर्थन नहीं करता है. संस्थापन जारी रखने के लिए, आपको युक्ति को "
+"किसी समर्थित स्वैप आयतन समाहित नहीं करता है. संस्थापन जारी रखने के लिए, आपको युक्ति को "
 "प्रारूपित करना होगा या इसे छोड़ना होगा."
 
 #: pyanaconda/storage/__init__.py:1894
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Error enabling swap device %(name)s: %(msg)s\n"
 "\n"
@@ -4926,14 +4915,14 @@ msgid ""
 "\n"
 "Press OK to exit the installer"
 msgstr ""
-"%s स्वैप युक्ति को सक्रिय करने में त्रुटि: %s\n"
+"%(name)s स्वैप युक्ति को सक्रिय करने में त्रुटि: %(msg)s\n"
 "\n"
 "आपके उन्नत विभाजन पर /etc/fstab एक मान्य स्वैप युक्ति को संदर्भित नहीं करता है.\n"
 "\n"
 "संस्थापक से बाहर निकलने के लिए'ठीक' दबाएँ."
 
 #: pyanaconda/storage/__init__.py:1901
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Error enabling swap device %(name)s: %(msg)s\n"
 "\n"
@@ -4941,7 +4930,7 @@ msgid ""
 "\n"
 "Press OK to exit the installer."
 msgstr ""
-"%s स्वैप युक्ति को सक्रिय करने में त्रुटि: %s\n"
+"%(name)s स्वैप युक्ति को सक्रिय करने में त्रुटि: %(msg)s\n"
 "\n"
 "इसका सर्वाधिक संभाव्य अर्थ यह हो सकता है कि इस स्वैप युक्ति का प्रारंभिकीकरण नहीं किया "
 "गया है.\n"
@@ -5015,8 +5004,8 @@ msgstr[1] "प्रारूपण विफल"
 #, python-format
 msgid "Preparing %d DASD device for use with Linux..."
 msgid_plural "Preparing %d DASD devices for use with Linux..."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d DASD युक्ति को Linux के साथ उपयोग के लिए तैयार कर रहा है..."
+msgstr[1] "%d DASD युक्तियों को Linux के साथ उपयोग के लिए तैयार कर रहा है..."
 
 #: pyanaconda/storage/devicelibs/lvm.py:299
 #, python-format
@@ -5045,13 +5034,13 @@ msgstr "युक्ति बदलें (_C)"
 #, python-format
 msgid "A RAID%d set requires at least %d member"
 msgid_plural "A RAID%d set requires at least %d members"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "RAID%d सेट के लिए कम से कम %d सदस्य की जरूरत है"
+msgstr[1] "RAID%d सेट के लिए कम से कम %d सदस्यों की जरूरत है"
 
 #: pyanaconda/storage/devices.py:3516
-#, fuzzy, python-format
+#, python-format
 msgid "Creating file %s"
-msgstr "%s पर फ़ाइल तंत्र बना रहा है"
+msgstr "%s पर फ़ाइल बना रहा है"
 
 #: pyanaconda/storage/devicetree.py:105
 #, python-format
@@ -5345,18 +5334,18 @@ msgid "LUN %(fcplun)s at WWPN %(wwpn)s on zFCP device %(devnum)s already configu
 msgstr "LUN %s WWPN %s पर zFCP युक्ति पर %s पहले से विन्यस्त किया गया है."
 
 #: pyanaconda/storage/zfcp.py:194
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Could not read failed attribute of LUN %(fcplun)s at WWPN %(wwpn)s on zFCP "
 "device %(devnum)s (%(e)s)."
-msgstr "LUN %s के विफल गुण को WWPN %s में zFCP युक्ति %s (%s) पर पढ़ नहीं सका."
+msgstr "LUN %(fcplun)s के विफल गुण को WWPN %(wwpn)s में zFCP युक्ति %(devnum)s (%(e)s) पर पढ़ नहीं सका."
 
 #: pyanaconda/storage/zfcp.py:203
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Failed LUN %(fcplun)s at WWPN %(wwpn)s on zFCP device %(devnum)s removed "
 "again."
-msgstr "विफल LUN %s WWPN %s में zFCP युक्ति %s पर फिर से हटाया गया."
+msgstr "विफल LUN %(fcplun)s WWPN %(wwpn)s में zFCP युक्ति %(devnum)s पर फिर से हटाया गया."
 
 #: pyanaconda/storage/zfcp.py:260
 #, fuzzy, python-format
@@ -5366,21 +5355,23 @@ msgid ""
 msgstr "सही तरीके से SCSI युक्ति को zFCP %s %s %s (%s) पर मिटा नहीं सका."
 
 #: pyanaconda/storage/zfcp.py:269
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Could not remove LUN %(fcplun)s at WWPN %(wwpn)s on zFCP device %(devnum)s (%"
 "(e)s)."
-msgstr "LUN %s को WWPN %s पर zFCP युक्ति %s (%s) पर हटा नहीं सकी."
+msgstr ""
+"LUN %(fcplun)s को WWPN %(wwpn)s पर zFCP युक्ति %(devnum)s (%"
+"(e)s) पर हटा नहीं सकी."
 
 #: pyanaconda/storage/zfcp.py:287
-#, fuzzy, python-format
+#, python-format
 msgid "Could not remove WWPN %(wwpn)s on zFCP device %(devnum)s (%(e)s)."
-msgstr "WWPN %s को zFCP युक्ति %s (%s) पर हटा नहीं सका."
+msgstr "WWPN %(wwpn)s को zFCP युक्ति %(devnum)s (%(e)s) पर हटा नहीं सका."
 
 #: pyanaconda/storage/zfcp.py:313
-#, fuzzy, python-format
+#, python-format
 msgid "Could not set zFCP device %(devnum)s offline (%(e)s)."
-msgstr "zFCP युक्ति %s ऑफलाइन (%s) नहीं सेट कर सका."
+msgstr "zFCP युक्ति %(devnum)s ऑफलाइन (%(e)s) नहीं सेट कर सका."
 
 #: pyanaconda/textw/complete_text.py:32
 msgid "Reboot"
@@ -5407,13 +5398,13 @@ msgid "Error With Data"
 msgstr "आकड़े के साथ त्रुटि"
 
 #: pyanaconda/textw/netconfig_text.py:36
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error occurred converting the value entered for \"%(field)s\":\n"
 "%(errmsg)s"
 msgstr ""
-"\"%s\" के लिए दाखिल मान को बदलने में एक त्रुटि घटित हुआ है:\n"
-"%s"
+"\"%(field)s\" के लिए दाखिल मान को बदलने में एक त्रुटि घटित हुआ है:\n"
+"%(errmsg)s"
 
 #: pyanaconda/textw/netconfig_text.py:43
 #, python-format
@@ -5426,13 +5417,12 @@ msgid "Enable network interface"
 msgstr "संजाल अंतरफलक सक्रिय करें"
 
 #: pyanaconda/textw/netconfig_text.py:129
-#, fuzzy
 msgid ""
 "This requires that you have an active network connection during the "
 "installation process.  Please select network interface to configure."
 msgstr ""
 "इसकी जरूरत है कि आपके पास संस्थापन प्रक्रिया के दौरान एक सक्रिय संजाल कनेक्शन है.  कृपया "
-"एक संजाल अंतरफलक विन्यस्त करें."
+"एक संजाल अंतरफलक को विन्यस्त करने के लिए चुनें."
 
 #: pyanaconda/textw/netconfig_text.py:155
 #, fuzzy, python-format
@@ -5440,15 +5430,13 @@ msgid "Configure interface %s to be used during installation process."
 msgstr "संस्थापन प्रक्रिया के समय आप कौन सी भाषा का प्रयोग करना चाहते हैं?"
 
 #: pyanaconda/textw/netconfig_text.py:160
-#, fuzzy
 msgid "Enable IPv4 Support"
 msgstr "IPv4 समर्थन सक्रिय करें"
 
 #: pyanaconda/textw/netconfig_text.py:167
 #: pyanaconda/textw/netconfig_text.py:207
-#, fuzzy
 msgid "Manual Configuration"
-msgstr "दस्ती TCP/IP विन्यास"
+msgstr "दस्ती विन्यास"
 
 #: pyanaconda/textw/netconfig_text.py:175
 msgid "IPv4 Address:"
@@ -5460,22 +5448,18 @@ msgid "Nameserver:"
 msgstr "नामसर्वर:"
 
 #: pyanaconda/textw/netconfig_text.py:197
-#, fuzzy
 msgid "Enable IPv6 Support"
 msgstr "IPv6 समर्थन सक्रिय करें"
 
 #: pyanaconda/textw/netconfig_text.py:204
-#, fuzzy
 msgid "Dynamic IP Configuration (DHCPv6)"
-msgstr "गतिशील IP विन्यास (DHCP) का प्रयोग करें"
+msgstr "गतिशील IP विन्यास (DHCPv6)"
 
 #: pyanaconda/textw/netconfig_text.py:215
-#, fuzzy
 msgid "IPv6 Address:"
 msgstr "IPv6 पता:"
 
 #: pyanaconda/textw/netconfig_text.py:270
-#, fuzzy
 msgid "Missing protocol"
 msgstr "गुम प्रोटोकॉल"
 
@@ -5486,41 +5470,35 @@ msgstr "आपको कम से कम एक प्रोटोकॉल (IP
 
 #: pyanaconda/textw/netconfig_text.py:279
 #: pyanaconda/textw/netconfig_text.py:282
-#, fuzzy
 msgid "IPv4 Address"
 msgstr "IPv4 पता"
 
 #: pyanaconda/textw/netconfig_text.py:286
 #: pyanaconda/textw/netconfig_text.py:291
-#, fuzzy
 msgid "IPv4 Prefix"
-msgstr "अवैध उपसर्ग"
+msgstr "IPv4 उपसर्ग"
 
 #: pyanaconda/textw/netconfig_text.py:290
 msgid "IPv4 CIDR prefix must be between 0 and 32."
 msgstr "IPv4 CIDR उपसर्ग को 0 और 32 के बीच जरूर होना चाहिए."
 
 #: pyanaconda/textw/netconfig_text.py:298
-#, fuzzy
 msgid "IPv4 Gateway"
-msgstr "गेटवे"
+msgstr "IPv4 गेटवे"
 
 #: pyanaconda/textw/netconfig_text.py:307
-#, fuzzy
 msgid "IPv4 Nameserver"
-msgstr "नामसर्वर"
+msgstr "IPv4 नामसर्वर"
 
 #: pyanaconda/textw/netconfig_text.py:315
 #: pyanaconda/textw/netconfig_text.py:318
-#, fuzzy
 msgid "IPv6 Address"
 msgstr "IPv6 पता"
 
 #: pyanaconda/textw/netconfig_text.py:322
 #: pyanaconda/textw/netconfig_text.py:327
-#, fuzzy
 msgid "IPv6 Prefix"
-msgstr "अवैध उपसर्ग"
+msgstr "IPv6 उपसर्ग"
 
 #: pyanaconda/textw/netconfig_text.py:326
 #, fuzzy
@@ -5528,23 +5506,21 @@ msgid "IPv6 CIDR prefix must be between 0 and 128."
 msgstr "IPv4 CIDR उपसर्ग को 0 और 32 के बीच जरूर होना चाहिए."
 
 #: pyanaconda/textw/netconfig_text.py:334
-#, fuzzy
 msgid "IPv6 Gateway"
-msgstr "गेटवे"
+msgstr "IPv6 गेटवे"
 
 #: pyanaconda/textw/netconfig_text.py:342
-#, fuzzy
 msgid "IPv6 Nameserver"
-msgstr "नामसर्वर"
+msgstr "IPv6 नामसर्वर"
 
 #: pyanaconda/textw/netconfig_text.py:399
 msgid "Configuring Network Interfaces"
 msgstr "संजाल अंतरफलक विन्यस्त कर रहा है"
 
 #: pyanaconda/textw/netconfig_text.py:404
-#, fuzzy, python-format
+#, python-format
 msgid "There was an error configuring network device %s"
-msgstr "आपके संजाल अंतरफलक विन्यासन में एक त्रुटि थी."
+msgstr "संजाल अंतरफलक %s विन्यासन में एक त्रुटि थी"
 
 #: pyanaconda/textw/partition_text.py:59
 msgid "Partitioning Type"
@@ -5702,9 +5678,8 @@ msgid "Install to Hard Drive"
 msgstr "हार्ड ड्राइव में संस्थापित करें"
 
 #: liveinst:5
-#, fuzzy
 msgid "Starting Install to Hard Drive"
-msgstr "हार्ड ड्राइव में संस्थापित करें"
+msgstr "हार्ड ड्राइव में संस्थापित करना आरंभ कर रहा है"
 
 #: data/ui/GroupSelector.glade.h:1
 msgid ""
@@ -5858,9 +5833,8 @@ msgid "_Next"
 msgstr "आगे (_N)"
 
 #: data/ui/autopart.glade.h:1
-#, fuzzy
 msgid "<b>Shrink partition _to size (in MB):</b>"
-msgstr "<b>लक्ष्य सिकोड़ें (_t) (MB में):</b>"
+msgstr "<b>लक्ष्य सिकोड़ें आकार में (_t) (MB में):</b>"
 
 #: data/ui/autopart.glade.h:2
 msgid "Re_view and modify partitioning layout"
@@ -5876,7 +5850,7 @@ msgstr "अपने संस्थापन के लिए किस वि�
 
 #: data/ui/autopart.glade.h:5
 msgid "Which type of installation would you like?"
-msgstr ""
+msgstr "किस प्रकार का संस्थापन आप पसंद करेंगे?"
 
 #: data/ui/autopart.glade.h:6
 msgid "_Encrypt system"
@@ -5927,9 +5901,8 @@ msgid "<b>Data Storage Devices</b> (to be mounted only)"
 msgstr ""
 
 #: data/ui/cleardisks.glade.h:2
-#, fuzzy
 msgid "<b>Install Target Devices</b>"
-msgstr "<b>%s संस्थापित कर रहा है</b> (%s)\n"
+msgstr "<b>लक्ष्य युक्ति संस्थापित करें</b>"
 
 #: data/ui/cleardisks.glade.h:3
 msgid ""
@@ -5978,52 +5951,44 @@ msgid ""
 msgstr ""
 
 #: data/ui/create-storage.glade.h:7
-#, fuzzy
 msgid "C_reate"
 msgstr "बनाएँ (_r)"
 
 #: data/ui/create-storage.glade.h:8
 msgid "Create LVM"
-msgstr ""
+msgstr "LVM बनाएँ"
 
 #: data/ui/create-storage.glade.h:9
-#, fuzzy
 msgid "Create Partition"
-msgstr "विभाजन चुनें"
+msgstr "विभाजन बनाएँ"
 
 #: data/ui/create-storage.glade.h:10
-#, fuzzy
 msgid "Create Software RAID"
-msgstr "सॉफ़्टवेयर RAID"
+msgstr "सॉफ़्टवेयर RAID बनाएँ"
 
 #: data/ui/create-storage.glade.h:11
 msgid "Create Storage"
-msgstr ""
+msgstr "भंडार बनाएँ"
 
 #: data/ui/create-storage.glade.h:12
-#, fuzzy
 msgid "LVM Logical Volume"
-msgstr "लॉजिकल आयतन बनाएँ"
+msgstr "LVM लॉजिकल आयतन"
 
 #: data/ui/create-storage.glade.h:13
-#, fuzzy
 msgid "LVM Physical Volume"
 msgstr "LVM भौतिक आयतन"
 
 #: data/ui/create-storage.glade.h:14
-#, fuzzy
 msgid "LVM Volume Group"
 msgstr "LVM आयतन समूह"
 
 #: data/ui/create-storage.glade.h:16
-#, fuzzy
 msgid "RAID Partition"
-msgstr "विभाजन जोड़ें"
+msgstr "RAID विभाजन"
 
 #: data/ui/create-storage.glade.h:17
-#, fuzzy
 msgid "Standard Partition"
-msgstr "विभाजन जोड़ें"
+msgstr "मानक विभाजन"
 
 #: data/ui/detailed-dialog.glade.h:1
 msgid "Info"
@@ -6038,9 +6003,8 @@ msgid "Configure FCoE Parameters"
 msgstr "FCoE पैरामीटर विन्यस्त करें"
 
 #: data/ui/fcoe-config.glade.h:2
-#, fuzzy
 msgid "NIC:"
-msgstr "NIC"
+msgstr "NIC:"
 
 #: data/ui/fcoe-config.glade.h:3
 msgid ""
@@ -6052,7 +6016,7 @@ msgstr ""
 
 #: data/ui/fcoe-config.glade.h:5
 msgid "Use DCB"
-msgstr ""
+msgstr "DCB का उपयोग करें"
 
 #: data/ui/fcoe-config.glade.h:6
 msgid "_Add FCoE Disk(s)"
@@ -6066,22 +6030,18 @@ msgid ""
 msgstr ""
 
 #: data/ui/filter.glade.h:2
-#, fuzzy
 msgid "Basic Devices"
-msgstr "युक्ति"
+msgstr "मूल युक्ति"
 
 #: data/ui/filter.glade.h:3
-#, fuzzy
 msgid "Filter By:"
-msgstr "बग फ़ाइल करें (_F)"
+msgstr "इससे फिल्टर करें:"
 
 #: data/ui/filter.glade.h:4
-#, fuzzy
 msgid "Firmware RAID"
-msgstr "सॉफ़्टवेयर RAID"
+msgstr "फर्मवेयर RAID"
 
 #: data/ui/filter.glade.h:5
-#, fuzzy
 msgid "Identifier:"
 msgstr "पहचानकर्ताः"
 
@@ -6094,12 +6054,11 @@ msgstr ""
 
 #: data/ui/filter.glade.h:9
 msgid "LUN:"
-msgstr ""
+msgstr "LUN:"
 
 #: data/ui/filter.glade.h:10
-#, fuzzy
 msgid "Multipath Devices"
-msgstr "बनावटी युक्ति"
+msgstr "बहुपथ युक्ति"
 
 #: data/ui/filter.glade.h:11
 #, fuzzy
@@ -6119,7 +6078,6 @@ msgid ""
 msgstr ""
 
 #: data/ui/filter.glade.h:15
-#, fuzzy
 msgid "Port:"
 msgstr "पोर्टः"
 
@@ -6154,7 +6112,6 @@ msgid "Show Only Devices Using:"
 msgstr ""
 
 #: data/ui/filter.glade.h:24
-#, fuzzy
 msgid "Target:"
 msgstr "लक्ष्यः"
 
@@ -6164,21 +6121,18 @@ msgid "_Add Advanced Target"
 msgstr "लक्ष्य जोड़ें (_A)"
 
 #: data/ui/iscsi-dialogs.glade.h:1
-#, fuzzy
 msgid "CHAP Password:"
-msgstr "CHAP कूटशब्द"
+msgstr "CHAP कूटशब्द:"
 
 #: data/ui/iscsi-dialogs.glade.h:2
-#, fuzzy
 msgid "CHAP Username:"
-msgstr "CHAP उपयोक्तानाम"
+msgstr "CHAP उपयोक्तानाम:"
 
 #: data/ui/iscsi-dialogs.glade.h:3
 msgid "Check the nodes you wish to log into:"
 msgstr ""
 
 #: data/ui/iscsi-dialogs.glade.h:4
-#, fuzzy
 msgid "Reason:"
 msgstr "कारण:"
 
@@ -6188,14 +6142,12 @@ msgid "Retry _Login"
 msgstr "फिर कोशिश कर रहा है"
 
 #: data/ui/iscsi-dialogs.glade.h:6
-#, fuzzy
 msgid "Reverse CHAP Password:"
-msgstr "विलोम CHAP कूटशब्द"
+msgstr "विलोम CHAP कूटशब्द:"
 
 #: data/ui/iscsi-dialogs.glade.h:7
-#, fuzzy
 msgid "Reverse CHAP Username:"
-msgstr "विलोम CHAP उपयोक्तानाम"
+msgstr "विलोम CHAP उपयोक्तानाम:"
 
 #: data/ui/iscsi-dialogs.glade.h:8
 msgid "Start _Discovery"
@@ -6206,9 +6158,8 @@ msgid "Successfully logged in and attached the following nodes:"
 msgstr ""
 
 #: data/ui/iscsi-dialogs.glade.h:10
-#, fuzzy
 msgid "Target IP Address:"
-msgstr "लक्ष्य IP पता"
+msgstr "लक्ष्य IP पता:"
 
 #: data/ui/iscsi-dialogs.glade.h:11
 msgid ""
@@ -6227,41 +6178,36 @@ msgid "What kind of iSCSI <b>login authentication</b> do you wish to perform:"
 msgstr ""
 
 #: data/ui/iscsi-dialogs.glade.h:14
-#, fuzzy
 msgid "_Cancel"
 msgstr "रद्द करें (_C)"
 
 #: data/ui/iscsi-dialogs.glade.h:15
-#, fuzzy
 msgid "_Login"
 msgstr "लागिन (_L)"
 
 #: data/ui/iscsi-dialogs.glade.h:16
-#, fuzzy
 msgid "_OK"
 msgstr "ठीक (_O)"
 
 #: data/ui/iscsi-dialogs.glade.h:17
-#, fuzzy
 msgid "iSCSI Discovered Nodes"
-msgstr "कोई iSCSI नोड नहीं खोजा गया"
+msgstr "iSCSI खोज नोड"
 
 #: data/ui/iscsi-dialogs.glade.h:18
 msgid "iSCSI Discovery Details"
-msgstr ""
+msgstr "iSCSI खोज विवरण"
 
 #: data/ui/iscsi-dialogs.glade.h:19
-#, fuzzy
 msgid "iSCSI Initiator Name:"
-msgstr "iSCSI आरंभकर्ता नाम"
+msgstr "iSCSI आरंभकर्ता नाम:"
 
 #: data/ui/iscsi-dialogs.glade.h:20
 msgid "iSCSI Login Results"
-msgstr ""
+msgstr "iSCSI लॉगिन परिणाम"
 
 #: data/ui/iscsi-dialogs.glade.h:21
 msgid "iSCSI Nodes Login"
-msgstr ""
+msgstr "iSCSI नोड लॉगिन"
 
 #: data/ui/iscsi-dialogs.glade.h:22
 msgid "iSCSI login has failed for the following nodes:"
@@ -6294,9 +6240,8 @@ msgid "Enter passphrase:"
 msgstr "कूटशब्द दाखिल करें:"
 
 #: data/ui/network.glade.h:1
-#, fuzzy
 msgid "Configure Network"
-msgstr "संजाल विन्यासन में त्रुटि"
+msgstr "संजाल विन्यस्त करें"
 
 #: data/ui/network.glade.h:2
 msgid "Hostname:"
@@ -6378,7 +6323,7 @@ msgstr ""
 msgid ""
 "<span size=\"large\" weight=\"bold\">The storage device below may contain "
 "data.</span>"
-msgstr ""
+msgstr "<span size=\"large\" weight=\"bold\">नीचे के भंडार युक्ति आंकड़ा को समाहित करता है.</span>"
 
 #: data/ui/reinitialize-dialog.glade.h:2
 msgid "Apply my choice to all devices with undetected partitions or filesystems"
@@ -6386,7 +6331,7 @@ msgstr ""
 
 #: data/ui/reinitialize-dialog.glade.h:3
 msgid "No, keep any data"
-msgstr ""
+msgstr "नहीं, किसी आँकड़ा को बनाए रखें"
 
 #: data/ui/reinitialize-dialog.glade.h:5
 msgid ""
@@ -6401,10 +6346,18 @@ msgid ""
 "\n"
 "Are you sure this device does not contain valuable data?"
 msgstr ""
+"हम इस युक्ति के लिए विभाजन या फाइलसिस्टम पता नहीं कर सके.\n"
+"\n"
+"यह इसलिए कि युक्ति <b>रिक्त</b>है, <b>अविभाजित</b>, या "
+"<b>वर्चुअल</b>. यदि नहीं,\n"
+"आंकड़ा युक्ति पर हो सकता है जिसे वापस नहीं किया जा सकता है यदि इस\n"
+"संस्थापन में उपयोग करना चाहते हैं. हम युक्ति को हटा नहीं सकते हैं इस सस्थापन से आंकड़ा की रक्षा करने के लिए.\n"
+"\n"
+"क्या आप निश्चित हैं कि आप इस मूल्यवान आँकड़ा को समाहित नहीं करते हैं?"
 
 #: data/ui/reinitialize-dialog.glade.h:12
 msgid "Yes, discard any data"
-msgstr ""
+msgstr "हाँ, किसी आँकड़ा को छोड़ें"
 
 #: data/lang-table.h:1
 msgid "Afrikaans"
