@@ -60,16 +60,10 @@
 extern uint64_t flags;
 
 struct ksCommandNames {
-    int code;
     char * name;
     void (*setupData) (struct loaderData_s *loaderData,
                        int argc, char ** argv);
 } ;
-
-struct ksCommand {
-    int code, argc;
-    char ** argv;
-};
 
 static void setTextMode(struct loaderData_s * loaderData, int argc, 
                         char ** argv);
@@ -93,30 +87,27 @@ static void setVnc(struct loaderData_s * loaderData, int argc,
                        char ** argv);
 
 struct ksCommandNames ksTable[] = {
-    { KS_CMD_NFS, "nfs", setKickstartNfs },
-    { KS_CMD_CDROM, "cdrom", setKickstartCD },
-    { KS_CMD_HD, "harddrive", setKickstartHD },
-    { KS_CMD_TEXT, "text", setTextMode },
-    { KS_CMD_GRAPHICAL, "graphical", setGraphicalMode },
-    { KS_CMD_URL, "url", setKickstartUrl },
-    { KS_CMD_NETWORK, "network", setKickstartNetwork },
-    { KS_CMD_KEYBOARD, "keyboard", setKickstartKeyboard },
-    { KS_CMD_LANG, "lang", setKickstartLanguage },
-    { KS_CMD_DD, "driverdisk", useKickstartDD },
-    { KS_CMD_DEVICE, "device", loadKickstartModule },
-    { KS_CMD_CMDLINE, "cmdline", setCmdlineMode },
-    { KS_CMD_SELINUX, "selinux", setSELinux },
-    { KS_CMD_POWEROFF, "poweroff", setPowerOff },
-    { KS_CMD_HALT, "halt", setHalt },
-    { KS_CMD_SHUTDOWN, "shutdown", setShutdown },
-    { KS_CMD_MEDIACHECK, "mediacheck", setMediaCheck },
-    { KS_CMD_UPDATES, "updates", setUpdates },
-    { KS_CMD_VNC, "vnc", setVnc },
-    { KS_CMD_NONE, NULL, NULL }
+    { "cdrom", setKickstartCD },
+    { "cmdline", setCmdlineMode },
+    { "device", loadKickstartModule },
+    { "driverdisk", useKickstartDD },
+    { "graphical", setGraphicalMode },
+    { "halt", setHalt },
+    { "harddrive", setKickstartHD },
+    { "keyboard", setKickstartKeyboard },
+    { "lang", setKickstartLanguage },
+    { "mediacheck", setMediaCheck },
+    { "network", setKickstartNetwork },
+    { "nfs", setKickstartNfs },
+    { "poweroff", setPowerOff },
+    { "selinux", setSELinux },
+    { "shutdown", setShutdown },
+    { "text", setTextMode },
+    { "updates", setUpdates },
+    { "url", setKickstartUrl },
+    { "vnc", setVnc },
+    { NULL, NULL }
 };
-
-struct ksCommand * commands = NULL;
-int numCommands = 0;
 
 /* INTERNAL PYTHON INTERFACE FUNCTIONS */
 
