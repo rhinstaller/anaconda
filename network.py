@@ -550,7 +550,7 @@ class Network:
 
             # hostname
             if (self.overrideDHCPhostname or
-                dev.get('BOOTPROTO').lower() != "dhcp"):
+                (dev.get('BOOTPROTO') and dev.get('BOOTPROTO').lower() != "dhcp")):
                 if (self.hostname and
                     self.hostname != "localhost.localdomain"):
                     line += " --hostname %s" % self.hostname
