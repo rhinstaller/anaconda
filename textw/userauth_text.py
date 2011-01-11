@@ -81,10 +81,10 @@ class RootPasswordWindow:
                 except ValueError, e:
                     msg = gettext.ldgettext("cracklib", e)
                     ret = anaconda.intf.messageWindow(_("Weak Password"),
-                             _("You have provided a weak password: %s\n\n"
-                               "Would you like to continue with this password?"
-                               % (msg, )),
-                             type = "yesno", default="no")
+                              _("You have provided a weak password: %s") % msg,
+                              type="custom", custom_icon="error",
+                              default=0,
+                              custom_buttons=[_("Cancel"), _("_Use Anyway")])
                     if ret == 1:
                         break
                 else:
