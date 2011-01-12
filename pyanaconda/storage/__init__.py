@@ -184,11 +184,28 @@ def storageComplete(anaconda):
     if anaconda.ksdata:
         return
 
+    # Warn the user if they are trying to boot a GPT disk on a non-EFI system
+    # This may or may not work -- we have no way to tell, so just warn them
+    bootdisk = anaconda.bootloader.drivelist[0]
+    bootdisk = anaconda.storage.devicetree.getDeviceByName(bootdisk)
+
+    if not iutil.isEfi() and bootdisk and bootdisk.format \
+       and bootdisk.format.type == 'disklabel' \
+       and bootdisk.format.labelType == 'gpt':
+        warning = _("\n\nWARNING:\n"
+                    "You are using a GPT bootdisk on a non-EFI "
+                    "system. This may not work, depending on you BIOS's "
+                    "support for booting from GPT disks.")
+        log.warning("Using a GPT bootdisk on non-EFI system")
+    else:
+        warning = ""
+
     rc = anaconda.intf.messageWindow(_("Confirm"),
                                 _("The partitioning options you have selected "
                                   "will now be written to disk.  Any "
                                   "data on deleted or reformatted partitions "
-                                  "will be lost."),
+                                  "will be lost."
+                                  "%s") % (warning),
                                 type = "custom", custom_icon="warning",
                                 custom_buttons=[_("Go _Back"),
                                                 _("_Write Changes to Disk")],
