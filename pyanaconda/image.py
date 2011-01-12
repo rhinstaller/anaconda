@@ -107,6 +107,7 @@ def getMediaId(path):
 def mountDirectory(methodstr, messageWindow):
     if methodstr.startswith("hd:"):
         method = methodstr[3:]
+        options = ''
         if method.count(":") == 1:
             (device, path) = method.split(":")
             fstype = "auto"
@@ -117,7 +118,8 @@ def mountDirectory(methodstr, messageWindow):
            and not device.startswith("LABEL="):
             device = "/dev/%s" % device
     elif methodstr.startswith("nfsiso:"):
-        device = methodstr[7:]
+        (options, host, path) = iutil.parseNfsUrl(methodstr)
+        device = "%s:%s" % (host, path)
         fstype = "nfs"
     else:
         return
@@ -128,7 +130,7 @@ def mountDirectory(methodstr, messageWindow):
 
     while True:
         try:
-            isys.mount(device, "/mnt/isodir", fstype = fstype)
+            isys.mount(device, "/mnt/isodir", fstype=fstype, options=options)
             break
         except SystemError, msg:
             log.error("couldn't mount ISO source directory: %s" % msg)
