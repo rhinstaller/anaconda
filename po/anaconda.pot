@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 13.21.85\n"
+"Project-Id-Version: anaconda 13.21.86\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2011-01-04 14:19+0100\n"
+"POT-Creation-Date: 2011-01-12 13:20+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -63,26 +63,26 @@ msgstr ""
 msgid "Starting graphical installation."
 msgstr ""
 
-#: anaconda:898
+#: anaconda:899
 msgid "Would you like to use VNC?"
 msgstr ""
 
-#: anaconda:899
+#: anaconda:900
 msgid ""
 "Text mode provides a limited set of installation options.  It does not allow "
 "you to specify your own partitioning layout or package selections.  Would "
 "you like to use VNC mode instead?"
 msgstr ""
 
-#: anaconda:927
+#: anaconda:928
 msgid "Install class forcing text mode installation"
 msgstr ""
 
-#: anaconda:946
+#: anaconda:947
 msgid "Graphical installation is not available. Starting text mode."
 msgstr ""
 
-#: anaconda:954
+#: anaconda:955
 msgid "DISPLAY variable not set. Starting text mode."
 msgstr ""
 
@@ -307,7 +307,7 @@ msgstr ""
 #: gui.py:733 gui.py:1544 partIntfHelpers.py:159 partIntfHelpers.py:344
 #: text.py:100 text.py:101 iw/account_gui.py:131 loader/dirbrowser.c:128
 #: loader/driverdisk.c:412 loader/kickstart.c:331 loader/loader.c:470
-#: loader/loader.c:582 textw/constants_text.py:48
+#: loader/loader.c:582 textw/constants_text.py:48 textw/userauth_text.py:87
 msgid "Cancel"
 msgstr ""
 
@@ -403,7 +403,7 @@ msgstr ""
 msgid "_Retry"
 msgstr ""
 
-#: gui.py:1458 storage/partitioning.py:290
+#: gui.py:1458 storage/partitioning.py:298
 msgid "The system will now reboot."
 msgstr ""
 
@@ -1956,12 +1956,12 @@ msgstr ""
 msgid "Weak Password"
 msgstr ""
 
-#: iw/account_gui.py:128
+#: iw/account_gui.py:128 textw/userauth_text.py:84
 #, python-format
 msgid "You have provided a weak password: %s"
 msgstr ""
 
-#: iw/account_gui.py:131
+#: iw/account_gui.py:131 textw/userauth_text.py:87
 msgid "_Use Anyway"
 msgstr ""
 
@@ -2939,8 +2939,8 @@ msgstr ""
 msgid "About LVM"
 msgstr ""
 
-#: iw/partition_gui.py:1587 storage/partitioning.py:210
-#: storage/partitioning.py:253
+#: iw/partition_gui.py:1587 storage/partitioning.py:218
+#: storage/partitioning.py:261
 msgid "Error Partitioning"
 msgstr ""
 
@@ -4640,7 +4640,7 @@ msgid ""
 "problems on the filesystem."
 msgstr ""
 
-#: storage/formats/fs.py:535 storage/partitioning.py:289
+#: storage/formats/fs.py:535 storage/partitioning.py:297
 msgid "Unrecoverable Error"
 msgstr ""
 
@@ -4733,23 +4733,23 @@ msgstr ""
 msgid "Could not log in to any of the discovered nodes"
 msgstr ""
 
-#: storage/partitioning.py:204
+#: storage/partitioning.py:212
 msgid ""
 "Could not find enough free space for automatic partitioning.  Press 'OK' to "
 "exit the installer."
 msgstr ""
 
-#: storage/partitioning.py:207
+#: storage/partitioning.py:215
 msgid ""
 "Could not find enough free space for automatic partitioning, please use "
 "another partitioning method."
 msgstr ""
 
-#: storage/partitioning.py:236
+#: storage/partitioning.py:244
 msgid "Warnings During Automatic Partitioning"
 msgstr ""
 
-#: storage/partitioning.py:238
+#: storage/partitioning.py:246
 #, python-format
 msgid ""
 "Following warnings occurred during automatic partitioning:\n"
@@ -4757,14 +4757,14 @@ msgid ""
 "%s"
 msgstr ""
 
-#: storage/partitioning.py:252 storage/partitioning.py:273
+#: storage/partitioning.py:260 storage/partitioning.py:281
 msgid ""
 "\n"
 "\n"
 "Press 'OK' to exit the installer."
 msgstr ""
 
-#: storage/partitioning.py:254
+#: storage/partitioning.py:262
 #, python-format
 msgid ""
 "Could not allocate requested partitions: \n"
@@ -4772,18 +4772,18 @@ msgid ""
 "%(msg)s.%(extra)s"
 msgstr ""
 
-#: storage/partitioning.py:275
+#: storage/partitioning.py:283
 msgid ""
 "\n"
 "\n"
 "Press 'OK' to choose a different partitioning option."
 msgstr ""
 
-#: storage/partitioning.py:277
+#: storage/partitioning.py:285
 msgid "Automatic Partitioning Errors"
 msgstr ""
 
-#: storage/partitioning.py:278
+#: storage/partitioning.py:286
 #, python-format
 msgid ""
 "The following errors occurred with your partitioning:\n"
@@ -5131,14 +5131,6 @@ msgstr ""
 
 #: textw/userauth_text.py:67
 msgid "The root password must be at least 6 characters long."
-msgstr ""
-
-#: textw/userauth_text.py:84
-#, python-format
-msgid ""
-"You have provided a weak password: %s\n"
-"\n"
-"Would you like to continue with this password?"
 msgstr ""
 
 #: textw/welcome_text.py:29

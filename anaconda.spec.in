@@ -221,6 +221,25 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Wed Jan 12 2011 Martin Sivak <msivak@redhat.com> - 13.21.87-1
+- Use the same error message in text mode and GUI (rvykydal)
+  Resolves: rhbz#625809
+- mpath: use both 'multipath -d' and 'multipath -ll' to get the topology.
+  (akozumpl)
+  Related: rhbz#636570
+- mpath: remove a harmful udev_trigger() in filter_gui (akozumpl)
+  Related: rhbz#636570
+- Merge rsyslogd from master, the loader part. (akozumpl)
+  Related: rhbz#601337
+- ppc: do not allow creating a second PReP partition on one drive. (akozumpl)
+  Resolves: rhbz#625831
+- image: put nss libraries to /usr/lib/ where they belong. (akozumpl)
+  Resolves: rhbz#667122
+- Properly identify device-mapper partitions set up by kpartx. (dlehman)
+  Resolves: rhbz#659324
+- mpath: filter out the slave devices and their partitions
+  Related: rhbz#659324
+
 * Thu Jan 06 2011 Martin Sivak <msivak@redhat.com> - 13.21.86-1
 - Use a different method to get the sysfs_path for device-mapper devices.
   (clumens)
