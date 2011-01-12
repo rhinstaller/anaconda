@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: anaconda.master\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
 "POT-Creation-Date: 2010-12-22 13:33-0500\n"
-"PO-Revision-Date: 2011-01-11 17:12+0530\n"
+"PO-Revision-Date: 2011-01-12 17:09+0530\n"
 "Last-Translator: Rajesh Ranjan <rranjan@redhat.com>\n"
 "Language-Team: Hindi <hindi@hindi>\n"
 "MIME-Version: 1.0\n"
@@ -19,6 +19,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.4\n"
 "Plural-Forms: nplurals=2; plural=(n!=1);\n\n"
+"\n"
 "\n"
 "\n"
 "\n"
@@ -66,12 +67,12 @@ msgstr "%s को %s MB स्मृति की जरूरत है ले�
 msgid ""
 "%s requires %s MB of memory to install using this installation method, but "
 "you only have %s MB on this machine.\n"
-msgstr ""
+msgstr "%s के लिए %s MB स्मृति चाहिए संस्थापन विधि के उपयोग से संस्थापित करने, लेकिन आपके पास केवल %s MB इस मशीन पर है.\n"
 
 #: anaconda:333
 #, c-format
 msgid "The %s graphical installer requires %s MB of memory, but you only have %s MB."
-msgstr ""
+msgstr "%s आलेखी संस्थापक के लिए %s MB स्मृति चाहिए, लेकिन आपके पास %s MB ही है."
 
 #: anaconda:338
 msgid "Not enough RAM"
@@ -85,6 +86,11 @@ msgid ""
 "\n"
 " from a root terminal."
 msgstr ""
+" इसे चलाकर पाठ विधि संस्थापक आजमाएँ:\n"
+"\n"
+"'/usr/bin/liveinst -T'\n"
+"\n"
+" रूट टर्मिनल से."
 
 #: anaconda:342
 msgid " Starting text mode."
@@ -581,7 +587,11 @@ msgid_plural ""
 "Disks %s contain BIOS RAID metadata, but are not part of any recognized BIOS "
 "RAID sets. Ignoring disks %s."
 msgstr[0] ""
+"%s डिस्क में BIOS RAID मेटाडेटा समाहित है, लेकिन वह परिचित BIOS "
+"RAID सेट का हिस्सा नहीं है. %s डिस्क अनदेखा कर रहा है."
 msgstr[1] ""
+"%s डिस्क में BIOS RAID मेटाडेटा समाहित है, लेकिन वह परिचित BIOS "
+"RAID सेट का हिस्सा नहीं है. %s डिस्क अनदेखा कर रहा है."
 
 #: pyanaconda/installinterfacebase.py:82 data/ui/reinitialize-dialog.glade.h:4
 msgid "Storage Device Warning"
@@ -638,12 +648,13 @@ msgid_plural ""
 "installation, the devices must be formatted.  Formatting will remove any "
 "data on these devices."
 msgstr[0] ""
-msgstr[1] ""
-"Format uninitialized DASD device?\n"
+"अप्रारंभीकृत DASD युक्ति प्रारूपित करें?\n"
 "\n"
-"There is %d uninitialized DASD device on this system.  To continue "
-"installation, the device must be formatted.  Formatting will remove any data "
-"on this device."
+"%d अप्रारंभीकृत DASD युक्ति इस सिस्टम पर है.  संस्थापन जारी रखने के लिए, युक्ति को जरूर प्रारूपित होना चाहिए.  इस युक्ति पर प्रारूपण किसी आँकड़े को हटा देगा."
+msgstr[1] ""
+"अप्रारंभीकृत DASD युक्ति प्रारूपित करें?\n"
+"\n"
+"%d अप्रारंभीकृत DASD युक्ति इस सिस्टम पर है.  संस्थापन जारी रखने के लिए, युक्ति को जरूर प्रारूपित होना चाहिए.  इस युक्ति पर प्रारूपण किसी आँकड़े को हटा देगा."
 
 #: pyanaconda/installinterfacebase.py:172 pyanaconda/iw/partition_gui.py:901
 msgid "_Format"
@@ -682,7 +693,7 @@ msgstr "स्क्रिप्टलेट विफलता"
 msgid ""
 "Escrow certificate with url %s requires network to be enabled in loader or "
 "configured in kickstart file."
-msgstr ""
+msgstr "url %s के साथ Escrow प्रमाणपत्र के लिए संजाल को सक्रिय होना चाहिए या किकस्टार्ट फाइल में विन्यस्त होना चाहिए."
 
 #: pyanaconda/kickstart.py:164
 #, python-format
@@ -1222,7 +1233,7 @@ msgstr "बूट करने योग्य विभाजन केवल R
 
 #: pyanaconda/platform.py:124
 msgid "Bootable RAID1 set members must be partitions."
-msgstr ""
+msgstr "बूट योग्य RAID1 सेट सदस्य जरूर विभाजन होने चाहिए."
 
 #: pyanaconda/platform.py:129
 msgid "Bootable partitions cannot be on a logical volume."
@@ -1539,6 +1550,9 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"आपका मौजूदा संस्थापन का उन्नयन नहीं किया जा सकता है. यह संभव है इस कारण कि यह काफी पुराना है. केवल पिछला दो रिलीज का उन्नयन किया जा सकता है. पुराने रिलीज को उन्नत बनाने के लिए आपको पहले सभी अंतरमाध्यमिक रिलीज में जरूर उन्नयन करना चाहिए.\n"
+"\n"
+"%s"
 
 #: pyanaconda/upgrade.py:232
 msgid "Mount failed"
@@ -1629,8 +1643,8 @@ msgstr "15 सेकण्डों में दोबारा जुड़न
 #, python-format
 msgid "Giving up attempting to connect after %d try!\n"
 msgid_plural "Giving up attempting to connect after %d tries!\n"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d कोशिश के बाद कनेक्ट करने की प्रयास छोड़ रहा है!\n"
+msgstr[1] "%d कोशिशों के बाद कनेक्ट करने की प्रयास छोड़ रहा है!\n"
 
 #: pyanaconda/vnc.py:209
 #, python-format
@@ -1814,13 +1828,13 @@ msgstr "<b>%(pkgStr)s संस्थापित कर रहा है</b> (%
 #, python-format
 msgid "Packages completed: %(donepkgs)d of %(numpkgs)d"
 msgid_plural "Packages completed: %(donepkgs)d of %(numpkgs)d"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "संकुल संपन्न: %(donepkgs)d %(numpkgs)d का"
+msgstr[1] "संकुल संपन्न: %(donepkgs)d %(numpkgs)d का"
 
 #: pyanaconda/yuminstall.py:233
 #, python-format
 msgid "<b>Cleaning up %s</b>"
-msgstr ""
+msgstr "<b>%s साफ कर रहा है</b>"
 
 #: pyanaconda/yuminstall.py:253
 msgid "Error Installing Package"
@@ -2019,7 +2033,7 @@ msgid ""
 "package selections, or continue installing these packages without their "
 "dependencies.  If you continue, these packages may not work correctly due to "
 "missing components."
-msgstr ""
+msgstr "संस्थापन के लिए आपके द्वारा चुने इनमें से कुछ संकुल की निर्भरता अनुपस्थित है.  आप संस्थापन से बाहर निकल सकते हैं, वापस लौट सकते हैं और संकुल चयन बदल सकते हैं, या इन संकुलों को बिना उनकी निर्भरता के संस्थापित किया जाना जारी रख सकते हैं.  यदि आप जारी रखते हैं, ये संकुल संभवतः सही तरीके से अनुपस्थित निर्भरता के कारण काम नहीं करे."
 
 #: pyanaconda/yuminstall.py:1531
 #, python-format
@@ -2254,6 +2268,9 @@ msgid ""
 "<b>Tip:</b> This option will remove data from the selected device(s).  Make "
 "sure you have backups."
 msgstr ""
+"चुने युक्ति पर सभी विभाजनों को हटाता है.  इसमें दूसरे ऑपरेटिंग सिस्टम के द्वारा बनाया गया विभाजन शामिल है.\n"
+"\n"
+"<b>संकेत:</b> ये विकल्प चुने गए युक्तियों से आँकड़ो को हटा देगा.  सुनिश्चित करें कि आपके पास बैकअप लिया हुआ है."
 
 #: pyanaconda/iw/autopart_type.py:258
 msgid "Replace Existing _Linux System(s)"
@@ -2268,6 +2285,9 @@ msgid ""
 "<b>Tip:</b> This option will remove data from the selected device(s).  Make "
 "sure you have backups."
 msgstr ""
+"चुने युक्ति पर सभी लिनक्स विभाजनों को हटाता है.  यह अन्य विभाजनों को नहीं हटाता है जो आप अपने भंडार युक्तियों रख सकते हैं (जैसे कि VFAT या FAT32).\n"
+"\n"
+"<b>संकेत:</b> ये विकल्प चुने गए युक्तियों से आँकड़ो को हटा देगा.  सुनिश्चित करें कि आपके पास बैकअप लिया हुआ है."
 
 #: pyanaconda/iw/autopart_type.py:268
 msgid "_Shrink Current System"
@@ -2275,7 +2295,7 @@ msgstr "मौजूदा तंत्र सिकोड़ें (_S)"
 
 #: pyanaconda/iw/autopart_type.py:270
 msgid "Shrinks existing partitions to create free space for the default layout."
-msgstr ""
+msgstr "तयशुदा ख़ाका के लिए खाली स्थान बनाने के लिए मौजूदा विभाजन को सिकोड़ रहा है."
 
 #: pyanaconda/iw/autopart_type.py:272
 msgid "Use _Free Space"
@@ -2286,7 +2306,7 @@ msgid ""
 "Retains your current data and partitions and uses only the unpartitioned "
 "space on the selected device(s), assuming you have enough free space "
 "available."
-msgstr ""
+msgstr "आपके मौजूदा आँकड़ा और विभाजन को बनाए रखता है और चुने गए युक्ति पर अविभाजित स्थान का केवल उपयोग करता है, मानते हुए कि आपके पास पर्याप्त खाली स्थान उपलब्ध है."
 
 #: pyanaconda/iw/autopart_type.py:278
 msgid "Create _Custom Layout"
@@ -2296,7 +2316,7 @@ msgstr "पसंदीदा लेआउट बनायें (_C)"
 msgid ""
 "Manually create your own custom layout on the selected device(s) using our "
 "partitioning tool."
-msgstr ""
+msgstr "दस्ती रूप से अपना स्वयं का पसंदीदा ख़ाका बनाएँ अपने विभाजन के औज़ार के उपयोग से."
 
 #: pyanaconda/iw/blpasswidget.py:44
 msgid "_Use a boot loader password"
@@ -2368,17 +2388,15 @@ msgstr "युक्ति बदलें (_C)"
 
 #: pyanaconda/iw/cleardisks_gui.py:34
 msgid "Clear Disks Selector"
-msgstr ""
+msgstr "डिस्क चयनक साफ करें"
 
 #: pyanaconda/iw/cleardisks_gui.py:45 pyanaconda/iw/filter_gui.py:432
-#, fuzzy
 msgid "You must select at least one drive to be used for installation."
-msgstr "आपको %s संस्थापन करने के लिए कम से कम एक हार्ड ड्राइव अवश्य चुनना है."
+msgstr "आपको संस्थापन करने के लिए कम से कम एक हार्ड ड्राइव अवश्य चुनना है."
 
 #: pyanaconda/iw/cleardisks_gui.py:55
-#, fuzzy
 msgid "You must select one drive to boot from."
-msgstr "आप संपादन के लिए कोई युक्ति जरूर चुनें"
+msgstr "आप एक ड्राइव जरूर चुनना है जिससे बूट किया जाए."
 
 #: pyanaconda/iw/cleardisks_gui.py:127 pyanaconda/iw/cleardisks_gui.py:147
 #: pyanaconda/iw/filter_gui.py:489 pyanaconda/iw/filter_gui.py:500
@@ -2423,19 +2441,19 @@ msgstr ""
 msgid ""
 "<b>Tip:</b> All Linux filesystems on the install target devices will be "
 "reformatted and wiped of any data.  Make sure you have backups."
-msgstr ""
+msgstr "<b>संकेत:</b> संस्थापन लक्ष्य युक्तियों पर सभी लिनक्स फ़ाइलसिस्टम को प्रारूपित किया जाएगा और बिना किसी आँकड़ा के रखा जाएगा.  सुनिश्चित करें कि आपके पास बैकअप है."
 
 #: pyanaconda/iw/cleardisks_gui.py:198
 msgid ""
 "<b>Tip:</b> The install target devices will be reformatted and wiped of any "
 "data.  Make sure you have backups."
-msgstr ""
+msgstr "<b>संकेत:</b> संस्थापन लक्ष्य युक्तियों पर सभी को प्रारूपित किया जाएगा और बिना किसी आँकड़ा के रखा जाएगा.  सुनिश्चित करें कि आपके पास बैकअप है."
 
 #: pyanaconda/iw/cleardisks_gui.py:200
 msgid ""
 "<b>Tip:</b> Your filesystems on the install target devices will not be "
 "reformatted unless you choose to do so during customization."
-msgstr ""
+msgstr "<b>संकेत:</b> संस्थापन लक्ष्य युक्तियों पर आपके फ़ाइलसिस्टम को प्रारूपित नहीं किया जाएगा जबतक आप पसंदीदाकरण के दौरान ऐसा करने के लिए चुनते नहीं हैं."
 
 #: pyanaconda/iw/congrats_gui.py:34
 msgid "Congratulations"
@@ -2494,12 +2512,12 @@ msgid "Fresh Installation"
 msgstr "ताज़ा संस्थापन"
 
 #: pyanaconda/iw/examine_gui.py:60
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Choose this option to install a fresh copy of %s on your system.  Existing "
 "software and data may be overwritten depending on your configuration choices."
 msgstr ""
-"अपने तंत्र के नये संस्थापन के लिए यह विकल्प चुनें. उपस्थित सॉफ़्टवेयर और आंकड़े का अधिलेखन आपकी "
+"अपने तंत्र के नये  %s के संस्थापन के लिए यह विकल्प चुनें. मौजूदा सॉफ़्टवेयर और आंकड़े का अधिलेखन आपकी "
 "विन्यास पसंद पर आधारित हो सकता है."
 
 #: pyanaconda/iw/examine_gui.py:65
@@ -2516,18 +2534,17 @@ msgstr ""
 "भंडार युक्ति पर उपस्थित आंकड़ें सुरक्षित करेगा."
 
 #: pyanaconda/iw/examine_gui.py:117
-#, fuzzy
 msgid ""
 "At least one existing installation has been detected on your system.  What "
 "would you like to do?"
 msgstr ""
-"कोई भी युक्ति ड्राइवर आपके तंत्र पर भारित नहीं हुआ है. क्या अब आप किसी को लोड करना पसंद "
+"कम से कम एक मौजूदा संस्थापन आपके तंत्र पर भारित पता चला है. आप क्या लोड करना पसंद "
 "करेंगे?"
 
 #: pyanaconda/iw/examine_gui.py:136
-#, fuzzy, python-format
+#, python-format
 msgid "<b>Which %s installation would you like to upgrade?</b>"
-msgstr "आप क्या करना चाहते हैं?"
+msgstr "<b>कौन से %s संस्थापन आप उन्नत करना चाहेंगे?</b>"
 
 #: pyanaconda/iw/examine_gui.py:150
 msgid "Unknown Linux system"
@@ -2536,7 +2553,7 @@ msgstr "अज्ञात Linux तंत्र"
 #: pyanaconda/iw/filter_gui.py:150
 #, python-format
 msgid "Selected devices: %s (%s MB) out of %s (%s MB)."
-msgstr ""
+msgstr "चुनी युक्तियाँ: %s (%s MB), %s (%s MB) का."
 
 #: pyanaconda/iw/filter_gui.py:400
 msgid "Device Filter"
@@ -2571,32 +2588,29 @@ msgid "LUN"
 msgstr "LUN"
 
 #: pyanaconda/iw/filter_type.py:55
-#, fuzzy
 msgid "What type of devices will your installation involve?"
-msgstr "किस प्रकार के मीडिया में संस्थापन छवि समाहित है?"
+msgstr "किस प्रकार की युक्तियाँ आपका संस्थापन समाहित करती है?"
 
 #: pyanaconda/iw/filter_type.py:61
-#, fuzzy
 msgid "B_asic Storage Devices"
-msgstr "भंडार युक्ति ढूँढ़ रहा है"
+msgstr "मूल भंडार युक्ति (_a)"
 
 #: pyanaconda/iw/filter_type.py:62
 msgid ""
 "Installs or upgrades to typical types of storage devices.  If you're not "
 "sure which option is right for you, this is probably it."
-msgstr ""
+msgstr "खास प्रकार के भंडार युक्ति को संस्थापित या उन्नत करता है.  यदि आप निश्चित नहीं हैं कि कौन सा विकल्प आपके लिए सही है तो वह शायद यही है."
 
 #: pyanaconda/iw/filter_type.py:66
-#, fuzzy
 msgid "_Specialized Storage Devices"
-msgstr "भंडार युक्ति ढूँढ़ रहा है"
+msgstr "विशेष भंडार युक्ति (_S)"
 
 #: pyanaconda/iw/filter_type.py:67
 msgid ""
 "Installs or upgrades to enterprise devices such as Storage Area Networks "
 "(SANs). This option will allow you to add FCoE / iSCSI / zFCP disks and to "
 "filter out devices the installer should ignore."
-msgstr ""
+msgstr "भंडार क्षेत्र संजाल (SAN) जैसे एंटरप्राइज युक्ति में संस्थापित या उन्नत करता है. FCoE / iSCSI / zFCP डिस्क जोड़ने के लिए यह विकल्प अनुमति देता है और उन युक्तियों को फिल्टर करने के लिए जिसे संस्थापक को अनदेखा करना चाहिए."
 
 #: pyanaconda/iw/language_gui.py:33 pyanaconda/textw/language_text.py:45
 msgid "Language Selection"
@@ -2645,24 +2659,20 @@ msgid "C_ontinue"
 msgstr "जारी रखें (_o)"
 
 #: pyanaconda/iw/lvm_dialog_gui.py:175
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The physical extent size cannot be changed because the value selected (%"
 "(curpe)10.2f MB) is larger than the smallest physical volume (%(maxpvsize)"
 "10.2f MB) in the volume group."
-msgstr ""
-"भौतिक विस्तार आकार बदल नहीं सकता क्योंकि आयतन समूह में चयनित (%10.2f MB) मान, छोटे "
-"भौतिक आयतन (%10.2f MB) से बड़ा है."
+msgstr "भौतिक विस्तार आकार बदला नहीं जा सकता क्योंकि चयनित मान (%(curpe)10.2f MB) लघुतम भौतिक आयतन (%(maxpvsize) 10.2f MB) से आयतन समूह में बड़ा है."
 
 #: pyanaconda/iw/lvm_dialog_gui.py:189
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The physical extent size cannot be changed because the value selected (%"
 "(curpe)10.2f MB) is too large compared to the size of the smallest physical "
 "volume (%(maxpvsize)10.2f MB) in the volume group."
-msgstr ""
-"भौतिक विस्तार आकार बदल नहीं सकता क्योंकि आयतन समूह में चयनित (%10.2f MB) मान छोटे "
-"भौतिक आयतन (%10.2f MB) के आकार से बड़ा है."
+msgstr "भौतिक विस्तार आकार बदला नहीं जा सकता क्योंकि चयनित मान (%(curpe)10.2f MB) लघुतम भौतिक आयतन (%(maxpvsize) 10.2f MB) से आयतन समूह में काफी बड़ा है."
 
 #: pyanaconda/iw/lvm_dialog_gui.py:203
 msgid "Too small"
@@ -2795,27 +2805,27 @@ msgid "The requested size as entered is not a valid number greater than 0."
 msgstr "निवेदित आकार जिस रूप में दाखिल है 0 से बड़ी एक वैध संख्या नहीं है."
 
 #: pyanaconda/iw/lvm_dialog_gui.py:701
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The current requested size (%(size)10.2f MB) is larger than the maximum "
 "logical volume size (%(maxlv)10.2f MB). To increase this limit you can "
 "create more Physical Volumes from unpartitioned disk space and add them to "
 "this Volume Group."
 msgstr ""
-"वर्तमान में निवेदित आकार (%10.2f MB) अधिकतम लॉजिकल आयतन (%10.2f MB) से बड़ा हैं. इस "
+"वर्तमान में निवेदित आकार (%(size)10.2f MB) अधिकतम लॉजिकल आयतन (%(maxlv)10.2f MB) से बड़ा हैं. इस "
 "सीमा को बढ़ाने के लिए आप इस आयतन समूह के लिए भौतिक विस्तार आकार बढ़ा सकते हैं और उन्हें "
 "आयतन समूह से जोड़ सकते हैं."
 
 #: pyanaconda/iw/lvm_dialog_gui.py:722
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The size entered for this logical volume (%(size)d MB) combined with the "
 "size of the other logical volume(s) exceeds the size of the volume group (%"
 "(tempvgsize)d MB). Please make the volume group larger or make the logical "
 "volume smaller."
 msgstr ""
-"लॉजिकल आयतन जिसे आपने विन्यस्त किया है के लिए %d MB की जरूरत है, लेकिन आयतन समूह के पास "
-"केवल %d MB है.  कृपया या तो आयतन समूह को बड़ा बनाएँ या लॉजिकल आयतन को थोड़ा छोटा "
+"इस तार्किक आयतन (%(size)d MB) के लिए दाखिल आकार को अन्य तार्किक आयतन से जोड़कर आयतन समूह (%"
+"(tempvgsize)d MB) के आकार से अधिक होता है. कृपया या तो आयतन समूह को बड़ा बनाएँ या लॉजिकल आयतन को थोड़ा छोटा "
 "बनाएँ."
 
 #: pyanaconda/iw/lvm_dialog_gui.py:832
@@ -2826,8 +2836,8 @@ msgstr "कोई खाली खंड नहीं"
 #, python-format
 msgid "You cannot create more than %d logical volume per volume group."
 msgid_plural "You cannot create more than %d logical volumes per volume group."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "आप प्रति आयतन समूह %d तार्किक आयतन नहीं बना सकते हैं."
+msgstr[1] "आप प्रति आयतन समूह %d तार्किक आयतन नहीं बना सकते हैं."
 
 #: pyanaconda/iw/lvm_dialog_gui.py:843
 msgid "No free space"
@@ -2914,7 +2924,7 @@ msgstr "प्रयुक्त स्थानः"
 
 #: pyanaconda/iw/lvm_dialog_gui.py:1381
 msgid "Snapshot Total:"
-msgstr ""
+msgstr "स्नैपशॉट कुल:"
 
 #: pyanaconda/iw/lvm_dialog_gui.py:1401
 msgid "Free Space:"
@@ -3178,11 +3188,10 @@ msgid "Partitioning Warnings"
 msgstr "विभाजन चेतावनी"
 
 #: pyanaconda/iw/partition_gui.py:884
-#, fuzzy
 msgid ""
 "The following pre-existing devices have been selected to be formatted, "
 "destroying all data."
-msgstr "निम्नांकित पूर्व-उपस्थित विभाजन को सभी आंकड़े नष्ट करके प्रारूपित करने के लिए चुना गया है."
+msgstr "निम्नांकित पूर्व-उपस्थित युक्तियों को सभी आंकड़े नष्ट करके प्रारूपित करने के लिए चुना गया है."
 
 #: pyanaconda/iw/partition_gui.py:896
 msgid "Format Warnings"
@@ -3206,7 +3215,7 @@ msgstr "विस्तारित"
 
 #: pyanaconda/iw/partition_gui.py:1367
 msgid "Cannot perform any creation action"
-msgstr ""
+msgstr "कोई निर्माण क्रिया नहीं कर सकता है"
 
 #: pyanaconda/iw/partition_gui.py:1368
 msgid ""
@@ -3217,6 +3226,12 @@ msgid ""
 "* At least one free physical volume (LVM) partition.\n"
 "* At least one Volume Group with free space."
 msgstr ""
+"नोट करें कि निर्माण क्रिया के लिए इनमें से एक की जरूरत होगी:\n"
+"\n"
+"* इनमें से एक हार्ड कॉपी के लिए मुक्त स्थान.\n"
+"* कम से कम दो फ्री सॉफ्टवेयर RAID विभाजन.\n"
+"* कम से कम एक फ्री भौतिक आयतन (LVM) विभाजन.\n"
+"* खाली स्थान के साथ कम से कम एक आयतन समूह."
 
 #: pyanaconda/iw/partition_gui.py:1471
 #, python-format
@@ -3263,6 +3278,8 @@ msgid ""
 "a VG can be an aggregate of PVs from multiple physical disks.  For more "
 "information on using LVM please consult the %s documentation\n"
 msgstr ""
+"लॉजिकल वॉल्यूम मैनेजर (LVM) एक 3 स्तरीय संचरना है. पहला स्तर LVM मेटाडेटा के साथ प्रारूपित प्रारूपित डिस्क या विभाजन से बना होता है जो फिजिकल वॉल्यूम (PV) कहलाता है.  एक वॉल्यूम ग्रुप (VG) एक या अधिक PV के ऊपर रहता है. VG, "
+"बदले में एक या अधिक लॉजिकल वॉल्यूम (LV) का बेस है.  नोट करें कि एक VG PV का इकट्ठा किया रूप हो सकता है बहुल भौतिक डिस्क से.  LVM के उपयोग पर अधिक सूचना के लिए कृपया %s दस्तावेज़ीकरण की सलाह लें\n"
 
 #: pyanaconda/iw/partition_gui.py:1499
 msgid ""
@@ -3271,21 +3288,23 @@ msgid ""
 "VG with free space.\n"
 "\n"
 msgstr ""
+"कोई PV बनाने के लिए आपको खाली स्थान से एक विभाजन बनाना है.  एक VG बनाने के लिए आपको एक PV चाहिए जो कि किसी मौजूदा VG का हिस्सा नहीं है.  LV बनाने के लिए आपको खाली स्थान के साथ एक VG चाहिए.\n"
+"\n"
 
 #: pyanaconda/iw/partition_gui.py:1503
 #, python-format
 msgid "You currently have %d available PV free to use.\n"
 msgid_plural "You currently have %d available PVs free to use.\n"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "आपके पास अभी %d उपलब्ध PV उपयोग के लिए खाली है.\n"
+msgstr[1] "आपके पास अभी %d उपलब्ध PV उपयोग के लिए खाली है.\n"
 
 #: pyanaconda/iw/partition_gui.py:1507
 msgid "You currently have free space to create PVs."
-msgstr ""
+msgstr "आपके पास PV बनाने के लिए खाली स्थान है."
 
 #: pyanaconda/iw/partition_gui.py:1510
 msgid "About LVM"
-msgstr ""
+msgstr "LVM का परिचय"
 
 #: pyanaconda/iw/partition_gui.py:1588 pyanaconda/storage/partitioning.py:203
 #: pyanaconda/storage/partitioning.py:245
@@ -4142,25 +4161,25 @@ msgstr "अद्यतन छवि डाउनलोड करने मे�
 #: loader/loader.c:1199
 #, c-format
 msgid "%s requires %d MB of memory, to install, but you only have %d MB."
-msgstr ""
+msgstr "%s को %d MB स्मृति चाहिए, संस्थापित करने के लिए, लेकिन आपके पास केवल %d MB है."
 
 #: loader/loader.c:1200
 #, c-format
 msgid ""
 "%s requires %d MB of memory to install using this installation method, but "
 "you only have %d MB on this machine."
-msgstr ""
+msgstr "%s को %d MB स्मृति चाहिए, इस संस्थापन विधि से संस्थापित करने के लिए, लेकिन आपके पास केवल %d MB इस मशीन पर है."
 
 #: loader/loader.c:1236
 msgid "Unsupported Hardware Detected"
-msgstr ""
+msgstr "असमर्थित हार्डवेयर जाँचा गया"
 
 #: loader/loader.c:1237
 msgid ""
 "This hardware (or a combination thereof) is not supported by Red Hat.  For "
 "more information on supported hardware, please refer to http://www.redhat."
 "com/hardware."
-msgstr ""
+msgstr "यह हार्डवेयर (या इसका संयोग) Red Hat के द्वारा समर्थित नहीं है. असमर्थित हार्डवेयर के बारे में अधिक सूचना के लिए, कृपया  इसका संदर्भ लें http://www.redhat.com/hardware."
 
 #: loader/loader.c:1372
 msgid "Rescue Method"
@@ -4230,7 +4249,7 @@ msgstr "लोडर पहले चलाया जा चुका है.  �
 #: loader/loader.c:2062
 #, c-format
 msgid "Driver disc was detected in %s. Do you want to use it?."
-msgstr ""
+msgstr "ड्राइवर डिस्क %s में पता चला. क्या आप इसे उपयोग करना चाहते हैं?."
 
 #: loader/loader.c:2065
 msgid "Driver disc detected"
@@ -4274,13 +4293,10 @@ msgid "Media Check"
 msgstr "माध्यम जाँच"
 
 #: loader/mediacheck.c:87
-#, fuzzy
 msgid ""
 "Unable to find the checksum in the image.  This probably means the disc was "
 "created without adding the checksum."
-msgstr ""
-"प्राथमिक आयतन निरूपक से डिस्क checksum पढ़ने में असमर्थ. प्रायः इसका अर्थ हो सकता है कि "
-"checksum को जोड़ें बिना डिस्क बनाई गई थी."
+msgstr "छवि में चेकसम ढूँढ़ने में असमर्थ. प्रायः इसका अर्थ हो सकता है कि चेकसम को जोड़ें बिना डिस्क बनाई गई थी."
 
 #: loader/mediacheck.c:94
 msgid "Unable to open the image."
@@ -4512,11 +4528,11 @@ msgid "NFS mount options (optional):"
 msgstr "NFS आरोह बिंदु (वैकल्पिक):"
 
 #: loader/nfsinstall.c:83
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Please enter the server and path to your %s installation image and "
 "optionally additional NFS mount options."
-msgstr "अपने संस्थापन छवि %s का सर्वर नाम और पथ कृपया दाखिल करें."
+msgstr "अपने संस्थापन छवि %s का सर्वर नाम और पथ कृपया दाखिल करें और वैकल्पिक रूप से अतिरिक्त NFS आरोह बिंदु."
 
 #: loader/nfsinstall.c:91
 msgid "NFS Setup"
@@ -4588,9 +4604,8 @@ msgid "URL must be either an ftp or http URL"
 msgstr "URL या तो ftp या http URL जरूर होना चाहिए"
 
 #: loader/urls.c:351
-#, fuzzy
 msgid "Proxy must be either an ftp or http URL"
-msgstr "URL या तो ftp या http URL जरूर होना चाहिए"
+msgstr "प्रॉक्सी को जरूर या तो ftp या http URL होना चाहिए"
 
 #: pyanaconda/storage/__init__.py:110
 msgid "Unknown Device"
@@ -4611,7 +4626,7 @@ msgstr "कोई डिस्क नहीं मिला"
 
 #: pyanaconda/storage/__init__.py:121
 msgid "No usable disks have been found."
-msgstr ""
+msgstr "कोई उपयोग किया गया डिस्क नहीं मिला."
 
 #: pyanaconda/storage/__init__.py:132
 msgid "Installation cannot continue."
@@ -4955,14 +4970,14 @@ msgstr ""
 "संस्थापक से बाहर निकलने के लिए <Enter> दबाएँ."
 
 #: pyanaconda/storage/__init__.py:1978
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error occurred when trying to create %(mountpoint)s: %(msg)s.  This is a "
 "fatal error and the install cannot continue.\n"
 "\n"
 "Press <Enter> to exit the installer."
 msgstr ""
-"%s को बनाने का प्रयास करते समय एक त्रुटि घटित हुआ: %s. यह एक घातक त्रुटि है संस्थापन "
+"%(mountpoint)s को बनाने का प्रयास करते समय एक त्रुटि घटित हुआ: %(msg)s. यह एक घातक त्रुटि है संस्थापन "
 "जारी नहीं हो सकता है. \n"
 "\n"
 "संस्थापक से बाहर निकलने के लिए <Enter> दबाएँ."
@@ -4972,33 +4987,32 @@ msgid "Unable to mount filesystem"
 msgstr "फाइलतंत्र आरोहित करने में असमर्थ!"
 
 #: pyanaconda/storage/__init__.py:1995
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error occurred mounting device %(path)s as %(mountpoint)s.  You may "
 "continue installation, but there may be problems."
 msgstr ""
-"युक्ति %s के %s के रूप में आरोहन में त्रुटि पैदा हुई.  आप संस्थापन जारी रख सकते हैं, लेकिन "
+"युक्ति %(path)s के %(mountpoint)s के रूप में आरोहन में त्रुटि पैदा हुई.  आप संस्थापन जारी रख सकते हैं, लेकिन "
 "समस्या आ सकती है."
 
 #: pyanaconda/storage/__init__.py:2019
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error occurred mounting device %(path)s as %(mountpoint)s: %(msg)s. This "
 "is a fatal error and the install cannot continue.\n"
 "\n"
 "Press <Enter> to exit the installer."
 msgstr ""
-"%s युक्ति को बतौर %s आरोहित करने में एक त्रुटि घटित हुआ: %s. यह एक घातक त्रुटि है और "
+"%(path)s युक्ति को बतौर %(mountpoint)s आरोहित करने में एक त्रुटि घटित हुआ: %(msg)s. यह एक घातक त्रुटि है और "
 "संस्थापन जारी नहीं रह सकता है. \n"
 "\n"
 "संस्थापक से बाहर निकलने के लिए <Enter> दबाएँ."
 
 #: pyanaconda/storage/dasd.py:155
-#, fuzzy
 msgid "Formatting DASD Device"
 msgid_plural "Formatting DASD Devices"
-msgstr[0] "प्रारूपण विफल"
-msgstr[1] "प्रारूपण विफल"
+msgstr[0] "DASD युक्ति का प्रारूपण"
+msgstr[1] "DASD युक्तियों का प्रारूपण"
 
 #: pyanaconda/storage/dasd.py:156
 #, python-format
@@ -5020,15 +5034,14 @@ msgstr "lvs विफल रहा %s के लिए"
 #: pyanaconda/storage/devices.py:1300 pyanaconda/storage/devices.py:2113
 #: pyanaconda/storage/devices.py:2539 pyanaconda/storage/devices.py:3034
 #: pyanaconda/storage/devices.py:3515
-#, fuzzy
 msgid "Creating"
-msgstr "क्रोशियाई"
+msgstr "बना रहा है"
 
 #: pyanaconda/storage/devices.py:1301 pyanaconda/storage/devices.py:2114
 #: pyanaconda/storage/devices.py:2540 pyanaconda/storage/devices.py:3035
-#, fuzzy, python-format
+#, python-format
 msgid "Creating device %s"
-msgstr "युक्ति बदलें (_C)"
+msgstr "%s युक्ति बना रहा है"
 
 #: pyanaconda/storage/devices.py:2633
 #, python-format
@@ -5060,12 +5073,11 @@ msgstr "यह विभाजन एक LVM आयतन समूह का �
 
 #: pyanaconda/storage/fcoe.py:66 pyanaconda/storage/fcoe.py:67
 msgid "Connecting to FCoE SAN"
-msgstr ""
+msgstr "FCoE SAN में कनेक्ट कर रहा है"
 
 #: pyanaconda/storage/fcoe.py:111
-#, fuzzy
 msgid "FCoE not available"
-msgstr "iSCSI उपलब्ध नहीं"
+msgstr "FCoE उपलब्ध नहीं"
 
 #: pyanaconda/storage/formats/fs.py:102
 msgid "filesystem configuration missing a type"
@@ -5078,9 +5090,9 @@ msgid "Formatting"
 msgstr "प्रारूपित कर रहा है"
 
 #: pyanaconda/storage/formats/fs.py:355
-#, fuzzy, python-format
+#, python-format
 msgid "Creating %(type)s filesystem on %(device)s"
-msgstr "%s पर फ़ाइल तंत्र बना रहा है"
+msgstr "%(type)s फ़ाइल तंत्र %(device)s युक्ति पर बना रहा है"
 
 #: pyanaconda/storage/formats/fs.py:457
 msgid "Resizing"
@@ -5092,9 +5104,9 @@ msgid "Resizing filesystem on %s"
 msgstr "%s पर फ़ाइल तंत्र आकार बदल रहा है"
 
 #: pyanaconda/storage/formats/fs.py:493
-#, fuzzy, python-format
+#, python-format
 msgid "Unknown return code: %d."
-msgstr "अज्ञात Url विधि %s"
+msgstr "अज्ञात रिटर्न कोड: %d."
 
 #: pyanaconda/storage/formats/fs.py:507
 msgid "Checking"
@@ -5108,7 +5120,7 @@ msgstr "%s पर फ़ाइल तंत्र के लिए जाँच 
 #: pyanaconda/storage/formats/fs.py:525
 #, python-format
 msgid "%(type)s filesystem check failure on %(device)s: "
-msgstr ""
+msgstr "%(type)s फाइलसिस्टम चेक विफलता %(device)s पर: "
 
 #: pyanaconda/storage/formats/fs.py:531
 msgid ""
@@ -5117,7 +5129,7 @@ msgid ""
 "reboot to rescue mode or another system that allows you to repair the "
 "filesystem interactively.  Restart installation after you have corrected the "
 "problems on the filesystem."
-msgstr ""
+msgstr "इस तरह की त्रुटियों का प्रायः मतलब होता है कि फाइलसिस्टम के साथ कुछ समस्या है जिसमें उपयोक्ता अंतःक्रिया की जरूरत है मरम्मत करने के लिए.  संस्थापन फिर आरंभ करने के लिए, बचाव विधि या दूसरे सिस्टम से रिबूट करें जो आपको फाइल सिस्टम को अंतःक्रियात्मक रूप से मरम्मत करने की अनुमति देता है.  संस्थापन फिर आरंभ करें जब आप फ़ाइल तंत्र पर समस्या को सही कर लेते हैं."
 
 #: pyanaconda/storage/formats/fs.py:539 pyanaconda/storage/partitioning.py:279
 msgid "Unrecoverable Error"
@@ -5125,59 +5137,56 @@ msgstr "अप्राप्य त्रुटि"
 
 #: pyanaconda/storage/formats/fs.py:879
 msgid "File system errors left uncorrected."
-msgstr ""
+msgstr "फ़ाइल तंत्र त्रुटि बिना सुधारा रहा."
 
 #: pyanaconda/storage/formats/fs.py:880
 msgid "Operational error."
-msgstr ""
+msgstr "संचालन त्रुटि."
 
 #: pyanaconda/storage/formats/fs.py:881
 msgid "Usage or syntax error."
-msgstr ""
+msgstr "प्रयोग या वाक्यरचना त्रुटि."
 
 #: pyanaconda/storage/formats/fs.py:882
 msgid "e2fsck cancelled by user request."
-msgstr ""
+msgstr "e2fsck उपयोक्ता आग्रह पर रद्द किया गया."
 
 #: pyanaconda/storage/formats/fs.py:883
 msgid "Shared library error."
-msgstr ""
+msgstr "साझा लाइब्रेरी त्रुटि."
 
 #: pyanaconda/storage/formats/fs.py:1048
 msgid ""
 "Recoverable errors have been detected or dosfsck has discovered an internal "
 "inconsistency."
-msgstr ""
+msgstr "फिर प्राप्त करने योग्य त्रुटियों को जाँची गई हैं या dosfsck ने एक आंतरिक असंगतता पता किया है."
 
 #: pyanaconda/storage/formats/fs.py:1050
-#, fuzzy
 msgid "Usage error."
-msgstr "लक्ष्य ड्राइव त्रुटि"
+msgstr "प्रयोग त्रुटि."
 
 #: pyanaconda/storage/formats/luks.py:48
-#, fuzzy
 msgid "Encrypted"
 msgstr "गुप्त"
 
 #: pyanaconda/storage/formats/luks.py:195
-#, fuzzy, python-format
+#, python-format
 msgid "Encrypting %s"
-msgstr "गोपित करें (_E)"
+msgstr "%s गुप्त कर रहा है"
 
 #: pyanaconda/storage/formats/lvmpv.py:104
 #: pyanaconda/storage/formats/swap.py:162
-#, fuzzy, python-format
+#, python-format
 msgid "Creating %(type)s on %(device)s"
-msgstr "%s पर फ़ाइल तंत्र बना रहा है"
+msgstr "%(type)s को %(device)s पर बना रहा है"
 
 #: pyanaconda/storage/iscsi.py:120
 msgid "Unable to change iSCSI initiator name once set"
-msgstr ""
+msgstr "iSCSI आरंभकर्ता नाम को एक बार सेट हो जाने के बाद बदलने में असमर्थ"
 
 #: pyanaconda/storage/iscsi.py:122
-#, fuzzy
 msgid "Must provide an iSCSI initiator name"
-msgstr "आपको जरूर आरंभकर्ता नाम देना चाहिए."
+msgstr "जरूर iSCSI आरंभकर्ता नाम देना चाहिए"
 
 #: pyanaconda/storage/iscsi.py:153 pyanaconda/storage/iscsi.py:154
 msgid "Scanning iSCSI nodes"
@@ -5196,14 +5205,13 @@ msgid "No initiator name set"
 msgstr "किसी आरंभकर्ता का नाम सेट नहीं"
 
 #: pyanaconda/storage/iscsi.py:253
-#, fuzzy
 msgid "Logging in to iSCSI node"
 msgstr "iSCSI नोड में लॉगिंग कर रहा है"
 
 #: pyanaconda/storage/iscsi.py:254
-#, fuzzy, python-format
+#, python-format
 msgid "Logging in to iSCSI node %s"
-msgstr "iSCSI नोड में लॉगिंग कर रहा है"
+msgstr "iSCSI नोड %s में लॉगिंग कर रहा है"
 
 #: pyanaconda/storage/partitioning.py:197
 msgid ""
@@ -5248,7 +5256,7 @@ msgstr ""
 "संस्थापक से बाहर निकलने के लिए 'ठीक' दबाएँ."
 
 #: pyanaconda/storage/partitioning.py:246
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Could not allocate requested partitions: \n"
 "\n"
@@ -5256,7 +5264,7 @@ msgid ""
 msgstr ""
 "निवेदित विभाजन आबंटित नहीं कर सका: \n"
 "\n"
-"%s.%s"
+"%(msg)s.%(extra)s"
 
 #: pyanaconda/storage/partitioning.py:265
 msgid ""
@@ -5273,7 +5281,7 @@ msgid "Automatic Partitioning Errors"
 msgstr "स्वतः विभाजन त्रुटि"
 
 #: pyanaconda/storage/partitioning.py:268
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The following errors occurred with your partitioning:\n"
 "\n"
@@ -5284,10 +5292,10 @@ msgid ""
 msgstr ""
 "आपके विभाजन में निम्नलिखित त्रुटि आयी:\n"
 "\n"
-"%s\n"
+"%(errortxt)s\n"
 "\n"
 "यह तब हो सकता है जब संस्थापन के लिए आपके हार्ड ड्राइव पर संस्थापन के लिये पर्याप्त स्थान न "
-"हो.%s"
+"हो.%(extra)s"
 
 #: pyanaconda/storage/zfcp.py:51
 msgid "You have not specified a device number or the number is invalid"
@@ -5307,31 +5315,31 @@ msgid "zFCP device %s not found, not even in device ignore list."
 msgstr "zFCP युक्ति %s नहीं मिला था, यहाँ तक कि युक्ति अनदेखी सूची में."
 
 #: pyanaconda/storage/zfcp.py:143
-#, fuzzy, python-format
+#, python-format
 msgid "Could not set zFCP device %(devnum)s online (%(e)s)."
-msgstr "zFCP युक्ति %s को ऑनलाइन (%s) सेट नहीं कर सका."
+msgstr "zFCP युक्ति %(devnum)s को ऑनलाइन (%(e)s) सेट नहीं कर सका."
 
 #: pyanaconda/storage/zfcp.py:154
-#, fuzzy, python-format
+#, python-format
 msgid "Could not add WWPN %(wwpn)s to zFCP device %(devnum)s (%(e)s)."
-msgstr "WWPN %s को zFCP युक्ति %s (%s) में जोड़ नहीं सका."
+msgstr "WWPN %(wwpn)s को zFCP युक्ति %(devnum)s (%(e)s) में जोड़ नहीं सका."
 
 #: pyanaconda/storage/zfcp.py:161
-#, fuzzy, python-format
+#, python-format
 msgid "WWPN %(wwpn)s not found at zFCP device %(devnum)s."
-msgstr "WWPN %s नहीं मिला zFCP युक्ति %s पर."
+msgstr "WWPN %(wwpn)s नहीं मिला zFCP युक्ति %(devnum)s पर."
 
 #: pyanaconda/storage/zfcp.py:176
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Could not add LUN %(fcplun)s to WWPN %(wwpn)s on zFCP device %(devnum)s (%(e)"
 "s)."
-msgstr "LUN %s को WWPN %s में zFCP युक्ति %s (%s) पर जोड़ नहीं सका."
+msgstr "LUN %(fcplun)s to WWPN %(wwpn)s on zFCP device %(devnum)s (%(e)s) को जोड़ नहीं सका."
 
 #: pyanaconda/storage/zfcp.py:182
-#, fuzzy, python-format
+#, python-format
 msgid "LUN %(fcplun)s at WWPN %(wwpn)s on zFCP device %(devnum)s already configured."
-msgstr "LUN %s WWPN %s पर zFCP युक्ति पर %s पहले से विन्यस्त किया गया है."
+msgstr "LUN %(fcplun)s WWPN %(wwpn)s पर zFCP युक्ति पर %(devnum)s पहले से विन्यस्त किया गया है."
 
 #: pyanaconda/storage/zfcp.py:194
 #, python-format
@@ -5348,11 +5356,11 @@ msgid ""
 msgstr "विफल LUN %(fcplun)s WWPN %(wwpn)s में zFCP युक्ति %(devnum)s पर फिर से हटाया गया."
 
 #: pyanaconda/storage/zfcp.py:260
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Could not correctly delete SCSI device of zFCP %(devnum)s %(wwpn)s %(fcplun)"
 "s (%(e)s)."
-msgstr "सही तरीके से SCSI युक्ति को zFCP %s %s %s (%s) पर मिटा नहीं सका."
+msgstr "सही तरीके से zFCP %(devnum)s %(wwpn)s %(fcplun)s (%(e)s) की SCSI युक्ति को मिटा नहीं सका."
 
 #: pyanaconda/storage/zfcp.py:269
 #, python-format
@@ -5425,9 +5433,9 @@ msgstr ""
 "एक संजाल अंतरफलक को विन्यस्त करने के लिए चुनें."
 
 #: pyanaconda/textw/netconfig_text.py:155
-#, fuzzy, python-format
+#, python-format
 msgid "Configure interface %s to be used during installation process."
-msgstr "संस्थापन प्रक्रिया के समय आप कौन सी भाषा का प्रयोग करना चाहते हैं?"
+msgstr "संस्थापन प्रक्रिया के दौरान %s अंतरफलक को विन्यस्त करें."
 
 #: pyanaconda/textw/netconfig_text.py:160
 msgid "Enable IPv4 Support"
@@ -5464,9 +5472,8 @@ msgid "Missing protocol"
 msgstr "गुम प्रोटोकॉल"
 
 #: pyanaconda/textw/netconfig_text.py:271
-#, fuzzy
 msgid "You must select at least one protocol version"
-msgstr "आपको कम से कम एक प्रोटोकॉल (IPv4 या IPv6) जरूर चुनना चाहिए."
+msgstr "आपको कम से कम एक प्रोटोकॉल संस्करण जरूर चुनना चाहिए."
 
 #: pyanaconda/textw/netconfig_text.py:279
 #: pyanaconda/textw/netconfig_text.py:282
@@ -5501,9 +5508,8 @@ msgid "IPv6 Prefix"
 msgstr "IPv6 उपसर्ग"
 
 #: pyanaconda/textw/netconfig_text.py:326
-#, fuzzy
 msgid "IPv6 CIDR prefix must be between 0 and 128."
-msgstr "IPv4 CIDR उपसर्ग को 0 और 32 के बीच जरूर होना चाहिए."
+msgstr "IPv4 CIDR उपसर्ग को 0 और 128 के बीच जरूर होना चाहिए."
 
 #: pyanaconda/textw/netconfig_text.py:334
 msgid "IPv6 Gateway"
@@ -5898,7 +5904,7 @@ msgstr "क्या आप बूट लोडर अपने तंत्र 
 
 #: data/ui/cleardisks.glade.h:1
 msgid "<b>Data Storage Devices</b> (to be mounted only)"
-msgstr ""
+msgstr "<b>आँकड़ा भंडारण युक्ति</b> (केवल आरोहित किए जाने के लिए)"
 
 #: data/ui/cleardisks.glade.h:2
 msgid "<b>Install Target Devices</b>"
@@ -5908,7 +5914,7 @@ msgstr "<b>लक्ष्य युक्ति संस्थापित क
 msgid ""
 "<b>Tip:</b> Install target devices will be reformatted and wiped of any "
 "data.  Make sure you have backups."
-msgstr ""
+msgstr "<b>संकेत:</b> लक्ष्य युक्ति संस्थापित करना को पुनः प्रारूपित किया जाएगा और बिना किसी आँकड़ा के रह जाएगा.  सुनिश्चित करें कि आपके पास बैकअप है."
 
 #: data/ui/cleardisks.glade.h:4
 msgid ""
@@ -5918,37 +5924,37 @@ msgid ""
 "which devices you'd like to use as installation target devices (these may be "
 "formatted).  Please also indicate which system drive will have the "
 "bootloader installed."
-msgstr ""
+msgstr "नीचे वे भंडारण युक्तियाँ हैं जिसे आपने इस संस्थापन के हिस्से के रूप में चुना है.  कृपया नीचे तीर के उपयोग से इसे बताएँ कि कौन सी युक्तियाँ आप बतौर आँकड़ा युक्तियाँ प्रयोग करना चाहेंगे (इन्हें प्रारूपित नहीं किया जाएगा, केवल आरोहित) और कि कौन सी युक्तियाँ आप बतौर संस्थापन लक्ष्य युक्तियों के उपयोग करना चाहेंगे (इन्हें प्रारूपित किया जाएगा).  कृपया साथ ही शामिल करें कि कौन सी तंत्र युक्तियों में बूट लोडर संस्थापित रहेंगी."
 
 #: data/ui/create-storage.glade.h:1
 msgid "<span size=\"small\" color=\"gray\">Create a RAID formatted partition</span>"
-msgstr ""
+msgstr "<span size=\"small\" color=\"gray\">RAID प्रारूपित विभाजन बनाएँ</span>"
 
 #: data/ui/create-storage.glade.h:2
 msgid ""
 "<span size=\"small\" color=\"gray\">Create a logical volume on selected "
 "volume group</span>"
-msgstr ""
+msgstr "<span size=\"small\" color=\"gray\">एक लॉजिकल वॉल्यूम चयनित वॉल्यूम ग्रुप पर बनाएँ</span>"
 
 #: data/ui/create-storage.glade.h:3
 msgid "<span size=\"small\" color=\"gray\">Create an LVM formatted partition</span>"
-msgstr ""
+msgstr "<span size=\"small\" color=\"gray\">LVM प्रारूपित विभाजन बनाएँ/span>"
 
 #: data/ui/create-storage.glade.h:4
 msgid "<span size=\"small\" color=\"gray\">General purpose partition creation</span>"
-msgstr ""
+msgstr "<span size=\"small\" color=\"gray\">सामान्य उद्देश्य के विभाजन निर्माण</span>"
 
 #: data/ui/create-storage.glade.h:5
 msgid ""
 "<span size=\"small\" color=\"gray\">Requires at least 1 free LVM formatted "
 "partition</span>"
-msgstr ""
+msgstr "<span size=\"small\" color=\"gray\">कम से कम 1 फ्री LVM प्रारूपित विभाजन की जरूरत है</span>"
 
 #: data/ui/create-storage.glade.h:6
 msgid ""
 "<span size=\"small\" color=\"gray\">Requires at least 2 free RAID formatted "
 "partitions</span>"
-msgstr ""
+msgstr "<span size=\"small\" color=\"gray\">कम से कम 2 फ्री RAID प्रारूपित विभाजन की जरूरत है</span>"
 
 #: data/ui/create-storage.glade.h:7
 msgid "C_reate"
@@ -6027,7 +6033,7 @@ msgid ""
 "<b>Tip:</b> Selected drives will not be formatted unless you choose to do so "
 "later during installation.  Also, note that post-installation you may mount "
 "drives you did not select here by modifying your /etc/fstab file."
-msgstr ""
+msgstr "<b>संकेत:</b> चुने ड्राइव को प्रारूपित नहीं किया जाएगा जबतक आप संस्थापन के दौरान ऐसा करने के लिए चुनते नहीं हैं.  साथ ही, नोट करें कि उत्तर संस्थापन जो आप ड्राइव पर आरोहित करते हैं आपने यहाँ /etc/fstab फाइल को बदलकर नहीं चुना है."
 
 #: data/ui/filter.glade.h:2
 msgid "Basic Devices"
@@ -6051,6 +6057,9 @@ msgid ""
 "Vendor\n"
 "Identifier"
 msgstr ""
+"इंटरकनेक्ट\n"
+"विक्रेता\n"
+"पहचानकर्ता"
 
 #: data/ui/filter.glade.h:9
 msgid "LUN:"
@@ -6061,64 +6070,63 @@ msgid "Multipath Devices"
 msgstr "बहुपथ युक्ति"
 
 #: data/ui/filter.glade.h:11
-#, fuzzy
 msgid "Other SAN Devices"
-msgstr "RAID युक्ति"
+msgstr "अन्य SAN युक्ति"
 
 #: data/ui/filter.glade.h:12
 msgid ""
 "Please select the drives you'd like to install the operating system on, as "
 "well as any drives you'd like to automatically mount on your system:"
-msgstr ""
+msgstr "कृपया चुनें वह ड्राइव जो आप ऑपरेटिंग सिस्टम पर संस्थापित करना चाहेंगे, साथ ही साथ कोई ड्राइव जो आप स्वतः अपने तंत्र पर आरोहित करना चाहेंगे:"
 
 #: data/ui/filter.glade.h:13
 msgid ""
 "Port / Target / LUN\n"
 "Target Identifier"
 msgstr ""
+"पोर्ट / लक्ष्य / LUN\n"
+"लक्ष्य पहचानकर्ता"
 
 #: data/ui/filter.glade.h:15
 msgid "Port:"
 msgstr "पोर्टः"
 
 #: data/ui/filter.glade.h:16
-#, fuzzy
 msgid "Search"
-msgstr "ढूंढें"
+msgstr "खोजें"
 
 #: data/ui/filter.glade.h:17
 msgid "Search By:"
-msgstr ""
+msgstr "इससे खोजें:"
 
 #: data/ui/filter.glade.h:18
 msgid "Search Results:"
-msgstr ""
+msgstr "खोज परिणाम:"
 
 #: data/ui/filter.glade.h:20
 #, no-c-format
 msgid "Selected devices: %s (%s) out of %s (%s)."
-msgstr ""
+msgstr "चुनी गई युक्तियाँ: %s (%s) , %s (%s) का"
 
 #: data/ui/filter.glade.h:21
 msgid "Show Identifiers that Include:"
-msgstr ""
+msgstr "उन आइडेंटीफिल्टर दिखाएँ जो शामिल करते हैं:"
 
 #: data/ui/filter.glade.h:22
 msgid "Show Only Devices From:"
-msgstr ""
+msgstr "इससे केवल युक्तियों को दिखाएँ:"
 
 #: data/ui/filter.glade.h:23
 msgid "Show Only Devices Using:"
-msgstr ""
+msgstr "इसके प्रयोग से केवल युक्तियों को दिखाएँ:"
 
 #: data/ui/filter.glade.h:24
 msgid "Target:"
 msgstr "लक्ष्यः"
 
 #: data/ui/filter.glade.h:25
-#, fuzzy
 msgid "_Add Advanced Target"
-msgstr "लक्ष्य जोड़ें (_A)"
+msgstr "उन्न लक्ष्य जोड़ें (_A)"
 
 #: data/ui/iscsi-dialogs.glade.h:1
 msgid "CHAP Password:"
@@ -6130,16 +6138,15 @@ msgstr "CHAP उपयोक्तानाम:"
 
 #: data/ui/iscsi-dialogs.glade.h:3
 msgid "Check the nodes you wish to log into:"
-msgstr ""
+msgstr "उन नोड को जाँचें जिसमें आप लॉग इन करना चाहते हैं:"
 
 #: data/ui/iscsi-dialogs.glade.h:4
 msgid "Reason:"
 msgstr "कारण:"
 
 #: data/ui/iscsi-dialogs.glade.h:5
-#, fuzzy
 msgid "Retry _Login"
-msgstr "फिर कोशिश कर रहा है"
+msgstr "लॉगिन की फिर कोशिश करें (_L)"
 
 #: data/ui/iscsi-dialogs.glade.h:6
 msgid "Reverse CHAP Password:"
@@ -6151,11 +6158,11 @@ msgstr "विलोम CHAP उपयोक्तानाम:"
 
 #: data/ui/iscsi-dialogs.glade.h:8
 msgid "Start _Discovery"
-msgstr ""
+msgstr "खोज आरंभ करें (_D)"
 
 #: data/ui/iscsi-dialogs.glade.h:9
 msgid "Successfully logged in and attached the following nodes:"
-msgstr ""
+msgstr "सफलतापूर्वक लॉगिन और निम्नलिखित नोड को संलग्न किया है:"
 
 #: data/ui/iscsi-dialogs.glade.h:10
 msgid "Target IP Address:"
@@ -6171,11 +6178,11 @@ msgstr ""
 
 #: data/ui/iscsi-dialogs.glade.h:12
 msgid "What kind of iSCSI <b>discovery authentication</b> do you wish to perform:"
-msgstr ""
+msgstr "किस प्रकार के iSCSI <b>खोज सत्यापन</b> को आप करना चाहते हैं:"
 
 #: data/ui/iscsi-dialogs.glade.h:13
 msgid "What kind of iSCSI <b>login authentication</b> do you wish to perform:"
-msgstr ""
+msgstr "किस प्रकार के iSCSI <b>लॉगिन सत्यापन</b> आप करना चाहते हैं:"
 
 #: data/ui/iscsi-dialogs.glade.h:14
 msgid "_Cancel"
@@ -6211,7 +6218,7 @@ msgstr "iSCSI नोड लॉगिन"
 
 #: data/ui/iscsi-dialogs.glade.h:22
 msgid "iSCSI login has failed for the following nodes:"
-msgstr ""
+msgstr "iSCSI लॉगिन निम्नलिखित नोड के लिए विफल हो गए हैं:"
 
 #: data/ui/lukspassphrase.glade.h:1
 msgid ""
@@ -6327,7 +6334,7 @@ msgstr "<span size=\"large\" weight=\"bold\">नीचे के भंडार
 
 #: data/ui/reinitialize-dialog.glade.h:2
 msgid "Apply my choice to all devices with undetected partitions or filesystems"
-msgstr ""
+msgstr "सभी युक्तियों में मेरी पसंद को बिन जाँचें गए विभाजन या फाइल तंत्र के साथ लागू करें"
 
 #: data/ui/reinitialize-dialog.glade.h:3
 msgid "No, keep any data"
