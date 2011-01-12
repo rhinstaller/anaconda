@@ -58,68 +58,50 @@
 #include "../pyanaconda/isys/isys.h"
 #include "../pyanaconda/isys/log.h"
 
+/* Too bad, but we need constants visible everywhere. */
+static PyObject *constantsMod;
+
 /* boot flags */
 extern uint64_t flags;
 
 struct ksCommandNames {
     char * name;
-    void (*setupData) (struct loaderData_s *loaderData,
-                       int argc, char ** argv);
+    void (*setupData) (struct loaderData_s *loaderData, PyObject *handler);
 } ;
 
-static void setTextMode(struct loaderData_s * loaderData, int argc, 
-                        char ** argv);
-static void setGraphicalMode(struct loaderData_s * loaderData, int argc, 
-                             char ** argv);
-static void setCmdlineMode(struct loaderData_s * loaderData, int argc, 
-                           char ** argv);
-static void setSELinux(struct loaderData_s * loaderData, int argc, 
-                       char ** argv);
-static void setPowerOff(struct loaderData_s * loaderData, int argc, 
-                        char ** argv);
-static void setHalt(struct loaderData_s * loaderData, int argc, 
-                    char ** argv);
-static void setShutdown(struct loaderData_s * loaderData, int argc, 
-                        char ** argv);
-static void setMediaCheck(struct loaderData_s * loaderData, int argc, 
-                          char ** argv);
-static void setUpdates(struct loaderData_s * loaderData, int argc,
-                       char ** argv);
-static void setVnc(struct loaderData_s * loaderData, int argc,
-                       char ** argv);
-static void useKickstartDD(struct loaderData_s * loaderData,
-                    int argc, char ** argv);
-static void setKickstartKeyboard(struct loaderData_s * loaderData, int argc, 
-                          char ** argv);
-static void setKickstartLanguage(struct loaderData_s * loaderData, int argc, 
-                          char ** argv);
-static void setKickstartNetwork(struct loaderData_s * loaderData, int argc, 
-                         char ** argv);
-static void setKickstartCD(struct loaderData_s * loaderData, int argc, char ** argv);
-static void setKickstartHD(struct loaderData_s * loaderData, int argc,
-                     char ** argv);
-static void setKickstartNfs(struct loaderData_s * loaderData, int argc,
-                     char ** argv);
-static void setKickstartUrl(struct loaderData_s * loaderData, int argc,
-                     char ** argv);
+static void setDisplayMode(struct loaderData_s * loaderData, PyObject *handler);
+static void setSELinux(struct loaderData_s * loaderData, PyObject *handler);
+static void setShutdown(struct loaderData_s * loaderData, PyObject *handler);
+static void setMediaCheck(struct loaderData_s * loaderData, PyObject *handler);
+static void setUpdates(struct loaderData_s * loaderData, PyObject *handler);
+static void setVnc(struct loaderData_s * loaderData, PyObject *handler);
+static void useKickstartDD(struct loaderData_s * loaderData, PyObject *handler);
+static void setKickstartKeyboard(struct loaderData_s * loaderData, PyObject *handler);
+static void setKickstartLanguage(struct loaderData_s * loaderData, PyObject *handler);
+static void setKickstartNetwork(struct loaderData_s * loaderData, PyObject *handler);
+static void setKickstartCD(struct loaderData_s * loaderData, PyObject *handler);
+static void setKickstartHD(struct loaderData_s * loaderData, PyObject *handler);
+static void setKickstartNfs(struct loaderData_s * loaderData, PyObject *handler);
+static void setKickstartUrl(struct loaderData_s * loaderData, PyObject *handler);
+static void loadKickstartModule(struct loaderData_s * loaderData, PyObject *handler);
 
 struct ksCommandNames ksTable[] = {
     { "cdrom", setKickstartCD },
-    { "cmdline", setCmdlineMode },
+    { "cmdline", setDisplayMode },
     { "device", loadKickstartModule },
     { "driverdisk", useKickstartDD },
-    { "graphical", setGraphicalMode },
-    { "halt", setHalt },
+    { "graphical", setDisplayMode },
+    { "halt", setShutdown },
     { "harddrive", setKickstartHD },
     { "keyboard", setKickstartKeyboard },
     { "lang", setKickstartLanguage },
     { "mediacheck", setMediaCheck },
     { "network", setKickstartNetwork },
     { "nfs", setKickstartNfs },
-    { "poweroff", setPowerOff },
+    { "poweroff", setShutdown },
     { "selinux", setSELinux },
     { "shutdown", setShutdown },
-    { "text", setTextMode },
+    { "text", setDisplayMode },
     { "updates", setUpdates },
     { "url", setKickstartUrl },
     { "vnc", setVnc },
@@ -128,11 +110,14 @@ struct ksCommandNames ksTable[] = {
 
 /* INTERNAL PYTHON INTERFACE FUNCTIONS */
 
-static PyObject *getCallable(PyObject *module, const char *name) {
+static PyObject *getObject(PyObject *module, const char *name, unsigned int isCallable) {
     PyObject *obj = NULL;
 
     obj = PyObject_GetAttrString(module, name);
-    if (!obj || !PyCallable_Check(obj)) {
+    if (!obj)
+        return NULL;
+
+    if (isCallable && !PyCallable_Check(obj)) {
         Py_XDECREF(obj);
         return NULL;
     }
@@ -150,7 +135,7 @@ static PyObject *import(const char *moduleName) {
 static PyObject *makeHandler(PyObject *module) {
     PyObject *func, *handler;
 
-    func = getCallable(module, "makeVersion");
+    func = getObject(module, "makeVersion", 1);
     if (!func)
         return NULL;
 
@@ -205,19 +190,33 @@ static void handleException() {
 
 /* Returns the handler.<command>.<attr> object if it exists, or NULL on error. */
 static PyObject *getattr(PyObject *handler, const char *command, const char *attr) {
-    PyObject *commandObj, *attrObj;
+    PyObject *commandObj = NULL, *attrObj = NULL;
 
     commandObj = PyObject_GetAttrString(handler, command);
     if (!commandObj)
-        return NULL;
+        goto cleanup;
 
     attrObj = PyObject_GetAttrString(commandObj, attr);
-    if (!attrObj) {
-        Py_DECREF(commandObj);
-        return NULL;
-    }
+    if (!attrObj)
+        goto cleanup;
 
+cleanup:
+    Py_XDECREF(commandObj);
     return attrObj;
+}
+
+static PyObject *getDataList(PyObject *handler, const char *command) {
+    PyObject *attrObj = getattr(handler, command, "dataList");
+    PyObject *retval = NULL;
+
+    if (!attrObj || !PyCallable_Check(attrObj))
+        goto cleanup;
+
+    retval = PyObject_CallObject(attrObj, NULL);
+
+cleanup:
+    Py_XDECREF(attrObj);
+    return retval;
 }
 
 /* Perform the same tasks as pykickstart.parser.preprocessKickstart.  Currently
@@ -226,7 +225,7 @@ static PyObject *getattr(PyObject *handler, const char *command, const char *att
 static PyObject *preprocessKickstart(PyObject *module, const char *inputFile) {
     PyObject *output = NULL, *func;
 
-    func = getCallable(module, "preprocessKickstart");
+    func = getObject(module, "preprocessKickstart", 1);
     if (!func)
         return NULL;
 
@@ -253,6 +252,20 @@ static PyObject *readKickstart(PyObject *parser, PyObject *f) {
     }
 
     return retval;
+}
+
+/* PYTHON HELPERS */
+
+static unsigned int isNotEmpty(PyObject *obj) {
+    return obj && PyString_Check(obj) && strcmp("", PyString_AsString(obj));
+}
+
+static unsigned int objIsStr(PyObject *obj, const char *str) {
+    return obj && PyString_Check(obj) && !strcmp(str, PyString_AsString(obj));
+}
+
+static unsigned int isTrue(PyObject *obj) {
+    return obj && PyBool_Check(obj) && obj == Py_True;
 }
 
 int kickstartFromRemovable(char *kssrc) {
@@ -319,55 +332,37 @@ int getKickstartFromBlockDevice(char *device, char *path) {
     return getFileFromBlockDevice(device, path, "/tmp/ks.cfg");
 }
 
-void loadKickstartModule(struct loaderData_s * loaderData,
-                         int argc, char **argv) {
-    gchar *opts = NULL;
-    gchar *module = NULL;
-    gchar **args = NULL, **remaining = NULL;
-    gboolean rc;
-    GOptionContext *optCon = g_option_context_new(NULL);
-    GError *optErr = NULL;
-    GOptionEntry ksDeviceOptions[] = {
-        { "opts", 0, 0, G_OPTION_ARG_STRING, &opts, NULL, NULL },
-        { G_OPTION_REMAINING, 0, 0, G_OPTION_ARG_STRING_ARRAY, &remaining,
-          NULL, NULL },
-        { NULL },
-    };
+void loadKickstartModule(struct loaderData_s * loaderData, PyObject *handler) {
+    Py_ssize_t i;
+    PyObject *list = getDataList(handler, "device");
 
-    g_option_context_set_help_enabled(optCon, FALSE);
-    g_option_context_add_main_entries(optCon, ksDeviceOptions, NULL);
-
-    if (!g_option_context_parse(optCon, &argc, &argv, &optErr)) {
-        startNewt();
-        newtWinMessage(_("Kickstart Error"), _("OK"),
-                       _("Bad argument to device kickstart method "
-                         "command: %s"), optErr->message);
-        g_error_free(optErr);
-        g_option_context_free(optCon);
+    if (!list)
         return;
+
+    for (i = 0; i < PyList_Size(list); i++) {
+        PyObject *ele = PyList_GetItem(list, i);
+        PyObject *moduleName, *moduleOpts;
+
+        if (!ele)
+            continue;
+
+        moduleName = getObject(ele, "moduleName", 0);
+        moduleOpts = getObject(ele, "moduleOpts", 0);
+
+        if (isNotEmpty(moduleName)) {
+            if (isNotEmpty(moduleOpts)) {
+                gchar **args = g_strsplit(PyString_AsString(moduleOpts), " ", 0);
+                mlLoadModule(PyString_AsString(moduleName), args);
+                g_strfreev(args);
+            }  else
+                mlLoadModule(PyString_AsString(moduleName), NULL);
+        }
+
+        Py_XDECREF(moduleName);
+        Py_XDECREF(moduleOpts);
     }
 
-    g_option_context_free(optCon);
-
-    if ((remaining != NULL) && (g_strv_length(remaining) == 1)) {
-        module = remaining[0];
-    }
-
-    if (!module) {
-        startNewt();
-        newtWinMessage(_("Kickstart Error"), _("OK"),
-                       _("A module name must be specified for "
-                         "the kickstart device command."));
-        return;
-    }
-
-    if (opts) {
-        args = g_strsplit(opts, " ", 0);
-    }
-
-    rc = mlLoadModule(module, args);
-    g_strfreev(args);
-    return;
+    Py_XDECREF(list);
 }
 
 static char *newKickstartLocation(const char *origLocation) {
@@ -495,292 +490,246 @@ void getKickstartFile(struct loaderData_s *loaderData) {
     return;
 }
 
-static void setVnc(struct loaderData_s * loaderData, int argc,
-                   char ** argv) {
-    logMessage(INFO, "kickstart forcing graphical mode over vnc");
-    flags |= LOADER_FLAGS_GRAPHICAL | LOADER_FLAGS_EARLY_NETWORKING;
-    return;
-}
+static void setVnc(struct loaderData_s * loaderData, PyObject *handler) {
+    PyObject *vncEnabled = getattr(handler, "vnc", "enabled");
 
-static void setUpdates(struct loaderData_s * loaderData, int argc,
-                       char ** argv) {
-   if (argc == 1)
-      flags |= LOADER_FLAGS_UPDATES;
-   else if (argc == 2)
-      loaderData->updatessrc = strdup(argv[1]);
-   else
-      logMessage(WARNING, "updates command given with incorrect arguments");
-}
-
-static void setTextMode(struct loaderData_s * loaderData, int argc, 
-                        char ** argv) {
-    logMessage(INFO, "kickstart forcing text mode");
-    flags |= LOADER_FLAGS_TEXT;
-    return;
-}
-
-static void setGraphicalMode(struct loaderData_s * loaderData, int argc, 
-                        char ** argv) {
-    logMessage(INFO, "kickstart forcing graphical mode");
-    flags |= LOADER_FLAGS_GRAPHICAL;
-    return;
-}
-
-static void setCmdlineMode(struct loaderData_s * loaderData, int argc, 
-                           char ** argv) {
-    logMessage(INFO, "kickstart forcing cmdline mode");
-    flags |= LOADER_FLAGS_CMDLINE;
-    return;
-}
-
-static void setSELinux(struct loaderData_s * loaderData, int argc, 
-                       char ** argv) {
-    flags |= LOADER_FLAGS_SELINUX;
-    return;
-}
-
-static void setPowerOff(struct loaderData_s * loaderData, int argc, 
-                        char ** argv) {
-    if (!FL_NOKILL(flags))
-        flags |= LOADER_FLAGS_POWEROFF;
-    return;
-}
-
-static void setHalt(struct loaderData_s * loaderData, int argc, 
-                    char ** argv) {
-    if (!FL_NOKILL(flags))
-        flags |= LOADER_FLAGS_HALT;
-    return;
-}
-
-static void setShutdown(struct loaderData_s * loaderData, int argc, 
-                    char ** argv) {
-    gint eject = 0, reboot = 0, halt = 0, poweroff = 0;
-    GOptionContext *optCon = g_option_context_new(NULL);
-    GError *optErr = NULL;
-    GOptionEntry ksOptions[] = {
-        { "eject", 'e', 0, G_OPTION_ARG_INT, &eject, NULL, NULL },
-        { "reboot", 'r', 0, G_OPTION_ARG_INT, &reboot, NULL, NULL },
-        { "halt", 'h', 0, G_OPTION_ARG_INT, &halt, NULL, NULL },
-        { "poweroff", 'p', 0, G_OPTION_ARG_INT, &poweroff, NULL, NULL },
-        { NULL },
-    };
-
-    g_option_context_set_help_enabled(optCon, FALSE);
-    g_option_context_add_main_entries(optCon, ksOptions, NULL);
-
-    if (!g_option_context_parse(optCon, &argc, &argv, &optErr)) {
-        startNewt();
-        newtWinMessage(_("Kickstart Error"), _("OK"),
-                       _("Bad argument to shutdown kickstart method "
-                         "command: %s"), optErr->message);
-        g_error_free(optErr);
-        g_option_context_free(optCon);
-        return;
+    if (isTrue(vncEnabled)) {
+        logMessage(INFO, "kickstart forcing graphical mode over vnc");
+        flags |= LOADER_FLAGS_GRAPHICAL | LOADER_FLAGS_EARLY_NETWORKING;
     }
 
-    g_option_context_free(optCon);
+    Py_XDECREF(vncEnabled);
+}
 
-    if (FL_NOKILL(flags)) {
+static void setUpdates(struct loaderData_s * loaderData, PyObject *handler) {
+    PyObject *url = getattr(handler, "updates", "url");
+
+    if (!isNotEmpty(url) || objIsStr(url, "floppy"))
+        flags |= LOADER_FLAGS_UPDATES;
+    else if (isNotEmpty(url))
+        loaderData->updatessrc = strdup(PyString_AsString(url));
+
+    Py_XDECREF(url);
+}
+
+static void setDisplayMode(struct loaderData_s * loaderData, PyObject *handler) {
+    PyObject *textObj = getObject(constantsMod, "DISPLAY_MODE_TEXT", 0);
+    PyObject *graphicalObj = getObject(constantsMod, "DISPLAY_MODE_GRAPHICAL", 0);
+    PyObject *settingObj = getattr(handler, "displaymode", "displayMode");
+
+    if (!settingObj)
+        goto cleanup;
+
+    if (settingObj == textObj) {
+        logMessage(INFO, "kickstart forcing text mode");
+        flags |= LOADER_FLAGS_TEXT;
+    } else if (settingObj == graphicalObj) {
+        logMessage(INFO, "kickstart forcing graphical mode");
+        flags |= LOADER_FLAGS_GRAPHICAL;
+    } else {
+        logMessage(INFO, "kickstart forcing cmdline mode");
+        flags |= LOADER_FLAGS_CMDLINE;
+    }
+
+cleanup:
+    Py_XDECREF(textObj);
+    Py_XDECREF(graphicalObj);
+    Py_XDECREF(settingObj);
+}
+
+static void setSELinux(struct loaderData_s * loaderData, PyObject *handler) {
+    PyObject *disabledObj = getObject(constantsMod, "SELINUX_DISABLED", 0);
+    PyObject *settingObj = getattr(handler, "selinux", "selinux");
+
+    if (settingObj && settingObj != disabledObj)
+        flags |= LOADER_FLAGS_SELINUX;
+
+    Py_XDECREF(disabledObj);
+    Py_XDECREF(settingObj);
+}
+
+static void setShutdown(struct loaderData_s * loaderData, PyObject *handler) {
+    PyObject *shutdownObj = getObject(constantsMod, "KS_SHUTDOWN", 0);
+    PyObject *settingObj = getattr(handler, "reboot", "action");
+
+    if (!settingObj)
+        goto cleanup;
+
+    if (FL_NOKILL(flags))
         flags |= LOADER_FLAGS_HALT;
-    } else  {
-        if (poweroff)
+    else {
+        if (settingObj == shutdownObj)
             flags |= LOADER_FLAGS_POWEROFF;
-        if ((!poweroff && !reboot) || (halt))
+        else
             flags |= LOADER_FLAGS_HALT;
     }
+
+cleanup:
+    Py_XDECREF(shutdownObj);
+    Py_XDECREF(settingObj);
 }
 
-static void setMediaCheck(struct loaderData_s * loaderData, int argc, 
-                          char ** argv) {
-    flags |= LOADER_FLAGS_MEDIACHECK;
-    return;
+static void setMediaCheck(struct loaderData_s * loaderData, PyObject *handler) {
+    PyObject *mediaCheckEnabled = getattr(handler, "mediacheck", "mediacheck");
+
+    if (isTrue(mediaCheckEnabled))
+        flags |= LOADER_FLAGS_MEDIACHECK;
+
+    Py_XDECREF(mediaCheckEnabled);
 }
 
-static void useKickstartDD(struct loaderData_s * loaderData,
-                    int argc, char ** argv) {
-    char * dev = NULL;
-    char * biospart = NULL, * p = NULL; 
-    gchar *fstype = NULL, *src = NULL;
-    gint usebiosdev = 0;
-    gchar **remaining = NULL;
-    GOptionContext *optCon = g_option_context_new(NULL);
-    GError *optErr = NULL;
-    GOptionEntry ksDDOptions[] = {
-        /* The --type option is deprecated and now has no effect. */
-        { "type", 0, 0, G_OPTION_ARG_STRING, &fstype, NULL, NULL },
-        { "source", 0, 0, G_OPTION_ARG_STRING, &src, NULL, NULL },
-        { "biospart", 0, 0, G_OPTION_ARG_INT, &usebiosdev, NULL, NULL },
-        { G_OPTION_REMAINING, 0, 0, G_OPTION_ARG_STRING_ARRAY, &remaining,
-          NULL, NULL },
-        { NULL },
-    };
+static void useKickstartDD(struct loaderData_s * loaderData, PyObject *handler) {
+    Py_ssize_t i;
+    PyObject *list = getDataList(handler, "driverdisk");
 
-    g_option_context_set_help_enabled(optCon, FALSE);
-    g_option_context_add_main_entries(optCon, ksDDOptions, NULL);
-
-    if (!g_option_context_parse(optCon, &argc, &argv, &optErr)) {
-        newtWinMessage(_("Kickstart Error"), _("OK"),
-                       _("The following invalid argument was specified for "
-                         "the kickstart driver disk command: %s"),
-                       optErr->message);
-        g_error_free(optErr);
-        g_option_context_free(optCon);
-        g_strfreev(remaining);
+    if (!list)
         return;
-    }
 
-    g_option_context_free(optCon);
+    for (i = 0; i < PyList_Size(list); i++) {
+        PyObject *ele = PyList_GetItem(list, i);
+        PyObject *attr;
 
-    if ((remaining != NULL) && (g_strv_length(remaining) == 1)) {
-        dev = remaining[0];
-    }
+        if (!ele)
+            continue;
 
-    if (!dev && !src) {
-        logMessage(ERROR, "bad arguments to kickstart driver disk command");
-        return;
-    }
-
-    if (usebiosdev != 0) {
-        p = strchr(dev,'p');
-        if (!p){
-            logMessage(ERROR, "Bad argument for biospart");
-            return;
+        attr = getObject(ele, "source", 0);
+        if (isNotEmpty(attr)) {
+            getDDFromSource(loaderData, PyString_AsString(attr), NULL);
+            goto cleanup;
         }
-        *p = '\0';
-        
-        biospart = getBiosDisk(dev);
-        if (biospart == NULL) {
-            logMessage(ERROR, "Unable to locate BIOS dev %s",dev);
-            return;
+
+        Py_XDECREF(attr);
+        attr = getObject(ele, "partition", 0);
+
+        if (isNotEmpty(attr)) {
+            getDDFromDev(loaderData, PyString_AsString(attr), NULL);
+            goto cleanup;
         }
-        dev = malloc(strlen(biospart) + strlen(p + 1) + 2);
-        sprintf(dev, "%s%s", biospart, p + 1);
+
+        Py_XDECREF(attr);
+        attr = getObject(ele, "biospart", 0);
+
+        if (isNotEmpty(attr)) {
+            char *dev = strdup(PyString_AsString(attr));
+            char *biospart = NULL, *p = NULL;
+
+            p = strchr(dev,'p');
+            if (!p){
+                logMessage(ERROR, "Bad argument for biospart");
+                goto cleanup;
+            }
+            *p = '\0';
+
+            biospart = getBiosDisk(dev);
+            if (biospart == NULL) {
+                logMessage(ERROR, "Unable to locate BIOS dev %s",dev);
+                goto cleanup;
+            }
+
+            free(dev);
+            dev = malloc(strlen(biospart) + strlen(p + 1) + 2);
+            sprintf(dev, "%s%s", biospart, p + 1);
+            getDDFromDev(loaderData, dev, NULL);
+        }
+
+cleanup:
+        Py_XDECREF(attr);
     }
 
-    if (dev) {
-        getDDFromDev(loaderData, dev, NULL);
-    } else {
-        getDDFromSource(loaderData, src, NULL);
-    }
-
-    g_strfreev(remaining);
-    return;
+    Py_XDECREF(list);
 }
 
-static void setKickstartKeyboard(struct loaderData_s * loaderData, int argc, 
-                          char ** argv) {
-    if (argc < 2) {
-        logMessage(ERROR, "no argument passed to keyboard kickstart command");
-        return;
+static void setKickstartKeyboard(struct loaderData_s * loaderData, PyObject *handler) {
+    PyObject *kbdObj = getattr(handler, "keyboard", "keyboard");
+
+    if (isNotEmpty(kbdObj)) {
+        loaderData->kbd = strdup(PyString_AsString(kbdObj));
+        loaderData->kbd_set = 1;
     }
 
-    loaderData->kbd = argv[1];
-    loaderData->kbd_set = 1;
+    Py_XDECREF(kbdObj);
 }
 
-static void setKickstartLanguage(struct loaderData_s * loaderData, int argc, 
-                          char ** argv) {
-    if (argc < 2) {
-        logMessage(ERROR, "no argument passed to lang kickstart command");
-        return;
+static void setKickstartLanguage(struct loaderData_s * loaderData, PyObject *handler) {
+    PyObject *langObj = getattr(handler, "lang", "lang");
+
+    if (isNotEmpty(langObj)) {
+        loaderData->lang = strdup(PyString_AsString(langObj));
+        loaderData->lang_set = 1;
     }
 
-    loaderData->lang = argv[1];
-    loaderData->lang_set = 1;
+    Py_XDECREF(langObj);
 }
 
-static void setKickstartNetwork(struct loaderData_s * loaderData, int argc, 
-                         char ** argv) {
+static void _setNetworkString(PyObject *obj, const char *name, char **dest, int *sentinel) {
+    PyObject *attr = getObject(obj, name, 0);
+
+    if (!isNotEmpty(attr))
+        goto cleanup;
+
+    if (*dest)
+        free(*dest);
+    *dest = strdup(PyString_AsString(attr));
+
+    Py_XDECREF(attr);
+
+    if (sentinel)
+        *sentinel = 1;
+
+cleanup:
+    Py_XDECREF(attr);
+}
+
+static void setKickstartNetwork(struct loaderData_s * loaderData, PyObject *handler) {
+    PyObject *list = getDataList(handler, "network");
+    PyObject *ele, *attr, *noksdev;
     iface_t iface;
-    gchar *bootProto = NULL, *device = NULL, *class = NULL, *ethtool = NULL;
-    gchar *essid = NULL, *wepkey = NULL, *onboot = NULL, *gateway = NULL;
-    gint mtu = 1500, dhcpTimeout = -1;
-    gboolean noipv4 = FALSE, noipv6 = FALSE, noDns = FALSE, noksdev = FALSE;
-    GOptionContext *optCon = g_option_context_new(NULL);
-    GError *optErr = NULL;
-    struct in_addr addr;
-#ifdef ENABLE_IPV6
-    struct in6_addr addr6;
-#endif
-    int rc;
-    GOptionEntry ksOptions[] = {
-        { "bootproto", 0, 0, G_OPTION_ARG_STRING, &bootProto, NULL, NULL },
-        { "device", 0, 0, G_OPTION_ARG_STRING, &device, NULL, NULL },
-        { "dhcpclass", 0, 0, G_OPTION_ARG_STRING, &class, NULL, NULL },
-        { "gateway", 'g', 0, G_OPTION_ARG_STRING, &gateway,
-          NULL, NULL },
-        { "ip", 'i', 0, G_OPTION_ARG_STRING, &loaderData->ipv4, NULL, NULL },
-#ifdef ENABLE_IPV6
-        { "ipv6", 0, 0, G_OPTION_ARG_STRING, &loaderData->ipv6, NULL, NULL },
-#endif
-        { "mtu", 0, 0, G_OPTION_ARG_INT, &mtu, NULL, NULL },
-        { "nameserver", 'n', 0, G_OPTION_ARG_STRING, &loaderData->dns,
-          NULL, NULL },
-        { "netmask", 'm', 0, G_OPTION_ARG_STRING, &loaderData->netmask,
-          NULL, NULL },
-        { "noipv4", 0, 0, G_OPTION_ARG_NONE, &noipv4, NULL, NULL },
-        { "noipv6", 0, 0, G_OPTION_ARG_NONE, &noipv6, NULL, NULL },
-        { "nodns", 0, 0, G_OPTION_ARG_NONE, &noDns, NULL, NULL },
-        { "hostname", 'h', 0, G_OPTION_ARG_STRING, &loaderData->hostname,
-          NULL, NULL },
-        { "ethtool", 0, 0, G_OPTION_ARG_STRING, &ethtool, NULL, NULL },
-        { "essid", 0, 0, G_OPTION_ARG_STRING, &essid, NULL, NULL },
-        { "wepkey", 0, 0, G_OPTION_ARG_STRING, &wepkey, NULL, NULL },
-        { "onboot", 0, 0, G_OPTION_ARG_STRING, &onboot, NULL, NULL },
-        { "notksdevice", 0, 0, G_OPTION_ARG_NONE, &noksdev, NULL, NULL },
-        { "dhcptimeout", 0, 0, G_OPTION_ARG_INT, &dhcpTimeout, NULL, NULL },
-        { NULL },
-    };
+
+    if (!list)
+        return;
+
+    /* For now, just use the first network device as the one for loader. */
+    ele = PyList_GetItem(list, 0);
+    if (!ele)
+        goto cleanup;
 
     iface_init_iface_t(&iface);
 
-    g_option_context_set_help_enabled(optCon, FALSE);
-    g_option_context_add_main_entries(optCon, ksOptions, NULL);
-
-    if (!g_option_context_parse(optCon, &argc, &argv, &optErr)) {
-        newtWinMessage(_("Kickstart Error"), _("OK"),
-                       _("Bad argument to kickstart network command: %s"),
-                       optErr->message);
-        g_error_free(optErr);
-    }
-
-    g_option_context_free(optCon);
-
     /* if they've specified dhcp/bootp use dhcp for the interface */
-    if (bootProto && (!strncmp(bootProto, "dhcp", 4) || 
-                       !strncmp(bootProto, "bootp", 4))) {
+    attr = getObject(ele, "bootProto", 0);
+    if (objIsStr(attr, "dhcp") || objIsStr(attr, "bootp")) {
         loaderData->ipv4 = strdup("dhcp");
         loaderData->ipinfo_set = 1;
     } else if (loaderData->ipv4) {
-        /* JKFIXME: this assumes a bit... */
         loaderData->ipinfo_set = 1;
     }
 
-    /* now make sure the specified bootproto is valid */
-    if (bootProto && strcmp(bootProto, "dhcp") && strcmp(bootProto, "bootp") &&
-        strcmp(bootProto, "static") && strcmp(bootProto, "query")) {
-        newtWinMessage(_("Kickstart Error"), _("OK"),
-                       _("Bad bootproto %s specified in network command"),
-                       bootProto);
-    }
+    Py_XDECREF(attr);
 
     /* --gateway is common for ipv4 and ipv6, same as in loader UI */
-    if (gateway) {
+    attr = getObject(ele, "gateway", 0);
+    if (isNotEmpty(attr)) {
+        char *gateway = strdup(PyString_AsString(attr));
+        int rc;
+        struct in_addr addr;
+#ifdef ENABLE_IPV6
+        struct in6_addr addr6;
+#endif
+
         if ((rc = inet_pton(AF_INET, gateway, &addr)) == 1) {
-            loaderData->gateway = strdup(gateway);
+            loaderData->gateway = gateway;
         } else if (rc == 0) {
 #ifdef ENABLE_IPV6
-            if ((rc = inet_pton(AF_INET6, gateway, &addr6)) == 1) {
-                loaderData->gateway6 = strdup(gateway);
+            if ((rc == inet_pton(AF_INET6, gateway, &addr6)) == 1) {
+                loaderData->gateway6 = gateway;
             } else if (rc == 0) {
 #endif
                 logMessage(WARNING,
                            "invalid address in kickstart --gateway");
 #ifdef ENABLE_IPV6
             } else {
-                 logMessage(ERROR, "%s (%d): %s", __func__, __LINE__,
-                               strerror(errno));
+                logMessage(ERROR, "%s (%d): %s", __func__, __LINE__,
+                           strerror(errno));
             }
 #endif
         } else {
@@ -789,8 +738,14 @@ static void setKickstartNetwork(struct loaderData_s * loaderData, int argc,
         }
     }
 
-    if (!noksdev) {
-        if (device) {
+    Py_XDECREF(attr);
+
+    noksdev = getObject(ele, "notksdevice", 0);
+    if (!isTrue(noksdev)) {
+        attr = getObject(ele, "device", 0);
+        if (isNotEmpty(attr)) {
+            char *device = PyString_AsString(attr);
+
             /* If --device=MAC was given, translate into a device name now. */
             if (index(device, ':') != NULL)
                 loaderData->netDev = iface_mac2device(device);
@@ -800,52 +755,56 @@ static void setKickstartNetwork(struct loaderData_s * loaderData, int argc,
             loaderData->netDev_set = 1;
         }
 
-        if (class) {
-            loaderData->netCls = strdup(class);
-            loaderData->netCls_set = 1;
-        }
+        Py_XDECREF(attr);
 
-        if (ethtool) {
-            if (loaderData->ethtool)
-                free(loaderData->ethtool);
-            loaderData->ethtool = strdup(ethtool);
-            free(ethtool);
-        }
+        _setNetworkString(ele, "dhcpclass", &loaderData->netCls, &loaderData->netCls_set);
+        _setNetworkString(ele, "ethtool", &loaderData->ethtool, NULL);
+        _setNetworkString(ele, "essid", &loaderData->essid, NULL);
+        _setNetworkString(ele, "wepkey", &loaderData->wepkey, NULL);
 
-        if (essid) {
-            if (loaderData->essid)
-                free(loaderData->essid);
-            loaderData->essid = strdup(essid);
-            free(essid);
-        }
-
-        if (wepkey) {
-            if (loaderData->wepkey)
-                free(loaderData->wepkey);
-            loaderData->wepkey = strdup(wepkey);
-            free(wepkey);
-        }
-
-        if (mtu) {
-           loaderData->mtu = mtu;
-        }
-
-        if (noipv4)
+        attr = getObject(ele, "noipv4", 0);
+        if (isTrue(attr))
             flags |= LOADER_FLAGS_NOIPV4;
 
+        Py_XDECREF(attr);
+
+        attr = getObject(ele, "mtu", 0);
+        if (isNotEmpty(attr)) {
+            /* Don't free this string! */
+            char *mtu = PyString_AsString(attr);
+
+            errno = 0;
+            loaderData->mtu = strtol(mtu, NULL, 10);
+
+            if ((errno == ERANGE && (loaderData->mtu == LONG_MIN ||
+                                     loaderData->mtu == LONG_MAX)) ||
+                (errno != 0 && loaderData->mtu == 0)) {
+                logMessage(ERROR, "%s: %d: %m", __func__, __LINE__);
+                abort();
+            }
+        }
+
+        Py_XDECREF(attr);
+
 #ifdef ENABLE_IPV6
-        if (noipv6)
+        attr = getObject(ele, "noipv6", 0);
+        if (isTrue(attr))
             flags |= LOADER_FLAGS_NOIPV6;
 
-        if (loaderData->ipv6) {
+        if (loaderData->ipv6)
             loaderData->ipv6info_set = 1;
-        }
+
+        Py_XDECREF(attr);
 #endif
     }
 
-    if (noDns) {
+    attr = getObject(ele, "nodns", 0);
+    if (isTrue(attr))
         loaderData->noDns = 1;
-    }
+
+    Py_XDECREF(attr);
+
+    Py_XDECREF(noksdev);
 
     /* Make sure the network is always up if there's a network line in the
      * kickstart file, as %post/%pre scripts might require that.
@@ -854,166 +813,165 @@ static void setKickstartNetwork(struct loaderData_s * loaderData, int argc,
         if (kickstartNetworkUp(loaderData, &iface))
             logMessage(ERROR, "unable to bring up network");
     }
+
+cleanup:
+    Py_XDECREF(list);
 }
 
-static void setKickstartCD(struct loaderData_s * loaderData, int argc, char ** argv) {
-    logMessage(INFO, "kickstartFromCD");
-    loaderData->method = METHOD_CDROM;
+static void setKickstartCD(struct loaderData_s * loaderData, PyObject *handler) {
+    PyObject *methodObj = getattr(handler, "method", "method");
+
+    if (objIsStr(methodObj, "cdrom")) {
+        logMessage(INFO, "kickstartFromCD");
+        loaderData->method = METHOD_CDROM;
+    }
+
+    Py_XDECREF(methodObj);
 }
 
-static void setKickstartHD(struct loaderData_s * loaderData, int argc,
-                     char ** argv) {
-    char *p;
-    gchar *biospart = NULL, *partition = NULL, *dir = NULL;
-    GOptionContext *optCon = g_option_context_new(NULL);
-    GError *optErr = NULL;
-    GOptionEntry ksHDOptions[] = {
-        { "biospart", 0, 0, G_OPTION_ARG_STRING, &biospart, NULL, NULL },
-        { "partition", 0, 0, G_OPTION_ARG_STRING, &partition, NULL, NULL },
-        { "dir", 0, 0, G_OPTION_ARG_STRING, &dir, NULL, NULL },
-        { NULL },
-    };
+static void setKickstartHD(struct loaderData_s * loaderData, PyObject *handler) {
+    PyObject *methodObj = getattr(handler, "method", "method");
+    PyObject *biospartObj = NULL;
+    char *partition = NULL, *dir = NULL;
+
+    if (!objIsStr(methodObj, "harddrive"))
+        goto cleanup;
 
     logMessage(INFO, "kickstartFromHD");
 
-    g_option_context_set_help_enabled(optCon, FALSE);
-    g_option_context_add_main_entries(optCon, ksHDOptions, NULL);
-
-    if (!g_option_context_parse(optCon, &argc, &argv, &optErr)) {
-        startNewt();
-        newtWinMessage(_("Kickstart Error"), _("OK"),
-                       _("Bad argument to HD kickstart method "
-                         "command: %s"), optErr->message);
-        g_error_free(optErr);
-        g_option_context_free(optCon);
-        return;
-    }
-
-    g_option_context_free(optCon);
-
-    if (biospart) {
-        char * dev;
+    biospartObj = getattr(handler, "method", "biospart");
+    if (isNotEmpty(biospartObj)) {
+        char *biospart = strdup(PyString_AsString(biospartObj));
+        char *dev, *p;
 
         p = strchr(biospart,'p');
-        if(!p){
+        if(!p) {
             logMessage(ERROR, "Bad argument for --biospart");
-            return;
+            free(biospart);
+            goto cleanup;
         }
+
         *p = '\0';
         dev = getBiosDisk(biospart);
         if (dev == NULL) {
             logMessage(ERROR, "Unable to location BIOS partition %s", biospart);
-            return;
+            free(biospart);
+            goto cleanup;
         }
+
         partition = malloc(strlen(dev) + strlen(p + 1) + 2);
         sprintf(partition, "%s%s", dev, p + 1);
     }
 
     loaderData->method = METHOD_HD;
-    checked_asprintf(&loaderData->instRepo, "hd:%s:%s", partition, dir);
 
+    if (!partition)
+        partition = strdup(PyString_AsString(getattr(handler, "method", "partition")));
+
+    dir = strdup(PyString_AsString(getattr(handler, "method", "dir")));
+
+    checked_asprintf(&loaderData->instRepo, "hd:%s:%s", partition, dir);
     logMessage(INFO, "results of hd ks, partition is %s, dir is %s", partition,
                dir);
+
+    free(partition);
+    free(dir);
+cleanup:
+    Py_XDECREF(methodObj);
+    Py_XDECREF(biospartObj);
 }
 
-static void setKickstartNfs(struct loaderData_s * loaderData, int argc,
-                     char ** argv) {
-    gchar *host = NULL, *dir = NULL, *mountOpts = NULL;
-    GOptionContext *optCon = g_option_context_new(NULL);
-    GError *optErr = NULL;
-    GOptionEntry ksNfsOptions[] = {
-        { "server", 0, 0, G_OPTION_ARG_STRING, &host, NULL, NULL },
-        { "dir", 0, 0, G_OPTION_ARG_STRING, &dir, NULL, NULL },
-        { "opts", 0, 0, G_OPTION_ARG_STRING, &mountOpts, NULL, NULL },
-        { NULL },
-    };
+static void setKickstartNfs(struct loaderData_s * loaderData, PyObject *handler) {
+    PyObject *methodObj = getattr(handler, "method", "method");
+    PyObject *hostObj = NULL, *dirObj = NULL, *optsObj = NULL;
+    char *host, *dir;
+
+    if (!objIsStr(methodObj, "nfs"))
+        goto cleanup;
 
     logMessage(INFO, "kickstartFromNfs");
 
-    g_option_context_set_help_enabled(optCon, FALSE);
-    g_option_context_add_main_entries(optCon, ksNfsOptions, NULL);
+    hostObj = getattr(handler, "method", "server");
+    dirObj = getattr(handler, "method", "dir");
+    optsObj = getattr(handler, "method", "opts");
 
-    if (!g_option_context_parse(optCon, &argc, &argv, &optErr)) {
-        startNewt();
-        newtWinMessage(_("Kickstart Error"), _("OK"),
-                       _("Bad argument to NFS kickstart method "
-                         "command: %s"), optErr->message);
-        g_error_free(optErr);
-        g_option_context_free(optCon);
-        return;
-    }
-
-    g_option_context_free(optCon);
-
-    if (!host || !dir) {
+    if (!isNotEmpty(hostObj) || !isNotEmpty(dirObj)) {
         logMessage(ERROR, "host and directory for nfs kickstart not specified");
-        return;
+        goto cleanup;
     }
 
-    logMessage(INFO, "results of nfs, host is %s, dir is %s, opts are '%s'",
-               host, dir, mountOpts);
+    /* Don't free these strings! */
+    host = PyString_AsString(hostObj);
+    dir = PyString_AsString(dirObj);
 
     loaderData->method = METHOD_NFS;
-    if (mountOpts) {
-        checked_asprintf(&loaderData->instRepo, "nfs:%s:%s:%s", host, mountOpts, dir);
+
+    if (isNotEmpty(optsObj)) {
+        logMessage(INFO, "results of nfs, host is %s, dir is %s, opts are '%s'",
+                   host, dir, PyString_AsString(optsObj));
+        checked_asprintf(&loaderData->instRepo, "nfs:%s:%s:%s",
+                         host, PyString_AsString(optsObj), dir);
     } else {
+        logMessage(INFO, "results of nfs, host is %s, dir is %s", host, dir);
         checked_asprintf(&loaderData->instRepo, "nfs:%s:%s", host, dir);
     }
+
+cleanup:
+    Py_XDECREF(methodObj);
+    Py_XDECREF(hostObj);
+    Py_XDECREF(dirObj);
+    Py_XDECREF(optsObj);
 }
 
-static void setKickstartUrl(struct loaderData_s * loaderData, int argc,
-                     char ** argv) {
-    gchar *url = NULL, *proxy = NULL;
-    gboolean noverifyssl = FALSE;
-    GOptionContext *optCon = g_option_context_new(NULL);
-    GError *optErr = NULL;
-    GOptionEntry ksUrlOptions[] = {
-        { "url", 0, 0, G_OPTION_ARG_STRING, &url, NULL, NULL },
-        { "proxy", 0, 0, G_OPTION_ARG_STRING, &proxy, NULL, NULL },
-        { "noverifyssl", 0, 0, G_OPTION_ARG_NONE, &noverifyssl, NULL, NULL },
-        { NULL },
-    };
+static void setKickstartUrl(struct loaderData_s * loaderData, PyObject *handler) {
+    char *url = NULL;
+    PyObject *methodObj = getattr(handler, "method", "method");
+    PyObject *urlObj = NULL;
+    PyObject *noverifysslObj = NULL, *proxyObj = NULL;
 
+    if (!objIsStr(methodObj, "url"))
+        goto cleanup;
+
+    urlObj = getattr(handler, "method", "url");
+
+    if (!isNotEmpty(urlObj))
+        goto cleanup;
+
+    /* Don't free this string! */
+    url = PyString_AsString(urlObj);
     logMessage(INFO, "kickstartFromUrl");
-
-    g_option_context_set_help_enabled(optCon, FALSE);
-    g_option_context_add_main_entries(optCon, ksUrlOptions, NULL);
-
-    if (!g_option_context_parse(optCon, &argc, &argv, &optErr)) {
-        startNewt();
-        newtWinMessage(_("Kickstart Error"), _("OK"),
-                       _("Bad argument to URL kickstart method "
-                         "command: %s"), optErr->message);
-        g_error_free(optErr);
-        g_option_context_free(optCon);
-        return;
-    }
-
-    g_option_context_free(optCon);
-
-    if (!url) {
-        newtWinMessage(_("Kickstart Error"), _("OK"),
-                       _("Must supply a --url argument to Url kickstart method."));
-        return;
-    }
 
     /* determine install type */
     if (strncmp(url, "http", 4) && strncmp(url, "ftp://", 6)) {
         newtWinMessage(_("Kickstart Error"), _("OK"),
                        _("Unknown Url method %s"), url);
-        return;
+        goto cleanup;
     }
+
+    noverifysslObj = getattr(handler, "method", "noverifyssl");
+    proxyObj = getattr(handler, "method", "proxy");
 
     loaderData->instRepo = strdup(url);
-    loaderData->instRepo_noverifyssl = noverifyssl;
     loaderData->method = METHOD_URL;
 
-    if (proxy) {
-        splitProxyParam(proxy, &loaderData->proxyUser,
-			       &loaderData->proxyPassword,
-			       &loaderData->proxy);
+    if (isTrue(noverifysslObj))
+        loaderData->instRepo_noverifyssl = 1;
+    else
+        loaderData->instRepo_noverifyssl = 0;
+
+    if (isNotEmpty(proxyObj)) {
+        splitProxyParam(PyString_AsString(proxyObj), &loaderData->proxyUser,
+                        &loaderData->proxyPassword,
+                        &loaderData->proxy);
     }
+
     logMessage(INFO, "results of url ks, url %s", url);
+
+cleanup:
+    Py_XDECREF(methodObj);
+    Py_XDECREF(urlObj);
+    Py_XDECREF(noverifysslObj);
+    Py_XDECREF(proxyObj);
 }
 
 int runKickstart(struct loaderData_s * loaderData, const char *file) {
@@ -1034,12 +992,15 @@ int runKickstart(struct loaderData_s * loaderData, const char *file) {
     if ((parserMod = import("pykickstart.parser")) == NULL)
         goto quit;
 
+    if ((constantsMod = import("pykickstart.constants")) == NULL)
+        goto quit;
+
     /* make the KickstartHandler object */
     if ((handler = makeHandler(versionMod)) == NULL)
         goto quit;
 
     /* make the KickstartParser object */
-    if ((callable = getCallable(parserMod, "KickstartParser")) == NULL)
+    if ((callable = getObject(parserMod, "KickstartParser", 1)) == NULL)
         goto quit;
     else
         parser = makeParser(callable, handler);
@@ -1059,12 +1020,13 @@ int runKickstart(struct loaderData_s * loaderData, const char *file) {
          * themselves will decide if they should do anything or not.
          */
         for (cmd = ksTable; cmd->name; cmd++)
-            cmd->setupData(loaderData, 0, NULL);
+            cmd->setupData(loaderData, handler);
     }
 
     rc = 1;
 
 quit:
+    Py_XDECREF(constantsMod);
     Py_XDECREF(versionMod);
     Py_XDECREF(callable);
     Py_XDECREF(parserMod);
