@@ -305,14 +305,6 @@ class Device(object):
         for parent in self.parents:
             parent.teardown(recursive=recursive)
 
-    def createParents(self):
-        """ Run create method of all parent devices. """
-        log.info("NOTE: recursive device creation disabled")
-        for parent in self.parents:
-            if not parent.exists:
-                raise DeviceError("parent device does not exist", self.name)
-            #parent.create()
-
     def dependsOn(self, dep):
         """ Return True if this device depends on dep. """
         # XXX does a device depend on itself?
@@ -780,7 +772,6 @@ class StorageDevice(Device):
         if self.exists:
             raise DeviceError("device has already been created", self.name)
 
-        self.createParents()
         self.setupParents()
         self.exists = True
         self.setup()
@@ -1327,7 +1318,6 @@ class PartitionDevice(StorageDevice):
                                msg=_("Creating device %s") % self.path)
 
         try:
-            self.createParents()
             self.setupParents()
 
             self.disk.format.addPartition(self.partedPartition)
@@ -1822,7 +1812,6 @@ class LUKSDevice(DMCryptDevice):
         if self.exists:
             raise DeviceError("device already exists", self.name)
 
-        self.createParents()
         self.setupParents()
 
         #if not self.slave.format.exists:
@@ -2158,7 +2147,6 @@ class LVMVolumeGroupDevice(DMDevice):
                                title=_("Creating"),
                                msg=_("Creating device %s") % self.path)
         try:
-            self.createParents()
             self.setupParents()
 
             pv_list = [pv.path for pv in self.parents]
@@ -2592,7 +2580,6 @@ class LVMLogicalVolumeDevice(DMDevice):
                                title=_("Creating"),
                                msg=_("Creating device %s") % self.path)
         try:
-            self.createParents()
             self.setupParents()
 
             # should we use --zero for safety's sake?
@@ -3076,7 +3063,6 @@ class MDRaidArrayDevice(StorageDevice):
                                     % (self.path,),
                                     100, pulse = True)
         try:
-            self.createParents()
             self.setupParents()
 
             disks = [disk.path for disk in self.devices]
@@ -3568,8 +3554,6 @@ class FileDevice(StorageDevice):
                                msg=_("Creating device %s") % self.path)
 
         try:
-            # this only checks that parents exist
-            self.createParents()
             self.setupParents()
 
             fd = os.open(self.path, os.O_RDWR)
@@ -3608,7 +3592,6 @@ class DirectoryDevice(FileDevice):
         if self.exists:
             raise DeviceError("device already exists", self.name)
 
-        self.createParents()
         self.setupParents()
         try:
             iutil.mkdirChain(self.path)
@@ -3958,7 +3941,6 @@ class NFSDevice(StorageDevice, NetworkStorageDevice):
     def create(self, intf=None):
         """ Create the device. """
         log_method_call(self, self.name, status=self.status)
-        self.createParents()
         self.setupParents()
 
     def destroy(self):
