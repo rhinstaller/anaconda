@@ -64,11 +64,6 @@ static PyObject *constantsMod;
 /* boot flags */
 extern uint64_t flags;
 
-struct ksCommandNames {
-    char * name;
-    void (*setupData) (struct loaderData_s *loaderData, PyObject *handler);
-} ;
-
 static void setDisplayMode(struct loaderData_s * loaderData, PyObject *handler);
 static void setSELinux(struct loaderData_s * loaderData, PyObject *handler);
 static void setShutdown(struct loaderData_s * loaderData, PyObject *handler);
@@ -85,27 +80,25 @@ static void setKickstartNfs(struct loaderData_s * loaderData, PyObject *handler)
 static void setKickstartUrl(struct loaderData_s * loaderData, PyObject *handler);
 static void loadKickstartModule(struct loaderData_s * loaderData, PyObject *handler);
 
-struct ksCommandNames ksTable[] = {
-    { "cdrom", setKickstartCD },
-    { "cmdline", setDisplayMode },
-    { "device", loadKickstartModule },
-    { "driverdisk", useKickstartDD },
-    { "graphical", setDisplayMode },
-    { "halt", setShutdown },
-    { "harddrive", setKickstartHD },
-    { "keyboard", setKickstartKeyboard },
-    { "lang", setKickstartLanguage },
-    { "mediacheck", setMediaCheck },
-    { "network", setKickstartNetwork },
-    { "nfs", setKickstartNfs },
-    { "poweroff", setShutdown },
-    { "selinux", setSELinux },
-    { "shutdown", setShutdown },
-    { "text", setDisplayMode },
-    { "updates", setUpdates },
-    { "url", setKickstartUrl },
-    { "vnc", setVnc },
-    { NULL, NULL }
+typedef void (*commandFunc_t)(struct loaderData_s *loaderData, PyObject *handler);
+
+commandFunc_t ksTable[] = {
+    &loadKickstartModule,
+    &setDisplayMode,
+    &setKickstartCD,
+    &setKickstartHD,
+    &setKickstartKeyboard,
+    &setKickstartLanguage,
+    &setKickstartNetwork,
+    &setKickstartNfs,
+    &setKickstartUrl,
+    &setMediaCheck,
+    &setSELinux,
+    &setShutdown,
+    &setUpdates,
+    &setVnc,
+    &useKickstartDD,
+    NULL
 };
 
 /* INTERNAL PYTHON INTERFACE FUNCTIONS */
@@ -1010,7 +1003,7 @@ int runKickstart(struct loaderData_s * loaderData, const char *file) {
 
     /* call readKickstart */
     if (processedFile) {
-        struct ksCommandNames *cmd;
+        commandFunc_t *cmd;
 
         if (!readKickstart(parser, processedFile))
             goto quit;
@@ -1019,8 +1012,8 @@ int runKickstart(struct loaderData_s * loaderData, const char *file) {
          * every element of the ksTable and run its function.  The functions
          * themselves will decide if they should do anything or not.
          */
-        for (cmd = ksTable; cmd->name; cmd++)
-            cmd->setupData(loaderData, handler);
+        for (cmd = ksTable; *cmd != NULL; cmd++)
+            (*cmd)(loaderData, handler);
     }
 
     rc = 1;
