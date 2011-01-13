@@ -671,6 +671,7 @@ class MessageWindow:
             style = gtk.MESSAGE_INFO
 
         self.dialog = gtk.MessageDialog(mainWindow, 0, style, buttons, str(text))
+        self.dialog.set_property("use-markup", True)
 
         if parent:
             self.dialog.set_transient_for(parent)
