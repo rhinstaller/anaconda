@@ -873,14 +873,6 @@ class DiskDevice(StorageDevice):
         return super(DiskDevice, self).size
     #size = property(StorageDevice._getSize)
 
-    def probe(self):
-        """ Probe for any missing information about this device.
-
-            pyparted should be able to tell us anything we want to know.
-            size, disklabel type, maybe even partition layout
-        """
-        log_method_call(self, self.name, size=self.size, partedDevice=self.partedDevice)
-
     def destroy(self):
         """ Destroy the device. """
         log_method_call(self, self.name, status=self.status)
@@ -1953,8 +1945,6 @@ class LVMVolumeGroupDevice(DMDevice):
         # They still occupy space in the VG.
         self.voriginSnapshots = {}
 
-        #self.probe()
-
     def __str__(self):
         s = DMDevice.__str__(self)
         s += ("  free = %(free)s  PE Size = %(peSize)s  PE Count = %(peCount)s\n"
@@ -2001,12 +1991,6 @@ class LVMVolumeGroupDevice(DMDevice):
         f.write("#volgroup %s %s %s" % (self.name, " ".join(args), " ".join(pvs)))
         if s:
             f.write(" %s" % s)
-
-    def probe(self):
-        """ Probe for any information about this device. """
-        log_method_call(self, self.name, status=self.status)
-        if not self.exists:
-            raise DeviceError("device has not been created", self.name)
 
     @property
     def mapName(self):
@@ -2858,25 +2842,6 @@ class MDRaidArrayDevice(StorageDevice):
 
     spares = property(_getSpares, _setSpares)
 
-    def probe(self):
-        """ Probe for any missing information about this device.
-
-            I'd like to avoid paying any attention to "Preferred Minor"
-            as it seems problematic.
-        """
-        log_method_call(self, self.name, status=self.status)
-        if not self.exists:
-            raise DeviceError("device has not been created", self.name)
-
-        try:
-            self.devices[0].setup()
-        except Exception:
-            return
-
-        info = mdraid.mdexamine(self.devices[0].path)
-        if self.level is None:
-            self.level = mdraid.raidLevel(info['level'])
-
     def updateSysfsPath(self):
         """ Update this device's sysfs path. """
         log_method_call(self, self.name, status=self.status)
@@ -3470,10 +3435,6 @@ class NoDevice(StorageDevice):
         """ Device node representing this device. """
         return self.name
 
-    def probe(self):
-        """ Probe for any missing information about this device. """
-        log_method_call(self, self.name, status=self.status)
-
     def setup(self, intf=None, orig=False):
         """ Open, or set up, a device. """
         log_method_call(self, self.name, orig=orig, status=self.status,
@@ -3522,10 +3483,6 @@ class FileDevice(StorageDevice):
 
         StorageDevice.__init__(self, path, format=format, size=size,
                                exists=exists, parents=parents)
-
-    def probe(self):
-        """ Probe for any missing information about this device. """
-        pass
 
     @property
     def fstabSpec(self):
