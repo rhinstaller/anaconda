@@ -626,6 +626,31 @@ class StorageDevice(Device):
         """
         raise NotImplementedError("resize method not defined for StorageDevice")
 
+    #
+    # progress/status ui
+    #
+    # We define methods to create a wait window or a pulse progress window.
+    # Device classes can define a _statusWindow method that calls the
+    # appropriate method for display during device operations. Currently,
+    # the only thing we display progress/status windows for is device creation.
+    # MD and LVM devices can pass pulse progress windows down into the
+    # devicelibs functions, but all other devices display a wait window.
+    #
+    def _progressWindow(self, intf=None, title="", msg=""):
+        w = None
+        if intf:
+            w = intf.progressWindow(title, msg, 100, pulse=True)
+        return w
+
+    def _waitWindow(self, intf=None, title="", msg=""):
+        w = None
+        if intf:
+            w = intf.waitWindow(title, msg)
+        return w
+
+    def _statusWindow(self, intf=None, title="", msg=""):
+        return self._waitWindow(intf=intf, title=title, msg=msg)
+
     def setup(self, intf=None, orig=False):
         """ Open, or set up, a device. """
         log_method_call(self, self.name, orig=orig, status=self.status,
@@ -1297,10 +1322,9 @@ class PartitionDevice(StorageDevice):
         if self.exists:
             raise DeviceError("device already exists", self.name)
 
-        w = None
-        if intf:
-            w = intf.waitWindow(_("Creating"),
-                                _("Creating device %s") % (self.path,))
+        w = self._statusWindow(intf=intf,
+                               title=_("Creating"),
+                               msg=_("Creating device %s") % self.path)
 
         try:
             self.createParents()
@@ -2121,18 +2145,18 @@ class LVMVolumeGroupDevice(DMDevice):
         if recursive:
             self.teardownParents(recursive=recursive)
 
+    def _statusWindow(self, intf=None, title="", msg=""):
+        return self._progressWindow(intf=intf, title=title, msg=msg)
+
     def create(self, intf=None):
         """ Create the device. """
         log_method_call(self, self.name, status=self.status)
         if self.exists:
             raise DeviceError("device already exists", self.name)
 
-        w = None
-        if intf:
-            w = intf.progressWindow(_("Creating"),
-                                    _("Creating device %s")
-                                    % (self.path,),
-                                    100, pulse = True)
+        w = self._statusWindow(intf=intf,
+                               title=_("Creating"),
+                               msg=_("Creating device %s") % self.path)
         try:
             self.createParents()
             self.setupParents()
@@ -2555,18 +2579,18 @@ class LVMLogicalVolumeDevice(DMDevice):
             except Exception as e:
                 log.debug("vg %s teardown failed; continuing" % self.vg.name)
 
+    def _statusWindow(self, intf=None, title="", msg=""):
+        return self._progressWindow(intf=intf, title=title, msg=msg)
+
     def create(self, intf=None):
         """ Create the device. """
         log_method_call(self, self.name, status=self.status)
         if self.exists:
             raise DeviceError("device already exists", self.name)
 
-        w = None
-        if intf:
-            w = intf.progressWindow(_("Creating"),
-                                    _("Creating device %s")
-                                    % (self.path,),
-                                    100, pulse = True)
+        w = self._statusWindow(intf=intf,
+                               title=_("Creating"),
+                               msg=_("Creating device %s") % self.path)
         try:
             self.createParents()
             self.setupParents()
@@ -3539,10 +3563,9 @@ class FileDevice(StorageDevice):
         if self.exists:
             raise DeviceError("device already exists", self.name)
 
-        w = None
-        if intf:
-            w = intf.waitWindow(_("Creating"),
-                                _("Creating file %s") % (self.path,))
+        w = self._statusWindow(intf=intf,
+                               title=_("Creating"),
+                               msg=_("Creating device %s") % self.path)
 
         try:
             # this only checks that parents exist
