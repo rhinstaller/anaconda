@@ -93,8 +93,10 @@ def _schedulePartitions(anaconda, disks):
 
         if request.fstype is None:
             request.fstype = anaconda.storage.defaultFSType
-        elif request.fstype == "prepboot" and anaconda.platform.bootDevice():
-            # there should never be a need for more than one PReP partition
+        elif request.fstype in ("prepboot", "efi") and \
+                anaconda.platform.bootDevice():
+            # there should never be a need for more than one of these
+            # partitions, so skip them.
             continue
 
         # This is a little unfortunate but let the backend dictate the rootfstype
