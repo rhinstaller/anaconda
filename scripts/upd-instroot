@@ -239,7 +239,8 @@ PACKAGES="GConf2 NetworkManager NetworkManager-gnome ORBit2 acl anaconda
     elfutils-libelf expat fcoe-utils
     firstboot fontconfig fonts-ISO8859-2 freetype gail gawk gdb-gdbserver
     gdk-pixbuf gfs2-utils glib2 glibc-common gnome-python2-canvas gnome-python2-gconf
-    gnome-themes gobject-introspection gpm grep gtk2 gtk2-engines
+    gnome-themes gnome-themes-standard
+    gobject-introspection gpm grep gtk2 gtk2-engines
     hdparm hwdata initscripts iproute iputils iscsi-initiator-utils
     jfsutils kbd kacst-farsi-fonts kacst-qurn-fonts kpartx keyutils-libs
     krb5-libs libICE libSM libX11 libXau
@@ -794,6 +795,7 @@ usr/share/terminfo/v/vt320-w
 usr/share/terminfo/x/xterm
 usr/share/terminfo/x/xterm-color
 usr/share/themes/Atlanta/metacity-1
+usr/share/themes/Adwaita/*
 usr/share/xorg/extramodes
 usr/share/xorg/vesamodes
 usr/share/zenity
