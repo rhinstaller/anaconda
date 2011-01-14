@@ -205,8 +205,15 @@ class EFI(Platform):
     _maxBootPartSize = 256
 
     def bootDevice(self):
-        mntDict = self._mntDict()
-        return mntDict.get("/boot/efi")
+        bootDev = None
+
+        for part in self.anaconda.id.storage.partitions:
+            if part.format.type == "efi" and self.validBootPartSize(part.size):
+                bootDev = part
+                # if we're only picking one, it might as well be the first
+                break
+
+        return bootDev
 
     def bootloaderChoices(self, bl):
         bootDev = self.bootDevice()
@@ -244,7 +251,7 @@ class EFI(Platform):
             partitions = filter(lambda d: d.type == "partition", req.parents)
 
         # Check that we've got a correct disk label.
-        for p in partitions:        
+        for p in partitions:
             partedDisk = p.disk.format.partedDisk
             labelType = self.diskLabelType(partedDisk.device.type)
             # Allow using gpt with x86, but not msdos with EFI
@@ -256,14 +263,8 @@ class EFI(Platform):
 
     def setDefaultPartitioning(self):
         ret = Platform.setDefaultPartitioning(self)
-
-        # Only add the EFI partition to the default set if there's not already
-        # one on the system.
-        if len(filter(lambda dev: dev.format.type == "efi" and self.validBootPartSize(dev.size),
-                      self.anaconda.id.storage.partitions)) == 0:
-            ret.append(PartSpec(mountpoint="/boot/efi", fstype="efi", size=20,
-                                maxSize=200, grow=True, weight=self.weight(fstype="efi")))
-
+        ret.append(PartSpec(mountpoint="/boot/efi", fstype="efi", size=20,
+                            maxSize=200, grow=True, weight=self.weight(fstype="efi")))
         return ret
 
     def weight(self, fstype=None, mountpoint=None):
