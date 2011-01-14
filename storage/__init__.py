@@ -1659,9 +1659,13 @@ class FSSet(object):
         # make sure, if we're using a device from the tree, that
         # the device's format we found matches what's in the fstab
         fmt = getFormat(fstype, device=device.path)
-        if fmt.type != device.format.type:
+        ftype = getattr(fmt, "mountType", fmt.type)
+        dtype = getattr(device.format, "mountType", device.format.type)
+        if ftype != dtype:
             raise StorageError("scanned format (%s) differs from fstab "
-                        "format (%s)" % (device.format.type, fstype))
+                        "format (%s)" % (dtype, ftype))
+        del ftype
+        del dtype
 
         if device.format.mountable:
             device.format.mountpoint = mountpoint
