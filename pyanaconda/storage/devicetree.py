@@ -1745,16 +1745,12 @@ class DeviceTree(object):
         open("/etc/multipath.conf", "w+").write(cfg)
         del cfg
 
-        devices = udev_get_block_devices()
-        (singles, mpaths, partitions) = devicelibs.mpath.identifyMultipaths(devices)
-        devices = singles + reduce(list.__add__, mpaths, []) + partitions
-        # remember all the devices idenitfyMultipaths() gave us at this point
+        self.topology = devicelibs.mpath.MultipathTopology(udev_get_block_devices())
+        log.info("devices to scan: %s" %
+                 [d['name'] for d in self.topology.devices_iter()])
         old_devices = {}
-        for dev in devices:
+        for dev in self.topology.devices_iter():
             old_devices[dev['name']] = dev
-
-        log.info("devices to scan: %s" % [d['name'] for d in devices])
-        for dev in devices:
             self.addUdevDevice(dev)
 
         # Having found all the disks, we can now find all the multipaths built

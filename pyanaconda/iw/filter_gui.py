@@ -33,7 +33,8 @@ from pyanaconda.constants import *
 from iw_gui import *
 from pyanaconda.storage.devices import devicePathToName
 from pyanaconda.storage.udev import *
-from pyanaconda.storage.devicelibs.mpath import *
+from pyanaconda.storage.devicelibs.mpath\
+    import MultipathTopology, MultipathConfigWriter
 from pyanaconda.flags import flags
 from pyanaconda.storage import iscsi
 from pyanaconda.storage import fcoe
@@ -409,7 +410,7 @@ class FilterWindow(InstallWindow):
         return True
 
     def _getFilterDisks(self):
-        """ Return a list of disks to pass to identifyMultipaths. """
+        """ Return a list of disks to pass to MultipathTopology. """
         return filter(lambda d: udev_device_is_disk(d) and \
                                 not udev_device_is_dm(d) and \
                                 not udev_device_is_md(d) and \
@@ -451,17 +452,17 @@ class FilterWindow(InstallWindow):
         del cfg
         del mcw
 
-        (new_singlepaths, new_mpaths, new_partitions) = identifyMultipaths(new_disks)
+        topology = MultipathTopology(new_disks)
         (new_raids, new_nonraids) = self.split_list(lambda d: isRAID(d) and not isCCISS(d),
-                                                    new_singlepaths)
+                                                    topology.singlepaths_iter())
 
         nonraids = filter(lambda d: d not in self._cachedDevices, new_nonraids)
         raids = filter(lambda d: d not in self._cachedRaidDevices, new_raids)
 
         # The end result of the loop below is that mpaths is a list of lists of
-        # components, just like new_mpaths.  That's what populate expects.
+        # components. That's what populate expects.
         mpaths = []
-        for mp in new_mpaths:
+        for mp in topology.multipaths_iter():
             for d in mp:
                 # If all components of this multipath device are in the
                 # cache, skip it.  Otherwise, it's a new device and needs to
@@ -601,12 +602,13 @@ class FilterWindow(InstallWindow):
         open("/etc/multipath.conf", "w+").write(cfg)
         del cfg
         del mcw
-        (singlepaths, mpaths, partitions) = identifyMultipaths(disks)
 
+        topology = MultipathTopology(disks)
         # The device list could be really long, so we really only want to
         # iterate over it the bare minimum of times.  Dividing this list up
         # now means fewer elements to iterate over later.
-        singlepaths = filter(lambda info: self._device_size_is_nonzero(info), singlepaths)
+        singlepaths = filter(lambda info: self._device_size_is_nonzero(info),
+                             topology.singlepaths_iter())
         (raids, nonraids) = self.split_list(lambda d: isRAID(d) and not isCCISS(d),
                                             singlepaths)
 
@@ -614,7 +616,7 @@ class FilterWindow(InstallWindow):
                       self._makeMPath(), self._makeOther(),
                       self._makeSearch()]
 
-        self.populate(nonraids, mpaths, raids)
+        self.populate(nonraids, topology.multipaths_iter(), raids)
 
         # If the "Add Advanced" button is ever clicked, we need to have a list
         # of what devices previously existed so we know what's new.  Then we
@@ -627,8 +629,8 @@ class FilterWindow(InstallWindow):
         # lists, we can't directly store that into the cache.  Instead we want
         # to flatten it into a single list of all components of all multipaths
         # and store that.
-        lst = list(itertools.chain(*mpaths))
-        self._cachedMPaths = NameCache(lst)
+        mpath_chain = itertools.chain(*topology.multipaths_iter())
+        self._cachedMPaths = NameCache(mpath_chain)
 
         # Switch to the first notebook page that displays any devices.
         i = 0
