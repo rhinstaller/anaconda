@@ -3638,7 +3638,7 @@ class ZFCPDiskDevice(DiskDevice):
         DiskDevice.__init__(self, device, **kwargs)
 
     def __str__(self):
-        s = MainframeDiskDevice.__str__(self)
+        s = DiskDevice.__str__(self)
         s += ("  hba_id = %(hba_id)s  wwpn = %(wwpn)s  fcp_lun = %(fcp_lun)s" %
               {"hba_id": self.hba_id,
                "wwpn": self.wwpn,
