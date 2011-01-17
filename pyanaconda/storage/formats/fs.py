@@ -683,7 +683,7 @@ class FS(DeviceFormat):
         self.notifyKernel()
 
     def _getRandomUUID(self):
-        uuid = iutil.execWithCapture("uuidgen").strip()
+        uuid = iutil.execWithCapture("uuidgen", []).strip()
         return uuid
 
     def writeRandomUUID(self):
