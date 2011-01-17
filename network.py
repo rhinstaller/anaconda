@@ -352,7 +352,8 @@ class Network:
 
         ksdevice = flags.cmdline.get('ksdevice', None)
         if ksdevice:
-            if ksdevice == 'bootif':
+            bootif_mac = None
+            if ksdevice == 'bootif' and flags.cmdline.get("BOOTIF"):
                 bootif_mac = flags.cmdline.get("BOOTIF")[3:].replace("-", ":").upper()
             for dev in self.netdevices:
                 mac = self.netdevices[dev].get('HWADDR').upper()
