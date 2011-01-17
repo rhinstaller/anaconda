@@ -1738,8 +1738,8 @@ class DMLinearDevice(DMDevice):
         dm.dm_create_linear(self.name, self.slave.path, slave_length,
                             self.dmUuid)
 
-    def _postSetup(self, orig=False):
-        StorageDevice._postSetup(orig=orig)
+    def _postSetup(self):
+        StorageDevice._postSetup(self)
         self.setupPartitions()
         udev_settle()
 
