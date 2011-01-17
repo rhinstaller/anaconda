@@ -388,8 +388,9 @@ class Network:
 
         ksdevice = flags.cmdline.get('ksdevice', None)
         if ksdevice:
-            if ksdevice == 'bootif':
-                bootif_mac = flags.cmdline.get("BOOTIF")[3:].replace("-", ":").upper()
+            bootif_mac = None
+            if ksdevice == 'bootif' and "BOOTIF" in flags.cmdline:
+                bootif_mac = flags.cmdline["BOOTIF"][3:].replace("-", ":").upper()
             for dev in self.netdevices:
                 mac = self.netdevices[dev].get('HWADDR').upper()
                 if ksdevice == 'link' and isys.getLinkStatus(dev):
