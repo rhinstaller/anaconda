@@ -67,7 +67,7 @@ stepToClass = {
     "language" : ("language_gui", "LanguageWindow"),
     "keyboard" : ("kbd_gui", "KeyboardWindow"),
     "filtertype" : ("filter_type", "FilterTypeWindow"),
-    "filter" : ("filter_gui", "FilterWindow"), 
+    "filter" : ("filter_gui", "FilterWindow"),
     "zfcpconfig" : ("zfcp_gui", "ZFCPWindow"),
     "partition" : ("partition_gui", "PartitionWindow"),
     "parttype" : ("autopart_type", "PartitionTypeWindow"),
@@ -80,7 +80,7 @@ stepToClass = {
     "network" : ("network_gui", "NetworkWindow"),
     "timezone" : ("timezone_gui", "TimezoneWindow"),
     "accounts" : ("account_gui", "AccountWindow"),
-    "tasksel": ("task_gui", "TaskWindow"),    
+    "tasksel": ("task_gui", "TaskWindow"),
     "group-selection": ("package_gui", "GroupSelectionWindow"),
     "install" : ("progress_gui", "InstallProgressWindow"),
     "complete" : ("congrats_gui", "CongratulationWindow"),
@@ -105,7 +105,7 @@ def copyScreenshots():
         try:
             os.mkdir(destDir, 0750)
         except OSError:
-            window = MessageWindow("Error Saving Screenshot", 
+            window = MessageWindow("Error Saving Screenshot",
                                    _("An error occurred saving screenshots "
                                      "to disk."), type="warning")
             return
@@ -123,7 +123,7 @@ def copyScreenshots():
             if ext == ".png":
                 shutil.copyfile(source_dir + '/' + f, destDir + '/' + fname)
 
-    window = MessageWindow(_("Screenshots Copied"), 
+    window = MessageWindow(_("Screenshots Copied"),
                            _("The screenshots have been saved in the "
                              "directory:\n\n"
                              "\t/root/anaconda-screenshots/\n\n"
@@ -163,12 +163,12 @@ def takeScreenShot():
             screenshot.save (screenshotDir + '/' + sname, "png")
             screenshotIndex += 1
 
-            window = MessageWindow(_("Saving Screenshot"), 
+            window = MessageWindow(_("Saving Screenshot"),
                _("A screenshot named '%s' has been saved.") % (sname,) ,
                type="ok")
     except Exception:
         # FIXME: find out what exceptions gtk.gdk.Pixbuf might actually raise
-        window = MessageWindow(_("Error Saving Screenshot"), 
+        window = MessageWindow(_("Error Saving Screenshot"),
                                _("An error occurred while saving "
                                  "the screenshot.  If this occurred "
                                  "during package installation, you may need "
@@ -180,8 +180,8 @@ def handlePrintScrnRelease (window, event):
         takeScreenShot()
 #
 # HACK to make treeview work
-# 
- 
+#
+
 def setupTreeViewFixupIdleHandler(view, store):
     id = {}
     id["id"] = gobject.idle_add(scrollToIdleHandler, (view, store, id))
@@ -194,11 +194,11 @@ def scrollToIdleHandler((view, store, iddict)):
         id = iddict["id"]
     except:
         return
-    
+
     selection = view.get_selection()
     if not selection:
         return
-    
+
     model, iter = selection.get_selected()
     if not iter:
         return
@@ -261,7 +261,7 @@ def rootPopBusyCursor():
 
 def getBusyCursorStatus():
     global _busyCursor
-    
+
     return _busyCursor
 
 class MnemonicLabel(gtk.Label):
@@ -285,7 +285,7 @@ def titleBarMousePressCB(widget, event, data):
         data["button"] = event.button
         data["deltax"] = event.x_root - x
         data["deltay"] = event.y_root - y
-    
+
 def titleBarMouseReleaseCB(widget, event, data):
     if data["state"] and event.button == data["button"]:
         data["state"] = 0
@@ -351,7 +351,7 @@ def getPixbuf(file):
     except RuntimeError as msg:
         log.error("unable to read %s: %s" %(file, msg))
         pixbuf = None
-    
+
     return pixbuf
 
 def readImageFromFile(file, dither = False, image = None):
@@ -412,7 +412,7 @@ class WaitWindow:
 
     def refresh(self):
         processEvents()
-            
+
     def pop(self):
         self.window.destroy()
         rootPopBusyCursor()
@@ -937,7 +937,7 @@ class InstallInterface(InstallInterfaceBase):
 
     def suspend(self):
         pass
-    
+
     def resume(self):
         pass
 
@@ -1239,8 +1239,8 @@ class InstallControlWindow:
             gtk.widget_set_default_direction (gtk.TEXT_DIR_LTR)
         else:
             log.error("someone didn't translate the ltr bits right: %s" %(ltrrtl,))
-            gtk.widget_set_default_direction (gtk.TEXT_DIR_LTR)            
-        
+            gtk.widget_set_default_direction (gtk.TEXT_DIR_LTR)
+
     def prevClicked (self, *args):
         try:
             self.currentWindow.getPrev ()
@@ -1446,7 +1446,7 @@ class InstallControlWindow:
     def connectSignals(self):
         sigs = { "on_nextButton_clicked": self.nextClicked,
             "on_rebootButton_clicked": self.nextClicked,
-            "on_closeButton_clicked": self._doExit,                 
+            "on_closeButton_clicked": self._doExit,
             "on_backButton_clicked": self.prevClicked,
             "on_debugButton_clicked": self.debugClicked,
             "on_mainWindow_key_release_event": self.keyRelease,
@@ -1480,18 +1480,18 @@ class InstallControlWindow:
         # calling present() will focus the window in the winodw manager so
         # the mnemonics work without additional clicking
         self.window.present()
-            
+
     def busyCursorPush(self):
         rootPushBusyCursor()
-        
+
     def busyCursorPop(self):
         rootPopBusyCursor()
-        
+
     def run (self):
         self.setup_theme()
         self.setup_window(False)
         gtk.main()
-            
+
 class InstallControlState:
     def __init__ (self, cw):
         self.cw = cw
@@ -1503,7 +1503,7 @@ class InstallControlState:
     def setTitle (self, title):
         self.title = title
         self.cw.update (self)
-        
+
     def getTitle (self):
         return self.title
 
@@ -1514,7 +1514,7 @@ class InstallControlState:
 
     def getPrevEnabled (self):
         return self.prevEnabled
-    
+
     def setNextEnabled (self, value):
         if value == self.nextEnabled: return
         self.nextEnabled = value

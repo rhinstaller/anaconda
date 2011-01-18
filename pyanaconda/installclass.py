@@ -88,14 +88,14 @@ class BaseInstallClass(object):
                  "autopartitionexecute",
                  "partition",
 		 "storagedone",
-		 "bootloadersetup",                 
+		 "bootloadersetup",
 		 "bootloader",
 		 "network",
 		 "timezone",
 		 "accounts",
                  "reposetup",
                  "basepkgsel",
-		 "tasksel",                                  
+		 "tasksel",
 		 "postselection",
                  "reipl",
 		 "install",
@@ -127,7 +127,7 @@ class BaseInstallClass(object):
             dispatch.skipStep("tasksel", skip = 1, permanent=1)
             dispatch.skipStep("group-selection", skip = 1, permanent=1)
 
-        # allow install classes to turn off the upgrade 
+        # allow install classes to turn off the upgrade
         if not self.showUpgrade or not anaconda.backend.supportsUpgrades:
             dispatch.skipStep("findrootparts", skip = 1)
 
@@ -136,7 +136,7 @@ class BaseInstallClass(object):
         if flags.cmdline.has_key("noupgrade"):
             dispatch.skipStep("findrootparts", skip = 1)
 
-        # upgrade will also always force looking for an upgrade. 
+        # upgrade will also always force looking for an upgrade.
         if flags.cmdline.has_key("upgrade"):
             dispatch.skipStep("findrootparts", skip = 0)
 
@@ -145,7 +145,7 @@ class BaseInstallClass(object):
 
     # modifies the uri from installmethod.getMethodUri() to take into
     # account any installclass specific things including multiple base
-    # repositories.  takes a string or list of strings, returns a dict 
+    # repositories.  takes a string or list of strings, returns a dict
     # with string keys and list values {%repo: %uri_list}
     def getPackagePaths(self, uri):
         if not type(uri) == types.ListType:
@@ -276,7 +276,7 @@ def availableClasses(showHidden=0):
 	    if obj.__dict__.has_key('arch'):
                 if obj.arch != iutil.getArch():
                     obj.hidden = 1
-                
+
             if obj.hidden == 0 or showHidden == 1:
                 list.append(((obj.name, obj, obj.pixmap), sortOrder))
         except ImportError as e:
