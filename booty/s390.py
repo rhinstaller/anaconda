@@ -158,7 +158,13 @@ class s390BootloaderInfo(bootloaderInfo):
                                        stderr = "/dev/stderr")
             for line in rc.splitlines():
                 if line.startswith("Preparing boot device: "):
-                    self.setDevice(line.split()[-1].replace('.', ''))
+                    # Output here may look like:
+                    #     Preparing boot device: dasdb (0200).
+                    #     Preparing boot device: dasdl.
+                    # We want to extract the device name and pass that.
+
+                    fields = line[23:].split()
+                    self.setDevice(fields[0].replace('.', ''))
 
         return 0
 
