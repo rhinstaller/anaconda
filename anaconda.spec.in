@@ -221,6 +221,38 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Tue Jan 18 2011 Martin Sivak <msivak@redhat.com> - 13.21.88-1
+- When discovering dirtiness of filesystems, mount the /mnt/sysimage read only
+  (msivak)
+  Resolves: rhbz#601862
+- If DD cannot be copied to destination, only throw error into log file
+  (msivak)
+  Resolves: rhbz#640260
+- Don't assume BOOTIF present for ksdevice=bootif. (rvykydal)
+  Related: rhbz#647462
+- We have to mount /boot/efi when we find an old one. (pjones)
+  Related: rhbz#593984
+- Only allow one EFI System Partition to exist at a time. (pjones)
+  Resolves: rhbz#593984
+- Check fstab entries against fmt.mountType not fmt.type (pjones)
+  Resolves: rhbz#594032
+- Fix writing of network --hostname option in generated ks. (rvykydal)
+  Related: rhbz#643008
+- Bold the warning for GPT on non-EFI (bcl)
+  Related: rhbz#614585
+  Resolves: rhbz#614585
+- Warn the user when using a GPT bootdisk on non-EFI systems (bcl)
+  Resolves: rhbz#614585
+- Support /boot on logical volume on s390x (dcantrell)
+  Resolves: rhbz#618376
+- Update example ssh command in linuxrc.s390 (dcantrell)
+  Related: rhbz#621590
+- Start rsyslogd from linuxrc.s390 (dcantrell)
+  Resolves: rhbz#601337
+- Update spinbutton value in dialogs (bcl)
+  Related: rhbz#621490
+  Resolves: rhbz#621490
+
 * Wed Jan 12 2011 Martin Sivak <msivak@redhat.com> - 13.21.87-1
 - Use the same error message in text mode and GUI (rvykydal)
   Resolves: rhbz#625809
