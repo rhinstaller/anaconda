@@ -157,7 +157,7 @@ die () {
 
 PACKAGES="GConf2 NetworkManager NetworkManager-gnome ORBit2 acl anaconda
     anaconda-yum-plugins at-spi atk attr audit-libs bash bind-utils
-    bitmap-fangsongti-fonts
+    biosdevname bitmap-fangsongti-fonts
     btrfs-progs bzip2 bzip2-libs ca-certificates cairo cjkuni-uming-fonts
     comps-extras coreutils cpio cracklib cracklib-dicts cracklib-python
     cryptsetup-luks cyrus-sasl-lib db4 dbus dbus-python dbus-x11 dejavu-sans-fonts
@@ -411,6 +411,7 @@ lib/udev
 sbin/*gfs*
 sbin/arping
 sbin/badblocks
+sbin/biosdevname
 sbin/brcm_iscsiuio
 sbin/blockdev
 sbin/btrfsctl
