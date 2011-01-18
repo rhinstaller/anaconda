@@ -103,14 +103,17 @@ class AnacondaBackend:
 
         #copy RPMS
         for d in glob.glob(DD_RPMS):
-            shutil.copytree(d, anaconda.rootPath + "/root/" + os.path.basename(d))
+            try:
+                shutil.copytree(d, anaconda.rootPath + "/root/" + os.path.basename(d))
+            except OSError:
+                log.error("Couldn't copy %s to %s" % (d, anaconda.rootPath + "/root/" + os.path.basename(d)))
 
         #copy modules and firmware
         if os.path.exists(DD_ALL):
             try:
                 shutil.copytree(DD_ALL, anaconda.rootPath + "/root/DD")
-            except IOError, e:
-                pass
+            except OSError, e:
+                log.error("Couldn't copy %s to %s" % (DD_ALL, anaconda.rootPath + "/root/DD"))
 
         storage.writeEscrowPackets(anaconda)
 
