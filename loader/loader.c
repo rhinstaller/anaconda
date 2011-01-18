@@ -856,22 +856,9 @@ static void parseCmdLineIp(struct loaderData_s * loaderData, char *argv)
  */
 static void parseCmdLineIpv6(struct loaderData_s * loaderData, char *argv)
 {
-    /* right now we only accept ipv6= arguments equal to:
-     *     dhcp     DHCPv6 call
-     *     auto     RFC 2461 neighbor discovery
-     */
-    loaderData->ipv6 = NULL;
-
-    if (!strncasecmp(argv, "dhcp", 4)) {
-        loaderData->ipv6 = strdup("dhcp");
-    } else if (!strncasecmp(argv, "auto", 4)) {
-        loaderData->ipv6 = strdup("auto");
-    }
-
-    if (loaderData->ipv6 != NULL) {
-        loaderData->ipv6info_set = 1;
-        flags |= LOADER_FLAGS_IPV6_PARAM;
-    }
+    loaderData->ipv6 = strdup(argv);
+    loaderData->ipv6info_set = 1;
+    flags |= LOADER_FLAGS_IPV6_PARAM;
 }
 #endif
 
