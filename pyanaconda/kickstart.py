@@ -433,7 +433,7 @@ class Lang(commands.lang.FC3_Lang):
 class LogVolData(commands.logvol.F12_LogVolData):
     def execute(self):
         storage = self.anaconda.storage
-        devicetree = self.storage.devicetree
+        devicetree = storage.devicetree
 
         storage.doAutoPart = False
 
@@ -695,7 +695,7 @@ class DmRaid(commands.dmraid.FC6_DmRaid):
 class PartitionData(commands.partition.F12_PartData):
     def execute(self):
         storage = self.anaconda.storage
-        devicetree = self.storage.devicetree
+        devicetree = storage.devicetree
         kwargs = {}
 
         storage.doAutoPart = False
@@ -881,7 +881,7 @@ class RaidData(commands.raid.F12_RaidData):
         devicename = "md%d" % self.device
 
         storage = self.anaconda.storage
-        devicetree = self.storage.devicetree
+        devicetree = storage.devicetree
         kwargs = {}
 
         storage.doAutoPart = False
@@ -1052,7 +1052,7 @@ class VolGroupData(commands.volgroup.FC3_VolGroupData):
         pvs = []
 
         storage = self.anaconda.storage
-        devicetree = self.storage.devicetree
+        devicetree = storage.devicetree
 
         storage.doAutoPart = False
 
