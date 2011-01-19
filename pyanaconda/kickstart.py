@@ -949,6 +949,7 @@ class RaidData(commands.raid.F12_RaidData):
 
         # Now get a format to hold a lot of these extra values.
         kwargs["format"] = getFormat(type,
+                                     label=self.label,
                                      mountpoint=self.mountpoint,
                                      mountopts=self.fsopts)
         if not kwargs["format"]:
