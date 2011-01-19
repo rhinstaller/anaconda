@@ -229,6 +229,56 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Wed Jan 19 2011 Chris Lumens <clumens@redhat.com> - 15.15-1
+- Fix booty error on s390 when /boot is not on LVM. (dcantrell)
+- Don't offer minors of ignored md devices when creating new md devices.
+  (dlehman)
+- Make sure devices ignored by the devicetree are in _ignoredDisks. (dlehman)
+- Don't try to add spares to active md arrays. (#652874) (dlehman)
+- Fix the traceback from c6228535b26a63b0544f4a558a69076581b2a69f. (akozumpl)
+- Those missing mnemonicks will not stand. (akozumpl)
+- Provide a new mpath devicelib interface that does not reorder the devices.
+  (akozumpl)
+- Enable support for static ipv6= cmdline option. (rvykydal)
+- mpath: create /etc/multipath/bindings file. (akozumpl)
+- Fix DMLinearDevice._postSetup to not take or pass an 'orig' arg. (dlehman)
+- There's no more MainframeDiskDevice, so don't call its __str__. (clumens)
+- We have to pass a blank argument list to execWithCapture. (clumens)
+- We have to mount /boot/efi when we find an old one. (pjones)
+- Only allow one EFI System Partition to exist at a time. (pjones)
+- Conditionalize use of UEFI on boot.iso (pjones)
+- Check fstab entries against fmt.mountType not fmt.type (pjones)
+- Fix nfsiso install with options (#667839) (mgracik)
+- Split out common code from device setup/teardown/create/destroy for reuse.
+  (dlehman)
+- Remove createParents methods. They don't do anything. (dlehman)
+- Add status/progress ui abstraction to device classes. (dlehman)
+- Remove unused code related to device probe methods. (dlehman)
+- Suddenly, we need gnome-themes-standard. (akozumpl)
+- Bold the warning for GPT on non-EFI (#614585) (bcl)
+- Warn the user when using a GPT bootdisk on non-EFI systems (#614585) (bcl)
+- Support /boot on logical volume on s390x (#618376) (dcantrell)
+- Update example ssh command in linuxrc.s390 (dcantrell)
+- Start rsyslogd from linuxrc.s390 (#601337) (dcantrell)
+- Update spinbutton value in dialogs (#621490) (bcl)
+- Convert livecd.py to use the storage module where appropriate. (dlehman)
+- Don't try to teardown the live device or associated loop devices. (dlehman)
+- Add flag indicating whether a device can be activated/deactivated. (dlehman)
+- Include the livecd OS image devices in the device tree. (dlehman)
+- Include file-backed loop devices in the device tree. (dlehman)
+- Use sysfs instead of losetup to find loop devs' backing files. (dlehman)
+- Clean up and close yum/rpm files once we're done with them. (dlehman)
+- logging: log_method_return() for devicetree.getDeviceByName() (akozumpl)
+- logging: get rid of storage_log.py (akozumpl)
+- mpath: filter out the slave devices and their partitions. (akozumpl)
+- mpath: use both 'multipath -d' and 'multipath -ll' to get the topology.
+  (akozumpl)
+- mpath: remove a harmful udev_trigger() in filter_gui (akozumpl)
+- Support enabling repos listed but disabled in /etc/yum.repos.d (#663992).
+  (clumens)
+- Add /sbin to the $PATH for the shell on tty2. (clumens)
+- Make sure to set a self.anaconda reference on data objects too. (clumens)
+
 * Thu Jan 06 2011 Chris Lumens <clumens@redhat.com> - 15.14-1
 - Adjust main window size based on install type (#667566) (bcl)
 - Remove mknod-stub.  We have the full one around now. (clumens)
