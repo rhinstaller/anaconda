@@ -2136,16 +2136,19 @@ class FSSet(object):
             open(mdadm_path, "w").write(mdadm_conf)
 
         # /etc/multipath.conf
-        multipath_path = os.path.normpath("%s/etc/multipath.conf" % instPath)
-        bindings_path = os.path.normpath("%s/etc/multipath/bindings" % instPath)
         multipath_conf = self.multipathConf()
-        conf_contents = multipath_conf.write()
-        bindings_contents = multipath_conf.write_bindings()
-        if conf_contents:
+        if multipath_conf:
+            multipath_path = os.path.normpath("%s/etc/multipath.conf" %
+                                              instPath)
+            bindings_path = os.path.normpath("%s/etc/multipath/bindings" %
+                                             instPath)
+            conf_contents = multipath_conf.write()
+            bindings_contents = multipath_conf.write_bindings()
             open(multipath_path, "w").write(conf_contents)
-        if bindings_contents:
             iutil.mkdirChain(os.path.dirname(bindings_path))
             open(bindings_path, "w").write(bindings_contents)
+        else:
+            log.info("not writing out mpath configuration")
 
     def crypttab(self):
         # if we are upgrading, do we want to update crypttab?
