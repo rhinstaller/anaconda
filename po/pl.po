@@ -14,14 +14,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pl\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2011-01-04 14:19+0100\n"
-"PO-Revision-Date: 2011-01-08 08:56+0100\n"
+"POT-Creation-Date: 2011-01-18 14:12+0100\n"
+"PO-Revision-Date: 2011-01-19 22:56+0100\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <trans-pl@lists.fedoraproject.org>\n"
-"Language: pl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: pl\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
 
@@ -72,11 +72,11 @@ msgstr ""
 msgid "Starting graphical installation."
 msgstr "Rozpoczynanie instalacji graficznej."
 
-#: anaconda:898
+#: anaconda:899
 msgid "Would you like to use VNC?"
 msgstr "Użyć VNC?"
 
-#: anaconda:899
+#: anaconda:900
 msgid ""
 "Text mode provides a limited set of installation options.  It does not allow "
 "you to specify your own partitioning layout or package selections.  Would "
@@ -86,37 +86,37 @@ msgstr ""
 "podanie własnego układu partycjonowania ani wyboru pakietów. Użyć trybu VNC "
 "zamiast tego?"
 
-#: anaconda:927
+#: anaconda:928
 msgid "Install class forcing text mode installation"
 msgstr "Klasa instalacji wymusza instalację w trybie tekstowym"
 
-#: anaconda:946
+#: anaconda:947
 msgid "Graphical installation is not available. Starting text mode."
 msgstr "Instalacja graficzna jest niedostępna. Uruchamianie trybu tekstowego."
 
-#: anaconda:954
+#: anaconda:955
 msgid "DISPLAY variable not set. Starting text mode."
 msgstr "Zmienna DISPLAY nie jest ustawiona. Uruchamianie trybu tekstowego."
 
-#: backend.py:151
+#: backend.py:154
 #, python-format
 msgid "Upgrading %s\n"
 msgstr "Aktualizowanie %s\n"
 
-#: backend.py:153
+#: backend.py:156
 #, python-format
 msgid "Installing %s\n"
 msgstr "Instalowanie %s\n"
 
-#: backend.py:166
+#: backend.py:169
 msgid "Copying File"
 msgstr "Kopiowanie pliku"
 
-#: backend.py:167
+#: backend.py:170
 msgid "Transferring install image to hard drive"
 msgstr "Przenoszenie obrazu instalacji na dysk twardy"
 
-#: backend.py:177
+#: backend.py:180
 msgid ""
 "An error occurred transferring the install image to your hard drive.  This "
 "is often cause by damaged or low quality media."
@@ -124,7 +124,7 @@ msgstr ""
 "Wystąpił błąd podczas przenoszenia obrazu instalacji na dysk twardy, często "
 "powodowany przez uszkodzony lub niskiej jakości nośnik."
 
-#: backend.py:181
+#: backend.py:184
 msgid ""
 "An error occurred transferring the install image to your hard drive. You are "
 "probably out of disk space."
@@ -132,7 +132,7 @@ msgstr ""
 "Wystąpił błąd podczas przenoszenia obrazu instalacji na dysk twardy. "
 "Prawdopodobnie zabrakło miejsca na dysku."
 
-#: backend.py:185 image.py:289 livecd.py:198 livecd.py:440
+#: backend.py:188 image.py:289 livecd.py:198 livecd.py:440
 #: partIntfHelpers.py:239 text.py:352 text.py:356 yuminstall.py:422
 #: yuminstall.py:929 yuminstall.py:1047 yuminstall.py:1052 yuminstall.py:1327
 #: yuminstall.py:1394 yuminstall.py:1587 yuminstall.py:1609
@@ -152,13 +152,13 @@ msgstr ""
 #: loader/method.c:351 loader/nfsinstall.c:279 loader/nfsinstall.c:296
 #: loader/telnetd.c:92 loader/urlinstall.c:137 loader/urlinstall.c:159
 #: loader/urlinstall.c:221 loader/urls.c:339 loader/urls.c:345
-#: loader/urls.c:354 storage/__init__.py:216 storage/__init__.py:1801
-#: storage/__init__.py:1888 storage/zfcp.py:375 textw/upgrade_text.py:179
+#: loader/urls.c:354 storage/__init__.py:234 storage/__init__.py:1827
+#: storage/__init__.py:1914 storage/zfcp.py:375 textw/upgrade_text.py:179
 #: textw/upgrade_text.py:186
 msgid "Error"
 msgstr "Błąd"
 
-#: bootloader.py:55 bootloader.py:221 bootloader.py:227 gui.py:1289
+#: bootloader.py:55 bootloader.py:221 bootloader.py:227 gui.py:1291
 #: image.py:82 installinterfacebase.py:46 text.py:482 text.py:542
 #: yuminstall.py:1566 yuminstall.py:1776 yuminstall.py:1811
 #: iw/blpasswidget.py:148 iw/upgrade_swap_gui.py:190
@@ -179,19 +179,19 @@ msgstr ""
 "\n"
 "Kontynuować instalację?"
 
-#: bootloader.py:60 gui.py:1192 gui.py:1325 gui.py:1544 image.py:91
+#: bootloader.py:60 gui.py:1194 gui.py:1327 gui.py:1546 image.py:91
 #: livecd.py:205 livecd.py:447 packages.py:162 upgrade.py:58 upgrade.py:199
 #: yuminstall.py:252 yuminstall.py:1049 yuminstall.py:1054 yuminstall.py:1134
 #: yuminstall.py:1140 yuminstall.py:1296 yuminstall.py:1323 yuminstall.py:1384
 #: yuminstall.py:1574 yuminstall.py:1593 yuminstall.py:1616
-#: storage/__init__.py:100 storage/__init__.py:109 storage/__init__.py:220
-#: storage/__init__.py:1982
+#: storage/__init__.py:100 storage/__init__.py:109 storage/__init__.py:238
+#: storage/__init__.py:2008
 msgid "_Exit installer"
 msgstr "_Zakończ instalator"
 
 #: bootloader.py:60 image.py:92 image.py:251 kickstart.py:1394
 #: kickstart.py:1433 upgrade.py:58 yuminstall.py:1389 yuminstall.py:1575
-#: iw/partition_gui.py:1601 storage/__init__.py:1983
+#: iw/partition_gui.py:1601 storage/__init__.py:2009
 msgid "_Continue"
 msgstr "_Kontynuuj"
 
@@ -227,7 +227,7 @@ msgstr "Ukończono"
 msgid "In progress"
 msgstr "W trakcie wykonywania"
 
-#: cmdline.py:88 gui.py:1320 kickstart.py:1177 kickstart.py:1257
+#: cmdline.py:88 gui.py:1322 kickstart.py:1177 kickstart.py:1257
 #: kickstart.py:1265 kickstart.py:1303 kickstart.py:1311 text.py:389
 #, python-format
 msgid ""
@@ -349,50 +349,50 @@ msgstr ""
 "Urządzenie %s jest zaszyfrowane. Aby uzyskać dostęp do zawartości urządzenia "
 "podczas instalacji, należy podać poniżej hasło urządzenia."
 
-#: gui.py:733 gui.py:1544 partIntfHelpers.py:159 partIntfHelpers.py:344
+#: gui.py:735 gui.py:1546 partIntfHelpers.py:159 partIntfHelpers.py:344
 #: text.py:100 text.py:101 iw/account_gui.py:131 loader/dirbrowser.c:128
 #: loader/driverdisk.c:412 loader/kickstart.c:331 loader/loader.c:470
-#: loader/loader.c:582 textw/constants_text.py:48
+#: loader/loader.c:582 textw/constants_text.py:48 textw/userauth_text.py:87
 msgid "Cancel"
 msgstr "Anuluj"
 
-#: gui.py:745 gui.py:746 gui.py:842 gui.py:914 gui.py:915
+#: gui.py:747 gui.py:748 gui.py:844 gui.py:916 gui.py:917
 #: ui/anaconda.glade.h:3
 msgid "_Debug"
 msgstr "_Debuguj"
 
-#: gui.py:1056 textw/netconfig_text.py:399
+#: gui.py:1058 textw/netconfig_text.py:399
 msgid "Waiting for NetworkManager"
 msgstr "Oczekiwanie na Menedżera sieci"
 
-#: gui.py:1057
+#: gui.py:1059
 #, python-format
 msgid "Waiting for NetworkManager to activate these devices: %s"
 msgstr "Oczekiwanie na Menedżera sieci, aby aktywować te urządzenia: %s"
 
-#: gui.py:1078
+#: gui.py:1080
 #, python-format
 msgid "Failed to activate these network interfaces: %s"
 msgstr "Aktywowanie tych interfejsów sieciowych się nie powiodło: %s"
 
-#: gui.py:1081
+#: gui.py:1083
 msgid "Network Configuration"
 msgstr "Konfiguracja sieci"
 
-#: gui.py:1090
+#: gui.py:1092
 #, python-format
 msgid "An error occurred trying to bring up the %s network interface."
 msgstr "Wystąpił błąd podczas próby podniesienia interfejsu sieciowego %s."
 
-#: gui.py:1092
+#: gui.py:1094
 msgid "Error Enabling Network"
 msgstr "Błąd podczas włączania sieci"
 
-#: gui.py:1241 ui/reinitialize-dialog.glade.h:4
+#: gui.py:1243 ui/reinitialize-dialog.glade.h:4
 msgid "Storage Device Warning"
 msgstr "Ostrzeżenie urządzenia przechowywania danych"
 
-#: gui.py:1290 text.py:543
+#: gui.py:1292 text.py:543
 #, python-format
 msgid ""
 "Error processing LVM.\n"
@@ -407,35 +407,35 @@ msgstr ""
 "LVM lub zignorować, co zachowa zawartość. Tę czynność można zastosować także "
 "do wszystkich innych woluminów fizycznych z niespójnymi metadanymi."
 
-#: gui.py:1297 installinterfacebase.py:74 text.py:492 text.py:550
+#: gui.py:1299 installinterfacebase.py:74 text.py:492 text.py:550
 msgid "_Ignore"
 msgstr "_Zignoruj"
 
-#: gui.py:1298 text.py:493 text.py:551
+#: gui.py:1300 text.py:493 text.py:551
 msgid "Ignore _all"
 msgstr "Zignoruj _wszystkie"
 
-#: gui.py:1299 text.py:494 text.py:552
+#: gui.py:1301 text.py:494 text.py:552
 msgid "_Re-initialize"
 msgstr "_Ponownie zainicjuj"
 
-#: gui.py:1300 text.py:495 text.py:553
+#: gui.py:1302 text.py:495 text.py:553
 msgid "Re-ini_tialize all"
 msgstr "Ponownie za_inicjuj wszystkie"
 
-#: gui.py:1322 text.py:391
+#: gui.py:1324 text.py:391
 msgid "Error Parsing Kickstart Config"
 msgstr "Błąd podczas przetwarzania konfiguracji kickstart"
 
-#: gui.py:1369
+#: gui.py:1371
 msgid "default:LTR"
 msgstr "default:LTR"
 
-#: gui.py:1449 text.py:620
+#: gui.py:1451 text.py:620
 msgid "Error!"
 msgstr "Błąd."
 
-#: gui.py:1450 text.py:621
+#: gui.py:1452 text.py:621
 #, python-format
 msgid ""
 "An error occurred when attempting to load an installer interface component.\n"
@@ -446,46 +446,46 @@ msgstr ""
 "\n"
 "className = %s"
 
-#: gui.py:1455 image.py:164 image.py:194 packages.py:361
-#: storage/__init__.py:1800
+#: gui.py:1457 image.py:164 image.py:194 packages.py:361
+#: storage/__init__.py:1826
 msgid "_Exit"
 msgstr "_Zakończ"
 
-#: gui.py:1456 image.py:164 image.py:194 livecd.py:205 yuminstall.py:919
+#: gui.py:1458 image.py:164 image.py:194 livecd.py:205 yuminstall.py:919
 #: yuminstall.py:1323 yuminstall.py:1384 yuminstall.py:1593
 msgid "_Retry"
 msgstr "_Ponów"
 
-#: gui.py:1458 storage/partitioning.py:290
+#: gui.py:1460 storage/partitioning.py:309
 msgid "The system will now reboot."
 msgstr "System zostanie teraz ponownie uruchomiony."
 
-#: gui.py:1459 image.py:251 packages.py:365 yuminstall.py:1634
+#: gui.py:1461 image.py:251 packages.py:365 yuminstall.py:1634
 msgid "_Reboot"
 msgstr "U_ruchom ponownie"
 
-#: gui.py:1461
+#: gui.py:1463
 msgid "Exiting"
 msgstr "Kończenie działania"
 
-#: gui.py:1541 livecd.py:126 text.py:267 upgrade.py:190
+#: gui.py:1543 livecd.py:126 text.py:267 upgrade.py:190
 msgid "Exit installer"
 msgstr "Zakończ instalator"
 
-#: gui.py:1542
+#: gui.py:1544
 msgid "Are you sure you wish to exit the installer?"
 msgstr "Na pewno zakończyć instalator?"
 
-#: gui.py:1551
+#: gui.py:1553
 #, python-format
 msgid "%s Installer"
 msgstr "Instalator systemu %s"
 
-#: gui.py:1557
+#: gui.py:1559
 msgid "Unable to load title bar"
 msgstr "Nie można wczytać paska tytułowego"
 
-#: gui.py:1626
+#: gui.py:1628
 msgid "Install Window"
 msgstr "Okno instalacji"
 
@@ -548,15 +548,15 @@ msgstr "Wymagany jest nośnik instalacji"
 #: image.py:242
 #, python-format
 msgid ""
-"The software you have selected to install will require the following "
-"%(productName)s %(productVersion)s discs:\n"
+"The software you have selected to install will require the following %"
+"(productName)s %(productVersion)s discs:\n"
 "\n"
 "%(reqcdstr)s\n"
 "Please have these ready before proceeding with the installation.  If you "
 "need to abort the installation and exit please select \"Reboot\"."
 msgstr ""
-"Oprogramowanie wybrane do zainstalowania wymaga następujących płyt systemu "
-"%(productName)s %(productVersion)s:\n"
+"Oprogramowanie wybrane do zainstalowania wymaga następujących płyt systemu %"
+"(productName)s %(productVersion)s:\n"
 "\n"
 "%(reqcdstr)s\n"
 "Proszę przygotować je przed kontynuowaniem instalacji. Jeśli wymagane jest "
@@ -821,8 +821,8 @@ msgstr "Nazwa komputera musi składać się z 255 znaków lub mniej."
 
 #: network.py:76
 msgid ""
-"Hostname must start with a valid character in the ranges 'a-z', 'A-Z', or "
-"'0-9'"
+"Hostname must start with a valid character in the ranges 'a-z', 'A-Z', or '0-"
+"9'"
 msgstr ""
 "Nazwa komputera musi rozpoczynać się od prawidłowego znaku z zakresu \"a-z"
 "\", \"A-Z\" lub \"0-9\""
@@ -1031,7 +1031,7 @@ msgstr "Nie można usunąć"
 msgid "You must first select a partition to delete."
 msgstr "Należy najpierw wybrać partycję do usunięcia."
 
-#: partIntfHelpers.py:155 partIntfHelpers.py:343 iw/lvm_dialog_gui.py:878
+#: partIntfHelpers.py:155 partIntfHelpers.py:343 iw/lvm_dialog_gui.py:880
 msgid "Confirm Delete"
 msgstr "Potwierdzenie usunięcia"
 
@@ -1040,8 +1040,8 @@ msgstr "Potwierdzenie usunięcia"
 msgid "You are about to delete all partitions on the device '%s'."
 msgstr "Za chwilę zostaną usunięte wszystkie partycje na urządzeniu \"%s\"."
 
-#: partIntfHelpers.py:159 partIntfHelpers.py:344 iw/lvm_dialog_gui.py:881
-#: iw/lvm_dialog_gui.py:1451 iw/osbootwidget.py:104 iw/partition_gui.py:1814
+#: partIntfHelpers.py:159 partIntfHelpers.py:344 iw/lvm_dialog_gui.py:883
+#: iw/lvm_dialog_gui.py:1453 iw/osbootwidget.py:104 iw/partition_gui.py:1814
 #: iw/partition_gui.py:1826
 msgid "_Delete"
 msgstr "_Usuń"
@@ -1120,14 +1120,14 @@ msgstr "Błąd podczas partycjonowania"
 #, python-format
 msgid ""
 "The following critical errors exist with your requested partitioning scheme. "
-"These errors must be corrected prior to continuing with your install of "
-"%(productName)s.\n"
+"These errors must be corrected prior to continuing with your install of %"
+"(productName)s.\n"
 "\n"
 "%(errorstr)s"
 msgstr ""
 "Wybrany schemat partycjonowania zawiera następujące błędy krytyczne. Muszą "
-"one zostać naprawione, zanim będzie można kontynuować instalację systemu "
-"%(productName)s.\n"
+"one zostać naprawione, zanim będzie można kontynuować instalację systemu %"
+"(productName)s.\n"
 "\n"
 "%(errorstr)s"
 
@@ -1251,87 +1251,87 @@ msgstr "Logowanie"
 msgid "iSCSI %s Error"
 msgstr "Błąd iSCSI %s"
 
-#: platform.py:98 platform.py:339 platform.py:407 platform.py:515
+#: platform.py:99 platform.py:346 platform.py:414 platform.py:528
 #: ui/create-storage.glade.h:15
 msgid "RAID Device"
 msgstr "Urządzenie RAID"
 
-#: platform.py:99 platform.py:102 platform.py:340 platform.py:408
-#: platform.py:516 platform.py:519
+#: platform.py:100 platform.py:103 platform.py:347 platform.py:415
+#: platform.py:529 platform.py:532
 msgid "Master Boot Record (MBR)"
 msgstr "Główny sektor startowy (MBR)"
 
-#: platform.py:101 platform.py:518
+#: platform.py:102 platform.py:531
 msgid "First sector of boot partition"
 msgstr "Pierwszy sektor partycji startowej"
 
-#: platform.py:113
+#: platform.py:114
 msgid "You have not created a bootable partition."
 msgstr "Nie utworzono partycji startowej."
 
-#: platform.py:116
+#: platform.py:117
 msgid "Bootable partitions can only be on RAID1 devices."
 msgstr "Partycje startowe można utworzyć tylko na urządzeniach RAID1."
 
-#: platform.py:120
+#: platform.py:121
 msgid "Bootable partitions cannot be on a logical volume."
 msgstr "Partycje startowe nie mogą znajdować się na woluminie logicznym."
 
-#: platform.py:124
+#: platform.py:125
 msgid "Bootable partitions cannot be on a RAID device."
 msgstr "Partycje startowe nie mogą znajdować się na urządzeniu RAID."
 
-#: platform.py:131
+#: platform.py:132
 #, python-format
 msgid "Bootable partitions cannot be on an %s filesystem."
 msgstr "Partycje startowe nie mogą znajdować się na systemie plików %s."
 
-#: platform.py:135 platform.py:140
+#: platform.py:136 platform.py:141
 msgid "Bootable partitions cannot be on an encrypted block device"
 msgstr ""
 "Partycje startowe nie mogą znajdować się na zaszyfrowanym urządzeniu blokowym"
 
-#: platform.py:212
+#: platform.py:225
 msgid "EFI System Partition"
 msgstr "Partycja systemowa EFI"
 
-#: platform.py:224
+#: platform.py:237
 msgid "You have not created a /boot/efi partition."
 msgstr "Nie utworzono partycji /boot/efi."
 
-#: platform.py:230
+#: platform.py:243
 msgid "/boot/efi is not EFI."
 msgstr "Partycja /boot/efi nie jest EFI."
 
-#: platform.py:246
+#: platform.py:259
 #, python-format
 msgid "%s must have a %s disk label."
 msgstr "Partycja %s musi posiadać etykietę dysku %s."
 
-#: platform.py:284
+#: platform.py:291
 #, python-format
 msgid "%s must have a bsd disk label."
 msgstr "Partycja %s musi posiadać etykietę dysku BSD."
 
-#: platform.py:296
+#: platform.py:303
 #, python-format
 msgid "The disk %s requires at least 1MB of free space at the beginning."
 msgstr "Dysk %s wymaga co najmniej 1 MB wolnego miejsca na początku."
 
-#: platform.py:342
+#: platform.py:349
 msgid "PPC PReP Boot"
 msgstr "PPC PReP Boot"
 
-#: platform.py:358
+#: platform.py:365
 msgid "The boot partition must be within the first 4MB of the disk."
 msgstr ""
 "Partycja startowa musi zawierać się w pierwszych czterech megabajtach dysku."
 
-#: platform.py:410 platform.py:413
+#: platform.py:417 platform.py:420
 msgid "Apple Bootstrap"
 msgstr "Apple Bootstrap"
 
-#: platform.py:427
+#: platform.py:434
 #, python-format
 msgid "%s must have a mac disk label."
 msgstr "Partycja %s musi posiadać etykietę dysku Mac."
@@ -1417,7 +1417,7 @@ msgid "Read-Only"
 msgstr "Tylko odczyt"
 
 #: rescue.py:311 rescue.py:313 loader/cdinstall.c:248 loader/cdinstall.c:251
-#: loader/method.c:324 storage/__init__.py:1800 textw/upgrade_text.py:137
+#: loader/method.c:324 storage/__init__.py:1826 textw/upgrade_text.py:137
 msgid "Skip"
 msgstr "Pomiń"
 
@@ -1565,8 +1565,8 @@ msgid ""
 "\n"
 "REINITIALIZING WILL CAUSE ALL DATA TO BE LOST!\n"
 "\n"
-"This action may also be applied to all other disks needing reinitialization."
-"%(details)s"
+"This action may also be applied to all other disks needing reinitialization.%"
+"(details)s"
 msgstr ""
 "Błąd podczas przetwarzania dysku:\n"
 "\n"
@@ -2051,8 +2051,8 @@ msgstr ""
 #: yuminstall.py:1125
 #, python-format
 msgid ""
-"There was an error running your transaction for the following reason(s): "
-"%s.\n"
+"There was an error running your transaction for the following reason(s): %"
+"s.\n"
 msgstr ""
 "Wystąpił błąd podczas wykonywania transakcji z następujących powodów: %s.\n"
 
@@ -2137,9 +2137,9 @@ msgstr ""
 #, python-format
 msgid ""
 "The arch of the release of %(productName)s you are upgrading to appears to "
-"be %(myarch)s which does not match your previously installed arch of "
-"%(arch)s.  This is likely to not succeed.  Are you sure you wish to continue "
-"the upgrade process?"
+"be %(myarch)s which does not match your previously installed arch of %(arch)"
+"s.  This is likely to not succeed.  Are you sure you wish to continue the "
+"upgrade process?"
 msgstr ""
 "Architektura aktualizowanego wydania systemu %(productName)s to %(myarch)s, "
 "która nie zgadza się z poprzednio zainstalowaną architekturą %(arch)s. "
@@ -2289,12 +2289,12 @@ msgstr "Hasło roota musi zawierać co najmniej sześć znaków."
 msgid "Weak Password"
 msgstr "Słabe hasło"
 
-#: iw/account_gui.py:128
+#: iw/account_gui.py:128 textw/userauth_text.py:84
 #, python-format
 msgid "You have provided a weak password: %s"
 msgstr "Podano słabe hasło: %s"
 
-#: iw/account_gui.py:131
+#: iw/account_gui.py:131 textw/userauth_text.py:87
 msgid "_Use Anyway"
 msgstr "_Użyj mimo to"
 
@@ -2320,29 +2320,29 @@ msgstr ""
 "Brak dostępnych partycji do zmiany rozmiaru. Można zmieniać tylko fizyczne "
 "partycje z określonymi systemami plików."
 
-#: iw/autopart_type.py:119
+#: iw/autopart_type.py:121
 msgid "Resize FileSystem Error"
 msgstr "Błąd podczas zmieniania rozmiaru systemu plików"
 
-#: iw/autopart_type.py:120
+#: iw/autopart_type.py:122
 #, python-format
 msgid "%(device)s: %(msg)s"
 msgstr "%(device)s: %(msg)s"
 
-#: iw/autopart_type.py:129
+#: iw/autopart_type.py:131
 msgid "Resize Device Error"
 msgstr "Błąd podczas zmieniania rozmiaru urządzenia"
 
-#: iw/autopart_type.py:130
+#: iw/autopart_type.py:132
 #, python-format
 msgid "%(name)s: %(msg)s"
 msgstr "%(name)s: %(msg)s"
 
-#: iw/autopart_type.py:249
+#: iw/autopart_type.py:251
 msgid "Use All Space"
 msgstr "Użycie całego miejsca"
 
-#: iw/autopart_type.py:251
+#: iw/autopart_type.py:253
 msgid ""
 "Removes all partitions on the selected device(s).  This includes partitions "
 "created by other operating systems.\n"
@@ -2356,11 +2356,11 @@ msgstr ""
 "<b>Wskazówka:</b> ta opcja usunie wszystkie dane z wybranych urządzeń. "
 "Należy się upewnić, że utworzono ich kopie zapasowe."
 
-#: iw/autopart_type.py:257
+#: iw/autopart_type.py:259
 msgid "Replace Existing Linux System(s)"
 msgstr "Zastąpienie istniejących systemów Linux"
 
-#: iw/autopart_type.py:259
+#: iw/autopart_type.py:261
 msgid ""
 "Removes only Linux partitions (created from a previous Linux installation).  "
 "This does not remove other partitions you may have on your storage device(s) "
@@ -2376,22 +2376,22 @@ msgstr ""
 "<b>Wskazówka:</b> ta opcja usunie wszystkie dane z wybranych urządzeń. "
 "Należy się upewnić, że utworzono ich kopie zapasowe."
 
-#: iw/autopart_type.py:267
+#: iw/autopart_type.py:269
 msgid "Shrink Current System"
 msgstr "Zmniejszenie obecnego systemu"
 
-#: iw/autopart_type.py:269
+#: iw/autopart_type.py:271
 msgid ""
 "Shrinks existing partitions to create free space for the default layout."
 msgstr ""
 "Zmniejsza istniejące partycje, aby utworzyć wolne miejsce dla domyślnego "
 "układu."
 
-#: iw/autopart_type.py:271
+#: iw/autopart_type.py:273
 msgid "Use Free Space"
 msgstr "Użycie wolnego miejsca"
 
-#: iw/autopart_type.py:273
+#: iw/autopart_type.py:275
 msgid ""
 "Retains your current data and partitions and uses only the unpartitioned "
 "space on the selected device(s), assuming you have enough free space "
@@ -2401,11 +2401,11 @@ msgstr ""
 "na partycje na wybranych urządzeniach, przyjmując, że dostępne jest "
 "wystarczająco dużo wolnego miejsca."
 
-#: iw/autopart_type.py:277
+#: iw/autopart_type.py:279
 msgid "Create Custom Layout"
 msgstr "Utworzenie własnego układu"
 
-#: iw/autopart_type.py:279
+#: iw/autopart_type.py:281
 msgid ""
 "Manually create your own custom layout on the selected device(s) using our "
 "partitioning tool."
@@ -2768,23 +2768,23 @@ msgstr "K_ontynuuj"
 #: iw/lvm_dialog_gui.py:173
 #, python-format
 msgid ""
-"The physical extent size cannot be changed because the value selected "
-"(%(curpe)10.2f MB) is larger than the smallest physical volume "
-"(%(maxpvsize)10.2f MB) in the volume group."
+"The physical extent size cannot be changed because the value selected (%"
+"(curpe)10.2f MB) is larger than the smallest physical volume (%(maxpvsize)"
+"10.2f MB) in the volume group."
 msgstr ""
-"Nie można zmienić rozmiaru obszaru fizycznego, ponieważ wybrana wartość "
-"(%(curpe)10.2f MB) jest większa, niż najmniejszy wolumin fizyczny "
-"(%(maxpvsize)10.2f MB) w grupie woluminów."
+"Nie można zmienić rozmiaru obszaru fizycznego, ponieważ wybrana wartość (%"
+"(curpe)10.2f MB) jest większa, niż najmniejszy wolumin fizyczny (%(maxpvsize)"
+"10.2f MB) w grupie woluminów."
 
 #: iw/lvm_dialog_gui.py:187
 #, python-format
 msgid ""
-"The physical extent size cannot be changed because the value selected "
-"(%(curpe)10.2f MB) is too large compared to the size of the smallest "
-"physical volume (%(maxpvsize)10.2f MB) in the volume group."
+"The physical extent size cannot be changed because the value selected (%"
+"(curpe)10.2f MB) is too large compared to the size of the smallest physical "
+"volume (%(maxpvsize)10.2f MB) in the volume group."
 msgstr ""
-"Nie można zmienić rozmiaru obszaru fizycznego, ponieważ wybrana wartość "
-"(%(curpe)10.2f MB) jest za duża w porównaniu z rozmiarem najmniejszego "
+"Nie można zmienić rozmiaru obszaru fizycznego, ponieważ wybrana wartość (%"
+"(curpe)10.2f MB) jest za duża w porównaniu z rozmiarem najmniejszego "
 "woluminu fizycznego (%(maxpvsize)10.2f MB) w grupie woluminów."
 
 #: iw/lvm_dialog_gui.py:201
@@ -2835,7 +2835,7 @@ msgstr "_Typ systemu plików:"
 msgid "_Logical Volume Name:"
 msgstr "Nazwa woluminu _logicznego:"
 
-#: iw/lvm_dialog_gui.py:459 iw/partition_dialog_gui.py:498
+#: iw/lvm_dialog_gui.py:459 iw/partition_dialog_gui.py:500
 msgid "_Size (MB):"
 msgstr "_Rozmiar (MB):"
 
@@ -2844,17 +2844,17 @@ msgstr "_Rozmiar (MB):"
 msgid "(Max size is %s MB)"
 msgstr "(Maksymalny rozmiar to %s MB)"
 
-#: iw/lvm_dialog_gui.py:471 iw/partition_dialog_gui.py:550
+#: iw/lvm_dialog_gui.py:471 iw/partition_dialog_gui.py:552
 #: iw/partition_ui_helpers_gui.py:335 iw/raid_dialog_gui.py:424
 msgid "_Encrypt"
 msgstr "_Zaszyfrowanie"
 
-#: iw/lvm_dialog_gui.py:480 iw/partition_dialog_gui.py:480
+#: iw/lvm_dialog_gui.py:480 iw/partition_dialog_gui.py:482
 #: iw/raid_dialog_gui.py:462
 msgid "Original File System Type:"
 msgstr "Oryginalny typ systemu plików:"
 
-#: iw/lvm_dialog_gui.py:485 iw/partition_dialog_gui.py:488
+#: iw/lvm_dialog_gui.py:485 iw/partition_dialog_gui.py:490
 #: iw/raid_dialog_gui.py:469
 msgid "Original File System Label:"
 msgstr "Oryginalna etykieta systemu plików:"
@@ -2867,7 +2867,7 @@ msgstr "Nazwa woluminu logicznego:"
 msgid "Size (MB):"
 msgstr "Rozmiar (MB):"
 
-#: iw/lvm_dialog_gui.py:521 iw/partition_dialog_gui.py:431
+#: iw/lvm_dialog_gui.py:521 iw/partition_dialog_gui.py:433
 #: iw/raid_dialog_gui.py:443
 msgid "_Mount Point:"
 msgstr "Punkt _montowania:"
@@ -2926,20 +2926,20 @@ msgstr ""
 #, python-format
 msgid ""
 "The size entered for this logical volume (%(size)d MB) combined with the "
-"size of the other logical volume(s) exceeds the size of the volume group "
-"(%(tempvgsize)d MB). Please make the volume group larger or make the logical "
+"size of the other logical volume(s) exceeds the size of the volume group (%"
+"(tempvgsize)d MB). Please make the volume group larger or make the logical "
 "volume smaller."
 msgstr ""
 "Rozmiar podany dla tego woluminu logicznego (%(size)d MB) połączony z "
-"rozmiarem innych woluminów logicznych przekracza rozmiar grupy woluminów "
-"(%(tempvgsize)d MB). Proszę zwiększyć grupę woluminów lub zmniejszyć wolumin "
+"rozmiarem innych woluminów logicznych przekracza rozmiar grupy woluminów (%"
+"(tempvgsize)d MB). Proszę zwiększyć grupę woluminów lub zmniejszyć wolumin "
 "logiczny."
 
-#: iw/lvm_dialog_gui.py:830
+#: iw/lvm_dialog_gui.py:832
 msgid "No free slots"
 msgstr "Brak wolnych miejsc"
 
-#: iw/lvm_dialog_gui.py:831
+#: iw/lvm_dialog_gui.py:833
 #, python-format
 msgid "You cannot create more than %d logical volume per volume group."
 msgid_plural "You cannot create more than %d logical volumes per volume group."
@@ -2950,11 +2950,11 @@ msgstr[1] ""
 msgstr[2] ""
 "Nie można utworzyć więcej niż %d woluminów logicznych na grupę woluminów."
 
-#: iw/lvm_dialog_gui.py:841
+#: iw/lvm_dialog_gui.py:843
 msgid "No free space"
 msgstr "Brak wolnego miejsca"
 
-#: iw/lvm_dialog_gui.py:842
+#: iw/lvm_dialog_gui.py:844
 msgid ""
 "There is no room left in the volume group to create new logical volumes. To "
 "add a logical volume you must reduce the size of one or more of the "
@@ -2964,29 +2964,29 @@ msgstr ""
 "logicznych. Aby dodać wolumin logiczny, należy zmniejszyć wielkość co "
 "najmniej jednego z obecnie istniejących woluminów logicznych"
 
-#: iw/lvm_dialog_gui.py:879
+#: iw/lvm_dialog_gui.py:881
 #, python-format
 msgid "Are you sure you want to delete the logical volume \"%s\"?"
 msgstr "Na pewno usunąć wolumin logiczny \"%s\"?"
 
-#: iw/lvm_dialog_gui.py:985
+#: iw/lvm_dialog_gui.py:987
 msgid "Invalid Volume Group Name"
 msgstr "Nieprawidłowa nazwa grupy woluminów"
 
-#: iw/lvm_dialog_gui.py:994
+#: iw/lvm_dialog_gui.py:996
 msgid "Name in use"
 msgstr "Nazwa jest używana"
 
-#: iw/lvm_dialog_gui.py:995
+#: iw/lvm_dialog_gui.py:997
 #, python-format
 msgid "The volume group name \"%s\" is already in use. Please pick another."
 msgstr "Nazwa grupy woluminów \"%s\" jest już używana. Proszę wybrać inną."
 
-#: iw/lvm_dialog_gui.py:1282
+#: iw/lvm_dialog_gui.py:1284
 msgid "Not enough physical volumes"
 msgstr "Za mało woluminów fizycznych"
 
-#: iw/lvm_dialog_gui.py:1283
+#: iw/lvm_dialog_gui.py:1285
 msgid ""
 "At least one unused physical volume partition is needed to create an LVM "
 "Volume Group.\n"
@@ -3000,70 +3000,70 @@ msgstr ""
 "Należy utworzyć partycję lub macierz RAID typu \"wolumin fizyczny (LVM)\", a "
 "następnie ponownie wybrać opcję \"LVM\"."
 
-#: iw/lvm_dialog_gui.py:1294
+#: iw/lvm_dialog_gui.py:1296
 msgid "Make LVM Volume Group"
 msgstr "Utworzenie grupy woluminów LVM"
 
-#: iw/lvm_dialog_gui.py:1297
+#: iw/lvm_dialog_gui.py:1299
 #, python-format
 msgid "Edit LVM Volume Group: %s"
 msgstr "Modyfikacja grupy woluminów LVM: %s"
 
-#: iw/lvm_dialog_gui.py:1299
+#: iw/lvm_dialog_gui.py:1301
 msgid "Edit LVM Volume Group"
 msgstr "Modyfikacja grupy woluminów LVM"
 
-#: iw/lvm_dialog_gui.py:1315
+#: iw/lvm_dialog_gui.py:1317
 msgid "_Volume Group Name:"
 msgstr "Nazwa grupy _woluminów:"
 
-#: iw/lvm_dialog_gui.py:1323
+#: iw/lvm_dialog_gui.py:1325
 msgid "Volume Group Name:"
 msgstr "Nazwa grupy woluminów:"
 
-#: iw/lvm_dialog_gui.py:1331
+#: iw/lvm_dialog_gui.py:1333
 msgid "_Physical Extent:"
 msgstr "Obszar fi_zyczny:"
 
-#: iw/lvm_dialog_gui.py:1346
+#: iw/lvm_dialog_gui.py:1348
 msgid "Physical Volumes to _Use:"
 msgstr "Woluminy fizyczne do _użycia:"
 
-#: iw/lvm_dialog_gui.py:1352
+#: iw/lvm_dialog_gui.py:1354
 msgid "Used Space:"
 msgstr "Użyte miejsce:"
 
-#: iw/lvm_dialog_gui.py:1369
+#: iw/lvm_dialog_gui.py:1371
 msgid "Free Space:"
 msgstr "Wolne miejsce:"
 
-#: iw/lvm_dialog_gui.py:1387
+#: iw/lvm_dialog_gui.py:1389
 msgid "Total Space:"
 msgstr "Całkowite miejsce:"
 
-#: iw/lvm_dialog_gui.py:1425
+#: iw/lvm_dialog_gui.py:1427
 msgid "Logical Volume Name"
 msgstr "Nazwa woluminu logicznego"
 
-#: iw/lvm_dialog_gui.py:1428 iw/partition_gui.py:614
+#: iw/lvm_dialog_gui.py:1430 iw/partition_gui.py:614
 #: iw/upgrade_swap_gui.py:138 textw/upgrade_text.py:122
 msgid "Mount Point"
 msgstr "Punkt montowania"
 
-#: iw/lvm_dialog_gui.py:1431 iw/partition_gui.py:613
+#: iw/lvm_dialog_gui.py:1433 iw/partition_gui.py:613
 msgid "Size (MB)"
 msgstr "Rozmiar (MB)"
 
-#: iw/lvm_dialog_gui.py:1445 iw/osbootwidget.py:96
+#: iw/lvm_dialog_gui.py:1447 iw/osbootwidget.py:96
 msgid "_Add"
 msgstr "Dod_aj"
 
-#: iw/lvm_dialog_gui.py:1448 iw/osbootwidget.py:100 iw/partition_gui.py:1813
+#: iw/lvm_dialog_gui.py:1450 iw/osbootwidget.py:100 iw/partition_gui.py:1813
 #: iw/partition_gui.py:1823
 msgid "_Edit"
 msgstr "Z_modyfikuj"
 
-#: iw/lvm_dialog_gui.py:1463
+#: iw/lvm_dialog_gui.py:1465
 msgid "_Logical Volumes"
 msgstr "Woluminy _logiczne"
 
@@ -3169,8 +3169,8 @@ msgid ""
 "This boot target cannot be deleted because it is for the %s system you are "
 "about to install."
 msgstr ""
-"Ta pozycja nie może zostać usunięta, ponieważ przeznaczona jest dla systemu "
-"%s, który zaraz będzie instalowany."
+"Ta pozycja nie może zostać usunięta, ponieważ przeznaczona jest dla systemu %"
+"s, który zaraz będzie instalowany."
 
 #: iw/partition_dialog_gui.py:58
 msgid "Additional Size Options"
@@ -3192,24 +3192,24 @@ msgstr "Wypełnienie do m_aksymalnej dozwolonej wielkości"
 msgid "Error With Request"
 msgstr "Błąd żądania"
 
-#: iw/partition_dialog_gui.py:401
+#: iw/partition_dialog_gui.py:403
 msgid "Add Partition"
 msgstr "Dodanie partycji"
 
-#: iw/partition_dialog_gui.py:403
+#: iw/partition_dialog_gui.py:405
 #, python-format
 msgid "Edit Partition: %s"
 msgstr "Modyfikacja partycji: %s"
 
-#: iw/partition_dialog_gui.py:440
+#: iw/partition_dialog_gui.py:442
 msgid "File System _Type:"
 msgstr "_Typ systemu plików:"
 
-#: iw/partition_dialog_gui.py:456
+#: iw/partition_dialog_gui.py:458
 msgid "Allowable _Drives:"
 msgstr "Dozwolone _dyski:"
 
-#: iw/partition_dialog_gui.py:537
+#: iw/partition_dialog_gui.py:539
 msgid "Force to be a _primary partition"
 msgstr "_Wymuszenie, aby była partycją podstawową"
 
@@ -3237,7 +3237,7 @@ msgstr "MATRYCA MD RAID %s (%-0.f MB)"
 msgid "Type"
 msgstr "Typ"
 
-#: iw/partition_gui.py:616 storage/__init__.py:1800
+#: iw/partition_gui.py:616 storage/__init__.py:1826
 msgid "Format"
 msgstr "Sformatowanie"
 
@@ -3424,8 +3424,8 @@ msgstr "Obecnie jest wolna przestrzeń do utworzenia woluminów fizycznych."
 msgid "About LVM"
 msgstr "Informacje o LVM"
 
-#: iw/partition_gui.py:1587 storage/partitioning.py:210
-#: storage/partitioning.py:253
+#: iw/partition_gui.py:1587 storage/partitioning.py:229
+#: storage/partitioning.py:272
 msgid "Error Partitioning"
 msgstr "Błąd podczas partycjonowania"
 
@@ -3666,8 +3666,8 @@ msgstr "Instalator nie może wykryć obecnie używanego programu startowego."
 #: iw/upgrade_bootloader_gui.py:138 textw/upgrade_bootloader_text.py:121
 #, python-format
 msgid ""
-"The installer has detected the %(type)s boot loader currently installed on "
-"%(bootDev)s."
+"The installer has detected the %(type)s boot loader currently installed on %"
+"(bootDev)s."
 msgstr ""
 "Instalator wykrył program startowy %(type)s zainstalowany na %(bootDev)s."
 
@@ -3711,9 +3711,9 @@ msgstr "Migracja systemów plików"
 #, python-format
 msgid ""
 "This release of %(productName)s supports an updated file system, which has "
-"several benefits over the file system traditionally shipped in "
-"%(productName)s.  This installation program can migrate formatted partitions "
-"without data loss.\n"
+"several benefits over the file system traditionally shipped in %(productName)"
+"s.  This installation program can migrate formatted partitions without data "
+"loss.\n"
 "\n"
 "Which of these partitions would you like to migrate?"
 msgstr ""
@@ -3732,8 +3732,8 @@ msgstr "Aktualizacja partycji wymiany"
 #, python-format
 msgid ""
 "Recent kernels (2.4 or newer) need significantly more swap than older "
-"kernels, up to twice the amount of RAM on the system.  You currently have "
-"%dMB of swap configured, but you may create additional swap space on one of "
+"kernels, up to twice the amount of RAM on the system.  You currently have %"
+"dMB of swap configured, but you may create additional swap space on one of "
 "your file systems now."
 msgstr ""
 "Współczesne jądra (2.4 lub nowsze) wymagają znacznie większej przestrzeni "
@@ -4878,76 +4878,91 @@ msgstr ""
 "Jeśli użytkownik nie cofnie się i nie poda hasła, szyfrowanie urządzenia "
 "blokowego zostanie wyłączone."
 
-#: storage/__init__.py:174
+#: storage/__init__.py:182
+msgid ""
+"\n"
+"\n"
+"<b>WARNING:</b>\n"
+"You are using a GPT bootdisk on a non-EFI system. This may not work, "
+"depending on you BIOS's support for booting from GPT disks."
+msgstr ""
+"\n"
+"\n"
+"<b>OSTRZEŻENIE:</b>\n"
+"Używany jest dysk startowy GPT w komputerze nie będącym EFI. Może to nie "
+"działać, w zależności od obsługi uruchamiania z dysków GPT w BIOS-ie."
+
+#: storage/__init__.py:191
 msgid "Writing storage configuration to disk"
 msgstr "Zapisywanie konfiguracji urządzeń przechowywania danych na dysku"
 
-#: storage/__init__.py:175
+#: storage/__init__.py:192
+#, python-format
 msgid ""
 "The partitioning options you have selected will now be written to disk.  Any "
-"data on deleted or reformatted partitions will be lost."
+"data on deleted or reformatted partitions will be lost.%s"
 msgstr ""
 "Wybrane opcje partycjonowania zostaną teraz zapisane na dysku. Wszystkie "
-"dane na usuniętych lub ponownie formatowanych partycjach zostaną utracone."
+"dane na usuniętych lub ponownie formatowanych partycjach zostaną utracone.%s"
 
-#: storage/__init__.py:180
+#: storage/__init__.py:198
 msgid "Go _back"
 msgstr "_Wstecz"
 
-#: storage/__init__.py:181
+#: storage/__init__.py:199
 msgid "_Write changes to disk"
 msgstr "_Zapisz zmiany na dysku"
 
-#: storage/__init__.py:200
+#: storage/__init__.py:218
 msgid "Running..."
 msgstr "Wykonywanie..."
 
-#: storage/__init__.py:201
+#: storage/__init__.py:219
 msgid "Storing encryption keys"
 msgstr "Przechowywanie kluczy szyfrowania"
 
-#: storage/__init__.py:217
+#: storage/__init__.py:235
 #, python-format
 msgid "Error storing an encryption key: %s\n"
 msgstr "Błąd podczas przechowywania klucza szyfrowania: %s\n"
 
-#: storage/__init__.py:360
+#: storage/__init__.py:378
 msgid "Examining Devices"
 msgstr "Sprawdzanie urządzeń"
 
-#: storage/__init__.py:361
+#: storage/__init__.py:379
 msgid "Examining storage devices"
 msgstr "Sprawdzanie urządzeń przechowywania danych"
 
-#: storage/__init__.py:640
+#: storage/__init__.py:658
 msgid "This partition is holding the data for the hard drive install."
 msgstr "Ta partycja przechowuje dane do instalacji z dysku twardego."
 
-#: storage/__init__.py:645
+#: storage/__init__.py:663
 msgid "You cannot delete a partition of a LDL formatted DASD."
 msgstr ""
 "Nie można usunąć partycji będącej elementem urządzenia DASD sformatowanego "
 "metodą LDL."
 
-#: storage/__init__.py:651
+#: storage/__init__.py:669
 #, python-format
 msgid "This device is part of the RAID device %s."
 msgstr "Te urządzenie jest częścią urządzenia RAID %s."
 
-#: storage/__init__.py:654
+#: storage/__init__.py:672
 msgid "This device is part of a RAID device."
 msgstr "Te urządzenie jest częścią urządzenia RAID."
 
-#: storage/__init__.py:659
+#: storage/__init__.py:677
 #, python-format
 msgid "This device is part of the LVM volume group '%s'."
 msgstr "Te urządzenie jest częścią grupy woluminów LVM \"%s\"."
 
-#: storage/__init__.py:662
+#: storage/__init__.py:680
 msgid "This device is part of a LVM volume group."
 msgstr "Te urządzenie jest częścią grupy woluminów LVM."
 
-#: storage/__init__.py:678
+#: storage/__init__.py:696
 msgid ""
 "This device is an extended partition which contains logical partitions that "
 "cannot be deleted:\n"
@@ -4957,7 +4972,7 @@ msgstr ""
 "których nie można usunąć:\n"
 "\n"
 
-#: storage/__init__.py:953
+#: storage/__init__.py:971
 #, python-format
 msgid ""
 "You have not defined a root partition (/), which is required for "
@@ -4966,7 +4981,7 @@ msgstr ""
 "Nie wybrano głównej partycji (\"/\"), która jest niezbędna do kontynuowania "
 "instalacji systemu %s."
 
-#: storage/__init__.py:958
+#: storage/__init__.py:976
 #, python-format
 msgid ""
 "Your root partition is less than 250 megabytes which is usually too small to "
@@ -4975,7 +4990,7 @@ msgstr ""
 "Główna partycja ma mniej niż 250 megabajtów, a to zwykle za mało, aby "
 "zainstalować system %s."
 
-#: storage/__init__.py:964
+#: storage/__init__.py:982
 #, python-format
 msgid ""
 "Your / partition is less than %(min)s MB which is lower than recommended for "
@@ -4984,14 +4999,14 @@ msgstr ""
 "Partycja / ma mniej niż %(min)s MB, czyli mniej niż jest zalecane do "
 "normalnej instalacji systemu %(productName)s."
 
-#: storage/__init__.py:971
+#: storage/__init__.py:989
 #, python-format
 msgid "Placing the root partition on an XFS filesystem is not supported in %s."
 msgstr ""
 "Umieszczanie partycji root na systemie plików XFS nie jest obsługiwane przez "
 "system %s."
 
-#: storage/__init__.py:979
+#: storage/__init__.py:997
 #, python-format
 msgid ""
 "Your / partition does not match the the live image you are installing from.  "
@@ -5000,7 +5015,7 @@ msgstr ""
 "Partycja / nie zgadza się z obrazem Live, z którego wykonywana jest "
 "instalacja. Musi być sformatowana jako %s."
 
-#: storage/__init__.py:986
+#: storage/__init__.py:1004
 #, python-format
 msgid ""
 "Your %(mount)s partition is less than %(size)s megabytes which is lower than "
@@ -5009,14 +5024,14 @@ msgstr ""
 "Partycja %(mount)s ma mniej niż %(size)s MB, czyli mniej niż jest zalecane "
 "do zwykłej instalacji systemu %(productName)s."
 
-#: storage/__init__.py:1015
+#: storage/__init__.py:1033
 msgid ""
 "Installing on a USB device.  This may or may not produce a working system."
 msgstr ""
 "Instalowanie na urządzeniu USB. W ten sposób można lub nie uzyskać "
 "działający system."
 
-#: storage/__init__.py:1018
+#: storage/__init__.py:1036
 msgid ""
 "Installing on a FireWire device.  This may or may not produce a working "
 "system."
@@ -5024,7 +5039,7 @@ msgstr ""
 "Instalowanie na urządzeniu FireWire. W ten sposób można lub nie uzyskać "
 "działający system."
 
-#: storage/__init__.py:1025
+#: storage/__init__.py:1043
 msgid ""
 "You have not specified a swap partition.  Due to the amount of memory "
 "present, a swap partition is required to complete installation."
@@ -5032,7 +5047,7 @@ msgstr ""
 "Nie podano partycji wymiany. Z powodu ilości dostępnej pamięci, partycja "
 "wymiany jest wymagana, aby ukończyć instalację."
 
-#: storage/__init__.py:1030
+#: storage/__init__.py:1048
 msgid ""
 "You have not specified a swap partition.  Although not strictly required in "
 "all cases, it will significantly improve performance for most installations."
@@ -5040,7 +5055,7 @@ msgstr ""
 "Nie podano partycji wymiany. Chociaż nie zawsze jest ona ściśle wymagana, w "
 "większości przypadków znacznie poprawia wydajność systemu."
 
-#: storage/__init__.py:1037
+#: storage/__init__.py:1055
 #, python-format
 msgid ""
 "This mount point is invalid.  The %s directory must be on the / file system."
@@ -5048,17 +5063,17 @@ msgstr ""
 "Ten punkt montowania jest nieprawidłowy. Katalog %s musi znajdować się w "
 "systemie plików /."
 
-#: storage/__init__.py:1041
+#: storage/__init__.py:1059
 #, python-format
 msgid "The mount point %s must be on a linux file system."
 msgstr ""
 "Punkt montowania %s musi znajdować się na systemie plików systemu Linux."
 
-#: storage/__init__.py:1052
+#: storage/__init__.py:1070
 msgid "No Drives Found"
 msgstr "Nie odnaleziono dysków"
 
-#: storage/__init__.py:1053
+#: storage/__init__.py:1071
 msgid ""
 "An error has occurred - no valid devices were found on which to create new "
 "file systems. Please check your hardware for the cause of this problem."
@@ -5066,11 +5081,11 @@ msgstr ""
 "Wystąpił błąd - brak urządzenia, na którym można utworzyć nowy system "
 "plików. Proszę sprawdzić, czy sprzęt jest przyczyną problemu."
 
-#: storage/__init__.py:1346 storage/__init__.py:1355
+#: storage/__init__.py:1364 storage/__init__.py:1373
 msgid "Dirty File Systems"
 msgstr "Nieczysto zamknięte systemy plików"
 
-#: storage/__init__.py:1347
+#: storage/__init__.py:1365
 #, python-format
 msgid ""
 "The following file systems for your Linux system were not unmounted "
@@ -5083,7 +5098,7 @@ msgstr ""
 "plików i czysto wyłączyć system przed aktualizacją.\n"
 "%s"
 
-#: storage/__init__.py:1356
+#: storage/__init__.py:1374
 #, python-format
 msgid ""
 "The following file systems for your Linux system were not unmounted "
@@ -5094,7 +5109,7 @@ msgstr ""
 "Zamontować je mimo to?\n"
 "%s"
 
-#: storage/__init__.py:1833
+#: storage/__init__.py:1859
 #, python-format
 msgid ""
 "The swap device:\n"
@@ -5112,7 +5127,7 @@ msgstr ""
 "dla przestrzeni wymiany, należy ją ponownie sformatować jako partycję "
 "wymiany systemu Linux nowego typu."
 
-#: storage/__init__.py:1844
+#: storage/__init__.py:1870
 #, python-format
 msgid ""
 "The swap device:\n"
@@ -5131,7 +5146,7 @@ msgstr ""
 "wstrzymania, co oznacza że system jest w stanie hibernacji. Aby wykonać "
 "aktualizację, należy wyłączyć system zamiast hibernować go."
 
-#: storage/__init__.py:1852
+#: storage/__init__.py:1878
 #, python-format
 msgid ""
 "The swap device:\n"
@@ -5151,7 +5166,7 @@ msgstr ""
 "instalację, należy upewnić się, że instalator jest ustawiony tak, aby "
 "sformatować wszystkie urządzenia wymiany."
 
-#: storage/__init__.py:1864
+#: storage/__init__.py:1890
 #, python-format
 msgid ""
 "The swap device:\n"
@@ -5168,7 +5183,7 @@ msgstr ""
 "nie zawiera obsługiwanego woluminu wymiany. Aby kontynuować instalację, "
 "należy sformatować urządzenie lub je pominąć."
 
-#: storage/__init__.py:1875
+#: storage/__init__.py:1901
 #, python-format
 msgid ""
 "Error enabling swap device %(name)s: %(msg)s\n"
@@ -5185,7 +5200,7 @@ msgstr ""
 "\n"
 "Proszę nacisnąć przycisk OK, aby zakończyć instalator"
 
-#: storage/__init__.py:1882
+#: storage/__init__.py:1908
 #, python-format
 msgid ""
 "Error enabling swap device %(name)s: %(msg)s\n"
@@ -5201,11 +5216,11 @@ msgstr ""
 "\n"
 "Proszę nacisnąć przycisk OK, aby zakończyć instalator."
 
-#: storage/__init__.py:1945 storage/__init__.py:1957
+#: storage/__init__.py:1971 storage/__init__.py:1983
 msgid "Invalid mount point"
 msgstr "Nieprawidłowy punkt montowania"
 
-#: storage/__init__.py:1946
+#: storage/__init__.py:1972
 #, python-format
 msgid ""
 "An error occurred when trying to create %s.  Some element of this path is "
@@ -5218,7 +5233,7 @@ msgstr ""
 "\n"
 "Proszę nacisnąć przycisk <Enter>, aby zakończyć instalator."
 
-#: storage/__init__.py:1958
+#: storage/__init__.py:1984
 #, python-format
 msgid ""
 "An error occurred when trying to create %(mountpoint)s: %(msg)s.  This is a "
@@ -5231,11 +5246,11 @@ msgstr ""
 "\n"
 "Proszę nacisnąć przycisk <Enter>, aby zakończyć instalator."
 
-#: storage/__init__.py:1974 storage/__init__.py:1998
+#: storage/__init__.py:2000 storage/__init__.py:2024
 msgid "Unable to mount filesystem"
 msgstr "Nie można zamontować systemu plików"
 
-#: storage/__init__.py:1975
+#: storage/__init__.py:2001
 #, python-format
 msgid ""
 "An error occurred mounting device %(path)s as %(mountpoint)s.  You may "
@@ -5244,7 +5259,7 @@ msgstr ""
 "Wystąpił błąd podczas montowania urządzenia %(path)s jako %(mountpoint)s. "
 "Można kontynuować instalację, ale mogą wystąpić problemy."
 
-#: storage/__init__.py:1999
+#: storage/__init__.py:2025
 #, python-format
 msgid ""
 "An error occurred mounting device %(path)s as %(mountpoint)s: %(msg)s. This "
@@ -5252,8 +5267,8 @@ msgid ""
 "\n"
 "Press <Enter> to exit the installer."
 msgstr ""
-"Wystąpił błąd podczas montowania urządzenia %(path)s jako %(mountpoint)s: "
-"%(msg)s. Jest to błąd krytyczny i instalacja nie może być kontynuowana.\n"
+"Wystąpił błąd podczas montowania urządzenia %(path)s jako %(mountpoint)s: %"
+"(msg)s. Jest to błąd krytyczny i instalacja nie może być kontynuowana.\n"
 "\n"
 "Proszę nacisnąć przycisk <Enter>, aby zakończyć instalator."
 
@@ -5320,7 +5335,7 @@ msgstr ""
 "Jeśli ten krok zostanie pominięty, zawartość urządzenia nie będzie dostępna "
 "podczas instalacji."
 
-#: storage/devicetree.py:1928 storage/devicetree.py:1976
+#: storage/devicetree.py:1929 storage/devicetree.py:1977
 msgid "This partition is part of an inconsistent LVM Volume Group."
 msgstr "Ta partycja jest częścią niespójnej grupy woluminów LVM."
 
@@ -5388,38 +5403,38 @@ msgstr ""
 "umożliwiający interaktywne naprawienie systemu plików. Po ukończeniu należy "
 "ponownie uruchomić instalację."
 
-#: storage/formats/fs.py:535 storage/partitioning.py:289
+#: storage/formats/fs.py:535 storage/partitioning.py:308
 msgid "Unrecoverable Error"
 msgstr "Nieodwracalny błąd"
 
-#: storage/formats/fs.py:878
+#: storage/formats/fs.py:916
 msgid "File system errors left uncorrected."
 msgstr "Błędy systemu plików nie zostały naprawione."
 
-#: storage/formats/fs.py:879
+#: storage/formats/fs.py:917
 msgid "Operational error."
 msgstr "Błąd działania."
 
-#: storage/formats/fs.py:880
+#: storage/formats/fs.py:918
 msgid "Usage or syntax error."
 msgstr "Błąd użycia lub składni."
 
-#: storage/formats/fs.py:881
+#: storage/formats/fs.py:919
 msgid "e2fsck cancelled by user request."
 msgstr "e2fsck zostało anulowane na żądanie użytkownika."
 
-#: storage/formats/fs.py:882
+#: storage/formats/fs.py:920
 msgid "Shared library error."
 msgstr "Błąd biblioteki współdzielonej."
 
-#: storage/formats/fs.py:1041
+#: storage/formats/fs.py:1079
 msgid ""
 "Recoverable errors have been detected or dosfsck has discovered an internal "
 "inconsistency."
 msgstr ""
 "Wykryto odwracalne błędy lub program dosfsck wykrył wewnętrzną niespójność."
 
-#: storage/formats/fs.py:1043
+#: storage/formats/fs.py:1081
 msgid "Usage error."
 msgstr "Błąd użycia."
 
@@ -5482,7 +5497,7 @@ msgstr "Logowanie do węzłów iSCSI"
 msgid "Could not log in to any of the discovered nodes"
 msgstr "Nie można zalogować się do żadnego wykrytego węzła"
 
-#: storage/partitioning.py:204
+#: storage/partitioning.py:223
 msgid ""
 "Could not find enough free space for automatic partitioning.  Press 'OK' to "
 "exit the installer."
@@ -5490,7 +5505,7 @@ msgstr ""
 "Nie można odnaleźć wystarczającej ilości wolnego miejsca na automatyczne "
 "partycjonowanie. Proszę nacisnąć przycisk \"OK\", aby zakończyć instalator."
 
-#: storage/partitioning.py:207
+#: storage/partitioning.py:226
 msgid ""
 "Could not find enough free space for automatic partitioning, please use "
 "another partitioning method."
@@ -5498,11 +5513,11 @@ msgstr ""
 "Nie można odnaleźć wystarczającej ilości wolnego miejsca na automatyczne "
 "partycjonowanie. Proszę użyć innej metody partycjonowania."
 
-#: storage/partitioning.py:236
+#: storage/partitioning.py:255
 msgid "Warnings During Automatic Partitioning"
 msgstr "Ostrzeżenia podczas automatycznego partycjonowania"
 
-#: storage/partitioning.py:238
+#: storage/partitioning.py:257
 #, python-format
 msgid ""
 "Following warnings occurred during automatic partitioning:\n"
@@ -5513,7 +5528,7 @@ msgstr ""
 "\n"
 "%s"
 
-#: storage/partitioning.py:252 storage/partitioning.py:273
+#: storage/partitioning.py:271 storage/partitioning.py:292
 msgid ""
 "\n"
 "\n"
@@ -5523,7 +5538,7 @@ msgstr ""
 "\n"
 "Proszę nacisnąć przycisk \"OK\", aby zakończyć instalator."
 
-#: storage/partitioning.py:254
+#: storage/partitioning.py:273
 #, python-format
 msgid ""
 "Could not allocate requested partitions: \n"
@@ -5534,7 +5549,7 @@ msgstr ""
 "\n"
 "%(msg)s.%(extra)s"
 
-#: storage/partitioning.py:275
+#: storage/partitioning.py:294
 msgid ""
 "\n"
 "\n"
@@ -5544,11 +5559,11 @@ msgstr ""
 "\n"
 "Proszę nacisnąć przycisk \"OK\", aby wybrać inną opcję partycjonowania."
 
-#: storage/partitioning.py:277
+#: storage/partitioning.py:296
 msgid "Automatic Partitioning Errors"
 msgstr "Błędy podczas automatycznego partycjonowania"
 
-#: storage/partitioning.py:278
+#: storage/partitioning.py:297
 #, python-format
 msgid ""
 "The following errors occurred with your partitioning:\n"
@@ -5603,11 +5618,11 @@ msgstr "Nie odnaleziono WWPN %(wwpn)s na urządzeniu zFCP %(devnum)s."
 #: storage/zfcp.py:176
 #, python-format
 msgid ""
-"Could not add LUN %(fcplun)s to WWPN %(wwpn)s on zFCP device %(devnum)s "
-"(%(e)s)."
+"Could not add LUN %(fcplun)s to WWPN %(wwpn)s on zFCP device %(devnum)s (%(e)"
+"s)."
 msgstr ""
-"Błąd: nie można dodać LUN %(fcplun)s do WWPN %(wwpn)s na urządzeniu zFCP "
-"%(devnum)s (%(e)s)."
+"Błąd: nie można dodać LUN %(fcplun)s do WWPN %(wwpn)s na urządzeniu zFCP %"
+"(devnum)s (%(e)s)."
 
 #: storage/zfcp.py:182
 #, python-format
@@ -5632,26 +5647,26 @@ msgid ""
 "Failed LUN %(fcplun)s at WWPN %(wwpn)s on zFCP device %(devnum)s removed "
 "again."
 msgstr ""
-"Ponowne usunięcie LUN %(fcplun)s w WWPN %(wwpn)s na urządzeniu zFCP "
-"%(devnum)s nie powiodło się."
+"Ponowne usunięcie LUN %(fcplun)s w WWPN %(wwpn)s na urządzeniu zFCP %(devnum)"
+"s nie powiodło się."
 
 #: storage/zfcp.py:260
 #, python-format
 msgid ""
-"Could not correctly delete SCSI device of zFCP %(devnum)s %(wwpn)s "
-"%(fcplun)s (%(e)s)."
+"Could not correctly delete SCSI device of zFCP %(devnum)s %(wwpn)s %(fcplun)"
+"s (%(e)s)."
 msgstr ""
-"Nie można poprawnie usunąć urządzenia SCSI z zFCP %(devnum)s %(wwpn)s "
-"%(fcplun)s (%(e)s)."
+"Nie można poprawnie usunąć urządzenia SCSI z zFCP %(devnum)s %(wwpn)s %"
+"(fcplun)s (%(e)s)."
 
 #: storage/zfcp.py:269
 #, python-format
 msgid ""
-"Could not remove LUN %(fcplun)s at WWPN %(wwpn)s on zFCP device %(devnum)s "
-"(%(e)s)."
+"Could not remove LUN %(fcplun)s at WWPN %(wwpn)s on zFCP device %(devnum)s (%"
+"(e)s)."
 msgstr ""
-"Błąd: nie można usunąć LUN %(fcplun)s z WWPN %(wwpn)s na urządzeniu zFCP "
-"%(devnum)s (%(e)s)."
+"Błąd: nie można usunąć LUN %(fcplun)s z WWPN %(wwpn)s na urządzeniu zFCP %"
+"(devnum)s (%(e)s)."
 
 #: storage/zfcp.py:287
 #, python-format
@@ -5868,8 +5883,8 @@ msgstr "Utworzenie nowej konfiguracji programu startowego"
 #, python-format
 msgid ""
 "This release of %(productName)s supports the an updated file system, which "
-"has several benefits over the file system traditionally shipped in "
-"%(productName)s.  This installation program can migrate formatted partitions "
+"has several benefits over the file system traditionally shipped in %"
+"(productName)s.  This installation program can migrate formatted partitions "
 "without data loss.\n"
 "\n"
 "Which of these partitions would you like to migrate?"
@@ -5940,17 +5955,6 @@ msgstr ""
 #: textw/userauth_text.py:67
 msgid "The root password must be at least 6 characters long."
 msgstr "Hasło roota musi zawierać co najmniej sześć znaków."
-
-#: textw/userauth_text.py:84
-#, python-format
-msgid ""
-"You have provided a weak password: %s\n"
-"\n"
-"Would you like to continue with this password?"
-msgstr ""
-"Podano słabe hasło: %s\n"
-"\n"
-"Kontynuować z tym hasłem?"
 
 #: textw/welcome_text.py:29
 #, python-format
