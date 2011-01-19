@@ -1564,6 +1564,37 @@ void setKickstartNetwork(struct loaderData_s * loaderData, int argc,
     };
 
     iface_init_iface_t(&iface);
+    /* initialize loaderData struct */
+    /* except for --device which we want to take over from cmdline */
+    /* ksdevice for the first command */
+    free(loaderData->ipv4);
+    loaderData->ipv4 = NULL;
+    loaderData->ipinfo_set = 0;
+    free(loaderData->dns);
+    loaderData->dns = NULL;
+    free(loaderData->netmask);
+    loaderData->netmask = NULL;
+    free(loaderData->hostname);
+    loaderData->hostname = NULL;
+    free(loaderData->gateway);
+    loaderData->gateway = NULL;
+    free(loaderData->netCls);
+    loaderData->netCls = NULL;
+    loaderData->netCls_set = 0;
+    free(loaderData->ethtool);
+    loaderData->ethtool = NULL;
+    loaderData->essid = NULL;
+    free(loaderData->wepkey);
+    loaderData->wepkey = NULL;
+    loaderData->mtu = 0;
+
+#ifdef ENABLE_IPV6
+    free(loaderData->ipv6);
+    loaderData->ipv6 = NULL;
+    loaderData->ipv6info_set = 0;
+    free(loaderData->gateway6);
+    loaderData->gateway6 = NULL;
+#endif
 
     g_option_context_set_help_enabled(optCon, FALSE);
     g_option_context_add_main_entries(optCon, ksOptions, NULL);
@@ -1642,22 +1673,16 @@ void setKickstartNetwork(struct loaderData_s * loaderData, int argc,
         }
 
         if (ethtool) {
-            if (loaderData->ethtool)
-                free(loaderData->ethtool);
             loaderData->ethtool = strdup(ethtool);
             free(ethtool);
         }
 
         if (essid) {
-            if (loaderData->essid)
-                free(loaderData->essid);
             loaderData->essid = strdup(essid);
             free(essid);
         }
 
         if (wepkey) {
-            if (loaderData->wepkey)
-                free(loaderData->wepkey);
             loaderData->wepkey = strdup(wepkey);
             free(wepkey);
         }
