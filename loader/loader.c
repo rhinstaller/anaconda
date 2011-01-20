@@ -1824,6 +1824,7 @@ int main(int argc, char ** argv) {
 
     char ** argptr, ** tmparg;
     char * anacondaArgs[50];
+    char * outputKSFile = NULL;
 
     struct loaderData_s loaderData;
 
@@ -2139,7 +2140,7 @@ int main(int argc, char ** argv) {
         if (!ksFile)
             getKickstartFile(&loaderData);
         if (FL_KICKSTART(flags))
-            runKickstart(&loaderData, (ksFile)?ksFile:loaderData.ksFile);
+            outputKSFile = runKickstart(&loaderData, (ksFile)?ksFile:loaderData.ksFile);
     }
 
     if (FL_EARLY_NETWORKING(flags)) {
@@ -2255,9 +2256,12 @@ int main(int argc, char ** argv) {
     *argptr++ = "--headless";
 #endif
 
-    if (FL_KICKSTART(flags)) {
+    /* Pass the local, preprocessed kickstart file to anaconda.  There's no
+     * need for another fetch and another call to preprocessKickstart.
+     */
+    if (FL_KICKSTART(flags) && outputKSFile) {
         *argptr++ = "--kickstart";
-        *argptr++ = loaderData.ksFile;
+        *argptr++ = outputKSFile;
     }
 
     if (FL_SERIAL(flags))

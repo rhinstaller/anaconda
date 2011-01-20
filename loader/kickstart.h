@@ -23,7 +23,7 @@
 
 int isKickstartFileRemote(char *ksFile);
 void getKickstartFile(struct loaderData_s * loaderData);
-int runKickstart(struct loaderData_s * loaderData, const char *file);
+char *runKickstart(struct loaderData_s * loaderData, const char *file);
 int getKickstartFromBlockDevice(char *device, char *path);
 
 #endif

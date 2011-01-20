@@ -1306,14 +1306,7 @@ def preScriptPass(anaconda, file):
     runPreScripts(anaconda, ksparser.handler.scripts)
 
 def parseKickstart(anaconda, file):
-    try:
-        file = preprocessKickstart(file)
-    except KickstartError, msg:
-        stderrLog.critical(_("Error processing %%ksappend lines: %s") % msg)
-        sys.exit(1)
-    except Exception, e:
-        stderrLog.critical(_("Unknown error processing %%ksappend lines: %s") % e)
-        sys.exit(1)
+    # preprocessing the kickstart file has already been handled by loader.
 
     handler = AnacondaKSHandler(anaconda)
     ksparser = AnacondaKSParser(handler)

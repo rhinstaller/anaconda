@@ -967,11 +967,11 @@ cleanup:
     Py_XDECREF(proxyObj);
 }
 
-int runKickstart(struct loaderData_s * loaderData, const char *file) {
+char *runKickstart(struct loaderData_s * loaderData, const char *file) {
     PyObject *versionMod, *parserMod = NULL;
     PyObject *handler, *parser;
     PyObject *processedFile;
-    int rc = 0;
+    char *retval = NULL;
 
     PyObject *callable = NULL;
 
@@ -1014,9 +1014,9 @@ int runKickstart(struct loaderData_s * loaderData, const char *file) {
          */
         for (cmd = ksTable; *cmd != NULL; cmd++)
             (*cmd)(loaderData, handler);
-    }
 
-    rc = 1;
+        retval = strdup(PyString_AsString(processedFile));
+    }
 
 quit:
     Py_XDECREF(constantsMod);
@@ -1024,7 +1024,7 @@ quit:
     Py_XDECREF(callable);
     Py_XDECREF(parserMod);
     Py_Finalize();
-    return rc;
+    return retval;
 }
 
 /* vim:set sw=4 sts=4 et: */
