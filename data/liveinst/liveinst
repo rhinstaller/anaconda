@@ -58,7 +58,7 @@ fi
 # Allow running another command in the place of anaconda, but in this same
 # environment.  This allows storage testing to make use of all the module
 # loading and lvm control in this file, too.
-ANACONDA=${LIVECMD:=/usr/sbin/anaconda --liveinst --method=livecd://$LIVE_BLOCK $INSTLANG}
+ANACONDA=${LIVECMD:=anaconda --liveinst --method=livecd://$LIVE_BLOCK $INSTLANG}
 
 # load modules that would get loaded by the loader... (#230945)
 for i in raid0 raid1 raid5 raid6 raid456 raid10 dm-mod dm-zero dm-mirror dm-snapshot dm-multipath dm-round-robin vfat dm-crypt cbc sha256 lrw xts iscsi_tcp iscsi_ibft; do /sbin/modprobe $i 2>/dev/null ; done
@@ -95,6 +95,9 @@ for opt in `cat /proc/cmdline`; do
     xdriver=*)
         ANACONDA="$ANACONDA --$opt"
         ;;
+    updates=*)
+        UPDATES="${opt#updates=}"
+        ;;
     esac
 done
 
@@ -103,11 +106,36 @@ anaconda-cleanup $ANACONDA $*
 
 /sbin/udevadm control --env=ANACONDA=1
 
+# Set up the updates, if provided.
+if [ ! -z "$UPDATES" ]; then
+    if [ -e /tmp/updates.img -o -e /tmp/updates ]; then
+        zenity --error --title="Updates already exist" --text "updates= was provided, but an updates image already exists.  Please remove /tmp/updates.img and /tmp/updates and try again."
+        exit 1
+    fi
+
+    curl -o /tmp/updates.img $UPDATES
+    mkdir /tmp/updates
+
+    # We officially support two updates.img formats:  a filesystem image, and
+    # a compressed cpio blob.
+    if [ ! -z "$(file /tmp/updates.img | grep 'gzip compressed data')" ]; then
+        ( cd /tmp/updates ; gzip -dc /tmp/updates.img | cpio -id )
+    else
+        mount -t auto /tmp/updates.img /tmp/updates
+    fi
+
+    export PYTHONPATH=/tmp/updates:$PYTHONPATH
+    export LD_LIBRARY_PATH=/tmp/updates:$LD_LIBRARY_PATH
+    export PATH=/tmp/updates:$PATH
+fi
+
 if [ -x /usr/bin/udisks ]; then
     /usr/bin/udisks --inhibit -- "$ANACONDA $*"
 else
     $ANACONDA $*
 fi
+
+rm -r /tmp/updates /tmp/updates.img
 
 # try to teardown the filesystems if this was an image install
 if [ $IMAGE_INSTALL = 1 -a $RESCUE = 0 ]; then
