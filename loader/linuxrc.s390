@@ -106,6 +106,7 @@ function checkipv4()
 function doshutdown()
 {
     echo $"about to exec shutdown"
+    /sbin/umount -a -d -n >/dev/null 2>&1
     exec /sbin/shutdown
     exit 0
 }
@@ -123,6 +124,7 @@ function doreboot()
     fi
 
     echo $"about to exec shutdown -r"
+    /sbin/umount -a -d -n >/dev/null 2>&1
     exec /sbin/shutdown -r
     exit 0
 }
