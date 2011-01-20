@@ -229,6 +229,17 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Thu Jan 20 2011 Chris Lumens <clumens@redhat.com> - 15.16-1
+- Support passing updates= to liveinst via the boot command line. (clumens)
+- Make lighter-weight versions of dm map name/node resolution functions.
+  (dlehman)
+- Make /etc/mtab a symlink to /proc/self/mounts. (#670381) (dlehman)
+- Require the pykickstart version with "raid --label=" support. (clumens)
+- No longer run hal-lock on live installs (#670312). (clumens)
+- Add support for "raid --label=" (#670643). (clumens)
+- self.storage -> storage in kickstart execute methods. (clumens)
+- Don't prompt on broken lvm or uninitialized disks in cleanup mode. (dlehman)
+
 * Wed Jan 19 2011 Chris Lumens <clumens@redhat.com> - 15.15-1
 - Fix booty error on s390 when /boot is not on LVM. (dcantrell)
 - Don't offer minors of ignored md devices when creating new md devices.
