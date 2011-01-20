@@ -136,21 +136,6 @@ class RescueInterface(InstallInterfaceBase):
         InstallInterfaceBase.__init__(self)
         self.screen = screen
 
-# XXX grub-install is stupid and uses df output to figure out
-# things when installing grub.  make /etc/mtab be at least
-# moderately useful.  
-def makeMtab(instPath, storage):
-    try:
-        f = open(instPath + "/etc/mtab", "w+")
-    except IOError, e:
-        log.info("failed to open /etc/mtab for write: %s" % e)
-        return
-
-    try:
-        f.write(storage.mtab)
-    finally:
-        f.close()
-
 def makeFStab(instPath = ""):
     if os.access("/proc/mounts", os.R_OK):
         f = open("/proc/mounts", "r")
@@ -509,7 +494,7 @@ def runRescue(anaconda):
     msgStr = ""
 
     if rootmounted and not readOnly:
-        makeMtab(anaconda.rootPath, anaconda.storage)
+        anaconda.storage.makeMtab(root=anaconda.rootPath)
         try:
             makeResolvConf(anaconda.rootPath)
         except Exception, e:

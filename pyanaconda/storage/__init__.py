@@ -1134,6 +1134,7 @@ class Storage(object):
 
     def write(self, instPath):
         self.fsset.write(instPath)
+        self.makeMtab(root=instPath)
         self.iscsi.write(instPath, self.anaconda)
         self.fcoe.write(instPath, self.anaconda)
         self.zfcp.write(instPath)
@@ -1208,10 +1209,6 @@ class Storage(object):
         self.fsset.createSwapFile(device, size)
 
     @property
-    def mtab(self):
-        return self.fsset.mtab()
-
-    @property
     def mountpoints(self):
         return self.fsset.mountpoints
 
@@ -1222,6 +1219,24 @@ class Storage(object):
     @property
     def rootDevice(self):
         return self.fsset.rootDevice
+
+    def makeMtab(self, root=None):
+        path = "/etc/mtab"
+        target = "/proc/self/mounts"
+        if root and root != "/" and os.path.isdir(root):
+            path = os.path.normpath("%s/%s" % (root, path))
+
+        if os.path.islink(path):
+            # return early if the mtab symlink is already how we like it
+            current_target = os.path.normpath(os.path.dirname(path) +
+                                              "/" + os.readlink(path))
+            if current_target == target:
+                return
+
+        if os.path.exists(path):
+            os.unlink(path)
+
+        os.symlink(target, path)
 
     def compareDisks(self, first, second):
         if self.eddDict.has_key(first) and self.eddDict.has_key(second):
@@ -1816,33 +1831,6 @@ class FSSet(object):
                     except ValueError:
                         # just write duplicates back out post-install
                         self.preserveLines.append(line)
-
-    def mtab(self):
-        format = "%s %s %s %s 0 0\n"
-        mtab = ""
-        devices = self.mountpoints.values() + self.swapDevices
-        devices.extend([self.devshm, self.devpts, self.sysfs, self.proc])
-        devices.sort(key=lambda d: getattr(d.format, "mountpoint", None))
-        for device in devices:
-            if not device.format.status:
-                continue
-            if not device.format.mountable:
-                continue
-            if device.format.mountpoint:
-                options = device.format.mountopts
-                if options:
-                    options = options.replace("defaults,", "")
-                    options = options.replace("defaults", "")
-
-                if options:
-                    options = "rw," + options
-                else:
-                    options = "rw"
-                mtab = mtab + format % (device.path,
-                                        device.format.mountpoint,
-                                        device.format.type,
-                                        options)
-        return mtab
 
     def turnOnSwap(self, anaconda, upgrading=None):
         def swapErrorDialog(msg, device):

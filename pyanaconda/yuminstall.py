@@ -1560,17 +1560,6 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
         self.ayum.dsCallback = None
 
     def doPreInstall(self, anaconda):
-        if anaconda.upgrade:
-            # An old mtab can cause confusion (esp if loop devices are
-            # in it).  Be extra special careful and delete any mtab first,
-            # in case the user has done something funny like make it into
-            # a symlink.
-            if os.access(anaconda.rootPath + "/etc/mtab", os.F_OK):
-                os.remove(anaconda.rootPath + "/etc/mtab")
-
-            f = open(anaconda.rootPath + "/etc/mtab", "w+")
-            f.close()
-
         dirList = ['/var', '/var/lib', '/var/lib/rpm', '/tmp', '/dev', '/etc',
                    '/etc/sysconfig', '/etc/sysconfig/network-scripts',
                    '/etc/X11', '/root', '/var/tmp', '/etc/rpm', '/var/cache',
@@ -1602,11 +1591,9 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
             anaconda.storage.write(anaconda.rootPath)
             if not anaconda.isHeadless:
                 anaconda.keyboard.write(anaconda.rootPath)
-
-        # make a /etc/mtab so mkinitrd can handle certain hw (usb) correctly
-        f = open(anaconda.rootPath + "/etc/mtab", "w+")
-        f.write(anaconda.storage.mtab)
-        f.close()
+        else:
+            # ensure that /etc/mtab is a symlink to /proc/self/mounts
+            anaconda.storage.writeMtab(root=anaconda.rootPath)
 
     def checkSupportedUpgrade(self, anaconda):
         if anaconda.dir == DISPATCH_BACK:
