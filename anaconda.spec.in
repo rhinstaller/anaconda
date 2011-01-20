@@ -221,6 +221,29 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Thu Jan 20 2011 Martin Sivak <msivak@redhat.com> - 13.21.89-1
+- Don't offer minors of ignored md devices when creating new md devices.
+  (dlehman)
+  Resolves: rhbz#559973
+- Make sure devices ignored by the devicetree are in _ignoredDisks. (dlehman)
+  Related: rhbz#559973
+- Do disklabel handling for whole disk formats unknown to anaconda (hdegoede)
+  Resolves: rhbz#619721
+- Add support for detecting lvm vorigin snapshot volumes. (dlehman)
+  Resolves: rhbz#633038
+- Don't display free space at end of extended unless > 1MB. (dlehman)
+  Resolves: rhbz#626025
+- Don't try to add spares to active md arrays. (dlehman)
+  Resolves: rhbz#652874
+- Fix booty error on s390 when /boot is not on LVM. (dcantrell)
+  Related: rhbz#618376
+- Add biosdevname to installer environment (dcantrell)
+  Resolves: rhbz#654063
+- Fix the traceback from afbf164a1ce35aef50075cf0e22b9ece057bf1a1. (akozumpl)
+  Related: rhbz#640735
+- mpath: create /etc/multipath/bindings file. (akozumpl)
+  Resolves: rhbz#640735
+
 * Tue Jan 18 2011 Martin Sivak <msivak@redhat.com> - 13.21.88-1
 - When discovering dirtiness of filesystems, mount the /mnt/sysimage read only
   (msivak)
