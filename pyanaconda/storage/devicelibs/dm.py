@@ -57,38 +57,30 @@ def dm_remove(map_name):
         raise DMError("dm_remove (%s) failed: %s" % (map_name, msg))
 
 def name_from_dm_node(dm_node):
-    name = block.getNameFromDmNode(dm_node)
-    if name is not None:
-        return name
+    # first, try sysfs
+    name_file = "/sys/class/block/%s/dm/name" % dm_node
+    try:
+        name = open(name_file).read().strip()
+    except IOError:
+        # next, try pyblock
+        name = block.getNameFromDmNode(dm_node)
 
-    st = os.stat("/dev/%s" % dm_node)
-    major = os.major(st.st_rdev)
-    minor = os.minor(st.st_rdev)
-    name = iutil.execWithCapture("dmsetup",
-                                 ["info", "--columns",
-                                  "--noheadings", "-o", "name",
-                                  "-j", str(major), "-m", str(minor)],
-                                 stderr="/dev/tty5")
-    log.debug("name_from_dm(%s) returning '%s'" % (dm_node, name.strip()))
-    return name.strip()
+    return name
 
 def dm_node_from_name(map_name):
-    dm_node = block.getDmNodeFromName(map_name)
-    if dm_node is not None:
-        return dm_node
+    named_path = "/dev/mapper/%s" % map_name
+    try:
+        # /dev/mapper/ nodes are usually symlinks to /dev/dm-N
+        node = os.path.basename(os.readlink(named_path))
+    except OSError:
+        try:
+            # dm devices' names are based on the block device minor
+            st = os.stat(named_path)
+            minor = os.minor(st.st_rdev)
+            node = "dm-%d" % minor
+        except OSError:
+            # try pyblock
+            node = block.getDmNodeFromName(map_name)
 
-    devnum = iutil.execWithCapture("dmsetup",
-                                   ["info", "--columns",
-                                    "--noheadings",
-                                    "-o", "devno",
-                                    map_name],
-                                    stderr="/dev/tty5")
-    (major, sep, minor) = devnum.strip().partition(":")
-    if not sep:
-        raise DMError("dm device does not exist")
-
-    dm_node = "dm-%d" % int(minor)
-    log.debug("dm_node_from_name(%s) returning '%s'" % (map_name, dm_node))
-    return dm_node
-
+    return node
 
