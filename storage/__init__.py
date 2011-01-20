@@ -179,7 +179,7 @@ def storageComplete(anaconda):
     if not iutil.isEfi() and bootdisk and bootdisk.format \
        and bootdisk.format.type == 'disklabel' \
        and bootdisk.format.labelType == 'gpt':
-        warning = _("\n\n<b>WARNING:</b>\n"
+        warning = _("\n\nWARNING:\n"
                     "You are using a GPT bootdisk on a non-EFI "
                     "system. This may not work, depending on you BIOS's "
                     "support for booting from GPT disks.")
@@ -197,7 +197,7 @@ def storageComplete(anaconda):
                                 type = "custom", custom_icon="warning",
                                 custom_buttons=[_("Go _back"),
                                                 _("_Write changes to disk")],
-                                default = 0, markup=True)
+                                default = 0)
 
     # Make sure that all is down, even the disks that we setup after popluate.
     anaconda.id.storage.devicetree.teardownAll()

@@ -685,7 +685,7 @@ class MessageWindow:
     def getrc (self):
         return self.rc
 
-    def __init__ (self, title, text, type="ok", default=None, custom_buttons=None, custom_icon=None, run = True, parent = None, destroyAfterRun = True, markup=False):
+    def __init__ (self, title, text, type="ok", default=None, custom_buttons=None, custom_icon=None, run = True, parent = None, destroyAfterRun = True):
         self.debugRid = None
         self.title = title
         if flags.autostep:
@@ -723,8 +723,6 @@ class MessageWindow:
             style = gtk.MESSAGE_INFO
 
         self.dialog = gtk.MessageDialog(mainWindow, 0, style, buttons, str(text))
-        if markup:
-            self.dialog.set_property("use-markup", True)
 
         if parent:
             self.dialog.set_transient_for(parent)
@@ -1114,14 +1112,14 @@ class InstallInterface(InstallInterfaceBase):
             return ProgressWindow (title, text, total, updpct, pulse = pulse)
 
     def messageWindow(self, title, text, type="ok", default = None,
-             custom_buttons=None,  custom_icon=None, markup=False):
+             custom_buttons=None,  custom_icon=None):
         if self.icw:
             parent = self.icw.window
         else:
             parent = None
 
         rc = MessageWindow (title, text, type, default,
-                custom_buttons, custom_icon, run=True, parent=parent, markup=markup).getrc()
+                custom_buttons, custom_icon, run=True, parent=parent).getrc()
         return rc
 
     def reinitializeWindow(self, title, path, size, description, details):
