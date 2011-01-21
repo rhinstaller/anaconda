@@ -2470,7 +2470,12 @@ class LVMLogicalVolumeDevice(DMDevice):
         """ Create the device. """
         log_method_call(self, self.name, status=self.status)
         # should we use --zero for safety's sake?
-        lvm.lvcreate(self.vg.name, self._name, self.size, progress=w)
+        if hasattr(self.format, "mountpoint") and \
+           self.format.mountpoint == "/boot":
+            lvm.lvcreate(self.vg.name, self._name, self.size, progress=w,
+                         pvs=self._getSinglePV()))
+        else:
+            lvm.lvcreate(self.vg.name, self._name, self.size, progress=w)
 
     def _preDestroy(self):
         StorageDevice._preDestroy(self)
@@ -2481,6 +2486,18 @@ class LVMLogicalVolumeDevice(DMDevice):
         """ Destroy the device. """
         log_method_call(self, self.name, status=self.status)
         lvm.lvremove(self.vg.name, self._name)
+
+    def _getSinglePV(self):
+        pvs = []
+        paths = []
+
+        for parent in self.parents:
+            pvs += parent.parents
+
+        paths = map(lambda x: x.path, pvs)
+
+        paths.sort()
+        return paths[-1:]
 
     def resize(self, intf=None):
         log_method_call(self, self.name, status=self.status)
