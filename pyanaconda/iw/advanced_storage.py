@@ -358,6 +358,9 @@ def addFcoeDrive(anaconda):
     sg.add_widget(dxml.get_widget("fcoeNicCombo"))
 
     while True:
+        # make sure the dialog pops into foreground in case this is the second
+        # time through the loop:
+        dialog.present()
         rc = dialog.run()
 
         if rc in [gtk.RESPONSE_CANCEL, gtk.RESPONSE_DELETE_EVENT]:
@@ -413,6 +416,7 @@ def addZfcpDrive(anaconda):
         sg.add_widget(dxml.get_widget(w))
 
     while True:
+        dialog.present()
         rc = dialog.run()
         if rc != gtk.RESPONSE_APPLY:
             break
