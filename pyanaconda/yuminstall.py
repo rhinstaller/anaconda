@@ -1936,8 +1936,8 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
         return
 
     def postAction(self, anaconda):
-        self.close()
-        self.closeRpmDB()
+        self.ayum.close()
+        self.ayum.closeRpmDB()
         iutil.resetRpmDb(anaconda.rootPath)
 
 class DownloadHeaderProgress:
