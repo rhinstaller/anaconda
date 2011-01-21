@@ -29,6 +29,7 @@ import isys
 import product
 import socket
 import subprocess
+import iutil
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
@@ -76,24 +77,19 @@ class VncServer:
             self.password=""
 
     def setVNCPassword(self):
-        """Change the vnc server password. Output to file. """
+        """Set the vnc server password. Output to file. """
 
-        if len(self.password) == 0:
-            self.setVNCParam("SecurityTypes", "None")
-            self.setVNCParam("rfbauth","0")
-            return
+        r, w = os.pipe()
+        os.write(w, "%s\n" % self.password)
 
-        # If there is a password the SecurityTypes = VncAuth for all connections.
-        self.setVNCParam("SecurityTypes", "VncAuth")
-        self.setVNCParam("rfbauth",self.pw_file)
+        # the -f option makes sure vncpasswd does not ask for the password again
+        rc = iutil.execWithRedirect("vncpasswd", ["-f"],
+                                    stdin=r, stdout=self.pw_file)
 
-        # password input combination.
-        pwinput = "%s\n%s\n" % (self.password, self.password)
-        vnccommand = [self.root+"/usr/bin/vncpasswd", self.pw_file]
-        vncpswdo = subprocess.Popen(vnccommand, stdin=subprocess.PIPE, stdout=subprocess.PIPE)# We pipe the output
-                                                                                              # so the user does not see it.
-        (out, err) = vncpswdo.communicate(input=pwinput)
-        return vncpswdo.returncode
+        os.close(r)
+        os.close(w)
+
+        return rc
 
     def initialize(self):
         """Here is were all the relative vars get initialized. """
@@ -146,16 +142,6 @@ class VncServer:
             self.desktop = _("%(productName)s %(productVersion)s installation")\
                            % {'productName': product.productName,
                               'productVersion': product.productVersion}
-
-    def setVNCParam(self, param, value):
-        """Set a parameter in the Xvnc server. 
-
-        Possible values for param and value. param=(values)
-        SecurityTypes=(VncAuth,None)
-        """
-        vncconfigcommand = [self.root+"/usr/bin/vncconfig", "-display", ":%s"%self.display , "-set" , "%s=%s" %(param, value)]
-        vncconfo = subprocess.Popen(vncconfigcommand)# we dont want output
-        return vncconfo.returncode
 
     def openlogfile(self):
         try:
@@ -216,13 +202,25 @@ class VncServer:
         # Lets call it from here for now.
         self.initialize()
 
-        # Lets start the xvnc regardless of vncconnecthost and password.
-        # We can change the configuration on the fly later.
-        xvnccommand =  [ self.root + "/usr/bin/Xvnc", ":%s" % self.display, "-nevershared",
+        if self.password and len(self.password) < 6:
+            self.changeVNCPasswdWindow()
+
+        if not self.password:
+            SecurityTypes = "None"
+            rfbauth = "0"
+        else:
+            SecurityTypes = "VncAuth"
+            rfbauth = self.pw_file
+            # Create the password file.
+            rc = self.setVNCPassword()
+
+        # Lets start the xvnc.
+        xvnccommand =  [ "Xvnc", ":%s" % self.display, "-nevershared",
                         "-depth", "16", "-geometry", "800x600", "-br",
                         "IdleTimeout=0", "-auth", "/dev/null", "-once",
                         "DisconnectClients=false", "desktop=%s" % (self.desktop,),
-                        "SecurityTypes=None"]
+                        "SecurityTypes=%s" % SecurityTypes, "rfbauth=%s" % rfbauth ]
+
         try:
             xvncp = subprocess.Popen(xvnccommand, stdout=self.openlogfile(), stderr=subprocess.STDOUT)
         except:
@@ -237,15 +235,6 @@ class VncServer:
             sys.exit(1)
         else:
             self.log.info(_("The VNC server is now running."))
-
-        # Lets look at the password stuff
-        if self.password == "":
-            pass
-        elif len(self.password) < 6:
-            self.changeVNCPasswdWindow()
-
-        # Create the password file.
-        self.setVNCPassword()
 
         # Lets tell the user what we are going to do.
         if self.vncconnecthost != "":
