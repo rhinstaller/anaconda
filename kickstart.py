@@ -294,6 +294,7 @@ class Bootloader(commands.bootloader.RHEL6_Bootloader):
                 anaconda.id.bootloader.updateDriveList(new)
 
         anaconda.id.ksdata.permanentSkipSteps.extend(["upgbootloader", "bootloader"])
+        anaconda.id.ksdata.skipOnTextInteractive.extend(["upgbootloader", "bootloader"])
 
 class ClearPart(commands.clearpart.FC3_ClearPart):
     def parse(self, args):
@@ -324,6 +325,7 @@ class ClearPart(commands.clearpart.FC3_ClearPart):
 
         clearPartitions(anaconda.id.storage)
         anaconda.id.ksdata.skipSteps.append("cleardiskssel")
+        anaconda.id.ksdata.skipOnTextInteractive.append("cleardiskssel")
 
 class Fcoe(commands.fcoe.F13_Fcoe):
     def parse(self, args):
@@ -382,7 +384,10 @@ class IgnoreDisk(commands.ignoredisk.RHEL6_IgnoreDisk):
         anaconda.id.storage.ignoreDiskInteractive = self.interactive
         anaconda.id.storage.ignoredDisks = self.ignoredisk
         anaconda.id.storage.exclusiveDisks = self.onlyuse
-        if not self.interactive:
+
+        if self.interactive:
+            anaconda.id.ksdata.skipOnTextInteractive.extend(["filter", "filtertype"])
+        else:
             anaconda.id.ksdata.skipSteps.extend(["filter", "filtertype"])
 
 class Iscsi(commands.iscsi.F10_Iscsi):
@@ -1136,6 +1141,7 @@ class AnacondaKSHandler(superclass):
         self.packages = AnacondaKSPackages()
 
         self.permanentSkipSteps = []
+        self.skipOnTextInteractive = []
         self.skipSteps = []
         self.showSteps = []
         self.anaconda = anaconda
@@ -1503,7 +1509,9 @@ def setSteps(anaconda):
         if ksdata.packages.seen:
             warnings.warn("Ignoring contents of %packages section due to upgrade.")
     elif havePackages(ksdata.packages):
-        if interactive:
+        if interactive and anaconda.id.displayMode == "t":
+            ksdata.skipOnTextInteractive.extend(["tasksel", "group-selection"])
+        elif interactive:
             ksdata.showSteps.extend(["tasksel", "group-selection"])
         else:
             ksdata.skipSteps.extend(["tasksel", "group-selection"])
@@ -1513,11 +1521,16 @@ def setSteps(anaconda):
         else:
             ksdata.showSteps.extend(["tasksel", "group-selection"])
 
-    if not interactive:
+    if interactive:
+        if anaconda.id.displayMode == "t":
+            for n in ksdata.skipOnTextInteractive:
+                dispatch.skipStep(n, permanent=1)
+    else:
         for n in ksdata.skipSteps:
             dispatch.skipStep(n)
         for n in ksdata.permanentSkipSteps:
             dispatch.skipStep(n, permanent=1)
+
     for n in ksdata.showSteps:
         dispatch.skipStep(n, skip = 0)
 
