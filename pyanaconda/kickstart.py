@@ -875,7 +875,7 @@ class Reboot(commands.reboot.FC6_Reboot):
     def execute(self):
         self.anaconda.ksdata.skipSteps.append("complete")
 
-class RaidData(commands.raid.F12_RaidData):
+class RaidData(commands.raid.F15_RaidData):
     def execute(self):
         raidmems = []
         devicename = "md%d" % self.device
