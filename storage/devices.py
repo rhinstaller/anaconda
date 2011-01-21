@@ -2420,6 +2420,18 @@ class LVMLogicalVolumeDevice(DMDevice):
             except Exception as e:
                 log.debug("vg %s teardown failed; continuing" % self.vg.name)
 
+    def _getSinglePV(self):
+        pvs = []
+        paths = []
+
+        for parent in self.parents:
+            pvs += parent.parents
+
+        paths = map(lambda x: x.path, pvs)
+
+        paths.sort()
+        return paths[-1:]
+
     def create(self, intf=None):
         """ Create the device. """
         log_method_call(self, self.name, status=self.status)
@@ -2437,7 +2449,12 @@ class LVMLogicalVolumeDevice(DMDevice):
             self.setupParents()
 
             # should we use --zero for safety's sake?
-            lvm.lvcreate(self.vg.name, self._name, self.size, progress=w)
+            if hasattr(self.format, "mountpoint") and \
+               self.format.mountpoint == "/boot":
+                lvm.lvcreate(self.vg.name, self._name, self.size, progress=w,
+                             pvs=self._getSinglePV())
+            else:
+                lvm.lvcreate(self.vg.name, self._name, self.size, progress=w)
         except Exception:
             raise
         else:

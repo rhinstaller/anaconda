@@ -366,12 +366,12 @@ def lvorigin(vg_name, lv_name):
 
     return origin
 
-def lvcreate(vg_name, lv_name, size, progress=None):
+def lvcreate(vg_name, lv_name, size, progress=None, pvs=[]):
     args = ["lvcreate"] + \
             ["-L", "%dm" % size] + \
             ["-n", lv_name] + \
             config_args + \
-            [vg_name]
+            [vg_name] + pvs
 
     try:
         lvm(args, progress=progress)

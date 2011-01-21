@@ -485,6 +485,12 @@ class S390(Platform):
         return [PartSpec(mountpoint="/boot", fstype=self.defaultBootFSType, size=500,
                          weight=self.weight(mountpoint="/boot"), asVol=True)]
 
+    def weight(self, fstype=None, mountpoint=None):
+        if mountpoint and mountpoint == "/boot":
+            return 5000
+        else:
+            return 0
+
 class Sparc(Platform):
     _diskLabelType = "sun"
 
