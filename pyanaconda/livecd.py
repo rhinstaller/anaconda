@@ -193,7 +193,7 @@ class LiveCDCopyBackend(backend.AnacondaBackend):
         # resize rootfs first, since it is 100% full due to genMinInstDelta
         rootDevice = anaconda.storage.rootDevice
         rootDevice.setup()
-        rootDevice.format.targetSize = rootDevice.format.minSize
+        rootDevice.format.targetSize = rootDevice.size
         rootDevice.format.doResize(intf=anaconda.intf)
 
         # ensure we have a random UUID on the rootfs
