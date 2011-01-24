@@ -135,7 +135,8 @@ else
     $ANACONDA $*
 fi
 
-rm -r /tmp/updates /tmp/updates.img
+if [ -e /tmp/updates ]; then rm -r /tmp/updates; fi
+if [ -e /tmp/updates.img ]; then rm /tmp/updates.img; fi
 
 # try to teardown the filesystems if this was an image install
 if [ $IMAGE_INSTALL = 1 -a $RESCUE = 0 ]; then
