@@ -221,6 +221,28 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Mon Jan 24 2011 David Cantrell <dcantrell@redhat.com> - 13.21.90-1
+- Make sure /sbin/biosdevname is included in initrd.img (dcantrell)
+  Related: rhbz#654063
+- gui: remove "swapped" attribute from anaconda.glade (akozumpl)
+  Related: rhbz#663411
+- Introduce flags.preexisting_x11. (akozumpl)
+  Related: rhbz#663411
+- Adjust main window size based on install type. (bcl)
+  Related: rhbz#663411
+- Run anaconda in fullscreen mode (clumens).
+  Resolves: rhbz#663411
+- On interactive text kickstart installs, still skip certain steps (clumens).
+  Resolves: rhbz#652222
+- Make sure /boot is mapped to a single LVM PV on s390x (dcantrell)
+  Related: rhbz#618376
+- Unmount filesystems before shutdown or reboot on s390x (dcantrell)
+  Resolves: rhbz#605577
+- Make the advanced storage dialogs stay in the foreground. (akozumpl)
+  Resolves: rhbz#671107
+- Revert "Bold the warning for GPT on non-EFI (bcl)
+  Resolves: rhbz#614585
+
 * Thu Jan 20 2011 Martin Sivak <msivak@redhat.com> - 13.21.89-1
 - Don't offer minors of ignored md devices when creating new md devices.
   (dlehman)
