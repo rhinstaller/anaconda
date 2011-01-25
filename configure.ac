@@ -185,8 +185,12 @@ if test x$ipv6 = xyes ; then
     AC_SUBST(IPV6_CFLAGS, [-DENABLE_IPV6])
 fi
 
+# GCC likes to bomb out on some ridiculous warnings.  Add your favorites
+# here.
+SHUT_UP_GCC="-Wno-unused-but-set-variable"
+
 # Add remaining compiler flags we want to use
-CFLAGS="$CFLAGS -Wall -Werror -D_GNU_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE"
+CFLAGS="$CFLAGS -Wall -Werror $SHUT_UP_GCC -D_GNU_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE"
 
 # Filter CFLAGS (remove duplicate flags)
 cflags_filter() {
