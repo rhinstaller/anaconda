@@ -109,6 +109,7 @@ import block
 
 from errors import *
 from iutil import notify_kernel, numeric_type
+from flags import flags
 from .storage_log import log_method_call
 from udev import *
 from formats import get_device_format_class, getFormat, DeviceFormat
@@ -3604,6 +3605,10 @@ class OpticalDevice(StorageDevice):
 
         #try to umount and close device before ejecting
         self.teardown()
+
+        if flags.noeject:
+            log.info("noeject in effect, not ejecting cdrom")
+            return
 
         # Make a best effort attempt to do the eject.  If it fails, it's not
         # critical.

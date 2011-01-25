@@ -251,6 +251,7 @@ def parseOptions():
     op.add_option("--ibft", action="store_true")
     op.add_option("--noiscsi", dest="iscsi", action="store_false", default=False)
     op.add_option("--iscsi", action="store_true")
+    op.add_option("--noeject", action="store_true")
 
     # Miscellaneous
     op.add_option("--module", action="append", default=[])
@@ -782,6 +783,9 @@ if __name__ == "__main__":
 
     if opts.iscsi:
         flags.iscsi = 1
+
+    if opts.noeject:
+        flags.noeject = True
 
     if opts.targetArch:
         flags.targetarch = opts.targetArch
