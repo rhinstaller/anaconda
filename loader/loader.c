@@ -2115,7 +2115,34 @@ int main(int argc, char ** argv) {
         logMessage(INFO, "Trying to detect vendor driver discs");
         dd = findDriverDiskByLabel();
         dditer = dd;
+
+        /* Start UI for possible confirmation dialog */
+        if (dd && !loaderData.ksFile) {
+            startNewt();
+        }
+
         while(dditer) {
+
+            /* If in interactive mode, ask for confirmation before loading the DD */
+            if (!loaderData.ksFile) {
+                char *buf = NULL;
+                checked_asprintf(&buf,
+                                 _("Driver disc was detected in %s. "
+                                   "Do you want to use it?."),
+                                 dditer->data);
+
+                rc = newtWinChoice(_("Driver disc detected"), _("Use it"), _("Skip it"),
+                                   buf);
+                free(buf);
+                if (rc == 2) {
+                    logMessage(INFO, "Skipping driver disk %s.", (char*)(dditer->data));
+                  
+                    /* next DD  - bail to the end of the loop for cleanup and continue */
+                    /* and I know I'm using a goto, but it is the same style as error handling */
+                    goto ddcontinue;
+                }
+            }
+
             /* load the DD */
             if (loadDriverDiskFromPartition(&loaderData, (char*)(dditer->data))) {
                 logMessage(ERROR, "Automatic driver disk loader failed for %s.", (char*)(dditer->data));
@@ -2127,7 +2154,8 @@ int main(int argc, char ** argv) {
                 mlRestoreModuleState(moduleState);
                 busProbe(0);
             }
-            
+
+        ddcontinue:            
             /* clean the device record */
             free((char*)(dditer->data));
             dditer->data = NULL;
@@ -2136,6 +2164,11 @@ int main(int argc, char ** argv) {
             dditer = g_slist_next(dditer);
         }
         g_slist_free(dd);
+
+        /* Close UI.. */
+        if (dd && !loaderData.ksFile) {
+            stopNewt();
+        }
     }
 
     if (FL_MODDISK(flags)) {

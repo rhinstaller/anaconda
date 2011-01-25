@@ -616,11 +616,11 @@ int loadDriverFromMedia(int class, struct loaderData_s *loaderData,
              * them to manually load */
             rc = newtWinTernary(_("Error"), _("Manually choose"), 
                                 _("Continue"), _("Load another disk"),
-                                _("No devices of the appropriate type were "
-                                  "found on this driver disk.  Would you "
-                                  "like to manually select the driver, "
-                                  "continue anyway, or load another "
-                                  "driver disk?"));
+                                _("No new drivers were found on this driver disk."
+                                  "This may indicate that this disk has already been loaded,"
+                                  "or that the drivers it contains don't match your hardware."
+                                  "Would you like to manually select the driver, "
+                                  "continue anyway, or load another driver disk?"));
 
             if (rc == 2) {
                 /* if they choose to continue, just go ahead and continue */
