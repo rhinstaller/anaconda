@@ -201,7 +201,10 @@ static void mediaCheckCdrom(char *cddriver) {
                 free(descr);
         }
 
-        ejectCdrom(cddriver);
+        if (!FL_NOEJECT(flags))
+            ejectCdrom(cddriver);
+        else
+            logMessage(INFO, "noeject in effect, not ejecting cdrom");
 
         rc = newtWinChoice(_("Media Check"), _("Test"), _("Continue"),
                        _("If you would like to test additional media, "
@@ -260,7 +263,10 @@ static void queryCDMediaCheck(char *dev, char *location) {
 
             do {
                 if (doPwMount(dev, location, "iso9660", "ro", NULL)) {
-                    ejectCdrom(dev);
+                    if (!FL_NOEJECT(flags))
+                        ejectCdrom(dev);
+                    else
+                        logMessage(INFO, "noeject in effect, not ejecting cdrom");
                     wrongCDMessage();
                     continue;
                 }
@@ -271,7 +277,10 @@ static void queryCDMediaCheck(char *dev, char *location) {
                 if (access(stage2loc, R_OK)) {
                     free(stage2loc);
                     umount(location);
-                    ejectCdrom(dev);
+                    if (!FL_NOEJECT(flags))
+                        ejectCdrom(dev);
+                    else
+                        logMessage(INFO, "noeject in effect, not ejecting cdrom");
                     wrongCDMessage();
                     continue;
                 }
@@ -426,7 +435,10 @@ static char *setupCdrom(char *location, struct loaderData_s *loaderData,
                                          "and press %s to retry."),
                                  getProductName(), getProductName(), _("OK"));
 
-                ejectCdrom(cddev);
+                if (!FL_NOEJECT(flags))
+                    ejectCdrom(cddev);
+                else
+                    logMessage(INFO, "noeject in effect, not ejecting cdrom");
                 rc = newtWinChoice(_("Disc Not Found"),
                                    _("OK"), _("Back"), buf, _("OK"));
                 free(buf);

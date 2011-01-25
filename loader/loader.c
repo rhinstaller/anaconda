@@ -1016,6 +1016,8 @@ static void parseCmdLineFlags(struct loaderData_s * loaderData,
             mlAddBlacklist("uhci-hcd");
         } else if (!strcasecmp(argv[i], "nofirewire"))
             mlAddBlacklist("firewire-ohci");
+        else if (!strcasecmp(argv[i], "noeject"))
+            flags |= LOADER_FLAGS_NOEJECT;
         else if (!strncasecmp(argv[i], "loglevel=", 9)) {
             if (!strcasecmp(argv[i]+9, "debug")) {
                 loaderData->logLevel = strdup(argv[i]+9);
@@ -2372,6 +2374,9 @@ int main(int argc, char ** argv) {
     if (FL_NOIPV6(flags))
         *argptr++ = "--noipv6";
 #endif
+
+    if (FL_NOEJECT(flags))
+        *argptr++ = "--noeject";
 
     if (FL_KICKSTART(flags)) {
         *argptr++ = "--kickstart";
