@@ -229,6 +229,9 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Tue Jan 25 2011 Chris Lumens <clumens@redhat.com> - 15.18-1
+- GCC seriously needs to be less picky. (clumens)
+
 * Tue Jan 25 2011 Chris Lumens <clumens@redhat.com> - 15.17-1
 - Don't call preprocessKickstart from within anaconda as well. (clumens)
 - We don't need the command names anymore. (clumens)
