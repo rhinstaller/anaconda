@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 13.21.89\n"
+"Project-Id-Version: anaconda 13.21.90\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2011-01-24 13:02-1000\n"
+"POT-Creation-Date: 2011-01-25 15:49+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3497,9 +3497,10 @@ msgstr ""
 
 #: loader/driverdisk.c:619
 msgid ""
-"No devices of the appropriate type were found on this driver disk.  Would "
-"you like to manually select the driver, continue anyway, or load another "
-"driver disk?"
+"No new drivers were found on this driver disk.This may indicate that this "
+"disk has already been loaded,or that the drivers it contains don't match "
+"your hardware.Would you like to manually select the driver, continue anyway, "
+"or load another driver disk?"
 msgstr ""
 
 #: loader/driverdisk.c:657
@@ -3836,12 +3837,29 @@ msgstr ""
 msgid "loader has already been run.  Starting shell.\n"
 msgstr ""
 
-#: loader/loader.c:2451
+#: loader/loader.c:2130
+#, c-format
+msgid "Driver disc was detected in %s. Do you want to use it?."
+msgstr ""
+
+#: loader/loader.c:2134
+msgid "Driver disc detected"
+msgstr ""
+
+#: loader/loader.c:2134
+msgid "Use it"
+msgstr ""
+
+#: loader/loader.c:2134
+msgid "Skip it"
+msgstr ""
+
+#: loader/loader.c:2484
 #, c-format
 msgid "Running anaconda %s, the %s rescue mode - please wait.\n"
 msgstr ""
 
-#: loader/loader.c:2453
+#: loader/loader.c:2486
 #, c-format
 msgid "Running anaconda %s, the %s system installer - please wait.\n"
 msgstr ""

@@ -221,6 +221,11 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Tue Jan 25 2011 Martin Sivak <msivak@redhat.com> - 13.21.91-1
+- Add confirmation dialog to dlabel code and make one DD dialog less confusing
+  (msivak)
+  Resolves: rhbz#669647
+
 * Mon Jan 24 2011 David Cantrell <dcantrell@redhat.com> - 13.21.90-1
 - Make sure /sbin/biosdevname is included in initrd.img (dcantrell)
   Related: rhbz#654063
