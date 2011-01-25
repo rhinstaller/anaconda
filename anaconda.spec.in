@@ -229,6 +229,27 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Tue Jan 25 2011 Chris Lumens <clumens@redhat.com> - 15.17-1
+- Don't call preprocessKickstart from within anaconda as well. (clumens)
+- We don't need the command names anymore. (clumens)
+- Convert kickstart functions to use Python. (clumens)
+- Move all kickstart functions into kickstart.c. (clumens)
+- Get rid of the kickstart command codes, and alphabetize the command table.
+  (clumens)
+- Add the flags required to link against python. (clumens)
+- Remove ksReadCommands, convert to using pykickstart for parsing. (clumens)
+- Add functions to support interfacing loader with pykickstart. (clumens)
+- Fix syntax error from fdd06a4053e2965bdc1719425b6d99fe80ab1e18. (akozumpl)
+- Only remove /tmp/updates and /tmp/updates.img if they exist. (clumens)
+- YumBackend doesn't inherit from YumBase. AnacondaYum does. (#671577)
+  (dlehman)
+- After copying live rootfs to root device, grow it to fill the device.
+  (dlehman)
+- Make sure /boot is mapped to a single LVM PV on s390x (dcantrell)
+- Unmount filesystems before shutdown or reboot on s390x (#605577) (dcantrell)
+- And update to the latest version of the RAID command. (clumens)
+- Make the advanced storage dialogs stay in the foreground. (akozumpl)
+
 * Thu Jan 20 2011 Chris Lumens <clumens@redhat.com> - 15.16-1
 - Support passing updates= to liveinst via the boot command line. (clumens)
 - Make lighter-weight versions of dm map name/node resolution functions.
