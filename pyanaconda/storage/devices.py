@@ -2473,7 +2473,7 @@ class LVMLogicalVolumeDevice(DMDevice):
         if hasattr(self.format, "mountpoint") and \
            self.format.mountpoint == "/boot":
             lvm.lvcreate(self.vg.name, self._name, self.size, progress=w,
-                         pvs=self._getSinglePV()))
+                         pvs=self._getSinglePV())
         else:
             lvm.lvcreate(self.vg.name, self._name, self.size, progress=w)
 
