@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 13.21.90\n"
+"Project-Id-Version: anaconda 13.21.91\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2011-01-25 15:49+0100\n"
+"POT-Creation-Date: 2011-01-26 16:17+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,15 +18,15 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: anaconda:363
+#: anaconda:364
 msgid "Press <enter> for a shell"
 msgstr ""
 
-#: anaconda:394 rescue.py:353 rescue.py:379 rescue.py:392 rescue.py:470
+#: anaconda:395 rescue.py:353 rescue.py:379 rescue.py:392 rescue.py:470
 #: rescue.py:483 rescue.py:494 text.py:655 loader/windows.h:31
-#: loader/cdinstall.c:228 loader/cdinstall.c:232 loader/cdinstall.c:248
-#: loader/cdinstall.c:251 loader/cdinstall.c:427 loader/cdinstall.c:431
-#: loader/cdinstall.c:504 loader/dirbrowser.c:128 loader/driverdisk.c:228
+#: loader/cdinstall.c:231 loader/cdinstall.c:235 loader/cdinstall.c:251
+#: loader/cdinstall.c:254 loader/cdinstall.c:436 loader/cdinstall.c:443
+#: loader/cdinstall.c:516 loader/dirbrowser.c:128 loader/driverdisk.c:228
 #: loader/driverdisk.c:411 loader/driverdisk.c:443 loader/driverdisk.c:474
 #: loader/driverdisk.c:509 loader/driverdisk.c:525 loader/driverdisk.c:537
 #: loader/driverdisk.c:545 loader/driverdisk.c:717 loader/driverdisk.c:756
@@ -38,12 +38,12 @@ msgstr ""
 #: loader/kickstart.c:331 loader/kickstart.c:520 loader/lang.c:114
 #: loader/lang.c:373 loader/loader.c:434 loader/loader.c:470
 #: loader/loader.c:510 loader/loader.c:528 loader/loader.c:545
-#: loader/loader.c:582 loader/loader.c:1204 loader/loader.c:1223
-#: loader/loader.c:1434 loader/mediacheck.c:46 loader/mediacheck.c:85
+#: loader/loader.c:582 loader/loader.c:1206 loader/loader.c:1225
+#: loader/loader.c:1436 loader/mediacheck.c:46 loader/mediacheck.c:85
 #: loader/mediacheck.c:92 loader/mediacheck.c:96 loader/mediacheck.c:105
 #: loader/method.c:277 loader/method.c:351 loader/modules.c:382
-#: loader/modules.c:398 loader/net.c:605 loader/net.c:985 loader/net.c:1583
-#: loader/net.c:1604 loader/net.c:1912 loader/net.c:1931 loader/net.c:1943
+#: loader/modules.c:398 loader/net.c:567 loader/net.c:947 loader/net.c:1603
+#: loader/net.c:1627 loader/net.c:1941 loader/net.c:1960 loader/net.c:1972
 #: loader/nfsinstall.c:91 loader/nfsinstall.c:279 loader/nfsinstall.c:296
 #: loader/nfsinstall.c:384 loader/telnetd.c:92 loader/urlinstall.c:137
 #: loader/urlinstall.c:159 loader/urlinstall.c:221 loader/urlinstall.c:374
@@ -53,36 +53,36 @@ msgstr ""
 msgid "OK"
 msgstr ""
 
-#: anaconda:403
+#: anaconda:404
 msgid ""
 "You do not have enough RAM to use the graphical installer.  Starting text "
 "mode."
 msgstr ""
 
-#: anaconda:537
+#: anaconda:538
 msgid "Starting graphical installation."
 msgstr ""
 
-#: anaconda:901
+#: anaconda:905
 msgid "Would you like to use VNC?"
 msgstr ""
 
-#: anaconda:902
+#: anaconda:906
 msgid ""
 "Text mode provides a limited set of installation options.  It does not allow "
 "you to specify your own partitioning layout or package selections.  Would "
 "you like to use VNC mode instead?"
 msgstr ""
 
-#: anaconda:930
+#: anaconda:934
 msgid "Install class forcing text mode installation"
 msgstr ""
 
-#: anaconda:949
+#: anaconda:953
 msgid "Graphical installation is not available. Starting text mode."
 msgstr ""
 
-#: anaconda:956
+#: anaconda:960
 msgid "DISPLAY variable not set. Starting text mode."
 msgstr ""
 
@@ -125,13 +125,13 @@ msgstr ""
 #: iw/cleardisks_gui.py:54 iw/filter_gui.py:427 iw/osbootwidget.py:211
 #: iw/osbootwidget.py:220 iw/raid_dialog_gui.py:226 iw/task_gui.py:54
 #: iw/task_gui.py:152 iw/task_gui.py:305 iw/task_gui.py:469
-#: loader/windows.h:31 loader/cdinstall.c:228 loader/cdinstall.c:504
+#: loader/windows.h:31 loader/cdinstall.c:231 loader/cdinstall.c:516
 #: loader/driverdisk.c:228 loader/driverdisk.c:474 loader/driverdisk.c:509
 #: loader/driverdisk.c:537 loader/driverdisk.c:545 loader/driverdisk.c:617
 #: loader/hdinstall.c:115 loader/hdinstall.c:325 loader/hdinstall.c:440
 #: loader/hdinstall.c:483 loader/hdinstall.c:496 loader/kickstart.c:299
 #: loader/lang.c:114 loader/loader.c:434 loader/loader.c:545
-#: loader/loader.c:1204 loader/mediacheck.c:46 loader/mediacheck.c:85
+#: loader/loader.c:1206 loader/mediacheck.c:46 loader/mediacheck.c:85
 #: loader/mediacheck.c:92 loader/mediacheck.c:96 loader/method.c:277
 #: loader/method.c:351 loader/nfsinstall.c:279 loader/nfsinstall.c:296
 #: loader/telnetd.c:92 loader/urlinstall.c:137 loader/urlinstall.c:159
@@ -1203,8 +1203,8 @@ msgid ""
 "\n"
 msgstr ""
 
-#: rescue.py:311 iw/partition_gui.py:788 loader/cdinstall.c:206
-#: loader/cdinstall.c:214 loader/driverdisk.c:618 storage/__init__.py:155
+#: rescue.py:311 iw/partition_gui.py:788 loader/cdinstall.c:209
+#: loader/cdinstall.c:217 loader/driverdisk.c:618 storage/__init__.py:155
 #: storage/devicetree.py:92
 msgid "Continue"
 msgstr ""
@@ -1213,7 +1213,7 @@ msgstr ""
 msgid "Read-Only"
 msgstr ""
 
-#: rescue.py:311 rescue.py:313 loader/cdinstall.c:248 loader/cdinstall.c:251
+#: rescue.py:311 rescue.py:313 loader/cdinstall.c:251 loader/cdinstall.c:254
 #: loader/method.c:324 storage/__init__.py:1826 textw/upgrade_text.py:137
 msgid "Skip"
 msgstr ""
@@ -1343,8 +1343,8 @@ msgid ""
 "%(details)s"
 msgstr ""
 
-#: text.py:625 loader/net.c:110 loader/net.c:497 loader/net.c:552
-#: loader/net.c:694 loader/net.c:702 loader/net.c:1132 loader/net.c:1140
+#: text.py:625 loader/net.c:110 loader/net.c:459 loader/net.c:514
+#: loader/net.c:656 loader/net.c:664 loader/net.c:1094 loader/net.c:1102
 #: textw/constants_text.py:68
 msgid "Retry"
 msgstr ""
@@ -1422,54 +1422,54 @@ msgstr ""
 msgid "Invalid Directories"
 msgstr ""
 
-#: vnc.py:140
+#: vnc.py:136
 #, python-format
 msgid "%(productName)s %(productVersion)s installation on host %(name)s"
 msgstr ""
 
-#: vnc.py:146
+#: vnc.py:142
 #, python-format
 msgid "%(productName)s %(productVersion)s installation"
 msgstr ""
 
-#: vnc.py:175
+#: vnc.py:161
 #, python-format
 msgid "Attempting to connect to vnc client on host %s..."
 msgstr ""
 
-#: vnc.py:189
+#: vnc.py:175
 msgid "Connected!"
 msgstr ""
 
-#: vnc.py:192
+#: vnc.py:178
 msgid "Will try to connect again in 15 seconds..."
 msgstr ""
 
-#: vnc.py:198
+#: vnc.py:184
 #, python-format
 msgid "Giving up attempting to connect after %d try!\n"
 msgid_plural "Giving up attempting to connect after %d tries!\n"
 msgstr[0] ""
 msgstr[1] ""
 
-#: vnc.py:209
+#: vnc.py:195
 #, python-format
 msgid "Please manually connect your vnc client to %s to begin the install."
 msgstr ""
 
-#: vnc.py:211
+#: vnc.py:197
 msgid "Please manually connect your vnc client to begin the install."
 msgstr ""
 
-#: vnc.py:214
+#: vnc.py:200
 msgid "Starting VNC..."
 msgstr ""
 
-#: vnc.py:239
+#: vnc.py:237
 msgid "The VNC server is now running."
 msgstr ""
 
-#: vnc.py:252
+#: vnc.py:241
 msgid ""
 "\n"
 "\n"
@@ -1480,7 +1480,7 @@ msgid ""
 "\n"
 msgstr ""
 
-#: vnc.py:257
+#: vnc.py:246
 msgid ""
 "\n"
 "\n"
@@ -1490,7 +1490,7 @@ msgid ""
 "\n"
 msgstr ""
 
-#: vnc.py:261
+#: vnc.py:250
 msgid ""
 "\n"
 "\n"
@@ -1498,7 +1498,7 @@ msgid ""
 "\n"
 msgstr ""
 
-#: vnc.py:263
+#: vnc.py:252
 msgid ""
 "\n"
 "\n"
@@ -1506,61 +1506,61 @@ msgid ""
 "\n"
 msgstr ""
 
-#: vnc.py:285 vnc.py:378
+#: vnc.py:274 vnc.py:367
 msgid "VNC Configuration"
 msgstr ""
 
-#: vnc.py:288 vnc.py:382
+#: vnc.py:277 vnc.py:371
 msgid "No password"
 msgstr ""
 
-#: vnc.py:290 vnc.py:385
+#: vnc.py:279 vnc.py:374
 msgid ""
 "A password will prevent unauthorized listeners connecting and monitoring "
 "your installation progress.  Please enter a password to be used for the "
 "installation"
 msgstr ""
 
-#: vnc.py:298 vnc.py:393 textw/userauth_text.py:47
+#: vnc.py:287 vnc.py:382 textw/userauth_text.py:47
 msgid "Password:"
 msgstr ""
 
-#: vnc.py:299 vnc.py:394 textw/userauth_text.py:49
+#: vnc.py:288 vnc.py:383 textw/userauth_text.py:49
 msgid "Password (confirm):"
 msgstr ""
 
-#: vnc.py:317 vnc.py:416 textw/userauth_text.py:70
+#: vnc.py:306 vnc.py:405 textw/userauth_text.py:70
 msgid "Password Mismatch"
 msgstr ""
 
-#: vnc.py:318 vnc.py:417 textw/userauth_text.py:71
+#: vnc.py:307 vnc.py:406 textw/userauth_text.py:71
 msgid "The passwords you entered were different. Please try again."
 msgstr ""
 
-#: vnc.py:323 vnc.py:422 textw/userauth_text.py:66
+#: vnc.py:312 vnc.py:411 textw/userauth_text.py:66
 msgid "Password Length"
 msgstr ""
 
-#: vnc.py:324 vnc.py:423
+#: vnc.py:313 vnc.py:412
 msgid "The password must be at least six characters long."
 msgstr ""
 
-#: vnc.py:346
+#: vnc.py:335
 msgid "Unable to Start X"
 msgstr ""
 
-#: vnc.py:348
+#: vnc.py:337
 msgid ""
 "X was unable to start on your machine.  Would you like to start VNC to "
 "connect to this computer from another computer and perform a graphical "
 "install or continue with a text mode install?"
 msgstr ""
 
-#: vnc.py:367
+#: vnc.py:356
 msgid "Start VNC"
 msgstr ""
 
-#: vnc.py:368 vnc.py:370
+#: vnc.py:357 vnc.py:359
 msgid "Use text mode"
 msgstr ""
 
@@ -3335,12 +3335,12 @@ msgstr ""
 msgid "Automatic neighbor discovery"
 msgstr ""
 
-#: loader/cdinstall.c:185 loader/cdinstall.c:206 loader/mediacheck.c:60
+#: loader/cdinstall.c:185 loader/cdinstall.c:209 loader/mediacheck.c:60
 msgid "Media Check"
 msgstr ""
 
-#: loader/cdinstall.c:185 loader/cdinstall.c:188 loader/cdinstall.c:206
-#: loader/cdinstall.c:214 loader/method.c:324
+#: loader/cdinstall.c:185 loader/cdinstall.c:188 loader/cdinstall.c:209
+#: loader/cdinstall.c:217 loader/method.c:324
 msgid "Test"
 msgstr ""
 
@@ -3355,7 +3355,7 @@ msgid ""
 "the disc and insert another for testing."
 msgstr ""
 
-#: loader/cdinstall.c:207
+#: loader/cdinstall.c:210
 #, c-format
 msgid ""
 "If you would like to test additional media, insert the next disc and press "
@@ -3365,18 +3365,18 @@ msgid ""
 "to retest each disc prior to using it again."
 msgstr ""
 
-#: loader/cdinstall.c:229
+#: loader/cdinstall.c:232
 #, c-format
 msgid ""
 "The %s disc was not found in any of your drives. Please insert the %s disc "
 "and press %s to retry."
 msgstr ""
 
-#: loader/cdinstall.c:248
+#: loader/cdinstall.c:251
 msgid "Disc Found"
 msgstr ""
 
-#: loader/cdinstall.c:249
+#: loader/cdinstall.c:252
 #, c-format
 msgid ""
 "To begin testing the media before installation press %s.\n"
@@ -3384,43 +3384,43 @@ msgid ""
 "Choose %s to skip the media test and start the installation."
 msgstr ""
 
-#: loader/cdinstall.c:330
+#: loader/cdinstall.c:339
 msgid "Scanning"
 msgstr ""
 
-#: loader/cdinstall.c:330
+#: loader/cdinstall.c:339
 #, c-format
 msgid "Looking for installation images on CD device %s\n"
 msgstr ""
 
-#: loader/cdinstall.c:332
+#: loader/cdinstall.c:341
 #, c-format
 msgid "Looking for installation images on CD device %s"
 msgstr ""
 
-#: loader/cdinstall.c:424
+#: loader/cdinstall.c:433
 #, c-format
 msgid ""
 "The %s disc was not found in any of your CDROM drives. Please insert the %s "
 "disc and press %s to retry."
 msgstr ""
 
-#: loader/cdinstall.c:430
+#: loader/cdinstall.c:442
 msgid "Disc Not Found"
 msgstr ""
 
-#: loader/cdinstall.c:431 loader/driverdisk.c:412 loader/driverdisk.c:444
+#: loader/cdinstall.c:443 loader/driverdisk.c:412 loader/driverdisk.c:444
 #: loader/driverdisk.c:525 loader/driverselect.c:78 loader/driverselect.c:152
 #: loader/driverselect.c:178 loader/hdinstall.c:212 loader/hdinstall.c:266
 #: loader/kbd.c:119 loader/loader.c:511 loader/loader.c:528
-#: loader/loader.c:1434 loader/loader.c:1467 loader/net.c:605 loader/net.c:985
-#: loader/net.c:1912 loader/net.c:1931 loader/nfsinstall.c:91
+#: loader/loader.c:1436 loader/loader.c:1469 loader/net.c:567 loader/net.c:947
+#: loader/net.c:1941 loader/net.c:1960 loader/nfsinstall.c:91
 #: loader/urls.c:268 storage/__init__.py:109 storage/__init__.py:155
 #: storage/devicetree.py:92 textw/constants_text.py:52
 msgid "Back"
 msgstr ""
 
-#: loader/cdinstall.c:505
+#: loader/cdinstall.c:517
 msgid "Cannot find kickstart file on CDROM."
 msgstr ""
 
@@ -3522,7 +3522,7 @@ msgstr ""
 #: loader/driverdisk.c:717 loader/driverdisk.c:756 loader/hdinstall.c:360
 #: loader/kickstart.c:135 loader/kickstart.c:145 loader/kickstart.c:187
 #: loader/kickstart.c:192 loader/kickstart.c:520 loader/modules.c:382
-#: loader/modules.c:398 loader/net.c:1583 loader/net.c:1604
+#: loader/modules.c:398 loader/net.c:1603 loader/net.c:1627
 #: loader/nfsinstall.c:384 loader/urlinstall.c:374 loader/urlinstall.c:385
 #: loader/urlinstall.c:392
 msgid "Kickstart Error"
@@ -3752,114 +3752,114 @@ msgstr ""
 msgid "Error downloading updates image"
 msgstr ""
 
-#: loader/loader.c:1200
+#: loader/loader.c:1202
 #, c-format
 msgid "You do not have enough RAM to install %s on this machine."
 msgstr ""
 
-#: loader/loader.c:1223
+#: loader/loader.c:1225
 msgid "Unsupported Hardware Detected"
 msgstr ""
 
-#: loader/loader.c:1224
+#: loader/loader.c:1226
 msgid ""
 "This hardware (or a combination thereof) is not supported by Red Hat.  For "
 "more information on supported hardware, please refer to http://www.redhat."
 "com/hardware."
 msgstr ""
 
-#: loader/loader.c:1283
+#: loader/loader.c:1285
 msgid "Media Detected"
 msgstr ""
 
-#: loader/loader.c:1284
+#: loader/loader.c:1286
 msgid "Found local installation media"
 msgstr ""
 
-#: loader/loader.c:1426
+#: loader/loader.c:1428
 msgid "Rescue Method"
 msgstr ""
 
-#: loader/loader.c:1427
+#: loader/loader.c:1429
 msgid "Installation Method"
 msgstr ""
 
-#: loader/loader.c:1429
+#: loader/loader.c:1431
 msgid "What type of media contains the rescue image?"
 msgstr ""
 
-#: loader/loader.c:1431
+#: loader/loader.c:1433
 msgid "What type of media contains the installation image?"
 msgstr ""
 
-#: loader/loader.c:1466
+#: loader/loader.c:1468
 msgid "No driver found"
 msgstr ""
 
-#: loader/loader.c:1466
+#: loader/loader.c:1468
 msgid "Select driver"
 msgstr ""
 
-#: loader/loader.c:1467
+#: loader/loader.c:1469
 msgid "Use a driver disk"
 msgstr ""
 
-#: loader/loader.c:1468
+#: loader/loader.c:1470
 msgid ""
 "Unable to find any devices of the type needed for this installation type.  "
 "Would you like to manually select your driver or use a driver disk?"
 msgstr ""
 
-#: loader/loader.c:1699
+#: loader/loader.c:1701
 msgid "The following devices have been found on your system."
 msgstr ""
 
-#: loader/loader.c:1701
+#: loader/loader.c:1703
 msgid ""
 "No device drivers have been loaded for your system.  Would you like to load "
 "any now?"
 msgstr ""
 
-#: loader/loader.c:1705
+#: loader/loader.c:1707
 msgid "Devices"
 msgstr ""
 
-#: loader/loader.c:1706
+#: loader/loader.c:1708
 msgid "Done"
 msgstr ""
 
-#: loader/loader.c:1707
+#: loader/loader.c:1709
 msgid "Add Device"
 msgstr ""
 
-#: loader/loader.c:1985
+#: loader/loader.c:1987
 #, c-format
 msgid "loader has already been run.  Starting shell.\n"
 msgstr ""
 
-#: loader/loader.c:2130
+#: loader/loader.c:2132
 #, c-format
 msgid "Driver disc was detected in %s. Do you want to use it?."
 msgstr ""
 
-#: loader/loader.c:2134
+#: loader/loader.c:2136
 msgid "Driver disc detected"
 msgstr ""
 
-#: loader/loader.c:2134
+#: loader/loader.c:2136
 msgid "Use it"
 msgstr ""
 
-#: loader/loader.c:2134
+#: loader/loader.c:2136
 msgid "Skip it"
 msgstr ""
 
-#: loader/loader.c:2484
+#: loader/loader.c:2490
 #, c-format
 msgid "Running anaconda %s, the %s rescue mode - please wait.\n"
 msgstr ""
 
-#: loader/loader.c:2486
+#: loader/loader.c:2492
 #, c-format
 msgid "Running anaconda %s, the %s system installer - please wait.\n"
 msgstr ""
@@ -3938,12 +3938,12 @@ msgid ""
 "IPv6 networks"
 msgstr ""
 
-#: loader/net.c:490 loader/net.c:498 loader/net.c:553
+#: loader/net.c:452 loader/net.c:460 loader/net.c:515
 #, c-format
 msgid "There was an error configuring your network interface."
 msgstr ""
 
-#: loader/net.c:492
+#: loader/net.c:454
 #, c-format
 msgid ""
 "\n"
@@ -3951,138 +3951,138 @@ msgid ""
 "Halting.\n"
 msgstr ""
 
-#: loader/net.c:497 loader/net.c:552 textw/netconfig_text.py:403
+#: loader/net.c:459 loader/net.c:514 textw/netconfig_text.py:403
 msgid "Network Error"
 msgstr ""
 
-#: loader/net.c:583
+#: loader/net.c:545
 msgid "Enable IPv4 support"
 msgstr ""
 
-#: loader/net.c:597
+#: loader/net.c:559
 msgid "Enable IPv6 support"
 msgstr ""
 
-#: loader/net.c:637
+#: loader/net.c:599
 msgid "Configure TCP/IP"
 msgstr ""
 
-#: loader/net.c:694
+#: loader/net.c:656
 msgid "Missing Protocol"
 msgstr ""
 
-#: loader/net.c:695
+#: loader/net.c:657
 msgid "You must select at least one protocol (IPv4 or IPv6)."
 msgstr ""
 
-#: loader/net.c:702
+#: loader/net.c:664
 msgid "IPv4 Needed for NFS"
 msgstr ""
 
-#: loader/net.c:703
+#: loader/net.c:665
 msgid "NFS installation method requires IPv4 support."
 msgstr ""
 
-#: loader/net.c:811
+#: loader/net.c:773
 msgid "IPv4 address:"
 msgstr ""
 
-#: loader/net.c:823 loader/net.c:890
+#: loader/net.c:785 loader/net.c:852
 msgid "/"
 msgstr ""
 
-#: loader/net.c:878
+#: loader/net.c:840
 msgid "IPv6 address:"
 msgstr ""
 
-#: loader/net.c:944 textw/netconfig_text.py:184 textw/netconfig_text.py:224
+#: loader/net.c:906 textw/netconfig_text.py:184 textw/netconfig_text.py:224
 msgid "Gateway:"
 msgstr ""
 
-#: loader/net.c:952
+#: loader/net.c:914
 msgid "Name Server:"
 msgstr ""
 
-#: loader/net.c:991
+#: loader/net.c:953
 msgid ""
 "Enter the IPv4 and/or the IPv6 address and prefix (address / prefix).  For "
 "IPv4, the dotted-quad netmask or the CIDR-style prefix are acceptable. The "
 "gateway and name server fields must be valid IPv4 or IPv6 addresses."
 msgstr ""
 
-#: loader/net.c:1008
+#: loader/net.c:970
 msgid "Manual TCP/IP Configuration"
 msgstr ""
 
-#: loader/net.c:1132 loader/net.c:1140
+#: loader/net.c:1094 loader/net.c:1102
 msgid "Missing Information"
 msgstr ""
 
-#: loader/net.c:1133
+#: loader/net.c:1095
 msgid ""
 "You must enter both a valid IPv4 address and a network mask or CIDR prefix."
 msgstr ""
 
-#: loader/net.c:1141
+#: loader/net.c:1103
 msgid "You must enter both a valid IPv6 address and a CIDR prefix."
 msgstr ""
 
-#: loader/net.c:1584
+#: loader/net.c:1604
 #, c-format
 msgid "Bad argument to kickstart network command: %s"
 msgstr ""
 
-#: loader/net.c:1605
+#: loader/net.c:1628
 #, c-format
 msgid "Bad bootproto %s specified in network command"
 msgstr ""
 
-#: loader/net.c:1710
+#: loader/net.c:1739
 msgid "Seconds:"
 msgstr ""
 
-#: loader/net.c:1907
+#: loader/net.c:1936
 msgid "Networking Device"
 msgstr ""
 
-#: loader/net.c:1908
+#: loader/net.c:1937
 msgid ""
 "You have multiple network devices on this system. Which would you like to "
 "install through?"
 msgstr ""
 
-#: loader/net.c:1912
+#: loader/net.c:1941
 msgid "Identify"
 msgstr ""
 
-#: loader/net.c:1921
+#: loader/net.c:1950
 msgid "You can identify the physical port for"
 msgstr ""
 
-#: loader/net.c:1923
+#: loader/net.c:1952
 msgid ""
 "by flashing the LED lights for a number of seconds.  Enter a number between "
 "1 and 30 to set the duration to flash the LED port lights."
 msgstr ""
 
-#: loader/net.c:1930
+#: loader/net.c:1959
 msgid "Identify NIC"
 msgstr ""
 
-#: loader/net.c:1943
+#: loader/net.c:1972
 msgid "Invalid Duration"
 msgstr ""
 
-#: loader/net.c:1944
+#: loader/net.c:1973
 msgid "You must enter the number of seconds as an integer between 1 and 30."
 msgstr ""
 
-#: loader/net.c:1956
+#: loader/net.c:1985
 #, c-format
 msgid "Flashing %s port lights for %d seconds."
 msgstr ""
 
-#: loader/net.c:2124 loader/net.c:2128
+#: loader/net.c:2189 loader/net.c:2193
 #, c-format
 msgid "Waiting for NetworkManager to configure %s.\n"
 msgstr ""
@@ -4571,23 +4571,23 @@ msgstr ""
 msgid "lvs failed for %s"
 msgstr ""
 
-#: storage/devices.py:1296 storage/devices.py:2005 storage/devices.py:2443
-#: storage/devices.py:2946 storage/devices.py:3434
+#: storage/devices.py:1297 storage/devices.py:2006 storage/devices.py:2444
+#: storage/devices.py:2947 storage/devices.py:3435
 msgid "Creating"
 msgstr ""
 
-#: storage/devices.py:1297 storage/devices.py:2006 storage/devices.py:2444
-#: storage/devices.py:2947
+#: storage/devices.py:1298 storage/devices.py:2007 storage/devices.py:2445
+#: storage/devices.py:2948
 #, python-format
 msgid "Creating device %s"
 msgstr ""
 
-#: storage/devices.py:2542
+#: storage/devices.py:2543
 #, python-format
 msgid "A RAID%d set requires atleast %d members"
 msgstr ""
 
-#: storage/devices.py:3435
+#: storage/devices.py:3436
 #, python-format
 msgid "Creating file %s"
 msgstr ""

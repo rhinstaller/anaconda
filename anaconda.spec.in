@@ -221,6 +221,41 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Wed Jan 26 2011 Martin Sivak <msivak@redhat.com> - 13.21.92-1
+- Add noeject support anaconda (bcl)
+  Resolves: rhbz#665094
+- Add noeject support to loader (bcl)
+  Related: rhbz#665094
+  Resolves: rhbz#665094
+- biosdevname is in sbin not bin (mgracik)
+  Related: rhbz#654063
+- Initialize loaderData values in kickstart network command. (rvykydal)
+  Resolves: rhbz#638131
+- Always activate first kickstart network device (rvykydal)
+  Resolves: rhbz#668395
+- Make kickstart network command reconfigure active device in loader (rvykydal)
+  Resolves: rhbz#668395
+- Use NM for ibft configuration (rvykydal)
+  Resolves: rhbz#634016
+- Reset only ifcfg file of device we failed to activate (rvykydal)
+  Resolves: rhbz#638131
+- Initialize iface structure properly (rvykydal)
+  Resolves: rhbz#638131
+- Add kickstart network --nodefroute option (rvykydal)
+  Resolves: rhbz#638131
+- Add support for ks network --bootproto=ibft (rvykydal)
+  Resolves: rhbz#638131
+- Wait for activation of specific devices instead of NM (rvykydal)
+  Resolves: rhbz#638131
+- Parse all kickstart network commands in loader too (rvykydal)
+  Resolves: rhbz#638131
+- Activate all devices set by kickstart network --activate command (rvykydal)
+  Resolves: rhbz#638131
+- Pick RHEL6 kickstart superclass in rhel 6 (rvykydal)
+  Related: rhbz#638131
+- VNC does not support runtime SecurityTypes changes (mgracik)
+  Resolves: rhbz#670832
+
 * Tue Jan 25 2011 Martin Sivak <msivak@redhat.com> - 13.21.91-1
 - Add confirmation dialog to dlabel code and make one DD dialog less confusing
   (msivak)
