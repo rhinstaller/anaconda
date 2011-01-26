@@ -400,7 +400,7 @@ class DeviceFormat(object):
         # If this is a device-mapper device, we have to get the DM node and
         # build the sysfs path from that.
         try:
-            device = dm_node_from_name(self.device)
+            device = dm_node_from_name(os.path.basename(self.device))
         except DMError:
             device = self.device
 

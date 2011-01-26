@@ -82,5 +82,7 @@ def dm_node_from_name(map_name):
             # try pyblock
             node = block.getDmNodeFromName(map_name)
 
-    return node
+    if not node:
+        raise DMError("dm_node_from_name(%s) has failed." % node)
 
+    return node
