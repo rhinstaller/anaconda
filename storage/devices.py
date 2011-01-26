@@ -1503,6 +1503,11 @@ class PartitionDevice(StorageDevice):
         else:
             return 0
 
+    @property
+    def resizable(self):
+        """ Can this type of device be resized? """
+        return super(PartitionDevice, self).resizable and \
+               self.disk.type != 'dasd'
 
 class DMDevice(StorageDevice):
     """ A device-mapper device """
