@@ -710,7 +710,7 @@ makeinitrd() {
     instbin $IMGPATH /usr/sbin/udevd $MBD_DIR /sbin/udevd
     instbin $IMGPATH /usr/sbin/udevadm $MBD_DIR /sbin/udevadm
     instbin $IMGPATH /usr/bin/udevinfo $MBD_DIR /sbin/udevinfo
-    instbin $IMGPATH /usr/bin/biosdevname $MBD_DIR /sbin/biosdevname
+    instbin $IMGPATH /usr/sbin/biosdevname $MBD_DIR /sbin/biosdevname
 
     instbin $IMGPATH /usr/bin/bash $MBD_DIR /sbin/bash
     ( cd $MBD_DIR/sbin ; ln -sf bash sh )
