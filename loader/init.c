@@ -125,8 +125,7 @@ static void doExit(int result)
 }
 
 static void printstr(char * string) {
-    int ret;
-    ret = write(1, string, strlen(string));
+    write(1, string, strlen(string));
 }
 
 static void fatal_error(int usePerror) {
@@ -141,7 +140,6 @@ static void fatal_error(int usePerror) {
 /* sets up and launches syslog */
 static void startSyslog(void) {
     int conf_fd;
-    int ret;
     gchar *addr = NULL, *virtiolog = NULL;
     const char *forward_tcp = "*.* @@";
     const char *forward_format_tcp = "\n";
@@ -158,14 +156,14 @@ static void startSyslog(void) {
             sleep(5);
         } else {
             if (addr != NULL) {
-                ret = write(conf_fd, forward_tcp, strlen(forward_tcp));
-                ret = write(conf_fd, addr, strlen(addr));
-                ret = write(conf_fd, forward_format_tcp, strlen(forward_format_tcp));
+                write(conf_fd, forward_tcp, strlen(forward_tcp));
+                write(conf_fd, addr, strlen(addr));
+                write(conf_fd, forward_format_tcp, strlen(forward_format_tcp));
             }
             if (virtiolog != NULL) {
-                ret = write(conf_fd, forward_virtio, strlen(forward_virtio));
-                ret = write(conf_fd, virtiolog, strlen(virtiolog));
-                ret = write(conf_fd, forward_format_virtio, strlen(forward_format_virtio));
+                write(conf_fd, forward_virtio, strlen(forward_virtio));
+                write(conf_fd, virtiolog, strlen(virtiolog));
+                write(conf_fd, forward_format_virtio, strlen(forward_format_virtio));
             }
             close(conf_fd);
         }
@@ -386,7 +384,7 @@ static int onQEMU(void)
 }
 
 static int getInitPid(void) {
-    int fd = 0, pid = -1, ret;
+    int fd = 0, pid = -1;
     char * buf = calloc(1, 10);
 
     fd = open("/var/run/init.pid", O_RDONLY);
@@ -394,9 +392,9 @@ static int getInitPid(void) {
         fprintf(stderr, "Unable to find pid of init!!!\n");
         return -1;
     }
-    ret = read(fd, buf, 9);
+    read(fd, buf, 9);
     close(fd);
-    ret = sscanf(buf, "%d", &pid);
+    sscanf(buf, "%d", &pid);
     return pid;
 }
 
@@ -794,10 +792,9 @@ int main(int argc, char **argv) {
     /* write out a pid file */
     if ((fd = open("/var/run/init.pid", O_WRONLY|O_CREAT, 0644)) > 0) {
         char * buf = malloc(10);
-        int ret;
 
         snprintf(buf, 9, "%d", getpid());
-        ret = write(fd, buf, strlen(buf));
+        write(fd, buf, strlen(buf));
         close(fd);
         free(buf);
     } else {
@@ -866,9 +863,8 @@ int main(int argc, char **argv) {
            ctrl-alt-del handler */
         if (count == strlen(buf) &&
             (fd = open("/proc/sys/kernel/ctrl-alt-del", O_WRONLY)) != -1) {
-            int ret;
 
-            ret = write(fd, "0", 1);
+            write(fd, "0", 1);
             close(fd);
         }
     }

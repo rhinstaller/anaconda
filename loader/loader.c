@@ -2328,11 +2328,11 @@ int main(int argc, char ** argv) {
             if (strncmp(loaderData.instRepo, "ftp:", 4)) {
                 *argptr++ = loaderData.instRepo;
             } else {
-                int fd, ret;
+                int fd;
 
                 fd = open("/tmp/ftp-repo", O_CREAT | O_TRUNC | O_RDWR, 0600);
-                ret = write(fd, loaderData.instRepo, strlen(loaderData.instRepo));
-                ret = write(fd, "\r", 1);
+                write(fd, loaderData.instRepo, strlen(loaderData.instRepo));
+                write(fd, "\r", 1);
                 close(fd);
                 *argptr++ = "@/tmp/ftp-repo";
             }
@@ -2348,15 +2348,15 @@ int main(int argc, char ** argv) {
             *argptr++ = strdup(loaderData.proxy);
 
             if (loaderData.proxyUser && strcmp(loaderData.proxyUser, "")) {
-                int fd, ret;
+                int fd;
 
                 fd = open("/tmp/proxy", O_CREAT|O_TRUNC|O_RDWR, 0600);
-                ret = write(fd, loaderData.proxyUser, strlen(loaderData.proxyUser));
-                ret = write(fd, "\r\n", 2);
+                write(fd, loaderData.proxyUser, strlen(loaderData.proxyUser));
+                write(fd, "\r\n", 2);
 
                 if (loaderData.proxyPassword && strcmp(loaderData.proxyPassword, "")) {
-                    ret = write(fd, loaderData.proxyPassword, strlen(loaderData.proxyPassword));
-                    ret = write(fd, "\r\n", 2);
+                    write(fd, loaderData.proxyPassword, strlen(loaderData.proxyPassword));
+                    write(fd, "\r\n", 2);
                 }
 
                 close(fd);

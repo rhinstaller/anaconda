@@ -218,7 +218,7 @@ static int loadDriverDisk(struct loaderData_s *loaderData, char *mntpt) {
     struct moduleBallLocation * location;
     struct stat sb;
     static int disknum = 0;
-    int rc, fd, ret;
+    int rc, fd;
     char *kernelver;
     struct utsname unamedata;
 
@@ -232,7 +232,7 @@ static int loadDriverDisk(struct loaderData_s *loaderData, char *mntpt) {
     title = malloc(sb.st_size + 1);
 
     fd = open(file, O_RDONLY);
-    ret = read(fd, title, sb.st_size);
+    read(fd, title, sb.st_size);
     if (title[sb.st_size - 1] == '\n')
         sb.st_size--;
     title[sb.st_size] = '\0';

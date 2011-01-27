@@ -222,7 +222,6 @@ static UINTN analyze(VOID)
     UINTN   i, k, iter, count_active, detected_parttype;
     CHARN   *fsname;
     UINT64  min_start_lba;
-    UINTN   status;
     BOOLEAN have_esp;
     
     new_mbr_part_count = 0;
@@ -237,7 +236,7 @@ static UINTN analyze(VOID)
         gpt_parts[i].mbr_type = gpt_parts[i].gpt_parttype->mbr_type;
         if (gpt_parts[i].gpt_parttype->kind == GPT_KIND_BASIC_DATA) {
             // Basic Data: need to look at data in the partition
-            status = detect_mbrtype_fs(gpt_parts[i].start_lba, &detected_parttype, &fsname);
+            detect_mbrtype_fs(gpt_parts[i].start_lba, &detected_parttype, &fsname);
             if (detected_parttype)
                 gpt_parts[i].mbr_type = detected_parttype;
             else
@@ -245,7 +244,7 @@ static UINTN analyze(VOID)
         } else if (gpt_parts[i].mbr_type == 0xef) {
             // EFI System Partition: GNU parted can put this on any partition,
             // need to detect file systems
-            status = detect_mbrtype_fs(gpt_parts[i].start_lba, &detected_parttype, &fsname);
+            detect_mbrtype_fs(gpt_parts[i].start_lba, &detected_parttype, &fsname);
             if (!have_esp && (detected_parttype == 0x01 || detected_parttype == 0x0e || detected_parttype == 0x0c))
                 ;  // seems to be a legitimate ESP, don't change
             else if (detected_parttype)

@@ -95,20 +95,19 @@ int audit_daemonize(void) {
 #ifdef USESELINUX
     int fd;
     pid_t child;
-    int i;
     if ((child = fork()) > 0)
         return 0;
 
 #ifndef STANDALONE 
-    for (i = 0; i < getdtablesize(); i++)
-        close(i);
+    for (fd = 0; fd < getdtablesize(); fd++)
+        close(fd);
     signal(SIGTTOU, SIG_IGN);
     signal(SIGTTIN, SIG_IGN);
     signal(SIGTSTP, SIG_IGN);
 #endif /* !defined(STANDALONE) */
 
     if ((fd = open("/proc/self/oom_adj", O_RDWR)) >= 0) {
-        i = write(fd, "-17", 3);
+        write(fd, "-17", 3);
         close(fd);
     }
     fd = audit_open();
