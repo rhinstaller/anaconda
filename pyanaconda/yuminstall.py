@@ -1593,7 +1593,7 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
                 anaconda.keyboard.write(anaconda.rootPath)
         else:
             # ensure that /etc/mtab is a symlink to /proc/self/mounts
-            anaconda.storage.writeMtab(root=anaconda.rootPath)
+            anaconda.storage.makeMtab(root=anaconda.rootPath)
 
     def checkSupportedUpgrade(self, anaconda):
         if anaconda.dir == DISPATCH_BACK:
