@@ -221,6 +221,16 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Thu Jan 27 2011 David Cantrell <dcantrell@redhat.com> - 13.21.93-1
+- Move reipl step to be after instbootloader step. (dcantrell)
+  Related: rhbz#618376
+- Remove 'Change device' button from bootloader screen on EFI systems (wwoods)
+  Resolves: rhbz#582143
+- Remove forced 800x600 geometry switch for Xvnc (dcantrell)
+  Related: rhbz#663411
+- Disable partition resize support for DASD labels (dcantrell)
+  Resolves: rhbz#605912
+
 * Wed Jan 26 2011 Martin Sivak <msivak@redhat.com> - 13.21.92-1
 - Add noeject support anaconda (bcl)
   Resolves: rhbz#665094
