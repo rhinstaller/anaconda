@@ -21,6 +21,7 @@
 
 import gtk
 import gobject
+import iutil
 from pyanaconda import gui
 from iw_gui import *
 from pyanaconda.constants import *
@@ -73,7 +74,8 @@ class MainBootloaderWindow(InstallWindow):
         active = self.grubCB.get_active()
 
         for widget in [ self.oslist.getWidget(), self.blpass.getWidget(), self.deviceButton ]:
-            widget.set_sensitive(active)
+            if widget:
+                widget.set_sensitive(active)
 
 
     def _deviceChange(self, b, anaconda, *args):
@@ -226,9 +228,13 @@ class MainBootloaderWindow(InstallWindow):
         self.grubCB.connect("toggled", self.bootloaderChanged)
         hb.pack_start(self.grubCB, False)
 
-        self.deviceButton = gtk.Button(_("_Change device"))
-        self.deviceButton.connect("clicked", self._deviceChange, anaconda)
-        hb.pack_start(self.deviceButton, False)
+        # no "Change device" button on EFI systems, since there should only
+        # be one EFI System Partition available/usable
+        self.deviceButton = None
+        if not iutil.isEfi():
+            self.deviceButton = gtk.Button(_("_Change device"))
+            self.deviceButton.connect("clicked", self._deviceChange, anaconda)
+            hb.pack_start(self.deviceButton, False)
 
         thebox.pack_start(hb, False)
 
