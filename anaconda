@@ -164,7 +164,11 @@ def symlink_updates(dest_dir, update_dir):
             os.symlink(dest_path, update_path)
 
 def parseOptions(argv = None):
-    op = OptionParser()
+    # Using _isys here so we don't drag in the logging stuff, which is always
+    # complicated.
+    from pyanaconda import _isys
+    op = OptionParser(version="%prog " + _isys.getAnacondaVersion())
+
     # Interface
     op.add_option("-C", "--cmdline", dest="display_mode", action="store_const", const="c",
                   default="g")
