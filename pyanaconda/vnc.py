@@ -219,7 +219,7 @@ class VncServer:
         # Lets start the xvnc regardless of vncconnecthost and password.
         # We can change the configuration on the fly later.
         xvnccommand =  [ self.root + "/usr/bin/Xvnc", ":%s" % self.display, "-nevershared",
-                        "-depth", "16", "-geometry", "800x600", "-br",
+                        "-depth", "16", "-br",
                         "IdleTimeout=0", "-auth", "/dev/null", "-once",
                         "DisconnectClients=false", "desktop=%s" % (self.desktop,),
                         "SecurityTypes=None"]
