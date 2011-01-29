@@ -77,8 +77,8 @@ def findRootParts(anaconda):
     if anaconda.dir == DISPATCH_BACK:
         return
     if anaconda.rootParts is None:
-        (anaconda.rootParts, notUpgradable) = findExistingRoots(anaconda,
-                                               flags.cmdline.has_key("upgradeany"))
+        (anaconda.rootParts, notUpgradable) = findExistingRootDevices(anaconda,
+                                        upgradeany=flags.cmdline.has_key("upgradeany"))
 
         if notUpgradable and not anaconda.rootParts:
             oldInstalls = ""
@@ -105,9 +105,6 @@ def findRootParts(anaconda):
         anaconda.dispatch.skipStep("findinstall", skip = 0)
     else:
         anaconda.dispatch.skipStep("findinstall", skip = 1)
-
-def findExistingRoots(anaconda, upgradeany=False):
-    return findExistingRootDevices(anaconda, upgradeany=upgradeany)
 
 def bindMountDevDirectory(instPath):
     getFormat("bind",
