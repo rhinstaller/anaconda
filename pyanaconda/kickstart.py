@@ -573,7 +573,7 @@ class Logging(commands.logging.FC6_Logging):
                 remote_server = "%s:%s" %(self.host, self.port)
             logger.updateRemote(remote_server)
 
-class NetworkData(commands.network.F8_NetworkData):
+class NetworkData(commands.network.F16_NetworkData):
     def execute(self):
         if flags.imageInstall:
             if self.hostname != "":
