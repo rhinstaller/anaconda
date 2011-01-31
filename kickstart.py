@@ -640,6 +640,9 @@ class NetworkData(commands.network.RHEL6_NetworkData):
         if self.gateway != "":
             anaconda.id.network.setGateway(self.gateway, dev.iface)
 
+        if self.nodefroute:
+            dev.set (("DEFROUTE", "no"))
+
         needs_net = (anaconda.methodstr and
                      (anaconda.methodstr.startswith("http:") or
                       anaconda.methodstr.startswith("ftp:") or
