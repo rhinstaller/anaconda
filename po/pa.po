@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anaconda.master.pa\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2010-12-22 13:33-0500\n"
-"PO-Revision-Date: 2011-01-11 15:23+0530\n"
+"POT-Creation-Date: 2011-01-19 10:10-0500\n"
+"PO-Revision-Date: 2011-01-31 15:12+0530\n"
 "Last-Translator: Jaswinder Singh <j.phulewala@gmail.com>\n"
 "Language-Team: PLTG\n"
 "Language: pa\n"
@@ -22,37 +22,38 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Virtaal 0.6.1\n"
 
-#: anaconda:314
+#: anaconda:315
 msgid "Press <enter> for a shell"
 msgstr "ਇੱਕ ਸ਼ੈੱਲ ਲਈ <enter> ਦਬਾਓ"
 
-#: anaconda:328
+#: anaconda:329
 #, c-format
 msgid ""
 "%s requires %s MB of memory to install, but you only have %s MB on this "
 "machine.\n"
-msgstr "%s ਨੂੰ ਇੰਸਟਾਲ ਕਰਨ ਲਈ %s MB ਮੈਮੋਰੀ ਦੀ ਲੋੜ ਹੈ, ਪਰ ਤੁਹਾਡੇ ਕੋਲ ਇਸ ਮਸ਼ੀਨ ਉੱਪਰ ਸਿਰਫ "
-"%s MB ਹੈ।\n"
+msgstr ""
+"%s ਨੂੰ ਇੰਸਟਾਲ ਕਰਨ ਲਈ %s MB ਮੈਮੋਰੀ ਦੀ ਲੋੜ ਹੈ, ਪਰ ਤੁਹਾਡੇ ਕੋਲ ਇਸ ਮਸ਼ੀਨ ਉੱਪਰ ਸਿਰਫ %s MB ਹੈ।\n"
 
-#: anaconda:330
+#: anaconda:331
 #, c-format
 msgid ""
 "%s requires %s MB of memory to install using this installation method, but "
 "you only have %s MB on this machine.\n"
-msgstr "ਇਹ ਇੰਸਟਾਲੇਸ਼ਨ ਢੰਗ ਵਰਤ ਕੇ ਇੰਸਟਾਲ ਕਰਨ ਲਈ %s ਨੂੰ %s MB ਮੈਮੋਰੀ ਦੀ ਲੋੜ ਹੈ, ਪਰ "
-"ਤੁਹਾਡੇ ਕੋਲ ਇਸ ਮਸ਼ੀਨ ਤੇ ਸਿਰਫ  %s MB ਹੈ।\n"
+msgstr ""
+"ਇਹ ਇੰਸਟਾਲੇਸ਼ਨ ਢੰਗ ਵਰਤ ਕੇ ਇੰਸਟਾਲ ਕਰਨ ਲਈ %s ਨੂੰ %s MB ਮੈਮੋਰੀ ਦੀ ਲੋੜ ਹੈ, ਪਰ ਤੁਹਾਡੇ ਕੋਲ ਇਸ ਮਸ਼ੀਨ "
+"ਤੇ ਸਿਰਫ  %s MB ਹੈ।\n"
 
-#: anaconda:333
+#: anaconda:334
 #, c-format
 msgid ""
 "The %s graphical installer requires %s MB of memory, but you only have %s MB."
 msgstr "%s ਗਰਾਫੀਕਲ ਇੰਸਟਾਲਰ ਲਈ %s MB ਮੈਮੋਰੀ ਦੀ ਲੋੜ ਹੈ, ਪਰ ਇਸ ਕੋਲ ਸਿਰਫ %s MB ਹੈ।"
 
-#: anaconda:338
+#: anaconda:339
 msgid "Not enough RAM"
 msgstr "ਲੋੜੀਂਦੀ RAM ਨਹੀਂ ਹੈ"
 
-#: anaconda:339
+#: anaconda:340
 msgid ""
 " Try the text mode installer by running:\n"
 "\n"
@@ -66,11 +67,11 @@ msgstr ""
 "\n"
 " ਰੂਟ ਟਰਮੀਨਲ ਤੋਂ।"
 
-#: anaconda:342
+#: anaconda:343
 msgid " Starting text mode."
 msgstr "   ਟੈਕਸਟ ਮੋਡ ਸ਼ੁਰੂ ਹੋ ਰਿਹਾ ਹੈ"
 
-#: anaconda:366 pyanaconda/rescue.py:361 pyanaconda/rescue.py:393
+#: anaconda:367 pyanaconda/rescue.py:361 pyanaconda/rescue.py:393
 #: pyanaconda/rescue.py:406 pyanaconda/rescue.py:490 pyanaconda/rescue.py:507
 #: pyanaconda/rescue.py:518 pyanaconda/text.py:537 loader/windows.h:30
 #: loader/cdinstall.c:186 loader/cdinstall.c:190 loader/cdinstall.c:205
@@ -88,8 +89,8 @@ msgstr "   ਟੈਕਸਟ ਮੋਡ ਸ਼ੁਰੂ ਹੋ ਰਿਹਾ ਹੈ"
 #: loader/kickstart.c:382 loader/kickstart.c:571 loader/lang.c:113
 #: loader/lang.c:367 loader/loader.c:422 loader/loader.c:458
 #: loader/loader.c:498 loader/loader.c:516 loader/loader.c:533
-#: loader/loader.c:570 loader/loader.c:1217 loader/loader.c:1236
-#: loader/loader.c:1380 loader/mediacheck.c:47 loader/mediacheck.c:86
+#: loader/loader.c:570 loader/loader.c:1204 loader/loader.c:1223
+#: loader/loader.c:1367 loader/mediacheck.c:47 loader/mediacheck.c:86
 #: loader/mediacheck.c:93 loader/mediacheck.c:97 loader/mediacheck.c:106
 #: loader/method.c:194 loader/method.c:268 loader/net.c:625 loader/net.c:1007
 #: loader/net.c:1655 loader/net.c:1676 loader/net.c:1982 loader/net.c:2001
@@ -101,11 +102,11 @@ msgstr "   ਟੈਕਸਟ ਮੋਡ ਸ਼ੁਰੂ ਹੋ ਰਿਹਾ ਹੈ"
 msgid "OK"
 msgstr "ਠੀਕ ਹੈ"
 
-#: anaconda:748
+#: anaconda:749
 msgid "Would you like to use VNC?"
 msgstr "ਕੀ ਤੁਸੀਂ VNC ਵਰਤਣਾ ਚਾਹੋਗੇ?"
 
-#: anaconda:749
+#: anaconda:750
 msgid ""
 "Text mode provides a limited set of installation options.  It does not allow "
 "you to specify your own partitioning layout or package selections.  Would "
@@ -114,30 +115,30 @@ msgstr ""
 "ਪਾਠ ਢੰਗ ਵਿੱਚ ਇੰਸਟਾਲੇਸ਼ਨ ਚੋਣਾਂ ਸੀਮਿਤ ਹੁੰਦੀਆਂ ਹਨ।  ਇਹ ਤੁਹਾਨੂੰ ਆਪਣਾ ਵੱਖਰਾ ਵਿਭਾਗੀਕਰਨ ਖਾਕਾ ਜਾਂ "
 "ਪੈਕੇਜ ਚੋਣ ਨਿਰਧਾਰਤ ਨਹੀਂ ਕਰ ਦਿੰਦੀ।  ਕੀ ਤੁਸੀਂ VNC ਮੋਡ ਵਰਤਣਾ ਚਾਹੁੰਦੇ ਹੋ?"
 
-#: anaconda:775
+#: anaconda:776
 msgid "Graphical installation is not available. Starting text mode."
 msgstr "ਗਰਾਫੀਕਲ ਇੰਸਟਾਲੇਸ਼ਨ ਉਪਲੱਬਧ ਨਹੀਂ ਹੈ। ਟੈਕਸਟ ਮੋਡ ਸ਼ੁਰੂ ਹੋ ਰਿਹਾ ਹੈ।"
 
-#: anaconda:783
+#: anaconda:784
 msgid "DISPLAY variable not set. Starting text mode."
 msgstr "DISPLAY ਵੇਰੀਏਬਲ ਨਹੀਂ ਦਿੱਤਾ ਹੈ। ਟੈਕਸਟ ਮੋਡ ਸ਼ੁਰੂ ਹੋ ਰਿਹਾ ਹੈ!"
 
-#: pyanaconda/backend.py:133
+#: pyanaconda/backend.py:132
 #, python-format
 msgid "Upgrading %s\n"
 msgstr "%s ਅੱਪਗਰੇਡ ਹੋ ਰਿਹਾ ਹੈ\n"
 
-#: pyanaconda/backend.py:135
+#: pyanaconda/backend.py:134
 #, python-format
 msgid "Installing %s\n"
 msgstr "%s ਇੰਸਟਾਲ ਹੋ ਰਿਹਾ ਹੈ\n"
 
 #: pyanaconda/bootloader.py:55 pyanaconda/bootloader.py:221
-#: pyanaconda/bootloader.py:227 pyanaconda/gui.py:1155 pyanaconda/image.py:73
+#: pyanaconda/bootloader.py:227 pyanaconda/gui.py:1156 pyanaconda/image.py:73
 #: pyanaconda/installinterfacebase.py:51
 #: pyanaconda/installinterfacebase.py:130 pyanaconda/packages.py:320
-#: pyanaconda/text.py:412 pyanaconda/yuminstall.py:1486
-#: pyanaconda/yuminstall.py:1624 pyanaconda/yuminstall.py:1659
+#: pyanaconda/text.py:412 pyanaconda/yuminstall.py:1498
+#: pyanaconda/yuminstall.py:1636 pyanaconda/yuminstall.py:1671
 #: pyanaconda/iw/blpasswidget.py:149 pyanaconda/iw/upgrade_swap_gui.py:190
 #: pyanaconda/iw/upgrade_swap_gui.py:198 pyanaconda/iw/upgrade_swap_gui.py:205
 #: pyanaconda/textw/upgrade_text.py:193
@@ -155,26 +156,26 @@ msgstr ""
 "\n"
 "ਕੀ ਤੁਸੀਂ ਇੰਸਟਾਲੇਸ਼ਨ ਜਾਰੀ ਕਰਨਾ ਚਾਹੁੰਦੇ ਹੋ?"
 
-#: pyanaconda/bootloader.py:60 pyanaconda/gui.py:1178 pyanaconda/gui.py:1215
-#: pyanaconda/gui.py:1417 pyanaconda/image.py:82 pyanaconda/livecd.py:190
-#: pyanaconda/livecd.py:422 pyanaconda/packages.py:137
-#: pyanaconda/upgrade.py:58 pyanaconda/upgrade.py:98 pyanaconda/upgrade.py:254
-#: pyanaconda/yuminstall.py:259 pyanaconda/yuminstall.py:812
-#: pyanaconda/yuminstall.py:991 pyanaconda/yuminstall.py:996
-#: pyanaconda/yuminstall.py:1074 pyanaconda/yuminstall.py:1080
-#: pyanaconda/yuminstall.py:1234 pyanaconda/yuminstall.py:1249
-#: pyanaconda/yuminstall.py:1304 pyanaconda/yuminstall.py:1495
-#: pyanaconda/yuminstall.py:1514 pyanaconda/yuminstall.py:1537
-#: pyanaconda/storage/__init__.py:114 pyanaconda/storage/__init__.py:123
-#: pyanaconda/storage/__init__.py:234 pyanaconda/storage/__init__.py:2002
+#: pyanaconda/bootloader.py:60 pyanaconda/gui.py:1179 pyanaconda/gui.py:1216
+#: pyanaconda/gui.py:1418 pyanaconda/image.py:82 pyanaconda/livecd.py:167
+#: pyanaconda/packages.py:137 pyanaconda/upgrade.py:58
+#: pyanaconda/upgrade.py:98 pyanaconda/upgrade.py:254
+#: pyanaconda/yuminstall.py:259 pyanaconda/yuminstall.py:824
+#: pyanaconda/yuminstall.py:1003 pyanaconda/yuminstall.py:1008
+#: pyanaconda/yuminstall.py:1086 pyanaconda/yuminstall.py:1092
+#: pyanaconda/yuminstall.py:1246 pyanaconda/yuminstall.py:1261
+#: pyanaconda/yuminstall.py:1316 pyanaconda/yuminstall.py:1507
+#: pyanaconda/yuminstall.py:1526 pyanaconda/yuminstall.py:1549
+#: pyanaconda/storage/__init__.py:113 pyanaconda/storage/__init__.py:122
+#: pyanaconda/storage/__init__.py:250 pyanaconda/storage/__init__.py:2035
 msgid "_Exit installer"
 msgstr "ਇੰਸਟਾਲਰ ਬੰਦ ਕਰੋ(_E)"
 
 #: pyanaconda/bootloader.py:60 pyanaconda/image.py:83
-#: pyanaconda/kickstart.py:1424 pyanaconda/kickstart.py:1463
+#: pyanaconda/kickstart.py:1425 pyanaconda/kickstart.py:1464
 #: pyanaconda/upgrade.py:58 pyanaconda/upgrade.py:98
-#: pyanaconda/yuminstall.py:1309 pyanaconda/yuminstall.py:1496
-#: pyanaconda/iw/partition_gui.py:1602 pyanaconda/storage/__init__.py:2003
+#: pyanaconda/yuminstall.py:1321 pyanaconda/yuminstall.py:1508
+#: pyanaconda/iw/partition_gui.py:1602 pyanaconda/storage/__init__.py:2036
 msgid "_Continue"
 msgstr "ਜਾਰੀ ਰੱਖੋ(_C)"
 
@@ -206,10 +207,10 @@ msgstr "ਮੁਕੰਮਲ"
 msgid "In progress"
 msgstr "ਜਾਰੀ ਹੈ"
 
-#: pyanaconda/cmdline.py:89 pyanaconda/gui.py:1210
-#: pyanaconda/kickstart.py:1211 pyanaconda/kickstart.py:1291
-#: pyanaconda/kickstart.py:1299 pyanaconda/kickstart.py:1335
-#: pyanaconda/kickstart.py:1345 pyanaconda/text.py:393
+#: pyanaconda/cmdline.py:89 pyanaconda/gui.py:1211
+#: pyanaconda/kickstart.py:1212 pyanaconda/kickstart.py:1292
+#: pyanaconda/kickstart.py:1300 pyanaconda/kickstart.py:1336
+#: pyanaconda/kickstart.py:1346 pyanaconda/text.py:393
 #, python-format
 msgid ""
 "The following error was found while parsing the kickstart configuration "
@@ -320,7 +321,7 @@ msgstr ""
 "ਜੰਤਰ %s ਇੰਕ੍ਰਿਪਟ ਕੀਤਾ ਹੈ। ਇੰਸਟਾਲੇਸ਼ਨ ਦੌਰਾਨ ਜੰਤਰ ਦੇ ਸੰਖੇਪ ਵਰਤਣ ਲਈ ਤੁਹਾਨੂੰ ਹੇਠਾਂ ਜੰਤਰ ਦਾ ਪ੍ਹੈਰਾ "
 "ਦੇਣਾ ਪਵੇਗਾ।"
 
-#: pyanaconda/gui.py:681 pyanaconda/gui.py:1417
+#: pyanaconda/gui.py:682 pyanaconda/gui.py:1418
 #: pyanaconda/partIntfHelpers.py:159 pyanaconda/partIntfHelpers.py:344
 #: pyanaconda/text.py:101 pyanaconda/text.py:102
 #: pyanaconda/iw/account_gui.py:131 loader/dirbrowser.c:130
@@ -329,77 +330,77 @@ msgstr ""
 msgid "Cancel"
 msgstr "ਰੱਦ ਕਰੋ"
 
-#: pyanaconda/gui.py:693 pyanaconda/gui.py:694 pyanaconda/gui.py:790
-#: pyanaconda/gui.py:862 pyanaconda/gui.py:863 data/ui/anaconda.glade.h:3
+#: pyanaconda/gui.py:694 pyanaconda/gui.py:695 pyanaconda/gui.py:791
+#: pyanaconda/gui.py:863 pyanaconda/gui.py:864 data/ui/anaconda.glade.h:3
 msgid "_Debug"
 msgstr "ਡੀਬੱਗ(_D)"
 
-#: pyanaconda/gui.py:989
+#: pyanaconda/gui.py:990
 msgid "Wireless setup"
 msgstr "ਵਾਇਰਲੈੱਸ ਸੈੱਟਅੱਪ"
 
-#: pyanaconda/gui.py:990
+#: pyanaconda/gui.py:991
 msgid "Scanning access points for wireless devices"
 msgstr "ਵਾਇਰਲੈੱਸ ਜੰਤਰਾਂ ਲਈ ਐਕਸੈੱਸ ਪੁਆਂਇਟ ਖੋਜ ਰਿਹਾ ਹੈ"
 
-#: pyanaconda/gui.py:1018 pyanaconda/textw/netconfig_text.py:399
+#: pyanaconda/gui.py:1019 pyanaconda/textw/netconfig_text.py:399
 msgid "Waiting for NetworkManager"
 msgstr "ਨੈੱਟਵਰਕ-ਮੈਨੇਜਰ ਲਈ ਉਡੀਕ ਜਾਰੀ"
 
-#: pyanaconda/gui.py:1019
+#: pyanaconda/gui.py:1020
 #, python-format
 msgid "Waiting for NetworkManager to activate these devices: %s"
 msgstr "NetworkManager ਦੁਆਰਾ ਇਹਨਾਂ ਜੰਤਰਾਂ ਨੂੰ ਸਰਗਰਮ ਕਰਨ ਦੀ ਉਡੀਕ ਕਰ ਰਿਹਾ ਹੈ: %s"
 
-#: pyanaconda/gui.py:1046
+#: pyanaconda/gui.py:1047
 #, python-format
 msgid "Failed to activate these network interfaces: %s"
 msgstr "ਇਹਨਾਂ ਨੈੱਟਵਰਕ ਇੰਟਰਫੇਸਾਂ ਨੂੰ ਸਰਗਰਮ ਕਰਨ ਤੋਂ ਫੇਲ: %s"
 
-#: pyanaconda/gui.py:1049
+#: pyanaconda/gui.py:1050
 msgid "Network Configuration"
 msgstr "ਨੈੱਟਵਰਕ ਸੰਰਚਨਾ"
 
-#: pyanaconda/gui.py:1058
+#: pyanaconda/gui.py:1059
 #, python-format
 msgid "An error occurred trying to bring up the %s network interface."
 msgstr "%s ਨੈੱਟਵਰਕ ਇੰਟਰਫੇਸ ਚਾਲੂ ਕਰਨ ਦੌਰਾਨ ਗਲਤੀ ਹੈ।"
 
-#: pyanaconda/gui.py:1060
+#: pyanaconda/gui.py:1061
 msgid "Error Enabling Network"
 msgstr "ਨੈੱਟਵਰਕ ਯੋਗ ਕਰਨ ਵੇਲੇ ਗਲਤੀ"
 
-#: pyanaconda/gui.py:1156 pyanaconda/text.py:413
+#: pyanaconda/gui.py:1157 pyanaconda/text.py:413
 msgid ""
 "You do not have an active network connection.  This is required by some "
 "exception saving methods.  Would you like to configure your network now?"
 msgstr ""
-"ਤੁਹਾਡੇ ਕੋਲ ਇੱਕ ਸਰਗਰਮ ਨੈੱਟਵਰਕ ਕੁਨੈਕਸ਼ਨ ਨਹੀਂ ਹੈ। ਇਹ ਕੁਝ ਅੱਪਵਾਦ ਸੰਭਾਲ ਢੰਗਾਂ ਲਈ "
-"ਲੋੜੀਂਦਾ ਹੈ। ਕੀ ਤੁਸੀਂ ਹੁਣ ਆਪਣੇ ਨੈੱਟਵਰਕ ਨੂੰ ਸੰਰਚਿਤ ਕਰਨਾ ਚਾਹੁੰਦੇ ਹੋ?"
+"ਤੁਹਾਡੇ ਕੋਲ ਇੱਕ ਸਰਗਰਮ ਨੈੱਟਵਰਕ ਕੁਨੈਕਸ਼ਨ ਨਹੀਂ ਹੈ। ਇਹ ਕੁਝ ਅੱਪਵਾਦ ਸੰਭਾਲ ਢੰਗਾਂ ਲਈ ਲੋੜੀਂਦਾ ਹੈ। ਕੀ ਤੁਸੀਂ "
+"ਹੁਣ ਆਪਣੇ ਨੈੱਟਵਰਕ ਨੂੰ ਸੰਰਚਿਤ ਕਰਨਾ ਚਾਹੁੰਦੇ ਹੋ?"
 
-#: pyanaconda/gui.py:1162 pyanaconda/rescue.py:270 pyanaconda/text.py:419
-#: pyanaconda/yuminstall.py:807 pyanaconda/yuminstall.py:1229
+#: pyanaconda/gui.py:1163 pyanaconda/rescue.py:270 pyanaconda/text.py:419
+#: pyanaconda/yuminstall.py:819 pyanaconda/yuminstall.py:1241
 #: pyanaconda/iw/task_gui.py:308
 msgid "No Network Available"
 msgstr "ਕੋਈ ਨੈੱਟਵਰਕ ਉਪਲੱਬਧ ਨਹੀਂ"
 
-#: pyanaconda/gui.py:1163 pyanaconda/text.py:420
+#: pyanaconda/gui.py:1164 pyanaconda/text.py:420
 msgid "Remote exception saving methods will not work."
 msgstr "ਰਿਮੋਟ ਅੱਪਵਾਦ ਸੰਭਾਲਣ ਦੇ ਤਰੀਕੇ ਕੰਮ ਨਹੀਂ ਕਰਨਗੇ।"
 
-#: pyanaconda/gui.py:1212 pyanaconda/text.py:395
+#: pyanaconda/gui.py:1213 pyanaconda/text.py:395
 msgid "Error Parsing Kickstart Config"
 msgstr "ਗਲਤੀ ਕਿੱਕਸਟਾਰਟ ਸੰਰਚਨਾ ਨੂੰ ਪਾਰਸ ਕਰਨ ਦੌਰਾਨ"
 
-#: pyanaconda/gui.py:1240
+#: pyanaconda/gui.py:1241
 msgid "default:LTR"
 msgstr "default:LTR"
 
-#: pyanaconda/gui.py:1321 pyanaconda/text.py:514
+#: pyanaconda/gui.py:1322 pyanaconda/text.py:514
 msgid "Error!"
 msgstr "ਗਲਤੀ!"
 
-#: pyanaconda/gui.py:1322 pyanaconda/text.py:515
+#: pyanaconda/gui.py:1323 pyanaconda/text.py:515
 #, python-format
 msgid ""
 "An error occurred when attempting to load an installer interface component.\n"
@@ -410,49 +411,49 @@ msgstr ""
 "\n"
 "className= %s"
 
-#: pyanaconda/gui.py:1327 pyanaconda/image.py:143 pyanaconda/image.py:171
-#: pyanaconda/packages.py:337 pyanaconda/storage/__init__.py:1819
+#: pyanaconda/gui.py:1328 pyanaconda/image.py:145 pyanaconda/image.py:173
+#: pyanaconda/packages.py:337 pyanaconda/storage/__init__.py:1852
 msgid "_Exit"
 msgstr "ਬਾਹਰ(_E)"
 
-#: pyanaconda/gui.py:1328 pyanaconda/image.py:143 pyanaconda/image.py:171
-#: pyanaconda/livecd.py:190 pyanaconda/yuminstall.py:899
-#: pyanaconda/yuminstall.py:1249 pyanaconda/yuminstall.py:1304
-#: pyanaconda/yuminstall.py:1514
+#: pyanaconda/gui.py:1329 pyanaconda/image.py:145 pyanaconda/image.py:173
+#: pyanaconda/livecd.py:167 pyanaconda/yuminstall.py:911
+#: pyanaconda/yuminstall.py:1261 pyanaconda/yuminstall.py:1316
+#: pyanaconda/yuminstall.py:1526
 msgid "_Retry"
 msgstr "ਮੁਡ਼ ਕੋਸ਼ਿਸ਼(_R)"
 
-#: pyanaconda/gui.py:1330 pyanaconda/storage/partitioning.py:280
+#: pyanaconda/gui.py:1331 pyanaconda/storage/partitioning.py:282
 msgid "The system will now reboot."
 msgstr "ਸਿਸਟਮ ਹੁਣ ਮੁਡ਼-ਚਾਲੂ ਹੋ ਜਾਵੇਗਾ।"
 
-#: pyanaconda/gui.py:1331 pyanaconda/packages.py:341
+#: pyanaconda/gui.py:1332 pyanaconda/packages.py:341
 msgid "_Reboot"
 msgstr "ਮੁਡ਼ ਚਾਲੂ(_R)"
 
-#: pyanaconda/gui.py:1333
+#: pyanaconda/gui.py:1334
 msgid "Exiting"
 msgstr "ਬੰਦ ਹੋ ਰਿਹਾ ਹੈ"
 
-#: pyanaconda/gui.py:1414 pyanaconda/livecd.py:126 pyanaconda/text.py:271
+#: pyanaconda/gui.py:1415 pyanaconda/livecd.py:126 pyanaconda/text.py:271
 #: pyanaconda/upgrade.py:245
 msgid "Exit installer"
 msgstr "ਇੰਸਟਾਲਰ ਬੰਦ ਕਰੋ"
 
-#: pyanaconda/gui.py:1415
+#: pyanaconda/gui.py:1416
 msgid "Are you sure you wish to exit the installer?"
 msgstr "ਕੀ ਤੁਸੀਂ ਸਕੀਨਨ ਇੰਸਟਾਲੇਸ਼ਨ ਬੰਦ ਕਰਨੀ ਚਾਹੁੰਦੇ ਹੋ?"
 
-#: pyanaconda/gui.py:1424
+#: pyanaconda/gui.py:1425
 #, python-format
 msgid "%s Installer"
 msgstr "%s ਇੰਸਟਾਲਰ"
 
-#: pyanaconda/gui.py:1430
+#: pyanaconda/gui.py:1431
 msgid "Unable to load title bar"
 msgstr "ਟਾਈਟਲ ਬਾਰ ਲੋਡ ਕਰਨ ਵਿੱਚ ਅਸਮਰੱਥ"
 
-#: pyanaconda/gui.py:1508
+#: pyanaconda/gui.py:1506
 msgid "Install Window"
 msgstr "ਇੰਸਟਾਲ ਵਿੰਡੋ"
 
@@ -471,11 +472,11 @@ msgstr ""
 "ਤੁਹਾਨੂੰ ਬੰਦ ਕਰਨ ਅਤੇ ਇੰਸਟਾਲੇਸ਼ਨ ਰੋਕਣ ਦੀ ਸਿਫ਼ਾਰਸ਼ ਕੀਤੀ ਜਾਂਦੀ ਹੈ, ਪਰ ਜੇ ਤੁਸੀਂ ਸੋਚਦੇ ਹੋ ਕਿ ਇਹ ਇੱਕ "
 "ਗਲਤੀ ਹੈ ਤਾਂ ਜਾਰੀ ਵੀ ਰੱਖ ਸਕਦੇ ਹੋ।"
 
-#: pyanaconda/image.py:135
+#: pyanaconda/image.py:137
 msgid "Couldn't Mount ISO Source"
 msgstr "ISO ਸਰੋਤ ਮਾਊਂਟ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਿਆ"
 
-#: pyanaconda/image.py:136
+#: pyanaconda/image.py:138
 #, python-format
 msgid ""
 "An error occurred mounting the source device %s.  This may happen if your "
@@ -487,11 +488,11 @@ msgstr ""
 "ਜੰਤਰ ਜਿਵੇਂ LVM ਜਾਂ RAID ਉੱਪਰ ਰੱਖੇ ਹਨ, ਜਾਂ ਜੇ ਪਾਰਟੀਸ਼ਨ ਮਾਊਂਟ ਕਰਨ ਵਿੱਚ ਸਮੱਸਿਆ ਹੈ। ਇੰਸਟਾਲੇਸ਼ਨ "
 "ਰੋਕਣ ਲਈ ਬਾਹਰ ਦਬਾਓ।"
 
-#: pyanaconda/image.py:162
+#: pyanaconda/image.py:164
 msgid "Missing ISO 9660 Image"
 msgstr "ISO 9660 ਈਮੇਜ਼ ਨਹੀਂ ਹੈ"
 
-#: pyanaconda/image.py:163
+#: pyanaconda/image.py:165
 msgid ""
 "The installer has tried to mount the installation image, but cannot find it "
 "on the hard drive.\n"
@@ -499,24 +500,24 @@ msgid ""
 "Please copy this image to the drive and click Retry.  Click Exit to abort "
 "the installation."
 msgstr ""
-"ਇੰਸਟਾਲਰ ਨੇ ਇੰਸਟਾਲੇਸ਼ਨ ਈਮੇਜ਼ ਨੂੰ ਮਾਊਂਟ ਕਰਨ ਦੀ ਕੋਸ਼ਿਸ਼ ਕੀਤੀ ਹੈ, ਪਰ ਇਸਨੂੰ ਹਾਰਡ "
-"ਡਰਾਈਵ ਤੇ ਲੱਭ ਨਹੀਂ ਸਕਿਆ ਹੈ।\n"
+"ਇੰਸਟਾਲਰ ਨੇ ਇੰਸਟਾਲੇਸ਼ਨ ਈਮੇਜ਼ ਨੂੰ ਮਾਊਂਟ ਕਰਨ ਦੀ ਕੋਸ਼ਿਸ਼ ਕੀਤੀ ਹੈ, ਪਰ ਇਸਨੂੰ ਹਾਰਡ ਡਰਾਈਵ ਤੇ ਲੱਭ ਨਹੀਂ "
+"ਸਕਿਆ ਹੈ।\n"
 "\n"
-"ਕਿਰਪਾ ਕਰਕੇ ਇਸ ਈਮੇਜ਼ ਨੂੰ ਡਰਾਈਵ ਉੱਪਰ ਕਾਪੀ ਕਰੋ ਅਤੇ ਮੁੜ-ਕੋਸ਼ਿਸ਼ ਦਬਾਓ।  ਇੰਸਟਾਲੇਸ਼ਨ "
-"ਅਧੂਰੀ ਛੱਡਣ ਲਈ ਬਾਹਰ ਦਬਾਓ।"
+"ਕਿਰਪਾ ਕਰਕੇ ਇਸ ਈਮੇਜ਼ ਨੂੰ ਡਰਾਈਵ ਉੱਪਰ ਕਾਪੀ ਕਰੋ ਅਤੇ ਮੁੜ-ਕੋਸ਼ਿਸ਼ ਦਬਾਓ।  ਇੰਸਟਾਲੇਸ਼ਨ ਅਧੂਰੀ ਛੱਡਣ ਲਈ "
+"ਬਾਹਰ ਦਬਾਓ।"
 
-#: pyanaconda/image.py:211 pyanaconda/livecd.py:183 pyanaconda/livecd.py:415
+#: pyanaconda/image.py:213 pyanaconda/livecd.py:160
 #: pyanaconda/partIntfHelpers.py:239 pyanaconda/text.py:356
 #: pyanaconda/text.py:360 pyanaconda/yuminstall.py:422
-#: pyanaconda/yuminstall.py:902 pyanaconda/yuminstall.py:989
-#: pyanaconda/yuminstall.py:994 pyanaconda/yuminstall.py:1254
-#: pyanaconda/yuminstall.py:1314 pyanaconda/yuminstall.py:1508
-#: pyanaconda/yuminstall.py:1530 pyanaconda/iw/advanced_storage.py:368
+#: pyanaconda/yuminstall.py:914 pyanaconda/yuminstall.py:1001
+#: pyanaconda/yuminstall.py:1006 pyanaconda/yuminstall.py:1266
+#: pyanaconda/yuminstall.py:1326 pyanaconda/yuminstall.py:1520
+#: pyanaconda/yuminstall.py:1542 pyanaconda/iw/advanced_storage.py:368
 #: pyanaconda/iw/advanced_storage.py:378 pyanaconda/iw/advanced_storage.py:427
 #: pyanaconda/iw/autopart_type.py:95 pyanaconda/iw/cleardisks_gui.py:44
-#: pyanaconda/iw/cleardisks_gui.py:54 pyanaconda/iw/filter_gui.py:431
+#: pyanaconda/iw/cleardisks_gui.py:54 pyanaconda/iw/filter_gui.py:432
 #: pyanaconda/iw/osbootwidget.py:211 pyanaconda/iw/osbootwidget.py:220
-#: pyanaconda/iw/raid_dialog_gui.py:224 pyanaconda/iw/task_gui.py:52
+#: pyanaconda/iw/raid_dialog_gui.py:226 pyanaconda/iw/task_gui.py:52
 #: pyanaconda/iw/task_gui.py:150 pyanaconda/iw/task_gui.py:302
 #: pyanaconda/iw/task_gui.py:464 loader/windows.h:30 loader/cdinstall.c:186
 #: loader/cdinstall.c:423 loader/driverdisk.c:208 loader/driverdisk.c:455
@@ -524,19 +525,19 @@ msgstr ""
 #: loader/driverdisk.c:598 loader/hdinstall.c:282 loader/hdinstall.c:300
 #: loader/hdinstall.c:309 loader/hdinstall.c:399 loader/hdinstall.c:438
 #: loader/hdinstall.c:453 loader/kickstart.c:299 loader/lang.c:113
-#: loader/loader.c:422 loader/loader.c:533 loader/loader.c:1217
+#: loader/loader.c:422 loader/loader.c:533 loader/loader.c:1204
 #: loader/mediacheck.c:47 loader/mediacheck.c:86 loader/mediacheck.c:93
 #: loader/mediacheck.c:97 loader/method.c:194 loader/method.c:268
 #: loader/nfsinstall.c:195 loader/urlinstall.c:139 loader/urlinstall.c:161
 #: loader/urlinstall.c:213 loader/urls.c:335 loader/urls.c:343
-#: loader/urls.c:350 pyanaconda/storage/__init__.py:230
-#: pyanaconda/storage/__init__.py:1820 pyanaconda/storage/__init__.py:1907
+#: loader/urls.c:350 pyanaconda/storage/__init__.py:246
+#: pyanaconda/storage/__init__.py:1853 pyanaconda/storage/__init__.py:1940
 #: pyanaconda/storage/zfcp.py:375 pyanaconda/textw/upgrade_text.py:181
 #: pyanaconda/textw/upgrade_text.py:188
 msgid "Error"
 msgstr "ਗਲਤੀ"
 
-#: pyanaconda/image.py:212
+#: pyanaconda/image.py:214
 #, python-format
 msgid ""
 "An error occurred unmounting the disc.  Please make sure you're not "
@@ -564,7 +565,7 @@ msgstr[1] ""
 "ਡਿਸਕਾਂ %s ਉੱਪਰ BIOS RAID ਮੈਟਾਡਾਟਾ ਹੈ, ਪਰ ਕਿਸੇ ਖੋਜੇ ਗਏ BIOS RAID ਸੈੱਟ ਦਾ ਹਿੱਸਾ ਨਹੀਂ ਹੈ। "
 "ਡਿਸਕ %s ਨੂੰ ਅਣਡਿੱਠਾ ਕਰ ਰਿਹਾ ਹੈ।"
 
-#: pyanaconda/installinterfacebase.py:82 data/ui/reinitialize-dialog.glade.h:4
+#: pyanaconda/installinterfacebase.py:82 data/ui/reinitialize-dialog.glade.h:3
 msgid "Storage Device Warning"
 msgstr "ਸਟੋਰੇਜ਼ ਜੰਤਰ ਚੇਤਾਵਨੀ"
 
@@ -647,8 +648,8 @@ msgstr "ਜੰਤਰ ਉੱਪਰ /boot ਸ਼ਾਮਿਲ ਹੈ"
 msgid ""
 "After shutdown, please perform a manual IPL from %s to continue installation."
 msgstr ""
-"ਸ਼ੱਟਡਾਊਨ ਤੋਂ ਬਾਅਦ, ਕਿਰਪਾ ਕਰਕੇ ਇੱਕ ਦਸਤੀ IPL ਨੂੰ IPL ਜੰਤਰ %s ਤੋਂ ਲਾਗੂ ਕਰੋ ਤਾਂ "
-"ਜੋ ਇੰਸਟਾਲੇਸ਼ਨ ਜਾਰੀ ਕੀਤੀ ਜਾ ਸਕੇ"
+"ਸ਼ੱਟਡਾਊਨ ਤੋਂ ਬਾਅਦ, ਕਿਰਪਾ ਕਰਕੇ ਇੱਕ ਦਸਤੀ IPL ਨੂੰ IPL ਜੰਤਰ %s ਤੋਂ ਲਾਗੂ ਕਰੋ ਤਾਂ ਜੋ ਇੰਸਟਾਲੇਸ਼ਨ ਜਾਰੀ "
+"ਕੀਤੀ ਜਾ ਸਕੇ"
 
 #: pyanaconda/kickstart.py:116
 #, python-format
@@ -671,8 +672,8 @@ msgid ""
 "Escrow certificate with url %s requires network to be enabled in loader or "
 "configured in kickstart file."
 msgstr ""
-"url %s ਵਾਲੇ Escrow ਸਾਰਟੀਫਿਕੇਟ ਲਈ ਲੋਡਰ ਵਿੱਚ ਨੈੱਟਵਰਕ ਯੋਗ ਹੋਣਾ ਚਾਹੀਦਾ ਹੈ ਅਤੇ "
-"ਕਿੱਕਸਟਾਰਟ ਫਾਇਲ ਵਿੱਚ ਸੰਰਚਿਤ ਕੀਤਾ ਹੋਣਾ ਚਾਹੀਦਾ ਹੈ।"
+"url %s ਵਾਲੇ Escrow ਸਾਰਟੀਫਿਕੇਟ ਲਈ ਲੋਡਰ ਵਿੱਚ ਨੈੱਟਵਰਕ ਯੋਗ ਹੋਣਾ ਚਾਹੀਦਾ ਹੈ ਅਤੇ ਕਿੱਕਸਟਾਰਟ "
+"ਫਾਇਲ ਵਿੱਚ ਸੰਰਚਿਤ ਕੀਤਾ ਹੋਣਾ ਚਾਹੀਦਾ ਹੈ।"
 
 #: pyanaconda/kickstart.py:164
 #, python-format
@@ -690,33 +691,33 @@ msgstr ""
 msgid "Could not log into any iSCSI nodes at the portal."
 msgstr "ਪੋਰਟਲ ਉੱਪਰ ਕਿਸੇ iSCSI ਨੋਡਾਂ ਵਿੱਚ ਲਾਗਇਨ ਨਹੀਂ ਕਰ ਸਕਿਆ।"
 
-#: pyanaconda/kickstart.py:1310
+#: pyanaconda/kickstart.py:1311
 #, python-format
 msgid "Error processing %%ksappend lines: %s"
 msgstr "%%ksappend ਸਤਰਾਂ ਖੋਲ੍ਹਣ ਵਿੱਚ ਗਲਤੀ: %s"
 
-#: pyanaconda/kickstart.py:1313
+#: pyanaconda/kickstart.py:1314
 #, python-format
 msgid "Unknown error processing %%ksappend lines: %s"
 msgstr "%%ksappend ਸਤਰਾਂ ਵਰਤਣ ਦੌਰਾਨ ਅਣਪਛਾਤੀ ਗਲਤੀ ਆਈ ਹੈ: %s"
 
-#: pyanaconda/kickstart.py:1368 pyanaconda/livecd.py:213
+#: pyanaconda/kickstart.py:1369 pyanaconda/livecd.py:190
 msgid "Post-Installation"
 msgstr "ਪੋਸਟ-ਇੰਸਟਾਲ"
 
-#: pyanaconda/kickstart.py:1369
+#: pyanaconda/kickstart.py:1370
 msgid "Running post-installation scripts"
 msgstr "ਪੋਸਟ-ਇੰਸਟਾਲੇਸ਼ਨ ਸਕਰਿਪਟਾਂ ਚੱਲ ਰਹੀਆਂ ਹਨ"
 
-#: pyanaconda/kickstart.py:1384
+#: pyanaconda/kickstart.py:1385
 msgid "Running pre-installation scripts"
 msgstr "ਪੋਸਟ-ਇੰਸਟਾਲੇਸ਼ਨ ਸਕਰਿਪਟਾਂ ਚੱਲ ਰਹੀਆਂ ਹਨ"
 
-#: pyanaconda/kickstart.py:1415
+#: pyanaconda/kickstart.py:1416
 msgid "Missing Package"
 msgstr "ਗੈਰ-ਮੌਜੂਦ ਪੈਕੇਜ"
 
-#: pyanaconda/kickstart.py:1416
+#: pyanaconda/kickstart.py:1417
 #, python-format
 msgid ""
 "You have specified that the package '%s' should be installed.  This package "
@@ -725,19 +726,19 @@ msgstr ""
 "ਤੁਸੀਂ ਚੁਣਿਆ ਹੈ ਕਿ ਪੈਕੇਜ '%s' ਇੰਸਟਾਲ ਹੋਣਾ ਚਾਹੀਦਾ ਹੈ।  ਇਹ ਪੈਕੇਜ ਮੌਜੂਦ ਨਹੀਂ ਹੈ। ਕੀ ਤੁਸੀਂ ਅੱਗੇ ਜਾਣਾ "
 "ਚਾਹੁੰਦੇ ਹੋ ਜਾਂ ਆਪਣੀ ਇੰਸਟਾਲੇਸ਼ਨ ਅਧੂਰੀ ਛੱਡਣੀ ਚਾਹੁੰਦੇ ਹੋ?"
 
-#: pyanaconda/kickstart.py:1422 pyanaconda/kickstart.py:1461
+#: pyanaconda/kickstart.py:1423 pyanaconda/kickstart.py:1462
 msgid "_Abort"
 msgstr "ਅਧੂਰਾ ਛੱਡੋ(_A)"
 
-#: pyanaconda/kickstart.py:1423 pyanaconda/kickstart.py:1462
+#: pyanaconda/kickstart.py:1424 pyanaconda/kickstart.py:1463
 msgid "_Ignore All"
 msgstr "ਸਭ ਅਣਡਿੱਠੇ(_I)"
 
-#: pyanaconda/kickstart.py:1453
+#: pyanaconda/kickstart.py:1454
 msgid "Missing Group"
 msgstr "ਗੈਰ-ਮੌਜੂਦ ਗਰੁੱਪ"
 
-#: pyanaconda/kickstart.py:1454
+#: pyanaconda/kickstart.py:1455
 #, python-format
 msgid ""
 "You have specified that the group '%s' should be installed. This group does "
@@ -746,7 +747,7 @@ msgstr ""
 "ਤੁਸੀਂ '%s' ਗਰੁੱਪ ਇੰਸਟਾਲ ਕਰਨ ਲਈ ਦਿੱਤਾ ਹੈ।  ਇਹ ਗਰੁੱਪ ਮੌਜੂਦ ਨਹੀਂ ਹੈ। ਕੀ ਤੁਸੀਂ ਅੱਗੇ ਜਾਣਾ ਚਾਹੁੰਦੇ ਹੋ "
 "ਜਾਂ ਆਪਣੀ ਇੰਸਟਾਲੇਸ਼ਨ ਅਧੂਰੀ ਛੱਡਣੀ ਚਾਹੁੰਦੇ ਹੋ?"
 
-#: pyanaconda/kickstart.py:1551
+#: pyanaconda/kickstart.py:1552
 #, python-format
 msgid ""
 "The kickstart configuration file is missing required information that "
@@ -768,11 +769,11 @@ msgid ""
 "The given location isn't a valid %s live CD to use as an installation source."
 msgstr "ਦਿੱਤਾ ਟਿਕਾਣਾ ਇੱਕ ਠੀਕ %s ਲਾਈਵ CD ਨਹੀਂ ਹੈ, ਜੋ ਕਿ ਇੰਸਟਾਲੇਸ਼ਨ ਸਰੋਤ ਵਜੋਂ ਵਰਤੀ ਜਾ ਸਕੇ।"
 
-#: pyanaconda/livecd.py:165
+#: pyanaconda/livecd.py:143
 msgid "Copying live image to hard drive."
 msgstr "ਲਾਈਵ ਈਮੇਜ਼ ਹਾਰਡ-ਡਿਸਕ ਉੱਤੇ ਨਕਲ ਹੋ ਰਿਹਾ ਹੈ।"
 
-#: pyanaconda/livecd.py:184
+#: pyanaconda/livecd.py:161
 msgid ""
 "There was an error installing the live image to your hard drive.  This could "
 "be due to bad media.  Please verify your installation media.\n"
@@ -786,26 +787,11 @@ msgstr ""
 "ਜੇਕਰ ਤੁਸੀਂ ਬੰਦ ਕਰ ਦਿੱਤਾ ਤਾਂ ਇਹ ਹੋ ਸਕਦਾ ਹੈ ਕਿ ਸਿਸਟਮ ਇਸ ਹਾਲਤ ਵਿੱਚ ਰਹਿ ਜਾਵੇ ਕਿ ਜਿਸ ਲਈ ਮੁੜ-"
 "ਇੰਸਟਾਲੇਸ਼ਨ ਕਰਨੀ ਪਵੇ।"
 
-#: pyanaconda/livecd.py:214
+#: pyanaconda/livecd.py:191
 msgid ""
 "Performing post-installation filesystem changes.  This may take several "
 "minutes."
 msgstr "ਪੋਸਟ-ਇੰਸਟਾਲੇਸ਼ਨ ਫਾਇਲ-ਸਿਸਟਮ ਬਦਲਾਅ ਜਾਰੀ ਹਨ।  ਇਸ ਨੂੰ ਕੁਝ ਮਿੰਟ ਲੱਗ ਸਕਦੇ ਹਨ।"
-
-#: pyanaconda/livecd.py:416
-#, python-format
-msgid ""
-"The root filesystem you created is not large enough for this live image "
-"(%.2f MB required)."
-msgstr ""
-"ਰੂਟ ਫਾਇਲ-ਸਿਸਟਮ ਜੋ ਤੁਸੀਂ ਬਣਾਇਆ ਹੈ, ਇਸ ਲਾਈਨ ਇਮੇਜ਼ ਲਈ ਕਾਫੀ ਨਹੀਂ ਹੈ (%.2f MB ਦੀ ਲੋੜ ਹੈ)।"
-
-#: pyanaconda/livecd.py:421 pyanaconda/packages.py:341
-#: pyanaconda/upgrade.py:253 pyanaconda/yuminstall.py:996
-#: pyanaconda/yuminstall.py:1080 pyanaconda/yuminstall.py:1495
-#: pyanaconda/yuminstall.py:1537 data/ui/anaconda.glade.h:2
-msgid "_Back"
-msgstr "ਪਿੱਛੇ(_B)"
 
 #: pyanaconda/network.py:78
 msgid "Hostname must be 255 or fewer characters in length."
@@ -906,6 +892,13 @@ msgstr "ਕਿਵੇਂ ਵੀ ਇੰਸਟਾਲ(_I)"
 msgid "Your system will now be rebooted..."
 msgstr "ਤੁਹਾਡਾ ਸਿਸਟਮ ਹੁਣ ਮੁਡ਼ ਚਾਲੂ ਹੋਵੇਗਾ..."
 
+#: pyanaconda/packages.py:341 pyanaconda/upgrade.py:253
+#: pyanaconda/yuminstall.py:1008 pyanaconda/yuminstall.py:1092
+#: pyanaconda/yuminstall.py:1507 pyanaconda/yuminstall.py:1549
+#: data/ui/anaconda.glade.h:2
+msgid "_Back"
+msgstr "ਪਿੱਛੇ(_B)"
+
 #: pyanaconda/packages.py:342
 msgid "Warning! This is pre-release software!"
 msgstr "ਚੇਤਵਾਨੀ! ਇਹ ਪਹਿਲਾਂ-ਰੀਲਿਜ਼ ਸਾਫਟਵੇਅਰ ਹੈ!"
@@ -970,7 +963,7 @@ msgid "You must first select a partition to delete."
 msgstr "ਤੁਹਾਨੂੰ ਪਹਿਲਾਂ ਹਟਾਉਣ ਲਈ ਇੱਕ ਪਾਰਟੀਸ਼ਨ ਚੁਣਨਾ ਜ਼ਰੂਰੀ ਹੈ।"
 
 #: pyanaconda/partIntfHelpers.py:155 pyanaconda/partIntfHelpers.py:343
-#: pyanaconda/iw/lvm_dialog_gui.py:880
+#: pyanaconda/iw/lvm_dialog_gui.py:882
 msgid "Confirm Delete"
 msgstr "ਹਟਾਉਣ ਦੀ ਪੁਸ਼ਟੀ"
 
@@ -980,7 +973,7 @@ msgid "You are about to delete all partitions on the device '%s'."
 msgstr "ਤੁਸੀਂ ਜੰਤਰ '%s' ਉੱਤੇ ਸਭ ਪਾਰਟੀਸ਼ਨ ਹਟਾਉਣ ਲਈ ਤਿਆਰ ਹੋ।"
 
 #: pyanaconda/partIntfHelpers.py:159 pyanaconda/partIntfHelpers.py:344
-#: pyanaconda/iw/lvm_dialog_gui.py:883 pyanaconda/iw/lvm_dialog_gui.py:1483
+#: pyanaconda/iw/lvm_dialog_gui.py:885 pyanaconda/iw/lvm_dialog_gui.py:1485
 #: pyanaconda/iw/osbootwidget.py:104 pyanaconda/iw/partition_gui.py:1815
 #: pyanaconda/iw/partition_gui.py:1827
 msgid "_Delete"
@@ -1185,91 +1178,91 @@ msgstr "ਲਾਗਇਨ"
 msgid "iSCSI %s Error"
 msgstr "iSCSI %s ਗਲਤੀ"
 
-#: pyanaconda/platform.py:98 pyanaconda/platform.py:344
-#: pyanaconda/platform.py:412 pyanaconda/platform.py:521
+#: pyanaconda/platform.py:99 pyanaconda/platform.py:351
+#: pyanaconda/platform.py:419 pyanaconda/platform.py:534
 #: data/ui/create-storage.glade.h:15
 msgid "RAID Device"
 msgstr "ਰੇਡ(RAID) ਜੰਤਰ"
 
-#: pyanaconda/platform.py:99 pyanaconda/platform.py:102
-#: pyanaconda/platform.py:345 pyanaconda/platform.py:413
-#: pyanaconda/platform.py:522 pyanaconda/platform.py:525
+#: pyanaconda/platform.py:100 pyanaconda/platform.py:103
+#: pyanaconda/platform.py:352 pyanaconda/platform.py:420
+#: pyanaconda/platform.py:535 pyanaconda/platform.py:538
 msgid "Master Boot Record (MBR)"
 msgstr "ਮਾਸਟਰ ਬੂਟ ਰਿਕਾਰਡ (MBR)"
 
-#: pyanaconda/platform.py:101 pyanaconda/platform.py:524
+#: pyanaconda/platform.py:102 pyanaconda/platform.py:537
 msgid "First sector of boot partition"
 msgstr "ਬੂਟ ਪਾਰਟੀਸ਼ਨ ਦੇ ਪਹਿਲੇ ਸੈਕਟਰ ਉੱਤੇ"
 
-#: pyanaconda/platform.py:113
+#: pyanaconda/platform.py:114
 msgid "You have not created a bootable partition."
 msgstr "ਤੁਸੀਂ ਬੂਟ ਭਾਗ ਨਹੀਂ ਬਣਾਇਆ ਹੈ।"
 
-#: pyanaconda/platform.py:118
+#: pyanaconda/platform.py:119
 msgid "Bootable partitions cannot be on a RAID device."
 msgstr "ਬੂਟ-ਹੋਣ-ਯੋਗ ਭਾਗ RAID ਜੰਤਰ ਤੇ ਨਹੀਂ ਹੋਣਾ ਚਾਹੀਦਾ।"
 
-#: pyanaconda/platform.py:120
+#: pyanaconda/platform.py:121
 msgid "Bootable partitions can only be on RAID1 devices."
 msgstr "ਬੂਟ-ਹੋਣ-ਯੋਗ ਭਾਗ ਕੇਵਲ ਰੇਡ1 (RAID1) ਜੰਤਰ ਤੇ ਹੀ ਮੌਜੂਦ ਹੋ ਸਕਦਾ ਹੈ।"
 
-#: pyanaconda/platform.py:124
+#: pyanaconda/platform.py:125
 msgid "Bootable RAID1 set members must be partitions."
 msgstr "ਬੂਟ-ਹੋਣ-ਯੋਗ RAID1 ਦੇ ਮੈਂਬਰ ਭਾਗ ਹੋਣੇ ਜਰੂਰੀ ਹਨ।"
 
-#: pyanaconda/platform.py:129
+#: pyanaconda/platform.py:130
 msgid "Bootable partitions cannot be on a logical volume."
 msgstr "ਬੂਟ-ਹੋਣ-ਯੋਗ ਭਾਗ ਲਾਜ਼ੀਕਲ ਵਾਲੀਅਮ ਤੇ ਮੌਜੂਦ ਨਹੀਂ ਹੋ ਸਕਦਾ ਹੈ।"
 
-#: pyanaconda/platform.py:136
+#: pyanaconda/platform.py:137
 #, python-format
 msgid "Bootable partitions cannot be on an %s filesystem."
 msgstr "ਬੂਟ-ਹੋਣ-ਯੋਗ ਪਾਰਟੀਸ਼ਨ %s ਫਾਇਲ ਸਿਸਟਮ ਤੇ ਨਹੀਂ ਹੋਣਾ ਚਾਹੀਦਾ।"
 
-#: pyanaconda/platform.py:140 pyanaconda/platform.py:145
+#: pyanaconda/platform.py:141 pyanaconda/platform.py:146
 msgid "Bootable partitions cannot be on an encrypted block device"
 msgstr "ਬੂਟ-ਹੋਣ-ਯੋਗ ਪਾਰਟੀਸ਼ਨ ਇਨਕ੍ਰਿਪਟਡ ਬਲਾਕ ਵਾਲੇ ਜੰਤਰ ਤੇ ਨਹੀਂ ਹੋ ਸਕਦਾ ਹੈ।"
 
-#: pyanaconda/platform.py:217
+#: pyanaconda/platform.py:230
 msgid "EFI System Partition"
 msgstr "EFI ਸਿਸਟਮ ਪਾਰਟੀਸ਼ਨ"
 
-#: pyanaconda/platform.py:229
+#: pyanaconda/platform.py:242
 msgid "You have not created a /boot/efi partition."
 msgstr "ਤੁਸੀਂ ਇੱਕ /boot/efi ਭਾਗ ਨਹੀਂ ਬਣਾਇਆ ਹੈ।"
 
-#: pyanaconda/platform.py:235
+#: pyanaconda/platform.py:248
 msgid "/boot/efi is not EFI."
 msgstr "/boot/efi ਇੱਕ EFI ਨਹੀਂ ਹੈ।"
 
-#: pyanaconda/platform.py:251
+#: pyanaconda/platform.py:264
 #, python-format
 msgid "%s must have a %s disk label."
 msgstr "%s ਦਾ ਇੱਕ %s ਡਿਸਕ ਲੇਬਲ ਹੋਣਾ ਜਰੂਰੀ ਹੈ।"
 
-#: pyanaconda/platform.py:289
+#: pyanaconda/platform.py:296
 #, python-format
 msgid "%s must have a bsd disk label."
 msgstr "%s ਇੱਕ bsd ਡਿਸਕ ਲੇਬਲ ਹੋਣਾ ਜਰੂਰੀ ਹੈ।"
 
-#: pyanaconda/platform.py:301
+#: pyanaconda/platform.py:308
 #, python-format
 msgid "The disk %s requires at least 1MB of free space at the beginning."
 msgstr "ਡਿਸਕ %s ਦੇ ਸ਼ੁਰੂ ਵਿੱਚ ਘੱਟੋ-ਘੱਟ 1MB ਖਾਲੀ ਸਪੇਸ ਹੋਣ ਦੀ ਲੋੜ ਹੈ।"
 
-#: pyanaconda/platform.py:347
+#: pyanaconda/platform.py:354
 msgid "PPC PReP Boot"
 msgstr "PPC PReP ਬੂਟ"
 
-#: pyanaconda/platform.py:363
+#: pyanaconda/platform.py:370
 msgid "The boot partition must be within the first 4MB of the disk."
 msgstr "ਬੂਟ ਭਾਗ ਡਿਸਕ ਦੇ ਪਹਿਲੇ 4MB ਵਿੱਚ ਹੋਣਾ ਜਰੂਰੀ ਹੈ।"
 
-#: pyanaconda/platform.py:415 pyanaconda/platform.py:418
+#: pyanaconda/platform.py:422 pyanaconda/platform.py:425
 msgid "Apple Bootstrap"
 msgstr "Apple ਬੂਟਸਟਰੇਪ"
 
-#: pyanaconda/platform.py:432
+#: pyanaconda/platform.py:439
 #, python-format
 msgid "%s must have a mac disk label."
 msgstr "%s ਦਾ ਇੱਕ mac ਡਿਸਕ ਲੇਬਲ ਹੋਣਾ ਜਰੂਰੀ ਹੈ।"
@@ -1341,7 +1334,7 @@ msgstr ""
 "\n"
 
 #: pyanaconda/rescue.py:319 pyanaconda/iw/partition_gui.py:788
-#: loader/driverdisk.c:599 pyanaconda/storage/__init__.py:169
+#: loader/driverdisk.c:599 pyanaconda/storage/__init__.py:168
 #: pyanaconda/storage/devicetree.py:95
 msgid "Continue"
 msgstr "ਜਾਰੀ ਰੱਖੋ"
@@ -1352,7 +1345,7 @@ msgstr "ਕੇਵਲ ਪੜ੍ਹਨ ਲਈ"
 
 #: pyanaconda/rescue.py:319 pyanaconda/rescue.py:321 loader/cdinstall.c:205
 #: loader/cdinstall.c:208 loader/method.c:241
-#: pyanaconda/storage/__init__.py:1819 pyanaconda/textw/upgrade_text.py:139
+#: pyanaconda/storage/__init__.py:1852 pyanaconda/textw/upgrade_text.py:139
 msgid "Skip"
 msgstr "ਵਿਚੇ ਛੱਡੋ"
 
@@ -1383,8 +1376,8 @@ msgid ""
 "Your system had dirty file systems which you chose not to mount.  Press "
 "return to get a shell from which you can fsck and mount your partitions. %s"
 msgstr ""
-"ਤੁਹਾਡੇ ਸਿਸਟਮ ਉੱਤੇ ਨਿਕਾਰਾ ਫਾਇਲ ਸਿਸਟਮ ਹੈ, ਜੋ ਤੁਸੀਂ ਮਾਊਂਟ ਨਹੀਂ ਕਰਨ ਲਈ ਚੁਣਿਆ। "
-"ਐਂਟਰ ਦਬਾਕੇ ਸ਼ੈੱਲ ਵਿੱਚ ਜਾਉ ਅਤੇ fsck ਨਾਲ ਆਪਣੇ ਪਾਰਟੀਸ਼ਨ ਮਾਊਂਟ ਕਰੋ।  %s"
+"ਤੁਹਾਡੇ ਸਿਸਟਮ ਉੱਤੇ ਨਿਕਾਰਾ ਫਾਇਲ ਸਿਸਟਮ ਹੈ, ਜੋ ਤੁਸੀਂ ਮਾਊਂਟ ਨਹੀਂ ਕਰਨ ਲਈ ਚੁਣਿਆ। ਐਂਟਰ ਦਬਾਕੇ ਸ਼ੈੱਲ "
+"ਵਿੱਚ ਜਾਉ ਅਤੇ fsck ਨਾਲ ਆਪਣੇ ਪਾਰਟੀਸ਼ਨ ਮਾਊਂਟ ਕਰੋ।  %s"
 
 #: pyanaconda/rescue.py:400
 #, python-format
@@ -1400,8 +1393,8 @@ msgid ""
 msgstr ""
 "ਤੁਹਾਡਾ ਸਿਸਟਮ %(rootPath)s ਦੇ ਹੇਠ ਮਾਊਂਟ ਕੀਤਾ ਗਿਆ ਹੈ।\n"
 "\n"
-"ਸ਼ੈੱਲ ਵਿੱਚ ਜਾਣ ਲਈ <Enter> ਦਬਾਓ। ਜੇਕਰ ਤੁਸੀਂ ਆਪਣੇ ਸਿਸਟਮ ਨੂੰ ਰੂਟ (root) ਵਾਤਾਵਰਣ "
-"ਬਣਾਉਣਾ ਚਾਹੁੰਦੇ ਹੋ ਤਾਂ ਕਮਾਂਡ ਚਲਾਉ:\n"
+"ਸ਼ੈੱਲ ਵਿੱਚ ਜਾਣ ਲਈ <Enter> ਦਬਾਓ। ਜੇਕਰ ਤੁਸੀਂ ਆਪਣੇ ਸਿਸਟਮ ਨੂੰ ਰੂਟ (root) ਵਾਤਾਵਰਣ ਬਣਾਉਣਾ "
+"ਚਾਹੁੰਦੇ ਹੋ ਤਾਂ ਕਮਾਂਡ ਚਲਾਉ:\n"
 "\n"
 "\tchroot %(rootPath)s\n"
 "\n"
@@ -1415,8 +1408,8 @@ msgid ""
 "\n"
 "Press <return> to get a shell. %s"
 msgstr ""
-"ਤੁਹਾਡੇ ਕੁਝ ਜਾਂ ਸਭ ਸਿਸਟਮ ਮਾਊਂਟ ਕਰਨ ਵੇਲੇ ਗਲਤੀ ਆਈ ਹੈ। ਇਹਨਾਂ ਵਿੱਚੋਂ ਕੁਝ %s ਅਧਈਨ "
-"ਮਾਊਂਟ ਕੀਤੇ ਗਏ ਹਨ।\n"
+"ਤੁਹਾਡੇ ਕੁਝ ਜਾਂ ਸਭ ਸਿਸਟਮ ਮਾਊਂਟ ਕਰਨ ਵੇਲੇ ਗਲਤੀ ਆਈ ਹੈ। ਇਹਨਾਂ ਵਿੱਚੋਂ ਕੁਝ %s ਅਧਈਨ ਮਾਊਂਟ ਕੀਤੇ ਗਏ "
+"ਹਨ।\n"
 "\n"
 "ਸ਼ੈੱਟ ਤੇ ਜਾਣ ਲਈ <return> ਦਬਾਓ। %s"
 
@@ -1876,7 +1869,7 @@ msgstr "ਡਿਸਕ ਨੂੰ ਵਰਤਣ ਵਿੱਚ ਅਸਫਲ।"
 msgid "Repository %r is missing name in configuration, using id"
 msgstr "ਰਿਪੋਜ਼ਟਰੀ %r ਦਾ ਨਾਂ ਸੰਰਚਨਾ ਵਿੱਚ ਨਹੀਂ ਹੈ, id ਵਰਤ ਰਿਹਾ ਹੈ"
 
-#: pyanaconda/yuminstall.py:808 pyanaconda/yuminstall.py:1230
+#: pyanaconda/yuminstall.py:820 pyanaconda/yuminstall.py:1242
 #: pyanaconda/iw/task_gui.py:309
 msgid ""
 "Some of your software repositories require networking, but there was an "
@@ -1885,15 +1878,15 @@ msgstr ""
 "ਤੁਹਾਡੀਆਂ ਕੁਝ ਸਾਫਟਵੇਅਰ ਰਿਪੋਜ਼ਟਰੀਆਂ ਲਈ ਨੈੱਟਵਰਕਿੰਗ ਦੀ ਲੋੜ ਹੈ, ਪਰ ਤੁਹਾਡੇ ਸਿਸਟਮ ਤੇ ਨੈੱਟਵਰਕਿੰਗ ਯੋਗ "
 "ਕਰਨ ਲਈ ਇੱਕ ਗਲਤੀ ਆਈ ਹੈ।"
 
-#: pyanaconda/yuminstall.py:897 pyanaconda/yuminstall.py:899
+#: pyanaconda/yuminstall.py:909 pyanaconda/yuminstall.py:911
 msgid "Re_boot"
 msgstr "ਮੁਡ਼ ਚਾਲੂ(_B)"
 
-#: pyanaconda/yuminstall.py:897
+#: pyanaconda/yuminstall.py:909
 msgid "_Eject"
 msgstr "ਬਾਹਰ ਕੱਢੋ(_E)"
 
-#: pyanaconda/yuminstall.py:903
+#: pyanaconda/yuminstall.py:915
 #, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file, a corrupt "
@@ -1910,61 +1903,61 @@ msgstr ""
 "ਇੰਸਟਾਲੇਸ਼ਨ ਕਰਨੀ ਪਵੇ।\n"
 "\n"
 
-#: pyanaconda/yuminstall.py:950
+#: pyanaconda/yuminstall.py:962
 msgid "Retrying"
 msgstr "ਮੁੜ-ਕੋਸ਼ਿਸ਼ ਜਾਰੀ"
 
-#: pyanaconda/yuminstall.py:950
+#: pyanaconda/yuminstall.py:962
 msgid "Retrying download."
 msgstr "ਡਾਊਨਲੋਡ ਦੀ ਮੁੜ-ਕੋਸ਼ਿਸ਼ ਜਾਰੀ।"
 
-#: pyanaconda/yuminstall.py:985
+#: pyanaconda/yuminstall.py:997
 #, python-format
 msgid ""
 "There was an error running your transaction for the following reason: %s\n"
 msgstr "ਤੁਹਾਡੇ ਸੰਚਾਰ ਦੌਰਾਨ ਇੱਕ ਗਲਤੀ ਆਈ ਹੈ, ਕਾਰਨ ਅੱਗੇ ਦਿੱਤਾ ਹੈ: %s\n"
 
-#: pyanaconda/yuminstall.py:1026 pyanaconda/yuminstall.py:1027
+#: pyanaconda/yuminstall.py:1038 pyanaconda/yuminstall.py:1039
 msgid "file conflicts"
 msgstr "ਫਾਇਲ ਅਪਵਾਦ"
 
-#: pyanaconda/yuminstall.py:1028
+#: pyanaconda/yuminstall.py:1040
 msgid "older package(s)"
 msgstr "ਪੁਰਾਣੇ ਪੈਕੇਜ"
 
-#: pyanaconda/yuminstall.py:1029
+#: pyanaconda/yuminstall.py:1041
 msgid "insufficient disk space"
 msgstr "ਨਾ-ਲੋੜੀਂਦੀ ਡਿਸਕ ਥਾਂ"
 
-#: pyanaconda/yuminstall.py:1030
+#: pyanaconda/yuminstall.py:1042
 msgid "insufficient disk inodes"
 msgstr "ਨਾ-ਲੋੜੀਂਦੀਆਂ ਡਿਸਕ inodes"
 
-#: pyanaconda/yuminstall.py:1031
+#: pyanaconda/yuminstall.py:1043
 msgid "package conflicts"
 msgstr "ਪੈਕੇਜ ਅਪਵਾਦ"
 
-#: pyanaconda/yuminstall.py:1032
+#: pyanaconda/yuminstall.py:1044
 msgid "package already installed"
 msgstr "ਪੈਕੇਜ ਪਹਿਲਾਂ ਹੀ ਇੰਸਟਾਲ ਹੈ"
 
-#: pyanaconda/yuminstall.py:1033
+#: pyanaconda/yuminstall.py:1045
 msgid "required package"
 msgstr "ਲੋੜੀਂਦਾ ਪੈਕੇਜ"
 
-#: pyanaconda/yuminstall.py:1034
+#: pyanaconda/yuminstall.py:1046
 msgid "package for incorrect arch"
 msgstr "ਗਲਤ ਢਾਂਚੇ ਲਈ ਪੈਕੇਜ"
 
-#: pyanaconda/yuminstall.py:1035
+#: pyanaconda/yuminstall.py:1047
 msgid "package for incorrect os"
 msgstr "ਗਲਤ os ਲਈ ਪੈਕੇਜ"
 
-#: pyanaconda/yuminstall.py:1049
+#: pyanaconda/yuminstall.py:1061
 msgid "You need more space on the following file systems:\n"
 msgstr "ਤੁਹਾਨੂੰ ਹੇਠ ਦਿੱਤੇ ਫਾਇਲ ਸਿਸਟਮਾਂ ਉੱਤੇ ਹੋਰ ਥਾਂ ਲਈ ਹੈ:\n"
 
-#: pyanaconda/yuminstall.py:1062
+#: pyanaconda/yuminstall.py:1074
 #, python-format
 msgid ""
 "There were file conflicts when checking the packages to be installed:\n"
@@ -1973,18 +1966,18 @@ msgstr ""
 "ਇੰਸਟਾਲ ਕਰਨ ਵਾਲੇ ਪੈਕੇਜਾਂ ਦੀ ਜਾਂਚ ਦੌਰਾਨ ਫਾਇਲ ਅਪਵਾਦ ਆਇਆ ਹੈ:\n"
 "%s\n"
 
-#: pyanaconda/yuminstall.py:1065
+#: pyanaconda/yuminstall.py:1077
 #, python-format
 msgid ""
 "There was an error running your transaction for the following reason(s): %"
 "s.\n"
 msgstr "ਤੁਹਾਡੇ ਸੰਚਾਰ ਦੌਰਾਨ ਇੱਕ ਗਲਤੀ ਆਈ ਹੈ, ਕਾਰਨ ਅੱਗੇ ਦਿੱਤਾ ਹੈ: %s\n"
 
-#: pyanaconda/yuminstall.py:1072 pyanaconda/yuminstall.py:1077
+#: pyanaconda/yuminstall.py:1084 pyanaconda/yuminstall.py:1089
 msgid "Error Running Transaction"
 msgstr "ਟਰਾਂਸੈਕਸ਼ਨ ਚਲਾਉਣ ਦੌਰਾਨ ਗਲਤੀ"
 
-#: pyanaconda/yuminstall.py:1255
+#: pyanaconda/yuminstall.py:1267
 msgid ""
 "Unable to read group information from repositories.  This is a problem with "
 "the generation of your install tree."
@@ -1992,11 +1985,11 @@ msgstr ""
 "ਰਿਪੋਜ਼ਟਰੀਆਂ ਤੋਂ ਗਰੁੱਪ ਜਾਣਕਾਰੀ ਪੜ੍ਹਨ ਵਾਸਤੇ ਅਸਮਰੱਥ ਹੈ।  ਇਹ ਸਮੱਸਿਆ ਤੁਹਾਡੇ ਇੰਸਟਾਲ ਟਰੀ (ਲੜੀ) "
 "ਤਿਆਰ ਕਰਨ ਨਾਲ ਹੈ।"
 
-#: pyanaconda/yuminstall.py:1304 pyanaconda/textw/constants_text.py:64
+#: pyanaconda/yuminstall.py:1316 pyanaconda/textw/constants_text.py:64
 msgid "Edit"
 msgstr "ਸੋਧ"
 
-#: pyanaconda/yuminstall.py:1315 pyanaconda/yuminstall.py:1509
+#: pyanaconda/yuminstall.py:1327 pyanaconda/yuminstall.py:1521
 #, python-format
 msgid ""
 "Unable to read package metadata. This may be due to a missing repodata "
@@ -2010,7 +2003,7 @@ msgstr ""
 "\n"
 "%s"
 
-#: pyanaconda/yuminstall.py:1487
+#: pyanaconda/yuminstall.py:1499
 msgid ""
 "Some of the packages you have selected for install are missing "
 "dependencies.  You can exit the installation, go back and change your "
@@ -2022,7 +2015,7 @@ msgstr ""
 "ਹੋ, ਪਿੱਛੇ ਜਾਓ ਅਤੇ ਆਪਣੀ ਪੈਕੇਜ ਚੋਣ ਤਬਦੀਲ ਕਰੋ. ਜਾਂ ਇਹਨਾਂ ਪੈਕੇਜਾਂ ਨੂੰ ਬਿਨਾਂ ਨਿਰਭਰਤਾ ਇੰਸਟਾਲ ਕਰਨ ਲਈ "
 "ਜਾਰੀ ਕਰ ਸਕਦੇ ਹੋ। ਜੇ ਤੁਸੀਂ ਜਾਰੀ ਕੀਤਾ, ਇਹ ਪੈਕੇਜ ਗੈਰ-ਮੌਜੂਦ ਹਿੱਸਿਆਂ ਕਰਕੇ ਠੀਕ ਕੰਮ ਨਹੀਂ ਕਰਨਗੇ।"
 
-#: pyanaconda/yuminstall.py:1531
+#: pyanaconda/yuminstall.py:1543
 #, python-format
 msgid ""
 "Your selected packages require %d MB of free space for installation, but you "
@@ -2032,7 +2025,7 @@ msgstr ""
 "ਤੁਹਾਡੇ ਚੁਣੇ ਪੈਕੇਜਾਂ ਦੀ ਇੰਸਟਾਲੇਸ਼ਨ ਲਈ %d MB ਖਾਲੀ ਥਾਂ ਦੀ ਲੋੜ ਹੈ, ਪਰ ਤੁਹਾਡੇ ਕੋਲ ਲੋੜੀਦੀ ਥਾਂ ਉਪਲੱਬਧ "
 "ਨਹੀਂ ਹੈ।  ਤੁਸੀਂ ਚੋਣ ਵਿੱਚ ਤਬਦੀਲੀਆਂ ਕਰ ਸਕਦੇ ਹੋ ਜਾਂ ਇੰਸਟਾਲਰ ਬੰਦ ਕਰ ਸਕਦੇ ਹੋ।"
 
-#: pyanaconda/yuminstall.py:1625
+#: pyanaconda/yuminstall.py:1637
 #, python-format
 msgid ""
 "You appear to be upgrading from a system which is too old to upgrade to this "
@@ -2041,7 +2034,7 @@ msgstr ""
 "ਤੁਸੀਂ ਇੱਕ ਸਿਸਟਮ ਦਾ ਅੱਪਗਰੇਡ ਕਰਨ ਦੀ ਕੋਸ਼ਿਸ ਕਰ ਰਹੇ ਹੋ, ਜੋ ਕਿ %s ਦੇ ਇਸ ਵਰਜਨ ਲਈ ਬਹੁਤ ਪੁਰਾਣਾ ਹੈ। "
 "ਕੀ ਤੁਸੀਂ ਅੱਪਗਰੇਡ ਕਾਰਵਾਈ ਨੂੰ ਜਾਰੀ ਰੱਖਣਾ ਚਾਹੋਗੇ?"
 
-#: pyanaconda/yuminstall.py:1660
+#: pyanaconda/yuminstall.py:1672
 #, python-format
 msgid ""
 "The arch of the release of %(productName)s you are upgrading to appears to "
@@ -2053,48 +2046,48 @@ msgstr ""
 "ਤੁਹਾਡਾ %(arch)s ਦੇ ਪਿਛਲੇ ਇੰਸਟਾਲ ਢਾਂਚੇ ਨਾਲ ਮੇਲ ਨਹੀਂ ਖਾਂਦਾ। ਇਹ ਸਫਲ ਨਹੀਂ ਹੋਵੇਗਾ। ਕੀ ਤੁਸੀਂ "
 "ਅੱਪਗਰੇਡ ਕਾਰਵਾਈ ਨੂੰ ਜਾਰੀ ਰੱਖਣਾ ਚਾਹੋਗੇ?"
 
-#: pyanaconda/yuminstall.py:1707
+#: pyanaconda/yuminstall.py:1719
 msgid "Post Upgrade"
 msgstr "ਅੱਪਗਰੇਡ ਬਾਅਦ"
 
-#: pyanaconda/yuminstall.py:1708
+#: pyanaconda/yuminstall.py:1720
 msgid "Performing post-upgrade configuration"
 msgstr "ਅੱਪਗਰੇਡ ਦੇ ਬਾਅਦ ਸੰਰਚਨਾ ਕੀਤੀ ਜਾ ਰਹੀ ਹੈ"
 
-#: pyanaconda/yuminstall.py:1710
+#: pyanaconda/yuminstall.py:1722
 msgid "Post Installation"
 msgstr "ਪੋਸਟ ਇੰਸਟਾਲੇਸ਼ਨ"
 
-#: pyanaconda/yuminstall.py:1711
+#: pyanaconda/yuminstall.py:1723
 msgid "Performing post-installation configuration"
 msgstr "ਪੋਸਟ-ਇੰਸਟਾਲ ਸੰਰਚਨਾ ਜਾਰੀ ਹੈ"
 
-#: pyanaconda/yuminstall.py:1941
+#: pyanaconda/yuminstall.py:1958
 msgid "Installation Starting"
 msgstr "ਇੰਸਟਾਲ ਸ਼ੁਰੂ ਹੋ ਰਹੀ ਹੈ"
 
-#: pyanaconda/yuminstall.py:1942
+#: pyanaconda/yuminstall.py:1959
 msgid "Starting installation process"
 msgstr "ਇੰਸਟਾਲੇਸ਼ਨ ਕਾਰਜ ਸ਼ੁਰੂ ਹੋ ਰਿਹਾ ਹੈ"
 
-#: pyanaconda/yuminstall.py:1980
+#: pyanaconda/yuminstall.py:1997
 msgid "Dependency Check"
 msgstr "ਨਿਰਭਰਤਾ ਜਾਂਚ"
 
-#: pyanaconda/yuminstall.py:1981
+#: pyanaconda/yuminstall.py:1998
 msgid "Checking dependencies in packages selected for installation"
 msgstr "ਇੰਸਟਾਲੇਸ਼ਨ ਲਈ ਚੁਣੇ ਪੈਕੇਜਾਂ ਵਿੱਚ ਨਿਰਭਰਤਾ ਦੀ ਪੜਤਾਲ ਜਾਰੀ ਹੈ"
 
-#: pyanaconda/yuminstall.py:2037 pyanaconda/yuminstall.py:2053
+#: pyanaconda/yuminstall.py:2054 pyanaconda/yuminstall.py:2070
 msgid "Retrieving installation information."
 msgstr "ਇੰਸਟਾਲੇਸ਼ਨ ਜਾਣਕਾਰੀ ਲਈ ਜਾ ਰਹੀ ਹੈ।"
 
-#: pyanaconda/yuminstall.py:2039 pyanaconda/yuminstall.py:2055
+#: pyanaconda/yuminstall.py:2056 pyanaconda/yuminstall.py:2072
 #, python-format
 msgid "Retrieving installation information for %s."
 msgstr "%s ਲਈ ਇੰਸਟਾਲੇਸ਼ਨ ਜਾਣਕਾਰੀ ਲਈ ਜਾ ਰਹੀ ਹੈ।"
 
-#: pyanaconda/yuminstall.py:2040 pyanaconda/yuminstall.py:2056
+#: pyanaconda/yuminstall.py:2057 pyanaconda/yuminstall.py:2073
 msgid "Installation Progress"
 msgstr "ਇੰਸਟਾਲੇਸ਼ਨ ਤਰੱਕੀ"
 
@@ -2138,8 +2131,8 @@ msgid ""
 "The default installation of %s is a minimum install. You can optionally "
 "select a different set of software now."
 msgstr ""
-"%s ਦੀ ਡਿਫਾਲਟ ਇੰਸਟਾਲੇਸ਼ਨ ਇੱਕ ਘੱਟੋ-ਘੱਟ ਇੰਸਟਾਲੇਸ਼ਨ ਹੈ। ਤੁਸੀਂ ਕਿਹੜੇ ਹੋਰ ਕੰਮਾਂ ਲਈ "
-"ਆਪਣੇ ਸਿਸਟਮ ਵਿੱਚ ਸਹਿਯੋਗ ਸ਼ਾਮਲ ਕਰਨਾ ਚਾਹੁੰਦੇ ਹੋ?"
+"%s ਦੀ ਡਿਫਾਲਟ ਇੰਸਟਾਲੇਸ਼ਨ ਇੱਕ ਘੱਟੋ-ਘੱਟ ਇੰਸਟਾਲੇਸ਼ਨ ਹੈ। ਤੁਸੀਂ ਕਿਹੜੇ ਹੋਰ ਕੰਮਾਂ ਲਈ ਆਪਣੇ ਸਿਸਟਮ ਵਿੱਚ "
+"ਸਹਿਯੋਗ ਸ਼ਾਮਲ ਕਰਨਾ ਚਾਹੁੰਦੇ ਹੋ?"
 
 #: pyanaconda/iw/GroupSelector.py:147
 #, python-format
@@ -2228,29 +2221,29 @@ msgstr ""
 "ਮੁੜ-ਅਕਾਰ ਦੇਣ ਲਈ ਕੋਈ ਪਾਰਟੀਸ਼ਨ ਨਹੀਂ ਹੈ। ਸਿਰਫ ਖਾਸ ਫਾਇਲ ਸਿਸਟਮ ਵਾਲੇ ਫਿਜ਼ੀਕਲ ਪਾਰਟੀਸ਼ਨ ਨੂੰ ਮੁੜ-"
 "ਅਕਾਰ ਦਿੱਤਾ ਜਾ ਸਕਦਾ ਹੈ।"
 
-#: pyanaconda/iw/autopart_type.py:119
+#: pyanaconda/iw/autopart_type.py:121
 msgid "Resize FileSystem Error"
 msgstr "ਫਾਇਲ-ਸਿਸਟਮ ਮੁੜ-ਅਕਾਰ ਗਲਤੀ"
 
-#: pyanaconda/iw/autopart_type.py:120
+#: pyanaconda/iw/autopart_type.py:122
 #, python-format
 msgid "%(device)s: %(msg)s"
 msgstr "%(device)s: %(msg)s"
 
-#: pyanaconda/iw/autopart_type.py:129
+#: pyanaconda/iw/autopart_type.py:131
 msgid "Resize Device Error"
 msgstr "ਜੰਤਰ ਮੁੜ-ਅਕਾਰ ਗਲਤੀ"
 
-#: pyanaconda/iw/autopart_type.py:130
+#: pyanaconda/iw/autopart_type.py:132
 #, python-format
 msgid "%(name)s: %(msg)s"
 msgstr "%(name)s: %(msg)s"
 
-#: pyanaconda/iw/autopart_type.py:250
+#: pyanaconda/iw/autopart_type.py:252
 msgid "Use _All Space"
 msgstr "ਪੂਰੀ ਸਪੇਸ ਵਰਤੋ(_A)"
 
-#: pyanaconda/iw/autopart_type.py:252
+#: pyanaconda/iw/autopart_type.py:254
 msgid ""
 "Removes all partitions on the selected device(s).  This includes partitions "
 "created by other operating systems.\n"
@@ -2261,11 +2254,11 @@ msgstr ""
 "ਚੁਣੇ ਜੰਤਰ ਤੋਂ ਸਭ ਭਾਗ ਹਟਾਓ।  ਇਸ ਵਿੱਚ ਹੋਰ ਓਪਰੇਟਿੰਗ ਸਿਸਟਮ ਦੁਆਰਾ ਬਣਾਏ ਭਾਗ ਆਉਂਦੇ ਹਨ।\n"
 "<b>ਟਿੱਪਣੀ:</b> ਇਹ ਚੋਣ ਚੁਣੇ ਜੰਤਰ ਤੋਂ ਸਾਰਾ ਡਾਟਾ ਹਟਾ ਦੇਵੇਗੀ। ਜਾਂਚ ਕਰੋ ਕਿ ਤੁਹਾਡੇ ਕੋਲ ਬੈਕਅੱਪ ਹੈ।"
 
-#: pyanaconda/iw/autopart_type.py:258
+#: pyanaconda/iw/autopart_type.py:260
 msgid "Replace Existing _Linux System(s)"
 msgstr "ਮੌਜੂਦਾ ਲੀਨਕਸ ਸਿਸਟਮ ਤਬਦੀਲ ਕਰੋ(_L)"
 
-#: pyanaconda/iw/autopart_type.py:260
+#: pyanaconda/iw/autopart_type.py:262
 msgid ""
 "Removes all Linux partitions on the selected device(s). This does not remove "
 "other partitions you may have on your storage device(s) (such as VFAT or "
@@ -2278,20 +2271,20 @@ msgstr ""
 "(ਜਿਵੇਂ VFAT ਜਾਂ FAT32)।\n"
 "<b>ਟਿੱਪਣੀ:</b> ਇਹ ਚੋਣ ਚੁਣੇ ਜੰਤਰਾਂ ਤੋਂ ਡਾਟਾ ਹਟਾਏਗੀ।  ਬੈਕਅੱਪ ਲੈਣਾ ਨਾ ਭੁੱਲੋ।"
 
-#: pyanaconda/iw/autopart_type.py:268
+#: pyanaconda/iw/autopart_type.py:270
 msgid "_Shrink Current System"
 msgstr "ਮੌਜੂਦਾ ਸਿਸਟਮ ਸੁੰਘੋੜੋ(_S)"
 
-#: pyanaconda/iw/autopart_type.py:270
+#: pyanaconda/iw/autopart_type.py:272
 msgid ""
 "Shrinks existing partitions to create free space for the default layout."
 msgstr "ਮੌਜੂਦਾ ਭਾਗ ਨੂੰ ਸੰਘੋੜਨ ਨਾਲ ਮੂਲ ਖਾਕੇ ਲਈ ਖਾਲੀ ਸਪੇਸ ਬਣ ਜਾਂਦੀ ਹੈ।"
 
-#: pyanaconda/iw/autopart_type.py:272
+#: pyanaconda/iw/autopart_type.py:274
 msgid "Use _Free Space"
 msgstr "ਖਾਲੀ ਥਾਂ ਵਰਤੋਂ(_F)"
 
-#: pyanaconda/iw/autopart_type.py:274
+#: pyanaconda/iw/autopart_type.py:276
 msgid ""
 "Retains your current data and partitions and uses only the unpartitioned "
 "space on the selected device(s), assuming you have enough free space "
@@ -2300,11 +2293,11 @@ msgstr ""
 "ਤੁਹਾਡਾ ਮੌਜੂਦਾ ਡਾਟਾ ਅਤੇ ਭਾਗ ਉਵੇਂ ਰੱਖਦਾ ਹੈ ਅਤੇ ਚੁਣੇ ਜੰਤਰ ਤੇ ਸਿਰਫ ਨਾ-ਵੰਡੀ ਸਪੇਸ ਹੀ ਵਰਤਦਾ ਹੈ, ਜੇ "
 "ਤੁਹਾਡੇ ਕੋਲ ਲੋੜੀਂਦੀ ਥਾਂ ਹੋਵੇ।"
 
-#: pyanaconda/iw/autopart_type.py:278
+#: pyanaconda/iw/autopart_type.py:280
 msgid "Create _Custom Layout"
 msgstr "ਪਸੰਦੀਦਾ ਲੇਆਉਟ ਬਣਾਓ(_C)"
 
-#: pyanaconda/iw/autopart_type.py:280
+#: pyanaconda/iw/autopart_type.py:282
 msgid ""
 "Manually create your own custom layout on the selected device(s) using our "
 "partitioning tool."
@@ -2384,7 +2377,7 @@ msgstr "ਜੰਤਰ ਬਦਲੋ(_C)"
 msgid "Clear Disks Selector"
 msgstr "ਡਿਸਕ ਚੋਣਕਾਰ ਵਰਤੋ"
 
-#: pyanaconda/iw/cleardisks_gui.py:45 pyanaconda/iw/filter_gui.py:432
+#: pyanaconda/iw/cleardisks_gui.py:45 pyanaconda/iw/filter_gui.py:433
 msgid "You must select at least one drive to be used for installation."
 msgstr "ਤੁਹਾਨੂੰ ਇੰਸਟਾਲ ਕਰਨ ਲਈ ਘੱਟੋ-ਘੱਟ ਇੱਕ ਡਰਾਈਵ ਦੀ ਚੋਣ ਕਰਨੀ ਪਵੇਗੀ।"
 
@@ -2393,33 +2386,33 @@ msgid "You must select one drive to boot from."
 msgstr "ਬੂਟ ਮੇਨੂ ਵਿੱਚੋਂ ਤੁਹਾਨੂੰ ਇੱਕ ਡਰਾਈਵ ਚੁਣਨੀ ਜ਼ਰੂਰੀ ਹੈ।"
 
 #: pyanaconda/iw/cleardisks_gui.py:127 pyanaconda/iw/cleardisks_gui.py:147
-#: pyanaconda/iw/filter_gui.py:489 pyanaconda/iw/filter_gui.py:500
-#: pyanaconda/iw/filter_gui.py:530
+#: pyanaconda/iw/filter_gui.py:490 pyanaconda/iw/filter_gui.py:501
+#: pyanaconda/iw/filter_gui.py:531
 msgid "Model"
 msgstr "ਮਾਡਲ"
 
 #: pyanaconda/iw/cleardisks_gui.py:128 pyanaconda/iw/cleardisks_gui.py:148
-#: pyanaconda/iw/filter_gui.py:490 pyanaconda/iw/filter_gui.py:501
-#: pyanaconda/iw/filter_gui.py:509 pyanaconda/iw/filter_gui.py:520
-#: pyanaconda/iw/filter_gui.py:531
+#: pyanaconda/iw/filter_gui.py:491 pyanaconda/iw/filter_gui.py:502
+#: pyanaconda/iw/filter_gui.py:510 pyanaconda/iw/filter_gui.py:521
+#: pyanaconda/iw/filter_gui.py:532
 msgid "Capacity"
 msgstr "ਸਮਰੱਥਾ"
 
-#: pyanaconda/iw/cleardisks_gui.py:129 pyanaconda/iw/filter_gui.py:491
-#: pyanaconda/iw/filter_gui.py:510 pyanaconda/iw/filter_gui.py:521
-#: pyanaconda/iw/filter_gui.py:532
+#: pyanaconda/iw/cleardisks_gui.py:129 pyanaconda/iw/filter_gui.py:492
+#: pyanaconda/iw/filter_gui.py:511 pyanaconda/iw/filter_gui.py:522
+#: pyanaconda/iw/filter_gui.py:533
 msgid "Vendor"
 msgstr "ਵਿਕਰੇਤਾ"
 
 #: pyanaconda/iw/cleardisks_gui.py:130 pyanaconda/iw/cleardisks_gui.py:149
-#: pyanaconda/iw/filter_gui.py:508 pyanaconda/iw/filter_gui.py:519
-#: pyanaconda/iw/filter_gui.py:535
+#: pyanaconda/iw/filter_gui.py:509 pyanaconda/iw/filter_gui.py:520
+#: pyanaconda/iw/filter_gui.py:536
 msgid "Identifier"
 msgstr "ਪਛਾਣਕਾਰ"
 
-#: pyanaconda/iw/cleardisks_gui.py:131 pyanaconda/iw/filter_gui.py:492
-#: pyanaconda/iw/filter_gui.py:511 pyanaconda/iw/filter_gui.py:522
-#: pyanaconda/iw/filter_gui.py:533
+#: pyanaconda/iw/cleardisks_gui.py:131 pyanaconda/iw/filter_gui.py:493
+#: pyanaconda/iw/filter_gui.py:512 pyanaconda/iw/filter_gui.py:523
+#: pyanaconda/iw/filter_gui.py:534
 msgid "Interconnect"
 msgstr "ਇੰਟਰਕੁਨੈਕਟ"
 
@@ -2549,40 +2542,40 @@ msgstr "<b>ਕਿਹੜੀ %s ਇੰਸਟਾਲੇਸ਼ਨ ਤੁਸੀਂ ਅੱ
 msgid "Unknown Linux system"
 msgstr "ਅਣਜਾਣ ਲੀਨਕਸ ਸਿਸਟਮ"
 
-#: pyanaconda/iw/filter_gui.py:150
+#: pyanaconda/iw/filter_gui.py:151
 #, python-format
 msgid "Selected devices: %s (%s MB) out of %s (%s MB)."
 msgstr "ਚੁਣੇ ਜੰਤਰ: %s (%s MB), %s (%s MB) ਵਿੱਚੋਂ।"
 
-#: pyanaconda/iw/filter_gui.py:400
+#: pyanaconda/iw/filter_gui.py:401
 msgid "Device Filter"
 msgstr "ਜੰਤਰ ਫਿਲਟਰ"
 
-#: pyanaconda/iw/filter_gui.py:493 pyanaconda/iw/filter_gui.py:523
-#: pyanaconda/iw/filter_gui.py:534
+#: pyanaconda/iw/filter_gui.py:494 pyanaconda/iw/filter_gui.py:524
+#: pyanaconda/iw/filter_gui.py:535
 msgid "Serial Number"
 msgstr "ਸੀਰੀਅਲ ਨੰਬਰ"
 
-#: pyanaconda/iw/filter_gui.py:494 pyanaconda/iw/filter_gui.py:502
-#: pyanaconda/iw/filter_gui.py:513 pyanaconda/iw/filter_gui.py:524
-#: pyanaconda/iw/filter_gui.py:539 pyanaconda/iw/osbootwidget.py:66
+#: pyanaconda/iw/filter_gui.py:495 pyanaconda/iw/filter_gui.py:503
+#: pyanaconda/iw/filter_gui.py:514 pyanaconda/iw/filter_gui.py:525
+#: pyanaconda/iw/filter_gui.py:540 pyanaconda/iw/osbootwidget.py:66
 #: pyanaconda/iw/partition_gui.py:614
 msgid "Device"
 msgstr "ਜੰਤਰ"
 
-#: pyanaconda/iw/filter_gui.py:512
+#: pyanaconda/iw/filter_gui.py:513
 msgid "Paths"
 msgstr "ਮਾਰਗ"
 
-#: pyanaconda/iw/filter_gui.py:536
+#: pyanaconda/iw/filter_gui.py:537
 msgid "Port"
 msgstr "ਪੋਰਟ"
 
-#: pyanaconda/iw/filter_gui.py:537
+#: pyanaconda/iw/filter_gui.py:538
 msgid "Target"
 msgstr "ਟਾਰਗਿਟ"
 
-#: pyanaconda/iw/filter_gui.py:538
+#: pyanaconda/iw/filter_gui.py:539
 msgid "LUN"
 msgstr "LUN"
 
@@ -2612,9 +2605,9 @@ msgid ""
 "(SANs). This option will allow you to add FCoE / iSCSI / zFCP disks and to "
 "filter out devices the installer should ignore."
 msgstr ""
-"ਪੂਰੇ ਜੰਤਰਾਂ ਜਿਵੇਂ ਸਟੋਰੇਜ਼ ਏਰੀਆ ਨੈੱਟਵਰਕ (SANs) ਨੂੰ ਇੰਸਟਾਲ ਜਾਂ ਅੱਪਗਰੇਡ ਕਰੋ। ਇਹ "
-"ਚੋਣ ਤੁਹਾਨੂੰ FCoE / iSCSI / zFCP ਡਿਸਕਾਂ ਜੋੜਨ ਵਿੱਚ ਮਦਦ ਕਰੇਗੀ ਅਤੇ ਜੰਤਰਾਂ ਨੂੰ "
-"ਫਲਟਰ ਕਰੇਗਾ ਜੋ ਇੰਸਟਾਲਰ ਨੂੰ ਰੱਦ ਕਰਨੇ ਚਾਹੀਦੇ ਹਨ।"
+"ਪੂਰੇ ਜੰਤਰਾਂ ਜਿਵੇਂ ਸਟੋਰੇਜ਼ ਏਰੀਆ ਨੈੱਟਵਰਕ (SANs) ਨੂੰ ਇੰਸਟਾਲ ਜਾਂ ਅੱਪਗਰੇਡ ਕਰੋ। ਇਹ ਚੋਣ ਤੁਹਾਨੂੰ FCoE / "
+"iSCSI / zFCP ਡਿਸਕਾਂ ਜੋੜਨ ਵਿੱਚ ਮਦਦ ਕਰੇਗੀ ਅਤੇ ਜੰਤਰਾਂ ਨੂੰ ਫਲਟਰ ਕਰੇਗਾ ਜੋ ਇੰਸਟਾਲਰ ਨੂੰ ਰੱਦ ਕਰਨੇ "
+"ਚਾਹੀਦੇ ਹਨ।"
 
 #: pyanaconda/iw/language_gui.py:33 pyanaconda/textw/language_text.py:45
 msgid "Language Selection"
@@ -2721,7 +2714,7 @@ msgstr "ਲਾਜੀਕਲ ਵਾਲੀਅਮ ਬਣਾਓ"
 msgid "Edit Logical Volume: %s"
 msgstr "ਲਾਜੀਕਲ ਵਾਲੀਅਮ ਸੋਧ: %s"
 
-#: pyanaconda/iw/lvm_dialog_gui.py:446 pyanaconda/iw/raid_dialog_gui.py:452
+#: pyanaconda/iw/lvm_dialog_gui.py:446 pyanaconda/iw/raid_dialog_gui.py:454
 msgid "_File System Type:"
 msgstr "ਫਾਇਲ ਸਿਸਟਮ ਟਾਈਪ(_F):"
 
@@ -2730,7 +2723,7 @@ msgid "_Logical Volume Name:"
 msgstr "ਲਾਜ਼ੀਕਲ ਵਾਲੀਅਮ ਨਾਂ(_L):"
 
 #: pyanaconda/iw/lvm_dialog_gui.py:461
-#: pyanaconda/iw/partition_dialog_gui.py:500
+#: pyanaconda/iw/partition_dialog_gui.py:502
 msgid "_Size (MB):"
 msgstr "ਸਾਈਜ਼ (MB)(_S):"
 
@@ -2740,21 +2733,21 @@ msgid "(Max size is %s MB)"
 msgstr "(ਵੱਧੋ-ਵੱਧ ਸਾਈਜ਼ %s MB ਹੈ)"
 
 #: pyanaconda/iw/lvm_dialog_gui.py:473
-#: pyanaconda/iw/partition_dialog_gui.py:552
+#: pyanaconda/iw/partition_dialog_gui.py:554
 #: pyanaconda/iw/partition_ui_helpers_gui.py:339
-#: pyanaconda/iw/raid_dialog_gui.py:424
+#: pyanaconda/iw/raid_dialog_gui.py:426
 msgid "_Encrypt"
 msgstr "ਇੰਕ੍ਰਿਪਟ(_E)"
 
 #: pyanaconda/iw/lvm_dialog_gui.py:482
-#: pyanaconda/iw/partition_dialog_gui.py:482
-#: pyanaconda/iw/raid_dialog_gui.py:462
+#: pyanaconda/iw/partition_dialog_gui.py:484
+#: pyanaconda/iw/raid_dialog_gui.py:464
 msgid "Original File System Type:"
 msgstr "ਅਸਲੀ ਫਾਇਲ ਸਿਸਟਮ ਟਾਈਪ:"
 
 #: pyanaconda/iw/lvm_dialog_gui.py:487
-#: pyanaconda/iw/partition_dialog_gui.py:490
-#: pyanaconda/iw/raid_dialog_gui.py:469
+#: pyanaconda/iw/partition_dialog_gui.py:492
+#: pyanaconda/iw/raid_dialog_gui.py:471
 msgid "Original File System Label:"
 msgstr "ਅਸਲੀ ਫਾਇਲ-ਸਿਸਟਮ ਲੇਬਲ:"
 
@@ -2767,14 +2760,14 @@ msgid "Size (MB):"
 msgstr "ਸਾਈਜ਼(MB):"
 
 #: pyanaconda/iw/lvm_dialog_gui.py:523
-#: pyanaconda/iw/partition_dialog_gui.py:433
-#: pyanaconda/iw/raid_dialog_gui.py:443
+#: pyanaconda/iw/partition_dialog_gui.py:435
+#: pyanaconda/iw/raid_dialog_gui.py:445
 msgid "_Mount Point:"
 msgstr "ਮਾਊਂਟ ਪੁਆਇੰਟ(_M):"
 
 #: pyanaconda/iw/lvm_dialog_gui.py:604
 #: pyanaconda/iw/partition_dialog_gui.py:118
-#: pyanaconda/iw/raid_dialog_gui.py:177
+#: pyanaconda/iw/raid_dialog_gui.py:179
 msgid "Mount Point Error"
 msgstr "ਮਾਊਸ ਪੁਆਇੰਟ ਗਲਤੀ"
 
@@ -2793,13 +2786,13 @@ msgstr "ਲਾਜ਼ੀਕਲ ਵਾਲੀਅਮ ਨਾਂ \"%s\" ਪਹਿਲ�
 
 #: pyanaconda/iw/lvm_dialog_gui.py:671
 #: pyanaconda/iw/partition_dialog_gui.py:134
-#: pyanaconda/iw/raid_dialog_gui.py:192
+#: pyanaconda/iw/raid_dialog_gui.py:194
 msgid "Mount point in use"
 msgstr "ਮਾਊਂਟ ਪੁਆਇੰਟ ਵਰਤੋਂ ਅਧੀਨ ਹੈ"
 
 #: pyanaconda/iw/lvm_dialog_gui.py:672
 #: pyanaconda/iw/partition_dialog_gui.py:135
-#: pyanaconda/iw/raid_dialog_gui.py:193
+#: pyanaconda/iw/raid_dialog_gui.py:195
 #, python-format
 msgid "The mount point \"%s\" is in use. Please pick another."
 msgstr "ਮਾਊਂਟ ਪੁਆਇੰਟ \"%s\" ਵਰਤੋਂ ਅਧੀਨ ਹੈ। ਹੋਰ ਚੁਣੋ ਜੀ।"
@@ -2832,26 +2825,26 @@ msgid ""
 "(tempvgsize)d MB). Please make the volume group larger or make the logical "
 "volume smaller."
 msgstr ""
-"ਲਾਜੀਕਲ ਵਾਲੀਅਮ ਜੋ ਤੁਸੀਂ ਸੰਰਚਿਤ ਕੀਤਾ ਹੈ, ਲਈ %(size)d MB ਦੀ ਲੋੜ ਹੈ, ਪਰ ਵਾਲੀਅਮ "
-"ਗਰੁੱਪ ਵਿੱਚ ਸਿਰਫ %(tempvgsize)d MB ਹੈ। ਕਿਰਪਾ ਕਰਕੇ ਜਾਂ ਤਾਂ ਵਾਲੀਅਮ ਗਰੁੱਪ ਵੱਡਾ "
-"ਕਰੇ ਜਾਂ ਲਾਜੀਕਲ ਵਾਲੀਅਮ ਛੋਟਾ ਬਣਾਓ।"
+"ਲਾਜੀਕਲ ਵਾਲੀਅਮ ਜੋ ਤੁਸੀਂ ਸੰਰਚਿਤ ਕੀਤਾ ਹੈ, ਲਈ %(size)d MB ਦੀ ਲੋੜ ਹੈ, ਪਰ ਵਾਲੀਅਮ ਗਰੁੱਪ ਵਿੱਚ "
+"ਸਿਰਫ %(tempvgsize)d MB ਹੈ। ਕਿਰਪਾ ਕਰਕੇ ਜਾਂ ਤਾਂ ਵਾਲੀਅਮ ਗਰੁੱਪ ਵੱਡਾ ਕਰੇ ਜਾਂ ਲਾਜੀਕਲ ਵਾਲੀਅਮ "
+"ਛੋਟਾ ਬਣਾਓ।"
 
-#: pyanaconda/iw/lvm_dialog_gui.py:832
+#: pyanaconda/iw/lvm_dialog_gui.py:834
 msgid "No free slots"
 msgstr "ਖਾਲੀ ਥਾਂ ਨਹੀਂ ਹੈ"
 
-#: pyanaconda/iw/lvm_dialog_gui.py:833
+#: pyanaconda/iw/lvm_dialog_gui.py:835
 #, python-format
 msgid "You cannot create more than %d logical volume per volume group."
 msgid_plural "You cannot create more than %d logical volumes per volume group."
 msgstr[0] "ਤੁਸੀਂ ਪ੍ਰਤੀ ਵਾਲੀਅਮ ਗਰੁੱਪ %d ਲਾਜ਼ੀਕਲ ਵਾਲੀਅਮਾਂ ਤੋਂ ਜਿਆਦਾ ਨਹੀਂ ਬਣਾ ਸਕਦੇ।"
 msgstr[1] "ਤੁਸੀਂ ਪ੍ਰਤੀ ਵਾਲੀਅਮ ਗਰੁੱਪ %d ਤੋਂ ਜ਼ਿਆਦਾ ਲਾਜ਼ੀਕਲ ਵਾਲੀਅਮ ਬਣਾ ਸਕਦੇ ਹੋ।"
 
-#: pyanaconda/iw/lvm_dialog_gui.py:843
+#: pyanaconda/iw/lvm_dialog_gui.py:845
 msgid "No free space"
 msgstr "ਕੋਈ ਖਾਲੀ ਥਾਂ ਨਹੀਂ ਹੈ"
 
-#: pyanaconda/iw/lvm_dialog_gui.py:844
+#: pyanaconda/iw/lvm_dialog_gui.py:846
 msgid ""
 "There is no room left in the volume group to create new logical volumes. To "
 "add a logical volume you must reduce the size of one or more of the "
@@ -2860,29 +2853,29 @@ msgstr ""
 "ਵਾਲੀਅਮ ਗਰੁੱਪ ਵਿੱਚ ਨਵਾਂ ਲਾਜ਼ੀਕਲ ਵਾਲੀਅਮ ਬਣਾਉਣ ਲਈ ਕੋਈ ਥਾਂ ਬਾਕੀ ਨਹੀਂ ਹੈ। ਨਵਾਂ ਵਾਲੀਅਮ ਜੋਡ਼ਨ "
 "ਲਈ ਤੁਸੀਂ ਪਹਿਲਾਂ ਮੌਜੂਦ ਵਾਲੀਅਮ ਗਰੁੱਪ ਦਾ ਸਾਈਜ਼ ਤਬਦੀਲ ਕਰ ਦਿਉ।"
 
-#: pyanaconda/iw/lvm_dialog_gui.py:881
+#: pyanaconda/iw/lvm_dialog_gui.py:883
 #, python-format
 msgid "Are you sure you want to delete the logical volume \"%s\"?"
 msgstr "ਕੀ ਤੁਸੀਂ ਲਾਜ਼ੀਕਲ ਵਾਲੀਅਮ \"%s\" ਨੂੰ ਹਟਾਉਣਾ ਚਾਹੁੰਦੇ ਹੋ?"
 
-#: pyanaconda/iw/lvm_dialog_gui.py:996
+#: pyanaconda/iw/lvm_dialog_gui.py:998
 msgid "Invalid Volume Group Name"
 msgstr "ਗਲਤ ਵਾਲੀਅਮ ਗਰੁੱਪ ਨਾਂ"
 
-#: pyanaconda/iw/lvm_dialog_gui.py:1005
+#: pyanaconda/iw/lvm_dialog_gui.py:1007
 msgid "Name in use"
 msgstr "ਨਾਂ ਵਰਤੋਂ ਵਿੱਚ ਹੈ"
 
-#: pyanaconda/iw/lvm_dialog_gui.py:1006
+#: pyanaconda/iw/lvm_dialog_gui.py:1008
 #, python-format
 msgid "The volume group name \"%s\" is already in use. Please pick another."
 msgstr "ਵਾਲੀਅਮ ਗਰੁੱਪ ਨਾਂ \"%s\" ਪਹਿਲਾਂ ਹੀ ਮੌਜੂਦ ਹੈ। ਹੋਰ ਚੁਣੋ ਜੀ।"
 
-#: pyanaconda/iw/lvm_dialog_gui.py:1293
+#: pyanaconda/iw/lvm_dialog_gui.py:1295
 msgid "Not enough physical volumes"
 msgstr "ਲੋਡ਼ੀਂਦੇ ਫਿਜ਼ੀਕਲ ਵਾਲੀਅਮ ਨਹੀਂ ਹਨ"
 
-#: pyanaconda/iw/lvm_dialog_gui.py:1294
+#: pyanaconda/iw/lvm_dialog_gui.py:1296
 msgid ""
 "At least one unused physical volume partition is needed to create an LVM "
 "Volume Group.\n"
@@ -2895,74 +2888,74 @@ msgstr ""
 "ਇੱਕ ਪਾਰਟੀਸ਼ਨ ਬਣਾਓ ਜਾਂ ਰੇਡ ਲਡ਼ੀ ਦੀ ਕਿਸਮ \"ਫਿਜ਼ੀਕਲ ਵਾਲੀਅਮ (LVM)\" ਬਣਾਓ ਅਤੇ ਮੁਡ਼ \"LVM\" "
 "ਚੋਣ ਨੂੰ ਚੁਣੋ।"
 
-#: pyanaconda/iw/lvm_dialog_gui.py:1305
+#: pyanaconda/iw/lvm_dialog_gui.py:1307
 msgid "Make LVM Volume Group"
 msgstr "LVM ਵਾਲੀਅਮ ਗਰੁੱਪ ਬਣਾਓ"
 
-#: pyanaconda/iw/lvm_dialog_gui.py:1308
+#: pyanaconda/iw/lvm_dialog_gui.py:1310
 #, python-format
 msgid "Edit LVM Volume Group: %s"
 msgstr "LVM ਵਾਲੀਅਮ ਗਰੁੱਪ ਸੋਧ: %s"
 
-#: pyanaconda/iw/lvm_dialog_gui.py:1310
+#: pyanaconda/iw/lvm_dialog_gui.py:1312
 msgid "Edit LVM Volume Group"
 msgstr "LVM ਵਾਲੀਅਮ ਗਰੁੱਪ ਸੋਧ"
 
-#: pyanaconda/iw/lvm_dialog_gui.py:1326
+#: pyanaconda/iw/lvm_dialog_gui.py:1328
 msgid "_Volume Group Name:"
 msgstr "ਵਾਲੀਅਮ ਗਰੁੱਪ ਨਾਂ(_V):"
 
-#: pyanaconda/iw/lvm_dialog_gui.py:1334
+#: pyanaconda/iw/lvm_dialog_gui.py:1336
 msgid "Volume Group Name:"
 msgstr "ਵਾਲੀਅਮ ਗਰੁੱਪ ਨਾਂ:"
 
-#: pyanaconda/iw/lvm_dialog_gui.py:1342
+#: pyanaconda/iw/lvm_dialog_gui.py:1344
 msgid "_Physical Extent:"
 msgstr "ਫਿਜ਼ੀਕਲ ਐਕਸਟੈਂਟ(_P):"
 
-#: pyanaconda/iw/lvm_dialog_gui.py:1357
+#: pyanaconda/iw/lvm_dialog_gui.py:1359
 msgid "Physical Volumes to _Use:"
 msgstr "ਵਰਤਣ ਲਈ ਫਿਜ਼ੀਕਲ ਵਾਲੀਅਮ(_U):"
 
-#: pyanaconda/iw/lvm_dialog_gui.py:1363
+#: pyanaconda/iw/lvm_dialog_gui.py:1365
 msgid "Used Space:"
 msgstr "ਵਰਤੀ ਥਾਂ:"
 
-#: pyanaconda/iw/lvm_dialog_gui.py:1381
+#: pyanaconda/iw/lvm_dialog_gui.py:1383
 msgid "Snapshot Total:"
 msgstr "ਸਨੈਪਸ਼ਾਟ ਕੁੱਲ:"
 
-#: pyanaconda/iw/lvm_dialog_gui.py:1401
+#: pyanaconda/iw/lvm_dialog_gui.py:1403
 msgid "Free Space:"
 msgstr "ਖਾਲੀ ਥਾਂ:"
 
-#: pyanaconda/iw/lvm_dialog_gui.py:1419
+#: pyanaconda/iw/lvm_dialog_gui.py:1421
 msgid "Total Space:"
 msgstr "ਕੁੱਲ ਥਾਂ:"
 
-#: pyanaconda/iw/lvm_dialog_gui.py:1457
+#: pyanaconda/iw/lvm_dialog_gui.py:1459
 msgid "Logical Volume Name"
 msgstr "ਲਾਜ਼ੀਕਲ ਵਾਲੀਅਮ ਨਾਂ"
 
-#: pyanaconda/iw/lvm_dialog_gui.py:1460 pyanaconda/iw/partition_gui.py:617
+#: pyanaconda/iw/lvm_dialog_gui.py:1462 pyanaconda/iw/partition_gui.py:617
 #: pyanaconda/iw/upgrade_swap_gui.py:138 pyanaconda/textw/upgrade_text.py:124
 msgid "Mount Point"
 msgstr "ਮਾਊਸ ਪੁਆਇੰਟ"
 
-#: pyanaconda/iw/lvm_dialog_gui.py:1463 pyanaconda/iw/partition_gui.py:616
+#: pyanaconda/iw/lvm_dialog_gui.py:1465 pyanaconda/iw/partition_gui.py:616
 msgid "Size (MB)"
 msgstr "ਸਾਈਜ਼(MB)"
 
-#: pyanaconda/iw/lvm_dialog_gui.py:1477 pyanaconda/iw/osbootwidget.py:96
+#: pyanaconda/iw/lvm_dialog_gui.py:1479 pyanaconda/iw/osbootwidget.py:96
 msgid "_Add"
 msgstr "ਸ਼ਾਮਲ(_A)"
 
-#: pyanaconda/iw/lvm_dialog_gui.py:1480 pyanaconda/iw/osbootwidget.py:100
+#: pyanaconda/iw/lvm_dialog_gui.py:1482 pyanaconda/iw/osbootwidget.py:100
 #: pyanaconda/iw/partition_gui.py:1814 pyanaconda/iw/partition_gui.py:1824
 msgid "_Edit"
 msgstr "ਸੋਧ(_E)"
 
-#: pyanaconda/iw/lvm_dialog_gui.py:1495
+#: pyanaconda/iw/lvm_dialog_gui.py:1497
 msgid "_Logical Volumes"
 msgstr "ਲਾਜੀਕਲ ਵਾਲੀਅਮ(_L)"
 
@@ -3098,24 +3091,24 @@ msgstr "ਵੱਧ ਤੋਂ ਵੱਧ ਉਪਲਬੱਧ ਸਾਈਜ਼ ਭਰ�
 msgid "Error With Request"
 msgstr "ਬੇਨਤੀ ਨਾਲ ਗਲਤੀ"
 
-#: pyanaconda/iw/partition_dialog_gui.py:403
+#: pyanaconda/iw/partition_dialog_gui.py:405
 msgid "Add Partition"
 msgstr "ਪਾਰਟੀਸ਼ਨ ਸ਼ਾਮਲ"
 
-#: pyanaconda/iw/partition_dialog_gui.py:405
+#: pyanaconda/iw/partition_dialog_gui.py:407
 #, python-format
 msgid "Edit Partition: %s"
 msgstr "ਪਾਰਟੀਸ਼ਨ ਸੋਧ: %s"
 
-#: pyanaconda/iw/partition_dialog_gui.py:442
+#: pyanaconda/iw/partition_dialog_gui.py:444
 msgid "File System _Type:"
 msgstr "ਫਾਇਲ ਸਿਸਟਮ ਟਾਈਪ(_T):"
 
-#: pyanaconda/iw/partition_dialog_gui.py:458
+#: pyanaconda/iw/partition_dialog_gui.py:460
 msgid "Allowable _Drives:"
 msgstr "ਮਨਜ਼ੂਰ ਡਰਾਇਵ(_D):"
 
-#: pyanaconda/iw/partition_dialog_gui.py:539
+#: pyanaconda/iw/partition_dialog_gui.py:541
 msgid "Force to be a _primary partition"
 msgstr "ਪ੍ਰਾਇਮਰੀ ਪਾਰਟੀਸ਼ਨ ਲਈ ਮਜਬੂਰ ਕਰੋ(_P)"
 
@@ -3144,7 +3137,7 @@ msgstr "MD RAID ARRAY %s (%-0.f MB)"
 msgid "Type"
 msgstr "ਟਾਈਪ"
 
-#: pyanaconda/iw/partition_gui.py:619 pyanaconda/storage/__init__.py:1819
+#: pyanaconda/iw/partition_gui.py:619 pyanaconda/storage/__init__.py:1852
 msgid "Format"
 msgstr "ਫਾਰਮੈਟ"
 
@@ -3319,8 +3312,8 @@ msgstr "ਤੁਹਾਡੇ ਕੋਲ ਹੁਣ PV ਬਣਾਉਣ ਲਈ ਖਾ�
 msgid "About LVM"
 msgstr "LVM ਬਾਰੇ"
 
-#: pyanaconda/iw/partition_gui.py:1588 pyanaconda/storage/partitioning.py:203
-#: pyanaconda/storage/partitioning.py:245
+#: pyanaconda/iw/partition_gui.py:1588 pyanaconda/storage/partitioning.py:205
+#: pyanaconda/storage/partitioning.py:247
 msgid "Error Partitioning"
 msgstr "ਪਾਰਟੀਸ਼ਨ ਗਲਤੀਆਂ"
 
@@ -3388,7 +3381,7 @@ msgstr ""
 "'%s' ਕਿਸਮ ਦੇ ਪਾਰਟੀਸ਼ਨ ਸਿਰਫ ਇੱਕ ਡਰਾਈਵ ਲਈ ਹੀ ਸੀਮਿਤ ਹਨ। ਇਹ ਕਰਨ ਲਈ, ਇਸ ਨੂੰ \"ਮਨਜ਼ੂਰ "
 "ਡਰਾਈਵਾਂ\" ਲਿਸਟ ਵਿੱਚੋਂ ਡਰਾਈਵ ਚੁਣ ਸਕਦੇ ਹੋ।"
 
-#: pyanaconda/iw/raid_dialog_gui.py:391
+#: pyanaconda/iw/raid_dialog_gui.py:393
 msgid ""
 "At least two unused software RAID partitions are needed to create a RAID "
 "device.\n"
@@ -3400,36 +3393,36 @@ msgstr ""
 "\n"
 "ਪਹਿਲਾਂ ਦੋ ਪਾਰਟੀਸ਼ਨ \"ਸਾਫਟਵੇਅਰ ਰੇਡ\" ਕਿਸਮ ਦੇ ਬਣਾਓ ਅਤੇ ਤਦ \"ਰੇਡ\" ਚੋਣ ਮੁਡ਼ ਚੁਣੋ।"
 
-#: pyanaconda/iw/raid_dialog_gui.py:405
+#: pyanaconda/iw/raid_dialog_gui.py:407
 msgid "Make RAID Device"
 msgstr "ਰੇਡ ਜੰਤਰ ਬਣਾਓ"
 
-#: pyanaconda/iw/raid_dialog_gui.py:408
+#: pyanaconda/iw/raid_dialog_gui.py:410
 #, python-format
 msgid "Edit RAID Device: %s"
 msgstr "ਰੇਡ ਜੰਤਰ ਸੋਧ: %s"
 
-#: pyanaconda/iw/raid_dialog_gui.py:410
+#: pyanaconda/iw/raid_dialog_gui.py:412
 msgid "Edit RAID Device"
 msgstr "ਰੇਡ ਜੰਤਰ ਸੋਧ"
 
-#: pyanaconda/iw/raid_dialog_gui.py:477
+#: pyanaconda/iw/raid_dialog_gui.py:479
 msgid "RAID _Device:"
 msgstr "ਰੇਡ ਜੰਤਰ(_D):"
 
-#: pyanaconda/iw/raid_dialog_gui.py:495
+#: pyanaconda/iw/raid_dialog_gui.py:497
 msgid "RAID _Level:"
 msgstr "ਰੇਡ ਲੇਬਲ(_L):"
 
-#: pyanaconda/iw/raid_dialog_gui.py:537
+#: pyanaconda/iw/raid_dialog_gui.py:539
 msgid "_RAID Members:"
 msgstr "ਰੇਡ ਮੈਂਬਰ(_R):"
 
-#: pyanaconda/iw/raid_dialog_gui.py:554
+#: pyanaconda/iw/raid_dialog_gui.py:556
 msgid "Number of _spares:"
 msgstr "ਸਪੇਅਰਾਂ ਦੀ ਗਿਣਤੀ(_S):"
 
-#: pyanaconda/iw/raid_dialog_gui.py:564
+#: pyanaconda/iw/raid_dialog_gui.py:566
 msgid "_Format partition?"
 msgstr "ਪਾਰਟੀਸ਼ਨ ਫਾਰਮੈਟ ਕਰਨਾ(_F)?"
 
@@ -3807,10 +3800,10 @@ msgstr "ਡਿਸਕ ਨਹੀਂ ਲੱਭੀ"
 #: loader/driverdisk.c:506 loader/driverselect.c:79 loader/driverselect.c:153
 #: loader/driverselect.c:179 loader/hdinstall.c:168 loader/hdinstall.c:222
 #: loader/kbd.c:118 loader/loader.c:499 loader/loader.c:516
-#: loader/loader.c:1380 loader/loader.c:1420 loader/net.c:625
+#: loader/loader.c:1367 loader/loader.c:1407 loader/net.c:625
 #: loader/net.c:1007 loader/net.c:1982 loader/net.c:2001
-#: loader/nfsinstall.c:92 loader/urls.c:264 pyanaconda/storage/__init__.py:123
-#: pyanaconda/storage/__init__.py:169 pyanaconda/storage/devicetree.py:95
+#: loader/nfsinstall.c:92 loader/urls.c:264 pyanaconda/storage/__init__.py:122
+#: pyanaconda/storage/__init__.py:168 pyanaconda/storage/devicetree.py:95
 #: pyanaconda/textw/constants_text.py:52
 msgid "Back"
 msgstr "ਪਿੱਛੇ"
@@ -4168,64 +4161,62 @@ msgstr ""
 msgid "Error downloading updates image"
 msgstr "ਅੱਪਡੇਟ ਈਮੇਜ਼ ਡਾਊਨਲੋਡ ਕਰਨ ਦੌਰਾਨ ਗਲਤੀ"
 
-#: loader/loader.c:1199
+#: loader/loader.c:1186
 #, c-format
 msgid "%s requires %d MB of memory, to install, but you only have %d MB."
-msgstr ""
-"%s ਨੂੰ, ਇੰਸਟਾਲ ਕਰਨ ਲਈ %d MB ਮੈਮੋਰੀ ਦੀ ਲੋੜ ਹੈ, ਪਰ ਤੁਹਾਡੇ ਕੋਲ ਸਿਰਫ %d MB ਹੈ।"
+msgstr "%s ਨੂੰ, ਇੰਸਟਾਲ ਕਰਨ ਲਈ %d MB ਮੈਮੋਰੀ ਦੀ ਲੋੜ ਹੈ, ਪਰ ਤੁਹਾਡੇ ਕੋਲ ਸਿਰਫ %d MB ਹੈ।"
 
-#: loader/loader.c:1200
+#: loader/loader.c:1187
 #, c-format
 msgid ""
 "%s requires %d MB of memory to install using this installation method, but "
 "you only have %d MB on this machine."
 msgstr ""
-"%s ਨੂੰ ਇਸ ਢੰਗ ਨਾਲ ਇੰਸਟਾਲੇਸ਼ਨ ਕਰਨ ਲਈ %d MB ਮੈਮੋਰੀ ਦੀ ਲੋੜ ਹੈ, ਪਰ ਤੁਹਾਡੇ ਕੋਲ ਇਸ "
-"ਮਸ਼ੀਨ ਉੱਪਰ ਸਿਰਫ %d MB ਹੈ।"
+"%s ਨੂੰ ਇਸ ਢੰਗ ਨਾਲ ਇੰਸਟਾਲੇਸ਼ਨ ਕਰਨ ਲਈ %d MB ਮੈਮੋਰੀ ਦੀ ਲੋੜ ਹੈ, ਪਰ ਤੁਹਾਡੇ ਕੋਲ ਇਸ ਮਸ਼ੀਨ ਉੱਪਰ "
+"ਸਿਰਫ %d MB ਹੈ।"
 
-#: loader/loader.c:1236
+#: loader/loader.c:1223
 msgid "Unsupported Hardware Detected"
 msgstr "ਨਾ-ਸਹਿਯੋਗੀ ਹਾਰਡਵੇਅਰ ਖੋਜਿਆ ਗਿਆ ਹੈ"
 
-#: loader/loader.c:1237
+#: loader/loader.c:1224
 msgid ""
 "This hardware (or a combination thereof) is not supported by Red Hat.  For "
 "more information on supported hardware, please refer to http://www.redhat."
 "com/hardware."
 msgstr ""
-"ਇਹ ਹਾਰਡਵੇਅਰ (ਜਾਂ ਇਹਨਾਂ ਦਾ ਇੱਕ ਕੰਬੀਨੇਸ਼ਨ) Red Hat ਦੁਆਰਾ ਸਹਿਯੋਗੀ ਨਹੀਂ ਹੈ। "
-"ਸਹਿਯੋਗੀ ਹਾਰਡਵੇਅਰ ਬਾਰੇ ਵਧੇਰੇ ਜਾਣਕਾਰੀ ਲਈ, ਕਿਰਪਾ ਕਰਕੇ "
-"http://www.redhat.com/hardware ਵੇਖੋ।"
+"ਇਹ ਹਾਰਡਵੇਅਰ (ਜਾਂ ਇਹਨਾਂ ਦਾ ਇੱਕ ਕੰਬੀਨੇਸ਼ਨ) Red Hat ਦੁਆਰਾ ਸਹਿਯੋਗੀ ਨਹੀਂ ਹੈ। ਸਹਿਯੋਗੀ ਹਾਰਡਵੇਅਰ "
+"ਬਾਰੇ ਵਧੇਰੇ ਜਾਣਕਾਰੀ ਲਈ, ਕਿਰਪਾ ਕਰਕੇ http://www.redhat.com/hardware ਵੇਖੋ।"
 
-#: loader/loader.c:1372
+#: loader/loader.c:1359
 msgid "Rescue Method"
 msgstr "ਸੰਕਟਕਾਲੀਨ ਢੰਗ"
 
-#: loader/loader.c:1373
+#: loader/loader.c:1360
 msgid "Installation Method"
 msgstr "ਇੰਸਟਾਲੇਸ਼ਨ ਢੰਗ"
 
-#: loader/loader.c:1375
+#: loader/loader.c:1362
 msgid "What type of media contains the rescue image?"
 msgstr "ਸੰਕਟਕਾਲੀਨ ਈਮੇਜ਼ ਕਿਸ ਕਿਸਮ ਦੇ ਮੀਡਿਆ ਉੱਤੇ ਹਨ?"
 
-#: loader/loader.c:1377
+#: loader/loader.c:1364
 msgid "What type of media contains the installation image?"
 msgstr "ਇੰਸਾਟਲੇਸ਼ਨ ਈਮੇਜ਼ ਕਿਸ ਕਿਸਮ ਦੇ ਮੀਡਿਆ ਉੱਤੇ ਹਨ?"
 
-#: loader/loader.c:1419
+#: loader/loader.c:1406
 msgid "No driver found"
 msgstr "ਕੋਈ ਡਰਾਈਵਰ ਨਹੀਂ ਲੱਭਾ"
 
-#: loader/loader.c:1419
+#: loader/loader.c:1406
 msgid "Select driver"
 msgstr "ਡਰਾਈਵਰ ਚੁਣੋ"
 
-#: loader/loader.c:1420
+#: loader/loader.c:1407
 msgid "Use a driver disk"
 msgstr "ਇੱਕ ਡਰਾਈਵਰ ਡਿਸਕ ਵਰਤੋਂ"
 
-#: loader/loader.c:1421
+#: loader/loader.c:1408
 msgid ""
 "Unable to find any devices of the type needed for this installation type.  "
 "Would you like to manually select your driver or use a driver disk?"
@@ -4233,57 +4224,57 @@ msgstr ""
 "ਇਸ ਇੰਸਟਾਲੇਸ਼ਨ ਕਿਸਮ ਲਈ ਲੋੜੀਂਦੀ ਕੋਈ ਜੰਤਰ ਦੀ ਕਿਸਮ ਨੂੰ ਖੋਜਣ ਵਿੱਚ ਅਸਫਲ ਹੈ। ਤੁਸੀਂ ਡਰਾਈਵਰ ਨੂੰ ਦਸਤੀ "
 "ਚੁਣਨਾ ਚਾਹੁੰਦੇ ਹੋ ਜਾਂ ਜੰਤਰ-ਡਿਸਕ ਵਰਤਣੀ ਚਾਹੁੰਦੇ ਹੋ?"
 
-#: loader/loader.c:1632
+#: loader/loader.c:1619
 msgid "The following devices have been found on your system."
 msgstr "ਤੁਹਾਡੇ ਸਿਸਟਮ ਤੇ ਇਹ ਜੰਤਰ ਖੋਜੇ ਗਏ ਹਨ।"
 
-#: loader/loader.c:1634
+#: loader/loader.c:1621
 msgid ""
 "No device drivers have been loaded for your system.  Would you like to load "
 "any now?"
 msgstr ""
 "ਤੁਹਾਡੇ ਸਿਸਟਮ ਲਈ ਕੋਈ ਜੰਤਰਡਰਾਈਵਰ ਲੋਡ ਨਹੀਂ ਕੀਤੇ ਗਏ ਹਨ। ਕੀ ਤੁਸੀਂ ਕਿਸੇ ਨੂੰ ਹੁਣ ਲੋਡ ਕਰਨਾ ਚਾਹੁੰਦੇ ਹੋ?"
 
-#: loader/loader.c:1638
+#: loader/loader.c:1625
 msgid "Devices"
 msgstr "ਜੰਤਰ"
 
-#: loader/loader.c:1639
+#: loader/loader.c:1626
 msgid "Done"
 msgstr "ਸਮਾਪਤ"
 
-#: loader/loader.c:1640
+#: loader/loader.c:1627
 msgid "Add Device"
 msgstr "ਜੰਤਰ ਸ਼ਾਮਲ"
 
-#: loader/loader.c:1918
+#: loader/loader.c:1905
 #, c-format
 msgid "loader has already been run.  Starting shell.\n"
 msgstr "ਲੋਡਰ ਤਾਂ ਪਹਿਲਾਂ ਹੀ ਚੱਲ ਰਿਹਾ ਹੈ। ਸ਼ੈੱਲ ਸ਼ੁਰੂ ਹੋ ਰਹੀ ਹੈ।\n"
 
-#: loader/loader.c:2062
+#: loader/loader.c:2049
 #, c-format
 msgid "Driver disc was detected in %s. Do you want to use it?."
 msgstr "ਡਰਾਈਵਰ ਡਿਸਕ %s ਵਿੱਚ ਖੋਜੀ ਗਈ ਹੈ। ਕੀ ਤੁਸੀਂ ਇਸਨੂੰ ਵਰਤਣਾ ਚਾਹੁੰਦੇ ਹੋ?।"
 
-#: loader/loader.c:2065
+#: loader/loader.c:2052
 msgid "Driver disc detected"
 msgstr "ਡਰਾਈਵਰ ਡਿਸਕ ਖੋਜੀ ਹੈ"
 
-#: loader/loader.c:2065
+#: loader/loader.c:2052
 msgid "Use it"
 msgstr "ਇਸਨੂੰ ਵਰਤੋ"
 
-#: loader/loader.c:2065
+#: loader/loader.c:2052
 msgid "Skip it"
 msgstr "ਇਸਨੂੰ ਛੱਡੋ"
 
-#: loader/loader.c:2378
+#: loader/loader.c:2365
 #, c-format
 msgid "Running anaconda %s, the %s rescue mode - please wait.\n"
 msgstr "ਐਨਾਕਾਂਡਾ %s ਚੱਲ ਰਿਹਾ ਹੈ, %s ਸੰਕਟਕਾਲੀਨ ਢੰਗ - ਉਡੀਕ ਕਰੋ ਜੀ।\n"
 
-#: loader/loader.c:2380
+#: loader/loader.c:2367
 #, c-format
 msgid "Running anaconda %s, the %s system installer - please wait.\n"
 msgstr "ਐਨਾਕਾਂਡਾ %s ਚੱਲ ਰਿਹਾ ਹੈ, %s ਸਿਸਟਮ ਇੰਸਟਾਲਰ - ਉਡੀਕ ਕਰੋ ਜੀ।\n"
@@ -4625,11 +4616,11 @@ msgstr "URL ਜਾਂ ਤਾਂ ftp ਜਾਂ http URL ਹੋਣਾ ਜਰੂਰ
 msgid "Proxy must be either an ftp or http URL"
 msgstr "ਪਰਾਕਸੀ ਇੱਕ ftp ਜਾਂ http URL ਹੋਣਾ ਜਰੂਰੀ ਹੈ"
 
-#: pyanaconda/storage/__init__.py:110
+#: pyanaconda/storage/__init__.py:109
 msgid "Unknown Device"
 msgstr "ਅਣਜਾਣ ਜੰਤਰ"
 
-#: pyanaconda/storage/__init__.py:111
+#: pyanaconda/storage/__init__.py:110
 #, python-format
 msgid ""
 "The installation source given by device %s could not be found.  Please check "
@@ -4638,32 +4629,33 @@ msgstr ""
 "%s ਜੰਤਰ ਦੁਆਰਾ ਦਿੱਤਾ ਕੋਈ ਇੰਸਟਾਲੇਸ਼ਨ ਮੀਡੀਆ ਨਹੀਂ ਲੱਭ ਸਕਿਆ। ਆਪਣੇ ਪੈਰਾਮੀਟਰ ਜਾਂਚ ਕਰੋ ਅਤੇ ਫਿਰ "
 "ਕੋਸ਼ਿਸ਼ ਕਰੋ ਜੀ।"
 
-#: pyanaconda/storage/__init__.py:120
+#: pyanaconda/storage/__init__.py:119
 msgid "No disks found"
 msgstr "ਕੋਈ ਡਿਸਕ ਨਹੀਂ ਲੱਭੀ"
 
-#: pyanaconda/storage/__init__.py:121
+#: pyanaconda/storage/__init__.py:120
 msgid "No usable disks have been found."
 msgstr "ਕੋਈ ਵਰਤੋਂਯੋਗ ਡਿਸਕ ਨਹੀਂ ਲੱਭੀ।"
 
-#: pyanaconda/storage/__init__.py:132
+#: pyanaconda/storage/__init__.py:131
 msgid "Installation cannot continue."
 msgstr "ਇੰਸਟਾਲੇਸ਼ਨ ਜਾਰੀ ਨਹੀਂ ਰਹਿ ਸਕਦੀ ਹੈ।"
 
-#: pyanaconda/storage/__init__.py:133
+#: pyanaconda/storage/__init__.py:132
 msgid ""
 "The storage configuration you have chosen has already been activated. You "
 "can no longer return to the disk editing screen. Would you like to continue "
 "with the installation process?"
 msgstr ""
-"ਸਟੋਰੇਜ਼ ਸੰਰਚਨਾ ਜੋ ਤੁਸੀਂ ਚੁਣੀ ਹੈ ਪਹਿਲਾਂ ਹੀ ਸਰਗਰਮ ਹੈ। ਤੁਸੀਂ ਡਿਸਕ ਨੂੰ ਸੋਧ ਕਰਨ ਲਈ ਹੁਣ ਉਸ ਪਰਦੇ ਤੇ "
-"ਵਾਪਿਸ ਨਹੀਂ ਜਾ ਸਕਦੇ ਹੋ। ਕੀ ਤੁਸੀਂ ਇੰਸਟਾਲੇਸ਼ਨ ਕਾਰਵਾਈ ਨਾਲ ਜਾਰੀ ਰਹਿਣਾ ਚਾਹੁੰਦੇ ਹੋ?"
+"ਸਟੋਰੇਜ਼ ਸੰਰਚਨਾ ਜੋ ਤੁਸੀਂ ਚੁਣੀ ਹੈ ਪਹਿਲਾਂ ਹੀ ਸਰਗਰਮ ਹੈ। ਤੁਸੀਂ ਡਿਸਕ ਨੂੰ ਸੋਧ ਕਰਨ ਲਈ "
+"ਹੁਣ ਉਸ ਪਰਦੇ ਤੇ ਵਾਪਿਸ ਨਹੀਂ ਜਾ ਸਕਦੇ ਹੋ। ਕੀ ਤੁਸੀਂ ਇੰਸਟਾਲੇਸ਼ਨ ਕਾਰਵਾਈ ਨਾਲ ਜਾਰੀ "
+"ਰਹਿਣਾ ਚਾਹੁੰਦੇ ਹੋ?"
 
-#: pyanaconda/storage/__init__.py:161
+#: pyanaconda/storage/__init__.py:160
 msgid "Encrypt device?"
 msgstr "ਜੰਤਰ ਇੰਕ੍ਰਿਪਟ ਕਰਨਾ?"
 
-#: pyanaconda/storage/__init__.py:162
+#: pyanaconda/storage/__init__.py:161
 msgid ""
 "You specified block device encryption should be enabled, but you have not "
 "supplied a passphrase. If you do not go back and provide a passphrase, block "
@@ -4672,74 +4664,89 @@ msgstr ""
 "ਬਲਾਕ ਜੰਤਰ ਇੰਕ੍ਰਿਪਸ਼ਨ ਜੋ ਤੁਸੀਂ ਦਿੱਤੀ ਹੈ ਯੋਗ ਹੋਣੀ ਚਾਹੀਦੀ ਹੈ, ਪਰ ਤੁਸੀਂ ਪ੍ਹੈਰਾ ਨਹੀਂ ਦਿੱਤਾ ਹੈ। ਜੇ ਤੁਸੀਂ "
 "ਪਿੱਛੇ ਨਹੀਂ ਜਾਂਦੇ ਅਤੇ ਪ੍ਹੈਰਾ ਨਹੀਂ ਦਿੰਦੇ, ਤਾਂ ਬਲਾਕ ਜੰਤਰ ਇੰਕ੍ਰਿਪਸ਼ਨ ਅਯੋਗ ਹੋ ਜਾਵੇਗੀ।"
 
-#: pyanaconda/storage/__init__.py:188 pyanaconda/storage/devicetree.py:104
+#: pyanaconda/storage/__init__.py:195
+msgid ""
+"\n"
+"\n"
+"<b>WARNING:</b>\n"
+"You are using a GPT bootdisk on a non-EFI system. This may not work, "
+"depending on you BIOS's support for booting from GPT disks."
+msgstr ""
+"\n"
+"\n"
+"<b>ਚੇਤਾਵਨੀ:</b>\n"
+"ਤੁਸੀਂ ਗੈਰ-EFI ਸਿਸਟਮਾਂ ਉੱਪਰ GPT ਬੂਟ-ਡਿਸਕ ਵਰਤ ਰਹੇ ਹੋ। ਇਹ ਠੀਕ ਨਹੀਂ ਰਹੇਗੀ, GPT "
+"ਡਿਸਕਾਂ ਤੋਂ ਬੂਟ ਕਰਨ ਲਈ ਤੁਹਾਡੇ BIOS ਦੇ ਸਹਿਯੋਗ ਤੇ ਨਿਰਭਰ ਕਰਦਾ ਹੈ।"
+
+#: pyanaconda/storage/__init__.py:203 pyanaconda/storage/devicetree.py:104
 msgid "Confirm"
 msgstr "ਪੁਸ਼ਟੀ"
 
-#: pyanaconda/storage/__init__.py:189
+#: pyanaconda/storage/__init__.py:204
+#, python-format
 msgid ""
 "The partitioning options you have selected will now be written to disk.  Any "
-"data on deleted or reformatted partitions will be lost."
+"data on deleted or reformatted partitions will be lost.%s"
 msgstr ""
-"ਪਾਰਟੀਸ਼ਨ ਚੋਣਾਂ, ਜੋ ਤੁਸੀਂ ਚੁਣੀਆਂ ਹਨ, ਹੁਣ ਡਿਸਕ ਉੱਤੇ ਲਿਖੀਆਂ ਜਾਣਗੀਆਂ। ਹਟਾਏ ਜਾਂ ਮੁੜ-ਫਾਰਮੈਟ ਕੀਤੇ "
-"ਪਾਰਟੀਸ਼ਨ ਦਾ ਡਾਟਾ ਨਸ਼ਟ ਹੋ ਜਾਵੇਗਾ।"
+"ਪਾਰਟੀਸ਼ਨ ਚੋਣਾਂ, ਜੋ ਤੁਸੀਂ ਚੁਣੀਆਂ ਹਨ, ਹੁਣ ਡਿਸਕ ਉੱਤੇ ਲਿਖੀਆਂ ਜਾਣਗੀਆਂ। ਹਟਾਏ ਜਾਂ "
+"ਮੁੜ-ਫਾਰਮੈਟ ਕੀਤੇ ਪਾਰਟੀਸ਼ਨ ਦਾ ਡਾਟਾ ਨਸ਼ਟ ਹੋ ਜਾਵੇਗਾ।%s"
 
-#: pyanaconda/storage/__init__.py:194
+#: pyanaconda/storage/__init__.py:210
 msgid "Go _Back"
 msgstr "ਪਿੱਛੇ ਜਾਓ(_B)"
 
-#: pyanaconda/storage/__init__.py:195
+#: pyanaconda/storage/__init__.py:211
 msgid "_Write Changes to Disk"
 msgstr "ਤਬਦੀਲੀ ਡਿਸਕ ਉੱਤੇ ਲਿਖੋ(_W)"
 
-#: pyanaconda/storage/__init__.py:214
+#: pyanaconda/storage/__init__.py:230
 msgid "Running..."
 msgstr "ਚੱਲ ਰਿਹਾ ਹੈ..."
 
-#: pyanaconda/storage/__init__.py:215
+#: pyanaconda/storage/__init__.py:231
 msgid "Storing encryption keys"
 msgstr "ਇਨਕ੍ਰਿਪਸ਼ਨ ਕੁੰਜੀ ਸੰਭਾਲ ਰਿਹਾ ਹੈ"
 
-#: pyanaconda/storage/__init__.py:231
+#: pyanaconda/storage/__init__.py:247
 #, python-format
 msgid "Error storing an encryption key: %s\n"
 msgstr "ਇਨਕ੍ਰਿਪਸ਼ਨ ਕੁੰਜੀ ਸੰਭਾਲਣ ਦੌਰਾਨ ਗਲਤੀ: %s\n"
 
-#: pyanaconda/storage/__init__.py:399
+#: pyanaconda/storage/__init__.py:415
 msgid "Examining Devices"
 msgstr "ਜੰਤਰ ਲੱਭ ਰਿਹਾ ਹੈ"
 
-#: pyanaconda/storage/__init__.py:400
+#: pyanaconda/storage/__init__.py:416
 msgid "Examining storage devices"
 msgstr "ਸਟੋਰੇਜ਼ ਜੰਤਰ ਲੱਭ ਰਿਹਾ ਹੈ"
 
-#: pyanaconda/storage/__init__.py:676
+#: pyanaconda/storage/__init__.py:700
 msgid "This partition is holding the data for the hard drive install."
 msgstr "ਇਹ ਪਾਰਟੀਸ਼ਨ ਹਾਰਡ-ਡਰਾਈਵ ਤੇ ਇੰਸਟਾਲ ਲਈ ਡਾਟਾ ਸੰਭਾਲਦਾ ਹੈ।"
 
-#: pyanaconda/storage/__init__.py:681
+#: pyanaconda/storage/__init__.py:705
 msgid "You cannot delete a partition of a LDL formatted DASD."
 msgstr "ਤੁਸੀਂ ਇੱਕ LDL ਦਾ DASD ਨਾਲ ਫਾਰਮੈਟ ਕੀਤਾ ਪਾਰਟੀਸ਼ਨ ਹਟਾ ਨਹੀਂ ਸਕਦੇ ਹੋ।"
 
-#: pyanaconda/storage/__init__.py:687
+#: pyanaconda/storage/__init__.py:711
 #, python-format
 msgid "This device is part of the RAID device %s."
 msgstr "ਇਹ ਜੰਤਰ ਰੇਡ ਜੰਤਰ %s ਦਾ ਹਿੱਸਾ ਹੈ।"
 
-#: pyanaconda/storage/__init__.py:690
+#: pyanaconda/storage/__init__.py:714
 msgid "This device is part of a RAID device."
 msgstr "ਇਹ ਜੰਤਰ ਰੇਡ ਜੰਤਰ ਦਾ ਹਿੱਸਾ ਹੈ।"
 
-#: pyanaconda/storage/__init__.py:695
+#: pyanaconda/storage/__init__.py:719
 #, python-format
 msgid "This device is part of the LVM volume group '%s'."
 msgstr "ਇਹ ਜੰਤਰ ਐਲਵੀਐਮ(LVM ) ਵਾਲੀਅਮ ਗਰੁੱਪ '%s' ਦਾ ਹਿੱਸਾ ਹੈ।"
 
-#: pyanaconda/storage/__init__.py:698
+#: pyanaconda/storage/__init__.py:722
 msgid "This device is part of a LVM volume group."
 msgstr "ਇਹ ਜੰਤਰ LVM ਵਾਲੀਅਮ ਗਰੁੱਪ ਦਾ ਹਿੱਸਾ ਹੈ।"
 
-#: pyanaconda/storage/__init__.py:714
+#: pyanaconda/storage/__init__.py:738
 msgid ""
 "This device is an extended partition which contains logical partitions that "
 "cannot be deleted:\n"
@@ -4748,7 +4755,7 @@ msgstr ""
 "ਇਹ ਜੰਤਰ ਇੱਕ ਫੈਲਿਆ ਭਾਗ ਹੈ ਜਿਸ ਵਿੱਚ ਲਾਜ਼ੀਕਲ ਭਾਗ ਹਨ ਜੋ ਹਟਾਏ ਨਹੀਂ ਜਾ ਸਕਦੇ:\n"
 "\n"
 
-#: pyanaconda/storage/__init__.py:993
+#: pyanaconda/storage/__init__.py:1017
 #, python-format
 msgid ""
 "You have not defined a root partition (/), which is required for "
@@ -4757,23 +4764,23 @@ msgstr ""
 "ਤੁਸੀਂ ਇੱਕ ਰੂਟ (root)ਪਾਰਟੀਸ਼ਨ (/) ਨਹੀਂ ਦਿੱਤਾ ਹੈ, ਜੋ ਕਿ %s ਦੀ ਇੰਸਟਾਲੇਸ਼ਨ ਨੂੰ ਜਾਰੀ ਰੱਖਣ ਲਈ "
 "ਜ਼ਰੂਰੀ ਹੈ।"
 
-#: pyanaconda/storage/__init__.py:998
+#: pyanaconda/storage/__init__.py:1022
 #, python-format
 msgid ""
 "Your root partition is less than 250 megabytes which is usually too small to "
 "install %s."
 msgstr "ਤੁਸੀਂ ਰੂਟ (root) ਪਾਰਟੀਸ਼ਨ 250 ਮੈਗਾਬਾਈਟ ਤੋਂ ਘੱਟ ਹੈ, ਜੋ ਕਿ ਇੰਸਟਾਲ %s ਲਈ ਬਹੁਤ ਘੱਟ ਹੈ।"
 
-#: pyanaconda/storage/__init__.py:1004
+#: pyanaconda/storage/__init__.py:1032
 #, python-format
 msgid ""
 "Your / partition is less than %(min)s MB which is lower than recommended for "
-"a normal %(productName)s install."
+"a normal %(productName)s%(live)s install."
 msgstr ""
-"ਤੁਹਾਡਾ / ਭਾਗ %(min)s ਮੈਗਾਬਾਈਟ ਤੋਂ ਘੱਟ ਹੈ, ਜੋ ਕਿ ਸਧਾਰਨ %(productName)s ਇੰਸਟਾਲ ਕਰਨ ਲਈ "
-"ਸਿਫ਼ਾਰਸ ਕੀਤੇ ਨਾਲੋਂ ਘੱਟ ਹੈ।"
+"ਤੁਹਾਡਾ / ਭਾਗ %(min)s ਮੈਗਾਬਾਈਟ ਤੋਂ ਘੱਟ ਹੈ, ਜੋ ਕਿ ਸਧਾਰਨ %(productName)s%"
+"(live)s ਇੰਸਟਾਲ ਕਰਨ ਲਈ ਸਿਫ਼ਾਰਸ ਕੀਤੇ ਨਾਲੋਂ ਘੱਟ ਹੈ।"
 
-#: pyanaconda/storage/__init__.py:1014
+#: pyanaconda/storage/__init__.py:1043
 #, python-format
 msgid ""
 "Your / partition does not match the the live image you are installing from.  "
@@ -4782,7 +4789,7 @@ msgstr ""
 "ਤੁਹਾਡਾ / ਭਾਗ ਲਾਈਵ ਈਮੇਜ਼ ਨਾਲ ਮੇਲ ਨਹੀਂ ਖਾਂਦਾ ਜਿਸ ਤੋਂ ਤੁਸੀਂ ਇੰਸਟਾਲ ਕਰ ਰਹੇ ਹੋ। ਇਸ ਨੂੰ %s ਤੌਰ ਤੇ "
 "ਫਾਰਮੈਟ ਕਰਨਾ ਪਵੇਗਾ।"
 
-#: pyanaconda/storage/__init__.py:1021
+#: pyanaconda/storage/__init__.py:1050
 #, python-format
 msgid ""
 "Your %(mount)s partition is less than %(size)s megabytes which is lower than "
@@ -4791,29 +4798,29 @@ msgstr ""
 "ਤੁਹਾਡਾ %(mount)s ਪਾਰਟੀਸ਼ਨ %(size)s ਮੈਗਾਬਾਈਟ ਤੋਂ ਘੱਟ ਹੈ, ਜੋ ਕਿ ਸਧਾਰਨ %(productName)s "
 "ਇੰਸਟਾਲ ਕਰਨ ਲਈ ਸਿਫ਼ਾਰਸ ਕੀਤਾ ਜਾਂਦਾ ਹੈ।"
 
-#: pyanaconda/storage/__init__.py:1050
+#: pyanaconda/storage/__init__.py:1079
 msgid ""
 "Installing on a USB device.  This may or may not produce a working system."
 msgstr ""
 "ਇੱਕ USB ਜੰਤਰ ਉੱਤੇ ਇੰਸਟਾਲੇਸ਼ਨ ਕਰਨੀ।  ਇਸ ਨਾਲ ਇੱਕ ਚੱਲਦਾ ਸਿਸਟਮ ਤਿਆਰ ਹੋ ਵੀ ਸਕਦਾ ਹੈ ਅਤੇ ਨਹੀਂ ਵੀ।"
 
-#: pyanaconda/storage/__init__.py:1053
+#: pyanaconda/storage/__init__.py:1082
 msgid ""
 "Installing on a FireWire device.  This may or may not produce a working "
 "system."
 msgstr ""
 "ਇੱਕ ਫਾਇਰਵਾਇਰ ਜੰਤਰ ਉੱਤੇ ਇੰਸਟਾਲੇਸ਼ਨ ਕਰਨੀ।  ਇਹ ਇੱਕ ਚੱਲਦਾ ਸਿਸਟਮ ਬਣਾ ਵੀ ਸਕਦਾ ਹੈ ਜਾਂ ਨਹੀਂ।"
 
-#: pyanaconda/storage/__init__.py:1065
+#: pyanaconda/storage/__init__.py:1094
 #, python-format
 msgid ""
 "You have not specified a swap partition.  %s MB of memory is required to "
 "continue installation without a swap partition, but you only have %s MB."
 msgstr ""
-"ਤੁਸੀਂ ਇੱਕ ਸਵੈਪ ਪਾਰਟੀਸ਼ਨ ਨਹੀਂ ਦਿੱਤਾ ਹੈ। ਸਵੈਪ ਭਾਗ ਤੋਂ ਬਿਨਾਂ ਇੰਸਟਾਲੇਸ਼ਨ ਜਾਰੀ ਕਰਨ "
-"ਲਈ %s MB ਮੈਮੋਰੀ ਦੀ ਲੋੜ ਹੈ, ਪਰ ਤੁਹਾਡੇ ਕੋਲ ਸਿਰਫ %s MB ਹੈ।"
+"ਤੁਸੀਂ ਇੱਕ ਸਵੈਪ ਪਾਰਟੀਸ਼ਨ ਨਹੀਂ ਦਿੱਤਾ ਹੈ। ਸਵੈਪ ਭਾਗ ਤੋਂ ਬਿਨਾਂ ਇੰਸਟਾਲੇਸ਼ਨ ਜਾਰੀ ਕਰਨ ਲਈ %s MB ਮੈਮੋਰੀ "
+"ਦੀ ਲੋੜ ਹੈ, ਪਰ ਤੁਹਾਡੇ ਕੋਲ ਸਿਰਫ %s MB ਹੈ।"
 
-#: pyanaconda/storage/__init__.py:1070
+#: pyanaconda/storage/__init__.py:1099
 msgid ""
 "You have not specified a swap partition.  Although not strictly required in "
 "all cases, it will significantly improve performance for most installations."
@@ -4821,22 +4828,22 @@ msgstr ""
 "ਤੁਸੀਂ ਇੱਕ ਸਵੈਪ ਪਾਰਟੀਸ਼ਨ ਨਹੀਂ ਦਿੱਤਾ ਹੈ। ਭਾਵੇਂ ਕਿ ਇਹ ਹਰ ਹਾਲਤ ਵਿੱਚ ਕੋਈ ਜ਼ਰੂਰੀ ਨਹੀਂ ਹੈ, ਪਰ ਇਹ ਸਭ "
 "ਇੰਸਟਾਲੇਸ਼ਨ ਵਿੱਚ ਵਧੀਆ ਕਾਰਗੁਜ਼ਾਰੀ ਲਈ ਮਹੱਤਵਪੂਰਨ ਹੈ।"
 
-#: pyanaconda/storage/__init__.py:1077
+#: pyanaconda/storage/__init__.py:1106
 #, python-format
 msgid ""
 "This mount point is invalid.  The %s directory must be on the / file system."
 msgstr "ਇਹ ਮਾਊਂਟ ਪੁਆਂਇਟ ਗਲਤ ਹੈ।  %s ਡਾਇਰੈਕਟਰੀ / ਫਾਇਲ ਸਿਸਟਮ ਤੇ ਹੋਣੀ ਜਰੂਰੀ ਹੈ।"
 
-#: pyanaconda/storage/__init__.py:1081
+#: pyanaconda/storage/__init__.py:1110
 #, python-format
 msgid "The mount point %s must be on a linux file system."
 msgstr "ਮਾਊਂਟ ਪੁਆਇੰਟ %s ਲੀਨਕਸ ਫਾਇਲ ਸਿਸਟਮ ਤੇ ਹੋਣਾ ਜਰੂਰੀ ਹੈ।"
 
-#: pyanaconda/storage/__init__.py:1092
+#: pyanaconda/storage/__init__.py:1121
 msgid "No Drives Found"
 msgstr "ਕੋਈ ਡਰਾਈਵ ਨਹੀਂ ਲੱਭੀ"
 
-#: pyanaconda/storage/__init__.py:1093
+#: pyanaconda/storage/__init__.py:1122
 msgid ""
 "An error has occurred - no valid devices were found on which to create new "
 "file systems. Please check your hardware for the cause of this problem."
@@ -4844,11 +4851,11 @@ msgstr ""
 "ਇੱਕ ਗਲਤੀ ਹੈ - ਕੋਈ ਵੀ ਜੰਤਰ ਨਹੀਂ ਲੱਭਾ, ਜਿਸ ਤੇ ਨਵਾਂ ਫਾਇਲ ਸਿਸਟਮ ਬਣਾਉਣਾ ਹੈ। ਇਸ ਸਮੱਸਿਆ ਲਈ "
 "ਆਪਣੇ ਜੰਤਰ (ਹਾਰਡਵੇਅਰ) ਦੀ ਜਾਂਚ ਕਰੋ ਜੀ।"
 
-#: pyanaconda/storage/__init__.py:1366 pyanaconda/storage/__init__.py:1375
+#: pyanaconda/storage/__init__.py:1395 pyanaconda/storage/__init__.py:1404
 msgid "Dirty File Systems"
 msgstr "ਗੰਦਾ ਫਾਇਲ ਸਿਸਟਮ"
 
-#: pyanaconda/storage/__init__.py:1367
+#: pyanaconda/storage/__init__.py:1396
 #, python-format
 msgid ""
 "The following file systems for your Linux system were not unmounted "
@@ -4861,7 +4868,7 @@ msgstr ""
 "ਕਰੋ।\n"
 "%s"
 
-#: pyanaconda/storage/__init__.py:1376
+#: pyanaconda/storage/__init__.py:1405
 #, python-format
 msgid ""
 "The following file systems for your Linux system were not unmounted "
@@ -4872,7 +4879,7 @@ msgstr ""
 "ਤੁਸੀਂ ਕਿਸੇ ਤਰਾਂ ਵੀ ਮਾਊਂਟ ਕਰਨਾ ਚਾਹੁੰਦੇ ਹੋ?\n"
 "%s"
 
-#: pyanaconda/storage/__init__.py:1852
+#: pyanaconda/storage/__init__.py:1885
 #, python-format
 msgid ""
 "The swap device:\n"
@@ -4889,7 +4896,7 @@ msgstr ""
 "ਇੱਕ ਪੁਰਾਣੇ-ਸਟਾਈਲ ਦਾ ਲੀਨਕਸ ਸਵੈਪ ਪਾਰਟੀਸ਼ਨ ਹੈ।  ਜੇ ਤੁਸੀਂ ਇਸ ਜੰਤਰ ਨੂੰ ਸਵੈਪ ਸਪੇਸ ਲਈ ਵਰਤਣਾ ਚਾਹੁੰਦੇ "
 "ਹੋ, ਤੁਹਾਨੂੰ ਨਵੇਂ-ਸਟਾਈਨ ਦੇ ਲੀਨਕਸ ਸਵੈਪ ਪਾਰਟੀਸ਼ਨ ਵਾਂਗ ਫਾਰਮੈਟ ਕਰਨਾ ਪਵੇਗਾ।"
 
-#: pyanaconda/storage/__init__.py:1863
+#: pyanaconda/storage/__init__.py:1896
 #, python-format
 msgid ""
 "The swap device:\n"
@@ -4908,7 +4915,7 @@ msgstr ""
 "ਕਿ ਤੁਹਾਡਾ ਸਿਸਟਮ ਹਾਈਬਰਨੇਟ ਹੈ। ਜੇਕਰ ਤੁਸੀਂ ਅੱਪਗਰੇਡ ਕਰ ਰਹੇ ਹੋ ਤਾਂ ਆਪਣੇ ਸਿਸਟਮ ਨੂੰ ਹਾਈਬਰਨੇਟ ਕਰਨ "
 "ਦੀ ਬਜਾਏ ਪੂਰੀ ਤਰ੍ਹਾਂ ਬੰਦ ਕਰੋ ਜੀ।"
 
-#: pyanaconda/storage/__init__.py:1871
+#: pyanaconda/storage/__init__.py:1904
 #, python-format
 msgid ""
 "The swap device:\n"
@@ -4927,7 +4934,7 @@ msgstr ""
 "ਤੁਸੀਂ ਨਵੀਂ ਇੰਸਟਾਲੇਸ਼ਨ ਕਰਦੇ ਹੋ ਤਾਂ ਇਹ ਯਕੀਨੀ ਬਣਾਓ ਕਿ ਇੰਸਟਾਲਰ ਨੂੰ ਸਭ ਸਵੈਪ ਪਾਰਟੀਸ਼ਨਾਂ ਨੂੰ ਫਾਰਮੈਟ "
 "ਕਰਨ ਦੀ ਚੋਣ ਕੀਤੀ ਗਈ ਹੈ।"
 
-#: pyanaconda/storage/__init__.py:1883
+#: pyanaconda/storage/__init__.py:1916
 #, python-format
 msgid ""
 "The swap device:\n"
@@ -4944,7 +4951,7 @@ msgstr ""
 "ਉੱਪਰ ਇੱਕ ਸਹਿਯੋਗੀ ਸਵੈਪ ਵਾਲੀਅਮ ਨਹੀਂ ਹੈ।  ਇੰਸਾਟਲੇਸ਼ਨ ਜਾਰੀ ਕਰਨ ਲਈ, ਤੁਹਾਨੂੰ ਜੰਤਰ ਨੂੰ ਫਾਰਮੈਟ ਕਰਨਾ "
 "ਪਵੇਗਾ ਜਾਂ ਇਸ ਨੂੰ ਛੱਡਣਾ ਪਵੇਗਾ।"
 
-#: pyanaconda/storage/__init__.py:1894
+#: pyanaconda/storage/__init__.py:1927
 #, python-format
 msgid ""
 "Error enabling swap device %(name)s: %(msg)s\n"
@@ -4960,7 +4967,7 @@ msgstr ""
 "\n"
 "ਇੰਸਟਾਲਰ ਤੋਂ ਬਾਹਰ ਆਉਣ ਲਈ 'ਠੀਕ ਹੈ' ਦਬਾਓ"
 
-#: pyanaconda/storage/__init__.py:1901
+#: pyanaconda/storage/__init__.py:1934
 #, python-format
 msgid ""
 "Error enabling swap device %(name)s: %(msg)s\n"
@@ -4975,11 +4982,11 @@ msgstr ""
 "\n"
 "ਇੰਸਟਾਲਰ ਤੋਂ ਬਾਹਰ ਆਉਣ ਲਈ 'ਠੀਕ ਹੈ' ਦਬਾਓ।"
 
-#: pyanaconda/storage/__init__.py:1965 pyanaconda/storage/__init__.py:1977
+#: pyanaconda/storage/__init__.py:1998 pyanaconda/storage/__init__.py:2010
 msgid "Invalid mount point"
 msgstr "ਅਢੁੱਕਵੀਂ ਮਾਊਂਟ ਪੁਆਇੰਟ"
 
-#: pyanaconda/storage/__init__.py:1966
+#: pyanaconda/storage/__init__.py:1999
 #, python-format
 msgid ""
 "An error occurred when trying to create %s.  Some element of this path is "
@@ -4992,7 +4999,7 @@ msgstr ""
 "\n"
 "ਇੰਸਟਾਲਰ ਤੋਂ ਬਾਹਰ ਆਉਣ ਲਈ <Enter> ਦਬਾਓ।"
 
-#: pyanaconda/storage/__init__.py:1978
+#: pyanaconda/storage/__init__.py:2011
 #, python-format
 msgid ""
 "An error occurred when trying to create %(mountpoint)s: %(msg)s.  This is a "
@@ -5005,11 +5012,11 @@ msgstr ""
 "\n"
 "ਇੰਸਟਾਲਰ ਤੋਂ ਬਾਹਰ ਆਉਣ ਲਈ <Enter> ਦਬਾਓ।"
 
-#: pyanaconda/storage/__init__.py:1994 pyanaconda/storage/__init__.py:2018
+#: pyanaconda/storage/__init__.py:2027 pyanaconda/storage/__init__.py:2051
 msgid "Unable to mount filesystem"
 msgstr "ਫਾਇਲ-ਸਿਸਟਮ ਮਾਊਂਟ ਕਰਨ ਲਈ ਅਸਮਰੱਥ"
 
-#: pyanaconda/storage/__init__.py:1995
+#: pyanaconda/storage/__init__.py:2028
 #, python-format
 msgid ""
 "An error occurred mounting device %(path)s as %(mountpoint)s.  You may "
@@ -5018,7 +5025,7 @@ msgstr ""
 "ਜੰਤਰ %(path)s ਨੂੰ %(mountpoint)s ਵਾਂਗ ਮਾਊਂਟ ਕਰਨ ਦੌਰਾਨ ਗਲਤੀ ਆਈ ਹੈ। ਤੁਸੀਂ ਇੰਸਟਾਲੇਸ਼ਨ ਨੂੰ "
 "ਜਾਰੀ ਰੱਖ ਸਕਦੇ ਹੋ, ਪਰ ਅੱਗੇ ਸਮੱਸਿਆਵਾਂ ਆ ਸਕਦੀਆਂ ਹਨ।"
 
-#: pyanaconda/storage/__init__.py:2019
+#: pyanaconda/storage/__init__.py:2052
 #, python-format
 msgid ""
 "An error occurred mounting device %(path)s as %(mountpoint)s: %(msg)s. This "
@@ -5054,29 +5061,21 @@ msgstr "%s ਲਈ vginfo ਫੇਲ ਹੈ"
 msgid "lvs failed for %s"
 msgstr "%s ਲਈ lvs ਫੇਲ ਹੈ"
 
-#: pyanaconda/storage/devices.py:1300 pyanaconda/storage/devices.py:2113
-#: pyanaconda/storage/devices.py:2539 pyanaconda/storage/devices.py:3034
-#: pyanaconda/storage/devices.py:3515
+#: pyanaconda/storage/devices.py:743
 msgid "Creating"
 msgstr "ਬਣਾਉਣਾ"
 
-#: pyanaconda/storage/devices.py:1301 pyanaconda/storage/devices.py:2114
-#: pyanaconda/storage/devices.py:2540 pyanaconda/storage/devices.py:3035
+#: pyanaconda/storage/devices.py:744
 #, python-format
 msgid "Creating device %s"
 msgstr "%s ਜੰਤਰ ਬਣਾਉਣਾ"
 
-#: pyanaconda/storage/devices.py:2633
+#: pyanaconda/storage/devices.py:2545
 #, python-format
 msgid "A RAID%d set requires at least %d member"
 msgid_plural "A RAID%d set requires at least %d members"
 msgstr[0] "ਇੱਕ RAID%d ਸੈੱਟ ਲਈ ਘੱਟੋ-ਘੱਟ %d ਮੈਂਬਰ ਹੋਣਾ ਜਰੂਰੀ ਹੈ"
 msgstr[1] "ਇੱਕ RAID%d ਸੈੱਟ ਲਈ ਘੱਟੋ-ਘੱਟ %d ਮੈਂਬਰ ਹੋਣੇ ਜਰੂਰੀ ਹਨ"
-
-#: pyanaconda/storage/devices.py:3516
-#, python-format
-msgid "Creating file %s"
-msgstr "%s ਫਾਇਲ ਬਣਾਉਣਾ"
 
 #: pyanaconda/storage/devicetree.py:105
 #, python-format
@@ -5090,7 +5089,7 @@ msgstr ""
 "\n"
 "ਜੇ ਤੁਸੀਂ ਇਹ ਪਗ ਛੱਡ ਦਿੱਤਾ ਤਾਂ ਜੰਤਰ ਦੇ ਸੰਖੇਪ ਇੰਸਟਾਲੇਸ਼ਨ ਦੌਰਾਨ ਉਪਲੱਬਧ ਨਹੀਂ ਹੋਣਗੇ।"
 
-#: pyanaconda/storage/devicetree.py:1565
+#: pyanaconda/storage/devicetree.py:1600
 msgid "This partition is part of an inconsistent LVM Volume Group."
 msgstr "ਇਹ ਭਾਗ ਨਾ-ਅਨੁਕੂਲ LVM ਵਾਲੀਅਮ ਗਰੁੱਪ ਦਾ ਹਿੱਸਾ ਹੈ।"
 
@@ -5158,37 +5157,37 @@ msgstr ""
 "ਸਿਸਟਮ ਚਾਲੂ ਕਰੋ ਜੋ ਤੁਹਾਨੂੰ ਰਿਪੇਅਰ ਕਰਨ ਵਿੱਚ ਮਦਦ ਕਰਦਾ ਹੈ।  ਫਾਇਲ-ਸਿਸਟਮ ਦੀ ਸਮੱਸਿਆ ਹੱਲ ਕਰਨ ਤੋਂ "
 "ਬਾਅਦ ਇੰਸਟਾਲੇਸ਼ਨ ਮੁੜ-ਚਾਲੂ ਕਰੋ।"
 
-#: pyanaconda/storage/formats/fs.py:539 pyanaconda/storage/partitioning.py:279
+#: pyanaconda/storage/formats/fs.py:539 pyanaconda/storage/partitioning.py:281
 msgid "Unrecoverable Error"
 msgstr "ਨਾ-ਪ੍ਰਾਪਤੀਯੋਗ ਗਲਤੀ"
 
-#: pyanaconda/storage/formats/fs.py:879
+#: pyanaconda/storage/formats/fs.py:886
 msgid "File system errors left uncorrected."
 msgstr "ਫਾਇਲ ਸਿਸਟਮ ਗਲਤੀਆਂ ਨਾ-ਠੀਕ ਹੀ ਛੱਡੀਆਂ ਗਈਆਂ।"
 
-#: pyanaconda/storage/formats/fs.py:880
+#: pyanaconda/storage/formats/fs.py:887
 msgid "Operational error."
 msgstr "ਕਾਰਵਾਈ ਗਲਤੀ।"
 
-#: pyanaconda/storage/formats/fs.py:881
+#: pyanaconda/storage/formats/fs.py:888
 msgid "Usage or syntax error."
 msgstr "ਵਰਤੋਂ ਜਾਂ ਸੈਂਟੈਕਸ ਗਲਤੀ।"
 
-#: pyanaconda/storage/formats/fs.py:882
+#: pyanaconda/storage/formats/fs.py:889
 msgid "e2fsck cancelled by user request."
 msgstr "e2fsck ਨੂੰ ਯੂਜ਼ਰ ਬੇਨਤੀ ਦੁਆਰਾ ਰੱਦ ਕੀਤਾ ਗਿਆ ਹੈ।"
 
-#: pyanaconda/storage/formats/fs.py:883
+#: pyanaconda/storage/formats/fs.py:890
 msgid "Shared library error."
 msgstr "ਸ਼ੇਅਰ ਲਾਇਬਰੇਰੀ ਗਲਤੀ।"
 
-#: pyanaconda/storage/formats/fs.py:1048
+#: pyanaconda/storage/formats/fs.py:1076
 msgid ""
 "Recoverable errors have been detected or dosfsck has discovered an internal "
 "inconsistency."
 msgstr "ਠੀਕ-ਹੋਣ-ਯੋਗ ਗਲਤੀਆਂ ਖੋਜੀਆਂ ਗਈਆਂ ਹਨ ਜਾਂ dosfsck ਨੇ ਅੰਦਰੂਨੀ ਬੇਜੋੜਤਾ ਖੋਜੀ ਹੈ।"
 
-#: pyanaconda/storage/formats/fs.py:1050
+#: pyanaconda/storage/formats/fs.py:1078
 msgid "Usage error."
 msgstr "ਵਰਤੋਂ ਗਲਤੀ।"
 
@@ -5240,7 +5239,7 @@ msgstr "iSCSI ਨੋਡਾਂ ਵਿੱਚ ਲਾਗਇਨ ਕਰ ਰਿਹਾ �
 msgid "Logging in to iSCSI node %s"
 msgstr "iSCSI ਨੋਡ %s ਵਿੱਚ ਲਾਗਇਨ ਕਰ ਰਿਹਾ ਹੈ"
 
-#: pyanaconda/storage/partitioning.py:197
+#: pyanaconda/storage/partitioning.py:199
 msgid ""
 "Could not find enough free space for automatic partitioning.  Press 'OK' to "
 "exit the installer."
@@ -5248,7 +5247,7 @@ msgstr ""
 "ਸਵੈ-ਚਾਲਤ ਵਿਭਾਗੀਕਰਨ ਲਈ ਲੋੜੀਂਦੀ ਖਾਲੀ ਸਪੇਸ ਨਹੀਂ ਲੱਭ ਸਕਿਆ, ਇੰਸਟਾਲਰ ਬੰਦ ਕਰਨ ਲਈ 'ਠੀਕ ਹੈ' "
 "ਦਬਾਓ।"
 
-#: pyanaconda/storage/partitioning.py:200
+#: pyanaconda/storage/partitioning.py:202
 msgid ""
 "Could not find enough free space for automatic partitioning, please use "
 "another partitioning method."
@@ -5256,11 +5255,11 @@ msgstr ""
 "ਸਵੈ-ਚਾਲਤ ਵਿਭਾਗੀਕਰਨ ਲਈ ਲੋੜੀਂਦੀ ਖਾਲੀ ਸਪੇਸ ਨਹੀਂ ਲੱਭ ਸਕਿਆ, ਕਿਰਪਾ ਕਰਕੇ ਹੋਰ ਵਿਭਾਗੀਕਰਨ ਵਿਧੀ "
 "ਵਰਤੋ।"
 
-#: pyanaconda/storage/partitioning.py:228
+#: pyanaconda/storage/partitioning.py:230
 msgid "Warnings During Automatic Partitioning"
 msgstr "ਆਟੋਮੈਟਿਕ ਪਾਰਟੀਸ਼ਨ ਦੌਰਾਨ ਚੇਤਾਵਨੀਆਂ"
 
-#: pyanaconda/storage/partitioning.py:230
+#: pyanaconda/storage/partitioning.py:232
 #, python-format
 msgid ""
 "Following warnings occurred during automatic partitioning:\n"
@@ -5271,8 +5270,8 @@ msgstr ""
 "\n"
 "%s"
 
-#: pyanaconda/storage/partitioning.py:244
-#: pyanaconda/storage/partitioning.py:263
+#: pyanaconda/storage/partitioning.py:246
+#: pyanaconda/storage/partitioning.py:265
 msgid ""
 "\n"
 "\n"
@@ -5282,7 +5281,7 @@ msgstr ""
 "\n"
 "ਇੰਸਟਾਲਰ ਤੋਂ ਬਾਹਰ ਆਉਣ ਲਈ 'ਠੀਕ ਹੈ' ਦਬਾਓ।"
 
-#: pyanaconda/storage/partitioning.py:246
+#: pyanaconda/storage/partitioning.py:248
 #, python-format
 msgid ""
 "Could not allocate requested partitions: \n"
@@ -5293,7 +5292,7 @@ msgstr ""
 "\n"
 "%(msg)s.%(extra)s"
 
-#: pyanaconda/storage/partitioning.py:265
+#: pyanaconda/storage/partitioning.py:267
 msgid ""
 "\n"
 "\n"
@@ -5303,11 +5302,11 @@ msgstr ""
 "\n"
 "ਇੱਕ ਵੱਖਰੇ ਪਾਰਟੀਸ਼ਨ ਦੀ ਚੋਣ ਕਰਨ ਲਈ 'ਠੀਕ ਹੈ' ਨੂੰ ਦਬਾਓ।"
 
-#: pyanaconda/storage/partitioning.py:267
+#: pyanaconda/storage/partitioning.py:269
 msgid "Automatic Partitioning Errors"
 msgstr "ਆਟੋਮੈਟਿਕ ਪਾਰਟੀਸ਼ਨ ਗਲਤੀਆਂ"
 
-#: pyanaconda/storage/partitioning.py:268
+#: pyanaconda/storage/partitioning.py:270
 #, python-format
 msgid ""
 "The following errors occurred with your partitioning:\n"
@@ -5465,8 +5464,8 @@ msgid ""
 "This requires that you have an active network connection during the "
 "installation process.  Please select network interface to configure."
 msgstr ""
-"ਇਸ ਲਈ ਤੁਹਾਡੇ ਕੋਲ ਇੰਸਟਾਲੇਸ਼ਨ ਦੌਰਾਨ ਇੱਕ ਸਰਗਰਮ ਨੈੱਟਵਰਕ ਕੁਨੈਕਸ਼ਨ ਦੀ ਲੋੜ ਹੈ।  ਇੱਕ "
-"ਨੈੱਟਵਰਕ ਇੰਟਰਫੇਸ ਦੀ ਸੰਰਚਨਾ ਕਰੋ ਜੀ।"
+"ਇਸ ਲਈ ਤੁਹਾਡੇ ਕੋਲ ਇੰਸਟਾਲੇਸ਼ਨ ਦੌਰਾਨ ਇੱਕ ਸਰਗਰਮ ਨੈੱਟਵਰਕ ਕੁਨੈਕਸ਼ਨ ਦੀ ਲੋੜ ਹੈ।  ਇੱਕ ਨੈੱਟਵਰਕ ਇੰਟਰਫੇਸ ਦੀ "
+"ਸੰਰਚਨਾ ਕਰੋ ਜੀ।"
 
 #: pyanaconda/textw/netconfig_text.py:155
 #, python-format
@@ -5965,10 +5964,10 @@ msgid ""
 "formatted).  Please also indicate which system drive will have the "
 "bootloader installed."
 msgstr ""
-"ਹੇਠਾਂ ਉਹ ਸਟੋਰੇਜ਼ ਜੰਤਰ ਹਨ ਜੋ ਤੁਸੀਂ ਇਸ ਇੰਸਟਾਲੇਸ਼ਨ ਦਾ ਹਿੱਸਾ ਬਣਾਉਣ ਲਈ ਚੁਣੇ ਹਨ। "
-"ਕਿਰਪਾ ਕਰਕੇ ਹੇਠਲਾ ਤੀਰ ਵਰਤ ਕੇ ਜੰਤਰ ਚੁਣੋ ਜੋ ਤੁਸੀਂ ਡਾਟਾ ਡਰਾਈਵ ਤੌਰ ਤੇ ਵਰਤਣਾ ਹੈ "
-"(ਉਹ ਫਾਰਮੈਟ ਨਹੀਂ ਕੀਤੇ ਜਾਣਗੇ, ਸਿਰਫ ਮਾਊਂਟ ਕੀਤੇ ਜਾਣਗੇ) ਅਤੇ ਉਹ ਜੰਤਰ ਚੁਣੋ ਜੋ ਤੁਸੀਂ "
-"ਸਿਸਟਮ ਡਰਾਈਵ ਤੌਰ ਤੇ ਵਰਤਣੇ ਹਨ (ਇਹ ਫਾਰਮੈਟ ਕੀਤੇ ਜਾ ਸਕਦੇ ਹਨ)।"
+"ਹੇਠਾਂ ਉਹ ਸਟੋਰੇਜ਼ ਜੰਤਰ ਹਨ ਜੋ ਤੁਸੀਂ ਇਸ ਇੰਸਟਾਲੇਸ਼ਨ ਦਾ ਹਿੱਸਾ ਬਣਾਉਣ ਲਈ ਚੁਣੇ ਹਨ। ਕਿਰਪਾ ਕਰਕੇ ਹੇਠਲਾ "
+"ਤੀਰ ਵਰਤ ਕੇ ਜੰਤਰ ਚੁਣੋ ਜੋ ਤੁਸੀਂ ਡਾਟਾ ਡਰਾਈਵ ਤੌਰ ਤੇ ਵਰਤਣਾ ਹੈ (ਉਹ ਫਾਰਮੈਟ ਨਹੀਂ ਕੀਤੇ ਜਾਣਗੇ, ਸਿਰਫ "
+"ਮਾਊਂਟ ਕੀਤੇ ਜਾਣਗੇ) ਅਤੇ ਉਹ ਜੰਤਰ ਚੁਣੋ ਜੋ ਤੁਸੀਂ ਸਿਸਟਮ ਡਰਾਈਵ ਤੌਰ ਤੇ ਵਰਤਣੇ ਹਨ (ਇਹ ਫਾਰਮੈਟ ਕੀਤੇ ਜਾ "
+"ਸਕਦੇ ਹਨ)।"
 
 #: data/ui/create-storage.glade.h:1
 msgid ""
@@ -6387,21 +6386,14 @@ msgid ""
 "<span size=\"large\" weight=\"bold\">The storage device below may contain "
 "data.</span>"
 msgstr ""
-"<span size=\"large\" weight=\"bold\">ਹੇਠਲੇ ਸਟੋਰੇਜ਼ ਜੰਤਰਾਂ ਵਿੱਚ ਡਾਟਾ ਹੋ ਸਕਦਾ "
-"ਹੈ।</span>"
+"<span size=\"large\" weight=\"bold\">ਹੇਠਲੇ ਸਟੋਰੇਜ਼ ਜੰਤਰਾਂ ਵਿੱਚ ਡਾਟਾ ਹੋ ਸਕਦਾ ਹੈ।</span>"
 
 #: data/ui/reinitialize-dialog.glade.h:2
 msgid ""
 "Apply my choice to all devices with undetected partitions or filesystems"
-msgstr ""
-"ਮੇਰੀ ਚੋਣ ਨੂੰਸ ਭ ਜੰਤਰਾਂ ਉੱਪਰ ਲਾਗੂ ਕਰੋ ਜਿਨਾਂ ਦੇ ਭਾਗ ਜਾਂ ਫਾਇਲਸਿਸਟਮ ਖੋਜੇ ਨਹੀਂ ਗਏ "
-"ਹਨ"
+msgstr "ਮੇਰੀ ਚੋਣ ਨੂੰਸ ਭ ਜੰਤਰਾਂ ਉੱਪਰ ਲਾਗੂ ਕਰੋ ਜਿਨਾਂ ਦੇ ਭਾਗ ਜਾਂ ਫਾਇਲਸਿਸਟਮ ਖੋਜੇ ਨਹੀਂ ਗਏ ਹਨ"
 
-#: data/ui/reinitialize-dialog.glade.h:3
-msgid "No, keep any data"
-msgstr "ਨਹੀਂ, ਕੋਈ ਵੀ ਡਾਟਾ ਰੱਖੋ"
-
-#: data/ui/reinitialize-dialog.glade.h:5
+#: data/ui/reinitialize-dialog.glade.h:4
 msgid ""
 "We could not detect partitions or filesystems on this device.\n"
 "\n"
@@ -6425,9 +6417,13 @@ msgstr ""
 "\n"
 "Are you sure this device does not contain valuable data?"
 
+#: data/ui/reinitialize-dialog.glade.h:11
+msgid "_No, keep any data"
+msgstr "ਨਹੀਂ, ਕੋਈ ਵੀ ਡਾਟਾ ਰੱਖੋ(_N)"
+
 #: data/ui/reinitialize-dialog.glade.h:12
-msgid "Yes, discard any data"
-msgstr "ਹਾਂ, ਕੋਈ ਵੀ ਡਾਟਾ ਰੱਦ ਕਰੋ"
+msgid "_Yes, discard any data"
+msgstr "ਹਾਂ, ਕੋਈ ਵੀ ਡਾਟਾ ਰੱਦ ਕਰੋ(_Y)"
 
 #: data/lang-table.h:1
 msgid "Afrikaans"
@@ -6672,6 +6668,15 @@ msgstr "ਵੈਲਸ਼"
 #: data/lang-table.h:61
 msgid "Zulu"
 msgstr "ਜ਼ੂਲੂ"
+
+#~ msgid ""
+#~ "The root filesystem you created is not large enough for this live image "
+#~ "(%.2f MB required)."
+#~ msgstr ""
+#~ "ਰੂਟ ਫਾਇਲ-ਸਿਸਟਮ ਜੋ ਤੁਸੀਂ ਬਣਾਇਆ ਹੈ, ਇਸ ਲਾਈਨ ਇਮੇਜ਼ ਲਈ ਕਾਫੀ ਨਹੀਂ ਹੈ (%.2f MB ਦੀ ਲੋੜ ਹੈ)।"
+
+#~ msgid "Creating file %s"
+#~ msgstr "%s ਫਾਇਲ ਬਣਾਉਣਾ"
 
 #~ msgid "You do not have enough RAM to use the graphical installer."
 #~ msgstr "ਤੁਹਾਡੇ ਕੋਲ ਗਰਾਫੀਕਲ ਇੰਸਟਾਲਰ ਲਈ ਲੋੜੀਂਦੀ RAM ਨਹੀਂ ਹੈ।"
