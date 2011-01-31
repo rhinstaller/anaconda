@@ -142,35 +142,27 @@ class AnacondaBackend:
 
     def doBackendSetup(self, anaconda):
         log.warning("doBackendSetup not implemented for backend!")
-        raise NotImplementedError
 
     def groupExists(self, group):
         log.warning("groupExists not implemented for backend!")
-        raise NotImplementedError
 
     def selectGroup(self, group, *args):
         log.warning("selectGroup not implemented for backend!")
-        raise NotImplementedError
 
     def deselectGroup(self, group, *args):
         log.warning("deselectGroup not implemented for backend!")
-        raise NotImplementedError
 
     def packageExists(self, pkg):
         log.warning("packageExists not implemented for backend!")
-        raise NotImplementedError
     
     def selectPackage(self, pkg, *args):
         log.warning("selectPackage not implemented for backend!")
-        raise NotImplementedError
 
     def deselectPackage(self, pkg, *args):
         log.warning("deselectPackage not implemented for backend!")
-        raise NotImplementedError
 
     def getDefaultGroups(self, anaconda):
         log.warning("getDefaultGroups not implemented for backend!")
-        raise NotImplementedError
 
     def resetPackageSelections(self):
         # we just leave this one unimplemented if it's not needed
@@ -179,13 +171,11 @@ class AnacondaBackend:
     # write out the %packages section of anaconda-ks.cfg
     def writePackagesKS(self, f, anaconda):
         log.warning("writePackagesKS not implemented for backend!")
-        raise NotImplementedError
 
     # write out any config files that live on the installed system
     # (e.g., /etc/yum.repos.d/* files)
     def writeConfiguration(self):
         log.warning("writeConfig not implemented for backend!")
-        raise NotImplementedError
 
     # write out any other kickstart bits the backend requires - no warning
     # here because this may not be needed

@@ -333,9 +333,6 @@ class LiveCDCopyBackend(backend.AnacondaBackend):
         for (n, arch, tag) in vers:
             packages.recreateInitrd(n, anaconda.rootPath)
 
-    def writeConfiguration(self):
-        pass
-
     def kernelVersionList(self, rootPath = "/"):
         return packages.rpmKernelVersionList(rootPath)
 
@@ -344,23 +341,4 @@ class LiveCDCopyBackend(backend.AnacondaBackend):
             return self.anaconda.storage.liveImage.format.size
         return 0
 
-    def doBackendSetup(self, anaconda):
-        pass
 
-    # package/group selection doesn't apply for this backend
-    def groupExists(self, group):
-        pass
-    def selectGroup(self, group, *args):
-        pass
-    def deselectGroup(self, group, *args):
-        pass
-    def selectPackage(self, pkg, *args):
-        pass
-    def deselectPackage(self, pkg, *args):
-        pass
-    def packageExists(self, pkg):
-        return True
-    def getDefaultGroups(self, anaconda):
-        return []
-    def writePackagesKS(self, f, anaconda):
-        pass
