@@ -1887,13 +1887,19 @@ int chooseNetworkInterface(struct loaderData_s * loaderData) {
  * kickstart install so that we can do things like grab the ks.cfg from
  * the network */
 int kickstartNetworkUp(struct loaderData_s * loaderData, iface_t * iface) {
-    int rc, err;
 
     if ((is_nm_connected() == TRUE) &&
         (loaderData->netDev != NULL) && (loaderData->netDev_set == 1))
         return 0;
 
     memset(iface, 0, sizeof(*iface));
+
+    return activateDevice(loaderData, iface);
+
+}
+
+int activateDevice(struct loaderData_s * loaderData, iface_t * iface) {
+    int rc;
 
     do {
         do {
@@ -1930,12 +1936,13 @@ int kickstartNetworkUp(struct loaderData_s * loaderData, iface_t * iface) {
                            loaderData->method);
 
         if (rc == LOADER_ERROR) {
-            logMessage(ERROR, "unable to setup networking");
+            logMessage(ERROR, "unable to activate device %s", iface->device);
             return -1;
         } else if (rc == LOADER_BACK) {
             /* Going back to the interface selection screen, so unset anything
              * we set before attempting to bring the incorrect interface up.
              */
+            logMessage(ERROR, "unable to activate device %s", iface->device);
             if ((rc = writeDisabledNetInfo()) != 0) {
                 logMessage(ERROR, "writeDisabledNetInfo failure (%s): %d",
                            __func__, rc);
@@ -1950,22 +1957,6 @@ int kickstartNetworkUp(struct loaderData_s * loaderData, iface_t * iface) {
             break;
         } else {
             break;
-        }
-
-        err = writeEnabledNetInfo(iface);
-        if (err) {
-            logMessage(ERROR,
-                       "failed to write %s data for %s (%d)",
-                       SYSCONFIG_PATH, iface->device, err);
-            return -1;
-        }
-
-        err = get_connection(iface);
-        newtPopWindow();
-
-        if (err) {
-            logMessage(ERROR, "failed to start NetworkManager (%d)", err);
-            return -1;
         }
     } while (1);
 

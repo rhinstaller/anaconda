@@ -750,6 +750,9 @@ static void setKickstartNetwork(struct loaderData_s * loaderData, PyObject *hand
                 loaderData->netDev = strdup(device);
 
             loaderData->netDev_set = 1;
+            logMessage(INFO, "kickstart network command - device %s", loaderData->netDev);
+        } else {
+            logMessage(INFO, "kickstart network command - unspecified device");
         }
 
         Py_XDECREF(attr);
@@ -803,12 +806,18 @@ static void setKickstartNetwork(struct loaderData_s * loaderData, PyObject *hand
 
     Py_XDECREF(noksdev);
 
-    /* Make sure the network is always up if there's a network line in the
-     * kickstart file, as %post/%pre scripts might require that.
-     */
-    if (loaderData->method != METHOD_NFS && loaderData->method != METHOD_URL) {
-        if (kickstartNetworkUp(loaderData, &iface))
-            logMessage(ERROR, "unable to bring up network");
+    if (!is_nm_connected()) {
+        logMessage(INFO, "activating because no network connection is available");
+        activateDevice(loaderData, &iface);
+        return;
+    }
+
+    attr = getObject(ele, "activate", 0);
+    if (isTrue(attr)) {
+        logMessage(INFO, "activating because --activate flag is set");
+        activateDevice(loaderData, &iface);
+    } else {
+        logMessage(INFO, "not activating becuase --activate flag is not set");
     }
 
 cleanup:
