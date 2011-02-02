@@ -1333,7 +1333,9 @@ rm -rf $DEST/boot $DEST/home
 # Remove a bunch of stuff we don't want in the final image.
 find $DEST -name "*.a" | grep -v kernel-wrapper/wrapper.a | xargs rm -rf
 find $DEST -name "lib*.la" |grep -v "usr/$LIBDIR/gtk-2.0" | xargs rm -rf
-rm -f $DEST/lib/udev/rules.d/*generator*
+for i in $DEST/lib/udev/rules.d/*generator* ; do
+    [[ "$i" =~ net-generator ]] || rm -f $i
+done
 
 # nuke some python stuff we don't need
 for d in idle distutils bsddb lib-old hotshot doctest.py pydoc.py site-packages/japanese site-packages/japanese.pth ; do
