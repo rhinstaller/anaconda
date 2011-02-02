@@ -610,6 +610,13 @@ class DeviceTree(object):
                                   a2.device.partedPartition.number)
                     else:
                         ret = cmp(a1.device.name, a2.device.name)
+                elif isinstance(a1.device, LVMLogicalVolumeDevice) and \
+                     isinstance(a2.device, LVMLogicalVolumeDevice) and \
+                     a1.device.vg == a2.device.vg:
+                    if a1.device.singlePV and not a2.device.singlePV:
+                        ret = -1
+                    elif not a1.device.singlePV and a2.device.singlePV:
+                        ret = 1
                 elif isinstance(a1.device, PartitionDevice) and \
                      a2.device.partitioned:
                     ret = 1
