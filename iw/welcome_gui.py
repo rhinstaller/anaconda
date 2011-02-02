@@ -38,15 +38,7 @@ class WelcomeWindow (InstallWindow):
     # WelcomeWindow tag="wel"
     def getScreen (self, anaconda):
         self.anaconda = anaconda
-        # this is a bit ugly... but scale the image if we're not at 800x600
-        (w, h) = self.ics.cw.window.get_size_request()
-        if w >= 800:
-            height = None
-            width = None
-        else:
-            width = 500
-            height = 258
-        pix = gui.readImageFromFile("splash.png", width, height, dither=False)
+        pix = gui.readImageFromFile("splash.png")
         box = gtk.EventBox ()
         box.add (pix)
         return box
