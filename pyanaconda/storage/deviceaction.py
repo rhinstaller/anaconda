@@ -24,7 +24,9 @@
 from udev import *
 import math
 
-from devices import StorageDevice, PartitionDevice
+from devices import StorageDevice
+from devices import PartitionDevice
+from devices import LVMLogicalVolumeDevice
 from formats import getFormat
 from errors import *
 from parted import partitionFlag, PARTITION_LBA
@@ -259,6 +261,12 @@ class ActionCreateDevice(DeviceAction):
             otherNum = action.device.partedPartition.number
             if selfNum > otherNum:
                 rc = True
+        elif (action.isCreate and action.isDevice and
+              isinstance(self.device, LVMLogicalVolumeDevice) and
+              isinstance(action.device, LVMLogicalVolumeDevice) and
+              self.device.vg == action.device.vg and
+              action.device.singlePV and not self.device.singlePV):
+            rc = True
         return rc
 
 
