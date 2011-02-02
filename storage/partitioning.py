@@ -181,7 +181,8 @@ def _scheduleLVs(anaconda, devs):
                                         mountpoint=request.mountpoint,
                                         grow=request.grow,
                                         maxsize=request.maxSize,
-                                        size=request.size)
+                                        size=request.size,
+                                        singlePV=request.singlePV)
 
         # schedule the device for creation
         anaconda.id.storage.createDevice(dev)

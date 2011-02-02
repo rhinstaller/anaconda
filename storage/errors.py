@@ -85,6 +85,9 @@ class MDMemberError(DeviceFormatError):
 class PhysicalVolumeError(DeviceFormatError):
     pass
 
+class SinglePhysicalVolumeError(DeviceFormatError):
+    pass
+
 class SwapSpaceError(DeviceFormatError):
     pass
 

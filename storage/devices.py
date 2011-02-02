@@ -2220,7 +2220,8 @@ class LVMLogicalVolumeDevice(DMDevice):
     def __init__(self, name, vgdev, size=None, uuid=None,
                  stripes=1, logSize=0, snapshotSpace=0,
                  format=None, exists=None, sysfsPath='',
-                 grow=None, maxsize=None, percent=None):
+                 grow=None, maxsize=None, percent=None,
+                 singlePV=False):
         """ Create a LVMLogicalVolumeDevice instance.
 
             Arguments:
@@ -2238,6 +2239,7 @@ class LVMLogicalVolumeDevice(DMDevice):
                 sysfsPath -- sysfs device path
                 format -- a DeviceFormat instance
                 exists -- indicates whether this is an existing device
+                singlePV -- if true, maps this lv to a single pv
 
                 For new (non-existent) LVs only:
 
@@ -2261,6 +2263,7 @@ class LVMLogicalVolumeDevice(DMDevice):
         self.snapshotSpace = snapshotSpace
         self.stripes = stripes
         self.logSize = logSize
+        self.singlePV = singlePV
 
         self.req_grow = None
         self.req_max_size = 0
@@ -2427,16 +2430,35 @@ class LVMLogicalVolumeDevice(DMDevice):
                 log.debug("vg %s teardown failed; continuing" % self.vg.name)
 
     def _getSinglePV(self):
-        pvs = []
-        paths = []
+        # NOTE: This runs the pvs(8) command and outputs the PV device
+        # name, VG name, and amount of free space on the PV in megabytes.
+        # A change to the Size class will require more handling of the
+        # units switch in this arg list.
+        args = ["pvs", "--noheadings", "--nosuffix", "--aligned",
+                "--units", "M", "-o", "pv_name,vg_name,pv_free"]
+        buf = iutil.execWithCapture("lvm", args, stderr="/dev/tty5")
 
-        for parent in self.parents:
-            pvs += parent.parents
+        for line in buf.splitlines():
+            fields = filter(lambda x: x != '', line.strip().split())
 
-        paths = map(lambda x: x.path, pvs)
+            if len(fields) != 3 or fields[1] != self.vg.name:
+                continue
+            if float(fields[2]) >= self.size:
+                return [fields[0]]             # lvm.lvcreate needs a list
 
-        paths.sort()
-        return paths[-1:]
+        if hasattr(self.format, "mountpoint"):
+            mountpoint = self.format.mountpoint
+        else:
+            mountpoint = self.format.name
+
+        raise SinglePhysicalVolumeError("Single physical volume restriction "
+                                        "for %(mountpoint)s on this platform. "
+                                        "No physical volumes available in "
+                                        "volume group %(vgname)s with "
+                                        "%(size)d MB of available space."
+                                        % {'mountpoint': mountpoint,
+                                           'vgname': self.vg.name,
+                                           'size': self.size})
 
     def create(self, intf=None):
         """ Create the device. """
@@ -2455,8 +2477,7 @@ class LVMLogicalVolumeDevice(DMDevice):
             self.setupParents()
 
             # should we use --zero for safety's sake?
-            if hasattr(self.format, "mountpoint") and \
-               self.format.mountpoint == "/boot":
+            if self.singlePV:
                 lvm.lvcreate(self.vg.name, self._name, self.size, progress=w,
                              pvs=self._getSinglePV())
             else:
