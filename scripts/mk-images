@@ -909,7 +909,10 @@ EOF
     for i in $IMGPATH/lib/udev/*; do
        if [ -f $i ]; then install -m 755 $i $MBD_DIR/lib/udev/${i##*/}; fi
     done
-    rm -f $MBD_DIR/lib/udev/rules.d/*generator*
+    for i in $MBD_DIR/lib/udev/rules.d/*generator* ; do
+       [[ "$i" =~ net-generator ]] || rm -f $i
+    done
+
 
     install -m 644 $LOADERBINDIR/$MYLOADERTR $MBD_DIR/etc/loader.tr
     for i in a/ansi d/dumb l/linux s/screen v/vt100 v/vt100-nav v/vt102 x/xterm x/xterm-color g/gnome ; do
