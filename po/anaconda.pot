@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 13.21.92\n"
+"Project-Id-Version: anaconda 13.21.93\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2011-01-27 11:53-1000\n"
+"POT-Creation-Date: 2011-02-03 17:19+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -142,7 +142,7 @@ msgstr ""
 msgid "Error"
 msgstr ""
 
-#: bootloader.py:55 bootloader.py:221 bootloader.py:227 gui.py:1289
+#: bootloader.py:55 bootloader.py:221 bootloader.py:227 gui.py:1277
 #: image.py:82 installinterfacebase.py:46 text.py:482 text.py:542
 #: yuminstall.py:1566 yuminstall.py:1776 yuminstall.py:1811
 #: iw/blpasswidget.py:148 iw/upgrade_swap_gui.py:190
@@ -159,7 +159,7 @@ msgid ""
 "Would you like to continue with the installation?"
 msgstr ""
 
-#: bootloader.py:60 gui.py:1192 gui.py:1325 gui.py:1544 image.py:91
+#: bootloader.py:60 gui.py:1180 gui.py:1313 gui.py:1532 image.py:91
 #: livecd.py:205 livecd.py:447 packages.py:162 upgrade.py:58 upgrade.py:199
 #: yuminstall.py:252 yuminstall.py:1049 yuminstall.py:1054 yuminstall.py:1134
 #: yuminstall.py:1140 yuminstall.py:1296 yuminstall.py:1323 yuminstall.py:1384
@@ -169,8 +169,8 @@ msgstr ""
 msgid "_Exit installer"
 msgstr ""
 
-#: bootloader.py:60 image.py:92 image.py:251 kickstart.py:1400
-#: kickstart.py:1439 upgrade.py:58 yuminstall.py:1389 yuminstall.py:1575
+#: bootloader.py:60 image.py:92 image.py:251 kickstart.py:1403
+#: kickstart.py:1442 upgrade.py:58 yuminstall.py:1389 yuminstall.py:1575
 #: iw/partition_gui.py:1604 storage/__init__.py:2009
 msgid "_Continue"
 msgstr ""
@@ -203,8 +203,8 @@ msgstr ""
 msgid "In progress"
 msgstr ""
 
-#: cmdline.py:88 gui.py:1320 kickstart.py:1183 kickstart.py:1263
-#: kickstart.py:1271 kickstart.py:1309 kickstart.py:1317 text.py:389
+#: cmdline.py:88 gui.py:1308 kickstart.py:1186 kickstart.py:1266
+#: kickstart.py:1274 kickstart.py:1312 kickstart.py:1320 text.py:389
 #, python-format
 msgid ""
 "The following error was found while parsing the kickstart configuration "
@@ -275,79 +275,79 @@ msgid ""
 "package installation, you may need to try several times for it to succeed."
 msgstr ""
 
-#: gui.py:509
+#: gui.py:502
 msgid "Installation Key"
 msgstr ""
 
-#: gui.py:580 text.py:149
+#: gui.py:573 text.py:149
 msgid ""
 "Choose a passphrase for the encrypted devices. You will be prompted for this "
 "passphrase during system boot."
 msgstr ""
 
-#: gui.py:599 gui.py:607 text.py:187 text.py:197
+#: gui.py:592 gui.py:600 text.py:187 text.py:197
 msgid "Error with passphrase"
 msgstr ""
 
-#: gui.py:600 text.py:188
+#: gui.py:593 text.py:188
 msgid "The passphrases you entered were different.  Please try again."
 msgstr ""
 
-#: gui.py:608
+#: gui.py:601
 msgid "The passphrase must be at least eight characters long."
 msgstr ""
 
-#: gui.py:642 text.py:225
+#: gui.py:635 text.py:225
 #, python-format
 msgid ""
 "Device %s is encrypted. In order to access the device's contents during "
 "installation you must enter the device's passphrase below."
 msgstr ""
 
-#: gui.py:733 gui.py:1544 partIntfHelpers.py:159 partIntfHelpers.py:344
+#: gui.py:726 gui.py:1532 partIntfHelpers.py:159 partIntfHelpers.py:344
 #: text.py:100 text.py:101 iw/account_gui.py:131 loader/dirbrowser.c:128
 #: loader/driverdisk.c:412 loader/kickstart.c:331 loader/loader.c:470
 #: loader/loader.c:582 textw/constants_text.py:48 textw/userauth_text.py:87
 msgid "Cancel"
 msgstr ""
 
-#: gui.py:745 gui.py:746 gui.py:842 gui.py:914 gui.py:915
+#: gui.py:738 gui.py:739 gui.py:835 gui.py:907 gui.py:908
 #: ui/anaconda.glade.h:3
 msgid "_Debug"
 msgstr ""
 
-#: gui.py:1056 textw/netconfig_text.py:399
+#: gui.py:1044 textw/netconfig_text.py:399
 msgid "Waiting for NetworkManager"
 msgstr ""
 
-#: gui.py:1057
+#: gui.py:1045
 #, python-format
 msgid "Waiting for NetworkManager to activate these devices: %s"
 msgstr ""
 
-#: gui.py:1078
+#: gui.py:1066
 #, python-format
 msgid "Failed to activate these network interfaces: %s"
 msgstr ""
 
-#: gui.py:1081
+#: gui.py:1069
 msgid "Network Configuration"
 msgstr ""
 
-#: gui.py:1090
+#: gui.py:1078
 #, python-format
 msgid "An error occurred trying to bring up the %s network interface."
 msgstr ""
 
-#: gui.py:1092
+#: gui.py:1080
 msgid "Error Enabling Network"
 msgstr ""
 
-#: gui.py:1241 ui/reinitialize-dialog.glade.h:4
+#: gui.py:1229 ui/reinitialize-dialog.glade.h:4
 msgid "Storage Device Warning"
 msgstr ""
 
-#: gui.py:1290 text.py:543
+#: gui.py:1278 text.py:543
 #, python-format
 msgid ""
 "Error processing LVM.\n"
@@ -357,35 +357,35 @@ msgid ""
 "with inconsistent metadata."
 msgstr ""
 
-#: gui.py:1297 installinterfacebase.py:74 text.py:492 text.py:550
+#: gui.py:1285 installinterfacebase.py:74 text.py:492 text.py:550
 msgid "_Ignore"
 msgstr ""
 
-#: gui.py:1298 text.py:493 text.py:551
+#: gui.py:1286 text.py:493 text.py:551
 msgid "Ignore _all"
 msgstr ""
 
-#: gui.py:1299 text.py:494 text.py:552
+#: gui.py:1287 text.py:494 text.py:552
 msgid "_Re-initialize"
 msgstr ""
 
-#: gui.py:1300 text.py:495 text.py:553
+#: gui.py:1288 text.py:495 text.py:553
 msgid "Re-ini_tialize all"
 msgstr ""
 
-#: gui.py:1322 text.py:391
+#: gui.py:1310 text.py:391
 msgid "Error Parsing Kickstart Config"
 msgstr ""
 
-#: gui.py:1369
+#: gui.py:1357
 msgid "default:LTR"
 msgstr ""
 
-#: gui.py:1449 text.py:620
+#: gui.py:1437 text.py:620
 msgid "Error!"
 msgstr ""
 
-#: gui.py:1450 text.py:621
+#: gui.py:1438 text.py:621
 #, python-format
 msgid ""
 "An error occurred when attempting to load an installer interface component.\n"
@@ -393,46 +393,46 @@ msgid ""
 "className = %s"
 msgstr ""
 
-#: gui.py:1455 image.py:164 image.py:194 packages.py:361
+#: gui.py:1443 image.py:164 image.py:194 packages.py:361
 #: storage/__init__.py:1826
 msgid "_Exit"
 msgstr ""
 
-#: gui.py:1456 image.py:164 image.py:194 livecd.py:205 yuminstall.py:919
+#: gui.py:1444 image.py:164 image.py:194 livecd.py:205 yuminstall.py:919
 #: yuminstall.py:1323 yuminstall.py:1384 yuminstall.py:1593
 msgid "_Retry"
 msgstr ""
 
-#: gui.py:1458 storage/partitioning.py:309
+#: gui.py:1446 storage/partitioning.py:310
 msgid "The system will now reboot."
 msgstr ""
 
-#: gui.py:1459 image.py:251 packages.py:365 yuminstall.py:1634
+#: gui.py:1447 image.py:251 packages.py:365 yuminstall.py:1634
 msgid "_Reboot"
 msgstr ""
 
-#: gui.py:1461
+#: gui.py:1449
 msgid "Exiting"
 msgstr ""
 
-#: gui.py:1541 livecd.py:126 text.py:267 upgrade.py:190
+#: gui.py:1529 livecd.py:126 text.py:267 upgrade.py:190
 msgid "Exit installer"
 msgstr ""
 
-#: gui.py:1542
+#: gui.py:1530
 msgid "Are you sure you wish to exit the installer?"
 msgstr ""
 
-#: gui.py:1551
+#: gui.py:1539
 #, python-format
 msgid "%s Installer"
 msgstr ""
 
-#: gui.py:1557
+#: gui.py:1545
 msgid "Unable to load title bar"
 msgstr ""
 
-#: gui.py:1623
+#: gui.py:1611
 msgid "Install Window"
 msgstr ""
 
@@ -585,63 +585,63 @@ msgid ""
 "%s"
 msgstr ""
 
-#: kickstart.py:1282
+#: kickstart.py:1285
 #, python-format
 msgid "Error processing %%ksappend lines: %s"
 msgstr ""
 
-#: kickstart.py:1285
+#: kickstart.py:1288
 #, python-format
 msgid "Unknown error processing %%ksappend lines: %s"
 msgstr ""
 
-#: kickstart.py:1340 livecd.py:228
+#: kickstart.py:1343 livecd.py:228
 msgid "Post-Installation"
 msgstr ""
 
-#: kickstart.py:1341
+#: kickstart.py:1344
 msgid "Running post-installation scripts"
 msgstr ""
 
-#: kickstart.py:1357
+#: kickstart.py:1360
 msgid "Pre-Installation"
 msgstr ""
 
-#: kickstart.py:1358
+#: kickstart.py:1361
 msgid "Running pre-installation scripts"
 msgstr ""
 
-#: kickstart.py:1391
+#: kickstart.py:1394
 msgid "Missing Package"
 msgstr ""
 
-#: kickstart.py:1392
+#: kickstart.py:1395
 #, python-format
 msgid ""
 "You have specified that the package '%s' should be installed.  This package "
 "does not exist. Would you like to continue or abort this installation?"
 msgstr ""
 
-#: kickstart.py:1398 kickstart.py:1437
+#: kickstart.py:1401 kickstart.py:1440
 msgid "_Abort"
 msgstr ""
 
-#: kickstart.py:1399 kickstart.py:1438
+#: kickstart.py:1402 kickstart.py:1441
 msgid "_Ignore All"
 msgstr ""
 
-#: kickstart.py:1429
+#: kickstart.py:1432
 msgid "Missing Group"
 msgstr ""
 
-#: kickstart.py:1430
+#: kickstart.py:1433
 #, python-format
 msgid ""
 "You have specified that the group '%s' should be installed. This group does "
 "not exist. Would you like to continue or abort this installation?"
 msgstr ""
 
-#: kickstart.py:1553
+#: kickstart.py:1556
 #, python-format
 msgid ""
 "The kickstart configuration file is missing required information that "
@@ -1065,17 +1065,17 @@ msgstr ""
 msgid "iSCSI %s Error"
 msgstr ""
 
-#: platform.py:99 platform.py:346 platform.py:414 platform.py:534
+#: platform.py:99 platform.py:346 platform.py:414 platform.py:535
 #: ui/create-storage.glade.h:15
 msgid "RAID Device"
 msgstr ""
 
 #: platform.py:100 platform.py:103 platform.py:347 platform.py:415
-#: platform.py:535 platform.py:538
+#: platform.py:536 platform.py:539
 msgid "Master Boot Record (MBR)"
 msgstr ""
 
-#: platform.py:102 platform.py:537
+#: platform.py:102 platform.py:538
 msgid "First sector of boot partition"
 msgstr ""
 
@@ -2939,8 +2939,8 @@ msgstr ""
 msgid "About LVM"
 msgstr ""
 
-#: iw/partition_gui.py:1590 storage/partitioning.py:229
-#: storage/partitioning.py:272
+#: iw/partition_gui.py:1590 storage/partitioning.py:230
+#: storage/partitioning.py:273
 msgid "Error Partitioning"
 msgstr ""
 
@@ -3270,11 +3270,11 @@ msgid ""
 "There is not enough space on the device you selected for the swap partition."
 msgstr ""
 
-#: iw/welcome_gui.py:56 textw/welcome_text.py:36
+#: iw/welcome_gui.py:48 textw/welcome_text.py:36
 msgid "Network Install Required"
 msgstr ""
 
-#: iw/welcome_gui.py:57 textw/welcome_text.py:37
+#: iw/welcome_gui.py:49 textw/welcome_text.py:37
 msgid ""
 "Your installation source is set to a network location, but no netork devices "
 "were found on your system.  To avoid a network installation, boot with the "
@@ -3282,7 +3282,7 @@ msgid ""
 "network source."
 msgstr ""
 
-#: iw/welcome_gui.py:67
+#: iw/welcome_gui.py:59
 msgid "E_xit Installer"
 msgstr ""
 
@@ -4571,23 +4571,23 @@ msgstr ""
 msgid "lvs failed for %s"
 msgstr ""
 
-#: storage/devices.py:1297 storage/devices.py:2011 storage/devices.py:2449
-#: storage/devices.py:2952 storage/devices.py:3440
+#: storage/devices.py:1297 storage/devices.py:2011 storage/devices.py:2471
+#: storage/devices.py:2973 storage/devices.py:3461
 msgid "Creating"
 msgstr ""
 
-#: storage/devices.py:1298 storage/devices.py:2012 storage/devices.py:2450
-#: storage/devices.py:2953
+#: storage/devices.py:1298 storage/devices.py:2012 storage/devices.py:2472
+#: storage/devices.py:2974
 #, python-format
 msgid "Creating device %s"
 msgstr ""
 
-#: storage/devices.py:2548
+#: storage/devices.py:2569
 #, python-format
 msgid "A RAID%d set requires atleast %d members"
 msgstr ""
 
-#: storage/devices.py:3441
+#: storage/devices.py:3462
 #, python-format
 msgid "Creating file %s"
 msgstr ""
@@ -4605,7 +4605,7 @@ msgid ""
 "installation."
 msgstr ""
 
-#: storage/devicetree.py:1931 storage/devicetree.py:1979
+#: storage/devicetree.py:1938 storage/devicetree.py:1986
 msgid "This partition is part of an inconsistent LVM Volume Group."
 msgstr ""
 
@@ -4668,7 +4668,7 @@ msgid ""
 "problems on the filesystem."
 msgstr ""
 
-#: storage/formats/fs.py:535 storage/partitioning.py:308
+#: storage/formats/fs.py:535 storage/partitioning.py:309
 msgid "Unrecoverable Error"
 msgstr ""
 
@@ -4761,23 +4761,23 @@ msgstr ""
 msgid "Could not log in to any of the discovered nodes"
 msgstr ""
 
-#: storage/partitioning.py:223
+#: storage/partitioning.py:224
 msgid ""
 "Could not find enough free space for automatic partitioning.  Press 'OK' to "
 "exit the installer."
 msgstr ""
 
-#: storage/partitioning.py:226
+#: storage/partitioning.py:227
 msgid ""
 "Could not find enough free space for automatic partitioning, please use "
 "another partitioning method."
 msgstr ""
 
-#: storage/partitioning.py:255
+#: storage/partitioning.py:256
 msgid "Warnings During Automatic Partitioning"
 msgstr ""
 
-#: storage/partitioning.py:257
+#: storage/partitioning.py:258
 #, python-format
 msgid ""
 "Following warnings occurred during automatic partitioning:\n"
@@ -4785,14 +4785,14 @@ msgid ""
 "%s"
 msgstr ""
 
-#: storage/partitioning.py:271 storage/partitioning.py:292
+#: storage/partitioning.py:272 storage/partitioning.py:293
 msgid ""
 "\n"
 "\n"
 "Press 'OK' to exit the installer."
 msgstr ""
 
-#: storage/partitioning.py:273
+#: storage/partitioning.py:274
 #, python-format
 msgid ""
 "Could not allocate requested partitions: \n"
@@ -4800,18 +4800,18 @@ msgid ""
 "%(msg)s.%(extra)s"
 msgstr ""
 
-#: storage/partitioning.py:294
+#: storage/partitioning.py:295
 msgid ""
 "\n"
 "\n"
 "Press 'OK' to choose a different partitioning option."
 msgstr ""
 
-#: storage/partitioning.py:296
+#: storage/partitioning.py:297
 msgid "Automatic Partitioning Errors"
 msgstr ""
 
-#: storage/partitioning.py:297
+#: storage/partitioning.py:298
 #, python-format
 msgid ""
 "The following errors occurred with your partitioning:\n"

@@ -221,6 +221,25 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Thu Feb 03 2011 Martin Sivak <msivak@redhat.com> - 13.21.94-1
+- Don't write our own udev persistent net rules; use udev's generator. (notting)
+  Resolves: rhbz#674685
+- There's no more MainframeDiskDevice, so don't call its __str__ (clumens)
+  Resolves: rhbz#674242
+- Honour network --nodefroute option also in case of network configuration.
+  (rvykydal)
+  Related: rhbz#638131
+- Set default resolution of anaconda.glade to 800x600 (dcantrell)
+  Related: rhbz#663411
+- Make singlePV a more useful boolean, clean up _getSinglePV() (dcantrell)
+  Related: rhbz#618376
+- Sort singlePV=True requests so they come first. (dcantrell)
+  Related: rhbz#618376
+- Remove width and height parameters from gui.readImageFromFile() (dcantrell)
+  Related: rhbz#663411
+- Do not scale image on welcome screen. (dcantrell)
+  Related: rhbz#663411
+
 * Thu Jan 27 2011 David Cantrell <dcantrell@redhat.com> - 13.21.93-1
 - Move reipl step to be after instbootloader step. (dcantrell)
   Related: rhbz#618376
