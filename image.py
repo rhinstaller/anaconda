@@ -79,11 +79,11 @@ def presentRequiredMediaMessage(anaconda):
     for cdnum in reqcds:
         if cdnum == -99: # non-CD bits
             continue
-	reqcdstr += "\t\t%s %s CD #%d\n" % (product.productName, product.productVersion, cdnum,)
+	reqcdstr += "\t\t%s %s disc #%d\n" % (product.productName, product.productVersion, cdnum,)
 		
     return anaconda.intf.messageWindow( _("Required Install Media"),
 				        _("The software you have selected to "
-                                          "install will require the following CDs:\n\n"
+                                          "install will require the following discs:\n\n"
                                           "%s\nPlease "
                                           "have these ready before proceeding with "
                                           "the installation.  If you need to abort "
