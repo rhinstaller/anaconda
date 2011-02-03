@@ -488,7 +488,8 @@ class S390(Platform):
     def setDefaultPartitioning(self):
         """Return the default platform-specific partitioning information."""
         return [PartSpec(mountpoint="/boot", fstype=self.defaultBootFSType, size=500,
-                         weight=self.weight(mountpoint="/boot"), asVol=True)]
+                         weight=self.weight(mountpoint="/boot"), asVol=True,
+                         singlePV=True)]
 
     def weight(self, fstype=None, mountpoint=None):
         if mountpoint and mountpoint == "/boot":
