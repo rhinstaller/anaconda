@@ -1209,6 +1209,7 @@ static void checkForRam(int install_method) {
 }
 
 static void checkTaintFlag(void) {
+    unsigned long l;
     gchar *contents = NULL;
     GError *fileErr = NULL;
 
@@ -1218,7 +1219,15 @@ static void checkTaintFlag(void) {
         return;
     }
 
-    if (g_ascii_strncasecmp(contents, "0", 1)) {
+    errno = 0;
+    l = strtol(contents, NULL, 10);
+    if (errno == EINVAL || errno == ERANGE) {
+        logMessage(ERROR, "%s (%d): %m", __func__, __LINE__);
+        g_free(contents);
+        return;
+    }
+
+    if (l & (1 << 28)) {
         startNewt();
         newtWinMessage(_("Unsupported Hardware Detected"), _("OK"),
                        _("This hardware (or a combination thereof) is not "
