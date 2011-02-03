@@ -491,6 +491,7 @@ class LogVolData(commands.logvol.F12_LogVolData):
         # Now get a format to hold a lot of these extra values.
         format = getFormat(type,
                            mountpoint=self.mountpoint,
+                           label=self.label,
                            mountopts=self.fsopts)
         if not format:
             raise KickstartValueError, formatErrorMsg(self.lineno, msg="The \"%s\" filesystem type is not supported." % type)
