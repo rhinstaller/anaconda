@@ -1,0 +1,241 @@
+#!/bin/bash
+#
+# upd-bootiso
+#
+# Copyright (C) 2010  Red Hat, Inc.  All rights reserved.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+# Author: Brian C. Lane <bcl@redhat.com>
+#
+# Update an existing boot.iso image with new anaconda rpm build
+#
+# This likely only works with x86 iso's since doPostImages() was borrowed
+# from mk-images.x86
+#
+
+# Borrowed from mk-images.x86
+doPostImages() {
+    if [ -n "$BOOTISO" ]; then
+        EFIARGS=""
+        EFIGRAFT=""
+        if [ -f $TOPDESTPATH/images/efiboot.img ]; then
+            echo "Found efiboot.img, making an EFI-capable boot.iso"
+            EFIARGS="-eltorito-alt-boot -e images/efiboot.img -no-emul-boot"
+            EFIGRAFT="EFI/BOOT=$TOPDESTPATH/EFI/BOOT"
+        else
+            echo "No efiboot.img found, making BIOS-only boot.iso"
+        fi
+        BIOSARGS="-b isolinux/isolinux.bin -c isolinux/boot.cat -no-emul-boot -boot-load-size 4 -boot-info-table"
+        mkisocmd="mkisofs -v -o $BOOTISO $BIOSARGS $EFIARGS -R -J -V '$CDLABEL' -T $TOPDESTPATH"
+        echo $PWD:\$ $mkisocmd
+        eval $mkisocmd
+        if [ -x /usr/bin/isohybrid ]; then
+            isohybrid $BOOTISO || echo "Unable to make hybrid boot.iso"
+        fi
+        implantisomd5 $BOOTISO
+    fi
+}
+
+abspath() {
+    dir="$1"
+    file=""
+    if [[ -f "$dir" ]]; then
+        file=/`basename "$dir"`
+        dir=`dirname "$dir"`
+    fi
+    echo `cd "$dir" && pwd -P`"$file"
+}
+
+usage() {
+        if [ $1 -ne 0 ]; then
+                >&2
+        fi
+        echo "upd-bootiso <boot.iso> <anaconda.rpm> [other.rpm] ..."
+        exit $1
+}
+
+[ -z "$1" -o -z "$2" ] && usage 1
+[ "$1" == "--help" ] && usage 0
+
+if [ "$(id -u)" != "0" ]; then
+   echo "You must be root to run this script"
+   exit 1
+fi
+
+TMPDIR=$(mktemp -d)
+[ $? -eq 0 ] || exit 1
+
+#ORIG_ISO=$(readlink -f $1)
+#ANACONDA_RPM=$(readlink -f $2)
+
+ORIG_ISO=$(abspath $1)
+ANACONDA_RPM=$(abspath $2)
+shift 2;
+
+# Get the full path to any other rpms
+EXTRA_RPMS=""
+for f in $*; do
+    EXTRA_RPMS="$EXTRA_RPMS$(abspath $f) "
+done
+
+# Which anaconda release is this?
+echo $ANACONDA_RPM | python -c 'import sys,os;exit(int(os.path.basename(sys.stdin.readline())[9:].split(".")[0]))'
+VER=$?
+
+# Figure out if this is a 64 bit system
+# < 12 doesn't use lib64 directory
+if [[ $VER -gt 11 && $ANACONDA_RPM =~ "x86_64" ]]; then
+    LIBDIR=lib64
+else
+    LIBDIR=lib
+fi
+echo "LIBDIR=$LIBDIR"
+
+
+echo "Working in $TMPDIR"
+pushd $TMPDIR
+
+# Extract the iso into newiso
+echo "Extracting $ORIG_ISO to ./newiso/"
+mkdir ./iso.orig
+mount -o loop $ORIG_ISO ./iso.orig
+mkdir ./newiso
+rsync -a ./iso.orig/ ./newiso/
+umount ./iso.orig
+
+# Update the install.img with new anaconda files
+if [ $VER -gt 11 ]; then
+    echo "Extracting ./newiso/images/install.img to ./newinstall/"
+    mkdir ./install
+    mount -o loop ./newiso/images/install.img install/
+    mkdir ./newinstall
+    rsync -a ./install/ ./newinstall/
+    umount ./install
+
+    pushd ./newinstall
+    rpm2cpio $ANACONDA_RPM | cpio -idu
+
+    # Unpack any other rpms
+    for f in $EXTRA_RPMS; do
+        echo "Unpacking $f"
+        rpm2cpio $f | cpio -idu
+    done
+
+    if [ $VER -gt 13 ]; then
+        echo "Detected anaconda release 14+"
+        # >= anaconda-14.* do this
+        cp ./usr/share/anaconda/raidstart-stub ./usr/bin/raidstart
+        cp ./usr/share/anaconda/raidstop-stub ./usr/bin/raidstop
+        cp ./usr/share/anaconda/losetup-stub ./usr/bin/losetup
+        cp ./usr/share/anaconda/list-harddrives-stub ./usr/bin/list-harddrives
+        cp ./usr/share/anaconda/loadkeys-stub ./usr/bin/loadkeys
+        cp ./usr/share/anaconda/mknod-stub ./usr/bin/mknod
+        cp ./usr/share/anaconda/restart-anaconda ./usr/bin/restart-anaconda
+        cp ./usr/sbin/anaconda ./usr/bin/anaconda
+
+        cp ./usr/$LIBDIR/python?.?/site-packages/pyanaconda/sitecustomize.py ./usr/$LIBDIR/python?.?/site-packages
+    elif [ $VER -gt 11 ]; then
+        echo "Detected anaconda release 12 or 13"
+        # 12 or 13 do this
+        cp ./usr/$LIBDIR/anaconda/raidstart-stub ./usr/bin/raidstart
+        cp ./usr/$LIBDIR/anaconda/raidstop-stub ./usr/bin/raidstop
+        cp ./usr/$LIBDIR/anaconda/losetup-stub ./usr/bin/losetup
+        cp ./usr/$LIBDIR/anaconda/list-harddrives-stub ./usr/bin/list-harddrives
+        cp ./usr/$LIBDIR/anaconda/loadkeys-stub ./usr/bin/loadkeys
+        cp ./usr/$LIBDIR/anaconda/mknod-stub ./usr/bin/mknod
+        cp ./usr/$LIBDIR/anaconda/syslogd-stub ./usr/bin/syslogd
+        cp ./usr/sbin/anaconda ./usr/bin/anaconda
+        cp ./usr/$LIBDIR/anaconda-runtime/lib* ./usr/lib
+        cp ./usr/$LIBDIR/anaconda/sitecustomize.py ./usr/lib/python?.?/site-packages
+    else
+        # Note this is for reference, it won't ever get here
+        # <= 11 do this
+        cp ./usr/lib/anaconda/raidstart-stub ./usr/bin/raidstart
+        cp ./usr/lib/anaconda/raidstop-stub ./usr/bin/raidstop
+        cp ./usr/lib/anaconda/losetup-stub ./usr/bin/losetup
+        cp ./usr/lib/anaconda/pump-stub ./usr/bin/pump
+        cp ./usr/lib/anaconda/list-harddrives-stub ./usr/bin/list-harddrives
+        cp ./usr/lib/anaconda/kudzu-probe-stub ./usr/bin/kudzu-probe
+        cp ./usr/lib/anaconda/loadkeys-stub ./usr/bin/loadkeys
+        cp ./usr/lib/anaconda/mknod-stub ./usr/bin/mknod
+        cp ./usr/lib/anaconda/syslogd-stub ./usr/bin/syslogd
+        cp ./usr/sbin/anaconda ./usr/bin/anaconda
+        cp ./usr/lib/anaconda-runtime/lib* ./usr/$LIBDIR
+    fi
+    popd
+else
+    echo "Cannot update stage2.img (old squashfs version). Only updating initrd"
+    mkdir ./newinstall
+    pushd ./newinstall
+    rpm2cpio $ANACONDA_RPM | cpio -idu
+
+    # Unpack any other rpms
+    for f in $EXTRA_RPMS; do
+        echo "Unpacking $f"
+        rpm2cpio $f | cpio -idu
+    done
+    popd
+fi
+
+# Extract the initrd.img to newtree
+echo "Extracting the initrd.img to ./newtree"
+mkdir ./newtree
+gunzip < ./newiso/isolinux/initrd.img > ./initrd
+
+pushd ./newtree
+cpio -idu < ../initrd
+
+# Copy over files from anaconda
+if [ $VER -gt 11 ]; then
+    cp ../newinstall/usr/$LIBDIR/anaconda/loader ./sbin/
+    cp ../newinstall/usr/share/anaconda/loader.tr ./etc/
+    cp ../newinstall/usr/$LIBDIR/anaconda/init ./sbin/
+
+    # non-standard, used for debugging stage1 problems
+    cp ../newinstall/usr/bin/{ls,cat,less} ./sbin/
+else
+    cp ../newinstall/usr/lib/anaconda-runtime/loader/loader ./sbin/
+    cp ../newinstall/usr/lib/anaconda-runtime/loader/loader.tr ./etc/
+    cp ../newinstall/usr/lib/anaconda-runtime/loader/init ./sbin/
+fi
+
+
+# Create the new initrd.img
+find . |cpio --quiet -c -o | gzip -9 > ../initrd.img
+popd
+
+# Stuff new initrd.img  into the newiso tree
+find ./newiso/ -iname initrd.img -exec cp initrd.img {} \;
+
+# Make a new install.img
+if [ $VER -gt 11 ]; then
+    echo "Create new install.img"
+    mksquashfs ./newinstall install.img -all-root -no-fragments -no-progress
+    find ./newiso/ -iname install.img -exec cp install.img {} \;
+fi
+
+# Make a new boot.iso image
+BOOTISO="./new-boot.iso"
+TOPDESTPATH="./newiso"
+CDLABEL="Fedora"
+rm $TOPDESTPATH/isolinux/boot.cat
+echo "Build new iso"
+doPostImages
+
+mv new-boot.iso /tmp/
+echo "new-boot.iso is in /tmp/"
+popd
+rm -rf $TMPDIR
+
