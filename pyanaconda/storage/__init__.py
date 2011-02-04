@@ -194,7 +194,7 @@ def storageComplete(anaconda):
        and bootdisk.format.labelType == 'gpt':
         warning = _("\n\n<b>WARNING:</b>\n"
                     "You are using a GPT bootdisk on a non-EFI "
-                    "system. This may not work, depending on you BIOS's "
+                    "system. This may not work, depending on your BIOS's "
                     "support for booting from GPT disks.")
         log.warning("Using a GPT bootdisk on non-EFI system")
     else:
