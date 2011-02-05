@@ -14,41 +14,42 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ru\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2010-12-22 13:33-0500\n"
-"PO-Revision-Date: 2011-01-10 11:21+0800\n"
-"Last-Translator: Yuri Khabarov <madb00blik@gmail.com>\n"
-"Language-Team: Russian\n"
+"POT-Creation-Date: 2011-01-19 10:10-0500\n"
+"PO-Revision-Date: 2011-02-05 23:10+0300\n"
+"Last-Translator: Igor Gorbounov <igor.gorbounov@gmail.com>\n"
+"Language-Team: Russian <fedora-trans-ru@redhat,com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Date: 1999-04-03 12:20+0200\n"
 "X-Generator: KBabel 1.11.4\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Poedit-Language: Russian\n"
 
-#: anaconda:314
+#: anaconda:315
 msgid "Press <enter> for a shell"
 msgstr "Для перехода в командную оболочку нажмите <Enter>"
 
-#: anaconda:328
+#: anaconda:329
 #, fuzzy, c-format
 msgid "%s requires %s MB of memory to install, but you only have %s MB on this machine.\n"
 msgstr "%s требует %s мегабайт памяти для установки, но у вас есть только %s мегабайт на данном компьютере.\n"
 
-#: anaconda:330
+#: anaconda:331
 #, fuzzy, c-format
 msgid "%s requires %s MB of memory to install using this installation method, but you only have %s MB on this machine.\n"
 msgstr "%s требует %s мегабайт памяти для установки данным методом, но у вас есть только %s мегабайт на данном компьютере.\n"
 
-#: anaconda:333
+#: anaconda:334
 #, fuzzy, c-format
 msgid "The %s graphical installer requires %s MB of memory, but you only have %s MB."
 msgstr "Графический установщик %s требует %s мегабайт памяти для установки, но у вас есть только %s мегабайт."
 
-#: anaconda:338
+#: anaconda:339
 msgid "Not enough RAM"
 msgstr "Недостаточно ОЗУ"
 
-#: anaconda:339
+#: anaconda:340
 #, fuzzy
 msgid ""
 " Try the text mode installer by running:\n"
@@ -61,11 +62,11 @@ msgstr ""
 "\n"
 "«/usr/bin/liveinst -T»"
 
-#: anaconda:342
+#: anaconda:343
 msgid " Starting text mode."
 msgstr "Запуск текстового режима."
 
-#: anaconda:366
+#: anaconda:367
 #: pyanaconda/rescue.py:361
 #: pyanaconda/rescue.py:393
 #: pyanaconda/rescue.py:406
@@ -120,9 +121,9 @@ msgstr "Запуск текстового режима."
 #: loader/loader.c:516
 #: loader/loader.c:533
 #: loader/loader.c:570
-#: loader/loader.c:1217
-#: loader/loader.c:1236
-#: loader/loader.c:1380
+#: loader/loader.c:1204
+#: loader/loader.c:1223
+#: loader/loader.c:1367
 #: loader/mediacheck.c:47
 #: loader/mediacheck.c:86
 #: loader/mediacheck.c:93
@@ -154,28 +155,28 @@ msgstr "Запуск текстового режима."
 msgid "OK"
 msgstr "OК"
 
-#: anaconda:748
+#: anaconda:749
 msgid "Would you like to use VNC?"
 msgstr "Хотите использовать VNC?"
 
-#: anaconda:749
+#: anaconda:750
 msgid "Text mode provides a limited set of installation options.  It does not allow you to specify your own partitioning layout or package selections.  Would you like to use VNC mode instead?"
 msgstr "Текстовый режим предоставляет ограниченный набор возможностей. Он не позволяет создать собственное разбиение диска или сделать выбор набора пакетов. Использовать режим VNC вместо него?"
 
-#: anaconda:775
+#: anaconda:776
 msgid "Graphical installation is not available. Starting text mode."
 msgstr "Графическая установка невозможна. Запускается текстовый режим."
 
-#: anaconda:783
+#: anaconda:784
 msgid "DISPLAY variable not set. Starting text mode."
 msgstr "Переменная DISPLAY не определена. Запускается текстовый режим."
 
-#: pyanaconda/backend.py:133
+#: pyanaconda/backend.py:132
 #, python-format
 msgid "Upgrading %s\n"
 msgstr "Обновление %s\n"
 
-#: pyanaconda/backend.py:135
+#: pyanaconda/backend.py:134
 #, python-format
 msgid "Installing %s\n"
 msgstr "Установка %s\n"
@@ -183,15 +184,15 @@ msgstr "Установка %s\n"
 #: pyanaconda/bootloader.py:55
 #: pyanaconda/bootloader.py:221
 #: pyanaconda/bootloader.py:227
-#: pyanaconda/gui.py:1155
+#: pyanaconda/gui.py:1156
 #: pyanaconda/image.py:73
 #: pyanaconda/installinterfacebase.py:51
 #: pyanaconda/installinterfacebase.py:130
 #: pyanaconda/packages.py:320
 #: pyanaconda/text.py:412
-#: pyanaconda/yuminstall.py:1486
-#: pyanaconda/yuminstall.py:1624
-#: pyanaconda/yuminstall.py:1659
+#: pyanaconda/yuminstall.py:1498
+#: pyanaconda/yuminstall.py:1636
+#: pyanaconda/yuminstall.py:1671
 #: pyanaconda/iw/blpasswidget.py:149
 #: pyanaconda/iw/upgrade_swap_gui.py:190
 #: pyanaconda/iw/upgrade_swap_gui.py:198
@@ -211,45 +212,44 @@ msgstr ""
 "Продолжить установку?"
 
 #: pyanaconda/bootloader.py:60
-#: pyanaconda/gui.py:1178
-#: pyanaconda/gui.py:1215
-#: pyanaconda/gui.py:1417
+#: pyanaconda/gui.py:1179
+#: pyanaconda/gui.py:1216
+#: pyanaconda/gui.py:1418
 #: pyanaconda/image.py:82
-#: pyanaconda/livecd.py:190
-#: pyanaconda/livecd.py:422
+#: pyanaconda/livecd.py:167
 #: pyanaconda/packages.py:137
 #: pyanaconda/upgrade.py:58
 #: pyanaconda/upgrade.py:98
 #: pyanaconda/upgrade.py:254
 #: pyanaconda/yuminstall.py:259
-#: pyanaconda/yuminstall.py:812
-#: pyanaconda/yuminstall.py:991
-#: pyanaconda/yuminstall.py:996
-#: pyanaconda/yuminstall.py:1074
-#: pyanaconda/yuminstall.py:1080
-#: pyanaconda/yuminstall.py:1234
-#: pyanaconda/yuminstall.py:1249
-#: pyanaconda/yuminstall.py:1304
-#: pyanaconda/yuminstall.py:1495
-#: pyanaconda/yuminstall.py:1514
-#: pyanaconda/yuminstall.py:1537
-#: pyanaconda/storage/__init__.py:114
-#: pyanaconda/storage/__init__.py:123
-#: pyanaconda/storage/__init__.py:234
-#: pyanaconda/storage/__init__.py:2002
+#: pyanaconda/yuminstall.py:824
+#: pyanaconda/yuminstall.py:1003
+#: pyanaconda/yuminstall.py:1008
+#: pyanaconda/yuminstall.py:1086
+#: pyanaconda/yuminstall.py:1092
+#: pyanaconda/yuminstall.py:1246
+#: pyanaconda/yuminstall.py:1261
+#: pyanaconda/yuminstall.py:1316
+#: pyanaconda/yuminstall.py:1507
+#: pyanaconda/yuminstall.py:1526
+#: pyanaconda/yuminstall.py:1549
+#: pyanaconda/storage/__init__.py:113
+#: pyanaconda/storage/__init__.py:122
+#: pyanaconda/storage/__init__.py:250
+#: pyanaconda/storage/__init__.py:2035
 msgid "_Exit installer"
 msgstr "В_ыход из программы установки"
 
 #: pyanaconda/bootloader.py:60
 #: pyanaconda/image.py:83
-#: pyanaconda/kickstart.py:1424
-#: pyanaconda/kickstart.py:1463
+#: pyanaconda/kickstart.py:1425
+#: pyanaconda/kickstart.py:1464
 #: pyanaconda/upgrade.py:58
 #: pyanaconda/upgrade.py:98
-#: pyanaconda/yuminstall.py:1309
-#: pyanaconda/yuminstall.py:1496
+#: pyanaconda/yuminstall.py:1321
+#: pyanaconda/yuminstall.py:1508
 #: pyanaconda/iw/partition_gui.py:1602
-#: pyanaconda/storage/__init__.py:2003
+#: pyanaconda/storage/__init__.py:2036
 msgid "_Continue"
 msgstr "П_родолжить"
 
@@ -278,12 +278,12 @@ msgid "In progress"
 msgstr "В процессе"
 
 #: pyanaconda/cmdline.py:89
-#: pyanaconda/gui.py:1210
-#: pyanaconda/kickstart.py:1211
-#: pyanaconda/kickstart.py:1291
-#: pyanaconda/kickstart.py:1299
-#: pyanaconda/kickstart.py:1335
-#: pyanaconda/kickstart.py:1345
+#: pyanaconda/gui.py:1211
+#: pyanaconda/kickstart.py:1212
+#: pyanaconda/kickstart.py:1292
+#: pyanaconda/kickstart.py:1300
+#: pyanaconda/kickstart.py:1336
+#: pyanaconda/kickstart.py:1346
 #: pyanaconda/text.py:393
 #, python-format
 msgid ""
@@ -385,8 +385,8 @@ msgstr "Пароль должен содержать не менее 8 симв�
 msgid "Device %s is encrypted. In order to access the device's contents during installation you must enter the device's passphrase below."
 msgstr "Устройство %s зашифровано. Чтобы получить доступ к содержимому устройства в процессе установки, необходимо ввести пароль."
 
-#: pyanaconda/gui.py:681
-#: pyanaconda/gui.py:1417
+#: pyanaconda/gui.py:682
+#: pyanaconda/gui.py:1418
 #: pyanaconda/partIntfHelpers.py:159
 #: pyanaconda/partIntfHelpers.py:344
 #: pyanaconda/text.py:101
@@ -401,85 +401,87 @@ msgstr "Устройство %s зашифровано. Чтобы получи�
 msgid "Cancel"
 msgstr "Отмена"
 
-#: pyanaconda/gui.py:693
 #: pyanaconda/gui.py:694
-#: pyanaconda/gui.py:790
-#: pyanaconda/gui.py:862
+#: pyanaconda/gui.py:695
+#: pyanaconda/gui.py:791
 #: pyanaconda/gui.py:863
+#: pyanaconda/gui.py:864
 #: data/ui/anaconda.glade.h:3
 msgid "_Debug"
 msgstr "_Отладка"
 
-#: pyanaconda/gui.py:989
+#: pyanaconda/gui.py:990
 msgid "Wireless setup"
 msgstr "Настройка беспроводного доступа"
 
-#: pyanaconda/gui.py:990
+#: pyanaconda/gui.py:991
 msgid "Scanning access points for wireless devices"
 msgstr "Выполняется поиск точек доступа для беспроводных устройств"
 
-#: pyanaconda/gui.py:1018
+#: pyanaconda/gui.py:1019
 #: pyanaconda/textw/netconfig_text.py:399
 msgid "Waiting for NetworkManager"
 msgstr "Ожидание NetworkManager"
 
-#: pyanaconda/gui.py:1019
+#: pyanaconda/gui.py:1020
 #, python-format
 msgid "Waiting for NetworkManager to activate these devices: %s"
 msgstr "Ожидание активации устройств с помощью NetworkManager: %s"
 
-#: pyanaconda/gui.py:1046
+#: pyanaconda/gui.py:1047
 #, python-format
 msgid "Failed to activate these network interfaces: %s"
 msgstr "Не удалось активировать сетевые интерфейсы: %s"
 
-#: pyanaconda/gui.py:1049
+#: pyanaconda/gui.py:1050
 msgid "Network Configuration"
 msgstr "Настройка сети"
 
-#: pyanaconda/gui.py:1058
+#: pyanaconda/gui.py:1059
 #, python-format
 msgid "An error occurred trying to bring up the %s network interface."
 msgstr "Произошла ошибка при включении сетевого интерфейса %s."
 
-#: pyanaconda/gui.py:1060
+#: pyanaconda/gui.py:1061
 msgid "Error Enabling Network"
 msgstr "Ошибка при активации сети"
 
-#: pyanaconda/gui.py:1156
+#: pyanaconda/gui.py:1157
 #: pyanaconda/text.py:413
+#, fuzzy
 msgid "You do not have an active network connection.  This is required by some exception saving methods.  Would you like to configure your network now?"
-msgstr ""
+msgstr "У вас нет активного подключения к сети. Оно требуется для некоторых методов, сохраняющих исключения. Хотите настроить сеть сейчас?"
 
-#: pyanaconda/gui.py:1162
+#: pyanaconda/gui.py:1163
 #: pyanaconda/rescue.py:270
 #: pyanaconda/text.py:419
-#: pyanaconda/yuminstall.py:807
-#: pyanaconda/yuminstall.py:1229
+#: pyanaconda/yuminstall.py:819
+#: pyanaconda/yuminstall.py:1241
 #: pyanaconda/iw/task_gui.py:308
 msgid "No Network Available"
 msgstr "Сеть недоступна"
 
-#: pyanaconda/gui.py:1163
+#: pyanaconda/gui.py:1164
 #: pyanaconda/text.py:420
+#, fuzzy
 msgid "Remote exception saving methods will not work."
-msgstr ""
+msgstr "Методы, сохраняющие дистанционные исключения, не будут работать."
 
-#: pyanaconda/gui.py:1212
+#: pyanaconda/gui.py:1213
 #: pyanaconda/text.py:395
 msgid "Error Parsing Kickstart Config"
 msgstr "Ошибка при разборе конфигурации кикстарта"
 
-#: pyanaconda/gui.py:1240
+#: pyanaconda/gui.py:1241
 msgid "default:LTR"
 msgstr "default:LTR"
 
-#: pyanaconda/gui.py:1321
+#: pyanaconda/gui.py:1322
 #: pyanaconda/text.py:514
 msgid "Error!"
 msgstr "Ошибка!"
 
-#: pyanaconda/gui.py:1322
+#: pyanaconda/gui.py:1323
 #: pyanaconda/text.py:515
 #, python-format
 msgid ""
@@ -491,60 +493,60 @@ msgstr ""
 "\n"
 "className = %s"
 
-#: pyanaconda/gui.py:1327
-#: pyanaconda/image.py:143
-#: pyanaconda/image.py:171
+#: pyanaconda/gui.py:1328
+#: pyanaconda/image.py:145
+#: pyanaconda/image.py:173
 #: pyanaconda/packages.py:337
-#: pyanaconda/storage/__init__.py:1819
+#: pyanaconda/storage/__init__.py:1852
 msgid "_Exit"
 msgstr "_Выход"
 
-#: pyanaconda/gui.py:1328
-#: pyanaconda/image.py:143
-#: pyanaconda/image.py:171
-#: pyanaconda/livecd.py:190
-#: pyanaconda/yuminstall.py:899
-#: pyanaconda/yuminstall.py:1249
-#: pyanaconda/yuminstall.py:1304
-#: pyanaconda/yuminstall.py:1514
+#: pyanaconda/gui.py:1329
+#: pyanaconda/image.py:145
+#: pyanaconda/image.py:173
+#: pyanaconda/livecd.py:167
+#: pyanaconda/yuminstall.py:911
+#: pyanaconda/yuminstall.py:1261
+#: pyanaconda/yuminstall.py:1316
+#: pyanaconda/yuminstall.py:1526
 msgid "_Retry"
 msgstr "_Повторить"
 
-#: pyanaconda/gui.py:1330
-#: pyanaconda/storage/partitioning.py:280
+#: pyanaconda/gui.py:1331
+#: pyanaconda/storage/partitioning.py:282
 msgid "The system will now reboot."
 msgstr "Система сейчас будет перезагружена."
 
-#: pyanaconda/gui.py:1331
+#: pyanaconda/gui.py:1332
 #: pyanaconda/packages.py:341
 msgid "_Reboot"
 msgstr "_Перезагрузка"
 
-#: pyanaconda/gui.py:1333
+#: pyanaconda/gui.py:1334
 msgid "Exiting"
 msgstr "Завершение работы"
 
-#: pyanaconda/gui.py:1414
+#: pyanaconda/gui.py:1415
 #: pyanaconda/livecd.py:126
 #: pyanaconda/text.py:271
 #: pyanaconda/upgrade.py:245
 msgid "Exit installer"
 msgstr "Прервать установку"
 
-#: pyanaconda/gui.py:1415
+#: pyanaconda/gui.py:1416
 msgid "Are you sure you wish to exit the installer?"
 msgstr "Вы действительно хотите прервать установку?"
 
-#: pyanaconda/gui.py:1424
+#: pyanaconda/gui.py:1425
 #, python-format
 msgid "%s Installer"
 msgstr "Программа установки %s"
 
-#: pyanaconda/gui.py:1430
+#: pyanaconda/gui.py:1431
 msgid "Unable to load title bar"
 msgstr "Невозможно загрузить заголовок"
 
-#: pyanaconda/gui.py:1508
+#: pyanaconda/gui.py:1506
 msgid "Install Window"
 msgstr "Окно установки"
 
@@ -559,20 +561,20 @@ msgstr ""
 "\n"
 "Рекомендуется перезагрузить машину и прервать установку, но вы можете продолжить, если считаете, что это не ошибка."
 
-#: pyanaconda/image.py:135
+#: pyanaconda/image.py:137
 msgid "Couldn't Mount ISO Source"
 msgstr "Не удалось смонтировать образ ISO"
 
-#: pyanaconda/image.py:136
+#: pyanaconda/image.py:138
 #, python-format
 msgid "An error occurred mounting the source device %s.  This may happen if your ISO images are located on an advanced storage device like LVM or RAID, or if there was a problem mounting a partition.  Click exit to abort the installation."
 msgstr "Произошла ошибка при монтировании устройства %s. Это могло произойти из-за того, что Ваши ISO-образы находятся на устройствах LVM или RAID, или из-за проблем с монтированием раздела. Нажмите кнопку выхода, чтобы прервать установку."
 
-#: pyanaconda/image.py:162
+#: pyanaconda/image.py:164
 msgid "Missing ISO 9660 Image"
 msgstr "Отсутствует образ ISO 9660"
 
-#: pyanaconda/image.py:163
+#: pyanaconda/image.py:165
 #, fuzzy
 msgid ""
 "The installer has tried to mount the installation image, but cannot find it on the hard drive.\n"
@@ -583,30 +585,29 @@ msgstr ""
 "\n"
 "Скопируйте данный образ на накопитель и нажмите «Повторить». Нажмите «Выход», чтобы прервать установку."
 
-#: pyanaconda/image.py:211
-#: pyanaconda/livecd.py:183
-#: pyanaconda/livecd.py:415
+#: pyanaconda/image.py:213
+#: pyanaconda/livecd.py:160
 #: pyanaconda/partIntfHelpers.py:239
 #: pyanaconda/text.py:356
 #: pyanaconda/text.py:360
 #: pyanaconda/yuminstall.py:422
-#: pyanaconda/yuminstall.py:902
-#: pyanaconda/yuminstall.py:989
-#: pyanaconda/yuminstall.py:994
-#: pyanaconda/yuminstall.py:1254
-#: pyanaconda/yuminstall.py:1314
-#: pyanaconda/yuminstall.py:1508
-#: pyanaconda/yuminstall.py:1530
+#: pyanaconda/yuminstall.py:914
+#: pyanaconda/yuminstall.py:1001
+#: pyanaconda/yuminstall.py:1006
+#: pyanaconda/yuminstall.py:1266
+#: pyanaconda/yuminstall.py:1326
+#: pyanaconda/yuminstall.py:1520
+#: pyanaconda/yuminstall.py:1542
 #: pyanaconda/iw/advanced_storage.py:368
 #: pyanaconda/iw/advanced_storage.py:378
 #: pyanaconda/iw/advanced_storage.py:427
 #: pyanaconda/iw/autopart_type.py:95
 #: pyanaconda/iw/cleardisks_gui.py:44
 #: pyanaconda/iw/cleardisks_gui.py:54
-#: pyanaconda/iw/filter_gui.py:431
+#: pyanaconda/iw/filter_gui.py:432
 #: pyanaconda/iw/osbootwidget.py:211
 #: pyanaconda/iw/osbootwidget.py:220
-#: pyanaconda/iw/raid_dialog_gui.py:224
+#: pyanaconda/iw/raid_dialog_gui.py:226
 #: pyanaconda/iw/task_gui.py:52
 #: pyanaconda/iw/task_gui.py:150
 #: pyanaconda/iw/task_gui.py:302
@@ -630,7 +631,7 @@ msgstr ""
 #: loader/lang.c:113
 #: loader/loader.c:422
 #: loader/loader.c:533
-#: loader/loader.c:1217
+#: loader/loader.c:1204
 #: loader/mediacheck.c:47
 #: loader/mediacheck.c:86
 #: loader/mediacheck.c:93
@@ -644,16 +645,16 @@ msgstr ""
 #: loader/urls.c:335
 #: loader/urls.c:343
 #: loader/urls.c:350
-#: pyanaconda/storage/__init__.py:230
-#: pyanaconda/storage/__init__.py:1820
-#: pyanaconda/storage/__init__.py:1907
+#: pyanaconda/storage/__init__.py:246
+#: pyanaconda/storage/__init__.py:1853
+#: pyanaconda/storage/__init__.py:1940
 #: pyanaconda/storage/zfcp.py:375
 #: pyanaconda/textw/upgrade_text.py:181
 #: pyanaconda/textw/upgrade_text.py:188
 msgid "Error"
 msgstr "Ошибка"
 
-#: pyanaconda/image.py:212
+#: pyanaconda/image.py:214
 #, python-format
 msgid "An error occurred unmounting the disc.  Please make sure you're not accessing %s from the shell on tty2 and then click OK to retry."
 msgstr "Ошибка отключения диска. Убедитесь, что к %s не осуществляется обращение из оболочки на tty2, и нажмите OК для повтора."
@@ -671,7 +672,7 @@ msgstr[1] "Диски %s содержат метаданные RAID BIOS, но �
 msgstr[2] "Диски %s содержат метаданные RAID BIOS, но не входят в состав известных наборов RAID BIOS. %s будут проигнорированы."
 
 #: pyanaconda/installinterfacebase.py:82
-#: data/ui/reinitialize-dialog.glade.h:4
+#: data/ui/reinitialize-dialog.glade.h:3
 #, fuzzy
 msgid "Storage Device Warning"
 msgstr "Стандартные накопители"
@@ -747,7 +748,7 @@ msgstr "Ошибка определения имени диска загрузо
 
 #: pyanaconda/iutil.py:841
 msgid "the device containing /boot"
-msgstr ""
+msgstr "устройство, содержащее /boot"
 
 #: pyanaconda/iutil.py:843
 #, fuzzy, python-format
@@ -785,58 +786,58 @@ msgstr ""
 msgid "Could not log into any iSCSI nodes at the portal."
 msgstr "Не удалось зарегистрироваться ни на одном из обнаруженных узлов"
 
-#: pyanaconda/kickstart.py:1310
+#: pyanaconda/kickstart.py:1311
 #, python-format
 msgid "Error processing %%ksappend lines: %s"
 msgstr "Ошибка обработки строк %%ksappend: %s"
 
-#: pyanaconda/kickstart.py:1313
+#: pyanaconda/kickstart.py:1314
 #, python-format
 msgid "Unknown error processing %%ksappend lines: %s"
 msgstr "Неизвестная ошибка при обработке строк %%ksappend: %s"
 
-#: pyanaconda/kickstart.py:1368
-#: pyanaconda/livecd.py:213
+#: pyanaconda/kickstart.py:1369
+#: pyanaconda/livecd.py:190
 msgid "Post-Installation"
 msgstr "После установки"
 
-#: pyanaconda/kickstart.py:1369
+#: pyanaconda/kickstart.py:1370
 msgid "Running post-installation scripts"
 msgstr "Выполняются пост-установочные сценарии"
 
-#: pyanaconda/kickstart.py:1384
+#: pyanaconda/kickstart.py:1385
 msgid "Running pre-installation scripts"
 msgstr "Выполняются пред-установочные сценарии"
 
-#: pyanaconda/kickstart.py:1415
+#: pyanaconda/kickstart.py:1416
 msgid "Missing Package"
 msgstr "Отсутствующий пакет"
 
-#: pyanaconda/kickstart.py:1416
+#: pyanaconda/kickstart.py:1417
 #, python-format
 msgid "You have specified that the package '%s' should be installed.  This package does not exist. Would you like to continue or abort this installation?"
 msgstr "Вы указали, что пакет %s должен быть установлен.  Этот пакет не существует. Продолжить или прервать установку?"
 
-#: pyanaconda/kickstart.py:1422
-#: pyanaconda/kickstart.py:1461
+#: pyanaconda/kickstart.py:1423
+#: pyanaconda/kickstart.py:1462
 msgid "_Abort"
 msgstr "_Прервать"
 
-#: pyanaconda/kickstart.py:1423
-#: pyanaconda/kickstart.py:1462
+#: pyanaconda/kickstart.py:1424
+#: pyanaconda/kickstart.py:1463
 msgid "_Ignore All"
 msgstr "_Игнорировать все"
 
-#: pyanaconda/kickstart.py:1453
+#: pyanaconda/kickstart.py:1454
 msgid "Missing Group"
 msgstr "Отсутствует группа"
 
-#: pyanaconda/kickstart.py:1454
+#: pyanaconda/kickstart.py:1455
 #, python-format
 msgid "You have specified that the group '%s' should be installed. This group does not exist. Would you like to continue or abort this installation?"
 msgstr "Вы указали, что группа %s должна быть установлена. Эта группа не существует. Продолжить или прервать установку?"
 
-#: pyanaconda/kickstart.py:1551
+#: pyanaconda/kickstart.py:1552
 #, python-format
 msgid ""
 "The kickstart configuration file is missing required information that anaconda cannot prompt for.  Please add the following sections and try again:\n"
@@ -854,11 +855,11 @@ msgstr "Не удается найти образ"
 msgid "The given location isn't a valid %s live CD to use as an installation source."
 msgstr "Указанный путь не является корректным %s Live CD для установки."
 
-#: pyanaconda/livecd.py:165
+#: pyanaconda/livecd.py:143
 msgid "Copying live image to hard drive."
 msgstr "Установочный Live-образ переносится на жесткий диск."
 
-#: pyanaconda/livecd.py:184
+#: pyanaconda/livecd.py:161
 msgid ""
 "There was an error installing the live image to your hard drive.  This could be due to bad media.  Please verify your installation media.\n"
 "\n"
@@ -869,25 +870,9 @@ msgstr ""
 "\n"
 "При отмене установки система останется в нестабильном состоянии, требующем переустановки."
 
-#: pyanaconda/livecd.py:214
+#: pyanaconda/livecd.py:191
 msgid "Performing post-installation filesystem changes.  This may take several minutes."
 msgstr "Выполнение заключительных операций с файловой системой. Это может занять несколько минут."
-
-#: pyanaconda/livecd.py:416
-#, python-format
-msgid "The root filesystem you created is not large enough for this live image (%.2f MB required)."
-msgstr "Созданная корневая файловая система слишком мала для размещения Live-образа (требуется %.2f МБ)."
-
-#: pyanaconda/livecd.py:421
-#: pyanaconda/packages.py:341
-#: pyanaconda/upgrade.py:253
-#: pyanaconda/yuminstall.py:996
-#: pyanaconda/yuminstall.py:1080
-#: pyanaconda/yuminstall.py:1495
-#: pyanaconda/yuminstall.py:1537
-#: data/ui/anaconda.glade.h:2
-msgid "_Back"
-msgstr "_Назад"
 
 #: pyanaconda/network.py:78
 msgid "Hostname must be 255 or fewer characters in length."
@@ -976,6 +961,16 @@ msgstr "_Установить всё равно"
 msgid "Your system will now be rebooted..."
 msgstr "Ваша система сейчас будет перезагружена..."
 
+#: pyanaconda/packages.py:341
+#: pyanaconda/upgrade.py:253
+#: pyanaconda/yuminstall.py:1008
+#: pyanaconda/yuminstall.py:1092
+#: pyanaconda/yuminstall.py:1507
+#: pyanaconda/yuminstall.py:1549
+#: data/ui/anaconda.glade.h:2
+msgid "_Back"
+msgstr "_Назад"
+
 #: pyanaconda/packages.py:342
 msgid "Warning! This is pre-release software!"
 msgstr "Внимание! Это предварительный выпуск!"
@@ -1030,7 +1025,7 @@ msgstr "Необходимо указать раздел для удаления
 
 #: pyanaconda/partIntfHelpers.py:155
 #: pyanaconda/partIntfHelpers.py:343
-#: pyanaconda/iw/lvm_dialog_gui.py:880
+#: pyanaconda/iw/lvm_dialog_gui.py:882
 msgid "Confirm Delete"
 msgstr "Подтвердите удаление"
 
@@ -1041,8 +1036,8 @@ msgstr "Вы собираетесь удалить все разделы на у
 
 #: pyanaconda/partIntfHelpers.py:159
 #: pyanaconda/partIntfHelpers.py:344
-#: pyanaconda/iw/lvm_dialog_gui.py:883
-#: pyanaconda/iw/lvm_dialog_gui.py:1483
+#: pyanaconda/iw/lvm_dialog_gui.py:885
+#: pyanaconda/iw/lvm_dialog_gui.py:1485
 #: pyanaconda/iw/osbootwidget.py:104
 #: pyanaconda/iw/partition_gui.py:1815
 #: pyanaconda/iw/partition_gui.py:1827
@@ -1187,7 +1182,7 @@ msgstr "Вы уверены, что хотите вернуть таблицу �
 
 #: pyanaconda/partIntfHelpers.py:361
 msgid "No credentials (discovery authentication disabled)"
-msgstr ""
+msgstr "Нет учетных данных (отключено обнаружение проверки прав доступа)"
 
 #: pyanaconda/partIntfHelpers.py:362
 msgid "CHAP pair"
@@ -1198,8 +1193,9 @@ msgid "CHAP pair and a reverse pair"
 msgstr "CHAP пара и обратная пара"
 
 #: pyanaconda/partIntfHelpers.py:364
+#, fuzzy
 msgid "Use the credentials from the discovery step"
-msgstr ""
+msgstr "Использовать учетные данные с этапа обнаружения "
 
 #: pyanaconda/partIntfHelpers.py:472
 #, fuzzy
@@ -1229,99 +1225,99 @@ msgstr "Загрузка"
 msgid "iSCSI %s Error"
 msgstr "ошибка iSCSI %s"
 
-#: pyanaconda/platform.py:98
-#: pyanaconda/platform.py:344
-#: pyanaconda/platform.py:412
-#: pyanaconda/platform.py:521
+#: pyanaconda/platform.py:99
+#: pyanaconda/platform.py:351
+#: pyanaconda/platform.py:419
+#: pyanaconda/platform.py:534
 #: data/ui/create-storage.glade.h:15
 msgid "RAID Device"
 msgstr "Устройство RAID"
 
-#: pyanaconda/platform.py:99
-#: pyanaconda/platform.py:102
-#: pyanaconda/platform.py:345
-#: pyanaconda/platform.py:413
-#: pyanaconda/platform.py:522
-#: pyanaconda/platform.py:525
+#: pyanaconda/platform.py:100
+#: pyanaconda/platform.py:103
+#: pyanaconda/platform.py:352
+#: pyanaconda/platform.py:420
+#: pyanaconda/platform.py:535
+#: pyanaconda/platform.py:538
 msgid "Master Boot Record (MBR)"
 msgstr "Главная загрузочная запись (MBR)"
 
-#: pyanaconda/platform.py:101
-#: pyanaconda/platform.py:524
+#: pyanaconda/platform.py:102
+#: pyanaconda/platform.py:537
 msgid "First sector of boot partition"
 msgstr "Первый сектор загрузочного раздела"
 
-#: pyanaconda/platform.py:113
+#: pyanaconda/platform.py:114
 msgid "You have not created a bootable partition."
 msgstr "Вы не создали загружаемый раздел."
 
-#: pyanaconda/platform.py:118
+#: pyanaconda/platform.py:119
 msgid "Bootable partitions cannot be on a RAID device."
 msgstr "Загружаемые разделы не могут располагаться на устройствах RAID."
 
-#: pyanaconda/platform.py:120
+#: pyanaconda/platform.py:121
 msgid "Bootable partitions can only be on RAID1 devices."
 msgstr "Загружаемые разделы могут находиться только на устройствах RAID1."
 
-#: pyanaconda/platform.py:124
+#: pyanaconda/platform.py:125
 msgid "Bootable RAID1 set members must be partitions."
 msgstr "Элементами загружаемого RAID1-массива должны быть массивы."
 
-#: pyanaconda/platform.py:129
+#: pyanaconda/platform.py:130
 msgid "Bootable partitions cannot be on a logical volume."
 msgstr "Загружаемые разделы не могут находиться на логических томах."
 
-#: pyanaconda/platform.py:136
+#: pyanaconda/platform.py:137
 #, python-format
 msgid "Bootable partitions cannot be on an %s filesystem."
 msgstr "Загружаемые разделы не могут находиться в файловой системе %s."
 
-#: pyanaconda/platform.py:140
-#: pyanaconda/platform.py:145
+#: pyanaconda/platform.py:141
+#: pyanaconda/platform.py:146
 msgid "Bootable partitions cannot be on an encrypted block device"
 msgstr "Загружаемые разделы не могут находиться на зашифрованных блочных устройствах."
 
-#: pyanaconda/platform.py:217
+#: pyanaconda/platform.py:230
 msgid "EFI System Partition"
 msgstr "Системный раздел EFI"
 
-#: pyanaconda/platform.py:229
+#: pyanaconda/platform.py:242
 msgid "You have not created a /boot/efi partition."
 msgstr "Вы не создали раздел /boot/efi."
 
-#: pyanaconda/platform.py:235
+#: pyanaconda/platform.py:248
 msgid "/boot/efi is not EFI."
 msgstr "/boot/efi не является разделом EFI."
 
-#: pyanaconda/platform.py:251
+#: pyanaconda/platform.py:264
 #, python-format
 msgid "%s must have a %s disk label."
 msgstr "%s должен быть меткой диска %s."
 
-#: pyanaconda/platform.py:289
+#: pyanaconda/platform.py:296
 #, python-format
 msgid "%s must have a bsd disk label."
 msgstr "%s должен быть меткой диска bsd."
 
-#: pyanaconda/platform.py:301
+#: pyanaconda/platform.py:308
 #, python-format
 msgid "The disk %s requires at least 1MB of free space at the beginning."
 msgstr "Изначально потребуется как минимум 1 Мб свободного пространства на диске %s."
 
-#: pyanaconda/platform.py:347
+#: pyanaconda/platform.py:354
 msgid "PPC PReP Boot"
 msgstr "PPC PReP Boot"
 
-#: pyanaconda/platform.py:363
+#: pyanaconda/platform.py:370
 msgid "The boot partition must be within the first 4MB of the disk."
 msgstr "Загрузочный раздел должен располагаться в пределах первых 4 МБ диска."
 
-#: pyanaconda/platform.py:415
-#: pyanaconda/platform.py:418
+#: pyanaconda/platform.py:422
+#: pyanaconda/platform.py:425
 msgid "Apple Bootstrap"
 msgstr "Apple Bootstrap"
 
-#: pyanaconda/platform.py:432
+#: pyanaconda/platform.py:439
 #, python-format
 msgid "%s must have a mac disk label."
 msgstr "%s должен быть меткой диска mac."
@@ -1331,7 +1327,7 @@ msgstr "%s должен быть меткой диска mac."
 #: pyanaconda/rescue.py:482
 #, python-format
 msgid "Run %s to unmount the system when you are finished."
-msgstr ""
+msgstr "Выполнить %s для размонтирования системы, когда вы закончите."
 
 #: pyanaconda/rescue.py:229
 msgid "When finished please exit from the shell and your system will reboot."
@@ -1393,7 +1389,7 @@ msgstr ""
 #: pyanaconda/rescue.py:319
 #: pyanaconda/iw/partition_gui.py:788
 #: loader/driverdisk.c:599
-#: pyanaconda/storage/__init__.py:169
+#: pyanaconda/storage/__init__.py:168
 #: pyanaconda/storage/devicetree.py:95
 msgid "Continue"
 msgstr "Продолжить"
@@ -1408,7 +1404,7 @@ msgstr "Только для чтения"
 #: loader/cdinstall.c:205
 #: loader/cdinstall.c:208
 #: loader/method.c:241
-#: pyanaconda/storage/__init__.py:1819
+#: pyanaconda/storage/__init__.py:1852
 #: pyanaconda/textw/upgrade_text.py:139
 msgid "Skip"
 msgstr "Пропустить"
@@ -1921,22 +1917,22 @@ msgstr "Не удается получить доступ к диску."
 msgid "Repository %r is missing name in configuration, using id"
 msgstr "В конфигурации отсутствует имя репозитория %r. Вместо имени будет использоваться идентификатор."
 
-#: pyanaconda/yuminstall.py:808
-#: pyanaconda/yuminstall.py:1230
+#: pyanaconda/yuminstall.py:820
+#: pyanaconda/yuminstall.py:1242
 #: pyanaconda/iw/task_gui.py:309
 msgid "Some of your software repositories require networking, but there was an error enabling the network on your system."
 msgstr "Некоторые репозитории требуют наличия подключения к сети, но произошла ошибка при ее настройке."
 
-#: pyanaconda/yuminstall.py:897
-#: pyanaconda/yuminstall.py:899
+#: pyanaconda/yuminstall.py:909
+#: pyanaconda/yuminstall.py:911
 msgid "Re_boot"
 msgstr "_Перезагрузка"
 
-#: pyanaconda/yuminstall.py:897
+#: pyanaconda/yuminstall.py:909
 msgid "_Eject"
 msgstr "_Извлечь CD"
 
-#: pyanaconda/yuminstall.py:903
+#: pyanaconda/yuminstall.py:915
 #, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file, a corrupt package or corrupt media.  Please verify your installation source.\n"
@@ -1949,61 +1945,61 @@ msgstr ""
 "При отмене установки система останется в нестабильном состоянии, вероятно, требующем переустановки.\n"
 "\n"
 
-#: pyanaconda/yuminstall.py:950
+#: pyanaconda/yuminstall.py:962
 msgid "Retrying"
 msgstr "Повторная попытка"
 
-#: pyanaconda/yuminstall.py:950
+#: pyanaconda/yuminstall.py:962
 msgid "Retrying download."
 msgstr "Повтор попытки загрузки."
 
-#: pyanaconda/yuminstall.py:985
+#: pyanaconda/yuminstall.py:997
 #, python-format
 msgid "There was an error running your transaction for the following reason: %s\n"
 msgstr "При выполнении транзакции произошла ошибка по следующим причинам: %s\n"
 
-#: pyanaconda/yuminstall.py:1026
-#: pyanaconda/yuminstall.py:1027
+#: pyanaconda/yuminstall.py:1038
+#: pyanaconda/yuminstall.py:1039
 msgid "file conflicts"
 msgstr "конфликты файлов"
 
-#: pyanaconda/yuminstall.py:1028
+#: pyanaconda/yuminstall.py:1040
 msgid "older package(s)"
 msgstr "старые пакеты"
 
-#: pyanaconda/yuminstall.py:1029
+#: pyanaconda/yuminstall.py:1041
 msgid "insufficient disk space"
 msgstr "недостаточно места на диске"
 
-#: pyanaconda/yuminstall.py:1030
+#: pyanaconda/yuminstall.py:1042
 msgid "insufficient disk inodes"
 msgstr "недостаточное кол-во индексных дескрипторов на диске"
 
-#: pyanaconda/yuminstall.py:1031
+#: pyanaconda/yuminstall.py:1043
 msgid "package conflicts"
 msgstr "конфликты пакетов"
 
-#: pyanaconda/yuminstall.py:1032
+#: pyanaconda/yuminstall.py:1044
 msgid "package already installed"
 msgstr "пакет уже установлен"
 
-#: pyanaconda/yuminstall.py:1033
+#: pyanaconda/yuminstall.py:1045
 msgid "required package"
 msgstr "требуется пакет"
 
-#: pyanaconda/yuminstall.py:1034
+#: pyanaconda/yuminstall.py:1046
 msgid "package for incorrect arch"
 msgstr "пакет с неверной архитектурой"
 
-#: pyanaconda/yuminstall.py:1035
+#: pyanaconda/yuminstall.py:1047
 msgid "package for incorrect os"
 msgstr "пакет с неверной операционной системой"
 
-#: pyanaconda/yuminstall.py:1049
+#: pyanaconda/yuminstall.py:1061
 msgid "You need more space on the following file systems:\n"
 msgstr "Вам потребуется больше места на следующих файловых системах:\n"
 
-#: pyanaconda/yuminstall.py:1062
+#: pyanaconda/yuminstall.py:1074
 #, python-format
 msgid ""
 "There were file conflicts when checking the packages to be installed:\n"
@@ -2012,27 +2008,27 @@ msgstr ""
 "При проверке пакетов для установки обнаружены конфликты файлов:\n"
 "%s\n"
 
-#: pyanaconda/yuminstall.py:1065
+#: pyanaconda/yuminstall.py:1077
 #, python-format
 msgid "There was an error running your transaction for the following reason(s): %s.\n"
 msgstr "При выполнении транзакции произошла ошибка по следующим причинам: %s\n"
 
-#: pyanaconda/yuminstall.py:1072
-#: pyanaconda/yuminstall.py:1077
+#: pyanaconda/yuminstall.py:1084
+#: pyanaconda/yuminstall.py:1089
 msgid "Error Running Transaction"
 msgstr "Ошибка при выполнении транзакции"
 
-#: pyanaconda/yuminstall.py:1255
+#: pyanaconda/yuminstall.py:1267
 msgid "Unable to read group information from repositories.  This is a problem with the generation of your install tree."
 msgstr "Невозможно прочесть информацию о группах из репозиториев. Это проблема относится к генерированию дерева установки."
 
-#: pyanaconda/yuminstall.py:1304
+#: pyanaconda/yuminstall.py:1316
 #: pyanaconda/textw/constants_text.py:64
 msgid "Edit"
 msgstr "Изменить"
 
-#: pyanaconda/yuminstall.py:1315
-#: pyanaconda/yuminstall.py:1509
+#: pyanaconda/yuminstall.py:1327
+#: pyanaconda/yuminstall.py:1521
 #, python-format
 msgid ""
 "Unable to read package metadata. This may be due to a missing repodata directory.  Please ensure that your install tree has been correctly generated.\n"
@@ -2043,70 +2039,70 @@ msgstr ""
 "\n"
 "%s"
 
-#: pyanaconda/yuminstall.py:1487
+#: pyanaconda/yuminstall.py:1499
 msgid "Some of the packages you have selected for install are missing dependencies.  You can exit the installation, go back and change your package selections, or continue installing these packages without their dependencies.  If you continue, these packages may not work correctly due to missing components."
 msgstr "Отсутствуют зависимости для некоторых выбранных для установки пакетов.  Можно выйти из процесса установки, вернуться назад и изменить набор пакетов или продолжить установку этих пакетов без их зависимостей. Продолжение установки не гарантирует функциональность пакетов, так как необходимые для их работы зависимости не будут установлены."
 
-#: pyanaconda/yuminstall.py:1531
+#: pyanaconda/yuminstall.py:1543
 #, python-format
 msgid "Your selected packages require %d MB of free space for installation, but you do not have enough available.  You can change your selections or exit the installer."
 msgstr "Выбранные пакеты требуют для установки %d МБ свободного места, но у вас нет достаточного объема. Вы можете изменить выбор или выйти из программы установки."
 
-#: pyanaconda/yuminstall.py:1625
+#: pyanaconda/yuminstall.py:1637
 #, python-format
 msgid "You appear to be upgrading from a system which is too old to upgrade to this version of %s.  Are you sure you wish to continue the upgrade process?"
 msgstr "Похоже, что вы выполняете обновление системы, которая слишком устарела для того, чтобы быть обновленной до этой версии %s. Вы действительно хотите продолжить обновление?"
 
-#: pyanaconda/yuminstall.py:1660
+#: pyanaconda/yuminstall.py:1672
 #, python-format
 msgid "The arch of the release of %(productName)s you are upgrading to appears to be %(myarch)s which does not match your previously installed arch of %(arch)s.  This is likely to not succeed.  Are you sure you wish to continue the upgrade process?"
 msgstr "Вы выполняете обновление системы до версии %(productName)s для%(myarch)s архитектуры , которая не соответствует установленной архитектуре %(arch)s. Вы действительно хотите продолжить обновление?"
 
-#: pyanaconda/yuminstall.py:1707
+#: pyanaconda/yuminstall.py:1719
 msgid "Post Upgrade"
 msgstr "После обновления"
 
-#: pyanaconda/yuminstall.py:1708
+#: pyanaconda/yuminstall.py:1720
 msgid "Performing post-upgrade configuration"
 msgstr "Выполняется настройка после обновления"
 
-#: pyanaconda/yuminstall.py:1710
+#: pyanaconda/yuminstall.py:1722
 msgid "Post Installation"
 msgstr "После установки"
 
-#: pyanaconda/yuminstall.py:1711
+#: pyanaconda/yuminstall.py:1723
 msgid "Performing post-installation configuration"
 msgstr "Выполняется настройка после установки"
 
-#: pyanaconda/yuminstall.py:1941
+#: pyanaconda/yuminstall.py:1958
 msgid "Installation Starting"
 msgstr "Запуск установки"
 
-#: pyanaconda/yuminstall.py:1942
+#: pyanaconda/yuminstall.py:1959
 msgid "Starting installation process"
 msgstr "Запуск процесса установки"
 
-#: pyanaconda/yuminstall.py:1980
+#: pyanaconda/yuminstall.py:1997
 msgid "Dependency Check"
 msgstr "Проверка зависимостей"
 
-#: pyanaconda/yuminstall.py:1981
+#: pyanaconda/yuminstall.py:1998
 msgid "Checking dependencies in packages selected for installation"
 msgstr "Проверяются зависимости выбранных для установки пакетов"
 
-#: pyanaconda/yuminstall.py:2037
-#: pyanaconda/yuminstall.py:2053
+#: pyanaconda/yuminstall.py:2054
+#: pyanaconda/yuminstall.py:2070
 msgid "Retrieving installation information."
 msgstr "Получение установочной информации."
 
-#: pyanaconda/yuminstall.py:2039
-#: pyanaconda/yuminstall.py:2055
+#: pyanaconda/yuminstall.py:2056
+#: pyanaconda/yuminstall.py:2072
 #, python-format
 msgid "Retrieving installation information for %s."
 msgstr "Получение установочной информации для %s."
 
-#: pyanaconda/yuminstall.py:2040
-#: pyanaconda/yuminstall.py:2056
+#: pyanaconda/yuminstall.py:2057
+#: pyanaconda/yuminstall.py:2073
 msgid "Installation Progress"
 msgstr "Прогресс установки"
 
@@ -2228,29 +2224,29 @@ msgstr "Необходимо выбрать сетевую карту."
 msgid "No partitions are available to resize.  Only physical partitions with specific filesystems can be resized."
 msgstr "Нет разделов, размер которых можно изменить. Только физические разделы с некоторыми типами файловых систем могут быть изменены."
 
-#: pyanaconda/iw/autopart_type.py:119
+#: pyanaconda/iw/autopart_type.py:121
 msgid "Resize FileSystem Error"
 msgstr "Ошибка изменения размера ФС"
 
-#: pyanaconda/iw/autopart_type.py:120
+#: pyanaconda/iw/autopart_type.py:122
 #, python-format
 msgid "%(device)s: %(msg)s"
 msgstr "%(device)s: %(msg)s"
 
-#: pyanaconda/iw/autopart_type.py:129
+#: pyanaconda/iw/autopart_type.py:131
 msgid "Resize Device Error"
 msgstr "Ошибка изменения размера устройства"
 
-#: pyanaconda/iw/autopart_type.py:130
+#: pyanaconda/iw/autopart_type.py:132
 #, python-format
 msgid "%(name)s: %(msg)s"
 msgstr "%(name)s: %(msg)s"
 
-#: pyanaconda/iw/autopart_type.py:250
+#: pyanaconda/iw/autopart_type.py:252
 msgid "Use _All Space"
 msgstr "Использовать все пространство"
 
-#: pyanaconda/iw/autopart_type.py:252
+#: pyanaconda/iw/autopart_type.py:254
 msgid ""
 "Removes all partitions on the selected device(s).  This includes partitions created by other operating systems.\n"
 "\n"
@@ -2260,11 +2256,11 @@ msgstr ""
 "\n"
 "<b>Совет:</b> Это приведёт к удалению данных на выбранных устройствах. Убедитесь, что у вас есть резервные копии."
 
-#: pyanaconda/iw/autopart_type.py:258
+#: pyanaconda/iw/autopart_type.py:260
 msgid "Replace Existing _Linux System(s)"
 msgstr "Заменить существующую(ие) систему(ы) Linux"
 
-#: pyanaconda/iw/autopart_type.py:260
+#: pyanaconda/iw/autopart_type.py:262
 msgid ""
 "Removes all Linux partitions on the selected device(s). This does not remove other partitions you may have on your storage device(s) (such as VFAT or FAT32).\n"
 "\n"
@@ -2274,30 +2270,30 @@ msgstr ""
 "\n"
 "<b>Совет:</b> Этот выбор приведет к удалению данных на выбранных устройствах.  Убедитесь, что у вас есть резервные копии."
 
-#: pyanaconda/iw/autopart_type.py:268
+#: pyanaconda/iw/autopart_type.py:270
 #, fuzzy
 msgid "_Shrink Current System"
 msgstr "Уменьшить размер существующей системы"
 
-#: pyanaconda/iw/autopart_type.py:270
+#: pyanaconda/iw/autopart_type.py:272
 msgid "Shrinks existing partitions to create free space for the default layout."
 msgstr "Сокращает существующие разделы, чтобы создать свободное место для стандартного разбиения."
 
-#: pyanaconda/iw/autopart_type.py:272
+#: pyanaconda/iw/autopart_type.py:274
 #, fuzzy
 msgid "Use _Free Space"
 msgstr "Использовать свободное пространство"
 
-#: pyanaconda/iw/autopart_type.py:274
+#: pyanaconda/iw/autopart_type.py:276
 msgid "Retains your current data and partitions and uses only the unpartitioned space on the selected device(s), assuming you have enough free space available."
 msgstr "Сохраняет ваши текущие данные и разделы и использует только неразмеченную область на выбранных устройствах, предполагая, что у вас имеется достаточно свободного места."
 
-#: pyanaconda/iw/autopart_type.py:278
+#: pyanaconda/iw/autopart_type.py:280
 #, fuzzy
 msgid "Create _Custom Layout"
 msgstr "Создать собственное разбиение"
 
-#: pyanaconda/iw/autopart_type.py:280
+#: pyanaconda/iw/autopart_type.py:282
 msgid "Manually create your own custom layout on the selected device(s) using our partitioning tool."
 msgstr "Вручную создайте собственное разбиение на выбранных устройствах с помощью нашего инструмента для создания разделов."
 
@@ -2367,7 +2363,7 @@ msgid "Clear Disks Selector"
 msgstr "Очистить выбор дисков"
 
 #: pyanaconda/iw/cleardisks_gui.py:45
-#: pyanaconda/iw/filter_gui.py:432
+#: pyanaconda/iw/filter_gui.py:433
 msgid "You must select at least one drive to be used for installation."
 msgstr "Необходимо выбрать хотя бы один диск для установки."
 
@@ -2377,43 +2373,43 @@ msgstr "Необходимо выбрать один диск, с которог
 
 #: pyanaconda/iw/cleardisks_gui.py:127
 #: pyanaconda/iw/cleardisks_gui.py:147
-#: pyanaconda/iw/filter_gui.py:489
-#: pyanaconda/iw/filter_gui.py:500
-#: pyanaconda/iw/filter_gui.py:530
+#: pyanaconda/iw/filter_gui.py:490
+#: pyanaconda/iw/filter_gui.py:501
+#: pyanaconda/iw/filter_gui.py:531
 msgid "Model"
 msgstr "Модель"
 
 #: pyanaconda/iw/cleardisks_gui.py:128
 #: pyanaconda/iw/cleardisks_gui.py:148
-#: pyanaconda/iw/filter_gui.py:490
-#: pyanaconda/iw/filter_gui.py:501
-#: pyanaconda/iw/filter_gui.py:509
-#: pyanaconda/iw/filter_gui.py:520
-#: pyanaconda/iw/filter_gui.py:531
+#: pyanaconda/iw/filter_gui.py:491
+#: pyanaconda/iw/filter_gui.py:502
+#: pyanaconda/iw/filter_gui.py:510
+#: pyanaconda/iw/filter_gui.py:521
+#: pyanaconda/iw/filter_gui.py:532
 msgid "Capacity"
 msgstr "Объем"
 
 #: pyanaconda/iw/cleardisks_gui.py:129
-#: pyanaconda/iw/filter_gui.py:491
-#: pyanaconda/iw/filter_gui.py:510
-#: pyanaconda/iw/filter_gui.py:521
-#: pyanaconda/iw/filter_gui.py:532
+#: pyanaconda/iw/filter_gui.py:492
+#: pyanaconda/iw/filter_gui.py:511
+#: pyanaconda/iw/filter_gui.py:522
+#: pyanaconda/iw/filter_gui.py:533
 msgid "Vendor"
 msgstr "Производитель"
 
 #: pyanaconda/iw/cleardisks_gui.py:130
 #: pyanaconda/iw/cleardisks_gui.py:149
-#: pyanaconda/iw/filter_gui.py:508
-#: pyanaconda/iw/filter_gui.py:519
-#: pyanaconda/iw/filter_gui.py:535
+#: pyanaconda/iw/filter_gui.py:509
+#: pyanaconda/iw/filter_gui.py:520
+#: pyanaconda/iw/filter_gui.py:536
 msgid "Identifier"
 msgstr "Идентификатор"
 
 #: pyanaconda/iw/cleardisks_gui.py:131
-#: pyanaconda/iw/filter_gui.py:492
-#: pyanaconda/iw/filter_gui.py:511
-#: pyanaconda/iw/filter_gui.py:522
-#: pyanaconda/iw/filter_gui.py:533
+#: pyanaconda/iw/filter_gui.py:493
+#: pyanaconda/iw/filter_gui.py:512
+#: pyanaconda/iw/filter_gui.py:523
+#: pyanaconda/iw/filter_gui.py:534
 msgid "Interconnect"
 msgstr "Соединение"
 
@@ -2520,44 +2516,44 @@ msgstr "<b>Какую установку %s вы хотите обновить?<
 msgid "Unknown Linux system"
 msgstr "Неизвестная система Linux"
 
-#: pyanaconda/iw/filter_gui.py:150
+#: pyanaconda/iw/filter_gui.py:151
 #, python-format
 msgid "Selected devices: %s (%s MB) out of %s (%s MB)."
 msgstr "Выбраны устройства: %s (%s МБ) из %s (%s МБ)."
 
-#: pyanaconda/iw/filter_gui.py:400
+#: pyanaconda/iw/filter_gui.py:401
 msgid "Device Filter"
 msgstr "Фильтр устройств"
 
-#: pyanaconda/iw/filter_gui.py:493
-#: pyanaconda/iw/filter_gui.py:523
-#: pyanaconda/iw/filter_gui.py:534
+#: pyanaconda/iw/filter_gui.py:494
+#: pyanaconda/iw/filter_gui.py:524
+#: pyanaconda/iw/filter_gui.py:535
 msgid "Serial Number"
 msgstr "Серийный номер"
 
-#: pyanaconda/iw/filter_gui.py:494
-#: pyanaconda/iw/filter_gui.py:502
-#: pyanaconda/iw/filter_gui.py:513
-#: pyanaconda/iw/filter_gui.py:524
-#: pyanaconda/iw/filter_gui.py:539
+#: pyanaconda/iw/filter_gui.py:495
+#: pyanaconda/iw/filter_gui.py:503
+#: pyanaconda/iw/filter_gui.py:514
+#: pyanaconda/iw/filter_gui.py:525
+#: pyanaconda/iw/filter_gui.py:540
 #: pyanaconda/iw/osbootwidget.py:66
 #: pyanaconda/iw/partition_gui.py:614
 msgid "Device"
 msgstr "Устройство"
 
-#: pyanaconda/iw/filter_gui.py:512
+#: pyanaconda/iw/filter_gui.py:513
 msgid "Paths"
 msgstr "Пути"
 
-#: pyanaconda/iw/filter_gui.py:536
+#: pyanaconda/iw/filter_gui.py:537
 msgid "Port"
 msgstr "Порт"
 
-#: pyanaconda/iw/filter_gui.py:537
+#: pyanaconda/iw/filter_gui.py:538
 msgid "Target"
 msgstr "Целевое устройство"
 
-#: pyanaconda/iw/filter_gui.py:538
+#: pyanaconda/iw/filter_gui.py:539
 msgid "LUN"
 msgstr "LUN"
 
@@ -2664,7 +2660,7 @@ msgid "Edit Logical Volume: %s"
 msgstr "Изменение логического тома: %s"
 
 #: pyanaconda/iw/lvm_dialog_gui.py:446
-#: pyanaconda/iw/raid_dialog_gui.py:452
+#: pyanaconda/iw/raid_dialog_gui.py:454
 msgid "_File System Type:"
 msgstr "_Тип ФС:"
 
@@ -2673,7 +2669,7 @@ msgid "_Logical Volume Name:"
 msgstr "_Имя логического тома:"
 
 #: pyanaconda/iw/lvm_dialog_gui.py:461
-#: pyanaconda/iw/partition_dialog_gui.py:500
+#: pyanaconda/iw/partition_dialog_gui.py:502
 msgid "_Size (MB):"
 msgstr "_Размер (МБ):"
 
@@ -2683,21 +2679,21 @@ msgid "(Max size is %s MB)"
 msgstr "(Макс. размер %s МБ)"
 
 #: pyanaconda/iw/lvm_dialog_gui.py:473
-#: pyanaconda/iw/partition_dialog_gui.py:552
+#: pyanaconda/iw/partition_dialog_gui.py:554
 #: pyanaconda/iw/partition_ui_helpers_gui.py:339
-#: pyanaconda/iw/raid_dialog_gui.py:424
+#: pyanaconda/iw/raid_dialog_gui.py:426
 msgid "_Encrypt"
 msgstr "За_шифровать"
 
 #: pyanaconda/iw/lvm_dialog_gui.py:482
-#: pyanaconda/iw/partition_dialog_gui.py:482
-#: pyanaconda/iw/raid_dialog_gui.py:462
+#: pyanaconda/iw/partition_dialog_gui.py:484
+#: pyanaconda/iw/raid_dialog_gui.py:464
 msgid "Original File System Type:"
 msgstr "Текущий тип файловой системы:"
 
 #: pyanaconda/iw/lvm_dialog_gui.py:487
-#: pyanaconda/iw/partition_dialog_gui.py:490
-#: pyanaconda/iw/raid_dialog_gui.py:469
+#: pyanaconda/iw/partition_dialog_gui.py:492
+#: pyanaconda/iw/raid_dialog_gui.py:471
 msgid "Original File System Label:"
 msgstr "Текущая метка файловой системы:"
 
@@ -2710,14 +2706,14 @@ msgid "Size (MB):"
 msgstr "Размер (МБ):"
 
 #: pyanaconda/iw/lvm_dialog_gui.py:523
-#: pyanaconda/iw/partition_dialog_gui.py:433
-#: pyanaconda/iw/raid_dialog_gui.py:443
+#: pyanaconda/iw/partition_dialog_gui.py:435
+#: pyanaconda/iw/raid_dialog_gui.py:445
 msgid "_Mount Point:"
 msgstr "Точка _монтирования:"
 
 #: pyanaconda/iw/lvm_dialog_gui.py:604
 #: pyanaconda/iw/partition_dialog_gui.py:118
-#: pyanaconda/iw/raid_dialog_gui.py:177
+#: pyanaconda/iw/raid_dialog_gui.py:179
 msgid "Mount Point Error"
 msgstr "Ошибка точки подключения"
 
@@ -2736,13 +2732,13 @@ msgstr "Имя логического тома «%s» уже используе�
 
 #: pyanaconda/iw/lvm_dialog_gui.py:671
 #: pyanaconda/iw/partition_dialog_gui.py:134
-#: pyanaconda/iw/raid_dialog_gui.py:192
+#: pyanaconda/iw/raid_dialog_gui.py:194
 msgid "Mount point in use"
 msgstr "Точка монтирования используется"
 
 #: pyanaconda/iw/lvm_dialog_gui.py:672
 #: pyanaconda/iw/partition_dialog_gui.py:135
-#: pyanaconda/iw/raid_dialog_gui.py:193
+#: pyanaconda/iw/raid_dialog_gui.py:195
 #, python-format
 msgid "The mount point \"%s\" is in use. Please pick another."
 msgstr "Точка монтирования «%s» уже используется. Выберите другую точку монтирования."
@@ -2765,11 +2761,11 @@ msgstr "Запрошенный размер (%(size)10.2f МБ) больше, ч
 msgid "The size entered for this logical volume (%(size)d MB) combined with the size of the other logical volume(s) exceeds the size of the volume group (%(tempvgsize)d MB). Please make the volume group larger or make the logical volume smaller."
 msgstr "Требуемый объём пространства для этого логического тома (размером %(size)d МБ) и других логических томов превышает размер группы томов (%(tempvgsize)d МБ). Либо увеличьте размер группы томов, либо уменьшите размер логического тома."
 
-#: pyanaconda/iw/lvm_dialog_gui.py:832
+#: pyanaconda/iw/lvm_dialog_gui.py:834
 msgid "No free slots"
 msgstr "Нет свободных слотов"
 
-#: pyanaconda/iw/lvm_dialog_gui.py:833
+#: pyanaconda/iw/lvm_dialog_gui.py:835
 #, python-format
 msgid "You cannot create more than %d logical volume per volume group."
 msgid_plural "You cannot create more than %d logical volumes per volume group."
@@ -2777,37 +2773,37 @@ msgstr[0] "Вы не можете создать больше %d логичес�
 msgstr[1] "Вы не можете создать больше %d логических томов в группе томов."
 msgstr[2] "Вы не можете создать больше %d логических томов в группе томов."
 
-#: pyanaconda/iw/lvm_dialog_gui.py:843
+#: pyanaconda/iw/lvm_dialog_gui.py:845
 msgid "No free space"
 msgstr "Недостаточно свободного места"
 
-#: pyanaconda/iw/lvm_dialog_gui.py:844
+#: pyanaconda/iw/lvm_dialog_gui.py:846
 msgid "There is no room left in the volume group to create new logical volumes. To add a logical volume you must reduce the size of one or more of the currently existing logical volumes"
 msgstr "В группе томов нет места для создания новых логических томов. Чтобы добавить логический том, необходимо уменьшить размер одного или нескольких уже существующих логических томов"
 
-#: pyanaconda/iw/lvm_dialog_gui.py:881
+#: pyanaconda/iw/lvm_dialog_gui.py:883
 #, python-format
 msgid "Are you sure you want to delete the logical volume \"%s\"?"
 msgstr "Вы действительно хотите удалить логический том %s?"
 
-#: pyanaconda/iw/lvm_dialog_gui.py:996
+#: pyanaconda/iw/lvm_dialog_gui.py:998
 msgid "Invalid Volume Group Name"
 msgstr "Неверное имя группы томов"
 
-#: pyanaconda/iw/lvm_dialog_gui.py:1005
+#: pyanaconda/iw/lvm_dialog_gui.py:1007
 msgid "Name in use"
 msgstr "Имя используется"
 
-#: pyanaconda/iw/lvm_dialog_gui.py:1006
+#: pyanaconda/iw/lvm_dialog_gui.py:1008
 #, python-format
 msgid "The volume group name \"%s\" is already in use. Please pick another."
 msgstr "Имя группы томов «%s» уже используется. Выберите другое имя."
 
-#: pyanaconda/iw/lvm_dialog_gui.py:1293
+#: pyanaconda/iw/lvm_dialog_gui.py:1295
 msgid "Not enough physical volumes"
 msgstr "Недостаточно физических томов"
 
-#: pyanaconda/iw/lvm_dialog_gui.py:1294
+#: pyanaconda/iw/lvm_dialog_gui.py:1296
 msgid ""
 "At least one unused physical volume partition is needed to create an LVM Volume Group.\n"
 "\n"
@@ -2817,80 +2813,80 @@ msgstr ""
 "\n"
 "Создайте раздел или массив RAID типа «физический том (LVM)» и после этого снова выберите параметр «LVM»."
 
-#: pyanaconda/iw/lvm_dialog_gui.py:1305
+#: pyanaconda/iw/lvm_dialog_gui.py:1307
 msgid "Make LVM Volume Group"
 msgstr "Создать группу томов LVM"
 
-#: pyanaconda/iw/lvm_dialog_gui.py:1308
+#: pyanaconda/iw/lvm_dialog_gui.py:1310
 #, python-format
 msgid "Edit LVM Volume Group: %s"
 msgstr "Изменение группы томов LVM: %s"
 
-#: pyanaconda/iw/lvm_dialog_gui.py:1310
+#: pyanaconda/iw/lvm_dialog_gui.py:1312
 msgid "Edit LVM Volume Group"
 msgstr "Изменение группы томов LVM"
 
-#: pyanaconda/iw/lvm_dialog_gui.py:1326
+#: pyanaconda/iw/lvm_dialog_gui.py:1328
 msgid "_Volume Group Name:"
 msgstr "_Имя группы томов:"
 
-#: pyanaconda/iw/lvm_dialog_gui.py:1334
+#: pyanaconda/iw/lvm_dialog_gui.py:1336
 msgid "Volume Group Name:"
 msgstr "Имя группы томов:"
 
-#: pyanaconda/iw/lvm_dialog_gui.py:1342
+#: pyanaconda/iw/lvm_dialog_gui.py:1344
 msgid "_Physical Extent:"
 msgstr "_Физический экстент:"
 
-#: pyanaconda/iw/lvm_dialog_gui.py:1357
+#: pyanaconda/iw/lvm_dialog_gui.py:1359
 msgid "Physical Volumes to _Use:"
 msgstr "Использовать физические тома:"
 
-#: pyanaconda/iw/lvm_dialog_gui.py:1363
+#: pyanaconda/iw/lvm_dialog_gui.py:1365
 msgid "Used Space:"
 msgstr "Занято:"
 
-#: pyanaconda/iw/lvm_dialog_gui.py:1381
+#: pyanaconda/iw/lvm_dialog_gui.py:1383
 msgid "Snapshot Total:"
 msgstr ""
 
-#: pyanaconda/iw/lvm_dialog_gui.py:1401
+#: pyanaconda/iw/lvm_dialog_gui.py:1403
 msgid "Free Space:"
 msgstr "Свободно:"
 
-#: pyanaconda/iw/lvm_dialog_gui.py:1419
+#: pyanaconda/iw/lvm_dialog_gui.py:1421
 msgid "Total Space:"
 msgstr "Всего места:"
 
-#: pyanaconda/iw/lvm_dialog_gui.py:1457
+#: pyanaconda/iw/lvm_dialog_gui.py:1459
 msgid "Logical Volume Name"
 msgstr "Имя логического тома"
 
-#: pyanaconda/iw/lvm_dialog_gui.py:1460
+#: pyanaconda/iw/lvm_dialog_gui.py:1462
 #: pyanaconda/iw/partition_gui.py:617
 #: pyanaconda/iw/upgrade_swap_gui.py:138
 #: pyanaconda/textw/upgrade_text.py:124
 msgid "Mount Point"
 msgstr "Точка монтирования"
 
-#: pyanaconda/iw/lvm_dialog_gui.py:1463
+#: pyanaconda/iw/lvm_dialog_gui.py:1465
 #: pyanaconda/iw/partition_gui.py:616
 msgid "Size (MB)"
 msgstr "Размер (МБ)"
 
-#: pyanaconda/iw/lvm_dialog_gui.py:1477
+#: pyanaconda/iw/lvm_dialog_gui.py:1479
 #: pyanaconda/iw/osbootwidget.py:96
 msgid "_Add"
 msgstr "_Добавить"
 
-#: pyanaconda/iw/lvm_dialog_gui.py:1480
+#: pyanaconda/iw/lvm_dialog_gui.py:1482
 #: pyanaconda/iw/osbootwidget.py:100
 #: pyanaconda/iw/partition_gui.py:1814
 #: pyanaconda/iw/partition_gui.py:1824
 msgid "_Edit"
 msgstr "_Изменить"
 
-#: pyanaconda/iw/lvm_dialog_gui.py:1495
+#: pyanaconda/iw/lvm_dialog_gui.py:1497
 msgid "_Logical Volumes"
 msgstr "_Логические тома"
 
@@ -3016,24 +3012,24 @@ msgstr "Занять все доступное пространство"
 msgid "Error With Request"
 msgstr "Ошибка запроса"
 
-#: pyanaconda/iw/partition_dialog_gui.py:403
+#: pyanaconda/iw/partition_dialog_gui.py:405
 msgid "Add Partition"
 msgstr "Добавить раздел"
 
-#: pyanaconda/iw/partition_dialog_gui.py:405
+#: pyanaconda/iw/partition_dialog_gui.py:407
 #, python-format
 msgid "Edit Partition: %s"
 msgstr "Правка раздела: %s"
 
-#: pyanaconda/iw/partition_dialog_gui.py:442
+#: pyanaconda/iw/partition_dialog_gui.py:444
 msgid "File System _Type:"
 msgstr "_Тип ФС:"
 
-#: pyanaconda/iw/partition_dialog_gui.py:458
+#: pyanaconda/iw/partition_dialog_gui.py:460
 msgid "Allowable _Drives:"
 msgstr "Доступные устройства:"
 
-#: pyanaconda/iw/partition_dialog_gui.py:539
+#: pyanaconda/iw/partition_dialog_gui.py:541
 msgid "Force to be a _primary partition"
 msgstr "Сделать первичным разделом"
 
@@ -3065,7 +3061,7 @@ msgid "Type"
 msgstr "Тип"
 
 #: pyanaconda/iw/partition_gui.py:619
-#: pyanaconda/storage/__init__.py:1819
+#: pyanaconda/storage/__init__.py:1852
 msgid "Format"
 msgstr "Форматировать"
 
@@ -3214,8 +3210,8 @@ msgid "About LVM"
 msgstr "О LVM"
 
 #: pyanaconda/iw/partition_gui.py:1588
-#: pyanaconda/storage/partitioning.py:203
-#: pyanaconda/storage/partitioning.py:245
+#: pyanaconda/storage/partitioning.py:205
+#: pyanaconda/storage/partitioning.py:247
 msgid "Error Partitioning"
 msgstr "Ошибка разбиения"
 
@@ -3279,7 +3275,7 @@ msgstr "И_зменить размер"
 msgid "Partitions of type '%s' must be constrained to a single drive.  To do this, select the drive in the 'Allowable Drives' checklist."
 msgstr "Разделы типа «%s» должны быть объединены в один диск. Это производится путем выбора диска в списке «Доступные диски»."
 
-#: pyanaconda/iw/raid_dialog_gui.py:391
+#: pyanaconda/iw/raid_dialog_gui.py:393
 msgid ""
 "At least two unused software RAID partitions are needed to create a RAID device.\n"
 "\n"
@@ -3289,36 +3285,36 @@ msgstr ""
 "\n"
 "Создайте хотя бы два раздела типа «software RAID» и выберите параметр «RAID» снова."
 
-#: pyanaconda/iw/raid_dialog_gui.py:405
+#: pyanaconda/iw/raid_dialog_gui.py:407
 msgid "Make RAID Device"
 msgstr "Создать устройство RAID"
 
-#: pyanaconda/iw/raid_dialog_gui.py:408
+#: pyanaconda/iw/raid_dialog_gui.py:410
 #, python-format
 msgid "Edit RAID Device: %s"
 msgstr "Изменить устройство RAID: %s"
 
-#: pyanaconda/iw/raid_dialog_gui.py:410
+#: pyanaconda/iw/raid_dialog_gui.py:412
 msgid "Edit RAID Device"
 msgstr "Изменить устройство RAID"
 
-#: pyanaconda/iw/raid_dialog_gui.py:477
+#: pyanaconda/iw/raid_dialog_gui.py:479
 msgid "RAID _Device:"
 msgstr "Устройство RAID:"
 
-#: pyanaconda/iw/raid_dialog_gui.py:495
+#: pyanaconda/iw/raid_dialog_gui.py:497
 msgid "RAID _Level:"
 msgstr "Уровень RAID:"
 
-#: pyanaconda/iw/raid_dialog_gui.py:537
+#: pyanaconda/iw/raid_dialog_gui.py:539
 msgid "_RAID Members:"
 msgstr "Составляющие RAID:"
 
-#: pyanaconda/iw/raid_dialog_gui.py:554
+#: pyanaconda/iw/raid_dialog_gui.py:556
 msgid "Number of _spares:"
 msgstr "Кол-во резервных:"
 
-#: pyanaconda/iw/raid_dialog_gui.py:564
+#: pyanaconda/iw/raid_dialog_gui.py:566
 msgid "_Format partition?"
 msgstr "Форматировать раздел?"
 
@@ -3660,16 +3656,16 @@ msgstr "Диск не обнаружен"
 #: loader/kbd.c:118
 #: loader/loader.c:499
 #: loader/loader.c:516
-#: loader/loader.c:1380
-#: loader/loader.c:1420
+#: loader/loader.c:1367
+#: loader/loader.c:1407
 #: loader/net.c:625
 #: loader/net.c:1007
 #: loader/net.c:1982
 #: loader/net.c:2001
 #: loader/nfsinstall.c:92
 #: loader/urls.c:264
-#: pyanaconda/storage/__init__.py:123
-#: pyanaconda/storage/__init__.py:169
+#: pyanaconda/storage/__init__.py:122
+#: pyanaconda/storage/__init__.py:168
 #: pyanaconda/storage/devicetree.py:95
 #: pyanaconda/textw/constants_text.py:52
 msgid "Back"
@@ -3997,104 +3993,104 @@ msgstr "Невозможно загрузить образ с обновлени
 msgid "Error downloading updates image"
 msgstr "Ошибка загрузки образа обновлений"
 
-#: loader/loader.c:1199
+#: loader/loader.c:1186
 #, fuzzy, c-format
 msgid "%s requires %d MB of memory, to install, but you only have %d MB."
 msgstr "%s требует %s мегабайт памяти для установки, но у вас есть только %s мегабайт."
 
-#: loader/loader.c:1200
+#: loader/loader.c:1187
 #, fuzzy, c-format
 msgid "%s requires %d MB of memory to install using this installation method, but you only have %d MB on this machine."
 msgstr "%s требует %s мегабайт памяти для установки данным методом, но у вас есть только %s мегабайт на данном компьютере."
 
-#: loader/loader.c:1236
+#: loader/loader.c:1223
 msgid "Unsupported Hardware Detected"
-msgstr ""
+msgstr "Обнаружено неподдерживаемое оборудование"
 
-#: loader/loader.c:1237
+#: loader/loader.c:1224
 msgid "This hardware (or a combination thereof) is not supported by Red Hat.  For more information on supported hardware, please refer to http://www.redhat.com/hardware."
 msgstr ""
 
-#: loader/loader.c:1372
+#: loader/loader.c:1359
 msgid "Rescue Method"
 msgstr "Метод восстановления"
 
-#: loader/loader.c:1373
+#: loader/loader.c:1360
 msgid "Installation Method"
 msgstr "Метод установки"
 
-#: loader/loader.c:1375
+#: loader/loader.c:1362
 msgid "What type of media contains the rescue image?"
 msgstr "Какой носитель содержит образ для восстановления?"
 
-#: loader/loader.c:1377
+#: loader/loader.c:1364
 msgid "What type of media contains the installation image?"
 msgstr "Какой носитель содержит установочный образ?"
 
-#: loader/loader.c:1419
+#: loader/loader.c:1406
 msgid "No driver found"
 msgstr "Драйвер не найден"
 
-#: loader/loader.c:1419
+#: loader/loader.c:1406
 msgid "Select driver"
 msgstr "Выберите драйвер"
 
-#: loader/loader.c:1420
+#: loader/loader.c:1407
 msgid "Use a driver disk"
 msgstr "Использовать диск драйверов"
 
-#: loader/loader.c:1421
+#: loader/loader.c:1408
 msgid "Unable to find any devices of the type needed for this installation type.  Would you like to manually select your driver or use a driver disk?"
 msgstr "Не удается найти ни одно устройство, необходимое для этого типа установки. Выбрать драйвер вручную или использовать диск драйверов?"
 
-#: loader/loader.c:1632
+#: loader/loader.c:1619
 msgid "The following devices have been found on your system."
 msgstr "В системе были найдены следующие устройства."
 
-#: loader/loader.c:1634
+#: loader/loader.c:1621
 msgid "No device drivers have been loaded for your system.  Would you like to load any now?"
 msgstr "Не загружен ни один драйвер устройств. Вы хотите загрузить какой-либо драйвер сейчас?"
 
-#: loader/loader.c:1638
+#: loader/loader.c:1625
 msgid "Devices"
 msgstr "Устройства"
 
-#: loader/loader.c:1639
+#: loader/loader.c:1626
 msgid "Done"
 msgstr "Готово"
 
-#: loader/loader.c:1640
+#: loader/loader.c:1627
 msgid "Add Device"
 msgstr "Добавить устройство"
 
-#: loader/loader.c:1918
+#: loader/loader.c:1905
 #, c-format
 msgid "loader has already been run.  Starting shell.\n"
 msgstr "Загрузчик уже выполнялся. Запускается оболочка.\n"
 
-#: loader/loader.c:2062
+#: loader/loader.c:2049
 #, c-format
 msgid "Driver disc was detected in %s. Do you want to use it?."
 msgstr "В %s обнаружен диск драйверов. Использовать его?"
 
-#: loader/loader.c:2065
+#: loader/loader.c:2052
 msgid "Driver disc detected"
 msgstr "Обнаружен диск с драйверами"
 
-#: loader/loader.c:2065
+#: loader/loader.c:2052
 msgid "Use it"
 msgstr "Использовать"
 
-#: loader/loader.c:2065
+#: loader/loader.c:2052
 msgid "Skip it"
 msgstr "Пропустить"
 
-#: loader/loader.c:2378
+#: loader/loader.c:2365
 #, c-format
 msgid "Running anaconda %s, the %s rescue mode - please wait.\n"
 msgstr "Запускается Anaconda %s, режим восстановления %s, подождите, пожалуйста.\n"
 
-#: loader/loader.c:2380
+#: loader/loader.c:2367
 #, c-format
 msgid "Running anaconda %s, the %s system installer - please wait.\n"
 msgstr "Запускается Anaconda %s, программа установки %s, подождите, пожалуйста.\n"
@@ -4409,104 +4405,113 @@ msgstr "URL-ссылка должна содержать адрес FTP или H
 msgid "Proxy must be either an ftp or http URL"
 msgstr "Ссылка на прокси должна быть FTP или HTTP."
 
-#: pyanaconda/storage/__init__.py:110
+#: pyanaconda/storage/__init__.py:109
 msgid "Unknown Device"
 msgstr "Неизвестное устройство"
 
-#: pyanaconda/storage/__init__.py:111
+#: pyanaconda/storage/__init__.py:110
 #, python-format
 msgid "The installation source given by device %s could not be found.  Please check your parameters and try again."
 msgstr "Указанный устройством %s источник установки не найден. Проверьте параметры и повторите попытку."
 
-#: pyanaconda/storage/__init__.py:120
+#: pyanaconda/storage/__init__.py:119
 msgid "No disks found"
 msgstr "Диски не найдены"
 
-#: pyanaconda/storage/__init__.py:121
+#: pyanaconda/storage/__init__.py:120
 msgid "No usable disks have been found."
 msgstr "Не найдены диски, доступные для использования."
 
-#: pyanaconda/storage/__init__.py:132
+#: pyanaconda/storage/__init__.py:131
 msgid "Installation cannot continue."
 msgstr "Установка не может быть продолжена."
 
-#: pyanaconda/storage/__init__.py:133
+#: pyanaconda/storage/__init__.py:132
 msgid "The storage configuration you have chosen has already been activated. You can no longer return to the disk editing screen. Would you like to continue with the installation process?"
 msgstr "Выбранная конфигурация хранилища уже активирована. Вы не сможете вернуться к окну редактирования диска. Продолжить установку?"
 
-#: pyanaconda/storage/__init__.py:161
+#: pyanaconda/storage/__init__.py:160
 msgid "Encrypt device?"
 msgstr "Зашифровать устройство?"
 
-#: pyanaconda/storage/__init__.py:162
+#: pyanaconda/storage/__init__.py:161
 msgid "You specified block device encryption should be enabled, but you have not supplied a passphrase. If you do not go back and provide a passphrase, block device encryption will be disabled."
 msgstr "Вы включили шифрование блочного устройства, но не указали пароль. Вернитесь на предыдущий этап и укажите пароль, в противном случае шифрование будет отключено."
 
-#: pyanaconda/storage/__init__.py:188
+#: pyanaconda/storage/__init__.py:195
+msgid ""
+"\n"
+"\n"
+"<b>WARNING:</b>\n"
+"You are using a GPT bootdisk on a non-EFI system. This may not work, depending on you BIOS's support for booting from GPT disks."
+msgstr ""
+
+#: pyanaconda/storage/__init__.py:203
 #: pyanaconda/storage/devicetree.py:104
 msgid "Confirm"
 msgstr "Подтвердить"
 
-#: pyanaconda/storage/__init__.py:189
-msgid "The partitioning options you have selected will now be written to disk.  Any data on deleted or reformatted partitions will be lost."
+#: pyanaconda/storage/__init__.py:204
+#, fuzzy, python-format
+msgid "The partitioning options you have selected will now be written to disk.  Any data on deleted or reformatted partitions will be lost.%s"
 msgstr "Выбранные параметры разбиения будут записаны на диск. Все данные в удалённых и переформатированных разделах будут удалены."
 
-#: pyanaconda/storage/__init__.py:194
+#: pyanaconda/storage/__init__.py:210
 msgid "Go _Back"
 msgstr "В_ернуться"
 
-#: pyanaconda/storage/__init__.py:195
+#: pyanaconda/storage/__init__.py:211
 msgid "_Write Changes to Disk"
 msgstr "_Сохранить изменения на диск"
 
-#: pyanaconda/storage/__init__.py:214
+#: pyanaconda/storage/__init__.py:230
 msgid "Running..."
 msgstr "Выполняется..."
 
-#: pyanaconda/storage/__init__.py:215
+#: pyanaconda/storage/__init__.py:231
 msgid "Storing encryption keys"
 msgstr "Сохраняются ключи шифрования"
 
-#: pyanaconda/storage/__init__.py:231
+#: pyanaconda/storage/__init__.py:247
 #, python-format
 msgid "Error storing an encryption key: %s\n"
 msgstr "Ошибка сохранения ключа шифрования: %s\n"
 
-#: pyanaconda/storage/__init__.py:399
+#: pyanaconda/storage/__init__.py:415
 msgid "Examining Devices"
 msgstr "Проверка устройств"
 
-#: pyanaconda/storage/__init__.py:400
+#: pyanaconda/storage/__init__.py:416
 msgid "Examining storage devices"
 msgstr "Проверка устройств хранения"
 
-#: pyanaconda/storage/__init__.py:676
+#: pyanaconda/storage/__init__.py:700
 msgid "This partition is holding the data for the hard drive install."
 msgstr "Этот раздел содержит данные для установки с жесткого диска."
 
-#: pyanaconda/storage/__init__.py:681
+#: pyanaconda/storage/__init__.py:705
 msgid "You cannot delete a partition of a LDL formatted DASD."
 msgstr "Невозможно удалить DASD, отформатированный как LDL"
 
-#: pyanaconda/storage/__init__.py:687
+#: pyanaconda/storage/__init__.py:711
 #, python-format
 msgid "This device is part of the RAID device %s."
 msgstr "Это устройство является частью устройства RAID %s."
 
-#: pyanaconda/storage/__init__.py:690
+#: pyanaconda/storage/__init__.py:714
 msgid "This device is part of a RAID device."
 msgstr "Это устройство является частью устройства RAID."
 
-#: pyanaconda/storage/__init__.py:695
+#: pyanaconda/storage/__init__.py:719
 #, python-format
 msgid "This device is part of the LVM volume group '%s'."
 msgstr "Это устройство является частью группы томов LVM «%s»."
 
-#: pyanaconda/storage/__init__.py:698
+#: pyanaconda/storage/__init__.py:722
 msgid "This device is part of a LVM volume group."
 msgstr "Это устройство является частью группы томов LVM."
 
-#: pyanaconda/storage/__init__.py:714
+#: pyanaconda/storage/__init__.py:738
 msgid ""
 "This device is an extended partition which contains logical partitions that cannot be deleted:\n"
 "\n"
@@ -4514,72 +4519,72 @@ msgstr ""
 "Этот раздел является расширенным и содержит логические разделы, которые невозможно удалить:\n"
 "\n"
 
-#: pyanaconda/storage/__init__.py:993
+#: pyanaconda/storage/__init__.py:1017
 #, python-format
 msgid "You have not defined a root partition (/), which is required for installation of %s to continue."
 msgstr "Вы не указали корневой раздел (/), который необходим для продолжения установки %s."
 
-#: pyanaconda/storage/__init__.py:998
+#: pyanaconda/storage/__init__.py:1022
 #, python-format
 msgid "Your root partition is less than 250 megabytes which is usually too small to install %s."
 msgstr "Размер Вашего корневого раздела меньше 250 МБ, как правило, этого недостаточно для установки %s."
 
-#: pyanaconda/storage/__init__.py:1004
-#, python-format
-msgid "Your / partition is less than %(min)s MB which is lower than recommended for a normal %(productName)s install."
+#: pyanaconda/storage/__init__.py:1032
+#, fuzzy, python-format
+msgid "Your / partition is less than %(min)s MB which is lower than recommended for a normal %(productName)s%(live)s install."
 msgstr "Размер раздела / меньше %(min)s мегабайт, что меньше рекомендуемого размера для нормальной установки %(productName)s. "
 
-#: pyanaconda/storage/__init__.py:1014
+#: pyanaconda/storage/__init__.py:1043
 #, python-format
 msgid "Your / partition does not match the the live image you are installing from.  It must be formatted as %s."
 msgstr "Раздел / не соответствует образу, из которого осуществляется установка. Он должен быть отформатирован как %s."
 
-#: pyanaconda/storage/__init__.py:1021
+#: pyanaconda/storage/__init__.py:1050
 #, python-format
 msgid "Your %(mount)s partition is less than %(size)s megabytes which is lower than recommended for a normal %(productName)s install."
 msgstr "Размер раздела %(mount)s меньше %(size)s мегабайт, что меньше рекомендуемого размера для нормальной установки %(productName)s. "
 
-#: pyanaconda/storage/__init__.py:1050
+#: pyanaconda/storage/__init__.py:1079
 msgid "Installing on a USB device.  This may or may not produce a working system."
 msgstr "Установка на USB-устройство. Существует вероятность получения нерабочей системы."
 
-#: pyanaconda/storage/__init__.py:1053
+#: pyanaconda/storage/__init__.py:1082
 msgid "Installing on a FireWire device.  This may or may not produce a working system."
 msgstr "Установка на FireWire-устройство. Существует вероятность получения нерабочей системы."
 
-#: pyanaconda/storage/__init__.py:1065
+#: pyanaconda/storage/__init__.py:1094
 #, fuzzy, python-format
 msgid "You have not specified a swap partition.  %s MB of memory is required to continue installation without a swap partition, but you only have %s MB."
 msgstr "Вы не создали раздел подкачки. С учетом доступной в системе памяти, раздел «swap» необходим для завершения установки."
 
-#: pyanaconda/storage/__init__.py:1070
+#: pyanaconda/storage/__init__.py:1099
 msgid "You have not specified a swap partition.  Although not strictly required in all cases, it will significantly improve performance for most installations."
 msgstr "Вы не создали раздел подкачки. Хотя это и не всегда является необходимым, в большинстве случаев раздел подкачки может значительно улучшить производительность системы."
 
-#: pyanaconda/storage/__init__.py:1077
+#: pyanaconda/storage/__init__.py:1106
 #, python-format
 msgid "This mount point is invalid.  The %s directory must be on the / file system."
 msgstr "Неверная точка монтирования. Каталог %s должен располагаться в файловой системе /."
 
-#: pyanaconda/storage/__init__.py:1081
+#: pyanaconda/storage/__init__.py:1110
 #, python-format
 msgid "The mount point %s must be on a linux file system."
 msgstr "Точка монтирования %s должна располагаться в файловой системе Linux. "
 
-#: pyanaconda/storage/__init__.py:1092
+#: pyanaconda/storage/__init__.py:1121
 msgid "No Drives Found"
 msgstr "Диски не найдены"
 
-#: pyanaconda/storage/__init__.py:1093
+#: pyanaconda/storage/__init__.py:1122
 msgid "An error has occurred - no valid devices were found on which to create new file systems. Please check your hardware for the cause of this problem."
 msgstr "Произошла ошибка: Устройства для создания новых файловых систем не найдены. Проверьте оборудование для обнаружения вероятной причины."
 
-#: pyanaconda/storage/__init__.py:1366
-#: pyanaconda/storage/__init__.py:1375
+#: pyanaconda/storage/__init__.py:1395
+#: pyanaconda/storage/__init__.py:1404
 msgid "Dirty File Systems"
 msgstr "«Грязные» ФС"
 
-#: pyanaconda/storage/__init__.py:1367
+#: pyanaconda/storage/__init__.py:1396
 #, python-format
 msgid ""
 "The following file systems for your Linux system were not unmounted cleanly.  Please boot your Linux installation, let the file systems be checked and shut down cleanly to upgrade.\n"
@@ -4588,7 +4593,7 @@ msgstr ""
 "Следующие файловые системы не были правильно отключены. Загрузите вашу систему Linux, дождитесь окончания проверки файловых систем и правильно завершите работу, после чего повторите попытку обновления.\n"
 "%s"
 
-#: pyanaconda/storage/__init__.py:1376
+#: pyanaconda/storage/__init__.py:1405
 #, python-format
 msgid ""
 "The following file systems for your Linux system were not unmounted cleanly.  Would you like to mount them anyway?\n"
@@ -4597,7 +4602,7 @@ msgstr ""
 "Следующие файловые системы не были правильно отключены. Смонтировать их все равно?\n"
 "%s"
 
-#: pyanaconda/storage/__init__.py:1852
+#: pyanaconda/storage/__init__.py:1885
 #, python-format
 msgid ""
 "The swap device:\n"
@@ -4612,7 +4617,7 @@ msgstr ""
 "\n"
 "является старым типом Linux-раздела swap. Чтобы использовать это устройство, нужно его переформатировать как раздел нового типа swap."
 
-#: pyanaconda/storage/__init__.py:1863
+#: pyanaconda/storage/__init__.py:1896
 #, python-format
 msgid ""
 "The swap device:\n"
@@ -4627,7 +4632,7 @@ msgstr ""
 "\n"
 "из файла /etc/fstab в данный момент используется как раздел для приостанова работы. Это означает, что ваша система находится в «спящем режиме». Для выполнения обновления полностью остановите работу системы вместо перевода ее в «спящий режим»."
 
-#: pyanaconda/storage/__init__.py:1871
+#: pyanaconda/storage/__init__.py:1904
 #, python-format
 msgid ""
 "The swap device:\n"
@@ -4642,7 +4647,7 @@ msgstr ""
 "\n"
 "из файла /etc/fstab в данный момент используется как раздел для приостанова работы. Это означает, что ваша система находится в «спящем режиме». Если вы выполняете новую установку, обязательно укажите установщику переформатировать все разделы подкачки."
 
-#: pyanaconda/storage/__init__.py:1883
+#: pyanaconda/storage/__init__.py:1916
 #, python-format
 msgid ""
 "The swap device:\n"
@@ -4657,7 +4662,7 @@ msgstr ""
 "\n"
 "не содержит том поддержки подкачки. Для продолжения установки потребуется отформатировать устройство или пропустить этот шаг."
 
-#: pyanaconda/storage/__init__.py:1894
+#: pyanaconda/storage/__init__.py:1927
 #, python-format
 msgid ""
 "Error enabling swap device %(name)s: %(msg)s\n"
@@ -4672,7 +4677,7 @@ msgstr ""
 "\n"
 "Нажмите ОК для выхода из программы установки."
 
-#: pyanaconda/storage/__init__.py:1901
+#: pyanaconda/storage/__init__.py:1934
 #, python-format
 msgid ""
 "Error enabling swap device %(name)s: %(msg)s\n"
@@ -4687,12 +4692,12 @@ msgstr ""
 "\n"
 "Нажмите ОК для выхода из программы установки."
 
-#: pyanaconda/storage/__init__.py:1965
-#: pyanaconda/storage/__init__.py:1977
+#: pyanaconda/storage/__init__.py:1998
+#: pyanaconda/storage/__init__.py:2010
 msgid "Invalid mount point"
 msgstr "Неверная точка монтирования"
 
-#: pyanaconda/storage/__init__.py:1966
+#: pyanaconda/storage/__init__.py:1999
 #, python-format
 msgid ""
 "An error occurred when trying to create %s.  Some element of this path is not a directory. This is a fatal error and the install cannot continue.\n"
@@ -4703,7 +4708,7 @@ msgstr ""
 "\n"
 "Нажмите <Enter> для выхода из программы установки."
 
-#: pyanaconda/storage/__init__.py:1978
+#: pyanaconda/storage/__init__.py:2011
 #, python-format
 msgid ""
 "An error occurred when trying to create %(mountpoint)s: %(msg)s.  This is a fatal error and the install cannot continue.\n"
@@ -4714,17 +4719,17 @@ msgstr ""
 "\n"
 "Нажмите <Enter> для выхода из программы установки."
 
-#: pyanaconda/storage/__init__.py:1994
-#: pyanaconda/storage/__init__.py:2018
+#: pyanaconda/storage/__init__.py:2027
+#: pyanaconda/storage/__init__.py:2051
 msgid "Unable to mount filesystem"
 msgstr "Невозможно смонтировать файловую систему"
 
-#: pyanaconda/storage/__init__.py:1995
+#: pyanaconda/storage/__init__.py:2028
 #, python-format
 msgid "An error occurred mounting device %(path)s as %(mountpoint)s.  You may continue installation, but there may be problems."
 msgstr "Произошла ошибка при монтировании устройства %(path)s как %(mountpoint)s. Установка может быть продолжена, но возможны проблемы."
 
-#: pyanaconda/storage/__init__.py:2019
+#: pyanaconda/storage/__init__.py:2052
 #, python-format
 msgid ""
 "An error occurred mounting device %(path)s as %(mountpoint)s: %(msg)s. This is a fatal error and the install cannot continue.\n"
@@ -4760,34 +4765,22 @@ msgstr "сбой вызова vginfo для %s"
 msgid "lvs failed for %s"
 msgstr "сбой вызова lvs для %s"
 
-#: pyanaconda/storage/devices.py:1300
-#: pyanaconda/storage/devices.py:2113
-#: pyanaconda/storage/devices.py:2539
-#: pyanaconda/storage/devices.py:3034
-#: pyanaconda/storage/devices.py:3515
+#: pyanaconda/storage/devices.py:743
 msgid "Creating"
 msgstr "Создать"
 
-#: pyanaconda/storage/devices.py:1301
-#: pyanaconda/storage/devices.py:2114
-#: pyanaconda/storage/devices.py:2540
-#: pyanaconda/storage/devices.py:3035
+#: pyanaconda/storage/devices.py:744
 #, python-format
 msgid "Creating device %s"
 msgstr "Создание устройства %s"
 
-#: pyanaconda/storage/devices.py:2633
+#: pyanaconda/storage/devices.py:2545
 #, python-format
 msgid "A RAID%d set requires at least %d member"
 msgid_plural "A RAID%d set requires at least %d members"
 msgstr[0] "Для RAID%d требуется как минимум %d элемент"
 msgstr[1] "Для RAID%d требуется как минимум %d элемента"
 msgstr[2] "Для RAID%d требуется как минимум %d элементов"
-
-#: pyanaconda/storage/devices.py:3516
-#, python-format
-msgid "Creating file %s"
-msgstr "Создание файла %s"
 
 #: pyanaconda/storage/devicetree.py:105
 #, python-format
@@ -4800,7 +4793,7 @@ msgstr ""
 "\n"
 "Если вы пропустите этот шаг, содержимое устройства будет недоступно в процессе установки."
 
-#: pyanaconda/storage/devicetree.py:1565
+#: pyanaconda/storage/devicetree.py:1600
 msgid "This partition is part of an inconsistent LVM Volume Group."
 msgstr "Этот раздел входит в состав несогласованной группы томов LVM."
 
@@ -4862,35 +4855,35 @@ msgid "Errors like this usually mean there is a problem with the filesystem that
 msgstr "Подобные ошибки обычно означают, что есть проблема с файловой системой, и для ее исправления потребуется вмешательство пользователя.  Прежде, чем запустить повторную установку, перезагрузите компьютер в режим восстановления или в другую систему, которая позволяет восстановить файловую систему в интерактивном режиме.  Перезапустите установку после исправления проблем с файловой системой."
 
 #: pyanaconda/storage/formats/fs.py:539
-#: pyanaconda/storage/partitioning.py:279
+#: pyanaconda/storage/partitioning.py:281
 msgid "Unrecoverable Error"
 msgstr "Неустранимая ошибка"
 
-#: pyanaconda/storage/formats/fs.py:879
+#: pyanaconda/storage/formats/fs.py:886
 msgid "File system errors left uncorrected."
 msgstr "Ошибки файловой системы остались неисправленными."
 
-#: pyanaconda/storage/formats/fs.py:880
+#: pyanaconda/storage/formats/fs.py:887
 msgid "Operational error."
 msgstr "Операционная ошибка."
 
-#: pyanaconda/storage/formats/fs.py:881
+#: pyanaconda/storage/formats/fs.py:888
 msgid "Usage or syntax error."
 msgstr "Ошибка использования или синтаксиса."
 
-#: pyanaconda/storage/formats/fs.py:882
+#: pyanaconda/storage/formats/fs.py:889
 msgid "e2fsck cancelled by user request."
 msgstr "Отмена e2fsck по требованию пользователя."
 
-#: pyanaconda/storage/formats/fs.py:883
+#: pyanaconda/storage/formats/fs.py:890
 msgid "Shared library error."
 msgstr "Ошибка общей библиотеки."
 
-#: pyanaconda/storage/formats/fs.py:1048
+#: pyanaconda/storage/formats/fs.py:1076
 msgid "Recoverable errors have been detected or dosfsck has discovered an internal inconsistency."
 msgstr "Обнаружены некритические ошибки или dosfsck обнаружила внутреннюю противоречивость."
 
-#: pyanaconda/storage/formats/fs.py:1050
+#: pyanaconda/storage/formats/fs.py:1078
 msgid "Usage error."
 msgstr "Ошибка использования."
 
@@ -4945,19 +4938,19 @@ msgstr "Регистрация на узле iSCSI"
 msgid "Logging in to iSCSI node %s"
 msgstr "Регистрация на узле iSCSI"
 
-#: pyanaconda/storage/partitioning.py:197
+#: pyanaconda/storage/partitioning.py:199
 msgid "Could not find enough free space for automatic partitioning.  Press 'OK' to exit the installer."
 msgstr "Недостаточно свободного места для автоматического разбиения. Нажмите OK для выхода из программы установки."
 
-#: pyanaconda/storage/partitioning.py:200
+#: pyanaconda/storage/partitioning.py:202
 msgid "Could not find enough free space for automatic partitioning, please use another partitioning method."
 msgstr "Недостаточно свободного места для автоматического разбиения. Выберите другой способ разбиения диска."
 
-#: pyanaconda/storage/partitioning.py:228
+#: pyanaconda/storage/partitioning.py:230
 msgid "Warnings During Automatic Partitioning"
 msgstr "Предупреждения при автоматическом разбиении"
 
-#: pyanaconda/storage/partitioning.py:230
+#: pyanaconda/storage/partitioning.py:232
 #, python-format
 msgid ""
 "Following warnings occurred during automatic partitioning:\n"
@@ -4968,8 +4961,8 @@ msgstr ""
 "\n"
 "%s"
 
-#: pyanaconda/storage/partitioning.py:244
-#: pyanaconda/storage/partitioning.py:263
+#: pyanaconda/storage/partitioning.py:246
+#: pyanaconda/storage/partitioning.py:265
 msgid ""
 "\n"
 "\n"
@@ -4979,7 +4972,7 @@ msgstr ""
 "\n"
 "Нажмите OК для выхода из программы установки."
 
-#: pyanaconda/storage/partitioning.py:246
+#: pyanaconda/storage/partitioning.py:248
 #, python-format
 msgid ""
 "Could not allocate requested partitions: \n"
@@ -4990,7 +4983,7 @@ msgstr ""
 "\n"
 "%(msg)s.%(extra)s"
 
-#: pyanaconda/storage/partitioning.py:265
+#: pyanaconda/storage/partitioning.py:267
 msgid ""
 "\n"
 "\n"
@@ -5000,11 +4993,11 @@ msgstr ""
 "\n"
 "Нажмите OK для выбора другого варианта разбиения."
 
-#: pyanaconda/storage/partitioning.py:267
+#: pyanaconda/storage/partitioning.py:269
 msgid "Automatic Partitioning Errors"
 msgstr "Ошибки автоматического разбиения"
 
-#: pyanaconda/storage/partitioning.py:268
+#: pyanaconda/storage/partitioning.py:270
 #, python-format
 msgid ""
 "The following errors occurred with your partitioning:\n"
@@ -5987,17 +5980,13 @@ msgstr "Машины zSeries могут получать доступ к ста�
 
 #: data/ui/reinitialize-dialog.glade.h:1
 msgid "<span size=\"large\" weight=\"bold\">The storage device below may contain data.</span>"
-msgstr ""
+msgstr "<span size=\"large\" weight=\"bold\">Указанное ниже устройство хранения может содержать данные.</span>"
 
 #: data/ui/reinitialize-dialog.glade.h:2
 msgid "Apply my choice to all devices with undetected partitions or filesystems"
-msgstr ""
+msgstr "Применять мой выбор ко всем устройствам, на которых не обнаружено разделов или файловых системам"
 
-#: data/ui/reinitialize-dialog.glade.h:3
-msgid "No, keep any data"
-msgstr ""
-
-#: data/ui/reinitialize-dialog.glade.h:5
+#: data/ui/reinitialize-dialog.glade.h:4
 msgid ""
 "We could not detect partitions or filesystems on this device.\n"
 "\n"
@@ -6007,10 +5996,22 @@ msgid ""
 "\n"
 "Are you sure this device does not contain valuable data?"
 msgstr ""
+"На этом устройстве не удалось обнаружить разделов или файловых систем.\n"
+"\n"
+"Это может быть потому, что устройство <b>пустое</b>, <b>не разбито на разделы</b> или <b>виртуальное</b>. Если это не так,\n"
+"то на устройстве могут быть данные, которые не могут быть восстановлены при использовании его в этой\n"
+"установке. Можно удалить устройство из этой установки, чтобы защитить данные.\n"
+"\n"
+"Вы уверены, что это устройство не содержит ценных данных?"
+
+#: data/ui/reinitialize-dialog.glade.h:11
+msgid "_No, keep any data"
+msgstr "_Нет, сохранить данные"
 
 #: data/ui/reinitialize-dialog.glade.h:12
-msgid "Yes, discard any data"
-msgstr ""
+#, fuzzy
+msgid "_Yes, discard any data"
+msgstr "_Да, удалить данные"
 
 #: data/lang-table.h:1
 msgid "Afrikaans"
@@ -6255,6 +6256,16 @@ msgstr "Валлийский"
 #: data/lang-table.h:61
 msgid "Zulu"
 msgstr "Зулу"
+
+#~ msgid ""
+#~ "The root filesystem you created is not large enough for this live image "
+#~ "(%.2f MB required)."
+#~ msgstr ""
+#~ "Созданная корневая файловая система слишком мала для размещения Live-"
+#~ "образа (требуется %.2f МБ)."
+
+#~ msgid "Creating file %s"
+#~ msgstr "Создание файла %s"
 
 #~ msgid ""
 #~ "Error processing drive:\n"
