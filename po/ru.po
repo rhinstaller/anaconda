@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: ru\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
 "POT-Creation-Date: 2011-01-19 10:10-0500\n"
-"PO-Revision-Date: 2011-02-05 23:10+0300\n"
+"PO-Revision-Date: 2011-02-06 22:42+0300\n"
 "Last-Translator: Igor Gorbounov <igor.gorbounov@gmail.com>\n"
 "Language-Team: Russian <fedora-trans-ru@redhat,com>\n"
 "MIME-Version: 1.0\n"
@@ -768,7 +768,7 @@ msgstr "Сбой скриптлета"
 #: pyanaconda/kickstart.py:150
 #, python-format
 msgid "Escrow certificate with url %s requires network to be enabled in loader or configured in kickstart file."
-msgstr ""
+msgstr "Для escrow-сертификата с URL %s требуется, чтобы сеть была включена в загрузчике или сконфигурирована в kickstart-файле."
 
 #: pyanaconda/kickstart.py:164
 #, python-format
@@ -4009,7 +4009,7 @@ msgstr "Обнаружено неподдерживаемое оборудова
 
 #: loader/loader.c:1224
 msgid "This hardware (or a combination thereof) is not supported by Red Hat.  For more information on supported hardware, please refer to http://www.redhat.com/hardware."
-msgstr ""
+msgstr "Это оборудование (и его различные сочетания) не поддерживается Red Hat. За дополнительной информацией о поддерживаемом оборудовании обращайтесь на http://www.redhat.com/hardware."
 
 #: loader/loader.c:1359
 msgid "Rescue Method"
