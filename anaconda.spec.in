@@ -229,6 +229,28 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Mon Feb 07 2011 Chris Lumens <clumens@redhat.com> - 15.19-1
+- Fix a typo. (clumens)
+- Don't write our own udev persistent net rules; use udev's generator.
+  (notting)
+- Add upd-bootiso script (bcl)
+- Fix typo in GPT warning (#675242) (bcl)
+- remove unused variables (mschmidt)
+- Fix support for "logvol --label=" (#673584). (clumens)
+- Fix the taint flag check. (clumens)
+- Set default resolution of anaconda.glade to 800x600 (dcantrell)
+- Make singlePV a more useful boolean, clean up _getSinglePV() (dcantrell)
+- Remove width and height parameters from gui.readImageFromFile() (dcantrell)
+- Sort singlePV=True requests so they come first. (dcantrell)
+- Move reipl step to be after instbootloader step. (dcantrell)
+- Remove 'Change device' button from bootloader screen on EFI systems (#582143)
+  (wwoods)
+- Add anaconda --version support (#673150). (clumens)
+- Remove forced 800x600 geometry switch for Xvnc (dcantrell)
+- writeMtab -> makeMtab (#673158). (clumens)
+- Let dm_node_from_name admit it's defeated. (akozumpl)
+- Disable partition resize support for DASD labels (#605912) (dcantrell)
+
 * Tue Jan 25 2011 Chris Lumens <clumens@redhat.com> - 15.18-1
 - GCC seriously needs to be less picky. (clumens)
 
