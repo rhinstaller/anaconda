@@ -169,12 +169,6 @@ class BackendTest(mock.TestCase):
     #def anaconda_backend_write_ks_test(self):
     #    pass
     
-    def anaconda_backend_get_required_media_test(self):
-        import pyanaconda.backend
-        anaconda = mock.Mock()
-        ab = pyanaconda.backend.AnacondaBackend(anaconda)
-        self.assertRaises(NotImplementedError, ab.getRequiredMedia)
-    
     #def anaconda_backend_complete_test(self):
     #    pass
     

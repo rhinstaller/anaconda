@@ -41,47 +41,6 @@ class ImageTest(mock.TestCase):
     def tearDown(self):
         self.tearDownModules()
         
-    def find_iso_images_1_test(self):
-        import pyanaconda.image
-        
-        pyanaconda.image.getDiscNums = mock.Mock(return_value=[1])
-        ret = pyanaconda.image.findIsoImages('', mock.Mock())
-        
-        self.assertEqual(ret, {1: IMAGENAME})
-        
-        self.assertEqual(pyanaconda.image.isys.method_calls, 
-            [('isIsoImage', ('/Fedora-13-i386-DVD.iso',), {}), 
-             ('mount', ('/Fedora-13-i386-DVD.iso', '/mnt/cdimage'), 
-                                    {'readOnly': True, 'fstype': 'iso9660'}), 
-             ('umount', ('/mnt/cdimage',), {'removeDir': False})]
-        )
-    
-    def find_iso_images_2_test(self):
-        import pyanaconda.image
-        pyanaconda.image.isys.mount = mock.Mock(side_effect=SystemError())
-        ret = pyanaconda.image.findIsoImages('', mock.Mock())
-        
-        self.assertEqual(ret, {})
-        
-        self.assertEqual(pyanaconda.image.isys.method_calls, 
-            [('isIsoImage', ('/Fedora-13-i386-DVD.iso',), {})]
-        )
-        
-    def get_disc_nums_1_test(self):
-        import pyanaconda.image
-        ret = pyanaconda.image.getDiscNums('ALL')
-        self.assertEqual(ret, [1])
-        
-    def get_disc_nums_2_test(self):
-        import pyanaconda.image
-        ret = pyanaconda.image.getDiscNums('1, 2, 3, 4')
-        self.assertEqual(ret, [1, 2, 3, 4])
-        
-    def get_disc_nums_3_test(self):
-        import pyanaconda.image
-        ret = pyanaconda.image.getDiscNums('1,2,3')
-        self.assertEqual(ret, [1, 2, 3])
-        
     def get_media_id_1_test(self):
         import pyanaconda.image
         ret = pyanaconda.image.getMediaId('/mnt/cdimage')
@@ -98,14 +57,14 @@ class ImageTest(mock.TestCase):
         pyanaconda.image.os.path.ismount = mock.Mock(return_value=False)
         pyanaconda.image.mountDirectory('hd:/dev/sda1:/', mock.Mock())
         self.assertEqual(pyanaconda.image.isys.method_calls,
-            [('mount', ('/dev/sda1', '/mnt/isodir'), {'fstype': 'auto'})])
+            [('mount', ('/dev/sda1', '/mnt/isodir'), {'fstype': 'auto', 'options':''})])
             
     def mount_directory_2_test(self):   
         import pyanaconda.image
         pyanaconda.image.os.path.ismount = mock.Mock(return_value=False)
         pyanaconda.image.mountDirectory('hd:sda1:/', mock.Mock())
         self.assertEqual(pyanaconda.image.isys.method_calls,
-            [('mount', ('/dev/sda1', '/mnt/isodir'), {'fstype': 'auto'})])
+            [('mount', ('/dev/sda1', '/mnt/isodir'), {'fstype': 'auto', 'options':''})])
             
     def mount_directory_3_test(self):   
         import pyanaconda.image
@@ -115,43 +74,21 @@ class ImageTest(mock.TestCase):
         
     def mount_image_1_test(self):
         import pyanaconda.image
-        self.assertRaises(SystemError, pyanaconda.image.mountImage, '', '/mnt/cdimage', 1, mock.Mock())
+        self.assertRaises(SystemError, pyanaconda.image.mountImage, '', '/mnt/cdimage', mock.Mock())
      
     def mount_image_2_test(self):
         import pyanaconda.image
         pyanaconda.image.os.path.ismount = mock.Mock(return_value=False)
-        ret = pyanaconda.image.mountImage('', '/mnt/cdimage', 1, mock.Mock(), 
-            {1: IMAGENAME})
+        ret = pyanaconda.image.mountImage('', '/mnt/cdimage', mock.Mock())
 
-        self.assertEqual(ret,  {1: IMAGENAME})
-        
         self.assertEqual(pyanaconda.image.isys.method_calls,
-           [('mount', ('/Fedora-13-i386-DVD.iso', '/mnt/cdimage'), 
-                                    {'readOnly': True, 'fstype': 'iso9660'})])
-        
-    def present_required_media_message_1_test(self):
-        import pyanaconda.image
-        anaconda = mock.Mock()
-        anaconda.backend.getRequiredMedia.return_value = [1]
-        ret = pyanaconda.image.presentRequiredMediaMessage(anaconda)
-        self.assertEqual(ret, None)
-
-    def present_required_media_message_2_test(self):
-        import pyanaconda.image
-        anaconda = mock.Mock()
-        anaconda.backend.getRequiredMedia.return_value = [1, 2]
-        anaconda.backend.ayum.tree = '/tmp'
-        ret = pyanaconda.image.presentRequiredMediaMessage(anaconda)
-        self.assertEqual(ret, None)
-        
-    def present_required_media_message_3_test(self):
-        import pyanaconda.image
-        anaconda = mock.Mock()
-        anaconda.backend.getRequiredMedia.return_value = [1, 3]
-        anaconda.backend.ayum.tree = '/tmp'
-        pyanaconda.image.gettext.ldgettext.return_value = '%s'
-        ret = pyanaconda.image.presentRequiredMediaMessage(anaconda)
-        self.assertTrue(isinstance(ret, mock.Mock))
+           [('isIsoImage', ('/Fedora-13-i386-DVD.iso',), {}),
+            ('mount', ('/Fedora-13-i386-DVD.iso', '/mnt/cdimage'),
+                                    {'readOnly': True, 'fstype': 'iso9660'}),
+            ('umount', ('/mnt/cdimage',), {'removeDir': False}),
+            ('mount', ('/Fedora-13-i386-DVD.iso', '/mnt/cdimage'),
+                                    {'readOnly': True, 'fstype': 'iso9660'}),
+           ])
         
     def scan_for_media_1_test(self):
         import pyanaconda.image
@@ -174,13 +111,7 @@ class ImageTest(mock.TestCase):
             
     def umount_image_1_test(self):
         import pyanaconda.image
-        pyanaconda.image.umountImage('/tmp', None)
-        self.assertEqual(pyanaconda.image.isys.method_calls, 
-            [])
-        
-    def umount_image_2_test(self):
-        import pyanaconda.image
-        pyanaconda.image.umountImage('/tmp', mock.Mock())
+        pyanaconda.image.umountImage('/tmp')
         self.assertEqual(pyanaconda.image.isys.method_calls, 
             [('umount', ('/tmp',), {'removeDir': False})])
              
@@ -201,12 +132,12 @@ class ImageTest(mock.TestCase):
         
     def verify_media_1_test(self):
         import pyanaconda.image
-        ret = pyanaconda.image.verifyMedia('/tmp', 1)
+        ret = pyanaconda.image.verifyMedia('/tmp')
         self.assertTrue(ret)
         
     def verify_media_2_test(self):
         import pyanaconda.image
-        ret = pyanaconda.image.verifyMedia('/tmp', 3)
+        ret = pyanaconda.image.verifyMedia('/tmp', timestamp=1337)
         self.assertFalse(ret)
         
     def verify_media_3_test(self):
