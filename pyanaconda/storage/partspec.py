@@ -21,7 +21,7 @@
 
 class PartSpec(object):
     def __init__(self, mountpoint=None, fstype=None, size=None, maxSize=None,
-                 grow=False, asVol=False, singlePV=Flase, weight=0,
+                 grow=False, asVol=False, singlePV=False, weight=0,
                  requiredSpace=0):
         """ Create a new storage specification.  These are used to specify
             the default partitioning layout as an object before we have the
