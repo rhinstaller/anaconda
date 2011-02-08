@@ -78,7 +78,7 @@ void undoMount(struct unmountInfo * fs, int numFs, int this) {
 
     printf("\t%s", fs[this].name);
     /* don't need to unmount /tmp.  it is busy anyway. */
-    if (umount2(fs[this].name, MNT_DETACH) < 0) {
+    if (umount(fs[this].name) < 0) {
         printf(" umount failed (%d)", errno);
     } else {
         printf(" done");
