@@ -799,7 +799,7 @@ class VolumeGroupEditor:
 
             if self.luks.has_key(origname) and origname != templv.lvname:
                 self.luks[templv.lvname] = self.luks[origname]
-                del self.luks[templv.lvname]
+                del self.luks[origname]
         elif templv.format.type != "luks" and self.luks.has_key(origname):
             del self.luks[origname]
 
