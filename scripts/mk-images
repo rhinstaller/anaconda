@@ -336,6 +336,15 @@ makemoduletree() {
 search updates built-in
 EOF
 
+    # Remove some modules and firmware on ppc64 so the ramdisk image
+    # is <= 32MB (BZ #675685)
+    if [ "$BUILDARCH" = "ppc64" ]; then
+        for subdir in firewire pcmcia sound wireless ; do
+            find -H $MMB_DIR/lib/modules -name $subdir | xargs rm -rf
+        done
+        rm -rf $MMB_DIR/lib/firmware/{matrox,r128,radeon,zd1211}
+    fi
+
     # clean up leftover cruft
     find -H $MMB_DIR/lib/modules -type d -exec rmdir -f {} \; 2>/dev/null
     $MODLIST --modinfo-file $MODINFO --ignore-missing --modinfo \
