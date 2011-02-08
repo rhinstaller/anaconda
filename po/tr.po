@@ -18,8 +18,8 @@ msgstr ""
 "Project-Id-Version: tr\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
 "POT-Creation-Date: 2011-01-19 10:10-0500\n"
-"PO-Revision-Date: 2011-02-04 15:33+0200\n"
-"Last-Translator: Hasan Alp İNAN\n"
+"PO-Revision-Date: 2011-02-08 14:09+0200\n"
+"Last-Translator: Hasan Alp İNAN <hasanalpinan@gmail.com>\n"
 "Language-Team: Turkish <fedora-trans-tr@redhat.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -202,6 +202,7 @@ msgid ""
 "There was an error installing the bootloader.  The system may not be "
 "bootable."
 msgstr ""
+"Ön yükleyici kurulurken bir hata oluştu. Sistem açılışı yapılamayabilir."
 
 #: pyanaconda/bootloader.py:228
 msgid ""
@@ -247,14 +248,12 @@ msgid "Can't have a question in command line mode!"
 msgstr "Komut satırı kipinde bir soru olamaz!"
 
 #: pyanaconda/constants.py:68
-#, fuzzy
 msgid ""
 "An unhandled exception has occurred.  This is most likely a bug.  Please "
 "save a copy of the detailed exception and file a bug report"
 msgstr ""
-"Bilinmeyen bir sorun oluştu. Bu büyük olasılıkla bir yazılım hatası. "
-"Ayrıntılı hata mesajının bir kopyasını kaydedin ve anaconda için %s "
-"adresinde hata raporu girin."
+"Bilinmeyen bir sorun oluştu. Bu büyük olasılıkla bir yazılım hatası. Lütfen "
+"bu özel durumun ayrıntılarını ve hata raporu dosyasının bir kopyasını kaydedin"
 
 #: pyanaconda/constants.py:74
 msgid " with the provider of this software."
@@ -339,6 +338,8 @@ msgid ""
 "Device %s is encrypted. In order to access the device's contents during "
 "installation you must enter the device's passphrase below."
 msgstr ""
+"%s aygıtı şifrelenmiş. Yükleme sırasında aygıtın içeriğine erişmek için "
+"aygıt parolasını aşağıya girmeniz gerekir."
 
 #: pyanaconda/gui.py:682 pyanaconda/gui.py:1418
 #: pyanaconda/partIntfHelpers.py:159 pyanaconda/partIntfHelpers.py:344
@@ -394,6 +395,9 @@ msgid ""
 "You do not have an active network connection.  This is required by some "
 "exception saving methods.  Would you like to configure your network now?"
 msgstr ""
+"Etkin bir ağ bağlantınız yok. Ağ bağlantısı bazı olağan dışı kurtarma "
+"yöntemleri "
+"için gereklidir. Şimdi ağınızı yapılandırmak ister misiniz?"
 
 #: pyanaconda/gui.py:1163 pyanaconda/rescue.py:270 pyanaconda/text.py:419
 #: pyanaconda/yuminstall.py:819 pyanaconda/yuminstall.py:1241
@@ -403,7 +407,7 @@ msgstr "Ağ Mevcut Değil"
 
 #: pyanaconda/gui.py:1164 pyanaconda/text.py:420
 msgid "Remote exception saving methods will not work."
-msgstr ""
+msgstr "Uzak olağan dışı kurtarma yöntemleri çalışmayacaktır."
 
 #: pyanaconda/gui.py:1213 pyanaconda/text.py:395
 msgid "Error Parsing Kickstart Config"
@@ -607,7 +611,7 @@ msgstr "Hazırlanıyor"
 #: pyanaconda/installinterfacebase.py:159
 msgid "Unformatted DASD Device Found"
 msgid_plural "Unformatted DASD Devices Found"
-msgstr[0] ""
+msgstr[0] "Biçimlendirilmemiş DASD Aygıtı Bulundu"
 
 #: pyanaconda/installinterfacebase.py:161
 #, python-format
@@ -684,27 +688,24 @@ msgid "Could not log into any iSCSI nodes at the portal."
 msgstr ""
 
 #: pyanaconda/kickstart.py:1311
-#, fuzzy, python-format
+#, python-format
 msgid "Error processing %%ksappend lines: %s"
-msgstr "%s kickstart dosyası açılırken hata: %s"
+msgstr "İşlem hatası %%ksappend satırı: %s"
 
 #: pyanaconda/kickstart.py:1314
 #, python-format
 msgid "Unknown error processing %%ksappend lines: %s"
-msgstr ""
+msgstr "Bilinmeyen işlem hatası %%ksappend satırı: %s"
 
 #: pyanaconda/kickstart.py:1369 pyanaconda/livecd.py:190
-#, fuzzy
 msgid "Post-Installation"
 msgstr "Kurulum Sonrası"
 
 #: pyanaconda/kickstart.py:1370
-#, fuzzy
 msgid "Running post-installation scripts"
-msgstr "Kurulum sonrası betikleri çalıştırılıyor."
+msgstr "Kurulum sonrası betikleri çalıştırılıyor"
 
 #: pyanaconda/kickstart.py:1385
-#, fuzzy
 msgid "Running pre-installation scripts"
 msgstr "Kurulum öncesi betikleri çalıştırılıyor"
 
@@ -726,22 +727,22 @@ msgid "_Abort"
 msgstr "İ_ptal et"
 
 #: pyanaconda/kickstart.py:1424 pyanaconda/kickstart.py:1463
-#, fuzzy
 msgid "_Ignore All"
-msgstr "Yoksay"
+msgstr "Tümünü _Yoksay"
 
 #: pyanaconda/kickstart.py:1454
 msgid "Missing Group"
 msgstr "Eksik Grup"
 
 #: pyanaconda/kickstart.py:1455
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "You have specified that the group '%s' should be installed. This group does "
 "not exist. Would you like to continue or abort this installation?"
 msgstr ""
-"'%s' grubunun kurulumunu belirlediniz.. Böyle bir grup yok. Devam etmek mi "
-"yoksa kurulumu iptal etmek mi istersiniz?"
+"'%s' grubunun kurulu olması gerektiğini belirttiniz. Böyle bir grup yok. Bu "
+"kuruluma "
+"devam etmek veya kurulumu iptal etmek ister misiniz?"
 
 #: pyanaconda/kickstart.py:1552
 #, python-format
@@ -753,9 +754,8 @@ msgid ""
 msgstr ""
 
 #: pyanaconda/livecd.py:121
-#, fuzzy
 msgid "Unable to find image"
-msgstr "Kurulum kaydı %s bulunamıyor"
+msgstr "İmaj bulunamadı"
 
 #: pyanaconda/livecd.py:122
 #, python-format
@@ -764,9 +764,8 @@ msgid ""
 msgstr ""
 
 #: pyanaconda/livecd.py:143
-#, fuzzy
 msgid "Copying live image to hard drive."
-msgstr "Kurulum dosyaları sabit diske aktarılıyor..."
+msgstr "Kurulum imajı sabit diske aktarılıyor."
 
 #: pyanaconda/livecd.py:161
 #, fuzzy
@@ -793,39 +792,36 @@ msgid ""
 msgstr "Kurulum süreci başlatılıyor. Bu işlem biraz uzun sürebilir..."
 
 #: pyanaconda/network.py:78
-#, fuzzy
 msgid "Hostname must be 255 or fewer characters in length."
-msgstr "Konak adı 64 karakter ya da daha kısa olmalıdır."
+msgstr "Konak Adı 255 veya daha az karakter uzunluğunda olmalıdır."
 
 #: pyanaconda/network.py:84
-#, fuzzy
 msgid ""
 "Hostname must start with a valid character in the ranges 'a-z', 'A-Z', or '0-"
 "9'"
 msgstr ""
-"Konak ismi bir harf ile başlamalıdır. Türkçeye özgü harfleri kullanmayınız."
+"Konak Adı  'a-z', 'A-Z', veya '0-9' aralığında olan geçerli bir karakter ile "
+"başlamalıdır."
 
 #: pyanaconda/network.py:89
-#, fuzzy
 msgid ""
 "Hostnames can only contain the characters 'a-z', 'A-Z', '0-9', '-', or '.'"
 msgstr ""
-"Konak isimleri harfler, '-' ve '.' karaterlerini içerebilir. Türkçeye özgü "
-"harfleri kullanmayınız."
+"Konak Adları sadece 'a-z', 'A-Z', '0-9', '-', veya '.' karakterlerini "
+"içerebilir."
 
 #: pyanaconda/network.py:133
-#, fuzzy
 msgid "IP address is missing."
-msgstr "IP Adresi eksik."
+msgstr "IP adresi eksik."
 
 #: pyanaconda/network.py:137
-#, fuzzy
 msgid ""
 "IPv4 addresses must contain four numbers between 0 and 255, separated by "
 "periods."
 msgstr ""
-"IP adresleri noktalar ile ayrılmış dört adet 0 ile 255 arasındaki sayıdan "
-"oluşabilir."
+"IPv4 adresleri noktalar ile birbirinden ayrılmış dört adet 0 ile 255 "
+"arasındaki "
+"sayıdan oluşabilir."
 
 #: pyanaconda/network.py:140
 #, python-format
@@ -833,14 +829,13 @@ msgid "'%s' is not a valid IPv6 address."
 msgstr "%s geçerli bir IPv6 adresi değil."
 
 #: pyanaconda/network.py:142
-#, fuzzy, python-format
+#, python-format
 msgid "'%s' is an invalid IP address."
-msgstr "%s geçerli bir IPv6 adresi değil."
+msgstr "'%s' geçerli bir IP adresi değil."
 
 #: pyanaconda/packages.py:118
-#, fuzzy
 msgid "Resizing Failed"
-msgstr "Alınıyor"
+msgstr "Boyutlandırma Başarısız"
 
 #: pyanaconda/packages.py:119
 #, fuzzy, python-format
@@ -848,9 +843,8 @@ msgid "There was an error encountered while resizing the device %s."
 msgstr "Hedef sürücüler temizlenirken bir hata oluştu. Kopyalama başarılamadı."
 
 #: pyanaconda/packages.py:127
-#, fuzzy
 msgid "Migration Failed"
-msgstr "Bağlama başarısız oldu"
+msgstr "Geçiş Başarısız"
 
 #: pyanaconda/packages.py:128
 #, fuzzy, python-format
@@ -859,7 +853,7 @@ msgstr "Hedef sürücüler temizlenirken bir hata oluştu. Kopyalama başarılam
 
 #: pyanaconda/packages.py:137
 msgid "_File Bug"
-msgstr ""
+msgstr "_Dosya Hatası"
 
 #: pyanaconda/packages.py:321
 #, fuzzy, python-format
@@ -891,9 +885,8 @@ msgstr ""
 "adresini kullanınız ve '%s' konu başlığı ile raporunuzu gönderiniz.\n"
 
 #: pyanaconda/packages.py:337
-#, fuzzy
 msgid "_Install Anyway"
-msgstr "_Yinede Kur"
+msgstr "_Yine de Kur"
 
 #: pyanaconda/packages.py:340
 msgid "Your system will now be rebooted..."
@@ -975,9 +968,9 @@ msgid "Confirm Delete"
 msgstr "Silme Onayı"
 
 #: pyanaconda/partIntfHelpers.py:156
-#, fuzzy, python-format
+#, python-format
 msgid "You are about to delete all partitions on the device '%s'."
-msgstr "/dev/%s üzerindeki tüm bölümleri silmek üzeresiniz."
+msgstr "'%s' üzerindeki tüm bölümleri silmek üzeresiniz."
 
 #: pyanaconda/partIntfHelpers.py:159 pyanaconda/partIntfHelpers.py:344
 #: pyanaconda/iw/lvm_dialog_gui.py:885 pyanaconda/iw/lvm_dialog_gui.py:1485
@@ -1006,22 +999,23 @@ msgid "Format as Swap?"
 msgstr "Takas alanı olarak biçimlensin mi?"
 
 #: pyanaconda/partIntfHelpers.py:223
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "%s has a partition type of 0x82 (Linux swap) but does not appear to be "
 "formatted as a Linux swap partition.\n"
 "\n"
 "Would you like to format this partition as a swap partition?"
 msgstr ""
-"/dev/%s 0x82 (Linux takas) türünde görünüyor ama bir takas alanı olarak "
-"biçimlendirilmemiş.\n"
+"%s 0x82 (Linux takas) türünde bir bölüm olarak görünüyor ancak "
+"bir takas alanı olarak biçimlendirilmemiş.\n"
 "\n"
-"Bu bölümün Linux takas alanı olarak biçimlendirilmesini ister misiniz?"
+"Bu bölümün takas alanı olarak biçimlendirilmesini ister misiniz?"
 
 #: pyanaconda/partIntfHelpers.py:238
-#, fuzzy, python-format
+#, python-format
 msgid "You need to select at least one hard drive to install %s."
-msgstr "%s kurulumunun yapılabilmesi için en azından bir aygıt belirtmelisiniz."
+msgstr ""
+"%s kurulumunun yapılabilmesi için en azından bir sabit disk seçmelisiniz."
 
 #: pyanaconda/partIntfHelpers.py:243
 #, fuzzy
@@ -1050,14 +1044,14 @@ msgstr "Bölümü D_eğiştir"
 
 #: pyanaconda/partIntfHelpers.py:251
 msgid "Do _Not Format"
-msgstr "Biçimle_Me"
+msgstr "Biçimlendir_me"
 
 #: pyanaconda/partIntfHelpers.py:259
 msgid "Error with Partitioning"
 msgstr "Bölümlendirmede Hata"
 
 #: pyanaconda/partIntfHelpers.py:260
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The following critical errors exist with your requested partitioning scheme. "
 "These errors must be corrected prior to continuing with your install of %"
@@ -1065,11 +1059,11 @@ msgid ""
 "\n"
 "%(errorstr)s"
 msgstr ""
-"İstediğiniz bölümlendirmeye bağlı olarak aşağıdaki hatalar oluştu. %s "
-"kurulumuna devam etmeden önce bu hataların ortadan kaldırılması "
-"gerekmektedir.\n"
+"İstediğiniz bölümlendirmeye bağlı olarak aşağıdaki hatalar oluştu. "
+"%(productName)s kurulumuna devam etmeden önce bu hataların ortadan "
+"kaldırılması gerekmektedir.\n"
 "\n"
-"%s"
+"%(errorstr)s"
 
 #: pyanaconda/partIntfHelpers.py:276
 msgid "Partitioning Warning"
@@ -1131,14 +1125,14 @@ msgid "You are about to delete a RAID device."
 msgstr "Bir RAID aygıtını silmek üzeresiniz."
 
 #: pyanaconda/partIntfHelpers.py:336
-#, fuzzy, python-format
+#, python-format
 msgid "You are about to delete the %s partition."
-msgstr "/dev/%s bölümünü silmek üzeresiniz."
+msgstr "%s bölümünü silmek üzeresiniz."
 
 #: pyanaconda/partIntfHelpers.py:340
-#, fuzzy, python-format
+#, python-format
 msgid "You are about to delete the %(type)s %(name)s"
-msgstr "/dev/%s bölümünü silmek üzeresiniz."
+msgstr "%(type)s %(name)s bölümünü silmek üzeresiniz."
 
 #: pyanaconda/partIntfHelpers.py:351
 msgid "Confirm Reset"
@@ -1154,9 +1148,8 @@ msgid "No credentials (discovery authentication disabled)"
 msgstr ""
 
 #: pyanaconda/partIntfHelpers.py:362
-#, fuzzy
 msgid "CHAP pair"
-msgstr "Parola"
+msgstr "CHAP çifti"
 
 #: pyanaconda/partIntfHelpers.py:363
 msgid "CHAP pair and a reverse pair"
@@ -1167,33 +1160,29 @@ msgid "Use the credentials from the discovery step"
 msgstr ""
 
 #: pyanaconda/partIntfHelpers.py:472
-#, fuzzy
 msgid "iSCSI Nodes"
-msgstr "SCSI sürücüsü yükleniyor"
+msgstr "iSCSI Düğümleri"
 
 #: pyanaconda/partIntfHelpers.py:473
 msgid "No new iSCSI nodes discovered"
-msgstr ""
+msgstr "Yeni iSCSI düğümü bulunamadı"
 
 #: pyanaconda/partIntfHelpers.py:514
-#, fuzzy
 msgid "iSCSI Error"
-msgstr "Hata"
+msgstr "iSCSI Hatası"
 
 #: pyanaconda/partIntfHelpers.py:519
-#, fuzzy
 msgid "Discovery"
-msgstr "NFS dizini:"
+msgstr "Keşif"
 
 #: pyanaconda/partIntfHelpers.py:519
-#, fuzzy
 msgid "Login"
-msgstr "Yükleniyor"
+msgstr "Giriş"
 
 #: pyanaconda/partIntfHelpers.py:520
 #, python-format
 msgid "iSCSI %s Error"
-msgstr ""
+msgstr "iSCSI %s Hatası"
 
 #: pyanaconda/platform.py:99 pyanaconda/platform.py:351
 #: pyanaconda/platform.py:419 pyanaconda/platform.py:534
@@ -1212,18 +1201,16 @@ msgid "First sector of boot partition"
 msgstr "Açılış bölümünün ilk sektörü"
 
 #: pyanaconda/platform.py:114
-#, fuzzy
 msgid "You have not created a bootable partition."
-msgstr "Bir PPC PReP Önyükleme bölümü oluşturmalısınız."
+msgstr "Önyüklenebilen bir disk bölümü oluşturmadınız."
 
 #: pyanaconda/platform.py:119
-#, fuzzy
 msgid "Bootable partitions cannot be on a RAID device."
-msgstr "Önyükleme bölümleri sadece RAID1 aygıtlarda olabilir."
+msgstr "Önyükleme bölümleri bir RAID aygıtı üzerinde olamaz."
 
 #: pyanaconda/platform.py:121
 msgid "Bootable partitions can only be on RAID1 devices."
-msgstr "Önyükleme bölümleri sadece RAID1 aygıtlarda olabilir."
+msgstr "Önyükleme bölümleri sadece RAID1 aygıtları üzerinde olabilir."
 
 #: pyanaconda/platform.py:125
 msgid "Bootable RAID1 set members must be partitions."
@@ -1231,31 +1218,29 @@ msgstr ""
 
 #: pyanaconda/platform.py:130
 msgid "Bootable partitions cannot be on a logical volume."
-msgstr "Önyükleme bölümleri mantıksal oylumlarda olamaz."
+msgstr "Önyükleme bölümleri mantıksal oylumlar üzerinde olamaz."
 
 #: pyanaconda/platform.py:137
-#, fuzzy, python-format
+#, python-format
 msgid "Bootable partitions cannot be on an %s filesystem."
-msgstr "Önyükleme bölümleri mantıksal oylumlarda olamaz."
+msgstr "Önyükleme bölümleri %s dosya sistemi üzerinde olamaz."
 
 #: pyanaconda/platform.py:141 pyanaconda/platform.py:146
-#, fuzzy
 msgid "Bootable partitions cannot be on an encrypted block device"
-msgstr "Önyükleme bölümleri mantıksal oylumlarda olamaz."
+msgstr ""
+"Önyüklenebilen disk bölümleri şifrelenmiş bir blok aygıtı üzerinde olamaz."
 
 #: pyanaconda/platform.py:230
-#, fuzzy
 msgid "EFI System Partition"
-msgstr "Bölümü Düzenle"
+msgstr "EFI Sistem Bölümü"
 
 #: pyanaconda/platform.py:242
-#, fuzzy
 msgid "You have not created a /boot/efi partition."
-msgstr "Bir PPC PReP Önyükleme bölümü oluşturmalısınız."
+msgstr "Bir /boot/efi bölümü oluşturmadınız."
 
 #: pyanaconda/platform.py:248
 msgid "/boot/efi is not EFI."
-msgstr ""
+msgstr "/boot/efi EFI değil."
 
 #: pyanaconda/platform.py:264
 #, python-format
@@ -1277,9 +1262,8 @@ msgid "PPC PReP Boot"
 msgstr "PPC PReP Önyükleyici"
 
 #: pyanaconda/platform.py:370
-#, fuzzy
 msgid "The boot partition must be within the first 4MB of the disk."
-msgstr "Sistem durumunu diskete yazarkan bir sorun oluştu."
+msgstr "Önyükleme bölümü diskin ilk 4MB'lık kısmı içinde olmalıdır."
 
 #: pyanaconda/platform.py:422 pyanaconda/platform.py:425
 msgid "Apple Bootstrap"
@@ -1288,12 +1272,12 @@ msgstr "Apple Önyükleyici"
 #: pyanaconda/platform.py:439
 #, python-format
 msgid "%s must have a mac disk label."
-msgstr ""
+msgstr "%s bir mac disk etiketine sahip olmalıdır."
 
 #: pyanaconda/rescue.py:226 pyanaconda/rescue.py:382 pyanaconda/rescue.py:482
 #, python-format
 msgid "Run %s to unmount the system when you are finished."
-msgstr ""
+msgstr "Bitirdiğiniz zaman %s 'i çalıştırarak sistemi ayırınız."
 
 #: pyanaconda/rescue.py:229
 msgid "When finished please exit from the shell and your system will reboot."
@@ -1301,7 +1285,7 @@ msgstr "Bittiğinde lütfen 'exit' ile kabuktan çıkıp sistemi yeniden başlat
 
 #: pyanaconda/rescue.py:243
 msgid "Unable to find /bin/sh to execute!  Not starting shell"
-msgstr ""
+msgstr "Çalıştırmak için /bin/sh bulunamıyor! Kabuk başlatılamıyor"
 
 #: pyanaconda/rescue.py:262
 msgid "Setup Networking"
@@ -1326,6 +1310,7 @@ msgid ""
 "Unable to activate a networking device.  Networking will not be available in "
 "rescue mode."
 msgstr ""
+"Bir ağ aygıtı etkinleştirilemiyor. Kurtarma kipinde ağ kullanılamayacaktır."
 
 #: pyanaconda/rescue.py:307 pyanaconda/rescue.py:389 pyanaconda/rescue.py:399
 #: pyanaconda/rescue.py:485 pyanaconda/rescue.py:518
@@ -1333,7 +1318,7 @@ msgid "Rescue"
 msgstr "Kurtar"
 
 #: pyanaconda/rescue.py:308
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The rescue environment will now attempt to find your Linux installation and "
 "mount it under the directory %s.  You can then make any changes required to "
@@ -1348,12 +1333,17 @@ msgid ""
 msgstr ""
 "Kurtarma ortamı, Red Hat Linux kurulumunuzu bulmaya çalışacak ve bulduğunda "
 "sistemi %s dizini altına bağlayacaktır. Bundan sonra sisteminizde gerekli "
-"düzeltmeleri yapabilirsiniz. Bu işlemin yapılmasını istiyorsanız, 'Devam et' "
-"seçiniz. Ayrıca isterseniz sistemi oku-yaz kipinde bağlamak yerine salt-"
-"okunur bağlamak istiyorsanız 'Salt-okunur' düğmesini de seçebilirsiniz.\n"
+"düzeltmeleri "
+"yapabilirsiniz. Eğer bu adım ile devam etmek istiyorsanız, 'Devam Et' 'i "
+"seçiniz. "
+"Ayrıca isterseniz sistemi oku-yaz kipinde bağlamak yerine salt-okunur "
+"bağlamak "
+"istiyorsanız 'Salt-Okunur' düğmesini de seçebilirsiniz. Eğer SAN aygıtlarını "
+"etkinleştirmek istiyorsanız 'Gelişmiş' 'i seçiniz.\n"
 "\n"
 "Bazı nedenlerle bu işlem gerçekleşmezse 'Atla' düğmesine tıklayarak bu adımı "
-"geçebilir ve doğrudan kabuğa düşebilirsiniz.\n"
+"geçebilir "
+"ve doğrudan kabuğa düşebilirsiniz.\n"
 "\n"
 
 #: pyanaconda/rescue.py:319 pyanaconda/iw/partition_gui.py:788
@@ -1374,16 +1364,15 @@ msgstr "Atla"
 
 #: pyanaconda/rescue.py:319 pyanaconda/rescue.py:324
 msgid "Advanced"
-msgstr ""
+msgstr "Gelişmiş"
 
 #: pyanaconda/rescue.py:358
 msgid "System to Rescue"
 msgstr "Kurtarılacak Sistem"
 
 #: pyanaconda/rescue.py:359
-#, fuzzy
 msgid "Which device holds the root partition of your installation?"
-msgstr "Kurulumun kök dizini hangi disk bölümünde bulunuyor?"
+msgstr "Kurulumunuzun kök disk bölümü hangi aygıt üzerinde tutuluyor?"
 
 #: pyanaconda/rescue.py:361 pyanaconda/rescue.py:365 pyanaconda/text.py:519
 #: pyanaconda/text.py:521
@@ -1391,25 +1380,18 @@ msgid "Exit"
 msgstr "Çıkış"
 
 #: pyanaconda/rescue.py:379 pyanaconda/rescue.py:479
-#, fuzzy
 msgid "The system will reboot automatically when you exit from the shell."
-msgstr ""
-"Bir Linux dosya sistemi bulunamadı. Kabuğa düşmek için enter tuşuna basınız. "
-"Kabuktan 'exit' ile çıktığınızda sistem kendiliğinden tekrar başlatılacaktır."
+msgstr "Kabuktan çıktığınızda sistem kendiliğinden tekrar başlatılacaktır."
 
 #: pyanaconda/rescue.py:390
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Your system had dirty file systems which you chose not to mount.  Press "
 "return to get a shell from which you can fsck and mount your partitions. %s"
 msgstr ""
-"Dosya sisteminizi bağlamamayı tercih ettiniz. Enter tuşuna basarak kabuğa "
-"düşebilir ve fsck ile disk bölümünü denetledikten sonra mount ile dosya "
-"sisteminizi bağlayabilirsiniz.  Kabuğu 'exit' yazarak bıraktığınızda sistem "
-"kendiliğinden yeniden başlatılacaktır."
 
 #: pyanaconda/rescue.py:400
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Your system has been mounted under %(rootPath)s.\n"
 "\n"
@@ -1420,18 +1402,17 @@ msgid ""
 "\n"
 "%(msg)s"
 msgstr ""
-"Dosya sisteminiz %s dizini altına bağlandı.\n"
+"Dosya sisteminiz %(rootPath)s dizini altına bağlandı.\n"
 "\n"
-"<Enter> tuşuna bastığınızda kabuğa düşeceksiniz. Sisteminizi kök dizini "
-"altına bağlamak isterseniz:\n"
+"<return> tuşuna basarak bir kabuğa girin. Eğer sisteminizi kök dizini altına "
+"bağlamak isterseniz şu komutu verin:\n"
 "\n"
-"\tchroot %s\n"
+"\tchroot %(rootPath)s\n"
 "\n"
-"komutunu girmelisiniz.\n"
-"Kabuğu 'exit' ile bırakırsanız sistem kendiliğinden tekrar başlatılacaktır."
+"%(msg)s"
 
 #: pyanaconda/rescue.py:486
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error occurred trying to mount some or all of your system. Some of it may "
 "be mounted under %s.\n"
@@ -1441,30 +1422,26 @@ msgstr ""
 "Dosya sisteminizi bağlamaya çalışırken bir hata oluştu. Kısmen de olsa dosya "
 "sisteminiz %s altında bağlanmış olabilir.\n"
 "\n"
-"<Enter> tuşuna bastığınızda kabuğa düşeceksiniz. Kabuktan 'exit' yazarak "
-"çıktığınızda sistem kendiliğinden tekrar başlatılacaktır."
+"<return> tuşuna basarak bir kabuğa girin. %s"
 
 #: pyanaconda/rescue.py:496
 msgid "You don't have any Linux partitions.  Rebooting.\n"
-msgstr ""
+msgstr "Herhangi bir Linux bölümü bulunamadı. Yeniden başlatılıyor.\n"
 
 #: pyanaconda/rescue.py:500
-#, fuzzy
 msgid " The system will reboot automatically when you exit from the shell."
-msgstr ""
-"Bir Linux dosya sistemi bulunamadı. Kabuğa düşmek için enter tuşuna basınız. "
-"Kabuktan 'exit' ile çıktığınızda sistem kendiliğinden tekrar başlatılacaktır."
+msgstr " Kabuktan çıktığınızda sistem kendiliğinden tekrar başlatılacaktır."
 
 #: pyanaconda/rescue.py:504
 msgid "Rescue Mode"
 msgstr "Kurtarma Kipi"
 
 #: pyanaconda/rescue.py:505
-#, fuzzy, python-format
+#, python-format
 msgid "You don't have any Linux partitions. Press return to get a shell.%s"
 msgstr ""
-"Bir Linux dosya sistemi bulunamadı. Kabuğa düşmek için enter tuşuna basınız. "
-"Kabuktan 'exit' ile çıktığınızda sistem kendiliğinden tekrar başlatılacaktır."
+"Herhangi bir Linux bölümü bulunamadı. Kabuğa düşmek için enter tuşuna basınız."
+"%s"
 
 #: pyanaconda/rescue.py:517
 #, python-format
@@ -1473,21 +1450,21 @@ msgstr "Dosya sisteminiz %s altına bağlandı."
 
 #: pyanaconda/text.py:155
 msgid "Passphrase for encrypted device"
-msgstr ""
+msgstr "Şifreli aygıt için parola"
 
 #: pyanaconda/text.py:168
 msgid "Also add this passphrase to all existing encrypted devices"
 msgstr ""
 
 #: pyanaconda/text.py:199
-#, fuzzy, python-format
+#, python-format
 msgid "The passphrase must be at least %d character long."
 msgid_plural "The passphrase must be at least %d characters long."
-msgstr[0] "Parola en az altı karakter uzunluğunda olmalı."
+msgstr[0] "Parola en az %d karakter uzunluğunda olmalı."
 
 #: pyanaconda/text.py:233 data/ui/lukspassphrase.glade.h:6
 msgid "Passphrase"
-msgstr ""
+msgstr "Parola"
 
 #: pyanaconda/text.py:241 data/ui/lukspassphrase.glade.h:7
 msgid "This is a global passphrase"
@@ -1496,17 +1473,17 @@ msgstr ""
 #: pyanaconda/text.py:357 pyanaconda/text.py:361
 #, fuzzy
 msgid "Repository editing is not available in text mode."
-msgstr "Grafik kipte kurulum yapılamıyor.  Metin kipi kuruluma geçiliyor."
+msgstr "Depo düzenlemesi metin kipinde kullanılamaz."
 
 #: pyanaconda/text.py:438
-#, fuzzy, python-format
+#, python-format
 msgid "Welcome to %(productName)s for %(productArch)s"
-msgstr "%s'a Hoş Geldiniz"
+msgstr "%(productName)s %(productArch)s 'a Hoş Geldiniz"
 
 #: pyanaconda/text.py:440
 #, python-format
 msgid "Welcome to %s"
-msgstr "%s'a Hoş Geldiniz"
+msgstr "%s 'a Hoş Geldiniz"
 
 #: pyanaconda/text.py:442
 msgid ""
