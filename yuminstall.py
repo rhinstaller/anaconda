@@ -1023,11 +1023,8 @@ class AnacondaYum(YumSorter):
         mkeys = self.tsInfo.reqmedia.keys()
         mkeys.sort(mediasort)
 
-        stage2img = "%s/images/install.img" % self.tree
-        if os.path.exists(stage2img):
-            if self.anaconda.backend.mountInstallImage(self.anaconda, stage2img):
-                self.anaconda.storage.umountFilesystems()
-                return DISPATCH_BACK
+        if os.path.ismount("/mnt/stage2"):
+            isys.umount("/mnt/stage2")
 
         for i in mkeys:
             self.tsInfo.curmedia = i
@@ -1261,8 +1258,6 @@ debuglevel=10
         if not anaconda.mediaDevice and os.path.ismount(self.ayum.tree):
             isys.umount(self.ayum.tree)
 
-        anaconda.backend.removeInstallImage()
-
         # clean up rpmdb locks so that kickstart %post scripts aren't
         # unhappy (#496961)
         iutil.resetRpmDb(anaconda.rootPath)
@@ -1276,7 +1271,6 @@ debuglevel=10
            iutil.resetRpmDb(anaconda.rootPath)
 
         iutil.writeRpmPlatform()
-        anaconda.backend.freetmp(anaconda)
         self.ayum = AnacondaYum(anaconda)
         self.ayum.setup()
 

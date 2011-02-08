@@ -155,69 +155,6 @@ class AnacondaBackend:
         else:
             self.modeText = _("Installing %s\n")
 
-    def mountInstallImage(self, anaconda, installimg):
-        if self._loopbackFile and os.path.exists(self._loopbackFile):
-            return
-
-        # Copy the install.img to the filesystem and switch loopback devices
-        # to there.  Otherwise we won't be able to unmount and swap media.
-        free = anaconda.id.storage.fsFreeSpace
-        self._loopbackFile = "%s%s/rhinstall-install.img" % (anaconda.rootPath,
-                                                             free[-1][0])
-        try:
-            log.info("transferring install image to install target")
-            win = anaconda.intf.waitWindow(_("Copying File"),
-                    _("Transferring install image to hard drive"))
-            shutil.copyfile(installimg, self._loopbackFile)
-            win.pop()
-        except Exception, e:
-            if win:
-                win.pop()
-
-            log.critical("error transferring install.img: %s" %(e,))
-
-            if isinstance(e, IOError) and e.errno == 5:
-                msg = _("An error occurred transferring the install image "
-                        "to your hard drive.  This is often cause by "
-                        "damaged or low quality media.")
-            else:
-                msg = _("An error occurred transferring the install image "
-                        "to your hard drive. You are probably out of disk "
-                        "space.")
-
-            anaconda.intf.messageWindow(_("Error"), msg)
-            try:
-                os.unlink(self._loopbackFile)
-            except:
-                pass
-
-            return 1
-
-        isys.lochangefd("/dev/loop0", self._loopbackFile)
-        if os.path.ismount("/mnt/stage2"):
-            isys.umount("/mnt/stage2")
-
-    def removeInstallImage(self):
-        if self._loopbackFile:
-            try:
-                os.unlink(self._loopbackFile)
-            except SystemError:
-                pass
-   
-    def freetmp(self, anaconda):
-    # installs that don't use /mnt/stage2 hold the install.img on
-    # a tmpfs, free this ram if things are tight.
-        stage2img = "/tmp/install.img"
-        if os.path.exists(stage2img):
-            # free up /tmp for more memory before yum is called,
-            if self.mountInstallImage(anaconda, stage2img):
-               	return DISPATCH_BACK
-            try:
-                os.unlink(stage2img)
-            except SystemError:
-                log.info("clearing /tmp failed")
-                return DISPATCH_BACK
-
     def kernelVersionList(self, rootPath="/"):
         return []
 
