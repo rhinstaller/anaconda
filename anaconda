@@ -376,13 +376,8 @@ def check_memory(opts, display_mode=None):
     if not display_mode:
         display_mode = opts.display_mode
 
-    extra_ram = 0
     reason = ''
-    if opts.stage2 and opts.stage2.startswith(('http', 'ftp', '@')):
-        extra_ram += isys.URL_INSTALL_EXTRA_RAM
-        reason = " using this install method"
-
-    needed_ram = isys.MIN_RAM + extra_ram
+    needed_ram = isys.MIN_RAM
     if not within_available_memory(needed_ram):
         from snack import SnackScreen, ButtonChoiceWindow
         screen = SnackScreen()
@@ -398,7 +393,7 @@ def check_memory(opts, display_mode=None):
 
     # override display mode if machine cannot nicely run X
     if display_mode not in ('t', 'c') and not flags.usevnc:
-        needed_ram = isys.MIN_GUI_RAM + extra_ram
+        needed_ram = isys.MIN_GUI_RAM
 
         if not within_available_memory(needed_ram):
             stdoutLog.warning(_("You do not have enough RAM to use the graphical "
