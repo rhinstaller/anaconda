@@ -21,8 +21,7 @@
 
 import gtk
 import gobject
-import iutil
-from pyanaconda import gui
+from pyanaconda import gui, iutil
 from iw_gui import *
 from pyanaconda.constants import *
 
