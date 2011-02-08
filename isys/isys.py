@@ -90,16 +90,6 @@ def losetup(device, file, readOnly = 0):
         os.close(loop)
         os.close(targ)
 
-def lochangefd(device, file):
-    # FIXME: implement this as a storage.devices.Device subclass
-    loop = os.open(device, os.O_RDONLY)
-    targ = os.open(file, os.O_RDONLY)
-    try:
-        _isys.lochangefd(loop, targ)
-    finally:
-        os.close(loop)
-        os.close(targ)
-
 ## Disable a previously setup loopback device.
 # @param device The full path to an existing loopback device node.
 def unlosetup(device):

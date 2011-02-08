@@ -87,7 +87,6 @@ static PyObject * doSwapon(PyObject * s, PyObject * args);
 static PyObject * doSwapoff(PyObject * s, PyObject * args);
 static PyObject * doLoSetup(PyObject * s, PyObject * args);
 static PyObject * doUnLoSetup(PyObject * s, PyObject * args);
-static PyObject * doLoChangeFd(PyObject * s, PyObject * args);
 static PyObject * doWipeRaidSuperblock(PyObject * s, PyObject * args);
 static PyObject * doGetRaidChunkSize(PyObject * s, PyObject * args);
 static PyObject * doDevSpaceFree(PyObject * s, PyObject * args);
@@ -121,7 +120,6 @@ static PyMethodDef isysModuleMethods[] = {
     { "devSpaceFree", (PyCFunction) doDevSpaceFree, METH_VARARGS, NULL },
     { "wiperaidsb", (PyCFunction) doWipeRaidSuperblock, METH_VARARGS, NULL },
     { "getraidchunk", (PyCFunction) doGetRaidChunkSize, METH_VARARGS, NULL },
-    { "lochangefd", (PyCFunction) doLoChangeFd, METH_VARARGS, NULL },
     { "losetup", (PyCFunction) doLoSetup, METH_VARARGS, NULL },
     { "unlosetup", (PyCFunction) doUnLoSetup, METH_VARARGS, NULL },
     { "mount", (PyCFunction) doMount, METH_VARARGS, NULL },
@@ -155,26 +153,6 @@ static PyObject * doUnLoSetup(PyObject * s, PyObject * args) {
 
     if (!PyArg_ParseTuple(args, "i", &loopfd)) return NULL;
     if (ioctl(loopfd, LOOP_CLR_FD, 0)) {
-	PyErr_SetFromErrno(PyExc_SystemError);
-	return NULL;
-    }
-
-    Py_INCREF(Py_None);
-    return Py_None;
-}
-
-/* XXX - msw */
-#ifndef LOOP_CHANGE_FD
-#define LOOP_CHANGE_FD	0x4C06
-#endif
-
-static PyObject * doLoChangeFd(PyObject * s, PyObject * args) {
-    int loopfd;
-    int targfd;
-
-    if (!PyArg_ParseTuple(args, "ii", &loopfd, &targfd)) 
-	return NULL;
-    if (ioctl(loopfd, LOOP_CHANGE_FD, targfd)) {
 	PyErr_SetFromErrno(PyExc_SystemError);
 	return NULL;
     }
