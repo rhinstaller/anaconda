@@ -38,16 +38,43 @@ void disableSwap(void);
 void unmountFilesystems(void);
 
 static void performTerminations(void) {
-	sync();
-	printf("sending termination signals...");
-	kill(-1, 15);
-	sleep(2);
-	printf("done\n");
+    int status;
+    FILE *f;
+    char *donotkill[] = {"mdmon", "NetworkManager", "dhclient", NULL};
+    char buf[256], omit[256], oarg[64];
+    char **procname, *pid;
 
-	printf("sending kill signals...");
-	kill(-1, 9);
-	sleep(2);
-	printf("done\n");
+    /* find some pids so we can omit them from killall5 */
+    *omit = '\0';
+    for (procname=donotkill; *procname; procname++) {
+        sprintf(buf, "/usr/sbin/pidof %s", *procname);
+        if ((f = popen(buf, "r")) != NULL) {
+            if (fgets(buf, sizeof(buf), f) != NULL) {
+                buf[strcspn(buf,"\n")] = '\0';
+                pid = strtok(buf, " ");
+                while (pid) {
+                    sprintf(oarg, " -o %s", pid);
+                    strcat(omit, oarg);
+                    pid = strtok(NULL, " ");
+                }
+            }
+
+            fclose(f);
+        }
+    }
+
+    sync();
+    printf("sending termination signals...");
+    sprintf(buf, "/usr/sbin/killall5 -15%s", omit);
+    status = system(buf);
+    sleep(2);
+    printf("done\n");
+
+    printf("sending kill signals...");
+    sprintf(buf, "/usr/sbin/killall5 -9%s", omit);
+    status = system(buf);
+    sleep(2);
+    printf("done\n");
 }
 
 static void performUnmounts(void) {
@@ -119,14 +146,14 @@ void shutDown(int doKill, reboot_action rebootAction)
     static int reentered = 0;
     
     if (reentered) {
-        performUnmounts();
         performTerminations();
+        performUnmounts();
         performReboot(rebootAction);
     }
     reentered = 1;
     if (rebootAction != DELAYED_REBOOT && doKill) {
-        performUnmounts();
         performTerminations();
+        performUnmounts();
         performReboot(rebootAction);
     } else {
         performDelayedReboot();
