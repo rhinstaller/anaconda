@@ -303,8 +303,7 @@ static void queryCDMediaCheck(char *dev, char *location) {
 static char *setupCdrom(char *location, struct loaderData_s *loaderData,
                         int interactive, int mediaCheck) {
     int i, rc;
-    int stage2inram = 0;
-    char *retbuf = NULL, *stage2loc, *stage2img;
+    char *retbuf = NULL, *stage2loc;
     struct device ** devices;
     char *cddev = NULL;
 
@@ -376,21 +375,10 @@ static char *setupCdrom(char *location, struct loaderData_s *loaderData,
                     if (mediaCheck)
                         queryCDMediaCheck(devices[i]->device, location);
 
-                    /* if in rescue mode lets copy stage 2 into RAM so we can */
-                    /* free up the CD drive and user can have it avaiable to  */
-                    /* aid system recovery.                                   */
-                    if (FL_RESCUE(flags) && !FL_TEXT(flags) &&
-                        totalMemory() > MIN_GUI_RAM ) {
-                        rc = copyFile(stage2loc, "/tmp/install.img");
-                        stage2img = strdup("/tmp/install.img");
-                        stage2inram = 1;
-                    } else {
-                        stage2img = strdup(stage2loc);
-                        stage2inram = 0;
-                    }
-
-                    rc = mountStage2(stage2img);
-                    free(stage2img);
+                    /* copy stage 2 into RAM */
+                    logMessage("transferring %s to /tmp", stage2loc);
+                    rc = copyFile(stage2loc, "/tmp/install.img");
+                    rc = mountStage2("/tmp/install.img");
 
                     if (rc) {
                         logMessage(INFO, "mounting stage2 failed");
@@ -410,9 +398,8 @@ static char *setupCdrom(char *location, struct loaderData_s *loaderData,
                     copyProductImg(updpath);
                     free(updpath);
 
-                    /* if in rescue mode and we copied stage2 to RAM */
-                    /* we can now unmount the CD                     */
-                    if (FL_RESCUE(flags) && stage2inram) {
+                    /* if in rescue mode we can now unmount the CD */
+                    if (FL_RESCUE(flags)) {
                         umount(location);
                     }
 

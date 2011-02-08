@@ -256,9 +256,9 @@ char * mountNfsImage(struct installMethod * method,
                                  strrchr(directory, '/'));
 
                 if (!access(buf, R_OK)) {
-                    logMessage(INFO, "can access %s", buf);
-                    rc = mountStage2(buf);
-
+                    logMessage(INFO, "transferring %s to /tmp", buf);
+                    rc = copyFile(buf, "/tmp/install.img");
+                    rc = mountStage2("/tmp/install.img");
                     if (rc == 0) {
                         stage = NFS_STAGE_UPDATES;
                         checked_asprintf(&url, "nfs:%s:%s", host,
@@ -266,7 +266,7 @@ char * mountNfsImage(struct installMethod * method,
                         free(buf);
                         break;
                     } else {
-                        logMessage(WARNING, "unable to mount %s", buf);
+                        logMessage(WARNING, "unable to mount /tmp/install.img");
                         free(buf);
                         break;
                     }
