@@ -19,8 +19,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: new_ja\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2011-01-19 10:10-0500\n"
-"PO-Revision-Date: 2011-01-20 09:33+0900\n"
+"POT-Creation-Date: 2011-02-07 14:44-0500\n"
+"PO-Revision-Date: 2011-02-09 13:04+0900\n"
 "Last-Translator: Hajime Taira <htaira@redhat.com>\n"
 "Language-Team: Japanese <jp@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -30,30 +30,30 @@ msgstr ""
 "X-Generator: KBabel 1.11.4\n"
 "Plural-Forms: Plural-Forms: nplurals=2; plural=(n!=1);\n"
 
-#: anaconda:315
+#: anaconda:319
 msgid "Press <enter> for a shell"
 msgstr "シェルを開始するには <enter>キーを押します。"
 
-#: anaconda:329
+#: anaconda:333
 #, c-format
 msgid "%s requires %s MB of memory to install, but you only have %s MB on this machine.\n"
 msgstr "インストールするために %s は、最低 %s MB のメモリーを必要とします。お使いのシステムには %s MB しか搭載されていません。\n"
 
-#: anaconda:331
+#: anaconda:335
 #, c-format
 msgid "%s requires %s MB of memory to install using this installation method, but you only have %s MB on this machine.\n"
 msgstr "このインストール方法でインストールするために %s は、最低 %s MB のメモリーを必要とします。お使いのシステムには %s MB しか搭載されていません。\n"
 
-#: anaconda:334
+#: anaconda:338
 #, c-format
 msgid "The %s graphical installer requires %s MB of memory, but you only have %s MB."
 msgstr "%s のグラフィカルインストーラーは、最低 %s MB のメモリーを必要とします。お使いのシステムには %s MB のメモリーしか搭載されていません。"
 
-#: anaconda:339
+#: anaconda:343
 msgid "Not enough RAM"
 msgstr "メモリーが足りません。"
 
-#: anaconda:340
+#: anaconda:344
 msgid ""
 " Try the text mode installer by running:\n"
 "\n"
@@ -67,17 +67,17 @@ msgstr ""
 "\n"
 "なお、この操作は root でのターミナルから実行します。"
 
-#: anaconda:343
+#: anaconda:347
 msgid " Starting text mode."
 msgstr " テキストモードを開始しています。"
 
-#: anaconda:367
-#: pyanaconda/rescue.py:361
-#: pyanaconda/rescue.py:393
-#: pyanaconda/rescue.py:406
-#: pyanaconda/rescue.py:490
-#: pyanaconda/rescue.py:507
-#: pyanaconda/rescue.py:518
+#: anaconda:371
+#: pyanaconda/rescue.py:346
+#: pyanaconda/rescue.py:378
+#: pyanaconda/rescue.py:391
+#: pyanaconda/rescue.py:475
+#: pyanaconda/rescue.py:492
+#: pyanaconda/rescue.py:503
 #: pyanaconda/text.py:537
 #: loader/windows.h:30
 #: loader/cdinstall.c:186
@@ -86,7 +86,7 @@ msgstr " テキストモードを開始しています。"
 #: loader/cdinstall.c:208
 #: loader/cdinstall.c:338
 #: loader/cdinstall.c:341
-#: loader/cdinstall.c:423
+#: loader/cdinstall.c:417
 #: loader/dirbrowser.c:130
 #: loader/driverdisk.c:208
 #: loader/driverdisk.c:392
@@ -97,27 +97,20 @@ msgstr " テキストモードを開始しています。"
 #: loader/driverdisk.c:518
 #: loader/driverdisk.c:526
 #: loader/driverdisk.c:698
-#: loader/driverdisk.c:737
 #: loader/driverselect.c:79
-#: loader/driverselect.c:179
+#: loader/driverselect.c:171
 #: loader/hdinstall.c:222
 #: loader/hdinstall.c:282
 #: loader/hdinstall.c:300
 #: loader/hdinstall.c:309
-#: loader/hdinstall.c:348
-#: loader/hdinstall.c:399
-#: loader/hdinstall.c:438
-#: loader/hdinstall.c:453
+#: loader/hdinstall.c:344
+#: loader/hdinstall.c:383
+#: loader/hdinstall.c:398
 #: loader/kbd.c:118
-#: loader/kickstart.c:135
-#: loader/kickstart.c:145
-#: loader/kickstart.c:187
-#: loader/kickstart.c:192
-#: loader/kickstart.c:299
-#: loader/kickstart.c:339
-#: loader/kickstart.c:355
-#: loader/kickstart.c:382
-#: loader/kickstart.c:571
+#: loader/kickstart.c:176
+#: loader/kickstart.c:308
+#: loader/kickstart.c:373
+#: loader/kickstart.c:939
 #: loader/lang.c:113
 #: loader/lang.c:367
 #: loader/loader.c:422
@@ -127,8 +120,8 @@ msgstr " テキストモードを開始しています。"
 #: loader/loader.c:533
 #: loader/loader.c:570
 #: loader/loader.c:1204
-#: loader/loader.c:1223
-#: loader/loader.c:1367
+#: loader/loader.c:1232
+#: loader/loader.c:1376
 #: loader/mediacheck.c:47
 #: loader/mediacheck.c:86
 #: loader/mediacheck.c:93
@@ -138,20 +131,14 @@ msgstr " テキストモードを開始しています。"
 #: loader/method.c:268
 #: loader/net.c:625
 #: loader/net.c:1007
-#: loader/net.c:1655
-#: loader/net.c:1676
-#: loader/net.c:1982
-#: loader/net.c:2001
-#: loader/net.c:2013
+#: loader/net.c:1816
+#: loader/net.c:1835
+#: loader/net.c:1847
 #: loader/nfsinstall.c:92
 #: loader/nfsinstall.c:195
-#: loader/nfsinstall.c:276
 #: loader/urlinstall.c:139
 #: loader/urlinstall.c:161
 #: loader/urlinstall.c:213
-#: loader/urlinstall.c:279
-#: loader/urlinstall.c:290
-#: loader/urlinstall.c:297
 #: loader/urls.c:264
 #: loader/urls.c:335
 #: loader/urls.c:343
@@ -160,19 +147,19 @@ msgstr " テキストモードを開始しています。"
 msgid "OK"
 msgstr "OK"
 
-#: anaconda:749
+#: anaconda:753
 msgid "Would you like to use VNC?"
 msgstr "VNC を使用しますか ?"
 
-#: anaconda:750
+#: anaconda:754
 msgid "Text mode provides a limited set of installation options.  It does not allow you to specify your own partitioning layout or package selections.  Would you like to use VNC mode instead?"
 msgstr "テキストモードによるインストールは限定的なインストールオプションしか提供されず、パーティション設定やパッケージ選択の指定が行えません。代わりに VNC モードを 使用しますか？"
 
-#: anaconda:776
+#: anaconda:780
 msgid "Graphical installation is not available. Starting text mode."
 msgstr "グラフィカルインストールは使用できません。テキストモードを起動します。"
 
-#: anaconda:784
+#: anaconda:788
 msgid "DISPLAY variable not set. Starting text mode."
 msgstr "DISPLAY 変数がセットされていません。テキストモードで起動します。"
 
@@ -189,15 +176,15 @@ msgstr "%s をインストール中\n"
 #: pyanaconda/bootloader.py:55
 #: pyanaconda/bootloader.py:221
 #: pyanaconda/bootloader.py:227
-#: pyanaconda/gui.py:1156
+#: pyanaconda/gui.py:1149
 #: pyanaconda/image.py:73
 #: pyanaconda/installinterfacebase.py:51
 #: pyanaconda/installinterfacebase.py:130
 #: pyanaconda/packages.py:320
 #: pyanaconda/text.py:412
 #: pyanaconda/yuminstall.py:1498
-#: pyanaconda/yuminstall.py:1636
-#: pyanaconda/yuminstall.py:1671
+#: pyanaconda/yuminstall.py:1623
+#: pyanaconda/yuminstall.py:1658
 #: pyanaconda/iw/blpasswidget.py:149
 #: pyanaconda/iw/upgrade_swap_gui.py:190
 #: pyanaconda/iw/upgrade_swap_gui.py:198
@@ -217,9 +204,9 @@ msgstr ""
 "インストールを続けますか?"
 
 #: pyanaconda/bootloader.py:60
-#: pyanaconda/gui.py:1179
-#: pyanaconda/gui.py:1216
-#: pyanaconda/gui.py:1418
+#: pyanaconda/gui.py:1172
+#: pyanaconda/gui.py:1209
+#: pyanaconda/gui.py:1411
 #: pyanaconda/image.py:82
 #: pyanaconda/livecd.py:167
 #: pyanaconda/packages.py:137
@@ -241,20 +228,20 @@ msgstr ""
 #: pyanaconda/storage/__init__.py:113
 #: pyanaconda/storage/__init__.py:122
 #: pyanaconda/storage/__init__.py:250
-#: pyanaconda/storage/__init__.py:2035
+#: pyanaconda/storage/__init__.py:2023
 msgid "_Exit installer"
 msgstr "インストーラーを終了する(_E)"
 
 #: pyanaconda/bootloader.py:60
 #: pyanaconda/image.py:83
-#: pyanaconda/kickstart.py:1425
-#: pyanaconda/kickstart.py:1464
+#: pyanaconda/kickstart.py:1420
+#: pyanaconda/kickstart.py:1459
 #: pyanaconda/upgrade.py:58
 #: pyanaconda/upgrade.py:98
 #: pyanaconda/yuminstall.py:1321
 #: pyanaconda/yuminstall.py:1508
 #: pyanaconda/iw/partition_gui.py:1602
-#: pyanaconda/storage/__init__.py:2036
+#: pyanaconda/storage/__init__.py:2024
 msgid "_Continue"
 msgstr "続行(_C)"
 
@@ -283,12 +270,12 @@ msgid "In progress"
 msgstr "進行中"
 
 #: pyanaconda/cmdline.py:89
-#: pyanaconda/gui.py:1211
-#: pyanaconda/kickstart.py:1212
-#: pyanaconda/kickstart.py:1292
-#: pyanaconda/kickstart.py:1300
-#: pyanaconda/kickstart.py:1336
-#: pyanaconda/kickstart.py:1346
+#: pyanaconda/gui.py:1204
+#: pyanaconda/kickstart.py:1214
+#: pyanaconda/kickstart.py:1294
+#: pyanaconda/kickstart.py:1302
+#: pyanaconda/kickstart.py:1331
+#: pyanaconda/kickstart.py:1341
 #: pyanaconda/text.py:393
 #, python-format
 msgid ""
@@ -302,7 +289,7 @@ msgstr ""
 
 #: pyanaconda/cmdline.py:101
 msgid "Command line mode requires all choices to be specified in a kickstart configuration file."
-msgstr "コマンドラインモードでは kickstart 設定ファイルに全ての選択が設定されている必要があります。"
+msgstr "コマンドラインモードでは kickstart 設定ファイルにすべての選択が設定されている必要があります。"
 
 #: pyanaconda/cmdline.py:120
 #: pyanaconda/cmdline.py:127
@@ -313,7 +300,7 @@ msgstr "コマンドラインモードでは質問は置けません!"
 
 #: pyanaconda/constants.py:68
 msgid "An unhandled exception has occurred.  This is most likely a bug.  Please save a copy of the detailed exception and file a bug report"
-msgstr "未処理の例外が発生しました。バグの可能性が考えられます。全てのメッセージをコピーし、バグとして報告してください。"
+msgstr "未処理の例外が発生しました。バグの可能性が考えられます。すべてのメッセージをコピーし、バグとして報告してください。"
 
 #: pyanaconda/constants.py:74
 msgid " with the provider of this software."
@@ -363,35 +350,35 @@ msgstr "スクリーンショット保存中にエラー発生"
 msgid "An error occurred while saving the screenshot.  If this occurred during package installation, you may need to try several times for it to succeed."
 msgstr "スクリーンショット保存中にエラーが発生しました。パッケージインストール中に発生した場合、完了するには数回試行する必要があるかもしれません。"
 
-#: pyanaconda/gui.py:528
+#: pyanaconda/gui.py:521
 #: pyanaconda/text.py:150
 msgid "Choose a passphrase for the encrypted devices. You will be prompted for this passphrase during system boot."
 msgstr "暗号化されたデバイス用のパスフレーズを選択してください。システムをブートする時にそのパスフレーズを求められます。"
 
-#: pyanaconda/gui.py:547
-#: pyanaconda/gui.py:555
+#: pyanaconda/gui.py:540
+#: pyanaconda/gui.py:548
 #: pyanaconda/text.py:188
 #: pyanaconda/text.py:198
 msgid "Error with passphrase"
 msgstr "パスフレーズが違います。"
 
-#: pyanaconda/gui.py:548
+#: pyanaconda/gui.py:541
 #: pyanaconda/text.py:189
 msgid "The passphrases you entered were different.  Please try again."
 msgstr "入力したパスフレーズが異ります。やり直してください。"
 
-#: pyanaconda/gui.py:556
+#: pyanaconda/gui.py:549
 msgid "The passphrase must be at least eight characters long."
 msgstr "パスフレーズは最低 6 文字以上でなければなりません。"
 
-#: pyanaconda/gui.py:590
+#: pyanaconda/gui.py:583
 #: pyanaconda/text.py:226
 #, python-format
 msgid "Device %s is encrypted. In order to access the device's contents during installation you must enter the device's passphrase below."
 msgstr "デバイス %s は暗号化されています。インストール中にこのデバイスの内容にアクセスするには、以下にデバイスのパスフレーズを入力する必要があります。"
 
-#: pyanaconda/gui.py:682
-#: pyanaconda/gui.py:1418
+#: pyanaconda/gui.py:675
+#: pyanaconda/gui.py:1411
 #: pyanaconda/partIntfHelpers.py:159
 #: pyanaconda/partIntfHelpers.py:344
 #: pyanaconda/text.py:101
@@ -399,65 +386,65 @@ msgstr "デバイス %s は暗号化されています。インストール中�
 #: pyanaconda/iw/account_gui.py:131
 #: loader/dirbrowser.c:130
 #: loader/driverdisk.c:393
-#: loader/kickstart.c:382
+#: loader/kickstart.c:373
 #: loader/loader.c:458
 #: loader/loader.c:570
 #: pyanaconda/textw/constants_text.py:48
 msgid "Cancel"
 msgstr "取り消し"
 
-#: pyanaconda/gui.py:694
-#: pyanaconda/gui.py:695
-#: pyanaconda/gui.py:791
-#: pyanaconda/gui.py:863
-#: pyanaconda/gui.py:864
+#: pyanaconda/gui.py:687
+#: pyanaconda/gui.py:688
+#: pyanaconda/gui.py:784
+#: pyanaconda/gui.py:856
+#: pyanaconda/gui.py:857
 #: data/ui/anaconda.glade.h:3
 msgid "_Debug"
 msgstr "デバッグ(_D)"
 
-#: pyanaconda/gui.py:990
+#: pyanaconda/gui.py:983
 msgid "Wireless setup"
 msgstr "無線のセットアップ"
 
-#: pyanaconda/gui.py:991
+#: pyanaconda/gui.py:984
 msgid "Scanning access points for wireless devices"
 msgstr "無線デバイス用のアクセスポイントをスキャンしています"
 
-#: pyanaconda/gui.py:1019
+#: pyanaconda/gui.py:1012
 #: pyanaconda/textw/netconfig_text.py:399
 msgid "Waiting for NetworkManager"
 msgstr "NetworkManager を待っています。"
 
-#: pyanaconda/gui.py:1020
+#: pyanaconda/gui.py:1013
 #, python-format
 msgid "Waiting for NetworkManager to activate these devices: %s"
 msgstr "NetworkManager がこれらのデバイスを開始するのを待っています: %s"
 
-#: pyanaconda/gui.py:1047
+#: pyanaconda/gui.py:1040
 #, python-format
 msgid "Failed to activate these network interfaces: %s"
 msgstr "これらのネットワークインターフェースの開始に失敗しました: %s"
 
-#: pyanaconda/gui.py:1050
+#: pyanaconda/gui.py:1043
 msgid "Network Configuration"
 msgstr "ネットワークの設定"
 
-#: pyanaconda/gui.py:1059
+#: pyanaconda/gui.py:1052
 #, python-format
 msgid "An error occurred trying to bring up the %s network interface."
 msgstr "%s ネットワークインターフェイスを起動中にエラーが発生しました。"
 
-#: pyanaconda/gui.py:1061
+#: pyanaconda/gui.py:1054
 msgid "Error Enabling Network"
 msgstr "ネットワークの有効化でエラー"
 
-#: pyanaconda/gui.py:1157
+#: pyanaconda/gui.py:1150
 #: pyanaconda/text.py:413
 msgid "You do not have an active network connection.  This is required by some exception saving methods.  Would you like to configure your network now?"
 msgstr "有効なネットワーク接続がありません。いくつかの例外を保存する方法で必要とされています。いますぐネットワークの設定を行いますか？"
 
-#: pyanaconda/gui.py:1163
-#: pyanaconda/rescue.py:270
+#: pyanaconda/gui.py:1156
+#: pyanaconda/rescue.py:255
 #: pyanaconda/text.py:419
 #: pyanaconda/yuminstall.py:819
 #: pyanaconda/yuminstall.py:1241
@@ -465,26 +452,26 @@ msgstr "有効なネットワーク接続がありません。いくつかの例
 msgid "No Network Available"
 msgstr "ネットワークは使用できません。"
 
-#: pyanaconda/gui.py:1164
+#: pyanaconda/gui.py:1157
 #: pyanaconda/text.py:420
 msgid "Remote exception saving methods will not work."
 msgstr "リモートに例外を保存する方式は機能しません。"
 
-#: pyanaconda/gui.py:1213
+#: pyanaconda/gui.py:1206
 #: pyanaconda/text.py:395
 msgid "Error Parsing Kickstart Config"
 msgstr "キックスタート設定ファイル解析エラー"
 
-#: pyanaconda/gui.py:1241
+#: pyanaconda/gui.py:1234
 msgid "default:LTR"
 msgstr "デフォルト:LTR"
 
-#: pyanaconda/gui.py:1322
+#: pyanaconda/gui.py:1315
 #: pyanaconda/text.py:514
 msgid "Error!"
 msgstr "エラー!"
 
-#: pyanaconda/gui.py:1323
+#: pyanaconda/gui.py:1316
 #: pyanaconda/text.py:515
 #, python-format
 msgid ""
@@ -496,15 +483,15 @@ msgstr ""
 "\n"
 "className = %s"
 
-#: pyanaconda/gui.py:1328
+#: pyanaconda/gui.py:1321
 #: pyanaconda/image.py:145
 #: pyanaconda/image.py:173
 #: pyanaconda/packages.py:337
-#: pyanaconda/storage/__init__.py:1852
+#: pyanaconda/storage/__init__.py:1840
 msgid "_Exit"
 msgstr "終了(_E)"
 
-#: pyanaconda/gui.py:1329
+#: pyanaconda/gui.py:1322
 #: pyanaconda/image.py:145
 #: pyanaconda/image.py:173
 #: pyanaconda/livecd.py:167
@@ -515,41 +502,41 @@ msgstr "終了(_E)"
 msgid "_Retry"
 msgstr "再試行(_R)"
 
-#: pyanaconda/gui.py:1331
-#: pyanaconda/storage/partitioning.py:282
+#: pyanaconda/gui.py:1324
+#: pyanaconda/storage/partitioning.py:283
 msgid "The system will now reboot."
 msgstr "システムが再起動します。"
 
-#: pyanaconda/gui.py:1332
+#: pyanaconda/gui.py:1325
 #: pyanaconda/packages.py:341
 msgid "_Reboot"
 msgstr "再起動(_R)"
 
-#: pyanaconda/gui.py:1334
+#: pyanaconda/gui.py:1327
 msgid "Exiting"
 msgstr "終了"
 
-#: pyanaconda/gui.py:1415
+#: pyanaconda/gui.py:1408
 #: pyanaconda/livecd.py:126
 #: pyanaconda/text.py:271
 #: pyanaconda/upgrade.py:245
 msgid "Exit installer"
 msgstr "インストーラーを終了する"
 
-#: pyanaconda/gui.py:1416
+#: pyanaconda/gui.py:1409
 msgid "Are you sure you wish to exit the installer?"
 msgstr "本当にインストーラーを終了しますか?"
 
-#: pyanaconda/gui.py:1425
+#: pyanaconda/gui.py:1418
 #, python-format
 msgid "%s Installer"
 msgstr "%s インストーラー"
 
-#: pyanaconda/gui.py:1431
+#: pyanaconda/gui.py:1424
 msgid "Unable to load title bar"
 msgstr "タイトルバーを読み込めません"
 
-#: pyanaconda/gui.py:1506
+#: pyanaconda/gui.py:1499
 msgid "Install Window"
 msgstr "インストールウィンドウ"
 
@@ -600,9 +587,9 @@ msgstr ""
 #: pyanaconda/yuminstall.py:1326
 #: pyanaconda/yuminstall.py:1520
 #: pyanaconda/yuminstall.py:1542
-#: pyanaconda/iw/advanced_storage.py:368
-#: pyanaconda/iw/advanced_storage.py:378
-#: pyanaconda/iw/advanced_storage.py:427
+#: pyanaconda/iw/advanced_storage.py:371
+#: pyanaconda/iw/advanced_storage.py:381
+#: pyanaconda/iw/advanced_storage.py:431
 #: pyanaconda/iw/autopart_type.py:95
 #: pyanaconda/iw/cleardisks_gui.py:44
 #: pyanaconda/iw/cleardisks_gui.py:54
@@ -616,7 +603,7 @@ msgstr ""
 #: pyanaconda/iw/task_gui.py:464
 #: loader/windows.h:30
 #: loader/cdinstall.c:186
-#: loader/cdinstall.c:423
+#: loader/cdinstall.c:417
 #: loader/driverdisk.c:208
 #: loader/driverdisk.c:455
 #: loader/driverdisk.c:490
@@ -626,10 +613,10 @@ msgstr ""
 #: loader/hdinstall.c:282
 #: loader/hdinstall.c:300
 #: loader/hdinstall.c:309
-#: loader/hdinstall.c:399
-#: loader/hdinstall.c:438
-#: loader/hdinstall.c:453
-#: loader/kickstart.c:299
+#: loader/hdinstall.c:344
+#: loader/hdinstall.c:383
+#: loader/hdinstall.c:398
+#: loader/kickstart.c:308
 #: loader/lang.c:113
 #: loader/loader.c:422
 #: loader/loader.c:533
@@ -648,8 +635,8 @@ msgstr ""
 #: loader/urls.c:343
 #: loader/urls.c:350
 #: pyanaconda/storage/__init__.py:246
-#: pyanaconda/storage/__init__.py:1853
-#: pyanaconda/storage/__init__.py:1940
+#: pyanaconda/storage/__init__.py:1841
+#: pyanaconda/storage/__init__.py:1928
 #: pyanaconda/storage/zfcp.py:375
 #: pyanaconda/textw/upgrade_text.py:181
 #: pyanaconda/textw/upgrade_text.py:188
@@ -684,7 +671,7 @@ msgid ""
 "There is inconsistent LVM data on %(msg)s.  You can reinitialize all related PVs (%(pvs)s) which will erase the LVM metadata, or ignore which will preserve the contents.  This action may also be applied to all other PVs with inconsistent metadata."
 msgstr ""
 "LVM をプロセス中にエラー発生。\n"
-"%(msg)s 上に一貫性のない LVM データが存在します。LVM メタデータが消失することになる、全ての関連した PV (%(pvs)s) を再初期化するか、又は、コンテンツを保存することになる無視をすることができます。このアクションは一貫性のないメタデータを持つ 全ての他の PV にも適用できるかも知れません。"
+"%(msg)s 上に一貫性のない LVM データが存在します。LVM メタデータが消失することになる、すべての関連した PV (%(pvs)s) を再初期化するか、又は、コンテンツを保存することになる無視をすることができます。このアクションは一貫性のないメタデータを持つ すべての他の PV にも適用できるかも知れません。"
 
 #: pyanaconda/installinterfacebase.py:138
 #: pyanaconda/installinterfacebase.py:172
@@ -693,7 +680,7 @@ msgstr "無視(_I)"
 
 #: pyanaconda/installinterfacebase.py:139
 msgid "Ignore _all"
-msgstr "全てを無視(_A)"
+msgstr "すべてを無視(_A)"
 
 #: pyanaconda/installinterfacebase.py:140
 msgid "_Re-initialize"
@@ -701,7 +688,7 @@ msgstr "再初期化(_R)"
 
 #: pyanaconda/installinterfacebase.py:141
 msgid "Re-ini_tialize all"
-msgstr "全てを再初期化(_T)"
+msgstr "すべてを再初期化(_T)"
 
 #: pyanaconda/installinterfacebase.py:159
 msgid "Unformatted DASD Device Found"
@@ -776,58 +763,48 @@ msgstr ""
 msgid "Could not log into any iSCSI nodes at the portal."
 msgstr "ポータルに含まれる iSCSI ノードのいずれにもログインできませんでした。"
 
-#: pyanaconda/kickstart.py:1311
-#, python-format
-msgid "Error processing %%ksappend lines: %s"
-msgstr "%%ksappend 行目を処理中にエラーが発生しました: %s"
-
-#: pyanaconda/kickstart.py:1314
-#, python-format
-msgid "Unknown error processing %%ksappend lines: %s"
-msgstr "%%ksappend 行目を処理中に不明なエラーが発生しました: %s"
-
-#: pyanaconda/kickstart.py:1369
+#: pyanaconda/kickstart.py:1364
 #: pyanaconda/livecd.py:190
 msgid "Post-Installation"
 msgstr "インストール後"
 
-#: pyanaconda/kickstart.py:1370
+#: pyanaconda/kickstart.py:1365
 msgid "Running post-installation scripts"
 msgstr "インストール後スクリプトを実行中"
 
-#: pyanaconda/kickstart.py:1385
+#: pyanaconda/kickstart.py:1380
 msgid "Running pre-installation scripts"
 msgstr "インストール前スクリプトを実行中"
 
-#: pyanaconda/kickstart.py:1416
+#: pyanaconda/kickstart.py:1411
 msgid "Missing Package"
 msgstr "見つからないパッケージ"
 
-#: pyanaconda/kickstart.py:1417
+#: pyanaconda/kickstart.py:1412
 #, python-format
 msgid "You have specified that the package '%s' should be installed.  This package does not exist. Would you like to continue or abort this installation?"
 msgstr "パッケージ '%s'をインストールするように指定しています。このパッケージは存在しません。インストールを続行しますか、中止しますか?"
 
-#: pyanaconda/kickstart.py:1423
-#: pyanaconda/kickstart.py:1462
+#: pyanaconda/kickstart.py:1418
+#: pyanaconda/kickstart.py:1457
 msgid "_Abort"
 msgstr "中止(_A)"
 
-#: pyanaconda/kickstart.py:1424
-#: pyanaconda/kickstart.py:1463
+#: pyanaconda/kickstart.py:1419
+#: pyanaconda/kickstart.py:1458
 msgid "_Ignore All"
-msgstr "全てを無視(_I)"
+msgstr "すべてを無視(_I)"
 
-#: pyanaconda/kickstart.py:1454
+#: pyanaconda/kickstart.py:1449
 msgid "Missing Group"
 msgstr "見つからないグループ"
 
-#: pyanaconda/kickstart.py:1455
+#: pyanaconda/kickstart.py:1450
 #, python-format
 msgid "You have specified that the group '%s' should be installed. This group does not exist. Would you like to continue or abort this installation?"
 msgstr "グループ '%s'をインストールするように指定しています。このグループは存在しません。インストールを継続しますか、中止しますか?"
 
-#: pyanaconda/kickstart.py:1552
+#: pyanaconda/kickstart.py:1547
 #, python-format
 msgid ""
 "The kickstart configuration file is missing required information that anaconda cannot prompt for.  Please add the following sections and try again:\n"
@@ -1213,7 +1190,7 @@ msgstr "iSCSI %s Error"
 #: pyanaconda/platform.py:99
 #: pyanaconda/platform.py:351
 #: pyanaconda/platform.py:419
-#: pyanaconda/platform.py:534
+#: pyanaconda/platform.py:541
 #: data/ui/create-storage.glade.h:15
 msgid "RAID Device"
 msgstr "RAID デバイス"
@@ -1222,13 +1199,13 @@ msgstr "RAID デバイス"
 #: pyanaconda/platform.py:103
 #: pyanaconda/platform.py:352
 #: pyanaconda/platform.py:420
-#: pyanaconda/platform.py:535
-#: pyanaconda/platform.py:538
+#: pyanaconda/platform.py:542
+#: pyanaconda/platform.py:545
 msgid "Master Boot Record (MBR)"
 msgstr "マスタブートレコード(MBR)"
 
 #: pyanaconda/platform.py:102
-#: pyanaconda/platform.py:537
+#: pyanaconda/platform.py:544
 msgid "First sector of boot partition"
 msgstr "ブートパーティションの最初のセクタ"
 
@@ -1307,30 +1284,30 @@ msgstr "Apple ブートストラップ"
 msgid "%s must have a mac disk label."
 msgstr "%s には mac ディスクラベルを持っている必要があります。"
 
-#: pyanaconda/rescue.py:226
-#: pyanaconda/rescue.py:382
-#: pyanaconda/rescue.py:482
+#: pyanaconda/rescue.py:211
+#: pyanaconda/rescue.py:367
+#: pyanaconda/rescue.py:467
 #, python-format
 msgid "Run %s to unmount the system when you are finished."
 msgstr "メンテナンスが終わったら、システムをアンマウントするために %s を実行してください。"
 
-#: pyanaconda/rescue.py:229
+#: pyanaconda/rescue.py:214
 msgid "When finished please exit from the shell and your system will reboot."
 msgstr "完了したらシェルを終了してください。システムが再起動します。"
 
-#: pyanaconda/rescue.py:243
+#: pyanaconda/rescue.py:228
 msgid "Unable to find /bin/sh to execute!  Not starting shell"
 msgstr "実行するための /bin/sh が見付かりません。シェルを 開始していません。"
 
-#: pyanaconda/rescue.py:262
+#: pyanaconda/rescue.py:247
 msgid "Setup Networking"
 msgstr "ネットワークの設定"
 
-#: pyanaconda/rescue.py:263
+#: pyanaconda/rescue.py:248
 msgid "Do you want to start the network interfaces on this system?"
 msgstr "このシステムでネットワークインターフェースを開始しますか?"
 
-#: pyanaconda/rescue.py:264
+#: pyanaconda/rescue.py:249
 #: loader/driverdisk.c:638
 #: loader/driverdisk.c:648
 #: loader/hdinstall.c:168
@@ -1338,27 +1315,27 @@ msgstr "このシステムでネットワークインターフェースを開始
 msgid "Yes"
 msgstr "はい"
 
-#: pyanaconda/rescue.py:264
-#: pyanaconda/rescue.py:266
+#: pyanaconda/rescue.py:249
+#: pyanaconda/rescue.py:251
 #: loader/driverdisk.c:638
 #: loader/driverdisk.c:648
 #: pyanaconda/textw/constants_text.py:60
 msgid "No"
 msgstr "いいえ"
 
-#: pyanaconda/rescue.py:271
+#: pyanaconda/rescue.py:256
 msgid "Unable to activate a networking device.  Networking will not be available in rescue mode."
 msgstr "ネットワーキングデバイスを始動できません。ネットワーキングはレスキューモードでは 使用できません。"
 
-#: pyanaconda/rescue.py:307
-#: pyanaconda/rescue.py:389
-#: pyanaconda/rescue.py:399
-#: pyanaconda/rescue.py:485
-#: pyanaconda/rescue.py:518
+#: pyanaconda/rescue.py:292
+#: pyanaconda/rescue.py:374
+#: pyanaconda/rescue.py:384
+#: pyanaconda/rescue.py:470
+#: pyanaconda/rescue.py:503
 msgid "Rescue"
 msgstr "レスキュー"
 
-#: pyanaconda/rescue.py:308
+#: pyanaconda/rescue.py:293
 #, python-format
 msgid ""
 "The rescue environment will now attempt to find your Linux installation and mount it under the directory %s.  You can then make any changes required to your system.  If you want to proceed with this step choose 'Continue'.  You can also choose to mount your file systems read-only instead of read-write by choosing 'Read-Only'.  If you need to activate SAN devices choose 'Advanced'.\n"
@@ -1371,7 +1348,7 @@ msgstr ""
 "何らかの原因でこのプロセスが失敗する場合は「スキップする」を選択し、このプロセスをとばして直接コマンドシェルに行くことができます。\n"
 "\n"
 
-#: pyanaconda/rescue.py:319
+#: pyanaconda/rescue.py:304
 #: pyanaconda/iw/partition_gui.py:788
 #: loader/driverdisk.c:599
 #: pyanaconda/storage/__init__.py:168
@@ -1379,52 +1356,52 @@ msgstr ""
 msgid "Continue"
 msgstr "続行"
 
-#: pyanaconda/rescue.py:319
-#: pyanaconda/rescue.py:328
+#: pyanaconda/rescue.py:304
+#: pyanaconda/rescue.py:313
 msgid "Read-Only"
 msgstr "読み取り専用"
 
-#: pyanaconda/rescue.py:319
-#: pyanaconda/rescue.py:321
+#: pyanaconda/rescue.py:304
+#: pyanaconda/rescue.py:306
 #: loader/cdinstall.c:205
 #: loader/cdinstall.c:208
 #: loader/method.c:241
-#: pyanaconda/storage/__init__.py:1852
+#: pyanaconda/storage/__init__.py:1840
 #: pyanaconda/textw/upgrade_text.py:139
 msgid "Skip"
 msgstr "スキップする"
 
-#: pyanaconda/rescue.py:319
-#: pyanaconda/rescue.py:324
+#: pyanaconda/rescue.py:304
+#: pyanaconda/rescue.py:309
 msgid "Advanced"
 msgstr "高度な設定"
 
-#: pyanaconda/rescue.py:358
+#: pyanaconda/rescue.py:343
 msgid "System to Rescue"
 msgstr "レスキュー対象システム"
 
-#: pyanaconda/rescue.py:359
+#: pyanaconda/rescue.py:344
 msgid "Which device holds the root partition of your installation?"
 msgstr "どのデバイスにインストールの root パーティションを置きますか？"
 
-#: pyanaconda/rescue.py:361
-#: pyanaconda/rescue.py:365
+#: pyanaconda/rescue.py:346
+#: pyanaconda/rescue.py:350
 #: pyanaconda/text.py:519
 #: pyanaconda/text.py:521
 msgid "Exit"
 msgstr "終了"
 
-#: pyanaconda/rescue.py:379
-#: pyanaconda/rescue.py:479
+#: pyanaconda/rescue.py:364
+#: pyanaconda/rescue.py:464
 msgid "The system will reboot automatically when you exit from the shell."
 msgstr "シェルを終了するとシステムは自動的に再起動します。"
 
-#: pyanaconda/rescue.py:390
+#: pyanaconda/rescue.py:375
 #, python-format
 msgid "Your system had dirty file systems which you chose not to mount.  Press return to get a shell from which you can fsck and mount your partitions. %s"
 msgstr "システムに損傷のあるファイルシステムがありマウントしないことを選択しています。<enter> を押すとシェルが起動され、ファイルシステムの検証(fsck)や パーティションのマウント(mount)を行うことができます。 %s"
 
-#: pyanaconda/rescue.py:400
+#: pyanaconda/rescue.py:385
 #, python-format
 msgid ""
 "Your system has been mounted under %(rootPath)s.\n"
@@ -1443,7 +1420,7 @@ msgstr ""
 "\n"
 "%(msg)s"
 
-#: pyanaconda/rescue.py:486
+#: pyanaconda/rescue.py:471
 #, python-format
 msgid ""
 "An error occurred trying to mount some or all of your system. Some of it may be mounted under %s.\n"
@@ -1454,24 +1431,24 @@ msgstr ""
 "\n"
 "シェルを起動するには [Enter] を押してください。%s"
 
-#: pyanaconda/rescue.py:496
+#: pyanaconda/rescue.py:481
 msgid "You don't have any Linux partitions.  Rebooting.\n"
 msgstr "Linux パーティションがありません。再起動します。\n"
 
-#: pyanaconda/rescue.py:500
+#: pyanaconda/rescue.py:485
 msgid " The system will reboot automatically when you exit from the shell."
 msgstr " シェルを終了するとシステムは自動的に再起動します。"
 
-#: pyanaconda/rescue.py:504
+#: pyanaconda/rescue.py:489
 msgid "Rescue Mode"
 msgstr "レスキューモード"
 
-#: pyanaconda/rescue.py:505
+#: pyanaconda/rescue.py:490
 #, python-format
 msgid "You don't have any Linux partitions. Press return to get a shell.%s"
 msgstr "Linux パーティションがありません。<enter>キーを押すとシェルを起動します。%s"
 
-#: pyanaconda/rescue.py:517
+#: pyanaconda/rescue.py:502
 #, python-format
 msgid "Your system is mounted under the %s directory."
 msgstr "システムは %s ディレクトリー配下にマウントされます。"
@@ -1482,7 +1459,7 @@ msgstr "暗号化されたデバイス用のパスフレーズ"
 
 #: pyanaconda/text.py:168
 msgid "Also add this passphrase to all existing encrypted devices"
-msgstr "全ての暗号化された既存デバイスにもこのパスフレーズを追加します。"
+msgstr "すべての暗号化された既存デバイスにもこのパスフレーズを追加します。"
 
 #: pyanaconda/text.py:199
 #, python-format
@@ -2025,61 +2002,61 @@ msgstr "インストールするために選択したパッケージの一部は
 msgid "Your selected packages require %d MB of free space for installation, but you do not have enough available.  You can change your selections or exit the installer."
 msgstr "選択したパッケージはインストールに %d MB の空き領域を必要としますが、充分な空きがありません。選択を変更するか、またはインストーラーを終了してください。"
 
-#: pyanaconda/yuminstall.py:1637
+#: pyanaconda/yuminstall.py:1624
 #, python-format
 msgid "You appear to be upgrading from a system which is too old to upgrade to this version of %s.  Are you sure you wish to continue the upgrade process?"
 msgstr "%s のこのバージョンにアップグレードを行うには古過ぎるシステムからアップグレートしているようです。本当にこのアップグレードのプロセスを続行しますか?"
 
-#: pyanaconda/yuminstall.py:1672
+#: pyanaconda/yuminstall.py:1659
 #, python-format
 msgid "The arch of the release of %(productName)s you are upgrading to appears to be %(myarch)s which does not match your previously installed arch of %(arch)s.  This is likely to not succeed.  Are you sure you wish to continue the upgrade process?"
 msgstr "アップグレードしようとしている %(productName)s のリリースパッケージのアーキテクチャは %(myarch)s で、既にインストールされているパッケージのアーキテクチャ、%(arch)s と一致しません。この状況では、インストールに失敗するかもしれません。本当にこのアップグレードプロセスを続行しますか?"
 
-#: pyanaconda/yuminstall.py:1719
+#: pyanaconda/yuminstall.py:1706
 msgid "Post Upgrade"
 msgstr "アップグレード後"
 
-#: pyanaconda/yuminstall.py:1720
+#: pyanaconda/yuminstall.py:1707
 msgid "Performing post-upgrade configuration"
 msgstr "アップグレード後の設定を実行中。"
 
-#: pyanaconda/yuminstall.py:1722
+#: pyanaconda/yuminstall.py:1709
 msgid "Post Installation"
 msgstr "インストール後"
 
-#: pyanaconda/yuminstall.py:1723
+#: pyanaconda/yuminstall.py:1710
 msgid "Performing post-installation configuration"
 msgstr "インストール後の設定を実行中"
 
-#: pyanaconda/yuminstall.py:1958
+#: pyanaconda/yuminstall.py:1945
 msgid "Installation Starting"
 msgstr "インストールを開始しています"
 
-#: pyanaconda/yuminstall.py:1959
+#: pyanaconda/yuminstall.py:1946
 msgid "Starting installation process"
 msgstr "インストール処理の開始"
 
-#: pyanaconda/yuminstall.py:1997
+#: pyanaconda/yuminstall.py:1984
 msgid "Dependency Check"
 msgstr "依存関係チェック"
 
-#: pyanaconda/yuminstall.py:1998
+#: pyanaconda/yuminstall.py:1985
 msgid "Checking dependencies in packages selected for installation"
 msgstr "インストール対象パッケージの依存関係をチェック中。"
 
-#: pyanaconda/yuminstall.py:2054
-#: pyanaconda/yuminstall.py:2070
+#: pyanaconda/yuminstall.py:2041
+#: pyanaconda/yuminstall.py:2057
 msgid "Retrieving installation information."
 msgstr "インストール情報を読み出し中。"
 
-#: pyanaconda/yuminstall.py:2056
-#: pyanaconda/yuminstall.py:2072
+#: pyanaconda/yuminstall.py:2043
+#: pyanaconda/yuminstall.py:2059
 #, python-format
 msgid "Retrieving installation information for %s."
 msgstr "%s に関するインストール情報を読み出し中。"
 
-#: pyanaconda/yuminstall.py:2057
-#: pyanaconda/yuminstall.py:2073
+#: pyanaconda/yuminstall.py:2044
+#: pyanaconda/yuminstall.py:2060
 msgid "Installation Progress"
 msgstr "インストールの進捗"
 
@@ -2192,7 +2169,7 @@ msgstr "要求されたパスワードには、パスワードに使用できな
 msgid "Node Name"
 msgstr "ノード名"
 
-#: pyanaconda/iw/advanced_storage.py:369
+#: pyanaconda/iw/advanced_storage.py:372
 msgid "You must select a NIC to use."
 msgstr "使用する NIC を選択する必要があります。"
 
@@ -2242,7 +2219,7 @@ msgid ""
 "\n"
 "<b>Tip:</b> This option will remove data from the selected device(s).  Make sure you have backups."
 msgstr ""
-"選択したデバイス上の全ての Linux のパーティションを削除します。これは、ストレージデバイス上にすでに存在する他のパーティション（VFAT や FAT32 など）は 削除しません。\n"
+"選択したデバイス上のすべての Linux のパーティションを削除します。これは、ストレージデバイス上にすでに存在する他のパーティション（VFAT や FAT32 など）は 削除しません。\n"
 "\n"
 "<b>注意:</b> このオプションは、選択したデバイスからデータを削除します。バックアップがあることを確認して下さい。"
 
@@ -2316,18 +2293,18 @@ msgstr ""
 "\n"
 "このパスワードで続行しますか?"
 
-#: pyanaconda/iw/bootloader_main_gui.py:36
+#: pyanaconda/iw/bootloader_main_gui.py:37
 msgid "Boot Loader Configuration"
 msgstr "ブートローダーの設定"
 
-#: pyanaconda/iw/bootloader_main_gui.py:180
-#: pyanaconda/iw/bootloader_main_gui.py:185
-#: pyanaconda/iw/bootloader_main_gui.py:223
+#: pyanaconda/iw/bootloader_main_gui.py:182
+#: pyanaconda/iw/bootloader_main_gui.py:187
+#: pyanaconda/iw/bootloader_main_gui.py:225
 #, python-format
 msgid "_Install boot loader on /dev/%s."
 msgstr "ブートローダーを /dev/%s にインストールする。(_I)"
 
-#: pyanaconda/iw/bootloader_main_gui.py:229
+#: pyanaconda/iw/bootloader_main_gui.py:235
 msgid "_Change device"
 msgstr "デバイスの変更(_C)"
 
@@ -2396,7 +2373,7 @@ msgstr ""
 
 #: pyanaconda/iw/cleardisks_gui.py:196
 msgid "<b>Tip:</b> All Linux filesystems on the install target devices will be reformatted and wiped of any data.  Make sure you have backups."
-msgstr "<b>ヒント:</b> インストール先のデバイス上にある全ての Linux ファイルシステムは再フォーマットされてデータは抹消されます。バックアップがあることを確認して下さい。"
+msgstr "<b>ヒント:</b> インストール先のデバイス上にあるすべての Linux ファイルシステムは再フォーマットされてデータは抹消されます。バックアップがあることを確認して下さい。"
 
 #: pyanaconda/iw/cleardisks_gui.py:198
 msgid "<b>Tip:</b> The install target devices will be reformatted and wiped of any data.  Make sure you have backups."
@@ -2583,7 +2560,7 @@ msgid ""
 "\n"
 "This change will take effect immediately."
 msgstr ""
-"この物理エクステントの値の変更により、現在の論理ボリューム要求サイズを物理エクステントの整数倍に切り上げる必要があります。\n"
+"この物理エクステントの値の変さらにより、現在の論理ボリューム要求サイズを物理エクステントの整数倍に切り上げる必要があります。\n"
 "\n"
 "この変更は直ちに反映されます。"
 
@@ -3029,7 +3006,7 @@ msgid "Type"
 msgstr "タイプ"
 
 #: pyanaconda/iw/partition_gui.py:619
-#: pyanaconda/storage/__init__.py:1852
+#: pyanaconda/storage/__init__.py:1840
 msgid "Format"
 msgstr "フォーマットする"
 
@@ -3133,7 +3110,7 @@ msgid ""
 "To use RAID you must first create at least two partitions of type 'software RAID'.  Then you can create a RAID device that can be formatted and mounted.\n"
 "\n"
 msgstr ""
-"RAIDを使用するには、まず「ソフトウェア RAID」タイプのパーティションを少くとも 2 つ作成する必要があります。そうすると、フォーマット及びマウントが可能な RAID デバイスが作成できるようになります。\n"
+"RAIDを使用するには、まず「ソフトウェア RAID」タイプのパーティションを少くとも 2 つ作成する必要があります。そうすると、フォーマットおよびマウントが可能な RAID デバイスが作成できるようになります。\n"
 "\n"
 
 #: pyanaconda/iw/partition_gui.py:1481
@@ -3150,7 +3127,7 @@ msgstr "RAID について"
 #: pyanaconda/iw/partition_gui.py:1491
 #, python-format
 msgid "Logical Volume Manager (LVM) is a 3 level construct. The first level is made up of disks or partitions formatted with LVM metadata called Physical Volumes (PV).  A Volume Group (VG) sits on top of one or more PVs. The VG, in turn, is the base to create one or more Logical Volumes (LV).  Note that a VG can be an aggregate of PVs from multiple physical disks.  For more information on using LVM please consult the %s documentation\n"
-msgstr "LVM (Logical Volume Manager) は３レベル構造になっています。最初のレベルは LVM メタデータでフォーマットされた物理ボリューム (PV) と呼ばれるディスク、又はパーティションの集合です。ボリュームグループ (VG) は単数、又は複数の PV から構成されます。そして次には VG が単数、又は複数の論理ボリューム (LV) を構成する土台となります。VG は複数の物理ディスクから出来る PV の総合体であることに留意して 下さい。LVM の使用法についての詳細には、%s ドキュメントをご覧下さい。\n"
+msgstr "LVM (Logical Volume Manager) は３レベル構造になっています。最初のレベルは LVM メタデータでフォーマットされた物理ボリューム (PV) と呼ばれるディスク、またはパーティションの集合です。ボリュームグループ (VG) は１つまたは複数の PV から構成されます。そして次には VG が１つまたは複数の論理ボリューム (LV) を構成する土台となります。VG は複数の物理ディスクから出来る PV の集合体であることに留意して下さい。LVM の使用法についての詳細には、%s ドキュメントをご覧下さい。\n"
 
 #: pyanaconda/iw/partition_gui.py:1499
 msgid ""
@@ -3176,8 +3153,8 @@ msgid "About LVM"
 msgstr "LVM について"
 
 #: pyanaconda/iw/partition_gui.py:1588
-#: pyanaconda/storage/partitioning.py:205
-#: pyanaconda/storage/partitioning.py:247
+#: pyanaconda/storage/partitioning.py:206
+#: pyanaconda/storage/partitioning.py:248
 msgid "Error Partitioning"
 msgstr "パーティション設定エラー"
 
@@ -3615,19 +3592,19 @@ msgstr "ディスクが見つかりません"
 #: loader/driverdisk.c:425
 #: loader/driverdisk.c:506
 #: loader/driverselect.c:79
-#: loader/driverselect.c:153
-#: loader/driverselect.c:179
+#: loader/driverselect.c:145
+#: loader/driverselect.c:171
 #: loader/hdinstall.c:168
 #: loader/hdinstall.c:222
 #: loader/kbd.c:118
 #: loader/loader.c:499
 #: loader/loader.c:516
-#: loader/loader.c:1367
-#: loader/loader.c:1407
+#: loader/loader.c:1376
+#: loader/loader.c:1416
 #: loader/net.c:625
 #: loader/net.c:1007
-#: loader/net.c:1982
-#: loader/net.c:2001
+#: loader/net.c:1816
+#: loader/net.c:1835
 #: loader/nfsinstall.c:92
 #: loader/urls.c:264
 #: pyanaconda/storage/__init__.py:122
@@ -3637,7 +3614,7 @@ msgstr "ディスクが見つかりません"
 msgid "Back"
 msgstr "戻る"
 
-#: loader/cdinstall.c:424
+#: loader/cdinstall.c:418
 msgid "Cannot find kickstart file on CDROM."
 msgstr "ディスクROM 上にキックスタートファイルが見つかりません。"
 
@@ -3731,21 +3708,8 @@ msgid "Do you wish to load any more driver disks?"
 msgstr "他のドライバーディスクを読み込みますか?"
 
 #: loader/driverdisk.c:698
-#: loader/driverdisk.c:737
-#: loader/hdinstall.c:348
-#: loader/kickstart.c:135
-#: loader/kickstart.c:145
-#: loader/kickstart.c:187
-#: loader/kickstart.c:192
-#: loader/kickstart.c:339
-#: loader/kickstart.c:355
-#: loader/kickstart.c:571
-#: loader/net.c:1655
-#: loader/net.c:1676
-#: loader/nfsinstall.c:276
-#: loader/urlinstall.c:279
-#: loader/urlinstall.c:290
-#: loader/urlinstall.c:297
+#: loader/kickstart.c:176
+#: loader/kickstart.c:939
 msgid "Kickstart Error"
 msgstr "キックスタートエラー"
 
@@ -3753,11 +3717,6 @@ msgstr "キックスタートエラー"
 #, c-format
 msgid "Unknown driver disk kickstart source: %s"
 msgstr "キックスタートの元となるドライバーディスクが不明です: %s"
-
-#: loader/driverdisk.c:738
-#, c-format
-msgid "The following invalid argument was specified for the kickstart driver disk command: %s"
-msgstr "キックスタートのドライバーディスクコマンドに以下のような不正な引数が指定されました: %s"
 
 #: loader/driverselect.c:68
 #, c-format
@@ -3768,27 +3727,27 @@ msgstr "%s モジュールに渡すパラメーターを空白で区切って入
 msgid "Enter Module Parameters"
 msgstr "モジュールパラメーターを入力"
 
-#: loader/driverselect.c:152
+#: loader/driverselect.c:144
 msgid "No drivers found"
 msgstr "ドライバーが見つかりません"
 
-#: loader/driverselect.c:152
+#: loader/driverselect.c:144
 msgid "Load driver disk"
 msgstr "ドライバーディスクの読み込み"
 
-#: loader/driverselect.c:153
+#: loader/driverselect.c:145
 msgid "No drivers were found to manually insert.  Would you like to use a driver disk?"
 msgstr "手動で挿入するドライバーが見つかりませんでした。ドライバーディスクを使用しますか?"
 
-#: loader/driverselect.c:171
+#: loader/driverselect.c:163
 msgid "Please select the driver below which you wish to load.  If it does not appear and you have a driver disk, press F2."
 msgstr "読み込むドライバーを下記から選択してください。必要なドライバーが表示されていないがドライバーディスクがある場合、F2 を押してください。"
 
-#: loader/driverselect.c:180
+#: loader/driverselect.c:172
 msgid "Specify optional module arguments"
 msgstr "オプションのモジュール引数を指定してください"
 
-#: loader/driverselect.c:205
+#: loader/driverselect.c:197
 msgid "Select Device Driver to Load"
 msgstr "読み込むデバイスドライバーを選択してください"
 
@@ -3815,17 +3774,12 @@ msgstr "パーティションを選択してください"
 msgid "That directory does not contain installation media."
 msgstr "そのディレクトリーはインストールメディアを含んでいないようです。"
 
-#: loader/hdinstall.c:349
-#, c-format
-msgid "Bad argument to HD kickstart method command: %s"
-msgstr "HD キックスタートコマンド に対する引数が不正です: %s"
-
-#: loader/hdinstall.c:400
-#: loader/hdinstall.c:454
+#: loader/hdinstall.c:345
+#: loader/hdinstall.c:399
 msgid "Cannot find kickstart file on hard drive."
 msgstr "ハードディスクにキックスタートファイルが見つかりません。"
 
-#: loader/hdinstall.c:439
+#: loader/hdinstall.c:384
 #, c-format
 msgid "Cannot find hard drive for BIOS disk %s"
 msgstr "BIOS ディスク %s 用のハードディスクが見つかりません"
@@ -3838,51 +3792,22 @@ msgstr "キーボードの種類"
 msgid "What type of keyboard do you have?"
 msgstr "ご使用のキーボードの種類を指定してください。"
 
-#: loader/kickstart.c:136
-#, c-format
-msgid "Error opening kickstart file %s: %m"
-msgstr "キックスタートファイル %s を開く際にエラー: %m"
-
-#: loader/kickstart.c:146
-#, c-format
-msgid "Error reading contents of kickstart file %s: %m"
-msgstr "キックスタートファイル %s の読み込み時にエラー: %m"
-
-#: loader/kickstart.c:188
-#, c-format
-msgid "Error in %s on line %d of kickstart file %s."
-msgstr "%s のエラーが %d 行目(キックスタートファイル %s の)で発生しました。"
-
-#: loader/kickstart.c:193
-#, c-format
-msgid "Missing options on line %d of kickstart file %s."
-msgstr "%d 行目のオプションがキックスタートファイル %s にありません。"
-
-#: loader/kickstart.c:300
+#: loader/kickstart.c:309
 msgid "Cannot find ks.cfg on removable media."
 msgstr "リムーバブルメディアに ks.cfg が見つかりません。"
 
-#: loader/kickstart.c:340
-#, c-format
-msgid "Bad argument to device kickstart method command: %s"
-msgstr "デバイスキックスタートメソッドのコマンドに対する引数が不正です: %s"
-
-#: loader/kickstart.c:356
-msgid "A module name must be specified for the kickstart device command."
-msgstr "モジュール名がキックスタートデバイスコマンドに指定されていません。"
-
-#: loader/kickstart.c:387
+#: loader/kickstart.c:378
 msgid "Unable to download the kickstart file.  Please modify the kickstart parameter below or press Cancel to proceed as an interactive installation."
 msgstr "キックスタートファイルをダウンロードすることができません。以下のキックスタートパラメーターを変更するか、対話インストールとして続行するために Cancel を押してください。"
 
-#: loader/kickstart.c:396
+#: loader/kickstart.c:387
 msgid "Error downloading kickstart file"
 msgstr "キックスタートファイルをダウンロードする際にエラー発生"
 
-#: loader/kickstart.c:572
+#: loader/kickstart.c:940
 #, c-format
-msgid "Bad argument to shutdown kickstart method command: %s"
-msgstr "シャットダウンキックスタートメソッドコマンドに対する引数が不正です: %s"
+msgid "Unknown Url method %s"
+msgstr "%s は不明な Url 方法です"
 
 #: loader/lang.c:62
 #: loader/loader.c:228
@@ -3968,94 +3893,94 @@ msgstr "%s は、最低 %d MB のメモリーを必要とします。しかし %
 msgid "%s requires %d MB of memory to install using this installation method, but you only have %d MB on this machine."
 msgstr "指定したインストール方法では %s は、最低 %d MB のメモリーを必要とします。しかし %d MB しか搭載されていません。"
 
-#: loader/loader.c:1223
+#: loader/loader.c:1232
 msgid "Unsupported Hardware Detected"
 msgstr "サポートされていないハードウェアを検出しました。"
 
-#: loader/loader.c:1224
+#: loader/loader.c:1233
 msgid "This hardware (or a combination thereof) is not supported by Red Hat.  For more information on supported hardware, please refer to http://www.redhat.com/hardware."
 msgstr "お使いのハードウェア (またはシステム構成) は Red Hat によってサポートされておりません。 サポートされているハードウェアの詳細については、http://www.redhat.com/hardware をご参照ください。"
 
-#: loader/loader.c:1359
+#: loader/loader.c:1368
 msgid "Rescue Method"
 msgstr "レスキュー方法"
 
-#: loader/loader.c:1360
+#: loader/loader.c:1369
 msgid "Installation Method"
 msgstr "インストール方法"
 
-#: loader/loader.c:1362
+#: loader/loader.c:1371
 msgid "What type of media contains the rescue image?"
 msgstr "レスキューイメージが格納されているメディアタイプを指定してください。"
 
-#: loader/loader.c:1364
+#: loader/loader.c:1373
 msgid "What type of media contains the installation image?"
 msgstr "インストールイメージが格納されているメディアタイプを指定してください。"
 
-#: loader/loader.c:1406
+#: loader/loader.c:1415
 msgid "No driver found"
 msgstr "ドライバーが見つかりません"
 
-#: loader/loader.c:1406
+#: loader/loader.c:1415
 msgid "Select driver"
 msgstr "ドライバーを選択してください"
 
-#: loader/loader.c:1407
+#: loader/loader.c:1416
 msgid "Use a driver disk"
 msgstr "ドライバーディスクを使用する"
 
-#: loader/loader.c:1408
+#: loader/loader.c:1417
 msgid "Unable to find any devices of the type needed for this installation type.  Would you like to manually select your driver or use a driver disk?"
 msgstr "このインストールタイプに必要な種類のデバイスを見つけることができません。  手動でドライバーを選択しますか、またはドライバーディスクを使用しますか?"
 
-#: loader/loader.c:1619
+#: loader/loader.c:1628
 msgid "The following devices have been found on your system."
 msgstr "システム上で次のデバイスが検出されました。"
 
-#: loader/loader.c:1621
+#: loader/loader.c:1630
 msgid "No device drivers have been loaded for your system.  Would you like to load any now?"
 msgstr "デバイスドライバーはシステムにロードされていません。ドライバーをロードしますか?"
 
-#: loader/loader.c:1625
+#: loader/loader.c:1634
 msgid "Devices"
 msgstr "デバイス"
 
-#: loader/loader.c:1626
+#: loader/loader.c:1635
 msgid "Done"
 msgstr "終了"
 
-#: loader/loader.c:1627
+#: loader/loader.c:1636
 msgid "Add Device"
 msgstr "デバイスの追加"
 
-#: loader/loader.c:1905
+#: loader/loader.c:1915
 #, c-format
 msgid "loader has already been run.  Starting shell.\n"
 msgstr "ローダーはすでに実行されています。シェルの起動中です。\n"
 
-#: loader/loader.c:2049
+#: loader/loader.c:2059
 #, c-format
 msgid "Driver disc was detected in %s. Do you want to use it?."
 msgstr "ドライバーディスクが %s で検出されました。これを使用しますか？"
 
-#: loader/loader.c:2052
+#: loader/loader.c:2062
 msgid "Driver disc detected"
 msgstr "ドライバーディスクを検出しました"
 
-#: loader/loader.c:2052
+#: loader/loader.c:2062
 msgid "Use it"
 msgstr "それを使用する"
 
-#: loader/loader.c:2052
+#: loader/loader.c:2062
 msgid "Skip it"
 msgstr "それをスキップする"
 
-#: loader/loader.c:2365
+#: loader/loader.c:2376
 #, c-format
 msgid "Running anaconda %s, the %s rescue mode - please wait.\n"
 msgstr "anaconda %s を %s レスキューモードで実行中 - しばらくお待ちください。\n"
 
-#: loader/loader.c:2367
+#: loader/loader.c:2378
 #, c-format
 msgid "Running anaconda %s, the %s system installer - please wait.\n"
 msgstr "anaconda %s・%s システムインストーラーを実行中 - しばらくお待ちください。\n"
@@ -4222,59 +4147,49 @@ msgstr "有効な IPv4 アドレスとネットマスクまたは CIDR プレフ
 msgid "You must enter both a valid IPv6 address and a CIDR prefix."
 msgstr "有効な IPv6 アドレスと CIDR プレフィックスの両方を入力する必要があります。"
 
-#: loader/net.c:1656
-#, c-format
-msgid "Bad argument to kickstart network command: %s"
-msgstr "キックスタートネットワークコマンドに対する引数が不正です: %s"
-
-#: loader/net.c:1677
-#, c-format
-msgid "Bad bootproto %s specified in network command"
-msgstr "ネットワークコマンドで不正な bootproto %s が指定されました"
-
-#: loader/net.c:1782
+#: loader/net.c:1616
 msgid "Seconds:"
 msgstr "2 番目:"
 
-#: loader/net.c:1977
+#: loader/net.c:1811
 msgid "Networking Device"
 msgstr "ネットワーク構築デバイス"
 
-#: loader/net.c:1978
+#: loader/net.c:1812
 msgid "You have multiple network devices on this system. Which would you like to install through?"
 msgstr "このシステムには複数のネットワークデバイスが存在します。インストールの際に使用するデバイスを選択してください。"
 
-#: loader/net.c:1982
+#: loader/net.c:1816
 msgid "Identify"
 msgstr "識別"
 
-#: loader/net.c:1991
+#: loader/net.c:1825
 msgid "You can identify the physical port for"
 msgstr "以下の為の物理ポートを識別できます"
 
-#: loader/net.c:1993
+#: loader/net.c:1827
 msgid "by flashing the LED lights for a number of seconds.  Enter a number between 1 and 30 to set the duration to flash the LED port lights."
 msgstr "数秒間だけ LED の光源を点滅することで達成します。１から30までの数字を挿入して LED ポートの光源を点滅する時間をセットします。"
 
-#: loader/net.c:2000
+#: loader/net.c:1834
 msgid "Identify NIC"
 msgstr "NIC の識別"
 
-#: loader/net.c:2013
+#: loader/net.c:1847
 msgid "Invalid Duration"
 msgstr "無効な期間"
 
-#: loader/net.c:2014
+#: loader/net.c:1848
 msgid "You must enter the number of seconds as an integer between 1 and 30."
 msgstr "１から30までの整数で秒数を入力する必要があります。"
 
-#: loader/net.c:2026
+#: loader/net.c:1860
 #, c-format
 msgid "Flashing %s port lights for %d seconds."
 msgstr "%s ポートの光源を %d 秒だけ点滅しています。"
 
-#: loader/net.c:2198
-#: loader/net.c:2202
+#: loader/net.c:2032
+#: loader/net.c:2036
 #, c-format
 msgid "Waiting for NetworkManager to configure %s.\n"
 msgstr "NetworkManager の %s の設定を待っています。\n"
@@ -4306,29 +4221,10 @@ msgstr "NFS 設定"
 msgid "The URL provided does not contain installation media."
 msgstr "その URL にはインストールメディアが含まれていないようです。"
 
-#: loader/nfsinstall.c:277
-#, c-format
-msgid "Bad argument to NFS kickstart method command: %s"
-msgstr "NFS キックスタートメソッドコマンドに対する引数が不正です: %s"
-
 #: loader/urlinstall.c:140
 #, c-format
 msgid "Unable to retrieve %s."
 msgstr "%s の取り込みが出来ません。"
-
-#: loader/urlinstall.c:280
-#, c-format
-msgid "Bad argument to URL kickstart method command: %s"
-msgstr "URL キックスタートメソッドコマンドに対する引数が不正です: %s"
-
-#: loader/urlinstall.c:291
-msgid "Must supply a --url argument to Url kickstart method."
-msgstr "Url キックスタート方法には、 --url の引数を使用する必要があります。"
-
-#: loader/urlinstall.c:298
-#, c-format
-msgid "Unknown Url method %s"
-msgstr "%s は不明な Url 方法です"
 
 #: loader/urls.c:173
 #: loader/urls.c:181
@@ -4410,12 +4306,12 @@ msgid ""
 "\n"
 "\n"
 "<b>WARNING:</b>\n"
-"You are using a GPT bootdisk on a non-EFI system. This may not work, depending on you BIOS's support for booting from GPT disks."
+"You are using a GPT bootdisk on a non-EFI system. This may not work, depending on your BIOS's support for booting from GPT disks."
 msgstr ""
 "\n"
 "\n"
 "<b>警告:</b>\n"
-"あなたは GPT 形式の起動ディスクを 非 EFI システム上で利用しています。BIOS に依存しており、GPT ディスクからの起動処理が動作しないでしょう。"
+"非 EFI システム上でGPT 形式の起動ディスクを利用しています。GPT ディスクからの起動処理が動作しないでしょう。この問題は BIOS に依存しています。"
 
 #: pyanaconda/storage/__init__.py:203
 #: pyanaconda/storage/devicetree.py:104
@@ -4425,7 +4321,7 @@ msgstr "確認"
 #: pyanaconda/storage/__init__.py:204
 #, python-format
 msgid "The partitioning options you have selected will now be written to disk.  Any data on deleted or reformatted partitions will be lost.%s"
-msgstr "選択したディスク分割のオプションを書き込みます。削除及び再フォーマットする パーティションにあるデータはすべて失われます。 %s"
+msgstr "選択したディスク分割のオプションを書き込みます。削除および再フォーマットする パーティションにあるデータはすべて失われます。 %s"
 
 #: pyanaconda/storage/__init__.py:210
 msgid "Go _Back"
@@ -4550,12 +4446,12 @@ msgstr "ドライブがみつかりませんでした。"
 msgid "An error has occurred - no valid devices were found on which to create new file systems. Please check your hardware for the cause of this problem."
 msgstr "エラー発生 - 新規ファイルシステム作成のための有効なデバイスが見つかりません。ハードウェアをチェックして、この問題の原因を調査してください。"
 
-#: pyanaconda/storage/__init__.py:1395
-#: pyanaconda/storage/__init__.py:1404
+#: pyanaconda/storage/__init__.py:1410
+#: pyanaconda/storage/__init__.py:1419
 msgid "Dirty File Systems"
 msgstr "損傷ファイルシステム"
 
-#: pyanaconda/storage/__init__.py:1396
+#: pyanaconda/storage/__init__.py:1411
 #, python-format
 msgid ""
 "The following file systems for your Linux system were not unmounted cleanly.  Please boot your Linux installation, let the file systems be checked and shut down cleanly to upgrade.\n"
@@ -4564,7 +4460,7 @@ msgstr ""
 "ご使用の Linux システム用の次のファイルシステムは正常にアンマウントされませんでした。アップグレードするには、 Linux インストールを起動し、ファイルシステムのチェックをしてから正常なシャットダウンを行ってください。\n"
 "%s"
 
-#: pyanaconda/storage/__init__.py:1405
+#: pyanaconda/storage/__init__.py:1420
 #, python-format
 msgid ""
 "The following file systems for your Linux system were not unmounted cleanly.  Would you like to mount them anyway?\n"
@@ -4573,7 +4469,7 @@ msgstr ""
 "ご使用の Linux システム用の次のファイルシステムは正常にアンマウントされませんでした。とにかくそれらをマウントしますか?\n"
 "%s"
 
-#: pyanaconda/storage/__init__.py:1885
+#: pyanaconda/storage/__init__.py:1873
 #, python-format
 msgid ""
 "The swap device:\n"
@@ -4588,7 +4484,7 @@ msgstr ""
 "\n"
 "は旧式の Linux swap パーティションです。スワップ領域用にこのデバイスを 使用したい場合は、新スタイルの Linux swap パーティションとして再フォーマットする必要があります。"
 
-#: pyanaconda/storage/__init__.py:1896
+#: pyanaconda/storage/__init__.py:1884
 #, python-format
 msgid ""
 "The swap device:\n"
@@ -4603,7 +4499,7 @@ msgstr ""
 "\n"
 "は現在、ソフトウェアサスペンドデバイスとして使用されており、これはシステムがハイバネート状態であることを意味します。アップグレードを実行するには、システムをハイバネートするのではなく、シャットダウンしてください。"
 
-#: pyanaconda/storage/__init__.py:1904
+#: pyanaconda/storage/__init__.py:1892
 #, python-format
 msgid ""
 "The swap device:\n"
@@ -4618,7 +4514,7 @@ msgstr ""
 "\n"
 "は現在、ソフトウェアサスペンドデバイスとして使用されており、これはシステムがハイバネート状態であることを意味します。新規のインストールを実行している場合は、インストーラーがすべての swap パーティションをフォーマットするよう設定されていることを確認してください。"
 
-#: pyanaconda/storage/__init__.py:1916
+#: pyanaconda/storage/__init__.py:1904
 #, python-format
 msgid ""
 "The swap device:\n"
@@ -4633,7 +4529,7 @@ msgstr ""
 "\n"
 "はサポートされたスワップボリュームを含みません。インストールを継続するには、 デバイスをフォーマットするか、又はスキップします。"
 
-#: pyanaconda/storage/__init__.py:1927
+#: pyanaconda/storage/__init__.py:1915
 #, python-format
 msgid ""
 "Error enabling swap device %(name)s: %(msg)s\n"
@@ -4648,7 +4544,7 @@ msgstr ""
 "\n"
 "OK を押してインストーラーを終了してください。"
 
-#: pyanaconda/storage/__init__.py:1934
+#: pyanaconda/storage/__init__.py:1922
 #, python-format
 msgid ""
 "Error enabling swap device %(name)s: %(msg)s\n"
@@ -4663,12 +4559,12 @@ msgstr ""
 "\n"
 "OK を押してインストーラーを終了してください。"
 
+#: pyanaconda/storage/__init__.py:1986
 #: pyanaconda/storage/__init__.py:1998
-#: pyanaconda/storage/__init__.py:2010
 msgid "Invalid mount point"
 msgstr "無効なマウントポイント"
 
-#: pyanaconda/storage/__init__.py:1999
+#: pyanaconda/storage/__init__.py:1987
 #, python-format
 msgid ""
 "An error occurred when trying to create %s.  Some element of this path is not a directory. This is a fatal error and the install cannot continue.\n"
@@ -4679,7 +4575,7 @@ msgstr ""
 "\n"
 "<Enter> を押してインストーラーを終了してください。"
 
-#: pyanaconda/storage/__init__.py:2011
+#: pyanaconda/storage/__init__.py:1999
 #, python-format
 msgid ""
 "An error occurred when trying to create %(mountpoint)s: %(msg)s.  This is a fatal error and the install cannot continue.\n"
@@ -4690,17 +4586,17 @@ msgstr ""
 "\n"
 "<Enter> を押してインストーラーを終了してください。"
 
-#: pyanaconda/storage/__init__.py:2027
-#: pyanaconda/storage/__init__.py:2051
+#: pyanaconda/storage/__init__.py:2015
+#: pyanaconda/storage/__init__.py:2039
 msgid "Unable to mount filesystem"
 msgstr "ファイルシステムをマウントできません"
 
-#: pyanaconda/storage/__init__.py:2028
+#: pyanaconda/storage/__init__.py:2016
 #, python-format
 msgid "An error occurred mounting device %(path)s as %(mountpoint)s.  You may continue installation, but there may be problems."
 msgstr "デバイス %(path)s を %(mountpoint)s としてマウントする際にエラーが発生しました。 インストールは続行できますが、問題が生じる場合があります。"
 
-#: pyanaconda/storage/__init__.py:2052
+#: pyanaconda/storage/__init__.py:2040
 #, python-format
 msgid ""
 "An error occurred mounting device %(path)s as %(mountpoint)s: %(msg)s. This is a fatal error and the install cannot continue.\n"
@@ -4743,7 +4639,7 @@ msgstr "作成"
 msgid "Creating device %s"
 msgstr "デバイス %s の作成 "
 
-#: pyanaconda/storage/devices.py:2545
+#: pyanaconda/storage/devices.py:2588
 #, python-format
 msgid "A RAID%d set requires at least %d member"
 msgid_plural "A RAID%d set requires at least %d members"
@@ -4761,7 +4657,7 @@ msgstr ""
 "\n"
 "このステップをスキップすると、インストール中のデバイス内のコンテンツへのアクセスはできません。"
 
-#: pyanaconda/storage/devicetree.py:1600
+#: pyanaconda/storage/devicetree.py:1603
 msgid "This partition is part of an inconsistent LVM Volume Group."
 msgstr "このパーティションは一貫性のない LVM ボリュームグループの一部です。"
 
@@ -4823,7 +4719,7 @@ msgid "Errors like this usually mean there is a problem with the filesystem that
 msgstr "このようなエラーは通常、ファイルシステムに問題があることを意味しており、 その修正にはユーザーの介入を必要とします。インストールを再開始する前に レスキューモードで、又はファイルシステムを対話式で修正できる他のシステムで 再起動して下さい。ファイルシステムの問題を修正してからインストールを再開始 して下さい。"
 
 #: pyanaconda/storage/formats/fs.py:539
-#: pyanaconda/storage/partitioning.py:281
+#: pyanaconda/storage/partitioning.py:282
 msgid "Unrecoverable Error"
 msgstr "修復不能なエラー"
 
@@ -4905,19 +4801,19 @@ msgstr "iSCSI ノードにログイン中"
 msgid "Logging in to iSCSI node %s"
 msgstr "iSCSI ノード %s にログイン中"
 
-#: pyanaconda/storage/partitioning.py:199
+#: pyanaconda/storage/partitioning.py:200
 msgid "Could not find enough free space for automatic partitioning.  Press 'OK' to exit the installer."
 msgstr "自動パーティション設定用に十分な空き領域が見付かりません。インストーラーを抜け出すには'OK'を押してください。"
 
-#: pyanaconda/storage/partitioning.py:202
+#: pyanaconda/storage/partitioning.py:203
 msgid "Could not find enough free space for automatic partitioning, please use another partitioning method."
 msgstr "自動パーティション設定用に十分な空き領域が見付かりません。別の パーティションメソッドを使用して下さい。"
 
-#: pyanaconda/storage/partitioning.py:230
+#: pyanaconda/storage/partitioning.py:231
 msgid "Warnings During Automatic Partitioning"
 msgstr "自動パーティション設定中の警告"
 
-#: pyanaconda/storage/partitioning.py:232
+#: pyanaconda/storage/partitioning.py:233
 #, python-format
 msgid ""
 "Following warnings occurred during automatic partitioning:\n"
@@ -4928,8 +4824,8 @@ msgstr ""
 "\n"
 "%s"
 
-#: pyanaconda/storage/partitioning.py:246
-#: pyanaconda/storage/partitioning.py:265
+#: pyanaconda/storage/partitioning.py:247
+#: pyanaconda/storage/partitioning.py:266
 msgid ""
 "\n"
 "\n"
@@ -4939,7 +4835,7 @@ msgstr ""
 "\n"
 "「OK」を押すとインストーラーを終了します。"
 
-#: pyanaconda/storage/partitioning.py:248
+#: pyanaconda/storage/partitioning.py:249
 #, python-format
 msgid ""
 "Could not allocate requested partitions: \n"
@@ -4950,7 +4846,7 @@ msgstr ""
 "\n"
 "%(msg)s.%(extra)s"
 
-#: pyanaconda/storage/partitioning.py:267
+#: pyanaconda/storage/partitioning.py:268
 msgid ""
 "\n"
 "\n"
@@ -4960,11 +4856,11 @@ msgstr ""
 "\n"
 "「OK」を押して別のパーティション設定オプションを選択してください。"
 
-#: pyanaconda/storage/partitioning.py:269
+#: pyanaconda/storage/partitioning.py:270
 msgid "Automatic Partitioning Errors"
 msgstr "自動パーティション設定のエラーです"
 
-#: pyanaconda/storage/partitioning.py:270
+#: pyanaconda/storage/partitioning.py:271
 #, python-format
 msgid ""
 "The following errors occurred with your partitioning:\n"
@@ -5311,7 +5207,7 @@ msgstr ""
 
 #: pyanaconda/textw/zipl_text.py:36
 msgid "The z/IPL Boot Loader will be installed on your system after installation is complete. You can now enter any additional kernel and chandev parameters which your machine or your setup require."
-msgstr "z/IPL ブートローダーはインストールが完了してからシステム上にインストールされます。ここで、ご使用のマシンまたは設定が必要とする追加のカーネル及び chandev パラメーターを入力することができます。"
+msgstr "z/IPL ブートローダーはインストールが完了してからシステム上にインストールされます。ここで、ご使用のマシンまたは設定が必要とする追加のカーネルおよび chandev パラメーターを入力することができます。"
 
 #: pyanaconda/textw/zipl_text.py:68
 msgid "z/IPL Configuration"
@@ -5702,7 +5598,7 @@ msgstr "他の SAN デバイス"
 
 #: data/ui/filter.glade.h:12
 msgid "Please select the drives you'd like to install the operating system on, as well as any drives you'd like to automatically mount on your system:"
-msgstr "オペレーティングシステムのインストール先となるデバイスを選択して下さい。更には システムに自動的にマウントするいずれかのドライブも選択してください:"
+msgstr "オペレーティングシステムのインストール先となるデバイスを選択して下さい。さらには システムに自動的にマウントするいずれかのドライブも選択してください:"
 
 #: data/ui/filter.glade.h:13
 msgid ""
@@ -5843,7 +5739,7 @@ msgstr "次のノードに対する iSCSI ログインが失敗しました。"
 
 #: data/ui/lukspassphrase.glade.h:1
 msgid "Also add this passphrase to all existing encrypted devices to streamline the boot process"
-msgstr "暗号化済みの全ての既存デバイスにこのパスフレーズを追加して、ブートプロセスをスムーズにします。"
+msgstr "暗号化済みのすべての既存デバイスにこのパスフレーズを追加して、ブートプロセスをスムーズにします。"
 
 #: data/ui/lukspassphrase.glade.h:2
 msgid "Choose a passphrase for this encrypted partition. You will be prompted for the passphrase during system boot."
@@ -6200,6 +6096,59 @@ msgstr "ウェールズ語"
 msgid "Zulu"
 msgstr "ズールー語"
 
+#~ msgid "Error processing %%ksappend lines: %s"
+#~ msgstr "%%ksappend 行目を処理中にエラーが発生しました: %s"
+
+#~ msgid "Unknown error processing %%ksappend lines: %s"
+#~ msgstr "%%ksappend 行目を処理中に不明なエラーが発生しました: %s"
+
+#~ msgid ""
+#~ "The following invalid argument was specified for the kickstart driver "
+#~ "disk command: %s"
+#~ msgstr ""
+#~ "キックスタートのドライバーディスクコマンドに以下のような不正な引数が指定さ"
+#~ "れました: %s"
+
+#~ msgid "Bad argument to HD kickstart method command: %s"
+#~ msgstr "HD キックスタートコマンド に対する引数が不正です: %s"
+
+#~ msgid "Error opening kickstart file %s: %m"
+#~ msgstr "キックスタートファイル %s を開く際にエラー: %m"
+
+#~ msgid "Error reading contents of kickstart file %s: %m"
+#~ msgstr "キックスタートファイル %s の読み込み時にエラー: %m"
+
+#~ msgid "Error in %s on line %d of kickstart file %s."
+#~ msgstr "%s のエラーが %d 行目(キックスタートファイル %s の)で発生しました。"
+
+#~ msgid "Missing options on line %d of kickstart file %s."
+#~ msgstr "%d 行目のオプションがキックスタートファイル %s にありません。"
+
+#~ msgid "Bad argument to device kickstart method command: %s"
+#~ msgstr "デバイスキックスタートメソッドのコマンドに対する引数が不正です: %s"
+
+#~ msgid "A module name must be specified for the kickstart device command."
+#~ msgstr "モジュール名がキックスタートデバイスコマンドに指定されていません。"
+
+#~ msgid "Bad argument to shutdown kickstart method command: %s"
+#~ msgstr ""
+#~ "シャットダウンキックスタートメソッドコマンドに対する引数が不正です: %s"
+
+#~ msgid "Bad argument to kickstart network command: %s"
+#~ msgstr "キックスタートネットワークコマンドに対する引数が不正です: %s"
+
+#~ msgid "Bad bootproto %s specified in network command"
+#~ msgstr "ネットワークコマンドで不正な bootproto %s が指定されました"
+
+#~ msgid "Bad argument to NFS kickstart method command: %s"
+#~ msgstr "NFS キックスタートメソッドコマンドに対する引数が不正です: %s"
+
+#~ msgid "Bad argument to URL kickstart method command: %s"
+#~ msgstr "URL キックスタートメソッドコマンドに対する引数が不正です: %s"
+
+#~ msgid "Must supply a --url argument to Url kickstart method."
+#~ msgstr "Url キックスタート方法には、 --url の引数を使用する必要があります。"
+
 #~ msgid ""
 #~ "The root filesystem you created is not large enough for this live image "
 #~ "(%.2f MB required)."
@@ -6232,9 +6181,9 @@ msgstr "ズールー語"
 #~ "\n"
 #~ "このデバイスは再初期化が必要かも知れません。\n"
 #~ "\n"
-#~ "再初期化すると全てのデータが消失します!\n"
+#~ "再初期化するとすべてのデータが消失します!\n"
 #~ "\n"
-#~ "このアクションは再初期化を必要とする全ての他のディスクにも適用できるかも知"
+#~ "このアクションは再初期化を必要とするすべての他のディスクにも適用できるかも知"
 #~ "れません。%(details)s"
 
 #~ msgid "FCP device %(device)s with WWPN %(wwpn)s and LUN %(lun)s"
@@ -6520,7 +6469,7 @@ msgstr "ズールー語"
 #~ "specifies a network source."
 #~ msgstr ""
 #~ "インストールのソースがネットワークの位置に設定してありますが、システム上"
-#~ "に ネットワークデバイスが見当たりません。ネットワークインストールを避ける"
+#~ "に ネットワークデバイスが見つかりません。ネットワークインストールを避ける"
 #~ "には、 完全な DVD か完全な CD セットで起動しますが、その場合、ネットワーク"
 #~ "ソースを 指定してしまう repo= parameter を渡さないで下さい。"
 
