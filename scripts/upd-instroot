@@ -634,6 +634,7 @@ usr/bin/hmount
 usr/bin/humount
 usr/bin/killall
 usr/bin/logger
+usr/bin/localedef
 usr/bin/lsattr*
 usr/bin/maketilo
 usr/bin/md5sum
@@ -754,6 +755,7 @@ usr/share/hwdata/pci.ids
 usr/share/hwdata/usb.ids
 usr/share/hwdata/videoaliases
 usr/share/hwdata/videodrivers
+usr/share/i18n
 usr/share/icons/hicolor/*/apps/nm-*
 usr/share/icons/hicolor/index.theme
 usr/share/locale/*/LC_MESSAGES/anaconda.mo
@@ -1113,10 +1115,13 @@ chmod 04755 $DEST/usr/libexec/polkit-1/polkit-agent-helper-1
 chown root:dbus $DEST/$LIBDIR/dbus-1/dbus-daemon-launch-helper
 chmod 04750 $DEST/$LIBDIR/dbus-1/dbus-daemon-launch-helper
 
-# Remove locales unused during the install
+# Generate default locale in case runtime doesn't work
+# /usr/share/i18n/ contains sources
 install -m 644 $DEST/usr/share/anaconda/lang-table $DEST/etc/lang-table
+rm -f $DEST/usr/lib/locale/locale-archive
 localedef -c -i en_US -f UTF-8 --prefix $DEST en_US
 
+# Remove unsupported translations
 cat $DEST/usr/share/anaconda/lang-table* | awk '
 { gsub("-", "", $4);
   print $4;
@@ -1135,14 +1140,7 @@ for p in lib share; do (
     }
 ); done
 
-# Now shrink the locale-archive to contain just the minimum.
-localedef --prefix $DEST --list-archive > $DEST/locales.glibc
-LC_ALL=C unsupported="$(comm -13 $DEST/locales $DEST/locales.glibc)"
-localedef --prefix $DEST --delete-from-archive $unsupported
-mv $DEST/usr/lib/locale/locale-archive $DEST/usr/lib/locale/locale-archive.tmpl
-/usr/sbin/chroot $DEST /usr/sbin/build-locale-archive
-
-rm -f $DEST/locales $DEST/locales.list $DEST/locales.glibc
+rm -f $DEST/locales $DEST/locales.list
 
 # fix up some links for man page related stuff
 for file in nroff groff iconv geqn gtbl gpic grefer ; do
