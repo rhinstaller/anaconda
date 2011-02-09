@@ -130,7 +130,7 @@ if [ ! -z "$UPDATES" ]; then
 fi
 
 if [ -x /usr/bin/udisks ]; then
-    /usr/bin/udisks --inhibit -- "$ANACONDA $*"
+    /usr/bin/udisks --inhibit -- $ANACONDA $*
 else
     $ANACONDA $*
 fi
