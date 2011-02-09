@@ -376,7 +376,7 @@ static char *setupCdrom(char *location, struct loaderData_s *loaderData,
                         queryCDMediaCheck(devices[i]->device, location);
 
                     /* copy stage 2 into RAM */
-                    logMessage("transferring %s to /tmp", stage2loc);
+                    logMessage(INFO, "transferring %s to /tmp", stage2loc);
                     rc = copyFile(stage2loc, "/tmp/install.img");
                     rc = mountStage2("/tmp/install.img");
 
