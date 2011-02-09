@@ -221,6 +221,27 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Tue Feb 08 2011 David Cantrell <dcantrell@redhat.com> - 13.21.95-1
+- Ensure ppc64 ramdisk.image file is <= 32MB (dcantrell)
+  Resolves: rhbz#675685
+- Perform terminations before unmounting filesystems on shutdown. (dlehman)
+  Resolves: rhbz#604614
+- Include killall5 and pidof from sysvinit-tools in the initrd. (dlehman)
+  Related: rhbz#604614
+- Don't unmount /proc or /sys during shutdown. (dlehman)
+  Related: rhbz#604614
+- Remove unused lochangefd functionality. (dlehman)
+  Related: rhbz#604614
+- Don't transfer the stage2 image to the target system. (dlehman)
+  Related: rhbz#604614
+- URL installs no longer have special memory requirements. (dlehman)
+  Related: rhbz#604614
+- Always put stage2 into RAM. (dlehman)
+  Related: rhbz#604614
+- In text mode we have to treat strings and lists separately while printing
+  them (msivak)
+  Resolves: rhbz#674322
+
 * Thu Feb 03 2011 Martin Sivak <msivak@redhat.com> - 13.21.94-1
 - Don't write our own udev persistent net rules; use udev's generator. (notting)
   Resolves: rhbz#674685
