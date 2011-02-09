@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: ru\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
 "POT-Creation-Date: 2011-01-19 10:10-0500\n"
-"PO-Revision-Date: 2011-02-06 22:42+0300\n"
+"PO-Revision-Date: 2011-02-09 22:41+0300\n"
 "Last-Translator: Igor Gorbounov <igor.gorbounov@gmail.com>\n"
 "Language-Team: Russian <fedora-trans-ru@redhat,com>\n"
 "MIME-Version: 1.0\n"
@@ -31,26 +31,25 @@ msgid "Press <enter> for a shell"
 msgstr "Для перехода в командную оболочку нажмите <Enter>"
 
 #: anaconda:329
-#, fuzzy, c-format
+#, c-format
 msgid "%s requires %s MB of memory to install, but you only have %s MB on this machine.\n"
-msgstr "%s требует %s мегабайт памяти для установки, но у вас есть только %s мегабайт на данном компьютере.\n"
+msgstr "%s требует %s МБ памяти для установки, но у вас есть только %s МБ на данном компьютере.\n"
 
 #: anaconda:331
-#, fuzzy, c-format
+#, c-format
 msgid "%s requires %s MB of memory to install using this installation method, but you only have %s MB on this machine.\n"
-msgstr "%s требует %s мегабайт памяти для установки данным методом, но у вас есть только %s мегабайт на данном компьютере.\n"
+msgstr "%s требует %s МБ памяти для установки данным методом, но у вас есть только %s МБ на данном компьютере.\n"
 
 #: anaconda:334
-#, fuzzy, c-format
+#, c-format
 msgid "The %s graphical installer requires %s MB of memory, but you only have %s MB."
-msgstr "Графический установщик %s требует %s мегабайт памяти для установки, но у вас есть только %s мегабайт."
+msgstr "Графический установщик %s требует %s МБ памяти для установки, но у вас есть только %s МБ."
 
 #: anaconda:339
 msgid "Not enough RAM"
 msgstr "Недостаточно ОЗУ"
 
 #: anaconda:340
-#, fuzzy
 msgid ""
 " Try the text mode installer by running:\n"
 "\n"
@@ -58,9 +57,11 @@ msgid ""
 "\n"
 " from a root terminal."
 msgstr ""
-"Попробуйте запустить текстовую установку, выполнив следующую команду в режиме root:\n"
+" Попробуйте запустить установщик в текстовом режиме, выполнив:\n"
 "\n"
-"«/usr/bin/liveinst -T»"
+"'/usr/bin/liveinst -T'\n"
+"\n"
+" из терминала пользователя root."
 
 #: anaconda:343
 msgid " Starting text mode."
@@ -448,7 +449,6 @@ msgstr "Ошибка при активации сети"
 
 #: pyanaconda/gui.py:1157
 #: pyanaconda/text.py:413
-#, fuzzy
 msgid "You do not have an active network connection.  This is required by some exception saving methods.  Would you like to configure your network now?"
 msgstr "У вас нет активного подключения к сети. Оно требуется для некоторых методов, сохраняющих исключения. Хотите настроить сеть сейчас?"
 
@@ -463,7 +463,6 @@ msgstr "Сеть недоступна"
 
 #: pyanaconda/gui.py:1164
 #: pyanaconda/text.py:420
-#, fuzzy
 msgid "Remote exception saving methods will not work."
 msgstr "Методы, сохраняющие дистанционные исключения, не будут работать."
 
@@ -575,15 +574,14 @@ msgid "Missing ISO 9660 Image"
 msgstr "Отсутствует образ ISO 9660"
 
 #: pyanaconda/image.py:165
-#, fuzzy
 msgid ""
 "The installer has tried to mount the installation image, but cannot find it on the hard drive.\n"
 "\n"
 "Please copy this image to the drive and click Retry.  Click Exit to abort the installation."
 msgstr ""
-"Программа установки попыталась смонтировать образ #%s, но он не найден на жестком диске.\n"
+"Программа установки попыталась смонтировать установочный образ, но не смогла найти его на жестком диске.\n"
 "\n"
-"Скопируйте данный образ на накопитель и нажмите «Повторить». Нажмите «Выход», чтобы прервать установку."
+"Скопируйте этот образ на накопитель и нажмите «Повторить». Нажмите «Выход», чтобы прервать установку."
 
 #: pyanaconda/image.py:213
 #: pyanaconda/livecd.py:160
@@ -673,9 +671,8 @@ msgstr[2] "Диски %s содержат метаданные RAID BIOS, но �
 
 #: pyanaconda/installinterfacebase.py:82
 #: data/ui/reinitialize-dialog.glade.h:3
-#, fuzzy
 msgid "Storage Device Warning"
-msgstr "Стандартные накопители"
+msgstr "Предупреждение по поводу устройств хранения"
 
 #: pyanaconda/installinterfacebase.py:131
 #, python-format
@@ -751,9 +748,9 @@ msgid "the device containing /boot"
 msgstr "устройство, содержащее /boot"
 
 #: pyanaconda/iutil.py:843
-#, fuzzy, python-format
+#, python-format
 msgid "After shutdown, please perform a manual IPL from %s to continue installation."
-msgstr "После выключения выполните загрузку IPL вручную с DASD-устройства %s для продолжения установки"
+msgstr "После выключения выполните загрузку IPL вручную с %s для продолжения установки"
 
 #: pyanaconda/kickstart.py:116
 #, python-format
@@ -782,9 +779,8 @@ msgstr ""
 "%s"
 
 #: pyanaconda/kickstart.py:405
-#, fuzzy
 msgid "Could not log into any iSCSI nodes at the portal."
-msgstr "Не удалось зарегистрироваться ни на одном из обнаруженных узлов"
+msgstr "Не удалось зарегистрироваться ни на одном из iSCSI-узлов портала."
 
 #: pyanaconda/kickstart.py:1311
 #, python-format
@@ -1193,14 +1189,12 @@ msgid "CHAP pair and a reverse pair"
 msgstr "CHAP пара и обратная пара"
 
 #: pyanaconda/partIntfHelpers.py:364
-#, fuzzy
 msgid "Use the credentials from the discovery step"
 msgstr "Использовать учетные данные с этапа обнаружения "
 
 #: pyanaconda/partIntfHelpers.py:472
-#, fuzzy
 msgid "iSCSI Nodes"
-msgstr "Сканирование узлов iSCSI"
+msgstr "Узлы iSCSI"
 
 #: pyanaconda/partIntfHelpers.py:473
 msgid "No new iSCSI nodes discovered"
@@ -1211,14 +1205,12 @@ msgid "iSCSI Error"
 msgstr "Ошибка iSCSI"
 
 #: pyanaconda/partIntfHelpers.py:519
-#, fuzzy
 msgid "Discovery"
-msgstr "_Каталог"
+msgstr "Обнаружение"
 
 #: pyanaconda/partIntfHelpers.py:519
-#, fuzzy
 msgid "Login"
-msgstr "Загрузка"
+msgstr "Вход"
 
 #: pyanaconda/partIntfHelpers.py:520
 #, python-format
@@ -1431,17 +1423,16 @@ msgstr "Выход"
 
 #: pyanaconda/rescue.py:379
 #: pyanaconda/rescue.py:479
-#, fuzzy
 msgid "The system will reboot automatically when you exit from the shell."
-msgstr "Отсутствуют разделы Linux. Нажмите Enter для возврата в оболочку. Система будет перезагружена автоматически после выхода из оболочки."
+msgstr "Система будет перезагружена автоматически после выхода из оболочки."
 
 #: pyanaconda/rescue.py:390
-#, fuzzy, python-format
+#, python-format
 msgid "Your system had dirty file systems which you chose not to mount.  Press return to get a shell from which you can fsck and mount your partitions. %s"
-msgstr "В системе есть «грязные» файловые системы, которые не были выбраны для монтирования. Нажмите Enter для входа в оболочку, где можно будет выполнить проверку fsck и смонтировать разделы. После выхода из оболочки система будет автоматически перезагружена."
+msgstr "В системе есть «грязные» файловые системы, которые не были выбраны для монтирования. Нажмите return для входа в оболочку, где можно будет выполнить проверку fsck и смонтировать разделы. %s"
 
 #: pyanaconda/rescue.py:400
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Your system has been mounted under %(rootPath)s.\n"
 "\n"
@@ -1453,14 +1444,14 @@ msgid ""
 msgstr ""
 "Система смонтирована в %(rootPath)s.\n"
 "\n"
-"Нажмите <Enter> для входа в оболочку. Если вы хотите сделать систему корневым окружением, выполните команду:\n"
+"Нажмите <return> для входа в оболочку. Если вы хотите сделать систему корневой средой, выполните команду:\n"
 "\n"
 "\tchroot %(rootPath)s\n"
 "\n"
-"Система будет перезагружена автоматически после выхода из оболочки."
+"%(msg)s"
 
 #: pyanaconda/rescue.py:486
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error occurred trying to mount some or all of your system. Some of it may be mounted under %s.\n"
 "\n"
@@ -1468,25 +1459,24 @@ msgid ""
 msgstr ""
 "При монтировании системы или её части произошла ошибка. Часть её могла быть смонтирована под %s.\n"
 "\n"
-"Нажмите <Enter> для входа в оболочку. Система будет перезагружена автоматически после выхода из оболочки."
+"Нажмите <return> для входа в оболочку. %s"
 
 #: pyanaconda/rescue.py:496
 msgid "You don't have any Linux partitions.  Rebooting.\n"
 msgstr "В системе нет разделов Linux. Будет выполнена перезагрузка.\n"
 
 #: pyanaconda/rescue.py:500
-#, fuzzy
 msgid " The system will reboot automatically when you exit from the shell."
-msgstr "Отсутствуют разделы Linux. Нажмите Enter для возврата в оболочку. Система будет перезагружена автоматически после выхода из оболочки."
+msgstr "Система будет перезагружена автоматически после выхода из оболочки."
 
 #: pyanaconda/rescue.py:504
 msgid "Rescue Mode"
 msgstr "Режим восстановления"
 
 #: pyanaconda/rescue.py:505
-#, fuzzy, python-format
+#, python-format
 msgid "You don't have any Linux partitions. Press return to get a shell.%s"
-msgstr "В системе нет разделов Linux. Будет выполнена перезагрузка.\n"
+msgstr "В системе нет разделов Linux. Нажмите <return> для входа в оболочку.%s"
 
 #: pyanaconda/rescue.py:517
 #, python-format
@@ -1857,7 +1847,7 @@ msgstr[1] "Установлено пакетов: %(donepkgs)d из %(numpkgs)d"
 msgstr[2] "Установлено пакетов: %(donepkgs)d из %(numpkgs)d"
 
 #: pyanaconda/yuminstall.py:233
-#, fuzzy, python-format
+#, python-format
 msgid "<b>Cleaning up %s</b>"
 msgstr "<b>Очистка %s</b>"
 
@@ -1895,9 +1885,9 @@ msgid "Change Disc"
 msgstr "Сменить диск"
 
 #: pyanaconda/yuminstall.py:406
-#, fuzzy, python-format
+#, python-format
 msgid "Please insert the %(productName)s disc to continue."
-msgstr "Для продолжения вставьте диск %(productName)s %(discnum)d."
+msgstr "Для продолжения вставьте диск %(productName)s."
 
 #: pyanaconda/yuminstall.py:415
 msgid "Wrong Disc"
@@ -2212,9 +2202,8 @@ msgid "Requested password contains non-ASCII characters, which are not allowed."
 msgstr "Запрошенный пароль содержит символы, не являющиеся кодами ASCII. В паролях такие символы не допускаются."
 
 #: pyanaconda/iw/advanced_storage.py:249
-#, fuzzy
 msgid "Node Name"
-msgstr "Имя сервера"
+msgstr "Имя узла"
 
 #: pyanaconda/iw/advanced_storage.py:369
 msgid "You must select a NIC to use."
@@ -2271,27 +2260,24 @@ msgstr ""
 "<b>Совет:</b> Этот выбор приведет к удалению данных на выбранных устройствах.  Убедитесь, что у вас есть резервные копии."
 
 #: pyanaconda/iw/autopart_type.py:270
-#, fuzzy
 msgid "_Shrink Current System"
-msgstr "Уменьшить размер существующей системы"
+msgstr "У_меньшить размер текущей системы"
 
 #: pyanaconda/iw/autopart_type.py:272
 msgid "Shrinks existing partitions to create free space for the default layout."
 msgstr "Сокращает существующие разделы, чтобы создать свободное место для стандартного разбиения."
 
 #: pyanaconda/iw/autopart_type.py:274
-#, fuzzy
 msgid "Use _Free Space"
-msgstr "Использовать свободное пространство"
+msgstr "Использовать _свободное пространство"
 
 #: pyanaconda/iw/autopart_type.py:276
 msgid "Retains your current data and partitions and uses only the unpartitioned space on the selected device(s), assuming you have enough free space available."
 msgstr "Сохраняет ваши текущие данные и разделы и использует только неразмеченную область на выбранных устройствах, предполагая, что у вас имеется достаточно свободного места."
 
 #: pyanaconda/iw/autopart_type.py:280
-#, fuzzy
 msgid "Create _Custom Layout"
-msgstr "Создать собственное разбиение"
+msgstr "Создать со_бственное разбиение"
 
 #: pyanaconda/iw/autopart_type.py:282
 msgid "Manually create your own custom layout on the selected device(s) using our partitioning tool."
@@ -2562,18 +2548,16 @@ msgid "What type of devices will your installation involve?"
 msgstr "Какой тип устройства будет использоваться в вашей установке?"
 
 #: pyanaconda/iw/filter_type.py:61
-#, fuzzy
 msgid "B_asic Storage Devices"
-msgstr "Стандартные накопители"
+msgstr "С_тандартные устройства хранения"
 
 #: pyanaconda/iw/filter_type.py:62
 msgid "Installs or upgrades to typical types of storage devices.  If you're not sure which option is right for you, this is probably it."
 msgstr "Установка или обновление на стандартных накопителях. Этот выбор подходит, если вы не уверены, какой вариант следует выбрать."
 
 #: pyanaconda/iw/filter_type.py:66
-#, fuzzy
 msgid "_Specialized Storage Devices"
-msgstr "Специальные устройства хранения"
+msgstr "С_пециальные устройства хранения"
 
 #: pyanaconda/iw/filter_type.py:67
 msgid "Installs or upgrades to enterprise devices such as Storage Area Networks (SANs). This option will allow you to add FCoE / iSCSI / zFCP disks and to filter out devices the installer should ignore."
@@ -2848,7 +2832,7 @@ msgstr "Занято:"
 
 #: pyanaconda/iw/lvm_dialog_gui.py:1383
 msgid "Snapshot Total:"
-msgstr ""
+msgstr "Общий срез:"
 
 #: pyanaconda/iw/lvm_dialog_gui.py:1403
 msgid "Free Space:"
@@ -3626,14 +3610,14 @@ msgid "Scanning"
 msgstr "Выполняется проверка"
 
 #: loader/cdinstall.c:266
-#, fuzzy, c-format
+#, c-format
 msgid "Looking for installation media on CD device %s\n"
-msgstr "Выполняется поиск установочных образов на устройстве %s\n"
+msgstr "Выполняется поиск установочных носителей на CD-устройстве %s\n"
 
 #: loader/cdinstall.c:268
-#, fuzzy, c-format
+#, c-format
 msgid "Looking for installation media on CD device %s"
-msgstr "Выполняется поиск установочных образов на устройстве %s"
+msgstr "Выполняется поиск установочных носителей на CD-устройстве %s"
 
 #: loader/cdinstall.c:335
 #, c-format
@@ -3846,9 +3830,8 @@ msgstr "Выбор раздела"
 #: loader/hdinstall.c:283
 #: loader/hdinstall.c:301
 #: loader/hdinstall.c:310
-#, fuzzy
 msgid "That directory does not contain installation media."
-msgstr "Этот каталог не содержит установочный образ %s."
+msgstr "Этот каталог не содержит установочных носителей."
 
 #: loader/hdinstall.c:349
 #, c-format
@@ -3994,14 +3977,14 @@ msgid "Error downloading updates image"
 msgstr "Ошибка загрузки образа обновлений"
 
 #: loader/loader.c:1186
-#, fuzzy, c-format
+#, c-format
 msgid "%s requires %d MB of memory, to install, but you only have %d MB."
-msgstr "%s требует %s мегабайт памяти для установки, но у вас есть только %s мегабайт."
+msgstr "%s требует %d МБ памяти для установки, но у вас есть только %d МБ."
 
 #: loader/loader.c:1187
-#, fuzzy, c-format
+#, c-format
 msgid "%s requires %d MB of memory to install using this installation method, but you only have %d MB on this machine."
-msgstr "%s требует %s мегабайт памяти для установки данным методом, но у вас есть только %s мегабайт на данном компьютере."
+msgstr "%s требует %d МБ памяти для установки данным методом, но у вас есть только %d МБ на этом компьютере."
 
 #: loader/loader.c:1223
 msgid "Unsupported Hardware Detected"
@@ -4335,9 +4318,8 @@ msgstr "Настройка NFS"
 
 #: loader/nfsinstall.c:196
 #: loader/urlinstall.c:214
-#, fuzzy
 msgid "The URL provided does not contain installation media."
-msgstr "Похоже, что устройство %s не содержит установочный образ."
+msgstr "Предоставленный URLs не содержит установочных носителей."
 
 #: loader/nfsinstall.c:277
 #, c-format
@@ -4445,6 +4427,10 @@ msgid ""
 "<b>WARNING:</b>\n"
 "You are using a GPT bootdisk on a non-EFI system. This may not work, depending on you BIOS's support for booting from GPT disks."
 msgstr ""
+"\n"
+"\n"
+"<b>ПРЕДУПРЕЖДЕНИЕ:</b>\n"
+"Вы используете загрузочный GPT-диск на не-EFI системе. Это может не работать в зависимости от того, поддерживается ли в BIOS загрузка с GPT-дисков."
 
 #: pyanaconda/storage/__init__.py:203
 #: pyanaconda/storage/devicetree.py:104
