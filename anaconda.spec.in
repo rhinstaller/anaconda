@@ -221,6 +221,10 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Tue Feb 08 2011 David Cantrell <dcantrell@redhat.com> - 13.21.96-1
+- Fix logMessage() call in loader/cdinstall.c (dcantrell)
+  Related: rhbz#604614
+
 * Tue Feb 08 2011 David Cantrell <dcantrell@redhat.com> - 13.21.95-1
 - Ensure ppc64 ramdisk.image file is <= 32MB (dcantrell)
   Resolves: rhbz#675685
