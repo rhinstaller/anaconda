@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anaconda.master.gu\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2011-01-19 10:10-0500\n"
-"PO-Revision-Date: 2011-02-01 14:30+0530\n"
+"POT-Creation-Date: 2011-02-07 14:44-0500\n"
+"PO-Revision-Date: 2011-02-09 17:40+0530\n"
 "Last-Translator: Sweta Kothari <swkothar@redhat.com>\n"
 "Language-Team: Gujarati\n"
 "MIME-Version: 1.0\n"
@@ -44,11 +44,11 @@ msgstr ""
 "\n"
 "\n"
 
-#: anaconda:315
+#: anaconda:319
 msgid "Press <enter> for a shell"
 msgstr "શેલ માટે <enter> દબાવો"
 
-#: anaconda:329
+#: anaconda:333
 #, c-format
 msgid ""
 "%s requires %s MB of memory to install, but you only have %s MB on this "
@@ -57,7 +57,7 @@ msgstr ""
 "%s ને સ્થાપિત કરવા માટે %s MB મેમરીની જરૂર છે, પરંતુ તમારી પાસે ફક્ત આ મશીન પર %s MB "
 "છે.\n"
 
-#: anaconda:331
+#: anaconda:335
 #, c-format
 msgid ""
 "%s requires %s MB of memory to install using this installation method, but "
@@ -66,16 +66,16 @@ msgstr ""
 "આ સ્થાપન પદ્દતિની મદદથી સ્થાપિત કરવા માટે %s ને %s MB ની જરૂર છે, પરંતુ તમારી પાસે ફક્ત "
 "આ મશીન પર %s MB છે.\n"
 
-#: anaconda:334
+#: anaconda:338
 #, c-format
 msgid "The %s graphical installer requires %s MB of memory, but you only have %s MB."
 msgstr "%s ગ્રાફિકલ સ્થાપકને %s MB મેમરીની જરૂર છે, પરંતુ તમારી પાસે ફક્ત %s MB છે."
 
-#: anaconda:339
+#: anaconda:343
 msgid "Not enough RAM"
 msgstr "પૂરતી જગ્યા નથી"
 
-#: anaconda:340
+#: anaconda:344
 msgid ""
 " Try the text mode installer by running:\n"
 "\n"
@@ -89,46 +89,42 @@ msgstr ""
 "\n"
 "રુટ ટર્મિનલમાંથી."
 
-#: anaconda:343
+#: anaconda:347
 msgid " Starting text mode."
 msgstr " લખાણ સ્થિતિને શરૂ કરી રહ્યા છે."
 
-#: anaconda:367 pyanaconda/rescue.py:361 pyanaconda/rescue.py:393
-#: pyanaconda/rescue.py:406 pyanaconda/rescue.py:490 pyanaconda/rescue.py:507
-#: pyanaconda/rescue.py:518 pyanaconda/text.py:537 loader/windows.h:30
+#: anaconda:371 pyanaconda/rescue.py:346 pyanaconda/rescue.py:378
+#: pyanaconda/rescue.py:391 pyanaconda/rescue.py:475 pyanaconda/rescue.py:492
+#: pyanaconda/rescue.py:503 pyanaconda/text.py:537 loader/windows.h:30
 #: loader/cdinstall.c:186 loader/cdinstall.c:190 loader/cdinstall.c:205
 #: loader/cdinstall.c:208 loader/cdinstall.c:338 loader/cdinstall.c:341
-#: loader/cdinstall.c:423 loader/dirbrowser.c:130 loader/driverdisk.c:208
+#: loader/cdinstall.c:417 loader/dirbrowser.c:130 loader/driverdisk.c:208
 #: loader/driverdisk.c:392 loader/driverdisk.c:424 loader/driverdisk.c:455
 #: loader/driverdisk.c:490 loader/driverdisk.c:506 loader/driverdisk.c:518
-#: loader/driverdisk.c:526 loader/driverdisk.c:698 loader/driverdisk.c:737
-#: loader/driverselect.c:79 loader/driverselect.c:179 loader/hdinstall.c:222
-#: loader/hdinstall.c:282 loader/hdinstall.c:300 loader/hdinstall.c:309
-#: loader/hdinstall.c:348 loader/hdinstall.c:399 loader/hdinstall.c:438
-#: loader/hdinstall.c:453 loader/kbd.c:118 loader/kickstart.c:135
-#: loader/kickstart.c:145 loader/kickstart.c:187 loader/kickstart.c:192
-#: loader/kickstart.c:299 loader/kickstart.c:339 loader/kickstart.c:355
-#: loader/kickstart.c:382 loader/kickstart.c:571 loader/lang.c:113
-#: loader/lang.c:367 loader/loader.c:422 loader/loader.c:458
-#: loader/loader.c:498 loader/loader.c:516 loader/loader.c:533
-#: loader/loader.c:570 loader/loader.c:1204 loader/loader.c:1223
-#: loader/loader.c:1367 loader/mediacheck.c:47 loader/mediacheck.c:86
-#: loader/mediacheck.c:93 loader/mediacheck.c:97 loader/mediacheck.c:106
-#: loader/method.c:194 loader/method.c:268 loader/net.c:625 loader/net.c:1007
-#: loader/net.c:1655 loader/net.c:1676 loader/net.c:1982 loader/net.c:2001
-#: loader/net.c:2013 loader/nfsinstall.c:92 loader/nfsinstall.c:195
-#: loader/nfsinstall.c:276 loader/urlinstall.c:139 loader/urlinstall.c:161
-#: loader/urlinstall.c:213 loader/urlinstall.c:279 loader/urlinstall.c:290
-#: loader/urlinstall.c:297 loader/urls.c:264 loader/urls.c:335
+#: loader/driverdisk.c:526 loader/driverdisk.c:698 loader/driverselect.c:79
+#: loader/driverselect.c:171 loader/hdinstall.c:222 loader/hdinstall.c:282
+#: loader/hdinstall.c:300 loader/hdinstall.c:309 loader/hdinstall.c:344
+#: loader/hdinstall.c:383 loader/hdinstall.c:398 loader/kbd.c:118
+#: loader/kickstart.c:176 loader/kickstart.c:308 loader/kickstart.c:373
+#: loader/kickstart.c:939 loader/lang.c:113 loader/lang.c:367
+#: loader/loader.c:422 loader/loader.c:458 loader/loader.c:498
+#: loader/loader.c:516 loader/loader.c:533 loader/loader.c:570
+#: loader/loader.c:1204 loader/loader.c:1232 loader/loader.c:1376
+#: loader/mediacheck.c:47 loader/mediacheck.c:86 loader/mediacheck.c:93
+#: loader/mediacheck.c:97 loader/mediacheck.c:106 loader/method.c:194
+#: loader/method.c:268 loader/net.c:625 loader/net.c:1007 loader/net.c:1816
+#: loader/net.c:1835 loader/net.c:1847 loader/nfsinstall.c:92
+#: loader/nfsinstall.c:195 loader/urlinstall.c:139 loader/urlinstall.c:161
+#: loader/urlinstall.c:213 loader/urls.c:264 loader/urls.c:335
 #: loader/urls.c:343 loader/urls.c:350 pyanaconda/textw/constants_text.py:44
 msgid "OK"
 msgstr "બરાબર"
 
-#: anaconda:749
+#: anaconda:753
 msgid "Would you like to use VNC?"
 msgstr "તમે શું VNC ને વાપરવા માંગો છો?"
 
-#: anaconda:750
+#: anaconda:754
 msgid ""
 "Text mode provides a limited set of installation options.  It does not allow "
 "you to specify your own partitioning layout or package selections.  Would "
@@ -138,11 +134,11 @@ msgstr ""
 "લેઆઉટ અથવા પેકેજ પસંદગીઓને સ્પષ્ટ કરવા માટે તમને પરવાનગી આપતુ નથી.  શું તેને બદલે તમે VNC "
 "સ્થિતિને વાપરવા માંગો છો?"
 
-#: anaconda:776
+#: anaconda:780
 msgid "Graphical installation is not available. Starting text mode."
 msgstr "ગ્રાફિકવાળુ સ્થાપન ઉપ્લબ્ધ નથી. લખાણ સ્થિતિ શરૂ કરી રહ્યા છીએ."
 
-#: anaconda:784
+#: anaconda:788
 msgid "DISPLAY variable not set. Starting text mode."
 msgstr "DISPLAY ચલ સુયોજિત નથી. લખાણ સ્થિતિ શરૂ કરી રહ્યા છીએ."
 
@@ -157,11 +153,11 @@ msgid "Installing %s\n"
 msgstr "%s સ્થાપિત કરી રહ્યા છીએ\n"
 
 #: pyanaconda/bootloader.py:55 pyanaconda/bootloader.py:221
-#: pyanaconda/bootloader.py:227 pyanaconda/gui.py:1156 pyanaconda/image.py:73
+#: pyanaconda/bootloader.py:227 pyanaconda/gui.py:1149 pyanaconda/image.py:73
 #: pyanaconda/installinterfacebase.py:51
 #: pyanaconda/installinterfacebase.py:130 pyanaconda/packages.py:320
 #: pyanaconda/text.py:412 pyanaconda/yuminstall.py:1498
-#: pyanaconda/yuminstall.py:1636 pyanaconda/yuminstall.py:1671
+#: pyanaconda/yuminstall.py:1623 pyanaconda/yuminstall.py:1658
 #: pyanaconda/iw/blpasswidget.py:149 pyanaconda/iw/upgrade_swap_gui.py:190
 #: pyanaconda/iw/upgrade_swap_gui.py:198 pyanaconda/iw/upgrade_swap_gui.py:205
 #: pyanaconda/textw/upgrade_text.py:193
@@ -179,8 +175,8 @@ msgstr ""
 "\n"
 "શું તમે સ્થાપન સાથે ચાલુ રાખવા ઈચ્છો છો?"
 
-#: pyanaconda/bootloader.py:60 pyanaconda/gui.py:1179 pyanaconda/gui.py:1216
-#: pyanaconda/gui.py:1418 pyanaconda/image.py:82 pyanaconda/livecd.py:167
+#: pyanaconda/bootloader.py:60 pyanaconda/gui.py:1172 pyanaconda/gui.py:1209
+#: pyanaconda/gui.py:1411 pyanaconda/image.py:82 pyanaconda/livecd.py:167
 #: pyanaconda/packages.py:137 pyanaconda/upgrade.py:58
 #: pyanaconda/upgrade.py:98 pyanaconda/upgrade.py:254
 #: pyanaconda/yuminstall.py:259 pyanaconda/yuminstall.py:824
@@ -190,15 +186,15 @@ msgstr ""
 #: pyanaconda/yuminstall.py:1316 pyanaconda/yuminstall.py:1507
 #: pyanaconda/yuminstall.py:1526 pyanaconda/yuminstall.py:1549
 #: pyanaconda/storage/__init__.py:113 pyanaconda/storage/__init__.py:122
-#: pyanaconda/storage/__init__.py:250 pyanaconda/storage/__init__.py:2035
+#: pyanaconda/storage/__init__.py:250 pyanaconda/storage/__init__.py:2023
 msgid "_Exit installer"
 msgstr "સ્થાપકમાંથી બહાર નીકળો (_E)"
 
 #: pyanaconda/bootloader.py:60 pyanaconda/image.py:83
-#: pyanaconda/kickstart.py:1425 pyanaconda/kickstart.py:1464
+#: pyanaconda/kickstart.py:1420 pyanaconda/kickstart.py:1459
 #: pyanaconda/upgrade.py:58 pyanaconda/upgrade.py:98
 #: pyanaconda/yuminstall.py:1321 pyanaconda/yuminstall.py:1508
-#: pyanaconda/iw/partition_gui.py:1602 pyanaconda/storage/__init__.py:2036
+#: pyanaconda/iw/partition_gui.py:1602 pyanaconda/storage/__init__.py:2024
 msgid "_Continue"
 msgstr "ચાલુ રાખો (_C)"
 
@@ -230,10 +226,10 @@ msgstr "સમાપ્ત"
 msgid "In progress"
 msgstr "પ્રગતિમાં છે"
 
-#: pyanaconda/cmdline.py:89 pyanaconda/gui.py:1211
-#: pyanaconda/kickstart.py:1212 pyanaconda/kickstart.py:1292
-#: pyanaconda/kickstart.py:1300 pyanaconda/kickstart.py:1336
-#: pyanaconda/kickstart.py:1346 pyanaconda/text.py:393
+#: pyanaconda/cmdline.py:89 pyanaconda/gui.py:1204
+#: pyanaconda/kickstart.py:1214 pyanaconda/kickstart.py:1294
+#: pyanaconda/kickstart.py:1302 pyanaconda/kickstart.py:1331
+#: pyanaconda/kickstart.py:1341 pyanaconda/text.py:393
 #, python-format
 msgid ""
 "The following error was found while parsing the kickstart configuration "
@@ -316,7 +312,7 @@ msgstr ""
 "સ્ક્રીનશોટ સંગ્રહવામાં ભૂલ ઉદ્ભવી. જો આ પેકેજના સ્થાપન દરમ્યાન ઉદ્ભવે, તમારે એની સફળતા માટે "
 "ઘણી વખત વાપરવાનો પ્રયત્ન કરવો જોઈએ."
 
-#: pyanaconda/gui.py:528 pyanaconda/text.py:150
+#: pyanaconda/gui.py:521 pyanaconda/text.py:150
 msgid ""
 "Choose a passphrase for the encrypted devices. You will be prompted for this "
 "passphrase during system boot."
@@ -324,20 +320,20 @@ msgstr ""
 "તમારા એનક્રિપ્ટ થયેલ ઉપકરણો માટે પાસફ્રેઝ પસંદ કરો. તમને સિસ્ટમ બુટ દરમ્યાન આ પાસફ્રેઝ "
 "માટે પ્રોમ્પ્ટ કરેલ હશે."
 
-#: pyanaconda/gui.py:547 pyanaconda/gui.py:555 pyanaconda/text.py:188
+#: pyanaconda/gui.py:540 pyanaconda/gui.py:548 pyanaconda/text.py:188
 #: pyanaconda/text.py:198
 msgid "Error with passphrase"
 msgstr "પાસફ્રેઝ સાથે ભૂલ છે"
 
-#: pyanaconda/gui.py:548 pyanaconda/text.py:189
+#: pyanaconda/gui.py:541 pyanaconda/text.py:189
 msgid "The passphrases you entered were different.  Please try again."
 msgstr "તમે દાખલ કરેલ પાસફ્રેઝો અલગ હતા.  મહેરબાની કરીને ફરીથી પ્રયાસ કરો."
 
-#: pyanaconda/gui.py:556
+#: pyanaconda/gui.py:549
 msgid "The passphrase must be at least eight characters long."
 msgstr "પાસફ્રેઝ ઓછામાં ઓછા આઠ અક્ષરો લાંબો હોવો જોઈએ."
 
-#: pyanaconda/gui.py:590 pyanaconda/text.py:226
+#: pyanaconda/gui.py:583 pyanaconda/text.py:226
 #, python-format
 msgid ""
 "Device %s is encrypted. In order to access the device's contents during "
@@ -346,56 +342,56 @@ msgstr ""
 "ઉપકરણ %s એનક્રિપ્ટ થઈ ગયેલ છે. ઉપકરણના સમાવિષ્ટો સ્થાપન દરમ્યાન વાપરવા માટે તમારે "
 "ઉપકરણનો પાસફ્રેઝ નીચે દાખલ કરવો જ પડશે."
 
-#: pyanaconda/gui.py:682 pyanaconda/gui.py:1418
+#: pyanaconda/gui.py:675 pyanaconda/gui.py:1411
 #: pyanaconda/partIntfHelpers.py:159 pyanaconda/partIntfHelpers.py:344
 #: pyanaconda/text.py:101 pyanaconda/text.py:102
 #: pyanaconda/iw/account_gui.py:131 loader/dirbrowser.c:130
-#: loader/driverdisk.c:393 loader/kickstart.c:382 loader/loader.c:458
+#: loader/driverdisk.c:393 loader/kickstart.c:373 loader/loader.c:458
 #: loader/loader.c:570 pyanaconda/textw/constants_text.py:48
 msgid "Cancel"
 msgstr "નકારો"
 
-#: pyanaconda/gui.py:694 pyanaconda/gui.py:695 pyanaconda/gui.py:791
-#: pyanaconda/gui.py:863 pyanaconda/gui.py:864 data/ui/anaconda.glade.h:3
+#: pyanaconda/gui.py:687 pyanaconda/gui.py:688 pyanaconda/gui.py:784
+#: pyanaconda/gui.py:856 pyanaconda/gui.py:857 data/ui/anaconda.glade.h:3
 msgid "_Debug"
 msgstr "ડિબગ (_D)"
 
-#: pyanaconda/gui.py:990
+#: pyanaconda/gui.py:983
 msgid "Wireless setup"
 msgstr "વાયરલેસ સુયોજન"
 
-#: pyanaconda/gui.py:991
+#: pyanaconda/gui.py:984
 msgid "Scanning access points for wireless devices"
 msgstr "વાયરલેસ ઉપકરણો માટે પ્રવેશ બિંદુઓનું સ્કેન કરી રહ્યા છે"
 
-#: pyanaconda/gui.py:1019 pyanaconda/textw/netconfig_text.py:399
+#: pyanaconda/gui.py:1012 pyanaconda/textw/netconfig_text.py:399
 msgid "Waiting for NetworkManager"
 msgstr "NetworkManager માટે રાહ જોઇ રહ્યા છે"
 
-#: pyanaconda/gui.py:1020
+#: pyanaconda/gui.py:1013
 #, python-format
 msgid "Waiting for NetworkManager to activate these devices: %s"
 msgstr "આ ઉપકરણોને સક્રિય કરવા NetworkManager માટે રાહ જોઇ રહ્યા છે: %s"
 
-#: pyanaconda/gui.py:1047
+#: pyanaconda/gui.py:1040
 #, python-format
 msgid "Failed to activate these network interfaces: %s"
 msgstr "આ નેટવર્ક ઇન્ટરફેસોને સક્રિય કરવા દરમ્યાન નિષ્ફળ: %s"
 
-#: pyanaconda/gui.py:1050
+#: pyanaconda/gui.py:1043
 msgid "Network Configuration"
 msgstr "નેટવર્ક રૂપરેખાંકન"
 
-#: pyanaconda/gui.py:1059
+#: pyanaconda/gui.py:1052
 #, python-format
 msgid "An error occurred trying to bring up the %s network interface."
 msgstr "%s નેટવર્ક ઇન્ટરફેસને લાવવા માટે પ્રયત્ન કરતા ભૂલ ઉદ્ભવી હતી."
 
-#: pyanaconda/gui.py:1061
+#: pyanaconda/gui.py:1054
 msgid "Error Enabling Network"
 msgstr "નેટવર્કને સક્રિય કરતી વખતે ભૂલ"
 
-#: pyanaconda/gui.py:1157 pyanaconda/text.py:413
+#: pyanaconda/gui.py:1150 pyanaconda/text.py:413
 msgid ""
 "You do not have an active network connection.  This is required by some "
 "exception saving methods.  Would you like to configure your network now?"
@@ -403,29 +399,29 @@ msgstr ""
 "તમારી પાસે સક્રિય નેટવર્ક જોડાણ નથી.  આ પદ્દતિઓને અમુક રીતે સંગ્રહ કરવા માટે જરૂરી છે.  શું "
 "તમે હવે તમારા નેટવર્કને રૂપરેખાંકિત કરવા માંગો છો?"
 
-#: pyanaconda/gui.py:1163 pyanaconda/rescue.py:270 pyanaconda/text.py:419
+#: pyanaconda/gui.py:1156 pyanaconda/rescue.py:255 pyanaconda/text.py:419
 #: pyanaconda/yuminstall.py:819 pyanaconda/yuminstall.py:1241
 #: pyanaconda/iw/task_gui.py:308
 msgid "No Network Available"
 msgstr "નેટવર્ક ઉપલબ્ધ નથી"
 
-#: pyanaconda/gui.py:1164 pyanaconda/text.py:420
+#: pyanaconda/gui.py:1157 pyanaconda/text.py:420
 msgid "Remote exception saving methods will not work."
 msgstr "દૂરસ્થ અપવાદને પદ્દતિઓને સંગ્રહી રાખવાનું કામ કરશે નહિં."
 
-#: pyanaconda/gui.py:1213 pyanaconda/text.py:395
+#: pyanaconda/gui.py:1206 pyanaconda/text.py:395
 msgid "Error Parsing Kickstart Config"
 msgstr "કિકસ્ટાર્ટ રૂપરેખા ચકાસતી વખતે ભૂલ"
 
-#: pyanaconda/gui.py:1241
+#: pyanaconda/gui.py:1234
 msgid "default:LTR"
 msgstr "મૂળભૂત:LTR"
 
-#: pyanaconda/gui.py:1322 pyanaconda/text.py:514
+#: pyanaconda/gui.py:1315 pyanaconda/text.py:514
 msgid "Error!"
 msgstr "ભૂલ!"
 
-#: pyanaconda/gui.py:1323 pyanaconda/text.py:515
+#: pyanaconda/gui.py:1316 pyanaconda/text.py:515
 #, python-format
 msgid ""
 "An error occurred when attempting to load an installer interface component.\n"
@@ -436,49 +432,49 @@ msgstr ""
 "\n"
 "className = %s"
 
-#: pyanaconda/gui.py:1328 pyanaconda/image.py:145 pyanaconda/image.py:173
-#: pyanaconda/packages.py:337 pyanaconda/storage/__init__.py:1852
+#: pyanaconda/gui.py:1321 pyanaconda/image.py:145 pyanaconda/image.py:173
+#: pyanaconda/packages.py:337 pyanaconda/storage/__init__.py:1840
 msgid "_Exit"
 msgstr "બહાર નીકળો (_E)"
 
-#: pyanaconda/gui.py:1329 pyanaconda/image.py:145 pyanaconda/image.py:173
+#: pyanaconda/gui.py:1322 pyanaconda/image.py:145 pyanaconda/image.py:173
 #: pyanaconda/livecd.py:167 pyanaconda/yuminstall.py:911
 #: pyanaconda/yuminstall.py:1261 pyanaconda/yuminstall.py:1316
 #: pyanaconda/yuminstall.py:1526
 msgid "_Retry"
 msgstr "પુનઃપ્રયાસ (_R)"
 
-#: pyanaconda/gui.py:1331 pyanaconda/storage/partitioning.py:282
+#: pyanaconda/gui.py:1324 pyanaconda/storage/partitioning.py:283
 msgid "The system will now reboot."
 msgstr "સિસ્ટમ હવે રીબુટ થશે."
 
-#: pyanaconda/gui.py:1332 pyanaconda/packages.py:341
+#: pyanaconda/gui.py:1325 pyanaconda/packages.py:341
 msgid "_Reboot"
 msgstr "રીબુટ (_R)"
 
-#: pyanaconda/gui.py:1334
+#: pyanaconda/gui.py:1327
 msgid "Exiting"
 msgstr "બહાર નીકળી રહ્યા છીએ"
 
-#: pyanaconda/gui.py:1415 pyanaconda/livecd.py:126 pyanaconda/text.py:271
+#: pyanaconda/gui.py:1408 pyanaconda/livecd.py:126 pyanaconda/text.py:271
 #: pyanaconda/upgrade.py:245
 msgid "Exit installer"
 msgstr "સ્થાપકમાંથી બહાર નીકળો"
 
-#: pyanaconda/gui.py:1416
+#: pyanaconda/gui.py:1409
 msgid "Are you sure you wish to exit the installer?"
 msgstr "શું તમે ખરેખર સ્થાપક માંથી બહાર નીકળવા કરવા માંગો છો?"
 
-#: pyanaconda/gui.py:1425
+#: pyanaconda/gui.py:1418
 #, python-format
 msgid "%s Installer"
 msgstr "%s સ્થાપક"
 
-#: pyanaconda/gui.py:1431
+#: pyanaconda/gui.py:1424
 msgid "Unable to load title bar"
 msgstr "શીર્ષક પટ્ટી લાવવામાં અસમર્થ"
 
-#: pyanaconda/gui.py:1506
+#: pyanaconda/gui.py:1499
 msgid "Install Window"
 msgstr "સ્થાપક વિન્ડો"
 
@@ -536,26 +532,26 @@ msgstr ""
 #: pyanaconda/yuminstall.py:914 pyanaconda/yuminstall.py:1001
 #: pyanaconda/yuminstall.py:1006 pyanaconda/yuminstall.py:1266
 #: pyanaconda/yuminstall.py:1326 pyanaconda/yuminstall.py:1520
-#: pyanaconda/yuminstall.py:1542 pyanaconda/iw/advanced_storage.py:368
-#: pyanaconda/iw/advanced_storage.py:378 pyanaconda/iw/advanced_storage.py:427
+#: pyanaconda/yuminstall.py:1542 pyanaconda/iw/advanced_storage.py:371
+#: pyanaconda/iw/advanced_storage.py:381 pyanaconda/iw/advanced_storage.py:431
 #: pyanaconda/iw/autopart_type.py:95 pyanaconda/iw/cleardisks_gui.py:44
 #: pyanaconda/iw/cleardisks_gui.py:54 pyanaconda/iw/filter_gui.py:432
 #: pyanaconda/iw/osbootwidget.py:211 pyanaconda/iw/osbootwidget.py:220
 #: pyanaconda/iw/raid_dialog_gui.py:226 pyanaconda/iw/task_gui.py:52
 #: pyanaconda/iw/task_gui.py:150 pyanaconda/iw/task_gui.py:302
 #: pyanaconda/iw/task_gui.py:464 loader/windows.h:30 loader/cdinstall.c:186
-#: loader/cdinstall.c:423 loader/driverdisk.c:208 loader/driverdisk.c:455
+#: loader/cdinstall.c:417 loader/driverdisk.c:208 loader/driverdisk.c:455
 #: loader/driverdisk.c:490 loader/driverdisk.c:518 loader/driverdisk.c:526
 #: loader/driverdisk.c:598 loader/hdinstall.c:282 loader/hdinstall.c:300
-#: loader/hdinstall.c:309 loader/hdinstall.c:399 loader/hdinstall.c:438
-#: loader/hdinstall.c:453 loader/kickstart.c:299 loader/lang.c:113
+#: loader/hdinstall.c:309 loader/hdinstall.c:344 loader/hdinstall.c:383
+#: loader/hdinstall.c:398 loader/kickstart.c:308 loader/lang.c:113
 #: loader/loader.c:422 loader/loader.c:533 loader/loader.c:1204
 #: loader/mediacheck.c:47 loader/mediacheck.c:86 loader/mediacheck.c:93
 #: loader/mediacheck.c:97 loader/method.c:194 loader/method.c:268
 #: loader/nfsinstall.c:195 loader/urlinstall.c:139 loader/urlinstall.c:161
 #: loader/urlinstall.c:213 loader/urls.c:335 loader/urls.c:343
 #: loader/urls.c:350 pyanaconda/storage/__init__.py:246
-#: pyanaconda/storage/__init__.py:1853 pyanaconda/storage/__init__.py:1940
+#: pyanaconda/storage/__init__.py:1841 pyanaconda/storage/__init__.py:1928
 #: pyanaconda/storage/zfcp.py:375 pyanaconda/textw/upgrade_text.py:181
 #: pyanaconda/textw/upgrade_text.py:188
 msgid "Error"
@@ -712,33 +708,23 @@ msgstr ""
 msgid "Could not log into any iSCSI nodes at the portal."
 msgstr "પોર્ટલ પર કોઇપણ iSCSI નોડમાં પ્રવેશી શક્યા નહિં."
 
-#: pyanaconda/kickstart.py:1311
-#, python-format
-msgid "Error processing %%ksappend lines: %s"
-msgstr "%%ksappend લીટીઓ પર પ્રક્રિયા કરવામાં ભૂલ: %s"
-
-#: pyanaconda/kickstart.py:1314
-#, python-format
-msgid "Unknown error processing %%ksappend lines: %s"
-msgstr "%%ksappend લીટીઓ પર પ્રક્રિયા કરવામાં અજ્ઞાત ભૂલ: %s"
-
-#: pyanaconda/kickstart.py:1369 pyanaconda/livecd.py:190
+#: pyanaconda/kickstart.py:1364 pyanaconda/livecd.py:190
 msgid "Post-Installation"
 msgstr "સ્થાપન પછી"
 
-#: pyanaconda/kickstart.py:1370
+#: pyanaconda/kickstart.py:1365
 msgid "Running post-installation scripts"
 msgstr "સ્થાપન-પછીની સ્ક્રિપ્ટો ચાલી રહી છે"
 
-#: pyanaconda/kickstart.py:1385
+#: pyanaconda/kickstart.py:1380
 msgid "Running pre-installation scripts"
 msgstr "પૂર્વ-સ્થાપન સ્ક્રિપ્ટો ચાલી રહી છે"
 
-#: pyanaconda/kickstart.py:1416
+#: pyanaconda/kickstart.py:1411
 msgid "Missing Package"
 msgstr "ગુમ થયેલ પેકેજ"
 
-#: pyanaconda/kickstart.py:1417
+#: pyanaconda/kickstart.py:1412
 #, python-format
 msgid ""
 "You have specified that the package '%s' should be installed.  This package "
@@ -747,19 +733,19 @@ msgstr ""
 "તમે સ્પષ્ટ કરેલ છે કે પેકેજ '%s' એ સ્થાપિત થયેલ હોવું જોઈએ.  આ પેકેજ અસ્તિત્વમાં નથી. શું તમે "
 "ચાલુ રાખવા માંગો છો અથવા તમારું સ્થાપન અડધેથી બંધ કરવા માંગો છો?"
 
-#: pyanaconda/kickstart.py:1423 pyanaconda/kickstart.py:1462
+#: pyanaconda/kickstart.py:1418 pyanaconda/kickstart.py:1457
 msgid "_Abort"
 msgstr "અડધેથી બંધ કરો (_A)"
 
-#: pyanaconda/kickstart.py:1424 pyanaconda/kickstart.py:1463
+#: pyanaconda/kickstart.py:1419 pyanaconda/kickstart.py:1458
 msgid "_Ignore All"
 msgstr "બધુ અવગણો (_I)"
 
-#: pyanaconda/kickstart.py:1454
+#: pyanaconda/kickstart.py:1449
 msgid "Missing Group"
 msgstr "ગુમ થયેલ જૂથ"
 
-#: pyanaconda/kickstart.py:1455
+#: pyanaconda/kickstart.py:1450
 #, python-format
 msgid ""
 "You have specified that the group '%s' should be installed. This group does "
@@ -768,7 +754,7 @@ msgstr ""
 "તમે સ્પષ્ટ કરેલ છે કે જૂથ '%s' સ્થાપિત થયેલ હોવું જોઈએ. આ જૂથ અસ્તિત્વમાં નથી. શું તમે ચાલુ "
 "રાખવા માંગો છો અથવા તમારું સ્થાપન અડધેથી બંધ કરવા માંગો છો?"
 
-#: pyanaconda/kickstart.py:1552
+#: pyanaconda/kickstart.py:1547
 #, python-format
 msgid ""
 "The kickstart configuration file is missing required information that "
@@ -1196,18 +1182,18 @@ msgid "iSCSI %s Error"
 msgstr "iSCSI %s ભૂલ"
 
 #: pyanaconda/platform.py:99 pyanaconda/platform.py:351
-#: pyanaconda/platform.py:419 pyanaconda/platform.py:534
+#: pyanaconda/platform.py:419 pyanaconda/platform.py:541
 #: data/ui/create-storage.glade.h:15
 msgid "RAID Device"
 msgstr "RAID ઉપકરણ"
 
 #: pyanaconda/platform.py:100 pyanaconda/platform.py:103
 #: pyanaconda/platform.py:352 pyanaconda/platform.py:420
-#: pyanaconda/platform.py:535 pyanaconda/platform.py:538
+#: pyanaconda/platform.py:542 pyanaconda/platform.py:545
 msgid "Master Boot Record (MBR)"
 msgstr "માસ્ટર બુટ રેકોર્ડ (MBR)"
 
-#: pyanaconda/platform.py:102 pyanaconda/platform.py:537
+#: pyanaconda/platform.py:102 pyanaconda/platform.py:544
 msgid "First sector of boot partition"
 msgstr "બુટ પાર્ટીશનનો પ્રથમ સેક્ટર"
 
@@ -1284,49 +1270,49 @@ msgstr "Apple બુટસ્ટ્રેપ"
 msgid "%s must have a mac disk label."
 msgstr "%s પાસે mac ડિસ્ક લેબલ હોવુ જ જોઇએ."
 
-#: pyanaconda/rescue.py:226 pyanaconda/rescue.py:382 pyanaconda/rescue.py:482
+#: pyanaconda/rescue.py:211 pyanaconda/rescue.py:367 pyanaconda/rescue.py:467
 #, python-format
 msgid "Run %s to unmount the system when you are finished."
 msgstr "સિસ્ટમને અનમાઉન્ટ કરવા માટે %s ને ચલાવો જ્યારે તમે સમાપ્ત થાઓ."
 
-#: pyanaconda/rescue.py:229
+#: pyanaconda/rescue.py:214
 msgid "When finished please exit from the shell and your system will reboot."
 msgstr "જ્યારે પૂર્ણ થાય ત્યારે મહેરબાની કરીને શેલમાંથી બહાર નીકળો અને તમારી સિસ્ટમ રીબુટ થશે."
 
-#: pyanaconda/rescue.py:243
+#: pyanaconda/rescue.py:228
 msgid "Unable to find /bin/sh to execute!  Not starting shell"
 msgstr "/bin/sh ચલાવવાનુ શોધવામાં અસમર્થ!  શેલ ની શરૂઆત નથી કરી રહ્યા"
 
-#: pyanaconda/rescue.py:262
+#: pyanaconda/rescue.py:247
 msgid "Setup Networking"
 msgstr "સેટઅપ નેટવર્કીંગ"
 
-#: pyanaconda/rescue.py:263
+#: pyanaconda/rescue.py:248
 msgid "Do you want to start the network interfaces on this system?"
 msgstr "શું તમે આ સિસ્ટમ પર નેટવર્ક ઈન્ટરફેસ શરુ કરવા માંગો છો?"
 
-#: pyanaconda/rescue.py:264 loader/driverdisk.c:638 loader/driverdisk.c:648
+#: pyanaconda/rescue.py:249 loader/driverdisk.c:638 loader/driverdisk.c:648
 #: loader/hdinstall.c:168 pyanaconda/textw/constants_text.py:56
 msgid "Yes"
 msgstr "હા"
 
-#: pyanaconda/rescue.py:264 pyanaconda/rescue.py:266 loader/driverdisk.c:638
+#: pyanaconda/rescue.py:249 pyanaconda/rescue.py:251 loader/driverdisk.c:638
 #: loader/driverdisk.c:648 pyanaconda/textw/constants_text.py:60
 msgid "No"
 msgstr "ના"
 
-#: pyanaconda/rescue.py:271
+#: pyanaconda/rescue.py:256
 msgid ""
 "Unable to activate a networking device.  Networking will not be available in "
 "rescue mode."
 msgstr "નેટવર્કીંગ ઉપકરણને સક્રિય કરવામાં નિષ્ફળ.  નેટવર્કીંગ બચાવ સ્થિતિમાં ઉપલબ્ધ હશે નહિં."
 
-#: pyanaconda/rescue.py:307 pyanaconda/rescue.py:389 pyanaconda/rescue.py:399
-#: pyanaconda/rescue.py:485 pyanaconda/rescue.py:518
+#: pyanaconda/rescue.py:292 pyanaconda/rescue.py:374 pyanaconda/rescue.py:384
+#: pyanaconda/rescue.py:470 pyanaconda/rescue.py:503
 msgid "Rescue"
 msgstr "જોખમ"
 
-#: pyanaconda/rescue.py:308
+#: pyanaconda/rescue.py:293
 #, python-format
 msgid ""
 "The rescue environment will now attempt to find your Linux installation and "
@@ -1350,44 +1336,44 @@ msgstr ""
 "અને તમે સીધા જ આદેશ શેલ પર જશો.\n"
 "\n"
 
-#: pyanaconda/rescue.py:319 pyanaconda/iw/partition_gui.py:788
+#: pyanaconda/rescue.py:304 pyanaconda/iw/partition_gui.py:788
 #: loader/driverdisk.c:599 pyanaconda/storage/__init__.py:168
 #: pyanaconda/storage/devicetree.py:95
 msgid "Continue"
 msgstr "ચાલુ રાખો"
 
-#: pyanaconda/rescue.py:319 pyanaconda/rescue.py:328
+#: pyanaconda/rescue.py:304 pyanaconda/rescue.py:313
 msgid "Read-Only"
 msgstr "માત્ર વાંચી શકાય તેવું"
 
-#: pyanaconda/rescue.py:319 pyanaconda/rescue.py:321 loader/cdinstall.c:205
+#: pyanaconda/rescue.py:304 pyanaconda/rescue.py:306 loader/cdinstall.c:205
 #: loader/cdinstall.c:208 loader/method.c:241
-#: pyanaconda/storage/__init__.py:1852 pyanaconda/textw/upgrade_text.py:139
+#: pyanaconda/storage/__init__.py:1840 pyanaconda/textw/upgrade_text.py:139
 msgid "Skip"
 msgstr "છોડી દો"
 
-#: pyanaconda/rescue.py:319 pyanaconda/rescue.py:324
+#: pyanaconda/rescue.py:304 pyanaconda/rescue.py:309
 msgid "Advanced"
 msgstr "ઉન્નત"
 
-#: pyanaconda/rescue.py:358
+#: pyanaconda/rescue.py:343
 msgid "System to Rescue"
 msgstr "જોખમી સિસ્ટમ"
 
-#: pyanaconda/rescue.py:359
+#: pyanaconda/rescue.py:344
 msgid "Which device holds the root partition of your installation?"
 msgstr "કયો ઉપકરણ તમારા રુટ પાર્ટીશનના સ્થાપનને પકડી રાખશે?"
 
-#: pyanaconda/rescue.py:361 pyanaconda/rescue.py:365 pyanaconda/text.py:519
+#: pyanaconda/rescue.py:346 pyanaconda/rescue.py:350 pyanaconda/text.py:519
 #: pyanaconda/text.py:521
 msgid "Exit"
 msgstr "બહાર નીકળો"
 
-#: pyanaconda/rescue.py:379 pyanaconda/rescue.py:479
+#: pyanaconda/rescue.py:364 pyanaconda/rescue.py:464
 msgid "The system will reboot automatically when you exit from the shell."
 msgstr "સિસ્ટમ આપમેળે રિબુટ થઇ જશે જ્યારે તમે શેલમાંથી બહાર નીકળો."
 
-#: pyanaconda/rescue.py:390
+#: pyanaconda/rescue.py:375
 #, python-format
 msgid ""
 "Your system had dirty file systems which you chose not to mount.  Press "
@@ -1397,7 +1383,7 @@ msgstr ""
 "મેળવવા માટે પાછા જાઓ બટનને દબાવો કે જેમાંથી તમે તમારા પાર્ટીશનો માઉન્ટ અને fsck કરી "
 "શકો છો. %s"
 
-#: pyanaconda/rescue.py:400
+#: pyanaconda/rescue.py:385
 #, python-format
 msgid ""
 "Your system has been mounted under %(rootPath)s.\n"
@@ -1418,7 +1404,7 @@ msgstr ""
 "\n"
 "%(msg)s"
 
-#: pyanaconda/rescue.py:486
+#: pyanaconda/rescue.py:471
 #, python-format
 msgid ""
 "An error occurred trying to mount some or all of your system. Some of it may "
@@ -1431,24 +1417,24 @@ msgstr ""
 "\n"
 "શેલ મેળવવા માટે <return> દબાવો. %s"
 
-#: pyanaconda/rescue.py:496
+#: pyanaconda/rescue.py:481
 msgid "You don't have any Linux partitions.  Rebooting.\n"
 msgstr "તમારી પાસે કોઇપણ Linux પાર્ટીશનો નથી. રીબુટ કરી રહ્યા છે.\n"
 
-#: pyanaconda/rescue.py:500
+#: pyanaconda/rescue.py:485
 msgid " The system will reboot automatically when you exit from the shell."
 msgstr " સિસ્ટમ આપમેળે રિબુટ થઇ જશે જ્યારે તમે શેલમાંથી બહાર નીકળો."
 
-#: pyanaconda/rescue.py:504
+#: pyanaconda/rescue.py:489
 msgid "Rescue Mode"
 msgstr "જોખમી સ્થિતિ"
 
-#: pyanaconda/rescue.py:505
+#: pyanaconda/rescue.py:490
 #, python-format
 msgid "You don't have any Linux partitions. Press return to get a shell.%s"
 msgstr "તમારી પાસે કોઇપણ Linux પાર્ટીશનો નથી. શેલને મેળવવા માટે પાછા જાઓ બટનને દબાવો.%s"
 
-#: pyanaconda/rescue.py:517
+#: pyanaconda/rescue.py:502
 #, python-format
 msgid "Your system is mounted under the %s directory."
 msgstr "તમારી સિસ્ટમ %s ડિરેક્ટરી હેઠળ માઉન્ટ થયેલ છે."
@@ -2041,7 +2027,7 @@ msgstr ""
 "તમારા પસંદ કરેલ પેકેજોને સ્થાપન માટે %d MB ની મુક્ત જગ્યા જરૂરી છે, પરંતુ તમારી પાસે પૂરતી "
 "જગ્યા ઉપલબ્ધ નથી.  તમે તમારી પસંદગીઓ બદલી શકો અથવા સ્થાપકમાંથી બહાર નીકળી શકો છો."
 
-#: pyanaconda/yuminstall.py:1637
+#: pyanaconda/yuminstall.py:1624
 #, python-format
 msgid ""
 "You appear to be upgrading from a system which is too old to upgrade to this "
@@ -2050,7 +2036,7 @@ msgstr ""
 "તમે સિસ્ટમનો સુધારો કરી રહ્યા છો કે જે %s ની પ્રકાશન માટે સુધારો કરવા માટે ખૂબ જૂની હોય "
 "એમ દેખાય છે.  શું તમે ખરેખર સુધારાની પ્રક્રિયા સાથે ચાલુ રાખવા માંગો છો?"
 
-#: pyanaconda/yuminstall.py:1672
+#: pyanaconda/yuminstall.py:1659
 #, python-format
 msgid ""
 "The arch of the release of %(productName)s you are upgrading to appears to "
@@ -2062,48 +2048,48 @@ msgstr ""
 "લાગે છે કે જે તમારા પૂર્વસ્થાપિત %(arch)s ના આર્કીટેક્ચર સાથે બંધબેસતું હોય એમ લાગતું નથી.  આ "
 "સફળ થશે નહિં એવું લાગે છે.  શું તમે ખરેખર સુધારા પ્રક્રિયા ચાલુ રાખવા ઈચ્છો છો?"
 
-#: pyanaconda/yuminstall.py:1719
+#: pyanaconda/yuminstall.py:1706
 msgid "Post Upgrade"
 msgstr "પોસ્ટ અપગ્રેડ"
 
-#: pyanaconda/yuminstall.py:1720
+#: pyanaconda/yuminstall.py:1707
 msgid "Performing post-upgrade configuration"
 msgstr "સુધારા પછીનાં રૂપરેખાંકનને ચાલુ કરી રહ્યા છે"
 
-#: pyanaconda/yuminstall.py:1722
+#: pyanaconda/yuminstall.py:1709
 msgid "Post Installation"
 msgstr "પોસ્ટ સ્થાપન"
 
-#: pyanaconda/yuminstall.py:1723
+#: pyanaconda/yuminstall.py:1710
 msgid "Performing post-installation configuration"
 msgstr "સ્થાપન પછીનાં રૂપરેખાંકનને ચાલુ કરી રહ્યા છે"
 
-#: pyanaconda/yuminstall.py:1958
+#: pyanaconda/yuminstall.py:1945
 msgid "Installation Starting"
 msgstr "સ્થાપન શરૂ કરી રહ્યા છે"
 
-#: pyanaconda/yuminstall.py:1959
+#: pyanaconda/yuminstall.py:1946
 msgid "Starting installation process"
 msgstr "સ્થાપન પ્રગતિ શરૂ કરી રહ્યા છે"
 
-#: pyanaconda/yuminstall.py:1997
+#: pyanaconda/yuminstall.py:1984
 msgid "Dependency Check"
 msgstr "આધારભૂતપણા ચકાસણી"
 
-#: pyanaconda/yuminstall.py:1998
+#: pyanaconda/yuminstall.py:1985
 msgid "Checking dependencies in packages selected for installation"
 msgstr "સ્થાપન માટે પસંદ થયેલ પેકેજો માટે આધારિતપણું ચકાસી રહ્યા છીએ"
 
-#: pyanaconda/yuminstall.py:2054 pyanaconda/yuminstall.py:2070
+#: pyanaconda/yuminstall.py:2041 pyanaconda/yuminstall.py:2057
 msgid "Retrieving installation information."
 msgstr "સ્થાપન જાણકારી પુનઃપ્રાપ્ત કરી રહ્યા છીએ."
 
-#: pyanaconda/yuminstall.py:2056 pyanaconda/yuminstall.py:2072
+#: pyanaconda/yuminstall.py:2043 pyanaconda/yuminstall.py:2059
 #, python-format
 msgid "Retrieving installation information for %s."
 msgstr "%s માટે સ્થાપન જાણકારી પુન:પ્રાપ્ત કરી રહ્યા છીએ."
 
-#: pyanaconda/yuminstall.py:2057 pyanaconda/yuminstall.py:2073
+#: pyanaconda/yuminstall.py:2044 pyanaconda/yuminstall.py:2060
 msgid "Installation Progress"
 msgstr "સ્થાપન પ્રગતિ"
 
@@ -2220,7 +2206,7 @@ msgstr "અરજી થયેલ પાસવર્ડ બિન-ASCII અક�
 msgid "Node Name"
 msgstr "નોડ નામ"
 
-#: pyanaconda/iw/advanced_storage.py:369
+#: pyanaconda/iw/advanced_storage.py:372
 msgid "You must select a NIC to use."
 msgstr "વાપરવા માટે તમારે NIC ને પસંદ કરવુ જ પડશે."
 
@@ -2374,18 +2360,18 @@ msgstr ""
 "\n"
 "શું તમે આ પાસવર્ડ સાથે ચાલુ રાખવા ઈચ્છો છો?"
 
-#: pyanaconda/iw/bootloader_main_gui.py:36
+#: pyanaconda/iw/bootloader_main_gui.py:37
 msgid "Boot Loader Configuration"
 msgstr "બુટલોડર રૂપરેખાંકન"
 
-#: pyanaconda/iw/bootloader_main_gui.py:180
-#: pyanaconda/iw/bootloader_main_gui.py:185
-#: pyanaconda/iw/bootloader_main_gui.py:223
+#: pyanaconda/iw/bootloader_main_gui.py:182
+#: pyanaconda/iw/bootloader_main_gui.py:187
+#: pyanaconda/iw/bootloader_main_gui.py:225
 #, python-format
 msgid "_Install boot loader on /dev/%s."
 msgstr "/dev/%s પર બુટ લોડર સ્થાપિત કરો (_I)."
 
-#: pyanaconda/iw/bootloader_main_gui.py:229
+#: pyanaconda/iw/bootloader_main_gui.py:235
 msgid "_Change device"
 msgstr "ઉપકરણ બદલો (_C)"
 
@@ -3152,7 +3138,7 @@ msgstr "MD RAID ARRAY %s (%-0.f MB)"
 msgid "Type"
 msgstr "પ્રકાર"
 
-#: pyanaconda/iw/partition_gui.py:619 pyanaconda/storage/__init__.py:1852
+#: pyanaconda/iw/partition_gui.py:619 pyanaconda/storage/__init__.py:1840
 msgid "Format"
 msgstr "બંધારણ"
 
@@ -3325,8 +3311,8 @@ msgstr "PVs ને બનાવવા માટે હાલમાં તમા�
 msgid "About LVM"
 msgstr "LVM વિશે"
 
-#: pyanaconda/iw/partition_gui.py:1588 pyanaconda/storage/partitioning.py:205
-#: pyanaconda/storage/partitioning.py:247
+#: pyanaconda/iw/partition_gui.py:1588 pyanaconda/storage/partitioning.py:206
+#: pyanaconda/storage/partitioning.py:248
 msgid "Error Partitioning"
 msgstr "પાર્ટીશન કરતી વખતે ભૂલ"
 
@@ -3811,18 +3797,18 @@ msgid "Disc Not Found"
 msgstr "ડિસ્ક મળી નથી"
 
 #: loader/cdinstall.c:341 loader/driverdisk.c:393 loader/driverdisk.c:425
-#: loader/driverdisk.c:506 loader/driverselect.c:79 loader/driverselect.c:153
-#: loader/driverselect.c:179 loader/hdinstall.c:168 loader/hdinstall.c:222
+#: loader/driverdisk.c:506 loader/driverselect.c:79 loader/driverselect.c:145
+#: loader/driverselect.c:171 loader/hdinstall.c:168 loader/hdinstall.c:222
 #: loader/kbd.c:118 loader/loader.c:499 loader/loader.c:516
-#: loader/loader.c:1367 loader/loader.c:1407 loader/net.c:625
-#: loader/net.c:1007 loader/net.c:1982 loader/net.c:2001
+#: loader/loader.c:1376 loader/loader.c:1416 loader/net.c:625
+#: loader/net.c:1007 loader/net.c:1816 loader/net.c:1835
 #: loader/nfsinstall.c:92 loader/urls.c:264 pyanaconda/storage/__init__.py:122
 #: pyanaconda/storage/__init__.py:168 pyanaconda/storage/devicetree.py:95
 #: pyanaconda/textw/constants_text.py:52
 msgid "Back"
 msgstr "પાછળ"
 
-#: loader/cdinstall.c:424
+#: loader/cdinstall.c:418
 msgid "Cannot find kickstart file on CDROM."
 msgstr "CDROM પર કિકસ્ટાર્ટ ફાઈલ શોધી શકતા નથી."
 
@@ -3927,12 +3913,7 @@ msgstr "વધુ ડ્રાઈવર ડિસ્ક?"
 msgid "Do you wish to load any more driver disks?"
 msgstr "શું તમે કોઈપણ વધુ ડ્રાઈવર ડિસ્ક લાવવા માંગો છો?"
 
-#: loader/driverdisk.c:698 loader/driverdisk.c:737 loader/hdinstall.c:348
-#: loader/kickstart.c:135 loader/kickstart.c:145 loader/kickstart.c:187
-#: loader/kickstart.c:192 loader/kickstart.c:339 loader/kickstart.c:355
-#: loader/kickstart.c:571 loader/net.c:1655 loader/net.c:1676
-#: loader/nfsinstall.c:276 loader/urlinstall.c:279 loader/urlinstall.c:290
-#: loader/urlinstall.c:297
+#: loader/driverdisk.c:698 loader/kickstart.c:176 loader/kickstart.c:939
 msgid "Kickstart Error"
 msgstr "કિકસ્ટાર્ટ ભૂલ"
 
@@ -3940,13 +3921,6 @@ msgstr "કિકસ્ટાર્ટ ભૂલ"
 #, c-format
 msgid "Unknown driver disk kickstart source: %s"
 msgstr "અજ્ઞાત ડ્રાઈવર ડિસ્ક કિકસ્ટાર્ટ સ્રોત: %s"
-
-#: loader/driverdisk.c:738
-#, c-format
-msgid ""
-"The following invalid argument was specified for the kickstart driver disk "
-"command: %s"
-msgstr "નીચેની અયોગ્ય દલીલો કિકસ્ટાર્ટ ડ્રાઈવર ડિસ્ક આદેશ દ્વારા સ્પષ્ટ કરાયેલ છે: %s"
 
 #: loader/driverselect.c:68
 #, c-format
@@ -3963,21 +3937,21 @@ msgstr ""
 msgid "Enter Module Parameters"
 msgstr "મોડ્યુલ પરિમાણો દાખલ કરો"
 
-#: loader/driverselect.c:152
+#: loader/driverselect.c:144
 msgid "No drivers found"
 msgstr "કોઈ ડ્રાઈવરો મળ્યા નથી"
 
-#: loader/driverselect.c:152
+#: loader/driverselect.c:144
 msgid "Load driver disk"
 msgstr "ડ્રાઈવર ડિસ્ક લાવો"
 
-#: loader/driverselect.c:153
+#: loader/driverselect.c:145
 msgid ""
 "No drivers were found to manually insert.  Would you like to use a driver "
 "disk?"
 msgstr "કોઈ ડ્રાઈવરો જાતે દાખલ કરવા માટે મળ્યા નથી. શું તમે ડ્રાઈવર ડિસ્ક વાપરવા માંગો છો?"
 
-#: loader/driverselect.c:171
+#: loader/driverselect.c:163
 msgid ""
 "Please select the driver below which you wish to load.  If it does not "
 "appear and you have a driver disk, press F2."
@@ -3985,11 +3959,11 @@ msgstr ""
 "નીચેનામાંથી ડ્રાઈવર પસંદ કરો કે જે તમે લાવવા માંગતા હોય. જો તે નહિં દેખાય અને તમારી પાસે "
 "ડ્રાઈવર ડિસ્ક હોય, તો F2 દબાવો."
 
-#: loader/driverselect.c:180
+#: loader/driverselect.c:172
 msgid "Specify optional module arguments"
 msgstr "વૈકલ્પિક મોડ્યુલ દલીલો સ્પષ્ટ કરો"
 
-#: loader/driverselect.c:205
+#: loader/driverselect.c:197
 msgid "Select Device Driver to Load"
 msgstr "લાવવા માટે ઉપકરણ ડ્રાઈવર પસંદ કરો"
 
@@ -4024,16 +3998,11 @@ msgstr "પાર્ટીશન પસંદ કરો"
 msgid "That directory does not contain installation media."
 msgstr "ડિરેક્ટરી સ્થાપન મીડિયાને સમાવે એમ લાગતું નથી."
 
-#: loader/hdinstall.c:349
-#, c-format
-msgid "Bad argument to HD kickstart method command: %s"
-msgstr "HD કિકસ્ટાર્ટ પદ્ધતિ આદેશની ખરાબ દલીલ: %s"
-
-#: loader/hdinstall.c:400 loader/hdinstall.c:454
+#: loader/hdinstall.c:345 loader/hdinstall.c:399
 msgid "Cannot find kickstart file on hard drive."
 msgstr "હાર્ડ ડ્રાઈવ પર કિકસ્ટાર્ટ ફાઈલ શોધી શકતા નથી."
 
-#: loader/hdinstall.c:439
+#: loader/hdinstall.c:384
 #, c-format
 msgid "Cannot find hard drive for BIOS disk %s"
 msgstr "BIOS ડિસ્ક %s માટે હાર્ડ ડ્રાઈવ શોધી શકતા નથી"
@@ -4046,40 +4015,11 @@ msgstr "કીબોર્ડનો પ્રકાર"
 msgid "What type of keyboard do you have?"
 msgstr "તમારી પાસે કયા પ્રકારનું કીબોર્ડ છે?"
 
-#: loader/kickstart.c:136
-#, c-format
-msgid "Error opening kickstart file %s: %m"
-msgstr "કિકસ્ટાર્ટ ફાઈલ %s ખોલવામાં ભૂલ: %m"
-
-#: loader/kickstart.c:146
-#, c-format
-msgid "Error reading contents of kickstart file %s: %m"
-msgstr "કિકસ્ટાર્ટ ફાઈલ %s ના સમાવિષ્ટો વાંચવામાં ભૂલ: %m"
-
-#: loader/kickstart.c:188
-#, c-format
-msgid "Error in %s on line %d of kickstart file %s."
-msgstr "%s માં લીટી %d પર કિકસ્ટાર્ટ ફાઈલ %s માં ભૂલ છે."
-
-#: loader/kickstart.c:193
-#, c-format
-msgid "Missing options on line %d of kickstart file %s."
-msgstr "કિકસ્ટાર્ટ ફાઇલ %2$s નાં વાક્ય %1$d પર ગુમ થયેલ વિકલ્પો."
-
-#: loader/kickstart.c:300
+#: loader/kickstart.c:309
 msgid "Cannot find ks.cfg on removable media."
 msgstr "ks.cfg ને દૂર કરી શકાય તેવા માધ્યમ પર શોધી શકતા નથી."
 
-#: loader/kickstart.c:340
-#, c-format
-msgid "Bad argument to device kickstart method command: %s"
-msgstr "ઉપકરણ કિકસ્ટાર્ટ પદ્ધતિ આદેશ માટે ખરાબ દલીલ: %s"
-
-#: loader/kickstart.c:356
-msgid "A module name must be specified for the kickstart device command."
-msgstr "મોડ્યુલ નામ કિકસ્ટાર્ટ ઉપકરણ આદેશ માટે સ્પષ્ટ થવું જ જોઈએ."
-
-#: loader/kickstart.c:387
+#: loader/kickstart.c:378
 msgid ""
 "Unable to download the kickstart file.  Please modify the kickstart "
 "parameter below or press Cancel to proceed as an interactive installation."
@@ -4087,14 +4027,14 @@ msgstr ""
 "કિકસ્ટાર્ટ ફાઈલ ડાઉનલોડ કરવામાં અસમર્થ.  મહેરબાની કરીને નીચે કિકસ્ટાર્ટ પરિમાણ સુધારો "
 "અથવા પૂછપરછવાળા સ્થાપન તરીકે પ્રક્રિયા કરવા માટે રદ કરો દબાવો."
 
-#: loader/kickstart.c:396
+#: loader/kickstart.c:387
 msgid "Error downloading kickstart file"
 msgstr "કિકસ્ટાર્ટ ફાઈલ ડાઉનલોડ કરવામાં ભૂલ"
 
-#: loader/kickstart.c:572
+#: loader/kickstart.c:940
 #, c-format
-msgid "Bad argument to shutdown kickstart method command: %s"
-msgstr "કિકસ્ટાર્ટ પદ્ધતિ આદેશ માટે બંધ કરવાની ખરાબ દલીલ: %s"
+msgid "Unknown Url method %s"
+msgstr "અજ્ઞાત Url પદ્ધતિ %s"
 
 #: loader/lang.c:62 loader/loader.c:228
 #, c-format
@@ -4193,11 +4133,11 @@ msgstr ""
 "સ્થાપન પદ્દતિની મદદથી સ્થાપિત કરવા માટે %s ને %d MB ની જરૂર છે, પરંતુ આ મશીન પર તમારી "
 "પાસે ફક્ત %d MB છે."
 
-#: loader/loader.c:1223
+#: loader/loader.c:1232
 msgid "Unsupported Hardware Detected"
 msgstr "બિનઆધારભૂત શોધાયેલ હાર્ડવેર"
 
-#: loader/loader.c:1224
+#: loader/loader.c:1233
 msgid ""
 "This hardware (or a combination thereof) is not supported by Red Hat.  For "
 "more information on supported hardware, please refer to http://www.redhat."
@@ -4206,35 +4146,35 @@ msgstr ""
 "આ હાર્ડવેર (અથવા તેનું સંયોજન) Red Hat દ્દારા આધારભૂત નથી.  આધારભૂત હાર્ડવેર પર વધારે "
 "જાણકારી માટે, http://www.redhat.com/hardware નો સંદર્ભ લો."
 
-#: loader/loader.c:1359
+#: loader/loader.c:1368
 msgid "Rescue Method"
 msgstr "જોખમી પદ્ધતિ"
 
-#: loader/loader.c:1360
+#: loader/loader.c:1369
 msgid "Installation Method"
 msgstr "સ્થાપન પદ્ધતિ"
 
-#: loader/loader.c:1362
+#: loader/loader.c:1371
 msgid "What type of media contains the rescue image?"
 msgstr "કયા પ્રકારની મીડિયા જોખમી ઈમેજને સમાવે છે?"
 
-#: loader/loader.c:1364
+#: loader/loader.c:1373
 msgid "What type of media contains the installation image?"
 msgstr "કયા પ્રકારની મીડિયા સ્થાપન ઈમેજને સમાવે છે?"
 
-#: loader/loader.c:1406
+#: loader/loader.c:1415
 msgid "No driver found"
 msgstr "કોઈ ડ્રાઈવર મળ્યા નથી"
 
-#: loader/loader.c:1406
+#: loader/loader.c:1415
 msgid "Select driver"
 msgstr "ડ્રાઈવર પસંદ કરો"
 
-#: loader/loader.c:1407
+#: loader/loader.c:1416
 msgid "Use a driver disk"
 msgstr "ડ્રાઈવર ડિસ્ક વાપરો"
 
-#: loader/loader.c:1408
+#: loader/loader.c:1417
 msgid ""
 "Unable to find any devices of the type needed for this installation type.  "
 "Would you like to manually select your driver or use a driver disk?"
@@ -4242,56 +4182,56 @@ msgstr ""
 "આ સ્થાપન પ્રકાર માટે જરુરી પ્રકારનાં કોઈ ઉપકરણો શોધવામાં અસમર્થ. શું તમે જાતે તમારા "
 "ડ્રાઈવરો પસંદ કરવા માંગો છો અથવા ડ્રાઈવર ડિસ્ક?"
 
-#: loader/loader.c:1619
+#: loader/loader.c:1628
 msgid "The following devices have been found on your system."
 msgstr "તમારી સિસ્ટમ પર નીચેના ઉપકરણો મળી આવ્યા છે."
 
-#: loader/loader.c:1621
+#: loader/loader.c:1630
 msgid ""
 "No device drivers have been loaded for your system.  Would you like to load "
 "any now?"
 msgstr "તમારી સિસ્ટમ માટે કોઈ ઉપકરણ ડ્રાઈવરો લવાયા હતા. શું તમે કોઈપણ હમણાં લાવવા માંગો છો?"
 
-#: loader/loader.c:1625
+#: loader/loader.c:1634
 msgid "Devices"
 msgstr "ઉપકરણો"
 
-#: loader/loader.c:1626
+#: loader/loader.c:1635
 msgid "Done"
 msgstr "પૂર્ણ થયું"
 
-#: loader/loader.c:1627
+#: loader/loader.c:1636
 msgid "Add Device"
 msgstr "ઉપકરણ ઉમેરો"
 
-#: loader/loader.c:1905
+#: loader/loader.c:1915
 #, c-format
 msgid "loader has already been run.  Starting shell.\n"
 msgstr "લોડર પહેલાથી જ ચાલી રહ્યું છે. શેલ શરુ કરી રહ્યા છીએ.\n"
 
-#: loader/loader.c:2049
+#: loader/loader.c:2059
 #, c-format
 msgid "Driver disc was detected in %s. Do you want to use it?."
 msgstr "ડ્રાઇવર ડિસ્ક %s માં શોધાઇ હતી. શું તમે તેને વાપરવા માંગો છો?."
 
-#: loader/loader.c:2052
+#: loader/loader.c:2062
 msgid "Driver disc detected"
 msgstr "ડ્રાઇવર ડિસ્ક શોધાઇ"
 
-#: loader/loader.c:2052
+#: loader/loader.c:2062
 msgid "Use it"
 msgstr "તેને વાપરો"
 
-#: loader/loader.c:2052
+#: loader/loader.c:2062
 msgid "Skip it"
 msgstr "તેને છોડી દો"
 
-#: loader/loader.c:2365
+#: loader/loader.c:2376
 #, c-format
 msgid "Running anaconda %s, the %s rescue mode - please wait.\n"
 msgstr "એનાકોન્ડા %s, ને %s rescue mode ચાલી રહ્યુ છે - મહેરબાની કરીને રાહ જુઓ.\n"
 
-#: loader/loader.c:2367
+#: loader/loader.c:2378
 #, c-format
 msgid "Running anaconda %s, the %s system installer - please wait.\n"
 msgstr "એનાકોન્ડા %s, %s સિસ્ટમ સ્થાપક ચાલી રહ્યુ છે - મહેરબાની કરીને રાહ જુઓ.\n"
@@ -4477,25 +4417,15 @@ msgstr "તમારે માન્ય IPv4 સરનામું અને ન
 msgid "You must enter both a valid IPv6 address and a CIDR prefix."
 msgstr "તમારે માન્ય IPv6 સરનામું અને CIDR પૂર્વગ બંને દાખલ કરવા જ જોઈએ."
 
-#: loader/net.c:1656
-#, c-format
-msgid "Bad argument to kickstart network command: %s"
-msgstr "કિકસ્ટાર્ટ નેટવર્ક આદેશ માટે ખરાબ દલીલ: %s"
-
-#: loader/net.c:1677
-#, c-format
-msgid "Bad bootproto %s specified in network command"
-msgstr "નેટવર્ક આદેશમાં ખરાબ બુટપ્રોટો %s સ્પષ્ટ કરેલ છે"
-
-#: loader/net.c:1782
+#: loader/net.c:1616
 msgid "Seconds:"
 msgstr "સેકન્ડો:"
 
-#: loader/net.c:1977
+#: loader/net.c:1811
 msgid "Networking Device"
 msgstr "નેટવર્કીંગ ઉપકરણ"
 
-#: loader/net.c:1978
+#: loader/net.c:1812
 msgid ""
 "You have multiple network devices on this system. Which would you like to "
 "install through?"
@@ -4503,15 +4433,15 @@ msgstr ""
 "તમારી પાસે આ સિસ્ટમ પર ઘણી બધા નેટવર્ક ઉપકરણો છે. તમે તેના દ્વારા કયા સ્થાપિત કરવા "
 "માંગો છો?"
 
-#: loader/net.c:1982
+#: loader/net.c:1816
 msgid "Identify"
 msgstr "ઓળખવુ"
 
-#: loader/net.c:1991
+#: loader/net.c:1825
 msgid "You can identify the physical port for"
 msgstr "તમે ભૌતિક પોર્ટને ઓળખી શકો છો"
 
-#: loader/net.c:1993
+#: loader/net.c:1827
 msgid ""
 "by flashing the LED lights for a number of seconds.  Enter a number between "
 "1 and 30 to set the duration to flash the LED port lights."
@@ -4519,24 +4449,24 @@ msgstr ""
 "સેકન્ડોનાં નંબર માટે LED લાઇટો ઝબક્યા કરે છે.  LED પોર્ટ લાઇટો ઝબકવા માટે સમયગાળો "
 "સુયોજિત કરવા માટે ૧ અને ૩૦ વચ્ચેનાં નંબરને દાખલ કરો."
 
-#: loader/net.c:2000
+#: loader/net.c:1834
 msgid "Identify NIC"
 msgstr "NIC ને ઓળખો"
 
-#: loader/net.c:2013
+#: loader/net.c:1847
 msgid "Invalid Duration"
 msgstr "અમાન્ય સમયગાળો"
 
-#: loader/net.c:2014
+#: loader/net.c:1848
 msgid "You must enter the number of seconds as an integer between 1 and 30."
 msgstr "૧ અને ૩૦ વચ્ચે ઇંટિજર તરીકે સેકન્ડોનાં નંબરને તમારે દાખલ કરવુ જ પડશે."
 
-#: loader/net.c:2026
+#: loader/net.c:1860
 #, c-format
 msgid "Flashing %s port lights for %d seconds."
 msgstr "%2$d સેકન્ડો માટે %1$s પોર્ટ લાઇટો ઝબકારા કરી રહી છે."
 
-#: loader/net.c:2198 loader/net.c:2202
+#: loader/net.c:2032 loader/net.c:2036
 #, c-format
 msgid "Waiting for NetworkManager to configure %s.\n"
 msgstr "%s રૂપરેખાંકિત કરવા માટે NetworkManager માટે રાહ જોઇ રહ્યા છે.\n"
@@ -4569,29 +4499,10 @@ msgstr "NFS સુયોજન"
 msgid "The URL provided does not contain installation media."
 msgstr "પૂરી પાડેલ URL એ સ્થાપન મીડિયાને સમાવે એમ લાગતું નથી."
 
-#: loader/nfsinstall.c:277
-#, c-format
-msgid "Bad argument to NFS kickstart method command: %s"
-msgstr "NFS કિકસ્ટાર્ટ પદ્ધતિને આદેશ ની ખોટી દલીલ: %s"
-
 #: loader/urlinstall.c:140
 #, c-format
 msgid "Unable to retrieve %s."
 msgstr "%s પ્રાપ્ત કરવામાં અસમર્થ."
-
-#: loader/urlinstall.c:280
-#, c-format
-msgid "Bad argument to URL kickstart method command: %s"
-msgstr "URL કિકસ્ટાર્ટ પદ્ધતિના આદેશ ને ખોટી દલીલ: %s"
-
-#: loader/urlinstall.c:291
-msgid "Must supply a --url argument to Url kickstart method."
-msgstr "Url કિકસ્ટાર્ટ પદ્ધતિને --url દલીલ પૂરી પાડો જ."
-
-#: loader/urlinstall.c:298
-#, c-format
-msgid "Unknown Url method %s"
-msgstr "અજ્ઞાત Url પદ્ધતિ %s"
 
 #: loader/urls.c:173 loader/urls.c:181
 msgid "Retrieving"
@@ -4688,13 +4599,13 @@ msgid ""
 "\n"
 "<b>WARNING:</b>\n"
 "You are using a GPT bootdisk on a non-EFI system. This may not work, "
-"depending on you BIOS's support for booting from GPT disks."
+"depending on your BIOS's support for booting from GPT disks."
 msgstr ""
 "\n"
 "\n"
 "<b>ચેતવણી:</b>\n"
-"તમે બિન-EFI સિસ્ટમ પર GPT બુટડિસ્કને વાપરી રહ્યા છે. આ કદાચ કામ કરતુ નથી, "
-"GPT ડિસ્કોમાંથી બુટ કરવા માટે તમારા BIOS નાં આધાર પર આધાર રાખી રહ્યુ છે."
+"તમે બિન-EFI સિસ્ટમ પર GPT બુટડિસ્કને વાપરી રહ્યા છે. આ કદાચ કામ કરી શકશે નહિં, GPT "
+"ડિસ્કોમાંથી બુટ કરવા માટે તમારા BIOS નાં આધાર પર આધાર રાખી રહ્યુ છે."
 
 #: pyanaconda/storage/__init__.py:203 pyanaconda/storage/devicetree.py:104
 msgid "Confirm"
@@ -4793,8 +4704,8 @@ msgid ""
 "Your / partition is less than %(min)s MB which is lower than recommended for "
 "a normal %(productName)s%(live)s install."
 msgstr ""
-"તમારુ / પાર્ટીશન એ %(min)s MB કરતા ઓછુ છે કે જે સામાન્ય %(productName)s%(live)s ના સ્થાપન "
-"માટે સ્વીકારેલ છે તેના કરતાં ઓછુ છે."
+"તમારુ / પાર્ટીશન એ %(min)s MB કરતા ઓછુ છે કે જે સામાન્ય %(productName)s%(live)s ના "
+"સ્થાપન માટે સ્વીકારેલ છે તેના કરતાં ઓછુ છે."
 
 #: pyanaconda/storage/__init__.py:1043
 #, python-format
@@ -4867,11 +4778,11 @@ msgstr ""
 "ભૂલ ઉદ્ભવી - કોઈ માન્ય ઉપકરણો મળ્યા નથી કે જેના ઉપર નવી ફાઈલ સિસ્ટમ બનાવી શકાય. આ "
 "સમસ્યાને ટાળવા માટે મહેરબાની કરીને તમારા હાર્ડવેરને ચકાસો."
 
-#: pyanaconda/storage/__init__.py:1395 pyanaconda/storage/__init__.py:1404
+#: pyanaconda/storage/__init__.py:1410 pyanaconda/storage/__init__.py:1419
 msgid "Dirty File Systems"
 msgstr "ગંદી ફાઈલ સિસ્ટમો"
 
-#: pyanaconda/storage/__init__.py:1396
+#: pyanaconda/storage/__init__.py:1411
 #, python-format
 msgid ""
 "The following file systems for your Linux system were not unmounted "
@@ -4884,7 +4795,7 @@ msgstr ""
 "કર્યા પછી સુધારો કરો.\n"
 "%s"
 
-#: pyanaconda/storage/__init__.py:1405
+#: pyanaconda/storage/__init__.py:1420
 #, python-format
 msgid ""
 "The following file systems for your Linux system were not unmounted "
@@ -4895,7 +4806,7 @@ msgstr ""
 "કોઈ પણ રીતે માઉન્ટ કરવા માંગો છો?\n"
 "%s"
 
-#: pyanaconda/storage/__init__.py:1885
+#: pyanaconda/storage/__init__.py:1873
 #, python-format
 msgid ""
 "The swap device:\n"
@@ -4912,7 +4823,7 @@ msgstr ""
 "જૂની શૈલીનું સ્વેપ પાર્ટીશન છે.  જો સ્વેપ જગ્યા માટે તમે આ ઉપકરણને વાપરવા માંગો તો, તમારે "
 "નવી શૈલી Linux સ્વેપ પાર્ટીશન તરીકે પુન:બંધારણ કરવુ જ જોઇએ."
 
-#: pyanaconda/storage/__init__.py:1896
+#: pyanaconda/storage/__init__.py:1884
 #, python-format
 msgid ""
 "The swap device:\n"
@@ -4931,7 +4842,7 @@ msgstr ""
 "જેનો અર્થ એ થાય કે તમારી સિસ્ટમ hibernating છે. સુધારો લાગુ કરવા માટે, મહેરબાની કરીને "
 "તમારી સિસ્ટમને hibernating કરવા કરતાં બંધ કરો."
 
-#: pyanaconda/storage/__init__.py:1904
+#: pyanaconda/storage/__init__.py:1892
 #, python-format
 msgid ""
 "The swap device:\n"
@@ -4950,7 +4861,7 @@ msgstr ""
 "જેનો અર્થ એ થાય કે તમારી સિસ્ટમ હાયબરનેટ કરી રહી છે. જો તમે નવું સ્થાપન કરી રહ્યા હોય, "
 "તો ખાતરી કરો કે સ્થાપક બધા સ્વેપ પાર્ટીશનોનું બંધારણ ઘડવા માટે સુયોજિત થયેલ છે."
 
-#: pyanaconda/storage/__init__.py:1916
+#: pyanaconda/storage/__init__.py:1904
 #, python-format
 msgid ""
 "The swap device:\n"
@@ -4967,7 +4878,7 @@ msgstr ""
 "આધાર સ્વેપ વોલ્યુમને સમાવતુ નથી.  સ્થાપનને ચાલુ રાખવા માટે ક્રમમાં, તમારે ઉપકરણને બંધારણ "
 "કરવાની જરૂર હશે અથવા તેને છોડો."
 
-#: pyanaconda/storage/__init__.py:1927
+#: pyanaconda/storage/__init__.py:1915
 #, python-format
 msgid ""
 "Error enabling swap device %(name)s: %(msg)s\n"
@@ -4983,7 +4894,7 @@ msgstr ""
 "\n"
 "સ્થાપકમાંથી બહાર નીકળવા માટે બરાબર દબાવો"
 
-#: pyanaconda/storage/__init__.py:1934
+#: pyanaconda/storage/__init__.py:1922
 #, python-format
 msgid ""
 "Error enabling swap device %(name)s: %(msg)s\n"
@@ -4998,11 +4909,11 @@ msgstr ""
 "\n"
 "સ્થાપકમાંથી બહાર નીકળવા માટે બરાબર બટન દબાવો."
 
-#: pyanaconda/storage/__init__.py:1998 pyanaconda/storage/__init__.py:2010
+#: pyanaconda/storage/__init__.py:1986 pyanaconda/storage/__init__.py:1998
 msgid "Invalid mount point"
 msgstr "અયોગ્ય માઉન્ટ બિંદુ"
 
-#: pyanaconda/storage/__init__.py:1999
+#: pyanaconda/storage/__init__.py:1987
 #, python-format
 msgid ""
 "An error occurred when trying to create %s.  Some element of this path is "
@@ -5015,7 +4926,7 @@ msgstr ""
 "\n"
 "સ્થાપકમાંથી બહાર નીકળવા માટે <Enter> દબાવો."
 
-#: pyanaconda/storage/__init__.py:2011
+#: pyanaconda/storage/__init__.py:1999
 #, python-format
 msgid ""
 "An error occurred when trying to create %(mountpoint)s: %(msg)s.  This is a "
@@ -5028,11 +4939,11 @@ msgstr ""
 "\n"
 "સ્થાપકમાંથી બહાર નીકળવા માટે <Enter> દબાવો."
 
-#: pyanaconda/storage/__init__.py:2027 pyanaconda/storage/__init__.py:2051
+#: pyanaconda/storage/__init__.py:2015 pyanaconda/storage/__init__.py:2039
 msgid "Unable to mount filesystem"
 msgstr "ફાઈલસિસ્ટમ માઉન્ટ કરવા માટે અસમર્થ"
 
-#: pyanaconda/storage/__init__.py:2028
+#: pyanaconda/storage/__init__.py:2016
 #, python-format
 msgid ""
 "An error occurred mounting device %(path)s as %(mountpoint)s.  You may "
@@ -5041,7 +4952,7 @@ msgstr ""
 "ઉપકરણ %(path)s ને %(mountpoint)s તરીકે માઉન્ટ કરતી વખતે ભૂલ.  તમે સ્થાપન ચાલુ રાખી "
 "શકશો, પરંતુ ત્યાં સમસ્યાઓ હોઈ શકે."
 
-#: pyanaconda/storage/__init__.py:2052
+#: pyanaconda/storage/__init__.py:2040
 #, python-format
 msgid ""
 "An error occurred mounting device %(path)s as %(mountpoint)s: %(msg)s. This "
@@ -5086,7 +4997,7 @@ msgstr "બનાવી રહ્યા છે"
 msgid "Creating device %s"
 msgstr "ઉપકરણ %s ને બનાવી રહ્યા છે"
 
-#: pyanaconda/storage/devices.py:2545
+#: pyanaconda/storage/devices.py:2588
 #, python-format
 msgid "A RAID%d set requires at least %d member"
 msgid_plural "A RAID%d set requires at least %d members"
@@ -5105,7 +5016,7 @@ msgstr ""
 "\n"
 "જો તમે આ પગલું છોડી દો તો ઉપકરણના સમાવિષ્ટો સ્થાપન દરમ્યાન ઉપલબ્ધ રહેશે નહિં."
 
-#: pyanaconda/storage/devicetree.py:1600
+#: pyanaconda/storage/devicetree.py:1603
 msgid "This partition is part of an inconsistent LVM Volume Group."
 msgstr "અસુસંગત LVM વોલ્યુમ જૂથનો આ પાર્ટીશન ભાગ છે."
 
@@ -5173,7 +5084,7 @@ msgstr ""
 "સિસ્ટમને રીબુટ કરો કે જે અરસપરસ ફાઇલસિસ્ટમને સુધારવા તમને પરવાનગી આપે છે.  તમે ફાઇલસિસ્ટમ "
 "પર સમસ્યાઓ સુધારો તે પછી સ્થાપનને પુન:શરૂ કરો."
 
-#: pyanaconda/storage/formats/fs.py:539 pyanaconda/storage/partitioning.py:281
+#: pyanaconda/storage/formats/fs.py:539 pyanaconda/storage/partitioning.py:282
 msgid "Unrecoverable Error"
 msgstr "સુધારી નહિં શકાય તેવી ભૂલ"
 
@@ -5255,7 +5166,7 @@ msgstr "iSCSI નોડમાં પ્રવેશી રહ્યા છે"
 msgid "Logging in to iSCSI node %s"
 msgstr "iSCSI નોડ %s માં પ્રવેશી રહ્યા છે"
 
-#: pyanaconda/storage/partitioning.py:199
+#: pyanaconda/storage/partitioning.py:200
 msgid ""
 "Could not find enough free space for automatic partitioning.  Press 'OK' to "
 "exit the installer."
@@ -5263,7 +5174,7 @@ msgstr ""
 "આપમેળે પાર્ટીશનીંગ કરવામાં પૂરતી ખાલી જગ્યા શોધી શક્યા નહિં,  મહેરબાની કરીને સ્થાપકમાંથી "
 "બહાર નીકાળવા માટે 'બરાબર' ને દબાવો."
 
-#: pyanaconda/storage/partitioning.py:202
+#: pyanaconda/storage/partitioning.py:203
 msgid ""
 "Could not find enough free space for automatic partitioning, please use "
 "another partitioning method."
@@ -5271,11 +5182,11 @@ msgstr ""
 "આપમેળે પાર્ટીશનીંગ કરવામાં પૂરતી ખાલી જગ્યા શોધી શક્યા નહિં, મહેરબાની કરીને બીજી "
 "પાર્ટીશનીંગ પદ્દતિને વાપરો."
 
-#: pyanaconda/storage/partitioning.py:230
+#: pyanaconda/storage/partitioning.py:231
 msgid "Warnings During Automatic Partitioning"
 msgstr "આપોઆપ પાર્ટીશન કરતી વખતે આવતી ચેતવણીઓ"
 
-#: pyanaconda/storage/partitioning.py:232
+#: pyanaconda/storage/partitioning.py:233
 #, python-format
 msgid ""
 "Following warnings occurred during automatic partitioning:\n"
@@ -5286,8 +5197,8 @@ msgstr ""
 "\n"
 "%s"
 
-#: pyanaconda/storage/partitioning.py:246
-#: pyanaconda/storage/partitioning.py:265
+#: pyanaconda/storage/partitioning.py:247
+#: pyanaconda/storage/partitioning.py:266
 msgid ""
 "\n"
 "\n"
@@ -5297,7 +5208,7 @@ msgstr ""
 "\n"
 "સ્થાપકમાંથી બહાર નીકળવા માટે 'બરાબર' દબાવો."
 
-#: pyanaconda/storage/partitioning.py:248
+#: pyanaconda/storage/partitioning.py:249
 #, python-format
 msgid ""
 "Could not allocate requested partitions: \n"
@@ -5308,7 +5219,7 @@ msgstr ""
 "\n"
 "%(msg)s.%(extra)s"
 
-#: pyanaconda/storage/partitioning.py:267
+#: pyanaconda/storage/partitioning.py:268
 msgid ""
 "\n"
 "\n"
@@ -5318,11 +5229,11 @@ msgstr ""
 "\n"
 "અલગ પાર્ટીશનીંગ વિકલ્પ પસંદ કરવા માટે 'બરાબર' દબાવો."
 
-#: pyanaconda/storage/partitioning.py:269
+#: pyanaconda/storage/partitioning.py:270
 msgid "Automatic Partitioning Errors"
 msgstr "આપોઆપ પાર્ટીશન કરતાં ભૂલો"
 
-#: pyanaconda/storage/partitioning.py:270
+#: pyanaconda/storage/partitioning.py:271
 #, python-format
 msgid ""
 "The following errors occurred with your partitioning:\n"
