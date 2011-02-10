@@ -464,6 +464,225 @@ def startDebugger(signum, frame):
     import epdb
     epdb.serve(skip=1)
 
+def runRescueMode(anaconda, opts):
+    anaconda.rescue = True
+
+    from pyanaconda import rescue
+
+    if anaconda.ksdata:
+        anaconda.instClass.configure(anaconda)
+
+        # We need an interface before running kickstart execute methods for
+        # storage.
+        from snack import *
+        screen = SnackScreen()
+        anaconda.intf = rescue.RescueInterface(screen)
+
+        anaconda.ksdata.execute()
+
+        anaconda.intf = None
+        screen.finish()
+
+        # command line 'nomount' overrides kickstart /same for vnc/
+        anaconda.rescue_mount = not (opts.rescue_nomount or
+                                     anaconda.ksdata.rescue.nomount)
+
+    rescue.runRescue(anaconda)
+
+    # shouldn't get back here
+    sys.exit(1)
+
+def setupDisplay(anaconda, opts):
+    graphical_failed = 0
+    vncS = vnc.VncServer()          # The vnc Server object.
+    vncS.anaconda = anaconda
+
+    anaconda.displayMode = opts.display_mode
+    anaconda.isHeadless = opts.isHeadless
+
+    if opts.vnc:
+        flags.usevnc = 1
+        anaconda.displayMode = 'g'
+        vncS.recoverVNCPassword()
+
+        # Only consider vncconnect when vnc is a param
+        if opts.vncconnect:
+            cargs = string.split(opts.vncconnect, ":")
+            vncS.vncconnecthost = cargs[0]
+            if len(cargs) > 1 and len(cargs[1]) > 0:
+                if len(cargs[1]) > 0:
+                    vncS.vncconnectport = cargs[1]
+
+    if opts.serial:
+        flags.serial = True
+    if opts.virtpconsole:
+        flags.virtpconsole = opts.virtpconsole
+
+    if opts.xdriver:
+        anaconda.xdriver = opts.xdriver
+        anaconda.writeXdriver(root="/")
+
+    if not opts.rescue:
+        if anaconda.ksdata:
+            if anaconda.ksdata.vnc.enabled:
+                flags.usevnc = 1
+                anaconda.displayMode = 'g'
+
+                if vncS.password == "":
+                    vncS.password = anaconda.ksdata.vnc.password
+
+                if vncS.vncconnecthost == "":
+                    vncS.vncconnecthost = anaconda.ksdata.vnc.host
+
+                if vncS.vncconnectport == "":
+                    vncS.vncconnectport = anaconda.ksdata.vnc.port
+
+            flags.vncquestion = False
+
+        # disable VNC over text question when not enough memory is available
+        if iutil.memInstalled() < isys.MIN_GUI_RAM:
+            flags.vncquestion = False
+
+        if os.environ.has_key('DISPLAY'):
+            flags.preexisting_x11 = True
+
+        if anaconda.displayMode == 't' and flags.vncquestion:
+            #we prefer vnc over text mode, so ask about that
+            title = _("Would you like to use VNC?")
+            message = _("Text mode provides a limited set of installation "
+                        "options. It does not allow you to specify your "
+                        "own partitioning layout or package selections. "
+                        "Would you like to use VNC mode instead?")
+
+            ret = vnc.askVncWindow(title, message)
+            if ret != -1:
+                anaconda.displayMode = 'g'
+                flags.usevnc = 1
+                if ret is not None:
+                    vncS.password = ret
+
+        log.info("Display mode = %s" % anaconda.displayMode)
+        check_memory(anaconda, opts)
+
+        #
+        # now determine if we're going to run in GUI or TUI mode
+        #
+        # if no X server, we have to use text mode
+        if not flags.livecdInstall and not iutil.isS390() and \
+           not os.access("/usr/bin/Xorg", os.X_OK):
+             stdoutLog.warning(_("Graphical installation is not available. "
+                                 "Starting text mode."))
+             time.sleep(2)
+             anaconda.displayMode = 't'
+
+        # s390/iSeries checks
+        if anaconda.isHeadless and anaconda.displayMode == "g" and not \
+           (flags.preexisting_x11 or flags.usevnc):
+            stdoutLog.warning(_("DISPLAY variable not set. Starting text mode."))
+            anaconda.displayMode = 't'
+            graphical_failed = 1
+            time.sleep(2)
+
+        # if DISPLAY not set either vnc server failed to start or we're not
+        # running on a redirected X display, so start local X server
+        if anaconda.displayMode == 'g' and not flags.preexisting_x11 and \
+           not flags.usevnc:
+            try:
+                # The following code depends on no SIGCHLD being delivered,
+                # possibly only except the one from a failing X.org. Thus
+                # make sure before entering this section that all the other
+                # children of anaconda have terminated or were forked into
+                # an orphan (which won't deliver a SIGCHLD to mess up the
+                # fragile signaling below). start X with its USR1 handler
+                # set to ignore.  this will make it send us SIGUSR1 if it
+                # succeeds.  if it fails, catch SIGCHLD and bomb out.
+
+                def sigchld_handler(num, frame):
+                    raise OSError(0, "SIGCHLD caught when trying to start the X server.")
+
+                def sigusr1_handler(num, frame):
+                    log.debug("X server has signalled a successful start.")
+
+                def preexec_fn():
+                    signal.signal(signal.SIGUSR1, signal.SIG_IGN)
+
+                old_sigusr1 = signal.signal(signal.SIGUSR1, sigusr1_handler)
+                old_sigchld = signal.signal(signal.SIGCHLD, sigchld_handler)
+                xout = open("/dev/tty5", "w")
+
+                proc = subprocess.Popen(["Xorg", "-br",
+                                         "-logfile", "/tmp/X.log",
+                                         ":1", "vt6", "-s", "1440", "-ac",
+                                         "-nolisten", "tcp", "-dpi", "96",
+                                         "-noreset"],
+                                         close_fds=True,
+                                         stdout=xout, stderr=xout,
+                                         preexec_fn=preexec_fn)
+
+                signal.pause()
+                os.environ["DISPLAY"] = ":1"
+                doStartupX11Actions()
+            except (OSError, RuntimeError) as e:
+                stdoutLog.warning("X startup failed, falling back to text mode")
+                anaconda.displayMode = 't'
+                graphical_failed = 1
+                time.sleep(2)
+            finally:
+                signal.signal(signal.SIGUSR1, old_sigusr1)
+                signal.signal(signal.SIGCHLD, old_sigchld)
+
+        set_x_resolution(opts.runres)
+
+        if anaconda.displayMode == 't' and graphical_failed and \
+             not anaconda.ksdata:
+            ret = vnc.askVncWindow()
+            if ret != -1:
+                anaconda.displayMode = 'g'
+                flags.usevnc = 1
+                if ret is not None:
+                    vncS.password = ret
+
+        # if they want us to use VNC do that now
+        if anaconda.displayMode == 'g' and flags.usevnc:
+            runVNC()
+            doStartupX11Actions()
+
+        # with X running we can initialize the UI interface
+        anaconda.initInterface()
+        anaconda.instClass.configure(anaconda)
+
+def runDogtail(opts):
+    try:
+        import urlgrabber
+
+        try:
+            fr = urlgrabber.urlopen(opts.dogtail)
+        except urlgrabber.grabber.URLGrabError as e:
+            log.error("Could not retrieve Dogtail script from %s.\nError "
+                      "was\n%s" % (opts.dogtail, e))
+            fr = None
+
+        if fr:
+            (fw, testcase) = mkstemp(prefix='testcase.py.', dir='/tmp')
+            os.write(fw, fr.read())
+            fr.close()
+            os.close(fw)
+
+            # download completed, run the test
+            if not os.fork():
+                # we are in the child
+                os.chmod(testcase, 0755)
+                os.execv(testcase, [testcase])
+                sys.exit(0)
+            else:
+                # we are in the parent, sleep to give time for the testcase
+                # to initialize
+                # todo: is this needed, how to avoid possible race conditions
+                time.sleep(1)
+    except Exception as e:
+        log.error("Exception %s while running Dogtail testcase" % e)
+
+
 if __name__ == "__main__":
     setupPythonPath()
 
@@ -508,6 +727,8 @@ if __name__ == "__main__":
     from pyanaconda import users
     from pyanaconda import kickstart
 
+    # FIXME: we should be able to get rid of this now that there is only
+    #        one stage -- dwl
     # the following makes me very sad. -- katzj
     # we have a slightly different set of udev rules in the second 
     # stage than the first stage.  why this doesn't get picked up
@@ -545,10 +766,6 @@ if __name__ == "__main__":
     # add our own additional signal handlers
     signal.signal(signal.SIGHUP, startDebugger)
 
-    graphical_failed = 0
-    vncS = vnc.VncServer()          # The vnc Server object.
-    vncS.anaconda = anaconda
-
     anaconda.opts = opts
 
     # check memory, just the text mode for now:
@@ -566,9 +783,6 @@ if __name__ == "__main__":
 
     if opts.dlabel: #autodetected driverdisc in use
         flags.dlabel = True
-
-    anaconda.displayMode = opts.display_mode
-    anaconda.isHeadless = opts.isHeadless
 
     if opts.noipv4:
         flags.useIPv4 = False
@@ -616,6 +830,39 @@ if __name__ == "__main__":
             (path, name) = string.split(mod, ":")
             anaconda.extraModules.append((path, name))
 
+    if opts.ibft:
+        flags.ibft = 1
+
+    if opts.iscsi:
+        flags.iscsi = 1
+
+    if opts.targetArch:
+        flags.targetarch = opts.targetArch
+
+    # set flags 
+    flags.dmraid = opts.dmraid
+    flags.mpath = opts.mpath
+    flags.selinux = opts.selinux
+
+    if not flags.livecdInstall and not flags.imageInstall:
+        startAuditDaemon()
+
+    # setup links required for all install types
+    for i in ( "services", "protocols", "nsswitch.conf", "joe", "selinux",
+               "mke2fs.conf" ):
+        try:
+            if os.path.exists("/mnt/runtime/etc/" + i):
+                os.symlink ("../mnt/runtime/etc/" + i, "/etc/" + i)
+        except:
+            pass
+
+    if opts.debug:
+        flags.debug = True
+
+    log.info("anaconda called with cmdline = %s" %(sys.argv,))
+    log.info("Default encoding = %s " % sys.getdefaultencoding())
+    setupDisplay(anaconda, opts)
+
     image_count = 0
     for image in opts.images:
         image_spec = image.rsplit(":", 1)
@@ -632,55 +879,9 @@ if __name__ == "__main__":
         anaconda.storage.config.diskImages[name] = path
         image_count += 1
         flags.imageInstall = True
-    anaconda.storage.setupDiskImages()
 
-    if opts.vnc:
-        flags.usevnc = 1
-        anaconda.displayMode = 'g'
-        vncS.recoverVNCPassword()
-
-        # Only consider vncconnect when vnc is a param
-        if opts.vncconnect:
-            cargs = string.split(opts.vncconnect, ":")
-            vncS.vncconnecthost = cargs[0]
-            if len(cargs) > 1 and len(cargs[1]) > 0:
-                if len(cargs[1]) > 0:
-                    vncS.vncconnectport = cargs[1]
-
-    if opts.ibft:
-        flags.ibft = 1
-
-    if opts.iscsi:
-        flags.iscsi = 1
-
-    if opts.targetArch:
-        flags.targetarch = opts.targetArch
-
-    # set flags 
-    flags.dmraid = opts.dmraid
-    flags.mpath = opts.mpath
-    flags.selinux = opts.selinux
-
-    if opts.serial:
-        flags.serial = True
-    if opts.virtpconsole:
-        flags.virtpconsole = opts.virtpconsole
-
-    if opts.xdriver:
-        anaconda.xdriver = opts.xdriver
-        anaconda.writeXdriver(root="/")
-
-    if not flags.livecdInstall and not flags.imageInstall:
-        startAuditDaemon()
-
-    # setup links required for all install types
-    for i in ( "services", "protocols", "nsswitch.conf", "joe", "selinux",
-               "mke2fs.conf" ):
-        try:
-            if os.path.exists("/mnt/runtime/etc/" + i):
-                os.symlink ("../mnt/runtime/etc/" + i, "/etc/" + i)
-        except:
-            pass
+    if image_count:
+        anaconda.storage.setupDiskImages()
 
     # This is the one place we do all kickstart file parsing.
     if opts.ksfile:
@@ -700,160 +901,7 @@ if __name__ == "__main__":
     users.createLuserConf(anaconda.rootPath)
 
     if opts.rescue:
-        anaconda.rescue = True
-
-        from pyanaconda import rescue
-
-        if anaconda.ksdata:
-            anaconda.instClass.configure(anaconda)
-
-            # We need an interface before running kickstart execute methods for
-            # storage.
-            from snack import *
-            screen = SnackScreen()
-            anaconda.intf = rescue.RescueInterface(screen)
-
-            anaconda.ksdata.execute()
-
-            anaconda.intf = None
-            screen.finish()
-
-            # command line 'nomount' overrides kickstart /same for vnc/
-            anaconda.rescue_mount = not (opts.rescue_nomount or anaconda.ksdata.rescue.nomount)
-
-        rescue.runRescue(anaconda)
-
-        # shouldn't get back here
-        sys.exit(1)
-
-    if anaconda.ksdata:
-        if anaconda.ksdata.vnc.enabled:
-            flags.usevnc = 1
-            anaconda.displayMode = 'g'
-
-            if vncS.password == "":
-                vncS.password = anaconda.ksdata.vnc.password
-
-            if vncS.vncconnecthost == "":
-                vncS.vncconnecthost = anaconda.ksdata.vnc.host
-
-            if vncS.vncconnectport == "":
-                vncS.vncconnectport = anaconda.ksdata.vnc.port
-
-        flags.vncquestion = False
-
-    # disable VNC over text question when not enough memory is available
-    if iutil.memInstalled() < isys.MIN_GUI_RAM:
-        flags.vncquestion = False
-
-    if os.environ.has_key('DISPLAY'):
-        flags.preexisting_x11 = True
-
-    if anaconda.displayMode == 't' and flags.vncquestion: #we prefer vnc over text mode, so ask about that
-        title = _("Would you like to use VNC?")
-        message = _("Text mode provides a limited set of installation options.  "
-                    "It does not allow you to specify your own partitioning "
-                    "layout or package selections.  Would you like to use VNC "
-                    "mode instead?")
-
-        ret = vnc.askVncWindow(title, message)
-        if ret != -1:
-            anaconda.displayMode = 'g'
-            flags.usevnc = 1
-            if ret is not None:
-                vncS.password = ret
-
-    if opts.debug:
-        flags.debug = True
-
-    log.info("anaconda called with cmdline = %s" %(sys.argv,))
-    log.info("Display mode = %s" % anaconda.displayMode)
-    log.info("Default encoding = %s " % sys.getdefaultencoding())
-
-    check_memory(anaconda, opts)
-
-    #
-    # now determine if we're going to run in GUI or TUI mode
-    #
-    # if no X server, we have to use text mode
-    if not flags.livecdInstall and not iutil.isS390() and not os.access("/usr/bin/Xorg", os.X_OK):
-         stdoutLog.warning(_("Graphical installation is not available. "
-                             "Starting text mode."))
-         time.sleep(2)
-         anaconda.displayMode = 't'
-
-    # s390/iSeries checks
-    if anaconda.isHeadless and anaconda.displayMode == "g" and not \
-       (flags.preexisting_x11 or flags.usevnc):
-        stdoutLog.warning(_("DISPLAY variable not set. Starting text mode."))
-        anaconda.displayMode = 't'
-        graphical_failed = 1
-        time.sleep(2)
-
-    # if DISPLAY not set either vnc server failed to start or we're not
-    # running on a redirected X display, so start local X server
-    if anaconda.displayMode == 'g' and not flags.preexisting_x11 and not flags.usevnc:
-        try:
-            # The following code depends on no SIGCHLD being delivered, possibly
-            # only except the one from a failing X.org. Thus make sure before
-            # entering this section that all the other children of anaconda have
-            # terminated or were forked into an orphan (which won't deliver a
-            # SIGCHLD to mess up the fragile signaling below).
-
-            # start X with its USR1 handler set to ignore.  this will make it send
-            # us SIGUSR1 if it succeeds.  if it fails, catch SIGCHLD and bomb out.
-
-            def sigchld_handler(num, frame):
-                raise OSError(0, "SIGCHLD caught when trying to start the X server.")
-
-            def sigusr1_handler(num, frame):
-                log.debug("X server has signalled a successful start.")
-
-            def preexec_fn():
-                signal.signal(signal.SIGUSR1, signal.SIG_IGN)
-
-            old_sigusr1 = signal.signal(signal.SIGUSR1, sigusr1_handler)
-            old_sigchld = signal.signal(signal.SIGCHLD, sigchld_handler)
-            xout = open("/dev/tty5", "w")
-
-            proc = subprocess.Popen(["Xorg", "-br", "-logfile", "/tmp/X.log",
-                                     ":1", "vt6", "-s", "1440", "-ac",
-                                     "-nolisten", "tcp", "-dpi", "96",
-                                     "-noreset"],
-                                     close_fds=True, stdout=xout, stderr=xout,
-                                     preexec_fn=preexec_fn)
-
-            signal.pause()
-
-            os.environ["DISPLAY"] = ":1"
-            doStartupX11Actions()
-        except (OSError, RuntimeError) as e:
-            stdoutLog.warning(" X startup failed, falling back to text mode")
-            anaconda.displayMode = 't'
-            graphical_failed = 1
-            time.sleep(2)
-        finally:
-            signal.signal(signal.SIGUSR1, old_sigusr1)
-            signal.signal(signal.SIGCHLD, old_sigchld)
-
-    set_x_resolution(opts.runres)
-
-    if anaconda.displayMode == 't' and graphical_failed and not anaconda.ksdata:
-        ret = vnc.askVncWindow()
-        if ret != -1:
-            anaconda.displayMode = 'g'
-            flags.usevnc = 1
-            if ret is not None:
-                vncS.password = ret
-
-    # if they want us to use VNC do that now
-    if anaconda.displayMode == 'g' and flags.usevnc:
-        runVNC()
-        doStartupX11Actions()
-
-    # with X running we can initialize the UI interface
-    anaconda.initInterface()
-    anaconda.instClass.configure(anaconda)
+        runRescueMode(anaconda)
 
     # comment out the next line to make exceptions non-fatal
     from pyanaconda.exception import initExceptionHandling
@@ -864,33 +912,7 @@ if __name__ == "__main__":
 
     # download and run Dogtail script
     if opts.dogtail:
-       try:
-           import urlgrabber
-
-           try:
-               fr = urlgrabber.urlopen(opts.dogtail)
-           except urlgrabber.grabber.URLGrabError, e:
-               log.error("Could not retrieve Dogtail script from %s.\nError was\n%s" % (opts.dogtail, e))
-               fr = None
-                           
-           if fr:
-               (fw, testcase) = mkstemp(prefix='testcase.py.', dir='/tmp')
-               os.write(fw, fr.read())
-               fr.close()
-               os.close(fw)
-               
-               # download completed, run the test
-               if not os.fork():
-                   # we are in the child
-                   os.chmod(testcase, 0755)
-                   os.execv(testcase, [testcase])
-                   sys.exit(0)
-               else:
-                   # we are in the parent, sleep to give time for the testcase to initialize
-                   # todo: is this needed, how to avoid possible race conditions
-                   time.sleep(1)
-       except Exception, e:
-           log.error("Exception %s while running Dogtail testcase" % e)
+        runDogtail(opts)
 
     if opts.lang:
         # this is lame, but make things match what we expect (#443408)
