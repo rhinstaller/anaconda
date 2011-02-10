@@ -52,48 +52,11 @@
 
 #include "init.h"
 #include "copy.h"
-#include "devices.h"
 #include "modules.h"
 #include "readvars.h"
 
 #include <asm/types.h>
 #include <linux/serial.h>
-
-#ifndef MS_REMOUNT
-#define MS_REMOUNT          32
-#endif
-
-#define ENV_PATH            0
-#define ENV_LD_LIBRARY_PATH 1
-#define ENV_HOME            2
-#define ENV_TERM            3
-#define ENV_DEBUG           4
-#define ENV_TERMINFO        5
-#define ENV_PYTHONPATH      6
-#define ENV_MALLOC_CHECK    7
-#define ENV_MALLOC_PERTURB  8
-
-char * env[] = {
-    "PATH=/usr/bin:/bin:/sbin:/usr/sbin:/mnt/sysimage/bin:"
-    "/mnt/sysimage/usr/bin:/mnt/sysimage/usr/sbin:/mnt/sysimage/sbin:"
-    "/mnt/sysimage/usr/X11R6/bin",
-
-    /* we set a nicer ld library path specifically for bash -- a full
-       one makes anaconda unhappy */
-#if defined(__x86_64__) || defined(__s390x__) || defined(__powerpc64__) || (defined(__sparc__) && defined(__arch64__))
-    "LD_LIBRARY_PATH=/lib64:/usr/lib64:/lib:/usr/lib",
-#else
-    "LD_LIBRARY_PATH=/lib:/usr/lib",
-#endif
-    "HOME=/root",
-    "TERM=linux",
-    "DEBUG=",
-    "TERMINFO=/etc/linux-terminfo",
-    "PYTHONPATH=/tmp/updates",
-    "MALLOC_CHECK_=2",
-    "MALLOC_PERTURB_=204",
-    NULL
-};
 
 static char *VIRTIO_PORT = "/dev/virtio-ports/org.fedoraproject.anaconda.log.0";
 
@@ -115,13 +78,6 @@ struct termios ts;
 
 static int expected_exit = 0;
 static GHashTable *cmdline = NULL;
-
-static void doExit(int) __attribute__ ((noreturn));
-static void doExit(int result)
-{
-    expected_exit = 1;
-    exit(result);
-}
 
 static void printstr(char * string) {
     write(1, string, strlen(string));
@@ -232,49 +188,6 @@ static int termcmp(struct termios *a, struct termios *b) {
 }
 #endif
 
-static void createDevices(void) {
-    int i;
-
-    /*	unset the umask so devices are created with correct perms
-	and not complemented by the previous umask call */
-
-    mode_t previous_umask = umask(0); 
-
-    for (i = 0; devnodes[i].devname != NULL; i++) {
-        char devname[64];
-        int type = -1;
-
-        snprintf(devname, 63, "/dev/%s", devnodes[i].devname);
-        switch (devnodes[i].type) {
-        case DIRTYPE:
-            if (mkdir(devname, devnodes[i].perms) < 0) {
-                fprintf(stderr, "Unable to create directory %s: %m\n",
-                        devname);
-            }
-            break;
-        case CHARDEV:
-            type = S_IFCHR;
-            break;
-        case BLOCKDEV:
-            type = S_IFBLK;
-            break;
-        }
-        if (type == -1) continue;
-
-        if (mknod(devname, type | devnodes[i].perms, 
-                  makedev(devnodes[i].major, devnodes[i].minor)) < 0)
-            fprintf(stderr, "Unable to create device %s: %m\n", devname);
-    }
-
-    /* Hurray for hacks, this stops /lib/udev/rules.d/65-md-incremental.rules
-       from medling with mdraid sets. */
-    i = creat("/dev/.in_sysinit", 0644);
-    close(i);
-
-    /* Restore umask for minimal side affects */
-    umask(previous_umask); 
-}
-
 static void termReset(void) {
     /* change to tty1 */
     ioctl(0, VT_ACTIVATE, 1);
@@ -381,21 +294,6 @@ static int onQEMU(void)
     }
     g_free(contents);
     return ret;
-}
-
-static int getInitPid(void) {
-    int fd = 0, pid = -1;
-    char * buf = calloc(1, 10);
-
-    fd = open("/var/run/init.pid", O_RDONLY);
-    if (fd < 0) {
-        fprintf(stderr, "Unable to find pid of init!!!\n");
-        return -1;
-    }
-    read(fd, buf, 9);
-    close(fd);
-    sscanf(buf, "%d", &pid);
-    return pid;
 }
 
 static void copyErrorFn (char *msg) {
@@ -514,7 +412,7 @@ static void setupEnv(void)
 }
 
 int main(int argc, char **argv) {
-    pid_t installpid, childpid;
+    pid_t installpid;
     int waitStatus;
     int fd = -1;
     int doShutdown =0;
@@ -530,26 +428,6 @@ int main(int argc, char **argv) {
     int i, disable_keys;
     int ret;
     gpointer value = NULL;
-
-    if (!strncmp(basename(argv[0]), "poweroff", 8)) {
-        printf("Running poweroff...\n");
-        fd = getInitPid();
-        if (fd > 0)
-            kill(fd, SIGUSR2);
-        doExit(0);
-    } else if (!strncmp(basename(argv[0]), "halt", 4)) {
-        printf("Running halt...\n");
-        fd = getInitPid();
-        if (fd > 0)
-            kill(fd, SIGUSR1);
-        doExit(0);
-    } else if (!strncmp(basename(argv[0]), "reboot", 6)) {
-        printf("Running reboot...\n");
-        fd = getInitPid();
-        if (fd > 0)
-            kill(fd, SIGINT);
-        doExit(0);
-    }
 
     /* turn off screen blanking */
     printstr("\033[9;0]");
@@ -567,12 +445,6 @@ int main(int argc, char **argv) {
 
     printf("anaconda installer init version %s starting\n", VERSION);
 
-    printf("mounting /proc filesystem... "); 
-    mount("/proc", "proc", "proc", 0, NULL);
-    if (access("/proc/cmdline", R_OK) == -1)
-        fatal_error(1);
-    printf("done\n");
-
     cmdline = readvars_parse_file("/proc/cmdline");
 
     /* check for development mode early */
@@ -588,57 +460,6 @@ int main(int argc, char **argv) {
             break;
         }
     }
-
-    printf("creating /dev filesystem... "); 
-    mount("/dev", "/dev", "tmpfs", 0, NULL);
-    if (access("/dev", W_OK) == -1)
-        fatal_error(1);
-    createDevices();
-    printf("done\n");
-    printf("starting udev...");
-    if ((childpid = fork()) == 0) {
-        execl("/sbin/udevd", "/sbin/udevd", "--daemon", NULL);
-        exit(1);
-    }
-    
-    /* wait at least until the udevd process that we forked exits */
-    do {
-        pid_t retpid;
-        int waitstatus;
-
-        retpid = wait(&waitstatus);
-        if (retpid == -1) {
-            if (errno == EINTR)
-                continue;
-            /* if the child exited before we called waitpid, we can get
-             * ECHILD without anything really being wrong; we just lost
-             * the race.*/
-            if (errno == ECHILD)
-                break;
-            printf("init: error waiting on udevd: %m\n");
-            exit(1);
-        } else if ((retpid == childpid) && WIFEXITED(waitstatus)) {
-            break;
-        }
-    } while (1);
-    
-    if (fork() == 0) {
-        execl("/sbin/udevadm", "udevadm", "control", "--env=ANACONDA=1", NULL);
-        exit(1);
-    }
-    printf("done\n");
-
-    printf("mounting /dev/pts (unix98 pty) filesystem... "); 
-    mount("/dev/pts", "/dev/pts", "devpts", 0, NULL);
-    if (access("/dev/pts/ptmx", F_OK) == -1)
-        fatal_error(1);
-    printf("done\n");
-
-    printf("mounting /sys filesystem... "); 
-    mount("/sys", "/sys", "sysfs", 0, NULL);
-    if (access("/sys/class/block", R_OK) == -1)
-        fatal_error(1);
-    printf("done\n");
 
     /* if anaconda dies suddenly we are doomed, so at least make a coredump */
     struct rlimit corelimit = { RLIM_INFINITY,  RLIM_INFINITY};
@@ -764,59 +585,9 @@ int main(int argc, char **argv) {
         tcsetattr(0, TCSANOW, &ts);
     }
 
-    ret = sethostname("localhost.localdomain", 21);
-    /* the default domainname (as of 2.0.35) is "(none)", which confuses 
-     glibc */
-    ret = setdomainname("", 0);
-
-    printf("trying to remount root filesystem read write... ");
-    mount("/", "/", "remount", MS_REMOUNT, NULL);
-    printf("done\n");
-
-    /* we want our /tmp to be tmpfs, but we also want to let people hack
-     * their initrds to add things like a ks.cfg, so this has to be a little
-     * tricky */
-    rename("/tmp", "/oldtmp");
-    mkdir("/tmp", 0755);
-
-    printf("mounting /tmp as tmpfs... ");
-    mount("none", "/tmp", "tmpfs", 0, "size=250m");
-    if (access("/tmp", W_OK) == -1)
-        fatal_error(1);
-    printf("done\n");
-
-    copyDirectory("/oldtmp", "/tmp", copyErrorFn, copyErrorFn);
-    unlink("/oldtmp");
-
     /* Now we have some /tmp space set up, and /etc and /dev point to
        it. We should be in pretty good shape. */
     startSyslog();
-
-    /* write out a pid file */
-    if ((fd = open("/var/run/init.pid", O_WRONLY|O_CREAT, 0644)) > 0) {
-        char * buf = malloc(10);
-
-        snprintf(buf, 9, "%d", getpid());
-        write(fd, buf, strlen(buf));
-        close(fd);
-        free(buf);
-    } else {
-        printf("unable to write init.pid (%d): %m\n", errno);
-        sleep(2);
-    }
-
-    /* D-Bus */
-    if (fork() == 0) {
-        execl("/bin/dbus-uuidgen", "/bin/dbus-uuidgen", "--ensure", NULL);
-        doExit(1);
-    }
-
-    if (fork() == 0) {
-        execl("/bin/dbus-daemon", "/bin/dbus-daemon", "--system", NULL);
-        doExit(1);
-    }
-
-    sleep(2);
 
     /* Go into normal init mode - keep going, and then do a orderly shutdown
        when:
@@ -854,22 +625,7 @@ int main(int argc, char **argv) {
 
     /* set up the ctrl+alt+delete handler to kill our pid, not pid 1 */
     signal(SIGINT, sigintHandler);
-    if ((fd = open("/proc/sys/kernel/cad_pid", O_WRONLY)) != -1) {
-        char buf[7];
-        size_t count;
-        sprintf(buf, "%d", getpid());
-        count = write(fd, buf, strlen(buf));
-        close(fd);
-        /* if we succeeded in writing our pid, turn off the hard reboot
-           ctrl-alt-del handler */
-        if (count == strlen(buf) &&
-            (fd = open("/proc/sys/kernel/ctrl-alt-del", O_WRONLY)) != -1) {
 
-            write(fd, "0", 1);
-            close(fd);
-        }
-    }
-    
     while (!doShutdown) {
         pid_t childpid;
         childpid = wait(&waitStatus);
@@ -896,28 +652,6 @@ int main(int argc, char **argv) {
             printf("-- received signal %d", WTERMSIG(waitStatus));
         }
         printf("\n");
-
-        /* If debug mode was requested, spawn shell */
-        if(isDevelMode) {
-            pid_t shellpid;
-
-            printf("Development mode requested spawning shell...\n");
-
-            if ((shellpid = fork()) == 0) {
-                if (chdir("/root") == 0) {
-                    execl("/bin/bash", "/bin/bash", NULL);
-                } else {
-                    perror("Unable to chdir to /root");
-                }
-            }
-            else if (shellpid > 0) {
-                waitpid(shellpid, NULL, 0);
-            }
-            else {
-                perror("Execution of debug shell failed.");
-            }
-
-        }
 
     } else {
         shutdown_method = REBOOT;

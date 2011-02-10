@@ -358,62 +358,6 @@ static void initializeTtys(void) {
     }
 }
 
-static void spawnShell(void) {
-    pid_t pid;
-
-    if (FL_SERIAL(flags) || FL_NOSHELL(flags)) {
-        logMessage(INFO, "not spawning a shell");
-        return;
-    } else if (access("/bin/sh",  X_OK))  {
-        logMessage(ERROR, "cannot open shell - /bin/sh doesn't exist");
-        return;
-    }
-
-    if (!(pid = fork())) {
-	int fd;
-
-    	fd = open("/dev/tty2", O_RDWR|O_NOCTTY);
-    	if (fd < 0) {
-            logMessage(ERROR, "cannot open /dev/tty2 -- no shell will be provided");
-	    return;
-	}
-
-        dup2(fd, 0);
-        dup2(fd, 1);
-        dup2(fd, 2);
-        
-        close(fd);
-        setsid();
-
-	/* enable UTF-8 console */
-	printf("\033%%G");
-	fflush(stdout);
-	isysLoadFont();
-	
-        if (ioctl(0, TIOCSCTTY, NULL)) {
-            logMessage(ERROR, "could not set new controlling tty");
-        }
-        
-        signal(SIGINT, SIG_DFL);
-        signal(SIGTSTP, SIG_DFL);
-
-        if (!access("/tmp/updates/pyrc.py", R_OK|X_OK))
-            setenv("PYTHONSTARTUP", "/tmp/updates/pyrc.py", 1);
-        else if (!access("/usr/share/anaconda/pyrc.py", R_OK|X_OK))
-            setenv("PYTHONSTARTUP", "/usr/share/anaconda/pyrc.py", 1);
-        setenv("LD_LIBRARY_PATH", LIBPATH, 1);
-        setenv("LANG", "C", 1);
-        
-        if (execl("/bin/sh", "-/bin/sh", NULL) == -1) {
-            logMessage(CRITICAL, "exec of /bin/sh failed: %m");
-            exit(1);
-        }
-    }
-
-    return;
-}
-
-
 static void copyWarnFn (char *msg) {
    logMessage(WARNING, msg);
 }
@@ -2050,9 +1994,6 @@ int main(int argc, char ** argv) {
     /* Save list of preloaded modules so we can restore the state */
     moduleState = mlSaveModuleState();
 
-    /* Load all known devices */
-    busProbe(FL_NOPROBE(flags));
-
     if (FL_AUTOMODDISK(flags)) {
         /* Load all autodetected DDs */
         logMessage(INFO, "Trying to detect vendor driver discs");
@@ -2175,22 +2116,13 @@ int main(int argc, char ** argv) {
     /* now load SELinux policy before exec'ing anaconda and the shell
      * (if we're using SELinux) */
     if (FL_SELINUX(flags)) {
-        if (mount("/selinux", "/selinux", "selinuxfs", 0, NULL)) {
-            logMessage(ERROR, "failed to mount /selinux: %m, disabling SELinux");
-            flags &= ~LOADER_FLAGS_SELINUX;
+        if (loadpolicy() == 0) {
+            setexeccon(ANACONDA_CONTEXT);
         } else {
-            if (loadpolicy() == 0) {
-                setexeccon(ANACONDA_CONTEXT);
-            } else {
-                logMessage(ERROR, "failed to load policy, disabling SELinux");
-                flags &= ~LOADER_FLAGS_SELINUX;
-            }
+            logMessage(ERROR, "failed to load policy, disabling SELinux");
+            flags &= ~LOADER_FLAGS_SELINUX;
         }
     }
-
-    logMessage(INFO, "getting ready to spawn shell now");
-
-    spawnShell();  /* we can attach gdb now :-) */
 
     if (FL_NOPROBE(flags) && !loaderData.ksFile) {
         startNewt();

@@ -1,0 +1,9 @@
+[Unit]
+Description=Runtime Directory
+Before=loader.service
+
+[Mount]
+What=tmpfs
+Where=/tmp
+Type=tmpfs
+Options=size=250m
