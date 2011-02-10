@@ -727,23 +727,6 @@ if __name__ == "__main__":
     from pyanaconda import users
     from pyanaconda import kickstart
 
-    # FIXME: we should be able to get rid of this now that there is only
-    #        one stage -- dwl
-    # the following makes me very sad. -- katzj
-    # we have a slightly different set of udev rules in the second 
-    # stage than the first stage.  why this doesn't get picked up
-    # automatically, I don't know.  but we need to trigger so that we
-    # have all the information about netdevs that we care about for 
-    # NetworkManager in the udev database
-    from pyanaconda.baseudev import udev_trigger, udev_settle
-    udev_trigger("net")
-    udev_trigger("block") # trigger the block subsys too while at it
-    udev_settle()
-    # and for added fun, once doesn't seem to be enough?  so we 
-    # do it twice, it works and we scream at the world "OH WHY?"
-    udev_trigger("net")
-    udev_settle()
-
     import gettext
     _ = lambda x: gettext.ldgettext("anaconda", x)
 
