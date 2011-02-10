@@ -1233,8 +1233,8 @@ msgstr "Falló la migración"
 #: pyanaconda/packages.py:128
 #, python-format
 msgid "An error was encountered while migrating filesystem on device %s."
-msgstr ""
-"Ha ocurrido un error al migrar el sistema de archivo en el dispositivo %s. "
+msgstr "Ha ocurrido un error al migrar el sistema de archivo en el dispositivo %s. "
+
 
 #: pyanaconda/packages.py:137
 msgid "_File Bug"
@@ -1668,15 +1668,15 @@ msgstr "Sin credenciales (descubrimiento de autenticación deshabilitado)"
 
 #: pyanaconda/partIntfHelpers.py:362
 msgid "CHAP pair"
-msgstr ""
+msgstr "Par CHAP"
 
 #: pyanaconda/partIntfHelpers.py:363
 msgid "CHAP pair and a reverse pair"
-msgstr ""
+msgstr "CHAP par y par inverso"
 
 #: pyanaconda/partIntfHelpers.py:364
 msgid "Use the credentials from the discovery step"
-msgstr ""
+msgstr "Use las credenciales del paso de descubrimiento"
 
 # ../loader/windows.c:46
 # ../loader/windows.c:46
@@ -1757,7 +1757,7 @@ msgstr "Ingresar"
 #: pyanaconda/partIntfHelpers.py:520
 #, python-format
 msgid "iSCSI %s Error"
-msgstr ""
+msgstr "Error %s iSCSI"
 
 # ../iw/partition_gui.py:724 ../textw/partition_text.py:147
 # ../iw/partition_gui.py:724 ../textw/partition_text.py:147
@@ -1819,17 +1819,17 @@ msgstr "Las particiones de arranque solo pueden estar en un volumen lógico."
 #: pyanaconda/platform.py:137
 #, python-format
 msgid "Bootable partitions cannot be on an %s filesystem."
-msgstr ""
-"Las particiones de arranque sólo pueden estar en un sistema de archivo %s."
+msgstr "Las particiones de arranque sólo pueden estar en un sistema de archivo %s."
+
 
 # ../partitioning.py:506 ../partitioning.py:587
 # ../partitioning.py:521 ../partitioning.py:602
 # ../partitioning.py:524 ../partitioning.py:605
 #: pyanaconda/platform.py:141 pyanaconda/platform.py:146
 msgid "Bootable partitions cannot be on an encrypted block device"
-msgstr ""
-"Las particiones de arranque no pueden estar en un dispositivo de bloques "
-"cifrado"
+msgstr "Las particiones de arranque no pueden estar en un dispositivo de bloques cifrado"
+
+
 
 # ../iw/partition_gui.py:843 ../textw/partition_text.py:540
 # ../iw/partition_gui.py:845 ../textw/partition_text.py:540
@@ -1884,7 +1884,7 @@ msgstr "%s debe tener una etiqueta de disco mac."
 #: pyanaconda/rescue.py:211 pyanaconda/rescue.py:367 pyanaconda/rescue.py:467
 #, python-format
 msgid "Run %s to unmount the system when you are finished."
-msgstr ""
+msgstr "Ejecutar %s para desmontar el systema cuando haya finalizado"
 
 # ../rescue.py:68 ../rescue.py:104 ../rescue.py:184
 # ../rescue.py:68 ../rescue.py:104 ../rescue.py:184
@@ -2658,7 +2658,7 @@ msgstr[1] "Paquetes completados: %(donepkgs)d de %(numpkgs)d"
 #: pyanaconda/yuminstall.py:233
 #, python-format
 msgid "<b>Cleaning up %s</b>"
-msgstr ""
+msgstr "<b>Limpiando  %s</b>"
 
 # ../iw/progress_gui.py:28
 # ../iw/progress_gui.py:28
@@ -3188,7 +3188,7 @@ msgstr ""
 
 #: pyanaconda/iw/advanced_storage.py:249
 msgid "Node Name"
-msgstr ""
+msgstr "Nombre de nodo"
 
 # ../partitioning.py:1663
 # ../partitioning.py:1683
@@ -4152,7 +4152,7 @@ msgstr "Espacio usado:"
 
 #: pyanaconda/iw/lvm_dialog_gui.py:1383
 msgid "Snapshot Total:"
-msgstr ""
+msgstr "Instantanea (Snapshot) Total"
 
 # ../textw/upgrade_text.py:107
 # ../textw/upgrade_text.py:107
