@@ -1066,6 +1066,8 @@ class DeviceTree(object):
             initcb = lambda: False
         elif self.zeroMbr:
             initcb = lambda: True
+        elif not self.intf:
+            initcb = lambda: False
         else:
             description = device.description or device.model
             try:
@@ -1584,8 +1586,9 @@ class DeviceTree(object):
                 # if zeroMbr is true don't ask.
                 if not self._cleanup and \
                    (self.zeroMbr or
-                    self.intf.questionReinitInconsistentLVM(pv_names=paths,
-                                                            vg_name=device.name)):
+                    (self.intf and
+                     self.intf.questionReinitInconsistentLVM(pv_names=paths,
+                                                            vg_name=device.name))):
                     reinitializeVG(device)
                 else:
                     # The user chose not to reinitialize.
@@ -1613,7 +1616,7 @@ class DeviceTree(object):
             if c.kids == 0:
                 self.unusedRaidMembers.extend(map(lambda m: m.name, c.devices))
 
-        if not self._cleanup:
+        if self.unusedRaidMembers and not self._cleanup and self.intf:
             self.intf.unusedRaidMembersWarning(self.unusedRaidMembers)
 
     def _setupLvs(self):
