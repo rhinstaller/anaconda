@@ -1,0 +1,12 @@
+[Unit]
+Description=Shell on tty2
+BindTo=dev-tty2.device
+After=dev-tty2.device
+
+[Service]
+Environment=TERM=linux
+ExecStart=-/sbin/agetty -n tty2 38400
+Restart=always
+RestartSec=0
+TimeoutSec=0
+KillMode=process-group

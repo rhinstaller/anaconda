@@ -1,0 +1,13 @@
+[Unit]
+Description=The anaconda loader
+Requires=dbus.service udev.service rsyslog.service
+After=dbus.service udev.service rsyslog.service
+
+[Service]
+Environment=HOME=/
+Type=oneshot
+WorkingDirectory=/
+ExecStart=/sbin/loader
+StandardInput=tty-force
+KillMode=process-group
+TimeoutSec=0
