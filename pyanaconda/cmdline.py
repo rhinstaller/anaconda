@@ -73,6 +73,15 @@ class InstallInterface(InstallInterfaceBase):
     def __del__(self):
         pass
 
+    def reinitializeWindow(self, title, path, size, description):
+        print(_("Command line mode requires all choices to be specified in a "
+                "kickstart configuration file."))
+        print(title)
+
+        # don't exit
+        while 1:
+            time.sleep(5)
+
     def shutdown(self):
         pass
 

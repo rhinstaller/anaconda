@@ -263,6 +263,27 @@ class InstallInterface(InstallInterfaceBase):
     def progressWindow(self, title, text, total, updpct = 0.05, pulse = False):
         return ProgressWindow(self.screen, title, text, total, updpct, pulse)
 
+    def reinitializeWindow(self, title, path, size, description):
+        grid = GridForm(self.screen, title, 1, 3)
+        text = TEXT_REINITIALIZE % (description, size, path)
+        grid.add(TextboxReflowed(70, text), 0, 0)
+
+        all_devices_cb = Checkbox(TEXT_REINITIALIZE_ALL, isOn=False)
+        grid.add(all_devices_cb, 0, 1, padding=(0, 1, 0, 0))
+
+        buttons = [(_("Yes, discard any data"), "yes"),
+                   (_("No, keep any data"), "no")]
+        grid.buttons = ButtonBar(self.screen, buttons)
+        grid.add(grid.buttons, 0, 2, padding=(0, 1, 0, 0))
+
+        result = grid.run()
+        button_check = grid.buttons.buttonPressed(result)
+        self.screen.popWindow()
+        rc = 2 if button_check == "yes" else 0
+        if all_devices_cb.selected():
+            rc += 1
+        return rc
+
     def setInstallProgressClass(self, c):
         self.instProgress = c
 
