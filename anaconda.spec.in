@@ -221,6 +221,12 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Thu Feb 10 2011 David Cantrell <dcantrell@redhat.com> - 13.21.97-1
+- Fix mis-management of luks dict when renaming encrypted lvs. (dlehman)
+  Resolves: rhbz#674773
+- iscsi: better IBFT logging. (akozumpl)
+  Related: rhbz#529443
+
 * Tue Feb 08 2011 David Cantrell <dcantrell@redhat.com> - 13.21.96-1
 - Fix logMessage() call in loader/cdinstall.c (dcantrell)
   Related: rhbz#604614
