@@ -90,13 +90,16 @@ if [ ! -e /selinux/load ]; then
 fi
 
 # Process cmdline args
-for opt in `cat /proc/cmdline`; do
+for opt in `cat /proc/cmdline` $*; do
     case $opt in
     xdriver=*)
         ANACONDA="$ANACONDA --$opt"
         ;;
     updates=*)
         UPDATES="${opt#updates=}"
+        ;;
+    --updates=*)
+        UPDATES="${opt#--updates=}"
         ;;
     esac
 done
