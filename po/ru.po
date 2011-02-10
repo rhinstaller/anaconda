@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: ru\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
 "POT-Creation-Date: 2011-01-19 10:10-0500\n"
-"PO-Revision-Date: 2011-02-09 22:41+0300\n"
+"PO-Revision-Date: 2011-02-10 22:07+0300\n"
 "Last-Translator: Igor Gorbounov <igor.gorbounov@gmail.com>\n"
 "Language-Team: Russian <fedora-trans-ru@redhat,com>\n"
 "MIME-Version: 1.0\n"
@@ -4438,9 +4438,9 @@ msgid "Confirm"
 msgstr "Подтвердить"
 
 #: pyanaconda/storage/__init__.py:204
-#, fuzzy, python-format
+#, python-format
 msgid "The partitioning options you have selected will now be written to disk.  Any data on deleted or reformatted partitions will be lost.%s"
-msgstr "Выбранные параметры разбиения будут записаны на диск. Все данные в удалённых и переформатированных разделах будут удалены."
+msgstr "Выбранные параметры разбиения будут записаны на диск. Все данные в удалённых и переформатированных разделах будут удалены.%s"
 
 #: pyanaconda/storage/__init__.py:210
 msgid "Go _Back"
@@ -4516,9 +4516,9 @@ msgid "Your root partition is less than 250 megabytes which is usually too small
 msgstr "Размер Вашего корневого раздела меньше 250 МБ, как правило, этого недостаточно для установки %s."
 
 #: pyanaconda/storage/__init__.py:1032
-#, fuzzy, python-format
+#, python-format
 msgid "Your / partition is less than %(min)s MB which is lower than recommended for a normal %(productName)s%(live)s install."
-msgstr "Размер раздела / меньше %(min)s мегабайт, что меньше рекомендуемого размера для нормальной установки %(productName)s. "
+msgstr "Размер раздела / меньше %(min)s МБ, что меньше рекомендуемого размера для нормальной установки %(productName)s%(live)s. "
 
 #: pyanaconda/storage/__init__.py:1043
 #, python-format
@@ -4539,9 +4539,9 @@ msgid "Installing on a FireWire device.  This may or may not produce a working s
 msgstr "Установка на FireWire-устройство. Существует вероятность получения нерабочей системы."
 
 #: pyanaconda/storage/__init__.py:1094
-#, fuzzy, python-format
+#, python-format
 msgid "You have not specified a swap partition.  %s MB of memory is required to continue installation without a swap partition, but you only have %s MB."
-msgstr "Вы не создали раздел подкачки. С учетом доступной в системе памяти, раздел «swap» необходим для завершения установки."
+msgstr "Вы не указали раздел подкачки. Для продолжения установки без раздела подкачки требуется %sМБ памяти, но имеется только %s МБ."
 
 #: pyanaconda/storage/__init__.py:1099
 msgid "You have not specified a swap partition.  Although not strictly required in all cases, it will significantly improve performance for most installations."
@@ -4804,9 +4804,9 @@ msgid "Formatting"
 msgstr "Форматирование"
 
 #: pyanaconda/storage/formats/fs.py:355
-#, fuzzy, python-format
+#, python-format
 msgid "Creating %(type)s filesystem on %(device)s"
-msgstr "Создание файловой системы %s на %s"
+msgstr "Создание файловой системы %(type)s на  %(device)s"
 
 #: pyanaconda/storage/formats/fs.py:457
 msgid "Resizing"
@@ -4884,9 +4884,9 @@ msgstr "Шифрование %s"
 
 #: pyanaconda/storage/formats/lvmpv.py:104
 #: pyanaconda/storage/formats/swap.py:162
-#, fuzzy, python-format
+#, python-format
 msgid "Creating %(type)s on %(device)s"
-msgstr "Создание %s на %s"
+msgstr "Создание %(type)s на %(device)s"
 
 #: pyanaconda/storage/iscsi.py:120
 msgid "Unable to change iSCSI initiator name once set"
@@ -4915,14 +4915,13 @@ msgid "No initiator name set"
 msgstr "Не задано имя инициатора iSCSI"
 
 #: pyanaconda/storage/iscsi.py:253
-#, fuzzy
 msgid "Logging in to iSCSI node"
-msgstr "Регистрация на узле iSCSI"
+msgstr "Вход на узел iSCSI"
 
 #: pyanaconda/storage/iscsi.py:254
-#, fuzzy, python-format
+#, python-format
 msgid "Logging in to iSCSI node %s"
-msgstr "Регистрация на узле iSCSI"
+msgstr "Вход на узел iSCSI %s"
 
 #: pyanaconda/storage/partitioning.py:199
 msgid "Could not find enough free space for automatic partitioning.  Press 'OK' to exit the installer."
@@ -5115,14 +5114,13 @@ msgid "Enable network interface"
 msgstr "Включить сетевой интерфейс"
 
 #: pyanaconda/textw/netconfig_text.py:129
-#, fuzzy
 msgid "This requires that you have an active network connection during the installation process.  Please select network interface to configure."
 msgstr "Для этого необходимо наличие активного сетевого соединения на протяжении процесса установки. Выполните настройку сетевого интерфейса."
 
 #: pyanaconda/textw/netconfig_text.py:155
-#, fuzzy, python-format
+#, python-format
 msgid "Configure interface %s to be used during installation process."
-msgstr "Какой язык вы хотите использовать в процессе установки?"
+msgstr "Настройте интерфейс %s для использования во время процесса установки."
 
 #: pyanaconda/textw/netconfig_text.py:160
 msgid "Enable IPv4 Support"
@@ -5159,9 +5157,8 @@ msgid "Missing protocol"
 msgstr "Отсутствует протокол"
 
 #: pyanaconda/textw/netconfig_text.py:271
-#, fuzzy
 msgid "You must select at least one protocol version"
-msgstr "Необходимо выбрать как минимум один протокол (IPv4 или IPv6)."
+msgstr "Необходимо выбрать как минимум одну версию протокола"
 
 #: pyanaconda/textw/netconfig_text.py:279
 #: pyanaconda/textw/netconfig_text.py:282
@@ -5212,9 +5209,9 @@ msgid "Configuring Network Interfaces"
 msgstr "Настройка сетевых интерфейсов"
 
 #: pyanaconda/textw/netconfig_text.py:404
-#, fuzzy, python-format
+#, python-format
 msgid "There was an error configuring network device %s"
-msgstr "Ошибка при конфигурации сетевого интерфейса."
+msgstr "Ошибка при конфигурации сетевого интерфейса %s"
 
 #: pyanaconda/textw/partition_text.py:59
 msgid "Partitioning Type"
@@ -5773,9 +5770,8 @@ msgstr "Целевой диск:"
 
 # shortened Russian translation to fit into the widget
 #: data/ui/filter.glade.h:25
-#, fuzzy
 msgid "_Add Advanced Target"
-msgstr "Добавить"
+msgstr "_Добавить улучшенную цель"
 
 #: data/ui/iscsi-dialogs.glade.h:1
 msgid "CHAP Password:"
@@ -5786,7 +5782,6 @@ msgid "CHAP Username:"
 msgstr "Имя пользователя CHAP:"
 
 #: data/ui/iscsi-dialogs.glade.h:3
-#, fuzzy
 msgid "Check the nodes you wish to log into:"
 msgstr "Проверьте сервера, на которые вы хотите войти:"
 
@@ -5795,93 +5790,76 @@ msgid "Reason:"
 msgstr "Причина:"
 
 #: data/ui/iscsi-dialogs.glade.h:5
-#, fuzzy
 msgid "Retry _Login"
-msgstr "Повторная попытка"
+msgstr "Повторная попытка _входа"
 
 #: data/ui/iscsi-dialogs.glade.h:6
-#, fuzzy
 msgid "Reverse CHAP Password:"
-msgstr "<b>Обратный па_роль CHAP:</b>"
+msgstr "Обратный пароль CHAP:"
 
 #: data/ui/iscsi-dialogs.glade.h:7
-#, fuzzy
 msgid "Reverse CHAP Username:"
-msgstr "<b>Обратное и_мя пользователя CHAP:</b>"
+msgstr "Обратное имя пользователя CHAP:"
 
 #: data/ui/iscsi-dialogs.glade.h:8
-#, fuzzy
 msgid "Start _Discovery"
-msgstr "Начать обнаружение"
+msgstr "Начать _обнаружение"
 
 #: data/ui/iscsi-dialogs.glade.h:9
-#, fuzzy
 msgid "Successfully logged in and attached the following nodes:"
-msgstr "Успешно вошел и прикрепился к следующим серверам:"
+msgstr "Успешный вход и присоединение к следующим узлам:"
 
 #: data/ui/iscsi-dialogs.glade.h:10
-#, fuzzy
 msgid "Target IP Address:"
-msgstr "<b>IP-а_дрес цели iSCSI:</b>"
+msgstr "IP-адрес цели:"
 
 #: data/ui/iscsi-dialogs.glade.h:11
 msgid "To use iSCSI disks, you must provide the address of your iSCSI target and the iSCSI initiator name you've configured for your host."
 msgstr "Чтобы использовать диски iSCSI, вы должны указать адрес устройства iSCSI и имя инициатора iSCSI, которое было настроено для данного узла."
 
 #: data/ui/iscsi-dialogs.glade.h:12
-#, fuzzy
 msgid "What kind of iSCSI <b>discovery authentication</b> do you wish to perform:"
-msgstr "Какой тип iSCSI <b>аутентификации обнаружения</b> вы хотите совершить:"
+msgstr "Какие <b>проверки подлинности обнаружения</b> iSCSI вы хотите выполнить:"
 
 #: data/ui/iscsi-dialogs.glade.h:13
-#, fuzzy
 msgid "What kind of iSCSI <b>login authentication</b> do you wish to perform:"
-msgstr "Какой тип iSCSI <b>входной аутентификации</b> вы хотите совершить:"
+msgstr "Какие <b>проверки подлинности входа</b> iSCSI вы хотите выполнить:"
 
 #: data/ui/iscsi-dialogs.glade.h:14
-#, fuzzy
 msgid "_Cancel"
-msgstr "Отмена"
+msgstr "_Отмена"
 
 #: data/ui/iscsi-dialogs.glade.h:15
-#, fuzzy
 msgid "_Login"
-msgstr "Загрузка"
+msgstr "_Вход"
 
 #: data/ui/iscsi-dialogs.glade.h:16
-#, fuzzy
 msgid "_OK"
-msgstr "OК"
+msgstr "_OК"
 
 #: data/ui/iscsi-dialogs.glade.h:17
-#, fuzzy
 msgid "iSCSI Discovered Nodes"
-msgstr "Не обнаружены узлы iSCSI"
+msgstr "Обнаруженные узлы iSCSI"
 
 #: data/ui/iscsi-dialogs.glade.h:18
-#, fuzzy
 msgid "iSCSI Discovery Details"
-msgstr "Результат обнаружения iSCSI"
+msgstr "Подробные сведения об обнаружении на iSCSI"
 
 #: data/ui/iscsi-dialogs.glade.h:19
-#, fuzzy
 msgid "iSCSI Initiator Name:"
-msgstr "<b>_Имя инициатора iSCSI:</b>"
+msgstr "Имя инициатора iSCSI:"
 
 #: data/ui/iscsi-dialogs.glade.h:20
-#, fuzzy
 msgid "iSCSI Login Results"
-msgstr "результаты входа через iSCSI"
+msgstr "Результаты входа на iSCSI"
 
 #: data/ui/iscsi-dialogs.glade.h:21
-#, fuzzy
 msgid "iSCSI Nodes Login"
-msgstr "вход на iSCSI сервера"
+msgstr "Вход на узлы iSCSI"
 
 #: data/ui/iscsi-dialogs.glade.h:22
-#, fuzzy
 msgid "iSCSI login has failed for the following nodes:"
-msgstr "вход через iSCSI завершился с ошибками для следующих серверов:"
+msgstr "Вход на iSCSI завершился с ошибками для следующих узлов:"
 
 #: data/ui/lukspassphrase.glade.h:1
 msgid "Also add this passphrase to all existing encrypted devices to streamline the boot process"
@@ -5995,7 +5973,6 @@ msgid "_No, keep any data"
 msgstr "_Нет, сохранить данные"
 
 #: data/ui/reinitialize-dialog.glade.h:12
-#, fuzzy
 msgid "_Yes, discard any data"
 msgstr "_Да, удалить данные"
 
