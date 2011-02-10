@@ -312,8 +312,25 @@ class StorageDiscoveryConfig(object):
 
 
 class Storage(object):
-    def __init__(self, anaconda):
+    def __init__(self, anaconda=None, intf=None, platform=None):
+        """ Create a Storage instance.
+
+            Keyword Arguments:
+
+                anaconda    -   an Anaconda instance
+                intf        -   an InstallInterface instance
+                platform    -   a Platform instance
+
+            All arguments are optional. An Anaconda instance will contain
+            an InstallInterface and a Platform instance, so it makes sense
+            to pass in either an Anaconda instance or as many of the other
+            two as is desired. Explicitly passed intf or platform will take
+            precedence over those in the Anaconda instance.
+
+        """
         self.anaconda = anaconda
+        self._intf = intf
+        self._platform = platform
 
         self.config = StorageDiscoveryConfig()
 
@@ -342,13 +359,13 @@ class Storage(object):
         self._dumpFile = "/tmp/storage.state"
 
         # these will both be empty until our reset method gets called
-        self.devicetree = DeviceTree(intf=self.anaconda.intf,
+        self.devicetree = DeviceTree(intf=self.intf,
                                      conf=self.config,
                                      passphrase=self.encryptionPassphrase,
                                      luksDict=self.__luksDevs,
                                      iscsi=self.iscsi,
                                      dasd=self.dasd)
-        self.fsset = FSSet(self.devicetree, self.anaconda.rootPath)
+        self.fsset = FSSet(self.devicetree, getattr(anaconda, "rootPath", ""))
         self.services = set()
 
     def doIt(self):
@@ -357,12 +374,13 @@ class Storage(object):
 
         # now set the boot partition's flag
         try:
-            boot = self.anaconda.platform.bootDevice()
+            boot = self.platform.bootDevice()
             if boot.type == "mdarray":
                 bootDevs = boot.parents
             else:
                 bootDevs = [boot]
-        except DeviceError:
+        except (DeviceError, AttributeError):
+            # AttributeError means we have no platform instance. it's ok.
             bootDevs = []
         else:
             for dev in bootDevs:
@@ -412,20 +430,21 @@ class Storage(object):
             if device.format.type == "luks" and device.format.exists:
                 self.__luksDevs[device.format.uuid] = device.format._LUKS__passphrase
 
-        w = self.anaconda.intf.waitWindow(_("Examining Devices"),
+        if self.intf:
+            w = self.intf.waitWindow(_("Examining Devices"),
                                           _("Examining storage devices"))
         if not flags.imageInstall:
-            self.iscsi.startup(self.anaconda.intf)
-            self.fcoe.startup(self.anaconda.intf)
-            self.zfcp.startup(self.anaconda.intf)
-            self.dasd.startup(self.anaconda.intf,
+            self.iscsi.startup(self.intf)
+            self.fcoe.startup(self.intf)
+            self.zfcp.startup(self.intf)
+            self.dasd.startup(self.intf,
                               self.config.exclusiveDisks,
                               self.config.zeroMbr)
         clearPartType = self.config.clearPartType # save this before overriding it
-        if self.anaconda.upgrade:
+        if getattr(self.anaconda, "upgrade", False):
             self.config.clearPartType = CLEARPART_TYPE_NONE
 
-        self.devicetree = DeviceTree(intf=self.anaconda.intf,
+        self.devicetree = DeviceTree(intf=self.intf,
                                      conf=self.config,
                                      passphrase=self.encryptionPassphrase,
                                      luksDict=self.__luksDevs,
@@ -433,12 +452,16 @@ class Storage(object):
                                      dasd=self.dasd)
         self.devicetree.populate()
         self.config.clearPartType = clearPartType # set it back
-        self.fsset = FSSet(self.devicetree, self.anaconda.rootPath)
+        self.fsset = FSSet(self.devicetree,
+                           getattr(self.anaconda, "rootPath", ""))
         self.eddDict = get_edd_dict(self.partitioned)
-        self.anaconda.rootParts = None
-        self.anaconda.upgradeRoot = None
+        if hasattr(self.anaconda, "rootParts") and \
+           hasattr(self.anaconda, "upgradeRoot"):
+            self.anaconda.rootParts = None
+            self.anaconda.upgradeRoot = None
         self.dumpState("initial")
-        w.pop()
+        if w:
+            w.pop()
 
     @property
     def devices(self):
@@ -636,9 +659,23 @@ class Storage(object):
     def liveImage(self):
         """ The OS image used by live installs. """
         _image = None
-        if flags.livecdInstall:
+        if flags.livecdInstall and hasattr(self.anaconda, "methodstr"):
             _image = self.devicetree.getDeviceByPath(self.anaconda.methodstr[9:])
         return _image
+
+    @property
+    def intf(self):
+        _intf = self._intf
+        if not _intf:
+            _intf = getattr(self.anaconda, "intf", None)
+        return _intf
+
+    @property
+    def platform(self):
+        _platform = self._platform
+        if not _platform:
+            _platform = getattr(self.anaconda, "platform", None)
+        return _platform
 
     def exceptionDisks(self):
         """ Return a list of removable devices to save exceptions to.
@@ -801,7 +838,10 @@ class Storage(object):
         if kwargs.has_key("name"):
             name = kwargs.pop("name")
         else:
-            name = self.createSuggestedVGName(self.anaconda.network)
+            hostname = ""
+            if hasattr(self.anaconda, "network"):
+                hostname = self.anaconda.network.hostname
+            name = self.createSuggestedVGName(hostname=hostname)
 
         if name in [d.name for d in self.devices]:
             raise ValueError("name already in use")
@@ -893,19 +933,18 @@ class Storage(object):
                 return True
         return False
 
-    def createSuggestedVGName(self, network):
+    def createSuggestedVGName(self, hostname=None):
         """ Return a reasonable, unused VG name. """
         # try to create a volume group name incorporating the hostname
-        hn = network.hostname
         vgnames = [vg.name for vg in self.vgs]
-        if hn is not None and hn != '':
-            if hn == 'localhost' or hn == 'localhost.localdomain':
+        if hostname is not None and hostname != '':
+            if hostname == 'localhost' or hostname == 'localhost.localdomain':
                 vgtemplate = "VolGroup"
-            elif hn.find('.') != -1:
-                template = "vg_%s" % (hn.split('.')[0].lower(),)
+            elif hostname.find('.') != -1:
+                template = "vg_%s" % (hostname.split('.')[0].lower(),)
                 vgtemplate = safeLvmName(template)
             else:
-                template = "vg_%s" % (hn.lower(),)
+                template = "vg_%s" % (hostname.lower(),)
                 vgtemplate = safeLvmName(template)
         else:
             vgtemplate = "VolGroup"
@@ -1009,8 +1048,9 @@ class Storage(object):
         root = self.fsset.rootDevice
         swaps = self.fsset.swapDevices
         try:
-            boot = self.anaconda.platform.bootDevice()
-        except DeviceError:
+            boot = self.platform.bootDevice()
+        except (DeviceError, AttributeError):
+            # AttributeError means we have no anaconda or platform. it's ok.
             boot = None
 
         if not root:
@@ -1024,6 +1064,7 @@ class Storage(object):
                               "install %s.") % (productName,))
 
         if (root and
+            hasattr(self.anaconda, "backend") and
             root.size < self.anaconda.backend.getMinimumSizeMB("/")):
             if flags.livecdInstall:
                 live = " Live"
@@ -1082,7 +1123,8 @@ class Storage(object):
             warnings.append(_("Installing on a FireWire device.  This may "
                               "or may not produce a working system."))
 
-        errors.extend(self.anaconda.platform.checkBootRequest(boot))
+        if self.platform:
+            errors.extend(self.platform.checkBootRequest(boot))
 
         if not swaps:
             from pyanaconda.storage.size import Size
@@ -1117,8 +1159,8 @@ class Storage(object):
 
     def checkNoDisks(self):
         """Check that there are valid disk devices."""
-        if not self.disks:
-            self.anaconda.intf.messageWindow(_("No Drives Found"),
+        if not self.disks and self.intf:
+            self.intf.messageWindow(_("No Drives Found"),
                                _("An error has occurred - no valid devices were "
                                  "found on which to create new file systems. "
                                  "Please check your hardware for the cause "
@@ -1135,8 +1177,8 @@ class Storage(object):
     def write(self, instPath):
         self.fsset.write(instPath)
         self.makeMtab(root=instPath)
-        self.iscsi.write(instPath, self.anaconda)
-        self.fcoe.write(instPath, self.anaconda)
+        self.iscsi.write(instPath, self)
+        self.fcoe.write(instPath)
         self.zfcp.write(instPath)
         self.dasd.write(instPath)
 
@@ -1190,10 +1232,15 @@ class Storage(object):
         self.zfcp.writeKS(f)
 
     def turnOnSwap(self, upgrading=None):
-        self.fsset.turnOnSwap(self.anaconda, upgrading=upgrading)
+        self.fsset.turnOnSwap(intf=self.intf,
+                              rootPath=getattr(self.anaconda, "rootPath", ""),
+                              upgrading=upgrading)
 
     def mountFilesystems(self, raiseErrors=None, readOnly=None, skipRoot=False):
-        self.fsset.mountFilesystems(self.anaconda, raiseErrors=raiseErrors,
+        self.fsset.mountFilesystems(intf=self.intf,
+                                    rootPath=getattr(self.anaconda,
+                                                     "rootPath", ""),
+                                    raiseErrors=raiseErrors,
                                     readOnly=readOnly, skipRoot=skipRoot)
 
     def umountFilesystems(self, ignoreErrors=True, swapoff=True):
@@ -1425,7 +1472,8 @@ def mountExistingSystem(anaconda, rootEnt,
         if rc == 0:
             return -1
 
-    fsset.mountFilesystems(anaconda, readOnly=readOnly, skipRoot=True)
+    fsset.mountFilesystems(intf=anaconda.intf, rootPath=anaconda.rootPath,
+                           readOnly=readOnly, skipRoot=True)
 
 
 class BlkidTab(object):
@@ -1832,15 +1880,16 @@ class FSSet(object):
                         # just write duplicates back out post-install
                         self.preserveLines.append(line)
 
-    def turnOnSwap(self, anaconda, upgrading=None):
+    def turnOnSwap(self, intf=None, rootPath="", upgrading=None):
         def swapErrorDialog(msg, device):
-            if not anaconda.intf:
-                sys.exit(0)
-
-            buttons = [_("Skip"), _("Format"), _("_Exit")]
-            ret = anaconda.intf.messageWindow(_("Error"), msg, type="custom",
-                                              custom_buttons=buttons,
-                                              custom_icon="warning")
+            if not intf:
+                # can't show a dialog? ignore this busted device.
+                ret = 0
+            else:
+                buttons = [_("Skip"), _("Format"), _("_Exit")]
+                ret = intf.messageWindow(_("Error"), msg, type="custom",
+                                         custom_buttons=buttons,
+                                         custom_icon="warning")
 
             if ret == 0:
                 self.devicetree._removeDevice(device)
@@ -1854,7 +1903,7 @@ class FSSet(object):
         for device in self.swapDevices:
             if isinstance(device, FileDevice):
                 # set up FileDevices' parents now that they are accessible
-                targetDir = "%s/%s" % (anaconda.rootPath, device.path)
+                targetDir = "%s/%s" % (rootPath, device.path)
                 parent = get_containing_device(targetDir, self.devicetree)
                 if not parent:
                     log.error("cannot determine which device contains "
@@ -1910,7 +1959,7 @@ class FSSet(object):
                     if swapErrorDialog(msg, device):
                         continue
                 except DeviceError as (msg, name):
-                    if anaconda.intf:
+                    if intf:
                         if upgrading:
                             err = _("Error enabling swap device %(name)s: "
                                     "%(msg)s\n\n"
@@ -1925,14 +1974,13 @@ class FSSet(object):
                                     "device has not been initialized.\n\n"
                                     "Press OK to exit the installer.") % \
                                   {'name': name, 'msg': msg}
-                        anaconda.intf.messageWindow(_("Error"), err)
+                        intf.messageWindow(_("Error"), err)
                     sys.exit(0)
 
                 break
 
-    def mountFilesystems(self, anaconda, raiseErrors=None, readOnly=None,
-                         skipRoot=False):
-        intf = anaconda.intf
+    def mountFilesystems(self, intf=None, rootPath="", readOnly=None,
+                         skipRoot=False, raiseErrors=None):
         devices = self.mountpoints.values() + self.swapDevices
         devices.extend([self.dev, self.devshm, self.devpts, self.sysfs,
                         self.proc, self.selinux, self.usb])
@@ -1955,7 +2003,7 @@ class FSSet(object):
                 #
                 # -- bind formats' device and mountpoint are always both
                 #    under the chroot. no exceptions. none, damn it.
-                targetDir = "%s/%s" % (anaconda.rootPath, device.path)
+                targetDir = "%s/%s" % (rootPath, device.path)
                 parent = get_containing_device(targetDir, self.devicetree)
                 if not parent:
                     log.error("cannot determine which device contains "
@@ -1977,7 +2025,7 @@ class FSSet(object):
 
             try:
                 device.format.setup(options=options,
-                                    chroot=anaconda.rootPath)
+                                    chroot=rootPath)
             except OSError as e:
                 log.error("OSError: (%d) %s" % (e.errno, e.strerror))
 

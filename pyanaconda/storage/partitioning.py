@@ -40,13 +40,13 @@ _ = lambda x: gettext.ldgettext("anaconda", x)
 import logging
 log = logging.getLogger("storage")
 
-def _createFreeSpacePartitions(anaconda):
+def _createFreeSpacePartitions(storage):
     # get a list of disks that have at least one free space region of at
     # least the default size for new partitions
     disks = []
-    for disk in anaconda.storage.partitioned:
-        if anaconda.storage.config.clearPartDisks and \
-           (disk.name not in anaconda.storage.config.clearPartDisks):
+    for disk in storage.partitioned:
+        if storage.config.clearPartDisks and \
+           (disk.name not in storage.config.clearPartDisks):
             continue
 
         part = disk.format.firstPartition
@@ -64,47 +64,47 @@ def _createFreeSpacePartitions(anaconda):
     # create a separate pv partition for each disk with free space
     devs = []
     for disk in disks:
-        if anaconda.storage.encryptedAutoPart:
+        if storage.encryptedAutoPart:
             fmt_type = "luks"
-            fmt_args = {"escrow_cert": anaconda.storage.autoPartEscrowCert,
-                        "add_backup_passphrase": anaconda.storage.autoPartAddBackupPassphrase}
+            fmt_args = {"escrow_cert": storage.autoPartEscrowCert,
+                        "add_backup_passphrase": storage.autoPartAddBackupPassphrase}
         else:
             fmt_type = "lvmpv"
             fmt_args = {}
-        part = anaconda.storage.newPartition(fmt_type=fmt_type,
+        part = storage.newPartition(fmt_type=fmt_type,
                                                 fmt_args=fmt_args,
                                                 grow=True,
                                                 disks=[disk])
-        anaconda.storage.createDevice(part)
+        storage.createDevice(part)
         devs.append(part)
 
     return (disks, devs)
 
-def _schedulePartitions(anaconda, disks):
+def _schedulePartitions(storage, disks):
     #
     # Convert storage.autoPartitionRequests into Device instances and
     # schedule them for creation
     #
     # First pass is for partitions only. We'll do LVs later.
     #
-    for request in anaconda.storage.autoPartitionRequests:
+    for request in storage.autoPartitionRequests:
         if request.asVol:
             continue
 
         if request.fstype is None:
-            request.fstype = anaconda.storage.defaultFSType
+            request.fstype = storage.defaultFSType
         elif request.fstype in ("prepboot", "efi") and \
-                anaconda.platform.bootDevice():
+                storage.platform.bootDevice():
             # there should never be a need for more than one of these
             # partitions, so skip them.
             continue
 
         # This is a little unfortunate but let the backend dictate the rootfstype
         # so that things like live installs can do the right thing
-        if request.mountpoint == "/" and anaconda.storage.liveImage:
-            request.fstype = anaconda.storage.liveImage.format.type
+        if request.mountpoint == "/" and storage.liveImage:
+            request.fstype = storage.liveImage.format.type
 
-        dev = anaconda.storage.newPartition(fmt_type=request.fstype,
+        dev = storage.newPartition(fmt_type=request.fstype,
                                             size=request.size,
                                             grow=request.grow,
                                             maxsize=request.maxSize,
@@ -113,13 +113,13 @@ def _schedulePartitions(anaconda, disks):
                                             weight=request.weight)
 
         # schedule the device for creation
-        anaconda.storage.createDevice(dev)
+        storage.createDevice(dev)
 
     # make sure preexisting broken lvm/raid configs get out of the way
     return
 
-def _scheduleLVs(anaconda, devs):
-    if anaconda.storage.encryptedAutoPart:
+def _scheduleLVs(storage, devs):
+    if storage.encryptedAutoPart:
         pvs = []
         for dev in devs:
             pv = LUKSDevice("luks-%s" % dev.name,
@@ -127,13 +127,13 @@ def _scheduleLVs(anaconda, devs):
                             size=dev.size,
                             parents=dev)
             pvs.append(pv)
-            anaconda.storage.createDevice(pv)
+            storage.createDevice(pv)
     else:
         pvs = devs
 
     # create a vg containing all of the autopart pvs
-    vg = anaconda.storage.newVG(pvs=pvs)
-    anaconda.storage.createDevice(vg)
+    vg = storage.newVG(pvs=pvs)
+    storage.createDevice(vg)
 
     initialVGSize = vg.size
 
@@ -142,7 +142,7 @@ def _scheduleLVs(anaconda, devs):
     # schedule them for creation.
     #
     # Second pass, for LVs only.
-    for request in anaconda.storage.autoPartitionRequests:
+    for request in storage.autoPartitionRequests:
         if not request.asVol:
             continue
 
@@ -150,24 +150,24 @@ def _scheduleLVs(anaconda, devs):
             continue
 
         if request.fstype is None:
-            request.fstype = anaconda.storage.defaultFSType
+            request.fstype = storage.defaultFSType
 
         # This is a little unfortunate but let the backend dictate the rootfstype
         # so that things like live installs can do the right thing
-        if request.mountpoint == "/" and anaconda.storage.liveImage:
-            request.fstype = anaconda.storage.liveImage.format.type
+        if request.mountpoint == "/" and storage.liveImage:
+            request.fstype = storage.liveImage.format.type
 
         # FIXME: move this to a function and handle exceptions
-        dev = anaconda.storage.newLV(vg=vg,
-                                     fmt_type=request.fstype,
-                                     mountpoint=request.mountpoint,
-                                     grow=request.grow,
-                                     maxsize=request.maxSize,
-                                     size=request.size,
-                                     singlePV=request.singlePV)
+        dev = storage.newLV(vg=vg,
+                            fmt_type=request.fstype,
+                            mountpoint=request.mountpoint,
+                            grow=request.grow,
+                            maxsize=request.maxSize,
+                            size=request.size,
+                            singlePV=request.singlePV)
 
         # schedule the device for creation
-        anaconda.storage.createDevice(dev)
+        storage.createDevice(dev)
 
 
 def doAutoPartition(anaconda):
@@ -193,7 +193,7 @@ def doAutoPartition(anaconda):
         anaconda.bootloader.updateDriveList(anaconda.bootloader.drivelist)
 
     if anaconda.storage.doAutoPart:
-        (disks, devs) = _createFreeSpacePartitions(anaconda)
+        (disks, devs) = _createFreeSpacePartitions(anaconda.storage)
 
         if disks == []:
             if anaconda.ksdata:
@@ -212,7 +212,7 @@ def doAutoPartition(anaconda):
             anaconda.storage.reset()
             return DISPATCH_BACK
 
-        _schedulePartitions(anaconda, disks)
+        _schedulePartitions(anaconda.storage, disks)
 
     # sanity check the individual devices
     log.warning("not sanity checking devices because I don't know how yet")
@@ -222,7 +222,7 @@ def doAutoPartition(anaconda):
         doPartitioning(anaconda.storage)
 
         if anaconda.storage.doAutoPart:
-            _scheduleLVs(anaconda, devs)
+            _scheduleLVs(anaconda.storage, devs)
 
         # grow LVs
         growLVM(anaconda.storage)
@@ -337,7 +337,7 @@ def shouldClear(device, clearPartType, clearPartDisks=None):
 
     return True
 
-def clearPartitions(storage):
+def clearPartitions(storage, bootloader=None):
     """ Clear partitions and dependent devices from disks.
 
         Arguments:
@@ -346,7 +346,7 @@ def clearPartitions(storage):
 
         Keyword arguments:
 
-            None
+            bootloader -- a bootloaderInfo instance
 
         NOTES:
 
@@ -356,6 +356,9 @@ def clearPartitions(storage):
     if storage.config.clearPartType in (None, CLEARPART_TYPE_NONE):
         # not much to do
         return
+
+    if not hasattr(storage.platform, "diskLabelType"):
+        raise StorageError("can't clear partitions without platform data")
 
     # we are only interested in partitions that physically exist
     partitions = [p for p in storage.partitions if p.exists]
@@ -407,15 +410,13 @@ def clearPartitions(storage):
     # now remove any empty extended partitions
     removeEmptyExtendedPartitions(storage)
 
-    _platform = storage.anaconda.platform
-
     # make sure that the the boot device has the correct disklabel type if
     # we're going to completely clear it.
     for disk in storage.partitioned:
-        if not storage.anaconda.bootloader.drivelist:
+        if not bootloader or not bootloader.drivelist:
             break
 
-        if disk.name != storage.anaconda.bootloader.drivelist[0]:
+        if disk.name != bootloader.drivelist[0]:
             continue
 
         if storage.config.clearPartType != CLEARPART_TYPE_ALL or \
@@ -431,7 +432,7 @@ def clearPartitions(storage):
         if filter(lambda p: p.dependsOn(disk), storage.protectedDevices):
             continue
 
-        nativeLabelType = _platform.diskLabelType(disk.partedDevice.type)
+        nativeLabelType = storage.platform.diskLabelType(disk.partedDevice.type)
         if disk.format.labelType == nativeLabelType:
             continue
 
@@ -806,7 +807,7 @@ def getFreeRegions(disks):
 
     return free
 
-def doPartitioning(storage):
+def doPartitioning(storage, bootloader=None):
     """ Allocate and grow partitions.
 
         When this function returns without error, all PartitionDevice
@@ -819,8 +820,14 @@ def doPartitioning(storage):
 
             storage - Main anaconda Storage instance
 
+        Keyword/Optional Arguments:
+
+            bootloader - bootloaderInfo instance
+
     """
-    anaconda = storage.anaconda
+    if not hasattr(storage.platform, "diskLabelType"):
+        raise StorageError("can't allocate partitions without platform data")
+
     disks = storage.partitioned
     if storage.config.exclusiveDisks:
         disks = [d for d in disks if d.name in storage.config.exclusiveDisks]
@@ -845,7 +852,7 @@ def doPartitioning(storage):
 
     # FIXME: isn't there a better place for this to happen?
     try:
-        bootDev = anaconda.platform.bootDevice()
+        bootDev = storage.platform.bootDevice()
     except DeviceError:
         bootDev = None
 
@@ -854,7 +861,7 @@ def doPartitioning(storage):
 
     removeNewPartitions(disks, partitions)
     free = getFreeRegions(disks)
-    allocatePartitions(storage, disks, partitions, free)
+    allocatePartitions(storage, disks, partitions, free, bootloader=bootloader)
     growPartitions(disks, partitions, free)
 
     # The number and thus the name of partitions may have changed now,
@@ -908,7 +915,7 @@ def doPartitioning(storage):
         # moment to simplify things
         storage.devicetree._addDevice(device)
 
-def allocatePartitions(storage, disks, partitions, freespace):
+def allocatePartitions(storage, disks, partitions, freespace, bootloader=None):
     """ Allocate partitions based on requested features.
 
         Non-existing partitions are sorted according to their requested
@@ -960,8 +967,9 @@ def allocatePartitions(storage, disks, partitions, freespace):
         req_disks.sort(key=lambda d: d.name, cmp=storage.compareDisks)
         boot_index = None
         for disk in req_disks:
-            if disk.name in storage.anaconda.bootloader.drivelist and \
-               disk.name == storage.anaconda.bootloader.drivelist[0]:
+            if bootloader and \
+               disk.name in bootloader.drivelist and \
+               disk.name == bootloader.drivelist[0]:
                 boot_index = req_disks.index(disk)
 
         if boot_index is not None and len(req_disks) > 1:

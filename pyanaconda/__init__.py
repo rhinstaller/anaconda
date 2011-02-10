@@ -188,7 +188,7 @@ class Anaconda(object):
     def storage(self):
         if not self._storage:
             import storage
-            self._storage = storage.Storage(self)
+            self._storage = storage.Storage(anaconda=self)
 
         return self._storage
 

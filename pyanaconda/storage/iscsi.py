@@ -291,15 +291,15 @@ class iscsi(object):
                     f.write(" --reverse-password %s" % auth.reverse_password)
             f.write("\n")
 
-    def write(self, instPath, anaconda):
+    def write(self, instPath, storage):
         if not self.initiatorSet:
             return
 
         # set iscsi nodes to autostart
-        root = anaconda.storage.rootDevice
+        root = storage.rootDevice
         for node in self.nodes:
             autostart = True
-            disks = self.getNodeDisks(node, anaconda.storage)
+            disks = self.getNodeDisks(node, storage)
             for disk in disks:
                 # nodes used for root get started by the initrd
                 if root.dependsOn(disk):

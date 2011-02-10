@@ -136,7 +136,7 @@ class fcoe(object):
         # fixme plenty (including add ks support for fcoe in general)
         return
 
-    def write(self, instPath, anaconda):
+    def write(self, instPath):
         if not self.nics:
             return
 
