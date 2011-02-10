@@ -111,7 +111,7 @@ class RescueInterface(InstallInterfaceBase):
     def resetReinitInconsistentLVMQuestion(self):
         self._inconsistentLVMAnswers = {}
 
-    def questionInitializeDisk(self, path, description, size, details=""):
+    def questionInitializeDisk(self, path, description, size):
         # Never initialize disks in rescue mode!
         return False
 

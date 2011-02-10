@@ -61,7 +61,7 @@ class InstallInterfaceBase(object):
     def resetInitializeDiskQuestion(self):
         self._initLabelAnswers = {}
 
-    def questionInitializeDisk(self, path, description, size, details=""):
+    def questionInitializeDisk(self, path, description, size):
 
         retVal = False # The less destructive default
 
@@ -80,7 +80,7 @@ class InstallInterfaceBase(object):
             return self._initLabelAnswers["all"]
 
         rc = self.reinitializeWindow(_("Storage Device Warning"),
-                                     path, size, description, details)
+                                     path, size, description)
 
         if rc == 0:
             retVal = False

@@ -754,7 +754,7 @@ class MessageWindow:
 
 class ReinitializeWindow(MessageWindow):
 
-    def __init__ (self, title, path, size, description, details,
+    def __init__ (self, title, path, size, description,
                   default=None, run=True, parent=None, destroyAfterRun=True):
 
         self.debugRid = None
@@ -1087,14 +1087,13 @@ class InstallInterface(InstallInterfaceBase):
                 custom_buttons, custom_icon, run=True, parent=parent).getrc()
         return rc
 
-    def reinitializeWindow(self, title, path, size, description, details):
+    def reinitializeWindow(self, title, path, size, description):
         if self.icw:
             parent = self.icw.window
         else:
             parent = None
 
-        rc = ReinitializeWindow(title, path, size, description, details,
-                                parent=parent).getrc()
+        rc = ReinitializeWindow(title, path, size, description, parent=parent).getrc()
         return rc
 
     def createRepoWindow(self):
