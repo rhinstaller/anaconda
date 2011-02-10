@@ -229,6 +229,18 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Thu Feb 10 2011 Chris Lumens <clumens@redhat.com> - 15.20-1
+- Check for valid mountpoint before unmounting image. (#671922) (dlehman)
+- Fix mis-management of luks dict when renaming encrypted lvs. (dlehman)
+- Don't raise NotImplementedError from  non-essential backend methods.
+  (dlehman)
+- Remove upgrade.findExistingRoots since it does nothing. (dlehman)
+- tui: add reinitializeWindow() to the text interface. (akozumpl)
+- typo: missing dot in the reinitialization dialog glade file. (akozumpl)
+- gui: remove an unneeded parameter from questionInitializeDisk() (akozumpl)
+- Remove quotes from udisks command in liveinst (#672022) (bcl)
+- Fix iutil import in bootloader config screen (#676032). (clumens)
+
 * Mon Feb 07 2011 Chris Lumens <clumens@redhat.com> - 15.19-1
 - Fix a typo. (clumens)
 - Don't write our own udev persistent net rules; use udev's generator.
