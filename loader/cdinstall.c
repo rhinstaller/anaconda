@@ -191,12 +191,17 @@ static void wrongCDMessage(void) {
 }
 
 /* ask about doing media check */
-static void queryCDMediaCheck(char *dev) {
+void queryCDMediaCheck(char *instRepo) {
     int rc;
+    char *tmp, *device;
 
     /* dont bother to test in automated installs */
     if (FL_KICKSTART(flags) && !FL_MEDIACHECK(flags))
         return;
+
+    /* Skip over the leading "cdrom://". */
+    tmp = instRepo+8;
+    checked_asprintf(&device, "%.*s", (int) (strchr(tmp, ':')-tmp), tmp);
 
     /* see if we should check image(s) */
     /* in rescue mode only test if they explicitly asked to */
@@ -213,18 +218,18 @@ static void queryCDMediaCheck(char *dev) {
              * remount to pretend nothing ever happened.
              */
             umount("/mnt/source");
-            mediaCheckCdrom(dev);
+            mediaCheckCdrom(device);
 
             do {
-                if (doPwMount(dev, "/mnt/source", "iso9660", "ro", NULL)) {
-                    ejectCdrom(dev);
+                if (doPwMount(device, "/mnt/source", "iso9660", "ro", NULL)) {
+                    ejectCdrom(device);
                     wrongCDMessage();
                     continue;
                 }
 
                 if (access("/mnt/source/.discinfo", R_OK)) {
                     umount("/mnt/source");
-                    ejectCdrom(dev);
+                    ejectCdrom(device);
                     wrongCDMessage();
                     continue;
                 }
@@ -233,6 +238,8 @@ static void queryCDMediaCheck(char *dev) {
             } while (1);
         }
     }
+
+    free(device);
 }
 
 int findInstallCD(struct loaderData_s *loaderData) {
@@ -314,20 +321,12 @@ int findInstallCD(struct loaderData_s *loaderData) {
 
 int promptForCdrom(struct loaderData_s *loaderData) {
     int rc;
-    char *cddev = NULL, *colon, *start;
 
     do {
         rc = findInstallCD(loaderData);
 
         if (loaderData->instRepo && rc == LOADER_OK) {
-            /* Skip over the leading cdrom:// */
-            start = loaderData->instRepo+8;
-            colon = strchr(start, ':');
-
-            /* Then grab just the device portion out of the instRepo string. */
-            cddev = strndup(start, colon-start);
-            queryCDMediaCheck(cddev);
-            free(cddev);
+            queryCDMediaCheck(loaderData->instRepo);
             return rc;
         } else {
             char * buf;

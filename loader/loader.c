@@ -1284,6 +1284,7 @@ static void doLoaderMain(struct loaderData_s *loaderData,
      */
     if (!FL_ASKMETHOD(flags) && !loaderData->instRepo && findInstallCD(loaderData) == LOADER_OK) {
         logMessage(DEBUGLVL, "Found installation media, so skipping lang and kbd");
+        queryCDMediaCheck(loaderData->instRepo);
         skipLangKbd = 1;
         flags |= LOADER_FLAGS_NOPASS;
     }

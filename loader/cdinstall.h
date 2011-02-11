@@ -25,6 +25,7 @@
 int findInstallCD(struct loaderData_s *loaderData);
 int promptForCdrom(struct loaderData_s *loaderData);
 int loadCdromImages(struct loaderData_s *loaderData);
+void queryCDMediaCheck(char *instRepo);
 
 int kickstartFromCD(char *kssrc);
 #endif
