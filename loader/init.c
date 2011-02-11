@@ -76,7 +76,6 @@ static int getSyslog(gchar **, gchar **);
 static int onQEMU(void);
 struct termios ts;
 
-static int expected_exit = 0;
 static GHashTable *cmdline = NULL;
 
 static void printstr(char * string) {
@@ -300,57 +299,6 @@ static void copyErrorFn (char *msg) {
     printf(msg);
 }
 
-void initSegvHandler(int signum) {
-    void *array[30];
-    size_t i;
-    const char const * const errmsgs[] = {
-        "init received SIG",
-        "!  Backtrace:\n",
-        "init exited unexpectedly!  Backtrace:\n",
-    };
-
-    /* XXX This should really be in a glibc header somewhere... */
-    extern const char *const sys_sigabbrev[NSIG];
-
-    signal(signum, SIG_DFL); /* back to default */
-
-    if (signum == 0) {
-        i = write(STDERR_FILENO, errmsgs[2], strlen(errmsgs[2]));
-    } else {
-        i = write(STDERR_FILENO, errmsgs[0], strlen(errmsgs[0]));
-        i = write(STDERR_FILENO, sys_sigabbrev[signum],
-                strlen(sys_sigabbrev[signum]));
-        i = write(STDERR_FILENO, errmsgs[1], strlen(errmsgs[1]));
-    }
-
-    i = backtrace (array, 30);
-    backtrace_symbols_fd(array, i, STDERR_FILENO);
-    _exit(1);
-}
-
-void initExitHandler(void)
-{
-    if (expected_exit)
-        return;
-
-    initSegvHandler(0);
-}
-
-static void setupBacktrace(void)
-{
-    void *array;
-
-    signal(SIGSEGV, initSegvHandler);
-    signal(SIGABRT, initSegvHandler);
-    atexit(initExitHandler);
-
-    /* Turns out, there's an initializer at the top of backtrace() that
-     * (on some arches) calls dlopen(). dlopen(), unsurprisingly, calls
-     * malloc(). So, call backtrace() early in signal handler setup so
-     * we can later safely call it from the signal handler itself. */
-    backtrace(&array, 1);
-}
-
 static char *setupMallocPerturb(char *value)
 {
     FILE *f;
@@ -434,9 +382,6 @@ int main(int argc, char **argv) {
     printstr("\033[8]");
 
     umask(022);
-
-    /* set up signal handler */
-    setupBacktrace();
 
     /* set up any environment variables that aren't totally static */
     setupEnv();
