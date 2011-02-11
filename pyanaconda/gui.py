@@ -1392,7 +1392,7 @@ class InstallControlWindow:
         if ((event.keyval == gtk.keysyms.KP_Delete
              or event.keyval == gtk.keysyms.Delete)
             and (event.state & (gtk.gdk.CONTROL_MASK | gtk.gdk.MOD1_MASK))):
-            self._doExit()
+            self.close()
         # XXX hack: remove me when the accelerators work again.
         elif (event.keyval == gtk.keysyms.F12
               and self.currentWindow.getICS().getNextEnabled()):
@@ -1400,9 +1400,8 @@ class InstallControlWindow:
         elif event.keyval == gtk.keysyms.Print:
             takeScreenShot()
 
-    def _doExit (self, *args):
+    def close(self, *args):
         gtk.main_quit()
-        os._exit(0)
 
     def _doExitConfirm (self, win = None, *args):
         # FIXME: translate the string
@@ -1413,7 +1412,7 @@ class InstallControlWindow:
                             parent = win)
         if win.getrc() == 0:
             return True
-        self._doExit()
+        self.close()
 
     def createWidgets (self):
         self.window.set_title(_("%s Installer") %(productName,))
@@ -1446,7 +1445,7 @@ class InstallControlWindow:
     def connectSignals(self):
         sigs = { "on_nextButton_clicked": self.nextClicked,
             "on_rebootButton_clicked": self.nextClicked,
-            "on_closeButton_clicked": self._doExit,
+            "on_closeButton_clicked": self.close,
             "on_backButton_clicked": self.prevClicked,
             "on_debugButton_clicked": self.debugClicked,
             "on_mainWindow_key_release_event": self.keyRelease,
