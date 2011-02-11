@@ -26,10 +26,7 @@ noinst_PROGRAMS    = dirbrowser
 noinst_HEADERS     = *.h
 
 if IS_S390
-boot_PROGRAMS      += shutdown
 dist_shared_SCRIPTS  = linuxrc.s390
-else
-boot_PROGRAMS       += init
 endif
 
 if IS_KEYMAPS_OVERRIDE_ARCH
@@ -54,14 +51,6 @@ loader_SOURCES     = loader.c copy.c moduleinfo.c loadermisc.c \
                      method.c cdinstall.c hdinstall.c nfsinstall.c \
                      urlinstall.c net.c urls.c rpmextract.c readvars.c \
                      unpack.c
-
-init_CFLAGS        = $(COMMON_CFLAGS) $(GLIB_CFLAGS)
-init_LDADD         = $(GLIB_LIBS) $(top_srcdir)/pyanaconda/isys/libisys.la
-init_SOURCES       = init.c undomounts.c shutdown.c copy.c modules.c \
-                     readvars.c
-
-shutdown_CFLAGS    = $(COMMON_CFLAGS) -DAS_SHUTDOWN=1
-shutdown_SOURCES   = shutdown.c undomounts.c
 
 dirbrowser_CFLAGS  = $(COMMON_CFLAGS) -DSTANDALONE
 dirbrowser_LDADD   = $(NEWT_LIBS)
