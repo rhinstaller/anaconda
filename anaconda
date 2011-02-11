@@ -587,29 +587,27 @@ def setupDisplay(anaconda, opts):
         # running on a redirected X display, so start local X server
         if anaconda.displayMode == 'g' and not flags.preexisting_x11 and \
            not flags.usevnc:
+            # The following code depends on no SIGCHLD being delivered,
+            # possibly only except the one from a failing X.org. Thus
+            # make sure before entering this section that all the other
+            # children of anaconda have terminated or were forked into
+            # an orphan (which won't deliver a SIGCHLD to mess up the
+            # fragile signaling below). start X with its USR1 handler
+            # set to ignore.  this will make it send us SIGUSR1 if it
+            # succeeds.  if it fails, catch SIGCHLD and bomb out.
+            def sigchld_handler(num, frame):
+                raise OSError(0, "SIGCHLD caught when trying to start the X server.")
+
+            def sigusr1_handler(num, frame):
+                log.debug("X server has signalled a successful start.")
+
+            def preexec_fn():
+                signal.signal(signal.SIGUSR1, signal.SIG_IGN)
+
+            old_sigusr1 = signal.signal(signal.SIGUSR1, sigusr1_handler)
+            old_sigchld = signal.signal(signal.SIGCHLD, sigchld_handler)
+            xout = open("/dev/tty5", "w")
             try:
-                # The following code depends on no SIGCHLD being delivered,
-                # possibly only except the one from a failing X.org. Thus
-                # make sure before entering this section that all the other
-                # children of anaconda have terminated or were forked into
-                # an orphan (which won't deliver a SIGCHLD to mess up the
-                # fragile signaling below). start X with its USR1 handler
-                # set to ignore.  this will make it send us SIGUSR1 if it
-                # succeeds.  if it fails, catch SIGCHLD and bomb out.
-
-                def sigchld_handler(num, frame):
-                    raise OSError(0, "SIGCHLD caught when trying to start the X server.")
-
-                def sigusr1_handler(num, frame):
-                    log.debug("X server has signalled a successful start.")
-
-                def preexec_fn():
-                    signal.signal(signal.SIGUSR1, signal.SIG_IGN)
-
-                old_sigusr1 = signal.signal(signal.SIGUSR1, sigusr1_handler)
-                old_sigchld = signal.signal(signal.SIGCHLD, sigchld_handler)
-                xout = open("/dev/tty5", "w")
-
                 proc = subprocess.Popen(["Xorg", "-br",
                                          "-logfile", "/tmp/X.log",
                                          ":1", "vt6", "-s", "1440", "-ac",
@@ -622,7 +620,7 @@ def setupDisplay(anaconda, opts):
                 signal.pause()
                 os.environ["DISPLAY"] = ":1"
                 doStartupX11Actions()
-            except (OSError, RuntimeError) as e:
+            except (OSError, RuntimeError):
                 stdoutLog.warning("X startup failed, falling back to text mode")
                 anaconda.displayMode = 't'
                 graphical_failed = 1
@@ -652,34 +650,33 @@ def setupDisplay(anaconda, opts):
         anaconda.instClass.configure(anaconda)
 
 def runDogtail(opts):
+    import urlgrabber
+
     try:
-        import urlgrabber
+        fr = urlgrabber.urlopen(opts.dogtail)
+    except urlgrabber.grabber.URLGrabError as e:
+        log.error("Could not retrieve Dogtail script from %s.\nError "
+                  "was\n%s" % (opts.dogtail, e))
+        return
 
-        try:
-            fr = urlgrabber.urlopen(opts.dogtail)
-        except urlgrabber.grabber.URLGrabError as e:
-            log.error("Could not retrieve Dogtail script from %s.\nError "
-                      "was\n%s" % (opts.dogtail, e))
-            fr = None
+    (fw, testcase) = mkstemp(prefix='testcase.py.', dir='/tmp')
+    os.write(fw, fr.read())
+    fr.close()
+    os.close(fw)
 
-        if fr:
-            (fw, testcase) = mkstemp(prefix='testcase.py.', dir='/tmp')
-            os.write(fw, fr.read())
-            fr.close()
-            os.close(fw)
-
-            # download completed, run the test
-            if not os.fork():
-                # we are in the child
-                os.chmod(testcase, 0755)
-                os.execv(testcase, [testcase])
-                sys.exit(0)
-            else:
-                # we are in the parent, sleep to give time for the testcase
-                # to initialize
-                # todo: is this needed, how to avoid possible race conditions
-                time.sleep(1)
-    except Exception as e:
+    try:
+        # download completed, run the test
+        if not os.fork():
+            # we are in the child
+            os.chmod(testcase, 0755)
+            os.execv(testcase, [testcase])
+            sys.exit(0)
+        else:
+            # we are in the parent, sleep to give time for the testcase
+            # to initialize
+            # todo: is this needed, how to avoid possible race conditions
+            time.sleep(1)
+    except OSError as e:
         log.error("Exception %s while running Dogtail testcase" % e)
 
 
