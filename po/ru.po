@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: ru\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
 "POT-Creation-Date: 2011-01-18 14:12+0100\n"
-"PO-Revision-Date: 2011-02-14 14:12+1100\n"
+"PO-Revision-Date: 2011-02-14 14:30+1100\n"
 "Last-Translator: \n"
 "Language-Team: Russian\n"
 "MIME-Version: 1.0\n"
@@ -5713,7 +5713,7 @@ msgstr "Шлюз IPv4"
 
 #: textw/netconfig_text.py:307
 msgid "IPv4 Nameserver"
-msgstr "Сервер имен IPv4"
+msgstr "Сервер имён IPv4"
 
 #: textw/netconfig_text.py:315 textw/netconfig_text.py:318
 msgid "IPv6 Address"
@@ -5740,9 +5740,9 @@ msgid "Configuring Network Interfaces"
 msgstr "Настройка сетевых интерфейсов"
 
 #: textw/netconfig_text.py:404
-#, fuzzy, python-format
+#, python-format
 msgid "There was an error configuring network device %s"
-msgstr "Ошибка при конфигурации сетевого интерфейса."
+msgstr "Ошибка при настройке сетевого устройства %s"
 
 #: textw/partition_text.py:62
 msgid "Partitioning Type"
@@ -6202,9 +6202,8 @@ msgstr ""
 "раздела RAID</span>"
 
 #: ui/create-storage.glade.h:7
-#, fuzzy
 msgid "C_reate"
-msgstr "Создать"
+msgstr "_Создать"
 
 #: ui/create-storage.glade.h:8
 msgid "Create LVM"
@@ -6383,58 +6382,52 @@ msgid "Target:"
 msgstr "Целевой диск:"
 
 #: ui/iscsi-dialogs.glade.h:1
-#, fuzzy
 msgid "CHAP Password:"
-msgstr "Пароль:"
+msgstr "Пароль CHAP:"
 
 #: ui/iscsi-dialogs.glade.h:2
-#, fuzzy
 msgid "CHAP Username:"
-msgstr "<b>_Имя пользователя CHAP:</b>"
+msgstr "Имя пользователя CHAP:"
 
 #: ui/iscsi-dialogs.glade.h:3
 msgid "Check the nodes you wish to log into:"
-msgstr ""
+msgstr "Проверьте узлы, где будет осуществляться авторизация:"
 
 #: ui/iscsi-dialogs.glade.h:4
 msgid "Reason:"
-msgstr ""
+msgstr "Описание:"
 
 #: ui/iscsi-dialogs.glade.h:5
-#, fuzzy
 msgid "Retry _Login"
-msgstr "Повторная попытка"
+msgstr "_Повторить авторизацию"
 
 #: ui/iscsi-dialogs.glade.h:6
-#, fuzzy
 msgid "Reverse CHAP Password:"
-msgstr "<b>Обратный па_роль CHAP:</b>"
+msgstr "Обратный пароль CHAP:"
 
 #: ui/iscsi-dialogs.glade.h:7
-#, fuzzy
 msgid "Reverse CHAP Username:"
-msgstr "<b>Обратное и_мя пользователя CHAP:</b>"
+msgstr "Обратное имя пользователя CHAP:"
 
 #: ui/iscsi-dialogs.glade.h:8
 msgid "Start _Discovery"
-msgstr ""
+msgstr "Начать _определение"
 
 #: ui/iscsi-dialogs.glade.h:9
 msgid "Successfully logged in and attached the following nodes:"
-msgstr ""
+msgstr "Авторизация успешна. Подключены узлы:"
 
 #: ui/iscsi-dialogs.glade.h:10
-#, fuzzy
 msgid "Target IP Address:"
-msgstr "<b>IP-а_дрес цели iSCSI:</b>"
+msgstr "Целевой адрес IP:"
 
 #: ui/iscsi-dialogs.glade.h:11
 msgid ""
 "To use iSCSI disks, you must provide the address of your iSCSI target and "
 "the iSCSI initiator name you've configured for your host."
 msgstr ""
-"Чтобы использовать диски iSCSI, вы должны указать адрес устройства iSCSI и "
-"имя инициатора iSCSI, которое было настроено для данного узла."
+"Чтобы использовать диски iSCSI, надо указать адрес устройства iSCSI и "
+"имя инициатора iSCSI для данного узла."
 
 #: ui/iscsi-dialogs.glade.h:12
 msgid "What kind of iSCSI <b>discovery authentication</b> do you wish to perform:"
@@ -6445,36 +6438,32 @@ msgid "What kind of iSCSI <b>login authentication</b> do you wish to perform:"
 msgstr ""
 
 #: ui/iscsi-dialogs.glade.h:14
-#, fuzzy
 msgid "_Cancel"
-msgstr "Отмена"
+msgstr "_Отмена"
 
 #: ui/iscsi-dialogs.glade.h:15
 msgid "_Login"
-msgstr ""
+msgstr "_Вход"
 
 #: ui/iscsi-dialogs.glade.h:16
-#, fuzzy
 msgid "_OK"
-msgstr "OК"
+msgstr "_OK"
 
 #: ui/iscsi-dialogs.glade.h:17
-#, fuzzy
 msgid "iSCSI Discovered Nodes"
-msgstr "Не обнаружены узлы iSCSI"
+msgstr "Обнаружены узлы iSCSI"
 
 #: ui/iscsi-dialogs.glade.h:18
 msgid "iSCSI Discovery Details"
 msgstr ""
 
 #: ui/iscsi-dialogs.glade.h:19
-#, fuzzy
 msgid "iSCSI Initiator Name:"
-msgstr "<b>_Имя инициатора iSCSI:</b>"
+msgstr "Имя инициатора iSCSI:"
 
 #: ui/iscsi-dialogs.glade.h:20
 msgid "iSCSI Login Results"
-msgstr ""
+msgstr "Результаты авторизации iSCSI"
 
 #: ui/iscsi-dialogs.glade.h:21
 msgid "iSCSI Nodes Login"
@@ -6482,7 +6471,7 @@ msgstr ""
 
 #: ui/iscsi-dialogs.glade.h:22
 msgid "iSCSI login has failed for the following nodes:"
-msgstr ""
+msgstr "Ошибка авторизации iSCSI на следующих узлах:"
 
 #: ui/lukspassphrase.glade.h:1
 msgid ""
@@ -6600,15 +6589,15 @@ msgstr ""
 msgid ""
 "<span size=\"large\" weight=\"bold\">The storage device below may contain "
 "data.</span>"
-msgstr ""
+msgstr "<span size=\"large\" weight=\"bold\">Устройство может содержать данные.</span>"
 
 #: ui/reinitialize-dialog.glade.h:2
 msgid "Apply my choice to all devices with undetected partitions or filesystems"
-msgstr ""
+msgstr "Применить изменения ко всем устройствам, для которых не удалось определить разделы и файловые системы"
 
 #: ui/reinitialize-dialog.glade.h:3
 msgid "No, keep any data"
-msgstr ""
+msgstr "Нет, сохранить данные"
 
 #: ui/reinitialize-dialog.glade.h:5
 msgid ""
@@ -6626,7 +6615,7 @@ msgstr ""
 
 #: ui/reinitialize-dialog.glade.h:12
 msgid "Yes, discard any data"
-msgstr ""
+msgstr "Да, удалить данные"
 
 #: lang-table.h:1
 msgid "Afrikaans"
