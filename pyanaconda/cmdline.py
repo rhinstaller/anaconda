@@ -163,19 +163,18 @@ class InstallInterface(InstallInterfaceBase):
         pass
 
     def run(self, anaconda):
-        (step, instance) = anaconda.dispatch.currentStep()
-        while step:
-            if stepToClasses.has_key(step):
-                s = "nextWin = %s" %(stepToClasses[step],)
-                exec s
-                nextWin(instance)
-            else:
-                print("In interactive step %s, can't continue" %(step,))
-                while 1:
-                    time.sleep(1)
+        self.anaconda = anaconda
+        self.anaconda.dispatch.dispatch()
 
-            anaconda.dispatch.gotoNext()
-	    (step, instance) = anaconda.dispatch.currentStep()
+    def display_step(self, step):
+        if stepToClasses.has_key(step):
+            s = "nextWin = %s" %(stepToClasses[step],)
+            exec s
+            nextWin(self.anaconda)
+        else:
+            print("In interactive step %s, can't continue" %(step,))
+            while 1:
+                time.sleep(1)
 
     def setInstallProgressClass(self, c):
         self.instProgress = c

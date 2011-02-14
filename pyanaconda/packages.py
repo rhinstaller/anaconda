@@ -90,7 +90,7 @@ def turnOnFilesystems(anaconda):
         if not anaconda.upgrade:
             log.info("unmounting filesystems")
             anaconda.storage.umountFilesystems()
-        return DISPATCH_NOOP
+        return DISPATCH_DEFAULT
 
     if not anaconda.upgrade:
         if (flags.livecdInstall and
@@ -305,9 +305,9 @@ def betaNagScreen(anaconda):
                     "Fedora Core": "Fedora Core",
                     "Fedora": "Fedora" }
 
-    
+
     if anaconda.dir == DISPATCH_BACK:
-	return DISPATCH_NOOP
+	return DISPATCH_DEFAULT
 
     fileagainst = None
     for (key, val) in publicBetas.items():
@@ -350,7 +350,7 @@ def betaNagScreen(anaconda):
 
 def doReIPL(anaconda):
     if not iutil.isS390() or anaconda.dir == DISPATCH_BACK:
-        return DISPATCH_NOOP
+        return DISPATCH_DEFAULT
 
     anaconda.reIPLMessage = iutil.reIPL(anaconda, os.getppid())
 

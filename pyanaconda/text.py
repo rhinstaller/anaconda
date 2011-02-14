@@ -525,47 +525,50 @@ class InstallInterface(InstallInterfaceBase):
 
         # draw the frame after setting up the fallback
         self.drawFrame()
+        # and now descend into the dispatcher
+        self.anaconda.dispatch.dispatch()
 
-        (step, instance) = anaconda.dispatch.currentStep()
-	while step:
-            (file, className) = stepToClasses[step]
-            while 1:
-                try:
-                    found = imp.find_module(file, textw.__path__)
-                    moduleName = 'pyanaconda.textw.%s' % file
-                    loaded = imp.load_module(moduleName, *found)
-                    nextWindow = loaded.__dict__[className]
-                    break
-                except ImportError as e:
-                    log.error("loading interface component %s" % className)
-                    log.error(traceback.format_exc())
-                    rc = ButtonChoiceWindow(self.screen, _("Error!"),
-                                      _("An error occurred when attempting "
-                                        "to load an installer interface "
-                                        "component.\n\nclassName = %s")
-                                      % className,
-                                      buttons=[_("Exit"), _("Retry")])
+    def display_step(self, step):
+        (file, className) = stepToClasses[step]
+        while True:
+            try:
+                found = imp.find_module(file, textw.__path__)
+                moduleName = 'pyanaconda.textw.%s' % file
+                loaded = imp.load_module(moduleName, *found)
+                nextWindow = loaded.__dict__[className]
+                break
+            except ImportError as e:
+                log.error("loading interface component %s" % className)
+                log.error(traceback.format_exc())
+                rc = ButtonChoiceWindow(self.screen, _("Error!"),
+                                  _("An error occurred when attempting "
+                                    "to load an installer interface "
+                                    "component.\n\nclassName = %s")
+                                  % className,
+                                  buttons=[_("Exit"), _("Retry")])
 
-                    if rc == string.lower(_("Exit")):
-                        sys.exit(0)
+                if rc == string.lower(_("Exit")):
+                    sys.exit(0)
+        win = nextWindow()
 
-            win = nextWindow()
-            rc = win(self.screen, instance)
-
-            if rc in [INSTALL_OK, INSTALL_NOOP]:
-                anaconda.dispatch.gotoNext()
+        while True:
+            rc = win(self.screen, self.anaconda)
+            if rc == INSTALL_OK:
+                return DISPATCH_FORWARD
+            elif rc == INSTALL_NOOP:
+                return DISPATCH_DEFAULT
             elif rc == INSTALL_BACK:
-                if anaconda.dispatch.canGoBack():
-                    anaconda.dispatch.gotoPrev()
+                if self.anaconda.dispatch.canGoBack():
+                    return DISPATCH_BACK
                 else:
                     ButtonChoiceWindow(self.screen, _("Cancelled"),
                                        _("I can't go to the previous step "
                                          "from here. You will have to try "
                                          "again."),
                                        buttons=[_("OK")])
-            (step, instance) = anaconda.dispatch.currentStep()
-
-        self.screen.finish()
+                    # keep displaying the same dialog until the user gives us
+                    # a better answer
+                    continue
 
     def setSteps(self, anaconda):
         anaconda.dispatch.skipStep("filtertype", permanent=1)

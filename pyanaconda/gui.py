@@ -89,6 +89,14 @@ stepToClass = {
 if iutil.isS390():
     stepToClass["bootloader"] = ("zipl_gui", "ZiplWindow")
 
+def idle_gtk(func, *args, **kwargs):
+    def return_false(func, *args, **kwargs):
+        gtk.gdk.threads_enter()
+        func(*args, **kwargs)
+        gtk.gdk.threads_leave()
+        return False
+    gobject.idle_add(return_false, func, *args, **kwargs)
+
 #
 # Stuff for screenshots
 #
@@ -932,8 +940,9 @@ class InstallInterface(InstallInterfaceBase):
     def __del__ (self):
         pass
 
-    def shutdown (self):
-        pass
+    def shutdown(self):
+        if self.icw:
+            self.icw.close()
 
     def suspend(self):
         pass
@@ -1210,6 +1219,9 @@ class InstallInterface(InstallInterfaceBase):
                                   custom_buttons = [_("_Exit installer")],
                                   custom_icon = "error")
 
+    def display_step(self, step):
+        return self.icw.display_step(step)
+
     def getBootdisk (self):
         return None
 
@@ -1219,7 +1231,7 @@ class InstallInterface(InstallInterfaceBase):
         if anaconda.keyboard and not flags.livecdInstall:
             anaconda.keyboard.activate()
 
-        self.icw = InstallControlWindow (self.anaconda)
+        self.icw = InstallControlWindow(self.anaconda)
         self.icw.run()
 
     def setSteps(self, anaconda):
@@ -1247,8 +1259,7 @@ class InstallControlWindow:
         except StayOnScreen:
             return
 
-        self.anaconda.dispatch.gotoPrev()
-        self.setScreen ()
+        self.anaconda.dispatch.go_back()
 
     def nextClicked (self, *args):
         try:
@@ -1256,8 +1267,7 @@ class InstallControlWindow:
         except StayOnScreen:
             return
 
-        self.anaconda.dispatch.gotoNext()
-        self.setScreen ()
+        self.anaconda.dispatch.go_forward()
 
     def debugClicked (self, *args):
         try:
@@ -1288,18 +1298,7 @@ class InstallControlWindow:
         else:
             gobject.source_remove(self.handle)
 
-    def setScreen (self):
-        (step, anaconda) = self.anaconda.dispatch.currentStep()
-        if step is None:
-            gtk.main_quit()
-            return
-
-        if not stepToClass[step]:
-            if self.anaconda.dispatch.dir == DISPATCH_FORWARD:
-                return self.nextClicked()
-            else:
-                return self.prevClicked()
-
+    def display_step(self, step):
         (file, className) = stepToClass[step]
         newScreenClass = None
 
@@ -1337,32 +1336,26 @@ class InstallControlWindow:
         self.destroyCurrentWindow()
         self.currentWindow = newScreenClass(ics)
 
-        new_screen = self.currentWindow.getScreen(anaconda)
+        new_screen = self.currentWindow.getScreen(self.anaconda)
 
         # If the getScreen method returned None, that means the screen did not
         # want to be displayed for some reason and we should skip to the next
         # step.  However, we do not want to remove the current step from the
         # list as later events may cause the screen to be displayed.
         if not new_screen:
-            if self.anaconda.dispatch.dir == DISPATCH_FORWARD:
-                self.anaconda.dispatch.gotoNext()
-            else:
-                self.anaconda.dispatch.gotoPrev()
-
-            return self.setScreen()
+            return DISPATCH_DEFAULT
 
         self.update (ics)
-
         self.installFrame.add(new_screen)
         self.installFrame.show_all()
-
         self.currentWindow.focus()
-
         self.handle = gobject.idle_add(self.handleRenderCallback)
-
         if self.reloadRcQueued:
             self.window.reset_rc_styles()
             self.reloadRcQueued = 0
+
+        # the screen is displayed, we wait for the user now
+        return DISPATCH_WAITING
 
     def destroyCurrentWindow(self):
         children = self.installFrame.get_children ()
@@ -1382,6 +1375,7 @@ class InstallControlWindow:
         self.mainxml.get_widget("nextButton").set_flags(gtk.HAS_DEFAULT)
 
     def __init__ (self, anaconda):
+        self._main_loop_running = False
         self.reloadRcQueued = 0
         self.currentWindow = None
         self.anaconda = anaconda
@@ -1401,7 +1395,9 @@ class InstallControlWindow:
             takeScreenShot()
 
     def close(self, *args):
-        gtk.main_quit()
+        if self._main_loop_running:
+            gtk.main_quit()
+            self._main_loop_running = False
 
     def _doExitConfirm (self, win = None, *args):
         # FIXME: translate the string
@@ -1415,6 +1411,7 @@ class InstallControlWindow:
         self.close()
 
     def createWidgets (self):
+        """ Sets up the widgets in the main installler window. """
         self.window.set_title(_("%s Installer") %(productName,))
 
         i = self.mainxml.get_widget("headerImage")
@@ -1444,7 +1441,7 @@ class InstallControlWindow:
 
     def connectSignals(self):
         sigs = { "on_nextButton_clicked": self.nextClicked,
-            "on_rebootButton_clicked": self.nextClicked,
+            "on_rebootButton_clicked": self.close,
             "on_closeButton_clicked": self.close,
             "on_backButton_clicked": self.prevClicked,
             "on_debugButton_clicked": self.debugClicked,
@@ -1474,7 +1471,10 @@ class InstallControlWindow:
 
         self.createWidgets()
         self.connectSignals()
-        self.setScreen()
+        # 'Back and 'Next' is disabled by default
+        icw = InstallControlState(self)
+        icw.setPrevEnabled(False)
+        icw.setNextEnabled(False)
         self.window.show()
         # calling present() will focus the window in the winodw manager so
         # the mnemonics work without additional clicking
@@ -1489,6 +1489,9 @@ class InstallControlWindow:
     def run (self):
         self.setup_theme()
         self.setup_window(False)
+        # start the dispatcher right after the main loop is started:
+        idle_gtk(self.anaconda.dispatch.dispatch)
+        self._main_loop_running = True
         gtk.main()
 
 class InstallControlState:

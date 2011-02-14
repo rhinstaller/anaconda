@@ -926,7 +926,7 @@ if __name__ == "__main__":
         kickstart.setSteps(anaconda)
 
     try:
-        anaconda.intf.run(anaconda)
+        anaconda.dispatch.run()
     except SystemExit, code:
         anaconda.intf.shutdown()
 

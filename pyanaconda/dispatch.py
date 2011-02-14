@@ -118,16 +118,17 @@ installSteps = [
 
 class Dispatcher(object):
 
-    def gotoPrev(self):
+    def go_back(self):
         """
-        You should make sure canGoBack() returns True before attempting gotoPrev().
+        The caller should make sure canGoBack() is True before calling this
+        method.
         """
         self._setDir(DISPATCH_BACK)
-        self.moveStep()
+        self.dispatch()
 
-    def gotoNext(self):
+    def go_forward(self):
         self._setDir(DISPATCH_FORWARD)
-        self.moveStep()
+        self.dispatch()
 
     def canGoBack(self):
         # begin with the step before this one.  If all steps are skipped,
@@ -138,6 +139,10 @@ class Dispatcher(object):
                 return True
             i = i - 1
         return False
+
+    def run(self):
+        self.anaconda.intf.run(self.anaconda)
+        log.info("dispatch: finished.")
 
     def setStepList(self, *steps):
         # only remove non-permanently skipped steps from our skip list
@@ -157,7 +162,7 @@ class Dispatcher(object):
             if not stepExists.has_key(name):
                 #XXX: hack for yum support
                 #raise KeyError, ("step %s does not exist" % name)
-                log.warning("step %s does not exist", name)
+                log.warning("dispatch: step %s does not exist", name)
 
     def stepInSkipList(self, step):
         if type(step) == type(1):
@@ -179,7 +184,7 @@ class Dispatcher(object):
                         del self.skipSteps[name]
                 return
 
-        log.warning("step %s does not exist", stepToSkip)
+        log.warning("dispatch: step %s does not exist", stepToSkip)
 
     def stepIsDirect(self, step):
         """Takes a step number"""
@@ -188,57 +193,56 @@ class Dispatcher(object):
         else:
             return False
 
-    def moveStep(self):
+    def dispatch(self):
+        total_steps = len(installSteps)
         if self.step == None:
+            log.info("dispatch: resetting to the first step.")
             self.step = self.firstStep
         else:
-            if self.step >= len(installSteps):
-                return None
+            log.info("dispatch: leaving (%d) step %s" %
+                     (self.dir, installSteps[self.step][0]))
+            self.step += self.dir
 
-            log.info("leaving (%d) step %s" %(self._getDir(), installSteps[self.step][0]))
-            self.step = self.step + self._getDir()
+        while True:
+            if self.step >= total_steps:
+                # installation has proceeded beyond the last step: finished
+                self.anaconda.intf.shutdown()
+                return
+            if self.step < 0:
+                raise RuntimeError("dispatch: out  of bounds "
+                                   "(dir: %d, step: %d)" % (self.dir, self.step))
 
-            if self.step >= len(installSteps):
-                return None
+            if self.stepInSkipList(self.step):
+                self.step += self.dir
+                continue
 
-        while self.step >= self.firstStep and self.step < len(installSteps) \
-            and (self.stepInSkipList(self.step) or self.stepIsDirect(self.step)):
-
-            if self.stepIsDirect(self.step) and not self.stepInSkipList(self.step):
-                (stepName, stepFunc) = installSteps[self.step]
-                log.info("moving (%d) to step %s" %(self._getDir(), stepName))
-                log.debug("%s is a direct step" %(stepName,))
-                rc = stepFunc(self.anaconda)
-                if rc in [DISPATCH_BACK, DISPATCH_FORWARD]:
-                    self._setDir(rc)
-                log.info("leaving (%d) step %s" %(self._getDir(), stepName))
-                # if anything else, leave self.dir alone
-
-            self.step = self.step + self._getDir()
-            if self.step == len(installSteps):
-                return None
-
-        if (self.step < 0):
-            # pick the first step not in the skip list
-            self.step = 0
-            while self.skipSteps.has_key(installSteps[self.step][0]):
-                self.step = self.step + 1
-        elif self.step >= len(installSteps):
-            self.step = len(installSteps) - 1
-            while self.skipSteps.has_key(installSteps[self.step][0]):
-                self.step = self.step - 1
-        log.info("moving (%d) to step %s" %(self._getDir(), installSteps[self.step][0]))
-
-    def currentStep(self):
-        if self.step == None:
-            self.gotoNext()
-        elif self.step >= len(installSteps):
-            return (None, None)
-
-        stepInfo = installSteps[self.step]
-        step = stepInfo[0]
-
-        return (step, self.anaconda)
+            if self.stepIsDirect(self.step):
+                # handle a direct step by just calling the function
+                (step_name, step_func) = installSteps[self.step]
+                log.info("dispatch: moving (%d) to step %s" %
+                         (self.dir, step_name))
+                log.debug("dispatch: %s is a direct step" % step_name)
+                self.dir = step_func(self.anaconda)
+            else:
+                # handle an indirect step (IOW the user interface has a screen
+                # to display to the user):
+                step_name = installSteps[self.step][0]
+                log.info("dispatch: moving (%d) to step %s" %
+                         (self.dir, step_name))
+                rc = self.anaconda.intf.display_step(step_name)
+                if rc == DISPATCH_WAITING:
+                    # a new screen has been set up and we are waiting for the
+                    # user input now (this only ever happens with the GTK UI and
+                    # is because we need to get back to gtk.main())
+                    return
+                elif rc == DISPATCH_DEFAULT:
+                    log.debug("dispatch: the interface chose "
+                                "not to display step %s." % step_name)
+                else:
+                    self.dir = rc
+            log.info("dispatch: leaving (%d) step %s" %
+                     (self.dir, step_name))
+            self.step += self.dir
 
     def __init__(self, anaconda):
         self.anaconda = anaconda
@@ -252,7 +256,9 @@ class Dispatcher(object):
         return self.anaconda.dir
 
     def _setDir(self, dir):
-        self.anaconda.dir = dir
+        if dir not in [DISPATCH_BACK, DISPATCH_FORWARD, DISPATCH_DEFAULT]:
+            raise RuntimeError("dispatch: wrong direction code")
+        if dir in [DISPATCH_BACK, DISPATCH_FORWARD]:
+            self.anaconda.dir = dir
 
     dir = property(_getDir,_setDir)
-

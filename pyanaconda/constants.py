@@ -28,7 +28,8 @@ SELINUX_DEFAULT = 1
 
 DISPATCH_BACK = -1
 DISPATCH_FORWARD = 1
-DISPATCH_NOOP = None
+DISPATCH_DEFAULT = None
+DISPATCH_WAITING = 2
 
 # different types of partition requests
 # REQUEST_PREEXIST is a placeholder for a pre-existing partition on the system
