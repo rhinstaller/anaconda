@@ -221,6 +221,14 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Tue Feb 15 2011 David Cantrell <dcantrell@redhat.com> - 13.21.98-1
+- Halt build if ramdisk.image.gz on ppc64 is too large. (dcantrell)
+  Related: rhbz#675685
+- s390x has firstboot now (dcantrell)
+  Related: rhbz#463564
+- Don't add --enablefingerprint unless fprintd-pam is installed (clumens).
+  Resolves: rhbz#676854
+
 * Thu Feb 10 2011 David Cantrell <dcantrell@redhat.com> - 13.21.97-1
 - Fix mis-management of luks dict when renaming encrypted lvs. (dlehman)
   Resolves: rhbz#674773
