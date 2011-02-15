@@ -110,12 +110,10 @@ class Anaconda(object):
 
     @property
     def firstboot(self):
-        from pykickstart.constants import FIRSTBOOT_SKIP, FIRSTBOOT_DEFAULT
+        from pykickstart.constants import FIRSTBOOT_DEFAULT
 
         if self.ksdata:
             return self.ksdata.firstboot.firstboot
-        elif iutil.isS390():
-            return FIRSTBOOT_SKIP
         else:
             return FIRSTBOOT_DEFAULT
 
