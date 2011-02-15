@@ -293,8 +293,7 @@ def shouldClear(device, clearPartType, clearPartDisks=None):
         # Never clear the special first partition on a Mac disk label, as that
         # holds the partition table itself.
         if device.disk.format.partedDisk.type == "mac" and \
-           device.partedPartition.number == 1 and \
-           device.partedPartition.name == "Apple":
+           device.partedPartition.number == 1:
             return False
 
         # If we got a list of disks to clear, make sure this one's on it
