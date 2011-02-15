@@ -497,10 +497,12 @@ static void setVnc(struct loaderData_s * loaderData, PyObject *handler) {
 static void setUpdates(struct loaderData_s * loaderData, PyObject *handler) {
     PyObject *url = getattr(handler, "updates", "url");
 
-    if (!isNotEmpty(url) || objIsStr(url, "floppy"))
-        flags |= LOADER_FLAGS_UPDATES;
-    else if (isNotEmpty(url))
-        loaderData->updatessrc = strdup(PyString_AsString(url));
+    if (isNotEmpty(url)) {
+        if (objIsStr(url, "floppy"))
+            flags |= LOADER_FLAGS_UPDATES;
+        else
+            loaderData->updatessrc = strdup(PyString_AsString(url));
+    }
 
     Py_XDECREF(url);
 }
