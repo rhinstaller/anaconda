@@ -2013,12 +2013,18 @@ class DeviceTree(object):
         if devspec.startswith("UUID="):
             # device-by-uuid
             uuid = devspec.partition("=")[2]
+            if ((uuid.startswith('"') and uuid.endswith('"')) or
+                (uuid.startswith("'") and uuid.endswith("'"))):
+                uuid = uuid[1:-1]
             device = self.uuids.get(uuid)
             if device is None:
                 log.error("failed to resolve device %s" % devspec)
         elif devspec.startswith("LABEL="):
             # device-by-label
             label = devspec.partition("=")[2]
+            if ((label.startswith('"') and label.endswith('"')) or
+                (label.startswith("'") and label.endswith("'"))):
+                label = label[1:-1]
             device = self.labels.get(label)
             if device is None:
                 log.error("failed to resolve device %s" % devspec)
