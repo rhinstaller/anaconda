@@ -134,7 +134,7 @@ class Dispatcher(object):
         # begin with the step before this one.  If all steps are skipped,
         # we can not go backwards from this screen
         i = self.step - 1
-        while i >= self.firstStep:
+        while i >= 0:
             if not self.stepIsDirect(i) and not self.skipSteps.has_key(installSteps[i][0]):
                 return True
             i = i - 1
@@ -197,7 +197,7 @@ class Dispatcher(object):
         total_steps = len(installSteps)
         if self.step == None:
             log.info("dispatch: resetting to the first step.")
-            self.step = self.firstStep
+            self.step = 0
         else:
             log.info("dispatch: leaving (%d) step %s" %
                      (self.dir, installSteps[self.step][0]))
@@ -249,8 +249,6 @@ class Dispatcher(object):
         self.anaconda.dir = DISPATCH_FORWARD
         self.step = None
         self.skipSteps = {}
-
-        self.firstStep = 0
 
     def _getDir(self):
         return self.anaconda.dir
