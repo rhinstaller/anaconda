@@ -143,7 +143,7 @@ int getLangInfo(struct langInfo ** langs) {
 }
 
 void loadLanguage (char * file) {
-    char filename[200];
+    char *filename;
     int fd, hash, rc;
     char * key = getenv("LANGKEY");
 
@@ -166,19 +166,20 @@ void loadLanguage (char * file) {
                        "The Installation will proceed in English.", key);
         return ;
     }
-    
-    sprintf(filename, "%s.tr", key);
-    rc = unpack_archive_file(filename, "/tmp/translation");
+
+    rc = unpack_archive_file("/etc/loader.tr", "/tmp/translation");
 
     if (rc != ARCHIVE_OK || access("/tmp/translation", R_OK) == -1) {
         newtWinMessage("Error", "OK", "Cannot get translation file %s.\n", 
                         filename);
         return;
     }
-    
-    fd = open("/tmp/translation", O_RDONLY);
+
+    checked_asprintf(&filename, "/tmp/translation/%s.tr", key);
+    fd = open(filename, O_RDONLY);
     if (fd < 0) {
         newtWinMessage("Error", "OK", "Failed to open /tmp/translation: %m\n");
+        free(filename);
         return;
     }
 
@@ -198,6 +199,7 @@ void loadLanguage (char * file) {
     }
 
     close(fd);
+    free(filename);
     unlink("/tmp/translation");
 
     qsort(strings, numStrings, sizeof(*strings), aStringCmp);
