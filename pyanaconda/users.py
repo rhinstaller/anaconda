@@ -42,7 +42,7 @@ def createLuserConf(instPath, algoname='sha512'):
         log.info("created new libuser.conf at %s with instPath=\"%s\"" % \
                 (fn,instPath))
         fd = open(fn, 'w')
-    except:
+    except (OSError, IOError, KeyError):
         createTmp = True
 
     if createTmp:
@@ -120,7 +120,7 @@ class Users:
 
                 self.admin.addGroup(groupEnt)
                 os._exit(0)
-            except Exception, e:
+            except Exception as e:
                 log.critical("Error when creating new group: %s" % str(e))
                 os._exit(1)
 
@@ -195,7 +195,7 @@ class Users:
                     self.admin.modifyGroup(grp)
 
                 os._exit(0)
-            except Exception, e:
+            except Exception as e:
                 log.critical("Error when creating new user: %s" % str(e))
                 os._exit(1)
 
@@ -223,7 +223,7 @@ class Users:
             try:
                 if self.admin.lookupUserByName(username):
                     os._exit(0)
-            except Exception, e:
+            except Exception as e:
                 log.critical("Error when searching for user: %s" % str(e))
             os._exit(1)
 

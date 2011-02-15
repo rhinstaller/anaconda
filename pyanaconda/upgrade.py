@@ -308,7 +308,7 @@ def upgradeMountFilesystems(anaconda):
             if not ctx or ctx == "unlabeled":
                 flags.selinux = False
                 log.info("Disabled SELinux for upgrade based on /.autorelabel")
-    except Exception, e:
+    except Exception as e:
         log.warning("error checking selinux state: %s" %(e,))
 
 def setSteps(anaconda):

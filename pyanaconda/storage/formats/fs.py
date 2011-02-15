@@ -1348,7 +1348,7 @@ class NTFS(FS):
                     try:
                         min = l.split(":")[1].strip()
                         minSize = int(min) + 250
-                    except Exception, e:
+                    except (IndexError, ValueError) as e:
                         minSize = None
                         log.warning("Unable to parse output for minimum size on %s: %s" %(self.device, e))
 

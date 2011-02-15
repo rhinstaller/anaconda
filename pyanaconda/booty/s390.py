@@ -38,7 +38,7 @@ class s390BootloaderInfo(bootloaderInfo):
 
             try:
                 lilo.delImage(label)
-            except IndexError, msg:
+            except IndexError as msg:
                 pass
 
             sl = LiloConfigFile(imageType = "image", path = kernelFile)

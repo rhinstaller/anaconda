@@ -474,7 +474,7 @@ def runRescueMode(anaconda, opts):
 
         # We need an interface before running kickstart execute methods for
         # storage.
-        from snack import *
+        from snack import SnackScreen
         screen = SnackScreen()
         anaconda.intf = rescue.RescueInterface(screen)
 
@@ -881,7 +881,7 @@ if __name__ == "__main__":
     users.createLuserConf(anaconda.rootPath)
 
     if opts.rescue:
-        runRescueMode(anaconda)
+        runRescueMode(anaconda, opts)
 
     # comment out the next line to make exceptions non-fatal
     from pyanaconda.exception import initExceptionHandling

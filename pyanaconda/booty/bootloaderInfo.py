@@ -268,21 +268,22 @@ class BootImages:
             if part.partType not in (parted.PARTITION_NORMAL, parted.PARTITION_LOGICAL) or not part.format:
                 continue
 
-            type = part.format.type
-
-            if type in dosFilesystems and not foundDos and doesDualBoot() and \
+            if part.format.type in dosFilesystems and \
+               not foundDos and doesDualBoot() and \
                not part.getFlag(parted.PARTITION_DIAG):
                 try:
                     bootable = checkForBootBlock(part.path)
-                    retval.append((part, type))
-                    foundDos = True
-                except:
+                except (OSError, struct.error):
                     pass
-            elif type == "appleboot" and iutil.getPPCMachine() == "PMac" and part.bootable:
+                else:
+                    retval.append((part, part.format.type))
+                    foundDos = True
+            elif part.format.type == "appleboot" and \
+                 iutil.getPPCMachine() == "PMac" and part.bootable:
                 foundAppleBootstrap = True
-            elif type in ["hfs", "hfs+"] and foundAppleBootstrap:
+            elif part.format.type in ["hfs", "hfs+"] and foundAppleBootstrap:
                 # questionable for same reason as above, but on mac this time
-                retval.append((part, type))
+                retval.append((part, part.format.type))
 
         if addRoot:
             rootDevice = storage.rootDevice
@@ -392,7 +393,7 @@ class bootloaderInfo(object):
 
             try:
                 lilo.delImage(label)
-            except IndexError, msg:
+            except IndexError as msg:
                 pass
 
             sl = LiloConfigFile(imageType = "image", path = kernelFile)
@@ -517,7 +518,7 @@ class bootloaderInfo(object):
                 try:
                     ele = self._drivelist.pop(self._drivelist.index(i))
                     self._drivelist.insert(0, ele)
-                except:
+                except LookupError:
                     pass
 
     def _getDriveList(self):
@@ -627,7 +628,7 @@ class efiBootloaderInfo(bootloaderInfo):
     def addNewEfiEntry(self, instRoot):
         try:
             bootdev = self.storage.mountpoints["/boot/efi"].name
-        except:
+        except (KeyError, AttributeError):
             bootdev = "sda1"
 
         link = "%s%s/%s" % (instRoot, "/etc/", self.configname)

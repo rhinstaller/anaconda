@@ -231,7 +231,7 @@ class Anaconda(object):
 
             try:
                 from gui import InstallInterface
-            except Exception, e:
+            except Exception as e:
                 from flags import flags
                 stdoutLog.error("Exception starting GUI installer: %s" %(e,))
                 # if we're not going to really go into GUI mode, we need to get

@@ -79,10 +79,8 @@ class Security:
             iutil.execWithRedirect("/usr/sbin/lokkit", args,
                                    root = instPath, stdout = "/dev/null",
                                    stderr = "/dev/null")
-        except RuntimeError, msg:
+        except (RuntimeError, OSError) as msg:
             log.error ("lokkit run failed: %s" %(msg,))
-        except OSError as e:
-            log.error ("lokkit run failed: %s" % e.strerror)
 
         args = ["--update", "--nostart"] + shlex.split(self.auth)
         if self._addFingerprint(instPath):
@@ -92,5 +90,5 @@ class Security:
             iutil.execWithRedirect("/usr/sbin/authconfig", args,
                                    stdout = "/dev/tty5", stderr = "/dev/tty5",
                                    root = instPath)
-        except RuntimeError, msg:
+        except RuntimeError as msg:
                 log.error("Error running %s: %s", args, msg)

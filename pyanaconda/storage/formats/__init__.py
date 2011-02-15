@@ -114,7 +114,7 @@ def collect_device_format_classes():
             # imputil is deprecated in python 2.6
             try:
                 globals()[mod_name] = __import__(mod_name, globals(), locals(), [], -1)
-            except ImportError, e:
+            except ImportError:
                 log.debug("import of device format module '%s' failed" % mod_name)
 
 def get_device_format_class(fmt_type):
@@ -245,7 +245,7 @@ class DeviceFormat(object):
         if self.device.startswith("/dev/mapper/"):
             try:
                 name = dm_node_from_name(os.path.basename(self.device))
-            except Exception, e:
+            except DMError:
                 log.warning("failed to get dm node for %s" % self.device)
                 return
         elif self.device:
@@ -254,7 +254,7 @@ class DeviceFormat(object):
         path = get_sysfs_path_by_name(name)
         try:
             notify_kernel(path, action="change")
-        except Exception, e:
+        except (ValueError, IOError) as e:
             log.warning("failed to notify kernel of change: %s" % e)
 
 

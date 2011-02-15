@@ -72,7 +72,7 @@ class VncServer:
             self.password=pfile.readline().strip()
             pfile.close()
             os.unlink(self.pw_init_file)
-        except:
+        except (OSError, IOError):
             self.password=""
 
     def setVNCPassword(self):
@@ -104,23 +104,20 @@ class VncServer:
         devices = netinfo.netdevices
         active_devs = network.getActiveNetDevs()
 
+        self.ip = None
         if active_devs != []:
-            dev = devices[active_devs[0]]
-
+            devname = devices[active_devs[0]].iface
             try:
-                devname = dev.iface
                 ips = (isys.getIPAddresses(devname, version=4) +
                        isys.getIPAddresses(devname, version=6))
-                self.ip = ips[0]
-                log.info("IPs (using first) of device %s: %s" % (devname, ips))
-
-                if self.ip == "127.0.0.1" or self.ip == "::1":
-                    self.ip = None
-            except Exception, e:
+            except Exception as e:
                 log.warning("Got an exception trying to get the self.ip addr "
                             "of %s: %s" % (devname, e))
-        else:
-            self.ip = None
+            else:
+                if ips and ips[0] not in ("127.0.0.1", "::1"):
+                    log.info("IPs (using first) of device %s: %s" % (devname,
+                                                                     ips))
+                    self.ip = ips[0]
 
         self.name = network.getDefaultHostname(self.anaconda)
         ipstr = self.ip
@@ -159,14 +156,12 @@ class VncServer:
 
     def openlogfile(self):
         try:
-            err = os.open(self.log_file, os.O_RDWR | os.O_CREAT)
-            if err < 0:
-                sys.stderr.write("error opening %s\n", log)
-                return None
-            else:
-                return err
-        except:
-                return None
+            fd = os.open(self.log_file, os.O_RDWR | os.O_CREAT)
+        except OSError as e:
+            sys.stderr.write("error opening %s: %s\n", (self.log_file, e))
+            fd = None
+
+        return fd
 
     def connectToView(self):
         """Attempt to connect to self.vncconnecthost"""
@@ -225,7 +220,7 @@ class VncServer:
                         "SecurityTypes=None"]
         try:
             xvncp = subprocess.Popen(xvnccommand, stdout=self.openlogfile(), stderr=subprocess.STDOUT)
-        except:
+        except OSError:
             stdoutLog.critical("Could not start the VNC server.  Aborting.")
             sys.exit(1)
 

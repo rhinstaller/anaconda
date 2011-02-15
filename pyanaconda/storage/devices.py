@@ -601,7 +601,7 @@ class StorageDevice(Device):
         path = os.path.normpath("/sys/%s" % self.sysfsPath)
         try:
             notify_kernel(path, action="change")
-        except Exception, e:
+        except (ValueError, IOError) as e:
             log.warning("failed to notify kernel of change: %s" % e)
 
     @property
@@ -2065,7 +2065,7 @@ class LVMVolumeGroupDevice(DMDevice):
                         status=self.status)
         try:
             self.parents.remove(device)
-        except ValueError, e:
+        except ValueError:
             raise ValueError("cannot remove non-member PV device from VG")
 
         device.removeChild()
@@ -2465,7 +2465,7 @@ class LVMLogicalVolumeDevice(DMDevice):
             # LVs being active (filesystems mounted, &c), so don't let
             # it bring everything down.
             StorageDevice._postTeardown(self, recursive=recursive)
-        except Exception as e:
+        except StorageError:
             if recursive:
                 log.debug("vg %s teardown failed; continuing" % self.vg.name)
             else:

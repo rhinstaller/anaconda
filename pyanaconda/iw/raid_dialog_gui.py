@@ -222,7 +222,7 @@ class RaidEditor:
                                                   parents=raidmembers,
                                                   totalDevices=len(raidmembers),
                                                   memberDevices=members)
-                except ValueError, e:
+                except ValueError as e:
                     self.intf.messageWindow(_("Error"), str(e),
                                             custom_icon="error")
                     continue

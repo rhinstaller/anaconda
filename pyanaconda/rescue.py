@@ -31,10 +31,12 @@ import sys
 import os
 import isys
 from storage import mountExistingSystem
+from storage.errors import StorageError
 from installinterfacebase import InstallInterfaceBase
 import iutil
 import shutil
 import time
+import re
 import network
 import subprocess
 from pykickstart.constants import *
@@ -77,14 +79,14 @@ class RescueInterface(InstallInterfaceBase):
 	elif type == "custom":
 	    tmpbut = []
 	    for but in custom_buttons:
-		tmpbut.append(string.replace(but,"_",""))
+		tmpbut.append(but.replace("_",""))
 
 	    rc = ButtonChoiceWindow(self.screen, title, text, width=60,
 				    buttons=tmpbut)
 
 	    idx = 0
 	    for b in tmpbut:
-		if string.lower(b) == rc:
+		if b.lower() == rc:
 		    return idx
 		idx = idx + 1
 	    return 0
@@ -149,7 +151,7 @@ def makeFStab(instPath = ""):
         if buf:
             f.write(buf)
         f.close()
-    except IOError, e:
+    except IOError as e:
         log.info("failed to write /etc/fstab: %s" % e)
 
 # make sure they have a resolv.conf in the chroot
@@ -190,9 +192,7 @@ def makeResolvConf(instPath):
 #
 def startNetworking(network, intf):
     # do lo first
-    try:
-        os.system("/usr/sbin/ifconfig lo 127.0.0.1")
-    except:
+    if os.system("/usr/sbin/ifconfig lo 127.0.0.1"):
         log.error("Error trying to start lo in rescue.py::startNetworking()")
 
     # start up dhcp interfaces first
@@ -236,7 +236,7 @@ def runRescue(anaconda):
                   "nsswitch.conf", "selinux", "mke2fs.conf" ]:
         try:
             os.symlink('/mnt/runtime/etc/' + file, '/etc/' + file)
-        except:
+        except OSError:
             pass
 
     # see if they would like networking enabled
@@ -248,7 +248,7 @@ def runRescue(anaconda):
                 _("Do you want to start the network interfaces on "
                   "this system?"), [_("Yes"), _("No")])
 
-            if rc != string.lower(_("No")):
+            if rc != _("No").lower():
                 anaconda.intf = RescueInterface(screen)
 
                 if not anaconda.intf.enableNetwork(anaconda):
@@ -303,14 +303,14 @@ def runRescue(anaconda):
                   "command shell.\n\n") % (anaconda.rootPath,),
                   [_("Continue"), _("Read-Only"), _("Skip"), _("Advanced")] )
 
-            if rc == string.lower(_("Skip")):
+            if rc == _("Skip").lower():
                 runShell(screen)
                 sys.exit(0)
-            elif rc == string.lower(_("Advanced")):
+            elif rc == _("Advanced").lower():
                 addDialog = addDriveDialog(anaconda)
                 addDialog.addDriveDialog(screen)
                 continue
-            elif rc == string.lower(_("Read-Only")):
+            elif rc == _("Read-Only").lower():
                 readOnly = 1
             else:
                 readOnly = 0
@@ -347,7 +347,7 @@ def runRescue(anaconda):
                                 scroll = scroll, height = height,
                                 help = "multipleroot")
 
-        if button == string.lower (_("Exit")):
+        if button == _("Exit").lower():
             root = None
         else:
             root = disks[choice]
@@ -395,7 +395,7 @@ def runRescue(anaconda):
                 if not readOnly:
                     try:
                         anaconda.storage.turnOnSwap()
-                    except:
+                    except StorageError:
                         log.error("Error enabling swap")
 
                 # and /selinux too
@@ -405,7 +405,7 @@ def runRescue(anaconda):
                     try:
                         fd = open("%s/.autorelabel" % anaconda.rootPath, "w+")
                         fd.close()
-                    except Exception, e:
+                    except IOError:
                         log.warning("cannot touch /.autorelabel")
 
                 # set a library path to use mounted fs
@@ -414,27 +414,18 @@ def runRescue(anaconda):
                 os.environ["LD_LIBRARY_PATH"] = ":".join(libdirs + mounted)
 
                 # find groff data dir
+                gversion = None
                 try:
                     glst = os.listdir("/mnt/sysimage/usr/share/groff")
-
+                except OSError:
+                    pass
+                else:
                     # find a directory which is a numeral, its where
                     # data files are
-                    gversion = None
                     for gdir in glst:
-                        try:
-                            isone = 1
-                            for idx in range(0, len(gdir)):
-                                if string.find(string.digits + '.', gdir[idx]) == -1:
-                                    isone = 0
-                                    break
-                            if isone:
-                                gversion = gdir
-                                break
-                        except:
-                            gversion = None
-                            continue
-                except:
-                    gversion = None
+                        if re.match(r'\d[.\d]+\d$', gdir):
+                            gversion = gdir
+                            break
 
                 if gversion is not None:
                     gpath = "/mnt/sysimage/usr/share/groff/"+gversion
@@ -445,18 +436,12 @@ def runRescue(anaconda):
                 try:
                     if os.access("/usr/bin/bash", os.R_OK):
                         os.symlink ("/usr/bin/bash", "/bin/bash")
-                except:
+                except OSError:
                     pass
-        except:
-            # This looks horrible, but all it does is catch every exception,
-            # and reraise those in the tuple check. This lets programming
-            # errors raise exceptions, while any runtime error will
-            # still result in a shell
-            (exc, val) = sys.exc_info()[0:2]
-            log.error(str(exc)+": "+str(val))
-            if exc in (IndexError, ValueError, SyntaxError):
-                raise exc, val, sys.exc_info()[2]
-
+        except (ValueError, LookupError, SyntaxError, NameError):
+            raise
+        except Exception as e:
+            log.error("runRescue caught exception: %s" % e)
             if anaconda.ksdata:
                 log.error("An error occurred trying to mount some or all of your system")
             else:
@@ -497,7 +482,7 @@ def runRescue(anaconda):
         anaconda.storage.makeMtab(root=anaconda.rootPath)
         try:
             makeResolvConf(anaconda.rootPath)
-        except Exception, e:
+        except (OSError, IOError) as e:
             log.error("error making a resolv.conf: %s" %(e,))
         msgStr = _("Your system is mounted under the %s directory.") % (anaconda.rootPath,)
         ButtonChoiceWindow(screen, _("Rescue"), msgStr, [_("OK")] )

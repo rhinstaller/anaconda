@@ -104,7 +104,7 @@ def copyScreenshots():
     if not os.access(destDir, os.R_OK):
         try:
             os.mkdir(destDir, 0750)
-        except:
+        except OSError:
             window = MessageWindow("Error Saving Screenshot", 
                                    _("An error occurred saving screenshots "
                                      "to disk."), type="warning")
@@ -150,7 +150,7 @@ def takeScreenShot():
                                      gtk.gdk.screen_height())
 
         if screenshot:
-            while (1):
+            while True:
                 sname = "screenshot-%04d.png" % ( screenshotIndex,)
                 if not os.access(screenshotDir + '/' + sname, os.R_OK):
                     break
@@ -166,7 +166,8 @@ def takeScreenShot():
             window = MessageWindow(_("Saving Screenshot"), 
                _("A screenshot named '%s' has been saved.") % (sname,) ,
                type="ok")
-    except:
+    except Exception:
+        # FIXME: find out what exceptions gtk.gdk.Pixbuf might actually raise
         window = MessageWindow(_("Error Saving Screenshot"), 
                                _("An error occurred while saving "
                                  "the screenshot.  If this occurred "
@@ -347,7 +348,7 @@ def getPixbuf(file):
 
     try:
         pixbuf = gtk.gdk.pixbuf_new_from_file(fn)
-    except RuntimeError, msg:
+    except RuntimeError as msg:
         log.error("unable to read %s: %s" %(file, msg))
         pixbuf = None
     
@@ -744,7 +745,8 @@ class MessageWindow:
         import pdb
         try:
             pdb.set_trace()
-        except:
+        except Exception:
+            # FIXME: what exceptions might pdb.set_trace raise?
             sys.exit(-1)
         try:
             # switch back
@@ -875,7 +877,7 @@ class DetailedMessageWindow(MessageWindow):
                 if __builtins__.get("type")(line) != unicode:
                     try:
                         line = unicode(line, encoding='utf-8')
-                    except UnicodeDecodeError, e:
+                    except UnicodeDecodeError as e:
                         log.error("UnicodeDecodeException: line = %s" % (line,))
                         log.error("UnicodeDecodeException: %s" % (str(e),))
 
@@ -1266,7 +1268,7 @@ class InstallControlWindow:
         import pdb
         try:
             pdb.set_trace()
-        except:
+        except Exception:
             sys.exit(-1)
         try:
             # switch back
@@ -1308,7 +1310,7 @@ class InstallControlWindow:
                 loaded = imp.load_module(moduleName, *found)
                 newScreenClass = loaded.__dict__[className]
                 break
-            except ImportError, e:
+            except ImportError as e:
                 stdout_log.error("loading interface component %s" % className)
                 stdout_log.error(traceback.format_exc())
                 win = MessageWindow(_("Error!"),

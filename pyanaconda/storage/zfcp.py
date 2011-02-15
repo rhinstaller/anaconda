@@ -370,7 +370,7 @@ class ZFCP:
 
             try:
                 self.addFCP(devnum, wwpn, fcplun)
-            except ValueError, e:
+            except ValueError as e:
                 if self.intf:
                     self.intf.messageWindow(_("Error"), str(e))
                 else:
@@ -390,7 +390,7 @@ class ZFCP:
         for d in self.fcpdevs:
             try:
                 d.offlineDevice()
-            except ValueError, e:
+            except ValueError as e:
                 log.warn(str(e))
 
     def startup(self, intf=None):
@@ -409,7 +409,7 @@ class ZFCP:
         for d in self.fcpdevs:
             try:
                 d.onlineDevice()
-            except ValueError, e:
+            except ValueError as e:
                 log.warn(str(e))
 
     def writeKS(self, f):

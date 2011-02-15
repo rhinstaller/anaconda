@@ -61,7 +61,7 @@ class KeyboardWindow:
         # FIXME: eventually, kbd.activate will do this
 	try:
 	    isys.loadKeymap(keyboards[choice])
-	except SystemError, (errno, msg):
-	    log.error("Could not install keymap %s: %s" % (keyboards[choice], msg))
+	except SystemError as e:
+	    log.error("Could not install keymap %s: %s" % (keyboards[choice], e))
         return INSTALL_OK
 

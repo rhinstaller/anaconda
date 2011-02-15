@@ -102,7 +102,7 @@ class iscsi(object):
                 initiatorname = libiscsi.get_firmware_initiator_name()
                 self._initiator = initiatorname
                 self.initiatorSet = True
-            except:
+            except Exception:
                 pass
 
     # So that users can write iscsi() to get the singleton instance
@@ -130,7 +130,7 @@ class iscsi(object):
 
         try:
             found_nodes = libiscsi.discover_firmware()
-        except:
+        except Exception:
             # an exception here means there is no ibft firmware, just return
             return
 
@@ -140,7 +140,7 @@ class iscsi(object):
                 log.info("iscsi._startIBFT logged in to %s %s %s" % (node.name, node.address, node.port))
                 self.nodes.append(node)
                 self.ibftNodes.append(node)
-            except IOError, e:
+            except IOError as e:
                 log.error("Could not log into ibft iscsi target %s: %s" %
                           (node.name, str(e)))
                 pass

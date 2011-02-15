@@ -74,7 +74,7 @@ class AnacondaBackend:
         for f in glob.glob(DD_FIRMWARE+"/*"):
             try:
                 shutil.copyfile(f, "%s/lib/firmware/" % anaconda.rootPath)
-            except IOError, e:
+            except IOError as e:
                 log.error("Could not copy firmware file %s: %s" % (f, e.strerror))
 
     def doPostInstall(self, anaconda):
@@ -93,7 +93,7 @@ class AnacondaBackend:
         if os.path.exists(DD_ALL):
             try:
                 shutil.copytree(DD_ALL, anaconda.rootPath + "/root/DD")
-            except IOError, e:
+            except IOError as e:
                 pass
 
         storage.writeEscrowPackets(anaconda)

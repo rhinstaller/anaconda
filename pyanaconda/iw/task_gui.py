@@ -140,13 +140,13 @@ class RepoEditor:
 
         try:
             return mapping[method.split(':')[0].lower()]
-        except:
+        except (AttributeError, KeyError):
             return 0
 
     def _addAndEnableRepo(self, repo):
         try:
             self.backend.ayum.repos.add(repo)
-        except yum.Errors.DuplicateRepoError, e:
+        except yum.Errors.DuplicateRepoError as e:
             self.intf.messageWindow(_("Error"),
                   _("The repository %s has already been added.  Please "
                     "choose a different repository name and "
@@ -375,7 +375,7 @@ class RepoEditor:
                 try:
                     os.unlink("%s/cachecookie" % self.repo.cachedir)
                     os.unlink("%s/repomd.xml" % self.repo.cachedir)
-                except:
+                except OSError:
                     pass
 
                 self.repo.disable()

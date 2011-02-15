@@ -20,7 +20,7 @@
 from flags import flags
 from errors import *
 
-from ConfigParser import ConfigParser
+import ConfigParser
 import sys
 import os
 import os.path
@@ -184,11 +184,9 @@ class AnacondaCallback:
 
                     f = open(fn, 'r')
                     self.openfile = f
-                except yum.Errors.NoMoreMirrorsRepoError:
+                except (yum.Errors.NoMoreMirrorsRepoError, IOError):
                     self.ayum._handleFailure(po)
-                except IOError:
-                    self.ayum._handleFailure(po)
-                except yum.Errors.RepoError, e:
+                except yum.Errors.RepoError:
                     continue
             self.inProgressPo = po
 
@@ -355,7 +353,7 @@ class AnacondaYum(yum.YumBase):
             try:
                 self.configBaseURL()
                 break
-            except SystemError, e:
+            except SystemError as e:
                 self.anaconda.intf.messageWindow(_("Error Setting Up Repository"),
                     _("The following error occurred while setting up the "
                       "installation repository:\n\n%(e)s\n\nPlease provide the "
@@ -388,7 +386,7 @@ class AnacondaYum(yum.YumBase):
                     return
 
                 dev.format.unmount()
-            except:
+            except Exception:
                 pass
         else:
             if verifyMedia(self.tree, None):
@@ -418,7 +416,7 @@ class AnacondaYum(yum.YumBase):
 
                 dev.format.unmount()
                 dev.eject()
-            except:
+            except Exception:
                 self.anaconda.intf.messageWindow(_("Error"),
                         _("Unable to access the disc."))
 
@@ -653,7 +651,7 @@ class AnacondaYum(yum.YumBase):
         valid addon repos and if so, return a list of (repo name, repo URL).
         """
         retval = []
-        c = ConfigParser()
+        c = ConfigParser.ConfigParser()
 
         # If there's no .treeinfo for this repo, don't bother looking for addons.
         treeinfo = self._getTreeinfo(baseurl, proxy_url)
@@ -663,9 +661,9 @@ class AnacondaYum(yum.YumBase):
         # We need to know which variant is being installed so we know what addons
         # are valid options.
         try:
-            ConfigParser.read(c, treeinfo)
+            ConfigParser.ConfigParser.read(c, treeinfo)
             variant = c.get("general", "variant")
-        except:
+        except ConfigParser.Error:
             return retval
 
         section = "variant-%s" % variant
@@ -722,16 +720,16 @@ class AnacondaYum(yum.YumBase):
         read.  Since there's no redhat-release package in /mnt/sysimage (and
         won't be for quite a while), we need to do our own substutition.
         """
-        c = ConfigParser()
+        c = ConfigParser.ConfigParser()
 
         treeinfo = self._getTreeinfo(self._baseRepoURL, self.proxy_url)
         if not treeinfo:
             return productVersion
 
-        ConfigParser.read(c, treeinfo)
+        ConfigParser.ConfigParser.read(c, treeinfo)
         try:
             return c.get("general", "version")
-        except:
+        except ConfigParser.Error:
             return productVersion
 
     # Override this method so yum doesn't nuke our existing logging config.
@@ -885,7 +883,7 @@ class AnacondaYum(yum.YumBase):
             try:
                 self.repos.add(repo)
                 log.info("added repository %s with URL %s" % (repo.name, repo.mirrorlist or repo.baseurl[0]))
-            except:
+            except yum.Errors.DuplicateRepoError:
                 log.warning("ignoring duplicate repository %s with URL %s" % (repo.name, repo.mirrorlist or repo.baseurl[0]))
 
         self.repos.setCacheDir(self.conf.cachedir)
@@ -896,11 +894,9 @@ class AnacondaYum(yum.YumBase):
             try:
                 yum.YumBase.downloadHeader(self, po)
                 break
-            except yum.Errors.NoMoreMirrorsRepoError:
+            except (yum.Errors.NoMoreMirrorsRepoError, IOError):
                 self._handleFailure(po)
-            except IOError:
-                self._handleFailure(po)
-            except yum.Errors.RepoError, e:
+            except yum.Errors.RepoError:
                 continue
 
     def _handleFailure(self, package):
@@ -992,7 +988,7 @@ class AnacondaYum(yum.YumBase):
             self.populateTs(keepold=0)
             self.dsCallback.pop()
             self.dsCallback = None
-        except RepoError, e:
+        except RepoError as e:
             msg = _("There was an error running your transaction for "
                     "the following reason: %s\n") % str(e)
 
@@ -1032,7 +1028,7 @@ class AnacondaYum(yum.YumBase):
 
         try:
             self.runTransaction(cb=cb)
-        except YumBaseError, probs:
+        except YumBaseError as probs:
             # FIXME: we need to actually look at these problems...
             probTypes = { rpm.RPMPROB_NEW_FILE_CONFLICT : _('file conflicts'),
                           rpm.RPMPROB_FILE_CONFLICT : _('file conflicts'),
@@ -1309,7 +1305,7 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
                     fn(repo)
                     if callback:
                         callback.disconnect()
-                except RepoError, e:
+                except RepoError:
                     if callback:
                         callback.disconnect()
                     buttons = [_("_Exit installer"), _("Edit"), _("_Retry")]
@@ -1514,7 +1510,7 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
                         return DISPATCH_BACK
 
                 break
-            except RepoError, e:
+            except RepoError as e:
                 # FIXME: would be nice to be able to recover here
                 rc = anaconda.intf.messageWindow(_("Error"),
                                _("Unable to read package metadata. This may be "
@@ -1573,7 +1569,7 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
         for i in dirList:
             try:
                 os.mkdir(anaconda.rootPath + i)
-            except os.error, (errno, msg):
+            except OSError:
                 pass
 #            log.error("Error making directory %s: %s" % (i, msg))
 
@@ -1720,14 +1716,14 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
                 iutil.execWithRedirect("yum", ["clean", "all"],
                                        stdout="/dev/tty5", stderr="/dev/tty5",
                                        root = anaconda.rootPath)
-            except:
+            except RuntimeError:
                 pass
 
         # nuke preupgrade
         if flags.cmdline.has_key("preupgrade") and os.path.exists("%s/var/cache/yum/anaconda-upgrade" %(anaconda.rootPath,)):
             try:
                 shutil.rmtree("%s/var/cache/yum/anaconda-upgrade" %(anaconda.rootPath,))
-            except:
+            except (OSError, IOError):
                 pass
 
         # XXX: write proper lvm config
@@ -1753,7 +1749,7 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
         try:
             grp = self.ayum.comps.return_group(group)
             if grp.selected: return True
-        except yum.Errors.GroupsError, e:
+        except yum.Errors.GroupsError:
             pass
         return False
 
@@ -1776,7 +1772,7 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
             mbrs = self.ayum.selectGroup(group, group_package_types=types)
             if len(mbrs) == 0 and self.isGroupSelected(group):
                 return
-        except yum.Errors.GroupsError, e:
+        except yum.Errors.GroupsError:
             # try to find out if it's the name or translated name
             gid = self.__getGroupId(group)
             if gid is not None:
@@ -1790,7 +1786,7 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
     def deselectGroup(self, group, *args):
         try:
             self.ayum.deselectGroup(group, force=True)
-        except yum.Errors.GroupsError, e:
+        except yum.Errors.GroupsError:
             # try to find out if it's the name or translated name
             gid = self.__getGroupId(group)
             if gid is not None:

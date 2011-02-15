@@ -104,12 +104,13 @@ class AnacondaKSScript(Script):
 
             try:
                 f = open(messages, "r")
+            except IOError as e:
+                err = None
+            else:
                 err = f.readlines()
                 f.close()
                 for l in err:
                     log.error("\t%s" % l)
-            except:
-                err = None
 
             if self.errorOnFail:
                 if intf != None:
@@ -985,7 +986,7 @@ class RaidData(commands.raid.F15_RaidData):
 
             try:
                 request = storage.newMDArray(**kwargs)
-            except ValueError, e:
+            except ValueError as e:
                 raise KickstartValueError, formatErrorMsg(self.lineno, msg=str(e))
 
             if self.fsprofile and hasattr(request.format, "fsprofile"):
@@ -1107,7 +1108,7 @@ class ZFCP(commands.zfcp.F14_ZFCP):
         fcp = commands.zfcp.F14_ZFCP.parse(self, args)
         try:
             storage.zfcp.ZFCP().addFCP(fcp.devnum, fcp.wwpn, fcp.fcplun)
-        except ValueError, e:
+        except ValueError as e:
             log.warning(str(e))
 
         return fcp
@@ -1442,7 +1443,7 @@ def selectPackages(anaconda):
 
         try:
             anaconda.backend.selectGroup(grp.name, (default, optional))
-        except NoSuchGroup, e:
+        except NoSuchGroup as e:
             if ksdata.packages.handleMissing == KS_MISSING_IGNORE or ignoreAll:
                 pass
             else:

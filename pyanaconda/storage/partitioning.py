@@ -626,7 +626,7 @@ def getBestFreeSpaceRegion(disk, part_type, req_size,
             # parted.Geometry.overlapsWith can handle this
             try:
                 free_geom = extended.geometry.intersect(_range)
-            except ArithmeticError, e:
+            except ArithmeticError:
                 # this freespace region does not lie within the extended
                 # partition's geometry
                 free_geom = None

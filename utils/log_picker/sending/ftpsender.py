@@ -42,6 +42,6 @@ class FtpSender(SenderBaseClass):
             ftp.storbinary('STOR %s' % os.path.basename(filename), \
                                                                 file(filename))
             ftp.quit()
-        except ftplib.all_errors, e:
+        except ftplib.all_errors as e:
             raise SenderError("FTP upload failed: %(error)s" % {'error':e})
 

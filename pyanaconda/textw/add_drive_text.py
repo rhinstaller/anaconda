@@ -316,19 +316,19 @@ class addDriveDialog(object):
         if newdrv[choice] == "Add zFCP LUN":
             try:
                 return self.addZFCPDriveDialog(screen)
-            except ValueError, e:
+            except ValueError as e:
                 ButtonChoiceWindow(screen, _("Error"), str(e))
                 return INSTALL_BACK
         elif newdrv[choice] == "Add FCoE SAN":
             try:
                 return self.addFcoeDriveDialog(screen)
-            except ValueError, e:
+            except ValueError as e:
                 ButtonChoiceWindow(screen, _("Error"), str(e))
                 return INSTALL_BACK
         else:
             try:
                 return self.addIscsiDriveDialog(screen)
-            except (ValueError, IOError), e:
+            except (ValueError, IOError) as e:
                 ButtonChoiceWindow(screen, _("Error"), str(e))
                 return INSTALL_BACK
 

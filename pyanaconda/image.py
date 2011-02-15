@@ -18,7 +18,7 @@
 #
 
 import isys, iutil
-import os, os.path, stat, string, sys
+import os, os.path, stat, sys
 from constants import *
 
 import gettext
@@ -34,61 +34,60 @@ def findFirstIsoImage(path, messageWindow):
     files = os.listdir(path)
     arch = _arch
 
-    for file in files:
-        what = path + '/' + file
+    for f in files:
+        what = path + '/' + f
         log.debug("Checking %s" % (what))
         if not isys.isIsoImage(what):
             continue
 
+        log.debug("mounting %s on /mnt/cdimage", what)
         try:
-            log.debug("mounting %s on /mnt/cdimage", what)
-            isys.mount(what, "/mnt/cdimage", fstype = "iso9660", readOnly = True)
-
-            if os.access("/mnt/cdimage/.discinfo", os.R_OK):
-                log.debug("Reading .discinfo")
-                f = open("/mnt/cdimage/.discinfo")
-                try:
-                    f.readline() # skip timestamp
-                    f.readline() # skip release description
-                    discArch = string.strip(f.readline()) # read architecture
-                except:
-                    discArch = None
-
-                f.close()
-
-                log.debug("discArch = %s" % discArch)
-                if discArch != arch:
-                    isys.umount("/mnt/cdimage", removeDir=False)
-                    continue
-
-                # If there's no repodata, there's no point in trying to
-                # install from it.
-                if not os.access("/mnt/cdimage/repodata", os.R_OK):
-                    log.warning("%s doesn't have repodata, skipping" %(what,))
-                    isys.umount("/mnt/cdimage", removeDir=False)
-                    continue
-
-                # warn user if images appears to be wrong size
-                if os.stat(what)[stat.ST_SIZE] % 2048:
-                    rc = messageWindow(_("Warning"),
-                         _("The ISO image %s has a size which is not "
-                           "a multiple of 2048 bytes.  This may mean "
-                           "it was corrupted on transfer to this computer."
-                           "\n\n"
-                           "It is recommended that you exit and abort your "
-                           "installation, but you can choose to continue if "
-                           "you think this is in error.") % (file,),
-                           type="custom", custom_icon="warning",
-                           custom_buttons= [_("_Exit installer"),
-                                            _("_Continue")])
-                    if rc == 0:
-                        sys.exit(0)
-
-                log.info("Found disc at %s" % file)
-                isys.umount("/mnt/cdimage", removeDir=False)
-                return file
+            isys.mount(what, "/mnt/cdimage", fstype="iso9660", readOnly=True)
         except SystemError:
-            pass
+            continue
+
+        if not os.access("/mnt/cdimage/.discinfo", os.R_OK):
+            isys.umount("/mnt/cdimage", removeDir=False)
+            continue
+
+        log.debug("Reading .discinfo")
+        f = open("/mnt/cdimage/.discinfo")
+        f.readline() # skip timestamp
+        f.readline() # skip release description
+        discArch = f.readline().strip() # read architecture
+        f.close()
+
+        log.debug("discArch = %s" % discArch)
+        if discArch != arch:
+            isys.umount("/mnt/cdimage", removeDir=False)
+            continue
+
+        # If there's no repodata, there's no point in trying to
+        # install from it.
+        if not os.access("/mnt/cdimage/repodata", os.R_OK):
+            log.warning("%s doesn't have repodata, skipping" %(what,))
+            isys.umount("/mnt/cdimage", removeDir=False)
+            continue
+
+        # warn user if images appears to be wrong size
+        if os.stat(what)[stat.ST_SIZE] % 2048:
+            rc = messageWindow(_("Warning"),
+                 _("The ISO image %s has a size which is not "
+                   "a multiple of 2048 bytes.  This may mean "
+                   "it was corrupted on transfer to this computer."
+                   "\n\n"
+                   "It is recommended that you exit and abort your "
+                   "installation, but you can choose to continue if "
+                   "you think this is in error.") % (f,),
+                   type="custom", custom_icon="warning",
+                   custom_buttons= [_("_Exit installer"),
+                                    _("_Continue")])
+            if rc == 0:
+                sys.exit(0)
+
+        log.info("Found disc at %s" % f)
+        isys.umount("/mnt/cdimage", removeDir=False)
+        return f
 
     return None
 
@@ -132,7 +131,7 @@ def mountDirectory(methodstr, messageWindow):
         try:
             isys.mount(device, "/mnt/isodir", fstype=fstype, options=options)
             break
-        except SystemError, msg:
+        except SystemError as msg:
             log.error("couldn't mount ISO source directory: %s" % msg)
             ans = messageWindow(_("Couldn't Mount ISO Source"),
                           _("An error occurred mounting the source "
@@ -160,7 +159,7 @@ def mountImage(isodir, tree, messageWindow):
             isoImage = "%s/%s" % (isodir, image)
             isys.mount(isoImage, tree, fstype = 'iso9660', readOnly = True)
             break
-        except:
+        except SystemError:
             ans = messageWindow(_("Missing ISO 9660 Image"),
                                 _("The installer has tried to mount the "
                                   "installation image, but cannot find it on "
@@ -186,7 +185,7 @@ def scanForMedia(tree, storage):
         storage.devicetree.updateDeviceFormat(dev)
         try:
             dev.format.mount(mountpoint=tree)
-        except:
+        except Exception:
             continue
 
         if not verifyMedia(tree):
@@ -209,7 +208,7 @@ def unmountCD(dev, messageWindow):
         try:
             dev.format.unmount()
             break
-        except Exception, e:
+        except Exception as e:
             log.error("exception in _unmountCD: %s" %(e,))
             messageWindow(_("Error"),
                           _("An error occurred unmounting the disc.  "
@@ -223,17 +222,8 @@ def verifyMedia(tree, timestamp=None):
         f = open("%s/.discinfo" % tree)
 
         newStamp = f.readline().strip()
-
-        try:
-            descr = f.readline().strip()
-        except:
-            descr = None
-
-        try:
-            arch = f.readline().strip()
-        except:
-            arch = None
-
+        descr = f.readline().strip()
+        arch = f.readline().strip()
         f.close()
 
         if timestamp is not None:

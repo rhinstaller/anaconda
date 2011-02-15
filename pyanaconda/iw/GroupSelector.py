@@ -64,7 +64,7 @@ def sanitizeString(s, translate = True):
     if type(s) != unicode:
         try:
             s = unicode(s, "utf-8")
-        except UnicodeDecodeError, e:
+        except UnicodeDecodeError as e:
             sys.stderr.write("Unable to convert %s to a unicode object: %s\n" % (s, e))
             return ""
     return s
@@ -114,7 +114,7 @@ def _selectPackage(ayum, group, pkg):
     grpid = group.groupid
     try:
         txmbrs = ayum.install(name = pkg)
-    except yum.Errors.InstallError, e:
+    except yum.Errors.InstallError as e:
         log = logging.getLogger("yum.verbose")
         log.info("No package named %s available to be installed: %s" %(pkg, e))
     else:
@@ -208,7 +208,7 @@ class OptionalPackageSelector:
     def __getPackageObject(self, pkgname):
         try:
             pkgs = self.ayum.pkgSack.returnNewestByName(pkgname)
-        except:
+        except yum.Errors.YumBaseError:
             return None
 
         if not pkgs:

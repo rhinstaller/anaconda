@@ -78,7 +78,7 @@ class RootPasswordWindow:
             else:
                 try:
                     cracklib.FascistCheck(entry1.value())
-                except ValueError, e:
+                except ValueError as e:
                     msg = gettext.ldgettext("cracklib", e)
                     ret = anaconda.intf.messageWindow(_("Weak Password"),
                              _("You have provided a weak password: %s\n\n"

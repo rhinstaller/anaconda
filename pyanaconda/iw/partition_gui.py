@@ -598,7 +598,8 @@ class DiskTreeModelHelper:
             key = self.columns[key]
         try:
             return self.model.get_value(self.iter, key)
-        except:
+        except Exception:
+            # FIXME: what exceptions might actually get raised here?
             return None
 
     def __setitem__(self, key, value):
@@ -1584,12 +1585,12 @@ class PartitionWindow(InstallWindow):
             try:
                 doPartitioning(self.storage)
                 rc = 0
-            except PartitioningError, msg:
+            except PartitioningError as msg:
                 self.intf.messageWindow(_("Error Partitioning"),
                        _("Could not allocate requested partitions: %s.") % (msg),
                                         custom_icon="error")
                 rc = -1
-            except PartitioningWarning, msg:
+            except PartitioningWarning as msg:
                 # XXX somebody other than me should make this look better
                 # XXX this doesn't handle the 'delete /boot partition spec' case
                 #     (it says 'add anyway')

@@ -61,7 +61,7 @@ def copytree(src, dst, symlinks=False, preserveOwner=False,
     def trySetfilecon(src, dest):
         try:
             selinux.lsetfilecon(dest, selinux.lgetfilecon(src)[1])
-        except:
+        except OSError:
             log.error("Could not set selinux context on file %s" % dest)
 
     # copy of shutil.copytree which doesn't require dst to not exist
@@ -90,11 +90,11 @@ def copytree(src, dst, symlinks=False, preserveOwner=False,
                     trySetfilecon(srcname, dstname)
 
                 shutil.copystat(srcname, dstname)
-        except (IOError, os.error), why:
+        except (IOError, OSError) as why:
             errors.append((srcname, dstname, str(why)))
         # catch the Error from the recursive copytree so that we can
         # continue with other files
-        except Error, err:
+        except Error as err:
             errors.extend(err.args[0])
     try:
         if preserveOwner:
@@ -130,7 +130,7 @@ class LiveCDCopyBackend(backend.AnacondaBackend):
         try:
             anaconda.storage.umountFilesystems(swapoff = False)
             os.rmdir(anaconda.rootPath)
-        except Exception, e:
+        except Exception as e:
             log.error("Unable to unmount filesystems: %s" % e) 
 
     def doPreInstall(self, anaconda):
@@ -156,7 +156,7 @@ class LiveCDCopyBackend(backend.AnacondaBackend):
             try:
                 buf = os.read(osfd, readamt)
                 written = os.write(rootfd, buf)
-            except:
+            except (IOError, OSError):
                 rc = anaconda.intf.messageWindow(_("Error"),
                         _("There was an error installing the live image to "
                           "your hard drive.  This could be due to bad media.  "

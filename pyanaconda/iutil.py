@@ -464,7 +464,7 @@ def mkdirChain(dir):
         try:
             if e.errno == EEXIST and stat.S_ISDIR(os.stat(dir).st_mode):
                 return
-        except:
+        except OSError:
             pass
 
         log.error("could not create directory %s: %s" % (dir, e.strerror))
@@ -779,7 +779,10 @@ def strip_markup(text):
     return r.encode("utf-8")
 
 def notify_kernel(path, action="change"):
-    """ Signal the kernel that the specified device has changed. """
+    """ Signal the kernel that the specified device has changed.
+
+        Exceptions raised: ValueError, IOError
+    """
     log.debug("notifying kernel of '%s' event on device %s" % (action, path))
     path = os.path.join(path, "uevent")
     if not path.startswith("/sys/") or not os.access(path, os.W_OK):
@@ -813,9 +816,8 @@ def numeric_type(num):
     return num
 
 def reIPL(anaconda, loader_pid):
-    try:
-        ipldev = anaconda.id.bootloader.getDevice()
-    except:
+    ipldev = anaconda.bootloader.getDevice()
+    if not ipldev:
         message = _("Error determining boot device's disk name")
         log.warning(message)
         return message
@@ -824,9 +826,9 @@ def reIPL(anaconda, loader_pid):
         rc = execWithRedirect("chreipl", ["node", "/dev/" + ipldev],
                               stdout = "/dev/tty5",
                               stderr = "/dev/tty5")
-    except Exception, e:
+    except RuntimeError as e:
         log.info("Unable to set reIPL device to %s: %s",
-                 ipldev, e.message)
+                 ipldev, e)
 
     if rc:
         anaconda.canReIPL = False
@@ -857,7 +859,7 @@ def resetRpmDb(rootdir):
     for rpmfile in glob.glob("%s/var/lib/rpm/__db.*" % rootdir):
         try:
             os.unlink(rpmfile)
-        except Exception, e:
+        except OSError as e:
             log.debug("error %s removing file: %s" %(e,rpmfile))
 
 def parseNfsUrl(nfsurl):

@@ -275,10 +275,10 @@ class NetworkConfiguratorText:
             if self.ipv4Method == "v4manual":
                 try:
                     network.sanityCheckIPString(self.ipv4Address)
-                except network.IPMissing, msg:
+                except network.IPMissing as msg:
                     self._handleIPMissing(_("IPv4 Address"))
                     return False
-                except network.IPError, msg:
+                except network.IPError as msg:
                     self._handleIPError(_("IPv4 Address"), msg)
                     return False
 
@@ -294,7 +294,7 @@ class NetworkConfiguratorText:
                 if self.ipv4Gateway:
                     try:
                         network.sanityCheckIPString(self.ipv4Gateway)
-                    except network.IPError, msg:
+                    except network.IPError as msg:
                         self._handleIPError(_("IPv4 Gateway"), msg)
                         return False
 
@@ -303,7 +303,7 @@ class NetworkConfiguratorText:
                         addr.split()
                         try:
                             network.sanityCheckIPString(addr)
-                        except network.IPError, msg:
+                        except network.IPError as msg:
                             self._handleIPError(_("IPv4 Nameserver"), msg)
                             return False
 
@@ -311,10 +311,10 @@ class NetworkConfiguratorText:
             if self.ipv6Method == "v6manual":
                 try:
                     network.sanityCheckIPString(self.ipv6Address)
-                except network.IPMissing, msg:
+                except network.IPMissing as msg:
                     self._handleIPMissing(_("IPv6 Address"))
                     return False
-                except network.IPError, msg:
+                except network.IPError as msg:
                     self._handleIPError(_("IPv6 Address"), msg)
                     return False
 
@@ -330,7 +330,7 @@ class NetworkConfiguratorText:
                 if self.ipv6Gateway:
                     try:
                         network.sanityCheckIPString(self.ipv6Gateway)
-                    except network.IPError, msg:
+                    except network.IPError as msg:
                         self._handleIPError(_("IPv6 Gateway"), msg)
                         return False
                 if self.ipv6Nameserver:
@@ -338,7 +338,7 @@ class NetworkConfiguratorText:
                         addr.split()
                         try:
                             network.sanityCheckIPString(addr)
-                        except network.IPError, msg:
+                        except network.IPError as msg:
                             self._handleIPError(_("IPv6 Nameserver"), msg)
                             return False
 
