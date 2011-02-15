@@ -479,7 +479,7 @@ class AnacondaYum(yum.YumBase):
                 # if there's images and if so go with this being an NFSISO
                 # install instead.
                 image = findFirstIsoImage(self.tree, self.anaconda.intf.messageWindow)
-                if not image:
+                if image:
                     isys.umount(self.tree, removeDir=False)
                     self.anaconda.methodstr = "nfsiso:%s" % m[4:]
                     self.configBaseURL()
