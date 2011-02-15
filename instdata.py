@@ -80,7 +80,7 @@ class InstallData:
         self.upgradeSwapInfo = None
         self.escrowCertificates = {}
 
-        if iutil.isS390() or self.anaconda.isKickstart:
+        if self.anaconda.isKickstart:
             self.firstboot = FIRSTBOOT_SKIP
         else:
             self.firstboot = FIRSTBOOT_DEFAULT
