@@ -45,20 +45,20 @@ def AnacondaShowWarning(message, category, filename, lineno, file=sys.stderr, li
 def startMetacityWM():
     childpid = os.fork()
     if not childpid:
-        cmd = '/usr/bin/metacity'
-        if not os.access(cmd, os.X_OK):
-            log.error("Unable to find the window manager binary.")
+        # after this point the method should never return (or throw an exception
+        # outside)
+        try:
+            args = ['--display', ':1',
+                    '--sm-disable']
+            iutil.execWithRedirect('metacity', args,
+                                   stdout='/dev/null', stderr='/dev/null')
+        except BaseException as e:
+            # catch all possible exceptions
+            log.error("Problems running the window manager: %s" % str(e))
             sys.exit(1)
-        args = ['--display', ':1',
-                '--sm-disable']
-        rc = iutil.execWithRedirect(cmd, args, 
-                               stdout='/dev/null', stderr='/dev/null')
-        if rc:
-            log.error("Error running window manager.")
-            sys.exit (rc)
-        else:
-            log.info("The window manager has terminated.")
-            sys.exit(0)
+
+        log.info("The window manager has terminated.")
+        sys.exit(0)
     return childpid
 
 def startAuditDaemon():
@@ -75,18 +75,13 @@ def startAuditDaemon():
 
 # function to handle X startup special issues for anaconda
 def doStartupX11Actions():
-    global wm_pid
+    global wm_pid # pid of the anaconda fork where the window manager is running
 
     setupGraphicalLinks()
 
     # now start up the window manager
-    try:
-        wm_pid = startMetacityWM()
-        log.info("Started window manager, pid %s." % (wm_pid,))
-
-    except:
-        wm_pid = None
-        log.error("Unable to start the window manager.")
+    wm_pid = startMetacityWM()
+    log.info("Starting window manager, pid %s." % (wm_pid,))
 
     if wm_pid is not None:
         import xutils
