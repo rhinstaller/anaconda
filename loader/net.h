@@ -67,6 +67,7 @@ void debugNetworkInfo(iface_t * iface);
 int writeDisabledNetInfo(void);
 int writeDisabledIfcfgFile(char *device);
 int removeDhclientConfFile(char *device);
+int removeIfcfgFile(char *device);
 int writeEnabledNetInfo(iface_t * iface);
 int chooseNetworkInterface(struct loaderData_s * loaderData);
 void setupIfaceStruct(iface_t * iface, struct loaderData_s * loaderData);
@@ -75,7 +76,9 @@ int kickstartNetworkUp(struct loaderData_s * loaderData,
                        iface_t * iface);
 int activateDevice(struct loaderData_s * loaderData,
                    iface_t * iface);
+int disconnectDevice(char *device);
 void splitHostname (char *str, char **host, char **port);
 int wait_for_iface_activation(char * ifname);
+int wait_for_iface_disconnection(char *ifname);
 
 #endif
