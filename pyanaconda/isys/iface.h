@@ -68,6 +68,7 @@ typedef struct _iface_t {
     /* Gateway settings */
     struct in_addr gateway;
     struct in6_addr gateway6;
+    int defroute;
 
     /* BOOTP (these can be IPv4 or IPv6, store human-readable version as str) */
     char *nextserver;

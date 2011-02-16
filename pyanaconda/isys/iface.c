@@ -387,6 +387,7 @@ void iface_init_iface_t(iface_t *iface) {
     iface->flags = 0;
     iface->ipv4method = IPV4_UNUSED_METHOD;
     iface->ipv6method = IPV6_UNUSED_METHOD;
+    iface->defroute = 1;
 
     return;
 }

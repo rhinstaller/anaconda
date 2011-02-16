@@ -673,6 +673,9 @@ class NetworkData(commands.network.F16_NetworkData):
             if self.gateway != "":
                 self.anaconda.network.setGateway(self.gateway, device)
 
+        if self.nodefroute:
+            dev.set (("DEFROUTE", "no"))
+
         needs_net = (self.anaconda.methodstr and
                      (self.anaconda.methodstr.startswith("http:") or
                       self.anaconda.methodstr.startswith("ftp:") or

@@ -1480,6 +1480,11 @@ int writeEnabledNetInfo(iface_t *iface) {
         fprintf(fp, "MACADDR=%s\n", iface->macaddr);
     }
 
+    if (!iface->defroute) {
+        fprintf(fp, "DEFROUTE=no\n");
+        logMessage(INFO, "not setting default route via %s", iface->device);
+    }
+
     if (iface->ssid) {
         fprintf(fp, "ESSID=%s\n", iface->ssid);
     }

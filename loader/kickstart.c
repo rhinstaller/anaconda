@@ -841,6 +841,12 @@ static void setKickstartNetwork(struct loaderData_s * loaderData, PyObject *hand
 
         Py_XDECREF(attr);
 
+        attr = getObject(ele, "nodefroute", 0);
+        if (isTrue(attr))
+            iface.defroute = 0;
+
+        Py_XDECREF(attr);
+
         Py_XDECREF(noksdev);
 
         if (!is_nm_connected()) {
