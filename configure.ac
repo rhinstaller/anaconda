@@ -296,6 +296,12 @@ AC_CONFIG_FILES([Makefile
                  tests/storage_test/devicelibs_test/Makefile
                  tests/pylint/Makefile
                  tests/regex/Makefile
+                 tests/booty_test/Makefile
+                 tests/pyanaconda_test/Makefile
+                 tests/logpicker_test/Makefile
+                 tests/logpicker_test/sending_test/Makefile
+                 tests/logpicker_test/archiving_test/Makefile
+                 tests/logpicker_test/logmining_test/Makefile
                  pyanaconda/textw/Makefile
                  data/ui/Makefile
                  utils/Makefile
