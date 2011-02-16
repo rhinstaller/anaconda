@@ -65,6 +65,8 @@ int manualNetConfig(char * device, iface_t * iface,
                     struct intfconfig_s * ipcomps, struct netconfopts * opts);
 void debugNetworkInfo(iface_t * iface);
 int writeDisabledNetInfo(void);
+int writeDisabledIfcfgFile(char *device);
+int removeDhclientConfFile(char *device);
 int writeEnabledNetInfo(iface_t * iface);
 int chooseNetworkInterface(struct loaderData_s * loaderData);
 void setupIfaceStruct(iface_t * iface, struct loaderData_s * loaderData);
