@@ -509,7 +509,7 @@ static void setUpdates(struct loaderData_s * loaderData, PyObject *handler) {
 
 static void setDisplayMode(struct loaderData_s * loaderData, PyObject *handler) {
     PyObject *textObj = getObject(constantsMod, "DISPLAY_MODE_TEXT", 0);
-    PyObject *graphicalObj = getObject(constantsMod, "DISPLAY_MODE_GRAPHICAL", 0);
+    PyObject *cmdlineObj = getObject(constantsMod, "DISPLAY_MODE_CMDLINE", 0);
     PyObject *settingObj = getattr(handler, "displaymode", "displayMode");
 
     if (!settingObj)
@@ -518,17 +518,17 @@ static void setDisplayMode(struct loaderData_s * loaderData, PyObject *handler) 
     if (settingObj == textObj) {
         logMessage(INFO, "kickstart forcing text mode");
         flags |= LOADER_FLAGS_TEXT;
-    } else if (settingObj == graphicalObj) {
-        logMessage(INFO, "kickstart forcing graphical mode");
-        flags |= LOADER_FLAGS_GRAPHICAL;
-    } else {
+    } else if (settingObj == cmdlineObj) {
         logMessage(INFO, "kickstart forcing cmdline mode");
         flags |= LOADER_FLAGS_CMDLINE;
+    } else {
+        logMessage(INFO, "kickstart forcing graphical mode");
+        flags |= LOADER_FLAGS_GRAPHICAL;
     }
 
 cleanup:
     Py_XDECREF(textObj);
-    Py_XDECREF(graphicalObj);
+    Py_XDECREF(cmdlineObj);
     Py_XDECREF(settingObj);
 }
 
