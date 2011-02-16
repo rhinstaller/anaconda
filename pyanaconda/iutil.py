@@ -48,16 +48,22 @@ class ExecProduct(object):
 #Python reimplementation of the shell tee process, so we can
 #feed the pipe output into two places at the same time
 class tee(threading.Thread):
-    def __init__(self, inputdesc, outputdesc, logmethod):
+    def __init__(self, inputdesc, outputdesc, logmethod, command):
         threading.Thread.__init__(self)
         self.inputdesc = os.fdopen(inputdesc, "r")
         self.outputdesc = outputdesc
         self.logmethod = logmethod
         self.running = True
+        self.command = command
 
     def run(self):
         while self.running:
-            data = self.inputdesc.readline()
+            try:
+                data = self.inputdesc.readline()
+            except IOError:
+                self.logmethod("Can't read from pipe during a call to %s. "
+                               "(program terminated suddenly?)" % self.command)
+                break
             if data == "":
                 self.running = False
             else:
@@ -122,8 +128,8 @@ def execWithRedirect(command, argv, stdin = None, stdout = None,
 
     try:
         #prepare tee proceses
-        proc_std = tee(pstdout, stdout, program_log.info)
-        proc_err = tee(perrout, stderr, program_log.error)
+        proc_std = tee(pstdout, stdout, program_log.info, command)
+        proc_err = tee(perrout, stderr, program_log.error, command)
 
         #start monitoring the outputs
         proc_std.start()
