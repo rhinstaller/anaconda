@@ -731,6 +731,9 @@ static void setKickstartNetwork(struct loaderData_s * loaderData, PyObject *hand
         if (objIsStr(attr, "dhcp") || objIsStr(attr, "bootp")) {
             loaderData->ipv4 = strdup("dhcp");
             loaderData->ipinfo_set = 1;
+        } else if (objIsStr(attr, "ibft")) {
+            loaderData->ipv4 = strdup("ibft");
+            loaderData->ipinfo_set = 1;
         } else if (loaderData->ipv4) {
             loaderData->ipinfo_set = 1;
         }
