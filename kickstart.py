@@ -364,7 +364,8 @@ class AnacondaKSHandlers(KickstartHandlers):
         try:
             self.id.instClass.setNetwork(self.id, nd.bootProto, nd.ip, nd.netmask,
                                          nd.ethtool, nd.device, nd.onboot,
-                                         nd.dhcpclass, nd.essid, nd.wepkey)
+                                         nd.dhcpclass, nd.essid, nd.wepkey,
+                                         nd.ipv4, nd.ipv6)
         except KeyError:
             raise KickstartValueError, formatErrorMsg(self.lineno, msg="The provided network interface %s does not exist" % nd.device)
 

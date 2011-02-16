@@ -256,7 +256,9 @@ class BaseInstallClass:
     def setAuthentication(self, id, authStr):
         id.auth = authStr
 
-    def setNetwork(self, id, bootProto, ip, netmask, ethtool, device = None, onboot = 1, dhcpclass = None, essid = None, wepkey = None):
+    def setNetwork(self, id, bootProto, ip, netmask, ethtool, device = None,
+                   onboot = 1, dhcpclass = None, essid = None, wepkey = None,
+                   ipv4=True, ipv6=True):
 	if bootProto:
 	    devices = id.network.netdevices
             firstdev = id.network.getFirstDeviceName()
@@ -292,6 +294,9 @@ class BaseInstallClass:
                         dev.set(("essid", essid))
                     if wepkey:
                         dev.set(("wepkey", wepkey))
+
+                dev.set(("useIPv4", ipv4))
+                dev.set(("useIPv6", ipv6))
 
     def setLanguageDefault(self, id, default):
 	id.instLanguage.setDefault(default)
