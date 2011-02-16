@@ -1687,7 +1687,10 @@ void loaderSegvHandler(int signum) {
     }
 
     i = backtrace (array, 30);
-    backtrace_symbols_fd(array, i, STDERR_FILENO);
+    if (signum == SIGSEGV)
+        backtrace_symbols_fd(array+2, i-2, STDERR_FILENO);
+    else
+        backtrace_symbols_fd(array+1, i-1, STDERR_FILENO);
     _exit(1);
 }
 
