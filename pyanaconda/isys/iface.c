@@ -443,6 +443,35 @@ gboolean is_nm_running(void) {
     return running;
 }
 
+gboolean is_iface_activated(char * ifname) {
+    int i, state;
+    NMClient *client = NULL;
+    const GPtrArray *devices;
+
+    g_type_init();
+
+    client = nm_client_new();
+    if (!client)
+        return FALSE;
+
+    devices = nm_client_get_devices(client);
+    for (i = 0; i < devices->len; i++) {
+        NMDevice *candidate = g_ptr_array_index(devices, i);
+        const char *devname = nm_device_get_iface(candidate);
+        if (strcmp(ifname, devname))
+            continue;
+        state = nm_device_get_state(candidate);
+        g_object_unref(client);
+        if (state == NM_DEVICE_STATE_ACTIVATED)
+            return TRUE;
+        else
+            return FALSE;
+    }
+
+    g_object_unref(client);
+    return FALSE;
+}
+
 /*
  * Wait for NetworkManager to appear on the system bus
  */
