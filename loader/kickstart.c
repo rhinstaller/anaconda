@@ -678,149 +678,185 @@ cleanup:
 }
 
 static void setKickstartNetwork(struct loaderData_s * loaderData, PyObject *handler) {
+    Py_ssize_t i;
     PyObject *list = getDataList(handler, "network");
-    PyObject *ele, *attr, *noksdev;
     iface_t iface;
 
     if (!list)
         return;
 
-    /* For now, just use the first network device as the one for loader. */
-    ele = PyList_GetItem(list, 0);
-    if (!ele)
-        goto cleanup;
+    for (i = 0; i < PyList_Size(list); i++) {
+        PyObject *ele = PyList_GetItem(list, i);
+        PyObject *attr, *noksdev;
 
-    iface_init_iface_t(&iface);
+        if (!ele)
+            continue;
 
-    /* if they've specified dhcp/bootp use dhcp for the interface */
-    attr = getObject(ele, "bootProto", 0);
-    if (objIsStr(attr, "dhcp") || objIsStr(attr, "bootp")) {
-        loaderData->ipv4 = strdup("dhcp");
-        loaderData->ipinfo_set = 1;
-    } else if (loaderData->ipv4) {
-        loaderData->ipinfo_set = 1;
-    }
+        iface_init_iface_t(&iface);
 
-    Py_XDECREF(attr);
+        /* initialize network configuration bits of loaderData struct */
+        /* except for --device which we want to take over from cmdline */
+        /* ksdevice for the first command */
+        free(loaderData->ipv4);
+        loaderData->ipv4 = NULL;
+        loaderData->ipinfo_set = 0;
+        free(loaderData->dns);
+        loaderData->dns = NULL;
+        free(loaderData->netmask);
+        loaderData->netmask = NULL;
+        free(loaderData->hostname);
+        loaderData->hostname = NULL;
+        free(loaderData->gateway);
+        loaderData->gateway = NULL;
+        free(loaderData->netCls);
+        loaderData->netCls = NULL;
+        loaderData->netCls_set = 0;
+        free(loaderData->ethtool);
+        loaderData->ethtool = NULL;
+        loaderData->essid = NULL;
+        free(loaderData->wepkey);
+        loaderData->wepkey = NULL;
+        loaderData->mtu = 0;
 
-    /* --gateway is common for ipv4 and ipv6, same as in loader UI */
-    attr = getObject(ele, "gateway", 0);
-    if (isNotEmpty(attr)) {
-        char *gateway = strdup(PyString_AsString(attr));
-        int rc;
-        struct in_addr addr;
 #ifdef ENABLE_IPV6
-        struct in6_addr addr6;
+        free(loaderData->ipv6);
+        loaderData->ipv6 = NULL;
+        loaderData->ipv6info_set = 0;
+        free(loaderData->gateway6);
+        loaderData->gateway6 = NULL;
 #endif
 
-        if ((rc = inet_pton(AF_INET, gateway, &addr)) == 1) {
-            loaderData->gateway = gateway;
-        } else if (rc == 0) {
+        /* if they've specified dhcp/bootp use dhcp for the interface */
+        attr = getObject(ele, "bootProto", 0);
+        if (objIsStr(attr, "dhcp") || objIsStr(attr, "bootp")) {
+            loaderData->ipv4 = strdup("dhcp");
+            loaderData->ipinfo_set = 1;
+        } else if (loaderData->ipv4) {
+            loaderData->ipinfo_set = 1;
+        }
+
+        Py_XDECREF(attr);
+
+        /* --gateway is common for ipv4 and ipv6, same as in loader UI */
+        attr = getObject(ele, "gateway", 0);
+        if (isNotEmpty(attr)) {
+            char *gateway = strdup(PyString_AsString(attr));
+            int rc;
+            struct in_addr addr;
 #ifdef ENABLE_IPV6
-            if ((rc == inet_pton(AF_INET6, gateway, &addr6)) == 1) {
-                loaderData->gateway6 = gateway;
+            struct in6_addr addr6;
+#endif
+
+            if ((rc = inet_pton(AF_INET, gateway, &addr)) == 1) {
+                loaderData->gateway = gateway;
             } else if (rc == 0) {
-#endif
-                logMessage(WARNING,
-                           "invalid address in kickstart --gateway");
 #ifdef ENABLE_IPV6
+                if ((rc == inet_pton(AF_INET6, gateway, &addr6)) == 1) {
+                    loaderData->gateway6 = gateway;
+                } else if (rc == 0) {
+#endif
+                    logMessage(WARNING,
+                               "invalid address in kickstart --gateway");
+#ifdef ENABLE_IPV6
+                } else {
+                    logMessage(ERROR, "%s (%d): %s", __func__, __LINE__,
+                               strerror(errno));
+                }
+#endif
             } else {
                 logMessage(ERROR, "%s (%d): %s", __func__, __LINE__,
                            strerror(errno));
             }
-#endif
-        } else {
-            logMessage(ERROR, "%s (%d): %s", __func__, __LINE__,
-                       strerror(errno));
-        }
-    }
-
-    Py_XDECREF(attr);
-
-    noksdev = getObject(ele, "notksdevice", 0);
-    if (!isTrue(noksdev)) {
-        attr = getObject(ele, "device", 0);
-        if (isNotEmpty(attr)) {
-            char *device = PyString_AsString(attr);
-
-            /* If --device=MAC was given, translate into a device name now. */
-            if (index(device, ':') != NULL)
-                loaderData->netDev = iface_mac2device(device);
-            else
-                loaderData->netDev = strdup(device);
-
-            loaderData->netDev_set = 1;
-            logMessage(INFO, "kickstart network command - device %s", loaderData->netDev);
-        } else {
-            logMessage(INFO, "kickstart network command - unspecified device");
         }
 
         Py_XDECREF(attr);
 
-        _setNetworkString(ele, "dhcpclass", &loaderData->netCls, &loaderData->netCls_set);
-        _setNetworkString(ele, "ethtool", &loaderData->ethtool, NULL);
-        _setNetworkString(ele, "essid", &loaderData->essid, NULL);
-        _setNetworkString(ele, "wepkey", &loaderData->wepkey, NULL);
+        noksdev = getObject(ele, "notksdevice", 0);
+        if (!isTrue(noksdev)) {
+            attr = getObject(ele, "device", 0);
+            if (isNotEmpty(attr)) {
+                char *device = PyString_AsString(attr);
 
-        attr = getObject(ele, "noipv4", 0);
-        if (isTrue(attr))
-            flags |= LOADER_FLAGS_NOIPV4;
+                /* If --device=MAC was given, translate into a device name now. */
+                if (index(device, ':') != NULL)
+                    loaderData->netDev = iface_mac2device(device);
+                else
+                    loaderData->netDev = strdup(device);
 
-        Py_XDECREF(attr);
-
-        attr = getObject(ele, "mtu", 0);
-        if (isNotEmpty(attr)) {
-            /* Don't free this string! */
-            char *mtu = PyString_AsString(attr);
-
-            errno = 0;
-            loaderData->mtu = strtol(mtu, NULL, 10);
-
-            if ((errno == ERANGE && (loaderData->mtu == LONG_MIN ||
-                                     loaderData->mtu == LONG_MAX)) ||
-                (errno != 0 && loaderData->mtu == 0)) {
-                logMessage(ERROR, "%s: %d: %m", __func__, __LINE__);
-                abort();
+                loaderData->netDev_set = 1;
+                logMessage(INFO, "kickstart network command - device %s", loaderData->netDev);
+            } else {
+                logMessage(INFO, "kickstart network command - unspecified device");
             }
-        }
 
-        Py_XDECREF(attr);
+            Py_XDECREF(attr);
+
+            _setNetworkString(ele, "dhcpclass", &loaderData->netCls, &loaderData->netCls_set);
+            _setNetworkString(ele, "ethtool", &loaderData->ethtool, NULL);
+            _setNetworkString(ele, "essid", &loaderData->essid, NULL);
+            _setNetworkString(ele, "wepkey", &loaderData->wepkey, NULL);
+
+            attr = getObject(ele, "noipv4", 0);
+            if (isTrue(attr))
+                flags |= LOADER_FLAGS_NOIPV4;
+
+            Py_XDECREF(attr);
+
+            attr = getObject(ele, "mtu", 0);
+            if (isNotEmpty(attr)) {
+                /* Don't free this string! */
+                char *mtu = PyString_AsString(attr);
+
+                errno = 0;
+                loaderData->mtu = strtol(mtu, NULL, 10);
+
+                if ((errno == ERANGE && (loaderData->mtu == LONG_MIN ||
+                                         loaderData->mtu == LONG_MAX)) ||
+                    (errno != 0 && loaderData->mtu == 0)) {
+                    logMessage(ERROR, "%s: %d: %m", __func__, __LINE__);
+                    abort();
+                }
+            }
+
+            Py_XDECREF(attr);
 
 #ifdef ENABLE_IPV6
-        attr = getObject(ele, "noipv6", 0);
-        if (isTrue(attr))
-            flags |= LOADER_FLAGS_NOIPV6;
+            attr = getObject(ele, "noipv6", 0);
+            if (isTrue(attr))
+                flags |= LOADER_FLAGS_NOIPV6;
 
-        if (loaderData->ipv6)
-            loaderData->ipv6info_set = 1;
+            if (loaderData->ipv6)
+                loaderData->ipv6info_set = 1;
+
+            Py_XDECREF(attr);
+#endif
+        }
+
+        attr = getObject(ele, "nodns", 0);
+        if (isTrue(attr))
+            loaderData->noDns = 1;
 
         Py_XDECREF(attr);
-#endif
+
+        Py_XDECREF(noksdev);
+
+        if (!is_nm_connected()) {
+            logMessage(INFO, "activating because no network connection is available");
+            activateDevice(loaderData, &iface);
+            continue;
+        }
+
+        attr = getObject(ele, "activate", 0);
+        if (isTrue(attr)) {
+            logMessage(INFO, "activating because --activate flag is set");
+            activateDevice(loaderData, &iface);
+        } else {
+            logMessage(INFO, "not activating becuase --activate flag is not set");
+        }
+
+        Py_XDECREF(attr);
     }
 
-    attr = getObject(ele, "nodns", 0);
-    if (isTrue(attr))
-        loaderData->noDns = 1;
-
-    Py_XDECREF(attr);
-
-    Py_XDECREF(noksdev);
-
-    if (!is_nm_connected()) {
-        logMessage(INFO, "activating because no network connection is available");
-        activateDevice(loaderData, &iface);
-        return;
-    }
-
-    attr = getObject(ele, "activate", 0);
-    if (isTrue(attr)) {
-        logMessage(INFO, "activating because --activate flag is set");
-        activateDevice(loaderData, &iface);
-    } else {
-        logMessage(INFO, "not activating becuase --activate flag is not set");
-    }
-
-cleanup:
     Py_XDECREF(list);
 }
 
