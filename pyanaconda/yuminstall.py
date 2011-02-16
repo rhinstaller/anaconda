@@ -867,15 +867,14 @@ class AnacondaYum(yum.YumBase):
                 extraRepos.append(repo)
 
         initialRepos = self.repos.repos.values() + extraRepos
-        for repo in initialRepos:
+        for repo in filter(lambda r: r.isEnabled(), initialRepos):
             addons = self._getAddons(repo.mirrorlist or repo.baseurl[0], repo.proxy_url)
             for addon in addons:
                 addonRepo = AnacondaYumRepo(addon[0])
                 addonRepo.name = addon[1]
                 addonRepo.baseurl = [ addon[2] ]
 
-                if repo.isEnabled():
-                    addonRepo.enable()
+                addonRepo.enable()
 
                 if self.anaconda.proxy:
                     self.setProxy(self.anaconda, addonRepo)
