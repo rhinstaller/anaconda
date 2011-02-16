@@ -2756,9 +2756,10 @@ class MDRaidArrayDevice(StorageDevice):
     def _getSpares(self):
         spares = 0
         if self.memberDevices is not None:
-            if self.totalDevices is not None:
+            if self.totalDevices is not None and \
+               self.totalDevices > self.memberDevices:
                 spares = self.totalDevices - self.memberDevices
-            else:
+            elif self.totalDevices is None:
                 spares = self.memberDevices
                 self._totalDevices = self.memberDevices
         return spares
