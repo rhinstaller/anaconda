@@ -102,7 +102,6 @@ typedef struct _iface_t {
     uint64_t flags;
     int ipv4method;
     int ipv6method;
-    int isiBFT;
 } iface_t;
 
 /* Function prototypes */
