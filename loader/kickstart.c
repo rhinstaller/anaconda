@@ -856,7 +856,8 @@ static void setKickstartNetwork(struct loaderData_s * loaderData, PyObject *hand
         }
 
         attr = getObject(ele, "activate", 0);
-        if (isTrue(attr)) {
+        /* Always activate first network command device (RHEL 5 behaviour) */
+        if (isTrue(attr) || !i) {
             logMessage(INFO, "activating because --activate flag is set");
             activateDevice(loaderData, &iface);
         } else {
