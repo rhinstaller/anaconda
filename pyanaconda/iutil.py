@@ -793,12 +793,23 @@ def notify_kernel(path, action="change"):
     f.write("%s\n" % action)
     f.close()
 
-def get_sysfs_path_by_name(dev_name, class_name="block"):
-    dev_name = os.path.basename(dev_name)
+def get_sysfs_path_by_name(dev_node, class_name="block"):
+    """ Return sysfs path for a given device.
+
+        For a device node (e.g. /dev/vda2) get the respective sysfs path
+        (e.g. /sys/class/block/vda2). This also has to work for device nodes
+        that are in a subdirectory of /dev like '/dev/cciss/c0d0p1'.
+     """
+    dev_name = os.path.basename(dev_node)
+    if dev_node.startswith("/dev/"):
+        dev_name = dev_node[5:].replace("/", "!")
     sysfs_class_dir = "/sys/class/%s" % class_name
     dev_path = os.path.join(sysfs_class_dir, dev_name)
     if os.path.exists(dev_path):
         return dev_path
+    else:
+        raise RuntimeError("get_sysfs_path_by_name: Could not find sysfs path "
+                           "for '%s' (it is not at '%s')" % (dev_node, dev_path))
 
 def numeric_type(num):
     """ Verify that a value is given as a numeric data type.
