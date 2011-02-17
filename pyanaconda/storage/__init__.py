@@ -936,19 +936,15 @@ class Storage(object):
     def createSuggestedVGName(self, hostname=None):
         """ Return a reasonable, unused VG name. """
         # try to create a volume group name incorporating the hostname
-        vgnames = [vg.name for vg in self.vgs]
-        if hostname is not None and hostname != '':
-            if hostname == 'localhost' or hostname == 'localhost.localdomain':
-                vgtemplate = "VolGroup"
-            elif hostname.find('.') != -1:
-                template = "vg_%s" % (hostname.split('.')[0].lower(),)
-                vgtemplate = safeLvmName(template)
-            else:
-                template = "vg_%s" % (hostname.lower(),)
-                vgtemplate = safeLvmName(template)
+        if hostname not in (None, "", 'localhost', 'localhost.localdomain'):
+            template = "vg_%s" % (hostname.split('.')[0].lower(),)
+            vgtemplate = safeLvmName(template)
+        elif flags.imageInstall:
+            vgtemplate = "vg_image"
         else:
             vgtemplate = "VolGroup"
 
+        vgnames = [vg.name for vg in self.vgs]
         if vgtemplate not in vgnames and \
                 vgtemplate not in lvm.lvm_vg_blacklist:
             return vgtemplate
