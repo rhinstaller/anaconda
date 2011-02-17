@@ -246,8 +246,8 @@ class DeviceFormat(object):
             except Exception, e:
                 log.warning("failed to get dm node for %s" % self.device)
                 return
-        elif self.device:
-            name = os.path.basename(self.device)
+        else:
+            name = self.device
 
         path = get_sysfs_path_by_name(name)
         try:
