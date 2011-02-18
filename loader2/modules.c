@@ -246,6 +246,18 @@ int mlModuleInList(const char * modName, moduleList list) {
     return 0;
 }
 
+int mlModuleInBlacklist(const char * modName) {
+    int i;
+
+    for (i=0; i < cmdline_argc; i++) {
+        if (!strncasecmp(cmdline_argv[i], "blacklist=", 10))
+            if (!strcmp(cmdline_argv[i] + 10, modName))
+                return 1;
+    }
+
+    return 0;
+}
+
 static struct loadedModuleInfo * getLoadedModuleInfo(moduleList modLoaded, 
                                                      const char * modName) {
     int i = 0;
@@ -269,8 +281,8 @@ static int loadModule(const char * modName, struct extractedModule * path,
     int rc, child, i, status;
     static int usbWasLoaded = 0;
  
-    /* don't need to load a module that's already loaded */
-    if (mlModuleInList(modName, modLoaded))
+    /* don't need to load a module that's already loaded or blacklisted */
+    if (mlModuleInList(modName, modLoaded) || mlModuleInBlacklist(modName))
         return 0;
 
     if (modInfo && (mi = findModuleInfo(modInfo, modName))) {
@@ -479,8 +491,8 @@ static int doLoadModules(const char * origModNames, moduleList modLoaded,
             next++;
         }
 
-        if (mlModuleInList(start, modLoaded)) {
-            /* already loaded, we don't need to load it again */
+        /* don't need to load a module that's already loaded or blacklisted */
+        if (mlModuleInList(start, modLoaded) || mlModuleInBlacklist(start)) {
             start = next;
             continue;
         }

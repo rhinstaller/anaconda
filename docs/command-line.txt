@@ -28,6 +28,14 @@ askmethod       Do not automatically use the CD-ROM as the install
 nousbstorage	Do not load usbstorage module in loader.  May help with
 		device ordering on SCSI systems.
 
+driverload      Load a driver module before loading other modules. Multiple
+                occurrences are allowed.
+
+blacklist       Prevent loading of a driver module during install and
+                subsequent reboots by writing a blacklist file to
+                /etc/modprobe.d/anaconda.conf
+                Multiple occurrences are allowed.
+
 noparport       Do not attempt to load support for parallel ports
 
 noprobe         Do not attempt to detect hw, prompts user instead.
