@@ -3,14 +3,14 @@
 # Magnus Larsson <fedoratrans@gmail.com>, 2007-2009.
 # Göran Uddeborg <goeran@uddeborg.se>, 2008-2011.
 #
-# $Revision: 1.26 $
+# $Revision: 1.28 $
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2011-01-19 10:10-0500\n"
-"PO-Revision-Date: 2011-02-02 21:34+0100\n"
+"POT-Creation-Date: 2011-02-07 14:44-0500\n"
+"PO-Revision-Date: 2011-02-18 22:28+0100\n"
 "Last-Translator: Göran Uddeborg <goeran@uddeborg.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "MIME-Version: 1.0\n"
@@ -18,35 +18,41 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: anaconda:315
+#: anaconda:319
 msgid "Press <enter> for a shell"
 msgstr "Tryck <retur> för ett skal"
 
-#: anaconda:329
+#: anaconda:333
 #, c-format
 msgid ""
 "%s requires %s MB of memory to install, but you only have %s MB on this "
 "machine.\n"
-msgstr "%s behöver %s MB minne för att installera, men du har bara %s MB på denna maskin.\n"
+msgstr ""
+"%s behöver %s MB minne för att installera, men du har bara %s MB på denna "
+"maskin.\n"
 
-#: anaconda:331
+#: anaconda:335
 #, c-format
 msgid ""
 "%s requires %s MB of memory to install using this installation method, but "
 "you only have %s MB on this machine.\n"
-msgstr "%s kräver %s MB minne för att installera med denna installationsmetod, men du har bara %s MB på denna maskin.\n"
+msgstr ""
+"%s kräver %s MB minne för att installera med denna installationsmetod, men "
+"du har bara %s MB på denna maskin.\n"
 
-#: anaconda:334
+#: anaconda:338
 #, c-format
 msgid ""
 "The %s graphical installer requires %s MB of memory, but you only have %s MB."
-msgstr "Det grafiska installationsprogrammet %s behöver %s MB minne, men du har bara %s MB."
+msgstr ""
+"Det grafiska installationsprogrammet %s behöver %s MB minne, men du har bara "
+"%s MB."
 
-#: anaconda:339
+#: anaconda:343
 msgid "Not enough RAM"
 msgstr "Inte tillräckligt med minne"
 
-#: anaconda:340
+#: anaconda:344
 msgid ""
 " Try the text mode installer by running:\n"
 "\n"
@@ -60,46 +66,42 @@ msgstr ""
 "\n"
 " från en root-terminal."
 
-#: anaconda:343
+#: anaconda:347
 msgid " Starting text mode."
 msgstr " Startar textläge."
 
-#: anaconda:367 pyanaconda/rescue.py:361 pyanaconda/rescue.py:393
-#: pyanaconda/rescue.py:406 pyanaconda/rescue.py:490 pyanaconda/rescue.py:507
-#: pyanaconda/rescue.py:518 pyanaconda/text.py:537 loader/windows.h:30
+#: anaconda:371 pyanaconda/rescue.py:346 pyanaconda/rescue.py:378
+#: pyanaconda/rescue.py:391 pyanaconda/rescue.py:475 pyanaconda/rescue.py:492
+#: pyanaconda/rescue.py:503 pyanaconda/text.py:537 loader/windows.h:30
 #: loader/cdinstall.c:186 loader/cdinstall.c:190 loader/cdinstall.c:205
 #: loader/cdinstall.c:208 loader/cdinstall.c:338 loader/cdinstall.c:341
-#: loader/cdinstall.c:423 loader/dirbrowser.c:130 loader/driverdisk.c:208
+#: loader/cdinstall.c:417 loader/dirbrowser.c:130 loader/driverdisk.c:208
 #: loader/driverdisk.c:392 loader/driverdisk.c:424 loader/driverdisk.c:455
 #: loader/driverdisk.c:490 loader/driverdisk.c:506 loader/driverdisk.c:518
-#: loader/driverdisk.c:526 loader/driverdisk.c:698 loader/driverdisk.c:737
-#: loader/driverselect.c:79 loader/driverselect.c:179 loader/hdinstall.c:222
-#: loader/hdinstall.c:282 loader/hdinstall.c:300 loader/hdinstall.c:309
-#: loader/hdinstall.c:348 loader/hdinstall.c:399 loader/hdinstall.c:438
-#: loader/hdinstall.c:453 loader/kbd.c:118 loader/kickstart.c:135
-#: loader/kickstart.c:145 loader/kickstart.c:187 loader/kickstart.c:192
-#: loader/kickstart.c:299 loader/kickstart.c:339 loader/kickstart.c:355
-#: loader/kickstart.c:382 loader/kickstart.c:571 loader/lang.c:113
-#: loader/lang.c:367 loader/loader.c:422 loader/loader.c:458
-#: loader/loader.c:498 loader/loader.c:516 loader/loader.c:533
-#: loader/loader.c:570 loader/loader.c:1204 loader/loader.c:1223
-#: loader/loader.c:1367 loader/mediacheck.c:47 loader/mediacheck.c:86
-#: loader/mediacheck.c:93 loader/mediacheck.c:97 loader/mediacheck.c:106
-#: loader/method.c:194 loader/method.c:268 loader/net.c:625 loader/net.c:1007
-#: loader/net.c:1655 loader/net.c:1676 loader/net.c:1982 loader/net.c:2001
-#: loader/net.c:2013 loader/nfsinstall.c:92 loader/nfsinstall.c:195
-#: loader/nfsinstall.c:276 loader/urlinstall.c:139 loader/urlinstall.c:161
-#: loader/urlinstall.c:213 loader/urlinstall.c:279 loader/urlinstall.c:290
-#: loader/urlinstall.c:297 loader/urls.c:264 loader/urls.c:335
+#: loader/driverdisk.c:526 loader/driverdisk.c:698 loader/driverselect.c:79
+#: loader/driverselect.c:171 loader/hdinstall.c:222 loader/hdinstall.c:282
+#: loader/hdinstall.c:300 loader/hdinstall.c:309 loader/hdinstall.c:344
+#: loader/hdinstall.c:383 loader/hdinstall.c:398 loader/kbd.c:118
+#: loader/kickstart.c:176 loader/kickstart.c:308 loader/kickstart.c:373
+#: loader/kickstart.c:939 loader/lang.c:113 loader/lang.c:367
+#: loader/loader.c:422 loader/loader.c:458 loader/loader.c:498
+#: loader/loader.c:516 loader/loader.c:533 loader/loader.c:570
+#: loader/loader.c:1204 loader/loader.c:1232 loader/loader.c:1376
+#: loader/mediacheck.c:47 loader/mediacheck.c:86 loader/mediacheck.c:93
+#: loader/mediacheck.c:97 loader/mediacheck.c:106 loader/method.c:194
+#: loader/method.c:268 loader/net.c:625 loader/net.c:1007 loader/net.c:1816
+#: loader/net.c:1835 loader/net.c:1847 loader/nfsinstall.c:92
+#: loader/nfsinstall.c:195 loader/urlinstall.c:139 loader/urlinstall.c:161
+#: loader/urlinstall.c:213 loader/urls.c:264 loader/urls.c:335
 #: loader/urls.c:343 loader/urls.c:350 pyanaconda/textw/constants_text.py:44
 msgid "OK"
 msgstr "OK"
 
-#: anaconda:749
+#: anaconda:753
 msgid "Would you like to use VNC?"
 msgstr "Skulle du vilja använda VNC?"
 
-#: anaconda:750
+#: anaconda:754
 msgid ""
 "Text mode provides a limited set of installation options.  It does not allow "
 "you to specify your own partitioning layout or package selections.  Would "
@@ -109,11 +111,11 @@ msgstr ""
 "att du anger din egen partitioneringsuppdelning eller ditt eget paketval.  "
 "Skulle du vilja använda VNC-läge istället?"
 
-#: anaconda:776
+#: anaconda:780
 msgid "Graphical installation is not available. Starting text mode."
 msgstr "Grafisk installation är inte tillgänglig.  Startar textläge."
 
-#: anaconda:784
+#: anaconda:788
 msgid "DISPLAY variable not set. Starting text mode."
 msgstr "DISPLAY-variabeln är inte satt.  Startar textläge!"
 
@@ -128,11 +130,11 @@ msgid "Installing %s\n"
 msgstr "Installerar %s\n"
 
 #: pyanaconda/bootloader.py:55 pyanaconda/bootloader.py:221
-#: pyanaconda/bootloader.py:227 pyanaconda/gui.py:1156 pyanaconda/image.py:73
+#: pyanaconda/bootloader.py:227 pyanaconda/gui.py:1149 pyanaconda/image.py:73
 #: pyanaconda/installinterfacebase.py:51
 #: pyanaconda/installinterfacebase.py:130 pyanaconda/packages.py:320
 #: pyanaconda/text.py:412 pyanaconda/yuminstall.py:1498
-#: pyanaconda/yuminstall.py:1636 pyanaconda/yuminstall.py:1671
+#: pyanaconda/yuminstall.py:1623 pyanaconda/yuminstall.py:1658
 #: pyanaconda/iw/blpasswidget.py:149 pyanaconda/iw/upgrade_swap_gui.py:190
 #: pyanaconda/iw/upgrade_swap_gui.py:198 pyanaconda/iw/upgrade_swap_gui.py:205
 #: pyanaconda/textw/upgrade_text.py:193
@@ -141,8 +143,8 @@ msgstr "Varning"
 
 #: pyanaconda/bootloader.py:56
 msgid ""
-"Filesystems have already been activated.  You cannot go back past this point."
-"\n"
+"Filesystems have already been activated.  You cannot go back past this "
+"point.\n"
 "\n"
 "Would you like to continue with the installation?"
 msgstr ""
@@ -150,8 +152,8 @@ msgstr ""
 "\n"
 "Vill du fortsätta med installationen?"
 
-#: pyanaconda/bootloader.py:60 pyanaconda/gui.py:1179 pyanaconda/gui.py:1216
-#: pyanaconda/gui.py:1418 pyanaconda/image.py:82 pyanaconda/livecd.py:167
+#: pyanaconda/bootloader.py:60 pyanaconda/gui.py:1172 pyanaconda/gui.py:1209
+#: pyanaconda/gui.py:1411 pyanaconda/image.py:82 pyanaconda/livecd.py:167
 #: pyanaconda/packages.py:137 pyanaconda/upgrade.py:58
 #: pyanaconda/upgrade.py:98 pyanaconda/upgrade.py:254
 #: pyanaconda/yuminstall.py:259 pyanaconda/yuminstall.py:824
@@ -161,15 +163,15 @@ msgstr ""
 #: pyanaconda/yuminstall.py:1316 pyanaconda/yuminstall.py:1507
 #: pyanaconda/yuminstall.py:1526 pyanaconda/yuminstall.py:1549
 #: pyanaconda/storage/__init__.py:113 pyanaconda/storage/__init__.py:122
-#: pyanaconda/storage/__init__.py:250 pyanaconda/storage/__init__.py:2035
+#: pyanaconda/storage/__init__.py:250 pyanaconda/storage/__init__.py:2023
 msgid "_Exit installer"
 msgstr "_Avsluta installationsprogrammet"
 
 #: pyanaconda/bootloader.py:60 pyanaconda/image.py:83
-#: pyanaconda/kickstart.py:1425 pyanaconda/kickstart.py:1464
+#: pyanaconda/kickstart.py:1420 pyanaconda/kickstart.py:1459
 #: pyanaconda/upgrade.py:58 pyanaconda/upgrade.py:98
 #: pyanaconda/yuminstall.py:1321 pyanaconda/yuminstall.py:1508
-#: pyanaconda/iw/partition_gui.py:1602 pyanaconda/storage/__init__.py:2036
+#: pyanaconda/iw/partition_gui.py:1602 pyanaconda/storage/__init__.py:2024
 msgid "_Continue"
 msgstr "_Fortsätt"
 
@@ -205,10 +207,10 @@ msgstr "Färdigt"
 msgid "In progress"
 msgstr "Pågår"
 
-#: pyanaconda/cmdline.py:89 pyanaconda/gui.py:1211
-#: pyanaconda/kickstart.py:1212 pyanaconda/kickstart.py:1292
-#: pyanaconda/kickstart.py:1300 pyanaconda/kickstart.py:1336
-#: pyanaconda/kickstart.py:1346 pyanaconda/text.py:393
+#: pyanaconda/cmdline.py:89 pyanaconda/gui.py:1204
+#: pyanaconda/kickstart.py:1214 pyanaconda/kickstart.py:1294
+#: pyanaconda/kickstart.py:1302 pyanaconda/kickstart.py:1331
+#: pyanaconda/kickstart.py:1341 pyanaconda/text.py:393
 #, python-format
 msgid ""
 "The following error was found while parsing the kickstart configuration "
@@ -294,7 +296,7 @@ msgstr ""
 "installation av paket kan du behöva försöka flera gånger för att det ska "
 "lyckas."
 
-#: pyanaconda/gui.py:528 pyanaconda/text.py:150
+#: pyanaconda/gui.py:521 pyanaconda/text.py:150
 msgid ""
 "Choose a passphrase for the encrypted devices. You will be prompted for this "
 "passphrase during system boot."
@@ -302,20 +304,20 @@ msgstr ""
 "Välj en lösenfras för de krypterade enheterna.  Du kommer att få en fråga om "
 "denna lösenfras under systemstart."
 
-#: pyanaconda/gui.py:547 pyanaconda/gui.py:555 pyanaconda/text.py:188
+#: pyanaconda/gui.py:540 pyanaconda/gui.py:548 pyanaconda/text.py:188
 #: pyanaconda/text.py:198
 msgid "Error with passphrase"
 msgstr "Fel med lösenfras"
 
-#: pyanaconda/gui.py:548 pyanaconda/text.py:189
+#: pyanaconda/gui.py:541 pyanaconda/text.py:189
 msgid "The passphrases you entered were different.  Please try again."
 msgstr "Lösenfraserna du angav var olika.  Försök igen."
 
-#: pyanaconda/gui.py:556
+#: pyanaconda/gui.py:549
 msgid "The passphrase must be at least eight characters long."
 msgstr "Lösenfrasen måste vara minst åtta tecken lång."
 
-#: pyanaconda/gui.py:590 pyanaconda/text.py:226
+#: pyanaconda/gui.py:583 pyanaconda/text.py:226
 #, python-format
 msgid ""
 "Device %s is encrypted. In order to access the device's contents during "
@@ -324,85 +326,87 @@ msgstr ""
 "Enhet %s är krypterad.  För att komma åt enhetens innehåll under "
 "installationen måste du ange enhetens lösenfras nedan."
 
-#: pyanaconda/gui.py:682 pyanaconda/gui.py:1418
+#: pyanaconda/gui.py:675 pyanaconda/gui.py:1411
 #: pyanaconda/partIntfHelpers.py:159 pyanaconda/partIntfHelpers.py:344
 #: pyanaconda/text.py:101 pyanaconda/text.py:102
 #: pyanaconda/iw/account_gui.py:131 loader/dirbrowser.c:130
-#: loader/driverdisk.c:393 loader/kickstart.c:382 loader/loader.c:458
+#: loader/driverdisk.c:393 loader/kickstart.c:373 loader/loader.c:458
 #: loader/loader.c:570 pyanaconda/textw/constants_text.py:48
 msgid "Cancel"
 msgstr "Avbryt"
 
-#: pyanaconda/gui.py:694 pyanaconda/gui.py:695 pyanaconda/gui.py:791
-#: pyanaconda/gui.py:863 pyanaconda/gui.py:864 data/ui/anaconda.glade.h:3
+#: pyanaconda/gui.py:687 pyanaconda/gui.py:688 pyanaconda/gui.py:784
+#: pyanaconda/gui.py:856 pyanaconda/gui.py:857 data/ui/anaconda.glade.h:3
 msgid "_Debug"
 msgstr "_Felsök"
 
-#: pyanaconda/gui.py:990
+#: pyanaconda/gui.py:983
 msgid "Wireless setup"
 msgstr "Uppsättning av trådlöst"
 
-#: pyanaconda/gui.py:991
+#: pyanaconda/gui.py:984
 msgid "Scanning access points for wireless devices"
 msgstr "Söker access-punkter för trådlösa enheter"
 
-#: pyanaconda/gui.py:1019 pyanaconda/textw/netconfig_text.py:399
+#: pyanaconda/gui.py:1012 pyanaconda/textw/netconfig_text.py:399
 msgid "Waiting for NetworkManager"
 msgstr "Väntar på NetworkManager"
 
-#: pyanaconda/gui.py:1020
+#: pyanaconda/gui.py:1013
 #, python-format
 msgid "Waiting for NetworkManager to activate these devices: %s"
 msgstr "Väntar på att NetworkManager skall aktivera dessa enheter: %s"
 
-#: pyanaconda/gui.py:1047
+#: pyanaconda/gui.py:1040
 #, python-format
 msgid "Failed to activate these network interfaces: %s"
 msgstr "Det gick inte att aktivera dessa nätverksgränssnitt: %s"
 
-#: pyanaconda/gui.py:1050
+#: pyanaconda/gui.py:1043
 msgid "Network Configuration"
 msgstr "Nätverkskonfiguration"
 
-#: pyanaconda/gui.py:1059
+#: pyanaconda/gui.py:1052
 #, python-format
 msgid "An error occurred trying to bring up the %s network interface."
 msgstr "Ett fel inträffade vid försök att ta upp nätverksgränssnittet %s."
 
-#: pyanaconda/gui.py:1061
+#: pyanaconda/gui.py:1054
 msgid "Error Enabling Network"
 msgstr "Fel vid aktivering av nätverk"
 
-#: pyanaconda/gui.py:1157 pyanaconda/text.py:413
+#: pyanaconda/gui.py:1150 pyanaconda/text.py:413
 msgid ""
 "You do not have an active network connection.  This is required by some "
 "exception saving methods.  Would you like to configure your network now?"
-msgstr "Du har inte en aktiv nätverksanslutning.  Detta krävs av vissa metoder för att spara undantag.  Vill du konfigurera ditt nätverk nu?"
+msgstr ""
+"Du har inte en aktiv nätverksanslutning.  Detta krävs av vissa metoder för "
+"att spara undantag.  Vill du konfigurera ditt nätverk nu?"
 
-#: pyanaconda/gui.py:1163 pyanaconda/rescue.py:270 pyanaconda/text.py:419
+#: pyanaconda/gui.py:1156 pyanaconda/rescue.py:255 pyanaconda/text.py:419
 #: pyanaconda/yuminstall.py:819 pyanaconda/yuminstall.py:1241
 #: pyanaconda/iw/task_gui.py:308
 msgid "No Network Available"
 msgstr "Inget nätverk tillgängligt"
 
-#: pyanaconda/gui.py:1164 pyanaconda/text.py:420
+#: pyanaconda/gui.py:1157 pyanaconda/text.py:420
 msgid "Remote exception saving methods will not work."
 msgstr "Metoder för att spara undantag på avstånd kommer inte att fungera."
 
-#: pyanaconda/gui.py:1213 pyanaconda/text.py:395
+#: pyanaconda/gui.py:1206 pyanaconda/text.py:395
 msgid "Error Parsing Kickstart Config"
 msgstr "Fel vid tolkning av kickstartkonfigurationen"
 
 # Antar att detta är vänster-till-höger.
-#: pyanaconda/gui.py:1241
+#: pyanaconda/gui.py:1234
 msgid "default:LTR"
 msgstr "default:LTR"
 
-#: pyanaconda/gui.py:1322 pyanaconda/text.py:514
+#: pyanaconda/gui.py:1315 pyanaconda/text.py:514
 msgid "Error!"
 msgstr "Fel!"
 
-#: pyanaconda/gui.py:1323 pyanaconda/text.py:515
+#: pyanaconda/gui.py:1316 pyanaconda/text.py:515
 #, python-format
 msgid ""
 "An error occurred when attempting to load an installer interface component.\n"
@@ -414,49 +418,49 @@ msgstr ""
 "\n"
 "className = %s"
 
-#: pyanaconda/gui.py:1328 pyanaconda/image.py:145 pyanaconda/image.py:173
-#: pyanaconda/packages.py:337 pyanaconda/storage/__init__.py:1852
+#: pyanaconda/gui.py:1321 pyanaconda/image.py:145 pyanaconda/image.py:173
+#: pyanaconda/packages.py:337 pyanaconda/storage/__init__.py:1840
 msgid "_Exit"
 msgstr "_Avsluta"
 
-#: pyanaconda/gui.py:1329 pyanaconda/image.py:145 pyanaconda/image.py:173
+#: pyanaconda/gui.py:1322 pyanaconda/image.py:145 pyanaconda/image.py:173
 #: pyanaconda/livecd.py:167 pyanaconda/yuminstall.py:911
 #: pyanaconda/yuminstall.py:1261 pyanaconda/yuminstall.py:1316
 #: pyanaconda/yuminstall.py:1526
 msgid "_Retry"
 msgstr "_Försök igen"
 
-#: pyanaconda/gui.py:1331 pyanaconda/storage/partitioning.py:282
+#: pyanaconda/gui.py:1324 pyanaconda/storage/partitioning.py:283
 msgid "The system will now reboot."
 msgstr "Systemet kommer nu att startas om."
 
-#: pyanaconda/gui.py:1332 pyanaconda/packages.py:341
+#: pyanaconda/gui.py:1325 pyanaconda/packages.py:341
 msgid "_Reboot"
 msgstr "Starta _om"
 
-#: pyanaconda/gui.py:1334
+#: pyanaconda/gui.py:1327
 msgid "Exiting"
 msgstr "Avslutar"
 
-#: pyanaconda/gui.py:1415 pyanaconda/livecd.py:126 pyanaconda/text.py:271
+#: pyanaconda/gui.py:1408 pyanaconda/livecd.py:126 pyanaconda/text.py:271
 #: pyanaconda/upgrade.py:245
 msgid "Exit installer"
 msgstr "Avsluta installationsprogram"
 
-#: pyanaconda/gui.py:1416
+#: pyanaconda/gui.py:1409
 msgid "Are you sure you wish to exit the installer?"
 msgstr "Är du säker på att du vill avsluta installationsprogrammet?"
 
-#: pyanaconda/gui.py:1425
+#: pyanaconda/gui.py:1418
 #, python-format
 msgid "%s Installer"
 msgstr "Installationsprogram för %s"
 
-#: pyanaconda/gui.py:1431
+#: pyanaconda/gui.py:1424
 msgid "Unable to load title bar"
 msgstr "Kan inte läsa in titelrad"
 
-#: pyanaconda/gui.py:1506
+#: pyanaconda/gui.py:1499
 msgid "Install Window"
 msgstr "Installationsfönster"
 
@@ -516,26 +520,26 @@ msgstr ""
 #: pyanaconda/yuminstall.py:914 pyanaconda/yuminstall.py:1001
 #: pyanaconda/yuminstall.py:1006 pyanaconda/yuminstall.py:1266
 #: pyanaconda/yuminstall.py:1326 pyanaconda/yuminstall.py:1520
-#: pyanaconda/yuminstall.py:1542 pyanaconda/iw/advanced_storage.py:368
-#: pyanaconda/iw/advanced_storage.py:378 pyanaconda/iw/advanced_storage.py:427
+#: pyanaconda/yuminstall.py:1542 pyanaconda/iw/advanced_storage.py:371
+#: pyanaconda/iw/advanced_storage.py:381 pyanaconda/iw/advanced_storage.py:431
 #: pyanaconda/iw/autopart_type.py:95 pyanaconda/iw/cleardisks_gui.py:44
 #: pyanaconda/iw/cleardisks_gui.py:54 pyanaconda/iw/filter_gui.py:432
 #: pyanaconda/iw/osbootwidget.py:211 pyanaconda/iw/osbootwidget.py:220
 #: pyanaconda/iw/raid_dialog_gui.py:226 pyanaconda/iw/task_gui.py:52
 #: pyanaconda/iw/task_gui.py:150 pyanaconda/iw/task_gui.py:302
 #: pyanaconda/iw/task_gui.py:464 loader/windows.h:30 loader/cdinstall.c:186
-#: loader/cdinstall.c:423 loader/driverdisk.c:208 loader/driverdisk.c:455
+#: loader/cdinstall.c:417 loader/driverdisk.c:208 loader/driverdisk.c:455
 #: loader/driverdisk.c:490 loader/driverdisk.c:518 loader/driverdisk.c:526
 #: loader/driverdisk.c:598 loader/hdinstall.c:282 loader/hdinstall.c:300
-#: loader/hdinstall.c:309 loader/hdinstall.c:399 loader/hdinstall.c:438
-#: loader/hdinstall.c:453 loader/kickstart.c:299 loader/lang.c:113
+#: loader/hdinstall.c:309 loader/hdinstall.c:344 loader/hdinstall.c:383
+#: loader/hdinstall.c:398 loader/kickstart.c:308 loader/lang.c:113
 #: loader/loader.c:422 loader/loader.c:533 loader/loader.c:1204
 #: loader/mediacheck.c:47 loader/mediacheck.c:86 loader/mediacheck.c:93
 #: loader/mediacheck.c:97 loader/method.c:194 loader/method.c:268
 #: loader/nfsinstall.c:195 loader/urlinstall.c:139 loader/urlinstall.c:161
 #: loader/urlinstall.c:213 loader/urls.c:335 loader/urls.c:343
 #: loader/urls.c:350 pyanaconda/storage/__init__.py:246
-#: pyanaconda/storage/__init__.py:1853 pyanaconda/storage/__init__.py:1940
+#: pyanaconda/storage/__init__.py:1841 pyanaconda/storage/__init__.py:1928
 #: pyanaconda/storage/zfcp.py:375 pyanaconda/textw/upgrade_text.py:181
 #: pyanaconda/textw/upgrade_text.py:188
 msgid "Error"
@@ -680,7 +684,9 @@ msgstr "Skriptfel"
 msgid ""
 "Escrow certificate with url %s requires network to be enabled in loader or "
 "configured in kickstart file."
-msgstr "Deponeringscertifikat med URL:en %s kräver att nätverket är aktiverat i inläsaren eller konfigurerat i en kickstart-fil."
+msgstr ""
+"Deponeringscertifikat med URL:en %s kräver att nätverket är aktiverat i "
+"inläsaren eller konfigurerat i en kickstart-fil."
 
 #: pyanaconda/kickstart.py:164
 #, python-format
@@ -698,35 +704,25 @@ msgstr ""
 msgid "Could not log into any iSCSI nodes at the portal."
 msgstr "Kunde inte logga in till några iSCSI-noder på portalen."
 
-#: pyanaconda/kickstart.py:1311
-#, python-format
-msgid "Error processing %%ksappend lines: %s"
-msgstr "Fel när %%ksappend-rader bearbetades: %s"
-
-#: pyanaconda/kickstart.py:1314
-#, python-format
-msgid "Unknown error processing %%ksappend lines: %s"
-msgstr "Okänt fel vid bearbetning av %%ksappend-rader: %s"
-
 # För många klagomål på "postinstallation", det får bli "efterinstallation"
 # istället.
-#: pyanaconda/kickstart.py:1369 pyanaconda/livecd.py:190
+#: pyanaconda/kickstart.py:1364 pyanaconda/livecd.py:190
 msgid "Post-Installation"
 msgstr "Efterinstallation"
 
-#: pyanaconda/kickstart.py:1370
+#: pyanaconda/kickstart.py:1365
 msgid "Running post-installation scripts"
 msgstr "Kör efterinstallationsskript"
 
-#: pyanaconda/kickstart.py:1385
+#: pyanaconda/kickstart.py:1380
 msgid "Running pre-installation scripts"
 msgstr "Kör förinstallationsskript"
 
-#: pyanaconda/kickstart.py:1416
+#: pyanaconda/kickstart.py:1411
 msgid "Missing Package"
 msgstr "Paket saknas"
 
-#: pyanaconda/kickstart.py:1417
+#: pyanaconda/kickstart.py:1412
 #, python-format
 msgid ""
 "You have specified that the package '%s' should be installed.  This package "
@@ -735,19 +731,19 @@ msgstr ""
 "Du har angivit att paketet \"%s\" ska installeras.  Detta paket finns inte.  "
 "Vill du fortsätta eller avbryta denna installation?"
 
-#: pyanaconda/kickstart.py:1423 pyanaconda/kickstart.py:1462
+#: pyanaconda/kickstart.py:1418 pyanaconda/kickstart.py:1457
 msgid "_Abort"
 msgstr "_Avbryt"
 
-#: pyanaconda/kickstart.py:1424 pyanaconda/kickstart.py:1463
+#: pyanaconda/kickstart.py:1419 pyanaconda/kickstart.py:1458
 msgid "_Ignore All"
 msgstr "Ignorera alla"
 
-#: pyanaconda/kickstart.py:1454
+#: pyanaconda/kickstart.py:1449
 msgid "Missing Group"
 msgstr "Grupp saknas"
 
-#: pyanaconda/kickstart.py:1455
+#: pyanaconda/kickstart.py:1450
 #, python-format
 msgid ""
 "You have specified that the group '%s' should be installed. This group does "
@@ -756,7 +752,7 @@ msgstr ""
 "Du har angivit att gruppen \"%s\" ska installeras.  Denna grupp finns inte.  "
 "Vill du fortsätta eller avbryta denna installation?"
 
-#: pyanaconda/kickstart.py:1552
+#: pyanaconda/kickstart.py:1547
 #, python-format
 msgid ""
 "The kickstart configuration file is missing required information that "
@@ -814,8 +810,8 @@ msgid ""
 "Hostname must start with a valid character in the ranges 'a-z', 'A-Z', or '0-"
 "9'"
 msgstr ""
-"Värdnamnet måste börja med ett giltigt tecken i något av intervallen \"a-"
-"z\", \"A-Z\" eller \"0-9\""
+"Värdnamnet måste börja med ett giltigt tecken i något av intervallen \"a-z"
+"\", \"A-Z\" eller \"0-9\""
 
 #: pyanaconda/network.py:89
 msgid ""
@@ -1202,18 +1198,18 @@ msgid "iSCSI %s Error"
 msgstr "iSCSI %s-fel"
 
 #: pyanaconda/platform.py:99 pyanaconda/platform.py:351
-#: pyanaconda/platform.py:419 pyanaconda/platform.py:534
+#: pyanaconda/platform.py:419 pyanaconda/platform.py:541
 #: data/ui/create-storage.glade.h:15
 msgid "RAID Device"
 msgstr "RAID-enhet"
 
 #: pyanaconda/platform.py:100 pyanaconda/platform.py:103
 #: pyanaconda/platform.py:352 pyanaconda/platform.py:420
-#: pyanaconda/platform.py:535 pyanaconda/platform.py:538
+#: pyanaconda/platform.py:542 pyanaconda/platform.py:545
 msgid "Master Boot Record (MBR)"
 msgstr "Huvudstartposten (MBR)"
 
-#: pyanaconda/platform.py:102 pyanaconda/platform.py:537
+#: pyanaconda/platform.py:102 pyanaconda/platform.py:544
 msgid "First sector of boot partition"
 msgstr "Första sektorn av startpartitionen"
 
@@ -1291,39 +1287,39 @@ msgstr "Apple-bootstrap"
 msgid "%s must have a mac disk label."
 msgstr "%s måste ha en mac-disketikett."
 
-#: pyanaconda/rescue.py:226 pyanaconda/rescue.py:382 pyanaconda/rescue.py:482
+#: pyanaconda/rescue.py:211 pyanaconda/rescue.py:367 pyanaconda/rescue.py:467
 #, python-format
 msgid "Run %s to unmount the system when you are finished."
 msgstr "Kör %s för att avmontera systemet när du är klar."
 
-#: pyanaconda/rescue.py:229
+#: pyanaconda/rescue.py:214
 msgid "When finished please exit from the shell and your system will reboot."
 msgstr ""
 "När du är färdig avslutar du skalet. Systemet kommer då att startas om."
 
-#: pyanaconda/rescue.py:243
+#: pyanaconda/rescue.py:228
 msgid "Unable to find /bin/sh to execute!  Not starting shell"
 msgstr "Kan inte hitta /bin/sh att köra!  Startar inte ett skal"
 
-#: pyanaconda/rescue.py:262
+#: pyanaconda/rescue.py:247
 msgid "Setup Networking"
 msgstr "Konfigurera nätverk"
 
-#: pyanaconda/rescue.py:263
+#: pyanaconda/rescue.py:248
 msgid "Do you want to start the network interfaces on this system?"
 msgstr "Vill du starta nätverksgränssnitten på detta system?"
 
-#: pyanaconda/rescue.py:264 loader/driverdisk.c:638 loader/driverdisk.c:648
+#: pyanaconda/rescue.py:249 loader/driverdisk.c:638 loader/driverdisk.c:648
 #: loader/hdinstall.c:168 pyanaconda/textw/constants_text.py:56
 msgid "Yes"
 msgstr "Ja"
 
-#: pyanaconda/rescue.py:264 pyanaconda/rescue.py:266 loader/driverdisk.c:638
+#: pyanaconda/rescue.py:249 pyanaconda/rescue.py:251 loader/driverdisk.c:638
 #: loader/driverdisk.c:648 pyanaconda/textw/constants_text.py:60
 msgid "No"
 msgstr "Nej"
 
-#: pyanaconda/rescue.py:271
+#: pyanaconda/rescue.py:256
 msgid ""
 "Unable to activate a networking device.  Networking will not be available in "
 "rescue mode."
@@ -1331,12 +1327,12 @@ msgstr ""
 "Kan inte aktivera en nätverksenhet. Nätverket kommer inte vara tillgängligt "
 "i räddningsläge."
 
-#: pyanaconda/rescue.py:307 pyanaconda/rescue.py:389 pyanaconda/rescue.py:399
-#: pyanaconda/rescue.py:485 pyanaconda/rescue.py:518
+#: pyanaconda/rescue.py:292 pyanaconda/rescue.py:374 pyanaconda/rescue.py:384
+#: pyanaconda/rescue.py:470 pyanaconda/rescue.py:503
 msgid "Rescue"
 msgstr "Räddning"
 
-#: pyanaconda/rescue.py:308
+#: pyanaconda/rescue.py:293
 #, python-format
 msgid ""
 "The rescue environment will now attempt to find your Linux installation and "
@@ -1354,51 +1350,51 @@ msgstr ""
 "montera det under katalogen %s.  Du kan sedan göra de nödvändiga ändringarna "
 "i ditt system.  Om du vill fortsätta med detta steg väljer du \"Fortsätt\".  "
 "Du kan också välja att montera dina filsystem i skrivskyddat läge genom att "
-"välja \"Skrivskyddat\".  Om du behöver aktivera SAN-enheter, välj "
-"\"Avancerat\".\n"
+"välja \"Skrivskyddat\".  Om du behöver aktivera SAN-enheter, välj \"Avancerat"
+"\".\n"
 "\n"
 "Om detta av någon anledning misslyckas kan du välja \"Hoppa över\" då detta "
 "steg kommer hoppas över och du kommer att hamna i ett kommandoskal direkt.\n"
 "\n"
 
-#: pyanaconda/rescue.py:319 pyanaconda/iw/partition_gui.py:788
+#: pyanaconda/rescue.py:304 pyanaconda/iw/partition_gui.py:788
 #: loader/driverdisk.c:599 pyanaconda/storage/__init__.py:168
 #: pyanaconda/storage/devicetree.py:95
 msgid "Continue"
 msgstr "Fortsätt"
 
-#: pyanaconda/rescue.py:319 pyanaconda/rescue.py:328
+#: pyanaconda/rescue.py:304 pyanaconda/rescue.py:313
 msgid "Read-Only"
 msgstr "Skrivskyddat"
 
-#: pyanaconda/rescue.py:319 pyanaconda/rescue.py:321 loader/cdinstall.c:205
+#: pyanaconda/rescue.py:304 pyanaconda/rescue.py:306 loader/cdinstall.c:205
 #: loader/cdinstall.c:208 loader/method.c:241
-#: pyanaconda/storage/__init__.py:1852 pyanaconda/textw/upgrade_text.py:139
+#: pyanaconda/storage/__init__.py:1840 pyanaconda/textw/upgrade_text.py:139
 msgid "Skip"
 msgstr "Hoppa över"
 
-#: pyanaconda/rescue.py:319 pyanaconda/rescue.py:324
+#: pyanaconda/rescue.py:304 pyanaconda/rescue.py:309
 msgid "Advanced"
 msgstr "Avancerat"
 
-#: pyanaconda/rescue.py:358
+#: pyanaconda/rescue.py:343
 msgid "System to Rescue"
 msgstr "System att rädda"
 
-#: pyanaconda/rescue.py:359
+#: pyanaconda/rescue.py:344
 msgid "Which device holds the root partition of your installation?"
 msgstr "Vilken enhet innehåller rotpartitionen i din installation?"
 
-#: pyanaconda/rescue.py:361 pyanaconda/rescue.py:365 pyanaconda/text.py:519
+#: pyanaconda/rescue.py:346 pyanaconda/rescue.py:350 pyanaconda/text.py:519
 #: pyanaconda/text.py:521
 msgid "Exit"
 msgstr "Avsluta"
 
-#: pyanaconda/rescue.py:379 pyanaconda/rescue.py:479
+#: pyanaconda/rescue.py:364 pyanaconda/rescue.py:464
 msgid "The system will reboot automatically when you exit from the shell."
 msgstr "Systemet kommer automatiskt att startas om när du avslutar skalet."
 
-#: pyanaconda/rescue.py:390
+#: pyanaconda/rescue.py:375
 #, python-format
 msgid ""
 "Your system had dirty file systems which you chose not to mount.  Press "
@@ -1408,7 +1404,7 @@ msgstr ""
 "på Retur för att komma till ett skal där du kan köra fsck och montera dina "
 "partitioner.  %s"
 
-#: pyanaconda/rescue.py:400
+#: pyanaconda/rescue.py:385
 #, python-format
 msgid ""
 "Your system has been mounted under %(rootPath)s.\n"
@@ -1429,7 +1425,7 @@ msgstr ""
 "\n"
 "%(msg)s"
 
-#: pyanaconda/rescue.py:486
+#: pyanaconda/rescue.py:471
 #, python-format
 msgid ""
 "An error occurred trying to mount some or all of your system. Some of it may "
@@ -1442,25 +1438,25 @@ msgstr ""
 "\n"
 "Tryck <Retur> för att komma till ett skal.  %s"
 
-#: pyanaconda/rescue.py:496
+#: pyanaconda/rescue.py:481
 msgid "You don't have any Linux partitions.  Rebooting.\n"
 msgstr "Du har inte någon Linuxpartition.  Startar om.\n"
 
-#: pyanaconda/rescue.py:500
+#: pyanaconda/rescue.py:485
 msgid " The system will reboot automatically when you exit from the shell."
 msgstr " Systemet kommer automatiskt att startas om när du avslutar skalet."
 
-#: pyanaconda/rescue.py:504
+#: pyanaconda/rescue.py:489
 msgid "Rescue Mode"
 msgstr "Räddningsläge"
 
-#: pyanaconda/rescue.py:505
+#: pyanaconda/rescue.py:490
 #, python-format
 msgid "You don't have any Linux partitions. Press return to get a shell.%s"
 msgstr ""
 "Du har inte någora Linuxpartitioner.  Tryck retur för att få ett skal.%s"
 
-#: pyanaconda/rescue.py:517
+#: pyanaconda/rescue.py:502
 #, python-format
 msgid "Your system is mounted under the %s directory."
 msgstr "Ditt system är monterat under katalogen %s."
@@ -1556,7 +1552,10 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"Den aktuella installationen kan inte uppgraderas.  Detta beror sannolikt på att den är för gammal.  Endast de två föregående utgåvorna kan uppgraderas.  För att uppgradera äldre utgåvor måste du först uppgradera genom alla mellanliggande utgåvor.\n"
+"Den aktuella installationen kan inte uppgraderas.  Detta beror sannolikt på "
+"att den är för gammal.  Endast de två föregående utgåvorna kan uppgraderas.  "
+"För att uppgradera äldre utgåvor måste du först uppgradera genom alla "
+"mellanliggande utgåvor.\n"
 "\n"
 "%s"
 
@@ -2006,8 +2005,8 @@ msgstr ""
 #: pyanaconda/yuminstall.py:1077
 #, python-format
 msgid ""
-"There was an error running your transaction for the following reason(s): %s."
-"\n"
+"There was an error running your transaction for the following reason(s): %"
+"s.\n"
 msgstr "Ett fel uppstod när din transaktion kördes av följande skäl: %s\n"
 
 #: pyanaconda/yuminstall.py:1084 pyanaconda/yuminstall.py:1089
@@ -2043,10 +2042,11 @@ msgstr ""
 
 #: pyanaconda/yuminstall.py:1499
 msgid ""
-"Some of the packages you have selected for install are missing dependencies. "
-" You can exit the installation, go back and change your package selections, "
-"or continue installing these packages without their dependencies.  If you "
-"continue, these packages may not work correctly due to missing components."
+"Some of the packages you have selected for install are missing "
+"dependencies.  You can exit the installation, go back and change your "
+"package selections, or continue installing these packages without their "
+"dependencies.  If you continue, these packages may not work correctly due to "
+"missing components."
 msgstr ""
 "Några av paketen du har valt att installera saknar beroenden.  Du kan "
 "avsluta installationen, gå tillbaka och ändra dina paketval, eller fortsätta "
@@ -2064,7 +2064,7 @@ msgstr ""
 "du har inte tillräckligt mycket ledigt. Du kan ändra dina val eller avsluta "
 "installationsprogrammet."
 
-#: pyanaconda/yuminstall.py:1637
+#: pyanaconda/yuminstall.py:1624
 #, python-format
 msgid ""
 "You appear to be upgrading from a system which is too old to upgrade to this "
@@ -2074,7 +2074,7 @@ msgstr ""
 "uppgradera till denna version av %s. Är du säker på att du vill fortsätta "
 "uppgraderingsprocessen?"
 
-#: pyanaconda/yuminstall.py:1672
+#: pyanaconda/yuminstall.py:1659
 #, python-format
 msgid ""
 "The arch of the release of %(productName)s you are upgrading to appears to "
@@ -2087,48 +2087,48 @@ msgstr ""
 "arkitektur %(arch)s.  Detta kommer antagligen inte att lyckas.  Är du säker "
 "på att du vill fortsätta uppgraderingsprocessen?"
 
-#: pyanaconda/yuminstall.py:1719
+#: pyanaconda/yuminstall.py:1706
 msgid "Post Upgrade"
 msgstr "Efteruppgradering"
 
-#: pyanaconda/yuminstall.py:1720
+#: pyanaconda/yuminstall.py:1707
 msgid "Performing post-upgrade configuration"
 msgstr "Utför konfigurering efter uppgradering"
 
-#: pyanaconda/yuminstall.py:1722
+#: pyanaconda/yuminstall.py:1709
 msgid "Post Installation"
 msgstr "Efter installation"
 
-#: pyanaconda/yuminstall.py:1723
+#: pyanaconda/yuminstall.py:1710
 msgid "Performing post-installation configuration"
 msgstr "Utför konfiguration efter installation"
 
-#: pyanaconda/yuminstall.py:1958
+#: pyanaconda/yuminstall.py:1945
 msgid "Installation Starting"
 msgstr "Installationen startar"
 
-#: pyanaconda/yuminstall.py:1959
+#: pyanaconda/yuminstall.py:1946
 msgid "Starting installation process"
 msgstr "Startar installationsprocess"
 
-#: pyanaconda/yuminstall.py:1997
+#: pyanaconda/yuminstall.py:1984
 msgid "Dependency Check"
 msgstr "Beroendekontroll"
 
-#: pyanaconda/yuminstall.py:1998
+#: pyanaconda/yuminstall.py:1985
 msgid "Checking dependencies in packages selected for installation"
 msgstr "Kontrollerar beroenden hos de paket som valts för installation"
 
-#: pyanaconda/yuminstall.py:2054 pyanaconda/yuminstall.py:2070
+#: pyanaconda/yuminstall.py:2041 pyanaconda/yuminstall.py:2057
 msgid "Retrieving installation information."
 msgstr "Hämtar installationsinformation."
 
-#: pyanaconda/yuminstall.py:2056 pyanaconda/yuminstall.py:2072
+#: pyanaconda/yuminstall.py:2043 pyanaconda/yuminstall.py:2059
 #, python-format
 msgid "Retrieving installation information for %s."
 msgstr "Hämtar installationsinformation för %s."
 
-#: pyanaconda/yuminstall.py:2057 pyanaconda/yuminstall.py:2073
+#: pyanaconda/yuminstall.py:2044 pyanaconda/yuminstall.py:2060
 msgid "Installation Progress"
 msgstr "Installationsförlopp"
 
@@ -2253,7 +2253,7 @@ msgstr ""
 msgid "Node Name"
 msgstr "Nodnamn"
 
-#: pyanaconda/iw/advanced_storage.py:369
+#: pyanaconda/iw/advanced_storage.py:372
 msgid "You must select a NIC to use."
 msgstr "Du måste välja en nätverksenhet att använda."
 
@@ -2414,18 +2414,18 @@ msgstr ""
 "\n"
 "Vill du fortsätta med detta lösenord?"
 
-#: pyanaconda/iw/bootloader_main_gui.py:36
+#: pyanaconda/iw/bootloader_main_gui.py:37
 msgid "Boot Loader Configuration"
 msgstr "Konfiguration av startprogram"
 
-#: pyanaconda/iw/bootloader_main_gui.py:180
-#: pyanaconda/iw/bootloader_main_gui.py:185
-#: pyanaconda/iw/bootloader_main_gui.py:223
+#: pyanaconda/iw/bootloader_main_gui.py:182
+#: pyanaconda/iw/bootloader_main_gui.py:187
+#: pyanaconda/iw/bootloader_main_gui.py:225
 #, python-format
 msgid "_Install boot loader on /dev/%s."
 msgstr "_Installera startprogram på /dev/%s."
 
-#: pyanaconda/iw/bootloader_main_gui.py:229
+#: pyanaconda/iw/bootloader_main_gui.py:235
 msgid "_Change device"
 msgstr "_Ändra enhet"
 
@@ -2665,7 +2665,10 @@ msgid ""
 "Installs or upgrades to enterprise devices such as Storage Area Networks "
 "(SANs). This option will allow you to add FCoE / iSCSI / zFCP disks and to "
 "filter out devices the installer should ignore."
-msgstr "Installerar eller uppgraderar till företagsenheter såsom Storage Area Networks (SAN).  Detta alternativ gör att du kan lägga till FCoE- / iSCSI- / zFCP-diskar och filtrera bort enheter installeraren skall bortse ifrån."
+msgstr ""
+"Installerar eller uppgraderar till företagsenheter såsom Storage Area "
+"Networks (SAN).  Detta alternativ gör att du kan lägga till FCoE- / iSCSI- / "
+"zFCP-diskar och filtrera bort enheter installeraren skall bortse ifrån."
 
 #: pyanaconda/iw/language_gui.py:33 pyanaconda/textw/language_text.py:45
 msgid "Language Selection"
@@ -2719,12 +2722,12 @@ msgstr "F_ortsätt"
 #, python-format
 msgid ""
 "The physical extent size cannot be changed because the value selected (%"
-"(curpe)10.2f MB) is larger than the smallest physical volume (%(maxpvsize)10."
-"2f MB) in the volume group."
+"(curpe)10.2f MB) is larger than the smallest physical volume (%(maxpvsize)"
+"10.2f MB) in the volume group."
 msgstr ""
 "Storleken på den fysiska ytan kan inte ändras eftersom det värde som valts (%"
-"(curpe)10.2f MB) är större än den minsta fysiska volymen (%(maxpvsize)10."
-"2f MB) i volymgruppen."
+"(curpe)10.2f MB) är större än den minsta fysiska volymen (%(maxpvsize)"
+"10.2f MB) i volymgruppen."
 
 #: pyanaconda/iw/lvm_dialog_gui.py:189
 #, python-format
@@ -2876,11 +2879,7 @@ msgid ""
 "logical volume size (%(maxlv)10.2f MB). To increase this limit you can "
 "create more Physical Volumes from unpartitioned disk space and add them to "
 "this Volume Group."
-msgstr ""
-"Den nu storleken (%(size)10.2f MB) är större än den maximala storleken på en "
-"logisk volym (%(maxlv)10.2f MB).  För att höja denna gräns kan du skapa fler "
-"fysiska volymer från opartitionerat diskutrymme och lägga till dem i denna "
-"volymgrupp."
+msgstr "Den nuvarande storleken (%(size)10.2f MB) är större än den maximala storleken på en logisk volym (%(maxlv)10.2f MB).  För att höja denna gräns kan du skapa fler fysiska volymer från opartitionerat diskutrymme och lägga till dem i denna volymgrupp."
 
 #: pyanaconda/iw/lvm_dialog_gui.py:722
 #, python-format
@@ -3204,7 +3203,7 @@ msgstr "MD-RAID-kedja %s (%-0.f MB)"
 msgid "Type"
 msgstr "Typ"
 
-#: pyanaconda/iw/partition_gui.py:619 pyanaconda/storage/__init__.py:1852
+#: pyanaconda/iw/partition_gui.py:619 pyanaconda/storage/__init__.py:1840
 msgid "Format"
 msgstr "Formatera"
 
@@ -3307,10 +3306,10 @@ msgstr ""
 #: pyanaconda/iw/partition_gui.py:1471
 #, python-format
 msgid ""
-"Software RAID allows you to combine several disks into a larger RAID device. "
-" A RAID device can be configured to provide additional speed and reliability "
-"compared to using an individual drive.  For more information on using RAID "
-"devices please consult the %s documentation.\n"
+"Software RAID allows you to combine several disks into a larger RAID "
+"device.  A RAID device can be configured to provide additional speed and "
+"reliability compared to using an individual drive.  For more information on "
+"using RAID devices please consult the %s documentation.\n"
 msgstr ""
 "Programvaru-RAID låter dig kombinera flera hårddiskar i en större RAID-"
 "enhet.  En RAID-enhet kan konfigureras att tillhandahålla ytterligare "
@@ -3320,8 +3319,8 @@ msgstr ""
 #: pyanaconda/iw/partition_gui.py:1477
 msgid ""
 "To use RAID you must first create at least two partitions of type 'software "
-"RAID'.  Then you can create a RAID device that can be formatted and mounted."
-"\n"
+"RAID'.  Then you can create a RAID device that can be formatted and "
+"mounted.\n"
 "\n"
 msgstr ""
 "För att använda RAID måste du först skapa minst två partitioner av typen "
@@ -3355,8 +3354,8 @@ msgstr ""
 "Logisk volym-hanteraren (LVM, logical volume manager) är en 3-"
 "nivåkonstruktion.  Den första nivån består av diskar och partitioner "
 "formaterade med LVM-metadata och kallas fysiska volymer (PV, physical "
-"volume).  En volymgrupp (VG, volume group) sitter ovanpå en eller flera "
-"PV:er.  VG:n, i sin tur, är grunden för att skapa en eller flera logiska "
+"volume).  En volymgrupp (VG, volume group) sitter ovanpå en eller flera PV:"
+"er.  VG:n, i sin tur, är grunden för att skapa en eller flera logiska "
 "volymer (LV, logical volume).  Observera att en VG kan vara en "
 "sammansättning av PV:er från flera fysiska diskar.  För mer infomration om "
 "hur man använder LVM, se %s-dokumentationen\n"
@@ -3388,8 +3387,8 @@ msgstr "Du har för närvarande ledigt utrymme att skapa PV:er."
 msgid "About LVM"
 msgstr "Om LVM"
 
-#: pyanaconda/iw/partition_gui.py:1588 pyanaconda/storage/partitioning.py:205
-#: pyanaconda/storage/partitioning.py:247
+#: pyanaconda/iw/partition_gui.py:1588 pyanaconda/storage/partitioning.py:206
+#: pyanaconda/storage/partitioning.py:248
 msgid "Error Partitioning"
 msgstr "Fel vid partitionering"
 
@@ -3705,8 +3704,8 @@ msgstr "Uppgradera växlingspartition"
 #, python-format
 msgid ""
 "Recent kernels (2.4 or newer) need significantly more swap than older "
-"kernels, up to twice the amount of RAM on the system.  You currently have "
-"%dMB of swap configured, but you may create additional swap space on one of "
+"kernels, up to twice the amount of RAM on the system.  You currently have %"
+"dMB of swap configured, but you may create additional swap space on one of "
 "your file systems now."
 msgstr ""
 "Nyare kärnor (2.4 eller nyare) behöver avsevärt mer växlingsutrymme (swap) "
@@ -3846,8 +3845,8 @@ msgid ""
 "The %s disc was not found in any of your drives. Please insert the %s disc "
 "and press %s to retry."
 msgstr ""
-"Skivan med %s kunde inte hittas i någon av dina enheter. Sätt i skivan med "
-"%s och tryck %s för att försöka igen."
+"Skivan med %s kunde inte hittas i någon av dina enheter. Sätt i skivan med %"
+"s och tryck %s för att försöka igen."
 
 #: loader/cdinstall.c:205
 msgid "Disc Found"
@@ -3892,18 +3891,18 @@ msgid "Disc Not Found"
 msgstr "Skiva hittades inte"
 
 #: loader/cdinstall.c:341 loader/driverdisk.c:393 loader/driverdisk.c:425
-#: loader/driverdisk.c:506 loader/driverselect.c:79 loader/driverselect.c:153
-#: loader/driverselect.c:179 loader/hdinstall.c:168 loader/hdinstall.c:222
+#: loader/driverdisk.c:506 loader/driverselect.c:79 loader/driverselect.c:145
+#: loader/driverselect.c:171 loader/hdinstall.c:168 loader/hdinstall.c:222
 #: loader/kbd.c:118 loader/loader.c:499 loader/loader.c:516
-#: loader/loader.c:1367 loader/loader.c:1407 loader/net.c:625
-#: loader/net.c:1007 loader/net.c:1982 loader/net.c:2001
+#: loader/loader.c:1376 loader/loader.c:1416 loader/net.c:625
+#: loader/net.c:1007 loader/net.c:1816 loader/net.c:1835
 #: loader/nfsinstall.c:92 loader/urls.c:264 pyanaconda/storage/__init__.py:122
 #: pyanaconda/storage/__init__.py:168 pyanaconda/storage/devicetree.py:95
 #: pyanaconda/textw/constants_text.py:52
 msgid "Back"
 msgstr "Tillbaka"
 
-#: loader/cdinstall.c:424
+#: loader/cdinstall.c:418
 msgid "Cannot find kickstart file on CDROM."
 msgstr "Kan inte hitta kickstartfil på cdrom-skiva."
 
@@ -4010,12 +4009,7 @@ msgstr "Fler drivrutinsdisketter?"
 msgid "Do you wish to load any more driver disks?"
 msgstr "Vill du läsa in fler drivrutinsdisketter?"
 
-#: loader/driverdisk.c:698 loader/driverdisk.c:737 loader/hdinstall.c:348
-#: loader/kickstart.c:135 loader/kickstart.c:145 loader/kickstart.c:187
-#: loader/kickstart.c:192 loader/kickstart.c:339 loader/kickstart.c:355
-#: loader/kickstart.c:571 loader/net.c:1655 loader/net.c:1676
-#: loader/nfsinstall.c:276 loader/urlinstall.c:279 loader/urlinstall.c:290
-#: loader/urlinstall.c:297
+#: loader/driverdisk.c:698 loader/kickstart.c:176 loader/kickstart.c:939
 msgid "Kickstart Error"
 msgstr "Kickstartfel"
 
@@ -4023,15 +4017,6 @@ msgstr "Kickstartfel"
 #, c-format
 msgid "Unknown driver disk kickstart source: %s"
 msgstr "Okänd kickstartkälla för drivrutinsdiskett: %s"
-
-#: loader/driverdisk.c:738
-#, c-format
-msgid ""
-"The following invalid argument was specified for the kickstart driver disk "
-"command: %s"
-msgstr ""
-"Följande ogiltiga argument angavs till kickstartkommandot för "
-"drivrutinsdiskett: %s"
 
 #: loader/driverselect.c:68
 #, c-format
@@ -4048,15 +4033,15 @@ msgstr ""
 msgid "Enter Module Parameters"
 msgstr "Ange modulparametrar"
 
-#: loader/driverselect.c:152
+#: loader/driverselect.c:144
 msgid "No drivers found"
 msgstr "Inga drivrutiner hittades"
 
-#: loader/driverselect.c:152
+#: loader/driverselect.c:144
 msgid "Load driver disk"
 msgstr "Läs in drivrutinsdiskett"
 
-#: loader/driverselect.c:153
+#: loader/driverselect.c:145
 msgid ""
 "No drivers were found to manually insert.  Would you like to use a driver "
 "disk?"
@@ -4064,7 +4049,7 @@ msgstr ""
 "Inga drivrutiner som kan infogas manuellt kunde hittas. Vill du använda en "
 "drivrutinsdiskett?"
 
-#: loader/driverselect.c:171
+#: loader/driverselect.c:163
 msgid ""
 "Please select the driver below which you wish to load.  If it does not "
 "appear and you have a driver disk, press F2."
@@ -4072,11 +4057,11 @@ msgstr ""
 "Välj den drivrutin nedan som du vill läsa in. Om den inte finns i denna "
 "lista och du har en drivrutinsdiskett, tryck F2."
 
-#: loader/driverselect.c:180
+#: loader/driverselect.c:172
 msgid "Specify optional module arguments"
 msgstr "Ange valfria modulparametrar"
 
-#: loader/driverselect.c:205
+#: loader/driverselect.c:197
 msgid "Select Device Driver to Load"
 msgstr "Välj enhetsdrivrutin att läsa in"
 
@@ -4111,16 +4096,11 @@ msgstr "Välj partition"
 msgid "That directory does not contain installation media."
 msgstr "Den katalogen innehåller inte installationsmedia."
 
-#: loader/hdinstall.c:349
-#, c-format
-msgid "Bad argument to HD kickstart method command: %s"
-msgstr "Felaktigt argument till HD-kickstartmetodkommandot: %s"
-
-#: loader/hdinstall.c:400 loader/hdinstall.c:454
+#: loader/hdinstall.c:345 loader/hdinstall.c:399
 msgid "Cannot find kickstart file on hard drive."
 msgstr "Kan inte hitta kickstartfil på hårddisken."
 
-#: loader/hdinstall.c:439
+#: loader/hdinstall.c:384
 #, c-format
 msgid "Cannot find hard drive for BIOS disk %s"
 msgstr "Kan inte hitta hårddisk för BIOS-disk %s"
@@ -4133,40 +4113,11 @@ msgstr "Tangentbordstyp"
 msgid "What type of keyboard do you have?"
 msgstr "Vilken typ av tangentbord har du?"
 
-#: loader/kickstart.c:136
-#, c-format
-msgid "Error opening kickstart file %s: %m"
-msgstr "Fel när kickstartfilen %s öppnades: %m"
-
-#: loader/kickstart.c:146
-#, c-format
-msgid "Error reading contents of kickstart file %s: %m"
-msgstr "Fel när innehållet i kickstartfil %s lästes: %m"
-
-#: loader/kickstart.c:188
-#, c-format
-msgid "Error in %s on line %d of kickstart file %s."
-msgstr "Fel i %s på rad %d i kickstartfilen %s."
-
-#: loader/kickstart.c:193
-#, c-format
-msgid "Missing options on line %d of kickstart file %s."
-msgstr "Flagga saknas på rad %d i kickstartfilen %s."
-
-#: loader/kickstart.c:300
+#: loader/kickstart.c:309
 msgid "Cannot find ks.cfg on removable media."
 msgstr "Hittar inte ks.cfg på löstagbart medium."
 
-#: loader/kickstart.c:340
-#, c-format
-msgid "Bad argument to device kickstart method command: %s"
-msgstr "Felaktigt argument till enhetskickstartmetodkommandot: %s"
-
-#: loader/kickstart.c:356
-msgid "A module name must be specified for the kickstart device command."
-msgstr "Ett modulnamn måste anges för kickstartenhetskommandot."
-
-#: loader/kickstart.c:387
+#: loader/kickstart.c:378
 msgid ""
 "Unable to download the kickstart file.  Please modify the kickstart "
 "parameter below or press Cancel to proceed as an interactive installation."
@@ -4175,14 +4126,14 @@ msgstr ""
 "parametern nedan eller tryck Avbryt för att fortsätta en interaktiv "
 "installation."
 
-#: loader/kickstart.c:396
+#: loader/kickstart.c:387
 msgid "Error downloading kickstart file"
 msgstr "Fel vid nedladdning av uppstartsfil"
 
-#: loader/kickstart.c:572
+#: loader/kickstart.c:940
 #, c-format
-msgid "Bad argument to shutdown kickstart method command: %s"
-msgstr "Felaktigt argument till kickstartmetodkommandot för nedstängning: %s"
+msgid "Unknown Url method %s"
+msgstr "Url-metoden %s är okänd"
 
 #: loader/lang.c:62 loader/loader.c:228
 #, c-format
@@ -4279,48 +4230,52 @@ msgstr "%s behöver %d MB minne, för att installera, men du har bara %d MB."
 msgid ""
 "%s requires %d MB of memory to install using this installation method, but "
 "you only have %d MB on this machine."
-msgstr "%s behöver %d MB minne för att installera med denna installationsmetod, men du har bara %d MB på denna maskin."
+msgstr ""
+"%s behöver %d MB minne för att installera med denna installationsmetod, men "
+"du har bara %d MB på denna maskin."
 
-#: loader/loader.c:1223
+#: loader/loader.c:1232
 msgid "Unsupported Hardware Detected"
 msgstr "Maskinvara som inte stödjs upptäckt"
 
-#: loader/loader.c:1224
+#: loader/loader.c:1233
 msgid ""
 "This hardware (or a combination thereof) is not supported by Red Hat.  For "
 "more information on supported hardware, please refer to http://www.redhat."
 "com/hardware."
-msgstr "Denna hårdvara (eller en kombination av den) stödjs inte av Red Hat.  För mer information om hårdvara som stödjs, se http://www.redhat.com/hardware."
+msgstr ""
+"Denna hårdvara (eller en kombination av den) stödjs inte av Red Hat.  För "
+"mer information om hårdvara som stödjs, se http://www.redhat.com/hardware."
 
-#: loader/loader.c:1359
+#: loader/loader.c:1368
 msgid "Rescue Method"
 msgstr "Räddningsmetod"
 
-#: loader/loader.c:1360
+#: loader/loader.c:1369
 msgid "Installation Method"
 msgstr "Installationsmetod"
 
-#: loader/loader.c:1362
+#: loader/loader.c:1371
 msgid "What type of media contains the rescue image?"
 msgstr "Vilket medium innehåller räddningsavbilden?"
 
-#: loader/loader.c:1364
+#: loader/loader.c:1373
 msgid "What type of media contains the installation image?"
 msgstr "Vilket sorts medium innehåller installationsavbilden?"
 
-#: loader/loader.c:1406
+#: loader/loader.c:1415
 msgid "No driver found"
 msgstr "Ingen drivrutin hittades"
 
-#: loader/loader.c:1406
+#: loader/loader.c:1415
 msgid "Select driver"
 msgstr "Välj drivrutin"
 
-#: loader/loader.c:1407
+#: loader/loader.c:1416
 msgid "Use a driver disk"
 msgstr "Använd en drivrutinsdiskett"
 
-#: loader/loader.c:1408
+#: loader/loader.c:1417
 msgid ""
 "Unable to find any devices of the type needed for this installation type.  "
 "Would you like to manually select your driver or use a driver disk?"
@@ -4329,11 +4284,11 @@ msgstr ""
 "installationstyp. Vill du välja din drivrutin manuellt eller använda en "
 "drivrutinsdiskett?"
 
-#: loader/loader.c:1619
+#: loader/loader.c:1628
 msgid "The following devices have been found on your system."
 msgstr "Följande enheter har hittats i ditt system."
 
-#: loader/loader.c:1621
+#: loader/loader.c:1630
 msgid ""
 "No device drivers have been loaded for your system.  Would you like to load "
 "any now?"
@@ -4341,46 +4296,46 @@ msgstr ""
 "Inga enhetsdrivrutiner för ditt system har lästs in. Vill du läsa in några "
 "nu?"
 
-#: loader/loader.c:1625
+#: loader/loader.c:1634
 msgid "Devices"
 msgstr "Enheter"
 
-#: loader/loader.c:1626
+#: loader/loader.c:1635
 msgid "Done"
 msgstr "Färdig"
 
-#: loader/loader.c:1627
+#: loader/loader.c:1636
 msgid "Add Device"
 msgstr "Lägg till enhet"
 
-#: loader/loader.c:1905
+#: loader/loader.c:1915
 #, c-format
 msgid "loader has already been run.  Starting shell.\n"
 msgstr "inläsaren har redan körts. Startar skal.\n"
 
-#: loader/loader.c:2049
+#: loader/loader.c:2059
 #, c-format
 msgid "Driver disc was detected in %s. Do you want to use it?."
 msgstr "En drivrutinsskiva upptäcktes i %s.  Vill du använda den?"
 
-#: loader/loader.c:2052
+#: loader/loader.c:2062
 msgid "Driver disc detected"
 msgstr "Drivrutinsdisk detekterades"
 
-#: loader/loader.c:2052
+#: loader/loader.c:2062
 msgid "Use it"
 msgstr "Använd den"
 
-#: loader/loader.c:2052
+#: loader/loader.c:2062
 msgid "Skip it"
 msgstr "Strunta i den"
 
-#: loader/loader.c:2365
+#: loader/loader.c:2376
 #, c-format
 msgid "Running anaconda %s, the %s rescue mode - please wait.\n"
 msgstr "Kör anaconda %s, räddningsläget för %s - var vänlig vänta.\n"
 
-#: loader/loader.c:2367
+#: loader/loader.c:2378
 #, c-format
 msgid "Running anaconda %s, the %s system installer - please wait.\n"
 msgstr ""
@@ -4420,8 +4375,8 @@ msgstr "Det gick inte att öppna avbilden."
 #: loader/mediacheck.c:98
 msgid ""
 "The image which was just tested has errors. This could be due to a corrupt "
-"download or a bad disc.  If applicable, please clean the disc and try again. "
-" If this test continues to fail you should not continue the install."
+"download or a bad disc.  If applicable, please clean the disc and try "
+"again.  If this test continues to fail you should not continue the install."
 msgstr ""
 "Avbilden som testades nyss innehåller fel. Detta kan bero på en felaktig "
 "hämtning eller en trasig skiva. Prova att göra rent skivan om tillämpligt "
@@ -4571,40 +4526,30 @@ msgstr ""
 msgid "You must enter both a valid IPv6 address and a CIDR prefix."
 msgstr "Du måste skriva in både en giltig IPv6-adress och ett CIDR prefix."
 
-#: loader/net.c:1656
-#, c-format
-msgid "Bad argument to kickstart network command: %s"
-msgstr "Felaktigt argument till kickstartnätverkskommandot: %s"
-
-#: loader/net.c:1677
-#, c-format
-msgid "Bad bootproto %s specified in network command"
-msgstr "Felaktigt startprotokoll %s angivet i nätverkskommando"
-
-#: loader/net.c:1782
+#: loader/net.c:1616
 msgid "Seconds:"
 msgstr "Sekunder:"
 
-#: loader/net.c:1977
+#: loader/net.c:1811
 msgid "Networking Device"
 msgstr "Nätverksenhet"
 
-#: loader/net.c:1978
+#: loader/net.c:1812
 msgid ""
 "You have multiple network devices on this system. Which would you like to "
 "install through?"
 msgstr ""
 "Du har flera nätverksenheter i detta system. Vilken vill du installera via?"
 
-#: loader/net.c:1982
+#: loader/net.c:1816
 msgid "Identify"
 msgstr "Identifiera"
 
-#: loader/net.c:1991
+#: loader/net.c:1825
 msgid "You can identify the physical port for"
 msgstr "Du kan identifiera den fysiska porten för"
 
-#: loader/net.c:1993
+#: loader/net.c:1827
 msgid ""
 "by flashing the LED lights for a number of seconds.  Enter a number between "
 "1 and 30 to set the duration to flash the LED port lights."
@@ -4612,24 +4557,24 @@ msgstr ""
 "genom att blinka LED-lamporna i ett antal sekunder.  Ange ett tal mellan 1 "
 "och 30 för att sätta tiden för hur länge portens LED-lampor blinkar."
 
-#: loader/net.c:2000
+#: loader/net.c:1834
 msgid "Identify NIC"
 msgstr "Identifiera NIC"
 
-#: loader/net.c:2013
+#: loader/net.c:1847
 msgid "Invalid Duration"
 msgstr "Ogiltig tid"
 
-#: loader/net.c:2014
+#: loader/net.c:1848
 msgid "You must enter the number of seconds as an integer between 1 and 30."
 msgstr "Då måste ange antalet sekunder som ett heltal mellan 1 och 30."
 
-#: loader/net.c:2026
+#: loader/net.c:1860
 #, c-format
 msgid "Flashing %s port lights for %d seconds."
 msgstr "Blinkar lamporna för port %s i %d sekunder."
 
-#: loader/net.c:2198 loader/net.c:2202
+#: loader/net.c:2032 loader/net.c:2036
 #, c-format
 msgid "Waiting for NetworkManager to configure %s.\n"
 msgstr "Väntar på att NetworkManager skall konfigurera %s.\n"
@@ -4664,29 +4609,10 @@ msgstr "NFS-konfiguration"
 msgid "The URL provided does not contain installation media."
 msgstr "URL:en som angavs innehåller inte installationsmedia."
 
-#: loader/nfsinstall.c:277
-#, c-format
-msgid "Bad argument to NFS kickstart method command: %s"
-msgstr "Felaktigt argument till NFS-kickstartmetodkommandot: %s"
-
 #: loader/urlinstall.c:140
 #, c-format
 msgid "Unable to retrieve %s."
 msgstr "Kan inte hämta %s."
-
-#: loader/urlinstall.c:280
-#, c-format
-msgid "Bad argument to URL kickstart method command: %s"
-msgstr "Felaktigt argument till URL-kickstartmetodkommandot: %s"
-
-#: loader/urlinstall.c:291
-msgid "Must supply a --url argument to Url kickstart method."
-msgstr "Måste ange ett --url-argument till Url-kickstartmetoden."
-
-#: loader/urlinstall.c:298
-#, c-format
-msgid "Unknown Url method %s"
-msgstr "Url-metoden %s är okänd"
 
 #: loader/urls.c:173 loader/urls.c:181
 msgid "Retrieving"
@@ -4785,7 +4711,7 @@ msgid ""
 "\n"
 "<b>WARNING:</b>\n"
 "You are using a GPT bootdisk on a non-EFI system. This may not work, "
-"depending on you BIOS's support for booting from GPT disks."
+"depending on your BIOS's support for booting from GPT disks."
 msgstr ""
 "\n"
 "\n"
@@ -4974,16 +4900,16 @@ msgstr ""
 "nya filsystem kunde hittas. Undersök din hårdvara för orsaken till detta "
 "problem."
 
-#: pyanaconda/storage/__init__.py:1395 pyanaconda/storage/__init__.py:1404
+#: pyanaconda/storage/__init__.py:1410 pyanaconda/storage/__init__.py:1419
 msgid "Dirty File Systems"
 msgstr "Nedsmutsade filsystem"
 
-#: pyanaconda/storage/__init__.py:1396
+#: pyanaconda/storage/__init__.py:1411
 #, python-format
 msgid ""
-"The following file systems for your Linux system were not unmounted cleanly. "
-" Please boot your Linux installation, let the file systems be checked and "
-"shut down cleanly to upgrade.\n"
+"The following file systems for your Linux system were not unmounted "
+"cleanly.  Please boot your Linux installation, let the file systems be "
+"checked and shut down cleanly to upgrade.\n"
 "%s"
 msgstr ""
 "Följande filsystem på ditt Linuxsystem avmonterades inte korrekt. Starta upp "
@@ -4991,18 +4917,18 @@ msgstr ""
 "korrekt för att uppgradera.\n"
 "%s"
 
-#: pyanaconda/storage/__init__.py:1405
+#: pyanaconda/storage/__init__.py:1420
 #, python-format
 msgid ""
-"The following file systems for your Linux system were not unmounted cleanly. "
-" Would you like to mount them anyway?\n"
+"The following file systems for your Linux system were not unmounted "
+"cleanly.  Would you like to mount them anyway?\n"
 "%s"
 msgstr ""
 "Följande filsystem på ditt Linuxsystem avmonterades inte korrekt. Vill du "
 "montera dem ändå?\n"
 "%s"
 
-#: pyanaconda/storage/__init__.py:1885
+#: pyanaconda/storage/__init__.py:1873
 #, python-format
 msgid ""
 "The swap device:\n"
@@ -5016,11 +4942,9 @@ msgstr ""
 "\n"
 "     %s\n"
 "\n"
-"är en Linuxväxlingspartion i gannal stil.  Om du vill använda denna enhet "
-"till växlingsutrymme måste du formatera om den som en Linuxväxlingspartition "
-"i ny stil."
+"är en Linuxväxlingspartion i gammal stil.  Om du vill använda denna enhet till växlingsutrymme måste du formatera om den som en Linuxväxlingspartition i ny stil."
 
-#: pyanaconda/storage/__init__.py:1896
+#: pyanaconda/storage/__init__.py:1884
 #, python-format
 msgid ""
 "The swap device:\n"
@@ -5040,7 +4964,7 @@ msgstr ""
 "att utföra en uppgradering behöver du stänga av ditt system istället för att "
 "försätta det i viloläge."
 
-#: pyanaconda/storage/__init__.py:1904
+#: pyanaconda/storage/__init__.py:1892
 #, python-format
 msgid ""
 "The swap device:\n"
@@ -5060,7 +4984,7 @@ msgstr ""
 "du utför en nyinstallation bör du se till att installationsprogrammet är "
 "inställt att formatera alla växlingspartitioner."
 
-#: pyanaconda/storage/__init__.py:1916
+#: pyanaconda/storage/__init__.py:1904
 #, python-format
 msgid ""
 "The swap device:\n"
@@ -5077,7 +5001,7 @@ msgstr ""
 "innehåller inte en stödd växlingsvolym.  För att fortsätta installationen "
 "behöver du formatera enheten eller hoppa över den."
 
-#: pyanaconda/storage/__init__.py:1927
+#: pyanaconda/storage/__init__.py:1915
 #, python-format
 msgid ""
 "Error enabling swap device %(name)s: %(msg)s\n"
@@ -5094,7 +5018,7 @@ msgstr ""
 "\n"
 "Tryck OK för att avsluta installationsprogrammet."
 
-#: pyanaconda/storage/__init__.py:1934
+#: pyanaconda/storage/__init__.py:1922
 #, python-format
 msgid ""
 "Error enabling swap device %(name)s: %(msg)s\n"
@@ -5109,11 +5033,11 @@ msgstr ""
 "\n"
 "Tryck OK för att avsluta installationsprogrammet."
 
-#: pyanaconda/storage/__init__.py:1998 pyanaconda/storage/__init__.py:2010
+#: pyanaconda/storage/__init__.py:1986 pyanaconda/storage/__init__.py:1998
 msgid "Invalid mount point"
 msgstr "Ogiltig monteringspunkt"
 
-#: pyanaconda/storage/__init__.py:1999
+#: pyanaconda/storage/__init__.py:1987
 #, python-format
 msgid ""
 "An error occurred when trying to create %s.  Some element of this path is "
@@ -5127,7 +5051,7 @@ msgstr ""
 "\n"
 "Tryck <Retur> för att för att avsluta installationsprogrammet."
 
-#: pyanaconda/storage/__init__.py:2011
+#: pyanaconda/storage/__init__.py:1999
 #, python-format
 msgid ""
 "An error occurred when trying to create %(mountpoint)s: %(msg)s.  This is a "
@@ -5140,11 +5064,11 @@ msgstr ""
 "\n"
 "Tryck <Retur> för att för att avsluta installationsprogrammet."
 
-#: pyanaconda/storage/__init__.py:2027 pyanaconda/storage/__init__.py:2051
+#: pyanaconda/storage/__init__.py:2015 pyanaconda/storage/__init__.py:2039
 msgid "Unable to mount filesystem"
 msgstr "Kan inte montera filsystem"
 
-#: pyanaconda/storage/__init__.py:2028
+#: pyanaconda/storage/__init__.py:2016
 #, python-format
 msgid ""
 "An error occurred mounting device %(path)s as %(mountpoint)s.  You may "
@@ -5153,7 +5077,7 @@ msgstr ""
 "Ett fel inträffade vid montering av enheten %(path)s som %(mountpoint)s.  Du "
 "kan fortsätta installationen, men det kan bli problem."
 
-#: pyanaconda/storage/__init__.py:2052
+#: pyanaconda/storage/__init__.py:2040
 #, python-format
 msgid ""
 "An error occurred mounting device %(path)s as %(mountpoint)s: %(msg)s. This "
@@ -5198,7 +5122,7 @@ msgstr "Skapar"
 msgid "Creating device %s"
 msgstr "Skapar enhet %s"
 
-#: pyanaconda/storage/devices.py:2545
+#: pyanaconda/storage/devices.py:2588
 #, python-format
 msgid "A RAID%d set requires at least %d member"
 msgid_plural "A RAID%d set requires at least %d members"
@@ -5218,7 +5142,7 @@ msgstr ""
 "Om du hoppar över detta steg kommer enhetens innehåll inte vara tillgängligt "
 "under installationen."
 
-#: pyanaconda/storage/devicetree.py:1600
+#: pyanaconda/storage/devicetree.py:1603
 msgid "This partition is part of an inconsistent LVM Volume Group."
 msgstr "Denna enhet är en del av en inkonsistent LVM-volymgrupp."
 
@@ -5287,7 +5211,7 @@ msgstr ""
 "låter dig laga filsystemet interaktivt.  Starta om installationen efter att "
 "du har rättat problemen på filsystemet."
 
-#: pyanaconda/storage/formats/fs.py:539 pyanaconda/storage/partitioning.py:281
+#: pyanaconda/storage/formats/fs.py:539 pyanaconda/storage/partitioning.py:282
 msgid "Unrecoverable Error"
 msgstr "Olösligt fel"
 
@@ -5315,9 +5239,7 @@ msgstr "Fel i delat bibliotek."
 msgid ""
 "Recoverable errors have been detected or dosfsck has discovered an internal "
 "inconsistency."
-msgstr ""
-"Fel som går att åtgärda har upptäckts eller så har dosfsck upptäckte en "
-"intern inkonsistens."
+msgstr "Fel som går att åtgärda har upptäckts eller så har dosfsck upptäckt en intern inkonsistens."
 
 #: pyanaconda/storage/formats/fs.py:1078
 msgid "Usage error."
@@ -5371,7 +5293,7 @@ msgstr "Loggar in på iSCSI-node"
 msgid "Logging in to iSCSI node %s"
 msgstr "Loggar in på iSCSI-node %s"
 
-#: pyanaconda/storage/partitioning.py:199
+#: pyanaconda/storage/partitioning.py:200
 msgid ""
 "Could not find enough free space for automatic partitioning.  Press 'OK' to "
 "exit the installer."
@@ -5379,7 +5301,7 @@ msgstr ""
 "Hittade inte tillräckligt med fritt utrymme för automatisk partitionering.  "
 "Tryck \"OK\" för att avsluta installationsprogrammet."
 
-#: pyanaconda/storage/partitioning.py:202
+#: pyanaconda/storage/partitioning.py:203
 msgid ""
 "Could not find enough free space for automatic partitioning, please use "
 "another partitioning method."
@@ -5387,11 +5309,11 @@ msgstr ""
 "Kunde inte hitta tillräckligt med utrymme för automatisk partitionering, "
 "använd en annan partitioneringsmetod."
 
-#: pyanaconda/storage/partitioning.py:230
+#: pyanaconda/storage/partitioning.py:231
 msgid "Warnings During Automatic Partitioning"
 msgstr "Varningar under automatisk partitionering"
 
-#: pyanaconda/storage/partitioning.py:232
+#: pyanaconda/storage/partitioning.py:233
 #, python-format
 msgid ""
 "Following warnings occurred during automatic partitioning:\n"
@@ -5402,8 +5324,8 @@ msgstr ""
 "\n"
 "%s"
 
-#: pyanaconda/storage/partitioning.py:246
-#: pyanaconda/storage/partitioning.py:265
+#: pyanaconda/storage/partitioning.py:247
+#: pyanaconda/storage/partitioning.py:266
 msgid ""
 "\n"
 "\n"
@@ -5413,7 +5335,7 @@ msgstr ""
 "\n"
 "Tryck \"OK\" för att avsluta installationsprogrammet."
 
-#: pyanaconda/storage/partitioning.py:248
+#: pyanaconda/storage/partitioning.py:249
 #, python-format
 msgid ""
 "Could not allocate requested partitions: \n"
@@ -5424,7 +5346,7 @@ msgstr ""
 "\n"
 "%(msg)s.%(extra)s"
 
-#: pyanaconda/storage/partitioning.py:267
+#: pyanaconda/storage/partitioning.py:268
 msgid ""
 "\n"
 "\n"
@@ -5434,11 +5356,11 @@ msgstr ""
 "\n"
 "Tryck 'OK' för att välja en annan partitioneringsalternativ."
 
-#: pyanaconda/storage/partitioning.py:269
+#: pyanaconda/storage/partitioning.py:270
 msgid "Automatic Partitioning Errors"
 msgstr "Fel vid automatisk partitionering"
 
-#: pyanaconda/storage/partitioning.py:270
+#: pyanaconda/storage/partitioning.py:271
 #, python-format
 msgid ""
 "The following errors occurred with your partitioning:\n"
@@ -5532,8 +5454,8 @@ msgid ""
 "Could not correctly delete SCSI device of zFCP %(devnum)s %(wwpn)s %(fcplun)"
 "s (%(e)s)."
 msgstr ""
-"Kunde inte korrekt radera SCSI-enhet på zFCP %(devnum)s %(wwpn)s %(fcplun)s ("
-"%(e)s)."
+"Kunde inte korrekt radera SCSI-enhet på zFCP %(devnum)s %(wwpn)s %(fcplun)s "
+"(%(e)s)."
 
 #: pyanaconda/storage/zfcp.py:269
 #, python-format
@@ -5541,8 +5463,8 @@ msgid ""
 "Could not remove LUN %(fcplun)s at WWPN %(wwpn)s on zFCP device %(devnum)s (%"
 "(e)s)."
 msgstr ""
-"Kunde inte ta bort LUN %(fcplun)s på WWPN %(wwpn)s på zFCP-enhet %(devnum)s ("
-"%(e)s)."
+"Kunde inte ta bort LUN %(fcplun)s på WWPN %(wwpn)s på zFCP-enhet %(devnum)s "
+"(%(e)s)."
 
 #: pyanaconda/storage/zfcp.py:287
 #, python-format
@@ -6496,7 +6418,9 @@ msgstr ""
 msgid ""
 "You can further customize the software selection now, or after install via "
 "the software management application."
-msgstr "Du kan anpassa val av programvara nu, eller efter installationen via programmet för hantering av programvara."
+msgstr ""
+"Du kan anpassa val av programvara nu, eller efter installationen via "
+"programmet för hantering av programvara."
 
 #: data/ui/tasksel.glade.h:6
 msgid "_Add additional software repositories"
@@ -6540,12 +6464,16 @@ msgstr ""
 msgid ""
 "<span size=\"large\" weight=\"bold\">The storage device below may contain "
 "data.</span>"
-msgstr "<span size=\"large\" weight=\"bold\">Lagringsenheterna nedan kan innehålla data.</span>"
+msgstr ""
+"<span size=\"large\" weight=\"bold\">Lagringsenheterna nedan kan innehålla "
+"data.</span>"
 
 #: data/ui/reinitialize-dialog.glade.h:2
 msgid ""
 "Apply my choice to all devices with undetected partitions or filesystems"
-msgstr "Tillämpa mitt val på alla enheter utan detekterade partitioner eller filsystem"
+msgstr ""
+"Tillämpa mitt val på alla enheter utan detekterade partitioner eller "
+"filsystem"
 
 #: data/ui/reinitialize-dialog.glade.h:4
 msgid ""
@@ -6562,9 +6490,11 @@ msgid ""
 msgstr ""
 "Vi kunde inte upptäcka partitioner eller filsystem på den här enheten.\n"
 "\n"
-"Detta kan bero på att enheten är <b>tom</b>, <b>opartitionerad</b> eller <b>virtuell</b>.  Om inte\n"
+"Detta kan bero på att enheten är <b>tom</b>, <b>opartitionerad</b> eller "
+"<b>virtuell</b>.  Om inte\n"
 "kan det finnas data på enheten som inte kan återvinnas om du använder den i\n"
-"denna installation.  Vi kan ta bort enheten från den här installationen för att\n"
+"denna installation.  Vi kan ta bort enheten från den här installationen för "
+"att\n"
 "skydda data.\n"
 "\n"
 "Är du säker på att denna enhet inte innehåller några värdefulla data?"
@@ -6607,11 +6537,11 @@ msgstr "Katalanska"
 
 #: data/lang-table.h:8
 msgid "Chinese(Simplified)"
-msgstr "Kiniesiska(förenklad)"
+msgstr "Kinesiska (förenklad)"
 
 #: data/lang-table.h:9
 msgid "Chinese(Traditional)"
-msgstr "Kinisiska(traditionell)"
+msgstr "Kinesiska (traditionell)"
 
 #: data/lang-table.h:10
 msgid "Croatian"
@@ -6822,298 +6752,3 @@ msgstr "Kymriska"
 #: data/lang-table.h:61
 msgid "Zulu"
 msgstr "Zulu"
-
-#~ msgid "You do not have enough RAM to use the graphical installer."
-#~ msgstr ""
-#~ "Du har inte tillräckligt med minne för att använda det grafiska "
-#~ "installationsprogrammet."
-
-#~ msgid "Copying File"
-#~ msgstr "Kopierar fil"
-
-#~ msgid "Transferring install image to hard drive"
-#~ msgstr "Överför installationsavbilden till hårddisken"
-
-#~ msgid ""
-#~ "An error occurred transferring the install image to your hard drive.  "
-#~ "This is often cause by damaged or low quality media."
-#~ msgstr ""
-#~ "Ett fel inträffade när installationsavbilden överfördes till din "
-#~ "hårddisk.  Detta beror ofta troligen på ett medium som är skadat eller av "
-#~ "dåligt kvalitet."
-
-#~ msgid ""
-#~ "An error occurred transferring the install image to your hard drive. You "
-#~ "are probably out of disk space."
-#~ msgstr ""
-#~ "Ett fel inträffade vid överföringen av installationsavbilden till din "
-#~ "hårddisk. Du har troligtvis slut på diskutrymme."
-
-#~ msgid "Installation Key"
-#~ msgstr "Installationsnyckel"
-
-#~ msgid "Required Install Media"
-#~ msgstr "Nödvändiga installationsmedia"
-
-#~ msgid ""
-#~ "The software you have selected to install will require the following %"
-#~ "(productName)s %(productVersion)s discs:\n"
-#~ "\n"
-#~ "%(reqcdstr)s\n"
-#~ "Please have these ready before proceeding with the installation.  If you "
-#~ "need to abort the installation and exit please select \"Reboot\"."
-#~ msgstr ""
-#~ "Programvaran du har valt att installera kommer att kräva följande %"
-#~ "(productName)s %(productVersion)s-skivor:\n"
-#~ "\n"
-#~ "%(reqcdstr)s\n"
-#~ "Ha dessa till hands innan du fortsätter med installationen. Om du måste "
-#~ "avbryta installationen och avsluta, välj \"Starta om\"."
-
-#~ msgid ""
-#~ "Error processing drive:\n"
-#~ "\n"
-#~ "%(path)s\n"
-#~ "%(size)-0.fMB\n"
-#~ "%(description)s\n"
-#~ "\n"
-#~ "This device may need to be reinitialized.\n"
-#~ "\n"
-#~ "REINITIALIZING WILL CAUSE ALL DATA TO BE LOST!\n"
-#~ "\n"
-#~ "This action may also be applied to all other disks needing "
-#~ "reinitialization.%(details)s"
-#~ msgstr ""
-#~ "Fel vid bearbetning av disk:\n"
-#~ "\n"
-#~ "%(path)s\n"
-#~ "%(size)-0.f MB\n"
-#~ "%(description)s\n"
-#~ "\n"
-#~ "Denna enhet kanske behöver intieras om.\n"
-#~ "\n"
-#~ "ATT INITIERA OM GÖR ATT ALL DATA GÅR FÖRLORAD!\n"
-#~ "\n"
-#~ "Denna åtgärd kan också tillämpas på alla andra diskar som behöver "
-#~ "initieras om %(details)s"
-
-#~ msgid ""
-#~ "Error: On open, cannot set reIPL method to %(reipl_type)s (%(filename)s: %"
-#~ "(e)s)"
-#~ msgstr ""
-#~ "Fel: Vid öppning, kan inte ställa in reIPL-metod till %(reipl_type)s (%"
-#~ "(filename)s: %(e)s)"
-
-#~ msgid ""
-#~ "Error: On write, cannot set reIPL method to %(reipl_type)s (%(filename)s: "
-#~ "%(e)s)"
-#~ msgstr ""
-#~ "Fel: Vid skrivning, kan inte ställa in reIPL-metod till %(reipl_type)s (%"
-#~ "(filename)s: %(e)s)"
-
-#~ msgid ""
-#~ "Error: On close, cannot set reIPL method to %(reipl_type)s (%(filename)s: "
-#~ "%(e)s)"
-#~ msgstr ""
-#~ "Fel: Vid stängning, kan inte ställa in reIPL-metod till %(reipl_type)s (%"
-#~ "(filename)s: %(e)s)"
-
-#~ msgid "Error: Could not set %(device)s as reIPL device (%(e)s)"
-#~ msgstr "Fel: Kunde inte ställa in %(device)s som en reIPL-enhet (%(e)s)"
-
-#~ msgid "Error: Could not reset loadparm (%s)"
-#~ msgstr "Fel: Kunde inte iterställa loadparm (%s)"
-
-#~ msgid "Warning: Could not reset parm (%s)"
-#~ msgstr "Varning: Kunde inte återställa parm (%s)"
-
-#~ msgid "Error: reading FCP property %(syspath_property)s for reIPL (%(e)s)"
-#~ msgstr "Fel: när FCP-egenskap %(syspath_property)s lästes för reIPL (%(e)s)"
-
-#~ msgid "Error: writing FCP property %(reipl_property)s for reIPL (%(e)s)"
-#~ msgstr "Fel: när FCP-egenskap %(reipl_property)s skrevs för reIPL (%(e)s)"
-
-#~ msgid ""
-#~ "Error: writing default FCP property %(reipl_property)s for reIPL (%(e)s)"
-#~ msgstr ""
-#~ "Fel: när standard-FCP-egenskap %(reipl_property)s skrevs för reIPL (%(e)s)"
-
-#~ msgid ""
-#~ "After shutdown, please perform a manual IPL from FCP %(device)s with WWPN "
-#~ "%(wwpn)s and LUN %(lun)s to continue installation"
-#~ msgstr ""
-#~ "Utför efter avstängning en manuell IPL från FCP %(device)s med WWPN %"
-#~ "(wwpn)s och LUN %(lun)s för att fortsätta installationen"
-
-#~ msgid ""
-#~ "After shutdown, please perform a manual IPL from the device now "
-#~ "containing /boot to continue installation"
-#~ msgstr ""
-#~ "Utför efter avstängning en manuell IPL enheten som nu innehåller /boot "
-#~ "för att fortsätta installationen"
-
-#~ msgid ""
-#~ "The mount point /boot or / is on a disk that we are not familiar with"
-#~ msgstr ""
-#~ "Monteringspunkten /boot eller / är på en disk som vi inte känner till"
-
-#~ msgid ""
-#~ "Encryption key escrow requires networking, but there was an error "
-#~ "enabling the network on your system."
-#~ msgstr ""
-#~ "Deponering av krypteringsnyckel kräver nätverk, men ett fel uppstod vid "
-#~ "aktiveringen av nätverket på ditt system."
-
-#~ msgid "Pre-Installation"
-#~ msgstr "Förinstallation"
-
-#~ msgid ""
-#~ "The root filesystem you created is not large enough for this live image ("
-#~ "%.2f MB required)."
-#~ msgstr ""
-#~ "Rotfilsystemet du skapade är inte tillräckligt stort för denna live-"
-#~ "avbild (%.2f MB krävs)."
-
-#~ msgid "Finishing upgrade"
-#~ msgstr "Slutför uppgraderingen"
-
-#~ msgid "Finishing upgrade process.  This may take a little while."
-#~ msgstr "Avslutar uppgraderingsprocessen.  Detta kan ta ett litet tag."
-
-#~ msgid "Reboot?"
-#~ msgstr "Starta om?"
-
-#~ msgid "The system will be rebooted now."
-#~ msgstr "Systemet kommer nu att startas om."
-
-#~ msgid "Invalid Initiator Name"
-#~ msgstr "Ogiltigt initierarnamn"
-
-#~ msgid "You must provide an initiator name."
-#~ msgstr "Du måste ange ett initierarnamn."
-
-#~ msgid "Error with Data"
-#~ msgstr "Fel med data"
-
-#~ msgid ""
-#~ "Installs or upgrades to devices such as Storage Area Networks (SANs) or "
-#~ "mainframe attached disks (DASD), usually in an enterprise environment"
-#~ msgstr ""
-#~ "Installerar eller uppgraderar till enheter såsom nätverkslagringsenheter "
-#~ "(SAN) eller stordatorers tillkopplade diskar (DASD), vanligen i "
-#~ "företagsmiljö"
-
-#~ msgid "Select which devices should be configured with NetworkManager."
-#~ msgstr "Välj vilka enheter som skall konfigureras med NetworkManager."
-
-#~ msgid "Network Install Required"
-#~ msgstr "Nätverksinstallation krävs"
-
-#~ msgid ""
-#~ "Your installation source is set to a network location, but no netork "
-#~ "devices were found on your system.  To avoid a network installation, boot "
-#~ "with the full DVD, full CD set, or do not pass a repo= parameter that "
-#~ "specifies a network source."
-#~ msgstr ""
-#~ "Din angivna installationsskälla är en nätverksplats, men ingen "
-#~ "nätverksenhet hittades på ditt system.  Starta för att undvika "
-#~ "nätverksinstallation med en full DVD, full CD-uppsättning eller skicka "
-#~ "inte en parameter repo= som anger en nätverkskälla."
-
-#~ msgid "E_xit Installer"
-#~ msgstr "_Avsluta installationsprogram"
-
-#~ msgid "Eject Disc"
-#~ msgstr "Mata ut skiva"
-
-#~ msgid ""
-#~ "Choose \"%s\" to test the disc currently in the drive, or \"%s\" to eject "
-#~ "the disc and insert another for testing."
-#~ msgstr ""
-#~ "Välj \"%s\" för att testa den skiva som för tillfället är i enheten, "
-#~ "eller \"%s\" för att mata ut skivan och stoppa i en annan för testning."
-
-#~ msgid ""
-#~ "If you would like to test additional media, insert the next disc and "
-#~ "press \"%s\". Testing each disc is not strictly required, however it is "
-#~ "highly recommended.  Minimally, the discs should be tested prior to using "
-#~ "them for the first time. After they have been successfully tested, it is "
-#~ "not required to retest each disc prior to using it again."
-#~ msgstr ""
-#~ "Om du vill testa ytterligare media stoppar du in nästa skiva och trycker "
-#~ "på \"%s\". Det är inte nödvändigt att testa varje skiva, men det "
-#~ "rekommenderas. Skivorna bör åtminstone testas innan de används för första "
-#~ "gången. När de har testats utan problem är det inte nödvändigt att testa "
-#~ "varje skiva igen innan den används."
-
-#~ msgid ""
-#~ "An error occured finding the installation image on your hard drive.  "
-#~ "Please check your images and try again."
-#~ msgstr ""
-#~ "Det inträffade ett fel vid sökning efter installationsavbilden på din "
-#~ "hårddisk.  Kontrollera dina avbilder och försök igen."
-
-#~ msgid "You do not have enough RAM to install %s on this machine."
-#~ msgstr ""
-#~ "Du har inte tillräckligt med minne för att installera %s på denna maskin."
-
-#~ msgid "Found local installation media"
-#~ msgstr "Lokalt installationsmedium detekterades"
-
-#~ msgid "That directory could not be mounted from the server."
-#~ msgstr "Den katalogen kunde inte monteras från servern."
-
-#~ msgid "Telnet"
-#~ msgstr "Telnet"
-
-#~ msgid "Waiting for telnet connection."
-#~ msgstr "Väntar på telnet-anslutning."
-
-#~ msgid "Running anaconda via telnet."
-#~ msgstr "Kör anaconda via telnet."
-
-#~ msgid "Unable to retrieve the install image."
-#~ msgstr "Kan inte hämta installationsavbilden."
-
-#~ msgid "Loading SCSI driver"
-#~ msgstr "Läser in SCSI-drivrutin"
-
-#~ msgid "Loading %s driver"
-#~ msgstr "Läser in %s-drivrutinen."
-
-#~ msgid "Creating file %s"
-#~ msgstr "Skapar filen %s"
-
-#~ msgid "Missing Device"
-#~ msgstr "Enhet saknas"
-
-#~ msgid "You must select a network device"
-#~ msgstr "Du måste välja en nätverksenhet"
-
-#~ msgid "IPv4 Network Mask"
-#~ msgstr "IPv4-nätmask"
-
-#~ msgid "IPv4 Network Mask "
-#~ msgstr "IPv4-nätmask "
-
-#~ msgid "Error configuring network device"
-#~ msgstr "Fel vid konfigurering av nätverksenhet"
-
-#~ msgid "Error configuring network device %s"
-#~ msgstr "Fel vid konfigurering av nätverksenhet %s"
-
-#~ msgid "%s"
-#~ msgstr "%s"
-
-#~ msgid ""
-#~ "Welcome to %s!\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Välkommen till %s!\n"
-#~ "\n"
-
-#~ msgid "<b>CHAP _Password:</b>"
-#~ msgstr "<b>CHAP-_lösenord:</b>"
-
-#~ msgid "Configure iSCSI Parameters"
-#~ msgstr "Konfigurera iSCSI-parametrar"
