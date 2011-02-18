@@ -137,6 +137,10 @@ struct loaderData_s {
     moduleInfoSet modInfo;
 };
 
+/* parsed /proc/cmdline */
+extern char **cmdline_argv;
+extern int cmdline_argc;
+
 /* 64 bit platforms, definitions courtesy of glib */
 #if defined (__x86_64__) || defined(__ia64__) || defined(__alpha__) || defined(__powerpc64__) || defined(__sparc64__) || defined(__s390x__)
 #define POINTER_TO_INT(p)  ((int) (long) (p))

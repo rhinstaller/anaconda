@@ -99,6 +99,8 @@
 /* maximum number of extra arguments that can be passed to the second stage */
 #define MAX_EXTRA_ARGS 128
 static char * extraArgs[MAX_EXTRA_ARGS];
+char **cmdline_argv = NULL;
+int cmdline_argc = 0;
 static int hasGraphicalOverride();
 
 static int newtRunning = 0;
@@ -634,6 +636,10 @@ static void parseCmdLineFlags(struct loaderData_s * loaderData,
     
     if (poptParseArgvString(cmdLine, &argc, (const char ***) &argv))
         return;
+
+    /* Save for later use by other functions */
+    cmdline_argv = argv;
+    cmdline_argc = argc;
 
     /* we want to default to graphical and allow override with 'text' */
     flags |= LOADER_FLAGS_GRAPHICAL;
