@@ -124,8 +124,6 @@ class AnacondaCallback:
 
         self.donepkgs = 0
         self.doneSize = 0
-        self.doneFiles = 0
-        
 
     def callback(self, what, amount, total, h, user):
         if what == rpm.RPMCALLBACK_TRANS_START:
@@ -211,7 +209,6 @@ class AnacondaCallback:
 
             self.donepkgs += 1
             self.doneSize += self.inProgressPo.returnSimple("installedsize") / 1024.0
-            self.doneFiles += len(hdr[rpm.RPMTAG_BASENAMES])
 
             if self.donepkgs <= self.numpkgs:
                 self.progress.set_text(P_("Packages completed: "
