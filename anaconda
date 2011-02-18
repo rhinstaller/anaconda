@@ -207,8 +207,7 @@ def parseOptions():
     # Method of operation
     op.add_option("--autostep", action="store_true", default=False)
     op.add_option("-d", "--debug", dest="debug", action="store_true", default=False)
-    op.add_option("--kickstart", dest="disabled_ksfile")
-    op.add_option("--unused-kickstart", dest="ksfile")
+    op.add_option("--kickstart", dest="ksfile")
     op.add_option("--rescue", dest="rescue", action="store_true", default=False)
     op.add_option("--targetarch", dest="targetArch", nargs=1, type="string")
 
@@ -362,8 +361,9 @@ def runVNC():
             if iutil.isConsoleOnVirtualTerminal() or iutil.isS390():
                     time.sleep(10000)
             else:
-                pass
-        exit(0);
+                    print _("Press <enter> for a shell")
+                    sys.stdin.readline()
+                    iutil.execConsole()
 
 def within_available_memory(needed_ram):
     # kernel binary code estimate that is
