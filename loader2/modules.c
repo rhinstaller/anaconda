@@ -1121,3 +1121,26 @@ void loadKickstartModule(struct loaderData_s * loaderData, int argc,
                  loaderData->modInfo, args);
 }
 
+void mlWriteBlacklist() {
+    int fd;
+    int i;
+    int ret;
+    char *buf;
+
+    /* Write out the blacklist, used by modprobe on bootup */
+    fd = open("/tmp/anaconda.conf", O_WRONLY | O_CREAT, 0644);
+    if (fd == -1) {
+        logMessage(ERROR, "error writing /tmp/anaconda.conf: %s\n",
+                    strerror(errno));
+        return;
+    }
+    for (i=0; i < cmdline_argc; i++) {
+        if (!strncasecmp(cmdline_argv[i], "blacklist=", 10)) {
+            asprintf( &buf, "blacklist %s\n", cmdline_argv[i] + 10 );
+            ret = write(fd, buf, strlen(buf));
+            free(buf);
+        }
+    }
+    close(fd);
+}
+
