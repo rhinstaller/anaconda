@@ -216,30 +216,15 @@ int probeiSeries(moduleInfoSet modInfo, moduleList modLoaded,
  */
 int earlyModuleLoad(moduleInfoSet modInfo, moduleList modLoaded, 
                     moduleDeps modDeps, int justProbe) {
-    int fd, len, i;
-    char buf[1024], *cmdLine;
-    int argc;
-    char ** argv;
+    int i;
 
-    /* FIXME: reparsing /proc/cmdline to avoid major loader changes.  
-     * should probably be done in loader.c:parseCmdline() like everything 
-     * else
-     */
-    if ((fd = open("/proc/cmdline", O_RDONLY)) < 0) return 1;
-    len = read(fd, buf, sizeof(buf) - 1);
-    close(fd);
-    if (len <= 0) return 1;
-        
-    buf[len] = '\0';
-    cmdLine = buf;
-    
-    if (poptParseArgvString(cmdLine, &argc, (const char ***) &argv))
+    if (cmdline_argc < 1)
         return 1;
-    
-    for (i=0; i < argc; i++) {
-        if (!strncasecmp(argv[i], "driverload=", 11)) {
-            logMessage(INFO, "loading %s early", argv[i] + 11);
-            mlLoadModuleSet(argv[i] + 11, modLoaded, modDeps, modInfo);
+
+    for (i=0; i < cmdline_argc; i++) {
+        if (!strncasecmp(cmdline_argv[i], "driverload=", 11)) {
+            logMessage(INFO, "loading %s early", cmdline_argv[i] + 11);
+            mlLoadModuleSet(cmdline_argv[i] + 11, modLoaded, modDeps, modInfo);
         }
     }
     return 0;
