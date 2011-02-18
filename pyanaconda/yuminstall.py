@@ -236,10 +236,10 @@ class AnacondaCallback:
             (hdr, rpmloc) = h
 
             # If this is a cleanup/remove, then hdr is a string not a header.
-            if isinstance(hdr, rpm.hdr):
-                name = hdr['name']
-            else:
+            if isinstance(hdr, basestring):
                 name = hdr
+            else:
+                name = hdr['name']
 
             # Script errors store whether or not they're fatal in "total".  So,
             # we should only error out for fatal script errors or the cpio and
