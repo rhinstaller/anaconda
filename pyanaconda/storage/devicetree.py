@@ -954,13 +954,7 @@ class DeviceTree(object):
             device = self.addUdevLVDevice(info)
         elif udev_device_is_dm(info):
             log.debug("%s is a device-mapper device" % name)
-            # try to look up the device
-            if uuid:
-                # try to find the device by uuid
-                device = self.getDeviceByUuid(uuid)
-
-            if device is None:
-                device = self.addUdevDMDevice(info)
+            device = self.addUdevDMDevice(info)
         elif udev_device_is_md(info):
             log.debug("%s is an md device" % name)
             if uuid:
