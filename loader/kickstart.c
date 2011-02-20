@@ -370,13 +370,7 @@ int isKickstartFileRemote(char *ksFile) {
         location = ksFile + 3;
     }
 
-    if (!strncmp(location, "http", 4) ||
-        !strncmp(location, "ftp://", 6) ||
-        !strncmp(location, "nfs:", 4)) {
-        return 1;
-    } else {
-        return 0;
-    }
+    return isURLRemote(location);
 }
 
 void getKickstartFile(struct loaderData_s *loaderData) {
@@ -543,16 +537,16 @@ static void setMediaCheck(struct loaderData_s * loaderData, int argc,
     return;
 }
 
-void addActivateToFirstKsNetworkCommand() {
+void markFirstKsNetworkCommand() {
     int i = 0;
 
     for (i = 0; i < numCommands; i++) {
         if (commands[i].code == KS_CMD_NETWORK) {
-            logMessage(INFO, "adding --activate to first kickstart network command");
+            logMessage(DEBUGLVL, "marking first kickstart network command");
             commands[i].argc++;
             commands[i].argv = g_realloc(commands[i].argv,
                     sizeof(gchar *) * (commands[i].argc + 1));
-            commands[i].argv[commands[i].argc -1] = "--activate";
+            commands[i].argv[commands[i].argc -1] = "--firstnetdev";
             commands[i].argv[commands[i].argc] = NULL;
             break;
         }

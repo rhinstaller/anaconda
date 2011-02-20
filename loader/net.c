@@ -1524,7 +1524,7 @@ void setKickstartNetwork(struct loaderData_s * loaderData, int argc,
     gchar *bootProto = NULL, *device = NULL, *class = NULL, *ethtool = NULL;
     gchar *essid = NULL, *wepkey = NULL, *onboot = NULL, *gateway = NULL;
     gint mtu = 1500, dhcpTimeout = -1;
-    gboolean noipv4 = FALSE, noipv6 = FALSE, noDns = FALSE, noksdev = FALSE, activate = FALSE, nodefroute=FALSE;
+    gboolean noipv4 = FALSE, noipv6 = FALSE, noDns = FALSE, noksdev = FALSE, activate = FALSE, nodefroute=FALSE, firstnetdev=FALSE;
     GOptionContext *optCon = g_option_context_new(NULL);
     GError *optErr = NULL;
     struct in_addr addr;
@@ -1558,6 +1558,7 @@ void setKickstartNetwork(struct loaderData_s * loaderData, int argc,
         { "onboot", 0, 0, G_OPTION_ARG_STRING, &onboot, NULL, NULL },
         { "notksdevice", 0, 0, G_OPTION_ARG_NONE, &noksdev, NULL, NULL },
         { "activate", 0, 0, G_OPTION_ARG_NONE, &activate, NULL, NULL },
+        { "firstnetdev", 0, 0, G_OPTION_ARG_NONE, &firstnetdev, NULL, NULL },
         { "nodefroute", 0, 0, G_OPTION_ARG_NONE, &nodefroute, NULL, NULL },
         { "dhcptimeout", 0, 0, G_OPTION_ARG_INT, &dhcpTimeout, NULL, NULL },
         { NULL },
@@ -1712,8 +1713,13 @@ void setKickstartNetwork(struct loaderData_s * loaderData, int argc,
         iface.defroute = 0;
     }
 
-    if (!is_nm_connected()) {
-        logMessage(INFO, "activating because no network connection is available");
+    if (firstnetdev &&
+        (loaderData->method == METHOD_URL ||
+         loaderData->method == METHOD_NFS ||
+         isURLRemote(loaderData->instRepo) ||
+         FL_EARLY_NETWORKING(flags) ||
+         ibft_present())) {
+        logMessage(INFO, "activating first device from kickstart because network is needed");
         activateDevice(loaderData, &iface);
         return;
     }
@@ -2329,4 +2335,19 @@ int wait_for_iface_disconnection(char *ifname) {
     g_object_unref(client);
     return 3;
 }
+
+int isURLRemote(char *url) {
+    if (url == NULL) {
+        return 0;
+    }
+
+    if (!strncmp(url, "http", 4) ||
+        !strncmp(url, "ftp://", 6) ||
+        !strncmp(url, "nfs:", 4)) {
+        return 1;
+    } else {
+        return 0;
+    }
+}
+
 /* vim:set shiftwidth=4 softtabstop=4: */
