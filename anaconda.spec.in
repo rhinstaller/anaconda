@@ -221,6 +221,17 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Mon Feb 21 2011 Martin Sivak <msivak@redhat.com> - 13.21.99-1
+- Be better at handling killed metacity. (akozumpl)
+  Resolves: rhbz#677605
+- Fix calculation of md array spare count. (dlehman)
+  Resolves: rhbz#678028
+- Revert "beaker debugging" (pushed by accident, was just a debugging patch)
+  (akozumpl)
+  Related: rhbz#677689
+- Support cciss devices in get_sysfs_path_by_name(). (akozumpl)
+  Resolves: rhbz#677689
+
 * Tue Feb 15 2011 David Cantrell <dcantrell@redhat.com> - 13.21.98-1
 - Halt build if ramdisk.image.gz on ppc64 is too large. (dcantrell)
   Related: rhbz#675685
