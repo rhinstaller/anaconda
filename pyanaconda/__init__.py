@@ -317,6 +317,7 @@ class Anaconda(object):
     def writeKS(self, filename):
         import urllib
         from pykickstart.version import versionToString, DEVEL
+        from flags import flags
 
         f = open(filename, "w")
 
@@ -353,7 +354,10 @@ class Anaconda(object):
                     (server, dir) = string.split(m[4:], ":")
                     f.write("nfs --server=%s --dir=%s\n" % (server, dir))
             elif m.startswith("ftp://") or m.startswith("http"):
-                f.write("url --url=%s\n" % urllib.unquote(m))
+                ssl = ""
+                if flags.noverifyssl:
+                    ssl = " --noverifyssl"
+                f.write("url --url=%s%s\n" % (urllib.unquote(m), ssl))
 
         # Some kickstart commands do not correspond to any anaconda UI
         # component.  If this is a kickstart install, we need to make sure

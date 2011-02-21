@@ -1875,6 +1875,9 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
             if repo.exclude:
                 line += " --excludepkgs=\"%s\"" % ",".join(repo.exclude)
 
+            if not repo.sslverify:
+                line += " --noverifyssl"
+
             line += "\n"
 
             f.write(line)
