@@ -396,8 +396,10 @@ int getFileFromNfs(char * url, char * dest, struct loaderData_s * loaderData) {
     free(path);
     if (ip) free(ip);
 
-    umount("/tmp/mnt");
-    unlink("/tmp/mnt");
+    if (umount("/tmp/mnt") == -1)
+        logMessage(ERROR, "could not unmount /tmp/mnt in getFileFromNfs: %s", strerror(errno));
+    else
+        unlink("/tmp/mnt");
 
     return failed;
 }
