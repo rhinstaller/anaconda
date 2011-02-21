@@ -41,6 +41,7 @@
 #include <nm-dhcp4-config.h>
 
 #include "copy.h"
+#include "dirbrowser.h"
 #include "loader.h"
 #include "lang.h"
 #include "loadermisc.h"
@@ -170,6 +171,71 @@ static void addDefaultKickstartFile(char **file, char *ip) {
     }
 }
 
+static int ends_with_iso(char *dirname, struct dirent *ent) {
+    char *suffix;
+
+    if (ent->d_type != DT_REG)
+        return 0;
+
+    suffix = rindex(ent->d_name, '.');
+    return (!strcmp(suffix, ".iso"));
+}
+
+static unsigned int isNfsIso(struct loaderData_s *loaderData) {
+    char **files = NULL;
+    char *host, *path, *opts, *url;
+    char *buf;
+    int rc = 0;
+
+    parseNfsHostPathOpts(loaderData->instRepo, &host, &path, &opts);
+    checked_asprintf(&url, "%s:%s", host, path);
+
+    if (doPwMount(url, "/mnt/isodir", "auto", opts, NULL)) {
+        logMessage(ERROR, "couldn't mount %s to look for NFSISO", url);
+        goto cleanup1;
+    }
+
+    files = get_file_list("/mnt/isodir", ends_with_iso);
+    if (!files) {
+        logMessage(ERROR, "no ISO images present in /mnt/isodir");
+        goto cleanup2;
+    }
+
+    /* mount the first image and check for a .treeinfo file */
+    checked_asprintf(&buf, "/mnt/isodir/%s", files[0]);
+    if (doPwMount(buf, "/tmp/testmnt", "auto", "ro", NULL)) {
+        logMessage(ERROR, "ISO image %s does not contain a .treeinfo file", files[0]);
+        goto cleanup3;
+    }
+
+    if (access("/tmp/testmnt/.treeinfo", R_OK)) {
+        logMessage(ERROR, ".treeinfo file is not accessible");
+        goto cleanup4;
+    }
+
+    free(loaderData->instRepo);
+    rc = 1;
+
+    if (opts) {
+        checked_asprintf(&loaderData->instRepo, "nfsiso:%s:%s:%s", opts, host, path);
+    } else {
+        checked_asprintf(&loaderData->instRepo, "nfsiso:%s:%s", host, path);
+    }
+
+cleanup4:
+    umount("/tmp/testmnt");
+cleanup3:
+    free(buf);
+cleanup2:
+    umount("/mnt/isodir");
+cleanup1:
+    free(host);
+    free(path);
+    free(opts);
+    free(url);
+    return rc;
+}
+
 int promptForNfs(struct loaderData_s *loaderData) {
     char *url = NULL;
     char *host = NULL;
@@ -191,7 +257,7 @@ int promptForNfs(struct loaderData_s *loaderData) {
 
         checked_asprintf(&url, "%s/.treeinfo", loaderData->instRepo);
 
-        if (getFileFromNfs(url, "/tmp/.treeinfo", loaderData)) {
+        if (getFileFromNfs(url, "/tmp/.treeinfo", loaderData) && !isNfsIso(loaderData)) {
             newtWinMessage(_("Error"), _("OK"),
                            _("The URL provided does not contain installation media."));
             free(url);
