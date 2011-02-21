@@ -252,7 +252,10 @@ class InstallData:
                     (method, server, dir) = m.split(":")
                     f.write("nfs --server=%s --dir=%s\n" % (server, dir))
             elif m.startswith("ftp://") or m.startswith("http"):
-                f.write("url --url=%s\n" % urllib.unquote(m))
+                ssl = ""
+                if flags.noverifyssl:
+                    ssl = " --noverifyssl"
+                f.write("url --url=%s%s\n" % (urllib.unquote(m), ssl))
 
         self.instLanguage.writeKS(f)
         if not self.isHeadless:

@@ -1371,7 +1371,7 @@ debuglevel=10
                     if repo.needsNetwork() and not network.hasActiveNetDev():
                         if anaconda.intf.enableNetwork():
                             repo.mirrorlistparsed = False
-                            continue 
+                            continue
 
                         urlgrabber.grabber.reset_curl_obj()
 
@@ -2023,6 +2023,9 @@ debuglevel=10
 
             if repo.exclude:
                 line += " --excludepkgs=\"%s\"" % ",".join(repo.exclude)
+
+            if not repo.sslverify:
+                line += " --noverifyssl"
 
             line += "\n"
 
