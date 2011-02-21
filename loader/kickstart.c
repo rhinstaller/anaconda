@@ -153,8 +153,8 @@ static PyObject *makeParser(PyObject *parserClass, PyObject *handler) {
     PyDict_SetItemString(kwargs, "followIncludes", Py_True);
     Py_INCREF(Py_True);
     PyDict_SetItemString(kwargs, "errorsAreFatal", Py_True);
-    Py_INCREF(Py_False);
-    PyDict_SetItemString(kwargs, "missingIncludeIsFatal", Py_False);
+    Py_INCREF(Py_True);
+    PyDict_SetItemString(kwargs, "missingIncludeIsFatal", Py_True);
 
     parser = PyObject_Call(parserClass, args, kwargs);
 
