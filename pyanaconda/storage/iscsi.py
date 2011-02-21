@@ -193,12 +193,17 @@ class iscsi(object):
         log.info("iSCSI startup")
         iutil.execWithRedirect('modprobe', ['-a'] + ISCSI_MODULES,
                                stdout="/dev/tty5", stderr="/dev/tty5")
-        # this is needed by Broadcom offload cards (bnx2i)
-        brcm_iscsiuio = iutil.find_program_in_path('brcm_iscsiuio',
+        # brcm_iscsiuio is needed by Broadcom offload cards (bnx2i). Currently
+        # not present in iscsi-initiator-utils for Fedora.
+        try:
+            brcm_iscsiuio = iutil.find_program_in_path('brcm_iscsiuio',
                                                    raise_on_error=True)
-        log.debug("iscsi: brcm_iscsiuio is at %s" % brcm_iscsiuio)
-        iutil.execWithRedirect(brcm_iscsiuio, [],
-                               stdout="/dev/tty5", stderr="/dev/tty5")
+        except RuntimeError:
+            log.info("iscsi: brcm_iscsiuio not found.")
+        else:
+            log.debug("iscsi: brcm_iscsiuio is at %s" % brcm_iscsiuio)
+            iutil.execWithRedirect(brcm_iscsiuio, [],
+                                   stdout="/dev/tty5", stderr="/dev/tty5")
         # run the daemon
         iutil.execWithRedirect(ISCSID, [],
                                stdout="/dev/tty5", stderr="/dev/tty5")
