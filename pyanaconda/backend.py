@@ -145,6 +145,7 @@ class AnacondaBackend:
 
     def groupExists(self, group):
         log.warning("groupExists not implemented for backend!")
+        return True
 
     def selectGroup(self, group, *args):
         log.warning("selectGroup not implemented for backend!")
@@ -154,6 +155,7 @@ class AnacondaBackend:
 
     def packageExists(self, pkg):
         log.warning("packageExists not implemented for backend!")
+        return True
     
     def selectPackage(self, pkg, *args):
         log.warning("selectPackage not implemented for backend!")
@@ -163,6 +165,7 @@ class AnacondaBackend:
 
     def getDefaultGroups(self, anaconda):
         log.warning("getDefaultGroups not implemented for backend!")
+        return []
 
     def resetPackageSelections(self):
         # we just leave this one unimplemented if it's not needed
