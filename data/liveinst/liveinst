@@ -129,6 +129,9 @@ if [ ! -z "$UPDATES" ]; then
     export PATH=/tmp/updates:$PATH
 fi
 
+# Prevents breakage if the hostname is changed during the install
+xhost +si:localuser:root
+
 if [ -x /usr/bin/udisks ]; then
     /usr/bin/udisks --inhibit -- $ANACONDA $*
 else
