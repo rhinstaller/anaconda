@@ -642,7 +642,7 @@ class AnacondaYum(yum.YumBase):
             # raises an error if it isn't correct
             dest.proxy = proxy
 
-    def _getAddons(self, baseurl, proxy_url=None):
+    def _getAddons(self, baseurl, proxy_url, sslverify):
         """
         Check the baseurl or mirrorlist for a repository, see if it has any
         valid addon repos and if so, return a list of (repo name, repo URL).
@@ -651,7 +651,7 @@ class AnacondaYum(yum.YumBase):
         c = ConfigParser.ConfigParser()
 
         # If there's no .treeinfo for this repo, don't bother looking for addons.
-        treeinfo = self._getTreeinfo(baseurl, proxy_url)
+        treeinfo = self._getTreeinfo(baseurl, proxy_url, sslverify)
         if not treeinfo:
             return retval
 
@@ -679,7 +679,7 @@ class AnacondaYum(yum.YumBase):
 
         return retval
 
-    def _getTreeinfo(self, baseurl, proxy_url=None):
+    def _getTreeinfo(self, baseurl, proxy_url, sslverify):
         """
         Try to get .treeinfo file from baseurl, optionally using proxy_url
         Saves the file into /tmp/.treeinfo
@@ -692,6 +692,11 @@ class AnacondaYum(yum.YumBase):
                     log.error("Error downloading %s/.treeinfo: network enablement failed" % (baseurl))
                     return None
         ug = URLGrabber()
+        ugopts = {
+            "ssl_verify_peer" : sslverify,
+            "ssl_verify_host" : sslverify
+        }
+
         if proxy_url:
             proxies = { 'http'  : proxy_url,
                         'https' : proxy_url }
@@ -700,7 +705,7 @@ class AnacondaYum(yum.YumBase):
 
         try:
             ug.urlgrab("%s/.treeinfo" % baseurl, "/tmp/.treeinfo",
-                       copy_local=1, proxies=proxies)
+                       copy_local=1, proxies=proxies, **ugopts)
         except Exception as e:
             try:
                 ug.urlgrab("%s/treeinfo" % baseurl, "/tmp/.treeinfo",
@@ -719,7 +724,9 @@ class AnacondaYum(yum.YumBase):
         """
         c = ConfigParser.ConfigParser()
 
-        treeinfo = self._getTreeinfo(self._baseRepoURL, self.proxy_url)
+        treeinfo = self._getTreeinfo(self._baseRepoURL,
+                                     self.proxy_url,
+                                     not flags.noverifyssl)
         if not treeinfo:
             return productVersion
 
@@ -863,7 +870,9 @@ class AnacondaYum(yum.YumBase):
 
         initialRepos = self.repos.repos.values() + extraRepos
         for repo in filter(lambda r: r.isEnabled(), initialRepos):
-            addons = self._getAddons(repo.mirrorlist or repo.baseurl[0], repo.proxy_url)
+            addons = self._getAddons(repo.mirrorlist or repo.baseurl[0],
+                                     repo.proxy_url,
+                                     repo.sslverify)
             for addon in addons:
                 addonRepo = AnacondaYumRepo(addon[0])
                 addonRepo.name = addon[1]
