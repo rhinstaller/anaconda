@@ -165,7 +165,7 @@ PACKAGES="GConf2 NetworkManager NetworkManager-gnome ORBit2 acl anaconda
     device-mapper-multipath device-mapper-multipath-libs
     dhclient dmraid dmraid-libs
     dogtail dosfstools e2fsprogs e2fsprogs-libs echo-icon-theme eject ethtool
-    elfutils-libelf expat fcoe-utils fipscheck
+    elfutils-libelf expat fcoe-utils fipscheck fipscheck-lib
     firstboot fontconfig freetype gail gawk gdb-gdbserver
     gdk-pixbuf gfs2-utils glib2 glibc-common gnome-python2-canvas gnome-python2-gconf
     gnome-themes gpm grep gtk2 gtk2-engines hal
@@ -534,7 +534,8 @@ usr/$LIBDIR/libsmime3.so
 usr/$LIBDIR/libssl3.so
 usr/$LIBDIR/xserver/SecurityPolicy
 usr/$LIBDIR/.*.hmac
-$LIBDIR/.libgcrypt*.hmac
+$LIBDIR/libfipscheck.so*
+$LIBDIR/.*.hmac
 usr/bin/[
 usr/bin/Xorg
 usr/bin/Xvnc
@@ -548,6 +549,7 @@ usr/bin/eject
 usr/bin/expr
 usr/bin/fipscheck
 usr/bin/.fipscheck.hmac
+usr/bin/fipshmac
 usr/bin/gdbserver
 usr/bin/gdialog
 usr/bin/gdk-pixbuf-query-loaders*
