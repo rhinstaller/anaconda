@@ -682,7 +682,7 @@ class AnacondaYum(YumSorter):
         c = ConfigParser()
 
         # If there's no .treeinfo for this repo, don't bother looking for addons.
-        treeinfo = self._getTreeinfo(baseurl, repo.proxy_url)
+        treeinfo = self._getTreeinfo(baseurl, repo.proxy_url, repo.sslverify)
         if not treeinfo:
             return retval
 
@@ -707,7 +707,7 @@ class AnacondaYum(YumSorter):
 
         return retval
 
-    def _getTreeinfo(self, baseurl, proxy_url=None):
+    def _getTreeinfo(self, baseurl, proxy_url, sslverify):
         """
         Try to get .treeinfo file from baseurl, optionally using proxy_url
         Saves the file into /tmp/.treeinfo
@@ -722,6 +722,11 @@ class AnacondaYum(YumSorter):
                 urlgrabber.grabber.reset_curl_obj()
 
         ug = URLGrabber()
+        ugopts = {
+            "ssl_verify_peer" : sslverify,
+            "ssl_verify_host" : sslverify
+        }
+
         if proxy_url and proxy_url.startswith("http"):
             proxies = { 'http'  : proxy_url,
                         'https' : proxy_url }
@@ -732,7 +737,7 @@ class AnacondaYum(YumSorter):
 
         try:
             ug.urlgrab("%s/.treeinfo" % baseurl, "/tmp/.treeinfo",
-                       copy_local=1, proxies=proxies)
+                       copy_local=1, proxies=proxies, **ugopts)
         except Exception as e:
             try:
                 ug.urlgrab("%s/treeinfo" % baseurl, "/tmp/.treeinfo",
@@ -751,7 +756,9 @@ class AnacondaYum(YumSorter):
         """
         c = ConfigParser()
 
-        treeinfo = self._getTreeinfo(self._baseRepoURL, self.proxy_url)
+        treeinfo = self._getTreeinfo(self._baseRepoURL,
+                                     self.proxy_url,
+                                     not flags.noverifyssl)
         if not treeinfo:
             return productVersion
 
