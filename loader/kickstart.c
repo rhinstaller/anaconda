@@ -544,6 +544,7 @@ static void setSELinux(struct loaderData_s * loaderData, PyObject *handler) {
 }
 
 static void setShutdown(struct loaderData_s * loaderData, PyObject *handler) {
+    PyObject *rebootObj = getObject(constantsMod, "KS_REBOOT", 0);
     PyObject *shutdownObj = getObject(constantsMod, "KS_SHUTDOWN", 0);
     PyObject *settingObj = getattr(handler, "reboot", "action");
 
@@ -555,11 +556,12 @@ static void setShutdown(struct loaderData_s * loaderData, PyObject *handler) {
     else {
         if (settingObj == shutdownObj)
             flags |= LOADER_FLAGS_POWEROFF;
-        else
+        else if (settingObj != rebootObj)
             flags |= LOADER_FLAGS_HALT;
     }
 
 cleanup:
+    Py_XDECREF(rebootObj);
     Py_XDECREF(shutdownObj);
     Py_XDECREF(settingObj);
 }
