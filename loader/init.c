@@ -76,8 +76,6 @@ static int getSyslog(gchar **, gchar **);
 static int onQEMU(void);
 struct termios ts;
 
-static GHashTable *cmdline = NULL;
-
 static void printstr(char * string) {
     write(1, string, strlen(string));
 }
@@ -390,14 +388,6 @@ int main(int argc, char **argv) {
 
     printf("anaconda installer init version %s starting\n", VERSION);
 
-    cmdline = readvars_parse_file("/proc/cmdline");
-
-    /* check for development mode early */
-    if (g_hash_table_lookup_extended(cmdline, "devel", NULL, &value)) {
-        printf("Enabling development mode - cores will be dumped\n");
-        isDevelMode = TRUE;
-    }
-
     /* these args are only for testing from commandline */
     for (i = 1; i < argc; i++) {
         if (!strcmp (argv[i], "serial")) {
@@ -550,10 +540,6 @@ int main(int argc, char **argv) {
         if (isSerial == 3) {
             *argvp++ = "--virtpconsole";
             *argvp++ = console;
-        }
-
-        if (isDevelMode) {
-            *argvp++ = "--devel";
         }
 
         *argvp++ = NULL;

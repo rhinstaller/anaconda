@@ -138,6 +138,8 @@ static int numMethods = sizeof(installMethods) / sizeof(struct installMethod);
 
 static int expected_exit = 0;
 
+static GHashTable *cmdline = NULL;
+
 void doExit(int result)
 {
     expected_exit = 1;
@@ -821,34 +823,22 @@ static long argToLong(char *arg) {
     return retval;
 }
 
-/* parses /proc/cmdline for any arguments which are important to us.  
- * NOTE: in test mode, can specify a cmdline with --cmdline
- */
-static void parseCmdLineFlags(struct loaderData_s * loaderData,
-                              char * cmdLine) {
+/* parses /proc/cmdline for any arguments which are important to us.  */
+static void parseCmdLineFlags(struct loaderData_s * loaderData) {
     int numExtraArgs = 0;
-    GHashTable *args = NULL;
     GHashTableIter iter;
     gpointer key = NULL, value = NULL;
 
     /* we want to default to graphical and allow override with 'text' */
     flags |= LOADER_FLAGS_GRAPHICAL;
 
-    /* if we have any explicit cmdline (probably test mode), we don't want
-     * to parse /proc/cmdline */
-    if (!cmdLine) {
-        args = readvars_parse_file("/proc/cmdline");
-    } else {
-        args = readvars_parse_string(cmdLine);
-    }
-
-    if (args == NULL) {
+    if (cmdline == NULL) {
         logMessage(INFO, "kernel command line was empty");
         return;
     }
 
     logMessage(INFO, "kernel command line:");
-    g_hash_table_iter_init(&iter, args);
+    g_hash_table_iter_init(&iter, cmdline);
 
     while (g_hash_table_iter_next(&iter, &key, &value)) {
         gchar *k = (gchar *) key;
@@ -1128,7 +1118,6 @@ static void parseCmdLineFlags(struct loaderData_s * loaderData,
         }
     }
 
-    g_hash_table_destroy(args);
     readNetInfo(&loaderData);
 
     /* NULL terminates the array of extra args */
@@ -1775,12 +1764,8 @@ int main(int argc, char ** argv) {
     int i, rc, pid, status;
     int isDevelMode = 0;
 
-    struct stat sb;
-    struct serial_struct si;
     char * arg;
     FILE *f;
-
-    char twelve = 12;
 
     moduleInfoSet modInfo;
     iface_t iface;
@@ -1795,28 +1780,12 @@ int main(int argc, char ** argv) {
     GSList *dd, *dditer;
     GTree *moduleState;
 
-    gchar *cmdLine = NULL, *ksFile = NULL, *virtpcon = NULL;
-    gboolean mediacheck = FALSE;
-    gchar **remaining = NULL;
-    GOptionContext *optCon = g_option_context_new(NULL);
-    GError *optErr = NULL;
-    GOptionEntry optionTable[] = {
-        { "cmdline", 0, 0, G_OPTION_ARG_STRING, &cmdLine, NULL, NULL },
-        { "ksfile", 0, 0, G_OPTION_ARG_STRING, &ksFile, NULL, NULL },
-        { "devel", 0, 0, G_OPTION_ARG_NONE, &isDevelMode, NULL, NULL },
-        { "mediacheck", 0, 0, G_OPTION_ARG_NONE, &mediacheck, NULL, NULL },
-        { "virtpconsole", 0, 0, G_OPTION_ARG_STRING, &virtpcon, NULL, NULL },
-        { G_OPTION_REMAINING, 0, 0, G_OPTION_ARG_STRING_ARRAY, &remaining,
-          NULL, NULL },
-        { NULL },
-    };
+    cmdline = readvars_parse_file("/proc/cmdline");
 
-    /* get possible devel mode flag very early */
-    for (i = 1; i < argc; i++) {
-        if (!strcmp(argv[i], "--devel")) {
-            isDevelMode++;
-            break;
-        }
+    /* check for development mode early */
+    if (g_hash_table_lookup_extended(cmdline, "devel", NULL, NULL)) {
+        printf("Enabling development mode - cores will be dumped\n");
+        isDevelMode = 1;
     }
 
     /* get init PID if we have it */
@@ -1839,31 +1808,10 @@ int main(int argc, char ** argv) {
     signal(SIGUSR2, loaderUsrXHandler);
 
     /* Make sure sort order is right. */
-    setenv ("LC_COLLATE", "C", 1);	
+    setenv ("LC_COLLATE", "C", 1);
 
     /* Very first thing, set up tracebacks and debug features. */
     rc = anaconda_trace_init(isDevelMode);
-
-    /* now we parse command line options */
-    g_option_context_set_help_enabled(optCon, FALSE);
-    g_option_context_add_main_entries(optCon, optionTable, NULL);
-
-    if (!g_option_context_parse(optCon, &argc, &argv, &optErr)) {
-        fprintf(stderr, "bad option: %s\n", optErr->message);
-        g_error_free(optErr);
-        g_option_context_free(optCon);
-        doExit(1);
-    }
-
-    g_option_context_free(optCon);
-
-    if (remaining) {
-        fprintf(stderr, "unexpected argument: %s\n", remaining[0]);
-        g_strfreev(remaining);
-        doExit(1);
-    }
-
-    g_strfreev(remaining);
 
     if (!access("/var/run/loader.run", R_OK)) {
         printf(_("loader has already been run.  Starting shell.\n"));
@@ -1874,20 +1822,6 @@ int main(int argc, char ** argv) {
     f = fopen("/var/run/loader.run", "w+");
     fprintf(f, "%d\n", getpid());
     fclose(f);
-
-    /* The fstat checks disallows serial console if we're running through
-       a pty. This is handy for Japanese. */
-    fstat(0, &sb);
-    if (major(sb.st_rdev) != 3 && major(sb.st_rdev) != 136 && 
-        (virtpcon == NULL)){
-        if ((ioctl (0, TIOCLINUX, &twelve) < 0) && 
-            (ioctl(0, TIOCGSERIAL, &si) != -1))
-            flags |= LOADER_FLAGS_SERIAL;
-    }
-
-    if (mediacheck) flags |= LOADER_FLAGS_MEDIACHECK;
-    if (ksFile) flags |= LOADER_FLAGS_KICKSTART;
-    if (virtpcon) flags |= LOADER_FLAGS_VIRTPCONSOLE;
 
     /* uncomment to send mac address in ks=http:/ header by default*/
     flags |= LOADER_FLAGS_KICKSTART_SEND_MAC;
@@ -1912,7 +1846,7 @@ int main(int argc, char ** argv) {
     loaderData.dhcpTimeout = -1;
 
     extraArgs[0] = NULL;
-    parseCmdLineFlags(&loaderData, cmdLine);
+    parseCmdLineFlags(&loaderData);
 
     logMessage(INFO, "anaconda version %s on %s starting", VERSION, getProductArch());
 
@@ -2098,13 +2032,12 @@ int main(int argc, char ** argv) {
     /* JKFIXME: loaderData->ksFile is set to the arg from the command line,
      * and then getKickstartFile() changes it and sets FL_KICKSTART.  
      * kind of weird. */
-    if (loaderData.ksFile || ksFile) {
+    if (loaderData.ksFile) {
         logMessage(INFO, "getting kickstart file");
 
-        if (!ksFile)
-            getKickstartFile(&loaderData);
+        getKickstartFile(&loaderData);
         if (FL_KICKSTART(flags))
-            outputKSFile = runKickstart(&loaderData, (ksFile)?ksFile:loaderData.ksFile);
+            outputKSFile = runKickstart(&loaderData, loaderData.ksFile);
     }
 
     if (FL_EARLY_NETWORKING(flags)) {
@@ -2239,10 +2172,12 @@ int main(int argc, char ** argv) {
         else if (FL_SELINUX(flags))
             *argptr++ = "--selinux";
 
+        /*
         if (FL_VIRTPCONSOLE(flags)) {
             *argptr++ = "--virtpconsole";
             *argptr++ = virtpcon;
         }
+        */
 
         if (loaderData.updatessrc && FL_UPDATES(flags)) {
             *argptr++ = "--updates";
@@ -2364,8 +2299,6 @@ int main(int argc, char ** argv) {
     kill(init_pid, init_sig);
 #endif
     doExit(rc);
-
-    doExit(1);
 }
 
 /* vim:set sw=4 sts=4 et: */
