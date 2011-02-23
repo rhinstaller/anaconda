@@ -1015,6 +1015,7 @@ class AnacondaYum(yum.YumBase):
 
         self.ts.check()
         self.ts.order()
+        self.ts.clean()
 
         if self._run(instLog, cb, intf) == DISPATCH_BACK:
             return DISPATCH_BACK
