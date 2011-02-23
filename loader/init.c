@@ -58,8 +58,6 @@
 #include <asm/types.h>
 #include <linux/serial.h>
 
-static char *VIRTIO_PORT = "/dev/virtio-ports/org.fedoraproject.anaconda.log.0";
-
 /* 
  * this needs to handle the following cases:
  *
@@ -72,8 +70,6 @@ static char *VIRTIO_PORT = "/dev/virtio-ports/org.fedoraproject.anaconda.log.0";
 
 void shutDown(int doKill, reboot_action rebootAction);
 static int getKillPolicy(void);
-static int getSyslog(gchar **, gchar **);
-static int onQEMU(void);
 struct termios ts;
 
 static void printstr(char * string) {
@@ -87,51 +83,6 @@ static void fatal_error(int usePerror) {
 #if !defined(__s390__) && !defined(__s390x__)
     while (1) ;
 #endif
-}
-
-/* sets up and launches syslog */
-static void startSyslog(void) {
-    int conf_fd;
-    gchar *addr = NULL, *virtiolog = NULL;
-    const char *forward_tcp = "*.* @@";
-    const char *forward_format_tcp = "\n";
-    const char *forward_virtio = "*.* ";
-    const char *forward_format_virtio = ";virtio_ForwardFormat\n";
-
-    /* update the config file with command line arguments first */
-    
-    if (getSyslog(&addr, &virtiolog)) {
-        conf_fd = open("/etc/rsyslog.conf", O_WRONLY|O_APPEND);
-        if (conf_fd < 0) {
-            printf("error opening /etc/rsyslog.conf: %d\n", errno);
-            printf("syslog forwarding will not be enabled\n");
-            sleep(5);
-        } else {
-            if (addr != NULL) {
-                write(conf_fd, forward_tcp, strlen(forward_tcp));
-                write(conf_fd, addr, strlen(addr));
-                write(conf_fd, forward_format_tcp, strlen(forward_format_tcp));
-            }
-            if (virtiolog != NULL) {
-                write(conf_fd, forward_virtio, strlen(forward_virtio));
-                write(conf_fd, virtiolog, strlen(virtiolog));
-                write(conf_fd, forward_format_virtio, strlen(forward_format_virtio));
-            }
-            close(conf_fd);
-        }
-    }
-
-    /* rsyslog is going to take care of things, so disable console logging */
-    klogctl(8, NULL, 1);
-    /* now we really start the daemon. */
-    int status;
-    status = system("/sbin/rsyslogd -c 4");
-    if (status < 0 || 
-        !WIFEXITED(status) || 
-        WEXITSTATUS(status)  != 0) {
-        printf("Unable to start syslog daemon.\n");
-        fatal_error(1);
-    }
 }
 
 static int setupTerminal(int fd) {
@@ -221,76 +172,6 @@ static int getKillPolicy(void) {
     }
 
     return 1;
-}
-
-/*
- * Detects the non-static part of rsyslog configuration.
- *
- * Remote TCP logging is enabled if syslog= is found on the kernel command
- * line.  Remote virtio-serial logging is enabled if the declared virtio port
- * exists.
- */
-static int getSyslog(gchar **addr, gchar **virtiolog) {
-    gpointer value = NULL;
-    int ret = 0;
-
-    if (g_hash_table_lookup_extended(cmdline, "syslog", NULL, &value)) {
-        *addr = (gchar *) value;
-        /* address can be either a hostname or IPv4 or IPv6, with or without port;
-           thus we only allow the following characters in the address: letters and
-           digits, dots, colons, slashes, dashes and square brackets */
-        if (g_regex_match_simple("^[\\w.:/\\-\\[\\]]*$", *addr, 0, 0)) {
-            ++ret;
-        } else {
-            /* malformed, disable use */
-            *addr = NULL;
-            printf("The syslog= command line parameter is malformed and will be\n");
-            printf("ignored by the installer.\n");
-            sleep(5);
-        }
-    }
-
-    if (onQEMU()) {
-        /* look for virtio-serial logging on a QEMU machine. */
-        printf("Looking for the virtio ports... ");
-        if (system("/sbin/udevadm trigger --action=add --sysname-match='vport*'") ||
-            system("/sbin/udevadm settle")) {
-            fprintf(stderr, "Error calling udevadm trigger to get virtio ports.\n");
-            sleep(5);
-        } else {
-            printf("done.\n");
-        }
-        if (!access(VIRTIO_PORT, W_OK)) {
-            /* that means we really have virtio-serial logging */
-            *virtiolog = VIRTIO_PORT;
-            ++ret;
-        }
-    }
-
-    return ret;
-}
-
-/* 
- * Use anything you can find to determine if we are running on a QEMU virtual
- * machine.
- */
-static int onQEMU(void)
-{
-    const gchar *lookfor = "QEMU Virtual CPU";
-    gchar *contents = NULL;
-    GError *fileErr = NULL;
-    int ret = 0;
-
-    if (!g_file_get_contents("/proc/cpuinfo", &contents, NULL, &fileErr)) {
-        fprintf(stderr, "Unable to read /proc/cpuinfo.\n");
-        sleep(5);
-        return 0;
-    }
-    if (strstr(contents, lookfor)) {
-        ret = 1;
-    }
-    g_free(contents);
-    return ret;
 }
 
 static void copyErrorFn (char *msg) {
@@ -520,9 +401,6 @@ int main(int argc, char **argv) {
         tcsetattr(0, TCSANOW, &ts);
     }
 
-    /* Now we have some /tmp space set up, and /etc and /dev point to
-       it. We should be in pretty good shape. */
-    startSyslog();
 
     /* Go into normal init mode - keep going, and then do a orderly shutdown
        when:
