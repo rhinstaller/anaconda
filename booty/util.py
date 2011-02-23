@@ -2,7 +2,10 @@ import string
 from flags import flags
 
 def getDiskPart(dev, storage):
-    path = storage.devicetree.getDeviceByName(dev).path[5:]
+    device = storage.devicetree.getDeviceByName(dev)
+    if device is None:
+        return (dev, None)
+    path = device.path[5:]
     cut = len(dev)
     if dev[-1] in string.digits:
         if (path.startswith('rd/') or path.startswith('ida/') or
