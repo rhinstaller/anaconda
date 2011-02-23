@@ -221,6 +221,20 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Wed Feb 23 2011 David Cantrell <dcantrell@redhat.com> - 13.21.100-1
+- Fix problem with /boot on LVM on a zFCP multipath device (dcantrell)
+  Related: rhbz#670856
+- Don't show the cleardisk dialog on upgrades (clumens).
+  Resolves: rhbz#679725
+- Add the fipscheck library (mgracik)
+  Resolves: rhbz#679072
+- Fix downloading .treeinfo files for --noverifyssl repos. (akozumpl)
+  Resolves: rhbz#678574
+- Only apply global passphrase to devices with no passphrase. (dlehman)
+  Resolves: rhbz#679224
+- Write --noverifyssl to repos and urls in kickstart where fit. (akozumpl)
+  Resolves: rhbz#678576
+
 * Mon Feb 21 2011 Martin Sivak <msivak@redhat.com> - 13.21.99-1
 - Be better at handling killed metacity. (akozumpl)
   Resolves: rhbz#677605
