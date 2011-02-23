@@ -167,7 +167,7 @@ class AnacondaCallback:
                 s = to_unicode(_("<b>Installing %(pkgStr)s</b> (%(size)s)\n")) \
                     % {'pkgStr': pkgStr, 'size': size_string(po.installedsize)}
 
-            summary = to_unicode(gettext.ldgettext("redhat-dist", po.summary] or ""))
+            summary = to_unicode(gettext.ldgettext("redhat-dist", po.summary) or "")
             s += summary.strip()
             self.progress.set_label(s)
 
