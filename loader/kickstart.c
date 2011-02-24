@@ -67,7 +67,6 @@ extern uint64_t flags;
 
 static void setDisplayMode(struct loaderData_s * loaderData, PyObject *handler);
 static void setSELinux(struct loaderData_s * loaderData, PyObject *handler);
-static void setShutdown(struct loaderData_s * loaderData, PyObject *handler);
 static void setMediaCheck(struct loaderData_s * loaderData, PyObject *handler);
 static void setUpdates(struct loaderData_s * loaderData, PyObject *handler);
 static void setVnc(struct loaderData_s * loaderData, PyObject *handler);
@@ -96,7 +95,6 @@ commandFunc_t ksTable[] = {
     &setKickstartNetwork,
     &setMediaCheck,
     &setSELinux,
-    &setShutdown,
     &setUpdates,
     &useKickstartDD,
     NULL
@@ -535,29 +533,6 @@ static void setSELinux(struct loaderData_s * loaderData, PyObject *handler) {
         flags |= LOADER_FLAGS_SELINUX;
 
     Py_XDECREF(disabledObj);
-    Py_XDECREF(settingObj);
-}
-
-static void setShutdown(struct loaderData_s * loaderData, PyObject *handler) {
-    PyObject *rebootObj = getObject(constantsMod, "KS_REBOOT", 0);
-    PyObject *shutdownObj = getObject(constantsMod, "KS_SHUTDOWN", 0);
-    PyObject *settingObj = getattr(handler, "reboot", "action");
-
-    if (!settingObj)
-        goto cleanup;
-
-    if (FL_NOKILL(flags))
-        flags |= LOADER_FLAGS_HALT;
-    else {
-        if (settingObj == shutdownObj)
-            flags |= LOADER_FLAGS_POWEROFF;
-        else if (settingObj != rebootObj)
-            flags |= LOADER_FLAGS_HALT;
-    }
-
-cleanup:
-    Py_XDECREF(rebootObj);
-    Py_XDECREF(shutdownObj);
     Py_XDECREF(settingObj);
 }
 

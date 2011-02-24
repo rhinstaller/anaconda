@@ -1878,7 +1878,7 @@ static void loadScsiDhModules(void)
 }
 
 int main(int argc, char ** argv) {
-    int i, rc, pid, status;
+    int i, rc;
     int isDevelMode = 0;
 
     char * arg;
@@ -2366,9 +2366,9 @@ int main(int argc, char ** argv) {
             }
         }
     }
-    
+
     *argptr = NULL;
-    
+
     stopNewt();
     closeLog();
 
@@ -2379,45 +2379,13 @@ int main(int argc, char ** argv) {
     }
     printf(fmt, VERSION, getProductName());
 
-    do {
-        if (!(pid = fork())) {
-            /* Create a new process group that we can easily kill off later. */
-            setpgid(0, 0);
-            /* This is where the Anaconda python process is started. */
-            if (execv(anacondaArgs[0], anacondaArgs) == -1) {
-                fprintf(stderr,"exec of anaconda failed: %m\n");
-                doExit(1);
-            }
-        }
-        waitpid(pid, &status, 0);
-    } while (restart_anaconda(&loaderData));
-
-    if (!WIFEXITED(status) || (WIFEXITED(status) && WEXITSTATUS(status))) {
-        rc = 1;
-    } else {
-        rc = 0;
+    /* Just replace the current process with anaconda. */
+    if (execv(anacondaArgs[0], anacondaArgs) == -1){ 
+        fprintf(stderr, "exec of anaconda failed: %m\n");
+        doExit(1);
     }
 
-    if ((rc == 0) && (FL_POWEROFF(flags) || FL_HALT(flags))) {
-        if (!(pid = fork())) {
-            char * cmd = (FL_POWEROFF(flags) ? strdup("/sbin/poweroff") :
-                          strdup("/sbin/halt"));
-            if (execl(cmd, cmd, NULL) == -1) {
-                fprintf(stderr, "exec of poweroff failed: %m\n");
-                doExit(1);
-            }
-        }
-        waitpid(pid, &status, 0);
-    }
-
-    stop_fw_loader(&loaderData);
-#if defined(__s390__) || defined(__s390x__)
-    /* at the latest possibility signal init=linuxrc.s390 to reboot/halt */
-    logMessage(INFO, "Sending signal %d to process %d\n",
-               init_sig, init_pid);
-    kill(init_pid, init_sig);
-#endif
-    doExit(rc);
+    doExit(0);
 }
 
 /* vim:set sw=4 sts=4 et: */

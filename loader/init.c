@@ -68,8 +68,6 @@
  *
  */
 
-void shutDown(int doKill, reboot_action rebootAction);
-static int getKillPolicy(void);
 struct termios ts;
 
 static void printstr(char * string) {
@@ -144,34 +142,6 @@ static void termReset(void) {
     /* Shift in, default color, move down 100 lines */
     /* ^O        ^[[0m          ^[[100E */
     printf("\017\033[0m\033[100E\n");
-}
-
-/* reboot handler */
-static void sigintHandler(int signum) {
-    termReset();
-    shutDown(getKillPolicy(), REBOOT);
-}
-
-/* halt handler */
-static void sigUsr1Handler(int signum) {
-    termReset();
-    shutDown(getKillPolicy(), HALT);
-}
-
-/* poweroff handler */
-static void sigUsr2Handler(int signum) {
-    termReset();
-    shutDown(getKillPolicy(), POWEROFF);
-}
-
-static int getKillPolicy(void) {
-    gpointer value = NULL;
-
-    if (g_hash_table_lookup_extended(cmdline, "nokill", NULL, &value)) {
-        return 0;
-    }
-
-    return 1;
 }
 
 static void copyErrorFn (char *msg) {
@@ -283,8 +253,6 @@ int main(int argc, char **argv) {
     if (ret) {
         perror("setrlimit failed - no coredumps will be available");
     }
-
-    doKill = getKillPolicy();
 
 #if !defined(__s390__) && !defined(__s390x__)
     static struct termios orig_cmode;
@@ -424,16 +392,7 @@ int main(int argc, char **argv) {
 
         printf("running %s\n", argvc[0]);
         execve(argvc[0], argvc, env);
-
-        shutDown(1, HALT);
     }
-
-    /* signal handlers for halt/poweroff */
-    signal(SIGUSR1, sigUsr1Handler);
-    signal(SIGUSR2, sigUsr2Handler);
-
-    /* set up the ctrl+alt+delete handler to kill our pid, not pid 1 */
-    signal(SIGINT, sigintHandler);
 
     while (!doShutdown) {
         pid_t childpid;
@@ -465,8 +424,6 @@ int main(int argc, char **argv) {
     } else {
         shutdown_method = REBOOT;
     }
-
-    shutDown(doKill, shutdown_method);
 
     return 0;
 }

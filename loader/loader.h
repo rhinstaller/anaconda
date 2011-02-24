@@ -33,14 +33,14 @@
 #define LOADER_FLAGS_RESCUE             (((uint64_t) 1) << 3)
 #define LOADER_FLAGS_KICKSTART          (((uint64_t) 1) << 4)
 #define LOADER_FLAGS_KICKSTART_SEND_MAC (((uint64_t) 1) << 5)
-#define LOADER_FLAGS_POWEROFF           (((uint64_t) 1) << 6)
+/* #6 unused */
 #define LOADER_FLAGS_NOPROBE              (((uint64_t) 1) << 7)
 #define LOADER_FLAGS_MODDISK            (((uint64_t) 1) << 8)
 #define LOADER_FLAGS_EARLY_NETWORKING   (((uint64_t) 1) << 9)
 #define LOADER_FLAGS_SERIAL             (((uint64_t) 1) << 10)
 #define LOADER_FLAGS_UPDATES            (((uint64_t) 1) << 11)
 #define LOADER_FLAGS_KSFILE             (((uint64_t) 1) << 12)
-#define LOADER_FLAGS_HALT               (((uint64_t) 1) << 13)
+/* #13 unused */
 #define LOADER_FLAGS_SELINUX            (((uint64_t) 1) << 14)
 #define LOADER_FLAGS_VIRTPCONSOLE       (((uint64_t) 1) << 15)
 /* #16 unused */
@@ -77,7 +77,6 @@
 #define FL_RESCUE(a)             ((a) & LOADER_FLAGS_RESCUE)
 #define FL_KICKSTART(a)          ((a) & LOADER_FLAGS_KICKSTART)
 #define FL_KICKSTART_SEND_MAC(a) ((a) & LOADER_FLAGS_KICKSTART_SEND_MAC)
-#define FL_POWEROFF(a)           ((a) & LOADER_FLAGS_POWEROFF)
 #define FL_NOPROBE(a)            ((a) & LOADER_FLAGS_NOPROBE)
 #define FL_MODDISK(a)            ((a) & LOADER_FLAGS_MODDISK)
 #define FL_EARLY_NETWORKING(a)   ((a) & LOADER_FLAGS_EARLY_NETWORKING)
@@ -90,7 +89,6 @@
 #define FL_ASKMETHOD(a)          ((a) & LOADER_FLAGS_ASKMETHOD)
 #define FL_GRAPHICAL(a)          ((a) & LOADER_FLAGS_GRAPHICAL)
 #define FL_CMDLINE(a)            ((a) & LOADER_FLAGS_CMDLINE)
-#define FL_HALT(a)               ((a) & LOADER_FLAGS_HALT)
 #define FL_SELINUX(a)            ((a) & LOADER_FLAGS_SELINUX)
 #define FL_VIRTPCONSOLE(a)       ((a) & LOADER_FLAGS_VIRTPCONSOLE)
 #define FL_ASKNETWORK(a)         ((a) & LOADER_FLAGS_ASKNETWORK)
