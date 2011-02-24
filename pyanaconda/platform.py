@@ -212,7 +212,7 @@ class EFI(Platform):
     def bootDevice(self):
         bootDev = None
 
-        for part in self.anaconda.id.storage.partitions:
+        for part in self.anaconda.storage.partitions:
             if part.format.type == "efi" and self.validBootPartSize(part.size):
                 bootDev = part
                 # if we're only picking one, it might as well be the first
