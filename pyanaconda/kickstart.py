@@ -676,19 +676,6 @@ class NetworkData(commands.network.F16_NetworkData):
         if self.nodefroute:
             dev.set (("DEFROUTE", "no"))
 
-        needs_net = (self.anaconda.methodstr and
-                     (self.anaconda.methodstr.startswith("http:") or
-                      self.anaconda.methodstr.startswith("ftp:") or
-                      self.anaconda.methodstr.startswith("nfs:")))
-        # First kickstart network command wins
-        # TODORV: document
-        if needs_net and not network.hasActiveNetDev():
-            log.info("Bringing up network device %s in stage2 kickstart ..." %
-                     device)
-            dev.set (("onboot", "yes"))
-            rc = self.anaconda.network.bringUp()
-            log.info("Network setup %s" % (rc and 'succeeded' or 'failed',))
-
 class MultiPath(commands.multipath.FC6_MultiPath):
     def parse(self, args):
         raise NotImplementedError("The multipath kickstart command is not currently supported")
