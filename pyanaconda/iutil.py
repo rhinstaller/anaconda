@@ -832,7 +832,7 @@ def reIPL(anaconda, loader_pid):
         anaconda.canReIPL = False
         devstring = None
 
-        for disk in anaconda.id.storage.disks:
+        for disk in anaconda.storage.disks:
             if disk.name == ipldev:
                 devstring = disk.description
                 break
