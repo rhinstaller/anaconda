@@ -1455,7 +1455,7 @@ static void doLoaderMain(struct loaderData_s *loaderData,
 
             case STEP_NETWORK: {
                 if (((installMethods[validMethods[loaderData->method]].type !=
-                       DEVICE_NETWORK) && (!hasGraphicalOverride()) &&
+                       DEVICE_NETWORK) &&
                       !FL_ASKNETWORK(flags) &&
                       !FL_EARLY_NETWORKING(flags) && 
                       !ibft_present()) ||
@@ -1966,6 +1966,8 @@ int main(int argc, char ** argv) {
         logMessage(INFO, "text mode forced due to serial/virtpconsole");
         flags |= LOADER_FLAGS_TEXT;
     }
+    if (hasGraphicalOverride())
+        flags |= LOADER_FLAGS_EARLY_NETWORKING;
     set_fw_search_path(&loaderData, "/firmware:/lib/firmware");
     start_fw_loader(&loaderData);
 

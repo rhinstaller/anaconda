@@ -2187,4 +2187,19 @@ int wait_for_iface_disconnection(char *ifname) {
     g_object_unref(client);
     return 3;
 }
+
+int isURLRemote(char *url) {
+    if (url == NULL) {
+        return 0;
+    }
+
+    if (!strncmp(url, "http", 4) ||
+        !strncmp(url, "ftp://", 6) ||
+        !strncmp(url, "nfs:", 4)) {
+        return 1;
+    } else {
+        return 0;
+    }
+}
+
 /* vim:set shiftwidth=4 softtabstop=4: */

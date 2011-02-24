@@ -47,6 +47,7 @@
 #include "driverdisk.h"
 #include "net.h"
 #include "method.h"
+#include "ibft.h"
 
 #include "nfsinstall.h"
 #include "urlinstall.h"
@@ -89,14 +90,14 @@ commandFunc_t ksTable[] = {
     &setKickstartHD,
     &setKickstartKeyboard,
     &setKickstartLanguage,
-    &setKickstartNetwork,
     &setKickstartNfs,
     &setKickstartUrl,
+    &setVnc,
+    &setKickstartNetwork,
     &setMediaCheck,
     &setSELinux,
     &setShutdown,
     &setUpdates,
-    &setVnc,
     &useKickstartDD,
     NULL
 };
@@ -412,13 +413,7 @@ int isKickstartFileRemote(char *ksFile) {
         location = ksFile + 3;
     }
 
-    if (!strncmp(location, "http", 4) ||
-        !strncmp(location, "ftp://", 6) ||
-        !strncmp(location, "nfs:", 4)) {
-        return 1;
-    } else {
-        return 0;
-    }
+    return isURLRemote(location);
 }
 
 void getKickstartFile(struct loaderData_s *loaderData) {
@@ -849,15 +844,20 @@ static void setKickstartNetwork(struct loaderData_s * loaderData, PyObject *hand
 
         Py_XDECREF(noksdev);
 
-        if (!is_nm_connected()) {
-            logMessage(INFO, "activating because no network connection is available");
+        /* Always activate first network command device for network
+         * installs(RHEL 5 behaviour) */
+        if (!i &&
+            (isURLRemote(loaderData->instRepo) ||
+             FL_EARLY_NETWORKING(flags) ||
+             ibft_present())) {
+            logMessage(INFO, "activating first device from kickstart because network is needed");
             activateDevice(loaderData, &iface);
             continue;
         }
 
+
         attr = getObject(ele, "activate", 0);
-        /* Always activate first network command device (RHEL 5 behaviour) */
-        if (isTrue(attr) || !i) {
+        if (isTrue(attr)) {
             logMessage(INFO, "activating because --activate flag is set");
             activateDevice(loaderData, &iface);
         } else {

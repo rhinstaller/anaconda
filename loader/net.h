@@ -80,5 +80,6 @@ int disconnectDevice(char *device);
 void splitHostname (char *str, char **host, char **port);
 int wait_for_iface_activation(char * ifname);
 int wait_for_iface_disconnection(char *ifname);
+int isURLRemote(char *url);
 
 #endif
