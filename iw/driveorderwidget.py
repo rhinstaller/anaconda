@@ -101,13 +101,16 @@ class DriveOrderWidget:
         # there has got to be a better way to do this =\
         drive = model.get_value(iter, 0)[5:]
         index = self.driveOrder.index(drive)
-        if direction == gtk.ARROW_DOWN:
+        if direction == gtk.ARROW_DOWN and index < len(self.driveOrder) - 1:
+            previous = self.driveOrderStore.get_iter(index + 1)
+            self.driveOrderStore.swap(previous, iter)
             self.driveOrder.remove(drive)
             self.driveOrder.insert(index + 1, drive)
-        elif direction == gtk.ARROW_UP:
+        elif direction == gtk.ARROW_UP and index > 0:
+            next = self.driveOrderStore.get_iter(index - 1)
+            self.driveOrderStore.swap(next, iter)
             self.driveOrder.remove(drive)
             self.driveOrder.insert(index - 1, drive)
-        self.makeDriveOrderStore()
 
     # make the store for the drive order
     def makeDriveOrderStore(self):
