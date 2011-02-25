@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.224
+Version: 11.1.2.225
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -128,6 +128,10 @@ fi
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Fri Feb 25 2011 Ales Kozumplik <akozumpl@redhat.com> 11.1.2.225-1
+- CD -> disc in the required media message (clumens).
+  Resolves: rhbz#641412
+
 * Mon Dec 20 2010 Radek Vykydal <dcantrell@redhat.com> 11.1.2.224-1
 - noeject overrides kickstart eject (bcl)
   Related: rhbz#477887
