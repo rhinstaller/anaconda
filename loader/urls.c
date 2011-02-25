@@ -264,7 +264,7 @@ int urlMainSetupPanel(struct loaderData_s *loaderData) {
     buttons = newtButtonBar(_("OK"), &okay, _("Back"), &cancel, NULL);
 
     checked_asprintf(&buf,
-                     _("Please enter the URL containing the %s installation image on your server."),
+                     _("Please enter the URL containing the %s installation tree on your server."),
                      getProductName());
 
     reflowedText = newtReflowText(buf, 47, 5, 5, &width, &height);

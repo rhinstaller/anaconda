@@ -180,7 +180,7 @@ int promptForHardDrive(struct loaderData_s *loaderData) {
 
         /* now find out which partition has the stage2 image */
         checked_asprintf(&buf, _("What partition and directory on that "
-                                 "partition holds the installation image "
+                                 "partition holds an installation tree "
                                  "for %s?  If you don't see the disk drive "
                                  "you're using listed here, press F2 to "
                                  "configure additional devices."),
@@ -203,7 +203,7 @@ int promptForHardDrive(struct loaderData_s *loaderData) {
             kspartition = NULL;
         }
 
-        label = newtLabel(-1, -1, _("Directory holding image:"));
+        label = newtLabel(-1, -1, _("Directory holding tree:"));
 
         dirEntry = newtEntry(28, 11, dir, 28, (const char **) &tmpDir,
                              NEWT_ENTRY_SCROLL);
@@ -280,7 +280,7 @@ int promptForHardDrive(struct loaderData_s *loaderData) {
         files = get_file_list(buf, ends_with_iso);
         if (!files) {
             newtWinMessage(_("Error"), _("OK"),
-                           _("That directory does not contain installation media."));
+                           _("That directory does not contain an installable tree."));
             umount("/mnt/isodir");
             free(buf);
             continue;
@@ -298,7 +298,7 @@ int promptForHardDrive(struct loaderData_s *loaderData) {
         if (doPwMount(buf, "/tmp/testmnt", "auto", "ro", NULL)) {
             free(buf);
             newtWinMessage(_("Error"), _("OK"),
-                           _("That directory does not contain installation media."));
+                           _("That directory does not contain an installable tree."));
             umount("/mnt/isodir");
             continue;
         }
@@ -307,7 +307,7 @@ int promptForHardDrive(struct loaderData_s *loaderData) {
 
         if (access("/tmp/testmnt/.treeinfo", R_OK)) {
             newtWinMessage(_("Error"), _("OK"),
-                           _("That directory does not contain installation media."));
+                           _("That directory does not contain an installable tree."));
             umount("/tmp/testmnt");
             umount("/mnt/isodir");
             continue;

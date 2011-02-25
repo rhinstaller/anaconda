@@ -82,7 +82,7 @@ static int nfsGetSetup(char ** hostptr, char ** dirptr, char ** optsptr) {
     entries[3].value = NULL;
 
     if (asprintf(&buf, _("Please enter the server and path to your %s "
-                         "installation image and optionally additional "
+                         "installation tree and optionally additional "
                          "NFS mount options."), getProductName()) == -1) {
         logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
         abort();
@@ -259,7 +259,7 @@ int promptForNfs(struct loaderData_s *loaderData) {
 
         if (getFileFromNfs(url, "/tmp/.treeinfo", loaderData) && !isNfsIso(loaderData)) {
             newtWinMessage(_("Error"), _("OK"),
-                           _("The URL provided does not contain installation media."));
+                           _("The URL provided does not contain an installable tree."));
             free(url);
             continue;
         }

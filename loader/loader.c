@@ -1366,13 +1366,8 @@ static void doLoaderMain(struct loaderData_s *loaderData,
                 }
                 installNames[i] = NULL;
 
-                rc = newtWinMenu(FL_RESCUE(flags) ? _("Rescue Method") :
-                                 _("Installation Method"),
-                                 FL_RESCUE(flags) ?
-                                 _("What type of media contains the rescue "
-                                   "image?") :
-                                 _("What type of media contains the installation "
-                                   "image?"),
+                rc = newtWinMenu(_("Installation Method"),
+                                 _("What type of media contains the installation tree?"),
                                  30, 10, 20, 6, installNames, &loaderData->method,
                                  _("OK"), _("Back"), NULL);
                 if (rc == 2) {

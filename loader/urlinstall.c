@@ -211,7 +211,7 @@ int promptForUrl(struct loaderData_s *loaderData) {
 
         if (getFileFromUrl(url, "/tmp/.treeinfo", loaderData)) {
             newtWinMessage(_("Error"), _("OK"),
-                           _("The URL provided does not contain installation media."));
+                           _("The URL provided does not contain an installable tree."));
             free(url);
             continue;
         }
