@@ -1497,7 +1497,7 @@ class SELinuxFS(NoDevFS):
 
     @property
     def mountable(self):
-        return flags.selinux and super(FS, self).mountable
+        return flags.selinux and super(SELinuxFS, self).mountable
 
 register_device_format(SELinuxFS)
 
