@@ -411,7 +411,8 @@ def selectLanguageSupportGroups(grpset, instLanguage):
         grpset.groups["language-support"].select()
 
 def doReIPL(anaconda):
-    if not rhpl.getArch() in ['s390', 's390x']:
+    if (not rhpl.getArch() in ['s390', 's390x'] or
+        anaconda.dir == DISPATCH_BACK):
         return DISPATCH_NOOP
 
     messageInfo = iutil.reIPL(anaconda, os.getppid())
