@@ -924,7 +924,7 @@ class DeviceTree(object):
                 try:
                     partitions_paths = [p.path
                                        for p in parted.Disk(device=parted.Device(path=path)).partitions]
-                except (_ped.IOException, _ped.DeviceException) as e:
+                except (_ped.IOException, _ped.DeviceException, _ped.DiskLabelException) as e:
                     log.error("Parted error scanning partitions on %s:" % path)
                     log.error(str(e))
                 # slice off the "/dev/" part, lvm filter cares only about the rest
