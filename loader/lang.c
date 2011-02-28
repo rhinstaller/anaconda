@@ -237,20 +237,6 @@ static int setupLanguage(int choice, int forced) {
     pid_t localedef_pid;
 
     logMessage(DEBUGLVL, "going to set language to %s", languages[choice].lc_all);
-    /* load the language only if it is displayable.  if they're using
-     * a serial console or iSeries vioconsole, we hope it's smart enough */
-    if ((strcmp(languages[choice].font, "latarcyrheb-sun16") && !FL_SERIAL(flags) && 
-         !FL_VIRTPCONSOLE(flags) && !isVioConsole())) {
-        if (forced == 1) return 0;
-
-	newtWinMessage("Language Unavailable", "OK", 
-		       "%s display is unavailable in text mode.  The "
-		       "installation will continue in English until the "
-		       "display of %s is possible.", languages[choice].lang,
-		       languages[choice].lang);
-        setLangEnv(english);
-	return 0;
-    }
 
     /* Parse locale parts out of locale name.
 
@@ -316,6 +302,21 @@ static int setupLanguage(int choice, int forced) {
     if (locale_mod) free(locale_mod);
     if (locale_p) free(locale_p);
 
+    /* load the language only if it is displayable.  if they're using
+     * a serial console or iSeries vioconsole, we hope it's smart enough */
+    if ((strcmp(languages[choice].font, "latarcyrheb-sun16") && !FL_SERIAL(flags) && 
+         !FL_VIRTPCONSOLE(flags) && !isVioConsole())) {
+        if (forced == 1) return 0;
+
+	newtWinMessage("Language Unavailable", "OK", 
+		       "%s display is unavailable in text mode.  The "
+		       "installation will continue in English until the "
+		       "display of %s is possible.", languages[choice].lang,
+		       languages[choice].lang);
+        setLangEnv(english);
+	return 0;
+    }
+
     setLangEnv (choice);
     isysLoadFont();
 
@@ -335,7 +336,6 @@ static int setupLanguage(int choice, int forced) {
     newtPushHelpLine(_(bottomHelpLine));
 
     return 0;
-
 }
 
 /* this is pretty simple.  we want to break down the language specifier
