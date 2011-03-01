@@ -38,7 +38,6 @@ void disableSwap(void);
 void unmountFilesystems(void);
 
 static void performTerminations(void) {
-    int status;
     FILE *f;
     char *donotkill[] = {"mdmon", "NetworkManager", "dhclient", NULL};
     char buf[256], omit[256], oarg[64];
@@ -66,13 +65,13 @@ static void performTerminations(void) {
     sync();
     printf("sending termination signals...");
     sprintf(buf, "/usr/sbin/killall5 -15%s", omit);
-    status = system(buf);
+    system(buf);
     sleep(2);
     printf("done\n");
 
     printf("sending kill signals...");
     sprintf(buf, "/usr/sbin/killall5 -9%s", omit);
-    status = system(buf);
+    system(buf);
     sleep(2);
     printf("done\n");
 }
