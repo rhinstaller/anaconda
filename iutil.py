@@ -444,6 +444,16 @@ def cpuFeatureFlags():
 
     return []
 
+def valid_dm_name(name):
+    """ Tests whether name is a good name for a dm device
+
+        Sometimes the user could call the device 'devp3' and then how is
+        bootloaderInfo.getDiskPart() to tell it's not a partition?
+    """
+    if re.search("p\d{1,2}$", name):
+        return False
+    return True
+
 def writeRpmPlatform(root="/"):
     import rhpl.arch
 

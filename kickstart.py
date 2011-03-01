@@ -393,6 +393,10 @@ class AnacondaKSHandlers(KickstartHandlers):
             newname = ""
             it = True
             for path in mpath.paths:
+                if not iutil.valid_dm_name(path.name):
+                    msg = "Invalid name for a multipath device '%s' "\
+                        "(resembles a partition?)." % path.name
+                    raise KickstartValueError, formatErrorMsg(self.lineno, msg)
                 dev = path.device
                 log.debug("Searching for mpath having '%s' as a member, the scsi id or wwpn:lunid" % (dev,))
                 log.debug("mpath '%s' has members %s" % (mp.name, list(mp.members)))
