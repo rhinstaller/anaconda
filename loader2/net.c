@@ -2296,10 +2296,8 @@ int chooseNetworkInterface(struct loaderData_s * loaderData) {
         logMessage(INFO, "looking for iBFT configured device %s with link", ibftmacaddr);
 	lookForLink = 0;
 
-	for (i = 0; devs[i]; i++) {
-	    if (!devs[i]->device)
-		continue;
-            devmacaddr = nl_mac2str(devs[i]->device);
+	for (i = 0; i < deviceNums; i++) {
+            devmacaddr = nl_mac2str(devices[i]);
 	    if(!strcasecmp(devmacaddr, ibftmacaddr)){
                 logMessage(INFO, "%s has the right MAC (%s), checking for link", devmacaddr, devices[i]);
 		free(devmacaddr);
@@ -2437,10 +2435,10 @@ int chooseNetworkInterface(struct loaderData_s * loaderData) {
     /* turn off the non-active interface.  this should keep things from
      * breaking when we need the interface to do the install as long as
      * you keep using that device */
-    for (i = 0; devs[i]; i++) {
+    for (i = 0; i < deviceNum; i++) {
         if (strcmp(loaderData->netDev, devices[i]))
             if (!FL_TESTING(flags))
-                clearInterface(devs[i]->device);
+                clearInterface(devices[i]);
     }
 
     return LOADER_OK;
