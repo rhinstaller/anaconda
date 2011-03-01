@@ -108,7 +108,7 @@ def mount(device, location, fstype = "ext2", readOnly = False,
     # will have to deal with the exception.
     # We note whether or not we created a node so we can clean up later.
 
-    if mountCount.has_key(location) and mountCount[location] > 0:
+    if mountCount.has_key(location) and mountCount[location] > 0 and not remount:
 	mountCount[location] = mountCount[location] + 1
 	return
 
