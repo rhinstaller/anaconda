@@ -98,7 +98,7 @@ class UpgradeExamineWindow (InstallWindow):
         # we might get here after storage reset that obsoleted
         # root device objects we had found
         if not self.anaconda.rootParts:
-            (self.anaconda.rootParts, notUpgradable) = upgrade.findExistingRoots(self.anaconda,
+            (self.anaconda.rootParts, notUpgradable) = upgrade.findExistingRootDevices(self.anaconda,
                                                                 flags.cmdline.has_key("upgradeany"))
             upgrade.setUpgradeRoot(self.anaconda)
 
