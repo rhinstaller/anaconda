@@ -68,7 +68,7 @@ class UpgradeTest(mock.TestCase):
     def find_root_parts_1_test(self):
         import pyanaconda.upgrade
         pyanaconda.upgrade.flags = mock.Mock()
-        pyanaconda.upgrade.findExistingRoots = mock.Mock(
+        pyanaconda.upgrade.findExistingRootDevices = mock.Mock(
                             return_value=(None, [("info1", "info2", "info3")]))
         pyanaconda.upgrade.setUpgradeRoot = mock.Mock()
         
@@ -95,12 +95,6 @@ class UpgradeTest(mock.TestCase):
         self.assertFalse(anaconda.intf.messageWindow.called)
         self.assertEqual(anaconda.dispatch.skipStep.call_args,
             (('findinstall',), {'skip': 0}))
-    
-    def find_existing_roots_test(self):
-        import pyanaconda.upgrade
-        pyanaconda.upgrade.findExistingRootDevices = mock.Mock()
-        pyanaconda.upgrade.findExistingRoots(mock.Mock())
-        self.assertTrue(pyanaconda.upgrade.findExistingRootDevices.called)
     
     def bind_mount_dev_directory_test(self):
         import pyanaconda.upgrade
