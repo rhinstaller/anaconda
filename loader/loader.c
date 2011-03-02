@@ -1454,8 +1454,7 @@ static void doLoaderMain(struct loaderData_s *loaderData,
             }
 
             case STEP_NETWORK: {
-                if (((installMethods[validMethods[loaderData->method]].type !=
-                       DEVICE_NETWORK) &&
+                if ((!isURLRemote(loaderData->instRepo) &&
                       !FL_ASKNETWORK(flags) &&
                       !FL_EARLY_NETWORKING(flags) && 
                       !ibft_present()) ||
