@@ -126,7 +126,6 @@ uint64_t flags = LOADER_FLAGS_SELINUX;
 int num_link_checks = 5;
 int post_link_sleep = 0;
 
-static pid_t init_pid = 1;
 static int init_sig = SIGUSR1; /* default to shutdown=halt */
 static const char *LANG_DEFAULT = "en_US.UTF-8";
 
@@ -1908,22 +1907,6 @@ int main(int argc, char ** argv) {
     if (cmdline && g_hash_table_lookup_extended(cmdline, "devel", NULL, NULL)) {
         printf("Enabling development mode - cores will be dumped\n");
         isDevelMode = 1;
-    }
-
-    /* get init PID if we have it */
-    if ((f = fopen("/var/run/init.pid", "r")) != NULL) {
-        char linebuf[256];
-
-        while (fgets(linebuf, sizeof(linebuf), f) != NULL) {
-            errno = 0;
-            init_pid = strtol(linebuf, NULL, 10);
-            if (errno == EINVAL || errno == ERANGE) {
-                logMessage(ERROR, "%s (%d): %m", __func__, __LINE__);
-                init_pid = 1;
-            }
-        }
-
-        fclose(f);
     }
 
     signal(SIGUSR1, loaderUsrXHandler);
