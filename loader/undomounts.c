@@ -33,8 +33,6 @@
 #include <sys/swap.h>
 #include <unistd.h>
 
-#include "devt.h"
-
 /* Defined in linux/fs.h, but inside __KERNEL__. */
 #ifdef MNT_DETACH
 #undef MNT_DETACH

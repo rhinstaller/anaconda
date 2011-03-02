@@ -52,7 +52,6 @@
 
 #include "init.h"
 #include "copy.h"
-#include "devt.h"
 #include "devices.h"
 #include "modules.h"
 #include "readvars.h"

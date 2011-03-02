@@ -50,8 +50,6 @@
 #include "../pyanaconda/isys/isys.h"
 #include "../pyanaconda/isys/log.h"
 
-#include "devt.h"
-
 #include "nfsinstall.h"
 #include "hdinstall.h"
 #include "urlinstall.h"
