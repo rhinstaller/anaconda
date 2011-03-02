@@ -61,6 +61,7 @@
 #include <mcheck.h>
 #endif
 
+#include "serial.h"
 #include "copy.h"
 #include "getparts.h"
 #include "loader.h"
@@ -1892,6 +1893,8 @@ int main(int argc, char ** argv) {
     char * outputKSFile = NULL;
 
     struct loaderData_s loaderData;
+    struct termios orig_cmode;
+    int orig_flags;
 
     char *path, *fmt;
     GSList *dd, *dditer;
@@ -1968,6 +1971,8 @@ int main(int argc, char ** argv) {
     parseCmdLineFlags(&loaderData);
 
     logMessage(INFO, "anaconda version %s on %s starting", VERSION, getProductArch());
+
+    init_serial(&orig_cmode, &orig_flags, cmdline);
 
     if ((FL_SERIAL(flags) || FL_VIRTPCONSOLE(flags)) && 
         !hasGraphicalOverride()) {

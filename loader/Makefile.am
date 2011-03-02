@@ -50,7 +50,7 @@ loader_SOURCES     = loader.c copy.c moduleinfo.c loadermisc.c \
                      getparts.c dirbrowser.c fwloader.c ibft.c hardware.c \
                      method.c cdinstall.c hdinstall.c nfsinstall.c \
                      urlinstall.c net.c urls.c rpmextract.c readvars.c \
-                     unpack.c
+                     serial.c unpack.c
 
 dirbrowser_CFLAGS  = $(COMMON_CFLAGS) -DSTANDALONE
 dirbrowser_LDADD   = $(NEWT_LIBS)

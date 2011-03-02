@@ -83,71 +83,6 @@ static void fatal_error(int usePerror) {
 #endif
 }
 
-static int setupTerminal(int fd) {
-    struct winsize winsize;
-    gpointer value = NULL;
-
-    if (ioctl(fd, TIOCGWINSZ, &winsize)) {
-        printf("failed to get winsize");
-        fatal_error(1);
-    }
-
-    winsize.ws_row = 24;
-    winsize.ws_col = 80;
-
-    if (ioctl(fd, TIOCSWINSZ, &winsize)) {
-        printf("failed to set winsize");
-        fatal_error(1);
-    }
-
-    if (!strcmp(ttyname(fd), "/dev/hvc0")) {
-        /* using an HMC on a POWER system, use vt320 */
-        env[ENV_TERM] = "TERM=vt320";
-    } else {
-        /* use the no-advanced-video vt100 definition */
-        env[ENV_TERM] = "TERM=vt100-nav";
-
-        /* unless the user specifies that they want utf8 */
-        if (g_hash_table_lookup_extended(cmdline, "utf8", NULL, &value)) {
-            env[ENV_TERM] = "TERM=vt100";
-        }
-    }
-
-    return 0;
-}
-#if defined(__sparc__)
-static int termcmp(struct termios *a, struct termios *b) {
-    if (a->c_iflag != b->c_iflag || a->c_oflag != b->c_oflag ||
-    a->c_cflag != b->c_cflag || a->c_lflag != b->c_lflag)
-    return 1;
-    return memcmp(a->c_cc, b->c_cc, sizeof(a->c_cc));
-}
-#endif
-
-#if !defined(__s390__) && !defined(__s390x__) && !defined(__sparc__)
-static int termcmp(struct termios *a, struct termios *b) {
-    if (a->c_iflag != b->c_iflag || a->c_oflag != b->c_oflag ||
-        a->c_cflag != b->c_cflag || a->c_lflag != b->c_lflag ||
-        a->c_ispeed != b->c_ispeed || a->c_ospeed != b->c_ospeed)
-        return 1;
-    return memcmp(a->c_cc, b->c_cc, sizeof(a->c_cc));
-}
-#endif
-
-static void termReset(void) {
-    /* change to tty1 */
-    ioctl(0, VT_ACTIVATE, 1);
-    /* reset terminal */
-    tcsetattr(0, TCSANOW, &ts);
-    /* Shift in, default color, move down 100 lines */
-    /* ^O        ^[[0m          ^[[100E */
-    printf("\017\033[0m\033[100E\n");
-}
-
-static void copyErrorFn (char *msg) {
-    printf(msg);
-}
-
 static char *setupMallocPerturb(char *value)
 {
     FILE *f;
@@ -211,7 +146,6 @@ static void setupEnv(void)
 int main(int argc, char **argv) {
     pid_t installpid;
     int waitStatus;
-    int fd = -1;
     int doShutdown =0;
     reboot_action shutdown_method = HALT;
     int isSerial = 0;
@@ -220,9 +154,7 @@ int main(int argc, char **argv) {
     int doKill = 1;
     char * argvc[15];
     char ** argvp = argvc;
-    char twelve = 12;
-    struct serial_struct si;
-    int i, disable_keys;
+    int i;
     int ret;
     gpointer value = NULL;
 
@@ -239,14 +171,6 @@ int main(int argc, char **argv) {
 
     printf("anaconda installer init version %s starting\n", VERSION);
 
-    /* these args are only for testing from commandline */
-    for (i = 1; i < argc; i++) {
-        if (!strcmp (argv[i], "serial")) {
-            isSerial = 1;
-            break;
-        }
-    }
-
     /* if anaconda dies suddenly we are doomed, so at least make a coredump */
     struct rlimit corelimit = { RLIM_INFINITY,  RLIM_INFINITY};
     ret = setrlimit(RLIMIT_CORE, &corelimit);
@@ -254,130 +178,6 @@ int main(int argc, char **argv) {
         perror("setrlimit failed - no coredumps will be available");
     }
 
-#if !defined(__s390__) && !defined(__s390x__)
-    static struct termios orig_cmode;
-    static int            orig_flags;
-    struct termios cmode, mode;
-    int cfd;
-    
-    cfd =  open("/dev/console", O_RDONLY);
-    tcgetattr(cfd,&orig_cmode);
-    orig_flags = fcntl(cfd, F_GETFL);
-    close(cfd);
-
-    cmode = orig_cmode;
-    cmode.c_lflag &= (~ECHO);
-
-    cfd = open("/dev/console", O_WRONLY);
-    tcsetattr(cfd,TCSANOW,&cmode);
-    close(cfd);
-
-    /* handle weird consoles */
-#if defined(__powerpc__)
-    char * consoles[] = { "/dev/hvc0", /* hvc for JS20 */
-
-                          "/dev/hvsi0", "/dev/hvsi1",
-                          "/dev/hvsi2", /* hvsi for POWER5 */
-                          NULL };
-#elif defined (__ia64__)
-    char * consoles[] = { "/dev/ttySG0", "/dev/xvc0", "/dev/hvc0", NULL };
-#elif defined (__i386__) || defined (__x86_64__)
-    char * consoles[] = { "/dev/xvc0", "/dev/hvc0", NULL };
-#else
-    char * consoles[] = { NULL };
-#endif
-    for (i = 0; consoles[i] != NULL; i++) {
-        if ((fd = open(consoles[i], O_RDWR)) >= 0 && !tcgetattr(fd, &mode) && !termcmp(&cmode, &mode)) {
-            printf("anaconda installer init version %s using %s as console\n",
-                   VERSION, consoles[i]);
-            isSerial = 3;
-            console = strdup(consoles[i]);
-            break;
-        }
-        close(fd);
-    }
-
-    cfd = open("/dev/console", O_WRONLY);
-    tcsetattr(cfd,TCSANOW,&orig_cmode);
-    close(cfd); 
-
-    if ((fd < 0) && (ioctl (0, TIOCLINUX, &twelve) < 0)) {
-        isSerial = 2;
-
-        if (ioctl(0, TIOCGSERIAL, &si) == -1) {
-            isSerial = 0;
-        }
-    }
-
-    if (isSerial && (isSerial != 3)) {
-        char *device = "/dev/ttyS0";
-
-        printf("anaconda installer init version %s using a serial console\n", 
-               VERSION);
-
-        if (isSerial == 2)
-            device = "/dev/console";
-        fd = open(device, O_RDWR, 0);
-        if (fd < 0)
-            device = "/dev/tts/0";
-
-        if (fd < 0) {
-            printf("failed to open %s\n", device);
-            fatal_error(1);
-        }
-
-        setupTerminal(fd);
-    } else if (isSerial == 3) {
-        setupTerminal(fd);
-    } else if (fd < 0)  {
-        fd = open("/dev/tty1", O_RDWR, 0);
-        if (fd < 0)
-            fd = open("/dev/vc/1", O_RDWR, 0);
-
-        if (fd < 0) {
-            printf("failed to open /dev/tty1 and /dev/vc/1");
-            fatal_error(1);
-        }
-    }
-
-    setsid();
-    if (ioctl(0, TIOCSCTTY, NULL)) {
-        printf("could not set new controlling tty\n");
-    }
-
-    dup2(fd, 0);
-    dup2(fd, 1);
-    dup2(fd, 2);
-    if (fd > 2)
-        close(fd);
-#else
-    dup2(0, 1);
-    dup2(0, 2);
-#endif
-
-    /* disable Ctrl+Z, Ctrl+C, etc ... but not in rescue mode */
-    disable_keys = 1;
-    if (argc > 1)
-        if (strstr(argv[1], "rescue"))
-            disable_keys = 0;
-
-    if (disable_keys) {
-        tcgetattr(0, &ts);
-        ts.c_iflag &= ~BRKINT;
-        ts.c_iflag |= IGNBRK;
-        ts.c_iflag &= ~ISIG;
-        tcsetattr(0, TCSANOW, &ts);
-    }
-
-
-    /* Go into normal init mode - keep going, and then do a orderly shutdown
-       when:
-
-       1) /bin/install exits
-       2) we receive a SIGHUP 
-    */
-
-    printf("running install...\n"); 
 
     if (!(installpid = fork())) {
         /* child */
@@ -407,11 +207,7 @@ int main(int argc, char **argv) {
     if (!WIFEXITED(waitStatus) ||
         (WIFEXITED(waitStatus) && WEXITSTATUS(waitStatus))) {
 
-        /* Restore terminal */
-        cfd =  open("/dev/console", O_RDONLY);
-        tcsetattr(cfd, TCSANOW, &orig_cmode);
-        fcntl(cfd, F_SETFL, orig_flags);
-        close(cfd);
+        restore_console(&orig_cmode, orig_flags);
 
         shutdown_method = DELAYED_REBOOT;
         printf("install exited abnormally [%d/%d] ", WIFEXITED(waitStatus),
