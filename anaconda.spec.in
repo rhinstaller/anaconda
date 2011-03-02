@@ -221,6 +221,16 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Wed Mar 02 2011 David Cantrell <dcantrell@redhat.com> - 13.21.101-1
+- Fixed uninitialized GError* variable (mganisin)
+  Resolves: rhbz#681511
+- Remove 'Back' button on depsolving exception for ks installs (dcantrell)
+  Resolves: rhbz#673170
+- Ensure remount requests go through isys.mount() (dcantrell)
+  Resolves: rhbz#678520
+- Do not activate first ks network device in non-network installs. (rvykydal)
+  Related: rhbz#638131
+
 * Wed Feb 23 2011 David Cantrell <dcantrell@redhat.com> - 13.21.100-1
 - Fix problem with /boot on LVM on a zFCP multipath device (dcantrell)
   Related: rhbz#670856
