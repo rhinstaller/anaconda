@@ -998,7 +998,7 @@ class AnacondaYum(yum.YumBase):
             msg = _("There was an error running your transaction for "
                     "the following reason: %s\n") % str(e)
 
-            if self.anaconda.upgrade:
+            if self.anaconda.upgrade or anaconda.ksdata:
                 rc = intf.messageWindow(_("Error"), msg, type="custom",
                                         custom_icon="error",
                                         custom_buttons=[_("_Exit installer")])
@@ -1497,6 +1497,10 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
                     # 2 if success
                     depprob = "\n".join(msgs)
 
+                    custom_buttons = [_("_Exit installer"), _("_Continue")]
+                    if not anaconda.ksdata:
+                        custom_buttons.insert(1, _("_Back"))
+
                     rc = anaconda.intf.detailedMessageWindow(_("Warning"),
                             _("Some of the packages you have selected for "
                               "install are missing dependencies.  You can "
@@ -1506,13 +1510,12 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
                               "dependencies.  If you continue, these packages "
                               "may not work correctly due to missing components."),
                             depprob + "\n", type="custom", custom_icon="error",
-                            custom_buttons=[_("_Exit installer"), _("_Back"),
-                                            _("_Continue")])
+                            custom_buttons=custom_buttons)
                     dscb.pop()
 
                     if rc == 0:
                         sys.exit(1)
-                    elif rc == 1:
+                    elif rc == 1 and not anaconda.ksdata:
                         self.ayum._undoDepInstalls()
                         return DISPATCH_BACK
 
