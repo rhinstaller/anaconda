@@ -1047,7 +1047,7 @@ class AnacondaYum(YumSorter):
                 msg = _("There was an error running your transaction for "
                         "the following reason: %s\n") % str(e)
 
-                if self.anaconda.id.upgrade:
+                if self.anaconda.id.upgrade or anaconda.isKickstart:
                     rc = intf.messageWindow(_("Error"), msg, type="custom",
                                             custom_icon="error",
                                             custom_buttons=[_("_Exit installer")])
@@ -1564,6 +1564,10 @@ debuglevel=10
                     # 2 if success
                     depprob = "\n".join(msgs)
 
+                    custom_buttons = [_("_Exit installer"), _("_Continue")]
+                    if not anaconda.isKickstart:
+                        custom_buttons.insert(1, _("_Back"))
+
                     rc = anaconda.intf.detailedMessageWindow(_("Warning"),
                             _("Some of the packages you have selected for "
                               "install are missing dependencies.  You can "
@@ -1572,13 +1576,12 @@ debuglevel=10
                               "installing these packages without their "
                               "dependencies."),
                             depprob + "\n", type="custom", custom_icon="error",
-                            custom_buttons=[_("_Exit installer"), _("_Back"),
-                                            _("_Continue")])
+                            custom_buttons=custom_buttons)
                     dscb.pop()
 
                     if rc == 0:
                         sys.exit(1)
-                    elif rc == 1:
+                    elif rc == 1 and not anaconda.isKickstart:
                         self.ayum._undoDepInstalls()
                         return DISPATCH_BACK
 
