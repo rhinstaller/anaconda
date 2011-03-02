@@ -1063,8 +1063,6 @@ static void parseCmdLineFlags(struct loaderData_s * loaderData,
             } else if (!strcasecmp(k, "method")) {
                 logMessage(WARNING, "method= is deprecated.  Please use repo= instead.");
                 loaderData->instRepo = g_strdup(v);
-            } else if (!strcasecmp(k, "repo")) {
-                loaderData->instRepo = g_strdup(v);
             } else if (!strcasecmp(k, "stage2")) {
                 logMessage(WARNING, "stage2= is deprecated.  Please use repo= instead.");
                 flags |= LOADER_FLAGS_ASKMETHOD;
