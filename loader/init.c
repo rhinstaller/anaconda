@@ -337,7 +337,7 @@ static void getSyslog(char *addr) {
     int i;
     int argc;
     char** argv;
-    GError* err;
+    GError* err = NULL;
     if (!g_shell_parse_argv(buf, &argc, &argv, &err )) {
         g_error_free(err);
         return;
