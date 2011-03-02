@@ -1131,6 +1131,7 @@ static void parseCmdLineFlags(struct loaderData_s * loaderData,
                        !strcasecmp(k, "dmraid") ||
                        !strcasecmp(k, "nodmraid") ||
                        !strcasecmp(k, "xdriver") ||
+                       !strcasecmp(k, "sshd") ||
                        !strcasecmp(k, "syslog")) {
 
                 /* vnc implies graphical */
@@ -1143,7 +1144,7 @@ static void parseCmdLineFlags(struct loaderData_s * loaderData,
                  * by loader, so an active connection is ready once we get
                  * to anaconda
                  */
-                if (!strcasecmp(k, "syslog") || !strcasecmp(k, "vnc")) {
+                if (!strcasecmp(k, "syslog") || !strcasecmp(k, "vnc") || !strcasecmp(k, "sshd")) {
                     logMessage(INFO, "early networking required for %s", k);
                     flags |= LOADER_FLAGS_EARLY_NETWORKING;
                 }
