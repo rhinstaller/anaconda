@@ -144,17 +144,22 @@ class AnacondaCallback:
             self.progressWindow.pop()
 
         if what == rpm.RPMCALLBACK_INST_OPEN_FILE:
-            (hdr, rpmloc) = h
-            # hate hate hate at epochs...
-            epoch = hdr['epoch']
-            if epoch is not None:
-                epoch = str(epoch)
-            txmbrs = self.ayum.tsInfo.matchNaevr(hdr['name'], hdr['arch'],
-                                                 epoch, hdr['version'],
-                                                 hdr['release'])
-            if len(txmbrs) == 0:
-                raise RuntimeError, "Unable to find package %s-%s-%s.%s" %(hdr['name'], hdr['version'], hdr['release'], hdr['arch'])
-            po = txmbrs[0].po
+            # Old-style (hdr, path) callback
+            if isinstance(h, types.TupleType):
+                (hdr, rpmloc) = h
+                # hate hate hate at epochs...
+                epoch = hdr['epoch']
+                if epoch is not None:
+                    epoch = str(epoch)
+                txmbrs = self.ayum.tsInfo.matchNaevr(hdr['name'], hdr['arch'],
+                                                     epoch, hdr['version'],
+                                                     hdr['release'])
+                if len(txmbrs) == 0:
+                    raise RuntimeError, "Unable to find package %s-%s-%s.%s" %(hdr['name'], hdr['version'], hdr['release'], hdr['arch'])
+                po = txmbrs[0].po
+            # New-style callback, h is our txmbr
+            else:
+                po = h.po
 
             repo = self.repos.getRepo(po.repoid)
 
@@ -195,8 +200,6 @@ class AnacondaCallback:
                 self.initWindow.pop()
                 self.initWindow = None
 
-            (hdr, rpmloc) = h
-
             fn = self.openfile.name
             self.openfile.close()
             self.openfile = None
@@ -230,16 +233,15 @@ class AnacondaCallback:
         elif what in (rpm.RPMCALLBACK_CPIO_ERROR,
                       rpm.RPMCALLBACK_UNPACK_ERROR,
                       rpm.RPMCALLBACK_SCRIPT_ERROR):
-            if not isinstance(h, types.TupleType):
-                h = (h, None)
-
-            (hdr, rpmloc) = h
-
-            # If this is a cleanup/remove, then hdr is a string not a header.
-            if isinstance(hdr, basestring):
-                name = hdr
+            # If this is a cleanup/remove, then h is just a string.
+            # A tuple h means old-style (hdr, path) yum callback,
+            # otherwise it's a new-style txmbr callback.
+            if isinstance(h, basestring):
+                name = h
+            elif isinstance(h, types.TupleType):
+                name = h[0]['name']
             else:
-                name = hdr['name']
+                name = h.name
 
             # Script errors store whether or not they're fatal in "total".  So,
             # we should only error out for fatal script errors or the cpio and
@@ -315,6 +317,10 @@ class AnacondaYum(yum.YumBase):
         # Where is the source media mounted?  This is the directory
         # where Packages/ is located.
         self.tree = "/mnt/source"
+
+        if hasattr(self, "use_txmbr_in_callback"):
+            log.debug("enabling new callback mode")
+            self.use_txmbr_in_callback = True
 
         self.macros = {}
 
