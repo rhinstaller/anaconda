@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.225
+Version: 11.1.2.226
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -128,6 +128,19 @@ fi
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu Mar 3 2011 Ales Kozumplik <akozumpl@redhat.com> 11.1.2.226-1
+- Use getDiskPart() from bootyutil. (akozumpl)
+  Related: rhbz#572862
+- Validate the user-chosen name of an mpath device. (akozumpl)
+  Related: rhbz#572862
+- Do not lose selection in the bootloader's drive order dialog (akozumpl)
+  Resolves: rhbz#583837
+- Make sure we select the right net device when iBFT is used (mmatsuya)
+  Signed-Off-By: Martin Sivak <msivak@redhat.com>
+  Resolves: rhbz#643774
+- Use DISPATCH_NOOP if we go back to the doReIPL step (mgracik)
+  Resolves: rhbz#654685
+
 * Fri Feb 25 2011 Ales Kozumplik <akozumpl@redhat.com> 11.1.2.225-1
 - CD -> disc in the required media message (clumens).
   Resolves: rhbz#641412
