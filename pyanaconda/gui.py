@@ -1011,7 +1011,7 @@ class InstallInterface(InstallInterfaceBase):
             if waited_devs:
                 w = WaitWindow(_("Waiting for NetworkManager"),
                                _("Waiting for NetworkManager to activate "
-                                 "these devices: %s" % ",".join(waited_devs)))
+                                 "these devices: %s") % ",".join(waited_devs))
                 failed_devs = self.anaconda.network.waitForDevicesActivation(waited_devs)
                 w.pop()
 
