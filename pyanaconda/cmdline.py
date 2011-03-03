@@ -199,7 +199,7 @@ class progressDisplay:
     def set_fraction(self, pct):
         self.pct = pct
     def set_text(self, txt):
-        pass
+        print(txt)
     def set_label(self, txt):
         stripped = strip_markup(txt)
         if stripped != self.display:
