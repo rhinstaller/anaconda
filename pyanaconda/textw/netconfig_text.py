@@ -420,6 +420,14 @@ class NetworkConfiguratorText:
         self.ipv4GatewayEntry.setFlags(FLAG_DISABLED, flag)
         self.ipv4NameserverEntry.setFlags(FLAG_DISABLED, flag)
 
+        # Update flags for radio buttons based on whether ipv4 is selected
+        if self.ipv4Checkbox.selected():
+            self.v4radio_auto.w.checkboxSetFlags(FLAG_DISABLED, FLAGS_RESET)
+            self.v4radio_manual.w.checkboxSetFlags(FLAG_DISABLED, FLAGS_RESET)
+        else:
+            self.v4radio_auto.w.checkboxSetFlags(FLAG_DISABLED, FLAGS_SET)
+            self.v4radio_manual.w.checkboxSetFlags(FLAG_DISABLED, FLAGS_SET)
+
     def _ipv6MethodToggled(self, *args):
         if (self.v6radio.getSelection() == "v6manual" and
             self.ipv6Checkbox.selected()):
@@ -432,3 +440,12 @@ class NetworkConfiguratorText:
         self.ipv6GatewayEntry.setFlags(FLAG_DISABLED, flag)
         self.ipv6NameserverEntry.setFlags(FLAG_DISABLED, flag)
 
+        # Update flags for radio buttons based on whether ipv6 is selected
+        if self.ipv6Checkbox.selected():
+            self.v6radio_auto.w.checkboxSetFlags(FLAG_DISABLED, FLAGS_RESET)
+            self.v6radio_dhcp.w.checkboxSetFlags(FLAG_DISABLED, FLAGS_RESET)
+            self.v6radio_manual.w.checkboxSetFlags(FLAG_DISABLED, FLAGS_RESET)
+        else:
+            self.v6radio_auto.w.checkboxSetFlags(FLAG_DISABLED, FLAGS_SET)
+            self.v6radio_dhcp.w.checkboxSetFlags(FLAG_DISABLED, FLAGS_SET)
+            self.v6radio_manual.w.checkboxSetFlags(FLAG_DISABLED, FLAGS_SET)
