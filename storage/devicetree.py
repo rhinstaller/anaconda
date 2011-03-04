@@ -1197,7 +1197,21 @@ class DeviceTree(object):
         elif udev_device_get_md_container(info):
             diskType = MDRaidArrayDevice
             parentName = devicePathToName(udev_device_get_md_container(info))
-            kwargs["parents"] = [ self.getDeviceByName(parentName) ]
+            container = self.getDeviceByName(parentName)
+            if not container:
+                container_sysfs = "/class/block/" + parentName
+                container_info = udev_get_block_device(container_sysfs)
+                if not container_info:
+                    log.error("failed to find md container %s at %s"
+                                % (parentName, container_sysfs))
+                return
+
+                container = self.addUdevDevice(container_info)
+                if not container:
+                    log.error("failed to scan md container %s" % parentName)
+                    return
+
+            kwargs["parents"] = [container]
             kwargs["level"]  = udev_device_get_md_level(info)
             kwargs["memberDevices"] = int(udev_device_get_md_devices(info))
             kwargs["uuid"] = udev_device_get_md_uuid(info)
