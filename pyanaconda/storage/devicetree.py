@@ -955,7 +955,7 @@ class DeviceTree(object):
         elif udev_device_is_dm(info):
             log.debug("%s is a device-mapper device" % name)
             device = self.addUdevDMDevice(info)
-        elif udev_device_is_md(info):
+        elif udev_device_is_md(info) and not udev_device_get_md_container(info):
             log.debug("%s is an md device" % name)
             if uuid:
                 # try to find the device by uuid
