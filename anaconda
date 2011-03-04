@@ -408,9 +408,9 @@ def handleSshPw(anaconda):
             u.setUserPassword(username=ud.username, password=ud.password,
                               isCrypted=ud.isCrypted, lock=ud.lock)
         else:
-            u.createUser(name=ud.username, password=ud.password,
-                         isCrypted=ud.isCrypted, lock=ud.lock,
-                         root="/", mkmailspool=False)
+            kwargs = ud.__dict__
+            kwargs.update({"root": "/", "mkmailspool": False})
+            u.createUser(ud.username, **kwargs)
 
     del u
 

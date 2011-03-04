@@ -99,8 +99,18 @@ class Users:
         self.admin = libuser.admin()
         self.rootPassword = { "isCrypted": False, "password": "", "lock": False }
 
-    def createGroup (self, name=None, gid=None, root="/mnt/sysimage"):
+    def createGroup (self, name, **kwargs):
+        """Create a new user on the system with the given name.  Optional kwargs:
+
+           gid       -- The GID for the new user.  If none is given, the next
+                        available one is used.
+           root      -- The directory of the system to create the new user
+                        in.  homedir will be interpreted relative to this.
+                        Defaults to /mnt/sysimage.
+        """
+
         childpid = os.fork()
+        root = kwargs.get("root", "/mnt/sysimage")
 
         if not childpid:
             if not root in ["","/"]:
@@ -115,8 +125,8 @@ class Users:
 
                 groupEnt = self.admin.initGroup(name)
 
-                if gid >= 0:
-                    groupEnt.set(libuser.GIDNUMBER, gid)
+                if "gid" in kwargs and kwargs["gid"] >= 0:
+                    groupEnt.set(libuser.GIDNUMBER, kwargs]"gid"])
 
                 self.admin.addGroup(groupEnt)
                 os._exit(0)
@@ -135,10 +145,32 @@ class Users:
         else:
             return False
 
-    def createUser (self, name=None, password=None, isCrypted=False, groups=[],
-                    homedir=None, shell=None, uid=None, algo=None, lock=False,
-                    root="/mnt/sysimage", gecos=None, mkmailspool=True):
+    def createUser (self, name, *args, **kwargs):
+        """Create a new user on the system with the given name.  Optional kwargs:
+
+           algo      -- The password algorithm to use in case isCrypted=True.
+                        If none is given, the cryptPassword default is used.
+           gecos     -- The GECOS information (full name, office, phone, etc.).
+                        Defaults to "".
+           groups    -- A list of existing group names the user should be
+                        added to.  Defaults to [].
+           homedir   -- The home directory for the new user.  Defaults to
+                        /home/<name>.
+           isCrypted -- Is the password kwargs already encrypted?  Defaults
+                        to False.
+           lock      -- Is the new account locked by default?  Defaults to
+                        False.
+           password  -- The password.  See isCrypted for how this is interpreted.
+           root      -- The directory of the system to create the new user
+                        in.  homedir will be interpreted relative to this.
+                        Defaults to /mnt/sysimage.
+           shell     -- The shell for the new user.  If none is given, the
+                        libuser default is used.
+           uid       -- The UID for the new user.  If none is given, the next
+                        available one is used.
+        """
         childpid = os.fork()
+        root = kwargs.get("root", "/mnt/sysimage")
 
         if not childpid:
             if not root in ["","/"]:
@@ -155,37 +187,37 @@ class Users:
                 groupEnt = self.admin.initGroup(name)
 
                 grpLst = filter(lambda grp: grp,
-                                map(lambda name: self.admin.lookupGroupByName(name), groups))
+                                map(lambda name: self.admin.lookupGroupByName(name), kwargs.get("groups", [])))
                 userEnt.set(libuser.GIDNUMBER, [groupEnt.get(libuser.GIDNUMBER)[0]] +
                             map(lambda grp: grp.get(libuser.GIDNUMBER)[0], grpLst))
 
-                if not homedir:
-                    iutil.mkdirChain('/home')
-                    homedir = "/home/" + name
+                if "homedir" in kwargs:
+                    userEnt.set(libuser.HOMEDIRECTORY, kwargs["homedir"])
+                else:
+                    iutil.mkdirChain(root+'/home')
+                    userEnt.set(libuser.HOMEDIRECTORY, "/home/" + name)
 
-                userEnt.set(libuser.HOMEDIRECTORY, homedir)
+                if "shell" in kwargs:
+                    userEnt.set(libuser.LOGINSHELL, kwargs["shell"])
 
-                if shell:
-                    userEnt.set(libuser.LOGINSHELL, shell)
+                if "uid" in kwargs and kwargs["uid"] >= 0:
+                    userEnt.set(libuser.UIDNUMBER, kwargs["uid"])
 
-                if uid >= 0:
-                    userEnt.set(libuser.UIDNUMBER, uid)
+                if "gecos" in kwargs:
+                    userEnt.set(libuser.GECOS, kwargs["gecos"])
 
-                if gecos:
-                    userEnt.set(libuser.GECOS, gecos)
-
-                self.admin.addUser(userEnt, mkmailspool=mkmailspool)
+                self.admin.addUser(userEnt, mkmailspool=kwargs.get("mkmailspool", True))
                 self.admin.addGroup(groupEnt)
 
-                if password:
-                    if isCrypted:
-                        self.admin.setpassUser(userEnt, password, True)
+                if "password" in kwargs:
+                    if kwargs.get("isCrypted", False):
+                        password = kwargs["password"]
                     else:
-                        self.admin.setpassUser(userEnt,
-                                            cryptPassword(password, algo=algo),
-                                            True)
+                        password = cryptPassword(kwargs["password"], algo=kwargs.get("algo", None))
 
-                if lock:
+                    self.admin.setpassUser(userEnt, password, True)
+
+                if kwargs.get("lock", False):
                     self.admin.lockUser(userEnt)
 
                 # Add the user to all the groups they should be part of.
@@ -278,23 +310,16 @@ class Users:
 
         if self.anaconda.ksdata:
             for gd in self.anaconda.ksdata.group.groupList:
-                if not self.createGroup(name=gd.name,
-                                        gid=gd.gid,
-                                        root=instPath):
+                kwargs = gd.__dict__
+                kwargs.update({"root": instPath})
+                if not self.createGroup(gd.name, **kwargs)
                     log.error("Group %s already exists, not creating." % gd.name)
 
             for ud in self.anaconda.ksdata.user.userList:
-                if not self.createUser(name=ud.name,
-                                       password=ud.password,
-                                       isCrypted=ud.isCrypted,
-                                       groups=ud.groups,
-                                       homedir=ud.homedir,
-                                       shell=ud.shell,
-                                       uid=ud.uid,
-                                       algo=self.getPassAlgo(),
-                                       lock=ud.lock,
-                                       root=instPath,
-                                       gecos=ud.gecos):
+                kwargs = ud.__dict__
+                kwargs.update({"algo": self.getPassAlgo(),
+                               "root": instPath})
+                if not self.createUser(ud.name, **kwargs):
                     log.error("User %s already exists, not creating." % ud.name)
 
     def writeKS(self, f):
