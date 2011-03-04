@@ -550,8 +550,19 @@ class DeviceTree(object):
 
         # never ignore mapped disk images. if you don't want to use them,
         # don't specify them in the first place
-        if udev_device_is_dm_anaconda(info):
+        if udev_device_is_dm_anaconda(info) or udev_device_is_dm_livecd(info):
             return False
+
+        # Ignore loop and ram devices, we normally already skip these in
+        # udev.py: enumerate_block_devices(), but we can still end up trying
+        # to add them to the tree when they are slaves of other devices, this
+        # happens for example with the livecd
+        if name.startswith("ram"):
+            return True
+
+        if name.startswith("loop"):
+            # ignore loop devices unless they're backed by a file
+            return (not devicelibs.loop.get_backing_file(name))
 
         # We want exclusiveDisks to operate on anything that could be
         # considered a directly usable disk, ie: fwraid array, mpath, or disk.
@@ -569,17 +580,6 @@ class DeviceTree(object):
                 log.debug("device '%s' not in exclusiveDisks" % name)
                 self.addIgnoredDisk(name)
                 return True
-
-        # Ignore loop and ram devices, we normally already skip these in
-        # udev.py: enumerate_block_devices(), but we can still end up trying
-        # to add them to the tree when they are slaves of other devices, this
-        # happens for example with the livecd
-        if name.startswith("ram"):
-            return True
-
-        if name.startswith("loop"):
-            # ignore loop devices unless they're backed by a file
-            return (not devicelibs.loop.get_backing_file(name))
 
         # FIXME: check for virtual devices whose slaves are on the ignore list
 
