@@ -725,7 +725,7 @@ static void setKickstartNetwork(struct loaderData_s * loaderData, PyObject *hand
             loaderData->gateway = gateway;
         } else if (rc == 0) {
 #ifdef ENABLE_IPV6
-            if ((rc == inet_pton(AF_INET6, gateway, &addr6)) == 1) {
+            if ((rc = inet_pton(AF_INET6, gateway, &addr6)) == 1) {
                 loaderData->gateway6 = gateway;
             } else if (rc == 0) {
 #endif
