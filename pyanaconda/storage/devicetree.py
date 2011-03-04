@@ -1733,7 +1733,7 @@ class DeviceTree(object):
                 except (IOError, OSError) as e:
                     msg = str(e)
                     log.error("failed to %s of %s: %s" % (op, cfg, msg))
-            elif restore:
+            elif restore and os.access(cfg, os.W_OK):
                 # remove the config since we created it
                 log.info("removing anaconda-created %s" % cfg)
                 try:
