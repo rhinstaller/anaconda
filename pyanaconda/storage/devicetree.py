@@ -172,7 +172,11 @@ class DeviceTree(object):
         self.iscsi = iscsi
         self.dasd = dasd
 
-        self.setDiskImages(getattr(conf, "diskImages", {}))
+        self.diskImages = {}
+        images = getattr(conf, "diskImages", {})
+        if images:
+            # this will overwrite self.exclusiveDisks
+            self.setDiskImages(images)
 
         # protected device specs as provided by the user
         self.protectedDevSpecs = getattr(conf, "protectedDevSpecs", [])
