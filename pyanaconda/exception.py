@@ -95,7 +95,7 @@ def initExceptionHandling(anaconda):
                  "/tmp/yum.log", anaconda.rootPath + "/root/install.log",
                  anaconda.rootPath + "/root/upgrade.log", "/proc/cmdline" ]
     if flags.livecdInstall:
-        fileList.extend(["/var/log/dmesg"])
+        fileList.extend(["/var/log/messages"])
     else:
         fileList.extend(["/tmp/syslog"])
 
