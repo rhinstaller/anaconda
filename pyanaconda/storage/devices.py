@@ -2816,7 +2816,7 @@ class MDRaidArrayDevice(StorageDevice):
         device.setup()
         udev_settle()
 
-        if self.spares:
+        if self.spares > 0:
             # mdadm doesn't like it when you try to incrementally add spares
             return
 
