@@ -543,8 +543,13 @@ class DeviceTree(object):
                udev_device_is_md(info) and \
                udev_device_get_md_name(info):
             md_name = udev_device_get_md_name(info)
+            # mdadm may have appended _<digit>+ if the current hostname
+            # does not match the one in the array metadata
+            alt_name = re.sub("_\d+$", "", md_name)
+            raw_pattern = "isw_[a-z]*_%s"
             for i in range(0, len(self.exclusiveDisks)):
-                if re.match("isw_[a-z]*_%s" % md_name, self.exclusiveDisks[i]):
+                if re.match(raw_pattern % md_name, self.exclusiveDisks[i]) or \
+                   re.match(raw_pattern % alt_name, self.exclusiveDisks[i]):
                     self.exclusiveDisks[i] = name
                     return False
 
