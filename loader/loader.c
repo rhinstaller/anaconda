@@ -1093,31 +1093,16 @@ static void parseCmdLineFlags(struct loaderData_s * loaderData,
                 loaderData->netmask = g_strdup(v);
             } else if (!strcasecmp(k, "gateway")) {
                 char *gateway = g_strdup(v);
-                int rc;
-                struct in_addr addr;
-#ifdef ENABLE_IPV6
-                struct in6_addr addr6;
-#endif
-
-                if ((rc = inet_pton(AF_INET, gateway, &addr)) == 1) {
+                if (isValidIPv4Address(gateway)) {
                     loaderData->gateway = gateway;
-                } else if (rc == 0) {
 #ifdef ENABLE_IPV6
-                    if ((rc = inet_pton(AF_INET6, gateway, &addr6)) == 1) {
-                        loaderData->gateway6 = gateway;
-                    } else if (rc == 0) {
-#endif
-                        logMessage(WARNING,
-                                   "invalid address in boot option gateway");
-#ifdef ENABLE_IPV6
-                    } else {
-                        logMessage(ERROR, "%s (%d): %s", __func__, __LINE__,
-                                   strerror(errno));
-                    }
+                } else if (isValidIPv6Address(gateway)) {
+                    loaderData->gateway6 = gateway;
 #endif
                 } else {
-                    logMessage(ERROR, "%s (%d): %s", __func__, __LINE__,
-                               strerror(errno));
+                    logMessage(WARNING,
+                               "invalid address in boot option gateway");
+                    free(gateway);
                 }
             } else if (!strcasecmp(k, "dns")) {
                 loaderData->dns = g_strdup(v);

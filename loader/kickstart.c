@@ -715,31 +715,16 @@ static void setKickstartNetwork(struct loaderData_s * loaderData, PyObject *hand
     attr = getObject(ele, "gateway", 0);
     if (isNotEmpty(attr)) {
         char *gateway = strdup(PyString_AsString(attr));
-        int rc;
-        struct in_addr addr;
-#ifdef ENABLE_IPV6
-        struct in6_addr addr6;
-#endif
-
-        if ((rc = inet_pton(AF_INET, gateway, &addr)) == 1) {
+        if (isValidIPv4Address(gateway)) {
             loaderData->gateway = gateway;
-        } else if (rc == 0) {
 #ifdef ENABLE_IPV6
-            if ((rc = inet_pton(AF_INET6, gateway, &addr6)) == 1) {
-                loaderData->gateway6 = gateway;
-            } else if (rc == 0) {
-#endif
-                logMessage(WARNING,
-                           "invalid address in kickstart --gateway");
-#ifdef ENABLE_IPV6
-            } else {
-                logMessage(ERROR, "%s (%d): %s", __func__, __LINE__,
-                           strerror(errno));
-            }
+        } else if (isValidIPv6Address(gateway)) {
+            loaderData->gateway6 = gateway;
 #endif
         } else {
-            logMessage(ERROR, "%s (%d): %s", __func__, __LINE__,
-                       strerror(errno));
+            logMessage(WARNING,
+                       "invalid address in kickstart --gateway");
+            free(gateway);
         }
     }
 

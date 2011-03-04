@@ -68,13 +68,12 @@ extern uint64_t flags;
 static void cidrCallback(newtComponent co, void * dptr) {
     struct intfconfig_s * data = dptr;
     int cidr, upper = 0;
-    struct in_addr addr;
 
     if (co == data->cidr4Entry) {
         if (data->cidr4 == NULL && data->ipv4 == NULL)
             return;
 
-        if (inet_pton(AF_INET, data->cidr4, &addr) >= 1)
+        if (isValidIPv4Address(data->cidr4))
             return;
 
         errno = 0;
@@ -333,14 +332,14 @@ void setupIfaceStruct(iface_t * iface, struct loaderData_s * loaderData) {
     /* iBFT configured DNS */
     if(iface->ipv4method == IPV4_IBFT_METHOD){
 	if(iface->numdns<MAXNS){
-	    if(ibft_iface_dns1() && inet_pton(AF_INET, ibft_iface_dns1(), &addr)>=1){
+	    if(ibft_iface_dns1() && isValidIPv4Address(ibft_iface_dns1())){
 		iface->dns[iface->numdns] = strdup(ibft_iface_dns1());
 		iface->numdns++;
 		logMessage(INFO, "adding iBFT dns server %s", ibft_iface_dns1());
 	    }
 	}
 	if(iface->numdns<MAXNS){
-	    if(ibft_iface_dns2() && inet_pton(AF_INET, ibft_iface_dns2(), &addr)>=1){
+	    if(ibft_iface_dns2() && isValidIPv4Address(ibft_iface_dns2())){
 		iface->dns[iface->numdns] = strdup(ibft_iface_dns2());
 		iface->numdns++;
 		logMessage(INFO, "adding iBFT dns server %s", ibft_iface_dns2());
@@ -791,9 +790,7 @@ int manualNetConfig(char * device, iface_t * iface,
     int i, rows, pos, cidr, have[2], stack[2];
     char *buf = NULL;
     char ret[48];
-    struct in_addr addr;
 #ifdef ENABLE_IPV6
-    struct in6_addr addr6;
     int prefix;
 #endif
     struct in_addr *tmpaddr = NULL;
@@ -1129,10 +1126,10 @@ int manualNetConfig(char * device, iface_t * iface,
         /* gather nameservers */
         if (ipcomps->ns) {
 #ifdef ENABLE_IPV6
-            if ((inet_pton(AF_INET, ipcomps->ns, &addr) >= 1) ||
-                (inet_pton(AF_INET6, ipcomps->ns, &addr6) >= 1)) {
+            if (isValidIPv4Address(ipcomps->ns) ||
+                isValidIPv6Address(ipcomps->ns)) {
 #else
-            if (inet_pton(AF_INET, ipcomps->ns, &addr) >= 1) {
+            if (isValidIPv4Address(ipcomps->ns)) {
 #endif
                 iface->dns[0] = strdup(ipcomps->ns);
                 if (iface->numdns < 1)
@@ -2079,5 +2076,35 @@ int get_connection(iface_t *iface) {
     g_object_unref(client);
     return 3;
 }
+
+int isValidIPv4Address(const char *address) {
+    int rc;
+    struct in_addr addr;
+    if ((rc = inet_pton(AF_INET, address, &addr)) >= 1) {
+        return 1;
+    } else if (rc == 0) {
+        return 0;
+    } else {
+        logMessage(ERROR, "%s (%d): %s", __func__, __LINE__,
+        strerror(errno));
+        return 0;
+    }
+}
+
+#ifdef ENABLE_IPV6
+int isValidIPv6Address(const char *address) {
+    int rc;
+    struct in6_addr addr;
+    if ((rc = inet_pton(AF_INET6, address, &addr)) >= 1) {
+        return 1;
+    } else if (rc == 0) {
+        return 0;
+    } else {
+        logMessage(ERROR, "%s (%d): %s", __func__, __LINE__,
+        strerror(errno));
+        return 0;
+    }
+}
+#endif
 
 /* vim:set shiftwidth=4 softtabstop=4: */
