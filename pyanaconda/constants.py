@@ -98,7 +98,7 @@ relabelFiles = ["/etc/rpm/macros", "/etc/dasd.conf", "/etc/zfcp.conf",
                  "/root/install.log", "/root/install.log.syslog",
                  "/etc/shadow", "/etc/shadow-", "/etc/gshadow",
                  "/etc/dhcp/dhclient-*.conf", "/etc/localtime"]
-relabelDirs  = ["/etc/sysconfig/network-scripts", "/var/lib/rpm", "/etc/lvm",
+relabelDirs  = ["/etc/sysconfig/network-scripts", "/var/lib/rpm", "/var/lib/yum", "/etc/lvm",
                 "/dev/mapper", "/etc/iscsi", "/var/lib/iscsi", "/root",
                 "/var/log", "/etc/modprobe.d", "/etc/sysconfig", "/var/cache/yum" ]
 
