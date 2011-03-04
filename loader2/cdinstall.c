@@ -443,20 +443,28 @@ void setKickstartCD(struct loaderData_s * loaderData, int argc, char ** argv) {
 }
 
 int kickstartFromCD(char *kssrc) {
-    int rc, i;
+    int rc, i, j, found = 0;
     char *p, *kspath;
     struct device ** devices;
 
     logMessage(INFO, "getting kickstart file from first CDROM");
 
-    devices = probeDevices(CLASS_CDROM, BUS_UNSPEC, 0);
     /* usb can take some time to settle, even with the various hacks we
      * have in place.  some systems use portable USB CD-ROM drives, try to
      * make sure there really isn't one before bailing */
-    for (i = 0; !devices && i < 10; ++i) {
-        logMessage(DEBUGLVL, "sleeping to wait for a USB CD-ROM");
-        sleep(2);
+    for (i = 0; i < 10; ++i) {
         devices = probeDevices(CLASS_CDROM, BUS_UNSPEC, 0);
+
+        for (j = 0; devices && devices[j]; ++j) {
+            if (devices[j]->device)
+                found = 1;
+        }
+        if (found)
+            break;
+        else {
+            logMessage(DEBUGLVL, "sleeping to wait for a USB CD-ROM");
+            sleep(2);
+        }
     }
 
     if (!devices) {
