@@ -237,7 +237,7 @@ def setFileCons(anaconda):
         vgs = ["/dev/%s" % vg.name for vg in anaconda.id.storage.vgs]
 
         # ugh, this is ugly
-        for dir in ["/etc/sysconfig/network-scripts", "/var/lib/rpm", "/etc/lvm", "/dev/mapper", "/etc/iscsi", "/var/lib/iscsi", "/root", "/var/log", "/etc/modprobe.d", "/etc/sysconfig" ] + vgs:
+        for dir in ["/etc/sysconfig/network-scripts", "/var/lib/rpm", "/var/lib/yum", "/etc/lvm", "/dev/mapper", "/etc/iscsi", "/var/lib/iscsi", "/root", "/var/log", "/etc/modprobe.d", "/etc/sysconfig" ] + vgs:
             def addpath(x): return dir + "/" + x
 
             if not os.path.isdir(anaconda.rootPath + dir):
