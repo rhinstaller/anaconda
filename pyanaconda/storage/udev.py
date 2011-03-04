@@ -166,13 +166,10 @@ def udev_device_is_md(info):
     if udev_device_is_partition(info):
         return False
 
-    # imsm member disks have MD_METADATA set, but are not arrays
+    # The udev information keeps shifting around. Only md arrays have a
+    # /sys/class/block/<name>/md/ subdirectory.
     md_dir = "/sys" + udev_device_get_sysfs_path(info) + "/md"
-
-    # isw raid set *members* have MD_METADATA set, but are not arrays!
-    return (info.has_key("MD_METADATA") and
-            info.get("ID_FS_TYPE") != "isw_raid_member" and
-            os.path.exists(md_dir))
+    return os.path.exists(md_dir)
 
 def udev_device_is_cciss(info):
     """ Return True if the device is a CCISS device. """
