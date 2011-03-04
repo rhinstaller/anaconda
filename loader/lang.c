@@ -142,7 +142,8 @@ int getLangInfo(struct langInfo ** langs) {
     return numLanguages;
 }
 
-void loadLanguage (char * file) {
+void loadLanguage(void)
+{
     char *filename;
     int fd, hash, rc;
     char * key = getenv("LANGKEY");
@@ -151,31 +152,20 @@ void loadLanguage (char * file) {
 	free(strings), strings = NULL;
 	numStrings = allocedStrings = 0;
     }
-    
+
     /* english requires no files */
     if (!strcmp(key, "en"))
         return;
 
-    if (!file) {
-        file = filename;
-        sprintf(filename, "/etc/loader.tr");
-    }
-
-    if (access(file, R_OK) == -1) {
-        newtWinMessage("Error", "OK", "Translation for %s is not available.  "
-                       "The Installation will proceed in English.", key);
-        return ;
-    }
+    checked_asprintf(&filename, "/tmp/translation/%s.tr", key);
 
     rc = unpack_archive_file("/etc/loader.tr", "/tmp/translation");
-
     if (rc != ARCHIVE_OK || access("/tmp/translation", R_OK) == -1) {
         newtWinMessage("Error", "OK", "Cannot get translation file %s.\n", 
                         filename);
         return;
     }
 
-    checked_asprintf(&filename, "/tmp/translation/%s.tr", key);
     fd = open(filename, O_RDONLY);
     if (fd < 0) {
         newtWinMessage("Error", "OK", "Failed to open /tmp/translation: %m\n");
@@ -200,7 +190,10 @@ void loadLanguage (char * file) {
 
     close(fd);
     free(filename);
-    unlink("/tmp/translation");
+    int translation_dir_fd = open("/tmp/translation", O_RDONLY);
+    recursiveRemove(translation_dir_fd);
+    close(translation_dir_fd);
+    rmdir("/tmp/translation");
 
     qsort(strings, numStrings, sizeof(*strings), aStringCmp);
 }
@@ -222,7 +215,7 @@ static void setLangEnv (int i) {
     setenv("LANG", languages[i].lc_all, 1);
     setenv("LANGKEY", languages[i].key, 1);
     setenv("LINGUAS", languages[i].lang, 1);
-    loadLanguage (NULL);
+    loadLanguage();
 }
 
 /* choice is the index of the chosen language in languages */

@@ -93,7 +93,7 @@ int copyFile(char * source, char * dest) {
  * Do "rm -rf" on the target directory.
  *
  * Returns 0 on success, nonzero otherwise (i.e. directory doesn't exist or
- * some of its contents couldn't be removed.
+ * some of its contents couldn't be removed).
  *
  * This is copied from the util-linux-ng project.
  */
