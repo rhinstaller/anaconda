@@ -1331,36 +1331,60 @@ class DeviceTree(object):
                 log.warning("invalid data for %s: %s" % (name, e))
                 return
 
-            # try to name the array based on the preferred minor
-            md_info = devicelibs.mdraid.mdexamine(device.path)
-            md_path = md_info.get("device", "")
-            md_name = devicePathToName(md_info.get("device", ""))
-            if md_name:
+            md_name = None
+            minor = None
+
+            # check the list of devices udev knows about to see if the array
+            # this device belongs to is already active
+            for dev in self.topology.devices_iter():
+                if not udev_device_is_md(dev):
+                    continue
+
                 try:
-                    # md_name can be either md# or md/#
-                    if md_name.startswith("md/"):
-                        minor = int(md_name[3:])     # strip off leading "md/"
-                        md_name = "md%d" % minor     # use a regular md# name
-                    else:
-                        minor = int(md_name[2:])     # strip off leading "md"
-                except (IndexError, ValueError):
-                    minor = None
-                    md_name = None
-                else:
-                    array = self.getDeviceByName(md_name)
-                    if array and array.uuid != md_uuid:
-                        md_name = None
+                    dev_uuid = udev_device_get_md_uuid(dev)
+                    dev_level = udev_device_get_md_level(dev)
+                except KeyError:
+                    continue
+
+                if dev_uuid is None or dev_level is None:
+                    continue
+
+                if dev_uuid == md_uuid and dev_level == md_level:
+                    md_name = udev_device_get_name(dev)
+                    minor = udev_device_get_minor(dev)
+                    break
 
             if not md_name:
-                # if we don't have a name yet, find the first unused minor
-                minor = 0
-                while True:
-                    if self.getDeviceByName("md%d" % minor):
-                        minor += 1
+                # try to name the array based on the preferred minor
+                md_info = devicelibs.mdraid.mdexamine(device.path)
+                md_path = md_info.get("device", "")
+                md_name = devicePathToName(md_info.get("device", ""))
+                if md_name:
+                    try:
+                        # md_name can be either md# or md/#
+                        if md_name.startswith("md/"):
+                            minor = int(md_name[3:])     # strip off leading "md/"
+                            md_name = "md%d" % minor     # use a regular md# name
+                        else:
+                            minor = int(md_name[2:])     # strip off leading "md"
+                    except (IndexError, ValueError):
+                        minor = None
+                        md_name = None
                     else:
-                        break
+                        array = self.getDeviceByName(md_name)
+                        if array and array.uuid != md_uuid:
+                            md_name = None
 
-                md_name = "md%d" % minor
+                if not md_name:
+                    # if we don't have a name yet, find the first unused minor
+                    minor = 0
+                    while True:
+                        if self.getDeviceByName("md%d" % minor):
+                            minor += 1
+                        else:
+                            break
+
+                    md_name = "md%d" % minor
 
             log.debug("using name %s for md array containing member %s"
                         % (md_name, device.name))
