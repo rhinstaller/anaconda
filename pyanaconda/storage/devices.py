@@ -921,6 +921,18 @@ class StorageDevice(Device):
     def vendor(self):
         return self._vendor
 
+    @property
+    def growable(self):
+        """ True if this device or it's component devices are growable. """
+        grow = getattr(self, "req_grow", False)
+        if not grow:
+            for parent in self.parents:
+                grow = parent.growable
+                if grow:
+                    break
+        return grow
+
+
 class DiskDevice(StorageDevice):
     """ A disk """
     _type = "disk"
@@ -1849,10 +1861,6 @@ class LUKSDevice(DMCryptDevice):
 
         StorageDevice._postTeardown(self, recursive=recursive)
 
-    @property
-    def req_grow(self):
-        return getattr(self.slave, "req_grow", None)
-
     def dracutSetupString(self):
         return "rd_LUKS_UUID=luks-%s" % self.slave.format.uuid
 
@@ -2117,9 +2125,7 @@ class LVMVolumeGroupDevice(DMDevice):
 
         # verify we have the space, then add it
         # do not verify for growing vg (because of ks)
-        if not lv.exists and \
-           not [pv for pv in self.pvs if getattr(pv, "req_grow", None)] and \
-           lv.size > self.freeSpace:
+        if not lv.exists and not self.growable and lv.size > self.freeSpace:
             raise DeviceError("new lv is too large to fit in free space", self.name)
 
         log.debug("Adding %s/%dMB to %s" % (lv.name, lv.size, self.name))
