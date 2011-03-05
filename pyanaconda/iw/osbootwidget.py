@@ -207,6 +207,12 @@ class OSBootWidget:
             else:
                 dev = oldDevice
 
+            if not dev:
+                self.intf.messageWindow(_("Error"),
+                                        _("You must select a device."),
+                                        type="warning")
+                continue
+
             if not label:
                 self.intf.messageWindow(_("Error"),
                                         _("You must specify a label for the "
@@ -250,8 +256,6 @@ class OSBootWidget:
                     break
             if foundBad:
                 continue
-
-            # XXX need to do some sort of validation of the device?
 
             # they could be duplicating a device, which we don't handle
             if dev in self.imagelist.keys() and (not oldDevice or
