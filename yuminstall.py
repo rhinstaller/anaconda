@@ -1229,10 +1229,16 @@ class YumBackend(AnacondaBackend):
     def doPostSelection(self, anaconda):
         # Only solve dependencies on the way through the installer, not the way back.
         if anaconda.dir == DISPATCH_BACK:
+            self.ayum._undoDepInstalls()
             return
 
         dscb = YumDepSolveProgress(anaconda.intf)
         self.ayum.dsCallback = dscb
+
+        # isDep needs to be reverted to 0 after buildTransaction. It's for _undoDepInstalls()
+        noDepPkgs=[]
+        for txmbr in self.ayum.tsInfo.getMembers():
+            noDepPkgs.append(txmbr)
 
         # do some sanity checks for kernel and bootloader
         self.selectBestKernel(anaconda)
@@ -1267,6 +1273,10 @@ class YumBackend(AnacondaBackend):
 
         try:
             (code, msgs) = self.ayum.buildTransaction()
+            for pkg in noDepPkgs:
+                for txmbr in self.ayum.tsInfo.matchNaevr(name=pkg.name, arch=pkg.arch):
+                    txmbr.isDep=0
+
             (self.dlpkgs, self.totalSize, self.totalFiles)  = self.ayum.getDownloadPkgs()
 
             if not anaconda.id.getUpgrade():
