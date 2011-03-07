@@ -221,6 +221,16 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Mon Mar 07 2011 David Cantrell <dcantrell@redhat.com> - 13.21.102-1
+- Fix md array spares test. (dlehman)
+  Related: rhbz#652874
+- Add /var/lib/yum to the list of directories we set context on (clumens).
+  Resolves: rhbz#681494
+- Check all PV ancestor devices for growable partitions. (dlehman)
+  Resolves: rhbz#677915
+- Gotta catch 'em all parted exceptions. (akozumpl)
+  Resolves: rhbz#680248
+
 * Wed Mar 02 2011 David Cantrell <dcantrell@redhat.com> - 13.21.101-1
 - Fixed uninitialized GError* variable (mganisin)
   Resolves: rhbz#681511
