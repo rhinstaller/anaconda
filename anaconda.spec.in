@@ -229,6 +229,41 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Mon Mar 07 2011 Chris Lumens <clumens@redhat.com> - 15.21-1
+- Make sure a bootloader device is selected (#595951) (bcl)
+- Attempt at fixing reboot behavior in kickstart (#676968). (clumens)
+- Another fix for the loader translations. (akozumpl)
+- Enable network if sshd boot option is used (#643738) (rvykydal)
+- Give an indication how many packages are left in cmdline mode (#681614).
+  (clumens)
+- Dynamic strings make gettext translations fail. (akozumpl)
+- Change upgrade to use findExistingRootDevices (#681267) (bcl)
+- Fix up remaining anaconda.id references (#680296) (bcl)
+- Wipe out pre-existing problems before running transaction (#678201,
+  pmatilai). (clumens)
+- brcm_iscsiuio is not in Fedora yet, handle that you can't find it. (akozumpl)
+- Handle nfsiso in promptForNfs as well (#678413). (clumens)
+- If the umount in getFileFromNfs fails, log it. (clumens)
+- Correct the return values of some backend base class methods. (#679107)
+  (dlehman)
+- Override kernel cmdline updates (bcl)
+- Change xhost auth when doing a liveinst (#663294) (bcl)
+- Do all dm handling inside addUdevDMDevice. (#672030) (dlehman)
+- VNC does not support runtime SecurityTypes changes (#678150) (mgracik)
+- Don't show loaderSegvHandler or its glibc entry point in tracebacks. (pjones)
+- The default kickstart UI is graphical, specify other if you want it
+  (#678095). (clumens)
+- Only check for the addons of enabled repos (#677773). (clumens)
+- Fix a thinko when setting up the base repo for NFSISO (#676821). (clumens)
+- Fix loading translations in loader (#677648). (clumens)
+- Don't always attempt to load updates on kickstart installs (#677131).
+  (clumens)
+- In text mode we have to treat strings and lists separately while printing
+  them (#676942) (msivak)
+- Don't fail on missing %includes during loader kickstart processing (#676940).
+  (clumens)
+- Prompt for media check on DVD installs (#676551). (clumens)
+
 * Thu Feb 10 2011 Chris Lumens <clumens@redhat.com> - 15.20-1
 - Check for valid mountpoint before unmounting image. (#671922) (dlehman)
 - Fix mis-management of luks dict when renaming encrypted lvs. (dlehman)
