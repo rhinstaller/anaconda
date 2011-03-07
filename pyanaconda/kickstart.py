@@ -431,7 +431,7 @@ class Lang(commands.lang.FC3_Lang):
         self.anaconda.instLanguage.systemLang = self.lang
         self.anaconda.ksdata.skipSteps.append("language")
 
-class LogVolData(commands.logvol.F12_LogVolData):
+class LogVolData(commands.logvol.F15_LogVolData):
     def execute(self):
         storage = self.anaconda.storage
         devicetree = storage.devicetree
