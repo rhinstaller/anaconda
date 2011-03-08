@@ -509,9 +509,7 @@ class AnacondaYum(yum.YumBase):
                            "cdrom:%s" % (self.anaconda.mediaDevice))
         anacondabasepaths = self.anaconda.instClass.getPackagePaths(anacondabaseurl)
         for (name, uri) in self.anaconda.instClass.getPackagePaths(self._baseRepoURL).items():
-            rid = name.replace(" ", "")
-
-            repo = AnacondaYumRepo("anaconda-%s-%s" % (rid, productStamp))
+            repo = AnacondaYumRepo("anaconda-%s" % self.repoIDcounter.next())
             repo.baseurl = uri
             repo.anacondaBaseURLs = anacondabasepaths[name]
 
@@ -520,7 +518,7 @@ class AnacondaYum(yum.YumBase):
 
             if self.anaconda.mediaDevice or self.isodir:
                 repo.mediaid = getMediaId(self.tree)
-                log.info("set mediaid of repo %s to: %s" % (rid, repo.mediaid))
+                log.info("set mediaid of repo %s to: %s" % (repo.name, repo.mediaid))
 
             if self.anaconda.proxy:
                 self.setProxy(self.anaconda, repo)
@@ -788,9 +786,8 @@ class AnacondaYum(yum.YumBase):
         #Add the Driver disc repos to Yum
         for d in glob.glob(DD_RPMS):
             dirname = os.path.basename(d)
-            rid = "anaconda-%s" % dirname
 
-            repo = AnacondaYumRepo(rid)
+            repo = AnacondaYumRepo("anaconda-%s" % self.repoIDcounter.next())
             repo.baseurl = [ "file://%s" % d ]
             repo.name = "Driver Disk %s" % dirname.split("-")[1]
             repo.enable()
