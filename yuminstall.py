@@ -1346,7 +1346,7 @@ class YumBackend(AnacondaBackend):
         dirList = ['/var', '/var/lib', '/var/lib/rpm', '/tmp', '/dev', '/etc',
                    '/etc/sysconfig', '/etc/sysconfig/network-scripts',
                    '/etc/X11', '/root', '/var/tmp', '/etc/rpm', '/var/cache',
-                   '/var/cache/yum']
+                   '/var/cache/yum', '/etc/modprobe.d']
 
         # If there are any protected partitions we want to mount, create their
         # mount points now.
@@ -1418,6 +1418,11 @@ class YumBackend(AnacondaBackend):
             if os.access("/tmp/modprobe.conf", os.R_OK):
                 shutil.copyfile("/tmp/modprobe.conf", 
                                 anaconda.rootPath + "/etc/modprobe.conf")
+
+            if os.access("/tmp/anaconda.conf", os.R_OK):
+                shutil.copyfile("/tmp/anaconda.conf",
+                                anaconda.rootPath + "/etc/modprobe.d/anaconda.conf")
+
             anaconda.id.network.write(anaconda.rootPath)
             anaconda.id.iscsi.write(anaconda.rootPath)
             anaconda.id.zfcp.write(anaconda.rootPath)
