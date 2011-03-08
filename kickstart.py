@@ -197,7 +197,7 @@ class AnacondaKSHandlers(KickstartHandlers):
         KickstartHandlers.doFirewall(self, args)
         dict = self.ksdata.firewall
 	self.id.instClass.setFirewall(self.id, dict["enabled"], dict["trusts"],
-                                      dict["ports"])
+                                      dict["ports"], disableSsh=dict["disableSsh"])
 
     def doFirstboot(self, args):
         KickstartHandlers.doFirstboot(self, args)

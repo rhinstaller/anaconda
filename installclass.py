@@ -305,13 +305,16 @@ class BaseInstallClass:
     def setSELinux(self, id, sel):
         id.security.setSELinux(sel)
 
-    def setFirewall(self, id, enable = 1, trusts = [], ports = []):
+    def setFirewall(self, id, enable = 1, trusts = [], ports = [], disableSsh = False):
 	id.firewall.enabled = enable
 	id.firewall.trustdevs = trusts
 
 	for port in ports:
 	    id.firewall.portlist.append (port)
-        
+
+        if disableSsh:
+            id.firewall.portlist.remove("22:tcp")
+
     def setMiscXSettings(self, id, depth = None, resolution = None,
                          desktop = None, runlevel = None):
 
