@@ -55,6 +55,7 @@ class BaseInstallClass(object):
     showUpgrade = True
     bootloaderTimeoutDefault = None
     bootloaderExtraArgs = ""
+    _l10n_domain = None
 
     # list of of (txt, grplist) tuples for task selection screen
     tasks = []
@@ -69,6 +70,13 @@ class BaseInstallClass(object):
     def _get_description(self):
         return _(self._description) % self._descriptionFields
     description = property(_get_description)
+
+    @property
+    def l10n_domain(self):
+        if self._l10n_domain is None:
+            raise RuntimeError("Localization domain for '%s' not set." %
+                               self.name)
+        return self._l10n_domain
 
     def postAction(self, anaconda):
         anaconda.backend.postAction(anaconda)
