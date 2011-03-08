@@ -44,6 +44,8 @@ class InstallClass(BaseInstallClass):
     tasks = [(N_("Minimal"),
               ["core"])]
 
+    _l10n_domain = "comps"
+
     def getPackagePaths(self, uri):
         if not type(uri) == types.ListType:
             uri = [uri,]

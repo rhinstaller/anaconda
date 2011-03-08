@@ -62,6 +62,8 @@ class InstallClass(BaseInstallClass):
                "java", "text-internet", "web-server"]),
              (N_("Minimal"), ["core"])]
 
+    _l10n_domain = "anaconda"
+
     def getPackagePaths(self, uri):
         if not type(uri) == types.ListType:
             uri = [uri,]
