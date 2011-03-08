@@ -221,6 +221,13 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Tue Mar 08 2011 David Cantrell <dcantrell@redhat.com> - 13.21.103-1
+- Handle boot loader upgrades on s390 (dcantrell)
+  Resolves: rhbz#682783
+- Fix test for resized LV to ensure we schedule the format resize action.
+  (dlehman)
+  Resolves: rhbz#681597
+
 * Mon Mar 07 2011 David Cantrell <dcantrell@redhat.com> - 13.21.102-1
 - Fix md array spares test. (dlehman)
   Related: rhbz#652874
