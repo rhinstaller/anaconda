@@ -216,7 +216,9 @@ def setFileCons(anaconda):
                  "/etc/shadow", "/etc/shadow-", "/etc/gshadow",
                  "/var/log/lastlog", "/var/log/btmp",
                  "/var/lib/multipath", "/var/lib/multipath/bindings",
-                 "/etc/multipath.conf", "/etc/sysconfig/keyboard"]
+                 "/etc/multipath.conf", "/etc/sysconfig/keyboard",
+                 "/etc/sysconfig/iptables", "/etc/sysconfig/ip6tables",
+                 "/etc/sysconfig/iptables-config"]
 
         vgs = []
         for entry in anaconda.id.partitions.requests:
