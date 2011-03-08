@@ -345,7 +345,7 @@ def setSteps(anaconda):
                 "complete"
             )
 
-    if not iutil.isX86():
+    if not iutil.isX86() and not iutil.isS390():
         dispatch.skipStep("bootloader")
 
     if not iutil.isX86():

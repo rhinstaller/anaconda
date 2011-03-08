@@ -844,6 +844,7 @@ def reIPL(anaconda, loader_pid):
                               stdout = "/dev/tty5",
                               stderr = "/dev/tty5")
     except RuntimeError as e:
+        rc = True
         log.info("Unable to set reIPL device to %s: %s",
                  ipldev, e)
 
