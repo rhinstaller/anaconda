@@ -25,6 +25,7 @@ grubConfigFile = "/etc/grub.conf"
 liloConfigFile = "/etc/lilo.conf"
 yabootConfigFile = "/etc/yaboot.conf"
 siloConfigFile = "/etc/silo.conf"
+ziplConfigFile = "/etc/zipl.conf"
 
 def getRaidDisks(raidDevice, storage, raidLevel=None, stripPart=1):
     rc = []
@@ -112,6 +113,7 @@ def getBootloaderTypeAndBoot(instRoot, storage):
     haveLiloConf = 1
     haveYabootConf = 1
     haveSiloConf = 1
+    haveZiplConf = 1
     
     bootDev = None
     
@@ -125,6 +127,8 @@ def getBootloaderTypeAndBoot(instRoot, storage):
         haveYabootConf = 0
     if not os.access(instRoot + siloConfigFile, os.R_OK):
         haveSiloConf = 0
+    if not os.access(instRoot + ziplConfigFile, os.R_OK):
+        haveZiplConf = 0
 
     if haveGrubConf:
         bootDev = None
@@ -203,5 +207,16 @@ def getBootloaderTypeAndBoot(instRoot, storage):
                 block = getBootBlock(bootDev, instRoot, storage, 1)
                 if block[24:28] == "SILO":
                     return ("SILO", bootDev)
+
+    if haveZiplConf:
+        bootDev = None
+        f = open(instRoot + ziplConfigFile, "r")
+        lines = f.readlines()
+        for line in lines:
+            if line[0:7] == "target=":
+                bootDev = getBootDevList(line)
+
+        if bootDev:
+            return ("ZIPL", bootDev)
 
     return (None, None)
