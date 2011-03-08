@@ -126,7 +126,7 @@ class Users:
                 groupEnt = self.admin.initGroup(name)
 
                 if "gid" in kwargs and kwargs["gid"] >= 0:
-                    groupEnt.set(libuser.GIDNUMBER, kwargs]"gid"])
+                    groupEnt.set(libuser.GIDNUMBER, kwargs["gid"])
 
                 self.admin.addGroup(groupEnt)
                 os._exit(0)
@@ -312,7 +312,7 @@ class Users:
             for gd in self.anaconda.ksdata.group.groupList:
                 kwargs = gd.__dict__
                 kwargs.update({"root": instPath})
-                if not self.createGroup(gd.name, **kwargs)
+                if not self.createGroup(gd.name, **kwargs):
                     log.error("Group %s already exists, not creating." % gd.name)
 
             for ud in self.anaconda.ksdata.user.userList:
