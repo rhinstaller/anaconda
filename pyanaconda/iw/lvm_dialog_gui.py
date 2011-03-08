@@ -1187,7 +1187,7 @@ class VolumeGroupEditor:
                     # encrypted. in this case we must check them both.
                     if format.resizable and lv.format.resizable and \
                             lv.targetSize != format.targetSize and \
-                            lv.targetSize != lv.currentSize and \
+                            lv.targetSize != origlv.currentSize and \
                             usedev.format.exists:
                         log.debug("resizing format on %s to %d" % (usedev.lvname, lv.targetSize))
                         actions.append(ActionResizeFormat(usedev, lv.targetSize))
