@@ -342,9 +342,10 @@ static int getSyslog(gchar **addr, gchar **virtiolog) {
 
     if (onQEMU()) {
         /* look for virtio-serial logging on a QEMU machine. */
-        printf("Loading virtio_pci module... ");
-        if (mlLoadModule("virtio_pci", NULL)) {
-            fprintf(stderr, "Error loading virtio_pci module.\n");
+        printf("Looking for the virtio ports... ");
+        if (system("/sbin/udevadm trigger --action=add --sysname-match='vport*'") ||
+            system("/sbin/udevadm settle")) {
+            fprintf(stderr, "Error calling udevadm trigger to get virtio ports.\n");
             sleep(5);
         } else {
             printf("done.\n");
