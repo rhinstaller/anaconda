@@ -993,6 +993,9 @@ static void parseCmdLineFlags(struct loaderData_s * loaderData,
             }
         } else if (!strcasecmp(k, "noeject")) {
             flags |= LOADER_FLAGS_NOEJECT;
+        } else if (!strcasecmp(k, "sshd")) {
+            logMessage(INFO, "early networking required for sshd");
+            flags |= LOADER_FLAGS_EARLY_NETWORKING;
         } else if (v != NULL) {
             /* boot arguments that are of the form name=value */
             /* all arguments in this block require the value  */
@@ -1133,7 +1136,6 @@ static void parseCmdLineFlags(struct loaderData_s * loaderData,
                        !strcasecmp(k, "dmraid") ||
                        !strcasecmp(k, "nodmraid") ||
                        !strcasecmp(k, "xdriver") ||
-                       !strcasecmp(k, "sshd") ||
                        !strcasecmp(k, "syslog")) {
 
                 /* vnc implies graphical */
@@ -1146,7 +1148,7 @@ static void parseCmdLineFlags(struct loaderData_s * loaderData,
                  * by loader, so an active connection is ready once we get
                  * to anaconda
                  */
-                if (!strcasecmp(k, "syslog") || !strcasecmp(k, "vnc") || !strcasecmp(k, "sshd")) {
+                if (!strcasecmp(k, "syslog") || !strcasecmp(k, "vnc")) {
                     logMessage(INFO, "early networking required for %s", k);
                     flags |= LOADER_FLAGS_EARLY_NETWORKING;
                 }
