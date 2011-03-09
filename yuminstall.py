@@ -1047,7 +1047,7 @@ class AnacondaYum(YumSorter):
                 msg = _("There was an error running your transaction for "
                         "the following reason: %s\n") % str(e)
 
-                if self.anaconda.id.upgrade or anaconda.isKickstart:
+                if self.anaconda.id.upgrade or self.anaconda.isKickstart:
                     rc = intf.messageWindow(_("Error"), msg, type="custom",
                                             custom_icon="error",
                                             custom_buttons=[_("_Exit installer")])
@@ -1132,7 +1132,8 @@ class AnacondaYum(YumSorter):
             spaceprob = to_unicode(spaceprob)
             fileprob = to_unicode(fileprob)
 
-            if len(self.anaconda.backend.getRequiredMedia()) > 1 or self.anaconda.id.upgrade:
+            if len(self.anaconda.backend.getRequiredMedia()) > 1 or \
+               self.anaconda.id.upgrade or self.anaconda.isKickstart:
                 intf.detailedMessageWindow(_("Error Running Transaction"),
                    msg, spaceprob + "\n" + fileprob, type="custom",
                    custom_icon="error", custom_buttons=[_("_Exit installer")])
