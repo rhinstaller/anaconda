@@ -387,6 +387,10 @@ class Iscsi(commands.iscsi.F10_Iscsi):
             self.tg_data = tg_data
 
         def login(self, node):
+            if self.tg_data.target and self.tg_data.target != node.name:
+                log.debug("kickstart: skipping logging to iscsi node '%s'" %
+                          node.name)
+                return False
             (rc, _) = self.iscsi_obj.log_into_node(
                 node, self.tg_data.user, self.tg_data.password,
                 self.tg_data.user_in, self.tg_data.password_in)
