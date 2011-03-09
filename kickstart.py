@@ -930,8 +930,8 @@ class RaidData(commands.raid.F12_RaidData):
         kwargs["name"] = devicename
         kwargs["level"] = self.level
         kwargs["parents"] = raidmems
-        kwargs["memberDevices"] = len(raidmems)
-        kwargs["totalDevices"] = kwargs["memberDevices"]+self.spares
+        kwargs["memberDevices"] = len(raidmems) - self.spares
+        kwargs["totalDevices"] = len(raidmems)
 
         # If we were given a pre-existing RAID to create a filesystem on,
         # we need to verify it exists and then schedule a new format action
