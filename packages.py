@@ -218,6 +218,14 @@ def setupTimezone(anaconda):
 # FIXME: this is a huge gross hack.  hard coded list of files
 # created by anaconda so that we can not be killed by selinux
 def setFileCons(anaconda):
+    def lst(root):
+        rc = [root]
+        for (root, dirs, files) in os.walk(root):
+            rc.extend(map(lambda d: root+"/"+d, dirs))
+            rc.extend(map(lambda d: root+"/"+d, files))
+
+        return rc
+
     if flags.selinux:
         log.info("setting SELinux contexts for anaconda created files")
 
@@ -237,22 +245,20 @@ def setFileCons(anaconda):
         vgs = ["/dev/%s" % vg.name for vg in anaconda.id.storage.vgs]
 
         # ugh, this is ugly
-        for dir in ["/etc/sysconfig/network-scripts", "/var/lib/rpm", "/var/lib/yum", "/etc/lvm", "/dev/mapper", "/etc/iscsi", "/var/lib/iscsi", "/root", "/var/log", "/etc/modprobe.d", "/etc/sysconfig" ] + vgs:
-            def addpath(x): return dir + "/" + x
-
-            if not os.path.isdir(anaconda.rootPath + dir):
+        for d in ["/etc/sysconfig/network-scripts", "/var/cache/yum", "/var/lib/rpm", "/var/lib/yum", "/etc/lvm", "/dev/mapper", "/etc/iscsi", "/var/lib/iscsi", "/root", "/var/log", "/etc/modprobe.d", "/etc/sysconfig" ] + vgs:
+            if not os.path.isdir(anaconda.rootPath + d):
                 continue
-            dirfiles = os.listdir(anaconda.rootPath + dir)
-            files.extend(map(addpath, dirfiles))
-            files.append(dir)
 
-        for f in files:
-            if not os.access("%s/%s" %(anaconda.rootPath, f), os.R_OK):
-                log.warning("%s doesn't exist" %(f,))
-                continue
-            ret = isys.resetFileContext(os.path.normpath(f),
-                                        anaconda.rootPath)
-            log.info("set fc of %s to %s" %(f, ret))
+            # This is stupid, but resetFileContext expects to get the path
+            # without "/mnt/sysimage" in front, whereas everything else needs
+            # it there.  So we add it to get the list of files, then
+            # immediately remove it, then pass it back to resetFileContext
+            # anyway.
+            for f in map(lambda f: f.replace(anaconda.rootPath, ""),
+                         filter(lambda f: os.access(f, os.R_OK),
+                                lst(anaconda.rootPath+d))):
+                ret = isys.resetFileContext(os.path.normpath(f),
+                                            anaconda.rootPath)
 
     return
 
