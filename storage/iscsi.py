@@ -281,7 +281,7 @@ class iscsi(object):
         return (rc, msg)
 
     def addTarget(self, ipaddr, port="3260", user=None, pw=None,
-                  user_in=None, pw_in=None, intf=None):
+                  user_in=None, pw_in=None, intf=None, target=None):
         authinfo = None
         found = 0
         logged_in = 0
@@ -312,6 +312,10 @@ class iscsi(object):
         for node in found_nodes:
             # skip nodes we already have
             if node in self.nodes:
+                continue
+            if target and target != node.name:
+                log.debug("iscsi: skipping logging to iscsi node '%s'" %
+                          node.name)
                 continue
 
             found = found + 1
@@ -344,7 +348,8 @@ class iscsi(object):
             return
         f.write("iscsiname %s\n" %(self.initiator,))
         for n in self.nodes:
-            f.write("iscsi --ipaddr %s --port %s" %(n.address, n.port))
+            f.write("iscsi --ipaddr %s --port %s --target %s" %
+                    (n.address, n.port, n.name))
             auth = n.getAuth()
             if auth:
                 f.write(" --user %s" % auth.username)

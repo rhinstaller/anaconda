@@ -395,8 +395,10 @@ class Iscsi(commands.iscsi.F10_Iscsi):
         tg = commands.iscsi.F10_Iscsi.parse(self, args)
 
         try:
-            storage.iscsi.iscsi().addTarget(tg.ipaddr, tg.port,
-                tg.user, tg.password, tg.user_in, tg.password_in)
+            storage.iscsi.iscsi().addTarget(tg.ipaddr, tg.port, tg.user,
+                                            tg.password, tg.user_in,
+                                            tg.password_in,
+                                            target=tg.target)
             log.info("added iscsi target: %s" %(tg.ipaddr,))
         except (IOError, ValueError), e:
             raise KickstartValueError, formatErrorMsg(self.lineno,
