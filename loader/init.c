@@ -568,7 +568,8 @@ int main(int argc, char **argv) {
     printf("anaconda installer init version %s starting\n", VERSION);
 
     printf("mounting /proc filesystem... "); 
-    if (mount("/proc", "/proc", "proc", 0, NULL))
+    mount("/proc", "proc", "proc", 0, NULL);
+    if (access("/proc/cmdline", R_OK) == -1)
         fatal_error(1);
     printf("done\n");
 
@@ -589,7 +590,8 @@ int main(int argc, char **argv) {
     }
 
     printf("creating /dev filesystem... "); 
-    if (mount("/dev", "/dev", "tmpfs", 0, NULL))
+    mount("/dev", "/dev", "tmpfs", 0, NULL);
+    if (access("/dev", W_OK) == -1)
         fatal_error(1);
     createDevices();
     printf("done\n");
@@ -627,12 +629,14 @@ int main(int argc, char **argv) {
     printf("done\n");
 
     printf("mounting /dev/pts (unix98 pty) filesystem... "); 
-    if (mount("/dev/pts", "/dev/pts", "devpts", 0, NULL))
+    mount("/dev/pts", "/dev/pts", "devpts", 0, NULL);
+    if (access("/dev/pts/ptmx", F_OK) == -1)
         fatal_error(1);
     printf("done\n");
 
     printf("mounting /sys filesystem... "); 
-    if (mount("/sys", "/sys", "sysfs", 0, NULL))
+    mount("/sys", "/sys", "sysfs", 0, NULL);
+    if (access("/sys/class/block", R_OK) == -1)
         fatal_error(1);
     printf("done\n");
 
@@ -776,7 +780,8 @@ int main(int argc, char **argv) {
     mkdir("/tmp", 0755);
 
     printf("mounting /tmp as tmpfs... ");
-    if (mount("none", "/tmp", "tmpfs", 0, "size=250m"))
+    mount("none", "/tmp", "tmpfs", 0, "size=250m");
+    if (access("/tmp", W_OK) == -1)
         fatal_error(1);
     printf("done\n");
 
