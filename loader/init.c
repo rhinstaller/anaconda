@@ -766,9 +766,7 @@ int main(int argc, char **argv) {
     ret = setdomainname("", 0);
 
     printf("trying to remount root filesystem read write... ");
-    if (mount("/", "/", "ext2", MS_REMOUNT | MS_MGC_VAL, NULL)) {
-        fatal_error(1);
-    }
+    mount("/", "/", "remount", MS_REMOUNT, NULL);
     printf("done\n");
 
     /* we want our /tmp to be tmpfs, but we also want to let people hack
