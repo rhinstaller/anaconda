@@ -76,6 +76,7 @@ BuildRequires: python-nose
 BuildRequires: rpm-devel
 BuildRequires: rpm-python >= %{rpmpythonver}
 BuildRequires: slang-devel >= %{slangver}
+BuildRequires: transifex-client
 BuildRequires: xmlto
 BuildRequires: yum >= %{yumver}
 BuildRequires: zlib-devel
