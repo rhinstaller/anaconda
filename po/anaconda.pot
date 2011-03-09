@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 15.20\n"
+"Project-Id-Version: anaconda 15.21\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2011-03-07 14:26-0500\n"
+"POT-Creation-Date: 2011-03-09 15:18-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -75,7 +75,7 @@ msgstr ""
 #: loader/kickstart.c:943 loader/lang.c:113 loader/lang.c:362
 #: loader/loader.c:422 loader/loader.c:458 loader/loader.c:498
 #: loader/loader.c:516 loader/loader.c:533 loader/loader.c:570
-#: loader/loader.c:1205 loader/loader.c:1233 loader/loader.c:1378
+#: loader/loader.c:1207 loader/loader.c:1235 loader/loader.c:1380
 #: loader/mediacheck.c:47 loader/mediacheck.c:86 loader/mediacheck.c:93
 #: loader/mediacheck.c:97 loader/mediacheck.c:106 loader/method.c:194
 #: loader/method.c:268 loader/net.c:625 loader/net.c:1007 loader/net.c:1816
@@ -146,7 +146,7 @@ msgstr ""
 #: pyanaconda/yuminstall.py:1316 pyanaconda/yuminstall.py:1507
 #: pyanaconda/yuminstall.py:1526 pyanaconda/yuminstall.py:1549
 #: pyanaconda/storage/__init__.py:113 pyanaconda/storage/__init__.py:122
-#: pyanaconda/storage/__init__.py:250 pyanaconda/storage/__init__.py:2023
+#: pyanaconda/storage/__init__.py:251 pyanaconda/storage/__init__.py:2024
 msgid "_Exit installer"
 msgstr ""
 
@@ -154,7 +154,7 @@ msgstr ""
 #: pyanaconda/kickstart.py:1420 pyanaconda/kickstart.py:1459
 #: pyanaconda/upgrade.py:58 pyanaconda/upgrade.py:98
 #: pyanaconda/yuminstall.py:1321 pyanaconda/yuminstall.py:1508
-#: pyanaconda/iw/partition_gui.py:1602 pyanaconda/storage/__init__.py:2024
+#: pyanaconda/iw/partition_gui.py:1602 pyanaconda/storage/__init__.py:2025
 msgid "_Continue"
 msgstr ""
 
@@ -372,7 +372,7 @@ msgid ""
 msgstr ""
 
 #: pyanaconda/gui.py:1320 pyanaconda/image.py:145 pyanaconda/image.py:173
-#: pyanaconda/packages.py:337 pyanaconda/storage/__init__.py:1840
+#: pyanaconda/packages.py:337 pyanaconda/storage/__init__.py:1841
 msgid "_Exit"
 msgstr ""
 
@@ -473,13 +473,13 @@ msgstr ""
 #: loader/hdinstall.c:282 loader/hdinstall.c:300 loader/hdinstall.c:309
 #: loader/hdinstall.c:344 loader/hdinstall.c:383 loader/hdinstall.c:398
 #: loader/kickstart.c:308 loader/lang.c:113 loader/loader.c:422
-#: loader/loader.c:533 loader/loader.c:1205 loader/mediacheck.c:47
+#: loader/loader.c:533 loader/loader.c:1207 loader/mediacheck.c:47
 #: loader/mediacheck.c:86 loader/mediacheck.c:93 loader/mediacheck.c:97
 #: loader/method.c:194 loader/method.c:268 loader/nfsinstall.c:261
 #: loader/urlinstall.c:139 loader/urlinstall.c:161 loader/urlinstall.c:213
 #: loader/urls.c:335 loader/urls.c:343 loader/urls.c:350
-#: pyanaconda/storage/__init__.py:246 pyanaconda/storage/__init__.py:1841
-#: pyanaconda/storage/__init__.py:1928 pyanaconda/storage/zfcp.py:375
+#: pyanaconda/storage/__init__.py:247 pyanaconda/storage/__init__.py:1842
+#: pyanaconda/storage/__init__.py:1929 pyanaconda/storage/zfcp.py:375
 #: pyanaconda/textw/upgrade_text.py:181 pyanaconda/textw/upgrade_text.py:188
 msgid "Error"
 msgstr ""
@@ -1185,7 +1185,7 @@ msgstr ""
 
 #: pyanaconda/rescue.py:304 pyanaconda/rescue.py:306 loader/cdinstall.c:210
 #: loader/cdinstall.c:213 loader/method.c:241
-#: pyanaconda/storage/__init__.py:1840 pyanaconda/textw/upgrade_text.py:139
+#: pyanaconda/storage/__init__.py:1841 pyanaconda/textw/upgrade_text.py:139
 msgid "Skip"
 msgstr ""
 
@@ -2811,7 +2811,7 @@ msgstr ""
 msgid "Type"
 msgstr ""
 
-#: pyanaconda/iw/partition_gui.py:619 pyanaconda/storage/__init__.py:1840
+#: pyanaconda/iw/partition_gui.py:619 pyanaconda/storage/__init__.py:1841
 msgid "Format"
 msgstr ""
 
@@ -3395,7 +3395,7 @@ msgstr ""
 #: loader/driverdisk.c:506 loader/driverselect.c:79 loader/driverselect.c:145
 #: loader/driverselect.c:171 loader/hdinstall.c:168 loader/hdinstall.c:222
 #: loader/kbd.c:118 loader/loader.c:499 loader/loader.c:516
-#: loader/loader.c:1378 loader/loader.c:1418 loader/net.c:625
+#: loader/loader.c:1380 loader/loader.c:1420 loader/net.c:625
 #: loader/net.c:1007 loader/net.c:1816 loader/net.c:1835
 #: loader/nfsinstall.c:93 loader/urls.c:264 pyanaconda/storage/__init__.py:122
 #: pyanaconda/storage/__init__.py:168 pyanaconda/storage/devicetree.py:95
@@ -3690,113 +3690,113 @@ msgstr ""
 msgid "Error downloading updates image"
 msgstr ""
 
-#: loader/loader.c:1187
+#: loader/loader.c:1189
 #, c-format
 msgid "%s requires %d MB of memory, to install, but you only have %d MB."
 msgstr ""
 
-#: loader/loader.c:1188
+#: loader/loader.c:1190
 #, c-format
 msgid ""
 "%s requires %d MB of memory to install using this installation method, but "
 "you only have %d MB on this machine."
 msgstr ""
 
-#: loader/loader.c:1233
+#: loader/loader.c:1235
 msgid "Unsupported Hardware Detected"
 msgstr ""
 
-#: loader/loader.c:1234
+#: loader/loader.c:1236
 msgid ""
 "This hardware (or a combination thereof) is not supported by Red Hat.  For "
 "more information on supported hardware, please refer to http://www.redhat."
 "com/hardware."
 msgstr ""
 
-#: loader/loader.c:1370
+#: loader/loader.c:1372
 msgid "Rescue Method"
 msgstr ""
 
-#: loader/loader.c:1371
+#: loader/loader.c:1373
 msgid "Installation Method"
 msgstr ""
 
-#: loader/loader.c:1373
+#: loader/loader.c:1375
 msgid "What type of media contains the rescue image?"
 msgstr ""
 
-#: loader/loader.c:1375
+#: loader/loader.c:1377
 msgid "What type of media contains the installation image?"
 msgstr ""
 
-#: loader/loader.c:1417
+#: loader/loader.c:1419
 msgid "No driver found"
 msgstr ""
 
-#: loader/loader.c:1417
+#: loader/loader.c:1419
 msgid "Select driver"
 msgstr ""
 
-#: loader/loader.c:1418
+#: loader/loader.c:1420
 msgid "Use a driver disk"
 msgstr ""
 
-#: loader/loader.c:1419
+#: loader/loader.c:1421
 msgid ""
 "Unable to find any devices of the type needed for this installation type.  "
 "Would you like to manually select your driver or use a driver disk?"
 msgstr ""
 
-#: loader/loader.c:1630
+#: loader/loader.c:1632
 msgid "The following devices have been found on your system."
 msgstr ""
 
-#: loader/loader.c:1632
+#: loader/loader.c:1634
 msgid ""
 "No device drivers have been loaded for your system.  Would you like to load "
 "any now?"
 msgstr ""
 
-#: loader/loader.c:1636
+#: loader/loader.c:1638
 msgid "Devices"
 msgstr ""
 
-#: loader/loader.c:1637
+#: loader/loader.c:1639
 msgid "Done"
 msgstr ""
 
-#: loader/loader.c:1638
+#: loader/loader.c:1640
 msgid "Add Device"
 msgstr ""
 
-#: loader/loader.c:1920
+#: loader/loader.c:1922
 #, c-format
 msgid "loader has already been run.  Starting shell.\n"
 msgstr ""
 
-#: loader/loader.c:2064
+#: loader/loader.c:2066
 #, c-format
 msgid "Driver disc was detected in %s. Do you want to use it?."
 msgstr ""
 
-#: loader/loader.c:2067
+#: loader/loader.c:2069
 msgid "Driver disc detected"
 msgstr ""
 
-#: loader/loader.c:2067
+#: loader/loader.c:2069
 msgid "Use it"
 msgstr ""
 
-#: loader/loader.c:2067
+#: loader/loader.c:2069
 msgid "Skip it"
 msgstr ""
 
-#: loader/loader.c:2381
+#: loader/loader.c:2383
 #, c-format
 msgid "Running anaconda %s, the %s rescue mode - please wait.\n"
 msgstr ""
 
-#: loader/loader.c:2383
+#: loader/loader.c:2385
 #, c-format
 msgid "Running anaconda %s, the %s system installer - please wait.\n"
 msgstr ""
@@ -4130,7 +4130,7 @@ msgid ""
 "device encryption will be disabled."
 msgstr ""
 
-#: pyanaconda/storage/__init__.py:195
+#: pyanaconda/storage/__init__.py:196
 msgid ""
 "\n"
 "\n"
@@ -4139,164 +4139,164 @@ msgid ""
 "depending on your BIOS's support for booting from GPT disks."
 msgstr ""
 
-#: pyanaconda/storage/__init__.py:203 pyanaconda/storage/devicetree.py:104
+#: pyanaconda/storage/__init__.py:204 pyanaconda/storage/devicetree.py:104
 msgid "Confirm"
 msgstr ""
 
-#: pyanaconda/storage/__init__.py:204
+#: pyanaconda/storage/__init__.py:205
 #, python-format
 msgid ""
 "The partitioning options you have selected will now be written to disk.  Any "
 "data on deleted or reformatted partitions will be lost.%s"
 msgstr ""
 
-#: pyanaconda/storage/__init__.py:210
+#: pyanaconda/storage/__init__.py:211
 msgid "Go _Back"
 msgstr ""
 
-#: pyanaconda/storage/__init__.py:211
+#: pyanaconda/storage/__init__.py:212
 msgid "_Write Changes to Disk"
 msgstr ""
 
-#: pyanaconda/storage/__init__.py:230
+#: pyanaconda/storage/__init__.py:231
 msgid "Running..."
 msgstr ""
 
-#: pyanaconda/storage/__init__.py:231
+#: pyanaconda/storage/__init__.py:232
 msgid "Storing encryption keys"
 msgstr ""
 
-#: pyanaconda/storage/__init__.py:247
+#: pyanaconda/storage/__init__.py:248
 #, python-format
 msgid "Error storing an encryption key: %s\n"
 msgstr ""
 
-#: pyanaconda/storage/__init__.py:415
+#: pyanaconda/storage/__init__.py:416
 msgid "Examining Devices"
 msgstr ""
 
-#: pyanaconda/storage/__init__.py:416
+#: pyanaconda/storage/__init__.py:417
 msgid "Examining storage devices"
 msgstr ""
 
-#: pyanaconda/storage/__init__.py:700
+#: pyanaconda/storage/__init__.py:701
 msgid "This partition is holding the data for the hard drive install."
 msgstr ""
 
-#: pyanaconda/storage/__init__.py:705
+#: pyanaconda/storage/__init__.py:706
 msgid "You cannot delete a partition of a LDL formatted DASD."
 msgstr ""
 
-#: pyanaconda/storage/__init__.py:711
+#: pyanaconda/storage/__init__.py:712
 #, python-format
 msgid "This device is part of the RAID device %s."
 msgstr ""
 
-#: pyanaconda/storage/__init__.py:714
+#: pyanaconda/storage/__init__.py:715
 msgid "This device is part of a RAID device."
 msgstr ""
 
-#: pyanaconda/storage/__init__.py:719
+#: pyanaconda/storage/__init__.py:720
 #, python-format
 msgid "This device is part of the LVM volume group '%s'."
 msgstr ""
 
-#: pyanaconda/storage/__init__.py:722
+#: pyanaconda/storage/__init__.py:723
 msgid "This device is part of a LVM volume group."
 msgstr ""
 
-#: pyanaconda/storage/__init__.py:738
+#: pyanaconda/storage/__init__.py:739
 msgid ""
 "This device is an extended partition which contains logical partitions that "
 "cannot be deleted:\n"
 "\n"
 msgstr ""
 
-#: pyanaconda/storage/__init__.py:1017
+#: pyanaconda/storage/__init__.py:1018
 #, python-format
 msgid ""
 "You have not defined a root partition (/), which is required for "
 "installation of %s to continue."
 msgstr ""
 
-#: pyanaconda/storage/__init__.py:1022
+#: pyanaconda/storage/__init__.py:1023
 #, python-format
 msgid ""
 "Your root partition is less than 250 megabytes which is usually too small to "
 "install %s."
 msgstr ""
 
-#: pyanaconda/storage/__init__.py:1032
+#: pyanaconda/storage/__init__.py:1033
 #, python-format
 msgid ""
 "Your / partition is less than %(min)s MB which is lower than recommended for "
 "a normal %(productName)s%(live)s install."
 msgstr ""
 
-#: pyanaconda/storage/__init__.py:1043
+#: pyanaconda/storage/__init__.py:1044
 #, python-format
 msgid ""
 "Your / partition does not match the the live image you are installing from.  "
 "It must be formatted as %s."
 msgstr ""
 
-#: pyanaconda/storage/__init__.py:1050
+#: pyanaconda/storage/__init__.py:1051
 #, python-format
 msgid ""
 "Your %(mount)s partition is less than %(size)s megabytes which is lower than "
 "recommended for a normal %(productName)s install."
 msgstr ""
 
-#: pyanaconda/storage/__init__.py:1079
+#: pyanaconda/storage/__init__.py:1080
 msgid ""
 "Installing on a USB device.  This may or may not produce a working system."
 msgstr ""
 
-#: pyanaconda/storage/__init__.py:1082
+#: pyanaconda/storage/__init__.py:1083
 msgid ""
 "Installing on a FireWire device.  This may or may not produce a working "
 "system."
 msgstr ""
 
-#: pyanaconda/storage/__init__.py:1094
+#: pyanaconda/storage/__init__.py:1095
 #, python-format
 msgid ""
 "You have not specified a swap partition.  %s MB of memory is required to "
 "continue installation without a swap partition, but you only have %s MB."
 msgstr ""
 
-#: pyanaconda/storage/__init__.py:1099
+#: pyanaconda/storage/__init__.py:1100
 msgid ""
 "You have not specified a swap partition.  Although not strictly required in "
 "all cases, it will significantly improve performance for most installations."
 msgstr ""
 
-#: pyanaconda/storage/__init__.py:1106
+#: pyanaconda/storage/__init__.py:1107
 #, python-format
 msgid ""
 "This mount point is invalid.  The %s directory must be on the / file system."
 msgstr ""
 
-#: pyanaconda/storage/__init__.py:1110
+#: pyanaconda/storage/__init__.py:1111
 #, python-format
 msgid "The mount point %s must be on a linux file system."
 msgstr ""
 
-#: pyanaconda/storage/__init__.py:1121
+#: pyanaconda/storage/__init__.py:1122
 msgid "No Drives Found"
 msgstr ""
 
-#: pyanaconda/storage/__init__.py:1122
+#: pyanaconda/storage/__init__.py:1123
 msgid ""
 "An error has occurred - no valid devices were found on which to create new "
 "file systems. Please check your hardware for the cause of this problem."
 msgstr ""
 
-#: pyanaconda/storage/__init__.py:1410 pyanaconda/storage/__init__.py:1419
+#: pyanaconda/storage/__init__.py:1411 pyanaconda/storage/__init__.py:1420
 msgid "Dirty File Systems"
 msgstr ""
 
-#: pyanaconda/storage/__init__.py:1411
+#: pyanaconda/storage/__init__.py:1412
 #, python-format
 msgid ""
 "The following file systems for your Linux system were not unmounted "
@@ -4305,7 +4305,7 @@ msgid ""
 "%s"
 msgstr ""
 
-#: pyanaconda/storage/__init__.py:1420
+#: pyanaconda/storage/__init__.py:1421
 #, python-format
 msgid ""
 "The following file systems for your Linux system were not unmounted "
@@ -4313,7 +4313,7 @@ msgid ""
 "%s"
 msgstr ""
 
-#: pyanaconda/storage/__init__.py:1873
+#: pyanaconda/storage/__init__.py:1874
 #, python-format
 msgid ""
 "The swap device:\n"
@@ -4324,7 +4324,7 @@ msgid ""
 "swap space, you must reformat as a new-style Linux swap partition."
 msgstr ""
 
-#: pyanaconda/storage/__init__.py:1884
+#: pyanaconda/storage/__init__.py:1885
 #, python-format
 msgid ""
 "The swap device:\n"
@@ -4336,7 +4336,7 @@ msgid ""
 "down your system rather than hibernating it."
 msgstr ""
 
-#: pyanaconda/storage/__init__.py:1892
+#: pyanaconda/storage/__init__.py:1893
 #, python-format
 msgid ""
 "The swap device:\n"
@@ -4348,7 +4348,7 @@ msgid ""
 "make sure the installer is set to format all swap devices."
 msgstr ""
 
-#: pyanaconda/storage/__init__.py:1904
+#: pyanaconda/storage/__init__.py:1905
 #, python-format
 msgid ""
 "The swap device:\n"
@@ -4359,7 +4359,7 @@ msgid ""
 "installation, you will need to format the device or skip it."
 msgstr ""
 
-#: pyanaconda/storage/__init__.py:1915
+#: pyanaconda/storage/__init__.py:1916
 #, python-format
 msgid ""
 "Error enabling swap device %(name)s: %(msg)s\n"
@@ -4370,7 +4370,7 @@ msgid ""
 "Press OK to exit the installer"
 msgstr ""
 
-#: pyanaconda/storage/__init__.py:1922
+#: pyanaconda/storage/__init__.py:1923
 #, python-format
 msgid ""
 "Error enabling swap device %(name)s: %(msg)s\n"
@@ -4380,11 +4380,11 @@ msgid ""
 "Press OK to exit the installer."
 msgstr ""
 
-#: pyanaconda/storage/__init__.py:1986 pyanaconda/storage/__init__.py:1998
+#: pyanaconda/storage/__init__.py:1987 pyanaconda/storage/__init__.py:1999
 msgid "Invalid mount point"
 msgstr ""
 
-#: pyanaconda/storage/__init__.py:1987
+#: pyanaconda/storage/__init__.py:1988
 #, python-format
 msgid ""
 "An error occurred when trying to create %s.  Some element of this path is "
@@ -4393,7 +4393,7 @@ msgid ""
 "Press <Enter> to exit the installer."
 msgstr ""
 
-#: pyanaconda/storage/__init__.py:1999
+#: pyanaconda/storage/__init__.py:2000
 #, python-format
 msgid ""
 "An error occurred when trying to create %(mountpoint)s: %(msg)s.  This is a "
@@ -4402,18 +4402,18 @@ msgid ""
 "Press <Enter> to exit the installer."
 msgstr ""
 
-#: pyanaconda/storage/__init__.py:2015 pyanaconda/storage/__init__.py:2039
+#: pyanaconda/storage/__init__.py:2016 pyanaconda/storage/__init__.py:2040
 msgid "Unable to mount filesystem"
 msgstr ""
 
-#: pyanaconda/storage/__init__.py:2016
+#: pyanaconda/storage/__init__.py:2017
 #, python-format
 msgid ""
 "An error occurred mounting device %(path)s as %(mountpoint)s.  You may "
 "continue installation, but there may be problems."
 msgstr ""
 
-#: pyanaconda/storage/__init__.py:2040
+#: pyanaconda/storage/__init__.py:2041
 #, python-format
 msgid ""
 "An error occurred mounting device %(path)s as %(mountpoint)s: %(msg)s. This "
@@ -4454,7 +4454,7 @@ msgstr ""
 msgid "Creating device %s"
 msgstr ""
 
-#: pyanaconda/storage/devices.py:2588
+#: pyanaconda/storage/devices.py:2594
 #, python-format
 msgid "A RAID%d set requires at least %d member"
 msgid_plural "A RAID%d set requires at least %d members"
@@ -4470,7 +4470,7 @@ msgid ""
 "installation."
 msgstr ""
 
-#: pyanaconda/storage/devicetree.py:1593
+#: pyanaconda/storage/devicetree.py:1640
 msgid "This partition is part of an inconsistent LVM Volume Group."
 msgstr ""
 

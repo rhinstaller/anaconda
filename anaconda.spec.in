@@ -229,6 +229,28 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Wed Mar 09 2011 Chris Lumens <clumens@redhat.com> - 15.22-1
+- Only apply global passphrase to devices with no passphrase. (#679223)
+  (dlehman)
+- Pass --force when calling vgreduce --removemissing. (#679206) (dlehman)
+- Fix test for resized LV to ensure we schedule the format resize action.
+  (dlehman)
+- Handle md name-mangling based on hostname/homehost WRT exclusiveDisks.
+  (dlehman)
+- Adjust DeviceTree.isIgnored's handling of loop, ram, and live devices.
+  (dlehman)
+- Allow scanning of already-active md devices. (#680226) (dlehman)
+- Don't clobber exclusiveDisks unless there are disk images. (dlehman)
+- Do on-demand scanning of md container if needed. (#678877) (dlehman)
+- Fix md array spares test. (dlehman)
+- Fix udev_device_is_md. (dlehman)
+- Check all PV ancestor devices for growable partitions. (#683573) (dlehman)
+- Pass correct class to super in SELinuxFS.mountable. (#677450) (dlehman)
+- Handle quotes around labels and UUIDs in /etc/fstab. (#670496) (dlehman)
+- Create the virtio-ports on time. (akozumpl)
+- Do not pass --sshd to stage2. (akozumpl)
+- Apply one more fix for "logvol --label=" (#673584) (clumens)
+
 * Mon Mar 07 2011 Chris Lumens <clumens@redhat.com> - 15.21-1
 - Make sure a bootloader device is selected (#595951) (bcl)
 - Attempt at fixing reboot behavior in kickstart (#676968). (clumens)
