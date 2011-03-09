@@ -995,7 +995,7 @@ class AnacondaYum(yum.YumBase):
             msg = _("There was an error running your transaction for "
                     "the following reason: %s\n") % str(e)
 
-            if self.anaconda.upgrade or anaconda.ksdata:
+            if self.anaconda.upgrade or self.anaconda.ksdata:
                 rc = intf.messageWindow(_("Error"), msg, type="custom",
                                         custom_icon="error",
                                         custom_buttons=[_("_Exit installer")])
@@ -1079,7 +1079,7 @@ class AnacondaYum(yum.YumBase):
             spaceprob = to_unicode(spaceprob)
             fileprob = to_unicode(fileprob)
 
-            if self.anaconda.upgrade:
+            if self.anaconda.upgrade or self.anaconda.ksdata:
                 intf.detailedMessageWindow(_("Error Running Transaction"),
                    msg, spaceprob + "\n" + fileprob, type="custom",
                    custom_icon="error", custom_buttons=[_("_Exit installer")])
