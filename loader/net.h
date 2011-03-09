@@ -81,5 +81,9 @@ void splitHostname (char *str, char **host, char **port);
 int wait_for_iface_activation(char * ifname);
 int wait_for_iface_disconnection(char *ifname);
 int isURLRemote(char *url);
+int isValidIPv4Address(const char *address);
+#ifdef ENABLE_IPV6
+int isValidIPv6Address(const char *address);
+#endif
 
 #endif

@@ -362,7 +362,6 @@ int getFileFromNfs(char * url, char * dest, struct loaderData_s * loaderData) {
             NMDHCP4Config *dhcp = NULL;
             const char *server_name = NULL;
             const char *filename = NULL;
-            struct in_addr addr;
             char nextserver[INET_ADDRSTRLEN+1];
 
             if (nm_device_get_state(candidate) != NM_DEVICE_STATE_ACTIVATED)
@@ -386,7 +385,7 @@ int getFileFromNfs(char * url, char * dest, struct loaderData_s * loaderData) {
 
             /* 'server_name' may be a hostname or an IPv4 address */
             memset(&nextserver, '\0', sizeof(nextserver));
-            if (inet_pton(AF_INET, server_name, &addr) >= 1) {
+            if (isValidIPv4Address(server_name)) {
                 strcpy(nextserver, server_name);
             } else {
                 struct hostent *he = gethostbyname(server_name);
