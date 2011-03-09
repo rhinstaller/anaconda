@@ -221,6 +221,12 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Wed Mar 09 2011 David Cantrell <dcantrell@redhat.com> - 13.21.104-1
+- Remove 'Back' button on depsolving exception for ks installs (dcantrell)
+  Resolves: rhbz#673170
+- Make our resetFileContext loop truly recursive (clumens).
+  Resolves: rhbz#681494
+
 * Tue Mar 08 2011 David Cantrell <dcantrell@redhat.com> - 13.21.103-1
 - Handle boot loader upgrades on s390 (dcantrell)
   Resolves: rhbz#682783
