@@ -285,7 +285,8 @@ class iscsi(object):
             return
         f.write("iscsiname %s\n" %(self.initiator,))
         for n in self.nodes:
-            f.write("iscsi --ipaddr %s --port %s" %(n.address, n.port))
+            f.write("iscsi --ipaddr %s --port %s --target %s" %
+                    (n.address, n.port, n.name))
             auth = n.getAuth()
             if auth:
                 f.write(" --user %s" % auth.username)

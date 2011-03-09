@@ -384,8 +384,12 @@ class Iscsi(commands.iscsi.F10_Iscsi):
         def __init__(self, iscsi_obj, tg_data):
             self.iscsi_obj = iscsi_obj
             self.tg_data = tg_data
-        
+
         def login(self, node):
+            if self.tg_data.target and self.tg_data.target != node.name:
+                log.debug("kickstart: skipping logging to iscsi node '%s'" %
+                          node.name)
+                return False
             (rc, _) = self.iscsi_obj.log_into_node(
                 node, self.tg_data.user, self.tg_data.password,
                 self.tg_data.user_in, self.tg_data.password_in)
@@ -397,7 +401,7 @@ class Iscsi(commands.iscsi.F10_Iscsi):
         try:
             iscsi_obj = storage.iscsi.iscsi()
             discovered_nodes = iscsi_obj.discover(
-                tg.ipaddr, tg.port, tg.user, tg.password, 
+                tg.ipaddr, tg.port, tg.user, tg.password,
                 tg.user_in, tg.password_in)
             login = self.Login(iscsi_obj, tg)
             logged_into_nodes = filter(login.login, discovered_nodes)
