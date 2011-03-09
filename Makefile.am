@@ -43,6 +43,9 @@ sed_verbose = $(sed_verbose_$(V))
 sed_verbose_ = $(sed_verbose_$(AM_DEFAULT_VERBOSITY))
 sed_verbose_0 = @echo "  SED    "$@;
 
+TX_PULL_ARGS = -a --disable-overwrite
+TX_PUSH_ARGS = -s
+
 $(PACKAGE_NAME).spec: $(PACKAGE_NAME).spec.in
 	$(sed_verbose)sed -e 's/#VERSION#/$(PACKAGE_VERSION)/' < $< > $@
 
@@ -56,14 +59,17 @@ tag:
 	@git tag -s -a -m "Tag as $(ARCHIVE_TAG)" $(ARCHIVE_TAG)
 	@echo "Tagged as $(ARCHIVE_TAG)"
 
-scratch:
+po-pull:
+	rm -f po/en@boldquot.gmo po/en@boldquot.po
+	rm -f po/en@quot.gmo po/en@quot.po
+	tx pull $(TX_PULL_ARGS)
+
+scratch: po-pull
 	$(MAKE) ARCHIVE_TAG=HEAD dist
+	git checkout -- po/$(PACKAGE_NAME).pot
 
 archive:
-	$(MAKE) tag
-	$(MAKE) dist
-	git checkout -- po/$(PACKAGE_NAME).pot
-	( cd po ; for f in *.po ; do git checkout -- $$f 2>/dev/null ; done )
+	$(MAKE) dist && $(MAKE) tag && git checkout -- po/$(PACKAGE_NAME).pot
 
 release: archive
 
@@ -74,7 +80,7 @@ src: archive
 api:
 	doxygen docs/api.cfg
 
-bumpver:
+bumpver: po-pull
 	@opts="-n $(PACKAGE_NAME) -v $(PACKAGE_VERSION) -r $(PACKAGE_RELEASE) -b $(PACKAGE_BUGREPORT)" ; \
 	if [ ! -z "$(IGNORE)" ]; then \
 		opts="$${opts} -i $(IGNORE)" ; \
@@ -83,7 +89,8 @@ bumpver:
 		opts="$${opts} -m $(MAP)" ; \
 	fi ; \
 	scripts/makebumpver $${opts} || exit 1 ; \
-	$(MAKE) -C po $(PACKAGE_NAME).pot-update
+	$(MAKE) -C po $(PACKAGE_NAME).pot-update ; \
+	tx push $(TX_PUSH_ARGS)
 
 install-buildrequires:
 	yum install $$(grep BuildRequires: anaconda.spec.in | cut -d ' ' -f 2)
