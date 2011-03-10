@@ -30,10 +30,15 @@ class KeyboardWindow(InstallWindow, installKeyboardWindow):
         InstallWindow.__init__(self, ics)
         installKeyboardWindow.__init__(self)
 
+        ics.cw.mainxml.get_widget("nextButton").grab_focus()
+
     def getNext(self):
         installKeyboardWindow.getNext(self)
 
     def getScreen(self, anaconda):
         default = anaconda.instLanguage.getDefaultKeyboard(anaconda.rootPath)
         anaconda.keyboard.set(default)
-        return installKeyboardWindow.getScreen(self, default, anaconda.keyboard)
+        vbox = installKeyboardWindow.getScreen(self, default, anaconda.keyboard)
+        self.modelView.connect("select-cursor-row", lambda widget, vbox=vbox: self.ics.setGrabNext(1))
+
+        return vbox
