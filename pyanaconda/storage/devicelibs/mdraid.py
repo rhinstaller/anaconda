@@ -167,8 +167,7 @@ def mdadd(device):
     except MDRaidError as msg:
         raise MDRaidError("mdadd failed for %s: %s" % (device, msg))
 
-def mdactivate(device, members=[], super_minor=None, update_super_minor=False,
-               uuid=None):
+def mdactivate(device, members=[], super_minor=None, uuid=None):
     if super_minor is None and not uuid:
         raise ValueError("mdactivate requires either a uuid or a super-minor")
     
@@ -179,13 +178,7 @@ def mdactivate(device, members=[], super_minor=None, update_super_minor=False,
     else:
         identifier = ""
 
-    if update_super_minor:
-        extra_args = ["--update=super-minor"]
-    else:
-        extra_args = [ ]
-
     args = ["--assemble", device, identifier, "--run", "--auto=md"]
-    args += extra_args
     args += members
 
     try:
