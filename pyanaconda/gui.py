@@ -595,7 +595,6 @@ class PassphraseEntryWindow:
         self.win = xml.get_widget("passphraseEntryDialog")
         self.passphraseLabel = xml.get_widget("passphraseLabel")
         self.passphraseEntry = xml.get_widget("passphraseEntry2")
-        self.globalcheckbutton = xml.get_widget("globalcheckbutton")
 
         if parent:
             self.win.set_transient_for(parent)
@@ -613,15 +612,13 @@ class PassphraseEntryWindow:
 
         rc = self.win.run()
         passphrase = None
-        isglobal = False
         if rc == gtk.RESPONSE_OK:
             passphrase = self.passphraseEntry.get_text()
-            isglobal = self.globalcheckbutton.get_active()
 
         if busycursor:
             setCursorToBusy()
 
-        self.rc = (passphrase, isglobal)
+        self.rc = passphrase
         return self.rc
 
     def getrc(self):

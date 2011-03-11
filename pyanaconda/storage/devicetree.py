@@ -50,7 +50,7 @@ _ = lambda x: gettext.ldgettext("anaconda", x)
 import logging
 log = logging.getLogger("storage")
 
-def getLUKSPassphrase(intf, device, globalPassphrase):
+def getLUKSPassphrase(intf, device, passphrases):
     """ Obtain a passphrase for a LUKS encrypted block device.
 
         The format's mapping name must already be set and the backing
@@ -58,10 +58,7 @@ def getLUKSPassphrase(intf, device, globalPassphrase):
 
         If successful, this function leaves the device mapped.
 
-        Return value is a two-tuple: (passphrase, isglobal)
-
-        passphrase is the passphrase string, if obtained
-        isglobal is a boolean indicating whether the passphrase is global
+        Return value is the passphrase string, if obtained
 
         Either or both can be None, depending on the outcome.
     """
@@ -77,20 +74,20 @@ def getLUKSPassphrase(intf, device, globalPassphrase):
         # the device is already mapped
         raise RuntimeError("device is already mapped")
 
-    if not device.format.configured and globalPassphrase:
-        # try the given passphrase first
-        device.format.passphrase =  globalPassphrase
-    
-        try:
-            device.format.setup()
-        except CryptoError as e:
-            device.format.passphrase = None
-        else:
-            # we've opened the device so we're done.
-            return (globalPassphrase, False)
+    if not device.format.configured and passphrases:
+        for passphrase in passphrases:
+            device.format.passphrase =  passphrase
+
+            try:
+                device.format.setup()
+            except CryptoError as e:
+                device.format.passphrase = None
+            else:
+                # we've opened the device so we're done.
+                return passphrase
 
     if not intf:
-        return (None, None)
+        return None
     
     buttons = [_("Back"), _("Continue")]
     passphrase_incorrect = False
@@ -99,7 +96,7 @@ def getLUKSPassphrase(intf, device, globalPassphrase):
             # TODO: add a flag to passphraseEntryWindow to say the last
             #       passphrase was incorrect so try again
             passphrase_incorrect = False
-        (passphrase, isglobal) = intf.passphraseEntryWindow(device.name)
+        passphrase = intf.passphraseEntryWindow(device.name)
         if not passphrase:
             rc = intf.messageWindow(_("Confirm"),
                                     _("Are you sure you want to skip "
@@ -116,7 +113,6 @@ def getLUKSPassphrase(intf, device, globalPassphrase):
                 continue
             else:
                 passphrase = None
-                isglobal = None
                 log.info("skipping passphrase for %s" % (device.name,))
                 break
 
@@ -131,7 +127,7 @@ def getLUKSPassphrase(intf, device, globalPassphrase):
             # we've opened the device so we're done.
             break
 
-    return (passphrase, isglobal)
+    return passphrase
 
 
 class DeviceTree(object):
@@ -189,10 +185,15 @@ class DeviceTree(object):
         self.__multipaths = {}
         self.__multipathConfigWriter = devicelibs.mpath.MultipathConfigWriter()
 
-        self.__passphrase = passphrase
+        self.__passphrases = []
+        if passphrase:
+            self.__passphrases.append(passphrase)
+
         self.__luksDevs = {}
         if luksDict and isinstance(luksDict, dict):
             self.__luksDevs = luksDict
+            self.__passphrases.extend(luksDict.values())
+
         self._ignoredDisks = []
         for disk in getattr(conf, "ignoredDisks", []):
             self.addIgnoredDisk(disk)
@@ -1150,11 +1151,11 @@ class DeviceTree(object):
                     # this makes device.configured return True
                     device.format.passphrase = 'yabbadabbadoo'
             else:
-                (passphrase, isglobal) = getLUKSPassphrase(self.intf,
+                passphrase = getLUKSPassphrase(self.intf,
                                                 device,
-                                                self.__passphrase)
-                if isglobal and device.format.status:
-                    self.__passphrase = passphrase
+                                                self.__passphrases)
+                if passphrase and passphrase not in self.__passphrases:
+                    self.__passphrases.append(passphrase)
 
             luks_device = LUKSDevice(device.format.mapName,
                                      parents=[device],

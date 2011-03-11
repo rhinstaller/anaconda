@@ -103,9 +103,9 @@ class RescueInterface(InstallInterfaceBase):
 
     def passphraseEntryWindow(self, device):
         w = PassphraseEntryWindow(self.screen, device)
-        (passphrase, isglobal) = w.run()
+        passphrase = w.run()
         w.pop()
-        return (passphrase, isglobal)
+        return passphrase
 
     def resetInitializeDiskQuestion(self):
         self._initLabelAnswers = {}

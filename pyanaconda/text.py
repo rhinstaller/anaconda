@@ -230,7 +230,7 @@ class PassphraseEntryWindow:
         self.rc = None
 
     def run(self):
-        toplevel = GridForm(self.screen, _("Passphrase"), 1, 4)
+        toplevel = GridForm(self.screen, _("Passphrase"), 1, 3)
 
         txt = TextboxReflowed(65, self.txt)
         toplevel.add(txt, 0, 0)
@@ -238,22 +238,17 @@ class PassphraseEntryWindow:
         passphraseentry = Entry(60, password = 1)
         toplevel.add(passphraseentry, 0, 1, (0,0,0,1))
 
-        globalcheckbox = Checkbox(_("This is a global passphrase"))
-        toplevel.add(globalcheckbox, 0, 2)
-
         buttons = ButtonBar(self.screen, [TEXT_OK_BUTTON, TEXT_CANCEL_BUTTON])
-        toplevel.add(buttons, 0, 3, growx=1)
+        toplevel.add(buttons, 0, 2, growx=1)
 
         rc = toplevel.run()
         res = buttons.buttonPressed(rc)
 
         passphrase = None
-        isglobal = False
         if res == TEXT_OK_CHECK:
             passphrase = passphraseentry.value().strip()
-            isglobal = globalcheckbox.selected()
 
-        self.rc = (passphrase, isglobal)
+        self.rc = passphrase
         return self.rc
 
     def pop(self):
@@ -405,9 +400,9 @@ class InstallInterface(InstallInterfaceBase):
 
     def passphraseEntryWindow(self, device):
         w = PassphraseEntryWindow(self.screen, device)
-        (passphrase, isglobal) = w.run()
+        passphrase = w.run()
         w.pop()
-        return (passphrase, isglobal)
+        return passphrase
 
     def enableNetwork(self):
         if len(self.anaconda.network.netdevices) == 0:
