@@ -82,21 +82,9 @@ def doStartupX11Actions():
     wm_pid = startMetacityWM()
     log.info("Starting window manager, pid %s." % (wm_pid,))
 
-    if wm_pid is not None:
-        from pyanaconda import xutils
-
-        try:
-            xutils.setRootResource('Xcursor.size', '24')
-            xutils.setRootResource('Xcursor.theme', 'Bluecurve')
-            xutils.setRootResource('Xcursor.theme_core', 'true')
-
-            xutils.setRootResource('Xft.antialias', '1')
-            xutils.setRootResource('Xft.hinting', '1')
-            xutils.setRootResource('Xft.hintstyle', 'hintslight')
-            xutils.setRootResource('Xft.rgba', 'none')
-        except Exception as e:
-            sys.stderr.write("X SERVER STARTED, THEN FAILED");
-            raise RuntimeError, "X server failed to start"
+    if wm_pid is None:
+        sys.stderr.write("X SERVER STARTED, THEN FAILED");
+        raise RuntimeError, "X server failed to start"
 
 def set_x_resolution(runres):
     # cant do this if no window manager is running because otherwise when we

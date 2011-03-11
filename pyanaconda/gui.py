@@ -44,7 +44,6 @@ from constants import *
 from product import *
 import network
 from installinterfacebase import InstallInterfaceBase
-import xutils
 import imp
 import iw
 

@@ -25,10 +25,3 @@ MAINTAINERCLEANFILES = Makefile.in
 pkgpyexecdir    = $(pyexecdir)/py$(PACKAGE_NAME)
 anacondadir     = $(pkgpyexecdir)
 anaconda_PYTHON = *.py
-pkgpyexec_LTLIBRARIES = xutils.la
-
-xutils_la_CFLAGS      = $(PYTHON_INCLUDES) $(GDK_CFLAGS) -fno-strict-aliasing
-xutils_la_LDFLAGS     = -module -avoid-version $(PYTHON_LDFLAGS) $(GDK_LDFLAGS)
-xutils_la_LIBADD      = $(PYTHON_LIBS) $(GDK_LIBS)
-xutils_la_SOURCES     = xutils.c
-
