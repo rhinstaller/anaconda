@@ -1315,7 +1315,7 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
                     fn(repo)
                     if callback:
                         callback.disconnect()
-                except RepoError:
+                except RepoError as e:
                     if callback:
                         callback.disconnect()
                     buttons = [_("_Exit installer"), _("Edit"), _("_Retry")]
