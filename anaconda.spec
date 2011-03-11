@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.226
+Version: 11.1.2.227
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -128,6 +128,30 @@ fi
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Fri Mar 11 2011 Ales Kozumplik <akozumpl@redhat.com> 11.1.2.227-1
+- Fix waiting for a cdrom with a ks file to come up. (akozumpl)
+  Resolves: rhbz#658398
+- When the back button is pressed, undo deps. (mmatsuya)
+  Resolves: rhbz#603177
+- Add global vars to retain parsed /proc/cmdline (bcl)
+  Related: rhbz#569883
+- Convert earlyModuleLoad to use cmdline_argv (bcl)
+  Related: rhbz#569883
+- Check blacklist= for the module name before loading it (bcl)
+  Related: rhbz#569883
+- Write /tmp/anaconda.conf (bcl)
+  Related: rhbz#569883
+- Copy module blacklist to target system (bcl)
+  Resolves: rhbz#569883
+- Allow blocking the ssh port through kickstart (clumens)
+  Resolves: rhbz#485086
+- Use tune4fs for ext4 filesystems (bcl)
+  Resolves: rhbz#616184
+- Add tune4fs to install images (bcl)
+  Resolves: rhbz#616184
+- Set selinux context on iptables files (bcl)
+  Resolves: rhbz#658084
+
 * Thu Mar 3 2011 Ales Kozumplik <akozumpl@redhat.com> 11.1.2.226-1
 - Use getDiskPart() from bootyutil. (akozumpl)
   Related: rhbz#572862
