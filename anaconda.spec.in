@@ -229,6 +229,19 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Mon Mar 14 2011 Chris Lumens <clumens@redhat.com> - 15.23-1
+- iscsi: use the --target parameter from the iscsi kickstart command.
+  (akozumpl)
+- Make the "comps" translation domain dynamic. (akozumpl)
+- Changes for NetworkManager API 0.9 (rvykydal)
+- Consolidate ip address checking into functions (#677609) (rvykydal)
+- Add support for ipv6 to gateway boot option (#677609) (rvykydal)
+- Fix parsing of ipv6 --gateway in kickstart (#677609) (rvykydal)
+- Fix setting of some network values in loader kickstart (#679825). (rvykydal)
+- Stop using --update=super-minor when starting md arrays. (dlehman)
+- Fix kickstart handling of md spares. (#683605) (dlehman)
+- Fix sensitivity of options in text network config UI (#681580) (jlaska)
+
 * Wed Mar 09 2011 Chris Lumens <clumens@redhat.com> - 15.22-1
 - Only apply global passphrase to devices with no passphrase. (#679223)
   (dlehman)
