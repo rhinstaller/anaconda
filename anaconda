@@ -163,11 +163,14 @@ def symlink_updates(dest_dir, update_dir):
                 continue
             os.symlink(dest_path, update_path)
 
-def parseOptions(argv = None):
+def getAnacondaVersion():
     # Using _isys here so we don't drag in the logging stuff, which is always
     # complicated.
     from pyanaconda import _isys
-    op = OptionParser(version="%prog " + _isys.getAnacondaVersion())
+    return _isys.getAnacondaVersion()
+
+def parseOptions(argv = None):
+    op = OptionParser(version="%prog " + getAnacondaVersion())
 
     # Interface
     op.add_option("-C", "--cmdline", dest="display_mode", action="store_const", const="c",
@@ -493,6 +496,8 @@ if __name__ == "__main__":
     if os.geteuid() != 0:
         stdoutLog.error("anaconda must be run as root.")
         sys.exit(0)
+
+    log.info("%s %s" % (sys.argv[0], getAnacondaVersion()))
 
     # pull this in to get product name and versioning
     from pyanaconda import product
