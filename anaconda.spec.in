@@ -229,6 +229,85 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Mon Mar 14 2011 Chris Lumens <clumens@redhat.com> - 16.2-1
+- iscsi: use the --target parameter from the iscsi kickstart command.
+  (akozumpl)
+- Make the "comps" translation domain dynamic. (akozumpl)
+- Add a missing include to fix the build. (clumens)
+- Remove the last of the xutils module. (clumens)
+- Fix a missing exception variable. (akozumpl)
+- Add cmdline options and f15 support to upd-bootiso (bcl)
+- Use yum's new callback mode when available (pmatilai)
+- Pressing enter on the keyboard screen should go to the next screen (#683448).
+  (clumens)
+- Do not allow use of preexisting root filesystem. (#629311) (dlehman)
+- Stop using --update=super-minor when starting md arrays. (dlehman)
+- Fix kickstart handling of md spares. (#683605) (dlehman)
+- Fix sensitivity of options in text network config UI (#681580) (jlaska)
+- Consolidate ip address checking into functions. (rvykydal)
+- Add support for ipv6 to gateway boot option (#677609) (rvykydal)
+- Fix parsing of ipv6 --gateway in kickstart (#677609) (rvykydal)
+- Remove 'Back' button on depsolving exception for ks installs (#673170)
+  (dcantrell)
+- Shorten the anaconda repo names (#679434). (clumens)
+- fix mnemonics in the 'Add Repository' dialog (akozumpl)
+- Create the virtio-ports on time. (akozumpl)
+- Do not pass --sshd to stage2. (akozumpl)
+- Handle boot loader upgrades on s390 (#682783) (dcantrell)
+- Don't assume BOOTIF present for ksdevice=bootif. (rvykydal)
+- syntax errors correcting (vpodzime)
+- Apply one more fix for "logvol --label=" (#673584) (clumens)
+- Fix test for resized LV to ensure we schedule the format resize action.
+  (dlehman)
+- Make sure a bootloader device is selected (#595951) (bcl)
+- Another fix for the loader translations. (akozumpl)
+- /var/log/dmesg doesn't exist in a live install. messages does, though.
+  (dlehman)
+- Don't try to unlink a config file that isn't there. (dlehman)
+- Handle md name-mangling based on hostname/homehost WRT exclusiveDisks.
+  (dlehman)
+- Adjust DeviceTree.isIgnored's handling of loop, ram, and live devices.
+  (dlehman)
+- Allow scanning of already-active md devices. (#680226) (dlehman)
+- Don't clobber exclusiveDisks unless there are disk images. (dlehman)
+- Do on-demand scanning of md container if needed. (#678877) (dlehman)
+- Fix md array spares test. (dlehman)
+- Fix udev_device_is_md. (dlehman)
+- Add /var/lib/yum to the list of directories we set context on (#681494).
+  (clumens)
+- Pass createUser and createGroup an arguments dict. (clumens)
+- Check all PV ancestor devices for growable partitions. (dlehman)
+- Enable network if sshd boot option is used (#643738) (rvykydal)
+- Fix setting of loaderData->method from repo= cmdline option. (rvykydal)
+- Gotta catch 'em all parted exceptions. (akozumpl)
+- Give an indication how many packages are left in cmdline mode (#681614).
+  (clumens)
+- Dynamic strings make gettext translations fail. (akozumpl)
+- devt.h is no longer useful, remove it. (clumens)
+- Remove 'Back' button on depsolving exception for ks installs (#673170)
+  (dcantrell)
+- Ensure remount requests go through isys.mount() (#678520) (dcantrell)
+- Check repo instead of method type when enabling network in loader (#673824)
+  (rvykydal)
+- Fix setting of some network values in loader kickstart (#679825). (rvykydal)
+- Loader should activate, stage 2 configure network devices. (rvykydal)
+- Do not activate first ks network device automatically in non-network
+  installs. (rvykydal)
+- Always activate first kickstart network device (rvykydal)
+- Make kickstart network command reconfigure active device in loader (rvykydal)
+- Use NM for ibft configuration (rvykydal)
+- Reset only ifcfg file of device we failed to activate (rvykydal)
+- Initialize iface structure properly (rvykydal)
+- Add kickstart network --nodefroute option (rvykydal)
+- Add support for ks network --bootproto=ibft (rvykydal)
+- Wait for activation of specific devices instead of NM (rvykydal)
+- Parse all kickstart network commands in loader too (rvykydal)
+- Activate all devices set by kickstart network --activate command (rvykydal)
+- Parse new kickstart options network --activate and --nodefroute. (rvykydal)
+- Fixup upgrade test for findExistingRoots change (#681267) (bcl)
+- Change upgrade to use findExistingRootDevices (#681267) (bcl)
+- Initialize locale before the kickstart/virtio check (#679702) (msivak)
+
 * Tue Mar 01 2011 Chris Lumens <clumens@redhat.com> - 16.1-1
 - Fix another unused return value error message. (clumens)
 
