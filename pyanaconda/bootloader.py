@@ -398,7 +398,9 @@ class BootLoader(object):
                                % (desc, levels_str))
             ret = False
 
-        if metadata and device.metadataVersion not in metadata:
+        # new arrays will be created with an appropriate metadata format
+        if device.exists and \
+           metadata and device.metadataVersion not in metadata:
             self.errors.append(_("RAID sets that contain '%s' must have one "
                                  "of the following metadata versions: %s.")
                                % (desc, ",".join(metadata)))

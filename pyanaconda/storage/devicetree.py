@@ -1382,9 +1382,11 @@ class DeviceTree(object):
                     minor = udev_device_get_minor(dev)
                     break
 
+            md_info = devicelibs.mdraid.mdexamine(device.path)
+            md_metadata = md_info.get("metadata")
+
             if not md_name:
                 # try to name the array based on the preferred minor
-                md_info = devicelibs.mdraid.mdexamine(device.path)
                 md_path = md_info.get("device", "")
                 md_name = devicePathToName(md_info.get("device", ""))
                 if md_name:
@@ -1422,6 +1424,7 @@ class DeviceTree(object):
                                              minor=minor,
                                              memberDevices=md_devices,
                                              uuid=md_uuid,
+                                             metadataVersion=md_metadata,
                                              sysfsPath=sysfs_path,
                                              exists=True)
             except ValueError as e:
