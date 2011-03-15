@@ -2540,7 +2540,7 @@ class MDRaidArrayDevice(StorageDevice):
 
     def __init__(self, name, level=None, major=None, minor=None, size=None,
                  memberDevices=None, totalDevices=None,
-                 uuid=None, format=None, exists=None,
+                 uuid=None, format=None, exists=None, metadataVersion=None,
                  parents=None, sysfsPath=''):
         """ Create a MDRaidArrayDevice instance.
 
@@ -2551,6 +2551,7 @@ class MDRaidArrayDevice(StorageDevice):
             Keyword Arguments:
 
                 level -- the device's RAID level (a string, eg: '1' or 'raid1')
+                metadataVersion -- the version of the device's md metadata
                 parents -- list of member devices (StorageDevice instances)
                 size -- the device's size (units/format TBD)
                 uuid -- the device's UUID
@@ -2582,7 +2583,11 @@ class MDRaidArrayDevice(StorageDevice):
         self.chunkSize = 512.0 / 1024.0         # chunk size in MB
         self.superBlockSize = 2.0               # superblock size in MB
 
-        self.createMetadataVer = "1.1"
+        if not isinstance(metadataVersion, str):
+            self.metadataVersion = "1.1"
+        else:
+            self.metadataVersion = metadataVersion
+
         # bitmaps are not meaningful on raid0 according to mdadm-3.0.3
         self.createBitmap = self.level != 0
 
@@ -2667,9 +2672,12 @@ class MDRaidArrayDevice(StorageDevice):
         s = StorageDevice.__str__(self)
         s += ("  level = %(level)s  spares = %(spares)s\n"
               "  members = %(memberDevices)s\n"
-              "  total devices = %(totalDevices)s" %
+              "  total devices = %(totalDevices)s"
+              "  metadata version = %(metadataVersion)s" %
               {"level": self.level, "spares": self.spares,
-               "memberDevices": self.memberDevices, "totalDevices": self.totalDevices})
+               "memberDevices": self.memberDevices,
+               "totalDevices": self.totalDevices,
+               "metadataVersion": self.metadataVersion})
         return s
 
     @property
@@ -2677,7 +2685,8 @@ class MDRaidArrayDevice(StorageDevice):
         d = super(MDRaidArrayDevice, self).dict
         d.update({"level": self.level,
                   "spares": self.spares, "memberDevices": self.memberDevices,
-                  "totalDevices": self.totalDevices})
+                  "totalDevices": self.totalDevices,
+                  "metadataVersion": self.metadataVersion})
         return d
 
     def writeKS(self, f, preexisting=False, noformat=False, s=None):
@@ -2905,9 +2914,7 @@ class MDRaidArrayDevice(StorageDevice):
             member.setup(orig=orig)
             disks.append(member.path)
 
-        update_super_minor = True
-        if self.type == "mdcontainer" or self.type == "mdbiosraidarray":
-            update_super_minor = False
+        update_super_minor = self.metadataVersion in ("0", "0.90")
 
         mdraid.mdactivate(self.path,
                           members=disks,
@@ -2963,7 +2970,7 @@ class MDRaidArrayDevice(StorageDevice):
         if getattr(self.format, "mountpoint", None) == bootmountpoint or \
            getattr(self.format, "mountpoint", None) == "/boot/efi" or \
            self.format.type == "prepboot":
-            self.createMetadataVer = "1.0"
+            self.metadataVersion = "1.0"
 
         # Bitmaps are not useful for swap and small partitions
         if self.size < 1000 or self.format.type == "swap":
