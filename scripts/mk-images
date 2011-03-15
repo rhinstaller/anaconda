@@ -107,7 +107,8 @@ LVMMODS="dm-mod dm-zero dm-snapshot dm-mirror dm-multipath dm-round-robin dm-cry
 RAIDMODS="raid0 raid1 raid5 raid6 raid456 raid10 linear"
 CRYPTOMODS="sha256_generic cbc xts lrw aes_generic crypto_blkcipher crc32c ecb arc4"
 PCMCIASOCKMODS="yenta_socket i82365 tcic pcmcia"
-INITRDMODS="$USBMODS $FIREWIREMODS $IDEMODS $SCSIMODS $FSMODS $LVMMODS $RAIDMODS $CRYPTOMODS $COMMONMODS $PCMCIASOCKMODS $SDMODS =scsi =net =drm"
+INFINIBANDMODS="ib_qib mlx4_ib"
+INITRDMODS="$USBMODS $FIREWIREMODS $IDEMODS $SCSIMODS $FSMODS $LVMMODS $RAIDMODS $CRYPTOMODS $COMMONMODS $PCMCIASOCKMODS $INFINIBANDMODS $SDMODS =scsi =net =drm"
 
 . $(dirname $0)/buildinstall.functions
 
