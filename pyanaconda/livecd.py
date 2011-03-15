@@ -244,7 +244,7 @@ class LiveCDCopyBackend(backend.AnacondaBackend):
 
         # mount all of the filesystems under /mnt so we can copy in content
         _setupFilesystems(anaconda.storage.mountpoints,
-                          chroot=anaconda.rootPath + "/mnt")
+                          chroot="/mnt")
 
         # And now let's do the real copies
         for tocopy in mountpoints:
@@ -262,7 +262,7 @@ class LiveCDCopyBackend(backend.AnacondaBackend):
                 continue
 
             copytree("%s/%s" % (anaconda.rootPath, tocopy),
-                     "%s/mnt/%s" % (anaconda.rootPath, tocopy),
+                     "/mnt/%s" % (tocopy,),
                      True, True, flags.selinux)
             wait.refresh()
             shutil.rmtree("%s/%s" % (anaconda.rootPath, tocopy))
@@ -277,14 +277,12 @@ class LiveCDCopyBackend(backend.AnacondaBackend):
                 continue
 
             try:
-                stats[tocopy]= os.stat("%s/mnt/%s" % (anaconda.rootPath,
-                                                      tocopy))
+                stats[tocopy]= os.stat("/mnt/%s" % (tocopy,))
             except Exception as e:
                 log.info("failed to get stat info for mountpoint %s: %s"
                             % (tocopy, e))
 
-            shutil.rmtree("%s/mnt/%s" % (anaconda.rootPath,
-                                         tocopy.split("/")[1]))
+            shutil.rmtree("/mnt/%s" % (tocopy.split("/")[1]))
             wait.refresh()
 
         # now mount all of the filesystems so that post-install writes end
