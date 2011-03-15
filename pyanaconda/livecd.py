@@ -233,8 +233,10 @@ class LiveCDCopyBackend(backend.AnacondaBackend):
                 getattr(device.format, method)(**kwargs)
 
         # Start by sorting the mountpoints in decreasing-depth order.
-        mountpoints = sorted(anaconda.storage.mountpoints.keys(),
-                             reverse=True)
+        # Only include ones that exist on the original livecd filesystem
+        mountpoints = filter(os.path.exists,
+                             sorted(anaconda.storage.mountpoints.keys(),
+                             reverse=True))
         # We don't want to copy the root filesystem.
         mountpoints.remove("/")
         stats = {} # mountpoint: posix.stat_result
@@ -256,15 +258,12 @@ class LiveCDCopyBackend(backend.AnacondaBackend):
             # time.
             wait.refresh()
 
-            if not os.path.exists("%s/%s" % (anaconda.rootPath, tocopy)):
-                # the directory does not exist in the live image, so there's
-                # nothing to move
-                continue
-
+            log.info("Copying %s/%s to /mnt/%s" % (anaconda.rootPath, tocopy, tocopy))
             copytree("%s/%s" % (anaconda.rootPath, tocopy),
                      "/mnt/%s" % (tocopy,),
                      True, True, flags.selinux)
             wait.refresh()
+            log.info("Removing %s/%s" % (anaconda.rootPath, tocopy))
             shutil.rmtree("%s/%s" % (anaconda.rootPath, tocopy))
             wait.refresh()
 
@@ -273,15 +272,15 @@ class LiveCDCopyBackend(backend.AnacondaBackend):
         for tocopy in mountpoints:
             device = anaconda.storage.mountpoints[tocopy]
             device.format.teardown()
-            if not os.path.exists("%s/%s" % (anaconda.rootPath, tocopy)):
-                continue
 
             try:
+                log.info("Gathering stats on /mnt/%s" % (tocopy,))
                 stats[tocopy]= os.stat("/mnt/%s" % (tocopy,))
             except Exception as e:
                 log.info("failed to get stat info for mountpoint %s: %s"
                             % (tocopy, e))
 
+            log.info("Removing /mnt/%s" % (tocopy.split("/")[1]))
             shutil.rmtree("/mnt/%s" % (tocopy.split("/")[1]))
             wait.refresh()
 
@@ -292,12 +291,8 @@ class LiveCDCopyBackend(backend.AnacondaBackend):
 
         # restore stat info for each mountpoint
         for mountpoint in reversed(mountpoints):
-            if mountpoint not in stats:
-                # there's no info to restore since the mountpoint did not
-                # exist in the live image
-                continue
-
             dest = "%s/%s" % (anaconda.rootPath, mountpoint)
+            log.info("Restoring stats on %s" % (dest,))
             st = stats[mountpoint]
 
             # restore the correct stat info for this mountpoint
