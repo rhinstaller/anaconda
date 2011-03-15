@@ -251,6 +251,8 @@ class LiveCDCopyBackend(backend.AnacondaBackend):
         # And now let's do the real copies
         for tocopy in mountpoints:
             device = anaconda.storage.mountpoints[tocopy]
+            source = "%s/%s" % (anaconda.rootPath, tocopy)
+            dest   = "/mnt/%s" % (tocopy,)
 
             # FIXME: all calls to wait.refresh() are kind of a hack... we
             # should do better about not doing blocking things in the
@@ -258,34 +260,24 @@ class LiveCDCopyBackend(backend.AnacondaBackend):
             # time.
             wait.refresh()
 
-            log.info("Copying %s/%s to /mnt/%s" % (anaconda.rootPath, tocopy, tocopy))
-            copytree("%s/%s" % (anaconda.rootPath, tocopy),
-                     "/mnt/%s" % (tocopy,),
-                     True, True, flags.selinux)
-            wait.refresh()
-            log.info("Removing %s/%s" % (anaconda.rootPath, tocopy))
-            shutil.rmtree("%s/%s" % (anaconda.rootPath, tocopy))
-            wait.refresh()
-
-        # now unmount each fs, collect stat info for the mountpoint, then
-        # remove the entire tree containing the mountpoint
-        for tocopy in mountpoints:
-            device = anaconda.storage.mountpoints[tocopy]
-            device.format.teardown()
-
             try:
-                log.info("Gathering stats on /mnt/%s" % (tocopy,))
-                stats[tocopy]= os.stat("/mnt/%s" % (tocopy,))
+                log.info("Gathering stats on %s" % (source,))
+                stats[tocopy]= os.stat(source)
             except Exception as e:
                 log.info("failed to get stat info for mountpoint %s: %s"
-                            % (tocopy, e))
+                            % (source, e))
 
-            log.info("Removing /mnt/%s" % (tocopy.split("/")[1]))
-            shutil.rmtree("/mnt/%s" % (tocopy.split("/")[1]))
+            log.info("Copying %s to %s" % (source, dest))
+            copytree(source, dest, True, True, flags.selinux)
             wait.refresh()
 
-        # now mount all of the filesystems so that post-install writes end
-        # up where they're supposed to end up
+            log.info("Removing %s" % (source,))
+            shutil.rmtree(source)
+            wait.refresh()
+
+        # unmount the target filesystems and remount in their final locations
+        # so that post-install writes end up where they're supposed to end up
+        _setupFilesystems(anaconda.storage.mountpoints, teardown=True)
         _setupFilesystems(anaconda.storage.mountpoints,
                           chroot=anaconda.rootPath)
 
