@@ -363,19 +363,13 @@ class DiskStripeGraph(StripeGraph):
                        'model': drive.model}
         stripe = Stripe(self.getCanvas(), drivetext, self.dcCB, obj = drive)
 
-        # Free Extended Calculation
-        # Free slice/partition in the extended partition "free space".  If there
-        # is space between the last logical partition and the ending of the
-        # extended partition we create a "free space" in the extended part.
         # Create the slices.
 
         # These offsets are where the partition/slices end. 0<offset<1
-        last_logical_offset = None
-        last_extended_offset = None
-
         for part in drive.format.partedDisk.getFreeSpacePartitions() \
                 + [d for d in drive.format.partitions]:
-            if part.getSize(unit="MB") <= 1.0:
+            if part.getSize(unit="MB") <= 1.0 or \
+               part.type & parted.PARTITION_METADATA:
                 continue
 
             # Create the start and length for the slice.
@@ -384,42 +378,36 @@ class DiskStripeGraph(StripeGraph):
             xlength = (Decimal(str(part.geometry.length))
                         / Decimal(str(drive.partedDevice.length)))
 
-            if part.type == parted.PARTITION_LOGICAL:
-                partstr = "%s\n%.0f MB" % (part.path, float(part.getSize()))
+            if part.type & parted.PARTITION_LOGICAL:
+                if part.type & parted.PARTITION_FREESPACE:
+                    name = _("Free")
+                    unsel_col = self.part_type_colors["unsel_freespace"]
+                    sel_col = self.part_type_colors["sel_freespace"]
+                else:
+                    name = part.path
+                    unsel_col = self.part_type_colors["unsel_logical"]
+                    sel_col = self.part_type_colors["sel_logical"]
+
+                partstr = "%s\n%.0f MB" % (name, float(part.getSize()))
                 stype = Slice.SUBSLICE
-                unsel_col = self.part_type_colors["unsel_logical"]
-                sel_col = self.part_type_colors["sel_logical"]
 
-                # Free Extended Calculation
-                if last_logical_offset == None:
-                    last_logical_offset = xoffset + xlength
-                elif last_logical_offset < xoffset + xlength:
-                    last_logical_offset = xoffset + xlength
-
-            elif part.type == parted.PARTITION_FREESPACE:
+            elif part.type & parted.PARTITION_FREESPACE:
                 partstr = "%s\n%.0f MB" % (_("Free"), float(part.getSize()))
                 stype = Slice.SLICE
                 unsel_col = self.part_type_colors["unsel_freespace"]
                 sel_col = self.part_type_colors["sel_freespace"]
 
-            elif part.type == parted.PARTITION_EXTENDED:
+            elif part.type & parted.PARTITION_EXTENDED:
                 partstr = ""
                 stype = Slice.CONTAINERSLICE
                 unsel_col = self.part_type_colors["unsel_extended"]
                 sel_col = self.part_type_colors["sel_extended"]
 
-                # Free Extended Calculation
-                last_extended_offset = xoffset + xlength
-
-            elif part.type == parted.PARTITION_NORMAL:
+            else:
                 partstr = "%s\n%.0f MB" % (part.path, float(part.getSize()))
                 stype = Slice.SLICE
                 unsel_col = self.part_type_colors["unsel_normal"]
                 sel_col = self.part_type_colors["sel_normal"]
-
-            else:
-                # We don't really want to draw anything in this case.
-                continue
 
             # We need to use the self.storage objects not the partedDisk ones.
             # The free space has not storage object.
@@ -433,25 +421,6 @@ class DiskStripeGraph(StripeGraph):
                     dcCB = self.dcCB, cCB = self.cCB, sel_col = sel_col,
                     unsel_col = unsel_col, obj = o_part)
             stripe.addSlice(slice)
-
-        # Free Extended Calculation
-        if (last_logical_offset != None and last_extended_offset != None) \
-                and last_logical_offset < last_extended_offset:
-            # We must create a "free extended" slice
-            stype = Slice.SUBSLICE
-            unsel_col = self.part_type_colors["unsel_freespace"]
-            sel_col = self.part_type_colors["sel_freespace"]
-            xoffset = last_logical_offset
-            xlength = last_extended_offset - last_logical_offset
-            # don't add a slice for free regions of <= 1MB
-            size = Decimal(str(drive.size)) * xlength
-            if size > 1:
-                slcstr = "%s\n%.0f MB" % (_("Free"), size)
-
-                slice = Slice(stripe, slcstr, stype, xoffset, xlength,
-                        dcCB = self.dcCB, cCB = self.cCB, sel_col=sel_col,
-                        unsel_col=unsel_col)
-                stripe.addSlice(slice)
 
         return stripe
 
@@ -1045,10 +1014,17 @@ class PartitionWindow(InstallWindow):
                         log.debug("can't find partition %s in device"
                                            " tree" % partName)
 
-                    # ignore the tiny < 1 MB free space partitions (#119479)
-                    if part.getSize(unit="MB") <= 1.0 and \
-                       part.type & parted.PARTITION_FREESPACE:
-                        if not part.active or not device.bootable:
+                    # ignore any free space region that is less than the
+                    # grain size of the disklabel alignment we are using
+                    if part.type & parted.PARTITION_FREESPACE:
+                        min_length = disk.format.alignment.grainSize
+                        if part.type & parted.PARTITION_LOGICAL:
+                            # ignored free regions in the extended can be up
+                            # to twice the alignment grain size, to account
+                            # for logical partition metadata
+                            min_length *= 2
+
+                        if part.geometry.length < min_length:
                             part = part.nextPartition()
                             continue
 
@@ -1058,7 +1034,7 @@ class PartitionWindow(InstallWindow):
                                                  "one extended partition per disk")
                         extendedParent = self.tree.append(parent)
                         iter = extendedParent
-                    elif device and device.isLogical:
+                    elif part.type & parted.PARTITION_LOGICAL:
                         if not extendedParent:
                             raise RuntimeError, ("crossed logical partition "
                                                  "before extended")
