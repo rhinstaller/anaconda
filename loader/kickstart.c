@@ -892,7 +892,7 @@ static void setKickstartNfs(struct loaderData_s * loaderData, PyObject *handler)
         logMessage(INFO, "results of nfs, host is %s, dir is %s, opts are '%s'",
                    host, dir, PyString_AsString(optsObj));
         checked_asprintf(&loaderData->instRepo, "nfs:%s:%s:%s",
-                         host, PyString_AsString(optsObj), dir);
+                         PyString_AsString(optsObj), host, dir);
     } else {
         logMessage(INFO, "results of nfs, host is %s, dir is %s", host, dir);
         checked_asprintf(&loaderData->instRepo, "nfs:%s:%s", host, dir);
