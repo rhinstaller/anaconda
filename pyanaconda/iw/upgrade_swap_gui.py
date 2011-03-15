@@ -89,18 +89,12 @@ class UpgradeSwapWindow (InstallWindow):
         box = gtk.VBox (False, 5)
         box.set_border_width (5)
 
-	label = gtk.Label (_("Recent kernels (2.4 or newer) need significantly more "
-                            "swap than older kernels, up to twice "
-                            "the amount of RAM on the system.  "
-                            "You currently have %dMB of swap configured, but "
-                            "you may create additional swap space on one of "
-                            "your file systems now.")
-                          % (iutil.swapAmount() / 1024) +
-                          _("\n\nThe installer has detected %s MB of RAM.\n") %
-                          (iutil.memInstalled()/1024))
+        label = gtk.Label(_("You currently have %dMB of swap configured, which "
+                            "is less than the recommended miminum of %sMB.  You "
+                            "may optionally create more swap space on one of "
+                            "your file systems now.") % (iutil.swapAmount()/1024, iutil.swapSuggestion()[0]/1024))
 
         label.set_alignment (0.5, 0.0)
-#        label.set_size_request(400, 200)
         label.set_line_wrap (True)
         box.pack_start(label, False)
 
@@ -115,7 +109,6 @@ class UpgradeSwapWindow (InstallWindow):
 
         self.swapbox = gtk.VBox(False, 5)
         box.pack_start(self.swapbox, False)
-        
 
         label = gui.MnemonicLabel (_("Select the _partition to put the swap file on:"))
         a = gtk.Alignment(0.2, 0.5)
@@ -201,7 +194,6 @@ class UpgradeSwapWindow (InstallWindow):
         return rc
 
     def swapTooBig(self):
-        
         rc = self.intf.messageWindow(_("Warning"), 
                     _("There is not enough space on the device you "
 			  "selected for the swap partition."),

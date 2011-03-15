@@ -104,11 +104,10 @@ class UpgradeSwapWindow:
 
         ramDetected = iutil.memInstalled()/1024
 
-	text = _("Recent kernels (2.4 or newer) need significantly more swap than older "
-		 "kernels, up to twice the amount of RAM on the "
-		 "system.  You currently have %dMB of swap configured, but "
-		 "you may create additional swap space on one of your "
-		 "file systems now.") % (iutil.swapAmount() / 1024)
+        text = _("You currently have %dMB of swap configured, which "
+                 "is less than the recommended miminum of %sMB.  You "
+                 "may optionally create more swap space on one of "
+                 "your file systems now.") % (iutil.swapAmount()/1024, iutil.swapSuggestion()[0]/1024))
 
 	tb = TextboxReflowed(60, text)
 	amount = Entry(10, scroll = 0)

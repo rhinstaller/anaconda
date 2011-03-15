@@ -165,32 +165,13 @@ def restoreTime(anaconda):
 
 # returns None if no more swap is needed
 def upgradeSwapSuggestion(anaconda):
-    # mem is in kb -- round it up to the nearest 4Mb
-    mem = iutil.memInstalled()
-    rem = mem % 16384
-    if rem:
-	mem = mem + (16384 - rem)
-    mem = mem / 1024
+    swap = iutil.swapAmount()/1024
+    (suggestedMin, suggestedMax) = iutil.swapSuggestion(quiet=1)
 
     anaconda.dispatch.skipStep("addswap", 0)
-    
-    # don't do this if we have more then 250 MB
-    if mem > 250:
-        anaconda.dispatch.skipStep("addswap", 1)
-        return
-    
-    swap = iutil.swapAmount() / 1024
-
-    # if we have twice as much swap as ram and at least 192 megs
-    # total, we're safe 
-    if (swap >= (mem * 1.5)) and (swap + mem >= 192):
-        anaconda.dispatch.skipStep("addswap", 1)
-	return
-
-    # if our total is 512 megs or more, we should be safe
-    if (swap + mem >= 512):
-        anaconda.dispatch.skipStep("addswap", 1)
-	return
+    if suggestedMin <= swap:
+        anaconda.dispatch.skipStep("addswap", permanent=1)
+        return None
 
     fsList = []
 
@@ -205,18 +186,12 @@ def upgradeSwapSuggestion(anaconda):
                 info = (device, space)
                 fsList.append(info)
 
-    suggestion = mem * 2 - swap
-    if (swap + mem + suggestion) < 192:
-        suggestion = 192 - (swap + mem)
-    if suggestion < 32:
-        suggestion = 32
-    suggSize = 0
-    suggMnt = None
+    suggDev = None
     for (device, size) in fsList:
-	if (size > suggSize) and (size > (suggestion + 100)):
+        if size > suggestedMin+100:
 	    suggDev = device
 
-    anaconda.upgradeSwapInfo = (fsList, suggestion, suggDev)
+    anaconda.upgradeSwapInfo = (fsList, suggestedMin, suggDev)
 
 # XXX handle going backwards
 def upgradeMountFilesystems(anaconda):
