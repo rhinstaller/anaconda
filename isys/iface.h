@@ -164,4 +164,9 @@ int iface_start_NetworkManager(void);
  */
 int iface_set_interface_mtu(char *ifname, int mtu);
 
+/*
+ * Get the link layer type of the device.
+ */
+int iface_get_arptype(const char *ifname);
+
 #endif /* ISYSIFACE_H */

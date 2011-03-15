@@ -172,7 +172,9 @@ storagedone:
                 return NULL;
             }
 
-            if (type != ARPHRD_ETHER && type != ARPHRD_SLIP)
+            if (type != ARPHRD_ETHER &&
+                type != ARPHRD_INFINIBAND &&
+                type != ARPHRD_SLIP)
                 continue;
 
             new = calloc(1, sizeof(struct device));

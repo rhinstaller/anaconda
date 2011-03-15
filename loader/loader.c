@@ -2073,6 +2073,9 @@ int main(int argc, char ** argv) {
 
     mlLoadModuleSet("cramfs:squashfs:iscsi_tcp");
 
+    /* Load all modules needed for IP over Infiniband */
+    mlLoadModuleSet("ib_ipoib:mlx4_core:mlx4_ib");
+
     loadScsiDhModules();
 
 #if !defined(__s390__) && !defined(__s390x__)

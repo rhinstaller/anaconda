@@ -30,6 +30,7 @@
 #include <errno.h>
 #include <resolv.h>
 #include <net/if.h>
+#include <net/if_arp.h>
 #include <newt.h>
 #include <stdlib.h>
 #include <string.h>
@@ -152,6 +153,31 @@ static void ipCallback(newtComponent co, void * dptr) {
         return;
 #endif
     }
+}
+
+/*
+ * Return a newly allocated string with the network device type.
+ *
+ * This can directly be written into the ifcfg script's TYPE= field.
+ */
+static char *netArpTypeStr(iface_t *iface)
+{
+    char *ret = NULL;
+    int arptype = iface_get_arptype(iface->device);
+    switch (arptype) {
+    case ARPHRD_ETHER:
+        ret = strdup("Ethernet");
+        break;
+    case ARPHRD_INFINIBAND:
+        ret = strdup("Infiniband");
+        break;
+    case ARPHRD_SLIP:
+        break;
+    default:
+        logMessage(ERROR, "Unknown network device type: %d", arptype);
+        break;
+    }
+    return ret;
 }
 
 static void setMethodSensitivity(void *dptr, int radio_button_count) {
@@ -1295,6 +1321,9 @@ int writeEnabledNetInfo(iface_t *iface) {
     fprintf(fp, "HWADDR=%s\n", iface_mac2str(iface->device));
 #endif
     fprintf(fp, "ONBOOT=yes\n");
+    char *str_type = netArpTypeStr(iface);
+    if (str_type) fprintf(fp, "TYPE=%s\n", str_type);
+    free(str_type);
 
     if (!FL_NOIPV4(flags)) {
         if (iface->ipv4method == IPV4_IBFT_METHOD) {

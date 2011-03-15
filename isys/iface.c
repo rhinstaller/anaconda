@@ -275,7 +275,7 @@ char *iface_mac2device(char *mac) {
  * readable format (e.g., 00:11:52:12:D9:A0).  Return NULL for no match.
  */
 char *iface_mac2str(char *ifname) {
-    int buflen = 20;
+    int buflen = 64;
     char *buf = NULL;
     struct nl_handle *handle = NULL;
     struct nl_cache *cache = NULL;
@@ -564,6 +564,38 @@ int iface_set_interface_mtu(char *ifname, int mtu) {
 ifacemtu_error2:
     rtnl_link_put(link);
 ifacemtu_error1:
+    nl_close(handle);
+    nl_handle_destroy(handle);
+
+    return ret;
+}
+
+/*
+ * Get the link layer type of the device.
+ */
+int iface_get_arptype(const char *ifname)
+{
+    int ret;
+    struct nl_cache *cache = NULL;
+    struct nl_handle *handle = NULL;
+    struct rtnl_link *link = NULL;
+
+    if (ifname == NULL) {
+        return -1;
+    }
+
+    if ((cache = _iface_get_link_cache(&handle)) == NULL) {
+        return -3;
+    }
+
+    if ((link = rtnl_link_get_by_name(cache, ifname)) == NULL) {
+        ret = -4;
+        goto iface_get_arptype_error;
+    }
+
+    ret = rtnl_link_get_arptype(link);
+
+iface_get_arptype_error:
     nl_close(handle);
     nl_handle_destroy(handle);
 
