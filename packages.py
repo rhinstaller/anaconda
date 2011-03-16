@@ -243,9 +243,11 @@ def setFileCons(anaconda):
                 glob.glob('/etc/dhcp/dhclient-*.conf')
 
         vgs = ["/dev/%s" % vg.name for vg in anaconda.id.storage.vgs]
+        for f in files + vgs:
+            isys.resetFileContext(os.path.normpath(f), anaconda.rootPath)
 
         # ugh, this is ugly
-        for d in ["/etc/sysconfig/network-scripts", "/var/cache/yum", "/var/lib/rpm", "/var/lib/yum", "/etc/lvm", "/dev/mapper", "/etc/iscsi", "/var/lib/iscsi", "/root", "/var/log", "/etc/modprobe.d", "/etc/sysconfig" ] + vgs:
+        for d in ["/etc/sysconfig/network-scripts", "/var/cache/yum", "/var/lib/rpm", "/var/lib/yum", "/etc/lvm", "/dev/mapper", "/etc/iscsi", "/var/lib/iscsi", "/root", "/var/log", "/etc/modprobe.d", "/etc/sysconfig" ]:
             if not os.path.isdir(anaconda.rootPath + d):
                 continue
 
