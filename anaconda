@@ -82,10 +82,6 @@ def doStartupX11Actions():
     wm_pid = startMetacityWM()
     log.info("Starting window manager, pid %s." % (wm_pid,))
 
-    if wm_pid is None:
-        sys.stderr.write("X SERVER STARTED, THEN FAILED");
-        raise RuntimeError, "X server failed to start"
-
 def set_x_resolution(runres):
     # cant do this if no window manager is running because otherwise when we
     # open and close an X connection in the xutils calls the X server will exit
