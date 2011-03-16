@@ -22,10 +22,6 @@
 
 import iutil
 import parted
-import storage
-from storage.errors import *
-from storage.formats import *
-from storage.partspec import *
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
@@ -166,6 +162,7 @@ class Platform(object):
 
     def setDefaultPartitioning(self):
         """Return the default platform-specific partitioning information."""
+        from storage.partspec import PartSpec
         return [PartSpec(mountpoint="/boot", fstype=self.defaultBootFSType, size=500,
                          weight=self.weight(mountpoint="/boot"))]
 
@@ -267,6 +264,7 @@ class EFI(Platform):
         return errors
 
     def setDefaultPartitioning(self):
+        from storage.partspec import PartSpec
         ret = Platform.setDefaultPartitioning(self)
         ret.append(PartSpec(mountpoint="/boot/efi", fstype="efi", size=20,
                             maxSize=200, grow=True, weight=self.weight(fstype="efi")))
@@ -379,6 +377,7 @@ class IPSeriesPPC(PPC):
             return errors
 
     def setDefaultPartitioning(self):
+        from storage.partspec import PartSpec
         ret = PPC.setDefaultPartitioning(self)
         ret.append(PartSpec(fstype="prepboot", size=4,
                             weight=self.weight(fstype="prepboot")))
@@ -451,6 +450,7 @@ class NewWorldPPC(PPC):
             return errors
 
     def setDefaultPartitioning(self):
+        from storage.partspec import PartSpec
         ret = Platform.setDefaultPartitioning(self)
         ret.append(PartSpec(fstype="appleboot", size=1, maxSize=1,
                             weight=self.weight(fstype="appleboot")))
@@ -487,6 +487,7 @@ class S390(Platform):
 
     def setDefaultPartitioning(self):
         """Return the default platform-specific partitioning information."""
+        from storage.partspec import PartSpec
         return [PartSpec(mountpoint="/boot", fstype=self.defaultBootFSType, size=500,
                          weight=self.weight(mountpoint="/boot"), asVol=True,
                          singlePV=True)]
