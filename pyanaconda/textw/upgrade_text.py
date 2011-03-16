@@ -107,7 +107,7 @@ class UpgradeSwapWindow:
         text = _("You currently have %dMB of swap configured, which "
                  "is less than the recommended miminum of %sMB.  You "
                  "may optionally create more swap space on one of "
-                 "your file systems now.") % (iutil.swapAmount()/1024, iutil.swapSuggestion()[0]/1024))
+                 "your file systems now.") % (iutil.swapAmount()/1024, iutil.swapSuggestion()[0]/1024)
 
 	tb = TextboxReflowed(60, text)
 	amount = Entry(10, scroll = 0)
