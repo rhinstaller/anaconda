@@ -296,6 +296,11 @@ int busProbe(moduleInfoSet modInfo, moduleList modLoaded, moduleDeps modDeps,
     return 0;
 }
 
+void infinibandSetup(moduleList modLoaded, moduleDeps modDeps,
+                     moduleInfoSet modInfo)
+{
+    mlLoadModule("ib_ipoib", modLoaded, modDeps, modInfo, NULL);
+}
 
 void ipv6Setup(moduleList modLoaded, moduleDeps modDeps,
                moduleInfoSet modInfo) {

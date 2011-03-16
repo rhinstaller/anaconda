@@ -1616,6 +1616,7 @@ int main(int argc, char ** argv) {
     scsiSetup(modLoaded, modDeps, modInfo);
     dasdSetup(modLoaded, modDeps, modInfo);
     spufsSetup(modLoaded, modDeps, modInfo);
+    infinibandSetup(modLoaded, modDeps, modInfo);
 
     /* Note we *always* do this. If you could avoid this you could get
        a system w/o USB keyboard support, which would be bad. */
