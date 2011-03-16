@@ -6,12 +6,13 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 13.21.103\n"
+"Project-Id-Version: anaconda 13.21.104\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2011-03-09 11:37-1000\n"
+"POT-Creation-Date: 2011-03-16 15:24+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -41,8 +42,8 @@ msgstr ""
 #: loader/loader.c:1445 loader/mediacheck.c:46 loader/mediacheck.c:85
 #: loader/mediacheck.c:92 loader/mediacheck.c:96 loader/mediacheck.c:105
 #: loader/method.c:277 loader/method.c:351 loader/modules.c:382
-#: loader/modules.c:398 loader/net.c:567 loader/net.c:947 loader/net.c:1604
-#: loader/net.c:1628 loader/net.c:1947 loader/net.c:1966 loader/net.c:1978
+#: loader/modules.c:398 loader/net.c:593 loader/net.c:973 loader/net.c:1633
+#: loader/net.c:1657 loader/net.c:1976 loader/net.c:1995 loader/net.c:2007
 #: loader/nfsinstall.c:91 loader/nfsinstall.c:279 loader/nfsinstall.c:296
 #: loader/nfsinstall.c:384 loader/telnetd.c:92 loader/urlinstall.c:137
 #: loader/urlinstall.c:159 loader/urlinstall.c:221 loader/urlinstall.c:374
@@ -433,8 +434,8 @@ msgstr ""
 #: image.py:242
 #, python-format
 msgid ""
-"The software you have selected to install will require the following %"
-"(productName)s %(productVersion)s discs:\n"
+"The software you have selected to install will require the following "
+"%(productName)s %(productVersion)s discs:\n"
 "\n"
 "%(reqcdstr)s\n"
 "Please have these ready before proceeding with the installation.  If you "
@@ -670,8 +671,8 @@ msgstr ""
 
 #: network.py:76
 msgid ""
-"Hostname must start with a valid character in the ranges 'a-z', 'A-Z', or '0-"
-"9'"
+"Hostname must start with a valid character in the ranges 'a-z', 'A-Z', or "
+"'0-9'"
 msgstr ""
 
 #: network.py:81
@@ -930,8 +931,8 @@ msgstr ""
 #, python-format
 msgid ""
 "The following critical errors exist with your requested partitioning scheme. "
-"These errors must be corrected prior to continuing with your install of %"
-"(productName)s.\n"
+"These errors must be corrected prior to continuing with your install of "
+"%(productName)s.\n"
 "\n"
 "%(errorstr)s"
 msgstr ""
@@ -1317,12 +1318,12 @@ msgid ""
 "\n"
 "REINITIALIZING WILL CAUSE ALL DATA TO BE LOST!\n"
 "\n"
-"This action may also be applied to all other disks needing reinitialization.%"
-"(details)s"
+"This action may also be applied to all other disks needing reinitialization."
+"%(details)s"
 msgstr ""
 
-#: text.py:632 loader/net.c:110 loader/net.c:459 loader/net.c:514
-#: loader/net.c:656 loader/net.c:664 loader/net.c:1094 loader/net.c:1102
+#: text.py:632 loader/net.c:111 loader/net.c:485 loader/net.c:540
+#: loader/net.c:682 loader/net.c:690 loader/net.c:1120 loader/net.c:1128
 #: textw/constants_text.py:68
 msgid "Retry"
 msgstr ""
@@ -1722,8 +1723,8 @@ msgstr ""
 #: yuminstall.py:1129
 #, python-format
 msgid ""
-"There was an error running your transaction for the following reason(s): %"
-"s.\n"
+"There was an error running your transaction for the following reason(s): "
+"%s.\n"
 msgstr ""
 
 #: yuminstall.py:1137 yuminstall.py:1142
@@ -1791,9 +1792,9 @@ msgstr ""
 #, python-format
 msgid ""
 "The arch of the release of %(productName)s you are upgrading to appears to "
-"be %(myarch)s which does not match your previously installed arch of %(arch)"
-"s.  This is likely to not succeed.  Are you sure you wish to continue the "
-"upgrade process?"
+"be %(myarch)s which does not match your previously installed arch of "
+"%(arch)s.  This is likely to not succeed.  Are you sure you wish to continue "
+"the upgrade process?"
 msgstr ""
 
 #: yuminstall.py:1864
@@ -2342,17 +2343,17 @@ msgstr ""
 #: iw/lvm_dialog_gui.py:174
 #, python-format
 msgid ""
-"The physical extent size cannot be changed because the value selected (%"
-"(curpe)10.2f MB) is larger than the smallest physical volume (%(maxpvsize)"
-"10.2f MB) in the volume group."
+"The physical extent size cannot be changed because the value selected "
+"(%(curpe)10.2f MB) is larger than the smallest physical volume "
+"(%(maxpvsize)10.2f MB) in the volume group."
 msgstr ""
 
 #: iw/lvm_dialog_gui.py:188
 #, python-format
 msgid ""
-"The physical extent size cannot be changed because the value selected (%"
-"(curpe)10.2f MB) is too large compared to the size of the smallest physical "
-"volume (%(maxpvsize)10.2f MB) in the volume group."
+"The physical extent size cannot be changed because the value selected "
+"(%(curpe)10.2f MB) is too large compared to the size of the smallest "
+"physical volume (%(maxpvsize)10.2f MB) in the volume group."
 msgstr ""
 
 #: iw/lvm_dialog_gui.py:202
@@ -2483,8 +2484,8 @@ msgstr ""
 #, python-format
 msgid ""
 "The size entered for this logical volume (%(size)d MB) combined with the "
-"size of the other logical volume(s) exceeds the size of the volume group (%"
-"(tempvgsize)d MB). Please make the volume group larger or make the logical "
+"size of the other logical volume(s) exceeds the size of the volume group "
+"(%(tempvgsize)d MB). Please make the volume group larger or make the logical "
 "volume smaller."
 msgstr ""
 
@@ -3134,8 +3135,8 @@ msgstr ""
 #: iw/upgrade_bootloader_gui.py:138 textw/upgrade_bootloader_text.py:121
 #, python-format
 msgid ""
-"The installer has detected the %(type)s boot loader currently installed on %"
-"(bootDev)s."
+"The installer has detected the %(type)s boot loader currently installed on "
+"%(bootDev)s."
 msgstr ""
 
 #: iw/upgrade_bootloader_gui.py:142
@@ -3174,9 +3175,9 @@ msgstr ""
 #, python-format
 msgid ""
 "This release of %(productName)s supports an updated file system, which has "
-"several benefits over the file system traditionally shipped in %(productName)"
-"s.  This installation program can migrate formatted partitions without data "
-"loss.\n"
+"several benefits over the file system traditionally shipped in "
+"%(productName)s.  This installation program can migrate formatted partitions "
+"without data loss.\n"
 "\n"
 "Which of these partitions would you like to migrate?"
 msgstr ""
@@ -3189,8 +3190,8 @@ msgstr ""
 #, python-format
 msgid ""
 "Recent kernels (2.4 or newer) need significantly more swap than older "
-"kernels, up to twice the amount of RAM on the system.  You currently have %"
-"dMB of swap configured, but you may create additional swap space on one of "
+"kernels, up to twice the amount of RAM on the system.  You currently have "
+"%dMB of swap configured, but you may create additional swap space on one of "
 "your file systems now."
 msgstr ""
 
@@ -3391,8 +3392,8 @@ msgstr ""
 #: loader/driverdisk.c:525 loader/driverselect.c:78 loader/driverselect.c:152
 #: loader/driverselect.c:178 loader/hdinstall.c:212 loader/hdinstall.c:266
 #: loader/kbd.c:119 loader/loader.c:511 loader/loader.c:528
-#: loader/loader.c:1445 loader/loader.c:1478 loader/net.c:567 loader/net.c:947
-#: loader/net.c:1947 loader/net.c:1966 loader/nfsinstall.c:91
+#: loader/loader.c:1445 loader/loader.c:1478 loader/net.c:593 loader/net.c:973
+#: loader/net.c:1976 loader/net.c:1995 loader/nfsinstall.c:91
 #: loader/urls.c:268 storage/__init__.py:109 storage/__init__.py:155
 #: storage/devicetree.py:92 textw/constants_text.py:52
 msgid "Back"
@@ -3500,7 +3501,7 @@ msgstr ""
 #: loader/driverdisk.c:717 loader/driverdisk.c:756 loader/hdinstall.c:360
 #: loader/kickstart.c:135 loader/kickstart.c:145 loader/kickstart.c:187
 #: loader/kickstart.c:192 loader/kickstart.c:514 loader/modules.c:382
-#: loader/modules.c:398 loader/net.c:1604 loader/net.c:1628
+#: loader/modules.c:398 loader/net.c:1633 loader/net.c:1657
 #: loader/nfsinstall.c:384 loader/urlinstall.c:374 loader/urlinstall.c:385
 #: loader/urlinstall.c:392
 msgid "Kickstart Error"
@@ -3815,29 +3816,29 @@ msgstr ""
 msgid "loader has already been run.  Starting shell.\n"
 msgstr ""
 
-#: loader/loader.c:2143
+#: loader/loader.c:2146
 #, c-format
 msgid "Driver disc was detected in %s. Do you want to use it?."
 msgstr ""
 
-#: loader/loader.c:2147
+#: loader/loader.c:2150
 msgid "Driver disc detected"
 msgstr ""
 
-#: loader/loader.c:2147
+#: loader/loader.c:2150
 msgid "Use it"
 msgstr ""
 
-#: loader/loader.c:2147
+#: loader/loader.c:2150
 msgid "Skip it"
 msgstr ""
 
-#: loader/loader.c:2501
+#: loader/loader.c:2504
 #, c-format
 msgid "Running anaconda %s, the %s rescue mode - please wait.\n"
 msgstr ""
 
-#: loader/loader.c:2503
+#: loader/loader.c:2506
 #, c-format
 msgid "Running anaconda %s, the %s system installer - please wait.\n"
 msgstr ""
@@ -3906,22 +3907,22 @@ msgstr ""
 msgid "A module name must be specified for the kickstart device command."
 msgstr ""
 
-#: loader/net.c:110
+#: loader/net.c:111
 msgid "Invalid Prefix"
 msgstr ""
 
-#: loader/net.c:111
+#: loader/net.c:112
 msgid ""
 "Prefix must be between 1 and 32 for IPv4 networks or between 1 and 128 for "
 "IPv6 networks"
 msgstr ""
 
-#: loader/net.c:452 loader/net.c:460 loader/net.c:515
+#: loader/net.c:478 loader/net.c:486 loader/net.c:541
 #, c-format
 msgid "There was an error configuring your network interface."
 msgstr ""
 
-#: loader/net.c:454
+#: loader/net.c:480
 #, c-format
 msgid ""
 "\n"
@@ -3929,138 +3930,138 @@ msgid ""
 "Halting.\n"
 msgstr ""
 
-#: loader/net.c:459 loader/net.c:514 textw/netconfig_text.py:403
+#: loader/net.c:485 loader/net.c:540 textw/netconfig_text.py:403
 msgid "Network Error"
 msgstr ""
 
-#: loader/net.c:545
+#: loader/net.c:571
 msgid "Enable IPv4 support"
 msgstr ""
 
-#: loader/net.c:559
+#: loader/net.c:585
 msgid "Enable IPv6 support"
 msgstr ""
 
-#: loader/net.c:599
+#: loader/net.c:625
 msgid "Configure TCP/IP"
 msgstr ""
 
-#: loader/net.c:656
+#: loader/net.c:682
 msgid "Missing Protocol"
 msgstr ""
 
-#: loader/net.c:657
+#: loader/net.c:683
 msgid "You must select at least one protocol (IPv4 or IPv6)."
 msgstr ""
 
-#: loader/net.c:664
+#: loader/net.c:690
 msgid "IPv4 Needed for NFS"
 msgstr ""
 
-#: loader/net.c:665
+#: loader/net.c:691
 msgid "NFS installation method requires IPv4 support."
 msgstr ""
 
-#: loader/net.c:773
+#: loader/net.c:799
 msgid "IPv4 address:"
 msgstr ""
 
-#: loader/net.c:785 loader/net.c:852
+#: loader/net.c:811 loader/net.c:878
 msgid "/"
 msgstr ""
 
-#: loader/net.c:840
+#: loader/net.c:866
 msgid "IPv6 address:"
 msgstr ""
 
-#: loader/net.c:906 textw/netconfig_text.py:184 textw/netconfig_text.py:224
+#: loader/net.c:932 textw/netconfig_text.py:184 textw/netconfig_text.py:224
 msgid "Gateway:"
 msgstr ""
 
-#: loader/net.c:914
+#: loader/net.c:940
 msgid "Name Server:"
 msgstr ""
 
-#: loader/net.c:953
+#: loader/net.c:979
 msgid ""
 "Enter the IPv4 and/or the IPv6 address and prefix (address / prefix).  For "
 "IPv4, the dotted-quad netmask or the CIDR-style prefix are acceptable. The "
 "gateway and name server fields must be valid IPv4 or IPv6 addresses."
 msgstr ""
 
-#: loader/net.c:970
+#: loader/net.c:996
 msgid "Manual TCP/IP Configuration"
 msgstr ""
 
-#: loader/net.c:1094 loader/net.c:1102
+#: loader/net.c:1120 loader/net.c:1128
 msgid "Missing Information"
 msgstr ""
 
-#: loader/net.c:1095
+#: loader/net.c:1121
 msgid ""
 "You must enter both a valid IPv4 address and a network mask or CIDR prefix."
 msgstr ""
 
-#: loader/net.c:1103
+#: loader/net.c:1129
 msgid "You must enter both a valid IPv6 address and a CIDR prefix."
 msgstr ""
 
-#: loader/net.c:1605
+#: loader/net.c:1634
 #, c-format
 msgid "Bad argument to kickstart network command: %s"
 msgstr ""
 
-#: loader/net.c:1629
+#: loader/net.c:1658
 #, c-format
 msgid "Bad bootproto %s specified in network command"
 msgstr ""
 
-#: loader/net.c:1745
+#: loader/net.c:1774
 msgid "Seconds:"
 msgstr ""
 
-#: loader/net.c:1942
+#: loader/net.c:1971
 msgid "Networking Device"
 msgstr ""
 
-#: loader/net.c:1943
+#: loader/net.c:1972
 msgid ""
 "You have multiple network devices on this system. Which would you like to "
 "install through?"
 msgstr ""
 
-#: loader/net.c:1947
+#: loader/net.c:1976
 msgid "Identify"
 msgstr ""
 
-#: loader/net.c:1956
+#: loader/net.c:1985
 msgid "You can identify the physical port for"
 msgstr ""
 
-#: loader/net.c:1958
+#: loader/net.c:1987
 msgid ""
 "by flashing the LED lights for a number of seconds.  Enter a number between "
 "1 and 30 to set the duration to flash the LED port lights."
 msgstr ""
 
-#: loader/net.c:1965
+#: loader/net.c:1994
 msgid "Identify NIC"
 msgstr ""
 
-#: loader/net.c:1978
+#: loader/net.c:2007
 msgid "Invalid Duration"
 msgstr ""
 
-#: loader/net.c:1979
+#: loader/net.c:2008
 msgid "You must enter the number of seconds as an integer between 1 and 30."
 msgstr ""
 
-#: loader/net.c:1991
+#: loader/net.c:2020
 #, c-format
 msgid "Flashing %s port lights for %d seconds."
 msgstr ""
 
-#: loader/net.c:2195 loader/net.c:2199
+#: loader/net.c:2224 loader/net.c:2228
 #, c-format
 msgid "Waiting for NetworkManager to configure %s.\n"
 msgstr ""
@@ -4835,8 +4836,8 @@ msgstr ""
 #: storage/zfcp.py:176
 #, python-format
 msgid ""
-"Could not add LUN %(fcplun)s to WWPN %(wwpn)s on zFCP device %(devnum)s (%(e)"
-"s)."
+"Could not add LUN %(fcplun)s to WWPN %(wwpn)s on zFCP device %(devnum)s "
+"(%(e)s)."
 msgstr ""
 
 #: storage/zfcp.py:182
@@ -4862,15 +4863,15 @@ msgstr ""
 #: storage/zfcp.py:260
 #, python-format
 msgid ""
-"Could not correctly delete SCSI device of zFCP %(devnum)s %(wwpn)s %(fcplun)"
-"s (%(e)s)."
+"Could not correctly delete SCSI device of zFCP %(devnum)s %(wwpn)s "
+"%(fcplun)s (%(e)s)."
 msgstr ""
 
 #: storage/zfcp.py:269
 #, python-format
 msgid ""
-"Could not remove LUN %(fcplun)s at WWPN %(wwpn)s on zFCP device %(devnum)s (%"
-"(e)s)."
+"Could not remove LUN %(fcplun)s at WWPN %(wwpn)s on zFCP device %(devnum)s "
+"(%(e)s)."
 msgstr ""
 
 #: storage/zfcp.py:287
@@ -5078,8 +5079,8 @@ msgstr ""
 #, python-format
 msgid ""
 "This release of %(productName)s supports the an updated file system, which "
-"has several benefits over the file system traditionally shipped in %"
-"(productName)s.  This installation program can migrate formatted partitions "
+"has several benefits over the file system traditionally shipped in "
+"%(productName)s.  This installation program can migrate formatted partitions "
 "without data loss.\n"
 "\n"
 "Which of these partitions would you like to migrate?"

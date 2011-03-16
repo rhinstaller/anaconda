@@ -221,6 +221,12 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Wed Mar 16 2011 Martin Sivak <msivak@redhat.com> - 13.21.105-1
+- IB: add missing modules to the image. (akozumpl)
+  Related: rhbz#660686
+- Support for IPoIB. (akozumpl)
+  Related: rhbz#660686
+
 * Wed Mar 09 2011 David Cantrell <dcantrell@redhat.com> - 13.21.104-1
 - Remove 'Back' button on depsolving exception for ks installs (dcantrell)
   Resolves: rhbz#673170
