@@ -1044,10 +1044,17 @@ class PartitionWindow(InstallWindow):
                         log.debug("can't find partition %s in device"
                                            " tree" % partName)
 
-                    # ignore the tiny < 1 MB free space partitions (#119479)
-                    if part.getSize(unit="MB") <= 1.0 and \
-                       part.type & parted.PARTITION_FREESPACE:
-                        if not part.active or not device.bootable:
+                    # ignore any free space region that is less than the
+                    # grain size of the disklabel alignment we are using
+                    if part.type & parted.PARTITION_FREESPACE:
+                        min_length = disk.format.alignment.grainSize
+                        if part.type & parted.PARTITION_LOGICAL:
+                            # ignored free regions in the extended can be up
+                            # to twice the alignment grain size, to account
+                            # for logical partition metadata
+                            min_length *= 2
+
+                        if part.geometry.length < min_length:
                             part = part.nextPartition()
                             continue
 
@@ -1057,7 +1064,7 @@ class PartitionWindow(InstallWindow):
                                                  "one extended partition per disk")
                         extendedParent = self.tree.append(parent)
                         iter = extendedParent
-                    elif device and device.isLogical:
+                    elif part.type & parted.PARTITION_LOGICAL:
                         if not extendedParent:
                             raise RuntimeError, ("crossed logical partition "
                                                  "before extended")
