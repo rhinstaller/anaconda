@@ -2225,7 +2225,7 @@ class LVMVolumeGroupDevice(DMDevice):
 
         # total the sizes of any LVs
         log.debug("%s size is %dMB" % (self.name, self.size))
-        used = sum(lv.size for lv in self.lvs) + self.snapshotSpace
+        used = sum(lv.vgSpaceUsed for lv in self.lvs) + self.snapshotSpace
         free = self.size - used
         log.debug("vg %s has %dMB free" % (self.name, free))
         return free
@@ -2408,7 +2408,9 @@ class LVMLogicalVolumeDevice(DMDevice):
 
     @property
     def vgSpaceUsed(self):
-        return self.size * self.stripes + self.logSize + self.snapshotSpace
+        """ Space occupied by this LV, not including snapshots. """
+        return (self.vg.align(self.size, roundup=True) * self.stripes
+                + self.logSize)
 
     @property
     def vg(self):
