@@ -218,6 +218,14 @@ class Network:
                 if info.has_key(key):
                     self.netdevices [info["DEVICE"]].set((key, info[key]))
 
+            osa_opts = []
+            for key in ("LAYER2", "PORTNO"):
+                if info.has_key(key) and info[key] == "1":
+                    osa_opts.append(key.lower() + "=" + info[key])
+
+            if osa_opts:
+                self.netdevices[info["DEVICE"]].set(("OPTIONS", " ".join(osa_opts)))
+
             self.netdevices [info["DEVICE"]].set(('useIPv4', flags.useIPv4))
             self.netdevices [info["DEVICE"]].set(('useIPv6', flags.useIPv6))
 
