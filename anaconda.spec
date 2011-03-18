@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.227
+Version: 11.1.2.228
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -128,6 +128,10 @@ fi
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Fri Mar 18 2011 Ales Kozumplik <akozumpl@redhat.com> 11.1.2.228-1
+- Include and initialize the IP over Infiniband module. (akozumpl)
+  Related: rhbz#660684
+
 * Fri Mar 11 2011 Ales Kozumplik <akozumpl@redhat.com> 11.1.2.227-1
 - Fix waiting for a cdrom with a ks file to come up. (akozumpl)
   Resolves: rhbz#658398
