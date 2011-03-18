@@ -1009,6 +1009,14 @@ class Storage(object):
                                 % {'mount': mount, 'size': size,
                                    'productName': productName})
 
+        for (mount, device) in filesystems.items():
+            problem = filesystems[mount].checkSize()
+            if problem:
+                errors.append(_("Your %s partition is too %s for %s formatting "
+                                "(allowable size is %d MB to %d MB)")
+                              % (mount, problem, device.format.name,
+                                 device.minSize, device.maxSize))
+
         usb_disks = []
         firewire_disks = []
         for disk in self.disks:

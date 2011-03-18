@@ -809,6 +809,19 @@ class StorageDevice(Device):
                     break
         return grow
 
+    def checkSize(self):
+        """ Check to make sure the size of the device is allowed by the
+            format used.
+
+            return None is all is ok
+            return large or small depending on the problem
+        """
+        problem = None
+        if self.format.maxSize and self.size > self.format.maxSize:
+            problem = _("large")
+        elif self.format.minSize and self.size < self.format.minSize:
+            problem = _("small")
+        return problem
 
 class DiskDevice(StorageDevice):
     """ A disk """
@@ -1520,6 +1533,24 @@ class PartitionDevice(StorageDevice):
         """ Can this type of device be resized? """
         return super(PartitionDevice, self).resizable and \
                self.disk.type != 'dasd'
+
+    def checkSize(self):
+        """ Check to make sure the size of the device is allowed by the
+            format used.
+
+            return None is all is ok
+            return large or small depending on the problem
+        """
+        problem = None
+        if self.format.maxSize and self.size > self.format.maxSize:
+            problem = _("large")
+        elif (self.format.minSize and
+              (not self.req_grow and
+               self.size < self.format.minSize) or
+              (self.req_grow and self.req_max_size and
+               self.req_max_size < self.format.minSize)):
+            problem = _("small")
+        return problem
 
 class DMDevice(StorageDevice):
     """ A device-mapper device """
@@ -2534,6 +2565,23 @@ class LVMLogicalVolumeDevice(DMDevice):
         # is different (ofcourse)
         return "rd_LVM_LV=%s/%s" % (self.vg.name, self._name)
 
+    def checkSize(self):
+        """ Check to make sure the size of the device is allowed by the
+            format used.
+
+            return None is all is ok
+            return large or small depending on the problem
+        """
+        problem = None
+        if self.format.maxSize and self.size > self.format.maxSize:
+            problem = _("large")
+        elif (self.format.minSize and
+              (not self.req_grow and
+               self.size < self.format.minSize) or
+              (self.req_grow and self.req_max_size and
+               self.req_max_size < self.format.minSize)):
+            problem = _("small")
+        return problem
 
 class MDRaidArrayDevice(StorageDevice):
     """ An mdraid (Linux RAID) device. """
