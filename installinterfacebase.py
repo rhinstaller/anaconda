@@ -19,6 +19,8 @@
 # Author(s): Hans de Goede <hdegoede@redhat.com>
 
 import gettext
+import sys
+
 _ = lambda x: gettext.ldgettext("anaconda", x)
 P_ = lambda x, y, z: gettext.ldngettext("anaconda", x, y, z)
 
@@ -34,6 +36,24 @@ class InstallInterfaceBase(object):
                               default=None, custom_icon=None,
                               custom_buttons=[]):
         raise NotImplementedError
+
+    def methodstrRepoWindow(self, methodstr, exception):
+        """ Called when the repo specified by methodstr could not be found.
+
+            Depending on the interface implementation terminates the program or
+            gives user a chance to specify a new repo path it then returns. The
+            default implementation is to terminate.
+        """
+        self.messageWindow(
+            _("Error Setting Up Repository"),
+            _("The following error occurred while setting up the "
+              "installation repository:\n\n%(e)s\n\n"
+              "Installation can not continue.")
+            % {'e': exception},
+            type = "custom",
+            custom_icon="info",
+            custom_buttons=[_("Exit installer")])
+        sys.exit(0)
 
     def unusedRaidMembersWarning(self, unusedRaidMembers):
         """Warn about unused BIOS RAID members"""

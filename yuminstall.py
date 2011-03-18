@@ -354,14 +354,9 @@ class AnacondaYum(YumSorter):
             try:
                 self.configBaseURL()
                 break
-            except SystemError, e:
-                self.anaconda.intf.messageWindow(_("Error Setting Up Repository"),
-                    _("The following error occurred while setting up the "
-                      "installation repository:\n\n%(e)s\n\nPlease provide the "
-                      "correct information for installing %(productName)s.")
-                    % {'e': e, 'productName': productName})
-
-                self.anaconda.methodstr = self.anaconda.intf.methodstrRepoWindow(self.anaconda.methodstr or "cdrom:")
+            except SystemError as exception:
+                self.anaconda.methodstr = self.anaconda.intf.methodstrRepoWindow(self.anaconda.methodstr or "cdrom:",
+                                                                                 exception)
 
         self.doConfigSetup(root=self.anaconda.rootPath)
         if not self.anaconda.id.getUpgrade():

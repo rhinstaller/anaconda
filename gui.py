@@ -1132,8 +1132,16 @@ class InstallInterface(InstallInterfaceBase):
         dialog.createDialog()
         dialog.run()
 
-    def methodstrRepoWindow(self, methodstr):
+    def methodstrRepoWindow(self, methodstr, exception):
         from task_gui import RepoMethodstrEditor
+
+        self.messageWindow(
+            _("Error Setting Up Repository"),
+            _("The following error occurred while setting up the "
+              "installation repository:\n\n%(e)s\n\nPlease provide the "
+              "correct information for installing %(productName)s.")
+            % {'e': exception, 'productName': productName})
+
         dialog = RepoMethodstrEditor(self.anaconda, methodstr)
         dialog.createDialog()
         return dialog.run()
