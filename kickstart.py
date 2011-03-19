@@ -635,6 +635,9 @@ class NetworkData(commands.network.RHEL6_NetworkData):
             else:
                 dev.set (("ONBOOT", "no"))
 
+            if self.mtu:
+                dev.set(("MTU", self.mtu))
+
             if self.ethtool:
                 dev.set(("ETHTOOL_OPTS", self.ethtool))
 
