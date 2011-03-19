@@ -660,6 +660,9 @@ class NetworkData(commands.network.F16_NetworkData):
             else:
                 dev.set (("ONBOOT", "no"))
 
+            if self.mtu:
+                dev.set(("MTU", self.mtu))
+
             if self.ethtool:
                 dev.set(("ETHTOOL_OPTS", self.ethtool))
 
