@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 15.22\n"
+"Project-Id-Version: anaconda 15.23\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2011-03-14 11:23-0400\n"
+"POT-Creation-Date: 2011-03-21 10:54-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,35 +18,35 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: anaconda:319
+#: anaconda:322
 msgid "Press <enter> for a shell"
 msgstr ""
 
-#: anaconda:333
+#: anaconda:336
 #, c-format
 msgid ""
 "%s requires %s MB of memory to install, but you only have %s MB on this "
 "machine.\n"
 msgstr ""
 
-#: anaconda:335
+#: anaconda:338
 #, c-format
 msgid ""
 "%s requires %s MB of memory to install using this installation method, but "
 "you only have %s MB on this machine.\n"
 msgstr ""
 
-#: anaconda:338
+#: anaconda:341
 #, c-format
 msgid ""
 "The %s graphical installer requires %s MB of memory, but you only have %s MB."
 msgstr ""
 
-#: anaconda:343
+#: anaconda:346
 msgid "Not enough RAM"
 msgstr ""
 
-#: anaconda:344
+#: anaconda:347
 msgid ""
 " Try the text mode installer by running:\n"
 "\n"
@@ -55,11 +55,11 @@ msgid ""
 " from a root terminal."
 msgstr ""
 
-#: anaconda:347
+#: anaconda:350
 msgid " Starting text mode."
 msgstr ""
 
-#: anaconda:371 pyanaconda/rescue.py:346 pyanaconda/rescue.py:378
+#: anaconda:374 pyanaconda/rescue.py:346 pyanaconda/rescue.py:378
 #: pyanaconda/rescue.py:391 pyanaconda/rescue.py:475 pyanaconda/rescue.py:492
 #: pyanaconda/rescue.py:503 pyanaconda/text.py:565 loader/windows.h:30
 #: loader/cdinstall.c:186 loader/cdinstall.c:190 loader/cdinstall.c:210
@@ -75,7 +75,7 @@ msgstr ""
 #: loader/kickstart.c:928 loader/lang.c:113 loader/lang.c:362
 #: loader/loader.c:422 loader/loader.c:458 loader/loader.c:498
 #: loader/loader.c:516 loader/loader.c:533 loader/loader.c:570
-#: loader/loader.c:1218 loader/loader.c:1246 loader/loader.c:1391
+#: loader/loader.c:1216 loader/loader.c:1244 loader/loader.c:1389
 #: loader/mediacheck.c:47 loader/mediacheck.c:86 loader/mediacheck.c:93
 #: loader/mediacheck.c:97 loader/mediacheck.c:106 loader/method.c:194
 #: loader/method.c:268 loader/net.c:624 loader/net.c:1004 loader/net.c:1813
@@ -86,22 +86,22 @@ msgstr ""
 msgid "OK"
 msgstr ""
 
-#: anaconda:753
+#: anaconda:758
 msgid "Would you like to use VNC?"
 msgstr ""
 
-#: anaconda:754
+#: anaconda:759
 msgid ""
 "Text mode provides a limited set of installation options.  It does not allow "
 "you to specify your own partitioning layout or package selections.  Would "
 "you like to use VNC mode instead?"
 msgstr ""
 
-#: anaconda:780
+#: anaconda:785
 msgid "Graphical installation is not available. Starting text mode."
 msgstr ""
 
-#: anaconda:788
+#: anaconda:793
 msgid "DISPLAY variable not set. Starting text mode."
 msgstr ""
 
@@ -473,7 +473,7 @@ msgstr ""
 #: loader/hdinstall.c:282 loader/hdinstall.c:300 loader/hdinstall.c:309
 #: loader/hdinstall.c:344 loader/hdinstall.c:383 loader/hdinstall.c:398
 #: loader/kickstart.c:308 loader/lang.c:113 loader/loader.c:422
-#: loader/loader.c:533 loader/loader.c:1218 loader/mediacheck.c:47
+#: loader/loader.c:533 loader/loader.c:1216 loader/mediacheck.c:47
 #: loader/mediacheck.c:86 loader/mediacheck.c:93 loader/mediacheck.c:97
 #: loader/method.c:194 loader/method.c:268 loader/nfsinstall.c:261
 #: loader/urlinstall.c:139 loader/urlinstall.c:161 loader/urlinstall.c:213
@@ -3395,7 +3395,7 @@ msgstr ""
 #: loader/driverdisk.c:506 loader/driverselect.c:79 loader/driverselect.c:145
 #: loader/driverselect.c:171 loader/hdinstall.c:168 loader/hdinstall.c:222
 #: loader/kbd.c:118 loader/loader.c:499 loader/loader.c:516
-#: loader/loader.c:1391 loader/loader.c:1431 loader/net.c:624
+#: loader/loader.c:1389 loader/loader.c:1429 loader/net.c:624
 #: loader/net.c:1004 loader/net.c:1813 loader/net.c:1832
 #: loader/nfsinstall.c:93 loader/urls.c:264 pyanaconda/storage/__init__.py:122
 #: pyanaconda/storage/__init__.py:168 pyanaconda/storage/devicetree.py:95
@@ -3690,113 +3690,113 @@ msgstr ""
 msgid "Error downloading updates image"
 msgstr ""
 
-#: loader/loader.c:1200
+#: loader/loader.c:1198
 #, c-format
 msgid "%s requires %d MB of memory, to install, but you only have %d MB."
 msgstr ""
 
-#: loader/loader.c:1201
+#: loader/loader.c:1199
 #, c-format
 msgid ""
 "%s requires %d MB of memory to install using this installation method, but "
 "you only have %d MB on this machine."
 msgstr ""
 
-#: loader/loader.c:1246
+#: loader/loader.c:1244
 msgid "Unsupported Hardware Detected"
 msgstr ""
 
-#: loader/loader.c:1247
+#: loader/loader.c:1245
 msgid ""
 "This hardware (or a combination thereof) is not supported by Red Hat.  For "
 "more information on supported hardware, please refer to http://www.redhat."
 "com/hardware."
 msgstr ""
 
-#: loader/loader.c:1383
+#: loader/loader.c:1381
 msgid "Rescue Method"
 msgstr ""
 
-#: loader/loader.c:1384
+#: loader/loader.c:1382
 msgid "Installation Method"
 msgstr ""
 
-#: loader/loader.c:1386
+#: loader/loader.c:1384
 msgid "What type of media contains the rescue image?"
 msgstr ""
 
-#: loader/loader.c:1388
+#: loader/loader.c:1386
 msgid "What type of media contains the installation image?"
 msgstr ""
 
-#: loader/loader.c:1430
+#: loader/loader.c:1428
 msgid "No driver found"
 msgstr ""
 
-#: loader/loader.c:1430
+#: loader/loader.c:1428
 msgid "Select driver"
 msgstr ""
 
-#: loader/loader.c:1431
+#: loader/loader.c:1429
 msgid "Use a driver disk"
 msgstr ""
 
-#: loader/loader.c:1432
+#: loader/loader.c:1430
 msgid ""
 "Unable to find any devices of the type needed for this installation type.  "
 "Would you like to manually select your driver or use a driver disk?"
 msgstr ""
 
-#: loader/loader.c:1643
+#: loader/loader.c:1641
 msgid "The following devices have been found on your system."
 msgstr ""
 
-#: loader/loader.c:1645
+#: loader/loader.c:1643
 msgid ""
 "No device drivers have been loaded for your system.  Would you like to load "
 "any now?"
 msgstr ""
 
-#: loader/loader.c:1649
+#: loader/loader.c:1647
 msgid "Devices"
 msgstr ""
 
-#: loader/loader.c:1650
+#: loader/loader.c:1648
 msgid "Done"
 msgstr ""
 
-#: loader/loader.c:1651
+#: loader/loader.c:1649
 msgid "Add Device"
 msgstr ""
 
-#: loader/loader.c:1933
+#: loader/loader.c:1931
 #, c-format
 msgid "loader has already been run.  Starting shell.\n"
 msgstr ""
 
-#: loader/loader.c:2077
+#: loader/loader.c:2075
 #, c-format
 msgid "Driver disc was detected in %s. Do you want to use it?."
 msgstr ""
 
-#: loader/loader.c:2080
+#: loader/loader.c:2078
 msgid "Driver disc detected"
 msgstr ""
 
-#: loader/loader.c:2080
+#: loader/loader.c:2078
 msgid "Use it"
 msgstr ""
 
-#: loader/loader.c:2080
+#: loader/loader.c:2078
 msgid "Skip it"
 msgstr ""
 
-#: loader/loader.c:2394
+#: loader/loader.c:2392
 #, c-format
 msgid "Running anaconda %s, the %s rescue mode - please wait.\n"
 msgstr ""
 
-#: loader/loader.c:2396
+#: loader/loader.c:2394
 #, c-format
 msgid "Running anaconda %s, the %s system installer - please wait.\n"
 msgstr ""
