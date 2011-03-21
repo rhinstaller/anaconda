@@ -27,7 +27,6 @@
 #include <netlink/cache.h>
 #include <netlink/socket.h>
 #include <glib.h>
-#include <NetworkManager.h>
 
 /* Enumerated types used in iface.c as well as loader's network code */
 enum { IPUNUSED = -1, IPV4, IPV6 };
@@ -167,10 +166,5 @@ int iface_set_interface_mtu(char *ifname, int mtu);
  * Checks if interface is wireless
  */
 int is_wireless_device(char *ifname);
-
-/*
- * Checks if the state means nm is connected
- */
-int is_connected_state(NMState state);
 
 #endif /* ISYSIFACE_H */

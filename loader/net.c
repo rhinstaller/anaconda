@@ -2060,7 +2060,7 @@ int get_connection(iface_t *iface) {
         }
         state = nm_client_get_state(client);
 
-        if (is_connected_state(state)) {
+        if (state == NM_STATE_CONNECTED) {
             logMessage(INFO, "%s (%d): NetworkManager connected",
                        __func__, __LINE__);
             res_init();

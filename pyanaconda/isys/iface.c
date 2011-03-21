@@ -184,7 +184,7 @@ char *iface_ip2str(char *ifname, int family) {
         return NULL;
     }
 
-    if (! is_connected_state(nm_client_get_state(client))) {
+    if (nm_client_get_state(client) != NM_STATE_CONNECTED) {
         g_object_unref(client);
         return NULL;
     }
@@ -407,12 +407,6 @@ int iface_have_in6_addr(struct in6_addr *addr6) {
     return _iface_have_valid_addr(addr6, AF_INET6, INET6_ADDRSTRLEN);
 }
 
-int is_connected_state(NMState state) {
-    return (state == NM_STATE_CONNECTED_LOCAL ||
-            state == NM_STATE_CONNECTED_SITE ||
-            state == NM_STATE_CONNECTED_GLOBAL);
-}
-
 /* Check if NM has an active connection */
 gboolean is_nm_connected(void) {
     NMState state;
@@ -427,7 +421,7 @@ gboolean is_nm_connected(void) {
     state = nm_client_get_state(client);
     g_object_unref(client);
 
-    if (is_connected_state(state))
+    if (state == NM_STATE_CONNECTED)
         return TRUE;
     else
         return FALSE;
