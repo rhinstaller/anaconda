@@ -1,6 +1,6 @@
-# icons/hicolor/Makefile.am for anaconda
+# icons/hicolor/256x256/apps/Makefile.am for anaconda
 #
-# Copyright (C) 2010  Red Hat, Inc.
+# Copyright (C) 2011  Red Hat, Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU Lesser General Public License as published
@@ -15,8 +15,11 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-# Author: David Cantrell <dcantrell@redhat.com>
+# Author: Chris Lumens <clumens@redhat.com>
 
-SUBDIRS = 16x16 22x22 24x24 32x32 48x48 256x256
+if IS_LIVEINST_ARCH
+iconsdir        = $(datadir)/icons/hicolor/256x256/apps
+dist_icons_DATA = anaconda.png
+endif
 
 MAINTAINERCLEANFILES = Makefile.in
