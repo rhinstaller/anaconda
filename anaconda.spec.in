@@ -221,6 +221,19 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Mon Mar 21 2011 Martin Sivak <msivak@redhat.com> - 13.21.106-1
+- Don't write out a duplicate mtab to /mnt/sysimage (clumens).
+  Resolves: rhbz#657257
+- Align lv sizes when adding to vg total space used. (dlehman)
+  Resolves: rhbz#682156
+- Don't include incomplete md arrays in the devicetree. (dlehman)
+  Resolves: rhbz#683614
+- Only pass --update=super-minor when activating v0 metadata md arrays.
+  (dlehman)
+  Resolves: rhbz#681136
+- Set context on files as well as directories (clumens).
+  Resolves: rhbz#685090
+
 * Wed Mar 16 2011 Martin Sivak <msivak@redhat.com> - 13.21.105-1
 - IB: add missing modules to the image. (akozumpl)
   Related: rhbz#660686
