@@ -122,7 +122,9 @@ PACKAGES="glibc glibc-common setup openssl python python-libs newt slang libseli
 	 libdhcp libnl libdhcp6client libdhcp4client device-mapper-multipath
 	 kpartx dmraid python-pyblock mkinitrd libbdevid libbdevid-python
 	 libselinux-python nss udev keyutils-libs nspr python-iniparse
-	 cryptsetup-luks e4fsprogs fipscheck fipscheck-lib libdrm libmlx4"
+	 cryptsetup-luks e4fsprogs fipscheck fipscheck-lib libdrm libmlx4
+	 subscription-manager python-dmidecode python-ethtool
+	 python-rhsm python-simplejson PyXML virt-what"
 
 if [ $ARCH = i386 -o $ARCH = x86_64 ]; then
     PACKAGES="$PACKAGES pcmciautils"
@@ -520,6 +522,11 @@ usr/share/hwdata/MonitorsDB
 usr/share/xorg/extramodes
 usr/share/xorg/vesamodes
 usr/share/zoneinfo/*
+usr/share/rhsm
+usr/lib/yum-plugins/product-id.py*
+var/log/rhsm
+etc/rhsm
+etc/yum/pluginconf.d/product-id.conf
 EOF
 
 if [ $ARCH = s390 -o $ARCH = s390x ]; then
