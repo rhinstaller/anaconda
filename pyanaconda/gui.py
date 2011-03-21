@@ -1072,12 +1072,6 @@ class InstallInterface(InstallInterfaceBase):
         rc = ReinitializeWindow(title, path, size, description, parent=parent).getrc()
         return rc
 
-    def createRepoWindow(self):
-        from iw.task_gui import RepoCreator
-        dialog = RepoCreator(self.anaconda)
-        dialog.createDialog()
-        dialog.run()
-
     def editRepoWindow(self, repoObj):
         from iw.task_gui import RepoEditor
         dialog = RepoEditor(self.anaconda, repoObj)

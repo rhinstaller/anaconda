@@ -375,10 +375,6 @@ class InstallInterface(InstallInterfaceBase):
             return self.messageWindow(title, text, type, default, custom_icon,
                                       custom_buttons)
 
-    def createRepoWindow(self):
-        self.messageWindow(_("Error"),
-                           _("Repository editing is not available in text mode."))
-
     def editRepoWindow(self, repoObj):
         self.messageWindow(_("Error"),
                            _("Repository editing is not available in text mode."))
