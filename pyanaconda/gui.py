@@ -285,37 +285,6 @@ class WrappingLabel(gtk.Label):
         self.ignoreEvents = 0
         widgetExpander(self)
 
-def titleBarMousePressCB(widget, event, data):
-    if event.type & gtk.gdk.BUTTON_PRESS:
-        (x, y) = data["window"].get_position()
-        data["state"] = 1
-        data["button"] = event.button
-        data["deltax"] = event.x_root - x
-        data["deltay"] = event.y_root - y
-
-def titleBarMouseReleaseCB(widget, event, data):
-    if data["state"] and event.button == data["button"]:
-        data["state"] = 0
-        data["button"] = 0
-        data["deltax"] = 0
-        data["deltay"] = 0
-
-def titleBarMotionEventCB(widget, event, data):
-    if data["state"]:
-        newx = event.x_root - data["deltax"]
-        newy = event.y_root - data["deltay"]
-        if newx < 0:
-            newx = 0
-        if newy < 0:
-            newy = 0
-        (w, h) = data["window"].get_size()
-        if (newx+w) > gtk.gdk.screen_width():
-            newx = gtk.gdk.screen_width() - w
-        if (newy+20) > (gtk.gdk.screen_height()):
-            newy = gtk.gdk.screen_height() - 20
-
-        data["window"].move(int(newx), int(newy))
-
 def addFrame(dialog, title=None):
     # make screen shots work
     dialog.connect ("key-release-event", handlePrintScrnRelease)
