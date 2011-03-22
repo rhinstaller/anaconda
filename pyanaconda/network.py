@@ -71,7 +71,7 @@ class IPMissing(Exception):
     pass
 
 def sanityCheckHostname(hostname):
-    if len(hostname) < 1:
+    if not hostname:
         return None
 
     if len(hostname) > 255:
@@ -80,12 +80,12 @@ def sanityCheckHostname(hostname):
     validStart = string.ascii_letters + string.digits
     validAll = validStart + ".-"
 
-    if string.find(validStart, hostname[0]) == -1:
+    if hostname[0] not in validStart:
         return _("Hostname must start with a valid character in the ranges "
                  "'a-z', 'A-Z', or '0-9'")
 
-    for i in range(1, len(hostname)):
-        if string.find(validAll, hostname[i]) == -1:
+    for char in hostname[1:]:
+        if char not in validAll:
             return _("Hostnames can only contain the characters 'a-z', 'A-Z', '0-9', '-', or '.'")
 
     return None
@@ -129,13 +129,13 @@ def getDefaultHostname(anaconda):
 
 # sanity check an IP string.
 def sanityCheckIPString(ip_string):
-    if ip_string.strip() == "":
+    if not ip_string.strip():
         raise IPMissing, _("IP address is missing.")
 
-    if ip_string.find(':') == -1 and ip_string.find('.') > 0:
+    if '.' in ip_string[1:] and ':' not in ip_string:
         family = socket.AF_INET
         errstr = _("IPv4 addresses must contain four numbers between 0 and 255, separated by periods.")
-    elif ip_string.find(':') > 0 and ip_string.find('.') == -1:
+    elif ':' in ip_string[1:] and '.' not in ip_string:
         family = socket.AF_INET6
         errstr = _("'%s' is not a valid IPv6 address.") % ip_string
     else:
