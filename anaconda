@@ -278,8 +278,7 @@ def expandFTPMethod(str):
     except:
         return None
 
-def runVNC():
-    global vncS
+def runVNC(vncS):
     vncS.startServer()
 
     child = os.fork()
@@ -625,7 +624,7 @@ def setupDisplay(anaconda, opts):
 
         # if they want us to use VNC do that now
         if anaconda.displayMode == 'g' and flags.usevnc:
-            runVNC()
+            runVNC(vncS)
             doStartupX11Actions()
 
         # with X running we can initialize the UI interface
