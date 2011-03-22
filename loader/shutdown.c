@@ -46,7 +46,7 @@ static void performTerminations(void) {
     /* find some pids so we can omit them from killall5 */
     *omit = '\0';
     for (procname=donotkill; *procname; procname++) {
-        sprintf(buf, "/usr/sbin/pidof %s", *procname);
+        sprintf(buf, "/sbin/pidof %s", *procname);
         if ((f = popen(buf, "r")) != NULL) {
             if (fgets(buf, sizeof(buf), f) != NULL) {
                 buf[strcspn(buf,"\n")] = '\0';
@@ -64,13 +64,13 @@ static void performTerminations(void) {
 
     sync();
     printf("sending termination signals...");
-    sprintf(buf, "/usr/sbin/killall5 -15%s", omit);
+    sprintf(buf, "/sbin/killall5 -15%s", omit);
     system(buf);
     sleep(2);
     printf("done\n");
 
     printf("sending kill signals...");
-    sprintf(buf, "/usr/sbin/killall5 -9%s", omit);
+    sprintf(buf, "/sbin/killall5 -9%s", omit);
     system(buf);
     sleep(2);
     printf("done\n");
