@@ -2507,6 +2507,9 @@ int main(int argc, char ** argv) {
     printf(fmt, VERSION, getProductName());
 
     if (!(pid = fork())) {
+        /* Create a new process group that we can easily kill off later. */
+        setpgid(0, 0);
+        /* This is where the Anaconda python process is started. */
         if (execv(anacondaArgs[0], anacondaArgs) == -1) {
            fprintf(stderr,"exec of anaconda failed: %m\n");
            doExit(1);

@@ -38,10 +38,26 @@ void disableSwap(void);
 void unmountFilesystems(void);
 
 static void performTerminations(void) {
-    int status;
+    /* First of all kill everything in the anaconda process group. This won't
+       hit any daemons spawned from anaconda, those usually call setsid(). */
+    char buf[256];
+    int fd, anaconda_pid = 0;
+    if ((fd = open("/var/run/anaconda.pid", O_RDONLY)) >= 0 ) {
+        if (read(fd, buf, 256) > 0) {
+            anaconda_pid = atol(buf);
+        }
+    }
+    if (anaconda_pid > 0) {
+        printf("terminating anaconda...");
+        kill(-anaconda_pid, SIGTERM);
+        printf("done\n");
+    }
+
+    /* Next, kill everything except what is inside the init's session or
+       excluded in donotkill. */
     FILE *f;
     char *donotkill[] = {"mdmon", "NetworkManager", "dhclient", NULL};
-    char buf[256], omit[256], oarg[64];
+    char omit[256], oarg[64];
     char **procname, *pid;
 
     /* find some pids so we can omit them from killall5 */
@@ -63,14 +79,17 @@ static void performTerminations(void) {
         }
     }
 
+    int status;
     sync();
     printf("sending termination signals...");
+    fflush(stdout);
     sprintf(buf, "/usr/sbin/killall5 -15%s", omit);
     status = system(buf);
     sleep(2);
     printf("done\n");
 
     printf("sending kill signals...");
+    fflush(stdout);
     sprintf(buf, "/usr/sbin/killall5 -9%s", omit);
     status = system(buf);
     sleep(2);

@@ -737,8 +737,6 @@ int main(int argc, char **argv) {
 
     printf("running install...\n"); 
 
-    setsid();
-
     if (!(installpid = fork())) {
         /* child */
         *argvp++ = "/sbin/loader";
