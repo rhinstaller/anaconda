@@ -6,13 +6,12 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 13.21.105\n"
+"Project-Id-Version: anaconda 13.21.106\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2011-03-21 16:03+0100\n"
+"POT-Creation-Date: 2011-03-23 08:18-1000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -119,13 +118,13 @@ msgstr ""
 #: yuminstall.py:1145 yuminstall.py:1298 yuminstall.py:1325 yuminstall.py:1386
 #: yuminstall.py:1568 yuminstall.py:1598 yuminstall.py:1621
 #: storage/__init__.py:100 storage/__init__.py:109 storage/__init__.py:239
-#: storage/__init__.py:2009
+#: storage/__init__.py:2017
 msgid "_Exit installer"
 msgstr ""
 
 #: bootloader.py:60 image.py:92 image.py:251 kickstart.py:1403
 #: kickstart.py:1442 upgrade.py:58 yuminstall.py:1391 yuminstall.py:1568
-#: iw/partition_gui.py:1611 storage/__init__.py:2010
+#: iw/partition_gui.py:1611 storage/__init__.py:2018
 msgid "_Continue"
 msgstr ""
 
@@ -348,7 +347,7 @@ msgid ""
 msgstr ""
 
 #: gui.py:1443 image.py:164 image.py:194 packages.py:369
-#: storage/__init__.py:1827
+#: storage/__init__.py:1835
 msgid "_Exit"
 msgstr ""
 
@@ -434,8 +433,8 @@ msgstr ""
 #: image.py:242
 #, python-format
 msgid ""
-"The software you have selected to install will require the following "
-"%(productName)s %(productVersion)s discs:\n"
+"The software you have selected to install will require the following %"
+"(productName)s %(productVersion)s discs:\n"
 "\n"
 "%(reqcdstr)s\n"
 "Please have these ready before proceeding with the installation.  If you "
@@ -467,8 +466,8 @@ msgstr ""
 #: loader/method.c:351 loader/nfsinstall.c:279 loader/nfsinstall.c:296
 #: loader/telnetd.c:92 loader/urlinstall.c:137 loader/urlinstall.c:159
 #: loader/urlinstall.c:221 loader/urls.c:339 loader/urls.c:345
-#: loader/urls.c:354 storage/__init__.py:235 storage/__init__.py:1828
-#: storage/__init__.py:1915 storage/zfcp.py:375 textw/upgrade_text.py:179
+#: loader/urls.c:354 storage/__init__.py:235 storage/__init__.py:1836
+#: storage/__init__.py:1923 storage/zfcp.py:375 textw/upgrade_text.py:179
 #: textw/upgrade_text.py:186
 msgid "Error"
 msgstr ""
@@ -671,8 +670,8 @@ msgstr ""
 
 #: network.py:76
 msgid ""
-"Hostname must start with a valid character in the ranges 'a-z', 'A-Z', or "
-"'0-9'"
+"Hostname must start with a valid character in the ranges 'a-z', 'A-Z', or '0-"
+"9'"
 msgstr ""
 
 #: network.py:81
@@ -931,8 +930,8 @@ msgstr ""
 #, python-format
 msgid ""
 "The following critical errors exist with your requested partitioning scheme. "
-"These errors must be corrected prior to continuing with your install of "
-"%(productName)s.\n"
+"These errors must be corrected prior to continuing with your install of %"
+"(productName)s.\n"
 "\n"
 "%(errorstr)s"
 msgstr ""
@@ -1193,7 +1192,7 @@ msgid "Read-Only"
 msgstr ""
 
 #: rescue.py:311 rescue.py:313 loader/cdinstall.c:251 loader/cdinstall.c:254
-#: loader/method.c:324 storage/__init__.py:1827 textw/upgrade_text.py:137
+#: loader/method.c:324 storage/__init__.py:1835 textw/upgrade_text.py:137
 msgid "Skip"
 msgstr ""
 
@@ -1318,8 +1317,8 @@ msgid ""
 "\n"
 "REINITIALIZING WILL CAUSE ALL DATA TO BE LOST!\n"
 "\n"
-"This action may also be applied to all other disks needing reinitialization."
-"%(details)s"
+"This action may also be applied to all other disks needing reinitialization.%"
+"(details)s"
 msgstr ""
 
 #: text.py:632 loader/net.c:111 loader/net.c:485 loader/net.c:540
@@ -1723,8 +1722,8 @@ msgstr ""
 #: yuminstall.py:1129
 #, python-format
 msgid ""
-"There was an error running your transaction for the following reason(s): "
-"%s.\n"
+"There was an error running your transaction for the following reason(s): %"
+"s.\n"
 msgstr ""
 
 #: yuminstall.py:1137 yuminstall.py:1142
@@ -1792,9 +1791,9 @@ msgstr ""
 #, python-format
 msgid ""
 "The arch of the release of %(productName)s you are upgrading to appears to "
-"be %(myarch)s which does not match your previously installed arch of "
-"%(arch)s.  This is likely to not succeed.  Are you sure you wish to continue "
-"the upgrade process?"
+"be %(myarch)s which does not match your previously installed arch of %(arch)"
+"s.  This is likely to not succeed.  Are you sure you wish to continue the "
+"upgrade process?"
 msgstr ""
 
 #: yuminstall.py:1864
@@ -2343,17 +2342,17 @@ msgstr ""
 #: iw/lvm_dialog_gui.py:174
 #, python-format
 msgid ""
-"The physical extent size cannot be changed because the value selected "
-"(%(curpe)10.2f MB) is larger than the smallest physical volume "
-"(%(maxpvsize)10.2f MB) in the volume group."
+"The physical extent size cannot be changed because the value selected (%"
+"(curpe)10.2f MB) is larger than the smallest physical volume (%(maxpvsize)"
+"10.2f MB) in the volume group."
 msgstr ""
 
 #: iw/lvm_dialog_gui.py:188
 #, python-format
 msgid ""
-"The physical extent size cannot be changed because the value selected "
-"(%(curpe)10.2f MB) is too large compared to the size of the smallest "
-"physical volume (%(maxpvsize)10.2f MB) in the volume group."
+"The physical extent size cannot be changed because the value selected (%"
+"(curpe)10.2f MB) is too large compared to the size of the smallest physical "
+"volume (%(maxpvsize)10.2f MB) in the volume group."
 msgstr ""
 
 #: iw/lvm_dialog_gui.py:202
@@ -2484,8 +2483,8 @@ msgstr ""
 #, python-format
 msgid ""
 "The size entered for this logical volume (%(size)d MB) combined with the "
-"size of the other logical volume(s) exceeds the size of the volume group "
-"(%(tempvgsize)d MB). Please make the volume group larger or make the logical "
+"size of the other logical volume(s) exceeds the size of the volume group (%"
+"(tempvgsize)d MB). Please make the volume group larger or make the logical "
 "volume smaller."
 msgstr ""
 
@@ -2769,7 +2768,7 @@ msgstr ""
 msgid "Type"
 msgstr ""
 
-#: iw/partition_gui.py:619 storage/__init__.py:1827
+#: iw/partition_gui.py:619 storage/__init__.py:1835
 msgid "Format"
 msgstr ""
 
@@ -3135,8 +3134,8 @@ msgstr ""
 #: iw/upgrade_bootloader_gui.py:138 textw/upgrade_bootloader_text.py:121
 #, python-format
 msgid ""
-"The installer has detected the %(type)s boot loader currently installed on "
-"%(bootDev)s."
+"The installer has detected the %(type)s boot loader currently installed on %"
+"(bootDev)s."
 msgstr ""
 
 #: iw/upgrade_bootloader_gui.py:142
@@ -3175,9 +3174,9 @@ msgstr ""
 #, python-format
 msgid ""
 "This release of %(productName)s supports an updated file system, which has "
-"several benefits over the file system traditionally shipped in "
-"%(productName)s.  This installation program can migrate formatted partitions "
-"without data loss.\n"
+"several benefits over the file system traditionally shipped in %(productName)"
+"s.  This installation program can migrate formatted partitions without data "
+"loss.\n"
 "\n"
 "Which of these partitions would you like to migrate?"
 msgstr ""
@@ -3190,8 +3189,8 @@ msgstr ""
 #, python-format
 msgid ""
 "Recent kernels (2.4 or newer) need significantly more swap than older "
-"kernels, up to twice the amount of RAM on the system.  You currently have "
-"%dMB of swap configured, but you may create additional swap space on one of "
+"kernels, up to twice the amount of RAM on the system.  You currently have %"
+"dMB of swap configured, but you may create additional swap space on one of "
 "your file systems now."
 msgstr ""
 
@@ -4353,55 +4352,62 @@ msgid ""
 "recommended for a normal %(productName)s install."
 msgstr ""
 
-#: storage/__init__.py:1034
+#: storage/__init__.py:1015
+#, python-format
+msgid ""
+"Your %s partition is too %s for %s formatting (allowable size is %d MB to %d "
+"MB)"
+msgstr ""
+
+#: storage/__init__.py:1042
 msgid ""
 "Installing on a USB device.  This may or may not produce a working system."
 msgstr ""
 
-#: storage/__init__.py:1037
+#: storage/__init__.py:1045
 msgid ""
 "Installing on a FireWire device.  This may or may not produce a working "
 "system."
 msgstr ""
 
-#: storage/__init__.py:1044
+#: storage/__init__.py:1052
 msgid ""
 "You have not specified a swap partition.  Due to the amount of memory "
 "present, a swap partition is required to complete installation."
 msgstr ""
 
-#: storage/__init__.py:1049
+#: storage/__init__.py:1057
 msgid ""
 "You have not specified a swap partition.  Although not strictly required in "
 "all cases, it will significantly improve performance for most installations."
 msgstr ""
 
-#: storage/__init__.py:1056
+#: storage/__init__.py:1064
 #, python-format
 msgid ""
 "This mount point is invalid.  The %s directory must be on the / file system."
 msgstr ""
 
-#: storage/__init__.py:1060
+#: storage/__init__.py:1068
 #, python-format
 msgid "The mount point %s must be on a linux file system."
 msgstr ""
 
-#: storage/__init__.py:1071
+#: storage/__init__.py:1079
 msgid "No Drives Found"
 msgstr ""
 
-#: storage/__init__.py:1072
+#: storage/__init__.py:1080
 msgid ""
 "An error has occurred - no valid devices were found on which to create new "
 "file systems. Please check your hardware for the cause of this problem."
 msgstr ""
 
-#: storage/__init__.py:1365 storage/__init__.py:1374
+#: storage/__init__.py:1373 storage/__init__.py:1382
 msgid "Dirty File Systems"
 msgstr ""
 
-#: storage/__init__.py:1366
+#: storage/__init__.py:1374
 #, python-format
 msgid ""
 "The following file systems for your Linux system were not unmounted "
@@ -4410,7 +4416,7 @@ msgid ""
 "%s"
 msgstr ""
 
-#: storage/__init__.py:1375
+#: storage/__init__.py:1383
 #, python-format
 msgid ""
 "The following file systems for your Linux system were not unmounted "
@@ -4418,7 +4424,7 @@ msgid ""
 "%s"
 msgstr ""
 
-#: storage/__init__.py:1860
+#: storage/__init__.py:1868
 #, python-format
 msgid ""
 "The swap device:\n"
@@ -4429,7 +4435,7 @@ msgid ""
 "swap space, you must reformat as a new-style Linux swap partition."
 msgstr ""
 
-#: storage/__init__.py:1871
+#: storage/__init__.py:1879
 #, python-format
 msgid ""
 "The swap device:\n"
@@ -4441,7 +4447,7 @@ msgid ""
 "down your system rather than hibernating it."
 msgstr ""
 
-#: storage/__init__.py:1879
+#: storage/__init__.py:1887
 #, python-format
 msgid ""
 "The swap device:\n"
@@ -4453,7 +4459,7 @@ msgid ""
 "make sure the installer is set to format all swap devices."
 msgstr ""
 
-#: storage/__init__.py:1891
+#: storage/__init__.py:1899
 #, python-format
 msgid ""
 "The swap device:\n"
@@ -4464,7 +4470,7 @@ msgid ""
 "installation, you will need to format the device or skip it."
 msgstr ""
 
-#: storage/__init__.py:1902
+#: storage/__init__.py:1910
 #, python-format
 msgid ""
 "Error enabling swap device %(name)s: %(msg)s\n"
@@ -4475,7 +4481,7 @@ msgid ""
 "Press OK to exit the installer"
 msgstr ""
 
-#: storage/__init__.py:1909
+#: storage/__init__.py:1917
 #, python-format
 msgid ""
 "Error enabling swap device %(name)s: %(msg)s\n"
@@ -4485,11 +4491,11 @@ msgid ""
 "Press OK to exit the installer."
 msgstr ""
 
-#: storage/__init__.py:1972 storage/__init__.py:1984
+#: storage/__init__.py:1980 storage/__init__.py:1992
 msgid "Invalid mount point"
 msgstr ""
 
-#: storage/__init__.py:1973
+#: storage/__init__.py:1981
 #, python-format
 msgid ""
 "An error occurred when trying to create %s.  Some element of this path is "
@@ -4498,7 +4504,7 @@ msgid ""
 "Press <Enter> to exit the installer."
 msgstr ""
 
-#: storage/__init__.py:1985
+#: storage/__init__.py:1993
 #, python-format
 msgid ""
 "An error occurred when trying to create %(mountpoint)s: %(msg)s.  This is a "
@@ -4507,18 +4513,18 @@ msgid ""
 "Press <Enter> to exit the installer."
 msgstr ""
 
-#: storage/__init__.py:2001 storage/__init__.py:2025
+#: storage/__init__.py:2009 storage/__init__.py:2033
 msgid "Unable to mount filesystem"
 msgstr ""
 
-#: storage/__init__.py:2002
+#: storage/__init__.py:2010
 #, python-format
 msgid ""
 "An error occurred mounting device %(path)s as %(mountpoint)s.  You may "
 "continue installation, but there may be problems."
 msgstr ""
 
-#: storage/__init__.py:2026
+#: storage/__init__.py:2034
 #, python-format
 msgid ""
 "An error occurred mounting device %(path)s as %(mountpoint)s: %(msg)s. This "
@@ -4550,23 +4556,31 @@ msgstr ""
 msgid "lvs failed for %s"
 msgstr ""
 
-#: storage/devices.py:1309 storage/devices.py:2019 storage/devices.py:2479
-#: storage/devices.py:2989 storage/devices.py:3477
+#: storage/devices.py:821 storage/devices.py:1546 storage/devices.py:2577
+msgid "large"
+msgstr ""
+
+#: storage/devices.py:823 storage/devices.py:1552 storage/devices.py:2583
+msgid "small"
+msgstr ""
+
+#: storage/devices.py:1322 storage/devices.py:2050 storage/devices.py:2510
+#: storage/devices.py:3037 storage/devices.py:3525
 msgid "Creating"
 msgstr ""
 
-#: storage/devices.py:1310 storage/devices.py:2020 storage/devices.py:2480
-#: storage/devices.py:2990
+#: storage/devices.py:1323 storage/devices.py:2051 storage/devices.py:2511
+#: storage/devices.py:3038
 #, python-format
 msgid "Creating device %s"
 msgstr ""
 
-#: storage/devices.py:2578
+#: storage/devices.py:2626
 #, python-format
 msgid "A RAID%d set requires atleast %d members"
 msgstr ""
 
-#: storage/devices.py:3478
+#: storage/devices.py:3526
 #, python-format
 msgid "Creating file %s"
 msgstr ""
@@ -4584,7 +4598,7 @@ msgid ""
 "installation."
 msgstr ""
 
-#: storage/devicetree.py:1940 storage/devicetree.py:1988
+#: storage/devicetree.py:1954 storage/devicetree.py:2002
 msgid "This partition is part of an inconsistent LVM Volume Group."
 msgstr ""
 
@@ -4836,8 +4850,8 @@ msgstr ""
 #: storage/zfcp.py:176
 #, python-format
 msgid ""
-"Could not add LUN %(fcplun)s to WWPN %(wwpn)s on zFCP device %(devnum)s "
-"(%(e)s)."
+"Could not add LUN %(fcplun)s to WWPN %(wwpn)s on zFCP device %(devnum)s (%(e)"
+"s)."
 msgstr ""
 
 #: storage/zfcp.py:182
@@ -4863,15 +4877,15 @@ msgstr ""
 #: storage/zfcp.py:260
 #, python-format
 msgid ""
-"Could not correctly delete SCSI device of zFCP %(devnum)s %(wwpn)s "
-"%(fcplun)s (%(e)s)."
+"Could not correctly delete SCSI device of zFCP %(devnum)s %(wwpn)s %(fcplun)"
+"s (%(e)s)."
 msgstr ""
 
 #: storage/zfcp.py:269
 #, python-format
 msgid ""
-"Could not remove LUN %(fcplun)s at WWPN %(wwpn)s on zFCP device %(devnum)s "
-"(%(e)s)."
+"Could not remove LUN %(fcplun)s at WWPN %(wwpn)s on zFCP device %(devnum)s (%"
+"(e)s)."
 msgstr ""
 
 #: storage/zfcp.py:287
@@ -5079,8 +5093,8 @@ msgstr ""
 #, python-format
 msgid ""
 "This release of %(productName)s supports the an updated file system, which "
-"has several benefits over the file system traditionally shipped in "
-"%(productName)s.  This installation program can migrate formatted partitions "
+"has several benefits over the file system traditionally shipped in %"
+"(productName)s.  This installation program can migrate formatted partitions "
 "without data loss.\n"
 "\n"
 "Which of these partitions would you like to migrate?"

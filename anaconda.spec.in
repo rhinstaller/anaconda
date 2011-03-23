@@ -221,6 +221,18 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Wed Mar 23 2011 David Cantrell <dcantrell@redhat.com> - 13.21.107-1
+- Don't touch resolv.conf which is handled by NM. (rvykydal)
+  Resolves: rhbz#687953
+- Check size limits on pre-existing partitions (bcl)
+  Resolves: rhbz#684860
+- Do on-demand scanning of md container if needed. (cherry picked from commit
+  9f83e8e70302d04b13645d5f65f8be8384bf6547) (dlehman)
+  Resolves: rhbz#683113
+- Fix kickstart handling of md spares. (cherry picked from commit
+  7194ca6edd44545037b4aa1f4711996ceffb667d) (dlehman)
+  Resolves: rhbz#683605
+
 * Mon Mar 21 2011 Martin Sivak <msivak@redhat.com> - 13.21.106-1
 - Don't write out a duplicate mtab to /mnt/sysimage (clumens).
   Resolves: rhbz#657257
