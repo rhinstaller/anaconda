@@ -149,9 +149,7 @@ class DiskStripeSlice:
 
     def update(self):
         disk = self.parent.getDisk()
-        totalSectors = float(disk.dev.heads
-                             * disk.dev.sectors
-                             * disk.dev.cylinders)
+        totalSectors = float(disk.dev.length)
 
         # XXX hack but will work for now
         if gtk.gdk.screen_width() > 640:
