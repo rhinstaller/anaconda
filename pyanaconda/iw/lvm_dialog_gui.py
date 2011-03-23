@@ -255,7 +255,8 @@ class VolumeGroupEditor:
             return "%s GB" % (val/1024/1024,)
 
     def createPEOptionMenu(self, default=4096):
-        peCombo = datacombo.DataComboBox()
+        store = gtk.TreeStore(gobject.TYPE_STRING, gobject.TYPE_INT)
+        peCombo = datacombo.DataComboBox(store)
 
         actualPE = []
         for curpe in lvm.getPossiblePhysicalExtents(floor=1024):

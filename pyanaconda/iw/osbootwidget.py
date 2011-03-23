@@ -163,7 +163,8 @@ class OSBootWidget:
 
                 parts.append(part)
 
-            deviceCombo = datacombo.DataComboBox()
+            store = gtk.TreeStore(gobject.TYPE_STRING, gobject.TYPE_STRING)
+            deviceCombo = datacombo.DataComboBox(store)
             defindex = 0
             i = 0
             for part in parts:
@@ -174,7 +175,7 @@ class OSBootWidget:
 
 
             deviceCombo.set_active(defindex)
-            
+
             table.attach(deviceCombo, 1, 2, 2, 3, gtk.FILL, 0, 10)
             label.set_mnemonic_widget(deviceCombo)
         else:
@@ -189,7 +190,7 @@ class OSBootWidget:
             default.set_sensitive(False)
         else:
             default.set_sensitive(True)
-        
+
         dialog.vbox.pack_start(table)
         dialog.show_all()
 

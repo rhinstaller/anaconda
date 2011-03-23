@@ -969,7 +969,7 @@ class PartitionWindow(InstallWindow):
                 if vg.freeSpace > 0:
                     iter = self.tree.append(vgparent)
                     self.tree[iter]['Device'] = _("Free")
-                    self.tree[iter]['Size (MB)'] = vg.freeSpace
+                    self.tree[iter]['Size (MB)'] = str(vg.freeSpace)
                     self.tree[iter]['PyObject'] = None
                     self.tree[iter]['Mount Point'] = ""
                     self.tree[iter]['IsLeaf'] = True

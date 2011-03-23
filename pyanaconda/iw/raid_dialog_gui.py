@@ -100,7 +100,8 @@ class RaidEditor:
 	return levelcombo
 
     def createRaidMinorMenu(self, minors, reqminor):
-        minorcombo = datacombo.DataComboBox()
+        store = gtk.TreeStore(gobject.TYPE_STRING, gobject.TYPE_INT)
+        minorcombo = datacombo.DataComboBox(store)
         defindex = 0
         i = 0
         for minor in minors:

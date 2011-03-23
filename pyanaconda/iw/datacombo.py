@@ -24,12 +24,13 @@ import gtk
 import gobject
 
 class DataComboBox(gtk.ComboBox):
-    """A class derived from gtk.ComboBox to allow setting a user visible
-    string and (not-visible) data string"""
+    """ A class derived from gtk.ComboBox to allow setting a user visible string
+        and (not-visible) data object.
+    """
 
     def __init__(self, store = None):
         if store is None:
-            self.store = gtk.TreeStore(gobject.TYPE_STRING, gobject.TYPE_STRING)
+            self.store = gtk.TreeStore(gobject.TYPE_STRING, gobject.TYPE_PYOBJECT)
         else:
             self.store = store
         gtk.ComboBox.__init__(self, self.store)
@@ -80,10 +81,11 @@ if __name__ == "__main__":
     def mycb(widget, *args):
         idx = widget.get_active()
         print(idx, widget.get_stored_data(idx), widget.get_text(idx))
-        
+
     win = gtk.Window()
 
-    cb = DataComboBox()
+    store = gtk.TreeStore(gobject.TYPE_STRING, gobject.TYPE_STRING)
+    cb = DataComboBox(store)
     cb.append("/dev/hda5", "hda5")
     cb.append("/dev/hda6", "hda6")
     cb.append("/dev/hda7", "hda7")
@@ -91,7 +93,7 @@ if __name__ == "__main__":
     cb.set_active_text("/dev/hda7")
 
     cb.connect('changed', mycb)
-    
+
     win.add(cb)
     win.show_all()
 
