@@ -131,7 +131,7 @@ class s390BootloaderInfo(bootloaderInfo):
         f.write('[defaultboot]\n')
         if self.timeout:
             f.write('timeout=%d\n' % self.timeout)
-        f.write('default=' + kernelList[0][0] + '\n')
+        f.write('default=' + kernelList[-1][0] + '-' + kernelList[-1][2] + '\n')
         f.write('target=%s\n' % (self.kernelLocation))
 
         cfPath = "/boot/"
@@ -140,7 +140,7 @@ class s390BootloaderInfo(bootloaderInfo):
             kernelFile = "%svmlinuz%s" % (cfPath, kernelTag)
 
             initrd = self.makeInitrd(kernelTag, instRoot)
-            f.write('[%s]\n' % (label))
+            f.write('[%s-%s]\n' % (label, version))
             f.write('\timage=%s\n' % (kernelFile))
             if initrd:
                 f.write('\tramdisk=%s%s\n' %(self.kernelLocation, initrd))

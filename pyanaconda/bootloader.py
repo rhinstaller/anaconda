@@ -184,19 +184,16 @@ def writeBootloader(anaconda):
         w.pop()
         return
 
-    plainLabelUsed = 0
     defkern = "kernel"
     for (version, arch, nick) in \
             anaconda.backend.kernelVersionList(anaconda.rootPath):
-	if plainLabelUsed:
+        if nick != 'base':
+            defkern = "kernel-%s" %(nick,)
             kernelList.append(("%s-%s" %(kernelLabel, nick),
                                "%s-%s" %(kernelLongLabel, nick),
                                version))
-	else:
-	    kernelList.append((kernelLabel, kernelLongLabel, version))
-            if nick != "base":
-                defkern = "kernel-%s" %(nick,)
-	    plainLabelUsed = 1
+        else:
+            kernelList.append((kernelLabel, kernelLongLabel, version))
 
     f = open(anaconda.rootPath + "/etc/sysconfig/kernel", "w+")
     f.write("# UPDATEDEFAULT specifies if new-kernel-pkg should make\n"
