@@ -412,13 +412,7 @@ int isKickstartFileRemote(char *ksFile) {
         location = ksFile + 3;
     }
 
-    if (!strncmp(location, "http", 4) ||
-        !strncmp(location, "ftp://", 6) ||
-        !strncmp(location, "nfs:", 4)) {
-        return 1;
-    } else {
-        return 0;
-    }
+    return isURLRemote(location);
 }
 
 void getKickstartFile(struct loaderData_s *loaderData) {

@@ -73,6 +73,7 @@ int kickstartNetworkUp(struct loaderData_s * loaderData,
                        iface_t * iface);
 void splitHostname (char *str, char **host, char **port);
 int get_connection(iface_t * iface);
+int isURLRemote(char *url);
 int isValidIPv4Address(const char *address);
 #ifdef ENABLE_IPV6
 int isValidIPv6Address(const char *address);

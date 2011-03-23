@@ -2077,6 +2077,20 @@ int get_connection(iface_t *iface) {
     return 3;
 }
 
+int isURLRemote(char *url) {
+    if (url == NULL) {
+        return 0;
+    }
+
+    if (!strncmp(url, "http", 4) ||
+        !strncmp(url, "ftp://", 6) ||
+        !strncmp(url, "nfs:", 4)) {
+        return 1;
+    } else {
+        return 0;
+    }
+}
+
 int isValidIPv4Address(const char *address) {
     int rc;
     struct in_addr addr;
