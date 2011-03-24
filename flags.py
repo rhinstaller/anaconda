@@ -37,8 +37,9 @@ class Flags:
         # if the BOOT_IMAGE contains a space, pxelinux will strip one of the
         # quotes leaving one at the end that shlex doesn't know what to do
         # with
-        if cmdline.find("BOOT_IMAGE=") and cmdline.endswith('"'):
-            cmdline = cmdline.replace("BOOT_IMAGE=", "BOOT_IMAGE=\"")
+        (left, middle, right) = cmdline.rpartition("BOOT_IMAGE=")
+        if right.count('"') % 2:
+            cmdline = left + middle + '"' + right
 
         lst = shlex.split(cmdline)
 
