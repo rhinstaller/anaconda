@@ -3048,7 +3048,7 @@ class MDRaidArrayDevice(StorageDevice):
                             self.level,
                             disks,
                             spares,
-                            metadataVer=self.createMetadataVer,
+                            metadataVer=self.metadataVersion,
                             bitmap=self.createBitmap,
                             progress=w)
         except Exception:
