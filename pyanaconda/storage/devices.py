@@ -936,15 +936,16 @@ class StorageDevice(Device):
         """ Check to make sure the size of the device is allowed by the
             format used.
 
-            return None is all is ok
-            return large or small depending on the problem
+            Returns:
+            0  - ok
+            1  - Too large
+            -1 - Too small
         """
-        problem = None
         if self.format.maxSize and self.size > self.format.maxSize:
-            problem = _("large")
+            return 1
         elif self.format.minSize and self.size < self.format.minSize:
-            problem = _("small")
-        return problem
+            return -1
+        return 0
 
 class DiskDevice(StorageDevice):
     """ A disk """
@@ -1612,19 +1613,20 @@ class PartitionDevice(StorageDevice):
         """ Check to make sure the size of the device is allowed by the
             format used.
 
-            return None is all is ok
-            return large or small depending on the problem
+            Returns:
+            0  - ok
+            1  - Too large
+            -1 - Too small
         """
-        problem = None
         if self.format.maxSize and self.size > self.format.maxSize:
-            problem = _("large")
+            return 1
         elif (self.format.minSize and
               (not self.req_grow and
                self.size < self.format.minSize) or
               (self.req_grow and self.req_max_size and
                self.req_max_size < self.format.minSize)):
-            problem = _("small")
-        return problem
+            return -1
+        return 0
 
 class DMDevice(StorageDevice):
     """ A device-mapper device """
@@ -2588,19 +2590,20 @@ class LVMLogicalVolumeDevice(DMDevice):
         """ Check to make sure the size of the device is allowed by the
             format used.
 
-            return None is all is ok
-            return large or small depending on the problem
+            Returns:
+            0  - ok
+            1  - Too large
+            -1 - Too small
         """
-        problem = None
         if self.format.maxSize and self.size > self.format.maxSize:
-            problem = _("large")
+            return 1
         elif (self.format.minSize and
               (not self.req_grow and
                self.size < self.format.minSize) or
               (self.req_grow and self.req_max_size and
                self.req_max_size < self.format.minSize)):
-            problem = _("small")
-        return problem
+            return -1
+        return 0
 
 class MDRaidArrayDevice(StorageDevice):
     """ An mdraid (Linux RAID) device. """

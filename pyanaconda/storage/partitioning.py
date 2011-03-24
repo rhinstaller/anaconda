@@ -1001,8 +1001,14 @@ def allocatePartitions(storage, disks, partitions, freespace, bootloader=None):
                 current_free = None
 
             problem = _part.checkSize()
-            if problem:
-                raise PartitioningError("partition is too %s for %s formatting "
+            if problem < 0:
+                raise PartitioningError("partition is too small for %s formatting "
+                                        "(allowable size is %d MB to %d MB)"
+                                        % (problem, _part.format.name,
+                                           _part.format.minSize,
+                                           _part.format.maxSize))
+            elif problem > 0:
+                raise PartitioningError("partition is too large for %s formatting "
                                         "(allowable size is %d MB to %d MB)"
                                         % (problem, _part.format.name,
                                            _part.format.minSize,

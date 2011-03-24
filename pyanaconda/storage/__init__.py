@@ -1104,8 +1104,13 @@ class Storage(object):
 
         for (mount, device) in filesystems.items():
             problem = filesystems[mount].checkSize()
-            if problem:
-                errors.append(_("Your %s partition is too %s for %s formatting "
+            if problem < 0:
+                errors.append(_("Your %s partition is too small for %s formatting "
+                                "(allowable size is %d MB to %d MB)")
+                              % (mount, problem, device.format.name,
+                                 device.minSize, device.maxSize))
+            elif problem > 0:
+                errors.append(_("Your %s partition is too large for %s formatting "
                                 "(allowable size is %d MB to %d MB)")
                               % (mount, problem, device.format.name,
                                  device.minSize, device.maxSize))
