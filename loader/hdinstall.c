@@ -93,7 +93,7 @@ static int ends_with_iso(char *dirname, struct dirent *ent) {
         return 0;
 
     suffix = rindex(ent->d_name, '.');
-    return (!strcmp(suffix, "iso"));
+    return (suffix && !strcmp(suffix, ".iso"));
 }
 
 int loadHdImages(struct loaderData_s *loaderData) {
