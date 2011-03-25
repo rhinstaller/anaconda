@@ -20,38 +20,18 @@
 #
 
 RESTART_FILE=/tmp/restart_anaconda
-ANACONDA_PID=`cat /var/run/anaconda.pid`
-
-descendants() {
-    PID=$1
-    DIRECT=`ps --ppid $PID -o pid=`
-    INDIRECT=''
-    for child in $DIRECT; do
-	INDIRECT+=' '`descendants $child`
-    done
-    # prepend grandchildren, we are goingt to kill them first  
-    DESCENDANTS=$INDIRECT' '$DIRECT
-    echo $DESCENDANTS
-}
-
-anaconda_descendants() {
-    descendants $ANACONDA_PID
-}
 
 # this is how loader knows it should restart stuff. 
 # it will also delete the file once the restart is in progress.
 touch $RESTART_FILE
 
-# kill all anaconda descendants and anaconda itself
-RESTART_VICTIMS=`anaconda_descendants`
-RESTART_VICTIMS+=' '$ANACONDA_PID
 if [[ -f /var/run/iscsid.pid ]]; then
     # iscsid must die else it will cause us troubles on the next run
-    RESTART_VICTIMS+=' '`cat /var/run/iscsid.pid`
     # log out of all nodes
     /sbin/iscsiadm -m node --logoutall=all
 fi
-echo "killing processes: " $RESTART_VICTIMS
-for child in $RESTART_VICTIMS; do
-    kill -s KILL $child &>/dev/null
-done
+
+# This will kill all programs in the loader group and restart the
+# service.
+systemctl stop loader.service
+systemctl start --no-block loader.service

@@ -1778,19 +1778,25 @@ void loaderUsrXHandler(int signum) {
     init_sig = signum;
 }
 
-int restart_anaconda(struct loaderData_s *loaderData) {
+void restart_anaconda(struct loaderData_s *loaderData) {
     if (access("/tmp/restart_anaconda", R_OK))
-        return 0;
+        return;
+
     puts("Restarting Anaconda.");
     unlink("/tmp/restart_anaconda");
-    if (loaderData->updatessrc) {
+
+    if (!access("/var/run/loader.run", R_OK))
+        unlink("/var/run/loader.run");
+
+    if (loaderData && loaderData->updatessrc) {
         int updates_fd = open("/tmp/updates", O_RDONLY);
         if (recursiveRemove(updates_fd))
             fprintf(stderr, "Error removing /tmp/updates. Updates won't be re-downloaded.");
         else
             loadUpdatesFromRemote(loaderData->updatessrc, loaderData);
     }
-    return 1;
+
+    return;
 }
 
 static int anaconda_trace_init(int isDevelMode) {
@@ -1977,16 +1983,6 @@ int main(int argc, char ** argv) {
     rc = anaconda_trace_init(isDevelMode);
     setupEnv();
 
-    if (!access("/var/run/loader.run", R_OK)) {
-        printf(_("loader has already been run.  Starting shell.\n"));
-        execl("/bin/sh", "-/bin/sh", NULL);
-        doExit(0);
-    }
-
-    f = fopen("/var/run/loader.run", "w+");
-    fprintf(f, "%d\n", getpid());
-    fclose(f);
-
     /* uncomment to send mac address in ks=http:/ header by default*/
     flags |= LOADER_FLAGS_KICKSTART_SEND_MAC;
 
@@ -2011,6 +2007,21 @@ int main(int argc, char ** argv) {
 
     extraArgs[0] = NULL;
     parseCmdLineFlags(&loaderData);
+
+    /* If the anaconda process is now being restarted, we need to do some
+     * environment cleanup first.
+     */
+    restart_anaconda(&loaderData);
+
+    if (!access("/var/run/loader.run", R_OK)) {
+        printf(_("loader has already been run.  Starting shell.\n"));
+        execl("/bin/sh", "-/bin/sh", NULL);
+        doExit(0);
+    }
+
+    f = fopen("/var/run/loader.run", "w+");
+    fprintf(f, "%d\n", getpid());
+    fclose(f);
 
     logMessage(INFO, "anaconda version %s on %s starting", VERSION, getProductArch());
 
