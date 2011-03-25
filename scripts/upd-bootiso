@@ -74,7 +74,8 @@ usage() {
         if [ $1 -ne 0 ]; then
                 >&2
         fi
-        echo "upd-bootiso [--skipiso] [--leavetmp] [--dest /tmp] <boot.iso> <anaconda.rpm> [other.rpm] [...]"
+        echo "upd-bootiso [--shell] [--skipiso] [--leavetmp] [--dest /tmp] <boot.iso> <anaconda.rpm> [other.rpm] [...]"
+        echo "            --shell       Run a shell before rebuilding the iso"
         echo "            --skipiso     Skip creating the final iso"
         echo "            --leavetmp    Don't cleanup the /tmp/tmp.* directory"
         echo "            --dest /tmp   Destination directory for final iso or image files"
@@ -86,6 +87,10 @@ usage() {
 DEST="/tmp/"
 while [ $# -gt 0 ]; do
     case $1 in
+        --shell)
+            RUNSHELL=1
+            shift
+        ;;
         --skipiso)
             SKIPISO=1
             shift
@@ -235,6 +240,12 @@ else
     cp ./usr/bin/{ls,cat,less} ../newinitrd/sbin/
 fi
 popd
+
+if [ -n $RUNSHELL ]; then
+    echo "Make changes inside ./newinitrd and ./newinstall, then exit to finish"
+    /bin/sh
+    echo "Finishing build of new.iso"
+fi
 
 # Create the new initrd.img
 pushd ./newinitrd
