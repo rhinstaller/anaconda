@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 15.23\n"
+"Project-Id-Version: anaconda 15.24\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2011-03-21 10:54-0400\n"
+"POT-Creation-Date: 2011-03-25 11:10-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -72,7 +72,7 @@ msgstr ""
 #: loader/hdinstall.c:300 loader/hdinstall.c:309 loader/hdinstall.c:344
 #: loader/hdinstall.c:383 loader/hdinstall.c:398 loader/kbd.c:118
 #: loader/kickstart.c:176 loader/kickstart.c:308 loader/kickstart.c:373
-#: loader/kickstart.c:928 loader/lang.c:113 loader/lang.c:362
+#: loader/kickstart.c:922 loader/lang.c:113 loader/lang.c:362
 #: loader/loader.c:422 loader/loader.c:458 loader/loader.c:498
 #: loader/loader.c:516 loader/loader.c:533 loader/loader.c:570
 #: loader/loader.c:1216 loader/loader.c:1244 loader/loader.c:1389
@@ -3501,7 +3501,7 @@ msgstr ""
 msgid "Do you wish to load any more driver disks?"
 msgstr ""
 
-#: loader/driverdisk.c:698 loader/kickstart.c:176 loader/kickstart.c:928
+#: loader/driverdisk.c:698 loader/kickstart.c:176 loader/kickstart.c:922
 msgid "Kickstart Error"
 msgstr ""
 
@@ -3607,7 +3607,7 @@ msgstr ""
 msgid "Error downloading kickstart file"
 msgstr ""
 
-#: loader/kickstart.c:929
+#: loader/kickstart.c:923
 #, c-format
 msgid "Unknown Url method %s"
 msgstr ""
