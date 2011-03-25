@@ -83,66 +83,6 @@ static void fatal_error(int usePerror) {
 #endif
 }
 
-static char *setupMallocPerturb(char *value)
-{
-    FILE *f;
-    unsigned char x;
-    size_t rc;
-    char *ret = NULL;
-    
-    f = fopen("/dev/urandom", "r");
-    if (!f)
-        return NULL;
-
-    rc = fread(&x, 1, 1, f);
-    fclose(f);
-    if (rc < 1)
-        return NULL;
-
-    rc = asprintf(&ret, "MALLOC_PERTURB_=%hhu", x);
-    if (rc < 0)
-        return NULL;
-    return ret;
-}
-
-/* these functions return a newly allocated string that never gets freed;
- * their lifetime is essentially that of main(), and we'd have to track which
- * are allocated and which aren't, which is pretty pointless... */
-typedef char *(*setupEnvCallback)(char *entry);
-
-static void setupEnv(void)
-{
-    struct {
-        char *name;
-        setupEnvCallback cb;
-    } setupEnvCallbacks[] = {
-        { "MALLOC_PERTURB_", setupMallocPerturb },
-        { NULL, NULL }
-    };
-    int x;
-
-    /* neither array is very big, so this algorithm isn't so bad.  If env[]
-     * gets bigger for some reason, we should probably just alphebatize both
-     * (manually) and then only initialize y one time.
-     */
-    for (x = 0; setupEnvCallbacks[x].name != NULL; x++) {
-        int y;
-        int l = strlen(setupEnvCallbacks[x].name) + 1;
-        char cmpstr[l + 1];
-
-        strncpy(cmpstr, setupEnvCallbacks[x].name, l);
-        strcat(cmpstr, "=");
-
-        for (y = 0; env[y] != NULL; y++) {
-            if (!strncmp(env[y], cmpstr, l)) {
-                char *new = setupEnvCallbacks[x].cb(env[y] + l);
-                if (new)
-                    env[y] = new;
-            }
-        }
-    }
-}
-
 int main(int argc, char **argv) {
     pid_t installpid;
     int waitStatus;
@@ -170,14 +110,6 @@ int main(int argc, char **argv) {
     printstr("\nGreetings.\n");
 
     printf("anaconda installer init version %s starting\n", VERSION);
-
-    /* if anaconda dies suddenly we are doomed, so at least make a coredump */
-    struct rlimit corelimit = { RLIM_INFINITY,  RLIM_INFINITY};
-    ret = setrlimit(RLIMIT_CORE, &corelimit);
-    if (ret) {
-        perror("setrlimit failed - no coredumps will be available");
-    }
-
 
     if (!(installpid = fork())) {
         /* child */

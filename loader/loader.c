@@ -1794,6 +1794,11 @@ int restart_anaconda(struct loaderData_s *loaderData) {
 }
 
 static int anaconda_trace_init(int isDevelMode) {
+    /* if anaconda dies suddenly we are doomed, so at least make a coredump */
+    struct rlimit corelimit = { RLIM_INFINITY,  RLIM_INFINITY};
+    if (setrlimit(RLIMIT_CORE, &corelimit)) {
+        perror("setrlimit failed - no coredumps will be available");
+    }
 
 #ifdef USE_MTRACE
     setenv("MALLOC_TRACE","/malloc",1);
@@ -1809,6 +1814,59 @@ static int anaconda_trace_init(int isDevelMode) {
         setupBacktrace();
 
     return 0;
+}
+
+static char *setupMallocPerturb(char *value)
+{
+    FILE *f;
+    unsigned char x;
+    size_t rc;
+    char *ret = NULL;
+
+    f = fopen("/dev/urandom", "r");
+    if (!f)
+        return NULL;
+
+    rc = fread(&x, 1, 1, f);
+    fclose(f);
+    if (rc < 1)
+        return NULL;
+
+    rc = asprintf(&ret, "MALLOC_PERTURB_=%hhu", x);
+    if (rc < 0)
+        return NULL;
+    return ret;
+}
+
+/* these functions return a newly allocated string that never gets freed;
+ * their lifetime is essentially that of main(), and we'd have to track which
+ * are allocated and which aren't, which is pretty pointless... */
+typedef char *(*setupEnvCallback)(char *entry);
+
+static void setupEnv(void)
+{
+    struct {
+        char *name;
+        setupEnvCallback cb;
+    } setupEnvCallbacks[] = {
+        { "MALLOC_PERTURB_", setupMallocPerturb },
+        { NULL, NULL }
+    };
+    int x;
+
+    /* neither array is very big, so this algorithm isn't so bad.  If env[]
+     * gets bigger for some reason, we should probably just alphebatize both
+     * (manually) and then only initialize y one time.
+     */
+    for (x = 0; setupEnvCallbacks[x].name != NULL; x++) {
+        char *value = getenv(setupEnvCallbacks[x].name);
+
+        if (value != NULL) {
+            char *new = setupEnvCallbacks[x].cb(value);
+            if (new)
+                setenv(setupEnvCallbacks[x].name, new, 1);
+        }
+    }
 }
 
 static void add_to_path_env(const char *env, const char *val)
@@ -1917,6 +1975,7 @@ int main(int argc, char ** argv) {
 
     /* Very first thing, set up tracebacks and debug features. */
     rc = anaconda_trace_init(isDevelMode);
+    setupEnv();
 
     if (!access("/var/run/loader.run", R_OK)) {
         printf(_("loader has already been run.  Starting shell.\n"));
