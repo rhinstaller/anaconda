@@ -1081,14 +1081,28 @@ class VolumeGroupEditor:
             log.debug("new lv %s" % lv)
             if not lv.exists:
                 log.debug("creating lv %s" % lv.lvname)
+                mountpoint = getattr(lv.format, "mountpoint", None)
+                singlepv = False
+
+                if iutil.isS390() and mountpoint == '/boot':
+                    singlepv = True
+
                 # create the device
-                newlv = LVMLogicalVolumeDevice(lv.lvname,
-                                               self.vg,
-                                               size=lv.size)
+                try:
+                    newlv = LVMLogicalVolumeDevice(lv.lvname,
+                                                   self.vg,
+                                                   size=lv.size,
+                                                   singlePV=singlepv)
+                except SinglePhysicalVolumeError, msg:
+                    self.intf.messageWindow(_("Error Partitioning"),
+                                            _("Could not allocate requested "
+                                              "logical volumes:\n\n%s.") % (msg),
+                                            custom_icon="error")
+                    continue
+
                 actions.append(ActionCreateDevice(newlv))
 
                 # create the format
-                mountpoint = getattr(lv.format, "mountpoint", None)
                 format = getFormat(lv.format.type,
                                    mountpoint=mountpoint,
                                    device=newlv.path)

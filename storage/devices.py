@@ -2296,6 +2296,15 @@ class LVMLogicalVolumeDevice(DMDevice):
                           sysfsPath=sysfsPath, parents=vgdev,
                           exists=exists)
 
+        self.singlePVerr = ("%(mountpoint)s is restricted to a single "
+                            "physical volume on this platform.  No physical "
+                            "volumes available in volume group %(vgname)s "
+                            "with %(size)d MB of available space." %
+                           {'mountpoint': getattr(self.format, "mountpoint",
+                                                  "A proposed logical volume"),
+                            'vgname': self.vg.name,
+                            'size': self.size})
+
         self.uuid = uuid
         self.snapshotSpace = snapshotSpace
         self.stripes = stripes
@@ -2313,6 +2322,13 @@ class LVMLogicalVolumeDevice(DMDevice):
             # XXX should we enforce that req_size be pe-aligned?
             self.req_size = self._size
             self.req_percent = numeric_type(percent)
+
+        if self.singlePV:
+            # make sure there is at least one PV that can hold this LV
+            validpvs = filter(lambda x: float(x.size) >= self.req_size,
+                              self.vg.pvs)
+            if not validpvs:
+                raise SinglePhysicalVolumeError(self.singlePVerr)
 
         # here we go with the circular references
         self.vg._addLogVol(self)
@@ -2469,35 +2485,12 @@ class LVMLogicalVolumeDevice(DMDevice):
                 log.debug("vg %s teardown failed; continuing" % self.vg.name)
 
     def _getSinglePV(self):
-        # NOTE: This runs the pvs(8) command and outputs the PV device
-        # name, VG name, and amount of free space on the PV in megabytes.
-        # A change to the Size class will require more handling of the
-        # units switch in this arg list.
-        args = ["pvs", "--noheadings", "--nosuffix", "--aligned",
-                "--units", "M", "-o", "pv_name,vg_name,pv_free"]
-        buf = iutil.execWithCapture("lvm", args, stderr="/dev/tty5")
+        validpvs = filter(lambda x: float(x.size) >= self.size, self.vg.pvs)
 
-        for line in buf.splitlines():
-            fields = filter(lambda x: x != '', line.strip().split())
+        if not validpvs:
+            raise SinglePhysicalVolumeError(self.singlePVerr)
 
-            if len(fields) != 3 or fields[1] != self.vg.name:
-                continue
-            if float(fields[2]) >= self.size:
-                return [fields[0]]             # lvm.lvcreate needs a list
-
-        if hasattr(self.format, "mountpoint"):
-            mountpoint = self.format.mountpoint
-        else:
-            mountpoint = self.format.name
-
-        raise SinglePhysicalVolumeError("Single physical volume restriction "
-                                        "for %(mountpoint)s on this platform. "
-                                        "No physical volumes available in "
-                                        "volume group %(vgname)s with "
-                                        "%(size)d MB of available space."
-                                        % {'mountpoint': mountpoint,
-                                           'vgname': self.vg.name,
-                                           'size': self.size})
+        return [validpvs[0].path]
 
     def create(self, intf=None):
         """ Create the device. """
