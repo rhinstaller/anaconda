@@ -100,7 +100,6 @@ class AnacondaCallback:
         self.ayum = ayum
 
         self.messageWindow = anaconda.intf.messageWindow
-        self.pulseWindow = anaconda.intf.progressWindow
         self.progress = anaconda.intf.instProgress
         self.progressWindowClass = anaconda.intf.progressWindow
         self.rootPath = anaconda.rootPath
