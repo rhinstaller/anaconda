@@ -231,6 +231,44 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Mon Mar 28 2011 Chris Lumens <clumens@redhat.com> - 16.3-1
+- Use a more general EnvironmentError to catch timezone-file errors. (akozumpl)
+- Add shell command to upd-bootiso (bcl)
+- Set debug_package to %{nil} so we don't strip our binaries. (pjones)
+- Return values, not strings (bcl)
+- Use proper store types for DataComboBoxes. (akozumpl)
+- Fixup rindex usage (#678086) (bcl)
+- Ensure new kernel is default in zipl.conf on upgrade installs (#683891)
+  (dcantrell)
+- shutdown: kill processes in the anaconda process group. (akozumpl)
+- After 17233a16, vncS is no longer a global. (akozumpl)
+- shutdown.c: pidof and killall5 are in /sbin on rawhide. (akozumpl)
+- Check size limits on pre-existing partitions (bcl)
+- gui.py: nuke createRepoWindow() (akozumpl)
+- gui.py: nuke titleBar*() (akozumpl)
+- Fix --mtu option to kickstart network command (#689081) (icomfort)
+- Implement a general version of InstallInterfaceBase.methodstrRepoWindow().
+  (akozumpl)
+- Update icons and add a new 256x256 version (#689014). (clumens)
+- Fix the filesystem migration dialog in text mode (#688314). (clumens)
+- Don't fatal_error if required mounts are already mounted (wwoods)
+- Don't fatal_error if remounting root read-write fails (wwoods)
+- Align lv sizes when adding to vg total space used. (dlehman)
+- Clean up display of free space in partitioning gui. (dlehman)
+- Fix a syntax error in my last upgrade-related commit. (clumens)
+- Remove some more xutils-related code. (clumens)
+- Prevent Platform from importing storage stuff until it's necessary. (clumens)
+- Restore stats from original mount on livecd (#683682) (bcl)
+- Properly filter out new mounts for livecd install (#683682) (bcl)
+- Mount livecd filesystems under /mnt (#683682) (bcl)
+- Fix order of opts and host when processing kickstart nfs lines. (clumens)
+- Rework the upgrade swap suggestion (#684603). (clumens)
+- Log running version number as soon as possible (bcl)
+- Collect LUKS passphrases to avoid making users enter them repeatedly.
+  (dlehman)
+- Don't include incomplete md arrays in the devicetree. (dlehman)
+- Detect live environment if no args passed to anaconda-cleanup. (dlehman)
+
 * Mon Mar 14 2011 Chris Lumens <clumens@redhat.com> - 16.2-1
 - iscsi: use the --target parameter from the iscsi kickstart command.
   (akozumpl)
