@@ -1183,7 +1183,8 @@ class AnacondaKSHandler(superclass):
         except KickstartError as e:
             if self.anaconda.intf:
                 self.anaconda.intf.kickstartErrorWindow(e.__str__())
-                sys.exit(1)
+                self.anaconda.intf.shutdown()
+                sys.exit(0)
             else:
                 stderrLog.critical(_("The following error was found while parsing the kickstart "
                                      "configuration file:\n\n%s") % e)
