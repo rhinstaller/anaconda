@@ -190,7 +190,7 @@ static unsigned int isNfsIso(struct loaderData_s *loaderData) {
     parseNfsHostPathOpts(loaderData->instRepo, &host, &path, &opts);
     checked_asprintf(&url, "%s:%s", host, path);
 
-    if (doPwMount(url, "/mnt/isodir", "auto", opts, NULL)) {
+    if (doPwMount(url, "/mnt/isodir", "nfs", opts, NULL)) {
         logMessage(ERROR, "couldn't mount %s to look for NFSISO", url);
         goto cleanup1;
     }
