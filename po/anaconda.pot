@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 13.21.106\n"
+"Project-Id-Version: anaconda 13.21.107\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2011-03-23 08:18-1000\n"
+"POT-Creation-Date: 2011-03-29 12:02-1000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -95,7 +95,7 @@ msgstr ""
 msgid "Installing %s\n"
 msgstr ""
 
-#: bootloader.py:55 bootloader.py:221 bootloader.py:227 gui.py:1277
+#: bootloader.py:55 bootloader.py:218 bootloader.py:224 gui.py:1277
 #: image.py:82 installinterfacebase.py:46 text.py:489 text.py:549
 #: yuminstall.py:1572 yuminstall.py:1781 yuminstall.py:1816
 #: iw/blpasswidget.py:148 iw/upgrade_swap_gui.py:190
@@ -136,13 +136,13 @@ msgstr ""
 msgid "Installing bootloader."
 msgstr ""
 
-#: bootloader.py:222
+#: bootloader.py:219
 msgid ""
 "There was an error installing the bootloader.  The system may not be "
 "bootable."
 msgstr ""
 
-#: bootloader.py:228
+#: bootloader.py:225
 msgid ""
 "No kernel packages were installed on the system.  Bootloader configuration "
 "will not be changed."

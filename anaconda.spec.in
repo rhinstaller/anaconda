@@ -221,6 +221,12 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Tue Mar 29 2011 David Cantrell <dcantrell@redhat.com> - 13.21.108-1
+- Fix missed conversion of createMetadataVer->metadataVersion. (dlehman)
+  Resolves: rhbz#690469
+- Ensure new kernel is default in zipl.conf on upgrade installs (dcantrell)
+  Resolves: rhbz#683891
+
 * Wed Mar 23 2011 David Cantrell <dcantrell@redhat.com> - 13.21.107-1
 - Don't touch resolv.conf which is handled by NM. (rvykydal)
   Resolves: rhbz#687953
