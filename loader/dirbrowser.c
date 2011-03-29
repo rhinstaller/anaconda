@@ -53,6 +53,13 @@ static int simpleStringCmp(const void * a, const void * b) {
 
 #define FSTEP 10
 
+/* Return a list of the contents of a directory, non-recursively.
+ *
+ * dirname    -- The directory to list.
+ * filterfunc -- An optional function to use for filtering out the results.
+ *               If this function returns 1, the directory is included.
+ *               Otherwise, it is omitted.
+ */
 char ** get_file_list(char * dirname, filterfunc_t filterfunc) {
     DIR * dir;
     struct dirent *entry;
@@ -72,7 +79,7 @@ char ** get_file_list(char * dirname, filterfunc_t filterfunc) {
             continue;
         if ((strlen(entry->d_name) == 2) && !strncmp(entry->d_name, "..", 2))
             continue;
-        if (filterfunc && filterfunc(dirname, entry))
+        if (filterfunc && !filterfunc(dirname, entry))
             continue;
 
         files[i] = strdup(entry->d_name);
