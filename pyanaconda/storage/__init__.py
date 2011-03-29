@@ -201,6 +201,32 @@ def storageComplete(anaconda):
     else:
         warning = ""
 
+    # Prevent users from installing on s390x with (a) no /boot volume, (b) the
+    # root volume on LVM, and (c) the root volume not restricted to a single
+    # PV
+    # NOTE: There is not really a way for users to create a / volume
+    # restricted to a single PV.  The backend support is there, but there are
+    # no UI hook-ups to drive that functionality, but I do not personally
+    # care.  --dcantrell
+    if iutil.isS390() and \
+       not anaconda.storage.mountpoints.has_key('/boot') and \
+       anaconda.storage.mountpoints['/'].type == 'lvmlv' and \
+       not anaconda.storage.mountpoints['/'].singlePV:
+        rc = anaconda.intf.messageWindow(_("Missing /boot Volume"),
+                                         _("This platform requires /boot on "
+                                           "a dedicated partition or logical "
+                                           "volume.  If you do not want a "
+                                           "/boot volume, you must place / "
+                                           "on a dedicated non-LVM "
+                                           "partition."),
+                                         type="custom", custom_icon="error",
+                                         custom_buttons=[_("Go _back"),
+                                                         _("_Exit installer")],
+                                         default=0)
+        if rc == 0:
+            return DISPATCH_BACK
+        sys.exit(1)
+
     rc = anaconda.intf.messageWindow(_("Confirm"),
                                 _("The partitioning options you have selected "
                                   "will now be written to disk.  Any "
