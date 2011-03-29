@@ -219,8 +219,6 @@ class NetworkDevice(IfcfgFile):
             keys.insert(0, "DEVICE")
         if "KEY" in keys:
             keys.remove("KEY")
-        if iutil.isS390() and ("HWADDR" in keys):
-            keys.remove("HWADDR")
         # make sure we include autoneg in the ethtool line
         if 'ETHTOOL_OPTS' in keys:
             eopts = self.get('ETHTOOL_OPTS')
@@ -353,7 +351,7 @@ class Network:
             if ksdevice == 'bootif' and flags.cmdline.get("BOOTIF"):
                 bootif_mac = flags.cmdline.get("BOOTIF")[3:].replace("-", ":").upper()
             for dev in self.netdevices:
-                mac = self.netdevices[dev].get('HWADDR').upper()
+                mac = isys.getMacAddress(dev)
                 if ksdevice == 'link' and isys.getLinkStatus(dev):
                     self.ksdevice = dev
                     break
@@ -788,7 +786,7 @@ class Network:
                     netargs += "ip=%s::%s:%s:%s:%s:none" % (dev.get('ipaddr'),
                                gateway, netmask, hostname, nic)
 
-        hwaddr = dev.get("HWADDR")
+        hwaddr = isys.getMacAddress(dev)
         if hwaddr:
             if netargs != "":
                 netargs += " "

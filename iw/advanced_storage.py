@@ -31,6 +31,7 @@ import partIntfHelpers as pih
 import storage.fcoe
 import storage.iscsi
 import urlgrabber.grabber
+import isys
 
 import logging
 log = logging.getLogger("anaconda")
@@ -338,7 +339,7 @@ def addFcoeDrive(anaconda):
         else:
             desc = "%s" %(dev,)
 
-        mac = netdevs[dev].get("HWADDR")
+        mac = isys.getMacAddress(dev)
         if mac:
             desc = "%s - %s" %(desc, mac)
 
