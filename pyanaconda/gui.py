@@ -1427,12 +1427,6 @@ class InstallControlWindow:
         # the mnemonics work without additional clicking
         self.window.present()
 
-    def busyCursorPush(self):
-        rootPushBusyCursor()
-
-    def busyCursorPop(self):
-        rootPopBusyCursor()
-
     def run (self):
         self.setup_window(False)
         # start the dispatcher right after the main loop is started:
