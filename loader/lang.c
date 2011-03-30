@@ -280,7 +280,7 @@ static int setupLanguage(int choice, int forced) {
               "-i", locale_p,
               "-f", (locale_charset) ? locale_charset : "UTF-8",
               languages[choice].lc_all, NULL);
-        exit(254);
+        _exit(254);
     }
 
     if (localedef_pid < 0) logMessage(ERROR, "failed forking localedef for %s", languages[choice].lc_all);
