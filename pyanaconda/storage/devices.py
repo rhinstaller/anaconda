@@ -514,6 +514,20 @@ class StorageDevice(Device):
         return services
 
     @property
+    def disks(self):
+        """ A list of all disks this device depends on, including itself. """
+        _disks = []
+        for parent in self.parents:
+            for disk in parent.disks:
+                if disk not in _disks:
+                    _disks.append(disk)
+
+        if self.isDisk and not self.format.hidden:
+            _disks.append(self)
+
+        return _disks
+
+    @property
     def partedDevice(self):
         if self.exists and self.status and not self._partedDevice:
             log.debug("looking up parted Device: %s" % self.path)
