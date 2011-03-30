@@ -69,13 +69,11 @@ class InstallInterfaceBase(object):
             self._warnedUnusedRaidMembers.extend(unusedRaidMembers)
             unusedRaidMembers.sort()
             self.messageWindow(_("Warning"),
-                P_("Disk %s contains BIOS RAID metadata, but is not part of "
-                   "any recognized BIOS RAID sets. Ignoring disk %s.",
-                   "Disks %s contain BIOS RAID metadata, but are not part of "
-                   "any recognized BIOS RAID sets. Ignoring disks %s.",
-                   len(unusedRaidMembers)) %
-                   (", ".join(unusedRaidMembers),
-                    ", ".join(unusedRaidMembers)),
+                P_("Disk %(unusedRaidMems)s contains BIOS RAID metadata, but is not part of "
+                   "any recognized BIOS RAID sets. Ignoring disk %(unusedRaidMems)s.",
+                   "Disks %(unusedRaidMems)s contain BIOS RAID metadata, but are not part of "
+                   "any recognized BIOS RAID sets. Ignoring disks %(unusedRaidMems)s.",
+                   len(unusedRaidMembers)) % {"unusedRaidMems": ", ".join(unusedRaidMembers)},
                 custom_icon="warning")
 
     def resetInitializeDiskQuestion(self):

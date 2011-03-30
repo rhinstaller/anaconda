@@ -260,7 +260,7 @@ class InstallInterface(InstallInterfaceBase):
 
     def reinitializeWindow(self, title, path, size, description):
         grid = GridForm(self.screen, title, 1, 3)
-        text = TEXT_REINITIALIZE % (description, size, path)
+        text = TEXT_REINITIALIZE % {"description": description, "size": size, "devicePath": path}
         grid.add(TextboxReflowed(70, text), 0, 0)
 
         all_devices_cb = Checkbox(TEXT_REINITIALIZE_ALL, isOn=False)

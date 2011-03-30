@@ -74,7 +74,7 @@ TEXT_F12_CHECK = "F12"
 TEXT_REINITIALIZE = _(
 """This storage device may contain data:
 
-%s, %s MB, %s
+%(description)s, %(size)s MB, %(devicePath)s
 
 We could not detect partitions or filesystems on this device. This could be \
 because the device is blank, unpartitioned, or virtual. If not, there may be \

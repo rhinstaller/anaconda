@@ -258,8 +258,8 @@ class EFI(Platform):
             labelType = self.diskLabelType(partedDisk.device.type)
             # Allow using gpt with x86, but not msdos with EFI
             if partedDisk.type != labelType and partedDisk.type != "gpt":
-                errors.append(_("%s must have a %s disk label.")
-                              % (p.disk.name, labelType.upper()))
+                errors.append(_("%(disk)s must have a %(labelType)s disk label.")
+                               % {"disk": p.disk.name, "labelType": labelType.upper()})
 
         return errors
 

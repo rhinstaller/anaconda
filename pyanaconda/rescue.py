@@ -455,8 +455,7 @@ def runRescue(anaconda):
                 ButtonChoiceWindow(screen, _("Rescue"),
                     _("An error occurred trying to mount some or all of your "
                       "system. Some of it may be mounted under %s.\n\n"
-                      "Press <return> to get a shell. %s")
-                      % (anaconda.rootPath, msg),
+                      "Press <return> to get a shell.") % anaconda.rootPath + msg,
                       [_("OK")] )
     else:
         if anaconda.ksdata and \

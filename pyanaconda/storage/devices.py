@@ -2637,10 +2637,10 @@ class MDRaidArrayDevice(StorageDevice):
         # For new arrays check if we have enough members
         if (not exists and parents and
                 len(parents) < mdraid.get_raid_min_members(self.level)):
-            raise ValueError, P_("A RAID%d set requires at least %d member",
-                                 "A RAID%d set requires at least %d members",
+            raise ValueError, P_("A RAID%(raidLevel)d set requires at least %(minMembers)d member",
+                                 "A RAID%(raidLevel)d set requires at least %(minMembers)d members",
                                  mdraid.get_raid_min_members(self.level)) % \
-                                 (self.level, mdraid.get_raid_min_members(self.level))
+                                 {"raidLevel": self.level, "minMembers": mdraid.get_raid_min_members(self.level)}
 
         self.uuid = uuid
         self._totalDevices = numeric_type(totalDevices)

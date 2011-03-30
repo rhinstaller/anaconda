@@ -447,7 +447,7 @@ class LVMStripeGraph(StripeGraph):
 
     def _createStripe(self, vg):
         # Create the stripe
-        vgtext = _("LVM Volume Group %s (%-0.f MB)") % (vg.name, vg.size)
+        vgtext = _("LVM Volume Group %(vgName)s (%(vgSize)-0.f MB)") % {"vgName", vg.name, "vgSize": vg.size}
         stripe = Stripe(self.getCanvas(), vgtext, self.dcCB, obj = vg)
 
         # Create the slices.
@@ -513,7 +513,7 @@ class MDRaidArrayStripeGraph(StripeGraph):
             self.setDisplayed(md)
 
     def _createStripe(self, md):
-        mdtext = _("MD RAID ARRAY %s (%-0.f MB)") % (md.path, md.size)
+        mdtext = _("MD RAID ARRAY %(mdPath)s (%(mdSize)-0.f MB)") % {"mdPath": md.path, "mdSize": md.size}
         stripe = Stripe(self.getCanvas(), mdtext, self.dcCB, obj = md)
 
         # Since we can't really create subslices with md devices we will only

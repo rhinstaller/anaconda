@@ -1131,15 +1131,15 @@ class Storage(object):
         for (mount, device) in filesystems.items():
             problem = filesystems[mount].checkSize()
             if problem < 0:
-                errors.append(_("Your %s partition is too small for %s formatting "
-                                "(allowable size is %d MB to %d MB)")
-                              % (mount, problem, device.format.name,
-                                 device.minSize, device.maxSize))
+                errors.append(_("Your %(mount)s partition is too small for %(format)s formatting "
+                                "(allowable size is %(minSize)d MB to %(maxSize)d MB)")
+                              % {"mount": mount, "format": device.format.name,
+                                 "minSize": device.minSize, "maxSize": device.maxSize})
             elif problem > 0:
-                errors.append(_("Your %s partition is too large for %s formatting "
-                                "(allowable size is %d MB to %d MB)")
-                              % (mount, problem, device.format.name,
-                                 device.minSize, device.maxSize))
+                errors.append(_("Your %(mount)s partition is too large for %(format)s formatting "
+                                "(allowable size is %(minSize)d MB to %(maxSize)d MB)")
+                              % {"mount":mount, "format": device.format.name,
+                                 "minSize": device.minSize, "maxSize": device.maxSize})
 
         usb_disks = []
         firewire_disks = []
@@ -1180,9 +1180,10 @@ class Storage(object):
 
             if installed < required:
                 errors.append(_("You have not specified a swap partition.  "
-                                "%s MB of memory is required to continue installation "
-                                "without a swap partition, but you only have %s MB.")
-                              % (int(required.convertTo(spec="MB")), int(installed.convertTo(spec="MB"))))
+                                "%(requiredMem)s MB of memory is required to continue installation "
+                                "without a swap partition, but you only have %(installedMem)s MB.")
+                              % {"requiredMem": int(required.convertTo(spec="MB")),
+                                 "installedMem": int(installed.convertTo(spec="MB"))})
             else:
                 warnings.append(_("You have not specified a swap partition.  "
                                   "Although not strictly required in all cases, "

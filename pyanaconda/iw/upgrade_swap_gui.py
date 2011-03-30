@@ -89,10 +89,11 @@ class UpgradeSwapWindow (InstallWindow):
         box = gtk.VBox (False, 5)
         box.set_border_width (5)
 
-        label = gtk.Label(_("You currently have %dMB of swap configured, which "
-                            "is less than the recommended miminum of %sMB.  You "
+        label = gtk.Label(_("You currently have %(swapAmount)dMB of swap configured, which "
+                            "is less than the recommended miminum of %(swapSuggestion)sMB.  You "
                             "may optionally create more swap space on one of "
-                            "your file systems now.") % (iutil.swapAmount()/1024, iutil.swapSuggestion()[0]/1024))
+                            "your file systems now.") % {"swapAmount": iutil.swapAmount()/1024,
+                                                         "swapSuggestion": iutil.swapSuggestion()[0]/1024})
 
         label.set_alignment (0.5, 0.0)
         label.set_line_wrap (True)
