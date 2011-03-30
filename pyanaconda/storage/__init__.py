@@ -2144,7 +2144,9 @@ class FSSet(object):
         # /etc/crypttab
         crypttab_path = os.path.normpath("%s/etc/crypttab" % instPath)
         crypttab = self.crypttab()
+        origmask = os.umask(0077)
         open(crypttab_path, "w").write(crypttab)
+        os.umask(origmask)
 
         # /etc/mdadm.conf
         mdadm_path = os.path.normpath("%s/etc/mdadm.conf" % instPath)
