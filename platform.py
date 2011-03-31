@@ -23,6 +23,7 @@
 import iutil
 import parted
 import storage
+from flags import flags
 from storage.errors import *
 from storage.formats import *
 from storage.partspec import *
@@ -157,6 +158,8 @@ class Platform(object):
 
     @property
     def packages (self):
+        if flags.cmdline.get('fips', None) == '1':
+            return self._packages + ['dracut-fips']
         return self._packages
 
     def setDefaultPartitioning(self):
