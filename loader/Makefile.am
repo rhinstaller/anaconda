@@ -23,8 +23,7 @@ shareddir          = $(datadir)/$(PACKAGE_NAME)
 boot_PROGRAMS      = loader
 shared_DATA        = loader.tr
 dist_shared_DATA   = unicode-linedraw-chars.txt
-noinst_PROGRAMS    = mkctype dirbrowser
-noinst_DATA        = ctype.c
+noinst_PROGRAMS    = dirbrowser
 noinst_HEADERS     = *.h
 
 if IS_S390
@@ -65,16 +64,13 @@ init_SOURCES       = init.c undomounts.c shutdown.c copy.c modules.c \
 shutdown_CFLAGS    = $(COMMON_CFLAGS) -DAS_SHUTDOWN=1
 shutdown_SOURCES   = shutdown.c undomounts.c
 
-mkctype_CFLAGS     = $(COMMON_CFLAGS)
-mkctype_SOURCES    = mkctype.c
-
 dirbrowser_CFLAGS  = $(COMMON_CFLAGS) -DSTANDALONE
 dirbrowser_LDADD   = $(NEWT_LIBS)
 dirbrowser_SOURCES = dirbrowser.c
 
 EXTRA_DIST = simplemot keymaps-*
 
-CLEANFILES = keymaps-override-$(ARCH) ctype.c tr/*.tr
+CLEANFILES = keymaps-override-$(ARCH) tr/*.tr
 
 MAINTAINERCLEANFILES = Makefile.in
 
@@ -86,10 +82,6 @@ cp_verbose = $(cp_verbose_$(V))
 cp_verbose_ = $(cp_verbose_$(AM_DEFAULT_VERBOSITY))
 cp_verbose_0 = @echo "  CP     "$@;
 
-mkctype_verbose = $(mkctype_verbose_$(V))
-mkctype_verbose_ = $(mkctype_verbose_$(AM_DEFAULT_VERBOSITY))
-mkctype_verbose_0 = @echo "  MAKE   "$@;
-
 msgmerge_verbose = $(msgmerge_verbose_$(V))
 msgmerge_verbose_ = $(msgmerge_verbose_$(AM_DEFAULT_VERBOSITY))
 msgmerge_verbose_0 = echo "  MERGE  "$${lang}.po;
@@ -100,9 +92,6 @@ xgettext_verbose_0 = @echo "  GETTXT "$@;
 
 keymaps-override-$(ARCH): keymaps-$(ARCH)
 	$(cp_verbose)cp -p $< $@
-
-ctype.c: mkctype
-	$(mkctype_verbose)./mkctype > ctype.c
 
 loader.tr: $(top_srcdir)/data/lang-table loader.po
 	@LANGS="`cut -f 2 $(top_srcdir)/data/lang-table | egrep -v '(^en$$)'`" ; \
