@@ -49,12 +49,6 @@ TX_PUSH_ARGS = -s
 $(PACKAGE_NAME).spec: $(PACKAGE_NAME).spec.in
 	$(sed_verbose)sed -e 's/#VERSION#/$(PACKAGE_VERSION)/' < $< > $@
 
-testiso: install
-	@if [ "$(REPO)" = "" ]; then echo "ERROR: Need a repo to pull packages from!" ; exit 1 ; fi
-	@pushd scripts ; sudo ./buildinstall --version $(PACKAGE_VERSION) --product $(PACKAGE_NAME) --release $(PACKAGE_NAME)-$(PACKAGE_VERSION) --output $(shell pwd)/outiso --updates $(DESTDIR) $(REPO) ; popd ; cp outiso/images/boot.iso ./boot.iso ; sudo rm -rf outiso
-	@echo
-	@echo "Test iso is located at ./boot.iso"
-
 tag:
 	@git tag -s -a -m "Tag as $(ARCHIVE_TAG)" $(ARCHIVE_TAG)
 	@echo "Tagged as $(ARCHIVE_TAG)"
@@ -68,14 +62,8 @@ scratch: po-pull
 	$(MAKE) ARCHIVE_TAG=HEAD dist
 	git checkout -- po/$(PACKAGE_NAME).pot
 
-archive:
+release:
 	$(MAKE) dist && $(MAKE) tag && git checkout -- po/$(PACKAGE_NAME).pot
-
-release: archive
-
-src: archive
-	@rpmbuild -ts --nodeps $(PACKAGE_NAME)-$(PACKAGE_VERSION).tar.bz2 || exit 1
-	@rm -f $(PACKAGE_NAME)-$(PACKAGE_VERSION).tar.bz2
 
 api:
 	doxygen docs/api.cfg
@@ -107,9 +95,6 @@ updates:
 		opts="$${opts} -k" ; \
 	fi ; \
 	scripts/makeupdates $${opts}
-
-# DEPRECATED TARGETS:
-archive-no-tag: dist
 
 # UNIT TESTING TARGETS
 unittest:
