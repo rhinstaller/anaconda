@@ -69,7 +69,7 @@ class ppcBootloaderInfo(bootloaderInfo):
                 % productName)
 
         f.write("partition=%s\n" % partNumber)
-        f.write("timeout=%s\n" % (self.timeout or 80))
+        f.write("timeout=%s\n" % ((self.timeout or 8) * 10))
         f.write("install=/usr/lib/yaboot/yaboot\n")
         f.write("delay=5\n")
         f.write("enablecdboot\n")
