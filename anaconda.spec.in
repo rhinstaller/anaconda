@@ -231,6 +231,21 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Thu Mar 31 2011 Chris Lumens <clumens@redhat.com> - 16.4-1
+- Fix a syntax error from the previous translation commit. (clumens)
+- crypttab should not be world-readable (#692254). (clumens)
+- Improve the translatability of strings with more than one format specifier.
+  (clumens)
+- Stop user if we have no /boot and / is an LV (dcantrell)
+- Prevent singlePV lv requests from being > the size of any pv (dcantrell)
+- Do not print out traceback when localedef is not present (msivak)
+- Update our storage/crypto interface to use new cryptsetup API (msivak)
+- Fix the logic surrounding use of the filterfunc for get_file_list (#691880).
+  (clumens)
+- mount needs to be told "nfs" or it assumes any argument is a device
+  (#678414). (clumens)
+- Fix rebooting after a kickstart error is detected. (akozumpl)
+
 * Mon Mar 28 2011 Chris Lumens <clumens@redhat.com> - 16.3-1
 - Use a more general EnvironmentError to catch timezone-file errors. (akozumpl)
 - Add shell command to upd-bootiso (bcl)
