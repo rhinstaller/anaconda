@@ -447,7 +447,7 @@ class LVMStripeGraph(StripeGraph):
 
     def _createStripe(self, vg):
         # Create the stripe
-        vgtext = _("LVM Volume Group %(vgName)s (%(vgSize)-0.f MB)") % {"vgName", vg.name, "vgSize": vg.size}
+        vgtext = _("LVM Volume Group %(vgName)s (%(vgSize)-0.f MB)") % {"vgName": vg.name, "vgSize": vg.size}
         stripe = Stripe(self.getCanvas(), vgtext, self.dcCB, obj = vg)
 
         # Create the slices.
