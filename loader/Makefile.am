@@ -22,7 +22,6 @@ shareddir          = $(datadir)/$(PACKAGE_NAME)
 
 boot_PROGRAMS      = loader
 shared_DATA        = loader.tr
-dist_shared_DATA   = unicode-linedraw-chars.txt
 noinst_PROGRAMS    = dirbrowser
 noinst_HEADERS     = *.h
 
