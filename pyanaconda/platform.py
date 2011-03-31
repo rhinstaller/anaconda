@@ -22,6 +22,7 @@
 
 import iutil
 import parted
+from flags import flags
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
@@ -158,6 +159,8 @@ class Platform(object):
 
     @property
     def packages (self):
+        if flags.cmdline.get('fips', None) == '1':
+            return self._packages + ['dracut-fips']
         return self._packages
 
     def setDefaultPartitioning(self):
