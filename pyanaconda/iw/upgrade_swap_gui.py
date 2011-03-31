@@ -90,7 +90,7 @@ class UpgradeSwapWindow (InstallWindow):
         box.set_border_width (5)
 
         label = gtk.Label(_("You currently have %(swapAmount)dMB of swap configured, which "
-                            "is less than the recommended miminum of %(swapSuggestion)sMB.  You "
+                            "is less than the recommended minimum of %(swapSuggestion)sMB.  You "
                             "may optionally create more swap space on one of "
                             "your file systems now.") % {"swapAmount": iutil.swapAmount()/1024,
                                                          "swapSuggestion": iutil.swapSuggestion()[0]/1024})
