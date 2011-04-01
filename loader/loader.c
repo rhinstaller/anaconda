@@ -918,7 +918,7 @@ static void parseCmdLineFlags(struct loaderData_s * loaderData,
     GError *optErr = NULL;
     int numExtraArgs = 0;
     int i;
-    char *front, *stage2param = NULL;
+    char *front;
 
     /* we want to default to graphical and allow override with 'text' */
     flags |= LOADER_FLAGS_GRAPHICAL;
@@ -1084,7 +1084,6 @@ static void parseCmdLineFlags(struct loaderData_s * loaderData,
         else if (!strncasecmp(argv[i], "repo=", 5))
             loaderData->instRepo = strdup(argv[i] + 5);
         else if (!strncasecmp(argv[i], "stage2=", 7)) {
-            stage2param = strdup(argv[i]+7);
             setStage2LocFromCmdline(argv[i] + 7, loaderData);
         }
         else if (!strncasecmp(argv[i], "hostname=", 9))
