@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.228
+Version: 11.1.2.229
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -128,6 +128,18 @@ fi
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Fri Apr 1 2011 Ales Kozumplik <akozumpl@redhat.com> 11.1.2.229-1
+- Fix shlex traceback if pxeboot cmdline ends in a quote (wwoods)
+  Resolves: rhbz#500198
+- Honor kickstart noipv6 option for media installs (rvykydal)
+  Resolves: rhbz#677653
+- Quote ETHTOOL_OPTS value in stage 2 (mmatsuya)
+  Resolves: rhbz#674473
+- Fix ZeroDivisionError with tiny management LUNs (wwoods)
+  Resolves: rhbz#636984
+- Write OPTIONS for s390x net devs on non-network install methods (dcantrell)
+  Resolves: rhbz#649301
+
 * Fri Mar 18 2011 Ales Kozumplik <akozumpl@redhat.com> 11.1.2.228-1
 - Include and initialize the IP over Infiniband module. (akozumpl)
   Related: rhbz#660684
