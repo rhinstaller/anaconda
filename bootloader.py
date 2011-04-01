@@ -175,7 +175,11 @@ def writeBootloader(anaconda):
 
     plainLabelUsed = 0
     defkern = "kernel"
-    for (version, arch, nick) in anaconda.backend.kernelVersionList():
+    backendKernelList = anaconda.backend.kernelVersionList()
+    if iutil.inXen():
+        kernel_rank = {'xenU':1, 'xen':2} # sort based on this ranking
+        backendKernelList.sort(key=lambda (v,a,n): kernel_rank.get(n,9))
+    for (version, arch, nick) in backendKernelList:
 	if plainLabelUsed:
             kernelList.append(("%s-%s" %(kernelLabel, nick),
                                "%s-%s" %(kernelLongLabel, nick),
