@@ -865,6 +865,9 @@ class FS(DeviceFormat):
             return False
         return self._mountpoint is not None
 
+    def sync(self, root="/"):
+        pass
+
     def writeKS(self, f):
         f.write("%s --fstype=%s" % (self.mountpoint, self.type))
 
@@ -1262,6 +1265,29 @@ class XFS(FS):
         argv.extend(self.defaultLabelOptions)
         argv.extend([label, self.device])
         return argv
+
+    def sync(self, root='/'):
+        """ Ensure that data we've written is at least in the journal.
+
+            This is a little odd because xfs_freeze will only be
+            available under the install root.
+        """
+        if not self.status or not self._mountpoint.startswith(root):
+            return
+
+        try:
+            iutil.execWithRedirect("xfs_freeze", ["-f", self.mountpoint],
+                                   stdout="/dev/tty5", stderr="/dev/tty5",
+                                   root=root)
+        except (RuntimeError, OSError) as e:
+            log.error("failed to run xfs_freeze: %s" % e)
+
+        try:
+            iutil.execWithRedirect("xfs_freeze", ["-u", self.mountpoint],
+                                   stdout="/dev/tty5", stderr="/dev/tty5",
+                                   root=root)
+        except (RuntimeError, OSError) as e:
+            log.error("failed to run xfs_freeze: %s" % e)
 
 register_device_format(XFS)
 
