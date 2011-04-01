@@ -27,6 +27,7 @@ from pyanaconda import gui
 import datacombo
 from pyanaconda.constants import *
 from pyanaconda.storage.devices import devicePathToName
+import copy
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
@@ -34,15 +35,12 @@ _ = lambda x: gettext.ldgettext("anaconda", x)
 class OSBootWidget:
     """Widget to display OSes to boot and allow adding new ones."""
     
-    def __init__(self, anaconda, parent, blname = None):
-        self.bl = anaconda.bootloader
+    def __init__(self, anaconda, parent):
+        self.bl = anaconda.platform.bootloader
         self.storage = anaconda.storage
         self.parent = parent
         self.intf = anaconda.intf
-        if blname is not None:
-            self.blname = blname
-        else:
-            self.blname = "GRUB"
+        self.blname = self.bl.name
 
         self.setIllegalChars()
         
@@ -59,9 +57,8 @@ class OSBootWidget:
         sw.set_size_request(300, 100)
         box.pack_start(sw, True)
 
-
         self.osStore = gtk.ListStore(gobject.TYPE_BOOLEAN, gobject.TYPE_STRING,
-                                     gobject.TYPE_STRING, gobject.TYPE_BOOLEAN)
+                                     gobject.TYPE_STRING, gobject.TYPE_PYOBJECT)
         self.osTreeView = gtk.TreeView(self.osStore)
         theColumns = [ _("Default"), _("Label"), _("Device") ]
 
@@ -86,8 +83,11 @@ class OSBootWidget:
         sw.add(self.osTreeView)
         self.osTreeView.connect('row-activated', self.osTreeActivateCb)
 
-        self.imagelist = self.bl.images.getImages()
-        self.defaultDev = self.bl.images.getDefault()
+        self.images = {}
+        for image in self.bl.images:
+            self.images[image.device.name] = copy.copy(image)
+
+        self.defaultDev = self.bl.default.device
         self.fillOSList()
 
         buttonbar = gtk.VButtonBox()
@@ -126,7 +126,7 @@ class OSBootWidget:
         self.fillOSList()
 
     # adds/edits a new "other" os to the boot loader config
-    def editOther(self, oldDevice, oldLabel, isDefault, isRoot = 0):
+    def editOther(self, image):
         dialog = gtk.Dialog(_("Image"), self.parent)
         dialog.add_button('gtk-cancel', gtk.RESPONSE_CANCEL)
         dialog.add_button('gtk-ok', 1)
@@ -152,7 +152,7 @@ class OSBootWidget:
 
         label = gui.MnemonicLabel(_("_Device"))
         table.attach(label, 0, 1, 2, 3, gtk.FILL, 0, 10)
-        if not isRoot:
+        if image.device != self.storage.rootDevice:
             parts = []
 
             for part in self.storage.partitions:
@@ -168,8 +168,8 @@ class OSBootWidget:
             defindex = 0
             i = 0
             for part in parts:
-                deviceCombo.append(part.path, part.name)
-                if oldDevice and oldDevice == part.name:
+                deviceCombo.append(part.path, part)
+                if image.device and image.device == part:
                     defindex = i
                 i = i + 1
 
@@ -179,22 +179,18 @@ class OSBootWidget:
             table.attach(deviceCombo, 1, 2, 2, 3, gtk.FILL, 0, 10)
             label.set_mnemonic_widget(deviceCombo)
         else:
-            table.attach(gtk.Label(oldDevice), 1, 2, 2, 3, gtk.FILL, 0, 10)
+            table.attach(gtk.Label(image.device.name), 1, 2, 2, 3, gtk.FILL, 0, 10)
 
         default = gtk.CheckButton(_("Default Boot _Target"))
         table.attach(default, 0, 2, 3, 4, gtk.FILL, 0, 10)
-        if isDefault != 0:
-            default.set_active(True)
-
-        if self.numentries == 1 and oldDevice != None:
+        default.set_active(image.device == self.defaultDev)
+        if len(self.images.keys()) == 1 and image.device:
             default.set_sensitive(False)
-        else:
-            default.set_sensitive(True)
 
         dialog.vbox.pack_start(table)
         dialog.show_all()
 
-        while 1:
+        while True:
             rc = dialog.run()
 
             # cancel
@@ -203,10 +199,10 @@ class OSBootWidget:
 
             label = labelEntry.get_text()
 
-            if not isRoot:
+            if not image.device == self.storage.rootDevice:
                 dev = deviceCombo.get_active_value()
             else:
-                dev = oldDevice
+                dev = image.device
 
             if not dev:
                 self.intf.messageWindow(_("Error"),
@@ -235,17 +231,15 @@ class OSBootWidget:
 
             # verify that the label hasn't been used
             foundBad = 0
-            for key in self.imagelist.keys():
-                if dev == key:
+            for key in self.images.keys():
+                if dev.name == key:
                     continue
-                if self.blname == "GRUB":
-                    thisLabel = self.imagelist[key][1]
-                else:
-                    thisLabel = self.imagelist[key][0]
+
+                thisLabel = self.bl.image_label(self.images[key])
 
                 # if the label is the same as it used to be, they must
                 # have changed the device which is fine
-                if thisLabel == oldLabel:
+                if thisLabel == image.label:
                     continue
 
                 if thisLabel == label:
@@ -259,32 +253,23 @@ class OSBootWidget:
                 continue
 
             # they could be duplicating a device, which we don't handle
-            if dev in self.imagelist.keys() and (not oldDevice or
-                                                 dev != oldDevice):
+            if dev.name in self.images.keys() and (not image.device or
+                                                 dev != image.device):
                 self.intf.messageWindow(_("Duplicate Device"),
                                         _("This device is already being "
                                           "used for another boot entry."),
                                         type="warning")
                 continue
 
-            # if we're editing a previous, get what the old info was for
-            # labels.  otherwise, make it something safe for grub and the
-            # device name for lilo for lack of any better ideas
-            if oldDevice:
-                (oldshort, oldlong, oldisroot) = self.imagelist[oldDevice]
-            else:
-                (oldshort, oldlong, oldisroot) = (dev, label, None)
-                
             # if we're editing and the device has changed, delete the old
-            if oldDevice and dev != oldDevice:
-                del self.imagelist[oldDevice]
+            if image.device and dev != image.device:
+                del self.images[image.device.name]
+                image.device = dev
+
+            image.label = label
                 
             # go ahead and add it
-            if self.blname == "GRUB":
-                self.imagelist[dev] = (oldshort, label, isRoot)
-            else:
-                self.imagelist[dev] = (label, oldlong, isRoot)
-
+            self.images[dev.name] = image
             if default.get_active():
                 self.defaultDev = dev
 
@@ -300,27 +285,22 @@ class OSBootWidget:
         if not iter:
             return None
 
-        dev = devicePathToName(model.get_value(iter, 2))
-        label = model.get_value(iter, 1)
-        isRoot = model.get_value(iter, 3)
-        isDefault = model.get_value(iter, 0)
-        return (dev, label, isDefault, isRoot)
-
+        return model.get_value(iter, 3)
 
     def addEntry(self, widget, *args):
-        self.editOther(None, None, 0)
+        image = bootloader.BootLoaderImage(device=None, label=None)
+        self.editOther(image)
 
     def deleteEntry(self, widget, *args):
         rc = self.getSelected()
         if not rc:
             return
-        (dev, label, isDefault, isRoot) = rc
-        if not isRoot:
-            del self.imagelist[dev]
-            if isDefault:
-                keys = self.imagelist.keys()
-                keys.sort()
-                self.defaultDev = keys[0]
+        if image.device != self.storage.rootDevice:
+            del self.images[image.device.name]
+            if image.device == self.defaultDev:
+                devs = [i.device for i in self.images]
+                devs.sort(key=lambda d: d.name)
+                self.defaultDev = devs[0]
                 
             self.fillOSList()
         else:
@@ -335,68 +315,45 @@ class OSBootWidget:
         rc = self.getSelected()
         if not rc:
             return
-        (dev, label, isDefault, isRoot) = rc
-        self.editOther(dev, label, isDefault, isRoot)
+        self.editOther(rc)
 
     # the default os was changed in the treeview
     def toggledDefault(self, data, row):
         iter = self.osStore.get_iter((int(row),))
-        dev = self.osStore.get_value(iter, 2)
-        self.defaultDev = devicePathToName(dev)
+        self.defaultDev = self.osStore.get_value(iter, 3).device
         self.fillOSList()
 
     # fill in the os list tree view
     def fillOSList(self):
         self.osStore.clear()
         
-        keys = self.imagelist.keys()
-        keys.sort()
-
-        for dev in keys:
-            (label, longlabel, fstype) = self.imagelist[dev]
-            device = self.storage.devicetree.getDeviceByName(dev)
-            if self.blname == "GRUB":
-                theLabel = longlabel
-            else:
-                theLabel = label
+        devs = sorted(self.images.keys())
+        for dev in devs:
+            image = self.images[dev]
 
             # if the label is empty, remove from the image list and don't
             # worry about it
-            if not theLabel:
-                del self.imagelist[dev]
+            if not image.label:
+                del self.images[dev]
                 continue
 
-	    isRoot = 0
-            rootDev = self.storage.rootDevice
-            if rootDev and rootDev.name == dev:
-		isRoot = 1
-
-            devPath = getattr(device, "path", "/dev/%s" % dev)
             iter = self.osStore.append()
-            self.osStore.set_value(iter, 1, theLabel)
-            self.osStore.set_value(iter, 2, devPath)
-            self.osStore.set_value(iter, 3, isRoot)
-            if self.defaultDev == dev:
-                self.osStore.set_value(iter, 0, True)
-            else:
-                self.osStore.set_value(iter, 0, False)
-
-        self.numentries = len(keys)
+            self.osStore.set_value(iter, 0, self.defaultDev == image.device)
+            self.osStore.set_value(iter, 1, self.bl.image_label(image))
+            self.osStore.set_value(iter, 2, dev)
+            self.osStore.set_value(iter, 3, image)
 
     def osTreeActivateCb(self, view, path, col):
         self.editEntry(view)
-        
-        
+
     def getWidget(self):
         return self.widget
 
-    # FIXME: I really shouldn't have such intimate knowledge of
-    # the bootloader object
     def setBootloaderImages(self):
-        "Apply the changes from our list into the self.bl object"
-        # make a copy of our image list to shove into the bl struct
-        self.bl.images.images = {}
-        for key in self.imagelist.keys():
-            self.bl.images.images[key] = self.imagelist[key]
-        self.bl.images.setDefault(self.defaultDev)
+        """Apply the changes from our list into the self.bl object."""
+        self.bl.clear_images()
+        for image in self.images.values():
+            self.bl.add_image(image)
+            if image.device == self.defaultDev:
+                self.bl.default = image
         

@@ -31,12 +31,11 @@ class BootloaderPasswordWidget:
         self.parent = parent
         self.intf = anaconda.intf
 
-        if anaconda.bootloader.getPassword():
-            usePass = 1
-            self.password = anaconda.bootloader.getPassword()
+        self.password = anaconda.platform.bootloader.password
+        if self.password:
+            usePass = True
         else:
-            usePass = 0
-            self.password = None
+            usePass = False
 
         vbox = gtk.VBox(False, 6)
 
@@ -44,12 +43,8 @@ class BootloaderPasswordWidget:
         self.usePassCb = gtk.CheckButton(_("_Use a boot loader password"))
         self.usePassCb.set_tooltip_text(_("A boot loader password prevents users from changing kernel options, increasing security."))
         self.passButton = gtk.Button("No password")
-        if usePass:
-            self.usePassCb.set_active(True)
-            self.passButton.set_sensitive(True)
-        else:
-            self.usePassCb.set_active(False)
-            self.passButton.set_sensitive(False)
+        self.usePassCb.set_active(usePass)
+        self.passButton.set_sensitive(usePass)
         self.usePassCb.connect("toggled", self.passCallback)
         self.passButton.connect("clicked", self.passButtonCallback)
         self.setPassLabel()
@@ -130,7 +125,7 @@ class BootloaderPasswordWidget:
 
         dialog.show_all()
 
-        while 1:
+        while True:
             rc = dialog.run()
             if rc in [gtk.RESPONSE_CANCEL, gtk.RESPONSE_DELETE_EVENT]:
                 rc = False

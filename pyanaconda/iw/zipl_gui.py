@@ -42,18 +42,13 @@ class ZiplWindow (InstallWindow):
 	pass
 
     def getNext (self):
-        self.bl.args.set(self.kernelEntry.get_text())
-
+        self.bl.boot_args.extend(self.kernelEntry.get_text().split())
 
     # ZiplWindow tag="zipl"
     def getScreen(self, anaconda):
 	self.dispatch = anaconda.dispatch
 	self.bl = anaconda.bootloader
         self.intf = anaconda.intf
-
-	imageList = self.bl.images.getImages()
-	defaultDevice = self.bl.images.getDefault()
-        self.ignoreSignals = 0
 
         box  = gtk.VBox(False, 5)
         box.set_border_width(5)
@@ -90,15 +85,9 @@ class ZiplWindow (InstallWindow):
         label = gtk.Label(_("Kernel Parameters") + ":")
         label.set_alignment(0.0, 0.5)
         self.kernelEntry = gtk.Entry()
-        clabel1 = gtk.Label(_("Chandev Parameters") + ":")
-        clabel1.set_alignment(0.0, 0.5)
-        self.chandeventry1 = gtk.Entry()
-        clabel2 = gtk.Label(_("Chandev Parameters") + ":")
-        clabel2.set_alignment(0.0, 0.5)
-        self.chandeventry2 = gtk.Entry()
 
-        if self.bl.args and self.bl.args.get():
-            kernelparms = self.bl.args.get()
+        if self.bl.args and self.bl.boot_args:
+            kernelparms = str(self.bl.args)
         else:
             kernelparms = ""
         if getDasdPorts() and (kernelparms.find("dasd=") == -1):
@@ -108,25 +97,9 @@ class ZiplWindow (InstallWindow):
                 kernelparms = "dasd=%s" %(getDasdPorts(),)
         self.kernelEntry.set_text(kernelparms)
         
-        if self.bl.args and self.bl.args.chandevget():
-            cdevs = self.bl.args.chandevget()
-            self.chandeventry1.set_text('')
-            self.chandeventry2.set_text('')
-            if len(cdevs) > 0:
-                self.chandeventry1.set_text(cdevs[0])
-            if len(cdevs) > 1:
-                self.chandeventry2.set_text(string.join(cdevs[1:],';'))
         hbox = gtk.HBox(False, 5)
         hbox.pack_start(label, False)
         hbox.pack_start(self.kernelEntry)
         box.pack_start(hbox, False)
-        hbox1 = gtk.HBox(False, 5)
-        hbox1.pack_start(clabel1, False)
-        hbox1.pack_start(self.chandeventry1)
-        box.pack_start(hbox1, False)
-        hbox2 = gtk.HBox(False, 5)
-        hbox2.pack_start(clabel2, False)
-        hbox2.pack_start(self.chandeventry2)
-        box.pack_start(hbox2, False)
 
         return box

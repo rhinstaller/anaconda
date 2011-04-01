@@ -19,12 +19,10 @@
 #
 
 import sys
-import string
 from pyanaconda import iutil
 from time import *
 from snack import *
 from constants_text import *
-from pyanaconda.bootloader import hasWindows
 from scdate.core import zonetab
 
 from pyanaconda.constants import *
@@ -53,7 +51,7 @@ class TimezoneWindow:
 	t = TextboxReflowed(30, 
 			_("In which time zone are you located?"))
 
-        if not anaconda.ksdata and not hasWindows(anaconda.bootloader):
+        if not anaconda.ksdata and not anaconda.bootloader.has_windows:
             asUtc = True
 
 	self.l = Listbox(5, scroll = 1, returnExit = 0)
@@ -73,7 +71,7 @@ class TimezoneWindow:
 	self.g.add(bb, 0, 4, growx = 1)
 
         result = ""
-        while 1:
+        while True:
             result = self.g.run()
             rc = bb.buttonPressed (result)
             

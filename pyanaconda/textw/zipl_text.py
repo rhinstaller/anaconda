@@ -18,7 +18,6 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-import string
 from snack import *
 from constants_text import *
 
@@ -35,32 +34,15 @@ class ZiplWindow:
         t = TextboxReflowed(53,
                          _("The z/IPL Boot Loader will be installed "
                            "on your system after installation is complete. "
-                           "You can now enter any additional kernel and "
-                           "chandev parameters which your machine or your "
-                           "setup require."))
+                           "You can now enter any additional kernel parameters "
+                           "required by your machine or setup."))
 
-        kernelparms = ""
         kernelentry = Entry(48, scroll = 1, returnExit = 1)
-        chandeventry1 = Entry(48, scroll = 1, returnExit = 1)
-        chandeventry2 = Entry(48, scroll = 1, returnExit = 1)
-
-        if self.bl.args and self.bl.args.get():
-            kernelparms = self.bl.args.get()
-        if getDasdPorts() and (kernelparms.find("dasd=") == -1):
-            if len(kernelparms) > 0:
-                kernelparms = "%s dasd=%s" %(kernelparms, getDasdPorts())
-            else:
-                kernelparms = "dasd=%s" %(getDasdPorts(),)
+        kernelparms = str(self.bl.boot_args)
+        dasd_ports = "dasd=%s" % getDasdPorts()
+        if dasd_ports and "dasd" not in self.bl.boot_args:
+            kernelparms += " dasd=%s" % getDasdPorts()
         kernelentry.set(kernelparms)
-
-        if self.bl.args and self.bl.args.chandevget():
-            cdevs = self.bl.args.chandevget()
-            chandeventry1.set('')
-            chandeventry2.set('')
-            if len(cdevs) > 0:
-                chandeventry1.set(cdevs[0])
-            if len(cdevs) > 1:
-                chandeventry2.set(string.join(cdevs[1:],';'))
 
         buttons = ButtonBar(screen, [TEXT_OK_BUTTON,
                             TEXT_BACK_BUTTON ] )
@@ -72,15 +54,7 @@ class ZiplWindow:
         sg.setField(Label(_("Kernel Parameters") + ": "), 0, 0, anchorLeft=1)
         sg.setField(kernelentry, 1, 0, anchorLeft=1)
         grid.add(sg, 0, 1, padding = (0, 1, 0, 1))
-        sg = Grid(2, 1)
-        sg.setField(Label(_("Chandev line ") + "1: "), 0, 0, anchorLeft=1)
-        sg.setField(chandeventry1, 1, 0, anchorLeft=1)
-        grid.add(sg, 0, 2, padding = (0, 1, 0, 1))
-        sg = Grid(2, 1)
-        sg.setField(Label(_("Chandev line ") + "2: "), 0, 0, anchorLeft=1)
-        sg.setField(chandeventry2, 1, 0, anchorLeft=1)
-        grid.add(sg, 0, 3, padding = (0, 1, 0, 1))
-        grid.add(buttons, 0, 4, growx = 1)
+        grid.add(buttons, 0, 2, growx = 1)
 
         result = grid.runOnce ()
         button = buttons.buttonPressed(result)
@@ -88,15 +62,5 @@ class ZiplWindow:
         if button == TEXT_BACK_CHECK:
             return INSTALL_BACK
 
-        if kernelentry.value():
-            self.bl.args.set(string.strip(kernelentry.value()))
-        else:
-            self.bl.args.set("")
-
-        cdevs = []
-        if chandeventry1.value():
-            cdevs.append(string.strip(chandeventry1.value()))
-        if chandeventry2.value():
-            cdevs.append(string.strip(chandeventry2.value()))
-        self.bl.args.chandevset(cdevs)
+        self.bl.kernel_args.extend(kernelentry.value().split())
         return INSTALL_OK

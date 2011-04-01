@@ -23,7 +23,6 @@
 from iw_gui import *
 
 import gtk
-from pyanaconda.booty import checkbootloader
 from pyanaconda.storage.devices import devicePathToName
 
 from pyanaconda.constants import *
@@ -41,96 +40,38 @@ class UpgradeBootloaderWindow (InstallWindow):
 
     def getNext(self):
         if self.nobl_radio.get_active():
-            self.dispatch.skipStep("bootloadersetup", skip = 1)
             self.dispatch.skipStep("bootloader", skip = 1)
             self.dispatch.skipStep("instbootloader", skip = 1)
         elif self.newbl_radio.get_active():
-            self.dispatch.skipStep("bootloadersetup", skip = 0)
             self.dispatch.skipStep("bootloader", skip = 0)
             self.dispatch.skipStep("instbootloader", skip = 0)
-            self.bl.doUpgradeOnly = 0
+            self.bl.update_only = False
         else:
-            self.dispatch.skipStep("bootloadersetup", skip = 0)
             self.dispatch.skipStep("bootloader", skip = 1)
             self.dispatch.skipStep("instbootloader", skip = 0)
-            self.bl.doUpgradeOnly = 1
+            self.bl.update_only = self.bl.can_update
 
-            if self.type == "GRUB":
-                self.bl.useGrubVal = 1
-            else:
-                self.bl.useGrubVal = 0
-            self.bl.setDevice(devicePathToName(self.bootDev))
-
-    def _newToLibata(self, rootPath):
-        # NOTE: any changes here need to be done in upgrade_bootloader_text too
-        try:
-            f = open("/proc/modules", "r")
-            buf = f.read()
-            if buf.find("libata") == -1:
-                return False
-        except:
-            log.debug("error reading /proc/modules")
-            pass
-
-        try:
-            f = open(rootPath + "/etc/modprobe.conf")
-        except:
-            log.debug("error reading /etc/modprobe.conf")
-            return False
-
-        modlines = f.readlines()
-        f.close()
-
-        try:
-            f = open("/tmp/scsidisks")
-        except:
-            log.debug("error reading /tmp/scsidisks")
-            return False
-        mods = []
-        for l in f.readlines():
-            (disk, mod) = l.split()
-            if mod.strip() not in mods:
-                mods.append(mod.strip())
-        f.close()
-
-        for l in modlines:
-            stripped = l.strip()
-
-            if stripped == "" or stripped[0] == "#":
-                continue
-
-            if stripped.find("scsi_hostadapter") != -1:
-                mod = stripped.split()[-1]
-                if mod in mods:
-                    mods.remove(mod)
-
-        if len(mods) > 0:
-            return True
-        return False
+            self.bl.stage1_device = self.bootDev
 
     def getScreen(self, anaconda):
         self.dispatch = anaconda.dispatch
         self.bl = anaconda.bootloader
 
-        newToLibata = self._newToLibata(anaconda.rootPath)
-
-        (self.type, self.bootDev) = \
-                    checkbootloader.getBootloaderTypeAndBoot(anaconda.rootPath, storage=anaconda.storage)
+        # TODO: implement bootloader detection
+        self.type = None
+        self.bootDev = None
 
         self.update_radio = gtk.RadioButton(None, _("_Update boot loader configuration"))
         updatestr = _("This will update your current boot loader.")
 
-        if newToLibata or (self.type is None or self.bootDev is None):
-            if newToLibata:
-                current = _("Due to system changes, your boot loader "
-                            "configuration can not be automatically updated.")
-            else:
-                current = _("The installer is unable to detect the boot loader "
-                            "currently in use on your system.")
+        if (not self.bl.can_update) or \
+           (self.type is None or self.bootDev is None):
+            current = _("The installer is unable to detect the boot loader "
+                        "currently in use on your system.")
             self.update_label = gtk.Label("%s" % (updatestr,))
             self.update_radio.set_sensitive(False)
             self.update_label.set_sensitive(False)
-            update = 0
+            update = False
         else:
             current = _("The installer has detected the %(type)s boot loader "
                         "currently installed on %(bootDev)s.") \
@@ -138,7 +79,7 @@ class UpgradeBootloaderWindow (InstallWindow):
             self.update_label = gtk.Label("%s  %s" % (updatestr,
                                          _("This is the recommended option.")))
             self.update_radio.set_active(False)
-            update = 1
+            update = True
 
         self.newbl_radio = gtk.RadioButton(self.update_radio,
                                           _("_Create new boot loader "
@@ -165,10 +106,8 @@ class UpgradeBootloaderWindow (InstallWindow):
         str = _("What would you like to do?")
         # if they have one, the default is to update, otherwise the
         # default is to not touch anything
-        if update == 1:
+        if update:
             default = self.update_radio
-        elif newToLibata:
-            default = self.newbl_radio
         else:
             default = self.nobl_radio
 

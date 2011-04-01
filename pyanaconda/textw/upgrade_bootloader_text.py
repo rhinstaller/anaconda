@@ -22,11 +22,8 @@
 from snack import *
 from constants_text import *
 from pyanaconda.flags import flags
-import string
-from pyanaconda.booty import checkbootloader
-from pyanaconda.storage.devices import devicePathToName
-
 from pyanaconda.constants import *
+
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
 
@@ -34,79 +31,26 @@ import logging
 log = logging.getLogger("anaconda")
 
 class UpgradeBootloaderWindow:
-    def _ideToLibata(self, rootPath):
-        try:
-            f = open("/proc/modules", "r")
-            buf = f.read()
-            if buf.find("libata") == -1:
-                return False
-        except:
-            log.debug("error reading /proc/modules")
-            pass
-
-        try:
-            f = open(rootPath + "/etc/modprobe.conf")
-        except:
-            log.debug("error reading /etc/modprobe.conf")
-            return False
-
-        modlines = f.readlines()
-        f.close()
-
-        try:
-            f = open("/tmp/scsidisks")
-        except:
-            log.debug("error reading /tmp/scsidisks")
-            return False
-        mods = []
-        for l in f.readlines():
-            (disk, mod) = l.split()
-            if mod.strip() not in mods:
-                mods.append(mod.strip())
-        f.close()
-
-        for l in modlines:
-            stripped = l.strip()
-
-            if stripped == "" or stripped[0] == "#":
-                continue
-
-            if stripped.find("scsi_hostadapter") != -1:
-                mod = stripped.split()[-1]
-                if mod in mods:
-                    mods.remove(mod)
-
-        if len(mods) > 0:
-            return True
-        return False
-
     def __call__(self, screen, anaconda):
         self.screen = screen
-        self.dispatch = anaconda.dispatch
-        self.bl = anaconda.bootloader
 
-        newToLibata = self._ideToLibata(anaconda.rootPath)
-        (self.type, self.bootDev) = \
-                    checkbootloader.getBootloaderTypeAndBoot(anaconda.rootPath, storage=anaconda.storage)
+        self.type = None
+        self.bootDev = None
 
         blradio = RadioGroup()
 
-        (update, nobl) = (0, 0)
-        if self.dispatch.stepInSkipList("instbootloader"):
-            nobl = 1
-        elif not (newToLibata or self.type is None or self.bootDev is None):
-            update = 1
+        update = False
+        nobl = False
+        if anaconda.dispatch.stepInSkipList("instbootloader"):
+            nobl = True
+        elif self.type and self.bootDev:
+            update = True
 
-        if newToLibata or self.type is None or self.bootDev is None:
-            if newToLibata:
-                t = TextboxReflowed(53,
-                    _("Due to system changes, your boot loader "
-                      "configuration can not be automatically updated."))
-            else:
-                t = TextboxReflowed(53,
-                  _("The installer is unable to detect the boot loader "
-                    "currently in use on your system."))
-            
+        if (not anaconda.bootloader.can_update) or \
+           (self.type is None or self.bootDev is None):
+            t = TextboxReflowed(53,
+              _("The installer is unable to detect the boot loader "
+                "currently in use on your system."))
 
             self.update_radio = blradio.add(_("Update boot loader configuration"),
                                             "update", update)
@@ -134,8 +78,7 @@ class UpgradeBootloaderWindow:
         grid.add(self.nobl_radio, 0, 2, (0,0,0,0))
         grid.add(buttons, 0, 3, growx = 1)
 
-
-        while 1:
+        while True:
             result = grid.run()
 
             button = buttons.buttonPressed(result)
@@ -145,22 +88,13 @@ class UpgradeBootloaderWindow:
                 return INSTALL_BACK        
 
             if blradio.getSelection() == "nobl":                           
-                self.dispatch.skipStep("bootloadersetup", skip = 1)
                 self.dispatch.skipStep("bootloader", skip = 1)
                 self.dispatch.skipStep("instbootloader", skip = 1)
+               anaconda.bootloader.update_only = False
             else:
-                self.dispatch.skipStep("bootloadersetup", skip = 0)
                 self.dispatch.skipStep("bootloader", skip = 1)
                 self.dispatch.skipStep("instbootloader", skip = 0)
-                self.bl.doUpgradeOnly = 1
-
-                if self.type == "GRUB":
-                    self.bl.useGrubVal = 1
-                else:
-                    self.bl.useGrubVal = 0
-                self.bl.setDevice(devicePathToName(self.bootDev))
-
-
+                anaconda.bootloader.update_only = anaconda.bootloader.can_update
 
             screen.popWindow()
             return INSTALL_OK

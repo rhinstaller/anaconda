@@ -25,7 +25,6 @@ from scdate.core import zonetab
 
 from timezone_map_gui import TimezoneMap
 from iw_gui import *
-from pyanaconda.bootloader import hasWindows
 
 from pyanaconda.constants import *
 import gettext
@@ -93,7 +92,7 @@ class TimezoneWindow(InstallWindow):
         self.utcCheckbox.set_active(asUTC)
 
         if not anaconda.ksdata:
-            self.utcCheckbox.set_active(not hasWindows(anaconda.bootloader))
+            self.utcCheckbox.set_active(not anaconda.bootloader.has_windows)
 
         self.notebook.remove(self.vbox)
         return self.vbox
