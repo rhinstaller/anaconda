@@ -94,7 +94,7 @@ def _schedulePartitions(storage, disks):
         if request.fstype is None:
             request.fstype = storage.defaultFSType
         elif request.fstype in ("prepboot", "efi") and \
-                storage.platform.bootDevice():
+                storage.platform.bootDevice:
             # there should never be a need for more than one of these
             # partitions, so skip them.
             continue
@@ -186,11 +186,11 @@ def doAutoPartition(anaconda):
     devs = []
 
     if anaconda.storage.doAutoPart:
-        clearPartitions(anaconda.storage)
+        clearPartitions(anaconda.storage, bootloader=anaconda.bootloader)
         # update the bootloader's drive list to add disks which have their
         # whole disk format replaced by a disklabel. Make sure to keep any
         # previous boot order selection from clearpart_gui or kickstart
-        anaconda.bootloader.updateDriveList(anaconda.bootloader.drivelist)
+        anaconda.bootloader.clear_drive_list()
 
     if anaconda.storage.doAutoPart:
         (disks, devs) = _createFreeSpacePartitions(anaconda.storage)
@@ -219,7 +219,7 @@ def doAutoPartition(anaconda):
 
     # run the autopart function to allocate and grow partitions
     try:
-        doPartitioning(anaconda.storage)
+        doPartitioning(anaconda.storage, bootloader=anaconda.bootloader)
 
         if anaconda.storage.doAutoPart:
             _scheduleLVs(anaconda.storage, devs)
@@ -332,8 +332,6 @@ def shouldClear(device, clearPartType, clearPartDisks=None):
     if device.immutable:
         return False
 
-    # TODO: do platform-specific checks on ia64, pSeries, iSeries, mac
-
     return True
 
 def clearPartitions(storage, bootloader=None):
@@ -345,7 +343,7 @@ def clearPartitions(storage, bootloader=None):
 
         Keyword arguments:
 
-            bootloader -- a bootloaderInfo instance
+            bootloader -- a BootLoader instance
 
         NOTES:
 
@@ -412,10 +410,10 @@ def clearPartitions(storage, bootloader=None):
     # make sure that the the boot device has the correct disklabel type if
     # we're going to completely clear it.
     for disk in storage.partitioned:
-        if not bootloader or not bootloader.drivelist:
+        if not bootloader or not bootloader.stage1_device:
             break
 
-        if disk.name != bootloader.drivelist[0]:
+        if disk in bootloader.stage1_device.disks:
             continue
 
         if storage.config.clearPartType != CLEARPART_TYPE_ALL or \
@@ -821,7 +819,7 @@ def doPartitioning(storage, bootloader=None):
 
         Keyword/Optional Arguments:
 
-            bootloader - bootloaderInfo instance
+            bootloader - BootLoader instance
 
     """
     if not hasattr(storage.platform, "diskLabelType"):
@@ -849,13 +847,11 @@ def doPartitioning(storage, bootloader=None):
             # start over with flexible-size requests
             part.req_size = part.req_base_size
 
-    # FIXME: isn't there a better place for this to happen?
     try:
-        bootDev = storage.platform.bootDevice()
+        bootDev = storage.platform.bootDevice
     except DeviceError:
-        bootDev = None
-
-    if bootDev:
+        pass
+    else:
         bootDev.req_bootable = True
 
     removeNewPartitions(disks, partitions)
@@ -966,9 +962,7 @@ def allocatePartitions(storage, disks, partitions, freespace, bootloader=None):
         req_disks.sort(key=lambda d: d.name, cmp=storage.compareDisks)
         boot_index = None
         for disk in req_disks:
-            if bootloader and \
-               disk.name in bootloader.drivelist and \
-               disk.name == bootloader.drivelist[0]:
+            if bootloader and disk == bootloader.stage1_device.disks[0]:
                 boot_index = req_disks.index(disk)
 
         if boot_index is not None and len(req_disks) > 1:
