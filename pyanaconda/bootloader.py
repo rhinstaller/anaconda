@@ -772,9 +772,7 @@ class BootLoader(object):
 
         self.write_config(install_root=install_root)
         sync()
-        sync()
-        sync()
-        sync()
+        self.stage2_device.format.sync(root=install_root)
         self.install(install_root=install_root)
 
     def update(self, install_root=""):
