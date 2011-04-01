@@ -121,38 +121,32 @@ static int nfsGetSetup(char ** hostptr, char ** dirptr, char ** optsptr) {
     return LOADER_OK;
 }
 
+/* Parse nfs: url and return its componenets
+ *
+ * nfs[:options]:<server>:<path>
+ */
 void parseNfsHostPathOpts(char *url, char **host, char **path, char **opts) {
-    char *tmp;
-    char *hostsrc;
-
     /* Skip over the leading nfs: if present. */
     if (!strncmp(url, "nfs:", 4))
         url += 4;
 
     logMessage(DEBUGLVL, "parseNfsHostPathOpts url: |%s|", url);
 
-    hostsrc = strdup(url);
-    *host = hostsrc;
-    tmp = strchr(*host, ':');
-
-    if (tmp) {
-       *path = strdup(tmp + 1);
-       *tmp = '\0';
-    }
-    else {
-        *path = malloc(sizeof(char *));
-        **path = '\0';
-    }
-
-    tmp = strchr(*path, ':');
-    if (tmp && strlen(tmp) > 1) {
-	char * c = tmp;
-
-        *opts = *path;
-	*path = strdup(c + 1);
-	*c = '\0';
+    gchar **parts = g_strsplit(url, ":", 3)     ;
+    if (parts == NULL || g_strv_length(parts) < 2) {
+        *opts = g_strdup("");
+        *host = g_strdup("");
+        *path = g_strdup("");
+    } else if (g_strv_length(parts) == 2) {
+        *opts = g_strdup("");
+        *host = g_strdup(parts[0]);
+        *path = g_strdup(parts[1]);
+        g_strfreev(parts);
     } else {
-	*opts = NULL;
+        *opts = g_strdup(parts[0]);
+        *host = g_strdup(parts[1]);
+        *path = g_strdup(parts[2]);
+        g_strfreev(parts);
     }
 
     logMessage(DEBUGLVL, "parseNfsHostPathOpts host: |%s|", *host);
@@ -229,9 +223,9 @@ cleanup3:
 cleanup2:
     umount("/mnt/isodir");
 cleanup1:
-    free(host);
-    free(path);
-    free(opts);
+    g_free(host);
+    g_free(path);
+    g_free(opts);
     free(url);
     return rc;
 }
@@ -314,9 +308,9 @@ int loadNfsImages(struct loaderData_s *loaderData) {
         free(url);
     }
 
-    free(host);
-    free(path);
-    free(opts);
+    g_free(host);
+    g_free(path);
+    g_free(opts);
     return 1;
 }
 
@@ -457,8 +451,9 @@ int getFileFromNfs(char * url, char * dest, struct loaderData_s * loaderData) {
         failed = 1;
     }
 
-    free(host);
-    free(path);
+    g_free(host);
+    g_free(path);
+    g_free(opts);
     if (ip) free(ip);
 
     if (umount("/tmp/mnt") == -1)
