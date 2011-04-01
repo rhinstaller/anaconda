@@ -361,7 +361,7 @@ class AnacondaYum(yum.YumBase):
                                                                                  exception)
 
         self.doConfigSetup(root=self.anaconda.rootPath)
-        if not self.anaconda.bootloader.doUpgradeOnly:
+        if not self.anaconda.bootloader.update_only:
             self.conf.installonlypkgs = []
 
     def _mountInstallCD(self):

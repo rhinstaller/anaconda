@@ -102,11 +102,7 @@ class Anaconda(object):
 
     @property
     def bootloader(self):
-        if not self._bootloader:
-            import booty
-            self._bootloader = booty.getBootloader(self)
-
-        return self._bootloader
+        return self.platform.bootloader
 
     @property
     def firstboot(self):

@@ -54,7 +54,7 @@ class BaseInstallClass(object):
     # default to showing the upgrade option
     showUpgrade = True
     bootloaderTimeoutDefault = None
-    bootloaderExtraArgs = ""
+    bootloaderExtraArgs = []
     _l10n_domain = None
 
     # list of of (txt, grplist) tuples for task selection screen
@@ -96,7 +96,6 @@ class BaseInstallClass(object):
                  "autopartitionexecute",
                  "partition",
 		 "storagedone",
-		 "bootloadersetup",
 		 "bootloader",
 		 "network",
 		 "timezone",
@@ -192,7 +191,7 @@ class BaseInstallClass(object):
 
     def configure(self, anaconda):
         anaconda.bootloader.timeout = self.bootloaderTimeoutDefault
-        anaconda.bootloader.args.append(self.bootloaderExtraArgs)
+        anaconda.bootloader.boot_args.extend(self.bootloaderExtraArgs)
 
     def versionMatches(self, oldver):
         pass

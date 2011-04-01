@@ -92,7 +92,6 @@ installSteps = [
     ("storagedone", storageComplete, ),
     ("enablefilesystems", turnOnFilesystems, ),
     ("upgbootloader", ),
-    ("bootloadersetup", bootloaderSetupChoices, ),
     ("bootloader", ),
     ("reposetup", doBackendSetup, ),
     ("tasksel", ),
