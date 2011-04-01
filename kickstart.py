@@ -574,6 +574,8 @@ class NetworkData(commands.network.RHEL6_NetworkData):
             log.info("unspecified network --device in kickstart, using %s (%s)" %
                      (device, msg))
         else:
+            if self.device.lower() == "ibft":
+                return
             device = self.device
 
         # If we were given a network device name, grab the device object.
