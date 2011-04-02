@@ -221,6 +221,21 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Sat Apr 02 2011 David Cantrell <dcantrell@redhat.com> - 13.21.109-1
+- timeout= in yaboot.conf is in tenths of seconds (dcantrell)
+  Resolves: rhbz#692409
+- Install dracut-fips package when fips=1 is specified (dcantrell)
+  Resolves: rhbz#692350
+- Don't write HWADDR into ifcfg files (rvykydal)
+  Resolves: rhbz#690589
+- Stop user if we have no /boot and / is an LV (dcantrell)
+  Related: rhbz#618376
+- Prevent singlePV lv requests from being > the size of any pv (dcantrell)
+  Related: rhbz#618376
+- Implement a general version of InstallInterfaceBase.methodstrRepoWindow().
+  (akozumpl)
+  Related: rhbz#688757
+
 * Tue Mar 29 2011 David Cantrell <dcantrell@redhat.com> - 13.21.108-1
 - Fix missed conversion of createMetadataVer->metadataVersion. (dlehman)
   Resolves: rhbz#690469
