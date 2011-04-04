@@ -401,7 +401,13 @@ void setKickstartNfs(struct loaderData_s * loaderData, int argc,
 
     substr = strstr(dir, ".img");
     if (!substr || (substr && *(substr+4) != '\0')) {
-        checked_asprintf(&(loaderData->instRepo), "nfs:%s:%s", host, dir);
+        if (mountOpts) {
+            checked_asprintf(&(loaderData->instRepo), "nfs:%s:%s:%s",
+                             mountOpts, host, dir);
+        } else {
+            checked_asprintf(&(loaderData->instRepo), "nfs:%s:%s",
+                             host, dir);
+        }
 
         logMessage(INFO, "results of nfs, host is %s, dir is %s, opts are '%s'",
                    host, dir, mountOpts);
