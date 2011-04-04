@@ -5,6 +5,7 @@ from constants import *
 from flags import flags
 import os
 import iutil
+import string
 import types
 try:
     import instnum
@@ -71,6 +72,29 @@ class InstallClass(BaseInstallClass):
 	dispatch.skipStep("partition")
 	dispatch.skipStep("regkey", skip = 0)        
 
+    # for rhel, look up the given name and determine if it is allowed
+    # by the package key
+    def repoIsAllowed(self, repoName):
+        if not self.inum or not instnum:
+            return True
+
+        name = repoName.lower()
+        prod = self.inum.get_product()
+        controlledRepos = map(string.lower, instnum.encodingMaps[instnum.IN_OPTIONS][prod].values())
+        for (k, lst) in instnum.encodingMaps[instnum.IN_REPO][prod].items():
+            for repo in lst:
+                if not type(repo) == types.StringType:
+                    continue
+
+                controlledRepos.append(repo.lower())
+
+        if name not in controlledRepos:
+            return True
+
+        allowedRepos = map(string.lower, self.inum.get_repos()) + \
+                       map(string.lower, self.inum.get_repos_dict().keys())
+        return name in allowedRepos
+
     # for rhel, we're putting the metadata under productpath
     def getPackagePaths(self, uri):
         rc = {}
@@ -96,21 +120,21 @@ class InstallClass(BaseInstallClass):
         self.installkey = key
 
         try:
-            inum = instnum.InstNum(key)
+            self.inum = instnum.InstNum(key)
         except Exception, e:
             if True or not BETANAG: # disable hack keys for non-beta
                 # make sure the log is consistent
                 log.info("repopaths is %s" %(self.repopaths,))
                 raise
             else:
-                inum = None
+                self.inum = None
 
-        if inum is not None:
+        if self.inum is not None:
             # make sure the base products match
-            if inum.get_product_string().lower() != productPath.lower():
+            if self.inum.get_product_string().lower() != productPath.lower():
                 raise ValueError, "Installation number incompatible with media"
 
-            for name, path in inum.get_repos_dict().items():
+            for name, path in self.inum.get_repos_dict().items():
                 # virt is only supported on i386/x86_64.  so, let's nuke it
                 # from our repo list on other arches unless you boot with
                 # 'linux debug'

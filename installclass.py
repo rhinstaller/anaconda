@@ -212,6 +212,9 @@ class BaseInstallClass:
     def getPackagePaths(self, uri):
         return { "base": uri }
 
+    def repoIsAllowed(self, repoName):
+        return True
+
     def handleRegKey(self, key, intf):
         pass
 

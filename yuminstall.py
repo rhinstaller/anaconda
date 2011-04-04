@@ -570,6 +570,9 @@ class AnacondaYum(YumSorter):
 
         if self.anaconda.isKickstart:
             for ksrepo in self.anaconda.id.ksdata.repoList:
+                if not self.anaconda.id.instClass.repoIsAllowed(ksrepo.name):
+                    continue
+
                 repo = AnacondaYumRepo(uri=ksrepo.baseurl,
                                        mirrorlist=ksrepo.mirrorlist,
                                        repoid=ksrepo.name)
