@@ -243,7 +243,7 @@ int promptForNfs(struct loaderData_s *loaderData) {
         }
 
         if (mountOpts) {
-            checked_asprintf(&loaderData->instRepo, "nfs:%s:%s:%s", mountOpts, host
+            checked_asprintf(&loaderData->instRepo, "nfs:%s:%s:%s", mountOpts, host,
                              directory);
         } else {
             checked_asprintf(&loaderData->instRepo, "nfs:%s:%s", host, directory);
