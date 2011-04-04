@@ -708,6 +708,13 @@ class AnacondaYum(YumSorter):
                 if i > 0:
                     pkgtup = self.tsInfo.reqmedia[i][0]
                     self.method.switchMedia(i, filename=pkgtup)
+
+                # In the split media case, we need to perform group removals
+                # for every transaction.
+                if self.anaconda.isKickstart:
+                    map(self.anaconda.backend.removeGroupsPackages,
+                        self.anaconda.id.ksdata.excludedGroupList)
+
                 self.populateTs(keepold=0)
                 self.ts.check()
                 self.ts.order()
