@@ -657,10 +657,10 @@ class NetworkData(commands.network.F16_NetworkData):
                     dev.writeWepkeyFile()
 
             if self.nameserver != "":
-                self.anaconda.network.setDNS(self.nameserver, device)
+                self.anaconda.network.setDNS(self.nameserver, dev.iface)
 
             if self.gateway != "":
-                self.anaconda.network.setGateway(self.gateway, device)
+                self.anaconda.network.setGateway(self.gateway, dev.iface)
 
         if self.nodefroute:
             dev.set (("DEFROUTE", "no"))
