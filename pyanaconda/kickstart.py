@@ -671,10 +671,10 @@ class NetworkData(commands.network.F8_NetworkData):
                     dev.writeWepkeyFile()
 
             if self.nameserver != "":
-                self.anaconda.network.setDNS(self.nameserver, device)
+                self.anaconda.network.setDNS(self.nameserver, dev.iface)
 
             if self.gateway != "":
-                self.anaconda.network.setGateway(self.gateway, device)
+                self.anaconda.network.setGateway(self.gateway, dev.iface)
 
         needs_net = (self.anaconda.methodstr and
                      (self.anaconda.methodstr.startswith("http:") or
