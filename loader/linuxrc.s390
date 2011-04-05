@@ -1138,17 +1138,7 @@ function semantic_check_subchannels() {
         if [ ! -d "$dev_p" -a "$cio_wc_bytes" != "0" ]; then
             # - try to free from /proc/cio_ignore if they don't exist
             echo $"Device $devbusid not present, trying to clear from blacklist and resense..."
-            if sysecho /proc/cio_ignore "free $devbusid"; then
-                # /proc/cio_ignore won't block on freeing devices
-                # until resensing has been completed, so wait until
-                # the udev event queue depletes (without udevadm settle we
-                # could wait 2 seconds unconditionally)
-                #debug ls -laF /dev/.udev
-                udevadm settle
-                # even though the device might now be online, some of its
-                # sysfs attributes (e.g. cutype) might not yet be available
-                sleep 1
-            else
+            if ! znet_cio_free -d $devbusid; then
                 echo $"Device $devbusid could not be cleared from device blacklist"
             fi
         fi
