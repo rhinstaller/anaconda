@@ -131,7 +131,8 @@ class s390BootloaderInfo(bootloaderInfo):
         f.write('[defaultboot]\n')
         if self.timeout:
             f.write('timeout=%d\n' % self.timeout)
-        f.write('default=' + kernelList[-1][0] + '-' + kernelList[-1][2] + '\n')
+        defaultList = filter(lambda x: not (x[0].endswith('debug') or x[0].endswith('kdump')), kernelList)
+        f.write('default=' + defaultList[-1][0] + '-' + defaultList[-1][2] + '\n')
         f.write('target=%s\n' % (self.kernelLocation))
 
         cfPath = "/boot/"
