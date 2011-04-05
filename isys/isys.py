@@ -48,6 +48,7 @@ NM_MANAGER_IFACE = "org.freedesktop.NetworkManager"
 NM_ACTIVE_CONNECTION_IFACE = "org.freedesktop.NetworkManager.Connection.Active"
 NM_CONNECTION_IFACE = "org.freedesktop.NetworkManagerSettings.Connection"
 NM_DEVICE_IFACE = "org.freedesktop.NetworkManager.Device"
+NM_DEVICE_WIRED_IFACE = "org.freedesktop.NetworkManager.Device.Wired"
 NM_IP4CONFIG_IFACE = "org.freedesktop.NetworkManager.IP4Config"
 NM_IP6CONFIG_IFACE = "org.freedesktop.NetworkManager.IP6Config"
 
@@ -438,7 +439,7 @@ def getMacAddress(dev):
 
     device_macaddr = None
     try:
-        device_macaddr = device_props_iface.Get(NM_DEVICE_IFACE, "HwAddress").upper()
+        device_macaddr = device_props_iface.Get(NM_DEVICE_WIRED_IFACE, "HwAddress").upper()
     except dbus.exceptions.DBusException as e:
         if e.get_dbus_name() != 'org.freedesktop.DBus.Error.InvalidArgs':
             raise
