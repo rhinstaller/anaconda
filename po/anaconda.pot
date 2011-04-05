@@ -6,12 +6,13 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 13.21.108\n"
+"Project-Id-Version: anaconda 13.21.109\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2011-04-02 11:42-1000\n"
+"POT-Creation-Date: 2011-04-05 19:40+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -37,8 +38,8 @@ msgstr ""
 #: loader/kickstart.c:331 loader/kickstart.c:514 loader/lang.c:114
 #: loader/lang.c:373 loader/loader.c:434 loader/loader.c:470
 #: loader/loader.c:510 loader/loader.c:528 loader/loader.c:545
-#: loader/loader.c:582 loader/loader.c:1206 loader/loader.c:1234
-#: loader/loader.c:1445 loader/mediacheck.c:46 loader/mediacheck.c:85
+#: loader/loader.c:582 loader/loader.c:1205 loader/loader.c:1233
+#: loader/loader.c:1444 loader/mediacheck.c:46 loader/mediacheck.c:85
 #: loader/mediacheck.c:92 loader/mediacheck.c:96 loader/mediacheck.c:105
 #: loader/method.c:277 loader/method.c:351 loader/modules.c:382
 #: loader/modules.c:398 loader/net.c:593 loader/net.c:973 loader/net.c:1629
@@ -122,8 +123,8 @@ msgstr ""
 msgid "_Exit installer"
 msgstr ""
 
-#: bootloader.py:60 image.py:92 image.py:251 kickstart.py:1403
-#: kickstart.py:1442 upgrade.py:58 yuminstall.py:1386 yuminstall.py:1563
+#: bootloader.py:60 image.py:92 image.py:251 kickstart.py:1405
+#: kickstart.py:1444 upgrade.py:58 yuminstall.py:1386 yuminstall.py:1563
 #: iw/partition_gui.py:1611 storage/__init__.py:2043
 msgid "_Continue"
 msgstr ""
@@ -156,8 +157,8 @@ msgstr ""
 msgid "In progress"
 msgstr ""
 
-#: cmdline.py:88 gui.py:1316 kickstart.py:1186 kickstart.py:1266
-#: kickstart.py:1274 kickstart.py:1312 kickstart.py:1320 text.py:396
+#: cmdline.py:88 gui.py:1316 kickstart.py:1188 kickstart.py:1268
+#: kickstart.py:1276 kickstart.py:1314 kickstart.py:1322 text.py:396
 #, python-format
 msgid ""
 "The following error was found while parsing the kickstart configuration "
@@ -448,8 +449,8 @@ msgstr ""
 #: image.py:242
 #, python-format
 msgid ""
-"The software you have selected to install will require the following %"
-"(productName)s %(productVersion)s discs:\n"
+"The software you have selected to install will require the following "
+"%(productName)s %(productVersion)s discs:\n"
 "\n"
 "%(reqcdstr)s\n"
 "Please have these ready before proceeding with the installation.  If you "
@@ -476,7 +477,7 @@ msgstr ""
 #: loader/hdinstall.c:115 loader/hdinstall.c:325 loader/hdinstall.c:440
 #: loader/hdinstall.c:483 loader/hdinstall.c:496 loader/kickstart.c:299
 #: loader/lang.c:114 loader/loader.c:434 loader/loader.c:545
-#: loader/loader.c:1206 loader/mediacheck.c:46 loader/mediacheck.c:85
+#: loader/loader.c:1205 loader/mediacheck.c:46 loader/mediacheck.c:85
 #: loader/mediacheck.c:92 loader/mediacheck.c:96 loader/method.c:277
 #: loader/method.c:351 loader/nfsinstall.c:279 loader/nfsinstall.c:296
 #: loader/telnetd.c:92 loader/urlinstall.c:137 loader/urlinstall.c:159
@@ -588,63 +589,63 @@ msgid ""
 "%s"
 msgstr ""
 
-#: kickstart.py:1285
+#: kickstart.py:1287
 #, python-format
 msgid "Error processing %%ksappend lines: %s"
 msgstr ""
 
-#: kickstart.py:1288
+#: kickstart.py:1290
 #, python-format
 msgid "Unknown error processing %%ksappend lines: %s"
 msgstr ""
 
-#: kickstart.py:1343 livecd.py:228
+#: kickstart.py:1345 livecd.py:228
 msgid "Post-Installation"
 msgstr ""
 
-#: kickstart.py:1344
+#: kickstart.py:1346
 msgid "Running post-installation scripts"
 msgstr ""
 
-#: kickstart.py:1360
+#: kickstart.py:1362
 msgid "Pre-Installation"
 msgstr ""
 
-#: kickstart.py:1361
+#: kickstart.py:1363
 msgid "Running pre-installation scripts"
 msgstr ""
 
-#: kickstart.py:1394
+#: kickstart.py:1396
 msgid "Missing Package"
 msgstr ""
 
-#: kickstart.py:1395
+#: kickstart.py:1397
 #, python-format
 msgid ""
 "You have specified that the package '%s' should be installed.  This package "
 "does not exist. Would you like to continue or abort this installation?"
 msgstr ""
 
-#: kickstart.py:1401 kickstart.py:1440
+#: kickstart.py:1403 kickstart.py:1442
 msgid "_Abort"
 msgstr ""
 
-#: kickstart.py:1402 kickstart.py:1441
+#: kickstart.py:1404 kickstart.py:1443
 msgid "_Ignore All"
 msgstr ""
 
-#: kickstart.py:1432
+#: kickstart.py:1434
 msgid "Missing Group"
 msgstr ""
 
-#: kickstart.py:1433
+#: kickstart.py:1435
 #, python-format
 msgid ""
 "You have specified that the group '%s' should be installed. This group does "
 "not exist. Would you like to continue or abort this installation?"
 msgstr ""
 
-#: kickstart.py:1556
+#: kickstart.py:1558
 #, python-format
 msgid ""
 "The kickstart configuration file is missing required information that "
@@ -695,8 +696,8 @@ msgstr ""
 
 #: network.py:76
 msgid ""
-"Hostname must start with a valid character in the ranges 'a-z', 'A-Z', or '0-"
-"9'"
+"Hostname must start with a valid character in the ranges 'a-z', 'A-Z', or "
+"'0-9'"
 msgstr ""
 
 #: network.py:81
@@ -955,8 +956,8 @@ msgstr ""
 #, python-format
 msgid ""
 "The following critical errors exist with your requested partitioning scheme. "
-"These errors must be corrected prior to continuing with your install of %"
-"(productName)s.\n"
+"These errors must be corrected prior to continuing with your install of "
+"%(productName)s.\n"
 "\n"
 "%(errorstr)s"
 msgstr ""
@@ -1342,8 +1343,8 @@ msgid ""
 "\n"
 "REINITIALIZING WILL CAUSE ALL DATA TO BE LOST!\n"
 "\n"
-"This action may also be applied to all other disks needing reinitialization.%"
-"(details)s"
+"This action may also be applied to all other disks needing reinitialization."
+"%(details)s"
 msgstr ""
 
 #: text.py:632 loader/net.c:111 loader/net.c:485 loader/net.c:540
@@ -1733,8 +1734,8 @@ msgstr ""
 #: yuminstall.py:1124
 #, python-format
 msgid ""
-"There was an error running your transaction for the following reason(s): %"
-"s.\n"
+"There was an error running your transaction for the following reason(s): "
+"%s.\n"
 msgstr ""
 
 #: yuminstall.py:1132 yuminstall.py:1137
@@ -1802,9 +1803,9 @@ msgstr ""
 #, python-format
 msgid ""
 "The arch of the release of %(productName)s you are upgrading to appears to "
-"be %(myarch)s which does not match your previously installed arch of %(arch)"
-"s.  This is likely to not succeed.  Are you sure you wish to continue the "
-"upgrade process?"
+"be %(myarch)s which does not match your previously installed arch of "
+"%(arch)s.  This is likely to not succeed.  Are you sure you wish to continue "
+"the upgrade process?"
 msgstr ""
 
 #: yuminstall.py:1859
@@ -2353,17 +2354,17 @@ msgstr ""
 #: iw/lvm_dialog_gui.py:174
 #, python-format
 msgid ""
-"The physical extent size cannot be changed because the value selected (%"
-"(curpe)10.2f MB) is larger than the smallest physical volume (%(maxpvsize)"
-"10.2f MB) in the volume group."
+"The physical extent size cannot be changed because the value selected "
+"(%(curpe)10.2f MB) is larger than the smallest physical volume "
+"(%(maxpvsize)10.2f MB) in the volume group."
 msgstr ""
 
 #: iw/lvm_dialog_gui.py:188
 #, python-format
 msgid ""
-"The physical extent size cannot be changed because the value selected (%"
-"(curpe)10.2f MB) is too large compared to the size of the smallest physical "
-"volume (%(maxpvsize)10.2f MB) in the volume group."
+"The physical extent size cannot be changed because the value selected "
+"(%(curpe)10.2f MB) is too large compared to the size of the smallest "
+"physical volume (%(maxpvsize)10.2f MB) in the volume group."
 msgstr ""
 
 #: iw/lvm_dialog_gui.py:202
@@ -2494,8 +2495,8 @@ msgstr ""
 #, python-format
 msgid ""
 "The size entered for this logical volume (%(size)d MB) combined with the "
-"size of the other logical volume(s) exceeds the size of the volume group (%"
-"(tempvgsize)d MB). Please make the volume group larger or make the logical "
+"size of the other logical volume(s) exceeds the size of the volume group "
+"(%(tempvgsize)d MB). Please make the volume group larger or make the logical "
 "volume smaller."
 msgstr ""
 
@@ -3153,8 +3154,8 @@ msgstr ""
 #: iw/upgrade_bootloader_gui.py:138 textw/upgrade_bootloader_text.py:121
 #, python-format
 msgid ""
-"The installer has detected the %(type)s boot loader currently installed on %"
-"(bootDev)s."
+"The installer has detected the %(type)s boot loader currently installed on "
+"%(bootDev)s."
 msgstr ""
 
 #: iw/upgrade_bootloader_gui.py:142
@@ -3193,9 +3194,9 @@ msgstr ""
 #, python-format
 msgid ""
 "This release of %(productName)s supports an updated file system, which has "
-"several benefits over the file system traditionally shipped in %(productName)"
-"s.  This installation program can migrate formatted partitions without data "
-"loss.\n"
+"several benefits over the file system traditionally shipped in "
+"%(productName)s.  This installation program can migrate formatted partitions "
+"without data loss.\n"
 "\n"
 "Which of these partitions would you like to migrate?"
 msgstr ""
@@ -3208,8 +3209,8 @@ msgstr ""
 #, python-format
 msgid ""
 "Recent kernels (2.4 or newer) need significantly more swap than older "
-"kernels, up to twice the amount of RAM on the system.  You currently have %"
-"dMB of swap configured, but you may create additional swap space on one of "
+"kernels, up to twice the amount of RAM on the system.  You currently have "
+"%dMB of swap configured, but you may create additional swap space on one of "
 "your file systems now."
 msgstr ""
 
@@ -3410,7 +3411,7 @@ msgstr ""
 #: loader/driverdisk.c:525 loader/driverselect.c:78 loader/driverselect.c:152
 #: loader/driverselect.c:178 loader/hdinstall.c:212 loader/hdinstall.c:266
 #: loader/kbd.c:119 loader/loader.c:511 loader/loader.c:528
-#: loader/loader.c:1445 loader/loader.c:1478 loader/net.c:593 loader/net.c:973
+#: loader/loader.c:1444 loader/loader.c:1477 loader/net.c:593 loader/net.c:973
 #: loader/net.c:1972 loader/net.c:1991 loader/nfsinstall.c:91
 #: loader/urls.c:268 storage/__init__.py:109 storage/__init__.py:155
 #: storage/devicetree.py:92 textw/constants_text.py:52
@@ -3749,114 +3750,114 @@ msgstr ""
 msgid "Error downloading updates image"
 msgstr ""
 
-#: loader/loader.c:1202
+#: loader/loader.c:1201
 #, c-format
 msgid "You do not have enough RAM to install %s on this machine."
 msgstr ""
 
-#: loader/loader.c:1234
+#: loader/loader.c:1233
 msgid "Unsupported Hardware Detected"
 msgstr ""
 
-#: loader/loader.c:1235
+#: loader/loader.c:1234
 msgid ""
 "This hardware (or a combination thereof) is not supported by Red Hat.  For "
 "more information on supported hardware, please refer to http://www.redhat."
 "com/hardware."
 msgstr ""
 
-#: loader/loader.c:1294
+#: loader/loader.c:1293
 msgid "Media Detected"
 msgstr ""
 
-#: loader/loader.c:1295
+#: loader/loader.c:1294
 msgid "Found local installation media"
 msgstr ""
 
-#: loader/loader.c:1437
+#: loader/loader.c:1436
 msgid "Rescue Method"
 msgstr ""
 
-#: loader/loader.c:1438
+#: loader/loader.c:1437
 msgid "Installation Method"
 msgstr ""
 
-#: loader/loader.c:1440
+#: loader/loader.c:1439
 msgid "What type of media contains the rescue image?"
 msgstr ""
 
-#: loader/loader.c:1442
+#: loader/loader.c:1441
 msgid "What type of media contains the installation image?"
 msgstr ""
 
-#: loader/loader.c:1477
+#: loader/loader.c:1476
 msgid "No driver found"
 msgstr ""
 
-#: loader/loader.c:1477
+#: loader/loader.c:1476
 msgid "Select driver"
 msgstr ""
 
-#: loader/loader.c:1478
+#: loader/loader.c:1477
 msgid "Use a driver disk"
 msgstr ""
 
-#: loader/loader.c:1479
+#: loader/loader.c:1478
 msgid ""
 "Unable to find any devices of the type needed for this installation type.  "
 "Would you like to manually select your driver or use a driver disk?"
 msgstr ""
 
-#: loader/loader.c:1710
+#: loader/loader.c:1709
 msgid "The following devices have been found on your system."
 msgstr ""
 
-#: loader/loader.c:1712
+#: loader/loader.c:1711
 msgid ""
 "No device drivers have been loaded for your system.  Would you like to load "
 "any now?"
 msgstr ""
 
-#: loader/loader.c:1716
+#: loader/loader.c:1715
 msgid "Devices"
 msgstr ""
 
-#: loader/loader.c:1717
+#: loader/loader.c:1716
 msgid "Done"
 msgstr ""
 
-#: loader/loader.c:1718
+#: loader/loader.c:1717
 msgid "Add Device"
 msgstr ""
 
-#: loader/loader.c:1996
+#: loader/loader.c:1995
 #, c-format
 msgid "loader has already been run.  Starting shell.\n"
 msgstr ""
 
-#: loader/loader.c:2146
+#: loader/loader.c:2145
 #, c-format
 msgid "Driver disc was detected in %s. Do you want to use it?."
 msgstr ""
 
-#: loader/loader.c:2150
+#: loader/loader.c:2149
 msgid "Driver disc detected"
 msgstr ""
 
-#: loader/loader.c:2150
+#: loader/loader.c:2149
 msgid "Use it"
 msgstr ""
 
-#: loader/loader.c:2150
+#: loader/loader.c:2149
 msgid "Skip it"
 msgstr ""
 
-#: loader/loader.c:2504
+#: loader/loader.c:2503
 #, c-format
 msgid "Running anaconda %s, the %s rescue mode - please wait.\n"
 msgstr ""
 
-#: loader/loader.c:2506
+#: loader/loader.c:2505
 #, c-format
 msgid "Running anaconda %s, the %s system installer - please wait.\n"
 msgstr ""
@@ -4880,8 +4881,8 @@ msgstr ""
 #: storage/zfcp.py:176
 #, python-format
 msgid ""
-"Could not add LUN %(fcplun)s to WWPN %(wwpn)s on zFCP device %(devnum)s (%(e)"
-"s)."
+"Could not add LUN %(fcplun)s to WWPN %(wwpn)s on zFCP device %(devnum)s "
+"(%(e)s)."
 msgstr ""
 
 #: storage/zfcp.py:182
@@ -4907,15 +4908,15 @@ msgstr ""
 #: storage/zfcp.py:260
 #, python-format
 msgid ""
-"Could not correctly delete SCSI device of zFCP %(devnum)s %(wwpn)s %(fcplun)"
-"s (%(e)s)."
+"Could not correctly delete SCSI device of zFCP %(devnum)s %(wwpn)s "
+"%(fcplun)s (%(e)s)."
 msgstr ""
 
 #: storage/zfcp.py:269
 #, python-format
 msgid ""
-"Could not remove LUN %(fcplun)s at WWPN %(wwpn)s on zFCP device %(devnum)s (%"
-"(e)s)."
+"Could not remove LUN %(fcplun)s at WWPN %(wwpn)s on zFCP device %(devnum)s "
+"(%(e)s)."
 msgstr ""
 
 #: storage/zfcp.py:287
@@ -5123,8 +5124,8 @@ msgstr ""
 #, python-format
 msgid ""
 "This release of %(productName)s supports the an updated file system, which "
-"has several benefits over the file system traditionally shipped in %"
-"(productName)s.  This installation program can migrate formatted partitions "
+"has several benefits over the file system traditionally shipped in "
+"%(productName)s.  This installation program can migrate formatted partitions "
 "without data loss.\n"
 "\n"
 "Which of these partitions would you like to migrate?"

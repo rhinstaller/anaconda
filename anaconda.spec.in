@@ -221,6 +221,17 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Tue Apr 05 2011 Martin Sivak <msivak@redhat.com> - 13.21.110-1
+- Use correct interface to obtain HwAddress property (rvykydal)
+  Resolves: rhbz#693614
+- Ignore --device=ibft in stage 2 kickstart handling (rvykydal)
+  Related: rhbz#638131
+  Resolves: rhbz#638131
+- loader.c: remove stage2param, unused. (akozumpl)
+  Related: rhbz#688757
+- nfs/kickstart: do not throw away the --opts part (akozumpl)
+  Related: rhbz#688757
+
 * Sat Apr 02 2011 David Cantrell <dcantrell@redhat.com> - 13.21.109-1
 - timeout= in yaboot.conf is in tenths of seconds (dcantrell)
   Resolves: rhbz#692409
