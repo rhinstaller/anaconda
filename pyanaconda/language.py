@@ -21,6 +21,7 @@
 #
 
 import os
+import re
 import string
 import locale
 
@@ -31,8 +32,13 @@ import system_config_keyboard.keyboard as keyboard
 import logging
 log = logging.getLogger("anaconda")
 
+def langComponents(astring):
+    pattern = re.compile("(?P<language>[A-Za-z]+)(_(?P<territory>[A-Za-z]+))?(\.(?P<codeset>[-\w]+))?(@(?P<modifier>[-\w]+))?")
+    m = pattern.match(astring)
+    return m.groupdict()
+
 # Converts a single language into a "language search path". For example,
-# fr_FR.utf8@euro would become "fr_FR.utf8@eueo fr_FR.utf8 fr_FR fr"
+# fr_FR.utf8@euro would become "fr_FR.utf8@euro fr_FR.utf8 fr_FR fr"
 def expandLangs(astring):
     langs = [astring]
     charset = None
@@ -199,6 +205,18 @@ class Language(object):
 
     def available(self):
         return self.nativeLangNames.keys()
+
+    def buildLocale(self):
+        import iutil
+
+        c = langComponents(self._instLang)
+        locale_p = c["language"]
+        if c["territory"]:
+            locale_p += "_" + c["territory"]
+        if c["modifier"]:
+            locale_p += "@" + c["modifier"]
+
+        iutil.execWithRedirect("localedef", ["-i", locale_p, "-f", c["codeset"] or "UTF-8", self._instLang])
 
     def dracutSetupString(self):
         args=""

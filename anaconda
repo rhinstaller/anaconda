@@ -883,6 +883,7 @@ if __name__ == "__main__":
         opts.lang = opts.lang.replace(".utf8", ".UTF-8")
         anaconda.dispatch.skipStep("language", permanent = 1)
         anaconda.instLanguage.instLang = opts.lang
+        anaconda.instLanguage.buildLocale()
         anaconda.instLanguage.systemLang = opts.lang
         anaconda.timezone.setTimezoneInfo(anaconda.instLanguage.getDefaultTimeZone(anaconda.rootPath))
 
