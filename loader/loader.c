@@ -2017,8 +2017,10 @@ int main(int argc, char ** argv) {
     mlLoadModule("spufs", NULL);
 #endif
 
-    if (loaderData.lang && (loaderData.lang_set == 1)) {
+    if (loaderData.lang && loaderData.lang_set == 1) {
         setLanguage(loaderData.lang, 1);
+    } else {
+        setLanguage("en_US.UTF-8", 1);
     }
 
     /* FIXME: this is a bit of a hack */
