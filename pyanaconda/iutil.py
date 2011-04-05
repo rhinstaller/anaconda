@@ -24,13 +24,12 @@ import glob
 import os, string, stat, sys
 import signal
 import os.path
-from errno import *
-import warnings
+import errno
 import subprocess
+import threading
+
 from flags import flags
 from constants import *
-import re
-import threading
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
@@ -468,7 +467,7 @@ def mkdirChain(dir):
         os.makedirs(dir, 0755)
     except OSError as e:
         try:
-            if e.errno == EEXIST and stat.S_ISDIR(os.stat(dir).st_mode):
+            if e.errno == errno.EEXIST and stat.S_ISDIR(os.stat(dir).st_mode):
                 return
         except OSError:
             pass
