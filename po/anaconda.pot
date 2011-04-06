@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 15.25\n"
+"Project-Id-Version: anaconda 15.26\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2011-03-29 13:21-0700\n"
+"POT-Creation-Date: 2011-04-06 16:17-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -80,7 +80,7 @@ msgstr ""
 #: loader/mediacheck.c:97 loader/mediacheck.c:106 loader/method.c:194
 #: loader/method.c:268 loader/net.c:624 loader/net.c:1004 loader/net.c:1813
 #: loader/net.c:1832 loader/net.c:1844 loader/nfsinstall.c:93
-#: loader/nfsinstall.c:261 loader/urlinstall.c:139 loader/urlinstall.c:161
+#: loader/nfsinstall.c:255 loader/urlinstall.c:139 loader/urlinstall.c:161
 #: loader/urlinstall.c:213 loader/urls.c:264 loader/urls.c:335
 #: loader/urls.c:343 loader/urls.c:350 pyanaconda/textw/constants_text.py:44
 msgid "OK"
@@ -475,7 +475,7 @@ msgstr ""
 #: loader/kickstart.c:308 loader/lang.c:113 loader/loader.c:422
 #: loader/loader.c:533 loader/loader.c:1216 loader/mediacheck.c:47
 #: loader/mediacheck.c:86 loader/mediacheck.c:93 loader/mediacheck.c:97
-#: loader/method.c:194 loader/method.c:268 loader/nfsinstall.c:261
+#: loader/method.c:194 loader/method.c:268 loader/nfsinstall.c:255
 #: loader/urlinstall.c:139 loader/urlinstall.c:161 loader/urlinstall.c:213
 #: loader/urls.c:335 loader/urls.c:343 loader/urls.c:350
 #: pyanaconda/storage/__init__.py:247 pyanaconda/storage/__init__.py:1842
@@ -4038,7 +4038,7 @@ msgstr ""
 msgid "NFS Setup"
 msgstr ""
 
-#: loader/nfsinstall.c:262 loader/urlinstall.c:214
+#: loader/nfsinstall.c:256 loader/urlinstall.c:214
 msgid "The URL provided does not contain installation media."
 msgstr ""
 
