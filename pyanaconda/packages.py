@@ -207,7 +207,6 @@ def setFileCons(anaconda):
                 path = path.replace(anaconda.rootPath, "")
 
             ret = isys.resetFileContext(path, anaconda.rootPath)
-            log.info("set fc of %s to %s" % (path, ret))
 
     if flags.selinux:
         log.info("setting SELinux contexts for anaconda created files")
