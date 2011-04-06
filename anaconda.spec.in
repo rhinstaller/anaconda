@@ -221,6 +221,14 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Wed Apr 06 2011 David Cantrell <dcantrell@redhat.com> - 13.21.111-1
+- Add libraries needed for fips mode to initrd on s390 (mgracik)
+  Resolves: rhbz#692825
+- Prevent debug and kdump kernels from becoming the default (dcantrell)
+  Resolves: rhbz#693702
+- Use znet_cio_free to clear network devices from cio_ignore. (dcantrell)
+  Related: rhbz#633469
+
 * Tue Apr 05 2011 Martin Sivak <msivak@redhat.com> - 13.21.110-1
 - Use correct interface to obtain HwAddress property (rvykydal)
   Resolves: rhbz#693614
