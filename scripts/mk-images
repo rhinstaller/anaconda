@@ -656,6 +656,12 @@ makeinitrd() {
                    lsreipl lsdasd dasdview dasdinfo lszfcp ; do
             instbin $IMGPATH /usr/sbin/$cmd $MBD_DIR /sbin/$cmd
         done
+
+        # libraries required for ssh in fips mode
+        cp $IMGPATH/usr/$LIBDIR/.libcrypto.so.* $MBD_DIR/usr/$LIBDIR
+        cp $IMGPATH/usr/$LIBDIR/.libssl.so.* $MBD_DIR/usr/$LIBDIR
+        cp $IMGPATH/usr/$LIBDIR/libcrypto.so.* $MBD_DIR/usr/$LIBDIR
+        cp $IMGPATH/usr/$LIBDIR/libssl.so.* $MBD_DIR/usr/$LIBDIR
     fi
 
     if [ -n "$INITRDMODULES" ]; then
