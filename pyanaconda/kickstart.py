@@ -587,7 +587,12 @@ class NetworkData(commands.network.F16_NetworkData):
         else:
             if self.device.lower() == "ibft":
                 return
-            device = self.device
+            if self.device.lower() == "bootif":
+                if "BOOTIF" in flags.cmdline:
+                    # MAC address like 01-aa-bb-cc-dd-ee-ff
+                    device = flags.cmdline["BOOTIF"][3:]
+                    device = device.replace("-",":")
+            else: device = self.device
 
         # If we were given a network device name, grab the device object.
         # If we were given a MAC address, resolve that to a device name
