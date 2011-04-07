@@ -379,14 +379,6 @@ class InstallInterface(InstallInterfaceBase):
         self.messageWindow(_("Error"),
                            _("Repository editing is not available in text mode."))
 
-    def entryWindow(self, title, text, prompt, entrylength = None):
-        (res, value) = EntryWindow(self.screen, title, text, [prompt])
-        if res == "cancel":
-            return None
-        r = value[0]
-        r.strip()
-        return r
-
     def getLuksPassphrase(self, passphrase = "", preexist = False):
         w = LuksPassphraseWindow(self.screen, passphrase = passphrase,
                                  preexist = preexist)

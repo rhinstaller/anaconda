@@ -866,32 +866,6 @@ class DetailedMessageWindow(MessageWindow):
         if run:
             self.run(destroyAfterRun)
 
-class EntryWindow(MessageWindow):
-    def __init__ (self, title, text, prompt, entrylength = None):
-        mainWindow = None
-        MessageWindow.__init__(self, title, text, type = "okcancel", custom_icon="question", run = False)
-        self.entry = gtk.Entry()
-        if entrylength:
-            self.entry.set_width_chars(entrylength)
-            self.entry.set_max_length(entrylength)
-
-        # eww, eww, eww... but if we pack in the vbox, it goes to the right
-        # place!
-        self.dialog.child.pack_start(self.entry)
-
-    def run(self):
-        MessageWindow.run(self)
-        if self.rc == 0:
-            return None
-        t = self.entry.get_text()
-        t.strip()
-        if len(t) == 0:
-            return None
-        return t
-
-    def destroy(self):
-        self.dialog.destroy()
-
 class InstallInterface(InstallInterfaceBase):
     def __init__ (self):
         InstallInterfaceBase.__init__(self)
@@ -1091,12 +1065,6 @@ class InstallInterface(InstallInterfaceBase):
         dialog = RepoMethodstrEditor(self.anaconda, methodstr)
         dialog.createDialog()
         return dialog.run()
-
-    def entryWindow(self, title, text, type="ok", entrylength = None):
-        d = EntryWindow(title, text, type, entrylength)
-        rc = d.run()
-        d.destroy()
-        return rc
 
     def detailedMessageWindow(self, title, text, longText=None, type="ok",
                               default=None, custom_buttons=None,
