@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.229
+Version: 11.1.2.230
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -128,6 +128,14 @@ fi
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu Apr 7 2011 Ales Kozumplik <akozumpl@redhat.com> 11.1.2.230-1
+- Fix AttributeError (no str.rpartition in python 2.4)
+  Resolves: rhbz#693655
+- Add busybox to initrd
+  Resolves: rhbz#500527
+- Ensure kernel-xen is the default kernel for Xen guests
+  Resolves: rhbz#480031
+
 * Fri Apr 1 2011 Ales Kozumplik <akozumpl@redhat.com> 11.1.2.229-1
 - Fix shlex traceback if pxeboot cmdline ends in a quote (wwoods)
   Resolves: rhbz#500198
