@@ -595,9 +595,9 @@ class NetworkData(commands.network.F16_NetworkData):
         if devices.has_key(device):
             dev = devices[device]
         else:
-            for (key, val) in devices.iteritems():
-                if val.get("HWADDR").lower() == device.lower():
-                    dev = val
+            for devname in devices:
+                if isys.getMacAddress(devname) == device.upper():
+                    devices[devname]
                     break
 
         if self.hostname != "":
