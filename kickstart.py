@@ -587,8 +587,8 @@ class NetworkData(commands.network.RHEL6_NetworkData):
             dev = devices[device]
         else:
             for devname in devices:
-                if isys.getMacAddress(devname).lower() == device.lower():
-                    dev = val
+                if isys.getMacAddress(devname) == device.upper():
+                    dev = devices[devname]
                     break
 
         if self.hostname != "":
