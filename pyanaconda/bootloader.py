@@ -1106,7 +1106,6 @@ class GRUB(BootLoader):
 
 
 class EFIGRUB(GRUB):
-    name = "GRUB (EFI)"
     can_dual_boot = False
     _config_dir = "efi/EFI/redhat"
 
@@ -1347,8 +1346,6 @@ class Yaboot(YabootSILOBase):
 
 
 class IPSeriesYaboot(Yaboot):
-    # XXX is this just for pSeries?
-    name = "Yaboot (IPSeries)"
     prog = "mkofboot"
 
     target_device_format_types = ["prepboot"]
@@ -1369,7 +1366,6 @@ class IPSeriesYaboot(Yaboot):
 
 
 class MacYaboot(Yaboot):
-    name = "Yaboot (Mac)"
     prog = "mkofboot"
 
     can_dual_boot = True
