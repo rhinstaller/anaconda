@@ -205,7 +205,6 @@ class EFI(Platform):
     _bootFSTypes = ["ext4", "ext3", "ext2"]
     _diskLabelType = "gpt"
     _minBootPartSize = 50
-    _maxBootPartSize = 256
 
     def bootDevice(self):
         bootDev = None

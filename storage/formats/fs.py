@@ -1104,7 +1104,6 @@ class EFIFS(FATFS):
     _modules = ["vfat"]
     _name = "EFI System Partition"
     _minSize = 50
-    _maxSize = 256
     _bootable = True
 
     @property
