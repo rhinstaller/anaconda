@@ -138,14 +138,9 @@ class Platform(object):
            req.format.type not in self.bootFSTypes:
             errors.append(_("The /boot filesystem cannot be of type %s.") % req.format.type)
 
-        if req.type == "luks/dm-crypt":
-            # Handle encrypted boot on a partition.
+        if req.encrypted:
+            # Handle /boot that is, or depends on devices that are, encrypted
             errors.append(_("The /boot filesystem cannot be on an encrypted block device"))
-        else:
-            # Handle encrypted boot on more complicated devices.
-            for dev in filter(lambda d: d.type == "luks/dm-crypt", self.anaconda.storage.devices):
-                if req in self.anaconda.storage.deviceDeps(dev):
-                    errors.append(_("The /boot filesystem cannot be on an encrypted block device"))
 
         errors.extend(self.checkDiskLabel(req))
         return errors

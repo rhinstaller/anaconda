@@ -528,6 +528,20 @@ class StorageDevice(Device):
         return _disks
 
     @property
+    def encrypted(self):
+        """ True if this device, or any it requires, is encrypted. """
+        crypted = False
+        for parent in self.parents:
+            if parent.encrypted:
+                crypted = True
+                break
+
+        if not crypted and isinstance(self, DMCryptDevice):
+            crypted = True
+
+        return crypted
+
+    @property
     def partedDevice(self):
         if self.exists and self.status and not self._partedDevice:
             log.debug("looking up parted Device: %s" % self.path)
