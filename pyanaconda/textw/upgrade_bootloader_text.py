@@ -90,7 +90,7 @@ class UpgradeBootloaderWindow:
             if blradio.getSelection() == "nobl":                           
                 self.dispatch.skipStep("bootloader", skip = 1)
                 self.dispatch.skipStep("instbootloader", skip = 1)
-               anaconda.bootloader.update_only = False
+                anaconda.bootloader.update_only = False
             else:
                 self.dispatch.skipStep("bootloader", skip = 1)
                 self.dispatch.skipStep("instbootloader", skip = 0)
