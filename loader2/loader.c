@@ -1733,13 +1733,8 @@ int main(int argc, char ** argv) {
         busProbe(modInfo, modLoaded, modDeps, 0);
     }
 
-    /*
-     * BUG#514971: If the mlx4_core is loaded load the mlx4_en too, since we do not use the modprobe rules
-     */
-    if(mlModuleInList("mlx4_core", modLoaded)){
-        logMessage(INFO, "mlx4_core module detected, trying to load the Ethernet part of it (mlx4_en)");
-        mlLoadModuleSet("mlx4_en", modLoaded, modDeps, modInfo);
-    }
+    /* do what the modprobe rules would otherwise have done do for us */
+    mlCustomLoads(modLoaded, modDeps, modInfo);
 
     /* If we got new devices from the DDs, they need their /dev/node to be created here */
     createPartitionNodes();

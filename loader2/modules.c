@@ -1123,6 +1123,25 @@ void loadKickstartModule(struct loaderData_s * loaderData, int argc,
                  loaderData->modInfo, args);
 }
 
+/*
+ * On an installed system there are files in /etc/modprobe.d. Those can do
+ * various tricky things when modules are being inserted through modprobe. We do
+ * not call modprobe in the RHEL5 loader so we need to workaround, thus this
+ * function.
+ */
+void mlCustomLoads(moduleList modLoaded, moduleDeps modDeps,
+                   moduleInfoSet modInfo)
+{
+    if (mlModuleInList("mlx4_core", modLoaded)) {
+        logMessage(INFO, "modules: mlx4_core present, loading mlx4_en and mlx4_ib");
+        mlLoadModuleSet("mlx4_en:mlx4_ib", modLoaded, modDeps, modInfo);
+    }
+    if (mlModuleInList("cxgb3", modLoaded)) {
+        logMessage(INFO, "modules: cxgb3 present, loading iw_cxgb3");
+        mlLoadModuleSet("iw_cxgb3", modLoaded, modDeps, modInfo);
+    }
+}
+
 void mlWriteBlacklist() {
     int fd;
     int i;

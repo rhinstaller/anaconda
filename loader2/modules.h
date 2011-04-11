@@ -43,5 +43,7 @@ void writeScsiDisks(moduleList list);
 int removeLoadedModule(const char * modName, moduleList modLoaded);
 char * getModuleLocation(int version);
 
+void mlCustomLoads(moduleList modLoaded, moduleDeps modDeps,
+                   moduleInfoSet modInfo);
 void mlWriteBlacklist();
 #endif
