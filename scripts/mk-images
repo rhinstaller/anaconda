@@ -662,6 +662,10 @@ makeinitrd() {
         cp $IMGPATH/usr/$LIBDIR/.libssl.so.* $MBD_DIR/usr/$LIBDIR
         cp $IMGPATH/usr/$LIBDIR/libcrypto.so.* $MBD_DIR/usr/$LIBDIR
         cp $IMGPATH/usr/$LIBDIR/libssl.so.* $MBD_DIR/usr/$LIBDIR
+        cp $IMGPATH/$LIBDIR/.libfipscheck.so.* $MBD_DIR/usr/$LIBDIR
+        cp $IMGPATH/$LIBDIR/libfipscheck.so.* $MBD_DIR/usr/$LIBDIR
+        cp $IMGPATH/usr/bin/.fipscheck.hmac $MBD_DIR/sbin/.fipscheck.hmac
+        instbin $IMGPATH /usr/bin/fipscheck $MBD_DIR /sbin/fipscheck
     fi
 
     if [ -n "$INITRDMODULES" ]; then
