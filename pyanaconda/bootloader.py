@@ -177,10 +177,23 @@ class LinuxBootLoaderImage(BootLoaderImage):
 
 class BootLoader(object):
     """TODO:
+            - simplify choices to (mbr|boot device)?
+                - mbr is mbr of msdos disklabel
+                - boot device is one of:
+                    - /boot (regardless of type) on non-EFI x86
+                    - GPT boot partition
+                    - EFI system partition or md
+                    - PReP partition
+
             - iSeries bootloader?
                 - same as pSeries, except optional, I think
             - upgrade of non-grub bootloaders
             - detection of existing bootloaders
+            - improve password encryption for grub
+                - fix handling of kickstart-provided already-encrypted
+                  password
+            - consider re-implementing ArgumentList as something else, like
+              perhaps collections.OrderedDict
             - resolve overlap between Platform checkFoo methods and
               _is_valid_target_device and _is_valid_boot_device
             - split certain parts of _is_valid_target_device and
@@ -854,12 +867,10 @@ class GRUB(BootLoader):
     def grub_conf_device_line(self):
         return ""
 
-    def write_config_console(self, config):
-        """ Write console-related configuration. """
-        if not self.console:
-            return
-
-        if self.console.startswith("ttyS"):
+    @property
+    def serial_command(self):
+        command = ""
+        if self.console and self.console.startswith("ttyS"):
             unit = self.console[-1]
             speed = "9600"
             for opt in self.console_options.split(","):
@@ -867,7 +878,17 @@ class GRUB(BootLoader):
                     speed = opt
                     break
 
-            config.write("serial --unit=%s --speed=%s\n" % (unit, speed))
+            command = "serial --unit=%s --speed=%s" % (unit, speed)
+
+        return command
+
+    def write_config_console(self, config):
+        """ Write console-related configuration. """
+        if not self.console:
+            return
+
+        if self.console.startswith("ttyS"):
+            config.write("%s\n" % self.serial_command)
             config.write("terminal --timeout=%s serial console\n"
                          % self.timeout)
 
@@ -1030,16 +1051,11 @@ class GRUB(BootLoader):
     # installation
     #
 
-    def install(self, install_root=""):
-        rc = iutil.execWithRedirect("grub-install", ["--just-copy"],
-                                    stdout="/dev/tty5", stderr="/dev/tty5",
-                                    root=install_root)
-        if rc:
-            raise BootLoaderError("bootloader install failed")
-
-        boot = self.stage2_device
+    @property
+    def install_targets(self):
+        """ List of (stage1, stage2) tuples representing install targets. """
         targets = []
-        if boot.type != "mdarray":
+        if self.stage2_device.type != "mdarray":
             targets.append((self.stage1_device, self.stage2_device))
         else:
             if [d for d in self.stage2_device.parents if d.type != "partition"]:
@@ -1070,7 +1086,16 @@ class GRUB(BootLoader):
 
                 targets.append((stage1dev, stage2dev))
 
-        for (stage1dev, stage2dev) in targets:
+        return targets
+
+    def install(self, install_root=""):
+        rc = iutil.execWithRedirect("grub-install", ["--just-copy"],
+                                    stdout="/dev/tty5", stderr="/dev/tty5",
+                                    root=install_root)
+        if rc:
+            raise BootLoaderError("bootloader install failed")
+
+        for (stage1dev, stage2dev) in self.install_targets:
             cmd = ("root %(stage2dev)s\n"
                    "install --stage2=%(config_dir)s/stage2"
                    " /%(grub_config_dir)s/stage1 d %(stage1dev)s"
@@ -1205,6 +1230,157 @@ class EFIGRUB(GRUB):
 
     def update(self, install_root=""):
         self.write(install_root=install_root)
+
+class GRUB2(GRUB):
+    """ GRUBv2
+
+        - configuration
+            - password (insecure), password_pbkdf2
+                - http://www.gnu.org/software/grub/manual/grub.html#Invoking-grub_002dmkpasswd_002dpbkdf2
+            - --users per-entry specifies which users can access, otherwise
+              entry is unrestricted
+            - /etc/grub/custom.cfg
+
+        - how does grub resolve names of md arrays?
+
+        - disable automatic use of grub-mkconfig?
+            - on upgrades?
+
+        - BIOS boot partition (GPT)
+            - parted /dev/sda set <partition_number> bios_grub on
+            - can't contain a filesystem
+            - 31KiB min, 1MiB recommended
+
+    """
+    name = "GRUB2"
+    packages = ["grub2", "gettext"]
+    _config_file = "grub.cfg"
+    _config_dir = "grub2"
+    config_file_mode = 0600
+    defaults_file = "/etc/default/grub"
+    can_dual_boot = True
+    can_update = True
+
+    # requirements for bootloader target devices
+    target_device_types = ["disk", "partition", "mdarray"]
+    target_device_raid_levels = [mdraid.RAID1]
+    target_device_format_types = []
+    target_device_disklabel_types = ["msdos", "gpt"]
+    target_device_mountpoints = ["/boot", "/"]
+
+    # for UI use, eg: "mdarray": N_("RAID Device")
+    target_descriptions = {"msdos": N_("Master Boot Record"),
+                           "partition": N_("First sector of boot partition"),
+                           "mdarray": N_("RAID Device")}
+
+    # these are disklabel-specific descriptions for stage1 targets
+    partition_descriptions = {"msdos": N_("First sector of boot partition"),
+                              "gpt": N_("BIOS boot partition")}
+
+    # requirements for boot devices
+    boot_device_types = ["partition", "mdarray", "lvmlv"]
+    boot_device_raid_levels = [mdraid.RAID4, mdraid.RAID1, mdraid.RAID4,
+                               mdraid.RAID5, mdraid.RAID6, mdraid.RAID10]
+    boot_device_format_types = ["ext4", "ext3", "ext2"]
+    boot_device_mountpoints = ["/boot", "/"]
+    boot_device_min_size = 50
+    boot_device_max_size = None
+    non_linux_boot_device_format_types = []
+
+    #
+    # grub-related conveniences
+    #
+
+    def grub_device_name(self, device):
+        """ Return a grub-friendly representation of device.
+
+            Disks and partitions use the (hdX,Y) notation, while lvm and
+            md devices just use their names.
+        """
+        drive = None
+        name = device.name
+
+        if device.isDisk:
+            drive = device
+        elif hasattr(device, "disk"):
+            drive = device.disk
+
+        if drive is not None:
+            name = "(hd%d" % self.drives.index(drive)
+            if hasattr(device, "disk"):
+                name += ",%d" % device.partedPartition.number
+            name += ")"
+        return name
+
+    def device_description(self, device):
+        idx = self._device_type_index(device, self.target_device_types)
+        if idx is None:
+            raise ValueError("'%s' not a valid stage1 type" % device.type)
+
+        label_type = device.disks[0].format.labelType
+        if device.isDisk:
+            desc = self.target_descriptions[label_type]
+        elif device.type == "partition":
+            desc = self.partition_descriptions[label_type]
+        else:
+            desc = super(GRUB2, self).device_description(device)
+
+        return desc
+
+    def write_defaults(self, install_root=""):
+        defaults_file = "%s%s" % (install_root, self.defaults_file)
+        defaults = open(defaults_file, "w+")
+        defaults.write("GRUB_TIMEOUT=%d\n" % self.timeout)
+        defaults.write("GRUB_DISTRIBUTOR=\"%s\"\n" % productName)
+        if self.console and self.console.startswith("ttyS"):
+            defaults.write("GRUB_TERMINAL=\"serial console\"\n")
+            defaults.write("GRUB_SERIAL_COMMAND=\"%s\"\n" % self.serial_command)
+        defaults.write("GRUB_CMDLINE_LINUX=\"%s\"\n" % self.boot_args)
+        defaults.close()
+
+    def write_password_config(self, install_root=""):
+        if not self.password:
+            return
+
+        # FIXME: this is useless since we currently have no way to propagate
+        #        --users="" to each menu entry
+        header = open(install_root + "/etc/grub.d/01_users", "w")
+        header.write("#!/bin/sh -e\n\n")
+        header.write("cat << EOF\n")
+        header.write("set superusers=\"root\"\n")
+        if self.encrypt_password:
+            password = "password_pbkdf2 root " + self.encrypted_password
+        else:
+            password = "password root " + self.password
+
+        header.write("%s\n" % password)
+        header.write("EOF\n")
+        header.close()
+
+    def write_config(self, install_root=""):
+        self.write_device_map(install_root=install_root)
+        self.write_defaults(install_root=install_root)
+        self.write_password_config(install_root=install_root)
+        rc = iutil.execWithRedirect("grub2-mkconfig",
+                                    ["-o", self.config_file],
+                                    root=install_root,
+                                    stdout="/dev/tty5", stderr="/dev/tty5")
+        if rc:
+            raise BootLoaderError("failed to write bootloader configuration")
+
+    #
+    # installation
+    #
+
+    def install(self, install_root=""):
+        # XXX will installing to multiple drives work as expected with GRUBv2?
+        for (stage1dev, stage2dev) in self.install_targets:
+            rc = iutil.execWithRedirect("grub2-install",
+                                        [self.grub_device_name(stage1dev)],
+                                        stdout="/dev/tty5", stderr="/dev/tty5",
+                                        root=install_root)
+            if rc:
+                raise BootLoaderError("bootloader install failed")
 
 
 class YabootSILOBase(BootLoader):
@@ -1395,6 +1571,7 @@ class MacYaboot(Yaboot):
 class ZIPL(BootLoader):
     name = "ZIPL"
     config_file = "/etc/zipl.conf"
+    packages = ["zipl"]
 
     # list of strings representing options for bootloader target device types
     target_device_types = ["disk", "partition"]
@@ -1404,7 +1581,7 @@ class ZIPL(BootLoader):
     boot_device_types = ["partition", "mdarray", "lvmlv"]
     boot_device_raid_levels = [mdraid.RAID1]
 
-    packages = ["s390utils"]    # is this bootloader or platform?
+    packages = ["s390utils-base"]
     image_label_attr = "short_label"
     preserve_args = ["cio_ignore"]
 
