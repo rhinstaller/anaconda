@@ -146,6 +146,11 @@ def sanityCheckIPString(ip_string):
     except socket.error:
         raise IPError, errstr
 
+def nmIsConnected(state):
+    return state in (isys.NM_STATE_CONNECTED_LOCAL,
+                     isys.NM_STATE_CONNECTED_SITE,
+                     isys.NM_STATE_CONNECTED_GLOBAL)
+
 def hasActiveNetDev():
     try:
         bus = dbus.SystemBus()
@@ -153,10 +158,7 @@ def hasActiveNetDev():
         props = dbus.Interface(nm, isys.DBUS_PROPS_IFACE)
         state = props.Get(isys.NM_SERVICE, "State")
 
-        if int(state) == isys.NM_STATE_CONNECTED:
-            return True
-        else:
-            return False
+        return nmIsConnected(state)
     except:
         return False
 
@@ -792,13 +794,13 @@ class Network:
         i = 0
         while i < CONNECTION_TIMEOUT:
             state = props.Get(isys.NM_SERVICE, "State")
-            if int(state) == isys.NM_STATE_CONNECTED:
+            if nmIsConnected(state):
                 return True
             i += 1
             time.sleep(1)
 
         state = props.Get(isys.NM_SERVICE, "State")
-        if int(state) == isys.NM_STATE_CONNECTED:
+        if nmIsConnected(state):
             return True
 
         return False

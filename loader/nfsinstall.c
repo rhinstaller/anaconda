@@ -342,7 +342,7 @@ int getFileFromNfs(char * url, char * dest, struct loaderData_s * loaderData) {
         }
 
         state = nm_client_get_state(client);
-        if (state != NM_STATE_CONNECTED) {
+        if (! is_connected_state(state)) {
             logMessage(ERROR, "%s (%d): no active network devices",
                        __func__, __LINE__);
             g_object_unref(client);

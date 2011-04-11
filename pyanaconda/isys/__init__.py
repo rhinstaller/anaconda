@@ -51,7 +51,7 @@ NM_SERVICE = "org.freedesktop.NetworkManager"
 NM_MANAGER_PATH = "/org/freedesktop/NetworkManager"
 NM_MANAGER_IFACE = "org.freedesktop.NetworkManager"
 NM_ACTIVE_CONNECTION_IFACE = "org.freedesktop.NetworkManager.Connection.Active"
-NM_CONNECTION_IFACE = "org.freedesktop.NetworkManagerSettings.Connection"
+NM_CONNECTION_IFACE = "org.freedesktop.NetworkManager.Settings.Connection"
 NM_DEVICE_IFACE = "org.freedesktop.NetworkManager.Device"
 NM_DEVICE_WIRED_IFACE = "org.freedesktop.NetworkManager.Device.Wired"
 NM_IP4CONFIG_IFACE = "org.freedesktop.NetworkManager.IP4Config"
@@ -59,11 +59,14 @@ NM_IP6CONFIG_IFACE = "org.freedesktop.NetworkManager.IP6Config"
 NM_ACCESS_POINT_IFACE = "org.freedesktop.NetworkManager.AccessPoint"
 
 NM_STATE_UNKNOWN = 0
-NM_STATE_ASLEEP = 1
-NM_STATE_CONNECTING = 2
-NM_STATE_CONNECTED = 3
-NM_STATE_DISCONNECTED = 4
-NM_DEVICE_STATE_ACTIVATED = 8
+NM_STATE_ASLEEP = 10
+NM_STATE_DISCONNECTED = 20
+NM_STATE_DISCONNECTING = 30
+NM_STATE_CONNECTING = 40
+NM_STATE_CONNECTED_LOCAL = 50
+NM_STATE_CONNECTED_SITE = 60
+NM_STATE_CONNECTED_GLOBAL = 70
+NM_DEVICE_STATE_ACTIVATED = 100
 
 DBUS_PROPS_IFACE = "org.freedesktop.DBus.Properties"
 
