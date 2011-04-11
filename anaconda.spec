@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.230
+Version: 11.1.2.231
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -128,6 +128,12 @@ fi
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Mon Apr 11 2011 Ales Kozumplik <akozumpl@redhat.com> 11.1.2.231-1
+- Run subscription-manager 'product-id' plugin during install (wwoods)
+  Resolves: rhbz#670973
+- infiniband: drivers for Mellanox, QLogic and IBM cards. (akozumpl)
+  Related: rhbz#660684
+
 * Thu Apr 7 2011 Ales Kozumplik <akozumpl@redhat.com> 11.1.2.230-1
 - Fix AttributeError (no str.rpartition in python 2.4)
   Resolves: rhbz#693655
