@@ -304,6 +304,18 @@ hp100
 #	eth
 #	"Amiga Linux/m68k Hydra"
 
+ib_ehca
+	eth
+	"eHCA support"
+
+ib_ipath
+	eth
+	"QLogic InfiniPath Driver"
+
+ib_mthca
+	eth
+	"Mellanox HCA support"
+
 ibmtr
 	tr
 	"Shared-memory IBM Token Ring 16/4"
