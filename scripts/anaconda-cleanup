@@ -3,6 +3,7 @@
     image install:
 
         - unmount everything under /mnt/sysimage
+        - unmount everything under /mnt/install
         - populate a devicetree with only the image "disks"
 
     live install:
@@ -63,10 +64,6 @@ for dev in os.listdir(sys_class_block):
 if not image_install:
     live_install = live_install or os.path.exists("/dev/live")
 
-if not image_install and not live_install:
-    print >> sys.stderr, "not a live install or an image install -- exiting"
-    sys.exit(1)
-
 # unmount filesystems
 for mounted in reversed(open("/proc/mounts").readlines()):
     (device, mountpoint, rest) = mounted.split(" ", 2)
@@ -74,8 +71,9 @@ for mounted in reversed(open("/proc/mounts").readlines()):
         continue
 
     # If this is for an image install, only unmount all filesystems under
-    # /mnt/sysimage
-    if image_install and not mountpoint.startswith("/mnt/sysimage"):
+    # /mnt/sysimage and /mnt/install.
+    if image_install and not (mountpoint.startswith("/mnt/sysimage") or \
+                              mountpoint.startswith("/mnt/install")):
         continue
 
     # If this is for a live install, unmount any non-nodev filesystem that
@@ -83,6 +81,11 @@ for mounted in reversed(open("/proc/mounts").readlines()):
     if (not mountpoint.startswith("/media") and
         not device.startswith("/dev") or
         "live" in mounted):
+        continue
+
+    # If this is neither, just unmount everything under /mnt/install.
+    if not image_install and not live_install and \
+       not mountpoint.startswith("/mnt/install"):
         continue
 
     os.system("umount %s" % mountpoint)
