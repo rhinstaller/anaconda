@@ -175,7 +175,7 @@ ip2str_error:
  * readable format (e.g., 00:11:52:12:D9:A0).  Return NULL for no match.
  */
 char *nl_mac2str(char *ifname) {
-    int buflen = 20;
+    int buflen = 64;
     char *buf = NULL;
     struct nl_handle *handle = NULL;
     struct nl_cache *cache = NULL;
