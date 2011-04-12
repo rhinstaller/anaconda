@@ -1588,15 +1588,6 @@ static void doLoaderMain(struct loaderData_s *loaderData,
                 logMessage(DEBUGLVL, "in doLoaderMain, calling readNetConfig()");
                 rc = readNetConfig(devName, &iface, loaderData->netCls, loaderData->method);
 
-                /* set the hostname if we have that */
-                if (loaderData->hostname) {
-                    if (sethostname(loaderData->hostname,
-                                    strlen(loaderData->hostname))) {
-                        logMessage(ERROR, "error setting hostname to %s",
-                                   loaderData->hostname);
-                    }
-                }
-
                 free(ret);
                 ret = NULL;
 
