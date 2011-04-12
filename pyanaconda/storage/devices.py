@@ -697,6 +697,7 @@ class StorageDevice(Device):
 
         if self.originalFormat.exists:
             self.originalFormat.teardown()
+        self.format.cacheMajorminor()
         if self.format.exists:
             self.format.teardown()
         udev_settle()

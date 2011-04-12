@@ -173,6 +173,7 @@ class DeviceFormat(object):
         self.uuid = kwargs.get("uuid")
         self.exists = kwargs.get("exists")
         self.options = kwargs.get("options")
+        self._majorminor = None
         self._migrate = False
 
         # don't worry about existence if this is a DeviceFormat instance
@@ -257,6 +258,16 @@ class DeviceFormat(object):
         except Exception, e:
             log.warning("failed to notify kernel of change: %s" % e)
 
+    def cacheMajorminor(self):
+        """ Cache the value of self.majorminor. 
+
+            Once a device node of this format's device disappears (for instance
+            after a teardown), it is no longer possible to figure out the value
+            of self.majorminor pseudo-unique string. Call this method before
+            that happens for caching this.
+        """
+        self._majorminor = None
+        return self.majorminor # this does the caching
 
     def create(self, *args, **kwargs):
         log_method_call(self, device=self.device,
@@ -396,22 +407,22 @@ class DeviceFormat(object):
     @property
     def majorminor(self):
         """A string suitable for using as a pseudo-unique ID in kickstart."""
+        if not self._majorminor:
+            # If this is a device-mapper device, we have to get the DM node and
+            # build the sysfs path from that.
+            try:
+                device = dm_node_from_name(os.path.basename(self.device))
+            except DMError:
+                device = self.device
 
-        # If this is a device-mapper device, we have to get the DM node and
-        # build the sysfs path from that.
-        try:
-            device = dm_node_from_name(os.path.basename(self.device))
-        except DMError:
-            device = self.device
+            sysfs_path = get_sysfs_path_by_name(device)
+            dev = udev_get_device(sysfs_path[4:])
 
-        sysfs_path = get_sysfs_path_by_name(device)
-        dev = udev_get_device(sysfs_path[4:])
-        return "%03d%03d" % (udev_device_get_major(dev), udev_device_get_minor(dev))
+            self._majorminor = "%03d%03d" %\
+                (udev_device_get_major(dev), udev_device_get_minor(dev))
+        return self._majorminor
 
     def writeKS(self, f):
         return
 
-
 collect_device_format_classes()
-
-
