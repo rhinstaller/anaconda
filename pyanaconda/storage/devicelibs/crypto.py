@@ -73,24 +73,39 @@ def luks_status(name):
 
 def luks_format(device,
                 passphrase=None,
-                cipher=None, key_size=None):
+                cipher=None, key_size=None, key_file=None):
     if not passphrase:
         raise ValueError("luks_format requires passphrase")
 
     cs = CryptSetup(device=device, yesDialog = askyes, logFunc = dolog, passwordDialog = askpassphrase)
+
     #None is not considered as default value and pycryptsetup doesn't accept it
     #so we need to filter out all Nones
     kwargs = {}
-    kwargs["passphrase"] = passphrase
-    if   cipher: kwargs["cipher"]  = cipher
-    if   cipher: kwargs["cipherMode"]  = cipherMode
-    if key_size: kwargs["keysize"]  = key_size
+
+    # Split cipher designator to cipher name and cipher mode
+    cipherType = None
+    cipherMode = None
+    if cipher:
+        cparts = cipher.split("-")
+        cipherType = "".join(cparts[0:1])
+        cipherMode = "-".join(cparts[1:])
+    
+    if cipherType: kwargs["cipher"]  = cipherTy
+    if cipherMode: kwargs["cipherMode"]  = cipherMo
+    if   key_size: kwargs["keysize"]  = key_size
 
     rc = cs.luksFormat(**kwargs)
     if rc:
         raise CryptoError("luks_format failed for '%s'" % device)
 
-def luks_open(device, name, passphrase=None):
+    # activate first keyslot
+    cs.addKeyByVolumeKey(newPassphrase = passphrase)
+    if rc:
+        raise CryptoError("luks_add_key_by_volume_key failed for '%s'" % device)
+
+
+def luks_open(device, name, passphrase=None, key_file=None):
     if not passphrase:
         raise ValueError("luks_format requires passphrase")
 
@@ -109,7 +124,7 @@ def luks_close(name):
 
 def luks_add_key(device,
                  new_passphrase=None,
-                 passphrase=None):
+                 passphrase=None, key_file=None):
 
     if not passphrase:
         raise ValueError("luks_add_key requires passphrase")
@@ -122,7 +137,7 @@ def luks_add_key(device,
 
 def luks_remove_key(device,
                     del_passphrase=None,
-                    passphrase=None):
+                    passphrase=None, key_file=None):
 
     if not passphrase:
         raise ValueError("luks_remove_key requires passphrase")
