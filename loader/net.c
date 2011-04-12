@@ -1532,56 +1532,6 @@ int writeEnabledNetInfo(iface_t *iface) {
     }
 
 
-    /* Global settings */
-    if ((fp = fopen(SYSCONFIG_PATH"/.network", "w")) == NULL) {
-        return 9;
-    }
-
-    if (!FL_NOIPV4(flags)) {
-        fprintf(fp, "NETWORKING=yes\n");
-    }
-
-#ifdef ENABLE_IPV6
-    if (!FL_NOIPV6(flags)) {
-        fprintf(fp, "NETWORKING_IPV6=yes\n");
-    }
-#endif
-
-    if (iface->hostname != NULL) {
-        fprintf(fp, "HOSTNAME=%s\n", iface->hostname);
-    }
-
-    if (iface_have_in_addr(&iface->gateway)) {
-        if (inet_ntop(AF_INET, &iface->gateway, buf,
-                      INET_ADDRSTRLEN) == NULL) {
-            fclose(fp);
-            return 10;
-        }
-
-        fprintf(fp, "GATEWAY=%s\n", buf);
-    }
-
-#ifdef ENABLE_IPV6
-    if (iface_have_in6_addr(&iface->gateway6)) {
-        if (inet_ntop(AF_INET6, &iface->gateway6, buf,
-                      INET6_ADDRSTRLEN) == NULL) {
-            fclose(fp);
-            return 11;
-        }
-
-        fprintf(fp, "IPV6_DEFAULTGW=%s\n", buf);
-    }
-#endif
-
-    if (fclose(fp) == EOF) {
-        return 12;
-    }
-
-    if (rename(SYSCONFIG_PATH"/.network",
-               SYSCONFIG_PATH"/network") == -1) {
-        return 15;
-    }
-
     return 0;
 }
 
