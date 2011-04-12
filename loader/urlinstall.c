@@ -171,12 +171,12 @@ int loadUrlImages(struct loaderData_s *loaderData) {
 
     checked_asprintf(&url, "%s/images/%s", loaderData->instRepo, "updates.img");
 
-    if (!loadSingleUrlImage(loaderData, url, "/tmp/updates-disk.img", "/tmp/update-disk", 1)) {
-        copyDirectory("/tmp/update-disk", "/tmp/updates", copyWarnFn,
+    if (!loadSingleUrlImage(loaderData, url, "/tmp/updates-disk.img", "/mnt/install/update-disk", 1)) {
+        copyDirectory("/mnt/install/update-disk", "/tmp/updates", copyWarnFn,
                       copyErrorFn);
-        umount("/tmp/update-disk");
+        umount("/mnt/install/update-disk");
         unlink("/tmp/updates-disk.img");
-        unlink("/tmp/update-disk");
+        unlink("/mnt/install/update-disk");
     } else if (!access("/tmp/updates-disk.img", R_OK)) {
         unpack_archive_file("/tmp/updates-disk.img", "/tmp/updates");
         unlink("/tmp/updates-disk.img");
@@ -186,12 +186,12 @@ int loadUrlImages(struct loaderData_s *loaderData) {
 
     checked_asprintf(&url, "%s/images/%s", loaderData->instRepo, "product.img");
 
-    if (!loadSingleUrlImage(loaderData, url, "/tmp/product-disk.img", "/tmp/product-disk", 1)) {
-        copyDirectory("/tmp/product-disk", "/tmp/product", copyWarnFn,
+    if (!loadSingleUrlImage(loaderData, url, "/tmp/product-disk.img", "/mnt/install/product-disk", 1)) {
+        copyDirectory("/mnt/install/product-disk", "/tmp/product", copyWarnFn,
                       copyErrorFn);
-        umount("/tmp/product-disk");
+        umount("/mnt/install/product-disk");
         unlink("/tmp/product-disk.img");
-        unlink("/tmp/product-disk");
+        unlink("/mnt/install/product-disk");
     }
 
     free(url);

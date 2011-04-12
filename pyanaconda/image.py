@@ -40,18 +40,18 @@ def findFirstIsoImage(path, messageWindow):
         if not isys.isIsoImage(what):
             continue
 
-        log.debug("mounting %s on /mnt/cdimage", what)
+        log.debug("mounting %s on /mnt/install/cdimage", what)
         try:
-            isys.mount(what, "/mnt/cdimage", fstype="iso9660", readOnly=True)
+            isys.mount(what, "/mnt/install/cdimage", fstype="iso9660", readOnly=True)
         except SystemError:
             continue
 
-        if not os.access("/mnt/cdimage/.discinfo", os.R_OK):
-            isys.umount("/mnt/cdimage", removeDir=False)
+        if not os.access("/mnt/install/cdimage/.discinfo", os.R_OK):
+            isys.umount("/mnt/install/cdimage", removeDir=False)
             continue
 
         log.debug("Reading .discinfo")
-        f = open("/mnt/cdimage/.discinfo")
+        f = open("/mnt/install/cdimage/.discinfo")
         f.readline() # skip timestamp
         f.readline() # skip release description
         discArch = f.readline().strip() # read architecture
@@ -59,14 +59,14 @@ def findFirstIsoImage(path, messageWindow):
 
         log.debug("discArch = %s" % discArch)
         if discArch != arch:
-            isys.umount("/mnt/cdimage", removeDir=False)
+            isys.umount("/mnt/install/cdimage", removeDir=False)
             continue
 
         # If there's no repodata, there's no point in trying to
         # install from it.
-        if not os.access("/mnt/cdimage/repodata", os.R_OK):
+        if not os.access("/mnt/install/cdimage/repodata", os.R_OK):
             log.warning("%s doesn't have repodata, skipping" %(what,))
-            isys.umount("/mnt/cdimage", removeDir=False)
+            isys.umount("/mnt/install/cdimage", removeDir=False)
             continue
 
         # warn user if images appears to be wrong size
@@ -86,7 +86,7 @@ def findFirstIsoImage(path, messageWindow):
                 sys.exit(0)
 
         log.info("Found disc at %s" % f)
-        isys.umount("/mnt/cdimage", removeDir=False)
+        isys.umount("/mnt/install/cdimage", removeDir=False)
         return f
 
     return None
@@ -102,7 +102,7 @@ def getMediaId(path):
         return None
 
 # This mounts the directory containing the iso images, and places the
-# mount point in /mnt/isodir.
+# mount point in /mnt/install/isodir.
 def mountDirectory(methodstr, messageWindow):
     if methodstr.startswith("hd:"):
         method = methodstr[3:]
@@ -124,12 +124,12 @@ def mountDirectory(methodstr, messageWindow):
         return
 
     # No need to mount it again.
-    if os.path.ismount("/mnt/isodir"):
+    if os.path.ismount("/mnt/install/isodir"):
         return
 
     while True:
         try:
-            isys.mount(device, "/mnt/isodir", fstype=fstype, options=options)
+            isys.mount(device, "/mnt/install/isodir", fstype=fstype, options=options)
             break
         except SystemError as msg:
             log.error("couldn't mount ISO source directory: %s" % msg)

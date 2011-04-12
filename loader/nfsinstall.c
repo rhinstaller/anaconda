@@ -184,25 +184,25 @@ static unsigned int isNfsIso(struct loaderData_s *loaderData) {
     parseNfsHostPathOpts(loaderData->instRepo, &host, &path, &opts);
     checked_asprintf(&url, "%s:%s", host, path);
 
-    if (doPwMount(url, "/mnt/isodir", "nfs", opts, NULL)) {
+    if (doPwMount(url, "/mnt/install/isodir", "nfs", opts, NULL)) {
         logMessage(ERROR, "couldn't mount %s to look for NFSISO", url);
         goto cleanup1;
     }
 
-    files = get_file_list("/mnt/isodir", ends_with_iso);
+    files = get_file_list("/mnt/install/isodir", ends_with_iso);
     if (!files) {
-        logMessage(ERROR, "no ISO images present in /mnt/isodir");
+        logMessage(ERROR, "no ISO images present in /mnt/install/isodir");
         goto cleanup2;
     }
 
     /* mount the first image and check for a .treeinfo file */
-    checked_asprintf(&buf, "/mnt/isodir/%s", files[0]);
-    if (doPwMount(buf, "/tmp/testmnt", "auto", "ro", NULL)) {
+    checked_asprintf(&buf, "/mnt/install/isodir/%s", files[0]);
+    if (doPwMount(buf, "/mnt/install/testmnt", "auto", "ro", NULL)) {
         logMessage(ERROR, "ISO image %s does not contain a .treeinfo file", files[0]);
         goto cleanup3;
     }
 
-    if (access("/tmp/testmnt/.treeinfo", R_OK)) {
+    if (access("/mnt/install/testmnt/.treeinfo", R_OK)) {
         logMessage(ERROR, ".treeinfo file is not accessible");
         goto cleanup4;
     }
@@ -217,11 +217,11 @@ static unsigned int isNfsIso(struct loaderData_s *loaderData) {
     }
 
 cleanup4:
-    umount("/tmp/testmnt");
+    umount("/mnt/install/testmnt");
 cleanup3:
     free(buf);
 cleanup2:
-    umount("/mnt/isodir");
+    umount("/mnt/install/isodir");
 cleanup1:
     g_free(host);
     g_free(path);
@@ -280,11 +280,11 @@ int loadNfsImages(struct loaderData_s *loaderData) {
     checked_asprintf(&url, "%s:%s/RHupdates", host, path);
     logMessage(INFO, "Looking for updates in %s", url);
 
-    if (!doPwMount(url, "/tmp/update-disk", "nfs", opts, NULL)) {
+    if (!doPwMount(url, "/mnt/install/update-disk", "nfs", opts, NULL)) {
         logMessage(INFO, "Using RHupdates/ for NFS install");
-        copyDirectory("/tmp/update-disk", "/tmp/updates", NULL, NULL);
-        umount("/tmp/update-disk");
-        unlink("/tmp/update-disk");
+        copyDirectory("/mnt/install/update-disk", "/tmp/updates", NULL, NULL);
+        umount("/mnt/install/update-disk");
+        unlink("/mnt/install/update-disk");
     } else {
         logMessage(INFO, "No RHupdates/ directory found, skipping");
     }
@@ -292,17 +292,17 @@ int loadNfsImages(struct loaderData_s *loaderData) {
     free(url);
     checked_asprintf(&url, "%s:%s", host, path);
 
-    if (!doPwMount(url, "/tmp/disk-image", "nfs", opts, NULL)) {
+    if (!doPwMount(url, "/mnt/install/disk-image", "nfs", opts, NULL)) {
         free(url);
 
         logMessage(INFO, "Looking for updates in %s/updates.img", loaderData->instRepo);
-        copyUpdatesImg("/tmp/disk-image/updates.img");
+        copyUpdatesImg("/mnt/install/disk-image/updates.img");
 
         logMessage(INFO, "Looking for product in %s/product.img", loaderData->instRepo);
-        copyProductImg("/tmp/disk-image/product.img");
+        copyProductImg("/mnt/install/disk-image/product.img");
 
-        umount("/tmp/disk-image");
-        unlink("/tmp/disk-image");
+        umount("/mnt/install/disk-image");
+        unlink("/mnt/install/disk-image");
     } else {
         logMessage(INFO, "Couldn't mount %s for updates and product", loaderData->instRepo);
         free(url);
@@ -435,10 +435,10 @@ int getFileFromNfs(char * url, char * dest, struct loaderData_s * loaderData) {
 
     logMessage(INFO, "file location: nfs:%s/%s", host, file);
 
-    if (!doPwMount(host, "/tmp/mnt", "nfs", opts, NULL)) {
+    if (!doPwMount(host, "/mnt/install/testmnt", "nfs", opts, NULL)) {
         char * buf;
 
-        checked_asprintf(&buf, "/tmp/mnt/%s", file);
+        checked_asprintf(&buf, "/mnt/install/testmnt/%s", file);
 
         if (copyFile(buf, dest)) {
             logMessage(ERROR, "failed to copy file to %s", dest);
@@ -456,10 +456,10 @@ int getFileFromNfs(char * url, char * dest, struct loaderData_s * loaderData) {
     g_free(opts);
     if (ip) free(ip);
 
-    if (umount("/tmp/mnt") == -1)
-        logMessage(ERROR, "could not unmount /tmp/mnt in getFileFromNfs: %s", strerror(errno));
+    if (umount("/mnt/install/testmnt") == -1)
+        logMessage(ERROR, "could not unmount /mnt/install/testmnt in getFileFromNfs: %s", strerror(errno));
     else
-        unlink("/tmp/mnt");
+        unlink("/mnt/install/testmnt");
 
     return failed;
 }

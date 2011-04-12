@@ -21,7 +21,7 @@ class ImageTest(mock.TestCase):
         DISCINFO2 += "i386\n"
         DISCINFO2 += "1,2\n"
         
-        self.fs.open('/mnt/cdimage/.discinfo', 'w').write(DISCINFO)
+        self.fs.open('/mnt/install/cdimage/.discinfo', 'w').write(DISCINFO)
         self.fs.open('/tmp/.discinfo', 'w').write(DISCINFO2)
         
         import pyanaconda.image     
@@ -43,7 +43,7 @@ class ImageTest(mock.TestCase):
         
     def get_media_id_1_test(self):
         import pyanaconda.image
-        ret = pyanaconda.image.getMediaId('/mnt/cdimage')
+        ret = pyanaconda.image.getMediaId('/mnt/install/cdimage')
         self.assertEqual(ret, '1273712438.740122') 
         
     def get_media_id_2_test(self):         
@@ -57,14 +57,14 @@ class ImageTest(mock.TestCase):
         pyanaconda.image.os.path.ismount = mock.Mock(return_value=False)
         pyanaconda.image.mountDirectory('hd:/dev/sda1:/', mock.Mock())
         self.assertEqual(pyanaconda.image.isys.method_calls,
-            [('mount', ('/dev/sda1', '/mnt/isodir'), {'fstype': 'auto', 'options':''})])
+            [('mount', ('/dev/sda1', '/mnt/install/isodir'), {'fstype': 'auto', 'options':''})])
             
     def mount_directory_2_test(self):   
         import pyanaconda.image
         pyanaconda.image.os.path.ismount = mock.Mock(return_value=False)
         pyanaconda.image.mountDirectory('hd:sda1:/', mock.Mock())
         self.assertEqual(pyanaconda.image.isys.method_calls,
-            [('mount', ('/dev/sda1', '/mnt/isodir'), {'fstype': 'auto', 'options':''})])
+            [('mount', ('/dev/sda1', '/mnt/install/isodir'), {'fstype': 'auto', 'options':''})])
             
     def mount_directory_3_test(self):   
         import pyanaconda.image
@@ -74,19 +74,19 @@ class ImageTest(mock.TestCase):
         
     def mount_image_1_test(self):
         import pyanaconda.image
-        self.assertRaises(SystemError, pyanaconda.image.mountImage, '', '/mnt/cdimage', mock.Mock())
+        self.assertRaises(SystemError, pyanaconda.image.mountImage, '', '/mnt/install/cdimage', mock.Mock())
      
     def mount_image_2_test(self):
         import pyanaconda.image
         pyanaconda.image.os.path.ismount = mock.Mock(return_value=False)
-        ret = pyanaconda.image.mountImage('', '/mnt/cdimage', mock.Mock())
+        ret = pyanaconda.image.mountImage('', '/mnt/install/cdimage', mock.Mock())
 
         self.assertEqual(pyanaconda.image.isys.method_calls,
            [('isIsoImage', ('/Fedora-13-i386-DVD.iso',), {}),
-            ('mount', ('/Fedora-13-i386-DVD.iso', '/mnt/cdimage'),
+            ('mount', ('/Fedora-13-i386-DVD.iso', '/mnt/install/cdimage'),
                                     {'readOnly': True, 'fstype': 'iso9660'}),
-            ('umount', ('/mnt/cdimage',), {'removeDir': False}),
-            ('mount', ('/Fedora-13-i386-DVD.iso', '/mnt/cdimage'),
+            ('umount', ('/mnt/install/cdimage',), {'removeDir': False}),
+            ('mount', ('/Fedora-13-i386-DVD.iso', '/mnt/install/cdimage'),
                                     {'readOnly': True, 'fstype': 'iso9660'}),
            ])
         

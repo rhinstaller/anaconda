@@ -316,7 +316,7 @@ class AnacondaYum(yum.YumBase):
 
         # Where is the source media mounted?  This is the directory
         # where Packages/ is located.
-        self.tree = "/mnt/source"
+        self.tree = "/mnt/install/source"
 
         if hasattr(self, "use_txmbr_in_callback"):
             log.debug("enabling new callback mode")
@@ -445,15 +445,15 @@ class AnacondaYum(yum.YumBase):
                 else:
                     (device, fstype, path) = m[3:].split(":")
 
-                self.isodir = "/mnt/isodir/%s" % path
+                self.isodir = "/mnt/install/isodir/%s" % path
 
-                # This takes care of mounting /mnt/isodir first.
+                # This takes care of mounting /mnt/install/isodir first.
                 self._mountInstallImage()
                 self.mediagrabber = self.mediaHandler
             elif m.startswith("nfsiso:"):
-                self.isodir = "/mnt/isodir"
+                self.isodir = "/mnt/install/isodir"
 
-                # Calling _mountInstallImage takes care of mounting /mnt/isodir first.
+                # Calling _mountInstallImage takes care of mounting /mnt/install/isodir first.
                 if not network.hasActiveNetDev():
                     if not self.anaconda.intf.enableNetwork():
                         self._baseRepoURL = None

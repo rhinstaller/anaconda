@@ -106,13 +106,13 @@ int loadHdImages(struct loaderData_s *loaderData) {
 
     parseDeviceAndDir(loaderData->instRepo, &device, &dir);
 
-    if (doPwMount(device, "/mnt/isodir", "auto", "ro", NULL))
+    if (doPwMount(device, "/mnt/install/isodir", "auto", "ro", NULL))
         return 0;
 
     if (dir[0] == '/') {
-        checked_asprintf(&path, "/mnt/isodir%s/updates.img", dir);
+        checked_asprintf(&path, "/mnt/install/isodir%s/updates.img", dir);
     } else {
-        checked_asprintf(&path, "/mnt/isodir/%s/updates.img", dir);
+        checked_asprintf(&path, "/mnt/install/isodir/%s/updates.img", dir);
     }
 
     logMessage(INFO, "Looking for updates for HD in %s", path);
@@ -120,9 +120,9 @@ int loadHdImages(struct loaderData_s *loaderData) {
     free(path);
 
     if (dir[0] == '/') {
-        checked_asprintf(&path, "/mnt/isodir%s/product.img", dir);
+        checked_asprintf(&path, "/mnt/install/isodir%s/product.img", dir);
     } else {
-        checked_asprintf(&path, "/mnt/isodir/%s/product.img", dir);
+        checked_asprintf(&path, "/mnt/install/isodir/%s/product.img", dir);
     }
 
     logMessage(INFO, "Looking for product for HD in %s", path);
@@ -131,7 +131,7 @@ int loadHdImages(struct loaderData_s *loaderData) {
     free(device);
     free(dir);
     free(path);
-    umount("/mnt/isodir");
+    umount("/mnt/install/isodir");
 
     return 1;
 }
@@ -266,22 +266,22 @@ int promptForHardDrive(struct loaderData_s *loaderData) {
         logMessage(INFO, "partition %s selected", selpart);
 
         /* Now verify the ISO images pointed to contain an installation source. */
-        if (doPwMount(selpart, "/mnt/isodir", "auto", "ro", NULL)) {
+        if (doPwMount(selpart, "/mnt/install/isodir", "auto", "ro", NULL)) {
             logMessage(ERROR, "couldn't mount %s to verify images", selpart);
             continue;
         }
 
         if (dir[0] == '/') {
-            checked_asprintf(&buf, "/mnt/isodir%s", dir);
+            checked_asprintf(&buf, "/mnt/install/isodir%s", dir);
         } else {
-            checked_asprintf(&buf, "/mnt/isodir/%s", dir);
+            checked_asprintf(&buf, "/mnt/install/isodir/%s", dir);
         }
 
         files = get_file_list(buf, ends_with_iso);
         if (!files) {
             newtWinMessage(_("Error"), _("OK"),
                            _("That directory does not contain an installable tree."));
-            umount("/mnt/isodir");
+            umount("/mnt/install/isodir");
             free(buf);
             continue;
         }
@@ -290,31 +290,31 @@ int promptForHardDrive(struct loaderData_s *loaderData) {
 
         /* mount the first image and check for a .treeinfo file */
         if (dir[0] == '/') {
-            checked_asprintf(&buf, "/mnt/isodir%s/%s", dir, files[0]);
+            checked_asprintf(&buf, "/mnt/install/isodir%s/%s", dir, files[0]);
         } else {
-            checked_asprintf(&buf, "/mnt/isodir/%s/%s", dir, files[0]);
+            checked_asprintf(&buf, "/mnt/install/isodir/%s/%s", dir, files[0]);
         }
 
-        if (doPwMount(buf, "/tmp/testmnt", "auto", "ro", NULL)) {
+        if (doPwMount(buf, "/mnt/install/testmnt", "auto", "ro", NULL)) {
             free(buf);
             newtWinMessage(_("Error"), _("OK"),
                            _("That directory does not contain an installable tree."));
-            umount("/mnt/isodir");
+            umount("/mnt/install/isodir");
             continue;
         }
 
         free(buf);
 
-        if (access("/tmp/testmnt/.treeinfo", R_OK)) {
+        if (access("/mnt/install/testmnt/.treeinfo", R_OK)) {
             newtWinMessage(_("Error"), _("OK"),
                            _("That directory does not contain an installable tree."));
-            umount("/tmp/testmnt");
-            umount("/mnt/isodir");
+            umount("/mnt/install/testmnt");
+            umount("/mnt/install/isodir");
             continue;
         }
 
-        umount("/tmp/testmnt");
-        umount("/mnt/isodir");
+        umount("/mnt/install/testmnt");
+        umount("/mnt/install/isodir");
         break;
     }
 

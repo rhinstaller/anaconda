@@ -72,13 +72,13 @@ int readStampFileFromIso(char *file, char **timestamp, char **releasedescr) {
 
     lstat(file, &sb);
     if (S_ISBLK(sb.st_mode)) {
-	if (doPwMount(file, "/tmp/testmnt", "iso9660", "ro", NULL)) {
+	if (doPwMount(file, "/mnt/install/testmnt", "iso9660", "ro", NULL)) {
 	    logMessage(ERROR, "Failed to mount device %s to get description",
                        file);
 	    return -1;
 	}
     } else if (S_ISREG(sb.st_mode)) {
-	if (doPwMount(file, "/tmp/testmnt", "auto", "ro", NULL)) {
+	if (doPwMount(file, "/mnt/install/testmnt", "auto", "ro", NULL)) {
 	    logMessage(ERROR, "Failed to mount iso %s to get description",
                        file);
 	    return -1;
@@ -89,8 +89,8 @@ int readStampFileFromIso(char *file, char **timestamp, char **releasedescr) {
 	    return -1;
     }
 
-    if (!(dir = opendir("/tmp/testmnt"))) {
-	umount("/tmp/testmnt");
+    if (!(dir = opendir("/mnt/install/testmnt"))) {
+	umount("/mnt/install/testmnt");
 	return -1;
     }
 
@@ -107,7 +107,7 @@ int readStampFileFromIso(char *file, char **timestamp, char **releasedescr) {
     descr = NULL;
     tstamp = NULL;
     if (stampfile) {
-	snprintf(tmpstr, sizeof(tmpstr), "/tmp/testmnt/%s", stampfile);
+	snprintf(tmpstr, sizeof(tmpstr), "/mnt/install/testmnt/%s", stampfile);
 	f = fopen(tmpstr, "r");
 	if (f) {
 	    char *tmpptr;
@@ -131,7 +131,7 @@ int readStampFileFromIso(char *file, char **timestamp, char **releasedescr) {
 
     free(stampfile);
 
-    umount("/tmp/testmnt");
+    umount("/mnt/install/testmnt");
 
     if (descr != NULL && tstamp != NULL) {
 	descr[strlen(descr)-1] = '\0';
@@ -268,11 +268,11 @@ static void copyErrorFn (char *msg) {
 
 void copyUpdatesImg(char * path) {
     if (!access(path, R_OK)) {
-        if (!doPwMount(path, "/tmp/update-disk", "auto", "ro", NULL)) {
-            copyDirectory("/tmp/update-disk", "/tmp/updates", copyWarnFn,
+        if (!doPwMount(path, "/mnt/install/update-disk", "auto", "ro", NULL)) {
+            copyDirectory("/mnt/install/update-disk", "/tmp/updates", copyWarnFn,
                           copyErrorFn);
-            umount("/tmp/update-disk");
-            unlink("/tmp/update-disk");
+            umount("/mnt/install/update-disk");
+            unlink("/mnt/install/update-disk");
         } else {
             unpack_archive_file(path, "/tmp/updates");
         }
@@ -281,11 +281,11 @@ void copyUpdatesImg(char * path) {
 
 void copyProductImg(char * path) {
     if (!access(path, R_OK)) {
-        if (!doPwMount(path, "/tmp/product-disk", "auto", "ro", NULL)) {
-            copyDirectory("/tmp/product-disk", "/tmp/product", copyWarnFn,
+        if (!doPwMount(path, "/mnt/install/product-disk", "auto", "ro", NULL)) {
+            copyDirectory("/mnt/install/product-disk", "/tmp/product", copyWarnFn,
                           copyErrorFn);
-            umount("/tmp/product-disk");
-            unlink("/tmp/product-disk");
+            umount("/mnt/install/product-disk");
+            unlink("/mnt/install/product-disk");
         }
     }
 }
@@ -304,11 +304,11 @@ int getFileFromBlockDevice(char *device, char *path, char * dest) {
 
     /* some USB thumb drives and hard drives are slow to initialize */
     /* retry up to 5 times or 31 seconds */
-    rc = doPwMount(device, "/tmp/mnt", "auto", "ro", NULL);
+    rc = doPwMount(device, "/mnt/install/testmnt", "auto", "ro", NULL);
     for (i = 0; mountMightSucceedLater(rc) && i < 5; ++i) {
         logMessage(INFO, "sleeping to wait for USB storage devices");
         sleep(1 << i);
-        rc = doPwMount(device, "/tmp/mnt", "auto", "ro", NULL);
+        rc = doPwMount(device, "/mnt/install/testmnt", "auto", "ro", NULL);
         logMessage(ERROR, "error code: %d", rc);
     }
     if (rc) {
@@ -316,7 +316,7 @@ int getFileFromBlockDevice(char *device, char *path, char * dest) {
         return 2;
     }
 
-    snprintf(file, sizeof(file), "/tmp/mnt/%s", path);
+    snprintf(file, sizeof(file), "/mnt/install/testmnt/%s", path);
     logMessage(INFO, "Searching for file on path %s", file);
     
     if (access(file, R_OK)) {
@@ -327,7 +327,7 @@ int getFileFromBlockDevice(char *device, char *path, char * dest) {
 	logMessage(INFO, "file copied to %s", dest);
     }    
 
-    umount("/tmp/mnt");
-    unlink("/tmp/mnt");
+    umount("/mnt/install/testmnt");
+    unlink("/mnt/install/testmnt");
     return rc;
 }

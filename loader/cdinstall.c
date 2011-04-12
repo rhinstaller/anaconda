@@ -217,18 +217,18 @@ void queryCDMediaCheck(char *instRepo) {
              * media.  Now we need to unmount it to perform the check, then
              * remount to pretend nothing ever happened.
              */
-            umount("/mnt/source");
+            umount("/mnt/install/source");
             mediaCheckCdrom(device);
 
             do {
-                if (doPwMount(device, "/mnt/source", "iso9660", "ro", NULL)) {
+                if (doPwMount(device, "/mnt/install/source", "iso9660", "ro", NULL)) {
                     ejectCdrom(device);
                     wrongCDMessage();
                     continue;
                 }
 
-                if (access("/mnt/source/.discinfo", R_OK)) {
-                    umount("/mnt/source");
+                if (access("/mnt/install/source/.discinfo", R_OK)) {
+                    umount("/mnt/install/source");
                     ejectCdrom(device);
                     wrongCDMessage();
                     continue;
@@ -266,7 +266,7 @@ int findInstallCD(struct loaderData_s *loaderData) {
             devices[i]->device = tmp;
         }
 
-        logMessage(INFO, "trying to mount CD device %s on /mnt/source",
+        logMessage(INFO, "trying to mount CD device %s on /mnt/install/source",
                    devices[i]->device);
 
         if (!FL_CMDLINE(flags))
@@ -302,16 +302,16 @@ int findInstallCD(struct loaderData_s *loaderData) {
         if (!FL_CMDLINE(flags))
             newtPopWindow();
 
-        if ((rc = doPwMount(devices[i]->device, "/mnt/source", "iso9660", "ro", NULL)) == 0) {
-            if (!access("/mnt/source/.treeinfo", R_OK) && !access("/mnt/source/.discinfo", R_OK)) {
+        if ((rc = doPwMount(devices[i]->device, "/mnt/install/source", "iso9660", "ro", NULL)) == 0) {
+            if (!access("/mnt/install/source/.treeinfo", R_OK) && !access("/mnt/install/source/.discinfo", R_OK)) {
                  loaderData->method = METHOD_CDROM;
-                 checked_asprintf(&loaderData->instRepo, "cdrom://%s:/mnt/source", devices[i]->device);
+                 checked_asprintf(&loaderData->instRepo, "cdrom://%s:/mnt/install/source", devices[i]->device);
                  return LOADER_OK;
             } else {
                 /* This wasn't the CD we were looking for.  Clean up and
                  * try the next drive.
                  */
-                umount("/mnt/source");
+                umount("/mnt/install/source");
             }
         }
     }
@@ -360,16 +360,16 @@ int loadCdromImages(struct loaderData_s *loaderData) {
     tmp = loaderData->instRepo+8;
     checked_asprintf(&device, "%.*s", (int) (strchr(tmp, ':')-tmp), tmp);
 
-    if (doPwMount(device, "/mnt/source", "auto", "ro", NULL))
+    if (doPwMount(device, "/mnt/install/source", "auto", "ro", NULL))
         return 0;
 
-    logMessage(INFO, "Looking for updates in /mnt/source/images/updates.img");
-    copyUpdatesImg("/mnt/source/images/updates.img");
+    logMessage(INFO, "Looking for updates in /mnt/install/source/images/updates.img");
+    copyUpdatesImg("/mnt/install/source/images/updates.img");
 
-    logMessage(INFO, "Looking for product in /mnt/source/images/product.img");
-    copyProductImg("/mnt/source/images/product.img");
+    logMessage(INFO, "Looking for product in /mnt/install/source/images/product.img");
+    copyProductImg("/mnt/install/source/images/product.img");
 
-    umount("/mnt/source");
+    umount("/mnt/install/source");
     return 1;
 }
 

@@ -443,7 +443,7 @@ int loadDriverFromMedia(int class, struct loaderData_s *loaderData,
                 break;
             }
             /* make sure nothing is mounted when we get here */
-            num = umount("/tmp/dpart");
+            num = umount("/mnt/install/dpart");
             if (num == -1) { 
                 logMessage(ERROR, "error unmounting: %m");
                 if ((errno != EINVAL) && (errno != ENOENT))
@@ -451,7 +451,7 @@ int loadDriverFromMedia(int class, struct loaderData_s *loaderData,
             }
 
             logMessage(INFO, "trying to mount %s as partition", part);
-            if (doPwMount(part, "/tmp/dpart", "auto", "ro", NULL)) {
+            if (doPwMount(part, "/mnt/install/dpart", "auto", "ro", NULL)) {
                 newtWinMessage(_("Error"), _("OK"),
                                _("Failed to mount partition."));
                 stage = DEV_PART;
@@ -461,9 +461,9 @@ int loadDriverFromMedia(int class, struct loaderData_s *loaderData,
             ddfile = newt_select_file(_("Select driver disk image"),
                                       _("Select the file which is your driver "
                                         "disk image."),
-                                      "/tmp/dpart", NULL);
+                                      "/mnt/install/dpart", NULL);
             if (ddfile == NULL) {
-                umount("/tmp/dpart");
+                umount("/mnt/install/dpart");
                 stage = DEV_PART;
                 dir = -1;
                 break;
@@ -480,13 +480,13 @@ int loadDriverFromMedia(int class, struct loaderData_s *loaderData,
                 break;
             }
             if (dir == -1) {
-                umount("/tmp/drivers");
-                unlink("/tmp/drivers");
+                umount("/mnt/install/drivers");
+                unlink("/mnt/install/drivers");
                 ddfile = NULL;
                 stage = DEV_CHOOSEFILE;
                 break;
             }
-            if (doPwMount(ddfile, "/tmp/drivers", "auto", "ro", NULL)) {
+            if (doPwMount(ddfile, "/mnt/install/drivers", "auto", "ro", NULL)) {
                 newtWinMessage(_("Error"), _("OK"),
                                _("Failed to load driver disk from file."));
                 stage = DEV_CHOOSEFILE;
@@ -514,19 +514,19 @@ int loadDriverFromMedia(int class, struct loaderData_s *loaderData,
             dir = 1;
 
             logMessage(INFO, "trying to mount %s", device);
-            if (doPwMount(device, "/tmp/drivers", "auto", "ro", NULL)) {
+            if (doPwMount(device, "/mnt/install/drivers", "auto", "ro", NULL)) {
                 newtWinMessage(_("Error"), _("OK"),
                                _("Failed to mount driver disk."));
                 stage = DEV_INSERT;
                 break;
             }
 
-            rc = verifyDriverDisk("/tmp/drivers");
+            rc = verifyDriverDisk("/mnt/install/drivers");
             if (rc == LOADER_BACK) {
                 newtWinMessage(_("Error"), _("OK"),
                                _("Driver disk is invalid for this "
                                  "release of %s."), getProductName());
-                umount("/tmp/drivers");
+                umount("/mnt/install/drivers");
                 stage = DEV_INSERT;
                 break;
             }
@@ -544,8 +544,8 @@ int loadDriverFromMedia(int class, struct loaderData_s *loaderData,
             if (devices)
                 for(; devices[before]; before++);
 
-            rc = loadDriverDisk(loaderData, "/tmp/drivers");
-            umount("/tmp/drivers");
+            rc = loadDriverDisk(loaderData, "/mnt/install/drivers");
+            umount("/mnt/install/drivers");
             if (rc == LOADER_BACK) {
                 dir = -1;
                 if (ddfile != NULL)
@@ -558,9 +558,9 @@ int loadDriverFromMedia(int class, struct loaderData_s *loaderData,
             stage = DEV_PROBE;
 
             if (ddfile != NULL) {
-                umount("/tmp/drivers");
-                unlink("/tmp/drivers");
-                umount("/tmp/dpart");
+                umount("/mnt/install/drivers");
+                unlink("/mnt/install/drivers");
+                umount("/mnt/install/dpart");
             }
         }
 
@@ -700,24 +700,24 @@ void getDDFromSource(struct loaderData_s * loaderData, char * src, GTree *module
         return;
     }
 
-    if (!doPwMount(path, "/tmp/drivers", "auto", "ro", NULL)) {
-        loadFromLocation(loaderData, "/tmp/drivers", moduleState);
-        umount("/tmp/drivers");
-        unlink("/tmp/drivers");
+    if (!doPwMount(path, "/mnt/install/drivers", "auto", "ro", NULL)) {
+        loadFromLocation(loaderData, "/mnt/install/drivers", moduleState);
+        umount("/mnt/install/drivers");
+        unlink("/mnt/install/drivers");
         if (unlinkf) unlink(path);
     }
 
 }
 
 void getDDFromDev(struct loaderData_s * loaderData, char * dev, GTree* moduleState) {
-    if (doPwMount(dev, "/tmp/drivers", "auto", "ro", NULL)) {
+    if (doPwMount(dev, "/mnt/install/drivers", "auto", "ro", NULL)) {
         logMessage(ERROR, "unable to mount driver disk %s", dev);
         return;
     }
 
-    loadFromLocation(loaderData, "/tmp/drivers", moduleState);
-    umount("/tmp/drivers");
-    unlink("/tmp/drivers");
+    loadFromLocation(loaderData, "/mnt/install/drivers", moduleState);
+    umount("/mnt/install/drivers");
+    unlink("/mnt/install/drivers");
 }
 
 
@@ -771,12 +771,12 @@ int loadDriverDiskFromPartition(struct loaderData_s *loaderData, char* device)
     int rc;
 
     logMessage(INFO, "trying to mount %s", device);
-    if (doPwMount(device, "/tmp/drivers", "auto", "ro", NULL)) {
+    if (doPwMount(device, "/mnt/install/drivers", "auto", "ro", NULL)) {
         logMessage(ERROR, "Failed to mount driver disk.");
         return -1;
     }
 
-    rc = verifyDriverDisk("/tmp/drivers");
+    rc = verifyDriverDisk("/mnt/install/drivers");
     if (rc == LOADER_BACK) {
         logMessage(ERROR, "Driver disk is invalid for this "
                 "release of %s.", getProductName());
@@ -784,8 +784,8 @@ int loadDriverDiskFromPartition(struct loaderData_s *loaderData, char* device)
         return -2;
     }
 
-    rc = loadDriverDisk(loaderData, "/tmp/drivers");
-    umount("/tmp/drivers");
+    rc = loadDriverDisk(loaderData, "/mnt/install/drivers");
+    umount("/mnt/install/drivers");
     if (rc == LOADER_BACK) {
         return -3;
     }

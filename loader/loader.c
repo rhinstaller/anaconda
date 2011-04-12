@@ -478,7 +478,7 @@ void loadUpdates(struct loaderData_s *loaderData) {
         case UPD_LOAD:
             logMessage(INFO, "UPDATES device is %s", part);
 
-            if (doPwMount(part, "/tmp/update-disk", "auto", "ro", NULL)) {
+            if (doPwMount(part, "/mnt/install/update-disk", "auto", "ro", NULL)) {
                 newtWinMessage(_("Error"), _("OK"),
                                _("Failed to mount updates disk"));
                 stage = UPD_PROMPT;
@@ -486,14 +486,14 @@ void loadUpdates(struct loaderData_s *loaderData) {
             } else {
                 /* Copy everything to /tmp/updates so we can unmount the disk  */
                 winStatus(40, 3, _("Updates"), _("Reading anaconda updates"));
-                if (!copyDirectory("/tmp/update-disk", "/tmp/updates", copyWarnFn,
+                if (!copyDirectory("/mnt/install/update-disk", "/tmp/updates", copyWarnFn,
                                    copyErrorFn)) {
                     dir = 1;
                     stage = UPD_DONE;
                 }
 
                 newtPopWindow();
-                umount("/tmp/update-disk");
+                umount("/mnt/install/update-disk");
             }
 
         case UPD_DONE:

@@ -1470,8 +1470,8 @@ def mountExistingSystem(anaconda, rootEnt,
     else:
         readOnly = ""
 
-    if rootDevice.protected and os.path.ismount("/mnt/isodir"):
-        isys.mount("/mnt/isodir",
+    if rootDevice.protected and os.path.ismount("/mnt/install/isodir"):
+        isys.mount("/mnt/install/isodir",
                    rootPath,
                    fstype=rootDevice.format.type,
                    bindMount=True)
