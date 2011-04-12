@@ -34,4 +34,5 @@ fi
 # This will kill all programs in the loader group and restart the
 # service.
 systemctl stop loader.service
+anaconda-cleanup
 systemctl start --no-block loader.service
