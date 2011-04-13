@@ -1,14 +1,15 @@
 #!/usr/bin/python
 """
-    image install:
-
+    always:
         - unmount everything under /mnt/sysimage
         - unmount everything under /mnt/install
+
+    image install:
+
         - populate a devicetree with only the image "disks"
 
     live install:
 
-        - unmount everything under /mnt/sysimage
         - unmount everything under /media
         - populate a devicetree and tear everything down
 
@@ -70,25 +71,15 @@ for mounted in reversed(open("/proc/mounts").readlines()):
     if mountpoint.startswith("/mnt/anactest"):
         continue
 
-    # If this is for an image install, only unmount all filesystems under
-    # /mnt/sysimage and /mnt/install.
-    if image_install and not (mountpoint.startswith("/mnt/sysimage") or \
-                              mountpoint.startswith("/mnt/install")):
-        continue
+    # Always clean up anaconda's mountpoints.
+    if mountpoint.startswith("/mnt/sysimage") or mountpoint.startswith("/mnt/install"):
+        os.system("umount %s" % mountpoint)
 
     # If this is for a live install, unmount any non-nodev filesystem that
     # isn't related to the live image.
-    if (not mountpoint.startswith("/media") and
-        not device.startswith("/dev") or
-        "live" in mounted):
-        continue
-
-    # If this is neither, just unmount everything under /mnt/install.
-    if not image_install and not live_install and \
-       not mountpoint.startswith("/mnt/install"):
-        continue
-
-    os.system("umount %s" % mountpoint)
+    if (mountpoint.startswith("/media") or device.startswith("/dev")) and \
+       not "live" in mounted:
+        os.system("umount %s" % mountpoint)
 
 os.system("udevadm control --env=ANACONDA=1")
 os.system("udevadm trigger --subsystem-match block")
