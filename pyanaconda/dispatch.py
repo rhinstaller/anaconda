@@ -33,7 +33,7 @@ from packages import setFileCons
 from storage import storageInitialize
 from storage import storageComplete
 from storage.partitioning import doAutoPartition
-from bootloader import writeBootloader, bootloaderSetupChoices
+from bootloader import writeBootloader
 from flags import flags
 from upgrade import upgradeMountFilesystems
 from upgrade import restoreTime

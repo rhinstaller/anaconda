@@ -1732,22 +1732,6 @@ class SILO(YabootSILOBase):
 
 """ anaconda-specific functions """
 
-# this doesn't need to exist anymore, but the messageWindow probably needs to
-# go somewhere
-def bootloaderSetupChoices(anaconda):
-    if anaconda.dir == DISPATCH_BACK:
-        rc = anaconda.intf.messageWindow(_("Warning"),
-                _("Filesystems have already been activated.  You "
-                  "cannot go back past this point.\n\nWould you like to "
-                  "continue with the installation?"),
-                type="custom", custom_icon=["error","error"],
-                custom_buttons=[_("_Exit installer"), _("_Continue")])
-
-        if rc == 0:
-            sys.exit(0)
-        return DISPATCH_FORWARD
-
-
 def writeSysconfigKernel(anaconda, default_kernel):
     f = open(anaconda.rootPath + "/etc/sysconfig/kernel", "w+")
     f.write("# UPDATEDEFAULT specifies if new-kernel-pkg should make\n"
