@@ -602,9 +602,9 @@ class NetworkData(commands.network.F16_NetworkData):
         if devices.has_key(device):
             dev = devices[device]
         else:
-            for devname in devices:
-                if isys.getMacAddress(devname) == device.upper():
-                    devices[devname]
+            for (key, val) in devices.iteritems():
+                if val.get("HWADDR").lower() == device.lower():
+                    dev = val
                     break
 
         if self.hostname != "":

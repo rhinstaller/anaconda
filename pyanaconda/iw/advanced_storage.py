@@ -30,7 +30,6 @@ from pyanaconda import network
 from pyanaconda import partIntfHelpers as pih
 import pyanaconda.storage.fcoe
 import pyanaconda.storage.iscsi
-import isys
 
 import logging
 log = logging.getLogger("anaconda")
@@ -338,7 +337,7 @@ def addFcoeDrive(anaconda):
         else:
             desc = "%s" %(dev,)
 
-        mac = isys.getMacAddress(dev)
+        mac = netdevs[dev].get("HWADDR")
         if mac:
             desc = "%s - %s" %(desc, mac)
 
