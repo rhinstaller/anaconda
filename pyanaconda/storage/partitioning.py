@@ -848,11 +848,10 @@ def doPartitioning(storage, bootloader=None):
             part.req_size = part.req_base_size
 
     try:
-        bootDev = storage.platform.bootDevice
-    except DeviceError:
+        storage.platform.bootDevice.req_bootable = True
+    except AttributeError:
+        # there's no stage2 device. hopefully it's temporary.
         pass
-    else:
-        bootDev.req_bootable = True
 
     removeNewPartitions(disks, partitions)
     free = getFreeRegions(disks)
