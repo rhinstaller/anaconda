@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 13.21.109\n"
+"Project-Id-Version: anaconda 13.21.111\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2011-04-05 19:40+0200\n"
+"POT-Creation-Date: 2011-04-13 10:33+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1069,17 +1069,17 @@ msgstr ""
 msgid "iSCSI %s Error"
 msgstr ""
 
-#: platform.py:100 platform.py:349 platform.py:417 platform.py:538
+#: platform.py:100 platform.py:348 platform.py:416 platform.py:537
 #: ui/create-storage.glade.h:15
 msgid "RAID Device"
 msgstr ""
 
-#: platform.py:101 platform.py:104 platform.py:350 platform.py:418
-#: platform.py:539 platform.py:542
+#: platform.py:101 platform.py:104 platform.py:349 platform.py:417
+#: platform.py:538 platform.py:541
 msgid "Master Boot Record (MBR)"
 msgstr ""
 
-#: platform.py:103 platform.py:541
+#: platform.py:103 platform.py:540
 msgid "First sector of boot partition"
 msgstr ""
 
@@ -1108,46 +1108,46 @@ msgstr ""
 msgid "Bootable partitions cannot be on an encrypted block device"
 msgstr ""
 
-#: platform.py:228
+#: platform.py:227
 msgid "EFI System Partition"
 msgstr ""
 
-#: platform.py:240
+#: platform.py:239
 msgid "You have not created a /boot/efi partition."
 msgstr ""
 
-#: platform.py:246
+#: platform.py:245
 msgid "/boot/efi is not EFI."
 msgstr ""
 
-#: platform.py:262
+#: platform.py:261
 #, python-format
 msgid "%s must have a %s disk label."
 msgstr ""
 
-#: platform.py:294
+#: platform.py:293
 #, python-format
 msgid "%s must have a bsd disk label."
 msgstr ""
 
-#: platform.py:306
+#: platform.py:305
 #, python-format
 msgid "The disk %s requires at least 1MB of free space at the beginning."
 msgstr ""
 
-#: platform.py:352
+#: platform.py:351
 msgid "PPC PReP Boot"
 msgstr ""
 
-#: platform.py:368
+#: platform.py:367
 msgid "The boot partition must be within the first 4MB of the disk."
 msgstr ""
 
-#: platform.py:420 platform.py:423
+#: platform.py:419 platform.py:422
 msgid "Apple Bootstrap"
 msgstr ""
 
-#: platform.py:437
+#: platform.py:436
 #, python-format
 msgid "%s must have a mac disk label."
 msgstr ""

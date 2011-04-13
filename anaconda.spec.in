@@ -221,6 +221,14 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Wed Apr 13 2011 Martin Sivak <msivak@redhat.com> - 13.21.112-1
+- Add more files needed by sshd in fips mode (mgracik)
+  Resolves: rhbz#692825
+- Fix traceback of network --device=<MAC> (rvykydal)
+  Resolves: rhbz#694768
+- Remove maximum limit on EFI partition (bcl)
+  Resolves: rhbz#684860
+
 * Wed Apr 06 2011 David Cantrell <dcantrell@redhat.com> - 13.21.111-1
 - Add libraries needed for fips mode to initrd on s390 (mgracik)
   Resolves: rhbz#692825
