@@ -459,7 +459,8 @@ class Network:
     def gateway(self):
         """GATEWAY - last device in list wins"""
         for dev in reversed(self.netdevices.values()):
-            if dev.get('GATEWAY'):
+            if (dev.get('GATEWAY') and
+                dev.get('DEFROUTE') != "no"):
                 return dev.get('GATEWAY')
         return ""
 
@@ -467,7 +468,8 @@ class Network:
     def ipv6_defaultgw(self):
         """IPV6_DEFAULTGW - last device in list wins"""
         for dev in reversed(self.netdevices.values()):
-            if dev.get('IPV6_DEFAULTGW'):
+            if (dev.get('IPV6_DEFAULTGW') and
+                dev.get('DEFROUTE') != "no"):
                 return dev.get('IPV6_DEFAULTGW')
         return ""
 
