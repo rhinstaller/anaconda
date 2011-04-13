@@ -558,7 +558,6 @@ class NetworkData(commands.network.F16_NetworkData):
         if flags.imageInstall:
             if self.hostname != "":
                 self.anaconda.network.setHostname(self.hostname)
-                self.anaconda.network.overrideDHCPhostname = True
 
             # Only set hostname
             return
@@ -603,7 +602,6 @@ class NetworkData(commands.network.F16_NetworkData):
 
         if self.hostname != "":
             self.anaconda.network.setHostname(self.hostname)
-            self.anaconda.network.overrideDHCPhostname = True
             if not dev:
                 # Only set hostname
                 return
@@ -622,6 +620,10 @@ class NetworkData(commands.network.F16_NetworkData):
                     dev.set(("IPADDR", self.ip))
                 if (self.netmask):
                     dev.set(("NETMASK", self.netmask))
+
+            if self.bootProto == "dhcp" and self.hostname:
+                dev.set(("DHCP_HOSTNAME", self.hostname))
+
 
         # ipv6 settings
         if self.noipv6:

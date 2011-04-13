@@ -346,7 +346,6 @@ class Network:
     def __init__(self):
 
         self.hostname = socket.gethostname()
-        self.overrideDHCPhostname = False
 
         self.update()
         # We want wireless devices to be nm controlled by default
@@ -622,8 +621,9 @@ class Network:
                 line += " --essid %s" % dev.get("ESSID")
 
             # hostname
-            if (self.overrideDHCPhostname or
-                dev.get('BOOTPROTO').lower() != "dhcp"):
+            if dev.get("DHCP_HOSTNAME"):
+                line += " --hostname %s" % dev.get("DHCP_HOSTNAME")
+            elif dev.get("BOOTPROTO").lower != "dhcp":
                 if (self.hostname and
                     self.hostname != "localhost.localdomain"):
                     line += " --hostname %s" % self.hostname
@@ -745,12 +745,6 @@ class Network:
         # /etc/sysconfig/network-scripts/ifcfg-*
         # /etc/sysconfig/network-scripts/keys-*
         for dev in devices:
-
-            bootproto = dev.get('BOOTPROTO').lower()
-            # write out the hostname as DHCP_HOSTNAME if given (#81613)
-            if (bootproto == 'dhcp' and self.hostname and
-                self.overrideDHCPhostname):
-                dev.set(('DHCP_HOSTNAME', self.hostname))
 
             dev.writeIfcfgFile()
 
