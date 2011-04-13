@@ -1387,8 +1387,20 @@ class Storage(object):
         return 0
 
 def getReleaseString(mountpoint):
+    relArch = None
     relName = None
     relVer = None
+
+    import rpm
+    iutil.resetRpmDb(mountpoint)
+    ts = rpm.TransactionSet(mountpoint)
+
+    # We get the arch from the initscripts package, but the version and name
+    # must come from reading the release file.
+    mi = ts.dbMatch('provides', 'initscripts')
+    for h in mi:
+        relArch = h['arch']
+        break
 
     filename = "%s/etc/redhat-release" % mountpoint
     if os.access(filename, os.R_OK):
@@ -1406,7 +1418,7 @@ def getReleaseString(mountpoint):
             relName = product
             relVer = version.split()[0]
 
-    return (relName, relVer)
+    return (relArch, relName, relVer)
 
 def findExistingRootDevices(anaconda, upgradeany=False):
     """ Return a tuple of:
@@ -1444,9 +1456,10 @@ def findExistingRootDevices(anaconda, upgradeany=False):
             continue
 
         if os.access(anaconda.rootPath + "/etc/fstab", os.R_OK):
-            (product, version) = getReleaseString(anaconda.rootPath)
+            (arch, product, version) = getReleaseString(anaconda.rootPath)
+
             if upgradeany or \
-               anaconda.instClass.productUpgradable(product, version):
+               anaconda.instClass.productUpgradable(arch, product, version):
                 rootDevs.append((device, "%s %s" % (product, version)))
             else:
                 notUpgradable.append((product, version, device.name))

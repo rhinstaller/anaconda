@@ -199,8 +199,16 @@ class BaseInstallClass(object):
     def productMatches(self, oldprod):
         pass
 
-    def productUpgradable(self, oldprod, oldver):
-        return self.productMatches(oldprod) and self.versionMatches(oldver)
+    def productUpgradable(self, arch, oldprod, oldver):
+        def archesEq(a, b):
+            import re
+
+            if re.match("i.86", a) and re.match("i.86", b):
+                return True
+            else:
+                return a == b
+
+        return self.productMatches(oldprod) and self.versionMatches(oldver) and archesEq(arch, productArch)
 
     def __init__(self):
 	pass

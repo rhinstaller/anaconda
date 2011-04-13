@@ -192,9 +192,6 @@ def doBackendSetup(anaconda):
     if anaconda.backend.doBackendSetup(anaconda) == DISPATCH_BACK:
         return DISPATCH_BACK
 
-    if anaconda.upgrade:
-        anaconda.backend.checkSupportedUpgrade(anaconda)
-
 def doPostSelection(anaconda):
     return anaconda.backend.doPostSelection(anaconda)
 
