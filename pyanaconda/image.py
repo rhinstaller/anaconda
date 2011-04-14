@@ -34,8 +34,8 @@ def findFirstIsoImage(path, messageWindow):
     files = os.listdir(path)
     arch = _arch
 
-    for f in files:
-        what = path + '/' + f
+    for fn in files:
+        what = path + '/' + fn
         log.debug("Checking %s" % (what))
         if not isys.isIsoImage(what):
             continue
@@ -78,16 +78,16 @@ def findFirstIsoImage(path, messageWindow):
                    "\n\n"
                    "It is recommended that you exit and abort your "
                    "installation, but you can choose to continue if "
-                   "you think this is in error.") % (f,),
+                   "you think this is in error.") % (fn,),
                    type="custom", custom_icon="warning",
                    custom_buttons= [_("_Exit installer"),
                                     _("_Continue")])
             if rc == 0:
                 sys.exit(0)
 
-        log.info("Found disc at %s" % f)
+        log.info("Found disc at %s" % fn)
         isys.umount("/mnt/install/cdimage", removeDir=False)
-        return f
+        return fn
 
     return None
 
