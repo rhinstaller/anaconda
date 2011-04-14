@@ -827,6 +827,8 @@ if __name__ == "__main__":
     log.info("Default encoding = %s " % sys.getdefaultencoding())
     setupDisplay(anaconda, opts)
 
+    os.system("udevadm control --env=ANACONDA=1")
+
     image_count = 0
     for image in opts.images:
         image_spec = image.rsplit(":", 1)

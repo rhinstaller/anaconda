@@ -2008,6 +2008,9 @@ int main(int argc, char ** argv) {
     extraArgs[0] = NULL;
     parseCmdLineFlags(&loaderData);
 
+    /* Set this now so it's valid for all udev trigger calls. */
+    system("udevadm control --env=ANACONDA=1");
+
     /* If the anaconda process is now being restarted, we need to do some
      * environment cleanup first.
      */
