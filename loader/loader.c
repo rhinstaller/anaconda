@@ -93,8 +93,9 @@
 #include "net.h"
 #include "readvars.h"
 #include "unpack.h"
-
+#ifdef USESELINUX
 #include <selinux/selinux.h>
+#endif
 #include "selinux.h"
 
 #include "../pyanaconda/isys/imount.h"
@@ -2225,7 +2226,7 @@ int main(int argc, char ** argv) {
     }
 
     doLoaderMain(&loaderData, modInfo);
-
+#ifdef USESELINUX
     /* now load SELinux policy before exec'ing anaconda and the shell
      * (if we're using SELinux) */
     if (FL_SELINUX(flags)) {
@@ -2236,7 +2237,7 @@ int main(int argc, char ** argv) {
             flags &= ~LOADER_FLAGS_SELINUX;
         }
     }
-
+#endif
     if (FL_NOPROBE(flags) && !loaderData.ksFile) {
         startNewt();
         manualDeviceCheck(&loaderData);
