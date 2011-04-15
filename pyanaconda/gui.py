@@ -1400,7 +1400,22 @@ class InstallControlWindow:
             self.window.set_type_hint(gtk.gdk.WINDOW_TYPE_HINT_DESKTOP)
             if gtk.gdk.screen_height() < 600:
                 i.hide()
-            self.window.maximize()
+
+            width = None
+            height = None
+            lines = iutil.execWithCapture("xrandr", ["-q"]).splitlines()
+            xrandr = filter(lambda x: "current" in x, lines)
+            if xrandr and len(xrandr) == 1:
+                fields = xrandr[0].split()
+                pos = fields.index('current')
+                if len(fields) > pos + 3:
+                    width = int(fields[pos + 1])
+                    height = int(fields[pos + 3].replace(',', ''))
+
+            if width and height:
+                self.window.set_size_request(width, height)
+
+        self.window.show()
 
         if flags.debug:
             self.mainxml.get_widget("debugButton").show_now()
