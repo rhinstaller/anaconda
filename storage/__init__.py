@@ -2220,6 +2220,8 @@ class FSSet(object):
         # assemble the whole stack in one go unless listed in the proper order
         # in mdadm.conf
         arrays.sort(key=lambda d: d.path)
+        if not arrays:
+            return ""
 
         conf = "# mdadm.conf written out by anaconda\n"
         conf += "MAILADDR root\n"
