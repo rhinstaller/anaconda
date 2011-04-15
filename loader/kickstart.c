@@ -742,9 +742,8 @@ static void setKickstartNetwork(struct loaderData_s * loaderData, PyObject *hand
             char *device = PyString_AsString(attr);
 
             /* If --device=MAC was given, translate into a device name now. */
-            if (index(device, ':') != NULL)
-                loaderData->netDev = iface_mac2device(device);
-            else
+            if (index(device, ':') == NULL ||
+                (loaderData->netDev = iface_mac2device(device)) == NULL)
                 loaderData->netDev = strdup(device);
 
             loaderData->netDev_set = 1;
