@@ -598,6 +598,7 @@ makeinitrd() {
     mkdir -p $MBD_DIR/usr/share/hal/fdi
     mkdir -p $MBD_DIR/usr/share/hwdata
     mkdir -p $MBD_DIR/etc/rc.d/init.d
+    mkdir -p $MBD_DIR/usr/bin
     mkdir -p $MBD_DIR/usr/sbin
     mkdir -p $MBD_DIR/var/run/wpa_supplicant
     mkdir -m 111 -p $MBD_DIR/var/empty/sshd
@@ -659,13 +660,16 @@ makeinitrd() {
 
         # libraries required for ssh in fips mode
         cp $IMGPATH/usr/$LIBDIR/.libcrypto.so.* $MBD_DIR/usr/$LIBDIR
+        cp $IMGPATH/usr/$LIBDIR/.libcrypto.so.* $MBD_DIR/$LIBDIR
         cp $IMGPATH/usr/$LIBDIR/.libssl.so.* $MBD_DIR/usr/$LIBDIR
+        cp $IMGPATH/usr/$LIBDIR/.libssl.co.* $MBD_DIR/$LIBDIR
         cp $IMGPATH/usr/$LIBDIR/libcrypto.so.* $MBD_DIR/usr/$LIBDIR
         cp $IMGPATH/usr/$LIBDIR/libssl.so.* $MBD_DIR/usr/$LIBDIR
         cp $IMGPATH/$LIBDIR/.libfipscheck.so.* $MBD_DIR/usr/$LIBDIR
+        cp $IMGPATH/$LIBDIR/.libfipscheck.so.* $MBD_DIR/$LIBDIR
         cp $IMGPATH/$LIBDIR/libfipscheck.so.* $MBD_DIR/usr/$LIBDIR
-        cp $IMGPATH/usr/bin/.fipscheck.hmac $MBD_DIR/sbin/.fipscheck.hmac
-        instbin $IMGPATH /usr/bin/fipscheck $MBD_DIR /sbin/fipscheck
+        cp $IMGPATH/usr/bin/.fipscheck.hmac $MBD_DIR/usr/bin/.fipscheck.hmac
+        instbin $IMGPATH /usr/bin/fipscheck $MBD_DIR /usr/bin/fipscheck
     fi
 
     if [ -n "$INITRDMODULES" ]; then
