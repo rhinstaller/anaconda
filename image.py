@@ -47,6 +47,10 @@ else:
 def presentRequiredMediaMessage(anaconda):
     reqcds = anaconda.backend.ayum.tsInfo.reqmedia.keys()
 
+    # -99 means unknown media, ignore it if present
+    while -99 in reqcds:
+        reqcds.remove(-99)
+
     # if only one CD required no need to pop up a message
     if len(reqcds) < 2:
 	return
@@ -77,8 +81,6 @@ def presentRequiredMediaMessage(anaconda):
     reqcds.sort()
     reqcdstr = ""
     for cdnum in reqcds:
-        if cdnum == -99: # non-CD bits
-            continue
 	reqcdstr += "\t\t%s %s disc #%d\n" % (product.productName, product.productVersion, cdnum,)
 		
     return anaconda.intf.messageWindow( _("Required Install Media"),
