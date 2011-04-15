@@ -77,7 +77,7 @@ class NetworkConfiguratorText:
             ksdevice = ksdevice.get("DEVICE")
 
         for devname in devnames:
-            hwaddr = isys.getMacAddress(devname)
+            hwaddr = self.netdevs[devname].get("HWADDR")
 
             if hwaddr:
                 desc = "%s - %.50s" % (devname, hwaddr)

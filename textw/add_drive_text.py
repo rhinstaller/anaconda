@@ -24,7 +24,6 @@ from snack import *
 from constants_text import *
 from constants import *
 import partIntfHelpers as pih 
-import isys
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
@@ -371,7 +370,7 @@ class addDriveDialog(object):
 
         interfaceList = Listbox(height=len(devs), scroll=1)
         for dev in devs:
-            hwaddr = isys.getMacAddress(dev)
+            hwaddr = netdevs[dev].get("HWADDR")
             if hwaddr:
                 desc = "%s - %.50s" % (dev, hwaddr)
             else:

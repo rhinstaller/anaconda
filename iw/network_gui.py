@@ -167,7 +167,7 @@ def selectInstallNetDeviceDialog(network, devices = None):
         else:
             desc = "%s" %(dev,)
 
-        hwaddr = isys.getMacAddress(dev)
+        hwaddr = network.netdevices[dev].get("HWADDR")
 
         if hwaddr:
             desc = "%s - %s" %(desc, hwaddr,)

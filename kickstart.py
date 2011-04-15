@@ -586,8 +586,8 @@ class NetworkData(commands.network.RHEL6_NetworkData):
         if devices.has_key(device):
             dev = devices[device]
         else:
-            for devname in devices:
-                if isys.getMacAddress(devname).lower() == device.lower():
+            for (key, val) in devices.iteritems():
+                if val.get("HWADDR").lower() == device.lower():
                     dev = val
                     break
 

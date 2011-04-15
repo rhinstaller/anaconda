@@ -1219,6 +1219,7 @@ int writeDisabledIfcfgFile(char *device) {
     }
 
     fprintf(fp, "DEVICE=%s\n", device);
+    fprintf(fp, "HWADDR=%s\n", iface_mac2str(device));
     fprintf(fp, "ONBOOT=no\n");
     fprintf(fp, "NM_CONTROLLED=no\n");
 
@@ -1316,6 +1317,9 @@ int writeEnabledNetInfo(iface_t *iface) {
     }
 
     fprintf(fp, "DEVICE=%s\n", iface->device);
+#if !defined(__s390__) && !defined(__s390x__)
+    fprintf(fp, "HWADDR=%s\n", iface_mac2str(iface->device));
+#endif
     fprintf(fp, "ONBOOT=yes\n");
     char *str_type = netArpTypeStr(iface);
     if (str_type) fprintf(fp, "TYPE=%s\n", str_type);
