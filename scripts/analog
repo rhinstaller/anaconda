@@ -1,4 +1,4 @@
-#! /usr/bin/python 
+#! /usr/bin/python
 #
 # analog: Remote logging manager for the Red Hat Installer
 #
@@ -43,7 +43,7 @@ INPUT_SOCKET_TEMPLATE = "$AddUnixListenSocket %(socket)s"
 RSYSLOG_TEMPLATE ="""
 #### MODULES ####
 # Provides TCP syslog reception
-$ModLoad imtcp.so  
+$ModLoad imtcp.so
 $ModLoad imuxsock
 $OmitLocalLogging on
 %(input_directive)s
@@ -53,8 +53,8 @@ $OmitLocalLogging on
 # Use default timestamp format
 $ActionFileDefaultTemplate RSYSLOG_TraditionalFileFormat
 
-# File syncing capability is disabled by default. This feature is usually not required, 
-# not useful and an extreme performance hit
+# File syncing capability is disabled by default. This feature is usually not
+# required, not useful and an extreme performance hit.
 #$ActionFileEnableSync on
 
 
@@ -137,14 +137,14 @@ def get_opts():
                                    add_help_option=False)
     parser.add_option ('-h', '--help', action="callback", callback=help_and_exit,
                        help="Display this help")
-    parser.add_option ('-o', type="string", dest="output", 
-                       default=None, 
+    parser.add_option ('-o', type="string", dest="output",
+                       default=None,
                        help="Output file")
-    parser.add_option ('-p', type="int", dest="port", 
-                       default=DEFAULT_PORT, 
+    parser.add_option ('-p', type="int", dest="port",
+                       default=DEFAULT_PORT,
                        help="TCP port the rsyslog daemon will listen on")
     parser.add_option ('-s', action="store_true", dest="stdout",
-                       default=False, 
+                       default=False,
                        help="Generate bash command to run rsyslogd on stdout (only valid when -o is also specified)")
     parser.add_option ('-u', type="string", dest="unix_socket",
                        default=None,
@@ -175,7 +175,7 @@ def generate_rsyslog_config(options, unique_id):
     if options.unix_socket:
         values["input_directive"] = INPUT_SOCKET_TEMPLATE % {'socket' : options.unix_socket}
         values["subdirectory"] = unique_id
-        
+
     config = RSYSLOG_TEMPLATE % values
     return config
 
