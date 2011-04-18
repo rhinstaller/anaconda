@@ -91,7 +91,7 @@ def findRootParts(anaconda):
             rc = anaconda.intf.messageWindow(_("Cannot Upgrade"),
                     _("Your current installation cannot be upgraded. This "
                       "is likely due to it being too old. Only the previous two "
-                      "release may be upgraded. To upgrade older releases "
+                      "releases may be upgraded. To upgrade older releases "
                       "you must first upgrade through all intermediate releases.\n\n"
                       "%s") % oldInstalls,
                 type="custom", custom_icon=["error","error"],
