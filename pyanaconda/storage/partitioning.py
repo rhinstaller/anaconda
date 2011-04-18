@@ -909,6 +909,9 @@ def doPartitioning(storage, bootloader=None):
         # moment to simplify things
         storage.devicetree._addDevice(device)
 
+    # make sure the stage1_device gets updated
+    storage.platform.bootloader.stage1_device = None
+
 def allocatePartitions(storage, disks, partitions, freespace, bootloader=None):
     """ Allocate partitions based on requested features.
 
