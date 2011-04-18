@@ -174,17 +174,6 @@ class Platform(object):
         return [PartSpec(mountpoint="/boot", fstype=self.defaultBootFSType, size=500,
                          weight=self.weight(mountpoint="/boot"))]
 
-    def validBootLoaderPartSize(self, size):
-        """ Is the given size (in MB) acceptable for a bootloader device? """
-        if not isinstance(size, int) and not isinstance(size, float):
-            return False
-
-        return ((self.bootloader.stage1_device_min_size is None or
-                 size >= self.bootloader.stage1_device_min_size)
-                and
-                (self.bootloader.stage1_device_max_size is None or
-                 size <= self.bootloader.stage1_device_max_size))
-
     def weight(self, fstype=None, mountpoint=None):
         """ Given an fstype (as a string) or a mountpoint, return an integer
             for the base sorting weight.  This is used to modify the sort
