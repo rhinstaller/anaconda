@@ -410,10 +410,10 @@ def clearPartitions(storage, bootloader=None):
     # make sure that the the boot device has the correct disklabel type if
     # we're going to completely clear it.
     for disk in storage.partitioned:
-        if not bootloader or not bootloader.stage1_device:
+        if not bootloader or not bootloader.stage1_drive:
             break
 
-        if disk in bootloader.stage1_device.disks:
+        if disk != bootloader.stage1_drive:
             continue
 
         if storage.config.clearPartType != CLEARPART_TYPE_ALL or \
@@ -961,7 +961,7 @@ def allocatePartitions(storage, disks, partitions, freespace, bootloader=None):
         req_disks.sort(key=lambda d: d.name, cmp=storage.compareDisks)
         boot_index = None
         for disk in req_disks:
-            if bootloader and disk == bootloader.stage1_device.disks[0]:
+            if bootloader and disk == bootloader.stage1_drive:
                 boot_index = req_disks.index(disk)
 
         if boot_index is not None and len(req_disks) > 1:

@@ -263,6 +263,9 @@ class BootLoader(object):
         # the device the bootloader will be installed on
         self._stage1_device = None
 
+        # the "boot drive", meaning the drive we prefer stage1 be on
+        self.stage1_drive = None
+
         self._update_only = False
 
     #
@@ -283,6 +286,7 @@ class BootLoader(object):
 
         log.debug("new bootloader stage1 device: %s" % device.name)
         self._stage1_device = device
+        self.stage1_drive = device.disks[0]
 
     @property
     def stage2_device(self):
@@ -332,6 +336,10 @@ class BootLoader(object):
         # XXX requiring partitioned may break clearpart
         drives = [d for d in self.storage.disks if d.partitioned]
         self._drives = self._sort_drives(drives)
+
+        # set "boot drive"
+        self.stage1_drive = self._drives[0]
+
         return self._drives
 
     #
@@ -503,7 +511,18 @@ class BootLoader(object):
         for slot in slots:
             devices.extend(slot)
 
-        return self._sort_drives(devices)
+        devices = self._sort_drives(devices)
+
+        # if a boot drive has been chosen put it, and devices on it, first
+        # XXX should this be done in _sort_drives instead?
+        if self.stage1_drive:
+            boot_devs = [d for d in devices if self.stage1_drive in d.disks]
+            if len(boot_devs) != len(devices):
+                for dev in reversed(boot_devs):
+                    idx = devices.index(dev)
+                    devices.insert(0, devices.pop(idx))
+
+        return devices
 
     #
     # boot/stage2 device access

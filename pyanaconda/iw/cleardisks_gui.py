@@ -62,7 +62,7 @@ class ClearDisksWindow (InstallWindow):
         cleardisks.sort(self.anaconda.storage.compareDisks)
 
         self.anaconda.storage.config.clearPartDisks = cleardisks
-        self.anaconda.bootloader.stage1_device = bootDisk
+        self.anaconda.bootloader.stage1_drive = bootDisk
 
     def getScreen (self, anaconda):
         # We can't just use exclusiveDisks here because of kickstart.  First,
@@ -76,6 +76,7 @@ class ClearDisksWindow (InstallWindow):
         # Skip this screen as well if there's only one disk to use.
         if len(disks) == 1:
             anaconda.storage.config.clearPartDisks = [disks[0].name]
+            anaconda.bootloader.stage1_drive = disks[0]
             return None
 
         (xml, self.vbox) = gui.getGladeWidget("cleardisks.glade", "vbox")
