@@ -62,7 +62,7 @@ class Platform(object):
     @property
     def bootFSTypes(self):
         """A list of all valid filesystem types for the boot partition."""
-        return self.bootloader.boot_device_format_types
+        return self.bootloader.stage2_device_format_types
 
     @property
     def defaultBootFSType(self):
@@ -72,7 +72,7 @@ class Platform(object):
     @property
     def diskLabelTypes(self):
         """A list of valid disklabel types for this architecture."""
-        return self.bootloader.target_device_disklabel_types
+        return self.bootloader.stage1_device_disklabel_types
 
     @property
     def defaultDiskLabelType(self):
@@ -88,12 +88,12 @@ class Platform(object):
 
            Return a list of error strings if incorrect disklabels are found."""
         errors = []
-        if not self.bootloader.target_device_disklabel_types:
+        if not self.bootloader.stage1_device_disklabel_types:
             return errors
 
         for disk in req.disks:
             labelType = disk.format.labelType
-            labelTypes = self.bootloader.target_device_disklabel_types
+            labelTypes = self.bootloader.stage1_device_disklabel_types
             if labelType not in labelTypes:
                 errors.append(_("%s must have a %s disk label.")
                               % (disk.name,
@@ -114,11 +114,11 @@ class Platform(object):
         #       such that it returns a list of error strings instead of
         #       True/False
 
-        if req.type not in self.bootloader.boot_device_types:
+        if req.type not in self.bootloader.stage2_device_types:
             errors.append(_("The /boot filesystem cannot be on devices of "
                             "type %s") % req.type)
         elif req.type == "mdarray":
-            raid_levels = self.bootloader.boot_device_raid_levels
+            raid_levels = self.bootloader.stage2_device_raid_levels
             if req.level not in raid_levels:
                 levels = ",".join(["RAID%d" % l for l in raid_levels])
                 errors.append(_("RAID sets containing the /boot filesystem "
@@ -175,11 +175,11 @@ class Platform(object):
         if not isinstance(size, int) and not isinstance(size, float):
             return False
 
-        return ((self.bootloader.target_device_min_size is None or
-                 size >= self.bootloader.target_device_min_size)
+        return ((self.bootloader.stage1_device_min_size is None or
+                 size >= self.bootloader.stage1_device_min_size)
                 and
-                (self.bootloader.target_device_max_size is None or
-                 size <= self.bootloader.target_device_max_size))
+                (self.bootloader.stage1_device_max_size is None or
+                 size <= self.bootloader.stage1_device_max_size))
 
     def weight(self, fstype=None, mountpoint=None):
         """ Given an fstype (as a string) or a mountpoint, return an integer
