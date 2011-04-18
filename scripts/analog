@@ -46,6 +46,7 @@ RSYSLOG_TEMPLATE ="""
 $ModLoad imtcp.so
 $ModLoad imuxsock
 $OmitLocalLogging on
+$SystemLogRateLimitInterval 0
 %(input_directive)s
 
 #### GLOBAL DIRECTIVES ####
