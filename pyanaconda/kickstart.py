@@ -262,7 +262,7 @@ class Bootloader(commands.bootloader.F15_Bootloader):
                 self.anaconda.bootloader.encrypt_password = self.isCrypted
 
             if location != None:
-                self.anaconda.bootloader.set_preferred_stage2_type(location)
+                self.anaconda.bootloader.set_preferred_stage1_type(location)
 
             if self.timeout:
                 self.anaconda.bootloader.timeout = self.timeout

@@ -438,7 +438,7 @@ class BootLoader(object):
 
         return self.target_descriptions[self.stage1_device_types[idx]]
 
-    def set_preferred_stage2_type(self, preferred):
+    def set_preferred_stage1_type(self, preferred):
         """ Set a preferred type of stage1 device.
 
             XXX should this reorder the list or remove everything else? """
