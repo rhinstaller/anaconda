@@ -150,7 +150,11 @@ class Platform(object):
 
             Returns a list of error strings.
         """
-        return self.checkDiskLabel(self.bootLoaderDevice)
+        req = self.bootLoaderDevice
+        if not req:
+            return [_("you have not created a bootloader stage1 target device")]
+
+        return self.checkDiskLabel(req)
 
     @property
     def minimumSector(self, disk):
