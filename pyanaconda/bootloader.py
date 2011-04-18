@@ -275,18 +275,25 @@ class BootLoader(object):
     def stage1_device(self):
         """ Stage1 target device. """
         if not self._stage1_device:
-            self.stage1_device = self.stage1_devices[0]
+            log.debug("no stage1 device: %s" % self.stage1_devices)
+            try:
+                self.stage1_device = self.stage1_devices[0]
+            except IndexError:
+                pass
 
         return self._stage1_device
 
     @stage1_device.setter
     def stage1_device(self, device):
-        if not self._is_valid_stage1_device(device):
+        if device and not self._is_valid_stage1_device(device):
             raise ValueError("%s is not a valid stage1 device" % device.name)
 
-        log.debug("new bootloader stage1 device: %s" % device.name)
+        log.debug("new bootloader stage1 device: %s" % getattr(device,
+                                                               "name", None))
         self._stage1_device = device
-        self.stage1_drive = device.disks[0]
+        if device:
+            self.stage1_drive = device.disks[0]
+
 
     @property
     def stage2_device(self):
