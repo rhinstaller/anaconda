@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 13.21.111\n"
+"Project-Id-Version: anaconda 13.21.112\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2011-04-13 10:33+0200\n"
+"POT-Creation-Date: 2011-04-18 17:30+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -42,8 +42,8 @@ msgstr ""
 #: loader/loader.c:1444 loader/mediacheck.c:46 loader/mediacheck.c:85
 #: loader/mediacheck.c:92 loader/mediacheck.c:96 loader/mediacheck.c:105
 #: loader/method.c:277 loader/method.c:351 loader/modules.c:382
-#: loader/modules.c:398 loader/net.c:593 loader/net.c:973 loader/net.c:1629
-#: loader/net.c:1653 loader/net.c:1972 loader/net.c:1991 loader/net.c:2003
+#: loader/modules.c:398 loader/net.c:593 loader/net.c:973 loader/net.c:1633
+#: loader/net.c:1657 loader/net.c:1976 loader/net.c:1995 loader/net.c:2007
 #: loader/nfsinstall.c:91 loader/nfsinstall.c:279 loader/nfsinstall.c:296
 #: loader/nfsinstall.c:384 loader/telnetd.c:92 loader/urlinstall.c:137
 #: loader/urlinstall.c:159 loader/urlinstall.c:221 loader/urlinstall.c:374
@@ -466,8 +466,8 @@ msgstr ""
 #: image.py:289 livecd.py:198 livecd.py:440 partIntfHelpers.py:239 text.py:359
 #: text.py:363 yuminstall.py:417 yuminstall.py:931 yuminstall.py:1046
 #: yuminstall.py:1051 yuminstall.py:1324 yuminstall.py:1391 yuminstall.py:1587
-#: yuminstall.py:1609 iw/advanced_storage.py:373 iw/advanced_storage.py:383
-#: iw/advanced_storage.py:434 iw/autopart_type.py:95 iw/cleardisks_gui.py:44
+#: yuminstall.py:1609 iw/advanced_storage.py:372 iw/advanced_storage.py:382
+#: iw/advanced_storage.py:433 iw/autopart_type.py:95 iw/cleardisks_gui.py:44
 #: iw/cleardisks_gui.py:54 iw/filter_gui.py:427 iw/osbootwidget.py:211
 #: iw/osbootwidget.py:220 iw/raid_dialog_gui.py:226 iw/task_gui.py:54
 #: iw/task_gui.py:152 iw/task_gui.py:305 iw/task_gui.py:469
@@ -1960,11 +1960,11 @@ msgid ""
 "Requested password contains non-ASCII characters, which are not allowed."
 msgstr ""
 
-#: iw/advanced_storage.py:251
+#: iw/advanced_storage.py:250
 msgid "Node Name"
 msgstr ""
 
-#: iw/advanced_storage.py:374
+#: iw/advanced_storage.py:373
 msgid "You must select a NIC to use."
 msgstr ""
 
@@ -3412,7 +3412,7 @@ msgstr ""
 #: loader/driverselect.c:178 loader/hdinstall.c:212 loader/hdinstall.c:266
 #: loader/kbd.c:119 loader/loader.c:511 loader/loader.c:528
 #: loader/loader.c:1444 loader/loader.c:1477 loader/net.c:593 loader/net.c:973
-#: loader/net.c:1972 loader/net.c:1991 loader/nfsinstall.c:91
+#: loader/net.c:1976 loader/net.c:1995 loader/nfsinstall.c:91
 #: loader/urls.c:268 storage/__init__.py:109 storage/__init__.py:155
 #: storage/devicetree.py:92 textw/constants_text.py:52
 msgid "Back"
@@ -3520,7 +3520,7 @@ msgstr ""
 #: loader/driverdisk.c:717 loader/driverdisk.c:756 loader/hdinstall.c:360
 #: loader/kickstart.c:135 loader/kickstart.c:145 loader/kickstart.c:187
 #: loader/kickstart.c:192 loader/kickstart.c:514 loader/modules.c:382
-#: loader/modules.c:398 loader/net.c:1629 loader/net.c:1653
+#: loader/modules.c:398 loader/net.c:1633 loader/net.c:1657
 #: loader/nfsinstall.c:384 loader/urlinstall.c:374 loader/urlinstall.c:385
 #: loader/urlinstall.c:392
 msgid "Kickstart Error"
@@ -4025,62 +4025,62 @@ msgstr ""
 msgid "You must enter both a valid IPv6 address and a CIDR prefix."
 msgstr ""
 
-#: loader/net.c:1630
+#: loader/net.c:1634
 #, c-format
 msgid "Bad argument to kickstart network command: %s"
 msgstr ""
 
-#: loader/net.c:1654
+#: loader/net.c:1658
 #, c-format
 msgid "Bad bootproto %s specified in network command"
 msgstr ""
 
-#: loader/net.c:1770
+#: loader/net.c:1774
 msgid "Seconds:"
 msgstr ""
 
-#: loader/net.c:1967
+#: loader/net.c:1971
 msgid "Networking Device"
 msgstr ""
 
-#: loader/net.c:1968
+#: loader/net.c:1972
 msgid ""
 "You have multiple network devices on this system. Which would you like to "
 "install through?"
 msgstr ""
 
-#: loader/net.c:1972
+#: loader/net.c:1976
 msgid "Identify"
 msgstr ""
 
-#: loader/net.c:1981
+#: loader/net.c:1985
 msgid "You can identify the physical port for"
 msgstr ""
 
-#: loader/net.c:1983
+#: loader/net.c:1987
 msgid ""
 "by flashing the LED lights for a number of seconds.  Enter a number between "
 "1 and 30 to set the duration to flash the LED port lights."
 msgstr ""
 
-#: loader/net.c:1990
+#: loader/net.c:1994
 msgid "Identify NIC"
 msgstr ""
 
-#: loader/net.c:2003
+#: loader/net.c:2007
 msgid "Invalid Duration"
 msgstr ""
 
-#: loader/net.c:2004
+#: loader/net.c:2008
 msgid "You must enter the number of seconds as an integer between 1 and 30."
 msgstr ""
 
-#: loader/net.c:2016
+#: loader/net.c:2020
 #, c-format
 msgid "Flashing %s port lights for %d seconds."
 msgstr ""
 
-#: loader/net.c:2220 loader/net.c:2224
+#: loader/net.c:2224 loader/net.c:2228
 #, c-format
 msgid "Waiting for NetworkManager to configure %s.\n"
 msgstr ""
