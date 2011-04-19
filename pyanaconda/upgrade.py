@@ -84,7 +84,7 @@ def findRootParts(anaconda):
             oldInstalls = ""
             for info in notUpgradable:
                 if None in info[:2]:
-                    oldInstalls += "on %s" % (info[2])
+                    oldInstalls += _("Unknown release on %s") % (info[2])
                 else:
                     oldInstalls += "%s %s on %s" % (info)
                 oldInstalls += "\n"
