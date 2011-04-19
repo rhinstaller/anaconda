@@ -185,7 +185,7 @@ class Platform(object):
             return 0
 
 class X86(Platform):
-    _bootloaderClass = bootloader.GRUB
+    _bootloaderClass = bootloader.GRUB2
 
 class EFI(Platform):
     _bootloaderClass = bootloader.EFIGRUB
