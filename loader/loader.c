@@ -1301,8 +1301,6 @@ static void restartSyslog(void) {
         close(conf_fd);
     }
 
-    /* rsyslog is going to take care of things, so disable console logging */
-    klogctl(8, NULL, 1);
     /* now we really start the daemon. */
     int status = system("/bin/systemctl --quiet restart rsyslog.service");
     if (status < 0 || 
@@ -1967,6 +1965,8 @@ int main(int argc, char ** argv) {
     cmdline = readvars_parse_file("/proc/cmdline");
 
     restartSyslog();
+    /* disable console logging so we don't clog the ttys */
+    klogctl(8, NULL, 1);
 
     /* check for development mode early */
     if (cmdline && g_hash_table_lookup_extended(cmdline, "devel", NULL, NULL)) {
