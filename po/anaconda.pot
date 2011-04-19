@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 13.21.112\n"
+"Project-Id-Version: anaconda 13.21.113\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2011-04-18 17:30+0200\n"
+"POT-Creation-Date: 2011-04-19 16:05+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -43,7 +43,7 @@ msgstr ""
 #: loader/mediacheck.c:92 loader/mediacheck.c:96 loader/mediacheck.c:105
 #: loader/method.c:277 loader/method.c:351 loader/modules.c:382
 #: loader/modules.c:398 loader/net.c:593 loader/net.c:973 loader/net.c:1633
-#: loader/net.c:1657 loader/net.c:1976 loader/net.c:1995 loader/net.c:2007
+#: loader/net.c:1657 loader/net.c:1975 loader/net.c:1994 loader/net.c:2006
 #: loader/nfsinstall.c:91 loader/nfsinstall.c:279 loader/nfsinstall.c:296
 #: loader/nfsinstall.c:384 loader/telnetd.c:92 loader/urlinstall.c:137
 #: loader/urlinstall.c:159 loader/urlinstall.c:221 loader/urlinstall.c:374
@@ -401,7 +401,7 @@ msgstr ""
 msgid "Unable to load title bar"
 msgstr ""
 
-#: gui.py:1619
+#: gui.py:1635
 msgid "Install Window"
 msgstr ""
 
@@ -3412,7 +3412,7 @@ msgstr ""
 #: loader/driverselect.c:178 loader/hdinstall.c:212 loader/hdinstall.c:266
 #: loader/kbd.c:119 loader/loader.c:511 loader/loader.c:528
 #: loader/loader.c:1444 loader/loader.c:1477 loader/net.c:593 loader/net.c:973
-#: loader/net.c:1976 loader/net.c:1995 loader/nfsinstall.c:91
+#: loader/net.c:1975 loader/net.c:1994 loader/nfsinstall.c:91
 #: loader/urls.c:268 storage/__init__.py:109 storage/__init__.py:155
 #: storage/devicetree.py:92 textw/constants_text.py:52
 msgid "Back"
@@ -4035,52 +4035,52 @@ msgstr ""
 msgid "Bad bootproto %s specified in network command"
 msgstr ""
 
-#: loader/net.c:1774
+#: loader/net.c:1773
 msgid "Seconds:"
 msgstr ""
 
-#: loader/net.c:1971
+#: loader/net.c:1970
 msgid "Networking Device"
 msgstr ""
 
-#: loader/net.c:1972
+#: loader/net.c:1971
 msgid ""
 "You have multiple network devices on this system. Which would you like to "
 "install through?"
 msgstr ""
 
-#: loader/net.c:1976
+#: loader/net.c:1975
 msgid "Identify"
 msgstr ""
 
-#: loader/net.c:1985
+#: loader/net.c:1984
 msgid "You can identify the physical port for"
 msgstr ""
 
-#: loader/net.c:1987
+#: loader/net.c:1986
 msgid ""
 "by flashing the LED lights for a number of seconds.  Enter a number between "
 "1 and 30 to set the duration to flash the LED port lights."
 msgstr ""
 
-#: loader/net.c:1994
+#: loader/net.c:1993
 msgid "Identify NIC"
 msgstr ""
 
-#: loader/net.c:2007
+#: loader/net.c:2006
 msgid "Invalid Duration"
 msgstr ""
 
-#: loader/net.c:2008
+#: loader/net.c:2007
 msgid "You must enter the number of seconds as an integer between 1 and 30."
 msgstr ""
 
-#: loader/net.c:2020
+#: loader/net.c:2019
 #, c-format
 msgid "Flashing %s port lights for %d seconds."
 msgstr ""
 
-#: loader/net.c:2224 loader/net.c:2228
+#: loader/net.c:2223 loader/net.c:2227
 #, c-format
 msgid "Waiting for NetworkManager to configure %s.\n"
 msgstr ""

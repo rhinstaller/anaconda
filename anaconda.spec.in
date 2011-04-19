@@ -221,6 +221,12 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Tue Apr 19 2011 Martin Sivak <msivak@redhat.com> - 13.21.114-1
+- Fix SIGSEGV for netwowrk --device=<MAC> which is not found (rvykydal)
+  Resolves: rhbz#697432
+- Set mainWindow size request to current res reported by xrandr (dcantrell)
+  Resolves: rhbz#694760
+
 * Mon Apr 18 2011 Martin Sivak <msivak@redhat.com> - 13.21.113-1
 - If there are no RAID arrays, do not write an mdadm.conf (clumens).
   Resolves: rhbz#696907
