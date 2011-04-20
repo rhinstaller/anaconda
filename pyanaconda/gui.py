@@ -1403,7 +1403,8 @@ class InstallControlWindow:
 
             width = None
             height = None
-            lines = iutil.execWithCapture("xrandr", ["-q"]).splitlines()
+            xrandr = iutil.execWithCapture("xrandr", ["-q"], stderr="/dev/tty5")
+            lines = xrandr.splitlines()
             xrandr = filter(lambda x: "current" in x, lines)
             if xrandr and len(xrandr) == 1:
                 fields = xrandr[0].split()
