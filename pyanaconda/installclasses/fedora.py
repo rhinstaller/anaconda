@@ -117,7 +117,8 @@ class InstallClass(BaseInstallClass):
     def versionMatches(self, oldver):
         try:
             oldVer = float(oldver)
-            newVer = float(productVersion)
+            # Trim off any "-Alpha" or "-Beta".
+            newVer = float(productVersion.split('-')[0])
         except ValueError:
             return True
 
