@@ -3639,7 +3639,7 @@ class FcoeDiskDevice(DiskDevice, NetworkStorageDevice):
         else:
             dcbOpt = "nodcb"
 
-        return "fcoe=%s:%s" % (self.nic, dcbOpt)
+        return "fcoe=edd:%s" % dcbOpt
 
 
 class OpticalDevice(StorageDevice):
