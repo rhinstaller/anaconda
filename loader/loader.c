@@ -1778,8 +1778,10 @@ void loaderUsrXHandler(int signum) {
 }
 
 void restart_anaconda() {
-    if (access("/tmp/restart_anaconda", R_OK))
+    if (access("/tmp/restart_anaconda", R_OK)) {
+        printf("Starting Anaconda version %s.\n", VERSION);
         return;
+    }
 
     puts("Restarting Anaconda.");
     unlink("/tmp/restart_anaconda");
@@ -1962,6 +1964,11 @@ int main(int argc, char ** argv) {
     /* disable console logging so we don't clog the ttys */
     klogctl(8, NULL, 1);
 
+    /* If the anaconda process is now being restarted, we need to do some
+     * environment cleanup first.
+     */
+    restart_anaconda();
+
     /* check for development mode early */
     if (cmdline && g_hash_table_lookup_extended(cmdline, "devel", NULL, NULL)) {
         printf("Enabling development mode - cores will be dumped\n");
@@ -2005,11 +2012,6 @@ int main(int argc, char ** argv) {
 
     /* Set this now so it's valid for all udev trigger calls. */
     system("udevadm control --env=ANACONDA=1");
-
-    /* If the anaconda process is now being restarted, we need to do some
-     * environment cleanup first.
-     */
-    restart_anaconda();
 
     if (!access("/var/run/loader.run", R_OK)) {
         printf(_("loader has already been run.  Starting shell.\n"));
