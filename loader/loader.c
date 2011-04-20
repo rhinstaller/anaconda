@@ -1777,7 +1777,7 @@ void loaderUsrXHandler(int signum) {
     init_sig = signum;
 }
 
-void restart_anaconda(struct loaderData_s *loaderData) {
+void restart_anaconda() {
     if (access("/tmp/restart_anaconda", R_OK))
         return;
 
@@ -1787,15 +1787,9 @@ void restart_anaconda(struct loaderData_s *loaderData) {
     if (!access("/var/run/loader.run", R_OK))
         unlink("/var/run/loader.run");
 
-    if (loaderData && loaderData->updatessrc) {
-        int updates_fd = open("/tmp/updates", O_RDONLY);
-        if (recursiveRemove(updates_fd))
-            fprintf(stderr, "Error removing /tmp/updates. Updates won't be re-downloaded.");
-        else
-            loadUpdatesFromRemote(loaderData->updatessrc, loaderData);
-    }
-
-    return;
+    int updates_fd = open("/tmp/updates", O_RDONLY);
+    if (recursiveRemove(updates_fd))
+        fprintf(stderr, "Error removing /tmp/updates. Updates won't be re-downloaded.");
 }
 
 static int anaconda_trace_init(int isDevelMode) {
@@ -2015,7 +2009,7 @@ int main(int argc, char ** argv) {
     /* If the anaconda process is now being restarted, we need to do some
      * environment cleanup first.
      */
-    restart_anaconda(&loaderData);
+    restart_anaconda();
 
     if (!access("/var/run/loader.run", R_OK)) {
         printf(_("loader has already been run.  Starting shell.\n"));
