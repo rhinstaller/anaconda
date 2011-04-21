@@ -403,6 +403,8 @@ def handleSshPw(anaconda):
 def createSshKey(algorithm, keyfile):
     path = '/etc/ssh/%s' % (keyfile,)
     argv = ['-q','-t',algorithm,'-f',path,'-C','','-N','']
+    if os.access(path, os.R_OK):
+        return
     log.info("running \"%s\"" % (" ".join(['ssh-keygen']+argv),))
 
     so = "/tmp/ssh-keygen-%s-stdout.log" % (algorithm,)
