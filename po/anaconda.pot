@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 16.4\n"
+"Project-Id-Version: anaconda 16.5\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2011-04-11 19:52-0500\n"
+"POT-Creation-Date: 2011-04-21 15:25-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -71,37 +71,37 @@ msgstr ""
 #: loader/driverselect.c:171 loader/hdinstall.c:222 loader/hdinstall.c:282
 #: loader/hdinstall.c:300 loader/hdinstall.c:309 loader/hdinstall.c:344
 #: loader/hdinstall.c:383 loader/hdinstall.c:398 loader/kbd.c:118
-#: loader/kickstart.c:177 loader/kickstart.c:309 loader/kickstart.c:374
-#: loader/kickstart.c:983 loader/lang.c:115 loader/lang.c:434
-#: loader/loader.c:422 loader/loader.c:458 loader/loader.c:498
-#: loader/loader.c:516 loader/loader.c:533 loader/loader.c:570
-#: loader/loader.c:1216 loader/loader.c:1244 loader/loader.c:1384
+#: loader/kickstart.c:175 loader/kickstart.c:307 loader/kickstart.c:372
+#: loader/kickstart.c:957 loader/lang.c:115 loader/lang.c:434
+#: loader/loader.c:372 loader/loader.c:408 loader/loader.c:448
+#: loader/loader.c:466 loader/loader.c:483 loader/loader.c:520
+#: loader/loader.c:1153 loader/loader.c:1181 loader/loader.c:1433
 #: loader/mediacheck.c:47 loader/mediacheck.c:86 loader/mediacheck.c:93
 #: loader/mediacheck.c:97 loader/mediacheck.c:106 loader/method.c:192
-#: loader/method.c:266 loader/net.c:586 loader/net.c:966 loader/net.c:1794
-#: loader/net.c:1813 loader/net.c:1825 loader/nfsinstall.c:93
+#: loader/method.c:266 loader/net.c:586 loader/net.c:966 loader/net.c:1798
+#: loader/net.c:1817 loader/net.c:1829 loader/nfsinstall.c:93
 #: loader/nfsinstall.c:255 loader/urlinstall.c:139 loader/urlinstall.c:161
 #: loader/urlinstall.c:213 loader/urls.c:264 loader/urls.c:335
 #: loader/urls.c:343 loader/urls.c:350 pyanaconda/textw/constants_text.py:44
 msgid "OK"
 msgstr ""
 
-#: anaconda:533
+#: anaconda:535
 msgid "Would you like to use VNC?"
 msgstr ""
 
-#: anaconda:534
+#: anaconda:536
 msgid ""
 "Text mode provides a limited set of installation options. It does not allow "
 "you to specify your own partitioning layout or package selections. Would you "
 "like to use VNC mode instead?"
 msgstr ""
 
-#: anaconda:555
+#: anaconda:557
 msgid "Graphical installation is not available. Starting text mode."
 msgstr ""
 
-#: anaconda:563
+#: anaconda:565
 msgid "DISPLAY variable not set. Starting text mode."
 msgstr ""
 
@@ -146,7 +146,6 @@ msgstr ""
 #: pyanaconda/installinterfacebase.py:71
 #: pyanaconda/installinterfacebase.py:148 pyanaconda/packages.py:319
 #: pyanaconda/text.py:431 pyanaconda/yuminstall.py:1502
-#: pyanaconda/yuminstall.py:1626 pyanaconda/yuminstall.py:1661
 #: pyanaconda/iw/blpasswidget.py:144 pyanaconda/iw/upgrade_swap_gui.py:184
 #: pyanaconda/iw/upgrade_swap_gui.py:192 pyanaconda/iw/upgrade_swap_gui.py:198
 #: pyanaconda/textw/upgrade_text.py:198
@@ -173,7 +172,7 @@ msgstr ""
 #: pyanaconda/yuminstall.py:1529 pyanaconda/yuminstall.py:1552
 #: pyanaconda/storage/__init__.py:114 pyanaconda/storage/__init__.py:123
 #: pyanaconda/storage/__init__.py:222 pyanaconda/storage/__init__.py:275
-#: pyanaconda/storage/__init__.py:2119
+#: pyanaconda/storage/__init__.py:2132
 msgid "_Exit installer"
 msgstr ""
 
@@ -181,7 +180,7 @@ msgstr ""
 #: pyanaconda/kickstart.py:1408 pyanaconda/kickstart.py:1447
 #: pyanaconda/upgrade.py:58 pyanaconda/upgrade.py:98
 #: pyanaconda/yuminstall.py:1321 pyanaconda/yuminstall.py:1498
-#: pyanaconda/iw/partition_gui.py:1579 pyanaconda/storage/__init__.py:2120
+#: pyanaconda/iw/partition_gui.py:1579 pyanaconda/storage/__init__.py:2133
 msgid "_Continue"
 msgstr ""
 
@@ -317,8 +316,8 @@ msgstr ""
 #: pyanaconda/partIntfHelpers.py:159 pyanaconda/partIntfHelpers.py:344
 #: pyanaconda/text.py:101 pyanaconda/text.py:102
 #: pyanaconda/iw/account_gui.py:131 loader/dirbrowser.c:137
-#: loader/driverdisk.c:393 loader/kickstart.c:374 loader/loader.c:458
-#: loader/loader.c:570 pyanaconda/textw/constants_text.py:48
+#: loader/driverdisk.c:393 loader/kickstart.c:372 loader/loader.c:408
+#: loader/loader.c:520 pyanaconda/textw/constants_text.py:48
 msgid "Cancel"
 msgstr ""
 
@@ -414,7 +413,7 @@ msgid ""
 msgstr ""
 
 #: pyanaconda/gui.py:1288 pyanaconda/image.py:144 pyanaconda/image.py:172
-#: pyanaconda/packages.py:336 pyanaconda/storage/__init__.py:1937
+#: pyanaconda/packages.py:336 pyanaconda/storage/__init__.py:1950
 msgid "_Exit"
 msgstr ""
 
@@ -455,7 +454,7 @@ msgstr ""
 msgid "Unable to load title bar"
 msgstr ""
 
-#: pyanaconda/gui.py:1464
+#: pyanaconda/gui.py:1480
 msgid "Install Window"
 msgstr ""
 
@@ -501,8 +500,8 @@ msgstr ""
 #: pyanaconda/yuminstall.py:1000 pyanaconda/yuminstall.py:1005
 #: pyanaconda/yuminstall.py:1266 pyanaconda/yuminstall.py:1326
 #: pyanaconda/yuminstall.py:1523 pyanaconda/yuminstall.py:1545
-#: pyanaconda/iw/advanced_storage.py:372 pyanaconda/iw/advanced_storage.py:382
-#: pyanaconda/iw/advanced_storage.py:432 pyanaconda/iw/autopart_type.py:95
+#: pyanaconda/iw/advanced_storage.py:371 pyanaconda/iw/advanced_storage.py:381
+#: pyanaconda/iw/advanced_storage.py:431 pyanaconda/iw/autopart_type.py:95
 #: pyanaconda/iw/cleardisks_gui.py:44 pyanaconda/iw/cleardisks_gui.py:54
 #: pyanaconda/iw/filter_gui.py:432 pyanaconda/iw/lvm_dialog_gui.py:793
 #: pyanaconda/iw/osbootwidget.py:208 pyanaconda/iw/osbootwidget.py:214
@@ -515,14 +514,14 @@ msgstr ""
 #: loader/driverdisk.c:518 loader/driverdisk.c:526 loader/driverdisk.c:598
 #: loader/hdinstall.c:282 loader/hdinstall.c:300 loader/hdinstall.c:309
 #: loader/hdinstall.c:344 loader/hdinstall.c:383 loader/hdinstall.c:398
-#: loader/kickstart.c:309 loader/lang.c:115 loader/loader.c:422
-#: loader/loader.c:533 loader/loader.c:1216 loader/mediacheck.c:47
+#: loader/kickstart.c:307 loader/lang.c:115 loader/loader.c:372
+#: loader/loader.c:483 loader/loader.c:1153 loader/mediacheck.c:47
 #: loader/mediacheck.c:86 loader/mediacheck.c:93 loader/mediacheck.c:97
 #: loader/method.c:192 loader/method.c:266 loader/nfsinstall.c:255
 #: loader/urlinstall.c:139 loader/urlinstall.c:161 loader/urlinstall.c:213
 #: loader/urls.c:335 loader/urls.c:343 loader/urls.c:350
-#: pyanaconda/storage/__init__.py:271 pyanaconda/storage/__init__.py:1938
-#: pyanaconda/storage/__init__.py:2025 pyanaconda/storage/zfcp.py:375
+#: pyanaconda/storage/__init__.py:271 pyanaconda/storage/__init__.py:1951
+#: pyanaconda/storage/__init__.py:2038 pyanaconda/storage/zfcp.py:375
 #: pyanaconda/textw/upgrade_text.py:186 pyanaconda/textw/upgrade_text.py:193
 msgid "Error"
 msgstr ""
@@ -1190,7 +1189,7 @@ msgstr ""
 
 #: pyanaconda/rescue.py:304 pyanaconda/rescue.py:306 loader/cdinstall.c:210
 #: loader/cdinstall.c:213 loader/method.c:239
-#: pyanaconda/storage/__init__.py:1937 pyanaconda/textw/upgrade_text.py:144
+#: pyanaconda/storage/__init__.py:1950 pyanaconda/textw/upgrade_text.py:144
 msgid "Skip"
 msgstr ""
 
@@ -1342,6 +1341,11 @@ msgstr ""
 msgid "Would you like to continue with the upgrade?"
 msgstr ""
 
+#: pyanaconda/upgrade.py:87
+#, python-format
+msgid "Unknown release on %s"
+msgstr ""
+
 #: pyanaconda/upgrade.py:91
 msgid "Cannot Upgrade"
 msgstr ""
@@ -1350,7 +1354,7 @@ msgstr ""
 #, python-format
 msgid ""
 "Your current installation cannot be upgraded. This is likely due to it being "
-"too old. Only the previous two release may be upgraded. To upgrade older "
+"too old. Only the previous two releases may be upgraded. To upgrade older "
 "releases you must first upgrade through all intermediate releases.\n"
 "\n"
 "%s"
@@ -1773,64 +1777,48 @@ msgid ""
 "installer."
 msgstr ""
 
-#: pyanaconda/yuminstall.py:1627
-#, python-format
-msgid ""
-"You appear to be upgrading from a system which is too old to upgrade to this "
-"version of %s.  Are you sure you wish to continue the upgrade process?"
-msgstr ""
-
-#: pyanaconda/yuminstall.py:1662
-#, python-format
-msgid ""
-"The arch of the release of %(productName)s you are upgrading to appears to "
-"be %(myarch)s which does not match your previously installed arch of "
-"%(arch)s.  This is likely to not succeed.  Are you sure you wish to continue "
-"the upgrade process?"
-msgstr ""
-
-#: pyanaconda/yuminstall.py:1709
+#: pyanaconda/yuminstall.py:1630
 msgid "Post Upgrade"
 msgstr ""
 
-#: pyanaconda/yuminstall.py:1710
+#: pyanaconda/yuminstall.py:1631
 msgid "Performing post-upgrade configuration"
 msgstr ""
 
-#: pyanaconda/yuminstall.py:1712
+#: pyanaconda/yuminstall.py:1633
 msgid "Post Installation"
 msgstr ""
 
-#: pyanaconda/yuminstall.py:1713
+#: pyanaconda/yuminstall.py:1634
 msgid "Performing post-installation configuration"
 msgstr ""
 
-#: pyanaconda/yuminstall.py:1951
+#: pyanaconda/yuminstall.py:1872
 msgid "Installation Starting"
 msgstr ""
 
-#: pyanaconda/yuminstall.py:1952
+#: pyanaconda/yuminstall.py:1873
 msgid "Starting installation process"
 msgstr ""
 
-#: pyanaconda/yuminstall.py:1990
+#: pyanaconda/yuminstall.py:1911
 msgid "Dependency Check"
 msgstr ""
 
-#: pyanaconda/yuminstall.py:1991
+#: pyanaconda/yuminstall.py:1912
 msgid "Checking dependencies in packages selected for installation"
 msgstr ""
 
-#: pyanaconda/yuminstall.py:2047 pyanaconda/yuminstall.py:2063
+#: pyanaconda/yuminstall.py:1968 pyanaconda/yuminstall.py:1984
 msgid "Retrieving installation information."
 msgstr ""
 
-#: pyanaconda/yuminstall.py:2049 pyanaconda/yuminstall.py:2065
+#: pyanaconda/yuminstall.py:1970 pyanaconda/yuminstall.py:1986
 #, python-format
 msgid "Retrieving installation information for %s."
 msgstr ""
 
-#: pyanaconda/yuminstall.py:2050 pyanaconda/yuminstall.py:2066
+#: pyanaconda/yuminstall.py:1971 pyanaconda/yuminstall.py:1987
 msgid "Installation Progress"
 msgstr ""
 
@@ -1942,11 +1930,11 @@ msgid ""
 "Requested password contains non-ASCII characters, which are not allowed."
 msgstr ""
 
-#: pyanaconda/iw/advanced_storage.py:250
+#: pyanaconda/iw/advanced_storage.py:249
 msgid "Node Name"
 msgstr ""
 
-#: pyanaconda/iw/advanced_storage.py:373
+#: pyanaconda/iw/advanced_storage.py:372
 msgid "You must select a NIC to use."
 msgstr ""
 
@@ -2813,7 +2801,7 @@ msgstr ""
 msgid "Type"
 msgstr ""
 
-#: pyanaconda/iw/partition_gui.py:589 pyanaconda/storage/__init__.py:1937
+#: pyanaconda/iw/partition_gui.py:589 pyanaconda/storage/__init__.py:1950
 msgid "Format"
 msgstr ""
 
@@ -3371,9 +3359,9 @@ msgstr ""
 #: loader/cdinstall.c:340 loader/driverdisk.c:393 loader/driverdisk.c:425
 #: loader/driverdisk.c:506 loader/driverselect.c:79 loader/driverselect.c:145
 #: loader/driverselect.c:171 loader/hdinstall.c:168 loader/hdinstall.c:222
-#: loader/kbd.c:118 loader/loader.c:499 loader/loader.c:516
-#: loader/loader.c:1384 loader/loader.c:1424 loader/net.c:586 loader/net.c:966
-#: loader/net.c:1794 loader/net.c:1813 loader/nfsinstall.c:93
+#: loader/kbd.c:118 loader/loader.c:449 loader/loader.c:466
+#: loader/loader.c:1433 loader/loader.c:1473 loader/net.c:586 loader/net.c:966
+#: loader/net.c:1798 loader/net.c:1817 loader/nfsinstall.c:93
 #: loader/urls.c:264 pyanaconda/storage/__init__.py:123
 #: pyanaconda/storage/__init__.py:169 pyanaconda/storage/devicetree.py:92
 #: pyanaconda/textw/constants_text.py:52
@@ -3478,7 +3466,7 @@ msgstr ""
 msgid "Do you wish to load any more driver disks?"
 msgstr ""
 
-#: loader/driverdisk.c:698 loader/kickstart.c:177 loader/kickstart.c:983
+#: loader/driverdisk.c:698 loader/kickstart.c:175 loader/kickstart.c:957
 msgid "Kickstart Error"
 msgstr ""
 
@@ -3570,26 +3558,26 @@ msgstr ""
 msgid "What type of keyboard do you have?"
 msgstr ""
 
-#: loader/kickstart.c:310
+#: loader/kickstart.c:308
 msgid "Cannot find ks.cfg on removable media."
 msgstr ""
 
-#: loader/kickstart.c:379
+#: loader/kickstart.c:377
 msgid ""
 "Unable to download the kickstart file.  Please modify the kickstart "
 "parameter below or press Cancel to proceed as an interactive installation."
 msgstr ""
 
-#: loader/kickstart.c:388
+#: loader/kickstart.c:386
 msgid "Error downloading kickstart file"
 msgstr ""
 
-#: loader/kickstart.c:984
+#: loader/kickstart.c:958
 #, c-format
 msgid "Unknown Url method %s"
 msgstr ""
 
-#: loader/lang.c:64 loader/loader.c:228
+#: loader/lang.c:64 loader/loader.c:234
 #, c-format
 msgid "Welcome to %s for %s"
 msgstr ""
@@ -3599,7 +3587,7 @@ msgstr ""
 msgid "Welcome to %s for %s - Rescue Mode"
 msgstr ""
 
-#: loader/lang.c:66 loader/loader.c:252
+#: loader/lang.c:66 loader/loader.c:258
 msgid ""
 "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
 msgstr ""
@@ -3608,164 +3596,164 @@ msgstr ""
 msgid "Choose a Language"
 msgstr ""
 
-#: loader/loader.c:132
+#: loader/loader.c:136
 msgid "Local CD/DVD"
 msgstr ""
 
-#: loader/loader.c:133
+#: loader/loader.c:137
 msgid "Hard drive"
 msgstr ""
 
-#: loader/loader.c:134
+#: loader/loader.c:138
 msgid "NFS directory"
 msgstr ""
 
-#: loader/loader.c:453 loader/loader.c:494
+#: loader/loader.c:403 loader/loader.c:444
 msgid "Update Disk Source"
 msgstr ""
 
-#: loader/loader.c:454
+#: loader/loader.c:404
 msgid ""
 "You have multiple devices which could serve as sources for an update disk.  "
 "Which would you like to use?"
 msgstr ""
 
-#: loader/loader.c:495
+#: loader/loader.c:445
 msgid ""
 "There are multiple partitions on this device which could contain the update "
 "disk image.  Which would you like to use?"
 msgstr ""
 
-#: loader/loader.c:513
+#: loader/loader.c:463
 #, c-format
 msgid "Insert your updates disk into %s and press \"OK\" to continue."
 msgstr ""
 
-#: loader/loader.c:516
+#: loader/loader.c:466
 msgid "Updates Disk"
 msgstr ""
 
-#: loader/loader.c:534
+#: loader/loader.c:484
 msgid "Failed to mount updates disk"
 msgstr ""
 
-#: loader/loader.c:539
+#: loader/loader.c:489
 msgid "Updates"
 msgstr ""
 
-#: loader/loader.c:539
+#: loader/loader.c:489
 msgid "Reading anaconda updates"
 msgstr ""
 
-#: loader/loader.c:575
+#: loader/loader.c:525
 msgid ""
 "Unable to download the updates image.  Please modify the updates location "
 "below or press Cancel to proceed without updates.."
 msgstr ""
 
-#: loader/loader.c:584
+#: loader/loader.c:534
 msgid "Error downloading updates image"
 msgstr ""
 
-#: loader/loader.c:1198
+#: loader/loader.c:1135
 #, c-format
 msgid "%s requires %d MB of memory, to install, but you only have %d MB."
 msgstr ""
 
-#: loader/loader.c:1199
+#: loader/loader.c:1136
 #, c-format
 msgid ""
 "%s requires %d MB of memory to install using this installation method, but "
 "you only have %d MB on this machine."
 msgstr ""
 
-#: loader/loader.c:1244
+#: loader/loader.c:1181
 msgid "Unsupported Hardware Detected"
 msgstr ""
 
-#: loader/loader.c:1245
+#: loader/loader.c:1182
 msgid ""
 "This hardware (or a combination thereof) is not supported by Red Hat.  For "
 "more information on supported hardware, please refer to http://www.redhat."
 "com/hardware."
 msgstr ""
 
-#: loader/loader.c:1381
+#: loader/loader.c:1430
 msgid "Installation Method"
 msgstr ""
 
-#: loader/loader.c:1382
+#: loader/loader.c:1431
 msgid "What type of media contains the installation tree?"
 msgstr ""
 
-#: loader/loader.c:1423
+#: loader/loader.c:1472
 msgid "No driver found"
 msgstr ""
 
-#: loader/loader.c:1423
+#: loader/loader.c:1472
 msgid "Select driver"
 msgstr ""
 
-#: loader/loader.c:1424
+#: loader/loader.c:1473
 msgid "Use a driver disk"
 msgstr ""
 
-#: loader/loader.c:1425
+#: loader/loader.c:1474
 msgid ""
 "Unable to find any devices of the type needed for this installation type.  "
 "Would you like to manually select your driver or use a driver disk?"
 msgstr ""
 
-#: loader/loader.c:1635
+#: loader/loader.c:1684
 msgid "The following devices have been found on your system."
 msgstr ""
 
-#: loader/loader.c:1637
+#: loader/loader.c:1686
 msgid ""
 "No device drivers have been loaded for your system.  Would you like to load "
 "any now?"
 msgstr ""
 
-#: loader/loader.c:1641
+#: loader/loader.c:1690
 msgid "Devices"
 msgstr ""
 
-#: loader/loader.c:1642
+#: loader/loader.c:1691
 msgid "Done"
 msgstr ""
 
-#: loader/loader.c:1643
+#: loader/loader.c:1692
 msgid "Add Device"
 msgstr ""
 
-#: loader/loader.c:1925
+#: loader/loader.c:2017
 #, c-format
 msgid "loader has already been run.  Starting shell.\n"
 msgstr ""
 
-#: loader/loader.c:2073
+#: loader/loader.c:2125
 #, c-format
 msgid "Driver disc was detected in %s. Do you want to use it?."
 msgstr ""
 
-#: loader/loader.c:2076
+#: loader/loader.c:2128
 msgid "Driver disc detected"
 msgstr ""
 
-#: loader/loader.c:2076
+#: loader/loader.c:2128
 msgid "Use it"
 msgstr ""
 
-#: loader/loader.c:2076
+#: loader/loader.c:2128
 msgid "Skip it"
 msgstr ""
 
-#: loader/loader.c:2390
+#: loader/loader.c:2434
 #, c-format
 msgid "Running anaconda %s, the %s rescue mode - please wait.\n"
 msgstr ""
 
-#: loader/loader.c:2392
+#: loader/loader.c:2436
 #, c-format
 msgid "Running anaconda %s, the %s system installer - please wait.\n"
 msgstr ""
@@ -3933,52 +3921,52 @@ msgstr ""
 msgid "You must enter both a valid IPv6 address and a CIDR prefix."
 msgstr ""
 
-#: loader/net.c:1594
+#: loader/net.c:1598
 msgid "Seconds:"
 msgstr ""
 
-#: loader/net.c:1789
+#: loader/net.c:1793
 msgid "Networking Device"
 msgstr ""
 
-#: loader/net.c:1790
+#: loader/net.c:1794
 msgid ""
 "You have multiple network devices on this system. Which would you like to "
 "install through?"
 msgstr ""
 
-#: loader/net.c:1794
+#: loader/net.c:1798
 msgid "Identify"
 msgstr ""
 
-#: loader/net.c:1803
+#: loader/net.c:1807
 msgid "You can identify the physical port for"
 msgstr ""
 
-#: loader/net.c:1805
+#: loader/net.c:1809
 msgid ""
 "by flashing the LED lights for a number of seconds.  Enter a number between "
 "1 and 30 to set the duration to flash the LED port lights."
 msgstr ""
 
-#: loader/net.c:1812
+#: loader/net.c:1816
 msgid "Identify NIC"
 msgstr ""
 
-#: loader/net.c:1825
+#: loader/net.c:1829
 msgid "Invalid Duration"
 msgstr ""
 
-#: loader/net.c:1826
+#: loader/net.c:1830
 msgid "You must enter the number of seconds as an integer between 1 and 30."
 msgstr ""
 
-#: loader/net.c:1838
+#: loader/net.c:1842
 #, c-format
 msgid "Flashing %s port lights for %d seconds."
 msgstr ""
 
-#: loader/net.c:2043 loader/net.c:2047
+#: loader/net.c:2047 loader/net.c:2051
 #, c-format
 msgid "Waiting for NetworkManager to configure %s.\n"
 msgstr ""
@@ -4295,11 +4283,11 @@ msgid ""
 "file systems. Please check your hardware for the cause of this problem."
 msgstr ""
 
-#: pyanaconda/storage/__init__.py:1505 pyanaconda/storage/__init__.py:1514
+#: pyanaconda/storage/__init__.py:1518 pyanaconda/storage/__init__.py:1527
 msgid "Dirty File Systems"
 msgstr ""
 
-#: pyanaconda/storage/__init__.py:1506
+#: pyanaconda/storage/__init__.py:1519
 #, python-format
 msgid ""
 "The following file systems for your Linux system were not unmounted "
@@ -4308,7 +4296,7 @@ msgid ""
 "%s"
 msgstr ""
 
-#: pyanaconda/storage/__init__.py:1515
+#: pyanaconda/storage/__init__.py:1528
 #, python-format
 msgid ""
 "The following file systems for your Linux system were not unmounted "
@@ -4316,7 +4304,7 @@ msgid ""
 "%s"
 msgstr ""
 
-#: pyanaconda/storage/__init__.py:1970
+#: pyanaconda/storage/__init__.py:1983
 #, python-format
 msgid ""
 "The swap device:\n"
@@ -4327,7 +4315,7 @@ msgid ""
 "swap space, you must reformat as a new-style Linux swap partition."
 msgstr ""
 
-#: pyanaconda/storage/__init__.py:1981
+#: pyanaconda/storage/__init__.py:1994
 #, python-format
 msgid ""
 "The swap device:\n"
@@ -4339,7 +4327,7 @@ msgid ""
 "down your system rather than hibernating it."
 msgstr ""
 
-#: pyanaconda/storage/__init__.py:1989
+#: pyanaconda/storage/__init__.py:2002
 #, python-format
 msgid ""
 "The swap device:\n"
@@ -4351,7 +4339,7 @@ msgid ""
 "make sure the installer is set to format all swap devices."
 msgstr ""
 
-#: pyanaconda/storage/__init__.py:2001
+#: pyanaconda/storage/__init__.py:2014
 #, python-format
 msgid ""
 "The swap device:\n"
@@ -4362,7 +4350,7 @@ msgid ""
 "installation, you will need to format the device or skip it."
 msgstr ""
 
-#: pyanaconda/storage/__init__.py:2012
+#: pyanaconda/storage/__init__.py:2025
 #, python-format
 msgid ""
 "Error enabling swap device %(name)s: %(msg)s\n"
@@ -4373,7 +4361,7 @@ msgid ""
 "Press OK to exit the installer"
 msgstr ""
 
-#: pyanaconda/storage/__init__.py:2019
+#: pyanaconda/storage/__init__.py:2032
 #, python-format
 msgid ""
 "Error enabling swap device %(name)s: %(msg)s\n"
@@ -4383,11 +4371,11 @@ msgid ""
 "Press OK to exit the installer."
 msgstr ""
 
-#: pyanaconda/storage/__init__.py:2082 pyanaconda/storage/__init__.py:2094
+#: pyanaconda/storage/__init__.py:2095 pyanaconda/storage/__init__.py:2107
 msgid "Invalid mount point"
 msgstr ""
 
-#: pyanaconda/storage/__init__.py:2083
+#: pyanaconda/storage/__init__.py:2096
 #, python-format
 msgid ""
 "An error occurred when trying to create %s.  Some element of this path is "
@@ -4396,7 +4384,7 @@ msgid ""
 "Press <Enter> to exit the installer."
 msgstr ""
 
-#: pyanaconda/storage/__init__.py:2095
+#: pyanaconda/storage/__init__.py:2108
 #, python-format
 msgid ""
 "An error occurred when trying to create %(mountpoint)s: %(msg)s.  This is a "
@@ -4405,18 +4393,18 @@ msgid ""
 "Press <Enter> to exit the installer."
 msgstr ""
 
-#: pyanaconda/storage/__init__.py:2111 pyanaconda/storage/__init__.py:2135
+#: pyanaconda/storage/__init__.py:2124 pyanaconda/storage/__init__.py:2148
 msgid "Unable to mount filesystem"
 msgstr ""
 
-#: pyanaconda/storage/__init__.py:2112
+#: pyanaconda/storage/__init__.py:2125
 #, python-format
 msgid ""
 "An error occurred mounting device %(path)s as %(mountpoint)s.  You may "
 "continue installation, but there may be problems."
 msgstr ""
 
-#: pyanaconda/storage/__init__.py:2136
+#: pyanaconda/storage/__init__.py:2149
 #, python-format
 msgid ""
 "An error occurred mounting device %(path)s as %(mountpoint)s: %(msg)s. This "
@@ -4448,16 +4436,16 @@ msgstr ""
 msgid "lvs failed for %s"
 msgstr ""
 
-#: pyanaconda/storage/devices.py:757
+#: pyanaconda/storage/devices.py:758
 msgid "Creating"
 msgstr ""
 
-#: pyanaconda/storage/devices.py:758
+#: pyanaconda/storage/devices.py:759
 #, python-format
 msgid "Creating device %s"
 msgstr ""
 
-#: pyanaconda/storage/devices.py:2654
+#: pyanaconda/storage/devices.py:2655
 #, python-format
 msgid "A RAID%(raidLevel)d set requires at least %(minMembers)d member"
 msgid_plural "A RAID%(raidLevel)d set requires at least %(minMembers)d members"
