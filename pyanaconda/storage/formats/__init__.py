@@ -259,7 +259,7 @@ class DeviceFormat(object):
             log.warning("failed to notify kernel of change: %s" % e)
 
     def cacheMajorminor(self):
-        """ Cache the value of self.majorminor. 
+        """ Cache the value of self.majorminor.
 
             Once a device node of this format's device disappears (for instance
             after a teardown), it is no longer possible to figure out the value
@@ -267,7 +267,15 @@ class DeviceFormat(object):
             that happens for caching this.
         """
         self._majorminor = None
-        return self.majorminor # this does the caching
+        try:
+            self.majorminor # this does the caching
+        except StorageError:
+            # entirely possible there's no majorminor, for instance an
+            # LVMVolumeGroup has got no device node and no sysfs path.  In this
+            # case obviously, calling majorminor of this object later raises an
+            # exception.
+            pass
+        return self._majorminor
 
     def create(self, *args, **kwargs):
         log_method_call(self, device=self.device,
@@ -415,7 +423,11 @@ class DeviceFormat(object):
             except DMError:
                 device = self.device
 
-            sysfs_path = get_sysfs_path_by_name(device)
+            try:
+                sysfs_path = get_sysfs_path_by_name(device)
+            except RuntimeError:
+                raise StorageError("DeviceFormat.majorminor: "
+                                   "can not get majorminor for '%s'" % device)
             dev = udev_get_device(sysfs_path[4:])
 
             self._majorminor = "%03d%03d" %\
