@@ -335,9 +335,6 @@ def gtk_warning(title, reason):
 def check_memory(anaconda, opts, display_mode=None):
     reason_strict = _("%s requires %s MB of memory to install, but you only have "
                       "%s MB on this machine.\n")
-    reason_method = _("%s requires %s MB of memory to install using this "
-                      "installation method, but you only have %s MB on this "
-                      "machine.\n")
     reason_graphical = _("The %s graphical installer requires %s MB of memory, but "
                          "you only have %s MB.")
 
@@ -354,10 +351,6 @@ def check_memory(anaconda, opts, display_mode=None):
 
     extra_ram = 0
     reason = reason_strict
-    if opts.stage2 and opts.stage2.startswith(('http', 'ftp', '@')):
-        extra_ram += isys.URL_INSTALL_EXTRA_RAM
-        reason = reason_method
-
     total_ram = int(isys.total_memory() / 1024)
     needed_ram = int((isys.MIN_RAM + extra_ram) / 1024)
 

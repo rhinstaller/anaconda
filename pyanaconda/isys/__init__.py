@@ -74,7 +74,6 @@ mountCount = {}
 MIN_RAM = _isys.MIN_RAM
 MIN_GUI_RAM = _isys.MIN_GUI_RAM
 GUI_INSTALL_EXTRA_RAM = _isys.GUI_INSTALL_EXTRA_RAM
-URL_INSTALL_EXTRA_RAM = _isys.URL_INSTALL_EXTRA_RAM
 EARLY_SWAP_RAM = _isys.EARLY_SWAP_RAM
 
 ## Get the amount of free space available under a directory path.

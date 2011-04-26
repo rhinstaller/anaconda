@@ -25,12 +25,11 @@
   #define MIN_RAM                 1024*1024 // 1 GB
   #define GUI_INSTALL_EXTRA_RAM   512*1024  // 512 MB
 #else
-  #define MIN_RAM                 256 * 1024 // 256 MB
-  #define GUI_INSTALL_EXTRA_RAM   128 * 1024 // 128 MB
+  #define MIN_RAM                 640 * 1024 // 640 MB
+  #define GUI_INSTALL_EXTRA_RAM   0 * 1024 // 0 MB
 #endif
-#define URL_INSTALL_EXTRA_RAM   192 * 1024 // 192 MB
 #define MIN_GUI_RAM             MIN_RAM + GUI_INSTALL_EXTRA_RAM
-#define EARLY_SWAP_RAM          512 * 1024 // 512 MB
+#define EARLY_SWAP_RAM          1152 * 1024 // 1152 MB
 
 int totalMemory(void);
 
