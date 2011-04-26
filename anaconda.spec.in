@@ -230,6 +230,12 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Tue Apr 26 2011 Chris Lumens <clumens@redhat.com> - 15.29-1
+- Fix network --device=<MAC> for static configurations (#693302) (rvykydal)
+- Allow DeviceFormat.cacheMajorminor to fail without an exception (#699383).
+  (akozumpl)
+- Support cciss devices in get_sysfs_path_by_name(). (akozumpl)
+
 * Thu Apr 21 2011 Chris Lumens <clumens@redhat.com> - 15.28-1
 - Remove languages not available from Transifex. (dcantrell)
 - Add Transifex instructions for anaconda developers. (dcantrell)
