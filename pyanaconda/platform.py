@@ -187,6 +187,23 @@ class Platform(object):
 class X86(Platform):
     _bootloaderClass = bootloader.GRUB2
 
+    def setDefaultPartitioning(self):
+        """Return the default platform-specific partitioning information."""
+        from storage.partspec import PartSpec
+        ret = Platform.setDefaultPartitioning(self)
+        ret.append(PartSpec(fstype="biosboot", size=1,
+                            weight=self.weight(fstype="biosboot")))
+        return ret
+
+    def weight(self, fstype=None, mountpoint=None):
+        score = Platform.weight(self, fstype=fstype, mountpoint=mountpoint)
+        if score:
+            return score
+        elif fstype == "biosboot":
+            return 5000
+        else:
+            return 0
+
 class EFI(Platform):
     _bootloaderClass = bootloader.EFIGRUB
 

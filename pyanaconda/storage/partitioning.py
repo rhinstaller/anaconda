@@ -94,10 +94,25 @@ def _schedulePartitions(storage, disks):
         if request.fstype is None:
             request.fstype = storage.defaultFSType
         elif request.fstype in ("prepboot", "efi") and \
-                storage.platform.bootDevice:
+                storage.platform.bootLoaderDevice:
             # there should never be a need for more than one of these
             # partitions, so skip them.
+            log.info("skipping unneeded stage1 request")
             continue
+        elif request.fstype == "biosboot":
+            boot_disk = storage.platform.bootloader.stage1_drive
+            if boot_disk and boot_disk.format.labelType != "gpt":
+                # biosboot is only needed for gpt disklabels on non-efi x86
+                log.info("skipping bios boot request for msdos disklabel")
+                continue
+
+            gpt_check = getattr(storage.platform.bootloader,
+                                "_gpt_disk_has_bios_boot",
+                                None)
+            if gpt_check and gpt_check(boot_disk):
+                # there's already a bios boot partition on the gpt boot disk
+                log.info("skipping bios boot request since boot disk has one")
+                continue
 
         # This is a little unfortunate but let the backend dictate the rootfstype
         # so that things like live installs can do the right thing

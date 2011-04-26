@@ -446,7 +446,7 @@ class VolumeGroupEditor:
             # File system type lables & combo
             newfstypelabel = createAlignedLabel(_("_File System Type:"))
             newfstypeCombo = createFSTypeMenu(format, fstypechangeCB,mountCombo,
-                    ignorefs = ["mdmember", "lvmpv", "efi", "prepboot", "appleboot"])
+                    ignorefs = ["mdmember", "lvmpv", "efi", "prepboot", "appleboot", "biosboot"])
             newfstypelabel.set_mnemonic_widget(newfstypeCombo)
 
             # Logical Volume name label & entry
@@ -503,7 +503,7 @@ class VolumeGroupEditor:
             # it latter with two arguments, row and mainttable.
             cpefsos = lambda table, row: createPreExistFSOptionSection(templv,
                     maintable, row, mountCombo, self.storage,
-                    ignorefs = ["software RAID", "physical volume (LVM)", "vfat"],
+                    ignorefs = ["software RAID", "physical volume (LVM)", "vfat", "biosboot"],
                     luksdev=templuks)
 
 
