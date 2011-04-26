@@ -255,7 +255,6 @@ void init_isys(void) {
     PyDict_SetItemString(d, "MIN_RAM", PyInt_FromLong(MIN_RAM));
     PyDict_SetItemString(d, "MIN_GUI_RAM", PyInt_FromLong(MIN_GUI_RAM));
     PyDict_SetItemString(d, "GUI_INSTALL_EXTRA_RAM", PyInt_FromLong(GUI_INSTALL_EXTRA_RAM));
-    PyDict_SetItemString(d, "URL_INSTALL_EXTRA_RAM", PyInt_FromLong(URL_INSTALL_EXTRA_RAM));
     PyDict_SetItemString(d, "EARLY_SWAP_RAM", PyInt_FromLong(EARLY_SWAP_RAM));
 }
 
