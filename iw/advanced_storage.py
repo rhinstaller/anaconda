@@ -21,6 +21,7 @@ _ = lambda x: gettext.ldgettext("anaconda", x)
 # UI methods for supporting adding advanced storage devices.
 import datacombo
 import DeviceSelector
+import functools
 import gobject
 import gtk
 import gtk.glade
@@ -223,6 +224,9 @@ class iSCSIGuiWizard(pih.iSCSIWizard):
         return self._run_dialog(self.login_dialog.dialog)
 
     def display_nodes_dialog(self, found_nodes):
+        def _login_button_disabler(device_selector, login_button, checked, item):
+            login_button.set_sensitive(len(device_selector.getSelected()) > 0)
+
         (xml, dialog) = gui.getGladeWidget("iscsi-dialogs.glade", "nodes_dialog")
         store = gtk.TreeStore(
             gobject.TYPE_PYOBJECT, # teh object
@@ -238,7 +242,7 @@ class iSCSIGuiWizard(pih.iSCSIWizard):
                     False,       # not immutable
                     node.name)),  # node's name
             found_nodes)
-        
+
         # create and setup the device selector
         model = store.filter_new()
         view = gtk.TreeView(model)
@@ -246,7 +250,10 @@ class iSCSIGuiWizard(pih.iSCSIWizard):
             store,
             model,
             view)
-        ds.createSelectionCol()
+        callback = functools.partial(_login_button_disabler,
+                                     ds,
+                                     xml.get_widget("button_login"))
+        ds.createSelectionCol(toggledCB=callback)
         ds.addColumn(_("Node Name"), self.NODE_NAME_COL)
         # attach the treeview to the dialog
         sw = xml.get_widget("nodes_scrolled_window")
