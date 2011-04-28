@@ -22,6 +22,8 @@
 
 import string
 from types import *
+
+import indexed_dict
 from constants import *
 from packages import writeKSConfiguration, turnOnFilesystems
 from packages import doPostAction
@@ -53,74 +55,108 @@ from packages import doReIPL
 import logging
 log = logging.getLogger("anaconda")
 
-# These are all of the install steps, in order. Note that upgrade and
-# install steps are the same thing! Upgrades skip install steps, while
-# installs skip upgrade steps.
+SCHED_SKIPPED = -2
+SCHED_SKIPPED_PERMANENTLY = -1
+SCHED_SCHEDULED = 1
 
-#
-# items are one of
-#
-#       ( name )
-#       ( name, Function )
-#
-# in the second case, the function is called directly from the dispatcher
+class Step(object):
+    def __init__(self, name, target = None):
+        """ Dispatcher step object.
 
-# All install steps take the anaconda object as their sole argument.  This
-# gets passed in when we call the function.
-installSteps = [
-    ("sshd", doSshd),
-    ("rescue", doRescue),
-    ("kickstart", doKickstart),
-    ("language", ),
-    ("keyboard", ),
-    ("betanag", betaNagScreen, ),
-    ("filtertype", ),
-    ("filter", ),
-    ("storageinit", storageInitialize, ),
-    ("findrootparts", findRootParts, ),
-    ("findinstall", ),
-    ("network", ),
-    ("timezone", ),
-    ("accounts", ),
-    ("setuptime", setupTimezone, ),
-    ("parttype", ),
-    ("cleardiskssel", ),
-    ("autopartitionexecute", doAutoPartition, ),
-    ("partition", ),
-    ("upgrademount", upgradeMountFilesystems, ),
-    ("restoretime", restoreTime, ),
-    ("upgradecontinue", queryUpgradeContinue, ),
-    ("upgradeswapsuggestion", upgradeSwapSuggestion, ),
-    ("addswap", ),
-    ("upgrademigfind", upgradeMigrateFind, ),
-    ("upgrademigratefs", ),
-    ("storagedone", storageComplete, ),
-    ("enablefilesystems", turnOnFilesystems, ),
-    ("upgbootloader", ),
-    ("bootloader", ),
-    ("reposetup", doBackendSetup, ),
-    ("tasksel", ),
-    ("basepkgsel", doBasePackageSelect, ),
-    ("group-selection", ),
-    ("postselection", doPostSelection, ),
-    ("install", ),
-    ("preinstallconfig", doPreInstall, ),
-    ("installpackages", doInstall, ),
-    ("postinstallconfig", doPostInstall, ),
-    ("writeconfig", writeConfiguration, ),
-    ("firstboot", firstbootConfiguration, ),
-    ("instbootloader", writeBootloader, ),
-    ("reipl", doReIPL, ),
-    ("writeksconfig", writeKSConfiguration, ),
-    ("setfilecon", setFileCons, ),
-    ("copylogs", copyAnacondaLogs, ),
-    ("methodcomplete", doMethodComplete, ),
-    ("postscripts", runPostScripts, ),
-    ("dopostaction", doPostAction, ),
-    ("complete", ),
-    ]
+            Target is a callable that performs the step (direct step). It
+            accepts a sole argument: the anaconda object. If target is None,
+            user interface object is told to handle the step (i.e. indirect
+            step).
+        """
+        self.name = name
+        self.target = target # None for dynamic target (e.g. gui view)
+        self._sched = SCHED_SKIPPED
+
+    def reschedule(self, new_sched):
+        if self._sched == SCHED_SKIPPED_PERMANENTLY:
+            # do not allow "upgrading" of permanently skipped steps
+            return
+        self._sched = new_sched
+
+    @property
+    def direct(self):
+        return self.target is not None
+
+    @property
+    def sched(self):
+        return self._sched
 
 class Dispatcher(object):
+
+    def __init__(self, anaconda):
+        self.anaconda = anaconda
+        self.anaconda.dir = DISPATCH_FORWARD
+        self.step = None # name of the current step
+        # step dictionary mapping step names to step objects
+        self.steps = indexed_dict.IndexedDict()
+        # Note that not only a subset of the steps is executed for a particular
+        # run, depending on the kind of installation, user selection, kickstart
+        # commands, used installclass and used user interface.
+        self._add_step("sshd", doSshd)
+        self._add_step("rescue", doRescue)
+        self._add_step("kickstart", doKickstart)
+        self._add_step("language")
+        self._add_step("keyboard")
+        self._add_step("betanag", betaNagScreen)
+        self._add_step("filtertype")
+        self._add_step("filter")
+        self._add_step("storageinit", storageInitialize)
+        self._add_step("findrootparts", findRootParts)
+        self._add_step("findinstall")
+        self._add_step("network")
+        self._add_step("timezone")
+        self._add_step("accounts")
+        self._add_step("setuptime", setupTimezone)
+        self._add_step("parttype")
+        self._add_step("cleardiskssel")
+        self._add_step("autopartitionexecute", doAutoPartition)
+        self._add_step("partition")
+        self._add_step("upgrademount", upgradeMountFilesystems)
+        self._add_step("restoretime", restoreTime)
+        self._add_step("upgradecontinue", queryUpgradeContinue)
+        self._add_step("upgradeswapsuggestion", upgradeSwapSuggestion)
+        self._add_step("addswap")
+        self._add_step("upgrademigfind", upgradeMigrateFind)
+        self._add_step("upgrademigratefs")
+        self._add_step("storagedone", storageComplete)
+        self._add_step("enablefilesystems", turnOnFilesystems)
+        self._add_step("upgbootloader")
+        self._add_step("bootloader")
+        self._add_step("reposetup", doBackendSetup)
+        self._add_step("tasksel")
+        self._add_step("basepkgsel", doBasePackageSelect)
+        self._add_step("group-selection")
+        self._add_step("postselection", doPostSelection)
+        self._add_step("install")
+        self._add_step("preinstallconfig", doPreInstall)
+        self._add_step("installpackages", doInstall)
+        self._add_step("postinstallconfig", doPostInstall)
+        self._add_step("writeconfig", writeConfiguration)
+        self._add_step("firstboot", firstbootConfiguration)
+        self._add_step("instbootloader", writeBootloader)
+        self._add_step("reipl", doReIPL)
+        self._add_step("writeksconfig", writeKSConfiguration)
+        self._add_step("setfilecon", setFileCons)
+        self._add_step("copylogs", copyAnacondaLogs)
+        self._add_step("methodcomplete", doMethodComplete)
+        self._add_step("postscripts", runPostScripts)
+        self._add_step("dopostaction", doPostAction)
+        self._add_step("complete")
+
+    def _add_step(self, name, target = None):
+        self.steps[name] = Step(name, target)
+
+    def _advance_step(self):
+        i = self._step_index()
+        self.step = self.steps[i + 1].name
+
+    def _step_index(self):
+        return self.steps.index(self.step)
 
     def go_back(self):
         """
@@ -135,105 +171,71 @@ class Dispatcher(object):
         self.dispatch()
 
     def canGoBack(self):
-        # begin with the step before this one.  If all steps are skipped,
-        # we can not go backwards from this screen
-        i = self.step - 1
+        # Begin with the step before this one. If all steps are skipped,
+        # we can not go backwards from this one.
+        i = self._step_index() - 1
         while i >= 0:
-            if not self.stepIsDirect(i) and not self.skipSteps.has_key(installSteps[i][0]):
+            sname = self.steps[i].name
+            if not (self.stepIsDirect(sname) or self.stepInSkipList(sname)):
                 return True
-            i = i - 1
+            i -= 1
         return False
 
     def run(self):
         self.anaconda.intf.run(self.anaconda)
         log.info("dispatch: finished.")
 
-    def setStepList(self, *steps):
-        # only remove non-permanently skipped steps from our skip list
-        for step, state in self.skipSteps.items():
-            if state == 1:
-                del self.skipSteps[step]
-
-        stepExists = {}
-        for step in installSteps:
-            name = step[0]
-            if not name in steps:
-                self.skipSteps[name] = 1
-
-            stepExists[name] = 1
-
-        for name in steps:
-            if not stepExists.has_key(name):
-                #XXX: hack for yum support
-                #raise KeyError, ("step %s does not exist" % name)
-                log.warning("dispatch: step %s does not exist", name)
+    def setStepList(self, *new_steps):
+        for (name, step) in self.steps.items():
+            if name in new_steps:
+                step.reschedule(SCHED_SCHEDULED)
+            else:
+                step.reschedule(SCHED_SKIPPED)
 
     def stepInSkipList(self, step):
-        if type(step) == type(1):
-            step = installSteps[step][0]
-        return self.skipSteps.has_key(step)
+        return self.steps[step].sched in [SCHED_SKIPPED_PERMANENTLY,
+                                          SCHED_SKIPPED]
 
-    def skipStep(self, stepToSkip, skip = 1, permanent = 0):
-        for step in installSteps:
-            name = step[0]
-            if name == stepToSkip:
-                if skip:
-                    if permanent:
-                        self.skipSteps[name] = 2
-                    elif not self.skipSteps.has_key(name):
-                        self.skipSteps[name] = 1
-                elif self.skipSteps.has_key(name):
-                    # if marked as permanent then dont change
-                    if self.skipSteps[name] != 2:
-                        del self.skipSteps[name]
-                return
-
-        log.warning("dispatch: step %s does not exist", stepToSkip)
+    def skipStep(self, step, skip = 1, permanent = 0):
+        new_sched = SCHED_SCHEDULED
+        if skip:
+            if permanent:
+                new_sched = SCHED_SKIPPED_PERMANENTLY
+            else:
+                new_sched = SCHED_SKIPPED
+        self.steps[step].reschedule(new_sched)
 
     def stepIsDirect(self, step):
-        """Takes a step number"""
-        if len(installSteps[step]) == 2:
-            return True
-        else:
-            return False
+        return self.steps[step].direct
 
     def dispatch(self):
-        total_steps = len(installSteps)
+        total_steps = len(self.steps)
         if self.step == None:
             log.info("dispatch: resetting to the first step.")
-            self.step = 0
+            self.step = self.steps[0].name
         else:
             log.info("dispatch: leaving (%d) step %s" %
-                     (self.dir, installSteps[self.step][0]))
-            self.step += self.dir
+                     (self.dir, self.step))
+            self._advance_step()
 
         while True:
-            if self.step >= total_steps:
+            if self._step_index() >= total_steps:
                 # installation has proceeded beyond the last step: finished
                 self.anaconda.intf.shutdown()
                 return
-            if self.step < 0:
-                raise RuntimeError("dispatch: out  of bounds "
-                                   "(dir: %d, step: %d)" % (self.dir, self.step))
-
             if self.stepInSkipList(self.step):
-                self.step += self.dir
+                self._advance_step()
                 continue
-
+            log.info("dispatch: moving (%d) to step %s" %
+                     (self.dir, self.step))
             if self.stepIsDirect(self.step):
                 # handle a direct step by just calling the function
-                (step_name, step_func) = installSteps[self.step]
-                log.info("dispatch: moving (%d) to step %s" %
-                         (self.dir, step_name))
-                log.debug("dispatch: %s is a direct step" % step_name)
-                self.dir = step_func(self.anaconda)
+                log.debug("dispatch: %s is a direct step" % self.step)
+                self.dir = self.steps[self.step].target(self.anaconda)
             else:
                 # handle an indirect step (IOW the user interface has a screen
                 # to display to the user):
-                step_name = installSteps[self.step][0]
-                log.info("dispatch: moving (%d) to step %s" %
-                         (self.dir, step_name))
-                rc = self.anaconda.intf.display_step(step_name)
+                rc = self.anaconda.intf.display_step(self.step)
                 if rc == DISPATCH_WAITING:
                     # a new screen has been set up and we are waiting for the
                     # user input now (this only ever happens with the GTK UI and
@@ -241,18 +243,12 @@ class Dispatcher(object):
                     return
                 elif rc == DISPATCH_DEFAULT:
                     log.debug("dispatch: the interface chose "
-                                "not to display step %s." % step_name)
+                              "not to display step %s." % self.step)
                 else:
                     self.dir = rc
             log.info("dispatch: leaving (%d) step %s" %
-                     (self.dir, step_name))
-            self.step += self.dir
-
-    def __init__(self, anaconda):
-        self.anaconda = anaconda
-        self.anaconda.dir = DISPATCH_FORWARD
-        self.step = None
-        self.skipSteps = {}
+                     (self.dir, self.step))
+            self._advance_step()
 
     def _getDir(self):
         return self.anaconda.dir
