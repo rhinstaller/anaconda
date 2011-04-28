@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.231
+Version: 11.1.2.232
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -128,6 +128,14 @@ fi
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu Apr 28 2011 Ales Kozumplik <akozumpl@redhat.com> 11.1.2.232-1
+- Do not show "missing media" message when unknown media is needed for package. (msivak)
+  Resolves: rhbz#617262
+- Perform group removals at the beginning of every transaction (clumens)
+  Resolves: rhbz#642224
+- Filter kickstart-provided repos through the installation key (clumens)
+  Resolves: rhbz#452983
+
 * Mon Apr 11 2011 Ales Kozumplik <akozumpl@redhat.com> 11.1.2.231-1
 - Run subscription-manager 'product-id' plugin during install (wwoods)
   Resolves: rhbz#670973
