@@ -147,8 +147,8 @@ class OSBootWidget:
         labelEntry = gtk.Entry(32)
         label.set_mnemonic_widget(labelEntry)
         table.attach(labelEntry, 1, 2, 1, 2, gtk.FILL, 0, 10)
-        if oldLabel:
-            labelEntry.set_text(oldLabel)
+        if image.label:
+            labelEntry.set_text(image.label)
 
         label = gui.MnemonicLabel(_("_Device"))
         table.attach(label, 0, 1, 2, 3, gtk.FILL, 0, 10)
