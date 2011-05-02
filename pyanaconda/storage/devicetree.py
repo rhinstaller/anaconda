@@ -1028,9 +1028,11 @@ class DeviceTree(object):
         device.originalFormat = device.format
 
     def handleUdevDiskLabelFormat(self, info, device):
-        log_method_call(self, device=device.name)
-        # if there is preexisting formatting on the device use it
-        if getFormat(udev_device_get_format(info)).type is not None:
+        disklabel_type = info.get("PART_TABLE_TYPE")
+        log_method_call(self, device=device.name, label_type=disklabel_type)
+        # if there is no disklabel on the device
+        if disklabel_type is None and \
+           getFormat(udev_device_get_format(info)).type is not None:
             log.debug("device %s does not contain a disklabel" % device.name)
             return
 
@@ -1051,15 +1053,12 @@ class DeviceTree(object):
             try:
                 format = getFormat("disklabel",
                                    device=device.path,
+                                   labelType=disklabel_type,
                                    exists=True)
             except InvalidDiskLabelError:
+                log.warning("disklabel detected but not usable on %s"
+                            % device.name)
                 pass
-            else:
-                if format.partitions:
-                    # parted's checks for disklabel presence are less than
-                    # rigorous, so we will assume that detected disklabels
-                    # with no partitions are spurious
-                    device.format = format
             return
 
         # if the disk contains protected partitions we will not wipe the
@@ -1101,6 +1100,8 @@ class DeviceTree(object):
                                                               description,
                                                               device.size)
 
+        # we're going to pass the "best" disklabel type into the DiskLabel
+        # constructor, but it only has meaning for non-existent disklabels.
         labelType = self.platform.bestDiskLabelType(device)
 
         try:
