@@ -67,7 +67,6 @@ stepToClass = {
     "keyboard" : ("kbd_gui", "KeyboardWindow"),
     "filtertype" : ("filter_type", "FilterTypeWindow"),
     "filter" : ("filter_gui", "FilterWindow"),
-    "zfcpconfig" : ("zfcp_gui", "ZFCPWindow"),
     "partition" : ("partition_gui", "PartitionWindow"),
     "parttype" : ("autopart_type", "PartitionTypeWindow"),
     "cleardiskssel": ("cleardisks_gui", "ClearDisksWindow"),

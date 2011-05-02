@@ -54,7 +54,6 @@ stepToClasses = {
     "parttype" : ("partition_text", "PartitionTypeWindow"),
     "addswap" : ("upgrade_text", "UpgradeSwapWindow"),
     "upgrademigratefs" : ("upgrade_text", "UpgradeMigrateFSWindow"),
-    "zfcpconfig": ("zfcp_text", "ZFCPWindow"),
     "findinstall" : ("upgrade_text", "UpgradeExamineWindow"),
     "upgbootloader": ("upgrade_bootloader_text", "UpgradeBootloaderWindow"),
     "network" : ("network_text", "HostnameWindow"),

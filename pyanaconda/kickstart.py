@@ -226,7 +226,7 @@ class AutoPart(commands.autopart.F12_AutoPart):
             self.anaconda.storage.autoPartAddBackupPassphrase = \
                 self.backuppassphrase
 
-        self.anaconda.ksdata.skipSteps.extend(["partition", "zfcpconfig", "parttype"])
+        self.anaconda.ksdata.skipSteps.extend(["partition", "parttype"])
 
 class AutoStep(commands.autostep.FC3_AutoStep):
     def execute(self):
@@ -457,7 +457,7 @@ class LogVolData(commands.logvol.F15_LogVolData):
 
             dev.format.mountpoint = self.mountpoint
             dev.format.mountopts = self.fsopts
-            self.anaconda.ksdata.skipSteps.extend(["partition", "zfcpconfig", "parttype"])
+            self.anaconda.ksdata.skipSteps.extend(["partition", "parttype"])
             return
 
         # Make sure this LV name is not already used in the requested VG.
@@ -540,7 +540,7 @@ class LogVolData(commands.logvol.F15_LogVolData):
                                      parents=request)
             storage.createDevice(luksdev)
 
-        self.anaconda.ksdata.skipSteps.extend(["partition", "zfcpconfig", "parttype"])
+        self.anaconda.ksdata.skipSteps.extend(["partition", "parttype"])
 
 class Logging(commands.logging.FC6_Logging):
     def execute(self):
@@ -768,7 +768,7 @@ class PartitionData(commands.partition.F12_PartData):
 
             dev.format.mountpoint = self.mountpoint
             dev.format.mountopts = self.fsopts
-            self.anaconda.ksdata.skipSteps.extend(["partition", "zfcpconfig", "parttype"])
+            self.anaconda.ksdata.skipSteps.extend(["partition", "parttype"])
             return
 
         # Now get a format to hold a lot of these extra values.
@@ -857,7 +857,7 @@ class PartitionData(commands.partition.F12_PartData):
                                      parents=request)
             storage.createDevice(luksdev)
 
-        self.anaconda.ksdata.skipSteps.extend(["partition", "zfcpconfig", "parttype"])
+        self.anaconda.ksdata.skipSteps.extend(["partition", "parttype"])
 
 class Reboot(commands.reboot.FC6_Reboot):
     def execute(self):
@@ -910,7 +910,7 @@ class RaidData(commands.raid.F15_RaidData):
 
             dev.format.mountpoint = self.mountpoint
             dev.format.mountopts = self.fsopts
-            self.anaconda.ksdata.skipSteps.extend(["partition", "zfcpconfig", "parttype"])
+            self.anaconda.ksdata.skipSteps.extend(["partition", "parttype"])
             return
 
         # Get a list of all the RAID members.
@@ -1003,7 +1003,7 @@ class RaidData(commands.raid.F15_RaidData):
                                      parents=request)
             storage.createDevice(luksdev)
 
-        self.anaconda.ksdata.skipSteps.extend(["partition", "zfcpconfig", "parttype"])
+        self.anaconda.ksdata.skipSteps.extend(["partition", "parttype"])
 
 class RootPw(commands.rootpw.F8_RootPw):
     def execute(self):
