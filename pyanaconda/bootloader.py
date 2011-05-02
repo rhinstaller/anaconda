@@ -177,14 +177,6 @@ class LinuxBootLoaderImage(BootLoaderImage):
 
 class BootLoader(object):
     """TODO:
-            - simplify choices to (mbr|boot device)?
-                - mbr is mbr of msdos disklabel
-                - boot device is one of:
-                    - /boot (regardless of type) on non-EFI x86
-                    - GPT boot partition
-                    - EFI system partition or md
-                    - PReP partition
-
             - iSeries bootloader?
                 - same as pSeries, except optional, I think
             - upgrade of non-grub bootloaders
@@ -194,10 +186,6 @@ class BootLoader(object):
                   password
             - consider re-implementing ArgumentList as something else, like
               perhaps collections.OrderedDict
-            - resolve overlap between Platform checkFoo methods and
-              _is_valid_stage1_device and _is_valid_stage2_device
-            - split certain parts of _is_valid_stage1_device and
-              _is_valid_stage2_device into specific bootloader classes
     """
     name = "Generic Bootloader"
     packages = []
@@ -207,25 +195,35 @@ class BootLoader(object):
     can_update = False
     image_label_attr = "label"
 
+    disklabel_types = []
+    encryption_support = False
+
     # requirements for bootloader stage1 devices
     stage1_device_types = []
-    stage1_device_raid_levels = []
-    stage1_device_format_types = []
-    stage1_device_disklabel_types = []
-    stage1_device_mountpoints = []
-    stage1_device_min_size = None
-    stage1_device_max_size = None
+    stage1_raid_levels = []
+    stage1_raid_metadata = []
+    stage1_raid_member_types = []
+    stage1_format_types = []
+    stage1_mountpoints = []
+    stage1_description = N_("bootloader device")
+    stage1_max_end_mb = None
+
+    stage2_is_valid_stage1 = False
 
     # for UI use, eg: "mdarray": N_("RAID Device")
     target_descriptions = {}
 
     # requirements for stage2 devices
     stage2_device_types = []
-    stage2_device_raid_levels = []
-    stage2_device_format_types = ["ext4", "ext3", "ext2"]
-    stage2_device_mountpoints = ["/boot", "/"]
-    stage2_device_min_size = 50
-    stage2_device_max_size = None
+    stage2_raid_levels = []
+    stage2_raid_metadata = []
+    stage2_raid_member_types = []
+    stage2_format_types = ["ext4", "ext3", "ext2"]
+    stage2_mountpoints = ["/boot", "/"]
+    stage2_bootable = False
+    stage2_description = N_("/boot filesystem")
+    stage2_max_end_mb = 2 * 1024 * 1024
+
     non_linux_format_types = []
 
     # this is so stupid...
@@ -268,6 +266,11 @@ class BootLoader(object):
 
         self._update_only = False
 
+        self.stage2_is_preferred_stage1 = False
+
+        self.errors = []
+        self.warnings = []
+
     #
     # stage1 device access
     #
@@ -275,25 +278,26 @@ class BootLoader(object):
     def stage1_device(self):
         """ Stage1 target device. """
         if not self._stage1_device:
-            log.debug("no stage1 device: %s" % self.stage1_devices)
-            try:
-                self.stage1_device = self.stage1_devices[0]
-            except IndexError:
-                pass
+            log.debug("no stage1 device: %s"
+                      % [d.name for d in self.stage1_devices])
+            if self.stage2_is_preferred_stage1:
+                log.debug("using stage2 device as stage1")
+                self.stage1_device = self.stage2_device
+            else:
+                try:
+                    self.stage1_device = self.stage1_devices[0]
+                except IndexError:
+                    pass
 
         return self._stage1_device
 
     @stage1_device.setter
     def stage1_device(self, device):
-        if device and not self._is_valid_stage1_device(device):
-            raise ValueError("%s is not a valid stage1 device" % device.name)
-
         log.debug("new bootloader stage1 device: %s" % getattr(device,
                                                                "name", None))
         self._stage1_device = device
         if device:
             self.stage1_drive = device.disks[0]
-
 
     @property
     def stage2_device(self):
@@ -412,6 +416,110 @@ class BootLoader(object):
             self.chain_images.append(BootLoaderImage(device=device))
 
     #
+    # constraint checking for target devices
+    #
+    def _is_valid_md(self, device, device_types=None, raid_levels=None,
+                     metadata=None, member_types=None, desc=""):
+        ret = True
+        if device.type != "mdarray":
+            return ret
+
+        if raid_levels and device.level not in raid_levels:
+            levels_str = ",".join("RAID%d" % l for l in raid_levels)
+            self.errors.append(_("RAID sets containing the %s must have one "
+                                 "of the following raid levels: %s.")
+                               % (desc, levels_str))
+            ret = False
+
+        if metadata and device.metadataVersion not in metadata:
+            self.errors.append(_("RAID sets containing the %s must have one "
+                                 "of the following metadata versions: %s.")
+                               % (desc, ",".join(metadata)))
+            ret = False
+
+        if member_types:
+            for member in device.devices:
+                if not self._device_type_match(member, member_types):
+                    self.errors.append(_("RAID sets containing the %s must "
+                                         "have one of the following device "
+                                         "types: %s.")
+                                       % (desc, ",".join(member_types)))
+                    ret = False
+
+        log.debug("_is_valid_md(%s) returning %s" % (device.name,ret))
+        return ret
+
+    def _is_valid_disklabel(self, device, disklabel_types=None, desc=""):
+        ret = True
+        if self.disklabel_types:
+            for disk in device.disks:
+                label_type = disk.format.labelType
+                if label_type not in self.disklabel_types:
+                    types_str = ",".join(disklabel_types)
+                    self.errors.append(_("%s must have one of the following "
+                                         "disklabel types: %s.")
+                                       % (device.name, types_str))
+                    ret = False
+
+        log.debug("_is_valid_disklabel(%s) returning %s" % (device.name,ret))
+        return ret
+
+    def _is_valid_format(self, device, format_types=None, mountpoints=None,
+                         desc=""):
+        ret = True
+        if format_types and device.format.type not in format_types:
+            self.errors.append(_("The %s cannot be of type %s.")
+                               % (desc, device.format.type))
+            ret = False
+
+        log.debug("_is_valid_format(%s) returning %s" % (device.name,ret))
+        return ret
+
+    def _is_valid_size(self, device, desc=""):
+        ret = True
+        msg = None
+        errors = []
+        if device.format.minSize and device.format.maxSize:
+            msg = (_("%s must be between %d and %d MB in size")
+                   % (desc, device.format.minSize, device.format.maxSize))
+
+        if device.format.minSize and device.size < device.format.minSize:
+            if msg is None:
+                errors.append(_("%s must not be smaller than %dMB.")
+                              % (desc, device.format.minSize))
+            else:
+                errors.append(msg)
+
+            ret = False
+
+        if device.format.maxSize and device.size > device.format.maxSize:
+            if msg is None:
+                errors.append(_("%s must not be larger than %dMB.")
+                              % (desc, device.format.maxSize))
+            elif msg not in errors:
+                # don't add the same error string twice
+                errors.append(msg)
+
+            ret = False
+
+        log.debug("_is_valid_size(%s) returning %s" % (device.name,ret))
+        return ret
+
+    def _is_valid_location(self, device, max_mb=None, desc=""):
+        ret = True
+        if max_mb and device.type == "partition":
+            end_sector = device.partedPartition.geometry.end
+            sector_size = device.partedPartition.disk.device.sectorSize
+            end_mb = (sector_size * end_sector) / (1024.0 * 1024.0)
+            if end_mb > max_mb:
+                self.errors.append(_("%s must be within the first %dMB of "
+                                     "the disk.") % (desc, max_mb))
+                ret = False
+
+        log.debug("_is_valid_location(%s) returning %s" % (device.name,ret))
+        return ret
+
+    #
     # target/stage1 device access
     #
     def _device_type_index(self, device, types):
@@ -432,28 +540,33 @@ class BootLoader(object):
         return self._device_type_index(device, types) is not None
 
     def device_description(self, device):
-        idx = self._device_type_index(device, self.stage1_device_types)
+        device_types = self.target_descriptions.keys()
+        idx = self._device_type_index(device, device_types)
         if idx is None:
-            raise ValueError("'%s' not a valid stage1 type" % device.type)
+            raise ValueError("No description available for %s" % device.type)
 
-        return self.target_descriptions[self.stage1_device_types[idx]]
+        # this looks unnecessarily complicated, but it handles the various
+        # device types that we treat as disks
+        return self.target_descriptions[device_types[idx]]
 
     def set_preferred_stage1_type(self, preferred):
-        """ Set a preferred type of stage1 device.
+        """ Set a preferred type of stage1 device. """
+        if not self.stage2_is_valid_stage1:
+            # "partition" means first sector of stage2 and is only meaningful
+            # for bootloaders that can use stage2 as stage1
+            return
 
-            XXX should this reorder the list or remove everything else? """
         if preferred == "mbr":
-            preferred = "disk"
+            # "mbr" is already the default
+            return
 
-        try:
-            index = self.stage1_device_types.index(preferred)
-        except ValueError:
-            raise ValueError("'%s' not a valid stage1 device type" % preferred)
+        # partition means "use the stage2 device for a stage1 device"
+        self.stage2_is_preferred_stage1 = True
 
-        self.stage1_device_types.insert(0, self.stage1_device_types.pop(index))
-
-    def _is_valid_stage1_device(self, device):
+    def is_valid_stage1_device(self, device):
         """ Return True if the device is a valid stage1 target device.
+
+            Also collect lists of errors and warnings.
 
             The criteria for being a valid stage1 target device vary from
             platform to platform. On some platforms a disk with an msdos
@@ -461,41 +574,70 @@ class BootLoader(object):
             a special device. Some examples of these special devices are EFI
             system partitions on EFI machines, PReP boot partitions on
             iSeries, and Apple bootstrap partitions on Mac. """
+        self.errors = []
+        self.warnings = []
+        valid = True
+        try:
+            description = self.device_description(device)
+        except Exception:
+            description = self.stage1_description
+
+        if self.stage2_is_valid_stage1 and device == self.stage2_device:
+            # special case
+            valid = self.is_valid_stage2_device(device)
+
+            # we'll be checking stage2 separately so don't duplicate messages
+            self.problems = []
+            self.warnings = []
+            return valid
+
         if not self._device_type_match(device, self.stage1_device_types):
-            return False
+            self.errors.append(_("The %s cannot be of type %s")
+                               % (description, device.type))
+            valid = False
 
-        if (self.stage1_device_min_size is not None and
-            device.size < self.stage1_device_min_size):
-            return False
+        if not self._is_valid_disklabel(device,
+                                        disklabel_types=self.disklabel_types,
+                                        desc=description):
+            valid = False
 
-        if (self.stage1_device_max_size is not None and
-            device.size > self.stage1_device_max_size):
-            return False
+        if not self._is_valid_size(device, desc=description):
+            valid = False
 
-        if not getattr(device, "bootable", True) or \
-           (hasattr(device, "partedPartition") and
-            not device.partedPartition.active):
-            return False
+        if not self._is_valid_location(device,
+                                       max_mb=self.stage1_max_end_mb,
+                                       desc=description):
+            valid = False
 
+        if not self._is_valid_md(device, device_types=self.stage1_device_types,
+                                 raid_levels=self.stage1_raid_levels,
+                                 metadata=self.stage1_raid_metadata,
+                                 member_types=self.stage1_raid_member_types,
+                                 desc=description):
+            valid = False
+
+        if not self.stage2_bootable and not getattr(device, "bootable", True):
+            log.warning("%s not bootable" % device.name)
+
+        # XXX does this need to be here?
         if getattr(device.format, "label", None) == "ANACONDA":
-            return False
+            log.info("ignoring anaconda boot disk")
+            valid = False
 
-        if self.stage1_device_format_types and \
-           device.format.type not in self.stage1_device_format_types:
-            return False
+        if not self._is_valid_format(device,
+                                     format_types=self.stage1_format_types,
+                                     mountpoints=self.stage1_mountpoints,
+                                     desc=description):
+            valid = False
 
-        if self.stage1_device_disklabel_types:
-            for disk in device.disks:
-                label_type = disk.format.labelType
-                if label_type not in self.stage1_device_disklabel_types:
-                    return False
+        if not self.encryption_support and device.encrypted:
+            self.errors.append(_("The %s cannot be on an encrypted block "
+                                 "device.") % description)
+            valid = False
 
-        if self.stage1_device_mountpoints and \
-           hasattr(device.format, "mountpoint") and \
-           device.format.mountpoint not in self.stage1_device_mountpoints:
-            return False
-
-        return True
+        log.debug("is_valid_stage1_device(%s) returning %s" % (device.name,
+                                                                valid))
+        return valid
 
     @property
     def stage1_devices(self):
@@ -511,7 +653,7 @@ class BootLoader(object):
             if idx is None:
                 continue
 
-            if self._is_valid_stage1_device(device):
+            if self.is_valid_stage1_device(device):
                 slots[idx].append(device)
 
         devices = []
@@ -535,50 +677,84 @@ class BootLoader(object):
     # boot/stage2 device access
     #
 
-    def _is_valid_stage2_device(self, device, linux=True, non_linux=False):
-        """ Return True if the specified device might contain an OS image. """
+    def is_valid_stage2_device(self, device, linux=True, non_linux=False):
+        """ Return True if the device is suitable as a stage2 target device.
+
+            Also collect lists of errors and warnings.
+        """
+        self.errors = []
+        self.warnings = []
+        valid = True
+
         if not self._device_type_match(device, self.stage2_device_types):
-            return False
+            self.errors.append(_("The %s cannot be of type %s")
+                               % (self.stage2_description, device.type))
+            valid = False
 
-        if device.type == "mdarray" and \
-           device.level not in self.stage2_device_raid_levels:
-            # TODO: also check metadata version, as ridiculous as that is
-            return False
+        if not self._is_valid_disklabel(device,
+                                        disklabel_types=self.disklabel_types,
+                                        desc=self.stage2_description):
+            valid = False
 
-        if not self.stage1_devices:
-            # XXX is this really a dealbreaker?
-            return False
+        if not self._is_valid_size(device, desc=self.stage2_description):
+            valid = False
 
-        # FIXME: the windows boot block part belongs in GRUB
-        if hasattr(device, "partedPartition") and \
-           (not device.bootable or not device.partedPartition.active) and \
-           not has_windows_boot_block(device):
-            return False
+        if not self._is_valid_location(device,
+                                       max_mb=self.stage2_max_end_mb,
+                                       desc=self.stage2_description):
+            valid = False
 
-        format_types = []
-        if linux:
-            format_types = self.stage2_device_format_types
-            mountpoint = getattr(device.format, "mountpoint", None)
-            if self.stage2_device_mountpoints and \
-               mountpoint not in self.stage2_device_mountpoints:
-                return False
+        if not self._is_valid_md(device, device_types=self.stage2_device_types,
+                                 raid_levels=self.stage2_raid_levels,
+                                 metadata=self.stage2_raid_metadata,
+                                 member_types=self.stage2_raid_member_types,
+                                 desc=self.stage2_description):
+            valid = False
 
-        if non_linux:
-            format_types.extend(self.non_linux_format_types)
+        if linux and \
+           not self._is_valid_format(device,
+                                     format_types=self.stage2_format_types,
+                                     mountpoints=self.stage2_mountpoints,
+                                     desc=self.stage2_description):
+            valid = False
 
-        return device.format.type in format_types
+        if non_linux and \
+           not self._is_valid_format(device,
+                                     format_types=self.non_linux_format_types):
+            valid = False
+
+        if not self.encryption_support and device.encrypted:
+            self.errors.append(_("The %s cannot be on an encrypted block "
+                                 "device.") % self.stage2_description)
+            valid = False
+
+        log.debug("is_valid_stage2_device(%s) returning %s" % (device.name,
+                                                                valid))
+        return valid
 
     @property
     def bootable_chain_devices(self):
         """ Potential boot devices containing non-linux operating systems. """
-        return [d for d in self.storage.devices
-                if self._is_valid_stage2_device(d, linux=False, non_linux=True)]
+        # make sure we don't clobber error/warning lists
+        errors = self.errors[:]
+        warnings = self.warnings[:]
+        ret = [d for d in self.storage.devices
+                if self.is_valid_stage2_device(d, linux=False, non_linux=True)]
+        self.errors = errors
+        self.warnings = warnings
+        return ret
 
     @property
     def bootable_devices(self):
         """ Potential boot devices containing linux operating systems. """
-        return [d for d in self.storage.devices
-                    if self._is_valid_stage2_device(d)]
+        # make sure we don't clobber error/warning lists
+        errors = self.errors[:]
+        warnings = self.warnings[:]
+        ret = [d for d in self.storage.devices
+                    if self.is_valid_stage2_device(d)]
+        self.errors = errors
+        self.warnings = warnings
+        return ret
 
     #
     # miscellaneous
@@ -828,20 +1004,22 @@ class GRUB(BootLoader):
     can_update = True
 
     # list of strings representing options for bootloader target device types
-    stage1_device_types = ["disk", "partition", "mdarray"]
-    stage1_device_raid_levels = [mdraid.RAID1]
-    stage1_device_format_types = []
-    stage1_device_format_mountpoints = ["/boot", "/"]
+    stage1_device_types = ["disk"]
+    stage1_raid_levels = []
+    stage1_format_types = []
+    stage1_mountpoints = []
     stage1_device_disklabel_types = ["msdos", "gpt"]    # gpt?
 
-    # XXX account for disklabel type since mbr means nothing on gpt
+    stage2_is_valid_stage1 = True
+    stage2_bootable = True
+
     target_descriptions = {"disk": N_("Master Boot Record"),
                            "partition": N_("First sector of boot partition"),
                            "mdarray": N_("RAID Device")}
 
     # list of strings representing options for boot device types
     stage2_device_types = ["partition", "mdarray"]
-    stage2_device_raid_levels = [mdraid.RAID1]
+    stage2_raid_levels = [mdraid.RAID1]
 
     # XXX hpfs, if reported by blkid/udev, will end up with a type of None
     non_linux_format_types = ["vfat", "ntfs", "hpfs"]
@@ -1160,17 +1338,22 @@ class EFIGRUB(GRUB):
     can_dual_boot = False
     _config_dir = "efi/EFI/redhat"
 
+    disklabel_types = ["gpt"]
+
     # stage1 device types
     stage1_device_types = ["partition", "mdarray"]
     stage1_device_raid_levels = [mdraid.RAID1]
     stage1_device_format_types = ["efi"]
     stage1_device_mountpoints = ["/boot/efi"]
-    stage1_device_disklabel_types = ["gpt"]
-    stage1_device_min_size = 50
-    stage1_device_max_size = 256
+
+    stage2_is_valid_stage1 = False
+    stage2_bootable = False
+    stage2_max_end_mb = None
 
     target_descriptions = {"partition": N_("EFI System Partition"),
                            "mdarray": N_("RAID Device")}
+
+    stage1_description = target_descriptions["partition"]
 
     non_linux_format_types = []
 
@@ -1287,31 +1470,49 @@ class GRUB2(GRUB):
     can_dual_boot = True
     can_update = True
 
-    # requirements for bootloader stage1 devices
-    stage1_device_types = ["disk", "partition", "mdarray"]
-    stage1_device_raid_levels = [mdraid.RAID1]
-    stage1_device_format_types = []
-    stage1_device_disklabel_types = ["msdos", "gpt"]
-    stage1_device_mountpoints = ["/boot", "/"]
-
-    # for UI use, eg: "mdarray": N_("RAID Device")
-    target_descriptions = {"msdos": N_("Master Boot Record"),
-                           "partition": N_("First sector of boot partition"),
-                           "mdarray": N_("RAID Device")}
-
-    # these are disklabel-specific descriptions for stage1 targets
-    partition_descriptions = {"msdos": N_("First sector of boot partition"),
-                              "gpt": N_("BIOS boot partition")}
+    disklabel_types = ["gpt", "msdos"]
 
     # requirements for boot devices
     stage2_device_types = ["partition", "mdarray", "lvmlv"]
-    stage2_device_raid_levels = [mdraid.RAID4, mdraid.RAID1, mdraid.RAID4,
-                               mdraid.RAID5, mdraid.RAID6, mdraid.RAID10]
-    stage2_device_format_types = ["ext4", "ext3", "ext2"]
-    stage2_device_mountpoints = ["/boot", "/"]
-    stage2_device_min_size = 50
-    stage2_device_max_size = None
-    non_linux_format_types = []
+    stage2_raid_levels = [mdraid.RAID0, mdraid.RAID1, mdraid.RAID4,
+                          mdraid.RAID5, mdraid.RAID6, mdraid.RAID10]
+
+    # XXX we probably need special handling for raid stage1 w/ gpt disklabel
+    #     since it's unlikely there'll be a bios boot partition on each disk
+
+    #
+    # constraints for target devices
+    #
+    def _gpt_disk_has_bios_boot(self, device):
+        ret = False
+        # check that a bios boot partition is present if the stage1 device
+        # is a gpt-labeled disk
+        if device.isDisk and getattr(device.format, "labelType", None) == "gpt":
+            partitions = [p for p in self.storage.partitions
+                          if p.disk == device]
+            for p in partitions:
+                if p.format.type == "biosboot":
+                    ret = True
+                    break
+
+        if not ret:
+            self.warnings.append(_("You are using a GPT bootdisk on a non-EFI "
+                                   "system without a BIOS boot partition. "
+                                   "This may not work, depending on your "
+                                   "BIOS's support for booting from GPT disks."))
+
+        log.debug("_gpt_disk_has_bios_boot(%s) returning %s" % (device.name,
+                                                                ret))
+        return ret
+
+    def is_valid_stage1_device(self, device):
+        ret = super(GRUB2, self).is_valid_stage1_device(device)
+        if ret:
+            ignored = self._gpt_disk_has_bios_boot(device)
+
+        log.debug("is_valid_stage1_device(%s) returning %s" % (device.name,
+                                                                ret))
+        return ret
 
     #
     # grub-related conveniences
@@ -1337,21 +1538,6 @@ class GRUB2(GRUB):
                 name += ",%d" % device.partedPartition.number
             name += ")"
         return name
-
-    def device_description(self, device):
-        idx = self._device_type_index(device, self.stage1_device_types)
-        if idx is None:
-            raise ValueError("'%s' not a valid stage1 type" % device.type)
-
-        label_type = device.disks[0].format.labelType
-        if device.isDisk:
-            desc = self.target_descriptions[label_type]
-        elif device.type == "partition":
-            desc = self.partition_descriptions[label_type]
-        else:
-            desc = super(GRUB2, self).device_description(device)
-
-        return desc
 
     def write_defaults(self, install_root=""):
         defaults_file = "%s%s" % (install_root, self.defaults_file)
@@ -1458,13 +1644,13 @@ class Yaboot(YabootSILOBase):
     packages = ["yaboot"]
 
     # requirements for bootloader stage1 devices
-    stage1_device_types = ["partition", "mdarray"]
-    stage1_device_raid_levels = [mdraid.RAID1]
-    stage1_device_format_types = ["appleboot", "prepboot"]
+    stage1_device_types = ["partition"]
+    stage1_format_types = ["appleboot", "prepboot"]
 
     # stage2 device requirements
     stage2_device_types = ["partition", "mdarray"]
     stage2_device_raid_levels = [mdraid.RAID1]
+
     non_linux_format_types = ["hfs", "hfs+"]
 
     def __init__(self, storage):
@@ -1550,10 +1736,10 @@ class Yaboot(YabootSILOBase):
 class IPSeriesYaboot(Yaboot):
     prog = "mkofboot"
 
-    stage1_device_format_types = ["prepboot"]
-    stage1_device_disklabel_types = ["msdos"]
-    stage1_device_min_size = 4
-    stage1_device_max_size = 10
+    disklabel_types = ["msdos"]
+
+    stage1_format_types = ["prepboot"]
+    stage1_max_end_mb = 10
 
     target_descriptions = {"partition": N_("PReP Boot Partition"),
                            "mdarray": N_("RAID Device")}
@@ -1569,12 +1755,11 @@ class IPSeriesYaboot(Yaboot):
 
 class MacYaboot(Yaboot):
     prog = "mkofboot"
-
     can_dual_boot = True
-    stage1_device_format_types = ["appleboot"]
-    stage1_device_disklabel_types = ["mac"]
-    stage1_device_min_size = 800.00 / 1024.00
-    stage1_device_max_size = 1
+
+    disklabel_types = ["mac"]
+
+    stage1_format_types = ["appleboot"]
 
     target_descriptions = {"partition": N_("Apple Bootstrap Partition"),
                            "mdarray": N_("RAID Device")}
@@ -1597,7 +1782,7 @@ class MacYaboot(Yaboot):
 class ZIPL(BootLoader):
     name = "ZIPL"
     config_file = "/etc/zipl.conf"
-    packages = ["zipl"]
+    packages = ["s390utils-base"]
 
     # stage1 device requirements
     stage1_device_types = ["disk", "partition"]
@@ -1607,7 +1792,6 @@ class ZIPL(BootLoader):
     stage2_device_types = ["partition", "mdarray", "lvmlv"]
     stage2_device_raid_levels = [mdraid.RAID1]
 
-    packages = ["s390utils-base"]
     image_label_attr = "short_label"
     preserve_args = ["cio_ignore"]
 
@@ -1676,9 +1860,10 @@ class SILO(YabootSILOBase):
     _config_file = "silo.conf"
     message_file = "/etc/silo.message"
 
+    disklabel_types = ["sun"]
+
     # stage1 device requirements
-    stage1_device_types = ["partition"]
-    stage1_device_disklabel_types = ["sun"]
+    stage1_device_types = ["disk"]
 
     # stage2 device requirements
     stage2_device_types = ["partition"]

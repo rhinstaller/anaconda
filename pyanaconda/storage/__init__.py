@@ -186,19 +186,6 @@ def storageComplete(anaconda):
     if anaconda.ksdata:
         return
 
-    # Warn the user if they are trying to boot a GPT disk on a non-EFI system
-    # This may or may not work -- we have no way to tell, so just warn them
-    warning = ""
-    if not isinstance(anaconda.platform, platform.EFI):
-        disks = (anaconda.bootloader.stage1_device.disks
-                 + anaconda.bootloader.stage2_device.disks)
-        if [d for d in disks if getattr(d.format, "labelType", None) == "gpt"]:
-            warning = _("\n\n<b>WARNING:</b>\n"
-                        "You are using a GPT bootdisk on a non-EFI "
-                        "system. This may not work, depending on your "
-                        "BIOS's support for booting from GPT disks.")
-            log.warning("Using a GPT bootdisk on non-EFI system")
-
     # Prevent users from installing on s390x with (a) no /boot volume, (b) the
     # root volume on LVM, and (c) the root volume not restricted to a single
     # PV
@@ -229,8 +216,7 @@ def storageComplete(anaconda):
                                 _("The partitioning options you have selected "
                                   "will now be written to disk.  Any "
                                   "data on deleted or reformatted partitions "
-                                  "will be lost."
-                                  "%s") % (warning),
+                                  "will be lost."),
                                 type = "custom", custom_icon="warning",
                                 custom_buttons=[_("Go _Back"),
                                                 _("_Write Changes to Disk")],
@@ -1170,8 +1156,13 @@ class Storage(object):
                               "or may not produce a working system."))
 
         if self.platform and not self.anaconda.dispatch.stepInSkipList('instbootloader'):
-            errors.extend(self.platform.checkBootRequest())
-            errors.extend(self.platform.checkBootLoaderRequest())
+            (e, w) = self.platform.checkBootRequest()
+            errors.extend(e)
+            warnings.extend(w)
+
+            (e, w) = self.platform.checkBootLoaderRequest()
+            errors.extend(e)
+            warnings.extend(w)
 
         if not swaps:
             from pyanaconda.storage.size import Size

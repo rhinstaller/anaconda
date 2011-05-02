@@ -62,7 +62,7 @@ class Platform(object):
     @property
     def bootFSTypes(self):
         """A list of all valid filesystem types for the boot partition."""
-        return self.bootloader.stage2_device_format_types
+        return self.bootloader.stage2_format_types
 
     @property
     def defaultBootFSType(self):
@@ -72,7 +72,7 @@ class Platform(object):
     @property
     def diskLabelTypes(self):
         """A list of valid disklabel types for this architecture."""
-        return self.bootloader.stage1_device_disklabel_types
+        return self.bootloader.disklabel_types
 
     @property
     def defaultDiskLabelType(self):
@@ -83,67 +83,18 @@ class Platform(object):
         """The default disklabel type for the specified device type."""
         return self.defaultDiskLabelType
 
-    def checkDiskLabel(self, req):
-        """Check the disk containing req for the correct disklabel type.
-
-           Return a list of error strings if incorrect disklabels are found."""
-        errors = []
-        if not self.bootloader.stage1_device_disklabel_types:
-            return errors
-
-        for disk in req.disks:
-            labelType = disk.format.labelType
-            labelTypes = self.bootloader.stage1_device_disklabel_types
-            if labelType not in labelTypes:
-                errors.append(_("%s must have a %s disk label.")
-                              % (disk.name,
-                                 " or ".join([t.upper() for t in labelTypes])))
-        return errors
-
     def checkBootRequest(self):
         """Perform an architecture-specific check on the boot device.  Not all
            platforms may need to do any checks.  Returns a list of errors if
            there is a problem, or [] otherwise."""
-        errors = []
-
         req = self.bootDevice
         if not req:
-            return [_("You have not created a bootable partition.")]
+            return ([_("You have not created a bootable partition.")], [])
 
-        # TODO: reimplement BootLoader._device_is_bootable(req, linux=True)
-        #       such that it returns a list of error strings instead of
-        #       True/False
-
-        if req.type not in self.bootloader.stage2_device_types:
-            errors.append(_("The /boot filesystem cannot be on devices of "
-                            "type %s") % req.type)
-        elif req.type == "mdarray":
-            raid_levels = self.bootloader.stage2_device_raid_levels
-            if req.level not in raid_levels:
-                levels = ",".join(["RAID%d" % l for l in raid_levels])
-                errors.append(_("RAID sets containing the /boot filesystem "
-                                "must have one of the following raid levels: "
-                                "%s.") % levels)
-
-            for p in req.parents:
-                if p.type != "partition":
-                    errors.append(_("RAID sets containing the /boot "
-                                    "filesystem may only have partitions "
-                                    "as member devices."))
-                    break
-
-        # Make sure /boot is on a supported FS type.  This prevents crazy
-        # things like boot on vfat.
-        if not req.format.bootable or \
-           req.format.type not in self.bootFSTypes:
-            errors.append(_("The /boot filesystem cannot be of type %s.") % req.format.type)
-
-        if req.encrypted:
-            # Handle /boot that is, or depends on devices that are, encrypted
-            errors.append(_("The /boot filesystem cannot be on an encrypted block device"))
-
-        errors.extend(self.checkDiskLabel(req))
-        return errors
+        self.bootloader.is_valid_stage2_device(req)
+        errors = self.bootloader.errors
+        warnings = self.bootloader.warnings
+        return (errors, warnings)
 
     def checkBootLoaderRequest(self):
         """ Perform architecture-specific checks on the bootloader device.
@@ -152,9 +103,12 @@ class Platform(object):
         """
         req = self.bootLoaderDevice
         if not req:
-            return [_("you have not created a bootloader stage1 target device")]
+            return ([_("you have not created a bootloader stage1 target device")], [])
 
-        return self.checkDiskLabel(req)
+        self.bootloader.is_valid_stage1_device(req)
+        errors = self.bootloader.errors
+        warnings = self.bootloader.warnings
+        return (errors, warnings)
 
     @property
     def minimumSector(self, disk):
@@ -234,19 +188,6 @@ class PPC(Platform):
 class IPSeriesPPC(PPC):
     _bootloaderClass = bootloader.IPSeriesYaboot
 
-    def checkBootLoaderRequest(self):
-        req = self.bootLoaderDevice
-        errors = PPC.checkBootLoaderRequest(self)
-
-        bootPart = getattr(req, "partedPartition", None)
-        if not bootPart:
-            return errors
-
-        if bootPart.geometry.end * bootPart.geometry.device.sectorSize / (1024.0 * 1024) > 10:
-            errors.append(_("The boot partition must be within the first 10MB of the disk."))
-
-        return errors
-
     def setDefaultPartitioning(self):
         from storage.partspec import PartSpec
         ret = PPC.setDefaultPartitioning(self)
@@ -265,15 +206,6 @@ class IPSeriesPPC(PPC):
 
 class NewWorldPPC(PPC):
     _bootloaderClass = bootloader.MacYaboot
-
-    def checkBootLoaderRequest(self):
-        req = self.bootLoaderDevice
-        errors = PPC.checkBootLoaderRequest(self)
-
-        if not req or req.type != "partition" or not req.disk:
-            return errors
-
-        return errors
 
     def setDefaultPartitioning(self):
         from storage.partspec import PartSpec
