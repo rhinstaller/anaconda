@@ -950,3 +950,18 @@ def find_program_in_path(prog, raise_on_error=False):
     if raise_on_error:
         raise RuntimeError("Unable to locate a needed executable: '%s'" % prog)
     return None
+
+def fork_orphan():
+    """Forks an orphan.
+
+    Returns 1 in the parent and 0 in the orphaned child.
+    """
+    intermediate = os.fork()
+    if not intermediate:
+        if os.fork():
+            # the intermediate child dies
+            os._exit(0)
+        return 0;
+    # the original process waits for the intermediate child
+    os.waitpid(intermediate, 0)
+    return 1

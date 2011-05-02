@@ -84,6 +84,7 @@ class BaseInstallClass(object):
     def setSteps(self, anaconda):
         dispatch = anaconda.dispatch
 	dispatch.setStepList(
+		 "sshd",
 		 "language",
 		 "keyboard",
                  "filtertype",

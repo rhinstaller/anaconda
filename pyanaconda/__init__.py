@@ -245,6 +245,10 @@ class Anaconda(object):
             if not os.environ.has_key("LANG"):
                 os.environ["LANG"] = "en_US.UTF-8"
 
+        if self.displayMode == 'r':
+            import rescue
+            InstallInterface = rescue.RescueInterface
+
         if self.displayMode == 'c':
             from cmdline import InstallInterface
 

@@ -40,7 +40,9 @@ from upgrade import restoreTime
 from upgrade import upgradeSwapSuggestion, upgradeMigrateFind
 from upgrade import findRootParts, queryUpgradeContinue
 from installmethod import doMethodComplete
-from kickstart import runPostScripts
+from kickstart import doKickstart, runPostScripts
+from sshd import doSshd
+from rescue import doRescue
 
 from backend import doPostSelection, doBackendSetup, doBasePackageSelect
 from backend import doPreInstall, doPostInstall, doInstall
@@ -66,6 +68,9 @@ log = logging.getLogger("anaconda")
 # All install steps take the anaconda object as their sole argument.  This
 # gets passed in when we call the function.
 installSteps = [
+    ("sshd", doSshd),
+    ("rescue", doRescue),
+    ("kickstart", doKickstart),
     ("language", ),
     ("keyboard", ),
     ("betanag", betaNagScreen, ),

@@ -1203,6 +1203,14 @@ class AnacondaKSHandler(superclass):
                                      "configuration file:\n\n%s") % e)
                 sys.exit(1)
 
+    def setSteps(self):
+        for n in self.skipSteps:
+            self.anaconda.dispatch.skipStep(n)
+        for n in self.permanentSkipSteps:
+            self.anaconda.dispatch.skipStep(n, permanent=1)
+        for n in self.showSteps:
+            self.anaconda.dispatch.skipStep(n, skip = 0)
+
 class AnacondaPreParser(KickstartParser):
     # A subclass of KickstartParser that only looks for %pre scripts and
     # sets them up to be run.  All other scripts and commands are ignored.
@@ -1265,6 +1273,16 @@ class AnacondaKSParser(KickstartParser):
         retval = KickstartParser.handleCommand(self, lineno, args)
         self.handler.add(retval)
         return retval
+
+def doKickstart(anaconda):
+    storage.storageInitialize(anaconda)
+    # Having initialized storage, we can apply all the other kickstart commands.
+    # This gives us the ability to check that storage commands are correctly
+    # formed and refer to actual devices.
+    anaconda.ksdata.execute()
+    # executing kickstart commands dynamically disables or enables certain
+    # dispatch steps, process the lists now.
+    anaconda.ksdata.setSteps()
 
 def preScriptPass(anaconda, file):
     # The first pass through kickstart file processing - look for %pre scripts
@@ -1476,6 +1494,7 @@ def setSteps(anaconda):
     else:
         anaconda.instClass.setSteps(anaconda)
         dispatch.skipStep("findrootparts")
+    dispatch.skipStep("kickstart", skip = 0)
 
     dispatch.skipStep("betanag")
     dispatch.skipStep("network")
@@ -1508,13 +1527,6 @@ def setSteps(anaconda):
             ksdata.skipSteps.extend(["tasksel", "group-selection"])
         else:
             ksdata.showSteps.extend(["tasksel", "group-selection"])
-
-    for n in ksdata.skipSteps:
-        dispatch.skipStep(n)
-    for n in ksdata.permanentSkipSteps:
-        dispatch.skipStep(n, permanent=1)
-    for n in ksdata.showSteps:
-        dispatch.skipStep(n, skip = 0)
 
     # Text mode doesn't have all the steps that graphical mode does, so we
     # can't stop and prompt for missing information.  Make sure we've got

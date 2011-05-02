@@ -33,6 +33,9 @@ class InstallInterfaceBase(object):
         self._initLabelAnswers = {}
         self._inconsistentLVMAnswers = {}
 
+    def setSteps(self, anaconda):
+        pass
+
     def messageWindow(self, title, text, type="ok", default = None,
              custom_buttons=None,  custom_icon=None):
         raise NotImplementedError
