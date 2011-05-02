@@ -39,6 +39,7 @@ import devicelibs.mpath
 import devicelibs.loop
 from udev import *
 from pyanaconda import iutil
+from pyanaconda import platform
 from pyanaconda import tsort
 from pyanaconda.anaconda_log import log_method_call, log_method_return
 import parted
@@ -167,6 +168,8 @@ class DeviceTree(object):
         self.reinitializeDisks = getattr(conf, "reinitializeDisks", False)
         self.iscsi = iscsi
         self.dasd = dasd
+
+        self.platform = platform.getPlatform(None)
 
         self.diskImages = {}
         images = getattr(conf, "diskImages", {})
@@ -1097,15 +1100,20 @@ class DeviceTree(object):
             initcb = lambda: self.intf.questionInitializeDisk(bypath,
                                                               description,
                                                               device.size)
+
+        labelType = self.platform.bestDiskLabelType(device)
+
         try:
             format = getFormat("disklabel",
                                device=device.path,
+                               labelType=labelType,
                                exists=not initlabel)
         except InvalidDiskLabelError:
             # if we have a cb function use it. else we ignore the device.
             if initcb is not None and initcb():
                 format = getFormat("disklabel",
                                    device=device.path,
+                                   labelType=labelType,
                                    exists=False)
             else:
                 self._removeDevice(device)

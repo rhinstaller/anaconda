@@ -20,6 +20,8 @@
 # Authors: Chris Lumens <clumens@redhat.com>
 #
 
+import parted
+
 from pyanaconda import bootloader
 
 import iutil
@@ -79,9 +81,24 @@ class Platform(object):
         """The default disklabel type for this architecture."""
         return self.diskLabelTypes[0]
 
-    def diskLabelType(self, device_type):
-        """The default disklabel type for the specified device type."""
-        return self.defaultDiskLabelType
+    def requiredDiskLabelType(self, device_type):
+        return None
+
+    def bestDiskLabelType(self, device):
+        """The best disklabel type for the specified device."""
+        # if there's a required type for this device type, use that
+        labelType = self.requiredDiskLabelType(device.partedDevice.type)
+        if not labelType:
+            # otherwise, use the first supported type for this platform
+            # that is large enough to address the whole device
+            labelType = self.defaultDiskLabelType
+            for lt in self.diskLabelTypes:
+                l = parted.freshDisk(device=device.partedDevice, ty=lt)
+                if l.maxPartitionStartSector < device.partedDevice.length:
+                    labelType = lt
+                    break
+
+        return labelType
 
     def checkBootRequest(self):
         """Perform an architecture-specific check on the boot device.  Not all
@@ -240,12 +257,12 @@ class S390(Platform):
                          weight=self.weight(mountpoint="/boot"), asVol=True,
                          singlePV=True)]
 
-    def diskLabelType(self, device_type):
-        """The default disklabel type for the specified device type."""
+    def requiredDiskLabelType(self, device_type):
+        """The required disklabel type for the specified device type."""
         if device_type == "dasd":
             return "dasd"
 
-        return self.defaultDiskLabelType
+        return super(S390, self).requiredDiskLabelType(device_type)
 
 class Sparc(Platform):
     _bootloaderClass = bootloader.SILO

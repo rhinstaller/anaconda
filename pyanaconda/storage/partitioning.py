@@ -369,7 +369,7 @@ def clearPartitions(storage, bootloader=None):
         # not much to do
         return
 
-    if not hasattr(storage.platform, "diskLabelType"):
+    if not hasattr(storage.platform, "diskLabelTypes"):
         raise StorageError("can't clear partitions without platform data")
 
     # we are only interested in partitions that physically exist
@@ -414,7 +414,9 @@ def clearPartitions(storage, bootloader=None):
                     devices.remove(leaf)
 
             destroy_action = ActionDestroyFormat(disk)
-            newLabel = getFormat("disklabel", device=disk.path)
+            labelType = storage.platform.bestDiskLabelType(disk)
+            newLabel = getFormat("disklabel", device=disk.path,
+                                 labelType=labelType)
             create_action = ActionCreateFormat(disk, format=newLabel)
             storage.devicetree.registerAction(destroy_action)
             storage.devicetree.registerAction(create_action)
@@ -444,7 +446,7 @@ def clearPartitions(storage, bootloader=None):
         if filter(lambda p: p.dependsOn(disk), storage.protectedDevices):
             continue
 
-        nativeLabelType = storage.platform.diskLabelType(disk.partedDevice.type)
+        nativeLabelType = storage.platform.bestDiskLabelType(disk)
         if disk.format.labelType == nativeLabelType:
             continue
 
@@ -459,7 +461,8 @@ def clearPartitions(storage, bootloader=None):
                     storage.devicetree._removeDevice(part, moddisk=False)
 
         destroy_action = ActionDestroyFormat(disk)
-        newLabel = getFormat("disklabel", device=disk.path)
+        newLabel = getFormat("disklabel", device=disk.path,
+                             labelType=nativeLabelType)
         create_action = ActionCreateFormat(disk, format=newLabel)
         storage.devicetree.registerAction(destroy_action)
         storage.devicetree.registerAction(create_action)
@@ -837,7 +840,7 @@ def doPartitioning(storage, bootloader=None):
             bootloader - BootLoader instance
 
     """
-    if not hasattr(storage.platform, "diskLabelType"):
+    if not hasattr(storage.platform, "diskLabelTypes"):
         raise StorageError("can't allocate partitions without platform data")
 
     disks = storage.partitioned
