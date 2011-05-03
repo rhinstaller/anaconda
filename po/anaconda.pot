@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 16.5\n"
+"Project-Id-Version: anaconda 16.6\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2011-04-21 15:25-0400\n"
+"POT-Creation-Date: 2011-05-03 13:53-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -61,7 +61,7 @@ msgstr ""
 
 #: anaconda:353 pyanaconda/rescue.py:346 pyanaconda/rescue.py:378
 #: pyanaconda/rescue.py:391 pyanaconda/rescue.py:459 pyanaconda/rescue.py:476
-#: pyanaconda/rescue.py:487 pyanaconda/text.py:559 loader/windows.h:30
+#: pyanaconda/rescue.py:487 pyanaconda/text.py:551 loader/windows.h:30
 #: loader/cdinstall.c:186 loader/cdinstall.c:190 loader/cdinstall.c:210
 #: loader/cdinstall.c:213 loader/cdinstall.c:337 loader/cdinstall.c:340
 #: loader/cdinstall.c:416 loader/dirbrowser.c:137 loader/driverdisk.c:208
@@ -115,90 +115,63 @@ msgstr ""
 msgid "Installing %s\n"
 msgstr ""
 
-#: pyanaconda/bootloader.py:799
+#: pyanaconda/bootloader.py:838 pyanaconda/bootloader.py:1298
 msgid "Master Boot Record"
 msgstr ""
 
-#: pyanaconda/bootloader.py:800
+#: pyanaconda/bootloader.py:839 pyanaconda/bootloader.py:1299
+#: pyanaconda/bootloader.py:1303
 msgid "First sector of boot partition"
 msgstr ""
 
-#: pyanaconda/bootloader.py:801 pyanaconda/bootloader.py:1123
-#: pyanaconda/bootloader.py:1360 pyanaconda/bootloader.py:1382
-#: data/ui/create-storage.glade.h:15
+#: pyanaconda/bootloader.py:840 pyanaconda/bootloader.py:1173
+#: pyanaconda/bootloader.py:1300 pyanaconda/bootloader.py:1559
+#: pyanaconda/bootloader.py:1580 data/ui/create-storage.glade.h:15
 msgid "RAID Device"
 msgstr ""
 
-#: pyanaconda/bootloader.py:1122
+#: pyanaconda/bootloader.py:1172
 msgid "EFI System Partition"
 msgstr ""
 
-#: pyanaconda/bootloader.py:1359
+#: pyanaconda/bootloader.py:1304
+msgid "BIOS boot partition"
+msgstr ""
+
+#: pyanaconda/bootloader.py:1558
 msgid "PReP Boot Partition"
 msgstr ""
 
-#: pyanaconda/bootloader.py:1381
+#: pyanaconda/bootloader.py:1579
 msgid "Apple Bootstrap Partition"
 msgstr ""
 
-#: pyanaconda/bootloader.py:1566 pyanaconda/bootloader.py:1622
-#: pyanaconda/bootloader.py:1675 pyanaconda/gui.py:1126 pyanaconda/image.py:74
-#: pyanaconda/installinterfacebase.py:71
-#: pyanaconda/installinterfacebase.py:148 pyanaconda/packages.py:319
-#: pyanaconda/text.py:431 pyanaconda/yuminstall.py:1502
-#: pyanaconda/iw/blpasswidget.py:144 pyanaconda/iw/upgrade_swap_gui.py:184
-#: pyanaconda/iw/upgrade_swap_gui.py:192 pyanaconda/iw/upgrade_swap_gui.py:198
-#: pyanaconda/textw/upgrade_text.py:198
-msgid "Warning"
-msgstr ""
-
-#: pyanaconda/bootloader.py:1567
-msgid ""
-"Filesystems have already been activated.  You cannot go back past this "
-"point.\n"
-"\n"
-"Would you like to continue with the installation?"
-msgstr ""
-
-#: pyanaconda/bootloader.py:1571 pyanaconda/gui.py:1149 pyanaconda/gui.py:1186
-#: pyanaconda/gui.py:1374 pyanaconda/image.py:83 pyanaconda/livecd.py:167
-#: pyanaconda/packages.py:137 pyanaconda/upgrade.py:58
-#: pyanaconda/upgrade.py:98 pyanaconda/upgrade.py:226
-#: pyanaconda/yuminstall.py:256 pyanaconda/yuminstall.py:824
-#: pyanaconda/yuminstall.py:1002 pyanaconda/yuminstall.py:1007
-#: pyanaconda/yuminstall.py:1086 pyanaconda/yuminstall.py:1092
-#: pyanaconda/yuminstall.py:1246 pyanaconda/yuminstall.py:1261
-#: pyanaconda/yuminstall.py:1316 pyanaconda/yuminstall.py:1498
-#: pyanaconda/yuminstall.py:1529 pyanaconda/yuminstall.py:1552
-#: pyanaconda/storage/__init__.py:114 pyanaconda/storage/__init__.py:123
-#: pyanaconda/storage/__init__.py:222 pyanaconda/storage/__init__.py:275
-#: pyanaconda/storage/__init__.py:2132
-msgid "_Exit installer"
-msgstr ""
-
-#: pyanaconda/bootloader.py:1571 pyanaconda/image.py:84
-#: pyanaconda/kickstart.py:1408 pyanaconda/kickstart.py:1447
-#: pyanaconda/upgrade.py:58 pyanaconda/upgrade.py:98
-#: pyanaconda/yuminstall.py:1321 pyanaconda/yuminstall.py:1498
-#: pyanaconda/iw/partition_gui.py:1579 pyanaconda/storage/__init__.py:2133
-msgid "_Continue"
-msgstr ""
-
-#: pyanaconda/bootloader.py:1614
+#: pyanaconda/bootloader.py:1797
 msgid "Bootloader"
 msgstr ""
 
-#: pyanaconda/bootloader.py:1615
+#: pyanaconda/bootloader.py:1798
 msgid "Installing bootloader."
 msgstr ""
 
-#: pyanaconda/bootloader.py:1623
+#: pyanaconda/bootloader.py:1805 pyanaconda/bootloader.py:1858
+#: pyanaconda/gui.py:1094 pyanaconda/image.py:74
+#: pyanaconda/installinterfacebase.py:71
+#: pyanaconda/installinterfacebase.py:148 pyanaconda/packages.py:90
+#: pyanaconda/packages.py:325 pyanaconda/text.py:423
+#: pyanaconda/yuminstall.py:1501 pyanaconda/iw/blpasswidget.py:144
+#: pyanaconda/iw/upgrade_swap_gui.py:184 pyanaconda/iw/upgrade_swap_gui.py:192
+#: pyanaconda/iw/upgrade_swap_gui.py:198 pyanaconda/textw/upgrade_text.py:198
+msgid "Warning"
+msgstr ""
+
+#: pyanaconda/bootloader.py:1806
 msgid ""
 "No kernel packages were installed on the system. Bootloader configuration "
 "will not be changed."
 msgstr ""
 
-#: pyanaconda/bootloader.py:1676
+#: pyanaconda/bootloader.py:1859
 msgid ""
 "There was an error installing the bootloader.  The system may not be "
 "bootable."
@@ -218,10 +191,10 @@ msgid ""
 "configuration file."
 msgstr ""
 
-#: pyanaconda/cmdline.py:98 pyanaconda/gui.py:1181
+#: pyanaconda/cmdline.py:98 pyanaconda/gui.py:1149
 #: pyanaconda/kickstart.py:1202 pyanaconda/kickstart.py:1282
 #: pyanaconda/kickstart.py:1290 pyanaconda/kickstart.py:1319
-#: pyanaconda/kickstart.py:1329 pyanaconda/text.py:412
+#: pyanaconda/kickstart.py:1329 pyanaconda/text.py:404
 #, python-format
 msgid ""
 "The following error was found while parsing the kickstart configuration "
@@ -312,7 +285,7 @@ msgid ""
 "installation you must enter the device's passphrase below."
 msgstr ""
 
-#: pyanaconda/gui.py:649 pyanaconda/gui.py:1374
+#: pyanaconda/gui.py:649 pyanaconda/gui.py:1342
 #: pyanaconda/partIntfHelpers.py:159 pyanaconda/partIntfHelpers.py:344
 #: pyanaconda/text.py:101 pyanaconda/text.py:102
 #: pyanaconda/iw/account_gui.py:131 loader/dirbrowser.c:137
@@ -326,47 +299,47 @@ msgstr ""
 msgid "_Debug"
 msgstr ""
 
-#: pyanaconda/gui.py:959
+#: pyanaconda/gui.py:933
 msgid "Wireless setup"
 msgstr ""
 
-#: pyanaconda/gui.py:960
+#: pyanaconda/gui.py:934
 msgid "Scanning access points for wireless devices"
 msgstr ""
 
-#: pyanaconda/gui.py:988 pyanaconda/textw/netconfig_text.py:399
+#: pyanaconda/gui.py:962 pyanaconda/textw/netconfig_text.py:399
 msgid "Waiting for NetworkManager"
 msgstr ""
 
-#: pyanaconda/gui.py:989
+#: pyanaconda/gui.py:963
 #, python-format
 msgid "Waiting for NetworkManager to activate these devices: %s"
 msgstr ""
 
-#: pyanaconda/gui.py:1016
+#: pyanaconda/gui.py:990
 #, python-format
 msgid "Failed to activate these network interfaces: %s"
 msgstr ""
 
-#: pyanaconda/gui.py:1019
+#: pyanaconda/gui.py:993
 msgid "Network Configuration"
 msgstr ""
 
-#: pyanaconda/gui.py:1028
+#: pyanaconda/gui.py:1002
 #, python-format
 msgid "An error occurred trying to bring up the %s network interface."
 msgstr ""
 
-#: pyanaconda/gui.py:1030
+#: pyanaconda/gui.py:1004
 msgid "Error Enabling Network"
 msgstr ""
 
-#: pyanaconda/gui.py:1085 pyanaconda/installinterfacebase.py:53
+#: pyanaconda/gui.py:1059 pyanaconda/installinterfacebase.py:53
 #: pyanaconda/iw/task_gui.py:320
 msgid "Error Setting Up Repository"
 msgstr ""
 
-#: pyanaconda/gui.py:1086
+#: pyanaconda/gui.py:1060
 #, python-format
 msgid ""
 "The following error occurred while setting up the installation repository:\n"
@@ -376,35 +349,51 @@ msgid ""
 "Please provide the correct information for installing %(productName)s."
 msgstr ""
 
-#: pyanaconda/gui.py:1127 pyanaconda/text.py:432
+#: pyanaconda/gui.py:1095 pyanaconda/text.py:424
 msgid ""
 "You do not have an active network connection.  This is required by some "
 "exception saving methods.  Would you like to configure your network now?"
 msgstr ""
 
-#: pyanaconda/gui.py:1133 pyanaconda/rescue.py:255 pyanaconda/text.py:438
-#: pyanaconda/yuminstall.py:819 pyanaconda/yuminstall.py:1241
+#: pyanaconda/gui.py:1101 pyanaconda/rescue.py:255 pyanaconda/text.py:430
+#: pyanaconda/yuminstall.py:818 pyanaconda/yuminstall.py:1240
 #: pyanaconda/iw/task_gui.py:308
 msgid "No Network Available"
 msgstr ""
 
-#: pyanaconda/gui.py:1134 pyanaconda/text.py:439
+#: pyanaconda/gui.py:1102 pyanaconda/text.py:431
 msgid "Remote exception saving methods will not work."
 msgstr ""
 
-#: pyanaconda/gui.py:1183 pyanaconda/text.py:414
+#: pyanaconda/gui.py:1117 pyanaconda/gui.py:1154 pyanaconda/gui.py:1342
+#: pyanaconda/image.py:83 pyanaconda/livecd.py:167 pyanaconda/packages.py:95
+#: pyanaconda/packages.py:143 pyanaconda/upgrade.py:58
+#: pyanaconda/upgrade.py:98 pyanaconda/upgrade.py:226
+#: pyanaconda/yuminstall.py:255 pyanaconda/yuminstall.py:823
+#: pyanaconda/yuminstall.py:1001 pyanaconda/yuminstall.py:1006
+#: pyanaconda/yuminstall.py:1085 pyanaconda/yuminstall.py:1091
+#: pyanaconda/yuminstall.py:1245 pyanaconda/yuminstall.py:1260
+#: pyanaconda/yuminstall.py:1315 pyanaconda/yuminstall.py:1497
+#: pyanaconda/yuminstall.py:1528 pyanaconda/yuminstall.py:1551
+#: pyanaconda/storage/__init__.py:114 pyanaconda/storage/__init__.py:123
+#: pyanaconda/storage/__init__.py:222 pyanaconda/storage/__init__.py:275
+#: pyanaconda/storage/__init__.py:2132
+msgid "_Exit installer"
+msgstr ""
+
+#: pyanaconda/gui.py:1151 pyanaconda/text.py:406
 msgid "Error Parsing Kickstart Config"
 msgstr ""
 
-#: pyanaconda/gui.py:1214
+#: pyanaconda/gui.py:1182
 msgid "default:LTR"
 msgstr ""
 
-#: pyanaconda/gui.py:1282 pyanaconda/text.py:534
+#: pyanaconda/gui.py:1250 pyanaconda/text.py:526
 msgid "Error!"
 msgstr ""
 
-#: pyanaconda/gui.py:1283 pyanaconda/text.py:535
+#: pyanaconda/gui.py:1251 pyanaconda/text.py:527
 #, python-format
 msgid ""
 "An error occurred when attempting to load an installer interface component.\n"
@@ -412,49 +401,49 @@ msgid ""
 "className = %s"
 msgstr ""
 
-#: pyanaconda/gui.py:1288 pyanaconda/image.py:144 pyanaconda/image.py:172
-#: pyanaconda/packages.py:336 pyanaconda/storage/__init__.py:1950
+#: pyanaconda/gui.py:1256 pyanaconda/image.py:144 pyanaconda/image.py:172
+#: pyanaconda/packages.py:342 pyanaconda/storage/__init__.py:1950
 msgid "_Exit"
 msgstr ""
 
-#: pyanaconda/gui.py:1289 pyanaconda/image.py:144 pyanaconda/image.py:172
-#: pyanaconda/livecd.py:167 pyanaconda/yuminstall.py:910
-#: pyanaconda/yuminstall.py:1261 pyanaconda/yuminstall.py:1316
-#: pyanaconda/yuminstall.py:1529
+#: pyanaconda/gui.py:1257 pyanaconda/image.py:144 pyanaconda/image.py:172
+#: pyanaconda/livecd.py:167 pyanaconda/yuminstall.py:909
+#: pyanaconda/yuminstall.py:1260 pyanaconda/yuminstall.py:1315
+#: pyanaconda/yuminstall.py:1528
 msgid "_Retry"
 msgstr ""
 
-#: pyanaconda/gui.py:1291 pyanaconda/storage/partitioning.py:283
+#: pyanaconda/gui.py:1259 pyanaconda/storage/partitioning.py:283
 msgid "The system will now reboot."
 msgstr ""
 
-#: pyanaconda/gui.py:1292 pyanaconda/packages.py:340
+#: pyanaconda/gui.py:1260 pyanaconda/packages.py:346
 msgid "_Reboot"
 msgstr ""
 
-#: pyanaconda/gui.py:1294
+#: pyanaconda/gui.py:1262
 msgid "Exiting"
 msgstr ""
 
-#: pyanaconda/gui.py:1371 pyanaconda/installinterfacebase.py:60
+#: pyanaconda/gui.py:1339 pyanaconda/installinterfacebase.py:60
 #: pyanaconda/livecd.py:126 pyanaconda/text.py:287 pyanaconda/upgrade.py:217
 msgid "Exit installer"
 msgstr ""
 
-#: pyanaconda/gui.py:1372
+#: pyanaconda/gui.py:1340
 msgid "Are you sure you wish to exit the installer?"
 msgstr ""
 
-#: pyanaconda/gui.py:1382
+#: pyanaconda/gui.py:1350
 #, python-format
 msgid "%s Installer"
 msgstr ""
 
-#: pyanaconda/gui.py:1388
+#: pyanaconda/gui.py:1356
 msgid "Unable to load title bar"
 msgstr ""
 
-#: pyanaconda/gui.py:1480
+#: pyanaconda/gui.py:1442
 msgid "Install Window"
 msgstr ""
 
@@ -466,6 +455,14 @@ msgid ""
 "\n"
 "It is recommended that you exit and abort your installation, but you can "
 "choose to continue if you think this is in error."
+msgstr ""
+
+#: pyanaconda/image.py:84 pyanaconda/kickstart.py:1408
+#: pyanaconda/kickstart.py:1447 pyanaconda/packages.py:95
+#: pyanaconda/upgrade.py:58 pyanaconda/upgrade.py:98
+#: pyanaconda/yuminstall.py:1320 pyanaconda/yuminstall.py:1497
+#: pyanaconda/iw/partition_gui.py:1579 pyanaconda/storage/__init__.py:2133
+msgid "_Continue"
 msgstr ""
 
 #: pyanaconda/image.py:136
@@ -496,12 +493,12 @@ msgstr ""
 
 #: pyanaconda/image.py:213 pyanaconda/livecd.py:160
 #: pyanaconda/partIntfHelpers.py:239 pyanaconda/text.py:379
-#: pyanaconda/yuminstall.py:418 pyanaconda/yuminstall.py:913
-#: pyanaconda/yuminstall.py:1000 pyanaconda/yuminstall.py:1005
-#: pyanaconda/yuminstall.py:1266 pyanaconda/yuminstall.py:1326
-#: pyanaconda/yuminstall.py:1523 pyanaconda/yuminstall.py:1545
-#: pyanaconda/iw/advanced_storage.py:371 pyanaconda/iw/advanced_storage.py:381
-#: pyanaconda/iw/advanced_storage.py:431 pyanaconda/iw/autopart_type.py:95
+#: pyanaconda/yuminstall.py:417 pyanaconda/yuminstall.py:912
+#: pyanaconda/yuminstall.py:999 pyanaconda/yuminstall.py:1004
+#: pyanaconda/yuminstall.py:1265 pyanaconda/yuminstall.py:1325
+#: pyanaconda/yuminstall.py:1522 pyanaconda/yuminstall.py:1544
+#: pyanaconda/iw/advanced_storage.py:378 pyanaconda/iw/advanced_storage.py:388
+#: pyanaconda/iw/advanced_storage.py:438 pyanaconda/iw/autopart_type.py:95
 #: pyanaconda/iw/cleardisks_gui.py:44 pyanaconda/iw/cleardisks_gui.py:54
 #: pyanaconda/iw/filter_gui.py:432 pyanaconda/iw/lvm_dialog_gui.py:793
 #: pyanaconda/iw/osbootwidget.py:208 pyanaconda/iw/osbootwidget.py:214
@@ -617,15 +614,15 @@ msgstr[1] ""
 msgid "_Format"
 msgstr ""
 
-#: pyanaconda/iutil.py:839
+#: pyanaconda/iutil.py:838
 msgid "Error determining boot device's disk name"
 msgstr ""
 
-#: pyanaconda/iutil.py:862
+#: pyanaconda/iutil.py:861
 msgid "the device containing /boot"
 msgstr ""
 
-#: pyanaconda/iutil.py:864
+#: pyanaconda/iutil.py:863
 #, python-format
 msgid ""
 "After shutdown, please perform a manual IPL from %s to continue installation."
@@ -778,29 +775,37 @@ msgstr ""
 msgid "'%s' is an invalid IP address."
 msgstr ""
 
-#: pyanaconda/packages.py:118
+#: pyanaconda/packages.py:91
+msgid ""
+"Filesystems have already been activated.  You cannot go back past this "
+"point.\n"
+"\n"
+"Would you like to continue with the installation?"
+msgstr ""
+
+#: pyanaconda/packages.py:124
 msgid "Resizing Failed"
 msgstr ""
 
-#: pyanaconda/packages.py:119
+#: pyanaconda/packages.py:125
 #, python-format
 msgid "There was an error encountered while resizing the device %s."
 msgstr ""
 
-#: pyanaconda/packages.py:127
+#: pyanaconda/packages.py:133
 msgid "Migration Failed"
 msgstr ""
 
-#: pyanaconda/packages.py:128
+#: pyanaconda/packages.py:134
 #, python-format
 msgid "An error was encountered while migrating filesystem on device %s."
 msgstr ""
 
-#: pyanaconda/packages.py:137
+#: pyanaconda/packages.py:143
 msgid "_File Bug"
 msgstr ""
 
-#: pyanaconda/packages.py:320
+#: pyanaconda/packages.py:326
 #, python-format
 msgid ""
 "Warning!  This is pre-release software!\n"
@@ -818,22 +823,22 @@ msgid ""
 "and file a report against '%(fileagainst)s'.\n"
 msgstr ""
 
-#: pyanaconda/packages.py:336
+#: pyanaconda/packages.py:342
 msgid "_Install Anyway"
 msgstr ""
 
-#: pyanaconda/packages.py:339
+#: pyanaconda/packages.py:345
 msgid "Your system will now be rebooted..."
 msgstr ""
 
-#: pyanaconda/packages.py:340 pyanaconda/upgrade.py:225
-#: pyanaconda/yuminstall.py:1007 pyanaconda/yuminstall.py:1092
-#: pyanaconda/yuminstall.py:1500 pyanaconda/yuminstall.py:1552
+#: pyanaconda/packages.py:346 pyanaconda/upgrade.py:225
+#: pyanaconda/yuminstall.py:1006 pyanaconda/yuminstall.py:1091
+#: pyanaconda/yuminstall.py:1499 pyanaconda/yuminstall.py:1551
 #: data/ui/anaconda.glade.h:2
 msgid "_Back"
 msgstr ""
 
-#: pyanaconda/packages.py:341
+#: pyanaconda/packages.py:347
 msgid "Warning! This is pre-release software!"
 msgstr ""
 
@@ -1112,11 +1117,15 @@ msgstr ""
 msgid "The /boot filesystem cannot be of type %s."
 msgstr ""
 
-#: pyanaconda/platform.py:143 pyanaconda/platform.py:148
+#: pyanaconda/platform.py:143
 msgid "The /boot filesystem cannot be on an encrypted block device"
 msgstr ""
 
-#: pyanaconda/platform.py:241
+#: pyanaconda/platform.py:155
+msgid "you have not created a bootloader stage1 target device"
+msgstr ""
+
+#: pyanaconda/platform.py:229
 msgid "The boot partition must be within the first 10MB of the disk."
 msgstr ""
 
@@ -1205,8 +1214,8 @@ msgstr ""
 msgid "Which device holds the root partition of your installation?"
 msgstr ""
 
-#: pyanaconda/rescue.py:346 pyanaconda/rescue.py:350 pyanaconda/text.py:539
-#: pyanaconda/text.py:541
+#: pyanaconda/rescue.py:346 pyanaconda/rescue.py:350 pyanaconda/text.py:531
+#: pyanaconda/text.py:533
 msgid "Exit"
 msgstr ""
 
@@ -1296,33 +1305,33 @@ msgstr ""
 msgid "Repository editing is not available in text mode."
 msgstr ""
 
-#: pyanaconda/text.py:457
+#: pyanaconda/text.py:449
 #, python-format
 msgid "Welcome to %(productName)s for %(productArch)s"
 msgstr ""
 
-#: pyanaconda/text.py:459
+#: pyanaconda/text.py:451
 #, python-format
 msgid "Welcome to %s"
 msgstr ""
 
-#: pyanaconda/text.py:461
+#: pyanaconda/text.py:453
 msgid ""
 "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
 "screen"
 msgstr ""
 
-#: pyanaconda/text.py:539 loader/net.c:109 loader/net.c:474 loader/net.c:532
+#: pyanaconda/text.py:531 loader/net.c:109 loader/net.c:474 loader/net.c:532
 #: loader/net.c:677 loader/net.c:685 loader/net.c:1113 loader/net.c:1121
 #: pyanaconda/textw/constants_text.py:68
 msgid "Retry"
 msgstr ""
 
-#: pyanaconda/text.py:555
+#: pyanaconda/text.py:547
 msgid "Cancelled"
 msgstr ""
 
-#: pyanaconda/text.py:556
+#: pyanaconda/text.py:548
 msgid "I can't go to the previous step from here. You will have to try again."
 msgstr ""
 
@@ -1574,90 +1583,90 @@ msgid_plural "%s Bytes"
 msgstr[0] ""
 msgstr[1] ""
 
-#: pyanaconda/yuminstall.py:133
+#: pyanaconda/yuminstall.py:132
 msgid "Preparing to install"
 msgstr ""
 
-#: pyanaconda/yuminstall.py:134
+#: pyanaconda/yuminstall.py:133
 msgid "Preparing transaction from installation source"
 msgstr ""
 
-#: pyanaconda/yuminstall.py:169
+#: pyanaconda/yuminstall.py:168
 #, python-format
 msgid "<b>Upgrading %(pkgStr)s</b> (%(size)s)\n"
 msgstr ""
 
-#: pyanaconda/yuminstall.py:172
+#: pyanaconda/yuminstall.py:171
 #, python-format
 msgid "<b>Installing %(pkgStr)s</b> (%(size)s)\n"
 msgstr ""
 
-#: pyanaconda/yuminstall.py:217
+#: pyanaconda/yuminstall.py:216
 #, python-format
 msgid "Packages completed: %(donepkgs)d of %(numpkgs)d"
 msgid_plural "Packages completed: %(donepkgs)d of %(numpkgs)d"
 msgstr[0] ""
 msgstr[1] ""
 
-#: pyanaconda/yuminstall.py:231
+#: pyanaconda/yuminstall.py:230
 #, python-format
 msgid "<b>Cleaning up %s</b>"
 msgstr ""
 
-#: pyanaconda/yuminstall.py:250
+#: pyanaconda/yuminstall.py:249
 msgid "Error Installing Package"
 msgstr ""
 
-#: pyanaconda/yuminstall.py:251
+#: pyanaconda/yuminstall.py:250
 #, python-format
 msgid ""
 "A fatal error occurred when installing the %s package.  This could indicate "
 "errors when reading the installation media.  Installation cannot continue."
 msgstr ""
 
-#: pyanaconda/yuminstall.py:401
+#: pyanaconda/yuminstall.py:400
 msgid "Change Disc"
 msgstr ""
 
-#: pyanaconda/yuminstall.py:402
+#: pyanaconda/yuminstall.py:401
 #, python-format
 msgid "Please insert the %(productName)s disc to continue."
 msgstr ""
 
-#: pyanaconda/yuminstall.py:411
+#: pyanaconda/yuminstall.py:410
 msgid "Wrong Disc"
 msgstr ""
 
-#: pyanaconda/yuminstall.py:412
+#: pyanaconda/yuminstall.py:411
 #, python-format
 msgid "That's not the correct %s disc."
 msgstr ""
 
-#: pyanaconda/yuminstall.py:419
+#: pyanaconda/yuminstall.py:418
 msgid "Unable to access the disc."
 msgstr ""
 
-#: pyanaconda/yuminstall.py:556
+#: pyanaconda/yuminstall.py:555
 #, python-format
 msgid "Repository %r is missing name in configuration, using id"
 msgstr ""
 
-#: pyanaconda/yuminstall.py:820 pyanaconda/yuminstall.py:1242
+#: pyanaconda/yuminstall.py:819 pyanaconda/yuminstall.py:1241
 #: pyanaconda/iw/task_gui.py:309
 msgid ""
 "Some of your software repositories require networking, but there was an "
 "error enabling the network on your system."
 msgstr ""
 
-#: pyanaconda/yuminstall.py:908 pyanaconda/yuminstall.py:910
+#: pyanaconda/yuminstall.py:907 pyanaconda/yuminstall.py:909
 msgid "Re_boot"
 msgstr ""
 
-#: pyanaconda/yuminstall.py:908
+#: pyanaconda/yuminstall.py:907
 msgid "_Eject"
 msgstr ""
 
-#: pyanaconda/yuminstall.py:914
+#: pyanaconda/yuminstall.py:913
 #, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file, a corrupt "
@@ -1668,89 +1677,89 @@ msgid ""
 "\n"
 msgstr ""
 
-#: pyanaconda/yuminstall.py:961
+#: pyanaconda/yuminstall.py:960
 msgid "Retrying"
 msgstr ""
 
-#: pyanaconda/yuminstall.py:961
+#: pyanaconda/yuminstall.py:960
 msgid "Retrying download."
 msgstr ""
 
-#: pyanaconda/yuminstall.py:996
+#: pyanaconda/yuminstall.py:995
 #, python-format
 msgid ""
 "There was an error running your transaction for the following reason: %s\n"
 msgstr ""
 
-#: pyanaconda/yuminstall.py:1038 pyanaconda/yuminstall.py:1039
+#: pyanaconda/yuminstall.py:1037 pyanaconda/yuminstall.py:1038
 msgid "file conflicts"
 msgstr ""
 
-#: pyanaconda/yuminstall.py:1040
+#: pyanaconda/yuminstall.py:1039
 msgid "older package(s)"
 msgstr ""
 
-#: pyanaconda/yuminstall.py:1041
+#: pyanaconda/yuminstall.py:1040
 msgid "insufficient disk space"
 msgstr ""
 
-#: pyanaconda/yuminstall.py:1042
+#: pyanaconda/yuminstall.py:1041
 msgid "insufficient disk inodes"
 msgstr ""
 
-#: pyanaconda/yuminstall.py:1043
+#: pyanaconda/yuminstall.py:1042
 msgid "package conflicts"
 msgstr ""
 
-#: pyanaconda/yuminstall.py:1044
+#: pyanaconda/yuminstall.py:1043
 msgid "package already installed"
 msgstr ""
 
-#: pyanaconda/yuminstall.py:1045
+#: pyanaconda/yuminstall.py:1044
 msgid "required package"
 msgstr ""
 
-#: pyanaconda/yuminstall.py:1046
+#: pyanaconda/yuminstall.py:1045
 msgid "package for incorrect arch"
 msgstr ""
 
-#: pyanaconda/yuminstall.py:1047
+#: pyanaconda/yuminstall.py:1046
 msgid "package for incorrect os"
 msgstr ""
 
-#: pyanaconda/yuminstall.py:1061
+#: pyanaconda/yuminstall.py:1060
 msgid "You need more space on the following file systems:\n"
 msgstr ""
 
-#: pyanaconda/yuminstall.py:1074
+#: pyanaconda/yuminstall.py:1073
 #, python-format
 msgid ""
 "There were file conflicts when checking the packages to be installed:\n"
 "%s\n"
 msgstr ""
 
-#: pyanaconda/yuminstall.py:1077
+#: pyanaconda/yuminstall.py:1076
 #, python-format
 msgid ""
 "There was an error running your transaction for the following reason(s): "
 "%s.\n"
 msgstr ""
 
-#: pyanaconda/yuminstall.py:1084 pyanaconda/yuminstall.py:1089
+#: pyanaconda/yuminstall.py:1083 pyanaconda/yuminstall.py:1088
 msgid "Error Running Transaction"
 msgstr ""
 
-#: pyanaconda/yuminstall.py:1267
+#: pyanaconda/yuminstall.py:1266
 msgid ""
 "Unable to read group information from repositories.  This is a problem with "
 "the generation of your install tree."
 msgstr ""
 
-#: pyanaconda/yuminstall.py:1316 pyanaconda/textw/constants_text.py:64
+#: pyanaconda/yuminstall.py:1315 pyanaconda/textw/constants_text.py:64
 msgid "Edit"
 msgstr ""
 
-#: pyanaconda/yuminstall.py:1327 pyanaconda/yuminstall.py:1524
+#: pyanaconda/yuminstall.py:1326 pyanaconda/yuminstall.py:1523
 #, python-format
 msgid ""
 "Unable to read package metadata. This may be due to a missing repodata "
@@ -1760,7 +1769,7 @@ msgid ""
 "%s"
 msgstr ""
 
-#: pyanaconda/yuminstall.py:1503
+#: pyanaconda/yuminstall.py:1502
 msgid ""
 "Some of the packages you have selected for install are missing "
 "dependencies.  You can exit the installation, go back and change your "
@@ -1769,7 +1778,7 @@ msgid ""
 "missing components."
 msgstr ""
 
-#: pyanaconda/yuminstall.py:1546
+#: pyanaconda/yuminstall.py:1545
 #, python-format
 msgid ""
 "Your selected packages require %d MB of free space for installation, but you "
@@ -1777,48 +1786,48 @@ msgid ""
 "installer."
 msgstr ""
 
-#: pyanaconda/yuminstall.py:1630
+#: pyanaconda/yuminstall.py:1629
 msgid "Post Upgrade"
 msgstr ""
 
-#: pyanaconda/yuminstall.py:1631
+#: pyanaconda/yuminstall.py:1630
 msgid "Performing post-upgrade configuration"
 msgstr ""
 
-#: pyanaconda/yuminstall.py:1633
+#: pyanaconda/yuminstall.py:1632
 msgid "Post Installation"
 msgstr ""
 
-#: pyanaconda/yuminstall.py:1634
+#: pyanaconda/yuminstall.py:1633
 msgid "Performing post-installation configuration"
 msgstr ""
 
-#: pyanaconda/yuminstall.py:1872
+#: pyanaconda/yuminstall.py:1871
 msgid "Installation Starting"
 msgstr ""
 
-#: pyanaconda/yuminstall.py:1873
+#: pyanaconda/yuminstall.py:1872
 msgid "Starting installation process"
 msgstr ""
 
-#: pyanaconda/yuminstall.py:1911
+#: pyanaconda/yuminstall.py:1910
 msgid "Dependency Check"
 msgstr ""
 
-#: pyanaconda/yuminstall.py:1912
+#: pyanaconda/yuminstall.py:1911
 msgid "Checking dependencies in packages selected for installation"
 msgstr ""
 
-#: pyanaconda/yuminstall.py:1968 pyanaconda/yuminstall.py:1984
+#: pyanaconda/yuminstall.py:1967 pyanaconda/yuminstall.py:1983
 msgid "Retrieving installation information."
 msgstr ""
 
-#: pyanaconda/yuminstall.py:1970 pyanaconda/yuminstall.py:1986
+#: pyanaconda/yuminstall.py:1969 pyanaconda/yuminstall.py:1985
 #, python-format
 msgid "Retrieving installation information for %s."
 msgstr ""
 
-#: pyanaconda/yuminstall.py:1971 pyanaconda/yuminstall.py:1987
+#: pyanaconda/yuminstall.py:1970 pyanaconda/yuminstall.py:1986
 msgid "Installation Progress"
 msgstr ""
 
@@ -1930,11 +1939,11 @@ msgid ""
 "Requested password contains non-ASCII characters, which are not allowed."
 msgstr ""
 
-#: pyanaconda/iw/advanced_storage.py:249
+#: pyanaconda/iw/advanced_storage.py:256
 msgid "Node Name"
 msgstr ""
 
-#: pyanaconda/iw/advanced_storage.py:372
+#: pyanaconda/iw/advanced_storage.py:379
 msgid "You must select a NIC to use."
 msgstr ""
 
@@ -2093,56 +2102,56 @@ msgstr ""
 msgid "You must select one drive to boot from."
 msgstr ""
 
-#: pyanaconda/iw/cleardisks_gui.py:126 pyanaconda/iw/cleardisks_gui.py:146
+#: pyanaconda/iw/cleardisks_gui.py:127 pyanaconda/iw/cleardisks_gui.py:147
 #: pyanaconda/iw/filter_gui.py:490 pyanaconda/iw/filter_gui.py:501
 #: pyanaconda/iw/filter_gui.py:531
 msgid "Model"
 msgstr ""
 
-#: pyanaconda/iw/cleardisks_gui.py:127 pyanaconda/iw/cleardisks_gui.py:147
+#: pyanaconda/iw/cleardisks_gui.py:128 pyanaconda/iw/cleardisks_gui.py:148
 #: pyanaconda/iw/filter_gui.py:491 pyanaconda/iw/filter_gui.py:502
 #: pyanaconda/iw/filter_gui.py:510 pyanaconda/iw/filter_gui.py:521
 #: pyanaconda/iw/filter_gui.py:532
 msgid "Capacity"
 msgstr ""
 
-#: pyanaconda/iw/cleardisks_gui.py:128 pyanaconda/iw/filter_gui.py:492
+#: pyanaconda/iw/cleardisks_gui.py:129 pyanaconda/iw/filter_gui.py:492
 #: pyanaconda/iw/filter_gui.py:511 pyanaconda/iw/filter_gui.py:522
 #: pyanaconda/iw/filter_gui.py:533
 msgid "Vendor"
 msgstr ""
 
-#: pyanaconda/iw/cleardisks_gui.py:129 pyanaconda/iw/cleardisks_gui.py:148
+#: pyanaconda/iw/cleardisks_gui.py:130 pyanaconda/iw/cleardisks_gui.py:149
 #: pyanaconda/iw/filter_gui.py:509 pyanaconda/iw/filter_gui.py:520
 #: pyanaconda/iw/filter_gui.py:536
 msgid "Identifier"
 msgstr ""
 
-#: pyanaconda/iw/cleardisks_gui.py:130 pyanaconda/iw/filter_gui.py:493
+#: pyanaconda/iw/cleardisks_gui.py:131 pyanaconda/iw/filter_gui.py:493
 #: pyanaconda/iw/filter_gui.py:512 pyanaconda/iw/filter_gui.py:523
 #: pyanaconda/iw/filter_gui.py:534
 msgid "Interconnect"
 msgstr ""
 
-#: pyanaconda/iw/cleardisks_gui.py:144
+#: pyanaconda/iw/cleardisks_gui.py:145
 msgid ""
 "Boot\n"
 "Loader"
 msgstr ""
 
-#: pyanaconda/iw/cleardisks_gui.py:195
+#: pyanaconda/iw/cleardisks_gui.py:196
 msgid ""
 "<b>Tip:</b> All Linux filesystems on the install target devices will be "
 "reformatted and wiped of any data.  Make sure you have backups."
 msgstr ""
 
-#: pyanaconda/iw/cleardisks_gui.py:197
+#: pyanaconda/iw/cleardisks_gui.py:198
 msgid ""
 "<b>Tip:</b> The install target devices will be reformatted and wiped of any "
 "data.  Make sure you have backups."
 msgstr ""
 
-#: pyanaconda/iw/cleardisks_gui.py:199
+#: pyanaconda/iw/cleardisks_gui.py:200
 msgid ""
 "<b>Tip:</b> Your filesystems on the install target devices will not be "
 "reformatted unless you choose to do so during customization."
@@ -4436,16 +4445,16 @@ msgstr ""
 msgid "lvs failed for %s"
 msgstr ""
 
-#: pyanaconda/storage/devices.py:758
+#: pyanaconda/storage/devices.py:772
 msgid "Creating"
 msgstr ""
 
-#: pyanaconda/storage/devices.py:759
+#: pyanaconda/storage/devices.py:773
 #, python-format
 msgid "Creating device %s"
 msgstr ""
 
-#: pyanaconda/storage/devices.py:2655
+#: pyanaconda/storage/devices.py:2669
 #, python-format
 msgid "A RAID%(raidLevel)d set requires at least %(minMembers)d member"
 msgid_plural "A RAID%(raidLevel)d set requires at least %(minMembers)d members"

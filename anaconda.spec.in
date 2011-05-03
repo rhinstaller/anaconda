@@ -233,6 +233,30 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Tue May 03 2011 Chris Lumens <clumens@redhat.com> - 16.7-1
+- Make grub2 the default bootloader on x86. (dlehman)
+- Make sure bootloader stage1 device stays current through partitioning.
+  (dlehman)
+- Remove unused Platform.validBootLoaderPartSize method. (dlehman)
+- Check that there is a stage1 req before validating it otherwise. (dlehman)
+- set_preferred_stage2_type -> set_preferred_stage1_type (dlehman)
+- Allow unsetting of stage1_device. (dlehman)
+- Add a "boot drive" concept to the bootloader since stage1 types vary.
+  (dlehman)
+- Consistently refer to stage1 and stage2 device as such. (dlehman)
+- Fix handling of missing boot device in doPartitioning. (dlehman)
+- Finish removing bootloadersetup step. (dlehman)
+- Add grub2 class, fix packages for some classes. (dlehman)
+- Don't change bootloader names for various configurations. (dlehman)
+- Add encrypted attribute to StorageDevice. (dlehman)
+- iscsi: disable the 'Login' button with no nodes selected. (akozumpl)
+- nuke: InstallControlWindow.busyCursor*() (akozumpl)
+- iutil: remove excess imports. (akozumpl)
+- Get rid of interface's entryWindow() and EntryWindow. (akozumpl)
+- Allow DeviceFormat.cacheMajorminor to fail without an exception. (akozumpl)
+- Don't check /boot fs when no bootloader is installed (#698312) (bcl)
+- yuminstall.py: self.pulseWindow is not used anywhere. (akozumpl)
+
 * Thu Apr 21 2011 Chris Lumens <clumens@redhat.com> - 16.6-1
 - Do not recreate the ssh keys if they exist already. (akozumpl)
 - Display a banner when (re)starting Anaconda. (akozumpl)
