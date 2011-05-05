@@ -507,7 +507,7 @@ class TaskWindow(InstallWindow):
         if self.xml.get_widget("customRadio").get_active():
             self.dispatch.skipStep("group-selection", skip = 0)
         else:
-            self.dispatch.skipStep("group-selection", skip = 1)
+            self.dispatch.skipStep("group-selection")
 
         tasks = self.xml.get_widget("taskList").get_model()
         for (cb, task, grps) in filter(lambda x: not x[0], tasks):

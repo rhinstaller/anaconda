@@ -53,7 +53,7 @@ class MainBootloaderWindow(InstallWindow):
         if not self.grubCB.get_active():
             # if we're not installing a boot loader, don't show the second
             # screen and don't worry about other options
-            self.dispatch.skipStep("instbootloader", skip = 1)
+            self.dispatch.skipStep("instbootloader")
             return
         else:
             self.dispatch.skipStep("instbootloader", skip = 0)

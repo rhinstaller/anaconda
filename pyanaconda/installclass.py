@@ -125,24 +125,24 @@ class BaseInstallClass(object):
 		)
 
 	if not isBeta:
-	    dispatch.skipStep("betanag", permanent=1)
+	    dispatch.skipStep("betanag")
 
         if iutil.isEfi() or not iutil.isX86():
-            dispatch.skipStep("bootloader", permanent=1)
+            dispatch.skipStep("bootloader")
 
         # allow backends to disable interactive package selection
         if not anaconda.backend.supportsPackageSelection:
-            dispatch.skipStep("tasksel", skip = 1, permanent=1)
-            dispatch.skipStep("group-selection", skip = 1, permanent=1)
+            dispatch.skipStep("tasksel")
+            dispatch.skipStep("group-selection")
 
         # allow install classes to turn off the upgrade
         if not self.showUpgrade or not anaconda.backend.supportsUpgrades:
-            dispatch.skipStep("findrootparts", skip = 1)
+            dispatch.skipStep("findrootparts")
 
         # 'noupgrade' can be used on the command line to force not looking
         # for partitions to upgrade.  useful in some cases...
         if flags.cmdline.has_key("noupgrade"):
-            dispatch.skipStep("findrootparts", skip = 1)
+            dispatch.skipStep("findrootparts")
 
         # upgrade will also always force looking for an upgrade.
         if flags.cmdline.has_key("upgrade"):

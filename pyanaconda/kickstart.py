@@ -1204,7 +1204,7 @@ class AnacondaKSHandler(superclass):
         for n in self.skipSteps:
             self.anaconda.dispatch.skipStep(n)
         for n in self.permanentSkipSteps:
-            self.anaconda.dispatch.skipStep(n, permanent=1)
+            self.anaconda.dispatch.skipStep(n)
         for n in self.showSteps:
             self.anaconda.dispatch.skipStep(n, skip = 0)
 
@@ -1484,7 +1484,7 @@ def setSteps(anaconda):
         dispatch.skipStep("upgrademigfind")
         dispatch.skipStep("upgrademigratefs")
         dispatch.skipStep("upgradecontinue")
-        dispatch.skipStep("findinstall", permanent = 1)
+        dispatch.skipStep("findinstall")
         dispatch.skipStep("language")
         dispatch.skipStep("keyboard")
         dispatch.skipStep("betanag")

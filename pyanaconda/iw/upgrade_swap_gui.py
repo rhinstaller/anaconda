@@ -66,7 +66,7 @@ class UpgradeSwapWindow (InstallWindow):
 
         else:
             self.storage.createSwapFile(dev, val)
-            self.dispatch.skipStep("addswap", 1)
+            self.dispatch.skipStep("addswap")
                 
         return None
 

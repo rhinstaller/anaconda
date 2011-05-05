@@ -787,20 +787,20 @@ if __name__ == "__main__":
     if opts.lang:
         # this is lame, but make things match what we expect (#443408)
         opts.lang = opts.lang.replace(".utf8", ".UTF-8")
-        anaconda.dispatch.skipStep("language", permanent = 1)
+        anaconda.dispatch.skipStep("language")
         anaconda.instLanguage.instLang = opts.lang
         anaconda.instLanguage.buildLocale()
         anaconda.instLanguage.systemLang = opts.lang
         anaconda.timezone.setTimezoneInfo(anaconda.instLanguage.getDefaultTimeZone(anaconda.rootPath))
 
     if opts.keymap:
-        anaconda.dispatch.skipStep("keyboard", permanent = 1)
+        anaconda.dispatch.skipStep("keyboard")
         anaconda.keyboard.set(opts.keymap)
         anaconda.keyboard.activate()
 
     # set up the headless case
     if anaconda.isHeadless:
-        anaconda.dispatch.skipStep("keyboard", permanent = 1)
+        anaconda.dispatch.skipStep("keyboard")
 
     try:
         anaconda.dispatch.run()

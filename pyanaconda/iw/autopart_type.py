@@ -160,8 +160,8 @@ class PartitionTypeWindow(InstallWindow):
         self.storage.clearPartChoice = self.buttonGroup.getCurrent()
 
         if self.buttonGroup.getCurrent() == "custom":
-            self.dispatch.skipStep("autopartitionexecute", skip = 1)
-            self.dispatch.skipStep("cleardiskssel", skip = 1)
+            self.dispatch.skipStep("autopartitionexecute")
+            self.dispatch.skipStep("cleardiskssel")
             self.dispatch.skipStep("partition", skip = 0)
             self.dispatch.skipStep("bootloader", skip = 0)
 

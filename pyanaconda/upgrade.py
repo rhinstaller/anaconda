@@ -104,7 +104,7 @@ def findRootParts(anaconda):
     if anaconda.rootParts is not None and len(anaconda.rootParts) > 0:
         anaconda.dispatch.skipStep("findinstall", skip = 0)
     else:
-        anaconda.dispatch.skipStep("findinstall", skip = 1)
+        anaconda.dispatch.skipStep("findinstall")
 
 def bindMountDevDirectory(instPath):
     getFormat("bind",
@@ -170,7 +170,7 @@ def upgradeSwapSuggestion(anaconda):
 
     anaconda.dispatch.skipStep("addswap", 0)
     if suggestedMin <= swap:
-        anaconda.dispatch.skipStep("addswap", permanent=1)
+        anaconda.dispatch.skipStep("addswap")
         return None
 
     fsList = []
@@ -326,4 +326,4 @@ def setSteps(anaconda):
     if not iutil.isX86():
         dispatch.skipStep("upgbootloader")
 
-    dispatch.skipStep("cleardiskssel", permanent=1)
+    dispatch.skipStep("cleardiskssel")

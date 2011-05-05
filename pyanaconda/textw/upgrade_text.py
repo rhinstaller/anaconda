@@ -201,7 +201,7 @@ class UpgradeSwapWindow:
 		else:
 		    screen.popWindow()
                     anaconda.storage.createSwapFile(dev, val)
-                    anaconda.dispatch.skipStep("addswap", 1)
+                    anaconda.dispatch.skipStep("addswap")
 		    return INSTALL_OK
 
 	raise ValueError
