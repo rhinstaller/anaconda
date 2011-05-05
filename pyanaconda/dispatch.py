@@ -24,6 +24,7 @@ import string
 from types import *
 
 import indexed_dict
+import errors
 from constants import *
 from packages import writeKSConfiguration, turnOnFilesystems
 from packages import doPostAction
@@ -55,11 +56,24 @@ from packages import doReIPL
 import logging
 log = logging.getLogger("anaconda")
 
-SCHED_SKIPPED = -2
-SCHED_SKIPPED_PERMANENTLY = -1
-SCHED_SCHEDULED = 1
-
 class Step(object):
+    SCHED_UNSCHEDULED = 0
+    SCHED_SCHEDULED = 1 # will execute if not explicitly skipped
+    SCHED_SKIPPED = 2   # is never going to execute
+    SCHED_REQUESTED = 3 # will execute and can not be skipped
+    SCHED_DONE = 4      # done is a final state
+
+    sched_state_machine = [
+        # Table of allowed state changes, rows are the current state, columns
+        # are what we want to transition into. False when such transition is not
+        # allowed.
+        # unsch sched  skip   req    done
+        [True , True , True , True , True ], # unscheduled
+        [False, True , True , True , True ], # scheduled
+        [False, False, True , False, False], # skipped
+        [False, False, False, True , True ], # requested
+        [False, False, False, False, True ]] # done
+
     def __init__(self, name, target = None):
         """ Dispatcher step object.
 
@@ -70,21 +84,47 @@ class Step(object):
         """
         self.name = name
         self.target = target # None for dynamic target (e.g. gui view)
-        self._sched = SCHED_SKIPPED
+        self._sched = self.SCHED_UNSCHEDULED
 
-    def reschedule(self, new_sched):
-        if self._sched == SCHED_SKIPPED_PERMANENTLY:
-            # do not allow "upgrading" of permanently skipped steps
-            return
-        self._sched = new_sched
+    def _reschedule(self, to_sched):
+        new_sched = self.sched_state_machine[self._sched][to_sched]
+        if new_sched is False:
+            raise errors.DispatchError(
+                "Can not reschedule step '%s' from '%s' to '%s'" %
+                (self.name,
+                 self.namesched(self._sched),
+                 self.namesched(to_sched)))
+        self._sched = to_sched
 
     @property
     def direct(self):
         return self.target is not None
 
+    def done(self):
+        self._reschedule(self.SCHED_DONE)
+
+    def request(self):
+        self._reschedule(self.SCHED_REQUESTED)
+
+    def namesched(self, sched):
+        return {
+            self.SCHED_UNSCHEDULED : "unscheduled",
+            self.SCHED_SCHEDULED   : "scheduled",
+            self.SCHED_SKIPPED     : "skipped",
+            self.SCHED_REQUESTED   : "requested",
+            self.SCHED_DONE        : "done"
+            }[sched]
+
     @property
     def sched(self):
         return self._sched
+
+    def schedule(self):
+        self._reschedule(self.SCHED_SCHEDULED)
+
+    def skip(self):
+        self._reschedule(self.SCHED_SKIPPED)
+
 
 class Dispatcher(object):
 
@@ -158,6 +198,9 @@ class Dispatcher(object):
     def _step_index(self):
         return self.steps.index(self.step)
 
+    def done_steps(self, *steps):
+        map(lambda s: self.steps[s].done(), steps)
+
     def go_back(self):
         """
         The caller should make sure canGoBack() is True before calling this
@@ -170,42 +213,43 @@ class Dispatcher(object):
         self._setDir(DISPATCH_FORWARD)
         self.dispatch()
 
-    def canGoBack(self):
+    def can_go_back(self):
         # Begin with the step before this one. If all steps are skipped,
         # we can not go backwards from this one.
         i = self._step_index() - 1
         while i >= 0:
             sname = self.steps[i].name
-            if not (self.stepIsDirect(sname) or self.stepInSkipList(sname)):
+            if not self.step_is_direct(sname) and self.step_enabled(sname):
                 return True
             i -= 1
         return False
+
+    def request_step(self, *steps):
+        map(lambda s: self.steps[s].request(), steps)
 
     def run(self):
         self.anaconda.intf.run(self.anaconda)
         log.info("dispatch: finished.")
 
-    def setStepList(self, *new_steps):
-        for (name, step) in self.steps.items():
-            if name in new_steps:
-                step.reschedule(SCHED_SCHEDULED)
-            else:
-                step.reschedule(SCHED_SKIPPED)
+    def schedule_steps(self, *steps):
+        map(lambda s: self.steps[s].schedule(), steps)
 
-    def stepInSkipList(self, step):
-        return self.steps[step].sched in [SCHED_SKIPPED_PERMANENTLY,
-                                          SCHED_SKIPPED]
+    def step_disabled(self, step):
+        """ True if step is not yet scheduled to be run or will never be run
+            (i.e. is skipped).
+        """
+        return not self.step_enabled(step)
 
-    def skipStep(self, step, skip = 1, permanent = 0):
-        new_sched = SCHED_SCHEDULED
-        if skip:
-            if permanent:
-                new_sched = SCHED_SKIPPED_PERMANENTLY
-            else:
-                new_sched = SCHED_SKIPPED
-        self.steps[step].reschedule(new_sched)
+    def step_enabled(self, step):
+        """ True if step is scheduled to be run or have been run already. """
+        return self.steps[step].sched in [Step.SCHED_SCHEDULED,
+                                          Step.SCHED_REQUESTED,
+                                          Step.SCHED_DONE]
 
-    def stepIsDirect(self, step):
+    def skipStep(self, *steps):
+        map(lambda s: self.steps[s].skip(), steps)
+
+    def step_is_direct(self, step):
         return self.steps[step].direct
 
     def dispatch(self):
@@ -216,6 +260,7 @@ class Dispatcher(object):
         else:
             log.info("dispatch: leaving (%d) step %s" %
                      (self.dir, self.step))
+            self.done_steps(self.step)
             self._advance_step()
 
         while True:
@@ -223,7 +268,7 @@ class Dispatcher(object):
                 # installation has proceeded beyond the last step: finished
                 self.anaconda.intf.shutdown()
                 return
-            if self.stepInSkipList(self.step):
+            if self.step_disabled(self.step):
                 self._advance_step()
                 continue
             log.info("dispatch: moving (%d) to step %s" %
@@ -248,6 +293,7 @@ class Dispatcher(object):
                     self.dir = rc
             log.info("dispatch: leaving (%d) step %s" %
                      (self.dir, self.step))
+            self.done_steps(self.step)
             self._advance_step()
 
     def _getDir(self):

@@ -157,3 +157,6 @@ class NoSuchGroup(Exception):
 
     def __str__ (self):
         return self.value
+
+class DispatchError(RuntimeError):
+    pass

@@ -288,7 +288,7 @@ def upgradeMountFilesystems(anaconda):
 
 def setSteps(anaconda):
     dispatch = anaconda.dispatch
-    dispatch.setStepList(
+    dispatch.schedule_steps(
                 "language",
                 "keyboard",
                 "filtertype",
