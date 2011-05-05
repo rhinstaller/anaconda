@@ -129,9 +129,9 @@ class AnacondaBackend:
         backend_log.log.start(instPath, syslogname)
 
         if self.anaconda.upgrade:
-            self.modeText = _("Upgrading %s\n")
+            self.modeText = _("%s Upgrading %s\n")
         else:
-            self.modeText = _("Installing %s\n")
+            self.modeText = _("%s Installing %s\n")
 
     def kernelVersionList(self, rootPath="/"):
         return []

@@ -175,7 +175,7 @@ class AnacondaCallback:
             s += summary.strip()
             self.progress.set_label(s)
 
-            self.instLog.write(self.modeText % str(pkgStr))
+            self.instLog.write(self.modeText % (time.strftime("%H:%M:%S"), str(pkgStr)))
 
             self.instLog.flush()
             self.openfile = None
