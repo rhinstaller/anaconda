@@ -33,9 +33,6 @@ class InstallInterfaceBase(object):
         self._initLabelAnswers = {}
         self._inconsistentLVMAnswers = {}
 
-    def setSteps(self, anaconda):
-        pass
-
     def messageWindow(self, title, text, type="ok", default = None,
              custom_buttons=None,  custom_icon=None):
         raise NotImplementedError
@@ -196,3 +193,7 @@ class InstallInterfaceBase(object):
                                              custom_icon=icon,
                                              custom_buttons=buttons,
                                              expanded=True)
+
+    def unsupported_steps(self):
+        """ List of steps this interface is unable to carry out. """
+        return []

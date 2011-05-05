@@ -552,11 +552,8 @@ class InstallInterface(InstallInterfaceBase):
                     # a better answer
                     continue
 
-    def setSteps(self, anaconda):
-        anaconda.dispatch.skipStep("filtertype", permanent=1)
-        anaconda.dispatch.skipStep("filter", permanent=1)
-        anaconda.dispatch.skipStep("cleardiskssel", permanent=1)
-        anaconda.dispatch.skipStep("group-selection", permanent=1)
+    def unsupported_steps(self):
+        return ["filtertype", "filter", "cleardiskssel", "group-selection"]
 
 def killSelf(screen):
     screen.finish()

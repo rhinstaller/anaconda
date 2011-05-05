@@ -149,7 +149,7 @@ class BaseInstallClass(object):
             dispatch.skipStep("findrootparts", skip = 0)
 
         # allow interface backends to skip certain steps.
-        anaconda.intf.setSteps(anaconda)
+        map(lambda s: dispatch.skipStep(s), anaconda.intf.unsupported_steps())
 
     # modifies the uri from installmethod.getMethodUri() to take into
     # account any installclass specific things including multiple base

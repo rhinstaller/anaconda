@@ -179,9 +179,6 @@ class InstallInterface(InstallInterfaceBase):
     def setInstallProgressClass(self, c):
         self.instProgress = c
 
-    def setSteps(self, anaconda):
-        pass
-
 class progressDisplay:
     def __init__(self):
         self.pct = 0
