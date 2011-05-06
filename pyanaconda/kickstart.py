@@ -715,6 +715,10 @@ class PartitionData(commands.partition.F12_PartData):
             type = "PPC PReP Boot"
             self.mountpoint = ""
             kwargs["weight"] = self.anaconda.platform.weight(fstype="prepboot")
+        elif self.mountpoint == 'biosboot':
+            type = "biosboot"
+            self.mountpoint = ""
+            kwargs["weight"] = self.anaconda.platform.weight(fstype="biosboot")
         elif self.mountpoint.startswith("raid."):
             type = "mdmember"
             kwargs["name"] = self.mountpoint
