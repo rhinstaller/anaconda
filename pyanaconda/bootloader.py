@@ -1522,7 +1522,7 @@ class GRUB2(GRUB):
             md devices just use their names.
         """
         drive = None
-        name = device.name
+        name = "(%s)" % device.name
 
         if device.isDisk:
             drive = device
