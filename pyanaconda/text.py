@@ -62,10 +62,8 @@ stepToClasses = {
     "tasksel": ("task_text", "TaskWindow"),
     "install" : ("progress_text", "setupForInstall"),
     "complete" : ("complete_text", "FinishedWindow"),
+    "bootloader" : ("zipl_text", ( "ZiplWindow"))
 }
-
-if iutil.isS390():
-    stepToClasses["bootloader"] = ("zipl_text", ( "ZiplWindow"))
 
 class InstallWindow:
     def __call__ (self, screen):
@@ -553,8 +551,11 @@ class InstallInterface(InstallInterfaceBase):
                     continue
 
     def unsupported_steps(self):
-        return ["cleardiskssel", "filtertype", "filter", "group-selection",
-                "partition"]
+        l = ["cleardiskssel", "filtertype", "filter", "group-selection",
+             "partition"]
+        if not iutil.isS390():
+            l.append("bootloader")
+        return l
 
 def killSelf(screen):
     screen.finish()

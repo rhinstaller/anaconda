@@ -41,7 +41,7 @@ class UpgradeBootloaderWindow:
 
         update = False
         nobl = False
-        if anaconda.dispatch.stepInSkipList("instbootloader"):
+        if anaconda.dispatch.step_disabled("instbootloader"):
             nobl = True
         elif self.type and self.bootDev:
             update = True
@@ -85,15 +85,15 @@ class UpgradeBootloaderWindow:
 
             if button == TEXT_BACK_CHECK:
                 screen.popWindow()
-                return INSTALL_BACK        
+                return INSTALL_BACK
 
-            if blradio.getSelection() == "nobl":                           
+            if blradio.getSelection() == "nobl":
                 self.dispatch.skipStep("bootloader"
                 self.dispatch.skipStep("instbootloader")
                 anaconda.bootloader.update_only = False
             else:
                 self.dispatch.skipStep("bootloader")
-                self.dispatch.skipStep("instbootloader", skip = 0)
+                self.dispatch.request_step("instbootloader")
                 anaconda.bootloader.update_only = anaconda.bootloader.can_update
 
             screen.popWindow()

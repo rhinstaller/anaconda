@@ -43,12 +43,11 @@ class UpgradeBootloaderWindow (InstallWindow):
             self.dispatch.skipStep("bootloader")
             self.dispatch.skipStep("instbootloader")
         elif self.newbl_radio.get_active():
-            self.dispatch.skipStep("bootloader", skip = 0)
-            self.dispatch.skipStep("instbootloader", skip = 0)
+            self.dispatch.request_step("bootloader")
             self.bl.update_only = False
         else:
             self.dispatch.skipStep("bootloader")
-            self.dispatch.skipStep("instbootloader", skip = 0)
+            self.dispatch.request_step("instbootloader")
             self.bl.update_only = self.bl.can_update
 
             self.bl.stage1_device = self.bootDev
@@ -111,9 +110,9 @@ class UpgradeBootloaderWindow (InstallWindow):
         else:
             default = self.nobl_radio
 
-        if not self.dispatch.stepInSkipList("bootloader"):
+        if self.dispatch.step_enabled("bootloader"):
             self.newbl_radio.set_active(True)
-        elif self.dispatch.stepInSkipList("instbootloader"):
+        elif self.dispatch.step_disabled("instbootloader"):
             self.nobl_radio.set_active(True)
         else:
             default.set_active(True)

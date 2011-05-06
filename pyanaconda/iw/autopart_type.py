@@ -163,7 +163,7 @@ class PartitionTypeWindow(InstallWindow):
             self.dispatch.skipStep("autopartitionexecute")
             self.dispatch.skipStep("cleardiskssel")
             self.dispatch.request_step("partition")
-            self.dispatch.skipStep("bootloader", skip = 0)
+            self.dispatch.request_step("bootloader")
 
             self.storage.config.clearPartType = CLEARPART_TYPE_NONE
         else:
@@ -198,7 +198,7 @@ class PartitionTypeWindow(InstallWindow):
 
             if self.reviewButton.get_active():
                 self.dispatch.request_step("partition")
-                self.dispatch.skipStep("bootloader", skip = 0)
+                self.dispatch.request_step("bootloader")
             else:
                 self.dispatch.skipStep("partition")
                 self.dispatch.skipStep("bootloader")

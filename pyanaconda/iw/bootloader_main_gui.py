@@ -56,7 +56,7 @@ class MainBootloaderWindow(InstallWindow):
             self.dispatch.skipStep("instbootloader")
             return
         else:
-            self.dispatch.skipStep("instbootloader", skip = 0)
+            self.dispatch.request_step("instbootloader")
 
         # set the password
         self.bl.password = self.blpass.getPassword()
@@ -183,7 +183,7 @@ class MainBootloaderWindow(InstallWindow):
         hb = gtk.HBox(False, 12)
         self.grubCB = gtk.CheckButton(_("_Install boot loader on %s.") %
                                       (self.bldev.path,))
-        self.grubCB.set_active(not self.dispatch.stepInSkipList("instbootloader"))
+        self.grubCB.set_active(self.dispatch.step_enabled("instbootloader"))
         self.grubCB.connect("toggled", self.bootloaderChanged)
         hb.pack_start(self.grubCB, False)
 
