@@ -226,7 +226,7 @@ class AutoPart(commands.autopart.F12_AutoPart):
             self.anaconda.storage.autoPartAddBackupPassphrase = \
                 self.backuppassphrase
 
-        self.anaconda.ksdata.skipSteps.extend(["partition", "parttype"])
+        self.anaconda.dispatch.skipStep("partition", "parttype")
 
 class AutoStep(commands.autostep.FC3_AutoStep):
     def execute(self):
@@ -249,10 +249,8 @@ class Bootloader(commands.bootloader.F15_Bootloader):
             self.anaconda.bootloader.update_only = True
 
         if location is None:
-            self.anaconda.ksdata.permanentSkipSteps.append("instbootloader")
+            self.anaconda.dispatch.skipStep("instbootloader")
         else:
-            self.anaconda.ksdata.showSteps.append("bootloader")
-
             if self.appendLine:
                 args = self.appendLine.split()
                 self.anaconda.bootloader.boot_args.extend(args)
@@ -276,7 +274,7 @@ class Bootloader(commands.bootloader.F15_Bootloader):
 
             self.anaconda.bootloader.drive_order = self.driveorder
 
-        self.anaconda.ksdata.permanentSkipSteps.extend(["upgbootloader", "bootloader"])
+        self.anaconda.dispatch.skipStep("upgbootloader", "bootloader")
 
 class ClearPart(commands.clearpart.FC3_ClearPart):
     def parse(self, args):
@@ -306,7 +304,7 @@ class ClearPart(commands.clearpart.FC3_ClearPart):
             self.anaconda.storage.config.reinitializeDisks = self.initAll
 
         clearPartitions(self.anaconda.storage)
-        self.anaconda.ksdata.skipSteps.append("cleardiskssel")
+        self.anaconda.dispatch.skipStep("cleardiskssel")
 
 class Fcoe(commands.fcoe.F13_Fcoe):
     def parse(self, args):
@@ -357,10 +355,6 @@ class IgnoreDisk(commands.ignoredisk.RHEL6_IgnoreDisk):
 
         return retval
 
-    def execute(self):
-        if not self.interactive:
-            self.anaconda.ksdata.skipSteps.extend(["filter", "filtertype"])
-
 class Iscsi(commands.iscsi.F10_Iscsi):
     class Login(object):
         def __init__(self, iscsi_obj, tg_data):
@@ -408,14 +402,14 @@ class Keyboard(commands.keyboard.FC3_Keyboard):
     def execute(self):
         self.anaconda.keyboard.set(self.keyboard)
         self.anaconda.keyboard.beenset = 1
-        self.anaconda.ksdata.skipSteps.append("keyboard")
+        self.anaconda.dispatch.skipStep("keyboard")
 
 class Lang(commands.lang.FC3_Lang):
     def execute(self):
         self.anaconda.instLanguage.instLang = self.lang
         self.anaconda.instLanguage.systemLang = self.lang
         self.anaconda.instLanguage.buildLocale()
-        self.anaconda.ksdata.skipSteps.append("language")
+        self.anaconda.dispatch.skipStep("language")
 
 class LogVolData(commands.logvol.F15_LogVolData):
     def execute(self):
@@ -457,7 +451,7 @@ class LogVolData(commands.logvol.F15_LogVolData):
 
             dev.format.mountpoint = self.mountpoint
             dev.format.mountopts = self.fsopts
-            self.anaconda.ksdata.skipSteps.extend(["partition", "parttype"])
+            self.anaconda.dispatch.skipStep("partition", "parttype")
             return
 
         # Make sure this LV name is not already used in the requested VG.
@@ -540,7 +534,7 @@ class LogVolData(commands.logvol.F15_LogVolData):
                                      parents=request)
             storage.createDevice(luksdev)
 
-        self.anaconda.ksdata.skipSteps.extend(["partition", "parttype"])
+        self.anaconda.dispatch.skipStep("partition", "parttype")
 
 class Logging(commands.logging.FC6_Logging):
     def execute(self):
@@ -765,7 +759,7 @@ class PartitionData(commands.partition.F12_PartData):
 
             dev.format.mountpoint = self.mountpoint
             dev.format.mountopts = self.fsopts
-            self.anaconda.ksdata.skipSteps.extend(["partition", "parttype"])
+            self.anaconda.dispatch.skipStep("partition", "parttype")
             return
 
         # Now get a format to hold a lot of these extra values.
@@ -854,11 +848,11 @@ class PartitionData(commands.partition.F12_PartData):
                                      parents=request)
             storage.createDevice(luksdev)
 
-        self.anaconda.ksdata.skipSteps.extend(["partition", "parttype"])
+        self.anaconda.dispatch.skipStep("partition", "parttype")
 
 class Reboot(commands.reboot.FC6_Reboot):
     def execute(self):
-        self.anaconda.ksdata.skipSteps.append("complete")
+        self.anaconda.dispatch.skipStep("complete")
 
 class RaidData(commands.raid.F15_RaidData):
     def execute(self):
@@ -907,7 +901,7 @@ class RaidData(commands.raid.F15_RaidData):
 
             dev.format.mountpoint = self.mountpoint
             dev.format.mountopts = self.fsopts
-            self.anaconda.ksdata.skipSteps.extend(["partition", "parttype"])
+            self.anaconda.dispatch.skipStep("partition", "parttype")
             return
 
         # Get a list of all the RAID members.
@@ -1000,14 +994,14 @@ class RaidData(commands.raid.F15_RaidData):
                                      parents=request)
             storage.createDevice(luksdev)
 
-        self.anaconda.ksdata.skipSteps.extend(["partition", "parttype"])
+        self.anaconda.dispath.skipStep("partition", "parttype")
 
 class RootPw(commands.rootpw.F8_RootPw):
     def execute(self):
         self.anaconda.users.rootPassword["password"] = self.password
         self.anaconda.users.rootPassword["isCrypted"] = self.isCrypted
         self.anaconda.users.rootPassword["lock"] = self.lock
-        self.anaconda.ksdata.skipSteps.append("accounts")
+        self.anaconda.dispatch.skipStep("accounts")
 
 class SELinux(commands.selinux.FC3_SELinux):
     def execute(self):
@@ -1027,7 +1021,7 @@ class Timezone(commands.timezone.FC6_Timezone):
             log.warning("Timezone %s set in kickstart is not valid." % (self.timezone,))
 
         self.anaconda.timezone.setTimezoneInfo(self.timezone, self.isUtc)
-        self.anaconda.ksdata.skipSteps.append("timezone")
+        self.anaconda.dispatch.skipStep("timezone")
 
 class Upgrade(commands.upgrade.F11_Upgrade):
     def execute(self):
@@ -1148,9 +1142,6 @@ class AnacondaKSHandler(superclass):
         superclass.__init__(self, commandUpdates=commandMap, dataUpdates=dataMap)
         self.packages = AnacondaKSPackages()
 
-        self.permanentSkipSteps = []
-        self.skipSteps = []
-        self.showSteps = []
         self.anaconda = anaconda
         self.onPart = {}
 
@@ -1199,14 +1190,6 @@ class AnacondaKSHandler(superclass):
                 stderrLog.critical(_("The following error was found while parsing the kickstart "
                                      "configuration file:\n\n%s") % e)
                 sys.exit(1)
-
-    def setSteps(self):
-        for n in self.skipSteps:
-            self.anaconda.dispatch.skipStep(n)
-        for n in self.permanentSkipSteps:
-            self.anaconda.dispatch.skipStep(n)
-        for n in self.showSteps:
-            self.anaconda.dispatch.skipStep(n, skip = 0)
 
 class AnacondaPreParser(KickstartParser):
     # A subclass of KickstartParser that only looks for %pre scripts and
@@ -1277,9 +1260,6 @@ def doKickstart(anaconda):
     # This gives us the ability to check that storage commands are correctly
     # formed and refer to actual devices.
     anaconda.ksdata.execute()
-    # executing kickstart commands dynamically disables or enables certain
-    # dispatch steps, process the lists now.
-    anaconda.ksdata.setSteps()
 
 def preScriptPass(anaconda, file):
     # The first pass through kickstart file processing - look for %pre scripts
@@ -1491,7 +1471,7 @@ def setSteps(anaconda):
     else:
         anaconda.instClass.setSteps(anaconda)
         dispatch.skipStep("findrootparts")
-    dispatch.skipStep("kickstart", skip = 0)
+    dispatch.request_step("kickstart")
 
     dispatch.skipStep("betanag")
     dispatch.skipStep("network")
@@ -1499,31 +1479,32 @@ def setSteps(anaconda):
     # Storage is initialized for us right when kickstart processing starts.
     dispatch.skipStep("storageinit")
 
-    if not anaconda.storage.config.ignoreDiskInteractive:
-        # Since ignoredisk is optional and not specifying it means you want to
-        # consider all possible disks, we should not stop on the filter steps
-        # unless we've been told to.
-        dispatch.skipStep("filter")
-        dispatch.skipStep("filtertype")
-
     # Make sure to automatically reboot if told to.
     if ksdata.reboot.action in [KS_REBOOT, KS_SHUTDOWN]:
         dispatch.skipStep("complete")
 
     # If the package section included anything, skip group selection.
     if ksdata.upgrade.upgrade:
-        ksdata.skipSteps.extend(["tasksel", "group-selection"])
+        dispatch.skipStep("tasksel", "group-selection")
 
         # Special check for this, since it doesn't make any sense.
         if ksdata.packages.seen:
             warnings.warn("Ignoring contents of %packages section due to upgrade.")
     elif havePackages(ksdata.packages):
-        ksdata.skipSteps.extend(["tasksel", "group-selection"])
+        dispatch.skipStep("tasksel", "group-selection")
     else:
         if ksdata.packages.seen:
-            ksdata.skipSteps.extend(["tasksel", "group-selection"])
+            dispatch.skipStep("tasksel", "group-selection")
         else:
-            ksdata.showSteps.extend(["tasksel", "group-selection"])
+            dispatch.request_step("tasksel", "group-selection")
+
+    if ksdata.ignoredisk.interactive:
+        dispatch.request_steps("filtertype", "filter")
+    else:
+        # Since ignoredisk is optional and not specifying it means you want to
+        # consider all possible disks, we should not stop on the filter steps
+        # unless we've been told to.
+        dispatch.skip_steps("filtertype", "filter")
 
     # Text mode doesn't have all the steps that graphical mode does, so we
     # can't stop and prompt for missing information.  Make sure we've got
