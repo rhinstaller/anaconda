@@ -553,7 +553,8 @@ class InstallInterface(InstallInterfaceBase):
                     continue
 
     def unsupported_steps(self):
-        return ["filtertype", "filter", "cleardiskssel", "group-selection"]
+        return ["cleardiskssel", "filtertype", "filter", "group-selection",
+                "partition"]
 
 def killSelf(screen):
     screen.finish()

@@ -162,7 +162,7 @@ class PartitionTypeWindow(InstallWindow):
         if self.buttonGroup.getCurrent() == "custom":
             self.dispatch.skipStep("autopartitionexecute")
             self.dispatch.skipStep("cleardiskssel")
-            self.dispatch.skipStep("partition", skip = 0)
+            self.dispatch.request_step("partition")
             self.dispatch.skipStep("bootloader", skip = 0)
 
             self.storage.config.clearPartType = CLEARPART_TYPE_NONE
@@ -197,7 +197,7 @@ class PartitionTypeWindow(InstallWindow):
             self.storage.doAutoPart = True
 
             if self.reviewButton.get_active():
-                self.dispatch.skipStep("partition", skip = 0)
+                self.dispatch.request_step("partition")
                 self.dispatch.skipStep("bootloader", skip = 0)
             else:
                 self.dispatch.skipStep("partition")
@@ -245,7 +245,7 @@ class PartitionTypeWindow(InstallWindow):
         self.table = self.xml.get_widget("parttypeTable")
 
         self.prevrev = None
-        self.reviewButton.set_active(not self.dispatch.stepInSkipList("partition"))
+        self.reviewButton.set_active(self.dispatch.step_enabled("partition"))
         self.encryptButton.set_active(self.storage.encryptedAutoPart)
 
         self.buttonGroup = pixmapRadioButtonGroup()

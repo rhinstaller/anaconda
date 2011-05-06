@@ -250,13 +250,15 @@ def doAutoPartition(anaconda):
     except PartitioningError as msg:
         # restore drives to original state
         anaconda.storage.reset()
-        if not anaconda.ksdata:
-            extra = ""
 
-            if anaconda.displayMode != "t":
-                anaconda.dispatch.skipStep("partition", skip = 0)
-        else:
+        extra = ""
+        if anaconda.ksdata:
             extra = _("\n\nPress 'OK' to exit the installer.")
+        else:
+            try:
+                anaconda.dispatch.request_steps("partition")
+            except DispatcherError:
+                pass
         anaconda.intf.messageWindow(_("Error Partitioning"),
                _("Could not allocate requested partitions: \n\n"
                  "%(msg)s.%(extra)s") % {'msg': msg, 'extra': extra},

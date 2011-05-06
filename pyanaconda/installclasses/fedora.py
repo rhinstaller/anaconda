@@ -80,10 +80,6 @@ class InstallClass(BaseInstallClass):
         BaseInstallClass.setGroupSelection(self, anaconda)
         map(lambda x: anaconda.backend.selectGroup(x), ["core"])
 
-    def setSteps(self, anaconda):
-	BaseInstallClass.setSteps(self, anaconda)
-	anaconda.dispatch.skipStep("partition")
-
     def getBackend(self):
         if flags.livecdInstall:
             import pyanaconda.livecd

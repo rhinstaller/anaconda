@@ -95,7 +95,6 @@ class BaseInstallClass(object):
                  "cleardiskssel",
                  "parttype",
                  "autopartitionexecute",
-                 "partition",
 		 "storagedone",
 		 "bootloader",
 		 "network",

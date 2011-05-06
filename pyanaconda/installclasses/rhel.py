@@ -58,10 +58,6 @@ class InstallClass(BaseInstallClass):
                                                 anaconda.storage,
                                                 anaconda.platform)
 
-    def setSteps(self, anaconda):
-        BaseInstallClass.setSteps(self, anaconda)
-        anaconda.dispatch.skipStep("partition")
-
     def getBackend(self):
         if flags.livecdInstall:
             import livecd

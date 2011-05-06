@@ -149,8 +149,6 @@ class PartitionTypeWindow:
             anaconda.storage.config.clearPartDisks = sel
             break
 
-        # ask to review autopartition layout - but only if it's not custom partitioning
-        anaconda.dispatch.skipStep("partition")
         anaconda.dispatch.skipStep("bootloader")
 
         return INSTALL_OK
