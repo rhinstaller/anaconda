@@ -221,6 +221,10 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Fri May 06 2011 Chris Lumens <clumens@redhat.com> - 13.21.116-1
+- Fix list-harddrives output for CCISS devices (clumens).
+  Resolves: rhbz#702430
+
 * Wed Apr 20 2011 David Cantrell <dcantrell@redhat.com> - 13.21.115-1
 - Write 'edd' instead of 'ethX' for fcoe= dracut parameter. (dcantrell)
   Related: rhbz#692939
