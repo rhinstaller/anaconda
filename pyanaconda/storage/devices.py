@@ -1924,7 +1924,7 @@ class LUKSDevice(DMCryptDevice):
         StorageDevice._postTeardown(self, recursive=recursive)
 
     def dracutSetupString(self):
-        return "rd_LUKS_UUID=luks-%s" % self.slave.format.uuid
+        return "rd.luks.uuid=luks-%s" % self.slave.format.uuid
 
 
 class LVMVolumeGroupDevice(DMDevice):
@@ -2606,7 +2606,7 @@ class LVMLogicalVolumeDevice(DMDevice):
     def dracutSetupString(self):
         # Note no mapName usage here, this is a lvm cmdline name, which
         # is different (ofcourse)
-        return "rd_LVM_LV=%s/%s" % (self.vg.name, self._name)
+        return "rd.lvm.lv=%s/%s" % (self.vg.name, self._name)
 
     def checkSize(self):
         """ Check to make sure the size of the device is allowed by the
@@ -3086,7 +3086,7 @@ class MDRaidArrayDevice(StorageDevice):
         return self.type == "mdbiosraidarray"
 
     def dracutSetupString(self):
-        return "rd_MD_UUID=%s" % self.uuid
+        return "rd.md.uuid=%s" % self.uuid
 
 
 class DMRaidArrayDevice(DMDevice):
@@ -3196,7 +3196,7 @@ class DMRaidArrayDevice(DMDevice):
         return self.description
 
     def dracutSetupString(self):
-        return "rd_DM_UUID=%s" % self.name
+        return "rd.dm.uuid=%s" % self.name
 
 class MultipathDevice(DMDevice):
     """ A multipath device """
@@ -3712,7 +3712,7 @@ class ZFCPDiskDevice(DiskDevice):
                   'lun': self.fcp_lun}
 
     def dracutSetupString(self):
-        return "rd_ZFCP=%s,%s,%s" % (self.hba_id, self.wwpn, self.fcp_lun,)
+        return "rd.zfcp=%s,%s,%s" % (self.hba_id, self.wwpn, self.fcp_lun,)
 
 
 class DASDDevice(DiskDevice):
@@ -3751,9 +3751,9 @@ class DASDDevice(DiskDevice):
                     opts[parts[0]] = parts
 
         if self.busid in opts.keys():
-            return "rd_DASD=%s" % ",".join(opts[self.busid])
+            return "rd.dasd=%s" % ",".join(opts[self.busid])
         else:
-            return "rd_DASD=%s" % ",".join([self.busid] + self.getOpts())
+            return "rd.dasd=%s" % ",".join([self.busid] + self.getOpts())
 
 class NFSDevice(StorageDevice, NetworkStorageDevice):
     """ An NFS device """

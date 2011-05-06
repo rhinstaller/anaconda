@@ -650,10 +650,10 @@ class BootLoader(object):
         # When we see a device whose setup string starts with a key in this
         # dict we pop that pair from the dict. When we're done looking at
         # devices we are left with the values that belong in the boot args.
-        dracut_storage = {"rd_LUKS_UUID": "rd_NO_LUKS",
-                          "rd_LVM_LV": "rd_NO_LVM",
-                          "rd_MD_UUID": "rd_NO_MD",
-                          "rd_DM_UUID": "rd_NO_DM"}
+        dracut_storage = {"rd.luks.uuid": "rd.luks=0",
+                          "rd.lvm.lv": "rd.lvm=0",
+                          "rd.md.uuid": "rd.md=0",
+                          "rd.dm.uuid": "rd.dm=0"}
         for device in dracut_devices:
             for dep in self.storage.devices:
                 if device in done:
