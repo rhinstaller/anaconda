@@ -1259,13 +1259,8 @@ class GRUB(BootLoader):
     def install_targets(self):
         """ List of (stage1, stage2) tuples representing install targets. """
         targets = []
-        if self.stage2_device.type != "mdarray":
-            targets.append((self.stage1_device, self.stage2_device))
-        else:
-            if [d for d in self.stage2_device.parents if d.type != "partition"]:
-                raise BootLoaderError("boot array member devices must be "
-                                      "partitions")
-
+        if self.stage2_device.type == "mdarray" and \
+           self.stage2_device.level == 1:
             # make sure we have stage1 and stage2 installed with redundancy
             # so that boot can succeed even in the event of failure or removal
             # of some of the disks containing the member partitions of the
@@ -1289,6 +1284,8 @@ class GRUB(BootLoader):
                     stage1dev = stage2dev
 
                 targets.append((stage1dev, stage2dev))
+        else:
+            targets.append((self.stage1_device, self.stage2_device))
 
         return targets
 
