@@ -27,7 +27,8 @@ def main(argv):
     lst = set()
 
     for dev in filter(lambda d: d.type != parted.DEVICE_DM, parted.getAllDevices()):
-        lst.add((os.path.basename(dev.path), dev.getSize()))
+        path = dev.path.lstrip("/dev/")
+        lst.add((path, dev.getSize()))
 
     lst = list(lst)
     lst.sort()
