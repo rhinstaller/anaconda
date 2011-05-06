@@ -2667,6 +2667,9 @@ class MDRaidArrayDevice(StorageDevice):
         elif level is not None:
             self.level = mdraid.raidLevel(level)
 
+        if self.growable and self.level != 0:
+            raise ValueError("Only RAID0 arrays can contain growable members")
+
         # For new arrays check if we have enough members
         if (not exists and parents and
                 len(parents) < mdraid.get_raid_min_members(self.level)):
