@@ -1129,6 +1129,7 @@ class BTRFS(FS):
     _dump = True
     _check = True
     _packages = ["btrfs-progs"]
+    _minSize = 256
     _maxSize = 16 * 1024 * 1024
     # FIXME parted needs to be thaught about btrfs so that we can set the
     # partition table type correctly for btrfs partitions
