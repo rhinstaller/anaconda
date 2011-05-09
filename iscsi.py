@@ -22,6 +22,7 @@ import time
 import md5, random
 log = logging.getLogger("anaconda")
 
+import rhpl
 from rhpl.translate import _, N_
 
 has_libiscsi = True
@@ -44,7 +45,7 @@ def find_iscsi_files():
 
 def has_iscsi():
     find_iscsi_files()
-    if ISCSID == "" or not has_libiscsi:
+    if ISCSID == "" or not has_libiscsi or rhpl.getArch() in ("s390", "s390x"):
         return False
 
     log.info("ISCSID is %s" % (ISCSID,))
