@@ -3458,9 +3458,11 @@ class FileDevice(StorageDevice):
     def _create(self, w):
         """ Create the device. """
         log_method_call(self, self.name, status=self.status)
-        fd = os.open(self.path, os.O_RDWR)
-        buf = '\0' * 1024 * 1024 * self.size
-        os.write(fd, buf)
+        fd = os.open(self.path, os.O_WRONLY|os.O_CREAT|os.O_TRUNC)
+        buf = "\0" * 1024 * 1024
+        for n in range(self.size):
+            os.write(fd, buf)
+        os.close(fd)
 
     def _destroy(self):
         """ Destroy the device. """
