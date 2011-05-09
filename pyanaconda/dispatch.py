@@ -196,6 +196,17 @@ class Dispatcher(object):
     def _step_index(self):
         return self.steps.index(self.step)
 
+    @property
+    def dir(self):
+        return self.anaconda.dir
+
+    @dir.setter
+    def dir(self, dir):
+        if dir not in [DISPATCH_BACK, DISPATCH_FORWARD, DISPATCH_DEFAULT]:
+            raise RuntimeError("dispatch: wrong direction code")
+        if dir in [DISPATCH_BACK, DISPATCH_FORWARD]:
+            self.anaconda.dir = dir
+
     def done_steps(self, *steps):
         map(lambda s: self.steps[s].done(), steps)
 
@@ -204,11 +215,11 @@ class Dispatcher(object):
         The caller should make sure can_go_back() is True before calling this
         method.
         """
-        self._setDir(DISPATCH_BACK)
+        self.dir = DISPATCH_BACK
         self.dispatch()
 
     def go_forward(self):
-        self._setDir(DISPATCH_FORWARD)
+        self.dir = DISPATCH_FORWARD
         self.dispatch()
 
     def can_go_back(self):
@@ -293,14 +304,3 @@ class Dispatcher(object):
                      (self.dir, self.step))
             self.done_steps(self.step)
             self._advance_step()
-
-    def _getDir(self):
-        return self.anaconda.dir
-
-    def _setDir(self, dir):
-        if dir not in [DISPATCH_BACK, DISPATCH_FORWARD, DISPATCH_DEFAULT]:
-            raise RuntimeError("dispatch: wrong direction code")
-        if dir in [DISPATCH_BACK, DISPATCH_FORWARD]:
-            self.anaconda.dir = dir
-
-    dir = property(_getDir,_setDir)
