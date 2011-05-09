@@ -83,7 +83,6 @@ class Anaconda(object):
         self.updateSrc = None
         self.upgrade = flags.cmdline.has_key("preupgrade")
         self.upgradeRoot = None
-        self.upgradeSwapInfo = None
         self._users = None
         self.mehConfig = None
         self.clearPartTypeSelection = None      # User's GUI selection

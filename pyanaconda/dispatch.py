@@ -40,7 +40,7 @@ from bootloader import writeBootloader
 from flags import flags
 from upgrade import upgradeMountFilesystems
 from upgrade import restoreTime
-from upgrade import upgradeSwapSuggestion, upgradeMigrateFind
+from upgrade import upgradeMigrateFind
 from upgrade import findRootParts, queryUpgradeContinue
 from installmethod import doMethodComplete
 from kickstart import doKickstart, runPostScripts
@@ -159,8 +159,6 @@ class Dispatcher(object):
         self._add_step("upgrademount", upgradeMountFilesystems)
         self._add_step("restoretime", restoreTime)
         self._add_step("upgradecontinue", queryUpgradeContinue)
-        self._add_step("upgradeswapsuggestion", upgradeSwapSuggestion)
-        self._add_step("addswap")
         self._add_step("upgrademigfind", upgradeMigrateFind)
         self._add_step("upgrademigratefs")
         self._add_step("storagedone", storageComplete)

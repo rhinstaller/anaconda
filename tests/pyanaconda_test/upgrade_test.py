@@ -192,63 +192,6 @@ class UpgradeTest(mock.TestCase):
         self.assertFalse(pyanaconda.upgrade.os.environ.has_key('TZ'))
         self.assertTrue(pyanaconda.upgrade.copyFromSysimage.called)
         self.assertTrue(pyanaconda.upgrade.iutil.execWithRedirect.called)
-    
-    def upgrade_swap_suggestion_1_test(self):
-        """upgradeSwapSuggestion - 4GB RAM, 6GB SWAP"""
-        import pyanaconda.upgrade
-        pyanaconda.upgrade.iutil = mock.Mock()
-        pyanaconda.upgrade.iutil.memInstalled.return_value = 4194304
-        pyanaconda.upgrade.iutil.swapAmount.return_value = 6291456
-        anaconda = mock.Mock()
-        pyanaconda.upgrade.upgradeSwapSuggestion(anaconda)
-        self.assertFalse(pyanaconda.upgrade.iutil.swapAmount.called)
-        self.assertEqual(anaconda.dispatch.skipStep.call_args,
-            (('addswap', 1), {}))
-    
-    def upgrade_swap_suggestion_2_test(self):
-        """upgradeSwapSuggestion - 128MB RAM and 256MB SWAP"""
-        import pyanaconda.upgrade
-        pyanaconda.upgrade.iutil = mock.Mock()
-        pyanaconda.upgrade.iutil.memInstalled.return_value = 131072
-        pyanaconda.upgrade.iutil.swapAmount.return_value = 262144
-        anaconda = mock.Mock()
-        pyanaconda.upgrade.upgradeSwapSuggestion(anaconda)
-        self.assertTrue(pyanaconda.upgrade.iutil.swapAmount.called)
-        self.assertEqual(anaconda.dispatch.skipStep.call_args,
-            (('addswap', 1), {}))
-    
-    def upgrade_swap_suggestion_3_test(self):
-        """upgradeSwapSuggestion - 192MB RAM and 320MB SWAP"""
-        import pyanaconda.upgrade
-        pyanaconda.upgrade.iutil = mock.Mock()
-        pyanaconda.upgrade.iutil.memInstalled.return_value = 196608
-        pyanaconda.upgrade.iutil.swapAmount.return_value = 327680
-        anaconda = mock.Mock()
-        pyanaconda.upgrade.upgradeSwapSuggestion(anaconda)
-        self.assertTrue(pyanaconda.upgrade.iutil.swapAmount.called)
-        self.assertEqual(anaconda.dispatch.skipStep.call_args,
-            (('addswap', 1), {}))
-    
-    def upgrade_swap_suggestion_4_test(self):
-        """upgradeSwapSuggestion - 128MB RAM and 128MB SWAP"""
-        import pyanaconda.upgrade
-        DEV_SIZE = 256
-        pyanaconda.upgrade.iutil = mock.Mock()
-        pyanaconda.upgrade.iutil.memInstalled.return_value = 131072
-        pyanaconda.upgrade.iutil.swapAmount.return_value = 131072
-        pyanaconda.upgrade.isys = mock.Mock()
-        pyanaconda.upgrade.isys.pathSpaceAvailable.return_value = DEV_SIZE
-        DEVICE = mock.Mock()
-        DEVICE.format.mountable = True
-        DEVICE.format.linuxNative = True
-        DEVICE.format.mountpoint = '/mnt'
-        anaconda = mock.Mock()
-        anaconda.rootPath = ''
-        anaconda.storage.fsset.devices = [DEVICE]
-        pyanaconda.upgrade.upgradeSwapSuggestion(anaconda)
-        self.assertTrue(pyanaconda.upgrade.iutil.swapAmount.called)
-        self.assertEqual(anaconda.upgradeSwapInfo,
-            ([(DEVICE, DEV_SIZE)], 128, DEVICE))
         
     def upgrade_mount_filesystems_1_test(self):
         import pyanaconda.upgrade

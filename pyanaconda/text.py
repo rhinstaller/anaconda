@@ -52,7 +52,6 @@ stepToClasses = {
     "language" : ("language_text", "LanguageWindow"),
     "keyboard" : ("keyboard_text", "KeyboardWindow"),
     "parttype" : ("partition_text", "PartitionTypeWindow"),
-    "addswap" : ("upgrade_text", "UpgradeSwapWindow"),
     "upgrademigratefs" : ("upgrade_text", "UpgradeMigrateFSWindow"),
     "findinstall" : ("upgrade_text", "UpgradeExamineWindow"),
     "upgbootloader": ("upgrade_bootloader_text", "UpgradeBootloaderWindow"),

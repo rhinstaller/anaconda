@@ -163,36 +163,6 @@ def restoreTime(anaconda):
     except RuntimeError:
         log.error("Failed to set the clock.")
 
-# returns None if no more swap is needed
-def upgradeSwapSuggestion(anaconda):
-    swap = iutil.swapAmount()/1024
-    (suggestedMin, suggestedMax) = iutil.swapSuggestion(quiet=1)
-
-    anaconda.dispatch.skipStep("addswap", 0)
-    if suggestedMin <= swap:
-        anaconda.dispatch.skipStep("addswap")
-        return None
-
-    fsList = []
-
-    for device in anaconda.storage.fsset.devices:
-        if not device.format:
-            continue
-        if device.format.mountable and device.format.linuxNative:
-            if not device.format.status:
-                continue
-            space = isys.pathSpaceAvailable(anaconda.rootPath + device.format.mountpoint)
-            if space > 16:
-                info = (device, space)
-                fsList.append(info)
-
-    suggDev = None
-    for (device, size) in fsList:
-        if size > suggestedMin+100:
-	    suggDev = device
-
-    anaconda.upgradeSwapInfo = (fsList, suggestedMin, suggDev)
-
 # XXX handle going backwards
 def upgradeMountFilesystems(anaconda):
     # mount everything and turn on swap
