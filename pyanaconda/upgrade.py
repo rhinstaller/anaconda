@@ -104,7 +104,7 @@ def findRootParts(anaconda):
     if anaconda.rootParts is not None and len(anaconda.rootParts) > 0:
         anaconda.dispatch.request_step("findinstall")
     else:
-        anaconda.dispatch.skipStep("findinstall")
+        anaconda.dispatch.skip_steps("findinstall")
 
 def bindMountDevDirectory(instPath):
     getFormat("bind",
@@ -116,7 +116,7 @@ def bindMountDevDirectory(instPath):
 def upgradeMigrateFind(anaconda):
     migents = anaconda.storage.migratableDevices
     if not migents or len(migents) < 1:
-        anaconda.dispatch.skipStep("upgrademigratefs")
+        anaconda.dispatch.skip_steps("upgrademigratefs")
     else:
         anaconda.dispatch.request_step("upgrademigratefs")
 
@@ -291,9 +291,9 @@ def setSteps(anaconda):
             )
 
     if not iutil.isX86() and not iutil.isS390():
-        dispatch.skipStep("bootloader")
+        dispatch.skip_steps("bootloader")
 
     if not iutil.isX86():
-        dispatch.skipStep("upgbootloader")
+        dispatch.skip_steps("upgbootloader")
 
-    dispatch.skipStep("cleardiskssel")
+    dispatch.skip_steps("cleardiskssel")

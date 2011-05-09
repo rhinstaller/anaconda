@@ -40,13 +40,13 @@ class UpgradeBootloaderWindow (InstallWindow):
 
     def getNext(self):
         if self.nobl_radio.get_active():
-            self.dispatch.skipStep("bootloader")
-            self.dispatch.skipStep("instbootloader")
+            self.dispatch.skip_steps("bootloader")
+            self.dispatch.skip_steps("instbootloader")
         elif self.newbl_radio.get_active():
             self.dispatch.request_step("bootloader")
             self.bl.update_only = False
         else:
-            self.dispatch.skipStep("bootloader")
+            self.dispatch.skip_steps("bootloader")
             self.dispatch.request_step("instbootloader")
             self.bl.update_only = self.bl.can_update
 

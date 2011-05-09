@@ -79,7 +79,7 @@ class UpgradeTest(mock.TestCase):
         
         pyanaconda.upgrade.findRootParts(anaconda)
         self.assertTrue(anaconda.intf.messageWindow.called)
-        self.assertEqual(anaconda.dispatch.skipStep.call_args,
+        self.assertEqual(anaconda.dispatch.skip_steps.call_args,
             (('findinstall',), {'skip': 1}))
     
     def find_root_parts_2_test(self):
@@ -93,7 +93,7 @@ class UpgradeTest(mock.TestCase):
         
         pyanaconda.upgrade.findRootParts(anaconda)
         self.assertFalse(anaconda.intf.messageWindow.called)
-        self.assertEqual(anaconda.dispatch.skipStep.call_args,
+        self.assertEqual(anaconda.dispatch.skip_steps.call_args,
             (('findinstall',), {'skip': 0}))
     
     def bind_mount_dev_directory_test(self):
@@ -109,7 +109,7 @@ class UpgradeTest(mock.TestCase):
         anaconda = mock.Mock()
         anaconda.storage.migratableDevices = []
         pyanaconda.upgrade.upgradeMigrateFind(anaconda)
-        self.assertEqual(anaconda.dispatch.skipStep.call_args,
+        self.assertEqual(anaconda.dispatch.skip_steps.call_args,
             (('upgrademigratefs',), {}))
     
     def upgrade_migrate_find_2_test(self):
@@ -117,7 +117,7 @@ class UpgradeTest(mock.TestCase):
         anaconda = mock.Mock()
         anaconda.storage.migratableDevices = ['']
         pyanaconda.upgrade.upgradeMigrateFind(anaconda)
-        self.assertEqual(anaconda.dispatch.skipStep.call_args,
+        self.assertEqual(anaconda.dispatch.skip_steps.call_args,
             (('upgrademigratefs',), {'skip': 0}))
     
     def copy_from_sysimage_1_test(self):
@@ -239,6 +239,6 @@ class UpgradeTest(mock.TestCase):
         
         anaconda = mock.Mock()
         pyanaconda.upgrade.setSteps(anaconda)
-        self.assertEqual(anaconda.dispatch.skipStep.call_args_list,
+        self.assertEqual(anaconda.dispatch.skip_steps.call_args_list,
             [(('bootloader',), {}), (('upgbootloader',), {})])
     

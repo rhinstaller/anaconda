@@ -255,7 +255,7 @@ class Dispatcher(object):
                                           Step.SCHED_REQUESTED,
                                           Step.SCHED_DONE]
 
-    def skipStep(self, *steps):
+    def skip_steps(self, *steps):
         map(lambda s: self.steps[s].skip(), steps)
 
     def step_is_direct(self, step):

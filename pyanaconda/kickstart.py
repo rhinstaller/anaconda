@@ -226,7 +226,7 @@ class AutoPart(commands.autopart.F12_AutoPart):
             self.anaconda.storage.autoPartAddBackupPassphrase = \
                 self.backuppassphrase
 
-        self.anaconda.dispatch.skipStep("partition", "parttype")
+        self.anaconda.dispatch.skip_steps("partition", "parttype")
 
 class AutoStep(commands.autostep.FC3_AutoStep):
     def execute(self):
@@ -249,7 +249,7 @@ class Bootloader(commands.bootloader.F15_Bootloader):
             self.anaconda.bootloader.update_only = True
 
         if location is None:
-            self.anaconda.dispatch.skipStep("instbootloader")
+            self.anaconda.dispatch.skip_steps("instbootloader")
         else:
             if self.appendLine:
                 args = self.appendLine.split()
@@ -274,7 +274,7 @@ class Bootloader(commands.bootloader.F15_Bootloader):
 
             self.anaconda.bootloader.drive_order = self.driveorder
 
-        self.anaconda.dispatch.skipStep("upgbootloader", "bootloader")
+        self.anaconda.dispatch.skip_steps("upgbootloader", "bootloader")
 
 class ClearPart(commands.clearpart.FC3_ClearPart):
     def parse(self, args):
@@ -304,7 +304,7 @@ class ClearPart(commands.clearpart.FC3_ClearPart):
             self.anaconda.storage.config.reinitializeDisks = self.initAll
 
         clearPartitions(self.anaconda.storage)
-        self.anaconda.dispatch.skipStep("cleardiskssel")
+        self.anaconda.dispatch.skip_steps("cleardiskssel")
 
 class Fcoe(commands.fcoe.F13_Fcoe):
     def parse(self, args):
@@ -402,14 +402,14 @@ class Keyboard(commands.keyboard.FC3_Keyboard):
     def execute(self):
         self.anaconda.keyboard.set(self.keyboard)
         self.anaconda.keyboard.beenset = 1
-        self.anaconda.dispatch.skipStep("keyboard")
+        self.anaconda.dispatch.skip_steps("keyboard")
 
 class Lang(commands.lang.FC3_Lang):
     def execute(self):
         self.anaconda.instLanguage.instLang = self.lang
         self.anaconda.instLanguage.systemLang = self.lang
         self.anaconda.instLanguage.buildLocale()
-        self.anaconda.dispatch.skipStep("language")
+        self.anaconda.dispatch.skip_steps("language")
 
 class LogVolData(commands.logvol.F15_LogVolData):
     def execute(self):
@@ -451,7 +451,7 @@ class LogVolData(commands.logvol.F15_LogVolData):
 
             dev.format.mountpoint = self.mountpoint
             dev.format.mountopts = self.fsopts
-            self.anaconda.dispatch.skipStep("partition", "parttype")
+            self.anaconda.dispatch.skip_steps("partition", "parttype")
             return
 
         # Make sure this LV name is not already used in the requested VG.
@@ -534,7 +534,7 @@ class LogVolData(commands.logvol.F15_LogVolData):
                                      parents=request)
             storage.createDevice(luksdev)
 
-        self.anaconda.dispatch.skipStep("partition", "parttype")
+        self.anaconda.dispatch.skip_steps("partition", "parttype")
 
 class Logging(commands.logging.FC6_Logging):
     def execute(self):
@@ -759,7 +759,7 @@ class PartitionData(commands.partition.F12_PartData):
 
             dev.format.mountpoint = self.mountpoint
             dev.format.mountopts = self.fsopts
-            self.anaconda.dispatch.skipStep("partition", "parttype")
+            self.anaconda.dispatch.skip_steps("partition", "parttype")
             return
 
         # Now get a format to hold a lot of these extra values.
@@ -848,11 +848,11 @@ class PartitionData(commands.partition.F12_PartData):
                                      parents=request)
             storage.createDevice(luksdev)
 
-        self.anaconda.dispatch.skipStep("partition", "parttype")
+        self.anaconda.dispatch.skip_steps("partition", "parttype")
 
 class Reboot(commands.reboot.FC6_Reboot):
     def execute(self):
-        self.anaconda.dispatch.skipStep("complete")
+        self.anaconda.dispatch.skip_steps("complete")
 
 class RaidData(commands.raid.F15_RaidData):
     def execute(self):
@@ -901,7 +901,7 @@ class RaidData(commands.raid.F15_RaidData):
 
             dev.format.mountpoint = self.mountpoint
             dev.format.mountopts = self.fsopts
-            self.anaconda.dispatch.skipStep("partition", "parttype")
+            self.anaconda.dispatch.skip_steps("partition", "parttype")
             return
 
         # Get a list of all the RAID members.
@@ -994,14 +994,14 @@ class RaidData(commands.raid.F15_RaidData):
                                      parents=request)
             storage.createDevice(luksdev)
 
-        self.anaconda.dispath.skipStep("partition", "parttype")
+        self.anaconda.dispath.skip_steps("partition", "parttype")
 
 class RootPw(commands.rootpw.F8_RootPw):
     def execute(self):
         self.anaconda.users.rootPassword["password"] = self.password
         self.anaconda.users.rootPassword["isCrypted"] = self.isCrypted
         self.anaconda.users.rootPassword["lock"] = self.lock
-        self.anaconda.dispatch.skipStep("accounts")
+        self.anaconda.dispatch.skip_steps("accounts")
 
 class SELinux(commands.selinux.FC3_SELinux):
     def execute(self):
@@ -1021,7 +1021,7 @@ class Timezone(commands.timezone.FC6_Timezone):
             log.warning("Timezone %s set in kickstart is not valid." % (self.timezone,))
 
         self.anaconda.timezone.setTimezoneInfo(self.timezone, self.isUtc)
-        self.anaconda.dispatch.skipStep("timezone")
+        self.anaconda.dispatch.skip_steps("timezone")
 
 class Upgrade(commands.upgrade.F11_Upgrade):
     def execute(self):
@@ -1461,40 +1461,40 @@ def setSteps(anaconda):
         upgrade.setSteps(anaconda)
 
         # we have no way to specify migrating yet
-        dispatch.skipStep("upgrademigfind")
-        dispatch.skipStep("upgrademigratefs")
-        dispatch.skipStep("upgradecontinue")
-        dispatch.skipStep("findinstall")
-        dispatch.skipStep("language")
-        dispatch.skipStep("keyboard")
-        dispatch.skipStep("betanag")
+        dispatch.skip_steps("upgrademigfind")
+        dispatch.skip_steps("upgrademigratefs")
+        dispatch.skip_steps("upgradecontinue")
+        dispatch.skip_steps("findinstall")
+        dispatch.skip_steps("language")
+        dispatch.skip_steps("keyboard")
+        dispatch.skip_steps("betanag")
     else:
         anaconda.instClass.setSteps(anaconda)
-        dispatch.skipStep("findrootparts")
+        dispatch.skip_steps("findrootparts")
     dispatch.request_step("kickstart")
 
-    dispatch.skipStep("betanag")
-    dispatch.skipStep("network")
+    dispatch.skip_steps("betanag")
+    dispatch.skip_steps("network")
 
     # Storage is initialized for us right when kickstart processing starts.
-    dispatch.skipStep("storageinit")
+    dispatch.skip_steps("storageinit")
 
     # Make sure to automatically reboot if told to.
     if ksdata.reboot.action in [KS_REBOOT, KS_SHUTDOWN]:
-        dispatch.skipStep("complete")
+        dispatch.skip_steps("complete")
 
     # If the package section included anything, skip group selection.
     if ksdata.upgrade.upgrade:
-        dispatch.skipStep("tasksel", "group-selection")
+        dispatch.skip_steps("tasksel", "group-selection")
 
         # Special check for this, since it doesn't make any sense.
         if ksdata.packages.seen:
             warnings.warn("Ignoring contents of %packages section due to upgrade.")
     elif havePackages(ksdata.packages):
-        dispatch.skipStep("tasksel", "group-selection")
+        dispatch.skip_steps("tasksel", "group-selection")
     else:
         if ksdata.packages.seen:
-            dispatch.skipStep("tasksel", "group-selection")
+            dispatch.skip_steps("tasksel", "group-selection")
         else:
             dispatch.request_step("tasksel", "group-selection")
 

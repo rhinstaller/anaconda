@@ -149,7 +149,7 @@ class PartitionTypeWindow:
             anaconda.storage.config.clearPartDisks = sel
             break
 
-        anaconda.dispatch.skipStep("bootloader")
+        anaconda.dispatch.skip_steps("bootloader")
 
         return INSTALL_OK
 

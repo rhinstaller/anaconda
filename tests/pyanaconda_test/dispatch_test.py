@@ -106,7 +106,7 @@ class DispatchTest(mock.TestCase):
         d.done_steps("betanag")
         self.assertTrue(d.step_enabled("betanag"))
         self.assertTrue(d.steps["betanag"], Step.SCHED_DONE)
-        self.assertRaises(DispatchError, d.skipStep, "betanag")
+        self.assertRaises(DispatchError, d.skip_steps, "betanag")
 
     def instantiation_test(self):
         from pyanaconda.dispatch import Dispatcher
@@ -127,7 +127,7 @@ class DispatchTest(mock.TestCase):
         d = self._getDispatcher()
         d.schedule_steps("betanag", "filtertype", "complete")
         self.assertTrue(d.step_enabled("betanag"))
-        d.skipStep("betanag", "complete")
+        d.skip_steps("betanag", "complete")
         self.assertFalse(d.step_enabled("betanag"))
         self.assertFalse(d.step_enabled("complete"))
         self.assertTrue(d.step_enabled("filtertype"))

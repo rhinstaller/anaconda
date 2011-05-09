@@ -124,31 +124,31 @@ class BaseInstallClass(object):
 		)
 
 	if not isBeta:
-	    dispatch.skipStep("betanag")
+	    dispatch.skip_steps("betanag")
 
         if iutil.isEfi() or not iutil.isX86():
-            dispatch.skipStep("bootloader")
+            dispatch.skip_steps("bootloader")
 
         # allow backends to disable interactive package selection
         if not anaconda.backend.supportsPackageSelection:
-            dispatch.skipStep("tasksel")
-            dispatch.skipStep("group-selection")
+            dispatch.skip_steps("tasksel")
+            dispatch.skip_steps("group-selection")
 
         # allow install classes to turn off the upgrade
         if not self.showUpgrade or not anaconda.backend.supportsUpgrades:
-            dispatch.skipStep("findrootparts")
+            dispatch.skip_steps("findrootparts")
 
         # 'noupgrade' can be used on the command line to force not looking
         # for partitions to upgrade.  useful in some cases...
         if flags.cmdline.has_key("noupgrade"):
-            dispatch.skipStep("findrootparts")
+            dispatch.skip_steps("findrootparts")
 
         # upgrade will also always force looking for an upgrade.
         if flags.cmdline.has_key("upgrade"):
             dispatch.request_step("findrootparts")
 
         # allow interface backends to skip certain steps.
-        map(lambda s: dispatch.skipStep(s), anaconda.intf.unsupported_steps())
+        map(lambda s: dispatch.skip_steps(s), anaconda.intf.unsupported_steps())
 
     # modifies the uri from installmethod.getMethodUri() to take into
     # account any installclass specific things including multiple base

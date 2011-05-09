@@ -103,7 +103,7 @@ class BootloaderTest(mock.TestCase):
         methods = [x[0] for x in anaconda.method_calls]
         self.assertEqual(methods,
             ['bootloader.updateDriveList', 'platform.bootloaderChoices', \
-            'dispatch.skipStep', 'bootloader.images.setup', 'bootloader.setDevice']
+            'dispatch.skip_steps', 'bootloader.images.setup', 'bootloader.setDevice']
         )
         
     def fixed_mdraid_grub_target_1_test(self):
