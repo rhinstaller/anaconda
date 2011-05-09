@@ -3470,6 +3470,18 @@ class FileDevice(StorageDevice):
         os.unlink(self.path)
 
 
+class SparseFileDevice(FileDevice):
+    """A sparse file on a filesystem.
+    This exists for sparse disk images."""
+    _type = "sparse file"
+    def _create(self, w):
+        """Create a sparse file."""
+        log_method_call(self, self.name, status=self.status)
+        fd = os.open(self.path, os.O_WRONLY|os.O_CREAT|os.O_TRUNC)
+        os.ftruncate(fd, 1024*1024*self.size)
+        os.close(fd)
+
+
 class DirectoryDevice(FileDevice):
     """ A directory on a filesystem.
 
