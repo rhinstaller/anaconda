@@ -1155,7 +1155,7 @@ class Storage(object):
             warnings.append(_("Installing on a FireWire device.  This may "
                               "or may not produce a working system."))
 
-        if self.platform and not self.anaconda.dispatch.stepInSkipList('instbootloader'):
+        if self.platform and self.anaconda.dispatch.step_enabled('instbootloader'):
             (e, w) = self.platform.checkBootRequest()
             errors.extend(e)
             warnings.extend(w)

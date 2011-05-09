@@ -184,8 +184,7 @@ class PartitionTypeWindow(InstallWindow):
             elif self.buttonGroup.getCurrent() == "freespace":
                 self.storage.config.clearPartType = CLEARPART_TYPE_NONE
 
-            self.dispatch.skipStep("autopartitionexecute", skip = 0)
-            self.dispatch.skipStep("cleardiskssel", skip = 0)
+            self.dispatch.request_steps("autopartitionexecute", "cleardiskssel")
 
             if self.encryptButton.get_active():
                 self.storage.encryptedAutoPart = True

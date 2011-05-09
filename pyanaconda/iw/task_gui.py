@@ -505,7 +505,7 @@ class TaskWindow(InstallWindow):
             raise gui.StayOnScreen
 
         if self.xml.get_widget("customRadio").get_active():
-            self.dispatch.skipStep("group-selection", skip = 0)
+            self.dispatch.request_step("group-selection")
         else:
             self.dispatch.skipStep("group-selection")
 
@@ -691,7 +691,7 @@ class TaskWindow(InstallWindow):
             txt = lbl.get_text()
             lbl.set_text(txt %(productName,))
 
-        custom = not self.dispatch.stepInSkipList("group-selection")
+        custom = self.dispatch.step_enabled("group-selection")
         if custom:
             self.xml.get_widget("customRadio").set_active(True)
         else:

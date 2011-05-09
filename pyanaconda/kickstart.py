@@ -1518,7 +1518,7 @@ def setSteps(anaconda):
         errors = []
 
         for (step, msg) in missingSteps:
-            if not dispatch.stepInSkipList(step):
+            if dispatch.step_enabled(step):
                 errors.append(msg)
 
         if len(errors) > 0:

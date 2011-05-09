@@ -1262,7 +1262,7 @@ class InstallControlWindow:
                     sys.exit(0)
 
         ics = InstallControlState (self)
-        ics.setPrevEnabled(self.anaconda.dispatch.canGoBack())
+        ics.setPrevEnabled(self.anaconda.dispatch.can_go_back())
         self.destroyCurrentWindow()
         self.currentWindow = newScreenClass(ics)
 

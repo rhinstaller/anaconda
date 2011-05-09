@@ -537,7 +537,7 @@ class InstallInterface(InstallInterfaceBase):
             elif rc == INSTALL_NOOP:
                 return DISPATCH_DEFAULT
             elif rc == INSTALL_BACK:
-                if self.anaconda.dispatch.canGoBack():
+                if self.anaconda.dispatch.can_go_back():
                     return DISPATCH_BACK
                 else:
                     ButtonChoiceWindow(self.screen, _("Cancelled"),

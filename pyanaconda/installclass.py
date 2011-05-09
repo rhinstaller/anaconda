@@ -145,7 +145,7 @@ class BaseInstallClass(object):
 
         # upgrade will also always force looking for an upgrade.
         if flags.cmdline.has_key("upgrade"):
-            dispatch.skipStep("findrootparts", skip = 0)
+            dispatch.request_step("findrootparts")
 
         # allow interface backends to skip certain steps.
         map(lambda s: dispatch.skipStep(s), anaconda.intf.unsupported_steps())

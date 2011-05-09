@@ -201,7 +201,7 @@ class Dispatcher(object):
 
     def go_back(self):
         """
-        The caller should make sure canGoBack() is True before calling this
+        The caller should make sure can_go_back() is True before calling this
         method.
         """
         self._setDir(DISPATCH_BACK)
@@ -271,7 +271,7 @@ class Dispatcher(object):
                 continue
             log.info("dispatch: moving (%d) to step %s" %
                      (self.dir, self.step))
-            if self.stepIsDirect(self.step):
+            if self.step_is_direct(self.step):
                 # handle a direct step by just calling the function
                 log.debug("dispatch: %s is a direct step" % self.step)
                 self.dir = self.steps[self.step].target(self.anaconda)
