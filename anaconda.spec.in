@@ -209,6 +209,7 @@ update-desktop-database &> /dev/null || :
 %doc docs/anaconda-release-notes.txt
 /lib/systemd/system/*
 /lib/udev/rules.d/70-anaconda.rules
+%{_bindir}/instperf
 %{_sbindir}/anaconda
 %{_sbindir}/logpicker
 %ifarch i386 i486 i586 i686 x86_64

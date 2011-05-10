@@ -25,9 +25,12 @@ dist_scripts_DATA    = mk-images.* pyrc.py
 dist_noinst_SCRIPTS  = getlangnames.py upd-bootimage upd-initrd upd-kernel \
                        makeupdates
 
-dist_bin_SCRIPTS = analog anaconda-cleanup
+dist_bin_SCRIPTS = analog anaconda-cleanup instperf
 
 stage2scriptsdir = $(datadir)/$(PACKAGE_NAME)
 dist_stage2scripts_SCRIPTS = restart-anaconda
+
+miscdir = $(datadir)/$(PACKAGE_NAME)
+dist_misc_DATA = instperf.p
 
 MAINTAINERCLEANFILES = Makefile.in

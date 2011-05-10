@@ -1,0 +1,8 @@
+[Unit]
+Description=anaconda performance monitor
+Before=loader.service
+
+[Service]
+WorkingDirectory=/
+ExecStart=/usr/bin/instperf
+ConditionKernelCommandLine=debug
