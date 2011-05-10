@@ -176,6 +176,7 @@ class InstallClass(BaseInstallClass):
     def __init__(self, expert):
 	BaseInstallClass.__init__(self, expert)
 
+        self.inum = None
         self.repopaths = { "base": "%s" %(productPath,) }
 
         # minimally set up tasks in case no key is provided
