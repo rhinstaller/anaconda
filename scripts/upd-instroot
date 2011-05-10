@@ -110,7 +110,7 @@ PACKAGES="glibc glibc-common setup openssl python python-libs newt slang libseli
 	 procps rpm rpm-libs XFree86 Xconfigurator anaconda tzdata
 	 anaconda-runtime kudzu hwdata bzip2 beecrypt mdadm libsemanage
 	 bzip2-libs dosfstools pciutils reiserfs-utils parted sed
-	 busybox-anaconda rpm-python booty hdparm lvm2 beecrypt device-mapper
+	 busybox rpm-python booty hdparm lvm2 beecrypt device-mapper
 	 rhpl pyxf86config libxml2 libxml2-python glib2 sqlite neon
 	 elfutils-libelf krb5-libs convertdb1 jfsutils audit-libs pam
 	 xfsprogs xfsdump dmapi libacl libattr attr acl python-urlgrabber
@@ -335,7 +335,7 @@ sbin/kpartx.static
 sbin/mpath_prio_*.static
 lib/udev/scsi_id
 sbin/badblocks
-sbin/busybox.anaconda
+sbin/busybox
 sbin/clock
 sbin/cryptsetup
 sbin/debugfs
@@ -551,7 +551,7 @@ usr/sbin/in.telnetd
 usr/sbin/xinetd
 sbin/cmsfslst
 sbin/cmsfscat
-sbin/busybox.anaconda
+sbin/busybox
 sbin/ifconfig
 sbin/route
 sbin/portmap

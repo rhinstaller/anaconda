@@ -45,7 +45,7 @@ rm $p/etc/ld.so.conf
 #
 # HOWEVER dont clobber existing programs supplied by other packages if exist
 #
-mv $p/usr/sbin/busybox.anaconda $p/usr/bin/busybox
+mv $p/usr/sbin/busybox $p/usr/bin/busybox
 (cd $p/usr/bin;
 set $(./busybox 2>&1| awk '/^\t([[:alnum:]_\.\[]+,)+/' | sed 's/,//g' | sed 's/ +//');
 dontclobber=(sh busybox reboot shutdown poweroff)
