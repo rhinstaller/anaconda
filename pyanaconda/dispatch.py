@@ -82,12 +82,14 @@ class Step(object):
             user interface object is told to handle the step (i.e. indirect
             step).
         """
+        self._changes = {} # tracks changes (FROM, TO) in scheduling of other steps
         self.name = name
         self.target = target # None for dynamic target (e.g. gui view)
         self._sched = self.SCHED_UNSCHEDULED
 
-    def _reschedule(self, to_sched):
-        new_sched = self.sched_state_machine[self._sched][to_sched]
+    def _reschedule(self, to_sched, current_step):
+        s_from = self.sched
+        new_sched = self.sched_state_machine[self.sched][to_sched]
         if new_sched is False:
             raise errors.DispatchError(
                 "Can not reschedule step '%s' from '%s' to '%s'" %
@@ -95,16 +97,25 @@ class Step(object):
                  self.namesched(self._sched),
                  self.namesched(to_sched)))
         self._sched = to_sched
+        if current_step:
+            current_step.record_history(self, s_from, self.sched)
+
+    @property
+    def changes(self):
+        return self._changes
+
+    def clear_changes(self):
+        self._changes = {}
 
     @property
     def direct(self):
         return self.target is not None
 
-    def done(self):
-        self._reschedule(self.SCHED_DONE)
+    def done(self, current_step):
+        return self._reschedule(self.SCHED_DONE, current_step)
 
-    def request(self):
-        self._reschedule(self.SCHED_REQUESTED)
+    def request(self, current_step):
+        return self._reschedule(self.SCHED_REQUESTED, current_step)
 
     def namesched(self, sched):
         return {
@@ -115,16 +126,29 @@ class Step(object):
             self.SCHED_DONE        : "done"
             }[sched]
 
+    def record_history(self, step, s_from, s_to):
+        """ Stores information about scheduling changes into self.
+
+            step is a step where scheduling changed from s_from to s_to. the
+            self object in this method should be the currently executing object.
+        """
+        if step.name in self._changes:
+            s_from = self._changes[step.name][0]
+        self._changes[step.name] = (s_from, s_to)
+
+    def revert_sched(self, s_from, s_to):
+        assert(self.sched == s_to)
+        self._sched = s_from
+
     @property
     def sched(self):
         return self._sched
 
-    def schedule(self):
-        self._reschedule(self.SCHED_SCHEDULED)
+    def schedule(self, current_step):
+        return self._reschedule(self.SCHED_SCHEDULED, current_step)
 
-    def skip(self):
-        self._reschedule(self.SCHED_SKIPPED)
-
+    def skip(self, current_step):
+        return self._reschedule(self.SCHED_SKIPPED, current_step)
 
 class Dispatcher(object):
 
@@ -132,6 +156,7 @@ class Dispatcher(object):
         self.anaconda = anaconda
         self.anaconda.dir = DISPATCH_FORWARD
         self.step = None # name of the current step
+        self.stop = False
         # step dictionary mapping step names to step objects
         self.steps = indexed_dict.IndexedDict()
         # Note that not only a subset of the steps is executed for a particular
@@ -190,8 +215,34 @@ class Dispatcher(object):
         self.steps[name] = Step(name, target)
 
     def _advance_step(self):
-        i = self._step_index()
-        self.step = self.steps[i + 1].name
+        if self.step is None:
+            # initialization
+            log.info("dispatch: resetting to the first step.")
+            self.step = self.steps[0].name
+        elif self._step_index() < len(self.steps) - 1:
+            i = self._step_index()
+            if self.dir == DISPATCH_BACK:
+                # revert whatever changed in the current step
+                self._revert_scheduling(self.step)
+            self.step = self.steps[i + self.dir].name
+            if self.dir == DISPATCH_BACK:
+                # revert whatever changed in the step we moved back to
+                self._revert_scheduling(self.step)
+        else:
+            # advancing from the last step
+            self.step = "_invalid_"
+            self.stop = True
+
+    def _current_step(self):
+        if self.step:
+            return self.steps[self.step]
+        return None
+
+    def _revert_scheduling(self, reverted_step):
+        """ Revert scheduling changes that happened during reverted_step. """
+        for (step, (s_from, s_to)) in self.steps[reverted_step].changes.items():
+            self.steps[step].revert_sched(s_from, s_to)
+        self.steps[reverted_step].clear_changes()
 
     def _step_index(self):
         return self.steps.index(self.step)
@@ -208,7 +259,7 @@ class Dispatcher(object):
             self.anaconda.dir = dir
 
     def done_steps(self, *steps):
-        map(lambda s: self.steps[s].done(), steps)
+        changes = map(lambda s: self.steps[s].done(self._current_step()), steps)
 
     def go_back(self):
         """
@@ -234,14 +285,14 @@ class Dispatcher(object):
         return False
 
     def request_steps(self, *steps):
-        map(lambda s: self.steps[s].request(), steps)
+        changes = map(lambda s: self.steps[s].request(self._current_step()), steps)
 
     def run(self):
         self.anaconda.intf.run(self.anaconda)
         log.info("dispatch: finished.")
 
     def schedule_steps(self, *steps):
-        map(lambda s: self.steps[s].schedule(), steps)
+        changes = map(lambda s: self.steps[s].schedule(self._current_step()), steps)
 
     def step_disabled(self, step):
         """ True if step is not yet scheduled to be run or will never be run
@@ -256,24 +307,20 @@ class Dispatcher(object):
                                           Step.SCHED_DONE]
 
     def skip_steps(self, *steps):
-        map(lambda s: self.steps[s].skip(), steps)
+        changes = map(lambda s: self.steps[s].skip(self._current_step()), steps)
 
     def step_is_direct(self, step):
         return self.steps[step].direct
 
     def dispatch(self):
-        total_steps = len(self.steps)
-        if self.step == None:
-            log.info("dispatch: resetting to the first step.")
-            self.step = self.steps[0].name
-        else:
+        if self.step:
             log.info("dispatch: leaving (%d) step %s" %
                      (self.dir, self.step))
             self.done_steps(self.step)
-            self._advance_step()
+        self._advance_step()
 
         while True:
-            if self._step_index() >= total_steps:
+            if self.stop:
                 # installation has proceeded beyond the last step: finished
                 self.anaconda.intf.shutdown()
                 return
