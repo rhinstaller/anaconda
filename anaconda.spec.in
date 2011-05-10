@@ -221,6 +221,10 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Tue May 10 2011 David Cantrell <dcantrell@redhat.com> - 13.21.117-1
+- Trim "/dev/" from dev.path for all architectures (dcantrell)
+  Resolves: rhbz#702430
+
 * Fri May 06 2011 Chris Lumens <clumens@redhat.com> - 13.21.116-1
 - Fix list-harddrives output for CCISS devices (clumens).
   Resolves: rhbz#702430
