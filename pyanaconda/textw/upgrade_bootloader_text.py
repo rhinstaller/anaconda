@@ -93,7 +93,7 @@ class UpgradeBootloaderWindow:
                 anaconda.bootloader.update_only = False
             else:
                 self.dispatch.skip_steps("bootloader")
-                self.dispatch.request_step("instbootloader")
+                self.dispatch.request_steps("instbootloader")
                 anaconda.bootloader.update_only = anaconda.bootloader.can_update
 
             screen.popWindow()

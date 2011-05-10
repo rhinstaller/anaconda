@@ -233,7 +233,7 @@ class Dispatcher(object):
             i -= 1
         return False
 
-    def request_step(self, *steps):
+    def request_steps(self, *steps):
         map(lambda s: self.steps[s].request(), steps)
 
     def run(self):

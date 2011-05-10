@@ -56,7 +56,7 @@ class MainBootloaderWindow(InstallWindow):
             self.dispatch.skip_steps("instbootloader")
             return
         else:
-            self.dispatch.request_step("instbootloader")
+            self.dispatch.request_steps("instbootloader")
 
         # set the password
         self.bl.password = self.blpass.getPassword()

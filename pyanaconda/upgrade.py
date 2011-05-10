@@ -102,7 +102,7 @@ def findRootParts(anaconda):
     setUpgradeRoot(anaconda)
 
     if anaconda.rootParts is not None and len(anaconda.rootParts) > 0:
-        anaconda.dispatch.request_step("findinstall")
+        anaconda.dispatch.request_steps("findinstall")
     else:
         anaconda.dispatch.skip_steps("findinstall")
 
@@ -118,7 +118,7 @@ def upgradeMigrateFind(anaconda):
     if not migents or len(migents) < 1:
         anaconda.dispatch.skip_steps("upgrademigratefs")
     else:
-        anaconda.dispatch.request_step("upgrademigratefs")
+        anaconda.dispatch.request_steps("upgrademigratefs")
 
 def copyFromSysimage(rootPath, filename):
     """Mirrors filename from the sysimage on the ramdisk."""

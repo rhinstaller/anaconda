@@ -505,7 +505,7 @@ class TaskWindow(InstallWindow):
             raise gui.StayOnScreen
 
         if self.xml.get_widget("customRadio").get_active():
-            self.dispatch.request_step("group-selection")
+            self.dispatch.request_steps("group-selection")
         else:
             self.dispatch.skip_steps("group-selection")
 

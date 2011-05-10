@@ -143,7 +143,7 @@ class PartitionTypeWindow:
                 mustHaveSelectedDrive(anaconda.intf)
                 continue
 
-            anaconda.dispatch.request_step("autopartitionexecute")
+            anaconda.dispatch.request_steps("autopartitionexecute")
             anaconda.storage.doAutoPart = True
             anaconda.storage.config.clearPartType = partmethod_ans
             anaconda.storage.config.clearPartDisks = sel

@@ -1471,7 +1471,7 @@ def setSteps(anaconda):
     else:
         anaconda.instClass.setSteps(anaconda)
         dispatch.skip_steps("findrootparts")
-    dispatch.request_step("kickstart")
+    dispatch.request_steps("kickstart")
 
     dispatch.skip_steps("betanag")
     dispatch.skip_steps("network")
@@ -1496,7 +1496,7 @@ def setSteps(anaconda):
         if ksdata.packages.seen:
             dispatch.skip_steps("tasksel", "group-selection")
         else:
-            dispatch.request_step("tasksel", "group-selection")
+            dispatch.request_steps("tasksel", "group-selection")
 
     if ksdata.ignoredisk.interactive:
         dispatch.request_steps("filtertype", "filter")
