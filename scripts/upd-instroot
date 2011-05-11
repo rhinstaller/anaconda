@@ -124,7 +124,7 @@ PACKAGES="glibc glibc-common setup openssl python python-libs newt slang libseli
 	 libselinux-python nss udev keyutils-libs nspr python-iniparse
 	 cryptsetup-luks e4fsprogs fipscheck fipscheck-lib libdrm libmlx4
 	 subscription-manager python-dmidecode python-ethtool
-	 python-rhsm python-simplejson PyXML virt-what"
+	 python-rhsm python-simplejson PyXML m2crypto"
 
 if [ $ARCH = i386 -o $ARCH = x86_64 ]; then
     PACKAGES="$PACKAGES pcmciautils"
@@ -482,6 +482,7 @@ usr/lib/python?.?/site-packages/pirut/*
 usr/lib/python?.?/site-packages/pykickstart/*
 usr/lib/python?.?/site-packages/rhpxl/*
 usr/lib/python?.?/site-packages/instnum.*
+usr/lib/python?.?/site-packages/*rhsm*
 usr/lib/rpm/macros
 usr/lib/rpm/rpmpopt
 usr/lib/rpm/rpmrc
@@ -1335,7 +1336,6 @@ find $DESTGR -type f -name '*.so' |xargs strip -g
 # some python stuff we don't need for stage2
 rm -rf $DESTGR/usr/$LIBDIR/python?.?/site-packages/distutils/
 rm -rf $DESTGR/usr/$LIBDIR/python?.?/site-packages/lib-dynload/japanese
-rm -rf $DESTGR/usr/$LIBDIR/python?.?/site-packages/encodings/
 rm -rf $DESTGR/usr/$LIBDIR/python?.?/site-packages/compiler/
 rm -rf $DESTGR/usr/$LIBDIR/python?.?/site-packages/email/test/
 rm -rf $DESTGR/usr/$LIBDIR/python?.?/site-packages/curses/
