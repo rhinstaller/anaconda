@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.232
+Version: 11.1.2.233
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -128,6 +128,14 @@ fi
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu May 12 2011 Ales Kozumplik <akozumpl@redhat.com> 11.1.2.233-1
+- fix uninitialized self.inum in rhel.py:repoIsAllowed() (akozumpl)
+  Resolves: rhbz#703253
+- Use static busybox, not busybox-anaconda (mgracik)
+  Resolves: rhbz#500527
+- Disable iscsi on s390x (akozumpl)
+  Resolves: rhbz#703135
+
 * Thu Apr 28 2011 Ales Kozumplik <akozumpl@redhat.com> 11.1.2.232-1
 - Do not show "missing media" message when unknown media is needed for package. (msivak)
   Resolves: rhbz#617262
