@@ -621,22 +621,22 @@ class efiBootloaderInfo(bootloaderInfo):
         if not os.access(link, os.R_OK):
             os.symlink("../%s" % (self.configfile), link)
 
-        ind = len(bootdev)
-        try:
-            while (bootdev[ind-1] in string.digits):
-                ind = ind - 1
-        except IndexError:
-            ind = len(bootdev) - 1
+        (bootdisk, bootpart) = getDiskPart(bootdev, self.storage)
+        if bootpart == None:
+            log.error("No partition for bootdev '%s'" % (bootdev,))
+            return 1
+        # getDiskPart returns a 0 indexed partition number
+        bootpart += 1
 
-        bootdisk = bootdev[:ind]
-        bootpart = bootdev[ind:]
-        if (bootdisk.startswith('ida/') or bootdisk.startswith('cciss/') or
-            bootdisk.startswith('rd/') or bootdisk.startswith('sx8/')):
-            bootdisk = bootdisk[:-1]
+        bootdev = self.storage.devicetree.getDeviceByName(bootdisk)
+        if not bootdev:
+            log.error("bootdev not found for '%s'" % (bootdisk,))
+            return 1
 
         argv = [ "efibootmgr", "-c" , "-w", "-L",
-                 productName, "-d", "/dev/%s" % bootdisk,
-                 "-p", bootpart, "-l", "\\EFI\\redhat\\" + self.bootloader ]
+                 productName, "-d", "%s" % (bootdev.path,),
+                 "-p", "%s" % (bootpart,),
+                 "-l", "\\EFI\\redhat\\" + self.bootloader ]
         rc = iutil.execWithRedirect(argv[0], argv[1:], root = instRoot,
                                     stdout = "/dev/tty5",
                                     stderr = "/dev/tty5")
