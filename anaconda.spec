@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.233
+Version: 11.1.2.234
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -128,6 +128,15 @@ fi
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+
+* Fri May 13 2011 Ales Kozumplik <akozumpl@redhat.com> 11.1.2.234-1
+- libz.so.1 is in /lib now (akozumpl)
+  Resolves: rhbz#704151
+- Add more files required by subscription_manager (wwoods)
+  Resolves: rhbz#670973
+- correctly include /usr/share/rhsm/subscription_manager (wwoods)
+  Related: rhbz#670973
+
 * Thu May 12 2011 Ales Kozumplik <akozumpl@redhat.com> 11.1.2.233-1
 - fix uninitialized self.inum in rhel.py:repoIsAllowed() (akozumpl)
   Resolves: rhbz#703253
