@@ -220,10 +220,7 @@ class UpgradeExamineWindow:
 
         global seenExamineScreen
 
-	if anaconda.upgrade:
-            default = 1
-        else:
-            default = 0
+        default = 1
 
         for (device, desc) in parts:
             partList.append("%s (%s)" %(desc, device.path))
