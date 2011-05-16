@@ -63,8 +63,8 @@ class SwapSpace(DeviceFormat):
         self.priority = kwargs.get("priority")
         self.label = kwargs.get("label")
 
-    def __str__(self):
-        s = DeviceFormat.__str__(self)
+    def __repr__(self):
+        s = DeviceFormat.__repr__(self)
         s += ("  priority = %(priority)s  label = %(label)s" %
               {"priority": self.priority, "label": self.label})
         return s

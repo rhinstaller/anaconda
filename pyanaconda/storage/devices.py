@@ -96,7 +96,7 @@
 import os
 import math
 import copy
-import time
+import pprint
 
 # device backend modules
 from devicelibs import mdraid
@@ -199,7 +199,7 @@ class Device(object):
     # This is a counter for generating unique ids for Devices.
     _id = 0
 
-    _type = "generic device"
+    _type = "device"
     _packages = []
     _services = []
 
@@ -250,15 +250,26 @@ class Device(object):
 
         return new
 
-    def __str__(self):
+    def __repr__(self):
         s = ("%(type)s instance (%(id)s) --\n"
              "  name = %(name)s  status = %(status)s"
-             "  parents = %(parents)s\n"
-             "  kids = %(kids)s\n"
-             "  id = %(dev_id)s\n" %
+             "  kids = %(kids)s id = %(dev_id)s\n"
+             "  parents = %(parents)s\n" %
              {"type": self.__class__.__name__, "id": "%#x" % id(self),
-              "name": self.name, "parents": self.parents, "kids": self.kids,
-              "status": self.status, "dev_id": self.id})
+              "name": self.name, "kids": self.kids, "status": self.status,
+              "dev_id": self.id,
+              "parents": pprint.pformat([str(p) for p in self.parents])})
+        return s
+
+    def __str__(self):
+        exist = "existing"
+        if not self.exists:
+            exist = "non-existent"
+        s = "%s %dMB %s %s (%d)" % (exist, self.size, self.type, self.name,
+                                    self.id)
+        if self.format.type:
+            s += " with %s" % self.format
+
         return s
 
     @property
@@ -419,7 +430,7 @@ class StorageDevice(Device):
         represented by an FS instance. A StorageDevice's create method
         should create a filesystem if one has been specified.
     """
-    _type = "storage device"
+    _type = "storage"
     _devDir = "/dev"
     sysfsBlockDir = "class/block"
     _resizable = False
@@ -567,18 +578,19 @@ class StorageDevice(Device):
                           lambda s, v: s._setTargetSize(v),
                           doc="Target size of this device")
 
-    def __str__(self):
-        s = Device.__str__(self)
-        s += ("  uuid = %(uuid)s  format = %(format)r  size = %(size)s\n"
-              "  major = %(major)s  minor = %(minor)r  exists = %(exists)s\n"
-              "  sysfs path = %(sysfs)s  partedDevice = %(partedDevice)r\n"
+    def __repr__(self):
+        s = Device.__repr__(self)
+        s += ("  uuid = %(uuid)s  size = %(size)s\n"
+              "  format = %(format)s\n"
+              "  major = %(major)s  minor = %(minor)s  exists = %(exists)s\n"
+              "  sysfs path = %(sysfs)s  partedDevice = %(partedDevice)s\n"
               "  target size = %(targetSize)s  path = %(path)s\n"
               "  format args = %(formatArgs)s  originalFormat = %(origFmt)s" %
               {"uuid": self.uuid, "format": self.format, "size": self.size,
                "major": self.major, "minor": self.minor, "exists": self.exists,
                "sysfs": self.sysfsPath, "partedDevice": self.partedDevice,
                "targetSize": self.targetSize, "path": self.path,
-               "formatArgs": self.formatArgs, "origFmt": self.originalFormat})
+               "formatArgs": self.formatArgs, "origFmt": self.originalFormat.type})
         return s
 
     @property
@@ -1015,8 +1027,8 @@ class DiskDevice(StorageDevice):
                                serial=serial, model=model,
                                vendor=vendor, bus=bus)
 
-    def __str__(self):
-        s = StorageDevice.__str__(self)
+    def __repr__(self):
+        s = StorageDevice.__repr__(self)
         s += ("  removable = %(removable)s  partedDevice = %(partedDevice)r" %
               {"removable": self.removable, "partedDevice": self.partedDevice})
         return s
@@ -1171,11 +1183,12 @@ class PartitionDevice(StorageDevice):
 
             self.req_base_weight = weight
 
-    def __str__(self):
-        s = StorageDevice.__str__(self)
+    def __repr__(self):
+        s = StorageDevice.__repr__(self)
         s += ("  grow = %(grow)s  max size = %(maxsize)s  bootable = %(bootable)s\n"
               "  part type = %(partType)s  primary = %(primary)s\n"
-              "  partedPartition = %(partedPart)r  disk = %(disk)r\n" %
+              "  partedPartition = %(partedPart)s\n"
+              "  disk = %(disk)s\n" %
               {"grow": self.req_grow, "maxsize": self.req_max_size,
                "bootable": self.bootable, "partType": self.partType,
                "primary": self.req_primary,
@@ -1690,8 +1703,8 @@ class DMDevice(StorageDevice):
         self.target = target
         self.dmUuid = dmUuid
 
-    def __str__(self):
-        s = StorageDevice.__str__(self)
+    def __repr__(self):
+        s = StorageDevice.__repr__(self)
         s += ("  target = %(target)s  dmUuid = %(dmUuid)s" %
               {"target": self.target, "dmUuid": self.dmUuid})
         return s
@@ -2006,8 +2019,8 @@ class LVMVolumeGroupDevice(DMDevice):
         # They still occupy space in the VG.
         self.voriginSnapshots = {}
 
-    def __str__(self):
-        s = DMDevice.__str__(self)
+    def __repr__(self):
+        s = DMDevice.__repr__(self)
         s += ("  free = %(free)s  PE Size = %(peSize)s  PE Count = %(peCount)s\n"
               "  PE Free = %(peFree)s  PV Count = %(pvCount)s\n"
               "  LV Names = %(lv_names)s  modified = %(modified)s\n"
@@ -2019,7 +2032,9 @@ class LVMVolumeGroupDevice(DMDevice):
                "peFree": self.peFree, "pvCount": self.pvCount,
                "lv_names": self.lv_names, "modified": self.isModified,
                "extents": self.extents, "freeSpace": self.freeSpace,
-               "freeExtents": self.freeExtents, "pvs": self.pvs, "lvs": self.lvs})
+               "freeExtents": self.freeExtents,
+               "pvs": pprint.pformat([str(p) for p in self.pvs]),
+               "lvs": pprint.pformat([str(l) for l in self.lvs])})
         return s
 
     @property
@@ -2423,9 +2438,10 @@ class LVMLogicalVolumeDevice(DMDevice):
         # here we go with the circular references
         self.vg._addLogVol(self)
 
-    def __str__(self):
-        s = DMDevice.__str__(self)
-        s += ("  VG device = %(vgdev)r  percent = %(percent)s\n"
+    def __repr__(self):
+        s = DMDevice.__repr__(self)
+        s += ("  VG device = %(vgdev)r\n"
+              "  percent = %(percent)s\n"
               "  mirrored = %(mirrored)s stripes = %(stripes)d"
               "  snapshot total =  %(snapshots)dMB\n"
               "  VG space used = %(vgspace)dMB" %
@@ -2766,8 +2782,8 @@ class MDRaidArrayDevice(StorageDevice):
         else:
             return "MDRAID set (%s)" % levelstr
 
-    def __str__(self):
-        s = StorageDevice.__str__(self)
+    def __repr__(self):
+        s = StorageDevice.__repr__(self)
         s += ("  level = %(level)s  spares = %(spares)s\n"
               "  members = %(memberDevices)s\n"
               "  total devices = %(totalDevices)s" %
@@ -3717,8 +3733,8 @@ class ZFCPDiskDevice(DiskDevice):
         self.fcp_lun = kwargs.pop("fcp_lun")
         DiskDevice.__init__(self, device, **kwargs)
 
-    def __str__(self):
-        s = DiskDevice.__str__(self)
+    def __repr__(self):
+        s = DiskDevice.__repr__(self)
         s += ("  hba_id = %(hba_id)s  wwpn = %(wwpn)s  fcp_lun = %(fcp_lun)s" %
               {"hba_id": self.hba_id,
                "wwpn": self.wwpn,

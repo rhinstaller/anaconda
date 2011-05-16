@@ -67,8 +67,8 @@ class LVMPhysicalVolume(DeviceFormat):
         # for not-yet-created devices
         self.peStart = kwargs.get("peStart", 1.0)    # in MB
 
-    def __str__(self):
-        s = DeviceFormat.__str__(self)
+    def __repr__(self):
+        s = DeviceFormat.__repr__(self)
         s += ("  vgName = %(vgName)s  vgUUID = %(vgUUID)s"
               "  peStart = %(peStart)s" %
               {"vgName": self.vgName, "vgUUID": self.vgUuid,

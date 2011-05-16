@@ -78,8 +78,8 @@ class DMRaidMember(DeviceFormat):
         # Initialize the attribute that will hold the block object.
         self._raidmem = None
 
-    def __str__(self):
-        s = DeviceFormat.__str__(self)
+    def __repr__(self):
+        s = DeviceFormat.__repr__(self)
         s += ("  raidmem = %(raidmem)r" % {"raidmem": self.raidmem})
         return s
 

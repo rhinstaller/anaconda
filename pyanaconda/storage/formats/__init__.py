@@ -180,7 +180,7 @@ class DeviceFormat(object):
         #if self.__class__ is DeviceFormat:
         #    self.exists = True
 
-    def __str__(self):
+    def __repr__(self):
         s = ("%(classname)s instance (%(id)s) --\n"
              "  type = %(type)s  name = %(name)s  status = %(status)s\n"
              "  device = %(device)s  uuid = %(uuid)s  exists = %(exists)s\n"
@@ -192,6 +192,20 @@ class DeviceFormat(object):
               "options": self.options, "supported": self.supported,
               "format": self.formattable, "resize": self.resizable})
         return s
+
+    @property
+    def _existence_str(self):
+        exist = "existing"
+        if not self.exists:
+            exist = "non-existent"
+        return exist
+
+    @property
+    def desc(self):
+        return str(self.type)
+
+    def __str__(self):
+        return "%s %s" % (self._existence_str, self.desc)
 
     @property
     def dict(self):

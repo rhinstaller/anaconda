@@ -66,8 +66,8 @@ class MDRaidMember(DeviceFormat):
         #self.probe()
         self.biosraid = kwargs.get("biosraid")
 
-    def __str__(self):
-        s = DeviceFormat.__str__(self)
+    def __repr__(self):
+        s = DeviceFormat.__repr__(self)
         s += ("  mdUUID = %(mdUUID)s  biosraid = %(biosraid)s" %
               {"mdUUID": self.mdUuid, "biosraid": self.biosraid})
         return s

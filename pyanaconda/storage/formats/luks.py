@@ -91,8 +91,8 @@ class LUKS(DeviceFormat):
         elif not self.mapName and self.device:
             self.mapName = "luks-%s" % os.path.basename(self.device)
 
-    def __str__(self):
-        s = DeviceFormat.__str__(self)
+    def __repr__(self):
+        s = DeviceFormat.__repr__(self)
         if self.__passphrase:
             passphrase = "(set)"
         else:

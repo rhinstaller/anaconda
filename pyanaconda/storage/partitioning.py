@@ -1288,7 +1288,7 @@ class Chunk(object):
             for req in requests:
                 self.addRequest(req)
 
-    def __str__(self):
+    def __repr__(self):
         s = ("%(type)s instance --\n"
              "device = %(device)s  start = %(start)d  end = %(end)d\n"
              "length = %(length)d  size = %(size)d pool = %(pool)d\n"
@@ -1300,6 +1300,11 @@ class Chunk(object):
               "pool": self.pool, "rem": self.remaining,
               "sectorSize": self.sectorSize})
 
+        return s
+
+    def __str__(self):
+        s = "%d-%d on %s" % (self.geometry.start, self.geometry.end,
+                             self.geometry.device.path)
         return s
 
     def addRequest(self, req):
