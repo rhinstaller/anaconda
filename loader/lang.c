@@ -238,62 +238,66 @@ static int setupLanguage(int choice, int forced) {
       en_US
       cz_CS.UTF-8
       cz_CS.UTF-8@latin
+
+      We only need to do this for non-English installs, as we ship pre-compiled
+      English locale data.
     */
+    if (strcmp(languages[choice].lc_all, "en_US.UTF-8")) {
+        locale_p = locale_i = languages[choice].lc_all;
+        while (1) {
+            // we found new separator
+            if (*locale_i == '.' || *locale_i == '@' || *locale_i == '\0') {
+                // last separator was annotating charset
+                if (*locale_p == '.') locale_charset = strndup(locale_p + 1, locale_i - locale_p - 1);
+                // last separator was annotating modifier
+                else if (*locale_p == '@') locale_mod = strndup(locale_p + 1, locale_i - locale_p - 1);
+                // there was no known separator last time
+                else locale_def = strndup(locale_p, locale_i - locale_p);
 
-    locale_p = locale_i = languages[choice].lc_all;
-    while (1) {
-        // we found new separator
-        if (*locale_i == '.' || *locale_i == '@' || *locale_i == '\0') {
-            // last separator was annotating charset
-            if (*locale_p == '.') locale_charset = strndup(locale_p + 1, locale_i - locale_p - 1);
-            // last separator was annotating modifier
-            else if (*locale_p == '@') locale_mod = strndup(locale_p + 1, locale_i - locale_p - 1);
-            // there was no known separator last time
-            else locale_def = strndup(locale_p, locale_i - locale_p);
+                // save last known separator
+                locale_p = locale_i;
 
-            // save last known separator
-            locale_p = locale_i;
+                if(*locale_i == '\0') break; // end of the string
+            }
 
-            if(*locale_i == '\0') break; // end of the string
+            // test next character
+            locale_i++;
         }
 
-        // test next character
-        locale_i++;
+        logMessage(DEBUGLVL, "locale %s: base: %s, mod: %s, charset: %s", languages[choice].lc_all, locale_def, locale_mod, locale_charset);
+
+        /* prepare locale name without charset */
+        i = strlen(locale_def);
+        if (locale_mod) i+= strlen(locale_mod) + 1; /* +1 for the @ char */ 
+        locale_p = (char*)calloc(i+1, sizeof(char));
+        locale_p = strcpy(locale_p, locale_def);
+        if (locale_mod){
+            locale_p[strlen(locale_p)] = '@';
+            locale_p = strcat(locale_p, locale_mod);
+        }
+
+        /* generate locale record */
+        logMessage(INFO, "going to prepare locales for %s (locale: %s, charset: %s)", languages[choice].lc_all, locale_p, locale_charset);
+        if ((localedef_pid = fork()) == 0) {
+            execl("/usr/bin/localedef", "localedef",
+                  "-i", locale_p,
+                  "-f", (locale_charset) ? locale_charset : "UTF-8",
+                  languages[choice].lc_all, NULL);
+            _exit(254);
+        }
+
+        if (localedef_pid < 0) logMessage(ERROR, "failed forking localedef for %s", languages[choice].lc_all);
+        else{
+            waitpid(localedef_pid, &i, 0);
+            if (WEXITSTATUS(i) != 0) logMessage(ERROR, "failed preparing locales %s [%d]", languages[choice].lc_all, WEXITSTATUS(i));
+        }
+
+        /* cleanup */
+        if (locale_charset) free(locale_charset);
+        if (locale_def) free(locale_def);
+        if (locale_mod) free(locale_mod);
+        if (locale_p) free(locale_p);
     }
-
-    logMessage(DEBUGLVL, "locale %s: base: %s, mod: %s, charset: %s", languages[choice].lc_all, locale_def, locale_mod, locale_charset);
-
-    /* prepare locale name without charset */
-    i = strlen(locale_def);
-    if (locale_mod) i+= strlen(locale_mod) + 1; /* +1 for the @ char */ 
-    locale_p = (char*)calloc(i+1, sizeof(char));
-    locale_p = strcpy(locale_p, locale_def);
-    if (locale_mod){
-        locale_p[strlen(locale_p)] = '@';
-        locale_p = strcat(locale_p, locale_mod);
-    }
-
-    /* generate locale record */
-    logMessage(INFO, "going to prepare locales for %s (locale: %s, charset: %s)", languages[choice].lc_all, locale_p, locale_charset);
-    if ((localedef_pid = fork()) == 0) {
-        execl("/usr/bin/localedef", "localedef",
-              "-i", locale_p,
-              "-f", (locale_charset) ? locale_charset : "UTF-8",
-              languages[choice].lc_all, NULL);
-        _exit(254);
-    }
-
-    if (localedef_pid < 0) logMessage(ERROR, "failed forking localedef for %s", languages[choice].lc_all);
-    else{
-        waitpid(localedef_pid, &i, 0);
-        if (WEXITSTATUS(i) != 0) logMessage(ERROR, "failed preparing locales %s [%d]", languages[choice].lc_all, WEXITSTATUS(i));
-    }
-
-    /* cleanup */
-    if (locale_charset) free(locale_charset);
-    if (locale_def) free(locale_def);
-    if (locale_mod) free(locale_mod);
-    if (locale_p) free(locale_p);
 
     /* load the language only if it is displayable.  if they're using
      * a serial console or iSeries vioconsole, we hope it's smart enough */
