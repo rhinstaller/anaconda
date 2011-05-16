@@ -274,8 +274,6 @@ def setSteps(anaconda):
                 "upgradecontinue",
                 "reposetup",
                 "upgbootloader",
-                "checkdeps",
-                "dependencies",
                 "postselection",
                 "reipl",
                 "install",
