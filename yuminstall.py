@@ -1504,7 +1504,6 @@ class YumBackend(AnacondaBackend):
                         match = re.search(mpregex, mpathname)
                         if match is not None:
                             mpathname = match.group()
-                            major = int(match.group(1))
                     else:
                         continue
 
