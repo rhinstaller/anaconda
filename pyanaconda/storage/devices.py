@@ -1325,9 +1325,7 @@ class PartitionDevice(StorageDevice):
         else:
             raise ValueError("partition must be a parted.Partition instance")
 
-        log.debug("device %s new partedPartition %s has path %s" % (self.name,
-                                                                    partition,
-                                                                    path))
+        log.debug("device %s new partedPartition %s" % (self.name, partition))
         self._partedPartition = partition
         self.updateName()
 
@@ -1424,7 +1422,6 @@ class PartitionDevice(StorageDevice):
     bootable = property(_getBootable, _setBootable)
 
     def flagAvailable(self, flag):
-        log_method_call(self, path=self.path, flag=flag)
         if not self.partedPartition:
             return
 
@@ -2269,12 +2266,9 @@ class LVMVolumeGroupDevice(DMDevice):
         """ Total space used by snapshots in this volume group. """
         used = 0
         for lv in self.lvs:
-            log.debug("lv %s uses %dMB for snapshots" % (lv.lvname,
-                                                         lv.snapshotSpace))
             used += self.align(lv.snapshotSpace, roundup=True)
 
         for (vname, vsize) in self.voriginSnapshots.items():
-            log.debug("snapshot %s with vorigin uses %dMB" % (vname, vsize))
             used += self.align(vsize, roundup=True)
 
         return used
@@ -2287,7 +2281,6 @@ class LVMVolumeGroupDevice(DMDevice):
         # sum up the sizes of the PVs and align to pesize
         size = 0
         for pv in self.pvs:
-            log.debug("PV size == %s" % pv.size)
             size += max(0, self.align(pv.size - pv.format.peStart))
 
         return size
@@ -2964,7 +2957,6 @@ class MDRaidArrayDevice(StorageDevice):
         state_file = "/sys/%s/md/array_state" % self.sysfsPath
         if os.access(state_file, os.R_OK):
             state = open(state_file).read().strip()
-            log.debug("%s state is %s" % (self.name, state))
             if state in ("clean", "active", "active-idle", "readonly", "read-auto"):
                 status = True
             # mdcontainers have state inactive when started (clear if stopped)
@@ -2980,7 +2972,6 @@ class MDRaidArrayDevice(StorageDevice):
         degraded_file = "/sys/%s/md/degraded" % self.sysfsPath
         if os.access(degraded_file, os.R_OK):
             val = open(degraded_file).read().strip()
-            log.debug("%s degraded is %s" % (self.name, val))
             if val == "1":
                 rc = True
 

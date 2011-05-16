@@ -25,6 +25,7 @@ import stat
 import block
 import re
 import shutil
+import pprint
 
 from errors import *
 from devices import *
@@ -218,14 +219,13 @@ class DeviceTree(object):
         """ Remove redundant/obsolete actions from the action list. """
         for action in reversed(self._actions[:]):
             if action not in self._actions:
-                log.debug("action '%s' already pruned" % action)
+                log.debug("action %d already pruned" % action.id)
                 continue
 
-            log.debug("checking for actions obsoleted by '%s'" % action)
             for obsolete in self._actions[:]:
-                log.debug(" checking action '%s'" % obsolete)
                 if action.obsoletes(obsolete):
-                    log.debug("  removing obsolete action '%s'" % obsolete)
+                    log.info("removing obsolete action %d (%d)"
+                             % (obsolete.id, action.id))
                     self._actions.remove(obsolete)
 
     def sortActions(self):
@@ -265,7 +265,7 @@ class DeviceTree(object):
 
     def processActions(self, dryRun=None):
         """ Execute all registered actions. """
-        log.debug("resetting parted disks...")
+        log.info("resetting parted disks...")
         for device in self.devices:
             if device.partitioned:
                 device.format.resetPartedDisk()
@@ -300,12 +300,10 @@ class DeviceTree(object):
         for action in self._actions:
             log.debug("action: %s" % action)
 
-        log.debug("pruning action queue...")
+        log.info("pruning action queue...")
         self.pruneActions()
-        for action in self._actions:
-            log.debug("action: %s" % action)
 
-        log.debug("sorting actions...")
+        log.info("sorting actions...")
         self.sortActions()
         for action in self._actions:
             log.debug("action: %s" % action)
@@ -344,7 +342,7 @@ class DeviceTree(object):
                 raise DeviceTreeError("parent device not in tree")
 
         self._devices.append(newdev)
-        log.debug("added %s %s (id %d) to device tree" % (newdev.type,
+        log.info("added %s %s (id %d) to device tree" % (newdev.type,
                                                           newdev.name,
                                                           newdev.id))
 
@@ -381,7 +379,7 @@ class DeviceTree(object):
                     device.updateName()
 
         self._devices.remove(dev)
-        log.debug("removed %s %s (id %d) from device tree" % (dev.type,
+        log.info("removed %s %s (id %d) from device tree" % (dev.type,
                                                               dev.name,
                                                               dev.id))
 
@@ -418,7 +416,7 @@ class DeviceTree(object):
                action.device.format.mountpoint in self.filesystems:
                 raise DeviceTreeError("mountpoint already in use")
 
-        log.debug("registered action: %s" % action)
+        log.info("registered action: %s" % action)
         self._actions.append(action)
 
     def cancelAction(self, action):
@@ -832,12 +830,12 @@ class DeviceTree(object):
                                    udev_device_get_iscsi_port(info))
             kwargs["ibft"] = kwargs["node"] in self.iscsi.ibftNodes
             kwargs["initiator"] = self.iscsi.initiator
-            log.debug("%s is an iscsi disk" % name)
+            log.info("%s is an iscsi disk" % name)
         elif udev_device_is_fcoe(info):
             diskType = FcoeDiskDevice
             kwargs["nic"]        = udev_device_get_fcoe_nic(info)
             kwargs["identifier"] = udev_device_get_fcoe_identifier(info)
-            log.debug("%s is an fcoe disk" % name)
+            log.info("%s is an fcoe disk" % name)
         elif udev_device_get_md_container(info):
             diskType = MDRaidArrayDevice
             parentName = devicePathToName(udev_device_get_md_container(info))
@@ -872,17 +870,17 @@ class DeviceTree(object):
             for attr in ['readonly', 'use_diag', 'erplog', 'failfast']:
                 kwargs["opts"][attr] = udev_device_get_dasd_flag(info, attr)
 
-            log.debug("%s is a dasd device" % name)
+            log.info("%s is a dasd device" % name)
         elif udev_device_is_zfcp(info):
             diskType = ZFCPDiskDevice
 
             for attr in ['hba_id', 'wwpn', 'fcp_lun']:
                 kwargs[attr] = udev_device_get_zfcp_attribute(info, attr=attr)
 
-            log.debug("%s is a zfcp device" % name)
+            log.info("%s is a zfcp device" % name)
         else:
             diskType = DiskDevice
-            log.debug("%s is a disk" % name)
+            log.info("%s is a disk" % name)
 
         device = diskType(name,
                           major=udev_device_get_major(info),
@@ -929,12 +927,12 @@ class DeviceTree(object):
 
     def addUdevDevice(self, info):
         name = udev_device_get_name(info)
-        log_method_call(self, name=name, info=info)
+        log_method_call(self, name=name, info=pprint.pformat(info))
         uuid = udev_device_get_uuid(info)
         sysfs_path = udev_device_get_sysfs_path(info)
 
         if self.isIgnored(info):
-            log.debug("ignoring %s (%s)" % (name, sysfs_path))
+            log.info("ignoring %s (%s)" % (name, sysfs_path))
             if name not in self._ignoredDisks:
                 self.addIgnoredDisk(name)
 
@@ -959,7 +957,7 @@ class DeviceTree(object):
                 map(lvm.lvm_cc_addFilterRejectRegexp, partitions_paths)
             return
 
-        log.debug("scanning %s (%s)..." % (name, sysfs_path))
+        log.info("scanning %s (%s)..." % (name, sysfs_path))
         device = self.getDeviceByName(name)
 
         #
@@ -969,21 +967,21 @@ class DeviceTree(object):
             # we successfully looked up the device. skip to format handling.
             pass
         elif udev_device_is_loop(info):
-            log.debug("%s is a loop device" % name)
+            log.info("%s is a loop device" % name)
             device = self.addUdevLoopDevice(info)
         elif udev_device_is_multipath_member(info):
             device = self.addUdevDiskDevice(info)
         elif udev_device_is_dm(info) and udev_device_is_dm_mpath(info):
-            log.debug("%s is a multipath device" % name)
+            log.info("%s is a multipath device" % name)
             device = self.addUdevDMDevice(info)
         elif udev_device_is_dm_lvm(info):
-            log.debug("%s is an lvm logical volume" % name)
+            log.info("%s is an lvm logical volume" % name)
             device = self.addUdevLVDevice(info)
         elif udev_device_is_dm(info):
-            log.debug("%s is a device-mapper device" % name)
+            log.info("%s is a device-mapper device" % name)
             device = self.addUdevDMDevice(info)
         elif udev_device_is_md(info) and not udev_device_get_md_container(info):
-            log.debug("%s is an md device" % name)
+            log.info("%s is an md device" % name)
             if uuid:
                 # try to find the device by uuid
                 device = self.getDeviceByUuid(uuid)
@@ -991,10 +989,10 @@ class DeviceTree(object):
             if device is None:
                 device = self.addUdevMDDevice(info)
         elif udev_device_is_cdrom(info):
-            log.debug("%s is a cdrom" % name)
+            log.info("%s is a cdrom" % name)
             device = self.addUdevOpticalDevice(info)
         elif udev_device_is_biosraid_member(info) and udev_device_is_disk(info):
-            log.debug("%s is part of a biosraid" % name)
+            log.info("%s is part of a biosraid" % name)
             device = DiskDevice(name,
                             major=udev_device_get_major(info),
                             minor=udev_device_get_minor(info),
@@ -1003,7 +1001,7 @@ class DeviceTree(object):
         elif udev_device_is_disk(info):
             device = self.addUdevDiskDevice(info)
         elif udev_device_is_partition(info):
-            log.debug("%s is a partition" % name)
+            log.info("%s is a partition" % name)
             device = self.addUdevPartitionDevice(info)
         else:
             log.error("Unknown block device type for: %s" % name)
@@ -1022,9 +1020,9 @@ class DeviceTree(object):
 
         # now handle the device's formatting
         self.handleUdevDeviceFormat(info, device)
-        log.debug("got device: %s" % device)
+        log.info("got device: %r" % device)
         if device.format.type:
-            log.debug("got format: %s" % device.format)
+            log.info("got format: %r" % device.format)
         device.originalFormat = device.format
 
     def handleUdevDiskLabelFormat(self, info, device):
@@ -1105,6 +1103,9 @@ class DeviceTree(object):
         labelType = self.platform.bestDiskLabelType(device)
 
         try:
+            # XXX if initlabel is True we don't ever instantiate a format
+            #     for the original disklabel, so we will only have a
+            #     DeviceFormat instance to destroy.
             format = getFormat("disklabel",
                                device=device.path,
                                labelType=labelType,
@@ -1208,7 +1209,7 @@ class DeviceTree(object):
             lv_name = lv_names[index]
             name = "%s-%s" % (vg_name, lv_name)
             if lv_attr[index][0] in 'Ss':
-                log.debug("found lvm snapshot volume '%s'" % name)
+                log.info("found lvm snapshot volume '%s'" % name)
                 origin_name = devicelibs.lvm.lvorigin(vg_name, lv_name)
                 if not origin_name:
                     log.error("lvm snapshot '%s-%s' has unknown origin"
@@ -1401,7 +1402,7 @@ class DeviceTree(object):
 
                     md_name = "md%d" % minor
 
-            log.debug("using name %s for md array containing member %s"
+            log.info("using name %s for md array containing member %s"
                         % (md_name, device.name))
             md_array = MDRaidArrayDevice(md_name,
                                          level=md_level,
@@ -1537,22 +1538,22 @@ class DeviceTree(object):
             try:
                 kwargs["mdUuid"] = udev_device_get_md_uuid(info)
             except KeyError:
-                log.debug("mdraid member %s has no md uuid" % name)
+                log.warning("mdraid member %s has no md uuid" % name)
             kwargs["biosraid"] = udev_device_is_biosraid_member(info)
         elif format_type == "LVM2_member":
             # lvm
             try:
                 kwargs["vgName"] = udev_device_get_vg_name(info)
             except KeyError as e:
-                log.debug("PV %s has no vg_name" % name)
+                log.warning("PV %s has no vg_name" % name)
             try:
                 kwargs["vgUuid"] = udev_device_get_vg_uuid(info)
             except KeyError:
-                log.debug("PV %s has no vg_uuid" % name)
+                log.warning("PV %s has no vg_uuid" % name)
             try:
                 kwargs["peStart"] = udev_device_get_pv_pe_start(info)
             except KeyError:
-                log.debug("PV %s has no pe_start" % name)
+                log.warning("PV %s has no pe_start" % name)
         elif format_type == "vfat":
             # efi magic
             if isinstance(device, PartitionDevice) and device.bootable:
@@ -1568,10 +1569,10 @@ class DeviceTree(object):
                     args[0] = "appleboot"
 
         try:
-            log.debug("type detected on '%s' is '%s'" % (name, format_type,))
+            log.info("type detected on '%s' is '%s'" % (name, format_type,))
             device.format = formats.getFormat(*args, **kwargs)
         except FSError:
-            log.debug("type '%s' on '%s' invalid, assuming no format" %
+            log.warning("type '%s' on '%s' invalid, assuming no format" %
                       (format_type, name,))
             device.format = formats.DeviceFormat()
             return
@@ -1597,13 +1598,13 @@ class DeviceTree(object):
             self.handleMultipathMemberFormat(info, device)
 
     def updateDeviceFormat(self, device):
-        log.debug("updating format of device: %s" % device)
+        log.info("updating format of device: %s" % device)
         iutil.notify_kernel("/sys%s" % device.sysfsPath)
         udev_settle()
         info = udev_get_device(device.sysfsPath)
         self.handleUdevDeviceFormat(info, device)
         if device.format.type:
-            log.debug("got format: %s" % device.format)
+            log.info("got format: %s" % device.format)
 
     def _handleInconsistencies(self):
         def reinitializeVG(vg):
@@ -1612,7 +1613,7 @@ class DeviceTree(object):
                 vg.destroy()
             except DeviceError:
                 # the pvremoves will finish the job.
-                log.debug("There was an error destroying the VG %s." % vg.name)
+                log.warning("There was an error destroying the VG %s." % vg.name)
 
             # remove VG device from list.
             self._removeDevice(vg)
@@ -1784,7 +1785,7 @@ class DeviceTree(object):
             self.restoreConfigs()
 
     def _populate(self):
-        log.debug("DeviceTree.populate: ignoredDisks is %s ; exclusiveDisks is %s"
+        log.info("DeviceTree.populate: ignoredDisks is %s ; exclusiveDisks is %s"
                     % (self._ignoredDisks, self.exclusiveDisks))
 
         self.setupDiskImages()
@@ -1900,7 +1901,7 @@ class DeviceTree(object):
             try:
                 device.setup()
             except DeviceError as (msg, name):
-                log.debug("setup of %s failed: %s" % (device.name, msg))
+                log.error("setup of %s failed: %s" % (device.name, msg))
 
     def getDeviceBySysfsPath(self, path):
         if not path:

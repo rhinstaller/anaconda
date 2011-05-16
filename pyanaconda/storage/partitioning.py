@@ -229,9 +229,6 @@ def doAutoPartition(anaconda):
 
         _schedulePartitions(anaconda.storage, disks)
 
-    # sanity check the individual devices
-    log.warning("not sanity checking devices because I don't know how yet")
-
     # run the autopart function to allocate and grow partitions
     try:
         doPartitioning(anaconda.storage, bootloader=anaconda.bootloader)
@@ -1139,14 +1136,13 @@ def allocatePartitions(storage, disks, partitions, freespace, bootloader=None):
                 if update:
                     # now we know we are choosing a new free space,
                     # so update the disk and part type
-                    log.debug("updating use_disk to %s (%s), type: %s"
-                                % (_disk, _disk.name, new_part_type))
+                    log.debug("updating use_disk to %s, type: %s"
+                                % (_disk.name, new_part_type))
                     part_type = new_part_type
                     use_disk = _disk
-                    log.debug("new free: %s (%d-%d / %dMB)" % (best,
-                                                               best.start,
-                                                               best.end,
-                                                               best.getSize()))
+                    log.debug("new free: %d-%d / %dMB" % (best.start,
+                                                          best.end,
+                                                          best.getSize()))
                     log.debug("new free allows for %d sectors of growth" %
                                 growth)
                     free = best
@@ -1421,7 +1417,7 @@ class Chunk(object):
 
     def growRequests(self):
         """ Calculate growth amounts for requests in this chunk. """
-        log.debug("Chunk.growRequests: %s" % self)
+        log.debug("Chunk.growRequests: %r" % self)
 
         # sort the partitions by start sector
         self.requests.sort(key=lambda r: r.partition.partedPartition.geometry.start)

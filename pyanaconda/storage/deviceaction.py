@@ -201,9 +201,10 @@ class DeviceAction(object):
         if self.isResize:
             s += " (%s)" % resize_strings[self.dir]
         if self.isFormat:
-            s += " %s on" % self.format.type
-        if self.isMigrate:
-            s += " to %s" % self.format.migrationTarget
+            s += " %s" % self.format.desc
+            if self.isMigrate:
+                s += " to %s" % self.format.migrationTarget
+            s += " on"
         s += " %s %s (id %d)" % (self.device.type, self.device.name,
                                  self.device.id)
         return s
