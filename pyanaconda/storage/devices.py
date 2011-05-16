@@ -2185,6 +2185,7 @@ class LVMVolumeGroupDevice(DMDevice):
         """ Destroy the device. """
         log_method_call(self, self.name, status=self.status)
         lvm.vgreduce(self.name, [], rm=True)
+        lvm.vgdeactivate(self.name)
         lvm.vgremove(self.name)
 
     def reduce(self, pv_list):
