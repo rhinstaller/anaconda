@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.234
+Version: 11.1.2.235
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -128,6 +128,10 @@ fi
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+
+* Tue May 17 2011 Ales Kozumplik <akozumpl@redhat.com> 11.1.2.235-1
+- Add "rhsm" to the list of things-to-link-into-/etc (wwoods)
+  Resolves: #670973
 
 * Fri May 13 2011 Ales Kozumplik <akozumpl@redhat.com> 11.1.2.234-1
 - libz.so.1 is in /lib now (akozumpl)
