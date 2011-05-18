@@ -577,6 +577,10 @@ class BootLoader(object):
         self.errors = []
         self.warnings = []
         valid = True
+
+        if device is None:
+            return False
+
         try:
             description = self.device_description(device)
         except Exception:
@@ -685,6 +689,9 @@ class BootLoader(object):
         self.errors = []
         self.warnings = []
         valid = True
+
+        if device is None:
+            return False
 
         if not self._device_type_match(device, self.stage2_device_types):
             self.errors.append(_("The %s cannot be of type %s")
@@ -1482,6 +1489,10 @@ class GRUB2(GRUB):
     #
     def _gpt_disk_has_bios_boot(self, device):
         ret = False
+
+        if device is None:
+            return ret
+
         # check that a bios boot partition is present if the stage1 device
         # is a gpt-labeled disk
         if device.isDisk and getattr(device.format, "labelType", None) == "gpt":
