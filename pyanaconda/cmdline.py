@@ -84,13 +84,9 @@ class InstallInterface(InstallInterfaceBase):
         pass
 
     def reinitializeWindow(self, title, path, size, description):
-        print(_("Command line mode requires all choices to be specified in a "
-                "kickstart configuration file."))
-        print(title)
-
-        # don't exit
-        while 1:
-            time.sleep(5)
+        errtxt = _("(%s)\nCommand line mode requires all choices to be specified in a "
+                   "kickstart configuration file." % (title,))
+        raise RuntimeError(errtxt)
 
     def shutdown(self):
         pass
@@ -105,26 +101,17 @@ class InstallInterface(InstallInterfaceBase):
         return ProgressWindow(title, text, total, updpct, pulse)
 
     def kickstartErrorWindow(self, text):
-        s = _("The following error was found while parsing the "
-              "kickstart configuration file:\n\n%s") %(text,)
-        print(s)
-
-        while 1:
-            time.sleep(5)
+        errtxt = _("The following error was found while parsing the "
+                   "kickstart configuration file:\n\n%s") % (text,)
+        raise RuntimeError(errtxt)
 
     def messageWindow(self, title, text, type="ok", default = None,
                       custom_icon = None, custom_buttons = []):
         if type == "ok":
             print(text)
         else:
-            print(_("Command line mode requires all choices to be specified in a kickstart configuration file."))
-            print(title)
-            print(text)
-            print(type, custom_buttons)
-
-            # don't exit
-            while 1:
-                time.sleep(5)
+            errtxt = _("(%s)\n%s" % (title, text))
+            raise RuntimeError(errtxt)
 
     def detailedMessageWindow(self, title, text, longText=None, type="ok",
                               default=None, custom_buttons=None,
@@ -136,32 +123,24 @@ class InstallInterface(InstallInterfaceBase):
                            custom_buttons=custom_buttons, custom_icon=custom_icon)
 
     def passphraseEntryWindow(self, device):
-        print(_("Can't have a question in command line mode!"))
-        print("(passphraseEntryWindow: '%s')" % device)
-        # don't exit
-        while 1:
-            time.sleep(5)
+        errtxt = _("Can't have a question in command line mode!")
+        errtxt += "\n(passphraseEntryWindow: '%s')" % (device,)
+        raise RuntimeError(errtxt)
 
     def getLUKSPassphrase(self, passphrase = "", isglobal = False):
-        print(_("Can't have a question in command line mode!"))
-        print("(getLUKSPassphrase)")
-        # don't exit
-        while 1:
-            time.sleep(5)
+        errtxt = _("Can't have a question in command line mode!")
+        errtxt += "\n(getLUKSPassphrase)"
+        raise RuntimeError(errtxt)
 
     def enableNetwork(self):
-        print(_("Can't have a question in command line mode!"))
-        print("(enableNetwork)")
-        # don't exit
-        while 1:
-            time.sleep(5)
+        errtxt = "(enableNetwork)\n"
+        errtxt += _("Can't have a question in command line mode!")
+        raise RuntimeError(errtxt)
 
     def questionInitializeDASD(self, c, devs):
-        print(_("Can't have a question in command line mode!"))
-        print("questionInitializeDASD")
-        # don't exit
-        while 1:
-            time.sleep(5)
+        errtxt = "(questionInitializeDASD)\n"
+        errtxt += _("Can't have a question in command line mode!")
+        raise RuntimeError(errtxt)
 
     def mainExceptionWindow(self, shortText, longTextFile):
         print(shortText)
@@ -180,9 +159,8 @@ class InstallInterface(InstallInterfaceBase):
         if stepToClasses.has_key(step):
             stepToClasses[step](self.anaconda)
         else:
-            print("In interactive step %s, can't continue" %(step,))
-            while 1:
-                time.sleep(1)
+            errtxt = _("In interactive step can't continue. (%s)" %(step,))
+            raise RuntimeError(errtxt)
 
     def setInstallProgressClass(self, c):
         self.instProgress = c
@@ -210,3 +188,12 @@ class progressDisplay:
         if stripped != self.display:
             self.display = stripped
             print(self.display)
+
+def setupProgressDisplay(anaconda):
+    if anaconda.dir == DISPATCH_BACK:
+        anaconda.intf.setInstallProgressClass(None)
+        return DISPATCH_BACK
+    else:
+        anaconda.intf.setInstallProgressClass(progressDisplay())
+
+    return DISPATCH_FORWARD

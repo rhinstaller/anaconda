@@ -254,6 +254,9 @@ class Anaconda(object):
         if self.displayMode == 'c':
             from cmdline import InstallInterface
 
+        if self.displayMode == 's':
+            from script import InstallInterface
+
         self._intf = InstallInterface()
         return self._intf
 

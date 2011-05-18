@@ -197,6 +197,7 @@ def parseOptions(argv = None):
                   default="g")
     op.add_option("-G", "--graphical", dest="display_mode", action="store_const", const="g")
     op.add_option("-T", "--text", dest="display_mode", action="store_const", const="t")
+    op.add_option("-S", "--script", dest="display_mode", action="store_const", const="s")
 
     # Network
     op.add_option("--noipv4", action="store_true", default=False)
@@ -381,7 +382,7 @@ def check_memory(anaconda, opts, display_mode=None):
         sys.exit(1)
 
     # override display mode if machine cannot nicely run X
-    if display_mode not in ('t', 'c') and not flags.usevnc:
+    if display_mode not in ('t', 'c', 's') and not flags.usevnc:
         needed_ram += int(isys.GUI_INSTALL_EXTRA_RAM / 1024)
         reason = reason_graphical
 
@@ -489,8 +490,9 @@ def setupDisplay(anaconda, opts):
         # now determine if we're going to run in GUI or TUI mode
         #
         # if no X server, we have to use text mode
-        if not flags.livecdInstall and not iutil.isS390() and \
-           not os.access("/usr/bin/Xorg", os.X_OK):
+        if anaconda.displayMode == 'g' and not flags.livecdInstall \
+           and not iutil.isS390() \
+           and not os.access("/usr/bin/Xorg", os.X_OK):
              stdoutLog.warning(_("Graphical installation is not available. "
                                  "Starting text mode."))
              time.sleep(2)
@@ -812,7 +814,13 @@ if __name__ == "__main__":
 
     try:
         anaconda.dispatch.run()
-    except SystemExit, code:
+    except SystemExit as code:
         exitHandler(anaconda, code)
+    except RuntimeError as errtxt:
+        if anaconda.displayMode == 'c':
+            print errtxt
+            while True:
+                time.sleep(10000)
+        raise
 
 # vim:tw=78:ts=4:et:sw=4
