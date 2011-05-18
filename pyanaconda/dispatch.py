@@ -159,60 +159,7 @@ class Dispatcher(object):
         self.stop = False
         # step dictionary mapping step names to step objects
         self.steps = indexed_dict.IndexedDict()
-        # Note that not only a subset of the steps is executed for a particular
-        # run, depending on the kind of installation, user selection, kickstart
-        # commands, used installclass and used user interface.
-        self._add_step("sshd", doSshd)
-        self._add_step("rescue", doRescue)
-        self._add_step("kickstart", doKickstart)
-        self._add_step("language")
-        self._add_step("keyboard")
-        self._add_step("betanag", betaNagScreen)
-        self._add_step("filtertype")
-        self._add_step("filter")
-        self._add_step("storageinit", storageInitialize)
-        self._add_step("findrootparts", findRootParts)
-        self._add_step("findinstall")
-        self._add_step("network")
-        self._add_step("timezone")
-        self._add_step("accounts")
-        self._add_step("setuptime", setupTimezone)
-        self._add_step("parttype")
-        self._add_step("cleardiskssel")
-        self._add_step("autopartitionexecute", doAutoPartition)
-        self._add_step("partition")
-        self._add_step("upgrademount", upgradeMountFilesystems)
-        self._add_step("restoretime", restoreTime)
-        self._add_step("upgradecontinue", queryUpgradeContinue)
-        self._add_step("upgrademigfind", upgradeMigrateFind)
-        self._add_step("upgrademigratefs")
-        self._add_step("storagedone", storageComplete)
-        self._add_step("enablefilesystems", turnOnFilesystems)
-        self._add_step("upgbootloader")
-        self._add_step("bootloader")
-        self._add_step("reposetup", doBackendSetup)
-        self._add_step("tasksel")
-        self._add_step("basepkgsel", doBasePackageSelect)
-        self._add_step("group-selection")
-        self._add_step("postselection", doPostSelection)
-        self._add_step("install")
-        self._add_step("preinstallconfig", doPreInstall)
-        self._add_step("installpackages", doInstall)
-        self._add_step("postinstallconfig", doPostInstall)
-        self._add_step("writeconfig", writeConfiguration)
-        self._add_step("firstboot", firstbootConfiguration)
-        self._add_step("instbootloader", writeBootloader)
-        self._add_step("reipl", doReIPL)
-        self._add_step("writeksconfig", writeKSConfiguration)
-        self._add_step("setfilecon", setFileCons)
-        self._add_step("copylogs", copyAnacondaLogs)
-        self._add_step("methodcomplete", doMethodComplete)
-        self._add_step("postscripts", runPostScripts)
-        self._add_step("dopostaction", doPostAction)
-        self._add_step("complete")
-
-    def _add_step(self, name, target = None):
-        self.steps[name] = Step(name, target)
+        self.init_steps()
 
     def _advance_step(self):
         if self.step is None:
@@ -247,6 +194,20 @@ class Dispatcher(object):
     def _step_index(self):
         return self.steps.index(self.step)
 
+    def add_step(self, name, target = None):
+        self.steps[name] = Step(name, target)
+
+    def can_go_back(self):
+        # Begin with the step before this one. If all steps are skipped,
+        # we can not go backwards from this one.
+        i = self._step_index() - 1
+        while i >= 0:
+            sname = self.steps[i].name
+            if not self.step_is_direct(sname) and self.step_enabled(sname):
+                return True
+            i -= 1
+        return False
+
     @property
     def dir(self):
         return self.anaconda.dir
@@ -273,16 +234,58 @@ class Dispatcher(object):
         self.dir = DISPATCH_FORWARD
         self.dispatch()
 
-    def can_go_back(self):
-        # Begin with the step before this one. If all steps are skipped,
-        # we can not go backwards from this one.
-        i = self._step_index() - 1
-        while i >= 0:
-            sname = self.steps[i].name
-            if not self.step_is_direct(sname) and self.step_enabled(sname):
-                return True
-            i -= 1
-        return False
+    def init_steps(self):
+        # Note that not only a subset of the steps is executed for a particular
+        # run, depending on the kind of installation, user selection, kickstart
+        # commands, used installclass and used user interface.
+        self.add_step("sshd", doSshd)
+        self.add_step("rescue", doRescue)
+        self.add_step("kickstart", doKickstart)
+        self.add_step("language")
+        self.add_step("keyboard")
+        self.add_step("betanag", betaNagScreen)
+        self.add_step("filtertype")
+        self.add_step("filter")
+        self.add_step("storageinit", storageInitialize)
+        self.add_step("findrootparts", findRootParts)
+        self.add_step("findinstall")
+        self.add_step("network")
+        self.add_step("timezone")
+        self.add_step("accounts")
+        self.add_step("setuptime", setupTimezone)
+        self.add_step("parttype")
+        self.add_step("cleardiskssel")
+        self.add_step("autopartitionexecute", doAutoPartition)
+        self.add_step("partition")
+        self.add_step("upgrademount", upgradeMountFilesystems)
+        self.add_step("restoretime", restoreTime)
+        self.add_step("upgradecontinue", queryUpgradeContinue)
+        self.add_step("upgrademigfind", upgradeMigrateFind)
+        self.add_step("upgrademigratefs")
+        self.add_step("storagedone", storageComplete)
+        self.add_step("enablefilesystems", turnOnFilesystems)
+        self.add_step("upgbootloader")
+        self.add_step("bootloader")
+        self.add_step("reposetup", doBackendSetup)
+        self.add_step("tasksel")
+        self.add_step("basepkgsel", doBasePackageSelect)
+        self.add_step("group-selection")
+        self.add_step("postselection", doPostSelection)
+        self.add_step("install")
+        self.add_step("preinstallconfig", doPreInstall)
+        self.add_step("installpackages", doInstall)
+        self.add_step("postinstallconfig", doPostInstall)
+        self.add_step("writeconfig", writeConfiguration)
+        self.add_step("firstboot", firstbootConfiguration)
+        self.add_step("instbootloader", writeBootloader)
+        self.add_step("reipl", doReIPL)
+        self.add_step("writeksconfig", writeKSConfiguration)
+        self.add_step("setfilecon", setFileCons)
+        self.add_step("copylogs", copyAnacondaLogs)
+        self.add_step("methodcomplete", doMethodComplete)
+        self.add_step("postscripts", runPostScripts)
+        self.add_step("dopostaction", doPostAction)
+        self.add_step("complete")
 
     def request_steps(self, *steps):
         changes = map(lambda s: self.steps[s].request(self._current_step()), steps)
