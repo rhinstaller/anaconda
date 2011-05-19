@@ -7,20 +7,18 @@ import __builtin__
 import ConfigParser
 
 class ProductTest(mock.TestCase):
-    
+
     def setUp(self):
         self.setupModules(['_isys', 'block', 'os'])
         self.fs = mock.DiskIO()
-        
-        del sys.modules['pyanaconda.product']
-              
+
         # os module global mock
         self.modifiedModule("os")
         os = sys.modules['os']
         os.access = mock.Mock(return_value=False)
         os.uname.return_value = ('', '', '', '', 'i386')
-        os.environ = {}      
-    
+        os.environ = {}
+
         # fake /tmp/product/.buildstamp file
         self.BUGURL = 'http://bug.url'
         self.BETA = 'true'
@@ -38,33 +36,33 @@ class ProductTest(mock.TestCase):
         "UUID: %s\n"\
         "Version: %s\n" % \
         (self.BUGURL, self.BETA, self.ARCH, self.NAME, self.UUID, self.VERSION)
-        
+
         self.fs.open(self.FILENAME, 'w').write(self.FILE)
-        
+
         # mock builtin open function
         self.open = __builtin__.open
         __builtin__.open = self.fs.open
-        
+
     def tearDown(self):
         __builtin__.open = self.open
         self.tearDownModules()
-    
-   
+
+
     def bug_url_test(self):
         sys.modules['os'].access = mock.Mock(return_value=True)
         import pyanaconda.product
         self.assertEqual(pyanaconda.product.bugUrl, self.BUGURL)
-    
+
     def is_beta_test(self):
         sys.modules['os'].access = mock.Mock(return_value=True)
         import pyanaconda.product
         self.assertTrue(pyanaconda.product.isBeta)
-    
+
     def product_arch_test(self):
         sys.modules['os'].access = mock.Mock(return_value=True)
         import pyanaconda.product
         self.assertEqual(pyanaconda.product.productArch, self.ARCH)
-   
+
     def product_name_test(self):
         sys.modules['os'].access = mock.Mock(return_value=True)
         import pyanaconda.product
@@ -74,7 +72,7 @@ class ProductTest(mock.TestCase):
         sys.modules['os'].access = mock.Mock(return_value=True)
         import pyanaconda.product
         self.assertEqual(pyanaconda.product.productStamp, self.UUID)
-    
+
     def product_version_test(self):
         sys.modules['os'].access = mock.Mock(return_value=True)
         import pyanaconda.product
