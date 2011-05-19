@@ -3,7 +3,7 @@ import mock
 class StepTest(mock.TestCase):
     def setUp(self):
         self.setupModules(
-            ['logging', 'pyanaconda.anaconda_log', 'block'])
+            ['_isys', 'logging', 'pyanaconda.anaconda_log', 'block'])
 
         import pyanaconda
         pyanaconda.anaconda_log = mock.Mock()
@@ -121,7 +121,7 @@ class StepTest(mock.TestCase):
 class DispatchTest(mock.TestCase):
     def setUp(self):
         self.setupModules(
-            ['logging', 'pyanaconda.anaconda_log', 'block'])
+            ['_isys', 'logging', 'pyanaconda.anaconda_log', 'block'])
 
         import pyanaconda
         pyanaconda.anaconda_log = mock.Mock()
