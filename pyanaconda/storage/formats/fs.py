@@ -1102,7 +1102,6 @@ class EFIFS(FATFS):
         from pyanaconda import platform
         p = platform.getPlatform(None)
         return (isinstance(p, platform.EFI) and
-                p.isEfi and
                 self.utilsAvailable)
 
 register_device_format(EFIFS)
