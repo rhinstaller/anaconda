@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.235
+Version: 11.1.2.236
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -128,6 +128,9 @@ fi
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Fri May 20 2011 Ales Kozumplik <akozumpl@redhat.com> 11.1.2.236-1
+- Remove a worthless, traceback-causing line.
+  Related: rhbz#572862
 
 * Tue May 17 2011 Ales Kozumplik <akozumpl@redhat.com> 11.1.2.235-1
 - Add "rhsm" to the list of things-to-link-into-/etc (wwoods)
