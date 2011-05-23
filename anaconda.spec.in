@@ -234,6 +234,50 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Mon May 23 2011 Chris Lumens <clumens@redhat.com> - 16.9-1
+- Add kickstart support for biosboot. (dlehman)
+- Make sure new devices' formats have their device attr set. (dlehman)
+- Don't crash if is_valid_foo methods are called with None. (dlehman)
+- Unit tests cleanups (akozumpl)
+- Remove trailing whitespace in file tests/mock/mock.py. (akozumpl)
+- Remove erronious (vestigial?) call to Platform.isEfi (pjones)
+- Remove upgrade_swap_gui from POTFILES.in (akozumpl)
+- ut: if _isys is not available dispatch_test and indexed_dict_test are
+  failing. (akozumpl)
+- Cherry-pick from rhel5-branch, by Will Woods. (wwoods)
+- Pythonize some code from network.py for pleasure. (rvykydal)
+- Honor DEFROUTE=no when inferring system-wide GATEWAY (rvykydal)
+- Get rid of overrideDHCPHostname. (rvykydal)
+- HOSTNAME is not per-device/ifcfg setting. (rvykydal)
+- Do not set hostname in stage 1. (rvykydal)
+- Do not write out /etc/sysconfig/network in stage 1. (rvykydal)
+- ut: make pyanaconda_test/backed_test.py pass (akozumpl)
+- dispatch: break out step initialization into a separate method. (akozumpl)
+- dispatch: implement method of saving/restoring all steps scheduling.
+  (akozumpl)
+- upgrade: there are no "checkdeps" and "dependencies" steps. (akozumpl)
+- ut: make upgrade_test pass. (akozumpl)
+- cosmetic: dispatch.request_step is dispatch.request_steps. (akozumpl)
+- cosmetic: dispatch.skipStep is dispatch.skip_steps (akozumpl)
+- cosmetic: move the dir property in dispatch.py with other public methods.
+  (akozumpl)
+- dispatch: fix remaining places using the old dispatch interface. (akozumpl)
+- dispatch: remove "upgradeswapsuggestion" and "addswap" steps. (akozumpl)
+- dispatch: Fix rules for running the bootloader and instbootloader steps.
+  (akozumpl)
+- dispatch: Fix rules for running the partitioning step. (akozumpl)
+- dispatch: clean up step skipping manipulations in kickstart. (akozumpl)
+- dispatch: All skips are permanent now. (akozumpl)
+- Cleanup how an installer interface can declare steps it does not implement.
+  (akozumpl)
+- Throw away the dispatcher 'skipList' and give Step a state. (akozumpl)
+- dispatch: use IndexedDict objects instead of a list of tuples. (akozumpl)
+- IndexedDict class for storing the installer steps (akozumpl)
+- Add a shortcut for Configure Network (#705022) (mgracik)
+- vgreduce now activates some lvs, which I do not understand. (dlehman)
+- Audit storage log statements' log levels and clean up some things. (dlehman)
+- Convert Device, DeviceFormat __str__ to __repr__ and add __str__. (dlehman)
+
 * Tue May 17 2011 Chris Lumens <clumens@redhat.com> - 16.8-1
 - Relabel /var/lock as well (#701575). (clumens)
 - filled in hasFreeDiskSpace (#683632) (hamzy)
