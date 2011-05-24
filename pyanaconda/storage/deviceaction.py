@@ -456,18 +456,17 @@ class ActionCreateFormat(DeviceAction):
 
             Format create actions obsolete the following actions:
 
-                - format actions w/ lower id on this action's device
+                - format actions w/ lower id on this action's device, other
+                  than those that destroy existing formats
         """
         return (self.device.id == action.device.id and
                 self.obj == action.obj and
+                not (action.isDestroy and action.format.exists) and
                 self.id > action.id)
 
 
 class ActionDestroyFormat(DeviceAction):
-    """ An action representing the removal of an existing filesystem.
-
-        XXX this seems unnecessary
-    """
+    """ An action representing the removal of an existing filesystem. """
     type = ACTION_TYPE_DESTROY
     obj = ACTION_OBJECT_FORMAT
 
@@ -480,11 +479,10 @@ class ActionDestroyFormat(DeviceAction):
 
     def execute(self, intf=None):
         """ wipe the filesystem signature from the device """
-        if self.origFormat:
-            self.device.setup(orig=True)
-            self.origFormat.destroy()
-            udev_settle()
-            self.device.teardown()
+        self.device.setup(orig=True)
+        self.format.destroy()
+        udev_settle()
+        self.device.teardown()
 
     def cancel(self):
         self.device.format = self.origFormat
@@ -510,11 +508,15 @@ class ActionDestroyFormat(DeviceAction):
 
             - format actions w/ lower id on same device, including self if
               format does not exist
+
+            - format destroy action on a non-existent format shouldn't
+              obsolete a format destroy action on an existing one
         """
         return (self.device.id == action.device.id and
                 self.obj == self.obj and
                 (self.id > action.id or
-                 self.id == action.id and not self.device.exists))
+                 (self.id == action.id and not self.format.exists)) and
+                not (action.format.exists and not self.format.exists))
 
 
 class ActionResizeFormat(DeviceAction):
