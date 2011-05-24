@@ -820,9 +820,7 @@ class Storage(object):
         else:
             name = "req%d" % self.nextID
 
-        device = PartitionDevice(name, *args, **kwargs)
-        device.format.device = device.path
-        return device
+        return PartitionDevice(name, *args, **kwargs)
 
     def newMDArray(self, *args, **kwargs):
         """ Return a new MDRaidArrayDevice instance for configuring. """
@@ -841,9 +839,7 @@ class Storage(object):
         else:
             name = "md%d" % kwargs["minor"]
 
-        device = MDRaidArrayDevice(name, *args, **kwargs)
-        device.format.device = device.path
-        return device
+        return MDRaidArrayDevice(name, *args, **kwargs)
 
     def newVG(self, *args, **kwargs):
         """ Return a new LVMVolumeGroupDevice instance. """
@@ -889,9 +885,7 @@ class Storage(object):
         if name in [d.name for d in self.devices]:
             raise ValueError("name already in use")
 
-        device = LVMLogicalVolumeDevice(name, vg, *args, **kwargs)
-        device.format.device = device.path
-        return device
+        return LVMLogicalVolumeDevice(name, vg, *args, **kwargs)
 
     def createDevice(self, device):
         """ Schedule creation of a device.
