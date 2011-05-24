@@ -2,7 +2,7 @@
 #
 # mknod-stub
 #
-# Copyright (C) 2007  Red Hat, Inc.  All rights reserved.
+# Copyright (C) 2007, 2011  Red Hat, Inc.  All rights reserved.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -18,41 +18,58 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-import sys, os
-sys.path.append('/usr/lib/anaconda')
-import isys
-import string
-import stat
+from optparse import OptionParser
 import os
+import stat
+import sys
+
 
 def usage():
-    sys.stderr.write("Usage: %s <path> [b|c] <major> <minor>\n" %(sys.argv[0],))
-    sys.exit(1)
+    return 'Usage: %prog <path> [b|c] <major> <minor>'
 
-def main():
-    if len(sys.argv) < 2:
-        usage()
 
-    if (sys.argv[1] == '-h') or (sys.argv[1] == '--help'):
-        usage()
+def main(prog, args):
 
-    path = sys.argv[1]
+    def err(msg):
+        sys.stderr.write('%s: %s\n' % (os.path.basename(prog), msg))
+        sys.exit(1)
 
-    if len(sys.argv) < 5:
-        usage()
+    DEVTYPES = { 'b' : stat.S_IFBLK,
+                 'c' : stat.S_IFCHR }
 
-    if (sys.argv[2] == 'b'):
-        type = stat.S_IFBLK
-    elif (sys.argv[2] == 'c'):
-        type = stat.S_IFCHR
-    else:
-        usage()
+    DEVMODE = 0644
 
-    major = int(sys.argv[3])
-    minor = int(sys.argv[4])
-    path = sys.argv[1]
+    parser = OptionParser(usage=usage())
+    opts, args = parser.parse_args(args)
 
-    os.mknod(path, 0644 | type, os.makedev(major, minor))
+    try:
+        path, devtype, major, minor = args
+    except ValueError:
+        if len(args) > 4:
+            err("extra operand '%s'" % args[4])
+        else:
+            err('missing operand')
 
-if __name__ == "__main__":
-    main()
+    try:
+        devtype = DEVTYPES[devtype]
+    except KeyError:
+        err("invalid device type '%s'" % devtype)
+
+    try:
+        major = int(major)
+    except ValueError:
+        err("invalid major device number '%s'" % major)
+
+    try:
+        minor = int(minor)
+    except ValueError:
+        err("invalid minor device number '%s'" % minor)
+
+    try:
+        os.mknod(path, DEVMODE | devtype, os.makedev(major, minor))
+    except OSError as e:
+        err(e)
+
+
+if __name__ == '__main__':
+    main(prog=sys.argv[0], args=sys.argv[1:])
