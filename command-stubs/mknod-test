@@ -1,0 +1,86 @@
+#!/usr/bin/python
+#
+# mknod-test
+#
+# Copyright (C) 2011  Red Hat, Inc.  All rights reserved.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+
+import os
+from subprocess import call, check_call, CalledProcessError
+import sys
+
+
+def create_device_test(device, type, major, minor):
+    # new device
+    rc = call(['mknod', device, type, major, minor])
+    if not rc == 0:
+        print('mknod: create new device test failed')
+        sys.exit(1)
+
+    try:
+        os.stat(device)
+    except OSError:
+        print('mknod: create new device test failed')
+        sys.exit(1)
+
+    # existing device
+    fail = False
+    rc = call(['mknod', device, type, major, minor])
+    if rc == 0:
+        print('mknod: create existing device test failed')
+        fail = True
+
+    # cleanup
+    os.unlink(device)
+
+    if fail:
+        sys.exit(1)
+
+def wrong_device_type_test():
+    rc = call(['mknod', '/dev/test-wrong', 'x', '1', '1'])
+    if rc == 0:
+        print('mknod: wrong device type test failed')
+        sys.exit(1)
+
+def wrong_usage_test():
+    try:
+        # missing all arguments
+        check_call(['mknod'])
+        # missing major, minor
+        check_call(['mknod', '/dev/test-wrong', 'b'])
+        check_call(['mknod', '/dev/test-wrong', 'c'])
+        # extra arguments
+        check_call(['mknod', '/dev/test', 'c', '1', '1', 'extra'])
+    except CalledProcessError:
+        # this is OK
+        pass
+    else:
+        print('mknod: wrong usage test failed')
+        sys.exit(1)
+
+def help_test():
+    rc = call(['mknod', '--help'])
+    if not rc == 0:
+        print('mknod: help test failed')
+        sys.exit(1)
+
+
+if __name__ == '__main__':
+    create_device_test('/dev/test-block', 'b', '1', '1')
+    create_device_test('/dev/test-char', 'c', '1', '1')
+    wrong_device_type_test()
+    wrong_usage_test()
+    help_test()
