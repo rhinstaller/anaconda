@@ -647,10 +647,37 @@ cleanup:
     Py_XDECREF(attr);
 }
 
+int process_kickstart_wifi (struct loaderData_s * loaderData) {
+    int rc = -1;
+
+    if (loaderData->essid != NULL) {
+        if (loaderData->wepkey != NULL) {
+            rc = add_and_activate_wifi_connection(&(loaderData->netDev), loaderData->essid,
+                    WIFI_PROTECTION_WEP, loaderData->wepkey, loaderData->ipinfo_set, loaderData->ipv4);
+        }
+        else if (loaderData->wpakey != NULL) {
+            rc = add_and_activate_wifi_connection(&(loaderData->netDev), loaderData->essid,
+                    WIFI_PROTECTION_WPA, loaderData->wpakey, loaderData->ipinfo_set, loaderData->ipv4);
+        }
+        else {
+            rc = add_and_activate_wifi_connection(&(loaderData->netDev), loaderData->essid,
+                    WIFI_PROTECTION_UNPROTECTED, NULL, loaderData->ipinfo_set, loaderData->ipv4);
+        }
+    }
+
+    if (rc == WIFI_ACTIVATION_OK) loaderData->netDev_set = 1;
+    else logMessage(ERROR, "wifi activation in kickstart failed");
+
+    return rc;
+}
+
+
 static void setKickstartNetwork(struct loaderData_s * loaderData, PyObject *handler) {
     Py_ssize_t i;
     PyObject *list = getDataList(handler, "network");
     iface_t iface;
+    gboolean device_flushed = FALSE;
+    char *cmdline_device = NULL;
 
     if (!list)
         return;
@@ -686,6 +713,8 @@ static void setKickstartNetwork(struct loaderData_s * loaderData, PyObject *hand
         loaderData->essid = NULL;
         free(loaderData->wepkey);
         loaderData->wepkey = NULL;
+        free(loaderData->wpakey);
+        loaderData->wpakey = NULL;
         loaderData->mtu = 0;
 
 #ifdef ENABLE_IPV6
@@ -749,6 +778,11 @@ static void setKickstartNetwork(struct loaderData_s * loaderData, PyObject *hand
             loaderData->netDev_set = 1;
             logMessage(INFO, "kickstart network command - device %s", loaderData->netDev);
         } else {
+            cmdline_device = strdup(loaderData->netDev);
+            loaderData->netDev_set = 0;
+            free(loaderData->netDev);
+            loaderData->netDev = NULL;
+            device_flushed = TRUE;
             logMessage(INFO, "kickstart network command - unspecified device");
         }
 
@@ -758,6 +792,7 @@ static void setKickstartNetwork(struct loaderData_s * loaderData, PyObject *hand
         _setNetworkString(ele, "ethtool", &loaderData->ethtool, NULL);
         _setNetworkString(ele, "essid", &loaderData->essid, NULL);
         _setNetworkString(ele, "wepkey", &loaderData->wepkey, NULL);
+        _setNetworkString(ele, "wpakey", &loaderData->wpakey, NULL);
 
         attr = getObject(ele, "noipv4", 0);
         if (isTrue(attr))
@@ -810,15 +845,32 @@ static void setKickstartNetwork(struct loaderData_s * loaderData, PyObject *hand
              FL_EARLY_NETWORKING(flags) ||
              ibft_present())) {
             logMessage(INFO, "activating first device from kickstart because network is needed");
-            activateDevice(loaderData, &iface);
+            if (process_kickstart_wifi(loaderData) != 0) {
+                if (device_flushed) {
+                    loaderData->netDev = strdup(cmdline_device);
+                    loaderData->netDev_set = 1;
+                    free(cmdline_device);
+                    cmdline_device = NULL;
+                    device_flushed = FALSE;
+                }
+                activateDevice(loaderData, &iface);
+            }
             continue;
         }
-
 
         attr = getObject(ele, "activate", 0);
         if (isTrue(attr)) {
             logMessage(INFO, "activating because --activate flag is set");
-            activateDevice(loaderData, &iface);
+            if (process_kickstart_wifi(loaderData) != 0) {
+                if (device_flushed) {
+                    loaderData->netDev = strdup(cmdline_device);
+                    loaderData->netDev_set = 1;
+                    free(cmdline_device);
+                    cmdline_device = NULL;
+                    device_flushed = FALSE;
+                }
+                activateDevice(loaderData, &iface);
+            }
         } else {
             logMessage(INFO, "not activating becuase --activate flag is not set");
         }
