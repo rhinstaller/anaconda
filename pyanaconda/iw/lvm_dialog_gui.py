@@ -1159,6 +1159,7 @@ class VolumeGroupEditor:
 
                         format = self.luks[lv.lvname]
                         if not format.exists:
+                            actions.append(ActionDestroyFormat(usedev))
                             actions.append(ActionCreateFormat(usedev, format))
                     else:
                         usedev = origlv
