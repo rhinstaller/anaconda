@@ -358,7 +358,7 @@ def confirmResetPartitionState(intf):
 # iSCSI GUI helper objects
 
 # the credentials constants: are necessary to implement a concrete iSCSIWizard
-CRED_NONE   = (0, _("No credentials (discovery authentication disabled)"))
+CRED_NONE   = (0, _("No authentication"))
 CRED_ONE    = (1, _("CHAP pair"))
 CRED_BOTH   = (2, _("CHAP pair and a reverse pair"))
 CRED_REUSE  = (3, _("Use the credentials from the discovery step"))
