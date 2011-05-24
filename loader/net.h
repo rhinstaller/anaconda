@@ -82,8 +82,23 @@ int wait_for_iface_activation(char * ifname);
 int wait_for_iface_disconnection(char *ifname);
 int isURLRemote(char *url);
 int isValidIPv4Address(const char *address);
+int add_and_activate_wifi_connection (char **iface, char *ssid,
+				      int protection, char *password,
+				      int ip_method_manual, char *address);
 #ifdef ENABLE_IPV6
 int isValidIPv6Address(const char *address);
 #endif
 
 #endif
+
+#define WIFI_PROTECTION_UNPROTECTED 0
+#define WIFI_PROTECTION_WEP 1
+#define WIFI_PROTECTION_WPA 2
+
+#define WIFI_ACTIVATION_OK 0
+#define WIFI_ACTIVATION_DBUS_ERROR 1
+#define WIFI_ACTIVATION_NM_CLIENT_ERROR 2
+#define WIFI_ACTIVATION_WIFI_HW_DISABLED 3
+#define WIFI_ACTIVATION_BAD_SSID 4
+#define WIFI_ACTIVATION_CANNOT_FIND_AP 5
+#define WIFI_ACTIVATION_TIMED_OUT 6

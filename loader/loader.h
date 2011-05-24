@@ -130,7 +130,9 @@ struct loaderData_s {
     int bootIf_set;
     char * netCls;
     int netCls_set;
-    char *ipv4, *netmask, *gateway, *dns, *domain, *hostname, *peerid, *ethtool, *subchannels, *portname, *essid, *wepkey, *nettype, *ctcprot, *options, *macaddr;
+    char *ipv4, *netmask, *gateway, *dns, *domain, *hostname, *peerid, *ethtool;
+    char *subchannels, *portname, *nettype, *ctcprot, *options, *macaddr;
+    char *essid, *wepkey, *wpakey;
 #ifdef ENABLE_IPV6
     char *ipv6;
     char *ipv6prefix;

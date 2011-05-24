@@ -1050,6 +1050,8 @@ static void parseCmdLineFlags(struct loaderData_s * loaderData) {
                 loaderData->mtu = argToLong(v);
             } else if (!strcasecmp(k, "wepkey")) {
                 loaderData->wepkey = g_strdup(v);
+            } else if (!strcasecmp(k, "wpakey")) {
+                loaderData->wpakey = g_strdup(v);
             } else if (!strcasecmp(k, "linksleep")) {
                 num_link_checks = argToLong(v);
             } else if (!strcasecmp(k, "nicdelay")) {

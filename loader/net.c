@@ -54,6 +54,14 @@
 #include "windows.h"
 #include "ibft.h"
 
+#include <nm-device.h>
+#include <nm-setting-connection.h>
+#include <nm-setting-wireless.h>
+#include <nm-setting-ip4-config.h>
+#include <nm-utils.h>
+#include <dbus/dbus.h>
+#include <dbus/dbus-glib.h>
+
 /* boot flags */
 extern uint64_t flags;
 
@@ -1801,6 +1809,7 @@ int chooseNetworkInterface(struct loaderData_s * loaderData) {
  * kickstart install so that we can do things like grab the ks.cfg from
  * the network */
 int kickstartNetworkUp(struct loaderData_s * loaderData, iface_t * iface) {
+    int rc = -1;
 
     if ((is_nm_connected() == TRUE) &&
         (loaderData->netDev != NULL) && (loaderData->netDev_set == 1))
@@ -1808,8 +1817,30 @@ int kickstartNetworkUp(struct loaderData_s * loaderData, iface_t * iface) {
 
     iface_init_iface_t(iface);
 
-    return activateDevice(loaderData, iface);
+    if (loaderData->essid != NULL) {
+        if (loaderData->wepkey != NULL)
+            rc = add_and_activate_wifi_connection(&(loaderData->netDev),
+                    loaderData->essid, WIFI_PROTECTION_WEP, loaderData->wepkey,
+                    loaderData->ipinfo_set, loaderData->ipv4);
 
+        else if (loaderData->wpakey != NULL)
+            rc = add_and_activate_wifi_connection(&(loaderData->netDev),
+                    loaderData->essid, WIFI_PROTECTION_WPA, loaderData->wpakey,
+                    loaderData->ipinfo_set, loaderData->ipv4);
+
+        else
+            rc = add_and_activate_wifi_connection(&(loaderData->netDev),
+                    loaderData->essid, WIFI_PROTECTION_UNPROTECTED, NULL,
+                    loaderData->ipinfo_set, loaderData->ipv4);
+
+        if (rc == WIFI_ACTIVATION_OK) {
+            loaderData->netDev_set = 1;
+            return 0;
+        }
+        else logMessage(ERROR, "wifi activation failed");
+    }
+
+    return activateDevice(loaderData, iface);
 }
 
 int disconnectDevice(char *device) {
@@ -2159,6 +2190,256 @@ int isURLRemote(char *url) {
     } else {
         return 0;
     }
+}
+
+gboolean byte_array_cmp(const GByteArray *array, char *string) {
+    //returns TRUE if array and char* contain the same strings
+    int i=0;
+    gboolean ret = TRUE;
+    if (array->len != strlen(string)) {
+        return FALSE;
+    }
+    while (i<array->len && ret) {
+        ret = ret && array->data[i] == string[i];
+        i++;
+    }
+    return ret;
+}
+
+NMAccessPoint* get_best_ap(NMDeviceWifi *device, char *ssid) {
+    const GPtrArray *aps;
+    int i;
+    NMAccessPoint *candidate = NULL;
+    guint8 max = 0;
+    aps = nm_device_wifi_get_access_points(device);
+
+    if (!aps) return NULL;
+
+    for (i = 0; i < aps->len; i++) {
+        NMAccessPoint *ap = g_ptr_array_index(aps, i);
+        const GByteArray *byte_ssid = nm_access_point_get_ssid(ap);
+        if (byte_array_cmp(byte_ssid, ssid)) {
+            if (nm_access_point_get_strength(ap) > max) {
+                max = nm_access_point_get_strength(ap);
+                candidate = ap;
+            }
+        }
+    }
+    return candidate;
+}
+
+gboolean get_device_and_ap(NMClient *client, char **iface, char *ssid,
+            NMDeviceWifi **device, NMAccessPoint **ap) {
+    //returns TRUE if device and ap (according to iface and ssid)
+    //were found
+    //iface, device and ap are used for storing the results
+    //iface is also used as argument
+
+    const GPtrArray *devices;
+    int i;
+    NMAccessPoint *candidate_ap = NULL;
+    NMDevice *candidate = NULL;
+    char *tmp_iface = NULL;
+    char *dev_iface = NULL;
+
+    devices = nm_client_get_devices(client);
+
+    for (i = 0; i < devices->len; i++) {
+        candidate = g_ptr_array_index(devices, i);
+        tmp_iface = (char *)nm_device_get_iface(candidate);
+
+        if (!tmp_iface) continue;
+        dev_iface = strdup((char *)tmp_iface);
+        if (strcmp(*iface, "") && strcmp(dev_iface, *iface)) continue;
+        if (NM_IS_DEVICE_WIFI(candidate)) {
+            candidate_ap = get_best_ap((NMDeviceWifi*)candidate, ssid);
+            if (candidate_ap != NULL) {
+                *device = (NMDeviceWifi*)candidate;
+                *ap = candidate_ap;
+                *iface = dev_iface;
+                return TRUE;
+            }
+        }
+        else free(dev_iface);
+    }
+    return FALSE;
+}
+
+
+static void
+add_cb(NMClient *client,
+        const char *connection_path,
+        const char *active_path,
+        GError *error,
+        gpointer user_data) {
+    if (error) logMessage(ERROR, "Error adding wifi connection: %s", error->message);
+}
+
+guint32 ip_str_to_nbo(char* ip) {
+    //get NBO representation of ip address
+    struct in_addr tmp_addr = { 0 };
+
+    inet_pton(AF_INET, ip, &tmp_addr);
+    return tmp_addr.s_addr;
+}
+
+
+int add_and_activate_wifi_connection(char **iface, char *ssid,
+    int protection, char *password, int ip_method_manual, char *address) {
+
+    NMClient *client = NULL;
+    NMDeviceWifi *device = NULL;
+    NMAccessPoint *ap = NULL;
+    GMainLoop *loop;
+    GMainContext *ctx;
+    DBusGConnection *DBconnection;
+    GError *error;
+    GByteArray *ssid_ba;
+    int ssid_len;
+    gboolean success = FALSE;
+    gint8 count = 0, ret;
+    NMConnection *connection;
+    NMSettingConnection *s_con;
+    NMSettingWireless *s_wireless;
+    NMSettingWirelessSecurity *s_sec;
+    NMSettingIP4Config *s_ip;
+    char *uuid;
+
+    if (*iface == NULL) *iface = "";
+    error = NULL;
+    DBconnection = dbus_g_bus_get(DBUS_BUS_SYSTEM, &error);
+    if (DBconnection == NULL) {
+      g_error_free(error);
+      return WIFI_ACTIVATION_DBUS_ERROR;
+    }
+
+    client = nm_client_new();
+    if (!client) return WIFI_ACTIVATION_NM_CLIENT_ERROR;
+
+    if (!nm_client_wireless_hardware_get_enabled(client))
+        return WIFI_ACTIVATION_WIFI_HW_DISABLED;
+
+    if (!nm_client_wireless_get_enabled(client))
+        nm_client_wireless_set_enabled(client, TRUE);
+
+    if (!ssid) return WIFI_ACTIVATION_BAD_SSID;
+    ssid_len = strlen(ssid);
+    if (!ssid_len || ssid_len > 32) return WIFI_ACTIVATION_BAD_SSID;
+    ssid_ba = g_byte_array_sized_new(ssid_len);
+    g_byte_array_append(ssid_ba, (unsigned char *) ssid, ssid_len);
+
+    loop = g_main_loop_new(NULL, FALSE);
+    ctx = g_main_loop_get_context(loop);
+
+    while (g_main_context_pending(ctx))
+        g_main_context_iteration(ctx, FALSE);
+
+    /* display status */
+    if (FL_CMDLINE(flags))
+        printf(_("Waiting for NetworkManager to activate wifi.\n"));
+    else
+        winStatus(55, 3, NULL,
+                  _("Waiting for NetworkManager to activate wifi.\n"), 0);
+
+    while (count < 45 && !success) {
+        while (g_main_context_pending(ctx))
+            g_main_context_iteration(ctx, FALSE);
+        success = get_device_and_ap(client, iface, ssid, &device, &ap);
+        sleep(1);
+        count++;
+    }
+
+    if (!FL_CMDLINE(flags)) newtPopWindow();
+
+    if (!success) return WIFI_ACTIVATION_CANNOT_FIND_AP;
+
+    connection = nm_connection_new();
+
+    s_con = (NMSettingConnection*) nm_setting_connection_new();
+    uuid = nm_utils_uuid_generate();
+    g_object_set(G_OBJECT (s_con),
+        NM_SETTING_CONNECTION_UUID, uuid,
+        NM_SETTING_CONNECTION_ID, ssid,
+        NM_SETTING_CONNECTION_TYPE, "802-11-wireless",
+        NULL);
+    g_free(uuid);
+    nm_connection_add_setting(connection, NM_SETTING (s_con));
+
+    s_wireless = (NMSettingWireless*) nm_setting_wireless_new();
+    g_object_set(G_OBJECT (s_wireless),
+        NM_SETTING_WIRELESS_SSID, ssid_ba,
+        NM_SETTING_WIRELESS_MODE, "infrastructure",
+        NULL);
+    g_byte_array_free(ssid_ba, TRUE);
+    if ((protection == WIFI_PROTECTION_WEP) || protection == WIFI_PROTECTION_WPA) {
+        g_object_set(G_OBJECT (s_wireless),
+            NM_SETTING_WIRELESS_SEC, "802-11-wireless-security",
+            NULL);
+    }
+    nm_connection_add_setting(connection, NM_SETTING (s_wireless));
+
+    if (protection == WIFI_PROTECTION_WEP) {
+        s_sec = (NMSettingWirelessSecurity*) nm_setting_wireless_security_new();
+        g_object_set (G_OBJECT (s_sec),
+            NM_SETTING_WIRELESS_SECURITY_KEY_MGMT, "none",
+            NM_SETTING_WIRELESS_SECURITY_WEP_TX_KEYIDX, 0,
+            NM_SETTING_WIRELESS_SECURITY_WEP_KEY_TYPE, 1,
+            NM_SETTING_WIRELESS_SECURITY_WEP_KEY0, password,
+            NULL);
+        if (strlen(password) == 32) {
+            g_object_set(G_OBJECT (s_sec),
+                NM_SETTING_WIRELESS_SECURITY_WEP_KEY_TYPE, 2,
+                NULL);
+        }
+        nm_connection_add_setting(connection, NM_SETTING (s_sec));
+
+    } else if (protection == WIFI_PROTECTION_WPA) {
+        s_sec = (NMSettingWirelessSecurity*) nm_setting_wireless_security_new();
+        g_object_set(G_OBJECT (s_sec),
+            NM_SETTING_WIRELESS_SECURITY_KEY_MGMT, "wpa-psk",
+            NM_SETTING_WIRELESS_SECURITY_PSK, password,
+            NULL);
+        nm_connection_add_setting(connection, NM_SETTING (s_sec));
+    }
+
+    if (ip_method_manual) {
+        GPtrArray *addresses = g_ptr_array_new();
+        GArray *address_array = g_array_new(FALSE, FALSE, sizeof(guint32));
+        guint32 nbo_ip = ip_str_to_nbo(address);
+        guint32 mask = 24;
+        guint32 gw = 0;
+
+        g_array_append_val(address_array, nbo_ip);
+        g_array_append_val(address_array, mask);
+        g_array_append_val(address_array, gw);
+
+        g_ptr_array_add(addresses, address_array);
+
+        s_ip = (NMSettingIP4Config*) nm_setting_ip4_config_new();
+        g_object_set(G_OBJECT (s_ip),
+            NM_SETTING_IP4_CONFIG_METHOD, NM_SETTING_IP4_CONFIG_METHOD_MANUAL,
+            NM_SETTING_IP4_CONFIG_ADDRESSES, addresses,
+            NULL);
+        nm_connection_add_setting(connection, NM_SETTING (s_ip));
+        g_array_free(address_array, TRUE);
+        g_ptr_array_free(addresses, TRUE);
+    }
+
+    const char *ap_path = nm_object_get_path((NMObject*) ap);
+    nm_client_add_and_activate_connection(client, connection,
+            (NMDevice*) device, ap_path, (NMClientAddActivateFn) add_cb,
+            NULL);
+
+    ret = wait_for_iface_activation(*iface);
+    if (!FL_CMDLINE(flags)) newtPopWindow();
+    if (ret == 0) {
+        g_main_loop_unref(loop);
+        return WIFI_ACTIVATION_OK;
+    }
+
+    *iface = NULL;
+    g_main_loop_unref(loop);
+    return WIFI_ACTIVATION_TIMED_OUT;
 }
 
 /* vim:set shiftwidth=4 softtabstop=4: */
