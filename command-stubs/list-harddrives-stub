@@ -1,8 +1,8 @@
 #!/usr/bin/python
 #
-# scan system for harddrives and output device name/size
+# list-harddrives-stub
 #
-# Copyright (C) 2007, 2009  Red Hat, Inc.  All rights reserved.
+# Copyright (C) 2007, 2009, 2011  Red Hat, Inc.  All rights reserved.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -18,26 +18,21 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-import os
-import sys
 import parted
-import _ped
 
-def main(argv):
-    lst = set()
 
-    for dev in filter(lambda d: d.type != parted.DEVICE_DM, parted.getAllDevices()):
-        if dev.path.startswith("/dev/"):
-            path = dev.path[5:]
-        else:
-            path = dev.path
+def main():
 
-        lst.add((path, dev.getSize()))
+    def get_devices():
+        devices = parted.getAllDevices()
+        devices = [d for d in devices if d.type != parted.DEVICE_DM]
+        for dev in devices:
+            path = dev.path[5:] if dev.path.startswith('/dev/') else dev.path
+            yield path, dev.getSize()
 
-    lst = list(lst)
-    lst.sort()
-    for dev, size in lst:
+    for dev, size in sorted(set(get_devices())):
         print dev, size
 
-if __name__ == "__main__":
-    main(sys.argv)
+
+if __name__ == '__main__':
+    main()
