@@ -1,0 +1,82 @@
+#!/usr/bin/python
+#
+# losetup-test
+#
+# Copyright (C) 2011  Red Hat, Inc.  All rights reserved.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+
+import os
+from subprocess import call, check_call, CalledProcessError
+import sys
+
+
+def loop_device_test(device, image):
+    # new loop device
+    rc = call(['losetup', device, image])
+    if not rc == 0:
+        print('losetup: create new loop device test failed')
+        sys.exit(1)
+
+    try:
+        os.stat(device)
+    except OSError:
+        print('losetup: create new loop device test failed')
+        sys.exit(1)
+
+    # existing loop device
+    fail = False
+    rc = call(['losetup', device, image])
+    if rc == 0:
+        print('losetup: create existing loop device test failed')
+        fail = True
+
+    # remove loop device (cleanup)
+    rc = call(['losetup', '-d', device])
+    if not rc == 0:
+        print('losetup: remove loop device test failed')
+        sys.exit(1)
+
+    if fail:
+        sys.exit(1)
+
+def wrong_usage_test():
+    try:
+        # missing all arguments
+        check_call(['losetup'])
+        # missing file
+        check_call(['losetup', '/dev/loop0'])
+        # missing loopdev
+        check_call(['losetup', '-d'])
+        # extra arguments
+        check_call(['losetup', '/dev/loop0', '/tmp/image-file', 'extra'])
+    except CalledProcessError:
+        # this is OK
+        pass
+    else:
+        print('losetup: wrong usage test failed')
+        sys.exit(1)
+
+def help_test():
+    rc = call(['losetup', '--help'])
+    if not rc == 0:
+        print('losetup: help test failed')
+        sys.exit(1)
+
+
+if __name__ == '__main__':
+    loop_device_test('/dev/loop0', '/tmp/image-file')
+    wrong_usage_test()
+    help_test()
