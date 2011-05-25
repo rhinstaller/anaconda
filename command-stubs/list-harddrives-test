@@ -1,0 +1,54 @@
+#!/usr/bin/python
+#
+# list-harddrives-test
+#
+# Copyright (C) 2011  Red Hat, Inc.  All rights reserved.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+
+from subprocess import check_output, CalledProcessError
+import sys
+
+import parted
+
+
+def list_harddrives_test():
+    try:
+        output = check_output(['list-harddrives'])
+    except CalledProcessError:
+        print('list-harddrives: list harddrives test failed')
+        sys.exit(1)
+
+    output = output.splitlines()
+
+    devices = set()
+    for dev in parted.getAllDevices():
+        if dev.type == parted.DEVICE_DM:
+            continue
+
+        if dev.path.startswith('/dev/'):
+            devices.add(dev.path[5:], dev.getSize())
+        else:
+            devices.add(dev.path, dev.getSize())
+
+    devices = sorted(devices)
+
+    if not output == devices:
+        print('list-harddrives: list harddrives test failed')
+        sys.exit(1)
+
+
+if __name__ == '__main__':
+    list_harddrives_test()
