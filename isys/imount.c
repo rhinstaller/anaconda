@@ -176,8 +176,8 @@ int mountCommandWrapper(int mode, char *dev, char *where, char *fs,
         }
     }
 
-    close(pipefd[0]);
     waitpid(child, &status, 0);
+    close(pipefd[0]);
 
     close(programLogFD);
 
