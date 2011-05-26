@@ -208,10 +208,10 @@ int mountCommandWrapper(int mode, char *dev, char *where, char *fs,
         else
             free(buffer);
     }
-    close(stdout_pipe[0]);
-    close(stderr_pipe[0]);
 
     waitpid(child, &status, 0);
+    close(stdout_pipe[0]);
+    close(stderr_pipe[0]);
 
     if (opts) {
         free(opts);
