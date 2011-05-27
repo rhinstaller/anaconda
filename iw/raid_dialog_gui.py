@@ -39,6 +39,21 @@ import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
 
 class RaidEditor:
+    def _adjust_spares_button(self, raidlevel):
+	numparts = self.sparesb.get_data("numparts")
+        maxspares = 0
+        if raidlevel is not None:
+            maxspares = mdraidlib.get_raid_max_spares(raidlevel, numparts)
+
+        if maxspares > 0:
+	    adj = self.sparesb.get_adjustment()
+	    value = int(min(adj.value, maxspares))
+	    self.sparesb.set_sensitive(1)
+            adj.configure(value=value, lower=0, upper=maxspares, step_increment=1,
+                          page_increment=0, page_size=0)
+	else:
+	    self.sparesb.set_value(0)
+	    self.sparesb.set_sensitive(0)
 
     def createAllowedRaidPartitionsList(self, allraidparts, reqraidpart,
                                         preexist):
@@ -90,13 +105,7 @@ class RaidEditor:
 	    i = i + 1
 
         levelcombo.set_active(defindex)
-
-	if reqlevel is not None and reqlevel == mdraidlib.RAID0:
-	    self.sparesb.set_sensitive(0)
-
-        if self.sparesb:
-            levelcombo.connect("changed", self.raidlevelchangeCB, self.sparesb)
-            
+        levelcombo.connect("changed", self.raidlevelchangeCB)
 	return levelcombo
 
     def createRaidMinorMenu(self, minors, reqminor):
@@ -116,26 +125,9 @@ class RaidEditor:
 
         return minorcombo
 
-    def raidlevelchangeCB(self, widget, sparesb):
+    def raidlevelchangeCB(self, widget):
 	raidlevel = widget.get_model()[widget.get_active()][0]
-	numparts = sparesb.get_data("numparts")
-	maxspares = mdraidlib.get_raid_max_spares(raidlevel, numparts)
-
-	if maxspares > 0 and not mdraidlib.isRaid(mdraidlib.RAID0, raidlevel):
-	    adj = sparesb.get_adjustment() 
-	    value = adj.value 
-	    if adj.value > maxspares: 
-		value = maxspares 
-
-	    sparesb.set_sensitive(1)
-	    spareAdj = gtk.Adjustment(value = value, lower = 0,
-				      upper = maxspares, step_incr = 1)
-	    spareAdj.clamp_page(0, maxspares)
-	    sparesb.set_adjustment(spareAdj)
-	    sparesb.set_value(value)
-	else:
-	    sparesb.set_value(0)
-	    sparesb.set_sensitive(0)
+        self._adjust_spares_button(raidlevel)
 
     def run(self):
 	if self.dialog is None:
@@ -499,37 +491,24 @@ class RaidEditor:
 
         if not origrequest.exists:
             # Create here, pack below
-            numparts =  len(availraidparts)
-            if origrequest.spares:
-                nspares = origrequest.spares
-            else:
-                nspares = 0
-
-            if origrequest.level:
-                maxspares = mdraidlib.get_raid_max_spares(origrequest.level,
-                                                          numparts)
-            else:
-                maxspares = 0
-
-            spareAdj = gtk.Adjustment(value = nspares, lower = 0,
-                                      upper = maxspares, step_incr = 1)
-            self.sparesb = gtk.SpinButton(spareAdj, digits = 0)
-            self.sparesb.set_data("numparts", numparts)
-
-            if maxspares > 0:
-                self.sparesb.set_sensitive(1)
-            else:
-                self.sparesb.set_value(0)
-                self.sparesb.set_sensitive(0)
-        else:
-            self.sparesb = gtk.Label(str(origrequest.spares))
-
-
-        if not origrequest.exists:
+            # create the raid level combobox:
             self.levelcombo = self.createRaidLevelMenu(mdraidlib.raid_levels,
                                                        origrequest.level)
+            # now the number-of-spares spin button:
+            spareAdj = gtk.Adjustment(value=0, upper=0, step_incr=1)
+            self.sparesb = gtk.SpinButton(spareAdj)
+            numparts =  len(availraidparts)
+            self.sparesb.set_data("numparts", numparts)
+            # adjust the max number of spares depending on the default raid level
+            level_index = self.levelcombo.get_active()
+            selected_level = self.levelcombo.get_model()[level_index][0]
+            self._adjust_spares_button(selected_level)
+            # if there's a specific spares number request, set it
+            if origrequest.spares:
+                self.sparesb.set_value(origrequest.spares)
 	    lbl.set_mnemonic_widget(self.levelcombo)
         else:
+            self.sparesb = gtk.Label(str(origrequest.spares))
             self.levelcombo = gtk.Label(origrequest.level)
 
 	maintable.attach(self.levelcombo, 1, 2, row, row + 1)
