@@ -1123,8 +1123,6 @@ mkdir -p $DEST/lib
 mkdir -p $DEST/firmware
 ln -snf /modules $DEST/lib/modules
 ln -snf /firmware $DEST/lib/firmware
-cp $DEST/usr/lib/anaconda/raidstart-stub $DEST/usr/bin/raidstart
-cp $DEST/usr/lib/anaconda/raidstop-stub $DEST/usr/bin/raidstop
 cp $DEST/usr/lib/anaconda/losetup-stub $DEST/usr/bin/losetup
 cp $DEST/usr/lib/anaconda/list-harddrives-stub $DEST/usr/bin/list-harddrives
 cp $DEST/usr/lib/anaconda/loadkeys-stub $DEST/usr/bin/loadkeys
