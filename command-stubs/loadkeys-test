@@ -1,0 +1,54 @@
+#!/usr/bin/python
+#
+# loadkeys-test
+#
+# Copyright (C) 2011  Red Hat, Inc.  All rights reserved.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+
+from subprocess import call, check_call, CalledProcessError
+import sys
+
+
+def loadkeys_test():
+    # existing keymap
+    rc = call(['loadkeys', 'us'])
+    if not rc == 0:
+        print('loadkeys: load existing keymap test failed')
+        sys.exit(1)
+
+    # non-existing keymap
+    rc = call(['loadkeys', 'bad-keymap'])
+    if rc == 0:
+        print('loadkeys: load non-existing keymap test failed')
+        sys.exit(1)
+
+def wrong_usage_test():
+    try:
+        # missing all arguments
+        check_call(['loadkeys'])
+        # extra arguments
+        check_call(['loadkeys', 'us', 'extra'])
+    except CalledProcessError:
+        # this is OK
+        pass
+    else:
+        print('loadkeys: wrong usage test failed')
+        sys.exit(1)
+
+
+if __name__ == '__main__':
+    loadkeys_test()
+    wrong_usage_test()
