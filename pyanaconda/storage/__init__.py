@@ -1762,7 +1762,7 @@ class FSSet(object):
 
     def _parseOneLine(self, (devspec, mountpoint, fstype, options, dump, passno)):
         # no sense in doing any legwork for a noauto entry
-        if "noauto" in options:
+        if "noauto" in options.split(","):
             log.info("ignoring noauto entry")
             raise UnrecognizedFSTabEntryError()
 
