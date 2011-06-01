@@ -48,6 +48,11 @@ class VolumeGroupEditor:
                                   parents=pvs, peSize=self.peSize)
         vg.voriginSnapshots = self.vg.voriginSnapshots.copy()
         for lv in self.lvs.values():
+            # this used to get checked in the LV ctor, but no more if the
+            # PVs are growable because of kickstart's odd sequencing
+            if lv['size'] > vg.freeSpace:
+                raise ValueError("not enough space in VG")
+
             _l = LVMLogicalVolumeDevice(lv['name'], vg, format=lv['format'],
                                    size=lv['size'], exists=lv['exists'],
                                    stripes=lv['stripes'],
@@ -301,7 +306,7 @@ class VolumeGroupEditor:
             self.pvs.remove(pv)
             try:
                 vg = self.getTempVG()
-            except DeviceError as e:
+            except ValueError as e:
                 self.intf.messageWindow(_("Not enough space"),
                                     _("You cannot remove this physical "
                                       "volume because otherwise the "
