@@ -1124,9 +1124,13 @@ mkdir -p $DEST/firmware
 ln -snf /modules $DEST/lib/modules
 ln -snf /firmware $DEST/lib/firmware
 cp $DEST/usr/lib/anaconda/losetup-stub $DEST/usr/bin/losetup
+cp $DEST/usr/lib/anaconda/losetup-test $DEST/usr/bin/losetup-test
 cp $DEST/usr/lib/anaconda/list-harddrives-stub $DEST/usr/bin/list-harddrives
+cp $DEST/usr/lib/anaconda/list-harddrives-test $DEST/usr/bin/list-harddrives-test
 cp $DEST/usr/lib/anaconda/loadkeys-stub $DEST/usr/bin/loadkeys
+cp $DEST/usr/lib/anaconda/loadkeys-test $DEST/usr/bin/loadkeys-test
 cp $DEST/usr/lib/anaconda/mknod-stub $DEST/usr/bin/mknod
+cp $DEST/usr/lib/anaconda/mknod-test $DEST/usr/bin/mknod-test
 cp $DEST/usr/lib/anaconda/syslogd-stub $DEST/usr/bin/syslogd
 mv $DEST/usr/sbin/anaconda $DEST/usr/bin/anaconda
 mv $DEST/usr/lib/anaconda-runtime/lib* $DEST/usr/$LIBDIR 2>/dev/null
