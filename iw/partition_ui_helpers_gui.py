@@ -321,7 +321,6 @@ def createPreExistFSOptionSection(origrequest, maintable, row, mountCombo,
 	migtypes = origrequest.origfstype.getMigratableFSTargets()
 
 	maintable.attach(migraterb, 0, 1, row, row + 1)
-        lukscb = gtk.CheckButton(_("_Encrypt"))
 	migfstypeCombo = createFSTypeMenu(ofstype, None, None,
                                           lukscb = lukscb,
                                           availablefstypes = migtypes)
