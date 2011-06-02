@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.237
+Version: 11.1.2.238
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -128,6 +128,10 @@ fi
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu Jun 2 2011 Ales Kozumplik <akozumpl@redhat.com> 11.1.2.238-1
+- edit partition UI: do not create the "Encrypt" check button twice. (akozumpl)
+  Resolves: rhbz#709361
+
 * Tue May 31 2011 David Cantrell <dcantrell@redhat.com> 11.1.2.237-1
 - Add driver for Intel Patsburg SAS Controller Unit driver. (dcantrel)
   Resolves: rhbz#707790
