@@ -3255,7 +3255,6 @@ class MultipathDevice(DMDevice):
 
         self.config = {
             'wwid' : self.identity,
-            'alias' : self.name,
             'mode' : '0600',
             'uid' : '0',
             'gid' : '0',
