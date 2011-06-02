@@ -302,7 +302,7 @@ def doAutoPartition(anaconda):
         else:
             try:
                 anaconda.dispatch.request_steps("partition")
-            except DispatcherError:
+            except DispatchError:
                 pass
         anaconda.intf.messageWindow(_("Error Partitioning"),
                _("Could not allocate requested partitions: \n\n"
