@@ -2260,13 +2260,10 @@ class FSSet(object):
         if multipath_conf:
             multipath_path = os.path.normpath("%s/etc/multipath.conf" %
                                               instPath)
-            bindings_path = os.path.normpath("%s/etc/multipath/bindings" %
-                                             instPath)
             conf_contents = multipath_conf.write()
-            bindings_contents = multipath_conf.write_bindings()
-            open(multipath_path, "w").write(conf_contents)
-            iutil.mkdirChain(os.path.dirname(bindings_path))
-            open(bindings_path, "w").write(bindings_contents)
+            f = open(multipath_path, "w")
+            f.write(conf_contents)
+            f.close()
         else:
             log.info("not writing out mpath configuration")
 
