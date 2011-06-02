@@ -22,7 +22,7 @@
 class PartSpec(object):
     def __init__(self, mountpoint=None, fstype=None, size=None, maxSize=None,
                  grow=False, asVol=False, singlePV=False, weight=0,
-                 requiredSpace=0):
+                 requiredSpace=0, encrypted=False):
         """ Create a new storage specification.  These are used to specify
             the default partitioning layout as an object before we have the
             storage system up and running.  The attributes are obvious
@@ -45,6 +45,9 @@ class PartSpec(object):
                              other LVs are created inside it.  If not enough
                              space exists, this PartSpec will never get turned
                              into an LV.
+            encrypted -- Should this request be encrypted? For logical volume
+                         requests, this is satisfied if the PVs are encrypted
+                         as in the case of encrypted LVM autopart.
         """
 
         self.mountpoint = mountpoint
@@ -56,6 +59,7 @@ class PartSpec(object):
         self.singlePV = singlePV
         self.weight = weight
         self.requiredSpace = requiredSpace
+        self.encrypted = encrypted
 
         if self.singlePV and not self.asVol:
             self.asVol = True
@@ -63,12 +67,12 @@ class PartSpec(object):
     def __str__(self):
         s = ("%(type)s instance (%(id)s) -- \n"
              "  mountpoint = %(mountpoint)s  asVol = %(asVol)s  singlePV = %(singlePV)s\n"
-             "  weight = %(weight)s  fstype = %(fstype)s\n"
+             "  weight = %(weight)s  fstype = %(fstype)s  encrypted = %(enc)s\n"
              "  size = %(size)s  maxSize = %(maxSize)s  grow = %(grow)s\n" %
              {"type": self.__class__.__name__, "id": "%#x" % id(self),
               "mountpoint": self.mountpoint, "asVol": self.asVol,
               "singlePV": self.singlePV, "weight": self.weight,
-              "fstype": self.fstype, "size": self.size,
+              "fstype": self.fstype, "size": self.size, "enc": self.encrypted,
               "maxSize": self.maxSize, "grow": self.grow})
 
         return s

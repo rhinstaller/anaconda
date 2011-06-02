@@ -175,9 +175,10 @@ class BaseInstallClass(object):
     def setDefaultPartitioning(self, storage, platform):
         autorequests = [PartSpec(mountpoint="/", fstype=storage.defaultFSType,
                                  size=1024, maxSize=50*1024, grow=True,
-                                 asVol=True),
+                                 asVol=True, encrypted=True),
                         PartSpec(mountpoint="/home", fstype=storage.defaultFSType,
-                                 size=100, grow=True, asVol=True, requiredSpace=50*1024)]
+                                 size=100, grow=True, requiredSpace=50*1024,
+                                 asVol=True, encrypted=True)]
 
         bootreq = platform.setDefaultPartitioning()
         if bootreq:
@@ -185,7 +186,7 @@ class BaseInstallClass(object):
 
         (minswap, maxswap) = iutil.swapSuggestion()
         autorequests.append(PartSpec(fstype="swap", size=minswap, maxSize=maxswap,
-                                     grow=True, asVol=True))
+                                     grow=True, asVol=True, encrypted=True))
 
         storage.autoPartitionRequests = autorequests
 

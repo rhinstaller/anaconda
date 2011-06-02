@@ -40,9 +40,8 @@ _ = lambda x: gettext.ldgettext("anaconda", x)
 import logging
 log = logging.getLogger("storage")
 
-def _createFreeSpacePartitions(storage):
-    # get a list of disks that have at least one free space region of at
-    # least the default size for new partitions
+def _getCandidateDisks(storage):
+    """ Return a list of disks with space for a default-sized partition. """
     disks = []
     for disk in storage.partitioned:
         if storage.config.clearPartDisks and \
@@ -61,8 +60,17 @@ def _createFreeSpacePartitions(storage):
 
             part = part.nextPartition()
 
+    return disks
+
+def _schedulePVs(storage, disks):
+    """ Schedule creation of an lvm pv partition on each disk in disks. """
     # create a separate pv partition for each disk with free space
     devs = []
+
+    # only schedule PVs if there are LV autopart reqs
+    if not storage.lvmAutoPart:
+        return devs
+
     for disk in disks:
         if storage.encryptedAutoPart:
             fmt_type = "luks"
@@ -78,17 +86,32 @@ def _createFreeSpacePartitions(storage):
         storage.createDevice(part)
         devs.append(part)
 
-    return (disks, devs)
+    return devs
 
 def _schedulePartitions(storage, disks):
-    #
-    # Convert storage.autoPartitionRequests into Device instances and
-    # schedule them for creation
+    """ Schedule creation of autopart partitions. """
+    # basis for requests with requiredSpace is the sum of the sizes of the
+    # two largest free regions
+    all_free = getFreeRegions(disks)
+    all_free.sort(key=lambda f: f.length, reverse=True)
+    if not all_free:
+        # this should never happen since we've already filtered the disks
+        # to those with at least 500MB free
+        log.error("no free space on disks %s" % ([d.name for d in disks],))
+        return
+
+    free = all_free[0].getSize()
+    if len(all_free) > 1:
+        free += all_free[1].getSize()
+
     #
     # First pass is for partitions only. We'll do LVs later.
     #
     for request in storage.autoPartitionRequests:
-        if request.asVol:
+        if request.asVol and storage.lvmAutoPart:
+            continue
+
+        if request.requiredSpace and request.requiredSpace > free:
             continue
 
         if request.fstype is None:
@@ -119,7 +142,12 @@ def _schedulePartitions(storage, disks):
         if request.mountpoint == "/" and storage.liveImage:
             request.fstype = storage.liveImage.format.type
 
-        dev = storage.newPartition(fmt_type=request.fstype,
+        if request.encrypted and storage.encryptedAutoPart:
+            fstype = "luks"
+        else:
+            fstype = request.fstype
+
+        dev = storage.newPartition(fmt_type=fstype,
                                             size=request.size,
                                             grow=request.grow,
                                             maxsize=request.maxSize,
@@ -130,10 +158,24 @@ def _schedulePartitions(storage, disks):
         # schedule the device for creation
         storage.createDevice(dev)
 
+        if request.encrypted and storage.encryptedAutoPart:
+            luks_fmt = getFormat(request.fstype,
+                                 device=dev.path,
+                                 mountpoint=request.mountpoint)
+            luks_dev = LUKSDevice("luks-%s" % dev.name,
+                                  format=luks_fmt,
+                                  size=dev.size,
+                                  parents=dev)
+            storage.createDevice(luks_dev)
+
     # make sure preexisting broken lvm/raid configs get out of the way
     return
 
 def _scheduleLVs(storage, devs):
+    """ Schedule creation of autopart lvm lvs. """
+    if not devs:
+        return
+
     if storage.encryptedAutoPart:
         pvs = []
         for dev in devs:
@@ -158,7 +200,7 @@ def _scheduleLVs(storage, devs):
     #
     # Second pass, for LVs only.
     for request in storage.autoPartitionRequests:
-        if not request.asVol:
+        if not request.asVol or not storage.lvmAutoPart:
             continue
 
         if request.requiredSpace and request.requiredSpace > initialVGSize:
@@ -188,6 +230,8 @@ def _scheduleLVs(storage, devs):
 def doAutoPartition(anaconda):
     log.debug("doAutoPartition(%s)" % anaconda)
     log.debug("doAutoPart: %s" % anaconda.storage.doAutoPart)
+    log.debug("encryptedAutoPart: %s" % anaconda.storage.encryptedAutoPart)
+    log.debug("lvmAutoPart: %s" % anaconda.storage.lvmAutoPart)
     log.debug("clearPartType: %s" % anaconda.storage.config.clearPartType)
     log.debug("clearPartDisks: %s" % anaconda.storage.config.clearPartDisks)
     log.debug("autoPartitionRequests: %s" % anaconda.storage.autoPartitionRequests)
@@ -208,7 +252,8 @@ def doAutoPartition(anaconda):
         anaconda.bootloader.clear_drive_list()
 
     if anaconda.storage.doAutoPart:
-        (disks, devs) = _createFreeSpacePartitions(anaconda.storage)
+        disks = _getCandidateDisks(anaconda.storage)
+        devs = _schedulePVs(anaconda.storage, disks)
 
         if disks == []:
             if anaconda.ksdata:

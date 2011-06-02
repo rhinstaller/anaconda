@@ -186,6 +186,11 @@ class PartitionTypeWindow(InstallWindow):
 
             self.dispatch.request_steps("autopartitionexecute", "cleardiskssel")
 
+            if self.lvmButton.get_active():
+                self.storage.lvmAutoPart = True
+            else:
+                self.storage.lvmAutoPart = False
+
             if self.encryptButton.get_active():
                 self.storage.encryptedAutoPart = True
             else:
@@ -241,11 +246,13 @@ class PartitionTypeWindow(InstallWindow):
         (self.xml, vbox) = gui.getGladeWidget("autopart.glade", "parttypeTable")
         self.encryptButton = self.xml.get_widget("encryptButton")
         self.reviewButton = self.xml.get_widget("reviewButton")
+        self.lvmButton = self.xml.get_widget("lvmButton")
         self.table = self.xml.get_widget("parttypeTable")
 
         self.prevrev = None
         self.reviewButton.set_active(self.dispatch.step_enabled("partition"))
         self.encryptButton.set_active(self.storage.encryptedAutoPart)
+        self.lvmButton.set_active(self.storage.lvmAutoPart)
 
         self.buttonGroup = pixmapRadioButtonGroup()
         self.buttonGroup.addEntry("all", _("Use _All Space"),
@@ -306,5 +313,6 @@ class PartitionTypeWindow(InstallWindow):
             self.reviewButton.set_active(True)
             self.reviewButton.set_sensitive(False)
             self.encryptButton.set_sensitive(False)
+            self.lvmButton.set_sensitive(False)
 
         return vbox
