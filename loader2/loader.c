@@ -1741,6 +1741,9 @@ int main(int argc, char ** argv) {
         mlLoadModuleSet("mlx4_en", modLoaded, modDeps, modInfo);
     }
 
+    /* If we got new devices from the DDs, they need their /dev/node to be created here */
+    createPartitionNodes();
+
     /* JKFIXME: loaderData->ksFile is set to the arg from the command line,
      * and then getKickstartFile() changes it and sets FL_KICKSTART.  
      * kind of weird. */
