@@ -2149,14 +2149,15 @@ class FSSet(object):
         self.active = True
 
     def umountFilesystems(self, ignoreErrors=True, swapoff=True):
+        """ unmount filesystems, except swap if swapoff == False """
         devices = self.mountpoints.values() + self.swapDevices
         devices.extend([self.dev, self.devshm, self.devpts, self.sysfs,
                         self.proc, self.usb, self.selinux])
         devices.sort(key=lambda d: getattr(d.format, "mountpoint", None))
         devices.reverse()
         for device in devices:
-            if not device.format.mountable and \
-               (device.format.type != "swap" or swapoff):
+            if (not device.format.mountable) or \
+               (device.format.type == "swap" and not swapoff):
                 continue
 
             device.format.teardown()
