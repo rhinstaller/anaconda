@@ -21,6 +21,7 @@
 from storage.deviceaction import *
 from storage.devices import LUKSDevice
 from storage.devicelibs.lvm import getPossiblePhysicalExtents
+from storage.devicelibs.mpath import MultipathConfigWriter, MultipathTopology
 from storage.formats import getFormat
 from storage.partitioning import clearPartitions
 from storage.partitioning import shouldClear
@@ -64,6 +65,10 @@ from anaconda_log import logger, logLevelMap, setHandlersLevel,\
     DEFAULT_TTY_LEVEL
 
 packagesSeen = False
+
+# deviceMatches is called early, before any multipaths can possibly be coalesced
+# so it needs to know about them in some additional way: have the topology ready.
+topology = None
 
 class AnacondaKSScript(Script):
     def run(self, chroot, serial, intf = None):
@@ -173,17 +178,35 @@ def getEscrowCertificate(anaconda, url):
 
     return anaconda.storage.escrowCertificates[url]
 
+def detect_multipaths():
+    global topology
+    mcw = MultipathConfigWriter()
+    cfg = mcw.write()
+    with open("/etc/multipath.conf", "w+") as mpath_cfg:
+        mpath_cfg.write(cfg)
+    devices = udev_get_block_devices()
+    topology = MultipathsTopology(devices)
+
 def deviceMatches(spec):
-    if not spec.startswith("/dev/"):
-        spec = os.path.normpath("/dev/" + spec)
+    full_spec = spec
+    if not full_spec.startswith("/dev/"):
+        full_spec = os.path.normpath("/dev/" + full_spec)
 
-    matches = udev_resolve_glob(spec)
-    dev = udev_resolve_devspec(spec)
-
+    # the regular case
+    matches = udev_resolve_glob(full_spec)
+    dev = udev_resolve_devspec(full_spec)
     # udev_resolve_devspec returns None if there's no match, but we don't
     # want that ending up in the list.
     if dev and dev not in matches:
         matches.append(dev)
+
+    # now see if any mpaths and mpath members match
+    for members in topology.multipaths_iter():
+        mpath_name = udev_device_get_multipath_name(members[0])
+        if mpath_name == spec:
+            # append the mpath
+            matches.append(mpath_name)
+            matches.extend(map(udev_device_get_name, members))
 
     return matches
 
@@ -1270,6 +1293,7 @@ def parseKickstart(anaconda, file):
     storage.zfcp.ZFCP().startup()
     # Note we do NOT call dasd.startup() here, that does not online drives, but
     # only checks if they need formatting, which requires zerombr to be known
+    detect_multipaths()
 
     try:
         ksparser.readKickstart(file)
