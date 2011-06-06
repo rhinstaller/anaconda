@@ -488,7 +488,7 @@ class FilterWindow(InstallWindow):
         np = NotebookPage(self.store, "basic", self.xml, Callbacks(self.xml))
 
         np.ds.addColumn(_("Model"), MODEL_COL)
-        np.ds.addColumn(_("Capacity"), CAPACITY_COL)
+        np.ds.addColumn(_("Capacity (MB)"), CAPACITY_COL)
         np.ds.addColumn(_("Vendor"), VENDOR_COL)
         np.ds.addColumn(_("Interconnect"), INTERCONNECT_COL)
         np.ds.addColumn(_("Serial Number"), SERIAL_COL)
@@ -499,7 +499,7 @@ class FilterWindow(InstallWindow):
         np = NotebookPage(self.store, "raid", self.xml, RAIDCallbacks(self.xml))
 
         np.ds.addColumn(_("Model"), MODEL_COL)
-        np.ds.addColumn(_("Capacity"), CAPACITY_COL)
+        np.ds.addColumn(_("Capacity (MB)"), CAPACITY_COL)
         np.ds.addColumn(_("Device"), DEVICE_COL, displayed=False)
         return np
 
@@ -507,7 +507,7 @@ class FilterWindow(InstallWindow):
         np = NotebookPage(self.store, "mpath", self.xml, MPathCallbacks(self.xml))
 
         np.ds.addColumn(_("Identifier"), ID_COL)
-        np.ds.addColumn(_("Capacity"), CAPACITY_COL)
+        np.ds.addColumn(_("Capacity (MB)"), CAPACITY_COL)
         np.ds.addColumn(_("Vendor"), VENDOR_COL)
         np.ds.addColumn(_("Interconnect"), INTERCONNECT_COL)
         np.ds.addColumn(_("Paths"), MEMBERS_COL)
@@ -518,7 +518,7 @@ class FilterWindow(InstallWindow):
         np = NotebookPage(self.store, "other", self.xml, OtherCallbacks(self.xml))
 
         np.ds.addColumn(_("Identifier"), ID_COL)
-        np.ds.addColumn(_("Capacity"), CAPACITY_COL)
+        np.ds.addColumn(_("Capacity (MB)"), CAPACITY_COL)
         np.ds.addColumn(_("Vendor"), VENDOR_COL)
         np.ds.addColumn(_("Interconnect"), INTERCONNECT_COL)
         np.ds.addColumn(_("Serial Number"), SERIAL_COL, displayed=False)
@@ -529,7 +529,7 @@ class FilterWindow(InstallWindow):
         np = NotebookPage(self.store, "search", self.xml, SearchCallbacks(self.xml))
 
         np.ds.addColumn(_("Model"), MODEL_COL)
-        np.ds.addColumn(_("Capacity"), CAPACITY_COL, displayed=False)
+        np.ds.addColumn(_("Capacity (MB)"), CAPACITY_COL, displayed=False)
         np.ds.addColumn(_("Vendor"), VENDOR_COL)
         np.ds.addColumn(_("Interconnect"), INTERCONNECT_COL, displayed=False)
         np.ds.addColumn(_("Serial Number"), SERIAL_COL, displayed=False)
@@ -578,7 +578,7 @@ class FilterWindow(InstallWindow):
                                    gobject.TYPE_BOOLEAN, gobject.TYPE_BOOLEAN,
                                    gobject.TYPE_BOOLEAN,
                                    gobject.TYPE_STRING, gobject.TYPE_STRING,
-                                   gobject.TYPE_STRING, gobject.TYPE_STRING,
+                                   gobject.TYPE_LONG, gobject.TYPE_STRING,
                                    gobject.TYPE_STRING, gobject.TYPE_STRING,
                                    gobject.TYPE_STRING, gobject.TYPE_STRING,
                                    gobject.TYPE_STRING, gobject.TYPE_STRING,
@@ -705,7 +705,7 @@ class FilterWindow(InstallWindow):
                 partedDevice = parted.Device(path="/dev/" + name)
             except (_ped.IOException, _ped.DeviceException):
                 continue
-            d["XXX_SIZE"] = int(partedDevice.getSize())
+            d["XXX_SIZE"] = long(partedDevice.getSize())
 
             # This isn't so great, but iSCSI and s390 devices have an ID_PATH
             # that contains a lot of useful identifying info, so that should be
@@ -716,7 +716,7 @@ class FilterWindow(InstallWindow):
                 ident = udev_device_get_wwid(d)
 
             tuple = (d, True, _active(d), _isProtected(d), name,
-                     partedDevice.model, str(d["XXX_SIZE"]) + " MB",
+                     partedDevice.model, long(d["XXX_SIZE"]),
                      udev_device_get_vendor(d), udev_device_get_bus(d),
                      udev_device_get_serial(d), ident, "", "", "", "")
             _addTuple(tuple)
@@ -754,7 +754,7 @@ class FilterWindow(InstallWindow):
 
                 model = "BIOS RAID set (%s)" % rs.rs.set_type
                 tuple = (data, True, _active(data), _isProtected(data), rs.name,
-                         model, str(size) + " MB", "", "", "", "",
+                         model, long(size), "", "", "", "",
                          "\n".join(members), "", "", "")
                 _addTuple(tuple)
 
@@ -773,7 +773,7 @@ class FilterWindow(InstallWindow):
                 partedDevice = parted.Device(path="/dev/" + name)
             except (_ped.IOException, _ped.DeviceException):
                 continue
-            mpath[0]["XXX_SIZE"] = int(partedDevice.getSize())
+            mpath[0]["XXX_SIZE"] = long(partedDevice.getSize())
             model = partedDevice.model
 
             # However, we do need all the paths making up this multipath set.
@@ -785,7 +785,7 @@ class FilterWindow(InstallWindow):
             data["name"] = udev_device_get_multipath_name(mpath[0])
             tuple = (data, True, _active(data), _isProtected(data),
                      udev_device_get_multipath_name(mpath[0]), model,
-                     str(mpath[0]["XXX_SIZE"]) + " MB",
+                     long(mpath[0]["XXX_SIZE"]),
                      udev_device_get_vendor(mpath[0]),
                      udev_device_get_bus(mpath[0]),
                      udev_device_get_serial(mpath[0]),
