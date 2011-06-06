@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.238
+Version: 11.1.2.239
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -128,6 +128,10 @@ fi
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Mon Jun 6 2011 Ales Kozumplik <akozumpl@redhat.com> 11.1.2.239-1
+- Create /dev nodes after DUDs are processed (msivak)
+  Resolves: rhbz#707563
+
 * Thu Jun 2 2011 Ales Kozumplik <akozumpl@redhat.com> 11.1.2.238-1
 - edit partition UI: do not create the "Encrypt" check button twice. (akozumpl)
   Resolves: rhbz#709361
