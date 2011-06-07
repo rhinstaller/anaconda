@@ -1798,6 +1798,7 @@ class DeviceTree(object):
         # resolve the protected device specs to device names
         for spec in self.protectedDevSpecs:
             name = udev_resolve_devspec(spec)
+            log.debug("protected device spec %s resolved to %s" % (spec, name))
             if name:
                 self.protectedDevNames.append(name)
 
