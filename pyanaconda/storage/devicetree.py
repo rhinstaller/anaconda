@@ -777,13 +777,18 @@ class DeviceTree(object):
                 devicelibs.lvm.lvm_cc_addFilterRejectRegexp(name)
                 return
 
+        # Sun disklabels have a partition that spans the entire disk as
+        # partition 3. It does not appear in the partition list. Fantastic.
+        is_sun_magic = (getattr(disk.format, "labelType", None) == "sun" and
+                        udev_device_get_minor(info) == 3)
+
         # Check that the disk has partitions. If it does not, we must have
         # reinitialized the disklabel.
         #
         # Also ignore partitions on devices we do not support partitioning
         # of, like logical volumes.
-        if not getattr(disk.format, "partitions", None) or \
-           not disk.partitionable:
+        if ((not getattr(disk.format, "partitions", None) and not is_sun_magic)
+            or not disk.partitionable):
             # When we got here because the disk does not have a disklabel
             # format (ie a biosraid member), or because it is not
             # partitionable we want LVM to ignore this partition too

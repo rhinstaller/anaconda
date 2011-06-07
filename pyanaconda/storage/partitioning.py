@@ -351,8 +351,12 @@ def shouldClear(device, clearPartType, clearPartDisks=None):
     if isinstance(device, PartitionDevice):
         # Never clear the special first partition on a Mac disk label, as that
         # holds the partition table itself.
+        # Something similar for the third partition on a Sun disklabel.
         if device.disk.format.partedDisk.type == "mac" and \
            device.partedPartition.number == 1:
+            return False
+        elif device.disk.format.labelType == "sun" and \
+             device.partedPartition.number == 3:
             return False
 
         # If we got a list of disks to clear, make sure this one's on it
@@ -494,12 +498,14 @@ def clearPartitions(storage, bootloader=None):
         if disk.format.labelType == nativeLabelType:
             continue
 
-        if disk.format.labelType == "mac":
-            # remove the magic apple partition
+        magic_partitions = {"mac": 1, "sun": 3}
+        if disk.format.labelType in magic_partitions:
+            number = magic_partitions[disk.format.labelType]
+            # remove the magic partition
             for part in storage.partitions:
-                if part.disk == disk and part.partedPartition.number == 1:
+                if part.disk == disk and part.partedPartition.number == number:
                     log.debug("clearing %s" % part.name)
-                    # We can't schedule the apple map partition for removal
+                    # We can't schedule the magic partition for removal
                     # because parted will not allow us to remove it from the
                     # disk. Still, we need it out of the devicetree.
                     storage.devicetree._removeDevice(part, moddisk=False)
@@ -811,6 +817,9 @@ def addPartition(disklabel, free, part_type, size):
     start = free.start
     if not disklabel.alignment.isAligned(free, start):
         start = disklabel.alignment.alignNearest(free, start)
+
+    if disklabel.labelType == "sun" and start == 0:
+        start = disklabel.alignment.alignUp(free, start)
 
     if part_type == parted.PARTITION_LOGICAL:
         # make room for logical partition's metadata
