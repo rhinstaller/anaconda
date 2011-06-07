@@ -45,11 +45,13 @@ import upgrade
 import pykickstart.commands as commands
 from storage.devices import *
 from scdate.core import zonetab
+
 from pykickstart.base import KickstartCommand, BaseData
 from pykickstart.constants import *
-from pykickstart.errors import *
-from pykickstart.parser import *
-from pykickstart.version import *
+from pykickstart.errors import formatErrorMsg, KickstartError, KickstartValueError, KickstartParseError
+from pykickstart.parser import Group, KickstartParser, Packages, Script
+from pykickstart.sections import PreScriptSection, NullSection
+from pykickstart.version import returnClassForVersion
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
@@ -60,6 +62,8 @@ stderrLog = logging.getLogger("anaconda.stderr")
 stdoutLog = logging.getLogger("anaconda.stdout")
 from anaconda_log import logger, logLevelMap, setHandlersLevel,\
     DEFAULT_TTY_LEVEL
+
+packagesSeen = False
 
 class AnacondaKSScript(Script):
     def run(self, chroot, serial, intf = None):
@@ -130,14 +134,6 @@ class AnacondaKSScript(Script):
 
         if serial or self.logfile is not None:
             os.chmod("%s" % messages, 0600)
-
-class AnacondaKSPackages(Packages):
-    def __init__(self):
-        Packages.__init__(self)
-
-        # Has the %packages section been seen at all?
-        self.seen = False
-
 
 def getEscrowCertificate(anaconda, url):
     if not url:
@@ -1146,7 +1142,6 @@ superclass = returnClassForVersion()
 class AnacondaKSHandler(superclass):
     def __init__ (self, anaconda):
         superclass.__init__(self, commandUpdates=commandMap, dataUpdates=dataMap)
-        self.packages = AnacondaKSPackages()
 
         self.anaconda = anaconda
         self.onPart = {}
@@ -1204,53 +1199,19 @@ class AnacondaPreParser(KickstartParser):
                   missingIncludeIsFatal=True):
         KickstartParser.__init__(self, handler, missingIncludeIsFatal=False)
 
-    def addScript (self):
-        if self._script["type"] != KS_SCRIPT_PRE:
-            return
-
-        s = AnacondaKSScript (self._script["body"], type=self._script["type"],
-                              interp=self._script["interp"],
-                              lineno=self._script["lineno"],
-                              inChroot=self._script["chroot"],
-                              logfile=self._script["log"],
-                              errorOnFail=self._script["errorOnFail"])
-        self.handler.scripts.append(s)
-
-    def addPackages (self, line):
-        pass
-
     def handleCommand (self, lineno, args):
         pass
 
-    def handlePackageHdr (self, lineno, args):
-        pass
-
-    def handleScriptHdr (self, lineno, args):
-        if not args[0] == "%pre":
-            return
-
-        KickstartParser.handleScriptHdr(self, lineno, args)
+    def setupSections(self):
+        self.registerSection(PreScriptSection(self.handler, dataObj=AnacondaKSScript))
+        self.registerSection(NullSection(self.handler, sectionOpen="%post"))
+        self.registerSection(NullSection(self.handler, sectionOpen="%traceback"))
+        self.registerSection(NullSection(self.handler, sectionOpen="%packages"))
 
 class AnacondaKSParser(KickstartParser):
     def __init__ (self, handler, followIncludes=True, errorsAreFatal=True,
                   missingIncludeIsFatal=True):
         KickstartParser.__init__(self, handler)
-
-    def addScript (self):
-        if string.join(self._script["body"]).strip() == "":
-            return
-
-        s = AnacondaKSScript (self._script["body"], type=self._script["type"],
-                              interp=self._script["interp"],
-                              lineno=self._script["lineno"],
-                              inChroot=self._script["chroot"],
-                              logfile=self._script["log"],
-                              errorOnFail=self._script["errorOnFail"])
-        self.handler.scripts.append(s)
-
-    def handlePackageHdr (self, lineno, args):
-        KickstartParser.handlePackageHdr (self, lineno, args)
-        self.handler.packages.seen = True
 
     def handleCommand (self, lineno, args):
         if not self.handler:
@@ -1331,6 +1292,8 @@ def parseKickstart(anaconda, file):
                               "configuration file:\n\n%s") % e)
             sys.exit(1)
 
+    global packagesSeen
+    packagesSeen = ksparser.getSection("%packages").timesSeen > 0
     return handler
 
 def runPostScripts(anaconda):
@@ -1386,9 +1349,9 @@ def selectPackages(anaconda):
     # If no %packages header was seen, use the installclass's default group
     # selections.  This can also be explicitly specified with %packages
     # --default.  Otherwise, select whatever was given (even if it's nothing).
-    if not ksdata.packages.seen or ksdata.packages.default:
+    if not packagesSeen or ksdata.packages.default:
         anaconda.instClass.setGroupSelection(anaconda)
-        if not ksdata.packages.seen:
+        if not packagesSeen:
             return
 
     for pkg in ksdata.packages.packageList:
@@ -1494,12 +1457,12 @@ def setSteps(anaconda):
         dispatch.skip_steps("tasksel", "group-selection")
 
         # Special check for this, since it doesn't make any sense.
-        if ksdata.packages.seen:
+        if packagesSeen:
             warnings.warn("Ignoring contents of %packages section due to upgrade.")
     elif havePackages(ksdata.packages):
         dispatch.skip_steps("tasksel", "group-selection")
     else:
-        if ksdata.packages.seen:
+        if packagesSeen:
             dispatch.skip_steps("tasksel", "group-selection")
         else:
             dispatch.request_steps("tasksel", "group-selection")
