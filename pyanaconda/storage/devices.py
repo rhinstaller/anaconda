@@ -582,7 +582,8 @@ class StorageDevice(Device):
         s = Device.__repr__(self)
         s += ("  uuid = %(uuid)s  size = %(size)s\n"
               "  format = %(format)s\n"
-              "  major = %(major)s  minor = %(minor)s  exists = %(exists)s\n"
+              "  major = %(major)s  minor = %(minor)s  exists = %(exists)s"
+              "  protected = %(protected)s\n"
               "  sysfs path = %(sysfs)s  partedDevice = %(partedDevice)s\n"
               "  target size = %(targetSize)s  path = %(path)s\n"
               "  format args = %(formatArgs)s  originalFormat = %(origFmt)s" %
@@ -590,6 +591,7 @@ class StorageDevice(Device):
                "major": self.major, "minor": self.minor, "exists": self.exists,
                "sysfs": self.sysfsPath, "partedDevice": self.partedDevice,
                "targetSize": self.targetSize, "path": self.path,
+               "protected": self.protected,
                "formatArgs": self.formatArgs, "origFmt": self.originalFormat.type})
         return s
 
