@@ -34,6 +34,7 @@ import os
 import time
 import dbus
 import tempfile
+import simpleconfig
 from flags import flags
 from simpleconfig import IfcfgFile
 import urlgrabber.grabber
@@ -341,6 +342,51 @@ class NetworkDevice(IfcfgFile):
                     return True
         return False
 
+class WirelessNetworkDevice(NetworkDevice):
+
+    """
+    This class overwrites NetworkDevice's, IfcfgFile's and SimpleConfigFile's
+    methods to prevent working with per-device ifcfgfiles (which doesn't make
+    sense with wifi devices)
+    """
+
+    def __init__(self, iface):
+        self.info = dict()
+        self.iface = iface
+        self.dir = ""
+        self.description = ""
+
+    def clear(self):
+        self.info = dict()
+
+    #method __str__ can be left untouched
+
+    def loadIfcfgFile(self):
+        pass
+
+    def writeIfcfgFile(self):
+        pass
+
+    def set(self, *args):
+        msg = "".join(["%s=%s" % (key, val) for (key, val) in args])
+        for (key, val) in args:
+            self.info[simpleconfig.uppercase_ASCII_string(key)] = val
+
+    #not used, remove?
+    def fileContent(self):
+        return ""
+
+    #@property path can be left untouched (code using it skips nonexisting
+    #ifcfg files
+
+    def read(self):
+        #same return value as IfcfgFile.read()
+        return len(self.info)
+
+    def write(self):
+        pass
+
+
 class Network:
 
     def __init__(self):
@@ -348,8 +394,6 @@ class Network:
         self.hostname = socket.gethostname()
 
         self.update()
-        # We want wireless devices to be nm controlled by default
-        self.controlWireless()
 
         # Set all devices to be controlled by NM by default.
         # We can filter out storage devices only after
@@ -369,13 +413,16 @@ class Network:
         # populate self.netdevices
         devhash = isys.getDeviceProperties(dev=None)
         for iface in devhash.keys():
-            device = NetworkDevice(netscriptsDir, iface)
-            if os.access(device.path, os.R_OK):
-                device.loadIfcfgFile()
+            if isys.isWirelessDevice(iface):
+                device = WirelessNetworkDevice(iface)
             else:
-                log.info("Network.update(): %s file not found" %
-                         device.path)
-                continue
+                device = NetworkDevice(netscriptsDir, iface)
+                if os.access(device.path, os.R_OK):
+                    device.loadIfcfgFile()
+                else:
+                    log.info("Network.update(): %s file not found" %
+                             device.path)
+                    continue
 
             # TODORV - the last iface in loop wins, might be ok,
             #          not worthy of special juggling
@@ -531,25 +578,22 @@ class Network:
                 ifaces.append(iface)
         return ifaces
 
-    def updateIfcfgsSSID(self, devssids):
-        for devname, device in self.netdevices.items():
-            if devname in devssids.keys() and devssids[devname]:
-                device.set(('ESSID', devssids[devname][0]))
-                device.writeIfcfgFile()
+    def writeSSIDifcfgs(self, devssids):
+        ssids = []
+        for ssidlist in devssids.values():
+            ssids.extend(ssidlist)
+        for ssid in ssids:
+            path = "{0}/ifcfg-{1}".format(netscriptsDir, ssid)
+            ifcfgfile = open(path, "w")
+            ifcfgfile.write("NAME={0}\n".format(ssid)+
+                            "TYPE=Wireless\n"+
+                            "ESSID={0}\n".format(ssid)+
+                            "NM_CONTROLLED=yes\n")
+            ifcfgfile.close()
+
 
     def getSSIDs(self):
         return getSSIDs()
-
-    def selectPreferredSSIDs(self, dev_ssids):
-        for iface, device in self.netdevices.items():
-            preferred = device.get('ESSID')
-            if preferred and preferred in dev_ssids[iface]:
-                dev_ssids[iface] = [preferred]
-
-    def controlWireless(self):
-        for devname, device in self.netdevices.items():
-            if isys.isWirelessDevice(devname):
-                device.set(('NM_CONTROLLED', 'yes'))
 
     def writeKS(self, f):
         devNames = self.netdevices.keys()
@@ -660,6 +704,13 @@ class Network:
         shutil.copy(file, destfile)
         return True
 
+    def _copyIfcfgFiles(self, instPath=''):
+        files = os.listdir(netscriptsDir)
+        for cfgFile in files:
+            if cfgFile.startswith(("ifcfg-","keys-")):
+                srcfile = os.path.join(netscriptsDir, cfgFile)
+                self._copyFileToPath(srcfile, instPath)
+
     def copyConfigToPath(self, instPath=''):
         if flags.imageInstall and instPath:
             # for image installs we only want to write out
@@ -670,13 +721,14 @@ class Network:
             shutil.move("/tmp/sysconfig-network", destfile)
             return
 
-        # /etc/sysconfig/network-scripts/ifcfg-DEVICE
-        # /etc/sysconfig/network-scripts/keys-DEVICE
+        # /etc/sysconfig/network-scripts/ifcfg-*
+        # /etc/sysconfig/network-scripts/keys-*
+        # we can copy all of them
+        self._copyIfcfgFiles(instPath)
+
         # /etc/dhcp/dhclient-DEVICE.conf
         # TODORV: do we really don't want overwrite on live cd?
         for devName, device in self.netdevices.items():
-            self._copyFileToPath(device.path, instPath)
-            self._copyFileToPath(device.keyfilePath, instPath)
             dhclientfile = os.path.join("/etc/dhcp/dhclient-%s.conf" % devName)
             self._copyFileToPath(dhclientfile, instPath)
 
@@ -749,9 +801,6 @@ class Network:
         for dev in devices:
 
             dev.writeIfcfgFile()
-
-            if dev.wepkey:
-                dev.writeWepkeyFile(dir=netscriptsDir, overwrite=False)
 
         # /etc/resolv.conf is managed by NM
 

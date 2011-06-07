@@ -443,34 +443,7 @@ class NetworkTest(mock.TestCase):
             ('set', (('ESSID', 'net_essid'),), {}))
         self.assertEqual(nw.netdevices['dev'].method_calls[1],
             ('writeIfcfgFile', (), {}))
-
-    def network_select_preferred_ssids_1_test(self):
-        import pyanaconda.network
-        nw = pyanaconda.network.Network()
-        nw.netdevices['dev'] = mock.Mock()
-        nw.netdevices['dev'].get.return_value = 'some_essid'
-        dev_ssid = {'dev': ['some_essid']}
-        nw.selectPreferredSSIDs(dev_ssid)
-        self.assertEqual(dev_ssid, {'dev': ['some_essid']})
-
-    def network_select_preferred_ssids_2_test(self):
-        import pyanaconda.network
-        nw = pyanaconda.network.Network()
-        nw.netdevices['dev'] = mock.Mock()
-        nw.netdevices['dev'].get.return_value = 'some_essid'
-        dev_ssid = {'dev': ['some_essid', 'other']}
-        nw.selectPreferredSSIDs(dev_ssid)
-        self.assertEqual(dev_ssid, {'dev': ['some_essid']})
-
-    def network_select_preferred_ssids_3_test(self):
-        import pyanaconda.network
-        nw = pyanaconda.network.Network()
-        nw.netdevices['dev'] = mock.Mock()
-        nw.netdevices['dev'].get.return_value = 'some_essid'
-        dev_ssid = {'dev': ['other', 'foo']}
-        nw.selectPreferredSSIDs(dev_ssid)
-        self.assertEqual(dev_ssid, {'dev': ['other', 'foo']})
-
+            
     def network_control_wireless_test(self):
         import pyanaconda.network
         pyanaconda.network.isys = mock.Mock()

@@ -933,11 +933,9 @@ class InstallInterface(InstallInterfaceBase):
                 # get available wireless APs
                 dev_all_ssids = self.anaconda.network.getSSIDs()
                 w.pop()
-                # prefer APs we already have set e.g. via kickstart or stage 1
-                self.anaconda.network.selectPreferredSSIDs(dev_all_ssids)
                 # select wireless APs
                 dev_ssids = selectSSIDsDialog(dev_all_ssids) or dev_all_ssids
-                self.anaconda.network.updateIfcfgsSSID(dev_ssids)
+                self.anaconda.network.writeSSIDifcfgs(dev_ssids)
 
             self.anaconda.network.writeIfcfgFiles()
             # Logging can race here with ifcfg-rh updating the file
