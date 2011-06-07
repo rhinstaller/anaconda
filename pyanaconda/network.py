@@ -538,7 +538,7 @@ class Network:
                 device.writeIfcfgFile()
 
     def getSSIDs(self):
-        return getSSIDs(self.netdevices.keys())
+        return getSSIDs()
 
     def selectPreferredSSIDs(self, dev_ssids):
         for iface, device in self.netdevices.items():
