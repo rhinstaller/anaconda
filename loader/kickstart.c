@@ -653,15 +653,18 @@ int process_kickstart_wifi (struct loaderData_s * loaderData) {
     if (loaderData->essid != NULL) {
         if (loaderData->wepkey != NULL) {
             rc = add_and_activate_wifi_connection(&(loaderData->netDev), loaderData->essid,
-                    WIFI_PROTECTION_WEP, loaderData->wepkey, loaderData->ipinfo_set, loaderData->ipv4);
+                    WIFI_PROTECTION_WEP, loaderData->wepkey, loaderData->ipinfo_set, loaderData->ipv4,
+                    loaderData->gateway);
         }
         else if (loaderData->wpakey != NULL) {
             rc = add_and_activate_wifi_connection(&(loaderData->netDev), loaderData->essid,
-                    WIFI_PROTECTION_WPA, loaderData->wpakey, loaderData->ipinfo_set, loaderData->ipv4);
+                    WIFI_PROTECTION_WPA, loaderData->wpakey, loaderData->ipinfo_set, loaderData->ipv4,
+                    loaderData->gateway);
         }
         else {
             rc = add_and_activate_wifi_connection(&(loaderData->netDev), loaderData->essid,
-                    WIFI_PROTECTION_UNPROTECTED, NULL, loaderData->ipinfo_set, loaderData->ipv4);
+                    WIFI_PROTECTION_UNPROTECTED, NULL, loaderData->ipinfo_set, loaderData->ipv4,
+                    loaderData->gateway);
         }
     }
 

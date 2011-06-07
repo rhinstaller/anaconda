@@ -1821,17 +1821,17 @@ int kickstartNetworkUp(struct loaderData_s * loaderData, iface_t * iface) {
         if (loaderData->wepkey != NULL)
             rc = add_and_activate_wifi_connection(&(loaderData->netDev),
                     loaderData->essid, WIFI_PROTECTION_WEP, loaderData->wepkey,
-                    loaderData->ipinfo_set, loaderData->ipv4);
+                    loaderData->ipinfo_set, loaderData->ipv4, loaderData->gateway);
 
         else if (loaderData->wpakey != NULL)
             rc = add_and_activate_wifi_connection(&(loaderData->netDev),
                     loaderData->essid, WIFI_PROTECTION_WPA, loaderData->wpakey,
-                    loaderData->ipinfo_set, loaderData->ipv4);
+                    loaderData->ipinfo_set, loaderData->ipv4, loaderData->gateway);
 
         else
             rc = add_and_activate_wifi_connection(&(loaderData->netDev),
                     loaderData->essid, WIFI_PROTECTION_UNPROTECTED, NULL,
-                    loaderData->ipinfo_set, loaderData->ipv4);
+                    loaderData->ipinfo_set, loaderData->ipv4, loaderData->gateway);
 
         if (rc == WIFI_ACTIVATION_OK) {
             loaderData->netDev_set = 1;
@@ -2285,7 +2285,8 @@ guint32 ip_str_to_nbo(char* ip) {
 
 
 int add_and_activate_wifi_connection(char **iface, char *ssid,
-    int protection, char *password, int ip_method_manual, char *address) {
+    int protection, char *password, int ip_method_manual, char *address,
+    char *gateway) {
 
     NMClient *client = NULL;
     NMDeviceWifi *device = NULL;
@@ -2406,12 +2407,14 @@ int add_and_activate_wifi_connection(char **iface, char *ssid,
         GPtrArray *addresses = g_ptr_array_new();
         GArray *address_array = g_array_new(FALSE, FALSE, sizeof(guint32));
         guint32 nbo_ip = ip_str_to_nbo(address);
-        guint32 mask = 24;
-        guint32 gw = 0;
+        guint32 nbo_gw = 0;
+        guint32 nbo_mask = 24;
+
+        if (gateway) nbo_gw = ip_str_to_nbo(gateway);
 
         g_array_append_val(address_array, nbo_ip);
-        g_array_append_val(address_array, mask);
-        g_array_append_val(address_array, gw);
+        g_array_append_val(address_array, nbo_mask);
+        g_array_append_val(address_array, nbo_gw);
 
         g_ptr_array_add(addresses, address_array);
 
