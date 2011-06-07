@@ -1144,9 +1144,9 @@ int writeDisabledNetInfo(void) {
             return rc;
         }
         /* write disabled ifcfg-DEVICE file */
-        if ((rc = writeDisabledIfcfgFile(devs[i]->device)) != 0) {
-            return rc;
-        }
+        if (!is_wireless_device(devs[i]->device))
+            if ((rc = writeDisabledIfcfgFile(devs[i]->device)) != 0)
+                return rc;
     }
     return 0;
 }
