@@ -796,6 +796,8 @@ def addPartition(disklabel, free, part_type, size):
     if not disklabel.endAlignment.isAligned(free, end):
         end = disklabel.endAlignment.alignNearest(free, end)
         log.debug("adjusted length from %d to %d" % (length, end - start + 1))
+        if start > end:
+            raise PartitioningError("unable to allocate aligned partition")
 
     new_geom = parted.Geometry(device=disklabel.partedDevice,
                                start=start,
