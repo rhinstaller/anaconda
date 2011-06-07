@@ -1452,14 +1452,6 @@ int writeEnabledNetInfo(iface_t *iface) {
         logMessage(INFO, "not setting default route via %s", iface->device);
     }
 
-    if (iface->ssid) {
-        fprintf(fp, "ESSID=%s\n", iface->ssid);
-    }
-
-    if (iface->wepkey) {
-        fprintf(fp, "DEFAULTKEY=1");
-    }
-
     if (fclose(fp) == EOF) {
         free(ofile);
         free(nfile);
@@ -1479,48 +1471,6 @@ int writeEnabledNetInfo(iface_t *iface) {
     if (nfile) {
         free(nfile);
     }
-
-    /* wireless wepkey: keys-DEVICE file */
-    if (iface->wepkey) {
-        if (asprintf(&ofile, "%s/.keys-%s",
-                     NETWORK_SCRIPTS_PATH, iface->device) == -1) {
-            return 21;
-        }
-
-        if (asprintf(&nfile, "%s/keys-%s",
-                     NETWORK_SCRIPTS_PATH, iface->device) == -1) {
-            return 22;
-        }
-
-        if ((fp = fopen(ofile, "w")) == NULL) {
-            free(ofile);
-            return 23;
-        }
-
-        fprintf(fp, "KEY1=%s\n", iface->wepkey);
-
-
-        if (fclose(fp) == EOF) {
-            free(ofile);
-            free(nfile);
-            return 24;
-        }
-
-        if (rename(ofile, nfile) == -1) {
-            free(ofile);
-            free(nfile);
-            return 25;
-        }
-
-        if (ofile) {
-            free(ofile);
-        }
-
-        if (nfile) {
-            free(nfile);
-        }
-    }
-
 
     return 0;
 }
