@@ -1610,7 +1610,6 @@ def growPartitions(disks, partitions, free):
                chunk.geometry.contains(extended_geometry):
                 log.debug("setting up new geometry for extended on %s" % disk.name)
                 ext_start = 0
-                ext_end = 0
                 for (partition, device) in new_partitions:
                     if partition.type != parted.PARTITION_LOGICAL:
                         continue
@@ -1621,12 +1620,9 @@ def growPartitions(disks, partitions, free):
                         # (partition.geometry.start is already aligned)
                         ext_start = partition.geometry.start - disklabel.alignment.grainSize
 
-                    if not ext_end or partition.geometry.end > ext_end:
-                        ext_end = partition.geometry.end
-
                 new_geometry = parted.Geometry(device=disklabel.partedDevice,
                                                start=ext_start,
-                                               end=ext_end)
+                                               end=chunk.geometry.end)
                 log.debug("new geometry for extended: %s" % new_geometry)
                 new_extended = parted.Partition(disk=disklabel.partedDisk,
                                                 type=parted.PARTITION_EXTENDED,
