@@ -91,8 +91,8 @@ def luks_format(device,
         cipherType = "".join(cparts[0:1])
         cipherMode = "-".join(cparts[1:])
     
-    if cipherType: kwargs["cipher"]  = cipherTy
-    if cipherMode: kwargs["cipherMode"]  = cipherMo
+    if cipherType: kwargs["cipher"]  = cipherType
+    if cipherMode: kwargs["cipherMode"]  = cipherMode
     if   key_size: kwargs["keysize"]  = key_size
 
     rc = cs.luksFormat(**kwargs)
