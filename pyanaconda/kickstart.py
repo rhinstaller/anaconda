@@ -60,6 +60,7 @@ _ = lambda x: gettext.ldgettext("anaconda", x)
 import logging
 log = logging.getLogger("anaconda")
 stderrLog = logging.getLogger("anaconda.stderr")
+storage_log = logging.getLogger("storage")
 stdoutLog = logging.getLogger("anaconda.stdout")
 from anaconda_log import logger, logLevelMap, setHandlersLevel,\
     DEFAULT_TTY_LEVEL
@@ -203,10 +204,11 @@ def deviceMatches(spec):
     # now see if any mpaths and mpath members match
     for members in topology.multipaths_iter():
         mpath_name = udev_device_get_multipath_name(members[0])
-        if mpath_name == spec:
-            # append the mpath
+        member_names = map(udev_device_get_name, members)
+        if mpath_name == spec or (dev in member_names):
+            # append the entire mpath
             matches.append(mpath_name)
-            matches.extend(map(udev_device_get_name, members))
+            matches.extend(member_names)
 
     return matches
 
@@ -561,7 +563,6 @@ class Logging(commands.logging.FC6_Logging):
             # not set from the command line
             level = logLevelMap[self.level]
             logger.tty_loglevel = level
-            storage_log = logging.getLogger("storage")
             setHandlersLevel(log, level)
             setHandlersLevel(storage_log, level)
 
@@ -802,6 +803,12 @@ class PartitionData(commands.partition.F12_PartData):
             names = [self.disk, "mapper/" + self.disk]
             for n in names:
                 disk = devicetree.getDeviceByName(udev_resolve_devspec(n))
+                # if this is a multipath member promote it to the real mpath
+                if disk and disk.format.type == "multipath_member":
+                    mpath_device = storage.devicetree.getChildren(disk)[0]
+                    storage_log.info("kickstart: part: promoting %s to %s"
+                                     % (disk.name, mpath_device.name))
+                    disk = mpath_device
                 if not disk:
                     raise KickstartValueError, formatErrorMsg(self.lineno, msg="Specified nonexistent disk %s in partition command" % n)
 
