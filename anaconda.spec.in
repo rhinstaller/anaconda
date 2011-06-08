@@ -234,6 +234,25 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Wed Jun 08 2011 Chris Lumens <clumens@redhat.com> - 16.10-1
+- Update to the latest pykickstart version. (clumens)
+- Fix a typo to make encrypted installs get farther. (clumens)
+- Fix the filter UI to sort capacity as numbers, not characters (#614504).
+  (clumens)
+- Fix up swap unmount logic (#708966) (bcl)
+- Use read-only locking for lvm commands in udev rules. (dlehman)
+- Check if LVs still fit when removing a PV from a VG. (#682276) (dlehman)
+- Don't get tripped by partial fstab option matches. (#699167) (dlehman)
+- RAID gui: fix how the "Number of spares" spin button is manipulated.
+  (akozumpl)
+- imount.c: first wait() for mount then close its stdin/stdout. (akozumpl)
+- Fix a couple of action obsoletes bugs. (dlehman)
+- Schedule an action when destroying the old format on an encrypted lv.
+  (dlehman)
+- Revert "Make sure new devices' formats have their device attr set." (dlehman)
+- Set formats' device attr when associating the format with a device. (dlehman)
+- cosmetic, iscsi: make the 'no credentials' string more general. (akozumpl)
+
 * Mon May 23 2011 Chris Lumens <clumens@redhat.com> - 16.9-1
 - Add kickstart support for biosboot. (dlehman)
 - Make sure new devices' formats have their device attr set. (dlehman)
