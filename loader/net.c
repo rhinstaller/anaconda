@@ -819,12 +819,6 @@ int manualNetConfig(char * device, iface_t * iface,
                 logMessage(ERROR, "%s (%d): %s", __func__, __LINE__,
                            strerror(errno));
             }
-        } else if (iface_have_in_addr(&iface->ipaddr)) {
-            if (inet_ntop(AF_INET, &iface->ipaddr, ret,
-                          INET_ADDRSTRLEN) == NULL) {
-                logMessage(ERROR, "%s (%d): %s", __func__, __LINE__,
-                           strerror(errno));
-            }
         }
 
         if (*ret) {
@@ -832,12 +826,6 @@ int manualNetConfig(char * device, iface_t * iface,
         }
 
         if (iface_have_in_addr(&iface->netmask)) {
-            if (inet_ntop(AF_INET, &iface->netmask, ret,
-                          INET_ADDRSTRLEN) == NULL) {
-                logMessage(ERROR, "%s (%d): %s", __func__, __LINE__,
-                           strerror(errno));
-            }
-        } else if (iface_have_in_addr(&iface->netmask)) {
             if (inet_ntop(AF_INET, &iface->netmask, ret,
                           INET_ADDRSTRLEN) == NULL) {
                 logMessage(ERROR, "%s (%d): %s", __func__, __LINE__,
@@ -881,12 +869,6 @@ int manualNetConfig(char * device, iface_t * iface,
 
         /* populate fields if we have data already */
         if (iface_have_in6_addr(&iface->ip6addr)) {
-            if (inet_ntop(AF_INET6, &iface->ip6addr, ret,
-                          INET6_ADDRSTRLEN) == NULL) {
-                logMessage(ERROR, "%s (%d): %s", __func__, __LINE__,
-                           strerror(errno));
-            }
-        } else if (iface_have_in6_addr(&iface->ip6addr)) {
             if (inet_ntop(AF_INET6, &iface->ip6addr, ret,
                           INET6_ADDRSTRLEN) == NULL) {
                 logMessage(ERROR, "%s (%d): %s", __func__, __LINE__,
