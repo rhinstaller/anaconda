@@ -85,6 +85,21 @@ const char * headerGetString(Header h, rpmTag tag)
 }
 
 /*
+ * 
+ */
+
+int matchVersions(const char *version, uint32_t sense, const char *senseversion)
+{
+    int r = rpmvercmp(version, senseversion);
+    
+    if(r<0 && !(sense & RPMSENSE_LESS)) return 1;
+    else if(r==0 && !(sense & RPMSENSE_EQUAL)) return 1;
+    else if(r>0 && !(sense & RPMSENSE_GREATER)) return 1;
+
+    return 0;
+}
+
+/*
  * explode source RPM into the current directory
  * use filters to skip packages and files we do not need
  */
@@ -154,23 +169,34 @@ int explodeRPM(const char *source,
     while (deps) {
         struct rpmtd_s tddep;
         struct rpmtd_s tdver;
+        struct rpmtd_s tdsense;
+
         const char *depname;
         const char *depversion;
+        uint32_t depsense;
 
-        if (!headerGet(h, RPMTAG_PROVIDES, &tddep, HEADERGET_MINMEM))
+        if (!headerGet(h, RPMTAG_REQUIRES, &tddep, HEADERGET_MINMEM))
             break;
 
-        if (!headerGet(h, RPMTAG_PROVIDEVERSION, &tdver, HEADERGET_MINMEM)){
+        if (!headerGet(h, RPMTAG_REQUIREVERSION, &tdver, HEADERGET_MINMEM)){
             rpmtdFreeData(&tddep);
+            break;
+        }
+
+        if (!headerGet(h, RPMTAG_REQUIREFLAGS, &tdsense, HEADERGET_MINMEM)){
+            rpmtdFreeData(&tddep);
+            rpmtdFreeData(&tdver);
             break;
         }
 
         /* iterator */
         while ((depname = rpmtdNextString(&tddep))) {
             depversion = rpmtdNextString(&tdver);
-            if (deps(depname, depversion, userptr)) {
+            depsense = *(rpmtdNextUint32(&tdsense));
+            if (deps(depname, depversion, depsense, userptr)) {
                 rpmtdFreeData(&tddep);
                 rpmtdFreeData(&tdver);
+                rpmtdFreeData(&tdsense);
                 Fclose(fdi);
                 return EXIT_BADDEPS;
             }
@@ -178,6 +204,7 @@ int explodeRPM(const char *source,
 
         rpmtdFreeData(&tddep);
         rpmtdFreeData(&tdver);
+        rpmtdFreeData(&tdsense);
 
         break;
     }
@@ -186,8 +213,12 @@ int explodeRPM(const char *source,
     while (provides) {
         struct rpmtd_s tddep;
         struct rpmtd_s tdver;
+        struct rpmtd_s tdsense;
+
         const char *depname;
         const char *depversion;
+        uint32_t depsense;
+        
         int found = 0;
 
         if (!headerGet(h, RPMTAG_PROVIDES, &tddep, HEADERGET_MINMEM))
@@ -198,16 +229,24 @@ int explodeRPM(const char *source,
             break;
         }
 
+        if (!headerGet(h, RPMTAG_PROVIDEFLAGS, &tdsense, HEADERGET_MINMEM)){
+            rpmtdFreeData(&tddep);
+            rpmtdFreeData(&tdver);
+            break;
+        }
+
         /* iterator */
         while ((depname = rpmtdNextString(&tddep))) {
             depversion = rpmtdNextString(&tdver);
-            if (!provides(depname, depversion, userptr)) {
+            depsense = *(rpmtdNextUint32(&tdsense));
+            if (!provides(depname, depversion, depsense, userptr)) {
                 found++;
             }
         }
 
         rpmtdFreeData(&tddep);
         rpmtdFreeData(&tdver);
+        rpmtdFreeData(&tdsense);
 
         if (found<=0){
             Fclose(fdi);
