@@ -68,7 +68,7 @@ extern uint64_t flags;
  * Provides: <dep> = <version>
  * we use it to check if kernel-modules = <kernelversion>
  */
-int dlabelProvides(const char* dep, const char* version, void *userptr)
+int dlabelProvides(const char* dep, const char* version, uint32_t sense, void *userptr)
 {
     char *kernelver = (char*)userptr;
 
@@ -77,7 +77,7 @@ int dlabelProvides(const char* dep, const char* version, void *userptr)
     if (version == NULL)
         return -1;
 
-    return strcmp(dep, "kernel-modules") || strcmp(version, kernelver);
+    return strcmp(dep, "kernel-modules") || matchVersions(kernelver, sense, version);
 }
 
 /*

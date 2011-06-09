@@ -31,8 +31,8 @@
 #define BUFFERSIZE 1024
 
 /* both filter functions return 0 - match, 1 - match not found */
-typedef int (*filterfunc)(const char* name, const struct stat *fstat, void *userptr);
-typedef int (*dependencyfunc)(const char* depname, const char* depversion, void *userptr);
+typedef int (*filterfunc)(const char* name, const struct stat *fstat, const uint32_t sense, void *userptr);
+typedef int (*dependencyfunc)(const char* depname, const char* depversion, const uint32_t sense, void *userptr);
 
 int explodeRPM(const char* file,
                filterfunc filter,
