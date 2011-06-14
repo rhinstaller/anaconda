@@ -2492,11 +2492,11 @@ class LVMLogicalVolumeDevice(DMDevice):
     def _setSize(self, size):
         size = self.vg.align(numeric_type(size))
         log.debug("trying to set lv %s size to %dMB" % (self.name, size))
-        if size <= (self.vg.freeSpace + self._size):
+        if size <= self.vg.freeSpace + self.vgSpaceUsed:
             self._size = size
             self.targetSize = size
         else:
-            log.debug("failed to set size: %dMB short" % (size - (self.vg.freeSpace + self._size),))
+            log.debug("failed to set size: %dMB short" % (size - (self.vg.freeSpace + self.vgSpaceUsed),))
             raise ValueError("not enough free space in volume group")
 
     size = property(StorageDevice._getSize, _setSize)
