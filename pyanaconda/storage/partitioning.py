@@ -1164,8 +1164,8 @@ def allocatePartitions(storage, disks, partitions, freespace, bootloader=None):
                             for req in chunk.requests:
                                 log.debug("request %d (%s) growth: %d (%dMB) "
                                           "size: %dMB" %
-                                          (req.partition.id,
-                                           req.partition.name,
+                                          (req.device.id,
+                                           req.device.name,
                                            req.growth,
                                            sectorsToSize(req.growth,
                                                          disk_sector_size),
@@ -1264,18 +1264,50 @@ class Request(object):
         Request instances are used for calculating how much to grow
         partitions.
     """
-    def __init__(self, partition):
+    def __init__(self, device):
         """ Create a Request instance.
+
+            Arguments:
+
+        """
+        self.device = device
+        self.growth = 0                     # growth in sectors
+        self.max_growth = 0                 # max growth in sectors
+        self.done = not device.req_grow     # can we grow this request more?
+        self.base = 0                       # base sectors
+
+    @property
+    def growable(self):
+        """ True if this request is growable. """
+        return self.device.req_grow
+
+    @property
+    def id(self):
+        """ The id of the Device instance this request corresponds to. """
+        return self.device.id
+
+    def __repr__(self):
+        s = ("%(type)s instance --\n"
+             "id = %(id)s  name = %(name)s  growable = %(growable)s\n"
+             "base = %(base)d  growth = %(growth)d  max_grow = %(max_grow)d\n"
+             "done = %(done)s" %
+             {"type": self.__class__.__name__, "id": self.id,
+              "name": self.device.name, "growable": self.growable,
+              "base": self.base, "growth": self.growth,
+              "max_grow": self.max_growth, "done": self.done})
+        return s
+
+
+class PartitionRequest(Request):
+    def __init__(self, partition):
+        """ Create a PartitionRequest instance.
 
             Arguments:
 
                 partition -- a PartitionDevice instance
 
         """
-        self.partition = partition          # storage.devices.PartitionDevice
-        self.growth = 0                     # growth in sectors
-        self.max_growth = 0                 # max growth in sectors
-        self.done = not partition.req_grow  # can we grow this request more?
+        super(PartitionRequest, self).__init__(partition)
         self.base = partition.partedPartition.geometry.length   # base sectors
 
         sector_size = partition.partedPartition.disk.device.sectorSize
@@ -1290,53 +1322,50 @@ class Request(object):
                 max_sectors = min(limits)
                 self.max_growth = max_sectors - self.base
 
-    @property
-    def growable(self):
-        """ True if this request is growable. """
-        return self.partition.req_grow
 
-    @property
-    def id(self):
-        """ The id of the PartitionDevice this request corresponds to. """
-        return self.partition.id
+class LVRequest(Request):
+    def __init__(self, lv):
+        """ Create a LVRequest instance.
 
-    def __str__(self):
-        s = ("%(type)s instance --\n"
-             "id = %(id)s  name = %(name)s  growable = %(growable)s\n"
-             "base = %(base)d  growth = %(growth)d  max_grow = %(max_grow)d\n"
-             "done = %(done)s" %
-             {"type": self.__class__.__name__, "id": self.id,
-              "name": self.partition.name, "growable": self.growable,
-              "base": self.base, "growth": self.growth,
-              "max_grow": self.max_growth, "done": self.done})
-        return s
+            Arguments:
+
+                lv -- an LVMLogicalVolumeDevice instance
+
+        """
+        super(LVRequest, self).__init__(lv)
+        self.base = lv.req_size     # base mb
+
+        if lv.req_grow:
+            limits = filter(lambda l: l > 0,
+                        [lv.req_max_size,
+                         lv.format.maxSize])
+
+            if limits:
+                max_sectors = min(limits)
+                self.max_growth = max_sectors - self.base
 
 
 class Chunk(object):
-    """ A free region on disk from which partitions will be allocated """
-    def __init__(self, geometry, requests=None):
+    """ A free region from which devices will be allocated """
+    def __init__(self, length, requests=None):
         """ Create a Chunk instance.
 
             Arguments:
 
-                geometry -- parted.Geometry instance describing the free space
+                length -- the length of the chunk in allocation units
 
 
             Keyword Arguments:
 
                 requests -- list of Request instances allocated from this chunk
 
-
-            Note: We will limit partition growth based on disklabel
-            limitations for partition end sector, so a 10TB disk with an
-            msdos disklabel will be treated like a 2TB disk.
-
         """
-        self.geometry = geometry            # parted.Geometry
-        self.pool = self.geometry.length    # free sector count
-        self.sectorSize = self.geometry.device.sectorSize
+        if not hasattr(self, "path"):
+            self.path = None
+        self.length = length
+        self.pool = length                  # free unit count
         self.base = 0                       # sum of growable requests' base
-                                            # sizes, in sectors
+                                            # sizes
         self.requests = []                  # list of Request instances
         if isinstance(requests, list):
             for req in requests:
@@ -1344,44 +1373,21 @@ class Chunk(object):
 
     def __repr__(self):
         s = ("%(type)s instance --\n"
-             "device = %(device)s  start = %(start)d  end = %(end)d\n"
-             "length = %(length)d  size = %(size)d pool = %(pool)d\n"
-             "remaining = %(rem)d  sectorSize = %(sectorSize)d" %
-             {"type": self.__class__.__name__,
-              "device": self.geometry.device.path,
-              "start": self.geometry.start, "end": self.geometry.end,
-              "length": self.geometry.length, "size": self.geometry.getSize(),
-              "pool": self.pool, "rem": self.remaining,
-              "sectorSize": self.sectorSize})
+             "device = %(device)s  length = %(length)d  size = %(size)d\n"
+             "remaining = %(rem)d  pool = %(pool)d" %
+             {"type": self.__class__.__name__, "device": self.path,
+              "length": self.length, "size": self.lengthToSize(self.length),
+              "pool": self.pool, "rem": self.remaining})
 
         return s
 
     def __str__(self):
-        s = "%d-%d on %s" % (self.geometry.start, self.geometry.end,
-                             self.geometry.device.path)
+        s = "%d on %s" % (self.length, self.path)
         return s
 
     def addRequest(self, req):
         """ Add a Request to this chunk. """
-        log.debug("adding request %d to chunk %s" % (req.partition.id, self))
-        if not self.requests:
-            # when adding the first request to the chunk, adjust the pool
-            # size to reflect any disklabel-specific limits on end sector
-            max_sector = req.partition.partedPartition.disk.maxPartitionStartSector
-            chunk_end = min(max_sector, self.geometry.end)
-            if chunk_end <= self.geometry.start:
-                # this should clearly never be possible, but if the chunk's
-                # start sector is beyond the maximum allowed end sector, we
-                # cannot continue
-                log.error("chunk start sector is beyond disklabel maximum")
-                raise PartitioningError("partitions allocated outside "
-                                        "disklabel limits")
-
-            new_pool = chunk_end - self.geometry.start + 1
-            if new_pool != self.pool:
-                log.debug("adjusting pool to %d based on disklabel limits"
-                            % new_pool)
-                self.pool = new_pool
+        log.debug("adding request %d to chunk %s" % (req.device.id, self))
 
         self.requests.append(req)
         self.pool -= req.base
@@ -1389,15 +1395,9 @@ class Chunk(object):
         if not req.done:
             self.base += req.base
 
-    def getRequestByID(self, id):
-        """ Retrieve a request from this chunk based on its id. """
-        for request in self.requests:
-            if request.id == id:
-                return request
-
     @property
     def growth(self):
-        """ Sum of growth in sectors for all requests in this chunk. """
+        """ Sum of growth for all requests in this chunk. """
         return sum(r.growth for r in self.requests)
 
     @property
@@ -1418,53 +1418,29 @@ class Chunk(object):
         """ True if we are finished growing all requests in this chunk. """
         return self.remaining == 0
 
+    def maxGrowth(self, req):
+        return req.max_growth
+
+    def lengthToSize(self, length):
+        return length
+
+    def sizeToLength(self, size):
+        return size
+
     def trimOverGrownRequest(self, req, base=None):
-        """ Enforce max growth and return extra sectors to the pool. """
-        req_end = req.partition.partedPartition.geometry.end
-        req_start = req.partition.partedPartition.geometry.start
-
-        # Establish the current total number of sectors of growth for requests
-        # that lie before this one within this chunk. We add the total count
-        # to this request's end sector to obtain the end sector for this
-        # request, including growth of earlier requests but not including
-        # growth of this request. Maximum growth values are obtained using
-        # this end sector and various values for maximum end sector.
-        growth = 0
-        for request in self.requests:
-            if request.partition.partedPartition.geometry.start < req_start:
-                growth += request.growth
-        req_end += growth
-
-        # obtain the set of possible maximum sectors-of-growth values for this
-        # request and use the smallest
-        limits = []
-
-        # disklabel-specific maximum sector
-        max_sector = req.partition.partedPartition.disk.maxPartitionStartSector
-        limits.append(max_sector - req_end)
-
-        # 2TB limit on bootable partitions, regardless of disklabel
-        if req.partition.req_bootable:
-            limits.append(sizeToSectors(2*1024*1024, self.sectorSize) - req_end)
-
-        # request-specific maximum (see Request.__init__, above, for details)
-        if req.max_growth:
-            limits.append(req.max_growth)
-
-        max_growth = min(limits)
-
+        """ Enforce max growth and return extra units to the pool. """
+        max_growth = self.maxGrowth(req)
         if max_growth and req.growth >= max_growth:
             if req.growth > max_growth:
                 # we've grown beyond the maximum. put some back.
                 extra = req.growth - max_growth
                 log.debug("taking back %d (%dMB) from %d (%s)" %
-                            (extra,
-                             sectorsToSize(extra, self.sectorSize),
-                             req.partition.id, req.partition.name))
+                            (extra, self.lengthToSize(extra),
+                             req.device.id, req.device.name))
                 self.pool += extra
                 req.growth = max_growth
 
-            # We're done growing this partition, so it no longer
+            # We're done growing this request, so it no longer
             # factors into the growable base used to determine
             # what fraction of the pool each request gets.
             if base is not None:
@@ -1473,12 +1449,16 @@ class Chunk(object):
 
         return base
 
+    def sortRequests(self):
+        pass
+
     def growRequests(self):
         """ Calculate growth amounts for requests in this chunk. """
         log.debug("Chunk.growRequests: %r" % self)
 
-        # sort the partitions by start sector
-        self.requests.sort(key=lambda r: r.partition.partedPartition.geometry.start)
+        self.sortRequests()
+        for req in self.requests:
+            log.debug("req: %r" % req)
 
         # we use this to hold the base for the next loop through the
         # chunk's requests since we want the base to be the same for
@@ -1488,30 +1468,28 @@ class Chunk(object):
         while not self.done and self.pool and last_pool != self.pool:
             last_pool = self.pool    # to keep from getting stuck
             self.base = new_base
-            log.debug("%d partitions and %d (%dMB) left in chunk" %
-                        (self.remaining, self.pool,
-                         sectorsToSize(self.pool, self.sectorSize)))
+            log.debug("%d requests and %d (%dMB) left in chunk" %
+                        (self.remaining, self.pool, self.lengthToSize(self.pool)))
             for p in self.requests:
                 if p.done:
                     continue
 
-                # Each partition is allocated free sectors from the pool
+                # Each request is allocated free units from the pool
                 # based on the relative _base_ sizes of the remaining
-                # growable partitions.
+                # growable requests.
                 share = p.base / float(self.base)
                 growth = int(share * last_pool) # truncate, don't round
                 p.growth += growth
                 self.pool -= growth
                 log.debug("adding %d (%dMB) to %d (%s)" %
-                            (growth,
-                             sectorsToSize(growth, self.sectorSize),
-                             p.partition.id, p.partition.name))
+                            (growth, self.lengthToSize(growth),
+                             p.device.id, p.device.name))
 
                 new_base = self.trimOverGrownRequest(p, base=new_base)
-                log.debug("new grow amount for partition %d (%s) is %d "
-                          "sectors, or %dMB" %
-                            (p.partition.id, p.partition.name, p.growth,
-                             sectorsToSize(p.growth, self.sectorSize)))
+                log.debug("new grow amount for request %d (%s) is %d "
+                          "units, or %dMB" %
+                            (p.device.id, p.device.name, p.growth,
+                             self.lengthToSize(p.growth)))
 
         if self.pool:
             # allocate any leftovers in pool to the first partition
@@ -1526,6 +1504,180 @@ class Chunk(object):
                 self.trimOverGrownRequest(p)
                 if self.pool == 0:
                     break
+
+
+class DiskChunk(Chunk):
+    """ A free region on disk from which partitions will be allocated """
+    def __init__(self, geometry, requests=None):
+        """ Create a Chunk instance.
+
+            Arguments:
+
+                geometry -- parted.Geometry instance describing the free space
+
+
+            Keyword Arguments:
+
+                requests -- list of Request instances allocated from this chunk
+
+
+            Note: We will limit partition growth based on disklabel
+            limitations for partition end sector, so a 10TB disk with an
+            msdos disklabel will be treated like a 2TB disk.
+
+        """
+        self.geometry = geometry            # parted.Geometry
+        self.sectorSize = self.geometry.device.sectorSize
+        self.path = self.geometry.device.path
+        super(DiskChunk, self).__init__(self.geometry.length, requests=requests)
+
+    def __repr__(self):
+        s = super(DiskChunk, self).__str__()
+        s += ("start = %(start)d  end = %(end)d\n"
+              "sectorSize = %(sectorSize)d\n" %
+              {"start": self.geometry.start, "end": self.geometry.end,
+               "sectorSize": self.sectorSize})
+        return s
+
+    def __str__(self):
+        s = "%d (%d-%d) on %s" % (self.length, self.geometry.start,
+                                  self.geometry.end, self.path)
+        return s
+
+    def addRequest(self, req):
+        """ Add a Request to this chunk. """
+        if not isinstance(req, PartitionRequest):
+            raise ValueError("DiskChunk requests must be of type "
+                             "PartitionRequest")
+
+        if not self.requests:
+            # when adding the first request to the chunk, adjust the pool
+            # size to reflect any disklabel-specific limits on end sector
+            max_sector = req.device.partedPartition.disk.maxPartitionStartSector
+            chunk_end = min(max_sector, self.geometry.end)
+            if chunk_end <= self.geometry.start:
+                # this should clearly never be possible, but if the chunk's
+                # start sector is beyond the maximum allowed end sector, we
+                # cannot continue
+                log.error("chunk start sector is beyond disklabel maximum")
+                raise PartitioningError("partitions allocated outside "
+                                        "disklabel limits")
+
+            new_pool = chunk_end - self.geometry.start + 1
+            if new_pool != self.pool:
+                log.debug("adjusting pool to %d based on disklabel limits"
+                            % new_pool)
+                self.pool = new_pool
+
+        super(DiskChunk, self).addRequest(req)
+
+    def maxGrowth(self, req):
+        req_end = req.device.partedPartition.geometry.end
+        req_start = req.device.partedPartition.geometry.start
+
+        # Establish the current total number of sectors of growth for requests
+        # that lie before this one within this chunk. We add the total count
+        # to this request's end sector to obtain the end sector for this
+        # request, including growth of earlier requests but not including
+        # growth of this request. Maximum growth values are obtained using
+        # this end sector and various values for maximum end sector.
+        growth = 0
+        for request in self.requests:
+            if request.device.partedPartition.geometry.start < req_start:
+                growth += request.growth
+        req_end += growth
+
+        # obtain the set of possible maximum sectors-of-growth values for this
+        # request and use the smallest
+        limits = []
+
+        # disklabel-specific maximum sector
+        max_sector = req.device.partedPartition.disk.maxPartitionStartSector
+        limits.append(max_sector - req_end)
+
+        # 2TB limit on bootable partitions, regardless of disklabel
+        if req.device.req_bootable:
+            limits.append(sizeToSectors(2*1024*1024, self.sectorSize) - req_end)
+
+        # request-specific maximum (see Request.__init__, above, for details)
+        if req.max_growth:
+            limits.append(req.max_growth)
+
+        max_growth = min(limits)
+        return max_growth
+
+    def lengthToSize(self, length):
+        return sectorsToSize(length, self.sectorSize)
+
+    def sizeToLength(self, size):
+        return sizeToSectors(size, self.sectorSize)
+
+    def sortRequests(self):
+        # sort the partitions by start sector
+        self.requests.sort(key=lambda r: r.device.partedPartition.geometry.start)
+
+
+class VGChunk(Chunk):
+    """ A free region in an LVM VG from which LVs will be allocated """
+    def __init__(self, vg, requests=None):
+        """ Create a VGChunk instance.
+
+            Arguments:
+
+                vg -- an LVMVolumeGroupDevice within which this chunk resides
+
+
+            Keyword Arguments:
+
+                requests -- list of Request instances allocated from this chunk
+
+        """
+        self.vg = vg
+        self.path = vg.path
+        super(VGChunk, self).__init__(self.vg.size, requests=requests)
+
+    def addRequest(self, req):
+        """ Add a Request to this chunk. """
+        if not isinstance(req, LVRequest):
+            raise ValueError("VGChunk requests must be of type "
+                             "LVRequest")
+
+        # round up growable requests to fill any used PE?
+        super(VGChunk, self).addRequest(req)
+
+    def sortRequests(self):
+        # sort the partitions by start sector
+        self.requests.sort(key=lambda r: r.device, cmp=lvCompare)
+
+    def growRequests(self):
+        self.sortRequests()
+
+        # grow the percentage-based requests
+        last_pool = self.pool
+        for req in self.requests:
+            if req.done or not req.device.req_percent:
+                continue
+
+            growth = int(req.device.req_percent * 0.01 * self.length)# truncate
+            req.growth += growth
+            self.pool -= growth
+            log.debug("adding %d (%dMB) to %d (%s)" %
+                        (growth, self.lengthToSize(growth),
+                         req.device.id, req.device.name))
+
+            new_base = self.trimOverGrownRequest(req)
+            log.debug("new grow amount for request %d (%s) is %d "
+                      "units, or %dMB" %
+                        (req.device.id, req.device.name, req.growth,
+                         self.lengthToSize(req.growth)))
+
+            # we're done with this request, so remove its base from the
+            # chunk's base
+            if not req.done:
+                self.base -= req.base
+                req.done = True
+
+        super(VGChunk, self).growRequests()
 
 
 def getDiskChunks(disk, partitions, free):
@@ -1545,7 +1697,7 @@ def getDiskChunks(disk, partitions, free):
     disk_free = [f for f in free if f.device.path == disk.path]
 
 
-    chunks = [Chunk(f) for f in disk_free]
+    chunks = [DiskChunk(f) for f in disk_free]
 
     for p in disk_parts:
         if p.isExtended:
@@ -1555,7 +1707,7 @@ def getDiskChunks(disk, partitions, free):
 
         for i, f in enumerate(disk_free):
             if f.contains(p.partedPartition.geometry):
-                chunks[i].addRequest(Request(p))
+                chunks[i].addRequest(PartitionRequest(p))
                 break
 
     return chunks
@@ -1621,9 +1773,9 @@ def growPartitions(disks, partitions, free):
                 start = disklabel.alignment.alignUp(chunk.geometry, start)
             new_partitions = []
             for p in chunk.requests:
-                ptype = p.partition.partedPartition.type
-                log.debug("partition %s (%d): %s" % (p.partition.name,
-                                                     p.partition.id, ptype))
+                ptype = p.device.partedPartition.type
+                log.debug("partition %s (%d): %s" % (p.device.name,
+                                                     p.device.id, ptype))
                 if ptype == parted.PARTITION_EXTENDED:
                     continue
 
@@ -1633,7 +1785,7 @@ def growPartitions(disks, partitions, free):
                 if ptype == parted.PARTITION_LOGICAL:
                     start += disklabel.alignment.grainSize
 
-                old_geometry = p.partition.partedPartition.geometry
+                old_geometry = p.device.partedPartition.geometry
                 new_length = p.base + p.growth
                 end = start + new_length - 1
                 # align end sector as needed
@@ -1642,16 +1794,16 @@ def growPartitions(disks, partitions, free):
                 new_geometry = parted.Geometry(device=disklabel.partedDevice,
                                                start=start,
                                                end=end)
-                log.debug("new geometry for %s: %s" % (p.partition.name,
+                log.debug("new geometry for %s: %s" % (p.device.name,
                                                        new_geometry))
                 start = end + 1
                 new_partition = parted.Partition(disk=disklabel.partedDisk,
                                                  type=ptype,
                                                  geometry=new_geometry)
-                new_partitions.append((new_partition, p.partition))
+                new_partitions.append((new_partition, p.device))
 
             # remove all new partitions from this chunk
-            removeNewPartitions([disk], [r.partition for r in chunk.requests])
+            removeNewPartitions([disk], [r.device for r in chunk.requests])
             log.debug("back from removeNewPartitions")
 
             # adjust the extended partition as needed
@@ -1778,115 +1930,15 @@ def growLVM(storage):
             log.debug("vg %s has no free space" % vg.name)
             continue
 
-        log.debug("vg %s: %dMB free ; lvs: %s" % (vg.name, vg.freeSpace,
+        log.debug("vg %s: %dMB free ; lvs: %s" % (vg.name, total_free,
                                                   [l.lvname for l in vg.lvs]))
 
-        # figure out how much to grow each LV
-        grow_amounts = {}
-        lv_total = vg.size - total_free
-        log.debug("used: %dMB ; vg.size: %dMB" % (lv_total, vg.size))
-
-        # This first loop is to calculate percentage-based growth
-        # amounts. These are based on total free space.
-        lvs = vg.lvs
-        lvs.sort(cmp=lvCompare)
-        for lv in lvs:
-            if not lv.req_grow or not lv.req_percent:
-                continue
-
-            portion = (lv.req_percent * 0.01)
-            grow = portion * vg.freeSpace
-            new_size = lv.req_size + grow
-            if lv.req_max_size and new_size > lv.req_max_size:
-                grow -= (new_size - lv.req_max_size)
-
-            if lv.format.maxSize and lv.format.maxSize < new_size:
-                grow -= (new_size - lv.format.maxSize)
-
-            # clamp growth amount to a multiple of vg extent size
-            grow_amounts[lv.name] = vg.align(grow)
-            total_free -= grow
-            lv_total += grow
-
-        # This second loop is to calculate non-percentage-based growth
-        # amounts. These are based on free space remaining after
-        # calculating percentage-based growth amounts.
-
-        # keep a tab on space not allocated due to format or requested
-        # maximums -- we'll dole it out to subsequent requests
-        leftover = 0
-        for lv in lvs:
-            log.debug("checking lv %s: req_grow: %s ; req_percent: %s"
-                      % (lv.name, lv.req_grow, lv.req_percent))
-            if not lv.req_grow or lv.req_percent:
-                continue
-
-            portion = float(lv.req_size) / float(lv_total)
-            grow = portion * total_free
-            log.debug("grow is %dMB" % grow)
-
-            todo = lvs[lvs.index(lv):]
-            unallocated = reduce(lambda x,y: x+y,
-                                 [l.req_size for l in todo
-                                  if l.req_grow and not l.req_percent])
-            extra_portion = float(lv.req_size) / float(unallocated)
-            extra = extra_portion * leftover
-            log.debug("%s getting %dMB (%d%%) of %dMB leftover space"
-                      % (lv.name, extra, extra_portion * 100, leftover))
-            leftover -= extra
-            grow += extra
-            log.debug("grow is now %dMB" % grow)
-            max_size = lv.req_size + grow
-            if lv.req_max_size and max_size > lv.req_max_size:
-                max_size = lv.req_max_size
-
-            if lv.format.maxSize and max_size > lv.format.maxSize:
-                max_size = lv.format.maxSize
-
-            log.debug("max size is %dMB" % max_size)
-            max_size = max_size
-            leftover += (lv.req_size + grow) - max_size
-            grow = max_size - lv.req_size
-            log.debug("lv %s gets %dMB" % (lv.name, vg.align(grow)))
-            grow_amounts[lv.name] = vg.align(grow)
-
-        if not grow_amounts:
-            log.debug("no growable lvs in vg %s" % vg.name)
-            continue
+        chunk = VGChunk(vg, requests=[LVRequest(l) for l in vg.lvs])
+        chunk.growRequests()
 
         # now grow the lvs by the amounts we've calculated above
-        for lv in lvs:
-            if lv.name not in grow_amounts.keys():
-                continue
-            lv.size += grow_amounts[lv.name]
+        for req in chunk.requests:
+            req.device.size += req.growth
 
-        # now there shouldn't be any free space left, but if there is we
-        # should allocate it to one of the LVs
-        vg_free = vg.freeSpace
-        log.debug("vg %s has %dMB free" % (vg.name, vg_free))
-        if vg_free:
-            for lv in lvs:
-                if not lv.req_grow:
-                    continue
-
-                if lv.req_percent > 0:
-                    continue
-
-                if lv.req_max_size and lv.size == lv.req_max_size:
-                    continue
-
-                if lv.format.maxSize and lv.size == lv.format.maxSize:
-                    continue
-
-                # first come, first served
-                projected = lv.size + vg.freeSpace
-                if lv.req_max_size and projected > lv.req_max_size:
-                    projected = lv.req_max_size
-
-                if lv.format.maxSize and projected > lv.format.maxSize:
-                    projected = lv.format.maxSize
-
-                log.debug("giving leftover %dMB to %s" % (projected - lv.size,
-                                                          lv.name))
-                lv.size = projected
+        return
 
