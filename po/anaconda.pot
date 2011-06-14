@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 13.21.116\n"
+"Project-Id-Version: anaconda 13.21.117\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2011-05-10 10:49-0700\n"
+"POT-Creation-Date: 2011-06-14 15:43-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -122,8 +122,8 @@ msgstr ""
 msgid "_Exit installer"
 msgstr ""
 
-#: bootloader.py:60 image.py:92 image.py:251 kickstart.py:1405
-#: kickstart.py:1444 upgrade.py:58 yuminstall.py:1386 yuminstall.py:1563
+#: bootloader.py:60 image.py:92 image.py:251 kickstart.py:1411
+#: kickstart.py:1450 upgrade.py:58 yuminstall.py:1386 yuminstall.py:1563
 #: iw/partition_gui.py:1611 storage/__init__.py:2043
 msgid "_Continue"
 msgstr ""
@@ -156,8 +156,8 @@ msgstr ""
 msgid "In progress"
 msgstr ""
 
-#: cmdline.py:88 gui.py:1316 kickstart.py:1188 kickstart.py:1268
-#: kickstart.py:1276 kickstart.py:1314 kickstart.py:1322 text.py:396
+#: cmdline.py:88 gui.py:1316 kickstart.py:1194 kickstart.py:1274
+#: kickstart.py:1282 kickstart.py:1320 kickstart.py:1328 text.py:396
 #, python-format
 msgid ""
 "The following error was found while parsing the kickstart configuration "
@@ -465,10 +465,10 @@ msgstr ""
 #: image.py:289 livecd.py:198 livecd.py:440 partIntfHelpers.py:239 text.py:359
 #: text.py:363 yuminstall.py:417 yuminstall.py:931 yuminstall.py:1046
 #: yuminstall.py:1051 yuminstall.py:1324 yuminstall.py:1391 yuminstall.py:1587
-#: yuminstall.py:1609 iw/advanced_storage.py:372 iw/advanced_storage.py:382
-#: iw/advanced_storage.py:433 iw/autopart_type.py:95 iw/cleardisks_gui.py:44
+#: yuminstall.py:1609 iw/advanced_storage.py:379 iw/advanced_storage.py:389
+#: iw/advanced_storage.py:440 iw/autopart_type.py:95 iw/cleardisks_gui.py:44
 #: iw/cleardisks_gui.py:54 iw/filter_gui.py:427 iw/osbootwidget.py:211
-#: iw/osbootwidget.py:220 iw/raid_dialog_gui.py:226 iw/task_gui.py:54
+#: iw/osbootwidget.py:220 iw/raid_dialog_gui.py:218 iw/task_gui.py:54
 #: iw/task_gui.py:152 iw/task_gui.py:305 iw/task_gui.py:469
 #: loader/windows.h:31 loader/cdinstall.c:231 loader/cdinstall.c:503
 #: loader/driverdisk.c:228 loader/driverdisk.c:474 loader/driverdisk.c:509
@@ -588,63 +588,63 @@ msgid ""
 "%s"
 msgstr ""
 
-#: kickstart.py:1287
+#: kickstart.py:1293
 #, python-format
 msgid "Error processing %%ksappend lines: %s"
 msgstr ""
 
-#: kickstart.py:1290
+#: kickstart.py:1296
 #, python-format
 msgid "Unknown error processing %%ksappend lines: %s"
 msgstr ""
 
-#: kickstart.py:1345 livecd.py:228
+#: kickstart.py:1351 livecd.py:228
 msgid "Post-Installation"
 msgstr ""
 
-#: kickstart.py:1346
+#: kickstart.py:1352
 msgid "Running post-installation scripts"
 msgstr ""
 
-#: kickstart.py:1362
+#: kickstart.py:1368
 msgid "Pre-Installation"
 msgstr ""
 
-#: kickstart.py:1363
+#: kickstart.py:1369
 msgid "Running pre-installation scripts"
 msgstr ""
 
-#: kickstart.py:1396
+#: kickstart.py:1402
 msgid "Missing Package"
 msgstr ""
 
-#: kickstart.py:1397
+#: kickstart.py:1403
 #, python-format
 msgid ""
 "You have specified that the package '%s' should be installed.  This package "
 "does not exist. Would you like to continue or abort this installation?"
 msgstr ""
 
-#: kickstart.py:1403 kickstart.py:1442
+#: kickstart.py:1409 kickstart.py:1448
 msgid "_Abort"
 msgstr ""
 
-#: kickstart.py:1404 kickstart.py:1443
+#: kickstart.py:1410 kickstart.py:1449
 msgid "_Ignore All"
 msgstr ""
 
-#: kickstart.py:1434
+#: kickstart.py:1440
 msgid "Missing Group"
 msgstr ""
 
-#: kickstart.py:1435
+#: kickstart.py:1441
 #, python-format
 msgid ""
 "You have specified that the group '%s' should be installed. This group does "
 "not exist. Would you like to continue or abort this installation?"
 msgstr ""
 
-#: kickstart.py:1558
+#: kickstart.py:1564
 #, python-format
 msgid ""
 "The kickstart configuration file is missing required information that "
@@ -1028,7 +1028,7 @@ msgid ""
 msgstr ""
 
 #: partIntfHelpers.py:361
-msgid "No credentials (discovery authentication disabled)"
+msgid "No authentication"
 msgstr ""
 
 #: partIntfHelpers.py:362
@@ -1047,7 +1047,7 @@ msgstr ""
 msgid "iSCSI Nodes"
 msgstr ""
 
-#: partIntfHelpers.py:473 storage/iscsi.py:335
+#: partIntfHelpers.py:473 storage/iscsi.py:339
 msgid "No new iSCSI nodes discovered"
 msgstr ""
 
@@ -1959,11 +1959,11 @@ msgid ""
 "Requested password contains non-ASCII characters, which are not allowed."
 msgstr ""
 
-#: iw/advanced_storage.py:250
+#: iw/advanced_storage.py:257
 msgid "Node Name"
 msgstr ""
 
-#: iw/advanced_storage.py:373
+#: iw/advanced_storage.py:380
 msgid "You must select a NIC to use."
 msgstr ""
 
@@ -2399,7 +2399,7 @@ msgstr ""
 msgid "Edit Logical Volume: %s"
 msgstr ""
 
-#: iw/lvm_dialog_gui.py:445 iw/raid_dialog_gui.py:454
+#: iw/lvm_dialog_gui.py:445 iw/raid_dialog_gui.py:446
 msgid "_File System Type:"
 msgstr ""
 
@@ -2417,17 +2417,17 @@ msgid "(Max size is %s MB)"
 msgstr ""
 
 #: iw/lvm_dialog_gui.py:472 iw/partition_dialog_gui.py:552
-#: iw/partition_ui_helpers_gui.py:335 iw/raid_dialog_gui.py:426
+#: iw/partition_ui_helpers_gui.py:335 iw/raid_dialog_gui.py:418
 msgid "_Encrypt"
 msgstr ""
 
 #: iw/lvm_dialog_gui.py:481 iw/partition_dialog_gui.py:482
-#: iw/raid_dialog_gui.py:464
+#: iw/raid_dialog_gui.py:456
 msgid "Original File System Type:"
 msgstr ""
 
 #: iw/lvm_dialog_gui.py:486 iw/partition_dialog_gui.py:490
-#: iw/raid_dialog_gui.py:471
+#: iw/raid_dialog_gui.py:463
 msgid "Original File System Label:"
 msgstr ""
 
@@ -2440,12 +2440,12 @@ msgid "Size (MB):"
 msgstr ""
 
 #: iw/lvm_dialog_gui.py:522 iw/partition_dialog_gui.py:433
-#: iw/raid_dialog_gui.py:445
+#: iw/raid_dialog_gui.py:437
 msgid "_Mount Point:"
 msgstr ""
 
 #: iw/lvm_dialog_gui.py:603 iw/partition_dialog_gui.py:118
-#: iw/raid_dialog_gui.py:179
+#: iw/raid_dialog_gui.py:171
 msgid "Mount Point Error"
 msgstr ""
 
@@ -2463,12 +2463,12 @@ msgid "The logical volume name \"%s\" is already in use. Please pick another."
 msgstr ""
 
 #: iw/lvm_dialog_gui.py:670 iw/partition_dialog_gui.py:133
-#: iw/raid_dialog_gui.py:194
+#: iw/raid_dialog_gui.py:186
 msgid "Mount point in use"
 msgstr ""
 
 #: iw/lvm_dialog_gui.py:671 iw/partition_dialog_gui.py:134
-#: iw/raid_dialog_gui.py:195
+#: iw/raid_dialog_gui.py:187
 #, python-format
 msgid "The mount point \"%s\" is in use. Please pick another."
 msgstr ""
@@ -2999,7 +2999,7 @@ msgid ""
 "select the drive in the 'Allowable Drives' checklist."
 msgstr ""
 
-#: iw/raid_dialog_gui.py:393
+#: iw/raid_dialog_gui.py:385
 msgid ""
 "At least two unused software RAID partitions are needed to create a RAID "
 "device.\n"
@@ -3008,36 +3008,36 @@ msgid ""
 "select the \"RAID\" option again."
 msgstr ""
 
-#: iw/raid_dialog_gui.py:407
+#: iw/raid_dialog_gui.py:399
 msgid "Make RAID Device"
 msgstr ""
 
-#: iw/raid_dialog_gui.py:410
+#: iw/raid_dialog_gui.py:402
 #, python-format
 msgid "Edit RAID Device: %s"
 msgstr ""
 
-#: iw/raid_dialog_gui.py:412
+#: iw/raid_dialog_gui.py:404
 msgid "Edit RAID Device"
 msgstr ""
 
-#: iw/raid_dialog_gui.py:479
+#: iw/raid_dialog_gui.py:471
 msgid "RAID _Device:"
 msgstr ""
 
-#: iw/raid_dialog_gui.py:497
+#: iw/raid_dialog_gui.py:489
 msgid "RAID _Level:"
 msgstr ""
 
-#: iw/raid_dialog_gui.py:539
+#: iw/raid_dialog_gui.py:518
 msgid "_RAID Members:"
 msgstr ""
 
-#: iw/raid_dialog_gui.py:556
+#: iw/raid_dialog_gui.py:535
 msgid "Number of _spares:"
 msgstr ""
 
-#: iw/raid_dialog_gui.py:566
+#: iw/raid_dialog_gui.py:545
 msgid "_Format partition?"
 msgstr ""
 
@@ -4780,7 +4780,7 @@ msgstr ""
 msgid "Logging in to iSCSI nodes"
 msgstr ""
 
-#: storage/iscsi.py:338
+#: storage/iscsi.py:342
 msgid "Could not log in to any of the discovered nodes"
 msgstr ""
 
@@ -5313,40 +5313,40 @@ msgid ""
 msgstr ""
 
 #: ui/addrepo.glade.h:9
+msgid "Opt_ions"
+msgstr ""
+
+#: ui/addrepo.glade.h:10
 msgid ""
 "Please provide the configuration information for this software repository."
 msgstr ""
 
-#: ui/addrepo.glade.h:10
+#: ui/addrepo.glade.h:11
 msgid "Proxy U_RL (host:port)"
 msgstr ""
 
-#: ui/addrepo.glade.h:11
+#: ui/addrepo.glade.h:12
 msgid "Proxy pass_word"
 msgstr ""
 
-#: ui/addrepo.glade.h:12
+#: ui/addrepo.glade.h:13
 msgid "Proxy u_sername"
 msgstr ""
 
-#: ui/addrepo.glade.h:13
+#: ui/addrepo.glade.h:14
 msgid "Repository _URL"
 msgstr ""
 
-#: ui/addrepo.glade.h:14
+#: ui/addrepo.glade.h:15
 msgid "Select A Directory"
 msgstr ""
 
-#: ui/addrepo.glade.h:15
+#: ui/addrepo.glade.h:16
 msgid "URL is a _mirror list"
 msgstr ""
 
-#: ui/addrepo.glade.h:16
-msgid "_Directory"
-msgstr ""
-
 #: ui/addrepo.glade.h:17
-msgid "_Options"
+msgid "_Directory"
 msgstr ""
 
 #: ui/addrepo.glade.h:18

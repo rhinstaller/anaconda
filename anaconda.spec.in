@@ -221,6 +221,28 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Tue Jun 14 2011 David Cantrell <dcantrell@redhat.com> - 13.21.118-1
+- Fix --mtu option to kickstart network command (icomfort)
+  Resolves: rhbz#689081
+- RAID gui: fix how the "Number of spares" spin button is manipulated.
+  (akozumpl)
+  Resolves: rhbz#700804
+- iscsi: use the --target parameter from the iscsi kickstart command.
+  (akozumpl)
+  Resolves: rhbz#676118
+- shutdown: kill processes in the anaconda process group. (akozumpl)
+  Related: rhbz#679397
+- fix mnemonics in the 'Add Repository' dialog (akozumpl)
+  Resolves: rhbz#679058
+- imount.c: first wait() for mount then close its stdin/stdout. (akozumpl)
+  Resolves: rhbz#693732
+- cosmetic, iscsi: make the 'no credentials' string more general. (akozumpl)
+  Resolves: rhbz#697849
+- iscsi: disable the 'Login' button with no nodes selected. (akozumpl)
+  Resolves: rhbz#701220
+- Fix rebooting after a kickstart error is detected. (akozumpl)
+  Resolves: rhbz#690748
+
 * Tue May 10 2011 David Cantrell <dcantrell@redhat.com> - 13.21.117-1
 - Trim "/dev/" from dev.path for all architectures (dcantrell)
   Resolves: rhbz#702430
