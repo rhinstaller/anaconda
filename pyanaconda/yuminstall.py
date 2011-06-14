@@ -868,7 +868,7 @@ class AnacondaYum(yum.YumBase):
         initialRepos = self.repos.repos.values() + extraRepos
         for repo in filter(lambda r: r.isEnabled(), initialRepos):
             addons = self._getAddons(repo.mirrorlist or repo.baseurl[0],
-                                     repo.proxy_url,
+                                     repo.proxy_url or self.proxy_url,
                                      repo.sslverify)
             for addon in addons:
                 addonRepo = AnacondaYumRepo(addon[0])
