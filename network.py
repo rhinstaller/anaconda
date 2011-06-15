@@ -280,6 +280,10 @@ class Network:
 	    for netdev in probedevs:
 		device = netdev.device
 		if device in self.netdevices.keys():
+
+		    self.netdevices[device].set(("useIPv4", flags.useIPv4))
+		    self.netdevices[device].set(("useIPv6", flags.useIPv6))
+
 		    desc = netdev.desc
 		    if desc is not None and len(desc) > 0:
 			self.netdevices[device].set(("desc", desc))
