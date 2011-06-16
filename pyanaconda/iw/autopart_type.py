@@ -223,6 +223,7 @@ class PartitionTypeWindow(InstallWindow):
             self.reviewButton.set_active(True)
             self.reviewButton.set_sensitive(False)
             self.encryptButton.set_sensitive(False)
+            self.lvmButton.set_sensitive(False)
         else:
             if self.prevrev:
                 self.reviewButton.set_active(self.prevrev)
@@ -230,6 +231,7 @@ class PartitionTypeWindow(InstallWindow):
 
             self.reviewButton.set_sensitive(True)
             self.encryptButton.set_sensitive(True)
+            self.lvmButton.set_sensitive(True)
 
     def getScreen(self, anaconda):
         self.anaconda = anaconda
