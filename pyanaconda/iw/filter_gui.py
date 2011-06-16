@@ -423,10 +423,20 @@ class FilterWindow(InstallWindow):
         # are in the list.
         selected = set()
         for dev in self.pages[0].ds.getSelected():
-            selected.add(udev_device_get_name(dev[OBJECT_COL]))
-            if isMultipath(dev[OBJECT_COL]) or isRAID(dev[OBJECT_COL]):
+            info = dev[OBJECT_COL]
+            if isRAID(info):
+                selected.add(udev_device_get_name(info))
                 members = dev[MEMBERS_COL].split("\n")
                 selected.update(set(members))
+            if isMultipath(info):
+                if self.anaconda.storage.config.mpathFriendlyNames:
+                    selected.add(udev_device_get_name(info))
+                else:
+                    selected.add(dev[SERIAL_COL])
+                members = dev[MEMBERS_COL].split("\n")
+                selected.update(set(members))
+            else:
+                selected.add(udev_device_get_name(info))
 
         if len(selected) == 0:
             self.anaconda.intf.messageWindow(_("Error"),
@@ -447,10 +457,9 @@ class FilterWindow(InstallWindow):
         new_disks = self._getFilterDisks()
 
         mcw = MultipathConfigWriter()
-        cfg = mcw.write()
-        open("/etc/multipath.conf", "w+").write(cfg)
-        del cfg
-        del mcw
+        cfg = mcw.write(friendly_names=True)
+        with open("/etc/multipath.conf", "w+") as mpath_cfg:
+            mpath_cfg.write(cfg)
 
         topology = MultipathTopology(new_disks)
         (new_raids, new_nonraids) = self.split_list(lambda d: isRAID(d) and not isCCISS(d),
@@ -540,6 +549,15 @@ class FilterWindow(InstallWindow):
         np.ds.addColumn(_("Device"), DEVICE_COL, displayed=False)
         return np
 
+    def _options_clicked(self, button):
+        (xml, dialog) = gui.getGladeWidget("device-options.glade",
+                                           "options_dialog")
+        friendly_cb = xml.get_widget("mpath_friendly_names")
+        friendly_cb.set_active(self.anaconda.storage.config.mpathFriendlyNames)
+        if dialog.run() == gtk.RESPONSE_OK:
+            self.anaconda.storage.config.mpathFriendlyNames = friendly_cb.get_active()
+        dialog.destroy()
+
     def _page_switched(self, notebook, useless, page_num):
         # When the page is switched, we need to change what is visible so the
         # Select All button only selects/deselected things on the current page.
@@ -558,9 +576,11 @@ class FilterWindow(InstallWindow):
         self.buttonBox = self.xml.get_widget("buttonBox")
         self.notebook = self.xml.get_widget("notebook")
         self.addAdvanced = self.xml.get_widget("addAdvancedButton")
+        self.options = self.xml.get_widget("optionsButton")
 
         self.notebook.connect("switch-page", self._page_switched)
         self.addAdvanced.connect("clicked", self._add_advanced_clicked)
+        self.options.connect("clicked", self._options_clicked)
 
         self.pages = []
 
@@ -598,10 +618,9 @@ class FilterWindow(InstallWindow):
         disks = self._getFilterDisks()
 
         mcw = MultipathConfigWriter()
-        cfg = mcw.write()
-        open("/etc/multipath.conf", "w+").write(cfg)
-        del cfg
-        del mcw
+        cfg = mcw.write(friendly_names=True)
+        with open("/etc/multipath.conf", "w+") as mpath_cfg:
+            mpath_cfg.write(cfg)
 
         topology = MultipathTopology(disks)
         # The device list could be really long, so we really only want to

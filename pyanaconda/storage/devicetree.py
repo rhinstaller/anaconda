@@ -169,6 +169,7 @@ class DeviceTree(object):
         self.reinitializeDisks = getattr(conf, "reinitializeDisks", False)
         self.iscsi = iscsi
         self.dasd = dasd
+        self.mpathFriendlyNames = getattr(conf, "mpathFriendlyNames", True)
 
         self.platform = platform.getPlatform(None)
 
@@ -1810,9 +1811,9 @@ class DeviceTree(object):
                      % (livetarget,))
             self.protectedDevNames.append(livetarget)
 
-        cfg = self.__multipathConfigWriter.write()
-        open("/etc/multipath.conf", "w+").write(cfg)
-        del cfg
+        cfg = self.__multipathConfigWriter.write(self.mpathFriendlyNames)
+        with open("/etc/multipath.conf", "w+") as mpath_cfg:
+            mpath_cfg.write(cfg)
 
         self.topology = devicelibs.mpath.MultipathTopology(udev_get_block_devices())
         log.info("devices to scan: %s" %
@@ -1845,9 +1846,9 @@ class DeviceTree(object):
         for d in self.devices:
             if not d.name in whitelist:
                 self.__multipathConfigWriter.addBlacklistDevice(d)
-        cfg = self.__multipathConfigWriter.write()
-        open("/etc/multipath.conf", "w+").write(cfg)
-        del cfg
+        cfg = self.__multipathConfigWriter.write(self.mpathFriendlyNames)
+        with open("/etc/multipath.conf", "w+") as mpath_cfg:
+            mpath_cfg.write(cfg)
 
         # Now, loop and scan for devices that have appeared since the two above
         # blocks or since previous iterations.

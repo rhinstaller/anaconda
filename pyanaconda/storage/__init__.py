@@ -296,6 +296,7 @@ class StorageDiscoveryConfig(object):
         self.zeroMbr = None
         self.protectedDevSpecs = []
         self.diskImages = {}
+        self.mpathFriendlyNames = True
 
     def writeKS(self, f):
         # clearpart
@@ -2260,7 +2261,7 @@ class FSSet(object):
         if multipath_conf:
             multipath_path = os.path.normpath("%s/etc/multipath.conf" %
                                               instPath)
-            conf_contents = multipath_conf.write()
+            conf_contents = multipath_conf.write(self.devicetree.mpathFriendlyNames)
             f = open(multipath_path, "w")
             f.write(conf_contents)
             f.close()
