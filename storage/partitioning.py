@@ -514,9 +514,6 @@ def partitionCompare(part1, part2):
     if part2.req_base_weight:
         ret += part2.req_base_weight
 
-    # bootable partitions to the front
-    ret -= cmp(part1.req_bootable, part2.req_bootable) * 1000
-
     # more specific disk specs to the front of the list
     # req_disks being empty is equivalent to it being an infinitely long list
     if part1.req_disks and not part2.req_disks:
@@ -997,19 +994,6 @@ def allocatePartitions(storage, disks, partitions, freespace):
 
     removeNewPartitions(disks, new_partitions)
 
-    # Search for the /boot partition.
-    # If there is not a separate /boot partition,
-    # the /boot will end up on the / partition.
-    # We need this later for apple's bootstrap and prepboot,
-    # because this partition needs to be on the same disk
-    # as bootstrap/prepboot partition.
-    # Only do this on systems that need it.
-    _boot_part = "/boot"
-    pl = platform.getPlatform(None)
-    if pl.weight(fstype="prepboot") or pl.weight(fstype="appleboot"):
-        if "/boot" not in storage.mountpoints and "/" in storage.mountpoints:
-            _boot_part = "/"
-
     for _part in new_partitions:
         if _part.partedPartition and _part.isExtended:
             # ignore new extendeds as they are implicit requests
@@ -1039,11 +1023,13 @@ def allocatePartitions(storage, disks, partitions, freespace):
             boot_disk = req_disks.pop(boot_index)
             req_disks.insert(0, boot_disk)
 
+        boot = _part.req_base_weight > 1000
+
         log.debug("allocating partition: %s ; id: %d ; disks: %s ;\n"
                   "boot: %s ; primary: %s ; size: %dMB ; grow: %s ; "
                   "max_size: %s" % (_part.name, _part.id,
                                     [d.name for d in req_disks],
-                                    _part.req_bootable, _part.req_primary,
+                                    boot, _part.req_primary,
                                     _part.req_size, _part.req_grow,
                                     _part.req_max_size))
         free = None
@@ -1095,7 +1081,7 @@ def allocatePartitions(storage, disks, partitions, freespace):
                                           new_part_type,
                                           _part.req_size,
                                           best_free=current_free,
-                                          boot=_part.req_bootable,
+                                          boot=boot,
                                           grow=_part.req_grow)
 
             if best == free and not _part.req_primary and \
@@ -1109,7 +1095,7 @@ def allocatePartitions(storage, disks, partitions, freespace):
                                                   new_part_type,
                                                   _part.req_size,
                                                   best_free=current_free,
-                                                  boot=_part.req_bootable,
+                                                  boot=boot,
                                                   grow=_part.req_grow)
 
             if best and free != best:
@@ -1195,14 +1181,7 @@ def allocatePartitions(storage, disks, partitions, freespace):
                                 growth)
                     free = best
 
-            # For platforms with a fake boot partition (like Apple Bootstrap or
-            # PReP) and multiple disks, we need to ensure the /boot partition
-            # ends up on the same disk as the fake one.
-            mountpoint = getattr(_part.format, "mountpoint", "")
-            if not mountpoint:
-                mountpoint = ""
-
-            if free and (_part.req_bootable or mountpoint == _boot_part):
+            if free and boot:
                 # if this is a bootable partition we want to
                 # use the first freespace region large enough
                 # to satisfy the request
@@ -1228,7 +1207,7 @@ def allocatePartitions(storage, disks, partitions, freespace):
             free = getBestFreeSpaceRegion(disklabel.partedDisk,
                                           part_type,
                                           _part.req_size,
-                                          boot=_part.req_bootable,
+                                          boot=boot,
                                           grow=_part.req_grow)
             if not free:
                 raise PartitioningError("not enough free space after "
