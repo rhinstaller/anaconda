@@ -184,7 +184,7 @@ def getEscrowCertificate(anaconda, url):
 def detect_multipaths():
     global multipaths
     mcw = MultipathConfigWriter()
-    cfg = mcw.write()
+    cfg = mcw.write(friendly_names=True)
     with open("/etc/multipath.conf", "w+") as mpath_cfg:
         mpath_cfg.write(cfg)
     devices = udev_get_block_devices()

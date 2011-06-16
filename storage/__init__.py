@@ -309,6 +309,7 @@ class Storage(object):
         self.protectedDevSpecs = []
         self.autoPartitionRequests = []
         self.eddDict = {}
+        self.mpathFriendlyNames = True
 
         self.__luksDevs = {}
 
@@ -334,7 +335,8 @@ class Storage(object):
                                      passphrase=self.encryptionPassphrase,
                                      luksDict=self.__luksDevs,
                                      iscsi=self.iscsi,
-                                     dasd=self.dasd)
+                                     dasd=self.dasd,
+                                     mpathFriendlyNames=self.mpathFriendlyNames)
         self.fsset = FSSet(self.devicetree, self.anaconda.rootPath)
         self.services = set()
 
@@ -423,7 +425,8 @@ class Storage(object):
                                      passphrase=self.encryptionPassphrase,
                                      luksDict=self.__luksDevs,
                                      iscsi=self.iscsi,
-                                     dasd=self.dasd)
+                                     dasd=self.dasd,
+                                     mpathFriendlyNames=self.mpathFriendlyNames)
         self.devicetree.populate()
         self.fsset = FSSet(self.devicetree, self.anaconda.rootPath)
         self.eddDict = get_edd_dict(self.partitioned)
@@ -2174,7 +2177,7 @@ class FSSet(object):
         if multipath_conf:
             multipath_path = os.path.normpath("%s/etc/multipath.conf" %
                                               instPath)
-            conf_contents = multipath_conf.write()
+            conf_contents = multipath_conf.write(self.devicetree.mpathFriendlyNames)
             f = open(multipath_path, "w")
             f.write(conf_contents)
             f.close()

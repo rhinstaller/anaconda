@@ -80,7 +80,7 @@ def parseMultipathOutput(output):
 
     policy = re.compile('^[|+` -]+policy')
     device = re.compile('^[|+` -]+[0-9]+:[0-9]+:[0-9]+:[0-9]+ +([a-zA-Z0-9!/]+)')
-    create = re.compile('^(create: )?(mpath\w+)')
+    create = re.compile('^(create: )?(mpath\w+|[a-f0-9]+)')
 
     lines = output.split('\n')
     for line in lines:
@@ -236,7 +236,7 @@ class MultipathConfigWriter:
     def addMultipathDevice(self, mpath):
         self.mpaths.append(mpath)
 
-    def write(self):
+    def write(self, friendly_names):
         # if you add anything here, be sure and also add it to anaconda's
         # multipath.conf
         ret = ''
@@ -244,7 +244,7 @@ class MultipathConfigWriter:
 # multipath.conf written by anaconda
 
 defaults {
-	user_friendly_names yes
+	user_friendly_names %(friendly_names)s
 }
 blacklist {
 	devnode "^(ram|raw|loop|fd|md|dm-|sr|scd|st)[0-9]*"
@@ -273,7 +273,7 @@ blacklist {
 	device {
 		vendor  "HPT"
 	}
-"""
+""" % {'friendly_names' : "yes" if friendly_names else "no"}
         for device in self.blacklist_devices:
             if device.serial:
                 ret += '\twwid "%s"\n' % device.serial

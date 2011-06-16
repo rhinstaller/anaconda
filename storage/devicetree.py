@@ -153,7 +153,8 @@ class DeviceTree(object):
 
     def __init__(self, intf=None, ignored=[], exclusive=[], type=CLEARPART_TYPE_NONE,
                  clear=[], zeroMbr=None, reinitializeDisks=None, protected=[],
-                 passphrase=None, luksDict=None, iscsi=None, dasd=None):
+                 passphrase=None, luksDict=None, iscsi=None, dasd=None,
+                 mpathFriendlyNames=True):
         # internal data members
         self._devices = []
         self._actions = []
@@ -169,6 +170,7 @@ class DeviceTree(object):
         self.reinitializeDisks = reinitializeDisks
         self.iscsi = iscsi
         self.dasd = dasd
+        self.mpathFriendlyNames = mpathFriendlyNames
 
         # protected device specs as provided by the user
         self.protectedDevSpecs = protected
@@ -1295,9 +1297,9 @@ class DeviceTree(object):
         #
         if udev_device_is_multipath_member(info) and device is None:
             device = self.addUdevDiskDevice(info)
-        elif udev_device_is_dm(info) and udev_device_is_dm_mpath(info):
+        elif udev_device_is_dm(info) and udev_device_is_dm_mpath(info) and device is None:
             log.debug("%s is a multipath device" % name)
-            self.addUdevDMDevice(info)
+            device = self.addUdevDMDevice(info)
         elif udev_device_is_dm(info):
             log.debug("%s is a device-mapper device" % name)
             # try to look up the device
@@ -2057,9 +2059,9 @@ class DeviceTree(object):
                      % (livetarget,))
             self.protectedDevNames.append(livetarget)
 
-        cfg = self.__multipathConfigWriter.write()
-        open("/etc/multipath.conf", "w+").write(cfg)
-        del cfg
+        cfg = self.__multipathConfigWriter.write(self.mpathFriendlyNames)
+        with open("/etc/multipath.conf", "w+") as mpath_cfg:
+            mpath_cfg.write(cfg)
 
         devices = udev_get_block_devices()
         (singles, mpaths, partitions) = devicelibs.mpath.identifyMultipaths(devices)
@@ -2096,9 +2098,9 @@ class DeviceTree(object):
         for d in self.devices:
             if not d.name in whitelist:
                 self.__multipathConfigWriter.addBlacklistDevice(d)
-        cfg = self.__multipathConfigWriter.write()
-        open("/etc/multipath.conf", "w+").write(cfg)
-        del cfg
+        cfg = self.__multipathConfigWriter.write(self.mpathFriendlyNames)
+        with open("/etc/multipath.conf", "w+") as mpath_cfg:
+            mpath_cfg.write(cfg)
 
         # Now, loop and scan for devices that have appeared since the two above
         # blocks or since previous iterations.
