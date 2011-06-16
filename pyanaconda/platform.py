@@ -150,7 +150,7 @@ class Platform(object):
             for the base sorting weight.  This is used to modify the sort
             algorithm for partition requests, mainly to make sure bootable
             partitions and /boot are placed where they need to be."""
-        if fstype in self.bootFSTypes and mountpoint == "/boot":
+        if mountpoint == "/boot":
             return 2000
         else:
             return 0
