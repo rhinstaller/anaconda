@@ -1822,19 +1822,19 @@ int kickstartNetworkUp(struct loaderData_s * loaderData, iface_t * iface) {
             rc = add_and_activate_wifi_connection(&(loaderData->netDev),
                     loaderData->essid, WIFI_PROTECTION_WEP, loaderData->wepkey,
                     loaderData->ipinfo_set, loaderData->ipv4, loaderData->gateway,
-                    loaderData->dns);
+                    loaderData->dns, loaderData->netmask);
 
         else if (loaderData->wpakey != NULL)
             rc = add_and_activate_wifi_connection(&(loaderData->netDev),
                     loaderData->essid, WIFI_PROTECTION_WPA, loaderData->wpakey,
                     loaderData->ipinfo_set, loaderData->ipv4, loaderData->gateway,
-                    loaderData->dns);
+                    loaderData->dns, loaderData->netmask);
 
         else
             rc = add_and_activate_wifi_connection(&(loaderData->netDev),
                     loaderData->essid, WIFI_PROTECTION_UNPROTECTED, NULL,
                     loaderData->ipinfo_set, loaderData->ipv4, loaderData->gateway,
-                    loaderData->dns);
+                    loaderData->dns, loaderData->netmask);
 
         if (rc == WIFI_ACTIVATION_OK) {
             loaderData->netDev_set = 1;
@@ -2278,18 +2278,18 @@ add_cb(NMClient *client,
     if (error) logMessage(ERROR, "Error adding wifi connection: %s", error->message);
 }
 
-guint32 ip_str_to_nbo(char* ip) {
+gint64 ip_str_to_nbo(char* ip) {
     //get NBO representation of ip address
     struct in_addr tmp_addr = { 0 };
 
     if (inet_pton(AF_INET, ip, &tmp_addr) == 1) return tmp_addr.s_addr;
-    else return 0;
+    else return -1;
 }
 
 
 int add_and_activate_wifi_connection(char **iface, char *ssid,
     int protection, char *password, int ip_method_manual, char *address,
-    char *gateway, char *dns) {
+    char *gateway, char *dns, char *netmask) {
 
     NMClient *client = NULL;
     NMDeviceWifi *device = NULL;
@@ -2412,14 +2412,21 @@ int add_and_activate_wifi_connection(char **iface, char *ssid,
         GArray *address_array = g_array_new(FALSE, FALSE, sizeof(guint32));
         guint32 nbo_ip = ip_str_to_nbo(address);
         guint32 nbo_gw = 0;
-        guint32 nbo_mask = 24;
         guint32 nbo_dns = 0;
+        gint64 nbo_netmask = -1;
+        guint32 nbo_prefix = 0;
         char *dns_addr = NULL;
 
         if (gateway) nbo_gw = ip_str_to_nbo(gateway);
+        if (netmask) {
+            nbo_netmask = ip_str_to_nbo(netmask);
+        }
+        nbo_prefix = nbo_netmask >= 0 ?
+                        nm_utils_ip4_netmask_to_prefix((guint32) nbo_netmask) :
+                        nm_utils_ip4_get_default_prefix(nbo_ip);
 
         g_array_append_val(address_array, nbo_ip);
-        g_array_append_val(address_array, nbo_mask);
+        g_array_append_val(address_array, nbo_prefix);
         g_array_append_val(address_array, nbo_gw);
 
         g_ptr_array_add(addresses, address_array);
