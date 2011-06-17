@@ -651,6 +651,8 @@ int process_kickstart_wifi (struct loaderData_s * loaderData) {
     int rc = -1;
 
     if (loaderData->essid != NULL) {
+        checkIPsettings(&(loaderData->ipinfo_set), &(loaderData->ipv4), 
+                &(loaderData->gateway), &(loaderData->netmask));
         if (loaderData->wepkey != NULL) {
             rc = add_and_activate_wifi_connection(&(loaderData->netDev), loaderData->essid,
                     WIFI_PROTECTION_WEP, loaderData->wepkey, loaderData->ipinfo_set, loaderData->ipv4,

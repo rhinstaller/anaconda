@@ -1818,6 +1818,8 @@ int kickstartNetworkUp(struct loaderData_s * loaderData, iface_t * iface) {
     iface_init_iface_t(iface);
 
     if (loaderData->essid != NULL) {
+        checkIPsettings(&(loaderData->ipinfo_set), &(loaderData->ipv4), &(loaderData->gateway),
+                &(loaderData->netmask));
         if (loaderData->wepkey != NULL)
             rc = add_and_activate_wifi_connection(&(loaderData->netDev),
                     loaderData->essid, WIFI_PROTECTION_WEP, loaderData->wepkey,
@@ -2278,12 +2280,14 @@ add_cb(NMClient *client,
     if (error) logMessage(ERROR, "Error adding wifi connection: %s", error->message);
 }
 
-gint64 ip_str_to_nbo(char* ip) {
+gboolean ip_str_to_nbo(char* ip, guint32 *result) {
     //get NBO representation of ip address
     struct in_addr tmp_addr = { 0 };
 
-    if (inet_pton(AF_INET, ip, &tmp_addr) == 1) return tmp_addr.s_addr;
-    else return -1;
+    if (inet_pton(AF_INET, ip, &tmp_addr) == 1) {
+        *result = tmp_addr.s_addr;
+        return TRUE;
+    } else return FALSE;
 }
 
 
@@ -2410,20 +2414,20 @@ int add_and_activate_wifi_connection(char **iface, char *ssid,
     if (ip_method_manual) {
         GPtrArray *addresses = g_ptr_array_new();
         GArray *address_array = g_array_new(FALSE, FALSE, sizeof(guint32));
-        guint32 nbo_ip = ip_str_to_nbo(address);
+        guint32 nbo_ip = 0;
         guint32 nbo_gw = 0;
         guint32 nbo_dns = 0;
-        gint64 nbo_netmask = -1;
+        guint32 nbo_netmask = 0;
         guint32 nbo_prefix = 0;
         char *dns_addr = NULL;
 
-        if (gateway) nbo_gw = ip_str_to_nbo(gateway);
-        if (netmask) {
-            nbo_netmask = ip_str_to_nbo(netmask);
-        }
-        nbo_prefix = nbo_netmask >= 0 ?
-                        nm_utils_ip4_netmask_to_prefix((guint32) nbo_netmask) :
-                        nm_utils_ip4_get_default_prefix(nbo_ip);
+        ip_str_to_nbo(address, &nbo_ip);
+
+        if (gateway) ip_str_to_nbo(gateway, &nbo_gw);
+
+        nbo_prefix = nm_utils_ip4_get_default_prefix(nbo_ip);
+        if (netmask && ip_str_to_nbo(netmask, &nbo_netmask))
+                nbo_prefix = nm_utils_ip4_netmask_to_prefix(nbo_netmask);
 
         g_array_append_val(address_array, nbo_ip);
         g_array_append_val(address_array, nbo_prefix);
@@ -2441,10 +2445,11 @@ int add_and_activate_wifi_connection(char **iface, char *ssid,
             buf = strdup(dns);
             dns_addr = strtok(buf, ",");
             while (dns_addr && count <= MAXNS) {
-                nbo_dns = ip_str_to_nbo(dns_addr);
-                nm_setting_ip4_config_add_dns(s_ip, nbo_dns);
+                if (ip_str_to_nbo(dns_addr, &nbo_dns)) {
+                    nm_setting_ip4_config_add_dns(s_ip, nbo_dns);
+                    count++;
+                }
                 dns_addr = strtok(NULL, ",");
-                count++;
             }
         }
         nm_connection_add_setting(connection, NM_SETTING (s_ip));
@@ -2467,6 +2472,29 @@ int add_and_activate_wifi_connection(char **iface, char *ssid,
     *iface = NULL;
     g_main_loop_unref(loop);
     return WIFI_ACTIVATION_TIMED_OUT;
+}
+
+gboolean checkIPsettings (int *ip_info_set, char **ip, char **gateway, char **netmask) {
+    gboolean ok = TRUE;
+    guint32 tmp = 0;
+
+    if (*ip && !ip_str_to_nbo(*ip, &tmp)) {
+        free(*ip);
+        *ip = NULL;
+        *ip_info_set = 0;
+        ok = FALSE;
+    }
+    if (*gateway && !ip_str_to_nbo(*gateway, &tmp)) {
+        free(*gateway);
+        *gateway = NULL;
+        ok = FALSE;
+    }
+    if (*netmask && !ip_str_to_nbo(*netmask, &tmp)) {
+        free(*netmask);
+        *netmask = NULL;
+        ok = FALSE;
+    }
+    return ok;
 }
 
 /* vim:set shiftwidth=4 softtabstop=4: */

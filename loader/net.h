@@ -87,6 +87,8 @@ int add_and_activate_wifi_connection (char **iface, char *ssid,
 				      int ip_method_manual, char *address,
                                       char *gateway, char *dns,
                                       char *netmask);
+int checkIPsettings (int *ip_info_set, char **ip, char **gateway,
+                     char **netmask);
 #ifdef ENABLE_IPV6
 int isValidIPv6Address(const char *address);
 #endif
