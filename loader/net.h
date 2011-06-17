@@ -85,7 +85,7 @@ int isValidIPv4Address(const char *address);
 int add_and_activate_wifi_connection (char **iface, char *ssid,
 				      int protection, char *password,
 				      int ip_method_manual, char *address,
-                                      char *gateway);
+                                      char *gateway, char *dns);
 #ifdef ENABLE_IPV6
 int isValidIPv6Address(const char *address);
 #endif

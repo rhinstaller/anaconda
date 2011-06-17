@@ -1821,17 +1821,20 @@ int kickstartNetworkUp(struct loaderData_s * loaderData, iface_t * iface) {
         if (loaderData->wepkey != NULL)
             rc = add_and_activate_wifi_connection(&(loaderData->netDev),
                     loaderData->essid, WIFI_PROTECTION_WEP, loaderData->wepkey,
-                    loaderData->ipinfo_set, loaderData->ipv4, loaderData->gateway);
+                    loaderData->ipinfo_set, loaderData->ipv4, loaderData->gateway,
+                    loaderData->dns);
 
         else if (loaderData->wpakey != NULL)
             rc = add_and_activate_wifi_connection(&(loaderData->netDev),
                     loaderData->essid, WIFI_PROTECTION_WPA, loaderData->wpakey,
-                    loaderData->ipinfo_set, loaderData->ipv4, loaderData->gateway);
+                    loaderData->ipinfo_set, loaderData->ipv4, loaderData->gateway,
+                    loaderData->dns);
 
         else
             rc = add_and_activate_wifi_connection(&(loaderData->netDev),
                     loaderData->essid, WIFI_PROTECTION_UNPROTECTED, NULL,
-                    loaderData->ipinfo_set, loaderData->ipv4, loaderData->gateway);
+                    loaderData->ipinfo_set, loaderData->ipv4, loaderData->gateway,
+                    loaderData->dns);
 
         if (rc == WIFI_ACTIVATION_OK) {
             loaderData->netDev_set = 1;
@@ -2279,14 +2282,14 @@ guint32 ip_str_to_nbo(char* ip) {
     //get NBO representation of ip address
     struct in_addr tmp_addr = { 0 };
 
-    inet_pton(AF_INET, ip, &tmp_addr);
-    return tmp_addr.s_addr;
+    if (inet_pton(AF_INET, ip, &tmp_addr) == 1) return tmp_addr.s_addr;
+    else return 0;
 }
 
 
 int add_and_activate_wifi_connection(char **iface, char *ssid,
     int protection, char *password, int ip_method_manual, char *address,
-    char *gateway) {
+    char *gateway, char *dns) {
 
     NMClient *client = NULL;
     NMDeviceWifi *device = NULL;
@@ -2305,6 +2308,7 @@ int add_and_activate_wifi_connection(char **iface, char *ssid,
     NMSettingWirelessSecurity *s_sec;
     NMSettingIP4Config *s_ip;
     char *uuid;
+    char *buf;
 
     if (*iface == NULL) *iface = "";
     error = NULL;
@@ -2409,6 +2413,8 @@ int add_and_activate_wifi_connection(char **iface, char *ssid,
         guint32 nbo_ip = ip_str_to_nbo(address);
         guint32 nbo_gw = 0;
         guint32 nbo_mask = 24;
+        guint32 nbo_dns = 0;
+        char *dns_addr = NULL;
 
         if (gateway) nbo_gw = ip_str_to_nbo(gateway);
 
@@ -2423,6 +2429,17 @@ int add_and_activate_wifi_connection(char **iface, char *ssid,
             NM_SETTING_IP4_CONFIG_METHOD, NM_SETTING_IP4_CONFIG_METHOD_MANUAL,
             NM_SETTING_IP4_CONFIG_ADDRESSES, addresses,
             NULL);
+        if (dns) {
+            count = 0;
+            buf = strdup(dns);
+            dns_addr = strtok(buf, ",");
+            while (dns_addr && count <= MAXNS) {
+                nbo_dns = ip_str_to_nbo(dns_addr);
+                nm_setting_ip4_config_add_dns(s_ip, nbo_dns);
+                dns_addr = strtok(NULL, ",");
+                count++;
+            }
+        }
         nm_connection_add_setting(connection, NM_SETTING (s_ip));
         g_array_free(address_array, TRUE);
         g_ptr_array_free(addresses, TRUE);
