@@ -1487,6 +1487,7 @@ int chooseNetworkInterface(struct loaderData_s * loaderData) {
     int lookForLink = 0;
     struct newtWinEntry entry[] = {{N_("Seconds:"), (char **) &seconds, 0},
                                    {NULL, NULL, 0 }};
+    extern int num_link_checks;
 
     devs = getDevices(DEVICE_NETWORK);
     if (!devs) {
@@ -1594,8 +1595,8 @@ int chooseNetworkInterface(struct loaderData_s * loaderData) {
                            devs[i]->device, devmacaddr);
                 free(devmacaddr);
 
-                /* wait for the link (max 5s) */
-                for (rc = 0; rc < 5; rc++) {
+                /* wait for the link */
+                for (rc = 0; rc < num_link_checks; rc++) {
                     if (get_link_status(devs[i]->device) == 0) {
                         logMessage(INFO, "%s still has no link, waiting", devs[i]->device);
                         sleep(1);                 
@@ -1637,7 +1638,7 @@ int chooseNetworkInterface(struct loaderData_s * loaderData) {
     if (lookForLink) {
         logMessage(INFO, "looking for first netDev with link");
 
-        for (rc = 0; rc < 5; rc++) {
+        for (rc = 0; rc < num_link_checks; rc++) {
             for (i = 0; i < deviceNums; i++) {
                 if (get_link_status(devices[i]) == 1) {
                     loaderData->netDev = devices[i];
