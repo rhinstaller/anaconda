@@ -3340,7 +3340,7 @@ class MultipathDevice(DMDevice):
                             stderr = "/dev/tty5")
         if rc:
             raise MPathError("multipath activation failed for '%s'" %
-                            self.name)
+                            self.name, hardware_fault=True)
 
     def _postSetup(self):
         StorageDevice._postSetup(self)

@@ -197,6 +197,17 @@ class InstallInterfaceBase(object):
                                              custom_buttons=buttons,
                                              expanded=True)
 
+    def hardwareError(self, exception):
+        text=_("The installation was stopped due to what seems to be a problem "
+               "with your hardware. The exact error message is:\n\n%s.\n\n "
+               "The installer will now terminate.") % str(exception)
+        self.messageWindow(title=_("Hardware Error Encountered"),
+                           text=text,
+                           type="custom",
+                           custom_icon="error",
+                           custom_buttons=[_("_Exit installer")])
+        sys.exit(0)
+
     def unsupported_steps(self):
         """ List of steps this interface is unable to carry out. """
         return []

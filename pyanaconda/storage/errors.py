@@ -21,7 +21,9 @@
 #
 
 class StorageError(Exception):
-    pass
+    def __init__(self, *args, **kwargs):
+        self.hardware_fault = kwargs.pop("hardware_fault", False)
+        super(StorageError, self).__init__(*args, **kwargs)
 
 # Device
 class DeviceError(StorageError):
