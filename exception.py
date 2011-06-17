@@ -30,11 +30,19 @@ import shutil
 import signal
 from flags import flags
 import kickstart
+import storage.errors
 
 import logging
 log = logging.getLogger("anaconda")
 
 class AnacondaExceptionHandler(ExceptionHandler):
+    def handleException(self, (ty, value, tb), obj):
+        if issubclass(ty, storage.errors.StorageError) and value.hardware_fault:
+            self.intf.hardwareError(value)
+        else:
+            super(AnacondaExceptionHandler, self).handleException((ty, value, tb),
+                                                                  obj)
+
     def postWriteHook(self, (ty, value, tb), anaconda):
         # See if /mnt/sysimage is present and put exception there as well
         if os.access("/mnt/sysimage/root", os.X_OK):
