@@ -811,6 +811,8 @@ class PartitionData(commands.partition.F12_PartData):
                     disk = mpath_device
                 if not disk:
                     raise KickstartValueError, formatErrorMsg(self.lineno, msg="Specified nonexistent disk %s in partition command" % n)
+                if not disk.partitionable:
+                    raise KickstartValueError, formatErrorMsg(self.lineno, msg="Cannot install to read-only media %s." % n)
 
                 should_clear = shouldClear(disk,
                                            storage.clearPartType,
