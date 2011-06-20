@@ -62,5 +62,5 @@ class ZiplWindow:
         if button == TEXT_BACK_CHECK:
             return INSTALL_BACK
 
-        self.bl.kernel_args.extend(kernelentry.value().split())
+        self.bl.boot_args.update(kernelentry.value().split())
         return INSTALL_OK

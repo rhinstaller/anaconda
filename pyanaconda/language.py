@@ -218,12 +218,12 @@ class Language(object):
 
         iutil.execWithRedirect("localedef", ["-i", locale_p, "-f", c["codeset"] or "UTF-8", self._instLang])
 
-    def dracutSetupString(self):
-        args=""
+    def dracutSetupArgs(self):
+        args=set()
 
         for (key, val) in self.info.iteritems():
             if val != None:
-                args += " %s=%s" % (key, val)
+                args.add("%s=%s" % (key, val))
 
         return args
 

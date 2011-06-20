@@ -274,7 +274,7 @@ class Bootloader(commands.bootloader.F15_Bootloader):
         else:
             if self.appendLine:
                 args = self.appendLine.split()
-                self.anaconda.bootloader.boot_args.extend(args)
+                self.anaconda.bootloader.boot_args.update(args)
 
             if self.password:
                 self.anaconda.bootloader.password = self.password

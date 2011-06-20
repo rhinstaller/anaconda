@@ -78,69 +78,9 @@ class BootLoaderError(Exception):
     pass
 
 
-class ArgumentList(list):
-    def _is_match(self, item, value):
-        try:
-            _item = item.split("=")[0]
-        except (ValueError, AttributeError):
-            _item = item
-
-        try:
-            _value = value.split("=")[0]
-        except (ValueError, AttributeError):
-            _value = value
-
-        return _item == _value
-
-    def __contains__(self, value):
-        for arg in self:
-            if self._is_match(arg, value):
-                return True
-
-        return False
-
-    def count(self, value):
-        return len([x for x in self if self._is_match(x, value)])
-
-    def index(self, value):
-        for i in range(len(self)):
-            if self._is_match(self[i], value):
-                return i
-
-        raise ValueError("'%s' is not in list" % value)
-
-    def rindex(self, value):
-        for i in reversed(range(len(self))):
-            if self._is_match(self[i], value):
-                return i
-
-        raise ValueError("'%s' is not in list" % value)
-
-    def append(self, value):
-        """ Append a new argument to the list.
-
-            If the value is an exact match to an existing argument it will
-            not be added again. Also, empty strings will not be added.
-        """
-        if value == "":
-            return
-
-        try:
-            idx = self.index(value)
-        except ValueError:
-            pass
-        else:
-            if self[idx] == value:
-                return
-
-        super(ArgumentList, self).append(value)
-
-    def extend(self, values):
-        map(self.append, values)
-
+class Arguments(set):
     def __str__(self):
-        return " ".join(map(str, self))
-
+        return " ".join(self)
 
 class BootLoaderImage(object):
     """ Base class for bootloader images. Suitable for non-linux OS images. """
@@ -184,8 +124,6 @@ class BootLoader(object):
             - improve password encryption for grub
                 - fix handling of kickstart-provided already-encrypted
                   password
-            - consider re-implementing ArgumentList as something else, like
-              perhaps collections.OrderedDict
     """
     name = "Generic Bootloader"
     packages = []
@@ -236,8 +174,8 @@ class BootLoader(object):
         # pyanaconda.storage.Storage instance
         self.storage = storage
 
-        self.boot_args = ArgumentList()
-        self.dracut_args = []
+        self.boot_args = Arguments()
+        self.dracut_args = Arguments()
 
         self._drives = []
         self._drive_order = []
@@ -806,7 +744,7 @@ class BootLoader(object):
                 network - a pyanaconda.network.Network instance (for network
                           storage devices' boot arguments)
 
-            All other arguments are expected to have a dracutSetupString()
+            All other arguments are expected to have a dracutSetupArgs()
             method.
         """
         network = kwargs.pop("network", None)
@@ -815,7 +753,7 @@ class BootLoader(object):
         # FIPS
         #
         if flags.cmdline.get("fips") == "1":
-            self.boot_args.append("boot=%s" % self.stage2_device.fstabSpec)
+            self.boot_args.add("boot=%s" % self.stage2_device.fstabSpec)
 
         #
         # dracut
@@ -845,14 +783,15 @@ class BootLoader(object):
                 if device != dep and not device.dependsOn(dep):
                     continue
 
-                setup_string = dep.dracutSetupString().strip()
-                if not setup_string:
+                setup_args = dep.dracutSetupArgs()
+                if not setup_args:
                     continue
 
-                self.boot_args.append(setup_string)
-                self.dracut_args.append(setup_string)
+                self.boot_args.update(setup_args)
+                self.dracut_args.update(setup_args)
                 done.append(dep)
-                dracut_storage.pop(setup_string.split("=")[0], None)
+                for setup_arg in setup_args:
+                    dracut_storage.pop(setup_arg.split("=")[0], None)
 
                 # network storage
                 # XXX this is nothing to be proud of
@@ -865,18 +804,23 @@ class BootLoader(object):
                                               "setting boot args for network "
                                               "storage device")
 
-                    setup_string = network.dracutSetupString(dep).strip()
-                    self.boot_args.append(setup_string)
-                    self.dracut_args.append(setup_string)
+                    setup_args = network.dracutSetupArgs(dep)
+                    self.boot_args.update(setup_args)
+                    self.dracut_args.update(setup_args)
 
-        self.boot_args.extend(dracut_storage.values())
-        self.dracut_args.extend(dracut_storage.values())
+        self.boot_args.update(dracut_storage.values())
+        self.dracut_args.update(dracut_storage.values())
 
         # passed-in objects
         for cfg_obj in list(args) + kwargs.values():
-            setup_string = cfg_obj.dracutSetupString().strip()
-            self.boot_args.append(setup_string)
-            self.dracut_args.append(setup_string)
+            if hasattr(cfg_obj, "dracutSetupArgs"):
+                setup_args = cfg_obj.dracutSetupArgs()
+                self.boot_args.update(setup_args)
+                self.dracut_args.update(setup_args)
+            else:
+                setup_string = cfg_obj.dracutSetupString()
+                self.boot_args.add(setup_string)
+                self.dracut_args.add(setup_string)
 
         #
         # preservation of some of our boot args
@@ -891,7 +835,7 @@ class BootLoader(object):
             if arg:
                 new_arg += "=%s" % arg
 
-            self.boot_args.append(new_arg)
+            self.boot_args.add(new_arg)
 
     #
     # configuration
@@ -973,9 +917,9 @@ class BootLoader(object):
         if self.drive_order:
             f.write(" --driveorder=%s" % ",".join(self.drive_order))
 
-        append = [a for a in self.boot_args if a not in self.dracut_args]
+        append = self.boot_args - self.dracut_args
         if append:
-            f.write(" --append=\"%s\"" % " ".join(append))
+            f.write(" --append=\"%s\"" % append)
 
         f.write("\n")
 
@@ -1106,7 +1050,7 @@ class GRUB(BootLoader):
         console_arg = "console=%s" % self.console
         if self.console_options:
             console_arg += ",%s" % self.console_options
-        self.boot_args.append(console_arg)
+        self.boot_args.add(console_arg)
 
     @property
     def encrypted_password(self):
@@ -1185,10 +1129,10 @@ class GRUB(BootLoader):
         """ Write image entries into configuration file. """
         for image in self.images:
             if isinstance(image, LinuxBootLoaderImage):
-                args = ArgumentList()
+                args = Arguments()
                 grub_root = self.grub_device_name(self.stage2_device)
-                args.extend(["ro", "root=%s" % image.device.fstabSpec])
-                args.extend(self.boot_args)
+                args.update(["ro", "root=%s" % image.device.fstabSpec])
+                args.update(self.boot_args)
                 stanza = ("title %(label)s (%(version)s)\n"
                           "\troot %(grub_root)s\n"
                           "\tkernel %(prefix)s/%(kernel)s %(args)s\n"
@@ -1635,7 +1579,7 @@ class YabootSILOBase(BootLoader):
                 # mac os images are handled specially in the header on mac
                 continue
 
-            args = ArgumentList()
+            args = Arguments()
             if image.initrd:
                 initrd_line = "\tinitrd=%s/%s\n" % (self.boot_prefix,
                                                     image.initrd)
@@ -1646,10 +1590,10 @@ class YabootSILOBase(BootLoader):
             if root_device_spec.startswith("/"):
                 root_line = "\troot=%s\n" % root_device_spec
             else:
-                args.append("root=%s" % root_device_spec)
+                args.add("root=%s" % root_device_spec)
                 root_line = ""
 
-            args.extend(self.boot_args)
+            args.update(self.boot_args)
 
             stanza = ("image=%(boot_prefix)s%(kernel)s\n"
                       "\tlabel=%(label)s\n"
@@ -1833,14 +1777,14 @@ class ZIPL(BootLoader):
 
     def write_config_images(self, config):
         for image in self.images:
-            args = ArgumentList()
+            args = Arguments()
             if image.initrd:
                 initrd_line = "\tramdisk=%s/%s\n" % (self.boot_dir,
                                                      image.initrd)
             else:
                 initrd_line = ""
-            args.append("root=%s/%s" % (self.boot_dir, image.kernel))
-            args.extend(self.boot_args)
+            args.add("root=%s/%s" % (self.boot_dir, image.kernel))
+            args.update(self.boot_args)
             stanza = ("[%(label)s]\n"
                       "\timage=%(boot_dir)s/%(kernel)s\n"
                       "%(initrd_line)s"

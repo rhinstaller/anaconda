@@ -116,18 +116,18 @@ class LanguageTest(mock.TestCase):
         lang = pyanaconda.language.Language()
         self.assertEqual(set(lang.available()), set(['Czech', 'English', 'Hebrew']))
 
-    def dracut_setup_string_default_test(self):
+    def dracut_setup_args_default_test(self):
         import pyanaconda.language
         lang = pyanaconda.language.Language()
-        ret = lang.dracutSetupString()
-        self.assertEqual(ret, ' LANG=%s' % ENVIRON_LANG)
+        ret = lang.dracutSetupArgs()
+        self.assertEqual(ret, set(['LANG=%s' % ENVIRON_LANG]))
 
-    def dracut_setup_string_after_set_test(self):
+    def dracut_setup_args_after_set_test(self):
         import pyanaconda.language
         lang = pyanaconda.language.Language()
         lang.systemLang = 'cs'
-        ret = lang.dracutSetupString()
-        self.assertEqual(ret, ' LANG=cs_CZ.UTF-8 SYSFONT=latarcyrheb-sun16')
+        ret = lang.dracutSetupArgs()
+        self.assertEqual(ret, set(['LANG=cs_CZ.UTF-8', 'SYSFONT=latarcyrheb-sun16']))
 
     def get_current_lang_search_list_default_test(self):
         import pyanaconda.language

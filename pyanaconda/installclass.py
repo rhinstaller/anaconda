@@ -192,7 +192,7 @@ class BaseInstallClass(object):
 
     def configure(self, anaconda):
         anaconda.bootloader.timeout = self.bootloaderTimeoutDefault
-        anaconda.bootloader.boot_args.extend(self.bootloaderExtraArgs)
+        anaconda.bootloader.boot_args.update(self.bootloaderExtraArgs)
 
     def versionMatches(self, oldver):
         pass
