@@ -87,70 +87,63 @@ def rootIsDevice(dev):
 class KernelArguments:
 
     def getDracutStorageArgs(self, devices):
-        args = []
+        args = set()
         types = {}
         for device in devices:
             for d in self.id.storage.devices:
                 if d is not device and not device.dependsOn(d):
                     continue
 
-                s = d.dracutSetupString()
-                types[s.split("=")[0]] = True
-                if s not in args:
-                    args.append(s)
+                s = d.dracutSetupArgs()
+                for setup_arg in s:
+                    types[setup_arg.split("=")[0]] = True
+                args.update(s)
 
                 import storage
                 if isinstance(d, storage.devices.NetworkStorageDevice):
-                    s = self.id.network.dracutSetupString(d)
-                    if s not in args:
-                        args.append(s)
+                    s = self.id.network.dracutSetupArgs(d)
+                    args.update(s)
 
         for i in [ [ "rd_LUKS_UUID", "rd_NO_LUKS" ],
                    [ "rd_LVM_LV", "rd_NO_LVM" ],
                    [ "rd_MD_UUID", "rd_NO_MD" ],
                    [ "rd_DM_UUID", "rd_NO_DM" ] ]:
             if not types.has_key(i[0]):
-                args.append(i[1])
+                args.add(i[1])
 
         return args
 
     def get(self):
-        args = ""
-        bootArgs = []
+        bootArgs = set()
         rootDev = self.id.storage.rootDevice
         neededDevs = [ rootDev ] + self.id.storage.swaps
 
         if flags.cmdline.get("fips") == "1":
             bootDev = self.id.storage.mountpoints.get("/boot", rootDev)
-            bootArgs = [ "boot=%s" % bootDev.fstabSpec ]
+            bootArgs.add("boot=%s" % bootDev.fstabSpec)
             if bootDev is not rootDev:
                 neededDevs = [ rootDev, bootDev ]
 
         if self.id.storage.fsset.swapDevices:
             neededDevs.append(self.id.storage.fsset.swapDevices[0])
 
-        for s in bootArgs + \
-                 self.getDracutStorageArgs(neededDevs) + [
-                 self.id.instLanguage.dracutSetupString(),
-                 self.id.keyboard.dracutSetupString(),
-                 self.args,
-                 self.appendArgs ]:
-            s = s.strip()
-            if not s:
-                continue
-            if args:
-                args += " "
-            args += s
+        all_args = set()
+        all_args.update(bootArgs)
+        all_args.update(self.getDracutStorageArgs(neededDevs))
+        all_args.update(self.id.instLanguage.dracutSetupArgs())
+        all_args.add(self.id.keyboard.dracutSetupString())
+        all_args.update(self.args)
+        all_args.update(self.appendArgs)
 
-        return args
+        return " ".join(all_args)
 
     def set(self, args):
         self.args = args
-        self.appendArgs = ""
+        self.appendArgs = set()
 
     def getNoDracut(self):
-        args = self.args.strip() + " " + self.appendArgs.strip()
-        return args.strip()
+        args = " ".join(self.args) + " " + " ".join(self.appendArgs)
+        return args
 
     def chandevget(self):
         return self.cargs
@@ -158,17 +151,8 @@ class KernelArguments:
     def chandevset(self, args):
         self.cargs = args
 
-    def append(self, args):
-        # don't duplicate the addition of an argument (#128492)
-        if self.args.find(args) != -1:
-            return
-        if self.appendArgs.find(args) != -1:
-            return
-
-        if self.appendArgs:
-            self.appendArgs += " "
-
-        self.appendArgs += args
+    def append(self, arg):
+        self.appendArgs.add(arg)
 
     def __init__(self, instData):
         newArgs = []
@@ -194,8 +178,8 @@ class KernelArguments:
             else:
                 newArgs.append(arg)
 
-        self.args = " ".join(newArgs)
-        self.appendArgs = ""
+        self.args = set(newArgs)
+        self.appendArgs = set()
         self.id = instData
 
 

@@ -88,9 +88,9 @@ class ZiplWindow:
             return INSTALL_BACK
 
         if kernelentry.value():
-            self.bl.args.set(string.strip(kernelentry.value()))
+            self.bl.args.set(set([string.strip(kernelentry.value())]))
         else:
-            self.bl.args.set("")
+            self.bl.args.set(set())
 
         cdevs = []
         if chandeventry1.value():

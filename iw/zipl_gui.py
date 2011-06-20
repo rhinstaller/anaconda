@@ -42,8 +42,7 @@ class ZiplWindow (InstallWindow):
 	pass
 
     def getNext (self):
-        self.bl.args.set(self.kernelEntry.get_text())
-
+        self.bl.args.set(set([self.kernelEntry.get_text()]))
 
     # ZiplWindow tag="zipl"
     def getScreen(self, anaconda):

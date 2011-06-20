@@ -729,8 +729,8 @@ class Network:
         return self.waitForConnection()
 
     # get a kernel cmdline string for dracut needed for access to host host
-    def dracutSetupString(self, networkStorageDevice):
-        netargs=""
+    def dracutSetupArgs(self, networkStorageDevice):
+        netargs=set()
 
         if networkStorageDevice.nic:
             # Storage bound to a specific nic (ie FCoE)
@@ -748,7 +748,7 @@ class Network:
         dev = self.netdevices[nic]
 
         if dev.get('BOOTPROTO') == 'ibft':
-            netargs += "ip=ibft"
+            netargs.add("ip=ibft")
         elif networkStorageDevice.host_address:
             if self.hostname:
                 hostname = self.hostname
@@ -760,20 +760,20 @@ class Network:
                 if dev.get('DHCPV6C') == "yes":
                     # XXX combination with autoconf not yet clear,
                     # support for dhcpv6 is not yet implemented in NM/ifcfg-rh
-                    netargs += "ip=%s:dhcp6" % nic
+                    netargs.add("ip=%s:dhcp6" % nic)
                 elif dev.get('IPV6_AUTOCONF') == "yes":
-                    netargs += "ip=%s:auto6" % nic
+                    netargs.add("ip=%s:auto6" % nic)
                 elif dev.get('IPV6ADDR'):
                     ipaddr = "[%s]" % dev.get('IPV6ADDR')
                     if dev.get('IPV6_DEFAULTGW'):
                         gateway = "[%s]" % dev.get('IPV6_DEFAULTGW')
                     else:
                         gateway = ""
-                    netargs += "ip=%s::%s:%s:%s:%s:none" % (ipaddr, gateway,
-                               dev.get('PREFIX'), hostname, nic)
+                    netargs.add("ip=%s::%s:%s:%s:%s:none" % (ipaddr, gateway,
+                               dev.get('PREFIX'), hostname, nic))
             else:
                 if dev.get('bootproto').lower() == 'dhcp':
-                    netargs += "ip=%s:dhcp" % nic
+                    netargs.add("ip=%s:dhcp" % nic)
                 else:
                     if dev.get('GATEWAY'):
                         gateway = dev.get('GATEWAY')
@@ -785,28 +785,23 @@ class Network:
                     if not netmask and prefix:
                         netmask = isys.prefix2netmask(int(prefix))
 
-                    netargs += "ip=%s::%s:%s:%s:%s:none" % (dev.get('ipaddr'),
-                               gateway, netmask, hostname, nic)
+                    netargs.add("ip=%s::%s:%s:%s:%s:none" % (dev.get('ipaddr'),
+                               gateway, netmask, hostname, nic))
 
         hwaddr = dev.get("HWADDR")
         if hwaddr:
-            if netargs != "":
-                netargs += " "
-
-            netargs += "ifname=%s:%s" % (nic, hwaddr.lower())
+            netargs.add("ifname=%s:%s" % (nic, hwaddr.lower()))
 
         nettype = dev.get("NETTYPE")
         subchannels = dev.get("SUBCHANNELS")
         if iutil.isS390() and nettype and subchannels:
-            if netargs != "":
-                netargs += " "
-
-            netargs += "rd_ZNET=%s,%s" % (nettype, subchannels)
+            znet = "rd_ZNET=%s,%s" % (nettype, subchannels)
 
             options = dev.get("OPTIONS").strip("'\"")
             if options:
                 options = filter(lambda x: x != '', options.split(' '))
-                netargs += ",%s" % (','.join(options))
+                znet += ",%s" % (','.join(options))
+            netargs.add(znet)
 
         return netargs
 

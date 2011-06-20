@@ -200,12 +200,12 @@ class Language(object):
     def available(self):
         return self.nativeLangNames.keys()
 
-    def dracutSetupString(self):
-        args=""
+    def dracutSetupArgs(self):
+        args=set()
 
         for (key, val) in self.info.iteritems():
             if val != None:
-                args += " %s=%s" % (key, val)
+                args.add("%s=%s" % (key, val))
 
         return args
 

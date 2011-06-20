@@ -324,8 +324,8 @@ class Device(object):
 
         return False
 
-    def dracutSetupString(self):
-        return ""
+    def dracutSetupArgs(self):
+        return set()
 
     @property
     def status(self):
@@ -1784,8 +1784,8 @@ class LUKSDevice(DMCryptDevice):
         """ This device's backing device. """
         return self.parents[0]
 
-    def dracutSetupString(self):
-        return "rd_LUKS_UUID=luks-%s" % self.slave.format.uuid
+    def dracutSetupArgs(self):
+        return set(["rd_LUKS_UUID=luks-%s" % self.slave.format.uuid])
 
 
 class LVMVolumeGroupDevice(DMDevice):
@@ -2553,10 +2553,10 @@ class LVMLogicalVolumeDevice(DMDevice):
         udev_settle()
         lvm.lvresize(self.vg.name, self._name, self.size)
 
-    def dracutSetupString(self):
+    def dracutSetupArgs(self):
         # Note no mapName usage here, this is a lvm cmdline name, which
         # is different (ofcourse)
-        return "rd_LVM_LV=%s/%s" % (self.vg.name, self._name)
+        return set(["rd_LVM_LV=%s/%s" % (self.vg.name, self._name)])
 
     def checkSize(self):
         """ Check to make sure the size of the device is allowed by the
@@ -3110,8 +3110,8 @@ class MDRaidArrayDevice(StorageDevice):
     def isDisk(self):
         return self.type == "mdbiosraidarray"
 
-    def dracutSetupString(self):
-        return "rd_MD_UUID=%s" % self.uuid
+    def dracutSetupArgs(self):
+        return set(["rd_MD_UUID=%s" % self.uuid])
 
 
 class DMRaidArrayDevice(DMDevice):
@@ -3219,8 +3219,8 @@ class DMRaidArrayDevice(DMDevice):
     def model(self):
         return self.description
 
-    def dracutSetupString(self):
-        return "rd_DM_UUID=%s" % self.name
+    def dracutSetupArgs(self):
+        return set(["rd_DM_UUID=%s" % self.name])
 
 class MultipathDevice(DMDevice):
     """ A multipath device """
@@ -3590,9 +3590,9 @@ class iScsiDiskDevice(DiskDevice, NetworkStorageDevice):
         NetworkStorageDevice.__init__(self, host_address=self.node.address)
         log.debug("created new iscsi disk %s %s:%d" % (self.node.name, self.node.address, self.node.port))
 
-    def dracutSetupString(self):
+    def dracutSetupArgs(self):
         if self.ibft:
-            return "iscsi_firmware"
+            return set(["iscsi_firmware"])
 
         address = self.node.address
         # surround ipv6 addresses with []
@@ -3609,9 +3609,9 @@ class iScsiDiskDevice(DiskDevice, NetworkStorageDevice):
 
         netroot += "@%s::%d::%s" % (address, self.node.port, self.node.name)
 
-        netroot += " iscsi_initiator=%s" % self.initiator
+        initiator = "iscsi_initiator=%s" % self.initiator
 
-        return netroot
+        return set([netroot, initiator])
 
 class FcoeDiskDevice(DiskDevice, NetworkStorageDevice):
     """ An FCoE disk. """
@@ -3625,7 +3625,7 @@ class FcoeDiskDevice(DiskDevice, NetworkStorageDevice):
         NetworkStorageDevice.__init__(self, nic=self.nic)
         log.debug("created new fcoe disk %s @ %s" % (device, self.nic))
 
-    def dracutSetupString(self):
+    def dracutSetupArgs(self):
         dcb = True
 
         from .fcoe import fcoe
@@ -3638,7 +3638,7 @@ class FcoeDiskDevice(DiskDevice, NetworkStorageDevice):
         else:
             dcbOpt = "nodcb"
 
-        return "fcoe=edd:%s" % dcbOpt
+        return set(["fcoe=edd:%s" % dcbOpt])
 
 
 class OpticalDevice(StorageDevice):
@@ -3729,8 +3729,8 @@ class ZFCPDiskDevice(DiskDevice):
                   'wwpn': self.wwpn,
                   'lun': self.fcp_lun}
 
-    def dracutSetupString(self):
-        return "rd_ZFCP=%s,%s,%s" % (self.hba_id, self.wwpn, self.fcp_lun,)
+    def dracutSetupArgs(self):
+        return set(["rd_ZFCP=%s,%s,%s" % (self.hba_id, self.wwpn, self.fcp_lun,)])
 
 
 class DASDDevice(DiskDevice):
@@ -3753,7 +3753,7 @@ class DASDDevice(DiskDevice):
     def getOpts(self):
         return map(lambda (k, v): "%s=%s" % (k, v,), self.opts.items())
 
-    def dracutSetupString(self):
+    def dracutSetupArgs(self):
         conf = "/etc/dasd.conf"
         opts = {}
 
@@ -3769,9 +3769,9 @@ class DASDDevice(DiskDevice):
                     opts[parts[0]] = parts
 
         if self.busid in opts.keys():
-            return "rd_DASD=%s" % ",".join(opts[self.busid])
+            return set(["rd_DASD=%s" % ",".join(opts[self.busid])])
         else:
-            return "rd_DASD=%s" % ",".join([self.busid] + self.getOpts())
+            return set(["rd_DASD=%s" % ",".join([self.busid] + self.getOpts())])
 
 class NFSDevice(StorageDevice, NetworkStorageDevice):
     """ An NFS device """
