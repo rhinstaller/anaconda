@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.239
+Version: 11.1.2.240
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -128,6 +128,10 @@ fi
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Jun 21 2011 David Cantrell <dcantrell@redhat.com> 11.1.2.240-1
+- Include all kernel crypto modules for LUKS devices
+  Resolves: rhbz#703782
+
 * Mon Jun 6 2011 Ales Kozumplik <akozumpl@redhat.com> 11.1.2.239-1
 - Create /dev nodes after DUDs are processed (msivak)
   Resolves: rhbz#707563
