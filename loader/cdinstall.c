@@ -64,19 +64,22 @@
 extern uint64_t flags;
 
 /* ejects the CD device the device node points at */
-static void ejectCdrom(char *device) {
+static int ejectCdrom(char *device) {
     int ejectfd;
 
-    if (!device) return;
+    if (!device) return 1;
     logMessage(INFO, "ejecting %s...",device);
     if ((ejectfd = open(device, O_RDONLY | O_NONBLOCK, 0)) >= 0) {
         ioctl(ejectfd, CDROM_LOCKDOOR, 0);
         if (ioctl(ejectfd, CDROMEJECT, 0))
             logMessage(ERROR, "eject failed on device %s: %m", device);
         close(ejectfd);
+        return 0;
     } else {
         logMessage(ERROR, "could not open device %s: %m", device);
     }
+
+    return 1;
 }
 
 static char *cdrom_drive_status(int rc) {
@@ -201,8 +204,14 @@ static void mediaCheckCdrom(char *cddriver) {
                 free(descr);
         }
 
-        if (!FL_NOEJECT(flags))
-            ejectCdrom(cddriver);
+        if (!FL_NOEJECT(flags)) {
+            if(!ejectCdrom(cddriver))
+                newtWinMessage(_("Media ejected"), _("OK"),
+                               _("The disc currently inserted to your "
+                                 "drive was ejected. "
+                                 "Press %s to continue."),
+                               _("OK"));
+        }
         else
             logMessage(INFO, "noeject in effect, not ejecting cdrom");
 
