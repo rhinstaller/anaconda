@@ -1505,7 +1505,8 @@ static char *doLoaderMain(struct loaderData_s *loaderData,
                     break;
                 }
 
-                rc = loadDriverFromMedia(class, loaderData, 0, 0, NULL);
+                rc = loadDriverFromMedia(class, loaderData, 0,
+                                         FL_NOPROBE(flags), NULL);
                 if (rc == LOADER_BACK) {
                     step = STEP_DRIVER;
                     dir = -1;
@@ -2179,7 +2180,7 @@ int main(int argc, char ** argv) {
 
                 /* Unload all devices and load them again to use the updated modules */
                 mlRestoreModuleState(moduleState);
-                busProbe(0);
+                busProbe(FL_NOPROBE(flags));
             }
 
         ddcontinue:            
