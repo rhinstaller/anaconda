@@ -234,6 +234,38 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Wed Jun 22 2011 Chris Lumens <clumens@redhat.com> - 16.11-1
+- be more defensive -- check values for nonsenses (vpodzime)
+- enable netmask setting for wireless connections (vpodzime)
+- enable dns settings of wireless connection (vpodzime)
+- enable gateway settings of wireless connection (vpodzime)
+- enable wpa in kickstart (vpodzime)
+- enable establishing wpa connection in "early networking" (vpodzime)
+- ut: remove trailing whitespace in language_test.py (akozumpl)
+- 'part' command checks if the disk is partitionable. (akozumpl)
+- Correct and simplify handling of "bootable" partition requests. (dlehman)
+- Don't check the fstype for /boot req weight. (dlehman)
+- Freeze the lvm button when custom partitioning is selected. (dlehman)
+- Use the same code for growing lvs that we use for growing partitions.
+  (dlehman)
+- Fix check for whether new lv size will fit in vg's free space. (dlehman)
+- Sun disklabel hacks. (#697100) (dlehman)
+- Maximize extended partition even when logical reqs' sizes are capped.
+  (dlehman)
+- Don't magically adjust fstype when mountpoint is set to "/boot". (dlehman)
+- Handle partition allocation failures due to alignment adjustments. (dlehman)
+- Include protected attribute in StorageDevice.__str__. (dlehman)
+- Log results of protected device spec resolution. (dlehman)
+- Implement an option that lets anaconda name mpath devices by the wwid.
+  (akozumpl)
+- In kickstart, specify multipaths by their wwids. (akozumpl)
+- multipath: allow mpath<X> specfifications in kickstart. (akozumpl)
+- multipath: do not set any mpath aliases explicitly. (akozumpl)
+- Use global proxy setting if no repo proxy is set (#712926) (bcl)
+- Remove duplicate code. (rvykydal)
+- Fix typo (DispatcherError->DispatchError). (dlehman)
+- Allow autopart without lvm. (dlehman)
+
 * Wed Jun 08 2011 Chris Lumens <clumens@redhat.com> - 16.10-1
 - Update to the latest pykickstart version. (clumens)
 - Fix a typo to make encrypted installs get farther. (clumens)
