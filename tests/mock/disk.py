@@ -17,12 +17,19 @@
 # Author(s): Martin Sivak <msivak@redhat.com>
 
 from StringIO import StringIO
+import fnmatch
+import glob
 import os.path
+
+_orig_glob_glob = glob.glob
+_orig_open = open
+_orig_os_listdir = os.listdir
+_orig_os_path_exists = os.path.exists
 
 class DiskIO(object):
     """Simple object to simplify mocking of file operations in Mock
        based testing"""
-    
+
     class TestFile(StringIO):
         def __init__(self, store, path, content = ""):
             StringIO.__init__(self, content)
@@ -36,16 +43,16 @@ class DiskIO(object):
         def close(self):
             self.flush()
             return StringIO.close(self)
-            
+
         def __del__(self):
             try:
                 self.close()
             except (AttributeError):
                 pass
-        
+
         def __enter__(self):
             return self
-            
+
         def __exit__(self, *_):
             self.close()
 
@@ -54,7 +61,7 @@ class DiskIO(object):
 
     class Link(object):
         pass
- 
+
     def __init__(self):
         self.reset()
 
@@ -95,15 +102,21 @@ class DiskIO(object):
                 f.seek(0, os.SEEK_END)
         else:
             f = self.TestFile(self.fs, path, content)
-        
+
         return f
-            
-    #Emulate os.path calls
+
+    #Emulate os calls
+    def glob_glob(self, pattern):
+        return fnmatch.filter(self.fs.keys(), pattern)
+
+    def os_listdir(self, path):
+        return [entry[len(path):].lstrip('/') for entry in self.fs.keys()\
+                    if entry.startswith(path) and entry != path]
+
     def os_path_exists(self, path):
         path = os.path.join(self._pwd, path)
         return self.fs.has_key(path)
 
-    #Emulate os calls
     def os_remove(self, path):
         path = os.path.join(self._pwd, path)
         try:
@@ -114,3 +127,20 @@ class DiskIO(object):
     def os_access(self, path, mode):
         return self.path_exists(path)
 
+    def take_over_module(self, module):
+        """ Trick module into using this object as the filesystem.
+
+            This is achieved by overriding the module's 'open' binding as well
+            as some bindings in os.path.
+        """
+        module.open = self.open
+        module.glob.glob = self.glob_glob
+        module.os.listdir = self.os_listdir
+        module.os.path.exists = self.os_path_exists
+
+    @staticmethod
+    def restore_module(module):
+        module.open = _orig_open
+        module.glob.glob = _orig_glob_glob
+        module.os.listdir = _orig_os_listdir
+        module.os.path.exists = _orig_os_path_exists
