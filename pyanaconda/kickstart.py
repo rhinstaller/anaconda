@@ -582,6 +582,13 @@ class NetworkData(commands.network.F16_NetworkData):
             # Only set hostname
             return
 
+        # we can ignore this here (already activated in stage 1)
+        # only set hostname
+        if self.essid:
+            if self.hostname != "":
+                self.anaconda.network.setHostname(self.hostname)
+            return
+
         devices = self.anaconda.network.netdevices
 
         if not self.device:
@@ -670,14 +677,6 @@ class NetworkData(commands.network.F16_NetworkData):
 
             if self.ethtool:
                 dev.set(("ETHTOOL_OPTS", self.ethtool))
-
-            if isys.isWirelessDevice(device):
-                if self.essid:
-                    dev.set(("ESSID", self.essid))
-                if self.wepkey:
-                    dev.set(("DEFAULTKEY", "1"))
-                    dev.wepkey = self.wepkey
-                    dev.writeWepkeyFile()
 
             if self.nameserver != "":
                 self.anaconda.network.setDNS(self.nameserver, dev.iface)
