@@ -1815,7 +1815,10 @@ int main(int argc, char ** argv) {
     else if (FL_UPDATES(flags))
         loadUpdates(&loaderData);
 
-    mlLoadModuleSet("md:raid0:raid1:raid10:raid5:raid6:raid456:dm-raid45:fat:msdos:jbd2:crc16:ext4:jbd:ext3:lock_nolock:gfs2:reiserfs:jfs:xfs:dm-mod:dm-zero:dm-mirror:dm-snapshot:dm-multipath:dm-round-robin:dm-emc:dm-crypt:dm-mem-cache:dm-region_hash:dm-message:aes_generic:sha256", modLoaded, modDeps, modInfo);
+    mlLoadModuleSet("md:raid0:raid1:raid10:raid5:raid6:raid456:dm-raid45:fat:msdos:jbd2:crc16:ext4:jbd:ext3:lock_nolock:gfs2:reiserfs:jfs:xfs:dm-mod:dm-zero:dm-mirror:dm-snapshot:dm-multipath:dm-round-robin:dm-emc:dm-crypt:dm-mem-cache:dm-region_hash:dm-message", modLoaded, modDeps, modInfo);
+
+    /* crypto modules */
+    mlLoadModuleSet("aead:aes_generic:rng:ansi_cprng:krng:anubis:crypto_blkcipher:authenc:blowfish:cast5:cast6:cbc:ccm:chainiv:crypto_hash:cryptomgr:ctr:zlib_deflate:deflate:crypto_null:des:ecb:eseqiv:gf128mul:hmac:khazad:md4:md5:michael_mic:seqiv:serpent:sha256:sha512:tea:tgr192:twofish:wp512:xcbc:xts", modLoaded, modDeps, modInfo);
 
     usbInitializeMouse(modLoaded, modDeps, modInfo);
 
