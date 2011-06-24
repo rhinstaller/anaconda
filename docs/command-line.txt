@@ -46,9 +46,6 @@
 ;<code>ethtool=<opts></code>
 : Specify certain additional network device settings.  Valid options are duplex={full,half} and speed={1000,100,10}.  Multiple options may be given as a string separated by spaces and surrounded by double quotes.
 
-;<code>ext4migrate</code>
-: In Fedora 11 or above, configure the system to mount ext3 partitions as ext4 and enable the extents format among other changes. 
-
 ;<code>gateway=<gw></code>
 : Gateway to use for a network installation.
 
