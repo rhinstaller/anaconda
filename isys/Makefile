@@ -60,14 +60,14 @@ clean:
 	rm -f $(OBJECTS) $(GENERATED)
 	rm -f .depend
 	rm -f nl
-	for d in $(SUBDIRS); do make -C $$d clean; done
+	for d in $(SUBDIRS); do $(MAKE) -C $$d clean; done
 
 install: all
 	install -s $(PYMODULES) $(DESTDIR)/$(PYTHONLIBDIR)
 	install isys.py $(DESTDIR)/$(PYTHONLIBDIR)
 
 subdirs:
-	for d in $(SUBDIRS); do make -C $$d; done
+	for d in $(SUBDIRS); do $(MAKE) -C $$d; done
 
 nfsmount.o: nfs_mountversion.h
 

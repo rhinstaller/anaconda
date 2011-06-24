@@ -41,22 +41,22 @@ xutils.so: xutils.c
 
 depend:
 	rm -f *.o *.so *.pyc
-	for d in $(SUBDIRS); do make -C $$d depend; done
+	for d in $(SUBDIRS); do $(MAKE) -C $$d depend; done
 
 clean:
 	rm -f *.o *.so *.pyc lang-names
 	rm -rf docs/api
-	for d in $(SUBDIRS); do make -C $$d clean; done
+	for d in $(SUBDIRS); do $(MAKE) -C $$d clean; done
 
 subdirs:
-	for d in $(SUBDIRS); do make -C $$d; [ $$? = 0 ] || exit 1; done
+	for d in $(SUBDIRS); do $(MAKE) -C $$d; [ $$? = 0 ] || exit 1; done
 
 # this rule is a hack
 install-python:
 	cp -var $(PYFILES) $(DESTDIR)/$(PYTHONLIBDIR)
 	./py-compile --basedir $(DESTDIR)/$(PYTHONLIBDIR) $(PYFILES)
 	install -m 755 anaconda $(DESTDIR)/usr/bin/anaconda
-	for d in installclasses isys iw textw; do make DESTDIR=`cd $(DESTDIR); pwd` -C $$d install; [ $$? = 0 ] || exit 1; done
+	for d in installclasses isys iw textw; do $(MAKE) DESTDIR=`cd $(DESTDIR); pwd` -C $$d install; [ $$? = 0 ] || exit 1; done
 
 install: 
 	@if [ "$(DESTDIR)" = "" ]; then \
@@ -82,7 +82,7 @@ install:
 	./py-compile --basedir $(DESTDIR)/$(PYTHONLIBDIR) $(PYFILES)
 	cp -a *.so $(DESTDIR)/$(PYTHONLIBDIR)
 	strip $(DESTDIR)/$(PYTHONLIBDIR)/*.so
-	for d in $(SUBDIRS); do make DESTDIR=`cd $(DESTDIR); pwd` -C $$d install; [ $$? = 0 ] || exit 1; done
+	for d in $(SUBDIRS); do $(MAKE) DESTDIR=`cd $(DESTDIR); pwd` -C $$d install; [ $$? = 0 ] || exit 1; done
 
 	mkdir -p $(DESTDIR)/usr/share/xml/comps/1.0
 	install -m 0644 comps.dtd $(DESTDIR)/usr/share/xml/comps/1.0/comps.dtd
@@ -119,7 +119,7 @@ create-snapshot: ChangeLog tag
 	@echo "The final archive is in anaconda-$(VERSION).tar.bz2"
 
 create-archive:
-	make create-snapshot
+	$(MAKE) create-snapshot
 
 pycheck:
 	PYTHONPATH=isys:textw:iw:installclasses:booty:booty/edd pychecker *.py textw/*.py iw/*.py installclasses/*.py command-stubs/*-stub | grep -v "__init__() not called" 
