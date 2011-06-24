@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.240
+Version: 11.1.2.241
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -128,6 +128,10 @@ fi
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Fri Jun 24 2011 David Cantrell <dcantrell@redhat.com> 11.1.2.241-1
+- Load all kernel crypto modules, do not include testmgr modules (dcantrel)
+  Resolves: rhbz#703782
+
 * Tue Jun 21 2011 David Cantrell <dcantrell@redhat.com> 11.1.2.240-1
 - Include all kernel crypto modules for LUKS devices
   Resolves: rhbz#703782
