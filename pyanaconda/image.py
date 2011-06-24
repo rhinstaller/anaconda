@@ -30,9 +30,20 @@ log = logging.getLogger("anaconda")
 _arch = iutil.getArch()
 
 def findFirstIsoImage(path, messageWindow):
+    """
+    Find the first iso image in path
+    This also supports specifying a specific .iso image
+
+    Returns the full path to the image
+    """
     flush = os.stat(path)
-    files = os.listdir(path)
     arch = _arch
+
+    if os.path.isfile(path) and path.endswith(".iso"):
+        files = [os.path.basename(path)]
+        path = os.path.dirname(path)
+    else:
+        files = os.listdir(path)
 
     for fn in files:
         what = path + '/' + fn
@@ -87,7 +98,7 @@ def findFirstIsoImage(path, messageWindow):
 
         log.info("Found disc at %s" % fn)
         isys.umount("/mnt/install/cdimage", removeDir=False)
-        return fn
+        return what
 
     return None
 
@@ -104,6 +115,10 @@ def getMediaId(path):
 # This mounts the directory containing the iso images, and places the
 # mount point in /mnt/install/isodir.
 def mountDirectory(methodstr, messageWindow):
+    # No need to mount it again.
+    if os.path.ismount("/mnt/install/isodir"):
+        return
+
     if methodstr.startswith("hd:"):
         method = methodstr[3:]
         options = ''
@@ -118,13 +133,11 @@ def mountDirectory(methodstr, messageWindow):
             device = "/dev/%s" % device
     elif methodstr.startswith("nfsiso:"):
         (options, host, path) = iutil.parseNfsUrl(methodstr)
+        if path.endswith(".iso"):
+            path = os.path.dirname(path)
         device = "%s:%s" % (host, path)
         fstype = "nfs"
     else:
-        return
-
-    # No need to mount it again.
-    if os.path.ismount("/mnt/install/isodir"):
         return
 
     while True:
@@ -156,8 +169,7 @@ def mountImage(isodir, tree, messageWindow):
 
     while True:
         try:
-            isoImage = "%s/%s" % (isodir, image)
-            isys.mount(isoImage, tree, fstype = 'iso9660', readOnly = True)
+            isys.mount(image, tree, fstype = 'iso9660', readOnly = True)
             break
         except SystemError:
             ans = messageWindow(_("Missing ISO 9660 Image"),
