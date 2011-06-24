@@ -117,19 +117,19 @@ def _schedulePartitions(storage, disks):
         if request.fstype is None:
             request.fstype = storage.defaultFSType
         elif request.fstype in ("prepboot", "efi") and \
-                storage.platform.bootLoaderDevice:
+                storage.bootLoaderDevice:
             # there should never be a need for more than one of these
             # partitions, so skip them.
             log.info("skipping unneeded stage1 request")
             continue
-        elif request.fstype == "biosboot":
-            boot_disk = storage.platform.bootloader.stage1_drive
+        elif request.fstype == "biosboot" and storage.anaconda:
+            boot_disk = storage.anaconda.bootloader.stage1_drive
             if boot_disk and boot_disk.format.labelType != "gpt":
                 # biosboot is only needed for gpt disklabels on non-efi x86
                 log.info("skipping bios boot request for msdos disklabel")
                 continue
 
-            gpt_check = getattr(storage.platform.bootloader,
+            gpt_check = getattr(storage.anaconda.bootloader,
                                 "_gpt_disk_has_bios_boot",
                                 None)
             if gpt_check and gpt_check(boot_disk):
@@ -918,7 +918,7 @@ def doPartitioning(storage, bootloader=None):
             part.req_size = part.req_base_size
 
     try:
-        storage.platform.bootDevice.req_bootable = True
+        storage.bootDevice.req_bootable = True
     except AttributeError:
         # there's no stage2 device. hopefully it's temporary.
         pass
@@ -980,7 +980,8 @@ def doPartitioning(storage, bootloader=None):
         storage.devicetree._addDevice(device)
 
     # make sure the stage1_device gets updated
-    storage.platform.bootloader.stage1_device = None
+    if storage.anaconda:
+        storage.anaconda.bootloader.stage1_device = None
 
 def allocatePartitions(storage, disks, partitions, freespace, bootloader=None):
     """ Allocate partitions based on requested features.

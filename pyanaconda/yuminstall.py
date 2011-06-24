@@ -1475,6 +1475,7 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
             # New installs only - upgrades will already have all this stuff.
             self.selectBestKernel(anaconda)
             map(self.selectPackage, anaconda.platform.packages)
+            map(self.selectPackage, anaconda.bootloader.packages)
             self.selectFSPackages(anaconda.storage)
             self.selectAnacondaNeeds()
         else:

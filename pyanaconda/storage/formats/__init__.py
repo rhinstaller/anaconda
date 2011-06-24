@@ -48,15 +48,8 @@ def register_device_format(fmt_class):
                                                            fmt_class._type))
 
 default_fstypes = ("ext4", "ext3", "ext2")
-def get_default_filesystem_type(boot=None):
-    from pyanaconda import platform
-
-    if boot:
-        fstypes = [platform.getPlatform(None).defaultBootFSType]
-    else:
-        fstypes = default_fstypes
-
-    for fstype in fstypes:
+def get_default_filesystem_type():
+    for fstype in default_fstypes:
         try:
             supported = get_device_format_class(fstype).supported
         except AttributeError:

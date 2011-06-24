@@ -24,6 +24,7 @@ import gobject
 from pyanaconda import iutil
 import parted
 from pyanaconda import gui
+from pyanaconda.bootloader import BootLoaderImage
 import datacombo
 from pyanaconda.constants import *
 from pyanaconda.storage.devices import devicePathToName
@@ -36,7 +37,7 @@ class OSBootWidget:
     """Widget to display OSes to boot and allow adding new ones."""
     
     def __init__(self, anaconda, parent):
-        self.bl = anaconda.platform.bootloader
+        self.bl = anaconda.bootloader
         self.storage = anaconda.storage
         self.parent = parent
         self.intf = anaconda.intf
@@ -288,7 +289,7 @@ class OSBootWidget:
         return model.get_value(iter, 3)
 
     def addEntry(self, widget, *args):
-        image = bootloader.BootLoaderImage(device=None, label=None)
+        image = BootLoaderImage(device=None, label=None)
         self.editOther(image)
 
     def deleteEntry(self, widget, *args):

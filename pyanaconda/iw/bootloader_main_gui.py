@@ -97,11 +97,11 @@ class MainBootloaderWindow(InstallWindow):
 
         # XXX for md stage1, should we show md, first member disk, or first
         #     disk?
-        stage1 = anaconda.platform.bootLoaderDevice
+        stage1 = anaconda.storage.bootLoaderDevice
         stage1_desc = anaconda.bootloader.device_description(stage1)
         choices = {"mbr": (stage1, stage1_desc)}
 
-        stage2 = anaconda.platform.bootDevice
+        stage2 = anaconda.storage.bootDevice
         try:
             stage2_desc = anaconda.bootloader.device_description(stage2)
         except ValueError:
@@ -120,7 +120,7 @@ class MainBootloaderWindow(InstallWindow):
             w.set_active(self.bldev == device)
             w.set_data("bootDevice", device)
 
-        bl_disks = anaconda.platform.bootloader.drives
+        bl_disks = anaconda.bootloader.drives
         for i in range(1, 5):
             if len(self.driveorder) < i:
                 break

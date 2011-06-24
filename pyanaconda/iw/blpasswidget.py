@@ -31,7 +31,7 @@ class BootloaderPasswordWidget:
         self.parent = parent
         self.intf = anaconda.intf
 
-        self.password = anaconda.platform.bootloader.password
+        self.password = anaconda.bootloader.password
         if self.password:
             usePass = True
         else:

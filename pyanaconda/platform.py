@@ -23,12 +23,14 @@
 import parted
 
 from pyanaconda import bootloader
+from pyanaconda.storage.devicelibs import mdraid
 
 import iutil
 from flags import flags
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
+N_ = lambda x: x
 
 class Platform(object):
     """Platform
@@ -39,7 +41,22 @@ class Platform(object):
        throughout anaconda."""
     _minimumSector = 0
     _packages = []
+
     _bootloaderClass = bootloader.BootLoader
+    # requirements for bootloader stage1 devices
+    _boot_stage1_device_types = []
+    _boot_stage1_format_types = []
+    _boot_stage1_mountpoints = []
+    _boot_stage1_max_end_mb = None
+    _boot_stage1_raid_levels = []
+    _boot_stage1_raid_metadata = []
+    _boot_stage1_raid_member_types = []
+    _boot_stage1_description = N_("bootloader device")
+    _boot_raid_description = N_("RAID Device")
+    _boot_partition_description = N_("First sector of boot partition")
+    _boot_descriptions = {}
+
+    _disklabel_types = []
 
     def __init__(self, anaconda):
         """Creates a new Platform object.  This is basically an abstract class.
@@ -47,34 +64,11 @@ class Platform(object):
            returned by getPlatform below.  Not all subclasses need to provide
            all the methods in this class."""
         self.anaconda = anaconda
-        self.bootloader = self._bootloaderClass(storage=getattr(anaconda,
-                                                                "storage",
-                                                                None))
-
-    @property
-    def bootDevice(self):
-        """The device that includes the /boot filesystem."""
-        return self.bootloader.stage2_device
-
-    @property
-    def bootLoaderDevice(self):
-        """The device the bootloader will be installed into."""
-        return self.bootloader.stage1_device
-
-    @property
-    def bootFSTypes(self):
-        """A list of all valid filesystem types for the boot partition."""
-        return self.bootloader.stage2_format_types
-
-    @property
-    def defaultBootFSType(self):
-        """The default filesystem type for the boot partition."""
-        return self.bootFSTypes[0]
 
     @property
     def diskLabelTypes(self):
         """A list of valid disklabel types for this architecture."""
-        return self.bootloader.disklabel_types
+        return self._disklabel_types
 
     @property
     def defaultDiskLabelType(self):
@@ -100,33 +94,6 @@ class Platform(object):
 
         return labelType
 
-    def checkBootRequest(self):
-        """Perform an architecture-specific check on the boot device.  Not all
-           platforms may need to do any checks.  Returns a list of errors if
-           there is a problem, or [] otherwise."""
-        req = self.bootDevice
-        if not req:
-            return ([_("You have not created a bootable partition.")], [])
-
-        self.bootloader.is_valid_stage2_device(req)
-        errors = self.bootloader.errors
-        warnings = self.bootloader.warnings
-        return (errors, warnings)
-
-    def checkBootLoaderRequest(self):
-        """ Perform architecture-specific checks on the bootloader device.
-
-            Returns a list of error strings.
-        """
-        req = self.bootLoaderDevice
-        if not req:
-            return ([_("you have not created a bootloader stage1 target device")], [])
-
-        self.bootloader.is_valid_stage1_device(req)
-        errors = self.bootloader.errors
-        warnings = self.bootloader.warnings
-        return (errors, warnings)
-
     @property
     def minimumSector(self, disk):
         """Return the minimum starting sector for the provided disk."""
@@ -134,7 +101,7 @@ class Platform(object):
 
     @property
     def packages (self):
-        _packages = self._packages + self.bootloader.packages
+        _packages = self._packages
         if flags.cmdline.get('fips', None) == '1':
             _packages.append('dracut-fips')
         return _packages
@@ -142,8 +109,9 @@ class Platform(object):
     def setDefaultPartitioning(self):
         """Return the default platform-specific partitioning information."""
         from storage.partspec import PartSpec
-        return [PartSpec(mountpoint="/boot", fstype=self.defaultBootFSType, size=500,
-                         weight=self.weight(mountpoint="/boot"))]
+        return [PartSpec(mountpoint="/boot",
+                         fstype=self.anaconda.storage.defaultBootFSType,
+                         size=500, weight=self.weight(mountpoint="/boot"))]
 
     def weight(self, fstype=None, mountpoint=None):
         """ Given an fstype (as a string) or a mountpoint, return an integer
@@ -157,6 +125,16 @@ class Platform(object):
 
 class X86(Platform):
     _bootloaderClass = bootloader.GRUB2
+    _boot_stage1_device_types = ["disk"]
+    _boot_mbr_description = N_("Master Boot Record")
+    _boot_descriptions = {"disk": _boot_mbr_description,
+                          "partition": Platform._boot_partition_description,
+                          "mdarray": Platform._boot_raid_description}
+
+
+    _disklabel_types = ["gpt", "msdos"]
+    # XXX hpfs, if reported by blkid/udev, will end up with a type of None
+    _non_linux_format_types = ["vfat", "ntfs", "hpfs"]
 
     def setDefaultPartitioning(self):
         """Return the default platform-specific partitioning information."""
@@ -178,6 +156,18 @@ class X86(Platform):
 class EFI(Platform):
     _bootloaderClass = bootloader.EFIGRUB
 
+    _boot_stage1_format_types = ["efi"]
+    _boot_stage1_device_types = ["partition", "mdarray"]
+    _boot_stage1_raid_levels = [mdraid.RAID1]
+    _boot_stage1_raid_metadata = ["1.0"]
+    _boot_stage1_raid_member_types = ["partition"]
+    _boot_stage1_mountpoints = ["/boot/efi"]
+    _boot_efi_description = N_("EFI System Partition")
+    _boot_descriptions = {"partition": _boot_efi_description,
+                          "mdarray": Platform._boot_raid_description}
+
+    _disklabel_types = ["gpt"]
+
     def setDefaultPartitioning(self):
         from storage.partspec import PartSpec
         ret = Platform.setDefaultPartitioning(self)
@@ -197,6 +187,7 @@ class EFI(Platform):
 class PPC(Platform):
     _ppcMachine = iutil.getPPCMachine()
     _bootloaderClass = bootloader.Yaboot
+    _boot_stage1_device_types = ["partition"]
 
     @property
     def ppcMachine(self):
@@ -204,6 +195,11 @@ class PPC(Platform):
 
 class IPSeriesPPC(PPC):
     _bootloaderClass = bootloader.IPSeriesYaboot
+    _boot_stage1_format_types = ["prepboot"]
+    _boot_stage1_max_end_mb = 10
+    _boot_prep_description = N_("PReP Boot Partition")
+    _boot_descriptions = {"partition": _boot_prep_description}
+    _disklabel_types = ["msdos"]
 
     def setDefaultPartitioning(self):
         from storage.partspec import PartSpec
@@ -223,6 +219,11 @@ class IPSeriesPPC(PPC):
 
 class NewWorldPPC(PPC):
     _bootloaderClass = bootloader.MacYaboot
+    _boot_stage1_format_types = ["appleboot"]
+    _boot_apple_description = N_("Apple Bootstrap Partition")
+    _boot_descriptions = {"partition": _boot_apple_description}
+    _disklabel_types = ["mac"]
+    _non_linux_format_types = ["hfs", "hfs+"]
 
     def setDefaultPartitioning(self):
         from storage.partspec import PartSpec
@@ -246,6 +247,8 @@ class PS3(PPC):
 class S390(Platform):
     _bootloaderClass = bootloader.ZIPL
     _packages = ["s390utils"]
+    _disklabel_types = ["msdos", "dasd"]
+    _boot_stage1_device_types = ["disk", "partition"]
 
     def __init__(self, anaconda):
         Platform.__init__(self, anaconda)
@@ -253,7 +256,8 @@ class S390(Platform):
     def setDefaultPartitioning(self):
         """Return the default platform-specific partitioning information."""
         from storage.partspec import PartSpec
-        return [PartSpec(mountpoint="/boot", fstype=self.defaultBootFSType, size=500,
+        return [PartSpec(mountpoint="/boot", size=500,
+                         fstype=self.anaconda.storage.defaultBootFSType,
                          weight=self.weight(mountpoint="/boot"), asVol=True,
                          singlePV=True)]
 
@@ -266,6 +270,10 @@ class S390(Platform):
 
 class Sparc(Platform):
     _bootloaderClass = bootloader.SILO
+    _boot_stage1_format_types = []
+    _boot_stage1_mountpoints = []
+    _boot_stage1_max_end_mb = None
+    _disklabel_types = ["sun"]
 
     @property
     def minimumSector(self, disk):

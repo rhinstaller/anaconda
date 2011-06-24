@@ -35,7 +35,6 @@ from pyanaconda import iutil
 from pyanaconda.constants import *
 from pykickstart.constants import *
 from pyanaconda.flags import flags
-from pyanaconda import platform
 
 from errors import *
 from devices import *
@@ -368,7 +367,6 @@ class Storage(object):
 
         self._nextID = 0
         self.defaultFSType = get_default_filesystem_type()
-        self.defaultBootFSType = get_default_filesystem_type(boot=True)
         self._dumpFile = "/tmp/storage.state"
 
         # these will both be empty until our reset method gets called
@@ -387,7 +385,7 @@ class Storage(object):
 
         # now set the boot partition's flag
         try:
-            boot = self.platform.bootDevice
+            boot = self.bootDevice
             if boot.type == "mdarray":
                 bootDevs = boot.parents
             else:
@@ -472,8 +470,8 @@ class Storage(object):
            hasattr(self.anaconda, "upgradeRoot"):
             self.anaconda.rootParts = None
             self.anaconda.upgradeRoot = None
-        if self.platform:
-            self.platform.bootloader.clear_drive_list()
+        if self.anaconda:
+            self.anaconda.bootloader.clear_drive_list()
         self.dumpState("initial")
         if w:
             w.pop()
@@ -1069,7 +1067,7 @@ class Storage(object):
         root = self.fsset.rootDevice
         swaps = self.fsset.swapDevices
         try:
-            boot = self.platform.bootDevice
+            boot = self.bootDevice
         except (DeviceError, AttributeError):
             # AttributeError means we have no anaconda or platform. it's ok.
             boot = None
@@ -1157,14 +1155,23 @@ class Storage(object):
             warnings.append(_("Installing on a FireWire device.  This may "
                               "or may not produce a working system."))
 
-        if self.platform and self.anaconda.dispatch.step_enabled('instbootloader'):
-            (e, w) = self.platform.checkBootRequest()
-            errors.extend(e)
-            warnings.extend(w)
+        if self.anaconda and self.anaconda.dispatch.step_enabled('instbootloader'):
+            stage1 = self.anaconda.bootloader.stage1_device
+            if not stage1:
+                errors.append(_("you have not created a bootloader stage1 "
+                                "target device"))
+            else:
+                self.anaconda.bootloader.is_valid_stage1_device(stage1)
+                errors.extend(self.anaconda.bootloader.errors)
+                warnings.extend(self.anaconda.bootloader.warnings)
 
-            (e, w) = self.platform.checkBootLoaderRequest()
-            errors.extend(e)
-            warnings.extend(w)
+            stage2 = self.anaconda.bootloader.stage2_device
+            if not stage2:
+                errors.append(_("You have not created a bootable partition."))
+            else:
+                self.anaconda.bootloader.is_valid_stage2_device(stage2)
+                errors.extend(self.anaconda.bootloader.errors)
+                warnings.extend(self.anaconda.bootloader.warnings)
 
         if not swaps:
             from pyanaconda.storage.size import Size
@@ -1295,6 +1302,36 @@ class Storage(object):
 
     def createSwapFile(self, device, size):
         self.fsset.createSwapFile(device, size)
+
+    @property
+    def bootDevice(self):
+        dev = None
+        if self.anaconda:
+            dev = self.anaconda.bootloader.stage2_device
+        return dev
+
+    @property
+    def bootLoaderDevice(self):
+        dev = None
+        if self.anaconda:
+            dev = self.anaconda.bootloader.stage1_device
+        return dev
+
+    @property
+    def bootFSTypes(self):
+        """A list of all valid filesystem types for the boot partition."""
+        fstypes = []
+        if self.anaconda:
+            fstypes = self.anaconda.bootloader.stage2_format_types
+        return fstypes
+
+    @property
+    def defaultBootFSType(self):
+        """The default filesystem type for the boot partition."""
+        fstype = None
+        if self.anaconda:
+            fstype = self.bootFSTypes[0]
+        return fstype
 
     @property
     def mountpoints(self):
