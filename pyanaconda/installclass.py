@@ -177,7 +177,7 @@ class BaseInstallClass(object):
                                  size=1024, maxSize=50*1024, grow=True,
                                  asVol=True, encrypted=True),
                         PartSpec(mountpoint="/home", fstype=storage.defaultFSType,
-                                 size=100, grow=True, requiredSpace=50*1024,
+                                 size=500, grow=True, requiredSpace=50*1024,
                                  asVol=True, encrypted=True)]
 
         bootreq = platform.setDefaultPartitioning()
