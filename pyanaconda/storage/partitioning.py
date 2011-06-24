@@ -1326,16 +1326,19 @@ class LVRequest(Request):
 
         """
         super(LVRequest, self).__init__(lv)
-        self.base = lv.req_size     # base mb
+
+        # Round up to nearest pe. For growable requests this will mean that
+        # first growth is to fill the remainder of any unused extent.
+        self.base = lv.vg.align(lv.req_size, roundup=True) / lv.vg.peSize # pe
 
         if lv.req_grow:
-            limits = filter(lambda l: l > 0,
-                        [lv.req_max_size,
-                         lv.format.maxSize])
+            limits = [l / lv.vg.peSize for l in
+                        [lv.vg.align(lv.req_max_size),
+                         lv.vg.align(lv.format.maxSize)] if l > 0]
 
             if limits:
-                max_sectors = min(limits)
-                self.max_growth = max_sectors - self.base
+                max_units = min(limits)
+                self.max_growth = max_units - self.base
 
 
 class Chunk(object):
@@ -1491,10 +1494,19 @@ class Chunk(object):
                 if p.done:
                     continue
 
-                p.growth += self.pool
+                growth = self.pool
+                p.growth += growth
                 self.pool = 0
+                log.debug("adding %d (%dMB) to %d (%s)" %
+                            (growth, self.lengthToSize(growth),
+                             p.device.id, p.device.name))
 
                 self.trimOverGrownRequest(p)
+                log.debug("new grow amount for request %d (%s) is %d "
+                          "units, or %dMB" %
+                            (p.device.id, p.device.name, p.growth,
+                             self.lengthToSize(p.growth)))
+
                 if self.pool == 0:
                     break
 
@@ -1627,7 +1639,7 @@ class VGChunk(Chunk):
         """
         self.vg = vg
         self.path = vg.path
-        super(VGChunk, self).__init__(self.vg.size, requests=requests)
+        super(VGChunk, self).__init__(self.vg.extents, requests=requests)
 
     def addRequest(self, req):
         """ Add a Request to this chunk. """
@@ -1635,8 +1647,13 @@ class VGChunk(Chunk):
             raise ValueError("VGChunk requests must be of type "
                              "LVRequest")
 
-        # round up growable requests to fill any used PE?
         super(VGChunk, self).addRequest(req)
+
+    def lengthToSize(self, length):
+        return length * self.vg.peSize
+
+    def sizeToLength(self, size):
+        return size / self.vg.peSize
 
     def sortRequests(self):
         # sort the partitions by start sector
@@ -1931,7 +1948,11 @@ def growLVM(storage):
 
         # now grow the lvs by the amounts we've calculated above
         for req in chunk.requests:
-            req.device.size += req.growth
+            if not req.device.req_grow:
+                continue
 
-        return
+            # Base is in pe, which means potentially rounded up by as much as
+            # pesize-1. As a result, you can't just add the growth to the
+            # initial size.
+            req.device.size = chunk.lengthToSize(req.base + req.growth)
 
