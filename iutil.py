@@ -438,7 +438,7 @@ def memInstalled():
             mem = fields[1]
             break
 
-    return int(mem)
+    return long(mem)
 
 ## Suggest the size of the swap partition that will be created.
 # @param quiet Should size information be logged?

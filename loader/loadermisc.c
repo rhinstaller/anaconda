@@ -3,7 +3,7 @@
  * anywhere else (yet)  (was misc.c)
  * JKFIXME: need to break out into reasonable files based on function
  *
- * Copyright (C) 1999, 2000, 2001, 2002  Red Hat, Inc.  All rights reserved.
+ * Copyright (C) 1999-2011  Red Hat, Inc.  All rights reserved.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,6 +22,7 @@
  *            Matt Wilson <msw@redhat.com>
  *            Michael Fulbright <msf@redhat.com>
  *            Jeremy Katz <katzj@redhat.com>
+ *            David Cantrell <dcantrell@redhat.com>
  */
 
 #include <ctype.h>
@@ -31,9 +32,11 @@
 #include <unistd.h>
 #include <stdarg.h>
 #include <stdlib.h>
+#include <glib.h>
 
 #include "log.h"
 #include "windows.h"
+#include "loadermisc.h"
 
 int copyFileFd(int infd, char * dest, progressCB pbcb,
                struct progressCBdata *data, long long total) {
@@ -93,57 +96,49 @@ int simpleStringCmp(const void * a, const void * b) {
     return strverscmp(first, second);
 }
 
-/* look for available memory.  note: won't ever report more than the 
- * 900 megs or so supported by the -BOOT kernel due to not using e820 */
-int totalMemory(void) {
-    int fd;
-    int bytesRead;
-    char buf[4096];
-    char * chptr, * start;
-    int total = 0;
+/* report total system memory in kB (given to us by /proc/meminfo) */
+guint64 totalMemory(void) {
+    int i = 0, len = 0;
+    uint64_t total = 0;
+    gchar *contents = NULL;
+    gchar **lines = NULL, **fields = NULL;
+    GError *fileErr = NULL;
 
-    fd = open("/proc/meminfo", O_RDONLY);
-    if (fd < 0) {
-        logMessage(ERROR, "failed to open /proc/meminfo: %m");
-        return 0;
+    if (!g_file_get_contents(MEMINFO, &contents, NULL, &fileErr)) {
+        logMessage(ERROR, "error reading %s: %s", MEMINFO, fileErr->message);
+        g_error_free(fileErr);
+        return total;
     }
 
-    bytesRead = read(fd, buf, sizeof(buf) - 1);
-    if (bytesRead < 0) {
-        logMessage(ERROR, "failed to read from /proc/meminfo: %m");
-        close(fd);
-        return 0;
-    }
+    lines = g_strsplit(contents, "\n", 0);
+    g_free(contents);
 
-    close(fd);
-    buf[bytesRead] = '\0';
+    for (i = 0; i < g_strv_length(lines); i++) {
+        if (g_str_has_prefix(lines[i], "MemTotal:")) {
+            fields = g_strsplit(lines[i], " ", 0);
+            len = g_strv_length(fields);
 
-    chptr = buf;
-    while (*chptr && !total) {
-        if (strncmp(chptr, "MemTotal:", 9)) {
-            chptr++;
-            continue;
-        }
+            if (len < 3) {
+                logMessage(ERROR, "unknown format for MemTotal line in %s", MEMINFO);
+                g_strfreev(fields);
+                g_strfreev(lines);
+                return total;
+            }
 
-        start = ++chptr ;
-        while (*chptr && *chptr != '\n') chptr++;
+            errno = 0;
+            total = g_ascii_strtoull(fields[len - 2], NULL, 10);
 
-        *chptr = '\0';
+            if ((errno == ERANGE && total == G_MAXUINT64) ||
+                (errno == EINVAL && total == 0)) {
+                logMessage(ERROR, "%s: %d: %m", __func__, __LINE__);
+                abort();
+            }
 
-        while (!isdigit(*start) && *start) start++;
-        if (!*start) {
-            logMessage(WARNING, "no number appears after MemTotal tag");
-            return 0;
-        }
-
-        chptr = start;
-        while (*chptr && isdigit(*chptr)) {
-            total = (total * 10) + (*chptr - '0');
-            chptr++;
+            g_strfreev(fields);
+            break;
         }
     }
 
-    logMessage(INFO, "%d kB are available", total);
-
+    g_strfreev(lines);
     return total;
 }
