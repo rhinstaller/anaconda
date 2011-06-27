@@ -75,6 +75,18 @@ class Platform(object):
         """The default disklabel type for this architecture."""
         return self.diskLabelTypes[0]
 
+    @property
+    def bootStage1ConstraintDict(self):
+        d = {"device_types": self._boot_stage1_device_types,
+             "format_types": self._boot_stage1_format_types,
+             "mountpoints": self._boot_stage1_mountpoints,
+             "max_end_mb": self._boot_stage1_max_end_mb,
+             "raid_levels": self._boot_stage1_raid_levels,
+             "raid_metadata": self._boot_stage1_raid_metadata,
+             "raid_member_types": self._boot_stage1_raid_member_types,
+             "descriptions": self._boot_descriptions}
+        return d
+
     def requiredDiskLabelType(self, device_type):
         return None
 

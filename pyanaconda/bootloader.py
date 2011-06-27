@@ -350,7 +350,7 @@ class BootLoader(object):
 
     @property
     def device_descriptions(self):
-        return self.platform._boot_descriptions
+        return self.platform.bootStage1ConstraintDict["descriptions"]
 
     #
     # constraint checking for target devices
@@ -519,13 +519,7 @@ class BootLoader(object):
             return False
 
         description = self.device_description(device)
-        device_types = self.platform._boot_stage1_device_types
-        format_types = self.platform._boot_stage1_format_types
-        mountpoints = self.platform._boot_stage1_mountpoints
-        raid_levels = self.platform._boot_stage1_raid_levels
-        raid_member_types = self.platform._boot_stage1_raid_member_types
-        raid_metadata = self.platform._boot_stage1_raid_metadata
-        max_end_mb = self.platform._boot_stage1_max_end_mb
+        constraint = self.platform.bootStage1ConstraintDict
 
         if self.stage2_is_valid_stage1 and device == self.stage2_device:
             # special case
@@ -536,7 +530,7 @@ class BootLoader(object):
             self.warnings = []
             return valid
 
-        if not self._device_type_match(device, device_types):
+        if not self._device_type_match(device, constraint["device_types"]):
             self.errors.append(_("The %s cannot be of type %s")
                                % (description, device.type))
             valid = False
@@ -550,14 +544,15 @@ class BootLoader(object):
             valid = False
 
         if not self._is_valid_location(device,
-                                       max_mb=max_end_mb,
+                                       max_mb=constraint["max_end_mb"],
                                        desc=description):
             valid = False
 
-        if not self._is_valid_md(device, device_types=device_types,
-                                 raid_levels=raid_levels,
-                                 metadata=raid_metadata,
-                                 member_types=raid_member_types,
+        if not self._is_valid_md(device,
+                                 device_types=constraint["device_types"],
+                                 raid_levels=constraint["raid_levels"],
+                                 metadata=constraint["raid_metadata"],
+                                 member_types=constraint["raid_member_types"],
                                  desc=description):
             valid = False
 
@@ -570,8 +565,8 @@ class BootLoader(object):
             valid = False
 
         if not self._is_valid_format(device,
-                                     format_types=format_types,
-                                     mountpoints=mountpoints,
+                                     format_types=constraint["format_types"],
+                                     mountpoints=constraint["mountpoints"],
                                      desc=description):
             valid = False
 
@@ -592,7 +587,7 @@ class BootLoader(object):
             of all valid target devices, sorted by device type, then sorted
             according to our drive ordering.
         """
-        device_types = self.platform._boot_stage1_device_types
+        device_types = self.platform.bootStage1ConstraintDict["device_types"]
         slots = [[] for t in device_types]
         for device in self.storage.devices:
             idx = self._device_type_index(device, device_types)
