@@ -553,7 +553,7 @@ class TaskWindow(InstallWindow):
         dialog.run()
 
         model.set_value(iter, 0, dialog.repo.isEnabled())
-        model.set_value(iter, 1, dialog.repo.name)
+        model.set_value(iter, 1, gettext.ldgettext("comps", dialog.repo.name))
         model.set_value(iter, 2, dialog.repo)
 
     def _addRepo(self, *args):
