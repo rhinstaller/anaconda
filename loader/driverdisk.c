@@ -77,7 +77,18 @@ int dlabelProvides(const char* dep, const char* version, uint32_t sense, void *u
     if (version == NULL)
         return -1;
 
-    return strcmp(dep, "kernel-modules") || matchVersions(kernelver, sense, version);
+    /* not a modules package */
+    if (strcmp(dep, "kernel-modules")) return 1;
+
+    /*
+     * exception for 6.0 and 6.1 DUDs, we changed the logic a bit and need to maintain compatibility. 
+     */
+    if (!strncmp(version, "2.6.32-131", 10) || !strncmp(version, "2.6.32-71", 9)) return 0;
+
+    /*
+     * Use this package only if the version match string is true for this kernel version
+     */
+    return !matchVersions(kernelver, sense, version);
 }
 
 /*
