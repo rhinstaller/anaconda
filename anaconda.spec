@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.241
+Version: 11.1.2.242
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -128,6 +128,10 @@ fi
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Mon Jun 27 2011 Ales Kozumplik <akozumpl@redhat.com> 11.1.2.242-1
+- Bump the implementation limit on the number of modules in modLoaded (akozumpl)
+  Resolves: rhbz#716836
+
 * Fri Jun 24 2011 David Cantrell <dcantrell@redhat.com> 11.1.2.241-1
 - Load all kernel crypto modules, do not include testmgr modules (dcantrel)
   Resolves: rhbz#703782
