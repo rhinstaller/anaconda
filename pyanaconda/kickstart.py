@@ -186,7 +186,7 @@ def detect_multipaths():
     with open("/etc/multipath.conf", "w+") as mpath_cfg:
         mpath_cfg.write(cfg)
     devices = udev_get_block_devices()
-    topology = MultipathsTopology(devices)
+    topology = MultipathTopology(devices)
 
 def deviceMatches(spec):
     full_spec = spec
