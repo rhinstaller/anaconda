@@ -4,6 +4,8 @@
 #include "moduleinfo.h"
 #include "moduledeps.h"
 
+#define MODULES_MAXLOADED 256
+
 typedef struct moduleList_s * moduleList;
 
 struct loadedModuleInfo {
@@ -23,7 +25,7 @@ struct extractedModule {
 };
 
 struct moduleList_s {
-    struct loadedModuleInfo mods[100];
+    struct loadedModuleInfo mods[MODULES_MAXLOADED];
     int numModules;
 };
 

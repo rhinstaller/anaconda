@@ -335,6 +335,9 @@ static int loadModule(const char * modName, struct extractedModule * path,
 
     if (!rc) {
         int num = modLoaded->numModules;
+        if (num >= MODULES_MAXLOADED)
+            logMessage(CRITICAL, "The number of loaded modules is over the "
+                       "implementation limit.");
 
         modLoaded->mods[num].name = strdup(modName);
         modLoaded->mods[num].weLoaded = 1;
@@ -390,7 +393,6 @@ static int loadModule(const char * modName, struct extractedModule * path,
         } else {
             newArgs = NULL;
         }
-        
         modLoaded->mods[modLoaded->numModules++].args = newArgs;
     }
 
