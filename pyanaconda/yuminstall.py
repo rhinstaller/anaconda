@@ -1032,6 +1032,14 @@ class AnacondaYum(yum.YumBase):
 
         try:
             self.runTransaction(cb=cb)
+        except PackageSackError as e:
+            log.error("AnacondaYum._run: PackageSackError: %s" % e)
+            msg = _("There was an error running your transaction for "
+                    "the following reason: %s.\n") % str(e)
+            intf.messageWindow(_("Error Running Transaction"),
+                               msg, type="custom",
+                               custom_icon="error", custom_buttons=[_("_Exit installer")])
+            sys.exit(1)
         except YumBaseError as probs:
             # FIXME: we need to actually look at these problems...
             probTypes = { rpm.RPMPROB_NEW_FILE_CONFLICT : _('file conflicts'),
