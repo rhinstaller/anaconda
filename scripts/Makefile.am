@@ -18,11 +18,9 @@
 # Author: David Cantrell <dcantrell@redhat.com>
 
 scriptsdir = $(libexecdir)/$(PACKAGE_NAME)
-dist_scripts_SCRIPTS = upd-instroot mk-images buildinstall \
-                       buildinstall.functions scrubtree getkeymaps \
-                       makestamp.py maketreeinfo.py upd-updates
-dist_scripts_DATA    = mk-images.* pyrc.py
-dist_noinst_SCRIPTS  = getlangnames.py upd-bootimage upd-initrd upd-kernel \
+dist_scripts_SCRIPTS = getkeymaps upd-updates
+dist_scripts_DATA    = pyrc.py
+dist_noinst_SCRIPTS  = getlangnames.py upd-initrd upd-kernel \
                        makeupdates
 
 dist_bin_SCRIPTS = analog anaconda-cleanup instperf
