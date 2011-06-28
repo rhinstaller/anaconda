@@ -22,16 +22,7 @@ SUBDIRS = log_picker
 utilsdir            = $(libexecdir)/$(PACKAGE_NAME)
 
 dist_sbin_SCRIPTS    = logpicker
-utils_PROGRAMS      = modlist mapshdr readmap
-dist_utils_SCRIPTS  = genmodinfo trimpciids
+utils_PROGRAMS      = mapshdr readmap
 noinst_PROGRAMS     = snarffont
-
-if IS_S390
-utils_PROGRAMS      += addrsize mk-s390-cdboot
-endif
-
-modlist_CFLAGS      = -I$(top_srcdir)/loader $(GLIB_CFLAGS)
-modlist_LDADD       = $(GLIB_LIBS)
-modlist_SOURCES     = modlist.c $(top_srcdir)/loader/moduleinfo.c
 
 MAINTAINERCLEANFILES = Makefile.in
