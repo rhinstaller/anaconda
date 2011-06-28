@@ -9,4 +9,3 @@ ExecStart=-/sbin/agetty -n tty2 38400
 Restart=always
 RestartSec=0
 TimeoutSec=0
-KillMode=process-group
