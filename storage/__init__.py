@@ -403,8 +403,9 @@ class Storage(object):
             if device.format.type == "luks" and device.format.exists:
                 self.__luksDevs[device.format.uuid] = device.format._LUKS__passphrase
 
-        w = self.anaconda.intf.waitWindow(_("Examining Devices"),
-                                          _("Examining storage devices"))
+        prog = self.anaconda.intf.progressWindow(_("Examining Devices"),
+                                                 _("Examining storage devices"),
+                                                 100, 0.03, pulse=True)
         self.iscsi.startup(self.anaconda.intf)
         self.fcoe.startup(self.anaconda.intf)
         self.zfcp.startup(self.anaconda.intf)
@@ -427,13 +428,13 @@ class Storage(object):
                                      iscsi=self.iscsi,
                                      dasd=self.dasd,
                                      mpathFriendlyNames=self.mpathFriendlyNames)
-        self.devicetree.populate()
+        self.devicetree.populate(prog)
         self.fsset = FSSet(self.devicetree, self.anaconda.rootPath)
         self.eddDict = get_edd_dict(self.partitioned)
         self.anaconda.id.rootParts = None
         self.anaconda.id.upgradeRoot = None
         self.dumpState("initial")
-        w.pop()
+        prog.pop()
 
     @property
     def devices(self):

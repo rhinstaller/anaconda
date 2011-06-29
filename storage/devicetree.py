@@ -2034,7 +2034,7 @@ class DeviceTree(object):
 
         return ret
 
-    def populate(self):
+    def populate(self, progressWindow=None):
         """ Locate all storage devices. """
         log.debug("DeviceTree.populate: ignoredDisks is %s ; exclusiveDisks is %s"
                     % (self._ignoredDisks, self.exclusiveDisks))
@@ -2074,6 +2074,8 @@ class DeviceTree(object):
         log.info("devices to scan: %s" % [d['name'] for d in devices])
         for dev in devices:
             self.addUdevDevice(dev)
+            if progressWindow:
+                progressWindow.pulse()
 
         # Having found all the disks, we can now find all the multipaths built
         # upon them.
@@ -2095,6 +2097,8 @@ class DeviceTree(object):
             self.__multipathConfigWriter.addMultipathDevice(mp)
             self._addDevice(mp)
             self.addUdevDevice(mp_info)
+            if progressWindow:
+                progressWindow.pulse()
         for d in self.devices:
             if not d.name in whitelist:
                 self.__multipathConfigWriter.addBlacklistDevice(d)
@@ -2126,6 +2130,8 @@ class DeviceTree(object):
             log.info("devices to scan: %s" % [d['name'] for d in devices])
             for dev in devices:
                 self.addUdevDevice(dev)
+                if progressWindow:
+                    progressWindow.pulse()
 
         self.populated = True
 
