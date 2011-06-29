@@ -850,7 +850,7 @@ static void setKickstartNetwork(struct loaderData_s * loaderData, PyObject *hand
              FL_EARLY_NETWORKING(flags) ||
              ibft_present())) {
             logMessage(INFO, "activating first device from kickstart because network is needed");
-            if (process_kickstart_wifi(loaderData) != 0) {
+            if (process_kickstart_wifi(loaderData) != WIFI_ACTIVATION_OK) {
                 if (device_flushed) {
                     loaderData->netDev = strdup(cmdline_device);
                     loaderData->netDev_set = 1;
@@ -866,7 +866,7 @@ static void setKickstartNetwork(struct loaderData_s * loaderData, PyObject *hand
         attr = getObject(ele, "activate", 0);
         if (isTrue(attr)) {
             logMessage(INFO, "activating because --activate flag is set");
-            if (process_kickstart_wifi(loaderData) != 0) {
+            if (process_kickstart_wifi(loaderData) != WIFI_ACTIVATION_OK) {
                 if (device_flushed) {
                     loaderData->netDev = strdup(cmdline_device);
                     loaderData->netDev_set = 1;
