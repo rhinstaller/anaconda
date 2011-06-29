@@ -441,9 +441,11 @@ class Storage(object):
             if device.format.type == "luks" and device.format.exists:
                 self.__luksDevs[device.format.uuid] = device.format._LUKS__passphrase
 
+        prog = None
         if self.intf:
-            w = self.intf.waitWindow(_("Examining Devices"),
-                                          _("Examining storage devices"))
+            prog = self.intf.progressWindow(_("Examining Devices"),
+                                            _("Examining storage devices"),
+                                            100, 0.03, pulse=True)
         if not flags.imageInstall:
             self.iscsi.startup(self.intf)
             self.fcoe.startup(self.intf)
@@ -461,7 +463,7 @@ class Storage(object):
                                      luksDict=self.__luksDevs,
                                      iscsi=self.iscsi,
                                      dasd=self.dasd)
-        self.devicetree.populate()
+        self.devicetree.populate(progressWindow=prog)
         self.config.clearPartType = clearPartType # set it back
         self.fsset = FSSet(self.devicetree,
                            getattr(self.anaconda, "rootPath", ""))
@@ -473,8 +475,8 @@ class Storage(object):
         if self.anaconda:
             self.anaconda.bootloader.clear_drive_list()
         self.dumpState("initial")
-        if w:
-            w.pop()
+        if prog:
+            prog.pop()
 
     @property
     def devices(self):
