@@ -221,6 +221,57 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Fri Jul 01 2011 David Cantrell <dcantrell@redhat.com> - 13.21.119-1
+- Pulsing progress bar instead of the static popup during device discovery.
+  (akozumpl)
+  Resolves: rhbz#616641
+- Add an exception to DUD version checking for 6.0 and 6.1 kernels (msivak)
+  Resolves: rhbz#699745
+- Keep dracut settings in sets instead of many long strings. (akozumpl)
+  Resolves: rhbz#711002
+- 'part' command checks if the disk is partitionable. (akozumpl)
+  Resolves: rhbz#679073
+- Honor noprobe flag during DUD loading (msivak)
+  Resolves: rhbz#690058
+- Show a message when ejecting media after test (msivak)
+  Resolves: rhbz#656378
+- Handle partition allocation failures due to alignment adjustments. (dlehman)
+  Resolves: rhbz#693271
+- Maximize extended partition even when logical reqs' sizes are capped.
+  (dlehman)
+  Resolves: rhbz#698429
+- Don't magically adjust fstype when mountpoint is set to "/boot". (dlehman)
+  Resolves: rhbz#695362
+- Implement an option that lets anaconda name mpath devices by the wwid.
+  (akozumpl)
+  Resolves: rhbz#709653
+- Add the tests/mock framework to rhel6-branch. (akozumpl)
+  Related: rhbz#709653
+- Remove unused udev_device_is_{multipath,dmraid}_partition functions.
+  (dlehman)
+  Related: rhbz#709653
+- Generalize some of the device-mapper partition handling. (dlehman)
+  Related: rhbz#709653
+- Use dm subsystem functions to identify dmraid,mpath partitions. (dlehman)
+  Related: rhbz#709653
+- In kickstart, specify multipaths by their wwids. (akozumpl)
+  Related: rhbz#709653
+  Resolves: rhbz#677263
+- multipath: allow mpath<X> specfifications in kickstart. (akozumpl)
+  Resolves: rhbz#696876
+- multipath: do not set any mpath aliases explicitly. (akozumpl)
+  Related: rhbz#640735
+  Resolves: rhbz#674241
+- Improve parsing and pass the devel flag to loader through the command line
+  (msivak)
+  Related: rhbz#664981
+- When in devel mode, do not catch tracebacks, we want the core file (msivak)
+  Related: rhbz#664981
+- Add better debugging capabilities to loader (msivak)
+  Related: rhbz#664981
+- Allow driver disc to be marked as usable for more than one kernel (msivak)
+  Resolves: rhbz#699745
+
 * Tue Jun 14 2011 David Cantrell <dcantrell@redhat.com> - 13.21.118-1
 - Fix --mtu option to kickstart network command (icomfort)
   Resolves: rhbz#689081
