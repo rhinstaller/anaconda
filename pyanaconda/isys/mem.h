@@ -1,8 +1,7 @@
 /*
  * mem.h
  *
- * Copyright (C) 2010
- * Red Hat, Inc.  All rights reserved.
+ * Copyright (C) 2010-2011  Red Hat, Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,10 +15,15 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * Red Hat Author(s): Ales Kozumplik <akozumpl@redhat.com>
+ *                    David Cantrell <dcantrell@redhat.com>
  */
 
 #ifndef _MEM_H_
 #define _MEM_H_
+
+#include <glib.h>
 
 #if defined(__powerpc64__) || defined(__sparc__)
   #define MIN_RAM                 1024*1024 // 1 GB
@@ -31,6 +35,8 @@
 #define MIN_GUI_RAM             MIN_RAM + GUI_INSTALL_EXTRA_RAM
 #define EARLY_SWAP_RAM          1152 * 1024 // 1152 MB
 
-int totalMemory(void);
+#define MEMINFO "/proc/meminfo"
+
+guint64 totalMemory(void);
 
 #endif /* _MEM_H_ */
