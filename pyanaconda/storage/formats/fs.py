@@ -1034,17 +1034,10 @@ class Ext3FS(Ext2FS):
     """ ext3 filesystem. """
     _type = "ext3"
     _defaultFormatOptions = ["-t", "ext3"]
-    _migrationTarget = "ext4"
+    _migratable = False
     _modules = ["ext3"]
     _defaultMigrateOptions = ["-O", "extents"]
     partedSystem = fileSystemType["ext3"]
-
-    def _isMigratable(self):
-        """ Can filesystems of this type be migrated? """
-        return (flags.cmdline.has_key("ext4migrate") and
-                Ext2FS._isMigratable(self))
-
-    migratable = property(_isMigratable)
 
 register_device_format(Ext3FS)
 
