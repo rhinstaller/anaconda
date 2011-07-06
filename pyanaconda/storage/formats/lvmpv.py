@@ -67,6 +67,8 @@ class LVMPhysicalVolume(DeviceFormat):
         # for not-yet-created devices
         self.peStart = kwargs.get("peStart", 1.0)    # in MB
 
+        self.inconsistentVG = False
+
     def __repr__(self):
         s = DeviceFormat.__repr__(self)
         s += ("  vgName = %(vgName)s  vgUUID = %(vgUUID)s"

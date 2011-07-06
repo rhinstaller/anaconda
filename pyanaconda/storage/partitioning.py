@@ -391,10 +391,6 @@ def shouldClear(device, clearPartType, clearPartDisks=None):
     if device.protected:
         return False
 
-    # Don't clear immutable devices.
-    if device.immutable:
-        return False
-
     return True
 
 def clearPartitions(storage, bootloader=None):
@@ -486,11 +482,8 @@ def clearPartitions(storage, bootloader=None):
             disk.name not in storage.config.clearPartDisks):
             continue
 
-        # Don't touch immutable disks
-        if disk.immutable:
-            continue
-
         # don't reinitialize the disklabel if the disk contains install media
+        # or pvs from inconsistent vgs
         if filter(lambda p: p.dependsOn(disk), storage.protectedDevices):
             continue
 

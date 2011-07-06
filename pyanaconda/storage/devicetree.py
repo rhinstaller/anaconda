@@ -1656,8 +1656,8 @@ class DeviceTree(object):
                     devicelibs.lvm.blacklistVG(device.name)
                     for parent in device.parents:
                         if parent.type == "partition":
-                            parent.immutable = \
-                                _("This partition is part of an inconsistent LVM Volume Group.")
+                            parent.format.inconsistentVG = True
+                            parent.protected = True
                         else:
                             self._removeDevice(parent, moddisk=False)
                             self.addIgnoredDisk(parent.name)

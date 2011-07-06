@@ -749,7 +749,8 @@ class Storage(object):
         if not isinstance(device, Device):
             raise ValueError("arg1 (%s) must be a Device instance" % device)
 
-        if not ignoreProtected and device.protected:
+        if not ignoreProtected and device.protected and \
+           not getattr(device.format, "inconsistentVG", False):
             return _("This partition is holding the data for the hard "
                       "drive install.")
         elif isinstance(device, PartitionDevice) and device.isProtected:
@@ -766,6 +767,9 @@ class Storage(object):
                     else:
                         return _("This device is part of a RAID device.")
         elif device.format.type == "lvmpv":
+            if device.format.inconsistentVG:
+                return _("This device is part of an inconsistent LVM "
+                         "Volume Group.")
             for vg in self.vgs:
                 if vg.dependsOn(device):
                     if vg.name is not None:
@@ -794,9 +798,6 @@ class Storage(object):
                 for dev in reasons:
                     msg += "%s: %s" % (dev, reasons[dev])
                 return msg
-
-        if device.immutable:
-            return device.immutable
 
         return False
 

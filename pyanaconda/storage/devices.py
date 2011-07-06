@@ -480,7 +480,6 @@ class StorageDevice(Device):
         self.bus = bus
 
         self.protected = False
-        self.immutable = None
         self.controllable = True
 
         self.format = format
