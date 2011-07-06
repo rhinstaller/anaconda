@@ -2697,7 +2697,7 @@ class MDRaidArrayDevice(StorageDevice):
         self.chunkSize = 512.0 / 1024.0         # chunk size in MB
         self.superBlockSize = 2.0               # superblock size in MB
 
-        self.createMetadataVer = "1.1"
+        self.createMetadataVer = "default"
         # bitmaps are not meaningful on raid0 according to mdadm-3.0.3
         self.createBitmap = self.level != 0
 
