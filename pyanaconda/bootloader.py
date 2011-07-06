@@ -1416,9 +1416,9 @@ class GRUB2(GRUB):
                     ret = True
                     break
 
-        if not ret:
-            self.warnings.append(_("You are using a GPT bootdisk on a non-EFI "
-                                   "system without a BIOS boot partition. "
+            if not ret:
+                self.warnings.append(_("You are using a GPT bootdisk on a non-"
+                                   "EFI system without a BIOS boot partition. "
                                    "This may not work, depending on your "
                                    "BIOS's support for booting from GPT disks."))
 
