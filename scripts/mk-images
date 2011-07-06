@@ -343,7 +343,6 @@ EOF
         for subdir in firewire pcmcia sound wireless ; do
             find -H $MMB_DIR/lib/modules -name $subdir | xargs rm -rf
         done
-        rm -rf $MMB_DIR/lib/firmware/{matrox,r128,radeon,zd1211}
     fi
 
     # clean up leftover cruft
@@ -980,7 +979,7 @@ tail -f /tmp/storage.log
 EOF
 
     rm -f $MBD_FSIMAGE
-    (cd $MBD_DIR; find . |cpio --quiet -c -o) |gzip -9 > $MBD_FSIMAGE
+    (cd $MBD_DIR; find . |cpio --quiet -c -o) |xz -9 > $MBD_FSIMAGE
 
     size=$(du $MBD_FSIMAGE | awk '{ print $1 }')
 
