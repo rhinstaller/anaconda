@@ -29,7 +29,7 @@ for k in langs.localeInfo.keys():
     found = False
     for l in language.expandLangs(k):
         try:
-            f = open("po/%s.gmo" %(l,))
+            f = open("../po/%s.gmo" %(l,))
         except (OSError, IOError):
             continue
         cat = gettext.GNUTranslations(f)
