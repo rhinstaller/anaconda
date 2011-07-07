@@ -1563,7 +1563,7 @@ class InstallControlWindow:
         else:
             # Normal install, full screen
             self.window.set_type_hint(gtk.gdk.WINDOW_TYPE_HINT_DESKTOP)
-            if gtk.gdk.screen_height() < 600:
+            if gtk.gdk.screen_height() != 600:
                 i.hide()
 
             width = None
