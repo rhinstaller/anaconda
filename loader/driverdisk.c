@@ -405,6 +405,7 @@ int loadDriverFromMedia(int class, struct loaderData_s *loaderData,
             if (rc == 1) {
                 device = strdup(devNames[0]);
                 free(devNames);
+                devNames = NULL;
                 if (dir == -1)
                     return LOADER_BACK;
                 
@@ -424,18 +425,22 @@ int loadDriverFromMedia(int class, struct loaderData_s *loaderData,
 
             if (rc == 2) {
                 free(devNames);
+                devNames = NULL;
                 return LOADER_BACK;
             }
             device = strdup(devNames[num]);
             free(devNames);
+            devNames = NULL;
 
             stage = DEV_PART;
         case DEV_PART: {
             char ** part_list = getPartitionsList(device);
             int nump = 0, num = 0;
 
-            if (part != NULL)
+            if (part != NULL) {
                 free(part);
+                part = NULL;
+            }
 
             if ((nump = lenPartitionsList(part_list)) == 0) {
                 if (dir == -1)
