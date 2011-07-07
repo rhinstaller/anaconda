@@ -1503,6 +1503,9 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
                     # 2 if success
                     depprob = "\n".join(msgs)
 
+                    for m in msgs:
+                        log.warning(m)
+
                     custom_buttons = [_("_Exit installer"), _("_Continue")]
                     if not anaconda.ksdata:
                         custom_buttons.insert(1, _("_Back"))
@@ -1527,6 +1530,8 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
 
                 break
             except RepoError as e:
+                log.critical(e)
+
                 # FIXME: would be nice to be able to recover here
                 rc = anaconda.intf.messageWindow(_("Error"),
                                _("Unable to read package metadata. This may be "
