@@ -428,7 +428,7 @@ class Storage(object):
         except Exception as e:
             log.error("failure tearing down device tree: %s" % e)
 
-    def reset(self):
+    def reset(self, cleanupOnly=False):
         """ Reset storage configuration to reflect actual system state.
 
             This should rescan from scratch but not clobber user-obtained
@@ -463,7 +463,8 @@ class Storage(object):
                                      luksDict=self.__luksDevs,
                                      iscsi=self.iscsi,
                                      dasd=self.dasd)
-        self.devicetree.populate(progressWindow=prog)
+        self.devicetree.populate(progressWindow=prog,
+                                 cleanupOnly=cleanupOnly)
         self.config.clearPartType = clearPartType # set it back
         self.fsset = FSSet(self.devicetree,
                            getattr(self.anaconda, "rootPath", ""))
