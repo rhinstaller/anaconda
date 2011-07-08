@@ -1662,20 +1662,6 @@ def growPartitions(disks, partitions, free):
                     device.partedPartition = newpart
 
 
-def hasFreeDiskSpace(storage, exclusiveDisks=None):
-    """Returns True if there is at least 100Mb of free usable space in any of
-       the disks.  False otherwise.
-
-    """
-    # FIXME: This function needs to be implemented.  It is used, at least, by
-    # iw/partition_gui.py.  It should be implemented after the new
-    # doPartitioning code is commited for fedora 13.  Since it returns True
-    # the user will always be able to access the create partition screen. If
-    # no partition can be created, the user will go back to the previous
-    # storage state after seeing a warning message.
-    return True
-
-
 def lvCompare(lv1, lv2):
     """ More specifically defined lvs come first.
 

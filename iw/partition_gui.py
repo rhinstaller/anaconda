@@ -49,7 +49,6 @@ from partIntfHelpers import *
 from constants import *
 from partition_ui_helpers_gui import *
 from storage.partitioning import doPartitioning
-from storage.partitioning import hasFreeDiskSpace
 from storage.devicelibs import lvm
 from storage.devices import devicePathToName, PartitionDevice
 from storage.devices import deviceNameToDiskByPath
@@ -1336,16 +1335,7 @@ class PartitionWindow(InstallWindow):
         # First we must decide what parts of the create_storage_dialog
         # we will activate.
 
-        # For the Partition checkboxes.
-        # If we see that there is free space in the "Hard Drive" list, then we
-        # must activate all the partition radio buttons (RAID partition,
-        # LVM partition and Standard partition).  We will have only one var to
-        # control all three activations (Since they all depend on the same
-        # thing)
-        activate_create_partition = False
-        free_part_available = hasFreeDiskSpace(self.storage)
-        if free_part_available:
-            activate_create_partition = True
+        activate_create_partition = True
 
         # We activate the create Volume Group radio button if there is a free
         # partition with a Physical Volume format.
@@ -1510,9 +1500,6 @@ class PartitionWindow(InstallWindow):
         whathave_lvm = P_("You currently have %d available PV free to use.\n",
                             "You currently have %d available PVs free to use.\n",
                             availpvs) % (availpvs, )
-        if free_part_available:
-            whathave_lvm = whathave_lvm + _("You currently have free space to "
-                    "create PVs.")
         lvminfo_message = "%s\n%s%s" % (whatis_lvm, whatneed_lvm, whathave_lvm)
         lvminfo_cb = lambda x : self.intf.messageWindow(_("About LVM"),
                                     lvminfo_message, custom_icon="information")
