@@ -1866,30 +1866,6 @@ def growPartitions(disks, partitions, free):
                     device.partedPartition = newpart
 
 
-def hasFreeDiskSpace(storage, exclusiveDisks=None):
-    """Returns True if there is at least 100Mb of free usable space in any of
-       the disks.  False otherwise.
-
-    """
-
-    hasFreeSpace = False
-    disks = storage.partitioned
-
-    if exclusiveDisks:
-        disks = [d for d in disks if d.name in exclusiveDisks]
-
-    for disk in disks:
-        if storage.config.clearPartDisks and \
-           (disk.name not in storage.config.clearPartDisks):
-            continue
-
-        for part in disk.format.partedDisk.getFreeSpacePartitions():
-            if part.getSize(unit="MB") >= 100:
-                hasFreeSpace = True
-                break
-
-    return hasFreeSpace
-
 def lvCompare(lv1, lv2):
     """ More specifically defined lvs come first.
 
