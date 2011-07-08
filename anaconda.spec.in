@@ -222,6 +222,26 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Fri Jul 08 2011 David Cantrell <dcantrell@redhat.com> - 13.21.120-1
+- Hide header image on all but 800x600 displays (dcantrell).
+  Resolves: rhbz#712487
+- Use xz compression on initrd.img, add back gfx firmware (dcantrell)
+  Resolves: rhbz#703914
+- i18n: Maintain the translated repo name upon modifying. (akozumpl)
+  Resolves: rhbz#682599
+- Handle systems with more than 2147483647 kB of memory (dcantrell).
+  Resolves: rhbz#704593
+- Remove support for the ext4migrate option (dcantrell).
+  Resolves: rhbz#712195
+- Use a more general EnvironmentError to catch timezone-file errors. (akozumpl)
+  Resolves: rhbz#718099
+- edd: refactor and enhance the edd module. (akozumpl)
+  Related: rhbz#694800
+  Resolves: rhbz#621175
+- unit tests: provide 'glob.glob' and 'os.listdir' in the DiskIO class.
+  (akozumpl)
+  Related: rhbz#621175
+
 * Fri Jul 01 2011 David Cantrell <dcantrell@redhat.com> - 13.21.119-1
 - Pulsing progress bar instead of the static popup during device discovery.
   (akozumpl)
