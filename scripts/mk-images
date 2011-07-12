@@ -979,7 +979,7 @@ tail -f /tmp/storage.log
 EOF
 
     rm -f $MBD_FSIMAGE
-    (cd $MBD_DIR; find . |cpio --quiet -c -o) |xz -9 > $MBD_FSIMAGE
+    (cd $MBD_DIR; find . |cpio --quiet -c -o) |xz -9 --format=lzma > $MBD_FSIMAGE
 
     size=$(du $MBD_FSIMAGE | awk '{ print $1 }')
 
