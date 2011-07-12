@@ -107,6 +107,9 @@ class LUKS(DeviceFormat):
                "backup": self.add_backup_passphrase})
         return s
 
+    def writeKS(self, f):
+        f.write(" --encrypted")
+
     @property
     def dict(self):
         d = super(LUKS, self).dict
