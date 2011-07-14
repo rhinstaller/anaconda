@@ -937,6 +937,11 @@ usr/bin/whiptail
 usr/bin/firstaidkit-qs
 EOF
 
+# add all lvm symlinks to keepfile
+for cmd in `rpm -ql lvm2 | grep /sbin/`; do
+    echo "usr"$cmd;
+done >> $KEEPFILERESCUE
+
 if [[ $ARCH =~ "i[356]86" || $ARCH == "x86_64" ]]; then
     cat >> $KEEPFILERESCUE <<-EOF
 sbin/grub
