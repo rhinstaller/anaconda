@@ -277,8 +277,10 @@ class Bootloader(commands.bootloader.F15_Bootloader):
                 self.anaconda.bootloader.boot_args.update(args)
 
             if self.password:
-                self.anaconda.bootloader.password = self.password
-                self.anaconda.bootloader.encrypt_password = self.isCrypted
+                if self.isCrypted:
+                    self.anaconda.bootloader.encrypted_password = self.password
+                else:
+                    self.anaconda.bootloader.password = self.password
 
             if location != None:
                 self.anaconda.bootloader.set_preferred_stage1_type(location)

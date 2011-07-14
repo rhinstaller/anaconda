@@ -965,7 +965,7 @@ class GRUB(BootLoader):
 
     def __init__(self, storage):
         super(GRUB, self).__init__(storage)
-        self.encrypt_password = False
+        self.encrypted_password = ""
 
     #
     # grub-related conveniences
@@ -1038,8 +1038,14 @@ class GRUB(BootLoader):
             console_arg += ",%s" % self.console_options
         self.boot_args.add(console_arg)
 
-    @property
-    def encrypted_password(self):
+    def _encrypt_password(self):
+        """ Make sure self.encrypted_password is set up correctly. """
+        if self.encrypted_password:
+            return
+
+        if not self.password:
+            raise BootLoaderError("cannot encrypt empty password")
+
         import string
         import crypt
         import random
@@ -1049,18 +1055,16 @@ class GRUB(BootLoader):
 
         rand_gen = random.SystemRandom()
         salt += "".join([rand_gen.choice(salt_chars) for i in range(salt_len)])
-        password = crypt.crypt(self.password, salt)
-        return password
+        self.encrypted_password = crypt.crypt(self.password, salt)
 
     def write_config_password(self, config):
         """ Write password-related configuration. """
-        if self.password:
-            if self.encrypt_password:
-                password = "--encrypted " + self.encrypted_password
-            else:
-                password = self.password
+        if not self.password and not self.encrypted_password:
+            return
 
-            config.write("password %s\n" % password)
+        self._encrypt_password()
+        password_line = "--encrypted " + self.encrypted_password
+        config.write("password %s\n" % password_line)
 
     def write_config_header(self, config, install_root=""):
         """Write global configuration information. """
@@ -1488,32 +1492,62 @@ class GRUB2(GRUB):
         if self.console and self.console.startswith("ttyS"):
             defaults.write("GRUB_TERMINAL=\"serial console\"\n")
             defaults.write("GRUB_SERIAL_COMMAND=\"%s\"\n" % self.serial_command)
+
+        # this is going to cause problems for systems containing multiple
+        # linux installations or even multiple boot entries with different
+        # boot arguments
         defaults.write("GRUB_CMDLINE_LINUX=\"%s\"\n" % self.boot_args)
         defaults.close()
 
-    def write_password_config(self, install_root=""):
-        if not self.password:
+    def _encrypt_password(self, install_root=""):
+        """ Make sure self.encrypted_password is set up properly. """
+        if self.encrypted_password:
             return
 
-        # FIXME: this is useless since we currently have no way to propagate
-        #        --users="" to each menu entry
-        header = open(install_root + "/etc/grub.d/01_users", "w")
+        if not self.password:
+            raise RuntimeError("cannot encrypt empty password")
+
+        (pread, pwrite) = os.pipe()
+        os.write(pwrite, "%s\n%s\n" % (self.password, self.password))
+        os.close(pwrite)
+        buf = iutil.execWithCapture("grub2-mkpasswd-pbkdf2", [],
+                                    stdin=pread,
+                                    stderr="/dev/tty5",
+                                    root=install_root)
+        os.close(pread)
+        self.encrypted_password = buf.split()[-1].strip()
+        if not self.encrypted_password.startswith("grub.pbkdf2."):
+            raise BootLoaderError("failed to encrypt bootloader password")
+
+    def write_password_config(self, install_root=""):
+        if not self.password and not self.encrypted_password:
+            return
+
+        users_file = install_root + "/etc/grub.d/01_users"
+        header = open(users_file, "w")
         header.write("#!/bin/sh -e\n\n")
         header.write("cat << EOF\n")
+        # XXX FIXME: document somewhere that the username is "root"
         header.write("set superusers=\"root\"\n")
-        if self.encrypt_password:
-            password = "password_pbkdf2 root " + self.encrypted_password
-        else:
-            password = "password root " + self.password
-
-        header.write("%s\n" % password)
+        self._encrypt_password(install_root=install_root)
+        password_line = "password_pbkdf2 root " + self.encrypted_password
+        header.write("%s\n" % password_line)
         header.write("EOF\n")
         header.close()
+        os.chmod(users_file, 0755)
 
     def write_config(self, install_root=""):
         self.write_device_map(install_root=install_root)
         self.write_defaults(install_root=install_root)
-        self.write_password_config(install_root=install_root)
+
+        # if we fail to setup password auth we should complete the
+        # installation so the system is at least bootable
+        try:
+            self.write_password_config(install_root=install_root)
+        except (BootLoaderError, OSError, RuntimeError) as e:
+            log.error("bootloader password setup failed: %s" % e)
+
+        # now tell grub2 to generate the main configuration file
         rc = iutil.execWithRedirect("grub2-mkconfig",
                                     ["-o", self.config_file],
                                     root=install_root,
