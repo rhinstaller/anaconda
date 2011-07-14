@@ -222,6 +222,36 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Thu Jul 14 2011 David Cantrell <dcantrell@redhat.com> - 13.21.121-1
+- Fix network --device=bootif value processing in stage2 (vpodzime)
+  Resolves: rhbz#681803
+- Enable support for static ipv6= cmdline option (rvykydal)
+  Resolves: rhbz#679108
+- Fix nfsiso install with options (mgracik)
+  Resolves: rhbz#699640
+- Copy the command stubs test scripts to initrd (mgracik)
+  Resolves: rhbz#706099
+- Remove raidstart-stub and raidstop-stub (mgracik)
+  Related: rhbz#706099
+- Improvements to loadkeys-stub (mgracik)
+  Related: rhbz#706099
+- Add test script for loadkeys-stub (mgracik)
+  Related: rhbz#706099
+- Improvements to losetup-stub (mgracik)
+  Related: rhbz#706099
+- Add test script for losetup-stub (mgracik)
+  Related: rhbz#706099
+- Improvements to list-harddrives-stub (mgracik)
+  Related: rhbz#706099
+- Add test script for list-harddrives-stub (mgracik)
+  Related: rhbz#706099
+- Improvements to mknod-stub (mgracik)
+  Related: rhbz#706099
+- Add test script for mknod-stub (mgracik)
+  Related: rhbz#706099
+- Compress initrd.img with lzma, not xz (wwoods)
+  Resolves: rhbz#694198
+
 * Fri Jul 08 2011 David Cantrell <dcantrell@redhat.com> - 13.21.120-1
 - Hide header image on all but 800x600 displays (dcantrell).
   Resolves: rhbz#712487

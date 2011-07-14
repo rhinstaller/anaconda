@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 13.21.119\n"
+"Project-Id-Version: anaconda 13.21.120\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2011-07-08 10:24-0400\n"
+"POT-Creation-Date: 2011-07-14 11:16-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -38,7 +38,7 @@ msgstr ""
 #: loader/kickstart.c:514 loader/lang.c:114 loader/lang.c:373
 #: loader/loader.c:434 loader/loader.c:470 loader/loader.c:510
 #: loader/loader.c:528 loader/loader.c:545 loader/loader.c:582
-#: loader/loader.c:1205 loader/loader.c:1233 loader/loader.c:1444
+#: loader/loader.c:1190 loader/loader.c:1218 loader/loader.c:1429
 #: loader/mediacheck.c:46 loader/mediacheck.c:85 loader/mediacheck.c:92
 #: loader/mediacheck.c:96 loader/mediacheck.c:105 loader/method.c:277
 #: loader/method.c:351 loader/modules.c:382 loader/modules.c:398
@@ -123,8 +123,8 @@ msgstr ""
 msgid "_Exit installer"
 msgstr ""
 
-#: bootloader.py:60 image.py:92 image.py:251 kickstart.py:1445
-#: kickstart.py:1484 upgrade.py:58 yuminstall.py:1386 yuminstall.py:1563
+#: bootloader.py:60 image.py:92 image.py:253 kickstart.py:1450
+#: kickstart.py:1489 upgrade.py:58 yuminstall.py:1386 yuminstall.py:1563
 #: iw/partition_gui.py:1611 storage/__init__.py:2047
 msgid "_Continue"
 msgstr ""
@@ -157,8 +157,8 @@ msgstr ""
 msgid "In progress"
 msgstr ""
 
-#: cmdline.py:88 gui.py:1316 kickstart.py:1227 kickstart.py:1307
-#: kickstart.py:1315 kickstart.py:1354 kickstart.py:1362 text.py:396
+#: cmdline.py:88 gui.py:1316 kickstart.py:1232 kickstart.py:1312
+#: kickstart.py:1320 kickstart.py:1359 kickstart.py:1367 text.py:396
 #, python-format
 msgid ""
 "The following error was found while parsing the kickstart configuration "
@@ -361,12 +361,12 @@ msgid ""
 "className = %s"
 msgstr ""
 
-#: gui.py:1451 image.py:164 image.py:194 packages.py:369
+#: gui.py:1451 image.py:166 image.py:196 packages.py:369
 #: storage/__init__.py:1864
 msgid "_Exit"
 msgstr ""
 
-#: gui.py:1452 image.py:164 image.py:194 livecd.py:205 yuminstall.py:921
+#: gui.py:1452 image.py:166 image.py:196 livecd.py:205 yuminstall.py:921
 #: yuminstall.py:1320 yuminstall.py:1381 yuminstall.py:1593
 msgid "_Retry"
 msgstr ""
@@ -375,7 +375,7 @@ msgstr ""
 msgid "The system will now reboot."
 msgstr ""
 
-#: gui.py:1455 image.py:251 packages.py:373 yuminstall.py:1634
+#: gui.py:1455 image.py:253 packages.py:373 yuminstall.py:1634
 msgid "_Reboot"
 msgstr ""
 
@@ -415,11 +415,11 @@ msgid ""
 "choose to continue if you think this is in error."
 msgstr ""
 
-#: image.py:156
+#: image.py:158
 msgid "Couldn't Mount ISO Source"
 msgstr ""
 
-#: image.py:157
+#: image.py:159
 #, python-format
 msgid ""
 "An error occurred mounting the source device %s.  This may happen if your "
@@ -428,11 +428,11 @@ msgid ""
 "installation."
 msgstr ""
 
-#: image.py:185
+#: image.py:187
 msgid "Missing ISO 9660 Image"
 msgstr ""
 
-#: image.py:186
+#: image.py:188
 #, python-format
 msgid ""
 "The installer has tried to mount image #%s, but cannot find it on the hard "
@@ -442,11 +442,11 @@ msgid ""
 "the installation."
 msgstr ""
 
-#: image.py:241
+#: image.py:243
 msgid "Required Install Media"
 msgstr ""
 
-#: image.py:242
+#: image.py:244
 #, python-format
 msgid ""
 "The software you have selected to install will require the following %"
@@ -457,13 +457,13 @@ msgid ""
 "need to abort the installation and exit please select \"Reboot\"."
 msgstr ""
 
-#: image.py:251 livecd.py:446 packages.py:373 upgrade.py:198
+#: image.py:253 livecd.py:446 packages.py:373 upgrade.py:198
 #: yuminstall.py:1053 yuminstall.py:1140 yuminstall.py:1565 yuminstall.py:1616
 #: yuminstall.py:1634 ui/anaconda.glade.h:2
 msgid "_Back"
 msgstr ""
 
-#: image.py:289 livecd.py:198 livecd.py:440 partIntfHelpers.py:239 text.py:359
+#: image.py:291 livecd.py:198 livecd.py:440 partIntfHelpers.py:239 text.py:359
 #: text.py:363 yuminstall.py:417 yuminstall.py:931 yuminstall.py:1046
 #: yuminstall.py:1051 yuminstall.py:1324 yuminstall.py:1391 yuminstall.py:1587
 #: yuminstall.py:1609 iw/advanced_storage.py:379 iw/advanced_storage.py:389
@@ -477,7 +477,7 @@ msgstr ""
 #: loader/hdinstall.c:115 loader/hdinstall.c:325 loader/hdinstall.c:440
 #: loader/hdinstall.c:483 loader/hdinstall.c:496 loader/kickstart.c:299
 #: loader/lang.c:114 loader/loader.c:434 loader/loader.c:545
-#: loader/loader.c:1205 loader/mediacheck.c:46 loader/mediacheck.c:85
+#: loader/loader.c:1190 loader/mediacheck.c:46 loader/mediacheck.c:85
 #: loader/mediacheck.c:92 loader/mediacheck.c:96 loader/method.c:277
 #: loader/method.c:351 loader/nfsinstall.c:279 loader/nfsinstall.c:296
 #: loader/telnetd.c:92 loader/urlinstall.c:137 loader/urlinstall.c:159
@@ -488,7 +488,7 @@ msgstr ""
 msgid "Error"
 msgstr ""
 
-#: image.py:290
+#: image.py:292
 #, python-format
 msgid ""
 "An error occurred unmounting the disc.  Please make sure you're not "
@@ -589,63 +589,63 @@ msgid ""
 "%s"
 msgstr ""
 
-#: kickstart.py:1326
+#: kickstart.py:1331
 #, python-format
 msgid "Error processing %%ksappend lines: %s"
 msgstr ""
 
-#: kickstart.py:1329
+#: kickstart.py:1334
 #, python-format
 msgid "Unknown error processing %%ksappend lines: %s"
 msgstr ""
 
-#: kickstart.py:1385 livecd.py:228
+#: kickstart.py:1390 livecd.py:228
 msgid "Post-Installation"
 msgstr ""
 
-#: kickstart.py:1386
+#: kickstart.py:1391
 msgid "Running post-installation scripts"
 msgstr ""
 
-#: kickstart.py:1402
+#: kickstart.py:1407
 msgid "Pre-Installation"
 msgstr ""
 
-#: kickstart.py:1403
+#: kickstart.py:1408
 msgid "Running pre-installation scripts"
 msgstr ""
 
-#: kickstart.py:1436
+#: kickstart.py:1441
 msgid "Missing Package"
 msgstr ""
 
-#: kickstart.py:1437
+#: kickstart.py:1442
 #, python-format
 msgid ""
 "You have specified that the package '%s' should be installed.  This package "
 "does not exist. Would you like to continue or abort this installation?"
 msgstr ""
 
-#: kickstart.py:1443 kickstart.py:1482
+#: kickstart.py:1448 kickstart.py:1487
 msgid "_Abort"
 msgstr ""
 
-#: kickstart.py:1444 kickstart.py:1483
+#: kickstart.py:1449 kickstart.py:1488
 msgid "_Ignore All"
 msgstr ""
 
-#: kickstart.py:1474
+#: kickstart.py:1479
 msgid "Missing Group"
 msgstr ""
 
-#: kickstart.py:1475
+#: kickstart.py:1480
 #, python-format
 msgid ""
 "You have specified that the group '%s' should be installed. This group does "
 "not exist. Would you like to continue or abort this installation?"
 msgstr ""
 
-#: kickstart.py:1598
+#: kickstart.py:1603
 #, python-format
 msgid ""
 "The kickstart configuration file is missing required information that "
@@ -3421,7 +3421,7 @@ msgstr ""
 #: loader/driverdisk.c:536 loader/driverselect.c:78 loader/driverselect.c:152
 #: loader/driverselect.c:178 loader/hdinstall.c:212 loader/hdinstall.c:266
 #: loader/kbd.c:119 loader/loader.c:511 loader/loader.c:528
-#: loader/loader.c:1444 loader/loader.c:1477 loader/net.c:593 loader/net.c:973
+#: loader/loader.c:1429 loader/loader.c:1462 loader/net.c:593 loader/net.c:973
 #: loader/net.c:1975 loader/net.c:1994 loader/nfsinstall.c:91
 #: loader/urls.c:268 storage/__init__.py:109 storage/__init__.py:155
 #: storage/devicetree.py:92 textw/constants_text.py:52
@@ -3760,114 +3760,114 @@ msgstr ""
 msgid "Error downloading updates image"
 msgstr ""
 
-#: loader/loader.c:1201
+#: loader/loader.c:1186
 #, c-format
 msgid "You do not have enough RAM to install %s on this machine."
 msgstr ""
 
-#: loader/loader.c:1233
+#: loader/loader.c:1218
 msgid "Unsupported Hardware Detected"
 msgstr ""
 
-#: loader/loader.c:1234
+#: loader/loader.c:1219
 msgid ""
 "This hardware (or a combination thereof) is not supported by Red Hat.  For "
 "more information on supported hardware, please refer to http://www.redhat."
 "com/hardware."
 msgstr ""
 
-#: loader/loader.c:1293
+#: loader/loader.c:1278
 msgid "Media Detected"
 msgstr ""
 
-#: loader/loader.c:1294
+#: loader/loader.c:1279
 msgid "Found local installation media"
 msgstr ""
 
-#: loader/loader.c:1436
+#: loader/loader.c:1421
 msgid "Rescue Method"
 msgstr ""
 
-#: loader/loader.c:1437
+#: loader/loader.c:1422
 msgid "Installation Method"
 msgstr ""
 
-#: loader/loader.c:1439
+#: loader/loader.c:1424
 msgid "What type of media contains the rescue image?"
 msgstr ""
 
-#: loader/loader.c:1441
+#: loader/loader.c:1426
 msgid "What type of media contains the installation image?"
 msgstr ""
 
-#: loader/loader.c:1476
+#: loader/loader.c:1461
 msgid "No driver found"
 msgstr ""
 
-#: loader/loader.c:1476
+#: loader/loader.c:1461
 msgid "Select driver"
 msgstr ""
 
-#: loader/loader.c:1477
+#: loader/loader.c:1462
 msgid "Use a driver disk"
 msgstr ""
 
-#: loader/loader.c:1478
+#: loader/loader.c:1463
 msgid ""
 "Unable to find any devices of the type needed for this installation type.  "
 "Would you like to manually select your driver or use a driver disk?"
 msgstr ""
 
-#: loader/loader.c:1710
+#: loader/loader.c:1695
 msgid "The following devices have been found on your system."
 msgstr ""
 
-#: loader/loader.c:1712
+#: loader/loader.c:1697
 msgid ""
 "No device drivers have been loaded for your system.  Would you like to load "
 "any now?"
 msgstr ""
 
-#: loader/loader.c:1716
+#: loader/loader.c:1701
 msgid "Devices"
 msgstr ""
 
-#: loader/loader.c:1717
+#: loader/loader.c:1702
 msgid "Done"
 msgstr ""
 
-#: loader/loader.c:1718
+#: loader/loader.c:1703
 msgid "Add Device"
 msgstr ""
 
-#: loader/loader.c:2008
+#: loader/loader.c:1993
 #, c-format
 msgid "loader has already been run.  Starting shell.\n"
 msgstr ""
 
-#: loader/loader.c:2158
+#: loader/loader.c:2143
 #, c-format
 msgid "Driver disc was detected in %s. Do you want to use it?."
 msgstr ""
 
-#: loader/loader.c:2162
+#: loader/loader.c:2147
 msgid "Driver disc detected"
 msgstr ""
 
-#: loader/loader.c:2162
+#: loader/loader.c:2147
 msgid "Use it"
 msgstr ""
 
-#: loader/loader.c:2162
+#: loader/loader.c:2147
 msgid "Skip it"
 msgstr ""
 
-#: loader/loader.c:2514
+#: loader/loader.c:2499
 #, c-format
 msgid "Running anaconda %s, the %s rescue mode - please wait.\n"
 msgstr ""
 
-#: loader/loader.c:2516
+#: loader/loader.c:2501
 #, c-format
 msgid "Running anaconda %s, the %s system installer - please wait.\n"
 msgstr ""
