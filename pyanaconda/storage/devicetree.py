@@ -609,7 +609,9 @@ class DeviceTree(object):
         device = self.getDeviceByName(vg_name)
         if not device:
             log.error("failed to find vg '%s' after scanning pvs" % vg_name)
-        return device
+
+        # Don't return the device like we do in the other addUdevFooDevice
+        # methods. The device we have here is a vg, not an lv.
 
     def addUdevDMDevice(self, info):
         name = udev_device_get_name(info)
