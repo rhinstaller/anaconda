@@ -1385,7 +1385,7 @@ class GRUB2(GRUB):
 
     """
     name = "GRUB2"
-    packages = ["grub2", "gettext"]
+    packages = ["grub2", "gettext", "os-prober"]
     _config_file = "grub.cfg"
     _config_dir = "grub2"
     config_file_mode = 0600

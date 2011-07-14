@@ -203,7 +203,10 @@ class MainBootloaderWindow(InstallWindow):
 
         # configure the systems available to boot from the boot loader
         self.oslist = OSBootWidget(anaconda, self.parent)
-        thebox.pack_end(self.oslist.getWidget(), True)
+        if not self.bl.name == "GRUB2":
+            # with grub2 we use os-prober to generate menu entries for all
+            # other OS it finds without user interaction
+            thebox.pack_end(self.oslist.getWidget(), True)
 
         self.bootloaderChanged()
         return thebox
