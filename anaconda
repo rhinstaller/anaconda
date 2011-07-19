@@ -751,7 +751,7 @@ if __name__ == "__main__":
     else:
         anaconda.instClass.setSteps(anaconda)
     if anaconda.rescue:
-        anaconda.dispatch.request_step("rescue")
+        anaconda.dispatch.request_steps("rescue")
 
     image_count = 0
     for image in opts.images:
