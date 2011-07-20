@@ -51,8 +51,8 @@ class RescueInterface(InstallInterfaceBase):
     def waitWindow(self, title, text):
         return WaitWindow(self.screen, title, text)
 
-    def progressWindow(self, title, text, total):
-        return ProgressWindow(self.screen, title, text, total)
+    def progressWindow(self, title, text, total, updpct = 0.05, pulse = False):
+        return ProgressWindow(self.screen, title, text, total, updpct, pulse)
 
     def detailedMessageWindow(self, title, text, longText=None, type="ok",
                               default=None, custom_icon=None,
