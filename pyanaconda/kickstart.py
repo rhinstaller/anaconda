@@ -1029,7 +1029,7 @@ class RaidData(commands.raid.F15_RaidData):
                                      parents=request)
             storage.createDevice(luksdev)
 
-        self.anaconda.dispath.skip_steps("partition", "parttype")
+        self.anaconda.dispatch.skip_steps("partition", "parttype")
 
 class RootPw(commands.rootpw.F8_RootPw):
     def execute(self):
