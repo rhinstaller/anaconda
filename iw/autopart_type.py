@@ -161,6 +161,7 @@ class PartitionTypeWindow(InstallWindow):
 
         if self.buttonGroup.getCurrent() == "custom":
             self.dispatch.skipStep("autopartitionexecute", skip = 1)
+            self.dispatch.skipStep("cleardiskssel", skip = 1)
             self.dispatch.skipStep("partition", skip = 0)
             self.dispatch.skipStep("bootloader", skip = 0)
 
@@ -194,6 +195,7 @@ class PartitionTypeWindow(InstallWindow):
 
             self.storage.doAutoPart = True
 
+            self.dispatch.skipStep("cleardiskssel", skip = 0)
             if self.reviewButton.get_active():
                 self.dispatch.skipStep("partition", skip = 0)
                 self.dispatch.skipStep("bootloader", skip = 0)
