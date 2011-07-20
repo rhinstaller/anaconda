@@ -890,7 +890,11 @@ def doPartitioning(storage, bootloader=None):
         disks = [d for d in disks if d.name in storage.config.exclusiveDisks]
 
     for disk in disks:
-        disk.setup()
+        try:
+            disk.setup()
+        except DeviceError as (msg, name):
+            log.error("failed to set up disk %s: %s" % (name, msg))
+            raise PartitioningError("disk %s inaccessible" % disk.name)
 
     partitions = storage.partitions[:]
     for part in storage.partitions:
