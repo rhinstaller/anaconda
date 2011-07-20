@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 16.11\n"
+"Project-Id-Version: anaconda 16.12\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2011-07-11 13:30-0400\n"
+"POT-Creation-Date: 2011-07-20 13:27-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -71,8 +71,8 @@ msgstr ""
 #: loader/loader.c:1146 loader/loader.c:1174 loader/loader.c:1426
 #: loader/mediacheck.c:47 loader/mediacheck.c:86 loader/mediacheck.c:93
 #: loader/mediacheck.c:97 loader/mediacheck.c:106 loader/method.c:192
-#: loader/method.c:266 loader/net.c:594 loader/net.c:956 loader/net.c:1738
-#: loader/net.c:1757 loader/net.c:1769 loader/nfsinstall.c:93
+#: loader/method.c:266 loader/net.c:594 loader/net.c:956 loader/net.c:1688
+#: loader/net.c:1707 loader/net.c:1719 loader/nfsinstall.c:93
 #: loader/nfsinstall.c:255 loader/urlinstall.c:139 loader/urlinstall.c:161
 #: loader/urlinstall.c:213 loader/urls.c:264 loader/urls.c:335
 #: loader/urls.c:343 loader/urls.c:350 pyanaconda/textw/constants_text.py:44
@@ -171,23 +171,23 @@ msgstr ""
 msgid "The %s cannot be on an encrypted block device."
 msgstr ""
 
-#: pyanaconda/bootloader.py:1420
+#: pyanaconda/bootloader.py:1424
 msgid ""
 "You are using a GPT bootdisk on a non-EFI system without a BIOS boot "
 "partition. This may not work, depending on your BIOS's support for booting "
 "from GPT disks."
 msgstr ""
 
-#: pyanaconda/bootloader.py:1896
+#: pyanaconda/bootloader.py:1930
 msgid "Bootloader"
 msgstr ""
 
-#: pyanaconda/bootloader.py:1897
+#: pyanaconda/bootloader.py:1931
 msgid "Installing bootloader."
 msgstr ""
 
-#: pyanaconda/bootloader.py:1904 pyanaconda/bootloader.py:1957
-#: pyanaconda/gui.py:1092 pyanaconda/image.py:85
+#: pyanaconda/bootloader.py:1938 pyanaconda/bootloader.py:1991
+#: pyanaconda/gui.py:1090 pyanaconda/image.py:85
 #: pyanaconda/installinterfacebase.py:71
 #: pyanaconda/installinterfacebase.py:148 pyanaconda/packages.py:90
 #: pyanaconda/packages.py:325 pyanaconda/text.py:419
@@ -195,13 +195,13 @@ msgstr ""
 msgid "Warning"
 msgstr ""
 
-#: pyanaconda/bootloader.py:1905
+#: pyanaconda/bootloader.py:1939
 msgid ""
 "No kernel packages were installed on the system. Bootloader configuration "
 "will not be changed."
 msgstr ""
 
-#: pyanaconda/bootloader.py:1958
+#: pyanaconda/bootloader.py:1992
 msgid ""
 "There was an error installing the bootloader.  The system may not be "
 "bootable."
@@ -221,10 +221,10 @@ msgid ""
 "configuration file."
 msgstr ""
 
-#: pyanaconda/cmdline.py:98 pyanaconda/gui.py:1147
-#: pyanaconda/kickstart.py:1223 pyanaconda/kickstart.py:1276
-#: pyanaconda/kickstart.py:1284 pyanaconda/kickstart.py:1314
-#: pyanaconda/kickstart.py:1324 pyanaconda/text.py:400
+#: pyanaconda/cmdline.py:98 pyanaconda/gui.py:1145
+#: pyanaconda/kickstart.py:1224 pyanaconda/kickstart.py:1277
+#: pyanaconda/kickstart.py:1285 pyanaconda/kickstart.py:1315
+#: pyanaconda/kickstart.py:1325 pyanaconda/text.py:400
 #, python-format
 msgid ""
 "The following error was found while parsing the kickstart configuration "
@@ -315,7 +315,7 @@ msgid ""
 "installation you must enter the device's passphrase below."
 msgstr ""
 
-#: pyanaconda/gui.py:647 pyanaconda/gui.py:1337
+#: pyanaconda/gui.py:647 pyanaconda/gui.py:1335
 #: pyanaconda/partIntfHelpers.py:159 pyanaconda/partIntfHelpers.py:344
 #: pyanaconda/text.py:97 pyanaconda/text.py:98
 #: pyanaconda/iw/account_gui.py:131 loader/dirbrowser.c:137
@@ -337,39 +337,39 @@ msgstr ""
 msgid "Scanning access points for wireless devices"
 msgstr ""
 
-#: pyanaconda/gui.py:960 pyanaconda/textw/netconfig_text.py:399
+#: pyanaconda/gui.py:958 pyanaconda/textw/netconfig_text.py:399
 msgid "Waiting for NetworkManager"
 msgstr ""
 
-#: pyanaconda/gui.py:961
+#: pyanaconda/gui.py:959
 #, python-format
 msgid "Waiting for NetworkManager to activate these devices: %s"
 msgstr ""
 
-#: pyanaconda/gui.py:988
+#: pyanaconda/gui.py:986
 #, python-format
 msgid "Failed to activate these network interfaces: %s"
 msgstr ""
 
-#: pyanaconda/gui.py:991
+#: pyanaconda/gui.py:989
 msgid "Network Configuration"
 msgstr ""
 
-#: pyanaconda/gui.py:1000
+#: pyanaconda/gui.py:998
 #, python-format
 msgid "An error occurred trying to bring up the %s network interface."
 msgstr ""
 
-#: pyanaconda/gui.py:1002
+#: pyanaconda/gui.py:1000
 msgid "Error Enabling Network"
 msgstr ""
 
-#: pyanaconda/gui.py:1057 pyanaconda/installinterfacebase.py:53
+#: pyanaconda/gui.py:1055 pyanaconda/installinterfacebase.py:53
 #: pyanaconda/iw/task_gui.py:320
 msgid "Error Setting Up Repository"
 msgstr ""
 
-#: pyanaconda/gui.py:1058
+#: pyanaconda/gui.py:1056
 #, python-format
 msgid ""
 "The following error occurred while setting up the installation repository:\n"
@@ -379,23 +379,23 @@ msgid ""
 "Please provide the correct information for installing %(productName)s."
 msgstr ""
 
-#: pyanaconda/gui.py:1093 pyanaconda/text.py:420
+#: pyanaconda/gui.py:1091 pyanaconda/text.py:420
 msgid ""
 "You do not have an active network connection.  This is required by some "
 "exception saving methods.  Would you like to configure your network now?"
 msgstr ""
 
-#: pyanaconda/gui.py:1099 pyanaconda/rescue.py:256 pyanaconda/text.py:426
+#: pyanaconda/gui.py:1097 pyanaconda/rescue.py:256 pyanaconda/text.py:426
 #: pyanaconda/yuminstall.py:818 pyanaconda/yuminstall.py:1248
 #: pyanaconda/iw/task_gui.py:308
 msgid "No Network Available"
 msgstr ""
 
-#: pyanaconda/gui.py:1100 pyanaconda/text.py:427
+#: pyanaconda/gui.py:1098 pyanaconda/text.py:427
 msgid "Remote exception saving methods will not work."
 msgstr ""
 
-#: pyanaconda/gui.py:1115 pyanaconda/gui.py:1152 pyanaconda/gui.py:1337
+#: pyanaconda/gui.py:1113 pyanaconda/gui.py:1150 pyanaconda/gui.py:1335
 #: pyanaconda/image.py:94 pyanaconda/livecd.py:167 pyanaconda/packages.py:95
 #: pyanaconda/packages.py:143 pyanaconda/upgrade.py:58
 #: pyanaconda/upgrade.py:98 pyanaconda/upgrade.py:196
@@ -411,19 +411,19 @@ msgstr ""
 msgid "_Exit installer"
 msgstr ""
 
-#: pyanaconda/gui.py:1149 pyanaconda/text.py:402
+#: pyanaconda/gui.py:1147 pyanaconda/text.py:402
 msgid "Error Parsing Kickstart Config"
 msgstr ""
 
-#: pyanaconda/gui.py:1177
+#: pyanaconda/gui.py:1175
 msgid "default:LTR"
 msgstr ""
 
-#: pyanaconda/gui.py:1245 pyanaconda/text.py:522
+#: pyanaconda/gui.py:1243 pyanaconda/text.py:522
 msgid "Error!"
 msgstr ""
 
-#: pyanaconda/gui.py:1246 pyanaconda/text.py:523
+#: pyanaconda/gui.py:1244 pyanaconda/text.py:523
 #, python-format
 msgid ""
 "An error occurred when attempting to load an installer interface component.\n"
@@ -431,49 +431,49 @@ msgid ""
 "className = %s"
 msgstr ""
 
-#: pyanaconda/gui.py:1251 pyanaconda/image.py:157 pyanaconda/image.py:184
+#: pyanaconda/gui.py:1249 pyanaconda/image.py:157 pyanaconda/image.py:184
 #: pyanaconda/packages.py:342 pyanaconda/storage/__init__.py:1984
 msgid "_Exit"
 msgstr ""
 
-#: pyanaconda/gui.py:1252 pyanaconda/image.py:157 pyanaconda/image.py:184
+#: pyanaconda/gui.py:1250 pyanaconda/image.py:157 pyanaconda/image.py:184
 #: pyanaconda/livecd.py:167 pyanaconda/yuminstall.py:909
 #: pyanaconda/yuminstall.py:1268 pyanaconda/yuminstall.py:1323
 #: pyanaconda/yuminstall.py:1542
 msgid "_Retry"
 msgstr ""
 
-#: pyanaconda/gui.py:1254 pyanaconda/storage/partitioning.py:342
+#: pyanaconda/gui.py:1252 pyanaconda/storage/partitioning.py:342
 msgid "The system will now reboot."
 msgstr ""
 
-#: pyanaconda/gui.py:1255 pyanaconda/packages.py:346
+#: pyanaconda/gui.py:1253 pyanaconda/packages.py:346
 msgid "_Reboot"
 msgstr ""
 
-#: pyanaconda/gui.py:1257
+#: pyanaconda/gui.py:1255
 msgid "Exiting"
 msgstr ""
 
-#: pyanaconda/gui.py:1334 pyanaconda/installinterfacebase.py:60
+#: pyanaconda/gui.py:1332 pyanaconda/installinterfacebase.py:60
 #: pyanaconda/livecd.py:126 pyanaconda/text.py:283 pyanaconda/upgrade.py:187
 msgid "Exit installer"
 msgstr ""
 
-#: pyanaconda/gui.py:1335
+#: pyanaconda/gui.py:1333
 msgid "Are you sure you wish to exit the installer?"
 msgstr ""
 
-#: pyanaconda/gui.py:1345
+#: pyanaconda/gui.py:1343
 #, python-format
 msgid "%s Installer"
 msgstr ""
 
-#: pyanaconda/gui.py:1351
+#: pyanaconda/gui.py:1349
 msgid "Unable to load title bar"
 msgstr ""
 
-#: pyanaconda/gui.py:1437
+#: pyanaconda/gui.py:1435
 msgid "Install Window"
 msgstr ""
 
@@ -487,8 +487,8 @@ msgid ""
 "choose to continue if you think this is in error."
 msgstr ""
 
-#: pyanaconda/image.py:95 pyanaconda/kickstart.py:1405
-#: pyanaconda/kickstart.py:1444 pyanaconda/packages.py:95
+#: pyanaconda/image.py:95 pyanaconda/kickstart.py:1406
+#: pyanaconda/kickstart.py:1445 pyanaconda/packages.py:95
 #: pyanaconda/upgrade.py:58 pyanaconda/upgrade.py:98
 #: pyanaconda/yuminstall.py:1328 pyanaconda/yuminstall.py:1509
 #: pyanaconda/iw/partition_gui.py:1566 pyanaconda/storage/__init__.py:2167
@@ -685,53 +685,53 @@ msgid ""
 "%s"
 msgstr ""
 
-#: pyanaconda/kickstart.py:406
+#: pyanaconda/kickstart.py:408
 msgid "Could not log into any iSCSI nodes at the portal."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1349 pyanaconda/livecd.py:190
+#: pyanaconda/kickstart.py:1350 pyanaconda/livecd.py:190
 msgid "Post-Installation"
 msgstr ""
 
-#: pyanaconda/kickstart.py:1350
+#: pyanaconda/kickstart.py:1351
 msgid "Running post-installation scripts"
 msgstr ""
 
-#: pyanaconda/kickstart.py:1365
+#: pyanaconda/kickstart.py:1366
 msgid "Running pre-installation scripts"
 msgstr ""
 
-#: pyanaconda/kickstart.py:1396
+#: pyanaconda/kickstart.py:1397
 msgid "Missing Package"
 msgstr ""
 
-#: pyanaconda/kickstart.py:1397
+#: pyanaconda/kickstart.py:1398
 #, python-format
 msgid ""
 "You have specified that the package '%s' should be installed.  This package "
 "does not exist. Would you like to continue or abort this installation?"
 msgstr ""
 
-#: pyanaconda/kickstart.py:1403 pyanaconda/kickstart.py:1442
+#: pyanaconda/kickstart.py:1404 pyanaconda/kickstart.py:1443
 msgid "_Abort"
 msgstr ""
 
-#: pyanaconda/kickstart.py:1404 pyanaconda/kickstart.py:1443
+#: pyanaconda/kickstart.py:1405 pyanaconda/kickstart.py:1444
 msgid "_Ignore All"
 msgstr ""
 
-#: pyanaconda/kickstart.py:1434
+#: pyanaconda/kickstart.py:1435
 msgid "Missing Group"
 msgstr ""
 
-#: pyanaconda/kickstart.py:1435
+#: pyanaconda/kickstart.py:1436
 #, python-format
 msgid ""
 "You have specified that the group '%s' should be installed. This group does "
 "not exist. Would you like to continue or abort this installation?"
 msgstr ""
 
-#: pyanaconda/kickstart.py:1527
+#: pyanaconda/kickstart.py:1528
 #, python-format
 msgid ""
 "The kickstart configuration file is missing required information that "
@@ -769,37 +769,37 @@ msgid ""
 "minutes."
 msgstr ""
 
-#: pyanaconda/network.py:78
+#: pyanaconda/network.py:79
 msgid "Hostname must be 255 or fewer characters in length."
 msgstr ""
 
-#: pyanaconda/network.py:84
+#: pyanaconda/network.py:85
 msgid ""
 "Hostname must start with a valid character in the ranges 'a-z', 'A-Z', or "
 "'0-9'"
 msgstr ""
 
-#: pyanaconda/network.py:89
+#: pyanaconda/network.py:90
 msgid ""
 "Hostnames can only contain the characters 'a-z', 'A-Z', '0-9', '-', or '.'"
 msgstr ""
 
-#: pyanaconda/network.py:133
+#: pyanaconda/network.py:134
 msgid "IP address is missing."
 msgstr ""
 
-#: pyanaconda/network.py:137
+#: pyanaconda/network.py:138
 msgid ""
 "IPv4 addresses must contain four numbers between 0 and 255, separated by "
 "periods."
 msgstr ""
 
-#: pyanaconda/network.py:140
+#: pyanaconda/network.py:141
 #, python-format
 msgid "'%s' is not a valid IPv6 address."
 msgstr ""
 
-#: pyanaconda/network.py:142
+#: pyanaconda/network.py:143
 #, python-format
 msgid "'%s' is an invalid IP address."
 msgstr ""
@@ -3330,7 +3330,7 @@ msgstr ""
 #: loader/driverselect.c:171 loader/hdinstall.c:168 loader/hdinstall.c:222
 #: loader/kbd.c:118 loader/loader.c:449 loader/loader.c:466
 #: loader/loader.c:1426 loader/loader.c:1466 loader/net.c:594 loader/net.c:956
-#: loader/net.c:1738 loader/net.c:1757 loader/nfsinstall.c:93
+#: loader/net.c:1688 loader/net.c:1707 loader/nfsinstall.c:93
 #: loader/urls.c:264 pyanaconda/storage/__init__.py:122
 #: pyanaconda/storage/__init__.py:168 pyanaconda/storage/devicetree.py:94
 #: pyanaconda/textw/constants_text.py:52
@@ -3883,57 +3883,57 @@ msgstr ""
 msgid "You must enter both a valid IPv6 address and a CIDR prefix."
 msgstr ""
 
-#: loader/net.c:1538
+#: loader/net.c:1488
 msgid "Seconds:"
 msgstr ""
 
-#: loader/net.c:1733
+#: loader/net.c:1683
 msgid "Networking Device"
 msgstr ""
 
-#: loader/net.c:1734
+#: loader/net.c:1684
 msgid ""
 "You have multiple network devices on this system. Which would you like to "
 "install through?"
 msgstr ""
 
-#: loader/net.c:1738
+#: loader/net.c:1688
 msgid "Identify"
 msgstr ""
 
-#: loader/net.c:1747
+#: loader/net.c:1697
 msgid "You can identify the physical port for"
 msgstr ""
 
-#: loader/net.c:1749
+#: loader/net.c:1699
 msgid ""
 "by flashing the LED lights for a number of seconds.  Enter a number between "
 "1 and 30 to set the duration to flash the LED port lights."
 msgstr ""
 
-#: loader/net.c:1756
+#: loader/net.c:1706
 msgid "Identify NIC"
 msgstr ""
 
-#: loader/net.c:1769
+#: loader/net.c:1719
 msgid "Invalid Duration"
 msgstr ""
 
-#: loader/net.c:1770
+#: loader/net.c:1720
 msgid "You must enter the number of seconds as an integer between 1 and 30."
 msgstr ""
 
-#: loader/net.c:1782
+#: loader/net.c:1732
 #, c-format
 msgid "Flashing %s port lights for %d seconds."
 msgstr ""
 
-#: loader/net.c:2015 loader/net.c:2019
+#: loader/net.c:1965 loader/net.c:1969
 #, c-format
 msgid "Waiting for NetworkManager to configure %s.\n"
 msgstr ""
 
-#: loader/net.c:2348 loader/net.c:2351
+#: loader/net.c:2298 loader/net.c:2301
 #, c-format
 msgid "Waiting for NetworkManager to activate wifi.\n"
 msgstr ""
@@ -4442,7 +4442,7 @@ msgstr ""
 msgid "filesystem configuration missing a type"
 msgstr ""
 
-#: pyanaconda/storage/formats/fs.py:361 pyanaconda/storage/formats/luks.py:194
+#: pyanaconda/storage/formats/fs.py:361 pyanaconda/storage/formats/luks.py:197
 #: pyanaconda/storage/formats/lvmpv.py:105
 #: pyanaconda/storage/formats/swap.py:161
 msgid "Formatting"
@@ -4528,7 +4528,7 @@ msgstr ""
 msgid "Encrypted"
 msgstr ""
 
-#: pyanaconda/storage/formats/luks.py:195
+#: pyanaconda/storage/formats/luks.py:198
 #, python-format
 msgid "Encrypting %s"
 msgstr ""

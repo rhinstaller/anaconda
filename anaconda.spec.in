@@ -234,6 +234,25 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Wed Jul 20 2011 Chris Lumens <clumens@redhat.com> - 16.13-1
+- progressWindow takes a bunch of new arguments for pulsing (#723345).
+  (clumens)
+- request_step -> request_steps in anaconda. (clumens)
+- Add a writeKS method for encrypted partitions. (clumens)
+- Don't associate LVs' formats with their parent VG. (dlehman)
+- Use os-prober to generate GRUB2 dual-boot menu entries. (dlehman)
+- Fix GRUB2 password handling and GRUB1 kickstart password handling. (dlehman)
+- changes needed to have per-connection ifcfg files for wifi connections
+  (vpodzime)
+- do not care about wifi connections in kickstart (already active from stage1)
+  (vpodzime)
+- do not take anaconda's netdevices into account while searching for APs
+  (vpodzime)
+- remove key-files writing in loader (no more needed, NM does it itself)
+  (vpodzime)
+- do not write default ifcfg files for wireless devices (vpodzime)
+- Remove the 11.x history from anaconda.spec. (clumens)
+
 * Mon Jul 11 2011 Chris Lumens <clumens@redhat.com> - 16.12-1
 - Remove hasFreeDiskSpace and related code. (dlehman)
 - Use protected for pvs of incomplete vgs and get rid of immutable. (dlehman)
