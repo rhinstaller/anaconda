@@ -143,7 +143,7 @@ def luks_remove_key(device,
         raise ValueError("luks_remove_key requires passphrase")
 
     cs = CryptSetup(device=device, yesDialog = askyes, logFunc = dolog, passwordDialog = askpassphrase)
-    rc = cs.removePassphrase(passphrase = new_passphrase)
+    rc = cs.removePassphrase(passphrase = passphrase)
     
     if rc:
         raise CryptoError("luks remove key failed with errcode %d" % (rc,))

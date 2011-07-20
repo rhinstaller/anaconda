@@ -961,7 +961,7 @@ def fork_orphan():
         if os.fork():
             # the intermediate child dies
             os._exit(0)
-        return 0;
+        return 0
     # the original process waits for the intermediate child
     os.waitpid(intermediate, 0)
     return 1

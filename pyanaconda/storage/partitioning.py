@@ -29,6 +29,7 @@ from pykickstart.constants import *
 
 from pyanaconda.constants import *
 
+from pyanaconda.errors import DispatchError
 from errors import *
 from deviceaction import *
 from devices import PartitionDevice, LUKSDevice, devicePathToName

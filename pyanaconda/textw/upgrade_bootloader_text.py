@@ -88,12 +88,12 @@ class UpgradeBootloaderWindow:
                 return INSTALL_BACK
 
             if blradio.getSelection() == "nobl":
-                self.dispatch.skip_steps("bootloader")
-                self.dispatch.skip_steps("instbootloader")
+                anaconda.dispatch.skip_steps("bootloader")
+                anaconda.dispatch.skip_steps("instbootloader")
                 anaconda.bootloader.update_only = False
             else:
-                self.dispatch.skip_steps("bootloader")
-                self.dispatch.request_steps("instbootloader")
+                anaconda.dispatch.skip_steps("bootloader")
+                anaconda.dispatch.request_steps("instbootloader")
                 anaconda.bootloader.update_only = anaconda.bootloader.can_update
 
             screen.popWindow()

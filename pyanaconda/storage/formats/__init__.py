@@ -58,7 +58,7 @@ def get_default_filesystem_type():
         if supported:
             return fstype
 
-    raise DeviceFormatError("None of %s is supported by your kernel" % ",".join(fstypes))
+    raise DeviceFormatError("None of %s is supported by your kernel" % ",".join(default_fstypes))
 
 def getFormat(fmt_type, *args, **kwargs):
     """ Return a DeviceFormat instance based on fmt_type and args.

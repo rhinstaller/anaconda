@@ -293,8 +293,8 @@ class OSBootWidget:
         self.editOther(image)
 
     def deleteEntry(self, widget, *args):
-        rc = self.getSelected()
-        if not rc:
+        image = self.getSelected()
+        if not image:
             return
         if image.device != self.storage.rootDevice:
             del self.images[image.device.name]

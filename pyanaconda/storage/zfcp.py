@@ -165,8 +165,8 @@ class ZFCPDevice:
             if os.path.exists(portadd):
                 # older zfcp sysfs interface
                 log.info("WWPN %(wwpn)s at zFCP device %(devnum)s already "
-                         "there.") % {'wwpn': self.wwpn,
-                                      'devnum': self.devnum}
+                         "there." % {'wwpn': self.wwpn,
+                                     'devnum': self.devnum})
 
         if not os.path.exists(unitdir):
             try:

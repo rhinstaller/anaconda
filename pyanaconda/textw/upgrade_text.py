@@ -25,6 +25,7 @@ from snack import *
 from pyanaconda.flags import flags
 from pyanaconda.constants import *
 from pyanaconda.storage.formats import getFormat
+from pyanaconda.storage.deviceaction import ActionMigrateFormat
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)

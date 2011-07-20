@@ -20,7 +20,7 @@
 
 
 import logging
-import os
+import os, sys
 log = logging.getLogger("anaconda")
 
 import iutil

@@ -34,7 +34,7 @@ _ = lambda x: gettext.ldgettext("anaconda", x)
 import logging
 log = logging.getLogger("anaconda")
 
-stepToClasses = { "install" : "setupProgressDisplay" }
+stepToClasses = { "install" : setupProgressDisplay }
 
 class WaitWindow:
     def pop(self):
@@ -168,9 +168,7 @@ class InstallInterface(InstallInterfaceBase):
 
     def display_step(self, step):
         if stepToClasses.has_key(step):
-            s = "nextWin = %s" %(stepToClasses[step],)
-            exec s
-            nextWin(self.anaconda)
+            stepToClasses[step](self.anaconda)
         else:
             print("In interactive step %s, can't continue" %(step,))
             while 1:
