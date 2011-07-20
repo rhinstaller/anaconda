@@ -244,8 +244,14 @@ class EFI(Platform):
             if req.format.type != "efi":
                 errors.append(_("/boot/efi is not EFI."))
 
-        # Don't try to check the disklabel on lv's etc, using lv for /boot
-        # is already checked in the generic Platform.checkBootRequest()
+            # EFI also needs /boot to be on an extX partition, either as its own
+            # partition or with / on extX. Get the format of whatever /boot is on
+            mntDict = self._mntDict()
+            boot_device = mntDict.get("/boot", mntDict.get("/"))
+            boot_errors = Platform.checkBootRequest(self, boot_device)
+            errors += boot_errors
+
+        # Don't try to check the disklabel on lv's etc.
         partitions = []
         if req.type == "partition":
             partitions = [ req ]
