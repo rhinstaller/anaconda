@@ -1194,6 +1194,15 @@ class Storage(object):
                                   "Although not strictly required in all cases, "
                                   "it will significantly improve performance "
                                   "for most installations."))
+        no_uuid = [s for s in swaps if not s.format.uuid]
+        if no_uuid:
+            warnings.append(_("At least one of your swap devices does not have "
+                              "a UUID, which is common in swap space created "
+                              "using older versions of mkswap. These devices "
+                              "will be referred to by device path in "
+                              "/etc/fstab, which is not ideal since device "
+                              "paths can change under a variety of "
+                              "circumstances. "))
 
         for (mountpoint, dev) in filesystems.items():
             if mountpoint in mustbeonroot:
