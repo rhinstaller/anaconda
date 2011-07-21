@@ -34,7 +34,6 @@ log = logging.getLogger("anaconda")
 
 class UpgradeMigrateFSWindow:
     def __call__ (self, screen, anaconda):
-      
         migent = anaconda.id.storage.migratableDevices
 
 	g = GridFormHelp(screen, _("Migrate File Systems"), "upmigfs", 1, 4)
@@ -62,15 +61,15 @@ class UpgradeMigrateFSWindow:
                                               device.format.type,
                                               device.format.mountpoint),
                                               device, migrating)
-            
+
 	g.add(partlist, 0, 1, padding = (0, 0, 0, 1))
-        
+
 	buttons = ButtonBar(screen, [TEXT_OK_BUTTON, TEXT_BACK_BUTTON] )
 	g.add(buttons, 0, 3, anchorLeft = 1, growx = 1)
 
-	while 1:
+	while True:
 	    result = g.run()
-        
+
 	    if (buttons.buttonPressed(result)):
 		result = buttons.buttonPressed(result)
 
@@ -78,20 +77,26 @@ class UpgradeMigrateFSWindow:
 		screen.popWindow()
 		return INSTALL_BACK
 
-            # reset
-            # XXX the way to do this is by scheduling and cancelling actions
-            #for entry in migent:
-            #    entry.setFormat(0)
-            #    entry.setMigrate(0)
-            #    entry.fsystem = entry.origfsystem
+            # Cancel any previously scheduled migrate actions first.
+            for entry in partlist:
+                actions = anaconda.id.storage.devicetree.findActions(device=entry[1],
+                                                                     type="migrate")
+                if not actions:
+                    continue
 
+                for action in actions:
+                    anaconda.id.storage.devicetree.cancelAction(action)
+
+            # Then schedule an action for whatever rows were selected.
             for entry in partlist.getSelection():
-                try:
-                    newfs = getFormat(entry.format.migratetofs[0])
-                except Exception, e:
-                    log.info("failed to get new filesystem type, defaulting to ext3: %s" %(e,))
-                    newfs = getFormat("ext3")
-                    anaconda.id.storage.migrateFormat(entry, newfs)
+                newfs = getFormat(entry[1].format.migrationTarget)
+                if not newfs:
+                    log.warning("failed to get new filesystem type (%s)"
+                                % entry[1].format.migrationTarget)
+                    continue
+
+                action = ActionMigrateFormat(entry[1])
+                anaconda.id.storage.devicetree.registerAction(action)
 
             screen.popWindow()
             return INSTALL_OK
