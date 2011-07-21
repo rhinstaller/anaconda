@@ -268,7 +268,7 @@ class MakeBumpVer:
                     summary += " (%s)" % author
 
                 for longline in long:
-                    m = re.match("^(Resolves|Related|Conflicts):\ rhbz#\d+.*$",
+                    m = re.match("^(Resolves|Related|Conflicts):\ +rhbz#\d+.*$",
                                  longline)
                     if not m:
                         continue
