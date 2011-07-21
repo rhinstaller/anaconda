@@ -40,7 +40,7 @@ fi
 # run pylint one file / module at a time, otherwise it sometimes gets
 # confused
 > pylint-log
-for i in pyanaconda/booty pyanaconda/storage pyanaconda/installclasses/*.py pyanaconda/iw/*.py pyanaconda/textw/*.py pyanaconda/isys/*.py pyanaconda/; do
+for i in pyanaconda/storage pyanaconda/installclasses/*.py pyanaconda/iw/*.py pyanaconda/textw/*.py pyanaconda/isys/*.py pyanaconda/; do
   pylint --init-hook='import sys; \
       sys.path.insert(1, "pyanaconda/isys/.libs"); \
       sys.path.insert(2, "pyanaconda/isys"); \
