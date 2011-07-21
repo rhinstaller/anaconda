@@ -222,6 +222,22 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Thu Jul 21 2011 David Cantrell <dcantrell@redhat.com> - 13.21.122-1
+- Add accelerators to reinitialize dialog (bcl)
+  Resolves: rhbz#673048
+- Use getDiskPart for efibootmgr (bcl)
+  Resolves: rhbz#704378
+- Change xhost auth when doing a liveinst. (bcl)
+  Resolves: rhbz#698282
+- Raise an exception if X*Display functions fail. (clumens)
+  Related: rhbz#698282
+- Fix the filter UI to sort capacity as numbers, not characters. (clumens)
+  Resolves: rhbz#614504
+- Fix the filesystem migration dialog in text mode. (clumens)
+  Resolves: rhbz#688314
+- Add lvm symlinks to rescue image (mgracik)
+  Resolves: rhbz#676404
+
 * Thu Jul 14 2011 David Cantrell <dcantrell@redhat.com> - 13.21.121-1
 - Fix network --device=bootif value processing in stage2 (vpodzime)
   Resolves: rhbz#681803

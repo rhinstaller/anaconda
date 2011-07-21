@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 13.21.120\n"
+"Project-Id-Version: anaconda 13.21.121\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2011-07-14 11:16-0400\n"
+"POT-Creation-Date: 2011-07-21 16:40-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -101,7 +101,7 @@ msgstr ""
 #: yuminstall.py:1567 yuminstall.py:1776 yuminstall.py:1811
 #: iw/blpasswidget.py:148 iw/upgrade_swap_gui.py:190
 #: iw/upgrade_swap_gui.py:198 iw/upgrade_swap_gui.py:205
-#: textw/upgrade_text.py:191
+#: textw/upgrade_text.py:196
 msgid "Warning"
 msgstr ""
 
@@ -311,7 +311,7 @@ msgid ""
 "Please provide the correct information for installing %(productName)s."
 msgstr ""
 
-#: gui.py:1237 ui/reinitialize-dialog.glade.h:4
+#: gui.py:1237 ui/reinitialize-dialog.glade.h:2
 msgid "Storage Device Warning"
 msgstr ""
 
@@ -483,8 +483,8 @@ msgstr ""
 #: loader/telnetd.c:92 loader/urlinstall.c:137 loader/urlinstall.c:159
 #: loader/urlinstall.c:221 loader/urls.c:339 loader/urls.c:345
 #: loader/urls.c:354 storage/__init__.py:260 storage/__init__.py:1865
-#: storage/__init__.py:1952 storage/zfcp.py:375 textw/upgrade_text.py:179
-#: textw/upgrade_text.py:186
+#: storage/__init__.py:1952 storage/zfcp.py:375 textw/upgrade_text.py:184
+#: textw/upgrade_text.py:191
 msgid "Error"
 msgstr ""
 
@@ -1218,7 +1218,7 @@ msgid "Read-Only"
 msgstr ""
 
 #: rescue.py:311 rescue.py:313 loader/cdinstall.c:260 loader/cdinstall.c:263
-#: loader/method.c:324 storage/__init__.py:1864 textw/upgrade_text.py:137
+#: loader/method.c:324 storage/__init__.py:1864 textw/upgrade_text.py:142
 msgid "Skip"
 msgstr ""
 
@@ -2128,9 +2128,7 @@ msgstr ""
 msgid "Model"
 msgstr ""
 
-#: iw/cleardisks_gui.py:128 iw/cleardisks_gui.py:148 iw/filter_gui.py:499
-#: iw/filter_gui.py:511 iw/filter_gui.py:519 iw/filter_gui.py:530
-#: iw/filter_gui.py:541
+#: iw/cleardisks_gui.py:128 iw/cleardisks_gui.py:148
 msgid "Capacity"
 msgstr ""
 
@@ -2260,6 +2258,11 @@ msgstr ""
 
 #: iw/filter_gui.py:404
 msgid "Device Filter"
+msgstr ""
+
+#: iw/filter_gui.py:499 iw/filter_gui.py:511 iw/filter_gui.py:519
+#: iw/filter_gui.py:530 iw/filter_gui.py:541
+msgid "Capacity (MB)"
 msgstr ""
 
 #: iw/filter_gui.py:502 iw/filter_gui.py:533 iw/filter_gui.py:544
@@ -2612,7 +2615,7 @@ msgid "Logical Volume Name"
 msgstr ""
 
 #: iw/lvm_dialog_gui.py:1445 iw/partition_gui.py:617
-#: iw/upgrade_swap_gui.py:138 textw/upgrade_text.py:122
+#: iw/upgrade_swap_gui.py:138 textw/upgrade_text.py:127
 msgid "Mount Point"
 msgstr ""
 
@@ -3186,7 +3189,7 @@ msgstr ""
 msgid "What would you like to do?"
 msgstr ""
 
-#: iw/upgrade_migratefs_gui.py:38 textw/upgrade_text.py:40
+#: iw/upgrade_migratefs_gui.py:38 textw/upgrade_text.py:39
 msgid "Migrate File Systems"
 msgstr ""
 
@@ -3205,7 +3208,7 @@ msgstr ""
 msgid "Upgrade Swap Partition"
 msgstr ""
 
-#: iw/upgrade_swap_gui.py:92 textw/upgrade_text.py:105
+#: iw/upgrade_swap_gui.py:92 textw/upgrade_text.py:110
 #, python-format
 msgid ""
 "Recent kernels (2.4 or newer) need significantly more swap than older "
@@ -3230,7 +3233,7 @@ msgstr ""
 msgid "Select the _partition to put the swap file on:"
 msgstr ""
 
-#: iw/upgrade_swap_gui.py:138 textw/upgrade_text.py:123
+#: iw/upgrade_swap_gui.py:138 textw/upgrade_text.py:128
 msgid "Partition"
 msgstr ""
 
@@ -3259,11 +3262,11 @@ msgid ""
 "installer to abort abnormally.  Are you sure you wish to continue?"
 msgstr ""
 
-#: iw/upgrade_swap_gui.py:199 textw/upgrade_text.py:192
+#: iw/upgrade_swap_gui.py:199 textw/upgrade_text.py:197
 msgid "The swap file must be between 1 and 2000 MB in size."
 msgstr ""
 
-#: iw/upgrade_swap_gui.py:206 textw/upgrade_text.py:187
+#: iw/upgrade_swap_gui.py:206 textw/upgrade_text.py:192
 msgid ""
 "There is not enough space on the device you selected for the swap partition."
 msgstr ""
@@ -5130,7 +5133,7 @@ msgstr ""
 msgid "Create new boot loader configuration"
 msgstr ""
 
-#: textw/upgrade_text.py:42
+#: textw/upgrade_text.py:41
 #, python-format
 msgid ""
 "This release of %(productName)s supports the an updated file system, which "
@@ -5141,39 +5144,39 @@ msgid ""
 "Which of these partitions would you like to migrate?"
 msgstr ""
 
-#: textw/upgrade_text.py:123
+#: textw/upgrade_text.py:128
 msgid "Free Space"
 msgstr ""
 
-#: textw/upgrade_text.py:141
+#: textw/upgrade_text.py:146
 msgid "RAM detected (MB):"
 msgstr ""
 
-#: textw/upgrade_text.py:144
+#: textw/upgrade_text.py:149
 msgid "Suggested size (MB):"
 msgstr ""
 
-#: textw/upgrade_text.py:147
+#: textw/upgrade_text.py:152
 msgid "Swap file size (MB):"
 msgstr ""
 
-#: textw/upgrade_text.py:155
+#: textw/upgrade_text.py:160
 msgid "Add Swap"
 msgstr ""
 
-#: textw/upgrade_text.py:180
+#: textw/upgrade_text.py:185
 msgid "The value you entered is not a valid number."
 msgstr ""
 
-#: textw/upgrade_text.py:212
+#: textw/upgrade_text.py:217
 msgid "Reinstall System"
 msgstr ""
 
-#: textw/upgrade_text.py:222
+#: textw/upgrade_text.py:227
 msgid "System to Upgrade"
 msgstr ""
 
-#: textw/upgrade_text.py:223
+#: textw/upgrade_text.py:228
 msgid ""
 "There seem to be one or more existing Linux installations on your system.\n"
 "\n"
@@ -5875,16 +5878,7 @@ msgid ""
 "data.</span>"
 msgstr ""
 
-#: ui/reinitialize-dialog.glade.h:2
-msgid ""
-"Apply my choice to all devices with undetected partitions or filesystems"
-msgstr ""
-
 #: ui/reinitialize-dialog.glade.h:3
-msgid "No, keep any data"
-msgstr ""
-
-#: ui/reinitialize-dialog.glade.h:5
 msgid ""
 "We could not detect partitions or filesystems on this device.\n"
 "\n"
@@ -5898,8 +5892,17 @@ msgid ""
 "Are you sure this device does not contain valuable data?"
 msgstr ""
 
+#: ui/reinitialize-dialog.glade.h:10
+msgid ""
+"_Apply my choice to all devices with undetected partitions or filesystems"
+msgstr ""
+
+#: ui/reinitialize-dialog.glade.h:11
+msgid "_No, keep any data"
+msgstr ""
+
 #: ui/reinitialize-dialog.glade.h:12
-msgid "Yes, discard any data"
+msgid "_Yes, discard any data"
 msgstr ""
 
 #: lang-table.h:1
