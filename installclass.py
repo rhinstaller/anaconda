@@ -55,7 +55,7 @@ class BaseInstallClass(object):
     # default to showing the upgrade option
     showUpgrade = True
     bootloaderTimeoutDefault = 0
-    bootloaderExtraArgs = ""
+    bootloaderExtraArgs = []
 
     # list of of (txt, grplist) tuples for task selection screen
     tasks = []
@@ -202,7 +202,6 @@ class BaseInstallClass(object):
         anaconda.id.reset()
         anaconda.id.instClass = self
         anaconda.id.bootloader.timeout = self.bootloaderTimeoutDefault
-        anaconda.id.bootloader.args.append(self.bootloaderExtraArgs)
 
     def versionMatches(self, oldver):
         pass

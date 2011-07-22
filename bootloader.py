@@ -142,6 +142,26 @@ def writeBootloader(anaconda):
     if anaconda.id.bootloader.defaultDevice == -1:
         return
 
+    # Append extra bootloader args that the install class provides, but do not
+    # append them if they duplicate ones already there.  So, args provided by
+    # the bootloader kickstart command take precedence over internal ones.
+    for extraArg in anaconda.id.instClass.bootloaderExtraArgs:
+        if '=' in extraArg:
+            extra = extraArg.split('=')[0]
+        else:
+            extra = extraArg
+
+        # We have to do it this way to catch both standalone arguments and
+        # those that take a value.
+        found = False
+        for arg in anaconda.id.bootloader.args.appendArgs:
+            if extra == arg or arg.startswith(extra+"="):
+                found = True
+                break
+
+        if not found:
+            anaconda.id.bootloader.args.append(extraArg)
+
     if anaconda.id.bootloader.doUpgradeOnly:
         (bootType, theDev) = checkbootloader.getBootloaderTypeAndBoot(anaconda.rootPath, storage=anaconda.id.storage)
         

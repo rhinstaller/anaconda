@@ -317,7 +317,8 @@ def rpmSetupGraphicalSystem(anaconda):
     if iutil.isConsoleOnVirtualTerminal() and \
        (ts.dbMatch('provides', 'rhgb').count() or \
         ts.dbMatch('provides', 'plymouth').count()):
-        anaconda.id.bootloader.args.append("rhgb quiet")
+        anaconda.id.bootloader.args.append("rhgb")
+        anaconda.id.bootloader.args.append("quiet")
 
     if ts.dbMatch('provides', 'service(graphical-login)').count() and \
        ts.dbMatch('provides', 'xorg-x11-server-Xorg').count() and \
