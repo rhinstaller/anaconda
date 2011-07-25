@@ -43,6 +43,14 @@ class EddTestCase(mock.TestCase):
         self.assertEqual(edd_dict[0x80].ata_device, 0)
         self.assertEqual(edd_dict[0x80].mbr_signature, "0x000ccb01")
 
+    def test_collect_edd_data_cciss(self):
+        from pyanaconda.storage.devicelibs import edd
+        fs = EddTestFS(edd).sda_cciss()
+        edd_dict = edd.collect_edd_data()
+
+        self.assertEqual(edd_dict[0x80].pci_dev, None)
+        self.assertEqual(edd_dict[0x80].channel, None)
+
     def test_edd_entry_str(self):
         from pyanaconda.storage.devicelibs import edd
         fs = EddTestFS(edd).sda_vda()
@@ -130,6 +138,15 @@ class EddTestFS(object):
         self.sda_vda()
         entries = [e for e in self.fs.fs if e.startswith("/sys/devices/pci")]
         map(self.fs.os_remove, entries)
+        return self.fs
+
+    def sda_cciss(self):
+        self.fs["/sys/firmware/edd/int13_dev80"] = self.fs.Dir()
+        self.fs["/sys/firmware/edd/int13_dev80/host_bus"] = "PCIX	05:00.0  channel: 0\n"
+        self.fs["/sys/firmware/edd/int13_dev80/interface"] = "RAID    	identity_tag: 0\n"
+        self.fs["/sys/firmware/edd/int13_dev80/mbr_signature"] = "0x000ccb01"
+        self.fs["/sys/firmware/edd/int13_dev80/sectors"] = "2097152\n"
+
         return self.fs
 
     def vda_vdb(self):

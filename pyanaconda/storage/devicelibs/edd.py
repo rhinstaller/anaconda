@@ -84,8 +84,11 @@ class EddEntry(object):
         hbus = self._read_file(os.path.join(sysfspath, "host_bus"))
         if hbus:
             match = re_host_bus.match(hbus)
-            self.pci_dev = match.group(1)
-            self.channel = int(match.group(2))
+            if match:
+                self.pci_dev = match.group(1)
+                self.channel = int(match.group(2))
+            else:
+                log.warning("edd: can not match host_bus: %s" % hbus)
 
 class EddMatcher(object):
     """ This object tries to match given entry to a disk device name.
