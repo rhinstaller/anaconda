@@ -25,6 +25,7 @@ _orig_glob_glob = glob.glob
 _orig_open = open
 _orig_os_listdir = os.listdir
 _orig_os_path_exists = os.path.exists
+_orig_os_path_isdir = os.path.isdir
 
 class DiskIO(object):
     """Simple object to simplify mocking of file operations in Mock
@@ -117,6 +118,12 @@ class DiskIO(object):
         path = os.path.join(self._pwd, path)
         return self.fs.has_key(path)
 
+    def os_path_isdir(self, path):
+        if not path.endswith("/"):
+            path += "/"
+        path += "*"
+        return len(fnmatch.filter(self.fs.keys(), path)) > 0
+
     def os_remove(self, path):
         path = os.path.join(self._pwd, path)
         try:
@@ -137,6 +144,7 @@ class DiskIO(object):
         module.glob.glob = self.glob_glob
         module.os.listdir = self.os_listdir
         module.os.path.exists = self.os_path_exists
+        module.os.path.isdir = self.os_path_isdir
 
     @staticmethod
     def restore_module(module):
@@ -144,3 +152,4 @@ class DiskIO(object):
         module.glob.glob = _orig_glob_glob
         module.os.listdir = _orig_os_listdir
         module.os.path.exists = _orig_os_path_exists
+        module.os.path.isdir = _orig_os_path_isdir

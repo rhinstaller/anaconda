@@ -104,9 +104,12 @@ class EddMatcher(object):
                 'chan' : self.edd.channel,
                 'dev' : self.edd.ata_device
                 }
-            block_entries = os.listdir(path)
-            if len(block_entries) == 1:
-                name = block_entries[0]
+            if os.path.isdir(path):
+                block_entries = os.listdir(path)
+                if len(block_entries) == 1:
+                    name = block_entries[0]
+            else:
+                log.warning("edd: directory does not exist: %s" % path)
         elif self.edd.type == "SCSI":
             pattern = "/sys/devices/pci0000:00/0000:%(pci_dev)s/virtio*/block" % \
                 {'pci_dev' : self.edd.pci_dev}
@@ -157,7 +160,7 @@ def collect_mbrs(devices):
             mbrsig = struct.unpack('I', os.read(fd, 4))
             os.close(fd)
         except OSError as e:
-            log.warning("Error reading mbrsig from disk %s: %s" %
+            log.warning("edd: error reading mbrsig from disk %s: %s" %
                         (dev.name, str(e)))
             continue
 
@@ -202,11 +205,11 @@ def get_edd_dict(devices):
         name = matcher.devname_from_pci_dev()
         # next try to compare mbr signatures
         if name:
-            log.debug("matched 0x%x to %s using pci_dev" % (edd_number, name))
+            log.debug("edd: matched 0x%x to %s using pci_dev" % (edd_number, name))
         else:
             name = matcher.match_via_mbrsigs(mbr_dict)
             if name:
-                log.info("matched 0x%x to %s using MBR sig" % (edd_number, name))
+                log.info("edd: matched 0x%x to %s using MBR sig" % (edd_number, name))
 
         if name:
             old_edd_number = edd_dict.get(name)
