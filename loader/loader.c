@@ -278,7 +278,7 @@ static gchar *productArch = NULL;
  *
  * [Main]
  * BugURL=http://bugzilla.redhat.com
- * IsBeta=true|false
+ * IsFinal=true|false
  * Product=<name of the product - Fedora, RHEL, etc.>
  * UUID=<time and date stamp, then a dot, then the architecture>
  * Version=<version of the product - 6.0, 14, etc.>

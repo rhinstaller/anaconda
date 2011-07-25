@@ -48,7 +48,7 @@ from yum.Errors import *
 from yum.misc import to_unicode
 from yum.yumRepo import YumRepository
 from backend import AnacondaBackend
-from product import isBeta, productName, productVersion, productStamp
+from product import isFinal, productName, productVersion, productStamp
 from constants import *
 from image import *
 from compssort import *
@@ -565,12 +565,12 @@ class AnacondaYum(yum.YumBase):
             raise RepoError, "Repo %s contains -source or -debuginfo, excluding" % name
 
         # this is a little hard-coded, but it's effective
-        if not isBeta and ("rawhide" in repo.id or "development" in repo.id):
+        if isFinal and ("rawhide" in repo.id or "development" in repo.id):
             name = repo.name
             del(repo)
             raise RepoError, "Excluding devel repo %s for non-devel anaconda" % name
 
-        if isBeta and not repo.enabled:
+        if not isFinal and not repo.enabled:
             name = repo.name
             del(repo)
             raise RepoError, "Excluding disabled repo %s for prerelease" % name

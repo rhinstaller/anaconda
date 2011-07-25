@@ -73,9 +73,9 @@ export ANACONDA_BUGURL=${ANACONDA_BUGURL:="https://bugzilla.redhat.com/bugzilla/
 
 RELEASE=$(rpm -q --qf '%{Release}' fedora-release)
 if [ "${RELEASE:0:2}" = "0." ]; then
-    export ANACONDA_ISBETA="true"
+    export ANACONDA_ISFINAL="false"
 else
-    export ANACONDA_ISBETA="false"
+    export ANACONDA_ISFINAL="true"
 fi
 
 export PATH=/sbin:/usr/sbin:$PATH

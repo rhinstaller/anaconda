@@ -62,7 +62,7 @@ productName = product.productName
 productVersion = product.productVersion
 productArch = product.productArch
 bugzillaUrl = product.bugUrl
-isBeta = product.isBeta
+isFinal = product.isFinal
 
 lvmErrorOutput = "/tmp/lvmout"
 

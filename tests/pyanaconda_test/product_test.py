@@ -21,7 +21,7 @@ class ProductTest(mock.TestCase):
 
         # fake /tmp/product/.buildstamp file
         self.BUGURL = 'http://bug.url'
-        self.BETA = 'true'
+        self.FINAL = 'false'
         self.ARCH = 'i386'
         self.NAME = '__anaconda'
         self.UUID = '123456.%s' % self.ARCH
@@ -30,12 +30,12 @@ class ProductTest(mock.TestCase):
         self.FILE = \
         "[Main]\n"\
         "BugURL: %s\n"\
-        "IsBeta: %s\n"\
+        "IsFinal: %s\n"\
         "Arch: %s\n"\
         "Product: %s\n"\
         "UUID: %s\n"\
         "Version: %s\n" % \
-        (self.BUGURL, self.BETA, self.ARCH, self.NAME, self.UUID, self.VERSION)
+        (self.BUGURL, self.FINAL, self.ARCH, self.NAME, self.UUID, self.VERSION)
 
         self.fs.open(self.FILENAME, 'w').write(self.FILE)
 
@@ -53,10 +53,10 @@ class ProductTest(mock.TestCase):
         import pyanaconda.product
         self.assertEqual(pyanaconda.product.bugUrl, self.BUGURL)
 
-    def is_beta_test(self):
+    def is_final_test(self):
         sys.modules['os'].access = mock.Mock(return_value=True)
         import pyanaconda.product
-        self.assertTrue(pyanaconda.product.isBeta)
+        self.assertFalse(pyanaconda.product.isFinal)
 
     def product_arch_test(self):
         sys.modules['os'].access = mock.Mock(return_value=True)

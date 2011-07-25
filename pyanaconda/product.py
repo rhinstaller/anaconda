@@ -26,7 +26,7 @@ config = ConfigParser.ConfigParser()
 config.add_section("Main")
 config.set("Main", "Arch", os.environ.get("ANACONDA_PRODUCTARCH", os.uname()[4]))
 config.set("Main", "BugURL", os.environ.get("ANACONDA_BUGURL", "your distribution provided bug reporting tool"))
-config.set("Main", "IsBeta", os.environ.get("ANACONDA_ISBETA", "true"))
+config.set("Main", "IsFinal", os.environ.get("ANACONDA_ISFINAL", "false"))
 config.set("Main", "Product", os.environ.get("ANACONDA_PRODUCTNAME", "anaconda"))
 config.set("Main", "UUID", "")
 config.set("Main", "Version", os.environ.get("ANACONDA_PRODUCTVERSION", "bluesky"))
@@ -36,7 +36,7 @@ config.read(["/tmp/product/.buildstamp", "/.buildstamp", os.environ.get("PRODBUI
 
 # Set up some variables we import throughout, applying a couple transforms as necessary.
 bugUrl = config.get("Main", "BugURL")
-isBeta = config.getboolean("Main", "isBeta")
+isFinal = config.getboolean("Main", "IsFinal")
 productArch = config.get("Main", "Arch")
 productName = config.get("Main", "Product")
 productStamp = config.get("Main", "UUID")

@@ -123,7 +123,7 @@ class BaseInstallClass(object):
 		 "complete"
 		)
 
-	if not isBeta:
+	if isFinal:
 	    dispatch.skip_steps("betanag")
 
         if iutil.isEfi() or not iutil.isX86():
