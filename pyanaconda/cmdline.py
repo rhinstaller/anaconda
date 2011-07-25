@@ -34,6 +34,16 @@ _ = lambda x: gettext.ldgettext("anaconda", x)
 import logging
 log = logging.getLogger("anaconda")
 
+
+def setupProgressDisplay(anaconda):
+    if anaconda.dir == DISPATCH_BACK:
+        anaconda.intf.setInstallProgressClass(None)
+        return DISPATCH_BACK
+    else:
+        anaconda.intf.setInstallProgressClass(progressDisplay())
+        
+    return DISPATCH_FORWARD
+
 stepToClasses = { "install" : setupProgressDisplay }
 
 class WaitWindow:
@@ -200,12 +210,3 @@ class progressDisplay:
         if stripped != self.display:
             self.display = stripped
             print(self.display)
-
-def setupProgressDisplay(anaconda):
-    if anaconda.dir == DISPATCH_BACK:
-        anaconda.intf.setInstallProgressClass(None)
-        return DISPATCH_BACK
-    else:
-        anaconda.intf.setInstallProgressClass(progressDisplay())
-        
-    return DISPATCH_FORWARD

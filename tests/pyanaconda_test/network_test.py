@@ -38,8 +38,6 @@ class NetworkTest(mock.TestCase):
 
         # Network mock
         pyanaconda.network.Network.update = mock.Mock()
-        self.controlWireless_backup = pyanaconda.network.Network.controlWireless
-        pyanaconda.network.Network.controlWireless = mock.Mock()
         self.setNMControlledDevices_backup = pyanaconda.network.Network.setNMControlledDevices
         pyanaconda.network.Network.setNMControlledDevices = mock.Mock()
         pyanaconda.network.Network.netdevices = {}
@@ -434,26 +432,16 @@ class NetworkTest(mock.TestCase):
         ret = nw.getOnbootControlledIfaces()
         self.assertEqual(ret, ['dev'])
 
-    def network_update_ifcfg_ssid_test(self):
+    def network_writeSSIDifcfgs_test(self):
         import pyanaconda.network
         nw = pyanaconda.network.Network()
         nw.netdevices = {'dev': mock.Mock()}
-        ret = nw.updateIfcfgsSSID({'dev': ['net_essid']})
-        self.assertEqual(nw.netdevices['dev'].method_calls[0],
-            ('set', (('ESSID', 'net_essid'),), {}))
-        self.assertEqual(nw.netdevices['dev'].method_calls[1],
-            ('writeIfcfgFile', (), {}))
-            
-    def network_control_wireless_test(self):
-        import pyanaconda.network
-        pyanaconda.network.isys = mock.Mock()
-        pyanaconda.network.isys.isWirelessDevice.return_value = True
-        nw = pyanaconda.network.Network()
-        pyanaconda.network.Network.controlWireless = self.controlWireless_backup
-        nw.netdevices['dev'] = mock.Mock()
-        nw.controlWireless()
-        self.assertEqual(nw.netdevices['dev'].method_calls,
-            [('set', (('NM_CONTROLLED', 'yes'),), {})])
+        ret = nw.writeSSIDifcfgs({'dev': ['net_essid']})
+        self.assertEqual(self.fs['/tmp/etc/sysconfig/network-scripts/ifcfg-net_essid'],
+                         "NAME=net_essid\n"
+                         "TYPE=Wireless\n"
+                         "ESSID=net_essid\n"
+                         "NM_CONTROLLED=yes\n")
 
     def network_write_ks_test(self):
         import pyanaconda.network
@@ -509,6 +497,8 @@ class NetworkTest(mock.TestCase):
     def network_copy_config_to_path_test(self):
         import pyanaconda.network
         pyanaconda.network.Network._copyFileToPath = mock.Mock()
+        pyanaconda.network.Network._copyIfcfgFiles = mock.Mock()
+
 
         nw = pyanaconda.network.Network()
         nw.netdevices['dev'] = mock.Mock()
@@ -516,9 +506,7 @@ class NetworkTest(mock.TestCase):
         nw.netdevices['dev'].keyfilePath = self.DEV_KEY_FILE
         ret = nw.copyConfigToPath('')
         self.assertEqual(pyanaconda.network.Network._copyFileToPath.call_args_list,
-            [(('/tmp/etc/sysconfig/network-scripts/ifcfg-eth0', ''), {}),
-             (('/tmp/etc/sysconfig/network-scripts/keys-eth0', ''), {}),
-             (('/etc/dhcp/dhclient-dev.conf', ''), {}),
+            [(('/etc/dhcp/dhclient-dev.conf', ''), {}),
              (('/tmp/etc/sysconfig/network', ''), {'overwrite': 0}),
              (('/etc/resolv.conf', ''), {'overwrite': 0}),
              (('/etc/udev/rules.d/70-persistent-net.rules', ''), {'overwrite': 0})]
