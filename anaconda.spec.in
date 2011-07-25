@@ -222,6 +222,20 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Mon Jul 25 2011 David Cantrell <dcantrell@redhat.com> - 13.21.123-1
+- Get the ownership of terminal in stage2 (msivak)
+  Resolves: rhbz#716920
+- Do not traceback on mpath errors caused by faulty hardware. (akozumpl)
+  Resolves: rhbz#689520
+- If crashkernel= is given in kickstart, don't add crashkernel=auto (clumens).
+  Resolves: rhbz#691910
+- Check the format of /boot when using EFI (bcl)
+  Resolves: rhbz#689996
+- Catch .treeinfo errors (bcl)
+  Resolves: rhbz#715130
+- Don't allow creating a new bootloader config in text mode (clumens)
+  Resolves: rhbz#676025
+
 * Thu Jul 21 2011 David Cantrell <dcantrell@redhat.com> - 13.21.122-1
 - Add accelerators to reinitialize dialog (bcl)
   Resolves: rhbz#673048
