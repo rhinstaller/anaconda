@@ -66,6 +66,15 @@ class EddTestCase(mock.TestCase):
         path = analyzer.devname_from_pci_dev()
         self.assertEqual(path, "vda")
 
+    def test_bad_device_path(self):
+        from storage.devicelibs import edd
+        fs = EddTestFS(edd).sda_vda_no_pcidev()
+        edd_dict = edd.collect_edd_data()
+
+        analyzer = edd.EddMatcher(edd_dict[0x80])
+        path = analyzer.devname_from_pci_dev()
+        self.assertEqual(path, None)
+
     def test_get_edd_dict_1(self):
         """ Test get_edd_dict()'s pci_dev matching. """
         from storage.devicelibs import edd
@@ -84,8 +93,6 @@ class EddTestCase(mock.TestCase):
         self.assertEqual(edd.get_edd_dict([]),
                          {'sda' : 0x80,
                           'vda' : 0x81})
-
-
 
 class EddTestFS(object):
     def __init__(self, target_module):
@@ -117,6 +124,12 @@ class EddTestFS(object):
         self.fs["/sys/devices/pci0000:00/0000:00:05.0/virtio2/block"] = self.fs.Dir()
         self.fs["/sys/devices/pci0000:00/0000:00:05.0/virtio2/block/vda"] = self.fs.Dir()
 
+        return self.fs
+
+    def sda_vda_no_pcidev(self):
+        self.sda_vda()
+        entries = [e for e in self.fs.fs if e.startswith("/sys/devices/pci")]
+        map(self.fs.os_remove, entries)
         return self.fs
 
     def vda_vdb(self):
