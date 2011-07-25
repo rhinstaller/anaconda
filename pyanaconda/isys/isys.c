@@ -656,8 +656,8 @@ static PyObject * doIsWirelessDevice(PyObject * s, PyObject * args) {
 }
 
 static PyObject * doTotalMemory(PyObject * s) {
-    int tm = totalMemory();
-    return PyInt_FromLong(tm);
+    unsigned long long tm = totalMemory();
+    return PyLong_FromUnsignedLongLong(tm);
 }
 
 /* vim:set shiftwidth=4 softtabstop=4: */
