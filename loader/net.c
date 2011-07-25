@@ -482,9 +482,7 @@ int readNetConfig(char * device, iface_t * iface,
                 exit(1);
             }
 
-            newtWinMessage(_("Network Error"), _("Retry"),
-                           _("There was an error configuring your network "
-                             "interface."));
+            logMessage(ERROR, "failed to configure network interface");
             return LOADER_BACK;
         }
 
