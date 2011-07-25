@@ -479,10 +479,7 @@ int readNetConfig(char * device, iface_t * iface,
                 exit(1);
             }
 
-            newtWinMessage(_("Network Error"), _("Retry"),
-                           _("There was an error configuring your network "
-                             "interface."));
-            /* Clear out ip selections to allow for re-entry */
+            logMessage(ERROR, "failed to configure network interface");
             iface->ipv4method = IPV4_UNUSED_METHOD;
             iface->ipv6method = IPV6_UNUSED_METHOD;
             return LOADER_ERROR;
