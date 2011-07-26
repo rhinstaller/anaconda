@@ -18,14 +18,7 @@
 
 from StringIO import StringIO
 import fnmatch
-import glob
-import os.path
-
-_orig_glob_glob = glob.glob
-_orig_open = open
-_orig_os_listdir = os.listdir
-_orig_os_path_exists = os.path.exists
-_orig_os_path_isdir = os.path.isdir
+import os
 
 class DiskIO(object):
     """Simple object to simplify mocking of file operations in Mock
@@ -133,23 +126,3 @@ class DiskIO(object):
 
     def os_access(self, path, mode):
         return self.path_exists(path)
-
-    def take_over_module(self, module):
-        """ Trick module into using this object as the filesystem.
-
-            This is achieved by overriding the module's 'open' binding as well
-            as some bindings in os.path.
-        """
-        module.open = self.open
-        module.glob.glob = self.glob_glob
-        module.os.listdir = self.os_listdir
-        module.os.path.exists = self.os_path_exists
-        module.os.path.isdir = self.os_path_isdir
-
-    @staticmethod
-    def restore_module(module):
-        module.open = _orig_open
-        module.glob.glob = _orig_glob_glob
-        module.os.listdir = _orig_os_listdir
-        module.os.path.exists = _orig_os_path_exists
-        module.os.path.isdir = _orig_os_path_isdir

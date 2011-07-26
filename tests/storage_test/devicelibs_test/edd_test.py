@@ -6,9 +6,7 @@ class EddTestCase(mock.TestCase):
             ['_isys', 'logging', 'pyanaconda.anaconda_log', 'block'])
 
     def tearDown(self):
-        from pyanaconda.storage.devicelibs import edd
         self.tearDownModules()
-        mock.DiskIO.restore_module(edd)
 
     def test_biosdev_to_edd_dir(self):
         from pyanaconda.storage.devicelibs import edd
@@ -19,7 +17,7 @@ class EddTestCase(mock.TestCase):
         from pyanaconda.storage.devicelibs import edd
 
         # test with vda, vdb
-        fs = EddTestFS(edd).vda_vdb()
+        fs = EddTestFS(self, edd).vda_vdb()
         edd_dict = edd.collect_edd_data()
         self.assertEqual(len(edd_dict), 2)
         self.assertEqual(edd_dict[0x80].type, "SCSI")
@@ -31,7 +29,7 @@ class EddTestCase(mock.TestCase):
         self.assertEqual(edd_dict[0x81].pci_dev, "00:06.0")
 
         # test with sda, vda
-        fs = EddTestFS(edd).sda_vda()
+        fs = EddTestFS(self, edd).sda_vda()
         edd_dict = edd.collect_edd_data()
         self.assertEqual(len(edd_dict), 2)
         self.assertEqual(edd_dict[0x80].type, "ATA")
@@ -45,7 +43,7 @@ class EddTestCase(mock.TestCase):
 
     def test_collect_edd_data_cciss(self):
         from pyanaconda.storage.devicelibs import edd
-        fs = EddTestFS(edd).sda_cciss()
+        fs = EddTestFS(self, edd).sda_cciss()
         edd_dict = edd.collect_edd_data()
 
         self.assertEqual(edd_dict[0x80].pci_dev, None)
@@ -53,7 +51,7 @@ class EddTestCase(mock.TestCase):
 
     def test_edd_entry_str(self):
         from pyanaconda.storage.devicelibs import edd
-        fs = EddTestFS(edd).sda_vda()
+        fs = EddTestFS(self, edd).sda_vda()
         edd_dict = edd.collect_edd_data()
         expected_output = """\ttype: ATA, ata_device: 0
 \tchannel: 0, mbr_signature: 0x000ccb01
@@ -63,7 +61,7 @@ class EddTestCase(mock.TestCase):
 
     def test_matcher_device_path(self):
         from pyanaconda.storage.devicelibs import edd
-        fs = EddTestFS(edd).sda_vda()
+        fs = EddTestFS(self, edd).sda_vda()
         edd_dict = edd.collect_edd_data()
 
         analyzer = edd.EddMatcher(edd_dict[0x80])
@@ -76,7 +74,7 @@ class EddTestCase(mock.TestCase):
 
     def test_bad_device_path(self):
         from pyanaconda.storage.devicelibs import edd
-        fs = EddTestFS(edd).sda_vda_no_pcidev()
+        fs = EddTestFS(self, edd).sda_vda_no_pcidev()
         edd_dict = edd.collect_edd_data()
 
         analyzer = edd.EddMatcher(edd_dict[0x80])
@@ -86,7 +84,7 @@ class EddTestCase(mock.TestCase):
     def test_get_edd_dict_1(self):
         """ Test get_edd_dict()'s pci_dev matching. """
         from pyanaconda.storage.devicelibs import edd
-        fs = EddTestFS(edd).sda_vda()
+        fs = EddTestFS(self, edd).sda_vda()
         self.assertEqual(edd.get_edd_dict([]),
                          {'sda' : 0x80,
                           'vda' : 0x81})
@@ -97,33 +95,33 @@ class EddTestCase(mock.TestCase):
         edd.collect_mbrs = mock.Mock(return_value = {
                 'sda' : '0x000ccb01',
                 'vda' : '0x0006aef1'})
-        fs = EddTestFS(edd).sda_vda_missing_details()
+        fs = EddTestFS(self, edd).sda_vda_missing_details()
         self.assertEqual(edd.get_edd_dict([]),
                          {'sda' : 0x80,
                           'vda' : 0x81})
 
 class EddTestFS(object):
-    def __init__(self, target_module):
+    def __init__(self, test_case, target_module):
         self.fs = mock.DiskIO()
-        self.fs.take_over_module(target_module)
+        test_case.take_over_io(self.fs, target_module)
 
     def sda_vda_missing_details(self):
         self.fs["/sys/firmware/edd/int13_dev80"] = self.fs.Dir()
-        self.fs["/sys/firmware/edd/int13_dev80/mbr_signature"] = "0x000ccb01"
+        self.fs["/sys/firmware/edd/int13_dev80/mbr_signature"] = "0x000ccb01\n"
         self.fs["/sys/firmware/edd/int13_dev81"] = self.fs.Dir()
-        self.fs["/sys/firmware/edd/int13_dev81/mbr_signature"] = "0x0006aef1"
+        self.fs["/sys/firmware/edd/int13_dev81/mbr_signature"] = "0x0006aef1\n"
 
     def sda_vda(self):
         self.fs["/sys/firmware/edd/int13_dev80"] = self.fs.Dir()
         self.fs["/sys/firmware/edd/int13_dev80/host_bus"] = "PCI 	00:01.1  channel: 0\n"
         self.fs["/sys/firmware/edd/int13_dev80/interface"] = "ATA     	device: 0\n"
-        self.fs["/sys/firmware/edd/int13_dev80/mbr_signature"] = "0x000ccb01"
+        self.fs["/sys/firmware/edd/int13_dev80/mbr_signature"] = "0x000ccb01\n"
         self.fs["/sys/firmware/edd/int13_dev80/sectors"] = "2097152\n"
 
         self.fs["/sys/firmware/edd/int13_dev81"] = self.fs.Dir()
         self.fs["/sys/firmware/edd/int13_dev81/host_bus"] = "PCI 	00:05.0  channel: 0\n"
         self.fs["/sys/firmware/edd/int13_dev81/interface"] = "SCSI    	id: 0  lun: 0\n"
-        self.fs["/sys/firmware/edd/int13_dev81/mbr_signature"] = "0x0006aef1"
+        self.fs["/sys/firmware/edd/int13_dev81/mbr_signature"] = "0x0006aef1\n"
         self.fs["/sys/firmware/edd/int13_dev81/sectors"] = "16777216\n"
 
         self.fs["/sys/devices/pci0000:00/0000:00:01.1/host0/target0:0:0/0:0:0:0/block"] = self.fs.Dir()
@@ -144,7 +142,7 @@ class EddTestFS(object):
         self.fs["/sys/firmware/edd/int13_dev80"] = self.fs.Dir()
         self.fs["/sys/firmware/edd/int13_dev80/host_bus"] = "PCIX	05:00.0  channel: 0\n"
         self.fs["/sys/firmware/edd/int13_dev80/interface"] = "RAID    	identity_tag: 0\n"
-        self.fs["/sys/firmware/edd/int13_dev80/mbr_signature"] = "0x000ccb01"
+        self.fs["/sys/firmware/edd/int13_dev80/mbr_signature"] = "0x000ccb01\n"
         self.fs["/sys/firmware/edd/int13_dev80/sectors"] = "2097152\n"
 
         return self.fs

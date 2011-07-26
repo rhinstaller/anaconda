@@ -38,7 +38,7 @@ class TestCase(unittest.TestCase):
     def __init__(self, *args, **kwargs):
         unittest.TestCase.__init__(self, *args, **kwargs)
         self.injectedModules = {}
-        
+
     def setupModules(self, a):
         """Mock specified list of modules and store the list so it can be
            properly unloaded during tearDown"""
@@ -52,12 +52,12 @@ class TestCase(unittest.TestCase):
 
     def modifiedModule(self, mname, mod = None):
         """Mark module (and all it's parents) as tainted"""
-        
+
         oldname=""
         for m in mname.split("."):
             self.injectedModules[oldname+m] = mod
             oldname += m + "."
-        self.injectedModules[mname] = mod    
+        self.injectedModules[mname] = mod
 
     def tearDownModules(self):
         """Unload previously Mocked modules"""
@@ -67,6 +67,27 @@ class TestCase(unittest.TestCase):
         for m in sys.modules.keys():
             if m in self.preexistingModules and not m in self.injectedModules:
                 continue
-            
+
             del sys.modules[m]
 
+    def take_over_io(self, disk, target_module):
+        """ Trick target_module into using disk object as the filesystem.
+
+            This is achieved by overriding the module's 'open' binding as well
+            as many global bindings in os.path.
+        """
+        target_module.open = disk.open
+        self.modifiedModule(target_module.__name__)
+
+        import glob
+        self.modifiedModule("glob")
+        glob.glob = disk.glob_glob
+
+        import os
+        self.modifiedModule("os.path")
+        # this is what os.path implementaion points at, reimport:
+        import posixpath
+        self.modifiedModule("posixpath")
+        os.listdir = disk.os_listdir
+        os.path.exists = disk.os_path_exists
+        os.path.isdir = disk.os_path_isdir
