@@ -191,8 +191,9 @@ PACKAGES="GConf2 NetworkManager NetworkManager-gnome ORBit2 acl anaconda
     pygtk2-libglade pykickstart pyparted python python-bugzilla python-decorator
     python-libs python-nss python-pyblock python-sqlite python-epdb
     python-urlgrabber python-volume_key pyxf86config rdate readline redhat-artwork
-    reiserfs-utils report-config-default report-gtk report-newt rpm rpm-libs
-    rpm-python rsyslog sed selinux-policy-targeted
+    reiserfs-utils libreport libreport-cli libreport-python libreport-gtk libreport-newt
+    libreport-plugin-rhtsupport libreport-plugin-logger libreport-plugin-bugzilla
+    rpm rpm-libs rpm-python rsyslog sed selinux-policy-targeted
     setup slang smc-meera-fonts specspo sqlite startup-notification 
     subscription-manager synaptics system-config-date
     system-config-keyboard ${brandpkgname}-logos ${brandpkgname}-release
@@ -392,8 +393,7 @@ etc/polkit-1/nullbackend.conf.d/*
 etc/prelink.conf
 etc/protocols
 etc/rc.d/init.d/functions
-etc/report.conf
-etc/report.d/*
+etc/libreport/*
 etc/rhsm
 etc/rpm/macros.prelink
 etc/security/limits.conf
@@ -577,7 +577,8 @@ usr/bin/python?.?
 usr/bin/rdate
 usr/bin/readlink
 usr/bin/reduce-font
-usr/bin/report
+usr/bin/report-*
+usr/bin/reporter-*
 usr/bin/setxkbmap
 usr/bin/sha1sum
 usr/bin/split
@@ -694,6 +695,7 @@ usr/share/locale/*/LC_MESSAGES/anaconda.mo
 usr/share/locale/*/LC_MESSAGES/cracklib.mo
 usr/share/locale/*/LC_MESSAGES/gtk20.mo
 usr/share/locale/*/LC_MESSAGES/libc.mo
+usr/share/locale/*/LC_MESSAGES/libreport.mo
 usr/share/locale/*/LC_MESSAGES/nm-applet.mo
 usr/share/locale/*/LC_MESSAGES/parted.mo
 usr/share/locale/*/LC_MESSAGES/redhat-dist.mo
