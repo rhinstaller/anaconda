@@ -218,7 +218,7 @@ def get_edd_dict(devices):
             old_edd_number = edd_dict.get(name)
             if old_edd_number:
                 log.info("edd: both edd entries 0x%x and 0x%x seem to map to %s" %
-                          old_edd_number, edd_number, name)
+                          (old_edd_number, edd_number, name))
                 # this means all the other data can be confused and useless
                 return {}
             edd_dict[name] = edd_number
