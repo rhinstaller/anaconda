@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 16.12\n"
+"Project-Id-Version: anaconda 16.13\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2011-07-20 13:27-0400\n"
+"POT-Creation-Date: 2011-07-26 15:52-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -171,37 +171,37 @@ msgstr ""
 msgid "The %s cannot be on an encrypted block device."
 msgstr ""
 
-#: pyanaconda/bootloader.py:1424
+#: pyanaconda/bootloader.py:1427
 msgid ""
 "You are using a GPT bootdisk on a non-EFI system without a BIOS boot "
 "partition. This may not work, depending on your BIOS's support for booting "
 "from GPT disks."
 msgstr ""
 
-#: pyanaconda/bootloader.py:1930
+#: pyanaconda/bootloader.py:1933
 msgid "Bootloader"
 msgstr ""
 
-#: pyanaconda/bootloader.py:1931
+#: pyanaconda/bootloader.py:1934
 msgid "Installing bootloader."
 msgstr ""
 
-#: pyanaconda/bootloader.py:1938 pyanaconda/bootloader.py:1991
+#: pyanaconda/bootloader.py:1941 pyanaconda/bootloader.py:1994
 #: pyanaconda/gui.py:1090 pyanaconda/image.py:85
-#: pyanaconda/installinterfacebase.py:71
-#: pyanaconda/installinterfacebase.py:148 pyanaconda/packages.py:90
+#: pyanaconda/installinterfacebase.py:74
+#: pyanaconda/installinterfacebase.py:151 pyanaconda/packages.py:90
 #: pyanaconda/packages.py:325 pyanaconda/text.py:419
 #: pyanaconda/yuminstall.py:1513 pyanaconda/iw/blpasswidget.py:144
 msgid "Warning"
 msgstr ""
 
-#: pyanaconda/bootloader.py:1939
+#: pyanaconda/bootloader.py:1942
 msgid ""
 "No kernel packages were installed on the system. Bootloader configuration "
 "will not be changed."
 msgstr ""
 
-#: pyanaconda/bootloader.py:1992
+#: pyanaconda/bootloader.py:1995
 msgid ""
 "There was an error installing the bootloader.  The system may not be "
 "bootable."
@@ -364,7 +364,7 @@ msgstr ""
 msgid "Error Enabling Network"
 msgstr ""
 
-#: pyanaconda/gui.py:1055 pyanaconda/installinterfacebase.py:53
+#: pyanaconda/gui.py:1055 pyanaconda/installinterfacebase.py:56
 #: pyanaconda/iw/task_gui.py:320
 msgid "Error Setting Up Repository"
 msgstr ""
@@ -396,7 +396,8 @@ msgid "Remote exception saving methods will not work."
 msgstr ""
 
 #: pyanaconda/gui.py:1113 pyanaconda/gui.py:1150 pyanaconda/gui.py:1335
-#: pyanaconda/image.py:94 pyanaconda/livecd.py:167 pyanaconda/packages.py:95
+#: pyanaconda/image.py:94 pyanaconda/installinterfacebase.py:208
+#: pyanaconda/livecd.py:167 pyanaconda/packages.py:95
 #: pyanaconda/packages.py:143 pyanaconda/upgrade.py:58
 #: pyanaconda/upgrade.py:98 pyanaconda/upgrade.py:196
 #: pyanaconda/yuminstall.py:255 pyanaconda/yuminstall.py:823
@@ -443,7 +444,7 @@ msgstr ""
 msgid "_Retry"
 msgstr ""
 
-#: pyanaconda/gui.py:1252 pyanaconda/storage/partitioning.py:342
+#: pyanaconda/gui.py:1252 pyanaconda/storage/partitioning.py:343
 msgid "The system will now reboot."
 msgstr ""
 
@@ -455,7 +456,7 @@ msgstr ""
 msgid "Exiting"
 msgstr ""
 
-#: pyanaconda/gui.py:1332 pyanaconda/installinterfacebase.py:60
+#: pyanaconda/gui.py:1332 pyanaconda/installinterfacebase.py:63
 #: pyanaconda/livecd.py:126 pyanaconda/text.py:283 pyanaconda/upgrade.py:187
 msgid "Exit installer"
 msgstr ""
@@ -563,7 +564,7 @@ msgstr ""
 msgid "Install on System"
 msgstr ""
 
-#: pyanaconda/installinterfacebase.py:54
+#: pyanaconda/installinterfacebase.py:57
 #, python-format
 msgid ""
 "The following error occurred while setting up the installation repository:\n"
@@ -573,7 +574,7 @@ msgid ""
 "Installation can not continue."
 msgstr ""
 
-#: pyanaconda/installinterfacebase.py:72
+#: pyanaconda/installinterfacebase.py:75
 #, python-format
 msgid ""
 "Disk %(unusedRaidMems)s contains BIOS RAID metadata, but is not part of any "
@@ -584,12 +585,12 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 
-#: pyanaconda/installinterfacebase.py:100
+#: pyanaconda/installinterfacebase.py:103
 #: data/ui/reinitialize-dialog.glade.h:3
 msgid "Storage Device Warning"
 msgstr ""
 
-#: pyanaconda/installinterfacebase.py:149
+#: pyanaconda/installinterfacebase.py:152
 #, python-format
 msgid ""
 "Error processing LVM.\n"
@@ -599,30 +600,30 @@ msgid ""
 "with inconsistent metadata."
 msgstr ""
 
-#: pyanaconda/installinterfacebase.py:156
-#: pyanaconda/installinterfacebase.py:190
+#: pyanaconda/installinterfacebase.py:159
+#: pyanaconda/installinterfacebase.py:193
 msgid "_Ignore"
 msgstr ""
 
-#: pyanaconda/installinterfacebase.py:157
+#: pyanaconda/installinterfacebase.py:160
 msgid "Ignore _all"
 msgstr ""
 
-#: pyanaconda/installinterfacebase.py:158
+#: pyanaconda/installinterfacebase.py:161
 msgid "_Re-initialize"
 msgstr ""
 
-#: pyanaconda/installinterfacebase.py:159
+#: pyanaconda/installinterfacebase.py:162
 msgid "Re-ini_tialize all"
 msgstr ""
 
-#: pyanaconda/installinterfacebase.py:177
+#: pyanaconda/installinterfacebase.py:180
 msgid "Unformatted DASD Device Found"
 msgid_plural "Unformatted DASD Devices Found"
 msgstr[0] ""
 msgstr[1] ""
 
-#: pyanaconda/installinterfacebase.py:179
+#: pyanaconda/installinterfacebase.py:182
 #, python-format
 msgid ""
 "Format uninitialized DASD device?\n"
@@ -639,8 +640,23 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 
-#: pyanaconda/installinterfacebase.py:190 pyanaconda/iw/partition_gui.py:870
+#: pyanaconda/installinterfacebase.py:193 pyanaconda/iw/partition_gui.py:870
 msgid "_Format"
+msgstr ""
+
+#: pyanaconda/installinterfacebase.py:201
+#, python-format
+msgid ""
+"The installation was stopped due to what seems to be a problem with your "
+"hardware. The exact error message is:\n"
+"\n"
+"%s.\n"
+"\n"
+" The installer will now terminate."
+msgstr ""
+
+#: pyanaconda/installinterfacebase.py:204
+msgid "Hardware Error Encountered"
 msgstr ""
 
 #: pyanaconda/iutil.py:838
@@ -2563,8 +2579,8 @@ msgid "The volume group name \"%s\" is already in use. Please pick another."
 msgstr ""
 
 #: pyanaconda/iw/lvm_dialog_gui.py:1119 pyanaconda/iw/partition_gui.py:1552
-#: pyanaconda/storage/partitioning.py:266
-#: pyanaconda/storage/partitioning.py:307
+#: pyanaconda/storage/partitioning.py:267
+#: pyanaconda/storage/partitioning.py:308
 msgid "Error Partitioning"
 msgstr ""
 
@@ -3220,12 +3236,12 @@ msgid "What would you like to do?"
 msgstr ""
 
 #: pyanaconda/iw/upgrade_migratefs_gui.py:38
-#: pyanaconda/textw/upgrade_text.py:41
+#: pyanaconda/textw/upgrade_text.py:42
 msgid "Migrate File Systems"
 msgstr ""
 
 #: pyanaconda/iw/upgrade_migratefs_gui.py:69
-#: pyanaconda/textw/upgrade_text.py:43
+#: pyanaconda/textw/upgrade_text.py:44
 #, python-format
 msgid ""
 "This release of %(productName)s supports an updated file system, which has "
@@ -4490,7 +4506,7 @@ msgid ""
 "problems on the filesystem."
 msgstr ""
 
-#: pyanaconda/storage/formats/fs.py:546 pyanaconda/storage/partitioning.py:341
+#: pyanaconda/storage/formats/fs.py:546 pyanaconda/storage/partitioning.py:342
 msgid "Unrecoverable Error"
 msgstr ""
 
@@ -4572,23 +4588,23 @@ msgstr ""
 msgid "Logging in to iSCSI node %s"
 msgstr ""
 
-#: pyanaconda/storage/partitioning.py:260
+#: pyanaconda/storage/partitioning.py:261
 msgid ""
 "Could not find enough free space for automatic partitioning.  Press 'OK' to "
 "exit the installer."
 msgstr ""
 
-#: pyanaconda/storage/partitioning.py:263
+#: pyanaconda/storage/partitioning.py:264
 msgid ""
 "Could not find enough free space for automatic partitioning, please use "
 "another partitioning method."
 msgstr ""
 
-#: pyanaconda/storage/partitioning.py:288
+#: pyanaconda/storage/partitioning.py:289
 msgid "Warnings During Automatic Partitioning"
 msgstr ""
 
-#: pyanaconda/storage/partitioning.py:290
+#: pyanaconda/storage/partitioning.py:291
 #, python-format
 msgid ""
 "Following warnings occurred during automatic partitioning:\n"
@@ -4596,15 +4612,15 @@ msgid ""
 "%s"
 msgstr ""
 
-#: pyanaconda/storage/partitioning.py:301
-#: pyanaconda/storage/partitioning.py:325
+#: pyanaconda/storage/partitioning.py:302
+#: pyanaconda/storage/partitioning.py:326
 msgid ""
 "\n"
 "\n"
 "Press 'OK' to exit the installer."
 msgstr ""
 
-#: pyanaconda/storage/partitioning.py:308
+#: pyanaconda/storage/partitioning.py:309
 #, python-format
 msgid ""
 "Could not allocate requested partitions: \n"
@@ -4612,18 +4628,18 @@ msgid ""
 "%(msg)s.%(extra)s"
 msgstr ""
 
-#: pyanaconda/storage/partitioning.py:327
+#: pyanaconda/storage/partitioning.py:328
 msgid ""
 "\n"
 "\n"
 "Press 'OK' to choose a different partitioning option."
 msgstr ""
 
-#: pyanaconda/storage/partitioning.py:329
+#: pyanaconda/storage/partitioning.py:330
 msgid "Automatic Partitioning Errors"
 msgstr ""
 
-#: pyanaconda/storage/partitioning.py:330
+#: pyanaconda/storage/partitioning.py:331
 #, python-format
 msgid ""
 "The following errors occurred with your partitioning:\n"
@@ -4932,15 +4948,15 @@ msgstr ""
 msgid "Skip boot loader updating"
 msgstr ""
 
-#: pyanaconda/textw/upgrade_text.py:116
+#: pyanaconda/textw/upgrade_text.py:117
 msgid "Reinstall System"
 msgstr ""
 
-#: pyanaconda/textw/upgrade_text.py:125
+#: pyanaconda/textw/upgrade_text.py:126
 msgid "System to Upgrade"
 msgstr ""
 
-#: pyanaconda/textw/upgrade_text.py:126
+#: pyanaconda/textw/upgrade_text.py:127
 msgid ""
 "There seem to be one or more existing Linux installations on your system.\n"
 "\n"

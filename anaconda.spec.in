@@ -234,6 +234,20 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Tue Jul 26 2011 Chris Lumens <clumens@redhat.com> - 16.14-1
+- Change IsBeta to IsFinal (mgracik)
+- edd: do not traceback with cciss devices. (akozumpl)
+- edd: do not traceback when can not find the respective pci device. (akozumpl)
+- Use unsigned long long type in doTotalMemory() (dcantrell)
+- Do not traceback on mpath errors caused by faulty hardware. (akozumpl)
+- Fix a bunch of stupid little errors pylint caught. (clumens)
+- There's no more booty module, so don't bother checking it. (clumens)
+- Ignore false positives in kickstart.py. (clumens)
+- Ignore reimport warnings from pylint. (clumens)
+- Handle any amount of whitespace between keyword and rhbz reference.
+  (dcantrell)
+- dispath -> dispatch in kickstart.py. (clumens)
+
 * Wed Jul 20 2011 Chris Lumens <clumens@redhat.com> - 16.13-1
 - progressWindow takes a bunch of new arguments for pulsing (#723345).
   (clumens)
