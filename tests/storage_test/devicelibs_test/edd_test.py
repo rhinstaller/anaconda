@@ -102,6 +102,19 @@ class EddTestCase(mock.TestCase):
                          {'sda' : 0x80,
                           'vda' : 0x81})
 
+    def test_get_edd_dict_3(self):
+        """ Test scenario when the 0x80 and 0x81 edd directories contain the
+            same data and give no way to distinguish among the two devices.
+        """
+        from storage.devicelibs import edd
+        edd.log = mock.Mock()
+        edd.collect_mbrs = mock.Mock(return_value={'sda' : '0x000ccb01',
+                                                   'vda' : '0x0006aef1'})
+        fs = EddTestFS(edd).sda_sdb_same()
+        self.assertEqual(edd.get_edd_dict([]), {})
+        self.assertIn((('edd: both edd entries 0x80 and 0x81 seem to map to sda',), {}),
+                      edd.log.info.call_args_list)
+
 class EddTestFS(object):
     def __init__(self, target_module):
         self.fs = mock.DiskIO()
@@ -161,3 +174,19 @@ class EddTestFS(object):
         self.fs["/sys/firmware/edd/int13_dev81/sectors"] = "4194304\n"
 
         return self.fs
+
+    def sda_sdb_same(self):
+        self.fs["/sys/firmware/edd/int13_dev80"] = self.fs.Dir()
+        self.fs["/sys/firmware/edd/int13_dev80/host_bus"] = "PCI 	00:01.1  channel: 0\n"
+        self.fs["/sys/firmware/edd/int13_dev80/interface"] = "ATA     	device: 0\n"
+        self.fs["/sys/firmware/edd/int13_dev80/mbr_signature"] = "0x000ccb01"
+        self.fs["/sys/firmware/edd/int13_dev80/sectors"] = "2097152\n"
+
+        self.fs["/sys/firmware/edd/int13_dev81"] = self.fs.Dir()
+        self.fs["/sys/firmware/edd/int13_dev81/host_bus"] = "PCI 	00:01.1  channel: 0\n"
+        self.fs["/sys/firmware/edd/int13_dev81/interface"] = "ATA     	device: 0\n"
+        self.fs["/sys/firmware/edd/int13_dev81/mbr_signature"] = "0x0006aef1"
+        self.fs["/sys/firmware/edd/int13_dev81/sectors"] = "2097152\n"
+
+        self.fs["/sys/devices/pci0000:00/0000:00:01.1/host0/target0:0:0/0:0:0:0/block"] = self.fs.Dir()
+        self.fs["/sys/devices/pci0000:00/0000:00:01.1/host0/target0:0:0/0:0:0:0/block/sda"] = self.fs.Dir()
