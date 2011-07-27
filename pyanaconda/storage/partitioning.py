@@ -29,7 +29,6 @@ from pykickstart.constants import *
 
 from pyanaconda.constants import *
 
-from pyanaconda.errors import DispatchError
 from errors import *
 from deviceaction import *
 from devices import PartitionDevice, LUKSDevice, devicePathToName
@@ -301,10 +300,7 @@ def doAutoPartition(anaconda):
         if anaconda.ksdata:
             extra = _("\n\nPress 'OK' to exit the installer.")
         else:
-            try:
-                anaconda.dispatch.request_steps("partition")
-            except DispatchError:
-                pass
+            anaconda.dispatch.request_steps_gently("partition")
         anaconda.intf.messageWindow(_("Error Partitioning"),
                _("Could not allocate requested partitions: \n\n"
                  "%(msg)s.%(extra)s") % {'msg': msg, 'extra': extra},

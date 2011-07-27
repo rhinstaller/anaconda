@@ -202,7 +202,8 @@ class PartitionTypeWindow(InstallWindow):
 
             if self.reviewButton.get_active():
                 self.dispatch.request_steps("partition")
-                self.dispatch.request_steps("bootloader")
+                # with kickstart bootloader is already scheduled to be skipped:
+                self.dispatch.request_steps_gently("bootloader")
             else:
                 self.dispatch.skip_steps("partition")
                 self.dispatch.skip_steps("bootloader")

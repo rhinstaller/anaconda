@@ -290,6 +290,16 @@ class Dispatcher(object):
     def request_steps(self, *steps):
         changes = map(lambda s: self.steps[s].request(self._current_step()), steps)
 
+    def request_steps_gently(self, *steps):
+        """ Requests steps and won't raise an error if it is not possible for
+            some of them.
+        """
+        for step in steps:
+            try:
+                self.request_steps(step)
+            except errors.DispatchError as e:
+                log.debug("dispatch: %s" % e)
+
     def run(self):
         self.anaconda.intf.run(self.anaconda)
         log.info("dispatch: finished.")
