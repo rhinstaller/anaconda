@@ -163,8 +163,8 @@ int urlinstTransfer(struct loaderData_s *loaderData, const char *src,
 
         curl_easy_setopt(curl, CURLOPT_HTTPHEADER, headers);
     }
-    
-    if (loaderData->instRepo_noverifyssl) {
+
+    if (loaderData->instRepo_noverifyssl || FL_NOVERIFYSSL(flags)) {
         curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, 0);
     }
 

@@ -934,6 +934,8 @@ static void parseCmdLineFlags(struct loaderData_s * loaderData) {
         } else if (!strcasecmp(k, "sshd")) {
             logMessage(INFO, "early networking required for sshd");
             flags |= LOADER_FLAGS_EARLY_NETWORKING;
+        } else if (!strcasecmp(k, "noverifyssl")) {
+            flags |= LOADER_FLAGS_NOVERIFYSSL;
         } else if (v != NULL) {
             /* boot arguments that are of the form name=value */
             /* all arguments in this block require the value  */
@@ -2377,7 +2379,7 @@ int main(int argc, char ** argv) {
             }
         }
 
-        if (loaderData.instRepo_noverifyssl) {
+        if (loaderData.instRepo_noverifyssl || FL_NOVERIFYSSL(flags)) {
             *argptr++ = "--noverifyssl";
         }
 
