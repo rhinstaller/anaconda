@@ -171,6 +171,18 @@ class DispatchTest(mock.TestCase):
         self.assertFalse(d.step_enabled("complete"))
         self.assertTrue(d.step_enabled("filtertype"))
 
+    def request_steps_gently_test(self):
+        from pyanaconda.errors import DispatchError
+        from pyanaconda.dispatch import Step
+        d = self._getDispatcher()
+        d.schedule_steps("betanag", "complete")
+        d.skip_steps("betanag")
+        self.assertRaises(DispatchError, d.request_steps, "betanag")
+        d.request_steps_gently("betanag")
+        d.request_steps_gently("complete")
+        self.assertEqual(d.steps["betanag"].sched, Step.SCHED_SKIPPED)
+        self.assertEqual(d.steps["complete"].sched, Step.SCHED_REQUESTED)
+
     def track_scheduling_test(self):
         from pyanaconda.dispatch import Step
         d = self._getDispatcher()
