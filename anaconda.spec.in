@@ -222,6 +222,16 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Wed Jul 27 2011 David Cantrell <dcantrell@redhat.com> - 13.21.124-1
+- Include the files required for libreport. (clumens)
+  Resolves: rhbz#705274
+- Add libnsspem.so to the stage1 image. (akozumpl)
+  Related: rhbz#696696
+- edd: do not traceback with cciss devices. (akozumpl)
+  Resolves: rhbz#723194
+- edd: do not traceback when can not find the respective pci device. (akozumpl)
+  Resolves: rhbz#723344
+
 * Mon Jul 25 2011 David Cantrell <dcantrell@redhat.com> - 13.21.123-1
 - Get the ownership of terminal in stage2 (msivak)
   Resolves: rhbz#716920
