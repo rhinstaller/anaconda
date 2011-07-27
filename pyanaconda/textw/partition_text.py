@@ -95,7 +95,7 @@ class PartitionTypeWindow:
             screen.pushHelpLine (_("<Space>,<+>,<-> selection   |   <F2> Add drive   |   <F12> next screen"))
 
             # restore the drive list each time
-            disks = anaconda.storage.partitioned
+            disks = filter(lambda d: not d.format.hidden, anaconda.storage.disks)
             cleardrives = anaconda.storage.config.clearPartDisks
 
             for disk in disks:
