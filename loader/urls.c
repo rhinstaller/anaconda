@@ -167,8 +167,8 @@ int urlinstTransfer(struct loaderData_s *loaderData, struct iurlinfo *ui,
 
         curl_easy_setopt(curl, CURLOPT_HTTPHEADER, headers);
     }
-    
-    if (ui->noverifyssl) {
+
+    if (ui->noverifyssl || FL_NOVERIFYSSL(flags)) {
         curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, 0);
     }
 

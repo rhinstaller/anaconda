@@ -1108,6 +1108,8 @@ static void parseCmdLineFlags(struct loaderData_s * loaderData,
         else if (!strncasecmp(argv[i], "proxy=", 6))
             splitProxyParam(argv[i]+6, &loaderData->proxyUser,
                             &loaderData->proxyPassword, &loaderData->proxy);
+        else if (!strncasecmp(argv[i], "noverifyssl", 11))
+            flags |= LOADER_FLAGS_NOVERIFYSSL;
         else if (numExtraArgs < (MAX_EXTRA_ARGS - 1)) {
             /* go through and append args we just want to pass on to */
             /* the anaconda script, but don't want to represent as a */
@@ -2454,7 +2456,7 @@ int main(int argc, char ** argv) {
             }
         }
 
-        if (loaderData.instRepo_noverifyssl) {
+        if (loaderData.instRepo_noverifyssl || FL_NOVERIFYSSL(flags)) {
             *argptr++ = "--noverifyssl";
         }
 
