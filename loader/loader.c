@@ -938,9 +938,7 @@ static void parseCmdLineFlags(struct loaderData_s * loaderData) {
             /* boot arguments that are of the form name=value */
             /* all arguments in this block require the value  */
 
-            if (!strcasecmp(k, "dogtail")) {
-                loaderData->dogtailurl = g_strdup(v);
-            } else if (!strcasecmp(k, "dlabel")) {
+            if (!strcasecmp(k, "dlabel")) {
                 if (!strcasecmp(v, "on")) {
                     flags |= LOADER_FLAGS_AUTOMODDISK;
                 } else if (!strcasecmp(v, "off")) {
@@ -2343,11 +2341,6 @@ int main(int argc, char ** argv) {
         if (loaderData.updatessrc && FL_UPDATES(flags)) {
             *argptr++ = "--updates";
             *argptr++ = loaderData.updatessrc;
-        }
-
-        if (loaderData.dogtailurl) {
-            *argptr++ = "--dogtail";
-            *argptr++ = loaderData.dogtailurl;
         }
 
         if ((loaderData.lang) && !FL_NOPASS(flags)) {

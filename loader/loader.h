@@ -148,7 +148,6 @@ struct loaderData_s {
     char * ddsrc;
     char * logLevel;
     char * updatessrc;
-    char * dogtailurl;
     char * gdbServer;
     char * instRepo;
     int instRepo_noverifyssl;

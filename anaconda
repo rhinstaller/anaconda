@@ -216,7 +216,6 @@ def parseOptions(argv = None):
     op.add_option("--module", action="append", default=[])
     op.add_option("--nomount", dest="rescue_nomount", action="store_true", default=False)
     op.add_option("--updates", dest="updateSrc", action="store", type="string")
-    op.add_option("--dogtail", dest="dogtail",   action="store", type="string")
     op.add_option("--dlabel", action="store_true", default=False)
     op.add_option("--image", action="append", dest="images", default=[])
 
@@ -537,37 +536,6 @@ def setupDisplay(anaconda, opts):
     anaconda.initInterface()
     anaconda.instClass.configure(anaconda)
 
-def runDogtail(opts):
-    import urlgrabber
-
-    try:
-        fr = urlgrabber.urlopen(opts.dogtail)
-    except urlgrabber.grabber.URLGrabError as e:
-        log.error("Could not retrieve Dogtail script from %s.\nError "
-                  "was\n%s" % (opts.dogtail, e))
-        return
-
-    (fw, testcase) = mkstemp(prefix='testcase.py.', dir='/tmp')
-    os.write(fw, fr.read())
-    fr.close()
-    os.close(fw)
-
-    try:
-        # download completed, run the test
-        if not os.fork():
-            # we are in the child
-            os.chmod(testcase, 0755)
-            os.execv(testcase, [testcase])
-            sys.exit(0)
-        else:
-            # we are in the parent, sleep to give time for the testcase
-            # to initialize
-            # todo: is this needed, how to avoid possible race conditions
-            time.sleep(1)
-    except OSError as e:
-        log.error("Exception %s while running Dogtail testcase" % e)
-
-
 if __name__ == "__main__":
     setupPythonPath()
 
@@ -779,10 +747,6 @@ if __name__ == "__main__":
 
     # add our own additional signal handlers
     signal.signal(signal.SIGUSR2, lambda signum, frame: anaconda.dumpState())
-
-    # download and run Dogtail script
-    if opts.dogtail:
-        runDogtail(opts)
 
     if opts.lang:
         # this is lame, but make things match what we expect (#443408)

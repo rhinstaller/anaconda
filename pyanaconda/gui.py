@@ -25,10 +25,6 @@ import os
 from flags import flags
 os.environ["GNOME_DISABLE_CRASH_DIALOG"] = "1"
 
-# we only want to enable the accessibility stuff if requested for now...
-if flags.cmdline.has_key("dogtail"):
-    os.environ["GTK_MODULES"] = "gail:atk-bridge"
-
 import string
 import time
 import traceback
