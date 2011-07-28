@@ -1204,7 +1204,8 @@ class DeviceTree(object):
                                 % (parentName, container_sysfs))
                     return
 
-                container = self.addUdevDevice(container_info)
+                self.addUdevDevice(container_info)
+                container = self.getDeviceByName(parentName)
                 if not container:
                     log.error("failed to scan md container %s" % parentName)
                     return
