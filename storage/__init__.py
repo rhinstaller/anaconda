@@ -1188,7 +1188,7 @@ class Storage(object):
             else:
                 dict[action.device.path] = [action]
 
-        for device in self.devices:
+        for device in [d for d in self.devices if d.format.type != "luks"]:
             # If there's no action for the given device, it must be one
             # we are reusing.
             if not dict.has_key(device.path):
@@ -1204,6 +1204,7 @@ class Storage(object):
         self.iscsi.writeKS(f)
         self.fcoe.writeKS(f)
         self.zfcp.writeKS(f)
+        f.write("\n")
 
     def turnOnSwap(self, upgrading=None):
         self.fsset.turnOnSwap(self.anaconda, upgrading=upgrading)
