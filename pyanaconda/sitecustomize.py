@@ -19,4 +19,5 @@
 #
 
 import sys
+# pylint: disable-msg=E1101
 sys.setdefaultencoding('utf-8')

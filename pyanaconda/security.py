@@ -64,6 +64,7 @@ class Security:
 
         iutil.resetRpmDb(rootPath)
         ts = rpm.TransactionSet(rootPath)
+        # pylint: disable-msg=E1101
         return ts.dbMatch('provides', 'fprintd-pam').count()
 
     def write(self, instPath):

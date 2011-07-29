@@ -1440,6 +1440,7 @@ def getReleaseString(mountpoint):
 
     # We get the arch from the initscripts package, but the version and name
     # must come from reading the release file.
+    # pylint: disable-msg=E1101
     mi = ts.dbMatch('provides', 'initscripts')
     for h in mi:
         relArch = h['arch']
