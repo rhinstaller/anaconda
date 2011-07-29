@@ -1194,7 +1194,7 @@ class Storage(object):
                                   "Although not strictly required in all cases, "
                                   "it will significantly improve performance "
                                   "for most installations."))
-        no_uuid = [s for s in swaps if not s.format.uuid]
+        no_uuid = [s for s in swaps if s.format.exists and not s.format.uuid]
         if no_uuid:
             warnings.append(_("At least one of your swap devices does not have "
                               "a UUID, which is common in swap space created "
