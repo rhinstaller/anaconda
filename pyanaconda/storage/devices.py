@@ -262,14 +262,7 @@ class Device(object):
         return s
 
     def __str__(self):
-        exist = "existing"
-        if not self.exists:
-            exist = "non-existent"
-        s = "%s %dMB %s %s (%d)" % (exist, self.size, self.type, self.name,
-                                    self.id)
-        if self.format.type:
-            s += " with %s" % self.format
-
+        s = "%s %s (%d)" % (self.type, self.name, self.id)
         return s
 
     @property
@@ -488,6 +481,16 @@ class StorageDevice(Device):
         self._targetSize = self._size
 
         self._partedDevice = None
+
+    def __str__(self):
+        exist = "existing"
+        if not self.exists:
+            exist = "non-existent"
+        s = "%s %dMB %s" % (exist, self.size, super(StorageDevice, self).__str__())
+        if self.format.type:
+            s += " with %s" % self.format
+
+        return s
 
     @property
     def packages(self):
