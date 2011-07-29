@@ -1,33 +1,33 @@
 
 import unittest
-import tsort
+import pyanaconda.tsort
 
 class TopologicalSortTestCase(unittest.TestCase):
     def runTest(self):
         items = [1, 2, 3, 4, 5]
         edges = [(5, 4), (4, 3), (3, 2), (2, 1)]
-        graph = tsort.create_graph(items, edges)
+        graph = pyanaconda.tsort.create_graph(items, edges)
         self._tsortTest(graph)
 
         edges = [(5, 4), (2, 3), (1, 5)]
-        graph = tsort.create_graph(items, edges)
+        graph = pyanaconda.tsort.create_graph(items, edges)
         self._tsortTest(graph)
 
         edges = [(5, 4), (4, 3), (3, 2), (2, 1), (3, 5)]
-        graph = tsort.create_graph(items, edges)
-        self.failUnlessRaises(tsort.CyclicGraphError,
-                              tsort.tsort,
+        graph = pyanaconda.tsort.create_graph(items, edges)
+        self.failUnlessRaises(pyanaconda.tsort.CyclicGraphError,
+                              pyanaconda.tsort.tsort,
                               graph)
 
         edges = [(5, 4), (4, 3), (3, 2), (2, 1), (2, 3)]
-        graph = tsort.create_graph(items, edges)
-        self.failUnlessRaises(tsort.CyclicGraphError,
-                              tsort.tsort,
+        graph = pyanaconda.tsort.create_graph(items, edges)
+        self.failUnlessRaises(pyanaconda.tsort.CyclicGraphError,
+                              pyanaconda.tsort.tsort,
                               graph)
 
         items = ['a', 'b', 'c', 'd']
         edges = [('a', 'c'), ('c', 'b')]
-        graph = tsort.create_graph(items, edges)
+        graph = pyanaconda.tsort.create_graph(items, edges)
         self._tsortTest(graph)
 
     def _tsortTest(self, graph):
@@ -40,7 +40,7 @@ class TopologicalSortTestCase(unittest.TestCase):
             return True
 
         try:
-            order = tsort.tsort(graph)
+            order = pyanaconda.tsort.tsort(graph)
         except Exception as e:
             self.fail(e)
 

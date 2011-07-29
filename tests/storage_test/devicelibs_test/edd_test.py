@@ -104,11 +104,11 @@ class EddTestCase(mock.TestCase):
         """ Test scenario when the 0x80 and 0x81 edd directories contain the
             same data and give no way to distinguish among the two devices.
         """
-        from storage.devicelibs import edd
+        from pyanaconda.storage.devicelibs import edd
         edd.log = mock.Mock()
         edd.collect_mbrs = mock.Mock(return_value={'sda' : '0x000ccb01',
                                                    'vda' : '0x0006aef1'})
-        fs = EddTestFS(edd).sda_sdb_same()
+        fs = EddTestFS(self, edd).sda_sdb_same()
         self.assertEqual(edd.get_edd_dict([]), {})
         self.assertIn((('edd: both edd entries 0x80 and 0x81 seem to map to sda',), {}),
                       edd.log.info.call_args_list)
