@@ -196,6 +196,7 @@ class BootLoader(object):
     #
     # stage1 device access
     #
+    # pylint: disable-msg=E0202
     @property
     def stage1_device(self):
         """ Stage1 target device. """
@@ -213,6 +214,7 @@ class BootLoader(object):
 
         return self._stage1_device
 
+    # pylint: disable-msg=E0102,E0202,E1101
     @stage1_device.setter
     def stage1_device(self, device):
         log.debug("new bootloader stage1 device: %s" % getattr(device,
@@ -221,6 +223,7 @@ class BootLoader(object):
         if device:
             self.stage1_drive = device.disks[0]
 
+    # pylint: disable-msg=E0202
     @property
     def stage2_device(self):
         """ Stage2 target device. """
@@ -229,11 +232,13 @@ class BootLoader(object):
     #
     # drive list access
     #
+    # pylint: disable-msg=E0202
     @property
     def drive_order(self):
         """Potentially partial order for drives."""
         return self._drive_order
 
+    # pylint: disable-msg=E0102,E0202,E1101
     @drive_order.setter
     def drive_order(self, order):
         log.debug("new drive order: %s" % order)
@@ -278,6 +283,7 @@ class BootLoader(object):
     #
     # image list access
     #
+    # pylint: disable-msg=E0202
     @property
     def default(self):
         """The default image."""
@@ -293,6 +299,7 @@ class BootLoader(object):
 
         return self._default_image
 
+    # pylint: disable-msg=E0102,E0202,E1101
     @default.setter
     def default(self, image):
         if image not in self.images:
@@ -709,6 +716,7 @@ class BootLoader(object):
     def has_windows(self):
         return False
 
+    # pylint: disable-msg=E0202
     @property
     def timeout(self):
         """Bootloader timeout in seconds."""
@@ -721,14 +729,17 @@ class BootLoader(object):
 
         return t
 
+    # pylint: disable-msg=E0102,E0202,E1101
     @timeout.setter
     def timeout(self, seconds):
         self._timeout = seconds
 
+    # pylint: disable-msg=E0202
     @property
     def update_only(self):
         return self._update_only
 
+    # pylint: disable-msg=E0102,E0202,E1101
     @update_only.setter
     def update_only(self, value):
         if value and not self.can_update:

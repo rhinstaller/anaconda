@@ -208,10 +208,12 @@ class Dispatcher(object):
             i -= 1
         return False
 
+    #pylint: disable-msg=E0202
     @property
     def dir(self):
         return self.anaconda.dir
 
+    # pylint: disable-msg=E0102,E0202,E1101
     @dir.setter
     def dir(self, dir):
         if dir not in [DISPATCH_BACK, DISPATCH_FORWARD, DISPATCH_DEFAULT]:
