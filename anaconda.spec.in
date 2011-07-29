@@ -222,6 +222,26 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Fri Jul 29 2011 David Cantrell <dcantrell@redhat.com> - 13.21.125-1
+- Only warn when swaps with no UUID are preexisting. (dlehman)
+  Related: rhbz#695740
+- Skip cleardisks screen for custom partition layouts. (dlehman)
+  Related: rhbz#709961
+- Add a warning about the fstab implications of swap devices with no UUID.
+  (dlehman)
+  Resolves: rhbz#695740
+- Fail gracefully when device name collisions occur in kickstart. (dlehman)
+  Resolves: rhbz#691817
+- Don't traceback if disks go missing before/during partitioning. (dlehman)
+  Resolves: rhbz#709961
+- Remove hasFreeDiskSpace and related code. (dlehman)
+  Resolves: rhbz#683632
+- ssl: 'noverifyssl' kernel boot argument. (akozumpl)
+  Resolves: rhbz#696696
+- edd: fix syntax in situation when two edd directories point to the same
+  device. (akozumpl)
+  Resolves: rhbz#725777
+
 * Wed Jul 27 2011 David Cantrell <dcantrell@redhat.com> - 13.21.124-1
 - Include the files required for libreport. (clumens)
   Resolves: rhbz#705274
