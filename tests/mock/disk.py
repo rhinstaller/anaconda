@@ -41,7 +41,7 @@ class DiskIO(object):
         def __del__(self):
             try:
                 self.close()
-            except (AttributeError):
+            except (AttributeError, ValueError):
                 pass
 
         def __enter__(self):
