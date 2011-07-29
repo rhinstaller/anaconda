@@ -17,6 +17,6 @@
 #
 # Author: David Cantrell <dcantrell@redhat.com>
 
-SUBDIRS = mock kickstart_test storage_test regex pyanaconda_test pylint booty_test logpicker_test
+SUBDIRS = mock kickstart_test storage_test regex pyanaconda_test pylint logpicker_test
 
 MAINTAINERCLEANFILES = Makefile.in
