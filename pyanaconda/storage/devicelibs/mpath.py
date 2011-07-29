@@ -1,7 +1,7 @@
 
 import re
 
-from ..udev import *
+from ..udev import udev_device_is_disk
 from pyanaconda import iutil
 from pyanaconda.anaconda_log import log_method_call
 
