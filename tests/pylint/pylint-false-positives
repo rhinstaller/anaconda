@@ -26,12 +26,6 @@
 ^E1101:[ 0-9]*:.*: Instance of 'dict' has no 'Get' member$
 ^E1101:[ 0-9]*:FilteredCallbacks\..*set: Instance of 'FilteredCallbacks' has no 'notebook' member$
 ^E1101:[ 0-9]*:Anaconda\.backend: Instance of 'DefaultInstall' has no 'getBackend' member$
-^E1103:[ 0-9]*:.*: Instance of 'str' has no '.*' member \(but some types could not be inferred\)$
-^E1103:[ 0-9]*:execWithCapture: Instance of 'list' has no 'splitlines' member \(but some types could not be inferred\)$
-^E1103:[ 0-9]*:VncServer\.connectToView: Instance of 'list' has no 'startswith' member \(but some types could not be inferred\)$
-^E1103:[ 0-9]*:VncServer\.connectToView: Instance of 'list' has no 'endswith' member \(but some types could not be inferred\)$
-^E1103:[ 0-9]*:bindMountDevDirectory: Instance of 'DeviceFormat' has no 'mount' member \(but some types could not be inferred\)$
-^E1103:[ 0-9]*:DeviceTree.handleUdevDiskLabelFormat: Instance of 'DeviceFormat' has no 'partitions' member \(but some types could not be inferred\)$
 ^W0404:[ 0-9]*:runRescue: Reimport 'runPostScripts' \(imported line [0-9]*\)$
 # Note this will become a real issue when we start supporting multiple netdevs
 ^W0631:[ 0-9]*:Network.write: Using possibly undefined loop variable 'dev'$
