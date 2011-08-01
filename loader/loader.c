@@ -1919,7 +1919,7 @@ static void loadScsiDhModules(void)
 }
 
 int main(int argc, char ** argv) {
-    int i, rc;
+    int rc;
     int isDevelMode = 0;
 
     char * arg;
@@ -2166,8 +2166,12 @@ int main(int argc, char ** argv) {
 
     /* Disable all network interfaces in NetworkManager by default */
 #if !defined(__s390__) && !defined(__s390x__)
-    if ((i = writeDisabledNetInfo()) != 0) {
-        logMessage(ERROR, "writeDisabledNetInfo failure: %d", i);
+    {
+        int i;
+
+        if ((i = writeDisabledNetInfo()) != 0) {
+            logMessage(ERROR, "writeDisabledNetInfo failure: %d", i);
+        }
     }
 #endif
 
