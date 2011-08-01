@@ -65,6 +65,7 @@ void restore_flags(int orig_flags) {
     close(fd);
 }
 
+#if !defined(__s390__) && !defined(__s390x__)
 static int serial_requested(GHashTable *cmdline) {
     if (cmdline && g_hash_table_lookup_extended(cmdline, "serial", NULL, NULL))
         return 1;
@@ -148,6 +149,7 @@ static void set_term(int fd, GHashTable *cmdline) {
             setenv("TERM", "vt100-nav", 1);
     }
 }
+#endif
 
 void init_serial(struct termios *orig_cmode, int *orig_flags, GHashTable *cmdline) {
 #if !defined(__s390__) && !defined(__s390x__)
