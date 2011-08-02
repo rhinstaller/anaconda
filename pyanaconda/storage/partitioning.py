@@ -1532,7 +1532,7 @@ class DiskChunk(Chunk):
 
     def __repr__(self):
         s = super(DiskChunk, self).__str__()
-        s += ("start = %(start)d  end = %(end)d\n"
+        s += (" start = %(start)d  end = %(end)d\n"
               "sectorSize = %(sectorSize)d\n" %
               {"start": self.geometry.start, "end": self.geometry.end,
                "sectorSize": self.sectorSize})
