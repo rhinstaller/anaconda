@@ -123,6 +123,8 @@ int explodeRPM(const char *source,
     rpmVSFlags vsflags;
     const char *compr;
 
+    int packageflags = 0;
+
     if (strcmp(source, "-") == 0)
         fdi = fdDup(STDIN_FILENO);
     else
@@ -219,8 +221,6 @@ int explodeRPM(const char *source,
         const char *depversion;
         uint32_t depsense;
         
-        int found = 0;
-
         if (!headerGet(h, RPMTAG_PROVIDES, &tddep, HEADERGET_MINMEM))
             break;
 
@@ -239,16 +239,14 @@ int explodeRPM(const char *source,
         while ((depname = rpmtdNextString(&tddep))) {
             depversion = rpmtdNextString(&tdver);
             depsense = *(rpmtdNextUint32(&tdsense));
-            if (!provides(depname, depversion, depsense, userptr)) {
-                found++;
-            }
+            packageflags |= provides(depname, depversion, depsense, userptr);
         }
 
         rpmtdFreeData(&tddep);
         rpmtdFreeData(&tdver);
         rpmtdFreeData(&tdsense);
 
-        if (found<=0){
+        if (packageflags == 0) {
             Fclose(fdi);
             return EXIT_BADDEPS;
         }
@@ -293,7 +291,7 @@ int explodeRPM(const char *source,
     }
 
     /* read all files in cpio archive */
-    while ((rc = archive_read_next_header(cpio, &cpio_entry)) == ARCHIVE_OK){
+    while ((rc = archive_read_next_header(cpio, &cpio_entry)) == ARCHIVE_OK) {
         const struct stat *fstat;
         int64_t fsize;
         const char* filename;
@@ -319,7 +317,7 @@ int explodeRPM(const char *source,
         else
             towrite = 2;
 
-        if (filter && filter(filename+offset, fstat, userptr)) {
+        if (filter && (!filter(filename+offset, fstat, packageflags, userptr))) {
             /* filter this file */
             towrite = 0;
         }

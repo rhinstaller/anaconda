@@ -30,8 +30,16 @@
 #define EXIT_BADDEPS 4
 #define BUFFERSIZE 1024
 
-/* both filter functions return 0 - match, 1 - match not found */
-typedef int (*filterfunc)(const char* name, const struct stat *fstat, void *userptr);
+/*
+  filter function returns 1 - extract file, 0 - skip
+  flags is binary accumulated result from provides callbacks
+ */
+typedef int (*filterfunc)(const char* name, const struct stat *fstat, int flags, void *userptr);
+
+/*
+  returns nonzero if the dependency/provides means we should unpack the package
+  moreover the results from provides checks are binary orred (|) and passed as flags to filter function
+*/
 typedef int (*dependencyfunc)(const char* depname, const char* depversion, const uint32_t sense, void *userptr);
 
 int explodeRPM(const char* file,

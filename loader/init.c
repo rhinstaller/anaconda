@@ -85,14 +85,15 @@
 char * env[] = {
     "PATH=/usr/bin:/bin:/sbin:/usr/sbin:/mnt/sysimage/bin:"
     "/mnt/sysimage/usr/bin:/mnt/sysimage/usr/sbin:/mnt/sysimage/sbin:"
-    "/mnt/sysimage/usr/X11R6/bin",
+    "/mnt/sysimage/usr/X11R6/bin:"
+    "/tmp/DD/bin:/tmp/DD/sbin:/tmp/DD/usr/bin:/tmp/DD/usr/bin", /* for tools provided by DUPs from vendors*/
 
     /* we set a nicer ld library path specifically for bash -- a full
        one makes anaconda unhappy */
 #if defined(__x86_64__) || defined(__s390x__) || defined(__powerpc64__)
-    "LD_LIBRARY_PATH=/lib64:/usr/lib64:/lib:/usr/lib",
+    "LD_LIBRARY_PATH=/lib64:/usr/lib64:/lib:/usr/lib:/tmp/DD/lib64:/tmp/DD/usr/lib64:/tmp/DD/lib:/tmp/DD/usr/lib",
 #else
-    "LD_LIBRARY_PATH=/lib:/usr/lib",
+    "LD_LIBRARY_PATH=/lib:/usr/lib:/tmp/DD/lib:/tmp/DD/usr/lib",
 #endif
     "HOME=/",
     "TERM=linux",

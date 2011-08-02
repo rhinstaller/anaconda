@@ -63,6 +63,15 @@
 /* boot flags */
 extern uint64_t flags;
 
+/* DD extract flags */
+enum {
+    dup_nothing = 0,
+    dup_modules = 1,
+    dup_firmwares = 2,
+    dup_binaries = 4,
+    dup_libraries = 8
+} _dup_extract;
+
 /*
  * check if the RPM in question provides
  * Provides: <dep> = <version>
@@ -71,50 +80,96 @@ extern uint64_t flags;
 int dlabelProvides(const char* dep, const char* version, uint32_t sense, void *userptr)
 {
     char *kernelver = (char*)userptr;
+    int packageflags = 0;
 
     logMessage(DEBUGLVL, "Provides: %s = %s", dep, version);
 
     if (version == NULL)
-        return -1;
+        return 0;
 
-    /* not a modules package */
-    if (strcmp(dep, "kernel-modules")) return 1;
+    /* is it a modules package? */
+    if (!strcmp(dep, "kernel-modules")) {
 
-    /*
-     * exception for 6.0 and 6.1 DUDs, we changed the logic a bit and need to maintain compatibility. 
-     */
-    if (!strncmp(version, "2.6.32-131", 10) || !strncmp(version, "2.6.32-71", 9)) return 0;
+        /*
+         * exception for 6.0 and 6.1 DUDs, we changed the logic a bit and need to maintain compatibility. 
+         */
+        if ((!strncmp(version, "2.6.32-131", 10)) || (!strncmp(version, "2.6.32-71", 9)))
+            packageflags |= dup_modules | dup_firmwares;
 
-    /*
-     * Use this package only if the version match string is true for this kernel version
-     */
-    return !matchVersions(kernelver, sense, version);
+        /*
+         * Use this package only if the version match string is true for this kernel version
+         */
+        if (!matchVersions(kernelver, sense, version))
+            packageflags |= dup_modules | dup_firmwares;
+    }
+
+    /* is it an app package? */
+    if (!strcmp(dep, "installer-enhancement")) {
+
+        /*
+         * If the version string matches anaconda version, unpack binaries to /tmp/DD
+         */
+        if (!matchVersions(VERSION, sense, version))
+            packageflags |= dup_binaries | dup_libraries;
+    }
+
+    return packageflags;
 }
 
 /*
  * during cpio extraction, only extract files we need
  * eg. module .ko files and firmware directory
  */
-int dlabelFilter(const char* name, const struct stat *fstat, void *userptr)
+int dlabelFilter(const char* name, const struct stat *fstat, int packageflags, void *userptr)
 {
     int l = strlen(name);
 
-    logMessage(DEBUGLVL, "Unpacking %s", name);
+    logMessage(DEBUGLVL, "Unpacking %s with flags %02x", name, packageflags);
+
+    /* unpack bin and sbin if the package was marked as installer-enhancement */
+    if ((packageflags & dup_binaries)) {
+        if(!strncmp("bin/", name, 4))
+            return 1; 
+        else if (!strncmp("sbin/", name, 5))
+            return 1; 
+        else if (!strncmp("usr/bin/", name, 8))
+            return 1; 
+        else if (!strncmp("usr/sbin/", name, 9))
+            return 1;
+    }
+
+    /* unpack lib and lib64 if the package was marked as installer-enhancement */
+    if ((packageflags & dup_libraries)) {
+        if(!strncmp("lib/", name, 4))
+            return 1; 
+        else if (!strncmp("lib64/", name, 6))
+            return 1; 
+        else if (!strncmp("usr/lib/", name, 8))
+            return 1; 
+        else if (!strncmp("usr/lib64/", name, 10))
+            return 1;
+    }
 
     /* we want firmware files */
-    if (!strncmp("lib/firmware/", name, 13)) return 0; 
+    if ((packageflags & dup_firmwares) && !strncmp("lib/firmware/", name, 13))
+        return 1; 
 
+    /* we do not want kernel files */
+    if (!(packageflags & dup_modules))
+        return 0;
+
+    /* check if the file has at least four chars eg X.SS */
     if (l<3)
-        return 1;
+        return 0;
     l-=3;
 
-    /* and we want only .ko files */
+    /* and we want only .ko files here */
     if (strcmp(".ko", name+l))
-        return 1;
+        return 0;
 
-    /* TODO we are unpacking kernel module, read it's description */
+    /* we are unpacking kernel module.. */
 
-    return 0;
+    return 1;
 }
 
 char* moduleDescription(const char* modulePath)
