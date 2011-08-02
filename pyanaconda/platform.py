@@ -57,6 +57,7 @@ class Platform(object):
     _boot_descriptions = {}
 
     _disklabel_types = []
+    _non_linux_format_types = []
 
     def __init__(self, anaconda):
         """Creates a new Platform object.  This is basically an abstract class.
@@ -179,6 +180,8 @@ class EFI(Platform):
                           "mdarray": Platform._boot_raid_description}
 
     _disklabel_types = ["gpt"]
+    # XXX hpfs, if reported by blkid/udev, will end up with a type of None
+    _non_linux_format_types = ["vfat", "ntfs", "hpfs"]
 
     def setDefaultPartitioning(self):
         from storage.partspec import PartSpec
