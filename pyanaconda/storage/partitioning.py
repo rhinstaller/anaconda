@@ -121,12 +121,15 @@ def _schedulePartitions(storage, disks):
             # there should never be a need for more than one of these
             # partitions, so skip them.
             log.info("skipping unneeded stage1 request")
+            log.debug(request)
+            log.debug(storage.bootLoaderDevice)
             continue
         elif request.fstype == "biosboot" and storage.anaconda:
             boot_disk = storage.anaconda.bootloader.stage1_drive
             if boot_disk and boot_disk.format.labelType != "gpt":
                 # biosboot is only needed for gpt disklabels on non-efi x86
                 log.info("skipping bios boot request for msdos disklabel")
+                log.debug(request)
                 continue
 
             gpt_check = getattr(storage.anaconda.bootloader,
@@ -234,7 +237,7 @@ def doAutoPartition(anaconda):
     log.debug("lvmAutoPart: %s" % anaconda.storage.lvmAutoPart)
     log.debug("clearPartType: %s" % anaconda.storage.config.clearPartType)
     log.debug("clearPartDisks: %s" % anaconda.storage.config.clearPartDisks)
-    log.debug("autoPartitionRequests: %s" % anaconda.storage.autoPartitionRequests)
+    log.debug("autoPartitionRequests:\n%s" % "".join([str(p) for p in anaconda.storage.autoPartitionRequests]))
     log.debug("storage.disks: %s" % [d.name for d in anaconda.storage.disks])
     log.debug("storage.partitioned: %s" % [d.name for d in anaconda.storage.partitioned])
     log.debug("all names: %s" % [d.name for d in anaconda.storage.devices])
@@ -254,6 +257,8 @@ def doAutoPartition(anaconda):
     if anaconda.storage.doAutoPart:
         disks = _getCandidateDisks(anaconda.storage)
         devs = _schedulePVs(anaconda.storage, disks)
+        log.debug("candidate disks: %s" % disks)
+        log.debug("devs: %s" % devs)
 
         if disks == []:
             if anaconda.ksdata:

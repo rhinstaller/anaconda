@@ -38,7 +38,7 @@ _ = lambda x: gettext.ldgettext("anaconda", x)
 N_ = lambda x: x
 
 import logging
-log = logging.getLogger("anaconda")
+log = logging.getLogger("storage")
 
 
 def get_boot_block(device, seek_blocks=0):
