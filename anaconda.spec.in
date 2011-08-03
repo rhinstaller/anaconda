@@ -222,6 +222,15 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Wed Aug 03 2011 David Cantrell <dcantrell@redhat.com> - 13.21.126-1
+- Honor linksleep boot option (rvykydal)
+  Resolves: rhbz#713991
+- Make the yum debuglevel more reasonable. (akozumpl)
+  Resolves: rhbz#726804
+- Prevent SIGSEGV when going back after driver source selection
+  (yoshihide.sonoda.ua)
+  Resolves: rhbz#718901
+
 * Fri Jul 29 2011 David Cantrell <dcantrell@redhat.com> - 13.21.125-1
 - Only warn when swaps with no UUID are preexisting. (dlehman)
   Related: rhbz#695740

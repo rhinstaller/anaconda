@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 13.21.124\n"
+"Project-Id-Version: anaconda 13.21.125\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2011-07-29 15:12-0400\n"
+"POT-Creation-Date: 2011-08-03 15:40-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -26,10 +26,10 @@ msgstr ""
 #: loader/cdinstall.c:209 loader/cdinstall.c:213 loader/cdinstall.c:240
 #: loader/cdinstall.c:244 loader/cdinstall.c:260 loader/cdinstall.c:263
 #: loader/cdinstall.c:432 loader/cdinstall.c:439 loader/cdinstall.c:512
-#: loader/dirbrowser.c:128 loader/driverdisk.c:239 loader/driverdisk.c:422
-#: loader/driverdisk.c:454 loader/driverdisk.c:485 loader/driverdisk.c:520
-#: loader/driverdisk.c:536 loader/driverdisk.c:548 loader/driverdisk.c:556
-#: loader/driverdisk.c:728 loader/driverdisk.c:767 loader/driverselect.c:78
+#: loader/dirbrowser.c:128 loader/driverdisk.c:239 loader/driverdisk.c:423
+#: loader/driverdisk.c:459 loader/driverdisk.c:490 loader/driverdisk.c:525
+#: loader/driverdisk.c:541 loader/driverdisk.c:553 loader/driverdisk.c:561
+#: loader/driverdisk.c:733 loader/driverdisk.c:772 loader/driverselect.c:78
 #: loader/driverselect.c:178 loader/hdinstall.c:115 loader/hdinstall.c:266
 #: loader/hdinstall.c:325 loader/hdinstall.c:360 loader/hdinstall.c:440
 #: loader/hdinstall.c:483 loader/hdinstall.c:496 loader/kbd.c:119
@@ -43,7 +43,7 @@ msgstr ""
 #: loader/mediacheck.c:96 loader/mediacheck.c:105 loader/method.c:277
 #: loader/method.c:351 loader/modules.c:382 loader/modules.c:398
 #: loader/net.c:593 loader/net.c:973 loader/net.c:1633 loader/net.c:1657
-#: loader/net.c:1975 loader/net.c:1994 loader/net.c:2006
+#: loader/net.c:1976 loader/net.c:1995 loader/net.c:2007
 #: loader/nfsinstall.c:91 loader/nfsinstall.c:279 loader/nfsinstall.c:296
 #: loader/nfsinstall.c:384 loader/telnetd.c:92 loader/urlinstall.c:137
 #: loader/urlinstall.c:159 loader/urlinstall.c:221 loader/urlinstall.c:374
@@ -260,7 +260,7 @@ msgstr ""
 
 #: gui.py:726 gui.py:1540 partIntfHelpers.py:159 partIntfHelpers.py:344
 #: text.py:100 text.py:101 iw/account_gui.py:131 loader/dirbrowser.c:128
-#: loader/driverdisk.c:423 loader/kickstart.c:331 loader/loader.c:470
+#: loader/driverdisk.c:424 loader/kickstart.c:331 loader/loader.c:470
 #: loader/loader.c:582 textw/constants_text.py:48 textw/userauth_text.py:87
 msgid "Cancel"
 msgstr ""
@@ -472,8 +472,8 @@ msgstr ""
 #: iw/osbootwidget.py:220 iw/raid_dialog_gui.py:218 iw/task_gui.py:54
 #: iw/task_gui.py:152 iw/task_gui.py:305 iw/task_gui.py:469
 #: loader/windows.h:31 loader/cdinstall.c:240 loader/cdinstall.c:512
-#: loader/driverdisk.c:239 loader/driverdisk.c:485 loader/driverdisk.c:520
-#: loader/driverdisk.c:548 loader/driverdisk.c:556 loader/driverdisk.c:628
+#: loader/driverdisk.c:239 loader/driverdisk.c:490 loader/driverdisk.c:525
+#: loader/driverdisk.c:553 loader/driverdisk.c:561 loader/driverdisk.c:633
 #: loader/hdinstall.c:115 loader/hdinstall.c:325 loader/hdinstall.c:440
 #: loader/hdinstall.c:483 loader/hdinstall.c:496 loader/kickstart.c:299
 #: loader/lang.c:114 loader/loader.c:434 loader/loader.c:545
@@ -1183,12 +1183,12 @@ msgstr ""
 msgid "Do you want to start the network interfaces on this system?"
 msgstr ""
 
-#: rescue.py:256 loader/driverdisk.c:668 loader/driverdisk.c:678
+#: rescue.py:256 loader/driverdisk.c:673 loader/driverdisk.c:683
 #: loader/hdinstall.c:212 textw/constants_text.py:56
 msgid "Yes"
 msgstr ""
 
-#: rescue.py:256 rescue.py:258 loader/driverdisk.c:668 loader/driverdisk.c:678
+#: rescue.py:256 rescue.py:258 loader/driverdisk.c:673 loader/driverdisk.c:683
 #: textw/constants_text.py:60
 msgid "No"
 msgstr ""
@@ -1223,7 +1223,7 @@ msgid ""
 msgstr ""
 
 #: rescue.py:311 iw/partition_gui.py:787 loader/cdinstall.c:218
-#: loader/cdinstall.c:226 loader/driverdisk.c:629 storage/__init__.py:155
+#: loader/cdinstall.c:226 loader/driverdisk.c:634 storage/__init__.py:155
 #: storage/devicetree.py:92
 msgid "Continue"
 msgstr ""
@@ -3431,12 +3431,12 @@ msgstr ""
 msgid "Disc Not Found"
 msgstr ""
 
-#: loader/cdinstall.c:439 loader/driverdisk.c:423 loader/driverdisk.c:455
-#: loader/driverdisk.c:536 loader/driverselect.c:78 loader/driverselect.c:152
+#: loader/cdinstall.c:439 loader/driverdisk.c:424 loader/driverdisk.c:460
+#: loader/driverdisk.c:541 loader/driverselect.c:78 loader/driverselect.c:152
 #: loader/driverselect.c:178 loader/hdinstall.c:212 loader/hdinstall.c:266
 #: loader/kbd.c:119 loader/loader.c:511 loader/loader.c:528
 #: loader/loader.c:1431 loader/loader.c:1464 loader/net.c:593 loader/net.c:973
-#: loader/net.c:1975 loader/net.c:1994 loader/nfsinstall.c:91
+#: loader/net.c:1976 loader/net.c:1995 loader/nfsinstall.c:91
 #: loader/urls.c:268 storage/__init__.py:109 storage/__init__.py:155
 #: storage/devicetree.py:92 textw/constants_text.py:52
 msgid "Back"
@@ -3459,65 +3459,65 @@ msgstr ""
 msgid "Reading driver disk"
 msgstr ""
 
-#: loader/driverdisk.c:417 loader/driverdisk.c:450
+#: loader/driverdisk.c:418 loader/driverdisk.c:455
 msgid "Driver Disk Source"
 msgstr ""
 
-#: loader/driverdisk.c:418
+#: loader/driverdisk.c:419
 msgid ""
 "You have multiple devices which could serve as sources for a driver disk.  "
 "Which would you like to use?"
 msgstr ""
 
-#: loader/driverdisk.c:451
+#: loader/driverdisk.c:456
 msgid ""
 "There are multiple partitions on this device which could contain the driver "
 "disk image.  Which would you like to use?"
 msgstr ""
 
-#: loader/driverdisk.c:486
+#: loader/driverdisk.c:491
 msgid "Failed to mount partition."
 msgstr ""
 
-#: loader/driverdisk.c:491
+#: loader/driverdisk.c:496
 msgid "Select driver disk image"
 msgstr ""
 
-#: loader/driverdisk.c:492
+#: loader/driverdisk.c:497
 msgid "Select the file which is your driver disk image."
 msgstr ""
 
-#: loader/driverdisk.c:521
+#: loader/driverdisk.c:526
 msgid "Failed to load driver disk from file."
 msgstr ""
 
-#: loader/driverdisk.c:533
+#: loader/driverdisk.c:538
 #, c-format
 msgid "Insert your driver disk into /dev/%s and press \"OK\" to continue."
 msgstr ""
 
-#: loader/driverdisk.c:536
+#: loader/driverdisk.c:541
 msgid "Insert Driver Disk"
 msgstr ""
 
-#: loader/driverdisk.c:549
+#: loader/driverdisk.c:554
 msgid "Failed to mount driver disk."
 msgstr ""
 
-#: loader/driverdisk.c:557
+#: loader/driverdisk.c:562
 #, c-format
 msgid "Driver disk is invalid for this release of %s."
 msgstr ""
 
-#: loader/driverdisk.c:628
+#: loader/driverdisk.c:633
 msgid "Manually choose"
 msgstr ""
 
-#: loader/driverdisk.c:629
+#: loader/driverdisk.c:634
 msgid "Load another disk"
 msgstr ""
 
-#: loader/driverdisk.c:630
+#: loader/driverdisk.c:635
 msgid ""
 "No new drivers were found on this driver disk.This may indicate that this "
 "disk has already been loaded,or that the drivers it contains don't match "
@@ -3525,23 +3525,23 @@ msgid ""
 "or load another driver disk?"
 msgstr ""
 
-#: loader/driverdisk.c:668
+#: loader/driverdisk.c:673
 msgid "Driver disk"
 msgstr ""
 
-#: loader/driverdisk.c:669
+#: loader/driverdisk.c:674
 msgid "Do you have a driver disk?"
 msgstr ""
 
-#: loader/driverdisk.c:678
+#: loader/driverdisk.c:683
 msgid "More Driver Disks?"
 msgstr ""
 
-#: loader/driverdisk.c:679
+#: loader/driverdisk.c:684
 msgid "Do you wish to load any more driver disks?"
 msgstr ""
 
-#: loader/driverdisk.c:728 loader/driverdisk.c:767 loader/hdinstall.c:360
+#: loader/driverdisk.c:733 loader/driverdisk.c:772 loader/hdinstall.c:360
 #: loader/kickstart.c:135 loader/kickstart.c:145 loader/kickstart.c:187
 #: loader/kickstart.c:192 loader/kickstart.c:514 loader/modules.c:382
 #: loader/modules.c:398 loader/net.c:1633 loader/net.c:1657
@@ -3550,12 +3550,12 @@ msgstr ""
 msgid "Kickstart Error"
 msgstr ""
 
-#: loader/driverdisk.c:729
+#: loader/driverdisk.c:734
 #, c-format
 msgid "Unknown driver disk kickstart source: %s"
 msgstr ""
 
-#: loader/driverdisk.c:768
+#: loader/driverdisk.c:773
 #, c-format
 msgid ""
 "The following invalid argument was specified for the kickstart driver disk "
@@ -4063,48 +4063,48 @@ msgstr ""
 msgid "Seconds:"
 msgstr ""
 
-#: loader/net.c:1970
+#: loader/net.c:1971
 msgid "Networking Device"
 msgstr ""
 
-#: loader/net.c:1971
+#: loader/net.c:1972
 msgid ""
 "You have multiple network devices on this system. Which would you like to "
 "install through?"
 msgstr ""
 
-#: loader/net.c:1975
+#: loader/net.c:1976
 msgid "Identify"
 msgstr ""
 
-#: loader/net.c:1984
+#: loader/net.c:1985
 msgid "You can identify the physical port for"
 msgstr ""
 
-#: loader/net.c:1986
+#: loader/net.c:1987
 msgid ""
 "by flashing the LED lights for a number of seconds.  Enter a number between "
 "1 and 30 to set the duration to flash the LED port lights."
 msgstr ""
 
-#: loader/net.c:1993
+#: loader/net.c:1994
 msgid "Identify NIC"
 msgstr ""
 
-#: loader/net.c:2006
+#: loader/net.c:2007
 msgid "Invalid Duration"
 msgstr ""
 
-#: loader/net.c:2007
+#: loader/net.c:2008
 msgid "You must enter the number of seconds as an integer between 1 and 30."
 msgstr ""
 
-#: loader/net.c:2019
+#: loader/net.c:2020
 #, c-format
 msgid "Flashing %s port lights for %d seconds."
 msgstr ""
 
-#: loader/net.c:2223 loader/net.c:2227
+#: loader/net.c:2224 loader/net.c:2228
 #, c-format
 msgid "Waiting for NetworkManager to configure %s.\n"
 msgstr ""
