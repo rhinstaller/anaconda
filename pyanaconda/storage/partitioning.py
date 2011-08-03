@@ -254,7 +254,6 @@ def doAutoPartition(anaconda):
         # previous boot order selection from clearpart_gui or kickstart
         anaconda.bootloader.clear_drive_list()
 
-    if anaconda.storage.doAutoPart:
         disks = _getCandidateDisks(anaconda.storage)
         devs = _schedulePVs(anaconda.storage, disks)
         log.debug("candidate disks: %s" % disks)
