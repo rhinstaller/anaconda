@@ -32,7 +32,7 @@ import selinux
 from flags import flags
 from constants import *
 from product import productName
-from storage import findExistingRootDevices, getReleaseString
+from storage import findExistingRootDevices
 from storage import mountExistingSystem
 from storage.formats import getFormat
 
