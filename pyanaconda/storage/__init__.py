@@ -1446,7 +1446,14 @@ def getReleaseString(mountpoint):
 
     # We get the arch from the initscripts package, but the version and name
     # must come from reading the release file.
-    mi = ts.dbMatch('provides', 'initscripts')
+    try:
+        mi = ts.dbMatch('provides', 'initscripts')
+    except Exception:
+        # This could happen in a variety of cases, but the biggest one is we're
+        # examining an installed system that doesn't use RPM.  Raise an
+        # exception for the caller to handle.
+        raise ValueError
+
     for h in mi:
         relArch = h['arch']
         break
@@ -1505,7 +1512,12 @@ def findExistingRootDevices(anaconda, upgradeany=False):
             continue
 
         if os.access(anaconda.rootPath + "/etc/fstab", os.R_OK):
-            (arch, product, version) = getReleaseString(anaconda.rootPath)
+            try:
+                (arch, product, version) = getReleaseString(anaconda.rootPath)
+            except ValueError:
+                # This likely isn't our product, so don't even count it as
+                # notUpgradable.
+                continue
 
             if upgradeany or \
                anaconda.instClass.productUpgradable(arch, product, version):
