@@ -43,44 +43,40 @@ class ProductTest(mock.TestCase):
         self.open = __builtin__.open
         __builtin__.open = self.fs.open
 
+        if 'pyanaconda.product' in sys.modules:
+            del(sys.modules["pyanaconda.product"])
+
     def tearDown(self):
         __builtin__.open = self.open
         self.tearDownModules()
 
-
     def bug_url_test(self):
         sys.modules['os'].access = mock.Mock(return_value=True)
-        del(sys.modules["pyanaconda.product"])
         import pyanaconda.product
         self.assertEqual(pyanaconda.product.bugUrl, self.BUGURL)
 
     def is_final_test(self):
         sys.modules['os'].access = mock.Mock(return_value=True)
-        del(sys.modules["pyanaconda.product"])
         import pyanaconda.product
         self.assertFalse(pyanaconda.product.isFinal)
 
     def product_arch_test(self):
         sys.modules['os'].access = mock.Mock(return_value=True)
-        del(sys.modules["pyanaconda.product"])
         import pyanaconda.product
         self.assertEqual(pyanaconda.product.productArch, self.ARCH)
 
     def product_name_test(self):
         sys.modules['os'].access = mock.Mock(return_value=True)
-        del(sys.modules["pyanaconda.product"])
         import pyanaconda.product
         self.assertEqual(pyanaconda.product.productName, self.NAME)
 
     def product_stamp_test(self):
         sys.modules['os'].access = mock.Mock(return_value=True)
-        del(sys.modules["pyanaconda.product"])
         import pyanaconda.product
         self.assertEqual(pyanaconda.product.productStamp, self.UUID)
 
     def product_version_test(self):
         sys.modules['os'].access = mock.Mock(return_value=True)
-        del(sys.modules["pyanaconda.product"])
         import pyanaconda.product
         self.assertEqual(pyanaconda.product.productVersion, self.VERSION)
 
