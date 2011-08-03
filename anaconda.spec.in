@@ -234,6 +234,18 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Wed Aug 03 2011 Chris Lumens <clumens@redhat.com> - 16.14.1-1
+- Only warn when swaps with no UUID are preexisting. (dlehman)
+- Fix scan of already-active mdbiosraidarrays before scan of container. (dlehman)
+- Show all disks in text mode cleardisks selector. (#714836) (dlehman)
+- Fix a traceback when user makes a partition whose size is out-of-bounds. (dlehman)
+- Add a warning about the fstab implications of swap devices with no UUID. (dlehman)
+- Fail gracefully when device name collisions occur in kickstart. (dlehman)
+- Don't traceback if disks go missing before/during partitioning. (dlehman)
+- dispatcher: allow requesting a step without insisting. (akozumpl)
+- fix syntax in situation when two edd directories point to the same
+  device. (akozumpl)
+
 * Tue Jul 26 2011 Chris Lumens <clumens@redhat.com> - 16.14-1
 - Change IsBeta to IsFinal (mgracik)
 - edd: do not traceback with cciss devices. (akozumpl)
