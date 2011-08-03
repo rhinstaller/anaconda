@@ -163,7 +163,7 @@ class PartitionTypeWindow(InstallWindow):
             self.dispatch.skip_steps("autopartitionexecute")
             self.dispatch.skip_steps("cleardiskssel")
             self.dispatch.request_steps("partition")
-            self.dispatch.request_steps("bootloader")
+            self.dispatch.request_steps_gently("bootloader")
 
             self.storage.config.clearPartType = CLEARPART_TYPE_NONE
         else:
@@ -184,7 +184,9 @@ class PartitionTypeWindow(InstallWindow):
             elif self.buttonGroup.getCurrent() == "freespace":
                 self.storage.config.clearPartType = CLEARPART_TYPE_NONE
 
-            self.dispatch.request_steps("autopartitionexecute", "cleardiskssel")
+            self.dispatch.request_steps("autopartitionexecute")
+            # cleardiskssel is skipped for upgrades:
+            self.dispatch.request_steps_gently("cleardiskssel")
 
             if self.lvmButton.get_active():
                 self.storage.lvmAutoPart = True

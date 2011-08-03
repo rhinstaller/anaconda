@@ -309,6 +309,16 @@ class Dispatcher(object):
     def schedule_steps(self, *steps):
         changes = map(lambda s: self.steps[s].schedule(self._current_step()), steps)
 
+    def schedule_steps_gently(self, *steps):
+        """ Schedules steps and won't raise an error if it is not possible for
+            some of them.
+        """
+        for step in steps:
+            try:
+                self.schedule_steps(step)
+            except errors.DispatchError as e:
+                log.debug("dispatch: %s" % e)
+
     def step_disabled(self, step):
         """ True if step is not yet scheduled to be run or will never be run
             (i.e. is skipped).

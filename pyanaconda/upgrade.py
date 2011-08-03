@@ -102,7 +102,7 @@ def findRootParts(anaconda):
     setUpgradeRoot(anaconda)
 
     if anaconda.rootParts is not None and len(anaconda.rootParts) > 0:
-        anaconda.dispatch.request_steps("findinstall")
+        anaconda.dispatch.request_steps_gently("findinstall")
     else:
         anaconda.dispatch.skip_steps("findinstall")
 
@@ -258,14 +258,19 @@ def upgradeMountFilesystems(anaconda):
 
 def setSteps(anaconda):
     dispatch = anaconda.dispatch
-    dispatch.schedule_steps(
+    # in case we are scheduling steps from the examine GUI, it is already too
+    # late for some of them:
+    dispatch.schedule_steps_gently(
                 "language",
                 "keyboard",
                 "filtertype",
                 "filter",
                 "storageinit",
                 "findrootparts",
-                "findinstall",
+                "findinstall"
+                )
+    # schedule the rest:
+    dispatch.schedule_steps(
                 "upgrademount",
                 "restoretime",
                 "upgrademigfind",
