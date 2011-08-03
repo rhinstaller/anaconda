@@ -1301,15 +1301,11 @@ class EFIGRUB(GRUB):
 
             eg: HD(1,800,64000,faacb4ef-e361-455e-bd97-ca33632550c3)
         """
-        path = ""
         buf = self.efibootmgr("-v", stderr="/dev/tty5", capture=True)
-        matches = re.search(productName + r'\s+HD\(.+?\)', buf)
-        if matches:
-            path = re.sub(productName + r'\s+',
-                          '',
-                          buf[matches[0].start():matches[0].end()])
-
-        return path
+        matches = re.search(productName + r'\s+(HD\(.+?\))', buf)
+        if matches and matches.groups():
+            return matches.group(1)
+        return ""
 
     @property
     def grub_conf_device_line(self):
