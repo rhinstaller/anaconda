@@ -185,7 +185,7 @@ class InstallInterface(InstallInterfaceBase):
                     time.sleep(1)
 
             anaconda.dispatch.gotoNext()
-	    (step, instance) = anaconda.dispatch.currentStep()
+            (step, instance) = anaconda.dispatch.currentStep()
 
     def setSteps(self, anaconda):
         pass
@@ -207,7 +207,7 @@ class progressDisplay:
     def set_fraction(self, pct):
         self.pct = pct
     def set_text(self, txt):
-        pass
+        print(txt)
     def set_label(self, txt):
         stripped = strip_markup(txt)
         if stripped != self.display:
@@ -220,5 +220,5 @@ def setupProgressDisplay(anaconda):
         return DISPATCH_BACK
     else:
         anaconda.id.setInstallProgressClass(progressDisplay())
-        
+
     return DISPATCH_FORWARD
