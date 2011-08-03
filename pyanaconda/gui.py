@@ -810,8 +810,17 @@ class DetailedMessageWindow(MessageWindow):
             self.dialog.set_transient_for(parent)
 
         if custom_icon:
+            str_to_gtk_stock = {
+                "warning" : gtk.STOCK_DIALOG_WARNING,
+                "question": gtk.STOCK_DIALOG_QUESTION,
+                "error"   : gtk.STOCK_DIALOG_ERROR,
+                "info"    : gtk.STOCK_DIALOG_INFO }
             img = gtk.Image()
-            img.set_from_file(custom_icon)
+            stock = str_to_gtk_stock.get(custom_icon, None)
+            if stock:
+                img.set_from_stock(stock, gtk.ICON_SIZE_DIALOG)
+            else:
+                img.set_from_file(custom_icon)
             self.hbox.pack_start(img)
             self.hbox.reorder_child(img, 0)
 
