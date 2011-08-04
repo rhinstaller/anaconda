@@ -384,16 +384,17 @@ class Storage(object):
         self.doEncryptionPassphraseRetrofits()
 
         # now set the boot partition's flag
-        try:
-            boot = self.bootDevice
+        if self.anaconda:
+            if self.anaconda.bootloader.stage2_bootable:
+                boot = self.bootDevice
+            else:
+                boot = self.bootLoaderDevice
+
             if boot.type == "mdarray":
                 bootDevs = boot.parents
             else:
                 bootDevs = [boot]
-        except (DeviceError, AttributeError):
-            # AttributeError means we have no platform instance. it's ok.
-            bootDevs = []
-        else:
+
             for dev in bootDevs:
                 if hasattr(dev, "bootable"):
                     # Dos labels can only have one partition marked as active
