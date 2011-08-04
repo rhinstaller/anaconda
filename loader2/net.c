@@ -2300,8 +2300,7 @@ int chooseNetworkInterface(struct loaderData_s * loaderData) {
             devmacaddr = nl_mac2str(devices[i]);
 	    if(!strcasecmp(devmacaddr, ibftmacaddr)){
                 logMessage(INFO, "%s has the right MAC (%s), checking for link", devmacaddr, devices[i]);
-		free(devmacaddr);
-		if(get_link_status(devices[i]) == 1){
+		if (!waitForLink(devices[i])) {
 		    lookForLink = 0;
 		    loaderData->netDev = devices[i];
                     logMessage(INFO, "%s has link, using it", devices[i]);
@@ -2320,8 +2319,8 @@ int chooseNetworkInterface(struct loaderData_s * loaderData) {
 	    }
 	    else{
                 logMessage(DEBUGLVL, "%s (%s) is not it...", devices[i], devmacaddr);
-		free(devmacaddr);
 	    }
+            free(devmacaddr);
 	}
 
 	break;
