@@ -412,7 +412,7 @@ class VolumeGroupEditor:
         templv = self.getLVByName(lv['name'], vg=tempvg)
         usedev = templv
         if templv.format.type == "luks":
-            templuks = LUKSDevice("luks-%s" % lv['name'],
+            templuks = LUKSDevice(templv.format.mapName,
                                   parents=[templv],
                                   format=self.luks[lv['name']],
                                   exists=templv.format.exists)
@@ -787,7 +787,9 @@ class VolumeGroupEditor:
                     templv.targetSize = targetSize
 
             if format.exists and format.mountable and format.mountpoint:
+                orig_dev = format.device
                 tempdev = StorageDevice('tmp', format=format)
+                tempdev.format.device = orig_dev
                 if self.storage.formatByDefault(tempdev) and \
                    not queryNoFormatPreExisting(self.intf):
                     continue
@@ -1131,6 +1133,11 @@ class VolumeGroupEditor:
                 # this lv is preexisting. check for resize and reformat.
                 # first, get the real/original lv
                 origlv = self.getLVByName(lv.lvname)
+                # make sure the format's device attr doesn't reference
+                # an lv in the temp vg
+                origlv.format.device = origlv.path
+                origlv.originalFormat.device = origlv.path
+
                 if lv.resizable and lv.targetSize != origlv.size:
                     actions.append(ActionResizeDevice(origlv, lv.targetSize))
 
