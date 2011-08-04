@@ -1202,6 +1202,10 @@ class VolumeGroupEditor:
                         else:
                             usedev = origlv
 
+                        # make sure the format's device attr doesn't reference
+                        # an lv in the temp vg
+                        origlv.format.device = origlv.path
+
                     if hasattr(format, "mountpoint"):
                         usedev.format.mountpoint = format.mountpoint
 
