@@ -412,6 +412,11 @@ class Storage(object):
                          continue
                     log.info("setting boot flag on %s" % dev.name)
                     dev.bootable = True
+
+                    # Set the boot partition's name
+                    ped_partition = dev.partedPartition.getPedPartition()
+                    ped_partition.set_name(dev.format.name)
+
                     dev.disk.setup()
                     dev.disk.format.commitToDisk()
 
