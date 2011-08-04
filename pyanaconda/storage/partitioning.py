@@ -116,12 +116,20 @@ def _schedulePartitions(storage, disks):
 
         if request.fstype is None:
             request.fstype = storage.defaultFSType
-        elif request.fstype in ("prepboot", "efi") and \
-                storage.bootLoaderDevice:
+        elif request.fstype == "prepboot" and storage.bootLoaderDevice:
             # there should never be a need for more than one of these
             # partitions, so skip them.
-            log.info("skipping unneeded stage1 request")
+            log.info("skipping unneeded stage1 prepboot request")
             log.debug(request)
+            log.debug(storage.bootLoaderDevice)
+            continue
+        elif request.fstype == "efi" and storage.bootLoaderDevice:
+            # there should never be a need for more than one of these
+            # partitions, so skip them.
+            log.info("skipping unneeded stage1 efi request")
+            log.debug(request)
+            # Set the mountpoint for the existing EFI boot partition
+            storage.bootLoaderDevice.format.mountpoint = "/boot/efi"
             log.debug(storage.bootLoaderDevice)
             continue
         elif request.fstype == "biosboot" and storage.anaconda:
