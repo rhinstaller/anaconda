@@ -197,7 +197,7 @@ class DeviceTree(object):
         self.__luksDevs = {}
         if luksDict and isinstance(luksDict, dict):
             self.__luksDevs = luksDict
-            self.__passphrases.extend(luksDict.values())
+            self.__passphrases.extend([p for p in luksDict.values() if p])
 
         self._ignoredDisks = []
         for disk in getattr(conf, "ignoredDisks", []):
@@ -1163,6 +1163,9 @@ class DeviceTree(object):
             passphrase = self.__luksDevs.get(device.format.uuid)
             if passphrase:
                 device.format.passphrase = passphrase
+            elif device.format.uuid in self.__luksDevs:
+                log.info("skipping previously-skipped luks device %s"
+                            % device.name)
             elif self._cleanup:
                 # if we're only building the devicetree so that we can
                 # tear down all of the devices we don't need a passphrase
