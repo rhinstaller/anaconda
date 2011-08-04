@@ -537,6 +537,12 @@ class BootLoader(object):
             self.warnings = []
             return valid
 
+        if os.path.exists("/dev/live") and \
+           os.path.realpath("/dev/live") == device.path:
+            self.errors.append(_("The live device cannot be used as the %s")
+                               % description)
+            valid = False
+
         if not self._device_type_match(device, constraint["device_types"]):
             self.errors.append(_("The %s cannot be of type %s")
                                % (description, device.type))
@@ -567,7 +573,7 @@ class BootLoader(object):
             log.warning("%s not bootable" % device.name)
 
         # XXX does this need to be here?
-        if getattr(device.format, "label", None) == "ANACONDA":
+        if getattr(device.format, "label", None) in ("ANACONDA", "LIVE"):
             log.info("ignoring anaconda boot disk")
             valid = False
 

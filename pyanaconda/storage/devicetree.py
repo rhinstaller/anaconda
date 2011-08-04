@@ -1572,7 +1572,6 @@ class DeviceTree(object):
                 efi = formats.getFormat("efi")
                 if efi.minSize <= device.size <= efi.maxSize:
                     args[0] = "efi"
-                    kwargs['mountpoint'] = "/boot/efi"
         elif format_type == "hfs":
             # apple bootstrap magic
             if isinstance(device, PartitionDevice) and device.bootable:
