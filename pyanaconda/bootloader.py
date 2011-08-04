@@ -1346,6 +1346,7 @@ class EFIGRUB(GRUB):
             #        treatment, ie: multiple targets for each member.
             boot_disk = boot_efi.parents[0].disk
             boot_part_num = boot_efi.parents[0].partedPartition.number
+        boot_part_num = str(boot_part_num)
 
         rc = self.efibootmgr("-c", "-w", "-L", productName,
                              "-d", boot_disk.path, "-p", boot_part_num,
