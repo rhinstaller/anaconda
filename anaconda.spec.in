@@ -234,6 +234,18 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Fri Aug 05 2011 Chris Lumens <clumens@redhat.com> - 16.14.2-1
+- Fix extra quote in grub.conf header string (bcl)
+- Set EFI mountpoint when using existing partition (#727933) (bcl)
+- Set the boot partition's name (bcl)
+- Set boot partition's boot flag, stage2 has priority, fallback to stage1 (bcl)
+- exec params need to all be strings (bcl)
+- Fix efi_product_path regex (#728007) (bcl)
+- Remove unneeded if block (bcl)
+- Add some useful logging for partitioning and boot device choices (bcl)
+- Add a space to DiskChunk repr string (bcl)
+- Setup default for non_linux_format_types (#728015). (bcl)
+
 * Wed Aug 03 2011 Chris Lumens <clumens@redhat.com> - 16.14.1-1
 - Only warn when swaps with no UUID are preexisting. (dlehman)
 - Fix scan of already-active mdbiosraidarrays before scan of container. (dlehman)
