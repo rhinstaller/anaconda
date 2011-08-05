@@ -290,6 +290,8 @@ class Anaconda(object):
         self.instLanguage.write()
 
         self.timezone.write()
+        if not self.ksdata:
+            self.instClass.setNetworkOnbootDefault(self.network)
         self.network.write()
         self.network.copyConfigToPath()
         self.network.disableNMForStorageDevices(self)

@@ -211,6 +211,9 @@ class BaseInstallClass(object):
 
         return self.productMatches(oldprod) and self.versionMatches(oldver) and archesEq(arch, productArch)
 
+    def setNetworkOnbootDefault(self, network):
+        pass
+
     def __init__(self):
 	pass
 
