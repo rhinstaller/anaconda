@@ -25,8 +25,5 @@ MAINTAINERCLEANFILES = Makefile.in
 install-exec-local:
 	mkdir -p $(DESTDIR)/lib/systemd/system/anaconda.target.wants
 	ln -sf /lib/systemd/system/anaconda-shell.service $(DESTDIR)/lib/systemd/system/anaconda.target.wants
-	ln -sf /lib/systemd/system/dbus.target $(DESTDIR)/lib/systemd/system/anaconda.target.wants
 	ln -sf /lib/systemd/system/loader.service $(DESTDIR)/lib/systemd/system/anaconda.target.wants
-	ln -sf /lib/systemd/system/sockets.target $(DESTDIR)/lib/systemd/system/anaconda.target.wants
-	ln -sf /lib/systemd/system/udev.service $(DESTDIR)/lib/systemd/system/anaconda.target.wants
 	ln -sf /lib/systemd/system/udev-settle.service $(DESTDIR)/lib/systemd/system/anaconda.target.wants
