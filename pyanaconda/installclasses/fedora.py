@@ -22,6 +22,8 @@ from pyanaconda.constants import *
 from pyanaconda.product import *
 from pyanaconda.flags import flags
 from pyanaconda import iutil
+from pyanaconda.network import hasActiveNetDev
+from pyanaconda import isys
 
 import os, types
 import gettext
@@ -121,6 +123,16 @@ class InstallClass(BaseInstallClass):
         # This line means we do not support upgrading from anything older
         # than two versions ago!
         return newVer >= oldVer and newVer - oldVer <= 2
+
+    def setNetworkOnbootDefault(self, network):
+        if hasActiveNetDev():
+            return
+
+        for devName, dev in network.netdevices.items():
+            if (not isys.isWirelessDevice(devName) and
+                isys.getLinkStatus(devName)):
+                dev.set(('ONBOOT', 'yes'))
+                break
 
     def __init__(self):
 	BaseInstallClass.__init__(self)
