@@ -2177,9 +2177,10 @@ int main(int argc, char ** argv) {
     }
 #endif
 
-    /* Start NetworkManager now so it's always available to talk to. */
-    if (iface_start_NetworkManager())
-        logMessage(INFO, "failed to start NetworkManager");
+    /* Restart NetworkManager now so that it uses our inital ifcfg config */
+    logMessage(INFO, "restarting NetworkManager");
+    if (iface_restart_NetworkManager())
+        logMessage(ERROR, "failed to restart NetworkManager");
 
     if (!FL_CMDLINE(flags))
         startNewt();
