@@ -156,9 +156,9 @@ gboolean is_nm_connected(void);
 gboolean is_iface_activated(char * ifname);
 
 /*
- * Start NetworkManager
+ * Restart NetworkManager
  */
-int iface_start_NetworkManager(void);
+int iface_restart_NetworkManager(void);
 
 /*
  * Set Maximum Transfer Unit (MTU) on specified interface

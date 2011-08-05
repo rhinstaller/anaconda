@@ -53,6 +53,7 @@
 
 #include "isys.h"
 #include "iface.h"
+#include "log.h"
 
 /* Internal-only function prototypes. */
 static struct nl_handle *_iface_get_handle(void);
@@ -501,37 +502,40 @@ int wait_for_nm(void) {
  * Start NetworkManager -- requires that you have already written out the
  * control files in /etc/sysconfig for the interface.
  */
-int iface_start_NetworkManager(void) {
-    pid_t pid;
+int iface_restart_NetworkManager(void) {
+    int child, status;
 
-    if (is_nm_running())
-        return 0;  /* already running */
-
-    /* Start NetworkManager */
-    pid = fork();
-    if (pid == 0) {
-        if (setpgrp() == -1) {
-            exit(1);
-        }
+    if (!(child = fork())) {
 
         if (_iface_redirect_io("/dev/null", STDIN_FILENO, O_RDONLY) ||
-            _iface_redirect_io(OUTPUT_TERMINAL, STDOUT_FILENO, O_WRONLY) ||
-            _iface_redirect_io(OUTPUT_TERMINAL, STDERR_FILENO, O_WRONLY)) {
-            exit(2);
+            _iface_redirect_io("/dev/tty3", STDOUT_FILENO, O_WRONLY) ||
+            _iface_redirect_io("/dev/tty3", STDERR_FILENO, O_WRONLY)) {
+            exit(253);
         }
 
-        if (execl(NETWORKMANAGER, NETWORKMANAGER,
-                  "--pid-file=/var/run/NetworkManager/NetworkManager.pid",
-                  NULL) == -1) {
-            exit(3);
-        }
-    } else if (pid == -1) {
+        execl("/bin/systemctl", "/bin/systemctl", "restart", "NetworkManager.service", NULL);
+        exit(254);
+    } else if (child < 0) {
+        logMessage(ERROR, "%s (%d): %m", __func__, __LINE__);
+        return 1;
+    }
+
+    if (waitpid(child, &status, 0) == -1) {
+        logMessage(ERROR, "%s (%d): %m", __func__, __LINE__);
+        return 1;
+    }
+
+    if (!WIFEXITED(status)) {
+        logMessage(ERROR, "%s (%d): %m", __func__, __LINE__);
+        return 1;
+    }
+
+    if (WEXITSTATUS(status)) {
+        logMessage(ERROR, "failed to restart NetworkManager with status %d", WEXITSTATUS(status));
         return 1;
     } else {
         return wait_for_nm();
     }
-
-    return 0;
 }
 
 /*
