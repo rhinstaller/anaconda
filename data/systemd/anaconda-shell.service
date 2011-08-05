@@ -5,7 +5,13 @@ After=dev-tty2.device
 
 [Service]
 Environment=TERM=linux
+WorkingDirectory=/
 ExecStart=-/sbin/agetty -n tty2 38400
 Restart=always
 RestartSec=0
 TimeoutSec=0
+TTYPath=/dev/tty2
+TTYReset=yes
+TTYVHangup=yes
+TTYVTDisallocate=yes
+KillSignal=SIGHUP
