@@ -100,7 +100,9 @@ class EddMatcher(object):
 
     def devname_from_pci_dev(self):
         name = None
-        if self.edd.type == "ATA":
+        if self.edd.type == "ATA" and \
+                self.edd.channel is not None and \
+                self.edd.ata_device is not None:
             path = "/sys/devices/pci0000:00/0000:%(pci_dev)s/host%(chan)d/"\
                 "target%(chan)d:0:%(dev)d/%(chan)d:0:%(dev)d:0/block" % {
                 'pci_dev' : self.edd.pci_dev,
