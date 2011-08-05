@@ -83,6 +83,22 @@ class EddTestCase(mock.TestCase):
         path = analyzer.devname_from_pci_dev()
         self.assertEqual(path, None)
 
+    def test_bad_host_bus(self):
+        from storage.devicelibs import edd
+        fs = EddTestFS(edd).sda_vda_no_host_bus()
+
+        edd_dict = edd.collect_edd_data()
+
+        # 0x80 entry is basted so fail without an exception
+        analyzer = edd.EddMatcher(edd_dict[0x80])
+        devname = analyzer.devname_from_pci_dev()
+        self.assertEqual(devname, None)
+
+        # but still succeed on 0x81
+        analyzer = edd.EddMatcher(edd_dict[0x81])
+        devname = analyzer.devname_from_pci_dev()
+        self.assertEqual(devname, "vda")
+
     def test_get_edd_dict_1(self):
         """ Test get_edd_dict()'s pci_dev matching. """
         from storage.devicelibs import edd
@@ -152,6 +168,12 @@ class EddTestFS(object):
         entries = [e for e in self.fs.fs if e.startswith("/sys/devices/pci")]
         map(self.fs.os_remove, entries)
         return self.fs
+
+    def sda_vda_no_host_bus(self):
+        self.sda_vda()
+        self.fs["/sys/firmware/edd/int13_dev80/host_bus"] = "PCI 	00:01.1  channel: \n"
+        self.fs.os_remove("/sys/firmware/edd/int13_dev80/mbr_signature")
+        self.fs.os_remove("/sys/firmware/edd/int13_dev81/mbr_signature")
 
     def sda_cciss(self):
         self.fs["/sys/firmware/edd/int13_dev80"] = self.fs.Dir()
