@@ -726,11 +726,13 @@ class AnacondaYum(yum.YumBase):
                                      self.proxy_url,
                                      not flags.noverifyssl)
         if not treeinfo:
-            return productVersion
+            return productVersion.split('-')[0]
 
         ConfigParser.ConfigParser.read(c, treeinfo)
         try:
-            return c.get("general", "version")
+            ver = c.get("general", "version")
+            # Trim off any -Alpha or -Beta
+            return ver.split('-')[0]
         except ConfigParser.Error:
             return productVersion
 
