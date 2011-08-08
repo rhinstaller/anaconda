@@ -51,7 +51,7 @@ from pykickstart.base import KickstartCommand, BaseData
 from pykickstart.constants import *
 from pykickstart.errors import formatErrorMsg, KickstartError, KickstartValueError, KickstartParseError
 from pykickstart.parser import Group, KickstartParser, Packages, Script
-from pykickstart.sections import PreScriptSection, NullSection
+from pykickstart.sections import *
 from pykickstart.version import returnClassForVersion
 
 import gettext
@@ -1258,6 +1258,12 @@ class AnacondaKSParser(KickstartParser):
         retval = KickstartParser.handleCommand(self, lineno, args)
         self.handler.add(retval)
         return retval
+
+    def setupSections(self):
+        self.registerSection(PreScriptSection(self.handler, dataObj=AnacondaKSScript))
+        self.registerSection(PostScriptSection(self.handler, dataObj=AnacondaKSScript))
+        self.registerSection(TracebackScriptSection(self.handler, dataObj=AnacondaKSScript))
+        self.registerSection(PackageSection(self.handler))
 
 def doKickstart(anaconda):
     storage.storageInitialize(anaconda)
