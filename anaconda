@@ -793,7 +793,7 @@ if __name__ == "__main__":
             os.system("systemctl --force --no-wall poweroff")
         elif anaconda.ksdata.reboot.action == KS_WAIT:
             os.system("systemctl --force --no-wall halt")
-        elif anaconda.ksdata.reboot.action == KS_REBOOT:
+        else: # reboot action is KS_REBOOT or None
             os.system("systemctl --force --no-wall reboot")
     elif not flags.livecdInstall and not flags.imageInstall:
         os.system("systemctl --force --no-wall reboot")
