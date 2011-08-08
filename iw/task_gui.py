@@ -347,6 +347,7 @@ class RepoEditor:
             if len(reponame) == 0:
                 self.intf.messageWindow(_("Invalid Repository Name"),
                                         _("You must provide a repository name."))
+                self.dialog.present()
                 continue
 
             # Always create a new repo object here instead of attempting to
@@ -370,9 +371,11 @@ class RepoEditor:
             type = self.typeComboBox.get_active()
             if (not applyFuncs[type](newRepoObj) or
                 not self._addAndEnableRepo(newRepoObj)):
+                self.dialog.present()
                 continue
             if not setupRepo(self.anaconda, newRepoObj):
                 self._disableAndRemoveRepo(newRepoObj)
+                self.dialog.present()
                 continue
 
             if removeOld:
