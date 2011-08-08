@@ -794,7 +794,7 @@ class BootLoader(object):
                           "rd.dm.uuid": "rd.dm=0"}
         for device in dracut_devices:
             for dep in self.storage.devices:
-                if device in done:
+                if dep in done:
                     continue
 
                 if device != dep and not device.dependsOn(dep):
