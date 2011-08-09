@@ -33,6 +33,9 @@ class Firewall:
     def writeKS(self, f):
 	f.write("firewall")
 
+        if not "22:tcp" in self.portlist:
+            f.write(" --no-ssh")
+
         if self.enabled:
 	    for arg in self.getArgList():
 		f.write(" " + arg)
