@@ -1299,6 +1299,8 @@ static char *doLoaderMain(struct loaderData_s *loaderData,
              * then it's a boot.iso and we still need to prompt for the
              * installation source.
              */
+            skipLangKbd = 1;
+
             if (!access("/mnt/stage2/.discinfo", R_OK)) {
                 setStage2LocFromCmdline(url, loaderData);
                 skipMethodDialog = 1;
@@ -1314,9 +1316,9 @@ static char *doLoaderMain(struct loaderData_s *loaderData,
                 umountStage2();
                 free(url);
                 url = NULL;
+                skipLangKbd = 0;
             }
 
-            skipLangKbd = 1;
             flags |= LOADER_FLAGS_NOPASS;
         }
 
