@@ -370,13 +370,13 @@ class BootLoader(object):
 
         if raid_levels and device.level not in raid_levels:
             levels_str = ",".join("RAID%d" % l for l in raid_levels)
-            self.errors.append(_("RAID sets containing the %s must have one "
+            self.errors.append(_("RAID sets that contain '%s' must have one "
                                  "of the following raid levels: %s.")
                                % (desc, levels_str))
             ret = False
 
         if metadata and device.metadataVersion not in metadata:
-            self.errors.append(_("RAID sets containing the %s must have one "
+            self.errors.append(_("RAID sets that contain '%s' must have one "
                                  "of the following metadata versions: %s.")
                                % (desc, ",".join(metadata)))
             ret = False
@@ -384,7 +384,7 @@ class BootLoader(object):
         if member_types:
             for member in device.devices:
                 if not self._device_type_match(member, member_types):
-                    self.errors.append(_("RAID sets containing the %s must "
+                    self.errors.append(_("RAID sets that contain '%s' must "
                                          "have one of the following device "
                                          "types: %s.")
                                        % (desc, ",".join(member_types)))
@@ -412,7 +412,7 @@ class BootLoader(object):
                          desc=""):
         ret = True
         if format_types and device.format.type not in format_types:
-            self.errors.append(_("The %s cannot be of type %s.")
+            self.errors.append(_("%s cannot be of type %s.")
                                % (desc, device.format.type))
             ret = False
 
@@ -539,12 +539,12 @@ class BootLoader(object):
 
         if os.path.exists("/dev/live") and \
            os.path.realpath("/dev/live") == device.path:
-            self.errors.append(_("The live device cannot be used as the %s")
+            self.errors.append(_("%s cannot be on the live device.")
                                % description)
             valid = False
 
         if not self._device_type_match(device, constraint["device_types"]):
-            self.errors.append(_("The %s cannot be of type %s")
+            self.errors.append(_("%s cannot be of type %s.")
                                % (description, device.type))
             valid = False
 
@@ -584,7 +584,7 @@ class BootLoader(object):
             valid = False
 
         if not self.encryption_support and device.encrypted:
-            self.errors.append(_("The %s cannot be on an encrypted block "
+            self.errors.append(_("%s cannot be on an encrypted block "
                                  "device.") % description)
             valid = False
 
@@ -644,7 +644,7 @@ class BootLoader(object):
             return False
 
         if not self._device_type_match(device, self.stage2_device_types):
-            self.errors.append(_("The %s cannot be of type %s")
+            self.errors.append(_("%s cannot be of type %s")
                                % (self.stage2_description, device.type))
             valid = False
 
@@ -682,7 +682,7 @@ class BootLoader(object):
             valid = False
 
         if not self.encryption_support and device.encrypted:
-            self.errors.append(_("The %s cannot be on an encrypted block "
+            self.errors.append(_("%s cannot be on an encrypted block "
                                  "device.") % self.stage2_description)
             valid = False
 
