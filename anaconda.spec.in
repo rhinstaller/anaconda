@@ -234,6 +234,14 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Mon Aug 08 2011 David Lehman <dlehman@redhat.com> - 16.14.3-1
+- Handle rpmdb open errors by throwing out the root candidate (#723167).
+  (clumens)
+- Check if the potential dep is in done, not the leaf. (#728891) (dlehman)
+- Don't crash when checking unpartitioned devices for disklabel. (#720070)
+  (dlehman)
+- Remove "-Alpha" or "-Beta" from yum's $releasever (#728868). (clumens)
+
 * Fri Aug 05 2011 Chris Lumens <clumens@redhat.com> - 16.14.2-1
 - Fix extra quote in grub.conf header string (bcl)
 - Set EFI mountpoint when using existing partition (#727933) (bcl)
