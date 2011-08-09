@@ -207,15 +207,18 @@ class EFI(Platform):
     _minBootPartSize = 50
 
     def bootDevice(self):
-        bootDev = None
-
+        """
+        Return the boot device. The bootloader.drivelist is used to
+        set the precedence in cases where multiple partitions are
+        available from multiple devices.
+        """
+        drive = self.anaconda.id.bootloader.drivelist[0]
         for part in self.anaconda.id.storage.partitions:
-            if part.format.type == "efi" and self.validBootPartSize(part.size):
-                bootDev = part
-                # if we're only picking one, it might as well be the first
-                break
-
-        return bootDev
+           if part.disk and part.disk.name == drive \
+               and part.format.type == "efi" \
+               and self.validBootPartSize(part.size):
+                return part
+        return None
 
     def bootloaderChoices(self, bl):
         bootDev = self.bootDevice()
@@ -271,7 +274,7 @@ class EFI(Platform):
 
     def setDefaultPartitioning(self):
         ret = Platform.setDefaultPartitioning(self)
-        ret.append(PartSpec(mountpoint="/boot/efi", fstype="efi", size=20,
+        ret.append(PartSpec(mountpoint="/boot/efi", fstype="efi", size=self._minBootPartSize,
                             maxSize=200, grow=True, weight=self.weight(fstype="efi")))
         return ret
 

@@ -113,6 +113,7 @@ def _schedulePartitions(anaconda, disks):
                 anaconda.id.bootloader.drivelist[0] == bootdev.disk.name):
                 log.info("partitioning: skipping a EFI System "
                          "Partition request on %s" % bootdev.disk.name)
+                bootdev.format.mountpoint = "/boot/efi"
                 continue
             log.debug("partitioning: allowing a EFI System Partition request")
 
