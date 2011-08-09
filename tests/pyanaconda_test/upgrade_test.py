@@ -93,7 +93,7 @@ class UpgradeTest(mock.TestCase):
 
         pyanaconda.upgrade.findRootParts(anaconda)
         self.assertFalse(anaconda.intf.messageWindow.called)
-        self.assertEqual(anaconda.dispatch.request_steps.call_args[0],
+        self.assertEqual(anaconda.dispatch.request_steps_gently.call_args[0],
                          ('findinstall',))
 
     def bind_mount_dev_directory_test(self):
