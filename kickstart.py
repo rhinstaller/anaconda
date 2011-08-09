@@ -608,6 +608,8 @@ class NetworkData(commands.network.RHEL6_NetworkData):
                     # MAC address like 01-aa-bb-cc-dd-ee-ff
                     device = flags.cmdline["BOOTIF"][3:]
                     device = device.replace("-",":")
+                else:
+                    raise KickstartValueError, formatErrorMsg(self.lineno, msg="Using --device=bootif without BOOTIF= boot option supplied")
             else: device = self.device
 
         # If we were given a network device name, grab the device object.
