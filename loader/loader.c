@@ -899,6 +899,7 @@ static void parseCmdLineFlags(struct loaderData_s * loaderData,
     char buf[1024];
     int len;
     gint argc = 0;
+    gchar *rdloaddriver = NULL;
     gchar **argv = NULL;
     GError *optErr = NULL;
     int numExtraArgs = 0;
@@ -1110,6 +1111,13 @@ static void parseCmdLineFlags(struct loaderData_s * loaderData,
                             &loaderData->proxyPassword, &loaderData->proxy);
         else if (!strncasecmp(argv[i], "noverifyssl", 11))
             flags |= LOADER_FLAGS_NOVERIFYSSL;
+        else if (!strncasecmp(argv[i], "rdloaddriver=", 13)) {
+            if (rdloaddriver != NULL) {
+                g_free(rdloaddriver);
+            }
+
+            rdloaddriver = g_strdup(argv[i] + 13);
+        }
         else if (numExtraArgs < (MAX_EXTRA_ARGS - 1)) {
             /* go through and append args we just want to pass on to */
             /* the anaconda script, but don't want to represent as a */
@@ -1176,6 +1184,25 @@ static void parseCmdLineFlags(struct loaderData_s * loaderData,
 
     /* NULL terminates the array of extra args */
     extraArgs[numExtraArgs] = NULL;
+
+    /* do rdloaddriver module loading now */
+    if (rdloaddriver != NULL) {
+        gchar **mods = NULL;
+
+        if (g_strcmp0(rdloaddriver, "")) {
+            if ((mods = g_strsplit(rdloaddriver, ",", 0)) != NULL) {
+                for (i=0; i < g_strv_length(mods); i++) {
+                    if (mods[i] != NULL && g_strcmp0(mods[i], "")) {
+                        mlLoadModule(mods[i], NULL);
+                    }
+                }
+
+                g_strfreev(mods);
+            }
+        }
+
+        g_free(rdloaddriver);
+    }
 
     return;
 }
