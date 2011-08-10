@@ -1815,7 +1815,7 @@ class FSSet(object):
         if not self._selinux:
             self._selinux = NoDevice(format=getFormat("selinuxfs",
                                                       device="selinuxfs",
-                                                      mountpoint="/selinux"))
+                                                      mountpoint="/sys/fs/selinux"))
         return self._selinux
 
     @property
@@ -1875,7 +1875,7 @@ class FSSet(object):
                                       device=device.path,
                                       exists=True)
         elif mountpoint in ("/proc", "/sys", "/dev/shm", "/dev/pts",
-                            "/selinux", "/proc/bus/usb"):
+                            "/sys/fs/selinux", "/proc/bus/usb"):
             # drop these now -- we'll recreate later
             return None
         else:

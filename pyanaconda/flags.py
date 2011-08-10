@@ -18,6 +18,7 @@
 #
 
 import os
+import selinux
 import shlex
 from constants import *
 
@@ -116,7 +117,7 @@ class Flags:
         if self.__dict__['flags']['cmdline'].has_key("rpmarch"):
             self.__dict__['flags']['targetarch'] = self.__dict__['flags']['cmdline']['rpmarch']
 
-        if not os.path.exists("/selinux/load"):
+        if not selinux.is_selinux_enabled():
             self.__dict__['flags']['selinux'] = 0
 
 global flags

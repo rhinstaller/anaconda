@@ -399,8 +399,8 @@ def doRescue(anaconda):
                     except StorageError:
                         log.error("Error enabling swap")
 
-                # and /selinux too
-                if flags.selinux and os.path.isdir("%s/selinux" %(anaconda.rootPath,)):
+                # and selinux too
+                if flags.selinux:
                     # we have to catch the possible exception
                     # because we support read-only mounting
                     try:
