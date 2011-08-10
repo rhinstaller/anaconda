@@ -61,6 +61,9 @@ class Flags:
                 key = i
                 val = None
 
+            if key.lower() == "rdloaddriver":
+                key = key.lower()
+
             cmdlineDict[key] = val
 
         return cmdlineDict
