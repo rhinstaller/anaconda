@@ -70,6 +70,18 @@ class StepTest(mock.TestCase):
         s.schedule(None)
         self.assertEquals(s.sched, Step.SCHED_SCHEDULED)
 
+    def unschedule_test(self):
+        from pyanaconda.dispatch import Step
+        from pyanaconda.errors import DispatchError
+        s = Step("a_step")
+        s.schedule(None)
+        self.assertEquals(s.sched, Step.SCHED_SCHEDULED)
+        s.unschedule(None)
+        self.assertEquals(s.sched, Step.SCHED_UNSCHEDULED)
+        s.request(None)
+        self.assertEquals(s.sched, Step.SCHED_REQUESTED)
+        self.assertRaises(DispatchError, s.unschedule, None)
+
     def skip_test(self):
         from pyanaconda.dispatch import Step
         from pyanaconda.errors import DispatchError
@@ -205,3 +217,22 @@ class DispatchTest(mock.TestCase):
         self.assertEqual(d.steps["filtertype"].sched, Step.SCHED_SCHEDULED)
         self.assertEqual(d.steps["filter"].sched, Step.SCHED_SCHEDULED)
         self.assertDictEqual(d.steps[d.step].changes, {})
+
+    def reset_scheduling_test(self):
+        from pyanaconda.dispatch import Step
+        d = self._getDispatcher()
+        # initial setup
+        d.schedule_steps("betanag", "filtertype")
+        d.request_steps("filter")
+        # in step betanag scheduling gets reset:
+        d.step = "betanag"
+        d.reset_scheduling()
+        # what is requested can not be unrequested:
+        self.assertEqual(d.steps["betanag"].sched, Step.SCHED_UNSCHEDULED)
+        self.assertEqual(d.steps["filtertype"].sched, Step.SCHED_UNSCHEDULED)
+        self.assertEqual(d.steps["filter"].sched, Step.SCHED_REQUESTED)
+        # make sure the tracking works fine
+        self.assertEqual(
+            d.steps["betanag"].changes,
+            {"betanag" : (Step.SCHED_SCHEDULED, Step.SCHED_UNSCHEDULED),
+             "filtertype" : (Step.SCHED_SCHEDULED, Step.SCHED_UNSCHEDULED)})

@@ -258,8 +258,9 @@ def upgradeMountFilesystems(anaconda):
 
 def setSteps(anaconda):
     dispatch = anaconda.dispatch
-    # in case we are scheduling steps from the examine GUI, it is already too
-    # late for some of them:
+    dispatch.reset_scheduling() # scrap what is scheduled
+    # in case we are scheduling steps from the examine GUI, some of them are
+    # already done:
     dispatch.schedule_steps_gently(
                 "language",
                 "keyboard",

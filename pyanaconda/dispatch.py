@@ -69,7 +69,7 @@ class Step(object):
         # allowed.
         # unsch sched  skip   req    done
         [True , True , True , True , True ], # unscheduled
-        [False, True , True , True , True ], # scheduled
+        [True,  True , True , True , True ], # scheduled
         [False, False, True , False, False], # skipped
         [False, False, False, True , True ], # requested
         [False, False, False, False, True ]] # done
@@ -97,7 +97,8 @@ class Step(object):
                  self.namesched(self._sched),
                  self.namesched(to_sched)))
         self._sched = to_sched
-        if current_step:
+        # only track scheduling if we are in a step and if something changes:
+        if current_step and s_from != self._sched:
             current_step.record_history(self, s_from, self.sched)
 
     @property
@@ -116,6 +117,9 @@ class Step(object):
 
     def request(self, current_step):
         return self._reschedule(self.SCHED_REQUESTED, current_step)
+
+    def unschedule(self, current_step):
+        return self._reschedule(self.SCHED_UNSCHEDULED, current_step)
 
     def namesched(self, sched):
         return {
@@ -301,6 +305,15 @@ class Dispatcher(object):
                 self.request_steps(step)
             except errors.DispatchError as e:
                 log.debug("dispatch: %s" % e)
+
+    def reset_scheduling(self):
+        log.info("dispatch: resetting scheduling")
+        for step in self.steps:
+            try:
+                self.steps[step].unschedule(self._current_step())
+            except errors.DispatchError as e:
+                log.debug("dispatch: %s" % e)
+        log.info("dispatch: resetting finished.")
 
     def run(self):
         self.anaconda.intf.run(self.anaconda)
