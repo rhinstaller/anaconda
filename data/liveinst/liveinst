@@ -80,12 +80,12 @@ fi
 
 export PATH=/sbin:/usr/sbin:$PATH
 
-if [ -x /usr/sbin/setenforce -a -e /selinux/enforce ]; then
-    current=$(cat /selinux/enforce)
+if [ -x /usr/sbin/getenforce ]; then
+    current=$(/usr/sbin/getenforce)
     /usr/sbin/setenforce 0
 fi
 
-if [ ! -e /selinux/load ]; then
+if [ -z "$(sestatus | grep enabled)" ]; then
     ANACONDA="$ANACONDA --noselinux"
 fi
 
