@@ -241,7 +241,7 @@ static gboolean _doLoadModule(const gchar *module, gchar **args) {
 }
 
 gboolean mlInitModuleConfig(void) {
-    gint i = 0;
+    gint i = 0, j = 0;
     gchar *cmdline = NULL;
     gchar **options = NULL;
     GError *readErr = NULL;
@@ -264,17 +264,30 @@ gboolean mlInitModuleConfig(void) {
     while (options[i] != NULL) {
         gchar *tmpmod = NULL;
         gchar **fields = NULL;
+        gchar **blmods = NULL;
 
         if (g_strstr_len(options[i], -1, "=") == NULL) {
             i++;
             continue;
         }
 
-        if (!strncmp(options[i], "blacklist=", 10)) {
+        if (!strncmp(options[i], "blacklist=", 10) ||
+            !strncmp(options[i], "rdblacklist=", 12)) {
             if ((fields = g_strsplit(options[i], "=", 0)) != NULL) {
-                if (g_strv_length(fields) == 2) {
-                    tmpmod = g_strdup(fields[1]);
-                    blacklist = g_slist_append(blacklist, tmpmod);
+                if (g_strv_length(fields) <= 1) {
+                    g_strfreev(fields);
+                    continue;
+                }
+
+                if ((blmods = g_strsplit(fields[1], ",", 0)) != NULL) {
+                    for (j=0; j < g_strv_length(blmods); j++) {
+                        if (blmods[j] != NULL && g_strcmp0(blmods[j], "")) {
+                            tmpmod = g_strdup(blmods[j]);
+                            blacklist = g_slist_append(blacklist, tmpmod);
+                        }
+                    }
+
+                    g_strfreev(blmods);
                 }
             }
         } else if ((fields = g_strsplit(options[i], ".", 0)) != NULL) {
