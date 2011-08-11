@@ -50,12 +50,18 @@ class DiskLabel(DeviceFormat):
 
             Keyword Arguments:
 
+                labelType -- type of disklabel to create
                 device -- path to the underlying device
                 exists -- indicates whether this is an existing format
 
         """
         log_method_call(self, *args, **kwargs)
         DeviceFormat.__init__(self, *args, **kwargs)
+
+        if not self.exists:
+            self._labelType = kwargs.get("labelType", "msdos")
+        else:
+            self._labelType = None
 
         self._size = None
 
@@ -119,10 +125,8 @@ class DiskLabel(DeviceFormat):
 
     def freshPartedDisk(self):
         """ Return a new, empty parted.Disk instance for this device. """
-        log_method_call(self, device=self.device)
-        platf = platform.getPlatform(None)
-        labelType = platf.diskLabelType(self.partedDevice.type)
-        return parted.freshDisk(device=self.partedDevice, ty=labelType)
+        log_method_call(self, device=self.device, labelType=self._labelType)
+        return parted.freshDisk(device=self.partedDevice, ty=self._labelType)
 
     @property
     def partedDisk(self):
@@ -140,6 +144,10 @@ class DiskLabel(DeviceFormat):
                     # same as if the device had no label (cause it really
                     # doesn't).
                     raise InvalidDiskLabelError()
+
+                # here's where we correct the ctor-supplied disklabel type for
+                # preexisting disklabels if the passed type was wrong
+                self._labelType = self._partedDisk.type
             else:
                 self._partedDisk = self.freshPartedDisk()
 

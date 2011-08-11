@@ -38,6 +38,7 @@ import devicelibs.mpath
 from udev import *
 from .storage_log import log_method_call
 import iutil
+import platform
 import parted
 import _ped
 
@@ -170,6 +171,7 @@ class DeviceTree(object):
         self.reinitializeDisks = reinitializeDisks
         self.iscsi = iscsi
         self.dasd = dasd
+        self.platform = platform.getPlatform(None)
         self.mpathFriendlyNames = mpathFriendlyNames
 
         # protected device specs as provided by the user
@@ -1431,15 +1433,19 @@ class DeviceTree(object):
                                                               device.size,
                                                               details)
 
+        labelType = self.platform.bestDiskLabelType(device)
+
         try:
             format = getFormat("disklabel",
                                device=device.path,
+                               labelType=labelType,
                                exists=not initlabel)
         except InvalidDiskLabelError:
             # if we have a cb function use it. else we ignore the device.
             if initcb is not None and initcb():
                 format = getFormat("disklabel",
                                    device=device.path,
+                                   labelType=labelType,
                                    exists=False)
             else:
                 self._removeDevice(device)

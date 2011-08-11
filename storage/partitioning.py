@@ -385,6 +385,11 @@ def clearPartitions(storage):
         # not much to do
         return
 
+    _platform = storage.anaconda.platform
+
+    if not hasattr(_platform, "diskLabelTypes"):
+        raise StorageError("can't clear partitions without platform data")
+
     # we are only interested in partitions that physically exist
     partitions = [p for p in storage.partitions if p.exists]
     # Sort partitions by descending partition number to minimize confusing
@@ -416,8 +421,6 @@ def clearPartitions(storage):
     # now remove any empty extended partitions
     removeEmptyExtendedPartitions(storage)
 
-    _platform = storage.anaconda.platform
-
     # make sure that the the boot device has the correct disklabel type if
     # we're going to completely clear it.
     for disk in storage.partitioned:
@@ -439,7 +442,7 @@ def clearPartitions(storage):
         if filter(lambda p: p.dependsOn(disk), storage.protectedDevices):
             continue
 
-        nativeLabelType = _platform.diskLabelType(disk.partedDevice.type)
+        nativeLabelType = _platform.bestDiskLabelType(disk)
         if disk.format.labelType == nativeLabelType:
             continue
 
@@ -454,7 +457,8 @@ def clearPartitions(storage):
                     storage.devicetree._removeDevice(part, moddisk=False)
 
         destroy_action = ActionDestroyFormat(disk)
-        newLabel = getFormat("disklabel", device=disk.path)
+        newLabel = getFormat("disklabel", device=disk.path,
+                             labelType=nativeLabelType)
         create_action = ActionCreateFormat(disk, format=newLabel)
         storage.devicetree.registerAction(destroy_action)
         storage.devicetree.registerAction(create_action)
@@ -854,6 +858,9 @@ def doPartitioning(storage, exclusiveDisks=None):
 
     """
     anaconda = storage.anaconda
+    if not hasattr(anaconda.platform, "diskLabelTypes"):
+         raise StorageError("can't allocate partitions without platform data")
+
     disks = storage.partitioned
     if exclusiveDisks:
         disks = [d for d in disks if d.name in exclusiveDisks]
