@@ -39,11 +39,10 @@ import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
 
 class RaidEditor:
-    def _adjust_spares_button(self, raidlevel):
-	numparts = self.sparesb.get_data("numparts")
+    def _adjust_spares_button(self, raidlevel, selected_count):
         maxspares = 0
         if raidlevel is not None:
-            maxspares = mdraidlib.get_raid_max_spares(raidlevel, numparts)
+            maxspares = mdraidlib.get_raid_max_spares(raidlevel, selected_count)
 
         if maxspares > 0:
 	    adj = self.sparesb.get_adjustment()
@@ -128,14 +127,15 @@ class RaidEditor:
 
     def raidlevelchangeCB(self, widget):
 	raidlevel = widget.get_model()[widget.get_active()][0]
-        self._adjust_spares_button(raidlevel)
+        selected_count = self._total_selected_members()
+        self._adjust_spares_button(raidlevel, selected_count)
 
     def run(self):
 	if self.dialog is None:
 	    return []
 	
 	while 1:
-	    self.allow_ok_button()
+	    self.allow_ok_button(self._total_selected_members())
 	    rc = self.dialog.run()
 
 	    # user hit cancel, do nothing
@@ -504,15 +504,12 @@ class RaidEditor:
             # now the number-of-spares spin button:
             spareAdj = gtk.Adjustment(value=0, upper=0, step_incr=1)
             self.sparesb = gtk.SpinButton(spareAdj)
-            numparts =  len(availraidparts)
-            self.sparesb.set_data("numparts", numparts)
             # adjust the max number of spares depending on the default raid level
             level_index = self.levelcombo.get_active()
             selected_level = self.levelcombo.get_model()[level_index][0]
-            self._adjust_spares_button(selected_level)
+            self._adjust_spares_button(selected_level, origrequest.totalDevices)
             # if there's a specific spares number request, set it
-            if origrequest.spares:
-                self.sparesb.set_value(origrequest.spares)
+            self.sparesb.set_value(origrequest.spares)
 	    lbl.set_mnemonic_widget(self.levelcombo)
         else:
             self.sparesb = gtk.Label(str(origrequest.spares))
@@ -576,15 +573,24 @@ class RaidEditor:
 	self.dialog = dialog
 	return
 
-    def allow_ok_button(self, path=None):
+    def allow_ok_button(self, selected_count):
         """
         Determine if the OK button should be enabled.
-        
-        If path is given it points to the row where the toggle state is about to
-        change.
+
+        The OK button is enabled whenever at least one row is selected.
         """
+        self.ok_button.set_sensitive(selected_count > 0)
+
+    def _total_selected_members(self, path=None):
+        """
+        Determine how many raid members are checked (selected) at the moment.
+
+        If path is given it points to the row where the toggle state is about to
+        change. Unfortunately its value is opposite of the value it is *going to
+        have* after the callback thus the complication below.
+        """
+        ret = 0
         model = self.raidlist.get_model()
-        allow = False
         iter = model.get_iter_first()
         toggled_iter = None
         if path:
@@ -596,15 +602,20 @@ class RaidEditor:
                     model.get_value(iter, 1):
                 # this is being toggled, negate the value:
                 if not val:
-                    allow = True
+                    ret += 1
             else:
                 if val:
-                    allow = True
+                    ret += 1
             iter = model.iter_next(iter)
 
-        self.ok_button.set_sensitive(allow)
+        return ret
 
     def raidlist_toggle_callback(self, data, path):
-        self.allow_ok_button(path)
+        level_index = self.levelcombo.get_active()
+        raidlevel = self.levelcombo.get_model()[level_index][0]
+        selected_count = self._total_selected_members(path)
+
+        self.allow_ok_button(selected_count)
+        self._adjust_spares_button(raidlevel, selected_count)
         return 1
 
