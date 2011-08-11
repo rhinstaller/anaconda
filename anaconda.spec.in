@@ -222,6 +222,28 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Thu Aug 11 2011 David Cantrell <dcantrell@redhat.com> - 13.21.127-1
+- Carry rdloaddriver= parameters through to the boot loader config. (dcantrell)
+  Related: rhbz#689029
+- Implement rdloaddriver= in loader (dcantrell)
+  Resolves: rhbz#689029
+- Support rdblacklist= boot parameter in addition to blacklist= (dcantrell)
+  Related: rhbz#689029
+- Allow DriverDisc to contain vendor provided tools (msivak)
+  Resolves: rhbz#659790
+- Raise informative error for ks=bootif, missing BOOTIF case (rvykydal).
+  Resolves: rhbz#681803
+  Related: rhbz#681803
+- edd: fix traceback on Xen. (akozumpl)
+  Resolves: rhbz#728280
+- Don't raise Retry dialog in loader kickstart networking (rvykydal)
+  Resolves: rhbz#722276
+- Don't write duplicate lines for encrypted block devices. (dlehman)
+  Resolves: rhbz#605938
+- Add a writeKS method for encrypted partitions. (cherry picked from commit
+  509dd717e1fcd8dd0115ed9029878be9a0330222) (clumens)
+  Related: rhbz#605938
+
 * Wed Aug 03 2011 David Cantrell <dcantrell@redhat.com> - 13.21.126-1
 - Honor linksleep boot option (rvykydal)
   Resolves: rhbz#713991
