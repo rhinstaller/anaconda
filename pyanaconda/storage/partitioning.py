@@ -1320,6 +1320,9 @@ class PartitionRequest(Request):
             if limits:
                 max_sectors = min(limits)
                 self.max_growth = max_sectors - self.base
+                if self.max_growth <= 0:
+                    # max size is less than or equal to base, so we're done
+                    self.done = True
 
 
 class LVRequest(Request):
@@ -1345,6 +1348,9 @@ class LVRequest(Request):
             if limits:
                 max_units = min(limits)
                 self.max_growth = max_units - self.base
+                if self.max_growth <= 0:
+                    # max size is less than or equal to base, so we're done
+                    self.done = True
 
 
 class Chunk(object):
