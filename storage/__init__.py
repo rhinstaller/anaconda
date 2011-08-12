@@ -2194,6 +2194,7 @@ class FSSet(object):
             f.close()
         else:
             log.info("not writing out mpath configuration")
+        iutil.copy_to_sysimage("/etc/multipath/wwids", root_path=instPath)
 
     def crypttab(self):
         # if we are upgrading, do we want to update crypttab?
