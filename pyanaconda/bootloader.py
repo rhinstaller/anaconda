@@ -1558,6 +1558,7 @@ class GRUB2(GRUB):
         defaults = open(defaults_file, "w+")
         defaults.write("GRUB_TIMEOUT=%d\n" % self.timeout)
         defaults.write("GRUB_DISTRIBUTOR=\"%s\"\n" % productName)
+        defaults.write("GRUB_DEFAULT=saved\n")
         if self.console and self.console.startswith("ttyS"):
             defaults.write("GRUB_TERMINAL=\"serial console\"\n")
             defaults.write("GRUB_SERIAL_COMMAND=\"%s\"\n" % self.serial_command)
@@ -1616,6 +1617,16 @@ class GRUB2(GRUB):
             self.write_password_config(install_root=install_root)
         except (BootLoaderError, OSError, RuntimeError) as e:
             log.error("bootloader password setup failed: %s" % e)
+
+        # make sure the default entry is the OS we are installing
+        entry_title = "%s Linux, with Linux %s" % (productName,
+                                                   self.default.version)
+        rc = iutil.execWithRedirect("grub2-set-default",
+                                    [entry_title],
+                                    root=install_root,
+                                    stdout="/dev/tty5", stderr="/dev/tty5")
+        if rc:
+            log.error("failed to set default menu entry to %s" % productName)
 
         # now tell grub2 to generate the main configuration file
         rc = iutil.execWithRedirect("grub2-mkconfig",
