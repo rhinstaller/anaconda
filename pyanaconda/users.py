@@ -145,7 +145,7 @@ class Users:
         else:
             return False
 
-    def createUser (self, name, *args, **kwargs):
+    def createUser (self, user_name, *args, **kwargs):
         """Create a new user on the system with the given name.  Optional kwargs:
 
            algo      -- The password algorithm to use in case isCrypted=True.
@@ -180,11 +180,11 @@ class Users:
             self.admin = libuser.admin()
 
             try:
-                if self.admin.lookupUserByName(name):
+                if self.admin.lookupUserByName(user_name):
                     os._exit(1)
 
-                userEnt = self.admin.initUser(name)
-                groupEnt = self.admin.initGroup(name)
+                userEnt = self.admin.initUser(user_name)
+                groupEnt = self.admin.initGroup(user_name)
 
                 grpLst = filter(lambda grp: grp,
                                 map(lambda name: self.admin.lookupGroupByName(name), kwargs.get("groups", [])))
@@ -195,7 +195,7 @@ class Users:
                     userEnt.set(libuser.HOMEDIRECTORY, kwargs["homedir"])
                 else:
                     iutil.mkdirChain(root+'/home')
-                    userEnt.set(libuser.HOMEDIRECTORY, "/home/" + name)
+                    userEnt.set(libuser.HOMEDIRECTORY, "/home/" + user_name)
 
                 if "shell" in kwargs:
                     userEnt.set(libuser.LOGINSHELL, kwargs["shell"])
@@ -221,9 +221,9 @@ class Users:
                     self.admin.lockUser(userEnt)
 
                 # Add the user to all the groups they should be part of.
-                grpLst.append(self.admin.lookupGroupByName(name))
+                grpLst.append(self.admin.lookupGroupByName(user_name))
                 for grp in grpLst:
-                    grp.add(libuser.MEMBERNAME, name)
+                    grp.add(libuser.MEMBERNAME, user_name)
                     self.admin.modifyGroup(grp)
 
                 os._exit(0)
