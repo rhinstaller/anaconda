@@ -91,3 +91,4 @@ class TestCase(unittest.TestCase):
         os.listdir = disk.os_listdir
         os.path.exists = disk.os_path_exists
         os.path.isdir = disk.os_path_isdir
+        os.access = disk.os_access

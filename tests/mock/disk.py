@@ -125,4 +125,4 @@ class DiskIO(object):
             raise OSError("[Errno 2] No such file or directory: '%s'" % (path,))
 
     def os_access(self, path, mode):
-        return self.path_exists(path)
+        return self.os_path_exists(path)

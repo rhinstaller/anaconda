@@ -22,6 +22,7 @@
 
 import glob
 import os, string, stat, sys
+import shutil
 import signal
 import os.path
 import errno
@@ -926,6 +927,19 @@ def setup_translations(module):
     if os.path.isdir(TRANSLATIONS_UPDATE_DIR):
         add_po_path(module, TRANSLATIONS_UPDATE_DIR)
     module.textdomain("anaconda")
+
+def copy_to_sysimage(source, root_path):
+    if not os.access(source, os.R_OK):
+        log.info("copy_to_sysimage: source '%s' does not exist." % source)
+        return False
+
+    target = root_path + source
+    target_dir = os.path.dirname(target)
+    log.debug("copy_to_sysimage: '%s' -> '%s'." % (source, target))
+    if not os.path.isdir(target_dir):
+        os.makedirs(target_dir)
+    shutil.copy(source, target)
+    return True
 
 def get_sysfs_attr(path, attr):
     if not attr:
