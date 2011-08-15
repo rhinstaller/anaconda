@@ -695,6 +695,7 @@ makeinitrd() {
         )
         instbin $IMGPATH /usr/sbin/dasdfmt $MBD_DIR /sbin/dasdfmt
         cp -a $IMGPATH/usr/sbin/*_cio_free $MBD_DIR/sbin
+        instbin $IMGPATH /usr/sbin/cio_ignore $MBD_DIR /sbin/cio_ignore
     fi
     instbin $IMGPATH ${LIBEXECBINDIR##$IMGPATH}/auditd $MBD_DIR /sbin/auditd
 
