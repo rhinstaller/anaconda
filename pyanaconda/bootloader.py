@@ -1524,6 +1524,15 @@ class GRUB2(GRUB):
             name += ")"
         return name
 
+    def write_config_console(self, config):
+        if not self.console:
+            return
+
+        console_arg = "console=%s" % self.console
+        if self.console_options:
+            console_arg += ",%s" % self.console_options
+        self.boot_args.add(console_arg)
+
     def write_device_map(self, install_root=""):
         """ Write out a device map containing all supported devices. """
         map_path = os.path.normpath(install_root + self.device_map_file)
@@ -1597,6 +1606,7 @@ class GRUB2(GRUB):
         os.chmod(users_file, 0755)
 
     def write_config(self, install_root=""):
+        self.write_config_console(None)
         self.write_device_map(install_root=install_root)
         self.write_defaults(install_root=install_root)
 
