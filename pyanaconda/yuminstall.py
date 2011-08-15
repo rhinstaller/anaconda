@@ -1637,6 +1637,8 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
 
         anaconda.intf.setInstallProgressClass(None)
 
+        anaconda.bootloader.trusted_boot = self.ayum.isPackageInstalled(name="tboot")
+
         if rc == DISPATCH_BACK:
             return DISPATCH_BACK
 

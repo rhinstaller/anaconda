@@ -114,6 +114,27 @@ class LinuxBootLoaderImage(BootLoaderImage):
             filename = "initramfs-%s.img" % self.version
         return filename
 
+class TbootLinuxBootLoaderImage(LinuxBootLoaderImage):
+    _multiboot = "tboot.gz"     # filename string
+    _mbargs = ["logging=vga,serial,memory"]
+    _args = ["intel_iommu=on"]
+
+    def __init__(self, device=None, label=None, short=None, version=None):
+        super(TbootLinuxBootLoaderImage, self).__init__(
+                                                   device=device, label=label,
+                                                   short=short, version=version)
+
+    @property
+    def multiboot(self):
+        return self._multiboot
+
+    @property
+    def mbargs(self):
+        return self._mbargs
+
+    @property
+    def args(self):
+        return self._args
 
 class BootLoader(object):
     """TODO:
@@ -153,6 +174,8 @@ class BootLoader(object):
                             "noht", "acpi", "video", "pci", "nodmraid",
                             "nompath", "nomodeset", "noiswmd", "fips"]
     preserve_args = []
+
+    _trusted_boot = False
 
     def __init__(self, storage=None):
         # pyanaconda.storage.Storage instance
@@ -944,6 +967,14 @@ class BootLoader(object):
         """ Read an existing bootloader configuration. """
         raise NotImplementedError()
 
+    @property
+    def trusted_boot(self):
+        return self._trusted_boot
+
+    @trusted_boot.setter
+    def trusted_boot(self, trusted_boot):
+        self._trusted_boot = trusted_boot
+
     #
     # installation
     #
@@ -1143,15 +1174,27 @@ class GRUB(BootLoader):
                 grub_root = self.grub_device_name(self.stage2_device)
                 args.update(["ro", "root=%s" % image.device.fstabSpec])
                 args.update(self.boot_args)
+                if isinstance(image, TbootLinuxBootLoaderImage):
+                    args.update(image.args)
+                    snippet = ("\tkernel %(prefix)s/%(multiboot)s %(mbargs)s\n"
+                               "\tmodule %(prefix)s/%(kernel)s %(args)s\n"
+                               "\tmodule %(prefix)s/%(initrd)s\n"
+                               % {"prefix": self.boot_prefix,
+                                  "multiboot": image.multiboot,
+                                  "mbargs": image.mbargs,
+                                  "kernel": image.kernel, "args": args,
+                                  "initrd": image.initrd})
+                else:
+                    snippet = ("\tkernel %(prefix)s/%(kernel)s %(args)s\n"
+                               "\tinitrd %(prefix)s/%(initrd)s\n"
+                               % {"prefix": self.boot_prefix,
+                                  "kernel": image.kernel, "args": args,
+                                  "initrd": image.initrd})
                 stanza = ("title %(label)s (%(version)s)\n"
                           "\troot %(grub_root)s\n"
-                          "\tkernel %(prefix)s/%(kernel)s %(args)s\n"
-                          "\tinitrd %(prefix)s/%(initrd)s\n"
+                          "%(snippet)s"
                           % {"label": image.label, "version": image.version,
-                             "grub_root": grub_root,
-                             "kernel": image.kernel, "initrd": image.initrd,
-                             "args": args,
-                             "prefix": self.boot_prefix})
+                             "grub_root": grub_root, "snippet": snippet})
             else:
                 stanza = ("title %(label)s\n"
                           "\trootnoverify %(grub_root)s\n"
@@ -1988,9 +2031,15 @@ def writeBootloader(anaconda):
         used.append(nick)
         label = "%s-%s" % (base_label, nick)
         short = "%s-%s" % (base_short, nick)
-        image = LinuxBootLoaderImage(device=anaconda.storage.rootDevice,
-                                     version=version,
-                                     label=label, short=short)
+        if anaconda.bootloader.trusted_boot:
+            image = TbootLinuxBootLoaderImage(
+                                         device=anaconda.storage.rootDevice,
+                                         version=version,
+                                         label=label, short=short)
+        else:
+            image = LinuxBootLoaderImage(device=anaconda.storage.rootDevice,
+                                         version=version,
+                                         label=label, short=short)
         anaconda.bootloader.add_image(image)
 
     # write out /etc/sysconfig/kernel
