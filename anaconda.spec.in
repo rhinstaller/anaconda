@@ -222,6 +222,28 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Mon Aug 15 2011 David Cantrell <dcantrell@redhat.com> - 13.21.128-1
+- Add /sbin/cio_ignore to s390x initrd.img (dcantrell)
+  Resolves: rhbz#730650
+- Copy /etc/multipath/wwids to the sysimage. (akozumpl)
+  Resolves: rhbz#701371
+- raid ui: compute max number of spares based on raid members selected.
+  (akozumpl)
+  Resolves: rhbz#729716
+- Include the command-stubs test scripts in the archive (mgracik)
+  Resolves: rhbz#706099
+- Do not skip Lang and Kbd steps (mgracik)
+  Resolves: rhbz#706675
+- Focus the Add/Edit repo dialog after error (mgracik)
+  Resolves: rhbz#679810
+- Attempt to bring the network up before saving a bug report (clumens).
+  Resolves: rhbz#668570
+- Show the progress in cmdline mode (mgracik)
+  Resolves: rhbz#663644
+- Reuse existing /boot/efi and ignore vfat on non-boot devices (bcl)
+  Resolves: rhbz#723976
+  Resolves: rhbz#729062
+
 * Thu Aug 11 2011 David Cantrell <dcantrell@redhat.com> - 13.21.127-1
 - Carry rdloaddriver= parameters through to the boot loader config. (dcantrell)
   Related: rhbz#689029
