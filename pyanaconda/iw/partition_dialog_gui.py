@@ -376,7 +376,7 @@ class PartitionEditor:
                         pass
 
                 if request.format.exists and \
-                   getattr(request, "mountpoint", None) and \
+                   getattr(request.format, "mountpoint", None) and \
                    self.storage.formatByDefault(request):
                     reason = self.storage.mustFormat(request)
                     if reason:
