@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 13.21.127\n"
+"Project-Id-Version: anaconda 13.21.128\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2011-08-15 16:31-0400\n"
+"POT-Creation-Date: 2011-08-16 16:20-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1833,48 +1833,48 @@ msgid ""
 "upgrade process?"
 msgstr ""
 
-#: yuminstall.py:1862
+#: yuminstall.py:1864
 msgid "Post Upgrade"
 msgstr ""
 
-#: yuminstall.py:1863
+#: yuminstall.py:1865
 msgid "Performing post-upgrade configuration"
 msgstr ""
 
-#: yuminstall.py:1865
+#: yuminstall.py:1867
 msgid "Post Installation"
 msgstr ""
 
-#: yuminstall.py:1866
+#: yuminstall.py:1868
 msgid "Performing post-installation configuration"
 msgstr ""
 
-#: yuminstall.py:2107
+#: yuminstall.py:2109
 msgid "Installation Starting"
 msgstr ""
 
-#: yuminstall.py:2108
+#: yuminstall.py:2110
 msgid "Starting installation process"
 msgstr ""
 
-#: yuminstall.py:2146
+#: yuminstall.py:2148
 msgid "Dependency Check"
 msgstr ""
 
-#: yuminstall.py:2147
+#: yuminstall.py:2149
 msgid "Checking dependencies in packages selected for installation"
 msgstr ""
 
-#: yuminstall.py:2203 yuminstall.py:2219
+#: yuminstall.py:2205 yuminstall.py:2221
 msgid "Retrieving installation information."
 msgstr ""
 
-#: yuminstall.py:2205 yuminstall.py:2221
+#: yuminstall.py:2207 yuminstall.py:2223
 #, python-format
 msgid "Retrieving installation information for %s."
 msgstr ""
 
-#: yuminstall.py:2206 yuminstall.py:2222
+#: yuminstall.py:2208 yuminstall.py:2224
 msgid "Installation Progress"
 msgstr ""
 
@@ -2148,8 +2148,8 @@ msgstr ""
 msgid "You must select one drive to boot from."
 msgstr ""
 
-#: iw/cleardisks_gui.py:127 iw/cleardisks_gui.py:147 iw/filter_gui.py:498
-#: iw/filter_gui.py:510 iw/filter_gui.py:540
+#: iw/cleardisks_gui.py:127 iw/cleardisks_gui.py:147 iw/filter_gui.py:504
+#: iw/filter_gui.py:516 iw/filter_gui.py:546
 msgid "Model"
 msgstr ""
 
@@ -2157,18 +2157,18 @@ msgstr ""
 msgid "Capacity"
 msgstr ""
 
-#: iw/cleardisks_gui.py:129 iw/filter_gui.py:500 iw/filter_gui.py:520
-#: iw/filter_gui.py:531 iw/filter_gui.py:542
+#: iw/cleardisks_gui.py:129 iw/filter_gui.py:506 iw/filter_gui.py:526
+#: iw/filter_gui.py:537 iw/filter_gui.py:548
 msgid "Vendor"
 msgstr ""
 
-#: iw/cleardisks_gui.py:130 iw/cleardisks_gui.py:149 iw/filter_gui.py:503
-#: iw/filter_gui.py:518 iw/filter_gui.py:529 iw/filter_gui.py:545
+#: iw/cleardisks_gui.py:130 iw/cleardisks_gui.py:149 iw/filter_gui.py:509
+#: iw/filter_gui.py:524 iw/filter_gui.py:535 iw/filter_gui.py:551
 msgid "Identifier"
 msgstr ""
 
-#: iw/cleardisks_gui.py:131 iw/filter_gui.py:501 iw/filter_gui.py:521
-#: iw/filter_gui.py:532 iw/filter_gui.py:543
+#: iw/cleardisks_gui.py:131 iw/filter_gui.py:507 iw/filter_gui.py:527
+#: iw/filter_gui.py:538 iw/filter_gui.py:549
 msgid "Interconnect"
 msgstr ""
 
@@ -2285,34 +2285,34 @@ msgstr ""
 msgid "Device Filter"
 msgstr ""
 
-#: iw/filter_gui.py:499 iw/filter_gui.py:511 iw/filter_gui.py:519
-#: iw/filter_gui.py:530 iw/filter_gui.py:541
+#: iw/filter_gui.py:505 iw/filter_gui.py:517 iw/filter_gui.py:525
+#: iw/filter_gui.py:536 iw/filter_gui.py:547
 msgid "Capacity (MB)"
 msgstr ""
 
-#: iw/filter_gui.py:502 iw/filter_gui.py:533 iw/filter_gui.py:544
+#: iw/filter_gui.py:508 iw/filter_gui.py:539 iw/filter_gui.py:550
 msgid "Serial Number"
 msgstr ""
 
-#: iw/filter_gui.py:504 iw/filter_gui.py:512 iw/filter_gui.py:523
-#: iw/filter_gui.py:534 iw/filter_gui.py:549 iw/osbootwidget.py:66
+#: iw/filter_gui.py:510 iw/filter_gui.py:518 iw/filter_gui.py:529
+#: iw/filter_gui.py:540 iw/filter_gui.py:555 iw/osbootwidget.py:66
 #: iw/partition_gui.py:613
 msgid "Device"
 msgstr ""
 
-#: iw/filter_gui.py:522
+#: iw/filter_gui.py:528
 msgid "Paths"
 msgstr ""
 
-#: iw/filter_gui.py:546
+#: iw/filter_gui.py:552
 msgid "Port"
 msgstr ""
 
-#: iw/filter_gui.py:547
+#: iw/filter_gui.py:553
 msgid "Target"
 msgstr ""
 
-#: iw/filter_gui.py:548
+#: iw/filter_gui.py:554
 msgid "LUN"
 msgstr ""
 

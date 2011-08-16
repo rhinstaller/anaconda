@@ -222,6 +222,12 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Tue Aug 16 2011 David Cantrell <dcantrell@redhat.com> - 13.21.129-1
+- Add multiboot support for tboot (gang.wei)
+  Resolves: rhbz#697419
+- Deal with zFCP multipath devices in the filter UI (dcantrell)
+  Resolves: rhbz#618535
+
 * Mon Aug 15 2011 David Cantrell <dcantrell@redhat.com> - 13.21.128-1
 - Add /sbin/cio_ignore to s390x initrd.img (dcantrell)
   Resolves: rhbz#730650
