@@ -464,20 +464,26 @@ class FilterWindow(InstallWindow):
         (new_raids, new_nonraids) = self.split_list(lambda d: isRAID(d) and not isCCISS(d),
                                                     new_singlepaths)
 
-        nonraids = filter(lambda d: d not in self._cachedDevices, new_nonraids)
-        raids = filter(lambda d: d not in self._cachedRaidDevices, new_raids)
-
         # The end result of the loop below is that mpaths is a list of lists of
         # components, just like new_mpaths.  That's what populate expects.
         mpaths = []
         for mp in new_mpaths:
             for d in mp:
+                # If any of the multipath components are in the nonraids cache,
+                # invalidate that cache and remove it from the UI store.
+                if d in self._cachedDevices:
+                    self.depopulate(d)
+                    del(self._cachedDevices[:])
+
                 # If all components of this multipath device are in the
                 # cache, skip it.  Otherwise, it's a new device and needs to
                 # be populated into the UI.
                 if d not in self._cachedMPaths:
                     mpaths.append(mp)
                     break
+
+        nonraids = filter(lambda d: d not in self._cachedDevices, new_nonraids)
+        raids = filter(lambda d: d not in self._cachedRaidDevices, new_raids)
 
         self.populate(nonraids, mpaths, raids, activeByDefault=True)
 
@@ -670,6 +676,12 @@ class FilterWindow(InstallWindow):
             i += 1
 
         return self.vbox
+
+    def depopulate(self, component):
+        for row in self.store:
+            if row[4] == component['DEVNAME']:
+                self.store.remove(row.iter)
+                return
 
     def populate(self, nonraids, mpaths, raids, activeByDefault=False):
         def _addTuple(tuple):
