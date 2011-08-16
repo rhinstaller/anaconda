@@ -365,13 +365,23 @@ class x86BootloaderInfo(efiBootloaderInfo):
                 if initrd:
                     f.write('\tmodule %s%s\n' % (cfPath, initrd))
             else: # normal kernel
-                f.write('\tkernel %s ro%s' % (kernelFile, realroot))
-                if self.args.get():
-                    f.write(' %s' % self.args.get())
-                f.write('\n')
+                if self.trusted_boot:
+                    f.write('\tkernel %stboot.gz logging=vga.serial,memory\n' % (cfPath))
+                    f.write('\tmodule %s ro%s intel_iommu=on' % (kernelFile, realroot))
+                    if self.args.get():
+                        f.write(' %s' % self.args.get())
+                    f.write('\n')
 
-                if initrd:
-                    f.write('\tinitrd %s%s\n' % (cfPath, initrd))
+                    if initrd:
+                        f.write('\tmodule %s%s\n' % (cfPath, initrd))
+                else:
+                    f.write('\tkernel %s ro%s' % (kernelFile, realroot))
+                    if self.args.get():
+                        f.write(' %s' % self.args.get())
+                    f.write('\n')
+
+                    if initrd:
+                        f.write('\tinitrd %s%s\n' % (cfPath, initrd))
 
         for (label, longlabel, device) in chainList:
             if ((not longlabel) or (longlabel == "")):

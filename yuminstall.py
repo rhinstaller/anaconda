@@ -1854,6 +1854,8 @@ debuglevel=6
 
         anaconda.id.instProgress = None
 
+        anaconda.id.bootloader.trusted_boot = self.ayum.isPackageInstalled(name="tboot")
+
         if rc == DISPATCH_BACK:
             return DISPATCH_BACK
 

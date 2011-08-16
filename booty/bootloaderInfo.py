@@ -516,6 +516,12 @@ class bootloaderInfo(object):
         self._drivelist = val
     drivelist = property(_getDriveList, _setDriveList)
 
+    def _getTrustedBoot(self):
+        return self._trusted_boot
+    def _setTrustedBoot(self, val):
+        self._trusted_boot = val
+    trusted_boot = property(_getTrustedBoot, _setTrustedBoot)
+
     def __init__(self, instData):
         self.args = KernelArguments(instData)
         self.images = BootImages()
@@ -533,6 +539,7 @@ class bootloaderInfo(object):
         self.serial = 0
         self.serialDevice = None
         self.serialOptions = None
+        self._trusted_boot = False
 
         # this has somewhat strange semantics.  if 0, act like a normal
         # "install" case.  if 1, update lilo.conf (since grubby won't do that)
