@@ -220,13 +220,13 @@ def setFileCons(anaconda):
         # Add "/mnt/sysimage" to the front of every path so the glob works.
         # Then run glob on each element of the list and flatten it into a
         # single list we can run contextCB across.
-        files = itertools.chain(*map(lambda f: glob.glob("%s/%s" % (anaconda.rootPath, f)),
+        files = itertools.chain(*map(lambda f: glob.glob("%s%s" % (anaconda.rootPath, f)),
                                      relabelFiles))
         contextCB(None, "", files)
 
         for dir in relabelDirs + ["/dev/%s" % vg.name for vg in anaconda.storage.vgs]:
             # Add "/mnt/sysimage" for similar reasons to above.
-            dir = "%s/%s" % (anaconda.rootPath, dir)
+            dir = "%s%s" % (anaconda.rootPath, dir)
 
             os.path.walk(dir, contextCB, None)
 
