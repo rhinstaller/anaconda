@@ -234,6 +234,10 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Tue Aug 16 2011 Chris Lumens <clumens@redhat.com> - 16.14.6-1
+- matchpathcon doesn't like strings like "//lib64", so remove a slash
+  (#730863). (clumens)
+
 * Mon Aug 15 2011 Chris Lumens <clumens@redhat.com> - 16.14.5-1
 - Check before setting partition label (#729599) (bcl)
 
