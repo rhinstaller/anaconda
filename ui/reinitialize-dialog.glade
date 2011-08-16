@@ -189,22 +189,20 @@
 		  <property name="visible">True</property>
 		  <property name="label" translatable="yes">We could not detect partitions or filesystems on this device.
 
-This could be because the device is &lt;b&gt;blank&lt;/b&gt;, &lt;b&gt;unpartitioned&lt;/b&gt;, or &lt;b&gt;virtual&lt;/b&gt;. If not,
-there may be data on the device that can not be recovered if you use it in this
-installation. We can remove the device from this installation to protect the data.
+This could be because the device is &lt;b&gt;blank&lt;/b&gt;, &lt;b&gt;unpartitioned&lt;/b&gt;, or &lt;b&gt;virtual&lt;/b&gt;. If not, there may be data on the device that can not be recovered if you use it in this installation. We can remove the device from this installation to protect the data.
 
 Are you sure this device does not contain valuable data?</property>
 		  <property name="use_underline">False</property>
 		  <property name="use_markup">True</property>
 		  <property name="justify">GTK_JUSTIFY_LEFT</property>
-		  <property name="wrap">False</property>
+		  <property name="wrap">True</property>
 		  <property name="selectable">False</property>
 		  <property name="xalign">0</property>
 		  <property name="yalign">0.5</property>
 		  <property name="xpad">0</property>
 		  <property name="ypad">0</property>
 		  <property name="ellipsize">PANGO_ELLIPSIZE_NONE</property>
-		  <property name="width_chars">-1</property>
+		  <property name="width_chars">70</property>
 		  <property name="single_line_mode">False</property>
 		  <property name="angle">0</property>
 		</widget>
