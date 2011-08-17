@@ -561,6 +561,7 @@ void runKickstart(struct loaderData_s * loaderData) {
     logMessage(INFO, "setting up kickstart");
     for (cmd = ksTable; cmd->name; cmd++) {
         if (!strcmp(cmd->name, "network")) {
+            argv = NULL;
             while ((!ksGetCommand(cmd->code, argv, &argc, &argv)) && cmd->setupData) {
                 cmd->setupData(loaderData, argc, argv);
             }
