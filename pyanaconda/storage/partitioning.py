@@ -876,6 +876,49 @@ def getFreeRegions(disks):
 
     return free
 
+def updateExtendedPartitions(storage, disks):
+    # XXX hack -- if we created any extended partitions we need to add
+    #             them to the tree now
+    for disk in disks:
+        extended = disk.format.extendedPartition
+        if not extended:
+            # remove any obsolete extended partitions
+            for part in storage.partitions:
+                if part.disk == disk and part.isExtended:
+                    if part.exists:
+                        storage.destroyDevice(part)
+                    else:
+                        storage.devicetree._removeDevice(part, moddisk=False)
+            continue
+
+        extendedName = devicePathToName(extended.getDeviceNodeName())
+        # remove any obsolete extended partitions
+        for part in storage.partitions:
+            if part.disk == disk and part.isExtended and \
+               part.partedPartition not in disk.format.partitions:
+                if part.exists:
+                    storage.destroyDevice(part)
+                else:
+                    storage.devicetree._removeDevice(part, moddisk=False)
+
+        device = storage.devicetree.getDeviceByName(extendedName)
+        if device:
+            if not device.exists:
+                # created by us, update partedPartition
+                device.partedPartition = extended
+            continue
+
+        # This is a little odd because normally instantiating a partition
+        # that does not exist means leaving self.parents empty and instead
+        # populating self.req_disks. In this case, we need to skip past
+        # that since this partition is already defined.
+        device = PartitionDevice(extendedName, parents=disk)
+        device.parents = [disk]
+        device.partedPartition = extended
+        # just add the device for now -- we'll handle actions at the last
+        # moment to simplify things
+        storage.devicetree._addDevice(device)
+
 def doPartitioning(storage, bootloader=None):
     """ Allocate and grow partitions.
 
@@ -931,63 +974,26 @@ def doPartitioning(storage, bootloader=None):
 
     removeNewPartitions(disks, partitions)
     free = getFreeRegions(disks)
-    allocatePartitions(storage, disks, partitions, free, bootloader=bootloader)
-    growPartitions(disks, partitions, free)
 
-    # The number and thus the name of partitions may have changed now,
-    # allocatePartitions() takes care of this for new partitions, but not
-    # for pre-existing ones, so we update the name of all partitions here
-    for part in storage.partitions:
-        # needed because of XXX hack below
-        if part.isExtended:
-            continue
-        part.updateName()
-
-    # XXX hack -- if we created any extended partitions we need to add
-    #             them to the tree now
-    for disk in disks:
-        extended = disk.format.extendedPartition
-        if not extended:
-            # remove any obsolete extended partitions
-            for part in storage.partitions:
-                if part.disk == disk and part.isExtended:
-                    if part.exists:
-                        storage.destroyDevice(part)
-                    else:
-                        storage.devicetree._removeDevice(part, moddisk=False)
-            continue
-
-        extendedName = devicePathToName(extended.getDeviceNodeName())
-        # remove any obsolete extended partitions
+    try:
+        allocatePartitions(storage, disks, partitions, free,
+                           bootloader=bootloader)
+        growPartitions(disks, partitions, free)
+    finally:
+        # The number and thus the name of partitions may have changed now,
+        # allocatePartitions() takes care of this for new partitions, but not
+        # for pre-existing ones, so we update the name of all partitions here
         for part in storage.partitions:
-            if part.disk == disk and part.isExtended and \
-               part.partedPartition not in disk.format.partitions:
-                if part.exists:
-                    storage.destroyDevice(part)
-                else:
-                    storage.devicetree._removeDevice(part, moddisk=False)
+            # leave extended partitions as-is -- we'll handle them separately
+            if part.isExtended:
+                continue
+            part.updateName()
 
-        device = storage.devicetree.getDeviceByName(extendedName)
-        if device:
-            if not device.exists:
-                # created by us, update partedPartition
-                device.partedPartition = extended
-            continue
+        updateExtendedPartitions(storage, disks)
 
-        # This is a little odd because normally instantiating a partition
-        # that does not exist means leaving self.parents empty and instead
-        # populating self.req_disks. In this case, we need to skip past
-        # that since this partition is already defined.
-        device = PartitionDevice(extendedName, parents=disk)
-        device.parents = [disk]
-        device.partedPartition = extended
-        # just add the device for now -- we'll handle actions at the last
-        # moment to simplify things
-        storage.devicetree._addDevice(device)
-
-    # make sure the stage1_device gets updated
-    if storage.anaconda:
-        storage.anaconda.bootloader.stage1_device = None
+        # make sure the stage1_device gets updated
+        if storage.anaconda:
+            storage.anaconda.bootloader.stage1_device = None
 
 def allocatePartitions(storage, disks, partitions, freespace, bootloader=None):
     """ Allocate partitions based on requested features.
