@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 13.21.128\n"
+"Project-Id-Version: anaconda 13.21.129\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2011-08-16 16:20-0400\n"
+"POT-Creation-Date: 2011-08-17 14:55-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -98,7 +98,7 @@ msgstr ""
 
 #: bootloader.py:55 bootloader.py:238 bootloader.py:244 gui.py:1286
 #: image.py:82 installinterfacebase.py:66 network.py:826 text.py:490
-#: text.py:550 yuminstall.py:1570 yuminstall.py:1779 yuminstall.py:1814
+#: text.py:550 yuminstall.py:1572 yuminstall.py:1781 yuminstall.py:1816
 #: iw/blpasswidget.py:148 iw/upgrade_swap_gui.py:190
 #: iw/upgrade_swap_gui.py:198 iw/upgrade_swap_gui.py:205
 #: textw/upgrade_text.py:196
@@ -116,15 +116,15 @@ msgstr ""
 #: bootloader.py:60 gui.py:1189 gui.py:1322 gui.py:1541 image.py:91
 #: installinterfacebase.py:109 livecd.py:205 livecd.py:447 packages.py:162
 #: upgrade.py:58 upgrade.py:199 yuminstall.py:252 yuminstall.py:1051
-#: yuminstall.py:1056 yuminstall.py:1137 yuminstall.py:1143 yuminstall.py:1296
-#: yuminstall.py:1323 yuminstall.py:1384 yuminstall.py:1566 yuminstall.py:1596
-#: yuminstall.py:1619 storage/__init__.py:100 storage/__init__.py:109
+#: yuminstall.py:1056 yuminstall.py:1139 yuminstall.py:1145 yuminstall.py:1298
+#: yuminstall.py:1325 yuminstall.py:1386 yuminstall.py:1568 yuminstall.py:1598
+#: yuminstall.py:1621 storage/__init__.py:100 storage/__init__.py:109
 #: storage/__init__.py:211 storage/__init__.py:264 storage/__init__.py:2056
 msgid "_Exit installer"
 msgstr ""
 
 #: bootloader.py:60 image.py:92 image.py:253 kickstart.py:1457
-#: kickstart.py:1496 upgrade.py:58 yuminstall.py:1389 yuminstall.py:1566
+#: kickstart.py:1496 upgrade.py:58 yuminstall.py:1391 yuminstall.py:1568
 #: iw/partition_gui.py:1598 storage/__init__.py:2057
 msgid "_Continue"
 msgstr ""
@@ -367,7 +367,7 @@ msgid "_Exit"
 msgstr ""
 
 #: gui.py:1453 image.py:166 image.py:196 livecd.py:205 yuminstall.py:924
-#: yuminstall.py:1323 yuminstall.py:1384 yuminstall.py:1596
+#: yuminstall.py:1325 yuminstall.py:1386 yuminstall.py:1598
 msgid "_Retry"
 msgstr ""
 
@@ -375,7 +375,7 @@ msgstr ""
 msgid "The system will now reboot."
 msgstr ""
 
-#: gui.py:1456 image.py:253 packages.py:374 yuminstall.py:1637
+#: gui.py:1456 image.py:253 packages.py:374 yuminstall.py:1639
 msgid "_Reboot"
 msgstr ""
 
@@ -458,15 +458,15 @@ msgid ""
 msgstr ""
 
 #: image.py:253 livecd.py:446 packages.py:374 upgrade.py:198
-#: yuminstall.py:1056 yuminstall.py:1143 yuminstall.py:1568 yuminstall.py:1619
-#: yuminstall.py:1637 ui/anaconda.glade.h:2
+#: yuminstall.py:1056 yuminstall.py:1145 yuminstall.py:1570 yuminstall.py:1621
+#: yuminstall.py:1639 ui/anaconda.glade.h:2
 msgid "_Back"
 msgstr ""
 
 #: image.py:291 livecd.py:198 livecd.py:440 partIntfHelpers.py:239 text.py:359
 #: text.py:363 yuminstall.py:417 yuminstall.py:934 yuminstall.py:1049
-#: yuminstall.py:1054 yuminstall.py:1327 yuminstall.py:1394 yuminstall.py:1590
-#: yuminstall.py:1612 iw/advanced_storage.py:379 iw/advanced_storage.py:389
+#: yuminstall.py:1054 yuminstall.py:1329 yuminstall.py:1396 yuminstall.py:1592
+#: yuminstall.py:1614 iw/advanced_storage.py:379 iw/advanced_storage.py:389
 #: iw/advanced_storage.py:440 iw/autopart_type.py:95 iw/cleardisks_gui.py:44
 #: iw/cleardisks_gui.py:54 iw/filter_gui.py:437 iw/osbootwidget.py:211
 #: iw/osbootwidget.py:220 iw/raid_dialog_gui.py:218 iw/task_gui.py:54
@@ -746,7 +746,7 @@ msgid ""
 "exception saving methods.  Would you like to configure your network now?"
 msgstr ""
 
-#: network.py:833 rescue.py:262 yuminstall.py:1291 iw/task_gui.py:311
+#: network.py:833 rescue.py:262 yuminstall.py:1293 iw/task_gui.py:311
 msgid "No Network Available"
 msgstr ""
 
@@ -1709,81 +1709,81 @@ msgid ""
 "There was an error running your transaction for the following reason: %s\n"
 msgstr ""
 
-#: yuminstall.py:1088 yuminstall.py:1089
+#: yuminstall.py:1090 yuminstall.py:1091
 msgid "file conflicts"
 msgstr ""
 
-#: yuminstall.py:1090
+#: yuminstall.py:1092
 msgid "older package(s)"
 msgstr ""
 
-#: yuminstall.py:1091
+#: yuminstall.py:1093
 msgid "insufficient disk space"
 msgstr ""
 
-#: yuminstall.py:1092
+#: yuminstall.py:1094
 msgid "insufficient disk inodes"
 msgstr ""
 
-#: yuminstall.py:1093
+#: yuminstall.py:1095
 msgid "package conflicts"
 msgstr ""
 
-#: yuminstall.py:1094
+#: yuminstall.py:1096
 msgid "package already installed"
 msgstr ""
 
-#: yuminstall.py:1095
+#: yuminstall.py:1097
 msgid "required package"
 msgstr ""
 
-#: yuminstall.py:1096
+#: yuminstall.py:1098
 msgid "package for incorrect arch"
 msgstr ""
 
-#: yuminstall.py:1097
+#: yuminstall.py:1099
 msgid "package for incorrect os"
 msgstr ""
 
-#: yuminstall.py:1111
+#: yuminstall.py:1113
 msgid "You need more space on the following file systems:\n"
 msgstr ""
 
-#: yuminstall.py:1124
+#: yuminstall.py:1126
 #, python-format
 msgid ""
 "There were file conflicts when checking the packages to be installed:\n"
 "%s\n"
 msgstr ""
 
-#: yuminstall.py:1127
+#: yuminstall.py:1129
 #, python-format
 msgid ""
 "There was an error running your transaction for the following reason(s): %"
 "s.\n"
 msgstr ""
 
-#: yuminstall.py:1135 yuminstall.py:1140
+#: yuminstall.py:1137 yuminstall.py:1142
 msgid "Error Running Transaction"
 msgstr ""
 
-#: yuminstall.py:1292 iw/task_gui.py:312
+#: yuminstall.py:1294 iw/task_gui.py:312
 msgid ""
 "Some of your software repositories require networking, but there was an "
 "error enabling the network on your system."
 msgstr ""
 
-#: yuminstall.py:1328
+#: yuminstall.py:1330
 msgid ""
 "Unable to read group information from repositories.  This is a problem with "
 "the generation of your install tree."
 msgstr ""
 
-#: yuminstall.py:1384 textw/constants_text.py:64
+#: yuminstall.py:1386 textw/constants_text.py:64
 msgid "Edit"
 msgstr ""
 
-#: yuminstall.py:1395 yuminstall.py:1591
+#: yuminstall.py:1397 yuminstall.py:1593
 #, python-format
 msgid ""
 "Unable to read package metadata. This may be due to a missing repodata "
@@ -1793,7 +1793,7 @@ msgid ""
 "%s"
 msgstr ""
 
-#: yuminstall.py:1571
+#: yuminstall.py:1573
 msgid ""
 "Some of the packages you have selected for install are missing "
 "dependencies.  You can exit the installation, go back and change your "
@@ -1801,7 +1801,7 @@ msgid ""
 "dependencies."
 msgstr ""
 
-#: yuminstall.py:1613
+#: yuminstall.py:1615
 #, python-format
 msgid ""
 "Your selected packages require %d MB of free space for installation, but you "
@@ -1809,22 +1809,22 @@ msgid ""
 "installer."
 msgstr ""
 
-#: yuminstall.py:1634
+#: yuminstall.py:1636
 msgid "Reboot?"
 msgstr ""
 
-#: yuminstall.py:1635
+#: yuminstall.py:1637
 msgid "The system will be rebooted now."
 msgstr ""
 
-#: yuminstall.py:1780
+#: yuminstall.py:1782
 #, python-format
 msgid ""
 "You appear to be upgrading from a system which is too old to upgrade to this "
 "version of %s.  Are you sure you wish to continue the upgrade process?"
 msgstr ""
 
-#: yuminstall.py:1815
+#: yuminstall.py:1817
 #, python-format
 msgid ""
 "The arch of the release of %(productName)s you are upgrading to appears to "
@@ -2148,8 +2148,8 @@ msgstr ""
 msgid "You must select one drive to boot from."
 msgstr ""
 
-#: iw/cleardisks_gui.py:127 iw/cleardisks_gui.py:147 iw/filter_gui.py:504
-#: iw/filter_gui.py:516 iw/filter_gui.py:546
+#: iw/cleardisks_gui.py:127 iw/cleardisks_gui.py:147 iw/filter_gui.py:503
+#: iw/filter_gui.py:515 iw/filter_gui.py:545
 msgid "Model"
 msgstr ""
 
@@ -2157,18 +2157,18 @@ msgstr ""
 msgid "Capacity"
 msgstr ""
 
-#: iw/cleardisks_gui.py:129 iw/filter_gui.py:506 iw/filter_gui.py:526
-#: iw/filter_gui.py:537 iw/filter_gui.py:548
+#: iw/cleardisks_gui.py:129 iw/filter_gui.py:505 iw/filter_gui.py:525
+#: iw/filter_gui.py:536 iw/filter_gui.py:547
 msgid "Vendor"
 msgstr ""
 
-#: iw/cleardisks_gui.py:130 iw/cleardisks_gui.py:149 iw/filter_gui.py:509
-#: iw/filter_gui.py:524 iw/filter_gui.py:535 iw/filter_gui.py:551
+#: iw/cleardisks_gui.py:130 iw/cleardisks_gui.py:149 iw/filter_gui.py:508
+#: iw/filter_gui.py:523 iw/filter_gui.py:534 iw/filter_gui.py:550
 msgid "Identifier"
 msgstr ""
 
-#: iw/cleardisks_gui.py:131 iw/filter_gui.py:507 iw/filter_gui.py:527
-#: iw/filter_gui.py:538 iw/filter_gui.py:549
+#: iw/cleardisks_gui.py:131 iw/filter_gui.py:506 iw/filter_gui.py:526
+#: iw/filter_gui.py:537 iw/filter_gui.py:548
 msgid "Interconnect"
 msgstr ""
 
@@ -2285,34 +2285,34 @@ msgstr ""
 msgid "Device Filter"
 msgstr ""
 
-#: iw/filter_gui.py:505 iw/filter_gui.py:517 iw/filter_gui.py:525
-#: iw/filter_gui.py:536 iw/filter_gui.py:547
+#: iw/filter_gui.py:504 iw/filter_gui.py:516 iw/filter_gui.py:524
+#: iw/filter_gui.py:535 iw/filter_gui.py:546
 msgid "Capacity (MB)"
 msgstr ""
 
-#: iw/filter_gui.py:508 iw/filter_gui.py:539 iw/filter_gui.py:550
+#: iw/filter_gui.py:507 iw/filter_gui.py:538 iw/filter_gui.py:549
 msgid "Serial Number"
 msgstr ""
 
-#: iw/filter_gui.py:510 iw/filter_gui.py:518 iw/filter_gui.py:529
-#: iw/filter_gui.py:540 iw/filter_gui.py:555 iw/osbootwidget.py:66
+#: iw/filter_gui.py:509 iw/filter_gui.py:517 iw/filter_gui.py:528
+#: iw/filter_gui.py:539 iw/filter_gui.py:554 iw/osbootwidget.py:66
 #: iw/partition_gui.py:613
 msgid "Device"
 msgstr ""
 
-#: iw/filter_gui.py:528
+#: iw/filter_gui.py:527
 msgid "Paths"
 msgstr ""
 
-#: iw/filter_gui.py:552
+#: iw/filter_gui.py:551
 msgid "Port"
 msgstr ""
 
-#: iw/filter_gui.py:553
+#: iw/filter_gui.py:552
 msgid "Target"
 msgstr ""
 
-#: iw/filter_gui.py:554
+#: iw/filter_gui.py:553
 msgid "LUN"
 msgstr ""
 

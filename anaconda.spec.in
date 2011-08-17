@@ -222,6 +222,12 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Wed Aug 17 2011 David Cantrell <dcantrell@redhat.com> - 13.21.130-1
+- Move the trusted_boot setting into AnacondaYum.run (clumens).
+  Resolves: rhbz#731260
+- Do not invalidate _cachedDevices (dcantrell)
+  Resolves: rhbz#618535
+
 * Tue Aug 16 2011 David Cantrell <dcantrell@redhat.com> - 13.21.129-1
 - Add multiboot support for tboot (gang.wei)
   Resolves: rhbz#697419
