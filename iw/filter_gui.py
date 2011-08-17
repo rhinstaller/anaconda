@@ -470,10 +470,9 @@ class FilterWindow(InstallWindow):
         for mp in new_mpaths:
             for d in mp:
                 # If any of the multipath components are in the nonraids cache,
-                # invalidate that cache and remove it from the UI store.
+                # remove them from the UI store.
                 if d in self._cachedDevices:
                     self.depopulate(d)
-                    del(self._cachedDevices[:])
 
                 # If all components of this multipath device are in the
                 # cache, skip it.  Otherwise, it's a new device and needs to
