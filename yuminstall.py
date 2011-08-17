@@ -1064,6 +1064,8 @@ class AnacondaYum(YumSorter):
             self.ts.check()
             self.ts.order()
 
+            self.anaconda.id.bootloader.trusted_boot = self.isPackageInstalled(name="tboot")
+
             if self._run(instLog, cb, intf) == DISPATCH_BACK:
                 self.tsInfo.curmedia = None
                 return DISPATCH_BACK
@@ -1853,8 +1855,6 @@ debuglevel=6
         self.instLog.close ()
 
         anaconda.id.instProgress = None
-
-        anaconda.id.bootloader.trusted_boot = self.ayum.isPackageInstalled(name="tboot")
 
         if rc == DISPATCH_BACK:
             return DISPATCH_BACK
