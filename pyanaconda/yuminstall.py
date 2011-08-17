@@ -1016,6 +1016,8 @@ class AnacondaYum(yum.YumBase):
         self.ts.order()
         self.ts.clean()
 
+        self.anaconda.bootloader.trusted_boot = self.isPackageInstalled(name="tboot")
+
         if self._run(instLog, cb, intf) == DISPATCH_BACK:
             return DISPATCH_BACK
 
@@ -1636,8 +1638,6 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
         self.instLog.close ()
 
         anaconda.intf.setInstallProgressClass(None)
-
-        anaconda.bootloader.trusted_boot = self.ayum.isPackageInstalled(name="tboot")
 
         if rc == DISPATCH_BACK:
             return DISPATCH_BACK
