@@ -99,7 +99,7 @@ int mountCommandWrapper(int mode, char *dev, char *where, char *fs,
 
     if (mode == IMOUNT_MODE_MOUNT) {
         if (strstr(fs, "nfs")) {
-            if (options) {
+            if (options && strlen(options)) { // do not append if the options are empty
                 if (asprintf(&opts, "%s,nolock", options) == -1) {
                     fprintf(stderr, "%s: %d: %s\n", __func__, __LINE__,
                             strerror(errno));
