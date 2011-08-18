@@ -215,12 +215,6 @@ def parseOptions(argv = None):
     op.add_option("--dlabel", action="store_true", default=False)
     op.add_option("--image", action="append", dest="images", default=[])
 
-    # Deprecated, unloved, unused
-    op.add_option("-r", "--rootPath", dest="unsupportedMode",
-                  action="store_const", const="root path")
-    op.add_option("-t", "--test", dest="unsupportedMode",
-                  action="store_const", const="test")
-
     return op.parse_args(argv)
 
 def setupPythonPath():
@@ -601,10 +595,6 @@ if __name__ == "__main__":
 
     # check memory, just the text mode for now:
     check_memory(anaconda, opts, 't')
-
-    if opts.unsupportedMode:
-        stdoutLog.error("Running anaconda in %s mode is no longer supported." % opts.unsupportedMode)
-        sys.exit(0)
 
     # Now that we've got arguments, do some extra processing.
     setupLoggingFromOpts(opts)
