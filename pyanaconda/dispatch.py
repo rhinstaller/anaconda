@@ -204,6 +204,8 @@ class Dispatcher(object):
     def can_go_back(self):
         # Begin with the step before this one. If all steps are skipped,
         # we can not go backwards from this one.
+        if self.step == None:
+            return False
         i = self._step_index() - 1
         while i >= 0:
             sname = self.steps[i].name

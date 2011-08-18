@@ -146,6 +146,19 @@ class DispatchTest(mock.TestCase):
         self.anaconda_obj = mock.Mock()
         return Dispatcher(self.anaconda_obj)
 
+    def can_go_back_test(self):
+        d = self._getDispatcher()
+        d.schedule_steps("rescue", "kickstart", "language", "keyboard")
+        # can not go back if dispatcher hasn't moved out of the initial state
+        self.assertFalse(d.can_go_back())
+        # can not go back if all preceding steps are direct
+        d.step = "language"
+        self.assertFalse(d.can_go_back())
+        d.done_steps("language")
+        # but in "keyboard" we can go back to "language"
+        d.step = "keyboard"
+        self.assertTrue(d.can_go_back())
+
     def done_test(self):
         from pyanaconda.dispatch import Dispatcher
         from pyanaconda.dispatch import Step
