@@ -171,6 +171,7 @@ class RaidEditor:
                     self.intf.messageWindow(_("Mount Point Error"),
                                             msg,
                                             custom_icon="error")
+                    self.dialog.present()
                     continue
 
                 used = False
@@ -188,6 +189,7 @@ class RaidEditor:
                                               "use. Please pick another.") %
                                             (mountpoint,),
                                             custom_icon="error")
+                    self.dialog.present()
                     continue
 
             if not self.origrequest.exists:
@@ -217,6 +219,7 @@ class RaidEditor:
                 except ValueError, e:
                     self.intf.messageWindow(_("Error"), str(e),
                                             custom_icon="error")
+                    self.dialog.present()
                     continue
 
                 # we must destroy luks leaf before original raid request

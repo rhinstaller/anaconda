@@ -603,6 +603,7 @@ class VolumeGroupEditor:
                     self.intf.messageWindow(_("Mount Point Error"),
                                             msg,
                                             custom_icon="error")
+                    dialog.present()
                     continue
 
             # validate logical volume name
@@ -612,6 +613,7 @@ class VolumeGroupEditor:
                 if err:
                     self.intf.messageWindow(_("Illegal Logical Volume Name"),
                                             err, custom_icon="error")
+                    dialog.present()
                     continue
 
             # check that the name is not already in use
@@ -629,6 +631,7 @@ class VolumeGroupEditor:
                                         _("The logical volume name \"%s\" is "
                                           "already in use. Please pick "
                                           "another.") % (lvname,), custom_icon="error")
+                dialog.present()
                 continue
 
             # test mount point
@@ -987,6 +990,7 @@ class VolumeGroupEditor:
 	    if err:
 		self.intf.messageWindow(_("Invalid Volume Group Name"), err,
 					custom_icon="error")
+        self.dialog.present()
 		continue
 
 	    origvname = self.vg.name
@@ -999,6 +1003,7 @@ class VolumeGroupEditor:
 					      "already in use. Please pick "
 					      "another." % (volname,)),
 					    custom_icon="error")
+            self.dialog.present()
 		    continue
 
 	    # get physical extent
