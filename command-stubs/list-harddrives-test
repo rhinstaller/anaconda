@@ -25,13 +25,12 @@ import parted
 
 
 def list_harddrives_test():
-    try:
-        output = check_output(['list-harddrives'])
-    except CalledProcessError:
+    proc = subprocess.Popen(['list-harddrives'], stdout=subprocess.PIPE)
+    if proc.wait() != 0:
         print('list-harddrives: list harddrives test failed')
         sys.exit(1)
 
-    output = output.splitlines()
+    output = proc.stdout.read().splitlines()
 
     devices = set()
     for dev in parted.getAllDevices():
