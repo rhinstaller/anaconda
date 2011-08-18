@@ -44,7 +44,7 @@ class AnacondaBackend:
         """Abstract backend class all backends should inherit from this
            @param instPath: root path for the installation to occur"""
         self.anaconda = anaconda
-        self.instPath = anaconda.rootPath
+        self.instPath = ROOT_PATH
         self.instLog = None
         self.modeText = ""
 
@@ -66,14 +66,14 @@ class AnacondaBackend:
         pass
 
     def doPreInstall(self, anaconda):
-        self.initLog(anaconda.rootPath)
+        self.initLog(ROOT_PATH)
 
     def copyFirmware(self, anaconda):
         # Multiple driver disks may be loaded, so we need to glob for all
         # the firmware files in the common DD firmware directory
         for f in glob.glob(DD_FIRMWARE+"/*"):
             try:
-                shutil.copyfile(f, "%s/lib/firmware/" % anaconda.rootPath)
+                shutil.copyfile(f, "%s/lib/firmware/" % ROOT_PATH)
             except IOError as e:
                 log.error("Could not copy firmware file %s: %s" % (f, e.strerror))
 
@@ -82,17 +82,17 @@ class AnacondaBackend:
         self.copyFirmware(anaconda)
 
         if anaconda.extraModules:
-            for (n, arch, tag) in self.kernelVersionList(anaconda.rootPath):
-                packages.recreateInitrd(n, anaconda.rootPath)
+            for (n, arch, tag) in self.kernelVersionList(ROOT_PATH):
+                packages.recreateInitrd(n, ROOT_PATH)
 
         #copy RPMS
         for d in glob.glob(DD_RPMS):
-            shutil.copytree(d, anaconda.rootPath + "/root/" + os.path.basename(d))
+            shutil.copytree(d, ROOT_PATH + "/root/" + os.path.basename(d))
 
         #copy modules and firmware
         if os.path.exists(DD_ALL):
             try:
-                shutil.copytree(DD_ALL, anaconda.rootPath + "/root/DD")
+                shutil.copytree(DD_ALL, ROOT_PATH + "/root/DD")
             except IOError as e:
                 pass
 

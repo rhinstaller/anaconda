@@ -101,7 +101,7 @@ class AnacondaCallback:
         self.messageWindow = anaconda.intf.messageWindow
         self.progress = anaconda.intf.instProgress
         self.progressWindowClass = anaconda.intf.progressWindow
-        self.rootPath = anaconda.rootPath
+        self.rootPath = ROOT_PATH
 
         self.initWindow = None
 
@@ -358,7 +358,7 @@ class AnacondaYum(yum.YumBase):
                 self.anaconda.methodstr = self.anaconda.intf.methodstrRepoWindow(self.anaconda.methodstr or "cdrom:",
                                                                                  exception)
 
-        self.doConfigSetup(root=self.anaconda.rootPath)
+        self.doConfigSetup(root=ROOT_PATH)
         if not self.anaconda.bootloader.update_only:
             self.conf.installonlypkgs = []
 
@@ -1203,7 +1203,7 @@ pluginpath=/usr/lib/yum-plugins,/tmp/updates/yum-plugins
 pluginconfpath=/etc/yum/pluginconf.d,/tmp/updates/pluginconf.d
 plugins=1
 reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anaconda.repos.d
-""" % (anaconda.rootPath)
+""" % (ROOT_PATH)
 
         if anaconda.proxy:
             buf += "proxy=%s\n" % anaconda.proxy
@@ -1224,10 +1224,10 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
 
         # clean up rpmdb locks so that kickstart %post scripts aren't
         # unhappy (#496961)
-        iutil.resetRpmDb(anaconda.rootPath)
+        iutil.resetRpmDb(ROOT_PATH)
 
-        if os.access(anaconda.rootPath + "/tmp/yum.log", os.R_OK):
-            os.unlink(anaconda.rootPath + "/tmp/yum.log")
+        if os.access(ROOT_PATH + "/tmp/yum.log", os.R_OK):
+            os.unlink(ROOT_PATH + "/tmp/yum.log")
 
         self.ayum.history.close()
 
@@ -1237,7 +1237,7 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
 
         if anaconda.upgrade:
            # FIXME: make sure that the rpmdb doesn't have stale locks :/
-           iutil.resetRpmDb(anaconda.rootPath)
+           iutil.resetRpmDb(ROOT_PATH)
 
         self.ayum = AnacondaYum(anaconda)
         self.ayum.setup()
@@ -1594,27 +1594,27 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
 
         for i in dirList:
             try:
-                os.mkdir(anaconda.rootPath + i)
+                os.mkdir(ROOT_PATH + i)
             except OSError:
                 pass
 #            log.error("Error making directory %s: %s" % (i, msg))
 
-        self.initLog(anaconda.rootPath)
+        self.initLog(ROOT_PATH)
 
         # write out the fstab
         if not anaconda.upgrade:
-            anaconda.storage.fsset.write(anaconda.rootPath)
+            anaconda.storage.fsset.write(ROOT_PATH)
             if os.access("/etc/modprobe.d/anaconda.conf", os.R_OK):
                 shutil.copyfile("/etc/modprobe.d/anaconda.conf", 
-                                anaconda.rootPath + "/etc/modprobe.d/anaconda.conf")
+                                ROOT_PATH + "/etc/modprobe.d/anaconda.conf")
             anaconda.network.write()
-            anaconda.network.copyConfigToPath(instPath=anaconda.rootPath)
-            anaconda.storage.write(anaconda.rootPath)
+            anaconda.network.copyConfigToPath(instPath=ROOT_PATH)
+            anaconda.storage.write(ROOT_PATH)
             if not anaconda.isHeadless:
-                anaconda.keyboard.write(anaconda.rootPath)
+                anaconda.keyboard.write(ROOT_PATH)
         else:
             # ensure that /etc/mtab is a symlink to /proc/self/mounts
-            anaconda.storage.makeMtab(root=anaconda.rootPath)
+            anaconda.storage.makeMtab(root=ROOT_PATH)
 
     def doInstall(self, anaconda):
         log.info("Preparing to install packages")
@@ -1657,19 +1657,19 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
             repo.dirCleanup()
 
         # expire yum caches on upgrade
-        if anaconda.upgrade and os.path.exists("%s/var/cache/yum" %(anaconda.rootPath,)):
+        if anaconda.upgrade and os.path.exists("%s/var/cache/yum" %(ROOT_PATH,)):
             log.info("Expiring yum caches")
             try:
                 iutil.execWithRedirect("yum", ["clean", "all"],
                                        stdout="/dev/tty5", stderr="/dev/tty5",
-                                       root = anaconda.rootPath)
+                                       root = ROOT_PATH)
             except RuntimeError:
                 pass
 
         # nuke preupgrade
-        if flags.cmdline.has_key("preupgrade") and os.path.exists("%s/var/cache/yum/anaconda-upgrade" %(anaconda.rootPath,)):
+        if flags.cmdline.has_key("preupgrade") and os.path.exists("%s/var/cache/yum/anaconda-upgrade" %(ROOT_PATH,)):
             try:
-                shutil.rmtree("%s/var/cache/yum/anaconda-upgrade" %(anaconda.rootPath,))
+                shutil.rmtree("%s/var/cache/yum/anaconda-upgrade" %(ROOT_PATH,))
             except (OSError, IOError):
                 pass
 
@@ -1883,7 +1883,7 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
     def postAction(self, anaconda):
         self.ayum.close()
         self.ayum.closeRpmDB()
-        iutil.resetRpmDb(anaconda.rootPath)
+        iutil.resetRpmDb(ROOT_PATH)
 
 class DownloadHeaderProgress:
     def __init__(self, intf, ayum=None):

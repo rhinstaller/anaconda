@@ -560,6 +560,7 @@ if __name__ == "__main__":
 
     # pull this in to get product name and versioning
     from pyanaconda import product
+    from pyanaconda.constants import ROOT_PATH
 
     from pyanaconda import isys
     isys.initLog()
@@ -739,7 +740,7 @@ if __name__ == "__main__":
         anaconda.instLanguage.instLang = opts.lang
         anaconda.instLanguage.buildLocale()
         anaconda.instLanguage.systemLang = opts.lang
-        anaconda.timezone.setTimezoneInfo(anaconda.instLanguage.getDefaultTimeZone(anaconda.rootPath))
+        anaconda.timezone.setTimezoneInfo(anaconda.instLanguage.getDefaultTimeZone(ROOT_PATH))
 
     if opts.keymap:
         anaconda.dispatch.skip_steps("keyboard")

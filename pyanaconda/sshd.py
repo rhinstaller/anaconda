@@ -26,6 +26,7 @@ log = logging.getLogger("anaconda")
 import iutil
 import users
 from flags import flags
+from constants import ROOT_PATH
 
 def createSshKey(algorithm, keyfile):
     path = '/etc/ssh/%s' % (keyfile,)
@@ -50,7 +51,7 @@ def doSshd(anaconda):
     else:
         log.info("sshd: not enabled, skipping.")
 
-    users.createLuserConf(anaconda.rootPath)
+    users.createLuserConf(ROOT_PATH)
 
 def handleSshPw(anaconda):
     if not anaconda.ksdata:

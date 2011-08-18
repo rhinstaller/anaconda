@@ -129,7 +129,7 @@ class LiveCDCopyBackend(backend.AnacondaBackend):
     def postAction(self, anaconda):
         try:
             anaconda.storage.umountFilesystems(swapoff = False)
-            os.rmdir(anaconda.rootPath)
+            os.rmdir(ROOT_PATH)
         except Exception as e:
             log.error("Unable to unmount filesystems: %s" % e) 
 
@@ -251,7 +251,7 @@ class LiveCDCopyBackend(backend.AnacondaBackend):
         # And now let's do the real copies
         for tocopy in mountpoints:
             device = anaconda.storage.mountpoints[tocopy]
-            source = "%s/%s" % (anaconda.rootPath, tocopy)
+            source = "%s/%s" % (ROOT_PATH, tocopy)
             dest   = "/mnt/%s" % (tocopy,)
 
             # FIXME: all calls to wait.refresh() are kind of a hack... we
@@ -279,11 +279,11 @@ class LiveCDCopyBackend(backend.AnacondaBackend):
         # so that post-install writes end up where they're supposed to end up
         _setupFilesystems(anaconda.storage.mountpoints, teardown=True)
         _setupFilesystems(anaconda.storage.mountpoints,
-                          chroot=anaconda.rootPath)
+                          chroot=ROOT_PATH)
 
         # restore stat info for each mountpoint
         for mountpoint in reversed(mountpoints):
-            dest = "%s/%s" % (anaconda.rootPath, mountpoint)
+            dest = "%s/%s" % (ROOT_PATH, mountpoint)
             log.info("Restoring stats on %s" % (dest,))
             st = stats[mountpoint]
 
@@ -304,19 +304,19 @@ class LiveCDCopyBackend(backend.AnacondaBackend):
         packages.rpmSetupGraphicalSystem(anaconda)
 
         # now write out the "real" fstab and mtab
-        anaconda.storage.write(anaconda.rootPath)
+        anaconda.storage.write(ROOT_PATH)
 
         # copy over the modprobe.conf
         if os.path.exists("/etc/modprobe.conf"):
             shutil.copyfile("/etc/modprobe.conf", 
-                            anaconda.rootPath + "/etc/modprobe.conf")
+                            ROOT_PATH + "/etc/modprobe.conf")
         # set the same keyboard the user selected in the keyboard dialog:
-        anaconda.keyboard.write(anaconda.rootPath)
+        anaconda.keyboard.write(ROOT_PATH)
 
         # rebuild the initrd(s)
-        vers = self.kernelVersionList(anaconda.rootPath)
+        vers = self.kernelVersionList(ROOT_PATH)
         for (n, arch, tag) in vers:
-            packages.recreateInitrd(n, anaconda.rootPath)
+            packages.recreateInitrd(n, ROOT_PATH)
 
     def kernelVersionList(self, rootPath = "/"):
         return packages.rpmKernelVersionList(rootPath)

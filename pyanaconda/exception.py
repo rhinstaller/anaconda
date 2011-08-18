@@ -31,6 +31,7 @@ import signal
 from flags import flags
 import kickstart
 import storage.errors
+from pyanaconda.constants import ROOT_PATH
 
 import logging
 log = logging.getLogger("anaconda")
@@ -100,8 +101,8 @@ class AnacondaExceptionHandler(ExceptionHandler):
 def initExceptionHandling(anaconda):
     fileList = [ "/tmp/anaconda.log", "/tmp/lvmout", "/tmp/resize.out",
                  "/tmp/program.log", "/tmp/storage.log", "/tmp/ifcfg.log",
-                 "/tmp/yum.log", anaconda.rootPath + "/root/install.log",
-                 anaconda.rootPath + "/root/upgrade.log", "/proc/cmdline" ]
+                 "/tmp/yum.log", ROOT_PATH + "/root/install.log",
+                 ROOT_PATH + "/root/upgrade.log", "/proc/cmdline" ]
     if flags.livecdInstall:
         fileList.extend(["/var/log/messages"])
     else:

@@ -301,7 +301,7 @@ def doRescue(anaconda):
                   "\n\n"
                   "If for some reason this process fails you can choose 'Skip' "
                   "and this step will be skipped and you will go directly to a "
-                  "command shell.\n\n") % (anaconda.rootPath,),
+                  "command shell.\n\n") % (ROOT_PATH,),
                   [_("Continue"), _("Read-Only"), _("Skip"), _("Advanced")] )
 
             if rc == _("Skip").lower():
@@ -380,14 +380,14 @@ def doRescue(anaconda):
                 rootmounted = 0
             else:
                 if anaconda.ksdata:
-                    log.info("System has been mounted under: %s" % anaconda.rootPath)
+                    log.info("System has been mounted under: %s" % ROOT_PATH)
                 else:
                     ButtonChoiceWindow(anaconda.intf.screen, _("Rescue"),
                        _("Your system has been mounted under %(rootPath)s.\n\n"
                          "Press <return> to get a shell. If you would like to "
                          "make your system the root environment, run the command:\n\n"
                          "\tchroot %(rootPath)s\n\n%(msg)s") %
-                                       {'rootPath': anaconda.rootPath,
+                                       {'rootPath': ROOT_PATH,
                                         'msg': msg},
                                        [_("OK")] )
                 rootmounted = 1
@@ -404,7 +404,7 @@ def doRescue(anaconda):
                     # we have to catch the possible exception
                     # because we support read-only mounting
                     try:
-                        fd = open("%s/.autorelabel" % anaconda.rootPath, "w+")
+                        fd = open("%s/.autorelabel" % ROOT_PATH, "w+")
                         fd.close()
                     except IOError:
                         log.warning("cannot touch /.autorelabel")
@@ -456,7 +456,7 @@ def doRescue(anaconda):
                 ButtonChoiceWindow(anaconda.intf.screen, _("Rescue"),
                     _("An error occurred trying to mount some or all of your "
                       "system. Some of it may be mounted under %s.\n\n"
-                      "Press <return> to get a shell.") % anaconda.rootPath + msg,
+                      "Press <return> to get a shell.") % ROOT_PATH + msg,
                       [_("OK")] )
     else:
         if anaconda.ksdata and \
@@ -479,12 +479,12 @@ def doRescue(anaconda):
     msgStr = ""
 
     if rootmounted and not readOnly:
-        anaconda.storage.makeMtab(root=anaconda.rootPath)
+        anaconda.storage.makeMtab(root=ROOT_PATH)
         try:
-            makeResolvConf(anaconda.rootPath)
+            makeResolvConf(ROOT_PATH)
         except (OSError, IOError) as e:
             log.error("error making a resolv.conf: %s" %(e,))
-        msgStr = _("Your system is mounted under the %s directory.") % (anaconda.rootPath,)
+        msgStr = _("Your system is mounted under the %s directory.") % (ROOT_PATH,)
         ButtonChoiceWindow(anaconda.intf.screen, _("Rescue"), msgStr, [_("OK")] )
 
     # we do not need ncurses anymore, shut them down

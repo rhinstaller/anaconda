@@ -31,6 +31,7 @@
 import os, time, string
 import iutil
 import isys
+from constants import ROOT_PATH
 from tempfile import mkstemp
 
 import logging
@@ -74,7 +75,6 @@ class Anaconda(object):
         self.rescue = False
         self.rescue_mount = True
         self.rootParts = None
-        self.rootPath = "/mnt/sysimage"
         self.security = security.Security()
         self.simpleFilter = not iutil.isS390()
         self.stage2 = None
@@ -193,7 +193,7 @@ class Anaconda(object):
         if not self._timezone:
             import timezone
             self._timezone = timezone.Timezone()
-            self._timezone.setTimezoneInfo(self.instLanguage.getDefaultTimeZone(self.rootPath))
+            self._timezone.setTimezoneInfo(self.instLanguage.getDefaultTimeZone(ROOT_PATH))
 
         return self._timezone
 
@@ -263,7 +263,7 @@ class Anaconda(object):
         if self.xdriver is None:
             return
         if root is None:
-            root = self.rootPath
+            root = ROOT_PATH
         if not os.path.isdir("%s/etc/X11" %(root,)):
             os.makedirs("%s/etc/X11" %(root,), mode=0755)
         f = open("%s/etc/X11/xorg.conf" %(root,), 'w')
@@ -287,17 +287,17 @@ class Anaconda(object):
 
     def write(self):
         self.writeXdriver()
-        self.instLanguage.write(self.rootPath)
+        self.instLanguage.write(ROOT_PATH)
 
-        self.timezone.write(self.rootPath)
+        self.timezone.write(ROOT_PATH)
         self.network.write()
-        self.network.copyConfigToPath(instPath=self.rootPath)
+        self.network.copyConfigToPath(instPath=ROOT_PATH)
         self.network.disableNMForStorageDevices(self,
-                                                instPath=self.rootPath)
-        self.desktop.write(self.rootPath)
-        self.users.write(self.rootPath)
-        self.security.write(self.rootPath)
-        self.firewall.write(self.rootPath)
+                                                instPath=ROOT_PATH)
+        self.desktop.write(ROOT_PATH)
+        self.users.write(ROOT_PATH)
+        self.security.write(ROOT_PATH)
+        self.firewall.write(ROOT_PATH)
 
         services = list(self.storage.services)
 
@@ -306,7 +306,7 @@ class Anaconda(object):
                 iutil.execWithRedirect("/sbin/chkconfig",
                                        [svc, "off"],
                                        stdout="/dev/tty5", stderr="/dev/tty5",
-                                       root=self.rootPath)
+                                       root=ROOT_PATH)
 
             services.extend(self.ksdata.services.enabled)
 
@@ -314,7 +314,7 @@ class Anaconda(object):
             iutil.execWithRedirect("/sbin/chkconfig",
                                    [svc, "on"],
                                    stdout="/dev/tty5", stderr="/dev/tty5",
-                                   root=self.rootPath)
+                                   root=ROOT_PATH)
 
     def writeKS(self, filename):
         import urllib

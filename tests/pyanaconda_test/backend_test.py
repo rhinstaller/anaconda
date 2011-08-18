@@ -38,13 +38,13 @@ class BackendTest(mock.TestCase):
         pyanaconda.backend.glob.glob.return_value = [FILE]
 
         anaconda = mock.Mock()
-        anaconda.rootPath = ''
         ab = pyanaconda.backend.AnacondaBackend(anaconda)
         ab.copyFirmware(anaconda)
         self.assertEqual(pyanaconda.backend.shutil.copyfile.call_args[0][0], FILE)
 
     def anaconda_backend_do_post_install_test(self):
         import pyanaconda.backend
+        from pyanaconda.constants import ROOT_PATH
         FILE = 'foo'
         A = 'a'
         B = 'b'
@@ -62,18 +62,17 @@ class BackendTest(mock.TestCase):
         pyanaconda.backend.sys = mock.Mock()
 
         anaconda = mock.Mock()
-        anaconda.rootPath = ''
         anaconda.extraModules = True
 
         ab = pyanaconda.backend.AnacondaBackend(anaconda)
         ab.doPostInstall(anaconda)
 
         self.assertEqual(pyanaconda.backend.packages.method_calls[0],
-            ('recreateInitrd', (A, ''), {}))
+            ('recreateInitrd', (A, ROOT_PATH), {}))
         self.assertEqual(pyanaconda.backend.shutil.method_calls[0],
-            ('copytree', (FILE, '/root/'), {}))
+            ('copytree', (FILE, ROOT_PATH + '/root/'), {}))
         self.assertEqual(pyanaconda.backend.shutil.method_calls[1],
-            ('copytree', (self.DD_EXTRACTED, '/root/DD'), {}))
+            ('copytree', (self.DD_EXTRACTED, ROOT_PATH + '/root/DD'), {}))
         self.assertTrue(pyanaconda.backend.storage.writeEscrowPackets.called)
 
     def anaconda_backend_do_install_test(self):

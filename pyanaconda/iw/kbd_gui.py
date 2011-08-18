@@ -19,6 +19,7 @@
 #
 
 from iw_gui import *
+from pyanaconda.constants import ROOT_PATH
 import sys
 
 sys.path.append("/usr/share/system-config-keyboard")
@@ -36,7 +37,7 @@ class KeyboardWindow(InstallWindow, installKeyboardWindow):
         installKeyboardWindow.getNext(self)
 
     def getScreen(self, anaconda):
-        default = anaconda.instLanguage.getDefaultKeyboard(anaconda.rootPath)
+        default = anaconda.instLanguage.getDefaultKeyboard(ROOT_PATH)
         anaconda.keyboard.set(default)
         vbox = installKeyboardWindow.getScreen(self, default, anaconda.keyboard)
         self.modelView.connect("select-cursor-row", lambda widget, vbox=vbox: self.ics.setGrabNext(1))

@@ -1365,7 +1365,7 @@ def runPostScripts(anaconda):
         w = anaconda.intf.waitWindow(_("Post-Installation"),
                             _("Running post-installation scripts"))
         
-    map (lambda s: s.run(anaconda.rootPath, flags.serial, anaconda.intf), postScripts)
+    map (lambda s: s.run(ROOT_PATH, flags.serial, anaconda.intf), postScripts)
 
     log.info("All kickstart %%post script(s) have been run")
     if anaconda.intf is not None:

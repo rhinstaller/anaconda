@@ -152,8 +152,8 @@ def restoreTime(anaconda):
         return
     if os.environ.has_key("TZ"):
         del os.environ["TZ"]
-    copyFromSysimage(anaconda.rootPath, '/etc/localtime')
-    copyFromSysimage(anaconda.rootPath, '/etc/adjtime')
+    copyFromSysimage(ROOT_PATH, '/etc/localtime')
+    copyFromSysimage(ROOT_PATH, '/etc/adjtime')
     if iutil.isS390():
         return
     args = [ "--hctosys" ]
@@ -205,8 +205,8 @@ def upgradeMountFilesystems(anaconda):
                    '/bin/sh', '/usr/tmp')
     badLinks = []
     for n in checkLinks:
-        if not os.path.islink(anaconda.rootPath + n): continue
-        l = os.readlink(anaconda.rootPath + n)
+        if not os.path.islink(ROOT_PATH + n): continue
+        l = os.readlink(ROOT_PATH + n)
         if l[0] == '/':
             badLinks.append(n)
 
@@ -224,7 +224,7 @@ def upgradeMountFilesystems(anaconda):
     badLinks = []
     mustBeLinks = ( '/usr/tmp', )
     for n in mustBeLinks:
-        if not os.path.islink(anaconda.rootPath + n):
+        if not os.path.islink(ROOT_PATH + n):
             badLinks.append(n)
 
     if badLinks: 
@@ -241,15 +241,15 @@ def upgradeMountFilesystems(anaconda):
     anaconda.storage.mkDevRoot()
 
     # Move /etc/rpm/platform out of the way.
-    if os.path.exists(anaconda.rootPath + "/etc/rpm/platform"):
-        shutil.move(anaconda.rootPath + "/etc/rpm/platform",
-                    anaconda.rootPath + "/etc/rpm/platform.rpmsave")
+    if os.path.exists(ROOT_PATH + "/etc/rpm/platform"):
+        shutil.move(ROOT_PATH + "/etc/rpm/platform",
+                    ROOT_PATH + "/etc/rpm/platform.rpmsave")
 
     # if they've been booting with selinux disabled, then we should
     # disable it during the install as well (#242510)
     try:
-        if os.path.exists(anaconda.rootPath + "/.autorelabel"):
-            ctx = selinux.getfilecon(anaconda.rootPath + "/.autorelabel")[1]
+        if os.path.exists(ROOT_PATH + "/.autorelabel"):
+            ctx = selinux.getfilecon(ROOT_PATH + "/.autorelabel")[1]
             if not ctx or ctx == "unlabeled":
                 flags.selinux = False
                 log.info("Disabled SELinux for upgrade based on /.autorelabel")

@@ -252,7 +252,7 @@ def writeEscrowPackets(anaconda):
         for device in escrowDevices:
             log.debug("escrow: device %s: %s" %
                       (repr(device.path), repr(device.format.type)))
-            device.format.escrow(anaconda.rootPath + "/root",
+            device.format.escrow(ROOT_PATH + "/root",
                                  backupPassphrase)
 
         wait_win.pop()
@@ -381,7 +381,7 @@ class Storage(object):
                                      luksDict=self.__luksDevs,
                                      iscsi=self.iscsi,
                                      dasd=self.dasd)
-        self.fsset = FSSet(self.devicetree, getattr(anaconda, "rootPath", ""))
+        self.fsset = FSSet(self.devicetree, ROOT_PATH)
         self.services = set()
 
     def doIt(self):
@@ -478,8 +478,7 @@ class Storage(object):
         self.devicetree.populate(progressWindow=prog,
                                  cleanupOnly=cleanupOnly)
         self.config.clearPartType = clearPartType # set it back
-        self.fsset = FSSet(self.devicetree,
-                           getattr(self.anaconda, "rootPath", ""))
+        self.fsset = FSSet(self.devicetree, ROOT_PATH)
         self.eddDict = get_edd_dict(self.partitioned)
         if hasattr(self.anaconda, "rootParts") and \
            hasattr(self.anaconda, "upgradeRoot"):
@@ -1307,13 +1306,12 @@ class Storage(object):
 
     def turnOnSwap(self, upgrading=None):
         self.fsset.turnOnSwap(intf=self.intf,
-                              rootPath=getattr(self.anaconda, "rootPath", ""),
+                              rootPath=ROOT_PATH,
                               upgrading=upgrading)
 
     def mountFilesystems(self, raiseErrors=None, readOnly=None, skipRoot=False):
         self.fsset.mountFilesystems(intf=self.intf,
-                                    rootPath=getattr(self.anaconda,
-                                                     "rootPath", ""),
+                                    rootPath=ROOT_PATH,
                                     raiseErrors=raiseErrors,
                                     readOnly=readOnly, skipRoot=skipRoot)
 
@@ -1492,8 +1490,8 @@ def findExistingRootDevices(anaconda, upgradeany=False):
     rootDevs = []
     notUpgradable = []
 
-    if not os.path.exists(anaconda.rootPath):
-        iutil.mkdirChain(anaconda.rootPath)
+    if not os.path.exists(ROOT_PATH):
+        iutil.mkdirChain(ROOT_PATH)
 
     roots = []
     for device in anaconda.storage.devicetree.leaves:
@@ -1511,7 +1509,7 @@ def findExistingRootDevices(anaconda, upgradeany=False):
             continue
 
         try:
-            device.format.mount(options="ro", mountpoint=anaconda.rootPath)
+            device.format.mount(options="ro", mountpoint=ROOT_PATH)
         except Exception as e:
             log.warning("mount of %s as %s failed: %s" % (device.name,
                                                           device.format.type,
@@ -1519,9 +1517,9 @@ def findExistingRootDevices(anaconda, upgradeany=False):
             device.teardown()
             continue
 
-        if os.access(anaconda.rootPath + "/etc/fstab", os.R_OK):
+        if os.access(ROOT_PATH + "/etc/fstab", os.R_OK):
             try:
-                (arch, product, version) = getReleaseString(anaconda.rootPath)
+                (arch, product, version) = getReleaseString(ROOT_PATH)
             except ValueError:
                 # This likely isn't our product, so don't even count it as
                 # notUpgradable.
@@ -1545,7 +1543,7 @@ def mountExistingSystem(anaconda, rootEnt,
                         readOnly=None):
     """ Mount filesystems specified in rootDevice's /etc/fstab file. """
     rootDevice = rootEnt[0]
-    rootPath = anaconda.rootPath
+    rootPath = ROOT_PATH
     fsset = anaconda.storage.fsset
     if readOnly:
         readOnly = "ro"
@@ -1602,7 +1600,7 @@ def mountExistingSystem(anaconda, rootEnt,
         if rc == 0:
             return -1
 
-    fsset.mountFilesystems(intf=anaconda.intf, rootPath=anaconda.rootPath,
+    fsset.mountFilesystems(intf=anaconda.intf, rootPath=ROOT_PATH,
                            readOnly=readOnly, skipRoot=True)
 
 

@@ -203,7 +203,6 @@ class UpgradeTest(mock.TestCase):
 
         anaconda = mock.Mock()
         anaconda.upgradeRoot = ['']
-        anaconda.rootPath = ''
         pyanaconda.upgrade.upgradeMountFilesystems(anaconda)
         self.assertTrue(anaconda.storage.turnOnSwap.called)
         self.assertTrue(anaconda.storage.mkDevRoot.called)
@@ -213,6 +212,7 @@ class UpgradeTest(mock.TestCase):
         # moving /etc/rpm/platform out of the way
         # disabling selinux
         import pyanaconda.upgrade
+        from pyanaconda.constants import ROOT_PATH
         pyanaconda.upgrade.mountExistingSystem = mock.Mock()
         pyanaconda.upgrade.os = mock.Mock()
         pyanaconda.upgrade.os.islink.return_value = True
@@ -224,12 +224,12 @@ class UpgradeTest(mock.TestCase):
 
         anaconda = mock.Mock()
         anaconda.upgradeRoot = ['']
-        anaconda.rootPath = ''
         pyanaconda.upgrade.upgradeMountFilesystems(anaconda)
         self.assertTrue(anaconda.storage.turnOnSwap.called)
         self.assertTrue(anaconda.storage.mkDevRoot.called)
         self.assertEqual(pyanaconda.upgrade.shutil.move.call_args,
-            (("/etc/rpm/platform", "/etc/rpm/platform.rpmsave"), {}))
+            ((ROOT_PATH + "/etc/rpm/platform",
+              ROOT_PATH + "/etc/rpm/platform.rpmsave"), {}))
         self.assertTrue(pyanaconda.upgrade.selinux.getfilecon.called)
 
     def set_steps_test(self):

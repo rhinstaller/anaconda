@@ -1986,7 +1986,7 @@ class SILO(YabootSILOBase):
 # anaconda-specific functions
 
 def writeSysconfigKernel(anaconda, default_kernel):
-    f = open(anaconda.rootPath + "/etc/sysconfig/kernel", "w+")
+    f = open(ROOT_PATH + "/etc/sysconfig/kernel", "w+")
     f.write("# UPDATEDEFAULT specifies if new-kernel-pkg should make\n"
             "# new kernels the default\n")
     # only update the default if we're setting the default to linux (#156678)
@@ -2025,7 +2025,7 @@ def writeBootloader(anaconda):
                                      _("Installing bootloader."))
 
     # get a list of installed kernel packages
-    kernel_versions = anaconda.backend.kernelVersionList(anaconda.rootPath)
+    kernel_versions = anaconda.backend.kernelVersionList(ROOT_PATH)
     if not kernel_versions:
         log.warning("no kernel was installed -- bootloader config unchanged")
         if anaconda.intf:
@@ -2085,7 +2085,7 @@ def writeBootloader(anaconda):
                                       network=anaconda.network)
 
     try:
-        anaconda.bootloader.write(install_root=anaconda.rootPath)
+        anaconda.bootloader.write(install_root=ROOT_PATH)
     except BootLoaderError as e:
         if anaconda.intf:
             anaconda.intf.messageWindow(_("Warning"),

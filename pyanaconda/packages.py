@@ -51,10 +51,10 @@ def doPostAction(anaconda):
 
 def firstbootConfiguration(anaconda):
     if anaconda.firstboot == FIRSTBOOT_RECONFIG:
-        f = open(anaconda.rootPath + '/etc/reconfigSys', 'w+')
+        f = open(ROOT_PATH + '/etc/reconfigSys', 'w+')
         f.close()
     elif anaconda.firstboot == FIRSTBOOT_SKIP:
-        f = open(anaconda.rootPath + '/etc/sysconfig/firstboot', 'w+')
+        f = open(ROOT_PATH + '/etc/sysconfig/firstboot', 'w+')
         f.write('RUN_FIRSTBOOT=NO')
         f.close()
 
@@ -62,14 +62,14 @@ def firstbootConfiguration(anaconda):
 
 def writeKSConfiguration(anaconda):
     log.info("Writing autokickstart file")
-    fn = anaconda.rootPath + "/root/anaconda-ks.cfg"
+    fn = ROOT_PATH + "/root/anaconda-ks.cfg"
 
     anaconda.writeKS(fn)
 
 def copyAnacondaLogs(anaconda):
     log.info("Copying anaconda logs")
-    if not os.path.isdir (anaconda.rootPath + '/var/log/anaconda'):
-        os.mkdir(anaconda.rootPath + '/var/log/anaconda')
+    if not os.path.isdir (ROOT_PATH + '/var/log/anaconda'):
+        os.mkdir(ROOT_PATH + '/var/log/anaconda')
 
     for (fn, dest) in (("/tmp/anaconda.log", "anaconda.log"),
                        ("/tmp/syslog", "anaconda.syslog"),
@@ -80,8 +80,8 @@ def copyAnacondaLogs(anaconda):
                        ("/tmp/yum.log", "anaconda.yum.log")):
         if os.access(fn, os.R_OK):
             try:
-                shutil.copyfile(fn, "%s/var/log/anaconda/%s" %(anaconda.rootPath, dest))
-                os.chmod("%s/var/log/anaconda/%s" %(anaconda.rootPath, dest), 0600)
+                shutil.copyfile(fn, "%s/var/log/anaconda/%s" %(ROOT_PATH, dest))
+                os.chmod("%s/var/log/anaconda/%s" %(ROOT_PATH, dest), 0600)
             except:
                 pass
 
@@ -155,12 +155,12 @@ def turnOnFilesystems(anaconda):
     else:
         if upgrade_migrate:
             # we should write out a new fstab with the migrated fstype
-            shutil.copyfile("%s/etc/fstab" % anaconda.rootPath,
-                            "%s/etc/fstab.anaconda" % anaconda.rootPath)
-            anaconda.storage.fsset.write(anaconda.rootPath)
+            shutil.copyfile("%s/etc/fstab" % ROOT_PATH,
+                            "%s/etc/fstab.anaconda" % ROOT_PATH)
+            anaconda.storage.fsset.write(ROOT_PATH)
 
         # and make sure /dev is mounted so we can read the bootloader
-        bindMountDevDirectory(anaconda.rootPath)
+        bindMountDevDirectory(ROOT_PATH)
 
 
 def setupTimezone(anaconda):
@@ -209,10 +209,10 @@ def setFileCons(anaconda):
 
             # If the path begins with rootPath, matchPathCon will never match
             # anything because policy doesn't contain that path.
-            if path.startswith(anaconda.rootPath):
-                path = path.replace(anaconda.rootPath, "")
+            if path.startswith(ROOT_PATH):
+                path = path.replace(ROOT_PATH, "")
 
-            ret = isys.resetFileContext(path, anaconda.rootPath)
+            ret = isys.resetFileContext(path, ROOT_PATH)
 
     if flags.selinux:
         log.info("setting SELinux contexts for anaconda created files")
@@ -220,13 +220,13 @@ def setFileCons(anaconda):
         # Add "/mnt/sysimage" to the front of every path so the glob works.
         # Then run glob on each element of the list and flatten it into a
         # single list we can run contextCB across.
-        files = itertools.chain(*map(lambda f: glob.glob("%s%s" % (anaconda.rootPath, f)),
+        files = itertools.chain(*map(lambda f: glob.glob("%s%s" % (ROOT_PATH, f)),
                                      relabelFiles))
         contextCB(None, "", files)
 
         for dir in relabelDirs + ["/dev/%s" % vg.name for vg in anaconda.storage.vgs]:
             # Add "/mnt/sysimage" for similar reasons to above.
-            dir = "%s%s" % (anaconda.rootPath, dir)
+            dir = "%s%s" % (ROOT_PATH, dir)
 
             os.path.walk(dir, contextCB, None)
 
@@ -282,8 +282,8 @@ def rpmKernelVersionList(rootPath = "/"):
 def rpmSetupGraphicalSystem(anaconda):
     import rpm
 
-    iutil.resetRpmDb(anaconda.rootPath)
-    ts = rpm.TransactionSet(anaconda.rootPath)
+    iutil.resetRpmDb(ROOT_PATH)
+    ts = rpm.TransactionSet(ROOT_PATH)
 
     # Only add "rhgb quiet" on non-s390, non-serial installs
     if iutil.isConsoleOnVirtualTerminal() and \

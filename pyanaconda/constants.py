@@ -103,3 +103,4 @@ relabelDirs  = ["/etc/sysconfig/network-scripts", "/var/lib/rpm", "/var/lib/yum"
                 "/var/log", "/etc/modprobe.d", "/etc/sysconfig", "/var/cache/yum" ]
 
 ANACONDA_CLEANUP = "anaconda-cleanup"
+ROOT_PATH = "/mnt/sysimage"
