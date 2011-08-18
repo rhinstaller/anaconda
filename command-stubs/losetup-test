@@ -24,33 +24,42 @@ import sys
 
 
 def loop_device_test(device, image):
-    # new loop device
-    rc = call(['losetup', device, image])
-    if not rc == 0:
-        print('losetup: create new loop device test failed')
-        sys.exit(1)
+    # create the image file
+    f = open(image, 'w')
+    f.truncate(1000)
+    f.close()
 
     try:
-        os.stat(device)
-    except OSError:
-        print('losetup: create new loop device test failed')
-        sys.exit(1)
+        # new loop device
+        rc = call(['losetup', device, image])
+        if not rc == 0:
+            print('losetup: create new loop device test failed')
+            sys.exit(1)
 
-    # existing loop device
-    fail = False
-    rc = call(['losetup', device, image])
-    if rc == 0:
-        print('losetup: create existing loop device test failed')
-        fail = True
+        try:
+            os.stat(device)
+        except OSError:
+            print('losetup: create new loop device test failed')
+            sys.exit(1)
 
-    # remove loop device (cleanup)
-    rc = call(['losetup', '-d', device])
-    if not rc == 0:
-        print('losetup: remove loop device test failed')
-        sys.exit(1)
+        # existing loop device
+        fail = False
+        rc = call(['losetup', device, image])
+        if rc == 0:
+            print('losetup: create existing loop device test failed')
+            fail = True
 
-    if fail:
-        sys.exit(1)
+        # remove loop device (cleanup)
+        rc = call(['losetup', '-d', device])
+        if not rc == 0:
+            print('losetup: remove loop device test failed')
+            sys.exit(1)
+
+        if fail:
+            sys.exit(1)
+
+    finally:
+        os.unlink(image)
 
 def wrong_usage_test():
     try:
