@@ -222,6 +222,24 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Fri Aug 19 2011 David Cantrell <dcantrell@redhat.com> - 13.21.132-1
+- Fix indentation errors in iw/lvm_dialog_gui.py (dcantrell)
+  Related: rhbz#679810
+- Use GPT on non-UEFI for disks larger than 2TB (dcantrell)
+  Resolves: rhbz#671230
+- Make sure we don't remove the lvm symlinks (mgracik)
+  Resolves: rhbz#676404
+- Do not show the lang and kbd screens again in stage2 (mgracik)
+  Resolves: rhbz#706675
+- Focus many partition dialogs after error (mgracik)
+  Resolves: rhbz#679810
+- Create the image file in losetup stub test (mgracik)
+  Resolves: rhbz#706099
+- Print a newline after error message (mgracik)
+  Resolves: rhbz#706099
+- Use Popen instead of check_output (mgracik)
+  Resolves: rhbz#706099
+
 * Thu Aug 18 2011 David Cantrell <dcantrell@redhat.com> - 13.21.131-1
 - rescue mode: fix traceback calling progressWindow() (akozumpl)
   Resolves: rhbz#730714
