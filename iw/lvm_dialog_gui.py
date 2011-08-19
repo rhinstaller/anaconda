@@ -990,7 +990,7 @@ class VolumeGroupEditor:
 	    if err:
 		self.intf.messageWindow(_("Invalid Volume Group Name"), err,
 					custom_icon="error")
-        self.dialog.present()
+		self.dialog.present()
 		continue
 
 	    origvname = self.vg.name
@@ -1003,7 +1003,7 @@ class VolumeGroupEditor:
 					      "already in use. Please pick "
 					      "another." % (volname,)),
 					    custom_icon="error")
-            self.dialog.present()
+		    self.dialog.present()
 		    continue
 
 	    # get physical extent
