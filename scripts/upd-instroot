@@ -941,6 +941,7 @@ EOF
 
 # add all lvm symlinks to keepfile
 for cmd in `rpm -ql lvm2 | grep /sbin/`; do
+    echo ${cmd:1};
     echo "usr"$cmd;
 done >> $KEEPFILERESCUE
 
