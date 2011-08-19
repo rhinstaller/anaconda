@@ -14,7 +14,7 @@ BuildPreReq: libXxf86misc-devel, intltool >= 0.31.2-3, python-urlgrabber
 BuildPreReq: pykickstart >= 0.43.8, yum >= 2.9.2, device-mapper >= 1.01.05-3, 
 BuildPreReq: libsepol-devel
 BuildPreReq: pango-devel, pirut, libXt-devel, slang-devel >= 2.0.6-2
-BuildPreReq: libdhcp-devel >= 1.20-10, mkinitrd-devel >= 5.1.2-1
+BuildPreReq: libdhcp-devel >= 1.20-12, mkinitrd-devel >= 5.1.2-1
 BuildPreReq: audit-libs-devel, libnl-devel >= 1.0-0.10.pre5.5
 BuildPreReq: libdhcp6client >= 1.0.10-17
 %ifnarch s390 s390x
