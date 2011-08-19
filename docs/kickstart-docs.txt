@@ -316,7 +316,7 @@ Creating the Kickstart File
        This option corresponds to the Firewall Configuration screen in
        the installation program:
 
-       firewall --enabled|--disabled [--trust=] <device> [--port=] 
+       firewall --enabled|--disabled [--trust=] <device> [--port=] [--no-ssh]
 
        --enabled or --enable
 
@@ -328,6 +328,12 @@ Creating the Kickstart File
        --disabled or --disable
 
             Do not configure any iptables rules.
+
+       --no-ssh
+
+            If the firewall is enabled, SSH will be allowed regardless of
+            whether the --ssh parameter is given.  This option forces SSH
+            to be blocked.
 
        --trust=
 
