@@ -222,6 +222,10 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Mon Aug 22 2011 David Cantrell <dcantrell@redhat.com> - 13.21.133-1
+- Fix typo in d5cabdd21c9f3c20e1e39863c15bff153e9e608f. (akozumpl)
+  Resolves: rhbz#732358
+
 * Fri Aug 19 2011 David Cantrell <dcantrell@redhat.com> - 13.21.132-1
 - Fix indentation errors in iw/lvm_dialog_gui.py (dcantrell)
   Related: rhbz#679810
