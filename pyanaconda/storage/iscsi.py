@@ -243,6 +243,8 @@ class iscsi(object):
         found_nodes = libiscsi.discover_sendtargets(address=ipaddr,
                                                     port=int(port),
                                                     authinfo=authinfo)
+        if found_nodes is None:
+            return []
         # only return the nodes we are not logged into yet
         return [n for n in found_nodes if n not in self.nodes]
 
