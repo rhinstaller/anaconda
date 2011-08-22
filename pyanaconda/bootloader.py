@@ -1465,14 +1465,21 @@ class GRUB2(GRUB):
     # constraints for target devices
     #
     def _gpt_disk_has_bios_boot(self, device):
-        ret = False
+        """ Return False if device is gpt-labeled disk w/o bios boot part. """
+        ret = True
 
         if device is None:
+            return ret
+
+        if self.stage1_device == self.stage2_device:
+            # if we're booting from the stage2 device there's probably no
+            # need for a BIOS boot partition
             return ret
 
         # check that a bios boot partition is present if the stage1 device
         # is a gpt-labeled disk
         if device.isDisk and getattr(device.format, "labelType", None) == "gpt":
+            ret = False
             partitions = [p for p in self.storage.partitions
                           if p.disk == device]
             for p in partitions:
@@ -1481,10 +1488,10 @@ class GRUB2(GRUB):
                     break
 
             if not ret:
-                self.warnings.append(_("You are using a GPT bootdisk on a non-"
-                                   "EFI system without a BIOS boot partition. "
-                                   "This may not work, depending on your "
-                                   "BIOS's support for booting from GPT disks."))
+                self.warnings.append(_("You are using a GPT bootdisk on a BIOS "
+                                   "system without a BIOS boot partition. This "
+                                   "may not work, depending on your BIOS's "
+                                   "support for booting from GPT disks."))
 
         log.debug("_gpt_disk_has_bios_boot(%s) returning %s" % (device.name,
                                                                 ret))
