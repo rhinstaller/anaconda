@@ -299,7 +299,7 @@ class iscsi(object):
                     f.write(" --reverse-password %s" % auth.reverse_password)
             f.write("\n")
 
-    def write(self, instPath, storage):
+    def write(self, storage):
         if not self.initiatorSet:
             return
 
@@ -316,17 +316,17 @@ class iscsi(object):
             if autostart:
                 node.setParameter("node.startup", "automatic")
 
-        if not os.path.isdir(instPath + "/etc/iscsi"):
-            os.makedirs(instPath + "/etc/iscsi", 0755)
-        fd = os.open(instPath + INITIATOR_FILE, os.O_RDWR | os.O_CREAT)
+        if not os.path.isdir(ROOT_PATH + "/etc/iscsi"):
+            os.makedirs(ROOT_PATH + "/etc/iscsi", 0755)
+        fd = os.open(ROOT_PATH + INITIATOR_FILE, os.O_RDWR | os.O_CREAT)
         os.write(fd, "InitiatorName=%s\n" %(self.initiator))
         os.close(fd)
 
         # copy "db" files.  *sigh*
-        if os.path.isdir(instPath + "/var/lib/iscsi"):
-            shutil.rmtree(instPath + "/var/lib/iscsi")
+        if os.path.isdir(ROOT_PATH + "/var/lib/iscsi"):
+            shutil.rmtree(ROOT_PATH + "/var/lib/iscsi")
         if os.path.isdir("/var/lib/iscsi"):
-            shutil.copytree("/var/lib/iscsi", instPath + "/var/lib/iscsi",
+            shutil.copytree("/var/lib/iscsi", ROOT_PATH + "/var/lib/iscsi",
                             symlinks=True)
 
     def getNode(self, name, address, port):

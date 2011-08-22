@@ -21,6 +21,7 @@ import shutil
 import iutil
 import os
 from flags import flags
+from pyanaconda.constants import ROOT_PATH
 
 import logging
 log = logging.getLogger("anaconda")
@@ -32,30 +33,30 @@ class Timezone:
             f.write(" --utc")
         f.write(" %s\n" % self.tz)
 
-    def write(self, instPath):
-        fromFile = instPath + "/usr/share/zoneinfo/" + self.tz
+    def write(self):
+        fromFile = ROOT_PATH + "/usr/share/zoneinfo/" + self.tz
 
         if not os.access(fromFile, os.R_OK):
             log.error("Timezone to be copied (%s) doesn't exist" % fromFile)
         else:
             try:
-                shutil.copyfile(fromFile, instPath + "/etc/localtime")
+                shutil.copyfile(fromFile, ROOT_PATH + "/etc/localtime")
             except EnvironmentError as e:
                 log.error("Error copying timezone (from %s): %s" % (fromFile, e.strerror))
 
-        f = open(instPath + "/etc/sysconfig/clock", "w")
+        f = open(ROOT_PATH + "/etc/sysconfig/clock", "w")
 
         f.write('ZONE="%s"\n' % self.tz)
         f.close()
 
         try:
-            f = open(instPath + "/etc/adjtime", "r")
+            f = open(ROOT_PATH + "/etc/adjtime", "r")
             lines = f.readlines()
             f.close()
         except:
             lines = [ "0.0 0 0.0\n", "0\n" ]
 
-        f = open(instPath + "/etc/adjtime", "w")
+        f = open(ROOT_PATH + "/etc/adjtime", "w")
         f.write(lines[0])
         f.write(lines[1])
         if self.utc:

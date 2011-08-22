@@ -37,6 +37,7 @@ import tempfile
 import simpleconfig
 from flags import flags
 from simpleconfig import IfcfgFile
+from pyanaconda.constants import ROOT_PATH
 import urlgrabber.grabber
 
 import gettext
@@ -704,18 +705,18 @@ class Network:
         shutil.copy(file, destfile)
         return True
 
-    def _copyIfcfgFiles(self, instPath=''):
+    def _copyIfcfgFiles(self):
         files = os.listdir(netscriptsDir)
         for cfgFile in files:
             if cfgFile.startswith(("ifcfg-","keys-")):
                 srcfile = os.path.join(netscriptsDir, cfgFile)
-                self._copyFileToPath(srcfile, instPath)
+                self._copyFileToPath(srcfile, ROOT_PATH)
 
-    def copyConfigToPath(self, instPath=''):
-        if flags.imageInstall and instPath:
+    def copyConfigToPath(self):
+        if flags.imageInstall:
             # for image installs we only want to write out
             # /etc/sysconfig/network
-            destfile = os.path.normpath(instPath + networkConfFile)
+            destfile = os.path.normpath(ROOT_PATH + networkConfFile)
             if not os.path.isdir(os.path.dirname(destfile)):
                 iutil.mkdirChain(os.path.dirname(destfile))
             shutil.move("/tmp/sysconfig-network", destfile)
@@ -724,31 +725,31 @@ class Network:
         # /etc/sysconfig/network-scripts/ifcfg-*
         # /etc/sysconfig/network-scripts/keys-*
         # we can copy all of them
-        self._copyIfcfgFiles(instPath)
+        self._copyIfcfgFiles()
 
         # /etc/dhcp/dhclient-DEVICE.conf
         # TODORV: do we really don't want overwrite on live cd?
         for devName, device in self.netdevices.items():
             dhclientfile = os.path.join("/etc/dhcp/dhclient-%s.conf" % devName)
-            self._copyFileToPath(dhclientfile, instPath)
+            self._copyFileToPath(dhclientfile, ROOT_PATH)
 
         # /etc/sysconfig/network
-        self._copyFileToPath(networkConfFile, instPath,
+        self._copyFileToPath(networkConfFile, ROOT_PATH,
                              overwrite=flags.livecdInstall)
 
         # /etc/resolv.conf
-        self._copyFileToPath("/etc/resolv.conf", instPath,
+        self._copyFileToPath("/etc/resolv.conf", ROOT_PATH,
                              overwrite=flags.livecdInstall)
 
         # /etc/udev/rules.d/70-persistent-net.rules
         self._copyFileToPath("/etc/udev/rules.d/70-persistent-net.rules",
-                             instPath, overwrite=flags.livecdInstall)
+                             ROOT_PATH, overwrite=flags.livecdInstall)
 
-    def disableNMForStorageDevices(self, anaconda, instPath=''):
+    def disableNMForStorageDevices(self, anaconda):
         for devName, device in self.netdevices.items():
             if (device.usedByFCoE(anaconda) or
                 device.usedByRootOnISCSI(anaconda)):
-                dev = NetworkDevice(instPath + netscriptsDir, devName)
+                dev = NetworkDevice(ROOT_PATH + netscriptsDir, devName)
                 if os.access(dev.path, os.R_OK):
                     dev.loadIfcfgFile()
                     dev.set(('NM_CONTROLLED', 'no'))

@@ -20,6 +20,7 @@
 import os
 from pyanaconda import iutil
 from pyanaconda import isys
+from pyanaconda.constants import ROOT_PATH
 import logging
 import time
 from pyanaconda.flags import flags
@@ -136,15 +137,15 @@ class fcoe(object):
         # fixme plenty (including add ks support for fcoe in general)
         return
 
-    def write(self, instPath):
+    def write(self):
         if not self.nics:
             return
 
-        if not os.path.isdir(instPath + "/etc/fcoe"):
-            os.makedirs(instPath + "/etc/fcoe", 0755)
+        if not os.path.isdir(ROOT_PATH + "/etc/fcoe"):
+            os.makedirs(ROOT_PATH + "/etc/fcoe", 0755)
 
         for nic, dcb in self.nics:
-            fd = os.open(instPath + "/etc/fcoe/cfg-" + nic,
+            fd = os.open(ROOT_PATH + "/etc/fcoe/cfg-" + nic,
                          os.O_RDWR | os.O_CREAT)
             os.write(fd, '# Created by anaconda\n')
             os.write(fd, '# Enable/Disable FCoE service at the Ethernet port\n')

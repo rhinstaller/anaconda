@@ -196,14 +196,14 @@ class DASD:
         if dasd:
             self._devices.append(dasd)
 
-    def write(self, instPath):
+    def write(self):
         """ Write /etc/dasd.conf to target system for all DASD devices
             configured during installation.
         """
         if self._devices == []:
             return
 
-        f = open(os.path.realpath(instPath + "/etc/dasd.conf"), "w")
+        f = open(os.path.realpath(ROOT_PATH + "/etc/dasd.conf"), "w")
         for dasd in self._devices:
             fields = [dasd.busid] + dasd.getOpts()
             f.write("%s\n" % (" ".join(fields),))

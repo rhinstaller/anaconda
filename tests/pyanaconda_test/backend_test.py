@@ -39,7 +39,7 @@ class BackendTest(mock.TestCase):
 
         anaconda = mock.Mock()
         ab = pyanaconda.backend.AnacondaBackend(anaconda)
-        ab.copyFirmware(anaconda)
+        ab.copyFirmware()
         self.assertEqual(pyanaconda.backend.shutil.copyfile.call_args[0][0], FILE)
 
     def anaconda_backend_do_post_install_test(self):

@@ -21,6 +21,7 @@
 
 import string, os
 from simpleconfig import SimpleConfigFile
+from pyanaconda.constants import ROOT_PATH
 
 import logging
 log = logging.getLogger("anaconda")
@@ -48,20 +49,20 @@ class Desktop (SimpleConfigFile):
         SimpleConfigFile.__init__ (self)
         self.runlevel = 3
 
-    def write (self, instPath):
+    def write(self):
         if self.getDefaultDesktop():
-            f = open(instPath + "/etc/sysconfig/desktop", "w")
+            f = open(ROOT_PATH + "/etc/sysconfig/desktop", "w")
             f.write(str (self))
             f.close()
 
         try:
-            inittab = open (instPath + '/etc/inittab', 'r')
+            inittab = open (ROOT_PATH + '/etc/inittab', 'r')
         except IOError:
             log.warning ("there is no inittab, bad things will happen!")
             return
         lines = inittab.readlines ()
         inittab.close ()
-        inittab = open (instPath + '/etc/inittab', 'w')        
+        inittab = open (ROOT_PATH + '/etc/inittab', 'w')        
         for line in lines:
             if len (line) > 3 and line[:3] == "id:":
                 fields = string.split (line, ':')
@@ -70,11 +71,10 @@ class Desktop (SimpleConfigFile):
             inittab.write (line)
         inittab.close ()
 
-        if not os.path.isdir(instPath + '/etc/systemd/system'):
+        if not os.path.isdir(ROOT_PATH + '/etc/systemd/system'):
             log.warning("there is no /etc/systemd/system directory, cannot update default.target!")
             return
-        default_target = instPath + '/etc/systemd/system/default.target'
+        default_target = ROOT_PATH + '/etc/systemd/system/default.target'
         if os.path.islink(default_target):
             os.unlink(default_target)
         os.symlink('/lib/systemd/system/runlevel' + str(self.runlevel) + '.target', default_target)
-

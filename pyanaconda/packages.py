@@ -157,7 +157,7 @@ def turnOnFilesystems(anaconda):
             # we should write out a new fstab with the migrated fstype
             shutil.copyfile("%s/etc/fstab" % ROOT_PATH,
                             "%s/etc/fstab.anaconda" % ROOT_PATH)
-            anaconda.storage.fsset.write(ROOT_PATH)
+            anaconda.storage.fsset.write()
 
         # and make sure /dev is mounted so we can read the bootloader
         bindMountDevDirectory(ROOT_PATH)
@@ -241,7 +241,7 @@ def setFileCons(anaconda):
 # the filelists.  and since we only ever call this after an install is
 # done, we can be guaranteed this will work.  put here because it's also
 # used for livecd installs
-def rpmKernelVersionList(rootPath = "/"):
+def rpmKernelVersionList():
     import rpm
 
     def get_version(header):
@@ -261,8 +261,8 @@ def rpmKernelVersionList(rootPath = "/"):
 
     versions = []
 
-    iutil.resetRpmDb(rootPath)
-    ts = rpm.TransactionSet(rootPath)
+    iutil.resetRpmDb()
+    ts = rpm.TransactionSet(ROOT_PATH)
 
     mi = ts.dbMatch('provides', 'kernel')
     for h in mi:
@@ -282,7 +282,7 @@ def rpmKernelVersionList(rootPath = "/"):
 def rpmSetupGraphicalSystem(anaconda):
     import rpm
 
-    iutil.resetRpmDb(ROOT_PATH)
+    iutil.resetRpmDb()
     ts = rpm.TransactionSet(ROOT_PATH)
 
     # Only add "rhgb quiet" on non-s390, non-serial installs

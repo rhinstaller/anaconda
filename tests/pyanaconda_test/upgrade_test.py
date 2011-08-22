@@ -124,9 +124,8 @@ class UpgradeTest(mock.TestCase):
         import pyanaconda.upgrade
         pyanaconda.upgrade.os = mock.Mock()
         pyanaconda.upgrade.os.access.return_value = False
-        ROOT = "/tmp"
         FILE = "file"
-        ret = pyanaconda.upgrade.copyFromSysimage(ROOT, FILE)
+        ret = pyanaconda.upgrade.copyFromSysimage(FILE)
         self.assertFalse(ret)
 
     def copy_from_sysimage_2_test(self):
@@ -135,9 +134,8 @@ class UpgradeTest(mock.TestCase):
         pyanaconda.upgrade.os.access.return_value = True
         pyanaconda.upgrade.shutil = mock.Mock()
         pyanaconda.upgrade.shutil.copyfile.side_effect = OSError
-        ROOT = "/tmp"
         FILE = "file"
-        ret = pyanaconda.upgrade.copyFromSysimage(ROOT, FILE)
+        ret = pyanaconda.upgrade.copyFromSysimage(FILE)
         self.assertTrue(pyanaconda.upgrade.os.remove.called)
         self.assertTrue(pyanaconda.upgrade.shutil.copyfile.called)
         self.assertFalse(ret)
@@ -147,9 +145,8 @@ class UpgradeTest(mock.TestCase):
         pyanaconda.upgrade.os = mock.Mock()
         pyanaconda.upgrade.os.access.return_value = True
         pyanaconda.upgrade.shutil = mock.Mock()
-        ROOT = "/tmp"
         FILE = "file"
-        ret = pyanaconda.upgrade.copyFromSysimage(ROOT, FILE)
+        ret = pyanaconda.upgrade.copyFromSysimage(FILE)
         self.assertTrue(pyanaconda.upgrade.os.remove.called)
         self.assertTrue(pyanaconda.upgrade.shutil.copyfile.called)
         self.assertTrue(ret)

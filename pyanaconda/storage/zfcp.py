@@ -420,15 +420,15 @@ class ZFCP:
                                                                  d.wwpn,
                                                                  d.fcplun))
 
-    def write(self, instPath):
+    def write(self):
         if len(self.fcpdevs) == 0:
             return
-        f = open(instPath + zfcpconf, "w")
+        f = open(ROOT_PATH + zfcpconf, "w")
         for d in self.fcpdevs:
             f.write("%s\n" %(d,))
         f.close()
         
-        f = open(instPath + "/etc/modprobe.conf", "a")
+        f = open(ROOT_PATH + "/etc/modprobe.conf", "a")
         f.write("alias scsi_hostadapter zfcp\n")
         f.close()
 

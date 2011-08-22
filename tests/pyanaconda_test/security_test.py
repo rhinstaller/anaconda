@@ -68,14 +68,15 @@ class SecurityTest(mock.TestCase):
         import pyanaconda.security
 
         scrt = pyanaconda.security.Security()
-        scrt.write('/tmp/security')
+        pyanaconda.security.ROOT_PATH = "/tmp/security"
+        scrt.write()
 
         self.assertEqual(pyanaconda.security.iutil.method_calls,
             [('execWithRedirect',
                 ('/usr/sbin/lokkit', ['--selinux=enforcing']),
                 {'root': '/tmp/security', 'stderr': '/dev/null', 'stdout': '/dev/null'}
              ),
-             ('resetRpmDb', ('/tmp/security',), {}),
+             ('resetRpmDb', (), {}),
              ('execWithRedirect',
                 ('/usr/sbin/authconfig',
                     ['--update', '--nostart', '--enableshadow', '--passalgo=sha512']

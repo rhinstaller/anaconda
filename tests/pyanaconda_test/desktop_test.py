@@ -9,8 +9,8 @@ class DesktopTest(mock.TestCase):
         self.setupModules(["_isys", "block", "ConfigParser"])
         self.fs = mock.DiskIO()
 
-        self.fs.open('/tmp/etc/inittab', 'w').write('id:5:initdefault:')
-        self.fs.open('/tmp/etc/sysconfig/desktop', 'w').write('')
+        self.fs.open('/mnt/sysimage/etc/inittab', 'w').write('id:5:initdefault:')
+        self.fs.open('/mnt/sysimage/etc/sysconfig/desktop', 'w').write('')
 
         import pyanaconda.desktop
         pyanaconda.desktop.log = mock.Mock()
@@ -74,15 +74,17 @@ class DesktopTest(mock.TestCase):
     def write_1_test(self):
         import pyanaconda.desktop
         dskt = pyanaconda.desktop.Desktop()
-        dskt.write('/tmp')
-        self.assertEqual(self.fs['/tmp/etc/inittab'], 'id:3:initdefault:')
+        dskt.write()
+        self.assertEqual(self.fs['/mnt/sysimage/etc/inittab'],
+                         'id:3:initdefault:')
 
     def write_2_test(self):
         import pyanaconda.desktop
         dskt = pyanaconda.desktop.Desktop()
         dskt.setDefaultRunLevel(5)
-        dskt.write('/tmp')
-        self.assertEqual(self.fs['/tmp/etc/inittab'], 'id:5:initdefault:')
+        dskt.write()
+        self.assertEqual(self.fs['/mnt/sysimage/etc/inittab'],
+                         'id:5:initdefault:')
 
     def write_3_test(self):
         import pyanaconda.desktop
@@ -90,7 +92,9 @@ class DesktopTest(mock.TestCase):
         pyanaconda.desktop.os.path.isdir.return_value = True
         dskt = pyanaconda.desktop.Desktop()
         dskt.setDefaultDesktop('foo')
-        dskt.write('/tmp')
-        self.assertEqual(self.fs['/tmp/etc/inittab'], 'id:3:initdefault:')
-        self.assertEqual(self.fs['/tmp/etc/sysconfig/desktop'], 'DESKTOP="foo"\n')
+        dskt.write()
+        self.assertEqual(self.fs['/mnt/sysimage/etc/inittab'],
+                         'id:3:initdefault:')
+        self.assertEqual(self.fs['/mnt/sysimage/etc/sysconfig/desktop'],
+                         'DESKTOP="foo"\n')
 

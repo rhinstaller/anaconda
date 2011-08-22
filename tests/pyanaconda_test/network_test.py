@@ -504,12 +504,12 @@ class NetworkTest(mock.TestCase):
         nw.netdevices['dev'] = mock.Mock()
         nw.netdevices['dev'].path = self.DEV_FILE
         nw.netdevices['dev'].keyfilePath = self.DEV_KEY_FILE
-        ret = nw.copyConfigToPath('')
+        ret = nw.copyConfigToPath()
         self.assertEqual(pyanaconda.network.Network._copyFileToPath.call_args_list,
-            [(('/etc/dhcp/dhclient-dev.conf', ''), {}),
-             (('/tmp/etc/sysconfig/network', ''), {'overwrite': 0}),
-             (('/etc/resolv.conf', ''), {'overwrite': 0}),
-             (('/etc/udev/rules.d/70-persistent-net.rules', ''), {'overwrite': 0})]
+            [(('/etc/dhcp/dhclient-dev.conf', '/mnt/sysimage'), {}),
+             (('/tmp/etc/sysconfig/network', '/mnt/sysimage'), {'overwrite': 0}),
+             (('/etc/resolv.conf', '/mnt/sysimage'), {'overwrite': 0}),
+             (('/etc/udev/rules.d/70-persistent-net.rules', '/mnt/sysimage'), {'overwrite': 0})]
         )
 
     def network_disable_nm_for_storage_devices_test(self):
@@ -522,9 +522,9 @@ class NetworkTest(mock.TestCase):
         nw.netdevices['dev'] = mock.Mock()
         anaconda= mock.Mock()
 
-        nw.disableNMForStorageDevices(anaconda, '')
+        nw.disableNMForStorageDevices(anaconda)
         self.assertEqual(pyanaconda.network.NetworkDevice.call_args_list,
-             [(('/tmp/etc/sysconfig/network-scripts', 'dev'), {})])
+             [(('/mnt/sysimage/tmp/etc/sysconfig/network-scripts', 'dev'), {})])
         self.assertEqual(pyanaconda.network.NetworkDevice().method_calls,
             [('loadIfcfgFile', (), {}),
              ('set', (('NM_CONTROLLED', 'no'),), {}),

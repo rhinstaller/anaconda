@@ -55,17 +55,17 @@ class TimeZoneTest(mock.TestCase):
 
         tz = pyanaconda.timezone.Timezone()
         tz.tz = ZONE
-        tz.utc = UTC
+        tz.utc = True
 
         PATH = ''
         ADJTIME = '0.013782 1279118821 0.000000\n1279118821\nUTC\n'
-        f = self.fs.open('/etc/adjtime', 'w')
+        f = self.fs.open('/mnt/sysimage/etc/adjtime', 'w')
         f.write(ADJTIME)
         f.close()
 
-        tz.write(PATH)
+        tz.write()
         example = 'ZONE="%s"\n' % ZONE
-        self.assertEqual(self.fs['/etc/sysconfig/clock'], example)
-        self.assertEqual(self.fs['/etc/adjtime'], ADJTIME)
+        self.assertEqual(self.fs['/mnt/sysimage/etc/sysconfig/clock'], example)
+        self.assertEqual(self.fs['/mnt/sysimage/etc/adjtime'], ADJTIME)
 
 

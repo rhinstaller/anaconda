@@ -304,7 +304,7 @@ class LiveCDCopyBackend(backend.AnacondaBackend):
         packages.rpmSetupGraphicalSystem(anaconda)
 
         # now write out the "real" fstab and mtab
-        anaconda.storage.write(ROOT_PATH)
+        anaconda.storage.write()
 
         # copy over the modprobe.conf
         if os.path.exists("/etc/modprobe.conf"):
@@ -314,12 +314,12 @@ class LiveCDCopyBackend(backend.AnacondaBackend):
         anaconda.keyboard.write(ROOT_PATH)
 
         # rebuild the initrd(s)
-        vers = self.kernelVersionList(ROOT_PATH)
+        vers = self.kernelVersionList()
         for (n, arch, tag) in vers:
             packages.recreateInitrd(n, ROOT_PATH)
 
-    def kernelVersionList(self, rootPath = "/"):
-        return packages.rpmKernelVersionList(rootPath)
+    def kernelVersionList(self):
+        return packages.rpmKernelVersionList()
 
     def getMinimumSizeMB(self, part):
         if part == "/":

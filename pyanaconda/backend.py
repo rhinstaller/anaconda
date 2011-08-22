@@ -68,7 +68,7 @@ class AnacondaBackend:
     def doPreInstall(self, anaconda):
         self.initLog(ROOT_PATH)
 
-    def copyFirmware(self, anaconda):
+    def copyFirmware(self):
         # Multiple driver disks may be loaded, so we need to glob for all
         # the firmware files in the common DD firmware directory
         for f in glob.glob(DD_FIRMWARE+"/*"):
@@ -79,10 +79,10 @@ class AnacondaBackend:
 
     def doPostInstall(self, anaconda):
         #always copy the firmware files from DD
-        self.copyFirmware(anaconda)
+        self.copyFirmware()
 
         if anaconda.extraModules:
-            for (n, arch, tag) in self.kernelVersionList(ROOT_PATH):
+            for (n, arch, tag) in self.kernelVersionList():
                 packages.recreateInitrd(n, ROOT_PATH)
 
         #copy RPMS
@@ -133,7 +133,7 @@ class AnacondaBackend:
         else:
             self.modeText = _("%s Installing %s\n")
 
-    def kernelVersionList(self, rootPath="/"):
+    def kernelVersionList(self):
         return []
 
     def getMinimumSizeMB(self, part):

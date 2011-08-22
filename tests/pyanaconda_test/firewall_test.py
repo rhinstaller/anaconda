@@ -24,7 +24,7 @@ class FirewallTest(mock.TestCase):
     def default_write_test(self):
         import pyanaconda.firewall
         fw = pyanaconda.firewall.Firewall()
-        fw.write("/mnt/sysimage")
+        fw.write()
 
         self.assertEqual(pyanaconda.firewall.iutil.method_calls, [
             ("execWithRedirect",

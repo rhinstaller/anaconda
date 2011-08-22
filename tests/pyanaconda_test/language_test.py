@@ -145,28 +145,28 @@ class LanguageTest(mock.TestCase):
     def get_default_keyboard_default_test(self):
         import pyanaconda.language
         lang = pyanaconda.language.Language()
-        ret = lang.getDefaultKeyboard('/tmp')
+        ret = lang.getDefaultKeyboard()
         self.assertEqual(ret, 'us')
 
     def get_default_keyboard_after_set_test(self):
         import pyanaconda.language
         lang = pyanaconda.language.Language()
         lang.systemLang = 'cs'
-        ret = lang.getDefaultKeyboard('/tmp')
+        ret = lang.getDefaultKeyboard()
         self.assertEqual(ret, 'cz-lat2')
 
     def get_default_keyboard_with_cs_CZ_locale_test(self):
         import pyanaconda.language
         pyanaconda.language.os.environ = {'LANG': 'cs'}
         lang = pyanaconda.language.Language()
-        ret = lang.getDefaultKeyboard('/tmp')
+        ret = lang.getDefaultKeyboard()
         self.assertEqual(ret, 'cz-lat2')
 
     def get_default_time_zone_default_test(self):
         import pyanaconda.language
         pyanaconda.language.os.path.exists = mock.Mock(return_value=False)
         lang = pyanaconda.language.Language()
-        ret = lang.getDefaultTimeZone('/tmp')
+        ret = lang.getDefaultTimeZone()
         self.assertEqual(ret, 'America/New_York')
 
     def get_default_time_zone_with_cs_CZ_locale_test(self):
@@ -174,14 +174,14 @@ class LanguageTest(mock.TestCase):
         pyanaconda.language.os.environ = {'LANG': 'cs'}
         pyanaconda.language.os.path.exists = mock.Mock(return_value=False)
         lang = pyanaconda.language.Language()
-        ret = lang.getDefaultTimeZone('/tmp')
+        ret = lang.getDefaultTimeZone()
         self.assertEqual(ret, 'Europe/Prague')
 
     def get_default_time_zone_after_set_test(self):
         import pyanaconda.language
         lang = pyanaconda.language.Language()
         lang.systemLang = 'cs'
-        ret = lang.getDefaultTimeZone('/tmp')
+        ret = lang.getDefaultTimeZone()
         self.assertEqual(ret, 'Europe/Prague')
 
     def get_font_file_1_test(self):
@@ -259,15 +259,15 @@ class LanguageTest(mock.TestCase):
     def write_1_test(self):
         import pyanaconda.language
         lang = pyanaconda.language.Language()
-        ret = lang.write('')
-        self.assertEqual(self.fs['/etc/sysconfig/i18n'], 'LANG="%s"\n' % ENVIRON_LANG)
+        ret = lang.write()
+        self.assertEqual(self.fs['/mnt/sysimage/etc/sysconfig/i18n'], 'LANG="%s"\n' % ENVIRON_LANG)
 
     def write_2_test(self):
         import pyanaconda.language
         lang = pyanaconda.language.Language()
         lang.systemLang = 'cs'
-        ret = lang.write('')
-        self.assertEqual(self.fs['/etc/sysconfig/i18n'],
+        ret = lang.write()
+        self.assertEqual(self.fs['/mnt/sysimage/etc/sysconfig/i18n'],
             'LANG="cs_CZ.UTF-8"\nSYSFONT="latarcyrheb-sun16"\n')
 
     def write_ks_test(self):

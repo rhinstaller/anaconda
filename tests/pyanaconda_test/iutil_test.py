@@ -15,15 +15,12 @@ class IutilTest(mock.TestCase):
         from pyanaconda import iutil
         fs = mock.DiskIO()
         self.take_over_io(fs, iutil)
-        self.assertEqual(iutil.copy_to_sysimage("/etc/securetty", "/sysimage"),
-                         False)
+        self.assertEqual(iutil.copy_to_sysimage("/etc/securetty"), False)
 
         fs["/etc/securetty"] = "tty1"
         iutil.os.makedirs = mock.Mock()
         iutil.shutil.copy = mock.Mock()
-        self.assertEqual(iutil.copy_to_sysimage("/etc/securetty",
-                                                "/sysimage/subdir"),
-                         True)
-        iutil.os.makedirs.assert_called_with("/sysimage/subdir/etc")
+        self.assertEqual(iutil.copy_to_sysimage("/etc/securetty"), True)
+        iutil.os.makedirs.assert_called_with("/mnt/sysimage/etc")
         iutil.shutil.copy.assert_called_with("/etc/securetty",
-                                             "/sysimage/subdir/etc/securetty")
+                                             "/mnt/sysimage/etc/securetty")

@@ -497,7 +497,7 @@ class AnacondaYum(yum.YumBase):
                 # default to using whatever's enabled in /etc/yum.repos.d/
                 self._baseRepoURL = None
 
-    def configBaseRepo(self, root='/'):
+    def configBaseRepo(self):
         # Create the "base" repo object, assuming there is one.  Otherwise we
         # just skip all this and use the defaults from /etc/yum.repos.d.
         if not self._baseRepoURL:
@@ -778,7 +778,7 @@ class AnacondaYum(yum.YumBase):
         else:
             yum.YumBase._getConfig(self, fn=fn, root=root,
                                  enabled_plugins=["whiteout", "blacklist"])
-        self.configBaseRepo(root=root)
+        self.configBaseRepo()
 
         extraRepos = []
 
@@ -1224,7 +1224,7 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
 
         # clean up rpmdb locks so that kickstart %post scripts aren't
         # unhappy (#496961)
-        iutil.resetRpmDb(ROOT_PATH)
+        iutil.resetRpmDb()
 
         if os.access(ROOT_PATH + "/tmp/yum.log", os.R_OK):
             os.unlink(ROOT_PATH + "/tmp/yum.log")
@@ -1237,7 +1237,7 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
 
         if anaconda.upgrade:
            # FIXME: make sure that the rpmdb doesn't have stale locks :/
-           iutil.resetRpmDb(ROOT_PATH)
+           iutil.resetRpmDb()
 
         self.ayum = AnacondaYum(anaconda)
         self.ayum.setup()
@@ -1603,18 +1603,18 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
 
         # write out the fstab
         if not anaconda.upgrade:
-            anaconda.storage.fsset.write(ROOT_PATH)
+            anaconda.storage.fsset.write()
             if os.access("/etc/modprobe.d/anaconda.conf", os.R_OK):
                 shutil.copyfile("/etc/modprobe.d/anaconda.conf", 
                                 ROOT_PATH + "/etc/modprobe.d/anaconda.conf")
             anaconda.network.write()
-            anaconda.network.copyConfigToPath(instPath=ROOT_PATH)
-            anaconda.storage.write(ROOT_PATH)
+            anaconda.network.copyConfigToPath()
+            anaconda.storage.write()
             if not anaconda.isHeadless:
                 anaconda.keyboard.write(ROOT_PATH)
         else:
             # ensure that /etc/mtab is a symlink to /proc/self/mounts
-            anaconda.storage.makeMtab(root=ROOT_PATH)
+            anaconda.storage.makeMtab()
 
     def doInstall(self, anaconda):
         log.info("Preparing to install packages")
@@ -1678,10 +1678,10 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
         AnacondaBackend.doPostInstall(self, anaconda)
         w.pop()
 
-    def kernelVersionList(self, rootPath="/"):
+    def kernelVersionList(self):
         # FIXME: using rpm here is a little lame, but otherwise, we'd
         # be pulling in filelists
-        return packages.rpmKernelVersionList(rootPath)
+        return packages.rpmKernelVersionList()
 
     def __getGroupId(self, group):
         """Get the groupid for the given name (english or translated)."""
@@ -1883,7 +1883,7 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
     def postAction(self, anaconda):
         self.ayum.close()
         self.ayum.closeRpmDB()
-        iutil.resetRpmDb(ROOT_PATH)
+        iutil.resetRpmDb()
 
 class DownloadHeaderProgress:
     def __init__(self, intf, ayum=None):

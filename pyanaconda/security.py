@@ -21,6 +21,7 @@
 
 import iutil, shlex
 from flags import flags
+from pyanaconda.constants import ROOT_PATH
 from pykickstart.constants import *
 
 import logging
@@ -59,15 +60,15 @@ class Security:
         if self.auth.strip() != "":
             f.write("authconfig %s\n" % self.auth)
 
-    def _addFingerprint(self, rootPath):
+    def _addFingerprint(self):
         import rpm
 
-        iutil.resetRpmDb(rootPath)
-        ts = rpm.TransactionSet(rootPath)
+        iutil.resetRpmDb()
+        ts = rpm.TransactionSet(ROOT_PATH)
         # pylint: disable-msg=E1101
         return ts.dbMatch('provides', 'fprintd-pam').count()
 
-    def write(self, instPath):
+    def write(self):
         args = []
 
         if not selinux_states.has_key(self.selinux):
@@ -78,18 +79,18 @@ class Security:
 
         try:
             iutil.execWithRedirect("/usr/sbin/lokkit", args,
-                                   root = instPath, stdout = "/dev/null",
-                                   stderr = "/dev/null")
+                                   root=ROOT_PATH, stdout="/dev/null",
+                                   stderr="/dev/null")
         except (RuntimeError, OSError) as msg:
             log.error ("lokkit run failed: %s" %(msg,))
 
         args = ["--update", "--nostart"] + shlex.split(self.auth)
-        if self._addFingerprint(instPath):
+        if self._addFingerprint():
             args += ["--enablefingerprint"]
 
         try:
             iutil.execWithRedirect("/usr/sbin/authconfig", args,
                                    stdout = "/dev/tty5", stderr = "/dev/tty5",
-                                   root = instPath)
+                                   root=ROOT_PATH)
         except RuntimeError as msg:
                 log.error("Error running %s: %s", args, msg)

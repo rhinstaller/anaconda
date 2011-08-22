@@ -193,7 +193,7 @@ class Anaconda(object):
         if not self._timezone:
             import timezone
             self._timezone = timezone.Timezone()
-            self._timezone.setTimezoneInfo(self.instLanguage.getDefaultTimeZone(ROOT_PATH))
+            self._timezone.setTimezoneInfo(self.instLanguage.getDefaultTimeZone())
 
         return self._timezone
 
@@ -287,17 +287,16 @@ class Anaconda(object):
 
     def write(self):
         self.writeXdriver()
-        self.instLanguage.write(ROOT_PATH)
+        self.instLanguage.write()
 
-        self.timezone.write(ROOT_PATH)
+        self.timezone.write()
         self.network.write()
-        self.network.copyConfigToPath(instPath=ROOT_PATH)
-        self.network.disableNMForStorageDevices(self,
-                                                instPath=ROOT_PATH)
-        self.desktop.write(ROOT_PATH)
-        self.users.write(ROOT_PATH)
-        self.security.write(ROOT_PATH)
-        self.firewall.write(ROOT_PATH)
+        self.network.copyConfigToPath()
+        self.network.disableNMForStorageDevices(self)
+        self.desktop.write()
+        self.users.write()
+        self.security.write()
+        self.firewall.write()
 
         services = list(self.storage.services)
 

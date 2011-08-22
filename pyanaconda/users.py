@@ -27,6 +27,7 @@ import tempfile
 import os
 import os.path
 import iutil
+from pyanaconda.constants import ROOT_PATH
 
 import logging
 log = logging.getLogger("anaconda")
@@ -301,9 +302,9 @@ class Users:
                                     self.rootPassword["isCrypted"],
                                     self.rootPassword["lock"], algo)
 
-    def write(self, instPath):
+    def write(self):
         # make sure crypt_style in libuser.conf matches the salt we're using
-        createLuserConf(instPath, algoname=self.getPassAlgo())
+        createLuserConf(ROOT_PATH, algoname=self.getPassAlgo())
 
         # User should already exist, just without a password.
         self.setRootPassword(algo=self.getPassAlgo())
@@ -311,14 +312,14 @@ class Users:
         if self.anaconda.ksdata:
             for gd in self.anaconda.ksdata.group.groupList:
                 kwargs = gd.__dict__
-                kwargs.update({"root": instPath})
+                kwargs.update({"root": ROOT_PATH})
                 if not self.createGroup(gd.name, **kwargs):
                     log.error("Group %s already exists, not creating." % gd.name)
 
             for ud in self.anaconda.ksdata.user.userList:
                 kwargs = ud.__dict__
                 kwargs.update({"algo": self.getPassAlgo(),
-                               "root": instPath})
+                               "root": ROOT_PATH})
                 if not self.createUser(ud.name, **kwargs):
                     log.error("User %s already exists, not creating." % ud.name)
 

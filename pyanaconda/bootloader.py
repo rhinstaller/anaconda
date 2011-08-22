@@ -909,7 +909,7 @@ class BootLoader(object):
         """Write password-related configuration lines."""
         pass
 
-    def write_config_header(self, config, install_root=""):
+    def write_config_header(self, config):
         """Write global configuration lines."""
         self.write_config_console(config)
         self.write_config_password(config)
@@ -919,26 +919,26 @@ class BootLoader(object):
         # XXX might this be identical for yaboot and silo?
         raise NotImplementedError()
 
-    def write_config_post(self, install_root=""):
+    def write_config_post(self):
         try:
-            os.chmod(install_root + self.config_file, self.config_file_mode)
+            os.chmod(ROOT_PATH + self.config_file, self.config_file_mode)
         except OSError as e:
             log.error("failed to set config file permissions: %s" % e)
 
-    def write_config(self, install_root=""):
+    def write_config(self):
         """ Write the bootloader configuration. """
         if not self.config_file:
             raise BootLoaderError("no config file defined for this bootloader")
 
-        config_path = os.path.normpath(install_root + self.config_file)
+        config_path = os.path.normpath(ROOT_PATH + self.config_file)
         if os.access(config_path, os.R_OK):
             os.rename(config_path, config_path + ".anacbak")
 
         config = open(config_path, "w")
-        self.write_config_header(config, install_root=install_root)
+        self.write_config_header(config)
         self.write_config_images(config)
         config.close()
-        self.write_config_post(install_root=install_root)
+        self.write_config_post()
 
     def writeKS(self, f):
         """ Write bootloader section of kickstart configuration. """
@@ -978,21 +978,21 @@ class BootLoader(object):
     #
     # installation
     #
-    def write(self, install_root=""):
+    def write(self):
         """ Write the bootloader configuration and install the bootloader. """
         if self.update_only:
-            self.update(install_root=install_root)
+            self.update()
             return
 
-        self.write_config(install_root=install_root)
+        self.write_config()
         sync()
-        self.stage2_device.format.sync(root=install_root)
-        self.install(install_root=install_root)
+        self.stage2_device.format.sync(root=ROOT_PATH)
+        self.install()
 
-    def install(self, install_root=""):
+    def install(self):
         raise NotImplementedError()
 
-    def update(self, install_root=""):
+    def update(self):
         """ Update an existing bootloader configuration. """
         pass
 
@@ -1117,7 +1117,7 @@ class GRUB(BootLoader):
         password_line = "--encrypted " + self.encrypted_password
         config.write("password %s\n" % password_line)
 
-    def write_config_header(self, config, install_root=""):
+    def write_config_header(self, config):
         """Write global configuration information. """
         if self.boot_prefix:
             have_boot = "do not "
@@ -1154,7 +1154,7 @@ class GRUB(BootLoader):
 
         if not flags.serial:
             splash = "splash.xpm.gz"
-            splash_path = os.path.normpath("%s%s/%s" % (install_root,
+            splash_path = os.path.normpath("%s%s/%s" % (ROOT_PATH,
                                                         self.config_dir,
                                                         splash))
             if os.access(splash_path, os.R_OK):
@@ -1204,9 +1204,9 @@ class GRUB(BootLoader):
 
             config.write(stanza)
 
-    def write_device_map(self, install_root=""):
+    def write_device_map(self):
         """ Write out a device map containing all supported devices. """
-        map_path = os.path.normpath(install_root + self.device_map_file)
+        map_path = os.path.normpath(ROOT_PATH + self.device_map_file)
         if os.access(map_path, os.R_OK):
             os.rename(map_path, map_path + ".anacbak")
 
@@ -1217,12 +1217,12 @@ class GRUB(BootLoader):
                                             drive.path))
         dev_map.close()
 
-    def write_config_post(self, install_root=""):
+    def write_config_post(self):
         """ Perform additional configuration after writing config file(s). """
-        super(GRUB, self).write_config_post(install_root=install_root)
+        super(GRUB, self).write_config_post()
 
         # make symlink for menu.lst (grub's default config file name)
-        menu_lst = "%s%s/menu.lst" % (install_root, self.config_dir)
+        menu_lst = "%s%s/menu.lst" % (ROOT_PATH, self.config_dir)
         if os.access(menu_lst, os.R_OK):
             try:
                 os.rename(menu_lst, menu_lst + '.anacbak')
@@ -1235,7 +1235,7 @@ class GRUB(BootLoader):
             log.error("failed to create grub menu.lst symlink: %s" % e)
 
         # make symlink to grub.conf in /etc since that's where configs belong
-        etc_grub = "%s/etc/%s" % (install_root, self._config_file)
+        etc_grub = "%s/etc/%s" % (ROOT_PATH, self._config_file)
         if os.access(etc_grub, os.R_OK):
             try:
                 os.unlink(etc_grub)
@@ -1247,13 +1247,13 @@ class GRUB(BootLoader):
         except OSError as e:
             log.error("failed to create /etc/grub.conf symlink: %s" % e)
 
-    def write_config(self, install_root=""):
+    def write_config(self):
         """ Write bootloader configuration to disk. """
         # write device.map
-        self.write_device_map(install_root=install_root)
+        self.write_device_map()
 
         # this writes the actual configuration file
-        super(GRUB, self).write_config(install_root=install_root)
+        super(GRUB, self).write_config()
 
     #
     # installation
@@ -1293,10 +1293,10 @@ class GRUB(BootLoader):
 
         return targets
 
-    def install(self, install_root=""):
+    def install(self):
         rc = iutil.execWithRedirect("grub-install", ["--just-copy"],
                                     stdout="/dev/tty5", stderr="/dev/tty5",
-                                    root=install_root)
+                                    root=ROOT_PATH)
         if rc:
             raise BootLoaderError("bootloader install failed")
 
@@ -1318,13 +1318,13 @@ class GRUB(BootLoader):
                     "--device-map=%s" % self.device_map_file]
             rc = iutil.execWithRedirect("grub", args,
                                         stdout="/dev/tty5", stderr="/dev/tty5",
-                                        stdin=pread, root=install_root)
+                                        stdin=pread, root=ROOT_PATH)
             os.close(pread)
             if rc:
                 raise BootLoaderError("bootloader install failed")
 
-    def update(self, install_root=""):
-        self.install(install_root=install_root)
+    def update(self):
+        self.install()
 
     #
     # miscellaneous
@@ -1376,7 +1376,7 @@ class EFIGRUB(GRUB):
     # installation
     #
 
-    def remove_efi_boot_target(self, install_root=""):
+    def remove_efi_boot_target(self):
         buf = self.efibootmgr(capture=True)
         for line in buf.splitlines():
             try:
@@ -1391,12 +1391,12 @@ class EFIGRUB(GRUB):
                     continue
 
                 rc = self.efibootmgr("-b", slot_id, "-B",
-                                     root=install_root,
+                                     root=ROOT_PATH,
                                      stdout="/dev/tty5", stderr="/dev/tty5")
                 if rc:
                     raise BootLoaderError("failed to remove old efi boot entry")
 
-    def add_efi_boot_target(self, install_root=""):
+    def add_efi_boot_target(self):
         boot_efi = self.storage.mountpoints["/boot/efi"]
         if boot_efi.type == "partition":
             boot_disk = boot_efi.disk
@@ -1411,17 +1411,17 @@ class EFIGRUB(GRUB):
         rc = self.efibootmgr("-c", "-w", "-L", productName,
                              "-d", boot_disk.path, "-p", boot_part_num,
                              "-l", "\\EFI\\redhat\\grub.efi",
-                             root=install_root,
+                             root=ROOT_PATH,
                              stdout="/dev/tty5", stderr="/dev/tty5")
         if rc:
             raise BootLoaderError("failed to set new efi boot target")
 
-    def install(self, install_root=""):
-        self.remove_efi_boot_target(install_root=install_root)
-        self.add_efi_boot_target(install_root=install_root)
+    def install(self):
+        self.remove_efi_boot_target()
+        self.add_efi_boot_target()
 
-    def update(self, install_root=""):
-        self.write(install_root=install_root)
+    def update(self):
+        self.write()
 
 class GRUB2(GRUB):
     """ GRUBv2
@@ -1541,9 +1541,9 @@ class GRUB2(GRUB):
             console_arg += ",%s" % self.console_options
         self.boot_args.add(console_arg)
 
-    def write_device_map(self, install_root=""):
+    def write_device_map(self):
         """ Write out a device map containing all supported devices. """
-        map_path = os.path.normpath(install_root + self.device_map_file)
+        map_path = os.path.normpath(ROOT_PATH + self.device_map_file)
         if os.access(map_path, os.R_OK):
             os.rename(map_path, map_path + ".anacbak")
 
@@ -1561,8 +1561,8 @@ class GRUB2(GRUB):
                                             drive.path))
         dev_map.close()
 
-    def write_defaults(self, install_root=""):
-        defaults_file = "%s%s" % (install_root, self.defaults_file)
+    def write_defaults(self):
+        defaults_file = "%s%s" % (ROOT_PATH, self.defaults_file)
         defaults = open(defaults_file, "w+")
         defaults.write("GRUB_TIMEOUT=%d\n" % self.timeout)
         defaults.write("GRUB_DISTRIBUTOR=\"%s\"\n" % productName)
@@ -1577,7 +1577,7 @@ class GRUB2(GRUB):
         defaults.write("GRUB_CMDLINE_LINUX=\"%s\"\n" % self.boot_args)
         defaults.close()
 
-    def _encrypt_password(self, install_root=""):
+    def _encrypt_password(self):
         """ Make sure self.encrypted_password is set up properly. """
         if self.encrypted_password:
             return
@@ -1591,38 +1591,38 @@ class GRUB2(GRUB):
         buf = iutil.execWithCapture("grub2-mkpasswd-pbkdf2", [],
                                     stdin=pread,
                                     stderr="/dev/tty5",
-                                    root=install_root)
+                                    root=ROOT_PATH)
         os.close(pread)
         self.encrypted_password = buf.split()[-1].strip()
         if not self.encrypted_password.startswith("grub.pbkdf2."):
             raise BootLoaderError("failed to encrypt bootloader password")
 
-    def write_password_config(self, install_root=""):
+    def write_password_config(self):
         if not self.password and not self.encrypted_password:
             return
 
-        users_file = install_root + "/etc/grub.d/01_users"
+        users_file = ROOT_PATH + "/etc/grub.d/01_users"
         header = open(users_file, "w")
         header.write("#!/bin/sh -e\n\n")
         header.write("cat << EOF\n")
         # XXX FIXME: document somewhere that the username is "root"
         header.write("set superusers=\"root\"\n")
-        self._encrypt_password(install_root=install_root)
+        self._encrypt_password()
         password_line = "password_pbkdf2 root " + self.encrypted_password
         header.write("%s\n" % password_line)
         header.write("EOF\n")
         header.close()
         os.chmod(users_file, 0755)
 
-    def write_config(self, install_root=""):
+    def write_config(self):
         self.write_config_console(None)
-        self.write_device_map(install_root=install_root)
-        self.write_defaults(install_root=install_root)
+        self.write_device_map()
+        self.write_defaults()
 
         # if we fail to setup password auth we should complete the
         # installation so the system is at least bootable
         try:
-            self.write_password_config(install_root=install_root)
+            self.write_password_config()
         except (BootLoaderError, OSError, RuntimeError) as e:
             log.error("bootloader password setup failed: %s" % e)
 
@@ -1631,7 +1631,7 @@ class GRUB2(GRUB):
                                                    self.default.version)
         rc = iutil.execWithRedirect("grub2-set-default",
                                     [entry_title],
-                                    root=install_root,
+                                    root=ROOT_PATH,
                                     stdout="/dev/tty5", stderr="/dev/tty5")
         if rc:
             log.error("failed to set default menu entry to %s" % productName)
@@ -1639,7 +1639,7 @@ class GRUB2(GRUB):
         # now tell grub2 to generate the main configuration file
         rc = iutil.execWithRedirect("grub2-mkconfig",
                                     ["-o", self.config_file],
-                                    root=install_root,
+                                    root=ROOT_PATH,
                                     stdout="/dev/tty5", stderr="/dev/tty5")
         if rc:
             raise BootLoaderError("failed to write bootloader configuration")
@@ -1648,7 +1648,7 @@ class GRUB2(GRUB):
     # installation
     #
 
-    def install(self, install_root=""):
+    def install(self):
         # XXX will installing to multiple drives work as expected with GRUBv2?
         for (stage1dev, stage2dev) in self.install_targets:
             args = [self.grub_device_name(stage1dev)]
@@ -1659,7 +1659,7 @@ class GRUB2(GRUB):
 
             rc = iutil.execWithRedirect("grub2-install", args,
                                         stdout="/dev/tty5", stderr="/dev/tty5",
-                                        root=install_root)
+                                        root=ROOT_PATH)
             if rc:
                 raise BootLoaderError("bootloader install failed")
 
@@ -1734,7 +1734,7 @@ class Yaboot(YabootSILOBase):
     def config_file(self):
         return "%s/%s" % (self.config_dir, self._config_file)
 
-    def write_config_header(self, config, install_root=""):
+    def write_config_header(self, config):
         if self.stage2_device.type == "mdarray":
             boot_part_num = self.stage2_device.parents[0].partedPartition.number
         else:
@@ -1765,33 +1765,33 @@ class Yaboot(YabootSILOBase):
         config.write("mntpoint=/boot/yaboot\n")
         config.write("usemount\n")
 
-    def write_config_post(self, install_root=""):
-        super(Yaboot, self).write_config_post(install_root=install_root)
+    def write_config_post(self):
+        super(Yaboot, self).write_config_post()
 
         # make symlink in /etc to yaboot.conf if config is in /boot/etc
-        etc_yaboot_conf = install_root + "/etc/yaboot.conf"
+        etc_yaboot_conf = ROOT_PATH + "/etc/yaboot.conf"
         if not os.access(etc_yaboot_conf, os.R_OK):
             try:
                 os.symlink("../boot/etc/yaboot.conf", etc_yaboot_conf)
             except OSError as e:
                 log.error("failed to create /etc/yaboot.conf symlink: %s" % e)
 
-    def write_config(self, install_root=""):
-        if not os.path.isdir(install_root + self.config_dir):
-            os.mkdir(install_root + self.config_dir)
+    def write_config(self):
+        if not os.path.isdir(ROOT_PATH + self.config_dir):
+            os.mkdir(ROOT_PATH + self.config_dir)
 
         # this writes the config
-        super(Yaboot, self).write_config(install_root=install_root)
+        super(Yaboot, self).write_config()
 
     #
     # installation
     #
 
-    def install(self, install_root=""):
+    def install(self):
         args = ["-f", "-C", self.config_file]
         rc = iutil.execWithRedirect(self.prog, args,
                                     stdout="/dev/tty5", stderr="/dev/tty5",
-                                    root=install_root)
+                                    root=ROOT_PATH)
         if rc:
             raise BootLoaderError("bootloader installation failed")
 
@@ -1867,7 +1867,7 @@ class ZIPL(BootLoader):
                          "boot_dir": self.boot_dir})
             config.write(stanza)
 
-    def write_config_header(self, config, install_root=""):
+    def write_config_header(self, config):
         header = ("[defaultboot]\n"
                   "timeout=%(timeout)d\n"
                   "default=%(default)s\n"
@@ -1880,10 +1880,10 @@ class ZIPL(BootLoader):
     # installation
     #
 
-    def install(self, install_root=""):
+    def install(self):
         buf = iutil.execWithCapture("zipl", [],
                                     stderr="/dev/tty5",
-                                    root=install_root)
+                                    root=ROOT_PATH)
         for line in buf.splitlines():
             if line.startswith("Preparing boot device: "):
                 # Output here may look like:
@@ -1929,14 +1929,14 @@ class SILO(YabootSILOBase):
     def config_file(self):
         return "%s/%s" % (self.config_dir, self._config_file)
 
-    def write_message_file(self, install_root=""):
-        message_file = os.path.normpath(install_root + self.message_file)
+    def write_message_file(self):
+        message_file = os.path.normpath(ROOT_PATH + self.message_file)
         f = open(message_file, "w")
         f.write("Welcome to %s!\nHit <TAB> for boot options\n\n" % productName)
         f.close()
         os.chmod(message_file, 0600)
 
-    def write_config_header(self, config, install_root=""):
+    def write_config_header(self, config):
         header = ("# silo.conf generated by anaconda\n\n"
                   "#boot=%(stage1dev)s\n"
                   "message=%(message)s\n"
@@ -1950,23 +1950,23 @@ class SILO(YabootSILOBase):
         config.write(header)
         self.write_config_password(config)
 
-    def write_config_post(self, install_root=""):
-        etc_silo = os.path.normpath(install_root + "/etc/" + self._config_file)
+    def write_config_post(self):
+        etc_silo = os.path.normpath(ROOT_PATH + "/etc/" + self._config_file)
         if not os.access(etc_silo, os.R_OK):
             try:
                 os.symlink("../boot/%s" % self._config_file, etc_silo)
             except OSError as e:
                 log.warning("failed to create /etc/silo.conf symlink: %s" % e)
 
-    def write_config(self, install_root=""):
-        self.write_message_file(install_root=install_root)
-        super(SILO, self).write_config(install_root=install_root)
+    def write_config(self):
+        self.write_message_file()
+        super(SILO, self).write_config()
 
     #
     # installation
     #
 
-    def install(self, install_root=""):
+    def install(self):
         backup = "%s/backup.b" % self.config_dir
         args = ["-f", "-C", self.config_file, "-S", backup]
         variant = iutil.getSparcMachine()
@@ -1977,7 +1977,7 @@ class SILO(YabootSILOBase):
 
         rc = iutil.execWithRedirect("silo", args,
                                     stdout="/dev/tty5", stderr="/dev/tty5",
-                                    root=install_root)
+                                    root=ROOT_PATH)
 
         if rc:
             raise BootLoaderError("bootloader install failed")
@@ -2025,7 +2025,7 @@ def writeBootloader(anaconda):
                                      _("Installing bootloader."))
 
     # get a list of installed kernel packages
-    kernel_versions = anaconda.backend.kernelVersionList(ROOT_PATH)
+    kernel_versions = anaconda.backend.kernelVersionList()
     if not kernel_versions:
         log.warning("no kernel was installed -- bootloader config unchanged")
         if anaconda.intf:
@@ -2085,7 +2085,7 @@ def writeBootloader(anaconda):
                                       network=anaconda.network)
 
     try:
-        anaconda.bootloader.write(install_root=ROOT_PATH)
+        anaconda.bootloader.write()
     except BootLoaderError as e:
         if anaconda.intf:
             anaconda.intf.messageWindow(_("Warning"),

@@ -479,7 +479,7 @@ def doRescue(anaconda):
     msgStr = ""
 
     if rootmounted and not readOnly:
-        anaconda.storage.makeMtab(root=ROOT_PATH)
+        anaconda.storage.makeMtab()
         try:
             makeResolvConf(ROOT_PATH)
         except (OSError, IOError) as e:

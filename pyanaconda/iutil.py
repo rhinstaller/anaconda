@@ -874,8 +874,8 @@ def reIPL(anaconda, loader_pid):
 
     return message
 
-def resetRpmDb(rootdir):
-    for rpmfile in glob.glob("%s/var/lib/rpm/__db.*" % rootdir):
+def resetRpmDb():
+    for rpmfile in glob.glob("%s/var/lib/rpm/__db.*" % ROOT_PATH):
         try:
             os.unlink(rpmfile)
         except OSError as e:
@@ -928,12 +928,12 @@ def setup_translations(module):
         add_po_path(module, TRANSLATIONS_UPDATE_DIR)
     module.textdomain("anaconda")
 
-def copy_to_sysimage(source, root_path):
+def copy_to_sysimage(source):
     if not os.access(source, os.R_OK):
         log.info("copy_to_sysimage: source '%s' does not exist." % source)
         return False
 
-    target = root_path + source
+    target = ROOT_PATH + source
     target_dir = os.path.dirname(target)
     log.debug("copy_to_sysimage: '%s' -> '%s'." % (source, target))
     if not os.path.isdir(target_dir):

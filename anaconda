@@ -740,7 +740,7 @@ if __name__ == "__main__":
         anaconda.instLanguage.instLang = opts.lang
         anaconda.instLanguage.buildLocale()
         anaconda.instLanguage.systemLang = opts.lang
-        anaconda.timezone.setTimezoneInfo(anaconda.instLanguage.getDefaultTimeZone(ROOT_PATH))
+        anaconda.timezone.setTimezoneInfo(anaconda.instLanguage.getDefaultTimeZone())
 
     if opts.keymap:
         anaconda.dispatch.skip_steps("keyboard")

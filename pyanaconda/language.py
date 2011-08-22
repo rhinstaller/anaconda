@@ -26,6 +26,7 @@ import string
 import locale
 
 import gettext
+from pyanaconda.constants import ROOT_PATH
 from simpleconfig import SimpleConfigFile
 import system_config_keyboard.keyboard as keyboard
 
@@ -230,27 +231,27 @@ class Language(object):
     def getCurrentLangSearchList(self):
         return expandLangs(self.systemLang) + ['C']
 
-    def getDefaultKeyboard(self, instPath):
+    def getDefaultKeyboard(self):
         try:
             return self.localeInfo[self.systemLang][3]
         except KeyError:
             try:
                 kbd = keyboard.Keyboard()
-                kbd.read(instPath)
+                kbd.read(ROOT_PATH)
                 return kbd.get()
             except:
                 return self.localeInfo[self._default][3]
 
-    def getDefaultTimeZone(self, instPath):
+    def getDefaultTimeZone(self):
         try:
             return self.localeInfo[self.systemLang][4]
         except KeyError:
             # If doing an upgrade and the system language is something not
             # recognized by anaconda, we should try to see if we can figure
             # it out from the running system.
-            if os.path.exists(instPath + "/etc/sysconfig/clock"):
+            if os.path.exists(ROOT_PATH + "/etc/sysconfig/clock"):
                 cfg = SimpleConfigFile()
-                cfg.read(instPath + "/etc/sysconfig/clock")
+                cfg.read(ROOT_PATH + "/etc/sysconfig/clock")
 
                 try:
                     return cfg.get("ZONE")
@@ -285,8 +286,8 @@ class Language(object):
     def getNativeLangName(self, lang):
         return self.nativeLangNames[lang]
 
-    def write(self, instPath):
-        f = open(instPath + "/etc/sysconfig/i18n", "w")
+    def write(self):
+        f = open(ROOT_PATH + "/etc/sysconfig/i18n", "w")
 
         for (key, val) in self.info.iteritems():
             if val != None:

@@ -70,20 +70,20 @@ class Firewall:
 
 	return args
 
-    def write (self, instPath):
+    def write (self):
 	args = [ "--quiet", "--nostart", "-f" ] + self.getArgList()
 
         try:
-            if not os.path.exists("%s/etc/sysconfig/iptables" %(instPath,)):
+            if not os.path.exists("%s/etc/sysconfig/iptables" %(ROOT_PATH,)):
                 iutil.execWithRedirect("/usr/sbin/lokkit", args,
-                                       root=instPath, stdout="/dev/null",
+                                       root=ROOT_PATH, stdout="/dev/null",
                                        stderr="/dev/null")
             else:
                 log.error("would have run %s", args)
         except (RuntimeError, OSError) as msg:
             log.error ("lokkit run failed: %s", msg)
         else:
-            f = open(instPath +
+            f = open(ROOT_PATH +
                      '/etc/sysconfig/system-config-firewall', 'w')
             f.write("# system-config-firewall config written out by anaconda\n\n")
             for arg in args[3:]:

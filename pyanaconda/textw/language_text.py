@@ -58,13 +58,13 @@ class LanguageWindow:
                                buttons=[TEXT_OK_BUTTON])
             anaconda.instLanguage.instLang = choice
             anaconda.instLanguage.systemLang = choice
-            anaconda.timezone.setTimezoneInfo(anaconda.instLanguage.getDefaultTimeZone(ROOT_PATH))
+            anaconda.timezone.setTimezoneInfo(anaconda.instLanguage.getDefaultTimeZone())
             return INSTALL_OK
 
         anaconda.instLanguage.instLang = choice
         anaconda.instLanguage.systemLang = choice
         anaconda.instLanguage.buildLocale()
-        anaconda.timezone.setTimezoneInfo(anaconda.instLanguage.getDefaultTimeZone(ROOT_PATH))
+        anaconda.timezone.setTimezoneInfo(anaconda.instLanguage.getDefaultTimeZone())
 
 	anaconda.intf.drawFrame()
 

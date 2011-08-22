@@ -81,7 +81,7 @@ class TimezoneWindow(InstallWindow):
         (self.default, asUTC) = self.timezone.getTimezoneInfo()
 
         if not self.default:
-            self.default = anaconda.instLanguage.getDefaultTimeZone(ROOT_PATH)
+            self.default = anaconda.instLanguage.getDefaultTimeZone()
             asUTC = 0
 
         if (string.find(self.default, "UTC") != -1):

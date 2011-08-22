@@ -381,7 +381,7 @@ class Storage(object):
                                      luksDict=self.__luksDevs,
                                      iscsi=self.iscsi,
                                      dasd=self.dasd)
-        self.fsset = FSSet(self.devicetree, ROOT_PATH)
+        self.fsset = FSSet(self.devicetree)
         self.services = set()
 
     def doIt(self):
@@ -478,7 +478,7 @@ class Storage(object):
         self.devicetree.populate(progressWindow=prog,
                                  cleanupOnly=cleanupOnly)
         self.config.clearPartType = clearPartType # set it back
-        self.fsset = FSSet(self.devicetree, ROOT_PATH)
+        self.fsset = FSSet(self.devicetree)
         self.eddDict = get_edd_dict(self.partitioned)
         if hasattr(self.anaconda, "rootParts") and \
            hasattr(self.anaconda, "upgradeRoot"):
@@ -1246,13 +1246,13 @@ class Storage(object):
         with contextlib.closing(shelve.open(self._dumpFile)) as shelf:
             shelf[key] = [d.dict for d in self.devices]
 
-    def write(self, instPath):
-        self.fsset.write(instPath)
-        self.makeMtab(root=instPath)
-        self.iscsi.write(instPath, self)
-        self.fcoe.write(instPath)
-        self.zfcp.write(instPath)
-        self.dasd.write(instPath)
+    def write(self):
+        self.fsset.write()
+        self.makeMtab()
+        self.iscsi.write(self)
+        self.fcoe.write()
+        self.zfcp.write()
+        self.dasd.write()
 
     def writeKS(self, f):
         def useExisting(lst):
@@ -1369,11 +1369,10 @@ class Storage(object):
     def rootDevice(self):
         return self.fsset.rootDevice
 
-    def makeMtab(self, root=None):
+    def makeMtab(self):
         path = "/etc/mtab"
         target = "/proc/self/mounts"
-        if root and root != "/" and os.path.isdir(root):
-            path = os.path.normpath("%s/%s" % (root, path))
+        path = os.path.normpath("%s/%s" % (ROOT_PATH, path))
 
         if os.path.islink(path):
             # return early if the mtab symlink is already how we like it
@@ -1440,14 +1439,14 @@ class Storage(object):
 
         return 0
 
-def getReleaseString(mountpoint):
+def getReleaseString():
     relArch = None
     relName = None
     relVer = None
 
     import rpm
-    iutil.resetRpmDb(mountpoint)
-    ts = rpm.TransactionSet(mountpoint)
+    iutil.resetRpmDb()
+    ts = rpm.TransactionSet(ROOT_PATH)
 
     # We get the arch from the initscripts package, but the version and name
     # must come from reading the release file.
@@ -1464,7 +1463,7 @@ def getReleaseString(mountpoint):
         relArch = h['arch']
         break
 
-    filename = "%s/etc/redhat-release" % mountpoint
+    filename = "%s/etc/redhat-release" % ROOT_PATH
     if os.access(filename, os.R_OK):
         with open(filename) as f:
             try:
@@ -1519,7 +1518,7 @@ def findExistingRootDevices(anaconda, upgradeany=False):
 
         if os.access(ROOT_PATH + "/etc/fstab", os.R_OK):
             try:
-                (arch, product, version) = getReleaseString(ROOT_PATH)
+                (arch, product, version) = getReleaseString()
             except ValueError:
                 # This likely isn't our product, so don't even count it as
                 # notUpgradable.
@@ -1749,9 +1748,8 @@ def get_containing_device(path, devicetree):
 
 class FSSet(object):
     """ A class to represent a set of filesystems. """
-    def __init__(self, devicetree, rootpath):
+    def __init__(self, devicetree):
         self.devicetree = devicetree
-        self.rootpath = rootpath
         self.cryptTab = None
         self.blkidTab = None
         self.origFStab = None
@@ -1940,7 +1938,7 @@ class FSSet(object):
                 loop mounts?
         """
         if not chroot or not os.path.isdir(chroot):
-            chroot = self.rootpath
+            chroot = ROOT_PATH
 
         path = "%s/etc/fstab" % chroot
         if not os.access(path, os.R_OK):
@@ -2241,14 +2239,11 @@ class FSSet(object):
 
         self.active = False
 
-    def createSwapFile(self, device, size, rootPath=None):
-        """ Create and activate a swap file under rootPath. """
-        if not rootPath:
-            rootPath = self.rootpath
-
+    def createSwapFile(self, device, size):
+        """ Create and activate a swap file under ROOT_PATH. """
         filename = "/SWAP"
         count = 0
-        basedir = os.path.normpath("%s/%s" % (rootPath,
+        basedir = os.path.normpath("%s/%s" % (ROOT_PATH,
                                               device.format.mountpoint))
         while os.path.exists("%s/%s" % (basedir, filename)) or \
               self.devicetree.getDeviceByName(filename):
@@ -2267,15 +2262,12 @@ class FSSet(object):
         # nasty, nasty
         self.devicetree._addDevice(dev)
 
-    def mkDevRoot(self, instPath=None):
-        if not instPath:
-            instPath = self.rootpath
-
+    def mkDevRoot(self):
         root = self.rootDevice
-        dev = "%s/%s" % (instPath, root.path)
-        if not os.path.exists("%s/dev/root" %(instPath,)) and os.path.exists(dev):
+        dev = "%s/%s" % (ROOT_PATH, root.path)
+        if not os.path.exists("%s/dev/root" %(ROOT_PATH,)) and os.path.exists(dev):
             rdev = os.stat(dev).st_rdev
-            os.mknod("%s/dev/root" % (instPath,), stat.S_IFBLK | 0600, rdev)
+            os.mknod("%s/dev/root" % (ROOT_PATH,), stat.S_IFBLK | 0600, rdev)
 
     @property
     def swapDevices(self):
@@ -2287,7 +2279,7 @@ class FSSet(object):
 
     @property
     def rootDevice(self):
-        for path in ["/", self.rootpath]:
+        for path in ["/", ROOT_PATH]:
             for device in self.devices:
                 try:
                     mountpoint = device.format.mountpoint
@@ -2307,25 +2299,22 @@ class FSSet(object):
 
         return migratable
 
-    def write(self, instPath=None):
+    def write(self):
         """ write out all config files based on the set of filesystems """
-        if not instPath:
-            instPath = self.rootpath
-
         # /etc/fstab
-        fstab_path = os.path.normpath("%s/etc/fstab" % instPath)
+        fstab_path = os.path.normpath("%s/etc/fstab" % ROOT_PATH)
         fstab = self.fstab()
         open(fstab_path, "w").write(fstab)
 
         # /etc/crypttab
-        crypttab_path = os.path.normpath("%s/etc/crypttab" % instPath)
+        crypttab_path = os.path.normpath("%s/etc/crypttab" % ROOT_PATH)
         crypttab = self.crypttab()
         origmask = os.umask(0077)
         open(crypttab_path, "w").write(crypttab)
         os.umask(origmask)
 
         # /etc/mdadm.conf
-        mdadm_path = os.path.normpath("%s/etc/mdadm.conf" % instPath)
+        mdadm_path = os.path.normpath("%s/etc/mdadm.conf" % ROOT_PATH)
         mdadm_conf = self.mdadmConf()
         if mdadm_conf:
             open(mdadm_path, "w").write(mdadm_conf)
@@ -2334,14 +2323,14 @@ class FSSet(object):
         multipath_conf = self.multipathConf()
         if multipath_conf:
             multipath_path = os.path.normpath("%s/etc/multipath.conf" %
-                                              instPath)
+                                              ROOT_PATH)
             conf_contents = multipath_conf.write(self.devicetree.mpathFriendlyNames)
             f = open(multipath_path, "w")
             f.write(conf_contents)
             f.close()
         else:
             log.info("not writing out mpath configuration")
-        iutil.copy_to_sysimage("/etc/multipath/wwids", root_path=instPath)
+        iutil.copy_to_sysimage("/etc/multipath/wwids")
 
     def crypttab(self):
         # if we are upgrading, do we want to update crypttab?

@@ -120,9 +120,9 @@ def upgradeMigrateFind(anaconda):
     else:
         anaconda.dispatch.request_steps("upgrademigratefs")
 
-def copyFromSysimage(rootPath, filename):
+def copyFromSysimage(filename):
     """Mirrors filename from the sysimage on the ramdisk."""
-    sysfile = os.path.normpath("%s/%s" % (rootPath, filename))
+    sysfile = os.path.normpath("%s/%s" % (ROOT_PATH, filename))
     if os.access(sysfile, os.R_OK):
         try:
             # remove our copy if we have one (think liveinstall)
@@ -152,8 +152,8 @@ def restoreTime(anaconda):
         return
     if os.environ.has_key("TZ"):
         del os.environ["TZ"]
-    copyFromSysimage(ROOT_PATH, '/etc/localtime')
-    copyFromSysimage(ROOT_PATH, '/etc/adjtime')
+    copyFromSysimage('/etc/localtime')
+    copyFromSysimage('/etc/adjtime')
     if iutil.isS390():
         return
     args = [ "--hctosys" ]
