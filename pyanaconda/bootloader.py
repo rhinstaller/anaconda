@@ -1643,8 +1643,13 @@ class GRUB2(GRUB):
     def install(self, install_root=""):
         # XXX will installing to multiple drives work as expected with GRUBv2?
         for (stage1dev, stage2dev) in self.install_targets:
-            rc = iutil.execWithRedirect("grub2-install",
-                                        [self.grub_device_name(stage1dev)],
+            args = [self.grub_device_name(stage1dev)]
+            if stage1dev == stage2dev:
+                # This is hopefully a temporary hack. GRUB2 currently refuses
+                # to install to a partition's boot block without --force.
+                args.insert(0, '--force')
+
+            rc = iutil.execWithRedirect("grub2-install", args,
                                         stdout="/dev/tty5", stderr="/dev/tty5",
                                         root=install_root)
             if rc:
