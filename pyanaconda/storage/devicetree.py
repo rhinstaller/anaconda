@@ -1416,13 +1416,18 @@ class DeviceTree(object):
 
             log.info("using name %s for md array containing member %s"
                         % (md_name, device.name))
-            md_array = MDRaidArrayDevice(md_name,
-                                         level=md_level,
-                                         minor=minor,
-                                         memberDevices=md_devices,
-                                         uuid=md_uuid,
-                                         sysfsPath=sysfs_path,
-                                         exists=True)
+            try:
+                md_array = MDRaidArrayDevice(md_name,
+                                             level=md_level,
+                                             minor=minor,
+                                             memberDevices=md_devices,
+                                             uuid=md_uuid,
+                                             sysfsPath=sysfs_path,
+                                             exists=True)
+            except ValueError as e:
+                log.error("failed to create md array: %s" % e)
+                return
+
             md_array._addDevice(device)
             self._addDevice(md_array)
 
