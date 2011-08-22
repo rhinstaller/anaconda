@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 13.21.132\n"
+"Project-Id-Version: anaconda 13.21.133\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2011-08-22 11:01-0400\n"
+"POT-Creation-Date: 2011-08-22 14:17-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2017,11 +2017,11 @@ msgstr ""
 msgid "%(name)s: %(msg)s"
 msgstr ""
 
-#: iw/autopart_type.py:253
+#: iw/autopart_type.py:260
 msgid "Use All Space"
 msgstr ""
 
-#: iw/autopart_type.py:255
+#: iw/autopart_type.py:262
 msgid ""
 "Removes all partitions on the selected device(s).  This includes partitions "
 "created by other operating systems.\n"
@@ -2030,11 +2030,11 @@ msgid ""
 "sure you have backups."
 msgstr ""
 
-#: iw/autopart_type.py:261
+#: iw/autopart_type.py:268
 msgid "Replace Existing Linux System(s)"
 msgstr ""
 
-#: iw/autopart_type.py:263
+#: iw/autopart_type.py:270
 msgid ""
 "Removes only Linux partitions (created from a previous Linux installation).  "
 "This does not remove other partitions you may have on your storage device(s) "
@@ -2044,31 +2044,31 @@ msgid ""
 "sure you have backups."
 msgstr ""
 
-#: iw/autopart_type.py:271
+#: iw/autopart_type.py:278
 msgid "Shrink Current System"
 msgstr ""
 
-#: iw/autopart_type.py:273
+#: iw/autopart_type.py:280
 msgid ""
 "Shrinks existing partitions to create free space for the default layout."
 msgstr ""
 
-#: iw/autopart_type.py:275
+#: iw/autopart_type.py:282
 msgid "Use Free Space"
 msgstr ""
 
-#: iw/autopart_type.py:277
+#: iw/autopart_type.py:284
 msgid ""
 "Retains your current data and partitions and uses only the unpartitioned "
 "space on the selected device(s), assuming you have enough free space "
 "available."
 msgstr ""
 
-#: iw/autopart_type.py:281
+#: iw/autopart_type.py:288
 msgid "Create Custom Layout"
 msgstr ""
 
-#: iw/autopart_type.py:283
+#: iw/autopart_type.py:290
 msgid ""
 "Manually create your own custom layout on the selected device(s) using our "
 "partitioning tool."
