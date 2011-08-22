@@ -145,6 +145,9 @@ class PartitionTypeWindow(InstallWindow):
         ics.setTitle("Automatic Partitioning")
         ics.setNextEnabled(True)
 
+    def _isInteractiveKS(self):
+        return self.anaconda.isKickstart and self.anaconda.id.ksdata.interactive.interactive
+
     def getNext(self):
         if self.storage.checkNoDisks():
             raise gui.StayOnScreen
@@ -152,10 +155,12 @@ class PartitionTypeWindow(InstallWindow):
         # reset storage, this is only done when moving forward, not back
         # temporarily unset storage.clearPartType so that all devices will be
         # found during storage reset
-        clearPartType = self.anaconda.id.storage.clearPartType
-        self.anaconda.id.storage.clearPartType = None
-        self.anaconda.id.storage.reset()
-        self.anaconda.id.storage.clearPartType = clearPartType
+        if not self._isInteractiveKS() or \
+               (self._isInteractiveKS() and len(self.storage.devicetree.findActions(type="create")) == 0):
+            clearPartType = self.anaconda.id.storage.clearPartType
+            self.anaconda.id.storage.clearPartType = None
+            self.anaconda.id.storage.reset()
+            self.anaconda.id.storage.clearPartType = clearPartType
 
         self.storage.clearPartChoice = self.buttonGroup.getCurrent()
 
@@ -193,7 +198,9 @@ class PartitionTypeWindow(InstallWindow):
                 self.storage.retrofitPassphrase = False
                 self.storage.encryptedAutoPart = False
 
-            self.storage.doAutoPart = True
+            if not self._isInteractiveKS() or \
+               (self._isInteractiveKS() and len(self.storage.devicetree.findActions(type="create")) == 0):
+                self.storage.doAutoPart = True
 
             self.dispatch.skipStep("cleardiskssel", skip = 0)
             if self.reviewButton.get_active():
