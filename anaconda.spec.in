@@ -222,6 +222,10 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Tue Aug 23 2011 David Cantrell <dcantrell@redhat.com> - 13.21.135-1
+- Convert a None from libiscsi.discover() to an empty list. (akozumpl)
+  Resolves: rhbz#732380
+
 * Mon Aug 22 2011 David Cantrell <dcantrell@redhat.com> - 13.21.134-1
 - Fix the partitioning section of interactive kickstart installs (clumens).
   Resolves: rhbz#641861
