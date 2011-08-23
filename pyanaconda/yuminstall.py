@@ -1230,6 +1230,8 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
         if os.access(anaconda.rootPath + "/tmp/yum.log", os.R_OK):
             os.unlink(anaconda.rootPath + "/tmp/yum.log")
 
+        self.ayum.history.close()
+
     def doBackendSetup(self, anaconda):
         if anaconda.dir == DISPATCH_BACK:
             return DISPATCH_BACK
