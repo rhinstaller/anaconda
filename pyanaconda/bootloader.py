@@ -1454,6 +1454,7 @@ class GRUB2(GRUB):
     can_update = True
 
     # requirements for boot devices
+    stage2_format_types = ["ext4", "ext3", "ext2", "btrfs"]
     stage2_device_types = ["partition", "mdarray", "lvmlv"]
     stage2_raid_levels = [mdraid.RAID0, mdraid.RAID1, mdraid.RAID4,
                           mdraid.RAID5, mdraid.RAID6, mdraid.RAID10]
