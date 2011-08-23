@@ -33,7 +33,6 @@ class BIOSBoot(DeviceFormat):
     partedFlag = PARTITION_BIOS_GRUB
     _formattable = True                 # can be formatted
     _linuxNative = True                 # for clearpart
-    _bootable = True                    # can be used as boot
     _maxSize = 2                        # maximum size in MB
     _minSize = 0.5                      # minimum size in MB
 

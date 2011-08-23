@@ -44,7 +44,6 @@ class MultipathMember(DeviceFormat):
     _linuxNative = False                # for clearpart
     _packages = ["device-mapper-multipath"] # required packages
     _resizable = False                  # can be resized
-    _bootable = False                   # can be used as boot
     _maxSize = 0                        # maximum size in MB
     _minSize = 0                        # minimum size in MB
     _hidden = True                      # hide devices with this formatting?

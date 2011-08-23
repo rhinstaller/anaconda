@@ -79,7 +79,6 @@ def fsConfigFromFile(config_file):
             formattable = True
             supported = True
             resizable = True
-            bootable = True
             linuxNative = True
             maxSize = 8 * 1024 * 1024
             minSize = 0
@@ -902,7 +901,6 @@ class Ext2FS(FS):
     _formattable = True
     _supported = True
     _resizable = True
-    _bootable = True
     _linuxNative = True
     _maxSize = 8 * 1024 * 1024
     _minSize = 0
@@ -1088,7 +1086,6 @@ class EFIFS(FATFS):
     _modules = ["vfat"]
     _name = "EFI System Partition"
     _minSize = 50
-    _bootable = True
 
     @property
     def supported(self):
@@ -1108,7 +1105,6 @@ class BTRFS(FS):
     _resizefs = "btrfsctl"
     _formattable = True
     _linuxNative = True
-    _bootable = False
     _maxLabelChars = 256
     _supported = True
     _dump = True
@@ -1305,7 +1301,6 @@ class AppleBootstrapFS(HFS):
     _type = "appleboot"
     _mountType = "hfs"
     _name = "Apple Bootstrap"
-    _bootable = True
     _minSize = 800.00 / 1024.00
     _maxSize = 1
 
@@ -1440,7 +1435,6 @@ class Iso9660FS(FS):
     _formattable = False
     _supported = True
     _resizable = False
-    _bootable = False
     _linuxNative = False
     _dump = False
     _check = False

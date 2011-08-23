@@ -144,7 +144,6 @@ class DeviceFormat(object):
     _packages = []                      # required packages
     _services = []                      # required services
     _resizable = False                  # can be resized
-    _bootable = False                   # can be used as boot
     _migratable = False                 # can be migrated
     _maxSize = 0                        # maximum size in MB
     _minSize = 0                        # minimum size in MB
@@ -369,11 +368,6 @@ class DeviceFormat(object):
     def resizable(self):
         """ Can formats of this type be resized? """
         return self._resizable and self.exists
-
-    @property
-    def bootable(self):
-        """ Is this format type suitable for a boot partition? """
-        return self._bootable
 
     @property
     def migratable(self):
