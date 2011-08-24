@@ -600,8 +600,9 @@ makeinitrd() {
     mkdir -p $MBD_DIR/sys
     mkdir -p $MBD_DIR/tmp
     mkdir -p $MBD_DIR/etc/terminfo/{a,b,d,l,s,v,x}
+    mkdir -p $MBD_DIR/var/log/rhsm
     mkdir -p $MBD_DIR/var/state
-    mkdir -p $MBD_DIR/var/run
+    mkdir -p $MBD_DIR/var/run/rhsm
     mkdir -p $MBD_DIR/var/lock/rpm
 
     ( cd $MBD_DIR/dev
