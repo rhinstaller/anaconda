@@ -34,6 +34,7 @@ class InstallClass(baseclass):
 		    "keyboard",
 		    "welcome",
 		    "installtype",
+                    "regkey",
                     "findrootparts",
 		    "findinstall",
                     "partitionobjinit",
