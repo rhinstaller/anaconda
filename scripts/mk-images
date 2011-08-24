@@ -651,6 +651,7 @@ EOF
 	install -m 755 $IMGPATH/usr/sbin/dasdfmt $MBD_DIR/sbin/dasdfmt
 	install -m 755 $IMGPATH/usr/sbin/udevsettle $MBD_DIR/sbin/udevsettle
 	install -m 755 $IMGPATH/usr/sbin/udevd $MBD_DIR/sbin/udevd
+	install -m 755 $IMGPATH/usr/bin/printf $MBD_DIR/sbin/printf
 	mkdir -p $MBD_DIR/etc/udev
 	echo "# udev.conf" > $MBD_DIR/etc/udev/udev.conf
     fi

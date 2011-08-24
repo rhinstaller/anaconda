@@ -155,13 +155,13 @@ function readcmsfile() # $1=dasdport $2=filename
     if ! cmsfscat -d /dev/dasda -a $2 > /tmp/$2; then
         echo $"Could not read conf file $2 on CMS DASD $1."
     fi
-    # maybe replace with a more robust: dev=$(printf "0.0.%04x" $((0x${1})))
-    if [ ${#1} == 3 ]; then
-        dev="0.0.0${1}"
-    elif [ ${#1} == 4 ]; then
-        dev="0.0.${1}"
+    dev="$(echo $1 | tr [:upper:] [:lower:])"
+    if [ ! -r "/sys/bus/ccw/drivers/dasd-eckd/$dev" ]; then
+        dev=$(printf "0.0.%04x" $((0x$1)))
     fi
-    sysecho /sys/bus/ccw/drivers/dasd-eckd/$dev/online 0
+    if ! sysecho /sys/bus/ccw/drivers/dasd-eckd/$dev/online 0; then
+        echo $"DASD $dev could not be brought online."
+    fi
     rmmod dasd_eckd_mod
     rmmod dasd_mod
 }
