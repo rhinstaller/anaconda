@@ -222,6 +222,10 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Wed Aug 24 2011 David Cantrell <dcantrell@redhat.com> - 13.21.136-1
+- Fix parsing of network kickstart command (mmatsuya)
+  Resolves: rhbz#731274
+
 * Tue Aug 23 2011 David Cantrell <dcantrell@redhat.com> - 13.21.135-1
 - Convert a None from libiscsi.discover() to an empty list. (akozumpl)
   Resolves: rhbz#732380
