@@ -604,6 +604,12 @@ makeinitrd() {
     mkdir -p $MBD_DIR/var/run
     mkdir -p $MBD_DIR/var/lock/rpm
 
+    ( cd $MBD_DIR/dev
+      ln -sf /proc/self/fd/0 stdin
+      ln -sf /proc/self/fd/1 stdout
+      ln -sf /proc/self/fd/2 stderr
+    )
+
     if [ "$BUILDARCH" = "ppc" -o "$BUILDARCH" = "ppc64" ]; then
 	mkdir -p $MBD_DIR/dev/iseries
     fi
