@@ -2683,28 +2683,28 @@ function show_parms() {
     # For the time being, at least the parameters LAYER2, PORTNAME, and CTCPROT
     # only get asked on being empty if not running in kickstart mode.
     cat << EOF
-NETTYPE=$NETTYPE
-IPADDR=$IPADDR
-NETMASK=$NETMASK
-GATEWAY=$GATEWAY
-HOSTNAME=$HOSTNAME
+NETTYPE='$NETTYPE'
+IPADDR='$IPADDR'
+NETMASK='$NETMASK'
+GATEWAY='$GATEWAY'
+HOSTNAME='$HOSTNAME'
 EOF
-    [ "$SUBCHANNELS" ] && echo "SUBCHANNELS=$SUBCHANNELS"
-    [ "$LAYER2" ] && echo "LAYER2=$LAYER2"
-    [ "$VSWITCH" ] && echo "VSWITCH=$VSWITCH"
-    [ "$MACADDR" ] && echo "MACADDR=$MACADDR"
-    [ "$PORTNAME" ] && echo "PORTNAME=$PORTNAME"
-    [ "$PORTNO" ] && echo "PORTNO=$PORTNO"
-    [ "$PEERID" ] && echo "PEERID=$PEERID"
-    [ "$CTCPROT" ] && echo "CTCPROT=$CTCPROT"
+    [ "$SUBCHANNELS" ] && echo "SUBCHANNELS='$SUBCHANNELS'"
+    [ "$LAYER2" ] && echo "LAYER2='$LAYER2'"
+    [ "$VSWITCH" ] && echo "VSWITCH='$VSWITCH'"
+    [ "$MACADDR" ] && echo "MACADDR='$MACADDR'"
+    [ "$PORTNAME" ] && echo "PORTNAME='$PORTNAME'"
+    [ "$PORTNO" ] && echo "PORTNO='$PORTNO'"
+    [ "$PEERID" ] && echo "PEERID='$PEERID'"
+    [ "$CTCPROT" ] && echo "CTCPROT='$CTCPROT'"
     if [ -n "$mmtu_was_set" ]; then
-        echo "MMTU=\"$MMTU\""
+        echo "MMTU='$MMTU'"
     elif [ -n "$mtu_was_set" ]; then
-        echo "MTU=$MTU"
+        echo "MTU='$MTU'"
     fi
-    [ "$DNS" ] && echo "DNS=$DNS"
-    [ "$SEARCHDNS" ] && echo "SEARCHDNS=$SEARCHDNS"
-    [ "$DASD" ] && echo "DASD=$DASD"
+    [ "$DNS" ] && echo "DNS='$DNS'"
+    [ "$SEARCHDNS" ] && echo "SEARCHDNS='$SEARCHDNS'"
+    [ "$DASD" ] && echo "DASD='$DASD'"
 }
 
 function final_check() {
