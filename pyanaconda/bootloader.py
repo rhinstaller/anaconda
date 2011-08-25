@@ -1011,6 +1011,8 @@ class GRUB(BootLoader):
     # list of strings representing options for boot device types
     stage2_device_types = ["partition", "mdarray"]
     stage2_raid_levels = [mdraid.RAID1]
+    stage2_raid_member_types = ["partition"]
+    stage2_raid_metadata = ["0", "0.90", "1.0"]
 
     packages = ["grub"]
 
