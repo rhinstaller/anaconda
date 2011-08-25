@@ -1653,7 +1653,7 @@ class GRUB2(GRUB):
     def install(self, install_root=""):
         # XXX will installing to multiple drives work as expected with GRUBv2?
         for (stage1dev, stage2dev) in self.install_targets:
-            args = [self.grub_device_name(stage1dev)]
+            args = ["--no-floppy", self.grub_device_name(stage1dev)]
             if stage1dev == stage2dev:
                 # This is hopefully a temporary hack. GRUB2 currently refuses
                 # to install to a partition's boot block without --force.
