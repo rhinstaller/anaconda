@@ -460,7 +460,11 @@ function dialog_network_table() {
             fi
             [ "$choice" = "m" ] && break
             [ "$choice" = "r" ] && continue 2
-            [ "$cio_wc_bytes" != "0" -a "$choice" = "c" ] && break
+            if [ "$cio_wc_bytes" != "0" -a "$choice" = "c" ]; then
+                echo $"Clearing device blacklist..."
+                cio_ignore -R || echo $"Device blacklist could not be cleared"
+                continue 2
+            fi
             [[ "$choice" =~ ^[[:digit:]]+$ ]]
             case $? in
                 0)
@@ -479,10 +483,6 @@ function dialog_network_table() {
                     ;;
             esac
         done
-        if [ "$choice" = "c" ]; then
-            echo $"Clearing device blacklist..."
-            cio_ignore -R || echo $"Device blacklist could not be cleared"
-        fi
         [ "$choice" = "m" ] && break
         # finally extract config info from selected item
         # array nettable starts at index zero, user input starts at index one
