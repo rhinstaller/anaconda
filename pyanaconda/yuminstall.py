@@ -26,7 +26,6 @@ import os
 import os.path
 import shutil
 import time
-import warnings
 import types
 import locale
 import glob

@@ -37,7 +37,6 @@ import stat
 import posix
 import sys
 from pyanaconda import iutil
-import warnings
 import resource
 import re
 import struct

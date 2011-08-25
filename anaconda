@@ -37,10 +37,6 @@ from tempfile import mkstemp
 # keep up with process ID of the window manager if we start it
 wm_pid = None
 
-# Make sure messages sent through python's warnings module get logged.
-def AnacondaShowWarning(message, category, filename, lineno, file=sys.stderr, line=None):
-    log.warning("%s" % warnings.formatwarning(message, category, filename, lineno, line))
-
 def startMetacityWM():
     childpid = os.fork()
     if not childpid:
@@ -575,7 +571,6 @@ if __name__ == "__main__":
     isys.initLog()
 
     import signal, string, time
-    import warnings
 
     from pyanaconda import iutil
     from pyanaconda import vnc
@@ -586,7 +581,6 @@ if __name__ == "__main__":
 
     from pyanaconda import Anaconda
     anaconda = Anaconda()
-    warnings.showwarning = AnacondaShowWarning
     iutil.setup_translations(gettext)
 
     # reset python's default SIGINT handler

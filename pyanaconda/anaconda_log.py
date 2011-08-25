@@ -29,6 +29,7 @@ import os
 import signal
 import sys
 import types
+import warnings
 
 import iutil
 from flags import flags
@@ -120,9 +121,10 @@ class AnacondaLog:
         logging.addLevelName(logging.CRITICAL, "CRIT")
 
         # Create the base of the logger hierarchy.
-        anaconda_logger = logging.getLogger("anaconda")
-        self.addFileHandler(MAIN_LOG_FILE, anaconda_logger,
+        self.anaconda_logger = logging.getLogger("anaconda")
+        self.addFileHandler(MAIN_LOG_FILE, self.anaconda_logger,
                             minLevel=logging.DEBUG)
+        warnings.showwarning = self.showwarning
 
         # Create the storage logger.
         storage_logger = logging.getLogger("storage")
@@ -130,7 +132,7 @@ class AnacondaLog:
                             minLevel=logging.DEBUG)
 
         # Set the common parameters for anaconda and storage loggers.
-        for logger in [anaconda_logger, storage_logger]:
+        for logger in [self.anaconda_logger, storage_logger]:
             logger.setLevel(logging.DEBUG)
             self.forwardToSyslog(logger)
             # Logging of basic stuff and storage to tty3.
@@ -189,6 +191,16 @@ class AnacondaLog:
             logger.name)
         syslogHandler.setLevel(logging.DEBUG)
         logger.addHandler(syslogHandler)
+
+    def showwarning(self, message, category, filename, lineno,
+                      file=sys.stderr, line=None):
+        """ Make sure messages sent through python's warnings module get logged.
+
+            The warnings mechanism is used by some libraries we use,
+            notably pykickstart.
+        """
+        self.anaconda_logger.warning("%s" % warnings.formatwarning(
+                message, category, filename, lineno, line))
 
     def updateRemote(self, remote_syslog):
         """Updates the location of remote rsyslogd to forward to.

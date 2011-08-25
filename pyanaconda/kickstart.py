@@ -40,7 +40,6 @@ from constants import *
 import sys
 import string
 import urlgrabber
-import warnings
 import network
 import upgrade
 import pykickstart.commands as commands
@@ -1508,7 +1507,7 @@ def setSteps(anaconda):
 
         # Special check for this, since it doesn't make any sense.
         if packagesSeen:
-            warnings.warn("Ignoring contents of %packages section due to upgrade.")
+            log.warning("Ignoring contents of %packages section due to upgrade.")
     elif havePackages(ksdata.packages):
         dispatch.skip_steps("tasksel", "group-selection")
     else:
