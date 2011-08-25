@@ -1474,9 +1474,8 @@ class GRUB2(GRUB):
         if device is None:
             return ret
 
-        if self.stage1_device == self.stage2_device:
-            # if we're booting from the stage2 device there's probably no
-            # need for a BIOS boot partition
+        if not self.platform.weight(fstype="biosboot"):
+            # this platform does not need bios boot
             return ret
 
         # check that a bios boot partition is present if the stage1 device
@@ -1491,10 +1490,8 @@ class GRUB2(GRUB):
                     break
 
             if not ret:
-                self.warnings.append(_("You are using a GPT bootdisk on a BIOS "
-                                   "system without a BIOS boot partition. This "
-                                   "may not work, depending on your BIOS's "
-                                   "support for booting from GPT disks."))
+                self.errors.append(_("You are using a GPT bootdisk on a BIOS "
+                                     "system without a BIOS boot partition."))
 
         log.debug("_gpt_disk_has_bios_boot(%s) returning %s" % (device.name,
                                                                 ret))
@@ -1502,8 +1499,7 @@ class GRUB2(GRUB):
 
     def is_valid_stage1_device(self, device):
         ret = super(GRUB2, self).is_valid_stage1_device(device)
-        if ret:
-            ignored = self._gpt_disk_has_bios_boot(device)
+        ret = ret and self._gpt_disk_has_bios_boot(device)
 
         log.debug("is_valid_stage1_device(%s) returning %s" % (device.name,
                                                                 ret))
