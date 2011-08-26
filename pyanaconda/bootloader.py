@@ -474,7 +474,7 @@ class BootLoader(object):
 
     def _is_valid_location(self, device, max_mb=None, desc=""):
         ret = True
-        if max_mb and device.type == "partition":
+        if max_mb and device.type == "partition" and device.partedPartition:
             end_sector = device.partedPartition.geometry.end
             sector_size = device.partedPartition.disk.device.sectorSize
             end_mb = (sector_size * end_sector) / (1024.0 * 1024.0)
