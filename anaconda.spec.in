@@ -222,6 +222,12 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Fri Aug 26 2011 David Cantrell <dcantrell@redhat.com> - 13.21.137-1
+- Fix import error in list-harddrives-test (mgracik)
+  Resolves: rhbz#706099
+- Rescan for netdevs after clearing blacklist in linuxrc.s390 (dcantrell)
+  Resolves: rhbz#733299
+
 * Wed Aug 24 2011 David Cantrell <dcantrell@redhat.com> - 13.21.136-1
 - Fix parsing of network kickstart command (mmatsuya)
   Resolves: rhbz#731274
