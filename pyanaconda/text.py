@@ -259,7 +259,7 @@ class InstallInterface(InstallInterfaceBase):
         text = TEXT_REINITIALIZE % {"description": description, "size": size, "devicePath": path}
         grid.add(TextboxReflowed(70, text), 0, 0)
 
-        all_devices_cb = Checkbox(TEXT_REINITIALIZE_ALL, isOn=False)
+        all_devices_cb = Checkbox(TEXT_REINITIALIZE_ALL, isOn=True)
         grid.add(all_devices_cb, 0, 1, padding=(0, 1, 0, 0))
 
         buttons = [(_("Yes, discard any data"), "yes"),
