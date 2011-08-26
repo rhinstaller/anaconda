@@ -774,7 +774,7 @@ class PartitionData(commands.partition.F12_PartData):
             if self.fstype != "":
                 type = self.fstype
             elif self.mountpoint == "/boot":
-                type = self.anaconda.platform.defaultBootFSType
+                type = storage.defaultBootFSType
             else:
                 type = storage.defaultFSType
 
@@ -919,8 +919,9 @@ class RaidData(commands.raid.F15_RaidData):
         else:
             if self.fstype != "":
                 type = self.fstype
-            elif self.mountpoint == "/boot" and self.anaconda.platform.supportsMdRaidBoot:
-                type = self.anaconda.platform.defaultBootFSType
+            elif self.mountpoint == "/boot" and \
+                 "mdarray" in self.anaconda.bootloader.stage2_device_types:
+                type = storage.defaultBootFSType
             else:
                 type = storage.defaultFSType
 
