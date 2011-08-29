@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 16.14\n"
+"Project-Id-Version: anaconda 16.15\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2011-08-18 14:02-0400\n"
+"POT-Creation-Date: 2011-08-29 13:59-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -176,37 +176,35 @@ msgstr ""
 msgid "%s cannot be of type %s"
 msgstr ""
 
-#: pyanaconda/bootloader.py:1484
+#: pyanaconda/bootloader.py:1493
 msgid ""
-"You are using a GPT bootdisk on a non-EFI system without a BIOS boot "
-"partition. This may not work, depending on your BIOS's support for booting "
-"from GPT disks."
+"You are using a GPT bootdisk on a BIOS system without a BIOS boot partition."
 msgstr ""
 
-#: pyanaconda/bootloader.py:2011
+#: pyanaconda/bootloader.py:2022
 msgid "Bootloader"
 msgstr ""
 
-#: pyanaconda/bootloader.py:2012
+#: pyanaconda/bootloader.py:2023
 msgid "Installing bootloader."
 msgstr ""
 
-#: pyanaconda/bootloader.py:2019 pyanaconda/bootloader.py:2078
+#: pyanaconda/bootloader.py:2030 pyanaconda/bootloader.py:2089
 #: pyanaconda/gui.py:1095 pyanaconda/image.py:85
 #: pyanaconda/installinterfacebase.py:74
 #: pyanaconda/installinterfacebase.py:151 pyanaconda/packages.py:90
 #: pyanaconda/packages.py:325 pyanaconda/text.py:419
-#: pyanaconda/yuminstall.py:1517 pyanaconda/iw/blpasswidget.py:144
+#: pyanaconda/yuminstall.py:1519 pyanaconda/iw/blpasswidget.py:144
 msgid "Warning"
 msgstr ""
 
-#: pyanaconda/bootloader.py:2020
+#: pyanaconda/bootloader.py:2031
 msgid ""
 "No kernel packages were installed on the system. Bootloader configuration "
 "will not be changed."
 msgstr ""
 
-#: pyanaconda/bootloader.py:2079
+#: pyanaconda/bootloader.py:2090
 msgid ""
 "There was an error installing the bootloader.  The system may not be "
 "bootable."
@@ -227,9 +225,9 @@ msgid ""
 msgstr ""
 
 #: pyanaconda/cmdline.py:108 pyanaconda/gui.py:1150
-#: pyanaconda/kickstart.py:1231 pyanaconda/kickstart.py:1290
-#: pyanaconda/kickstart.py:1298 pyanaconda/kickstart.py:1328
-#: pyanaconda/kickstart.py:1338 pyanaconda/text.py:400
+#: pyanaconda/kickstart.py:1235 pyanaconda/kickstart.py:1294
+#: pyanaconda/kickstart.py:1302 pyanaconda/kickstart.py:1332
+#: pyanaconda/kickstart.py:1342 pyanaconda/text.py:400
 #, python-format
 msgid ""
 "The following error was found while parsing the kickstart configuration "
@@ -391,7 +389,7 @@ msgid ""
 msgstr ""
 
 #: pyanaconda/gui.py:1102 pyanaconda/rescue.py:256 pyanaconda/text.py:426
-#: pyanaconda/yuminstall.py:820 pyanaconda/yuminstall.py:1252
+#: pyanaconda/yuminstall.py:820 pyanaconda/yuminstall.py:1254
 #: pyanaconda/iw/task_gui.py:308
 msgid "No Network Available"
 msgstr ""
@@ -408,10 +406,10 @@ msgstr ""
 #: pyanaconda/yuminstall.py:255 pyanaconda/yuminstall.py:825
 #: pyanaconda/yuminstall.py:1003 pyanaconda/yuminstall.py:1008
 #: pyanaconda/yuminstall.py:1045 pyanaconda/yuminstall.py:1097
-#: pyanaconda/yuminstall.py:1103 pyanaconda/yuminstall.py:1257
-#: pyanaconda/yuminstall.py:1272 pyanaconda/yuminstall.py:1327
-#: pyanaconda/yuminstall.py:1513 pyanaconda/yuminstall.py:1546
-#: pyanaconda/yuminstall.py:1569 pyanaconda/storage/__init__.py:113
+#: pyanaconda/yuminstall.py:1103 pyanaconda/yuminstall.py:1259
+#: pyanaconda/yuminstall.py:1274 pyanaconda/yuminstall.py:1329
+#: pyanaconda/yuminstall.py:1515 pyanaconda/yuminstall.py:1548
+#: pyanaconda/yuminstall.py:1571 pyanaconda/storage/__init__.py:113
 #: pyanaconda/storage/__init__.py:122 pyanaconda/storage/__init__.py:208
 #: pyanaconda/storage/__init__.py:260 pyanaconda/storage/__init__.py:2196
 msgid "_Exit installer"
@@ -444,8 +442,8 @@ msgstr ""
 
 #: pyanaconda/gui.py:1255 pyanaconda/image.py:157 pyanaconda/image.py:184
 #: pyanaconda/livecd.py:167 pyanaconda/yuminstall.py:911
-#: pyanaconda/yuminstall.py:1272 pyanaconda/yuminstall.py:1327
-#: pyanaconda/yuminstall.py:1546
+#: pyanaconda/yuminstall.py:1274 pyanaconda/yuminstall.py:1329
+#: pyanaconda/yuminstall.py:1548
 msgid "_Retry"
 msgstr ""
 
@@ -493,10 +491,10 @@ msgid ""
 "choose to continue if you think this is in error."
 msgstr ""
 
-#: pyanaconda/image.py:95 pyanaconda/kickstart.py:1419
-#: pyanaconda/kickstart.py:1458 pyanaconda/packages.py:95
+#: pyanaconda/image.py:95 pyanaconda/kickstart.py:1423
+#: pyanaconda/kickstart.py:1462 pyanaconda/packages.py:95
 #: pyanaconda/upgrade.py:58 pyanaconda/upgrade.py:98
-#: pyanaconda/yuminstall.py:1332 pyanaconda/yuminstall.py:1513
+#: pyanaconda/yuminstall.py:1334 pyanaconda/yuminstall.py:1515
 #: pyanaconda/iw/partition_gui.py:1566 pyanaconda/storage/__init__.py:2197
 msgid "_Continue"
 msgstr ""
@@ -531,8 +529,8 @@ msgstr ""
 #: pyanaconda/partIntfHelpers.py:239 pyanaconda/text.py:375
 #: pyanaconda/yuminstall.py:417 pyanaconda/yuminstall.py:914
 #: pyanaconda/yuminstall.py:1001 pyanaconda/yuminstall.py:1006
-#: pyanaconda/yuminstall.py:1277 pyanaconda/yuminstall.py:1337
-#: pyanaconda/yuminstall.py:1540 pyanaconda/yuminstall.py:1562
+#: pyanaconda/yuminstall.py:1279 pyanaconda/yuminstall.py:1339
+#: pyanaconda/yuminstall.py:1542 pyanaconda/yuminstall.py:1564
 #: pyanaconda/iw/advanced_storage.py:378 pyanaconda/iw/advanced_storage.py:388
 #: pyanaconda/iw/advanced_storage.py:438 pyanaconda/iw/autopart_type.py:95
 #: pyanaconda/iw/cleardisks_gui.py:44 pyanaconda/iw/cleardisks_gui.py:54
@@ -706,53 +704,53 @@ msgid ""
 "%s"
 msgstr ""
 
-#: pyanaconda/kickstart.py:408
+#: pyanaconda/kickstart.py:411
 msgid "Could not log into any iSCSI nodes at the portal."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1363 pyanaconda/livecd.py:190
+#: pyanaconda/kickstart.py:1367 pyanaconda/livecd.py:190
 msgid "Post-Installation"
 msgstr ""
 
-#: pyanaconda/kickstart.py:1364
+#: pyanaconda/kickstart.py:1368
 msgid "Running post-installation scripts"
 msgstr ""
 
-#: pyanaconda/kickstart.py:1379
+#: pyanaconda/kickstart.py:1383
 msgid "Running pre-installation scripts"
 msgstr ""
 
-#: pyanaconda/kickstart.py:1410
+#: pyanaconda/kickstart.py:1414
 msgid "Missing Package"
 msgstr ""
 
-#: pyanaconda/kickstart.py:1411
+#: pyanaconda/kickstart.py:1415
 #, python-format
 msgid ""
 "You have specified that the package '%s' should be installed.  This package "
 "does not exist. Would you like to continue or abort this installation?"
 msgstr ""
 
-#: pyanaconda/kickstart.py:1417 pyanaconda/kickstart.py:1456
+#: pyanaconda/kickstart.py:1421 pyanaconda/kickstart.py:1460
 msgid "_Abort"
 msgstr ""
 
-#: pyanaconda/kickstart.py:1418 pyanaconda/kickstart.py:1457
+#: pyanaconda/kickstart.py:1422 pyanaconda/kickstart.py:1461
 msgid "_Ignore All"
 msgstr ""
 
-#: pyanaconda/kickstart.py:1448
+#: pyanaconda/kickstart.py:1452
 msgid "Missing Group"
 msgstr ""
 
-#: pyanaconda/kickstart.py:1449
+#: pyanaconda/kickstart.py:1453
 #, python-format
 msgid ""
 "You have specified that the group '%s' should be installed. This group does "
 "not exist. Would you like to continue or abort this installation?"
 msgstr ""
 
-#: pyanaconda/kickstart.py:1541
+#: pyanaconda/kickstart.py:1545
 #, python-format
 msgid ""
 "The kickstart configuration file is missing required information that "
@@ -883,7 +881,7 @@ msgstr ""
 
 #: pyanaconda/packages.py:346 pyanaconda/upgrade.py:195
 #: pyanaconda/yuminstall.py:1008 pyanaconda/yuminstall.py:1103
-#: pyanaconda/yuminstall.py:1515 pyanaconda/yuminstall.py:1569
+#: pyanaconda/yuminstall.py:1517 pyanaconda/yuminstall.py:1571
 #: data/ui/anaconda.glade.h:2
 msgid "_Back"
 msgstr ""
@@ -1685,7 +1683,7 @@ msgstr ""
 msgid "Repository %r is missing name in configuration, using id"
 msgstr ""
 
-#: pyanaconda/yuminstall.py:821 pyanaconda/yuminstall.py:1253
+#: pyanaconda/yuminstall.py:821 pyanaconda/yuminstall.py:1255
 #: pyanaconda/iw/task_gui.py:309
 msgid ""
 "Some of your software repositories require networking, but there was an "
@@ -1790,17 +1788,17 @@ msgid ""
 "%s.\n"
 msgstr ""
 
-#: pyanaconda/yuminstall.py:1278
+#: pyanaconda/yuminstall.py:1280
 msgid ""
 "Unable to read group information from repositories.  This is a problem with "
 "the generation of your install tree."
 msgstr ""
 
-#: pyanaconda/yuminstall.py:1327 pyanaconda/textw/constants_text.py:64
+#: pyanaconda/yuminstall.py:1329 pyanaconda/textw/constants_text.py:64
 msgid "Edit"
 msgstr ""
 
-#: pyanaconda/yuminstall.py:1338 pyanaconda/yuminstall.py:1541
+#: pyanaconda/yuminstall.py:1340 pyanaconda/yuminstall.py:1543
 #, python-format
 msgid ""
 "Unable to read package metadata. This may be due to a missing repodata "
@@ -1810,7 +1808,7 @@ msgid ""
 "%s"
 msgstr ""
 
-#: pyanaconda/yuminstall.py:1518
+#: pyanaconda/yuminstall.py:1520
 msgid ""
 "Some of the packages you have selected for install are missing "
 "dependencies.  You can exit the installation, go back and change your "
@@ -1819,7 +1817,7 @@ msgid ""
 "missing components."
 msgstr ""
 
-#: pyanaconda/yuminstall.py:1563
+#: pyanaconda/yuminstall.py:1565
 #, python-format
 msgid ""
 "Your selected packages require %d MB of free space for installation, but you "
@@ -1827,48 +1825,48 @@ msgid ""
 "installer."
 msgstr ""
 
-#: pyanaconda/yuminstall.py:1647
+#: pyanaconda/yuminstall.py:1649
 msgid "Post Upgrade"
 msgstr ""
 
-#: pyanaconda/yuminstall.py:1648
+#: pyanaconda/yuminstall.py:1650
 msgid "Performing post-upgrade configuration"
 msgstr ""
 
-#: pyanaconda/yuminstall.py:1650
+#: pyanaconda/yuminstall.py:1652
 msgid "Post Installation"
 msgstr ""
 
-#: pyanaconda/yuminstall.py:1651
+#: pyanaconda/yuminstall.py:1653
 msgid "Performing post-installation configuration"
 msgstr ""
 
-#: pyanaconda/yuminstall.py:1889
+#: pyanaconda/yuminstall.py:1891
 msgid "Installation Starting"
 msgstr ""
 
-#: pyanaconda/yuminstall.py:1890
+#: pyanaconda/yuminstall.py:1892
 msgid "Starting installation process"
 msgstr ""
 
-#: pyanaconda/yuminstall.py:1928
+#: pyanaconda/yuminstall.py:1930
 msgid "Dependency Check"
 msgstr ""
 
-#: pyanaconda/yuminstall.py:1929
+#: pyanaconda/yuminstall.py:1931
 msgid "Checking dependencies in packages selected for installation"
 msgstr ""
 
-#: pyanaconda/yuminstall.py:1985 pyanaconda/yuminstall.py:2001
+#: pyanaconda/yuminstall.py:1987 pyanaconda/yuminstall.py:2003
 msgid "Retrieving installation information."
 msgstr ""
 
-#: pyanaconda/yuminstall.py:1987 pyanaconda/yuminstall.py:2003
+#: pyanaconda/yuminstall.py:1989 pyanaconda/yuminstall.py:2005
 #, python-format
 msgid "Retrieving installation information for %s."
 msgstr ""
 
-#: pyanaconda/yuminstall.py:1988 pyanaconda/yuminstall.py:2004
+#: pyanaconda/yuminstall.py:1990 pyanaconda/yuminstall.py:2006
 msgid "Installation Progress"
 msgstr ""
 

@@ -234,6 +234,26 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Mon Aug 29 2011 Brian C. Lane <bcl@redhat.com> - 16.16-1
+- Fix some things using old bootloader/platform stuff. (dlehman)
+- Fix traceback when validating unallocated partition requests. (#733670)
+  (dlehman)
+- Require BIOS boot partition for GPT bootdisk on BIOS systems. (dlehman)
+- Prevent grub2 from trying to access floppy drives. (dlehman)
+- Limit grub stage2 md members' device type and metadata version. (dlehman)
+- reinit dialog: make the defaults the same. (akozumpl)
+- Close out the yum history before running %post scripts (#730857). (clumens)
+- Allow btrfs stage2 with grub2. (#732594) (cherry picked from commit
+  408a7e24094ea00378a712d1f7652dc4b2e14ab3) (dlehman)
+- Clean up obsolete extended partitions if partitioning fails. (#672010)
+  (dlehman)
+- Clean up return values of GRUB2._gpt_disk_has_bios_boot. (dlehman)
+- Force grub2 install to partition's boot block. (#727679) (cherry picked from
+  commit 9474d2c386aab25ede85a56a368e457c39e490ee) (dlehman)
+- Don't crash because we don't have support for linear md. (#646157) (dlehman)
+- Honor kickstart 'autopart --nolvm' option (jlaska)
+- Update transifex config for f16-branch. (clumens)
+
 * Thu Aug 18 2011 Chris Lumens <clumens@redhat.com> - 16.15-1
 - i18n: Do not include newlines in the reinit dialog's label. (akozumpl)
 - Move the trusted_boot setting into AnacondaYum.run (#731260). (clumens)
