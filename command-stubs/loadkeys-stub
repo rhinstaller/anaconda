@@ -45,7 +45,7 @@ def main(prog, args):
     try:
         isys.loadKeymap(keymap)
     except SystemError as e:
-        err(e)
+        pass
 
 
 if __name__ == '__main__':
