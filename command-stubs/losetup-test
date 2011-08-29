@@ -86,6 +86,6 @@ def help_test():
 
 
 if __name__ == '__main__':
-    loop_device_test('/dev/loop0', '/tmp/image-file')
+    loop_device_test('/dev/loop7', '/tmp/image-file')
     wrong_usage_test()
     help_test()
