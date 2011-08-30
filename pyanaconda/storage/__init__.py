@@ -2338,6 +2338,8 @@ class FSSet(object):
         else:
             log.info("not writing out mpath configuration")
         iutil.copy_to_sysimage("/etc/multipath/wwids")
+        if self.devicetree.mpathFriendlyNames:
+            iutil.copy_to_sysimage("/etc/multipath/bindings")
 
     def crypttab(self):
         # if we are upgrading, do we want to update crypttab?
