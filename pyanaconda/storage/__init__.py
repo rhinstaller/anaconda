@@ -1521,6 +1521,10 @@ def findExistingRootDevices(anaconda, upgradeany=False):
                 # This likely isn't our product, so don't even count it as
                 # notUpgradable.
                 continue
+            if arch is None:
+                # we failed to determine the arch (for instance when there is a
+                # corrupted rpm database on the target system)
+                continue
 
             if upgradeany or \
                anaconda.instClass.productUpgradable(arch, product, version):
