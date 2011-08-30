@@ -950,6 +950,8 @@ class BootLoader(object):
             location = "none\n"
 
         f.write("bootloader --location=%s" % location)
+        if self.timeout is not None:
+            f.write(" --timeout=%d" % self.timeout)
 
         if not self.stage1_device:
             return

@@ -288,7 +288,7 @@ class Bootloader(commands.bootloader.F15_Bootloader):
             if location != None:
                 self.anaconda.bootloader.set_preferred_stage1_type(location)
 
-            if self.timeout:
+            if self.timeout is not None:
                 self.anaconda.bootloader.timeout = self.timeout
 
             # Throw out drives specified that don't exist.
