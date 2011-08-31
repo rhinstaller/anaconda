@@ -117,7 +117,8 @@ class UrlInstallMethod(InstallMethod):
         isys.makeDevInode("loop0", "/tmp/loop")
         isys.lochangefd("/tmp/loop", self.loopbackFile)
 
-    def getFilename(self, filename, callback=None, destdir=None, retry=1):
+    def getFilename(self, filename, callback=None, destdir=None, retry=1,
+                    loglevel=logging.CRITICAL):
 
 	if destdir is None:
 	    tmppath = self.getTempPath()
@@ -125,7 +126,7 @@ class UrlInstallMethod(InstallMethod):
 	    tmppath = destdir
 
         base = self.pkgUrl
-        
+
 	fullPath = base + "/" + filename
 
 	file = tmppath + "/" + os.path.basename(fullPath)
@@ -135,12 +136,13 @@ class UrlInstallMethod(InstallMethod):
             try:
                 rc=urlretrieve(fullPath, file, callback=callback)
             except IOError, (errnum, msg):
-		log.critical("IOError %s occurred getting %s: %s"
-                             %(errnum, fullPath.replace("%", "%%"), str(msg)))
+                if loglevel:
+                    log.log(loglevel, "Problem (%s) occurred getting %s: %s"
+                            %(errnum, fullPath.replace("%", "%%"), str(msg)))
 
 		if not retry:
 		    raise FileCopyException
-		
+
                 time.sleep(5)
             else:
                 break

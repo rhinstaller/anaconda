@@ -26,6 +26,9 @@ import gui
 
 from rhpl.translate import _, N_
 
+import logging
+log = logging.getLogger("anaconda")
+
 class ReleaseNotesViewer:
 	def __init__(self, anaconda):
 		self.currentURI = None
@@ -62,7 +65,10 @@ class ReleaseNotesViewer:
 		for suffix in suffixList:
 			fn = "RELEASE-NOTES%s" % (suffix,)
 			try:
-				tmpfile = os.path.abspath(self.anaconda.dispatch.method.getFilename(fn, destdir="/tmp", retry=0))
+				tmpfile = os.path.abspath(
+                                        self.anaconda.dispatch.method.getFilename(
+                                                fn, destdir="/tmp", retry=0,
+                                                loglevel=logging.INFO))
 				if tmpfile is None:
 					continue
 
@@ -79,6 +85,7 @@ class ReleaseNotesViewer:
 			except:
 				continue
 
+		log.error("getReleaseNotes() failed.")
 		return None
 
 	def resize(self, w=None, h=None):
