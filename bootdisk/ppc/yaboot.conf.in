@@ -4,5 +4,5 @@ default=linux
 
 image=/ppc/ppc%BITS%/vmlinuz
 	label=linux
-	initrd=/ppc/ppc%BITS%/ramdisk.image.gz
+	initrd=/ppc/ppc%BITS%/initrd.img
 	read-only
