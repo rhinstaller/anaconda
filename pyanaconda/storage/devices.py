@@ -1484,12 +1484,14 @@ class PartitionDevice(StorageDevice):
             raise
 
     def _postCreate(self):
+        start = self.partedPartition.geometry.start
+        partition = self.disk.format.partedDisk.getPartitionBySector(start)
+        self.partedPartition = partition
         if not self.isExtended:
             # Ensure old metadata which lived in freespace so did not get
             # explictly destroyed by a destroyformat action gets wiped
             DeviceFormat(device=self.path, exists=True).destroy()
 
-        self.partedPartition = self.disk.format.partedDisk.getPartitionByPath(self.path)
         StorageDevice._postCreate(self)
         self._currentSize = self.partedPartition.getSize()
 
