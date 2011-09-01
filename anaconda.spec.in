@@ -222,6 +222,14 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Thu Sep 01 2011 David Cantrell <dcantrell@redhat.com> - 13.21.138-1
+- On ppc64, call initrd image "initrd.img" (dcantrell)
+  Related: rhbz#703914
+- Do not exit when loadkeys hits SystemError (mgracik)
+  Resolves: rhbz#733595
+- Use loop7 instead of loop0 for the losetup test (mgracik)
+  Resolves: rhbz#706099
+
 * Fri Aug 26 2011 David Cantrell <dcantrell@redhat.com> - 13.21.137-1
 - Fix import error in list-harddrives-test (mgracik)
   Resolves: rhbz#706099
