@@ -1523,6 +1523,9 @@ def findExistingRootDevices(anaconda, upgradeany=False):
                 # This likely isn't our product, so don't even count it as
                 # notUpgradable.
                 continue
+            finally:
+                device.teardown(recursive=True)
+
             if arch is None:
                 # we failed to determine the arch (for instance when there is a
                 # corrupted rpm database on the target system)
@@ -1535,9 +1538,9 @@ def findExistingRootDevices(anaconda, upgradeany=False):
                 notUpgradable.append((product, version, device.name))
                 log.info("product %s version %s found on %s is not upgradable"
                          % notUpgradable[-1])
-
-        # this handles unmounting the filesystem
-        device.teardown(recursive=True)
+        else:
+            # this handles unmounting the filesystem
+            device.teardown(recursive=True)
 
     return (rootDevs, notUpgradable)
 
