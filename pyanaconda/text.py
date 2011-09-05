@@ -32,7 +32,7 @@ import signal
 import parted
 import product
 import string
-from language import expandLangs
+from localeinfo import expandLangs
 from flags import flags
 from textw.constants_text import *
 from constants import *

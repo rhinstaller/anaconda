@@ -28,7 +28,7 @@ from pyanaconda import gui
 from pyanaconda.flags import flags
 from iw_gui import *
 from pyanaconda.constants import *
-from pyanaconda import language
+from pyanaconda import localeinfo
 
 import logging
 log = logging.getLogger("anaconda")
@@ -87,7 +87,7 @@ class InstallProgressWindow (InstallWindow):
         langs = []
         pixmaps = []
         if (os.environ.has_key('LANG')):
-            langs = language.expandLangs(os.environ['LANG'])
+            langs = localeinfo.expandLangs(os.environ['LANG'])
         langs.append('')
 
         pixmaps = []

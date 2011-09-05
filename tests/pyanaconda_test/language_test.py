@@ -13,12 +13,7 @@ class LanguageTest(mock.TestCase):
         self.fs = mock.DiskIO()
 
         def fake_os_access(path, _):
-            return path == 'lang-table' or path == 'lang-names'
-
-        self.fs.open('lang-table', 'w').write(
-            "Czech	cs	latarcyrheb-sun16	cs_CZ.UTF-8	cz-lat2	Europe/Prague\n"
-            "English	en	latarcyrheb-sun16	en_US.UTF-8	us	America/New_York\n"
-            "Hebrew	he	none	he_IL.UTF-8	us	Asia/Jerusalem")
+            return path == 'lang-names'
 
         self.fs.open('lang-names', 'w').write(
             "Czech\tCestina\n"
@@ -33,6 +28,11 @@ class LanguageTest(mock.TestCase):
         pyanaconda.language.os.access = fake_os_access
         pyanaconda.language.os.environ = {'LANG': ENVIRON_LANG}
         pyanaconda.language.locale = mock.Mock()
+        pyanaconda.language.localeinfo.get = mock.Mock(return_value={
+                'C': ('English', 'en', 'latarcyrheb-sun16', 'us', 'America/New_York'),
+                'cs_CZ.UTF-8': ('Czech', 'cs', 'latarcyrheb-sun16', 'cz-lat2', 'Europe/Prague'),
+                'en_US.UTF-8': ('English', 'en', 'latarcyrheb-sun16', 'us', 'America/New_York'),
+                'he_IL.UTF-8': ('Hebrew', 'he', 'none', 'us', 'Asia/Jerusalem')})
 
     def tearDown(self):
         self.tearDownModules()

@@ -27,6 +27,7 @@ import locale
 
 import gettext
 from pyanaconda.constants import ROOT_PATH
+import localeinfo
 from simpleconfig import SimpleConfigFile
 import system_config_keyboard.keyboard as keyboard
 
@@ -37,32 +38,6 @@ def langComponents(astring):
     pattern = re.compile("(?P<language>[A-Za-z]+)(_(?P<territory>[A-Za-z]+))?(\.(?P<codeset>[-\w]+))?(@(?P<modifier>[-\w]+))?")
     m = pattern.match(astring)
     return m.groupdict()
-
-# Converts a single language into a "language search path". For example,
-# fr_FR.utf8@euro would become "fr_FR.utf8@euro fr_FR.utf8 fr_FR fr"
-def expandLangs(astring):
-    langs = [astring]
-    charset = None
-    base = None
-
-    # remove charset ...
-    if '.' in astring:
-        langs.append(string.split(astring, '.')[0])
-
-    if '@' in astring:
-        charset = string.split(astring, '@')[1]
-
-    if '_' in astring:
-        base = string.split(astring, '_')[0]
-
-        if charset:
-            langs.append("%s@%s" % (base, charset))
-
-        langs.append(base)
-    else:
-        langs.append(astring[:2])
-
-    return langs
 
 class Language(object):
     def _setInstLang(self, value):
@@ -147,7 +122,6 @@ class Language(object):
         self._default = "en_US.UTF-8"
         self.displayMode = display_mode
         self.info = {}
-        self.localeInfo = {}
         self.nativeLangNames = {}
 
         # English name -> native name mapping
@@ -163,27 +137,7 @@ class Language(object):
                 f.close()
                 break
 
-        # nick -> (name, short name, font, keyboard, timezone) mapping
-        search = ('lang-table', '/tmp/updates/lang-table', '/etc/lang-table',
-                  '/usr/share/anaconda/lang-table')
-        for path in search:
-            if os.access(path, os.R_OK):
-                f = open(path, "r")
-                for line in f.readlines():
-                    string.strip(line)
-                    l = string.split(line, '\t')
-
-                    # throw out invalid lines
-                    if len(l) < 6:
-                        continue
-
-                    self.localeInfo[l[3]] = (l[0], l[1], l[2], l[4], string.strip(l[5]))
-
-                f.close()
-                break
-
-        # Hard code this to prevent errors in the build environment.
-        self.localeInfo['C'] = self.localeInfo[self._default]
+        self.localeInfo = localeinfo.get(self._default)
 
         # instLang must be set after localeInfo is populated, in case the
         # current setting is unsupported by anaconda..
@@ -199,7 +153,7 @@ class Language(object):
                      fr_CA -> ValueError
         """
         for key in self.localeInfo.keys():
-            if lang in expandLangs(key):
+            if lang in localeinfo.expandLangs(key):
                 return key
 
         raise ValueError
@@ -229,7 +183,7 @@ class Language(object):
         return args
 
     def getCurrentLangSearchList(self):
-        return expandLangs(self.systemLang) + ['C']
+        return localeinfo.expandLangs(self.systemLang) + ['C']
 
     def getDefaultKeyboard(self):
         try:

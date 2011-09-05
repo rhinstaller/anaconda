@@ -19,26 +19,26 @@
 
 import sys
 sys.path.append("..")
-import language as language
+import localeinfo
 
 import gettext
 
-langs = language.Language()
+localeInfo = localeinfo.get("en_US.UTF-8")
 names = {}
-for k in langs.localeInfo.keys():
+for k in localeInfo.keys():
     found = False
-    for l in language.expandLangs(k):
+    for l in localeinfo.expandLangs(k):
         try:
             f = open("../po/%s.gmo" %(l,))
         except (OSError, IOError):
             continue
         cat = gettext.GNUTranslations(f)
         cat.set_output_charset("utf-8")
-        names[langs.localeInfo[k][0]] = cat.lgettext(langs.localeInfo[k][0])
+        names[localeInfo[k][0]] = cat.lgettext(localeInfo[k][0])
         found = True
         break
     if not found:
-        names[langs.localeInfo[k][0]] = langs.localeInfo[k][0]
+        names[localeInfo[k][0]] = localeInfo[k][0]
 
 nameList = names.keys()
 nameList.sort()

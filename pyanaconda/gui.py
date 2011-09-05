@@ -35,7 +35,6 @@ import shutil
 import gtk
 import gtk.glade
 import gobject
-from language import expandLangs
 from constants import *
 from product import *
 import network
