@@ -37,6 +37,10 @@ def has_fcoe():
         iutil.execWithRedirect("modprobe", [ "fcoe" ],
                                stdout = "/dev/tty5", stderr="/dev/tty5")
         _fcoe_module_loaded = True
+        if "bnx2x" in iutil.lsmod():
+            log.info("fcoe: loading bnx2fc")
+            iutil.execWithRedirect("modprobe", [ "bnx2fc" ],
+                                   stdout = "/dev/tty5", stderr="/dev/tty5")
 
     return os.access("/sys/module/fcoe", os.X_OK)
 

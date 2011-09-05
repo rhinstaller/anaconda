@@ -993,3 +993,9 @@ def fork_orphan():
     # the original process waits for the intermediate child
     os.waitpid(intermediate, 0)
     return 1
+
+def lsmod():
+    """ Returns list of names of all loaded modules. """
+    with open("/proc/modules") as f:
+        lines = f.readlines()
+    return [l.split()[0] for l in lines]
