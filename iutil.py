@@ -939,3 +939,9 @@ def find_program_in_path(prog, raise_on_error=False):
     if raise_on_error:
         raise RuntimeError("Unable to locate a needed executable: '%s'" % prog)
     return None
+
+def lsmod():
+    """ Returns list of names of all loaded modules. """
+    with open("/proc/modules") as f:
+        lines = f.readlines()
+    return [l.split()[0] for l in lines]
