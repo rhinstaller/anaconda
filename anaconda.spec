@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.242
+Version: 11.1.2.243
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -128,6 +128,34 @@ fi
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Sep 07 2011 Martin Gracik <mgracik@redhat.com> 11.1.2.243-1
+- Suppress critical errors when guessing release notes names (akozumpl)
+  Resolves: rhbz#707143
+- Add the Solarflare network module (mgracik)
+  Resolves: rhbz#714243
+- Create /var/{log,run/rhsm} for subscription-manager (dcantrell)
+  Resolves: rhbz#708121
+- Sanitize DASD device specifications (dcantrell)
+  Resolves: rhbz#689470
+- Add /dev/stdin, /dev/stdout, /dev/stderr to initrd.img (dcantrell)
+  Resolves: rhbz#684220
+- Single quote values in show_parms() in linuxrc.s390 (dcantrell)
+  Resolves: rhbz#681219
+- Make execWithRedirect() append to the files. (akozumpl)
+  Resolves: rhbz#702024
+- iscsi: with ibft, wait for link with waitForLink(). (akozumpl)
+  Resolves: rhbz#727774
+- Fix pa_IN translation data (dcantrell)
+  Resolves: rhbz#711363
+- Don't import partedUtils in list-harddrives-stub (mgracik)
+  Resolves: rhbz#709880
+- BR libdhcp-1.20-12 (dcantrell)
+  Related: rhbz#694570
+- And document the --no-ssh parameter, too. (clumens)
+  Resolves: rhbz#703082
+- Add --no-ssh to the generated anaconda-ks.cfg. (clumens)
+  Resolves: rhbz#703081
+
 * Mon Jun 27 2011 Ales Kozumplik <akozumpl@redhat.com> 11.1.2.242-1
 - Bump the implementation limit on the number of modules in modLoaded (akozumpl)
   Resolves: rhbz#716836
