@@ -132,21 +132,11 @@ def _schedulePartitions(storage, disks):
             storage.bootLoaderDevice.format.mountpoint = "/boot/efi"
             log.debug(storage.bootLoaderDevice)
             continue
-        elif request.fstype == "biosboot" and storage.anaconda:
-            boot_disk = storage.anaconda.bootloader.stage1_drive
-            if boot_disk and boot_disk.format.labelType != "gpt":
-                # biosboot is only needed for gpt disklabels on non-efi x86
-                log.info("skipping bios boot request for msdos disklabel")
-                log.debug(request)
-                continue
-
-            gpt_check = getattr(storage.anaconda.bootloader,
-                                "_gpt_disk_has_bios_boot",
-                                None)
-            if gpt_check and gpt_check(boot_disk):
-                # there's already a bios boot partition on the gpt boot disk
-                log.info("skipping bios boot request since boot disk has one")
-                continue
+        elif request.fstype == "biosboot" and storage.bootLoaderDevice:
+            log.info("skipping unneeded stage1 biosboot request")
+            log.debug(request)
+            log.debug(storage.bootLoaderDevice)
+            continue
 
         # This is a little unfortunate but let the backend dictate the rootfstype
         # so that things like live installs can do the right thing
