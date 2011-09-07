@@ -26,4 +26,5 @@ install-exec-local:
 	mkdir -p $(DESTDIR)/lib/systemd/system/anaconda.target.wants
 	ln -sf /lib/systemd/system/anaconda-shell.service $(DESTDIR)/lib/systemd/system/anaconda.target.wants
 	ln -sf /lib/systemd/system/loader.service $(DESTDIR)/lib/systemd/system/anaconda.target.wants
+	ln -sf /lib/systemd/system/rsyslog.service $(DESTDIR)/lib/systemd/system/anaconda.target.wants
 	ln -sf /lib/systemd/system/udev-settle.service $(DESTDIR)/lib/systemd/system/anaconda.target.wants
