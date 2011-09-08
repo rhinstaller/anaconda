@@ -2007,6 +2007,8 @@ class LVMVolumeGroupDevice(DMDevice):
         self.lv_sizes = []
         self.lv_attr = []
         self.hasDuplicate = False
+        self.reserved_percent = 0
+        self.reserved_space = 0
 
         # circular references, here I come
         self._lvs = []
@@ -2028,7 +2030,8 @@ class LVMVolumeGroupDevice(DMDevice):
               "  PE Free = %(peFree)s  PV Count = %(pvCount)s\n"
               "  LV Names = %(lv_names)s  modified = %(modified)s\n"
               "  extents = %(extents)s  free space = %(freeSpace)s\n"
-              "  free extents = %(freeExtents)s\n"
+              "  free extents = %(freeExtents)s"
+              "  reserved percent = %(rpct)s  reserved space = %(res)s\n"
               "  PVs = %(pvs)s\n"
               "  LVs = %(lvs)s" %
               {"free": self.free, "peSize": self.peSize, "peCount": self.peCount,
@@ -2036,6 +2039,7 @@ class LVMVolumeGroupDevice(DMDevice):
                "lv_names": self.lv_names, "modified": self.isModified,
                "extents": self.extents, "freeSpace": self.freeSpace,
                "freeExtents": self.freeExtents,
+               "rpct": self.reserved_percent, "res": self.reserved_space,
                "pvs": pprint.pformat([str(p) for p in self.pvs]),
                "lvs": pprint.pformat([str(l) for l in self.lvs])})
         return s
@@ -2052,6 +2056,8 @@ class LVMVolumeGroupDevice(DMDevice):
                   "lv_uuids": self.lv_uuids,
                   "lv_sizes": self.lv_sizes,
                   "lv_attr": self.lv_attr,
+                  "reserved_percent": self.reserved_percent,
+                  "reserved_space": self.reserved_space,
                   "lvNames": [lv.name for lv in self.lvs]})
         return d
 
@@ -2066,6 +2072,11 @@ class LVMVolumeGroupDevice(DMDevice):
             args.append("--useexisting")
         if noformat:
             args.append("--noformat")
+
+        if self.reserved_space:
+            args.append("--reserved-space=%d" % self.reserved_space)
+        elif self.reserved_percent:
+            args.append("--reserved-percent=%d" % self.reserved_percent)
 
         f.write("#volgroup %s %s %s" % (self.name, " ".join(args), " ".join(pvs)))
         if s:
@@ -2281,6 +2292,17 @@ class LVMVolumeGroupDevice(DMDevice):
         return used
 
     @property
+    def reservedSpace(self):
+        """ Reserved space in this VG, in MB """
+        reserved = 0
+        if self.reserved_percent > 0:
+            reserved = self.reserved_percent * 0.01 * self.size
+        elif self.reserved_space > 0:
+            reserved = self.reserved_space
+
+        return self.align(reserved, roundup=True)
+
+    @property
     def size(self):
         """ The size of this VG """
         # TODO: just ask lvm if isModified returns False
@@ -2307,6 +2329,7 @@ class LVMVolumeGroupDevice(DMDevice):
         # total the sizes of any LVs
         log.debug("%s size is %dMB" % (self.name, self.size))
         used = sum(lv.vgSpaceUsed for lv in self.lvs) + self.snapshotSpace
+        used += self.reservedSpace
         free = self.size - used
         log.debug("vg %s has %dMB free" % (self.name, free))
         return free

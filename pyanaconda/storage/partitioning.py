@@ -1647,7 +1647,8 @@ class VGChunk(Chunk):
         """
         self.vg = vg
         self.path = vg.path
-        super(VGChunk, self).__init__(self.vg.extents, requests=requests)
+        usable_extents = vg.extents - (vg.reservedSpace / vg.peSize)
+        super(VGChunk, self).__init__(usable_extents, requests=requests)
 
     def addRequest(self, req):
         """ Add a Request to this chunk. """
