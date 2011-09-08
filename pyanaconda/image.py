@@ -70,6 +70,8 @@ def findFirstIsoImage(path, messageWindow):
 
         log.debug("discArch = %s" % discArch)
         if discArch != arch:
+            log.warning("findFirstIsoImage: architectures mismatch: %s, %s" %
+                        (discArch, arch))
             isys.umount("/mnt/install/cdimage", removeDir=False)
             continue
 
@@ -162,30 +164,33 @@ def mountDirectory(methodstr, messageWindow):
                 continue
 
 def mountImage(isodir, tree, messageWindow):
+    def complain():
+        ans = messageWindow(_("Missing ISO 9660 Image"),
+                            _("The installer has tried to mount the "
+                              "installation image, but cannot find it on "
+                              "the hard drive.\n\n"
+                              "Please copy this image to the "
+                              "drive and click Retry.  Click Exit "
+                              "to abort the installation."),
+                              type="custom",
+                              custom_icon="warning",
+                              custom_buttons=[_("_Exit"), _("_Retry")])
+        if ans == 0:
+            sys.exit(0)
+
     if os.path.ismount(tree):
         raise SystemError, "trying to mount already-mounted iso image!"
-
-    image = findFirstIsoImage(isodir, messageWindow)
-
     while True:
+        image = findFirstIsoImage(isodir, messageWindow)
+        if image is None:
+            complain()
+            continue
+
         try:
             isys.mount(image, tree, fstype = 'iso9660', readOnly = True)
             break
         except SystemError:
-            ans = messageWindow(_("Missing ISO 9660 Image"),
-                                _("The installer has tried to mount the "
-                                  "installation image, but cannot find it on "
-                                  "the hard drive.\n\n"
-                                  "Please copy this image to the "
-                                  "drive and click Retry.  Click Exit "
-                                  "to abort the installation."),
-                                  type="custom",
-                                  custom_icon="warning",
-                                  custom_buttons=[_("_Exit"), _("_Retry")])
-            if ans == 0:
-                sys.exit(0)
-            elif ans == 1:
-                image = findFirstIsoImage(isodir, messageWindow)
+            complain()
 
 # Find an attached CD/DVD drive with media in it that contains packages,
 # and return that device name.
