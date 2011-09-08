@@ -1116,6 +1116,10 @@ class VolGroupData(commands.volgroup.FC3_VolGroupData):
                                     peSize=self.pesize/1024.0)
 
             storage.createDevice(request)
+            if self.reserved_space:
+                request.reserved_space = self.reserved_space
+            elif self.reserved_percent:
+                request.reserved_percent = self.reserved_percent
 
 class XConfig(commands.xconfig.F14_XConfig):
     def execute(self):
