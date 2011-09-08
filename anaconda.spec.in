@@ -234,6 +234,18 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Thu Sep 08 2011 Chris Lumens <clumens@redhat.com> - 16.17-1
+- systemd: anaconda.target wants rsyslog.service (akozumpl)
+- Improve checking if new biosboot partition is needed. (akozumpl)
+- Make sure we teardown root candidates in all cases. (#693095) (dlehman)
+- Update parted partition by sector, not name, after create. (#733449) (cherry
+  picked from commit 2c6616615ab02c4cc31d701493c169554aec0151) (dlehman)
+- Determine existing md arrays' metadata version. (#731266) (dlehman)
+- Don't check mountable before obtaining actual/existing fs size. (#733808)
+  (dlehman)
+- Fix traceback when installing over a system with broken rpm db. (akozumpl)
+- kickstart: use 'bootloader --timeout' even if it is zero. (akozumpl)
+
 * Mon Aug 29 2011 Brian C. Lane <bcl@redhat.com> - 16.16-1
 - Fix some things using old bootloader/platform stuff. (dlehman)
 - Fix traceback when validating unallocated partition requests. (#733670)
