@@ -65,7 +65,8 @@ class VolumeGroupEditor:
         vgsize = vg.size
         vgfree = vg.freeSpace
         vgused = vgsize - vgfree
-	return (vgsize, vgused, vgfree)
+        vgreserved = vg.reservedSpace
+        return (vgsize, vgused, vgfree, vgreserved)
 
     def getPVWastedRatio(self, newpe):
         """ given a new pe value, return percentage of smallest PV wasted
@@ -844,7 +845,7 @@ class VolumeGroupEditor:
                 custom_icon="error")
             return
 
-        (total, used, free) = self.computeSpaceValues()
+        (total, used, free, reserved) = self.computeSpaceValues()
 	if free <= 0:
 	    self.intf.messageWindow(_("No free space"),
 				    _("There is no room left in the "
@@ -950,7 +951,7 @@ class VolumeGroupEditor:
             self.logvolstore.set_value(iter, 2, "%Ld" % lv['size'])
 
     def updateVGSpaceLabels(self):
-        (total, used, free) = self.computeSpaceValues()
+        (total, used, free, reserved) = self.computeSpaceValues()
 
 	self.totalSpaceLabel.set_text("%10.2f MB" % (total,))
 	self.usedSpaceLabel.set_text("%10.2f MB" % (used,))
@@ -969,6 +970,15 @@ class VolumeGroupEditor:
 	    freepercent = 0.0
 
 	self.freePercentLabel.set_text("(%4.1f %%)" % (freepercent,))
+
+        if reserved:
+            self.reservedSpaceLabel.set_text("%10.2f MB" % reserved)
+            if total > 0:
+                reservedpercent = (100.0*reserved)/total
+            else:
+                reservedpercent = 0.0
+
+            self.reservedPercentLabel.set_text("(%4.1f %%)" % reservedpercent)
 
 #
 # run the VG editor we created
@@ -1394,6 +1404,27 @@ class VolumeGroupEditor:
         maintable.attach(lbox, 1, 2, row, row + 1, gtk.EXPAND|gtk.FILL, gtk.SHRINK)
 	maintable.set_row_spacing(row, 0)
         row = row + 1
+
+        if self.vg.reservedSpace:
+            maintable.attach(createAlignedLabel(_("Reserved Space:")),
+                             0, 1, row, row + 1, gtk.EXPAND|gtk.FILL,
+                             gtk.SHRINK)
+            lbox = gtk.HBox()
+            self.reservedSpaceLabel = gtk.Label("")
+            labelalign = gtk.Alignment()
+            labelalign.set(1.0, 0.5, 0.0, 0.0)
+            labelalign.add(self.reservedSpaceLabel)
+            lbox.pack_start(labelalign, False, False)
+            self.reservedPercentLabel = gtk.Label("")
+            labelalign = gtk.Alignment()
+            labelalign.set(1.0, 0.5, 0.0, 0.0)
+            labelalign.add(self.reservedPercentLabel)
+            lbox.pack_start(labelalign, False, False, padding=10)
+
+            maintable.attach(lbox, 1, 2, row, row + 1, gtk.EXPAND|gtk.FILL,
+                             gtk.SHRINK)
+            maintable.set_row_spacing(row, 0)
+            row = row + 1
 
         maintable.attach(createAlignedLabel(_("Free Space:")), 0, 1, row,
 			 row + 1, gtk.EXPAND|gtk.FILL, gtk.SHRINK)
