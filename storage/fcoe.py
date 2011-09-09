@@ -129,7 +129,7 @@ class fcoe(object):
             iutil.execWithRedirect("fipvlan", [ nic, "-c", "-s" ],
                                stdout = "/dev/tty5", stderr="/dev/tty5")
         else:
-            f = open("/sys/module/fcoe/parameters/create", "w")
+            f = open("/sys/module/libfcoe/parameters/create", "w")
             f.write(nic)
             f.close()
 
