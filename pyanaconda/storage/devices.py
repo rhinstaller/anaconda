@@ -3676,7 +3676,8 @@ class FcoeDiskDevice(DiskDevice, NetworkStorageDevice):
         self.identifier = kwargs.pop("identifier")
         DiskDevice.__init__(self, device, **kwargs)
         NetworkStorageDevice.__init__(self, nic=self.nic)
-        log.debug("created new fcoe disk %s @ %s" % (device, self.nic))
+        log.debug("created new fcoe disk %s (%s) @ %s" %
+                  (device, self.identifier, self.nic))
 
     def dracutSetupArgs(self):
         dcb = True

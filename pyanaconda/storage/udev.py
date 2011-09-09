@@ -569,6 +569,22 @@ def udev_device_get_iscsi_port(info):
 # And for a partition:
 # /devices/virtual/net/eth4.802-fcoe/host3/rport-3:0-4/target3:0:1/3:0:1:0/block/sde/sde1
 
+# This is completely different for Broadcom FCoE devices (bnx2fc), where we use
+# the sysfs path:
+# /devices/pci0000:00/0000:00:02.0/0000:09:00.0/0000:0a:01.0/0000:0e:00.0/host3/rport-3:0-2/target3:0:1/3:0:1:3/block/sdm
+# and find whether the host has 'fc_host' and if it the device has a bound
+# Ethernet interface.
+
+def _detect_broadcom_fcoe(info):
+    re_pci_host=re.compile('/(.*)/(host\d+)')
+    match = re_pci_host.match(info["sysfs_path"])
+    if match:
+        sysfs_pci, host = match.groups()
+        if os.access('/sys/%s/%s/fc_host' %(sysfs_pci, host), os.X_OK) and \
+                os.access('/sys/%s/net' %(sysfs_pci), os.X_OK):
+            return (sysfs_pci, host)
+    return (None, None)
+
 def udev_device_is_fcoe(info):
     if info.get("ID_BUS") != "scsi":
         return False
@@ -581,6 +597,9 @@ def udev_device_is_fcoe(info):
         return True
 
     if path.startswith("fc-") and "fcoe" in info["sysfs_path"]:
+        return True
+
+    if _detect_broadcom_fcoe(info) != (None, None):
         return True
 
     return False
@@ -596,6 +615,13 @@ def udev_device_get_fcoe_nic(info):
     if path.startswith("fc-") and "fcoe" in info["sysfs_path"]:
         return info["sysfs_path"].split("/")[4].split(".")[0]
 
+    (sysfs_pci, host) = _detect_broadcom_fcoe(info)
+    if (sysfs_pci, host) != (None, None):
+        net_path = '/sys/%s/net' % sysfs_pci
+        listdir = os.listdir(net_path)
+        if len(listdir) > 0 :
+            return listdir[0]
+
 def udev_device_get_fcoe_identifier(info):
     path = info.get("ID_PATH", "")
     path_components = path.split("-")
@@ -606,3 +632,7 @@ def udev_device_get_fcoe_identifier(info):
 
     if path.startswith("fc-") and "fcoe" in info["sysfs_path"]:
         return path_components[1]
+
+    if udev_device_is_fcoe(info) and len(path_components) >= 4 and \
+       path_components[2] == 'fc':
+        return path_components[3]
