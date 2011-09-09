@@ -129,9 +129,16 @@ class fcoe(object):
             iutil.execWithRedirect("fipvlan", [ nic, "-c", "-s" ],
                                stdout = "/dev/tty5", stderr="/dev/tty5")
         else:
-            f = open("/sys/module/libfcoe/parameters/create", "w")
-            f.write(nic)
-            f.close()
+            # Use fipvlan instead of fcoe's create if nic uses bnx2x driver.
+            # Ideally, this should be done by checking a "AUTO_VLAN" parameter,
+            # not bnx2x driver usage
+            if 'bnx2x' in os.path.realpath('/sys/class/net/%s/device/driver' %(nic)):
+                iutil.execWithRedirect("fipvlan", ['-c', '-s', nic],
+                                    stdout = "/dev/tty5", stderr="/dev/tty5")
+            else:
+                f = open("/sys/module/libfcoe/parameters/create", "w")
+                f.write(nic)
+                f.close()
 
         self._stabilize(intf)
         self.nics.append((nic, dcb))
