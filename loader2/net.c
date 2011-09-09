@@ -2184,6 +2184,8 @@ int chooseNetworkInterface(struct loaderData_s * loaderData) {
     char **devices;
     char **deviceNames;
     char *ksMacAddr = NULL, *seconds = strdup("10"), *idstr = NULL;
+    const unsigned MAX_DESC = 60;
+    char desc[MAX_DESC];
     struct device **devs;
     struct newtWinEntry entry[] = {{_("Seconds:"), (const char **) &seconds, 0},
                                    {NULL, NULL, 0 }};
@@ -2212,10 +2214,17 @@ int chooseNetworkInterface(struct loaderData_s * loaderData) {
         if (!devs[i]->device)
             continue;
         if (devs[i]->desc) {
+                if (strlen(devs[i]->desc) < MAX_DESC) {
+                    strcpy(desc, devs[i]->desc);
+                } else {
+                    strncpy(desc, devs[i]->desc, MAX_DESC);
+                    desc[MAX_DESC - 4] = '\0';
+                    strcat(desc, "...");
+                }
                 deviceNames[deviceNums] = alloca(strlen(devs[i]->device) +
-                                          strlen(devs[i]->desc) + 4);
+                                                 strlen(desc) + 4);
                 sprintf(deviceNames[deviceNums],"%s - %s",
-                        devs[i]->device, devs[i]->desc);
+                        devs[i]->device, desc);
                 if (strlen(deviceNames[deviceNums]) > max)
                         max = strlen(deviceNames[deviceNums]);
                 devices[deviceNums++] = devs[i]->device;
