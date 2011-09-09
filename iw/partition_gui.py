@@ -1650,19 +1650,20 @@ class PartitionWindow(InstallWindow):
                 # FIXME: this needs to handle exceptions
                 self.storage.devicetree.registerAction(action)
 
-	    if self.refresh(justRedraw=True):
+            if self.refresh(justRedraw=True):
                 actions.reverse()
                 for action in actions:
                     self.storage.devicetree.cancelAction(action)
                     if self.refresh():
                         raise RuntimeError, ("Returning partitions to state "
                                              "prior to RAID edit failed")
-                continue
-	    else:
-		break
 
-	raideditor.destroy()		
+                gui.processEvents()
+                raideditor.dialog.present()
+            else:
+                break
 
+        raideditor.destroy()
 
     def editPartition(self, device, isNew = False, restrictfs = None):
         # p_d_g -> partition_dialog_gui
@@ -1697,11 +1698,14 @@ class PartitionWindow(InstallWindow):
                     # this worked before and doesn't now...
                     raise RuntimeError, ("Returning partitions to state "
                                          "prior to edit failed")
-            else:
-		break
 
-	parteditor.destroy()
-	return 1
+                gui.processEvents()
+                parteditor.dialog.present()
+            else:
+                break
+
+        parteditor.destroy()
+        return 1
 
     def editLVMVolumeGroup(self, device, isNew = False):
         # l_d_g -> lvm_dialog_gui
@@ -1715,7 +1719,7 @@ class PartitionWindow(InstallWindow):
                 # FIXME: handle exceptions
                 self.storage.devicetree.registerAction(action)
 
-	    if self.refresh(justRedraw=True):
+            if self.refresh(justRedraw=True):
                 actions.reverse()
                 for action in actions:
                     self.storage.devicetree.cancelAction(action)
@@ -1723,11 +1727,13 @@ class PartitionWindow(InstallWindow):
                 if self.refresh():
                     raise RuntimeError, ("Returning partitions to state "
                                          "prior to edit failed")
-		continue
-	    else:
-		break
 
-	vgeditor.destroy()
+                gui.processEvents()
+                vgeditor.dialog.present()
+            else:
+                break
+
+        vgeditor.destroy()
 
     def editLVMLogicalVolume (self, lv = None, vg = None):
         """Will be consistent with the state of things and use this funciton
@@ -1785,7 +1791,9 @@ class PartitionWindow(InstallWindow):
                 if self.refresh():
                     raise RuntimeError, ("Returning partitions to state "
                                          "prior to edit failed")
-                continue
+
+                gui.processEvents()
+                vgeditor.dialog.present()
             else:
                 break
 
