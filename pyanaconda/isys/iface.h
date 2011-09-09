@@ -156,6 +156,11 @@ gboolean is_nm_connected(void);
 gboolean is_iface_activated(char * ifname);
 
 /*
+ * Start NetworkManager
+ */
+int iface_start_NetworkManager(void);
+
+/*
  * Restart NetworkManager
  */
 int iface_restart_NetworkManager(void);

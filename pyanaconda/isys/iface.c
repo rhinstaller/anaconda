@@ -539,6 +539,44 @@ int iface_restart_NetworkManager(void) {
 }
 
 /*
+ * Start NetworkManager -- requires that you have already written out the
+ * control files in /etc/sysconfig for the interface.
+ * This is needed on s390 until we have systemd init doing it as for other archs.
+ */
+int iface_start_NetworkManager(void) {
+    pid_t pid;
+
+    if (is_nm_running())
+        return 0;  /* already running */
+
+    /* Start NetworkManager */
+    pid = fork();
+    if (pid == 0) {
+        if (setpgrp() == -1) {
+            exit(1);
+        }
+
+        if (_iface_redirect_io("/dev/null", STDIN_FILENO, O_RDONLY) ||
+            _iface_redirect_io(OUTPUT_TERMINAL, STDOUT_FILENO, O_WRONLY) ||
+            _iface_redirect_io(OUTPUT_TERMINAL, STDERR_FILENO, O_WRONLY)) {
+            exit(2);
+        }
+
+        if (execl(NETWORKMANAGER, NETWORKMANAGER,
+                  "--pid-file=/var/run/NetworkManager/NetworkManager.pid",
+                  NULL) == -1) {
+            exit(3);
+        }
+    } else if (pid == -1) {
+        return 1;
+    } else {
+        return wait_for_nm();
+    }
+
+    return 0;
+}
+
+/*
  * Set the MTU on the specified device.
  */
 int iface_set_interface_mtu(char *ifname, int mtu) {

@@ -2177,10 +2177,16 @@ int main(int argc, char ** argv) {
     }
 #endif
 
+#if defined(__s390__) || defined(__s390x__)
+    /* Start NetworkManager until we have systemd init on s390 too */
+    if (iface_start_NetworkManager())
+        logMessage(INFO, "failed to start NetworkManager");
+#else
     /* Restart NetworkManager now so that it uses our inital ifcfg config */
     logMessage(INFO, "restarting NetworkManager");
     if (iface_restart_NetworkManager())
         logMessage(ERROR, "failed to restart NetworkManager");
+#endif
 
     if (!FL_CMDLINE(flags))
         startNewt();
