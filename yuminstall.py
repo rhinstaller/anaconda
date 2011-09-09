@@ -134,13 +134,17 @@ class simpleCallback:
 
             nvra = "%s" %(po,)
             self.instLog.write(self.modeText % (nvra,))
+            if nvra in self.files:
+                self.instLog.write("RPMCALLBACK_INST_OPEN_FILE already called for the file, skipping")
+                fn = self.files[nvra].name
+                f = open(fn, 'r')
+                self.files[nvra] = f
 
             self.instLog.flush()
-            self.files[nvra] = None
 
             self.size = po.returnSimple('installedsize')
 
-            while self.files[nvra] == None:
+            while nvra not in self.files:
                 try:
                     fn = repo.getPackage(po)
 
