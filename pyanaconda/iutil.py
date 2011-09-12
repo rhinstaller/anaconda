@@ -733,8 +733,20 @@ def isX86(bits=None):
 
     return False
 
-def isPPC():
-    return os.uname()[4].startswith('ppc')
+def isPPC(bits=None):
+    arch = os.uname()[4]
+
+    if bits is None:
+        if arch == 'ppc' or arch == 'ppc64':
+            return True
+    elif bits == 32:
+        if arch == 'ppc':
+            return True
+    elif bits == 64:
+        if arch == 'ppc64':
+            return True
+
+    return False
 
 def isS390():
     return os.uname()[4].startswith('s390')
