@@ -693,6 +693,13 @@ def isEfi():
 
     return efi
 
+## Check to see if we are in a xen environment.
+#
+def inXen():
+    if os.path.exists("/sys/bus/xen"):
+        return True
+    return False
+
 ## Generate the /etc/rpm/macros file.
 # @param root The root of the filesystem to create the files in.
 def writeRpmPlatform(root="/"):

@@ -54,6 +54,7 @@ from constants import *
 from image import *
 from compssort import *
 import packages
+import iutil
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
@@ -1064,7 +1065,7 @@ class AnacondaYum(YumSorter):
             self.ts.check()
             self.ts.order()
 
-            self.anaconda.id.bootloader.trusted_boot = self.isPackageInstalled(name="tboot")
+            self.anaconda.id.bootloader.trusted_boot = self.isPackageInstalled(name="tboot") and not iutil.inXen()
 
             if self._run(instLog, cb, intf) == DISPATCH_BACK:
                 self.tsInfo.curmedia = None
