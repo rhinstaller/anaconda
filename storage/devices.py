@@ -1105,13 +1105,12 @@ class PartitionDevice(StorageDevice):
 
     @property
     def path(self):
-        """ Device node representing this device. """
         if not self.parents:
-            # Bogus, but code in various places compares devices by path
-            # So we must return something unique
-            return self.name
+            devDir = StorageDevice._devDir
+        else:
+            devDir = self.parents[0]._devDir
 
-        return "%s/%s" % (self.parents[0]._devDir, self.name)
+        return "%s/%s" % (devDir, self.name)
 
     @property
     def partType(self):
