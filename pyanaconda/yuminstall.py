@@ -1493,6 +1493,10 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
             self.selectFSPackages(anaconda.storage)
             self.selectAnacondaNeeds()
         else:
+            if not anaconda.bootloader.skip_bootloader:
+                map(self.deselectPackage, anaconda.bootloader.obsoletes)
+                map(self.selectPackage, anaconda.bootloader.packages)
+
             self.ayum.update()
 
         while True:
