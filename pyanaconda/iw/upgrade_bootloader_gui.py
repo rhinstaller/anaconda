@@ -42,45 +42,17 @@ class UpgradeBootloaderWindow (InstallWindow):
         if self.nobl_radio.get_active():
             self.dispatch.skip_steps("bootloader")
             self.dispatch.skip_steps("instbootloader")
-        elif self.newbl_radio.get_active():
-            self.dispatch.request_steps("bootloader")
-            self.bl.update_only = False
+            self.anaconda.bootloader.skip_bootloader = True
         else:
-            self.dispatch.skip_steps("bootloader")
-            self.dispatch.request_steps("instbootloader")
-            self.bl.update_only = self.bl.can_update
-
-            self.bl.stage1_device = self.bootDev
+            self.dispatch.request_steps("bootloader")
+            self.anaconda.bootloader.skip_bootloader = False
 
     def getScreen(self, anaconda):
         self.dispatch = anaconda.dispatch
         self.bl = anaconda.bootloader
+        self.anaconda = anaconda
 
-        # TODO: implement bootloader detection
-        self.type = None
-        self.bootDev = None
-
-        self.update_radio = gtk.RadioButton(None, _("_Update boot loader configuration"))
-        updatestr = _("This will update your current boot loader.")
-
-        if (not self.bl.can_update) or \
-           (self.type is None or self.bootDev is None):
-            current = _("The installer is unable to detect the boot loader "
-                        "currently in use on your system.")
-            self.update_label = gtk.Label("%s" % (updatestr,))
-            self.update_radio.set_sensitive(False)
-            self.update_label.set_sensitive(False)
-            update = False
-        else:
-            current = _("The installer has detected the %(type)s boot loader "
-                        "currently installed on %(bootDev)s.") \
-                      % {'type': self.type, 'bootDev': self.bootDev}
-            self.update_label = gtk.Label("%s  %s" % (updatestr,
-                                         _("This is the recommended option.")))
-            self.update_radio.set_active(False)
-            update = True
-
-        self.newbl_radio = gtk.RadioButton(self.update_radio,
+        self.newbl_radio = gtk.RadioButton(None,
                                           _("_Create new boot loader "
                                             "configuration"))
         self.newbl_label = gtk.Label(_("This option creates a "
@@ -89,7 +61,7 @@ class UpgradeBootloaderWindow (InstallWindow):
                                       "should choose this."))
 
         self.newbl_radio.set_active(False)
-        self.nobl_radio = gtk.RadioButton(self.update_radio,
+        self.nobl_radio = gtk.RadioButton(self.newbl_radio,
                                          _("_Skip boot loader updating"))
         self.nobl_label = gtk.Label(_("This option makes no changes to boot "
                                      "loader configuration.  If you are "
@@ -97,18 +69,12 @@ class UpgradeBootloaderWindow (InstallWindow):
                                      "should choose this."))
         self.nobl_radio.set_active(False)
 
-        for label in [self.update_label, self.nobl_label, self.newbl_label]:
+        for label in [self.nobl_label, self.newbl_label]:
             label.set_alignment(0.8, 0)
             label.set_size_request(275, -1)
             label.set_line_wrap(True)
 
-        str = _("What would you like to do?")
-        # if they have one, the default is to update, otherwise the
-        # default is to not touch anything
-        if update:
-            default = self.update_radio
-        else:
-            default = self.nobl_radio
+        default = self.newbl_radio
 
         if self.dispatch.step_enabled("bootloader"):
             self.newbl_radio.set_active(True)
@@ -119,20 +85,13 @@ class UpgradeBootloaderWindow (InstallWindow):
 
         box = gtk.VBox(False, 5)
 
-        label = gtk.Label(current)
+        label = gtk.Label(_("What would you like to do?"))
         label.set_line_wrap(True)
         label.set_alignment(0.5, 0.0)
         label.set_size_request(300, -1)
-        label2 = gtk.Label(str)
-        label2.set_line_wrap(True)
-        label2.set_alignment(0.5, 0.0)
-        label2.set_size_request(300, -1)
 
-        box.pack_start(label, False)
-        box.pack_start(label2, False, padding = 10)
+        box.pack_start(label, False, padding = 10)
 
-        box.pack_start(self.update_radio, False)
-        box.pack_start(self.update_label, False)
         box.pack_start(self.nobl_radio, False)
         box.pack_start(self.nobl_label, False)
         box.pack_start(self.newbl_radio, False)
