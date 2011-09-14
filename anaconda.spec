@@ -1,6 +1,6 @@
 Name: anaconda
 Version: 11.1.2.243
-Release: 1
+Release: 2
 License: GPL
 Summary: Graphical system installer
 Group: Applications/System
@@ -128,6 +128,10 @@ fi
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Sep 14 2011 Martin Gracik <mgracik@redhat.com> 11.1.2.243-2
+- Require latest libdhcp (dcantrell)
+  Resolves: rhbz#737161
+
 * Wed Sep 07 2011 Martin Gracik <mgracik@redhat.com> 11.1.2.243-1
 - Suppress critical errors when guessing release notes names (akozumpl)
   Resolves: rhbz#707143
