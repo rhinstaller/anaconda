@@ -50,6 +50,7 @@ class UpgradeExamineWindow (InstallWindow):
             self.anaconda.upgrade = True
         else:
             self.anaconda.upgrade = False
+            self.anaconda.bootloader.skip_bootloader = False
 
         return None
 

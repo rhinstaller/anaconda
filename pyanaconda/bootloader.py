@@ -210,6 +210,7 @@ class BootLoader(object):
         self.stage1_drive = None
 
         self._update_only = False
+        self.skip_bootloader = False
 
         self.stage2_is_preferred_stage1 = False
 
