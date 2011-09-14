@@ -795,7 +795,7 @@ if __name__ == "__main__":
             os.system("systemctl --force --no-wall halt")
         else: # reboot action is KS_REBOOT or None
             os.system("systemctl --force --no-wall reboot")
-    elif not flags.livecdInstall and not flags.imageInstall:
+    elif not flags.imageInstall:
         os.system("systemctl --force --no-wall reboot")
 
 # vim:tw=78:ts=4:et:sw=4
