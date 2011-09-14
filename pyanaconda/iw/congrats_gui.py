@@ -46,7 +46,7 @@ class CongratulationWindow (InstallWindow):
         # this mucks around a bit, but it's the weird case and it's
         # better than adding a lot of complication to the normal
 	ics.cw.mainxml.get_widget("nextButton").hide()
-        if flags.livecdInstall or flags.imageInstall:
+        if flags.imageInstall:
             ics.cw.mainxml.get_widget("closeButton").show()
             ics.cw.mainxml.get_widget("closeButton").grab_focus()
         else:
