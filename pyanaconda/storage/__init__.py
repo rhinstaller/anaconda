@@ -35,6 +35,7 @@ from pyanaconda import iutil
 from pyanaconda.constants import *
 from pykickstart.constants import *
 from pyanaconda.flags import flags
+from pyanaconda import tsort
 
 from errors import *
 from devices import *
@@ -1282,7 +1283,20 @@ class Storage(object):
             else:
                 dict[action.device.path] = [action]
 
-        for device in [d for d in self.devices if d.format.type != "luks"]:
+        devices = self.devices
+        edges = []
+        for dev in devices:
+            deps = [d for d in devices if dev.dependsOn(d)]
+            for dep in deps:
+                edges.append((devices.index(dep), devices.index(dev)))
+
+        g = tsort.create_graph(range(len(devices)), edges)
+        order = tsort.tsort(g)
+        for idx in order:
+            device = devices[idx]
+            if device.format.type == "luks":
+                continue
+
             # If there's no action for the given device, it must be one
             # we are reusing.
             if not dict.has_key(device.path):
