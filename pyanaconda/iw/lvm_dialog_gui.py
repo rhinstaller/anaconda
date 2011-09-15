@@ -792,7 +792,9 @@ class VolumeGroupEditor:
                     templv.targetSize = targetSize
 
             if format.exists and format.mountable and format.mountpoint:
+                orig_dev = format.device
                 tempdev = StorageDevice('tmp', format=format)
+                tempdev.format.device = orig_dev
                 if self.storage.formatByDefault(tempdev):
                     reason = self.storage.mustFormat(tempdev)
                     if reason:
