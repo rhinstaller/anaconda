@@ -38,9 +38,9 @@ def list_harddrives_test():
             continue
 
         if dev.path.startswith('/dev/'):
-            devices.add(dev.path[5:], dev.getSize())
+            devices.add("%s %s" % (dev.path[5:], dev.getSize()))
         else:
-            devices.add(dev.path, dev.getSize())
+            devices.add("%s %s" % (dev.path, dev.getSize()))
 
     devices = sorted(devices)
 
