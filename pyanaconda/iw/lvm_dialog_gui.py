@@ -1163,6 +1163,10 @@ class VolumeGroupEditor:
 
                 if lv.format.exists:
                     log.debug("format already exists")
+                    # make sure the format's device attr doesn't reference
+                    # an lv in the temp vg
+                    origlv.format.device = origlv.path
+
                     if lv.format.type == "luks":
                         # see if the luks device already exists
                         try:
@@ -1211,10 +1215,6 @@ class VolumeGroupEditor:
                                 usedev.format = usedev.originalFormat
                         else:
                             usedev = origlv
-
-                        # make sure the format's device attr doesn't reference
-                        # an lv in the temp vg
-                        origlv.format.device = origlv.path
 
                     if hasattr(format, "mountpoint"):
                         usedev.format.mountpoint = format.mountpoint
