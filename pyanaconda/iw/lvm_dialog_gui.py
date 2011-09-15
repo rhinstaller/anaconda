@@ -420,7 +420,7 @@ class VolumeGroupEditor:
         templv = self.getLVByName(lv['name'], vg=tempvg)
         usedev = templv
         if templv.format.type == "luks":
-            templuks = LUKSDevice("luks-%s" % lv['name'],
+            templuks = LUKSDevice(templv.format.mapName,
                                   parents=[templv],
                                   format=self.luks[lv['name']],
                                   exists=templv.format.exists)
