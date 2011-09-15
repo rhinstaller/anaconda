@@ -31,7 +31,7 @@ def loadkeys_test():
 
     # non-existing keymap
     rc = call(['loadkeys', 'bad-keymap'])
-    if rc == 0:
+    if not rc == 0:
         print('loadkeys: load non-existing keymap test failed')
         sys.exit(1)
 
