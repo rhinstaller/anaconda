@@ -696,6 +696,8 @@ class DiskSet:
                         testList.append(disk)
 
         driveList = filter(lambda x: x not in testList, self.driveList())
+        if DiskSet.exclusiveDisks != []:
+            driveList = filter(lambda x: x in DiskSet.exclusiveDisks, driveList)
         DiskSet.mdList.extend(raid.startAllRaid(driveList))
 
     def stopMdRaid(self):
