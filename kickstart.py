@@ -100,7 +100,7 @@ class AnacondaKSScript(Script):
                           % {'lineno': self.lineno, 'msgs': messages}
 
                     if err:
-                        intf.detailedMessageWindow(_("Scriptlet Failure"), msg, err)
+                        intf.messageWindow(_("Scriptlet Failure"), msg + "\n" + "\n".join(err))
                     else:
                         intf.messageWindow(_("Scriptlet Failure"), msg)
 
