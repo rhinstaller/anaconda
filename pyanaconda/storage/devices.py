@@ -1484,8 +1484,14 @@ class PartitionDevice(StorageDevice):
             raise
 
     def _postCreate(self):
-        start = self.partedPartition.geometry.start
-        partition = self.disk.format.partedDisk.getPartitionBySector(start)
+        if self.isExtended:
+            partition = self.disk.format.extendedPartition
+        else:
+            start = self.partedPartition.geometry.start
+            partition = self.disk.format.partedDisk.getPartitionBySector(start)
+
+        log.debug("post-commit partition path is %s" % getattr(partition,
+                                                               "path", None))
         self.partedPartition = partition
         if not self.isExtended:
             # Ensure old metadata which lived in freespace so did not get
