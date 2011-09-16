@@ -1497,8 +1497,11 @@ class GRUB2(GRUB):
                     break
 
             if not ret:
-                self.errors.append(_("You are using a GPT bootdisk on a BIOS "
-                                     "system without a BIOS boot partition."))
+                self.errors.append(_("Your BIOS-based system needs a special "
+                                     "partition to boot with Fedora's new "
+                                     "disk label format (GPT). To continue, "
+                                     "please create a 1MB 'BIOS Boot' type "
+                                     "partition."))
 
         log.debug("_gpt_disk_has_bios_boot(%s) returning %s" % (device.name,
                                                                 ret))
