@@ -567,7 +567,7 @@ def readXFSLabel_int(device):
 
     xfslabel = None
     if len(buf) == 128 and buf[0:4] == "XFSB":
-        xfslabel = string.rstrip(buf[108:120],"\0x00")
+        xfslabel = string.rstrip(buf[108:120],'\0')
 
     return xfslabel
     
