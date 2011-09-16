@@ -1333,7 +1333,6 @@ class InstallControlWindow:
             self._main_loop_running = False
 
     def _doExitConfirm (self, win = None, *args):
-        # FIXME: translate the string
         win = MessageWindow(_("Exit installer"),
                             _("Are you sure you wish to exit the installer?"),
                             type="custom", custom_icon="question",
@@ -1341,7 +1340,7 @@ class InstallControlWindow:
                             parent = win)
         if win.getrc() == 0:
             return True
-        self.close()
+        sys.exit(0)
 
     def createWidgets (self):
         """ Sets up the widgets in the main installler window. """
