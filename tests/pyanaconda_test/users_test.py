@@ -41,9 +41,13 @@ class UsersTest(mock.TestCase):
 
         GROUP = 'Group'
         GID = 100
+        group_dict = {  "name" : GROUP,
+                        "gid" : GID,
+                        "root" : ""
+                    }
 
         usr = pyanaconda.users.Users(self.anaconda)
-        self.assertTrue(usr.createGroup(GROUP, gid=GID, root=''))
+        self.assertTrue(usr.createGroup(GROUP, **group_dict))
 
         methods = pyanaconda.users.libuser.admin().method_calls[:]
         try:
@@ -64,13 +68,22 @@ class UsersTest(mock.TestCase):
 
         USER = 'TestUser'
         PASS = 'abcde'
+        user_dict = {   "name" : USER,
+                        "password" : PASS,
+                        "groups" : [],
+                        "homedir" : "",
+                        "isCrypted" : False,
+                        "shell" : "",
+                        "uid" : None,
+                        "root" : ""
+                    }
 
         usr = pyanaconda.users.Users(self.anaconda)
-        self.assertTrue(usr.createUser(USER, password=PASS, root=''))
+        self.assertTrue(usr.createUser(USER, **user_dict))
 
         self.assertTrue(pyanaconda.users.iutil.mkdirChain.called)
-
         methods = [x[0] for x in pyanaconda.users.libuser.admin().method_calls]
+
         self.assertEqual(methods,
             ['lookupUserByName', 'initUser', 'initGroup', 'addUser','addGroup',
              'setpassUser', 'lookupGroupByName'])
