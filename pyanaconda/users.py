@@ -100,7 +100,7 @@ class Users:
         self.admin = libuser.admin()
         self.rootPassword = { "isCrypted": False, "password": "", "lock": False }
 
-    def createGroup (self, name, **kwargs):
+    def createGroup (self, group_name, **kwargs):
         """Create a new user on the system with the given name.  Optional kwargs:
 
            gid       -- The GID for the new user.  If none is given, the next
@@ -121,12 +121,12 @@ class Users:
             self.admin = libuser.admin()
 
             try:
-                if self.admin.lookupGroupByName(name):
+                if self.admin.lookupGroupByName(group_name):
                     os._exit(1)
 
-                groupEnt = self.admin.initGroup(name)
+                groupEnt = self.admin.initGroup(group_name)
 
-                if "gid" in kwargs and kwargs["gid"] >= 0:
+                if kwargs.get("gid", -1) >= 0:
                     groupEnt.set(libuser.GIDNUMBER, kwargs["gid"])
 
                 self.admin.addGroup(groupEnt)
@@ -192,25 +192,25 @@ class Users:
                 userEnt.set(libuser.GIDNUMBER, [groupEnt.get(libuser.GIDNUMBER)[0]] +
                             map(lambda grp: grp.get(libuser.GIDNUMBER)[0], grpLst))
 
-                if "homedir" in kwargs:
+                if kwargs.get("homedir", False):
                     userEnt.set(libuser.HOMEDIRECTORY, kwargs["homedir"])
                 else:
                     iutil.mkdirChain(root+'/home')
                     userEnt.set(libuser.HOMEDIRECTORY, "/home/" + user_name)
 
-                if "shell" in kwargs:
+                if kwargs.get("shell", False):
                     userEnt.set(libuser.LOGINSHELL, kwargs["shell"])
 
-                if "uid" in kwargs and kwargs["uid"] >= 0:
+                if kwargs.get("uid", -1) >= 0:
                     userEnt.set(libuser.UIDNUMBER, kwargs["uid"])
 
-                if "gecos" in kwargs:
+                if kwargs.get("gecos", False):
                     userEnt.set(libuser.GECOS, kwargs["gecos"])
 
                 self.admin.addUser(userEnt, mkmailspool=kwargs.get("mkmailspool", True))
                 self.admin.addGroup(groupEnt)
 
-                if "password" in kwargs:
+                if kwargs.get("password", False):
                     if kwargs.get("isCrypted", False):
                         password = kwargs["password"]
                     else:
