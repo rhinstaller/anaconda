@@ -1822,6 +1822,9 @@ MAILADDR root
                     sys.exit(0)
 
     def labelEntry(self, entry, chroot):
+        # remove old label
+        entry.setLabel(None)
+
         label = entry.device.getLabel()
         if label:
             entry.setLabel(label)
