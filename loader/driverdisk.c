@@ -432,6 +432,8 @@ int getRemovableDevices(char *** devNames) {
     return numDevices;
 }
 
+static void getDDFromDev(struct loaderData_s * loaderData, char * dev, GTree *moduleState);
+
 /* Prompt for loading a driver from "media"
  *
  * class: type of driver to load.
@@ -442,7 +444,7 @@ int loadDriverFromMedia(int class, struct loaderData_s *loaderData,
     char * device = NULL, * part = NULL, * ddfile = NULL;
     char ** devNames = NULL;
     enum { DEV_DEVICE, DEV_PART, DEV_CHOOSEFILE, DEV_LOADFILE, 
-           DEV_INSERT, DEV_LOAD, DEV_PROBE, 
+           DEV_INSERT, DEV_LOAD, DEV_PROBE, DEV_LOADRAW,
            DEV_DONE } stage = DEV_DEVICE;
     int rc, num = 0;
     int dir = 1;
@@ -545,6 +547,12 @@ int loadDriverFromMedia(int class, struct loaderData_s *loaderData,
                 newtWinMessage(_("Error"), _("OK"),
                                _("Failed to mount partition."));
                 stage = DEV_PART;
+                break;
+            }
+
+            /* check if the partition contains the DD in raw format */
+            if (verifyDriverDisk("/tmp/dpart") == LOADER_OK) {
+                stage = DEV_LOADRAW;
                 break;
             }
 
@@ -712,6 +720,12 @@ int loadDriverFromMedia(int class, struct loaderData_s *loaderData,
             break;
         }
 
+
+        case DEV_LOADRAW:
+            getDDFromDev(loaderData, part, moduleState);
+            stage = DEV_PROBE;
+            break;
+
         case DEV_DONE:
             break;
         }
@@ -799,7 +813,6 @@ void getDDFromSource(struct loaderData_s * loaderData, char * src, GTree *module
 
 }
 
-static void getDDFromDev(struct loaderData_s * loaderData, char * dev, GTree *moduleState);
 
 void useKickstartDD(struct loaderData_s * loaderData,
                     int argc, char ** argv) {
