@@ -222,6 +222,35 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Tue Sep 20 2011 David Cantrell <dcantrell@redhat.com> - 13.21.140-1
+- Exclude Xen guests when configuring tboot (dcantrell)
+  Resolves: rhbz#737094
+- Fix format.majorminor caching. (akozumpl)
+  Related: rhbz#731973
+- Fix detection of RAW driverdisc partitions while in manual selection mode
+  (msivak)
+  Related: rhbz#732496
+- fcoe: handle Broadcom fcoe devices correctly. (akozumpl)
+  Resolves: rhbz#641420
+- fcoe: the control path in sysfs is now /sys/module/libfcoe (akozumpl)
+  Related: rhbz#641420
+- fcoe: load bnx2fc if relevant. (akozumpl)
+  Related: rhbz#641420
+- Fix the list-harddrives test script (mgracik)
+  Resolves: rhbz#706099
+- Fix loadkeys-test (mgracik)
+  Resolves: rhbz#706099
+- Fix PartitionDevice.path to work with device-mapper disks. (dlehman)
+  Related: rhbz#731973
+- Allow DeviceFormat.cacheMajorminor to fail without an exception. (akozumpl)
+  Resolves: rhbz#731973
+- Set formats' device attr when associating the format with a device. (dlehman)
+  Related: rhbz#731973
+- Cache the value of Format.majorminor(). (akozumpl)
+  Related: rhbz#731973
+- More partition dialogs focusing after error (mgracik)
+  Resolves: rhbz#679810
+
 * Wed Sep 07 2011 David Cantrell <dcantrell@redhat.com> - 13.21.139-1
 - mpath: create /etc/multipath/bindings if we are using friendly names.
   (akozumpl)
