@@ -610,8 +610,8 @@ static void readNetInfo(struct loaderData_s ** ld) {
     }
     g_strfreev(lines);
     if (strlen(device) == 0) {
-        return;
         logMessage(DEBUGLVL, "readNetInfo no device found");
+        return;
     }
 
     checked_asprintf(&cfgfile, "/etc/sysconfig/network-scripts/ifcfg-%s",
