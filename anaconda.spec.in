@@ -8,8 +8,6 @@ License: GPLv2+
 Group:   Applications/System
 URL:     http://fedoraproject.org/wiki/Anaconda
 
-%define debug_package %{nil}
-
 # To generate Source0 do:
 # git clone http://git.fedorahosted.org/git/anaconda.git
 # git checkout -b archive-branch anaconda-%{version}-%{release}
