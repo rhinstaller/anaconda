@@ -746,6 +746,10 @@ static void readNetInfo(struct loaderData_s ** ld) {
         flags |= LOADER_FLAGS_HAVE_CMSCONF;
     }
 
+    loaderData->netDev = device;
+    loaderData->netDev_set = 1;
+
+
     free(cfgfile);
     g_strfreev(lines);
     return;
