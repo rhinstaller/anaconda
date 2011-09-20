@@ -17,14 +17,6 @@
 #
 # Author: Chris Lumens <clumens@redhat.com>
 
-systemddir           = /lib/systemd/system
+systemddir = /lib/systemd/system
 dist_systemd_DATA = anaconda-shell.service anaconda.target loader.service instperf.service tmp.mount
-
 MAINTAINERCLEANFILES = Makefile.in
-
-install-exec-local:
-	mkdir -p $(DESTDIR)/lib/systemd/system/anaconda.target.wants
-	ln -sf /lib/systemd/system/anaconda-shell.service $(DESTDIR)/lib/systemd/system/anaconda.target.wants
-	ln -sf /lib/systemd/system/loader.service $(DESTDIR)/lib/systemd/system/anaconda.target.wants
-	ln -sf /lib/systemd/system/rsyslog.service $(DESTDIR)/lib/systemd/system/anaconda.target.wants
-	ln -sf /lib/systemd/system/udev-settle.service $(DESTDIR)/lib/systemd/system/anaconda.target.wants
