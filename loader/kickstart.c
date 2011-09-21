@@ -681,7 +681,6 @@ static void setKickstartNetwork(struct loaderData_s * loaderData, PyObject *hand
     Py_ssize_t i;
     PyObject *list = getDataList(handler, "network");
     iface_t iface;
-    gboolean device_flushed = FALSE;
     char *cmdline_device = NULL;
 
     if (!list)
@@ -783,11 +782,12 @@ static void setKickstartNetwork(struct loaderData_s * loaderData, PyObject *hand
             loaderData->netDev_set = 1;
             logMessage(INFO, "kickstart network command - device %s", loaderData->netDev);
         } else {
-            cmdline_device = strdup(loaderData->netDev);
-            loaderData->netDev_set = 0;
-            free(loaderData->netDev);
-            loaderData->netDev = NULL;
-            device_flushed = TRUE;
+            if (loaderData->netDev) {
+                /* save it so we can use it if wifi activation fails */
+                cmdline_device = loaderData->netDev;
+                loaderData->netDev = NULL;
+                loaderData->netDev_set = 0;
+            }
             logMessage(INFO, "kickstart network command - unspecified device");
         }
 
@@ -851,12 +851,10 @@ static void setKickstartNetwork(struct loaderData_s * loaderData, PyObject *hand
              ibft_present())) {
             logMessage(INFO, "activating first device from kickstart because network is needed");
             if (process_kickstart_wifi(loaderData) != WIFI_ACTIVATION_OK) {
-                if (device_flushed) {
-                    loaderData->netDev = strdup(cmdline_device);
+                if (cmdline_device) {
+                    loaderData->netDev = cmdline_device;
                     loaderData->netDev_set = 1;
-                    free(cmdline_device);
                     cmdline_device = NULL;
-                    device_flushed = FALSE;
                 }
                 activateDevice(loaderData, &iface);
             }
@@ -867,12 +865,10 @@ static void setKickstartNetwork(struct loaderData_s * loaderData, PyObject *hand
         if (isTrue(attr)) {
             logMessage(INFO, "activating because --activate flag is set");
             if (process_kickstart_wifi(loaderData) != WIFI_ACTIVATION_OK) {
-                if (device_flushed) {
-                    loaderData->netDev = strdup(cmdline_device);
+                if (cmdline_device) {
+                    loaderData->netDev = cmdline_device;
                     loaderData->netDev_set = 1;
-                    free(cmdline_device);
                     cmdline_device = NULL;
-                    device_flushed = FALSE;
                 }
                 activateDevice(loaderData, &iface);
             }
