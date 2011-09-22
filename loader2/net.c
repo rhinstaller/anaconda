@@ -91,10 +91,14 @@ char *nfsServerPrompt = \
 static void cidrCallback(newtComponent co, void * dptr) {
     struct intfconfig_s * data = dptr;
     int cidr, upper = 0;
+    struct in_addr addr;
 
     if (co == data->cidr4Entry) {
         if (data->cidr4 == NULL && data->ipv4 == NULL)
             return;
+
+        if (inet_pton(AF_INET, data->cidr4, &addr) >= 1)
+           return;
 
         cidr = atoi(data->cidr4);
         upper = 32;
