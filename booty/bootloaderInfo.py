@@ -17,6 +17,7 @@
 #
 
 import os, sys
+import collections
 import crypt
 import random
 import shutil
@@ -86,6 +87,32 @@ def rootIsDevice(dev):
 
 class KernelArguments:
 
+    def _merge_ip(self, args):
+        """
+        Find ip= arguments targetting the same interface and merge them.
+        """
+        # partition the input
+        def partition_p(arg):
+            # we are only interested in ip= parameters that use some kind of
+            # automatic network setup:
+            return arg.startswith("ip=") and arg.count(":") == 1
+        ip_params = filter(partition_p, args)
+        rest = set(filter(lambda p: not partition_p(p), args))
+        # split at the colon:
+        ip_params = map(lambda p: p.split(":"), ip_params)
+        # create mapping from nics to their configurations
+        config = collections.defaultdict(list)
+        for (nic, cfg) in ip_params:
+            config[nic].append(cfg)
+
+        # output the new parameters:
+        ip_params = set()
+        for nic in config:
+            ip_params.add("%s:%s" % (nic, ",".join(sorted(config[nic]))))
+        rest.update(ip_params)
+
+        return rest
+
     def getDracutStorageArgs(self, devices):
         args = set()
         types = {}
@@ -134,6 +161,8 @@ class KernelArguments:
         all_args.add(self.id.keyboard.dracutSetupString())
         all_args.update(self.args)
         all_args.update(self.appendArgs)
+
+        all_args = self._merge_ip(all_args)
 
         return " ".join(all_args)
 
