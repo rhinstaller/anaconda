@@ -1016,11 +1016,47 @@ class DeviceTree(object):
             log.error("Unknown block device type for: %s" % name)
             return
 
+        def get_live_backing_device_path():
+            """ Return a path to the live block device or an empty string.
+
+                The line we're looking for will be of the form
+
+                    root='block:/dev/disk/by-uuid/<UUID>'
+
+            """
+            root_info = "/run/initramfs/tmp/root.info"
+            dev_live = "/dev/live"
+            root_path = ""
+            if os.path.exists(dev_live):
+                root_path = os.readlink(dev_live)
+            elif os.path.exists(root_info):
+                prefix = "root='block:"
+                for line in open(root_info):
+                    if not line.startswith(prefix):
+                        continue
+
+                    start_idx = len(prefix) - 1
+                    root_path = os.path.realpath(line[start_idx:-1])
+                    root_name = devicePathToName(root_path)
+                    if root_name.startswith("dm-"):
+                        root_name = dm.name_from_dm_node(root_name)
+                        root_path = "/dev/mapper/%s" % root_name
+
+                    break
+
+            return root_path
+
         # If this device is protected, mark it as such now. Once the tree
         # has been populated, devices' protected attribute is how we will
         # identify protected devices.
         if device and device.name in self.protectedDevNames:
             device.protected = True
+            # if this is the live backing device we want to mark its parents
+            # as protected also
+            live_path = get_live_backing_device_path()
+            if live_path and device.path == live_path:
+                for parent in device.parents:
+                    parent.protected = True
 
         # Don't try to do format handling on drives without media or
         # if we didn't end up with a device somehow.

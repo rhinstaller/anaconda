@@ -564,10 +564,7 @@ class BootLoader(object):
             self.warnings = []
             return valid
 
-        if os.path.exists("/dev/live") and \
-           os.path.realpath("/dev/live") == device.path:
-            self.errors.append(_("%s cannot be on the live device.")
-                               % description)
+        if device.protected:
             valid = False
 
         if not self._device_type_match(device, constraint["device_types"]):
@@ -669,6 +666,9 @@ class BootLoader(object):
 
         if device is None:
             return False
+
+        if device.protected:
+            valid = False
 
         if not self._device_type_match(device, self.stage2_device_types):
             self.errors.append(_("%s cannot be of type %s")
