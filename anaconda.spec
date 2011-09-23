@@ -1,6 +1,6 @@
 Name: anaconda
-Version: 11.1.2.243
-Release: 2
+Version: 11.1.2.244
+Release: 1
 License: GPL
 Summary: Graphical system installer
 Group: Applications/System
@@ -128,6 +128,26 @@ fi
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Fri Sep 23 2011 Martin Gracik <mgracik@redhat.com> 11.1.2.244-1
+- Remove old labels before labeling disk entries (mgracik)
+  Resolves: rhbz#566668
+- Honor kickstart key command for upgrade (rvykydal)
+  Resolves: rhbz#477748
+- Shorten long NIC descriptions to 60. (akozumpl)
+  Related: rhbz#660684
+- infiniband: bump kudzu version to the one that knows about IB. (akozumpl)
+  Related: rhbz#695388
+  Related: rhbz#660684
+- infiniband: textual representation of an infiniband MAC is up to 60 bytes.
+  (akozumpl)
+  Related: rhbz#660684
+- infiniband: some drivers imply other drivers (akozumpl)
+  Related: rhbz#660684
+- Do not strip trailing zeros from XFS labels (dcantrell)
+  Resolves: rhbz#571513
+- Remove call to detailedMessageWindow (dcantrell)
+  Resolves: rhbz#712443
+
 * Wed Sep 14 2011 Martin Gracik <mgracik@redhat.com> 11.1.2.243-2
 - Require latest libdhcp (dcantrell)
   Resolves: rhbz#737161
