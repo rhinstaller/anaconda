@@ -412,6 +412,7 @@ class FilterWindow(InstallWindow):
     def _getFilterDisks(self):
         """ Return a list of disks to pass to MultipathTopology. """
         return filter(lambda d: udev_device_is_disk(d) and \
+                                not udev_device_is_loop(d) and \
                                 not udev_device_is_dm(d) and \
                                 not udev_device_is_md(d) and \
                                 not udev_device_get_md_container(d),
