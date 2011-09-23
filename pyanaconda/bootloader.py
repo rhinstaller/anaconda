@@ -757,10 +757,8 @@ class BootLoader(object):
         """Bootloader timeout in seconds."""
         if self._timeout is not None:
             t = self._timeout
-        elif self.console and self.console.startswith("ttyS"):
-            t = 5
         else:
-            t = 20
+            t = 5
 
         return t
 
