@@ -232,6 +232,32 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Fri Sep 23 2011 Chris Lumens <clumens@redhat.com> - 16.19-1
+- Change default bootloader timeout from 20sec to 5sec. (#727831) (dlehman)
+- Bootloader stage1_drive is more than a suggestion. (#738964) (dlehman)
+- Mark the live device's parent devices protected. (#738964) (dlehman)
+- it is anaconda-shell (akozumpl)
+- Remove tmp.mount (systemd handles this for us now) (wwoods)
+- Move dependency info into the unit files (wwoods)
+- move anaconda-shell.service to the correct filename (wwoods)
+- make anaconda-shell.service a template, put it on tty2 & hvc1 (wwoods)
+- Improve the clarity of the missing bios boot partition error. (#731549)
+  (dlehman)
+- Default to an active network device after reboot on Fedora (ONBOOT) (#498207)
+  (rvykydal)
+- Fix createUser and createGroup to work with kickstart defaults (#739428)
+  (bcl)
+- Update test for createUser and createGroup (#739428) (bcl)
+- Revert "Set debug_package to %{nil} so we don't strip our binaries."
+  (akozumpl)
+- Fix post-commit lookup of extended partitions. (#737532) (dlehman)
+- Use the luks format's mapName when creating temp LUKSDevice. (#722952)
+  (dlehman)
+- Reset device attr after using temp dev. (#722952) (dlehman)
+- Make sure there are no tempvg paths even if formatting. (#737916) (dlehman)
+- Don't reboot when closing the live installer via the window decoration.
+  (clumens)
+
 * Wed Sep 14 2011 Brian C. Lane <bcl@redhat.com> - 16.18-1
 - Sort partitioning commmands in anaconda-ks.cfg. (#736527) (cherry picked from
   commit 05260161f846d93a99922b3c6d9b7973306227dc) (dlehman)
