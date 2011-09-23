@@ -207,7 +207,7 @@ class BootLoader(object):
         # the device the bootloader will be installed on
         self._stage1_device = None
 
-        # the "boot drive", meaning the drive we prefer stage1 be on
+        # the "boot drive", meaning the drive stage1 _will_ go on
         self.stage1_drive = None
 
         self._update_only = False
@@ -232,8 +232,12 @@ class BootLoader(object):
                 log.debug("using stage2 device as stage1")
                 self.stage1_device = self.stage2_device
             else:
+                devices = self.stage1_devices
+                if self.stage1_drive:
+                    devices = [d for d in devices if
+                                self.stage1_drive in d.disks]
                 try:
-                    self.stage1_device = self.stage1_devices[0]
+                    self.stage1_device = devices[0]
                 except IndexError:
                     pass
 
@@ -245,8 +249,6 @@ class BootLoader(object):
         log.debug("new bootloader stage1 device: %s" % getattr(device,
                                                                "name", None))
         self._stage1_device = device
-        if device:
-            self.stage1_drive = device.disks[0]
 
     # pylint: disable-msg=E0202
     @property
