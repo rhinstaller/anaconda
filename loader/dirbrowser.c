@@ -53,7 +53,8 @@ static int simpleStringCmp(const void * a, const void * b) {
 
 #define FSTEP 10
 
-/* Return a list of the contents of a directory, non-recursively.
+/* Return a NULL terminated list of the directory contents, non-recursively.
+ * Return a NULL if the directory cannot be opened.
  *
  * dirname    -- The directory to list.
  * filterfunc -- An optional function to use for filtering out the results.
@@ -141,12 +142,12 @@ char * newt_select_file(char * title, char * text, char * dirname,
                          0, 0, 0, 1, 0, 0);
         newtGridSetField(grid, 0, 3, NEWT_GRID_SUBGRID, buttons,
                          0, 0, 0, 0, 0, NEWT_GRID_FLAG_GROWX);
-        
+
         /* if this isn't our topdir, we want to let them go up a dir */
         if (strcmp(topdir, dir))
             newtListboxAppendEntry(listbox, "../", "..");
 
-        for (i = 0; (files[i] != NULL); i++) {
+        for (i = 0; files && (files[i] != NULL); i++) {
             if ((files[i] == NULL) || (strlen(files[i]) == 0)) continue;
             path = malloc(strlen(files[i]) + strlen(dir) + 2);
             sprintf(path, "%s/%s", dir, files[i]);

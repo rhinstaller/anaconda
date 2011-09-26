@@ -278,7 +278,7 @@ int promptForHardDrive(struct loaderData_s *loaderData) {
         }
 
         files = get_file_list(buf, ends_with_iso);
-        if (!files) {
+        if (!files || !files[0] || !strlen(files[0])) {
             newtWinMessage(_("Error"), _("OK"),
                            _("That directory does not contain an installable tree."));
             umount("/mnt/install/isodir");

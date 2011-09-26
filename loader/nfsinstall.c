@@ -190,7 +190,7 @@ static unsigned int isNfsIso(struct loaderData_s *loaderData) {
     }
 
     files = get_file_list("/mnt/install/isodir", ends_with_iso);
-    if (!files) {
+    if (!files || !files[0] || !strlen(files[0])) {
         logMessage(ERROR, "no ISO images present in /mnt/install/isodir");
         goto cleanup2;
     }
