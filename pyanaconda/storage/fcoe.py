@@ -85,7 +85,7 @@ class fcoe(object):
             log.info("No FCoE EDD info found: %s" % rc.rstrip())
             return
 
-        (key, val) = rc.split("=", 1)
+        (key, val) = rc.strip().split("=", 1)
         if val not in isys.getDeviceProperties():
             log.error("Unknown FCoE NIC found in EDD: %s, ignoring" % val)
             return
