@@ -222,6 +222,11 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Tue Sep 27 2011 David Cantrell <dcantrell@redhat.com> - 13.21.141-1
+- grub: write 'ip=eth0:dhcp,auto6' instead of 'ip=eth0:dhcp ip=eth0:auto6'
+  (akozumpl)
+  Resolves: rhbz#740222
+
 * Tue Sep 20 2011 David Cantrell <dcantrell@redhat.com> - 13.21.140-1
 - Exclude Xen guests when configuring tboot (dcantrell)
   Resolves: rhbz#737094
