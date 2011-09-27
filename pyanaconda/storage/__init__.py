@@ -1917,7 +1917,7 @@ class FSSet(object):
                                                                 fstype))
             raise UnrecognizedFSTabEntryError()
 
-        fmt = getFormat(fstype, device=device.path)
+        fmt = getFormat(fstype, device=device.path, exists=True)
         if fstype != "auto" and None in (device.format.type, fmt.type):
             log.info("Unrecognized filesystem type for %s (%s)"
                      % (device.name, fstype))
@@ -1928,8 +1928,12 @@ class FSSet(object):
         ftype = getattr(fmt, "mountType", fmt.type)
         dtype = getattr(device.format, "mountType", device.format.type)
         if fstype != "auto" and ftype != dtype:
-            raise StorageError("scanned format (%s) differs from fstab "
-                        "format (%s)" % (dtype, ftype))
+            if fmt.testMount():
+                # XXX FIXME: disallow migration for this FS instance
+                device.format = fmt
+            else:
+                raise StorageError("scanned format (%s) differs from fstab "
+                                   "format (%s)" % (dtype, ftype))
         del ftype
         del dtype
 
