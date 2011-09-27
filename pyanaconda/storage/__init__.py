@@ -1332,8 +1332,8 @@ class Storage(object):
     def umountFilesystems(self, ignoreErrors=True, swapoff=True):
         self.fsset.umountFilesystems(ignoreErrors=ignoreErrors, swapoff=swapoff)
 
-    def parseFSTab(self):
-        self.fsset.parseFSTab()
+    def parseFSTab(self, anaconda=None, chroot=None):
+        self.fsset.parseFSTab(anaconda=anaconda, chroot=chroot)
 
     def mkDevRoot(self):
         self.fsset.mkDevRoot()
@@ -1581,7 +1581,7 @@ def mountExistingSystem(anaconda, rootEnt,
                                 mountpoint="/",
                                 options=readOnly)
 
-    fsset.parseFSTab()
+    fsset.parseFSTab(anaconda=anaconda)
 
     # check for dirty filesystems
     dirtyDevs = []
@@ -1928,12 +1928,13 @@ class FSSet(object):
         ftype = getattr(fmt, "mountType", fmt.type)
         dtype = getattr(device.format, "mountType", device.format.type)
         if fstype != "auto" and ftype != dtype:
+            log.info("fstab says %s at %s is %s" % (dtype, mountpoint, ftype))
             if fmt.testMount():
-                # XXX FIXME: disallow migration for this FS instance
+                # XXX we should probably disallow migration for this fs
                 device.format = fmt
             else:
-                raise StorageError("scanned format (%s) differs from fstab "
-                                   "format (%s)" % (dtype, ftype))
+                raise FSTabTypeMismatchError("%s: detected as %s, fstab says %s"
+                                             % (mountpoint, dtype, ftype))
         del ftype
         del dtype
 
@@ -1949,7 +1950,7 @@ class FSSet(object):
 
         return device
 
-    def parseFSTab(self, chroot=None):
+    def parseFSTab(self, anaconda=None, chroot=None):
         """ parse /etc/fstab
 
             preconditions:
@@ -2018,7 +2019,15 @@ class FSSet(object):
                     # just write the line back out as-is after upgrade
                     self.preserveLines.append(line)
                     continue
-                except Exception as e:
+                except FSTabTypeMismatchError as e:
+                    if anaconda and hasattr(anaconda.intf, "messageWindow"):
+                        err = _("There is an entry in your /etc/fstab file "
+                                "that contains an invalid or incorrect "
+                                "filesystem type:\n\n  ")
+                        err += str(e)
+                        anaconda.intf.messageWindow(_("Error"), err)
+                        sys.exit(0)
+
                     raise Exception("fstab entry %s is malformed: %s" % (devspec, e))
 
                 if not device:
