@@ -39,7 +39,7 @@ class KeyboardWindow:
 	if anaconda.keyboard.beenset:
 	    default = anaconda.keyboard.get ()
 	else:
-	    default = anaconda.instLanguage.getDefaultKeyboard(ROOT_PATH)
+	    default = anaconda.instLanguage.getDefaultKeyboard()
 
         if default not in keyboards:
             default = 'us'
