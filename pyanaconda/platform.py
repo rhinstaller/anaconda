@@ -66,6 +66,10 @@ class Platform(object):
            all the methods in this class."""
         self.anaconda = anaconda
 
+        if flags.nogpt and "gpt" in self._disklabel_types and \
+           len(self._disklabel_types) > 1:
+            self._disklabel_types.remove("gpt")
+
     @property
     def diskLabelTypes(self):
         """A list of valid disklabel types for this architecture."""

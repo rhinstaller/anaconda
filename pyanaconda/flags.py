@@ -120,6 +120,8 @@ class Flags:
         if not selinux.is_selinux_enabled():
             self.__dict__['flags']['selinux'] = 0
 
+        self.__dict__['flags']['nogpt'] = self.__dict__['flags']['cmdline'].has_key("nogpt")
+
 global flags
 flags = Flags()
 
