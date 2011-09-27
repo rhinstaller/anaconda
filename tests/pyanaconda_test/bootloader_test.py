@@ -1,6 +1,6 @@
 import mock
 
-class BootloaderTest(mock.TestCase):
+class ArgumentsTest(mock.TestCase):
     def setUp(self):
         self.setupModules(
             ['_isys', 'logging', 'pyanaconda.anaconda_log', 'block',
@@ -14,7 +14,7 @@ class BootloaderTest(mock.TestCase):
     def tearDown(self):
         self.tearDownModules()
 
-    def test_argument(self):
+    def test_basic(self):
         from pyanaconda.bootloader import Arguments
         a = Arguments()
         a.update(set(["a", "b", "c"]))
@@ -24,3 +24,28 @@ class BootloaderTest(mock.TestCase):
         self.assertEqual(diff, set(["a", "c"]))
         self.assertIsInstance(diff, Arguments)
         assert(str(diff) in ["a c", "c a"])
+
+    def test_merge_ip(self):
+        from pyanaconda.bootloader import Arguments
+        # test that _merge_ip() doesnt break the simple case:
+        a = Arguments(["one", "two", "ip=eth0:dhcp"])
+        a._merge_ip()
+        self.assertEqual(a, Arguments(["one", "two", "ip=eth0:dhcp"]))
+
+        # test that it does what it's supposed to:
+        a = Arguments(["one", "two", "ip=eth0:dhcp", "ip=eth0:auto6",
+                       "ip=wlan0:dhcp",
+                       "ip=10.34.102.102::10.34.39.255:24:aklab:eth2:none"])
+        a._merge_ip()
+        self.assertEqual(a, set([
+                    "one", "two",
+                    "ip=wlan0:dhcp",
+                    "ip=10.34.102.102::10.34.39.255:24:aklab:eth2:none",
+                    "ip=eth0:auto6,dhcp"]))
+
+    def test_output_with_merge(self):
+        from pyanaconda.bootloader import Arguments
+        a = Arguments(["ip=eth0:dhcp"])
+        self.assertEqual(str(a), "ip=eth0:dhcp")
+        a = Arguments(["ip=eth0:dhcp", "ip=eth0:auto6"])
+        assert(str(a) in ["ip=eth0:auto6,dhcp", "ip=eth0:dhcp,auto6"])

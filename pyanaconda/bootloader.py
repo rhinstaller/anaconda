@@ -20,6 +20,7 @@
 # Red Hat Author(s): David Lehman <dlehman@redhat.com>
 #
 
+import collections
 import sys
 import os
 import re
@@ -77,9 +78,39 @@ def has_windows_boot_block(device):
 class BootLoaderError(Exception):
     pass
 
-
 class Arguments(set):
+    def _merge_ip(self):
+        """
+        Find ip= arguments targetting the same interface and merge them.
+        """
+        # partition the input
+        def partition_p(arg):
+            # we are only interested in ip= parameters that use some kind of
+            # automatic network setup:
+            return arg.startswith("ip=") and arg.count(":") == 1
+        ip_params = filter(partition_p, self)
+        rest = set(filter(lambda p: not partition_p(p), self))
+
+        # split at the colon:
+        ip_params = map(lambda p: p.split(":"), ip_params)
+        # create mapping from nics to their configurations
+        config = collections.defaultdict(list)
+        for (nic, cfg) in ip_params:
+            config[nic].append(cfg)
+
+        # generate the new parameters:
+        ip_params = set()
+        for nic in config:
+            ip_params.add("%s:%s" % (nic, ",".join(sorted(config[nic]))))
+
+        # update the set
+        self.clear()
+        self.update(rest)
+        self.update(ip_params)
+        return self
+
     def __str__(self):
+        self._merge_ip()
         return " ".join(self)
 
 class BootLoaderImage(object):
