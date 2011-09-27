@@ -159,6 +159,9 @@ class UdevError(StorageError):
 class UnrecognizedFSTabEntryError(StorageError):
     pass
 
+class FSTabTypeMismatchError(StorageError):
+    pass
+
 # dasd
 class DasdFormatError(StorageError):
     pass
