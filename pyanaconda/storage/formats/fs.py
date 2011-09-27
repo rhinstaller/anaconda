@@ -24,7 +24,6 @@
 """ Filesystem classes for use by anaconda.
 
     TODO:
-        - migration
         - bug 472127: allow creation of tmpfs filesystems (/tmp, /var/tmp, &c)
 """
 import math
@@ -575,6 +574,30 @@ class FS(DeviceFormat):
         # If we successfully loaded a kernel module, for this filesystem, we
         # also need to update the list of supported filesystems.
         kernel_filesystems = get_kernel_filesystems()
+
+    def testMount(self, options=None):
+        """ Try to mount the fs and return True if successful. """
+        ret = False
+
+        if self.status:
+            raise RuntimeError("filesystem is already mounted")
+
+        # create a temp dir
+        prefix = "%s.%s" % (os.path.basename(self.device), self.type)
+        mountpoint = tempfile.mkdtemp(prefix=prefix)
+
+        # try the mount
+        try:
+            self.mount(mountpoint=mountpoint)
+        except Exception as e:
+            log.info("test mount failed: %s" % e)
+        else:
+            self.unmount()
+            ret = True
+        finally:
+            os.rmdir(mountpoint)
+
+        return ret
 
     def mount(self, *args, **kwargs):
         """ Mount this filesystem.
