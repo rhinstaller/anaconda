@@ -1431,6 +1431,20 @@ class EFIGRUB(GRUB):
     def update(self, install_root=""):
         self.write(install_root=install_root)
 
+    #
+    # installation
+    #
+    def write(self, install_root=""):
+        """ Write the bootloader configuration and install the bootloader. """
+        if self.update_only:
+            self.update(install_root=install_root)
+            return
+
+        sync()
+        self.stage2_device.format.sync(root=install_root)
+        self.install(install_root=install_root)
+        self.write_config(install_root=install_root)
+
 class GRUB2(GRUB):
     """ GRUBv2
 
