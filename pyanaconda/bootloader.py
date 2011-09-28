@@ -1162,14 +1162,14 @@ class GRUB(BootLoader):
 
         if not flags.serial:
             splash = "splash.xpm.gz"
-            splash_path = os.path.normpath("%s%s/%s" % (install_root,
-                                                        self.config_dir,
-                                                        splash))
+            splash_path = os.path.normpath("%s/boot/grub/%s" % (install_root,
+                                                                splash))
+            log.debug("splash_path = %s" % (splash_path))
             if os.access(splash_path, os.R_OK):
                 grub_root_grub_name = self.grub_device_name(self.stage2_device)
-                config.write("splashimage=%s/%s/%s\n" % (grub_root_grub_name,
-                                                         self.grub_config_dir,
-                                                         splash))
+                config.write("splashimage=%s%s/grub/%s\n" % (grub_root_grub_name,
+                                                              self.boot_prefix,
+                                                              splash))
                 config.write("hiddenmenu\n")
 
         self.write_config_password(config)
