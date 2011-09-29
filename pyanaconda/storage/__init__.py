@@ -1589,7 +1589,7 @@ def mountExistingSystem(anaconda, rootEnt,
 
     # check for dirty filesystems
     dirtyDevs = []
-    for device in fsset.devices:
+    for device in fsset.mountpoints.values():
         if not hasattr(device.format, "isDirty"):
             continue
 
