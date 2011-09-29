@@ -232,6 +232,10 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Wed Sep 28 2011 Brian C. Lane <bcl@redhat.com> - 16.20-1
+- Fix the path for splash.xpm.gz in grub.conf (pjones)
+- Write the grub.conf after setting up the new EFI bootloader (#741994) (bcl)
+
 * Fri Sep 23 2011 Chris Lumens <clumens@redhat.com> - 16.19-1
 - Change default bootloader timeout from 20sec to 5sec. (#727831) (dlehman)
 - Bootloader stage1_drive is more than a suggestion. (#738964) (dlehman)
