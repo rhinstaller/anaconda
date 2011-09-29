@@ -44,7 +44,7 @@ class UpgradeBootloaderWindow (InstallWindow):
             self.dispatch.skip_steps("instbootloader")
             self.anaconda.bootloader.skip_bootloader = True
         else:
-            self.dispatch.request_steps("bootloader")
+            self.dispatch.request_steps_gently("bootloader")
             self.anaconda.bootloader.skip_bootloader = False
 
     def getScreen(self, anaconda):
