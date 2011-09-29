@@ -1519,7 +1519,7 @@ def setSteps(anaconda):
         if packagesSeen:
             dispatch.skip_steps("tasksel", "group-selection")
         else:
-            dispatch.request_steps("tasksel", "group-selection")
+            dispatch.request_steps("tasksel")
 
     if ksdata.ignoredisk.interactive:
         dispatch.request_steps("filtertype", "filter")
