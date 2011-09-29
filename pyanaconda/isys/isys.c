@@ -23,8 +23,8 @@
 #include <dirent.h>
 #include <errno.h>
 #define u32 __u32
-#include <ext2fs/ext2fs.h>
 #include <fcntl.h>
+#include <ext2fs/ext2fs.h>
 /* Need to tell loop.h what the actual dev_t type is. */
 #undef dev_t
 #if defined(__alpha) || (defined(__sparc__) && defined(__arch64__))
