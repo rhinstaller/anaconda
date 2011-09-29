@@ -79,6 +79,11 @@ class BootLoaderError(Exception):
     pass
 
 class Arguments(set):
+    ordering_dict = {
+        "rhgb" : 99,
+        "quiet" : 100
+        }
+
     def _merge_ip(self):
         """
         Find ip= arguments targetting the same interface and merge them.
@@ -111,7 +116,12 @@ class Arguments(set):
 
     def __str__(self):
         self._merge_ip()
-        return " ".join(self)
+        # sort the elements according to their values in ordering_dict. The
+        # higher the number the closer to the final string the argument
+        # gets. The default is 50.
+        lst = sorted(self, key=lambda s: self.ordering_dict.get(s, 50))
+
+        return " ".join(lst)
 
 class BootLoaderImage(object):
     """ Base class for bootloader images. Suitable for non-linux OS images. """

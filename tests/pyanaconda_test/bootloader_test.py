@@ -49,3 +49,11 @@ class ArgumentsTest(mock.TestCase):
         self.assertEqual(str(a), "ip=eth0:dhcp")
         a = Arguments(["ip=eth0:dhcp", "ip=eth0:auto6"])
         assert(str(a) in ["ip=eth0:auto6,dhcp", "ip=eth0:dhcp,auto6"])
+
+    def test_sorting(self):
+        from pyanaconda.bootloader import Arguments
+        a = Arguments(["ip=eth0:dhcp", "rhgb", "quiet",
+                       "root=/dev/mapper/destroyers-rubies", "rd.md=0",
+                       "rd.luks=0"])
+        # 'rhgb quiet' should be the final entries:
+        assert(str(a).endswith("rhgb quiet"))
