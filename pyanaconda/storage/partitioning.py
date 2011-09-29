@@ -227,6 +227,15 @@ def _scheduleLVs(storage, devs):
         # schedule the device for creation
         storage.createDevice(dev)
 
+def scheduleShrinkActions(storage):
+    """ Schedule actions to shrink partitions as per autopart selection. """
+    for (path, size) in storage.shrinkPartitions.items():
+        device = storage.getDeviceByPath(path)
+        if not device:
+            raise StorageError("device %s scheduled for shrink disappeared"
+                                % path)
+        storage.registerAction(ActionResizeFormat(device, size))
+        storage.registerAction(ActionResizeDevice(device, size))
 
 def doAutoPartition(anaconda):
     log.debug("doAutoPartition(%s)" % anaconda)
@@ -246,6 +255,7 @@ def doAutoPartition(anaconda):
     devs = []
 
     if anaconda.storage.doAutoPart:
+        scheduleShrinkActions(anaconda.storage)
         clearPartitions(anaconda.storage, bootloader=anaconda.bootloader)
         # update the bootloader's drive list to add disks which have their
         # whole disk format replaced by a disklabel. Make sure to keep any

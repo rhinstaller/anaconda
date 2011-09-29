@@ -357,6 +357,7 @@ class Storage(object):
         self.autoPartAddBackupPassphrase = False
         self.encryptionRetrofit = False
         self.autoPartitionRequests = []
+        self.shrinkPartitions = {}
         self.eddDict = {}
 
         self.__luksDevs = {}
@@ -482,7 +483,12 @@ class Storage(object):
             self.anaconda.rootParts = None
             self.anaconda.upgradeRoot = None
         if self.anaconda:
+            # clear out bootloader attributes that refer to devices that are
+            # no longer in the tree
             self.anaconda.bootloader.clear_drive_list()
+            self.anaconda.bootloader.stage1_drive = None
+            self.anaconda.bootloader.stage1_device = None
+
         self.dumpState("initial")
         if prog:
             prog.pop()

@@ -57,12 +57,17 @@ class ClearDisksWindow (InstallWindow):
                                              custom_icon="error")
             raise gui.StayOnScreen
 
-        bootDisk = selected[0][OBJECT_COL]
-
         cleardisks.sort(self.anaconda.storage.compareDisks)
+        self.resetStorage(clear=cleardisks, boot=selected[0][OBJECT_COL].name)
 
-        self.anaconda.storage.config.clearPartDisks = cleardisks
-        self.anaconda.bootloader.stage1_drive = bootDisk
+    def resetStorage(self, clear=None, boot=None):
+        """ Save clearPartDisks and reset storage, preserving stage1_drive. """
+        # Re-scan the devices. We only come here for autopart, so the clearpart
+        # type should be set appropriately already.
+        self.anaconda.storage.config.clearPartDisks = clear
+        self.anaconda.storage.reset()
+        boot_disk = self.anaconda.storage.devicetree.getDeviceByName(boot)
+        self.anaconda.bootloader.stage1_drive = boot_disk
 
     def getScreen (self, anaconda):
         # We can't just use exclusiveDisks here because of kickstart.  First,
@@ -73,10 +78,11 @@ class ClearDisksWindow (InstallWindow):
         # issues.
         disks = filter(lambda d: not d.format.hidden, anaconda.storage.disks)
 
+        self.anaconda = anaconda
+
         # Skip this screen as well if there's only one disk to use.
         if len(disks) == 1:
-            anaconda.storage.config.clearPartDisks = [disks[0].name]
-            anaconda.bootloader.stage1_drive = disks[0]
+            self.resetStorage(clear=[disks[0].name], boot=disks[0].name)
             return None
 
         (xml, self.vbox) = gui.getGladeWidget("cleardisks.glade", "vbox")
@@ -86,8 +92,6 @@ class ClearDisksWindow (InstallWindow):
         self.removeButton = xml.get_widget("removeButton")
         self.installTargetImage = xml.get_widget("installTargetImage")
         self.installTargetTip = xml.get_widget("installTargetTip")
-
-        self.anaconda = anaconda
 
         self.leftVisible = 1
         self.leftActive = 2

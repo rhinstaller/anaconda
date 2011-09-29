@@ -149,14 +149,6 @@ class PartitionTypeWindow(InstallWindow):
         if self.storage.checkNoDisks():
             raise gui.StayOnScreen
 
-        # reset storage, this is only done when moving forward, not back
-        # temporarily unset storage.config.clearPartType so that all devices
-        # will be found during storage reset
-        clearPartType = self.anaconda.storage.config.clearPartType
-        self.anaconda.storage.config.clearPartType = None
-        self.anaconda.storage.reset()
-        self.anaconda.storage.config.clearPartType = clearPartType
-
         self.storage.clearPartChoice = self.buttonGroup.getCurrent()
 
         if self.buttonGroup.getCurrent() == "custom":
@@ -165,13 +157,22 @@ class PartitionTypeWindow(InstallWindow):
             self.dispatch.request_steps("partition")
             self.dispatch.request_steps_gently("bootloader")
 
+            # re-scan all devices. this is handled in cleardisks_gui if autopart
             self.storage.config.clearPartType = CLEARPART_TYPE_NONE
+            self.storage.reset()
         else:
             if self.buttonGroup.getCurrent() == "shrink":
+                # we need to store this information so that it can survive
+                # storage.reset since it may get called going between
+                # the partitioning screen and the cleardisks screen when users
+                # elect to do autopart w/ review and go back and forth
                 (rc, actions) = whichToShrink(self.storage, self.intf)
                 if rc == gtk.RESPONSE_OK:
                     for action in actions:
-                        self.storage.devicetree.registerAction(action)
+                        path = action.device.path
+                        size = action.device.targetSize
+                        self.storage.shrinkPartitions[path] = size
+                        self.storage.devicetree.cancelAction(action)
                 else:
                     raise gui.StayOnScreen
 
