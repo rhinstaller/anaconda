@@ -1386,6 +1386,7 @@ class GRUB(BootLoader):
 
 
 class EFIGRUB(GRUB):
+    packages = ["grub-efi", "efibootmgr"]
     can_dual_boot = False
     _config_dir = "efi/EFI/redhat"
 
