@@ -1436,7 +1436,8 @@ class EFIGRUB(GRUB):
 
             if _product == productName:
                 slot_id = slot[4:8]
-                if not slot_id.isdigit():
+                # slot_id is hex, we can't use .isint and use this regex:
+                if not re.match("^[0-9a-fA-F]+$", slot_id):
                     log.warning("failed to parse efi boot slot (%s)" % slot)
                     continue
 
