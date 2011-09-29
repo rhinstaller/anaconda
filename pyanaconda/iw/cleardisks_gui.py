@@ -148,10 +148,11 @@ class ClearDisksWindow (InstallWindow):
         self.rightDS.addColumn(_("Capacity"), 7)
         self.rightDS.addColumn(_("Identifier"), 9)
 
-        # Store the first disk (according to our detected BIOS order) for
+        # Store the first disk (according to bootloader ordering) for
         # auto boot device selection
-        names = map(lambda d: d.name, disks)
-        self.bootDisk = sorted(names, self.anaconda.storage.compareDisks)[0]
+        self.bootDisk = getattr(self.anaconda.bootloader.stage1_drive,
+                                "name",
+                                self.anaconda.bootloader.drives[0].name)
 
         # The device filtering UI set up exclusiveDisks as a list of the names
         # of all the disks we should use later on.  Now we need to go get those,
@@ -159,8 +160,7 @@ class ClearDisksWindow (InstallWindow):
         # selector.
         for d in disks:
             rightVisible = d.name in self.anaconda.storage.config.clearPartDisks
-            rightActive = rightVisible and \
-                          d == self.anaconda.bootloader.drives[0]
+            rightActive = rightVisible and d.name == self.bootDisk
             leftVisible = not rightVisible
 
             if hasattr(d, "wwid"):

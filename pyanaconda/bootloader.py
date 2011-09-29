@@ -232,6 +232,7 @@ class BootLoader(object):
                 log.debug("using stage2 device as stage1")
                 self.stage1_device = self.stage2_device
             else:
+                log.debug("stage1_drive is %s" % self.stage1_drive)
                 devices = self.stage1_devices
                 if self.stage1_drive:
                     devices = [d for d in devices if
@@ -274,7 +275,8 @@ class BootLoader(object):
 
     def _sort_drives(self, drives):
         """Sort drives based on the drive order."""
-        _drives = drives[:]
+        _drives = sorted(drives,
+                         cmp=self.storage.compareDisks, key=lambda d: d.name)
         for name in reversed(self._drive_order):
             try:
                 idx = [d.name for d in _drives].index(name)
@@ -298,8 +300,7 @@ class BootLoader(object):
             # only generate the list if it is empty
             return self._drives
 
-        # XXX requiring partitioned may break clearpart
-        drives = [d for d in self.storage.disks if d.partitioned]
+        drives = [d for d in self.storage.disks if not d.format.hidden]
         self._drives = self._sort_drives(drives)
 
         # set "boot drive"
