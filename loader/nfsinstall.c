@@ -123,12 +123,14 @@ static int nfsGetSetup(char ** hostptr, char ** dirptr, char ** optsptr) {
 
 /* Parse nfs: url and return its componenets
  *
- * nfs[:options]:<server>:<path>
+ * (nfs|nfsiso)[:options]:<server>:<path>
  */
 void parseNfsHostPathOpts(char *url, char **host, char **path, char **opts) {
-    /* Skip over the leading nfs: if present. */
+    /* Skip over the leading nfs: or nfsiso: if present. */
     if (!strncmp(url, "nfs:", 4))
         url += 4;
+    else if (!strncmp(url, "nfsiso:", 7))
+        url += 7;
 
     logMessage(DEBUGLVL, "parseNfsHostPathOpts url: |%s|", url);
 
