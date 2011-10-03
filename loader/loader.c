@@ -78,6 +78,7 @@
 #include "modules.h"
 #include "moduleinfo.h"
 
+#include "hardware.h"
 #include "driverdisk.h"
 
 /* hardware stuff */
@@ -2150,8 +2151,8 @@ int main(int argc, char ** argv) {
     /* Save list of preloaded modules so we can restore the state */
     moduleState = mlSaveModuleState();
 
-    /* Load all known devices */
-    busProbe(FL_NOPROBE(flags));
+    /* Load all known devices (allow 2s delay for kernel stuff) */
+    if (!FL_NOPROBE(flags)) detectHardware(USB_DETECT_DELAY);
 
     if (FL_AUTOMODDISK(flags)) {
         /* Load all autodetected DDs */
@@ -2195,7 +2196,7 @@ int main(int argc, char ** argv) {
 
                 /* Unload all devices and load them again to use the updated modules */
                 mlRestoreModuleState(moduleState);
-                busProbe(FL_NOPROBE(flags));
+                if (!FL_NOPROBE(flags)) detectHardware(USB_DETECT_DELAY);
             }
 
         ddcontinue:            
@@ -2224,9 +2225,9 @@ int main(int argc, char ** argv) {
         getDDFromSource(&loaderData, "path:/dd.img", moduleState);
     }
     
-    /* Reset depmod & modprobe to normal mode and get the rest of drivers*/
+    /* Reset depmod & modprobe to normal mode and get the rest of drivers */
     mlFreeModuleState(moduleState);
-    busProbe(FL_NOPROBE(flags));
+    if (!FL_NOPROBE(flags)) detectHardware(USB_DETECT_DELAY);
 
     /* HAL daemon */
     if (fork() == 0) {

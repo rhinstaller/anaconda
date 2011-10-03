@@ -676,7 +676,7 @@ int loadDriverFromMedia(int class, struct loaderData_s *loaderData,
             /* Unload all devices and load them again to use the updated modules */
             logMessage(INFO, "Trying to refresh loaded drivers");
             mlRestoreModuleState(moduleState);
-            busProbe(noprobe);
+            if (!noprobe) detectHardware(USB_DETECT_DELAY);
 
             /* Get info about modules after the update */
             postDDstate = mlVersions();
@@ -770,7 +770,7 @@ static void loadFromLocation(struct loaderData_s * loaderData, char * dir, GTree
     /* Unload all devices and load them again to use the updated modules */
     logMessage(INFO, "Trying to refresh loaded drivers");
     mlRestoreModuleState(moduleState);
-    busProbe(FL_NOPROBE(flags));
+    if (!FL_NOPROBE(flags)) detectHardware(USB_DETECT_DELAY);
 }
 
 void getDDFromSource(struct loaderData_s * loaderData, char * src, GTree *moduleState) {

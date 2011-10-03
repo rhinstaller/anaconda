@@ -45,7 +45,7 @@
 /* boot flags */
 extern uint64_t flags;
 
-static int detectHardware() {
+int detectHardware(int delay) {
     int child, rc, status;
     int timeout = 0; /* FIXME: commandline option for this */
 
@@ -100,6 +100,13 @@ static int detectHardware() {
     if (rc) {
         return LOADER_ERROR;
     }
+
+    /*
+     * if delay was requested, give kernel time to process everything
+     * (as an example: usb-storage has an internal delay we need to wait for..)
+     */
+    sleep(delay);
+
     return LOADER_OK;
 }
 
@@ -139,12 +146,7 @@ int earlyModuleLoad(int justProbe) {
             mlLoadModuleSet(argv[i] + 11);
         }
     }
+
     return 0;
 }
 
-int busProbe(int justProbe) {
-    /* autodetect whatever we can */
-    if (justProbe)
-        return 0;
-    return detectHardware();
-}

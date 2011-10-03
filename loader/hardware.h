@@ -22,7 +22,17 @@
 
 #include "modules.h"
 
+/*
+  USB and SCSI subsystems have 1s delay loop to allow for all their devices
+  to settle before enumerating. We have to wait too after udev settles, because
+  we are missing those devices otherwise.
+*/
+#define USB_DETECT_DELAY 2
+
 int earlyModuleLoad(int justProbe);
-int busProbe(int justProbe);
+
+/* does explicit hardware detection with configurable delay after
+   udev finishes it's stuff */
+int detectHardware(int delay);
 
 #endif
