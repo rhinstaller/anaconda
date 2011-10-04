@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.244
+Version: 11.1.2.245
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -128,6 +128,12 @@ fi
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Oct 04 2011 Martin Gracik <mgracik@redhat.com> 11.1.2.245-1
+- Initialize useIPv6 device setting (rvykydal)
+  Resolves: rhbz#713120
+- Accept dotted-quad netmask for IPv4 in loader UI (rvykydal)
+  Resolves: rhbz#719578
+
 * Fri Sep 23 2011 Martin Gracik <mgracik@redhat.com> 11.1.2.244-1
 - Remove old labels before labeling disk entries (mgracik)
   Resolves: rhbz#566668
