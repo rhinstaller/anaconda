@@ -924,8 +924,6 @@ class InstallInterface(InstallInterfaceBase):
 
             # update ifcfg files for nm-c-e
             self.anaconda.network.setNMControlledDevices(nm_controlled_devices)
-            if not just_setup:
-                self.anaconda.network.presetDefaultConfiguration([install_device])
 
             # we might want to do this only once
             if self.anaconda.network.hasWirelessDev():
