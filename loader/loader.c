@@ -128,7 +128,6 @@ int num_link_checks = 5;
 int post_link_sleep = 0;
 
 static int init_sig = SIGUSR1; /* default to shutdown=halt */
-static const char *LANG_DEFAULT = "en_US.UTF-8";
 
 static char *VIRTIO_PORT = "/dev/virtio-ports/org.fedoraproject.anaconda.log.0";
 
@@ -2063,7 +2062,7 @@ int main(int argc, char ** argv) {
     if (loaderData.lang && loaderData.lang_set == 1) {
         setLanguage(loaderData.lang, 1);
     } else {
-        setLanguage("en_US.UTF-8", 1);
+        setLanguage(LANG_DEFAULT, 1);
     }
 
     /* FIXME: this is a bit of a hack */

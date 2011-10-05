@@ -47,6 +47,8 @@
 #include "../pyanaconda/isys/isys.h"
 #include "../pyanaconda/isys/log.h"
 
+const char *LANG_DEFAULT = "en_US.UTF-8";
+
 /* boot flags */
 extern uint64_t flags;
 
@@ -368,7 +370,7 @@ static char * getLangNick(char * oldLang) {
     return lang;
 }
 
-int setLanguage (char * key, int forced) {
+int setLanguage (const char * key, int forced) {
     int i;
 
     if (!languages) loadLanguageList();
