@@ -36,6 +36,7 @@
 #include <sys/wait.h>
 #include <unistd.h>
 #include <wchar.h>
+#include <glib.h>
 
 #include "loader.h"
 #include "lang.h"
@@ -103,6 +104,14 @@ char * translateString(char * str) {
 static struct langInfo * languages = NULL;
 static int numLanguages = 0;
 
+static int defaultLanguageIndex(void) {
+    int i;
+    for (i = 0; i < numLanguages; ++i)
+        if (!strcmp(languages[i].lc_all, LANG_DEFAULT))
+            return i;
+    return -1;
+}
+
 static void loadLanguageList(void) {
     char * file = "/etc/lang-table";
     FILE * f;
@@ -142,6 +151,25 @@ int getLangInfo(struct langInfo ** langs) {
 
     *langs = languages;
     return numLanguages;
+}
+
+/**
+ * Normalize the value of lang= boot argument.
+ *
+ * Currently only replaces the trailing .utf8 with .UTF-8.
+ *
+ * Returns a heap-allocated string.
+ */
+gchar *normalizeLang(const gchar *s)
+{
+    if (g_str_has_suffix(s, ".utf8")) {
+        gchar *lang = g_strndup(s, strlen(s) - strlen(".utf8"));
+        gchar *result = g_strconcat(lang, ".UTF-8", NULL);
+        g_free(lang);
+        return result;
+    }
+
+    return g_strdup(s);
 }
 
 void loadLanguage(void)
@@ -395,8 +423,9 @@ int setLanguage (const char * key, int forced) {
         }
     }
 
-    logMessage(ERROR, "unable to set to requested language %s", key);
-    return -1;
+    logMessage(ERROR, "unable to set the requested language '%s', "
+               "setting the default '%s'", key, LANG_DEFAULT);
+    return setupLanguage(defaultLanguageIndex(), forced | !FL_KICKSTART(flags));
 }
 
 int chooseLanguage(char ** lang) {

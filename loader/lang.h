@@ -34,6 +34,7 @@ int chooseLanguage(char ** lang);
 char * translateString(char * str);
 int setLanguage (const char * key, int forced);
 int getLangInfo(struct langInfo **langs);
+char * normalizeLang(const char *s);
 
 extern const char *LANG_DEFAULT;
 
