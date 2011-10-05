@@ -32,7 +32,9 @@ struct langInfo {
 
 int chooseLanguage(char ** lang);
 char * translateString(char * str);
-int setLanguage (char * key, int forced);
+int setLanguage (const char * key, int forced);
 int getLangInfo(struct langInfo **langs);
+
+extern const char *LANG_DEFAULT;
 
 #endif /* _LANG_H_ */
