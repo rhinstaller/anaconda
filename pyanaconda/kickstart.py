@@ -959,13 +959,6 @@ class RaidData(commands.raid.F15_RaidData):
 
             raidmems.append(dev)
 
-        if not self.preexist:
-            if len(raidmems) == 0:
-                raise KickstartValueError, formatErrorMsg(self.lineno, msg="RAID Partition defined without any RAID members")
-
-            if self.level == "":
-                raise KickstartValueError, formatErrorMsg(self.lineno, msg="RAID Partition defined without RAID level")
-
         # Now get a format to hold a lot of these extra values.
         kwargs["format"] = getFormat(type,
                                      label=self.label,
