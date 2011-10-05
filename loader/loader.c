@@ -992,7 +992,7 @@ static void parseCmdLineFlags(struct loaderData_s * loaderData) {
             } else if (!strcasecmp(k, "display")) {
                 setenv("DISPLAY", v, 1);
             } else if (!strcasecmp(k, "lang")) {
-                loaderData->lang = g_strdup(v);
+                loaderData->lang = normalizeLang(v);
                 loaderData->lang_set = 1;
             } else if (!strcasecmp(k, "keymap")) {
                 loaderData->kbd = g_strdup(v);
