@@ -1202,7 +1202,7 @@ class DeviceTree(object):
                 if not container_info:
                     log.error("failed to find md container %s at %s"
                                 % (parentName, container_sysfs))
-                return
+                    return
 
                 container = self.addUdevDevice(container_info)
                 if not container:
