@@ -64,7 +64,8 @@ class ClearDisksWindow (InstallWindow):
         """ Save clearPartDisks and reset storage, preserving stage1_drive. """
         # Re-scan the devices. We only come here for autopart, so the clearpart
         # type should be set appropriately already.
-        self.anaconda.storage.config.clearPartDisks = clear
+        if self.anaconda.storage.doAutoPart:
+            self.anaconda.storage.config.clearPartDisks = clear
         self.anaconda.storage.reset()
         boot_disk = self.anaconda.storage.devicetree.getDeviceByName(boot)
         self.anaconda.bootloader.stage1_drive = boot_disk
@@ -158,12 +159,19 @@ class ClearDisksWindow (InstallWindow):
                                 "name",
                                 self.anaconda.bootloader.drives[0].name)
 
+        if self.anaconda.storage.doAutoPart:
+            use_disks = self.anaconda.storage.config.clearPartDisks
+        else:
+            use_disks = [d.name for d in disks]
+            self.addButton.set_sensitive(False)
+            self.removeButton.set_sensitive(False)
+
         # The device filtering UI set up exclusiveDisks as a list of the names
         # of all the disks we should use later on.  Now we need to go get those,
         # look up some more information in the devicetree, and set up the
         # selector.
         for d in disks:
-            rightVisible = d.name in self.anaconda.storage.config.clearPartDisks
+            rightVisible = d.name in use_disks
             rightActive = rightVisible and d.name == self.bootDisk
             leftVisible = not rightVisible
 
