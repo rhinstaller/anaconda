@@ -133,6 +133,9 @@ class fcoe(object):
             # Ideally, this should be done by checking a "AUTO_VLAN" parameter,
             # not bnx2x driver usage
             if 'bnx2x' in os.path.realpath('/sys/class/net/%s/device/driver' %(nic)):
+                # certain network configrations require the VLAN layer module:
+                iutil.execWithRedirect("modprobe", ["8021q"],
+                                       stdout = "/dev/tty5", stderr="/dev/tty5")
                 iutil.execWithRedirect("fipvlan", ['-c', '-s', nic],
                                     stdout = "/dev/tty5", stderr="/dev/tty5")
             else:
