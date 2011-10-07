@@ -19,7 +19,8 @@
 
 EXTRA_DIST = install-methods.txt mediacheck.txt anaconda-release-notes.txt \
              lvm_sanity_checks.txt rescue-mode api.cfg making-screenshots \
-             threads.txt command-line.txt gettext.txt command-line.txt
+             threads.txt command-line.txt gettext.txt command-line.txt \
+             transifex.txt
 
 CLEANFILES = api *.xml
 
