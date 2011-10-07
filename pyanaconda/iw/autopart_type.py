@@ -153,13 +153,10 @@ class PartitionTypeWindow(InstallWindow):
 
         if self.buttonGroup.getCurrent() == "custom":
             self.dispatch.skip_steps("autopartitionexecute")
-            self.dispatch.skip_steps("cleardiskssel")
+            self.dispatch.request_steps_gently("cleardiskssel")
             self.dispatch.request_steps("partition")
             self.dispatch.request_steps_gently("bootloader")
-
-            # re-scan all devices. this is handled in cleardisks_gui if autopart
             self.storage.config.clearPartType = CLEARPART_TYPE_NONE
-            self.storage.reset()
         else:
             if self.buttonGroup.getCurrent() == "shrink":
                 # we need to store this information so that it can survive
