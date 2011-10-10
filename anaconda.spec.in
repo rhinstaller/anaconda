@@ -223,6 +223,27 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Mon Oct 10 2011 David Cantrell <dcantrell@redhat.com> - 13.21.143-1
+- Remove references to 'ku', 'lo', and 'my' languages. (dcantrell)
+  Related: rhbz#744094
+- Ignore po/*.po (dcantrell)
+  Related: rhbz#744094
+- Remove po/*.po files as we are using transifex now. (dcantrell)
+  Related: rhbz#744094
+- Use transifex to pull translations for rhel6-branch (dcantrell)
+  Related: rhbz#744094
+- Update ja translations (dcantrell)
+  Resolves: rhbz#744094
+- fcoe: modprobe the VLAN layer module. (akozumpl)
+  Related: rhbz#641420
+- Wait after udev settles in DD code as usb has hardcoded timeout in kernel
+  module (msivak)
+  Related: rhbz#732496
+- Fix intendation error (dcantrell)
+  Resolves: rhbz#740870
+- Only check relevant devices for dirty filesystems. (dlehman)
+  Resolves: rhbz#741206
+
 * Mon Oct 03 2011 David Cantrell <dcantrell@redhat.com> - 13.21.142-1
 - Fix logging= parameter for tboot.gz grub.conf configuration (dcantrell)
   Resolves: rhbz#742152
