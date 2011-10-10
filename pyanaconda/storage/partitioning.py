@@ -973,7 +973,6 @@ def doPartitioning(storage, bootloader=None):
         pass
 
     removeNewPartitions(disks, partitions)
-    free = getFreeRegions(disks)
 
     if storage.platform.weight(fstype="biosboot") > 0:
         # add a request for a bios boot partition on every disk that contains a
@@ -1011,6 +1010,7 @@ def doPartitioning(storage, bootloader=None):
             storage.createDevice(part)
             partitions.append(part)
 
+    free = getFreeRegions(disks)
     try:
         allocatePartitions(storage, disks, partitions, free,
                            bootloader=bootloader)
