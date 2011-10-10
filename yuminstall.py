@@ -2026,6 +2026,11 @@ debuglevel=6
         for repo in self.ayum.repos.listEnabled():
             if repo.name == "Installation Repo":
                 continue
+            if repo.name == "Red Hat Enterprise Linux":
+                continue
+            # ignore addon repos from media
+            if repo.anacondaBaseURLs[0].startswith("file://"):
+                continue
 
             line = "repo --name=\"%s\" " % (repo.name or repo.repoid)
 
