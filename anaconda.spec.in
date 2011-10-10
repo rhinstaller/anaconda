@@ -222,6 +222,10 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Mon Oct 10 2011 David Cantrell <dcantrell@redhat.com> - 13.21.144-1
+- Do not require transifex-client for builds. (dcantrell)
+  Related: rhbz#744094
+
 * Mon Oct 10 2011 David Cantrell <dcantrell@redhat.com> - 13.21.143-1
 - Remove references to 'ku', 'lo', and 'my' languages. (dcantrell)
   Related: rhbz#744094
