@@ -1219,8 +1219,8 @@ class GRUB(BootLoader):
     def write_config_images(self, config):
         """ Write image entries into configuration file. """
         for image in self.images:
+            args = Arguments()
             if isinstance(image, LinuxBootLoaderImage):
-                args = Arguments()
                 grub_root = self.grub_device_name(self.stage2_device)
                 args.update(["ro", "root=%s" % image.device.fstabSpec])
                 args.update(self.boot_args)
@@ -1252,6 +1252,7 @@ class GRUB(BootLoader):
                           % {"label": image.label,
                              "grub_root": self.grub_device_name(image.device)})
 
+            log.info("bootloader.py: used boot args: %s " % args)
             config.write(stanza)
 
     def write_device_map(self):
@@ -1640,6 +1641,7 @@ class GRUB2(GRUB):
         # this is going to cause problems for systems containing multiple
         # linux installations or even multiple boot entries with different
         # boot arguments
+        log.info("bootloader.py: used boot args: %s " % self.boot_args)
         defaults.write("GRUB_CMDLINE_LINUX=\"%s\"\n" % self.boot_args)
         defaults.close()
 
@@ -1757,6 +1759,7 @@ class YabootSILOBase(BootLoader):
                 root_line = ""
 
             args.update(self.boot_args)
+            log.info("bootloader.py: used boot args: %s " % args)
 
             stanza = ("image=%(boot_prefix)s%(kernel)s\n"
                       "\tlabel=%(label)s\n"
@@ -1923,6 +1926,7 @@ class ZIPL(BootLoader):
                 initrd_line = ""
             args.add("root=%s/%s" % (self.boot_dir, image.kernel))
             args.update(self.boot_args)
+            log.info("bootloader.py: used boot args: %s " % args)
             stanza = ("[%(label)s]\n"
                       "\timage=%(boot_dir)s/%(kernel)s\n"
                       "%(initrd_line)s"
