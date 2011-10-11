@@ -34,7 +34,7 @@ import sys
 DEFAULT_PORT = 6080
 DEFAULT_ANALOG_DIR = '.analog'
 USAGE = "%prog [options] <log directory root>"
-HINT = "/sbin/rsyslogd -c 4 -f %(conf)s -i %(pid)s"
+HINT = "/sbin/rsyslogd -c 5 -f %(conf)s -i %(pid)s"
 PID_LOCATION = "/tmp/%(username)s/rsyslogd_%(unique_id)s.pid"
 
 INPUT_TCP_TEMPLATE = "$InputTCPServerRun %(port)s"
