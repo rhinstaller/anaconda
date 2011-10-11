@@ -265,3 +265,9 @@ blacklist {
         ret += '}\n'
 
         return ret
+
+def flush_mpaths():
+    iutil.execWithRedirect("multipath", ["-F"])
+    check_output = iutil.execWithCapture("multipath", ["-ll"]).strip()
+    if check_output:
+        log.error("multipath: some devices could not be flushed")

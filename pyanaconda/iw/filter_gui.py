@@ -34,7 +34,7 @@ from iw_gui import *
 from pyanaconda.storage.devices import devicePathToName
 from pyanaconda.storage.udev import *
 from pyanaconda.storage.devicelibs.mpath\
-    import MultipathTopology, MultipathConfigWriter
+    import MultipathTopology, MultipathConfigWriter, flush_mpaths
 from pyanaconda.flags import flags
 from pyanaconda.storage import iscsi
 from pyanaconda.storage import fcoe
@@ -630,6 +630,11 @@ class FilterWindow(InstallWindow):
             mpath_cfg.write(cfg)
 
         topology = MultipathTopology(disks)
+        # identifyMultipaths() uses 'multipath -d' and 'multipath -ll' to find
+        # mpath devices. In case there are devices already set up they won't
+        # show up (or show up with a wrong name). Flush those first.
+        flush_mpaths()
+
         # The device list could be really long, so we really only want to
         # iterate over it the bare minimum of times.  Dividing this list up
         # now means fewer elements to iterate over later.
