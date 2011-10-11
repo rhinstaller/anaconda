@@ -78,6 +78,7 @@ $template path_sysimage, "%(directory)s/%(subdirectory)s/install.log.syslog"
 
 kern.*;\\
 daemon.*;\\
+user.info;\\
 authpriv.*                                          ?path_syslog;anaconda_syslog
 
 :programname, isequal, "loader"                     ?path_anaconda;anaconda_syslog
@@ -97,11 +98,12 @@ authpriv.*                                          ?path_syslog;anaconda_syslog
 :programname, isequal, "program"                     ~
 :programname, isequal, "storage"                     ~
 :programname, isequal, "xserver"                     ~
-:programname, isequal, "ifcfg"                      ~
+:programname, isequal, "ifcfg"                       ~
 :hostname, isequal, "sysimage"                       ~
 kern.*                                               ~
 daemon.*                                             ~
 authpriv.*                                           ~
+user.info                                            ~
 # dump the rest
 *.*                                                  %(directory)s/debug_unknown_source.log;anaconda_debug
 
