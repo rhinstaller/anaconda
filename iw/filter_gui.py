@@ -629,15 +629,13 @@ class FilterWindow(InstallWindow):
         with open("/etc/multipath.conf", "w+") as mpath_cfg:
             mpath_cfg.write(cfg)
 
-        if anaconda.isKickstart:
-            # identifyMultipaths() uses 'multipath -d' to find mpath devices. In
-            # case this is an interactive kickstart install, it wouldn't display
-            # those already set up during the early storageInitialize() unless
-            # we flush them first.
-            log.info("filter_gui: flushing all multipath devices.")
-            iutil.execWithRedirect("multipath", ["-F"])
-        (singlepaths, mpaths, partitions) = identifyMultipaths(disks)
+        # identifyMultipaths() uses 'multipath -d' and 'multipath -ll' to find
+        # mpath devices. In case there are devices already set up they won't
+        # show up (or show up with a wrong name). Flush those first.
+        log.info("filter_gui: flushing all multipath devices.")
+        flush_mpaths()
 
+        (singlepaths, mpaths, partitions) = identifyMultipaths(disks)
         # The device list could be really long, so we really only want to
         # iterate over it the bare minimum of times.  Dividing this list up
         # now means fewer elements to iterate over later.
