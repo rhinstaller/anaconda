@@ -232,6 +232,29 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Tue Oct 11 2011 Chris Lumens <clumens@redhat.com> - 16.21-1
+- Pull grub-efi and efibootmgr into the package list as needed. (#742042)
+  (pjones)
+- Handle strange lang boot argument values. (akozumpl)
+- LANG_DEFAULT lives in lang.c. (akozumpl)
+- Set default BOOTPROTO=dhcp for network service (minimal installs) (#741199)
+  (rvykydal)
+- Fix: Allow EFI slot_ids in hexdecimal (#742141). (fabian.deutsch)
+- Move the fedora logo to the left. (akozumpl)
+- fcoe: fix detecting FCoE NIC (mcb30)
+- Do not show loop devices in the filtering UI. (akozumpl)
+- dispatcher: do not request "group-selection" with "tasksel". (akozumpl)
+- upgrade: do not insist on running the "bootloader" step. (akozumpl)
+- Fix sigsegv in setKickstartNetwork() (strdup() from a NULL). (akozumpl)
+- Add nfsiso: handling to parseNfsHostPathOpts (bcl)
+- Only check relevant devices for dirty filesystems. (#741206) (dlehman)
+- Make sure storage is reset just before partitioning, always. (dlehman)
+- Move selection of default boot drive into bootloader. (dlehman)
+- Show error dialog instead of traceback on fstab type mismatch. (#649171)
+  (dlehman)
+- Try a test mount and keep fstab mismatches if it succeeds. (#649171)
+  (dlehman)
+
 * Wed Sep 28 2011 Brian C. Lane <bcl@redhat.com> - 16.20-1
 - Fix the path for splash.xpm.gz in grub.conf (pjones)
 - Write the grub.conf after setting up the new EFI bootloader (#741994) (bcl)
