@@ -1313,6 +1313,7 @@ class PartitionWindow(InstallWindow):
             we will want to support creation and removal of partitionable
             devices. This will need some work when that time comes.
         """
+
         device = self.tree.getCurrentDevice()
         if device.partitioned:
             if doClearPartitionedDevice(self.intf,
@@ -1330,6 +1331,16 @@ class PartitionWindow(InstallWindow):
                     device.vg._removeLogVol(device)
 
             self.refresh(justRedraw=justRedraw)
+
+    def _deleteCB(self, widget):
+        """ deleteCB wrapper
+
+        Blocks and unblocks handlers for the other buttons """
+
+        self._blockButtonHandlers("delete")
+        gui.processEvents()
+        self.deleteCB(widget)
+        self._unblockButtonHandlers("delete")
 
     def createCB(self, *args):
         # First we must decide what parts of the create_storage_dialog
@@ -1555,6 +1566,16 @@ class PartitionWindow(InstallWindow):
             self.editPartition(device, isNew = True)
             return
 
+    def _createCB(self, *args):
+        """ createCB wrapper
+
+        Blocks and unblocks handlers for the other buttons """
+
+        self._blockButtonHandlers("create")
+        gui.processEvents()
+        self.createCB(*args)
+        self._unblockButtonHandlers("create")
+
     def resetCB(self, *args):
         if not confirmResetPartitionState(self.intf):
             return
@@ -1568,6 +1589,16 @@ class PartitionWindow(InstallWindow):
         self.storage.clearPartType = clearPartType
         self.tree.clear()
         self.populate()
+
+    def _resetCB(self, *args):
+        """ resetCB wrapper
+
+        Blocks and unblocks handlers for the other buttons """
+
+        self._blockButtonHandlers("reset")
+        gui.processEvents()
+        self.resetCB(*args)
+        self._unblockButtonHandlers("reset")
 
     def refresh(self, justRedraw=None):
         log.debug("refresh: justRedraw=%s" % justRedraw)
@@ -1636,6 +1667,16 @@ class PartitionWindow(InstallWindow):
             self.editLVMLogicalVolume(lv = device)
         elif isinstance(device, storage.devices.PartitionDevice):
             self.editPartition(device)
+
+    def _editCB(self, *args):
+        """ editCB wrapper
+
+        Blocks and unblocks handlers for the other buttons """
+
+        self._blockButtonHandlers("edit")
+        gui.processEvents()
+        self.editCB(*args)
+        self._unblockButtonHandlers("edit")
 
     # isNew implies that this request has never been successfully used before
     def editRaidArray(self, raiddev, isNew = False):
@@ -1814,15 +1855,20 @@ class PartitionWindow(InstallWindow):
         buttonBox.set_spacing(6)
         buttonBox.set_layout(gtk.BUTTONBOX_END)
 
-        ops = ((_("_Create"), self.createCB),
-               (_("_Edit"), self.editCB),
-               (_("_Delete"), self.deleteCB),
-               (_("Re_set"), self.resetCB))
+        ops = ((_("_Create"), self._createCB, "create"),
+               (_("_Edit"), self._editCB, "edit"),
+               (_("_Delete"), self._deleteCB, "delete"),
+               (_("Re_set"), self._resetCB, "reset"))
 
-        for label, cb in ops:
+        self._buttons = {}
+        self._handlers = {}
+
+        for label, cb, ident in ops:
             button = gtk.Button(label)
             buttonBox.add (button)
-            button.connect ("clicked", cb)
+
+            self._buttons[ident] = button
+            self._handlers[ident] = button.connect ("clicked", cb)
 
             # We need these to control their sensitivity.
             if label == _("_Edit"):
@@ -1866,3 +1912,13 @@ class PartitionWindow(InstallWindow):
         MVbox.pack_start(gtk.HSeparator(), False)
 
         return MVbox
+
+    def _blockButtonHandlers(self, pressed):
+        for ident in self._buttons:
+            if ident != pressed:
+                self._buttons[ident].handler_block(self._handlers[ident])
+
+    def _unblockButtonHandlers(self, pressed):
+        for ident in self._buttons:
+            if ident != pressed:
+                self._buttons[ident].handler_unblock(self._handlers[ident])
