@@ -543,7 +543,8 @@ class NetworkWindow(InstallWindow):
 class NetworkDeviceEditWindow:
     def __init__(self, netwin):
         self.netwin = netwin
-        self.xml = gtk.glade.XML(gui.findGladeFile('netpostconfig.glade'))
+        self.xml = gtk.glade.XML(gui.findGladeFile('netpostconfig.glade'),
+                                 domain="anaconda")
 
         # Pull in a ton of widgets.
         self.toplevel = self.xml.get_widget("net_post_config_win")
