@@ -222,6 +222,10 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Thu Oct 13 2011 David Cantrell <dcantrell@redhat.com> - 13.21.145-1
+- Block button handlers after a button is pressed (mgracik)
+  Resolves: rhbz#738217
+
 * Mon Oct 10 2011 David Cantrell <dcantrell@redhat.com> - 13.21.144-1
 - Do not require transifex-client for builds. (dcantrell)
   Related: rhbz#744094

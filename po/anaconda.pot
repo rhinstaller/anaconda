@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 13.21.143\n"
+"Project-Id-Version: anaconda 13.21.144\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2011-10-10 11:40-0400\n"
+"POT-Creation-Date: 2011-10-13 13:13-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -125,7 +125,7 @@ msgstr ""
 
 #: bootloader.py:60 image.py:92 image.py:253 kickstart.py:1457
 #: kickstart.py:1496 upgrade.py:58 yuminstall.py:1392 yuminstall.py:1569
-#: iw/partition_gui.py:1598 storage/__init__.py:2057
+#: iw/partition_gui.py:1629 storage/__init__.py:2057
 msgid "_Continue"
 msgstr ""
 
@@ -920,8 +920,8 @@ msgid "You are about to delete all partitions on the device '%s'."
 msgstr ""
 
 #: partIntfHelpers.py:159 partIntfHelpers.py:344 iw/lvm_dialog_gui.py:887
-#: iw/lvm_dialog_gui.py:1473 iw/osbootwidget.py:104 iw/partition_gui.py:1819
-#: iw/partition_gui.py:1831
+#: iw/lvm_dialog_gui.py:1473 iw/osbootwidget.py:104 iw/partition_gui.py:1860
+#: iw/partition_gui.py:1877
 msgid "_Delete"
 msgstr ""
 
@@ -969,7 +969,7 @@ msgstr ""
 msgid "Format?"
 msgstr ""
 
-#: partIntfHelpers.py:251 iw/partition_gui.py:1596
+#: partIntfHelpers.py:251 iw/partition_gui.py:1627
 msgid "_Modify Partition"
 msgstr ""
 
@@ -2568,7 +2568,7 @@ msgstr ""
 msgid "The volume group name \"%s\" is already in use. Please pick another."
 msgstr ""
 
-#: iw/lvm_dialog_gui.py:1102 iw/partition_gui.py:1584
+#: iw/lvm_dialog_gui.py:1102 iw/partition_gui.py:1615
 #: storage/partitioning.py:231 storage/partitioning.py:274
 msgid "Error Partitioning"
 msgstr ""
@@ -2652,8 +2652,8 @@ msgstr ""
 msgid "_Add"
 msgstr ""
 
-#: iw/lvm_dialog_gui.py:1470 iw/osbootwidget.py:100 iw/partition_gui.py:1818
-#: iw/partition_gui.py:1828
+#: iw/lvm_dialog_gui.py:1470 iw/osbootwidget.py:100 iw/partition_gui.py:1859
+#: iw/partition_gui.py:1874
 msgid "_Edit"
 msgstr ""
 
@@ -2894,11 +2894,11 @@ msgstr ""
 msgid "Extended"
 msgstr ""
 
-#: iw/partition_gui.py:1364
+#: iw/partition_gui.py:1375
 msgid "Cannot perform any creation action"
 msgstr ""
 
-#: iw/partition_gui.py:1365
+#: iw/partition_gui.py:1376
 msgid ""
 "Note that the creation action requires one of the following:\n"
 "\n"
@@ -2908,7 +2908,7 @@ msgid ""
 "* At least one Volume Group with free space."
 msgstr ""
 
-#: iw/partition_gui.py:1468
+#: iw/partition_gui.py:1479
 #, python-format
 msgid ""
 "Software RAID allows you to combine several disks into a larger RAID "
@@ -2917,7 +2917,7 @@ msgid ""
 "using RAID devices please consult the %s documentation.\n"
 msgstr ""
 
-#: iw/partition_gui.py:1474
+#: iw/partition_gui.py:1485
 msgid ""
 "To use RAID you must first create at least two partitions of type 'software "
 "RAID'.  Then you can create a RAID device that can be formatted and "
@@ -2925,18 +2925,18 @@ msgid ""
 "\n"
 msgstr ""
 
-#: iw/partition_gui.py:1478
+#: iw/partition_gui.py:1489
 #, python-format
 msgid "You currently have %d software RAID partition free to use."
 msgid_plural "You currently have %d software RAID partitions free to use."
 msgstr[0] ""
 msgstr[1] ""
 
-#: iw/partition_gui.py:1482
+#: iw/partition_gui.py:1493
 msgid "About RAID"
 msgstr ""
 
-#: iw/partition_gui.py:1488
+#: iw/partition_gui.py:1499
 #, python-format
 msgid ""
 "Logical Volume Manager (LVM) is a 3 level construct. The fist level is made "
@@ -2947,7 +2947,7 @@ msgid ""
 "using LVM please consult the %s documentation\n"
 msgstr ""
 
-#: iw/partition_gui.py:1496
+#: iw/partition_gui.py:1507
 msgid ""
 "To create a PV you need a partition with free space.  To create a VG you "
 "need a PV that is not part of any existing VG.  To create a LV you need a VG "
@@ -2955,32 +2955,32 @@ msgid ""
 "\n"
 msgstr ""
 
-#: iw/partition_gui.py:1500
+#: iw/partition_gui.py:1511
 #, python-format
 msgid "You currently have %d available PV free to use.\n"
 msgid_plural "You currently have %d available PVs free to use.\n"
 msgstr[0] ""
 msgstr[1] ""
 
-#: iw/partition_gui.py:1504
+#: iw/partition_gui.py:1515
 msgid "About LVM"
 msgstr ""
 
-#: iw/partition_gui.py:1585
+#: iw/partition_gui.py:1616
 #, python-format
 msgid "Could not allocate requested partitions: %s."
 msgstr ""
 
-#: iw/partition_gui.py:1594
+#: iw/partition_gui.py:1625
 #, python-format
 msgid "Warning: %s."
 msgstr ""
 
-#: iw/partition_gui.py:1625
+#: iw/partition_gui.py:1656
 msgid "Unable To Edit"
 msgstr ""
 
-#: iw/partition_gui.py:1626
+#: iw/partition_gui.py:1657
 #, python-format
 msgid ""
 "You cannot edit this device:\n"
@@ -2988,15 +2988,15 @@ msgid ""
 "%s"
 msgstr ""
 
-#: iw/partition_gui.py:1817
+#: iw/partition_gui.py:1858
 msgid "_Create"
 msgstr ""
 
-#: iw/partition_gui.py:1820
+#: iw/partition_gui.py:1861
 msgid "Re_set"
 msgstr ""
 
-#: iw/partition_gui.py:1843
+#: iw/partition_gui.py:1889
 msgid "Please Select A Device"
 msgstr ""
 
