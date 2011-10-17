@@ -96,7 +96,7 @@ class RepoEditor:
     def on_mirrorlistCheckbox_toggled(self, widget, *args):
         pass
 
-    def __init__(self, anaconda, repoObj):
+    def __init__(self, anaconda, repoObj, group_update_cb=lambda:None):
         self.anaconda = anaconda
         self.backend = self.anaconda.backend
         self.intf = self.anaconda.intf
@@ -125,6 +125,8 @@ class RepoEditor:
         self.directoryChooser = self.dxml.get_widget("directoryChooserButton")
 
         self.dialog.set_title(_("Edit Repository"))
+
+        self.group_update_cb = group_update_cb
 
         # Remove these until they are actually implemented
         self.typeComboBox.remove_text(3)
@@ -394,6 +396,7 @@ class RepoEditor:
                 # update groups information
                 try:
                     self.anaconda.backend.ayum.doGroupSetup()
+                    self.group_update_cb()
                 except Exception as e:
                     log.debug("unable to reset group information after UI repo edit: %s"
                               % e)
@@ -536,7 +539,7 @@ class TaskWindow(InstallWindow):
                 return gtk.RESPONSE_CANCEL
 
 
-        dialog = RepoEditor(self.anaconda, repo)
+        dialog = RepoEditor(self.anaconda, repo, self._refresh_task_list)
         dialog.createDialog()
         dialog.run()
 
@@ -596,11 +599,12 @@ class TaskWindow(InstallWindow):
 
         store.set_value(i, 0, not wasChecked)
 
-    def _createTaskStore(self):
+    def _refresh_task_list(self):
         store = gtk.ListStore(gobject.TYPE_BOOLEAN,
                               gobject.TYPE_STRING,
                               gobject.TYPE_PYOBJECT)
         tl = self.xml.get_widget("taskList")
+        map(lambda col: tl.remove_column(col) , tl.get_columns())
         tl.set_model(store)
 
         cbr = gtk.CellRendererToggle()
@@ -697,7 +701,7 @@ class TaskWindow(InstallWindow):
         else:
             self.xml.get_widget("customRadio").set_active(False)
 
-        self.ts = self._createTaskStore()
+        self.ts = self._refresh_task_list()
         self.rs = self._createRepoStore()
 
         if len(self.ts.get_model()) == 0:
