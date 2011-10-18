@@ -169,7 +169,7 @@ class PartitionTypeWindow(InstallWindow):
                         path = action.device.path
                         size = action.device.targetSize
                         self.storage.shrinkPartitions[path] = size
-                        self.storage.devicetree.cancelAction(action)
+                        action.cancel()
                 else:
                     raise gui.StayOnScreen
 
