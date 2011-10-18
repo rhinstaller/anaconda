@@ -222,6 +222,10 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Mon Oct 17 2011 David Cantrell <dcantrell@redhat.com> - 13.21.146-1
+- mpath: flush more eagerly in filter_gui. (akozumpl)
+  Resolves: rhbz#744772
+
 * Thu Oct 13 2011 David Cantrell <dcantrell@redhat.com> - 13.21.145-1
 - Block button handlers after a button is pressed (mgracik)
   Resolves: rhbz#738217
