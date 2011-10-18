@@ -230,12 +230,12 @@ def _scheduleLVs(storage, devs):
 def scheduleShrinkActions(storage):
     """ Schedule actions to shrink partitions as per autopart selection. """
     for (path, size) in storage.shrinkPartitions.items():
-        device = storage.getDeviceByPath(path)
+        device = storage.devicetree.getDeviceByPath(path)
         if not device:
             raise StorageError("device %s scheduled for shrink disappeared"
                                 % path)
-        storage.registerAction(ActionResizeFormat(device, size))
-        storage.registerAction(ActionResizeDevice(device, size))
+        storage.devicetree.registerAction(ActionResizeFormat(device, size))
+        storage.devicetree.registerAction(ActionResizeDevice(device, size))
 
 def doAutoPartition(anaconda):
     log.debug("doAutoPartition(%s)" % anaconda)

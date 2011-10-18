@@ -356,7 +356,11 @@ class ActionResizeDevice(DeviceAction):
             self.dir = RESIZE_GROW
         else:
             self.dir = RESIZE_SHRINK
-        self.origsize = device.targetSize
+        if device.targetSize > 0:
+            self.origsize = device.targetSize
+        else:
+            self.origsize = device.size
+
         self.device.targetSize = newsize
 
     def execute(self, intf=None):
