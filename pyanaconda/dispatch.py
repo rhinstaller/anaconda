@@ -86,6 +86,8 @@ class Step(object):
         self.name = name
         self.target = target # None for dynamic target (e.g. gui view)
         self._sched = self.SCHED_UNSCHEDULED
+        self.client_data = {} # used by the client code, not reset when
+                              # scheduling is reverted
 
     def _reschedule(self, to_sched, current_step):
         s_from = self.sched
@@ -333,6 +335,9 @@ class Dispatcher(object):
                 self.schedule_steps(step)
             except errors.DispatchError as e:
                 log.debug("dispatch: %s" % e)
+
+    def step_data(self, step):
+        return self.steps[step].client_data
 
     def step_disabled(self, step):
         """ True if step is not yet scheduled to be run or will never be run

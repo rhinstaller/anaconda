@@ -204,6 +204,7 @@ class PartitionTypeWindow(InstallWindow):
 
             self.storage.doAutoPart = True
 
+            self.dispatch.step_data("parttype")["review_checked"] = self.reviewButton.get_active()
             if self.reviewButton.get_active():
                 self.dispatch.request_steps("partition")
                 # with kickstart bootloader is already scheduled to be skipped:
@@ -257,7 +258,10 @@ class PartitionTypeWindow(InstallWindow):
         self.table = self.xml.get_widget("parttypeTable")
 
         self.prevrev = None
-        self.reviewButton.set_active(self.dispatch.step_enabled("partition"))
+
+        step_data = self.dispatch.step_data("parttype")
+        self.reviewButton.set_active(
+            step_data.get("review_checked", self.dispatch.step_enabled("partition")))
         self.encryptButton.set_active(self.storage.encryptedAutoPart)
         self.lvmButton.set_active(self.storage.lvmAutoPart)
 

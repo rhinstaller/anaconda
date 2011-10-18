@@ -249,3 +249,15 @@ class DispatchTest(mock.TestCase):
             d.steps["betanag"].changes,
             {"betanag" : (Step.SCHED_SCHEDULED, Step.SCHED_UNSCHEDULED),
              "filtertype" : (Step.SCHED_SCHEDULED, Step.SCHED_UNSCHEDULED)})
+
+    def step_data_test(self):
+        from pyanaconda.dispatch import Step
+        d = self._getDispatcher()
+        self.assertEqual(d.step_data("filter"), {})
+        d.step_data("filter")["key"] = 42
+        # we can retrieve it
+        self.assertEqual(d.step_data("filter")["key"], 42)
+        # it persists over scheduling changes
+        d.schedule_steps("filter")
+        d._revert_scheduling("filter")
+        self.assertEqual(d.step_data("filter")["key"], 42)
