@@ -152,7 +152,8 @@ class LiveCDCopyBackend(backend.AnacondaBackend):
         readamt = 1024 * 1024 * 8 # 8 megs at a time
         size = self.anaconda.storage.liveImage.format.currentSize * 1024 * 1024
         copied = 0
-        while copied < size:
+        done = False
+        while not done:
             try:
                 buf = os.read(osfd, readamt)
                 written = os.write(rootfd, buf)
@@ -174,8 +175,13 @@ class LiveCDCopyBackend(backend.AnacondaBackend):
                     copied = 0
                     continue
 
-            if (written < readamt) and (written < len(buf)):
-                raise RuntimeError, "error copying filesystem!"
+            if (written < readamt):
+                # Either something went wrong with the write
+                if (written < len(buf)):
+                    raise RuntimeError, "error copying filesystem!"
+                else:
+                    # Or we're done
+                    done = True
             copied += written
             progress.set_fraction(pct = copied / float(size))
             progress.processEvents()
