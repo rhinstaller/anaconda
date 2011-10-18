@@ -1160,15 +1160,16 @@ class VolumeGroupEditor:
                 # this lv is preexisting. check for resize and reformat.
                 # first, get the real/original lv
                 origlv = self.getLVByName(lv.lvname)
+                # make sure the format's device attr doesn't reference
+                # an lv in the temp vg
+                origlv.format.device = origlv.path
+                origlv.originalFormat.device = origlv.path
+
                 if lv.resizable and lv.targetSize != origlv.size:
                     actions.append(ActionResizeDevice(origlv, lv.targetSize))
 
                 if lv.format.exists:
                     log.debug("format already exists")
-                    # make sure the format's device attr doesn't reference
-                    # an lv in the temp vg
-                    origlv.format.device = origlv.path
-
                     if lv.format.type == "luks":
                         # see if the luks device already exists
                         try:
