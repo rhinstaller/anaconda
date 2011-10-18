@@ -370,6 +370,8 @@ class PartitionEditor:
 
                     try:
                         actions.append(ActionResizeDevice(request, size))
+                        # aligning the new end sector may have changed the size
+                        size = request.targetSize
                         if request.format.type and request.format.exists:
                             actions.append(ActionResizeFormat(request, size))
                     except ValueError:

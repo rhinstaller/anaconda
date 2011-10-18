@@ -133,6 +133,10 @@ def whichToShrink(storage, intf):
                                  % {'name': request.name, 'msg': e.message},
                                type="warning", custom_icon="error")
             continue
+        else:
+            # aligning the new partition end sector may have changed its size
+            if request.targetSize != request.format.targetSize:
+                request.format.targetSize = request.targetSize
 
         runResize = False
 

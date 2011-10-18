@@ -236,6 +236,9 @@ def scheduleShrinkActions(storage):
                                 % path)
         storage.devicetree.registerAction(ActionResizeFormat(device, size))
         storage.devicetree.registerAction(ActionResizeDevice(device, size))
+        # aligning the partition's new end sector may have changed the size
+        if device.targetSize != size:
+            device.format.targetSize = device.targetSize
 
 def doAutoPartition(anaconda):
     log.debug("doAutoPartition(%s)" % anaconda)
