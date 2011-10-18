@@ -112,8 +112,8 @@ def luks_open(device, name, passphrase=None, key_file=None):
     cs = CryptSetup(device=device, yesDialog = askyes, logFunc = dolog, passwordDialog = askpassphrase)
 
     rc = cs.activate(passphrase = passphrase, name = name)
-    if rc:
-        raise CryptoError("luks_open failed for %s (%s)" % (device, name))
+    if rc<0:
+        raise CryptoError("luks_open failed for %s (%s) with errno %d" % (device, name, rc))
 
 def luks_close(name):
     cs = CryptSetup(name=name, yesDialog = askyes, logFunc = dolog, passwordDialog = askpassphrase)
@@ -132,7 +132,7 @@ def luks_add_key(device,
     cs = CryptSetup(device=device, yesDialog = askyes, logFunc = dolog, passwordDialog = askpassphrase)
     rc = cs.addPassphrase(passphrase = passphrase, newPassphrase = new_passphrase)
     
-    if rc:
+    if rc<0:
         raise CryptoError("luks add key failed with errcode %d" % (rc,))
 
 def luks_remove_key(device,
