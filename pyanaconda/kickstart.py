@@ -498,6 +498,7 @@ class LogVolData(commands.logvol.F15_LogVolData):
         format = getFormat(type,
                            mountpoint=self.mountpoint,
                            label=self.label,
+                           fsprofile=self.fsprofile,
                            mountopts=self.fsopts)
         if not format:
             raise KickstartValueError, formatErrorMsg(self.lineno, msg="The \"%s\" filesystem type is not supported." % type)
@@ -530,9 +531,6 @@ class LogVolData(commands.logvol.F15_LogVolData):
                                     grow=self.grow,
                                     maxsize=self.maxSizeMB,
                                     percent=self.percent)
-
-            if self.fsprofile and hasattr(request.format, "fsprofile"):
-                request.format.fsprofile = self.fsprofile
 
             storage.createDevice(request)
 
@@ -797,6 +795,7 @@ class PartitionData(commands.partition.F12_PartData):
         kwargs["format"] = getFormat(type,
                                      mountpoint=self.mountpoint,
                                      label=self.label,
+                                     fsprofile=self.fsprofile,
                                      mountopts=self.fsopts)
         if not kwargs["format"]:
             raise KickstartValueError, formatErrorMsg(self.lineno, msg="The \"%s\" filesystem type is not supported." % type)
@@ -858,9 +857,6 @@ class PartitionData(commands.partition.F12_PartData):
                 pass
 
             request = storage.newPartition(**kwargs)
-
-            if self.fsprofile and hasattr(request.format, "fsprofile"):
-                request.format.fsprofile = self.fsprofile
 
             storage.createDevice(request)
 
@@ -962,6 +958,7 @@ class RaidData(commands.raid.F15_RaidData):
         # Now get a format to hold a lot of these extra values.
         kwargs["format"] = getFormat(type,
                                      label=self.label,
+                                     fsprofile=self.fsprofile,
                                      mountpoint=self.mountpoint,
                                      mountopts=self.fsopts)
         if not kwargs["format"]:
@@ -1001,9 +998,6 @@ class RaidData(commands.raid.F15_RaidData):
                 request = storage.newMDArray(**kwargs)
             except ValueError as e:
                 raise KickstartValueError, formatErrorMsg(self.lineno, msg=str(e))
-
-            if self.fsprofile and hasattr(request.format, "fsprofile"):
-                request.format.fsprofile = self.fsprofile
 
             storage.createDevice(request)
 
