@@ -1295,8 +1295,8 @@ class PartitionWindow:
                 pesize = vgreq.pesize
                 size = lvm.clampLVSizeRequest(size, pesize, roundup=1)
 
-                maxlv = lvm.getMaxLVSize(pesize)
-                if size > lvm.getMaxLVSize(pesize):
+                maxlv = lvm.getMaxLVSize()
+                if size > lvm.getMaxLVSize():
                     self.intf.messageWindow(_("Not enough space"),
                                             _("The current requested size "
                                               "(%10.2f MB) is larger than "

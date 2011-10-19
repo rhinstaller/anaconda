@@ -207,10 +207,10 @@ class VolumeGroupEditor:
             else:
                 self.updateLogVolStore()
 	else:
-	    maxlv = lvm.getMaxLVSize(curval)
+	    maxlv = lvm.getMaxLVSize()
 	    for lv in self.logvolreqs:
 		lvsize = lv.getActualSize(self.partitions, self.diskset,
-                            pesize=lastval)
+                            pesize=curval)
 		if lvsize > maxlv:
 		    self.intf.messageWindow(_("Not enough space"),
 					    _("The physical extent size "
@@ -456,7 +456,7 @@ class VolumeGroupEditor:
         if not logrequest or not logrequest.getPreExisting():
             pesize = int(self.peCombo.get_active_value())
             (tspace, uspace, fspace) = self.computeSpaceValues(usepe=pesize)
-            maxlv = min(lvm.getMaxLVSize(pesize), fspace)
+            maxlv = min(lvm.getMaxLVSize(), fspace)
 
             # add in size of current logical volume if it has a size
             if logrequest and not isNew:
@@ -617,7 +617,7 @@ class VolumeGroupEditor:
 	    size = lvm.clampLVSizeRequest(size, pesize, roundup=1)
 
 	    # do some final tests
-	    maxlv = lvm.getMaxLVSize(pesize)
+	    maxlv = lvm.getMaxLVSize()
 	    if size > maxlv:
 		self.intf.messageWindow(_("Not enough space"),
 					_("The current requested size "

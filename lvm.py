@@ -16,6 +16,7 @@ import os,sys
 import string
 import math
 import isys
+import rhpl.arch
 
 from flags import flags
 
@@ -394,12 +395,13 @@ def clampPVSize(pvsize, pesize):
     pvsize *= 1024.0
     return long((math.floor(pvsize / pesize) * pesize) / 1024)
 
-def getMaxLVSize(pe):
-    """Given a PE size in KB, returns maximum size (in MB) of a logical volume.
-
-    pe - PE size in KB
-    """
-    return pe*64
+def getMaxLVSize():
+    """ Return the maximum size (in MB) of a logical volume. """
+    if rhpl.arch.canonArch in ("s390x", "sparc64", "x86_64", "ia64") or \
+       rhpl.arch.canonArch.startswith("ppc64"): #64bit architectures
+        return (8*1024*1024*1024*1024) #Max is 8EiB (very large number..)
+    else:
+        return (16*1024*1024) #Max is 16TiB
 
 def createSuggestedVGName(partitions):
     """Given list of partition requests, come up with a reasonable VG name
