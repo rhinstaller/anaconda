@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 16.20\n"
+"Project-Id-Version: anaconda 16.21\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2011-10-11 14:16-0400\n"
+"POT-Creation-Date: 2011-10-19 14:03-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -397,7 +397,7 @@ msgstr ""
 
 #: pyanaconda/gui.py:1116 pyanaconda/gui.py:1153 pyanaconda/gui.py:1337
 #: pyanaconda/image.py:96 pyanaconda/installinterfacebase.py:208
-#: pyanaconda/livecd.py:167 pyanaconda/packages.py:95
+#: pyanaconda/livecd.py:168 pyanaconda/packages.py:95
 #: pyanaconda/packages.py:143 pyanaconda/upgrade.py:58
 #: pyanaconda/upgrade.py:98 pyanaconda/upgrade.py:196
 #: pyanaconda/yuminstall.py:255 pyanaconda/yuminstall.py:825
@@ -438,7 +438,7 @@ msgid "_Exit"
 msgstr ""
 
 #: pyanaconda/gui.py:1253 pyanaconda/image.py:159 pyanaconda/image.py:177
-#: pyanaconda/livecd.py:167 pyanaconda/yuminstall.py:911
+#: pyanaconda/livecd.py:168 pyanaconda/yuminstall.py:911
 #: pyanaconda/yuminstall.py:1274 pyanaconda/yuminstall.py:1329
 #: pyanaconda/yuminstall.py:1552
 msgid "_Retry"
@@ -522,7 +522,7 @@ msgid ""
 "the installation."
 msgstr ""
 
-#: pyanaconda/image.py:230 pyanaconda/livecd.py:160
+#: pyanaconda/image.py:230 pyanaconda/livecd.py:161
 #: pyanaconda/partIntfHelpers.py:239 pyanaconda/text.py:375
 #: pyanaconda/yuminstall.py:417 pyanaconda/yuminstall.py:914
 #: pyanaconda/yuminstall.py:1001 pyanaconda/yuminstall.py:1006
@@ -706,7 +706,7 @@ msgstr ""
 msgid "Could not log into any iSCSI nodes at the portal."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1371 pyanaconda/livecd.py:190
+#: pyanaconda/kickstart.py:1371 pyanaconda/livecd.py:196
 msgid "Post-Installation"
 msgstr ""
 
@@ -771,7 +771,7 @@ msgstr ""
 msgid "Copying live image to hard drive."
 msgstr ""
 
-#: pyanaconda/livecd.py:161
+#: pyanaconda/livecd.py:162
 msgid ""
 "There was an error installing the live image to your hard drive.  This could "
 "be due to bad media.  Please verify your installation media.\n"
@@ -780,7 +780,7 @@ msgid ""
 "require reinstallation."
 msgstr ""
 
-#: pyanaconda/livecd.py:191
+#: pyanaconda/livecd.py:197
 msgid ""
 "Performing post-installation filesystem changes.  This may take several "
 "minutes."
@@ -952,7 +952,7 @@ msgid "You are about to delete all partitions on the device '%s'."
 msgstr ""
 
 #: pyanaconda/partIntfHelpers.py:159 pyanaconda/partIntfHelpers.py:344
-#: pyanaconda/iw/lvm_dialog_gui.py:900 pyanaconda/iw/lvm_dialog_gui.py:1549
+#: pyanaconda/iw/lvm_dialog_gui.py:900 pyanaconda/iw/lvm_dialog_gui.py:1550
 #: pyanaconda/iw/osbootwidget.py:105 pyanaconda/iw/partition_gui.py:1779
 #: pyanaconda/iw/partition_gui.py:1791
 msgid "_Delete"
@@ -1143,19 +1143,19 @@ msgstr ""
 msgid "First sector of boot partition"
 msgstr ""
 
-#: pyanaconda/platform.py:142
+#: pyanaconda/platform.py:146
 msgid "Master Boot Record"
 msgstr ""
 
-#: pyanaconda/platform.py:178
+#: pyanaconda/platform.py:182
 msgid "EFI System Partition"
 msgstr ""
 
-#: pyanaconda/platform.py:215
+#: pyanaconda/platform.py:219
 msgid "PReP Boot Partition"
 msgstr ""
 
-#: pyanaconda/platform.py:238
+#: pyanaconda/platform.py:242
 msgid "Apple Bootstrap Partition"
 msgstr ""
 
@@ -2008,11 +2008,11 @@ msgstr ""
 msgid "%(name)s: %(msg)s"
 msgstr ""
 
-#: pyanaconda/iw/autopart_type.py:264
+#: pyanaconda/iw/autopart_type.py:261
 msgid "Use _All Space"
 msgstr ""
 
-#: pyanaconda/iw/autopart_type.py:266
+#: pyanaconda/iw/autopart_type.py:263
 msgid ""
 "Removes all partitions on the selected device(s).  This includes partitions "
 "created by other operating systems.\n"
@@ -2021,11 +2021,11 @@ msgid ""
 "sure you have backups."
 msgstr ""
 
-#: pyanaconda/iw/autopart_type.py:272
+#: pyanaconda/iw/autopart_type.py:269
 msgid "Replace Existing _Linux System(s)"
 msgstr ""
 
-#: pyanaconda/iw/autopart_type.py:274
+#: pyanaconda/iw/autopart_type.py:271
 msgid ""
 "Removes all Linux partitions on the selected device(s). This does not remove "
 "other partitions you may have on your storage device(s) (such as VFAT or "
@@ -2035,31 +2035,31 @@ msgid ""
 "sure you have backups."
 msgstr ""
 
-#: pyanaconda/iw/autopart_type.py:282
+#: pyanaconda/iw/autopart_type.py:279
 msgid "_Shrink Current System"
 msgstr ""
 
-#: pyanaconda/iw/autopart_type.py:284
+#: pyanaconda/iw/autopart_type.py:281
 msgid ""
 "Shrinks existing partitions to create free space for the default layout."
 msgstr ""
 
-#: pyanaconda/iw/autopart_type.py:286
+#: pyanaconda/iw/autopart_type.py:283
 msgid "Use _Free Space"
 msgstr ""
 
-#: pyanaconda/iw/autopart_type.py:288
+#: pyanaconda/iw/autopart_type.py:285
 msgid ""
 "Retains your current data and partitions and uses only the unpartitioned "
 "space on the selected device(s), assuming you have enough free space "
 "available."
 msgstr ""
 
-#: pyanaconda/iw/autopart_type.py:292
+#: pyanaconda/iw/autopart_type.py:289
 msgid "Create _Custom Layout"
 msgstr ""
 
-#: pyanaconda/iw/autopart_type.py:294
+#: pyanaconda/iw/autopart_type.py:291
 msgid ""
 "Manually create your own custom layout on the selected device(s) using our "
 "partitioning tool."
@@ -2139,53 +2139,53 @@ msgstr ""
 msgid "You must select one drive to boot from."
 msgstr ""
 
-#: pyanaconda/iw/cleardisks_gui.py:131 pyanaconda/iw/cleardisks_gui.py:151
+#: pyanaconda/iw/cleardisks_gui.py:132 pyanaconda/iw/cleardisks_gui.py:152
 #: pyanaconda/iw/filter_gui.py:506 pyanaconda/iw/filter_gui.py:517
 #: pyanaconda/iw/filter_gui.py:547
 msgid "Model"
 msgstr ""
 
-#: pyanaconda/iw/cleardisks_gui.py:132 pyanaconda/iw/cleardisks_gui.py:152
+#: pyanaconda/iw/cleardisks_gui.py:133 pyanaconda/iw/cleardisks_gui.py:153
 msgid "Capacity"
 msgstr ""
 
-#: pyanaconda/iw/cleardisks_gui.py:133 pyanaconda/iw/filter_gui.py:508
+#: pyanaconda/iw/cleardisks_gui.py:134 pyanaconda/iw/filter_gui.py:508
 #: pyanaconda/iw/filter_gui.py:527 pyanaconda/iw/filter_gui.py:538
 #: pyanaconda/iw/filter_gui.py:549
 msgid "Vendor"
 msgstr ""
 
-#: pyanaconda/iw/cleardisks_gui.py:134 pyanaconda/iw/cleardisks_gui.py:153
+#: pyanaconda/iw/cleardisks_gui.py:135 pyanaconda/iw/cleardisks_gui.py:154
 #: pyanaconda/iw/filter_gui.py:525 pyanaconda/iw/filter_gui.py:536
 #: pyanaconda/iw/filter_gui.py:552
 msgid "Identifier"
 msgstr ""
 
-#: pyanaconda/iw/cleardisks_gui.py:135 pyanaconda/iw/filter_gui.py:509
+#: pyanaconda/iw/cleardisks_gui.py:136 pyanaconda/iw/filter_gui.py:509
 #: pyanaconda/iw/filter_gui.py:528 pyanaconda/iw/filter_gui.py:539
 #: pyanaconda/iw/filter_gui.py:550
 msgid "Interconnect"
 msgstr ""
 
-#: pyanaconda/iw/cleardisks_gui.py:149
+#: pyanaconda/iw/cleardisks_gui.py:150
 msgid ""
 "Boot\n"
 "Loader"
 msgstr ""
 
-#: pyanaconda/iw/cleardisks_gui.py:200
+#: pyanaconda/iw/cleardisks_gui.py:208
 msgid ""
 "<b>Tip:</b> All Linux filesystems on the install target devices will be "
 "reformatted and wiped of any data.  Make sure you have backups."
 msgstr ""
 
-#: pyanaconda/iw/cleardisks_gui.py:202
+#: pyanaconda/iw/cleardisks_gui.py:210
 msgid ""
 "<b>Tip:</b> The install target devices will be reformatted and wiped of any "
 "data.  Make sure you have backups."
 msgstr ""
 
-#: pyanaconda/iw/cleardisks_gui.py:204
+#: pyanaconda/iw/cleardisks_gui.py:212
 msgid ""
 "<b>Tip:</b> Your filesystems on the install target devices will not be "
 "reformatted unless you choose to do so during customization."
@@ -2593,11 +2593,11 @@ msgid ""
 "%s."
 msgstr ""
 
-#: pyanaconda/iw/lvm_dialog_gui.py:1338
+#: pyanaconda/iw/lvm_dialog_gui.py:1339
 msgid "Not enough physical volumes"
 msgstr ""
 
-#: pyanaconda/iw/lvm_dialog_gui.py:1339
+#: pyanaconda/iw/lvm_dialog_gui.py:1340
 msgid ""
 "At least one unused physical volume partition is needed to create an LVM "
 "Volume Group.\n"
@@ -2606,77 +2606,77 @@ msgid ""
 "select the \"LVM\" option again."
 msgstr ""
 
-#: pyanaconda/iw/lvm_dialog_gui.py:1350
+#: pyanaconda/iw/lvm_dialog_gui.py:1351
 msgid "Make LVM Volume Group"
 msgstr ""
 
-#: pyanaconda/iw/lvm_dialog_gui.py:1353
+#: pyanaconda/iw/lvm_dialog_gui.py:1354
 #, python-format
 msgid "Edit LVM Volume Group: %s"
 msgstr ""
 
-#: pyanaconda/iw/lvm_dialog_gui.py:1355
+#: pyanaconda/iw/lvm_dialog_gui.py:1356
 msgid "Edit LVM Volume Group"
 msgstr ""
 
-#: pyanaconda/iw/lvm_dialog_gui.py:1371
+#: pyanaconda/iw/lvm_dialog_gui.py:1372
 msgid "_Volume Group Name:"
 msgstr ""
 
-#: pyanaconda/iw/lvm_dialog_gui.py:1379
+#: pyanaconda/iw/lvm_dialog_gui.py:1380
 msgid "Volume Group Name:"
 msgstr ""
 
-#: pyanaconda/iw/lvm_dialog_gui.py:1387
+#: pyanaconda/iw/lvm_dialog_gui.py:1388
 msgid "_Physical Extent:"
 msgstr ""
 
-#: pyanaconda/iw/lvm_dialog_gui.py:1402
+#: pyanaconda/iw/lvm_dialog_gui.py:1403
 msgid "Physical Volumes to _Use:"
 msgstr ""
 
-#: pyanaconda/iw/lvm_dialog_gui.py:1408
+#: pyanaconda/iw/lvm_dialog_gui.py:1409
 msgid "Used Space:"
 msgstr ""
 
-#: pyanaconda/iw/lvm_dialog_gui.py:1426
+#: pyanaconda/iw/lvm_dialog_gui.py:1427
 msgid "Snapshot Total:"
 msgstr ""
 
-#: pyanaconda/iw/lvm_dialog_gui.py:1447
+#: pyanaconda/iw/lvm_dialog_gui.py:1448
 msgid "Reserved Space:"
 msgstr ""
 
-#: pyanaconda/iw/lvm_dialog_gui.py:1467
+#: pyanaconda/iw/lvm_dialog_gui.py:1468
 msgid "Free Space:"
 msgstr ""
 
-#: pyanaconda/iw/lvm_dialog_gui.py:1485
+#: pyanaconda/iw/lvm_dialog_gui.py:1486
 msgid "Total Space:"
 msgstr ""
 
-#: pyanaconda/iw/lvm_dialog_gui.py:1523
+#: pyanaconda/iw/lvm_dialog_gui.py:1524
 msgid "Logical Volume Name"
 msgstr ""
 
-#: pyanaconda/iw/lvm_dialog_gui.py:1526 pyanaconda/iw/partition_gui.py:586
+#: pyanaconda/iw/lvm_dialog_gui.py:1527 pyanaconda/iw/partition_gui.py:586
 msgid "Mount Point"
 msgstr ""
 
-#: pyanaconda/iw/lvm_dialog_gui.py:1529 pyanaconda/iw/partition_gui.py:585
+#: pyanaconda/iw/lvm_dialog_gui.py:1530 pyanaconda/iw/partition_gui.py:585
 msgid "Size (MB)"
 msgstr ""
 
-#: pyanaconda/iw/lvm_dialog_gui.py:1543 pyanaconda/iw/osbootwidget.py:97
+#: pyanaconda/iw/lvm_dialog_gui.py:1544 pyanaconda/iw/osbootwidget.py:97
 msgid "_Add"
 msgstr ""
 
-#: pyanaconda/iw/lvm_dialog_gui.py:1546 pyanaconda/iw/osbootwidget.py:101
+#: pyanaconda/iw/lvm_dialog_gui.py:1547 pyanaconda/iw/osbootwidget.py:101
 #: pyanaconda/iw/partition_gui.py:1778 pyanaconda/iw/partition_gui.py:1788
 msgid "_Edit"
 msgstr ""
 
-#: pyanaconda/iw/lvm_dialog_gui.py:1561
+#: pyanaconda/iw/lvm_dialog_gui.py:1562
 msgid "_Logical Volumes"
 msgstr ""
 

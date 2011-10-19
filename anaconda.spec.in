@@ -232,6 +232,17 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Wed Oct 19 2011 Chris Lumens <clumens@redhat.com> - 16.22-1
+- Be more convincing in eradicating errant temp vg paths. (#722952) (dlehman)
+- Copy all of live filesystem to target (#746844) (bcl)
+- Fix autopart shrink of existing system. (#746605) (dlehman)
+- cryptsetup returns positive nonzero when activating by different than the
+  first keyslot (msivak)
+- Add 'nogpt' cmdline arg to disable creation of gpt disklabels. (#735733)
+  (dlehman)
+- Show cleardisks gui always to allow selecting a boot disk. (#744088)
+  (dlehman)
+
 * Tue Oct 11 2011 Chris Lumens <clumens@redhat.com> - 16.21-1
 - Pull grub-efi and efibootmgr into the package list as needed. (#742042)
   (pjones)
