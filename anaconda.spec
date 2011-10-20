@@ -1,11 +1,11 @@
 Name: anaconda
 Version: 11.1.2.245
-Release: 1
+Release: 2
 License: GPL
 Summary: Graphical system installer
 Group: Applications/System
 Source: anaconda-%{version}.tar.bz2
-BuildPreReq: kudzu-devel >= 1.2.57.1.26-1, pciutils-devel >= 3.1.7-3
+BuildPreReq: kudzu-devel >= 1.2.57.1.26-3, pciutils-devel >= 3.1.7-3
 BuildPreReq: bzip2-devel, e2fsprogs-devel, python-devel, gtk2-devel
 BuildPreReq: rpm-python >= 4.2-0.61, newt-devel, rpm-devel, gettext >= 0.11
 BuildPreReq: rhpl, booty, libxml2-python, zlib-devel, elfutils-devel
@@ -128,6 +128,10 @@ fi
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu Oct 20 2011 Martin Sivak <msivak@redhat.com> 11.1.2.245-2
+- New kudzu is needed to detect FusionIO devices
+  Resolves: rhbz#707563
+
 * Tue Oct 04 2011 Martin Gracik <mgracik@redhat.com> 11.1.2.245-1
 - Initialize useIPv6 device setting (rvykydal)
   Resolves: rhbz#713120
