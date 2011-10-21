@@ -398,9 +398,16 @@ class Storage(object):
                                p.getFlag(parted.PARTITION_BOOT):
                                 skip = True
                                 break
+
+                    # GPT labeled disks should only have bootable set on the
+                    # EFI system partition (parted sets the EFI System GUID on
+                    # GPT partitions with the boot flag)
+                    if dev.disk.format.labelType == "gpt" and \
+                       dev.format.type != "efi":
+                           skip = True
+
                     if skip:
-                         log.info("not setting boot flag on %s as there is"
-                                  "another active partition" % dev.name)
+                         log.info("not setting boot flag on %s" % dev.name)
                          continue
                     # hfs+ partitions on gpt can't be marked bootable via
                     # parted
