@@ -162,7 +162,7 @@ class ClearDisksWindow (InstallWindow):
         if self.anaconda.storage.doAutoPart:
             use_disks = self.anaconda.storage.config.clearPartDisks
         else:
-            use_disks = [d.name for d in disks]
+            use_disks = [d.name for d in disks if not d.protected]
             self.addButton.set_sensitive(False)
             self.removeButton.set_sensitive(False)
 

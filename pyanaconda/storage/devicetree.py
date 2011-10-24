@@ -1028,14 +1028,15 @@ class DeviceTree(object):
             dev_live = "/dev/live"
             root_path = ""
             if os.path.exists(dev_live):
-                root_path = os.readlink(dev_live)
+                root_path = os.path.realpath(dev_live)
             elif os.path.exists(root_info):
-                prefix = "root='block:"
+                prefix = "root='"
                 for line in open(root_info):
-                    if not line.startswith(prefix):
+                    if not line.startswith(prefix) or \
+                       (line[6:12] != "block:" and line[6:11] != "live:"):
                         continue
 
-                    start_idx = len(prefix) - 1
+                    start_idx = line.index(":") + 1
                     root_path = os.path.realpath(line[start_idx:-1])
                     root_name = devicePathToName(root_path)
                     if root_name.startswith("dm-"):
