@@ -223,9 +223,6 @@ AC_SUBST(PACKAGE_RELEASE, [$rel])
 s_arch="`uname -m | sed -e s/i.86/i386/ -e s/sparc.*/sparc/ -e s/ppc.*/ppc/`"
 AC_SUBST(ARCH, [$s_arch])
 
-AM_CONDITIONAL(IS_FONT_ARCH,
-  [test x$s_arch != xs390 && test x$s_arch != xs390x])
-
 AM_CONDITIONAL(IS_LIVEINST_ARCH,
   [test x$s_arch == xppc || test x$s_arch == xi386 || test x$s_arch == xx86_64])
 
@@ -260,7 +257,6 @@ AC_CONFIG_FILES([Makefile
                  data/bootdisk/x86_64/Makefile
                  data/command-stubs/Makefile
                  docs/Makefile
-                 data/fonts/Makefile
                  gptsync/Makefile
                  pyanaconda/installclasses/Makefile
                  pyanaconda/iw/Makefile
