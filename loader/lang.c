@@ -341,7 +341,6 @@ static int setupLanguage(int choice, int forced) {
     }
 
     setLangEnv (choice);
-    isysLoadFont();
 
     /* clear out top line */
     buf = alloca(81); /* reserve one byte for \0 */

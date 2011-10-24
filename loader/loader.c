@@ -337,7 +337,6 @@ void initializeConsole() {
     printf("\033%%G");
     fflush(stdout);
 
-    isysLoadFont();
     isysSetUnicodeKeymap();
 }
 

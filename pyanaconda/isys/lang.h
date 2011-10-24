@@ -37,7 +37,6 @@ struct kmapInfo {
 };
 
 int loadKeymap(gzFile stream);
-int isysLoadFont(void);
 int isysLoadKeymap(char * keymap);
 int isysSetUnicodeKeymap(void);
 

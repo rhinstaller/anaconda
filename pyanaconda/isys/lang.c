@@ -40,47 +40,6 @@
 #include "isys.h"
 #include "lang.h"
 
-int isysLoadFont(void) {
-    unsigned char font[65536];
-    struct console_font_op cfo;
-    unsigned short map[E_TABSZ];
-    struct unimapdesc d;
-    struct unimapinit u;
-    struct unipair desc[2048];
-    gzFile stream;
-    int rc;
-
-#if defined (__s390__) || defined (__s390x__)
-    return 0;
-#endif
-    stream = gzopen("/etc/screenfont.gz", "r");
-    if (!stream)
-	return -EACCES;
-
-    gzread(stream, &cfo, sizeof(cfo));
-    gzread(stream, font, sizeof(font));
-    gzread(stream, map, sizeof(map));
-    gzread(stream, &d.entry_ct, sizeof(d.entry_ct));
-    d.entries = desc;
-    gzread(stream, desc, d.entry_ct * sizeof(desc[0]));
-    gzclose(stream);
-
-    cfo.data = font;
-    cfo.op = KD_FONT_OP_SET;
-
-    rc = ioctl(1, KDFONTOP, &cfo);
-    if (rc) return rc;
-    rc = ioctl(1, PIO_UNIMAPCLR, &u);
-    if (rc) return rc;
-    rc = ioctl(1, PIO_UNIMAP, &d);
-    if (rc) return rc;
-    rc = ioctl(1, PIO_UNISCRNMAP, map);
-    if (rc) return rc;
-    /* activate the font map */
-    fprintf(stderr, "\033(K");
-    return 0;
-}
-
 int isysSetUnicodeKeymap(void) {
     int console;
 
