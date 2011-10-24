@@ -46,7 +46,7 @@ class Language(object):
             self._instLang = self._canonLang(value)
         except ValueError:
             # If the language isn't listed in lang-table, we won't know what
-            # keyboard/font/etc. to use.  However, we can still set the $LANG
+            # keyboard/etc. to use.  However, we can still set the $LANG
             # to that and make sure it works in the installed system.
             self._instLang = value
 
@@ -54,8 +54,7 @@ class Language(object):
         # to display.  We need to default to en_US.UTF-8 for now.
         if self.displayMode == 't':
             for (lang, info) in self.localeInfo.iteritems():
-                # If there's no font, it's not a supported language.
-                if lang == self._instLang and info[2] == "none":
+                if lang == self._instLang and info[2] == "False":
                     self._instLang = self._default
                     break
 
@@ -77,8 +76,7 @@ class Language(object):
     def _getInstLang(self):
         # If we were given a language that's not in lang-table, lie and say
         # we're using the default.  This prevents us from having to check all
-        # over the place.  Unfortunately, it also means anaconda will be
-        # running with the wrong font and keyboard in these cases.
+        # over the place.
         if self._instLang in self.localeInfo.keys():
             return self._instLang
         else:
@@ -93,7 +91,7 @@ class Language(object):
             self._systemLang = self._canonLang(value)
         except ValueError:
             # If the language isn't listed in lang-table, we won't know what
-            # keyboard/font/etc. to use.  However, we can still set the $LANG
+            # keyboard/etc. to use.  However, we can still set the $LANG
             # to that and make sure it works in the installed system.
             self._systemLang = value
 
@@ -214,9 +212,7 @@ class Language(object):
             else:
                 return self.localeInfo[self._default][4]
 
-    def getFontFile(self, lang):
-        # Note: in /etc/fonts.cgz fonts are named by the map
-        # name as that's unique, font names are not
+    def textSupported(self, lang):
         try:
             l = self._canonLang(lang)
         except ValueError:

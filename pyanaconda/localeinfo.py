@@ -30,7 +30,7 @@ import string
 
 def get(default):
     localeInfo = {}
-    # nick -> (name, short name, font, keyboard, timezone) mapping
+    # nick -> (name, short name, text mode supported, keyboard, timezone) mapping
     search = ('lang-table', '/tmp/updates/lang-table', '/etc/lang-table',
               '/usr/share/anaconda/lang-table')
     for path in search:
@@ -44,7 +44,9 @@ def get(default):
                 if len(l) < 6:
                     continue
 
-                localeInfo[l[3]] = (l[0], l[1], l[2], l[4], string.strip(l[5]))
+                ts = l[2] == "True"
+
+                localeInfo[l[3]] = (l[0], l[1], ts, l[4], string.strip(l[5]))
 
             f.close()
             break

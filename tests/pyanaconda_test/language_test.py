@@ -184,29 +184,15 @@ class LanguageTest(mock.TestCase):
         ret = lang.getDefaultTimeZone()
         self.assertEqual(ret, 'Europe/Prague')
 
-    def get_font_file_1_test(self):
+    def get_text_supported_1_test(self):
         import pyanaconda.language
         lang = pyanaconda.language.Language()
-        ret = lang.getFontFile('cs')
-        self.assertEqual(ret, 'latarcyrheb-sun16')
+        self.assertTrue(lang.textSupported('cs'))
 
-    def get_font_file__2_test(self):
+    def get_text_supported_2_test(self):
         import pyanaconda.language
         lang = pyanaconda.language.Language()
-        ret = lang.getFontFile('en')
-        self.assertEqual(ret, 'latarcyrheb-sun16')
-
-    def get_font_file__3_test(self):
-        import pyanaconda.language
-        lang = pyanaconda.language.Language()
-        ret = lang.getFontFile('he')
-        self.assertEqual(ret, 'none')
-
-    def get_font_file__4_test(self):
-        import pyanaconda.language
-        lang = pyanaconda.language.Language()
-        ret = lang.getFontFile('foo')
-        self.assertEqual(ret, 'latarcyrheb-sun16')
+        self.assertFalse(lang.textSupported('he'))
 
     def get_lang_name_1_test(self):
         import pyanaconda.language

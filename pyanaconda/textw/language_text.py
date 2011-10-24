@@ -51,7 +51,7 @@ class LanguageWindow:
         if button == TEXT_BACK_CHECK:
             return INSTALL_BACK
 
-        if anaconda.instLanguage.getFontFile(choice) == "none":
+        if not anaconda.instLanguage.textSupported(choice):
             ButtonChoiceWindow(screen, "Language Unavailable",
                                "%s display is unavailable in text mode.  The "
                                "installation will continue in English." % (choice,),

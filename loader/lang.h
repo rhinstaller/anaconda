@@ -26,7 +26,8 @@
 #define N_(foo) (foo)
 
 struct langInfo {
-    char * lang, * key, * font, * lc_all, * keyboard;
+    char * lang, * key, * lc_all, * keyboard;
+    unsigned int text_supported;
 } ;
 
 
