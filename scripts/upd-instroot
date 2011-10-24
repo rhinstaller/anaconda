@@ -124,7 +124,7 @@ PACKAGES="glibc glibc-common setup openssl python python-libs newt slang libseli
 	 libselinux-python nss udev keyutils-libs nspr python-iniparse
 	 cryptsetup-luks e4fsprogs fipscheck fipscheck-lib libdrm libmlx4
 	 subscription-manager python-dmidecode python-ethtool
-	 python-rhsm python-simplejson PyXML m2crypto"
+	 python-rhsm python-simplejson PyXML m2crypto portmap"
 
 if [ $ARCH = i386 -o $ARCH = x86_64 ]; then
     PACKAGES="$PACKAGES pcmciautils"
@@ -141,7 +141,7 @@ fi
 if [ $ARCH = s390 -o $ARCH = s390x ]; then
     PACKAGES="$PACKAGES s390utils binutils libgcc tcp_wrappers
               sed net-tools xinetd openssl openssh openssh-server coreutils
-              login initscripts XFree86-xauth bash portmap pam 
+              login initscripts XFree86-xauth bash pam 
               telnet-server login mount grep modutils gawk
               XFree86-libs strace xorg-x11-xauth xorg-x11-libs"
 fi
@@ -374,6 +374,7 @@ sbin/mkswap
 sbin/parted
 sbin/pcmcia-socket-startup
 sbin/pdisk
+sbin/portmap
 sbin/probe
 sbin/reiserfstune
 sbin/resize2fs
@@ -557,7 +558,6 @@ sbin/cmsfscat
 sbin/busybox
 sbin/ifconfig
 sbin/route
-sbin/portmap
 sbin/fdasd
 sbin/dasdfmt
 sbin/swapon
