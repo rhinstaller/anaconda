@@ -1661,6 +1661,15 @@ class GRUB2(GRUB):
         if rc:
             log.error("failed to set default menu entry to %s" % productName)
 
+        # serial.mod doesn't exist until grub2-install is run, but
+        # grub2-mkconfig will fail on some serial-console machines unless
+        # it is there.  So just run grub2-install once to make sure the
+        # necessary modules are there before configuring.
+        try:
+            self.install(install_root = install_root)
+        except:
+            pass
+
         # now tell grub2 to generate the main configuration file
         rc = iutil.execWithRedirect("grub2-mkconfig",
                                     ["-o", self.config_file],
