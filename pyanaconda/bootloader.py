@@ -1075,7 +1075,7 @@ class GRUB(BootLoader):
             unit = self.console[-1]
             speed = "9600"
             for opt in self.console_options.split(","):
-                if opt.isdigit:
+                if opt.isdigit():
                     speed = opt
                     break
 
