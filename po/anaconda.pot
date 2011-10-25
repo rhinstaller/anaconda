@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 16.21\n"
+"Project-Id-Version: anaconda 16.22\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2011-10-19 14:03-0400\n"
+"POT-Creation-Date: 2011-10-25 16:36-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -178,15 +178,15 @@ msgid ""
 "partition."
 msgstr ""
 
-#: pyanaconda/bootloader.py:2049
+#: pyanaconda/bootloader.py:2058
 msgid "Bootloader"
 msgstr ""
 
-#: pyanaconda/bootloader.py:2050
+#: pyanaconda/bootloader.py:2059
 msgid "Installing bootloader."
 msgstr ""
 
-#: pyanaconda/bootloader.py:2057 pyanaconda/bootloader.py:2116
+#: pyanaconda/bootloader.py:2066 pyanaconda/bootloader.py:2125
 #: pyanaconda/gui.py:1093 pyanaconda/image.py:87
 #: pyanaconda/installinterfacebase.py:74
 #: pyanaconda/installinterfacebase.py:151 pyanaconda/packages.py:90
@@ -195,13 +195,13 @@ msgstr ""
 msgid "Warning"
 msgstr ""
 
-#: pyanaconda/bootloader.py:2058
+#: pyanaconda/bootloader.py:2067
 msgid ""
 "No kernel packages were installed on the system. Bootloader configuration "
 "will not be changed."
 msgstr ""
 
-#: pyanaconda/bootloader.py:2117
+#: pyanaconda/bootloader.py:2126
 msgid ""
 "There was an error installing the bootloader.  The system may not be "
 "bootable."
@@ -222,9 +222,9 @@ msgid ""
 msgstr ""
 
 #: pyanaconda/cmdline.py:108 pyanaconda/gui.py:1148
-#: pyanaconda/kickstart.py:1239 pyanaconda/kickstart.py:1298
-#: pyanaconda/kickstart.py:1306 pyanaconda/kickstart.py:1336
-#: pyanaconda/kickstart.py:1346 pyanaconda/text.py:400
+#: pyanaconda/kickstart.py:1233 pyanaconda/kickstart.py:1292
+#: pyanaconda/kickstart.py:1300 pyanaconda/kickstart.py:1330
+#: pyanaconda/kickstart.py:1340 pyanaconda/text.py:400
 #, python-format
 msgid ""
 "The following error was found while parsing the kickstart configuration "
@@ -365,7 +365,7 @@ msgid "Error Enabling Network"
 msgstr ""
 
 #: pyanaconda/gui.py:1058 pyanaconda/installinterfacebase.py:56
-#: pyanaconda/iw/task_gui.py:320
+#: pyanaconda/iw/task_gui.py:322
 msgid "Error Setting Up Repository"
 msgstr ""
 
@@ -387,7 +387,7 @@ msgstr ""
 
 #: pyanaconda/gui.py:1100 pyanaconda/rescue.py:256 pyanaconda/text.py:426
 #: pyanaconda/yuminstall.py:820 pyanaconda/yuminstall.py:1254
-#: pyanaconda/iw/task_gui.py:308
+#: pyanaconda/iw/task_gui.py:310
 msgid "No Network Available"
 msgstr ""
 
@@ -488,8 +488,8 @@ msgid ""
 "choose to continue if you think this is in error."
 msgstr ""
 
-#: pyanaconda/image.py:97 pyanaconda/kickstart.py:1427
-#: pyanaconda/kickstart.py:1466 pyanaconda/packages.py:95
+#: pyanaconda/image.py:97 pyanaconda/kickstart.py:1421
+#: pyanaconda/kickstart.py:1460 pyanaconda/packages.py:95
 #: pyanaconda/upgrade.py:58 pyanaconda/upgrade.py:98
 #: pyanaconda/yuminstall.py:1334 pyanaconda/yuminstall.py:1519
 #: pyanaconda/iw/partition_gui.py:1566 pyanaconda/storage/__init__.py:2237
@@ -535,8 +535,8 @@ msgstr ""
 #: pyanaconda/iw/osbootwidget.py:209 pyanaconda/iw/osbootwidget.py:215
 #: pyanaconda/iw/osbootwidget.py:224 pyanaconda/iw/partition_dialog_gui.py:383
 #: pyanaconda/iw/raid_dialog_gui.py:219 pyanaconda/iw/raid_dialog_gui.py:345
-#: pyanaconda/iw/task_gui.py:52 pyanaconda/iw/task_gui.py:150
-#: pyanaconda/iw/task_gui.py:302 pyanaconda/iw/task_gui.py:464
+#: pyanaconda/iw/task_gui.py:52 pyanaconda/iw/task_gui.py:152
+#: pyanaconda/iw/task_gui.py:304 pyanaconda/iw/task_gui.py:467
 #: loader/windows.h:30 loader/cdinstall.c:186 loader/cdinstall.c:416
 #: loader/driverdisk.c:208 loader/driverdisk.c:455 loader/driverdisk.c:490
 #: loader/driverdisk.c:518 loader/driverdisk.c:526 loader/driverdisk.c:598
@@ -706,49 +706,49 @@ msgstr ""
 msgid "Could not log into any iSCSI nodes at the portal."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1371 pyanaconda/livecd.py:196
+#: pyanaconda/kickstart.py:1365 pyanaconda/livecd.py:196
 msgid "Post-Installation"
 msgstr ""
 
-#: pyanaconda/kickstart.py:1372
+#: pyanaconda/kickstart.py:1366
 msgid "Running post-installation scripts"
 msgstr ""
 
-#: pyanaconda/kickstart.py:1387
+#: pyanaconda/kickstart.py:1381
 msgid "Running pre-installation scripts"
 msgstr ""
 
-#: pyanaconda/kickstart.py:1418
+#: pyanaconda/kickstart.py:1412
 msgid "Missing Package"
 msgstr ""
 
-#: pyanaconda/kickstart.py:1419
+#: pyanaconda/kickstart.py:1413
 #, python-format
 msgid ""
 "You have specified that the package '%s' should be installed.  This package "
 "does not exist. Would you like to continue or abort this installation?"
 msgstr ""
 
-#: pyanaconda/kickstart.py:1425 pyanaconda/kickstart.py:1464
+#: pyanaconda/kickstart.py:1419 pyanaconda/kickstart.py:1458
 msgid "_Abort"
 msgstr ""
 
-#: pyanaconda/kickstart.py:1426 pyanaconda/kickstart.py:1465
+#: pyanaconda/kickstart.py:1420 pyanaconda/kickstart.py:1459
 msgid "_Ignore All"
 msgstr ""
 
-#: pyanaconda/kickstart.py:1456
+#: pyanaconda/kickstart.py:1450
 msgid "Missing Group"
 msgstr ""
 
-#: pyanaconda/kickstart.py:1457
+#: pyanaconda/kickstart.py:1451
 #, python-format
 msgid ""
 "You have specified that the group '%s' should be installed. This group does "
 "not exist. Would you like to continue or abort this installation?"
 msgstr ""
 
-#: pyanaconda/kickstart.py:1549
+#: pyanaconda/kickstart.py:1543
 #, python-format
 msgid ""
 "The kickstart configuration file is missing required information that "
@@ -1682,7 +1682,7 @@ msgid "Repository %r is missing name in configuration, using id"
 msgstr ""
 
 #: pyanaconda/yuminstall.py:821 pyanaconda/yuminstall.py:1255
-#: pyanaconda/iw/task_gui.py:309
+#: pyanaconda/iw/task_gui.py:311
 msgid ""
 "Some of your software repositories require networking, but there was an "
 "error enabling the network on your system."
@@ -3113,44 +3113,44 @@ msgstr ""
 msgid "Edit Repository"
 msgstr ""
 
-#: pyanaconda/iw/task_gui.py:151
+#: pyanaconda/iw/task_gui.py:153
 #, python-format
 msgid ""
 "The repository %s has already been added.  Please choose a different "
 "repository name and URL."
 msgstr ""
 
-#: pyanaconda/iw/task_gui.py:237
+#: pyanaconda/iw/task_gui.py:239
 msgid "Invalid Proxy URL"
 msgstr ""
 
-#: pyanaconda/iw/task_gui.py:238
+#: pyanaconda/iw/task_gui.py:240
 msgid "You must provide an HTTP, HTTPS, or FTP URL to a proxy."
 msgstr ""
 
-#: pyanaconda/iw/task_gui.py:250 pyanaconda/iw/task_gui.py:432
+#: pyanaconda/iw/task_gui.py:252 pyanaconda/iw/task_gui.py:435
 msgid "Invalid Repository URL"
 msgstr ""
 
-#: pyanaconda/iw/task_gui.py:251 pyanaconda/iw/task_gui.py:433
+#: pyanaconda/iw/task_gui.py:253 pyanaconda/iw/task_gui.py:436
 msgid "You must provide an HTTP, HTTPS, or FTP URL to a repository."
 msgstr ""
 
-#: pyanaconda/iw/task_gui.py:272 pyanaconda/iw/task_gui.py:442
+#: pyanaconda/iw/task_gui.py:274 pyanaconda/iw/task_gui.py:445
 msgid "No Media Found"
 msgstr ""
 
-#: pyanaconda/iw/task_gui.py:273 pyanaconda/iw/task_gui.py:443
+#: pyanaconda/iw/task_gui.py:275 pyanaconda/iw/task_gui.py:446
 msgid ""
 "No installation media was found. Please insert a disc into your drive and "
 "try again."
 msgstr ""
 
-#: pyanaconda/iw/task_gui.py:303 pyanaconda/iw/task_gui.py:465
+#: pyanaconda/iw/task_gui.py:305 pyanaconda/iw/task_gui.py:468
 msgid "Please enter an NFS server and path."
 msgstr ""
 
-#: pyanaconda/iw/task_gui.py:321
+#: pyanaconda/iw/task_gui.py:323
 #, python-format
 msgid ""
 "The following error occurred while setting up the repository:\n"
@@ -3158,23 +3158,23 @@ msgid ""
 "%s"
 msgstr ""
 
-#: pyanaconda/iw/task_gui.py:344
+#: pyanaconda/iw/task_gui.py:346
 msgid "Invalid Repository Name"
 msgstr ""
 
-#: pyanaconda/iw/task_gui.py:345
+#: pyanaconda/iw/task_gui.py:347
 msgid "You must provide a repository name."
 msgstr ""
 
-#: pyanaconda/iw/task_gui.py:497 data/ui/addrepo.glade.h:3
+#: pyanaconda/iw/task_gui.py:500 data/ui/addrepo.glade.h:3
 msgid "Add Repository"
 msgstr ""
 
-#: pyanaconda/iw/task_gui.py:502
+#: pyanaconda/iw/task_gui.py:505
 msgid "No Software Repos Enabled"
 msgstr ""
 
-#: pyanaconda/iw/task_gui.py:503
+#: pyanaconda/iw/task_gui.py:506
 msgid ""
 "You must have at least one software repository enabled to continue "
 "installation."
