@@ -222,6 +222,12 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Tue Oct 25 2011 David Cantrell <dcantrell@redhat.com> - 13.21.147-1
+- Make sure to clean up temp vg paths after lvm edit. (dlehman)
+  Resolves: rhbz#747606
+- Add xenfs module to initrd.img (dcantrell).
+  Resolves: rhbz#747388
+
 * Mon Oct 17 2011 David Cantrell <dcantrell@redhat.com> - 13.21.146-1
 - mpath: flush more eagerly in filter_gui. (akozumpl)
   Resolves: rhbz#744772
