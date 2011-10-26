@@ -153,6 +153,10 @@ class X86(Platform):
     # XXX hpfs, if reported by blkid/udev, will end up with a type of None
     _non_linux_format_types = ["vfat", "ntfs", "hpfs"]
 
+    def __init__(self, anaconda):
+        super(X86, self).__init__(anaconda)
+        self.blackListGPT()
+
     def setDefaultPartitioning(self):
         """Return the default platform-specific partitioning information."""
         from storage.partspec import PartSpec
@@ -169,6 +173,13 @@ class X86(Platform):
             return 5000
         else:
             return 0
+
+    def blackListGPT(self):
+        buf = iutil.execWithCapture("dmidecode",
+                                    ["-s", "chassis-manufacturer"],
+                                    stderr="/dev/tty5")
+        if "LENOVO" in buf.splitlines() and "gpt" in self._disklabel_types:
+            self._disklabel_types.remove("gpt")
 
 class EFI(Platform):
     _bootloaderClass = bootloader.EFIGRUB
