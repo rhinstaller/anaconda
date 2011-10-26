@@ -232,6 +232,9 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Wed Oct 26 2011 Chris Lumens <clumens@redhat.com> - 16.24-1
+- Don't use GPT disklabels on Lenovo BIOS systems. (#749325) (dlehman)
+
 * Tue Oct 25 2011 Chris Lumens <clumens@redhat.com> - 16.23-1
 - Run grub2-config before grub2-mkconfig (#736993) (pjones)
 - Fix typo in call to opt.isdigit (#743787) (pjones)
