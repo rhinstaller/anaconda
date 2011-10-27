@@ -243,6 +243,22 @@ static void parseEthtoolSettings(struct loaderData_s * loaderData) {
     free(buf);
 }
 
+int split_ipv6addr_prefix_length(char *str, char **address, char **prefix) {
+    gchar **elements = g_strsplit(str, "/", 2);
+    int rc = 0;
+
+    if (elements[0]) {
+        *address = strdup(elements[0]);
+        if (elements[1]) {
+            *prefix = strdup(elements[1]);
+        }
+        rc = 1;
+    }
+    g_strfreev(elements);
+    return rc;
+}
+
+
 /* given loader data from kickstart, populate network configuration struct */
 void setupIfaceStruct(iface_t * iface, struct loaderData_s * loaderData) {
     struct in_addr addr;

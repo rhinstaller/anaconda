@@ -748,19 +748,14 @@ static void readNetInfo(struct loaderData_s ** ld) {
                     loaderData->gateway = strdup(val);
 #ifdef ENABLE_IPV6
                 } else if (!g_strcmp0(pair[0], "IPV6ADDR")) {
-                    gchar **elements = g_strsplit(val, "/", 2);
-
-                    if (elements[0]) {
-                        loaderData->ipv6 = strdup(elements[0]);
+                    if (split_ipv6addr_prefix_length(val,
+                                                     &(loaderData->ipv6),
+                                                     &(loaderData->ipv6prefix))) {
                         loaderData->ipv6info_set = 1;
                         flags |= LOADER_FLAGS_IPV6_PARAM;
-                        if (elements[1]) {
-                            loaderData->ipv6prefix = strdup(elements[1]);
-                        }
                     } else {
                       logMessage(WARNING, "readNetInfo could not parse IPV6ADDR: %s", val);
                     }
-                    g_strfreev(elements);
                 } else if (!g_strcmp0(pair[0], "IPV6_DEFAULTGW")) {
                     loaderData->gateway6 = strdup(val);
 #endif
@@ -866,13 +861,18 @@ static void parseCmdLineIp(struct loaderData_s * loaderData, char *argv)
 
 #ifdef ENABLE_IPV6
 /*
- * parse anaconda ipv6= arguments
+ * parse anaconda ipv6= arguments - split prefix length if found
  */
 static void parseCmdLineIpv6(struct loaderData_s * loaderData, char *argv)
 {
-    loaderData->ipv6 = strdup(argv+5);
-    loaderData->ipv6info_set = 1;
-    flags |= LOADER_FLAGS_IPV6_PARAM;
+    if (split_ipv6addr_prefix_length(argv+5,
+                                     &(loaderData->ipv6),
+                                     &(loaderData->ipv6prefix))) {
+        loaderData->ipv6info_set = 1;
+        flags |= LOADER_FLAGS_IPV6_PARAM;
+    } else {
+      logMessage(WARNING, "parseCmdLineIpv6 could not parse %s", argv);
+    }
 }
 #endif
 
