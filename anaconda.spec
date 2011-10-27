@@ -1,6 +1,6 @@
 Name: anaconda
-Version: 11.1.2.245
-Release: 2
+Version: 11.1.2.246
+Release: 1
 License: GPL
 Summary: Graphical system installer
 Group: Applications/System
@@ -128,6 +128,16 @@ fi
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu Oct 27 2011 Martin Gracik <mgracik@redhat.com> 11.1.2.246-1
+- Make sure fstype exists before we try to test it (mgracik)
+  Resolves: rhbz#718123
+- Update getMaxLVSize from lvm1 to lvm2 (dlehman)
+  Resolves: rhbz#695299
+- Fix "ignoredisk --only-use=___" handling (dcantrell)
+  Resolves: rhbz#738186
+- We need portmap on all arches because of new NFS (msivak)
+  Resolves: rhbz#742889 
+
 * Thu Oct 20 2011 Martin Sivak <msivak@redhat.com> 11.1.2.245-2
 - New kudzu is needed to detect FusionIO devices
   Resolves: rhbz#707563
