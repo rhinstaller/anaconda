@@ -51,7 +51,9 @@ class NetworkWindow(InstallWindow):
 
         self.netconfButton = self.xml.get_widget("netconfButton")
         self.netconfButton.connect("clicked", self._setupNetwork)
-        if len(self.anaconda.network.netdevices) == 0 or flags.imageInstall:
+        if (len(self.anaconda.network.netdevices) == 0
+            or flags.imageInstall
+            or flags.livecdInstall):
             self.netconfButton.set_sensitive(False)
 
         # pressing Enter in confirm == clicking Next
