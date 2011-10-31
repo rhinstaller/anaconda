@@ -23,6 +23,5 @@ utilsdir            = $(libexecdir)/$(PACKAGE_NAME)
 
 dist_sbin_SCRIPTS    = logpicker
 utils_PROGRAMS      = mapshdr readmap
-noinst_PROGRAMS     = snarffont
 
 MAINTAINERCLEANFILES = Makefile.in
