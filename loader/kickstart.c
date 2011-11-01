@@ -724,6 +724,8 @@ static void setKickstartNetwork(struct loaderData_s * loaderData, PyObject *hand
 #ifdef ENABLE_IPV6
         free(loaderData->ipv6);
         loaderData->ipv6 = NULL;
+        free(loaderData->ipv6prefix);
+        loaderData->ipv6prefix = NULL;
         loaderData->ipv6info_set = 0;
         free(loaderData->gateway6);
         loaderData->gateway6 = NULL;
@@ -745,6 +747,11 @@ static void setKickstartNetwork(struct loaderData_s * loaderData, PyObject *hand
 
 #ifdef ENABLE_IPV6
         _setNetworkString(ele, "ipv6", &loaderData->ipv6, &loaderData->ipv6info_set);
+        if (loaderData->ipv6) {
+            split_ipv6addr_prefix_length(loaderData->ipv6,
+                                         &(loaderData->ipv6),
+                                         &(loaderData->ipv6prefix));
+        }
 #endif
 
         _setNetworkString(ele, "nameserver", &loaderData->dns, NULL);
