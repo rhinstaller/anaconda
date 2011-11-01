@@ -78,6 +78,7 @@ int activateDevice(struct loaderData_s * loaderData,
                    iface_t * iface);
 int disconnectDevice(char *device);
 void splitHostname (char *str, char **host, char **port);
+int split_ipv6addr_prefix_length(char *str, char **address, char **prefix);
 int wait_for_iface_activation(char * ifname);
 int wait_for_iface_disconnection(char *ifname);
 int isURLRemote(char *url);
