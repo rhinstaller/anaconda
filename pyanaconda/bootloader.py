@@ -300,7 +300,8 @@ class BootLoader(object):
             # only generate the list if it is empty
             return self._drives
 
-        drives = [d for d in self.storage.disks if not d.format.hidden]
+        drives = [d for d in self.storage.disks if not d.format.hidden
+                                                    and not d.protected]
         self._drives = self._sort_drives(drives)
 
         # set "boot drive"
