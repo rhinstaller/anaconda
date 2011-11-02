@@ -30,12 +30,46 @@
 
 # This toplevel file is a little messy at the moment...
 
-import sys, os, re, time, subprocess
+import atexit, sys, os, re, time, subprocess
 from optparse import OptionParser
 from tempfile import mkstemp
 
 # keep up with process ID of the window manager if we start it
 wm_pid = None
+
+def exitHandler(anaconda, exitCode=None):
+    from pyanaconda import isys
+    from pyanaconda.flags import flags
+
+    if exitCode:
+        anaconda.intf.shutdown()
+
+        if "nokill" in flags.cmdline:
+            isys.vtActivate(1)
+            print "anaconda halting due to nokill flag."
+            print "The system will be rebooted when you press Ctrl-Alt-Delete."
+            while True:
+                time.sleep(10000)
+
+    if anaconda.ksdata:
+        from pykickstart.constants import KS_SHUTDOWN, KS_WAIT, KS_REBOOT
+
+        if anaconda.ksdata.reboot.eject:
+            for drive in anaconda.storage.devicetree.devices:
+                if drive.type != "cdrom":
+                    continue
+
+                log.info("attempting to eject %s" % drive.path)
+                drive.eject()
+
+        if anaconda.ksdata.reboot.action == KS_SHUTDOWN:
+            os.system("systemctl --force --no-wall poweroff")
+        elif anaconda.ksdata.reboot.action == KS_WAIT:
+            os.system("systemctl --force --no-wall halt")
+        else: # reboot action is KS_REBOOT or None
+            os.system("systemctl --force --no-wall reboot")
+    elif not flags.imageInstall:
+        os.system("systemctl --force --no-wall reboot")
 
 def startMetacityWM():
     childpid = os.fork()
@@ -751,36 +785,11 @@ if __name__ == "__main__":
     if anaconda.isHeadless:
         anaconda.dispatch.skip_steps("keyboard")
 
+    atexit.register(exitHandler, anaconda)
+
     try:
         anaconda.dispatch.run()
     except SystemExit, code:
-        anaconda.intf.shutdown()
-
-        if "nokill" in flags.cmdline:
-            isys.vtActivate(1)
-            print "anaconda halting due to nokill flag."
-            print "The system will be rebooted when you press Ctrl-Alt-Delete."
-            while True:
-                time.sleep(10000)
-
-    if anaconda.ksdata:
-        from pykickstart.constants import KS_SHUTDOWN, KS_WAIT, KS_REBOOT
-
-        if anaconda.ksdata.reboot.eject:
-            for drive in anaconda.storage.devicetree.devices:
-                if drive.type != "cdrom":
-                    continue
-
-                log.info("attempting to eject %s" % drive.path)
-                drive.eject()
-
-        if anaconda.ksdata.reboot.action == KS_SHUTDOWN:
-            os.system("systemctl --force --no-wall poweroff")
-        elif anaconda.ksdata.reboot.action == KS_WAIT:
-            os.system("systemctl --force --no-wall halt")
-        else: # reboot action is KS_REBOOT or None
-            os.system("systemctl --force --no-wall reboot")
-    elif not flags.imageInstall:
-        os.system("systemctl --force --no-wall reboot")
+        exitHandler(anaconda, code)
 
 # vim:tw=78:ts=4:et:sw=4
