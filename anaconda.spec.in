@@ -222,6 +222,11 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Wed Nov 02 2011 Chris Lumens <clumens@redhat.com> - 13.21.148-1
+- Support prefix length in ipv6= cmdline option (rvykydal)
+  Resolves: rhbz#679108
+  Related: rhbz#679108
+
 * Tue Oct 25 2011 David Cantrell <dcantrell@redhat.com> - 13.21.147-1
 - Make sure to clean up temp vg paths after lvm edit. (dlehman)
   Resolves: rhbz#747606
