@@ -81,7 +81,7 @@ class UpgradeMigrateFSWindow:
 		return INSTALL_BACK
 
             # Cancel any previously scheduled migrate actions first.
-            for entry in partlist:
+            for entry in partlist.getSelection():
                 actions = anaconda.storage.devicetree.findActions(device=entry[1],
                                                                   type="migrate")
                 if not actions:
