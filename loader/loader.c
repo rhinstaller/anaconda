@@ -2045,7 +2045,7 @@ int main(int argc, char ** argv) {
     loadScsiDhModules();
 
 #if !defined(__s390__) && !defined(__s390x__)
-    mlLoadModuleSet("floppy:edd:pcspkr:iscsi_ibft");
+    mlLoadModuleSet("floppy:edd:iscsi_ibft");
 #endif
 
 #ifdef ENABLE_IPV6
