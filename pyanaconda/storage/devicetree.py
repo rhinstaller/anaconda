@@ -1016,47 +1016,33 @@ class DeviceTree(object):
             log.error("Unknown block device type for: %s" % name)
             return
 
-        def get_live_backing_device_path():
-            """ Return a path to the live block device or an empty string.
-
-                The line we're looking for will be of the form
-
-                    root='block:/dev/disk/by-uuid/<UUID>'
-
-            """
-            root_info = "/run/initramfs/tmp/root.info"
+        def is_live_backing_device(info):
             dev_live = "/dev/live"
-            root_path = ""
-            if os.path.exists(dev_live):
-                root_path = os.path.realpath(dev_live)
-            elif os.path.exists(root_info):
-                prefix = "root='"
-                for line in open(root_info):
-                    if not line.startswith(prefix) or \
-                       (line[6:12] != "block:" and line[6:11] != "live:"):
-                        continue
+            if os.path.exists(dev_live) and \
+               os.path.realpath(dev_live) == info["DEVNAME"]:
+                return True
 
-                    start_idx = line.index(":") + 1
-                    root_path = os.path.realpath(line[start_idx:-1])
-                    root_name = devicePathToName(root_path)
-                    if root_name.startswith("dm-"):
-                        root_name = dm.name_from_dm_node(root_name)
-                        root_path = "/dev/mapper/%s" % root_name
+            if udev_device_get_format(info) == "iso9660":
+                return True
 
-                    break
+            if udev_device_get_label(info) == "LIVE":
+                return True
 
-            return root_path
+            return False
 
         # If this device is protected, mark it as such now. Once the tree
         # has been populated, devices' protected attribute is how we will
         # identify protected devices.
-        if device and device.name in self.protectedDevNames:
+        is_live = is_live_backing_device(info)
+        if device and (device.name in self.protectedDevNames or is_live):
+            log.debug("protecting %s" % device.name)
             device.protected = True
             # if this is the live backing device we want to mark its parents
             # as protected also
-            live_path = get_live_backing_device_path()
-            if live_path and device.path == live_path:
+            if is_live:
+                log.debug("%s looks like a live backing device" % name)
                 for parent in device.parents:
+                    log.debug("protecting %s" % parent.name)
                     parent.protected = True
 
         # Don't try to do format handling on drives without media or
