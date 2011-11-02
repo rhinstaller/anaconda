@@ -937,7 +937,7 @@ class InstallInterface(InstallInterfaceBase):
                 dev_all_ssids = self.anaconda.network.getSSIDs()
                 w.pop()
                 # select wireless APs
-                dev_ssids = selectSSIDsDialog(dev_all_ssids) or dev_all_ssids
+                dev_ssids = selectSSIDsDialog(dev_all_ssids)
                 self.anaconda.network.writeSSIDifcfgs(dev_ssids)
 
             self.anaconda.network.writeIfcfgFiles()

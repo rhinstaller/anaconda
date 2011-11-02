@@ -574,6 +574,9 @@ class Network:
         return ifaces
 
     def writeSSIDifcfgs(self, devssids):
+        if not devssids:
+            return
+
         ssids = []
         for ssidlist in devssids.values():
             ssids.extend(ssidlist)
