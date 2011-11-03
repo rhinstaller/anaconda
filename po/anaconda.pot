@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 16.23\n"
+"Project-Id-Version: anaconda 16.24\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2011-10-26 16:50-0400\n"
+"POT-Creation-Date: 2011-11-02 17:48-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -112,81 +112,81 @@ msgstr ""
 msgid "/boot filesystem"
 msgstr ""
 
-#: pyanaconda/bootloader.py:401
+#: pyanaconda/bootloader.py:402
 #, python-format
 msgid ""
 "RAID sets that contain '%s' must have one of the following raid levels: %s."
 msgstr ""
 
-#: pyanaconda/bootloader.py:409
+#: pyanaconda/bootloader.py:410
 #, python-format
 msgid ""
 "RAID sets that contain '%s' must have one of the following metadata "
 "versions: %s."
 msgstr ""
 
-#: pyanaconda/bootloader.py:417
+#: pyanaconda/bootloader.py:418
 #, python-format
 msgid ""
 "RAID sets that contain '%s' must have one of the following device types: %s."
 msgstr ""
 
-#: pyanaconda/bootloader.py:433
+#: pyanaconda/bootloader.py:434
 #, python-format
 msgid "%s must have one of the following disklabel types: %s."
 msgstr ""
 
-#: pyanaconda/bootloader.py:445 pyanaconda/bootloader.py:574
+#: pyanaconda/bootloader.py:446 pyanaconda/bootloader.py:575
 #, python-format
 msgid "%s cannot be of type %s."
 msgstr ""
 
-#: pyanaconda/bootloader.py:457
+#: pyanaconda/bootloader.py:458
 #, python-format
 msgid "%s must be between %d and %d MB in size"
 msgstr ""
 
-#: pyanaconda/bootloader.py:462
+#: pyanaconda/bootloader.py:463
 #, python-format
 msgid "%s must not be smaller than %dMB."
 msgstr ""
 
-#: pyanaconda/bootloader.py:471
+#: pyanaconda/bootloader.py:472
 #, python-format
 msgid "%s must not be larger than %dMB."
 msgstr ""
 
-#: pyanaconda/bootloader.py:489
+#: pyanaconda/bootloader.py:490
 #, python-format
 msgid "%s must be within the first %dMB of the disk."
 msgstr ""
 
-#: pyanaconda/bootloader.py:614 pyanaconda/bootloader.py:715
+#: pyanaconda/bootloader.py:615 pyanaconda/bootloader.py:716
 #, python-format
 msgid "%s cannot be on an encrypted block device."
 msgstr ""
 
-#: pyanaconda/bootloader.py:677
+#: pyanaconda/bootloader.py:678
 #, python-format
 msgid "%s cannot be of type %s"
 msgstr ""
 
-#: pyanaconda/bootloader.py:1517
+#: pyanaconda/bootloader.py:1518
 msgid ""
 "Your BIOS-based system needs a special partition to boot with Fedora's new "
 "disk label format (GPT). To continue, please create a 1MB 'BIOS Boot' type "
 "partition."
 msgstr ""
 
-#: pyanaconda/bootloader.py:2058
+#: pyanaconda/bootloader.py:2059
 msgid "Bootloader"
 msgstr ""
 
-#: pyanaconda/bootloader.py:2059
+#: pyanaconda/bootloader.py:2060
 msgid "Installing bootloader."
 msgstr ""
 
-#: pyanaconda/bootloader.py:2066 pyanaconda/bootloader.py:2125
+#: pyanaconda/bootloader.py:2067 pyanaconda/bootloader.py:2126
 #: pyanaconda/gui.py:1093 pyanaconda/image.py:87
 #: pyanaconda/installinterfacebase.py:74
 #: pyanaconda/installinterfacebase.py:151 pyanaconda/packages.py:90
@@ -195,13 +195,13 @@ msgstr ""
 msgid "Warning"
 msgstr ""
 
-#: pyanaconda/bootloader.py:2067
+#: pyanaconda/bootloader.py:2068
 msgid ""
 "No kernel packages were installed on the system. Bootloader configuration "
 "will not be changed."
 msgstr ""
 
-#: pyanaconda/bootloader.py:2126
+#: pyanaconda/bootloader.py:2127
 msgid ""
 "There was an error installing the bootloader.  The system may not be "
 "bootable."
