@@ -18,7 +18,6 @@
 #
 
 from flags import flags
-from errors import *
 
 import ConfigParser
 import sys
