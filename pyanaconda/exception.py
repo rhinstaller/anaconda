@@ -99,7 +99,7 @@ class AnacondaExceptionHandler(ExceptionHandler):
         os.kill(os.getpid(), signal.SIGKILL)
 
 def initExceptionHandling(anaconda):
-    fileList = [ "/tmp/anaconda.log", "/tmp/lvmout", "/tmp/resize.out",
+    fileList = [ "/tmp/anaconda.log",
                  "/tmp/program.log", "/tmp/storage.log", "/tmp/ifcfg.log",
                  "/tmp/yum.log", ROOT_PATH + "/root/install.log",
                  ROOT_PATH + "/root/upgrade.log", "/proc/cmdline" ]

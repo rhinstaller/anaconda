@@ -31,21 +31,6 @@ DISPATCH_FORWARD = 1
 DISPATCH_DEFAULT = None
 DISPATCH_WAITING = 2
 
-# different types of partition requests
-# REQUEST_PREEXIST is a placeholder for a pre-existing partition on the system
-# REQUEST_NEW is a request for a partition which will be automatically
-#              created based on various constraints on size, drive, etc
-# REQUEST_RAID is a request for a raid device
-# REQUEST_PROTECTED is a preexisting partition which can't change
-#              (harddrive install, harddrive with the isos on it)
-#
-REQUEST_PREEXIST = 1
-REQUEST_NEW = 2
-REQUEST_RAID = 4
-REQUEST_PROTECTED = 8
-REQUEST_VG = 16 # volume group
-REQUEST_LV = 32 # logical volume
-
 # XXX this is made up and used by the size spinner; should just be set with
 # a callback
 MAX_PART_SIZE = 1024*1024*1024
@@ -63,8 +48,6 @@ productVersion = product.productVersion
 productArch = product.productArch
 bugzillaUrl = product.bugUrl
 isFinal = product.isFinal
-
-lvmErrorOutput = "/tmp/lvmout"
 
 exceptionText = _("An unhandled exception has occurred.  This "
                   "is most likely a bug.  Please save a copy of "
