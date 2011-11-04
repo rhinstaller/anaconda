@@ -1925,7 +1925,7 @@ class ZIPL(BootLoader):
                                                      image.initrd)
             else:
                 initrd_line = ""
-            args.add("root=%s/%s" % (self.boot_dir, image.kernel))
+            args.add("root=%s" % image.device.fstabSpec)
             args.update(self.boot_args)
             log.info("bootloader.py: used boot args: %s " % args)
             stanza = ("[%(label)s]\n"
