@@ -1595,7 +1595,8 @@ class GRUB2(GRUB):
         if drive is not None:
             name = "(hd%d" % self.drives.index(drive)
             if hasattr(device, "disk"):
-                name += ",%d" % device.partedPartition.number
+                lt = device.disk.format.labelType
+                name += ",%s%d" % (lt, device.partedPartition.number)
             name += ")"
         return name
 
