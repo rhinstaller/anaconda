@@ -1062,7 +1062,7 @@ class Upgrade(commands.upgrade.F11_Upgrade):
     def execute(self):
         self.anaconda.upgrade = self.upgrade
 
-class VolGroupData(commands.volgroup.FC3_VolGroupData):
+class VolGroupData(commands.volgroup.FC16_VolGroupData):
     def execute(self):
         pvs = []
 
