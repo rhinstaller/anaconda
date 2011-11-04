@@ -222,6 +222,10 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Fri Nov 04 2011 Chris Lumens <clumens@redhat.com> - 13.21.149-1
+- use 800x600 as minimal mainWindow size (vpodzime) (mgracik)
+  Resolves: rhbz#750764
+
 * Wed Nov 02 2011 Chris Lumens <clumens@redhat.com> - 13.21.148-1
 - Support prefix length in ipv6= cmdline option (rvykydal)
   Resolves: rhbz#679108
