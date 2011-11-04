@@ -1893,7 +1893,7 @@ class ZIPL(BootLoader):
                                                      image.initrd)
             else:
                 initrd_line = ""
-            args.add("root=%s/%s" % (self.boot_dir, image.kernel))
+            args.add("root=%s" % image.device.fstabSpec)
             args.update(self.boot_args)
             stanza = ("[%(label)s]\n"
                       "\timage=%(boot_dir)s/%(kernel)s\n"
