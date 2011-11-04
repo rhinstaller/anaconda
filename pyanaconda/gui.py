@@ -1376,7 +1376,7 @@ class InstallControlWindow:
                     height = int(fields[pos + 3].replace(',', ''))
 
             if width and height:
-                self.window.set_size_request(width, height)
+                self.window.set_size_request(min(width, 800), min(height, 600))
 
         self.window.show()
 
