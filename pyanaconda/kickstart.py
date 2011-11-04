@@ -259,7 +259,7 @@ class AutoPart(commands.autopart.F16_AutoPart):
 
         self.anaconda.dispatch.skip_steps("partition", "parttype")
 
-class Bootloader(commands.bootloader.F15_Bootloader):
+class Bootloader(commands.bootloader.F17_Bootloader):
     def execute(self):
         if self.location == "none":
             location = None
@@ -301,6 +301,11 @@ class Bootloader(commands.bootloader.F15_Bootloader):
                     self.driveorder.remove(drive)
 
             self.anaconda.bootloader.disk_order = self.driveorder
+
+            if self.bootDrive:
+                spec = udev_resolve_devspec(self.bootDrive)
+                drive = self.anaconda.storage.devicetree.getDeviceByName(spec)
+                self.anaconda.bootloader.stage1_drive = drive
 
         self.anaconda.dispatch.skip_steps("upgbootloader", "bootloader")
 
