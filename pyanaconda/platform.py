@@ -202,6 +202,7 @@ class EFI(Platform):
         from storage.partspec import PartSpec
         ret = Platform.setDefaultPartitioning(self)
         ret.append(PartSpec(mountpoint="/boot/efi", fstype="efi", size=20,
+                            maxSize=200,
                             grow=True, weight=self.weight(fstype="efi")))
         return ret
 
