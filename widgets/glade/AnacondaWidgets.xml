@@ -1,0 +1,118 @@
+<glade-catalog name="AnacondaWidgets"
+               version="1.0"
+               library="AnacondaWidgets"
+               domain="glade-3"
+               depends="gtk+">
+
+    <glade-widget-classes>
+        <glade-widget-class title="Base Window"
+                            name="AnacondaBaseWindow"
+                            icon-name="widget-gtk-window"
+                            generic-name="AnacondaBaseWindow"
+                            use-placeholders="True"
+                            toplevel="True">
+            <properties>
+                <property id="default-width" disabled="True" />
+                <property id="default-height" disabled="True" />
+                <property id="height-request" disabled="True" />
+                <property id="modal" disabled="True" />
+                <property id="resizable" disabled="True" />
+                <property id="startup-id" visible="False" />
+                <property id="title" disabled="True" />
+                <property id="type" disabled="True" />
+                <property id="width-request" disabled="True" />
+            </properties>
+        </glade-widget-class>
+
+        <glade-widget-class title="Standalone Spoke Window"
+                            name="AnacondaStandaloneWindow"
+                            icon-name="widget-gtk-window"
+                            generic-name="AnacondaStandaloneWindow"
+                            use-placeholders="True"
+                            toplevel="True">
+            <post-create-function>anaconda_standalone_window_post_create</post-create-function>
+            <write-widget-function>anaconda_standalone_window_write_widget</write-widget-function>
+
+            <internal-children>
+                <object name="action_area" />
+            </internal-children>
+        </glade-widget-class>
+
+        <glade-widget-class title="Hub Window"
+                            name="AnacondaHubWindow"
+                            icon-name="widget-gtk-window"
+                            generic-name="AnacondaHubWindow"
+                            use-placeholders="True"
+                            toplevel="True">
+            <!-- Not a typo - we really can use the same functions here (for now) -->
+            <post-create-function>anaconda_standalone_window_post_create</post-create-function>
+            <write-widget-function>anaconda_standalone_window_write_widget</write-widget-function>
+
+            <internal-children>
+                <object name="action_area">
+                    <object name="scrolled_window" />
+                </object>
+            </internal-children>
+        </glade-widget-class>
+
+        <glade-widget-class title="Spoke Window"
+                            name="AnacondaSpokeWindow"
+                            icon-name="widget-gtk-window"
+                            generic-name="AnacondaSpokeWindow"
+                            use-placeholders="True"
+                            toplevel="True">
+            <!-- Not a typo - we really can use the same functions here (for now) -->
+            <post-create-function>anaconda_standalone_window_post_create</post-create-function>
+            <write-widget-function>anaconda_standalone_window_write_widget</write-widget-function>
+
+            <internal-children>
+                <object name="action_area" />
+            </internal-children>
+        </glade-widget-class>
+
+        <glade-widget-class title="Spoke Selector"
+                            name="AnacondaSpokeSelector"
+                            icon-name="widget-gtk-grid"
+                            generic-name="AnacondaSpokeSelector">
+            <properties>
+                <property id="column-spacing" default="6" visible="False" />
+
+                <property since="1.0" themed-icon="True" id="icon" name="Icon" default="gtk-missing-image" visible="True">
+                    <parameter-spec>
+                        <type>GParamString</type>
+                    </parameter-spec>
+                </property>
+            </properties>
+        </glade-widget-class>
+
+        <glade-widget-class title="Disk Overview"
+                            name="AnacondaDiskOverview"
+                            icon-name="widget-gtk-vbox"
+                            generic-name="AnacondaDiskOverview">
+            <properties>
+                <property id="size" query="False" default="4" visible="False" />
+                <property id="spacing" default="6" visible="False" />
+
+                <property since="1.0" themed-icon="True" id="kind" name="Kind" default="drive-harddisk" visible="True">
+                    <parameter-spec>
+                        <type>GParamString</type>
+                    </parameter-spec>
+                </property>
+            </properties>
+        </glade-widget-class>
+    </glade-widget-classes>
+
+    <glade-widget-group name="anaconda-windows" title="Anaconda Windows">
+        <glade-widget-class-ref name="AnacondaHubWindow" />
+        <glade-widget-class-ref name="AnacondaStandaloneWindow" />
+        <glade-widget-class-ref name="AnacondaSpokeWindow" />
+    </glade-widget-group>
+
+    <glade-widget-group name="anaconda-disk-widgets" title="Anaconda Disk Widgets">
+        <glade-widget-class-ref name="AnacondaDiskOverview" />
+    </glade-widget-group>
+
+    <glade-widget-group name="anaconda-misc-widgets" title="Anaconda Miscellaneous Widgets">
+        <glade-widget-class-ref name="AnacondaSpokeSelector" />
+    </glade-widget-group>
+</glade-catalog>

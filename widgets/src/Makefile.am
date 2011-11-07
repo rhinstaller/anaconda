@@ -1,0 +1,69 @@
+# Makefile.am for anaconda widgets
+#
+# Copyright (C) 2011  Red Hat, Inc.
+#
+# This copyrighted material is made available to anyone wishing to use,
+# modify, copy, or redistribute it subject to the terms and conditions of
+# the GNU General Public License v.2, or (at your option) any later version.
+# This program is distributed in the hope that it will be useful, but WITHOUT
+# ANY WARRANTY expressed or implied, including the implied warranties of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General
+# Public License for more details.  You should have received a copy of the
+# GNU General Public License along with this program; if not, write to the
+# Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+# 02110-1301, USA.  Any Red Hat trademarks that are incorporated in the
+# source code or documentation are not subject to the GNU General Public
+# License and may only be used or replicated with the express permission of
+# Red Hat, Inc.
+#
+# Red Hat Author(s): Chris Lumens <clumens@redhat.com>
+#
+
+-include $(INTROSPECTION_MAKEFILE)
+
+ACLOCAL_AMFLAGS = -I m4
+
+DISTCHECK_CONFIGURE_FLAGS = --enable-introspection --enable-gtk-doc
+
+SOURCES = BaseWindow.c \
+	 DiskOverview.c \
+	 HubWindow.c \
+	 SpokeSelector.c \
+	 SpokeWindow.c \
+	 StandaloneWindow.c
+
+HDRS = BaseWindow.h \
+	 DiskOverview.h \
+	 HubWindow.h \
+	 SpokeSelector.h \
+	 SpokeWindow.h \
+	 StandaloneWindow.h
+
+noinst_HEADERS = gettext.h intl.h
+
+lib_LTLIBRARIES = libAnacondaWidgets.la
+libAnacondaWidgets_la_CFLAGS = $(GTK_CFLAGS) $(GLADEUI_CFLAGS) -Wall -g
+libAnacondaWidgets_la_LIBADD = $(GTK_LIBS) $(GLADEUI_LIBS)
+libAnacondaWidgets_la_LDFLAGS = $(LTLIBINTL)
+libAnacondaWidgets_la_SOURCES = $(SOURCES) $(HDRS) \
+	  glade-adaptor.c
+
+lib_includedir=$(includedir)/AnacondaWidgets
+lib_include_HEADERS = $(HDRS)
+
+if HAVE_INTROSPECTION
+AnacondaWidgets-1.0.gir: libAnacondaWidgets.la
+
+AnacondaWidgets_1_0_gir_FILES = $(SOURCES) $(HDRS)
+AnacondaWidgets_1_0_gir_LIBS = libAnacondaWidgets.la
+AnacondaWidgets_1_0_gir_SCANNERFLAGS = --warn-all --identifier-prefix=Anaconda --symbol-prefix=anaconda
+AnacondaWidgets_1_0_gir_INCLUDES = Gtk-3.0
+
+INTROSPECTION_GIRS = AnacondaWidgets-1.0.gir
+
+typelibdir = $(libdir)/girepository-1.0
+typelib_DATA = $(INTROSPECTION_GIRS:.gir=.typelib)
+
+CLEANFILES = AnacondaWidgets-1.0.gir $(typelib_DATA)
+MAINTAINERCLEANFILES = Makefile.in
+endif

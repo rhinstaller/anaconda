@@ -53,7 +53,8 @@ BuildRequires: device-mapper-devel >= %{dmver}
 BuildRequires: e2fsprogs-devel >= %{e2fsver}
 BuildRequires: elfutils-devel
 BuildRequires: gettext >= %{gettextver}
-BuildRequires: gtk2-devel
+BuildRequires: gtk3-devel gtk-doc
+BuildRequires: gobject-introspection-devel glade3-libgladeui-devel
 BuildRequires: intltool >= %{intltoolver}
 BuildRequires: isomd5sum-static >= %{isomd5sumver}
 BuildRequires: libarchive-devel
@@ -165,11 +166,32 @@ Obsoletes: booty
 The anaconda package contains the program which was used to install your
 system.
 
+%package widgets
+Summary: A set of custom GTK+ widgets for use with anaconda
+Group: System Environment/Libraries
+Requires: pygobject3
+Requires: python
+
+%description widgets
+This package contains a set of custom GTK+ widgets used by the anaconda installer.
+
+%package widgets-devel
+Summary: Development files for anaconda-widgets
+Group: Development/Libraries
+Requires: glade3
+
+%description widgets-devel
+This package contains libraries and header files needed for writing the anaconda
+installer.  It also contains Python and Glade support files, as well as
+documentation for working with this library.
+
 %prep
 %setup -q
 
 %build
-%configure --disable-static
+%configure --disable-static \
+           --enable-introspection \
+           --enable-gtk-doc
 %{__make} %{?_smp_mflags}
 
 %install
@@ -230,6 +252,17 @@ update-desktop-database &> /dev/null || :
 %{_datadir}/applications/*.desktop
 %{_datadir}/icons/hicolor/*
 %endif
+
+%files widgets
+%{_libdir}/libAnacondaWidgets.so.*
+%{_libdir}/girepository*/AnacondaWidgets*typelib
+%{_libdir}/python*/site-packages/gi/overrides/*
+
+%files widgets-devel
+%{_libdir}/libAnacondaWidgets.so
+%{_includedir}/*
+%{_datadir}/glade/catalogs/AnacondaWidgets.xml
+%{_datadir}/gtk-doc
 
 %changelog
 * Tue Oct 11 2011 Chris Lumens <clumens@redhat.com> - 17.1-1

@@ -131,7 +131,7 @@ PKG_PROG_PKG_CONFIG([0.23])
 PKG_CHECK_MODULES([X11], [x11 >= 1.3])
 PKG_CHECK_MODULES([XCOMPOSITE], [xcomposite >= 0.4.1])
 PKG_CHECK_MODULES([GLIB], [glib-2.0 >= 2.16.1])
-PKG_CHECK_MODULES([GTK_X11], [gtk+-x11-2.0 >= 2.16.1])
+PKG_CHECK_MODULES([GTK_X11], [gtk+-x11-3.0 >= 3.0])
 PKG_CHECK_MODULES([GDK], [gdk-2.0 >= 2.16.1])
 PKG_CHECK_MODULES([NETWORKMANAGER], [NetworkManager >= 0.7.1])
 PKG_CHECK_MODULES([LIBNL], [libnl-1 >= 1.0])
@@ -246,6 +246,8 @@ AM_CONDITIONAL(IS_X86_64,
 
 AM_CONDITIONAL(IS_SPARC,
   [test x$s_arch == xsparc || test x$s_arch == xsparc64])
+
+AC_CONFIG_SUBDIRS([widgets])
 
 AC_CONFIG_FILES([Makefile
                  data/Makefile

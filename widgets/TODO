@@ -1,0 +1,33 @@
+BaseWindow -
+
+DiskOverview -
+   - add utilization pie chart
+   - need to specify big vs. small
+
+SpokeSelector -
+   - need to show incompleteness
+
+SpokeWindow -
+
+StandaloneWindow -
+
+New Widgets -
+   - light box dialog
+   - PersonalizationWindow
+   - physical member display
+   - capacity slider+drop down
+   - software RAID overview (#9-3-1, RAID tab, left side)
+   - disk viewer (shaded bars on #9-3-1)
+   - partition bar (colored bar part on #9-3-1)
+   - accordion on #9-3-1
+
+glade Integration -
+   - add icons
+   - audit all widgets for which signals and properties should be exposed in glade UI
+
+Build -
+
+Misc -
+   - add test cases
+   - coding standard document
+   - should widgets use CSS instead of hardcoding things?

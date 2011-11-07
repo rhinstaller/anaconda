@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN"
+               "http://www.oasis-open.org/docbook/xml/4.3/docbookx.dtd" [
+<!ENTITY % local.common.attrib "xmlns:xi  CDATA  #FIXED 'http://www.w3.org/2003/XInclude'">
+]>
+
+<book id="index" xmlns:xi="http://www.w3.org/2003/XInclude">
+    <bookinfo>
+        <title>The AnacondaWidgets Library Reference Manual</title>
+
+        <authorgroup>
+            <author>
+                <firstname>Chris</firstname>
+                <surname>Lumens</surname>
+                <affiliation>
+                    <address>
+                        <email>clumens@redhat.com</email>
+                    </address>
+                </affiliation>
+            </author>
+        </authorgroup>
+    </bookinfo>
+
+    <chapter id="windows">
+        <title>Window Widgets</title>
+        <xi:include href="xml/BaseWindow.xml" />
+        <xi:include href="xml/HubWindow.xml" />
+        <xi:include href="xml/SpokeWindow.xml" />
+        <xi:include href="xml/StandaloneWindow.xml" />
+    </chapter>
+
+    <chapter id="disks">
+        <title>Disk-Related Widgets</title>
+        <xi:include href="xml/DiskOverview.xml" />
+    </chapter>
+
+    <chapter id="miscellaneous">
+        <title>Miscellaneous Widgets</title>
+        <xi:include href="xml/SpokeSelector.xml" />
+    </chapter>
+
+    <chapter id="hierarchy">
+        <title>Object Hierarchy</title>
+        <xi:include href="xml/tree_index.sgml" />
+    </chapter>
+
+    <index id="api-index-full">
+        <title>Index</title>
+        <xi:include href="xml/api-index-full.xml" />
+    </index>
+</book>
