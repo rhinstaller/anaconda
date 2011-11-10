@@ -135,19 +135,19 @@ class simpleCallback:
             nvra = "%s" %(po,)
             self.instLog.write(self.modeText % (nvra,))
             if nvra in self.files:
-                self.instLog.write("RPMCALLBACK_INST_OPEN_FILE already called for the file, skipping")
                 fn = self.files[nvra].name
-                f = open(fn, 'r')
-                self.files[nvra] = f
+            else:
+                fn = None
 
             self.instLog.flush()
+            self.files[nvra] = None
 
             self.size = po.returnSimple('installedsize')
 
-            while nvra not in self.files:
+            while self.files[nvra] == None:
                 try:
-                    fn = repo.getPackage(po)
-
+                    if not (fn and os.path.exists(fn)):
+                        fn = repo.getPackage(po)
                     f = open(fn, 'r')
                     self.files[nvra] = f
                 except NoMoreMirrorsRepoError:
