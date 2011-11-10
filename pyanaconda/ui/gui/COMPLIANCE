@@ -1,0 +1,33 @@
+See http://clumens.fedorapeople.org/UI/ui-tech-notes.
+
+* UI design - CHECK
+* Code architecture (base classes, etc.) - CHECK
+* Design is flexible - CHECK
+* Testability -
+* Use GtkBuilder for everything - PARTIAL CHECK
+   There's still some manual Gtk coding (creating the Category grid and the
+   Hub box), but I don't see a way around it that makes things better.  Could
+   use GtkBuilder but is a blob of inlined XML easier to understand?  Probably
+   not.
+* Decoupled from anaconda -
+* Reduce number of dialog classes -
+* Accessibility -
+* Pre/post screen hooks -
+* UI in its own thread -
+* Batch up backend tasks -
+* Share module format with firstboot -
+* Organize source better - CHECK
+* Automatic locale configuration -
+* Don't store our own language list, font list, etc. -
+* Simplify branding - PARTIAL CHECK
+   You can easily add your own standalone windows, categories, and spokes to
+   both custom categories and the ones we include.  How to do so is not yet
+   documented.  You cannot add your own hubs (I don't see this as a problem),
+   and there's no good way to change the look of the UI yet.
+* UI writes out a kickstart file - PARTIAL CHECK
+   The demo spits out a kickstart file it would have run, but nothing happens
+   after that.
+* Save in-progress file somewhere -
+* Get rid of newt UI -
+* Main loop - CHECK
+* Widget usage statistics -

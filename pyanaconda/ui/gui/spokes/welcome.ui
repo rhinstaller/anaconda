@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <!-- interface-requires gtk+ 3.0 -->
+  <!-- interface-requires AnacondaWidgets 1.0 -->
+  <object class="GtkEntryCompletion" id="languageEntryCompletion">
+    <property name="model">languageStore</property>
+    <property name="inline_completion">True</property>
+  </object>
+  <object class="GtkListStore" id="languageStore">
+    <columns>
+      <!-- column-name nativeName -->
+      <column type="gchararray"/>
+      <!-- column-name englishName -->
+      <column type="gchararray"/>
+      <!-- column-name langSetting -->
+      <column type="gchararray"/>
+    </columns>
+  </object>
+  <object class="AnacondaStandaloneWindow" id="welcomeWindow">
+    <property name="startup_id">filler</property>
+    <property name="can_focus">False</property>
+    <property name="border_width">6</property>
+    <property name="startup_id">filler</property>
+    <property name="mnemonics_visible">False</property>
+    <property name="focus_visible">False</property>
+    <property name="distribution">FEDORA 17 INSTALLATION</property>
+    <property name="window_name"></property>
+    <child internal-child="action_area">
+      <object class="GtkVBox" id="welcomeWindow-actionArea">
+        <property name="can_focus">False</property>
+        <property name="spacing">6</property>
+        <child>
+          <object class="GtkAlignment" id="alignment1">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="xscale">0</property>
+            <child>
+              <object class="GtkBox" id="box1">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="orientation">vertical</property>
+                <property name="spacing">6</property>
+                <child>
+                  <object class="GtkLabel" id="welcomeLabel">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="ypad">6</property>
+                    <property name="label" translatable="yes">WELCOME TO FEDORA 17.</property>
+                    <attributes>
+                      <attribute name="font-desc" value="Sans 26"/>
+                    </attributes>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">0</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkLabel" id="pickLanguageLabel">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="label" translatable="yes">What language would you like to use during the installation process?</property>
+                    <attributes>
+                      <attribute name="font-desc" value="Sans 14"/>
+                    </attributes>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">1</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkEntry" id="languageEntry">
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="invisible_char_set">True</property>
+                    <property name="secondary_icon_name">edit-clear-symbolic</property>
+                    <property name="completion">languageEntryCompletion</property>
+                    <signal name="icon-release" handler="clearLanguageEntry" swapped="no"/>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">2</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkScrolledWindow" id="languageWindow">
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="hscrollbar_policy">never</property>
+                    <property name="shadow_type">in</property>
+                    <child>
+                      <object class="GtkTreeView" id="languageView">
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="model">languageStore</property>
+                        <property name="headers_visible">False</property>
+                        <property name="headers_clickable">False</property>
+                        <property name="search_column">0</property>
+                        <child internal-child="selection">
+                          <object class="GtkTreeSelection" id="languageViewSelection">
+                            <signal name="changed" handler="on_selection_changed" swapped="no"/>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="GtkTreeViewColumn" id="nativeName">
+                            <property name="title" translatable="yes">nativeName</property>
+                            <property name="expand">True</property>
+                            <property name="sort_column_id">0</property>
+                            <child>
+                              <object class="GtkCellRendererText" id="nativeNameRenderer">
+                                <property name="font">Sans 14</property>
+                              </object>
+                              <attributes>
+                                <attribute name="text">0</attribute>
+                              </attributes>
+                            </child>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="GtkTreeViewColumn" id="englishName">
+                            <property name="title" translatable="yes">englishName</property>
+                            <property name="expand">True</property>
+                            <property name="sort_column_id">1</property>
+                            <child>
+                              <object class="GtkCellRendererText" id="englishNameRenderer">
+                                <property name="font">Sans Italic 14</property>
+                                <property name="foreground">gray</property>
+                              </object>
+                              <attributes>
+                                <attribute name="text">1</attribute>
+                              </attributes>
+                            </child>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="expand">True</property>
+                    <property name="fill">True</property>
+                    <property name="position">3</property>
+                  </packing>
+                </child>
+              </object>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">True</property>
+            <property name="fill">True</property>
+            <property name="position">2</property>
+          </packing>
+        </child>
+      </object>
+    </child>
+  </object>
+</interface>
