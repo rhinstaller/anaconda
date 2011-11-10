@@ -37,7 +37,7 @@ from tempfile import mkstemp
 # keep up with process ID of the window manager if we start it
 wm_pid = None
 
-def exitHandler(anaconda, exitCode=None):
+def exitHandler(rebootData, storage, exitCode=None):
     from pyanaconda import isys
     from pyanaconda.flags import flags
 
@@ -51,25 +51,25 @@ def exitHandler(anaconda, exitCode=None):
             while True:
                 time.sleep(10000)
 
-    if anaconda.ksdata:
+    if flags.livecdInstall:
+        os.system("systemctl --force --no-wall reboot")
+    else:
         from pykickstart.constants import KS_SHUTDOWN, KS_WAIT, KS_REBOOT
 
-        if anaconda.ksdata.reboot.eject:
-            for drive in anaconda.storage.devicetree.devices:
+        if rebootData.eject:
+            for drive in storage.devicetree.devices:
                 if drive.type != "cdrom":
                     continue
 
                 log.info("attempting to eject %s" % drive.path)
                 drive.eject()
 
-        if anaconda.ksdata.reboot.action == KS_SHUTDOWN:
+        if rebootData.action == KS_SHUTDOWN:
             os.system("systemctl --force --no-wall poweroff")
-        elif anaconda.ksdata.reboot.action == KS_WAIT:
+        elif rebootData.action == KS_WAIT:
             os.system("systemctl --force --no-wall halt")
         else: # reboot action is KS_REBOOT or None
             os.system("systemctl --force --no-wall reboot")
-    elif not flags.imageInstall:
-        os.system("systemctl --force --no-wall reboot")
 
 def startMetacityWM():
     childpid = os.fork()
@@ -727,18 +727,14 @@ if __name__ == "__main__":
     # UI interface type or enabling rescue mode
     if opts.ksfile:
         kickstart.preScriptPass(anaconda, opts.ksfile)
-        anaconda.ksdata = kickstart.parseKickstart(anaconda, opts.ksfile)
-        if anaconda.ksdata.rescue.rescue:
+        ksdata = kickstart.parseKickstart(anaconda, opts.ksfile)
+        if ksdata.rescue.rescue:
             anaconda.rescue = True
+    else:
+        ksdata = kickstart.AnacondaKSHandler(anaconda)
+
     # now start the interface
     setupDisplay(anaconda, opts)
-    # setting the install steps requires interface to be running
-    if opts.ksfile:
-        kickstart.setSteps(anaconda)
-    else:
-        anaconda.instClass.setSteps(anaconda)
-    if anaconda.rescue:
-        anaconda.dispatch.request_steps("rescue")
 
     image_count = 0
     for image in opts.images:
@@ -770,26 +766,19 @@ if __name__ == "__main__":
     if opts.lang:
         # this is lame, but make things match what we expect (#443408)
         opts.lang = opts.lang.replace(".utf8", ".UTF-8")
-        anaconda.dispatch.skip_steps("language")
         anaconda.instLanguage.instLang = opts.lang
         anaconda.instLanguage.buildLocale()
         anaconda.instLanguage.systemLang = opts.lang
         anaconda.timezone.setTimezoneInfo(anaconda.instLanguage.getDefaultTimeZone())
 
     if opts.keymap:
-        anaconda.dispatch.skip_steps("keyboard")
         anaconda.keyboard.set(opts.keymap)
         anaconda.keyboard.activate()
 
-    # set up the headless case
-    if anaconda.isHeadless:
-        anaconda.dispatch.skip_steps("keyboard")
-
-    atexit.register(exitHandler, anaconda)
-
-    try:
-        anaconda.dispatch.run()
-    except SystemExit, code:
-        exitHandler(anaconda, code)
+    atexit.register(exitHandler, ksdata.reboot, anaconda.storage)
+    # FIXME:  This will need to be made cleaner once this file starts to take
+    # shape with the new UI code.
+    anaconda._intf.setup(ksdata)
+    anaconda._intf.run()
 
 # vim:tw=78:ts=4:et:sw=4

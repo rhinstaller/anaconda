@@ -223,39 +223,11 @@ class Anaconda(object):
         if self._intf:
             raise RuntimeError, "Second attempt to initialize the InstallInterface"
 
-        # setup links required by graphical mode if installing and verify display mode
-        if self.displayMode == 'g':
-            stdoutLog.info (_("Starting graphical installation."))
+        if self.displayMode != 'g':
+            raise RuntimeError("Due to UI rewrite in progress, only graphical installs are supported")
 
-            try:
-                from gui import InstallInterface
-            except Exception as e:
-                from flags import flags
-                stdoutLog.error("Exception starting GUI installer: %s" %(e,))
-                # if we're not going to really go into GUI mode, we need to get
-                # back to vc1 where the text install is going to pop up.
-                if not flags.livecdInstall:
-                    isys.vtActivate (1)
-                stdoutLog.warning("GUI installer startup failed, falling back to text mode.")
-                self.displayMode = 't'
-                if 'DISPLAY' in os.environ.keys():
-                    del os.environ['DISPLAY']
-                time.sleep(2)
-
-        if self.displayMode == 't':
-            from text import InstallInterface
-            if not os.environ.has_key("LANG"):
-                os.environ["LANG"] = "en_US.UTF-8"
-
-        if self.displayMode == 'r':
-            import rescue
-            InstallInterface = rescue.RescueInterface
-
-        if self.displayMode == 'c':
-            from cmdline import InstallInterface
-
-        self._intf = InstallInterface()
-        return self._intf
+        from pyanaconda.ui.gui import GraphicalUserInterface
+        self._intf = GraphicalUserInterface()
 
     def writeXdriver(self, root = None):
         # this should go away at some point, but until it does, we
