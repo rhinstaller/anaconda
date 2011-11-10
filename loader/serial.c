@@ -194,7 +194,7 @@ int init_serial(struct termios *orig_cmode, int *orig_flags, GHashTable *cmdline
     }
 
     setsid();
-    if (ioctl(0, TIOCSCTTY, NULL))
+    if (ioctl(fd, TIOCSCTTY, 0))
         fprintf(stderr, "could not set new controlling tty\n");
 
     if (dup2(fd, 0) == -1)
