@@ -1460,28 +1460,13 @@ class Storage(object):
         return 0
 
 def getReleaseString():
-    relArch = None
     relName = None
     relVer = None
 
-    import rpm
-    iutil.resetRpmDb()
-    ts = rpm.TransactionSet(ROOT_PATH)
-
-    # We get the arch from the initscripts package, but the version and name
-    # must come from reading the release file.
     try:
-        # pylint: disable-msg=E1101
-        mi = ts.dbMatch('provides', 'initscripts')
-    except Exception:
-        # This could happen in a variety of cases, but the biggest one is we're
-        # examining an installed system that doesn't use RPM.  Raise an
-        # exception for the caller to handle.
-        raise ValueError
-
-    for h in mi:
-        relArch = h['arch']
-        break
+        relArch = iutil.execWithCapture("arch", [], root=ROOT_PATH).strip()
+    except:
+        relArch = None
 
     filename = "%s/etc/redhat-release" % ROOT_PATH
     if os.access(filename, os.R_OK):
@@ -1548,8 +1533,8 @@ def findExistingRootDevices(anaconda, upgradeany=False):
                 device.teardown(recursive=True)
 
             if arch is None:
-                # we failed to determine the arch (for instance when there is a
-                # corrupted rpm database on the target system)
+                # we failed to determine the arch (for instance when we can't
+                # run a binary on the target system)
                 log.info("findExistingRootDevices: no arch.")
                 continue
 
