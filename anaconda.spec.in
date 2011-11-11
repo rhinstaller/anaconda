@@ -93,6 +93,7 @@ BuildRequires: iscsi-initiator-utils-devel >= %{iscsiver}
 BuildRequires: s390utils-devel
 %endif
 
+Requires: gnome-icon-theme-symbolic
 Requires: python-meh >= %{mehver}
 Requires: policycoreutils
 Requires: rpm-python >= %{rpmpythonver}
