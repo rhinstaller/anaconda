@@ -54,7 +54,7 @@ BuildRequires: e2fsprogs-devel >= %{e2fsver}
 BuildRequires: elfutils-devel
 BuildRequires: gettext >= %{gettextver}
 BuildRequires: gtk3-devel gtk-doc
-BuildRequires: gobject-introspection-devel glade3-libgladeui-devel
+BuildRequires: gobject-introspection-devel glade3-libgladeui-devel pygobject3
 BuildRequires: intltool >= %{intltoolver}
 BuildRequires: isomd5sum-static >= %{isomd5sumver}
 BuildRequires: libarchive-devel
