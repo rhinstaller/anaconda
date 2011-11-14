@@ -152,8 +152,7 @@ int unpack_archive_file(char *filename, char *dest) {
         return rc;
     }
 
-    rc = archive_read_open_filename(a, filename,
-                                    ARCHIVE_DEFAULT_BYTES_PER_BLOCK);
+    rc = archive_read_open_filename(a, filename, 10240);
     if (rc != ARCHIVE_OK) {
         logMessage(ERROR, "error opening %s (%s:%d): %s",
                    filename, __func__, __LINE__,
