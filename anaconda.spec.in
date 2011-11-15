@@ -232,6 +232,54 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Tue Nov 15 2011 Chris Lumens <clumens@redhat.com> - 17.2-1
+- ARCHIVE_DEFAULT_BYTES_PER_BLOCK no longer exists in libarchive-3.0.0
+  (clumens)
+- Don't use the rpmdb to figure out upgrade target arch (#748119). (clumens)
+- Remove obsolete error handling left over from the old storage code. (dlehman)
+- Update to the FC16_VolGroupData so reserving space works. (dlehman)
+- Remove unused import of gzip from task_gui.py (dlehman)
+- Cap new /boot/efi partitions at 200MB. (#748274) (dlehman)
+- Fix root device specification in zipl.conf. (#740576) (dlehman)
+- Add --boot-drive option to kickstart bootloader command. (dlehman)
+- Include disklabel type in grub2 device names. (dlehman)
+- use 800x600 as minimal mainWindow size (vpodzime) (mgracik)
+- Use an atexit handler for shutting down and ejecting media (#750809).
+  (clumens)
+- Fix a dumb error when canceling previous migration actions (#744034).
+  (clumens)
+- Document iscsi and multipath implementations. (akozumpl)
+- Don't load forcefully load pcspkr.  The kernel doesn't (#750830). (clumens)
+- Gray out "Configure Network" button in live installations (#749929)
+  (rvykydal)
+- Support prefix length in kickstart network --ipv6 option. (rvykydal)
+- Support prefix length in ipv6= cmdline option (#679108) (rvykydal)
+- Remove snarffont, which is no longer needed. (clumens)
+- Change what the third column of lang-table means. (clumens)
+- And stop attempting to load our own fonts, since we no longer ship them.
+  (clumens)
+- Remove our own screen fonts (#742613, #743429). (clumens)
+- Don't use GPT disklabels on Lenovo BIOS systems. (#749325) (dlehman)
+- Fix typo in call to opt.isdigit (#743787) (pjones)
+- Don't allow disks containing the live media as boot disk. (#748587) (dlehman)
+- Honor fsprofile argument even for existing devices. (#747417) (dlehman)
+- Regenerate tasklist when a repo is removed. (akozumpl)
+- Do a better job of remembering if 'review and modify partitioning' was
+  checked. (akozumpl)
+- Be more convincing in eradicating errant temp vg paths. (#722952) (dlehman)
+- Resize: Update format size if aligning partition shrinks it. (#689179)
+  (dlehman)
+- Copy all of live filesystem to target (#746844) (bcl)
+- Fix autopart shrink of existing system. (#746605) (dlehman)
+- cryptsetup returns positive nonzero when activating by different than the
+  first keyslot (msivak)
+- do more logging in findExistingRootDevices() (akozumpl)
+- Add 'nogpt' cmdline arg to disable creation of gpt disklabels. (dlehman)
+- Show cleardisks gui always to allow selecting a boot disk. (#744088)
+  (dlehman)
+- mpath: flush more eagerly in filter_gui. (akozumpl)
+- debugging: log boot arguments. (akozumpl)
+
 * Tue Oct 11 2011 Chris Lumens <clumens@redhat.com> - 17.1-1
 - Pull grub-efi and efibootmgr into the package list as needed. (#742042)
   (pjones)
