@@ -75,3 +75,15 @@ class WelcomeLanguageSpoke(StandaloneSpoke):
     def on_selection_changed(self, selection):
         (store, selected) = selection.get_selected_rows()
         self.window.set_may_continue(len(selected) > 0)
+
+    # Override the default in StandaloneSpoke so we can display the beta
+    # warning dialog first.
+    def _on_continue_clicked(self, cb):
+        dlg = self.builder.get_object("betaWarnDialog")
+        rc = dlg.run()
+        dlg.destroy()
+
+        if rc == 0:
+            sys.exit(0)
+        else:
+            StandaloneSpoke._on_continue_clicked(self, cb)

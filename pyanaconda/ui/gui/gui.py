@@ -3,6 +3,9 @@ from pyanaconda.ui.gui import collect
 from pyanaconda.ui.gui.hubs import Hub
 from pyanaconda.ui.gui.spokes import StandaloneSpoke
 
+import gettext
+_ = lambda x: gettext.ldgettext("anaconda", x)
+
 class AnacondaGUI(object):
     def __init__(self, data, hubClasses):
         # First, grab a list of all the standalone spokes.
@@ -70,8 +73,11 @@ class AnacondaGUI(object):
         Gtk.main()
 
     def setup(self):
+        from pyanaconda.product import isFinal, productName, productVersion
+
         self._actions[0].setup()
 
         # If we set these values on the very first window shown, they will get
         # propagated to later ones.
-        self._actions[0].window.set_beta(True)
+        self._actions[0].window.set_beta(not isFinal)
+        self._actions[0].window.set_property("distribution", _("%s %s INSTALLATION") % (productName, productVersion))

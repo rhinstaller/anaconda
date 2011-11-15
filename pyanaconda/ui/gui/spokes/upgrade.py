@@ -37,12 +37,15 @@ class UpgradeSpoke(StandaloneSpoke):
         self.data.upgrade.upgrade = checkbox.get_active()
 
     def populate(self):
+        from pyanaconda.product import productName, productVersion
+
         StandaloneSpoke.populate(self)
 
         # Set the label indicating what distribution we found and what
         # distribution we're trying to install.
         label = self.builder.get_object("promiseLabel")
-        label.set_text(label.get_text() % {"installedDistro": "Fedora 15", "newDistro": "Fedora 17"})
+        label.set_text(label.get_text() % {"installedDistro": "Fedora 15",
+                                           "newDistro": "%s %s" % (productName, productVersion)})
 
         # Add an icon for every user account we found.
         usersBox = self.builder.get_object("usersBox")
