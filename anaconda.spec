@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.247
+Version: 11.1.2.248
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -128,6 +128,10 @@ fi
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Nov 15 2011 Martin Gracik <mgracik@redhat.com> 11.1.2.248-1
+- Handle %posttrans RPMCALLBACK_INST_OPEN_FILE properly (rvykydal)
+  Resolves: rhbz#506361
+
 * Wed Nov 02 2011 Martin Gracik <mgracik@redhat.com> 11.1.2.247-1
 - Ignore duplicate opening of rpm package file (rvykydal)
   Resolves: rhbz#506361
