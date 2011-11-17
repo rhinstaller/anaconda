@@ -177,9 +177,11 @@ class UIObject(object):
         self.builder.connect_signals(self)
 
     def _findUIFile(self):
-        testPath = os.path.normpath(os.path.dirname(__file__) + "/" + self.uiFile)
-        if os.path.isfile(testPath) and os.access(testPath, os.R_OK):
-            return testPath
+        path = "./:/tmp/updates/:/tmp/updates/ui/:/usr/share/anaconda/ui/"
+        for d in path.split(":"):
+            testPath = os.path.normpath(d + self.uiFile)
+            if os.path.isfile(testPath) and os.access(testPath, os.R_OK):
+                return testPath
 
         raise IOError("Could not load UI file '%s' for object '%s'" % (self.uiFile, self))
 
