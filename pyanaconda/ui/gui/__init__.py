@@ -199,6 +199,7 @@ class UIObject(object):
         """
         pass
 
+    @property
     def showable(self):
         """Should this object even be shown?  This method is useful for checking
            some precondition before this screen is shown.  If False is returned,
