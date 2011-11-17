@@ -45,21 +45,32 @@ class Hub(UIObject):
        additional standalone screens either before or after them.
     """
 
-    def __init__(self, data):
+    def __init__(self, data, devicetree, instclass):
         """Create a new Hub instance.
 
-           Instance attributes:
+           The arguments this base class accepts defines the API that Hubs
+           have to work with.  A Hub does not get free reign over everything
+           in the anaconda class, as that would be a big mess.  Instead, a
+           Hub may count on the following:
 
-           data         -- An instance of a pykickstart Handler object.  The
-                           Hub never directly uses this instance.  Instead, it
-                           passes it down into Spokes when they are created
-                           and applied.  The Hub simply stores this instance
-                           so it doesn't need to be passed by the user.
+           ksdata       -- An instance of a pykickstart Handler object.  The
+                           Hub uses this to populate its UI with defaults
+                           and to pass results back after it has run.
+           devicetree   -- An instance of storage.devicetree.DeviceTree.  This
+                           is useful for determining what storage devices are
+                           present and how they are configured.
+           instclass    -- An instance of a BaseInstallClass subclass.  This
+                           is useful for determining distribution-specific
+                           installation information like default package
+                           selections and default partitioning.
         """
         UIObject.__init__(self, data)
 
         self._incompleteSpokes = []
         self._selectors = {}
+
+        self.devicetree = devicetree
+        self.instclass = instclass
 
     def _runSpoke(self, action):
         from gi.repository import Gtk
@@ -102,7 +113,7 @@ class Hub(UIObject):
             for spokeClass in collect_spokes(obj.__class__.__name__):
                 # Create the new spoke and populate its UI with whatever data.
                 # From here on, this Spoke will always exist.
-                spoke = spokeClass(self.data)
+                spoke = spokeClass(self.data, self.devicetree, self.instclass)
                 spoke.populate()
 
                 if not spoke.showable:

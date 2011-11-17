@@ -29,8 +29,8 @@ class GraphicalUserInterface(UserInterface):
     """This is the standard GTK+ interface we try to steer everything to using.
        It is suitable for use both directly and via VNC.
     """
-    def __init__(self):
-        UserInterface.__init__(self)
+    def __init__(self, devicetree, instclass):
+        UserInterface.__init__(self, devicetree, instclass)
 
         self._hubs = []
         self._ui = None
@@ -65,7 +65,7 @@ class GraphicalUserInterface(UserInterface):
         # signal handlers.
         self._actions = []
         for klass in actionClasses:
-            obj = klass(data)
+            obj = klass(data, self.devicetree, self.instclass)
             obj.populate()
 
             if not obj.showable:

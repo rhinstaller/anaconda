@@ -227,7 +227,7 @@ class Anaconda(object):
             raise RuntimeError("Due to UI rewrite in progress, only graphical installs are supported")
 
         from pyanaconda.ui.gui import GraphicalUserInterface
-        self._intf = GraphicalUserInterface()
+        self._intf = GraphicalUserInterface(self.storage.devicetree, self.instClass)
 
     def writeXdriver(self, root = None):
         # this should go away at some point, but until it does, we

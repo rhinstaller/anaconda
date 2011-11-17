@@ -24,10 +24,27 @@ class UserInterface(object):
        defines what kinds of dialogs and entry widgets every interface must
        provide that the rest of anaconda may rely upon.
     """
-    def __init__(self):
-        """Create a new UserInterface instance."""
+    def __init__(self, devicetree, instclass):
+        """Create a new UserInterface instance.
+
+           The arguments this base class accepts defines the API that interfaces
+           have to work with.  A UserInterface does not get free reign over
+           everything in the anaconda class, as that would be a big mess.
+           Instead, a UserInterface may count on the following:
+
+           devicetree   -- An instance of storage.devicetree.DeviceTree.  This
+                           is useful for determining what storage devices are
+                           present and how they are configured.
+           instclass    -- An instance of a BaseInstallClass subclass.  This
+                           is useful for determining distribution-specific
+                           installation information like default package
+                           selections and default partitioning.
+        """
         if self.__class__ is UserInterface:
             raise TypeError("UserInterface is an abstract class.")
+
+        self.devicetree = devicetree
+        self.instclass = instclass
 
     def setup(self, data):
         """Construct all the objects required to implement this interface.

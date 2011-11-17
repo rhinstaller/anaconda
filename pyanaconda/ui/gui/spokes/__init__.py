@@ -55,8 +55,25 @@ class Spoke(UIObject):
     icon = None
     title = None
 
-    def __init__(self, data):
-        """Create a new Spoke instance."""
+    def __init__(self, data, devicetree, instclass):
+        """Create a new Spoke instance.
+
+           The arguments this base class accepts defines the API that spokes
+           have to work with.  A Spoke does not get free reign over everything
+           in the anaconda class, as that would be a big mess.  Instead, a
+           Spoke may count on the following:
+
+           ksdata       -- An instance of a pykickstart Handler object.  The
+                           Spoke uses this to populate its UI with defaults
+                           and to pass results back after it has run.
+           devicetree   -- An instance of storage.devicetree.DeviceTree.  This
+                           is useful for determining what storage devices are
+                           present and how they are configured.
+           instclass    -- An instance of a BaseInstallClass subclass.  This
+                           is useful for determining distribution-specific
+                           installation information like default package
+                           selections and default partitioning.
+        """
         if self.__class__ is Spoke:
             raise TypeError("Spoke is an abstract class")
 
@@ -113,7 +130,7 @@ class StandaloneSpoke(Spoke):
 
     priority = 100
 
-    def __init__(self, data):
+    def __init__(self, data, devicetree, instclass):
         """Create a StandaloneSpoke instance."""
         if self.__class__ is StandaloneSpoke:
             raise TypeError("StandaloneSpoke is an abstract class")
@@ -121,7 +138,7 @@ class StandaloneSpoke(Spoke):
         if self.preForHub and self.postForHub:
             raise AttributeError("StandaloneSpoke instance %s may not have both preForHub and postForHub set" % self)
 
-        Spoke.__init__(self, data)
+        Spoke.__init__(self, data, devicetree, instclass)
 
     def _on_continue_clicked(self, cb):
         self.apply()
@@ -143,12 +160,12 @@ class NormalSpoke(Spoke):
        provides some basic navigation information (where you are, what you're
        installing, how to get back to the Hub) at the top of the screen.
     """
-    def __init__(self, data):
+    def __init__(self, data, devicetree, instclass):
         """Create a NormalSpoke instance."""
         if self.__class__ is NormalSpoke:
             raise TypeError("NormalSpoke is an abstract class")
 
-        Spoke.__init__(self, data)
+        Spoke.__init__(self, data, devicetree, instclass)
 
 class PersonalizationSpoke(Spoke):
     """A PersonalizationSpoke is a Spoke subclass that is displayed when the
@@ -160,12 +177,12 @@ class PersonalizationSpoke(Spoke):
        progress being made.  The PersonalizationSpoke also provides the same
        basic navigation information at the top of the screen as a NormalSpoke.
     """
-    def __init__(self, data):
+    def __init__(self, data, devicetree, instclass):
         """Create a PersonalizationSpoke instance."""
         if self.__class__ is PersonalizationSpoke:
             raise TypeError("PersonalizationSpoke is an abstract class")
 
-        Spoke.__init__(self, data)
+        Spoke.__init__(self, data, devicetree, instclass)
 
 def collect_spokes(category):
     """Return a list of all spoke subclasses that should appear for a given
