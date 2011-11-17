@@ -1,6 +1,4 @@
-# liveinst/Makefile.am for anaconda
-#
-# Copyright (C) 2009  Red Hat, Inc.
+# Copyright (C) 2011  Red Hat, Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU Lesser General Public License as published
@@ -15,13 +13,10 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-# Author: Martin Sivak <msivak@redhat.com>
-
-SUBDIRS = installclasses isys iw textw storage ui
+# Author: Chris Lumens <clumens@redhat.com>
 
 MAINTAINERCLEANFILES = Makefile.in
 
-# anaconda Python code
-pkgpyexecdir    = $(pyexecdir)/py$(PACKAGE_NAME)
-anacondadir     = $(pkgpyexecdir)
-anaconda_PYTHON = *.py
+pkgpyexecdir        = $(pyexecdir)/py$(PACKAGE_NAME)
+categoriesdir       = $(pkgpyexecdir)/ui/gui/categories
+categories_PYTHON   = *.py

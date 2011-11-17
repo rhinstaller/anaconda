@@ -289,6 +289,11 @@ AC_CONFIG_FILES([Makefile
                  pyanaconda/storage/Makefile
                  pyanaconda/storage/devicelibs/Makefile
                  pyanaconda/storage/formats/Makefile
+                 pyanaconda/ui/Makefile
+                 pyanaconda/ui/gui/categories/Makefile
+                 pyanaconda/ui/gui/hubs/Makefile
+                 pyanaconda/ui/gui/spokes/Makefile
+                 pyanaconda/ui/gui/Makefile
                  tests/Makefile
                  tests/mock/Makefile
                  tests/kickstart_test/Makefile
