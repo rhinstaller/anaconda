@@ -66,25 +66,22 @@ class GraphicalUserInterface(UserInterface):
         self._actions = []
         for klass in actionClasses:
             obj = klass(data, self.devicetree, self.instclass)
-            obj.populate()
-
-            if not obj.showable:
-                continue
 
             obj.register_event_cb("continue", self._on_continue_clicked)
             obj.register_event_cb("quit", self._on_quit_clicked)
 
             self._actions.append(obj)
 
+    def run(self):
+        from gi.repository import Gtk
+
         # If we set these values on the very first window shown, they will get
         # propagated to later ones.
+        self._actions[0].populate()
         self._actions[0].setup()
 
         self._actions[0].window.set_beta(not isFinal)
         self._actions[0].window.set_property("distribution", _("%s %s INSTALLATION") % (productName, productVersion))
-
-    def run(self):
-        from gi.repository import Gtk
 
         self._actions[0].window.show_all()
         Gtk.main()
@@ -111,9 +108,17 @@ class GraphicalUserInterface(UserInterface):
             if found:
                 self._actions = [self._actions[0]] + self._actions[ndx:]
 
-        self._actions[1].setup()
+        self._actions[1].populate()
         self._actions[1].window.set_beta(self._actions[0].window.get_beta())
         self._actions[1].window.set_property("distribution", self._actions[0].window.get_property("distribution"))
+
+        if not self._actions[1].showable:
+            self._actions[0].window.hide()
+            self._actions.pop(0)
+            self._on_continue_clicked()
+            return
+
+        self._actions[1].setup()
 
         # Do this last.  Setting up curAction could take a while, and we want
         # to leave something on the screen while we work.
