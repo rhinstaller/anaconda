@@ -1135,9 +1135,27 @@ class BTRFS(FS):
     _packages = ["btrfs-progs"]
     _minSize = 256
     _maxSize = 16 * 1024 * 1024
-    # FIXME parted needs to be thaught about btrfs so that we can set the
+    # FIXME parted needs to be taught about btrfs so that we can set the
     # partition table type correctly for btrfs partitions
     # partedSystem = fileSystemType["btrfs"]
+
+    def __init__(self, *args, **kwargs):
+        self.uuidSub = kwargs.pop("uuidSub", None)
+        super(BTRFS, self).__init__(*args, **kwargs)
+
+    def create(self, *args, **kwargs):
+        # filesystem creation is done in storage.devicelibs.btrfs.create_volume
+        pass
+
+    def setup(self, *args, **kwargs):
+        log_method_call(self, type=self.mountType, device=self.device,
+                        mountpoint=self.mountpoint)
+        if not self.mountpoint and "mountpoint" not in kwargs:
+            # Since btrfs vols have subvols the format setup is automatic.
+            # Don't try to mount it if there's no mountpoint.
+            return
+
+        return self.mount(*args, **kwargs)
 
     def _getFormatOptions(self, options=None):
         argv = []
