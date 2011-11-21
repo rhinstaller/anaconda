@@ -3941,18 +3941,21 @@ class BTRFSVolumeDevice(BTRFSDevice):
         self.subvolumes = []
 
         for parent in self.parents:
+            if parent.format.type != "btrfs":
+                raise ValueError("member device %s is not BTRFS" % parent.name)
+
             if parent.format.exists and self.exists and \
-               parent.format.uuid != self.uuid:
+               parent.format.volUUID != self.uuid:
                 raise ValueError("BTRFS member device %s UUID %s does not "
                                  "match volume UUID %s" % (parent.name,
-                                                           parent.format.uuid,
-                                                           self.uuid))
+                                 parent.format.volUUID, self.uuid))
 
         if self.parents and not self.format.type:
             label = getattr(self.parents[0].format, "label", None)
-            self.format = getFormat("btrfs", exists=self.exists,
+            self.format = getFormat("btrfs",
+                                    exists=self.exists,
                                     label=label,
-                                    uuid=self.uuid,
+                                    volUUID=self.uuid,
                                     device=self.path)
 
         label = getattr(self.format, "label", None)
@@ -3980,7 +3983,7 @@ class BTRFSVolumeDevice(BTRFSDevice):
         if device.format.type != "btrfs":
             raise ValueError("addDevice requires a btrfs device as sole arg")
 
-        if device.format.uuid != self.uuid:
+        if device.format.volUUID != self.uuid:
             raise ValueError("device UUID does not match the volume UUID")
 
         if device in self.parents:

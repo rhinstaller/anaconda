@@ -336,7 +336,7 @@ class DeviceTree(object):
             Raise ValueError if the device's identifier is already
             in the list.
         """
-        if newdev.path in [d.path for d in self._devices] and \
+        if newdev.uuid and newdev.uuid in [d.uuid for d in self._devices] and \
            not isinstance(newdev, NoDevice):
             raise ValueError("device is already in tree")
 
@@ -1561,6 +1561,42 @@ class DeviceTree(object):
                 #device.format.raidmem = block.getMemFromRaidSet(dm_array,
                 #        major=major, minor=minor, uuid=uuid, name=name)
 
+    def handleBTRFSFormat(self, info, device):
+        log_method_call(self, name=device.name)
+        name = udev_device_get_name(info)
+        sysfs_path = udev_device_get_sysfs_path(info)
+        uuid = udev_device_get_uuid(info)
+
+        btrfs_dev = None
+        for d in self.devices:
+            if isinstance(d, BTRFSVolumeDevice) and d.uuid == uuid:
+                btrfs_dev = d
+                break
+
+        if btrfs_dev:
+            log.info("found btrfs volume %s" % btrfs_dev.name)
+            btrfs_dev._addDevice(device)
+        else:
+            label = udev_device_get_label(info)
+            log.info("creating btrfs volume btrfs.%s" % label)
+            btrfs_dev = BTRFSVolumeDevice(label, parents=[device], uuid=uuid,
+                                          exists=True)
+            self._addDevice(btrfs_dev)
+
+        if not btrfs_dev.subvolumes:
+            for subvol_dict in btrfs_dev.listSubVolumes():
+                vol_id = subvol_dict["id"]
+                vol_path = subvol_dict["path"]
+                if vol_path in [sv.name for sv in btrfs_dev.subvolumes]:
+                    continue
+                fmt = getFormat("btrfs", device=btrfs_dev.path, exists=True,
+                                mountopts="subvol=%d" % vol_id)
+                subvol = BTRFSSubVolumeDevice(vol_path,
+                                              vol_id=vol_id,
+                                              format=fmt,
+                                              parents=[btrfs_dev])
+                self._addDevice(subvol)
+
     def handleUdevDeviceFormat(self, info, device):
         log_method_call(self, name=getattr(device, "name", None))
         name = udev_device_get_name(info)
@@ -1639,6 +1675,11 @@ class DeviceTree(object):
                 apple = formats.getFormat("appleboot")
                 if apple.minSize <= device.size <= apple.maxSize:
                     args[0] = "appleboot"
+        elif format_type == "btrfs":
+            # the format's uuid attr will contain the UUID_SUB, while the
+            # overarching volume UUID will be stored as volUUID
+            kwargs["uuid"] = info["ID_FS_UUID_SUB"]
+            kwargs["volUUID"] = uuid
 
         try:
             log.info("type detected on '%s' is '%s'" % (name, format_type,))
@@ -1668,6 +1709,8 @@ class DeviceTree(object):
             self.handleUdevLVMPVFormat(info, device)
         elif device.format.type == "multipath_member":
             self.handleMultipathMemberFormat(info, device)
+        elif device.format.type == "btrfs":
+            self.handleBTRFSFormat(info, device)
 
     def updateDeviceFormat(self, device):
         log.info("updating format of device: %s" % device)
@@ -2054,21 +2097,30 @@ class DeviceTree(object):
         log_method_return(self, found)
         return found
 
-    def getDeviceByPath(self, path):
+    def getDeviceByPath(self, path, preferLeaves=True):
         log_method_call(self, path=path)
         if not path:
             log_method_return(self, None)
             return None
 
-        found = None
+        leaf = None
+        other = None
         for device in self._devices:
-            if device.path == path:
-                found = device
-                break
-            elif (device.type == "lvmlv" or device.type == "lvmvg") and \
-                    device.path == path.replace("--","-"):
-                found = device
-                break
+            if (device.path == path or
+                ((device.type == "lvmlv" or device.type == "lvmvg") and
+                 device.path == path.replace("--","-"))):
+                if device.isleaf and not leaf:
+                    leaf = device
+                elif not other:
+                    other = device
+
+        if preferLeaves:
+            all_devs = [leaf, other]
+        else:
+            all_devs = [other, leaf]
+        all_devs = [d for d in all_devs if d]
+        if all_devs:
+            found = all_devs[0]
 
         log_method_return(self, found)
         return found
@@ -2085,9 +2137,9 @@ class DeviceTree(object):
         """ List of device instances """
         devices = []
         for device in self._devices:
-            if device.path in [d.path for d in devices] and \
+            if device.uuid and device.uuid in [d.uuid for d in devices] and \
                not isinstance(device, NoDevice):
-                raise DeviceTreeError("duplicate paths in device tree")
+                raise DeviceTreeError("duplicate uuids in device tree")
 
             devices.append(device)
 
@@ -2135,7 +2187,9 @@ class DeviceTree(object):
         """
         labels = {}
         for dev in self._devices:
-            if dev.format and getattr(dev.format, "label", None):
+            # don't include btrfs member devices
+            if getattr(dev.format, "label", None) and \
+               (dev.format.type != "btrfs" or isinstance(dev, BTRFSDevice)):
                 labels[dev.format.label] = dev
 
         return labels

@@ -261,8 +261,8 @@ def _scheduleVolumes(storage, devs):
 def scheduleShrinkActions(storage):
     """ Schedule actions to shrink partitions as per autopart selection. """
     for (path, size) in storage.shrinkPartitions.items():
-        device = storage.devicetree.getDeviceByPath(path)
-        if not device:
+        device = storage.devicetree.getDeviceByPath(path, preferLeaves=False)
+        if not device or not isinstance(device, PartitionDevice):
             raise StorageError("device %s scheduled for shrink disappeared"
                                 % path)
         storage.devicetree.registerAction(ActionResizeFormat(device, size))

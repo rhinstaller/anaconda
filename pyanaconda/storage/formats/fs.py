@@ -1140,8 +1140,8 @@ class BTRFS(FS):
     # partedSystem = fileSystemType["btrfs"]
 
     def __init__(self, *args, **kwargs):
-        self.uuidSub = kwargs.pop("uuidSub", None)
         super(BTRFS, self).__init__(*args, **kwargs)
+        self.volUUID = kwargs.pop("volUUID", None)
 
     def create(self, *args, **kwargs):
         # filesystem creation is done in storage.devicelibs.btrfs.create_volume
