@@ -410,14 +410,8 @@ class DeviceTree(object):
            action.device not in self._devices:
             raise DeviceTreeError("device is not in the tree")
         elif (action.isCreate and action.isDevice):
-            # this allows multiple create actions w/o destroy in between;
-            # we will clean it up before processing actions
-            #raise DeviceTreeError("device is already in the tree")
             if action.device in self._devices:
-                self._removeDevice(action.device)
-            for d in self._devices:
-                if d.path == action.device.path:
-                    self._removeDevice(d)
+                raise DeviceTreeError("device is already in the tree")
 
         if action.isCreate and action.isDevice:
             self._addDevice(action.device)
