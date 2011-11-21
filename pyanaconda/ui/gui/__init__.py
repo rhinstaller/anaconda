@@ -75,6 +75,8 @@ class GraphicalUserInterface(UserInterface):
     def run(self):
         from gi.repository import Gtk
 
+        from pyanaconda.product import isFinal, productName, productVersion
+
         # If we set these values on the very first window shown, they will get
         # propagated to later ones.
         self._actions[0].populate()
