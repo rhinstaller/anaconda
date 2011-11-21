@@ -73,7 +73,7 @@ static int serial_requested(GHashTable *cmdline) {
         return 0;
 }
 
-static int get_serial_fd() {
+static int get_serial_fd(GHashTable *cmdline) {
     int i, fd = -1;
     int weird = 0;
     char twelve = 12;
@@ -114,15 +114,17 @@ static int get_serial_fd() {
 
     restore_mode(&orig_cmode);
 
+    /* check to see if /dev/console is actually a serial device */
     if (fd < 0 && ioctl(0, TIOCLINUX, &twelve) < 0) {
         console = "/dev/console";
 
         if (ioctl(0, TIOCGSERIAL, &si) == -1)
             console = NULL;
     }
-    else
+    else if (serial_requested(cmdline))
         console = "/dev/ttyS0";
 
+    /* get an fd for the console if we don't already have one */
     if (console && !weird) {
         fd = open(console, O_RDWR, 0);
         if (fd < 0)
@@ -161,7 +163,7 @@ int init_serial(struct termios *orig_cmode, int *orig_flags, GHashTable *cmdline
      */
     get_mode_and_flags(orig_cmode, orig_flags);
 
-    if (!serial_requested(cmdline) || (fd = get_serial_fd()) == -1) {
+    if ((fd = get_serial_fd(cmdline)) == -1) {
         /* This is not a serial console install. */
         serial = 0;
         if ((fd = open("/dev/tty1", O_RDWR, 0)) < 0) {
