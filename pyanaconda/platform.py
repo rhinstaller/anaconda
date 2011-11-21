@@ -295,7 +295,7 @@ class S390(Platform):
         from storage.partspec import PartSpec
         return [PartSpec(mountpoint="/boot", size=500,
                          fstype=self.anaconda.storage.defaultBootFSType,
-                         weight=self.weight(mountpoint="/boot"), asVol=True,
+                         weight=self.weight(mountpoint="/boot"), lv=True,
                          singlePV=True)]
 
     def requiredDiskLabelType(self, device_type):

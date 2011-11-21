@@ -21,25 +21,27 @@
 
 class PartSpec(object):
     def __init__(self, mountpoint=None, fstype=None, size=None, maxSize=None,
-                 grow=False, asVol=False, singlePV=False, weight=0,
+                 grow=False, btr=False, lv=False, singlePV=False, weight=0,
                  requiredSpace=0, encrypted=False):
         """ Create a new storage specification.  These are used to specify
             the default partitioning layout as an object before we have the
             storage system up and running.  The attributes are obvious
             except for the following:
 
-            asVol -- Should this be allocated as a logical volume?  If not,
-                     it will be allocated as a partition.
+            btr -- Should this be allocated as a btrfs subvolume?  If not,
+                   it will be allocated as a partition.
+            lv -- Should this be allocated as a logical volume?  If not,
+                  it will be allocated as a partition.
             singlePV -- Should this logical volume map to a single physical
-                        volume in the volume group?  Implies asVol=True
+                        volume in the volume group?  Implies lv=True
             weight -- An integer that modifies the sort algorithm for partition
                       requests.  A larger value means the partition will end up
                       closer to the front of the disk.  This is mainly used to
                       make sure /boot ends up in front, and any special (PReP,
                       appleboot, etc.) partitions end up in front of /boot.
-                      This value means nothing if asVol=False.
+                      This value means nothing unless lv and btr are both False.
             requiredSpace -- This value is only taken into account if
-                             asVol=True, and specifies the size in MB that the
+                             lv=True, and specifies the size in MB that the
                              containing VG must be for this PartSpec to even
                              get used.  The VG's size is calculated before any
                              other LVs are created inside it.  If not enough
@@ -55,22 +57,24 @@ class PartSpec(object):
         self.size = size
         self.maxSize = maxSize
         self.grow = grow
-        self.asVol = asVol
+        self.lv = lv
+        self.btr = btr
         self.singlePV = singlePV
         self.weight = weight
         self.requiredSpace = requiredSpace
         self.encrypted = encrypted
 
-        if self.singlePV and not self.asVol:
-            self.asVol = True
+        if self.singlePV and not self.lv:
+            self.lv = True
 
     def __str__(self):
         s = ("%(type)s instance (%(id)s) -- \n"
-             "  mountpoint = %(mountpoint)s  asVol = %(asVol)s  singlePV = %(singlePV)s\n"
+             "  mountpoint = %(mountpoint)s  lv = %(lv)s  singlePV = %(singlePV)s"
+             "  btrfs = %(btrfs)s\n"
              "  weight = %(weight)s  fstype = %(fstype)s  encrypted = %(enc)s\n"
              "  size = %(size)s  maxSize = %(maxSize)s  grow = %(grow)s\n" %
              {"type": self.__class__.__name__, "id": "%#x" % id(self),
-              "mountpoint": self.mountpoint, "asVol": self.asVol,
+              "mountpoint": self.mountpoint, "lv": self.lv, "btrfs": self.btr,
               "singlePV": self.singlePV, "weight": self.weight,
               "fstype": self.fstype, "size": self.size, "enc": self.encrypted,
               "maxSize": self.maxSize, "grow": self.grow})
