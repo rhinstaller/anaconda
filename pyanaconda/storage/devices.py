@@ -97,12 +97,14 @@ import os
 import math
 import copy
 import pprint
+import tempfile
 
 # device backend modules
 from devicelibs import mdraid
 from devicelibs import lvm
 from devicelibs import dm
 from devicelibs import loop
+from devicelibs import btrfs
 import parted
 import _ped
 import block
@@ -430,7 +432,7 @@ class StorageDevice(Device):
     _partitionable = False
     _isDisk = False
 
-    def __init__(self, name, format=None,
+    def __init__(self, name, format=None, uuid=None,
                  size=None, major=None, minor=None,
                  sysfsPath='', parents=None, exists=None, serial=None,
                  vendor="", model="", bus=""):
@@ -447,6 +449,7 @@ class StorageDevice(Device):
                 minor -- the device minor
                 sysfsPath -- sysfs device path
                 format -- a DeviceFormat instance
+                uuid -- universally unique identifier
                 parents -- a list of required Device instances
                 serial -- the ID_SERIAL_SHORT for this device
                 vendor -- the manufacturer of this Device
@@ -461,7 +464,7 @@ class StorageDevice(Device):
         self.exists = exists
         Device.__init__(self, name, parents=parents)
 
-        self.uuid = None
+        self.uuid = uuid
         self._format = None
         self._size = numeric_type(size)
         self.major = numeric_type(major)
@@ -3859,3 +3862,240 @@ class NFSDevice(StorageDevice, NetworkStorageDevice):
     def destroy(self):
         """ Destroy the device. """
         log_method_call(self, self.name, status=self.status)
+
+
+class BTRFSDevice(StorageDevice):
+    """ Base class for BTRFS volume and sub-volume devices. """
+    _type = "btrfs"
+    _packages = ["btrfs-progs"]
+
+    def __init__(self, *args, **kwargs):
+        """ Passing None or no name means auto-generate one like btrfs.%d """
+        if not args or not args[0]:
+            args = ("btrfs.%d" % Device._id,)
+
+        super(BTRFSDevice, self).__init__(*args, **kwargs)
+
+    def updateSysfsPath(self):
+        """ Update this device's sysfs path. """
+        log_method_call(self, self.name, status=self.status)
+        self.sysfsPath = self.parents[0].sysfsPath
+        log.debug("%s sysfsPath set to %s" % (self.name, self.sysfsPath))
+
+    def _statusWindow(self, intf=None, title="", msg=""):
+        return self._progressWindow(intf=intf, title=title, msg=msg)
+
+    def _postCreate(self):
+        super(BTRFSDevice, self)._postCreate()
+        self.format.exists = True
+        self.format.device = self.path
+
+    def _preDestroy(self):
+        """ Preparation and precondition checking for device destruction. """
+        super(BTRFSDevice, self)._preDestroy()
+        self.setupParents(orig=True)
+
+    def _getSize(self):
+        size = sum([d.size for d in self.parents])
+        return size
+
+    def _setSize(self, size):
+        raise RuntimeError("cannot directly set size of btrfs volume")
+
+    @property
+    def status(self):
+        return not any([not d.status for d in self.parents])
+
+    @property
+    def _temp_dir_prefix(self):
+        return "btrfs-tmp.%s" % self.id
+
+    def _do_temp_mount(self):
+        if self.format.status or not self.exists:
+            return
+
+        tmpdir = tempfile.mkdtemp(prefix=self._temp_dir_prefix)
+        self.format.mount(mountpoint=tmpdir)
+
+    def _undo_temp_mount(self):
+        if self.format.status:
+            mountpoint = self.format._mountpoint
+            if os.path.basename(mountpoint).startswith(self._temp_dir_prefix):
+                self.format.unmount()
+                os.rmdir(mountpoint)
+
+    @property
+    def path(self):
+        return self.parents[0].path
+
+
+class BTRFSVolumeDevice(BTRFSDevice):
+    _type = "btrfs volume"
+
+    def __init__(self, *args, **kwargs):
+        self.dataLevel = kwargs.pop("dataLevel", None)
+        self.metaDataLevel = kwargs.pop("metaDataLevel", None)
+
+        super(BTRFSVolumeDevice, self).__init__(*args, **kwargs)
+
+        self.subvolumes = []
+
+        for parent in self.parents:
+            if parent.format.exists and self.exists and \
+               parent.format.uuid != self.uuid:
+                raise ValueError("BTRFS member device %s UUID %s does not "
+                                 "match volume UUID %s" % (parent.name,
+                                                           parent.format.uuid,
+                                                           self.uuid))
+
+        if self.parents and not self.format.type:
+            label = getattr(self.parents[0].format, "label", None)
+            self.format = getFormat("btrfs", exists=self.exists,
+                                    label=label,
+                                    uuid=self.uuid,
+                                    device=self.path)
+
+        label = getattr(self.format, "label", None)
+        if label:
+            self._name = label
+
+    def _setFormat(self, format):
+        """ Set the Device's format. """
+        super(BTRFSVolumeDevice, self)._setFormat(format)
+        self._name = getattr(self.format, "label", "btrfs.%d" % self.id)
+
+    def _addDevice(self, device):
+        """ Add a new device to this volume.
+
+            XXX This is for use by device probing routines and is not
+                intended for modification of the volume.
+        """
+        log_method_call(self,
+                        self.name,
+                        device=device.name,
+                        status=self.status)
+        if not self.exists:
+            raise DeviceError("device does not exist", self.name)
+
+        if device.format.type != "btrfs":
+            raise ValueError("addDevice requires a btrfs device as sole arg")
+
+        if device.format.uuid != self.uuid:
+            raise ValueError("device UUID does not match the volume UUID")
+
+        if device in self.parents:
+            raise ValueError("device is already a member of this volume")
+
+        self.parents.append(device)
+        device.addChild()
+
+    def _removeDevice(self, device):
+        """ Remove a device from the volume.
+
+            This is for cases like clearing of preexisting partitions.
+        """
+        log_method_call(self,
+                        self.name,
+                        device=device.name,
+                        status=self.status)
+        try:
+            self.parents.remove(device)
+        except ValueError:
+            raise ValueError("cannot remove non-member device from volume")
+
+        device.removeChild()
+
+    def _addSubVolume(self, vol):
+        if vol.name in [v.name for v in self.subvolumes]:
+            raise ValueError("subvolume %s already exists" % vol.name)
+
+        self.subvolumes.append(vol)
+
+    def _removeSubVolume(self, name):
+        if name not in [v.name for v in self.subvolumes]:
+            raise ValueError("cannot remove non-existent subvolume %s" % name)
+
+        names = [v.name for v in self.subvolumes]
+        self.subvolumes.pop(names.index(name))
+
+    def listSubVolumes(self):
+        subvols = []
+        self.setup(orig=True)
+        try:
+            self._do_temp_mount()
+        except FSError as e:
+            log.debug("btrfs temp mount failed: %s" % e)
+            return subvols
+
+        try:
+            subvols = btrfs.list_subvolumes(self.format._mountpoint)
+        except BRFSError as e:
+            log.debug("failed to list subvolumes: %s" % e)
+        finally:
+            self._undo_temp_mount()
+
+        return subvols
+
+    def createSubVolumes(self, intf=None):
+        self._do_temp_mount()
+        for name, subvol in self.subvolumes:
+            if subvol.exists:
+                continue
+            subvolume.create(mountpoint=self._temp_dir_prefix, intf=intf)
+        self._undo_temp_mount()
+
+    def removeSubVolume(self, name):
+        raise NotImplementedError()
+
+    def _create(self, w):
+        log_method_call(self, self.name, status=self.status)
+        btrfs.create_volume(devices=[d.path for d in self.parents],
+                            label=self.format.label,
+                            data=self.dataLevel,
+                            metadata=self.metaDataLevel,
+                            progress=w)
+
+    def _destroy(self):
+        log_method_call(self, self.name, status=self.status)
+        for device in self.parents:
+            device.setup(orig=True)
+            DeviceFormat(device=device.path, exists=True).destroy()
+
+class BTRFSSubVolumeDevice(BTRFSDevice):
+    """ A btrfs subvolume pseudo-device. """
+    _type = "btrfs subvolume"
+
+    def __init__(self, *args, **kwargs):
+        self.vol_id = kwargs.pop("vol_id", None)
+        super(BTRFSSubVolumeDevice, self).__init__(*args, **kwargs)
+
+        self.volume._addSubVolume(self)
+
+    @property
+    def volume(self):
+        return self.parents[0]
+
+    def setupParents(self, orig=False):
+        """ Run setup method of all parent devices. """
+        log_method_call(self, name=self.name, orig=orig, kids=self.kids)
+        self.volume.setup(orig=orig)
+
+    def _create(self, w):
+        log_method_call(self, self.name, status=self.status)
+        self.volume._do_temp_mount()
+        mountpoint = self.volume.format._mountpoint
+        if not mountpoint:
+            raise RuntimeError("btrfs subvol create requires mounted volume")
+
+        btrfs.create_subvolume(mountpoint, self.name, progress=w)
+        self.volume._undo_temp_mount()
+
+    def _destroy(self):
+        log_method_call(self, self.name, status=self.status)
+        self.volume._do_temp_mount()
+        mountpoint = self.volume.format._mountpoint
+        if not mountpoint:
+            raise RuntimeError("btrfs subvol destroy requires mounted volume")
+        btrfs.delete_subvolume(mountpoint, self.name)
+        self.volume._removeSubVolume()
+        self.volume._undo_temp_mount()
