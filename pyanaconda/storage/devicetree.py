@@ -1,7 +1,7 @@
 # devicetree.py
 # Device management for anaconda's storage configuration module.
 #
-# Copyright (C) 2009  Red Hat, Inc.
+# Copyright (C) 2009, 2010, 2011  Red Hat, Inc.
 #
 # This copyrighted material is made available to anyone wishing to use,
 # modify, copy, or redistribute it subject to the terms and conditions of
@@ -157,6 +157,9 @@ class DeviceTree(object):
         # internal data members
         self._devices = []
         self._actions = []
+
+        # a list of all device names we encounter
+        self.names = []
 
         # indicates whether or not the tree has been fully populated
         self.populated = False
@@ -343,6 +346,12 @@ class DeviceTree(object):
                 raise DeviceTreeError("parent device not in tree")
 
         self._devices.append(newdev)
+
+        # don't include "req%d" partition names
+        if ((newdev.type != "partition" or
+             not newdev.name.startswith("req")) and
+            newdev.name not in self.names):
+            self.names.append(newdev.name)
         log.info("added %s %s (id %d) to device tree" % (newdev.type,
                                                           newdev.name,
                                                           newdev.id))
@@ -380,6 +389,8 @@ class DeviceTree(object):
                     device.updateName()
 
         self._devices.remove(dev)
+        if dev.name in self.names:
+            self.names.remove(dev.name)
         log.info("removed %s %s (id %d) from device tree" % (dev.type,
                                                               dev.name,
                                                               dev.id))
@@ -940,6 +951,10 @@ class DeviceTree(object):
         uuid = udev_device_get_uuid(info)
         sysfs_path = udev_device_get_sysfs_path(info)
 
+        # make sure we note the name of every device we see
+        if name not in self.names:
+            self.names.append(name)
+
         if self.isIgnored(info):
             log.info("ignoring %s (%s)" % (name, sysfs_path))
             if name not in self._ignoredDisks:
@@ -1375,6 +1390,10 @@ class DeviceTree(object):
             vg_device.lv_uuids.append(lv_uuids[i])
             vg_device.lv_sizes.append(lv_sizes[i])
             vg_device.lv_attr.append(lv_attr[i])
+
+            name = "%s-%s" % (vg_name, lv_names[i])
+            if name not in self.names:
+                self.names.append(name)
 
     def handleUdevMDMemberFormat(self, info, device):
         log_method_call(self, name=device.name, type=device.format.type)

@@ -44,7 +44,6 @@ from deviceaction import *
 from formats import getFormat
 from formats import get_device_format_class
 from formats import get_default_filesystem_type
-from devicelibs.lvm import safeLvmName
 from devicelibs.dm import name_from_dm_node
 from devicelibs.crypto import generateBackupPassphrase
 from devicelibs.mpath import MultipathConfigWriter
@@ -697,6 +696,10 @@ class Storage(object):
             _platform = getattr(self.anaconda, "platform", None)
         return _platform
 
+    @property
+    def names(self):
+        return self.devicetree.names
+
     def exceptionDisks(self):
         """ Return a list of removable devices to save exceptions to.
 
@@ -862,9 +865,9 @@ class Storage(object):
             hostname = ""
             if hasattr(self.anaconda, "network"):
                 hostname = self.anaconda.network.hostname
-            name = self.createSuggestedVGName(hostname=hostname)
+            name = self.suggestContainerName(hostname=hostname, prefix="vg")
 
-        if name in [d.name for d in self.devices]:
+        if name in self.names:
             raise ValueError("name already in use")
 
         return LVMVolumeGroupDevice(name, pvs, *args, **kwargs)
@@ -886,11 +889,12 @@ class Storage(object):
                 swap = True
             else:
                 swap = False
-            name = self.createSuggestedLVName(vg,
-                                              swap=swap,
-                                              mountpoint=mountpoint)
+            name = self.suggestDeviceName(prefix="lv",
+                                          parent=vg,
+                                          swap=swap,
+                                          mountpoint=mountpoint)
 
-        if name in [d.name for d in self.devices]:
+        if name in self.names:
             raise ValueError("name already in use")
 
         return LVMLogicalVolumeDevice(name, vg, *args, **kwargs)
@@ -964,71 +968,90 @@ class Storage(object):
                 return True
         return False
 
-    def createSuggestedVGName(self, hostname=None):
-        """ Return a reasonable, unused VG name. """
-        # try to create a volume group name incorporating the hostname
-        if hostname not in (None, "", 'localhost', 'localhost.localdomain'):
-            template = "vg_%s" % (hostname.split('.')[0].lower(),)
-            vgtemplate = safeLvmName(template)
-        elif flags.imageInstall:
-            vgtemplate = "vg_image"
-        else:
-            vgtemplate = "VolGroup"
+    def safeDeviceName(self, name):
+        """ Convert a device name to something safe and return that.
 
-        vgnames = [vg.name for vg in self.vgs]
-        if vgtemplate not in vgnames and \
-                vgtemplate not in lvm.lvm_vg_blacklist:
-            return vgtemplate
+            LVM limits lv names to 128 characters. I don't know the limits for
+            the other various device types, so I'm going to pick a number so
+            that we don't have to have an entire fucking library to determine
+            device name limits.
+        """
+        max_len = 96    # No, you don't need longer names than this. Really.
+        tmp = name.strip()
+        tmp = tmp.replace("/", "_")
+        tmp = re.sub("[^0-9a-zA-Z._-]", "", tmp)
+        tmp = tmp.lstrip("_")
+
+        if len(tmp) > max_len:
+            tmp = tmp[:max_len]
+
+        return tmp
+
+    def suggestContainerName(self, hostname=None, prefix=""):
+        """ Return a reasonable, unused device name. """
+        # try to create a device name incorporating the hostname
+        if hostname not in (None, "", 'localhost', 'localhost.localdomain'):
+            template = "%s_%s" % (prefix, hostname.split('.')[0].lower())
+            template = self.safeDeviceName(template)
+        elif flags.imageInstall:
+            template = "%s_image" % prefix
         else:
-            i = 0
-            while 1:
-                tmpname = "%s%02d" % (vgtemplate, i,)
-                if not tmpname in vgnames and \
-                        tmpname not in lvm.lvm_vg_blacklist:
+            template = prefix
+
+        names = self.names
+        name = template
+        if name in names:
+            name = None
+            for i in range(100):
+                tmpname = "%s%02d" % (template, i,)
+                if tmpname not in names:
+                    name = tmpname
                     break
 
-                i += 1
-                if i > 99:
-                    tmpname = ""
+            if not name:
+                log.error("failed to create device name based on prefix "
+                          "'%s' and hostname '%s'" % (prefix, hostname))
+                raise RuntimeError("unable to find suitable device name")
 
-            return tmpname
+        return name
 
-    def createSuggestedLVName(self, vg, swap=None, mountpoint=None):
+    def suggestDeviceName(self, parent=None, swap=None,
+                                  mountpoint=None, prefix=""):
         """ Return a suitable, unused name for a new logical volume. """
-        # FIXME: this is not at all guaranteed to work
+        body = ""
         if mountpoint:
-            # try to incorporate the mountpoint into the name
-            if mountpoint == '/':
-                lvtemplate = 'lv_root'
+            if mountpoint == "/":
+                body = "_root"
             else:
-                if mountpoint.startswith("/"):
-                    template = "lv_%s" % mountpoint[1:]
-                else:
-                    template = "lv_%s" % (mountpoint,)
+                body = mountpoint.replace("/", "_")
+        elif swap:
+            body = "_swap"
 
-                lvtemplate = safeLvmName(template)
-        else:
-            if swap:
-                if len([s for s in self.swaps if s in vg.lvs]):
-                    idx = len([s for s in self.swaps if s in vg.lvs])
-                    while True:
-                        lvtemplate = "lv_swap%02d" % idx
-                        if lvtemplate in [lv.lvname for lv in vg.lvs]:
-                            idx += 1
-                        else:
-                            break
-                else:
-                    lvtemplate = "lv_swap"
-            else:
-                idx = len(vg.lvs)
-                while True:
-                    lvtemplate = "LogVol%02d" % idx
-                    if lvtemplate in [l.lvname for l in vg.lvs]:
-                        idx += 1
-                    else:
-                        break
+        template = self.safeDeviceName(prefix + body)
+        names = self.names
+        name = template
+        def full_name(name, parent):
+            full = ""
+            if parent:
+                full = "%s-" % parent.name
+            full += name
+            return full
 
-        return lvtemplate
+        if full_name(name, parent) in names:
+            for i in range(100):
+                name = "%s%02d" % (template, i)
+                if name not in names:
+                    break
+                else:
+                    name = ""
+
+            if not name:
+                log.error("failed to create device name based on parent '%s', "
+                          "prefix '%s', mountpoint '%s', swap '%s'"
+                          % (parent.name, prefix, mountpoint, swap))
+                raise RuntimeError("unable to find suitable device name")
+
+        return name
 
     def doEncryptionPassphraseRetrofits(self):
         """ Add the global passphrase to all preexisting LUKS devices.
