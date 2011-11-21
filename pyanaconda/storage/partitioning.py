@@ -62,13 +62,13 @@ def _getCandidateDisks(storage):
 
     return disks
 
-def _schedulePVs(storage, disks):
-    """ Schedule creation of an lvm pv partition on each disk in disks. """
-    # create a separate pv partition for each disk with free space
+def _scheduleImplicitPartitions(storage, disks):
+    """ Schedule creation of a lvm/btrfs partition on each disk in disks. """
+    # create a separate pv or btrfs partition for each disk with free space
     devs = []
 
-    # only schedule PVs if there are LV autopart reqs
-    if not storage.lvmAutoPart:
+    # only schedule the partitions if either lvm or btrfs autopart was chosen
+    if not storage.lvmAutoPart and not storage.btrfsAutoPart:
         return devs
 
     for disk in disks:
@@ -77,7 +77,10 @@ def _schedulePVs(storage, disks):
             fmt_args = {"escrow_cert": storage.autoPartEscrowCert,
                         "add_backup_passphrase": storage.autoPartAddBackupPassphrase}
         else:
-            fmt_type = "lvmpv"
+            if storage.lvmAutoPart:
+                fmt_type = "lvmpv"
+            else:
+                fmt_type = "btrfs"
             fmt_args = {}
         part = storage.newPartition(fmt_type=fmt_type,
                                                 fmt_args=fmt_args,
@@ -108,7 +111,8 @@ def _schedulePartitions(storage, disks):
     # First pass is for partitions only. We'll do LVs later.
     #
     for request in storage.autoPartitionRequests:
-        if request.asVol and storage.lvmAutoPart:
+        if (request.lv and storage.lvmAutoPart) or \
+           (request.btr and storage.btrfsAutoPart):
             continue
 
         if request.requiredSpace and request.requiredSpace > free:
@@ -172,16 +176,27 @@ def _schedulePartitions(storage, disks):
     # make sure preexisting broken lvm/raid configs get out of the way
     return
 
-def _scheduleLVs(storage, devs):
-    """ Schedule creation of autopart lvm lvs. """
+def _scheduleVolumes(storage, devs):
+    """ Schedule creation of autopart lvm/btrfs volumes. """
     if not devs:
         return
+
+    if storage.lvmAutoPart:
+        new_container = storage.newVG
+        new_volume = storage.newLV
+        format_name = "lvmpv"
+        parent_kw = "pvs"
+    else:
+        new_container = storage.newBTRFS
+        new_volume = storage.newBTRFS
+        format_name = "btrfs"
+        parent_kw = "parents"
 
     if storage.encryptedAutoPart:
         pvs = []
         for dev in devs:
             pv = LUKSDevice("luks-%s" % dev.name,
-                            format=getFormat("lvmpv", device=dev.path),
+                            format=getFormat(format_name, device=dev.path),
                             size=dev.size,
                             parents=dev)
             pvs.append(pv)
@@ -190,10 +205,8 @@ def _scheduleLVs(storage, devs):
         pvs = devs
 
     # create a vg containing all of the autopart pvs
-    vg = storage.newVG(pvs=pvs)
-    storage.createDevice(vg)
-
-    initialVGSize = vg.size
+    container = new_container(**{parent_kw: pvs})
+    storage.createDevice(container)
 
     #
     # Convert storage.autoPartitionRequests into Device instances and
@@ -201,28 +214,46 @@ def _scheduleLVs(storage, devs):
     #
     # Second pass, for LVs only.
     for request in storage.autoPartitionRequests:
-        if not request.asVol or not storage.lvmAutoPart:
+        btr = storage.btrfsAutoPart and request.btr
+        lv = storage.lvmAutoPart and request.lv
+
+        if not btr and not lv:
             continue
 
-        if request.requiredSpace and request.requiredSpace > initialVGSize:
+        # required space isn't relevant on btrfs
+        if lv and \
+           request.requiredSpace and request.requiredSpace > container.size:
             continue
 
         if request.fstype is None:
-            request.fstype = storage.defaultFSType
+            if btr:
+                # btrfs volumes can only contain btrfs filesystems
+                request.fstype = "btrfs"
+            else:
+                request.fstype = storage.defaultFSType
 
         # This is a little unfortunate but let the backend dictate the rootfstype
         # so that things like live installs can do the right thing
+        # XXX FIXME: yes, unfortunate. Disallow btrfs autopart on live install.
         if request.mountpoint == "/" and storage.liveImage:
+            if btr:
+                raise PartitioningError("live install can't do btrfs autopart")
+
             request.fstype = storage.liveImage.format.type
 
-        # FIXME: move this to a function and handle exceptions
-        dev = storage.newLV(vg=vg,
-                            fmt_type=request.fstype,
-                            mountpoint=request.mountpoint,
-                            grow=request.grow,
-                            maxsize=request.maxSize,
-                            size=request.size,
-                            singlePV=request.singlePV)
+        kwargs = {"mountpoint": request.mountpoint,
+                  "fmt_type": request.fstype}
+        if lv:
+            kwargs.update({"vg": container,
+                           "grow": request.grow,
+                           "maxsize": request.maxSize,
+                           "size": request.size,
+                           "singlePV": request.singlePV})
+        else:
+            kwargs.update({"parents": [container],
+                           "subvol": True})
+
+        dev = new_volume(**kwargs)
 
         # schedule the device for creation
         storage.createDevice(dev)
@@ -266,7 +297,7 @@ def doAutoPartition(anaconda):
         anaconda.bootloader.clear_drive_list()
 
         disks = _getCandidateDisks(anaconda.storage)
-        devs = _schedulePVs(anaconda.storage, disks)
+        devs = _scheduleImplicitPartitions(anaconda.storage, disks)
         log.debug("candidate disks: %s" % disks)
         log.debug("devs: %s" % devs)
 
@@ -294,7 +325,7 @@ def doAutoPartition(anaconda):
         doPartitioning(anaconda.storage, bootloader=anaconda.bootloader)
 
         if anaconda.storage.doAutoPart:
-            _scheduleLVs(anaconda.storage, devs)
+            _scheduleVolumes(anaconda.storage, devs)
 
         # grow LVs
         growLVM(anaconda.storage)
