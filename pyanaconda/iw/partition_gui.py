@@ -50,7 +50,9 @@ from pyanaconda.constants import *
 from partition_ui_helpers_gui import *
 from pyanaconda.storage.partitioning import doPartitioning
 from pyanaconda.storage.devicelibs import lvm
-from pyanaconda.storage.devices import devicePathToName, PartitionDevice
+from pyanaconda.storage.devices import devicePathToName
+from pyanaconda.storage.devices import PartitionDevice
+from pyanaconda.storage.devices import BTRFSVolumeDevice
 from pyanaconda.storage.devices import deviceNameToDiskByPath
 from pyanaconda.storage.errors import DeviceNotFoundError
 
@@ -492,27 +494,32 @@ class LVMStripeGraph(StripeGraph):
 
         return stripe
 
-class MDRaidArrayStripeGraph(StripeGraph):
+class MDStripeGraph(StripeGraph):
+    desc = "MD"
     """
     storage -- the storage object
 
     cCB -- call back function used when the user clicks on a slice. This function
            is passed a device object when its executed.
     dcCB -- call back function used when the user double clicks on a slice.
-    md -- RAID device to display.
+    md -- md device to display.
     """
-    def __init__(self, storage, md=None, cCB=lambda x:None, dcCB=lambda:None):
+    def __init__(self, storage, device=None, cCB=lambda x:None, dcCB=lambda:None):
         StripeGraph.__init__(self)
         self.storage = storage
         self.cCB = cCB
         self.dcCB = dcCB
         self.part_type_colors = \
                 {"sel_md": "cornsilk1", "unsel_md": "white"}
-        if md:
-            self.setDisplayed(md)
+        if device:
+            self.setDisplayed(device)
+
+    def _get_text(self, md):
+        return (_("%(desc)s %(mdPath)s (%(mdSize)-0.f MB)")
+                 % {"mdPath": md.path, "mdSize": md.size, "desc": self.desc})
 
     def _createStripe(self, md):
-        mdtext = _("MD RAID ARRAY %(mdPath)s (%(mdSize)-0.f MB)") % {"mdPath": md.path, "mdSize": md.size}
+        mdtext = self._get_text(md)
         stripe = Stripe(self.getCanvas(), mdtext, self.dcCB, obj = md)
 
         # Since we can't really create subslices with md devices we will only
@@ -530,6 +537,16 @@ class MDRaidArrayStripeGraph(StripeGraph):
         stripe.addSlice(slice)
 
         return stripe
+
+class MDRaidArrayStripeGraph(MDStripeGraph):
+    desc = "MD RAID Array"
+
+class BTRFSStripeGraph(MDStripeGraph):
+    desc = "BTRFS Pool"
+
+    def _get_text(self, md):
+        return (_("%(desc)s %(mdUUID)s (%(mdSize)-0.f MB)")
+                 % {"mdUUID": md.uuid, "mdSize": md.size, "desc": self.desc})
 
 class MessageGraph:
     def __init__(self, canvas, message):
@@ -925,10 +942,15 @@ class PartitionWindow(InstallWindow):
                     break
 
             mnt_str = getattr(array, "name", "")
+        elif format.type == "btrfs" and not isinstance(device, BTRFSVolumeDevice):
+            btrfs_dev = self.storage.devicetree.getChildren(device)[0]
+            mnt_str = btrfs_dev.name
         else:
             mnt_str = getattr(format, "mountpoint", "")
             if mnt_str is None:
                 mnt_str = ""
+
+        isleaf = True
 
         # device name
         name_str = getattr(device, "lvname", device.name)
@@ -944,9 +966,29 @@ class PartitionWindow(InstallWindow):
         self.tree[treeiter]['IsFormattable'] = format.formattable
         self.tree[treeiter]['Format'] = format_icon
         self.tree[treeiter]['Mount Point'] = mnt_str
-        self.tree[treeiter]['IsLeaf'] = True
+        self.tree[treeiter]['IsLeaf'] = isleaf
         self.tree[treeiter]['Type'] = format.name
         self.tree[treeiter]['Label'] = label_str
+
+        # XXX can this move up one level?
+        if isinstance(device, BTRFSVolumeDevice):
+            # list subvolumes as children of the main volume
+            for s in device.subvolumes:
+                log.debug("%r" % s.format)
+                isleaf = False
+                if s.format.exists:
+                    sub_format_icon = None
+                else:
+                    sub_format_icon = self.checkmark_pixbuf
+                subvol_iter = self.tree.append(treeiter)
+                self.tree[subvol_iter]['Device'] = s.name
+                self.tree[subvol_iter]['PyObject'] = s
+                self.tree[subvol_iter]['IsFormattable'] = True
+                self.tree[subvol_iter]['Format'] = sub_format_icon
+                self.tree[subvol_iter]['Mount Point'] = s.format.mountpoint
+                self.tree[subvol_iter]['Type'] = s.type
+                self.tree[subvol_iter]['IsLeaf'] = True
+
 
     def populate(self, initial = 0):
         self.tree.resetSelection()
@@ -984,6 +1026,15 @@ class PartitionWindow(InstallWindow):
                 name = "%s <span size=\"small\" color=\"gray\">(%s)</span>" % \
                             (array.name, array.path)
                 self.tree[iter]['Device'] = name
+
+        # BTRFS volumes
+        btrfs_devs = self.storage.btrfsVolumes
+        if btrfs_devs:
+            btrfsparent = self.tree.append(None)
+            self.tree[btrfsparent]['Device'] = _("BTRFS Volumes")
+            for dev in btrfs_devs:
+                iter = self.tree.append(btrfsparent)
+                self.addDevice(dev, iter)
 
         # now normal partitions
         disks = self.storage.partitioned
@@ -1262,11 +1313,24 @@ class PartitionWindow(InstallWindow):
             if not isinstance(self.stripeGraph, MDRaidArrayStripeGraph):
                 self.stripeGraph.shutDown()
                 self.stripeGraph = MDRaidArrayStripeGraph(self.storage,
-                        md = device,
+                        device = device,
                         cCB = self.tree.selectRowFromObj,
                         dcCB = self.barviewActivateCB)
             self.stripeGraph.setDisplayed(device)
             self.deleteButton.set_sensitive(True)
+            self.editButton.set_sensitive(True)
+
+        elif isinstance(device, storage.BTRFSDevice):
+            # BTRFSDevice can be edited but not explicitly deleted. It is
+            # deleted when its last member device is removed.
+            if not isinstance(self.stripeGraph, BTRFSStripeGraph):
+                self.stripeGraph.shutDown()
+                self.stripeGraph = BTRFSStripeGraph(self.storage,
+                        device = device,
+                        cCB = self.tree.selectRowFromObj,
+                        dcCB = self.barviewActivateCB)
+            self.stripeGraph.setDisplayed(device)
+            self.deleteButton.set_sensitive(False)
             self.editButton.set_sensitive(True)
 
         else:
