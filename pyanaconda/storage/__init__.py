@@ -655,6 +655,11 @@ class Storage(object):
         return raidMinors
 
     @property
+    def btrfsVolumes(self):
+        return sorted(self.devicetree.getDevicesByType("btrfs volume"),
+                      key=lambda d: d.name)
+
+    @property
     def swaps(self):
         """ A list of the swap devices in the device tree.
 
@@ -899,6 +904,59 @@ class Storage(object):
 
         return LVMLogicalVolumeDevice(name, vg, *args, **kwargs)
 
+    def newBTRFS(self, *args, **kwargs):
+        """ Return a new BTRFSVolumeDevice or BRFSSubVolumeDevice. """
+        log.debug("newBTRFS: args = %s ; kwargs = %s" % (args, kwargs))
+        name = kwargs.pop("name", None)
+        if args:
+            name = args[0]
+
+        mountpoint = kwargs.pop("mountpoint", None)
+        fmt_kwargs = {"mountpoint": mountpoint}
+
+        if kwargs.pop("subvol", False):
+            dev_class = BTRFSSubVolumeDevice
+            # make sure there's a valid parent device
+            parents = kwargs.get("parents", [])
+            if not parents or len(parents) != 1 or \
+               not isinstance(parents[0], BTRFSVolumeDevice):
+                raise ValueError("new btrfs subvols require a parent volume")
+
+            # set up the subvol name, using mountpoint if necessary
+            if not name:
+                # for btrfs this only needs to ensure the subvol name is not
+                # already in use within the parent volume
+                name = self.suggestDeviceName(mountpoint=mountpoint)
+            fmt_kwargs["mountopts"] = "subvol=%s" % name
+            kwargs.pop("metaDataLevel", None)
+            kwargs.pop("dataLevel", None)
+        else:
+            dev_class = BTRFSVolumeDevice
+            # set up the volume label, using hostname if necessary
+            if not name:
+                hostname = ""
+                if hasattr(self.anaconda, "network"):
+                    hostname = self.anaconda.network.hostname
+
+                name = self.suggestContainerName(prefix="btrfs",
+                                                 hostname=hostname)
+            #if name and name.startswith("btrfs_"):
+            #    fmt_kwargs["label"] = name[6:]
+            #elif name and not name.startswith("btrfs"):
+            fmt_kwargs["label"] = name
+
+        # do we want to prevent a subvol with a name that matches another dev?
+        if name in self.names:
+            raise ValueError("name already in use")
+
+        # discard fmt_type since it's btrfs always
+        kwargs.pop("fmt_type", None)
+
+        # this is to avoid auto-scheduled format create actions
+        device = dev_class(name, **kwargs)
+        device.format = getFormat("btrfs", **fmt_kwargs)
+        return device
+
     def createDevice(self, device):
         """ Schedule creation of a device.
 
@@ -906,7 +964,7 @@ class Storage(object):
                   available raid minor if one isn't already set.
         """
         self.devicetree.registerAction(ActionCreateDevice(device))
-        if device.format.type:
+        if device.format.type and device.format.type != "btrfs":
             self.devicetree.registerAction(ActionCreateFormat(device))
 
     def destroyDevice(self, device):
