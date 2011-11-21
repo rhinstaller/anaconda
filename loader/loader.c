@@ -2008,7 +2008,8 @@ int main(int argc, char ** argv) {
 
     logMessage(INFO, "anaconda version %s on %s starting", VERSION, getProductArch());
 
-    init_serial(&orig_cmode, &orig_flags, cmdline);
+    if (init_serial(&orig_cmode, &orig_flags, cmdline))
+        flags |= LOADER_FLAGS_SERIAL;
 
     if ((FL_SERIAL(flags) || FL_VIRTPCONSOLE(flags)) && 
         !hasGraphicalOverride()) {

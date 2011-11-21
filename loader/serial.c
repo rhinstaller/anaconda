@@ -151,9 +151,9 @@ static void set_term(int fd, GHashTable *cmdline) {
 }
 #endif
 
-void init_serial(struct termios *orig_cmode, int *orig_flags, GHashTable *cmdline) {
+int init_serial(struct termios *orig_cmode, int *orig_flags, GHashTable *cmdline) {
 #if !defined(__s390__) && !defined(__s390x__)
-    int fd;
+    int fd, serial;
 
     /* We need to get the original mode and flags here (in addition to inside
      * get_serial) so we'll have them for later when we restore the console
@@ -163,6 +163,7 @@ void init_serial(struct termios *orig_cmode, int *orig_flags, GHashTable *cmdlin
 
     if (!serial_requested(cmdline) || (fd = get_serial_fd()) == -1) {
         /* This is not a serial console install. */
+        serial = 0;
         if ((fd = open("/dev/tty1", O_RDWR, 0)) < 0) {
             if ((fd = open("/dev/vc/1", O_RDWR, 0)) < 0) {
                 fprintf(stderr, "failed to open /dev/tty1 and /dev/vc/1");
@@ -171,6 +172,7 @@ void init_serial(struct termios *orig_cmode, int *orig_flags, GHashTable *cmdlin
         }
     }
     else {
+        serial = 1;
         struct winsize winsize;
 
         if (ioctl(fd, TIOCGWINSZ, &winsize)) {
@@ -219,4 +221,6 @@ void init_serial(struct termios *orig_cmode, int *orig_flags, GHashTable *cmdlin
         ts.c_iflag &= ~ISIG;
         tcsetattr(0, TCSANOW, &ts);
     }
+
+    return serial;
 }
