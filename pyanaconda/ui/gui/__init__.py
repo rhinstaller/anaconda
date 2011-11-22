@@ -42,11 +42,12 @@ class GraphicalUserInterface(UserInterface):
 
     def setup(self, data):
         from hubs.summary import SummaryHub
+        from hubs.progress import ProgressHub
         from spokes import StandaloneSpoke
 
         from pyanaconda.product import isFinal, productName, productVersion
 
-        self._hubs.append(SummaryHub)
+        self._hubs.extend([SummaryHub, ProgressHub])
 
         # First, grab a list of all the standalone spokes.
         standalones = collect("spokes", lambda obj: issubclass(obj, StandaloneSpoke) and \
