@@ -173,9 +173,9 @@ class Hub(UIObject):
     ### SIGNAL HANDLERS
 
     def register_event_cb(self, event, cb):
-        if event == "continue":
+        if event == "continue" and hasattr(self, "continueButton"):
             self.continueButton.connect("clicked", lambda *args: cb())
-        elif event == "quit":
+        elif event == "quit" and hasattr(self, "quitButton"):
             self.quitButton.connect("clicked", lambda *args: cb())
 
     def _on_spoke_clicked(self, selector, event):
