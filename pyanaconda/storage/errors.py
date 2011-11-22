@@ -175,3 +175,10 @@ class SizeNotPositiveError(StorageError):
 
 class SizePlacesError(StorageError):
     pass
+
+# probing
+class UnknownSourceDeviceError(StorageError):
+    pass
+
+class NoDisksError(StorageError):
+    pass

@@ -124,7 +124,7 @@ class iscsi(object):
 
     initiator = property(_getInitiator, _setInitiator)
 
-    def _startIBFT(self, intf = None):
+    def _startIBFT(self):
         if not flags.ibft:
             return
 
@@ -145,21 +145,17 @@ class iscsi(object):
                           (node.name, str(e)))
                 pass
 
-        self.stabilize(intf)
+        self.stabilize()
 
-    def stabilize(self, intf = None):
+    def stabilize(self):
         # Wait for udev to create the devices for the just added disks
-        if intf:
-            w = intf.waitWindow(_("Scanning iSCSI nodes"),
-                                _("Scanning iSCSI nodes"))
+
         # It is possible when we get here the events for the new devices
         # are not send yet, so sleep to make sure the events are fired
         time.sleep(2)
         udev_settle()
-        if intf:
-            w.pop()
 
-    def startup(self, intf = None):
+    def startup(self):
         if self.started:
             return
 
@@ -169,10 +165,6 @@ class iscsi(object):
         if self._initiator == "":
             log.info("no initiator set")
             return
-
-        if intf:
-            w = intf.waitWindow(_("Initializing iSCSI initiator"),
-                                _("Initializing iSCSI initiator"))
 
         log.debug("Setting up %s" % (INITIATOR_FILE, ))
         log.info("iSCSI initiator name %s", self.initiator)
@@ -209,10 +201,7 @@ class iscsi(object):
                                stdout="/dev/tty5", stderr="/dev/tty5")
         time.sleep(1)
 
-        if intf:
-            w.pop()
-
-        self._startIBFT(intf)
+        self._startIBFT()
         self.started = True
 
     def discover(self, ipaddr, port="3260", username=None, password=None,
@@ -237,7 +226,7 @@ class iscsi(object):
                                              password=password,
                                              reverse_username=r_username,
                                              reverse_password=r_password)
-        self.startup(intf)
+        self.startup()
 
         # Note may raise an IOError
         found_nodes = libiscsi.discover_sendtargets(address=ipaddr,

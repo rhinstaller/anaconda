@@ -393,8 +393,7 @@ class ZFCP:
             except ValueError as e:
                 log.warn(str(e))
 
-    def startup(self, intf=None):
-        self.intf = intf
+    def startup(self):
         if not self.down:
             return
         self.down = False

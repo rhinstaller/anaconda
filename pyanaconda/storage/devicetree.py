@@ -152,7 +152,7 @@ class DeviceTree(object):
         except for resize actions.
     """
 
-    def __init__(self, intf=None, conf=None, passphrase=None, luksDict=None,
+    def __init__(self, conf=None, passphrase=None, luksDict=None,
                  iscsi=None, dasd=None):
         # internal data members
         self._devices = []
@@ -161,7 +161,6 @@ class DeviceTree(object):
         # indicates whether or not the tree has been fully populated
         self.populated = False
 
-        self.intf = intf
         self.exclusiveDisks = getattr(conf, "exclusiveDisks", [])
         self.clearPartType = getattr(conf, "clearPartType", CLEARPART_TYPE_NONE)
         self.clearPartDisks = getattr(conf, "clearPartDisks", [])
@@ -313,12 +312,12 @@ class DeviceTree(object):
             log.info("executing action: %s" % action)
             if not dryRun:
                 try:
-                    action.execute(intf=self.intf)
+                    action.execute()
                 except DiskLabelCommitError:
                     # it's likely that a previous format destroy action
                     # triggered setup of an lvm or md device.
                     self.teardownAll()
-                    action.execute(intf=self.intf)
+                    action.execute()
 
                 udev_settle()
                 for device in self._devices:
@@ -1125,25 +1124,6 @@ class DeviceTree(object):
         else:
             initlabel = False
 
-
-        if self._cleanup:
-            initcb = lambda: False
-        elif self.zeroMbr:
-            initcb = lambda: True
-        elif not self.intf:
-            initcb = lambda: False
-        else:
-            description = device.description or device.model
-            try:
-                bypath = os.path.basename(deviceNameToDiskByPath(device.name))
-            except DeviceNotFoundError:
-                # some devices don't have a /dev/disk/by-path/ #!@#@!@#
-                bypath = device.name
-
-            initcb = lambda: self.intf.questionInitializeDisk(bypath,
-                                                              description,
-                                                              device.size)
-
         # we're going to pass the "best" disklabel type into the DiskLabel
         # constructor, but it only has meaning for non-existent disklabels.
         labelType = self.platform.bestDiskLabelType(device)
@@ -1157,16 +1137,8 @@ class DeviceTree(object):
                                labelType=labelType,
                                exists=not initlabel)
         except InvalidDiskLabelError:
-            # if we have a cb function use it. else we ignore the device.
-            if initcb is not None and initcb():
-                format = getFormat("disklabel",
-                                   device=device.path,
-                                   labelType=labelType,
-                                   exists=False)
-            else:
-                self._removeDevice(device)
-                self.addIgnoredDisk(device.name)
-                return
+            self.addIgnoredDisk(device.name)
+            return
 
         if not format.exists:
             # if we just initialized a disklabel we should schedule
@@ -1210,7 +1182,7 @@ class DeviceTree(object):
                     # this makes device.configured return True
                     device.format.passphrase = 'yabbadabbadoo'
             else:
-                passphrase = getLUKSPassphrase(self.intf,
+                passphrase = getLUKSPassphrase(None,
                                                 device,
                                                 self.__passphrases)
                 if passphrase and passphrase not in self.__passphrases:
@@ -1663,74 +1635,20 @@ class DeviceTree(object):
             log.info("got format: %s" % device.format)
 
     def _handleInconsistencies(self):
-        def reinitializeVG(vg):
-            # First we remove VG data
-            try:
-                vg.destroy()
-            except DeviceError:
-                # the pvremoves will finish the job.
-                log.warning("There was an error destroying the VG %s." % vg.name)
-
-            # remove VG device from list.
-            self._removeDevice(vg)
-
-            for parent in vg.parents:
-                parent.format.destroy()
-
-                # Give the vg the a default format
-                kwargs = {"device": parent.path,
-                          "exists": parent.exists}
-                parent.format = formats.getFormat(*[""], **kwargs)
-
         def leafInconsistencies(device):
-            if device.type == "lvmvg":
-                if device.complete:
-                    return
-
-                paths = []
-                for parent in device.parents:
-                    paths.append(parent.path)
-
-                # if zeroMbr is true don't ask.
-                if not self._cleanup and \
-                   (self.zeroMbr or
-                    (self.intf and
-                     self.intf.questionReinitInconsistentLVM(pv_names=paths,
-                                                            vg_name=device.name))):
-                    reinitializeVG(device)
+            devicelibs.lvm.lvm_cc_addFilterRejectRegexp(device.name)
+            devicelibs.lvm.blacklistVG(device.name)
+            for parent in device.parents:
+                if parent.type == "partition":
+                    parent.format.inconsistentVG = True
+                    parent.protected = True
                 else:
-                    # The user chose not to reinitialize.
-                    # hopefully this will ignore the vg components too.
-                    self._removeDevice(device)
-                    devicelibs.lvm.lvm_cc_addFilterRejectRegexp(device.name)
-                    devicelibs.lvm.blacklistVG(device.name)
-                    for parent in device.parents:
-                        if parent.type == "partition":
-                            parent.format.inconsistentVG = True
-                            parent.protected = True
-                        else:
-                            self._removeDevice(parent, moddisk=False)
-                            self.addIgnoredDisk(parent.name)
-                        devicelibs.lvm.lvm_cc_addFilterRejectRegexp(parent.name)
+                    self.addIgnoredDisk(parent.name)
+                devicelibs.lvm.lvm_cc_addFilterRejectRegexp(parent.name)
 
         # Address the inconsistencies present in the tree leaves.
-        for leaf in self.leaves:
+        for leaf in filter(lambda leaf: leaf.type == "lvmvg" and not leaf.complete, self.leaves):
             leafInconsistencies(leaf)
-
-        # Check for unused BIOS raid members, unused dmraid members are added
-        # to self.unusedRaidMembers as they are processed, extend this list
-        # with unused mdraid BIOS raid members
-        for c in self.getDevicesByType("mdcontainer"):
-            if c.kids == 0:
-                self.unusedRaidMembers.extend(map(lambda m: m.name, c.devices))
-
-        if self.unusedRaidMembers and not self._cleanup and self.intf:
-            self.intf.unusedRaidMembersWarning(self.unusedRaidMembers)
-
-        # remove md array devices for which we did not find all members
-        for array in self.getDevicesByType("mdarray"):
-            if array.memberDevices > len(array.parents):
-                self._recursiveRemove(array)
 
     def _recursiveRemove(self, device):
         for d in self.getChildren(device):
@@ -1827,20 +1745,20 @@ class DeviceTree(object):
     def restoreConfigs(self):
         self.backupConfigs(restore=True)
 
-    def populate(self, cleanupOnly=False, progressWindow=None):
+    def populate(self, cleanupOnly=False):
         """ Locate all storage devices. """
         self.backupConfigs()
         if cleanupOnly:
             self._cleanup = True
 
         try:
-            self._populate(progressWindow)
+            self._populate()
         except Exception:
             raise
         finally:
             self.restoreConfigs()
 
-    def _populate(self, progressWindow):
+    def _populate(self):
         log.info("DeviceTree.populate: ignoredDisks is %s ; exclusiveDisks is %s"
                     % (self._ignoredDisks, self.exclusiveDisks))
 
@@ -1878,8 +1796,6 @@ class DeviceTree(object):
         for dev in self.topology.devices_iter():
             old_devices[dev['name']] = dev
             self.addUdevDevice(dev)
-            if progressWindow:
-                progressWindow.pulse()
 
         # Having found all the disks, we can now find all the multipaths built
         # upon them.
@@ -1901,8 +1817,6 @@ class DeviceTree(object):
             self.__multipathConfigWriter.addMultipathDevice(mp)
             self._addDevice(mp)
             self.addUdevDevice(mp_info)
-            if progressWindow:
-                progressWindow.pulse()
         for d in self.devices:
             if not d.name in whitelist:
                 self.__multipathConfigWriter.addBlacklistDevice(d)
@@ -1939,8 +1853,6 @@ class DeviceTree(object):
             log.info("devices to scan: %s" % [d['name'] for d in devices])
             for dev in devices:
                 self.addUdevDevice(dev)
-                if progressWindow:
-                    progressWindow.pulse()
 
         self.populated = True
 

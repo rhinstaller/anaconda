@@ -66,19 +66,13 @@ class fcoe(object):
     def __call__(self):
         return self
 
-    def _stabilize(self, intf = None):
-        if intf:
-            w = intf.waitWindow(_("Connecting to FCoE SAN"),
-                                _("Connecting to FCoE SAN"))
-
+    def _stabilize(self):
         # I have no clue how long we need to wait, this ought to do the trick
         time.sleep(10)
         iutil.execWithRedirect("udevadm", [ "settle" ],
                                stdout = "/dev/tty5", stderr="/dev/tty5")
-        if intf:
-            w.pop()
 
-    def _startEDD(self, intf = None):
+    def _startEDD(self):
         rc = iutil.execWithCapture("/usr/libexec/fcoe/fcoe_edd.sh", [ "-i" ],
                                    stderr="/dev/tty5")
         if not rc.startswith("NIC="):
@@ -91,16 +85,16 @@ class fcoe(object):
             return
 
         log.info("FCoE NIC found in EDD: %s" % val)
-        self.addSan(val, dcb=True, intf=intf)
+        self.addSan(val, dcb=True)
 
-    def startup(self, intf = None):
+    def startup(self):
         if self.started:
             return
 
         if not has_fcoe():
             return
 
-        self._startEDD(intf)
+        self._startEDD()
         self.started = True
 
     def _startLldpad(self):
@@ -111,7 +105,7 @@ class fcoe(object):
                                stdout = "/dev/tty5", stderr="/dev/tty5")
         self.lldpadStarted = True
 
-    def addSan(self, nic, dcb=False, intf=None):
+    def addSan(self, nic, dcb=False):
         if not has_fcoe():
             raise IOError, _("FCoE not available")
 
@@ -144,7 +138,7 @@ class fcoe(object):
                 f.write(nic)
                 f.close()
 
-        self._stabilize(intf)
+        self._stabilize()
         self.nics.append((nic, dcb))
 
     def writeKS(self, f):

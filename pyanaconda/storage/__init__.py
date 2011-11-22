@@ -64,13 +64,8 @@ _ = lambda x: gettext.ldgettext("anaconda", x)
 import logging
 log = logging.getLogger("storage")
 
-def storageInitialize(anaconda):
-    storage = anaconda.storage
-
+def storageInitialize(storage, ksdata, protected):
     storage.shutdown()
-
-    if anaconda.dir == DISPATCH_BACK:
-        return
 
     # touch /dev/.in_sysinit so that /lib/udev/rules.d/65-md-incremental.rules
     # does not mess with any mdraid sets
@@ -82,54 +77,34 @@ def storageInitialize(anaconda):
 
     # Before we set up the storage system, we need to know which disks to
     # ignore, etc.  Luckily that's all in the kickstart data.
-    if anaconda.ksdata:
-        anaconda.storage.config.zeroMbr = anaconda.ksdata.zerombr.zerombr
-        anaconda.storage.config.ignoreDiskInteractive = anaconda.ksdata.ignoredisk.interactive
-        anaconda.storage.config.ignoredDisks = anaconda.ksdata.ignoredisk.ignoredisk
-        anaconda.storage.config.exclusiveDisks = anaconda.ksdata.ignoredisk.onlyuse
+    storage.config.zeroMbr = ksdata.zerombr.zerombr
+    storage.config.ignoreDiskInteractive = ksdata.ignoredisk.interactive
+    storage.config.ignoredDisks = ksdata.ignoredisk.ignoredisk
+    storage.config.exclusiveDisks = ksdata.ignoredisk.onlyuse
 
-        if anaconda.ksdata.clearpart.type is not None:
-            anaconda.storage.config.clearPartType = anaconda.ksdata.clearpart.type
-            anaconda.storage.config.clearPartDisks = anaconda.ksdata.clearpart.drives
-            if anaconda.ksdata.clearpart.initAll:
-                anaconda.storage.config.reinitializeDisks = anaconda.ksdata.clearpart.initAll
+    if ksdata.clearpart.type is not None:
+        storage.config.clearPartType = ksdata.clearpart.type
+        storage.config.clearPartDisks = ksdata.clearpart.drives
+        if ksdata.clearpart.initAll:
+            storage.config.reinitializeDisks = ksdata.clearpart.initAll
 
-    anaconda.intf.resetInitializeDiskQuestion()
-    anaconda.intf.resetReinitInconsistentLVMQuestion()
     lvm.lvm_vg_blacklist = []
 
     # Set up the protected partitions list now.
-    if anaconda.protected:
-        storage.config.protectedDevSpecs.extend(anaconda.protected)
+    if protected:
+        storage.config.protectedDevSpecs.extend(protected)
         storage.reset()
 
         if not flags.livecdInstall and not storage.protectedDevices:
             if anaconda.upgrade:
                 return
             else:
-                anaconda.intf.messageWindow(_("Unknown Device"),
-                    _("The installation source given by device %s "
-                      "could not be found.  Please check your "
-                      "parameters and try again.") % anaconda.protected,
-                    type="custom", custom_buttons = [_("_Exit installer")])
-                sys.exit(1)
+                raise UnknownSourceDeviceError(protected)
     else:
         storage.reset()
 
     if not storage.disks:
-        custom_buttons=[_("_Try again"), _("_Exit installer")]
-        if anaconda.dispatch.can_go_back():
-            custom_buttons = [_("_Back"), _("_Exit installer")]
-        rc = anaconda.intf.messageWindow(_("No disks found"),
-                                         _("No usable disks have been found."),
-                                         type="custom",
-                                         custom_buttons=custom_buttons, default=0)
-        if rc == 0:
-            if anaconda.dispatch.can_go_back():
-                return DISPATCH_BACK
-            else:
-                return storageInitialize(anaconda)
-        sys.exit(1)
+        raise NoDisksError
 
 # dispatch.py helper function
 def storageComplete(anaconda):
@@ -377,8 +352,7 @@ class Storage(object):
         self._dumpFile = "/tmp/storage.state"
 
         # these will both be empty until our reset method gets called
-        self.devicetree = DeviceTree(intf=self.intf,
-                                     conf=self.config,
+        self.devicetree = DeviceTree(conf=self.config,
                                      passphrase=self.encryptionPassphrase,
                                      luksDict=self.__luksDevs,
                                      iscsi=self.iscsi,
@@ -455,30 +429,23 @@ class Storage(object):
             if device.format.type == "luks" and device.format.exists:
                 self.__luksDevs[device.format.uuid] = device.format._LUKS__passphrase
 
-        prog = None
-        if self.intf:
-            prog = self.intf.progressWindow(_("Examining Devices"),
-                                            _("Examining storage devices"),
-                                            100, 0.03, pulse=True)
         if not flags.imageInstall:
-            self.iscsi.startup(self.intf)
-            self.fcoe.startup(self.intf)
-            self.zfcp.startup(self.intf)
-            self.dasd.startup(self.intf,
+            self.iscsi.startup()
+            self.fcoe.startup()
+            self.zfcp.startup()
+            self.dasd.startup(None,
                               self.config.exclusiveDisks,
                               self.config.zeroMbr)
         clearPartType = self.config.clearPartType # save this before overriding it
         if getattr(self.anaconda, "upgrade", False):
             self.config.clearPartType = CLEARPART_TYPE_NONE
 
-        self.devicetree = DeviceTree(intf=self.intf,
-                                     conf=self.config,
+        self.devicetree = DeviceTree(conf=self.config,
                                      passphrase=self.encryptionPassphrase,
                                      luksDict=self.__luksDevs,
                                      iscsi=self.iscsi,
                                      dasd=self.dasd)
-        self.devicetree.populate(progressWindow=prog,
-                                 cleanupOnly=cleanupOnly)
+        self.devicetree.populate(cleanupOnly=cleanupOnly)
         self.config.clearPartType = clearPartType # set it back
         self.fsset = FSSet(self.devicetree)
         self.eddDict = get_edd_dict(self.partitioned)
@@ -494,8 +461,6 @@ class Storage(object):
             self.anaconda.bootloader.stage1_device = None
 
         self.dumpState("initial")
-        if prog:
-            prog.pop()
 
     @property
     def devices(self):

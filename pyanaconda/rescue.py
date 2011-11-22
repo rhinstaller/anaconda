@@ -107,24 +107,6 @@ class RescueInterface(InstallInterfaceBase):
         w.pop()
         return passphrase
 
-    def resetInitializeDiskQuestion(self):
-        self._initLabelAnswers = {}
-
-    def resetReinitInconsistentLVMQuestion(self):
-        self._inconsistentLVMAnswers = {}
-
-    def questionInitializeDisk(self, path, description, size):
-        # Never initialize disks in rescue mode!
-        return False
-
-    def questionReinitInconsistentLVM(self, pv_names=None, lv_name=None, vg_name=None):
-        # Never reinit VG's in rescue mode!
-        return False
-
-    def questionInitializeDASD(self, c, devs):
-        # Special return value to let dasd.py know we're rescue mode
-        return 1
-
     def shutdown (self):
         self.screen.finish()
 
