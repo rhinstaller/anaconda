@@ -440,11 +440,11 @@ class Storage(object):
         if getattr(self.anaconda, "upgrade", False):
             self.config.clearPartType = CLEARPART_TYPE_NONE
 
-        self.devicetree = DeviceTree(conf=self.config,
-                                     passphrase=self.encryptionPassphrase,
-                                     luksDict=self.__luksDevs,
-                                     iscsi=self.iscsi,
-                                     dasd=self.dasd)
+        self.devicetree.reset(conf=self.config,
+                              passphrase=self.encryptionPassphrase,
+                              luksDict=self.__luksDevs,
+                              iscsi=self.iscsi,
+                              dasd=self.dasd)
         self.devicetree.populate(cleanupOnly=cleanupOnly)
         self.config.clearPartType = clearPartType # set it back
         self.fsset = FSSet(self.devicetree)

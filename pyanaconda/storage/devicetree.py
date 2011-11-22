@@ -154,6 +154,10 @@ class DeviceTree(object):
 
     def __init__(self, conf=None, passphrase=None, luksDict=None,
                  iscsi=None, dasd=None):
+        self.reset(conf, passphrase, luksDict, iscsi, dasd)
+
+    def reset(self, conf=None, passphrase=None, luksDict=None,
+              iscsi=None, dasd=None):
         # internal data members
         self._devices = []
         self._actions = []

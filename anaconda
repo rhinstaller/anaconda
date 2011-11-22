@@ -775,6 +775,13 @@ if __name__ == "__main__":
         anaconda.keyboard.set(opts.keymap)
         anaconda.keyboard.activate()
 
+    # Do a couple background tasks while we build the UI.
+    from threading import Thread
+    from pyanaconda.storage import storageInitialize
+
+    storageThread = Thread(target=storageInitialize, args=(anaconda.storage, ksdata, anaconda.protected))
+    storageThread.start()
+
     atexit.register(exitHandler, ksdata.reboot, anaconda.storage)
     # FIXME:  This will need to be made cleaner once this file starts to take
     # shape with the new UI code.
