@@ -160,7 +160,7 @@ PACKAGES="GConf2 NetworkManager NetworkManager-gnome ORBit2 acl anaconda
     biosdevname bitmap-fangsongti-fonts
     btrfs-progs bzip2 bzip2-libs ca-certificates cairo cjkuni-uming-fonts
     comps-extras coreutils cpio cracklib cracklib-dicts cracklib-python
-    cryptsetup-luks cyrus-sasl-lib db4 dbus dbus-python dbus-x11 dejavu-sans-fonts
+    cryptsetup-luks curl cyrus-sasl-lib db4 dbus dbus-python dbus-x11 dejavu-sans-fonts
     dejavu-sans-mono-fonts device-mapper device-mapper-libs
     device-mapper-multipath device-mapper-multipath-libs
     dhclient dmraid dmraid-libs
@@ -542,6 +542,7 @@ usr/bin/Xvnc
 usr/bin/chattr*
 usr/bin/chvt
 usr/bin/clear
+usr/bin/curl
 usr/bin/dbus-launch
 usr/bin/dbus-launch
 usr/bin/du
