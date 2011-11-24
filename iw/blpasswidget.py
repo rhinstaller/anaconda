@@ -144,7 +144,12 @@ class BootloaderPasswordWidget:
 
             thePass = pwEntry.get_text()
             if not thePass:
+                self.intf.messageWindow(_("Password empty"),
+                                        _("You did not enter a password"),
+                                        type='warning')
+                dialog.present()
                 continue
+
             if len(thePass) < 6:
                 ret = self.intf.messageWindow(_("Warning"),
                                     _("Your boot loader password is shorter than "
