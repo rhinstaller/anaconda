@@ -139,6 +139,7 @@ class BootloaderPasswordWidget:
                 self.intf.messageWindow(_("Passwords don't match"),
                                         _("Passwords do not match"),
                                         type='warning')
+                dialog.present()
                 continue
 
             thePass = pwEntry.get_text()
@@ -154,6 +155,7 @@ class BootloaderPasswordWidget:
                                       "password?"),
                                              type = "yesno")
                 if ret == 0:
+                    dialog.present()
                     continue
 
             self.password = thePass
