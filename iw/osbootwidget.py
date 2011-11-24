@@ -127,7 +127,7 @@ class OSBootWidget:
 
     # adds/edits a new "other" os to the boot loader config
     def editOther(self, oldDevice, oldLabel, isDefault, isRoot = 0):
-        dialog = gtk.Dialog(_("Image"), self.parent)
+        dialog = gtk.Dialog(_("Add/Edit boot loader record"), self.parent)
         dialog.add_button('gtk-cancel', 2)
         dialog.add_button('gtk-ok', 1)
         dialog.set_position(gtk.WIN_POS_CENTER)
