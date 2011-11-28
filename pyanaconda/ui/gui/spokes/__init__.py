@@ -78,6 +78,8 @@ class Spoke(UIObject):
             raise TypeError("Spoke is an abstract class")
 
         UIObject.__init__(self, data)
+        self.devicetree = devicetree
+        self.instclass = instclass
 
     def apply(self):
         """Apply the selections made on this Spoke to the object's preset
