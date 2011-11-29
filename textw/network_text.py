@@ -22,10 +22,13 @@
 #            David Cantrell <dcantrell@redhat.com>
 #
 from constants_text import *
+from constants import *
 import network
 
 class HostnameWindow:
     def __call__(self, screen, anaconda):
+        if anaconda.dispatch.dir == DISPATCH_BACK:
+            return INSTALL_BACK
         hname = network.getDefaultHostname(anaconda)
         anaconda.id.network.hostname = hname
         return INSTALL_OK
