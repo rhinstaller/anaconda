@@ -19,6 +19,8 @@
 # Red Hat Author(s): Chris Lumens <clumens@redhat.com>
 #
 
+from gi.repository import Gtk
+
 from pyanaconda.ui.gui import UIObject
 from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.gui.categories.localization import LocalizationCategory
@@ -153,3 +155,4 @@ class LanguageSpoke(NormalSpoke):
 
     def on_back_clicked(self, window):
         self.window.hide()
+        Gtk.main_quit()

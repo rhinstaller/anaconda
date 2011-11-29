@@ -84,18 +84,12 @@ class Hub(UIObject):
 
         action.window.show_all()
 
-        # Do one of two things:
-        # (1) Start a recursive main loop for this spoke, which will
-        #     prevent signals from going to the underlying (but still
-        #     displayed) Hub and prevent the user from switching away.
-        # (2) Start the main loop for the very first time.
+        # Start a recursive main loop for this spoke, which will prevent
+        # signals from going to the underlying (but still displayed) Hub and
+        # prevent the user from switching away.  It's up to the spoke's back
+        # button handler to kill its own layer of main loop.
         Gtk.main()
         action.apply()
-
-        # Only leave the main loop if we started recursively above.  Once
-        # a main loop is present, we always want to be running in one.
-        if Gtk.main_level():
-            Gtk.main_quit()
 
     def _createBox(self):
         from gi.repository import Gtk, AnacondaWidgets
