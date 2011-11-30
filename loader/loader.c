@@ -1936,6 +1936,7 @@ int main(int argc, char ** argv) {
     struct loaderData_s loaderData;
     struct termios orig_cmode;
     int orig_flags;
+    char *virtpcon = NULL;
 
     char *path, *fmt;
     GSList *dd, *dditer;
@@ -2008,8 +2009,17 @@ int main(int argc, char ** argv) {
 
     logMessage(INFO, "anaconda version %s on %s starting", VERSION, getProductArch());
 
-    if (init_serial(&orig_cmode, &orig_flags, cmdline))
-        flags |= LOADER_FLAGS_SERIAL;
+    if (init_serial(&orig_cmode, &orig_flags, cmdline)) {
+        /* init_serial replaces fd(0,1,2) with one of three things:
+         * /dev/ttyS0, /dev/console, or a fancy virtual console. */
+        virtpcon = ttyname(0);
+        if (virtpcon != NULL) {
+            if (!strcmp(virtpcon, "/dev/ttyS0") || !strcmp(virtpcon, "/dev/console"))
+                flags |= LOADER_FLAGS_SERIAL;
+            else
+                flags |= LOADER_FLAGS_VIRTPCONSOLE;
+        }
+    }
 
     if ((FL_SERIAL(flags) || FL_VIRTPCONSOLE(flags)) && 
         !hasGraphicalOverride()) {
@@ -2338,12 +2348,10 @@ int main(int argc, char ** argv) {
         else if (FL_SELINUX(flags))
             *argptr++ = "--selinux";
 
-        /*
         if (FL_VIRTPCONSOLE(flags)) {
             *argptr++ = "--virtpconsole";
             *argptr++ = virtpcon;
         }
-        */
 
         if (loaderData.updatessrc && FL_UPDATES(flags)) {
             *argptr++ = "--updates";
