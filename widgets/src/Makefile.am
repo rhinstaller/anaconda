@@ -30,14 +30,16 @@ SOURCES = BaseWindow.c \
 	 HubWindow.c \
 	 SpokeSelector.c \
 	 SpokeWindow.c \
-	 StandaloneWindow.c
+	 StandaloneWindow.c \
+	 lightbox.c
 
 HDRS = BaseWindow.h \
 	 DiskOverview.h \
 	 HubWindow.h \
 	 SpokeSelector.h \
 	 SpokeWindow.h \
-	 StandaloneWindow.h
+	 StandaloneWindow.h \
+	 lightbox.h
 
 noinst_HEADERS = gettext.h intl.h
 

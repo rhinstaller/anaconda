@@ -19,7 +19,7 @@
 # Red Hat Author(s): Chris Lumens <clumens@redhat.com>
 #
 
-from gi.repository import Gtk
+from gi.repository import AnacondaWidgets, Gtk
 from pyanaconda.ui.gui.hubs.summary import SummaryHub
 from pyanaconda.ui.gui.spokes import StandaloneSpoke
 
@@ -80,8 +80,12 @@ class WelcomeLanguageSpoke(StandaloneSpoke):
     # warning dialog first.
     def _on_continue_clicked(self, cb):
         dlg = self.builder.get_object("betaWarnDialog")
+
+        lightbox = AnacondaWidgets.lb_show_over(self.window)
+        dlg.set_transient_for(lightbox)
         rc = dlg.run()
         dlg.destroy()
+        lightbox.destroy()
 
         if rc == 0:
             sys.exit(0)
