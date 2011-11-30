@@ -1725,6 +1725,9 @@ class YabootSILOBase(BootLoader):
                 args.add("root=%s" % root_device_spec)
                 root_line = ""
 
+            if flags.virtpconsole:
+                args.add("console=%s" % self.console)
+
             args.update(self.boot_args)
 
             stanza = ("image=%(boot_prefix)s%(kernel)s\n"
