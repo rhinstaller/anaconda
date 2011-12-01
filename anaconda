@@ -776,6 +776,9 @@ if __name__ == "__main__":
         anaconda.keyboard.activate()
 
     # Do a couple background tasks while we build the UI.
+    from gi.repository import GObject
+    GObject.threads_init()
+
     from threading import Thread
     from pyanaconda.storage import storageInitialize
 
