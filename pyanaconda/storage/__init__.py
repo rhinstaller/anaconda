@@ -80,20 +80,6 @@ def storageInitialize(anaconda):
     #     populate the udev db
     udev_trigger(subsystem="block", action="change")
 
-    # Before we set up the storage system, we need to know which disks to
-    # ignore, etc.  Luckily that's all in the kickstart data.
-    if anaconda.ksdata:
-        anaconda.storage.config.zeroMbr = anaconda.ksdata.zerombr.zerombr
-        anaconda.storage.config.ignoreDiskInteractive = anaconda.ksdata.ignoredisk.interactive
-        anaconda.storage.config.ignoredDisks = anaconda.ksdata.ignoredisk.ignoredisk
-        anaconda.storage.config.exclusiveDisks = anaconda.ksdata.ignoredisk.onlyuse
-
-        if anaconda.ksdata.clearpart.type is not None:
-            anaconda.storage.config.clearPartType = anaconda.ksdata.clearpart.type
-            anaconda.storage.config.clearPartDisks = anaconda.ksdata.clearpart.drives
-            if anaconda.ksdata.clearpart.initAll:
-                anaconda.storage.config.reinitializeDisks = anaconda.ksdata.clearpart.initAll
-
     anaconda.intf.resetInitializeDiskQuestion()
     anaconda.intf.resetReinitInconsistentLVMQuestion()
     lvm.lvm_vg_blacklist = []

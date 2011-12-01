@@ -51,7 +51,7 @@ def exitHandler(anaconda, exitCode=None):
             while True:
                 time.sleep(10000)
 
-    if anaconda.ksdata:
+    if anaconda.ksdata and not flags.imageInstall:
         from pykickstart.constants import KS_SHUTDOWN, KS_WAIT, KS_REBOOT
 
         if anaconda.ksdata.reboot.eject:
@@ -730,6 +730,19 @@ if __name__ == "__main__":
         anaconda.ksdata = kickstart.parseKickstart(anaconda, opts.ksfile)
         if anaconda.ksdata.rescue.rescue:
             anaconda.rescue = True
+
+        # Setup the storage config options from the kickstart file
+        anaconda.storage.config.zeroMbr = anaconda.ksdata.zerombr.zerombr
+        anaconda.storage.config.ignoreDiskInteractive = anaconda.ksdata.ignoredisk.interactive
+        anaconda.storage.config.ignoredDisks = anaconda.ksdata.ignoredisk.ignoredisk
+        anaconda.storage.config.exclusiveDisks = anaconda.ksdata.ignoredisk.onlyuse
+
+        if anaconda.ksdata.clearpart.type is not None:
+            anaconda.storage.config.clearPartType = anaconda.ksdata.clearpart.type
+            anaconda.storage.config.clearPartDisks = anaconda.ksdata.clearpart.drives
+            if anaconda.ksdata.clearpart.initAll:
+                anaconda.storage.config.reinitializeDisks = anaconda.ksdata.clearpart.initAll
+
     # now start the interface
     setupDisplay(anaconda, opts)
     # setting the install steps requires interface to be running
