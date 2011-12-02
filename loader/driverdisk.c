@@ -676,7 +676,7 @@ int loadDriverFromMedia(int class, struct loaderData_s *loaderData,
             /* Unload all devices and load them again to use the updated modules */
             logMessage(INFO, "Trying to refresh loaded drivers");
             mlRestoreModuleState(moduleState);
-            if (!noprobe) detectHardware(USB_DETECT_DELAY);
+            detectHardware(USB_DETECT_DELAY);
 
             /* Get info about modules after the update */
             postDDstate = mlVersions();
@@ -744,7 +744,7 @@ int loadDriverDisks(int class, struct loaderData_s *loaderData, GTree *moduleSta
     if (rc != 1)
         return LOADER_OK;
 
-    rc = loadDriverFromMedia(DEVICE_ANY, loaderData, 1, 0, moduleState);
+    rc = loadDriverFromMedia(DEVICE_ANY, loaderData, 1, FL_NOPROBE(flags), moduleState);
     if (rc == LOADER_BACK)
         return LOADER_OK;
 
@@ -753,7 +753,7 @@ int loadDriverDisks(int class, struct loaderData_s *loaderData, GTree *moduleSta
                            _("Do you wish to load any more driver disks?"));
         if (rc != 1)
             break;
-        loadDriverFromMedia(DEVICE_ANY, loaderData, 0, 0, moduleState);
+        loadDriverFromMedia(DEVICE_ANY, loaderData, 0, FL_NOPROBE(flags), moduleState);
     } while (1);
 
     return LOADER_OK;
@@ -767,10 +767,12 @@ static void loadFromLocation(struct loaderData_s * loaderData, char * dir, GTree
 
     loadDriverDisk(loaderData, dir);
 
-    /* Unload all devices and load them again to use the updated modules */
-    logMessage(INFO, "Trying to refresh loaded drivers");
-    mlRestoreModuleState(moduleState);
-    if (!FL_NOPROBE(flags)) detectHardware(USB_DETECT_DELAY);
+    if (!FL_NOPROBE(flags)) {
+        /* Unload all devices and load them again to use the updated modules */
+        logMessage(INFO, "Trying to refresh loaded drivers");
+        mlRestoreModuleState(moduleState);
+        detectHardware(USB_DETECT_DELAY);
+    }
 }
 
 void getDDFromSource(struct loaderData_s * loaderData, char * src, GTree *moduleState) {
