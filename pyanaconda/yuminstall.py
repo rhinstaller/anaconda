@@ -766,6 +766,10 @@ class AnacondaYum(yum.YumBase):
         filelogger.setLevel(logging.INFO)
         filelogger.propagate = False
 
+    def doFileLogSetup(self, uid, logfile):
+        # don't do the file log as it can lead to open fds
+        # being left and an inability to clean up after ourself
+        pass
 
     def doConfigSetup(self, fn='/tmp/anaconda-yum.conf', root='/'):
         if hasattr(self, "preconf"):
