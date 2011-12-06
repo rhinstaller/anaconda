@@ -988,19 +988,19 @@ class BootLoader(object):
 
     def writeKS(self, f):
         """ Write bootloader section of kickstart configuration. """
-        if self.stage1_device.isDisk:
-            location = "mbr"
-        elif self.stage1_device:
-            location = "partition"
-        else:
+        if not self.stage1_device:
             location = "none\n"
+        elif self.stage1_device.isDisk:
+            location = "mbr"
+        else:
+            location = "partition"
 
         f.write("bootloader --location=%s" % location)
-        if self.timeout is not None:
-            f.write(" --timeout=%d" % self.timeout)
-
         if not self.stage1_device:
             return
+
+        if self.timeout is not None:
+            f.write(" --timeout=%d" % self.timeout)
 
         if self.drive_order:
             f.write(" --driveorder=%s" % ",".join(self.drive_order))
