@@ -51,6 +51,16 @@ def exitHandler(anaconda, exitCode=None):
             while True:
                 time.sleep(10000)
 
+    if image_count:
+        anaconda.storage.umountFilesystems(ignoreErrors=True, swapoff=False)
+        devicetree = anaconda.storage.devicetree
+        devicetree.teardownAll()
+        for name in devicetree.diskImages:
+            device = devicetree.getDeviceByName(name)
+            for loop in device.parents:
+                loop.controllable = True
+            device.deactivate(recursive=True)
+
     if anaconda.ksdata and not flags.imageInstall:
         from pykickstart.constants import KS_SHUTDOWN, KS_WAIT, KS_REBOOT
 

@@ -1856,7 +1856,7 @@ class DMLinearDevice(DMDevice):
         udev_settle()
 
     def deactivate(self, recursive=False):
-        StorageDevice.teardown(self)
+        StorageDevice.teardown(self, recursive=recursive)
 
     def teardown(self, recursive=None):
         """ Close, or tear down, a device. """
