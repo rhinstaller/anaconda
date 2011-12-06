@@ -1397,6 +1397,7 @@ class DeviceTree(object):
                 return
 
             md_name = None
+            md_metadata = None
             minor = None
 
             # check the list of devices udev knows about to see if the array
@@ -1417,10 +1418,12 @@ class DeviceTree(object):
                 if dev_uuid == md_uuid and dev_level == md_level:
                     md_name = udev_device_get_name(dev)
                     minor = udev_device_get_minor(dev)
+                    md_metadata = dev.get("MD_METADATA")
                     break
 
             md_info = devicelibs.mdraid.mdexamine(device.path)
-            md_metadata = md_info.get("metadata")
+            if not md_metadata:
+                md_metadata = md_info.get("metadata", "0.90")
 
             if not md_name:
                 # try to name the array based on the preferred minor

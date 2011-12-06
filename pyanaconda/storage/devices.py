@@ -2731,7 +2731,7 @@ class MDRaidArrayDevice(StorageDevice):
         self.chunkSize = 512.0 / 1024.0         # chunk size in MB
         self.superBlockSize = 2.0               # superblock size in MB
 
-        if not isinstance(metadataVersion, str):
+        if not self.exists and not isinstance(metadataVersion, str):
             self.metadataVersion = "default"
         else:
             self.metadataVersion = metadataVersion
