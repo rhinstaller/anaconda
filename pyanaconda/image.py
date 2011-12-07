@@ -192,26 +192,30 @@ def mountImage(isodir, tree, messageWindow):
         except SystemError:
             complain()
 
-# Find an attached CD/DVD drive with media in it that contains packages,
-# and return that device name.
-def scanForMedia(tree, storage):
-    for dev in storage.devicetree.devices:
-        if dev.type != "cdrom":
-            continue
+# Return a list of Device instances containing valid optical install media
+# for this product.
+def opticalInstallMedia(devicetree, mountpoint="/tmp/mnt"):
+    retval = []
 
-        storage.devicetree.updateDeviceFormat(dev)
+    for dev in devicetree.getDevicesByType("cdrom"):
+        devicetree.updateDeviceFormat(dev)
         try:
-            dev.format.mount(mountpoint=tree)
+            dev.format.mount(mountpoint=mountpoint)
         except Exception:
             continue
 
-        if not verifyMedia(tree):
+        if not verifyMedia(mountpoint):
             dev.format.unmount()
             continue
 
-        return dev.name
+        retval.append(dev)
 
-    return None
+    return retval
+
+# Return a list of Device instances that may have HDISO install media
+# somewhere.  Candidate devices are simply any that we can mount.
+def potentialHdisoSources(devicetree):
+    return filter(lambda d: d.format.mountable, devicetree.getDevicesByType("partition"))
 
 def umountImage(tree):
     if os.path.ismount(tree):

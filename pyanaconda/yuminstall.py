@@ -487,11 +487,11 @@ class AnacondaYum(yum.YumBase):
             # we should first check to see if there's a CD/DVD with packages
             # on it, and then default to the mirrorlist URL.  The user can
             # always change the repo with the repo editor later.
-            cdr = scanForMedia(self.tree, self.anaconda.storage)
-            if cdr:
+            cdrs = opticalInstallMedia(self.anaconda.storage.devicetree, self.tree)
+            if cdrs:
                 self.mediagrabber = self.mediaHandler
-                self.anaconda.mediaDevice = cdr
-                log.info("found installation media on %s" % cdr)
+                self.anaconda.mediaDevice = cdrs[0].name
+                log.info("found installation media on %s" % cdrs[0].name)
             else:
                 # No CD with media on it and no repo=/method= parameter, so
                 # default to using whatever's enabled in /etc/yum.repos.d/
