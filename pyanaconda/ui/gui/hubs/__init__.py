@@ -96,7 +96,8 @@ class Hub(UIObject):
 
         # Collect all the categories this hub displays, then collect all the
         # spokes belonging to all those categories.
-        categories = filter(lambda c: c.displayOnHub == self.__class__, collect_categories())
+        categories = sorted(filter(lambda c: c.displayOnHub == self.__class__, collect_categories()),
+                            key=lambda c: c.title)
 
         box = Gtk.VBox(False, 6)
 
