@@ -62,8 +62,9 @@ class SpokeCategory(object):
         for selector in selectors:
             g.attach(selector, col, row, 1, 1)
 
-            row += 1
             col = int(not col)
+            if col == 0:
+                row += 1
 
         return g
 
