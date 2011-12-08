@@ -19,6 +19,8 @@
 # Red Hat Author(s): Chris Lumens <clumens@redhat.com>
 #
 
+import os.path
+
 from gi.repository import Gtk, AnacondaWidgets
 
 from pyanaconda.image import opticalInstallMedia, potentialHdisoSources
@@ -51,15 +53,27 @@ class MediaCheckDialog(UIObject):
     def on_cancel_clicked(self, *args):
         print "CANCELING"
 
-class IsoDirChooser(UIObject):
-    builderObjects = ["isoDirChooserDialog"]
-    mainWidgetName = "isoDirChooserDialog"
+# This class is responsible for popping up the dialog that allows the user to
+# choose the ISO image they want to use.  We can get away with this instead of
+# selecting a directory because we no longer support split media.
+#
+# Two assumptions about the use of this class:
+# (1) This class is responsible for mounting and unmounting the partition
+#     containing the ISO images.
+# (2) When you call setup() with a currentFile argument or when you get a
+#     result from run(), the file path you use is relative to the root of the
+#     mounted partition.  In other words, it will not contain the
+#     "/mnt/isodir/install" part.  This is consistent with the rest of anaconda.
+class IsoChooser(UIObject):
+    builderObjects = ["isoChooserDialog", "isoFilter"]
+    mainWidgetName = "isoChooserDialog"
     uiFile = "spokes/source.ui"
 
-    def setup(self, currentDir=""):
+    def setup(self, currentFile=""):
         UIObject.setup(self)
-        self._chooser = self.builder.get_object("isoDirChooser")
-        self._chooser.set_uri("file://" + MOUNTPOINT + currentDir)
+        self._chooser = self.builder.get_object("isoChooser")
+        self._chooser.connect("current-folder-changed", self.on_folder_changed)
+        self._chooser.set_filename(MOUNTPOINT + "/" + currentFile)
 
     def run(self, dev):
         retval = None
@@ -69,12 +83,9 @@ class IsoDirChooser(UIObject):
         # If any directory was chosen, return that.  Otherwise, return None.
         rc = self.window.run()
         if rc:
-            uri = self._chooser.get_uri()
-            if uri:
-                retval = uri.replace("file://" + MOUNTPOINT, "")
-
-            if retval == "":
-                retval = "/"
+            f = self._chooser.get_filename()
+            if f:
+                retval = f.replace(MOUNTPOINT, "")
 
         dev.format.unmount()
 
@@ -86,17 +97,15 @@ class IsoDirChooser(UIObject):
     # so we'll just have to fake it by setting you back to inside the directory
     # should you change out of it.
     def on_folder_changed(self, chooser):
-        d = chooser.get_uri()
+        d = chooser.get_current_folder()
         if not d:
             return
 
-        # Strip off "file://"
-        d = d[7:]
         if not d.startswith(MOUNTPOINT):
-            chooser.set_uri("file://" + MOUNTPOINT)
+            chooser.set_current_folder(MOUNTPOINT)
 
 class SourceSpoke(NormalSpoke):
-    builderObjects = ["isoDirChooser", "isoFileFilter", "partitionStore", "sourceWindow", "dirImage"]
+    builderObjects = ["isoChooser", "isoFilter", "partitionStore", "sourceWindow", "dirImage"]
     mainWidgetName = "sourceWindow"
     uiFile = "spokes/source.ui"
 
@@ -104,6 +113,10 @@ class SourceSpoke(NormalSpoke):
 
     icon = "media-optical-symbolic"
     title = "INSTALL SOURCE"
+
+    def __init__(self, *args, **kwargs):
+        NormalSpoke.__init__(self, *args, **kwargs)
+        self._currentIsoFile = None
 
     def apply(self):
         if self._autodetectButton.get_active():
@@ -113,12 +126,12 @@ class SourceSpoke(NormalSpoke):
             # happen) or didn't choose a directory (more likely), then return
             # as if they never did anything.
             part = self._get_selected_partition()
-            if not part or not self._isoDirChooserButton.get_label().startswith("/"):
+            if not part or not self._currentIsoFile:
                 return
 
             self.data.method.method = "harddrive"
             self.data.method.partition = part.name
-            self.data.method.dir = self._isoDirChooserButton.get_label()
+            self.data.method.dir = self._currentIsoFile
         elif self._http_active(self._protocolComboBox) or self._ftp_active(self._protocolComboBox):
             url = self._urlEntry.get_text().strip()
 
@@ -155,16 +168,16 @@ class SourceSpoke(NormalSpoke):
     @property
     def status(self):
         if self.data.method.method == "url":
-            if len(self.data.method.url) > 30:
-                return self.data.method.url[:30] + "..."
+            if len(self.data.method.url) > 42:
+                return self.data.method.url[:30] + "..." + self.data.method.url[-12:]
             else:
-                return self.data.method.url[:30]
+                return self.data.method.url
         elif self.data.method.method == "nfs":
             return "NFS server %s" % self.data.method.server
         elif self.data.method.method == "cdrom":
             return "CD/DVD drive"
         elif self.data.method.method == "harddrive":
-            return self._sanitize_model(self._get_selected_partition().disk.model)
+            return os.path.basename(self._currentIsoFile)
         else:
             return "Nothing selected"
 
@@ -178,7 +191,9 @@ class SourceSpoke(NormalSpoke):
 
         self._urlEntry = self.builder.get_object("urlEntry")
         self._protocolComboBox = self.builder.get_object("protocolComboBox")
-        self._isoDirChooserButton = self.builder.get_object("isoDirChooserButton")
+        self._isoChooserButton = self.builder.get_object("isoChooserButton")
+
+        self._verifyIsoButton = self.builder.get_object("verifyIsoButton")
 
     def populate(self):
         NormalSpoke.populate(self)
@@ -189,7 +204,7 @@ class SourceSpoke(NormalSpoke):
         # want to let me pass in user data.
         self._autodetectButton.connect("toggled", self.on_source_toggled, self._autodetectBox)
         self._isoButton.connect("toggled", self.on_source_toggled, self._isoBox)
-        self._networkButton.connect("toggled",self.on_source_toggled, self._networkBox)
+        self._networkButton.connect("toggled", self.on_source_toggled, self._networkBox)
 
         # If we found any optical install media, display a selector for each
         # of those.
@@ -258,7 +273,8 @@ class SourceSpoke(NormalSpoke):
         elif self.data.method.method == "harddrive":
             self._isoButton.set_active(True)
 
-            self._isoDirChooserButton.set_label(self.data.method.dir)
+            self._isoChooserButton.set_label(os.path.basename(self.data.method.dir))
+            self._isoChooserButton.set_use_underline(False)
         else:
             # No method was given in advance, so now we need to make a sensible
             # guess.  Go with autodetected media if that was provided, and then
@@ -304,28 +320,33 @@ class SourceSpoke(NormalSpoke):
         relatedBox.set_sensitive(enabled)
 
     def on_chooser_clicked(self, button):
-        dialog = IsoDirChooser(self.data)
+        dialog = IsoChooser(self.data)
 
-        # If the chooser has been selected once before, the button will have a
-        # label with the selected directory in it, not the default of "Select..."
-        # so we need to pass that in to have it set as the default directory.
-        if self._isoDirChooserButton.get_label().startswith("/"):
-            dialog.setup(currentDir=self._isoDirChooserButton.get_label())
+        # If the chooser has been run one before, we should make it default to
+        # the previously selected file.
+        if self._currentIsoFile:
+            dialog.setup(currentFile=self._currentIsoFile)
         else:
             dialog.setup()
 
-        d = dialog.run(self._get_selected_partition())
+        f = dialog.run(self._get_selected_partition())
 
-        if d:
-            button.set_label(d)
+        if f:
+            self._currentIsoFile = f
+            button.set_label(os.path.basename(f))
+            button.set_use_underline(False)
+            self._verifyIsoButton.set_sensitive(True)
 
     def on_proxy_clicked(self, button):
         # FIXME:  this doesn't do anything
         pass
 
-    def on_verify_iso_clicked(self, button, chooser):
-        # FIXME:  this doesn't do anything
-        pass
+    def on_verify_iso_clicked(self, button):
+        p = self._get_selected_partition()
+        f = self._currentIsoFile
+
+        if not p or not f:
+            return
 
     def on_verify_media_clicked(self, button):
         # FIXME:  this doesn't do anything

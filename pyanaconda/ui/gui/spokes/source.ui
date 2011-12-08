@@ -2,7 +2,12 @@
 <interface>
   <!-- interface-requires gtk+ 3.0 -->
   <!-- interface-requires AnacondaWidgets 1.0 -->
-  <object class="GtkDialog" id="isoDirChooserDialog">
+  <object class="GtkFileFilter" id="isoFilter">
+    <patterns>
+      <pattern>*.iso</pattern>
+    </patterns>
+  </object>
+  <object class="GtkDialog" id="isoChooserDialog">
     <property name="width_request">441</property>
     <property name="height_request">320</property>
     <property name="can_focus">False</property>
@@ -58,13 +63,12 @@
           </packing>
         </child>
         <child>
-          <object class="GtkFileChooserWidget" id="isoDirChooser">
+          <object class="GtkFileChooserWidget" id="isoChooser">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="orientation">vertical</property>
-            <property name="action">select-folder</property>
             <property name="create_folders">False</property>
-            <signal name="current-folder-changed" handler="on_folder_changed" swapped="no"/>
+            <property name="filter">isoFilter</property>
           </object>
           <packing>
             <property name="expand">True</property>
@@ -390,8 +394,8 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkButton" id="isoDirChooserButton">
-                        <property name="label" translatable="yes">_Choose a directory</property>
+                      <object class="GtkButton" id="isoChooserButton">
+                        <property name="label" translatable="yes">_Choose an ISO</property>
                         <property name="use_action_appearance">False</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
@@ -411,11 +415,12 @@
                         <property name="label" translatable="yes">_Verify</property>
                         <property name="use_action_appearance">False</property>
                         <property name="visible">True</property>
+                        <property name="sensitive">False</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">True</property>
                         <property name="use_action_appearance">False</property>
                         <property name="use_underline">True</property>
-                        <signal name="clicked" handler="on_verify_iso_clicked" object="isoDirChooserButton" swapped="no"/>
+                        <signal name="clicked" handler="on_verify_iso_clicked" object="isoChooserButton" swapped="no"/>
                       </object>
                       <packing>
                         <property name="expand">False</property>
@@ -469,10 +474,10 @@
                             <property name="can_focus">False</property>
                             <property name="active">0</property>
                             <items>
-                              <item translatable="yes">HTTP</item>
-                              <item translatable="yes">HTTPS</item>
-                              <item translatable="yes">FTP</item>
-                              <item translatable="yes">NFS</item>
+                              <item translatable="yes">http://</item>
+                              <item translatable="yes">https://</item>
+                              <item translatable="yes">ftp://</item>
+                              <item translatable="yes">nfs</item>
                             </items>
                             <signal name="changed" handler="on_protocol_changed" swapped="no"/>
                           </object>
