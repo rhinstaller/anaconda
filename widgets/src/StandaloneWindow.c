@@ -141,7 +141,7 @@ static void anaconda_standalone_window_init(AnacondaStandaloneWindow *win) {
                      G_CALLBACK(anaconda_standalone_window_continue_clicked), win);
 
     /* Create the button box and pack the buttons into it. */
-    win->priv->button_box = gtk_hbutton_box_new();
+    win->priv->button_box = gtk_button_box_new(GTK_ORIENTATION_HORIZONTAL);
     gtk_button_box_set_layout(GTK_BUTTON_BOX(win->priv->button_box), GTK_BUTTONBOX_EDGE);
     gtk_container_add(GTK_CONTAINER(win->priv->button_box), win->priv->quit_button);
     gtk_container_add(GTK_CONTAINER(win->priv->button_box), win->priv->continue_button);
