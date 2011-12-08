@@ -465,7 +465,7 @@ def drive_iscsi_addition(anaconda, wizard):
                 found_nodes = anaconda.id.storage.iscsi.discover(**discovery_dict)
                 step = STEP_NODES
             elif step == STEP_NODES:
-                if len(found_nodes) < 1:
+                if not found_nodes:
                     log.debug("iscsi: no new iscsi nodes discovered")
                     anaconda.intf.messageWindow(_("iSCSI Nodes"), 
                                                 _("No iSCSI nodes to log in"))

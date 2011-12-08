@@ -278,7 +278,7 @@ class iscsi(object):
                                                         port=int(port),
                                                         authinfo=authinfo)
             if found_nodes is None:
-                found_nodes = []
+                return None
             self.discovered_targets[(ipaddr, port)] = []
             for node in found_nodes:
                 self.discovered_targets[(ipaddr, port)].append([node, False])
@@ -323,60 +323,30 @@ class iscsi(object):
 
         return (rc, msg)
 
+    # NOTE: the same credentials are used for discovery and login
+    #       (unlike in UI)
     def addTarget(self, ipaddr, port="3260", user=None, pw=None,
                   user_in=None, pw_in=None, intf=None, target=None):
-        authinfo = None
         found = 0
         logged_in = 0
 
-        if not has_iscsi():
-            raise IOError, _("iSCSI not available")
-        if self._initiator == "":
-            raise ValueError, _("No initiator name set")
-
-        if user or pw or user_in or pw_in:
-            # Note may raise a ValueError
-            authinfo = libiscsi.chapAuthInfo(username=user, password=pw,
-                                             reverse_username=user_in,
-                                             reverse_password=pw_in)
-        self.startup(intf)
-
-        # Note may raise an IOError
-        found_nodes = libiscsi.discover_sendtargets(address=ipaddr,
-                                                    port=int(port),
-                                                    authinfo=authinfo)
+        found_nodes = self.discover(ipaddr, port, user, pw, user_in, pw_in,
+                                    intf)
         if found_nodes == None:
             raise IOError, _("No iSCSI nodes discovered")
 
-        if intf:
-            w = intf.waitWindow(_("Logging in to iSCSI nodes"),
-                                _("Logging in to iSCSI nodes"))
-
         for node in found_nodes:
-            # skip nodes we already have
-            if node in self.nodes:
-                continue
             if target and target != node.name:
                 log.debug("iscsi: skipping logging to iscsi node '%s'" %
                           node.name)
                 continue
 
             found = found + 1
-            try:
-                if (authinfo):
-                    node.setAuth(authinfo)
-                node.login()
-                self.nodes.append(node)
-                logged_in = logged_in + 1
-            except IOError, e:
-                log.warning(
-                    "Could not log into discovered iscsi target %s: %s" %
-                    (node.name, str(e)))
-                # some nodes may require different credentials
-                pass
 
-        if intf:
-            w.pop()
+            (rc, msg) = self.log_into_node(node, user, pw, user_in, pw_in,
+                                           intf)
+            if rc:
+                logged_in = logged_in +1
 
         if found == 0:
             raise IOError, _("No new iSCSI nodes discovered")
