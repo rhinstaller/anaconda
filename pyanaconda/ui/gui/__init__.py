@@ -185,7 +185,7 @@ class UIObject(object):
         self.builder.connect_signals(self)
 
     def _findUIFile(self):
-        path = "./:/tmp/updates/:/tmp/updates/ui/:/usr/share/anaconda/ui/"
+        path = os.environ.get("UIPATH", "./:/tmp/updates/:/tmp/updates/ui/:/usr/share/anaconda/ui/")
         for d in path.split(":"):
             testPath = os.path.normpath(d + self.uiFile)
             if os.path.isfile(testPath) and os.access(testPath, os.R_OK):
