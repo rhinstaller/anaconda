@@ -1790,43 +1790,47 @@ class DeviceTree(object):
             self.protectedDevNames.append(livetarget)
 
         cfg = self.__multipathConfigWriter.write(self.mpathFriendlyNames)
-        with open("/etc/multipath.conf", "w+") as mpath_cfg:
-            mpath_cfg.write(cfg)
-
-        self.topology = devicelibs.mpath.MultipathTopology(udev_get_block_devices())
-        log.info("devices to scan: %s" %
-                 [d['name'] for d in self.topology.devices_iter()])
         old_devices = {}
-        for dev in self.topology.devices_iter():
-            old_devices[dev['name']] = dev
-            self.addUdevDevice(dev)
 
-        # Having found all the disks, we can now find all the multipaths built
-        # upon them.
-        whitelist = []
-        mpaths = self.__multipaths.values()
-        mpaths.sort(key=lambda d: d.name)
-        for mp in mpaths:
-            log.info("adding mpath device %s" % mp.name)
-            mp.setup()
-            mp.updateSysfsPath()
-            mp_info = udev_get_block_device(mp.sysfsPath)
-            if mp_info is None or self.isIgnored(mp_info):
-                mp.teardown()
-                continue
+        if os.access("/etc/multipath.conf", os.W_OK):
+            with open("/etc/multipath.conf", "w+") as mpath_cfg:
+                mpath_cfg.write(cfg)
 
-            whitelist.append(mp.name)
-            for p in mp.parents:
-                whitelist.append(p.name)
-            self.__multipathConfigWriter.addMultipathDevice(mp)
-            self._addDevice(mp)
-            self.addUdevDevice(mp_info)
-        for d in self.devices:
-            if not d.name in whitelist:
-                self.__multipathConfigWriter.addBlacklistDevice(d)
-        cfg = self.__multipathConfigWriter.write(self.mpathFriendlyNames)
-        with open("/etc/multipath.conf", "w+") as mpath_cfg:
-            mpath_cfg.write(cfg)
+            self.topology = devicelibs.mpath.MultipathTopology(udev_get_block_devices())
+            log.info("devices to scan: %s" %
+                     [d['name'] for d in self.topology.devices_iter()])
+            for dev in self.topology.devices_iter():
+                old_devices[dev['name']] = dev
+                self.addUdevDevice(dev)
+
+            # Having found all the disks, we can now find all the multipaths built
+            # upon them.
+            whitelist = []
+            mpaths = self.__multipaths.values()
+            mpaths.sort(key=lambda d: d.name)
+            for mp in mpaths:
+                log.info("adding mpath device %s" % mp.name)
+                mp.setup()
+                mp.updateSysfsPath()
+                mp_info = udev_get_block_device(mp.sysfsPath)
+                if mp_info is None or self.isIgnored(mp_info):
+                    mp.teardown()
+                    continue
+
+                whitelist.append(mp.name)
+                for p in mp.parents:
+                    whitelist.append(p.name)
+                self.__multipathConfigWriter.addMultipathDevice(mp)
+                self._addDevice(mp)
+                self.addUdevDevice(mp_info)
+            for d in self.devices:
+                if not d.name in whitelist:
+                    self.__multipathConfigWriter.addBlacklistDevice(d)
+            cfg = self.__multipathConfigWriter.write(self.mpathFriendlyNames)
+            with open("/etc/multipath.conf", "w+") as mpath_cfg:
+                mpath_cfg.write(cfg)
+        else:
+            log.info("Skipping multipath detection due to running as non-root.")
 
         # Now, loop and scan for devices that have appeared since the two above
         # blocks or since previous iterations.
