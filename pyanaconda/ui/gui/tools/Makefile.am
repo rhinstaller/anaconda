@@ -15,10 +15,4 @@
 #
 # Author: Chris Lumens <clumens@redhat.com>
 
-SUBDIRS = categories hubs spokes tools
-
-MAINTAINERCLEANFILES = Makefile.in
-
-pkgpyexecdir = $(pyexecdir)/py$(PACKAGE_NAME)
-guidir       = $(pkgpyexecdir)/ui/gui
-gui_PYTHON   = *.py
+EXTRA_DIST = README run-hub.py run-spoke.py

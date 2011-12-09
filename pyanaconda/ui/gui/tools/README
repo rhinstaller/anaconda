@@ -1,0 +1,50 @@
+This directory contains some tools that are helpful in developing the
+anaconda UI.  They assume that you have an anaconda git tree checked out
+(which you should if you're reading this), that you've run make in that
+tree, and that you have the anaconda-widgets and anaconda-widgets-devel
+packages installed.
+
+Here's what you've got to work with:
+
+run-spoke.py
+------------
+This program allows you to run a single GUI spoke on an installed system
+without having to start up anaconda.  You do not have to be root to do this
+and if you come across a situation where that ends up being a lie, it's a
+bug in anaconda.  Please fix it.
+
+This lets you very quickly make tweaks to your glade file and test it out
+to see what things look like when some data is added, or check how buttons
+and dialogs behave.  Often, there can be UI layout differences between how
+things look in glade and how they look in reality.
+
+To run, first modify the following lines:
+
+    #from pyanaconda.ui.gui.spokes.software import SoftwareSelectionSpoke
+    #spokeClass = SoftwareSelectionSpoke
+    spokeClass = None
+
+Uncomment the first two, changing "software" and "SoftwareSelectionSpoke" to
+the names of the things you're testing, and then remove the third line.
+
+Then, you run it like so (assuming you're in your home directory):
+
+$ PYTHONPATH=src/anaconda:src/anaconda/pyanaconda/isys/.libs \
+  UIPATH=src/anaconda/pyanaconda/ui/gui/ \
+  src/anaconda/pyanaconda/ui/gui/tools/run-spoke.py
+
+The $UIPATH environment variable ensures that you do not need to be anywhere
+special when you run the program.  anaconda will be able to find your glade
+file based on that.
+
+run-hub.py
+----------
+This is the same as run-spoke.py, except it deals with hubs instead of spokes.
+Because it deals with hubs, it also provides you with the ability to dive
+down into individual spokes.  This is useful for making sure that the status,
+apply, and setup methods of spokes work correctly.
+
+Pressing the quit and continue buttons will immediately quit the program.
+
+
+Direct any questions to clumens@redhat.com.
