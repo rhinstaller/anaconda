@@ -106,8 +106,8 @@ class PartitionEditor:
         while 1:
             rc = self.dialog.run()
 	    
-            # user hit cancel, do nothing
-            if rc == 2:
+            # user hit cancel or 'Esc', do nothing
+            if rc in [2, gtk.RESPONSE_DELETE_EVENT]:
                 self.destroy()
                 return None
 
