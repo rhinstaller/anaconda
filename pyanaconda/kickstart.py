@@ -306,6 +306,80 @@ class Bootloader(commands.bootloader.F17_Bootloader):
 
         self.anaconda.dispatch.skip_steps("upgbootloader", "bootloader")
 
+class BTRFSData(commands.btrfs.F17_BTRFSData):
+    def execute(self):
+        storage = self.anaconda.storage
+        devicetree = storage.devicetree
+
+        storage.doAutoPart = False
+
+        members = []
+
+        # Get a list of all the devices that make up this volume.
+        for member in self.devices:
+            # if using --onpart, use original device
+            member_name = self.anaconda.ksdata.onPart.get(member, member)
+            if member_name:
+                dev = devicetree.getDeviceByName(member_name)
+            if not dev:
+                dev = devicetree.resolveDevice(member)
+
+            if dev and dev.format.type == "luks":
+                try:
+                    dev = devicetree.getChildren(dev)[0]
+                except IndexError:
+                    dev = None
+            if not dev:
+                raise KickstartValueError, formatErrorMsg(self.lineno, msg="Tried to use undefined partition %s in BTRFS volume specification" % member)
+
+            members.append(dev)
+
+        if self.subvol:
+            name = self.name
+        elif self.label:
+            name = self.label
+        else:
+            name = None
+
+        if len(members) == 0 and not self.preexist:
+            raise KickstartValueError, formatErrorMsg(self.lineno, msg="BTRFS volume defined without any member devices.  Either specify member devices or use --useexisting.")
+
+        # allow creating btrfs vols/subvols without specifying mountpoint
+        if self.mountpoint in ("none", "None"):
+            self.mountpoint = ""
+
+        # Sanity check mountpoint
+        if self.mountpoint != "" and self.mountpoint[0] != '/':
+            raise KickstartValueError, formatErrorMsg(self.lineno, msg="The mount point \"%s\" is not valid." % (self.mountpoint,))
+
+        if self.preexist:
+            device = devicetree.getDeviceByName(self.name)
+            if not device:
+                device = udev_resolve_devspec(self.name)
+
+            if not device:
+                raise KickstartValueError, formatErrorMsg(self.lineno, msg="Specified nonexistent BTRFS volume %s in btrfs command" % self.name)
+        else:
+            # If a previous device has claimed this mount point, delete the
+            # old one.
+            try:
+                if self.mountpoint:
+                    device = storage.mountpoints[self.mountpoint]
+                    storage.destroyDevice(device)
+            except KeyError:
+                pass
+
+            request = storage.newBTRFS(name=name,
+                                       subvol=self.subvol,
+                                       mountpoint=self.mountpoint,
+                                       metaDataLevel=self.metaDataLevel,
+                                       dataLevel=self.dataLevel,
+                                       parents=members)
+
+            storage.createDevice(request)
+
+        self.anaconda.dispatch.skip_steps("partition", "parttype")
+
 class ClearPart(commands.clearpart.FC3_ClearPart):
     def parse(self, args):
         retval = commands.clearpart.FC3_ClearPart.parse(self, args)
@@ -769,6 +843,17 @@ class PartitionData(commands.partition.F12_PartData):
             if self.onPart:
                 self.anaconda.ksdata.onPart[kwargs["name"]] = self.onPart
             self.mountpoint = ""
+        elif self.mountpoint.startswith("btrfs."):
+            type = "btrfs"
+            kwargs["name"] = self.mountpoint
+
+            if devicetree.getDeviceByName(kwargs["name"]):
+                raise KickstartValueError, formatErrorMsg(self.lineno, msg="BTRFS partition defined multiple times")
+
+            # store "btrfs." alias for other ks partitioning commands
+            if self.onPart:
+                self.anaconda.ksdata.onPart[kwargs["name"]] = self.onPart
+            self.mountpoint = ""
         elif self.mountpoint == "/boot/efi":
             type = "EFI System Partition"
             self.fsopts = "defaults,uid=0,gid=0,umask=0077,shortname=winnt"
@@ -915,6 +1000,15 @@ class RaidData(commands.raid.F15_RaidData):
 
             if devicetree.getDeviceByName(kwargs["name"]):
                 raise KickstartValueError, formatErrorMsg(self.lineno, msg="PV partition defined multiple times")
+
+            self.mountpoint = ""
+        elif self.mountpoint.startswith("btrfs."):
+            type = "btrfs"
+            kwargs["name"] = self.mountpoint
+            self.anaconda.ksdata.onPart[kwargs["name"]] = devicename
+
+            if devicetree.getDeviceByName(kwargs["name"]):
+                raise KickstartValueError, formatErrorMsg(self.lineno, msg="BTRFS partition defined multiple times")
 
             self.mountpoint = ""
         else:
@@ -1169,6 +1263,7 @@ commandMap = {
 }
 
 dataMap = {
+        "BTRFSData": BTRFSData,
         "LogVolData": LogVolData,
         "NetworkData": NetworkData,
         "PartData": PartitionData,
