@@ -113,7 +113,7 @@ def getDefaultHostname(anaconda):
                     hn = hinfo[0]
                     break
 
-    if hn and hn != 'localhost' and hn != 'localhost.localdomain':
+    if hn and hn not in ('(none)', 'localhost', 'localhost.localdomain'):
         return hn
 
     try:
@@ -121,10 +121,10 @@ def getDefaultHostname(anaconda):
     except:
         hn = None
 
-    if not hn or hn == '(none)' or hn == 'localhost' or hn == 'localhost.localdomain':
+    if not hn or hn in ('(none)', 'localhost', 'localhost.localdomain'):
         hn = socket.gethostname()
 
-    if not hn or hn == '(none)' or hn == 'localhost':
+    if not hn or hn in ('(none)', 'localhost'):
         hn = 'localhost.localdomain'
 
     return hn
