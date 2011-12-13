@@ -1631,7 +1631,11 @@ class DeviceTree(object):
 
     def updateDeviceFormat(self, device):
         log.info("updating format of device: %s" % device)
-        iutil.notify_kernel("/sys%s" % device.sysfsPath)
+        try:
+            iutil.notify_kernel("/sys%s" % device.sysfsPath)
+        except (ValueError, IOError) as e:
+            log.warning("failed to notify kernel of change: %s" % e)
+
         udev_settle()
         info = udev_get_device(device.sysfsPath)
         self.handleUdevDeviceFormat(info, device)
