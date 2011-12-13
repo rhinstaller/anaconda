@@ -58,6 +58,12 @@ class LanguageSpoke(NormalSpoke):
         pass
 
     @property
+    def completed(self):
+        # The language spoke is always completed, as it does not require you do
+        # anything.  There's always a default selected.
+        return True
+
+    @property
     def status(self):
         return "Something selected"
 

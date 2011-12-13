@@ -166,6 +166,10 @@ class SourceSpoke(NormalSpoke):
             self.data.method.opts = self.builder.get_object("nfsOptsEntry").get_text() or ""
 
     @property
+    def completed(self):
+        return self.status and self.status != "Nothing selected"
+
+    @property
     def status(self):
         if self.data.method.method == "url":
             if len(self.data.method.url) > 42:
