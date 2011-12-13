@@ -53,7 +53,7 @@ enum {
 struct _AnacondaSpokeSelectorPrivate {
     gboolean   is_incomplete;
     GtkWidget *grid;
-    GtkWidget *icon;
+    GtkWidget *icon, *incomplete_icon;
     GtkWidget *title_label;
     GtkWidget *status_label;
 };
@@ -151,8 +151,11 @@ static void anaconda_spoke_selector_init(AnacondaSpokeSelector *spoke) {
     spoke->priv->grid = gtk_grid_new();
     gtk_grid_set_column_spacing(GTK_GRID(spoke->priv->grid), 6);
 
-    /* Create the icon. */
+    /* Create the icons. */
     spoke->priv->icon = gtk_image_new_from_stock(DEFAULT_ICON, GTK_ICON_SIZE_DIALOG);
+    spoke->priv->incomplete_icon = gtk_image_new_from_icon_name("dialog-warning-symbolic", GTK_ICON_SIZE_MENU);
+    gtk_widget_set_no_show_all(GTK_WIDGET(spoke->priv->incomplete_icon), TRUE);
+    gtk_widget_set_visible(GTK_WIDGET(spoke->priv->incomplete_icon), FALSE);
 
     /* Create the title label. */
     spoke->priv->title_label = gtk_label_new(NULL);
@@ -171,7 +174,8 @@ static void anaconda_spoke_selector_init(AnacondaSpokeSelector *spoke) {
     /* Add everything to the grid, add the grid to the widget. */
     gtk_grid_attach(GTK_GRID(spoke->priv->grid), spoke->priv->icon, 0, 0, 1, 2);
     gtk_grid_attach(GTK_GRID(spoke->priv->grid), spoke->priv->title_label, 1, 0, 1, 1);
-    gtk_grid_attach(GTK_GRID(spoke->priv->grid), spoke->priv->status_label, 1, 1, 1, 1);
+    gtk_grid_attach(GTK_GRID(spoke->priv->grid), spoke->priv->incomplete_icon, 2, 0, 1, 1);
+    gtk_grid_attach(GTK_GRID(spoke->priv->grid), spoke->priv->status_label, 1, 1, 2, 1);
 
     gtk_container_add(GTK_CONTAINER(spoke), spoke->priv->grid);
 }
@@ -248,4 +252,5 @@ gboolean anaconda_spoke_selector_get_incomplete(AnacondaSpokeSelector *spoke) {
  */
 void anaconda_spoke_selector_set_incomplete(AnacondaSpokeSelector *spoke, gboolean is_incomplete) {
     spoke->priv->is_incomplete = is_incomplete;
+    gtk_widget_set_visible(GTK_WIDGET(spoke->priv->incomplete_icon), is_incomplete);
 }
