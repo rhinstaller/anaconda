@@ -29,7 +29,7 @@ import storage.iscsi
 import storage.fcoe
 import storage.zfcp
 
-from errors import *
+from yuminstall import NoSuchGroup
 import iutil
 import isys
 import os

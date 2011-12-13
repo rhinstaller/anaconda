@@ -72,6 +72,9 @@ urlgrabber.grabber.default_grabber.opts.user_agent = "%s (anaconda)/%s" %(produc
 import iutil
 import isys
 
+class NoSuchGroup(Exception):
+    pass
+
 def size_string (size):
     def number_format(s):
         return locale.format("%s", s, 1)

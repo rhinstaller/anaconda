@@ -13,7 +13,7 @@ class StepTest(mock.TestCase):
 
     def done_test(self):
         from pyanaconda.dispatch import Step
-        from pyanaconda.errors import DispatchError
+        from pyanaconda.dispatch import DispatchError
         s = Step("a_step")
         s.schedule(None)
         s.request(None)
@@ -37,7 +37,7 @@ class StepTest(mock.TestCase):
 
     def reschedule_test(self):
         from pyanaconda.dispatch import Step
-        from pyanaconda.errors import DispatchError
+        from pyanaconda.dispatch import DispatchError
         s = Step("a_step")
         s._reschedule(Step.SCHED_UNSCHEDULED, None)
         self.assertEqual(s.sched, Step.SCHED_UNSCHEDULED)
@@ -59,7 +59,7 @@ class StepTest(mock.TestCase):
 
     def request_test(self):
         from pyanaconda.dispatch import Step
-        from pyanaconda.errors import DispatchError
+        from pyanaconda.dispatch import DispatchError
         s = Step("a_step")
         s.request(None)
         self.assertRaises(DispatchError, s.skip, None)
@@ -72,7 +72,7 @@ class StepTest(mock.TestCase):
 
     def unschedule_test(self):
         from pyanaconda.dispatch import Step
-        from pyanaconda.errors import DispatchError
+        from pyanaconda.dispatch import DispatchError
         s = Step("a_step")
         s.schedule(None)
         self.assertEquals(s.sched, Step.SCHED_SCHEDULED)
@@ -84,7 +84,7 @@ class StepTest(mock.TestCase):
 
     def skip_test(self):
         from pyanaconda.dispatch import Step
-        from pyanaconda.errors import DispatchError
+        from pyanaconda.dispatch import DispatchError
         s = Step("a_step")
         s.skip(None)
         self.assertEquals(s.sched, Step.SCHED_SKIPPED)
@@ -162,7 +162,7 @@ class DispatchTest(mock.TestCase):
     def done_test(self):
         from pyanaconda.dispatch import Dispatcher
         from pyanaconda.dispatch import Step
-        from pyanaconda.errors import DispatchError
+        from pyanaconda.dispatch import DispatchError
 
         d = self._getDispatcher()
         self.assertFalse(d.step_enabled("betanag"))
@@ -197,7 +197,7 @@ class DispatchTest(mock.TestCase):
         self.assertTrue(d.step_enabled("filtertype"))
 
     def request_steps_gently_test(self):
-        from pyanaconda.errors import DispatchError
+        from pyanaconda.dispatch import DispatchError
         from pyanaconda.dispatch import Step
         d = self._getDispatcher()
         d.schedule_steps("betanag", "complete")

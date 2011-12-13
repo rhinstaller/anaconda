@@ -24,7 +24,6 @@ import string
 from types import *
 
 import indexed_dict
-import errors
 from constants import *
 from packages import writeKSConfiguration, turnOnFilesystems
 from packages import doPostAction
@@ -55,6 +54,9 @@ from packages import doReIPL
 
 import logging
 log = logging.getLogger("anaconda")
+
+class DispatchError(Exception):
+    pass
 
 class Step(object):
     SCHED_UNSCHEDULED = 0
@@ -93,7 +95,7 @@ class Step(object):
         s_from = self.sched
         new_sched = self.sched_state_machine[self.sched][to_sched]
         if new_sched is False:
-            raise errors.DispatchError(
+            raise DispatchError(
                 "Can not reschedule step '%s' from '%s' to '%s'" %
                 (self.name,
                  self.namesched(self._sched),
@@ -307,7 +309,7 @@ class Dispatcher(object):
         for step in steps:
             try:
                 self.request_steps(step)
-            except errors.DispatchError as e:
+            except DispatchError as e:
                 log.debug("dispatch: %s" % e)
 
     def reset_scheduling(self):
@@ -315,7 +317,7 @@ class Dispatcher(object):
         for step in self.steps:
             try:
                 self.steps[step].unschedule(self._current_step())
-            except errors.DispatchError as e:
+            except DispatchError as e:
                 log.debug("dispatch: %s" % e)
         log.info("dispatch: resetting finished.")
 
@@ -333,7 +335,7 @@ class Dispatcher(object):
         for step in steps:
             try:
                 self.schedule_steps(step)
-            except errors.DispatchError as e:
+            except DispatchError as e:
                 log.debug("dispatch: %s" % e)
 
     def step_data(self, step):
