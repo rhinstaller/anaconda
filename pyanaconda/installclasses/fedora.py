@@ -56,7 +56,7 @@ class InstallClass(BaseInstallClass):
               ["base", "base-x", "core", "development-libs",
                "development-tools", "editors", "fonts", "gnome-desktop",
                "gnome-software-development", "graphical-internet", "graphics",
-               "hardware-support", "input-methods", "java", "text-internet",
+               "hardware-support", "input-methods", "java", "sound-and-video", "text-internet",
                "x-software-development"]),
              (N_("Web Server"),
               ["admin-tools", "base", "base-x", "core", "editors",
