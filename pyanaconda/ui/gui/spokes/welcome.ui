@@ -150,8 +150,9 @@ OS you can rely on.  It's for testing purposes only.</property>
     <property name="distribution">DISTRIBUTION INSTALLATION</property>
     <property name="window_name"></property>
     <child internal-child="action_area">
-      <object class="GtkVBox" id="welcomeWindow-actionArea">
+      <object class="GtkBox" id="welcomeWindow-actionArea">
         <property name="can_focus">False</property>
+        <property name="orientation">vertical</property>
         <property name="spacing">6</property>
         <child>
           <object class="GtkAlignment" id="alignment1">

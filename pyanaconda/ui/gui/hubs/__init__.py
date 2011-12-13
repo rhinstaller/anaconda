@@ -132,10 +132,15 @@ class Hub(UIObject):
             if not selectors:
                 continue
 
-            label = Gtk.Label(obj.title)
+            label = Gtk.Label("<span font-desc=\"Sans 14\">%s</span>" % obj.title)
+            label.set_use_markup(True)
             label.set_halign(Gtk.Align.START)
+            label.set_margin_bottom(12)
             box.pack_start(label, False, True, 0)
-            box.pack_start(obj.grid(selectors), False, True, 0)
+
+            grid = obj.grid(selectors)
+            grid.set_margin_left(12)
+            box.pack_start(grid, False, True, 0)
 
         spokeArea = self.window.get_spoke_area()
         spokeArea.add_with_viewport(box)

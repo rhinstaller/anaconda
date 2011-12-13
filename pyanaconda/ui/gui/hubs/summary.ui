@@ -12,8 +12,9 @@
     <property name="distribution">DISTRIBUTION INSTALLATION</property>
     <property name="window_name">INSTALL SUMMARY</property>
     <child internal-child="action_area">
-      <object class="GtkVBox" id="summaryWindow-actionArea">
+      <object class="GtkBox" id="summaryWindow-actionArea">
         <property name="can_focus">False</property>
+        <property name="orientation">vertical</property>
         <property name="spacing">6</property>
         <child internal-child="scrolled_window">
           <object class="GtkScrolledWindow" id="summaryWindow-scroll">
