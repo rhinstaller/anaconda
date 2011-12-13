@@ -231,7 +231,7 @@ class Authconfig(commands.authconfig.FC3_Authconfig):
     def execute(self):
         self.anaconda.security.auth = self.authconfig
 
-class AutoPart(commands.autopart.F16_AutoPart):
+class AutoPart(commands.autopart.F17_AutoPart):
     def execute(self):
         # sets up default autopartitioning.  use clearpart separately
         # if you want it
@@ -246,8 +246,8 @@ class AutoPart(commands.autopart.F16_AutoPart):
             self.anaconda.storage.autoPartAddBackupPassphrase = \
                 self.backuppassphrase
 
-        if not self.lvm:
-            self.anaconda.storage.lvmAutoPart = False
+        if self.type is not None:
+            self.anaconda.storage.autoPartType = self.type
 
         self.anaconda.dispatch.skip_steps("partition", "parttype")
 

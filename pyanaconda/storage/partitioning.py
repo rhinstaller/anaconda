@@ -68,7 +68,7 @@ def _scheduleImplicitPartitions(storage, disks):
     devs = []
 
     # only schedule the partitions if either lvm or btrfs autopart was chosen
-    if not storage.lvmAutoPart and not storage.btrfsAutoPart:
+    if storage.autoPartType not in (AUTOPART_TYPE_LVM, AUTOPART_TYPE_BTRFS):
         return devs
 
     for disk in disks:
@@ -77,7 +77,7 @@ def _scheduleImplicitPartitions(storage, disks):
             fmt_args = {"escrow_cert": storage.autoPartEscrowCert,
                         "add_backup_passphrase": storage.autoPartAddBackupPassphrase}
         else:
-            if storage.lvmAutoPart:
+            if storage.autoPartType == AUTOPART_TYPE_LVM:
                 fmt_type = "lvmpv"
             else:
                 fmt_type = "btrfs"
@@ -111,8 +111,8 @@ def _schedulePartitions(storage, disks):
     # First pass is for partitions only. We'll do LVs later.
     #
     for request in storage.autoPartitionRequests:
-        if (request.lv and storage.lvmAutoPart) or \
-           (request.btr and storage.btrfsAutoPart):
+        if (request.lv and storage.autoPartType == AUTOPART_TYPE_LVM) or \
+           (request.btr and storage.autoPartType == AUTOPART_TYPE_BTRFS):
             continue
 
         if request.requiredSpace and request.requiredSpace > free:
@@ -181,7 +181,7 @@ def _scheduleVolumes(storage, devs):
     if not devs:
         return
 
-    if storage.lvmAutoPart:
+    if storage.autoPartType == AUTOPART_TYPE_LVM:
         new_container = storage.newVG
         new_volume = storage.newLV
         format_name = "lvmpv"
@@ -214,8 +214,8 @@ def _scheduleVolumes(storage, devs):
     #
     # Second pass, for LVs only.
     for request in storage.autoPartitionRequests:
-        btr = storage.btrfsAutoPart and request.btr
-        lv = storage.lvmAutoPart and request.lv
+        btr = storage.autoPartType == AUTOPART_TYPE_BTRFS and request.btr
+        lv = storage.autoPartType == AUTOPART_TYPE_LVM and request.lv
 
         if not btr and not lv:
             continue
@@ -275,7 +275,7 @@ def doAutoPartition(anaconda):
     log.debug("doAutoPartition(%s)" % anaconda)
     log.debug("doAutoPart: %s" % anaconda.storage.doAutoPart)
     log.debug("encryptedAutoPart: %s" % anaconda.storage.encryptedAutoPart)
-    log.debug("lvmAutoPart: %s" % anaconda.storage.lvmAutoPart)
+    log.debug("autoPartType: %s" % anaconda.storage.autoPartType)
     log.debug("clearPartType: %s" % anaconda.storage.config.clearPartType)
     log.debug("clearPartDisks: %s" % anaconda.storage.config.clearPartDisks)
     log.debug("autoPartitionRequests:\n%s" % "".join([str(p) for p in anaconda.storage.autoPartitionRequests]))

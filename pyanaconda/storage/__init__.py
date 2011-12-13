@@ -340,8 +340,7 @@ class Storage(object):
         self.doAutoPart = False
         self.clearPartChoice = None
         self.encryptedAutoPart = False
-        self.lvmAutoPart = False
-        self.btrfsAutoPart = True
+        self.autoPartType = AUTOPART_TYPE_LVM
         self.encryptionPassphrase = None
         self.escrowCertificates = {}
         self.autoPartEscrowCert = None
