@@ -157,9 +157,9 @@ class Hub(UIObject):
                 self._incompleteSpokes.append(spoke)
 
         if len(self._incompleteSpokes) == 0:
-            self._completeBox.hide()
+            self._completeBox.set_visible(False)
         else:
-            self._completeBox.show_all()
+            self._completeBox.set_visible(True)
 
     def setup(self):
         UIObject.setup(self)
