@@ -159,6 +159,7 @@ static void anaconda_base_window_init(AnacondaBaseWindow *win) {
     gtk_container_set_border_width(GTK_CONTAINER(win), 6);
 
     win->priv->action_area = gtk_box_new(GTK_ORIENTATION_VERTICAL, 6);
+    gtk_box_set_spacing(GTK_BOX(win->priv->action_area), 6);
 
     /* Create the navigation area. */
     win->priv->nav_area = gtk_grid_new();
