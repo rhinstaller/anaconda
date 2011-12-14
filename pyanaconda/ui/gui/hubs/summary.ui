@@ -9,7 +9,6 @@
     <property name="startup_id">filler</property>
     <property name="mnemonics_visible">False</property>
     <property name="focus_visible">False</property>
-    <property name="distribution">DISTRIBUTION INSTALLATION</property>
     <property name="window_name">INSTALL SUMMARY</property>
     <child internal-child="action_area">
       <object class="GtkBox" id="summaryWindow-actionArea">
@@ -32,16 +31,13 @@
           </packing>
         </child>
         <child>
-          <object class="GtkGrid" id="buttonGrid">
+          <object class="GtkButtonBox" id="buttonbox1">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="hexpand">True</property>
-            <property name="row_spacing">6</property>
-            <property name="n_rows">2</property>
-            <property name="n_columns">2</property>
             <child>
               <object class="GtkButton" id="quitButton">
                 <property name="label" translatable="yes">_QUIT</property>
+                <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
@@ -51,15 +47,15 @@
                 <property name="use_underline">True</property>
               </object>
               <packing>
-                <property name="left_attach">0</property>
-                <property name="top_attach">0</property>
-                <property name="width">1</property>
-                <property name="height">1</property>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">0</property>
               </packing>
             </child>
             <child>
               <object class="GtkButton" id="continueButton">
                 <property name="label" translatable="yes">_CONTINUE</property>
+                <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
@@ -68,64 +64,57 @@
                 <property name="use_underline">True</property>
               </object>
               <packing>
-                <property name="left_attach">1</property>
-                <property name="top_attach">0</property>
-                <property name="width">1</property>
-                <property name="height">1</property>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">1</property>
               </packing>
-            </child>
-            <child>
-              <object class="GtkBox" id="continueWarningBox">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="no_show_all">True</property>
-                <property name="halign">end</property>
-                <property name="hexpand">True</property>
-                <property name="spacing">6</property>
-                <child>
-                  <object class="GtkImage" id="continueWarningIcon">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="icon_name">dialog-warning-symbolic</property>
-                  </object>
-                  <packing>
-                    <property name="expand">False</property>
-                    <property name="fill">True</property>
-                    <property name="position">0</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkLabel" id="continueWarningLabel">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="label" translatable="yes">Please complete items marked with this icon first.</property>
-                    <attributes>
-                      <attribute name="font-desc" value="Sans 8"/>
-                    </attributes>
-                  </object>
-                  <packing>
-                    <property name="expand">False</property>
-                    <property name="fill">True</property>
-                    <property name="position">1</property>
-                  </packing>
-                </child>
-              </object>
-              <packing>
-                <property name="left_attach">1</property>
-                <property name="top_attach">1</property>
-                <property name="width">1</property>
-                <property name="height">1</property>
-              </packing>
-            </child>
-            <child>
-              <placeholder/>
             </child>
           </object>
           <packing>
             <property name="expand">False</property>
-            <property name="fill">False</property>
-            <property name="pack_type">end</property>
+            <property name="fill">True</property>
             <property name="position">2</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkBox" id="continueWarningBox">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="no_show_all">True</property>
+            <property name="hexpand">True</property>
+            <property name="spacing">6</property>
+            <child>
+              <object class="GtkImage" id="continueWarningIcon">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="icon_name">dialog-warning-symbolic</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="continueWarningLabel">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="label" translatable="yes">Please complete items marked with this icon first.</property>
+                <attributes>
+                  <attribute name="font-desc" value="Sans 8"/>
+                </attributes>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">1</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">3</property>
           </packing>
         </child>
       </object>
