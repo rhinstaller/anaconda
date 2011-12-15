@@ -244,11 +244,17 @@ class AnacondaCallback:
             # we should only error out for fatal script errors or the cpio and
             # unpack problems.
             if what != rpm.RPMCALLBACK_SCRIPT_ERROR or total:
+                if what == rpm.RPMCALLBACK_CPIO_ERROR:
+                    error_type = _("cpio")
+                elif what == rpm.RPMCALLBACK_UNPACK_ERROR:
+                    error_type = _("unpack")
+                else:
+                    error_type = _("script")
                 self.messageWindow(_("Error Installing Package"),
-                    _("A fatal error occurred when installing the %s "
+                    _("A %s error occurred when installing the %s "
                       "package.  This could indicate errors when reading "
                       "the installation media.  Installation cannot "
-                      "continue.") % name,
+                      "continue.") % (error_type, name),
                     type="custom", custom_icon="error",
                     custom_buttons=[_("_Exit installer")])
                 sys.exit(1)
