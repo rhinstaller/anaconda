@@ -1888,52 +1888,44 @@ class IPSeriesYaboot(Yaboot):
 
     def updatePowerPCBootList(self):
 
-        log.debug ("updatePowerPCBootList: self.stage1_device.path = %s" % self.stage1_device.path)
+        log.debug("updatePowerPCBootList: self.stage1_device.path = %s" % self.stage1_device.path)
 
         buf = iutil.execWithCapture("nvram",
                                     ["--print-config=boot-device"],
-                                    stderr="/dev/hvc1",
-                                    root="/")
+                                    stderr="/dev/tty5")
 
         if len(buf) == 0:
             log.error ("FAIL: nvram --print-config=boot-device")
-
             return
 
-        boot_list = buf.strip ().split ()
-
-        log.debug ("updatePowerPCBootList: boot_list = %s" % boot_list)
+        boot_list = buf.strip().split()
+        log.debug("updatePowerPCBootList: boot_list = %s" % boot_list)
 
         buf = iutil.execWithCapture("ofpathname",
                                     [self.stage1_device.path],
-                                    stderr="/dev/hvc1",
-                                    root="/")
+                                    stderr="/dev/tty5")
 
         if len(buf) > 0:
-            boot_disk = buf.strip ()
-            log.debug ("updatePowerPCBootList: boot_disk = %s" % boot_disk)
-
+            boot_disk = buf.strip()
+            log.debug("updatePowerPCBootList: boot_disk = %s" % boot_disk)
         else:
-            log.error ("FAIL: ofpathname %s" % self.stage1_device.path)
-
+            log.error("FAIL: ofpathname %s" % self.stage1_device.path)
             return
 
         # Place the disk containing the PReP partition first.
         # Remove all other occurances of it.
-        boot_list = [boot_disk] + filter (lambda x: x != boot_disk, boot_list)
+        boot_list = [boot_disk] + filter(lambda x: x != boot_disk, boot_list)
 
-        log.debug ("updatePowerPCBootList: updated boot_list = %s" % boot_list)
+        log.debug("updatePowerPCBootList: updated boot_list = %s" % boot_list)
 
-        update_value = "boot-device=%s" % (" ".join (boot_list),)
+        update_value = "boot-device=%s" % " ".join(boot_list)
 
         rc = iutil.execWithRedirect("nvram", ["--update-config", update_value],
-                                    stdout="/dev/hvc1", stderr="/dev/hvc1",
-                                    root="/")
+                                    stdout="/dev/tty5", stderr="/dev/tty5")
         if rc:
-            log.error ("FAIL: nvram --update-config %s" % update_value)
-
+            log.error("FAIL: nvram --update-config %s" % update_value)
         else:
-            log.info ("Updated PPC boot list with the command: nvram --update-config %s" % update_value)
+            log.info("Updated PPC boot list with the command: nvram --update-config %s" % update_value)
 
 
 class MacYaboot(Yaboot):
