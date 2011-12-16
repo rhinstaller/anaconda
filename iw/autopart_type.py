@@ -135,7 +135,7 @@ class PartitionTypeWindow(InstallWindow):
 
         while 1:
             rc = dialog.run()
-            if rc == gtk.RESPONSE_CANCEL:
+            if rc in [gtk.RESPONSE_CANCEL, gtk.RESPONSE_DELETE_EVENT]:
                 break
 
             initiator = dxml.get_widget("iscsiInitiatorEntry").get_text()
@@ -253,7 +253,7 @@ class PartitionTypeWindow(InstallWindow):
             rc = self.addZfcpDrive()
         dialog.destroy()
 
-        if rc != gtk.RESPONSE_CANCEL:
+        if rc not in [gtk.RESPONSE_CANCEL, gtk.RESPONSE_DELETE_EVENT]:
             w = self.intf.waitWindow(_("Rescanning disks"),
                                      _("Rescanning disks"))
             partitioning.partitionObjectsInitialize(self.anaconda)
