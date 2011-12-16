@@ -245,7 +245,7 @@ class PartitionTypeWindow(InstallWindow):
         
         rc = dialog.run()
         dialog.hide()
-        if rc == gtk.RESPONSE_CANCEL:
+        if rc in [gtk.RESPONSE_CANCEL, gtk.RESPONSE_DELETE_EVENT]:
             return
         if dxml.get_widget("iscsiRadio").get_active():
             rc = self.addIscsiDrive()
