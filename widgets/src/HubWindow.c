@@ -75,7 +75,6 @@
 
 struct _AnacondaHubWindowPrivate {
     GtkWidget *scrolled_window;
-    GtkWidget *alignment;
 };
 
 static void anaconda_hub_window_buildable_init(GtkBuildableIface *iface);
@@ -108,14 +107,10 @@ static void anaconda_hub_window_init(AnacondaHubWindow *win) {
                                             ANACONDA_TYPE_HUB_WINDOW,
                                             AnacondaHubWindowPrivate);
 
-    win->priv->alignment = gtk_alignment_new(0.5, 0.0, 0.5, 0.5);
-
     win->priv->scrolled_window = gtk_scrolled_window_new(NULL, NULL);
     gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(win->priv->scrolled_window),
                                    GTK_POLICY_NEVER, GTK_POLICY_AUTOMATIC);
-
-    gtk_container_add(GTK_CONTAINER(win->priv->alignment), win->priv->scrolled_window);
-    gtk_box_pack_start(GTK_BOX(action_area), win->priv->alignment, TRUE, TRUE, 0);
+    gtk_box_pack_start(GTK_BOX(action_area), win->priv->scrolled_window, TRUE, TRUE, 0);
 }
 
 /**

@@ -78,8 +78,9 @@ enum {
 
 struct _AnacondaBaseWindowPrivate {
     gboolean    is_beta;
-    GtkWidget  *action_area;
-    GtkWidget  *nav_area;
+    GtkWidget  *main_box;
+    GtkWidget  *alignment;
+    GtkWidget  *nav_area, *action_area;
     GtkWidget  *name_label, *distro_label, *beta_label;
 };
 
@@ -158,13 +159,39 @@ static void anaconda_base_window_init(AnacondaBaseWindow *win) {
     gtk_window_maximize(GTK_WINDOW(win));
     gtk_container_set_border_width(GTK_CONTAINER(win), 6);
 
-    win->priv->action_area = gtk_box_new(GTK_ORIENTATION_VERTICAL, 6);
-    gtk_box_set_spacing(GTK_BOX(win->priv->action_area), 6);
+    /* First, construct a top-level box that everything will go in.  Remember
+     * a Window can only hold one widget, and we may very well need to add
+     * more things later.
+     */
+    win->priv->main_box = gtk_box_new(GTK_ORIENTATION_VERTICAL, 6);
+    gtk_box_set_spacing(GTK_BOX(win->priv->main_box), 6);
+    gtk_container_add(GTK_CONTAINER(win), win->priv->main_box);
 
-    /* Create the navigation area. */
+    /* Then the navigation area that sits as the first item in the main box
+     * for every Window class.
+     */
     win->priv->nav_area = gtk_grid_new();
     gtk_grid_set_row_homogeneous(GTK_GRID(win->priv->nav_area), FALSE);
     gtk_grid_set_column_homogeneous(GTK_GRID(win->priv->nav_area), FALSE);
+    gtk_box_pack_start(GTK_BOX(win->priv->main_box), win->priv->nav_area, FALSE, FALSE, 0);
+
+    /* Second in the main box is an alignment, because we want to be able
+     * to control the amount of space the Window's content takes up on the
+     * screen.
+     */
+    win->priv->alignment = gtk_alignment_new(0.5, 0.0, 0.5, 0.5);
+    gtk_box_pack_start(GTK_BOX(win->priv->main_box), win->priv->alignment, TRUE, TRUE, 0);
+
+    /* The action_area goes inside the alignment and represents the main
+     * place for content to go.
+     */
+    win->priv->action_area = gtk_box_new(GTK_ORIENTATION_VERTICAL, 6);
+    gtk_box_set_spacing(GTK_BOX(win->priv->action_area), 6);
+    gtk_container_add(GTK_CONTAINER(win->priv->alignment), win->priv->action_area);
+
+    /* And now we can finally create the widgets that go in all those layout
+     * pieces up above.
+     */
 
     /* Create the name label. */
     win->priv->name_label = gtk_label_new(NULL);
@@ -172,7 +199,7 @@ static void anaconda_base_window_init(AnacondaBaseWindow *win) {
     gtk_label_set_markup(GTK_LABEL(win->priv->name_label), markup);
     g_free(markup);
     gtk_misc_set_alignment(GTK_MISC(win->priv->name_label), 0, 0);
-    gtk_widget_set_hexpand(GTK_WIDGET(win->priv->name_label), TRUE);
+    gtk_widget_set_hexpand(win->priv->name_label, TRUE);
 
     /* Create the distribution label. */
     win->priv->distro_label = gtk_label_new(_(DEFAULT_DISTRIBUTION));
@@ -184,16 +211,12 @@ static void anaconda_base_window_init(AnacondaBaseWindow *win) {
     gtk_label_set_markup(GTK_LABEL(win->priv->beta_label), markup);
     g_free(markup);
     gtk_misc_set_alignment(GTK_MISC(win->priv->beta_label), 0, 0);
-    gtk_widget_set_no_show_all(GTK_WIDGET(win->priv->beta_label), TRUE);
+    gtk_widget_set_no_show_all(win->priv->beta_label, TRUE);
 
     /* Add everything to the nav area. */
     gtk_grid_attach(GTK_GRID(win->priv->nav_area), win->priv->name_label, 0, 0, 1, 1);
     gtk_grid_attach(GTK_GRID(win->priv->nav_area), win->priv->distro_label, 1, 0, 1, 1);
     gtk_grid_attach(GTK_GRID(win->priv->nav_area), win->priv->beta_label, 1, 1, 1, 1);
-
-    /* Put the grid into the action_area, and the action_area into the window. */
-    gtk_box_pack_start(GTK_BOX(win->priv->action_area), GTK_WIDGET(win->priv->nav_area), FALSE, FALSE, 0);
-    gtk_container_add(GTK_CONTAINER(win), GTK_WIDGET(win->priv->action_area));
 }
 
 static void anaconda_base_window_get_property(GObject *object, guint prop_id, GValue *value, GParamSpec *pspec) {
@@ -291,6 +314,34 @@ GtkWidget *anaconda_base_window_get_nav_area(AnacondaBaseWindow *win) {
     return win->priv->nav_area;
 }
 
+/**
+ * anaconda_base_window_get_main_box:
+ * @win: a #AnacondaBaseWindow
+ *
+ * Returns the main content area of @win.
+ *
+ * Returns: (transfer none): The main content area
+ *
+ * Since: 1.0
+ */
+GtkWidget *anaconda_base_window_get_main_box(AnacondaBaseWindow *win) {
+    return win->priv->main_box;
+}
+
+/**
+ * anaconda_base_window_get_alignment:
+ * @win: a #AnacondaBaseWindow
+ *
+ * Returns the internal alignment widget of @win.
+ *
+ * Returns: (transfer none): The alignment widget
+ *
+ * Since: 1.0
+ */
+GtkWidget *anaconda_base_window_get_alignment(AnacondaBaseWindow *win) {
+    return win->priv->alignment;
+}
+
 static GtkBuildableIface *parent_buildable_iface;
 
 static void
@@ -306,7 +357,13 @@ static GObject *
 anaconda_base_window_buildable_get_internal_child (GtkBuildable *buildable,
                                                    GtkBuilder *builder,
                                                    const gchar *childname) {
-    if (strcmp (childname, "action_area") == 0)
+    if (!strcmp(childname, "main_box"))
+        return G_OBJECT(anaconda_base_window_get_main_box(ANACONDA_BASE_WINDOW(buildable)));
+    else if (!strcmp(childname, "nav_area"))
+        return G_OBJECT(ANACONDA_BASE_WINDOW(buildable)->priv->nav_area);
+    else if (!strcmp(childname, "alignment"))
+        return G_OBJECT(ANACONDA_BASE_WINDOW(buildable)->priv->alignment);
+    else if (!strcmp(childname, "action_area"))
         return G_OBJECT(anaconda_base_window_get_action_area(ANACONDA_BASE_WINDOW(buildable)));
 
     return parent_buildable_iface->get_internal_child (buildable, builder, childname);

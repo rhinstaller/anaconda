@@ -34,7 +34,12 @@
             <write-widget-function>anaconda_standalone_window_write_widget</write-widget-function>
 
             <internal-children>
-                <object name="action_area" />
+                <object name="main_box">
+                    <object name="nav_area" />
+                    <object name="alignment">
+                        <object name="action_area" />
+                    </object>
+                </object>
             </internal-children>
         </glade-widget-class>
 
@@ -49,8 +54,13 @@
             <write-widget-function>anaconda_standalone_window_write_widget</write-widget-function>
 
             <internal-children>
-                <object name="action_area">
-                    <object name="scrolled_window" />
+                <object name="main_box">
+                    <object name="nav_area" />
+                    <object name="alignment">
+                        <object name="action_area">
+                            <object name="scrolled_window" />
+                        </object>
+                    </object>
                 </object>
             </internal-children>
         </glade-widget-class>
@@ -66,7 +76,12 @@
             <write-widget-function>anaconda_standalone_window_write_widget</write-widget-function>
 
             <internal-children>
-                <object name="action_area" />
+                <object name="main_box">
+                    <object name="nav_area" />
+                    <object name="alignment">
+                        <object name="action_area" />
+                    </object>
+                </object>
             </internal-children>
         </glade-widget-class>
 

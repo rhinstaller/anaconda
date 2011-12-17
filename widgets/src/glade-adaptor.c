@@ -35,11 +35,8 @@
 
 void anaconda_standalone_window_post_create(GladeWidgetAdaptor *adaptor,
                                             GObject *object, GladeCreateReason reason) {
-    GladeWidget *widget, *actionarea_widget;
+    GladeWidget *widget, *action_area_widget, *nav_area_widget, *alignment_widget;
     AnacondaBaseWindow *window;
-
-    if (reason != GLADE_CREATE_USER)
-        return;
 
     g_return_if_fail(ANACONDA_IS_BASE_WINDOW(object));
 
@@ -47,13 +44,24 @@ void anaconda_standalone_window_post_create(GladeWidgetAdaptor *adaptor,
     if (!widget)
         return;
 
+    /* Set these properties both on creating a new widget and on loading a
+     * widget from an existing file.  Too bad I have to duplicate this information
+     * from the widget source files, but glade has no way of figuring it out
+     * otherwise.
+     */
     window = ANACONDA_BASE_WINDOW(object);
-    actionarea_widget = glade_widget_get_from_gobject(anaconda_base_window_get_action_area(window));
+    action_area_widget = glade_widget_get_from_gobject(anaconda_base_window_get_action_area(window));
+    glade_widget_property_set(action_area_widget, "size", 1);
 
-    if (ANACONDA_IS_SPOKE_WINDOW(object))
-        glade_widget_property_set(actionarea_widget, "size", 2);
-    else
-        glade_widget_property_set(actionarea_widget, "size", 3);
+    nav_area_widget = glade_widget_get_from_gobject(anaconda_base_window_get_nav_area(window));
+    glade_widget_property_set(nav_area_widget, "n-rows", 2);
+    glade_widget_property_set(nav_area_widget, "n-columns", 2);
+
+    alignment_widget = glade_widget_get_from_gobject(anaconda_base_window_get_alignment(window));
+    glade_widget_property_set(alignment_widget, "xalign", 0.5);
+    glade_widget_property_set(alignment_widget, "yalign", 0.0);
+    glade_widget_property_set(alignment_widget, "xscale", 0.5);
+    glade_widget_property_set(alignment_widget, "yscale", 0.5);
 }
 
 void anaconda_standalone_window_write_widget(GladeWidgetAdaptor *adaptor,

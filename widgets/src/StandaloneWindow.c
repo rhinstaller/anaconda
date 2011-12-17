@@ -118,11 +118,7 @@ GtkWidget *anaconda_standalone_window_new() {
 }
 
 static void anaconda_standalone_window_init(AnacondaStandaloneWindow *win) {
-    /* This is the section of the parent AnacondaBaseWindow class where we
-     * put buttons, dialogs, etc.  We need a reference to it here to pac
-     * things into.
-     */
-    GtkWidget *action_area = anaconda_base_window_get_action_area(ANACONDA_BASE_WINDOW(win));
+    GtkWidget *main_box = anaconda_base_window_get_main_box(ANACONDA_BASE_WINDOW(win));
 
     win->priv = G_TYPE_INSTANCE_GET_PRIVATE(win,
                                             ANACONDA_TYPE_STANDALONE_WINDOW,
@@ -146,8 +142,7 @@ static void anaconda_standalone_window_init(AnacondaStandaloneWindow *win) {
     gtk_container_add(GTK_CONTAINER(win->priv->button_box), win->priv->quit_button);
     gtk_container_add(GTK_CONTAINER(win->priv->button_box), win->priv->continue_button);
 
-    /* Pack the button box into the action_area. */
-    gtk_box_pack_end(GTK_BOX(action_area), win->priv->button_box, FALSE, TRUE, 0);
+    gtk_box_pack_start(GTK_BOX(main_box), win->priv->button_box, FALSE, TRUE, 0);
 }
 
 static void anaconda_standalone_window_quit_clicked(GtkButton *button,
