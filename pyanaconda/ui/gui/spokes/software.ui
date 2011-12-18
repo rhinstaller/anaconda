@@ -29,40 +29,100 @@
     <property name="startup_id">filler</property>
     <property name="window_name">SOFTWARE SELECTION</property>
     <signal name="back-clicked" handler="on_back_clicked" swapped="no"/>
-    <child internal-child="action_area">
-      <object class="GtkBox" id="softwareWindow-actionArea">
+    <child internal-child="main_box">
+      <object class="GtkBox" id="AnacondaSpokeWindow-main_box1">
         <property name="can_focus">False</property>
         <property name="orientation">vertical</property>
-        <property name="spacing">6</property>
-        <child>
-          <object class="GtkAlignment" id="alignment1">
-            <property name="visible">True</property>
+        <child internal-child="nav_area">
+          <object class="GtkGrid" id="AnacondaSpokeWindow-nav_area1">
+            <property name="can_focus">False</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">False</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+        <child internal-child="alignment">
+          <object class="GtkAlignment" id="AnacondaSpokeWindow-alignment1">
             <property name="can_focus">False</property>
             <property name="yalign">0</property>
-            <property name="xscale">0</property>
+            <property name="xscale">0.5</property>
             <property name="yscale">0.5</property>
-            <child>
-              <object class="GtkBox" id="box1">
-                <property name="visible">True</property>
+            <child internal-child="action_area">
+              <object class="GtkBox" id="softwareWindow-actionArea">
                 <property name="can_focus">False</property>
-                <property name="margin_top">12</property>
-                <property name="spacing">12</property>
+                <property name="spacing">6</property>
                 <property name="homogeneous">True</property>
                 <child>
-                  <object class="GtkBox" id="desktopBox">
+                  <object class="GtkBox" id="box1">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
-                    <property name="orientation">vertical</property>
                     <property name="spacing">6</property>
+                    <property name="homogeneous">True</property>
                     <child>
-                      <object class="GtkLabel" id="label1">
+                      <object class="GtkBox" id="desktopBox">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="halign">start</property>
-                        <property name="label" translatable="yes">DESKTOP</property>
-                        <attributes>
-                          <attribute name="weight" value="bold"/>
-                        </attributes>
+                        <property name="orientation">vertical</property>
+                        <property name="spacing">6</property>
+                        <child>
+                          <object class="GtkLabel" id="label1">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <property name="halign">start</property>
+                            <property name="label" translatable="yes">DESKTOP</property>
+                            <attributes>
+                              <attribute name="weight" value="bold"/>
+                            </attributes>
+                          </object>
+                          <packing>
+                            <property name="expand">False</property>
+                            <property name="fill">True</property>
+                            <property name="position">0</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkScrolledWindow" id="desktopScrolledWindow">
+                            <property name="visible">True</property>
+                            <property name="can_focus">True</property>
+                            <property name="hscrollbar_policy">never</property>
+                            <property name="vscrollbar_policy">never</property>
+                            <property name="shadow_type">in</property>
+                            <child>
+                              <object class="GtkViewport" id="viewport2">
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <child>
+                                  <object class="GtkTreeView" id="desktopView">
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">True</property>
+                                    <property name="model">desktopStore</property>
+                                    <property name="headers_visible">False</property>
+                                    <property name="headers_clickable">False</property>
+                                    <property name="search_column">0</property>
+                                    <child>
+                                      <object class="GtkTreeViewColumn" id="desktopDescCol">
+                                        <property name="title" translatable="yes">column</property>
+                                        <child>
+                                          <object class="GtkCellRendererText" id="desktopDescRenderer"/>
+                                          <attributes>
+                                            <attribute name="markup">1</attribute>
+                                          </attributes>
+                                        </child>
+                                      </object>
+                                    </child>
+                                  </object>
+                                </child>
+                              </object>
+                            </child>
+                          </object>
+                          <packing>
+                            <property name="expand">False</property>
+                            <property name="fill">True</property>
+                            <property name="position">1</property>
+                          </packing>
+                        </child>
                       </object>
                       <packing>
                         <property name="expand">False</property>
@@ -71,36 +131,102 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkScrolledWindow" id="desktopScrolledWindow">
+                      <object class="GtkBox" id="addonsBox">
                         <property name="visible">True</property>
-                        <property name="can_focus">True</property>
-                        <property name="hscrollbar_policy">never</property>
-                        <property name="vscrollbar_policy">never</property>
-                        <property name="shadow_type">in</property>
+                        <property name="can_focus">False</property>
+                        <property name="orientation">vertical</property>
+                        <property name="spacing">6</property>
                         <child>
-                          <object class="GtkViewport" id="viewport2">
+                          <object class="GtkLabel" id="label2">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
+                            <property name="halign">start</property>
+                            <property name="label" translatable="yes">ADD-ONS</property>
+                            <attributes>
+                              <attribute name="weight" value="bold"/>
+                            </attributes>
+                          </object>
+                          <packing>
+                            <property name="expand">False</property>
+                            <property name="fill">True</property>
+                            <property name="position">0</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkScrolledWindow" id="addonScrolledWindow">
+                            <property name="visible">True</property>
+                            <property name="can_focus">True</property>
+                            <property name="hscrollbar_policy">never</property>
+                            <property name="shadow_type">in</property>
                             <child>
-                              <object class="GtkTreeView" id="desktopView">
+                              <object class="GtkViewport" id="viewport1">
                                 <property name="visible">True</property>
-                                <property name="can_focus">True</property>
-                                <property name="model">desktopStore</property>
-                                <property name="headers_visible">False</property>
+                                <property name="can_focus">False</property>
                                 <child>
-                                  <object class="GtkTreeViewColumn" id="desktopDescCol">
-                                    <property name="title" translatable="yes">column</property>
+                                  <object class="GtkTreeView" id="addonView">
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">True</property>
+                                    <property name="model">addonStore</property>
+                                    <property name="headers_visible">False</property>
+                                    <property name="headers_clickable">False</property>
+                                    <property name="search_column">0</property>
+                                    <child internal-child="selection">
+                                      <object class="GtkTreeSelection" id="treeview-selection"/>
+                                    </child>
                                     <child>
-                                      <object class="GtkCellRendererText" id="desktopDescRenderer"/>
-                                      <attributes>
-                                        <attribute name="markup">1</attribute>
-                                      </attributes>
+                                      <object class="GtkTreeViewColumn" id="addonSelectedCol">
+                                        <property name="title" translatable="yes">column</property>
+                                        <signal name="clicked" handler="on_row_toggled" swapped="no"/>
+                                        <child>
+                                          <object class="GtkCellRendererToggle" id="addonSelectedRenderer">
+                                            <property name="yalign">0</property>
+                                            <signal name="toggled" handler="on_row_toggled" swapped="no"/>
+                                          </object>
+                                          <attributes>
+                                            <attribute name="active">0</attribute>
+                                          </attributes>
+                                        </child>
+                                      </object>
+                                    </child>
+                                    <child>
+                                      <object class="GtkTreeViewColumn" id="addonDescCol">
+                                        <property name="title" translatable="yes">column</property>
+                                        <child>
+                                          <object class="GtkCellRendererText" id="addonDescRenderer"/>
+                                          <attributes>
+                                            <attribute name="markup">1</attribute>
+                                          </attributes>
+                                        </child>
+                                      </object>
                                     </child>
                                   </object>
                                 </child>
                               </object>
                             </child>
                           </object>
+                          <packing>
+                            <property name="expand">True</property>
+                            <property name="fill">True</property>
+                            <property name="position">1</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkButton" id="addAddonButton">
+                            <property name="label" translatable="yes">_Add custom add-on...</property>
+                            <property name="use_action_appearance">False</property>
+                            <property name="visible">True</property>
+                            <property name="can_focus">True</property>
+                            <property name="receives_default">True</property>
+                            <property name="halign">end</property>
+                            <property name="use_action_appearance">False</property>
+                            <property name="use_underline">True</property>
+                            <signal name="clicked" handler="on_custom_clicked" swapped="no"/>
+                          </object>
+                          <packing>
+                            <property name="expand">False</property>
+                            <property name="fill">True</property>
+                            <property name="position">2</property>
+                          </packing>
                         </child>
                       </object>
                       <packing>
@@ -114,110 +240,6 @@
                     <property name="expand">False</property>
                     <property name="fill">True</property>
                     <property name="position">0</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkBox" id="addonsBox">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="orientation">vertical</property>
-                    <property name="spacing">6</property>
-                    <child>
-                      <object class="GtkLabel" id="label2">
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="halign">start</property>
-                        <property name="label" translatable="yes">ADD-ONS</property>
-                        <attributes>
-                          <attribute name="weight" value="bold"/>
-                        </attributes>
-                      </object>
-                      <packing>
-                        <property name="expand">False</property>
-                        <property name="fill">True</property>
-                        <property name="position">0</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkScrolledWindow" id="addonScrolledWindow">
-                        <property name="visible">True</property>
-                        <property name="can_focus">True</property>
-                        <property name="hscrollbar_policy">never</property>
-                        <property name="shadow_type">in</property>
-                        <child>
-                          <object class="GtkViewport" id="viewport1">
-                            <property name="visible">True</property>
-                            <property name="can_focus">False</property>
-                            <child>
-                              <object class="GtkTreeView" id="addonView">
-                                <property name="visible">True</property>
-                                <property name="can_focus">True</property>
-                                <property name="model">addonStore</property>
-                                <property name="headers_visible">False</property>
-                                <property name="headers_clickable">False</property>
-                                <child internal-child="selection">
-                                  <object class="GtkTreeSelection" id="addonSelection"/>
-                                </child>
-                                <child>
-                                  <object class="GtkTreeViewColumn" id="addonSelectedCol">
-                                    <property name="title" translatable="yes">column</property>
-                                    <signal name="clicked" handler="on_row_toggled" swapped="no"/>
-                                    <child>
-                                      <object class="GtkCellRendererToggle" id="addonSelectedRenderer">
-                                        <property name="yalign">0</property>
-                                        <signal name="toggled" handler="on_row_toggled" swapped="no"/>
-                                      </object>
-                                      <attributes>
-                                        <attribute name="active">0</attribute>
-                                      </attributes>
-                                    </child>
-                                  </object>
-                                </child>
-                                <child>
-                                  <object class="GtkTreeViewColumn" id="addonDescCol">
-                                    <property name="title" translatable="yes">column</property>
-                                    <child>
-                                      <object class="GtkCellRendererText" id="addonDescRenderer"/>
-                                      <attributes>
-                                        <attribute name="markup">1</attribute>
-                                      </attributes>
-                                    </child>
-                                  </object>
-                                </child>
-                              </object>
-                            </child>
-                          </object>
-                        </child>
-                      </object>
-                      <packing>
-                        <property name="expand">True</property>
-                        <property name="fill">True</property>
-                        <property name="position">1</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkButton" id="addAddonButton">
-                        <property name="label" translatable="yes">_Add custom add-on...</property>
-                        <property name="use_action_appearance">False</property>
-                        <property name="visible">True</property>
-                        <property name="can_focus">True</property>
-                        <property name="receives_default">True</property>
-                        <property name="halign">end</property>
-                        <property name="use_action_appearance">False</property>
-                        <property name="use_underline">True</property>
-                        <signal name="clicked" handler="on_custom_clicked" swapped="no"/>
-                      </object>
-                      <packing>
-                        <property name="expand">False</property>
-                        <property name="fill">True</property>
-                        <property name="position">2</property>
-                      </packing>
-                    </child>
-                  </object>
-                  <packing>
-                    <property name="expand">False</property>
-                    <property name="fill">True</property>
-                    <property name="position">1</property>
                   </packing>
                 </child>
               </object>

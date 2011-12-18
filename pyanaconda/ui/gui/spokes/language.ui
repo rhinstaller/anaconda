@@ -23,6 +23,7 @@
             <child>
               <object class="GtkButton" id="cancelButton">
                 <property name="label">gtk-cancel</property>
+                <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
@@ -39,6 +40,7 @@
             <child>
               <object class="GtkButton" id="confirmAddButton">
                 <property name="label">gtk-add</property>
+                <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
@@ -162,26 +164,28 @@
     <property name="startup_id">filler</property>
     <property name="mnemonics_visible">False</property>
     <property name="focus_visible">False</property>
-    <property name="distribution">DISTRIBUTION INSTALLATION</property>
     <property name="window_name">KEYBOARD LAYOUT</property>
     <signal name="back-clicked" handler="on_back_clicked" swapped="no"/>
-    <child internal-child="action_area">
-      <object class="GtkBox" id="languageWindow-actionArea">
+    <child internal-child="main_box">
+      <object class="GtkBox" id="AnacondaSpokeWindow-main_box1">
         <property name="can_focus">False</property>
         <property name="orientation">vertical</property>
-        <property name="spacing">6</property>
-        <child>
-          <object class="GtkAlignment" id="alignment1">
-            <property name="visible">True</property>
+        <child internal-child="nav_area">
+          <object class="GtkGrid" id="AnacondaSpokeWindow-nav_area1">
             <property name="can_focus">False</property>
-            <property name="yalign">0</property>
-            <property name="xscale">0</property>
-            <property name="yscale">0.5</property>
-            <child>
-              <object class="GtkBox" id="box1">
-                <property name="visible">True</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">False</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+        <child internal-child="alignment">
+          <object class="GtkAlignment" id="AnacondaSpokeWindow-alignment1">
+            <property name="can_focus">False</property>
+            <child internal-child="action_area">
+              <object class="GtkBox" id="languageWindow-actionArea">
                 <property name="can_focus">False</property>
-                <property name="margin_top">12</property>
                 <property name="orientation">vertical</property>
                 <property name="spacing">6</property>
                 <child>
@@ -222,16 +226,15 @@ any layout to the top of the list to select it as the default.</property>
                                 <property name="can_focus">True</property>
                                 <property name="model">addedLayoutStore</property>
                                 <property name="headers_visible">False</property>
-                                <property name="headers_clickable">False</property>
+                                <property name="search_column">0</property>
                                 <child internal-child="selection">
-                                  <object class="GtkTreeSelection" id="layoutSelection">
-                                    <signal name="changed" handler="layout_selection_changed" swapped="no"/>
-                                  </object>
+                                  <object class="GtkTreeSelection" id="treeview-selection"/>
                                 </child>
                                 <child>
                                   <object class="GtkTreeViewColumn" id="name">
                                     <property name="title" translatable="yes">name</property>
                                     <property name="expand">True</property>
+                                    <property name="clickable">True</property>
                                     <property name="sort_column_id">0</property>
                                     <child>
                                       <object class="GtkCellRendererText" id="nameRenderer"/>
@@ -258,6 +261,7 @@ any layout to the top of the list to select it as the default.</property>
                             <property name="layout_style">start</property>
                             <child>
                               <object class="GtkButton" id="addLayoutButton">
+                                <property name="use_action_appearance">False</property>
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
                                 <property name="receives_default">True</property>
@@ -273,6 +277,7 @@ any layout to the top of the list to select it as the default.</property>
                             </child>
                             <child>
                               <object class="GtkButton" id="removeLayoutButton">
+                                <property name="use_action_appearance">False</property>
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
                                 <property name="receives_default">True</property>
@@ -288,6 +293,7 @@ any layout to the top of the list to select it as the default.</property>
                             </child>
                             <child>
                               <object class="GtkButton" id="upButton">
+                                <property name="use_action_appearance">False</property>
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
                                 <property name="receives_default">True</property>
@@ -303,6 +309,7 @@ any layout to the top of the list to select it as the default.</property>
                             </child>
                             <child>
                               <object class="GtkButton" id="downButton">
+                                <property name="use_action_appearance">False</property>
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
                                 <property name="receives_default">True</property>
@@ -318,6 +325,7 @@ any layout to the top of the list to select it as the default.</property>
                             </child>
                             <child>
                               <object class="GtkButton" id="settingsButton">
+                                <property name="use_action_appearance">False</property>
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
                                 <property name="receives_default">True</property>
@@ -369,6 +377,7 @@ any layout to the top of the list to select it as the default.</property>
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="invisible_char">●</property>
+                            <property name="invisible_char_set">True</property>
                           </object>
                           <packing>
                             <property name="expand">False</property>
@@ -395,6 +404,7 @@ any layout to the top of the list to select it as the default.</property>
                         <child>
                           <object class="GtkButton" id="optionsButton">
                             <property name="label" translatable="yes">_Options...</property>
+                            <property name="use_action_appearance">False</property>
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="receives_default">True</property>

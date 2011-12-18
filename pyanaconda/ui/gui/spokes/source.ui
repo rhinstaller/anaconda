@@ -222,24 +222,26 @@
     <property name="startup_id">filler</property>
     <property name="window_name">INSTALL SOURCE</property>
     <signal name="back-clicked" handler="on_back_clicked" swapped="no"/>
-    <child internal-child="action_area">
-      <object class="GtkBox" id="sourceWindow-actionArea">
+    <child internal-child="main_box">
+      <object class="GtkBox" id="AnacondaSpokeWindow-main_box1">
         <property name="can_focus">False</property>
         <property name="orientation">vertical</property>
-        <property name="spacing">6</property>
-        <child>
-          <object class="GtkAlignment" id="alignment1">
-            <property name="visible">True</property>
+        <child internal-child="nav_area">
+          <object class="GtkGrid" id="AnacondaSpokeWindow-nav_area1">
             <property name="can_focus">False</property>
-            <property name="yalign">0</property>
-            <property name="xscale">0</property>
-            <property name="yscale">0.5</property>
-            <child>
-              <object class="GtkBox" id="box1">
-                <property name="visible">True</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">False</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+        <child internal-child="alignment">
+          <object class="GtkAlignment" id="AnacondaSpokeWindow-alignment1">
+            <property name="can_focus">False</property>
+            <child internal-child="action_area">
+              <object class="GtkBox" id="sourceWindow-actionArea">
                 <property name="can_focus">False</property>
-                <property name="margin_top">12</property>
-                <property name="vexpand">True</property>
                 <property name="orientation">vertical</property>
                 <property name="spacing">6</property>
                 <child>
@@ -269,7 +271,6 @@
                     <property name="use_action_appearance">False</property>
                     <property name="use_underline">True</property>
                     <property name="xalign">0</property>
-                    <property name="active">True</property>
                     <property name="draw_indicator">True</property>
                     <property name="group">isoRadioButton</property>
                   </object>
@@ -451,7 +452,6 @@
                     <property name="xalign">0</property>
                     <property name="active">True</property>
                     <property name="draw_indicator">True</property>
-                    <property name="group">isoRadioButton</property>
                   </object>
                   <packing>
                     <property name="expand">False</property>

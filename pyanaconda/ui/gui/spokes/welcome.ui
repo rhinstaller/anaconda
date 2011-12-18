@@ -18,6 +18,7 @@
             <child>
               <object class="GtkButton" id="quitButton">
                 <property name="label" translatable="yes">_Get me out of here!</property>
+                <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
@@ -33,6 +34,7 @@
             <child>
               <object class="GtkButton" id="continueButton">
                 <property name="label" translatable="yes">_I accept my fate.</property>
+                <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
@@ -59,11 +61,6 @@
             <property name="can_focus">False</property>
             <property name="row_spacing">12</property>
             <property name="column_spacing">6</property>
-            <property name="n_rows">2</property>
-            <property name="n_columns">2</property>
-            <child>
-              <placeholder/>
-            </child>
             <child>
               <object class="GtkLabel" id="label1">
                 <property name="visible">True</property>
@@ -126,10 +123,6 @@ OS you can rely on.  It's for testing purposes only.</property>
       <action-widget response="1">continueButton</action-widget>
     </action-widgets>
   </object>
-  <object class="GtkEntryCompletion" id="languageEntryCompletion">
-    <property name="model">languageStore</property>
-    <property name="inline_completion">True</property>
-  </object>
   <object class="GtkListStore" id="languageStore">
     <columns>
       <!-- column-name nativeName -->
@@ -140,6 +133,10 @@ OS you can rely on.  It's for testing purposes only.</property>
       <column type="gchararray"/>
     </columns>
   </object>
+  <object class="GtkEntryCompletion" id="languageEntryCompletion">
+    <property name="model">languageStore</property>
+    <property name="inline_completion">True</property>
+  </object>
   <object class="AnacondaStandaloneWindow" id="welcomeWindow">
     <property name="startup_id">filler</property>
     <property name="can_focus">False</property>
@@ -147,21 +144,26 @@ OS you can rely on.  It's for testing purposes only.</property>
     <property name="startup_id">filler</property>
     <property name="mnemonics_visible">False</property>
     <property name="focus_visible">False</property>
-    <property name="distribution">DISTRIBUTION INSTALLATION</property>
     <property name="window_name"></property>
-    <child internal-child="action_area">
-      <object class="GtkBox" id="welcomeWindow-actionArea">
+    <child internal-child="main_box">
+      <object class="GtkBox" id="AnacondaStandaloneWindow-main_box1">
         <property name="can_focus">False</property>
         <property name="orientation">vertical</property>
-        <property name="spacing">6</property>
-        <child>
-          <object class="GtkAlignment" id="alignment1">
-            <property name="visible">True</property>
+        <child internal-child="nav_area">
+          <object class="GtkGrid" id="AnacondaStandaloneWindow-nav_area1">
             <property name="can_focus">False</property>
-            <property name="xscale">0</property>
-            <child>
-              <object class="GtkBox" id="box1">
-                <property name="visible">True</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">False</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+        <child internal-child="alignment">
+          <object class="GtkAlignment" id="AnacondaStandaloneWindow-alignment1">
+            <property name="can_focus">False</property>
+            <child internal-child="action_area">
+              <object class="GtkBox" id="welcomeWindow-actionArea">
                 <property name="can_focus">False</property>
                 <property name="orientation">vertical</property>
                 <property name="spacing">6</property>
@@ -200,6 +202,7 @@ OS you can rely on.  It's for testing purposes only.</property>
                   <object class="GtkEntry" id="languageEntry">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <property name="invisible_char">●</property>
                     <property name="invisible_char_set">True</property>
                     <property name="secondary_icon_name">edit-clear-symbolic</property>
                     <property name="completion">languageEntryCompletion</property>
@@ -223,17 +226,15 @@ OS you can rely on.  It's for testing purposes only.</property>
                         <property name="can_focus">True</property>
                         <property name="model">languageStore</property>
                         <property name="headers_visible">False</property>
-                        <property name="headers_clickable">False</property>
                         <property name="search_column">0</property>
                         <child internal-child="selection">
-                          <object class="GtkTreeSelection" id="languageViewSelection">
-                            <signal name="changed" handler="on_selection_changed" swapped="no"/>
-                          </object>
+                          <object class="GtkTreeSelection" id="treeview-selection"/>
                         </child>
                         <child>
                           <object class="GtkTreeViewColumn" id="nativeName">
                             <property name="title" translatable="yes">nativeName</property>
                             <property name="expand">True</property>
+                            <property name="clickable">True</property>
                             <property name="sort_column_id">0</property>
                             <child>
                               <object class="GtkCellRendererText" id="nativeNameRenderer">
@@ -249,6 +250,7 @@ OS you can rely on.  It's for testing purposes only.</property>
                           <object class="GtkTreeViewColumn" id="englishName">
                             <property name="title" translatable="yes">englishName</property>
                             <property name="expand">True</property>
+                            <property name="clickable">True</property>
                             <property name="sort_column_id">1</property>
                             <child>
                               <object class="GtkCellRendererText" id="englishNameRenderer">
@@ -276,7 +278,7 @@ OS you can rely on.  It's for testing purposes only.</property>
           <packing>
             <property name="expand">True</property>
             <property name="fill">True</property>
-            <property name="position">2</property>
+            <property name="position">1</property>
           </packing>
         </child>
       </object>

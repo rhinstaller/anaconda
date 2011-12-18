@@ -10,18 +10,44 @@
     <property name="mnemonics_visible">False</property>
     <property name="focus_visible">False</property>
     <property name="window_name">INSTALL SUMMARY</property>
-    <child internal-child="action_area">
-      <object class="GtkBox" id="summaryWindow-actionArea">
+    <child internal-child="main_box">
+      <object class="GtkBox" id="AnacondaHubWindow-main_box1">
         <property name="can_focus">False</property>
         <property name="orientation">vertical</property>
-        <property name="spacing">6</property>
-        <child internal-child="scrolled_window">
-          <object class="GtkScrolledWindow" id="summaryWindow-scroll">
-            <property name="can_focus">True</property>
-            <property name="is_focus">True</property>
-            <property name="hscrollbar_policy">never</property>
-            <child>
-              <placeholder/>
+        <child internal-child="nav_area">
+          <object class="GtkGrid" id="AnacondaHubWindow-nav_area1">
+            <property name="can_focus">False</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">False</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+        <child internal-child="alignment">
+          <object class="GtkAlignment" id="AnacondaHubWindow-alignment1">
+            <property name="can_focus">False</property>
+            <child internal-child="action_area">
+              <object class="GtkBox" id="summaryWindow-actionArea">
+                <property name="can_focus">False</property>
+                <property name="orientation">vertical</property>
+                <property name="spacing">6</property>
+                <child internal-child="scrolled_window">
+                  <object class="GtkScrolledWindow" id="summaryWindow-scroll">
+                    <property name="can_focus">True</property>
+                    <property name="is_focus">True</property>
+                    <property name="hscrollbar_policy">never</property>
+                    <child>
+                      <placeholder/>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="expand">True</property>
+                    <property name="fill">True</property>
+                    <property name="position">1</property>
+                  </packing>
+                </child>
+              </object>
             </child>
           </object>
           <packing>
