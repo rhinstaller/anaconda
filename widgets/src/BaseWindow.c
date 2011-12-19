@@ -77,8 +77,8 @@ enum {
 #define DEFAULT_WINDOW_NAME   "SPOKE NAME"
 
 struct _AnacondaBaseWindowPrivate {
-    gboolean    is_beta;
-    GtkWidget  *main_box;
+    gboolean    is_beta, info_shown;
+    GtkWidget  *main_box, *info_bar;
     GtkWidget  *alignment;
     GtkWidget  *nav_area, *action_area;
     GtkWidget  *name_label, *distro_label, *beta_label;
@@ -153,6 +153,7 @@ static void anaconda_base_window_init(AnacondaBaseWindow *win) {
                                             AnacondaBaseWindowPrivate);
 
     win->priv->is_beta = FALSE;
+    win->priv->info_shown = FALSE;
 
     /* Set properties on the parent (Gtk.Window) class. */
     gtk_window_set_decorated(GTK_WINDOW(win), FALSE);
@@ -340,6 +341,64 @@ GtkWidget *anaconda_base_window_get_main_box(AnacondaBaseWindow *win) {
  */
 GtkWidget *anaconda_base_window_get_alignment(AnacondaBaseWindow *win) {
     return win->priv->alignment;
+}
+
+/**
+ * anaconda_base_window_set_info:
+ * @win: a #AnacondaBaseWindow
+ * @ty: a #GtkMessageType
+ * @msg: a message
+ *
+ * Causes an info bar to be shown at the bottom of the screen with the provided
+ * message.  The type argument is used to determine the background color of the
+ * info bar area.  Only one message may be shown at a time.  In order to show
+ * a second message, anaconda_base_window_clear_info must first be called.
+ *
+ * Since: 1.0
+ */
+void anaconda_base_window_set_info(AnacondaBaseWindow *win, GtkMessageType ty, const char *msg) {
+    GtkWidget *label, *image, *content_area;
+
+    if (win->priv->info_shown)
+        return;
+
+    label = gtk_label_new(msg);
+    gtk_widget_show(label);
+
+    win->priv->info_bar = gtk_info_bar_new();
+    gtk_widget_set_no_show_all(win->priv->info_bar, TRUE);
+    gtk_box_pack_end(GTK_BOX(win->priv->main_box), win->priv->info_bar, FALSE, FALSE, 0);
+
+    content_area = gtk_info_bar_get_content_area(GTK_INFO_BAR(win->priv->info_bar));
+
+    image = gtk_image_new_from_stock(GTK_STOCK_DIALOG_WARNING, GTK_ICON_SIZE_MENU);
+    gtk_widget_show(image);
+    gtk_container_add(GTK_CONTAINER(content_area), image);
+
+    gtk_container_add(GTK_CONTAINER(content_area), label);
+    gtk_info_bar_set_message_type(GTK_INFO_BAR(win->priv->info_bar), ty);
+    gtk_widget_show(win->priv->info_bar);
+
+    win->priv->info_shown = TRUE;
+}
+
+/**
+ * anaconda_base_window_clear_info:
+ * @win: a #AnacondaBaseWindow
+ *
+ * Clear and hide any info bar being shown at the bottom of the screen.  This
+ * must be called before a second call to anaconda_base_window_set_info takes
+ * effect.
+ *
+ * Since: 1.0
+ */
+void anaconda_base_window_clear_info(AnacondaBaseWindow *win) {
+    if (!win->priv->info_shown)
+        return;
+
+    gtk_widget_hide(win->priv->info_bar);
+    gtk_widget_destroy(win->priv->info_bar);
+    win->priv->info_shown = FALSE;
 }
 
 static GtkBuildableIface *parent_buildable_iface;

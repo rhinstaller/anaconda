@@ -146,6 +146,8 @@ class Hub(UIObject):
         spokeArea.add_with_viewport(box)
 
     def _handleCompleteness(self, spoke):
+        from gi.repository import Gtk
+
         # Add the spoke to the incomplete list if it's now incomplete, and make
         # sure it's not on the list if it's now complete.  Then show the box if
         # it's needed and hide it if it's not.
@@ -157,17 +159,12 @@ class Hub(UIObject):
                 self._incompleteSpokes.append(spoke)
 
         if len(self._incompleteSpokes) == 0:
-            self._completeBox.set_visible(False)
+            self.window.clear_info()
         else:
-            self._completeBox.set_visible(True)
+            self.window.set_info(Gtk.MessageType.WARNING, "Please complete items marked with this icon first.")
 
     def setup(self):
         UIObject.setup(self)
-
-        # We need a handle on this object so we can hide it when every spoke
-        # is complete.
-        self._completeBox = self.builder.get_object("continueWarningBox")
-
         self._createBox()
 
     ### SIGNAL HANDLERS

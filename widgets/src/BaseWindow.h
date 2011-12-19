@@ -61,12 +61,17 @@ struct _AnacondaBaseWindowClass {
 
 GType       anaconda_base_window_get_type (void);
 GtkWidget  *anaconda_base_window_new      ();
+
 gboolean    anaconda_base_window_get_beta (AnacondaBaseWindow *win);
 void        anaconda_base_window_set_beta (AnacondaBaseWindow *win, gboolean is_beta);
-GtkWidget  *anaconda_base_window_get_action_area(AnacondaBaseWindow *win);
-GtkWidget  *anaconda_base_window_get_alignment(AnacondaBaseWindow *win);
-GtkWidget  *anaconda_base_window_get_main_box(AnacondaBaseWindow *win);
-GtkWidget  *anaconda_base_window_get_nav_area(AnacondaBaseWindow *win);
+
+void        anaconda_base_window_set_info    (AnacondaBaseWindow *win, GtkMessageType ty, const char *msg);
+void        anaconda_base_window_clear_info  (AnacondaBaseWindow *win);
+
+GtkWidget  *anaconda_base_window_get_action_area   (AnacondaBaseWindow *win);
+GtkWidget  *anaconda_base_window_get_alignment     (AnacondaBaseWindow *win);
+GtkWidget  *anaconda_base_window_get_main_box      (AnacondaBaseWindow *win);
+GtkWidget  *anaconda_base_window_get_nav_area      (AnacondaBaseWindow *win);
 
 G_END_DECLS
 
