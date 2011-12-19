@@ -158,14 +158,13 @@ static void anaconda_base_window_init(AnacondaBaseWindow *win) {
     /* Set properties on the parent (Gtk.Window) class. */
     gtk_window_set_decorated(GTK_WINDOW(win), FALSE);
     gtk_window_maximize(GTK_WINDOW(win));
-    gtk_container_set_border_width(GTK_CONTAINER(win), 6);
+    gtk_container_set_border_width(GTK_CONTAINER(win), 0);
 
     /* First, construct a top-level box that everything will go in.  Remember
      * a Window can only hold one widget, and we may very well need to add
      * more things later.
      */
     win->priv->main_box = gtk_box_new(GTK_ORIENTATION_VERTICAL, 6);
-    gtk_box_set_spacing(GTK_BOX(win->priv->main_box), 6);
     gtk_container_add(GTK_CONTAINER(win), win->priv->main_box);
 
     /* Then the navigation area that sits as the first item in the main box
@@ -174,6 +173,9 @@ static void anaconda_base_window_init(AnacondaBaseWindow *win) {
     win->priv->nav_area = gtk_grid_new();
     gtk_grid_set_row_homogeneous(GTK_GRID(win->priv->nav_area), FALSE);
     gtk_grid_set_column_homogeneous(GTK_GRID(win->priv->nav_area), FALSE);
+    gtk_widget_set_margin_left(win->priv->nav_area, 6);
+    gtk_widget_set_margin_right(win->priv->nav_area, 6);
+    gtk_widget_set_margin_top(win->priv->nav_area, 6);
     gtk_box_pack_start(GTK_BOX(win->priv->main_box), win->priv->nav_area, FALSE, FALSE, 0);
 
     /* Second in the main box is an alignment, because we want to be able
@@ -187,7 +189,6 @@ static void anaconda_base_window_init(AnacondaBaseWindow *win) {
      * place for content to go.
      */
     win->priv->action_area = gtk_box_new(GTK_ORIENTATION_VERTICAL, 6);
-    gtk_box_set_spacing(GTK_BOX(win->priv->action_area), 6);
     gtk_container_add(GTK_CONTAINER(win->priv->alignment), win->priv->action_area);
 
     /* And now we can finally create the widgets that go in all those layout

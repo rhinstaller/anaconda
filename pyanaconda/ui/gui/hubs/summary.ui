@@ -5,7 +5,6 @@
   <object class="AnacondaHubWindow" id="summaryWindow">
     <property name="startup_id">filler</property>
     <property name="can_focus">False</property>
-    <property name="border_width">6</property>
     <property name="startup_id">filler</property>
     <property name="mnemonics_visible">False</property>
     <property name="focus_visible">False</property>
@@ -30,6 +29,9 @@
         <child internal-child="alignment">
           <object class="GtkAlignment" id="AnacondaHubWindow-alignment1">
             <property name="can_focus">False</property>
+            <property name="yalign">0</property>
+            <property name="xscale">0.5</property>
+            <property name="yscale">0.5</property>
             <child internal-child="action_area">
               <object class="GtkBox" id="summaryWindow-actionArea">
                 <property name="can_focus">False</property>
@@ -63,6 +65,9 @@
           <object class="GtkButtonBox" id="buttonbox1">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
+            <property name="margin_left">6</property>
+            <property name="margin_right">6</property>
+            <property name="margin_bottom">6</property>
             <child>
               <object class="GtkButton" id="quitButton">
                 <property name="label" translatable="yes">_QUIT</property>
