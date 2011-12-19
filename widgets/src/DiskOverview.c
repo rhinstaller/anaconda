@@ -286,7 +286,7 @@ static void anaconda_disk_overview_set_property(GObject *object, guint prop_id, 
             break;
 
         case PROP_CAPACITY: {
-            char *markup = g_markup_printf_escaped("<span size='large'>%s</span>", DEFAULT_CAPACITY);
+            char *markup = g_markup_printf_escaped("<span size='large'>%s</span>", g_value_get_string(value));
             gtk_label_set_markup(GTK_LABEL(priv->capacity_label), markup);
             g_free(markup);
             break;
