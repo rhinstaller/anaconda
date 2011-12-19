@@ -180,7 +180,7 @@ static void anaconda_base_window_init(AnacondaBaseWindow *win) {
      * to control the amount of space the Window's content takes up on the
      * screen.
      */
-    win->priv->alignment = gtk_alignment_new(0.5, 0.0, 0.5, 0.5);
+    win->priv->alignment = gtk_alignment_new(0.5, 0.0, 0.0, 0.5);
     gtk_box_pack_start(GTK_BOX(win->priv->main_box), win->priv->alignment, TRUE, TRUE, 0);
 
     /* The action_area goes inside the alignment and represents the main

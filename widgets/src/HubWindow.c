@@ -111,6 +111,10 @@ static void anaconda_hub_window_init(AnacondaHubWindow *win) {
     gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(win->priv->scrolled_window),
                                    GTK_POLICY_NEVER, GTK_POLICY_AUTOMATIC);
     gtk_box_pack_start(GTK_BOX(action_area), win->priv->scrolled_window, TRUE, TRUE, 0);
+
+    /* The hub has different alignment requirements than a spoke. */
+    gtk_alignment_set(GTK_ALIGNMENT(anaconda_base_window_get_alignment(ANACONDA_BASE_WINDOW(win))),
+                      0.5, 0.0, 0.5, 0.5);
 }
 
 /**
