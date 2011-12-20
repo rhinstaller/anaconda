@@ -455,10 +455,34 @@ class YumSorter(yum.YumBase):
                 dep = self.deps.get(req, None)
                 if dep is None:
                     dep = self._provideToPkg(req)
-                    if dep is None:
-                        log.warning("Unresolvable dependency %s in %s"
-                                    %(req[0], txmbr.name))
-                        continue
+
+                if dep is None:
+                    log.warning("Unresolvable dependency %s in %s"
+                                %(req[0], txmbr.name))
+                    continue
+
+                # XXX: ATTENTION the self.anaconda is in the AnacondaYum class,
+                # which subclasses this class and inherits this method and is actually used;
+                # very ugly, but I don't want to move the whole method...
+                if (self.anaconda.isKickstart and
+                        'conflicts' in map(str.lower, self.anaconda.id.ksdata.excludedGroupList)):
+
+                    # get the list of packages in @conflicts group for the first time,
+                    # so we can check if the dependencies are there later
+                    if not hasattr(self, '__conflicting_packages'):
+                        self.__conflicting_packages = []
+                        conflicts = self.comps.return_groups('conflicts')
+                        for group in conflicts:
+                            for pkgname in group.packages:
+                                self.__conflicting_packages.append(pkgname)
+
+                    # if the dependency is in the @conflicts group, don't add it
+                    # to the transaction, and also remove the corresponding package
+                    if dep.name in self.__conflicting_packages:
+                        log.warning('Dependency %s for %s in conflicts group' % (dep.name, txmbr.name))
+                        self.__conflicting_packages.append(txmbr.name)
+                        self.tsInfo.remove(txmbr.po.pkgtup)
+                        break
 
                 # Skip filebased requires on self, etc
                 if txmbr.name == dep.name:
@@ -696,6 +720,7 @@ class AnacondaYum(YumSorter):
         if id.getUpgrade():
             self.ts.ts.setProbFilter(~rpm.RPMPROB_FILTER_DISKSPACE)
         self.setColor()
+
         if not self.method.splitmethod:
             self.populateTs(keepold=0)
             self.ts.check()
