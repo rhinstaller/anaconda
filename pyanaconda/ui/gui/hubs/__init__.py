@@ -121,6 +121,7 @@ class Hub(UIObject):
                 selector.set_incomplete(not spoke.completed)
                 self._handleCompleteness(spoke)
                 selector.connect("button-press-event", self._on_spoke_clicked)
+                selector.connect("key-release-event", self._on_spoke_clicked)
 
                 selectors.append(selector)
 
@@ -176,7 +177,18 @@ class Hub(UIObject):
             self.quitButton.connect("clicked", lambda *args: cb())
 
     def _on_spoke_clicked(self, selector, event):
+        from gi.repository import Gdk
+
         spoke = selector.spoke
+
+        # This handler only runs for these two kinds of events, and only for
+        # activate-type keys (space, enter) in the latter event's case.
+        if not event.type in [Gdk.EventType.BUTTON_RELEASE, Gdk.EventType.KEY_RELEASE]:
+            return
+
+        if event.type == Gdk.EventType.KEY_RELEASE and \
+           event.keyval not in [Gdk.KEY_space, Gdk.KEY_Return, Gdk.KEY_ISO_Enter, Gdk.KEY_KP_Enter, Gdk.KEY_KP_Space]:
+              return
 
         self._runSpoke(spoke)
 

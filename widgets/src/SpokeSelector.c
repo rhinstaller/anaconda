@@ -17,6 +17,9 @@
  * Author: Chris Lumens <clumens@redhat.com>
  */
 
+#include <gdk/gdk.h>
+#include <gdk/gdkkeysyms.h>
+
 #include "SpokeSelector.h"
 #include "intl.h"
 
@@ -62,6 +65,9 @@ G_DEFINE_TYPE(AnacondaSpokeSelector, anaconda_spoke_selector, GTK_TYPE_EVENT_BOX
 
 static void anaconda_spoke_selector_get_property(GObject *object, guint prop_id, GValue *value, GParamSpec *pspec);
 static void anaconda_spoke_selector_set_property(GObject *object, guint prop_id, const GValue *value, GParamSpec *pspec);
+
+static gboolean anaconda_spoke_selector_key_released(GtkWidget *widget, GdkEventKey *event, gpointer user_data);
+static gboolean anaconda_spoke_selector_focus_changed(GtkWidget *widget, GdkEventFocus *event, gpointer user_data);
 
 static void anaconda_spoke_selector_class_init(AnacondaSpokeSelectorClass *klass) {
     GObjectClass *object_class = G_OBJECT_CLASS(klass);
@@ -143,6 +149,14 @@ static void anaconda_spoke_selector_init(AnacondaSpokeSelector *spoke) {
     spoke->priv = G_TYPE_INSTANCE_GET_PRIVATE(spoke,
                                               ANACONDA_TYPE_SPOKE_SELECTOR,
                                               AnacondaSpokeSelectorPrivate);
+
+    /* Allow tabbing from one SpokeSelector to the next, and make sure it's
+     * selectable with the keyboard.
+     */
+    gtk_widget_set_can_focus(GTK_WIDGET(spoke), TRUE);
+    gtk_widget_add_events(GTK_WIDGET(spoke), GDK_FOCUS_CHANGE_MASK|GDK_KEY_RELEASE_MASK);
+    g_signal_connect(spoke, "focus-in-event", G_CALLBACK(anaconda_spoke_selector_focus_changed), NULL);
+    g_signal_connect(spoke, "focus-out-event", G_CALLBACK(anaconda_spoke_selector_focus_changed), NULL);
 
     /* Set property defaults. */
     spoke->priv->is_incomplete = FALSE;
@@ -253,4 +267,29 @@ gboolean anaconda_spoke_selector_get_incomplete(AnacondaSpokeSelector *spoke) {
 void anaconda_spoke_selector_set_incomplete(AnacondaSpokeSelector *spoke, gboolean is_incomplete) {
     spoke->priv->is_incomplete = is_incomplete;
     gtk_widget_set_visible(GTK_WIDGET(spoke->priv->incomplete_icon), is_incomplete);
+}
+
+static gboolean anaconda_spoke_selector_key_released(GtkWidget *widget, GdkEventKey *event, gpointer user_data) {
+    switch (event->keyval) {
+        case GDK_KEY_space:
+        case GDK_KEY_Return:
+        case GDK_KEY_ISO_Enter:
+        case GDK_KEY_KP_Enter:
+        case GDK_KEY_KP_Space:
+            g_signal_emit_by_name(widget, "button-press-event", NULL);
+            return TRUE;
+
+        default:
+            return TRUE;
+    }
+}
+
+static gboolean anaconda_spoke_selector_focus_changed(GtkWidget *widget, GdkEventFocus *event, gpointer user_data) {
+    GtkStateFlags new_state;
+
+    new_state = gtk_widget_get_state_flags(widget) & ~GTK_STATE_FOCUSED;
+    if (event->in)
+        new_state |= GTK_STATE_FOCUSED;
+    gtk_widget_set_state_flags(widget, new_state, TRUE);
+    return FALSE;
 }
