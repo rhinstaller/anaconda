@@ -1935,6 +1935,12 @@ class DeviceTree(object):
                  [d['name'] for d in self.topology.devices_iter()])
         old_devices = {}
         for dev in self.topology.devices_iter():
+            # avoid the problems caused by encountering multipath devices in
+            # this loop by simply skipping all dm devices here
+            if dev['name'].startswith("dm-"):
+                log.debug("Skipping a device mapper drive (%s) for now" % dev['name'])
+                continue
+
             old_devices[dev['name']] = dev
             self.addUdevDevice(dev)
             if progressWindow:
