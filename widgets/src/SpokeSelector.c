@@ -66,7 +66,6 @@ G_DEFINE_TYPE(AnacondaSpokeSelector, anaconda_spoke_selector, GTK_TYPE_EVENT_BOX
 static void anaconda_spoke_selector_get_property(GObject *object, guint prop_id, GValue *value, GParamSpec *pspec);
 static void anaconda_spoke_selector_set_property(GObject *object, guint prop_id, const GValue *value, GParamSpec *pspec);
 
-static gboolean anaconda_spoke_selector_key_released(GtkWidget *widget, GdkEventKey *event, gpointer user_data);
 static gboolean anaconda_spoke_selector_focus_changed(GtkWidget *widget, GdkEventFocus *event, gpointer user_data);
 
 static void anaconda_spoke_selector_class_init(AnacondaSpokeSelectorClass *klass) {
@@ -267,21 +266,6 @@ gboolean anaconda_spoke_selector_get_incomplete(AnacondaSpokeSelector *spoke) {
 void anaconda_spoke_selector_set_incomplete(AnacondaSpokeSelector *spoke, gboolean is_incomplete) {
     spoke->priv->is_incomplete = is_incomplete;
     gtk_widget_set_visible(GTK_WIDGET(spoke->priv->incomplete_icon), is_incomplete);
-}
-
-static gboolean anaconda_spoke_selector_key_released(GtkWidget *widget, GdkEventKey *event, gpointer user_data) {
-    switch (event->keyval) {
-        case GDK_KEY_space:
-        case GDK_KEY_Return:
-        case GDK_KEY_ISO_Enter:
-        case GDK_KEY_KP_Enter:
-        case GDK_KEY_KP_Space:
-            g_signal_emit_by_name(widget, "button-press-event", NULL);
-            return TRUE;
-
-        default:
-            return TRUE;
-    }
 }
 
 static gboolean anaconda_spoke_selector_focus_changed(GtkWidget *widget, GdkEventFocus *event, gpointer user_data) {
