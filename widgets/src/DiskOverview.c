@@ -68,6 +68,7 @@ G_DEFINE_TYPE(AnacondaDiskOverview, anaconda_disk_overview, GTK_TYPE_EVENT_BOX)
 gboolean anaconda_disk_overview_clicked(AnacondaDiskOverview *widget, GdkEvent *event);
 static void anaconda_disk_overview_get_property(GObject *object, guint prop_id, GValue *value, GParamSpec *pspec);
 static void anaconda_disk_overview_set_property(GObject *object, guint prop_id, const GValue *value, GParamSpec *pspec);
+static void anaconda_disk_overview_set_selected_flag(AnacondaDiskOverview *widget);
 
 static void anaconda_disk_overview_class_init(AnacondaDiskOverviewClass *klass) {
     GObjectClass *object_class = G_OBJECT_CLASS(klass);
@@ -221,6 +222,12 @@ static void anaconda_disk_overview_init(AnacondaDiskOverview *widget) {
 }
 
 gboolean anaconda_disk_overview_clicked(AnacondaDiskOverview *widget, GdkEvent *event) {
+    widget->priv->selected = !widget->priv->selected;
+    anaconda_disk_overview_set_selected_flag(widget);
+    return FALSE;
+}
+
+static void anaconda_disk_overview_set_selected_flag(AnacondaDiskOverview *widget) {
     GtkStateFlags new_state;
 
     /* This toggles whether the DiskOverview widget is selected or not.  If it's selected,
@@ -228,13 +235,10 @@ gboolean anaconda_disk_overview_clicked(AnacondaDiskOverview *widget, GdkEvent *
      * the theme CSS says.
      */
     new_state = gtk_widget_get_state_flags(GTK_WIDGET(widget)) & ~GTK_STATE_FLAG_SELECTED;
-    widget->priv->selected = !widget->priv->selected;
     if (widget->priv->selected)
         new_state |= GTK_STATE_FLAG_SELECTED;
 
     gtk_widget_set_state_flags(GTK_WIDGET(widget), new_state, TRUE);
-
-    return FALSE;
 }
 
 static void anaconda_disk_overview_get_property(GObject *object, guint prop_id, GValue *value, GParamSpec *pspec) {
@@ -340,8 +344,6 @@ gboolean anaconda_disk_overview_get_selected(AnacondaDiskOverview *widget) {
  * Since: 1.0
  */
 void anaconda_disk_overview_set_selected(AnacondaDiskOverview *widget, gboolean is_selected) {
-    gboolean result;
-
     widget->priv->selected = is_selected;
-    g_signal_emit_by_name(widget, "button-press-event", &result);
+    anaconda_disk_overview_set_selected_flag(widget);
 }
