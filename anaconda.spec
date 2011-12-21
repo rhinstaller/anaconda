@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.248
+Version: 11.1.2.249
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -128,6 +128,16 @@ fi
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Dec 21 2011 Martin Gracik <mgracik@redhat.com> 11.1.2.249-1
+- Don't add packages from @conflicts group as dependencies (mgracik)
+  Resolves: rhbz#756707
+- Do not create new iSCSI target when 'Esc' is hit (vpodzime)
+  Resolves: rhbz#768082
+- Do not add drive when 'Esc' is hit in the Advanced Storage Options dialog (vpodzime)
+  Related: rhbz#768082
+- Do nothing when 'Esc' is hit in partition dialog (vpodzime)
+  Resolves: rhbz#758106
+
 * Tue Nov 15 2011 Martin Gracik <mgracik@redhat.com> 11.1.2.248-1
 - Handle %posttrans RPMCALLBACK_INST_OPEN_FILE properly (rvykydal)
   Resolves: rhbz#506361
