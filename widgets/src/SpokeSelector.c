@@ -166,20 +166,24 @@ static void anaconda_spoke_selector_init(AnacondaSpokeSelector *spoke) {
 
     /* Create the icons. */
     spoke->priv->icon = gtk_image_new_from_stock(DEFAULT_ICON, GTK_ICON_SIZE_DIALOG);
+    gtk_image_set_pixel_size(GTK_IMAGE(spoke->priv->icon), 64);
+    gtk_widget_set_valign(spoke->priv->icon, GTK_ALIGN_START);
+
     spoke->priv->incomplete_icon = gtk_image_new_from_icon_name("dialog-warning-symbolic", GTK_ICON_SIZE_MENU);
     gtk_widget_set_no_show_all(GTK_WIDGET(spoke->priv->incomplete_icon), TRUE);
     gtk_widget_set_visible(GTK_WIDGET(spoke->priv->incomplete_icon), FALSE);
+    gtk_widget_set_valign(spoke->priv->incomplete_icon, GTK_ALIGN_START);
 
     /* Create the title label. */
     spoke->priv->title_label = gtk_label_new(NULL);
-    markup = g_markup_printf_escaped("<span weight='bold'>%s</span>", _(DEFAULT_TITLE));
+    markup = g_markup_printf_escaped("<span weight='bold' size='large'>%s</span>", _(DEFAULT_TITLE));
     gtk_label_set_markup(GTK_LABEL(spoke->priv->title_label), markup);
     gtk_misc_set_alignment(GTK_MISC(spoke->priv->title_label), 0, 0);
     g_free(markup);
 
     /* Create the status label. */
     spoke->priv->status_label = gtk_label_new(NULL);
-    markup = g_markup_printf_escaped("<span style='italic'>%s</span>", _(DEFAULT_STATUS));
+    markup = g_markup_printf_escaped("<span style='italic' size='large'>%s</span>", _(DEFAULT_STATUS));
     gtk_label_set_markup(GTK_LABEL(spoke->priv->status_label), markup);
     gtk_misc_set_alignment(GTK_MISC(spoke->priv->status_label), 0, 0);
     g_free(markup);
@@ -219,17 +223,19 @@ static void anaconda_spoke_selector_set_property(GObject *object, guint prop_id,
     switch(prop_id) {
         case PROP_ICON:
            gtk_image_set_from_icon_name(GTK_IMAGE(priv->icon), g_value_get_string(value), GTK_ICON_SIZE_DIALOG);
+           gtk_image_set_pixel_size(GTK_IMAGE(priv->icon), 64);
+           gtk_widget_set_valign(priv->icon, GTK_ALIGN_START);
            break;
 
         case PROP_STATUS: {
-            char *markup = g_markup_printf_escaped("<span style='italic'>%s</span>", g_value_get_string(value));
+            char *markup = g_markup_printf_escaped("<span style='italic' size='large'>%s</span>", g_value_get_string(value));
             gtk_label_set_markup(GTK_LABEL(priv->status_label), markup);
             g_free(markup);
             break;
         }
 
         case PROP_TITLE: {
-            char *markup = g_markup_printf_escaped("<span weight='bold'>%s</span>", g_value_get_string(value));
+            char *markup = g_markup_printf_escaped("<span weight='bold' size='large'>%s</span>", g_value_get_string(value));
             gtk_label_set_markup(GTK_LABEL(priv->title_label), markup);
             g_free(markup);
             break;

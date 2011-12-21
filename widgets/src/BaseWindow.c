@@ -197,19 +197,22 @@ static void anaconda_base_window_init(AnacondaBaseWindow *win) {
 
     /* Create the name label. */
     win->priv->name_label = gtk_label_new(NULL);
-    markup = g_markup_printf_escaped("<span weight='bold'>%s</span>", _(DEFAULT_WINDOW_NAME));
+    markup = g_markup_printf_escaped("<span weight='bold' size='large'>%s</span>", _(DEFAULT_WINDOW_NAME));
     gtk_label_set_markup(GTK_LABEL(win->priv->name_label), markup);
     g_free(markup);
     gtk_misc_set_alignment(GTK_MISC(win->priv->name_label), 0, 0);
     gtk_widget_set_hexpand(win->priv->name_label, TRUE);
 
     /* Create the distribution label. */
-    win->priv->distro_label = gtk_label_new(_(DEFAULT_DISTRIBUTION));
+    win->priv->distro_label = gtk_label_new(NULL);
+    markup = g_markup_printf_escaped("<span size='large'>%s</span>", _(DEFAULT_DISTRIBUTION));
+    gtk_label_set_markup(GTK_LABEL(win->priv->distro_label), markup);
+    g_free(markup);
     gtk_misc_set_alignment(GTK_MISC(win->priv->distro_label), 0, 0);
 
     /* Create the betanag label. */
     win->priv->beta_label = gtk_label_new(NULL);
-    markup = g_markup_printf_escaped("<span foreground='red'>%s</span>", _("PRE-RELEASE / TESTING"));
+    markup = g_markup_printf_escaped("<span foreground='red' weight='bold' size='large'>%s</span>", _("PRE-RELEASE / TESTING"));
     gtk_label_set_markup(GTK_LABEL(win->priv->beta_label), markup);
     g_free(markup);
     gtk_misc_set_alignment(GTK_MISC(win->priv->beta_label), 0, 0);
@@ -242,12 +245,14 @@ static void anaconda_base_window_set_property(GObject *object, guint prop_id, co
 
     switch(prop_id) {
         case PROP_DISTRIBUTION: {
-            gtk_label_set_text(GTK_LABEL(priv->distro_label), g_value_get_string(value));
+            char *markup = g_markup_printf_escaped("<span size='large'>%s</span>", g_value_get_string(value));
+            gtk_label_set_markup(GTK_LABEL(priv->distro_label), markup);
+            g_free(markup);
             break;
         }
 
         case PROP_WINDOW_NAME: {
-            char *markup = g_markup_printf_escaped("<span weight='bold'>%s</span>", g_value_get_string(value));
+            char *markup = g_markup_printf_escaped("<span weight='bold' size='large'>%s</span>", g_value_get_string(value));
             gtk_label_set_markup(GTK_LABEL(priv->name_label), markup);
             g_free(markup);
             break;
