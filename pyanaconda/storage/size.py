@@ -19,6 +19,8 @@
 #
 # Red Hat Author(s): David Cantrell <dcantrell@redhat.com>
 
+import re
+
 from decimal import Decimal
 from decimal import InvalidOperation
 
@@ -69,55 +71,31 @@ def _makeSpecs(prefix, abbr):
 def _parseSpec(spec):
     """ Parse string representation of size. """
     if not spec:
-        return None
+        raise ValueError("invalid size specification", spec)
 
-    # first check for strings like "47 MB" or "1.21 GB"
-    fields = spec.split()
-    if len(fields) == 2:
-        # assume value for the first field and specifier for the second
-        size = Decimal(fields[0])
-        specifier = fields[1].lower()
+    m = re.match(r'([0-9.]+)\s*([A-Za-z]*)$', spec.strip())
+    if not m:
+        raise ValueError("invalid size specification", spec)
 
-        if size < 1:
-            raise SizeNotPositiveError("spec= param must be >0")
+    try:
+        size = Decimal(m.groups()[0])
+    except InvalidOperation:
+        raise ValueError("invalid size specification", spec)
 
-        if specifier in _bytes:
-            return size
+    if size < 0:
+        raise SizeNotPositiveError("spec= param must be >=0")
 
-        for factor, prefix, abbr in _prefixes:
-            check = _makeSpecs(prefix, abbr)
+    specifier = m.groups()[1].lower()
+    if specifier in _bytes or not specifier:
+        return size
 
-            if specifier in check:
-                return size * factor
-    elif len(fields) > 2 or len(fields) < 1:
-        # too much data in the string
-        return None
-    else:
-        # no space between value and specifier
-        try:
-            size = Decimal(spec)
+    for factor, prefix, abbr in _prefixes:
+        check = _makeSpecs(prefix, abbr)
 
-            if size < 1:
-                raise SizeNotPositiveError("spec= param must be >0")
+        if specifier in check:
+            return size * factor
 
-            if str(size) == spec:
-                return size
-        except InvalidOperation:
-            pass
-
-        for factor, prefix, abbr in _prefixes:
-            check = _makeSpecs(prefix, abbr)
-            match = filter(lambda x: spec.lower().endswith(x), check)
-
-            if match != [] and len(match) == 1:
-                size = Decimal(spec[:len(match[0])].strip())
-
-                if size < 1:
-                    raise SizeNotPositiveError("spec= param must be >0")
-
-                return size * factor
-
-    return None
+    raise ValueError("invalid size specification", spec)
 
 class Size(Decimal):
     """ Common class to represent storage device and filesystem sizes.
@@ -127,7 +105,7 @@ class Size(Decimal):
         decimal places.
     """
 
-    def __new__(cls, bytes=None, spec=None):
+    def __new__(cls, bytes=None,  spec=None):
         """ Initialize a new Size object.  Must pass either bytes or spec,
             but not both.  The bytes parameter is a numerical value for
             the size this object represents, in bytes.  The spec parameter
@@ -149,11 +127,11 @@ class Size(Decimal):
         if bytes and spec:
             raise SizeParamsError("only specify one parameter")
 
-        if bytes:
-            if type(bytes).__name__ in ["int", "long"] and bytes > 0:
+        if bytes is not None:
+            if type(bytes).__name__ in ["int", "long", "float", 'Decimal'] and bytes >= 0:
                 self = Decimal.__new__(cls, value=bytes)
             else:
-                raise SizeNotPositiveError("bytes= param must be >0")
+                raise SizeNotPositiveError("bytes= param must be >=0")
         elif spec:
             self = Decimal.__new__(cls, value=_parseSpec(spec))
         else:
@@ -163,10 +141,12 @@ class Size(Decimal):
 
     def _trimEnd(self, val):
         """ Internal method to trim trailing zeros. """
-        while val != '' and val.endswith('0'):
-            val = val[:-1]
+        if "." in val:
+            dot = val.index(".")
+            while val[dot + 1] == "0":
+                val = val[:dot] + val[dot + 2:]
 
-        if val.endswith('.'):
+        while val.endswith('.'):
             val = val[:-1]
 
         return val
