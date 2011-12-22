@@ -1959,7 +1959,7 @@ class DeviceTree(object):
                 found = device
                 break
 
-        log_method_return(self, found)
+        log_method_return(self, str(found))
         return found
 
     def getDeviceByPath(self, path):
@@ -1978,7 +1978,7 @@ class DeviceTree(object):
                 found = device
                 break
 
-        log_method_return(self, found)
+        log_method_return(self, str(found))
         return found
 
     def getDevicesByType(self, device_type):
