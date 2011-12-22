@@ -462,9 +462,11 @@ class YumSorter(yum.YumBase):
                     continue
 
                 # XXX: ATTENTION the self.anaconda is in the AnacondaYum class,
-                # which subclasses this class and inherits this method and is actually used;
+                # which subclasses this class and inherits this method;
                 # very ugly, but I don't want to move the whole method...
-                if (self.anaconda.isKickstart and
+                # do this part only if it's used from AnacondaYum class,
+                # pkgorder uses the YumSorter class, but does not need this functionality
+                if (hasattr(self, 'anaconda') and self.anaconda.isKickstart and
                         'conflicts' in map(str.lower, self.anaconda.id.ksdata.excludedGroupList)):
 
                     # get the list of packages in @conflicts group for the first time,
