@@ -754,8 +754,12 @@ class DeviceTree(object):
         # something must be wrong -- if all of the slaves we in
         # the tree, this device should be as well
         if device is None:
-            raise DeviceTreeError("MD RAID device %s not in devicetree after "
-                                  "scanning all slaves" % name)
+            log.error("failed to scan md array %s" % name)
+            try:
+                devicelibs.mdraid.mddeactivate("/dev/" + name)
+            except MDRaidError:
+                log.error("failed to stop broken md array %s" % name)
+
         return device
 
     def addUdevPartitionDevice(self, info, disk=None):
