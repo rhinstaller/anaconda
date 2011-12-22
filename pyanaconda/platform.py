@@ -182,7 +182,7 @@ class X86(Platform):
             buf = iutil.execWithCapture("dmidecode",
                                         ["-s", "chassis-manufacturer"],
                                         stderr="/dev/tty5")
-        except OSError:
+        except (OSError, RuntimeError):
             log.info("Skipping dmidecode call due to running as non-root.")
             return
 

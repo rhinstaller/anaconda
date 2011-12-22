@@ -102,16 +102,22 @@ def execWithRedirect(command, argv, stdin = None, stdout = None,
         stdin = sys.stdin.fileno()
 
     if isinstance(stdout, str):
-        stdout = os.open(stdout, os.O_RDWR|os.O_CREAT)
-        stdoutclose = lambda : os.close(stdout)
+        try:
+            stdout = os.open(stdout, os.O_RDWR|os.O_CREAT)
+            stdoutclose = lambda : os.close(stdout)
+        except OSError:
+            stdout = sys.stdout.fileno()
     elif isinstance(stdout, int):
         pass
     elif stdout is None or not isinstance(stdout, file):
         stdout = sys.stdout.fileno()
 
     if isinstance(stderr, str):
-        stderr = os.open(stderr, os.O_RDWR|os.O_CREAT)
-        stderrclose = lambda : os.close(stderr)
+        try:
+            stderr = os.open(stderr, os.O_RDWR|os.O_CREAT)
+            stderrclose = lambda : os.close(stderr)
+        except OSError:
+            stderr = sys.stderr.fileno()
     elif isinstance(stderr, int):
         pass
     elif stderr is None or not isinstance(stderr, file):
@@ -171,7 +177,7 @@ def execWithRedirect(command, argv, stdin = None, stdout = None,
         stdinclose()
         stdoutclose()
         stderrclose()
-        raise RuntimeError, errstr
+        raise RuntimeError(errstr)
 
     return ret
 
@@ -206,8 +212,11 @@ def execWithCapture(command, argv, stdin = None, stderr = None, root='/'):
         stdin = sys.stdin.fileno()
 
     if isinstance(stderr, str):
-        stderr = os.open(stderr, os.O_RDWR|os.O_CREAT)
-        stderrclose = lambda : os.close(stderr)
+        try:
+            stderr = os.open(stderr, os.O_RDWR|os.O_CREAT)
+            stderrclose = lambda : os.close(stderr)
+        except OSError:
+            stderr = sys.stderr.fileno()
     elif isinstance(stderr, int):
         pass
     elif stderr is None or not isinstance(stderr, file):
@@ -239,7 +248,7 @@ def execWithCapture(command, argv, stdin = None, stderr = None, root='/'):
     except OSError as e:
         log.error ("Error running " + command + ": " + e.strerror)
         closefds()
-        raise RuntimeError, "Error running " + command + ": " + e.strerror
+        raise RuntimeError("Error running " + command + ": " + e.strerror)
 
     closefds()
     return rc
@@ -270,16 +279,22 @@ def execWithCallback(command, argv, stdin = None, stdout = None,
         stdin = sys.stdin.fileno()
 
     if isinstance(stdout, str):
-        stdout = os.open(stdout, os.O_RDWR|os.O_CREAT)
-        stdoutclose = lambda : os.close(stdout)
+        try:
+            stdout = os.open(stdout, os.O_RDWR|os.O_CREAT)
+            stdoutclose = lambda : os.close(stdout)
+        except OSError:
+            stdout = sys.stdout.fileno()
     elif isinstance(stdout, int):
         pass
     elif stdout is None or not isinstance(stdout, file):
         stdout = sys.stdout.fileno()
 
     if isinstance(stderr, str):
-        stderr = os.open(stderr, os.O_RDWR|os.O_CREAT)
-        stderrclose = lambda : os.close(stderr)
+        try:
+            stderr = os.open(stderr, os.O_RDWR|os.O_CREAT)
+            stderrclose = lambda : os.close(stderr)
+        except OSError:
+            stderr = sys.stderr.fileno()
     elif isinstance(stderr, int):
         pass
     elif stderr is None or not isinstance(stderr, file):
