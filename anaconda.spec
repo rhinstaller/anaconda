@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.249
+Version: 11.1.2.250
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -128,6 +128,10 @@ fi
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Fri Dec 23 2011 Martin Gracik <mgracik@redhat.com> 11.1.2.250-1
+- Check if the anaconda attribute is set in YumSorter (mgracik)
+  Related: rhbz#756707
+
 * Wed Dec 21 2011 Martin Gracik <mgracik@redhat.com> 11.1.2.249-1
 - Don't add packages from @conflicts group as dependencies (mgracik)
   Resolves: rhbz#756707
