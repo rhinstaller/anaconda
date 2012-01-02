@@ -101,6 +101,7 @@ def execWithRedirect(command, argv, stdin = None, stdout = None,
     elif stdin is None or not isinstance(stdin, file):
         stdin = sys.stdin.fileno()
 
+    orig_stdout = stdout
     if isinstance(stdout, str):
         stdout = os.open(stdout, os.O_RDWR|os.O_CREAT)
         stdoutclose = lambda : os.close(stdout)
@@ -109,7 +110,9 @@ def execWithRedirect(command, argv, stdin = None, stdout = None,
     elif stdout is None or not isinstance(stdout, file):
         stdout = sys.stdout.fileno()
 
-    if isinstance(stderr, str):
+    if isinstance(stderr, str) and isinstance(orig_stdout, str) and stderr == orig_stdout:
+        stderr = stdout
+    elif isinstance(stderr, str):
         stderr = os.open(stderr, os.O_RDWR|os.O_CREAT)
         stderrclose = lambda : os.close(stderr)
     elif isinstance(stderr, int):
