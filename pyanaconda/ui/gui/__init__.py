@@ -140,9 +140,21 @@ class UIObject(object):
 
        Class attributes:
 
-       builderObjects   -- A list of UI object name that should be extracted from
-                           uiFile and exposed for this class to use.  If this
-                           list is empty, all objects will be exposed.
+       builderObjects   -- A list of UI object names that should be extracted from
+                           uiFile and exposed for this class to use.  If this list
+                           is empty, all objects will be exposed.
+
+                           Only the following kinds of objects need to be exported:
+
+                           (1) Top-level objects (like GtkDialogs) that are directly
+                           used in Python.
+
+                           (2) Top-level objects that are not directly used in
+                           Python, but are used by another object somewhere down
+                           in the hierarchy.  This includes things like a custom
+                           GtkImage used by a button that is part of an exported
+                           dialog, and a GtkListStore that is the model of a
+                           Gtk*View that is part of an exported object.
        mainWidgetName   -- The name of the top-level widget this object
                            object implements.  This will be the widget searched
                            for in uiFile by the window property.
