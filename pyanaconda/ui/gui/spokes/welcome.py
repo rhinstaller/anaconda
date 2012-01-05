@@ -23,6 +23,8 @@ from gi.repository import AnacondaWidgets, Gtk
 from pyanaconda.ui.gui.hubs.summary import SummaryHub
 from pyanaconda.ui.gui.spokes import StandaloneSpoke
 
+from pyanaconda.localization import Language, LOCALE_PREFERENCES
+
 __all__ = ["WelcomeLanguageSpoke"]
 
 class WelcomeLanguageSpoke(StandaloneSpoke):
@@ -36,7 +38,10 @@ class WelcomeLanguageSpoke(StandaloneSpoke):
         selected = self.builder.get_object("languageViewSelection")
         (store, itr) = selected.get_selected()
 
-        self.data.lang.lang = store[itr][2]
+        lang = store[itr][2]
+        self.language.select_translation(lang)
+
+        self.data.lang.lang = lang
 
     def populate(self):
         StandaloneSpoke.populate(self)
@@ -47,25 +52,38 @@ class WelcomeLanguageSpoke(StandaloneSpoke):
         completion.set_text_column(1)
 
         store = self.builder.get_object("languageStore")
-        self._addLanguage(store, "English", "English", "en_US")
-        self._addLanguage(store, "Language A", "Language A", "C")
-        self._addLanguage(store, "Language B", "Language B", "C")
-        self._addLanguage(store, "Language C", "Language C", "C")
-        self._addLanguage(store, "Language D", "Language D", "C")
-        self._addLanguage(store, "Language E", "Language E", "C")
-        self._addLanguage(store, "Language F", "Language F", "C")
-        self._addLanguage(store, "Language G", "Language G", "C")
-        self._addLanguage(store, "Language H", "Language H", "C")
-        self._addLanguage(store, "Language I", "Language I", "C")
-        self._addLanguage(store, "Language J", "Language J", "C")
-        self._addLanguage(store, "Language K", "Language K", "C")
+
+        # TODO We can use the territory from geoip here
+        # to preselect the translation, when it's available.
+        # Until then, use None.
+        territory = None
+        self.language = Language(LOCALE_PREFERENCES, territory=territory)
+
+        # fill the list with available translations
+        for _code, trans in sorted(self.language.translations.items()):
+            self._addLanguage(store, trans.display_name,
+                              trans.english_name, trans.short_name)
+
+        # select the preferred translation
+        self._selectLanguage(store, self.language.preferred_translation.short_name)
 
     def setup(self):
         StandaloneSpoke.setup(self)
-        self.window.set_may_continue(False)
+        #self.window.set_may_continue(False)
 
     def _addLanguage(self, store, native, english, setting):
         store.append([native, english, setting])
+
+    def _selectLanguage(self, store, language):
+        itr = store.get_iter_first()
+        while itr and store[itr][2] != language:
+            itr = store.iter_next(itr)
+
+        treeview = self.builder.get_object("languageView")
+        selection = treeview.get_selection()
+        selection.select_iter(itr)
+        path = store.get_path(itr)
+        treeview.scroll_to_cell(path)
 
     # Signal handlers.
     def clearLanguageEntry(self, entry, icon_pos, event):
@@ -75,6 +93,12 @@ class WelcomeLanguageSpoke(StandaloneSpoke):
     def on_selection_changed(self, selection):
         (store, selected) = selection.get_selected_rows()
         self.window.set_may_continue(len(selected) > 0)
+
+        if selected:
+            lang = store[selected[0]][2]
+            self.language.set_install_lang(lang)
+            self.language.set_system_lang(lang)
+            # TODO reload the whole window so it gets translated
 
     # Override the default in StandaloneSpoke so we can display the beta
     # warning dialog first.

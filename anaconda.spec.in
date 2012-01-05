@@ -112,6 +112,7 @@ Requires: dosfstools
 Requires: e2fsprogs >= %{e2fsver}
 Requires: gzip
 Requires: libarchive
+Requires: python-babel
 %ifarch %{ix86} x86_64 ia64
 Requires: dmidecode
 %endif
