@@ -19,6 +19,8 @@
 #
 # Authors: Chris Lumens <clumens@redhat.com>
 #
+import logging
+log = logging.getLogger("anaconda")
 
 import parted
 
