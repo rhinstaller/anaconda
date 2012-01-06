@@ -19,6 +19,10 @@
 # Red Hat Author(s): Chris Lumens <clumens@redhat.com>
 #
 
+import gettext
+_ = lambda x: gettext.ldgettext("anaconda", x)
+N_ = lambda x: x
+
 import os.path
 
 from gi.repository import Gtk, AnacondaWidgets
@@ -112,7 +116,7 @@ class SourceSpoke(NormalSpoke):
     category = SoftwareCategory
 
     icon = "media-optical-symbolic"
-    title = "INSTALL SOURCE"
+    title = N_("INSTALL SOURCE")
 
     def __init__(self, *args, **kwargs):
         NormalSpoke.__init__(self, *args, **kwargs)
@@ -167,7 +171,7 @@ class SourceSpoke(NormalSpoke):
 
     @property
     def completed(self):
-        return self.status and self.status != "Nothing selected"
+        return self.status and self.status != _("Nothing selected")
 
     @property
     def status(self):
@@ -177,13 +181,13 @@ class SourceSpoke(NormalSpoke):
             else:
                 return self.data.method.url
         elif self.data.method.method == "nfs":
-            return "NFS server %s" % self.data.method.server
+            return _("NFS server %s") % self.data.method.server
         elif self.data.method.method == "cdrom":
-            return "CD/DVD drive"
+            return _("CD/DVD drive")
         elif self.data.method.method == "harddrive":
             return os.path.basename(self._currentIsoFile)
         else:
-            return "Nothing selected"
+            return _("Nothing selected")
 
     def _grabObjects(self):
         self._autodetectButton = self.builder.get_object("autodetectRadioButton")

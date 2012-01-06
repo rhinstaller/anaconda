@@ -46,9 +46,9 @@ enum {
 };
 
 /* Defaults for each property. */
-#define DEFAULT_DESCRIPTION   "New Device"
-#define DEFAULT_KIND          "drive-harddisk"
-#define DEFAULT_CAPACITY      "0 MB"
+#define DEFAULT_DESCRIPTION   N_("New Device")
+#define DEFAULT_KIND          N_("drive-harddisk")
+#define DEFAULT_CAPACITY      N_("0 MB")
 #define DEFAULT_OS            ""
 #define DEFAULT_POPUP_INFO    ""
 
@@ -189,7 +189,7 @@ static void anaconda_disk_overview_init(AnacondaDiskOverview *widget) {
 
     /* Create the capacity label. */
     widget->priv->capacity_label = gtk_label_new(NULL);
-    markup = g_markup_printf_escaped("<span size='large'>%s</span>", DEFAULT_CAPACITY);
+    markup = g_markup_printf_escaped("<span size='large'>%s</span>", _(DEFAULT_CAPACITY));
     gtk_label_set_markup(GTK_LABEL(widget->priv->capacity_label), markup);
     g_free(markup);
 

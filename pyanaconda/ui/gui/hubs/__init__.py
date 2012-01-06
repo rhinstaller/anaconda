@@ -19,6 +19,9 @@
 # Red Hat Author(s): Chris Lumens <clumens@redhat.com>
 #
 
+import gettext
+_ = lambda x: gettext.ldgettext("anaconda", x)
+
 from pyanaconda.ui.gui import UIObject
 from pyanaconda.ui.gui.categories import collect_categories
 from pyanaconda.ui.gui.spokes import StandaloneSpoke, collect_spokes
@@ -116,7 +119,7 @@ class Hub(UIObject):
 
                 # And then create its associated selector, and set some default
                 # values that affect its display on the hub.
-                selector = AnacondaWidgets.SpokeSelector(spoke.title, spoke.icon)
+                selector = AnacondaWidgets.SpokeSelector(_(spoke.title), spoke.icon)
                 selector.set_property("status", spoke.status)
                 selector.set_incomplete(not spoke.completed)
                 self._handleCompleteness(spoke)
@@ -133,7 +136,7 @@ class Hub(UIObject):
             if not selectors:
                 continue
 
-            label = Gtk.Label("<span font-desc=\"Sans 14\">%s</span>" % obj.title)
+            label = Gtk.Label("<span font-desc=\"Sans 14\">%s</span>" % _(obj.title))
             label.set_use_markup(True)
             label.set_halign(Gtk.Align.START)
             label.set_margin_bottom(12)
@@ -162,7 +165,7 @@ class Hub(UIObject):
         if len(self._incompleteSpokes) == 0:
             self.window.clear_info()
         else:
-            self.window.set_info(Gtk.MessageType.WARNING, "Please complete items marked with this icon first.")
+            self.window.set_info(Gtk.MessageType.WARNING, _("Please complete items marked with this icon first."))
 
     def setup(self):
         UIObject.setup(self)

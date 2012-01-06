@@ -19,6 +19,10 @@
 # Red Hat Author(s): Chris Lumens <clumens@redhat.com>
 #
 
+import gettext
+_ = lambda x: gettext.ldgettext("anaconda", x)
+N_ = lambda x: x
+
 from gi.repository import Gtk
 
 from pyanaconda.ui.gui.spokes import NormalSpoke
@@ -34,7 +38,7 @@ class SoftwareSelectionSpoke(NormalSpoke):
     category = SoftwareCategory
 
     icon = "package-x-generic-symbolic"
-    title = "SOFTWARE SELECTION"
+    title = N_("SOFTWARE SELECTION")
 
     def apply(self):
         pass
@@ -47,7 +51,7 @@ class SoftwareSelectionSpoke(NormalSpoke):
     def status(self):
         row = self._get_selected_desktop()
         if not row:
-            return "Nothing selected"
+            return _("Nothing selected")
 
         return row[2]
 

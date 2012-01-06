@@ -73,8 +73,8 @@ enum {
     PROP_WINDOW_NAME
 };
 
-#define DEFAULT_DISTRIBUTION  "DISTRIBUTION INSTALLATION"
-#define DEFAULT_WINDOW_NAME   "SPOKE NAME"
+#define DEFAULT_DISTRIBUTION  N_("DISTRIBUTION INSTALLATION")
+#define DEFAULT_WINDOW_NAME   N_("SPOKE NAME")
 
 struct _AnacondaBaseWindowPrivate {
     gboolean    is_beta, info_shown;

@@ -50,8 +50,8 @@ enum {
 };
 
 #define DEFAULT_ICON    "gtk-missing-image"
-#define DEFAULT_STATUS  "None"
-#define DEFAULT_TITLE   "New Selector"
+#define DEFAULT_STATUS  N_("None")
+#define DEFAULT_TITLE   N_("New Selector")
 
 struct _AnacondaSpokeSelectorPrivate {
     gboolean   is_incomplete;

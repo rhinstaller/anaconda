@@ -19,6 +19,8 @@
 # Red Hat Author(s): Chris Lumens <clumens@redhat.com>
 #
 
+N_ = lambda x: x
+
 from pyanaconda.ui.gui import collect
 
 __all__ = ["SpokeCategory", "collect_categories"]
@@ -38,7 +40,7 @@ class SpokeCategory(object):
                         the grid.
     """
     displayOnHub = None
-    title = "DEFAULT TITLE"
+    title = N_("DEFAULT TITLE")
 
     def grid(self, selectors):
         """Construct a Gtk.Grid consisting of two columns from the provided

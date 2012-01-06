@@ -58,6 +58,7 @@ from pyanaconda.product import productName
 import gettext
 
 _ = lambda x: gettext.ldgettext("anaconda", x)
+N_ = lambda x: x
 P_ = lambda x, y, z: gettext.ldngettext("anaconda", x, y, z)
 
 __all__ = ["StorageSpoke"]
@@ -358,7 +359,7 @@ class StorageSpoke(NormalSpoke):
 
     # other candidates: computer-symbolic, folder-symbolic
     icon = "drive-harddisk-symbolic"
-    title = "STORAGE CONFIGURATION"
+    title = N_("STORAGE CONFIGURATION")
 
     def apply(self):
         pass
@@ -370,12 +371,12 @@ class StorageSpoke(NormalSpoke):
     @property
     def status(self):
         """ A short string describing the current status of storage setup. """
-        msg = "no disks selected"
+        msg = _("No disks selected")
         if self.data.ignoredisk.onlyuse:
-            msg = "%d disks selected" % len(self.data.ignoredisk.onlyuse)
+            msg = _("%d disks selected") % len(self.data.ignoredisk.onlyuse)
 
             if self.data.autopart.autopart:
-                msg = "Automatic partitioning selected"
+                msg = _("Automatic partitioning selected")
 
                 # if we had a storage instance we could check for a defined root
 

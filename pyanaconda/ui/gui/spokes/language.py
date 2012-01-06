@@ -19,6 +19,10 @@
 # Red Hat Author(s): Chris Lumens <clumens@redhat.com>
 #
 
+import gettext
+_ = lambda x: gettext.ldgettext("anaconda", x)
+N_ = lambda x: x
+
 from gi.repository import Gtk
 
 from pyanaconda.ui.gui import UIObject
@@ -52,7 +56,7 @@ class LanguageSpoke(NormalSpoke):
     category = LocalizationCategory
 
     icon = "accessories-character-map"
-    title = "LANGUAGE"
+    title = N_("LANGUAGE")
 
     def apply(self):
         pass
@@ -65,7 +69,7 @@ class LanguageSpoke(NormalSpoke):
 
     @property
     def status(self):
-        return "Something selected"
+        return _("Something selected")
 
     def populate(self):
         NormalSpoke.populate(self)

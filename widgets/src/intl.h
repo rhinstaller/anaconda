@@ -24,6 +24,7 @@
 #include "gettext.h"
 
 #define _(x) gettext(x)
+#define N_(String) String
 
 #ifdef ENABLE_NLS
 #define P_(String) g_dgettext(GETTEXT_PACKAGE "-properties",String)

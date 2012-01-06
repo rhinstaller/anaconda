@@ -19,6 +19,8 @@
 # Red Hat Author(s): Chris Lumens <clumens@redhat.com>
 #
 
+N_ = lambda x: x
+
 from pyanaconda.ui.gui.categories import SpokeCategory
 from pyanaconda.ui.gui.hubs.summary import SummaryHub
 
@@ -26,4 +28,4 @@ __all__ = ["SoftwareCategory"]
 
 class SoftwareCategory(SpokeCategory):
     displayOnHub = SummaryHub
-    title = "SOFTWARE"
+    title = N_("SOFTWARE")
