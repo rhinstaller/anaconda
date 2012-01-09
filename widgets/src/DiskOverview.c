@@ -182,12 +182,14 @@ static void anaconda_disk_overview_init(AnacondaDiskOverview *widget) {
     widget->priv = G_TYPE_INSTANCE_GET_PRIVATE(widget,
                                                ANACONDA_TYPE_DISK_OVERVIEW,
                                                AnacondaDiskOverviewPrivate);
+    gtk_widget_set_valign(GTK_WIDGET(widget), GTK_ALIGN_CENTER);
 
     /* Set some properties. */
     widget->priv->selected = FALSE;
 
     /* Create the vbox. */
     widget->priv->vbox = gtk_box_new(GTK_ORIENTATION_VERTICAL, 6);
+    gtk_container_set_border_width(GTK_CONTAINER(widget->priv->vbox), 6);
 
     /* Create the capacity label. */
     widget->priv->capacity_label = gtk_label_new(NULL);
