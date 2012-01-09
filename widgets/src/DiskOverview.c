@@ -54,6 +54,12 @@ enum {
 
 #define ICON_SIZE             125
 
+static gchar *style_data = "AnacondaDiskOverview:selected {\n"
+                           "    border-radius: 6;\n"
+                           "    border-style:  solid;\n"
+                           "    border-width:  1;\n"
+                           "}";
+
 struct _AnacondaDiskOverviewPrivate {
     GtkWidget *vbox;
     GtkWidget *kind;
@@ -177,6 +183,7 @@ GtkWidget *anaconda_disk_overview_new() {
 
 /* Initialize the widgets in a newly allocated DiskOverview. */
 static void anaconda_disk_overview_init(AnacondaDiskOverview *widget) {
+    GtkCssProvider *provider;
     char *markup;
 
     widget->priv = G_TYPE_INSTANCE_GET_PRIVATE(widget,
@@ -223,6 +230,13 @@ static void anaconda_disk_overview_init(AnacondaDiskOverview *widget) {
 
     /* We need to handle button-press-event in order to change the background color. */
     g_signal_connect(widget, "button-press-event", G_CALLBACK(anaconda_disk_overview_clicked), NULL);
+
+    /* Finally, load some style information for this widget. */
+    provider = gtk_css_provider_new();
+    if (gtk_css_provider_load_from_data(provider, style_data, -1, NULL)) {
+        GtkStyleContext *context = gtk_widget_get_style_context(GTK_WIDGET(widget));
+        gtk_style_context_add_provider(context, GTK_STYLE_PROVIDER(provider), GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
+    }
 }
 
 gboolean anaconda_disk_overview_clicked(AnacondaDiskOverview *widget, GdkEvent *event) {
