@@ -294,6 +294,7 @@
               <object class="GtkGrid" id="grid1">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
+                <property name="margin_left">6</property>
                 <property name="row_spacing">6</property>
                 <property name="column_spacing">6</property>
                 <property name="row_homogeneous">True</property>
@@ -536,6 +537,7 @@
               <object class="GtkGrid" id="grid2">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
+                <property name="margin_left">6</property>
                 <property name="row_spacing">6</property>
                 <property name="column_spacing">6</property>
                 <property name="row_homogeneous">True</property>
@@ -680,7 +682,7 @@
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
-                <property name="halign">center</property>
+                <property name="halign">end</property>
                 <property name="use_action_appearance">False</property>
                 <property name="use_underline">True</property>
                 <signal name="clicked" handler="on_close_clicked" swapped="no"/>
@@ -722,96 +724,94 @@
               </packing>
             </child>
             <child>
-              <object class="GtkTreeView" id="disk_tree_view">
+              <object class="GtkScrolledWindow" id="scrolledwindow2">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
-                <property name="model">disk_store</property>
-                <child internal-child="selection">
-                  <object class="GtkTreeSelection" id="disk_selection">
-                    <signal name="changed" handler="on_selection_changed" swapped="no"/>
-                  </object>
-                </child>
+                <property name="shadow_type">in</property>
                 <child>
-                  <object class="GtkTreeViewColumn" id="description_column">
-                    <property name="spacing">6</property>
-                    <property name="title" translatable="yes">Description</property>
-                    <property name="clickable">True</property>
+                  <object class="GtkViewport" id="viewport2">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
                     <child>
-                      <object class="GtkCellRendererText" id="description_renderer"/>
-                      <attributes>
-                        <attribute name="text">0</attribute>
-                      </attributes>
-                    </child>
-                  </object>
-                </child>
-                <child>
-                  <object class="GtkTreeViewColumn" id="capacity_column">
-                    <property name="spacing">6</property>
-                    <property name="title" translatable="yes">Capacity</property>
-                    <property name="clickable">True</property>
-                    <child>
-                      <object class="GtkCellRendererText" id="capacity_renderer"/>
-                      <attributes>
-                        <attribute name="text">1</attribute>
-                      </attributes>
-                    </child>
-                  </object>
-                </child>
-                <child>
-                  <object class="GtkTreeViewColumn" id="free_column">
-                    <property name="spacing">6</property>
-                    <property name="title" translatable="yes">Free</property>
-                    <child>
-                      <object class="GtkCellRendererText" id="free_renderer"/>
-                      <attributes>
-                        <attribute name="text">2</attribute>
-                      </attributes>
-                    </child>
-                  </object>
-                </child>
-                <child>
-                  <object class="GtkTreeViewColumn" id="id_column">
-                    <property name="spacing">6</property>
-                    <property name="title" translatable="yes">Id</property>
-                    <child>
-                      <object class="GtkCellRendererText" id="id_renderer"/>
-                      <attributes>
-                        <attribute name="text">3</attribute>
-                      </attributes>
+                      <object class="GtkTreeView" id="disk_tree_view">
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="model">disk_store</property>
+                        <child internal-child="selection">
+                          <object class="GtkTreeSelection" id="treeview-selection1"/>
+                        </child>
+                        <child>
+                          <object class="GtkTreeViewColumn" id="description_column">
+                            <property name="spacing">6</property>
+                            <property name="title" translatable="yes">Description</property>
+                            <property name="clickable">True</property>
+                            <child>
+                              <object class="GtkCellRendererText" id="description_renderer"/>
+                              <attributes>
+                                <attribute name="text">0</attribute>
+                              </attributes>
+                            </child>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="GtkTreeViewColumn" id="capacity_column">
+                            <property name="spacing">6</property>
+                            <property name="title" translatable="yes">Capacity</property>
+                            <property name="clickable">True</property>
+                            <child>
+                              <object class="GtkCellRendererText" id="capacity_renderer"/>
+                              <attributes>
+                                <attribute name="text">1</attribute>
+                              </attributes>
+                            </child>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="GtkTreeViewColumn" id="free_column">
+                            <property name="spacing">6</property>
+                            <property name="title" translatable="yes">Free</property>
+                            <child>
+                              <object class="GtkCellRendererText" id="free_renderer"/>
+                              <attributes>
+                                <attribute name="text">2</attribute>
+                              </attributes>
+                            </child>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="GtkTreeViewColumn" id="id_column">
+                            <property name="spacing">6</property>
+                            <property name="title" translatable="yes">Id</property>
+                            <child>
+                              <object class="GtkCellRendererText" id="id_renderer"/>
+                              <attributes>
+                                <attribute name="text">3</attribute>
+                              </attributes>
+                            </child>
+                          </object>
+                        </child>
+                      </object>
                     </child>
                   </object>
                 </child>
               </object>
               <packing>
-                <property name="expand">False</property>
+                <property name="expand">True</property>
                 <property name="fill">True</property>
                 <property name="position">1</property>
               </packing>
             </child>
             <child>
-              <object class="GtkButtonBox" id="buttonbox1">
+              <object class="GtkButton" id="remove_button">
+                <property name="label">_Remove</property>
+                <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="spacing">6</property>
-                <property name="layout_style">start</property>
-                <child>
-                  <object class="GtkButton" id="remove_button">
-                    <property name="label">_Remove</property>
-                    <property name="use_action_appearance">False</property>
-                    <property name="visible">True</property>
-                    <property name="can_focus">True</property>
-                    <property name="receives_default">True</property>
-                    <property name="halign">center</property>
-                    <property name="use_action_appearance">False</property>
-                    <property name="use_underline">True</property>
-                    <signal name="clicked" handler="on_remove_clicked" swapped="no"/>
-                  </object>
-                  <packing>
-                    <property name="expand">False</property>
-                    <property name="fill">True</property>
-                    <property name="position">0</property>
-                  </packing>
-                </child>
+                <property name="can_focus">True</property>
+                <property name="receives_default">True</property>
+                <property name="halign">start</property>
+                <property name="use_action_appearance">False</property>
+                <property name="use_underline">True</property>
+                <signal name="clicked" handler="on_remove_clicked" swapped="no"/>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -825,6 +825,7 @@
                 <property name="can_focus">False</property>
                 <property name="xalign">0</property>
                 <property name="label" translatable="yes">Disk summary goes here</property>
+                <property name="use_markup">True</property>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -855,9 +856,10 @@
   <object class="AnacondaSpokeWindow" id="storageWindow">
     <property name="startup_id">filler</property>
     <property name="can_focus">False</property>
-    <property name="border_width">6</property>
     <property name="startup_id">filler</property>
     <property name="mnemonics_visible">False</property>
+    <property name="window_name">INSTALL DESTINATION</property>
+    <signal name="back-clicked" handler="on_back_clicked" swapped="no"/>
     <child internal-child="main_box">
       <object class="GtkBox" id="AnacondaSpokeWindow-main_box1">
         <property name="can_focus">False</property>
@@ -891,6 +893,9 @@
                     <property name="xalign">0</property>
                     <property name="label" translatable="yes">LOCAL STANDARD DISKS</property>
                     <property name="track_visited_links">False</property>
+                    <attributes>
+                      <attribute name="weight" value="bold"/>
+                    </attributes>
                   </object>
                   <packing>
                     <property name="expand">False</property>
@@ -913,8 +918,8 @@
                           <object class="GtkBox" id="local_disks_box">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
-                            <property name="spacing">6</property>
-                            <property name="homogeneous">True</property>
+                            <property name="border_width">6</property>
+                            <property name="spacing">30</property>
                             <child>
                               <placeholder/>
                             </child>
@@ -942,6 +947,9 @@
           <object class="GtkBox" id="box2">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
+            <property name="margin_left">6</property>
+            <property name="margin_right">6</property>
+            <property name="margin_bottom">6</property>
             <property name="spacing">6</property>
             <child>
               <object class="GtkButton" id="summary_button">
@@ -965,7 +973,7 @@
             </child>
             <child>
               <object class="GtkButton" id="continue_button">
-                <property name="label" translatable="yes">_Continue</property>
+                <property name="label" translatable="yes">_CONTINUE</property>
                 <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>

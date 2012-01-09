@@ -192,12 +192,12 @@ class SelectedDisksDialog(UIObject):
         size = Size(bytes=long(size)).humanReadable().upper()
         free = Size(bytes=long(free)).humanReadable().upper()
 
-        text = P_(("%d disk; %s capacity; %s free space "
+        text = P_(("<b>%d disk; %s capacity; %s free space</b> "
                    "(unpartitioned and in filesystems)"),
-                  ("%d disks; %s capacity; %s free space "
+                  ("<b>%d disks; %s capacity; %s free space</b> "
                    "(unpartitioned and in filesystems)"),
                   count) % (count, size, free)
-        self._summary_label.set_text(text)
+        self._summary_label.set_markup(text)
 
     # signal handlers
     def on_remove_clicked(self, button):
@@ -251,8 +251,9 @@ class InstallOptions1Dialog(UIObject):
         options_label = self.builder.get_object("options1_label")
 
         options_text = (_("You have plenty of space to install <b>%s</b>, so "
-                          "we can automatically configure the rest of the "
-                          "installation for you.\n\nYou're all set!")
+                          "we can automatically\n"
+                          "configure the rest of the installation for you.\n\n"
+                          "You're all set!")
                         % productName)
         options_label.set_markup(options_text)
 
@@ -316,8 +317,8 @@ class InstallOptions2Dialog(InstallOptions1Dialog):
         self._set_free_space_labels(disk_free, fs_free)
 
         label_text = (_("<b>You don't have enough space available to install "
-                        "%s</b>, but we can help you reclaim space by "
-                        "shrinking or removing existing partitions.")
+                        "%s</b>, but we can help you\n"
+                        "reclaim space by shrinking or removing existing partitions.")
                       % productName)
         self.builder.get_object("options2_label2").set_markup(label_text)
 
@@ -333,7 +334,7 @@ class InstallOptions3Dialog(InstallOptions1Dialog):
     def setup(self, required_space, disk_free, fs_free):
         sw_text = self._get_sw_needs_text(required_space)
         label_text = (_("%s\nYou don't have enough space available to install "
-                        "<b>%s</b>, even if you used all of the free space "
+                        "<b>%s</b>, even if you used all of the free space\n"
                         "available on the selected disks.")
                       % (sw_text, productName))
         self.builder.get_object("options3_label1").set_markup(label_text)
@@ -343,11 +344,11 @@ class InstallOptions3Dialog(InstallOptions1Dialog):
         self._set_free_space_labels(disk_free, fs_free)
 
         label_text = _("<b>You don't have enough space available to install "
-                       "%s</b>, even if you used all of the free space "
-                       "available on the selected disks.You could add more "
-                       "disks for additional space, modify your software "
-                       "selection to install a smaller version of <b>%s</b>, "
-                       "or quit the installer.") % (productName, productName)
+                       "%s</b>, even if you used all of the free space\n"
+                       "available on the selected disks.  You could add more "
+                       "disks for additional space,\n"
+                       "modify your software selection to install a smaller "
+                       "version of <b>%s</b>, or quit the installer.") % (productName, productName)
         self.builder.get_object("options3_label2").set_markup(label_text)
 
 class StorageSpoke(NormalSpoke):
@@ -400,7 +401,7 @@ class StorageSpoke(NormalSpoke):
         # properties: kind, description, capacity, os, popup-info
         for disk in self.disks:
             if disk.removable:
-                kind = "drive-removable"
+                kind = "drive-removable-media"
             else:
                 kind = "drive-harddisk"
 
@@ -410,7 +411,7 @@ class StorageSpoke(NormalSpoke):
                                                     kind,
                                                     size,
                                                     popup=popup_info)
-            local_disks_box.add(overview)
+            local_disks_box.pack_start(overview, False, False, 0)
 
             # FIXME: this will need to get smarter
             #
@@ -454,6 +455,11 @@ class StorageSpoke(NormalSpoke):
                       Size(spec="%dmb" % capacity).humanReadable().upper(),
                       Size(spec="%dmb" % free).humanReadable().upper()))
         self.builder.get_object("summary_button").set_label(summary)
+
+        if count == 0:
+            self.window.set_info(Gtk.MessageType.WARNING, _("No disks selected; please select at least one disk to install to."))
+        else:
+            self.window.clear_info()
 
     def _update_disk_list(self):
         """ Update ignoredisk.onlyuse based on the UI. """
