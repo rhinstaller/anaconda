@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2011  Red Hat, Inc.
+ * Copyright (C) 2011-2012  Red Hat, Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -51,6 +51,8 @@ enum {
 #define DEFAULT_CAPACITY      N_("0 MB")
 #define DEFAULT_OS            ""
 #define DEFAULT_POPUP_INFO    ""
+
+#define ICON_SIZE             125
 
 struct _AnacondaDiskOverviewPrivate {
     GtkWidget *vbox;
@@ -195,7 +197,7 @@ static void anaconda_disk_overview_init(AnacondaDiskOverview *widget) {
 
     /* Create the spoke's icon. */
     widget->priv->kind = gtk_image_new_from_icon_name(DEFAULT_KIND, GTK_ICON_SIZE_DIALOG);
-    gtk_image_set_pixel_size(GTK_IMAGE(widget->priv->kind), 200);
+    gtk_image_set_pixel_size(GTK_IMAGE(widget->priv->kind), ICON_SIZE);
 
     /* Create the description label. */
     widget->priv->description_label = gtk_label_new(NULL);
@@ -282,7 +284,7 @@ static void anaconda_disk_overview_set_property(GObject *object, guint prop_id, 
 
         case PROP_KIND:
             gtk_image_set_from_icon_name(GTK_IMAGE(priv->kind), g_value_get_string(value), GTK_ICON_SIZE_DIALOG);
-            gtk_image_set_pixel_size(GTK_IMAGE(priv->kind), 200);
+            gtk_image_set_pixel_size(GTK_IMAGE(priv->kind), ICON_SIZE);
             break;
 
         case PROP_CAPACITY: {
