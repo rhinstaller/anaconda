@@ -74,6 +74,39 @@ def is_windows_boot_block(block):
 def has_windows_boot_block(device):
     return is_windows_boot_block(get_boot_block(device))
 
+class serial_opts(object):
+    def __init__(self):
+        self.speed = None
+        self.parity = None
+        self.word = None
+        self.stop = None
+        self.flow = None
+
+def parse_serial_opt(arg):
+    """Parse and split serial console options.
+
+    Documentation/kernel-parameters.txt says:
+      ttyS<n>[,options]
+                Use the specified serial port.  The options are of
+                the form "bbbbpnf", where "bbbb" is the baud rate,
+                "p" is parity ("n", "o", or "e"), "n" is number of
+                bits, and "f" is flow control ("r" for RTS or
+                omit it).  Default is "9600n8".
+    but note that everything after the baud rate is optional, so these are
+    all valid: 9600, 19200n, 38400n8, 9600e7r"""
+    opts = serial_opts()
+    m = re.match('\d+', arg)
+    if m is None:
+        return opts
+    opts.speed = m.group()
+    idx = len(opts.speed)
+    try:
+        opts.parity = arg[idx+0]
+        opts.word   = arg[idx+1]
+        opts.flow   = arg[idx+2]
+    except IndexError:
+        pass
+    return opts
 
 class BootLoaderError(Exception):
     pass
@@ -1114,14 +1147,22 @@ class GRUB(BootLoader):
         command = ""
         if self.console and self.console.startswith("ttyS"):
             unit = self.console[-1]
-            speed = "9600"
-            for opt in self.console_options.split(","):
-                if opt.isdigit():
-                    speed = opt
-                    break
-
-            command = "serial --unit=%s --speed=%s" % (unit, speed)
-
+            command = ["serial"]
+            s = parse_serial_opt(self.console_options)
+            if unit and unit != '0':
+                command.append("--unit=%s" % unit)
+            if s.speed and s.speed != '9600':
+                command.append("--speed=%s" % s.speed)
+            if s.parity:
+                if s.parity == 'o':
+                    command.append("--parity=odd")
+                elif s.parity == 'e':
+                    command.append("--parity=even")
+            if s.word and s.word != '8':
+                command.append("--word=%s" % s.word)
+            if s.stop and s.stop != '1':
+                command.append("--stop=%s" % s.stop)
+            command = " ".join(command)
         return command
 
     def write_config_console(self, config):
