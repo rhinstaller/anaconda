@@ -139,13 +139,12 @@ class Size(Decimal):
 
         return self
 
+    def __str__(self):
+        return self.humanReadable()
+
     def _trimEnd(self, val):
         """ Internal method to trim trailing zeros. """
-        if "." in val:
-            dot = val.index(".")
-            while val[dot + 1] == "0":
-                val = val[:dot] + val[dot + 2:]
-
+        val = re.sub(r'(\.\d*?)0+$', '\\1', val)
         while val.endswith('.'):
             val = val[:-1]
 
@@ -171,37 +170,43 @@ class Size(Decimal):
 
         return None
 
-    def humanReadable(self, places=2):
+    def humanReadable(self, places=None, max_places=2):
         """ Return a string representation of this size with appropriate
             size specifier and in the specified number of decimal places
-            (default: 2).
+            (default: auto with a maximum of 2 decimal places).
         """
-        if places < 1:
-            raise SizePlacesError("places= must be >1")
+        if places is not None and places < 0:
+            raise SizePlacesError("places= must be >=0 or None")
 
-        totalLen = places + 2
+        if max_places is not None and max_places < 0:
+            raise SizePlacesError("max_places= must be >=0 or None")
+
         check = self._trimEnd("%d" % self)
 
-        if len(check) == totalLen:
+        if Decimal(check) < 1000:
             return "%s b" % check
 
         for factor, prefix, abbr in _prefixes:
-            check = self / Decimal(factor)
+            newcheck = self / Decimal(factor)
 
-            i = places
-            while i > 0:
-                rounder = Decimal("." + "1".zfill(i))
-                newcheck = check.quantize(rounder)
-                retval = str(newcheck)
+            if newcheck < 1000:
+                if places is not None:
+                    fmt = "%%.%df" % places
+                    retval = fmt % newcheck
+                else:
+                    retval = self._trimEnd("%f" % newcheck)
 
-                if len(retval) == totalLen:
-                    if abbr:
-                        return retval + " " + abbr + _("b")
-                    elif newcheck == 1:
-                        return retval + " " + prefix + _("byte")
-                    else:
-                        return retval + " " + prefix + _("bytes")
+                if max_places is not None:
+                    (whole, point, fraction) = retval.partition(".")
+                    if point and len(fraction) > max_places:
+                        if max_places == 0:
+                            retval = whole
+                        else:
+                            retval = "%s.%s" % (whole, fraction[:max_places])
 
-                i -= 1
+                if abbr:
+                    return retval + " " + abbr + _("b")
+                else:
+                    return retval + " " + prefix + P_("byte", "bytes", newcheck)
 
         return None
