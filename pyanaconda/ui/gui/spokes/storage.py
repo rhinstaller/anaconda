@@ -50,8 +50,6 @@ from pyanaconda.storage.size import Size
 # these are all temporary
 from pyanaconda.storage.partitioning import getFreeRegions
 from pyanaconda.storage.partitioning import sectorsToSize
-from pyanaconda.storage.devices import DiskDevice
-from pyanaconda.storage.formats import getFormat
 
 from pyanaconda.product import productName
 
@@ -63,12 +61,16 @@ P_ = lambda x, y, z: gettext.ldngettext("anaconda", x, y, z)
 
 __all__ = ["StorageSpoke"]
 
+class FakeDiskLabel(object):
+    def __init__(self, free=0):
+        self.free = free
+
 class FakeDisk(object):
     def __init__(self, name, size=0, free=0, partitioned=True, vendor=None,
                  model=None, serial=None, removable=False):
         self.name = name
         self.size = size
-        self.free = free
+        self.format = FakeDiskLabel(free=free)
         self.partitioned = partitioned
         self.vendor = vendor
         self.model = model
@@ -95,40 +97,20 @@ def getDisks(devicetree, fake=False):
 
     return disks
 
-# XXX move these into storage
-def fsFreeSpace(device):
-    free = 0
-    if device.format.exists:
-        current_size = getattr(device.format, "currentSize", None)
-        min_size = getattr(device.format, "minSize", None)
-        if current_size and min_size and current_size != min_size:
-            free = int(current_size - min_size)     # truncate
-
-    return free
-
-def diskFreeSpace(disk):
-    free = 0
-    if disk.partitioned:
-        parted_disk = disk.format.partedDisk
-        sector_size = disk.partedDevice.sectorSize
-
-        free_geoms = getFreeRegions([parted_disk])
-        free_sizes = [sectorsToSize(f.length, sector_size) for f in free_geoms]
-        free = sum(free_sizes)
-
-    return free
-
 def get_free_space_info(disks, devicetree):
     disk_free = 0
     fs_free = 0
     for disk in disks:
-        if hasattr(disk, "free"):
-            disk_free += disk.free
+        if not disk.partitioned:
             continue
 
-        disk_free += diskFreeSpace(disk)
+        disk_free += disk.format.free
+
         for partition in devicetree.getChildren(disk):
-            fs_free += fsFreeSpace(partition)
+            # only check actual filesystems since lvm &c require a bunch of
+            # operations to translate free filesystem space into free disk space
+            if hasattr(partition.format, "free"):
+                fs_free += partition.format.free
 
     print("disks %s have %d free, plus %s in filesystems"
           % ([d.name for d in disks], disk_free, fs_free))
@@ -147,7 +129,7 @@ class SelectedDisksDialog(UIObject):
 
             self._store.append(["%s-%s" % (disk.vendor, disk.model),
                                 Size(spec="%s mb" % disk.size).humanReadable().upper(),
-                                Size(spec="%s mb" % disk.free).humanReadable().upper(),
+                                Size(spec="%s mb" % disk.format.free).humanReadable().upper(),
                                 str(disks.index(disk))])
         self.disks = disks[:]
         self._update_summary()
@@ -396,7 +378,7 @@ class StorageSpoke(NormalSpoke):
         #specialized_disks_box = self.builder.get_object("specialized_disks_box")
 
         print self.data.ignoredisk.onlyuse
-        self.disks = getDisks(self.devicetree, fake=True)
+        self.disks = getDisks(self.devicetree)#, fake=True)
 
         # properties: kind, description, capacity, os, popup-info
         for disk in self.disks:
@@ -445,7 +427,7 @@ class StorageSpoke(NormalSpoke):
                         break
 
                 capacity += disk.size
-                free += disk.free
+                free += disk.format.free
                 count += 1
 
         summary = (P_(("%d disk selected; %s capacity; %s free ..."),
