@@ -308,6 +308,16 @@ class FS(DeviceFormat):
             size = self._size
         return float(size)
 
+    @property
+    def free(self):
+        free = 0
+        if self.exists:
+            if self.currentSize and self.minSize and \
+               self.currentSize != self.minSize:
+                free = int(self.currentSize - self.minSize)     # truncate
+
+        return free
+
     def _getFormatOptions(self, options=None):
         argv = []
         if options and isinstance(options, list):

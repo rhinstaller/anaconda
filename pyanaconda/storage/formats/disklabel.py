@@ -367,5 +367,10 @@ class DiskLabel(DeviceFormat):
 
         return self._endAlignment
 
+    @property
+    def free(self):
+        return sum([f.getSize()
+                        for f in self.partedDisk.getFreeSpacePartitions()])
+
 register_device_format(DiskLabel)
 
