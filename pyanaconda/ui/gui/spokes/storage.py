@@ -46,11 +46,6 @@ from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.gui.categories.storage import StorageCategory
 
 from pyanaconda.storage.size import Size
-
-# these are all temporary
-from pyanaconda.storage.partitioning import getFreeRegions
-from pyanaconda.storage.partitioning import sectorsToSize
-
 from pyanaconda.product import productName
 
 import gettext
@@ -116,6 +111,8 @@ def get_free_space_info(disks, devicetree):
           % ([d.name for d in disks], disk_free, fs_free))
     return (disk_free, fs_free)
 
+def size_str(mb):
+    return str(Size(spec="%s mb" % mb)).upper()
 
 class SelectedDisksDialog(UIObject):
     builderObjects = ["selected_disks_dialog", "disk_store"]
@@ -127,9 +124,9 @@ class SelectedDisksDialog(UIObject):
             if disk.name not in self.data.ignoredisk.onlyuse:
                 continue
 
-            self._store.append(["%s-%s" % (disk.vendor, disk.model),
-                                Size(spec="%s mb" % disk.size).humanReadable().upper(),
-                                Size(spec="%s mb" % disk.format.free).humanReadable().upper(),
+            self._store.append([disk.description,
+                                size_str(disk.size),
+                                size_str(disk.format.free),
                                 str(disks.index(disk))])
         self.disks = disks[:]
         self._update_summary()
@@ -171,8 +168,8 @@ class SelectedDisksDialog(UIObject):
             free += Size(spec=self._store.get_value(itr, 2))
             itr = self._store.iter_next(itr)
 
-        size = Size(bytes=long(size)).humanReadable().upper()
-        free = Size(bytes=long(free)).humanReadable().upper()
+        size = str(Size(bytes=long(size))).upper()
+        free = str(Size(bytes=long(free))).upper()
 
         text = P_(("<b>%d disk; %s capacity; %s free space</b> "
                    "(unpartitioned and in filesystems)"),
@@ -240,14 +237,14 @@ class InstallOptions1Dialog(UIObject):
         options_label.set_markup(options_text)
 
     def _set_free_space_labels(self, disk_free, fs_free):
-        disk_free_text = Size(spec="%dmb" % disk_free).humanReadable().upper()
+        disk_free_text = size_str(disk_free)
         self.disk_free_label.set_text(disk_free_text)
 
-        fs_free_text = Size(spec="%dmb" % fs_free).humanReadable().upper()
+        fs_free_text = size_str(fs_free)
         self.fs_free_label.set_text(fs_free_text)
 
     def _get_sw_needs_text(self, required_space):
-        required_space_text = Size(spec="%dmb" % required_space).humanReadable().upper()
+        required_space_text = size_str(required_space)
         sw_text = (_("Your current <b>%s</b> software selection requires "
                       "<b>%s</b> of available space.")
                    % (productName, required_space_text))
@@ -378,7 +375,7 @@ class StorageSpoke(NormalSpoke):
         #specialized_disks_box = self.builder.get_object("specialized_disks_box")
 
         print self.data.ignoredisk.onlyuse
-        self.disks = getDisks(self.devicetree)#, fake=True)
+        self.disks = getDisks(self.devicetree)
 
         # properties: kind, description, capacity, os, popup-info
         for disk in self.disks:
@@ -387,7 +384,7 @@ class StorageSpoke(NormalSpoke):
             else:
                 kind = "drive-harddisk"
 
-            size = Size(spec="%dmb" % disk.size).humanReadable().upper()
+            size = size_str(disk.size)
             popup_info = "%s | %s" % (disk.name, disk.serial)
             overview = AnacondaWidgets.DiskOverview(disk.description,
                                                     kind,
@@ -432,10 +429,7 @@ class StorageSpoke(NormalSpoke):
 
         summary = (P_(("%d disk selected; %s capacity; %s free ..."),
                       ("%d disks selected; %s capacity; %s free ..."),
-                      count)
-                   % (count,
-                      Size(spec="%dmb" % capacity).humanReadable().upper(),
-                      Size(spec="%dmb" % free).humanReadable().upper()))
+                      count) % (count, size_str(capacity), size_str(free)))
         self.builder.get_object("summary_button").set_label(summary)
 
         if count == 0:
