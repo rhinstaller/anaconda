@@ -1377,7 +1377,7 @@ class DeviceTree(object):
 
             # check the list of devices udev knows about to see if the array
             # this device belongs to is already active
-            for dev in self.topology.devices_iter():
+            for dev in udev_get_block_devices():
                 if not udev_device_is_md(dev):
                     continue
 
