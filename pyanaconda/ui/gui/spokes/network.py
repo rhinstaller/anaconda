@@ -22,8 +22,6 @@
 # TODO:
 
 # - move callback connection to populate?
-# - more info on devices in list and notebook header
-#   -> another UI?
 
 # - which type of spoke or category?
 # - Automatically reconnecting wifi after failure
@@ -86,6 +84,7 @@ def getNMObjProperty(object, nm_iface_suffix, property):
                            property)
 
 
+DEVICES_COLUMN_TITLE  = 2
 DEVICES_COLUMN_OBJECT = 3
 
 # TODO: We don't give reason for unavailable (firmware/, cable)
@@ -524,8 +523,14 @@ class NetworkSpoke(NormalSpoke):
         return str
 
     def _dev_title(self, device):
-        title = '<span size="large">%s (%s)</span>' % (self._dev_type_str(device),
-                                                       device.get_iface())
+        unplugged = ''
+        if (device.get_device_type() == NetworkManager.DeviceType.ETHERNET
+            and not device.get_carrier()):
+            # Translators: ethernet cable is unplugged
+            unplugged = ', <i>%s</i>' % _("unplugged")
+        title = '<span size="large">%s (%s%s)</span>' % (self._dev_type_str(device),
+                                                         device.get_iface(),
+                                                         unplugged)
         title += '\n<span size="small">%s %s</span>' % (device.get_vendor(),
                                                         device.get_product())
         return title
@@ -691,6 +696,12 @@ class NetworkSpoke(NormalSpoke):
             self.builder.get_object("heading_%s_ipv4" % dt).set_label(_("IP Address"))
         elif ipv6_addr:
             self.builder.get_object("heading_%s_ipv6" % dt).set_label(_("IP Address"))
+
+        self._refresh_carrier_info()
+
+    def _refresh_carrier_info(self):
+        for i in self.builder.get_object("liststore_devices"):
+            i[DEVICES_COLUMN_TITLE] = self._dev_title(i[DEVICES_COLUMN_OBJECT])
 
     def _refresh_header_ui(self, device, dev_type_str):
 
