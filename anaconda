@@ -777,6 +777,7 @@ if __name__ == "__main__":
 
     from pyanaconda.storage import storageInitialize
     from pyanaconda.threads import initThreading, threadMgr
+    from threading import Thread
 
     initThreading()
     threadMgr.add(Thread(name="AnaStorageThread", target=storageInitialize, args=(anaconda.storage, ksdata, anaconda.protected)))
