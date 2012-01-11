@@ -524,8 +524,11 @@ class NetworkSpoke(NormalSpoke):
         return str
 
     def _dev_title(self, device):
-        #return '<span hsize="large">%s</span>' % self._dev_type_str(device)
-        return self._dev_type_str(device)
+        title = '<span size="large">%s (%s)</span>' % (self._dev_type_str(device),
+                                                       device.get_iface())
+        title += '\n<span size="small">%s %s</span>' % (device.get_vendor(),
+                                                        device.get_product())
+        return title
 
     def _dev_type_str(self, device):
         dev_type = device.get_device_type()
@@ -698,7 +701,7 @@ class NetworkSpoke(NormalSpoke):
 
         # TODO: is this necessary? Isn't it static from glade?
         self.builder.get_object("label_%s_device" % dev_type_str).set_label(
-            self._dev_type_str(device))
+            "%s (%s)" % (self._dev_type_str(device), device.get_iface()))
 
         state = device.get_state()
         self.builder.get_object("label_%s_status" % dev_type_str).set_label(

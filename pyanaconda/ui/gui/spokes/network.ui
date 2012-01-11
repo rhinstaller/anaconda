@@ -87,8 +87,8 @@
                                   <object class="GtkScrolledWindow" id="devices_scrolledwindow">
                                     <property name="visible">True</property>
                                     <property name="can_focus">True</property>
-                                    <property name="hscrollbar_policy">never</property>
                                     <property name="shadow_type">in</property>
+                                    <property name="min_content_width">300</property>
                                     <child>
                                       <object class="GtkTreeView" id="treeview_devices">
                                         <property name="visible">True</property>
