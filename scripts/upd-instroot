@@ -174,7 +174,7 @@ PACKAGES="GConf2 NetworkManager NetworkManager-gnome ORBit2 acl anaconda
     libXaw libXcursor libXdmcp libXevie libXext libXfixes libXfont libXft
     libXi libXinerama libXmu libXpm libXrandr libXrender libXt libXtst
     libXxf86misc libacl libaio libart_lgpl libattr libbdevid libbdevid-python
-    libbonobo libcanberra libcanberra-gtk2 libcurl libfontenc libidn libgcc
+    libbonobo libbsd libcanberra libcanberra-gtk2 libcurl libfontenc libidn libgcc
     libglade2 libgnomecanvas libgcrypt libgpg-error libjpeg libmlx4 libnl libogg
     libpng libselinux libselinux-python libsemanage
     libsemanage-python libsepol libssh2 libstdc++ libtdb libthai libtirpc 
@@ -185,7 +185,7 @@ PACKAGES="GConf2 NetworkManager NetworkManager-gnome ORBit2 acl anaconda
     lohit-oriya-fonts lohit-punjabi-fonts lohit-sindhi-fonts lohit-tamil-fonts
     lohit-telugu-fonts lvm2 madan-fonts mdadm
     mesa-dri-drivers metacity mkinitrd module-init-tools nash ncurses neon net-tools
-    newt newt-python nfs-utils nspr nss nss-softokn ntfs-3g ntpdate
+    nc newt newt-python nfs-utils nspr nss nss-softokn ntfs-3g ntpdate
     openldap openssh openssh-server
     pam pango parted pciutils pcre psmisc
     pygtk2-libglade pykickstart pyparted python python-bugzilla python-decorator
@@ -517,6 +517,7 @@ usr/lib/rpm/rpmrc
 usr/lib/rpm/macros
 $LIBDIR/rsyslog
 usr/$LIBDIR/libiscsi.so*
+usr/$LIBDIR/libbsd.so*
 usr/$LIBDIR/libfreebl3.so
 usr/$LIBDIR/libfreebl3.chk
 usr/$LIBDIR/libmetacity-private.so*
@@ -570,6 +571,7 @@ usr/bin/maketilo
 usr/bin/md5sum
 usr/bin/metacity
 usr/bin/mkzimage
+usr/bin/nc
 usr/bin/nm-connection-editor
 usr/bin/nslookup
 usr/bin/pango*
