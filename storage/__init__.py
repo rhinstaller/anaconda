@@ -103,13 +103,18 @@ def storageInitialize(anaconda):
         storage.reset()
 
     if not storage.disks:
+        custom_buttons=[_("_Try again"), _("_Exit installer")]
+        if anaconda.dispatch.canGoBack():
+            custom_buttons = [_("_Back"), _("_Exit installer")]
         rc = anaconda.intf.messageWindow(_("No disks found"),
-                _("No usable disks have been found."),
-                type="custom",
-                custom_buttons = [_("Back"), _("_Exit installer")],
-                default=0)
+                                         _("No usable disks have been found."),
+                                         type="custom",
+                                         custom_buttons=custom_buttons, default=0)
         if rc == 0:
-            return DISPATCH_BACK
+            if anaconda.dispatch.canGoBack():
+                return DISPATCH_BACK
+            else:
+                return storageInitialize(anaconda)
         sys.exit(1)
 
 # dispatch.py helper function

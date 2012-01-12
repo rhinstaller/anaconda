@@ -128,6 +128,8 @@ class Dispatcher(object):
     def canGoBack(self):
         # begin with the step before this one.  If all steps are skipped,
         # we can not go backwards from this screen
+        if self.step is None:
+            return False
         i = self.step - 1
         while i >= self.firstStep:
             if not self.stepIsDirect(i) and not self.skipSteps.has_key(installSteps[i][0]):
