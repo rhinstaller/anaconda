@@ -510,7 +510,9 @@ int main(int argc, char **argv) {
                 
                 /* strip spaces */
 		while(*develstart == ' ') develstart++;
-		if(*develstart == '\0') break;
+
+                /* the whole prompt is on the first line */
+		if(*develstart == '\0' || *develstart == '\n') break;
                 
                 /* not the word we are looking for */
                 if (strncmp(develstart, "devel", 5)) {
@@ -519,7 +521,7 @@ int main(int argc, char **argv) {
 		}
                 
                 /* is it isolated? */
-                if(((*(develstart+5)) == ' ' || (*(develstart+5)) == '\0')) {
+                if(((*(develstart+5)) == ' ' || (*(develstart+5)) == '\0' || (*(develstart+5)) == '\n')) {
                     printf("Enabling development mode - cores will be dumped\n");
                     isDevelMode++;
                     break;
