@@ -49,8 +49,15 @@ class AddLayoutDialog(UIObject):
         self.window.destroy()
         return rc
 
+    @property
+    def chosen_layout(self):
+        return self._chosen_layout
+
     def on_confirm_add_clicked(self, *args):
-        print "ADDING LAYOUT"
+        treeview = self.builder.get_object("newLayoutView")
+        selection = treeview.get_selection()
+        (model, itr) = selection.get_selected()
+        self._chosen_layout = model[itr][0]
 
     def on_cancel_clicked(self, *args):
         print "CANCELING"
@@ -110,7 +117,15 @@ class KeyboardSpoke(NormalSpoke):
         dialog = AddLayoutDialog(self.data)
         dialog.setup()
         dialog.populate()
-        print "RESPONSE = %s" % dialog.run()
+        response = dialog.run()
+        if response == 1:
+            found = False
+            itr = self._store.get_iter_first()
+            while itr and not found:
+                found = self._store[itr][0] == dialog.chosen_layout
+                itr = self._store.iter_next(itr)
+            if not found:
+                self._addLayout(self._store, dialog.chosen_layout)
 
     def on_remove_clicked(self, button):
         selection = self.builder.get_object("layoutSelection")
