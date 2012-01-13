@@ -41,11 +41,13 @@ if [[ "$LIVECMD $*" =~ "--liveinst" ]]; then
     LIVE_INSTALL=1
 fi
 
-
+# Try to sort out where the live device is
 if [ -z "$LIVE_BLOCK" ]; then
-    if [ -b "/dev/mapper/live-osimg-min" ]; then
+    if [ -b "/run/initramfs/live-baseloop" ]; then
+       LIVE_BLOCK="/run/initramfs/live-baseloop"
+    elif [ -b "/dev/mapper/live-osimg-min" ]; then
        LIVE_BLOCK="/dev/mapper/live-osimg-min"
-    else
+    elif [ -b "/dev/live-osimg" ]; then
        LIVE_BLOCK="/dev/live-osimg"
     fi
 fi
