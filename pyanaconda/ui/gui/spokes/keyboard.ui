@@ -157,7 +157,7 @@
     <property name="can_focus">False</property>
     <property name="icon_name">go-down-symbolic</property>
   </object>
-  <object class="AnacondaSpokeWindow" id="languageWindow">
+  <object class="AnacondaSpokeWindow" id="keyboardWindow">
     <property name="startup_id">filler</property>
     <property name="can_focus">False</property>
     <property name="startup_id">filler</property>
@@ -186,7 +186,7 @@
             <property name="xscale">0</property>
             <property name="yscale">0.5</property>
             <child internal-child="action_area">
-              <object class="GtkBox" id="languageWindow-actionArea">
+              <object class="GtkBox" id="keyboardWindow-actionArea">
                 <property name="can_focus">False</property>
                 <property name="orientation">vertical</property>
                 <property name="spacing">6</property>

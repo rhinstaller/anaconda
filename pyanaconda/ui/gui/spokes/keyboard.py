@@ -1,4 +1,4 @@
-# Language selection and configuration spoke class
+# Keyboard selection and configuration spoke class
 #
 # Copyright (C) 2011  Red Hat, Inc.
 #
@@ -29,12 +29,12 @@ from pyanaconda.ui.gui import UIObject
 from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.gui.categories.localization import LocalizationCategory
 
-__all__ = ["LanguageSpoke"]
+__all__ = ["KeyboardSpoke"]
 
 class AddLayoutDialog(UIObject):
     builderObjects = ["addLayoutDialog", "newLayoutStore"]
     mainWidgetName = "addLayoutDialog"
-    uiFile = "spokes/language.ui"
+    uiFile = "spokes/keyboard.ui"
 
     def run(self):
         rc = self.window.run()
@@ -47,23 +47,23 @@ class AddLayoutDialog(UIObject):
     def on_cancel_clicked(self, *args):
         print "CANCELING"
 
-class LanguageSpoke(NormalSpoke):
-    builderObjects = ["addedLayoutStore", "languageWindow",
+class KeyboardSpoke(NormalSpoke):
+    builderObjects = ["addedLayoutStore", "keyboardWindow",
                       "addImage", "removeImage", "upImage", "downImage", "settingsImage"]
-    mainWidgetName = "languageWindow"
-    uiFile = "spokes/language.ui"
+    mainWidgetName = "keyboardWindow"
+    uiFile = "spokes/keyboard.ui"
 
     category = LocalizationCategory
 
     icon = "accessories-character-map"
-    title = N_("LANGUAGE")
+    title = N_("KEYBOARD")
 
     def apply(self):
         pass
 
     @property
     def completed(self):
-        # The language spoke is always completed, as it does not require you do
+        # The keyboard spoke is always completed, as it does not require you do
         # anything.  There's always a default selected.
         return True
 
