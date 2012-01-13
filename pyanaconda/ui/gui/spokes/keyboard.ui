@@ -246,7 +246,9 @@ any layout to the top of the list to select it as the default.</property>
                                 <property name="headers_visible">False</property>
                                 <property name="search_column">0</property>
                                 <child internal-child="selection">
-                                  <object class="GtkTreeSelection" id="treeview-selection"/>
+                                  <object class="GtkTreeSelection" id="layoutSelection">
+                                    <signal name="changed" handler="on_selection_changed" swapped="no"/>
+                                  </object>
                                 </child>
                                 <child>
                                   <object class="GtkTreeViewColumn" id="name1">

@@ -195,6 +195,9 @@ class KeyboardSpoke(NormalSpoke):
     def on_settings_clicked(self, button):
         pass
 
+    def on_selection_changed(self, *args):
+        self.layout_selection_changed(self.builder.get_object("layoutSelection"))
+
     def layout_selection_changed(self, selection):
         # We don't have to worry about multiple rows being selected in this
         # function, because that's disabled by the widget.
