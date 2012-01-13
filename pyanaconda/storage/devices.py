@@ -473,7 +473,7 @@ class StorageDevice(Device):
         self.bus = bus
 
         self.protected = False
-        self.controllable = True
+        self.controllable = not flags.testing
 
         self.format = format
         self.originalFormat = self.format
@@ -481,6 +481,17 @@ class StorageDevice(Device):
         self._targetSize = self._size
 
         self._partedDevice = None
+
+        if self.exists and flags.testing and not self._size:
+            def read_int_from_sys(path):
+                return int(open(path).readline().strip())
+
+            device_root = "/sys/class/block/%s" % self.name
+            if os.path.exists("%s/queue" % device_root):
+                sector_size = read_int_from_sys("%s/queue/logical_block_size"
+                                                % device_root)
+                size = read_int_from_sys("%s/size" % device_root)
+                self._size = (size * sector_size) / (1024.0 * 1024.0)
 
     def __str__(self):
         exist = "existing"
@@ -1040,6 +1051,9 @@ class DiskDevice(StorageDevice):
 
     @property
     def mediaPresent(self):
+        if flags.testing:
+            return True
+
         if not self.partedDevice:
             return False
 
@@ -1149,7 +1163,7 @@ class PartitionDevice(StorageDevice):
         #        For existing partitions we will get the size from
         #        parted.
 
-        if self.exists:
+        if self.exists and not flags.testing:
             log.debug("looking up parted Partition: %s" % self.path)
             self._partedPartition = self.disk.format.partedDisk.getPartitionByPath(self.path)
             if not self._partedPartition:
@@ -2749,7 +2763,7 @@ class MDRaidArrayDevice(StorageDevice):
         if not self.formatClass:
             raise DeviceError("cannot find class for 'mdmember'", self.name)
 
-        if self.exists and self.uuid:
+        if self.exists and self.uuid and not flags.testing:
             # this is a hack to work around mdadm's insistence on giving
             # really high minors to arrays it has no config entry for
             open("/etc/mdadm.conf", "a").write("ARRAY %s UUID=%s\n"
@@ -3128,6 +3142,8 @@ class MDRaidArrayDevice(StorageDevice):
             return False
         # BIOS RAID sets should show as present even when teared down
         elif self.type == "mdbiosraidarray":
+            return True
+        elif flags.testing:
             return True
         else:
             return self.partedDevice is not None

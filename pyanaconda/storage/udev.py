@@ -83,14 +83,10 @@ def udev_resolve_glob(glob):
 
 def udev_get_block_devices():
     # Wait for scsi adapters to be done with scanning their busses (#583143)
-    try:
-        iutil.execWithRedirect("modprobe", [ "scsi_wait_scan" ],
+    iutil.execWithRedirect("modprobe", [ "scsi_wait_scan" ],
                                stdout = "/dev/tty5", stderr="/dev/tty5")
-        iutil.execWithRedirect("rmmod", [ "scsi_wait_scan" ],
+    iutil.execWithRedirect("rmmod", [ "scsi_wait_scan" ],
                                stdout = "/dev/tty5", stderr="/dev/tty5")
-    except (OSError, RuntimeError):
-        log.info("Skipping scsi_wait_scan due to running as non-root.")
-
     udev_settle()
     entries = []
     for path in udev_enumerate_block_devices():

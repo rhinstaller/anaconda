@@ -42,6 +42,7 @@ from udev import *
 from pyanaconda import iutil
 from pyanaconda import platform
 from pyanaconda import tsort
+from pyanaconda.flags import flags
 from pyanaconda.anaconda_log import log_method_call, log_method_return
 import parted
 import _ped
@@ -1179,7 +1180,7 @@ class DeviceTree(object):
             elif device.format.uuid in self.__luksDevs:
                 log.info("skipping previously-skipped luks device %s"
                             % device.name)
-            elif self._cleanup:
+            elif self._cleanup or flags.testing:
                 # if we're only building the devicetree so that we can
                 # tear down all of the devices we don't need a passphrase
                 if device.format.status:
@@ -1794,8 +1795,6 @@ class DeviceTree(object):
             self.protectedDevNames.append(livetarget)
 
         cfg = self.__multipathConfigWriter.write(self.mpathFriendlyNames)
-        old_devices = {}
-
         if os.access("/etc/multipath.conf", os.W_OK):
             with open("/etc/multipath.conf", "w+") as mpath_cfg:
                 mpath_cfg.write(cfg)
@@ -1803,6 +1802,7 @@ class DeviceTree(object):
             self.topology = devicelibs.mpath.MultipathTopology(udev_get_block_devices())
             log.info("devices to scan: %s" %
                      [d['name'] for d in self.topology.devices_iter()])
+            old_devices = {}
             for dev in self.topology.devices_iter():
                 old_devices[dev['name']] = dev
                 self.addUdevDevice(dev)

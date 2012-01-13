@@ -121,6 +121,7 @@ class Flags:
             self.__dict__['flags']['selinux'] = 0
 
         self.__dict__['flags']['nogpt'] = self.__dict__['flags']['cmdline'].has_key("nogpt")
+        self.__dict__['flags']['testing'] = self.__dict__['flags']['cmdline'].has_key("testing")
 
 global flags
 flags = Flags()

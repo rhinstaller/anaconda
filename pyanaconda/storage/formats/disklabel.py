@@ -23,6 +23,8 @@
 import os
 import copy
 
+from pyanaconda.flags import flags
+
 from pyanaconda.anaconda_log import log_method_call
 import parted
 import _ped
@@ -60,7 +62,7 @@ class DiskLabel(DeviceFormat):
         if not self.exists:
             self._labelType = kwargs.get("labelType", "msdos")
         else:
-            self._labelType = None
+            self._labelType = ""
 
         self._size = None
 
@@ -93,6 +95,8 @@ class DiskLabel(DeviceFormat):
 
     def __repr__(self):
         s = DeviceFormat.__repr__(self)
+        if flags.testing:
+            return s
         s += ("  type = %(type)s  partition count = %(count)s"
               "  sectorSize = %(sectorSize)s\n"
               "  align_offset = %(offset)s  align_grain = %(grain)s\n"
@@ -114,6 +118,9 @@ class DiskLabel(DeviceFormat):
     @property
     def dict(self):
         d = super(DiskLabel, self).dict
+        if flags.testing:
+            return d
+
         d.update({"labelType": self.labelType,
                   "partitionCount": len(self.partitions),
                   "sectorSize": self.partedDevice.sectorSize,
@@ -182,7 +189,11 @@ class DiskLabel(DeviceFormat):
     @property
     def labelType(self):
         """ The disklabel type (eg: 'gpt', 'msdos') """
-        return self.partedDisk.type
+        try:
+            lt = self.partedDisk.type
+        except Exception:
+            lt = self._labelType
+        return lt
 
     @property
     def name(self):
@@ -325,6 +336,14 @@ class DiskLabel(DeviceFormat):
             parts = self.partedDisk.partitions
         except Exception:
             parts = []
+            if flags.testing:
+                sys_block_root = "/sys/class/block/"
+
+                # FIXME: /dev/mapper/foo won't work without massaging
+                disk_name = self.device.split("/")[-1]
+
+                disk_root = sys_block_root + disk_name
+                parts = [n for n in os.listdir(disk_root) if n.startswith(disk_name)]
         return parts
 
     @property
@@ -369,8 +388,31 @@ class DiskLabel(DeviceFormat):
 
     @property
     def free(self):
-        return sum([f.getSize()
+        def read_int_from_sys(path):
+            return int(open(path).readline().strip())
+
+        try:
+            free = sum([f.getSize()
                         for f in self.partedDisk.getFreeSpacePartitions()])
+        except Exception:
+            sys_block_root = "/sys/class/block/"
+
+            # FIXME: /dev/mapper/foo won't work without massaging
+            disk_name = self.device.split("/")[-1]
+
+            disk_root = sys_block_root + disk_name
+            disk_length = read_int_from_sys("%s/size" % disk_root)
+            sector_size = read_int_from_sys("%s/queue/logical_block_size" % disk_root)
+            partition_names = [n for n in os.listdir(disk_root) if n.startswith(disk_name)]
+            used_sectors = 0
+            for partition_name in partition_names:
+                partition_root = sys_block_root + partition_name
+                partition_length = read_int_from_sys("%s/size" % partition_root)
+                used_sectors += partition_length
+
+            free = ((disk_length - used_sectors) * sector_size) / (1024.0 * 1024.0)
+
+        return free
 
 register_device_format(DiskLabel)
 

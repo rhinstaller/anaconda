@@ -84,6 +84,11 @@ class tee(threading.Thread):
 # @return The return code of command.
 def execWithRedirect(command, argv, stdin = None, stdout = None,
                      stderr = None, root = '/'):
+    if flags.testing:
+        log.info("not running command because we're testing: %s %s"
+                   % (command, " ".join(argv)))
+        return 0
+
     def chroot ():
         os.chroot(root)
 
@@ -102,22 +107,16 @@ def execWithRedirect(command, argv, stdin = None, stdout = None,
         stdin = sys.stdin.fileno()
 
     if isinstance(stdout, str):
-        try:
-            stdout = os.open(stdout, os.O_RDWR|os.O_CREAT)
-            stdoutclose = lambda : os.close(stdout)
-        except OSError:
-            stdout = sys.stdout.fileno()
+        stdout = os.open(stdout, os.O_RDWR|os.O_CREAT)
+        stdoutclose = lambda : os.close(stdout)
     elif isinstance(stdout, int):
         pass
     elif stdout is None or not isinstance(stdout, file):
         stdout = sys.stdout.fileno()
 
     if isinstance(stderr, str):
-        try:
-            stderr = os.open(stderr, os.O_RDWR|os.O_CREAT)
-            stderrclose = lambda : os.close(stderr)
-        except OSError:
-            stderr = sys.stderr.fileno()
+        stderr = os.open(stderr, os.O_RDWR|os.O_CREAT)
+        stderrclose = lambda : os.close(stderr)
     elif isinstance(stderr, int):
         pass
     elif stderr is None or not isinstance(stderr, file):
@@ -177,7 +176,7 @@ def execWithRedirect(command, argv, stdin = None, stdout = None,
         stdinclose()
         stdoutclose()
         stderrclose()
-        raise RuntimeError(errstr)
+        raise RuntimeError, errstr
 
     return ret
 
@@ -189,6 +188,11 @@ def execWithRedirect(command, argv, stdin = None, stdout = None,
 # @param root The directory to chroot to before running command.
 # @return The output of command from stdout.
 def execWithCapture(command, argv, stdin = None, stderr = None, root='/'):
+    if flags.testing:
+        log.info("not running command because we're testing: %s %s"
+                    % (command, " ".join(argv)))
+        return ""
+
     def chroot():
         os.chroot(root)
 
@@ -212,11 +216,8 @@ def execWithCapture(command, argv, stdin = None, stderr = None, root='/'):
         stdin = sys.stdin.fileno()
 
     if isinstance(stderr, str):
-        try:
-            stderr = os.open(stderr, os.O_RDWR|os.O_CREAT)
-            stderrclose = lambda : os.close(stderr)
-        except OSError:
-            stderr = sys.stderr.fileno()
+        stderr = os.open(stderr, os.O_RDWR|os.O_CREAT)
+        stderrclose = lambda : os.close(stderr)
     elif isinstance(stderr, int):
         pass
     elif stderr is None or not isinstance(stderr, file):
@@ -248,7 +249,7 @@ def execWithCapture(command, argv, stdin = None, stderr = None, root='/'):
     except OSError as e:
         log.error ("Error running " + command + ": " + e.strerror)
         closefds()
-        raise RuntimeError("Error running " + command + ": " + e.strerror)
+        raise RuntimeError, "Error running " + command + ": " + e.strerror
 
     closefds()
     return rc
@@ -256,6 +257,11 @@ def execWithCapture(command, argv, stdin = None, stderr = None, root='/'):
 def execWithCallback(command, argv, stdin = None, stdout = None,
                      stderr = None, echo = True, callback = None,
                      callback_data = None, root = '/'):
+    if flags.testing:
+        log.info("not running command because we're testing: %s %s"
+                    % (command, " ".join(argv)))
+        return ExecProduct(0, '', '')
+
     def chroot():
         os.chroot(root)
 
@@ -279,22 +285,16 @@ def execWithCallback(command, argv, stdin = None, stdout = None,
         stdin = sys.stdin.fileno()
 
     if isinstance(stdout, str):
-        try:
-            stdout = os.open(stdout, os.O_RDWR|os.O_CREAT)
-            stdoutclose = lambda : os.close(stdout)
-        except OSError:
-            stdout = sys.stdout.fileno()
+        stdout = os.open(stdout, os.O_RDWR|os.O_CREAT)
+        stdoutclose = lambda : os.close(stdout)
     elif isinstance(stdout, int):
         pass
     elif stdout is None or not isinstance(stdout, file):
         stdout = sys.stdout.fileno()
 
     if isinstance(stderr, str):
-        try:
-            stderr = os.open(stderr, os.O_RDWR|os.O_CREAT)
-            stderrclose = lambda : os.close(stderr)
-        except OSError:
-            stderr = sys.stderr.fileno()
+        stderr = os.open(stderr, os.O_RDWR|os.O_CREAT)
+        stderrclose = lambda : os.close(stderr)
     elif isinstance(stderr, int):
         pass
     elif stderr is None or not isinstance(stderr, file):

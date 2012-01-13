@@ -82,10 +82,7 @@ def udev_settle():
     # lots of disks, or with slow disks
     argv = ["settle", "--timeout=300"]
 
-    try:
-        iutil.execWithRedirect("udevadm", argv, stderr="/dev/null")
-    except RuntimeError:
-        log.info("Skipping udevadm settle call due to running as non-root.")
+    iutil.execWithRedirect("udevadm", argv, stderr="/dev/null")
 
 def udev_trigger(subsystem=None, action="add"):
     argv = ["trigger", "--action=%s" % action]

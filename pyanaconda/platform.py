@@ -28,9 +28,6 @@ from pyanaconda.storage.devicelibs import mdraid
 import iutil
 from flags import flags
 
-import logging
-log = logging.getLogger("anaconda")
-
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
 N_ = lambda x: x
@@ -100,6 +97,9 @@ class Platform(object):
 
     def bestDiskLabelType(self, device):
         """The best disklabel type for the specified device."""
+        if flags.testing:
+            return self.defaultDiskLabelType
+
         # if there's a required type for this device type, use that
         labelType = self.requiredDiskLabelType(device.partedDevice.type)
         if not labelType:
@@ -178,14 +178,9 @@ class X86(Platform):
             return 0
 
     def blackListGPT(self):
-        try:
-            buf = iutil.execWithCapture("dmidecode",
-                                        ["-s", "chassis-manufacturer"],
-                                        stderr="/dev/tty5")
-        except (OSError, RuntimeError):
-            log.info("Skipping dmidecode call due to running as non-root.")
-            return
-
+        buf = iutil.execWithCapture("dmidecode",
+                                    ["-s", "chassis-manufacturer"],
+                                    stderr="/dev/tty5")
         if "LENOVO" in buf.splitlines() and "gpt" in self._disklabel_types:
             self._disklabel_types.remove("gpt")
 
