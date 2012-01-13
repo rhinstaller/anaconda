@@ -32,14 +32,39 @@ from pyanaconda.ui.gui.categories.localization import LocalizationCategory
 __all__ = ["KeyboardSpoke"]
 
 class AddLayoutDialog(UIObject):
-    builderObjects = ["addLayoutDialog", "newLayoutStore"]
+    builderObjects = ["addLayoutDialog", "newLayoutStore", "newLayoutStoreFilter"]
     mainWidgetName = "addLayoutDialog"
     uiFile = "spokes/keyboard.ui"
+
+    def matches_entry(self, model, itr, user_data=None):
+        value = model.get_value(itr, 0)
+        entry_text = self._entry.get_text()
+        if entry_text is not None:
+            entry_text = entry_text.lower()
+            entry_text_words = entry_text.split()
+        else:
+            return False
+        try:
+            if value:
+                value = value.lower()
+                for word in entry_text_words:
+                    value.index(word)
+                return True
+            return False
+        except ValueError as valerr:
+            return False
+
+    def setup(self):
+        self._treeModelFilter = self.builder.get_object("newLayoutStoreFilter")
+        self._treeModelFilter.set_visible_func(self.matches_entry, None)
+        self._entry = self.builder.get_object("addLayoutEntry")
+        self._entry.grab_focus()
 
     def populate(self):
         self._store = self.builder.get_object("newLayoutStore")
         #XXX: will use values from the libxklavier
         self._addLayout(self._store, "English (US)")
+        self._addLayout(self._store, "English (US, with some other stuff)")
         self._addLayout(self._store, "Czech")
         self._addLayout(self._store, "Czech (qwerty)")
         self._addLayout(self._store, "values from libxklavier")
@@ -61,6 +86,12 @@ class AddLayoutDialog(UIObject):
 
     def on_cancel_clicked(self, *args):
         print "CANCELING"
+
+    def on_entry_changed(self, *args):
+        self._treeModelFilter.refilter()
+
+    def on_entry_icon_clicked(self, *args):
+        self._entry.set_text("")
 
     def _addLayout(self, store, name):
         store.append([name])

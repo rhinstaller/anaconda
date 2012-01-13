@@ -104,7 +104,7 @@
                   <object class="GtkTreeView" id="newLayoutView">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
-                    <property name="model">newLayoutStore</property>
+                    <property name="model">newLayoutStoreFilter</property>
                     <child internal-child="selection">
                       <object class="GtkTreeSelection" id="newLayoutSelection"/>
                     </child>
@@ -137,6 +137,8 @@
                 <property name="can_focus">True</property>
                 <property name="invisible_char">●</property>
                 <property name="secondary_icon_name">edit-clear-symbolic</property>
+                <signal name="changed" handler="on_entry_changed" swapped="no"/>
+                <signal name="icon-press" handler="on_entry_icon_clicked" swapped="no"/>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -460,6 +462,9 @@ any layout to the top of the list to select it as the default.</property>
       <!-- column-name name -->
       <column type="gchararray"/>
     </columns>
+  </object>
+  <object class="GtkTreeModelFilter" id="newLayoutStoreFilter">
+    <property name="child_model">newLayoutStore</property>
   </object>
   <object class="GtkImage" id="removeImage">
     <property name="visible">True</property>
