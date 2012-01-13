@@ -40,13 +40,19 @@ if path is not None:
     f = open(path, "r")
     lines = f.readlines()
     del f
-    if len(lines) >= 3:
+    if len(lines) >= 4:
         productStamp = lines[0][:-1]
         productArch = productStamp[productStamp.index(".")+1:]
         productName = lines[1][:-1]
         productVersion = lines[2][:-1]
-    if len(lines) >= 4:
-        bugUrl = lines[3][:-1]
+
+        # set productIsFinal
+        isfinal = lines[3].strip().lower()
+        key, sep, isfinal = isfinal.partition("=")
+        productIsFinal = (key == "final" and isfinal == "yes")
+
+    if len(lines) >= 5:
+        bugUrl = lines[4][:-1]
 
 if os.environ.has_key("ANACONDA_PRODUCTNAME"):
     productName = os.environ["ANACONDA_PRODUCTNAME"]

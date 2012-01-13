@@ -28,7 +28,7 @@ die() {
 }
 
 usage() {
-    echo "Usage: buildinstall --version <version> --brand <brand> --product <product> --release <comment> [--output outputdir] [--discs <discstring>] <root>" >&2
+    echo "Usage: buildinstall --version <version> --brand <brand> --product <product> --release <comment> --final [--output outputdir] [--discs <discstring>] <root>" >&2
     exit 1
 }
 
@@ -59,6 +59,10 @@ while [ $# -gt 0 ]; do
         --release)
             RELEASESTR=$2
             shift; shift
+        ;;
+        --final)
+            ISFINAL="--final"
+            shift
         ;;
         --product)
             PRODUCTSTR=$2
@@ -244,11 +248,11 @@ $MK_TREEINFO --family="$PRODUCTSTR" ${VARIANT:+--variant="$VARIANT"} --version=$
 
 # FIXME: need to update mk-images to take the yumconf
 echo "Making images: $PWD"
-echo $MK_IMAGES $DEBUGSTR $NOGRSTR --imgdir $TREEDIR/install --arch $BASEARCH --product "$PRODUCTSTR" --version $VERSION --bugurl "$BUGURL" --output $OUTPUT $yumconf
+echo $MK_IMAGES $DEBUGSTR $NOGRSTR --imgdir $TREEDIR/install --arch $BASEARCH --product "$PRODUCTSTR" --version $VERSION $ISFINAL --bugurl "$BUGURL" --output $OUTPUT $yumconf
 if [ -z "$DEBUGSTR" ]; then
-    $MK_IMAGES $DEBUGSTR $NOGRSTR --imgdir $TREEDIR/install --arch $BASEARCH --product "$PRODUCTSTR" --version $VERSION --bugurl "$BUGURL" --output $OUTPUT $yumconf || die "image creation failed"
+    $MK_IMAGES $DEBUGSTR $NOGRSTR --imgdir $TREEDIR/install --arch $BASEARCH --product "$PRODUCTSTR" --version $VERSION $ISFINAL --bugurl "$BUGURL" --output $OUTPUT $yumconf || die "image creation failed"
 else
-    /bin/sh -x $MK_IMAGES $DEBUGSTR $NOGRSTR --imgdir $TREEDIR/install --arch $BASEARCH --product "$PRODUCTSTR" --version $VERSION --bugurl "$BUGURL" --output $OUTPUT $yumconf || die "image creation failed"
+    /bin/sh -x $MK_IMAGES $DEBUGSTR $NOGRSTR --imgdir $TREEDIR/install --arch $BASEARCH --product "$PRODUCTSTR" --version $VERSION $ISFINAL --bugurl "$BUGURL" --output $OUTPUT $yumconf || die "image creation failed"
 fi
 
 echo "Writing .discinfo file"

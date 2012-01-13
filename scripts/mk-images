@@ -25,7 +25,7 @@ IMAGEUUID=$(date +%Y%m%d%H%M).$(uname -i)
 TMPDIR=${TMPDIR:-/tmp}
 
 usage () {
-    echo "usage: mk-images <pkgsrc> <toplevel> <template> <imgdir> <buildarch> <productname> <version> [<productpath>]"
+    echo "usage: mk-images <pkgsrc> <toplevel> <template> <imgdir> <buildarch> <productname> <version> <final> [<productpath>]"
     exit 0
 }
 
@@ -58,6 +58,10 @@ while [ $# -gt 0 ]; do
         --version)
             VERSION=$2
             shift; shift
+        ;;
+        --final)
+            ISFINAL="yes"
+            shift
         ;;
         --bugurl)
             BUGURL=$2
@@ -368,6 +372,11 @@ makeproductfile() {
     echo $IMAGEUUID > $root/.buildstamp
     echo $PRODUCT >> $root/.buildstamp
     echo $VERSION >> $root/.buildstamp
+    if [ -n "$ISFINAL" ]; then
+        echo "FINAL=YES" >> $root/.buildstamp
+    else
+        echo "FINAL=NO" >> $root/.buildstamp
+    fi
     if [ -n "$BUGURL" ]; then
         echo $BUGURL >> $root/.buildstamp
     fi
