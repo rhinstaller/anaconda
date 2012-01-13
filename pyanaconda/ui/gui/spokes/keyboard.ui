@@ -110,6 +110,21 @@
                     <child internal-child="selection">
                       <object class="GtkTreeSelection" id="newLayoutSelection"/>
                     </child>
+                    <child>
+                          <object class="GtkTreeViewColumn" id="name">
+                            <property name="title" translatable="yes">Name</property>
+                            <property name="expand">True</property>
+                            <property name="clickable">True</property>
+                            <property name="sort_column_id">0</property>
+                            <child>
+                              <object class="GtkCellRendererText" id="newLayoutRenderer">
+                              </object>
+                              <attributes>
+                                <attribute name="text">0</attribute>
+                              </attributes>
+                            </child>
+                          </object>
+                    </child>
                   </object>
                 </child>
               </object>

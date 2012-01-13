@@ -36,6 +36,14 @@ class AddLayoutDialog(UIObject):
     mainWidgetName = "addLayoutDialog"
     uiFile = "spokes/keyboard.ui"
 
+    def populate(self):
+        self._store = self.builder.get_object("newLayoutStore")
+        #XXX: will use values from the libxklavier
+        self._addLayout(self._store, "English (US)")
+        self._addLayout(self._store, "Czech")
+        self._addLayout(self._store, "Czech (qwerty)")
+        self._addLayout(self._store, "values from libxklavier")
+
     def run(self):
         rc = self.window.run()
         self.window.destroy()
@@ -46,6 +54,9 @@ class AddLayoutDialog(UIObject):
 
     def on_cancel_clicked(self, *args):
         print "CANCELING"
+
+    def _addLayout(self, store, name):
+        store.append([name])
 
 class KeyboardSpoke(NormalSpoke):
     builderObjects = ["addedLayoutStore", "keyboardWindow",
@@ -98,6 +109,7 @@ class KeyboardSpoke(NormalSpoke):
     def on_add_clicked(self, button):
         dialog = AddLayoutDialog(self.data)
         dialog.setup()
+        dialog.populate()
         print "RESPONSE = %s" % dialog.run()
 
     def on_remove_clicked(self, button):
