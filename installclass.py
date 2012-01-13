@@ -126,7 +126,7 @@ class BaseInstallClass(object):
 		 "complete"
 		)
 
-	if not BETANAG:
+	if productIsFinal:
 	    dispatch.skipStep("betanag", permanent=1)
 
         if not iutil.isX86():
