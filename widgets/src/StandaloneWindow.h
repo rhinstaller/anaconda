@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2011  Red Hat, Inc.
+ * Copyright (C) 2011-2012  Red Hat, Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -72,6 +72,7 @@ GType       anaconda_standalone_window_get_type (void);
 GtkWidget  *anaconda_standalone_window_new      ();
 gboolean    anaconda_standalone_window_get_may_continue  (AnacondaStandaloneWindow *win);
 void        anaconda_standalone_window_set_may_continue  (AnacondaStandaloneWindow *win, gboolean may_continue);
+void        anaconda_standalone_window_retranslate       (AnacondaStandaloneWindow *win);
 
 G_END_DECLS
 

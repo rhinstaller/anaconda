@@ -1,6 +1,6 @@
 # Base classes for the graphical user interface.
 #
-# Copyright (C) 2011  Red Hat, Inc.
+# Copyright (C) 2011-2012  Red Hat, Inc.
 #
 # This copyrighted material is made available to anyone wishing to use,
 # modify, copy, or redistribute it subject to the terms and conditions of
@@ -183,6 +183,14 @@ class UIObject(object):
         if self.__class__ is UIObject:
             raise TypeError("UIObject is an abstract class")
 
+        # This couldn't possibly be a bigger hack job.  This structure holds the
+        # untranslated strings out of each widget.  retranslate works by taking the
+        # string out of a widget, translating it, and then cramming it back into
+        # the widget.  When we go to change language a second time, the fetched
+        # string will be the translated one.  Strings in gettext are keyed on the
+        # original English, so we'd be looking up translations by translations.
+        self._origStrings = {}
+
         self.data = data
 
         from gi.repository import Gtk
@@ -213,6 +221,32 @@ class UIObject(object):
            like a one-time setup() method.
         """
         pass
+
+    def retranslate(self):
+        from gi.repository import AnacondaWidgets, Gtk
+
+        # Widget class -> (getter, setter)   -or-
+        # Widget class -> (setter, )
+        widgetMap = { AnacondaWidgets.StandaloneWindow: ("retranslate", ),
+                      Gtk.Button: ("get_label", "set_label"),
+                      Gtk.Label: ("get_label", "set_label") }
+        classes = widgetMap.keys()
+
+        objs = filter(lambda obj: obj.__class__ in classes, self.builder.get_objects())
+        for obj in objs:
+            klass = obj.__class__
+            funcs = widgetMap[klass]
+
+            if len(funcs) == 1:
+                getattr(obj, funcs[0])()
+            else:
+                # Only store the string once, so we make sure to get the original.
+                if not obj in self._origStrings:
+                    self._origStrings[obj] = getattr(obj, funcs[0])()
+
+                before = self._origStrings[obj]
+                xlated = _(before)
+                getattr(obj, funcs[1])(xlated)
 
     def setup(self):
         """Perform whatever actions are necessary to set defaults on the UI.

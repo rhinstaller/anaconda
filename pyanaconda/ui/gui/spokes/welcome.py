@@ -1,6 +1,6 @@
 # Welcome spoke classes
 #
-# Copyright (C) 2011  Red Hat, Inc.
+# Copyright (C) 2011-2012  Red Hat, Inc.
 #
 # This copyrighted material is made available to anyone wishing to use,
 # modify, copy, or redistribute it subject to the terms and conditions of
@@ -69,7 +69,6 @@ class WelcomeLanguageSpoke(StandaloneSpoke):
 
     def setup(self):
         StandaloneSpoke.setup(self)
-        #self.window.set_may_continue(False)
 
     def _addLanguage(self, store, native, english, setting):
         store.append([native, english, setting])
@@ -98,7 +97,7 @@ class WelcomeLanguageSpoke(StandaloneSpoke):
             lang = store[selected[0]][2]
             self.language.set_install_lang(lang)
             self.language.set_system_lang(lang)
-            # TODO reload the whole window so it gets translated
+            self.retranslate()
 
     # Override the default in StandaloneSpoke so we can display the beta
     # warning dialog first.

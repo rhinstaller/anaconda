@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2011  Red Hat, Inc.
+ * Copyright (C) 2011-2012  Red Hat, Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -48,6 +48,9 @@ enum {
     SIGNAL_CONTINUE_CLICKED,
     LAST_SIGNAL
 };
+
+#define QUIT_TEXT "_QUIT"
+#define CONTINUE_TEXT "_CONTINUE"
 
 static guint window_signals[LAST_SIGNAL] = { 0 };
 
@@ -125,8 +128,8 @@ static void anaconda_standalone_window_init(AnacondaStandaloneWindow *win) {
                                             AnacondaStandaloneWindowPrivate);
 
     /* Create the buttons. */
-    win->priv->quit_button = gtk_button_new_with_mnemonic(_("_QUIT"));
-    win->priv->continue_button = gtk_button_new_with_mnemonic(_("_CONTINUE"));
+    win->priv->quit_button = gtk_button_new_with_mnemonic(_(QUIT_TEXT));
+    win->priv->continue_button = gtk_button_new_with_mnemonic(_(CONTINUE_TEXT));
 
     /* Hook up some signals for those buttons.  The signal handlers here will
      * just raise our own custom signals for the whole window.
@@ -189,4 +192,21 @@ gboolean anaconda_standalone_window_get_may_continue(AnacondaStandaloneWindow *w
 void anaconda_standalone_window_set_may_continue(AnacondaStandaloneWindow *win,
                                                  gboolean may_continue) {
     gtk_widget_set_sensitive(win->priv->continue_button, may_continue);
+}
+
+/**
+ * anaconda_standalone_window_retranslate
+ * @win: a #AnacondaStaldaloneWindow
+ *
+ * Reload translations for this widget as needed.  Generally, this is not
+ * needed.  However when changing the language during installation, we need
+ * to be able to make sure the screen gets retranslated.  This function is
+ * kind of ugly but avoids having to destroy and reload the screen.
+ *
+ * Since: 1.0
+ */
+void anaconda_standalone_window_retranslate(AnacondaStandaloneWindow *win) {
+    anaconda_base_window_retranslate(ANACONDA_BASE_WINDOW(win));
+    gtk_button_set_label(GTK_BUTTON(win->priv->quit_button), _(QUIT_TEXT));
+    gtk_button_set_label(GTK_BUTTON(win->priv->continue_button), _(CONTINUE_TEXT));
 }

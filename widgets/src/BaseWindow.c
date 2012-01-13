@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2011  Red Hat, Inc.
+ * Copyright (C) 2011-2012  Red Hat, Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -75,6 +75,7 @@ enum {
 
 #define DEFAULT_DISTRIBUTION  N_("DISTRIBUTION INSTALLATION")
 #define DEFAULT_WINDOW_NAME   N_("SPOKE NAME")
+#define DEFAULT_BETA          N_("PRE-RELEASE / TESTING")
 
 struct _AnacondaBaseWindowPrivate {
     gboolean    is_beta, info_shown;
@@ -82,6 +83,9 @@ struct _AnacondaBaseWindowPrivate {
     GtkWidget  *alignment;
     GtkWidget  *nav_area, *action_area;
     GtkWidget  *name_label, *distro_label, *beta_label;
+
+    /* Untranslated versions of various things. */
+    gchar *orig_name, *orig_distro, *orig_beta;
 };
 
 static void anaconda_base_window_get_property(GObject *object, guint prop_id, GValue *value, GParamSpec *pspec);
@@ -155,6 +159,10 @@ static void anaconda_base_window_init(AnacondaBaseWindow *win) {
     win->priv->is_beta = FALSE;
     win->priv->info_shown = FALSE;
 
+    win->priv->orig_name = NULL;
+    win->priv->orig_distro = NULL;
+    win->priv->orig_beta = NULL;
+
     /* Set properties on the parent (Gtk.Window) class. */
     gtk_window_set_decorated(GTK_WINDOW(win), FALSE);
     gtk_window_maximize(GTK_WINDOW(win));
@@ -203,6 +211,8 @@ static void anaconda_base_window_init(AnacondaBaseWindow *win) {
     gtk_misc_set_alignment(GTK_MISC(win->priv->name_label), 0, 0);
     gtk_widget_set_hexpand(win->priv->name_label, TRUE);
 
+    win->priv->orig_name = g_strdup(DEFAULT_WINDOW_NAME);
+
     /* Create the distribution label. */
     win->priv->distro_label = gtk_label_new(NULL);
     markup = g_markup_printf_escaped("<span size='large'>%s</span>", _(DEFAULT_DISTRIBUTION));
@@ -210,13 +220,17 @@ static void anaconda_base_window_init(AnacondaBaseWindow *win) {
     g_free(markup);
     gtk_misc_set_alignment(GTK_MISC(win->priv->distro_label), 0, 0);
 
+    win->priv->orig_name = g_strdup(DEFAULT_DISTRIBUTION);
+
     /* Create the betanag label. */
     win->priv->beta_label = gtk_label_new(NULL);
-    markup = g_markup_printf_escaped("<span foreground='red' weight='bold' size='large'>%s</span>", _("PRE-RELEASE / TESTING"));
+    markup = g_markup_printf_escaped("<span foreground='red' weight='bold' size='large'>%s</span>", _(DEFAULT_BETA));
     gtk_label_set_markup(GTK_LABEL(win->priv->beta_label), markup);
     g_free(markup);
     gtk_misc_set_alignment(GTK_MISC(win->priv->beta_label), 0, 0);
     gtk_widget_set_no_show_all(win->priv->beta_label, TRUE);
+
+    win->priv->orig_beta = g_strdup(DEFAULT_BETA);
 
     /* Add everything to the nav area. */
     gtk_grid_attach(GTK_GRID(win->priv->nav_area), win->priv->name_label, 0, 0, 1, 1);
@@ -248,6 +262,10 @@ static void anaconda_base_window_set_property(GObject *object, guint prop_id, co
             char *markup = g_markup_printf_escaped("<span size='large'>%s</span>", g_value_get_string(value));
             gtk_label_set_markup(GTK_LABEL(priv->distro_label), markup);
             g_free(markup);
+
+            if (priv->orig_distro)
+                g_free(priv->orig_distro);
+            priv->orig_distro = g_strdup(g_value_get_string(value));
             break;
         }
 
@@ -255,6 +273,10 @@ static void anaconda_base_window_set_property(GObject *object, guint prop_id, co
             char *markup = g_markup_printf_escaped("<span weight='bold' size='large'>%s</span>", g_value_get_string(value));
             gtk_label_set_markup(GTK_LABEL(priv->name_label), markup);
             g_free(markup);
+
+            if (priv->orig_name)
+                g_free(priv->orig_name);
+            priv->orig_name = g_strdup(g_value_get_string(value));
             break;
         }
     }
@@ -368,7 +390,7 @@ void anaconda_base_window_set_info(AnacondaBaseWindow *win, GtkMessageType ty, c
     if (win->priv->info_shown)
         return;
 
-    label = gtk_label_new(msg);
+    label = gtk_label_new(_(msg));
     gtk_widget_show(label);
 
     win->priv->info_bar = gtk_info_bar_new();
@@ -405,6 +427,42 @@ void anaconda_base_window_clear_info(AnacondaBaseWindow *win) {
     gtk_widget_hide(win->priv->info_bar);
     gtk_widget_destroy(win->priv->info_bar);
     win->priv->info_shown = FALSE;
+}
+
+/**
+ * anaconda_base_window_retranslate
+ * @win: a #AnacondaBaseWindow
+ *
+ * Reload translations for this widget as needed.  Generally, this is not
+ * needed.  However when changing the language during installation, we need
+ * to be able to make sure the screen gets retranslated.  This function is
+ * kind of ugly but avoids having to destroy and reload the screen.
+ *
+ * Since: 1.0
+ */
+void anaconda_base_window_retranslate(AnacondaBaseWindow *win) {
+    char *markup;
+    GValue distro = G_VALUE_INIT;
+
+    g_value_init(&distro, G_TYPE_STRING);
+    g_value_set_string(&distro, _(win->priv->orig_distro));
+
+    anaconda_base_window_set_property((GObject *) win, PROP_DISTRIBUTION, &distro, NULL);
+
+    /* A window name is not necessarily set. */
+    if (strcmp(gtk_label_get_text(GTK_LABEL(win->priv->name_label)), "") != 0) {
+        GValue name = G_VALUE_INIT;
+
+        g_value_init(&name, G_TYPE_STRING);
+        g_value_set_string(&name, _(win->priv->orig_name));
+
+        anaconda_base_window_set_property((GObject *) win, PROP_WINDOW_NAME, &name, NULL);
+    }
+
+    markup = g_markup_printf_escaped("<span foreground='red' weight='bold' size='large'>%s</span>",
+                                     _(win->priv->orig_beta));
+    gtk_label_set_markup(GTK_LABEL(win->priv->beta_label), markup);
+    g_free(markup);
 }
 
 static GtkBuildableIface *parent_buildable_iface;
