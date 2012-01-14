@@ -46,11 +46,6 @@ class WelcomeLanguageSpoke(StandaloneSpoke):
     def populate(self):
         StandaloneSpoke.populate(self)
 
-        # I shouldn't have to do this outside of GtkBuilder, but see:
-        # https://bugzilla.gnome.org/show_bug.cgi?id=614150
-        completion = self.builder.get_object("languageEntryCompletion")
-        completion.set_text_column(1)
-
         store = self.builder.get_object("languageStore")
 
         # TODO We can use the territory from geoip here
@@ -85,10 +80,6 @@ class WelcomeLanguageSpoke(StandaloneSpoke):
         treeview.scroll_to_cell(path)
 
     # Signal handlers.
-    def clearLanguageEntry(self, entry, icon_pos, event):
-        if icon_pos == Gtk.EntryIconPosition.SECONDARY:
-            entry.set_text("")
-
     def on_selection_changed(self, selection):
         (store, selected) = selection.get_selected_rows()
         self.window.set_may_continue(len(selected) > 0)
