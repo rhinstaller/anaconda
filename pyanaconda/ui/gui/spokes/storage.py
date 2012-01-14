@@ -1,6 +1,6 @@
 # Storage configuration spoke classes
 #
-# Copyright (C) 2011  Red Hat, Inc.
+# Copyright (C) 2011, 2012  Red Hat, Inc.
 #
 # This copyrighted material is made available to anyone wishing to use,
 # modify, copy, or redistribute it subject to the terms and conditions of
@@ -436,6 +436,8 @@ class StorageSpoke(NormalSpoke):
             self.window.set_info(Gtk.MessageType.WARNING, _("No disks selected; please select at least one disk to install to."))
         else:
             self.window.clear_info()
+
+        self.builder.get_object("summary_button").set_sensitive(count > 0)
 
     def _update_disk_list(self):
         """ Update ignoredisk.onlyuse based on the UI. """
