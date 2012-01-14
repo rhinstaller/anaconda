@@ -371,6 +371,9 @@ class StorageSpoke(NormalSpoke):
     def populate(self):
         NormalSpoke.populate(self)
 
+        summary_label = self.builder.get_object("summary_button").get_children()[0]
+        summary_label.set_use_markup(True)
+
         local_disks_box = self.builder.get_object("local_disks_box")
         #specialized_disks_box = self.builder.get_object("specialized_disks_box")
 
@@ -430,7 +433,9 @@ class StorageSpoke(NormalSpoke):
         summary = (P_(("%d disk selected; %s capacity; %s free ..."),
                       ("%d disks selected; %s capacity; %s free ..."),
                       count) % (count, size_str(capacity), size_str(free)))
-        self.builder.get_object("summary_button").set_label(summary)
+        markup = "<span foreground='blue'><u>%s</u></span>" % summary
+        summary_label = self.builder.get_object("summary_button").get_children()[0]
+        summary_label.set_markup(markup)
 
         if count == 0:
             self.window.set_info(Gtk.MessageType.WARNING, _("No disks selected; please select at least one disk to install to."))
