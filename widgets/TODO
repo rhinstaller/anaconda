@@ -1,6 +1,7 @@
 BaseWindow -
 
 DiskOverview -
+   - allow tabbing between widgets
    - add utilization pie chart
    - need to specify big vs. small
 
@@ -11,13 +12,6 @@ SpokeWindow -
 StandaloneWindow -
 
 New Widgets -
-   - PersonalizationWindow
-   - physical member display
-   - capacity slider+drop down
-   - software RAID overview (#9-3-1, RAID tab, left side)
-   - disk viewer (shaded bars on #9-3-1)
-   - partition bar (colored bar part on #9-3-1)
-   - accordion on #9-3-1
 
 glade Integration -
    - add icons
@@ -28,4 +22,6 @@ Build -
 Misc -
    - add test cases
    - coding standard document
-   - should widgets use CSS instead of hardcoding things?
+   - can CSS live outside of C files?
+   - should the BaseWindow background be white?  if so, other widgets will need to
+     act similar.
