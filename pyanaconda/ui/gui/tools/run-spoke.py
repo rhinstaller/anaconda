@@ -39,8 +39,9 @@ if not spokeClass:
     sys.exit(1)
 
 spoke = spokeClass(ksdata, devicetree, instclass)
-spoke.register_event_cb("continue", lambda: Gtk.main_quit())
-spoke.register_event_cb("quit", lambda: Gtk.main_quit())
+if hasattr(spoke, "register_event_cb"):
+    spoke.register_event_cb("continue", lambda: Gtk.main_quit())
+    spoke.register_event_cb("quit", lambda: Gtk.main_quit())
 spoke.populate()
 
 if not spoke.showable:
