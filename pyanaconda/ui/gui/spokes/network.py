@@ -24,7 +24,6 @@
 # - move callback connection to populate?
 # - Automatically reconnecting wifi after failure
 #   https://bugzilla.redhat.com/show_bug.cgi?id=712778#c1
-# - We don't give reason for unavailable (firmware/, cable)
 # - secrets agent - use nm_applet?
 #   see we_dont_have_nm_applet_as_secrets_agent
 # - callback on NM_CLIENT_ACTIVE_CONNECTIONS
@@ -80,21 +79,40 @@ def getNMObjProperty(object, nm_iface_suffix, property):
 DEVICES_COLUMN_TITLE  = 2
 DEVICES_COLUMN_OBJECT = 3
 
-# TODO: We don't give reason for unavailable (firmware/, cable)
-localized_string_of_device_state = {
-    NetworkManager.DeviceState.UNKNOWN : _("Status unknown"),
-    NetworkManager.DeviceState.UNMANAGED : _("Unmanaged"),
-    NetworkManager.DeviceState.UNAVAILABLE : _("Unavailable"),
-    NetworkManager.DeviceState.DISCONNECTED : _("Disconnected"),
-    NetworkManager.DeviceState.PREPARE : _("Connecting"),
-    NetworkManager.DeviceState.CONFIG : _("Connecting"),
-    NetworkManager.DeviceState.IP_CONFIG : _("Connecting"),
-    NetworkManager.DeviceState.IP_CHECK : _("Connecting"),
-    NetworkManager.DeviceState.NEED_AUTH : _("Authentication required"),
-    NetworkManager.DeviceState.ACTIVATED : _("Connected"),
-    NetworkManager.DeviceState.DEACTIVATING : _("Disconnecting"),
-    NetworkManager.DeviceState.FAILED : _("Connection failed"),
-}
+
+def localized_string_of_device_state(device):
+    str = _("Status unknown (missing)")
+
+    state = device.get_state()
+    if state == NetworkManager.DeviceState.UNKNOWN:
+        str = _("Status unknown")
+    elif state == NetworkManager.DeviceState.UNMANAGED:
+        str = _("Unmanaged")
+    elif state == NetworkManager.DeviceState.UNAVAILABLE:
+        if device.get_firmware_missing():
+            str = _("Firmware missing")
+        elif (device.get_device_type() == NetworkManager.DeviceType.ETHERNET
+              and not device.get_carrier()):
+            str = _("Cable unplugged")
+        else:
+            str = _("Unavailable")
+    elif state == NetworkManager.DeviceState.DISCONNECTED:
+        str = _("Disconnected")
+    elif state in (NetworkManager.DeviceState.PREPARE,
+                   NetworkManager.DeviceState.CONFIG,
+                   NetworkManager.DeviceState.IP_CONFIG,
+                   NetworkManager.DeviceState.IP_CHECK):
+        str = _("Connecting")
+    elif state == NetworkManager.DeviceState.NEED_AUTH:
+        str = _("Authentication required")
+    elif state == NetworkManager.DeviceState.ACTIVATED:
+        str = _("Connected")
+    elif state == NetworkManager.DeviceState.DEACTIVATING:
+        str = _("Disconnecting")
+    elif state == NetworkManager.DeviceState.FAILED:
+        str = _("Connection failed")
+
+    return str
 
 configuration_of_disconnected_devices_allowed = True
 # it is not in gnome-control-center but it makes sense
@@ -704,7 +722,7 @@ class NetworkSpoke(NormalSpoke):
 
         state = device.get_state()
         self.builder.get_object("label_%s_status" % dev_type_str).set_label(
-            localized_string_of_device_state.get(state, _("Status unknown (missing)")))
+            localized_string_of_device_state(device))
 
         switch = self.builder.get_object("device_%s_off_switch" % dev_type_str)
         if dev_type_str == "wired":
