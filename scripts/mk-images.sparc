@@ -40,6 +40,11 @@ makeproductfile() {
     echo $IMAGEUUID > $root/.buildstamp
     echo $PRODUCT >> $root/.buildstamp
     echo $VERSION >> $root/.buildstamp
+    if [ -n "$ISFINAL" ]; then
+        echo "FINAL=YES" >> $root/.buildstamp
+    else
+        echo "FINAL=NO" >> $root/.buildstamp
+    fi
     if [ -n "$BUGURL" ]; then
         echo $BUGURL >> $root/.buildstamp
     fi
