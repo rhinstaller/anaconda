@@ -113,6 +113,15 @@ class KernelArguments:
 
         return rest
 
+    def _sort_args(self, args):
+        ordering_dict = {"rhgb": 99, "quiet": 100}
+
+        # sort the elements according to their values in ordering_dict. The
+        # higher the number the closer to the final string the argument
+        # gets. The default is 50.
+        lst = sorted(args, key=lambda s: ordering_dict.get(s, 50))
+        return " ".join(lst)
+
     def getDracutStorageArgs(self, devices):
         args = set()
         types = {}
@@ -164,7 +173,7 @@ class KernelArguments:
 
         all_args = self._merge_ip(all_args)
 
-        return " ".join(all_args)
+        return self._sort_args(all_args)
 
     def set(self, args):
         self.args = args
@@ -172,7 +181,7 @@ class KernelArguments:
 
     def getNoDracut(self):
         args = " ".join(self.args) + " " + " ".join(self.appendArgs)
-        return args
+        return self._sort_args(args.split())
 
     def chandevget(self):
         return self.cargs
