@@ -22,24 +22,17 @@
 # TODO:
 
 # - move callback connection to populate?
-
-# - which type of spoke or category?
 # - Automatically reconnecting wifi after failure
 #   https://bugzilla.redhat.com/show_bug.cgi?id=712778#c1
 # - We don't give reason for unavailable (firmware/, cable)
 # - secrets agent - use nm_applet?
 #   see we_dont_have_nm_applet_as_secrets_agent
-# - proxy support
-# - operation modes - panel's property PROP_ARGV (CmdlineOperation)
-#   is it relevant for us?
-# - expand for device list
-# - nm_utils_escape_ssid
-# - panel_cellrenderer_mode ?
-# - callbacks on NM_CLIENT_MANAGER_RUNNING, NM_CLIENT_ACTIVE_CONNECTIONS?
-# - ap selection combobox as anaconda-widget? (with renderers and stuff)
+# - callback on NM_CLIENT_ACTIVE_CONNECTIONS
 # - support connection to hidden network (ap-other)
-# - fill ksdata (from ifcfg files!)
+# - apply(): fill ksdata (from ifcfg files!)
 # - device_is_stored
+# - NMClient.CLIENT_WIRELESS_ENABLED callback (hw switch?) - test
+# - nm-c-e run: blocking? logging?
 
 from gi.repository import Gtk, AnacondaWidgets
 
@@ -264,9 +257,6 @@ class NetworkSpoke(NormalSpoke):
         # NM Client
         self.client.connect("device-added", self.on_device_added)
         self.client.connect("device-removed", self.on_device_removed)
-        # TODO: perhaps not in anaconda
-        #self.client.connect("notify::%s" % NMClient.CLIENT_MANAGER_RUNNING,
-        #                    self._manager_running_cb)
         # TODO (active_connections_changed)
         #self.client.connect("notify::%s" % NMClient.CLIENT_ACTIVE_CONNECTIONS,
         #                    self.on_active_connections_changed)
@@ -409,8 +399,6 @@ class NetworkSpoke(NormalSpoke):
             print "DBG: no active connection to be edited found"
             return
 
-        # TODO: blocking? logging?
-        # subprocess.call(["nm-connection-editor", "--edit", "%s" % uuid])
         subprocess.Popen(["nm-connection-editor", "--edit", "%s" % uuid])
 
     def on_device_off_toggled(self, switch, *args):
