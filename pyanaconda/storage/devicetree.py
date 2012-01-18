@@ -1795,6 +1795,8 @@ class DeviceTree(object):
             self.protectedDevNames.append(livetarget)
 
         cfg = self.__multipathConfigWriter.write(self.mpathFriendlyNames)
+        old_devices = {}
+
         if os.access("/etc/multipath.conf", os.W_OK):
             with open("/etc/multipath.conf", "w+") as mpath_cfg:
                 mpath_cfg.write(cfg)
@@ -1802,7 +1804,6 @@ class DeviceTree(object):
             self.topology = devicelibs.mpath.MultipathTopology(udev_get_block_devices())
             log.info("devices to scan: %s" %
                      [d['name'] for d in self.topology.devices_iter()])
-            old_devices = {}
             for dev in self.topology.devices_iter():
                 old_devices[dev['name']] = dev
                 self.addUdevDevice(dev)
