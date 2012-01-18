@@ -23,7 +23,7 @@ import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
 N_ = lambda x: x
 
-from gi.repository import Gtk
+from gi.repository import Gtk, AnacondaWidgets
 
 from pyanaconda.ui.gui import UIObject
 from pyanaconda.ui.gui.spokes import NormalSpoke
@@ -148,7 +148,10 @@ class KeyboardSpoke(NormalSpoke):
         dialog = AddLayoutDialog(self.data)
         dialog.setup()
         dialog.populate()
+        lightbox = AnacondaWidgets.lb_show_over(self.window)
+        dialog.window.set_transient_for(lightbox)
         response = dialog.run()
+        lightbox.destroy()
         if response == 1:
             found = False
             itr = self._store.get_iter_first()
