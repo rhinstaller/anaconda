@@ -169,7 +169,24 @@ class KeyboardSpoke(NormalSpoke):
             return
 
         (store, itr) = selection.get_selected()
+        itr2 = store.get_iter_first()
+        #if the first item is selected, try to select the next one
+        if store[itr][0] == store[itr2][0]:
+            itr2 = store.iter_next(itr2)
+            if itr2: #next one existing
+                selection.select_iter(itr2)
+            #nothing left to be selected
+            store.remove(itr)
+            return
+
+        #the selected item is not the first, select the previous one
+        #XXX: there is no model.iter_previous() so we have to find it this way
+        itr3 = store.iter_next(itr2) #look-ahead iterator
+        while itr3 and (store[itr3][0] != store[itr][0]):
+            itr2 = store.iter_next(itr2)
+            itr3 = store.iter_next(itr3)
         store.remove(itr)
+        selection.select_iter(itr2)
 
     def on_up_clicked(self, button):
         selection = self.builder.get_object("layoutSelection")
