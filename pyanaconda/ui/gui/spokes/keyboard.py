@@ -134,11 +134,13 @@ class KeyboardSpoke(NormalSpoke):
         self._upButton = self.builder.get_object("upButton")
         self._downButton = self.builder.get_object("downButton")
         self._removeButton = self.builder.get_object("removeLayoutButton")
+        self._previewButton = self.builder.get_object("previewButton")
 
         # Start with no buttons enabled, since nothing is selected.
         self._upButton.set_sensitive(False)
         self._downButton.set_sensitive(False)
         self._removeButton.set_sensitive(False)
+        self._previewButton.set_sensitive(False)
 
     def _addLayout(self, store, name):
         store.append([name])
@@ -208,12 +210,14 @@ class KeyboardSpoke(NormalSpoke):
             self._upButton.set_sensitive(False)
             self._downButton.set_sensitive(False)
             self._removeButton.set_sensitive(False)
+            self._previewButton.set_sensitive(False)
             return
 
         (store, selected) = selection.get_selected_rows()
 
-        # If something's selected, always enable the remove button.
+        # If something's selected, always enable the remove and preview buttons.
         self._removeButton.set_sensitive(True)
+        self._previewButton.set_sensitive(True)
 
         # Disable the Up button if the top row's selected, and disable the
         # Down button if the bottom row's selected.
