@@ -24,6 +24,7 @@ from pyanaconda.ui.gui.hubs.summary import SummaryHub
 from pyanaconda.ui.gui.spokes import StandaloneSpoke
 
 from pyanaconda.localization import Language, LOCALE_PREFERENCES
+from pyanaconda.product import productName, productVersion
 
 __all__ = ["WelcomeLanguageSpoke"]
 
@@ -61,6 +62,10 @@ class WelcomeLanguageSpoke(StandaloneSpoke):
 
         # select the preferred translation
         self._selectLanguage(store, self.language.preferred_translation.short_name)
+
+        welcomeLabel = self.builder.get_object("welcomeLabel")
+        txt = welcomeLabel.get_label()
+        welcomeLabel.set_label(txt % (productName.upper(), productVersion))
 
     def setup(self):
         StandaloneSpoke.setup(self)
