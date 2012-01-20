@@ -1913,6 +1913,8 @@ class ZIPL(BootLoader):
 
     def write_config_header(self, config, install_root=""):
         header = ("[defaultboot]\n"
+                  "defaultauto\n"
+                  "prompt=1\n"
                   "timeout=%(timeout)d\n"
                   "default=%(default)s\n"
                   "target=/boot\n"
