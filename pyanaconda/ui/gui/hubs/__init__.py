@@ -164,8 +164,10 @@ class Hub(UIObject):
 
         if len(self._incompleteSpokes) == 0:
             self.window.clear_info()
+            self.continueButton.set_sensitive(True)
         else:
             self.window.set_info(Gtk.MessageType.WARNING, _("Please complete items marked with this icon first."))
+            self.continueButton.set_sensitive(False)
 
     def setup(self):
         UIObject.setup(self)
