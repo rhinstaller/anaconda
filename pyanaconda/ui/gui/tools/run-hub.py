@@ -17,6 +17,7 @@ from pykickstart.version import makeVersion
 # Don't worry with fcoe, iscsi, dasd, any of that crud.
 from pyanaconda.flags import flags
 flags.imageInstall = True
+flags.testing = True
 
 # NOTE:  To run your hub, you need to do the proper import here (may need to
 # set $PYTHONPATH as well) and set hubClass to be the class from that import.
