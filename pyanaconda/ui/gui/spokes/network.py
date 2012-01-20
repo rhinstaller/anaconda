@@ -54,6 +54,7 @@ nm_utils = ctypes.CDLL("libnm-util.so.2")
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
+N_ = lambda x: x
 P_ = lambda x, y, z: gettext.ldngettext("anaconda", x, y, z)
 
 # These are required for dbus API use we need because of
@@ -219,6 +220,9 @@ class NetworkSpoke(NormalSpoke):
     builderObjects = ["networkWindow", "liststore_devices", "liststore_wireless_network"]
     mainWidgetName = "networkWindow"
     uiFile = "spokes/network.ui"
+
+    title = N_("NETWORK CONFIGURATION")
+    icon = "network-transmit-receive-symbolic"
 
     category = SoftwareCategory
 
