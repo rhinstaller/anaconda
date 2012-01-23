@@ -327,13 +327,42 @@ class NetworkSpoke(NormalSpoke):
 
     @property
     def completed(self):
-        # enabled?
-        pass
+        return self.status != _("Not connected")
 
     @property
     def status(self):
+        """ A short string describing which devices are connected. """
+        active_wired_devs = []
+        active_wireless_devs = []
+
+        for con in self.client.get_active_connections():
+            device = con.get_devices()[0]
+            if device.get_device_type() == NetworkManager.DeviceType.ETHERNET:
+                active_wired_devs.append(device.get_iface())
+            elif device.get_device_type() == NetworkManager.DeviceType.WIFI:
+                active_wireless_devs.append([device.get_iface(),
+                                    device.get_active_access_point().get_ssid()])
+
+        numdevs = len(active_wired_devs) + len(active_wireless_devs)
+        if numdevs:
+            if numdevs == 1:
+                if active_wired_devs:
+                    msg = _("Wired (%s) connected") % active_wired_devs[0]
+                else:
+                    msg = _("Wireless (%s) connected to %s" %
+                            tuple(active_wireless_devs[0]))
+
+            else:
+                devlist = ", ".join(active_wired_devs +
+                                    ["%s (%s)" % (iface, ap) for iface, ap in
+                                     active_wireless_devs])
+                msg = _("Connected devices: %s") % devlist
+        else:
+            msg = _("Not connected")
+
         # active connections?
-        pass
+
+        return msg
 
     def populate(self):
         NormalSpoke.populate(self)
