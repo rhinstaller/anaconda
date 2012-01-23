@@ -147,7 +147,17 @@ class Hub(UIObject):
             box.pack_start(grid, False, True, 0)
 
         spokeArea = self.window.get_spoke_area()
-        spokeArea.add_with_viewport(box)
+        viewport = Gtk.Viewport()
+        viewport.add(box)
+        spokeArea.add(viewport)
+
+        # We want the background of the spoke grid to have the same color as
+        # the background of the rest of the main window.
+        provider = Gtk.CssProvider()
+        provider.load_from_data("GtkViewport { background-color: @theme_bg_color }")
+
+        context = viewport.get_style_context()
+        context.add_provider(provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
 
     def _handleCompleteness(self, spoke):
         from gi.repository import Gtk

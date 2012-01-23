@@ -404,6 +404,16 @@ class StorageSpoke(NormalSpoke):
 
         self._update_summary()
 
+        # We want the background of the viewports containing local and network
+        # disks to have the same color as the background of the main window.
+        viewport = self.builder.get_object("localViewport")
+
+        provider = Gtk.CssProvider()
+        provider.load_from_data("GtkViewport { background-color: @theme_bg_color }")
+
+        context = viewport.get_style_context()
+        context.add_provider(provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
+
     def setup(self):
         # XXX this is called every time we switch to this spoke
         NormalSpoke.setup(self)
