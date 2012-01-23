@@ -196,8 +196,9 @@ void doGdbserver(struct loaderData_s *loaderData) {
         }
 
         checked_asprintf(&pid, "%d", loaderPid);
+        child = fork();
 
-        if (!(child = fork())) {
+        if (child == 0) {
             logMessage(INFO, "starting gdbserver: %s %s %s %s",
                        "/usr/bin/gdbserver", "--attach", loaderData->gdbServer,
                        pid);
@@ -218,6 +219,9 @@ void doGdbserver(struct loaderData_s *loaderData) {
                 logMessage(ERROR, "error running gdbserver: %m");
 
             _exit(1);
+        } else if (child == -1) {
+            logMessage(ERROR, "%s (%d): %m", __func__, __LINE__);
+            newtResume();
         }
     }
 }
@@ -382,7 +386,9 @@ static void spawnShell(void) {
         return;
     }
 
-    if (!(pid = fork())) {
+    pid = fork();
+
+    if (pid == 0) {
 	int fd;
 
     	fd = open("/dev/tty2", O_RDWR|O_NOCTTY);
@@ -421,6 +427,8 @@ static void spawnShell(void) {
             logMessage(CRITICAL, "exec of /bin/sh failed: %m");
             exit(1);
         }
+    } else if (pid == -1) {
+        logMessage(ERROR, "%s (%d): %m", __func__, __LINE__);
     }
 
     return;
@@ -2230,9 +2238,12 @@ int main(int argc, char ** argv) {
     if (!FL_NOPROBE(flags)) detectHardware(USB_DETECT_DELAY);
 
     /* HAL daemon */
-    if (fork() == 0) {
+    pid = fork();
+    if (pid == 0) {
         execl("/sbin/hald", "/sbin/hald", "--use-syslog", NULL);
         doExit(1);
+    } else if (pid == -1) {
+        logMessage(ERROR, "%s (%d): %m", __func__, __LINE__);
     }
 
     /* Disable all network interfaces in NetworkManager by default */
@@ -2275,7 +2286,9 @@ int main(int argc, char ** argv) {
     }
 
     if (FL_EARLY_NETWORKING(flags)) {
-        kickstartNetworkUp(&loaderData, &iface);
+        if (kickstartNetworkUp(&loaderData, &iface)) {
+            logMessage(ERROR, "failed to bring up early networking device");
+        }
     }
 
     if (FL_TELNETD(flags))
@@ -2533,12 +2546,15 @@ int main(int argc, char ** argv) {
     }
     printf(fmt, VERSION, getProductName());
 
-    if (!(pid = fork())) {
+    pid = fork();
+    if (pid == 0) {
         /* This is where the Anaconda python process is started. */
         if (execv(anacondaArgs[0], anacondaArgs) == -1) {
            fprintf(stderr,"exec of anaconda failed: %m\n");
            doExit(1);
         }
+    } else if (pid == -1) {
+        logMessage(ERROR, "%s (%d): %m", __func__, __LINE__);
     }
 
     /* Create a new process group that we can easily kill off later. */
@@ -2561,15 +2577,19 @@ int main(int argc, char ** argv) {
     }
 
     if ((rc == 0) && (FL_POWEROFF(flags) || FL_HALT(flags))) {
-        if (!(pid = fork())) {
+        pid = fork();
+        if (pid == 0) {
             char * cmd = (FL_POWEROFF(flags) ? strdup("/sbin/poweroff") :
                           strdup("/sbin/halt"));
             if (execl(cmd, cmd, NULL) == -1) {
                 fprintf(stderr, "exec of poweroff failed: %m\n");
                 doExit(1);
             }
+        } else if (pid == -1) {
+            logMessage(ERROR, "%s (%d): %m", __func__, __LINE__);
+        } else {
+            waitpid(pid, &status, 0);
         }
-        waitpid(pid, &status, 0);
     }
 
     stop_fw_loader(&loaderData);

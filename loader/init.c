@@ -611,7 +611,11 @@ int main(int argc, char **argv) {
     struct termios cmode, mode;
     int cfd;
     
-    cfd =  open("/dev/console", O_RDONLY);
+    if ((cfd =  open("/dev/console", O_RDONLY)) == -1) {
+        printf("failed to open /dev/console\n");
+        fatal_error(1);
+    }
+
     tcgetattr(cfd,&orig_cmode);
     orig_flags = fcntl(cfd, F_GETFL);
     close(cfd);
@@ -619,7 +623,11 @@ int main(int argc, char **argv) {
     cmode = orig_cmode;
     cmode.c_lflag &= (~ECHO);
 
-    cfd = open("/dev/console", O_WRONLY);
+    if ((cfd = open("/dev/console", O_WRONLY)) == -1) {
+        printf("failed to open /dev/console\n");
+        fatal_error(1);
+    }
+
     tcsetattr(cfd,TCSANOW,&cmode);
     close(cfd);
 
@@ -648,7 +656,11 @@ int main(int argc, char **argv) {
         close(fd);
     }
 
-    cfd = open("/dev/console", O_WRONLY);
+    if ((cfd = open("/dev/console", O_WRONLY)) == -1) {
+        printf("failed to open /dev/console\n");
+        fatal_error(1);
+    }
+
     tcsetattr(cfd,TCSANOW,&orig_cmode);
     close(cfd); 
 
@@ -847,7 +859,11 @@ int main(int argc, char **argv) {
         (WIFEXITED(waitStatus) && WEXITSTATUS(waitStatus))) {
 
         /* Restore terminal */
-        cfd =  open("/dev/console", O_RDONLY);
+        if ((cfd =  open("/dev/console", O_RDONLY)) == -1) {
+            printf("failed to open /dev/console\n");
+            fatal_error(1);
+        }
+
         tcsetattr(cfd, TCSANOW, &orig_cmode);
         fcntl(cfd, F_SETFL, orig_flags);
         close(cfd);
