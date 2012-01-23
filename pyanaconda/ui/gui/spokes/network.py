@@ -348,6 +348,7 @@ class NetworkSpoke(NormalSpoke):
 
     def setup(self):
         NormalSpoke.setup(self)
+        self.refresh_ui()
 
     # Signal handlers.
     def on_device_selection_changed(self, *args):
