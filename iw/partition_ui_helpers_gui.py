@@ -211,6 +211,15 @@ def createFSTypeMenu(fstype, fstypechangeCB, mountCombo,
                             fstypecombo.get_active_value().isMountable())
         mountCombo.connect("changed", mountptchangeCB, fstypecombo)
 
+    # Make sure encryption can't be set on software raid
+    if lukscb and mountCombo:
+        fstype = fstypecombo.get_active_value()
+        if fstype == fileSystemTypeGet("software RAID"):
+            lukscb.set_active(0)
+            lukscb.set_sensitive(0)
+        else:
+            lukscb.set_sensitive(1)
+
     return fstypecombo
 
 def mountptchangeCB(widget, fstypecombo):
