@@ -38,7 +38,7 @@
 
 """
 
-from gi.repository import Gtk
+from gi.repository import Gdk, Gtk
 from gi.repository import AnacondaWidgets
 
 from pyanaconda.ui.gui import UIObject
@@ -362,8 +362,17 @@ class StorageSpoke(NormalSpoke):
 
         return msg
 
-    def _on_disk_clicked(self, overview, *args):
+    def _on_disk_clicked(self, overview, event):
         print "DISK CLICKED: %s" % overview.get_property("popup-info").partition("|")[0].strip()
+
+        # This handler only runs for these two kinds of events, and only for
+        # activate-type keys (space, enter) in the latter event's case.
+        if not event.type in [Gdk.EventType.BUTTON_PRESS, Gdk.EventType.KEY_RELEASE]:
+            return
+
+        if event.type == Gdk.EventType.KEY_RELEASE and \
+           event.keyval not in [Gdk.KEY_space, Gdk.KEY_Return, Gdk.KEY_ISO_Enter, Gdk.KEY_KP_Enter, Gdk.KEY_KP_Space]:
+              return
 
         self._update_disk_list()
         self._update_summary()
@@ -399,8 +408,9 @@ class StorageSpoke(NormalSpoke):
             #
             # maybe a little function that resolves each item in onlyuse using
             # udev_resolve_devspec and compares that to the DiskDevice?
-            overview.set_selected(disk.name in self.data.ignoredisk.onlyuse)
+            overview.set_chosen(disk.name in self.data.ignoredisk.onlyuse)
             overview.connect("button-press-event", self._on_disk_clicked)
+            overview.connect("key-release-event", self._on_disk_clicked)
 
         self._update_summary()
 
@@ -428,7 +438,7 @@ class StorageSpoke(NormalSpoke):
         overviews = self.builder.get_object("local_disks_box").get_children()
         for overview in overviews:
             name = overview.get_property("popup-info").partition("|")[0].strip()
-            selected = overview.get_selected()
+            selected = overview.get_chosen()
             if selected:
                 disk = None
                 for _disk in self.disks:
@@ -461,7 +471,7 @@ class StorageSpoke(NormalSpoke):
         for overview in overviews:
             name = overview.get_property("popup-info").partition("|")[0].strip()
 
-            selected = overview.get_selected()
+            selected = overview.get_chosen()
             if selected and name not in self.data.ignoredisk.onlyuse:
                 self.data.ignoredisk.onlyuse.append(name)
 
@@ -480,7 +490,7 @@ class StorageSpoke(NormalSpoke):
         for overview in overviews:
             name = overview.get_property("popup-info").partition("|")[0].strip()
 
-            overview.set_selected(name in self.data.ignoredisk.onlyuse)
+            overview.set_chosen(name in self.data.ignoredisk.onlyuse)
         self._update_summary()
 
     def run_lightbox_dialog(self, dialog):

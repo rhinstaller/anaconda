@@ -62,8 +62,8 @@ struct _AnacondaDiskOverviewClass {
 GType       anaconda_disk_overview_get_type (void);
 GtkWidget  *anaconda_disk_overview_new      ();
 
-gboolean    anaconda_disk_overview_get_selected(AnacondaDiskOverview *widget);
-void        anaconda_disk_overview_set_selected(AnacondaDiskOverview *widget, gboolean is_selected);
+gboolean    anaconda_disk_overview_get_chosen(AnacondaDiskOverview *widget);
+void        anaconda_disk_overview_set_chosen(AnacondaDiskOverview *widget, gboolean is_chosen);
 
 G_END_DECLS
 

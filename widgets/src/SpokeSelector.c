@@ -18,7 +18,6 @@
  */
 
 #include <gdk/gdk.h>
-#include <gdk/gdkkeysyms.h>
 
 #include "SpokeSelector.h"
 #include "intl.h"

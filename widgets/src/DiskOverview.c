@@ -17,6 +17,7 @@
  * Author: Chris Lumens <clumens@redhat.com>
  */
 
+#include <gdk/gdk.h>
 #include <string.h>
 
 #include "DiskOverview.h"
@@ -54,12 +55,6 @@ enum {
 
 #define ICON_SIZE             125
 
-static gchar *style_data = "AnacondaDiskOverview:selected {\n"
-                           "    border-radius: 6;\n"
-                           "    border-style:  solid;\n"
-                           "    border-width:  1;\n"
-                           "}";
-
 struct _AnacondaDiskOverviewPrivate {
     GtkWidget *vbox;
     GtkWidget *kind;
@@ -68,7 +63,7 @@ struct _AnacondaDiskOverviewPrivate {
     GtkWidget *os_label;
     GtkWidget *tooltip;
 
-    gboolean selected;
+    gboolean chosen;
 };
 
 G_DEFINE_TYPE(AnacondaDiskOverview, anaconda_disk_overview, GTK_TYPE_EVENT_BOX)
@@ -76,7 +71,9 @@ G_DEFINE_TYPE(AnacondaDiskOverview, anaconda_disk_overview, GTK_TYPE_EVENT_BOX)
 gboolean anaconda_disk_overview_clicked(AnacondaDiskOverview *widget, GdkEvent *event);
 static void anaconda_disk_overview_get_property(GObject *object, guint prop_id, GValue *value, GParamSpec *pspec);
 static void anaconda_disk_overview_set_property(GObject *object, guint prop_id, const GValue *value, GParamSpec *pspec);
-static void anaconda_disk_overview_set_selected_flag(AnacondaDiskOverview *widget);
+static void anaconda_disk_overview_toggle_background(AnacondaDiskOverview *widget);
+
+static gboolean anaconda_disk_overview_focus_changed(GtkWidget *widget, GdkEventFocus *event, gpointer user_data);
 
 static void anaconda_disk_overview_class_init(AnacondaDiskOverviewClass *klass) {
     GObjectClass *object_class = G_OBJECT_CLASS(klass);
@@ -183,7 +180,6 @@ GtkWidget *anaconda_disk_overview_new() {
 
 /* Initialize the widgets in a newly allocated DiskOverview. */
 static void anaconda_disk_overview_init(AnacondaDiskOverview *widget) {
-    GtkCssProvider *provider;
     char *markup;
 
     widget->priv = G_TYPE_INSTANCE_GET_PRIVATE(widget,
@@ -191,8 +187,14 @@ static void anaconda_disk_overview_init(AnacondaDiskOverview *widget) {
                                                AnacondaDiskOverviewPrivate);
     gtk_widget_set_valign(GTK_WIDGET(widget), GTK_ALIGN_CENTER);
 
+    /* Allow tabbing from one DiskOverview to the next. */
+    gtk_widget_set_can_focus(GTK_WIDGET(widget), TRUE);
+    gtk_widget_add_events(GTK_WIDGET(widget), GDK_FOCUS_CHANGE_MASK|GDK_KEY_RELEASE_MASK);
+    g_signal_connect(widget, "focus-in-event", G_CALLBACK(anaconda_disk_overview_focus_changed), NULL);
+    g_signal_connect(widget, "focus-out-event", G_CALLBACK(anaconda_disk_overview_focus_changed), NULL);
+
     /* Set some properties. */
-    widget->priv->selected = FALSE;
+    widget->priv->chosen = FALSE;
 
     /* Create the vbox. */
     widget->priv->vbox = gtk_box_new(GTK_ORIENTATION_VERTICAL, 6);
@@ -231,32 +233,33 @@ static void anaconda_disk_overview_init(AnacondaDiskOverview *widget) {
     /* We need to handle button-press-event in order to change the background color. */
     g_signal_connect(widget, "button-press-event", G_CALLBACK(anaconda_disk_overview_clicked), NULL);
 
-    /* Finally, load some style information for this widget. */
-    provider = gtk_css_provider_new();
-    if (gtk_css_provider_load_from_data(provider, style_data, -1, NULL)) {
-        GtkStyleContext *context = gtk_widget_get_style_context(GTK_WIDGET(widget));
-        gtk_style_context_add_provider(context, GTK_STYLE_PROVIDER(provider), GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
-    }
+    /* And this one is to handle when you select a DiskOverview via keyboard. */
+    g_signal_connect(widget, "key-release-event", G_CALLBACK(anaconda_disk_overview_clicked), NULL);
 }
 
 gboolean anaconda_disk_overview_clicked(AnacondaDiskOverview *widget, GdkEvent *event) {
-    widget->priv->selected = !widget->priv->selected;
-    anaconda_disk_overview_set_selected_flag(widget);
+    /* This handler runs for mouse presses and key releases.  For key releases, it only
+     * runs for activate-type keys (enter, space, etc.).
+     */
+    if (event->type == GDK_KEY_RELEASE &&
+        (event->key.keyval != GDK_KEY_space && event->key.keyval != GDK_KEY_Return &&
+         event->key.keyval != GDK_KEY_ISO_Enter && event->key.keyval != GDK_KEY_KP_Enter &&
+         event->key.keyval != GDK_KEY_KP_Space))
+        return FALSE;
+
+    widget->priv->chosen = !widget->priv->chosen;
+    anaconda_disk_overview_toggle_background(widget);
     return FALSE;
 }
 
-static void anaconda_disk_overview_set_selected_flag(AnacondaDiskOverview *widget) {
-    GtkStateFlags new_state;
-
-    /* This toggles whether the DiskOverview widget is selected or not.  If it's selected,
-     * we then let GTK in on that secret and it'll render the background in whatever color
-     * the theme CSS says.
-     */
-    new_state = gtk_widget_get_state_flags(GTK_WIDGET(widget)) & ~GTK_STATE_FLAG_SELECTED;
-    if (widget->priv->selected)
-        new_state |= GTK_STATE_FLAG_SELECTED;
-
-    gtk_widget_set_state_flags(GTK_WIDGET(widget), new_state, TRUE);
+static void anaconda_disk_overview_toggle_background(AnacondaDiskOverview *widget) {
+    if (widget->priv->chosen) {
+        GdkRGBA color;
+        gdk_rgba_parse(&color, "#4a90d9");
+        gtk_widget_override_background_color(GTK_WIDGET(widget), GTK_STATE_FLAG_NORMAL, &color);
+    }
+    else
+        gtk_widget_override_background_color(GTK_WIDGET(widget), GTK_STATE_FLAG_NORMAL, NULL);
 }
 
 static void anaconda_disk_overview_get_property(GObject *object, guint prop_id, GValue *value, GParamSpec *pspec) {
@@ -337,31 +340,42 @@ static void anaconda_disk_overview_set_property(GObject *object, guint prop_id, 
 }
 
 /**
- * anaconda_disk_overview_get_selected:
+ * anaconda_disk_overview_get_chosen:
  * @widget: a #AnacondaDiskOverview
  *
- * Returns whether or not this disk has been selected by the user.
+ * Returns whether or not this disk has been chosen by the user.
  *
- * Returns: Whether @widget has been selected.
+ * Returns: Whether @widget has been chosen.
  *
  * Since: 1.0
  */
-gboolean anaconda_disk_overview_get_selected(AnacondaDiskOverview *widget) {
-    return widget->priv->selected;
+gboolean anaconda_disk_overview_get_chosen(AnacondaDiskOverview *widget) {
+    return widget->priv->chosen;
 }
 
 /**
- * anaconda_disk_overview_set_selected:
+ * anaconda_disk_overview_set_chosen:
  * @widget: a #AnacondaDiskOverview
- * @is_selected: %TRUE if this disk is selected.
+ * @is_chosen: %TRUE if this disk is chosen.
  *
- * Specifies whether the disk shown by this overview has been selected by
+ * Specifies whether the disk shown by this overview has been chosen by
  * the user for inclusion in installation.  If so, a special background will
  * be set as a visual indicator.
  *
  * Since: 1.0
  */
-void anaconda_disk_overview_set_selected(AnacondaDiskOverview *widget, gboolean is_selected) {
-    widget->priv->selected = is_selected;
-    anaconda_disk_overview_set_selected_flag(widget);
+void anaconda_disk_overview_set_chosen(AnacondaDiskOverview *widget, gboolean is_chosen) {
+    widget->priv->chosen = is_chosen;
+    anaconda_disk_overview_toggle_background(widget);
+}
+
+static gboolean anaconda_disk_overview_focus_changed(GtkWidget *widget, GdkEventFocus *event, gpointer user_data) {
+    GtkStateFlags new_state;
+
+    new_state = gtk_widget_get_state_flags(widget) & ~GTK_STATE_FOCUSED;
+    if (event->in)
+        new_state |= GTK_STATE_FOCUSED;
+    gtk_widget_set_state_flags(widget, new_state, TRUE);
+
+    return FALSE;
 }
