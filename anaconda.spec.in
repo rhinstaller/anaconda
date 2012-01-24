@@ -232,6 +232,40 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Mon Jan 23 2012 Brian C. Lane <bcl@redhat.com> - 17.3-1
+- Add missing log import to platform.py (bcl)
+- liveinst: Check for live-baseloop LIVE_BLOCK (bcl)
+- Add Storage.autoPartType to indicate lvm/btrfs/neither. (dlehman)
+- Add full support for btrfs via kickstart's btrfs command. (dlehman)
+- Show btrfs vols/subvols but don't allow editing them. (dlehman)
+- Add support for btrfs to the devicetree. (dlehman)
+- Remove an old hack with action registration. (dlehman)
+- Add support for btrfs automatic partitioning. (dlehman)
+- Add new field to PartSpec to indicate btrfs reqs. (dlehman)
+- Add btrfs convenience methods to Storage. (dlehman)
+- Handle device name generation and checking in a more generic way. (dlehman)
+- Add btrfs base class along with classes for volume, subvolume. (dlehman)
+- btrfs volumes/subvolumes are created by devicelibs.btrfs. (dlehman)
+- Scan for btrfs while looking a new devices. (dlehman)
+- Add backend module for operating on btrfs volumes. (dlehman)
+- Fix default hostname function to never return '(none)'. (dlehman)
+- Revert "Put bios boot partitions on all gpt disk on bios systems. (#738964)"
+  (dlehman)
+- Put NoSuchGroup and DispatchError back, but not in errors.py. (#760786)
+  (dlehman)
+- Clean up BootLoader.writeKS to account for no bootloader. (dlehman)
+- Fix sense of disklabel size check and add some logging. (dlehman)
+- Handle v0.90 md metadata in preexisting arrays. (dlehman)
+- style cleanups for ppc SMS bios patch (wwoods)
+- Update ppc SMS bios after installation (hamzy)
+- report more detail about yum failure (bcl)
+- Add a script mode that exits instead of looping (bcl)
+- Add 'sound-and-video' to Fedora install class for 'Software Development'
+  task. (#643786) (notting)
+- Unmount the image file (bcl)
+- Disable yum log file handling (bcl)
+- Setup storage config when kickstart is parsed (bcl)
+
 * Tue Nov 15 2011 Chris Lumens <clumens@redhat.com> - 17.2-1
 - ARCHIVE_DEFAULT_BYTES_PER_BLOCK no longer exists in libarchive-3.0.0
   (clumens)
