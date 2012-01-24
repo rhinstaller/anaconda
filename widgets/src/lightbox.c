@@ -90,6 +90,7 @@ GtkWindow *anaconda_lb_show_over(GtkWindow *window)
     lightbox = (GTK_WINDOW(gtk_window_new(GTK_WINDOW_TOPLEVEL)));
     gtk_window_set_transient_for(lightbox, window);
     gtk_window_set_decorated(lightbox, FALSE);
+    gtk_window_set_has_resize_grip(lightbox, FALSE);
     gtk_window_set_position(lightbox, GTK_WIN_POS_CENTER_ON_PARENT);
     gtk_window_set_type_hint (lightbox, GDK_WINDOW_TYPE_HINT_SPLASHSCREEN);
     gtk_widget_set_app_paintable(GTK_WIDGET(lightbox), TRUE);
