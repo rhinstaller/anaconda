@@ -473,6 +473,10 @@ class Network:
 
     def setHostname(self, hn):
         self.hostname = hn
+        if flags.imageInstall:
+            log.info("image install -- not setting hostname")
+            return
+
         log.info("setting installation environment hostname to %s" % hn)
         iutil.execWithRedirect("hostname", ["-v", hn ],
                                stdout="/dev/tty5", stderr="/dev/tty5")
