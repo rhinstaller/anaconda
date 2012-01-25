@@ -112,14 +112,22 @@ class Hub(UIObject):
                 # Create the new spoke and populate its UI with whatever data.
                 # From here on, this Spoke will always exist.
                 spoke = spokeClass(self.data, self.devicetree, self.instclass)
-                spoke.populate()
+                selector = AnacondaWidgets.SpokeSelector(_(spoke.title), spoke.icon)
 
                 if not spoke.showable:
                     continue
 
-                # And then create its associated selector, and set some default
-                # values that affect its display on the hub.
-                selector = AnacondaWidgets.SpokeSelector(_(spoke.title), spoke.icon)
+                # Does this spoke need a while to wait for some background process
+                # to finish before it can be shown?  If so, we need to mark it as
+                # insensitive and tell it how to update itself later.
+                if not spoke.ready:
+                    selector.set_sensitive(False)
+                    spoke.populate(readyCB=lambda : selector.set_sensitive(True))
+                else:
+                    spoke.populate()
+
+                # Set some default values on the associated selector that
+                # affect its display on the hub.
                 selector.set_property("status", spoke.status)
                 selector.set_incomplete(not spoke.completed)
                 self._handleCompleteness(spoke)
