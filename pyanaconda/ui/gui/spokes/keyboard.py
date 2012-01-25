@@ -75,14 +75,17 @@ class AddLayoutDialog(UIObject):
         return rc
 
     @property
-    def chosen_layout(self):
-        return self._chosen_layout
+    def chosen_layouts(self):
+        return self._chosen_layouts
 
     def on_confirm_add_clicked(self, *args):
         treeview = self.builder.get_object("newLayoutView")
         selection = treeview.get_selection()
-        (model, itr) = selection.get_selected()
-        self._chosen_layout = model[itr][0]
+        (store, pathlist) = selection.get_selected_rows()
+        self._chosen_layouts = []
+        for path in pathlist:
+            itr = store.get_iter(path)
+            self._chosen_layouts.append(store[itr][0])
 
     def on_cancel_clicked(self, *args):
         print "CANCELING"
@@ -155,13 +158,16 @@ class KeyboardSpoke(NormalSpoke):
         response = dialog.run()
         lightbox.destroy()
         if response == 1:
-            found = False
+            duplicates = set()
             itr = self._store.get_iter_first()
-            while itr and not found:
-                found = self._store[itr][0] == dialog.chosen_layout
+            while itr:
+                item = self._store[itr][0]
+                if item in dialog.chosen_layouts:
+                    duplicates.add(item)
                 itr = self._store.iter_next(itr)
-            if not found:
-                self._addLayout(self._store, dialog.chosen_layout)
+            for layout in dialog.chosen_layouts:
+                if layout not in duplicates:
+                    self._addLayout(self._store, layout)
 
     def on_remove_clicked(self, button):
         selection = self.builder.get_object("layoutSelection")

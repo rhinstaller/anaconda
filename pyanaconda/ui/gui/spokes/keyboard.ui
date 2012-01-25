@@ -110,7 +110,9 @@
                     <property name="headers_visible">False</property>
                     <property name="headers_clickable">False</property>
                     <child internal-child="selection">
-                      <object class="GtkTreeSelection" id="newLayoutSelection"/>
+                      <object class="GtkTreeSelection" id="newLayoutSelection">
+                        <property name="mode">multiple</property>
+                      </object>
                     </child>
                     <child>
                       <object class="GtkTreeViewColumn" id="name">
