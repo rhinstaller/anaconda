@@ -341,12 +341,22 @@ class StorageSpoke(NormalSpoke):
     icon = "drive-harddisk-symbolic"
     title = N_("STORAGE CONFIGURATION")
 
+    def __init__(self, *args, **kwargs):
+        NormalSpoke.__init__(self, *args, **kwargs)
+        self._ready = False
+
     def apply(self):
         pass
 
     @property
     def completed(self):
         return False
+
+    @property
+    def ready(self):
+        # By default, the storage spoke is not ready.  We have to wait until
+        # storageInitialize is done.
+        return self._ready
 
     @property
     def status(self):
@@ -377,17 +387,45 @@ class StorageSpoke(NormalSpoke):
         self._update_disk_list()
         self._update_summary()
 
-    def populate(self):
-        NormalSpoke.populate(self)
+    def populate(self, readyCB=None):
+        from pyanaconda.threads import threadMgr
+        from threading import Thread
+
+        NormalSpoke.populate(self, readyCB)
 
         summary_label = self.builder.get_object("summary_button").get_children()[0]
         summary_label.set_use_markup(True)
 
-        local_disks_box = self.builder.get_object("local_disks_box")
+        self.local_disks_box = self.builder.get_object("local_disks_box")
         #specialized_disks_box = self.builder.get_object("specialized_disks_box")
+
+        # We want the background of the viewports containing local and network
+        # disks to have the same color as the background of the main window.
+        viewport = self.builder.get_object("localViewport")
+
+        provider = Gtk.CssProvider()
+        provider.load_from_data("GtkViewport { background-color: @theme_bg_color }")
+
+        context = viewport.get_style_context()
+        context.add_provider(provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
+
+        threadMgr.add(Thread(name="AnaStorageWatcher", target=self._populate, args=(readyCB,)))
+
+    def _populate(self, readyCB):
+        from pyanaconda.threads import threadMgr
+
+        storageThread = threadMgr.get("AnaStorageThread")
+        if storageThread:
+            storageThread.join()
+
+        self._ready = True
+        if readyCB:
+            readyCB()
 
         print self.data.ignoredisk.onlyuse
         self.disks = getDisks(self.devicetree)
+
+        Gdk.threads_enter()
 
         # properties: kind, description, capacity, os, popup-info
         for disk in self.disks:
@@ -402,7 +440,7 @@ class StorageSpoke(NormalSpoke):
                                                     kind,
                                                     size,
                                                     popup=popup_info)
-            local_disks_box.pack_start(overview, False, False, 0)
+            self.local_disks_box.pack_start(overview, False, False, 0)
 
             # FIXME: this will need to get smarter
             #
@@ -414,15 +452,7 @@ class StorageSpoke(NormalSpoke):
 
         self._update_summary()
 
-        # We want the background of the viewports containing local and network
-        # disks to have the same color as the background of the main window.
-        viewport = self.builder.get_object("localViewport")
-
-        provider = Gtk.CssProvider()
-        provider.load_from_data("GtkViewport { background-color: @theme_bg_color }")
-
-        context = viewport.get_style_context()
-        context.add_provider(provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
+        Gdk.threads_leave()
 
     def setup(self):
         # XXX this is called every time we switch to this spoke
@@ -435,7 +465,7 @@ class StorageSpoke(NormalSpoke):
         capacity = 0
         free = 0
 
-        overviews = self.builder.get_object("local_disks_box").get_children()
+        overviews = self.local_disks_box.get_children()
         for overview in overviews:
             name = overview.get_property("popup-info").partition("|")[0].strip()
             selected = overview.get_chosen()
@@ -467,7 +497,7 @@ class StorageSpoke(NormalSpoke):
     def _update_disk_list(self):
         """ Update ignoredisk.onlyuse based on the UI. """
         print "UPDATING DISK LIST"
-        overviews = self.builder.get_object("local_disks_box").get_children()
+        overviews = self.local_disks_box.get_children()
         for overview in overviews:
             name = overview.get_property("popup-info").partition("|")[0].strip()
 
@@ -486,7 +516,7 @@ class StorageSpoke(NormalSpoke):
         rc = self.run_lightbox_dialog(dialog)
 
         # update the UI to reflect changes to self.data.ignoredisk.onlyuse
-        overviews = self.builder.get_object("local_disks_box").get_children()
+        overviews = self.local_disks_box.get_children()
         for overview in overviews:
             name = overview.get_property("popup-info").partition("|")[0].strip()
 
