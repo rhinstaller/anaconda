@@ -19,6 +19,7 @@
 #
 # Author(s):  Chris Lumens <clumens@redhat.com>
 #
+import threading
 
 class ThreadManager(object):
     """A singleton class for managing threads.
