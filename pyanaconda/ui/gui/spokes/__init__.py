@@ -169,6 +169,23 @@ class NormalSpoke(Spoke):
 
         Spoke.__init__(self, data, devicetree, instclass)
 
+    def populate(self, readyCB=None):
+        """A special overridden version of UIObject.populate.  This method
+           also takes a callback to be called whenever this spoke becomes
+           ready (see below).  Very few spokes should ever concern themselves
+           with this, however.
+        """
+        Spoke.populate(self)
+
+    @property
+    def ready(self):
+        """Returns True if the Spoke has all the information required to be
+           displayed.  Almost all spokes should keep the default value here.
+           Only override this method if the Spoke requires some potentially
+           long-lived process (like storage probing) before it's ready.
+        """
+        return True
+
 class PersonalizationSpoke(Spoke):
     """A PersonalizationSpoke is a Spoke subclass that is displayed when the
        user selects something on the Hub during package installation.

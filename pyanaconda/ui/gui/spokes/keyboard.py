@@ -120,8 +120,8 @@ class KeyboardSpoke(NormalSpoke):
     def status(self):
         return _("Something selected")
 
-    def populate(self):
-        NormalSpoke.populate(self)
+    def populate(self, readyCB=None):
+        NormalSpoke.populate(self, readyCB)
 
         self._store = self.builder.get_object("addedLayoutStore")
         self._addLayout(self._store, "English (US)")
