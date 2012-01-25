@@ -78,7 +78,7 @@ for mounted in reversed(open("/proc/mounts").readlines()):
     # If this is for a live install, unmount any non-nodev filesystem that
     # isn't related to the live image.
     if (mountpoint.startswith("/media") or device.startswith("/dev")) and \
-       not "live" in mounted:
+       live_install and not "live" in mounted:
         os.system("umount %s" % mountpoint)
 
 os.system("udevadm control --env=ANACONDA=1")
