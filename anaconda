@@ -784,6 +784,8 @@ if __name__ == "__main__":
 
     if image_count:
         anaconda.storage.setupDiskImages()
+        anaconda.dispatch.skip_steps("filtertype")
+        anaconda.simpleFilter = True
 
     # comment out the next line to make exceptions non-fatal
     from pyanaconda.exception import initExceptionHandling
