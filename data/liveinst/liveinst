@@ -52,7 +52,7 @@ if [ -z "$LIVE_BLOCK" ]; then
     fi
 fi
 
-if [ $LIVE_INSTALL = 1 -a ! -b $LIVE_BLOCK ]; then
+if [ $LIVE_INSTALL = 1 -a ! -b "$LIVE_BLOCK" ]; then
   zenity --error --title="Not a Live image" --text "Can't do live image installation unless running from a live image"
   exit 1
 fi
