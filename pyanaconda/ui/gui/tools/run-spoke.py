@@ -1,10 +1,12 @@
 #!/usr/bin/python
 
-from gi.repository import AnacondaWidgets, Gtk
+from gi.repository import AnacondaWidgets, Gtk, GObject
 import ctypes, sys
 
 # This is a hack to make sure the AnacondaWidgets library gets loaded
 ctypes.CDLL("libAnacondaWidgets.so.0", ctypes.RTLD_GLOBAL)
+
+GObject.threads_init()
 
 # Logging always needs to be set up first thing, or there'll be tracebacks.
 from pyanaconda import anaconda_log
