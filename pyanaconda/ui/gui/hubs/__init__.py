@@ -184,7 +184,7 @@ class Hub(UIObject):
             self.window.clear_info()
             self.continueButton.set_sensitive(True)
         else:
-            self.window.set_info(Gtk.MessageType.WARNING, _("Please complete items marked with this icon first."))
+            self.window.set_info(Gtk.MessageType.WARNING, _("Please complete items marked with this icon before continuing to the next step."))
             self.continueButton.set_sensitive(False)
 
     def setup(self):
