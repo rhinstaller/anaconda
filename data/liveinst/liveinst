@@ -44,7 +44,7 @@ fi
 # Try to sort out where the live device is
 if [ -z "$LIVE_BLOCK" ]; then
     if [ -b "/run/initramfs/live-baseloop" ]; then
-       LIVE_BLOCK="/run/initramfs/live-baseloop"
+       LIVE_BLOCK=`readlink -f /run/initramfs/live-baseloop`
     elif [ -b "/dev/mapper/live-osimg-min" ]; then
        LIVE_BLOCK="/dev/mapper/live-osimg-min"
     elif [ -b "/dev/live-osimg" ]; then
