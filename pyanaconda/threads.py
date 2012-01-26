@@ -57,4 +57,18 @@ def initThreading():
     from gi.repository import GObject
     GObject.threads_init()
 
+    # http://bugs.python.org/issue1230540#msg25696
+    import sys
+    run_old = threading.Thread.run
+
+    def run(*args, **kwargs):
+        try:
+            run_old(*args, **kwargs)
+        except (KeyboardInterrupt, SystemExit):
+            raise
+        except:
+            sys.excepthook(*sys.exc_info())
+
+    threading.Thread.run = run
+
 threadMgr = ThreadManager()
