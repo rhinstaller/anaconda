@@ -2041,6 +2041,7 @@ class DeviceTree(object):
                 found = device
                 break
 
+        log_method_return(self, found)
         return found
 
     def getDeviceByUuid(self, uuid):
@@ -2056,6 +2057,7 @@ class DeviceTree(object):
                 found = device
                 break
 
+        log_method_return(self, found)
         return found
 
     def getDevicesBySerial(self, serial):
@@ -2066,6 +2068,8 @@ class DeviceTree(object):
                 continue
             if device.serial == serial:
                 devices.append(device)
+
+        log_method_return(self, devices)
         return devices
 
     def getDeviceByLabel(self, label):
@@ -2082,6 +2086,7 @@ class DeviceTree(object):
                 found = device
                 break
 
+        log_method_return(self, found)
         return found
 
     def getDeviceByName(self, name):
@@ -2109,6 +2114,7 @@ class DeviceTree(object):
             log_method_return(self, None)
             return None
 
+        found = None
         leaf = None
         other = None
         for device in self._devices:
