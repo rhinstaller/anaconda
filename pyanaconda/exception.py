@@ -1,7 +1,7 @@
 #
 # exception.py - general exception formatting and saving
 #
-# Copyright (C) 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007  Red Hat, Inc.
+# Copyright (C) 2000-2012 Red Hat, Inc.
 # All rights reserved.
 #
 # This program is free software; you can redistribute it and/or modify
@@ -17,9 +17,8 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-# Author(s): Matt Wilson <msw@redhat.com>
-#            Erik Troan <ewt@redhat.com>
-#            Chris Lumens <clumens@redhat.com>
+# Author(s): Chris Lumens <clumens@redhat.com>
+#            David Cantrell <dcantrell@redhat.com>
 #
 from meh.handler import *
 from meh.dump import *
@@ -38,11 +37,16 @@ log = logging.getLogger("anaconda")
 
 class AnacondaExceptionHandler(ExceptionHandler):
     def handleException(self, (ty, value, tb), obj):
-        if issubclass(ty, storage.errors.StorageError) and value.hardware_fault:
-            self.intf.hardwareError(value)
-        else:
-            super(AnacondaExceptionHandler, self).handleException((ty, value, tb),
-                                                                  obj)
+        import traceback
+
+        # Save the exception to the filesystem first.
+        self.exn = self.exnClass((ty, value, tb), self.conf)
+        (fd, self.exnFile) = self.openFile()
+        text = self.exn.write(obj, fd)
+        fd.close()
+
+        traceback.print_exception(ty, value, tb)
+        os._exit(10)
 
     def postWriteHook(self, (ty, value, tb), anaconda):
         # See if /mnt/sysimage is present and put exception there as well
