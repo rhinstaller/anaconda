@@ -36,8 +36,9 @@
 from gi.repository import Gtk, AnacondaWidgets
 
 from pyanaconda.ui.gui import UIObject
-from pyanaconda.ui.gui.spokes import NormalSpoke
+from pyanaconda.ui.gui.spokes import NormalSpoke, StandaloneSpoke
 from pyanaconda.ui.gui.categories.software import SoftwareCategory
+from pyanaconda.ui.gui.hubs.summary import SummaryHub
 
 from gi.repository import GLib, GObject, Pango, Gio, NetworkManager, NMClient
 import dbus
@@ -215,24 +216,16 @@ class CellRendererSecurity(Gtk.CellRendererPixbuf):
 
         self.set_property("icon-name", self.icon_name)
 
-
-class NetworkSpoke(NormalSpoke):
-    builderObjects = ["networkWindow", "liststore_devices", "liststore_wireless_network"]
-    mainWidgetName = "networkWindow"
-    uiFile = "spokes/network.ui"
-
-    title = N_("NETWORK CONFIGURATION")
-    icon = "network-transmit-receive-symbolic"
-
-    category = SoftwareCategory
+class NetworkControlBox():
 
     supported_device_types = [
         NetworkManager.DeviceType.ETHERNET,
         NetworkManager.DeviceType.WIFI,
     ]
 
-    def __init__(self, *args, **kwargs):
-        NormalSpoke.__init__(self, *args, **kwargs)
+    def __init__(self, builder):
+
+        self.builder = builder
 
         # these buttons are only for vpn and proxy
         self.builder.get_object("add_toolbutton").set_sensitive(False)
@@ -296,6 +289,11 @@ class NetworkSpoke(NormalSpoke):
         self.builder.get_object("button_wireless_options").connect("clicked",
                                                               self.on_edit_connection)
 
+    @property
+    def vbox(self):
+        return self.builder.get_object("networkControlBox_vbox")
+
+
     def _add_ap_icons(self, combobox):
         cell = CellRendererSecurity()
         cell.set_padding(4, 0)
@@ -322,16 +320,19 @@ class NetworkSpoke(NormalSpoke):
         col.set_expand(True)
         treeview.append_column(col)
 
-    def apply(self):
-        pass
+    def populate(self):
+        for device in self.client.get_devices():
+            self.add_device(device)
 
-    @property
-    def completed(self):
-        return self.status != _("Not connected")
+        treeview = self.builder.get_object("treeview_devices")
+        devices_store = self.builder.get_object("liststore_devices")
+        selection = treeview.get_selection()
+        selection.select_iter(devices_store.get_iter_first())
 
-    @property
+    def setup(self):
+        self.refresh_ui()
+
     def status(self):
-        """ A short string describing which devices are connected. """
         active_wired_devs = []
         active_wireless_devs = []
 
@@ -360,24 +361,7 @@ class NetworkSpoke(NormalSpoke):
         else:
             msg = _("Not connected")
 
-        # active connections?
-
         return msg
-
-    def populate(self):
-        NormalSpoke.populate(self)
-
-        for device in self.client.get_devices():
-            self.add_device(device)
-
-        treeview = self.builder.get_object("treeview_devices")
-        devices_store = self.builder.get_object("liststore_devices")
-        selection = treeview.get_selection()
-        selection.select_iter(devices_store.get_iter_first())
-
-    def setup(self):
-        NormalSpoke.setup(self)
-        self.refresh_ui()
 
     # Signal handlers.
     def on_device_selection_changed(self, *args):
@@ -478,10 +462,6 @@ class NetworkSpoke(NormalSpoke):
                 device.disconnect(None, None)
         elif dev_type == NetworkManager.DeviceType.WIFI:
             self.client.wireless_set_enabled(active)
-
-    def on_back_clicked(self, window):
-        self.window.hide()
-        Gtk.main_quit()
 
     def selected_device(self):
         selection = self.builder.get_object("treeview_devices").get_selection()
@@ -914,4 +894,93 @@ class NetworkSpoke(NormalSpoke):
             sec_str = _("None")
 
         return sec_str
+
+class NetworkSpoke(NormalSpoke):
+    builderObjects = ["networkWindow", "liststore_wireless_network", "liststore_devices"]
+    mainWidgetName = "networkWindow"
+    uiFile = "spokes/network.ui"
+
+    title = N_("NETWORK CONFIGURATION")
+    icon = "network-transmit-receive-symbolic"
+
+    category = SoftwareCategory
+
+    def __init__(self, *args, **kwargs):
+        NormalSpoke.__init__(self, *args, **kwargs)
+        self.network_control_box = NetworkControlBox(self.builder)
+
+    def apply(self):
+        pass
+
+    @property
+    def completed(self):
+        return self.status != _("Not connected")
+
+    @property
+    def status(self):
+        """ A short string describing which devices are connected. """
+        return self.network_control_box.status()
+
+    def populate(self):
+        NormalSpoke.populate(self)
+        self.network_control_box.populate()
+
+    def setup(self):
+        NormalSpoke.setup(self)
+        self.network_control_box.setup()
+
+    def on_back_clicked(self, window):
+        self.window.hide()
+        Gtk.main_quit()
+
+
+class NetworkStandaloneSpoke(StandaloneSpoke):
+    builderObjects = ["networkStandaloneWindow", "networkControlBox_vbox", "liststore_wireless_network", "liststore_devices"]
+    mainWidgetName = "networkStandaloneWindow"
+    uiFile = "spokes/network.ui"
+
+    preForHub = SummaryHub
+    priority = 10
+
+    def __init__(self, *args, **kwargs):
+        StandaloneSpoke.__init__(self, *args, **kwargs)
+        self.network_control_box = NetworkControlBox(self.builder)
+        parent = self.builder.get_object("AnacondaStandaloneWindow-action_area5")
+        parent.add(self.network_control_box.vbox)
+
+    def apply(self):
+        pass
+
+    def populate(self):
+        StandaloneSpoke.populate(self)
+        self.network_control_box.populate()
+
+    def setup(self):
+        StandaloneSpoke.setup(self)
+        self.network_control_box.setup()
+
+    def on_back_clicked(self, window):
+        self.window.hide()
+        Gtk.main_quit()
+
+
+if __name__ == "__main__":
+
+    win = Gtk.Window()
+    win.connect("delete-event", Gtk.main_quit)
+
+    builder = Gtk.Builder()
+    import os
+    ui_file_path = os.environ.get('UIPATH')+'spokes/network.ui'
+    builder.add_from_file(ui_file_path)
+
+    n = NetworkControlBox(builder)
+    n.populate()
+    n.setup()
+
+    n.vbox.reparent(win)
+
+    win.show_all()
+    Gtk.main()
+
 
