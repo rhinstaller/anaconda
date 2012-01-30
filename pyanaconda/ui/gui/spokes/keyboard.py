@@ -1,6 +1,6 @@
 # Keyboard selection and configuration spoke class
 #
-# Copyright (C) 2011  Red Hat, Inc.
+# Copyright (C) 2011-2012  Red Hat, Inc.
 #
 # This copyrighted material is made available to anyone wishing to use,
 # modify, copy, or redistribute it subject to the terms and conditions of
@@ -17,13 +17,14 @@
 # Red Hat, Inc.
 #
 # Red Hat Author(s): Chris Lumens <clumens@redhat.com>
+#                    Vratislav Podzimek <vpodzime@redhat.com>
 #
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
 N_ = lambda x: x
 
-from gi.repository import Gtk, AnacondaWidgets
+from gi.repository import Gtk, GLib, AnacondaWidgets
 
 from pyanaconda.ui.gui import UIObject
 from pyanaconda.ui.gui.spokes import NormalSpoke
@@ -110,6 +111,10 @@ class KeyboardSpoke(NormalSpoke):
     icon = "accessories-character-map"
     title = N_("KEYBOARD")
 
+    def __init__(self, *args):
+        NormalSpoke.__init__(self, *args)
+        self._remove_last_attempt = False
+
     def apply(self):
         pass
 
@@ -165,6 +170,11 @@ class KeyboardSpoke(NormalSpoke):
                 if item in dialog.chosen_layouts:
                     duplicates.add(item)
                 itr = self._store.iter_next(itr)
+
+            if self._remove_last_attempt:
+                self._store.remove(self._store.get_iter_first())
+                self._remove_last_attempt = False
+
             for layout in dialog.chosen_layouts:
                 if layout not in duplicates:
                     self._addLayout(self._store, layout)
@@ -181,8 +191,15 @@ class KeyboardSpoke(NormalSpoke):
             itr2 = store.iter_next(itr2)
             if itr2: #next one existing
                 selection.select_iter(itr2)
-            #nothing left to be selected
-            store.remove(itr)
+                store.remove(itr)
+                return
+
+            #nothing left, run AddLayout dialog to replace the current layout
+            #add it to GLib.idle to make sure the underlaying gui is correctly
+            #redrawn
+            self._remove_last_attempt = True
+            add_button = self.builder.get_object("addLayoutButton")
+            GLib.idle_add(self.on_add_clicked, add_button)
             return
 
         #the selected item is not the first, select the previous one
