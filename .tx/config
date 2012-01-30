@@ -1,12 +1,7 @@
-[anaconda.master]
-file_filter = po/<lang>.po
-source_file = po/anaconda.pot
-source_lang = en
-
 [main]
 host = https://www.transifex.net
 
-[anaconda.f16-branch]
+[anaconda.rhel7-alpha-branch]
 file_filter = po/<lang>.po
 source_file = po/anaconda.pot
 source_lang = en
