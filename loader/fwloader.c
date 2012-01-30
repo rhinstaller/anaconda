@@ -604,6 +604,13 @@ void add_fw_search_dir(struct loaderData_s *loaderData, char *dir)
             dir);
 }
 
+void insert_fw_search_dir(struct loaderData_s *loaderData, char *dir)
+{
+    argz_insert(&loaderData->fw_search_pathz, &loaderData->fw_search_pathz_len,
+                loaderData->fw_search_pathz, dir);
+}
+
+
 void do_fw_loader(struct loaderData_s *loaderData)
 {
     struct fw_loader fwl;

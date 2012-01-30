@@ -26,6 +26,7 @@
 
 extern void set_fw_search_path(struct loaderData_s *loaderData, char *path);
 extern void add_fw_search_dir(struct loaderData_s *loaderData, char *dir);
+extern void insert_fw_search_dir(struct loaderData_s *loaderData, char *dir);
 extern void start_fw_loader(struct loaderData_s *loaderData);
 extern void stop_fw_loader(struct loaderData_s *loaderData);
 

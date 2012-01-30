@@ -28,6 +28,7 @@
 #define DD_EXTRACTED "/tmp/DD"
 #define DD_MODULES "/tmp/DD/lib/modules"
 #define DD_FIRMWARE "/tmp/DD/lib/firmware"
+#define DD_FIRMWARE_UPDATES "/tmp/DD/lib/firmware/updates"
 
 extern char *ddFsTypes[];
 

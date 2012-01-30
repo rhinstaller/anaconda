@@ -2087,7 +2087,7 @@ int main(int argc, char ** argv) {
     }
     if (hasGraphicalOverride())
         flags |= LOADER_FLAGS_EARLY_NETWORKING;
-    set_fw_search_path(&loaderData, "/firmware:/lib/firmware");
+    set_fw_search_path(&loaderData, "/lib/firmware/updates:/firmware:/lib/firmware");
     start_fw_loader(&loaderData);
 
     arg = "/lib/modules/module-info";

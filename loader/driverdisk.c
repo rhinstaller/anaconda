@@ -300,7 +300,6 @@ static int loadDriverDisk(struct loaderData_s *loaderData, char *mntpt) {
     /* FIXME moduleInfoSet modInfo = loaderData->modInfo; */
     char file[200], dest[200], src[200];
     char *title;
-    char *fwdir = NULL;
     struct moduleBallLocation * location;
     struct stat sb;
     static int disknum = 0;
@@ -374,13 +373,12 @@ static int loadDriverDisk(struct loaderData_s *loaderData, char *mntpt) {
       logMessage(ERROR, "Error running depmod -a for driverdisc no.%d", disknum);
     }
 
-    checked_asprintf(&fwdir, DD_FIRMWARE);
-    if (!access(fwdir, R_OK|X_OK)) {
-        add_fw_search_dir(loaderData, fwdir);
+    if (!access(DD_FIRMWARE, R_OK|X_OK)) {
+        insert_fw_search_dir(loaderData, DD_FIRMWARE);
+        insert_fw_search_dir(loaderData, DD_FIRMWARE_UPDATES);
         stop_fw_loader(loaderData);
         start_fw_loader(loaderData);
     }
-    free(fwdir);
 
     /* TODO generate and read module info
      *
