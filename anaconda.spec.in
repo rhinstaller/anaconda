@@ -222,6 +222,59 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Tue Jan 31 2012 David Cantrell <dcantrell@redhat.com> - 13.21.150-1
+- Set default BOOTPROTO=dhcp for network service (minimal installs) (rvykydal)
+  Resolves: rhbz#723404
+- Select the same device for ksdevice=link in loader and stage2 (jbastian)
+  Resolves: rhbz#760250
+- Add mnemonics to Configure Network button (rvykydal)
+  Resolves: rhbz#766902
+- Search /lib/firmware/updates and /tmp/DD/lib/firmware/updates (msivak)
+  Resolves: rhbz#784327
+- Single quote values in show_parms() in linuxrc.s390 (dcantrell)
+  Resolves: rhbz#772970
+- Fix scan of already-active mdbiosraidarrays before scan of container.
+  (dlehman)
+  Resolves: rhbz#740870
+- i18n: Do not include newlines in the reinit dialog's label. (akozumpl)
+  Resolves: rhbz#728556
+- Silence xrandr. (akozumpl)
+  Resolves: rhbz#732966
+- Fix problems found by Coverity scan (dcantrell)
+  Resolves: rhbz#727881
+- Write isfinal to the buildstamp for sparc too (mgracik)
+  Resolves: rhbz#740164
+- Remove BETANAG, use productIsFinal instead (mgracik)
+  Resolves: rhbz#740164
+- Add productIsFinal variable (mgracik)
+  Resolves: rhbz#740164
+- Make the rhgb and quiet kernel arguments appear last (mgracik)
+  Resolves: rhbz#742169
+- Workaround a bash bug to install some packages also on ix86. (msivak)
+  Resolves: rhbz#750126
+- Allow the user to change his mind about drive reinitializing (msivak)
+  Resolves: rhbz#730959
+- Fix the parser for devel argument so it works when it is the last one.
+  (msivak)
+  Resolves: rhbz#754031
+- Add netcat and it's requirement libbsd to anaconda (msivak)
+  Resolves: rhbz#770486
+- Pass the noprobe arguments to loadDriverFromMedia (msivak)
+  Resolves: rhbz#690058
+- Name the boot loader add/edit dialog better (mgracik)
+  Resolves: rhbz#745942
+- Show warning if the bootloader password is empty (mgracik)
+  Resolves: rhbz#745805
+- Focus the bootloader dialog after error message (mgracik)
+  Resolves: rhbz#745797
+- Add curl to the install image (mgracik)
+  Resolves: rhbz#625697
+- check if stdout and stderr are the same in execWithRedirect and open
+  the file only once in such cases
+  Resolves: rhbz#750710
+- pass through the network step in text mode in both directions
+  Resolves: rhbz#737452
+
 * Fri Nov 04 2011 Chris Lumens <clumens@redhat.com> - 13.21.149-1
 - use 800x600 as minimal mainWindow size (vpodzime) (mgracik)
   Resolves: rhbz#750764
