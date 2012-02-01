@@ -608,6 +608,20 @@ class Network:
                     log.warning("disableNMForStorageDevices: %s file not found" %
                                 device.path)
 
+    def autostartFCoEDevices(self, anaconda, instPath=''):
+        for devName, device in self.netdevices.items():
+            if device.usedByFCoE(anaconda):
+                dev = NetworkDevice(instPath + netscriptsDir, devName)
+                if os.access(dev.path, os.R_OK):
+                    dev.loadIfcfgFile()
+                    dev.set(('ONBOOT', 'yes'))
+                    dev.writeIfcfgFile()
+                    log.debug("setting ONBOOT=yes for network device %s used by fcoe"
+                              % device.path)
+                else:
+                    log.warning("autoconnectFCoEDevices: %s file not found" %
+                                device.path)
+
     def write(self):
 
         ifcfglog.debug("Network.write() called")

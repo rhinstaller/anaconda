@@ -162,6 +162,8 @@ class InstallData:
         self.network.copyConfigToPath(instPath=self.anaconda.rootPath)
         self.network.disableNMForStorageDevices(self.anaconda,
                                                 instPath=self.anaconda.rootPath)
+        self.network.autostartFCoEDevices(self.anaconda,
+                                          instPath=self.anaconda.rootPath)
         self.firewall.write (self.anaconda.rootPath)
         self.security.write (self.anaconda.rootPath)
         self.desktop.write(self.anaconda.rootPath)
