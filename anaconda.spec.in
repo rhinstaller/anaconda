@@ -122,7 +122,7 @@ Requires: cryptsetup-luks
 Requires: python-cryptsetup >= %{pythoncryptsetupver}
 Requires: mdadm
 Requires: lvm2
-Requires: util-linux-ng >= 2.15.1
+Requires: util-linux >= 2.15.1
 Requires: system-config-keyboard >= %{sckeyboardver}
 Requires: dbus-python
 Requires: cracklib-python
