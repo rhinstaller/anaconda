@@ -610,7 +610,7 @@ class DeviceTree(object):
             pv_info = udev_get_block_device(pv_sysfs_path)
             self.addUdevDevice(pv_info)
 
-        vg_name = udev_device_get_vg_name(info)
+        vg_name = udev_device_get_lv_vg_name(info)
         device = self.getDeviceByName(vg_name)
         if not device:
             log.error("failed to find vg '%s' after scanning pvs" % vg_name)

@@ -322,6 +322,9 @@ def udev_device_get_md_name(info):
 def udev_device_get_vg_name(info):
     return info['LVM2_VG_NAME']
 
+def udev_device_get_lv_vg_name(info):
+    return info['DM_VG_NAME']
+
 def udev_device_get_vg_uuid(info):
     return info['LVM2_VG_UUID']
 
