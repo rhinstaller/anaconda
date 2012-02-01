@@ -19,6 +19,8 @@
 # Red Hat Author(s): Chris Lumens <clumens@redhat.com>
 #
 
+import sys
+
 from gi.repository import AnacondaWidgets, Gtk
 from pyanaconda.ui.gui.hubs.summary import SummaryHub
 from pyanaconda.ui.gui.spokes import StandaloneSpoke
