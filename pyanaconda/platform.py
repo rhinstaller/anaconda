@@ -279,6 +279,11 @@ class S390(Platform):
     _packages = ["s390utils"]
     _disklabel_types = ["msdos", "dasd"]
     _boot_stage1_device_types = ["disk", "partition"]
+    _boot_dasd_description = N_("DASD")
+    _boot_zfcp_description = N_("zFCP")
+    _boot_descriptions = {"dasd": _boot_dasd_description,
+                          "zfcp": _boot_zfcp_description,
+                          "partition": Platform._boot_partition_description}
 
     def __init__(self, anaconda):
         Platform.__init__(self, anaconda)
