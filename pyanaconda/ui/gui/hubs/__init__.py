@@ -108,7 +108,7 @@ class Hub(UIObject):
             obj = c()
 
             selectors = []
-            for spokeClass in collect_spokes(obj.__class__.__name__):
+            for spokeClass in sorted(collect_spokes(obj.__class__.__name__), key=lambda s: s.title):
                 # Create the new spoke and populate its UI with whatever data.
                 # From here on, this Spoke will always exist.
                 spoke = spokeClass(self.data, self.devicetree, self.instclass)
