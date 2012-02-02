@@ -677,19 +677,19 @@ class NetworkControlBox():
         ipv4cfg = device.get_ip4_config()
         if (ipv4cfg
             and device.get_state() == NetworkManager.DeviceState.ACTIVATED):
-            addr = socket.inet_ntoa(struct.pack('L',
+            addr = socket.inet_ntoa(struct.pack('=L',
                                                 ipv4cfg.get_addresses()[0].get_address()))
             self._set_device_info_value(dt, "ipv4", addr)
-            dnss = " ".join([socket.inet_ntoa(struct.pack('L', addr))
+            dnss = " ".join([socket.inet_ntoa(struct.pack('=L', addr))
                              for addr in ipv4cfg.get_nameservers()])
             self._set_device_info_value(dt, "dns", dnss)
-            gateway = socket.inet_ntoa(struct.pack('L',
+            gateway = socket.inet_ntoa(struct.pack('=L',
                                                    ipv4cfg.get_addresses()[0].get_gateway()))
             self._set_device_info_value(dt, "route", gateway)
             if dt == "wired":
                 prefix = ipv4cfg.get_addresses()[0].get_prefix()
                 netmask = nm_utils.nm_utils_ip4_prefix_to_netmask(prefix)
-                netmask = socket.inet_ntoa(struct.pack('L', netmask))
+                netmask = socket.inet_ntoa(struct.pack('=L', netmask))
                 self._set_device_info_value(dt, "subnet", netmask)
         else:
             self._set_device_info_value(dt, "ipv4", None)
