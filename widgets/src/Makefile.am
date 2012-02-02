@@ -25,26 +25,39 @@ ACLOCAL_AMFLAGS = -I m4
 
 DISTCHECK_CONFIGURE_FLAGS = --enable-introspection --enable-gtk-doc
 
-SOURCES = BaseWindow.c \
+GISOURCES = BaseWindow.c \
 	 DiskOverview.c \
 	 HubWindow.c \
 	 SpokeSelector.c \
 	 SpokeWindow.c \
 	 StandaloneWindow.c \
+	 TimezoneMap.c \
 	 lightbox.c
 
-HDRS = BaseWindow.h \
+GIHDRS = BaseWindow.h \
 	 DiskOverview.h \
 	 HubWindow.h \
 	 SpokeSelector.h \
 	 SpokeWindow.h \
 	 StandaloneWindow.h \
+	 TimezoneMap.h \
 	 lightbox.h
+
+NONGISOURCES = tz.c
+
+NONGIHDRS = tz.h
+
+SOURCES = $(GISOURCES) $(NONGISOURCES)
+
+HDRS = $(GIHDRS) $(NONGIHDRS)
+
+TZMAPDATA = '"$(datadir)/anaconda/tzmapdata"'
 
 noinst_HEADERS = gettext.h intl.h
 
 lib_LTLIBRARIES = libAnacondaWidgets.la
-libAnacondaWidgets_la_CFLAGS = $(GTK_CFLAGS) $(GLADEUI_CFLAGS) -Wall -g
+libAnacondaWidgets_la_CFLAGS = $(GTK_CFLAGS) $(GLADEUI_CFLAGS) -Wall -g\
+			       -DTZMAP_DATADIR=$(TZMAPDATA)
 libAnacondaWidgets_la_LIBADD = $(GTK_LIBS) $(GLADEUI_LIBS)
 libAnacondaWidgets_la_LDFLAGS = $(LTLIBINTL)
 libAnacondaWidgets_la_SOURCES = $(SOURCES) $(HDRS) \
@@ -56,7 +69,7 @@ lib_include_HEADERS = $(HDRS)
 if HAVE_INTROSPECTION
 AnacondaWidgets-1.0.gir: libAnacondaWidgets.la
 
-AnacondaWidgets_1_0_gir_FILES = $(SOURCES) $(HDRS)
+AnacondaWidgets_1_0_gir_FILES = $(GISOURCES) $(GIHDRS)
 AnacondaWidgets_1_0_gir_LIBS = libAnacondaWidgets.la
 AnacondaWidgets_1_0_gir_SCANNERFLAGS = --warn-all --identifier-prefix=Anaconda --symbol-prefix=anaconda
 AnacondaWidgets_1_0_gir_INCLUDES = Gtk-3.0
