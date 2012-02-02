@@ -232,6 +232,10 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Wed Feb 01 2012 Brian C. Lane <bcl@redhat.com> - 17.5-1
+- Add a separate function to get an LV's VG name. (dlehman)
+- util-linux-ng is now util-linux (bcl)
+
 * Tue Jan 31 2012 Brian C. Lane <bcl@redhat.com> - 17.4-1
 - liveinst: canonicalize live-baseloop symlink (bcl)
 - Fixup getDeviceBy* methods (bcl)
