@@ -432,7 +432,7 @@ class NetworkControlBox():
         if con:
             uuid = con.get_uuid()
         else:
-            print "DBG: no active connection to be edited found"
+            print "DBG: no connection to be edited found"
             return
 
         subprocess.Popen(["nm-connection-editor", "--edit", "%s" % uuid])
