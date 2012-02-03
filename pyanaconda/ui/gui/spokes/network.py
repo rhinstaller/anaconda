@@ -544,7 +544,8 @@ class NetworkControlBox():
 
     def _dev_title(self, device):
         unplugged = ''
-        if (device.get_device_type() == NetworkManager.DeviceType.ETHERNET
+        if (device.get_state() == NetworkManager.DeviceState.UNAVAILABLE
+            and device.get_device_type() == NetworkManager.DeviceType.ETHERNET
             and not device.get_carrier()):
             # Translators: ethernet cable is unplugged
             unplugged = ', <i>%s</i>' % _("unplugged")
