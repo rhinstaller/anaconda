@@ -25,7 +25,7 @@ N_ = lambda x: x
 
 import os.path
 
-from gi.repository import Gtk, AnacondaWidgets
+from gi.repository import AnacondaWidgets
 
 from pyanaconda.image import opticalInstallMedia, potentialHdisoSources
 from pyanaconda.ui.gui import UIObject
@@ -368,7 +368,3 @@ class SourceSpoke(NormalSpoke):
         # the currently selected protocol.
         proxyButton.set_sensitive(self._http_active(combo))
         nfsOptsBox.set_visible(self._nfs_active(combo))
-
-    def on_back_clicked(self, window):
-        self.window.hide()
-        Gtk.main_quit()

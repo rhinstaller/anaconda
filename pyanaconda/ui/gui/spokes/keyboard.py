@@ -24,7 +24,7 @@ import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
 N_ = lambda x: x
 
-from gi.repository import Gtk, GLib, AnacondaWidgets
+from gi.repository import GLib, AnacondaWidgets
 
 from pyanaconda.ui.gui import UIObject
 from pyanaconda.ui.gui.spokes import NormalSpoke
@@ -270,7 +270,3 @@ class KeyboardSpoke(NormalSpoke):
         else:
             self._upButton.set_sensitive(True)
             self._downButton.set_sensitive(True)
-
-    def on_back_clicked(self, window):
-        self.window.hide()
-        Gtk.main_quit()

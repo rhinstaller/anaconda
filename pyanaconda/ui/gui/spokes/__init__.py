@@ -186,6 +186,12 @@ class NormalSpoke(Spoke):
         """
         return True
 
+    def on_back_clicked(self, window):
+        from gi.repository import Gtk
+
+        self.window.hide()
+        Gtk.main_quit()
+
 class PersonalizationSpoke(Spoke):
     """A PersonalizationSpoke is a Spoke subclass that is displayed when the
        user selects something on the Hub during package installation.

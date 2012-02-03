@@ -930,10 +930,6 @@ class NetworkSpoke(NormalSpoke):
         NormalSpoke.setup(self)
         self.network_control_box.setup()
 
-    def on_back_clicked(self, window):
-        self.window.hide()
-        Gtk.main_quit()
-
 
 class NetworkStandaloneSpoke(StandaloneSpoke):
     builderObjects = ["networkStandaloneWindow", "networkControlBox_vbox", "liststore_wireless_network", "liststore_devices"]

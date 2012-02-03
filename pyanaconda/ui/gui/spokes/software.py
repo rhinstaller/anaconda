@@ -23,8 +23,6 @@ import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
 N_ = lambda x: x
 
-from gi.repository import Gtk
-
 from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.gui.categories.software import SoftwareCategory
 
@@ -93,7 +91,3 @@ class SoftwareSelectionSpoke(NormalSpoke):
     def on_custom_clicked(self, button):
         # FIXME: does nothing for now
         pass
-
-    def on_back_clicked(self, window):
-        self.window.hide()
-        Gtk.main_quit()

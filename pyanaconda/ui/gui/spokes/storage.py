@@ -573,7 +573,3 @@ class StorageSpoke(NormalSpoke):
 
     def on_add_disk_clicked(self, button):
         print "ADD DISK CLICKED"
-
-    def on_back_clicked(self, window):
-        self.window.hide()
-        Gtk.main_quit()
