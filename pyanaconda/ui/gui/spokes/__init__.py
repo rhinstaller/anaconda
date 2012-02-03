@@ -169,6 +169,18 @@ class NormalSpoke(Spoke):
 
         Spoke.__init__(self, data, devicetree, instclass)
 
+    def check(self):
+        """This method runs any special checks the spoke requires.  It will
+           be run in a separate thread and is triggered by the Back button
+           being clicked.  Only one check thread per spoke may run at a time.
+           Should the check thread not finish before the user clicks Continue
+           on the hub, the hub will display a dialog while it finishes.
+
+           This method should first clean up from any previous runs, even
+           those terminated prematurely.
+        """
+        pass
+
     def populate(self, readyCB=None):
         """A special overridden version of UIObject.populate.  This method
            also takes a callback to be called whenever this spoke becomes
@@ -188,9 +200,23 @@ class NormalSpoke(Spoke):
 
     def on_back_clicked(self, window):
         from gi.repository import Gtk
+        from pyanaconda.threads import threadMgr
+        from threading import Thread
 
         self.window.hide()
         Gtk.main_quit()
+
+        # A spoke may only have one check thread running at a time.  If one's
+        # already running, we must ask it to kill itself (there's no API in
+        # Python for killing a thread) and then wait for it to exit.
+        threadName = "Ana" + self.title.replace(" ", "") + "Check"
+        thr = threadMgr.get(threadName)
+        if thr:
+            thr.kill = True
+            thr.join()
+
+        # And now start a new instance of the check thread.
+        threadMgr.add(Thread(name=threadName, target=self.check))
 
 class PersonalizationSpoke(Spoke):
     """A PersonalizationSpoke is a Spoke subclass that is displayed when the
