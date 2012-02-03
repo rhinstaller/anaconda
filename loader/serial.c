@@ -154,8 +154,9 @@ static void set_term(int fd, GHashTable *cmdline) {
 #endif
 
 int init_serial(struct termios *orig_cmode, int *orig_flags, GHashTable *cmdline) {
+    int serial;
 #if !defined(__s390__) && !defined(__s390x__)
-    int fd, serial;
+    int fd;
 
     /* We need to get the original mode and flags here (in addition to inside
      * get_serial) so we'll have them for later when we restore the console
@@ -209,6 +210,7 @@ int init_serial(struct termios *orig_cmode, int *orig_flags, GHashTable *cmdline
     if (fd > 2)
         close(fd);
 #else
+    serial = 1;
     dup2(0, 1);
     dup2(0, 2);
 #endif
