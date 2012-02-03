@@ -396,12 +396,6 @@ class Network:
 
         self.update()
 
-        # Set all devices to be controlled by NM by default.
-        # We can filter out storage devices only after
-        # we have device tree populated. So we do it before
-        # running nm-c-e and before writing ifcfg files to system.
-        self.setNMControlledDevices(self.netdevices.keys())
-
     def update(self):
         ifcfglog.debug("Network.update() called")
 
@@ -549,14 +543,6 @@ class Network:
     def writeIfcfgFiles(self):
         for device in self.netdevices.values():
             device.writeIfcfgFile()
-
-    # devices == None => set for all
-    def setNMControlledDevices(self, devices=None):
-        for devname, device in self.netdevices.items():
-            if devices and devname not in devices:
-                device.set(('NM_CONTROLLED', 'no'))
-            else:
-                device.set(('NM_CONTROLLED', 'yes'))
 
     # devices == None => set for all
     def updateActiveDevices(self, devices=None):

@@ -1215,7 +1215,7 @@ int writeDisabledIfcfgFile(char *device) {
     fprintf(fp, "DEVICE=%s\n", device);
     fprintf(fp, "HWADDR=%s\n", iface_mac2str(device));
     fprintf(fp, "ONBOOT=no\n");
-    fprintf(fp, "NM_CONTROLLED=no\n");
+    fprintf(fp, "NM_CONTROLLED=yes\n");
     /* default for network service, NM assumes it */
     fprintf(fp, "BOOTPROTO=dhcp\n");
 
