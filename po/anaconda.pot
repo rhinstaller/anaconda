@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 16.24\n"
+"Project-Id-Version: anaconda 16.25.0\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2011-11-02 17:48-0700\n"
+"POT-Creation-Date: 2012-02-03 11:19+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -68,7 +68,7 @@ msgstr ""
 #: loader/kickstart.c:1010 loader/lang.c:126 loader/lang.c:465
 #: loader/loader.c:371 loader/loader.c:407 loader/loader.c:447
 #: loader/loader.c:465 loader/loader.c:482 loader/loader.c:519
-#: loader/loader.c:1145 loader/loader.c:1173 loader/loader.c:1425
+#: loader/loader.c:1149 loader/loader.c:1177 loader/loader.c:1429
 #: loader/mediacheck.c:47 loader/mediacheck.c:86 loader/mediacheck.c:93
 #: loader/mediacheck.c:97 loader/mediacheck.c:106 loader/method.c:192
 #: loader/method.c:266 loader/net.c:591 loader/net.c:953 loader/net.c:1688
@@ -178,15 +178,15 @@ msgid ""
 "partition."
 msgstr ""
 
-#: pyanaconda/bootloader.py:2059
+#: pyanaconda/bootloader.py:2062
 msgid "Bootloader"
 msgstr ""
 
-#: pyanaconda/bootloader.py:2060
+#: pyanaconda/bootloader.py:2063
 msgid "Installing bootloader."
 msgstr ""
 
-#: pyanaconda/bootloader.py:2067 pyanaconda/bootloader.py:2126
+#: pyanaconda/bootloader.py:2070 pyanaconda/bootloader.py:2129
 #: pyanaconda/gui.py:1093 pyanaconda/image.py:87
 #: pyanaconda/installinterfacebase.py:74
 #: pyanaconda/installinterfacebase.py:151 pyanaconda/packages.py:90
@@ -195,13 +195,13 @@ msgstr ""
 msgid "Warning"
 msgstr ""
 
-#: pyanaconda/bootloader.py:2068
+#: pyanaconda/bootloader.py:2071
 msgid ""
 "No kernel packages were installed on the system. Bootloader configuration "
 "will not be changed."
 msgstr ""
 
-#: pyanaconda/bootloader.py:2127
+#: pyanaconda/bootloader.py:2130
 msgid ""
 "There was an error installing the bootloader.  The system may not be "
 "bootable."
@@ -543,7 +543,7 @@ msgstr ""
 #: loader/hdinstall.c:282 loader/hdinstall.c:300 loader/hdinstall.c:309
 #: loader/hdinstall.c:344 loader/hdinstall.c:383 loader/hdinstall.c:398
 #: loader/kickstart.c:307 loader/lang.c:126 loader/loader.c:371
-#: loader/loader.c:482 loader/loader.c:1145 loader/mediacheck.c:47
+#: loader/loader.c:482 loader/loader.c:1149 loader/mediacheck.c:47
 #: loader/mediacheck.c:86 loader/mediacheck.c:93 loader/mediacheck.c:97
 #: loader/method.c:192 loader/method.c:266 loader/nfsinstall.c:257
 #: loader/urlinstall.c:139 loader/urlinstall.c:161 loader/urlinstall.c:213
@@ -1157,6 +1157,14 @@ msgstr ""
 
 #: pyanaconda/platform.py:253
 msgid "Apple Bootstrap Partition"
+msgstr ""
+
+#: pyanaconda/platform.py:282
+msgid "DASD"
+msgstr ""
+
+#: pyanaconda/platform.py:283
+msgid "zFCP"
 msgstr ""
 
 #: pyanaconda/rescue.py:215 pyanaconda/rescue.py:368 pyanaconda/rescue.py:453
@@ -3323,7 +3331,7 @@ msgstr ""
 #: loader/driverdisk.c:506 loader/driverselect.c:79 loader/driverselect.c:145
 #: loader/driverselect.c:171 loader/hdinstall.c:168 loader/hdinstall.c:222
 #: loader/kbd.c:118 loader/loader.c:448 loader/loader.c:465
-#: loader/loader.c:1425 loader/loader.c:1465 loader/net.c:591 loader/net.c:953
+#: loader/loader.c:1429 loader/loader.c:1469 loader/net.c:591 loader/net.c:953
 #: loader/net.c:1688 loader/net.c:1707 loader/nfsinstall.c:93
 #: loader/urls.c:264 pyanaconda/storage/__init__.py:123
 #: pyanaconda/storage/__init__.py:169 pyanaconda/storage/devicetree.py:94
@@ -3618,98 +3626,98 @@ msgstr ""
 msgid "Error downloading updates image"
 msgstr ""
 
-#: loader/loader.c:1136
+#: loader/loader.c:1140
 #, c-format
 msgid "%s requires %d MB of memory, to install, but you only have %d MB."
 msgstr ""
 
-#: loader/loader.c:1173
+#: loader/loader.c:1177
 msgid "Unsupported Hardware Detected"
 msgstr ""
 
-#: loader/loader.c:1174
+#: loader/loader.c:1178
 msgid ""
 "This hardware (or a combination thereof) is not supported by Red Hat.  For "
 "more information on supported hardware, please refer to http://www.redhat."
 "com/hardware."
 msgstr ""
 
-#: loader/loader.c:1422
+#: loader/loader.c:1426
 msgid "Installation Method"
 msgstr ""
 
-#: loader/loader.c:1423
+#: loader/loader.c:1427
 msgid "What type of media contains the installation tree?"
 msgstr ""
 
-#: loader/loader.c:1464
+#: loader/loader.c:1468
 msgid "No driver found"
 msgstr ""
 
-#: loader/loader.c:1464
+#: loader/loader.c:1468
 msgid "Select driver"
 msgstr ""
 
-#: loader/loader.c:1465
+#: loader/loader.c:1469
 msgid "Use a driver disk"
 msgstr ""
 
-#: loader/loader.c:1466
+#: loader/loader.c:1470
 msgid ""
 "Unable to find any devices of the type needed for this installation type.  "
 "Would you like to manually select your driver or use a driver disk?"
 msgstr ""
 
-#: loader/loader.c:1667
+#: loader/loader.c:1671
 msgid "The following devices have been found on your system."
 msgstr ""
 
-#: loader/loader.c:1669
+#: loader/loader.c:1673
 msgid ""
 "No device drivers have been loaded for your system.  Would you like to load "
 "any now?"
 msgstr ""
 
-#: loader/loader.c:1673
+#: loader/loader.c:1677
 msgid "Devices"
 msgstr ""
 
-#: loader/loader.c:1674
+#: loader/loader.c:1678
 msgid "Done"
 msgstr ""
 
-#: loader/loader.c:1675
+#: loader/loader.c:1679
 msgid "Add Device"
 msgstr ""
 
-#: loader/loader.c:2000
+#: loader/loader.c:2005
 #, c-format
 msgid "loader has already been run.  Starting shell.\n"
 msgstr ""
 
-#: loader/loader.c:2108
+#: loader/loader.c:2123
 #, c-format
 msgid "Driver disc was detected in %s. Do you want to use it?."
 msgstr ""
 
-#: loader/loader.c:2111
+#: loader/loader.c:2126
 msgid "Driver disc detected"
 msgstr ""
 
-#: loader/loader.c:2111
+#: loader/loader.c:2126
 msgid "Use it"
 msgstr ""
 
-#: loader/loader.c:2111
+#: loader/loader.c:2126
 msgid "Skip it"
 msgstr ""
 
-#: loader/loader.c:2417
+#: loader/loader.c:2436
 #, c-format
 msgid "Running anaconda %s, the %s rescue mode - please wait.\n"
 msgstr ""
 
-#: loader/loader.c:2419
+#: loader/loader.c:2438
 #, c-format
 msgid "Running anaconda %s, the %s system installer - please wait.\n"
 msgstr ""

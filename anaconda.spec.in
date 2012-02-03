@@ -232,6 +232,15 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Fri Feb 03 2012 Martin Sivak <msivak@redhat.com> - 16.25.1-1
+- Add missing _boot_description values for dasd and zfcp (#739620)
+- Fix root device specification in zipl.conf. (#740576)
+- Do not reactivate network device needlessly on s390 (#739846)
+- Start NM in loader on s390 until we have systemd init here too (#733680)
+- Add "console=XXX" to yaboot.conf if using virtpconsole (#758530)
+- correctly switch controlling terminal (#732302)
+- use special serial consoles if present (#752596)
+
 * Wed Nov 02 2011 Brian C. Lane <bcl@redhat.com> - 16.25-1
 - Try to fix up detection of live backing devices. (#750469) (dlehman)
 - Omit protected disks from bootloader.drives. (dlehman)
