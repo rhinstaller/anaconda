@@ -158,6 +158,13 @@ class DiskLabel(DeviceFormat):
             if self._partedDisk.isFlagAvailable(parted.DISK_CYLINDER_ALIGNMENT):
                 self._partedDisk.unsetFlag(parted.DISK_CYLINDER_ALIGNMENT)
 
+            # Set the boot flag on the GPT PMBR, this helps some BIOS systems boot
+            if self._partedDisk.isFlagAvailable(parted.DISK_GPT_PMBR_BOOT):
+                self._partedDisk.setFlag(parted.DISK_GPT_PMBR_BOOT)
+                log.debug("Set pmbr_boot on %s" % (self._partedDisk,))
+            else:
+                log.debug("Did not set pmbr_boot on %s" % (self._partedDisk,))
+
         return self._partedDisk
 
     @property
