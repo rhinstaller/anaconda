@@ -20,7 +20,7 @@
 m4_define(python_required_version, 2.5)
 
 AC_PREREQ([2.63])
-AC_INIT([anaconda], [17.5], [anaconda-devel-list@redhat.com])
+AC_INIT([anaconda], [17.6], [anaconda-devel-list@redhat.com])
 AM_INIT_AUTOMAKE([foreign no-dist-gzip dist-bzip2])
 
 AC_CONFIG_SRCDIR([loader/loader.c])

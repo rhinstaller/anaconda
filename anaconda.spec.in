@@ -232,6 +232,12 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Mon Feb 06 2012 Brian C. Lane <bcl@redhat.com> - 17.6-1
+- Set the boot flag on the GPT PMBR (#754850) (bcl)
+- Add missing _boot_description values for dasd and zfcp (#739620) (dcantrell)
+- Select the same device for ksdevice=link in loader and stage2 (#760250)
+  (rvykydal)
+
 * Wed Feb 01 2012 Brian C. Lane <bcl@redhat.com> - 17.5-1
 - Add a separate function to get an LV's VG name. (dlehman)
 - util-linux-ng is now util-linux (bcl)

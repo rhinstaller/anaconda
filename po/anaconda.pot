@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 17.4\n"
+"Project-Id-Version: anaconda 17.5\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2012-02-01 16:41-0800\n"
+"POT-Creation-Date: 2012-02-06 14:05-0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1162,16 +1162,24 @@ msgstr ""
 msgid "Master Boot Record"
 msgstr ""
 
-#: pyanaconda/platform.py:201
+#: pyanaconda/platform.py:193
 msgid "EFI System Partition"
 msgstr ""
 
-#: pyanaconda/platform.py:239
+#: pyanaconda/platform.py:231
 msgid "PReP Boot Partition"
 msgstr ""
 
-#: pyanaconda/platform.py:262
+#: pyanaconda/platform.py:254
 msgid "Apple Bootstrap Partition"
+msgstr ""
+
+#: pyanaconda/platform.py:283
+msgid "DASD"
+msgstr ""
+
+#: pyanaconda/platform.py:284
+msgid "zFCP"
 msgstr ""
 
 #: pyanaconda/rescue.py:215 pyanaconda/rescue.py:368 pyanaconda/rescue.py:453
