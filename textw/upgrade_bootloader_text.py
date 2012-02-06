@@ -111,6 +111,7 @@ class UpgradeBootloaderWindow:
             self.update_radio = blradio.add(_("Update boot loader configuration"),
                                             "update", update)
             self.update_radio.w.checkboxSetFlags(FLAG_DISABLED, FLAGS_SET)
+            nobl = 1
         else:
             t = TextboxReflowed(53,
                                 _("The installer has detected the %(type)s "
