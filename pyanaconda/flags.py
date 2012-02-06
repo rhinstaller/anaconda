@@ -23,24 +23,15 @@ import shlex
 from constants import *
 
 # A lot of effort, but it only allows a limited set of flags to be referenced
-class Flags:
-
-    def __getattr__(self, attr):
-        if self.__dict__['flags'].has_key(attr):
-            return self.__dict__['flags'][attr]
-        raise AttributeError, attr
-
+class Flags(object):
     def __setattr__(self, attr, val):
-        if self.__dict__['flags'].has_key(attr):
-            self.__dict__['flags'][attr] = val
-        else:
+        if attr not in self.__dict__ and not self._in_init:
             raise AttributeError, attr
+        else:
+            self.__dict__[attr] = val
 
     def get(self, attr, val=None):
-        if self.__dict__['flags'].has_key(attr):
-            return self.__dict__['flags'][attr]
-        else:
-            return val
+        return getattr(self, attr, val)
 
     def createCmdlineDict(self):
         cmdlineDict = {}
@@ -66,61 +57,64 @@ class Flags:
 
         return cmdlineDict
 
+
     def decideCmdlineFlag(self, flag):
-        if self.__dict__['flags']['cmdline'].has_key(flag) \
-                and not self.__dict__['flags']['cmdline'].has_key("no" + flag) \
-                and self.__dict__['flags']['cmdline'][flag] != "0":
-            self.__dict__['flags'][flag] = 1
+        if self.cmdline.has_key(flag) \
+                and not self.cmdline.has_key("no" + flag) \
+                and self.cmdline[flag] != "0":
+            setattr(self, flag, 1)
 
     def __init__(self):
-        self.__dict__['flags'] = {}
-        self.__dict__['flags']['test'] = 0
-        self.__dict__['flags']['livecdInstall'] = 0
-        self.__dict__['flags']['dlabel'] = 0
-        self.__dict__['flags']['ibft'] = 1
-        self.__dict__['flags']['iscsi'] = 0
-        self.__dict__['flags']['serial'] = 0
-        self.__dict__['flags']['autostep'] = 0
-        self.__dict__['flags']['autoscreenshot'] = 0
-        self.__dict__['flags']['usevnc'] = 0
-        self.__dict__['flags']['vncquestion'] = True
-        self.__dict__['flags']['mpath'] = 1
-        self.__dict__['flags']['dmraid'] = 1
-        self.__dict__['flags']['selinux'] = SELINUX_DEFAULT
-        self.__dict__['flags']['debug'] = 0
-        self.__dict__['flags']['targetarch'] = None
-        self.__dict__['flags']['cmdline'] = self.createCmdlineDict()
-        self.__dict__['flags']['useIPv4'] = True
-        self.__dict__['flags']['useIPv6'] = True
-        self.__dict__['flags']['sshd'] = 0
-        self.__dict__['flags']['preexisting_x11'] = False
-        self.__dict__['flags']['noverifyssl'] = False
-        self.__dict__['flags']['imageInstall'] = False
+        self.__dict__['_in_init'] = True
+        self.test = 0
+        self.livecdInstall = 0
+        self.dlabel = 0
+        self.ibft = 1
+        self.iscsi = 0
+        self.serial = 0
+        self.autostep = 0
+        self.autoscreenshot = 0
+        self.usevnc = 0
+        self.vncquestion = True
+        self.mpath = 1
+        self.dmraid = 1
+        self.selinux = SELINUX_DEFAULT
+        self.debug = 0
+        self.targetarch = None
+        self.cmdline = self.createCmdlineDict()
+        self.useIPv4 = True
+        self.useIPv6 = True
+        self.sshd = 0
+        self.preexisting_x11 = False
+        self.noverifyssl = False
+        self.imageInstall = False
         # for non-physical consoles like some ppc and sgi altix,
         # we need to preserve the console device and not try to
         # do things like bogl on them.  this preserves what that
         # device is
-        self.__dict__['flags']['virtpconsole'] = None
+        self.virtpconsole = None
+        self.nogpt = False
+        # Lock it down: no more creating new flags!
+        self.__dict__['_in_init'] = False
 
-        for x in ['selinux']:
-            if self.__dict__['flags']['cmdline'].has_key(x):
-                if self.__dict__['flags']['cmdline'][x]:
-                    self.__dict__['flags'][x] = 1
-                else:
-                    self.__dict__['flags'][x] = 0
+        if 'selinux' in self.cmdline:
+            if self.cmdline['selinux'] not in ("0", "off", "no"):
+                self.selinux = 1
+            else:
+                self.selinux = 0
 
         self.decideCmdlineFlag('sshd')
 
-        if self.__dict__['flags']['cmdline'].has_key("debug"):
-            self.__dict__['flags']['debug'] = self.__dict__['flags']['cmdline']['debug']
+        if self.cmdline.has_key("debug"):
+            self.debug = self.cmdline['debug']
 
-        if self.__dict__['flags']['cmdline'].has_key("rpmarch"):
-            self.__dict__['flags']['targetarch'] = self.__dict__['flags']['cmdline']['rpmarch']
+        if self.cmdline.has_key("rpmarch"):
+            self.targetarch = self.cmdline['rpmarch']
 
         if not selinux.is_selinux_enabled():
-            self.__dict__['flags']['selinux'] = 0
+            self.selinux = 0
 
-        self.__dict__['flags']['nogpt'] = self.__dict__['flags']['cmdline'].has_key("nogpt")
+        self.nogpt = self.cmdline.has_key("nogpt")
 
 global flags
 flags = Flags()
