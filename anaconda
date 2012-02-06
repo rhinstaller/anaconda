@@ -31,7 +31,6 @@
 # This toplevel file is a little messy at the moment...
 
 import atexit, sys, os, re, time, subprocess
-from optparse import OptionParser
 from tempfile import mkstemp
 
 # keep up with process ID of the window manager if we start it
@@ -190,7 +189,9 @@ def getAnacondaVersion():
     return _isys.getAnacondaVersion()
 
 def parseOptions(argv = None):
-    op = OptionParser(version="%prog " + getAnacondaVersion())
+    from pyanaconda.anaconda_optparse import AnacondaOptionParser
+    op = AnacondaOptionParser(version="%prog " + getAnacondaVersion(),
+                              bootarg_prefix="inst.", require_prefix=False)
 
     # Interface
     op.add_option("-C", "--cmdline", dest="display_mode", action="store_const", const="c",
@@ -208,9 +209,9 @@ def parseOptions(argv = None):
     # Method of operation
     op.add_option("--autostep", action="store_true", default=False)
     op.add_option("-d", "--debug", dest="debug", action="store_true", default=False)
-    op.add_option("--kickstart", dest="ksfile")
+    op.add_option("--kickstart", "ks", dest="ksfile")
     op.add_option("--rescue", dest="rescue", action="store_true", default=False)
-    op.add_option("--targetarch", dest="targetArch", nargs=1, type="string")
+    op.add_option("--targetarch", "rpmarch", dest="targetArch", type="string")
 
     op.add_option("-m", "--method", dest="method", default=None)
     op.add_option("--repo", dest="method", default=None)
@@ -256,11 +257,13 @@ def parseOptions(argv = None):
     # Miscellaneous
     op.add_option("--module", action="append", default=[])
     op.add_option("--nomount", dest="rescue_nomount", action="store_true", default=False)
+    # XXX updates should go away because dracut's gonna handle it
     op.add_option("--updates", dest="updateSrc", action="store", type="string")
     op.add_option("--dlabel", action="store_true", default=False)
     op.add_option("--image", action="append", dest="images", default=[])
 
-    return op.parse_args(argv)
+    (opts, args) = op.parse_args(argv)
+    return (opts, args, op.deprecated_bootargs)
 
 def setupPythonPath():
     sys.path.append('/usr/share/system-config-date')
@@ -585,7 +588,7 @@ if __name__ == "__main__":
     setupPythonUpdates()
 
     # do this early so we can set flags before initializing logging
-    (opts, args) = parseOptions()
+    (opts, args, depr) = parseOptions()
     from pyanaconda.flags import flags
     if opts.images:
         flags.imageInstall = True
@@ -603,6 +606,10 @@ if __name__ == "__main__":
         sys.exit(0)
 
     log.info("%s %s" % (sys.argv[0], getAnacondaVersion()))
+
+    for arg in depr:
+        stdoutLog.warn("Boot argument '%s' is deprecated. "
+                       "In the future, use 'inst.%s'.", arg, arg)
 
     # pull this in to get product name and versioning
     from pyanaconda import product
