@@ -47,6 +47,7 @@ log = logging.getLogger("anaconda")
 sysconfigDir = "/etc/sysconfig"
 netscriptsDir = "%s/network-scripts" % (sysconfigDir)
 networkConfFile = "%s/network" % (sysconfigDir)
+ipv6ConfFile = "/etc/modprobe.d/ipv6.conf"
 ifcfgLogFile = "/tmp/ifcfg.log"
 CONNECTION_TIMEOUT = 45
 
@@ -589,6 +590,9 @@ class Network:
         self._copyFileToPath("/etc/udev/rules.d/70-persistent-net.rules",
                              instPath, overwrite=flags.livecdInstall)
 
+        self._copyFileToPath(ipv6ConfFile, instPath,
+                             overwrite=flags.livecdInstall)
+
     def disableNMForStorageDevices(self, anaconda, instPath=''):
         for devName, device in self.netdevices.items():
             if (device.usedByFCoE(anaconda) or
@@ -663,6 +667,19 @@ class Network:
         shutil.move(newnetwork, networkConfFile)
 
         # /etc/resolv.conf is managed by NM
+
+        # disable ipv6
+        if ('noipv6' in flags.cmdline
+            and not [dev for dev in devices
+                     if dev.get('IPV6INIT') == "yes"]):
+            if os.path.exists(ipv6ConfFile):
+                log.warning('Not disabling ipv6, %s exists' % ipv6ConfFile)
+            else:
+                log.info('Disabling ipv6 on target system')
+                f = open(ipv6ConfFile, "w")
+                f.write("# Anaconda disabling ipv6\n")
+                f.write("options ipv6 disable=1\n")
+                f.close()
 
     def waitForDevicesActivation(self, devices):
         waited_devs_props = {}
