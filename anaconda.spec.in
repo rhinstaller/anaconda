@@ -259,6 +259,7 @@ update-desktop-database &> /dev/null || :
 %{_libdir}/libAnacondaWidgets.so.*
 %{_libdir}/girepository*/AnacondaWidgets*typelib
 %{_libdir}/python*/site-packages/gi/overrides/*
+%{_datadir}/anaconda/tzmapdata/*
 
 %files widgets-devel
 %{_libdir}/libAnacondaWidgets.so

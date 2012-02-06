@@ -1,6 +1,5 @@
-# Makefile.am for anaconda widgets
 #
-# Copyright (C) 2011  Red Hat, Inc.
+# Copyright (C) 2012  Red Hat, Inc.
 #
 # This copyrighted material is made available to anyone wishing to use,
 # modify, copy, or redistribute it subject to the terms and conditions of
@@ -16,15 +15,9 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-# Red Hat Author(s): Chris Lumens <clumens@redhat.com>
+# Red Hat Author(s): Vratislav Podzimek <vpodzime@redhat.com>
 #
 
-ACLOCAL_AMFLAGS = -I m4
+SUBDIRS = tzmapdata
 
-SUBDIRS = src python glade doc data
-
-MAINTAINERCLEANFILES = Makefile.in aclocal.m4 config.guess config.h.in config.sub \
-	depcomp gtk-doc.make install-sh ltmain.sh missing
-
-run-glade:
-	LD_LIBRARY_PATH=src/.libs GLADE_CATALOG_PATH=glade GLADE_MODULE_PATH=src/.libs glade
+MAINTAINERCLEANFILES = Makefile.in

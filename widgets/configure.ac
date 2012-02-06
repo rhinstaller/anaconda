@@ -56,5 +56,7 @@ AC_CONFIG_FILES([Makefile
                  doc/Makefile
                  glade/Makefile
                  src/Makefile
-                 python/Makefile])
+                 python/Makefile
+                 data/Makefile
+                 data/tzmapdata/Makefile])
 AC_OUTPUT
