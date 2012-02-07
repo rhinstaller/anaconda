@@ -21,6 +21,7 @@ import os
 import selinux
 import shlex
 from constants import *
+from collections import OrderedDict
 
 # A lot of effort, but it only allows a limited set of flags to be referenced
 class Flags(object):
@@ -32,31 +33,6 @@ class Flags(object):
 
     def get(self, attr, val=None):
         return getattr(self, attr, val)
-
-    def createCmdlineDict(self):
-        cmdlineDict = {}
-        cmdline = open("/proc/cmdline", "r").read().strip()
-
-        # if the BOOT_IMAGE contains a space, pxelinux will strip one of the
-        # quotes leaving one at the end that shlex doesn't know what to do
-        # with
-        (left, middle, right) = cmdline.rpartition("BOOT_IMAGE=")
-        if right.count('"') % 2:
-            cmdline = left + middle + '"' + right
-
-        lst = shlex.split(cmdline)
-
-        for i in lst:
-            try:
-                (key, val) = i.split("=", 1)
-            except:
-                key = i
-                val = None
-
-            cmdlineDict[key] = val
-
-        return cmdlineDict
-
 
     def decideCmdlineFlag(self, flag):
         if self.cmdline.has_key(flag) \
@@ -81,7 +57,6 @@ class Flags(object):
         self.selinux = SELINUX_DEFAULT
         self.debug = 0
         self.targetarch = None
-        self.cmdline = self.createCmdlineDict()
         self.useIPv4 = True
         self.useIPv6 = True
         self.sshd = 0
@@ -94,6 +69,8 @@ class Flags(object):
         # device is
         self.virtpconsole = None
         self.nogpt = False
+        # parse the boot commandline
+        self.cmdline = BootArgs()
         # Lock it down: no more creating new flags!
         self.__dict__['_in_init'] = False
 
@@ -115,6 +92,76 @@ class Flags(object):
             self.selinux = 0
 
         self.nogpt = self.cmdline.has_key("nogpt")
+
+cmdline_files = ['/proc/cmdline', '/run/initramfs/etc/cmdline', '/etc/cmdline']
+class BootArgs(OrderedDict):
+    """
+    Hold boot arguments as an OrderedDict.
+    """
+    def __init__(self, cmdline=None, files=cmdline_files):
+        """
+        Create a BootArgs object.
+        Reads each of the "files", then parses "cmdline" if it was provided.
+        """
+        OrderedDict.__init__(self)
+        if files:
+            self.read(files)
+        if cmdline:
+            self.readstr(cmdline)
+
+    def read(self, filenames):
+        """
+        Read and parse a filename (or a list of filenames).
+        Files that can't be read are silently ignored.
+        Returns a list of successfully read files.
+        """
+        readfiles = []
+        if type(filenames) == str:
+            filenames = [filenames]
+        for f in filenames:
+            try:
+                self.readstr(open(f).read())
+                readfiles.append(f)
+            except IOError:
+                continue
+        return readfiles
+
+    def readstr(self, cmdline):
+        cmdline = cmdline.strip()
+        # if the BOOT_IMAGE contains a space, pxelinux will strip one of the
+        # quotes leaving one at the end that shlex doesn't know what to do
+        # with
+        (left, middle, right) = cmdline.rpartition("BOOT_IMAGE=")
+        if right.count('"') % 2:
+            cmdline = left + middle + '"' + right
+
+        lst = shlex.split(cmdline)
+
+        for i in lst:
+            if "=" in i:
+                (key, val) = i.split("=", 1)
+            else:
+                key = i
+                val = None
+
+            self[key] = val
+
+    def getbool(self, arg, default=False):
+        """
+        Return the value of the given arg, as a boolean. The rules are:
+        - "arg", "arg=val": True
+        - "noarg", "noarg=val", "arg=[0|off|no]": False
+        """
+        result = default
+        for a in self:
+            if a == arg:
+                if self[arg] in ("0", "off", "no"):
+                    result = False
+                else:
+                    result = True
+            elif a == 'no'+arg:
+                result = False # XXX: should noarg=off -> True?
+        return result
 
 global flags
 flags = Flags()
