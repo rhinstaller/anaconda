@@ -212,6 +212,7 @@ class OSBootWidget:
                                         _("You must specify a label for the "
                                           "entry"),
                                         type="warning")
+                dialog.present()
                 continue
 
             foundBad = 0
@@ -224,6 +225,7 @@ class OSBootWidget:
                     foundBad = 1
                     break
             if foundBad:
+                dialog.present()
                 continue
 
             # verify that the label hasn't been used
@@ -249,6 +251,7 @@ class OSBootWidget:
                     foundBad = 1
                     break
             if foundBad:
+                dialog.present()
                 continue
 
             # XXX need to do some sort of validation of the device?
@@ -260,6 +263,7 @@ class OSBootWidget:
                                         _("This device is already being "
                                           "used for another boot entry."),
                                         type="warning")
+                dialog.present()
                 continue
 
             # if we're editing a previous, get what the old info was for
