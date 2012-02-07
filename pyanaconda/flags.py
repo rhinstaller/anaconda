@@ -34,13 +34,11 @@ class Flags(object):
     def get(self, attr, val=None):
         return getattr(self, attr, val)
 
-    def decideCmdlineFlag(self, flag):
-        if self.cmdline.has_key(flag) \
-                and not self.cmdline.has_key("no" + flag) \
-                and self.cmdline[flag] != "0":
-            setattr(self, flag, 1)
+    def set_cmdline_bool(self, flag):
+        if flag in self.cmdline:
+            setattr(self, self.cmdline.getbool(flag))
 
-    def __init__(self):
+    def __init__(self, read_cmdline=True):
         self.__dict__['_in_init'] = True
         self.test = 0
         self.livecdInstall = 0
@@ -73,25 +71,21 @@ class Flags(object):
         self.cmdline = BootArgs()
         # Lock it down: no more creating new flags!
         self.__dict__['_in_init'] = False
+        if read_cmdline:
+            self.read_cmdline()
 
-        if 'selinux' in self.cmdline:
-            if self.cmdline['selinux'] not in ("0", "off", "no"):
-                self.selinux = 1
-            else:
-                self.selinux = 0
+    def read_cmdline(self):
+        for f in ("selinux", "sshd", "debug"):
+            self.set_cmdline_bool(f)
 
-        self.decideCmdlineFlag('sshd')
-
-        if self.cmdline.has_key("debug"):
-            self.debug = self.cmdline['debug']
-
-        if self.cmdline.has_key("rpmarch"):
-            self.targetarch = self.cmdline['rpmarch']
+        if "rpmarch" in self.cmdline:
+            self.targetarch = self.cmdline.get("rpmarch")
 
         if not selinux.is_selinux_enabled():
             self.selinux = 0
 
-        self.nogpt = self.cmdline.has_key("nogpt")
+        if "nogpt" in self.cmdline:
+            self.nogpt = True
 
 cmdline_files = ['/proc/cmdline', '/run/initramfs/etc/cmdline', '/etc/cmdline']
 class BootArgs(OrderedDict):
