@@ -1123,7 +1123,7 @@ class EFIFS(FATFS):
     @property
     def supported(self):
         from pyanaconda import platform
-        p = platform.getPlatform(None)
+        p = platform.getPlatform()
         return (isinstance(p, platform.EFI) and
                 self.utilsAvailable)
 
@@ -1340,7 +1340,7 @@ class AppleBootstrapFS(HFS):
     @property
     def supported(self):
         from pyanaconda import platform
-        return (isinstance(platform.getPlatform(None), platform.NewWorldPPC)
+        return (isinstance(platform.getPlatform(), platform.NewWorldPPC)
                 and self.utilsAvailable)
 
     def writeKS(self, f):

@@ -53,7 +53,7 @@ class PPCPRePBoot(DeviceFormat):
     @property
     def supported(self):
         from pyanaconda import platform
-        return isinstance(platform.getPlatform(None), platform.IPSeriesPPC)
+        return isinstance(platform.getPlatform(), platform.IPSeriesPPC)
 
     def writeKS(self, f):
         f.write("prepboot --fstype=%s" % self.type)

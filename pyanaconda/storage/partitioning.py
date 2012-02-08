@@ -115,7 +115,11 @@ def _schedulePartitions(storage, disks):
             continue
 
         if request.fstype is None:
-            request.fstype = storage.defaultFSType
+            if request.mountpoint == "/boot":
+                request.fstype = storage.defaultBootFSType
+            else:
+                request.fstype = storage.defaultFSType
+
         elif request.fstype == "prepboot" and storage.bootLoaderDevice:
             # there should never be a need for more than one of these
             # partitions, so skip them.

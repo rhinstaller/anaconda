@@ -54,7 +54,7 @@ class BIOSBoot(DeviceFormat):
     @property
     def supported(self):
         from pyanaconda import platform
-        return isinstance(platform.getPlatform(None), platform.X86)
+        return isinstance(platform.getPlatform(), platform.X86)
 
     def writeKS(self, f):
         f.write("biosboot --fstype=%s" % self.type)

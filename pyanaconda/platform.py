@@ -59,12 +59,11 @@ class Platform(object):
     _disklabel_types = []
     _non_linux_format_types = []
 
-    def __init__(self, anaconda):
+    def __init__(self):
         """Creates a new Platform object.  This is basically an abstract class.
            You should instead use one of the platform-specific classes as
            returned by getPlatform below.  Not all subclasses need to provide
            all the methods in this class."""
-        self.anaconda = anaconda
 
         if flags.nogpt and "gpt" in self._disklabel_types and \
            len(self._disklabel_types) > 1:
@@ -130,7 +129,6 @@ class Platform(object):
         """Return the default platform-specific partitioning information."""
         from storage.partspec import PartSpec
         return [PartSpec(mountpoint="/boot",
-                         fstype=self.anaconda.storage.defaultBootFSType,
                          size=500, weight=self.weight(mountpoint="/boot"))]
 
     def weight(self, fstype=None, mountpoint=None):
@@ -156,8 +154,8 @@ class X86(Platform):
     # XXX hpfs, if reported by blkid/udev, will end up with a type of None
     _non_linux_format_types = ["vfat", "ntfs", "hpfs"]
 
-    def __init__(self, anaconda):
-        super(X86, self).__init__(anaconda)
+    def __init__(self):
+        super(X86, self).__init__()
         self.blackListGPT()
 
     def setDefaultPartitioning(self):
@@ -283,14 +281,13 @@ class S390(Platform):
     _disklabel_types = ["msdos", "dasd"]
     _boot_stage1_device_types = ["disk", "partition"]
 
-    def __init__(self, anaconda):
-        Platform.__init__(self, anaconda)
+    def __init__(self):
+        Platform.__init__(self)
 
     def setDefaultPartitioning(self):
         """Return the default platform-specific partitioning information."""
         from storage.partspec import PartSpec
         return [PartSpec(mountpoint="/boot", size=500,
-                         fstype=self.anaconda.storage.defaultBootFSType,
                          weight=self.weight(mountpoint="/boot"), asVol=True,
                          singlePV=True)]
 
@@ -315,7 +312,7 @@ class Sparc(Platform):
         start /= long(1024 / disk.device.sectorSize)
         return start+1
 
-def getPlatform(anaconda):
+def getPlatform():
     """Check the architecture of the system and return an instance of a
        Platform subclass to match.  If the architecture could not be determined,
        raise an exception."""
@@ -323,20 +320,20 @@ def getPlatform(anaconda):
         ppcMachine = iutil.getPPCMachine()
 
         if (ppcMachine == "PMac" and iutil.getPPCMacGen() == "NewWorld"):
-            return NewWorldPPC(anaconda)
+            return NewWorldPPC()
         elif ppcMachine in ["iSeries", "pSeries"]:
-            return IPSeriesPPC(anaconda)
+            return IPSeriesPPC()
         elif ppcMachine == "PS3":
-            return PS3(anaconda)
+            return PS3()
         else:
             raise SystemError, "Unsupported PPC machine type"
     elif iutil.isS390():
-        return S390(anaconda)
+        return S390()
     elif iutil.isSparc():
-        return Sparc(anaconda)
+        return Sparc()
     elif iutil.isEfi():
-        return EFI(anaconda)
+        return EFI()
     elif iutil.isX86():
-        return X86(anaconda)
+        return X86()
     else:
         raise SystemError, "Could not determine system architecture."

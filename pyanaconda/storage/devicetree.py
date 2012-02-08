@@ -175,7 +175,7 @@ class DeviceTree(object):
         self.dasd = dasd
         self.mpathFriendlyNames = getattr(conf, "mpathFriendlyNames", True)
 
-        self.platform = platform.getPlatform(None)
+        self.platform = platform.getPlatform()
 
         self.diskImages = {}
         images = getattr(conf, "diskImages", {})
