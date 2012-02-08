@@ -183,7 +183,7 @@ PACKAGES="GConf2 NetworkManager NetworkManager-gnome ORBit2 acl anaconda
     lohit-assamese-fonts lohit-bengali-fonts lohit-gujarati-fonts lohit-hindi-fonts
     lohit-kashmiri-fonts lohit-kannada-fonts lohit-maithili-fonts lohit-marathi-fonts
     lohit-oriya-fonts lohit-punjabi-fonts lohit-sindhi-fonts lohit-tamil-fonts
-    lohit-telugu-fonts lvm2 madan-fonts mdadm
+    lohit-telugu-fonts lsscsi lvm2 madan-fonts mdadm
     mesa-dri-drivers metacity mkinitrd module-init-tools nash ncurses neon net-tools
     nc newt newt-python nfs-utils nspr nss nss-softokn ntfs-3g ntpdate
     openldap openssh openssh-server
@@ -568,6 +568,7 @@ usr/bin/killall
 usr/bin/logger
 usr/bin/lsattr*
 usr/bin/lshal
+usr/bin/lsscsi
 usr/bin/maketilo
 usr/bin/md5sum
 usr/bin/metacity
