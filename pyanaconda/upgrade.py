@@ -256,6 +256,30 @@ def upgradeMountFilesystems(anaconda):
     except Exception as e:
         log.warning("error checking selinux state: %s" %(e,))
 
+def upgradeUsr(anaconda):
+    """
+    Handle the upgrade of /bin, /sbin, /lib, /lib64 to symlinks into /usr/
+    This uses dracut's convertfs module
+    """
+    dirs = ["/bin", "/sbin", "/lib", "/lib64"]
+    dirs = [ROOT_PATH+d for d in dirs]
+    if all(map(os.path.islink, dirs)):
+        log.info("upgradeusr dirs are already symlinks")
+        return
+
+    if iutil.execWithRedirect("/usr/lib/dracut/modules.d/30convertfs/convertfs.sh",
+                              [ROOT_PATH],
+                              stdout="/dev/tty5", stderr="/dev/tty5"):
+        log.error("convertfs failed")
+
+        rc = anaconda.intf.messageWindow(_("/usr upgrade failed"),
+                           _("convertfs failed to upgrade your system to symlink "
+                             "into /usr. This is required for Fedora 17 to work."
+                             " The upgrade cannot continue."
+                             "\n\n"))
+        sys.exit(0)
+    log.info("convertfs was successful")
+
 def setSteps(anaconda):
     dispatch = anaconda.dispatch
     dispatch.reset_scheduling() # scrap what is scheduled
@@ -278,6 +302,7 @@ def setSteps(anaconda):
                 "upgrademigratefs",
                 "enablefilesystems",
                 "upgradecontinue",
+                "upgradeusr",
                 "reposetup",
                 "upgbootloader",
                 "postselection",

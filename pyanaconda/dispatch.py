@@ -40,7 +40,7 @@ from flags import flags
 from upgrade import upgradeMountFilesystems
 from upgrade import restoreTime
 from upgrade import upgradeMigrateFind
-from upgrade import findRootParts, queryUpgradeContinue
+from upgrade import findRootParts, queryUpgradeContinue, upgradeUsr
 from installmethod import doMethodComplete
 from kickstart import doKickstart, runPostScripts
 from sshd import doSshd
@@ -274,6 +274,7 @@ class Dispatcher(object):
         self.add_step("upgradecontinue", queryUpgradeContinue)
         self.add_step("upgrademigfind", upgradeMigrateFind)
         self.add_step("upgrademigratefs")
+        self.add_step("upgradeusr", upgradeUsr)
         self.add_step("storagedone", storageComplete)
         self.add_step("enablefilesystems", turnOnFilesystems)
         self.add_step("upgbootloader")
