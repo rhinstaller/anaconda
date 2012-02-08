@@ -168,7 +168,7 @@ def upgradeMountFilesystems(anaconda):
     # mount everything and turn on swap
 
     try:
-        mountExistingSystem(anaconda, anaconda.upgradeRoot[0], allowDirty = 0)
+        mountExistingSystem(anaconda.storage.fsset, anaconda.upgradeRoot[0], allowDirty = 0)
     except ValueError as e:
         log.error("Error mounting filesystem: %s" % e)
         anaconda.intf.messageWindow(_("Mount failed"),

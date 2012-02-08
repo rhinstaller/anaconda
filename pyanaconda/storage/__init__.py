@@ -304,25 +304,18 @@ class StorageDiscoveryConfig(object):
 
 
 class Storage(object):
-    def __init__(self, anaconda=None, intf=None, platform=None):
+    def __init__(self, data=None, platform=None):
         """ Create a Storage instance.
 
             Keyword Arguments:
 
-                anaconda    -   an Anaconda instance
-                intf        -   an InstallInterface instance
+                data        -   a pykickstart Handler instance
                 platform    -   a Platform instance
 
-            All arguments are optional. An Anaconda instance will contain
-            an InstallInterface and a Platform instance, so it makes sense
-            to pass in either an Anaconda instance or as many of the other
-            two as is desired. Explicitly passed intf or platform will take
-            precedence over those in the Anaconda instance.
-
         """
-        self.anaconda = anaconda
-        self._intf = intf
-        self._platform = platform
+        self.data = data
+        self.platform = platform
+        self._bootloader = None
 
         self.config = StorageDiscoveryConfig()
 
@@ -365,8 +358,8 @@ class Storage(object):
         self.doEncryptionPassphraseRetrofits()
 
         # now set the boot partition's flag
-        if self.anaconda:
-            if self.anaconda.bootloader.stage2_bootable:
+        if self.bootloader:
+            if self.bootloader.stage2_bootable:
                 boot = self.bootDevice
             else:
                 boot = self.bootLoaderDevice
@@ -437,7 +430,7 @@ class Storage(object):
                               self.config.exclusiveDisks,
                               self.config.zeroMbr)
         clearPartType = self.config.clearPartType # save this before overriding it
-        if getattr(self.anaconda, "upgrade", False):
+        if self.data and self.data.upgrade.upgrade:
             self.config.clearPartType = CLEARPART_TYPE_NONE
 
         self.devicetree.reset(conf=self.config,
@@ -449,16 +442,12 @@ class Storage(object):
         self.config.clearPartType = clearPartType # set it back
         self.fsset = FSSet(self.devicetree)
         self.eddDict = get_edd_dict(self.partitioned)
-        if hasattr(self.anaconda, "rootParts") and \
-           hasattr(self.anaconda, "upgradeRoot"):
-            self.anaconda.rootParts = None
-            self.anaconda.upgradeRoot = None
-        if self.anaconda:
+        if self.bootloader:
             # clear out bootloader attributes that refer to devices that are
             # no longer in the tree
-            self.anaconda.bootloader.clear_drive_list()
-            self.anaconda.bootloader.stage1_drive = None
-            self.anaconda.bootloader.stage1_device = None
+            self.bootloader.clear_drive_list()
+            self.bootloader.stage1_drive = None
+            self.bootloader.stage1_device = None
 
         self.dumpState("initial")
 
@@ -657,24 +646,7 @@ class Storage(object):
     @property
     def liveImage(self):
         """ The OS image used by live installs. """
-        _image = None
-        if flags.livecdInstall and hasattr(self.anaconda, "methodstr"):
-            _image = self.devicetree.getDeviceByPath(self.anaconda.methodstr[9:])
-        return _image
-
-    @property
-    def intf(self):
-        _intf = self._intf
-        if not _intf:
-            _intf = getattr(self.anaconda, "intf", None)
-        return _intf
-
-    @property
-    def platform(self):
-        _platform = self._platform
-        if not _platform:
-            _platform = getattr(self.anaconda, "platform", None)
-        return _platform
+        raise NotImplementedError()
 
     def exceptionDisks(self):
         """ Return a list of removable devices to save exceptions to.
@@ -839,8 +811,8 @@ class Storage(object):
             name = kwargs.pop("name")
         else:
             hostname = ""
-            if hasattr(self.anaconda, "network"):
-                hostname = self.anaconda.network.hostname
+            if self.data:
+                hostname = self.data.network.hostname
             name = self.createSuggestedVGName(hostname=hostname)
 
         if name in [d.name for d in self.devices]:
@@ -1056,7 +1028,6 @@ class Storage(object):
         try:
             boot = self.bootDevice
         except (DeviceError, AttributeError):
-            # AttributeError means we have no anaconda or platform. it's ok.
             boot = None
 
         if not root:
@@ -1069,19 +1040,7 @@ class Storage(object):
                               "megabytes which is usually too small to "
                               "install %s.") % (productName,))
 
-        if (root and
-            hasattr(self.anaconda, "backend") and
-            root.size < self.anaconda.backend.getMinimumSizeMB("/")):
-            if flags.livecdInstall:
-                live = " Live"
-            else:
-                live = ""
-            errors.append(_("Your / partition is less than %(min)s "
-                            "MB which is lower than recommended "
-                            "for a normal %(productName)s%(live)s install.")
-                          % {'min': self.anaconda.backend.getMinimumSizeMB("/"),
-                             'productName': productName,
-                             'live': live})
+        # FIXME: put a check here for enough space on the filesystems. maybe?
 
         # livecds have to have the rootfs type match up
         if (root and
@@ -1142,23 +1101,23 @@ class Storage(object):
             warnings.append(_("Installing on a FireWire device.  This may "
                               "or may not produce a working system."))
 
-        if self.anaconda and self.anaconda.dispatch.step_enabled('instbootloader'):
-            stage1 = self.anaconda.bootloader.stage1_device
+        if self.data and self.data.bootloader.location is not None:
+            stage1 = self.bootloader.stage1_device
             if not stage1:
                 errors.append(_("you have not created a bootloader stage1 "
                                 "target device"))
             else:
-                self.anaconda.bootloader.is_valid_stage1_device(stage1)
-                errors.extend(self.anaconda.bootloader.errors)
-                warnings.extend(self.anaconda.bootloader.warnings)
+                self.bootloader.is_valid_stage1_device(stage1)
+                errors.extend(self.bootloader.errors)
+                warnings.extend(self.bootloader.warnings)
 
-            stage2 = self.anaconda.bootloader.stage2_device
+            stage2 = self.bootloader.stage2_device
             if not stage2:
                 errors.append(_("You have not created a bootable partition."))
             else:
-                self.anaconda.bootloader.is_valid_stage2_device(stage2)
-                errors.extend(self.anaconda.bootloader.errors)
-                warnings.extend(self.anaconda.bootloader.warnings)
+                self.bootloader.is_valid_stage2_device(stage2)
+                errors.extend(self.bootloader.errors)
+                warnings.extend(self.bootloader.warnings)
 
         if not swaps:
             from pyanaconda.storage.size import Size
@@ -1203,14 +1162,8 @@ class Storage(object):
 
     def checkNoDisks(self):
         """Check that there are valid disk devices."""
-        if not self.disks and self.intf:
-            self.intf.messageWindow(_("No Drives Found"),
-                               _("An error has occurred - no valid devices were "
-                                 "found on which to create new file systems. "
-                                 "Please check your hardware for the cause "
-                                 "of this problem."))
-            return True
-        return False
+        if not self.disks:
+            raise NoDisksError()
 
     def dumpState(self, suffix):
         """ Dump the current device list to the storage shelf. """
@@ -1290,21 +1243,19 @@ class Storage(object):
         f.write("\n")
 
     def turnOnSwap(self, upgrading=None):
-        self.fsset.turnOnSwap(intf=self.intf,
-                              rootPath=ROOT_PATH,
+        self.fsset.turnOnSwap(rootPath=ROOT_PATH,
                               upgrading=upgrading)
 
     def mountFilesystems(self, raiseErrors=None, readOnly=None, skipRoot=False):
-        self.fsset.mountFilesystems(intf=self.intf,
-                                    rootPath=ROOT_PATH,
+        self.fsset.mountFilesystems(rootPath=ROOT_PATH,
                                     raiseErrors=raiseErrors,
                                     readOnly=readOnly, skipRoot=skipRoot)
 
     def umountFilesystems(self, ignoreErrors=True, swapoff=True):
         self.fsset.umountFilesystems(ignoreErrors=ignoreErrors, swapoff=swapoff)
 
-    def parseFSTab(self, anaconda=None, chroot=None):
-        self.fsset.parseFSTab(anaconda=anaconda, chroot=chroot)
+    def parseFSTab(self, chroot=None):
+        self.fsset.parseFSTab(chroot=chroot)
 
     def mkDevRoot(self):
         self.fsset.mkDevRoot()
@@ -1313,32 +1264,39 @@ class Storage(object):
         self.fsset.createSwapFile(device, size)
 
     @property
-    def bootDevice(self):
-        dev = None
-        if self.anaconda:
-            dev = self.anaconda.bootloader.stage2_device
-        return dev
+    def bootloader(self):
+        if self._bootloader is None and self.platform is not None:
+            self._bootloader = self.platform.bootloaderClass(self.platform)
+        return self._bootloader
 
     @property
-    def bootLoaderDevice(self):
+    def bootDisk(self):
+        disk = None
+        if self.data:
+            spec = self.data.bootloader.bootDrive
+            disk = self.devicetree.resolveDevice(spec)
+        return disk
+
+    @property
+    def bootDevice(self):
         dev = None
-        if self.anaconda:
-            dev = self.anaconda.bootloader.stage1_device
+        if self.fsset:
+            dev = self.mountpoints.get("/boot", self.rootDevice)
         return dev
 
     @property
     def bootFSTypes(self):
         """A list of all valid filesystem types for the boot partition."""
         fstypes = []
-        if self.anaconda:
-            fstypes = self.anaconda.bootloader.stage2_format_types
+        if self.bootloader:
+            fstypes = self.bootloader.stage2_format_types
         return fstypes
 
     @property
     def defaultBootFSType(self):
         """The default filesystem type for the boot partition."""
         fstype = None
-        if self.anaconda:
+        if self.bootloader:
             fstype = self.bootFSTypes[0]
         return fstype
 
@@ -1516,13 +1474,15 @@ def findExistingRootDevices(anaconda, upgradeany=False):
 
     return (rootDevs, notUpgradable)
 
-def mountExistingSystem(anaconda, rootEnt,
-                        allowDirty=None, warnDirty=None,
+def mountExistingSystem(fsset, rootEnt,
+                        allowDirty=None, dirtyCB=None,
                         readOnly=None):
     """ Mount filesystems specified in rootDevice's /etc/fstab file. """
     rootDevice = rootEnt[0]
     rootPath = ROOT_PATH
-    fsset = anaconda.storage.fsset
+    if dirtyCB is None:
+        dirtyCB = lambda l: False
+
     if readOnly:
         readOnly = "ro"
     else:
@@ -1539,7 +1499,7 @@ def mountExistingSystem(anaconda, rootEnt,
                                 mountpoint="/",
                                 options=readOnly)
 
-    fsset.parseFSTab(anaconda=anaconda)
+    fsset.parseFSTab()
 
     # check for dirty filesystems
     dirtyDevs = []
@@ -1558,28 +1518,10 @@ def mountExistingSystem(anaconda, rootEnt,
                                                             device.format.type))
             dirtyDevs.append(device.path)
 
-    messageWindow = anaconda.intf.messageWindow
-    if not allowDirty and dirtyDevs:
-        messageWindow(_("Dirty File Systems"),
-                      _("The following file systems for your Linux system "
-                        "were not unmounted cleanly.  Please boot your "
-                        "Linux installation, let the file systems be "
-                        "checked and shut down cleanly to upgrade.\n"
-                        "%s") % "\n".join(dirtyDevs))
-        anaconda.storage.devicetree.teardownAll()
-        sys.exit(0)
-    elif warnDirty and dirtyDevs:
-        rc = messageWindow(_("Dirty File Systems"),
-                           _("The following file systems for your Linux "
-                             "system were not unmounted cleanly.  Would "
-                             "you like to mount them anyway?\n"
-                             "%s") % "\n".join(dirtyDevs),
-                             type = "yesno")
-        if rc == 0:
-            return -1
+    if dirtyDevs and (not allowDirty or dirtyCB(dirtyDevs)):
+        raise DirtyFSError("\n".join(dirtyDevs))
 
-    fsset.mountFilesystems(intf=anaconda.intf, rootPath=ROOT_PATH,
-                           readOnly=readOnly, skipRoot=True)
+    fsset.mountFilesystems(rootPath=ROOT_PATH, readOnly=readOnly, skipRoot=True)
 
 
 class BlkidTab(object):
@@ -1908,7 +1850,7 @@ class FSSet(object):
 
         return device
 
-    def parseFSTab(self, anaconda=None, chroot=None):
+    def parseFSTab(self, chroot=None):
         """ parse /etc/fstab
 
             preconditions:
@@ -1977,16 +1919,6 @@ class FSSet(object):
                     # just write the line back out as-is after upgrade
                     self.preserveLines.append(line)
                     continue
-                except FSTabTypeMismatchError as e:
-                    if anaconda and hasattr(anaconda.intf, "messageWindow"):
-                        err = _("There is an entry in your /etc/fstab file "
-                                "that contains an invalid or incorrect "
-                                "filesystem type:\n\n  ")
-                        err += str(e)
-                        anaconda.intf.messageWindow(_("Error"), err)
-                        sys.exit(0)
-
-                    raise Exception("fstab entry %s is malformed: %s" % (devspec, e))
 
                 if not device:
                     continue
@@ -1998,25 +1930,14 @@ class FSSet(object):
                         # just write duplicates back out post-install
                         self.preserveLines.append(line)
 
-    def turnOnSwap(self, intf=None, rootPath="", upgrading=None):
-        def swapErrorDialog(msg, device):
-            if not intf:
-                # can't show a dialog? ignore this busted device.
-                ret = 0
-            else:
-                buttons = [_("Skip"), _("Format"), _("_Exit")]
-                ret = intf.messageWindow(_("Error"), msg, type="custom",
-                                         custom_buttons=buttons,
-                                         custom_icon="warning")
+    def turnOnSwap(self, rootPath="", upgrading=None, errorcb=None):
+        """ Activate the system's swap space.
 
-            if ret == 0:
-                self.devicetree._removeDevice(device)
-                return False
-            elif ret == 1:
-                device.format.create(force=True)
-                return True
-            else:
-                sys.exit(0)
+            errorcb should accept an Exception instance and a Device instance
+            return True if the exception should be fatal, which is the default.
+        """
+        if errorcb is None:
+            errorcb = lambda e,d: True
 
         for device in self.swapDevices:
             if isinstance(device, FileDevice):
@@ -2036,69 +1957,23 @@ class FSSet(object):
                 try:
                     device.setup()
                     device.format.setup()
-                except OldSwapError:
-                    msg = _("The swap device:\n\n     %s\n\n"
-                            "is an old-style Linux swap partition.  If "
-                            "you want to use this device for swap space, "
-                            "you must reformat as a new-style Linux swap "
-                            "partition.") \
-                          % device.path
+                except StorageError as e:
+                    if errorcb(e, device):
+                        raise
+                else:
+                    break
 
-                    if swapErrorDialog(msg, device):
-                        continue
-                except SuspendError:
-                    if upgrading:
-                        msg = _("The swap device:\n\n     %s\n\n"
-                                "in your /etc/fstab file is currently in "
-                                "use as a software suspend device, "
-                                "which means your system is hibernating. "
-                                "To perform an upgrade, please shut down "
-                                "your system rather than hibernating it.") \
-                              % device.path
-                    else:
-                        msg = _("The swap device:\n\n     %s\n\n"
-                                "in your /etc/fstab file is currently in "
-                                "use as a software suspend device, "
-                                "which means your system is hibernating. "
-                                "If you are performing a new install, "
-                                "make sure the installer is set "
-                                "to format all swap devices.") \
-                              % device.path
-
-                    if swapErrorDialog(msg, device):
-                        continue
-                except UnknownSwapError:
-                    msg = _("The swap device:\n\n     %s\n\n"
-                            "does not contain a supported swap volume.  In "
-                            "order to continue installation, you will need "
-                            "to format the device or skip it.") \
-                          % device.path
-
-                    if swapErrorDialog(msg, device):
-                        continue
-                except DeviceError as (msg, name):
-                    if intf:
-                        if upgrading:
-                            err = _("Error enabling swap device %(name)s: "
-                                    "%(msg)s\n\n"
-                                    "The /etc/fstab on your upgrade partition "
-                                    "does not reference a valid swap "
-                                    "device.\n\nPress OK to exit the "
-                                    "installer") % {'name': name, 'msg': msg}
-                        else:
-                            err = _("Error enabling swap device %(name)s: "
-                                    "%(msg)s\n\n"
-                                    "This most likely means this swap "
-                                    "device has not been initialized.\n\n"
-                                    "Press OK to exit the installer.") % \
-                                  {'name': name, 'msg': msg}
-                        intf.messageWindow(_("Error"), err)
-                    sys.exit(0)
-
-                break
-
-    def mountFilesystems(self, intf=None, rootPath="", readOnly=None,
+    def mountFilesystems(self, rootPath="", readOnly=None, errorcb=None,
                          skipRoot=False, raiseErrors=None):
+        """ Mount the system's filesystems.
+
+            errorcb should accept an Exception instance and a Device instance
+            and return True if the exception should be fatal, which is the
+            default.
+        """
+        if errorcb is None:
+            errorcb = lambda e,d: True
+
         devices = self.mountpoints.values() + self.swapDevices
         devices.extend([self.dev, self.devshm, self.devpts, self.sysfs,
                         self.proc, self.selinux, self.usb])
@@ -2135,8 +2010,10 @@ class FSSet(object):
             try:
                 device.setup()
             except Exception as msg:
-                # FIXME: need an error popup
-                continue
+                if errorcb(e, device):
+                    raise
+                else:
+                    continue
 
             if readOnly:
                 options = "%s,%s" % (options, readOnly)
@@ -2144,73 +2021,11 @@ class FSSet(object):
             try:
                 device.format.setup(options=options,
                                     chroot=rootPath)
-            except OSError as e:
-                log.error("OSError: (%d) %s" % (e.errno, e.strerror))
-
-                if intf:
-                    if e.errno == errno.EEXIST:
-                        intf.messageWindow(_("Invalid mount point"),
-                                           _("An error occurred when trying "
-                                             "to create %s.  Some element of "
-                                             "this path is not a directory. "
-                                             "This is a fatal error and the "
-                                             "install cannot continue.\n\n"
-                                             "Press <Enter> to exit the "
-                                             "installer.")
-                                           % (device.format.mountpoint,))
-                    else:
-                        na = {'mountpoint': device.format.mountpoint,
-                              'msg': e.strerror}
-                        intf.messageWindow(_("Invalid mount point"),
-                                           _("An error occurred when trying "
-                                             "to create %(mountpoint)s: "
-                                             "%(msg)s.  This is "
-                                             "a fatal error and the install "
-                                             "cannot continue.\n\n"
-                                             "Press <Enter> to exit the "
-                                             "installer.") % na)
-                sys.exit(0)
-            except SystemError as (num, msg):
-                log.error("SystemError: (%d) %s" % (num, msg) )
-
-                if raiseErrors:
+            except Exception as e:
+                log.error("error mounting %s on %s: %s"
+                          % (device.path, device.format.mountpoint, e))
+                if errorcb(e, device):
                     raise
-                if intf and not device.format.linuxNative:
-                    na = {'path': device.path,
-                          'mountpoint': device.format.mountpoint}
-                    ret = intf.messageWindow(_("Unable to mount filesystem"),
-                                             _("An error occurred mounting "
-                                             "device %(path)s as "
-                                             "%(mountpoint)s.  You may "
-                                             "continue installation, but "
-                                             "there may be problems.") % na,
-                                             type="custom",
-                                             custom_icon="warning",
-                                             custom_buttons=[_("_Exit installer"),
-                                                            _("_Continue")])
-
-                    if ret == 0:
-                        sys.exit(0)
-                    else:
-                        continue
-
-                sys.exit(0)
-            except FSError as msg:
-                log.error("FSError: %s" % msg)
-
-                if intf:
-                    na = {'path': device.path,
-                          'mountpoint': device.format.mountpoint,
-                          'msg': msg}
-                    intf.messageWindow(_("Unable to mount filesystem"),
-                                       _("An error occurred mounting "
-                                         "device %(path)s as %(mountpoint)s: "
-                                         "%(msg)s. This is "
-                                         "a fatal error and the install "
-                                         "cannot continue.\n\n"
-                                         "Press <Enter> to exit the "
-                                         "installer.") % na)
-                sys.exit(0)
 
         self.active = True
 

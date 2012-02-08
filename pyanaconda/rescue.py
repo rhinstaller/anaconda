@@ -339,8 +339,9 @@ def doRescue(anaconda):
 
     if root:
         try:
-            rc = mountExistingSystem(anaconda, root,
-                                     allowDirty = 1, warnDirty = 1,
+            # TODO: add a callback to warn about dirty filesystems
+            rc = mountExistingSystem(anaconda.storage.fsset, root,
+                                     allowDirty = 1,
                                      readOnly = readOnly)
 
             if not flags.imageInstall:

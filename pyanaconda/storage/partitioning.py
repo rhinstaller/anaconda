@@ -104,6 +104,17 @@ def _schedulePartitions(storage, disks):
     if len(all_free) > 1:
         free += all_free[1].getSize()
 
+    # The boot disk must be set at this point. See if any platform-specific
+    # stage1 device we might allocate already exists on the boot disk.
+    stage1_device = None
+    for device in storage.devices:
+        if storage.bootloader.stage1_drive not in device.disks:
+            continue
+
+        if storage.bootloader._is_valid_stage1_device(device):
+            stage1_device = device
+            break
+
     #
     # First pass is for partitions only. We'll do LVs later.
     #
@@ -120,27 +131,17 @@ def _schedulePartitions(storage, disks):
             else:
                 request.fstype = storage.defaultFSType
 
-        elif request.fstype == "prepboot" and storage.bootLoaderDevice:
-            # there should never be a need for more than one of these
-            # partitions, so skip them.
-            log.info("skipping unneeded stage1 prepboot request")
-            log.debug(request)
-            log.debug(storage.bootLoaderDevice)
-            continue
-        elif request.fstype == "efi" and storage.bootLoaderDevice:
-            # there should never be a need for more than one of these
-            # partitions, so skip them.
-            log.info("skipping unneeded stage1 efi request")
-            log.debug(request)
-            # Set the mountpoint for the existing EFI boot partition
-            storage.bootLoaderDevice.format.mountpoint = "/boot/efi"
-            log.debug(storage.bootLoaderDevice)
-            continue
-        elif request.fstype == "biosboot" and storage.bootLoaderDevice:
-            log.info("skipping unneeded stage1 biosboot request")
-            log.debug(request)
-            log.debug(storage.bootLoaderDevice)
-            continue
+        elif request.fstype in ("prepboot", "efi", "biosboot") and stage1_device:
+             # there should never be a need for more than one of these
+             # partitions, so skip them.
+             log.info("skipping unneeded stage1 %s request" % request.fstype)
+             log.debug(request)
+
+            if request.fstype == "efi":
+                # Set the mountpoint for the existing EFI boot partition
+                stage1_device.format.mountpoint = "/boot/efi"
+
+            log.debug(stage1_device)
 
         # This is a little unfortunate but let the backend dictate the rootfstype
         # so that things like live installs can do the right thing
@@ -244,121 +245,75 @@ def scheduleShrinkActions(storage):
         if device.targetSize != size:
             device.format.targetSize = device.targetSize
 
-def doAutoPartition(anaconda):
-    log.debug("doAutoPartition(%s)" % anaconda)
-    log.debug("doAutoPart: %s" % anaconda.storage.doAutoPart)
-    log.debug("encryptedAutoPart: %s" % anaconda.storage.encryptedAutoPart)
-    log.debug("lvmAutoPart: %s" % anaconda.storage.lvmAutoPart)
-    log.debug("clearPartType: %s" % anaconda.storage.config.clearPartType)
-    log.debug("clearPartDisks: %s" % anaconda.storage.config.clearPartDisks)
-    log.debug("autoPartitionRequests:\n%s" % "".join([str(p) for p in anaconda.storage.autoPartitionRequests]))
-    log.debug("storage.disks: %s" % [d.name for d in anaconda.storage.disks])
-    log.debug("storage.partitioned: %s" % [d.name for d in anaconda.storage.partitioned])
-    log.debug("all names: %s" % [d.name for d in anaconda.storage.devices])
-    if anaconda.dir == DISPATCH_BACK:
-        return
+def doAutoPartition(storage, data, errorcb=None, warningcb=None):
+    log.debug("doAutoPart: %s" % storage.doAutoPart)
+    log.debug("encryptedAutoPart: %s" % storage.encryptedAutoPart)
+    log.debug("lvmAutoPart: %s" % storage.lvmAutoPart)
+    log.debug("clearPartType: %s" % storage.config.clearPartType)
+    log.debug("clearPartDisks: %s" % storage.config.clearPartDisks)
+    log.debug("autoPartitionRequests:\n%s" % "".join([str(p) for p in storage.autoPartitionRequests]))
+    log.debug("storage.disks: %s" % [d.name for d in storage.disks])
+    log.debug("storage.partitioned: %s" % [d.name for d in storage.partitioned])
+    log.debug("all names: %s" % [d.name for d in storage.devices])
+    log.debug("boot disk: %s" % getattr(storage.bootDisk, "name", None))
 
     disks = []
     devs = []
 
-    if anaconda.storage.doAutoPart:
-        scheduleShrinkActions(anaconda.storage)
-        clearPartitions(anaconda.storage, bootloader=anaconda.bootloader)
+    if errorcb is None:
+        errorcb = lambda e: True
+    if warningcb is None:
+        warningcb = lambda e: True
+
+    if storage.doAutoPart:
+        scheduleShrinkActions(storage)
+        clearPartitions(storage)
         # update the bootloader's drive list to add disks which have their
         # whole disk format replaced by a disklabel. Make sure to keep any
         # previous boot order selection from clearpart_gui or kickstart
         anaconda.bootloader.clear_drive_list()
 
-        disks = _getCandidateDisks(anaconda.storage)
-        devs = _schedulePVs(anaconda.storage, disks)
+        disks = _getCandidateDisks(storage)
+        devs = _schedulePVs(storage, disks)
         log.debug("candidate disks: %s" % disks)
         log.debug("devs: %s" % devs)
 
         if disks == []:
-            if anaconda.ksdata:
-                msg = _("Could not find enough free space for automatic "
-                        "partitioning.  Press 'OK' to exit the installer.")
-            else:
-                msg = _("Could not find enough free space for automatic "
-                        "partitioning, please use another partitioning method.")
+            raise PartitioningError("not enough free space")
 
-            anaconda.intf.messageWindow(_("Error Partitioning"), msg,
-                                        custom_icon='error')
-
-            if anaconda.ksdata:
-                sys.exit(0)
-
-            anaconda.storage.reset()
-            return DISPATCH_BACK
-
-        _schedulePartitions(anaconda.storage, disks)
+        _schedulePartitions(storage, disks)
 
     # run the autopart function to allocate and grow partitions
     try:
-        doPartitioning(anaconda.storage, bootloader=anaconda.bootloader)
+        doPartitioning(storage)
 
-        if anaconda.storage.doAutoPart:
-            _scheduleLVs(anaconda.storage, devs)
+        if storage.doAutoPart:
+            _scheduleLVs(storage, devs)
 
         # grow LVs
-        growLVM(anaconda.storage)
-    except PartitioningWarning as msg:
-        if not anaconda.ksdata:
-            anaconda.intf.messageWindow(_("Warnings During Automatic "
-                                          "Partitioning"),
-                           _("Following warnings occurred during automatic "
-                           "partitioning:\n\n%s") % (msg,),
-                           custom_icon='warning')
-        else:
-            log.warning(msg)
-    except PartitioningError as msg:
-        # restore drives to original state
-        anaconda.storage.reset()
+        growLVM(storage)
+    except PartitioningWarning as e:
+        log.warning(str(e))
+        warningcb(e)
+    except PartitioningError as e:
+        log.error(str(e))
+        errorcb(e)
+        storage.reset()
+        raise
 
-        extra = ""
-        if anaconda.ksdata:
-            extra = _("\n\nPress 'OK' to exit the installer.")
-        else:
-            anaconda.dispatch.request_steps_gently("partition")
-        anaconda.intf.messageWindow(_("Error Partitioning"),
-               _("Could not allocate requested partitions: \n\n"
-                 "%(msg)s.%(extra)s") % {'msg': msg, 'extra': extra},
-               custom_icon='error')
-
-        if anaconda.ksdata:
-            sys.exit(0)
-        else:
-            return DISPATCH_BACK
+    storage.setUpBootLoader()
 
     # now do a full check of the requests
-    (errors, warnings) = anaconda.storage.sanityCheck()
-    if warnings:
-        for warning in warnings:
-            log.warning(warning)
+    (errors, warnings) = storage.sanityCheck()
+    for error in errors:
+        log.error(error)
+    for warning in warnings:
+        log.warning(warning)
     if errors:
-        errortxt = "\n".join(errors)
-        if anaconda.ksdata:
-            extra = _("\n\nPress 'OK' to exit the installer.")
-        else:
-            extra = _("\n\nPress 'OK' to choose a different partitioning option.")
-
-        anaconda.intf.messageWindow(_("Automatic Partitioning Errors"),
-                           _("The following errors occurred with your "
-                             "partitioning:\n\n%(errortxt)s\n\n"
-                             "This can happen if there is not enough "
-                             "space on your hard drive(s) for the "
-                             "installation. %(extra)s")
-                           % {'errortxt': errortxt, 'extra': extra},
-                           custom_icon='error')
-        #
-        # XXX if in kickstart we reboot
-        #
-        if anaconda.ksdata:
-            anaconda.intf.messageWindow(_("Unrecoverable Error"),
-                               _("The system will now reboot."))
-            sys.exit(0)
-        anaconda.storage.reset()
-        return DISPATCH_BACK
+        exn = PartitioningError("\n".join(errors))
+        errorcb(exn)
+        storage.reset()
+        raise exn
 
 def shouldClear(device, clearPartType, clearPartDisks=None):
     if clearPartType not in [CLEARPART_TYPE_LINUX, CLEARPART_TYPE_ALL]:
@@ -409,7 +364,7 @@ def shouldClear(device, clearPartType, clearPartDisks=None):
 
     return True
 
-def clearPartitions(storage, bootloader=None):
+def clearPartitions(storage):
     """ Clear partitions and dependent devices from disks.
 
         Arguments:
@@ -418,7 +373,7 @@ def clearPartitions(storage, bootloader=None):
 
         Keyword arguments:
 
-            bootloader -- a BootLoader instance
+            None
 
         NOTES:
 
@@ -486,11 +441,12 @@ def clearPartitions(storage, bootloader=None):
 
     # make sure that the the boot device has the correct disklabel type if
     # we're going to completely clear it.
+    boot_disk = storage.bootDisk
     for disk in storage.partitioned:
-        if not bootloader or not bootloader.stage1_drive:
+        if not boot_disk:
             break
 
-        if disk != bootloader.stage1_drive:
+        if disk != boot_disk:
             continue
 
         if storage.config.clearPartType != CLEARPART_TYPE_ALL or \
@@ -926,7 +882,7 @@ def updateExtendedPartitions(storage, disks):
         # moment to simplify things
         storage.devicetree._addDevice(device)
 
-def doPartitioning(storage, bootloader=None):
+def doPartitioning(storage):
     """ Allocate and grow partitions.
 
         When this function returns without error, all PartitionDevice
@@ -941,7 +897,7 @@ def doPartitioning(storage, bootloader=None):
 
         Keyword/Optional Arguments:
 
-            bootloader - BootLoader instance
+            None
 
     """
     if not hasattr(storage.platform, "diskLabelTypes"):
@@ -972,14 +928,6 @@ def doPartitioning(storage, bootloader=None):
         if not part.exists:
             # start over with flexible-size requests
             part.req_size = part.req_base_size
-
-    try:
-        storage.bootDevice.req_bootable = True
-    except AttributeError:
-        # there's no stage2 device. hopefully it's temporary.
-        pass
-
-    removeNewPartitions(disks, partitions)
 
     if storage.platform.weight(fstype="biosboot") > 0:
         # add a request for a bios boot partition on every disk that contains a
@@ -1017,10 +965,16 @@ def doPartitioning(storage, bootloader=None):
             storage.createDevice(part)
             partitions.append(part)
 
+    try:
+        storage.bootDevice.req_bootable = True
+    except AttributeError:
+        # there's no stage2 device. hopefully it's temporary.
+        pass
+
+    removeNewPartitions(disks, partitions)
     free = getFreeRegions(disks)
     try:
-        allocatePartitions(storage, disks, partitions, free,
-                           bootloader=bootloader)
+        allocatePartitions(storage, disks, partitions, free)
         growPartitions(disks, partitions, free)
     finally:
         # The number and thus the name of partitions may have changed now,
@@ -1034,11 +988,7 @@ def doPartitioning(storage, bootloader=None):
 
         updateExtendedPartitions(storage, disks)
 
-        # make sure the stage1_device gets updated
-        if storage.anaconda:
-            storage.anaconda.bootloader.stage1_device = None
-
-def allocatePartitions(storage, disks, partitions, freespace, bootloader=None):
+def allocatePartitions(storage, disks, partitions, freespace):
     """ Allocate partitions based on requested features.
 
         Non-existing partitions are sorted according to their requested
@@ -1088,14 +1038,10 @@ def allocatePartitions(storage, disks, partitions, freespace, bootloader=None):
 
         # sort the disks, making sure the boot disk is first
         req_disks.sort(key=lambda d: d.name, cmp=storage.compareDisks)
-        boot_index = None
         for disk in req_disks:
-            if bootloader and disk == bootloader.stage1_drive:
+            if storage.bootDisk and disk == storage.bootDisk:
                 boot_index = req_disks.index(disk)
-
-        if boot_index is not None and len(req_disks) > 1:
-            boot_disk = req_disks.pop(boot_index)
-            req_disks.insert(0, boot_disk)
+                req_disks.insert(0, req_disks.pop(boot_index))
 
         boot = _part.req_base_weight > 1000
 

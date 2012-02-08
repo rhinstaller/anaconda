@@ -25,6 +25,9 @@ class StorageError(Exception):
         self.hardware_fault = kwargs.pop("hardware_fault", False)
         super(StorageError, self).__init__(*args, **kwargs)
 
+class NoDisksError(StorageError):
+    pass
+
 # Device
 class DeviceError(StorageError):
     pass
@@ -76,6 +79,9 @@ class FSResizeError(FSError):
     pass
 
 class FSMigrateError(FSError):
+    pass
+
+class DirtyFSError(FSError):
     pass
 
 class LUKSError(DeviceFormatError):
