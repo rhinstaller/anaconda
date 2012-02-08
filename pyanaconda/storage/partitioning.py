@@ -925,42 +925,6 @@ def doPartitioning(storage):
             # start over with flexible-size requests
             part.req_size = part.req_base_size
 
-    if storage.platform.weight(fstype="biosboot") > 0:
-        # add a request for a bios boot partition on every disk that contains a
-        # gpt disklabel if we're on a bios platform.
-        # XXX we can't just use GRUB2._gpt_disk_has_bios_boot because it can't
-        #     see not-yet-allocated partitions
-        for disk in disks:
-            if getattr(disk.format, "labelType", None) != "gpt":
-                continue
-
-            has_bios_boot = False
-            for new in [p for p in partitions if p.req_disks == [disk]]:
-                if new.format.type == "biosboot":
-                    has_bios_boot = True
-                    break
-
-            if has_bios_boot:
-                continue
-
-            free_list = disk.format.partedDisk.getFreeSpaceRegions()
-            free_list.sort(key=lambda f: f.length, reverse=True)
-            free = 0
-            if free_list:
-                free_space = sectorsToSize(free_list[0].length,
-                                           free_list[0].device.sectorSize)
-                used = sum([p.req_size for p in partitions])
-                free = free_space - used
-
-            if free <= 0:
-                log.warning("can't add BIOS Boot partition to full disk %s"
-                            % disk.name)
-
-            part = storage.newPartition(fmt_type="biosboot", parents=[disk],
-                                        size=1)
-            storage.createDevice(part)
-            partitions.append(part)
-
     try:
         storage.bootDevice.req_bootable = True
     except AttributeError:
