@@ -108,7 +108,7 @@ def _schedulePartitions(storage, disks):
     # stage1 device we might allocate already exists on the boot disk.
     stage1_device = None
     for device in storage.devices:
-        if storage.bootloader.stage1_drive not in device.disks:
+        if storage.bootloader.stage1_disk not in device.disks:
             continue
 
         if storage.bootloader._is_valid_stage1_device(device):

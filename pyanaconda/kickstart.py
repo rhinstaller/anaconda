@@ -297,7 +297,7 @@ class Bootloader(commands.bootloader.F15_Bootloader):
                     log.warning("requested drive %s in boot drive order doesn't exist" % drive)
                     self.driveorder.remove(drive)
 
-            self.anaconda.bootloader.drive_order = self.driveorder
+            self.anaconda.bootloader.disk_order = self.driveorder
 
         self.anaconda.dispatch.skip_steps("upgbootloader", "bootloader")
 

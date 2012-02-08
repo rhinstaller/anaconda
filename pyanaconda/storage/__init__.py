@@ -447,8 +447,8 @@ class Storage(object):
             # no longer in the tree
             boot_disks = [d for d in self.disks if d.partitioned]
             boot_disks.sort(cmp=self.compareDisks, key=lambda d: d.name)
-            self.bootloader.set_drive_list(boot_disks)
-            self.bootloader.stage1_drive = None
+            self.bootloader.set_disk_list(boot_disks)
+            self.bootloader.stage1_disk = None
             self.bootloader.stage1_device = None
             self.bootloader.stage2_device = None
 
@@ -1297,7 +1297,7 @@ class Storage(object):
             log.warning("either ksdata or bootloader data missing")
             return
 
-        self.bootloader.stage1_drive = self.data.bootDrive
+        self.bootloader.stage1_disk = self.data.bootloader.bootDrive
         self.bootloader.stage2_device = self.bootDevice
         self.bootloader.set_stage1_device(self.devices)
 
