@@ -103,15 +103,23 @@ For example, when we branch for F-16:
            -f po/anaconda.pot "po/<lang>.po"
 
 Check the .tx/config file on the branch to ensure it references the correct
-anaconda.BRANCH_NAME in Transifex.
+anaconda.BRANCH_NAME in Transifex and remove the [anaconda.master] block so
+that it doesn't try to push to master and the new branch.
 
 Once you have run "tx set", you need to populate the project with the initial
 po files.  I suggest using the ones from the master branch, e.g.:
 
     git checkout master
+    git clean -xdf
     tx pull -a
     # leave the *.po files in the po/ subdirectory
-    git checkout f16-branch
+    git checkout f18-branch
+
+Log into transifex.net and select 'Add New Resource' for the Anaconda
+project. Upload the po/anaconda.pot file as the Resource File, name it
+f18-branch and select 'PO File(.po)' for the I18N Type. After the resource
+is created you should then be able to push to it with:
+
     tx push -s -t
 
 This will push the po files and anaconda.pot from master to the f16-branch
