@@ -178,15 +178,6 @@ class TbootLinuxBootLoaderImage(LinuxBootLoaderImage):
         return self._args
 
 class BootLoader(object):
-    """TODO:
-            - iSeries bootloader?
-                - same as pSeries, except optional, I think
-            - upgrade of non-grub bootloaders
-            - detection of existing bootloaders
-            - improve password encryption for grub
-                - fix handling of kickstart-provided already-encrypted
-                  password
-    """
     name = "Generic Bootloader"
     packages = []
     obsoletes = []
@@ -219,14 +210,14 @@ class BootLoader(object):
 
     _trusted_boot = False
 
-    def __init__(self, storage=None):
-        # pyanaconda.storage.Storage instance
-        self.storage = storage
+    def __init__(self, platform=None):
+        # pyanaconda.platform.Platform instance
+        self.platform = platform
 
         self.boot_args = Arguments()
         self.dracut_args = Arguments()
 
-        self._drives = []
+        self.drives = []
         self._drive_order = []
 
         # timeout in seconds
@@ -246,7 +237,7 @@ class BootLoader(object):
         self._default_image = None
 
         # the device the bootloader will be installed on
-        self._stage1_device = None
+        self.stage1_device = None
 
         # the "boot drive", meaning the drive stage1 _will_ go on
         self.stage1_drive = None
@@ -258,45 +249,6 @@ class BootLoader(object):
 
         self.errors = []
         self.warnings = []
-
-    #
-    # stage1 device access
-    #
-    # pylint: disable-msg=E0202
-    @property
-    def stage1_device(self):
-        """ Stage1 target device. """
-        if not self._stage1_device:
-            log.debug("no stage1 device: %s"
-                      % [d.name for d in self.stage1_devices])
-            if self.stage2_is_preferred_stage1:
-                log.debug("using stage2 device as stage1")
-                self.stage1_device = self.stage2_device
-            else:
-                log.debug("stage1_drive is %s" % self.stage1_drive)
-                devices = self.stage1_devices
-                if self.stage1_drive:
-                    devices = [d for d in devices if
-                                self.stage1_drive in d.disks]
-                try:
-                    self.stage1_device = devices[0]
-                except IndexError:
-                    pass
-
-        return self._stage1_device
-
-    # pylint: disable-msg=E0102,E0202,E1101
-    @stage1_device.setter
-    def stage1_device(self, device):
-        log.debug("new bootloader stage1 device: %s" % getattr(device,
-                                                               "name", None))
-        self._stage1_device = device
-
-    # pylint: disable-msg=E0202
-    @property
-    def stage2_device(self):
-        """ Stage2 target device. """
-        return self.storage.mountpoints.get("/boot", self.storage.rootDevice)
 
     #
     # drive list access
@@ -312,42 +264,23 @@ class BootLoader(object):
     def drive_order(self, order):
         log.debug("new drive order: %s" % order)
         self._drive_order = order
-        self.clear_drive_list() # this will get regenerated on next access
+        if self.drives:
+            self._sort_drives()
 
-    def _sort_drives(self, drives):
-        """Sort drives based on the drive order."""
-        _drives = sorted(drives,
-                         cmp=self.storage.compareDisks, key=lambda d: d.name)
-        for name in reversed(self._drive_order):
+    def _sort_drives(self):
+        """Sort the internal drive list. """
+        for name in reversed(self.drive_order):
             try:
-                idx = [d.name for d in _drives].index(name)
+                idx = [d.name for d in self.drives].index(name)
             except ValueError:
                 log.error("bios order specified unknown drive %s" % name)
                 continue
 
-            first = _drives.pop(idx)
-            _drives.insert(0, first)
+            self.drives.insert(0, self.drives.pop(idx))
 
-        return _drives
-
-    def clear_drive_list(self):
-        """ Clear the drive list to force re-populate on next access. """
-        self._drives = []
-
-    @property
-    def drives(self):
-        """Sorted list of available drives."""
-        if self._drives:
-            # only generate the list if it is empty
-            return self._drives
-
-        drives = [d for d in self.storage.disks if not d.format.hidden]
-        self._drives = self._sort_drives(drives)
-
-        # set "boot drive"
-        self.stage1_drive = self._drives[0]
-
-        return self._drives
+    def set_drive_list(self, drives):
+        self.drives = drives[:]
+        self._sort_drives()
 
     #
     # image list access
@@ -356,15 +289,8 @@ class BootLoader(object):
     @property
     def default(self):
         """The default image."""
-        if not self._default_image:
-            if self.linux_images:
-                _default = self.linux_images[0]
-            else:
-                _default = LinuxBootLoaderImage(device=self.storage.rootDevice,
-                                                label=productName,
-                                                short="linux")
-
-            self._default_image = _default
+        if not self._default_image and self.linux_images:
+            self._default_image = self.linux_images[0]
 
         return self._default_image
 
@@ -380,9 +306,6 @@ class BootLoader(object):
     @property
     def images(self):
         """ List of OS images that will be included in the configuration. """
-        if not self.linux_images:
-            self.linux_images.append(self.default)
-
         all_images = self.linux_images
         all_images.extend([i for i in self.chain_images if i.label])
         return all_images
@@ -403,23 +326,9 @@ class BootLoader(object):
         """Return the appropriate image label for this bootloader."""
         return getattr(image, self.image_label_attr)
 
-    def _find_chain_images(self):
-        """ Collect a list of potential non-linux OS installations. """
-        # XXX not used -- do we want to pre-populate the image list for the ui?
-        self.chain_images = []
-        if not self.can_dual_boot:
-            return
-
-        for device in [d for d in self.bootable_chain_devices if d.exists]:
-            self.chain_images.append(BootLoaderImage(device=device))
-
     #
     # platform-specific data access
     #
-    @property
-    def platform(self):
-        return self.storage.platform
-
     @property
     def disklabel_types(self):
         return self.platform._disklabel_types
@@ -660,40 +569,25 @@ class BootLoader(object):
                                                                 valid))
         return valid
 
-    @property
-    def stage1_devices(self):
-        """ A list of valid stage1 target devices.
+    def set_stage1_device(self, devices):
+        if not self.stage1_drive:
+            raise BootLoaderError("need stage1 drive to set stage1 device")
 
-            The list self.stage1_device_types is ordered, so we return a list
-            of all valid target devices, sorted by device type, then sorted
-            according to our drive ordering.
-        """
-        device_types = self.platform.bootStage1ConstraintDict["device_types"]
-        slots = [[] for t in device_types]
-        for device in self.storage.devices:
-            idx = self._device_type_index(device, device_types)
-            if idx is None:
+        if self.stage2_is_preferred_stage1:
+            self.stage1_device = self.stage2_device
+            return
+
+        self.stage1_device = None
+        for device in devices:
+            if self.stage1_drive not in device.disks:
                 continue
 
             if self.is_valid_stage1_device(device):
-                slots[idx].append(device)
+                self.stage1_device = device
+                break
 
-        devices = []
-        for slot in slots:
-            devices.extend(slot)
-
-        devices = self._sort_drives(devices)
-
-        # if a boot drive has been chosen put it, and devices on it, first
-        # XXX should this be done in _sort_drives instead?
-        if self.stage1_drive:
-            boot_devs = [d for d in devices if self.stage1_drive in d.disks]
-            if len(boot_devs) != len(devices):
-                for dev in reversed(boot_devs):
-                    idx = devices.index(dev)
-                    devices.insert(0, devices.pop(idx))
-
-        return devices
+        if not self.stage1_device:
+            raise BootLoaderError("failed to find a suitable stage1 device")
 
     #
     # boot/stage2 device access
@@ -761,36 +655,11 @@ class BootLoader(object):
                                                                 valid))
         return valid
 
-    @property
-    def bootable_chain_devices(self):
-        """ Potential boot devices containing non-linux operating systems. """
-        # make sure we don't clobber error/warning lists
-        errors = self.errors[:]
-        warnings = self.warnings[:]
-        ret = [d for d in self.storage.devices
-                if self.is_valid_stage2_device(d, linux=False, non_linux=True)]
-        self.errors = errors
-        self.warnings = warnings
-        return ret
-
-    @property
-    def bootable_devices(self):
-        """ Potential boot devices containing linux operating systems. """
-        # make sure we don't clobber error/warning lists
-        errors = self.errors[:]
-        warnings = self.warnings[:]
-        ret = [d for d in self.storage.devices
-                    if self.is_valid_stage2_device(d)]
-        self.errors = errors
-        self.warnings = warnings
-        return ret
-
     #
     # miscellaneous
     #
 
-    @property
-    def has_windows(self):
+    def has_windows(self, devices):
         return False
 
     # pylint: disable-msg=E0202
@@ -827,12 +696,14 @@ class BootLoader(object):
 
             Keyword Arguments:
 
+                storage - a pyanaconda.storage.Storage instance
                 network - a pyanaconda.network.Network instance (for network
                           storage devices' boot arguments)
 
             All other arguments are expected to have a dracutSetupArgs()
             method.
         """
+        storage = kwargs.pop("storage", None)
         network = kwargs.pop("network", None)
 
         #
@@ -847,11 +718,11 @@ class BootLoader(object):
 
         # storage
         from pyanaconda.storage.devices import NetworkStorageDevice
-        dracut_devices = [self.storage.rootDevice]
-        if self.stage2_device != self.storage.rootDevice:
+        dracut_devices = [storage.rootDevice]
+        if self.stage2_device != storage.rootDevice:
             dracut_devices.append(self.stage2_device)
 
-        dracut_devices.extend(self.storage.fsset.swapDevices)
+        dracut_devices.extend(storage.fsset.swapDevices)
 
         done = []
         # When we see a device whose setup string starts with a key in this
@@ -862,7 +733,7 @@ class BootLoader(object):
                           "rd.md.uuid": "rd.md=0",
                           "rd.dm.uuid": "rd.dm=0"}
         for device in dracut_devices:
-            for dep in self.storage.devices:
+            for dep in storage.devices:
                 if dep in done:
                     continue
 
@@ -930,7 +801,7 @@ class BootLoader(object):
     @property
     def boot_prefix(self):
         """ Prefix, if any, to paths in /boot. """
-        if self.stage2_device == self.storage.rootDevice:
+        if self.stage2_device.format.mountpoint == "/":
             prefix = "/boot"
         else:
             prefix = ""
@@ -1381,9 +1252,15 @@ class GRUB(BootLoader):
     # miscellaneous
     #
 
-    @property
-    def has_windows(self):
-        return len(self.bootable_chain_devices) != 0
+    def has_windows(self, devices):
+        """ Potential boot devices containing non-linux operating systems. """
+        # make sure we don't clobber error/warning lists
+        errors = self.errors[:]
+        warnings = self.warnings[:]
+        ret = [d for d in devices if self.is_valid_stage2_device(d, linux=False, non_linux=True)]
+        self.errors = errors
+        self.warnings = warnings
+        return ret
 
 
 class EFIGRUB(GRUB):
@@ -1450,7 +1327,7 @@ class EFIGRUB(GRUB):
                     raise BootLoaderError("failed to remove old efi boot entry")
 
     def add_efi_boot_target(self):
-        boot_efi = self.storage.mountpoints["/boot/efi"]
+        boot_efi = self.stage1_device
         if boot_efi.type == "partition":
             boot_disk = boot_efi.disk
             boot_part_num = boot_efi.partedPartition.number
@@ -1529,50 +1406,6 @@ class GRUB2(GRUB):
 
     # XXX we probably need special handling for raid stage1 w/ gpt disklabel
     #     since it's unlikely there'll be a bios boot partition on each disk
-
-    #
-    # constraints for target devices
-    #
-    def _gpt_disk_has_bios_boot(self, device):
-        """ Return False if device is gpt-labeled disk w/o bios boot part. """
-        ret = True
-
-        if device is None:
-            return ret
-
-        if not self.platform.weight(fstype="biosboot"):
-            # this platform does not need bios boot
-            return ret
-
-        # check that a bios boot partition is present if the stage1 device
-        # is a gpt-labeled disk
-        if device.isDisk and getattr(device.format, "labelType", None) == "gpt":
-            ret = False
-            partitions = [p for p in self.storage.partitions
-                          if p.disk == device]
-            for p in partitions:
-                if p.format.type == "biosboot":
-                    ret = True
-                    break
-
-            if not ret:
-                self.errors.append(_("Your BIOS-based system needs a special "
-                                     "partition to boot with Fedora's new "
-                                     "disk label format (GPT). To continue, "
-                                     "please create a 1MB 'BIOS Boot' type "
-                                     "partition."))
-
-        log.debug("_gpt_disk_has_bios_boot(%s) returning %s" % (device.name,
-                                                                ret))
-        return ret
-
-    def is_valid_stage1_device(self, device):
-        ret = super(GRUB2, self).is_valid_stage1_device(device)
-        ret = ret and self._gpt_disk_has_bios_boot(device)
-
-        log.debug("is_valid_stage1_device(%s) returning %s" % (device.name,
-                                                                ret))
-        return ret
 
     #
     # grub-related conveniences
@@ -1751,7 +1584,7 @@ class YabootSILOBase(BootLoader):
             else:
                 initrd_line = ""
 
-            root_device_spec = self.storage.rootDevice.fstabSpec
+            root_device_spec = image.device.fstabSpec
             if root_device_spec.startswith("/"):
                 root_line = "\troot=%s\n" % root_device_spec
             else:
@@ -1951,6 +1784,7 @@ class ZIPL(BootLoader):
     #
 
     def install(self):
+        # DWL FIXME: resolve the boot device to a StorageDevice from storage
         buf = iutil.execWithCapture("zipl", [],
                                     stderr="/dev/tty5",
                                     root=ROOT_PATH)
@@ -2107,14 +1941,12 @@ def writeBootloader(anaconda):
     # The first one is the default kernel. Update the bootloader's default
     # entry to reflect the details of the default kernel.
     (version, arch, nick) = kernel_versions.pop(0)
-    default_image = anaconda.bootloader.default
-    if not default_image:
-        log.error("unable to find default image, bailing")
-        if w:
-            w.pop()
-        return
-
-    default_image.version = version
+    default_image = LinuxBootLoaderImage(device=anaconda.storage.rootDevice,
+                                         version=version,
+                                         label=productName,
+                                         short="linux")
+    anaconda.bootloader.add_image(default_image)
+    anaconda.bootloader.default = default_image
 
     # all the linux images' labels are based on the default image's
     base_label = default_image.label
@@ -2151,6 +1983,7 @@ def writeBootloader(anaconda):
 
     # set up dracut/fips boot args
     anaconda.bootloader.set_boot_args(keyboard=anaconda.keyboard,
+                                      storage=anaconda.storage,
                                       language=anaconda.instLanguage,
                                       network=anaconda.network)
 

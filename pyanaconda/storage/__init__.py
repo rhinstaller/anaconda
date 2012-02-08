@@ -445,9 +445,12 @@ class Storage(object):
         if self.bootloader:
             # clear out bootloader attributes that refer to devices that are
             # no longer in the tree
-            self.bootloader.clear_drive_list()
+            boot_disks = [d for d in self.disks if d.partitioned]
+            boot_disks.sort(cmp=self.compareDisks, key=lambda d: d.name)
+            self.bootloader.set_drive_list(boot_disks)
             self.bootloader.stage1_drive = None
             self.bootloader.stage1_device = None
+            self.bootloader.stage2_device = None
 
         self.dumpState("initial")
 
@@ -1119,6 +1122,25 @@ class Storage(object):
                 errors.extend(self.bootloader.errors)
                 warnings.extend(self.bootloader.warnings)
 
+            #
+            # check that GPT boot disk on BIOS system has a BIOS boot partition
+            #
+            if self.platform.weight(fstype="biosboot") and \
+               stage1 and stage1.isDisk and \
+               getattr(device.format, "labelType", None) == "gpt":
+                missing = True
+                for part in [p for p in self.partitions if p.disk == stage1]:
+                    if part.format.type == "biosboot":
+                        missing = False
+                        break
+
+                if missing:
+                    errors.append(_("Your BIOS-based system needs a special "
+                                    "partition to boot with %s's new "
+                                    "disk label format (GPT). To continue, "
+                                    "please create a 1MB 'BIOS Boot' type "
+                                    "partition.") % productName)
+
         if not swaps:
             from pyanaconda.storage.size import Size
 
@@ -1268,6 +1290,16 @@ class Storage(object):
         if self._bootloader is None and self.platform is not None:
             self._bootloader = self.platform.bootloaderClass(self.platform)
         return self._bootloader
+
+    def setUpBootLoader(self):
+        """ Propagate ksdata into BootLoader. """
+        if not self.bootloader or not self.data:
+            log.warning("either ksdata or bootloader data missing")
+            return
+
+        self.bootloader.stage1_drive = self.data.bootDrive
+        self.bootloader.stage2_device = self.bootDevice
+        self.bootloader.set_stage1_device(self.devices)
 
     @property
     def bootDisk(self):

@@ -268,10 +268,6 @@ def doAutoPartition(storage, data, errorcb=None, warningcb=None):
     if storage.doAutoPart:
         scheduleShrinkActions(storage)
         clearPartitions(storage)
-        # update the bootloader's drive list to add disks which have their
-        # whole disk format replaced by a disklabel. Make sure to keep any
-        # previous boot order selection from clearpart_gui or kickstart
-        anaconda.bootloader.clear_drive_list()
 
         disks = _getCandidateDisks(storage)
         devs = _schedulePVs(storage, disks)
