@@ -102,7 +102,7 @@ class Anaconda(object):
     @property
     def bootloader(self):
         if not self._bootloader:
-            self._bootloader = self.platform._bootloaderClass(self.storage)
+            self._bootloader = self.platform.bootloaderClass(self.platform)
 
         return self._bootloader
 
