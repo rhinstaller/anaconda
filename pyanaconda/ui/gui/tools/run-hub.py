@@ -13,6 +13,7 @@ anaconda_log.init()
 from pyanaconda.installclass import DefaultInstall
 from pyanaconda.storage import Storage
 from pyanaconda.threads import initThreading
+from pyanaconda.platform import getPlatform
 from pykickstart.version import makeVersion
 
 # Don't worry with fcoe, iscsi, dasd, any of that crud.
@@ -30,10 +31,10 @@ initThreading()
 #hubClass = SummaryHub
 hubClass = None
 
-storage = Storage()
-storage.reset()
-
+platform = getPlatform()
 ksdata = makeVersion()
+storage = Storage(data=ksdata, platform=platform)
+storage.reset()
 devicetree = storage.devicetree
 instclass = DefaultInstall()
 
