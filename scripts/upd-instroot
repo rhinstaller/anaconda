@@ -194,7 +194,7 @@ PACKAGES="GConf2 NetworkManager NetworkManager-gnome ORBit2 acl anaconda
     reiserfs-utils libreport libreport-cli libreport-python libreport-gtk libreport-newt
     libreport-plugin-rhtsupport libreport-plugin-logger libreport-plugin-bugzilla
     rpm rpm-libs rpm-python rsyslog sed selinux-policy-targeted
-    setup slang smc-meera-fonts specspo sqlite startup-notification 
+    setup sg3_utils sg3_utils-libs slang smc-meera-fonts specspo sqlite startup-notification
     subscription-manager synaptics system-config-date
     system-config-keyboard ${brandpkgname}-logos ${brandpkgname}-release
     sysvinit-tools tcp_wrappers tcp_wrappers-libs telnet
@@ -521,6 +521,7 @@ usr/$LIBDIR/libbsd.so*
 usr/$LIBDIR/libfreebl3.so
 usr/$LIBDIR/libfreebl3.chk
 usr/$LIBDIR/libmetacity-private.so*
+usr/$LIBDIR/libsgutils2.so*
 usr/$LIBDIR/libsoftokn3.so
 usr/$LIBDIR/libsoftokn3.chk
 usr/$LIBDIR/libsqlite3.so*
@@ -583,6 +584,10 @@ usr/bin/reduce-font
 usr/bin/report-*
 usr/bin/reporter-*
 usr/bin/setxkbmap
+usr/bin/sg_format
+usr/bin/sg_map
+usr/bin/sg_scan
+usr/bin/sginfo
 usr/bin/sha1sum
 usr/bin/split
 usr/bin/ssh-keygen
