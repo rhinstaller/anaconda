@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 17.5\n"
+"Project-Id-Version: anaconda 17.6\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2012-02-06 14:05-0800\n"
+"POT-Creation-Date: 2012-02-08 11:00-0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,28 +18,28 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: anaconda:335
+#: anaconda:338
 msgid "Press <enter> for a shell"
 msgstr ""
 
-#: anaconda:349
+#: anaconda:352
 #, c-format
 msgid ""
 "%s requires %s MB of memory to install, but you only have %s MB on this "
 "machine.\n"
 msgstr ""
 
-#: anaconda:351
+#: anaconda:354
 #, c-format
 msgid ""
 "The %s graphical installer requires %s MB of memory, but you only have %s MB."
 msgstr ""
 
-#: anaconda:356
+#: anaconda:359
 msgid "Not enough RAM"
 msgstr ""
 
-#: anaconda:357
+#: anaconda:360
 msgid ""
 " Try the text mode installer by running:\n"
 "\n"
@@ -48,11 +48,11 @@ msgid ""
 " from a root terminal."
 msgstr ""
 
-#: anaconda:360
+#: anaconda:363
 msgid " Starting text mode."
 msgstr ""
 
-#: anaconda:380 pyanaconda/rescue.py:347 pyanaconda/rescue.py:379
+#: anaconda:383 pyanaconda/rescue.py:347 pyanaconda/rescue.py:379
 #: pyanaconda/rescue.py:392 pyanaconda/rescue.py:460 pyanaconda/rescue.py:477
 #: pyanaconda/rescue.py:488 pyanaconda/text.py:546 loader/windows.h:30
 #: loader/cdinstall.c:186 loader/cdinstall.c:190 loader/cdinstall.c:210
@@ -79,22 +79,22 @@ msgstr ""
 msgid "OK"
 msgstr ""
 
-#: anaconda:473
+#: anaconda:476
 msgid "Would you like to use VNC?"
 msgstr ""
 
-#: anaconda:474
+#: anaconda:477
 msgid ""
 "Text mode provides a limited set of installation options. It does not allow "
 "you to specify your own partitioning layout or package selections. Would you "
 "like to use VNC mode instead?"
 msgstr ""
 
-#: anaconda:496
+#: anaconda:499
 msgid "Graphical installation is not available. Starting text mode."
 msgstr ""
 
-#: anaconda:504
+#: anaconda:507
 msgid "DISPLAY variable not set. Starting text mode."
 msgstr ""
 
@@ -108,85 +108,85 @@ msgstr ""
 msgid "%s Installing %s\n"
 msgstr ""
 
-#: pyanaconda/bootloader.py:211
+#: pyanaconda/bootloader.py:244
 msgid "/boot filesystem"
 msgstr ""
 
-#: pyanaconda/bootloader.py:442
+#: pyanaconda/bootloader.py:475
 #, python-format
 msgid ""
 "RAID sets that contain '%s' must have one of the following raid levels: %s."
 msgstr ""
 
-#: pyanaconda/bootloader.py:450
+#: pyanaconda/bootloader.py:483
 #, python-format
 msgid ""
 "RAID sets that contain '%s' must have one of the following metadata "
 "versions: %s."
 msgstr ""
 
-#: pyanaconda/bootloader.py:458
+#: pyanaconda/bootloader.py:491
 #, python-format
 msgid ""
 "RAID sets that contain '%s' must have one of the following device types: %s."
 msgstr ""
 
-#: pyanaconda/bootloader.py:474
+#: pyanaconda/bootloader.py:507
 #, python-format
 msgid "%s must have one of the following disklabel types: %s."
 msgstr ""
 
-#: pyanaconda/bootloader.py:486 pyanaconda/bootloader.py:615
+#: pyanaconda/bootloader.py:519 pyanaconda/bootloader.py:648
 #, python-format
 msgid "%s cannot be of type %s."
 msgstr ""
 
-#: pyanaconda/bootloader.py:498
+#: pyanaconda/bootloader.py:531
 #, python-format
 msgid "%s must be between %d and %d MB in size"
 msgstr ""
 
-#: pyanaconda/bootloader.py:503
+#: pyanaconda/bootloader.py:536
 #, python-format
 msgid "%s must not be smaller than %dMB."
 msgstr ""
 
-#: pyanaconda/bootloader.py:512
+#: pyanaconda/bootloader.py:545
 #, python-format
 msgid "%s must not be larger than %dMB."
 msgstr ""
 
-#: pyanaconda/bootloader.py:530
+#: pyanaconda/bootloader.py:563
 #, python-format
 msgid "%s must be within the first %dMB of the disk."
 msgstr ""
 
-#: pyanaconda/bootloader.py:655 pyanaconda/bootloader.py:756
+#: pyanaconda/bootloader.py:688 pyanaconda/bootloader.py:789
 #, python-format
 msgid "%s cannot be on an encrypted block device."
 msgstr ""
 
-#: pyanaconda/bootloader.py:718
+#: pyanaconda/bootloader.py:751
 #, python-format
 msgid "%s cannot be of type %s"
 msgstr ""
 
-#: pyanaconda/bootloader.py:1559
+#: pyanaconda/bootloader.py:1600
 msgid ""
 "Your BIOS-based system needs a special partition to boot with Fedora's new "
 "disk label format (GPT). To continue, please create a 1MB 'BIOS Boot' type "
 "partition."
 msgstr ""
 
-#: pyanaconda/bootloader.py:2145
+#: pyanaconda/bootloader.py:2186
 msgid "Bootloader"
 msgstr ""
 
-#: pyanaconda/bootloader.py:2146
+#: pyanaconda/bootloader.py:2187
 msgid "Installing bootloader."
 msgstr ""
 
-#: pyanaconda/bootloader.py:2153 pyanaconda/bootloader.py:2212
+#: pyanaconda/bootloader.py:2194 pyanaconda/bootloader.py:2253
 #: pyanaconda/gui.py:1092 pyanaconda/image.py:87
 #: pyanaconda/installinterfacebase.py:74
 #: pyanaconda/installinterfacebase.py:151 pyanaconda/packages.py:90
@@ -195,13 +195,13 @@ msgstr ""
 msgid "Warning"
 msgstr ""
 
-#: pyanaconda/bootloader.py:2154
+#: pyanaconda/bootloader.py:2195
 msgid ""
 "No kernel packages were installed on the system. Bootloader configuration "
 "will not be changed."
 msgstr ""
 
-#: pyanaconda/bootloader.py:2213
+#: pyanaconda/bootloader.py:2254
 msgid ""
 "There was an error installing the bootloader.  The system may not be "
 "bootable."
@@ -675,15 +675,15 @@ msgstr ""
 msgid "Hardware Error Encountered"
 msgstr ""
 
-#: pyanaconda/iutil.py:853
+#: pyanaconda/iutil.py:856
 msgid "Error determining boot device's disk name"
 msgstr ""
 
-#: pyanaconda/iutil.py:876
+#: pyanaconda/iutil.py:879
 msgid "the device containing /boot"
 msgstr ""
 
-#: pyanaconda/iutil.py:878
+#: pyanaconda/iutil.py:881
 #, python-format
 msgid ""
 "After shutdown, please perform a manual IPL from %s to continue installation."
@@ -801,37 +801,37 @@ msgid ""
 "minutes."
 msgstr ""
 
-#: pyanaconda/network.py:80
+#: pyanaconda/network.py:81
 msgid "Hostname must be 255 or fewer characters in length."
 msgstr ""
 
-#: pyanaconda/network.py:86
+#: pyanaconda/network.py:87
 msgid ""
 "Hostname must start with a valid character in the ranges 'a-z', 'A-Z', or "
 "'0-9'"
 msgstr ""
 
-#: pyanaconda/network.py:91
+#: pyanaconda/network.py:92
 msgid ""
 "Hostnames can only contain the characters 'a-z', 'A-Z', '0-9', '-', or '.'"
 msgstr ""
 
-#: pyanaconda/network.py:135
+#: pyanaconda/network.py:136
 msgid "IP address is missing."
 msgstr ""
 
-#: pyanaconda/network.py:139
+#: pyanaconda/network.py:140
 msgid ""
 "IPv4 addresses must contain four numbers between 0 and 255, separated by "
 "periods."
 msgstr ""
 
-#: pyanaconda/network.py:142
+#: pyanaconda/network.py:143
 #, python-format
 msgid "'%s' is not a valid IPv6 address."
 msgstr ""
 
-#: pyanaconda/network.py:144
+#: pyanaconda/network.py:145
 #, python-format
 msgid "'%s' is an invalid IP address."
 msgstr ""
@@ -1470,6 +1470,17 @@ msgstr ""
 
 #: pyanaconda/upgrade.py:237
 msgid "Invalid Directories"
+msgstr ""
+
+#: pyanaconda/upgrade.py:275
+msgid "/usr upgrade failed"
+msgstr ""
+
+#: pyanaconda/upgrade.py:276
+msgid ""
+"convertfs failed to upgrade your system to symlink into /usr. This is "
+"required for Fedora 17 to work. The upgrade cannot continue.\n"
+"\n"
 msgstr ""
 
 #: pyanaconda/vnc.py:133

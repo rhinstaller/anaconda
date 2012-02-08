@@ -232,6 +232,17 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Wed Feb 08 2012 Brian C. Lane <bcl@redhat.com> - 17.7-1
+- anaconda_optparse.py: a new OptionParser that also reads boot args (wwoods)
+- Add flags.set_cmdline_bool and flags.read_cmdline (wwoods)
+- flags.py: add new BootArgs() object for dealing with boot args (wwoods)
+- flags.py: rework/cleanup Flags object (wwoods)
+- fix serial console option parsing (#767745) (wwoods)
+- run convertfs on upgrade (#787893) (bcl)
+- check if stdout and stderr are the same in execWithRedirect and open the file
+  only once in such cases (mmatsuya)
+- Disable ipv6 on target system when using noipv6 option (#735791) (rvykydal)
+
 * Mon Feb 06 2012 Brian C. Lane <bcl@redhat.com> - 17.6-1
 - Set the boot flag on the GPT PMBR (#754850) (bcl)
 - Add missing _boot_description values for dasd and zfcp (#739620) (dcantrell)
