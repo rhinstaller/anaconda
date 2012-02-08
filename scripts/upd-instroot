@@ -199,7 +199,7 @@ PACKAGES="GConf2 NetworkManager NetworkManager-gnome ORBit2 acl anaconda
     system-config-keyboard ${brandpkgname}-logos ${brandpkgname}-release
     sysvinit-tools tcp_wrappers tcp_wrappers-libs telnet
     tzdata udev un-core-dotum-fonts urw-fonts util-linux-ng tigervnc-server
-    tigervnc-server-module vconfig vlgothic-fonts vim-minimal
+    tigervnc-server-module vconfig virt-what vlgothic-fonts vim-minimal
     wget which wpa_supplicant xcb-util xkeyboard-config xfsprogs xorg-x11-xauth
     xorg-x11-drivers xorg-x11-font-utils xorg-x11-fonts-ethiopic
     xorg-x11-fonts-misc xorg-x11-server-utils
@@ -636,6 +636,7 @@ usr/libexec/nm-crash-logger
 usr/libexec/nm-dhcp-client.action
 usr/libexec/nm-dispatcher.action
 usr/libexec/polkit*
+usr/libexec/virt-what-cpuid-helper
 usr/sbin/NetworkManager
 usr/sbin/addRamDisk
 usr/sbin/anaconda
@@ -659,6 +660,7 @@ usr/sbin/showpart
 usr/sbin/smartctl
 usr/sbin/sshd
 usr/sbin/.sshd.hmac
+usr/sbin/virt-what
 usr/sbin/wpa_passphrase
 usr/sbin/wpa_supplicant
 usr/sbin/wrapper
