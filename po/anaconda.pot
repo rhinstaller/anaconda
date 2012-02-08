@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 13.21.149\n"
+"Project-Id-Version: anaconda 13.21.150\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2012-01-31 14:55-0500\n"
+"POT-Creation-Date: 2012-02-08 13:44-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -97,7 +97,7 @@ msgid "Installing %s\n"
 msgstr ""
 
 #: bootloader.py:55 bootloader.py:238 bootloader.py:244 gui.py:1284
-#: image.py:82 installinterfacebase.py:66 network.py:822 text.py:490
+#: image.py:82 installinterfacebase.py:66 network.py:839 text.py:490
 #: text.py:550 yuminstall.py:1573 yuminstall.py:1782 yuminstall.py:1817
 #: iw/blpasswidget.py:154 iw/upgrade_swap_gui.py:190
 #: iw/upgrade_swap_gui.py:198 iw/upgrade_swap_gui.py:205
@@ -470,7 +470,7 @@ msgstr ""
 #: yuminstall.py:1615 iw/advanced_storage.py:379 iw/advanced_storage.py:389
 #: iw/advanced_storage.py:440 iw/autopart_type.py:95 iw/cleardisks_gui.py:44
 #: iw/cleardisks_gui.py:54 iw/filter_gui.py:437 iw/osbootwidget.py:211
-#: iw/osbootwidget.py:220 iw/raid_dialog_gui.py:220 iw/task_gui.py:54
+#: iw/osbootwidget.py:221 iw/raid_dialog_gui.py:220 iw/task_gui.py:54
 #: iw/task_gui.py:152 iw/task_gui.py:305 iw/task_gui.py:472
 #: loader/windows.h:31 loader/cdinstall.c:240 loader/cdinstall.c:512
 #: loader/driverdisk.c:294 loader/driverdisk.c:545 loader/driverdisk.c:586
@@ -706,52 +706,52 @@ msgid ""
 "(%.2f MB required)."
 msgstr ""
 
-#: network.py:71
+#: network.py:72
 msgid "Hostname must be 255 or fewer characters in length."
 msgstr ""
 
-#: network.py:77
+#: network.py:78
 msgid ""
 "Hostname must start with a valid character in the ranges 'a-z', 'A-Z', or '0-"
 "9'"
 msgstr ""
 
-#: network.py:82
+#: network.py:83
 msgid ""
 "Hostnames can only contain the characters 'a-z', 'A-Z', '0-9', '-', or '.'"
 msgstr ""
 
-#: network.py:126
+#: network.py:127
 msgid "IP address is missing."
 msgstr ""
 
-#: network.py:130
+#: network.py:131
 msgid ""
 "IPv4 addresses must contain four numbers between 0 and 255, separated by "
 "periods."
 msgstr ""
 
-#: network.py:133
+#: network.py:134
 #, python-format
 msgid "'%s' is not a valid IPv6 address."
 msgstr ""
 
-#: network.py:135
+#: network.py:136
 #, python-format
 msgid "'%s' is an invalid IP address."
 msgstr ""
 
-#: network.py:823
+#: network.py:840
 msgid ""
 "You do not have an active network connection.  This is required by some "
 "exception saving methods.  Would you like to configure your network now?"
 msgstr ""
 
-#: network.py:829 rescue.py:262 yuminstall.py:1294 iw/task_gui.py:311
+#: network.py:846 rescue.py:262 yuminstall.py:1294 iw/task_gui.py:311
 msgid "No Network Available"
 msgstr ""
 
-#: network.py:830
+#: network.py:847
 msgid "Remote exception saving methods will not work."
 msgstr ""
 
@@ -1074,27 +1074,27 @@ msgstr ""
 msgid "Use the credentials from the discovery step"
 msgstr ""
 
-#: partIntfHelpers.py:472
+#: partIntfHelpers.py:470
 msgid "iSCSI Nodes"
 msgstr ""
 
-#: partIntfHelpers.py:473 storage/iscsi.py:341
-msgid "No new iSCSI nodes discovered"
+#: partIntfHelpers.py:471
+msgid "No iSCSI nodes to log in"
 msgstr ""
 
-#: partIntfHelpers.py:514
+#: partIntfHelpers.py:512
 msgid "iSCSI Error"
 msgstr ""
 
-#: partIntfHelpers.py:519
+#: partIntfHelpers.py:517
 msgid "Discovery"
 msgstr ""
 
-#: partIntfHelpers.py:519
+#: partIntfHelpers.py:517
 msgid "Login"
 msgstr ""
 
-#: partIntfHelpers.py:520
+#: partIntfHelpers.py:518
 #, python-format
 msgid "iSCSI %s Error"
 msgstr ""
@@ -2734,31 +2734,31 @@ msgstr ""
 msgid "You must specify a label for the entry"
 msgstr ""
 
-#: iw/osbootwidget.py:221
+#: iw/osbootwidget.py:222
 msgid "Boot label contains illegal characters"
 msgstr ""
 
-#: iw/osbootwidget.py:245
+#: iw/osbootwidget.py:247
 msgid "Duplicate Label"
 msgstr ""
 
-#: iw/osbootwidget.py:246
+#: iw/osbootwidget.py:248
 msgid "This label is already in use for another boot entry."
 msgstr ""
 
-#: iw/osbootwidget.py:259
+#: iw/osbootwidget.py:262
 msgid "Duplicate Device"
 msgstr ""
 
-#: iw/osbootwidget.py:260
+#: iw/osbootwidget.py:263
 msgid "This device is already being used for another boot entry."
 msgstr ""
 
-#: iw/osbootwidget.py:322
+#: iw/osbootwidget.py:326
 msgid "Cannot Delete"
 msgstr ""
 
-#: iw/osbootwidget.py:323
+#: iw/osbootwidget.py:327
 #, python-format
 msgid ""
 "This boot target cannot be deleted because it is for the %s system you are "
@@ -3160,7 +3160,7 @@ msgstr ""
 msgid "Time Zone Selection"
 msgstr ""
 
-#: iw/upgrade_bootloader_gui.py:37 textw/upgrade_bootloader_text.py:129
+#: iw/upgrade_bootloader_gui.py:37 textw/upgrade_bootloader_text.py:130
 msgid "Upgrade Boot Loader Configuration"
 msgstr ""
 
@@ -3184,7 +3184,7 @@ msgid ""
 "system."
 msgstr ""
 
-#: iw/upgrade_bootloader_gui.py:138 textw/upgrade_bootloader_text.py:116
+#: iw/upgrade_bootloader_gui.py:138 textw/upgrade_bootloader_text.py:117
 #, python-format
 msgid ""
 "The installer has detected the %(type)s boot loader currently installed on %"
@@ -4795,48 +4795,48 @@ msgstr ""
 msgid "Creating %s on %s"
 msgstr ""
 
-#: storage/iscsi.py:125
+#: storage/iscsi.py:127
 msgid "Unable to change iSCSI initiator name once set"
 msgstr ""
 
-#: storage/iscsi.py:127
+#: storage/iscsi.py:129
 msgid "Must provide an iSCSI initiator name"
 msgstr ""
 
-#: storage/iscsi.py:159 storage/iscsi.py:160
+#: storage/iscsi.py:183 storage/iscsi.py:184
 msgid "Scanning iSCSI nodes"
 msgstr ""
 
-#: storage/iscsi.py:180 storage/iscsi.py:181
+#: storage/iscsi.py:204 storage/iscsi.py:205
 msgid "Initializing iSCSI initiator"
 msgstr ""
 
-#: storage/iscsi.py:231 storage/iscsi.py:292
+#: storage/iscsi.py:260
 msgid "iSCSI not available"
 msgstr ""
 
-#: storage/iscsi.py:233 storage/iscsi.py:294
+#: storage/iscsi.py:262
 msgid "No initiator name set"
 msgstr ""
 
-#: storage/iscsi.py:261
+#: storage/iscsi.py:301
 msgid "Logging in to iSCSI node"
 msgstr ""
 
-#: storage/iscsi.py:262
+#: storage/iscsi.py:302
 #, python-format
 msgid "Logging in to iSCSI node %s"
 msgstr ""
 
-#: storage/iscsi.py:308
+#: storage/iscsi.py:336
 msgid "No iSCSI nodes discovered"
 msgstr ""
 
-#: storage/iscsi.py:311 storage/iscsi.py:312
-msgid "Logging in to iSCSI nodes"
+#: storage/iscsi.py:352
+msgid "No new iSCSI nodes discovered"
 msgstr ""
 
-#: storage/iscsi.py:344
+#: storage/iscsi.py:355
 msgid "Could not log in to any of the discovered nodes"
 msgstr ""
 
@@ -5163,11 +5163,11 @@ msgstr ""
 msgid "System clock uses UTC"
 msgstr ""
 
-#: textw/upgrade_bootloader_text.py:111 textw/upgrade_bootloader_text.py:121
+#: textw/upgrade_bootloader_text.py:111 textw/upgrade_bootloader_text.py:122
 msgid "Update boot loader configuration"
 msgstr ""
 
-#: textw/upgrade_bootloader_text.py:124
+#: textw/upgrade_bootloader_text.py:125
 msgid "Skip boot loader updating"
 msgstr ""
 

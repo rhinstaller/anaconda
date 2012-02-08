@@ -222,6 +222,18 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Wed Feb 08 2012 David Cantrell <dcantrell@redhat.com> - 13.21.151-1
+- Disable ipv6 on target system when using noipv6 option (rvykydal)
+  Resolves: rhbz#735791
+- set bootloader default when no bootloader detected (bcl)
+  Resolves: rhbz#754375
+- Focus the Add/Edit boot loader dialog after error (mgracik)
+  Resolves: rhbz#745797
+- iscsi: no discovery on each target login (ks + consolidate) (rvykydal)
+  Resolves: rhbz#752066
+- iscsi: no discovery on each target login (UI) (rvykydal)
+  Resolves: rhbz#752066
+
 * Tue Jan 31 2012 David Cantrell <dcantrell@redhat.com> - 13.21.150-1
 - Set default BOOTPROTO=dhcp for network service (minimal installs) (rvykydal)
   Resolves: rhbz#723404
