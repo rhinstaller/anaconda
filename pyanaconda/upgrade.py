@@ -82,11 +82,18 @@ def findRootParts(anaconda):
 
         if notUpgradable and not anaconda.rootParts:
             oldInstalls = ""
-            for info in notUpgradable:
-                if None in info[:2]:
-                    oldInstalls += _("Unknown release on %s") % (info[2])
+            for product, version, arch, name, tests in notUpgradable:
+                if None in (product, version):
+                    oldInstalls = _("Unknown release on %s -") % (name)
                 else:
-                    oldInstalls += "%s %s on %s" % (info)
+                    oldInstalls = "%s %s %s on %s -" % (product, version, arch, name)
+
+                if not tests["product"]:
+                    oldInstalls += _(" Product mismatch.")
+                if not tests["version"]:
+                    oldInstalls += _(" Version mismatch.")
+                if not tests["arch"]:
+                    oldInstalls += _(" Architecture mismatch.")
                 oldInstalls += "\n"
             rc = anaconda.intf.messageWindow(_("Cannot Upgrade"),
                     _("Your current installation cannot be upgraded. This "

@@ -201,6 +201,11 @@ class BaseInstallClass(object):
         pass
 
     def productUpgradable(self, arch, oldprod, oldver):
+        """ Return a tuple with:
+            (Upgradable True|False, dict of tests and status)
+
+            The dict has True|False for: product, version, arch tests.
+        """
         def archesEq(a, b):
             import re
 
@@ -209,7 +214,12 @@ class BaseInstallClass(object):
             else:
                 return a == b
 
-        return self.productMatches(oldprod) and self.versionMatches(oldver) and archesEq(arch, productArch)
+        result = { "product" : self.productMatches(oldprod),
+                   "version"  : self.versionMatches(oldver),
+                   "arch"     : archesEq(arch, productArch)
+                 }
+
+        return (all(result.values()), result)
 
     def setNetworkOnbootDefault(self, network):
         pass
