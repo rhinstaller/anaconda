@@ -108,7 +108,9 @@ def collect_device_format_classes():
             try:
                 globals()[mod_name] = __import__(mod_name, globals(), locals(), [], -1)
             except ImportError:
-                log.debug("import of device format module '%s' failed" % mod_name)
+                log.error("import of device format module '%s' failed" % mod_name)
+                from traceback import format_exc
+                log.debug(format_exc())
 
 def get_device_format_class(fmt_type):
     """ Return an appropriate format class based on fmt_type. """
