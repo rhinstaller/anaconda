@@ -298,6 +298,7 @@ class Anaconda(object):
         self.network.write()
         self.network.copyConfigToPath()
         self.network.disableNMForStorageDevices(self)
+        self.network.autostartFCoEDevices(self)
         self.desktop.write()
         self.users.write()
         self.security.write()
