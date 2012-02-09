@@ -24,6 +24,7 @@ import os
 import copy
 
 from pyanaconda.anaconda_log import log_method_call
+from pyanaconda import iutil
 import parted
 import _ped
 from ..errors import *
@@ -160,8 +161,11 @@ class DiskLabel(DeviceFormat):
 
             # Set the boot flag on the GPT PMBR, this helps some BIOS systems boot
             if self._partedDisk.isFlagAvailable(parted.DISK_GPT_PMBR_BOOT):
-                self._partedDisk.setFlag(parted.DISK_GPT_PMBR_BOOT)
-                log.debug("Set pmbr_boot on %s" % (self._partedDisk,))
+                if iutil.isEfi():
+                    log.debug("Not setting pmbr_boot on %s" % (self._partedDisk,))
+                else:
+                    self._partedDisk.setFlag(parted.DISK_GPT_PMBR_BOOT)
+                    log.debug("Set pmbr_boot on %s" % (self._partedDisk,))
             else:
                 log.debug("Did not set pmbr_boot on %s" % (self._partedDisk,))
 
