@@ -232,6 +232,10 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Thu Feb 09 2012 Brian C. Lane <bcl@redhat.com> - 18.0-1
+- Set ONBOOT=yes for FCoE devices (#755147) (rvykydal)
+- Add details to transifex.doc for branching (bcl)
+
 * Wed Feb 08 2012 Brian C. Lane <bcl@redhat.com> - 17.7-1
 - anaconda_optparse.py: a new OptionParser that also reads boot args (wwoods)
 - Add flags.set_cmdline_bool and flags.read_cmdline (wwoods)
