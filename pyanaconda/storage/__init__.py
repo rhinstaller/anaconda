@@ -1554,9 +1554,20 @@ def getReleaseString():
     return (relArch, relName, relVer)
 
 def findExistingRootDevices(anaconda, upgradeany=False):
-    """ Return a tuple of:
-        list of all root filesystems in the device tree.
+    """ upgradeany will cause it to ignore version, product and
+    arch mismatches. Use with caution.
+
+    Return a tuple of:
+        list of all upgradable root filesystems.
         list of previous installs that cannot be upgraded.
+
+    The upgradable tuple is:
+        (device, "%product %version")
+
+    The non-upgradable tuple is:
+        (product, version, arch, device.name, test_dict)
+        The test_dict contains the results of the upgrade test for the
+        product, version and arch.
     """
     rootDevs = []
     notUpgradable = []
@@ -1605,13 +1616,14 @@ def findExistingRootDevices(anaconda, upgradeany=False):
                 log.info("findExistingRootDevices: no arch.")
                 continue
 
-            if upgradeany or \
-               anaconda.instClass.productUpgradable(arch, product, version):
+            (upgradable, tests) = anaconda.instClass.productUpgradable(arch, product, version)
+            if upgradeany or upgradable:
                 rootDevs.append((device, "%s %s" % (product, version)))
             else:
-                notUpgradable.append((product, version, device.name))
+                notUpgradable.append((product, version, arch, device.name, tests))
                 log.info("product %s, version %s, arch %s found on %s is not upgradable"
                          % (product, version, arch, device.name))
+                log.debug("test results: %s" % (tests,))
         else:
             # this handles unmounting the filesystem
             device.teardown(recursive=True)
