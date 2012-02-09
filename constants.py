@@ -89,3 +89,7 @@ DD_FIRMWARE = "/tmp/DD/lib/firmware"
 DD_RPMS = "/tmp/DD-*"
 
 TRANSLATIONS_UPDATE_DIR="/tmp/updates/po"
+
+# number of retries before displaying an error dialog
+YUM_DOWNLOAD_RETRIES = 3
+YUM_DOWNLOAD_DELAY = 3

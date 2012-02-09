@@ -173,16 +173,18 @@ class AnacondaCallback:
             self.instLog.flush()
             self.openfile = None
 
+            trynumber = 0
             while self.openfile is None:
+                trynumber += 1
                 try:
                     fn = repo.getPackage(po)
 
                     f = open(fn, 'r')
                     self.openfile = f
                 except yum.Errors.NoMoreMirrorsRepoError:
-                    self.ayum._handleFailure(po)
+                    self.ayum._handleFailure(po, trynumber)
                 except IOError:
-                    self.ayum._handleFailure(po)
+                    self.ayum._handleFailure(po, trynumber)
                 except yum.Errors.RepoError, e:
                     continue
             self.inProgressPo = po
@@ -906,19 +908,21 @@ class AnacondaYum(YumSorter):
                 log.warning("failed to clean /boot/upgrade")
 
     def downloadHeader(self, po):
+        trynumber = 0
         while True:
             # retrying version of download header
+            trynumber += 1
             try:
                 YumSorter.downloadHeader(self, po)
                 break
             except yum.Errors.NoMoreMirrorsRepoError:
-                self._handleFailure(po)
+                self._handleFailure(po, trynumber)
             except IOError:
-                self._handleFailure(po)
+                self._handleFailure(po, trynumber)
             except yum.Errors.RepoError, e:
                 continue
 
-    def _handleFailure(self, package):
+    def _handleFailure(self, package, trynumber=YUM_DOWNLOAD_RETRIES):
         if not self.isodir and self.currentMedia:
             buttons = [_("Re_boot"), _("_Eject")]
         else:
@@ -932,15 +936,21 @@ class AnacondaYum(YumSorter):
 
             urlgrabber.grabber.reset_curl_obj()
 
-        rc = self.anaconda.intf.messageWindow(_("Error"),
-                   _("The file %s cannot be opened.  This is due to a missing "
-                     "file, a corrupt package or corrupt media.  Please "
-                     "verify your installation source.\n\n"
-                     "If you exit, your system will be left in an inconsistent "
-                     "state that will likely require reinstallation.\n\n") %
-                                              (pkgFile,),
-                                    type="custom", custom_icon="error",
-                                    custom_buttons=buttons)
+        # only show the retry window after 3 tries
+        if trynumber < YUM_DOWNLOAD_RETRIES:
+            log.warning('package download failure, retrying automatically')
+            time.sleep(YUM_DOWNLOAD_DELAY * trynumber)
+            rc = 1
+        else:
+            rc = self.anaconda.intf.messageWindow(_("Error"),
+                       _("The file %s cannot be opened.  This is due to a missing "
+                         "file, a corrupt package or corrupt media.  Please "
+                         "verify your installation source.\n\n"
+                         "If you exit, your system will be left in an inconsistent "
+                         "state that will likely require reinstallation.\n\n") %
+                                                  (pkgFile,),
+                                        type="custom", custom_icon="error",
+                                        custom_buttons=buttons)
 
         if rc == 0:
             sys.exit(0)
