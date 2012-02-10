@@ -17,7 +17,7 @@
 #
 # Author: David Cantrell <dcantrell@redhat.com>
 
-EXTRA_DIST = install-methods.txt mediacheck.txt anaconda-release-notes.txt \
+EXTRA_DIST = install-methods.txt mediacheck.txt \
              lvm_sanity_checks.txt rescue-mode api.cfg making-screenshots \
              threads.txt command-line.txt gettext.txt transifex.txt
 
