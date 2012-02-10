@@ -224,8 +224,15 @@ class UIObject(object):
         pass
 
     def retranslate(self):
+        """This method should be called when the current language is changed
+           in order to update the UI for the new language.  Since we don't get
+           any toolkit help for this, it is largely a manual process.
+        """
         from gi.repository import AnacondaWidgets, Gtk
 
+        # NOTE:  If you see widgets on a screen that remain untranslated even
+        # when you know there are translations, the widgets likely need to be
+        # added to this dict.
         # Widget class -> (getter, setter)   -or-
         # Widget class -> (setter, )
         widgetMap = { AnacondaWidgets.StandaloneWindow: ("retranslate", ),
