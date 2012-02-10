@@ -18,5 +18,5 @@
 # Author: Chris Lumens <clumens@redhat.com>
 
 systemddir = /lib/systemd/system
-dist_systemd_DATA = anaconda-shell@.service anaconda.target loader.service instperf.service
+dist_systemd_DATA = anaconda-shell@.service anaconda.target anaconda.service instperf.service
 MAINTAINERCLEANFILES = Makefile.in
