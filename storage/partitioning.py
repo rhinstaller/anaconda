@@ -421,13 +421,16 @@ def clearPartitions(storage):
     # now remove any empty extended partitions
     removeEmptyExtendedPartitions(storage)
 
-    # make sure that the the boot device has the correct disklabel type if
-    # we're going to completely clear it.
+    # make sure that the the boot device, along with any other disk we are
+    # supposed to reinitialize, has the correct disklabel type if we're going
+    # to completely clear it.
     for disk in storage.partitioned:
-        if not storage.anaconda.id.bootloader.drivelist:
+        if not storage.anaconda.id.bootloader.drivelist and \
+           not storage.reinitializeDisks:
             break
 
-        if disk.name != storage.anaconda.id.bootloader.drivelist[0]:
+        if not storage.reinitializeDisks and \
+           disk.name != storage.anaconda.id.bootloader.drivelist[0]:
             continue
 
         if storage.clearPartType != CLEARPART_TYPE_ALL or \
