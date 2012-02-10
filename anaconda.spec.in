@@ -208,7 +208,6 @@ update-desktop-database &> /dev/null || :
 %doc docs/command-line.txt
 %doc docs/install-methods.txt
 %doc docs/mediacheck.txt
-%doc docs/anaconda-release-notes.txt
 /lib/systemd/system/*
 /lib/udev/rules.d/70-anaconda.rules
 %{_bindir}/instperf
