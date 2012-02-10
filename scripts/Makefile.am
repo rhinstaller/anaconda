@@ -20,8 +20,7 @@
 scriptsdir = $(libexecdir)/$(PACKAGE_NAME)
 dist_scripts_SCRIPTS = getkeymaps upd-updates
 dist_scripts_DATA    = pyrc.py
-dist_noinst_SCRIPTS  = getlangnames.py upd-initrd upd-kernel \
-                       makeupdates
+dist_noinst_SCRIPTS  = getlangnames.py upd-kernel makeupdates
 
 dist_bin_SCRIPTS = analog anaconda-cleanup instperf
 
