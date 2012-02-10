@@ -1114,27 +1114,6 @@ class DeviceTree(object):
                 pass
             return
 
-        # if the disk contains protected partitions we will not wipe the
-        # disklabel even if clearpart --initlabel was specified
-        if not self.clearPartDisks or device.name in self.clearPartDisks:
-            initlabel = self.reinitializeDisks
-            sysfs_path = udev_device_get_sysfs_path(info)
-            for protected in self.protectedDevNames:
-                # check for protected partition
-                _p = "/sys/%s/%s" % (sysfs_path, protected)
-                if os.path.exists(os.path.normpath(_p)):
-                    initlabel = False
-                    break
-
-                # check for protected partition on a device-mapper disk
-                disk_name = re.sub(r'p\d+$', '', protected)
-                if disk_name != protected and disk_name == device.name:
-                    initlabel = False
-                    break
-        else:
-            initlabel = False
-
-
         if self._cleanup:
             initcb = lambda: False
         elif self.zeroMbr:
@@ -1158,13 +1137,10 @@ class DeviceTree(object):
         labelType = self.platform.bestDiskLabelType(device)
 
         try:
-            # XXX if initlabel is True we don't ever instantiate a format
-            #     for the original disklabel, so we will only have a
-            #     DeviceFormat instance to destroy.
             format = getFormat("disklabel",
                                device=device.path,
                                labelType=labelType,
-                               exists=not initlabel)
+                               exists=True)
         except InvalidDiskLabelError:
             # if we have a cb function use it. else we ignore the device.
             if initcb is not None and initcb():
