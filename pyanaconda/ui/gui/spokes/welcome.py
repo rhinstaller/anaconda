@@ -69,9 +69,6 @@ class WelcomeLanguageSpoke(StandaloneSpoke):
         txt = welcomeLabel.get_label()
         welcomeLabel.set_label(txt % (productName.upper(), productVersion))
 
-    def setup(self):
-        StandaloneSpoke.setup(self)
-
     def _addLanguage(self, store, native, english, setting):
         store.append([native, english, setting])
 

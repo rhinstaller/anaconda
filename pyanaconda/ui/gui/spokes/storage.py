@@ -131,9 +131,9 @@ class SelectedDisksDialog(UIObject):
         self.disks = disks[:]
         self._update_summary()
 
-    def setup(self, disks):
-        print "SETUP selected disks dialog"
-        super(SelectedDisksDialog, self).setup()
+    def refresh(self, disks):
+        print "REFRESH selected disks dialog"
+        super(SelectedDisksDialog, self).refresh()
 
         self._view = self.builder.get_object("disk_view")
         self._store = self.builder.get_object("disk_store")
@@ -222,7 +222,7 @@ class InstallOptions1Dialog(UIObject):
         self.window.destroy()
         return rc
 
-    def setup(self, required_space, disk_free, fs_free):
+    def refresh(self, required_space, disk_free, fs_free):
         custom = not self.data.autopart.autopart
         self.custom_checkbutton = self.builder.get_object("options1_custom_check")
         self.custom_checkbutton.set_active(custom)
@@ -281,7 +281,7 @@ class InstallOptions2Dialog(InstallOptions1Dialog):
     builderObjects = ["options2_dialog"]
     mainWidgetName = "options2_dialog"
 
-    def setup(self, required_space, disk_free, fs_free):
+    def refresh(self, required_space, disk_free, fs_free):
         custom = not self.data.autopart.autopart
         self.custom_checkbutton = self.builder.get_object("options2_custom_check")
         self.custom_checkbutton.set_active(custom)
@@ -310,7 +310,7 @@ class InstallOptions3Dialog(InstallOptions1Dialog):
     builderObjects = ["options3_dialog"]
     mainWidgetName = "options3_dialog"
 
-    def setup(self, required_space, disk_free, fs_free):
+    def refresh(self, required_space, disk_free, fs_free):
         sw_text = self._get_sw_needs_text(required_space)
         label_text = (_("%s\nYou don't have enough space available to install "
                         "<b>%s</b>, even if you used all of the free space\n"
@@ -459,10 +459,6 @@ class StorageSpoke(NormalSpoke):
 
         Gdk.threads_leave()
 
-    def setup(self):
-        # XXX this is called every time we switch to this spoke
-        NormalSpoke.setup(self)
-
     def _update_summary(self):
         """ Update the summary based on the UI. """
         print "UPDATING SUMMARY"
@@ -517,7 +513,7 @@ class StorageSpoke(NormalSpoke):
     def on_summary_clicked(self, button):
         # show the selected disks dialog
         dialog = SelectedDisksDialog(self.data)
-        dialog.setup(self.disks)
+        dialog.refresh(self.disks)
         rc = self.run_lightbox_dialog(dialog)
 
         # update the UI to reflect changes to self.data.ignoredisk.onlyuse
@@ -547,7 +543,7 @@ class StorageSpoke(NormalSpoke):
         else:
             dialog = InstallOptions3Dialog(self.data)
 
-        dialog.setup(required_space, disk_free, fs_free)
+        dialog.refresh(required_space, disk_free, fs_free)
         rc = self.run_lightbox_dialog(dialog)
         if rc == dialog.RESPONSE_CONTINUE:
             # depending on custom/autopart, either set up autopart or show

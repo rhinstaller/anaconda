@@ -50,7 +50,7 @@ hub.initialize()
 if not hub.showable:
     print "This hub is not showable, but I'll continue anyway."
 
-hub.setup()
+hub.refresh()
 hub.window.set_beta(True)
 hub.window.set_property("distribution", "TEST HARNESS")
 hub.window.show_all()

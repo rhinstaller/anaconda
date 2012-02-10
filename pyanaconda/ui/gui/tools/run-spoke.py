@@ -51,7 +51,7 @@ spoke.initialize()
 if not spoke.showable:
     print "This spoke is not showable, but I'll continue anyway."
 
-spoke.setup()
+spoke.refresh()
 spoke.window.set_beta(True)
 spoke.window.set_property("distribution", "TEST HARNESS")
 spoke.window.show_all()

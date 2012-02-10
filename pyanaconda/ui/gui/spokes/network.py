@@ -329,7 +329,7 @@ class NetworkControlBox():
         selection = treeview.get_selection()
         selection.select_iter(devices_store.get_iter_first())
 
-    def setup(self):
+    def refresh(self):
         self.refresh_ui()
 
     def status(self):
@@ -926,9 +926,9 @@ class NetworkSpoke(NormalSpoke):
         NormalSpoke.initialize(self)
         self.network_control_box.initialize()
 
-    def setup(self):
-        NormalSpoke.setup(self)
-        self.network_control_box.setup()
+    def refresh(self):
+        NormalSpoke.refresh(self)
+        self.network_control_box.refresh()
 
 
 class NetworkStandaloneSpoke(StandaloneSpoke):
@@ -952,9 +952,9 @@ class NetworkStandaloneSpoke(StandaloneSpoke):
         StandaloneSpoke.initialize(self)
         self.network_control_box.initialize()
 
-    def setup(self):
-        StandaloneSpoke.setup(self)
-        self.network_control_box.setup()
+    def refresh(self):
+        StandaloneSpoke.refresh(self)
+        self.network_control_box.refresh()
 
     def on_back_clicked(self, window):
         self.window.hide()
@@ -973,7 +973,7 @@ if __name__ == "__main__":
 
     n = NetworkControlBox(builder)
     n.initialize()
-    n.setup()
+    n.refresh()
 
     n.vbox.reparent(win)
 

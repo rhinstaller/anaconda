@@ -78,7 +78,7 @@ class Hub(UIObject):
     def _runSpoke(self, action):
         from gi.repository import Gtk
 
-        action.setup()
+        action.refresh()
 
         # Set various properties on the new Spoke based upon what was set
         # on the Hub.
@@ -187,8 +187,8 @@ class Hub(UIObject):
             self.window.set_info(Gtk.MessageType.WARNING, _("Please complete items marked with this icon before continuing to the next step."))
             self.continueButton.set_sensitive(False)
 
-    def setup(self):
-        UIObject.setup(self)
+    def refresh(self):
+        UIObject.refresh(self)
         self._createBox()
 
     ### SIGNAL HANDLERS

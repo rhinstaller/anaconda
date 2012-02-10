@@ -28,8 +28,8 @@ class ProgressHub(Hub):
     mainWidgetName = "progressWindow"
     uiFile = "hubs/progress.ui"
 
-    def setup(self):
-        Hub.setup(self)
+    def refresh(self):
+        Hub.refresh(self)
 
         # There's nothing to install yet, so just jump to the reboot button.
         notebook = self.builder.get_object("progressNotebook")

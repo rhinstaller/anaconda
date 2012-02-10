@@ -55,7 +55,7 @@ class AddLayoutDialog(UIObject):
         except ValueError as valerr:
             return False
 
-    def setup(self):
+    def refresh(self):
         self._treeModelFilter = self.builder.get_object("newLayoutStoreFilter")
         self._treeModelFilter.set_visible_func(self.matches_entry, None)
         self._entry = self.builder.get_object("addLayoutEntry")
@@ -136,8 +136,8 @@ class KeyboardSpoke(NormalSpoke):
         self._addLayout(self._store, "Irish")
         self._addLayout(self._store, "English (US, with some other stuff)")
 
-    def setup(self):
-        NormalSpoke.setup(self)
+    def refresh(self):
+        NormalSpoke.refresh(self)
 
         self._upButton = self.builder.get_object("upButton")
         self._downButton = self.builder.get_object("downButton")
@@ -156,7 +156,7 @@ class KeyboardSpoke(NormalSpoke):
     # Signal handlers.
     def on_add_clicked(self, button):
         dialog = AddLayoutDialog(self.data)
-        dialog.setup()
+        dialog.refresh()
         dialog.initialize()
         lightbox = AnacondaWidgets.lb_show_over(self.window)
         dialog.window.set_transient_for(lightbox)

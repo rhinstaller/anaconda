@@ -68,9 +68,6 @@ class SoftwareSelectionSpoke(NormalSpoke):
         self._addSelection(self._addonStore, "Electronic Lab", "Fedora's high-end hardware design and simulation platform.")
         self._addSelection(self._addonStore, "Design Suite", "Open creativity.")
 
-    def setup(self):
-        NormalSpoke.setup(self)
-
     def _addSelection(self, store, name, description):
         store.append([False, "<b>%s</b>\n%s" % (name, description), name])
 

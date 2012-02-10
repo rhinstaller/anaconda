@@ -64,7 +64,7 @@ class MediaCheckDialog(UIObject):
 # Two assumptions about the use of this class:
 # (1) This class is responsible for mounting and unmounting the partition
 #     containing the ISO images.
-# (2) When you call setup() with a currentFile argument or when you get a
+# (2) When you call refresh() with a currentFile argument or when you get a
 #     result from run(), the file path you use is relative to the root of the
 #     mounted partition.  In other words, it will not contain the
 #     "/mnt/isodir/install" part.  This is consistent with the rest of anaconda.
@@ -73,8 +73,8 @@ class IsoChooser(UIObject):
     mainWidgetName = "isoChooserDialog"
     uiFile = "spokes/source.ui"
 
-    def setup(self, currentFile=""):
-        UIObject.setup(self)
+    def refresh(self, currentFile=""):
+        UIObject.refresh(self)
         self._chooser = self.builder.get_object("isoChooser")
         self._chooser.connect("current-folder-changed", self.on_folder_changed)
         self._chooser.set_filename(MOUNTPOINT + "/" + currentFile)
@@ -148,7 +148,7 @@ class SourceSpoke(NormalSpoke):
             self.data.method.url = url
 
             # Make sure the URL starts with the protocol.  yum will want that
-            # to know how to fetch, and the setup method needs that to know
+            # to know how to fetch, and the refresh method needs that to know
             # which element of the combo to default to should this spoke be
             # revisited.
             if self._ftp_active(self._protocolComboBox) and not self.data.method.url.startswith("ftp://"):
@@ -245,12 +245,12 @@ class SourceSpoke(NormalSpoke):
             combo.set_active(0)
 
         # Add the mirror manager URL in as the default for HTTP and HTTPS.
-        # We'll override this later in the setup() method, if they've already
+        # We'll override this later in the refresh() method, if they've already
         # provided a URL.
         # FIXME
 
-    def setup(self):
-        NormalSpoke.setup(self)
+    def refresh(self):
+        NormalSpoke.refresh(self)
 
         # Just set the protocol combo to a default of HTTP.  We'll set it to
         # the right value later on, depending on the method.
@@ -333,9 +333,9 @@ class SourceSpoke(NormalSpoke):
         # If the chooser has been run one before, we should make it default to
         # the previously selected file.
         if self._currentIsoFile:
-            dialog.setup(currentFile=self._currentIsoFile)
+            dialog.refresh(currentFile=self._currentIsoFile)
         else:
-            dialog.setup()
+            dialog.refresh()
 
         f = dialog.run(self._get_selected_partition())
 

@@ -81,7 +81,7 @@ class GraphicalUserInterface(UserInterface):
         # If we set these values on the very first window shown, they will get
         # propagated to later ones.
         self._actions[0].initialize()
-        self._actions[0].setup()
+        self._actions[0].refresh()
 
         self._actions[0].window.set_beta(not isFinal)
         self._actions[0].window.set_property("distribution", _("%(productName)s %(productVersion)s INSTALLATION") % \
@@ -122,7 +122,7 @@ class GraphicalUserInterface(UserInterface):
             self._on_continue_clicked()
             return
 
-        self._actions[1].setup()
+        self._actions[1].refresh()
 
         # Do this last.  Setting up curAction could take a while, and we want
         # to leave something on the screen while we work.
@@ -256,11 +256,16 @@ class UIObject(object):
                 xlated = _(before)
                 getattr(obj, funcs[1])(xlated)
 
-    def setup(self):
-        """Perform whatever actions are necessary to set defaults on the UI.
-           This method may be called multiple times, so it's important to not
-           do things like populate stores, as it may result in the store having
-           duplicates.
+    def refresh(self):
+        """Perform whatever actions are necessary to reset the UI immediately
+           before it is displayed.  This method is called every time a screen
+           is shown, which could potentially be several times in the case of a
+           NormalSpoke.  Thus, it's important to not do things like populate
+           stores (which could result in the store having duplicate entries) or
+           anything that takes a long time (as that will result in a delay
+           between the user's action and showing the results).
+
+           For anything potentially long-lived, use the initialize method.
         """
         pass
 
