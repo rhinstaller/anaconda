@@ -1520,16 +1520,16 @@ class EFIGRUB(GRUB):
     #
     # installation
     #
-    def write(self, install_root=""):
+    def write(self):
         """ Write the bootloader configuration and install the bootloader. """
         if self.update_only:
-            self.update(install_root=install_root)
+            self.update()
             return
 
         sync()
-        self.stage2_device.format.sync(root=install_root)
-        self.install(install_root=install_root)
-        self.write_config(install_root=install_root)
+        self.stage2_device.format.sync(root=ROOT_PATH)
+        self.install()
+        self.write_config()
 
 class GRUB2(GRUB):
     """ GRUBv2
@@ -1922,10 +1922,10 @@ class IPSeriesYaboot(Yaboot):
     # installation
     #
 
-    def install(self, install_root=""):
+    def install(self):
         self.updatePowerPCBootList()
 
-        super(IPSeriesYaboot, self).install(install_root=install_root)
+        super(IPSeriesYaboot, self).install()
 
     def updatePowerPCBootList(self):
 
