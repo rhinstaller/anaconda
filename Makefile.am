@@ -19,7 +19,7 @@
 
 ACLOCAL_AMFLAGS = -I m4
 
-SUBDIRS = pyanaconda loader gptsync po data \
+SUBDIRS = pyanaconda gptsync po data \
 	  tests utils scripts docs
 
 EXTRA_DIST = config.rpath COPYING \
