@@ -419,7 +419,7 @@ class AnacondaYum(yum.YumBase):
     def configBaseURL(self):
         # We only have a methodstr if method= or repo= was passed to
         # anaconda.  No source for this base repo (the CD media, NFS,
-        # whatever) is mounted yet since loader only mounts the source
+        # whatever) is mounted yet since initramfs only mounts the source
         # for the stage2 image.  We need to set up the source mount
         # now.
         if flags.cmdline.has_key("preupgrade"):
@@ -461,7 +461,7 @@ class AnacondaYum(yum.YumBase):
                 (opts, server, path) = iutil.parseNfsUrl(m)
                 isys.mount(server+":"+path, self.tree, "nfs", options=opts)
 
-                # This really should be fixed in loader instead but for now see
+                # This really should be fixed in initrd instead but for now see
                 # if there's images and if so go with this being an NFSISO
                 # install instead.
                 image = findFirstIsoImage(self.tree, self.anaconda.intf.messageWindow)
@@ -582,9 +582,6 @@ class AnacondaYum(yum.YumBase):
         dest has dest.proxy set to the host and port (no un/pw)
         dest.proxy_username and dest.proxy_password are set if present in src
         """
-        # This is the same pattern as from loader/urls.c:splitProxyParam
-        # except that the POSIX classes have been replaced with character
-        # ranges
         # NOTE: If this changes, update tests/regex/proxy.py
         #
         # proxy=[protocol://][username[:password]@]host[:port][path]

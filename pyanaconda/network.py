@@ -441,7 +441,7 @@ class Network:
             bootif_mac = None
             if ksdevice == 'bootif' and "BOOTIF" in flags.cmdline:
                 bootif_mac = flags.cmdline["BOOTIF"][3:].replace("-", ":").upper()
-            # sort for ksdevice=link (to select the same device as in loader))
+            # sort for ksdevice=link (to select the same device as in initrd))
             for dev in sorted(self.netdevices):
                 mac = self.netdevices[dev].get('HWADDR').upper()
                 if ksdevice == 'link' and isys.getLinkStatus(dev):

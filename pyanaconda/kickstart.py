@@ -1411,7 +1411,7 @@ def preScriptPass(anaconda, file):
     runPreScripts(anaconda, ksparser.handler.scripts)
 
 def parseKickstart(anaconda, file):
-    # preprocessing the kickstart file has already been handled by loader.
+    # preprocessing the kickstart file has already been handled in initramfs.
 
     handler = AnacondaKSHandler(anaconda)
     ksparser = AnacondaKSParser(handler)

@@ -81,7 +81,6 @@ daemon.*;\\
 user.info;\\
 authpriv.*                                          ?path_syslog;anaconda_syslog
 
-:programname, isequal, "loader"                     ?path_anaconda;anaconda_syslog
 :programname, isequal, "anaconda"                   ?path_anaconda;anaconda_syslog
 :programname, isequal, "anaconda-tb"                ?path_anaconda_tb;anaconda_justmsg
 :programname, isequal, "program"                    ?path_program;anaconda_syslog
@@ -92,7 +91,6 @@ authpriv.*                                          ?path_syslog;anaconda_syslog
 
 # discard those that we logged
 :programname, isequal, "rsyslogd"                    ~
-:programname, isequal, "loader"                      ~
 :programname, isequal, "anaconda"                    ~
 :programname, isequal, "anaconda-tb"                 ~
 :programname, isequal, "program"                     ~
