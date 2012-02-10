@@ -29,7 +29,7 @@
 #include <glib.h>
 #include <NetworkManager.h>
 
-/* Enumerated types used in iface.c as well as loader's network code */
+/* Enumerated types used in iface.c */
 enum { IPUNUSED = -1, IPV4, IPV6 };
 
 enum { IPV4_UNUSED_METHOD, IPV4_DHCP_METHOD, IPV4_MANUAL_METHOD, IPV4_IBFT_METHOD, IPV4_IBFT_DHCP_METHOD };
