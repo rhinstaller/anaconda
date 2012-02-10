@@ -1515,7 +1515,7 @@ class EFIGRUB(GRUB):
         self.add_efi_boot_target()
 
     def update(self):
-        self.write()
+        self.install()
 
     #
     # installation
