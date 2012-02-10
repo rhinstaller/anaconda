@@ -80,7 +80,7 @@ class GraphicalUserInterface(UserInterface):
 
         # If we set these values on the very first window shown, they will get
         # propagated to later ones.
-        self._actions[0].populate()
+        self._actions[0].initialize()
         self._actions[0].setup()
 
         self._actions[0].window.set_beta(not isFinal)
@@ -112,7 +112,7 @@ class GraphicalUserInterface(UserInterface):
             if found:
                 self._actions = [self._actions[0]] + self._actions[ndx:]
 
-        self._actions[1].populate()
+        self._actions[1].initialize()
         self._actions[1].window.set_beta(self._actions[0].window.get_beta())
         self._actions[1].window.set_property("distribution", self._actions[0].window.get_property("distribution"))
 
@@ -214,11 +214,12 @@ class UIObject(object):
 
         raise IOError("Could not load UI file '%s' for object '%s'" % (self.uiFile, self))
 
-    def populate(self):
+    def initialize(self):
         """Perform whatever actions are necessary to pre-fill the UI with
-           values.  This method is called only once, when the object is created,
-           and as such is the place where stores should be filled in.  This is
-           like a one-time setup() method.
+           values.  This method is called only once, after the object is
+           created.  The difference between this method and __init__ is that
+           this method may take a long time (especially for NormalSpokes) and
+           thus may be run in its own thread.
         """
         pass
 

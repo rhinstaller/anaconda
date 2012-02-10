@@ -203,8 +203,8 @@ class SourceSpoke(NormalSpoke):
 
         self._verifyIsoButton = self.builder.get_object("verifyIsoButton")
 
-    def populate(self, readyCB=None):
-        NormalSpoke.populate(self, readyCB)
+    def initialize(self, readyCB=None):
+        NormalSpoke.initialize(self, readyCB)
 
         self._grabObjects()
 

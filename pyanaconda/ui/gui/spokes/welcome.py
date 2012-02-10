@@ -46,8 +46,8 @@ class WelcomeLanguageSpoke(StandaloneSpoke):
 
         self.data.lang.lang = lang
 
-    def populate(self):
-        StandaloneSpoke.populate(self)
+    def initialize(self):
+        StandaloneSpoke.initialize(self)
 
         store = self.builder.get_object("languageStore")
 

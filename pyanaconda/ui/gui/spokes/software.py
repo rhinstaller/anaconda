@@ -53,8 +53,8 @@ class SoftwareSelectionSpoke(NormalSpoke):
 
         return row[2]
 
-    def populate(self, readyCB=None):
-        NormalSpoke.populate(self, readyCB)
+    def initialize(self, readyCB=None):
+        NormalSpoke.initialize(self, readyCB)
 
         self._desktopStore = self.builder.get_object("desktopStore")
         self._addSelection(self._desktopStore, "Desktop", "The default Fedora desktop.")

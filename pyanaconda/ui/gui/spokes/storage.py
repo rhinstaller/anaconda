@@ -119,7 +119,7 @@ class SelectedDisksDialog(UIObject):
     mainWidgetName = "selected_disks_dialog"
     uiFile = "spokes/storage.ui"
 
-    def populate(self, disks):
+    def initialize(self, disks):
         for disk in disks:
             if disk.name not in self.data.ignoredisk.onlyuse:
                 continue
@@ -142,7 +142,7 @@ class SelectedDisksDialog(UIObject):
 
         # clear out the store and repopulate it from the devicetree
         self._store.clear()
-        self.populate(disks)
+        self.initialize(disks)
 
     def run(self):
         rc = self.window.run()
@@ -387,11 +387,11 @@ class StorageSpoke(NormalSpoke):
         self._update_disk_list()
         self._update_summary()
 
-    def populate(self, readyCB=None):
+    def initialize(self, readyCB=None):
         from pyanaconda.threads import threadMgr
         from threading import Thread
 
-        NormalSpoke.populate(self, readyCB)
+        NormalSpoke.initialize(self, readyCB)
 
         summary_label = self.builder.get_object("summary_button").get_children()[0]
         summary_label.set_use_markup(True)
@@ -409,9 +409,9 @@ class StorageSpoke(NormalSpoke):
         context = viewport.get_style_context()
         context.add_provider(provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
 
-        threadMgr.add(Thread(name="AnaStorageWatcher", target=self._populate, args=(readyCB,)))
+        threadMgr.add(Thread(name="AnaStorageWatcher", target=self._initialize, args=(readyCB,)))
 
-    def _populate(self, readyCB):
+    def _initialize(self, readyCB):
         from pyanaconda.threads import threadMgr
 
         storageThread = threadMgr.get("AnaStorageThread")

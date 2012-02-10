@@ -21,7 +21,7 @@
 
 # TODO:
 
-# - move callback connection to populate?
+# - move callback connection to initialize?
 # - Automatically reconnecting wifi after failure
 #   https://bugzilla.redhat.com/show_bug.cgi?id=712778#c1
 # - secrets agent - use nm_applet?
@@ -320,7 +320,7 @@ class NetworkControlBox():
         col.set_expand(True)
         treeview.append_column(col)
 
-    def populate(self):
+    def initialize(self):
         for device in self.client.get_devices():
             self.add_device(device)
 
@@ -922,9 +922,9 @@ class NetworkSpoke(NormalSpoke):
         """ A short string describing which devices are connected. """
         return self.network_control_box.status()
 
-    def populate(self):
-        NormalSpoke.populate(self)
-        self.network_control_box.populate()
+    def initialize(self):
+        NormalSpoke.initialize(self)
+        self.network_control_box.initialize()
 
     def setup(self):
         NormalSpoke.setup(self)
@@ -948,9 +948,9 @@ class NetworkStandaloneSpoke(StandaloneSpoke):
     def apply(self):
         pass
 
-    def populate(self):
-        StandaloneSpoke.populate(self)
-        self.network_control_box.populate()
+    def initialize(self):
+        StandaloneSpoke.initialize(self)
+        self.network_control_box.initialize()
 
     def setup(self):
         StandaloneSpoke.setup(self)
@@ -972,12 +972,10 @@ if __name__ == "__main__":
     builder.add_from_file(ui_file_path)
 
     n = NetworkControlBox(builder)
-    n.populate()
+    n.initialize()
     n.setup()
 
     n.vbox.reparent(win)
 
     win.show_all()
     Gtk.main()
-
-

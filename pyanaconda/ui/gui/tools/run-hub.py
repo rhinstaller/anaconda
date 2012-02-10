@@ -45,7 +45,7 @@ if not hubClass:
 hub = hubClass(ksdata, devicetree, instclass)
 hub.register_event_cb("continue", lambda: Gtk.main_quit())
 hub.register_event_cb("quit", lambda: Gtk.main_quit())
-hub.populate()
+hub.initialize()
 
 if not hub.showable:
     print "This hub is not showable, but I'll continue anyway."

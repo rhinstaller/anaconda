@@ -46,7 +46,7 @@ spoke = spokeClass(ksdata, devicetree, instclass)
 if hasattr(spoke, "register_event_cb"):
     spoke.register_event_cb("continue", lambda: Gtk.main_quit())
     spoke.register_event_cb("quit", lambda: Gtk.main_quit())
-spoke.populate()
+spoke.initialize()
 
 if not spoke.showable:
     print "This spoke is not showable, but I'll continue anyway."

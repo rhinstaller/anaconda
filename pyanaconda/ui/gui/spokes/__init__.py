@@ -181,13 +181,13 @@ class NormalSpoke(Spoke):
         """
         pass
 
-    def populate(self, readyCB=None):
-        """A special overridden version of UIObject.populate.  This method
+    def initialize(self, readyCB=None):
+        """A special overridden version of UIObject.initialize.  This method
            also takes a callback to be called whenever this spoke becomes
            ready (see below).  Very few spokes should ever concern themselves
            with this, however.
         """
-        Spoke.populate(self)
+        Spoke.initialize(self)
 
     @property
     def ready(self):

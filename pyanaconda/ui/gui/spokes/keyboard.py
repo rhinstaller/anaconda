@@ -61,7 +61,7 @@ class AddLayoutDialog(UIObject):
         self._entry = self.builder.get_object("addLayoutEntry")
         self._entry.grab_focus()
 
-    def populate(self):
+    def initialize(self):
         self._store = self.builder.get_object("newLayoutStore")
         #XXX: will use values from the libxklavier
         self._addLayout(self._store, "English (US)")
@@ -128,8 +128,8 @@ class KeyboardSpoke(NormalSpoke):
     def status(self):
         return _("Something selected")
 
-    def populate(self, readyCB=None):
-        NormalSpoke.populate(self, readyCB)
+    def initialize(self, readyCB=None):
+        NormalSpoke.initialize(self, readyCB)
 
         self._store = self.builder.get_object("addedLayoutStore")
         self._addLayout(self._store, "English (US)")
@@ -157,7 +157,7 @@ class KeyboardSpoke(NormalSpoke):
     def on_add_clicked(self, button):
         dialog = AddLayoutDialog(self.data)
         dialog.setup()
-        dialog.populate()
+        dialog.initialize()
         lightbox = AnacondaWidgets.lb_show_over(self.window)
         dialog.window.set_transient_for(lightbox)
         response = dialog.run()

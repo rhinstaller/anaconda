@@ -122,9 +122,9 @@ class Hub(UIObject):
                 # insensitive and tell it how to update itself later.
                 if not spoke.ready:
                     selector.set_sensitive(False)
-                    spoke.populate(readyCB=lambda : selector.set_sensitive(True))
+                    spoke.initialize(readyCB=lambda : selector.set_sensitive(True))
                 else:
-                    spoke.populate()
+                    spoke.initialize()
 
                 # Set some default values on the associated selector that
                 # affect its display on the hub.
