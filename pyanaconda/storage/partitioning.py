@@ -511,13 +511,16 @@ def clearPartitions(storage, bootloader=None):
     # now remove any empty extended partitions
     removeEmptyExtendedPartitions(storage)
 
-    # make sure that the the boot device has the correct disklabel type if
-    # we're going to completely clear it.
+    # make sure that the the boot device, along with any other disk we are
+    # supposed to reinitialize, has the correct disklabel type if we're going
+    # to completely clear it.
+    boot_drive = getattr(bootloader, "stage1_drive", None)
     for disk in storage.partitioned:
-        if not bootloader or not bootloader.stage1_drive:
+        if not boot_drive and not storage.config.reinitializeDisks:
             break
 
-        if disk != bootloader.stage1_drive:
+        if not storage.config.reinitializeDisks and \
+           (boot_drive is not None and disk != boot_drive):
             continue
 
         if storage.config.clearPartType != CLEARPART_TYPE_ALL or \
