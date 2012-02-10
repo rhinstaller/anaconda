@@ -27,28 +27,11 @@ class VncTest(mock.TestCase):
         self.DESKTOP = 'Desktop'
         self.PASS = ''
         self.LOG_FILE = '/tmp/vnc.log'
-        self.PW_INIT_FILE = '/tmp/vncpassword.dat'
         self.PW_FILE = '/tmp/vncpassword'
         self.VNCCONNECTHOST = 'host'
 
     def tearDown(self):
         self.tearDownModules()
-
-    def recover_vnc_password_1_test(self):
-        import pyanaconda.vnc
-        pyanaconda.vnc.open = mock.Mock(side_effect=IOError())
-
-        server = pyanaconda.vnc.VncServer()
-        server.recoverVNCPassword()
-        self.assertEqual(server.password, '')
-
-    def recover_vnc_password_2_test(self):
-        import pyanaconda.vnc
-        self.fs.open(self.PW_INIT_FILE, 'w').write('abcdef')
-
-        server = pyanaconda.vnc.VncServer(pw_init_file=self.PW_INIT_FILE)
-        server.recoverVNCPassword()
-        self.assertEqual(server.password, 'abcdef')
 
     def set_vnc_password_1_test(self):
         import pyanaconda.vnc

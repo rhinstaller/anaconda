@@ -229,6 +229,7 @@ def parseOptions(argv = None):
     op.add_option("--virtpconsole")
     op.add_option("--vnc", action="store_true", default=False)
     op.add_option("--vncconnect")
+    op.add_option("--vncpassword", default="")
     op.add_option("--xdriver", dest="xdriver", action="store", type="string", default=None)
 
     # Language
@@ -426,7 +427,7 @@ def setupDisplay(anaconda, opts):
     if opts.vnc:
         flags.usevnc = 1
         anaconda.displayMode = 'g'
-        vncS.recoverVNCPassword()
+        vncS.password = opts.vncpassword
 
         # Only consider vncconnect when vnc is a param
         if opts.vncconnect:
