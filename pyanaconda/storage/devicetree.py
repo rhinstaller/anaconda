@@ -1260,9 +1260,26 @@ class DeviceTree(object):
             log.debug("no LVs listed for VG %s" % vg_name)
             return False
 
-        # make a list of indices with snapshots at the end
+        def lv_attr_cmp(a, b):
+            """ Sort so that mirror images come first and snapshots last. """
+            mirror_chars = "Iil"
+            snapshot_chars = "Ss"
+            if a[0] in mirror_chars and b[0] not in mirror_chars:
+                return -1
+            elif a[0] not in mirror_chars and b[0] in mirror_chars:
+                return 1
+            elif a[0] not in snapshot_chars and b[0] in snapshot_chars:
+                return -1
+            elif a[0] in snapshot_chars and b[0] not in snapshot_chars:
+                return 1
+            else:
+                return 0
+
+        # make a list of indices with mirror volumes up front and snapshots at
+        # the end
         indices = range(len(lv_names))
-        indices.sort(key=lambda i: lv_attr[i][0] in 'Ss')
+        indices.sort(key=lambda i: lv_attr[i], cmp=lv_attr_cmp)
+        mirrors = {}
         for index in indices:
             lv_name = lv_names[index]
             name = "%s-%s" % (vg_name, lv_name)
@@ -1290,24 +1307,25 @@ class DeviceTree(object):
                             % (lv_sizes[index], origin.name))
                 origin.snapshotSpace += lv_sizes[index]
                 continue
-            elif lv_attr[index][0] in 'Iilv':
-                # skip mirror images, log volumes, and vorigins
+            elif lv_attr[index][0] == 'v':
+                # skip vorigins
                 continue
+            elif lv_attr[index][0] in 'Ii':
+                # mirror image
+                lv_name = re.sub(r'_mimage.+', '', lv_name[1:-1])
+                name = "%s-%s" % (vg_name, lv_name)
+                if name not in mirrors:
+                    mirrors[name] = {"stripes": 0, "log": 0}
 
-            log_size = 0
-            if lv_attr[index][0] in 'Mm':
-                stripes = 0
-                # identify mirror stripes/copies and mirror logs
-                for (j, _lvname) in enumerate(lv_names):
-                    if lv_attr[j][0] not in 'Iil':
-                        continue
+                mirrors[name]["stripes"] += 1
+            elif lv_attr[index][0] == 'l':
+                # log volume
+                lv_name = re.sub(r'_mlog.*', '', lv_name[1:-1])
+                name = "%s-%s" % (vg_name, lv_name)
+                if name not in mirrors:
+                    mirrors[name] = {"stripes": 0, "log": 0}
 
-                    if _lvname == "[%s_mlog]" % lv_name:
-                        log_size = lv_sizes[j]
-                    elif _lvname.startswith("[%s_mimage_" % lv_name):
-                        stripes += 1
-            else:
-                stripes = 1
+                mirrors[name]["log"] = lv_sizes[index]
 
             lv_dev = self.getDeviceByName(name)
             if lv_dev is None:
@@ -1317,12 +1335,18 @@ class DeviceTree(object):
                                                    vg_device,
                                                    uuid=lv_uuid,
                                                    size=lv_size,
-                                                   stripes=stripes,
-                                                   logSize=log_size,
                                                    exists=True)
                 self._addDevice(lv_device)
                 lv_device.setup()
                 ret = True
+
+        for name, mirror in mirrors.items():
+            lv_dev = self.getDeviceByName(name)
+            lv_dev.stripes = mirror["stripes"]
+            lv_dev.logSize = mirror["log"]
+            log.debug("set %s stripes to %d, log size to %dMB, total size %dMB"
+                        % (lv_dev.name, lv_dev.stripes, lv_dev.logSize,
+                           lv_dev.vgSpaceUsed))
 
         return ret
 
