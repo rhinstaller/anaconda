@@ -147,6 +147,18 @@ class KernelArguments:
             if not types.has_key(i[0]):
                 args.add(i[1])
 
+        # This is needed for bug #743784. The case:
+        # We discover LUN on an iface which is part of multipath setup.
+        # If the iface is disconnected after discovery anaconda doesn't
+        # write dracut ifname argument for the disconnected iface path
+        # (in Network.dracutSetupArgs).
+        # Dracut needs the explicit ifname= because biosdevname
+        # fails to rename the iface (because of BFS booting from it).
+        import storage.fcoe
+        for nic, dcb in storage.fcoe.fcoe().nics:
+            hwaddr = self.id.network.netdevices[nic].get("HWADDR")
+            args.add("ifname=%s:%s" % (nic, hwaddr.lower()))
+
         return args
 
     def get(self):
