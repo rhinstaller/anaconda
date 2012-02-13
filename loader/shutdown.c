@@ -103,10 +103,7 @@ static void performUnmounts(void) {
 	printf("disabling swap...\n");
 	disableSwap();
 
-	printf("unmounting filesystems...\n"); 
-	unmountFilesystems();
-
-	/* We've lost /mnt/runtime where /lib is a link to put the old
+	/* We'll lose /mnt/runtime where /lib is a link to put the old
 	   /lib back so that our mdadm invocation below works. */
 	if (stat("/lib64", &st_buf) == 0) {
 		unlink("/lib64");
@@ -117,6 +114,9 @@ static void performUnmounts(void) {
 	}
 	unlink("/usr");
 	rename("/usr_old", "/usr");
+
+	printf("unmounting filesystems...\n"); 
+	unmountFilesystems();
 
 	printf("waiting for mdraid sets to become clean...\n"); 
 	status = system("/sbin/mdadm --wait-clean --scan");
