@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 17.6\n"
+"Project-Id-Version: anaconda 17.7\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2012-02-08 11:00-0800\n"
+"POT-Creation-Date: 2012-02-13 15:45-0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -413,7 +413,7 @@ msgstr ""
 #: pyanaconda/image.py:96 pyanaconda/installinterfacebase.py:208
 #: pyanaconda/livecd.py:168 pyanaconda/packages.py:95
 #: pyanaconda/packages.py:143 pyanaconda/upgrade.py:58
-#: pyanaconda/upgrade.py:98 pyanaconda/upgrade.py:196
+#: pyanaconda/upgrade.py:105 pyanaconda/upgrade.py:203
 #: pyanaconda/yuminstall.py:262 pyanaconda/yuminstall.py:836
 #: pyanaconda/yuminstall.py:1014 pyanaconda/yuminstall.py:1019
 #: pyanaconda/yuminstall.py:1056 pyanaconda/yuminstall.py:1108
@@ -423,7 +423,7 @@ msgstr ""
 #: pyanaconda/yuminstall.py:1586 pyanaconda/storage/__init__.py:99
 #: pyanaconda/storage/__init__.py:105 pyanaconda/storage/__init__.py:107
 #: pyanaconda/storage/__init__.py:199 pyanaconda/storage/__init__.py:251
-#: pyanaconda/storage/__init__.py:2291
+#: pyanaconda/storage/__init__.py:2303
 msgid "_Exit installer"
 msgstr ""
 
@@ -448,7 +448,7 @@ msgid ""
 msgstr ""
 
 #: pyanaconda/gui.py:1251 pyanaconda/image.py:159 pyanaconda/image.py:177
-#: pyanaconda/packages.py:342 pyanaconda/storage/__init__.py:2109
+#: pyanaconda/packages.py:342 pyanaconda/storage/__init__.py:2121
 msgid "_Exit"
 msgstr ""
 
@@ -472,7 +472,7 @@ msgid "Exiting"
 msgstr ""
 
 #: pyanaconda/gui.py:1333 pyanaconda/installinterfacebase.py:63
-#: pyanaconda/livecd.py:126 pyanaconda/text.py:283 pyanaconda/upgrade.py:187
+#: pyanaconda/livecd.py:126 pyanaconda/text.py:283 pyanaconda/upgrade.py:194
 msgid "Exit installer"
 msgstr ""
 
@@ -505,9 +505,9 @@ msgstr ""
 
 #: pyanaconda/image.py:97 pyanaconda/kickstart.py:1513
 #: pyanaconda/kickstart.py:1552 pyanaconda/packages.py:95
-#: pyanaconda/upgrade.py:58 pyanaconda/upgrade.py:98
+#: pyanaconda/upgrade.py:58 pyanaconda/upgrade.py:105
 #: pyanaconda/yuminstall.py:1345 pyanaconda/yuminstall.py:1530
-#: pyanaconda/iw/partition_gui.py:1630 pyanaconda/storage/__init__.py:2292
+#: pyanaconda/iw/partition_gui.py:1630 pyanaconda/storage/__init__.py:2304
 msgid "_Continue"
 msgstr ""
 
@@ -563,8 +563,8 @@ msgstr ""
 #: loader/method.c:192 loader/method.c:266 loader/nfsinstall.c:257
 #: loader/urlinstall.c:139 loader/urlinstall.c:161 loader/urlinstall.c:213
 #: loader/urls.c:335 loader/urls.c:343 loader/urls.c:350
-#: pyanaconda/storage/__init__.py:247 pyanaconda/storage/__init__.py:2088
-#: pyanaconda/storage/__init__.py:2110 pyanaconda/storage/__init__.py:2197
+#: pyanaconda/storage/__init__.py:247 pyanaconda/storage/__init__.py:2100
+#: pyanaconda/storage/__init__.py:2122 pyanaconda/storage/__init__.py:2209
 #: pyanaconda/storage/zfcp.py:375
 msgid "Error"
 msgstr ""
@@ -892,7 +892,7 @@ msgstr ""
 msgid "Your system will now be rebooted..."
 msgstr ""
 
-#: pyanaconda/packages.py:346 pyanaconda/upgrade.py:195
+#: pyanaconda/packages.py:346 pyanaconda/upgrade.py:202
 #: pyanaconda/yuminstall.py:1019 pyanaconda/yuminstall.py:1114
 #: pyanaconda/yuminstall.py:1532 pyanaconda/yuminstall.py:1586
 #: pyanaconda/storage/__init__.py:107 data/ui/anaconda.glade.h:2
@@ -1251,7 +1251,7 @@ msgstr ""
 
 #: pyanaconda/rescue.py:305 pyanaconda/rescue.py:307 loader/cdinstall.c:210
 #: loader/cdinstall.c:213 loader/method.c:239
-#: pyanaconda/storage/__init__.py:2109
+#: pyanaconda/storage/__init__.py:2121
 msgid "Skip"
 msgstr ""
 
@@ -1405,14 +1405,26 @@ msgstr ""
 
 #: pyanaconda/upgrade.py:87
 #, python-format
-msgid "Unknown release on %s"
-msgstr ""
-
-#: pyanaconda/upgrade.py:91
-msgid "Cannot Upgrade"
+msgid "Unknown release on %s -"
 msgstr ""
 
 #: pyanaconda/upgrade.py:92
+msgid " Product mismatch."
+msgstr ""
+
+#: pyanaconda/upgrade.py:94
+msgid " Version mismatch."
+msgstr ""
+
+#: pyanaconda/upgrade.py:96
+msgid " Architecture mismatch."
+msgstr ""
+
+#: pyanaconda/upgrade.py:98
+msgid "Cannot Upgrade"
+msgstr ""
+
+#: pyanaconda/upgrade.py:99
 #, python-format
 msgid ""
 "Your current installation cannot be upgraded. This is likely due to it being "
@@ -1422,11 +1434,11 @@ msgid ""
 "%s"
 msgstr ""
 
-#: pyanaconda/upgrade.py:174
+#: pyanaconda/upgrade.py:181
 msgid "Mount failed"
 msgstr ""
 
-#: pyanaconda/upgrade.py:175
+#: pyanaconda/upgrade.py:182
 #, python-format
 msgid ""
 "The following error occurred when mounting the file systems listed in /etc/"
@@ -1434,21 +1446,21 @@ msgid ""
 "%s"
 msgstr ""
 
-#: pyanaconda/upgrade.py:183 pyanaconda/upgrade.py:190
+#: pyanaconda/upgrade.py:190 pyanaconda/upgrade.py:197
 msgid "Upgrade root not found"
 msgstr ""
 
-#: pyanaconda/upgrade.py:184
+#: pyanaconda/upgrade.py:191
 msgid "The root for the previously installed system was not found."
 msgstr ""
 
-#: pyanaconda/upgrade.py:191
+#: pyanaconda/upgrade.py:198
 msgid ""
 "The root for the previously installed system was not found.  You can exit "
 "installer or backtrack to choose installation instead of upgrade."
 msgstr ""
 
-#: pyanaconda/upgrade.py:214
+#: pyanaconda/upgrade.py:221
 msgid ""
 "The following files are absolute symbolic links, which we do not support "
 "during an upgrade. Please change them to relative symbolic links and restart "
@@ -1456,11 +1468,11 @@ msgid ""
 "\n"
 msgstr ""
 
-#: pyanaconda/upgrade.py:220
+#: pyanaconda/upgrade.py:227
 msgid "Absolute Symlinks"
 msgstr ""
 
-#: pyanaconda/upgrade.py:231
+#: pyanaconda/upgrade.py:238
 msgid ""
 "The following are directories which should instead be symbolic links, which "
 "will cause problems with the upgrade.  Please return them to their original "
@@ -1468,15 +1480,15 @@ msgid ""
 "\n"
 msgstr ""
 
-#: pyanaconda/upgrade.py:237
+#: pyanaconda/upgrade.py:244
 msgid "Invalid Directories"
 msgstr ""
 
-#: pyanaconda/upgrade.py:275
+#: pyanaconda/upgrade.py:282
 msgid "/usr upgrade failed"
 msgstr ""
 
-#: pyanaconda/upgrade.py:276
+#: pyanaconda/upgrade.py:283
 msgid ""
 "convertfs failed to upgrade your system to symlink into /usr. This is "
 "required for Fedora 17 to work. The upgrade cannot continue.\n"
@@ -2904,7 +2916,7 @@ msgstr ""
 msgid "Type"
 msgstr ""
 
-#: pyanaconda/iw/partition_gui.py:605 pyanaconda/storage/__init__.py:2109
+#: pyanaconda/iw/partition_gui.py:605 pyanaconda/storage/__init__.py:2121
 msgid "Format"
 msgstr ""
 
@@ -4312,11 +4324,11 @@ msgid ""
 "file systems. Please check your hardware for the cause of this problem."
 msgstr ""
 
-#: pyanaconda/storage/__init__.py:1665 pyanaconda/storage/__init__.py:1674
+#: pyanaconda/storage/__init__.py:1677 pyanaconda/storage/__init__.py:1686
 msgid "Dirty File Systems"
 msgstr ""
 
-#: pyanaconda/storage/__init__.py:1666
+#: pyanaconda/storage/__init__.py:1678
 #, python-format
 msgid ""
 "The following file systems for your Linux system were not unmounted "
@@ -4325,7 +4337,7 @@ msgid ""
 "%s"
 msgstr ""
 
-#: pyanaconda/storage/__init__.py:1675
+#: pyanaconda/storage/__init__.py:1687
 #, python-format
 msgid ""
 "The following file systems for your Linux system were not unmounted "
@@ -4333,7 +4345,7 @@ msgid ""
 "%s"
 msgstr ""
 
-#: pyanaconda/storage/__init__.py:2084
+#: pyanaconda/storage/__init__.py:2096
 msgid ""
 "There is an entry in your /etc/fstab file that contains an invalid or "
 "incorrect filesystem type:\n"
@@ -4341,7 +4353,7 @@ msgid ""
 "  "
 msgstr ""
 
-#: pyanaconda/storage/__init__.py:2142
+#: pyanaconda/storage/__init__.py:2154
 #, python-format
 msgid ""
 "The swap device:\n"
@@ -4352,7 +4364,7 @@ msgid ""
 "swap space, you must reformat as a new-style Linux swap partition."
 msgstr ""
 
-#: pyanaconda/storage/__init__.py:2153
+#: pyanaconda/storage/__init__.py:2165
 #, python-format
 msgid ""
 "The swap device:\n"
@@ -4364,7 +4376,7 @@ msgid ""
 "down your system rather than hibernating it."
 msgstr ""
 
-#: pyanaconda/storage/__init__.py:2161
+#: pyanaconda/storage/__init__.py:2173
 #, python-format
 msgid ""
 "The swap device:\n"
@@ -4376,7 +4388,7 @@ msgid ""
 "make sure the installer is set to format all swap devices."
 msgstr ""
 
-#: pyanaconda/storage/__init__.py:2173
+#: pyanaconda/storage/__init__.py:2185
 #, python-format
 msgid ""
 "The swap device:\n"
@@ -4387,7 +4399,7 @@ msgid ""
 "installation, you will need to format the device or skip it."
 msgstr ""
 
-#: pyanaconda/storage/__init__.py:2184
+#: pyanaconda/storage/__init__.py:2196
 #, python-format
 msgid ""
 "Error enabling swap device %(name)s: %(msg)s\n"
@@ -4398,7 +4410,7 @@ msgid ""
 "Press OK to exit the installer"
 msgstr ""
 
-#: pyanaconda/storage/__init__.py:2191
+#: pyanaconda/storage/__init__.py:2203
 #, python-format
 msgid ""
 "Error enabling swap device %(name)s: %(msg)s\n"
@@ -4408,11 +4420,11 @@ msgid ""
 "Press OK to exit the installer."
 msgstr ""
 
-#: pyanaconda/storage/__init__.py:2254 pyanaconda/storage/__init__.py:2266
+#: pyanaconda/storage/__init__.py:2266 pyanaconda/storage/__init__.py:2278
 msgid "Invalid mount point"
 msgstr ""
 
-#: pyanaconda/storage/__init__.py:2255
+#: pyanaconda/storage/__init__.py:2267
 #, python-format
 msgid ""
 "An error occurred when trying to create %s.  Some element of this path is "
@@ -4421,7 +4433,7 @@ msgid ""
 "Press <Enter> to exit the installer."
 msgstr ""
 
-#: pyanaconda/storage/__init__.py:2267
+#: pyanaconda/storage/__init__.py:2279
 #, python-format
 msgid ""
 "An error occurred when trying to create %(mountpoint)s: %(msg)s.  This is a "
@@ -4430,18 +4442,18 @@ msgid ""
 "Press <Enter> to exit the installer."
 msgstr ""
 
-#: pyanaconda/storage/__init__.py:2283 pyanaconda/storage/__init__.py:2307
+#: pyanaconda/storage/__init__.py:2295 pyanaconda/storage/__init__.py:2319
 msgid "Unable to mount filesystem"
 msgstr ""
 
-#: pyanaconda/storage/__init__.py:2284
+#: pyanaconda/storage/__init__.py:2296
 #, python-format
 msgid ""
 "An error occurred mounting device %(path)s as %(mountpoint)s.  You may "
 "continue installation, but there may be problems."
 msgstr ""
 
-#: pyanaconda/storage/__init__.py:2308
+#: pyanaconda/storage/__init__.py:2320
 #, python-format
 msgid ""
 "An error occurred mounting device %(path)s as %(mountpoint)s: %(msg)s. This "

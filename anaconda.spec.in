@@ -232,6 +232,17 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Mon Feb 13 2012 Brian C. Lane <bcl@redhat.com> - 17.8-1
+- Clear partitions' metadata when 'clearpart --initlabel' used. (#783841)
+  (cherry picked from commit 15307cc091212cc69b599b90c239492c9c9586ec)
+  (dlehman)
+- Fix support for detecting existing mirrored lvs. (#734128) (dlehman)
+- fix potential EFIGRUB infinite loop (bcl)
+- finish ROOT_PATH changes in bootloader (#789169) (bcl)
+- Be more verbose about upgrade failures (#735060) (bcl)
+- Skip setting PMBR boot flag on EFI (#754850) (mjg)
+- Updated transifex config for f17-branch (bcl)
+
 * Wed Feb 08 2012 Brian C. Lane <bcl@redhat.com> - 17.7-1
 - anaconda_optparse.py: a new OptionParser that also reads boot args (wwoods)
 - Add flags.set_cmdline_bool and flags.read_cmdline (wwoods)
