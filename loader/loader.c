@@ -6,8 +6,7 @@
  * up some devices and networking, etc. The main point of this code is
  * to stay SMALL! Remember that, live by that, and learn to like it.
  *
- * Copyright (C) 1997, 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005,
- * 2006, 2007  Red Hat, Inc.  All rights reserved.
+ * Copyright (C) 1997-2012  Red Hat, Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -26,6 +25,7 @@
  *            Matt Wilson <msw@redhat.com>
  *            Michael Fulbright <msf@redhat.com>
  *            Jeremy Katz <katzj@redhat.com>
+ *            David Cantrell <dcantrell@redhat.com>
  */
 
 #include <ctype.h>
@@ -570,190 +570,6 @@ static void writeVNCPasswordFile(char *pfile, char *password) {
     fclose(f);
 }
 
-/* read information from /etc/sysconfig/network-scripts/ifcfg-$INTERFACE
- * (written by linuxrc), the linuxrc mess should be firing up NM too
- */
-static void readNetInfo(struct loaderData_s ** ld) {
-    struct loaderData_s * loaderData = *ld;
-    char *cfgfile = NULL, *devfile = "/tmp/s390net";
-    gchar *contents = NULL, *device = NULL;
-    gchar **lines = NULL, **line = NULL;
-    GError *e = NULL;
-
-    /* when this function is called, /tmp/s390net
-     * contains the device name whose ifcfg file we want to read
-     */
-    if (!g_file_test(devfile, G_FILE_TEST_EXISTS)) {
-        logMessage(DEBUGLVL, "readNetInfo %s not found, early return", devfile);
-        return;
-    }
-    if (!g_file_get_contents(devfile, &contents, NULL, &e)) {
-        logMessage(ERROR, "error reading %s: %s", devfile, e->message);
-        g_error_free(e);
-        abort();
-    }
-    line = lines = g_strsplit(contents, "\n", 0);
-    g_free(contents);
-    while (*line != NULL) {
-        gchar *tmp = g_strdup(*line);
-        tmp = g_strstrip(tmp);
-        logMessage(DEBUGLVL, "readNetInfo stripped line: %s", tmp);
-        if (strlen(tmp) > 0) {
-            device = strdup(tmp);
-            g_free(tmp);
-            logMessage(DEBUGLVL, "readNetInfo found device: %s", device);
-            break;
-        }
-        g_free(tmp);
-        line++;
-    }
-    g_strfreev(lines);
-    if (strlen(device) == 0) {
-        return;
-        logMessage(DEBUGLVL, "readNetInfo no device found");
-    }
-
-    checked_asprintf(&cfgfile, "/etc/sysconfig/network-scripts/ifcfg-%s",
-                     device);
-    logMessage(INFO, "readNetInfo cfgfile: %s", cfgfile);
-
-    /* make sure everything is NULL before we begin copying info */
-    loaderData->ipv4 = NULL;
-    loaderData->netmask = NULL;
-    loaderData->gateway = NULL;
-    loaderData->dns = NULL;
-    loaderData->peerid = NULL;
-    loaderData->subchannels = NULL;
-    loaderData->portname = NULL;
-    loaderData->nettype = NULL;
-    loaderData->ctcprot = NULL;
-    loaderData->options = NULL;
-    loaderData->macaddr = NULL;
-#ifdef ENABLE_IPV6
-    loaderData->ipv6 = NULL;
-    loaderData->ipv6prefix = NULL;
-    loaderData->gateway6 = NULL;
-#endif
-
-    /*
-     * The ifcfg file is written out by /sbin/init on s390x (which is
-     * really the linuxrc.s390 script).  It's a shell-sourcable file with
-     * various system settings needing for the system instance.
-     *
-     * The goal of this function is to read in only the network settings
-     * and populate the loaderData structure.
-     */
-    if (!g_file_get_contents(cfgfile, &contents, NULL, &e)) {
-        logMessage(ERROR, "error reading %s: %s", cfgfile, e->message);
-        g_error_free(e);
-        return;
-    }
-
-    line = lines = g_strsplit(contents, "\n", 0);
-    g_free(contents);
-
-    while (*line != NULL) {
-        gchar *tmp = g_strdup(*line);
-        gchar **pair = NULL;
-
-        if (!strstr(tmp, "=")) {
-            g_free(tmp);
-            line++;
-            continue;
-        }
-
-        tmp = g_strstrip(tmp);
-        pair = g_strsplit(tmp, "=", 2);
-
-        if (g_strv_length(pair) == 2) {
-            gchar *val = g_shell_unquote(pair[1], &e);
-
-            if (e != NULL) {
-                logMessage(WARNING,
-                           "error reading %s from %s (line=%s): %s",
-                           pair[0], cfgfile, tmp, e->message);
-                g_error_free(e);
-            } else {
-                if (!g_strcmp0(pair[0], "IPADDR")) {
-                    loaderData->ipv4 = strdup(val);
-                    loaderData->ipinfo_set = 1;
-                    flags |= LOADER_FLAGS_IP_PARAM;
-                } else if (!g_strcmp0(pair[0], "NETMASK")) {
-                    loaderData->netmask = strdup(val);
-                } else if (!g_strcmp0(pair[0], "GATEWAY")) {
-                    loaderData->gateway = strdup(val);
-#ifdef ENABLE_IPV6
-                } else if (!g_strcmp0(pair[0], "IPV6ADDR")) {
-                    gchar **elements = g_strsplit(val, "/", 2);
-
-                    if (elements[0]) {
-                        loaderData->ipv6 = strdup(elements[0]);
-                        loaderData->ipv6info_set = 1;
-                        flags |= LOADER_FLAGS_IPV6_PARAM;
-                        if (elements[1]) {
-                            loaderData->ipv6prefix = strdup(elements[1]);
-                        }
-                    } else {
-                      logMessage(WARNING, "readNetInfo could not parse IPV6ADDR: %s", val);
-                    }
-                    g_strfreev(elements);
-                } else if (!g_strcmp0(pair[0], "IPV6_DEFAULTGW")) {
-                    loaderData->gateway6 = strdup(val);
-#endif
-                } else if (!g_strcmp0(pair[0], "DNS")) {
-                    loaderData->dns = strdup(val);
-                } else if (!g_strcmp0(pair[0], "DOMAIN")) {
-                    loaderData->domain = strdup(val);
-                } else if (!g_strcmp0(pair[0], "MTU")) {
-                    errno = 0;
-                    loaderData->mtu = strtol(val, NULL, 10);
-
-                    if ((errno == ERANGE && (loaderData->mtu == LONG_MIN ||
-                                             loaderData->mtu == LONG_MAX)) ||
-                        (errno != 0 && loaderData->mtu == 0)) {
-                        logMessage(ERROR, "%s: %d: %m", __func__, __LINE__);
-                        abort();
-                    }
-                } else if (!g_strcmp0(pair[0], "PEERID")) {
-                    loaderData->peerid = strdup(val);
-                } else if (!g_strcmp0(pair[0], "SUBCHANNELS")) {
-                    loaderData->subchannels = strdup(val);
-                } else if (!g_strcmp0(pair[0], "PORTNAME")) {
-                    loaderData->portname = strdup(val);
-                } else if (!g_strcmp0(pair[0], "NETTYPE")) {
-                    loaderData->nettype = strdup(val);
-                } else if (!g_strcmp0(pair[0], "CTCPROT")) {
-                    loaderData->ctcprot = strdup(val);
-                } else if (!g_strcmp0(pair[0], "OPTIONS")) {
-                    loaderData->options = strdup(val);
-                } else if (!g_strcmp0(pair[0], "MACADDR")) {
-                    loaderData->macaddr = strdup(val);
-                } else if (!g_strcmp0(pair[0], "HOSTNAME")) {
-                    loaderData->hostname = strdup(val);
-                }
-            }
-
-            g_free(val);
-        }
-
-        g_strfreev(pair);
-        g_free(tmp);
-        line++;
-    }
-
-    if (loaderData->ipv4 && loaderData->netmask) {
-        flags |= LOADER_FLAGS_HAVE_CMSCONF;
-    }
-
-    loaderData->netDev = device;
-    loaderData->netDev_set = 1;
-
-
-    free(cfgfile);
-    g_strfreev(lines);
-    return;
-}
-
 /* parse anaconda or pxelinux-style ip= arguments
  * pxelinux format: ip=<client-ip>:<boot-server-ip>:<gw-ip>:<netmask>
  * anaconda format: ip=<client-ip> netmask=<netmask> gateway=<gw-ip>
@@ -1126,8 +942,6 @@ static void parseCmdLineFlags(struct loaderData_s * loaderData) {
             }
         }
     }
-
-    readNetInfo(&loaderData);
 
     /* NULL terminates the array of extra args */
     extraArgs[numExtraArgs] = NULL;
