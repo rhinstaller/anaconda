@@ -688,7 +688,15 @@ class NetworkData(commands.network.F16_NetworkData):
         else:
             if self.device.lower() == "ibft":
                 return
-            if self.device.lower() == "bootif":
+            if self.device.lower() == "link":
+                for dev in sorted(devices):
+                    if isys.getLinkStatus(dev):
+                        device = dev
+                        break
+                else:
+                    raise KickstartValueError, formatErrorMsg(self.lineno, msg="No device with link found")
+
+            elif self.device.lower() == "bootif":
                 if "BOOTIF" in flags.cmdline:
                     # MAC address like 01-aa-bb-cc-dd-ee-ff
                     device = flags.cmdline["BOOTIF"][3:]
