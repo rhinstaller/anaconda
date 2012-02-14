@@ -31,6 +31,7 @@ import parted
 import iutil
 import network
 from storage.formats import getFormat
+from storage.devicelibs.lvm import LVM_MAX_NAME_LEN
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
@@ -47,8 +48,8 @@ def sanityCheckVolumeGroupName(volname):
 	return _("Please enter a volume group name.")
 
     # ripped the value for this out of linux/include/lvm.h
-    if len(volname) > 128:
-        return _("Volume Group Names must be less than 128 characters")
+    if len(volname) > LVM_MAX_NAME_LEN:
+        return _("Volume Group Names must be less than %d characters") % LVM_MAX_NAME_LEN
 
     if volname in badNames:
 	return _("Error - the volume group name %s is not valid." % (volname,))
@@ -69,8 +70,8 @@ def sanityCheckLogicalVolumeName(logvolname):
 	return _("Please enter a logical volume name.")
 
     # ripped the value for this out of linux/include/lvm.h
-    if len(logvolname) > 128:
-        return _("Logical Volume Names must be less than 128 characters")
+    if len(logvolname) > LVM_MAX_NAME_LEN:
+        return _("Logical Volume Names must be less than %d characters") % LVM_MAX_NAME_LEN
     
 
     if logvolname in badNames:

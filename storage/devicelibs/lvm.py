@@ -136,11 +136,14 @@ def getMaxLVSize():
     else:
         return (16*1024*1024) #Max is 16TiB
 
-# LVM sources set the maximum length limit on VG and LV names at 128.  Set
-# our default to 2 below that to account for 0 through 99 entries we may
-# make with this name as a prefix.  LVM doesn't seem to impose a limit of
-# 99, but we do in anaconda.
-def safeLvmName(name, maxlen=126):
+# apparently lvm has a limit of 126 chars for combined vg-lv names:
+# https://bugzilla.redhat.com/show_bug.cgi?id=747278#c6
+# https://bugzilla.redhat.com/show_bug.cgi?id=747278#c7
+# since dashes get escaped they count double -- allow for six of them since
+# a dhcp-provided hostname could easily contain five dashes ("dhcp-xx-xx-xx-xx")
+LVM_MAX_NAME_LEN = 50
+
+def safeLvmName(name, maxlen=LVM_MAX_NAME_LEN):
     tmp = name.strip()
     tmp = tmp.replace("/", "_")
     tmp = re.sub("[^0-9a-zA-Z._]", "", tmp)
