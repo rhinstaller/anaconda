@@ -1365,6 +1365,7 @@ class HFSPlus(FS):
     _fsck = "fsck.hfsplus"
     _packages = ["hfsplus-tools"]
     _formattable = True
+    _mountType = "hfsplus"
     _minSize = 1
     _maxSize = 2 * 1024 * 1024
     partedSystem = fileSystemType["hfs+"]
