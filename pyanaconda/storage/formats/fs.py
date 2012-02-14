@@ -1357,11 +1357,16 @@ class AppleBootstrapFS(HFS):
 register_device_format(AppleBootstrapFS)
 
 
-# this doesn't need to be here
 class HFSPlus(FS):
     _type = "hfs+"
     _modules = ["hfsplus"]
     _udevTypes = ["hfsplus"]
+    _mkfs = "mkfs.hfsplus"
+    _fsck = "fsck.hfsplus"
+    _packages = ["hfsplus-tools"]
+    _formattable = True
+    _minSize = 1
+    _maxSize = 2 * 1024 * 1024
     partedSystem = fileSystemType["hfs+"]
 
 register_device_format(HFSPlus)
