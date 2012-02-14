@@ -215,6 +215,20 @@ class EFI(Platform):
         else:
             return 0
 
+class MacEFI(EFI):
+    _boot_stage1_format_types = ["hfs+"]
+    _boot_efi_description = N_("Apple EFI Boot Partition")
+    _non_linux_format_types = ["hfs+"]
+    _packages = ["mactel-boot"]
+
+    def setDefaultPartitioning(self):
+        from storage.partspec import PartSpec
+        ret = Platform.setDefaultPartitioning(self)
+        ret.append(PartSpec(mountpoint="/boot/efi", fstype="hfs+", size=20,
+                            maxSize=200,
+                            grow=True, weight=self.weight(mountpoint="/boot/efi")))
+        return ret
+
 class PPC(Platform):
     _ppcMachine = iutil.getPPCMachine()
     _bootloaderClass = bootloader.Yaboot
@@ -338,7 +352,10 @@ def getPlatform(anaconda):
     elif iutil.isSparc():
         return Sparc(anaconda)
     elif iutil.isEfi():
-        return EFI(anaconda)
+        if iutil.isMactel():
+            return MacEFI(anaconda)
+        else:
+            return EFI(anaconda)
     elif iutil.isX86():
         return X86(anaconda)
     else:

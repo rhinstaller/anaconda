@@ -855,9 +855,12 @@ class PartitionData(commands.partition.F12_PartData):
                 self.anaconda.ksdata.onPart[kwargs["name"]] = self.onPart
             self.mountpoint = ""
         elif self.mountpoint == "/boot/efi":
-            type = "EFI System Partition"
-            self.fsopts = "defaults,uid=0,gid=0,umask=0077,shortname=winnt"
-            kwargs["weight"] = self.anaconda.platform.weight(fstype="efi")
+            kwargs["weight"] = self.anaconda.platform.weight(mountpoint="/boot/efi")
+            if iutil.isMactel():
+                type = "hfs+"
+            else:
+                type = "EFI System Partition"
+                self.fsopts = "defaults,uid=0,gid=0,umask=0077,shortname=winnt"
         else:
             if self.fstype != "":
                 type = self.fstype

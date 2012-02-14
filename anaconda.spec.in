@@ -156,6 +156,9 @@ Requires: fcoe-utils >= %{fcoeutilsver}
 %ifarch %{sparc}
 Requires: elftoaout piggyback
 %endif
+%ifarch x86_64
+Requires: mactel-boot
+%endif
 Obsoletes: anaconda-images <= 10
 Provides: anaconda-images = %{version}-%{release}
 Obsoletes: anaconda-runtime < %{version}-%{release}
