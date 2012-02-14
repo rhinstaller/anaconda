@@ -1702,11 +1702,33 @@ class LUKSDevice(DMCryptDevice):
                                uuid=None, exists=exists)
 
     def writeKS(self, f, preexisting=False, noformat=False, s=None):
+        # XXX This is a bad hack, but there's no better alternative.
+        # The self.format here is a filesystem object, and returns
+        # the mountpoint. The self.slave.format is a LUKS object,
+        # which just returns "--encrypted". We need to swith these two
+        # because the mountpoint should go right after the ks command,
+        # like part or raid, and not at the end.
+        # With this switch, we get something like:
+        # "#raid <mountpoint> --fstype ... --encrypted"
+        # Changing just the order of the writeKS methods does not help.
+        # The result would be "<mountpoint> --fstype #raid --encrypted ...".
+        # We need to get the mountpoint *inside* the string.
+        __self_format = self._format
+        __slave_format = self.slave._format
+
+        # exchange format devices
+        self._format = __slave_format
+        self.slave._format = __self_format
+
         self.slave.writeKS(f, preexisting=preexisting, noformat=noformat, s=s)
         f.write(" ")
         self.format.writeKS(f)
         if s:
             f.write(" %s" % s)
+
+        # restore format devices
+        self._format = __self_format
+        self.slave._format = __slave_format
 
     @property
     def size(self):
