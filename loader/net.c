@@ -40,6 +40,7 @@
 #include <glib.h>
 #include <NetworkManager.h>
 #include <nm-client.h>
+#include <nm-utils.h>
 
 #include "../isys/isys.h"
 #include "../isys/ethtool.h"
@@ -1219,6 +1220,7 @@ int writeDisabledIfcfgFile(char *device) {
     char *ofile = NULL;
     char *nfile = NULL;
     FILE *fp = NULL;
+    char *uuid = NULL;
 
     checked_asprintf(&ofile, "%s/.ifcfg-%s",
 		     NETWORK_SCRIPTS_PATH,
@@ -1234,6 +1236,9 @@ int writeDisabledIfcfgFile(char *device) {
 
     fprintf(fp, "DEVICE=%s\n", device);
     fprintf(fp, "HWADDR=%s\n", iface_mac2str(device));
+    uuid = nm_utils_uuid_generate();
+    fprintf(fp, "UUID=%s\n", uuid);
+    g_free(uuid);
     fprintf(fp, "ONBOOT=no\n");
     fprintf(fp, "NM_CONTROLLED=no\n");
     /* default for network service, NM assumes it */
@@ -1275,6 +1280,7 @@ int writeEnabledNetInfo(iface_t *iface) {
     char *ofile = NULL;
     char *nfile = NULL;
     struct utsname kv;
+    char *uuid = NULL;
 
     memset(&buf, '\0', sizeof(buf));
 
@@ -1336,6 +1342,9 @@ int writeEnabledNetInfo(iface_t *iface) {
 #if !defined(__s390__) && !defined(__s390x__)
     fprintf(fp, "HWADDR=%s\n", iface_mac2str(iface->device));
 #endif
+    uuid = nm_utils_uuid_generate();
+    fprintf(fp, "UUID=%s\n", uuid);
+    g_free(uuid);
     fprintf(fp, "ONBOOT=yes\n");
     char *str_type = netArpTypeStr(iface);
     if (str_type) fprintf(fp, "TYPE=%s\n", str_type);
