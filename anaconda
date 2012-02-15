@@ -613,7 +613,7 @@ if __name__ == "__main__":
 
     # pull this in to get product name and versioning
     from pyanaconda import product
-    from pyanaconda.constants import ROOT_PATH
+    from pyanaconda.constants import ROOT_PATH, DEFAULT_LANG
 
     from pyanaconda import isys
     isys.initLog()
@@ -623,6 +623,11 @@ if __name__ == "__main__":
     from pyanaconda import iutil
     from pyanaconda import vnc
     from pyanaconda import kickstart
+
+    # Write out the default locale before anything imports locale (#731356)
+    deflang, defcode = DEFAULT_LANG.split('.')
+    iutil.execWithRedirect("localedef",
+                           ["-i", deflang, "-f", defcode, DEFAULT_LANG])
 
     import gettext
     _ = lambda x: gettext.ldgettext("anaconda", x)
