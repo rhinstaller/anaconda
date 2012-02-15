@@ -395,9 +395,11 @@ class addDriveDialog(object):
 
         dcbCheckbox = Checkbox(_("Use DCB"), 1)
         grid.add(dcbCheckbox, 0, 2, anchorLeft = 1)
+        autovlanCheckbox = Checkbox(_("Use auto vlan"), 1)
+        grid.add(autovlanCheckbox, 0, 3, anchorLeft = 1)
 
         buttons = ButtonBar(screen, [TEXT_OK_BUTTON, TEXT_BACK_BUTTON] )
-        grid.add(buttons, 0, 3, anchorLeft = 1, growx = 1)
+        grid.add(buttons, 0, 4, anchorLeft = 1, growx = 1)
 
         result = grid.run()
         if buttons.buttonPressed(result) == TEXT_BACK_CHECK:
@@ -406,8 +408,9 @@ class addDriveDialog(object):
 
         nic = interfaceList.current()
         dcb = dcbCheckbox.selected()
+        auto_vlan = autovlanCheckbox.selected()
 
-        storage.fcoe.fcoe().addSan(nic=nic, dcb=dcb,
+        storage.fcoe.fcoe().addSan(nic=nic, dcb=dcb, auto_vlan=auto_vlan,
                                    intf=self.anaconda.intf)
 
         screen.popWindow()

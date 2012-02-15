@@ -359,7 +359,7 @@ class Fcoe(commands.fcoe.F13_Fcoe):
         if fc.nic not in isys.getDeviceProperties():
             raise KickstartValueError, formatErrorMsg(self.lineno, msg="Specified nonexistent nic %s in fcoe command" % fc.nic)
 
-        storage.fcoe.fcoe().addSan(nic=fc.nic, dcb=fc.dcb)
+        storage.fcoe.fcoe().addSan(nic=fc.nic, dcb=fc.dcb, auto_vlan=True)
 
         return fc
 

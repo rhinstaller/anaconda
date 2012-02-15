@@ -90,7 +90,7 @@ class fcoe(object):
             return
 
         log.info("FCoE NIC found in EDD: %s" % val)
-        self.addSan(val, dcb=True, intf=intf)
+        self.addSan(val, dcb=True, auto_vlan=True, intf=intf)
 
     def startup(self, intf = None):
         if self.started:
@@ -110,11 +110,12 @@ class fcoe(object):
                                stdout = "/dev/tty5", stderr="/dev/tty5")
         self.lldpadStarted = True
 
-    def addSan(self, nic, dcb=False, intf=None):
+    def addSan(self, nic, dcb=False, auto_vlan=True, intf=None):
         if not has_fcoe():
             raise IOError, _("FCoE not available")
 
-        log.info("Activating FCoE SAN attached to %s, dcb: %s" % (nic, dcb))
+        log.info("Activating FCoE SAN attached to %s, dcb: %s autovlan: %s" %
+                 (nic, dcb, auto_vlan))
 
         iutil.execWithRedirect("ip", [ "link", "set", nic, "up" ],
                                stdout = "/dev/tty5", stderr="/dev/tty5")
@@ -129,10 +130,7 @@ class fcoe(object):
             iutil.execWithRedirect("fipvlan", [ nic, "-c", "-s" ],
                                stdout = "/dev/tty5", stderr="/dev/tty5")
         else:
-            # Use fipvlan instead of fcoe's create if nic uses bnx2x driver.
-            # Ideally, this should be done by checking a "AUTO_VLAN" parameter,
-            # not bnx2x driver usage
-            if 'bnx2x' in os.path.realpath('/sys/class/net/%s/device/driver' %(nic)):
+            if auto_vlan:
                 # certain network configrations require the VLAN layer module:
                 iutil.execWithRedirect("modprobe", ["8021q"],
                                        stdout = "/dev/tty5", stderr="/dev/tty5")
@@ -144,7 +142,7 @@ class fcoe(object):
                 f.close()
 
         self._stabilize(intf)
-        self.nics.append((nic, dcb))
+        self.nics.append((nic, dcb, auto_vlan))
 
     def writeKS(self, f):
         # fixme plenty (including add ks support for fcoe in general)
@@ -157,7 +155,7 @@ class fcoe(object):
         if not os.path.isdir(instPath + "/etc/fcoe"):
             os.makedirs(instPath + "/etc/fcoe", 0755)
 
-        for nic, dcb in self.nics:
+        for nic, dcb, auto_vlan in self.nics:
             fd = os.open(instPath + "/etc/fcoe/cfg-" + nic,
                          os.O_RDWR | os.O_CREAT)
             os.write(fd, '# Created by anaconda\n')
@@ -169,7 +167,10 @@ class fcoe(object):
             else:
                 os.write(fd, 'DCB_REQUIRED="no"\n')
             os.write(fd, '# Indicate if VLAN discovery should be handled by fcoemon\n')
-            os.write(fd, 'AUTO_VLAN="yes"\n')
+            if auto_vlan:
+                os.write(fd, 'AUTO_VLAN="yes"\n')
+            else:
+                os.write(fd, 'AUTO_VLAN="no"\n')
             os.close(fd)
 
         return

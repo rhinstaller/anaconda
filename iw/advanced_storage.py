@@ -328,6 +328,7 @@ def addFcoeDrive(anaconda):
     (dxml, dialog) = gui.getGladeWidget("fcoe-config.glade", "fcoeDialog")
     combo = dxml.get_widget("fcoeNicCombo")
     dcb_cb = dxml.get_widget("dcbCheckbutton")
+    auto_vlan_cb = dxml.get_widget("autovlanCheckbutton")
 
     # Populate the combo
     cell = gtk.CellRendererText()
@@ -389,6 +390,7 @@ def addFcoeDrive(anaconda):
         try:
             anaconda.id.storage.fcoe.addSan(store.get_value(iter, 1),
                                             dcb=dcb_cb.get_active(),
+                                            auto_vlan=auto_vlan_cb.get_active(),
                                             intf=anaconda.intf)
         except IOError as e:
             anaconda.intf.messageWindow(_("Error"), str(e))

@@ -3687,7 +3687,7 @@ class FcoeDiskDevice(DiskDevice, NetworkStorageDevice):
         dcb = True
 
         from .fcoe import fcoe
-        for nic, dcb in fcoe().nics:
+        for nic, dcb, auto_vlan in fcoe().nics:
             if nic == self.nic:
                 break
 
