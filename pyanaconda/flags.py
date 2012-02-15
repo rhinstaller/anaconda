@@ -36,7 +36,7 @@ class Flags(object):
 
     def set_cmdline_bool(self, flag):
         if flag in self.cmdline:
-            setattr(self, self.cmdline.getbool(flag))
+            setattr(self, flag, self.cmdline.getbool(flag))
 
     def __init__(self, read_cmdline=True):
         self.__dict__['_in_init'] = True
