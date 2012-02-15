@@ -118,7 +118,7 @@ class VncServer:
         self.name = network.getDefaultHostname(self.anaconda)
         ipstr = self.ip
 
-        if self.ip.find(':') != -1:
+        if self.ip and self.ip.find(':') != -1:
             ipstr = "[%s]" % (self.ip,)
 
         if (self.name is not None) and (not self.name.startswith('localhost')) and (ipstr is not None):
