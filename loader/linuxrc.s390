@@ -177,6 +177,12 @@ function startinetd()
         done
     fi
 
+    # make sure we have a resolv.conf
+    DRACUTRESOLV="$(ls -1 /run/initramfs/state/etc/*.resolv.conf 2>/dev/null)"
+    if [ -r ${DRACUTRESOLV} ]; then
+        cp ${DRACUTRESOLV} /etc/resolv.conf
+    fi
+
     if [ -z "$RUNKS" ]; then
         echo
         echo $"Connect now to $ip and log in as user 'install' to start the installation."
@@ -825,47 +831,6 @@ function syntax_check_fcp() {
     fi
 }
 
-###
-
-function final_check() {
-    # final check && break
-    if [ -z "$interaction_happened" ]; then
-        # if parm file was good enough just continue without interaction
-        break
-        return 0
-    fi
-    while : ; do
-        # optionally consider "continue" as default
-        # but then again the user may inadvertently continue
-        echo
-        echo $"c) continue, n) network state, r) restart, s) shell"
-        local answer
-        read answer
-        case $answer in
-            c) return 0 ;;
-            n) # show interfaces and routing table
-                ifconfig -a
-                if [ "$ipv6" ]; then
-                    #route -n -A inet6
-                    # the following produces more compact output for 80 columns
-                    ip -6 route show | grep -v "^unreachable "
-                else
-                    route -n
-                fi
-                ;;
-            d) # show active DASDs with some useful details
-                echo $"Activated DASDs:"
-                cat /proc/dasd/devices|sed -e 's/ at ([^)]*) is//' -e 's/ at/,/'
-                ;;
-            r) break ;;
-            s) echo $"Enter 'exit' at the shell prompt to get back to the installation dialog."
-                /bin/bash
-                ;;
-    esac
-    done
-    return 1
-}
-
 ### MAIN ###
 
 init_main
@@ -921,14 +886,8 @@ fi
 # Perform a network installation
 
 # Check for missing parameters, prompt for them if necessary
-while : ; do
-    do_dasd
-
-    echo $"Initial configuration completed."
-    final_check && break
-    rollback_config
-    reenter="yes"
-done # outer dialog loop
+do_dasd
+echo $"Initial configuration completed."
 
 # syntax check to give user early feedback on parameters provided in parm file
 # (he probably won't notice the logs written by anaconda later on)
