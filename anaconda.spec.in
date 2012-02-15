@@ -169,6 +169,21 @@ Obsoletes: booty
 The anaconda package contains the program which was used to install your
 system.
 
+%package dracut
+Summary: The anaconda dracut module
+Requires: dracut >= 16
+Requires: dracut-network
+Requires: xz
+Requires: pykickstart
+%ifarch %{ix86} x86_64
+Requires: dmidecode
+%endif
+
+%description dracut
+The 'anaconda' dracut module handles installer-specific boot tasks and
+options. This includes driver disks, kickstarts, and finding the anaconda
+runtime on NFS/HTTP/FTP servers or local disks.
+
 %prep
 %setup -q
 
@@ -232,6 +247,10 @@ update-desktop-database &> /dev/null || :
 %{_datadir}/applications/*.desktop
 %{_datadir}/icons/hicolor/*
 %endif
+
+%files dracut
+%dir %{_datadir}/dracut/modules.d/80%{name}
+%{_datadir}/dracut/modules.d/80%{name}/*
 
 %changelog
 * Thu Feb 09 2012 Brian C. Lane <bcl@redhat.com> - 18.0-1

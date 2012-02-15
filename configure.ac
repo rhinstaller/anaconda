@@ -256,6 +256,7 @@ AC_CONFIG_FILES([Makefile
                  data/bootdisk/x86_64/Makefile
                  data/command-stubs/Makefile
                  docs/Makefile
+                 dracut/Makefile
                  gptsync/Makefile
                  pyanaconda/installclasses/Makefile
                  pyanaconda/iw/Makefile

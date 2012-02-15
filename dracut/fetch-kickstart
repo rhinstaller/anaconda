@@ -1,0 +1,44 @@
+#!/bin/bash
+# fetch-kickstart - fetch kickstart file
+
+. /lib/url-lib.sh
+
+kickstart="$1"
+outfile="$2"
+ksdevice="$3"
+
+if [ "$kickstart" = "nfs:auto" ]; then
+    # construct kickstart URL from dhcp info
+    # server is next_server, or the dhcp server itself if missing
+    . /tmp/net.$ksdevice.dhcpopts
+    server="${new_dhcp_next_server:-$new_dhcp_server_identifier}"
+    # filename is dhcp 'filename' option, or '/kickstart/' if missing
+    filename="/kickstart/"
+    # read the dhcp lease file and see if we can find 'filename'
+    { while read line; do
+        val="${line#filename }"
+        if [ "$val" != "$line" ]; then
+            eval "filename=$val" # drop quoting and semicolon
+        fi
+      done
+    } < /tmp/net.$ksdevice.lease
+    # filename is appended with '$IP_ADDR-kickstart' if ending in '/'
+    if [ "${filename%/}" != "$filename" ]; then
+        filename="${filename}${new_ip_address}-kickstart"
+    fi
+    kickstart="nfs:$server:$filename"
+fi
+
+case "$kickstart" in
+    http:*|https:*|ftp:*|nfs:*) fetch_url "$kickstart" /tmp/ks.cfg ;;
+    bd:*) warn "FIXME: inst.ks=bd:.. is not yet supported." ;;
+    hd:*) warn "FIXME: inst.ks=hd:.. is not yet supported." ;;
+    file:*) cp "${kickstart#file:}" /tmp/ks.cfg ;;
+    *) warn "Don't know how to handle kickstart path '$kickstart'"; exit;;
+esac
+
+parse-kickstart /tmp/ks.cfg >> /etc/cmdline.d/80kickstart.conf
+# FIXME: do driverdisk if needed
+# FIXME: if there's updates to be fetched, add them to the list
+# FIXME: figure out which network devices to ifup
+# FIXME: if there's a repo, run the appropriate anaconda-*root or dmsquash

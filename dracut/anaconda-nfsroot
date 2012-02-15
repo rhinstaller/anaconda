@@ -1,0 +1,24 @@
+#!/bin/bash
+# nfsroot script for anaconda
+
+. /lib/nfs-lib.sh
+. /lib/anaconda-lib.sh
+
+[ -f /tmp/root.info ] && . /tmp/root.info
+
+netif="$1"
+netroot="${2#anaconda-nfs:}"
+info "mounting installer repo $netroot"
+mount_nfs "$netroot" "$repodir" "$netif" || warn "Couldn't mount $netroot"
+img=$(find_runtime $repodir$path)
+if [ -z "$img" ]; then
+    iso=$(check_isodir $repodir$path)
+    if [ -n "$iso" ]; then
+        mount --move $repodir $isodir
+        iso=${isodir}${iso#$repodir}
+        mount -o loop,ro $iso $repodir
+        img=$(find_runtime $repodir)
+    fi
+fi
+[ -e "$img" ] && exec /sbin/dmsquash-live-root $img
+warn "Couldn't find a suitable image or tree in $netroot"
