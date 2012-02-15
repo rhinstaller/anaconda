@@ -453,16 +453,26 @@ def swapSuggestion(quiet=0):
     if not quiet:
 	log.info("Detected %sM of memory", mem)
 	
-    if mem <= 256:
-        minswap = 256
-        maxswap = 512
+    #table suggested in rhbz#744129
+    if mem <= 4096:
+        minswap = 2048
+        maxswap = 2048
+
+    elif 4096 < mem <= 16384:
+        minswap = 4096
+        maxswap = 4096
+
+    elif 16384 < mem <= 65536:
+        minswap = 8192
+        maxswap = 8192
+
+    elif 65536 < mem <= 262144:
+        minswap = 16384
+        maxswap = 16384
+
     else:
-        if mem > 2048:
-            minswap = 1024
-            maxswap = 2048 + mem
-        else:
-            minswap = mem
-            maxswap = 2*mem
+        minswap = 32768
+        maxswap = 32768
 
     if not quiet:
 	log.info("Swap attempt of %sM to %sM", minswap, maxswap)
