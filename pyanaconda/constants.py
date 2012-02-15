@@ -87,3 +87,6 @@ relabelDirs  = ["/etc/sysconfig/network-scripts", "/var/lib/rpm", "/var/lib/yum"
 
 ANACONDA_CLEANUP = "anaconda-cleanup"
 ROOT_PATH = "/mnt/sysimage"
+
+# NOTE: this should be LANG.CODESET, e.g. en_US.UTF-8
+DEFAULT_LANG = "en_US.UTF-8"
