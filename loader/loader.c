@@ -194,10 +194,12 @@ void doGdbserver(struct loaderData_s *loaderData) {
         pid_t loaderPid = getpid();
         iface_init_iface_t(&iface);
 
+#if !defined(__s390__) && !defined(__s390x__)
         if (kickstartNetworkUp(loaderData, &iface)) {
             logMessage(ERROR, "can't run gdbserver due to no network");
             return;
         }
+#endif
 
         checked_asprintf(&pid, "%d", loaderPid);
 
@@ -750,9 +752,11 @@ static void parseCmdLineFlags(struct loaderData_s * loaderData) {
             }
         } else if (!strcasecmp(k, "noeject")) {
             flags |= LOADER_FLAGS_NOEJECT;
+#if !defined(__s390__) && !defined(__s390x__)
         } else if (!strcasecmp(k, "sshd")) {
             logMessage(INFO, "early networking required for sshd");
             flags |= LOADER_FLAGS_EARLY_NETWORKING;
+#endif
         } else if (!strcasecmp(k, "noverifyssl")) {
             flags |= LOADER_FLAGS_NOVERIFYSSL;
         } else if (v != NULL) {
@@ -916,6 +920,7 @@ static void parseCmdLineFlags(struct loaderData_s * loaderData) {
                  * by loader, so an active connection is ready once we get
                  * to anaconda
                  */
+#if !defined(__s390__) && !defined(__s390x__)
                 if (!strcasecmp(k, "syslog") || !strcasecmp(k, "vnc")) {
                     logMessage(INFO, "early networking required for %s", k);
                     flags |= LOADER_FLAGS_EARLY_NETWORKING;
@@ -925,6 +930,7 @@ static void parseCmdLineFlags(struct loaderData_s * loaderData) {
                     logMessage(INFO, "early networking required for remote kickstart configuration");
                     flags |= LOADER_FLAGS_EARLY_NETWORKING;
                 }
+#endif
 
                 if (v != NULL) {
                     checked_asprintf(&extraArgs[numExtraArgs], "--%s=%s", k, v)
@@ -1356,12 +1362,17 @@ static void doLoaderMain(struct loaderData_s *loaderData,
                 if (loaderData->ksFile)
                     flags |= LOADER_FLAGS_IS_KICKSTART;
 
-                if (FL_HAVE_CMSCONF(flags)) {
+#if defined(__s390__) || defined(__s390x__)
+                {
                     loaderData->ipinfo_set = 1;
 #ifdef ENABLE_IPV6
                     loaderData->ipv6info_set = 1;
 #endif
+                    step = STEP_EXTRAS;
+                    dir = 1;
+                    break;
                 }
+#endif
 
                 rc = chooseNetworkInterface(loaderData);
                 if (rc == LOADER_BACK || rc == LOADER_ERROR || (dir == -1 && rc == LOADER_NOOP)) {
@@ -1390,15 +1401,6 @@ static void doLoaderMain(struct loaderData_s *loaderData,
                 if ((ret = malloc(INET6_ADDRSTRLEN+1)) == NULL) {
                     logMessage(ERROR, "malloc failure for ret in STEP_IP");
                     doExit(EXIT_FAILURE);
-                }
-
-
-                /* s390 provides all config info by way of linuxrc.s390 */
-                if (FL_HAVE_CMSCONF(flags)) {
-                    loaderData->ipinfo_set = 1;
-#ifdef ENABLE_IPV6
-                    loaderData->ipv6info_set = 1;
-#endif
                 }
 
                 /* populate netDev based on any kickstart data */
@@ -1745,7 +1747,9 @@ int main(int argc, char ** argv) {
     FILE *f;
 
     moduleInfoSet modInfo;
+#if !defined(__s390__) && !defined(__s390x__)
     iface_t iface;
+#endif
 
     char ** argptr, ** tmparg;
     char * anacondaArgs[50];
@@ -1844,8 +1848,10 @@ int main(int argc, char ** argv) {
         logMessage(INFO, "text mode forced due to serial/virtpconsole");
         flags |= LOADER_FLAGS_TEXT;
     }
+#if !defined(__s390__) && !defined(__s390x__)
     if (hasGraphicalOverride())
         flags |= LOADER_FLAGS_EARLY_NETWORKING;
+#endif
     set_fw_search_path(&loaderData, "/firmware:/lib/firmware");
     start_fw_loader(&loaderData);
 
@@ -2040,9 +2046,11 @@ int main(int argc, char ** argv) {
             outputKSFile = runKickstart(&loaderData, loaderData.ksFile);
     }
 
+#if !defined(__s390__) && !defined(__s390x__)
     if (FL_EARLY_NETWORKING(flags)) {
         kickstartNetworkUp(&loaderData, &iface);
     }
+#endif
 
     doLoaderMain(&loaderData, modInfo);
 #ifdef USESELINUX

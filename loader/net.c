@@ -1755,6 +1755,7 @@ int chooseNetworkInterface(struct loaderData_s * loaderData) {
     return LOADER_OK;
 }
 
+#if !defined(__s390__) && !defined(__s390x__)
 /* JKFIXME: bad name.  this function brings up networking early on a 
  * kickstart install so that we can do things like grab the ks.cfg from
  * the network */
@@ -1797,6 +1798,7 @@ int kickstartNetworkUp(struct loaderData_s * loaderData, iface_t * iface) {
 
     return activateDevice(loaderData, iface);
 }
+#endif
 
 int disconnectDevice(char *device) {
     int rc;

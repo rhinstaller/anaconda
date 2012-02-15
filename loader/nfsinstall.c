@@ -325,10 +325,12 @@ int getFileFromNfs(char * url, char * dest, struct loaderData_s * loaderData) {
     NMState state;
     const GPtrArray *devices;
 
+#if !defined(__s390__) && !defined(__s390x__)
     if (kickstartNetworkUp(loaderData, &iface)) {
         logMessage(ERROR, "unable to bring up network");
         return 1;
     }
+#endif
 
     /* if they just did 'linux ks', they want us to figure it out from
      * the dhcp/bootp information

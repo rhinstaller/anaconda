@@ -231,10 +231,12 @@ int getFileFromUrl(char * url, char * dest,
 
     iface_init_iface_t(&iface);
 
+#if !defined(__s390__) && !defined(__s390x__)
     if (kickstartNetworkUp(loaderData, &iface)) {
         logMessage(ERROR, "unable to bring up network");
         return 1;
     }
+#endif
 
     logMessage(INFO, "file location: %s", url);
 
