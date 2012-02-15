@@ -39,6 +39,10 @@ class FilterTypeWindow(InstallWindow):
         ics.setTitle("Filter Type")
         ics.setNextEnabled(True)
 
+        if flags.cmdline.getbool("traceback"):
+            ics.getICW().anaconda.intf.enableNetwork()
+            raise RuntimeError("Intentionally raised exception")
+
     def getNext(self):
         if self.buttonGroup.getCurrent() == "simple":
             self.anaconda.simpleFilter = True
