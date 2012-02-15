@@ -224,10 +224,10 @@ class iscsi(object):
         iutil.execWithRedirect('modprobe', ['-a'] + ISCSI_MODULES,
                                stdout="/dev/tty5", stderr="/dev/tty5")
         # this is needed by Broadcom offload cards (bnx2i)
-        brcm_iscsiuio = iutil.find_program_in_path('brcm_iscsiuio',
+        iscsiuio = iutil.find_program_in_path('iscsiuio',
                                                    raise_on_error=True)
-        log.debug("iscsi: brcm_iscsiuio is at %s" % brcm_iscsiuio)
-        iutil.execWithRedirect(brcm_iscsiuio, [],
+        log.debug("iscsi: iscsiuio is at %s" % iscsiuio)
+        iutil.execWithRedirect(iscsiuio, [],
                                stdout="/dev/tty5", stderr="/dev/tty5")
         # run the daemon
         iutil.execWithRedirect(ISCSID, [],
