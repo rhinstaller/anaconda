@@ -236,6 +236,15 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Thu Feb 16 2012 Brian C. Lane <bcl@redhat.com> - 17.9-1
+- Don't set the pmbr bootable flag on Macs, whether booted via EFI or not (mjg)
+- Don't set GPT HFS+ partitions as bootable (mjg)
+- Mark HFS+ as fsckable (mjg)
+- fix setattr in set_cmdline_bool (pschindl)
+- Add _mounttype to HFSPlus (mjg)
+- Add support for UEFI Mac installs (mjg)
+- Add support for HFS+ partitions (mjg)
+
 * Mon Feb 13 2012 Brian C. Lane <bcl@redhat.com> - 17.8-1
 - Clear partitions' metadata when 'clearpart --initlabel' used. (#783841)
   (cherry picked from commit 15307cc091212cc69b599b90c239492c9c9586ec)
