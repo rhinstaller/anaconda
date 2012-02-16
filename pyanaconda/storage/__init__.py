@@ -375,7 +375,7 @@ class Storage(object):
         self.devicetree.processActions()
         self.doEncryptionPassphraseRetrofits()
 
-        # now set the boot partition's flag
+        # now set the boot partition's flag.
         if self.anaconda:
             if self.anaconda.bootloader.stage2_bootable:
                 boot = self.bootDevice
@@ -402,6 +402,13 @@ class Storage(object):
                          log.info("not setting boot flag on %s as there is"
                                   "another active partition" % dev.name)
                          continue
+                    # hfs+ partitions on gpt can't be marked bootable via
+                    # parted
+                    if dev.disk.format.partedDisk.type == "gpt" and \
+                            dev.format.type == "hfs+":
+                        log.info("not setting boot flag on hfs+ partition"
+                                 " %s" % dev.name)
+                        continue
                     log.info("setting boot flag on %s" % dev.name)
                     dev.bootable = True
 
