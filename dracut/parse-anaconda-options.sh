@@ -12,13 +12,15 @@ udevproperty ANACONDA=1
 mkdir -p $repodir $isodir
 
 # get some info from .buildstamp
-if [ ! -f /.buildstamp ]; then
+buildstamp=/run/initramfs/.buildstamp
+[ -f /.buildstamp ] && buildstamp=/.buildstamp
+if [ ! -f $buildstamp ]; then
     warn ".buildstamp missing"
 else
-    product=$(config_get Main Product < /.buildstamp)
-    version=$(config_get Main Version < /.buildstamp)
+    product=$(config_get Main Product < $buildstamp)
+    version=$(config_get Main Version < $buildstamp)
     # TODO: this is silly. There should be an "Arch" item in there..
-    uuid=$(config_get Main UUID < /.buildstamp)
+    uuid=$(config_get Main UUID < $buildstamp)
     strstr "$uuid" "." && arch=${uuid##*.}
 fi
 [ -z "$arch" ] && arch=$(uname -m)
