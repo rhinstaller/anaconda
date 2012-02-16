@@ -27,7 +27,7 @@ install() {
     inst "$moddir/fetch-kickstart" "/sbin/fetch-kickstart"
     inst "$moddir/parse-kickstart" "/sbin/parse-kickstart"
     # python deps for parse-kickstart. DOUBLE WOOOO
-    $moddir/pythondeps.sh $moddir/parse-kickstart | while read dep; do
+    bash $moddir/pythondeps.sh $moddir/parse-kickstart | while read dep; do
         case "$dep" in
             *.so) inst_library $dep ;;
             *.py) inst_simple $dep ;;
