@@ -90,6 +90,45 @@ class GraphicalUserInterface(UserInterface):
         self._actions[0].window.show_all()
         Gtk.main()
 
+    ###
+    ### MESSAGE HANDLING METHODS
+    ###
+    def showError(self, message):
+        from gi.repository import AnacondaWidgets, Gtk
+
+        dlg = Gtk.MessageDialog(flags=Gtk.DialogFlags.MODAL,
+                                message_type=Gtk.MessageType.ERROR,
+                                buttons=Gtk.ButtonsType.NONE,
+                                message_format=message)
+        dlg.add_button(_("_Exit Installer"), 0)
+
+        lightbox = AnacondaWidgets.lb_show_over(self._actions[0].window)
+        dlg.set_transient_for(lightbox)
+        dlg.run()
+        dlg.destroy()
+        lightbox.destroy()
+
+    def showYesNoQuestion(self, message):
+        from gi.repository import AnacondaWidgets, Gtk
+
+        dlg = Gtk.MessageDialog(flags=Gtk.DialogFlags.MODAL,
+                                message_type=Gtk.MessageType.QUESTION,
+                                buttons=Gtk.ButtonsType.NONE,
+                                message_format=message)
+        dlg.add_buttons(_("_No"), 0, _("_Yes"), 1)
+        dlg.set_default_response(1)
+
+        lightbox = AnacondaWidgets.lb_show_over(self._actions[0].window)
+        dlg.set_transient_for(lightbox)
+        rc = dlg.run()
+        dlg.destroy()
+        lightbox.destroy()
+
+        return bool(rc)
+
+    ###
+    ### SIGNAL HANDLING METHODS
+    ###
     def _on_continue_clicked(self):
         # If we're on the last screen, clicking Continue is the same as clicking Quit.
         if len(self._actions) == 1:

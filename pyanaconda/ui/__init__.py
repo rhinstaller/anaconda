@@ -1,6 +1,6 @@
 # Base classes for all user interfaces.
 #
-# Copyright (C) 2011  Red Hat, Inc.
+# Copyright (C) 2011-2012  Red Hat, Inc.
 #
 # This copyrighted material is made available to anyone wishing to use,
 # modify, copy, or redistribute it subject to the terms and conditions of
@@ -46,6 +46,10 @@ class UserInterface(object):
         self.devicetree = devicetree
         self.instclass = instclass
 
+        # Register this interface with the top-level ErrorHandler.
+        from pyanaconda.errors import errorHandler
+        errorHandler.ui = self
+
     def setup(self, data):
         """Construct all the objects required to implement this interface.
            This method must be provided by all subclasses.
@@ -56,5 +60,31 @@ class UserInterface(object):
         """Run the interface.  This should do little more than just pass
            through to something else's run method, but is provided here in
            case more is needed.  This method must be provided by all subclasses.
+        """
+        raise NotImplementedError
+
+    ###
+    ### MESSAGE HANDLING METHODS
+    ###
+    def showError(self, message):
+        """Display an error dialog with the given message.  After this dialog
+           is displayed, anaconda will quit.  There is no return value.  This
+           method must be implemented by all UserInterface subclasses.
+
+           In the code, this method should be used sparingly and only for
+           critical errors that anaconda cannot figure out how to recover from.
+        """
+        raise NotImplementedError
+
+    def showYesNoQuestion(self, message):
+        """Display a dialog with the given message that presents the user a yes
+           or no choice.  This method returns True if the yes choice is selected,
+           and False if the no choice is selected.  From here, anaconda can
+           figure out what to do next.  This method must be implemented by all
+           UserInterface subclasses.
+
+           In the code, this method should be used sparingly and only for those
+           times where anaconda cannot make a reasonable decision.  We don't
+           want to overwhelm the user with choices.
         """
         raise NotImplementedError
