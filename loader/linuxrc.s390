@@ -2294,18 +2294,16 @@ function handle_dns() {
         while read dnsitem; do
             # Some network environment may prevent a DNS server from being
             # reachable by ping, so it would make sense to use nslookup.
-            # However, nslookup fails with "Resolver Error 0 (no error)"
-            # at this stage of the setup progress => not useful
             if ! $PING $dnsitem >& /dev/null; then
                 echo $"Could not ping DNS server: $dnsitem"
-#                if nslookup $dnsitem $dnsitem >& /dev/null; then
-#                    echo $" but could resolve DNS server with itself: $dnsitem"
-#                else
-#                    echo $"Could not resolve DNS server with itself: $dnsitem"
-#                    allgood="no"
-#                fi
-#            elif ! nslookup $dnsitem $dnsitem >& /dev/null; then
-#                echo $"Could not resolve DNS server with itself: $dnsitem"
+                if nslookup $dnsitem $dnsitem >& /dev/null; then
+                    echo $" but could resolve DNS server with itself: $dnsitem"
+                else
+                    echo $"Could not resolve DNS server with itself: $dnsitem"
+                    allgood="no"
+                fi
+            elif ! nslookup $dnsitem $dnsitem >& /dev/null; then
+                echo $"Could not resolve DNS server with itself: $dnsitem"
                 allgood="no"
             fi
         done < <(echo $DNS | sed 's/:/\n/g')
