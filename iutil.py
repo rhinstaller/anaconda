@@ -479,6 +479,21 @@ def swapSuggestion(quiet=0):
 
     return (minswap, maxswap)
 
+def swapSameAsRam(quiet=0):
+    mem = memInstalled() / 1024
+    mem = ((mem / 16) + 1) * 16
+    if not quiet:
+        log.info("Detected %sM of memory", mem)
+
+    #see #rhbz587152
+    if mem <= SWAP_SIZE_LIMIT:
+        log.info("Swap attempt of %sM to %sM", mem, mem)
+        return (mem, mem)
+    else:
+        log.warning("Cannot create swap of size %sM, using upper bound %sM",
+                    mem, SWAP_SIZE_LIMIT)
+        return (SWAP_SIZE_LIMIT, SWAP_SIZE_LIMIT)
+
 ## Create a directory path.  Don't fail if the directory already exists.
 # @param dir The directory path to create.
 def mkdirChain(dir):

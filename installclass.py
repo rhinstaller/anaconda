@@ -191,7 +191,7 @@ class BaseInstallClass(object):
         if bootreq:
             autorequests.extend(bootreq)
 
-        (minswap, maxswap) = iutil.swapSuggestion()
+        (minswap, maxswap) = iutil.swapSameAsRam()
         autorequests.append(PartSpec(fstype="swap", size=minswap, maxSize=maxswap,
                                      grow=True, asVol=True))
 

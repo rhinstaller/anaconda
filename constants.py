@@ -93,3 +93,6 @@ TRANSLATIONS_UPDATE_DIR="/tmp/updates/po"
 # number of retries before displaying an error dialog
 YUM_DOWNLOAD_RETRIES = 3
 YUM_DOWNLOAD_DELAY = 3
+
+#see rhbz#744129 for details
+SWAP_SIZE_LIMIT = 128 * 1024
