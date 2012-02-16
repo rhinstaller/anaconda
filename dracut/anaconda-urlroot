@@ -1,0 +1,22 @@
+#!/bin/sh
+. /lib/dracut-lib.sh
+. /lib/url-lib.sh
+. /lib/anaconda-lib.sh
+repo="${2#anaconda-url:}"
+info "repo is $repo"
+info "trying to get .treeinfo"
+treeinfo=$(fetch_url $repo/.treeinfo) && \
+  stage2=$(config_get stage2 mainimage < $treeinfo)
+if [ -z "$stage2" ]; then
+    if [ -z "$treeinfo" ]; then
+        warn "Can't find .treeinfo"
+    else
+        warn "Can't find [stage2] mainimage in .treeinfo"
+    fi
+    info "Trying default image path..."
+    stage2="LiveOS/squashfs.img"
+fi
+runtime=$(fetch_url $repo/$img) || \
+    emergency_shell "Failed to get anaconda runtime"
+
+exec /sbin/dmsquash-live-root $runtime
