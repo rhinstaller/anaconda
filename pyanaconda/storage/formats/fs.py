@@ -1368,6 +1368,7 @@ class HFSPlus(FS):
     _mountType = "hfsplus"
     _minSize = 1
     _maxSize = 2 * 1024 * 1024
+    _check = True
     partedSystem = fileSystemType["hfs+"]
 
 register_device_format(HFSPlus)
