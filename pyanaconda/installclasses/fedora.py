@@ -33,6 +33,7 @@ from pyanaconda import installmethod
 from pyanaconda import yuminstall
 
 import rpmUtils.arch
+from decimal import Decimal
 
 class InstallClass(BaseInstallClass):
     # name has underscore used for mnemonics, strip if you dont need it
@@ -113,11 +114,14 @@ class InstallClass(BaseInstallClass):
         return False
 
     def versionMatches(self, oldver):
+        if oldver is None:
+            return False
+
         try:
-            oldVer = float(oldver)
+            oldVer = Decimal(oldver)
             # Trim off any "-Alpha" or "-Beta".
-            newVer = float(productVersion.split('-')[0])
-        except ValueError:
+            newVer = Decimal(productVersion.split('-')[0])
+        except Exception:
             return True
 
         # This line means we do not support upgrading from anything older
