@@ -21,17 +21,16 @@ case "$repo" in
     cdrom:*)
         root="live:${repo#cdrom:}" ;;
     http:*|https:*|ftp:*)
-        treeinfo=$(fetch_url $repo/.treeinfo) && \
-          stage2=$(config_get stage2 mainimage < $treeinfo)
-        root="live:$repo/${stage2:-images/install.img}" ;;
+        root="anaconda-url"
+        netroot="anaconda-url:$repo"
+        wait_for_dev /dev/root ;;
     nfs:*|nfsiso:*)
-        root="anaconda-nfs" # root must be set
-        repo=nfs:${repo#nfs*:}
-        netroot="anaconda-nfs:$repo"
+        root="anaconda-nfs"
+        netroot="anaconda-nfs:${repo#nfs*:}"
         wait_for_dev /dev/root ;;
     hd:*)
         splitsep ":" "$repo" f dev path
-        root="anaconda.hdiso:$(resolve_disk $dev):$path" ;;
+        root="anaconda.hdiso:$(disk_to_dev_path $dev):$path" ;;
     *)
         warn "Invalid value for 'inst.repo': $repo"
         [ -z "$root" ] && warn "No root= arg either! Will look for media.." ;;
