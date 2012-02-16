@@ -7,7 +7,7 @@ check() {
 }
 
 depends() {
-    echo livenet nfs img-lib covertfs
+    echo livenet nfs img-lib convertfs
     return 0
 }
 
