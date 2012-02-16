@@ -2,7 +2,7 @@
 . /lib/url-lib.sh
 . /lib/anaconda-lib.sh
 repo="${2#anaconda-url:}"
-info "repo is $repo"
+echo "Loading installer from $repo"
 info "trying to get .treeinfo"
 treeinfo=$(fetch_url $repo/.treeinfo) && \
   stage2=$(config_get stage2 mainimage < $treeinfo)
@@ -16,4 +16,4 @@ if [ -z "$stage2" ]; then
     stage2="LiveOS/squashfs.img"
 fi
 runtime=$(fetch_url $repo/$stage2) && exec /sbin/dmsquash-live-root $runtime
-warn "Failed to get anaconda runtime"
+warn "Failed to download $repo/$stage2"
