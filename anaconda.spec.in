@@ -171,6 +171,7 @@ system.
 
 %package dracut
 Summary: The anaconda dracut module
+BuildArch: noarch
 Requires: dracut >= 16
 Requires: dracut-network
 Requires: xz
