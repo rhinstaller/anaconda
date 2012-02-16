@@ -17,7 +17,7 @@
 #
 # Author: Will Woods <wwoods@redhat.com>
 
-dracutdir = $(datadir)/dracut/modules.d/80$(PACKAGE_NAME)
+dracutdir = /usr/lib/dracut/modules.d/80$(PACKAGE_NAME)
 dist_dracut_DATA = module-setup.sh \
                    pythondeps.sh \
 		   anaconda-lib.sh \

@@ -250,8 +250,8 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %files dracut
-%dir %{_datadir}/dracut/modules.d/80%{name}
-%{_datadir}/dracut/modules.d/80%{name}/*
+%dir /usr/lib/dracut/modules.d/80%{name}
+/usr/lib/dracut/modules.d/80%{name}/*
 
 %changelog
 * Thu Feb 09 2012 Brian C. Lane <bcl@redhat.com> - 18.0-1
