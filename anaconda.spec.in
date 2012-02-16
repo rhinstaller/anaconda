@@ -232,6 +232,18 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Thu Feb 16 2012 David Cantrell <dcantrell@redhat.com> - 16.25.2-1
+- Do not assume we can find the IP address of the system in vnc.py (dcantrell)
+  Related: rhbz#783227
+- Prevent NetworkManager from destroying configured interfaces. (dcantrell)
+  Related: rhbz#783227
+- Copy dracut-created resolv.conf in to /etc (dcantrell)
+  Related: rhbz#783227
+- Remove networking configuration steps from linuxrc.s390 (dcantrell)
+  Resolves: rhbz#783227
+- Remove readNetInfo() from loader.c. (dcantrell)
+  Related: rhbz#783227
+
 * Fri Feb 03 2012 Martin Sivak <msivak@redhat.com> - 16.25.1-1
 - Add missing _boot_description values for dasd and zfcp (#739620)
 - Fix root device specification in zipl.conf. (#740576)
