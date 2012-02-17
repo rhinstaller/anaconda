@@ -25,7 +25,7 @@ from pyanaconda import gui
 from iw_gui import *
 from pyanaconda.flags import flags
 from pyanaconda.constants import *
-import cracklib
+import pwquality
 from pyanaconda import _isys
 
 import gettext
@@ -121,9 +121,10 @@ class AccountWindow (InstallWindow):
             self.passwordError()
 
         try:
-            cracklib.FascistCheck(pw)
-        except ValueError as e:
-            msg = gettext.ldgettext("cracklib", e)
+            settings = pwquality.PWQSettings()
+            settings.read_config()
+            settings.check(pw, None, "root")
+        except pwquality.PWQError as (e, msg):
             ret = self.intf.messageWindow(_("Weak Password"),
                                           _("You have provided a weak password: %s") % msg,
                                           type="custom", custom_icon="error",

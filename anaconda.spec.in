@@ -125,7 +125,7 @@ Requires: lvm2
 Requires: util-linux >= 2.15.1
 Requires: system-config-keyboard >= %{sckeyboardver}
 Requires: dbus-python
-Requires: cracklib-python
+Requires: python-pwquality
 Requires: python-bugzilla
 Requires: python-nss
 Requires: tigervnc-server-minimal
