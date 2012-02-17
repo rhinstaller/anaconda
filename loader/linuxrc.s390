@@ -159,34 +159,44 @@ function startinetd()
 
     /usr/sbin/sshd -f /etc/ssh/sshd_config.anaconda
 
-    # XXX: there may be better files to rely on, also errors may mean something
-    iface="$(cat /run/initramfs/net.bootdev 2>/dev/null)"
-    if [ ! -z "${iface}" ]; then
-        . /run/initramfs/net.${iface}.override 2>/dev/null
-    fi
+    N=/sys/class/net
+    if [ -d ${N} ]; then
+        # get the IP address used during installation
+        devcount="$(ls -1 ${N} 2>/dev/null | grep -v lo | wc -l)"
 
-    # copy dracut ifcfg files to keep NetworkManager from downing them all
-    DRACUTDIR=/run/initramfs/state
-    IFCFGDIR=/etc/sysconfig/network-scripts
-    if [ -d ${DRACUTDIR}${IFCFGDIR} ]; then
-        mkdir -p ${IFCFGDIR}
-        ls -1 ${DRACUTDIR}${IFCFGDIR}/ifcfg-* 2>/dev/null | while read ifcfgfile ; do
-            baseifcfg="$(basename ${ifcfgfile})"
-            cp ${ifcfgfile} ${IFCFGDIR}
-            echo "NM_CONTROLLED=no" >> ${IFCFGDIR}/${baseifcfg}
+        if [ ${devcount} -ne 1 ]; then
+            echo >&2
+            echo "ERROR: You may only have one Ethernet device configured during installation." >&2
+            echo >&2
+            exit 1
+        fi
+
+        IPADDR="$(ifconfig eth0 | grep 'inet addr:' | cut -d ':' -f 2 | cut -d ' ' -f 1)"
+
+        # keep NetworkManager from downing all configured interfaces
+        IFCFGDIR=/etc/sysconfig/network-scripts
+        [ ! -d ${IFCFGDIR} ] && mkdir -p ${IFCFGDIR}
+        cd ${N}
+        for dev in * ; do
+            C=${IFCFGDIR}/ifcfg-${dev}
+            echo "DEVICE=${dev}" > ${C}
+            echo "BOOTPROTO=static" >> ${C}
+            echo "HWADDR=$(cat ${dev}/address | tr [a-f] [A-F])" >> ${C}
+            echo "NM_CONTROLLED=no" >> ${C}
+            echo "ONBOOT=yes" >> ${C}
         done
     fi
 
     # make sure we have a resolv.conf
-    DRACUTRESOLV="$(ls -1 /run/initramfs/state/etc/*.resolv.conf 2>/dev/null)"
-    if [ -r ${DRACUTRESOLV} ]; then
-        cp ${DRACUTRESOLV} /etc/resolv.conf
-    fi
+    for bootopt in $(cat /proc/cmdline) ; do
+        echo "${bootopt}" | grep -q -E "^nameserver=" 2>/dev/null
+        [ $? -eq 0 ] && echo ${bootopt} | tr '=' ' '
+    done > /etc/resolv.conf
 
     if [ -z "$RUNKS" ]; then
         echo
-        echo $"Connect now to $ip and log in as user 'install' to start the installation."
-        echo $"E.g. using: ssh -x install@$ip"
+        echo $"Connect now to $IPADDR and log in as user 'install' to start the installation."
+        echo $"E.g. using: ssh -x install@$IPADDR"
         echo $"For VNC or text mode, disable X11 forwarding (recommended) with 'ssh -x'."
         echo $"For X11, enable X11 forwarding with 'ssh -X'."
         echo
