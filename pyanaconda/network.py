@@ -153,6 +153,9 @@ def nmIsConnected(state):
                      isys.NM_STATE_CONNECTED_GLOBAL)
 
 def hasActiveNetDev():
+    if iutil.isS390():
+        return True
+
     try:
         bus = dbus.SystemBus()
         nm = bus.get_object(isys.NM_SERVICE, isys.NM_MANAGER_PATH)
@@ -399,7 +402,8 @@ class Network:
         # We can filter out storage devices only after
         # we have device tree populated. So we do it before
         # running nm-c-e and before writing ifcfg files to system.
-        self.setNMControlledDevices(self.netdevices.keys())
+        if not iutil.isS390():
+            self.setNMControlledDevices(self.netdevices.keys())
 
     def update(self):
         ifcfglog.debug("Network.update() called")

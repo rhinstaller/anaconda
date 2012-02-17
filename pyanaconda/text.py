@@ -389,6 +389,8 @@ class InstallInterface(InstallInterfaceBase):
         return passphrase
 
     def enableNetwork(self):
+        if iutil.isS390():
+            return True
         if len(self.anaconda.network.netdevices) == 0:
             return False
         from textw.netconfig_text import NetworkConfiguratorText

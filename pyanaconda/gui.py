@@ -895,6 +895,8 @@ class InstallInterface(InstallInterfaceBase):
 
     # just_setup is used for [Configure Network] button
     def enableNetwork(self, just_setup=False):
+        if iutil.isS390():
+            return True
 
         if len(self.anaconda.network.netdevices) == 0:
             return False

@@ -94,6 +94,8 @@ class RescueInterface(InstallInterfaceBase):
 	    return OkCancelWindow(self.screen, title, text)
 
     def enableNetwork(self, anaconda):
+        if iutil.isS390():
+            return True
         if len(anaconda.network.netdevices) == 0:
             return False
         from textw.netconfig_text import NetworkConfiguratorText
