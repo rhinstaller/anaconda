@@ -737,6 +737,32 @@ if __name__ == "__main__":
     # scripts.  Add those to the ksdata now.
     kickstart.appendPostScripts(ksdata)
 
+    # set ksdata.method based on anaconda.method if it isn't already set
+    if anaconda.methodstr and not ksdata.method.method:
+        if anaconda.methodstr.startswith("cdrom"):
+            ksdata.method.method = "cdrom"
+        elif anaconda.methodstr.startswith("nfs"):
+            ksdata.method.method = "nfs"
+            url = anaconda.methodstr.split(":", 1)[1]
+            (opts, server, path) = iutil.parseNfsUrl(url)
+            ksdata.method.server = server
+            ksdata.method.dir = path
+            ksdata.method.opts = opts
+        elif anaconda.methodstr.startswith("hd:"):
+            ksdata.method.method = "harddrive"
+            url = anaconda.methodstr.split(":", 1)[1]
+            if url.count(":") == 1:
+                (device, path) = url.split(":")
+            else:
+                (device, fstype, path) = url.split(":")
+            ksdata.method.partition = device
+            ksdata.method.dir = path
+        elif anaconda.methodstr.startswith("http") or \
+             anaconda.methodstr.startswith("ftp"):
+            ksdata.method.method = "url"
+            ksdata.method.nosslverify = flags.nosslverify
+            ksdata.method.proxy = anaconda.proxy    # FIXME: username/password
+
     # now start the interface
     setupDisplay(anaconda, opts)
 
