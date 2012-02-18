@@ -62,14 +62,13 @@ def exitHandler(anaconda, exitCode=None):
 
     if anaconda.ksdata and not flags.imageInstall:
         from pykickstart.constants import KS_SHUTDOWN, KS_WAIT, KS_REBOOT
+        from iutil import dracut_eject
 
         if anaconda.ksdata.reboot.eject:
             for drive in anaconda.storage.devicetree.devices:
                 if drive.type != "cdrom":
                     continue
-
-                log.info("attempting to eject %s" % drive.path)
-                drive.eject()
+                dracut_eject(drive.path)
 
         if anaconda.ksdata.reboot.action == KS_SHUTDOWN:
             os.system("systemctl --force --no-wall poweroff")
