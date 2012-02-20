@@ -25,6 +25,10 @@ from pyanaconda.ui import UserInterface
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
 
+__all__ = ["GraphicalUserInterface", "UIObject", "collect"]
+
+_screenshotIndex = 0
+
 class GraphicalUserInterface(UserInterface):
     """This is the standard GTK+ interface we try to steer everything to using.
        It is suitable for use both directly and via VNC.
@@ -243,6 +247,7 @@ class UIObject(object):
             self.builder.add_from_file(self._findUIFile())
 
         self.builder.connect_signals(self)
+        self.window.connect("key-release-event", self._handlePrntScreen)
 
     def _findUIFile(self):
         path = os.environ.get("UIPATH", "./:/tmp/updates/:/tmp/updates/ui/:/usr/share/anaconda/ui/")
@@ -252,6 +257,29 @@ class UIObject(object):
                 return testPath
 
         raise IOError("Could not load UI file '%s' for object '%s'" % (self.uiFile, self))
+
+    def _handlePrntScreen(self, window, event):
+        from gi.repository import Gdk
+
+        global _screenshotIndex
+
+        if event.keyval != Gdk.KEY_Print:
+            return
+
+        # Make sure the screenshot directory exists.
+        if not os.access("/tmp/anaconda-screenshots", os.W_OK):
+            os.mkdir("/tmp/anaconda-screenshots")
+
+        fn = "/tmp/anaconda-screenshots/screenshot-%04d.png" % _screenshotIndex
+
+        win = window.get_window()
+        width = win.get_width()
+        height = win.get_height()
+
+        pixbuf = Gdk.pixbuf_get_from_window(win, 0, 0, width, height)
+        pixbuf.savev(fn, "png", [], [])
+
+        _screenshotIndex += 1
 
     def initialize(self):
         """Perform whatever actions are necessary to pre-fill the UI with
