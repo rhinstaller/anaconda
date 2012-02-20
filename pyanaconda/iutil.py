@@ -1002,3 +1002,27 @@ def lsmod():
     with open("/proc/modules") as f:
         lines = f.readlines()
     return [l.split()[0] for l in lines]
+
+def dracut_eject(device):
+    """
+    Use dracut shutdown hook to eject media after the system is shutdown.
+    This is needed because we are running from the squashfs.img on the media
+    so ejecting too early will crash the installer.
+    """
+    if not device:
+        return
+
+    try:
+        if not os.path.exists(DRACUT_SHUTDOWN_EJECT):
+            f = open(DRACUT_SHUTDOWN_EJECT, "w")
+            f.write("#!/bin/sh\n")
+            f.write("# Created by Anaconda\n")
+        else:
+            f = open(DRACUT_SHUTDOWN_EJECT, "a")
+
+        f.write("eject %s\n" % (device,))
+        f.close()
+        os.chmod(DRACUT_SHUTDOWN_EJECT, 0755)
+        log.info("Wrote dracut shutdown eject hook for %s" % (device,))
+    except Exception, e:
+        log.error("Error writing dracut shutdown eject hook for %s: %s" % (device, e))
