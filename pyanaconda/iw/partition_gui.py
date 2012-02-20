@@ -1783,7 +1783,7 @@ class PartitionWindow(InstallWindow):
             vgeditor = l_d_g.VolumeGroupEditor(self.anaconda, self.intf, self.parent,
                     vg, isNew = False)
             tempvg = vgeditor.getTempVG()
-            name = self.storage.createSuggestedLVName(tempvg)
+            name = self.storage.suggestDeviceName(parent=tempvg, prefix="lv")
             format = getFormat(self.storage.defaultFSType)
             vgeditor.lvs[name] = {'name': name,
                               'size': vg.freeSpace,
