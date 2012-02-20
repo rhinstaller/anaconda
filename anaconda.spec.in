@@ -236,6 +236,23 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Mon Feb 20 2012 Brian C. Lane <bcl@redhat.com> - 17.10-1
+- use a dracut shutdown hook to eject media (#787461) (bcl)
+- add dracut shutdown eject hook function (#787461) (bcl)
+- The createSuggested methods have changed name (#791204, #795058). (clumens)
+- Generate repo= ks command only for repos added by user (#738577) (rvykydal)
+- Use libpwquality to check root password strength (#755883) (mgracik)
+- Generate connection UUID in inital ifcfg files created by anaconda (#705328)
+  (rvykydal)
+- Take in change of a binary name (brcm_iscsiuio -> iscsiuio) (#731761)
+  (rvykydal)
+- Set ONBOOT=yes for FCoE devices (#755147) (rvykydal)
+- Fix a typo (#794504). (clumens)
+- Add support for network --device=link in stage2 kickstart (#790332)
+  (rvykydal)
+- Set default lang and create default locale files early (wwoods)
+- Add 'traceback' boot option for python-meh and libreport testing (vpodzime)
+
 * Thu Feb 16 2012 Brian C. Lane <bcl@redhat.com> - 17.9-1
 - Don't set the pmbr bootable flag on Macs, whether booted via EFI or not (mjg)
 - Don't set GPT HFS+ partitions as bootable (mjg)
