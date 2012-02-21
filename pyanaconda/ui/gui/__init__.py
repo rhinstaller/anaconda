@@ -217,11 +217,21 @@ class UIObject(object):
 
            Instance attributes:
 
-           data         -- An instance of a pykickstart Handler object.  The
-                           Hub never directly uses this instance.  Instead, it
-                           passes it down into Spokes when they are created
-                           and applied.  The Hub simply stores this instance
-                           so it doesn't need to be passed by the user.
+           data     -- An instance of a pykickstart Handler object.  The Hub
+                       never directly uses this instance.  Instead, it passes
+                       it down into Spokes when they are created and applied.
+                       The Hub simply stores this instance so it doesn't need
+                       to be passed by the user.
+           skipTo   -- If this attribute is set to something other than None,
+                       it must be the name of a class (as a string).  Then,
+                       the interface will skip to the first instance of that
+                       class in the action list instead of going on to
+                       whatever the next action is normally.
+
+                       Note that actions may only skip ahead, never backwards.
+                       Also, standalone spokes may not skip to an individual
+                       spoke off a hub.  They can only skip to the hub
+                       itself.
         """
         if self.__class__ is UIObject:
             raise TypeError("UIObject is an abstract class")
@@ -235,6 +245,7 @@ class UIObject(object):
         self._origStrings = {}
 
         self.data = data
+        self.skipTo = None
 
         from gi.repository import Gtk
 
@@ -344,19 +355,6 @@ class UIObject(object):
            instantiated.
         """
         return True
-
-    @property
-    def skipTo(self):
-        """If this property returns something other than None, it must be the
-           name of a class.  Then, the interface will skip to the first
-           instance of that class in the action list instead of going on to
-           whatever the next action is normally.
-
-           Note that actions may only skip ahead, never backwards.  Also,
-           standalone spokes may not skip to an individual spoke off a hub.
-           They can only skip to the hub itself.
-        """
-        return None
 
     def teardown(self):
         """Perform whatever actions are necessary to clean up after this object
