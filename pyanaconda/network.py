@@ -162,7 +162,7 @@ def hasActiveNetDev():
 
         return nmIsConnected(state)
     except:
-        return False
+        return flags.testing
 
 # Return a list of device names (e.g., eth0) for all active devices.
 # Returning a list here even though we will almost always have one
