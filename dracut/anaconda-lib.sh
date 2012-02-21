@@ -59,3 +59,12 @@ mount_isodir() {
         echo $img
     fi
 }
+
+disk_to_dev_path() {
+    case "$1" in
+        CDLABEL=*|LABEL=*) echo "/dev/disk/by-label/${1#*LABEL=}" ;;
+        UUID=*) echo "/dev/disk/by-uuid/${1#UUID=}" ;;
+        /dev/*) echo "$1" ;;
+        *) echo "/dev/$1" ;;
+    esac
+}
