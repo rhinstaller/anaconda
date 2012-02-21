@@ -49,8 +49,6 @@ class GraphicalUserInterface(UserInterface):
         from hubs.progress import ProgressHub
         from spokes import StandaloneSpoke
 
-        from pyanaconda.product import isFinal, productName, productVersion
-
         self._hubs.extend([SummaryHub, ProgressHub])
 
         # First, grab a list of all the standalone spokes.
@@ -89,7 +87,7 @@ class GraphicalUserInterface(UserInterface):
 
         self._actions[0].window.set_beta(not isFinal)
         self._actions[0].window.set_property("distribution", _("%(productName)s %(productVersion)s INSTALLATION") % \
-                                             {"productName": productName, "productVersion": productVersion})
+                                             {"productName": productName.upper(), "productVersion": productVersion})
 
         self._actions[0].window.show_all()
         Gtk.main()
