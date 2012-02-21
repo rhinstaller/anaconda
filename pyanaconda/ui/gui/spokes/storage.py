@@ -387,11 +387,11 @@ class StorageSpoke(NormalSpoke):
         self._update_disk_list()
         self._update_summary()
 
-    def initialize(self, readyCB=None):
+    def initialize(self):
         from pyanaconda.threads import threadMgr
         from threading import Thread
 
-        NormalSpoke.initialize(self, readyCB)
+        NormalSpoke.initialize(self)
 
         summary_label = self.builder.get_object("summary_button").get_children()[0]
         summary_label.set_use_markup(True)
@@ -409,9 +409,9 @@ class StorageSpoke(NormalSpoke):
         context = viewport.get_style_context()
         context.add_provider(provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
 
-        threadMgr.add(Thread(name="AnaStorageWatcher", target=self._initialize, args=(readyCB,)))
+        threadMgr.add(Thread(name="AnaStorageWatcher", target=self._initialize))
 
-    def _initialize(self, readyCB):
+    def _initialize(self):
         from pyanaconda.threads import threadMgr
 
         storageThread = threadMgr.get("AnaStorageThread")
@@ -419,13 +419,13 @@ class StorageSpoke(NormalSpoke):
             storageThread.join()
 
         self._ready = True
-        if readyCB:
-            readyCB()
 
         print self.data.ignoredisk.onlyuse
         self.disks = getDisks(self.devicetree)
 
         Gdk.threads_enter()
+
+        self.selector.set_sensitive(True)
 
         # properties: kind, description, capacity, os, popup-info
         first = True

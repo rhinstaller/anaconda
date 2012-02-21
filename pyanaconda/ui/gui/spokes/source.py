@@ -1,6 +1,6 @@
 # Installation source spoke classes
 #
-# Copyright (C) 2011  Red Hat, Inc.
+# Copyright (C) 2011, 2012  Red Hat, Inc.
 #
 # This copyrighted material is made available to anyone wishing to use,
 # modify, copy, or redistribute it subject to the terms and conditions of
@@ -25,7 +25,7 @@ N_ = lambda x: x
 
 import os.path
 
-from gi.repository import AnacondaWidgets
+from gi.repository import AnacondaWidgets, Gdk
 
 from pyanaconda.image import opticalInstallMedia, potentialHdisoSources
 from pyanaconda.ui.gui import UIObject
@@ -121,6 +121,7 @@ class SourceSpoke(NormalSpoke):
     def __init__(self, *args, **kwargs):
         NormalSpoke.__init__(self, *args, **kwargs)
         self._currentIsoFile = None
+        self._ready = False
 
     def apply(self):
         if self._autodetectButton.get_active():
@@ -174,6 +175,13 @@ class SourceSpoke(NormalSpoke):
         return self.status and self.status != _("Nothing selected")
 
     @property
+    def ready(self):
+        # By default, the source spoke is not ready.  We have to wait until
+        # storageInitialize is done to know whether or not there's local
+        # devices potentially holding install media.
+        return self._ready
+
+    @property
     def status(self):
         if self.data.method.method == "url":
             if len(self.data.method.url) > 42:
@@ -203,8 +211,11 @@ class SourceSpoke(NormalSpoke):
 
         self._verifyIsoButton = self.builder.get_object("verifyIsoButton")
 
-    def initialize(self, readyCB=None):
-        NormalSpoke.initialize(self, readyCB)
+    def initialize(self):
+        from pyanaconda.threads import threadMgr
+        from threading import Thread
+
+        NormalSpoke.initialize(self)
 
         self._grabObjects()
 
@@ -213,6 +224,20 @@ class SourceSpoke(NormalSpoke):
         self._autodetectButton.connect("toggled", self.on_source_toggled, self._autodetectBox)
         self._isoButton.connect("toggled", self.on_source_toggled, self._isoBox)
         self._networkButton.connect("toggled", self.on_source_toggled, self._networkBox)
+
+        threadMgr.add(Thread(name="AnaSourceWatcher", target=self._initialize))
+
+    def _initialize(self):
+        from pyanaconda.threads import threadMgr
+
+        storageThread = threadMgr.get("AnaStorageThread")
+        if storageThread:
+            storageThread.join()
+
+        self._ready = True
+
+        Gdk.threads_enter()
+        self.selector.set_sensitive(True)
 
         # If we found any optical install media, display a selector for each
         # of those.
@@ -248,6 +273,8 @@ class SourceSpoke(NormalSpoke):
         # We'll override this later in the refresh() method, if they've already
         # provided a URL.
         # FIXME
+
+        Gdk.threads_leave()
 
     def refresh(self):
         NormalSpoke.refresh(self)

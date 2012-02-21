@@ -70,7 +70,7 @@ class Hub(UIObject):
         UIObject.__init__(self, data)
 
         self._incompleteSpokes = []
-        self._selectors = {}
+        self._spokes = {}
 
         self.devicetree = devicetree
         self.instclass = instclass
@@ -112,34 +112,32 @@ class Hub(UIObject):
                 # Create the new spoke and populate its UI with whatever data.
                 # From here on, this Spoke will always exist.
                 spoke = spokeClass(self.data, self.devicetree, self.instclass)
-                selector = AnacondaWidgets.SpokeSelector(_(spoke.title), spoke.icon)
-
                 if not spoke.showable:
                     continue
 
+                spoke.selector = AnacondaWidgets.SpokeSelector(_(spoke.title), spoke.icon)
+
                 # Does this spoke need a while to wait for some background process
                 # to finish before it can be shown?  If so, we need to mark it as
-                # insensitive and tell it how to update itself later.
+                # insensitive.
                 if not spoke.ready:
-                    selector.set_sensitive(False)
-                    spoke.initialize(readyCB=lambda : selector.set_sensitive(True))
-                else:
-                    spoke.initialize()
+                    spoke.selector.set_sensitive(False)
+
+                spoke.initialize()
 
                 # Set some default values on the associated selector that
                 # affect its display on the hub.
-                selector.set_property("status", spoke.status)
-                selector.set_incomplete(not spoke.completed)
+                spoke.selector.set_property("status", spoke.status)
+                spoke.selector.set_incomplete(not spoke.completed)
                 self._handleCompleteness(spoke)
-                selector.connect("button-press-event", self._on_spoke_clicked)
-                selector.connect("key-release-event", self._on_spoke_clicked)
+                spoke.selector.connect("button-press-event", self._on_spoke_clicked, spoke)
+                spoke.selector.connect("key-release-event", self._on_spoke_clicked, spoke)
 
-                selectors.append(selector)
+                selectors.append(spoke.selector)
 
                 # These settings are a way of being able to jump between two
                 # spokes without having to involve the hub (directly).
-                self._selectors[spokeClass.__name__] = selector
-                selector.spoke = spoke
+                self._spokes[spokeClass.__name__] = spoke
 
             if not selectors:
                 continue
@@ -199,17 +197,15 @@ class Hub(UIObject):
         elif event == "quit" and hasattr(self, "quitButton"):
             self.quitButton.connect("clicked", lambda *args: cb())
 
-    def _on_spoke_clicked(self, selector, event):
+    def _on_spoke_clicked(self, selector, event, spoke):
         from gi.repository import Gdk
-
-        spoke = selector.spoke
 
         # This handler only runs for these two kinds of events, and only for
         # activate-type keys (space, enter) in the latter event's case.
-        if not event.type in [Gdk.EventType.BUTTON_PRESS, Gdk.EventType.KEY_RELEASE]:
+        if event and not event.type in [Gdk.EventType.BUTTON_PRESS, Gdk.EventType.KEY_RELEASE]:
             return
 
-        if event.type == Gdk.EventType.KEY_RELEASE and \
+        if event and event.type == Gdk.EventType.KEY_RELEASE and \
            event.keyval not in [Gdk.KEY_space, Gdk.KEY_Return, Gdk.KEY_ISO_Enter, Gdk.KEY_KP_Enter, Gdk.KEY_KP_Space]:
               return
 
@@ -223,10 +219,10 @@ class Hub(UIObject):
 
         # And then if that spoke wants us to jump straight to another one,
         # handle that now.
-        if spoke.skipTo and spoke.skipTo in self._selectors:
+        if spoke.skipTo and spoke.skipTo in self._spokes:
             dest = spoke.skipTo
 
             # Clear out the skipTo setting so we don't cycle endlessly.
             spoke.skipTo = None
 
-            self._on_spoke_clicked(self._selectors[dest], None)
+            self._on_spoke_clicked(self._spokes[dest].selector, None, self._spokes[dest])

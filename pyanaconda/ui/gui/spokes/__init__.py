@@ -168,6 +168,7 @@ class NormalSpoke(Spoke):
             raise TypeError("NormalSpoke is an abstract class")
 
         Spoke.__init__(self, data, devicetree, instclass)
+        self.selector = None
 
     def check(self):
         """This method runs any special checks the spoke requires.  It will
@@ -180,14 +181,6 @@ class NormalSpoke(Spoke):
            those terminated prematurely.
         """
         pass
-
-    def initialize(self, readyCB=None):
-        """A special overridden version of UIObject.initialize.  This method
-           also takes a callback to be called whenever this spoke becomes
-           ready (see below).  Very few spokes should ever concern themselves
-           with this, however.
-        """
-        Spoke.initialize(self)
 
     @property
     def ready(self):
