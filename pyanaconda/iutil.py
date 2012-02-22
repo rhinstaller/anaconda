@@ -74,6 +74,13 @@ class tee(threading.Thread):
         self.running = False
         return self
 
+def augmentEnv():
+    env = os.environ.copy()
+    env.update({"LC_ALL": "C",
+                "ANA_INSTALL_PATH": ROOT_PATH
+               })
+    return env
+
 ## Run an external program and redirect the output to a file.
 # @param command The command to run.
 # @param argv A list of arguments.
@@ -127,9 +134,6 @@ def execWithRedirect(command, argv, stdin = None, stdout = None,
     #prepare os pipes for feeding tee proceses
     pstdout, pstdin = os.pipe()
     perrout, perrin = os.pipe()
-   
-    env = os.environ.copy()
-    env.update({"LC_ALL": "C"})
 
     try:
         #prepare tee proceses
@@ -144,7 +148,7 @@ def execWithRedirect(command, argv, stdin = None, stdout = None,
                                 stdout=pstdin,
                                 stderr=perrin,
                                 preexec_fn=chroot, cwd=root,
-                                env=env)
+                                env=augmentEnv())
 
         proc.wait()
         ret = proc.returncode
@@ -225,15 +229,12 @@ def execWithCapture(command, argv, stdin = None, stderr = None, root='/'):
 
     program_log.info("Running... %s" % (" ".join([command] + argv),))
 
-    env = os.environ.copy()
-    env.update({"LC_ALL": "C"})
-
     try:
         proc = subprocess.Popen([command] + argv, stdin=stdin,
                                 stdout=subprocess.PIPE,
                                 stderr=subprocess.PIPE,
                                 preexec_fn=chroot, cwd=root,
-                                env=env)
+                                env=augmentEnv())
 
         while True:
             (outStr, errStr) = proc.communicate()
