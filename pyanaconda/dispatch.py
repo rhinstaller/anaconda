@@ -27,7 +27,6 @@ import indexed_dict
 from constants import *
 from packages import writeKSConfiguration, turnOnFilesystems
 from packages import doPostAction
-from packages import copyAnacondaLogs
 from packages import firstbootConfiguration
 from packages import betaNagScreen
 from packages import setupTimezone
@@ -293,7 +292,6 @@ class Dispatcher(object):
         self.add_step("reipl", doReIPL)
         self.add_step("writeksconfig", writeKSConfiguration)
         self.add_step("setfilecon", setFileCons)
-        self.add_step("copylogs", copyAnacondaLogs)
         self.add_step("methodcomplete", doMethodComplete)
         self.add_step("postscripts", runPostScripts)
         self.add_step("dopostaction", doPostAction)

@@ -290,7 +290,6 @@ def setSteps(anaconda):
                 "dopostaction",
                 "methodcomplete",
                 "postscripts",
-                "copylogs",
                 "complete"
             )
 
