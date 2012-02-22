@@ -118,7 +118,6 @@ class BaseInstallClass(object):
                  "postscripts",
 		 "writeksconfig",
                  "methodcomplete",
-                 "setfilecon",
 		 "complete"
 		)
 

@@ -176,47 +176,6 @@ def setupTimezone(anaconda):
     except RuntimeError:
         log.error("Failed to set clock")
 
-
-# FIXME: this is a huge gross hack.  hard coded list of files
-# created by anaconda so that we can not be killed by selinux
-def setFileCons(anaconda):
-    def contextCB(arg, directory, files):
-        for file in files:
-            path = os.path.join(directory, file)
-
-            if not os.access(path, os.R_OK):
-                log.warning("%s doesn't exist" % path)
-                continue
-
-            # If the path begins with rootPath, matchPathCon will never match
-            # anything because policy doesn't contain that path.
-            if path.startswith(ROOT_PATH):
-                path = path.replace(ROOT_PATH, "")
-
-            ret = isys.resetFileContext(path, ROOT_PATH)
-
-    if flags.selinux:
-        log.info("setting SELinux contexts for anaconda created files")
-
-        # Add "/mnt/sysimage" to the front of every path so the glob works.
-        # Then run glob on each element of the list and flatten it into a
-        # single list we can run contextCB across.
-        files = itertools.chain(*map(lambda f: glob.glob("%s%s" % (ROOT_PATH, f)),
-                                     relabelFiles))
-        contextCB(None, "", files)
-
-        for dir in relabelDirs + ["/dev/%s" % vg.name for vg in anaconda.storage.vgs]:
-            # Add "/mnt/sysimage" for similar reasons to above.
-            dir = "%s%s" % (ROOT_PATH, dir)
-
-            os.path.walk(dir, contextCB, None)
-
-            # os.path.walk won't include the directory we start walking at,
-            # so that needs its context set separtely.
-            contextCB(None, "", [dir])
-
-    return
-
 # FIXME: using rpm directly here is kind of lame, but in the yum backend
 # we don't want to use the metadata as the info we need would require
 # the filelists.  and since we only ever call this after an install is
