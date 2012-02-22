@@ -40,8 +40,8 @@ class ProgressHub(Hub):
         self._currentStep = 0
 
         # Register this interface with the top-level ProgressHandler.
-        from pyanaconda.progress import progressHandler
-        progressHandler.register(self.initCB, self.updateCB, self.completeCB)
+        from pyanaconda.progress import progress
+        progress.register(self.initCB, self.updateCB, self.completeCB)
 
     def initialize(self):
         Hub.initialize(self)
