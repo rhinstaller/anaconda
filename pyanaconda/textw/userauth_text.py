@@ -19,7 +19,7 @@
 
 from snack import *
 from constants_text import *
-import cracklib
+import pwquality
 
 from pyanaconda.constants import *
 import gettext
@@ -77,9 +77,10 @@ class RootPasswordWindow:
                     buttons = [ TEXT_OK_BUTTON ], width = 50)
             else:
                 try:
-                    cracklib.FascistCheck(entry1.value())
-                except ValueError as e:
-                    msg = gettext.ldgettext("cracklib", e)
+                    settings = pwquality.PWQSettings()
+                    settings.read_config()
+                    settings.check(entry1.value(), None, "root")
+                except pwquality.PWQError as (e, msg):
                     ret = anaconda.intf.messageWindow(_("Weak Password"),
                              _("You have provided a weak password: %s\n\n"
                                "Would you like to continue with this password?"

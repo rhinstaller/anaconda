@@ -4032,7 +4032,7 @@ class BTRFSVolumeDevice(BTRFSDevice):
 
         try:
             subvols = btrfs.list_subvolumes(self.format._mountpoint)
-        except BRFSError as e:
+        except BTRFSError as e:
             log.debug("failed to list subvolumes: %s" % e)
         finally:
             self._undo_temp_mount()

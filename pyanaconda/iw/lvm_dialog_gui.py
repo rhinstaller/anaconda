@@ -462,7 +462,8 @@ class VolumeGroupEditor:
             if lv['name']:
                 lvnameentry.set_text(lv['name'])
             else:
-                lvnameentry.set_text(self.storage.createSuggestedLVName(self.getTempVG()))
+                lvnameentry.set_text(self.storage.suggestDeviceName(parent=self.getTempVG(),
+                                                                    prefix="lv"))
 
             # Logical Volume size label & entry
             lvsizelabel = createAlignedLabel(_("_Size (MB):"))
@@ -868,7 +869,7 @@ class VolumeGroupEditor:
 	    return
 
         tempvg = self.getTempVG()
-        name = self.storage.createSuggestedLVName(tempvg)
+        name = self.storage.suggestDeviceName(parent=tempvg, prefix="lv")
         format = getFormat(self.storage.defaultFSType)
         self.lvs[name] = {'name': name,
                           'size': free,
@@ -1375,7 +1376,8 @@ class VolumeGroupEditor:
             if not self.isNew:
                 self.volnameEntry.set_text(self.vg.name)
             else:
-                self.volnameEntry.set_text(self.storage.createSuggestedVGName(anaconda.network.hostname))
+                self.volnameEntry.set_text(self.storage.suggestContainerName(hostname=anaconda.network.hostname,
+                                                                             prefix="vg"))
         else:
             lbl = createAlignedLabel(_("Volume Group Name:"))
             self.volnameEntry = gtk.Label(self.vg.name)

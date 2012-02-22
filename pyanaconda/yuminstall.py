@@ -396,33 +396,17 @@ class AnacondaYum(yum.YumBase):
             if verifyMedia(self.tree, None):
                 return
 
-            dev.format.unmount()
+        dev.format.unmount()
 
-        dev.eject()
+        log.error("Wrong disc found on %s" % (self.tree))
+        if self.anaconda.intf:
+            self.anaconda.intf.beep()
 
-        while True:
-            if self.anaconda.intf:
-                self.anaconda.intf.beep()
-
-            self.anaconda.intf.messageWindow(_("Change Disc"),
-                _("Please insert the %(productName)s disc to continue.")
-                % {'productName': productName})
-
-            try:
-                dev.format.mount()
-
-                if verifyMedia(self.tree, self._timestamp):
-                    break
-
-                self.anaconda.intf.messageWindow(_("Wrong Disc"),
-                        _("That's not the correct %s disc.")
-                          % (productName,))
-
-                dev.format.unmount()
-                dev.eject()
-            except Exception:
-                self.anaconda.intf.messageWindow(_("Error"),
-                        _("Unable to access the disc."))
+            self.messageWindow(_("Wrong Disc"),
+                _("That's not the correct %s disc.") % (productName),
+                type="custom", custom_icon="error",
+                custom_buttons=[_("_Exit installer")])
+        sys.exit(1)
 
     def _mountInstallImage(self):
         umountImage(self.tree)
@@ -1816,6 +1800,11 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
     def writeKS(self, f):
         for repo in self.ayum.repos.listEnabled():
             if repo.name == "Installation Repo":
+                continue
+            if repo.name == "Red Hat Enterprise Linux":
+                continue
+            # ignore addon repos from media
+            if repo.anacondaBaseURLs[0].startswith("file://"):
                 continue
 
             line = "repo --name=\"%s\" " % (repo.name or repo.repoid)
