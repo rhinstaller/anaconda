@@ -30,6 +30,7 @@ import storage.fcoe
 import storage.zfcp
 
 from yuminstall import NoSuchGroup
+import glob
 import iutil
 import isys
 import os
@@ -1336,6 +1337,22 @@ def parseKickstart(anaconda, file):
     global packagesSeen
     packagesSeen = ksparser.getSection("%packages").timesSeen > 0
     return handler
+
+def appendPostScripts(ksdata):
+    scripts = ""
+
+    # Read in all the post script snippets to a single big string.
+    for fn in glob.glob("/usr/share/anaconda/post-scripts/*ks"):
+        f = open(fn, "r")
+        scripts += f.read()
+        f.close()
+
+    # Then parse the snippets against the existing ksdata.  We can do this
+    # because pykickstart allows multiple parses to save their data into a
+    # single data object.  Errors parsing the scripts are a bug in anaconda,
+    # so just raise an exception.
+    ksparser = AnacondaKSParser(ksdata)
+    ksparser.readKickstartFromString(scripts, reset=False)
 
 def runPostScripts(anaconda):
     if not anaconda.ksdata:

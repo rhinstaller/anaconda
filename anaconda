@@ -733,6 +733,10 @@ if __name__ == "__main__":
     else:
         ksdata = kickstart.AnacondaKSHandler(anaconda)
 
+    # Some post-install parts of anaconda are implemented as kickstart
+    # scripts.  Add those to the ksdata now.
+    kickstart.appendPostScripts(ksdata)
+
     # now start the interface
     setupDisplay(anaconda, opts)
 

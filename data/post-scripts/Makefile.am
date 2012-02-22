@@ -1,6 +1,6 @@
-# liveinst/Makefile.am for anaconda
+# data/post-scripts/Makefile.am for anaconda
 #
-# Copyright (C) 2009  Red Hat, Inc.
+# Copyright (C) 2012  Red Hat, Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU Lesser General Public License as published
@@ -15,21 +15,8 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-# Author: Martin Sivak <msivak@redhat.com>
+# Author: Chris Lumens <clumens@redhat.com>
 
-SUBDIRS = bootdisk command-stubs icons liveinst pixmaps systemd ui post-scripts
-
-EXTRA_DIST = lang-table
-CLEANFILES = *~ lang-names 
-
-udevdir               = /lib/udev/rules.d
-dist_udev_DATA        = 70-anaconda.rules
-
-langdir               = $(datadir)/$(PACKAGE_NAME)
-lang_DATA             = lang-names
-dist_lang_DATA        = lang-table
-
-MAINTAINERCLEANFILES = Makefile.in
-
-lang-names: lang-table
-	PYTHONPATH="$(top_srcdir)/pyanaconda" $(PYTHON) ../scripts/getlangnames.py > lang-names
+postscriptsdir = $(datadir)/$(PACKAGE_NAME)/post-scripts
+dist_postscripts_DATA = 90-copy-screenshots.ks
+MAINTAINERCLEAFILES = Makefile.in

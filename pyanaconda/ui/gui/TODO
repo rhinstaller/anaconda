@@ -1,5 +1,4 @@
 - Add a base class with kill switch for check threads (561185b0a8c2e7aaf4a9a8b551bab394116430a8).
-- Copy screenshots over to finished system.
 - Hubs need a way of noticing check threads are running (561185b0a8c2e7aaf4a9a8b551bab394116430a8).
 - Test handling of inconsistent LVM/RAID, and uninitialized disks.
 - Update exception handling.  This requires updating python-meh to use gtk3,

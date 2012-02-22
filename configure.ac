@@ -309,6 +309,7 @@ AC_CONFIG_FILES([Makefile
                  tests/logpicker_test/logmining_test/Makefile
                  pyanaconda/textw/Makefile
                  data/ui/Makefile
+                 data/post-scripts/Makefile
                  utils/Makefile
                  utils/log_picker/Makefile
                  utils/log_picker/sending/Makefile])
