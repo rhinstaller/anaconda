@@ -40,10 +40,16 @@ case "$repotype" in
   anaconda-hd) when_diskdev_appears "$dev" "/sbin/anaconda-hdroot $dev $path" ;;
   anaconda-cd) when_diskdev_appears "$dev" "/sbin/anaconda-cdroot $dev" ;;
   anaconda-auto-cd)
-    # TODO: special catch-all rule to check every CD that appears
+    # special catch-all rule for CDROMs
+    echo 'SUBSYSTEM=="block", ENV{ID_CDROM}=="?*",' \
+           'RUN+="/sbin/initqueue --settled --onetime --unique' \
+             '/sbin/anaconda-cdroot $env{DEVNAME}"\n' >> $rulesfile
   ;;
 esac
-str_starts "$root" "anaconda-" && wait_for_dev /dev/root
+if str_starts "$root" "anaconda-"; then
+    wait_for_dev /dev/root
+    # TODO: add useful message to be displayed on emergency
+fi
 
 # Kickstart: see https://fedoraproject.org/wiki/Anaconda/Options#ks
 case "$kickstart" in
@@ -66,6 +72,7 @@ case "$kickstart" in
     cdrom|hd|bd) # cdrom:<dev>, hd:<dev>:<path>, bd:<dev>:<path>
         splitsep ":" "$kickstart" kstype ksdev kspath
         if [ "$kstype" = "bd" ]; then
+            # TODO FIXME
             warn "inst.ks='$kickstart'"
             warn "can't get kickstart: biospart isn't supported yet"
             ksdev=""
@@ -79,6 +86,7 @@ case "$kickstart" in
     http|https|ftp|nfs|nfs4)
         # ksiface is set in parse-anaconda-kickstart.sh
         case $ksiface in
+            # TODO FIXME
             link|ibft) warn "inst.ks.device=$ksiface isn't supported yet!" ;;
             "") ksiface="any" ;;
         esac
