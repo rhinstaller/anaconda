@@ -1,6 +1,6 @@
 # Progress hub classes
 #
-# Copyright (C) 2011  Red Hat, Inc.
+# Copyright (C) 2011-2012  Red Hat, Inc.
 #
 # This copyrighted material is made available to anyone wishing to use,
 # modify, copy, or redistribute it subject to the terms and conditions of
@@ -19,6 +19,11 @@
 # Red Hat Author(s): Chris Lumens <clumens@redhat.com>
 #
 
+import gettext
+_ = lambda x: gettext.ldgettext("anaconda", x)
+
+from gi.repository import Gdk
+
 from pyanaconda.ui.gui.hubs import Hub
 
 __all__ = ["ProgressHub"]
@@ -27,6 +32,22 @@ class ProgressHub(Hub):
     builderObjects = ["progressWindow"]
     mainWidgetName = "progressWindow"
     uiFile = "hubs/progress.ui"
+
+    def __init__(self, data, devicetree, instclass):
+        Hub.__init__(self, data, devicetree, instclass)
+
+        self._totalSteps = 0
+        self._currentStep = 0
+
+        # Register this interface with the top-level ProgressHandler.
+        from pyanaconda.progress import progressHandler
+        progressHandler.register(self.initCB, self.updateCB, self.completeCB)
+
+    def initialize(self):
+        Hub.initialize(self)
+
+        self._progressBar = self.builder.get_object("progressBar")
+        self._progressLabel = self.builder.get_object("progressLabel")
 
     def refresh(self):
         Hub.refresh(self)
@@ -38,3 +59,27 @@ class ProgressHub(Hub):
     @property
     def quitButton(self):
         return self.builder.get_object("rebootButton")
+
+    def initCB(self, steps):
+        self._totalSteps = steps
+        self._currentStep = 0
+
+        Gdk.threads_enter()
+        self._progressBar.set_fraction(0.0)
+        self._progressLabel.set_text("")
+        Gdk.threads_leave()
+
+    def updateCB(self, message):
+        if not self._totalSteps:
+            return
+
+        Gdk.threads_enter()
+        self._progressBar.set_fraction(self._currentStep/self._totalSteps)
+        self._progressLabel.set_text(message)
+        Gdk.threads_leave()
+
+    def completeCB(self):
+        Gdk.threads_enter()
+        self._progressBar.set_fraction(1.0)
+        self._progressLabel.set_text(_("Complete!"))
+        Gdk.threads_leave()
