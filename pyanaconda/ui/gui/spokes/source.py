@@ -355,7 +355,10 @@ class SourceSpoke(NormalSpoke):
         relatedBox.set_sensitive(enabled)
 
     def on_chooser_clicked(self, button):
+        lightbox = AnacondaWidgets.lb_show_over(self.window)
+
         dialog = IsoChooser(self.data)
+        dialog.window.set_transient_for(lightbox)
 
         # If the chooser has been run one before, we should make it default to
         # the previously selected file.
@@ -371,6 +374,8 @@ class SourceSpoke(NormalSpoke):
             button.set_label(os.path.basename(f))
             button.set_use_underline(False)
             self._verifyIsoButton.set_sensitive(True)
+
+        lightbox.destroy()
 
     def on_proxy_clicked(self, button):
         # FIXME:  this doesn't do anything
