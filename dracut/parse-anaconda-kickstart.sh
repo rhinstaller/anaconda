@@ -1,15 +1,24 @@
 #!/bin/bash
-# parse-kickstart-options.sh: check to see if we need to get a kickstart
+# parse-anaconda-kickstart.sh: handle some optional kickstart settings
 
+# inst.ks: provide a "URI" for the kickstart file
 warn_renamed_arg "ks" "inst.ks"
-
 kickstart="$(getarg ks= inst.ks=)"
 if [ -z "$kickstart" ]; then
     getargbool 0 ks inst.ks && kickstart='nfs:auto'
 fi
 
-ksdev="$(getarg ksdevice= inst.ks.dev= inst.ks.device=)"
+# inst.ks.device: define which network device should be used for fetching ks
+# XXX does this imply ip=dhcp if not set?
+warn_renamed_arg "ksdevice" "inst.ks.device"
+ksiface="$(getarg ksdevice= inst.ks.dev= inst.ks.device=)"
+# look up the MAC for ksiface=bootif
+if [ "$ksiface"  = "bootif" ]; then
+    BOOTIF=$(getarg 'BOOTIF=')
+    ksiface=$(fix_bootif "$BOOTIF")
+fi
 
+# inst.ks.sendmac: send MAC addresses in HTTP headers
 warn_renamed_arg "kssendmac" "inst.ks.sendmac"
 if getargbool 0 kssendmac inst.ks.sendmac; then
     ifnum=0
@@ -24,6 +33,7 @@ if getargbool 0 kssendmac inst.ks.sendmac; then
     done
 fi
 
+# inst.ks.sendsn: send system serial number as HTTP header
 warn_renamed_arg "kssendsn" "inst.ks.sendsn"
 if getargbool 0 kssendsn inst.ks.sendsn; then
     if ! command -v dmidecode; then
@@ -34,30 +44,6 @@ if getargbool 0 kssendsn inst.ks.sendsn; then
     fi
 fi
 
-splitsep ":" "$kickstart" kstype ksdev ksfile
-case "$kstype" in
-    file|path)
-        # It's already here! Parse away!
-        if [ "$kstype" = "path" ]; then
-            warn "inst.ks='$kickstart'"
-            warn "'path:...' is deprecated; please use 'file:...' instead"
-        fi
-        ksfile=ksdev
-        if [ -f "$ksfile" ]; then
-            /sbin/parse-kickstart $ksfile >> /etc/cmdline.d/80kickstart.conf
-        else
-            warn "inst.ks='$kickstart': can't find $ksfile!"
-        fi
-        ;;
-    cdrom|hd)
-        # FIXME: mount and parse-kickstart once dev appears
-        ;;
-    http|https|ftp|nfs|nfs4)
-        [ -z "$netroot" ] && netroot="skip"
-        # FIXME: schedule fetch-kickstart when network dev comes up
-    ;;
-    bd) warn "can't get kickstart: biospart isn't supported yet." ;;
-esac
-
-# no root? the kickstart will probably tell us what our root device is. Onward!
+# no root? the kickstart will probably tell us what our root device is.
 [ "$kickstart" ] && [ -z "$root" ] && root="kickstart" && rootok=1
+# Onward to anaconda-genrules.sh!

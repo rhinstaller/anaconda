@@ -29,11 +29,11 @@ if [ "$kickstart" = "nfs:auto" ]; then
     kickstart="nfs:$server:$filename"
 fi
 
+
+
 case "$kickstart" in
     http:*|https:*|ftp:*|nfs:*) fetch_url "$kickstart" /tmp/ks.cfg ;;
-    bd:*) warn "FIXME: inst.ks=bd:.. is not yet supported." ;;
     hd:*) warn "FIXME: inst.ks=hd:.. is not yet supported." ;;
-    file:*) cp "${kickstart#file:}" /tmp/ks.cfg ;;
     *) warn "Don't know how to handle kickstart path '$kickstart'"; exit;;
 esac
 
