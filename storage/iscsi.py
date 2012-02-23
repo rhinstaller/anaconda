@@ -133,9 +133,9 @@ class iscsi(object):
 
     def active_nodes(self, target=None):
         """Nodes logged in to"""
-        if target and target in self.discovered_targets:
+        if target:
             return [node for (node, logged_in) in
-                    self.discovered_targets[target]
+                    self.discovered_targets.get(target, [])
                     if logged_in]
         else:
             return [node for (node, logged_in) in
