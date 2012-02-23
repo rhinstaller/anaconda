@@ -121,6 +121,8 @@ class Platform(object):
         _packages = self._packages
         if flags.cmdline.get('fips', None) == '1':
             _packages.append('dracut-fips')
+        if iutil.isS390():
+            _packages.append('dracut-network')
         return _packages
 
     def setDefaultPartitioning(self):

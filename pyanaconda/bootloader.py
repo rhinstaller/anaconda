@@ -854,6 +854,12 @@ class BootLoader(object):
                     self.boot_args.update(setup_args)
                     self.dracut_args.update(setup_args)
 
+                # XXX: hack for s390x on RHEL 7.0 Alpha 1
+                if iutil.isS390():
+                    setup_args = network.dracutSetupArgs(dep)
+                    self.boot_args.update(setup_args)
+                    self.dracut_args.update(setup_args)
+
         self.boot_args.update(dracut_storage.values())
         self.dracut_args.update(dracut_storage.values())
 

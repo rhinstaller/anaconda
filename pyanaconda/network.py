@@ -869,6 +869,26 @@ class Network:
     def dracutSetupArgs(self, networkStorageDevice):
         netargs=set()
 
+        # XXX: hack for RHEL 7.0 Alpha 1, just force over the dracut network
+        # settings to the installed system
+        if iutil.isS390():
+            f = open("/proc/cmdline")
+            clargs = map(lambda x: x.strip(), f.read().split(' '))
+            f.close()
+
+            for clarg in clargs:
+                clarg = clarg.lower()
+                if clarg.startswith('ip=') or \
+                   clarg.startswith('ifname=') or \
+                   clarg.startswith('bootdev=') or \
+                   clarg.startswith('nameserver=') or \
+                   clarg.startswith('rd.neednet=') or \
+                   clarg.startswith('rd.znet='):
+                    netargs.add(clarg)
+
+            netargs.add('rd.neednet=1')
+            return netargs
+
         if networkStorageDevice.nic:
             # Storage bound to a specific nic (ie FCoE)
             nic = networkStorageDevice.nic
