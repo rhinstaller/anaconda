@@ -26,6 +26,7 @@ from ..storage_log import log_method_call
 from ..errors import *
 from ..devicelibs import swap
 from . import DeviceFormat, register_device_format
+from constants import *
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
@@ -44,6 +45,7 @@ class SwapSpace(DeviceFormat):
     _formattable = True                # can be formatted
     _supported = True                  # is supported
     _linuxNative = True                # for clearpart
+    _maxSize = SWAP_SIZE_LIMIT
 
     def __init__(self, *args, **kwargs):
         """ Create a SwapSpace instance.
