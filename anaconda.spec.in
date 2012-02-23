@@ -232,6 +232,14 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Fri Feb 17 2012 David Cantrell <dcantrell@redhat.com> - 16.25.3-1
+- Followups to prevent NetworkManager from downing s390x interfaces.
+  (dcantrell)
+  Related: rhbz#783227
+- Change the way the networking information is obtained in linuxrc.s390
+  (dcantrell)
+  Related: rhbz#783227
+
 * Thu Feb 16 2012 David Cantrell <dcantrell@redhat.com> - 16.25.2-1
 - Do not assume we can find the IP address of the system in vnc.py (dcantrell)
   Related: rhbz#783227
