@@ -394,7 +394,7 @@ def addFcoeDrive(anaconda):
     dialog.destroy()
     return rc
 
-def addIscsiDrive(anaconda):
+def addIscsiDrive(anaconda, bind=False):
     """
     Displays a series of dialogs that walk the user through discovering and
     logging into iscsi nodes.
@@ -408,6 +408,15 @@ def addIscsiDrive(anaconda):
             log.info("addIscsiDrive(): early exit, network disabled.")
             return gtk.RESPONSE_CANCEL
         urlgrabber.grabber.reset_curl_obj()
+
+    # This will modify behaviour of iscsi.discovery() function
+    if storage.iscsi.iscsi().mode == "none" and not bind:
+        storage.iscsi.iscsi().delete_interfaces()
+    elif (storage.iscsi.iscsi().mode == "none" and bind) \
+          or storage.iscsi.iscsi().mode == "bind":
+        active = set(network.getActiveNetDevs())
+        created = set(storage.iscsi.iscsi().ifaces.values())
+        storage.iscsi.iscsi().create_interfaces(active - created)
 
     wizard = iSCSIGuiWizard()
     login_ok_nodes = pih.drive_iscsi_addition(anaconda, wizard)
@@ -456,6 +465,10 @@ def addDrive(anaconda):
     if not storage.iscsi.has_iscsi():
         dxml.get_widget("iscsiRadio").set_sensitive(False)
         dxml.get_widget("iscsiRadio").set_active(False)
+        dxml.get_widget("iscsiBindCheck").set_sensitive(False)
+    else:
+        dxml.get_widget("iscsiBindCheck").set_active(bool(storage.iscsi.iscsi().ifaces))
+        dxml.get_widget("iscsiBindCheck").set_sensitive(storage.iscsi.iscsi().mode == "none")
 
     if not storage.fcoe.has_fcoe():
         dxml.get_widget("fcoeRadio").set_sensitive(False)
@@ -476,7 +489,8 @@ def addDrive(anaconda):
         return False
 
     if dxml.get_widget("iscsiRadio").get_active() and storage.iscsi.has_iscsi():
-        rc = addIscsiDrive(anaconda)
+        bind = dxml.get_widget("iscsiBindCheck").get_active()
+        rc = addIscsiDrive(anaconda, bind)
     elif dxml.get_widget("fcoeRadio").get_active() and storage.fcoe.has_fcoe():
         rc = addFcoeDrive(anaconda)
     elif dxml.get_widget("zfcpRadio") is not None and dxml.get_widget("zfcpRadio").get_active():

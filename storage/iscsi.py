@@ -103,6 +103,7 @@ class iscsi(object):
         self._initiator = ""
         self.initiatorSet = False
         self.started = False
+        self.ifaces = {}
 
         if flags.ibft:
             try:
@@ -141,6 +142,16 @@ class iscsi(object):
             return [node for (node, logged_in) in
                     itertools.chain(*self.discovered_targets.values())
                     if logged_in] + self.ibftNodes
+
+    def _getMode(self):
+        if not self.active_nodes():
+            return "none"
+        if self.ifaces:
+            return "bind"
+        else:
+            return "default"
+
+    mode = property(_getMode)
 
     def _mark_node_active(self, node, active=True):
         """Mark node as one logged in to
@@ -188,6 +199,37 @@ class iscsi(object):
         udev_settle()
         if intf:
             w.pop()
+
+    def create_interfaces(self, ifaces):
+        for iface in ifaces:
+            iscsi_iface_name = "iface%d" % len(self.ifaces)
+            #iscsiadm -m iface -I iface0 --op=new
+            iutil.execWithRedirect("iscsiadm",
+                                   ["-m", "iface", "-I", iscsi_iface_name, "--op=new"],
+                                   stdout="/dev/tty5",
+                                   stderr="/dev/tty5")
+            #iscsiadm -m iface -I iface0 --op=update -n iface.net_ifacename -v eth0
+            iutil.execWithRedirect("iscsiadm",
+                                   ["-m", "iface", "-I", iscsi_iface_name,
+                                    "--op=update", "-n",
+                                    "iface.net_ifacename", "-v", iface],
+                                   stdout="/dev/tty5",
+                                   stderr="/dev/tty5")
+
+            self.ifaces[iscsi_iface_name] = iface
+            log.debug("created_interface %s:%s" % (iscsi_iface_name, iface))
+
+    def delete_interfaces(self):
+        if not self.ifaces:
+            return None
+        for iscsi_iface_name in self.ifaces:
+            #iscsiadm -m iface -I iface0 --op=delete
+            iutil.execWithRedirect("iscsiadm",
+                                   ["-m", "iface", "-I", iscsi_iface_name,
+                                    "--op=delete"],
+                                   stdout="/dev/tty5",
+                                   stderr="/dev/tty5")
+        self.ifaces = {}
 
     def startup(self, intf = None):
         if self.started:
