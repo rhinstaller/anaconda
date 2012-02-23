@@ -234,10 +234,7 @@ class SourceSpoke(NormalSpoke):
         if storageThread:
             storageThread.join()
 
-        self._ready = True
-
         Gdk.threads_enter()
-        self.selector.set_sensitive(True)
 
         # If we found any optical install media, display a selector for each
         # of those.
@@ -274,6 +271,8 @@ class SourceSpoke(NormalSpoke):
         # provided a URL.
         # FIXME
 
+        self._ready = True
+        self.selector.set_sensitive(True)
         Gdk.threads_leave()
 
     def refresh(self):

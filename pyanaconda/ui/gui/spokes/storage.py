@@ -418,14 +418,10 @@ class StorageSpoke(NormalSpoke):
         if storageThread:
             storageThread.join()
 
-        self._ready = True
-
         print self.data.ignoredisk.onlyuse
         self.disks = getDisks(self.devicetree)
 
         Gdk.threads_enter()
-
-        self.selector.set_sensitive(True)
 
         # properties: kind, description, capacity, os, popup-info
         first = True
@@ -456,6 +452,9 @@ class StorageSpoke(NormalSpoke):
                 first = False
 
         self._update_summary()
+
+        self._ready = True
+        self.selector.set_sensitive(True)
 
         Gdk.threads_leave()
 
