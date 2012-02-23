@@ -703,7 +703,7 @@ class DmRaid(commands.dmraid.FC6_DmRaid):
     def parse(self, args):
         raise NotImplementedError("The dmraid kickstart command is not currently supported")
 
-class PartitionData(commands.partition.F12_PartData):
+class PartitionData(commands.partition.RHEL6_PartData):
     def execute(self, anaconda):
         storage = anaconda.id.storage
         devicetree = storage.devicetree
@@ -726,6 +726,10 @@ class PartitionData(commands.partition.F12_PartData):
             if self.recommended:
                 (self.size, self.maxSizeMB) = iutil.swapSuggestion()
                 self.grow = True
+
+            if self.sameAsRam:
+                (self.size, self.maxSizeMB) = iutil.swapSameAsRam()
+                self.grow = False
         # if people want to specify no mountpoint for some reason, let them
         # this is really needed for pSeries boot partitions :(
         elif self.mountpoint == "None":
