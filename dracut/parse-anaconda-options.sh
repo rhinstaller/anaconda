@@ -11,6 +11,9 @@ udevproperty ANACONDA=1
 # create the repodir and isodir that anaconda will look for
 mkdir -p $repodir $isodir
 
+# add some modules
+modprobe -q edd
+
 # get some info from .buildstamp
 buildstamp=/run/initramfs/.buildstamp
 [ -f /.buildstamp ] && buildstamp=/.buildstamp
