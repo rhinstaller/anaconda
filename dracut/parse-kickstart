@@ -29,13 +29,12 @@ class Method(commands.method.F14_Method):
     '''install methods: cdrom, harddrive, nfs, url'''
     def dracut_args(self, args, lineno, obj):
         if self.method == "cdrom":
-            method="/dev/sr0"
+            method="cdrom"
         elif self.method == "harddrive":
             if self.biospart:
-                dev = biospart_to_dev(self.biospart, args, lineno)
-                if dev:
-                    method="hd:%s:%s" % (dev, self.dir)
-            method="hd:%s:%s" % (self.partition, self.dir)
+                method="bd:%s:%s" % (self.partition, self.dir)
+            else:
+                method="hd:%s:%s" % (self.partition, self.dir)
         elif self.method == "nfs":
             method="nfs:%s:%s" % (self.server, self.dir)
             if self.opts:
@@ -48,9 +47,9 @@ class Method(commands.method.F14_Method):
 class Updates(commands.updates.F7_Updates):
     def dracut_args(self, args, lineno, obj):
         if self.url == "floppy":
-            return "inst.updates=/dev/fd0"
+            return "live.updates=/dev/fd0"
         elif self.url:
-            return "inst.updates=%s" % self.url
+            return "live.updates=%s" % self.url
 
 class MediaCheck(commands.mediacheck.FC4_MediaCheck):
     def dracut_args(self, args, lineno, obj):
@@ -61,7 +60,7 @@ class DriverDisk(commands.driverdisk.F14_DriverDisk):
     def dracut_args(self, args, lineno, obj):
         dd = self.driverdiskList[-1]
         if dd.biospart:
-            location = biospart_to_dev(dd.biospart, args, lineno)
+            location = "bd:%s" % dd.biospart
         else:
             location = dd.partition or dd.source
         if location:
@@ -78,7 +77,7 @@ class Network(commands.network.F16_Network):
         elif net.activate: # we only care about activated devices
             return ksnet_to_dracut(args, lineno, net)
 
-# TODO: keymap, lang... device? upgrade?
+# TODO: keymap, lang... device? upgrade? selinux?
 
 dracutCmds = {
     'cdrom': Method,
@@ -129,12 +128,6 @@ def init_logger():
         pass
     return logger
 
-def biospart_to_dev(biospart, args, lineno):
-    if not os.path.isdir("/sys/firmware/edd"):
-        log.error("'%s': --biospart unavailable (no EDD support)", " ".join(args))
-        return
-    log.error("'%s': biospart is not yet supported", " ".join(args), lineno)
-
 def ksnet_to_dracut(args, lineno, net):
     '''Translate the kickstart network data into dracut network data.'''
     line = []
@@ -182,11 +175,11 @@ def process_kickstart(ksfile):
         parser.readKickstart(processed_file)
     except KickstartParseError as e:
         log.error(str(e))
-    return handler.output
+    return processed_file, handler.output
 
 if __name__ == '__main__':
     log = init_logger()
     for path in sys.argv[1:]:
-        output = process_kickstart(path)
+        outfile, output = process_kickstart(path)
         for line in filter(None, output):
             print line
