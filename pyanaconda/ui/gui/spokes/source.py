@@ -200,6 +200,7 @@ class SourceSpoke(NormalSpoke):
     def _grabObjects(self):
         self._autodetectButton = self.builder.get_object("autodetectRadioButton")
         self._autodetectBox = self.builder.get_object("autodetectBox")
+        self._autodetectMediaBox = self.builder.get_object("autodetectMediaBox")
         self._isoButton = self.builder.get_object("isoRadioButton")
         self._isoBox = self.builder.get_object("isoBox")
         self._networkButton = self.builder.get_object("networkRadioButton")
@@ -251,8 +252,9 @@ class SourceSpoke(NormalSpoke):
         # of those.
         added = False
         for cdrom in opticalInstallMedia(self.devicetree, mountpoint=MOUNTPOINT):
-            selector = AnacondaWidgets.DiskSelector(cdrom.format.label, "drive-harddisk", "")
-            self._autodetectBox.add(selector)
+            selector = AnacondaWidgets.DiskOverview(cdrom.format.label or "", "drive-removable-media", "")
+            selector.path = cdrom.path
+            self._autodetectMediaBox.pack_start(selector, False, False, 0)
             added = True
 
         # These UI elements default to not being showable.  If optical install
