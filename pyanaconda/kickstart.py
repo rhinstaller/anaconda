@@ -798,17 +798,14 @@ class PartitionData(commands.partition.F12_PartData):
             else:
                 type = storage.defaultFSType
         elif self.mountpoint == 'appleboot':
-            type = "Apple Bootstrap"
+            type = "appleboot"
             self.mountpoint = ""
-            kwargs["weight"] = self.anaconda.platform.weight(fstype="appleboot")
         elif self.mountpoint == 'prepboot':
-            type = "PPC PReP Boot"
+            type = "prepboot"
             self.mountpoint = ""
-            kwargs["weight"] = self.anaconda.platform.weight(fstype="prepboot")
         elif self.mountpoint == 'biosboot':
             type = "biosboot"
             self.mountpoint = ""
-            kwargs["weight"] = self.anaconda.platform.weight(fstype="biosboot")
         elif self.mountpoint.startswith("raid."):
             type = "mdmember"
             kwargs["name"] = self.mountpoint
@@ -843,7 +840,6 @@ class PartitionData(commands.partition.F12_PartData):
                 self.anaconda.ksdata.onPart[kwargs["name"]] = self.onPart
             self.mountpoint = ""
         elif self.mountpoint == "/boot/efi":
-            kwargs["weight"] = self.anaconda.platform.weight(mountpoint="/boot/efi")
             if iutil.isMactel():
                 type = "hfs+"
             else:
@@ -936,6 +932,13 @@ class PartitionData(commands.partition.F12_PartData):
                     storage.destroyDevice(device)
             except KeyError:
                 pass
+
+            if "format" in kwargs:
+                # set weight based on fstype and mountpoint
+                mpt = getattr(kwargs["format"], "mountpoint", None)
+                fstype = kwargs["format"].type
+                kwargs["weight"] = self.anaconda.platform.weight(fstype=fstype,
+                                                                 mountpoint=mpt)
 
             request = storage.newPartition(**kwargs)
 
