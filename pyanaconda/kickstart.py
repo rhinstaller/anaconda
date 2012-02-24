@@ -579,7 +579,7 @@ class LogVolData(commands.logvol.F15_LogVolData):
                            label=self.label,
                            fsprofile=self.fsprofile,
                            mountopts=self.fsopts)
-        if not format:
+        if not format.type:
             raise KickstartValueError, formatErrorMsg(self.lineno, msg="The \"%s\" filesystem type is not supported." % type)
 
         # If we were given a pre-existing LV to create a filesystem on, we need
@@ -898,7 +898,7 @@ class PartitionData(commands.partition.F12_PartData):
                                      label=self.label,
                                      fsprofile=self.fsprofile,
                                      mountopts=self.fsopts)
-        if not kwargs["format"]:
+        if not kwargs["format"].type:
             raise KickstartValueError, formatErrorMsg(self.lineno, msg="The \"%s\" filesystem type is not supported." % type)
 
         # If we were given a specific disk to create the partition on, verify
@@ -1071,7 +1071,7 @@ class RaidData(commands.raid.F15_RaidData):
                                      fsprofile=self.fsprofile,
                                      mountpoint=self.mountpoint,
                                      mountopts=self.fsopts)
-        if not kwargs["format"]:
+        if not kwargs["format"].type:
             raise KickstartValueError, formatErrorMsg(self.lineno, msg="The \"%s\" filesystem type is not supported." % type)
 
         kwargs["name"] = devicename
