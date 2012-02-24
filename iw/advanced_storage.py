@@ -479,6 +479,18 @@ def addDrive(anaconda):
         dxml.get_widget("fcoeRadio").set_sensitive(False)
         dxml.get_widget("fcoeRadio").set_active(False)
 
+    def update_active_ifaces():
+        active_ifaces = network.getActiveNetDevs()
+        dxml.get_widget("ifaceLabel").set_text(", ".join(active_ifaces))
+
+    def netconfButton_clicked(*args):
+        from network_gui import setupNetwork
+        setupNetwork(anaconda.intf)
+        update_active_ifaces()
+
+    dxml.get_widget("netconfButton").connect("clicked", netconfButton_clicked)
+    update_active_ifaces()
+
     #figure out what advanced devices we have available and set sensible default
     group = dxml.get_widget("iscsiRadio").get_group()
     for button in group:

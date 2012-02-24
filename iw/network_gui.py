@@ -50,7 +50,7 @@ class NetworkWindow(InstallWindow):
         self.hostnameEntry.set_text(self.hostname)
 
         self.netconfButton = self.xml.get_widget("netconfButton")
-        self.netconfButton.connect("clicked", self._setupNetwork)
+        self.netconfButton.connect("clicked", self._netconfButton_clicked)
         if len(self.anaconda.id.network.netdevices) == 0:
             self.netconfButton.set_sensitive(False)
 
@@ -63,10 +63,8 @@ class NetworkWindow(InstallWindow):
 
         return self.align
 
-    def _setupNetwork(self, *args):
-        self.intf.enableNetwork(just_setup=True)
-        if network.hasActiveNetDev():
-            urlgrabber.grabber.reset_curl_obj()
+    def _netconfButton_clicked(self, *args):
+        setupNetwork(self.intf)
 
     def focus(self):
         self.hostnameEntry.grab_focus()
@@ -97,6 +95,11 @@ class NetworkWindow(InstallWindow):
 
         self.anaconda.id.network.setHostname(hostname)
         return None
+
+def setupNetwork(intf):
+    intf.enableNetwork(just_setup=True)
+    if network.hasActiveNetDev():
+        urlgrabber.grabber.reset_curl_obj()
 
 def NMCEExited(pid, condition, anaconda):
     if anaconda:
