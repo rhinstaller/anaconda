@@ -279,7 +279,7 @@ class NetworkDevice(IfcfgFile):
     def usedByFCoE(self, anaconda):
         import storage
         for d in anaconda.id.storage.devices:
-            if (isinstance(d, storage.devices.NetworkStorageDevice) and
+            if (isinstance(d, storage.devices.FcoeDiskDevice) and
                 d.nic == self.iface):
                 return True
         return False
@@ -288,20 +288,16 @@ class NetworkDevice(IfcfgFile):
         import storage
         rootdev = anaconda.id.storage.rootDevice
         for d in anaconda.id.storage.devices:
-            if (isinstance(d, storage.devices.NetworkStorageDevice) and
-                d.host_address and
+            if (isinstance(d, storage.devices.iScsiDiskDevice) and
                 rootdev.dependsOn(d)):
-                if self.iface == ifaceForHostIP(d.host_address):
-                    return True
-        return False
-
-    def usedByISCSI(self, anaconda):
-        import storage
-        for d in anaconda.id.storage.devices:
-            if (isinstance(d, storage.devices.NetworkStorageDevice) and
-                d.host_address):
-                if self.iface == ifaceForHostIP(d.host_address):
-                    return True
+                # device is bound to nic
+                if d.nic:
+                    if self.iface == d.nic:
+                        return True
+                # device is using default interface
+                else:
+                    if self.iface == ifaceForHostIP(d.host_address):
+                        return True
         return False
 
 class Network:

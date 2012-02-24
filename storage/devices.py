@@ -3632,10 +3632,16 @@ class iScsiDiskDevice(DiskDevice, NetworkStorageDevice):
     def __init__(self, device, **kwargs):
         self.node = kwargs.pop("node")
         self.ibft = kwargs.pop("ibft")
+        self.nic = kwargs.pop("nic")
         self.initiator = kwargs.pop("initiator")
         DiskDevice.__init__(self, device, **kwargs)
-        NetworkStorageDevice.__init__(self, host_address=self.node.address)
-        log.debug("created new iscsi disk %s %s:%d" % (self.node.name, self.node.address, self.node.port))
+        NetworkStorageDevice.__init__(self, host_address=self.node.address,
+                                      nic=self.nic)
+        log.debug("created new iscsi disk %s %s:%d via %s:%s" % (self.node.name,
+                                                              self.node.address,
+                                                              self.node.port,
+                                                              self.node.iface,
+                                                              self.nic))
 
     def dracutSetupArgs(self):
         if self.ibft:
@@ -3654,7 +3660,11 @@ class iScsiDiskDevice(DiskDevice, NetworkStorageDevice):
                 netroot += ":%s:%s" % (auth.reverse_username,
                                        auth.reverse_password)
 
-        netroot += "@%s::%d::%s" % (address, self.node.port, self.node.name)
+        netroot += "@%s::%d:%s:%s::%s" % (address,
+                                          self.node.port,
+                                          self.node.iface,
+                                          self.nic,
+                                          self.node.name)
 
         initiator = "iscsi_initiator=%s" % self.initiator
 
