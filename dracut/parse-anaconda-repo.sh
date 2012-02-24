@@ -2,31 +2,28 @@
 # parse-repo-options.sh: parse the inst.repo= arg and set root/netroot
 
 check_depr_arg "method=" "inst.repo=%s"
-warn_renamed_arg "repo" "inst.repo"
 unset CMDLINE
+warn_renamed_arg "repo" "inst.repo"
 
 repo="$(getarg repo= inst.repo=)"
-splitsep ":" "$repo" f repodev repopath
+splitsep ":" "$repo" repotype repodev repopath
 
 if [ -n "$repo" ]; then
-    case "$repo" in
-        http:*|https:*|ftp:*)
+    case "$repotype" in
+        http|https|ftp)
             root="anaconda-url"; netroot="anaconda-url:$repo" ;;
-        nfs:*|nfsiso:*)
-            root="anaconda-nfs"; netroot="anaconda-nfs:${repo#nfs*:}" ;;
-        hd:*)
-            root="anaconda-hd:$(disk_to_dev_path $repodev):$path" ;;
-        cdrom:*)
-            root="anaconda-cd:$(disk_to_dev_path $repodev)" ;;
+        nfs|nfs4|nfsiso)
+            root="anaconda-nfs"; netroot="anaconda-nfs:$repodev:$repopath" ;;
+        hd|cd|cdrom)
+            root="anaconda-disk:$repodev:$repopath" ;;
         *)
             warn "Invalid value for 'inst.repo': $repo" ;;
     esac
 fi
 
 if [ -z "$root" ]; then
-    # Alas, no repo/method arg and no root. Look for valid installer media.
-    #root="anaconda-auto-cd" # TODO: use this once we have the autoprober
-    root=live:/dev/sr0       # XXX laaaame temp workaround
+    # Alas, no repo arg and no root. Look for valid installer media.
+    root="anaconda-auto-cd"
 fi
 
 # We've got *some* root variable set.
