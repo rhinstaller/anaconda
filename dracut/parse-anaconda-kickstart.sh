@@ -36,10 +36,10 @@ fi
 # inst.ks.sendsn: send system serial number as HTTP header
 warn_renamed_arg "kssendsn" "inst.ks.sendsn"
 if getargbool 0 kssendsn inst.ks.sendsn; then
-    if ! command -v dmidecode; then
-        warn "inst.ks.sendsn: can't find serial number (dmidecode missing)"
+    system_serial=$(cat /sys/class/dmi/id/product_serial 2>/dev/null)
+    if [ -z "$system_serial" ]; then
+        warn "inst.ks.sendsn: can't find system serial number"
     else
-        system_serial=$(dmidecode -s system-serial-number)
         set_http_header "X-System-Serial-Number" "$system_serial"
     fi
 fi

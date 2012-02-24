@@ -22,8 +22,6 @@ install() {
     inst "$moddir/anaconda-hdroot" "/sbin/anaconda-hdroot"
     inst "$moddir/anaconda-urlroot" "/sbin/anaconda-urlroot"
     inst_hook pre-pivot 99 "$moddir/anaconda-copy-ks.sh"
-    # binaries we need sometimes
-    dracut_install -o dmidecode
     # kickstart parsing, WOOOO
     inst "$moddir/fetch-kickstart" "/sbin/fetch-kickstart"
     inst "$moddir/parse-kickstart" "/sbin/parse-kickstart"
