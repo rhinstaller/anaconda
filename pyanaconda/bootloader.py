@@ -33,6 +33,7 @@ from pyanaconda.product import productName
 from pyanaconda.flags import flags
 from pyanaconda.constants import *
 from pyanaconda.storage.errors import StorageError
+from pyanaconda.storage.fcoe import fcoe
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
@@ -940,6 +941,17 @@ class BootLoader(object):
                 setup_string = cfg_obj.dracutSetupString()
                 self.boot_args.add(setup_string)
                 self.dracut_args.add(setup_string)
+
+        # This is needed for FCoE, bug #743784. The case:
+        # We discover LUN on an iface which is part of multipath setup.
+        # If the iface is disconnected after discovery anaconda doesn't
+        # write dracut ifname argument for the disconnected iface path
+        # (in Network.dracutSetupArgs).
+        # Dracut needs the explicit ifname= because biosdevname
+        # fails to rename the iface (because of BFS booting from it).
+        for nic, dcb in fcoe().nics:
+            hwaddr = network.netdevices[nic].get("HWADDR")
+            self.boot_args.add("ifname=%s:%s" % (nic, hwaddr.lower()))
 
         #
         # preservation of some of our boot args
