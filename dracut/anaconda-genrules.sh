@@ -11,12 +11,35 @@ when_diskdev_appears() {
     } >> $rulesfile
 }
 
+# non-network root/repo stuff (network is handled by netroot)
+splitsep ":" "$root" repotype repodev repopath
+case "$repotype" in
+    anaconda-disk)
+        repodev=$(disk_to_dev_path $repodev)
+        when_diskdev_appears "$repodev" "/sbin/anaconda-diskroot $repodev $repopath"
+    ;;
+    anaconda-auto-cd)
+        # special catch-all rule for CDROMs
+        echo 'ENV{ID_CDROM}=="1",' \
+               'RUN+="/sbin/initqueue --settled --onetime --unique' \
+                 '/sbin/anaconda-diskroot $env{DEVNAME}"\n' >> $rulesfile
+    ;;
+esac
+if str_starts "$root" "anaconda-"; then
+    wait_for_dev /dev/root
+    # TODO: add useful message to be displayed on emergency
+fi
+
+# Kickstart: see https://fedoraproject.org/wiki/Anaconda/Options#ks
+# Network rules for handling kickstarts
 rule_for_netdev() {
     case $1 in
       any)
         printf 'SUBSYSTEM=="net"' ;;
+      link)
+        printf 'SUBSYSTEM=="net", ATTR{carrier}=="1"' ;;
       ??:??:??:??:??:??)
-        printf 'SUBSYSTEM=="net", ATTR{address}=="%s", ACTION=="add"' "$1" ;;
+        printf 'SUBSYSTEM=="net", ATTR{address}=="%s"' "$1" ;;
       *)
         printf 'SUBSYSTEM=="net", ENV{INTERFACE}=="%s"' "$1" ;;
     esac
@@ -34,32 +57,9 @@ when_netdev_online() {
     } >> $rulesfile
 }
 
-# non-network root/repo stuff (network is handled by netroot)
-splitsep ":" "$root" repotype dev path
-case "$repotype" in
-  anaconda-hd) when_diskdev_appears "$dev" "/sbin/anaconda-hdroot $dev $path" ;;
-  anaconda-cd) when_diskdev_appears "$dev" "/sbin/anaconda-cdroot $dev" ;;
-  anaconda-auto-cd)
-    # special catch-all rule for CDROMs
-    echo 'SUBSYSTEM=="block", ENV{ID_CDROM}=="?*",' \
-           'RUN+="/sbin/initqueue --settled --onetime --unique' \
-             '/sbin/anaconda-cdroot $env{DEVNAME}"\n' >> $rulesfile
-  ;;
-esac
-if str_starts "$root" "anaconda-"; then
-    wait_for_dev /dev/root
-    # TODO: add useful message to be displayed on emergency
-fi
-
-# Kickstart: see https://fedoraproject.org/wiki/Anaconda/Options#ks
-case "$kickstart" in
-    file:*|path:*) # file:<path>
+case "${kickstart%%:*}" in
+    file|path) # file:<path> (we accept path: but that's deprecated)
         splitsep ":" "$kickstart" kstype kspath
-        # It's already here! Parse away!
-        if [ "$kstype" = "path" ]; then
-            warn "inst.ks='$kickstart'"
-            warn "'path:...' is deprecated; please use 'file:...' instead"
-        fi
         if [ -f "$kspath" ]; then
             cp $kspath /tmp/ks.cfg
             /sbin/parse-kickstart $kspath >> /etc/cmdline.d/80kickstart.conf
@@ -79,18 +79,12 @@ case "$kickstart" in
         else
             ksdev=$(disk_to_dev_path $ksdev)
         fi
-
         [ -n "$ksdev" ] && \
-        when_diskdev_appears "$ksdev" "/sbin/fetch-kickstart $ksdev $kspath"
+        when_diskdev_appears "$ksdev" "/sbin/fetch-kickstart-disk $ksdev $kspath"
     ;;
     http|https|ftp|nfs|nfs4)
-        # ksiface is set in parse-anaconda-kickstart.sh
-        case $ksiface in
-            # TODO FIXME
-            link|ibft) warn "inst.ks.device=$ksiface isn't supported yet!" ;;
-            "") ksiface="any" ;;
-        esac
-        when_netdev_online $ksiface "/sbin/fetch-kickstart $ksiface $kickstart"
+        [ "$ksiface" = "ibft" ] && warn "inst.ks.device=$ksiface isn't supported yet!" ;;
+        when_netdev_online "${ksiface:-any}" "/sbin/fetch-kickstart-net $ksiface $kickstart"
     ;;
 esac
 
