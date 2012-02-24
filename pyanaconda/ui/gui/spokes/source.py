@@ -212,6 +212,7 @@ class SourceSpoke(NormalSpoke):
         self._verifyIsoButton = self.builder.get_object("verifyIsoButton")
 
     def initialize(self):
+        from gi.repository import Gtk
         from pyanaconda.threads import threadMgr
         from threading import Thread
 
@@ -224,6 +225,16 @@ class SourceSpoke(NormalSpoke):
         self._autodetectButton.connect("toggled", self.on_source_toggled, self._autodetectBox)
         self._isoButton.connect("toggled", self.on_source_toggled, self._isoBox)
         self._networkButton.connect("toggled", self.on_source_toggled, self._networkBox)
+
+        # We want the background of the viewport containing autodetected media
+        # to have the same color as the background of the main window.
+        viewport = self.builder.get_object("autodetectViewport")
+
+        provider = Gtk.CssProvider()
+        provider.load_from_data("GtkViewport { background-color: @theme_bg_color }")
+
+        context = viewport.get_style_context()
+        context.add_provider(provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
 
         threadMgr.add(Thread(name="AnaSourceWatcher", target=self._initialize))
 
