@@ -96,6 +96,7 @@ class Hub(UIObject):
 
     def _createBox(self):
         from gi.repository import Gtk, AnacondaWidgets
+        from pyanaconda.ui.gui.utils import setViewportBackground
 
         # Collect all the categories this hub displays, then collect all the
         # spokes belonging to all those categories.
@@ -157,13 +158,7 @@ class Hub(UIObject):
         viewport.add(box)
         spokeArea.add(viewport)
 
-        # We want the background of the spoke grid to have the same color as
-        # the background of the rest of the main window.
-        provider = Gtk.CssProvider()
-        provider.load_from_data("GtkViewport { background-color: @theme_bg_color }")
-
-        context = viewport.get_style_context()
-        context.add_provider(provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
+        setViewportBackground(viewport)
 
     def _handleCompleteness(self, spoke):
         from gi.repository import Gtk

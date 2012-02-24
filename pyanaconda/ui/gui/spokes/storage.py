@@ -389,6 +389,7 @@ class StorageSpoke(NormalSpoke):
 
     def initialize(self):
         from pyanaconda.threads import threadMgr
+        from pyanaconda.ui.gui.utils import setViewportBackground
         from threading import Thread
 
         NormalSpoke.initialize(self)
@@ -399,15 +400,8 @@ class StorageSpoke(NormalSpoke):
         self.local_disks_box = self.builder.get_object("local_disks_box")
         #specialized_disks_box = self.builder.get_object("specialized_disks_box")
 
-        # We want the background of the viewports containing local and network
-        # disks to have the same color as the background of the main window.
         viewport = self.builder.get_object("localViewport")
-
-        provider = Gtk.CssProvider()
-        provider.load_from_data("GtkViewport { background-color: @theme_bg_color }")
-
-        context = viewport.get_style_context()
-        context.add_provider(provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
+        setViewportBackground(viewport)
 
         threadMgr.add(Thread(name="AnaStorageWatcher", target=self._initialize))
 
