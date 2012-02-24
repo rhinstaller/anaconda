@@ -755,13 +755,11 @@ class PartitionData(commands.partition.RHEL6_PartData):
             else:
                 type = storage.defaultFSType
         elif self.mountpoint == 'appleboot':
-            type = "Apple Bootstrap"
+            type = "appleboot"
             self.mountpoint = ""
-            kwargs["weight"] = anaconda.platform.weight(fstype="appleboot")
         elif self.mountpoint == 'prepboot':
-            type = "PPC PReP Boot"
+            type = "prepboot"
             self.mountpoint = ""
-            kwargs["weight"] = anaconda.platform.weight(fstype="prepboot")
         elif self.mountpoint.startswith("raid."):
             type = "mdmember"
             kwargs["name"] = self.mountpoint
@@ -785,9 +783,8 @@ class PartitionData(commands.partition.RHEL6_PartData):
                 anaconda.id.ksdata.onPart[kwargs["name"]] = self.onPart
             self.mountpoint = ""
         elif self.mountpoint == "/boot/efi":
-            type = "EFI System Partition"
+            type = "efi"
             self.fsopts = "defaults,uid=0,gid=0,umask=0077,shortname=winnt"
-            kwargs["weight"] = anaconda.platform.weight(fstype="efi")
         else:
             if self.fstype != "":
                 type = self.fstype
@@ -878,6 +875,13 @@ class PartitionData(commands.partition.RHEL6_PartData):
                     storage.destroyDevice(device)
             except KeyError:
                 pass
+
+            if "format" in kwargs:
+                # set weight based on fstype and mountpoint
+                mpt = getattr(kwargs["format"], "mountpoint", None)
+                fstype = kwargs["format"].type
+                kwargs["weight"] = anaconda.platform.weight(fstype=fstype,
+                                                            mountpoint=mpt)
 
             request = storage.newPartition(**kwargs)
 
