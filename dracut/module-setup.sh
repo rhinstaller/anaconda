@@ -20,7 +20,7 @@ install() {
     inst_hook pre-udev 40 "$moddir/repo-genrules.sh"
     inst_hook pre-udev 40 "$moddir/kickstart-genrules.sh"
     inst "$moddir/anaconda-nfsroot" "/sbin/anaconda-nfsroot"
-    inst "$moddir/anaconda-hdroot" "/sbin/anaconda-hdroot"
+    inst "$moddir/anaconda-diskroot" "/sbin/anaconda-diskroot"
     inst "$moddir/anaconda-urlroot" "/sbin/anaconda-urlroot"
     inst_hook pre-pivot 99 "$moddir/anaconda-copy-ks.sh"
     # kickstart parsing, WOOOO
