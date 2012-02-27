@@ -413,7 +413,8 @@ class iSCSIWizard():
         pass
 
     @abstractmethod
-    def display_success_dialog(self, success_nodes, fail_nodes, fail_reason):
+    def display_success_dialog(self, success_nodes, fail_nodes, fail_reason,
+                               ifaces):
         pass
 
     @abstractmethod
@@ -498,7 +499,8 @@ def drive_iscsi_addition(anaconda, wizard):
             elif step == STEP_SUMMARY:
                 rc = wizard.display_success_dialog(login_ok_nodes, 
                                                    login_fail_nodes,
-                                                   login_fail_msg)
+                                                   login_fail_msg,
+                                                   anaconda.id.storage.iscsi.ifaces)
                 if rc:
                     step = STEP_STABILIZE
                 else:
