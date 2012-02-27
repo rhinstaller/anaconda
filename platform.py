@@ -356,6 +356,16 @@ class PPC(Platform):
     def ppcMachine(self):
         return self._ppcMachine
 
+    def checkBootRequest(self, req):
+        errors = Platform.checkBootRequest(self, req)
+
+        if req == self.bootDevice():
+            # yaboot cannot find /boot on a logical partition
+            if hasattr(req, "partedPartition") and req.isLogical:
+                errors.append(_("The boot partition must be a primary partition."))
+
+        return errors
+
 class IPSeriesPPC(PPC):
     _minBootPartSize = 4
     _maxBootPartSize = 10
