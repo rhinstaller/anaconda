@@ -41,6 +41,7 @@ find_runtime() {
 
 repodir="/run/install/repo"
 isodir="/run/install/isodir"
+rulesfile="/etc/udev/rules.d/90-anaconda.rules"
 
 mount_isodir() {
     local mnt="$1" path="$2" dir="$1$2"
@@ -60,6 +61,8 @@ mount_isodir() {
     fi
 }
 
+# These should probably be in dracut-lib or similar
+
 disk_to_dev_path() {
     case "$1" in
         CDLABEL=*|LABEL=*) echo "/dev/disk/by-label/${1#*LABEL=}" ;;
@@ -67,4 +70,37 @@ disk_to_dev_path() {
         /dev/*) echo "$1" ;;
         *) echo "/dev/$1" ;;
     esac
+}
+
+when_diskdev_appears() {
+    local dev="${1#/dev/}" cmd=""; shift
+    cmd="/sbin/initqueue --settled --onetime --unique $*"
+    {
+        printf 'SUBSYSTEM=="block", KERNEL=="%s", RUN+="%s"\n' "$dev" "$cmd"
+        printf 'SUBSYSTEM=="block", SYMLINK=="%s", RUN+="%s"\n' "$dev" "$cmd"
+    } >> $rulesfile
+}
+
+rule_for_netdev() {
+    case $1 in
+      any)
+        printf 'SUBSYSTEM=="net"' ;;
+      link)
+        printf 'SUBSYSTEM=="net", ATTR{carrier}=="1"' ;;
+      ??:??:??:??:??:??)
+        printf 'SUBSYSTEM=="net", ATTR{address}=="%s"' "$1" ;;
+      *)
+        printf 'SUBSYSTEM=="net", ENV{INTERFACE}=="%s"' "$1" ;;
+    esac
+}
+
+when_netdev_online() {
+    local dev="$1" cmd="" rule="" opts='OPTIONS+="event_timeout=360"'; shift
+    {
+        rule=$(rule_for_netdev $dev)
+        cmd='RUN+="/sbin/ifup $env{INTERFACE}"'
+        echo "$rule, $opts, $cmd"
+        cmd="RUN+=\"/sbin/initqueue --settled --onetime --unique $*\""
+        echo "$rule, ACTION==\"online\", $opts, $cmd"
+    } >> $rulesfile
 }
