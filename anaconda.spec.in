@@ -222,6 +222,30 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Mon Feb 27 2012 David Cantrell <dcantrell@redhat.com> - 13.21.153-1
+- Support XFS on all filesystems except /boot (dcantrell)
+  Resolves: rhbz#766878
+- Add --same-as-ram kickstart option for swap size specification (vpodzime)
+  Resolves: rhbz#744129
+- Limit the size of swap partitions (vpodzime)
+  Resolves: rhbz#744129
+- Correctly handle reqs with max size no larger than base size. (vpodzime)
+  Related: rhbz#744129
+- Add swapSameAsRam and use it for autopartitioning (vpodzime)
+  Resolves: rhbz#744129
+- Change swap size suggestion to values from documentation (vpodzime)
+  Resolves: rhbz#744129
+- Pass ifname to dracut for disconnected fcoe ifaces (rvykydal)
+  Resolves: rhbz#743784
+- iscsi: fix listing of active nodes of a target (rvykydal)
+  Resolves: rhbz#752066
+  Related: rhbz#752066
+- Fix debug message (an oversight from the patch with fix) (rvykydal)
+  Resolves: rhbz#752066
+  Related: rhbz#752066
+- Generate repo= ks command only for repos added by user (rvykydal)
+  Resolves: rhbz#738577
+
 * Thu Feb 16 2012 David Cantrell <dcantrell@redhat.com> - 13.21.152-1
 - Try nslookup for DNS test in linuxrc.s390 (dcantrell).
   Resolves: rhbz#756608
