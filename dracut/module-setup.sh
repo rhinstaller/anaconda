@@ -25,7 +25,7 @@ install() {
     inst_hook pre-pivot 99 "$moddir/anaconda-copy-ks.sh"
     # kickstart parsing, WOOOO
     inst "$moddir/fetch-kickstart" "/sbin/fetch-kickstart"
-    inst "$moddir/parse-kickstart" "/sbin/parse-kickstart"
+    inst "$moddir/parse-kickstart.py" "/sbin/parse-kickstart.py"
     # python deps for parse-kickstart. DOUBLE WOOOO
     bash $moddir/pythondeps.sh $moddir/parse-kickstart | while read dep; do
         case "$dep" in
