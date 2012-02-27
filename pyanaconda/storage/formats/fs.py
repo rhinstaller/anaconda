@@ -1060,6 +1060,12 @@ class Ext3FS(Ext2FS):
     _defaultMigrateOptions = ["-O", "extents"]
     partedSystem = fileSystemType["ext3"]
 
+    # It is possible for a user to specify an fsprofile that defines a blocksize
+    # smaller than the default of 4096 bytes and therefore to make liars of us
+    # with regard to this maximum filesystem size, but if they're doing such
+    # things they should know the implications of their chosen block size.
+    _maxSize = 16 * 1024 * 1024
+
 register_device_format(Ext3FS)
 
 
