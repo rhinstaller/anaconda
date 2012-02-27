@@ -6,23 +6,23 @@ unset CMDLINE
 warn_renamed_arg "repo" "inst.repo"
 
 repo="$(getarg repo= inst.repo=)"
-splitsep ":" "$repo" repotype repodev repopath
 
 if [ -n "$repo" ]; then
+    splitsep ":" "$repo" repotype rest
     case "$repotype" in
         http|https|ftp)
             root="anaconda-url"; netroot="anaconda-url:$repo" ;;
         nfs|nfs4|nfsiso)
-            root="anaconda-nfs"; netroot="anaconda-nfs:$repodev:$repopath" ;;
+            root="anaconda-nfs"; netroot="anaconda-nfs:$rest" ;;
         hd|cd|cdrom)
-            root="anaconda-disk:$repodev:$repopath" ;;
+            root="anaconda-disk:$rest" ;;
         *)
             warn "Invalid value for 'inst.repo': $repo" ;;
     esac
 fi
 
 if [ -z "$root" ]; then
-    # Alas, no repo arg and no root. Look for valid installer media.
+    # No repo arg, no kickstart, and no root. Search for valid installer media.
     root="anaconda-auto-cd"
 fi
 
