@@ -1019,6 +1019,11 @@ class Storage(object):
                             "for a normal %(productName)s install.")
                           % {'min': self.anaconda.backend.getMinimumSizeMB("/"),
                              'productName': productName})
+        
+        if root and root.format.type == "xfs":
+            errors.append(_("Placing the root partition on an XFS "
+                            "filesystem is not supported in %s.") %
+                          productName)
 
         # livecds have to have the rootfs type match up
         if (root and

@@ -1267,7 +1267,6 @@ class XFS(FS):
     _maxSize = 16 * 1024 * 1024
     _formattable = True
     _linuxNative = True
-    _bootable = False
     _supported = True
     _dump = True
     _check = True
