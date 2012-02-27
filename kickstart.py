@@ -415,16 +415,32 @@ class IgnoreDisk(commands.ignoredisk.RHEL6_IgnoreDisk):
         else:
             anaconda.id.ksdata.skipSteps.extend(["filter", "filtertype"])
 
-class Iscsi(commands.iscsi.F10_Iscsi):
+class Iscsi(commands.iscsi.RHEL6_Iscsi):
     def parse(self, args):
-        tg = commands.iscsi.F10_Iscsi.parse(self, args)
+        tg = commands.iscsi.RHEL6_Iscsi.parse(self, args)
+
+        if tg.iface:
+            active_ifaces = network.getActiveNetDevs()
+            if tg.iface not in active_ifaces:
+                raise KickstartValueError, formatErrorMsg(self.lineno, msg="network interface %s required by iscsi %s target is not up" % (tg.iface, tg.target))
+
+        mode = storage.iscsi.iscsi().mode
+        if mode == "none":
+            if tg.iface:
+                storage.iscsi.iscsi().create_interfaces(active_ifaces)
+        elif ((mode == "bind" and not tg.iface)
+              or (mode == "default" and tg.iface)):
+            raise KickstartValueError, formatErrorMsg(self.lineno, msg="iscsi --iface must be specified (binding used) either for all targets or for none")
 
         try:
             storage.iscsi.iscsi().addTarget(tg.ipaddr, tg.port, tg.user,
                                             tg.password, tg.user_in,
                                             tg.password_in,
-                                            target=tg.target)
-            log.info("added iscsi target: %s" %(tg.ipaddr,))
+                                            target=tg.target,
+                                            iface=tg.iface)
+            log.info("added iscsi target %s at %s via %s" %(tg.target,
+                                                            tg.ipaddr,
+                                                            tg.iface))
         except (IOError, ValueError), e:
             raise KickstartValueError, formatErrorMsg(self.lineno,
                                                       msg=str(e))
