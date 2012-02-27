@@ -222,6 +222,10 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Mon Feb 27 2012 David Cantrell <dcantrell@redhat.com> - 13.21.154-1
+- Revert "Support XFS on all filesystems except /boot"
+  Related: rhbz#766878
+
 * Mon Feb 27 2012 David Cantrell <dcantrell@redhat.com> - 13.21.153-1
 - Support XFS on all filesystems except /boot (dcantrell)
   Resolves: rhbz#766878
