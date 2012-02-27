@@ -241,6 +241,7 @@ class BootLoader(object):
     stage2_format_types = ["ext4", "ext3", "ext2"]
     stage2_mountpoints = ["/boot", "/"]
     stage2_bootable = False
+    stage2_must_be_primary = True
     stage2_description = N_("/boot filesystem")
     stage2_max_end_mb = 2 * 1024 * 1024
 
@@ -567,6 +568,15 @@ class BootLoader(object):
         log.debug("_is_valid_location(%s) returning %s" % (device.name,ret))
         return ret
 
+    def _is_valid_partition(self, device, primary=None, desc=""):
+        ret = True
+        if device.type == "partition" and primary and not device.isPrimary:
+            self.errors.append(_("%s must be on a primary partition.") % desc)
+            ret = False
+
+        log.debug("_is_valid_partition(%s) returning %s" % (device.name,ret))
+        return ret
+
     #
     # target/stage1 device access
     #
@@ -763,6 +773,10 @@ class BootLoader(object):
         if not self._is_valid_location(device,
                                        max_mb=self.stage2_max_end_mb,
                                        desc=self.stage2_description):
+            valid = False
+
+        if not self._is_valid_partition(device,
+                                        primary=self.stage2_must_be_primary):
             valid = False
 
         if not self._is_valid_md(device, device_types=self.stage2_device_types,
@@ -1088,6 +1102,7 @@ class GRUB(BootLoader):
 
     stage2_is_valid_stage1 = True
     stage2_bootable = True
+    stage2_must_be_primary = False
 
     # list of strings representing options for boot device types
     stage2_device_types = ["partition", "mdarray"]
