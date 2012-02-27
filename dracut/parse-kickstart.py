@@ -175,6 +175,8 @@ def process_kickstart(ksfile):
         parser.readKickstart(processed_file)
     except KickstartParseError as e:
         log.error(str(e))
+    with open("/tmp/ks.info", "w") as f:
+        f.write('parsed_kickstart="%s"' % processed_file)
     return processed_file, handler.output
 
 if __name__ == '__main__':

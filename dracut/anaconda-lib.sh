@@ -60,7 +60,16 @@ anaconda_live_root_dir() {
     [ -e "$img" ] && /sbin/dmsquash-live-root $img
 }
 
-# These should probably be in dracut-lib or similar
+parse_kickstart() {
+    /sbin/parse-kickstart.py $1 > /etc/cmdline.d/80kickstart.conf
+    if [ -e /tmp/ks.info ]; then
+        . /tmp/ks.info
+        cp $parsed_kickstart /run/install/ks.cfg
+    fi
+    > /tmp/ks.cfg.done
+}
+
+# These could probably be in dracut-lib or similar
 
 disk_to_dev_path() {
     case "$1" in
