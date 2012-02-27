@@ -1,0 +1,16 @@
+#!/bin/sh
+# anaconda-diskroot: find our root image on the given disk device
+# usage: anaconda-diskroot DEVICE [PATH]
+
+. /lib/anaconda-lib.sh
+. /lib/dracut-lib.sh
+
+
+dev="$1"
+path="$2" # optional, could be empty
+
+[ -e "/dev/root" ] && exit 1 # we already have a root device!
+
+info "anaconda using disk root at $dev"
+mount $dev $repodir || warn "Couldn't mount $dev"
+anaconda_live_root_dir $repodir $path
