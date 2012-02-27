@@ -19,7 +19,7 @@ config_get() {
     done
 }
 
-check_isodir() {
+find_iso() {
     local f="" iso="" isodir="$1" tmpmnt=$(mkuniqdir /run/install tmpmnt)
     for f in $isodir/*.iso; do
         [ -e $f ] || continue
@@ -43,22 +43,21 @@ repodir="/run/install/repo"
 isodir="/run/install/isodir"
 rulesfile="/etc/udev/rules.d/90-anaconda.rules"
 
-mount_isodir() {
-    local mnt="$1" path="$2" dir="$1$2"
-    iso=$(check_isodir $dir)
-    [ "$iso" ] || return
-    local isodir=$(mkuniqdir /run/install isodir)
-    mount --move $mnt $isodir
-    iso=${isodir}${iso#$mnt}
-    mount -o loop,ro $iso $mnt
-    img=$(find_runtime $mnt)
-    if [ -z "$img" ]; then
-        umount $mnt
-        rmdir $isodir
-        return 1
+anaconda_live_root_dir() {
+    local img="" iso="" dir="$1" path="$2"; shift 2
+    img=$(find_runtime $repodir$path)
+    if [ -n "$img" ]; then
+        info "anaconda: found $img"
     else
-        echo $img
+        iso=$(find_iso $repodir$path)
+        [ -n "$iso" ] || { warn "no suitable images"; return 1; }
+        info "anaconda: found $iso"
+        mount --move $repodir $isodir
+        iso=${isodir}${iso#$repodir}
+        mount -o loop,ro $iso $repodir
+        img=$(find_runtime $repodir) || { warn "$iso has no suitable runtime"; }
     fi
+    [ -e "$img" ] && /sbin/dmsquash-live-root $img
 }
 
 # These should probably be in dracut-lib or similar
