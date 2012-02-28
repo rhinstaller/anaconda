@@ -11,7 +11,7 @@ if [ -n "$repo" ]; then
         nfs|nfs4|nfsiso)
             root="anaconda-nfs"; netroot="anaconda-nfs:$rest" ;;
         hd|cd|cdrom)
-            root="anaconda-disk:$rest" ;;
+            [ -n "$rest" ] && root="anaconda-disk:$rest" ;;
         *)
             warn "Invalid value for 'inst.repo': $repo" ;;
     esac
