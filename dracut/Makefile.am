@@ -25,11 +25,14 @@ dist_dracut_DATA = module-setup.sh \
 		   parse-anaconda-repo.sh \
 		   parse-anaconda-kickstart.sh \
 		   repo-genrules.sh \
+		   kickstart-genrules.sh \
 		   anaconda-nfsroot \
-		   anaconda-hdroot \
+		   anaconda-diskroot \
+		   anaconda-urlroot \
 		   anaconda-copy-ks.sh \
-		   fetch-kickstart \
-		   parse-kickstart
+		   fetch-kickstart-net \
+		   fetch-kickstart-disk \
+		   parse-kickstart.py
 
 
 MAINTAINERCLEANFILES = Makefile.in
