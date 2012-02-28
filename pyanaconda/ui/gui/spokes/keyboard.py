@@ -29,6 +29,7 @@ from gi.repository import GLib, AnacondaWidgets
 from pyanaconda.ui.gui import UIObject
 from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.gui.categories.localization import LocalizationCategory
+from pyanaconda.ui.gui.utils import enlightbox
 
 __all__ = ["KeyboardSpoke"]
 
@@ -158,10 +159,10 @@ class KeyboardSpoke(NormalSpoke):
         dialog = AddLayoutDialog(self.data)
         dialog.refresh()
         dialog.initialize()
-        lightbox = AnacondaWidgets.lb_show_over(self.window)
-        dialog.window.set_transient_for(lightbox)
-        response = dialog.run()
-        lightbox.destroy()
+
+        with enlightbox(self.window, dialog.window):
+            response = dialog.run()
+
         if response == 1:
             duplicates = set()
             itr = self._store.get_iter_first()

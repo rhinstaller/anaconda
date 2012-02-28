@@ -24,6 +24,7 @@ import sys
 from gi.repository import AnacondaWidgets, Gtk
 from pyanaconda.ui.gui.hubs.summary import SummaryHub
 from pyanaconda.ui.gui.spokes import StandaloneSpoke
+from pyanaconda.ui.gui.utils import enlightbox
 
 from pyanaconda.localization import Language, LOCALE_PREFERENCES
 from pyanaconda.product import productName, productVersion
@@ -99,11 +100,9 @@ class WelcomeLanguageSpoke(StandaloneSpoke):
     def _on_continue_clicked(self, cb):
         dlg = self.builder.get_object("betaWarnDialog")
 
-        lightbox = AnacondaWidgets.lb_show_over(self.window)
-        dlg.set_transient_for(lightbox)
-        rc = dlg.run()
-        dlg.destroy()
-        lightbox.destroy()
+        with enlightbox(self.window, dlg):
+            rc = dlg.run()
+            dlg.destroy()
 
         if rc == 0:
             sys.exit(0)

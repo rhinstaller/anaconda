@@ -21,6 +21,7 @@
 import importlib, inspect, os
 
 from pyanaconda.ui import UserInterface
+from pyanaconda.ui.gui.utils import enlightbox
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
@@ -104,11 +105,9 @@ class GraphicalUserInterface(UserInterface):
                                 message_format=message)
         dlg.add_button(_("_Exit Installer"), 0)
 
-        lightbox = AnacondaWidgets.lb_show_over(self._actions[0].window)
-        dlg.set_transient_for(lightbox)
-        dlg.run()
-        dlg.destroy()
-        lightbox.destroy()
+        with enlightbox(self._actions[0].window, dlg):
+            dlg.run()
+            dlg.destroy()
 
     def showYesNoQuestion(self, message):
         from gi.repository import AnacondaWidgets, Gtk
@@ -120,11 +119,9 @@ class GraphicalUserInterface(UserInterface):
         dlg.add_buttons(_("_No"), 0, _("_Yes"), 1)
         dlg.set_default_response(1)
 
-        lightbox = AnacondaWidgets.lb_show_over(self._actions[0].window)
-        dlg.set_transient_for(lightbox)
-        rc = dlg.run()
-        dlg.destroy()
-        lightbox.destroy()
+        with enlightbox(self._actions[0].window, dlg):
+            rc = dlg.run()
+            dlg.destroy()
 
         return bool(rc)
 

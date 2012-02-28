@@ -360,27 +360,23 @@ class SourceSpoke(NormalSpoke):
         relatedBox.set_sensitive(enabled)
 
     def on_chooser_clicked(self, button):
-        lightbox = AnacondaWidgets.lb_show_over(self.window)
-
         dialog = IsoChooser(self.data)
-        dialog.window.set_transient_for(lightbox)
 
-        # If the chooser has been run one before, we should make it default to
-        # the previously selected file.
-        if self._currentIsoFile:
-            dialog.refresh(currentFile=self._currentIsoFile)
-        else:
-            dialog.refresh()
+        with enlightbox(self.window, dialog.window):
+            # If the chooser has been run one before, we should make it default to
+            # the previously selected file.
+            if self._currentIsoFile:
+                dialog.refresh(currentFile=self._currentIsoFile)
+            else:
+                dialog.refresh()
 
-        f = dialog.run(self._get_selected_partition())
+            f = dialog.run(self._get_selected_partition())
 
-        if f:
-            self._currentIsoFile = f
-            button.set_label(os.path.basename(f))
-            button.set_use_underline(False)
-            self._verifyIsoButton.set_sensitive(True)
-
-        lightbox.destroy()
+            if f:
+                self._currentIsoFile = f
+                button.set_label(os.path.basename(f))
+                button.set_use_underline(False)
+                self._verifyIsoButton.set_sensitive(True)
 
     def on_proxy_clicked(self, button):
         # FIXME:  this doesn't do anything

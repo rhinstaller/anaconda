@@ -44,6 +44,7 @@ from gi.repository import AnacondaWidgets
 from pyanaconda.ui.gui import UIObject
 from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.gui.categories.storage import StorageCategory
+from pyanaconda.ui.gui.utils import enlightbox
 
 from pyanaconda.storage.size import Size
 from pyanaconda.product import productName
@@ -518,10 +519,9 @@ class StorageSpoke(NormalSpoke):
         self._update_summary()
 
     def run_lightbox_dialog(self, dialog):
-        lightbox = AnacondaWidgets.lb_show_over(self.window)
-        dialog.window.set_transient_for(lightbox)
-        rc = dialog.run()
-        lightbox.destroy()
+        with enlightbox(self.window, dialog.window):
+            rc = dialog.run()
+
         return rc
 
     def on_continue_clicked(self, button):

@@ -18,7 +18,16 @@
 #
 # Red Hat Author(s): Chris Lumens <clumens@redhat.com>
 #
+from contextlib import contextmanager
 from gi.repository import Gtk
+
+@contextmanager
+def enlightbox(mainWindow, dialog):
+    from gi.repository import AnacondaWidgets
+    lightbox = AnacondaWidgets.lb_show_over(mainWindow)
+    dialog.set_transient_for(lightbox)
+    yield
+    lightbox.destroy()
 
 def setViewportBackground(vp):
     """Set the background color of the GtkViewport vp to be the same as the
