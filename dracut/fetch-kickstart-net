@@ -1,11 +1,12 @@
 #!/bin/bash
-# fetch-kickstart - fetch kickstart file
+# fetch-kickstart-net - fetch kickstart file from the network
 
+. /lib/dracut-lib.sh
 . /lib/url-lib.sh
+. /lib/anaconda-lib.sh
 
-kickstart="$1"
-outfile="$2"
-ksdevice="$3"
+ksdevice="$1"
+kickstart="$2"
 
 if [ "$kickstart" = "nfs:auto" ]; then
     # construct kickstart URL from dhcp info
@@ -29,16 +30,9 @@ if [ "$kickstart" = "nfs:auto" ]; then
     kickstart="nfs:$server:$filename"
 fi
 
-
-
-case "$kickstart" in
-    http:*|https:*|ftp:*|nfs:*) fetch_url "$kickstart" /tmp/ks.cfg ;;
-    hd:*) warn "FIXME: inst.ks=hd:.. is not yet supported." ;;
-    *) warn "Don't know how to handle kickstart path '$kickstart'"; exit;;
-esac
-
-parse-kickstart /tmp/ks.cfg >> /etc/cmdline.d/80kickstart.conf
-# FIXME: do driverdisk if needed
-# FIXME: if there's updates to be fetched, add them to the list
-# FIXME: figure out which network devices to ifup
-# FIXME: if there's a repo, run the appropriate anaconda-*root or dmsquash
+info "anaconda: fetching kickstart from $kickstart"
+if fetch_url "$kickstart" /tmp/ks.cfg; then
+    parse_kickstart /tmp/ks.cfg
+else
+    warn "failed to fetch kickstart from $kickstart"
+fi
