@@ -115,6 +115,15 @@
                 </property>
             </properties>
         </glade-widget-class>
+
+	<glade-widget-class title="Timezone Map"
+			    name="AnacondaTimezoneMap"
+			    icon-name="widget-gtk-image"
+			    generic-name="AnacondaTimezoneMap">
+	    <properties>
+	        <property id="spacing" default="6" visible="False" />
+	    </properties>
+	</glade-widget-class>
     </glade-widget-classes>
 
     <glade-widget-group name="anaconda-windows" title="Anaconda Windows">
@@ -129,5 +138,6 @@
 
     <glade-widget-group name="anaconda-misc-widgets" title="Anaconda Miscellaneous Widgets">
         <glade-widget-class-ref name="AnacondaSpokeSelector" />
+        <glade-widget-class-ref name="AnacondaTimezoneMap" />
     </glade-widget-group>
 </glade-catalog>
