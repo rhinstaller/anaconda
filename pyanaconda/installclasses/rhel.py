@@ -20,7 +20,6 @@
 from pyanaconda.installclass import BaseInstallClass
 from pyanaconda.constants import *
 from pyanaconda.product import *
-from pyanaconda.flags import flags
 import os
 import types
 
@@ -57,13 +56,6 @@ class InstallClass(BaseInstallClass):
         BaseInstallClass.setDefaultPartitioning(self,
                                                 anaconda.storage,
                                                 anaconda.platform)
-
-    def getBackend(self):
-        if flags.livecdInstall:
-            import livecd
-            return livecd.LiveCDCopyBackend
-        else:
-            return yuminstall.YumBackend
 
     def productMatches(self, oldprod):
         if oldprod is None:

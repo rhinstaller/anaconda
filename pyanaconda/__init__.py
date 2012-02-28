@@ -67,6 +67,7 @@ class Anaconda(object):
         self.methodstr = None
         self._network = None
         self.opts = None
+        self._payload = None
         self._platform = None
         self.proxy = None
         self.proxyUsername = None
@@ -152,6 +153,26 @@ class Anaconda(object):
         return self._network
 
     @property
+    def payload(self):
+        # Try to find the packaging payload class.  First try the install
+        # class.  If it doesn't give us one, fall back to the default.
+        if not self._payload:
+            klass = self.instClass.getBackend()
+
+            if not klass:
+                from flags import flags
+
+                if flags.livecdInstall:
+                    from pyanaconda.packaging.livepayload import LiveImagePayload
+                    klass = LiveImagePayload
+                else:
+                    from pyanaconda.packaging.yumpayload import YumPayload
+                    klass = YumPayload
+
+        self._payload = klass(self.ksdata)
+        return self._payload
+
+    @property
     def platform(self):
         if not self._platform:
             from pyanaconda import platform
@@ -227,7 +248,7 @@ class Anaconda(object):
             raise RuntimeError("Due to UI rewrite in progress, only graphical installs are supported")
 
         from pyanaconda.ui.gui import GraphicalUserInterface
-        self._intf = GraphicalUserInterface(self.storage.devicetree, self.instClass)
+        self._intf = GraphicalUserInterface(self.storage.devicetree, self.payload, self.instClass)
 
     def writeXdriver(self, root = None):
         # this should go away at some point, but until it does, we

@@ -166,9 +166,10 @@ class BaseInstallClass(object):
         map(lambda x: anaconda.backend.selectGroup(x), grps)
 
     def getBackend(self):
-        # this should be overriden in distro install classes
-        from backend import AnacondaBackend
-        return AnacondaBackend
+        # The default is to return None here, which means anaconda should
+        # use live or yum (whichever can be detected).  This method is
+        # provided as a way for other products to specify their own.
+        return None
 
     def setDefaultPartitioning(self, storage, platform):
         autorequests = [PartSpec(mountpoint="/", fstype=storage.defaultFSType,

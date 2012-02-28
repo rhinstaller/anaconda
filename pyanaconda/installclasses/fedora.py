@@ -20,7 +20,6 @@
 from pyanaconda.installclass import BaseInstallClass
 from pyanaconda.constants import *
 from pyanaconda.product import *
-from pyanaconda.flags import flags
 from pyanaconda import iutil
 from pyanaconda.network import hasActiveNetDev
 from pyanaconda import isys
@@ -81,13 +80,6 @@ class InstallClass(BaseInstallClass):
     def setGroupSelection(self, anaconda):
         BaseInstallClass.setGroupSelection(self, anaconda)
         map(lambda x: anaconda.backend.selectGroup(x), ["core"])
-
-    def getBackend(self):
-        if flags.livecdInstall:
-            import pyanaconda.livecd
-            return pyanaconda.livecd.LiveCDCopyBackend
-        else:
-            return yuminstall.YumBackend
 
     def productMatches(self, oldprod):
         if oldprod is None:
