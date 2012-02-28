@@ -35,6 +35,5 @@ case "${kickstart%%:*}" in
     ;;
 esac
 
-# Make sure we wait for the kickstart to be fetched
-if [ -n "$kickstart" ]; then
-    echo "[ -e /tmp/ks.cfg.done ]" > $hookdir/initqueue/finished/kickstart.sh
+# Make sure we stay in the mainloop until kickstart is fetched
+[ -n "$kickstart" ] && wait_for_kickstart

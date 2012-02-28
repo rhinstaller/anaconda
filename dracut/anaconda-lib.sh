@@ -69,6 +69,10 @@ parse_kickstart() {
     > /tmp/ks.cfg.done
 }
 
+wait_for_kickstart() {
+    echo "[ -e /tmp/ks.cfg.done ]" > $hookdir/initqueue/finished/kickstart.sh
+}
+
 # These could probably be in dracut-lib or similar
 
 disk_to_dev_path() {
