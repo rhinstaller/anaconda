@@ -13,7 +13,7 @@ case "$root" in
   anaconda-auto-cd)
     # special catch-all rule for CDROMs
     echo 'ENV{ID_CDROM}=="1",' \
-           'RUN+="/sbin/initqueue --settled --onetime --unique' \
+           'RUN+="/sbin/initqueue --settled --onetime' \
              '/sbin/anaconda-diskroot $env{DEVNAME}"\n' >> $rulesfile
   ;;
 esac
