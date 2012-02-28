@@ -13,6 +13,7 @@ anaconda_log.init()
 from pyanaconda.installclass import DefaultInstall
 from pyanaconda.storage import Storage
 from pyanaconda.threads import initThreading
+from pyanaconda.packaging.yumpayload import YumPayload
 from pyanaconda.platform import getPlatform
 from pykickstart.version import makeVersion
 
@@ -38,11 +39,15 @@ storage.reset()
 devicetree = storage.devicetree
 instclass = DefaultInstall()
 
+payload = YumPayload(ksdata)
+payload.setup(storage)
+payload.install_log = sys.stdout
+
 if not hubClass:
     print "You forgot to set hubClass to something."
     sys.exit(1)
 
-hub = hubClass(ksdata, devicetree, instclass)
+hub = hubClass(ksdata, devicetree, payload, instclass)
 hub.register_event_cb("continue", lambda: Gtk.main_quit())
 hub.register_event_cb("quit", lambda: Gtk.main_quit())
 hub.initialize()

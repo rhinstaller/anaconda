@@ -53,16 +53,20 @@ class SoftwareSelectionSpoke(NormalSpoke):
 
         return row[2]
 
-    def initialize(self):
-        NormalSpoke.initialize(self)
+    def refresh(self):
+        NormalSpoke.refresh(self)
 
         self._desktopStore = self.builder.get_object("desktopStore")
+        self._desktopStore.clear()
+
         self._addSelection(self._desktopStore, "Desktop", "The default Fedora desktop.")
         self._addSelection(self._desktopStore, "KDE Plasma Desktop", "A complete, modern desktop built using KDE Plasma.")
         self._addSelection(self._desktopStore, "LXDE Desktop", "A light, fast, less resource-hungry desktop.")
         self._addSelection(self._desktopStore, "XFCE Desktop", "A complete, well-integrated desktop.")
 
         self._addonStore = self.builder.get_object("addonStore")
+        self._addonStore.clear()
+
         self._addSelection(self._addonStore, "Security", "Security analysis tools.")
         self._addSelection(self._addonStore, "Games", "A perfect showcase of the best games available in Fedora.")
         self._addSelection(self._addonStore, "Electronic Lab", "Fedora's high-end hardware design and simulation platform.")

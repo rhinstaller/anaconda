@@ -33,8 +33,8 @@ class ProgressHub(Hub):
     mainWidgetName = "progressWindow"
     uiFile = "hubs/progress.ui"
 
-    def __init__(self, data, devicetree, instclass):
-        Hub.__init__(self, data, devicetree, instclass)
+    def __init__(self, data, devicetree, payload, instclass):
+        Hub.__init__(self, data, devicetree, payload, instclass)
 
         self._totalSteps = 0
         self._currentStep = 0

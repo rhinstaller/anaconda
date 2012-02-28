@@ -13,6 +13,7 @@ anaconda_log.init()
 from pyanaconda.installclass import DefaultInstall
 from pyanaconda.storage import Storage
 from pyanaconda.threads import initThreading
+from pyanaconda.packaging.yumpayload import YumPayload
 from pyanaconda.platform import getPlatform
 from pykickstart.version import makeVersion
 
@@ -38,11 +39,15 @@ storage.reset()
 devicetree = storage.devicetree
 instclass = DefaultInstall()
 
+payload = YumPayload(ksdata)
+payload.setup(storage)
+payload.install_log = sys.stdout
+
 if not spokeClass:
     print "You forgot to set spokeClass to something."
     sys.exit(1)
 
-spoke = spokeClass(ksdata, devicetree, instclass)
+spoke = spokeClass(ksdata, devicetree, payload, instclass)
 if hasattr(spoke, "register_event_cb"):
     spoke.register_event_cb("continue", lambda: Gtk.main_quit())
     spoke.register_event_cb("quit", lambda: Gtk.main_quit())
