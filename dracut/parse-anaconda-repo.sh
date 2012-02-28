@@ -1,10 +1,6 @@
 #!/bin/bash
 # parse-repo-options.sh: parse the inst.repo= arg and set root/netroot
 
-check_depr_arg "method=" "inst.repo=%s"
-unset CMDLINE
-warn_renamed_arg "repo" "inst.repo"
-
 repo="$(getarg repo= inst.repo=)"
 
 if [ -n "$repo" ]; then
