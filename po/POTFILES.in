@@ -99,6 +99,12 @@ loader/urlinstall.c
 loader/urls.c
 loader/windows.c
 
+# Packaging module source files
+pyanaconda/packaging/__init__.py
+pyanaconda/packaging/livepayload.py
+pyanaconda/packaging/tarpayload.py
+pyanaconda/packaging/yumpayload.py
+
 # Storage module source files
 pyanaconda/storage/__init__.py
 pyanaconda/storage/dasd.py

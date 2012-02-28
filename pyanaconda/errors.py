@@ -23,7 +23,21 @@ _ = lambda x: gettext.ldgettext("anaconda", x)
 
 __all__ = ["ERROR_RAISE", "ERROR_CONTINUE", "ERROR_RETRY",
            "ErrorHandler",
+           "InvalidImageSizeError", "MissingImageError", "MediaUnmountError",
+           "MediaMountError",
            "errorHandler"]
+
+class InvalidImageSizeError(Exception):
+    pass
+
+class MissingImageError(Exception):
+    pass
+
+class MediaMountError(Exception):
+    pass
+
+class MediaUnmountError(Exception):
+    pass
 
 import pyanaconda.storage.errors as StorageError
 
@@ -97,6 +111,48 @@ class ErrorHandler(object):
         message += " " + str(kwargs["exception"])
         self.ui.showError(message)
 
+    def _invalidImageSizeHandler(self, *args, **kwargs):
+        filename = args[0]
+        message = _("The ISO image %s has a size which is not "
+                    "a multiple of 2048 bytes.  This may mean "
+                    "it was corrupted on transfer to this computer."
+                    "\n\n"
+                    "It is recommended that you exit and abort your "
+                    "installation, but you can choose to continue if "
+                    "you think this is in error. Would you like to "
+                    "continue using this image?") % filename
+        if self.ui.showYesNoQuestion(message):
+            return ERROR_CONTINUE
+        else:
+            return ERROR_RAISE
+
+    def _missingImageHandler(self, *args, **kwargs):
+        message = _("The installer has tried to mount the "
+                    "installation image, but cannot find it on "
+                    "the hard drive.\n\n"
+                    "Should I try again to locate the image?")
+        if self.ui.showYesNoQuestion(message):
+            return ERROR_RETRY
+        else:
+            return ERROR_RAISE
+
+    def _mediaMountHandler(self, *args, **kwargs):
+        device = args[0]
+        message = _("An error occurred mounting the source "
+                    "device %s. Retry?") % device.name
+        if self.ui.showYesNoQuestion(message):
+            return ERROR_RETRY
+        else:
+            return ERROR_RAISE
+
+    def mediaUnmountHandler(self, *args, **kwargs):
+        device = args[0]
+        message = _("An error occurred unmounting the disc.  "
+                    "Please make sure you're not accessing "
+                    "%s from the shell on tty2 "
+                    "and then click OK to retry.") % device.path
+        self.ui.showError(message)
+
     def cb(self, exn, *args, **kwargs):
         """This method is the callback that all error handling should pass
            through.  The return value is one of the ERROR_* constants defined
@@ -117,7 +173,12 @@ class ErrorHandler(object):
 
         _map = {StorageError.NoDisksError: self._noDisksHandler,
                 StorageError.DirtyFSError: self._dirtyFSHandler,
-                StorageError.FSTabTypeMismatchError: self._fstabTypeMismatchHandler}
+                StorageError.FSTabTypeMismatchError: self._fstabTypeMismatchHandler,
+                InvalidImageSizeError: self._invalidImageSizeHandler,
+                MissingImageError: self._missingImageHandler,
+                MediaMountError: self._mediaMountError,
+                MediaUnmountError: self._mediaUnmountError}
+
         if exn in _map:
             kwargs["exception"] = exn
             rc = _map[exn](*args, **kwargs)

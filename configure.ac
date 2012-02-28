@@ -286,6 +286,7 @@ AC_CONFIG_FILES([Makefile
                  scripts/Makefile
                  pyanaconda/Makefile
                  pyanaconda/isys/Makefile
+                 pyanaconda/packaging/Makefile
                  pyanaconda/storage/Makefile
                  pyanaconda/storage/devicelibs/Makefile
                  pyanaconda/storage/formats/Makefile

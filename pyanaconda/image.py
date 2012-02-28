@@ -21,6 +21,8 @@ import isys, iutil
 import os, os.path, stat, sys
 from constants import *
 
+from errors import *
+
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
 
@@ -29,12 +31,12 @@ log = logging.getLogger("anaconda")
 
 _arch = iutil.getArch()
 
-def findFirstIsoImage(path, messageWindow):
+def findFirstIsoImage(path):
     """
     Find the first iso image in path
     This also supports specifying a specific .iso image
 
-    Returns the full path to the image
+    Returns the basename of the image
     """
     flush = os.stat(path)
     arch = _arch
@@ -84,23 +86,14 @@ def findFirstIsoImage(path, messageWindow):
 
         # warn user if images appears to be wrong size
         if os.stat(what)[stat.ST_SIZE] % 2048:
-            rc = messageWindow(_("Warning"),
-                 _("The ISO image %s has a size which is not "
-                   "a multiple of 2048 bytes.  This may mean "
-                   "it was corrupted on transfer to this computer."
-                   "\n\n"
-                   "It is recommended that you exit and abort your "
-                   "installation, but you can choose to continue if "
-                   "you think this is in error.") % (fn,),
-                   type="custom", custom_icon="warning",
-                   custom_buttons= [_("_Exit installer"),
-                                    _("_Continue")])
-            if rc == 0:
-                sys.exit(0)
+            log.warning("%s appears to be corrupted" % what)
+            exn = InvalidImageSizeError("size is not a multiple of 2048 bytes")
+            if errorHandler(exn) == ERROR_RAISE:
+                raise exn
 
         log.info("Found disc at %s" % fn)
         isys.umount("/mnt/install/cdimage", removeDir=False)
-        return what
+        return fn
 
     return None
 
@@ -114,83 +107,74 @@ def getMediaId(path):
     else:
         return None
 
-# This mounts the directory containing the iso images, and places the
-# mount point in /mnt/install/isodir.
-def mountDirectory(methodstr, messageWindow):
+# This mounts the directory containing the iso images on ISO_DIR.
+def mountImageDirectory(method, storage):
     # No need to mount it again.
-    if os.path.ismount("/mnt/install/isodir"):
+    if os.path.ismount(ISO_DIR):
         return
 
-    if methodstr.startswith("hd:"):
-        method = methodstr[3:]
-        options = ''
-        if method.count(":") == 1:
-            (device, path) = method.split(":")
-            fstype = "auto"
+    if method.method == "harddrive":
+        if method.biospart:
+            log.warning("biospart support is not implemented")
+            devspec = method.biospart
         else:
-            (device, fstype, path) = method.split(":")
+            devspec = method.partition
 
-        if not device.startswith("/dev/") and not device.startswith("UUID=") \
-           and not device.startswith("LABEL="):
-            device = "/dev/%s" % device
+        # FIXME: teach DeviceTree.resolveDevice about biospart
+        device = storage.devicetree.resolveDevice(devspec)
+
+        while True:
+            try:
+                device.setup()
+                device.format.setup(mountpoint=ISO_DIR)
+            except StorageError as e:
+                log.error("couldn't mount ISO source directory: %s" % e)
+                exn = MediaMountError(str(e))
+                if errorHandler(exn) == ERROR_RAISE:
+                    raise exn
     elif methodstr.startswith("nfsiso:"):
-        (options, host, path) = iutil.parseNfsUrl(methodstr)
-        if path.endswith(".iso"):
-            path = os.path.dirname(path)
-        device = "%s:%s" % (host, path)
-        fstype = "nfs"
-    else:
-        return
+        # XXX what if we mount it on ISO_DIR and then create a symlink
+        #     if there are no isos instead of the remount?
 
-    while True:
-        try:
-            isys.mount(device, "/mnt/install/isodir", fstype=fstype, options=options)
-            break
-        except SystemError as msg:
-            log.error("couldn't mount ISO source directory: %s" % msg)
-            ans = messageWindow(_("Couldn't Mount ISO Source"),
-                          _("An error occurred mounting the source "
-                            "device %s.  This may happen if your ISO "
-                            "images are located on an advanced storage "
-                            "device like LVM or RAID, or if there was a "
-                            "problem mounting a partition.  Click exit "
-                            "to abort the installation.")
-                          % (device,), type="custom", custom_icon="error",
-                          custom_buttons=[_("_Exit"), _("_Retry")])
+        # mount the specified directory
+        path = method.dir
+        if method.dir.endswith(".iso"):
+            path = os.path.dirname(method.dir)
 
-            if ans == 0:
-                sys.exit(0)
-            else:
-                continue
+        url = "%s:%s" % (method.server, path)
+
+        while True:
+            try:
+                isys.mount(url, ISO_DIR, options=method.options)
+            except SystemError as e:
+                log.error("couldn't mount ISO source directory: %s" % e)
+                exn = MediaMountError(str(e))
+                if errorHandler(exn) == ERROR_RAISE:
+                    raise exn
 
 def mountImage(isodir, tree, messageWindow):
-    def complain():
-        ans = messageWindow(_("Missing ISO 9660 Image"),
-                            _("The installer has tried to mount the "
-                              "installation image, but cannot find it on "
-                              "the hard drive.\n\n"
-                              "Please copy this image to the "
-                              "drive and click Retry.  Click Exit "
-                              "to abort the installation."),
-                              type="custom",
-                              custom_icon="warning",
-                              custom_buttons=[_("_Exit"), _("_Retry")])
-        if ans == 0:
-            sys.exit(0)
-
     if os.path.ismount(tree):
         raise SystemError, "trying to mount already-mounted iso image!"
     while True:
         image = findFirstIsoImage(isodir, messageWindow)
         if image is None:
-            complain()
-            continue
+            exn = MissingImageError()
+            if errorHandler(exn) == ERROR_RAISE:
+                raise exn
+            else:
+                continue
 
+        image = os.path.normpath("%s/%s" % (isodir, image))
         try:
             isys.mount(image, tree, fstype = 'iso9660', readOnly = True)
-            break
         except SystemError:
-            complain()
+            exn = MissingImageError()
+            if errorHandler(exn) == ERROR_RAISE:
+                raise exn
+            else:
+                continue
+        else:
+            break
 
 # Return a list of Device instances containing valid optical install media
 # for this product.
@@ -221,22 +205,19 @@ def umountImage(tree):
     if os.path.ismount(tree):
         isys.umount(tree, removeDir=False)
 
-def unmountCD(dev, messageWindow):
+def unmountCD(dev):
     if not dev:
         return
 
     while True:
         try:
             dev.format.unmount()
-            break
         except Exception as e:
             log.error("exception in _unmountCD: %s" %(e,))
-            messageWindow(_("Error"),
-                          _("An error occurred unmounting the disc.  "
-                            "Please make sure you're not accessing "
-                            "%s from the shell on tty2 "
-                            "and then click OK to retry.")
-                          % (dev.path,))
+            exn = MediaUnmountError()
+            errorHandler(exn, dev)
+        else:
+            break
 
 def verifyMedia(tree, timestamp=None):
     if os.access("%s/.discinfo" % tree, os.R_OK):

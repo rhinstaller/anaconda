@@ -71,3 +71,6 @@ TRANSLATIONS_UPDATE_DIR="/tmp/updates/po"
 
 ANACONDA_CLEANUP = "anaconda-cleanup"
 ROOT_PATH = "/mnt/sysimage"
+ISO_DIR = "/mnt/install/isodir"
+INSTALL_TREE = "/mnt/install/source"
+BASE_REPO_NAME = "Installation Repo"
