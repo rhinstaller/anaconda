@@ -25,12 +25,13 @@ N_ = lambda x: x
 
 import os.path
 
-from gi.repository import AnacondaWidgets, Gdk
+from gi.repository import AnacondaWidgets, Gdk, GLib, Gtk
 
 from pyanaconda.image import opticalInstallMedia, potentialHdisoSources
 from pyanaconda.ui.gui import UIObject
 from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.gui.categories.software import SoftwareCategory
+from pyanaconda.ui.gui.utils import enlightbox
 
 __all__ = ["SourceSpoke"]
 
@@ -41,21 +42,57 @@ class MediaCheckDialog(UIObject):
     mainWidgetName = "mediaCheckDialog"
     uiFile = "spokes/source.ui"
 
-    def _update_progress_bar(self, offset, total):
-        fract = offset/total
-        if fract > 1.0:
-            fract = 1.0
+    def _checkisoEndsCB(self, pid, status):
+        doneButton = self.builder.get_object("doneButton")
+        verifyLabel = self.builder.get_object("verifyLabel")
 
-        self.progressBar.set_fraction(fract)
+        if status == 0:
+            verifyLabel.set_text(_("This media is good to install from."))
+        else:
+            verifyLabel.set_text(_("This media is not good to install from."))
+
+        self.progressBar.set_fraction(1.0)
+        doneButton.set_sensitive(True)
+        GLib.spawn_close_pid(pid)
+
+    def _checkisoStdoutWatcher(self, fd, condition):
+        if condition == GLib.IOCondition.HUP:
+            return False
+
+        channel = GLIb.IOChannel(fd)
+        line = channel.readline().strip()
+
+        if not line.isdigit():
+            return True
+
+        pct = float(line)/100
+        if pct > 1.0:
+            pct = 1.0
+
+        self.progressBar.set_fraction(pct)
+        return True
 
     def run(self, devicePath):
         self.progressBar = self.builder.get_object("mediaCheck-progressBar")
 
-        rc = self.window.run()
+        (retval, pid, stdin, stdout, stderr) = \
+            GLib.spawn_async_with_pipes(None, ["checkisomd5", "--gauge", devicePath], [],
+                                        GLib.SpawnFlags.DO_NOT_REAP_CHILD|GLib.SpawnFlags.SEARCH_PATH,
+                                        None, None)
+        if not retval:
+            return
+
+        # This function waits for checkisomd5 to end and then cleans up after it.
+        GLib.child_watch_add(pid, self._checkisoEndsCB)
+
+        # This function watches the process's stdout.
+        GLib.io_add_watch(stdout, GLib.IOCondition.IN|GLib.IOCondition.HUP, self._checkisoStdoutWatcher)
+
+        self.window.run()
         self.window.destroy()
 
-    def on_cancel_clicked(self, *args):
-        print "CANCELING"
+    def on_done_clicked(self, *args):
+        Gtk.main_quit()
 
 # This class is responsible for popping up the dialog that allows the user to
 # choose the ISO image they want to use.  We can get away with this instead of
@@ -389,9 +426,26 @@ class SourceSpoke(NormalSpoke):
         if not p or not f:
             return
 
+        dialog = MediaCheckDialog(self.data)
+        with enlightbox(self.window, dialog.window):
+            dev = self.devicetree.getDeviceByName(dev)
+            dev.format.mount(mountpoint=MOUNTPOINT)
+            dialog.run(MOUNTPOINT + "/" + f)
+            dev.format.unmount()
+
     def on_verify_media_clicked(self, button):
-        # FIXME:  this doesn't do anything
-        pass
+        dev = None
+        for child in self._autodetectMediaBox.get_children():
+            if child.get_chosen():
+                dev = child.path
+                break
+
+        if not dev:
+            return
+
+        dialog = MediaCheckDialog(self.data)
+        with enlightbox(self.window, dialog.window):
+            dialog.run(dev)
 
     def on_protocol_changed(self, combo):
         proxyButton = self.builder.get_object("proxyButton")
