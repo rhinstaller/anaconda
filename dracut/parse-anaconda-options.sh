@@ -95,5 +95,15 @@ check_depr_ip_args() {
 }
 check_depr_ip_args
 
+# repo
+check_depr_arg "method=" "inst.repo=%s"
+warn_renamed_arg "repo" "inst.repo"
+
+# kickstart
+warn_renamed_arg "ks" "inst.ks"
+warn_renamed_arg "ksdevice" "inst.ks.device"
+warn_renamed_arg "kssendmac" "inst.ks.sendmac"
+warn_renamed_arg "kssendsn" "inst.ks.sendsn"
+
 # re-read the commandline args
 unset CMDLINE

@@ -2,7 +2,6 @@
 # parse-anaconda-kickstart.sh: handle kickstart settings
 
 # inst.ks: provide a "URI" for the kickstart file
-warn_renamed_arg "ks" "inst.ks"
 kickstart="$(getarg ks= inst.ks=)"
 if [ -z "$kickstart" ]; then
     getargbool 0 ks inst.ks && kickstart='nfs:auto'
@@ -13,7 +12,6 @@ fi
 
 # inst.ks.device: define which network device should be used for fetching ks
 # XXX does this imply ip=dhcp if not set?
-warn_renamed_arg "ksdevice" "inst.ks.device"
 ksiface="$(getarg ksdevice= inst.ks.dev= inst.ks.device=)"
 # look up the MAC for ksiface=bootif
 if [ "$ksiface"  = "bootif" ]; then
@@ -23,7 +21,6 @@ fi
 
 
 # inst.ks.sendmac: send MAC addresses in HTTP headers
-warn_renamed_arg "kssendmac" "inst.ks.sendmac"
 if getargbool 0 kssendmac inst.ks.sendmac; then
     ifnum=0
     for ifname in /sys/class/net/*; do
@@ -39,7 +36,6 @@ fi
 
 
 # inst.ks.sendsn: send system serial number as HTTP header
-warn_renamed_arg "kssendsn" "inst.ks.sendsn"
 if getargbool 0 kssendsn inst.ks.sendsn; then
     system_serial=$(cat /sys/class/dmi/id/product_serial 2>/dev/null)
     if [ -z "$system_serial" ]; then
