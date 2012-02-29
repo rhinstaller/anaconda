@@ -232,6 +232,12 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Wed Feb 29 2012 David Cantrell <dcantrell@redhat.com> - 16.25.4-1
+- Fix dasd device type test in platform.py (dcantrell)
+  Resolves: rhbz#796791
+- Make sure network devices are configured on reboot on s390x (dcantrell)
+  Resolves: rhbz#795744
+
 * Fri Feb 17 2012 David Cantrell <dcantrell@redhat.com> - 16.25.3-1
 - Followups to prevent NetworkManager from downing s390x interfaces.
   (dcantrell)
