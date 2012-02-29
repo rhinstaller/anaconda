@@ -300,7 +300,7 @@ class S390(Platform):
 
     def requiredDiskLabelType(self, device_type):
         """The required disklabel type for the specified device type."""
-        if device_type == "dasd":
+        if device_type == parted.DEVICE_DASD:
             return "dasd"
 
         return super(S390, self).requiredDiskLabelType(device_type)
