@@ -69,6 +69,9 @@ from pyanaconda.image import opticalInstallMedia
 from pyanaconda.image import mountImage
 from pyanaconda.image import findFirstIsoImage
 
+import gettext
+_ = lambda x: gettext.ldgettext("anaconda", x)
+
 import logging
 log = logging.getLogger("anaconda")
 
