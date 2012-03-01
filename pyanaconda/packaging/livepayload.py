@@ -55,8 +55,7 @@ class LiveImagePayload(ImagePayload):
     def install(self):
         """ Install the payload. """
         cmd = "rsync"
-        # FIXME: this is broken. can't rsync from a device node to a directory.
-        args = ["-rlptgoDHAXv", self.os_image, ROOT_PATH]
+        args = ["-rlptgoDHAXvx", "/", ROOT_PATH]
         try:
             rc = iutil.execWithRedirect(cmd, args,
                                         stderr="/dev/tty5", stdout="/dev/tty5")
