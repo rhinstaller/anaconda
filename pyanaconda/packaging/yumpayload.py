@@ -27,9 +27,12 @@
         - document all methods
         - YumPayload
             - preupgrade
+            - clean up use of flags.testing
+            - write test cases
+            - more logging in key methods
             - rpm macros
                 - __file_context_path
-                - _excludedocs
+                    - what does this do if we run in permissive mode?
             - handling of proxy needs cleanup
                 - passed to anaconda as --proxy, --proxyUsername, and
                   --proxyPassword
@@ -97,12 +100,13 @@ class YumPayload(PackagePayload):
         self._yum.preconf.enabled_plugins = ["blacklist", "whiteout"]
         self._yum.preconf.fn = "/tmp/anaconda-yum.conf"
         self._yum.preconf.root = ROOT_PATH
+        self._cache_dir = "/var/cache/yum"
 
     def setup(self, storage, proxy=None):
         buf = """
 [main]
 installroot=%s
-cachedir=/tmp/cache/yum
+cachedir=%s
 keepcache=0
 logfile=/tmp/yum.log
 metadata_expire=never
@@ -110,7 +114,7 @@ pluginpath=/usr/lib/yum-plugins,/tmp/updates/yum-plugins
 pluginconfpath=/etc/yum/pluginconf.d,/tmp/updates/pluginconf.d
 plugins=1
 reposdir=/etc/yum.repos.d,/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anaconda.repos.d
-""" % ROOT_PATH
+""" % (ROOT_PATH, self._cache_dir)
 
         if proxy:
             # FIXME: include proxy_username, proxy_password
@@ -542,18 +546,18 @@ reposdir=/etc/yum.repos.d,/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/t
         self._yum.ts.check()
         log.debug("order transaction set")
         self._yum.ts.order()
+        self._yum.ts.clean()
 
         # set up rpm logging to go to our log
         self._yum.ts.ts.scriptFd = self.install_log.fileno()
-        _rpm.setLogFile(self.install_log)
+        rpm.setLogFile(self.install_log)
 
         # create the install callback
         rpmcb = RPMCallback(self._yum, self.install_log,
                             upgrade=self.data.upgrade.upgrade)
 
         if flags.testing:
-            #self._yum.ts.setFlags(rpm.RPMTRANS_FLAG_TEST)
-            return
+            self._yum.ts.setFlags(rpm.RPMTRANS_FLAG_TEST)
 
         log.info("running transaction")
         try:
@@ -612,11 +616,14 @@ class RPMCallback(object):
 
         self.package_file = None    # file instance (package file management)
 
+        self.total_actions = 0
+        self.completed_actions = 0
+
     def _get_txmbr(self, key):
         """ Return a (name, TransactionMember) tuple from cb key. """
         if hasattr(key, "po"):
             # New-style callback, key is a TransactionMember
-            txmbr = key.po
+            txmbr = key
             name = key.name
         else:
             # cleanup/remove error
@@ -627,15 +634,16 @@ class RPMCallback(object):
 
     def callback(self, event, amount, total, key, userdata):
         """ Yum install callback. """
-        if event == _rpm.RPMCALLBACK_TRANS_START:
-            pass
-        elif event == _rpm.RPMCALLBACK_TRANS_PROGRESS:
+        if event == rpm.RPMCALLBACK_TRANS_START:
+            self.total_actions = total
+            self.completed_actions = 0
+        elif event == rpm.RPMCALLBACK_TRANS_PROGRESS:
             # amount / total complete
             pass
-        elif event == _rpm.RPMCALLBACK_TRANS_STOP:
+        elif event == rpm.RPMCALLBACK_TRANS_STOP:
             # we are done
             pass
-        elif event == _rpm.RPMCALLBACK_INST_OPEN_FILE:
+        elif event == rpm.RPMCALLBACK_INST_OPEN_FILE:
             # update status that we're installing/upgrading %h
             # return an open fd to the file
             txmbr = self._get_txmbr(key)[1]
@@ -645,19 +653,24 @@ class RPMCallback(object):
             else:
                 mode = _("Installing")
 
-            self.install_log.write("%s %s %s" % (time.strftime("%H:%M:%S"),
-                                                 mode,                                                                           txmbr.po))
+            self.completed_actions += 1
+            self.install_log.write("%s %s %s (%d/%d)\n"
+                                    % (time.strftime("%H:%M:%S"),
+                                       mode,
+                                       txmbr.po,
+                                       self.completed_actions,
+                                       self.total_actions))
             self.install_log.flush()
 
             self.package_file = None
-            repo = self._yum.repos.getRepo(po.repoid)
+            repo = self._yum.repos.getRepo(txmbr.po.repoid)
 
             while self.package_file is None:
                 try:
-                    package_path = repo.getPackage(po)
+                    package_path = repo.getPackage(txmbr.po)
                 except (yum.Errors.NoMoreMirrorsRepoError, IOError):
                     exn = PayloadInstallError("failed to open package")
-                    if errorHandler(exn, po) == ERROR_RAISE:
+                    if errorHandler(exn, txmbr.po) == ERROR_RAISE:
                         raise exn
                 except yum.Errors.RepoError:
                     continue
@@ -665,31 +678,32 @@ class RPMCallback(object):
                 self.package_file = open(package_path)
 
             return self.package_file.fileno()
-        elif event == _rpm.RPMCALLBACK_INST_CLOSE_FILE:
+        elif event == rpm.RPMCALLBACK_INST_CLOSE_FILE:
             # close and remove the last opened file
             # update count of installed/upgraded packages
             package_path = self.package_file.name
             self.package_file.close()
             self.package_file = None
 
-            if package_path.startswith("%s/var/cache/yum/" % ROOT_PATH):
+            cache_dir = os.path.normpath("%s/%s" % (ROOT_PATH, self._cache_dir))
+            if package_path.startswith(cache_dir):
                 try:
-                    os.unlink(package_file)
+                    os.unlink(package_path)
                 except OSError as e:
                     log.debug("unable to remove file %s" % e.strerror)
-        elif event == _rpm.RPMCALLBACK_UNINST_START:
+        elif event == rpm.RPMCALLBACK_UNINST_START:
             # update status that we're cleaning up %key
             #progress.set_text(_("Cleaning up %s" % key))
             pass
-        elif event in (_rpm.RPMCALLBACK_CPIO_ERROR,
-                       _rpm.RPMCALLBACK_UNPACK_ERROR,
-                       _rpm.RPMCALLBACK_SCRIPT_ERROR):
+        elif event in (rpm.RPMCALLBACK_CPIO_ERROR,
+                       rpm.RPMCALLBACK_UNPACK_ERROR,
+                       rpm.RPMCALLBACK_SCRIPT_ERROR):
             name = self._get_txmbr(key)[0]
 
             # Script errors store whether or not they're fatal in "total".  So,
             # we should only error out for fatal script errors or the cpio and
             # unpack problems.
-            if event != _rpm.RPMCALLBACK_SCRIPT_ERROR or total:
+            if event != rpm.RPMCALLBACK_SCRIPT_ERROR or total:
                 exn = PayloadInstallError("cpio, unpack, or fatal script error")
                 if errorHandler(exn, name) == ERROR_RAISE:
                     raise exn
