@@ -170,9 +170,11 @@ reposdir=/etc/yum.repos.d,/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/t
             elif not isFinal and not repo.enabled:
                 log.info("excluding disabled repo %s for prerelease" % repo.id)
                 self.removeRepo(repo.id)
-            elif self.data.method.method and repo.id not in self.repos:
-                log.info("excluding repo %s" % repo.id)
-                self._yum.disableRepo(repo.id)
+            elif self.data.method.method and \
+                 repo.id != BASE_REPO_NAME and \
+                 repo.id not in [r.name for r in self.data.repo.dataList()]:
+                log.info("disabling repo %s" % repo.id)
+                self.disableRepo(repo.id)
 
     def _configureMethod(self, storage):
         """ Configure the base repo. """
