@@ -169,7 +169,8 @@ class Anaconda(object):
                     from pyanaconda.packaging.yumpayload import YumPayload
                     klass = YumPayload
 
-        self._payload = klass(self.ksdata)
+            self._payload = klass(self.ksdata)
+
         return self._payload
 
     @property
