@@ -161,10 +161,10 @@ static void ipCallback(newtComponent co, void * dptr) {
  *
  * This can directly be written into the ifcfg script's TYPE= field.
  */
-static char *netArpTypeStr(iface_t *iface)
+static char *netArpTypeStr(const char *ifname)
 {
     char *ret = NULL;
-    int arptype = iface_get_arptype(iface->device);
+    int arptype = iface_get_arptype(ifname);
     switch (arptype) {
     case ARPHRD_ETHER:
         ret = strdup("Ethernet");
@@ -1236,6 +1236,10 @@ int writeDisabledIfcfgFile(char *device) {
 
     fprintf(fp, "DEVICE=%s\n", device);
     fprintf(fp, "HWADDR=%s\n", iface_mac2str(device));
+    char *str_type = netArpTypeStr(device);
+    if (str_type)
+	fprintf(fp, "TYPE=%s\n", str_type);
+    free(str_type);
     uuid = nm_utils_uuid_generate();
     fprintf(fp, "UUID=%s\n", uuid);
     g_free(uuid);
@@ -1346,7 +1350,7 @@ int writeEnabledNetInfo(iface_t *iface) {
     fprintf(fp, "UUID=%s\n", uuid);
     g_free(uuid);
     fprintf(fp, "ONBOOT=yes\n");
-    char *str_type = netArpTypeStr(iface);
+    char *str_type = netArpTypeStr(iface->device);
     if (str_type) fprintf(fp, "TYPE=%s\n", str_type);
     free(str_type);
 
