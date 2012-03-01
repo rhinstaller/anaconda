@@ -526,6 +526,16 @@ reposdir=/etc/yum.repos.d,/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/t
         # write static configs (storage, modprobe.d/anaconda.conf, network, keyboard)
         #   on upgrade, just make sure /etc/mtab is a symlink to /proc/self/mounts
 
+        if not self.data.upgrade.upgrade:
+            # this adds nofsync, which speeds things up but carries a risk of
+            # rpmdb data loss if a crash occurs. that's why we only do it on
+            # initial install and not for upgrades.
+            rpm.addMacro("__dbi_htconfig",
+                         "hash nofsync %{__dbi_other} %{__dbi_perms}")
+
+        if self.data.packages.excludeDocs:
+            rpm.addMacro("_excludedocs", "1")
+
     def install(self):
         """ Install the payload. """
         log.info("preparing transaction")
