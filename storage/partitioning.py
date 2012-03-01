@@ -28,6 +28,7 @@ import parted
 from pykickstart.constants import *
 
 from constants import *
+import platform
 
 from errors import *
 from deviceaction import *
@@ -996,6 +997,19 @@ def allocatePartitions(storage, disks, partitions, freespace):
 
     removeNewPartitions(disks, new_partitions)
 
+    # Search for the /boot partition.
+    # If there is not a separate /boot partition,
+    # the /boot will end up on the / partition.
+    # We need this later for apple's bootstrap and prepboot,
+    # because this partition needs to be on the same disk
+    # as bootstrap/prepboot partition.
+    # Only do this on systems that need it.
+    _boot_part = "/boot"
+    pl = platform.getPlatform(None)
+    if pl.weight(fstype="prepboot") or pl.weight(fstype="appleboot"):
+        if "/boot" not in storage.mountpoints and "/" in storage.mountpoints:
+            _boot_part = "/"
+
     for _part in new_partitions:
         if _part.partedPartition and _part.isExtended:
             # ignore new extendeds as they are implicit requests
@@ -1188,7 +1202,7 @@ def allocatePartitions(storage, disks, partitions, freespace):
             if not mountpoint:
                 mountpoint = ""
 
-            if free and (_part.req_bootable or mountpoint.startswith("/boot")):
+            if free and (_part.req_bootable or mountpoint == _boot_part):
                 # if this is a bootable partition we want to
                 # use the first freespace region large enough
                 # to satisfy the request
