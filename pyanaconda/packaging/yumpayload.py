@@ -209,7 +209,7 @@ reposdir=/etc/yum.repos.d,/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/t
             image = findFirstIsoImage(path)
             if not image:
                 exn = PayloadSetupError("failed to find valid iso image")
-                if errorHandler(exn) == ERROR_RAISE:
+                if errorHandler.cb(exn) == ERROR_RAISE:
                     raise exn
 
             if path.endswith(".iso"):
@@ -501,7 +501,7 @@ reposdir=/etc/yum.repos.d,/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/t
                 log.warning(msg)
 
             exn = DependencyError(msgs)
-            rc = errorHandler(exn)
+            rc = errorHandler.cb(exn)
             if rc == ERROR_RAISE:
                 raise exn
             elif rc == ERROR_RETRY:
@@ -539,7 +539,7 @@ reposdir=/etc/yum.repos.d,/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/t
         except RepoError as e:
             log.error("error populating transaction: %s" % e)
             exn = PayloadInstallError(str(e))
-            if errorHandler(exn) == ERROR_RAISE:
+            if errorHandler.cb(exn) == ERROR_RAISE:
                 raise exn
 
         log.debug("check transaction set")
@@ -565,21 +565,21 @@ reposdir=/etc/yum.repos.d,/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/t
         except PackageSackError as e:
             log.error("error running transaction: %s" % e)
             exn = PayloadInstallError(str(e))
-            if errorHandler(exn) == ERROR_RAISE:
+            if errorHandler.cb(exn) == ERROR_RAISE:
                 raise exn
         except YumRPMTransError as e:
             log.error("error running transaction: %s" % e)
             for error in e.errors:
                 log.error(e[0])
             exn = PayloadInstallError(str(e))
-            if errorHandler(exn) == ERROR_RAISE:
+            if errorHandler.cb(exn) == ERROR_RAISE:
                 raise exn
         except YumBaseError as e:
             log.error("error [2] running transaction: %s" % e)
             for error in e.errors:
                 log.error("%s" % e[0])
             exn = PayloadInstallError(str(e))
-            if errorHandler(exn) == ERROR_RAISE:
+            if errorHandler.cb(exn) == ERROR_RAISE:
                 raise exn
         finally:
             self._yum.ts.close()
@@ -670,7 +670,7 @@ class RPMCallback(object):
                     package_path = repo.getPackage(txmbr.po)
                 except (yum.Errors.NoMoreMirrorsRepoError, IOError):
                     exn = PayloadInstallError("failed to open package")
-                    if errorHandler(exn, txmbr.po) == ERROR_RAISE:
+                    if errorHandler.cb(exn, txmbr.po) == ERROR_RAISE:
                         raise exn
                 except yum.Errors.RepoError:
                     continue
@@ -705,5 +705,5 @@ class RPMCallback(object):
             # unpack problems.
             if event != rpm.RPMCALLBACK_SCRIPT_ERROR or total:
                 exn = PayloadInstallError("cpio, unpack, or fatal script error")
-                if errorHandler(exn, name) == ERROR_RAISE:
+                if errorHandler.cb(exn, name) == ERROR_RAISE:
                     raise exn

@@ -300,7 +300,7 @@ class Payload(object):
             device.format.setup(mountpoint=mountpoint)
         except StorageError as e:
             exn = PayloadSetupError(str(e))
-            if errorHandler(exn) == ERROR_RAISE:
+            if errorHandler.cb(exn) == ERROR_RAISE:
                 raise exn
 
     def _setupNFS(self, mountpoint, server, path, options):
@@ -317,7 +317,7 @@ class Payload(object):
             isys.mount(url, mountpoint, options=options)
         except SystemError as e:
             exn = PayloadSetupError(str(e))
-            if errorHandler(exn) == ERROR_RAISE:
+            if errorHandler.cb(exn) == ERROR_RAISE:
                 raise exn
 
 
@@ -380,7 +380,7 @@ class ImagePayload(Payload):
     def setup(self, storage):
         if not self.image_file:
             exn = PayloadSetupError("image file not set")
-            if errorHandler(exn) == ERROR_RAISE:
+            if errorHandler.cb(exn) == ERROR_RAISE:
                 raise exn
 
 class ArchivePayload(ImagePayload):

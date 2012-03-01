@@ -69,5 +69,5 @@ class LiveImagePayload(ImagePayload):
 
         if err:
             exn = PayloadInstallError(err)
-            if errorHandler(exn) == ERROR_RAISE:
+            if errorHandler.cb(exn) == ERROR_RAISE:
                 raise exn
