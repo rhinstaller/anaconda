@@ -1316,6 +1316,10 @@ int writeEnabledNetInfo(iface_t *iface) {
     fprintf(fp, "send vendor-class-identifier \"%s\";\n",
             iface->vendorclass);
 
+    if (iface->dhcptimeout) {
+        fprintf(fp, "timeout %d", iface->dhcptimeout);
+    }
+
     if (fclose(fp) == EOF) {
         free(ofile);
         return 19;
@@ -1581,7 +1585,7 @@ void setKickstartNetwork(struct loaderData_s * loaderData, int argc,
     iface_t iface;
     gchar *bootProto = NULL, *device = NULL, *class = NULL, *ethtool = NULL;
     gchar *essid = NULL, *wepkey = NULL, *onboot = NULL, *gateway = NULL;
-    gint mtu = 1500, dhcpTimeout = -1;
+    gint mtu = 1500, dhcpTimeout = 0;
     gboolean noipv4 = FALSE, noipv6 = FALSE, noDns = FALSE, noksdev = FALSE, activate = FALSE, nodefroute=FALSE, firstnetdev=FALSE;
     GOptionContext *optCon = g_option_context_new(NULL);
     GError *optErr = NULL;

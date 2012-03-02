@@ -2073,7 +2073,7 @@ int main(int argc, char ** argv) {
     loaderData.method = -1;
     loaderData.fw_loader_pid = -1;
     loaderData.fw_search_pathz_len = -1;
-    loaderData.dhcpTimeout = -1;
+    loaderData.dhcpTimeout = 0;
 
     extraArgs[0] = NULL;
     parseCmdLineFlags(&loaderData, cmdLine);
