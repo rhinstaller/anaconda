@@ -60,19 +60,6 @@ anaconda_live_root_dir() {
     [ -e "$img" ] && /sbin/dmsquash-live-root $img
 }
 
-parse_kickstart() {
-    /sbin/parse-kickstart.py $1 > /etc/cmdline.d/80kickstart.conf
-    if [ -e /tmp/ks.info ]; then
-        . /tmp/ks.info
-        cp $parsed_kickstart /run/install/ks.cfg
-    fi
-    > /tmp/ks.cfg.done
-}
-
-wait_for_kickstart() {
-    echo "[ -e /tmp/ks.cfg.done ]" > $hookdir/initqueue/finished/kickstart.sh
-}
-
 # These could probably be in dracut-lib or similar
 
 disk_to_dev_path() {
@@ -103,4 +90,59 @@ set_neednet() {
 when_netdev_online() {
     printf 'SUBSYSTEM=="net", ACTION=="online", RUN+="%s"\n' \
              "/sbin/initqueue --settled $@" >> $rulesfile
+}
+
+# Kickstart parsing goes at the end 'cuz it might use the other stuff
+
+parse_kickstart() {
+    /sbin/parse-kickstart $1 > /etc/cmdline.d/80kickstart.conf
+    if [ -e /tmp/ks.info ]; then
+        . /tmp/ks.info
+        cp $parsed_kickstart /run/install/ks.cfg
+    fi
+}
+
+# This is where we actually run the kickstart. Whee!
+# We can't just add udev rules (we'll miss devices that are already active),
+# and we can't just run the scripts manually (we'll miss devices that aren't
+# yet active - think driver disks!).
+#
+# So: we have to write out the rules and then retrigger them.
+#
+# Really what we want to do here is just start over from the "cmdline"
+# phase, but since we can't do that, we'll kind of fake it.
+run_kickstart() {
+    local triggers="" do_repo=0 # TODO: do_dd, do_updates, any others?
+
+    # figure out what to re-run
+    grep -q 'inst\.repo=' /etc/cmdline.d/80kickstart.conf && do_repo=1
+
+    # parse cmdline
+    [ $do_repo ] && . $hookdir/cmdline/*parse-anaconda-repo.sh
+
+    # write udev rules
+    [ $do_repo ] && . $hookdir/pre-udev/*repo-genrules.sh
+
+    # figure out if we need to replay udev events
+    if [ $do_repo ]; then
+        # update root.info for ifup/netroot
+        { echo "root='$root'"; echo "netroot='$netroot'"; } >> /tmp/root.info
+        case "$repotype" in
+            http|https|ftp) triggers="$triggers --subsystem-match=net" ;;
+            cdrom|hd|bd)    triggers="$triggers --subsystem-match=block" ;;
+        esac
+    fi
+
+    # load and trigger new rules, if needed
+    if [ -n "$triggers" ]; then
+        udevadm control --reload
+        udevadm trigger $triggers
+    fi
+
+    # and that's it - we're back to the mainloop.
+    > /tmp/ks.cfg.done # let wait_for_kickstart know that we're done.
+}
+
+wait_for_kickstart() {
+    echo "[ -e /tmp/ks.cfg.done ]" > $hookdir/initqueue/finished/kickstart.sh
 }
