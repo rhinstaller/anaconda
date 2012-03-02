@@ -6,7 +6,7 @@ case "${kickstart%%:*}" in
         splitsep ":" "$kickstart" kstype kspath
         if [ -f "$kspath" ]; then
             cp $kspath /tmp/ks.cfg
-            /sbin/parse-kickstart $kspath >> /etc/cmdline.d/80kickstart.conf
+            parse_kickstart /tmp/ks.cfg
             unset CMDLINE
         else
             warn "inst.ks='$kickstart'"
