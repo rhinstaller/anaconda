@@ -161,7 +161,11 @@ class SourceSpoke(NormalSpoke):
 
     def apply(self):
         if self._autodetectButton.get_active():
-            pass
+            dev = self._get_selected_media()
+            if not dev:
+                return
+
+            self.data.method.method = "cdrom"
         elif self._isoButton.get_active():
             # If the user didn't select a partition (not sure how that would
             # happen) or didn't choose a directory (more likely), then return
@@ -374,6 +378,15 @@ class SourceSpoke(NormalSpoke):
     def _nfs_active(self, combo):
         return combo.get_active() == 3
 
+    def _get_selected_media(self):
+        dev = None
+        for child in self._autodetectMediaBox.get_children():
+            if child.get_chosen():
+                dev = child.path
+                break
+
+        return dev
+
     def _get_selected_partition(self):
         store = self.builder.get_object("partitionStore")
         combo = self.builder.get_object("isoPartitionCombo")
@@ -433,11 +446,7 @@ class SourceSpoke(NormalSpoke):
             dev.format.unmount()
 
     def on_verify_media_clicked(self, button):
-        dev = None
-        for child in self._autodetectMediaBox.get_children():
-            if child.get_chosen():
-                dev = child.path
-                break
+        dev = self._get_selected_media()
 
         if not dev:
             return
