@@ -60,6 +60,7 @@ check_depr_arg "nofirewire" "inst.blacklist=firewire_ohci"
 
 # USB is built-in and can't be disabled anymore. DEAL WITH IT.
 getarg nousb && warn "'nousb' is deprecated. USB drivers can't be disabled."
+# ethtool is gone. Who forces their devices to single-duplex anymore?
 getarg ethtool && warn "'ethtool' is deprecated and has been removed."
 
 # interactive junk in initramfs
@@ -69,31 +70,9 @@ getarg askmethod && warn "'askmethod' is deprecated and has been removed." && \
 getarg asknetwork && warn "'asknetwork' is deprecated and has been removed." &&\
                      warn "Use an appropriate 'ip=' argument instead."
 
+# lang & keymap
 check_depr_arg "lang=" "locale.LANG=%s"
 check_depr_arg "keymap=" "vconsole.keymap=%s"
-
-# FIXME: if we have ksdevice or multiple ip lines, we'll need interface names
-check_depr_arg "dns" "nameserver=%s"
-check_depr_arg "ipv6=auto" "ip=auto6"
-check_depr_arg "ipv6=dhcp" "ip=dhcp6"
-check_depr_arg "ipv6=" "ip=[%s]" # XXX is this right?
-
-check_depr_ip_args() {
-    local ip="$(getarg ip=)"
-    [ -z "$ip" ] && return       # no ip? no problem
-    [ "$ip" = "dhcp" ] && return # this is fine as-is
-    strstr "$ip" ":" && return   # PXE/dracut style. this is also fine.
-
-    local nm="$(getarg netmask=)" gw="$(getarg gateway=)" fail=""
-    [ -z "$gw" ] && warn "ip=<ip> missing gateway=<gw>!" && fail="yes"
-    [ -z "$nm" ] && warn "ip=<ip> missing netmask=<nm>!" && fail="yes"
-    [ "$fail" ] && return
-    warn "'ip=<ip> gateway=<gw> netmask=<nm>' is deprecated."
-    warn "Use 'ip=<ip>::<gw>:<nm>' instead."
-    strstr "$gw" ":" && gw="[$gw]" # ipv6 addr (XXX: did anaconda allow this?)
-    echo "ip=$ip::$gw:$nm" >> /etc/cmdline.d/75anaconda-options.conf
-}
-check_depr_ip_args
 
 # repo
 check_depr_arg "method=" "inst.repo=%s"

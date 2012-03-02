@@ -158,10 +158,10 @@ def ksnet_to_dracut(args, lineno, net):
         line.append("ip=[{0.ipv6}]::{0.gateway}:{0.netmask}:" \
                     "{0.hostname}:{0.device}".format(net))
     if net.mtu:
-        # XXX NOTE: dracut doesn't support mtu= (yet) so this arg might change
+        # XXX FIXME: dracut doesn't support mtu= (yet)
         mtuarg = "mtu=%s:" % dev if dev else "mtu="
         line.append(mtustr+str(mtu))
-    # TODO FIXME: nodns, nodefroute, noipv4, noipv6, dhcpclass, ethtool
+    # TODO FIXME ALSO: nodns, nodefroute, noipv4, noipv6, dhcpclass
     if net.essid or net.wepkey or net.wpakey:
         # TODO: make dracut support wireless? (do we care?)
         log.error("'%s': dracut doesn't support wireless networks", " ".join(args))

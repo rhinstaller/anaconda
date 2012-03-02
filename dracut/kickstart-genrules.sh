@@ -13,6 +13,11 @@ case "${kickstart%%:*}" in
             warn "can't find $kspath!"
         fi
     ;;
+    http|https|ftp|nfs)
+        # network module will bring the right interface(s) online, and then..
+        when_netdev_online \
+            "/sbin/fetch-kickstart-net \$env{INTERFACE} $kickstart"
+    ;;
     cdrom|hd|bd) # cdrom:<dev>, hd:<dev>:<path>, bd:<dev>:<path>
         splitsep ":" "$kickstart" kstype ksdev kspath
         ksdev=$(disk_to_dev_path $ksdev)
@@ -24,14 +29,6 @@ case "${kickstart%%:*}" in
         [ -n "$ksdev" ] && \
         when_diskdev_appears "$ksdev" \
             "/sbin/fetch-kickstart-disk \$env{DEVNAME} $kspath"
-    ;;
-    http|https|ftp|nfs)
-        if [ "$ksiface" = "ibft" ]; then # TODO FIXME: ibft
-            warn "inst.ks.device=ibft isn't supported yet!"
-            ksiface=""
-        fi
-        when_netdev_online "${ksiface:-any}" \
-            "/sbin/fetch-kickstart-net \$env{INTERFACE} $kickstart"
     ;;
 esac
 
