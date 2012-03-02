@@ -18,22 +18,22 @@
 # Author: Will Woods <wwoods@redhat.com>
 
 dracutdir = /usr/lib/dracut/modules.d/80$(PACKAGE_NAME)
-dist_dracut_DATA = module-setup.sh \
-                   pythondeps.sh \
-		   anaconda-lib.sh \
-		   parse-anaconda-options.sh \
-		   parse-anaconda-repo.sh \
-		   parse-anaconda-kickstart.sh \
-		   parse-anaconda-net.sh \
-		   repo-genrules.sh \
-		   kickstart-genrules.sh \
-		   anaconda-nfsroot \
-		   anaconda-diskroot \
-		   anaconda-urlroot \
-		   anaconda-copy-ks.sh \
-		   fetch-kickstart-net \
-		   fetch-kickstart-disk \
-		   parse-kickstart.py
+dist_dracut_SCRIPTS = module-setup.sh \
+                      pythondeps.sh \
+		      anaconda-lib.sh \
+		      parse-anaconda-options.sh \
+		      parse-anaconda-repo.sh \
+		      parse-anaconda-kickstart.sh \
+		      parse-anaconda-net.sh \
+		      repo-genrules.sh \
+		      kickstart-genrules.sh \
+		      anaconda-nfsroot \
+		      anaconda-diskroot \
+		      anaconda-urlroot \
+		      anaconda-copy-ks.sh \
+		      fetch-kickstart-net \
+		      fetch-kickstart-disk \
+		      parse-kickstart.py
 
 
 MAINTAINERCLEANFILES = Makefile.in
