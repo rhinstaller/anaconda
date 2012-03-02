@@ -17,6 +17,7 @@ install() {
     inst_hook cmdline 25 "$moddir/parse-anaconda-options.sh"
     inst_hook cmdline 26 "$moddir/parse-anaconda-kickstart.sh"
     inst_hook cmdline 27 "$moddir/parse-anaconda-repo.sh"
+    inst_hook cmdline 28 "$moddir/parse-anaconda-net.sh"
     inst_hook pre-udev 40 "$moddir/repo-genrules.sh"
     inst_hook pre-udev 40 "$moddir/kickstart-genrules.sh"
     inst "$moddir/anaconda-nfsroot" "/sbin/anaconda-nfsroot"

@@ -93,26 +93,14 @@ when_diskdev_appears() {
     } >> $rulesfile
 }
 
-rule_for_netdev() {
-    case $1 in
-      any)
-        printf 'SUBSYSTEM=="net"' ;;
-      link)
-        printf 'SUBSYSTEM=="net", ATTR{carrier}=="1"' ;;
-      ??:??:??:??:??:??)
-        printf 'SUBSYSTEM=="net", ATTR{address}=="%s"' "$1" ;;
-      *)
-        printf 'SUBSYSTEM=="net", ENV{INTERFACE}=="%s"' "$1" ;;
-    esac
+set_neednet() {
+    if ! getargbool 0 rd.neednet; then
+        echo "rd.neednet=1" >> /etc/cmdline.d/anaconda-neednet.conf
+    fi
+    unset CMDLINE
 }
 
 when_netdev_online() {
-    local dev="$1" cmd="" rule="" opts='OPTIONS+="event_timeout=360"'; shift
-    {
-        rule=$(rule_for_netdev $dev)
-        cmd='RUN+="/sbin/ifup $env{INTERFACE}"'
-        echo "$rule, $opts, $cmd"
-        cmd="RUN+=\"/sbin/initqueue --settled --onetime --unique $*\""
-        echo "$rule, ACTION==\"online\", $opts, $cmd"
-    } >> $rulesfile
+    printf 'SUBSYSTEM=="net", ACTION=="online", RUN+="%s"\n' \
+             "/sbin/initqueue --settled $@" >> $rulesfile
 }

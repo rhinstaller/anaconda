@@ -24,6 +24,7 @@ dist_dracut_DATA = module-setup.sh \
 		   parse-anaconda-options.sh \
 		   parse-anaconda-repo.sh \
 		   parse-anaconda-kickstart.sh \
+		   parse-anaconda-net.sh \
 		   repo-genrules.sh \
 		   kickstart-genrules.sh \
 		   anaconda-nfsroot \

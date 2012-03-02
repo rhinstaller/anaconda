@@ -9,17 +9,11 @@ fi
 # no root? the kickstart will probably tell us what our root device is.
 [ "$kickstart" ] && [ -z "$root" ] && root="kickstart"
 
+case "$kickstart" in
+    http:*|https:*|ftp:*|nfs:*|nfs4:*) set_neednet ;;
+esac
 
-# inst.ks.device: define which network device should be used for fetching ks
-# XXX does this imply ip=dhcp if not set?
-ksiface="$(getarg ksdevice= inst.ks.dev= inst.ks.device=)"
-# look up the MAC for ksiface=bootif
-if [ "$ksiface"  = "bootif" ]; then
-    BOOTIF=$(getarg 'BOOTIF=')
-    ksiface=$(fix_bootif "$BOOTIF")
-fi
-
-
+# FIXME: this won't work until after we run udev
 # inst.ks.sendmac: send MAC addresses in HTTP headers
 if getargbool 0 kssendmac inst.ks.sendmac; then
     ifnum=0

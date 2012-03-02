@@ -7,9 +7,9 @@ if [ -n "$repo" ]; then
     splitsep ":" "$repo" repotype rest
     case "$repotype" in
         http|https|ftp)
-            root="anaconda-url"; netroot="anaconda-url:$repo" ;;
+            root="anaconda-url"; netroot="anaconda-url:$repo"; set_neednet ;;
         nfs|nfs4|nfsiso)
-            root="anaconda-nfs"; netroot="anaconda-nfs:$rest" ;;
+            root="anaconda-nfs"; netroot="anaconda-nfs:$rest"; set_neednet ;;
         hd|cd|cdrom)
             [ -n "$rest" ] && root="anaconda-disk:$rest" ;;
         *)
