@@ -50,6 +50,7 @@ elif [ "${0##*/}" = "halt" ]; then
 fi
 
 VERSION=1.2
+NUMCPUS=$(grep processors /proc/cpuinfo | cut -c19-)
 
 export TEXTDOMAIN=s390installer
 export TEXTDOMAINDIR=/usr/lib/locale
@@ -150,7 +151,7 @@ function dasd_settle() {
         return 1
     fi
     local i=1
-    while [ $i -le 30 ] ; do
+    while [ $i -le 60 ] ; do
         local status
         read status < $dasd_status
         case $status in
@@ -225,14 +226,18 @@ function readcmsfile() # $1=dasdport $2=filename
     # precondition: dasd_eckd_mod driver incl. dependencies loaded,
     #               dasd_mod must be loaded without setting any DASD online
     dev=$(canonicalize_devno $1)
-    if ! sysecho /sys/bus/ccw/devices/$dev/online 1; then
-        echo $"DASD $dev could not be set online"
-        return 1
-    fi
-    udevadm settle
-    if ! dasd_settle $dev ; then
-        echo $"Could not access DASD $dev in time"
-        return 1
+    if [ ${NUMCPUS} -eq 1 ]; then
+        echo 1 > /sys/bus/ccw/devices/$dev/online
+    else
+        if ! sysecho /sys/bus/ccw/devices/$dev/online 1; then
+            echo $"DASD $dev could not be set online"
+            return 1
+        fi
+        udevadm settle
+        if ! dasd_settle $dev ; then
+            echo $"Could not access DASD $dev in time"
+            return 1
+        fi
     fi
     udevadm settle
     if ! cmsfscat -d /dev/dasda -a $2 > /tmp/$2; then
