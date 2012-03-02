@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 13.21.154\n"
+"Project-Id-Version: anaconda 13.21.155\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2012-02-28 15:50-0500\n"
+"POT-Creation-Date: 2012-03-02 17:06-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -42,8 +42,8 @@ msgstr ""
 #: loader/mediacheck.c:46 loader/mediacheck.c:85 loader/mediacheck.c:92
 #: loader/mediacheck.c:96 loader/mediacheck.c:105 loader/method.c:277
 #: loader/method.c:351 loader/modules.c:395 loader/modules.c:411
-#: loader/net.c:608 loader/net.c:988 loader/net.c:1658 loader/net.c:1682
-#: loader/net.c:2001 loader/net.c:2020 loader/net.c:2032
+#: loader/net.c:608 loader/net.c:988 loader/net.c:1666 loader/net.c:1690
+#: loader/net.c:2009 loader/net.c:2028 loader/net.c:2040
 #: loader/nfsinstall.c:91 loader/nfsinstall.c:279 loader/nfsinstall.c:296
 #: loader/nfsinstall.c:384 loader/telnetd.c:92 loader/urlinstall.c:137
 #: loader/urlinstall.c:159 loader/urlinstall.c:221 loader/urlinstall.c:374
@@ -372,7 +372,7 @@ msgstr ""
 msgid "_Retry"
 msgstr ""
 
-#: gui.py:1453 storage/partitioning.py:311
+#: gui.py:1453 storage/partitioning.py:312
 msgid "The system will now reboot."
 msgstr ""
 
@@ -1101,17 +1101,17 @@ msgstr ""
 msgid "iSCSI %s Error"
 msgstr ""
 
-#: platform.py:100 platform.py:392 platform.py:460 platform.py:581
+#: platform.py:100 platform.py:398 platform.py:466 platform.py:587
 #: ui/create-storage.glade.h:15
 msgid "RAID Device"
 msgstr ""
 
-#: platform.py:101 platform.py:104 platform.py:393 platform.py:461
-#: platform.py:582 platform.py:585
+#: platform.py:101 platform.py:104 platform.py:399 platform.py:467
+#: platform.py:588 platform.py:591
 msgid "Master Boot Record (MBR)"
 msgstr ""
 
-#: platform.py:103 platform.py:584
+#: platform.py:103 platform.py:590
 msgid "First sector of boot partition"
 msgstr ""
 
@@ -1140,50 +1140,50 @@ msgstr ""
 msgid "Bootable partitions cannot be on an encrypted block device"
 msgstr ""
 
-#: platform.py:255
+#: platform.py:261
 msgid "EFI System Partition"
 msgstr ""
 
-#: platform.py:267
+#: platform.py:273
 msgid "You have not created a /boot/efi partition."
 msgstr ""
 
-#: platform.py:273
+#: platform.py:279
 msgid "/boot/efi is not EFI."
 msgstr ""
 
-#: platform.py:295
+#: platform.py:301
 #, python-format
 msgid "%s must have a %s disk label."
 msgstr ""
 
-#: platform.py:327
+#: platform.py:333
 #, python-format
 msgid "%s must have a bsd disk label."
 msgstr ""
 
-#: platform.py:339
+#: platform.py:345
 #, python-format
 msgid "The disk %s requires at least 1MB of free space at the beginning."
 msgstr ""
 
-#: platform.py:365
+#: platform.py:371
 msgid "The boot partition must be a primary partition."
 msgstr ""
 
-#: platform.py:395
+#: platform.py:401
 msgid "PPC PReP Boot"
 msgstr ""
 
-#: platform.py:411
+#: platform.py:417
 msgid "The boot partition must be within the first 4MB of the disk."
 msgstr ""
 
-#: platform.py:463 platform.py:466
+#: platform.py:469 platform.py:472
 msgid "Apple Bootstrap"
 msgstr ""
 
-#: platform.py:480
+#: platform.py:486
 #, python-format
 msgid "%s must have a mac disk label."
 msgstr ""
@@ -2584,7 +2584,7 @@ msgid "The volume group name \"%s\" is already in use. Please pick another."
 msgstr ""
 
 #: iw/lvm_dialog_gui.py:1114 iw/partition_gui.py:1615
-#: storage/partitioning.py:231 storage/partitioning.py:274
+#: storage/partitioning.py:232 storage/partitioning.py:275
 msgid "Error Partitioning"
 msgstr ""
 
@@ -3465,7 +3465,7 @@ msgstr ""
 #: loader/driverselect.c:178 loader/hdinstall.c:212 loader/hdinstall.c:266
 #: loader/kbd.c:119 loader/loader.c:520 loader/loader.c:537
 #: loader/loader.c:1468 loader/loader.c:1501 loader/net.c:608 loader/net.c:988
-#: loader/net.c:2001 loader/net.c:2020 loader/nfsinstall.c:91
+#: loader/net.c:2009 loader/net.c:2028 loader/nfsinstall.c:91
 #: loader/urls.c:268 storage/__init__.py:160 storage/devicetree.py:93
 #: textw/constants_text.py:52
 msgid "Back"
@@ -3573,7 +3573,7 @@ msgstr ""
 #: loader/driverdisk.c:802 loader/driverdisk.c:840 loader/hdinstall.c:360
 #: loader/kickstart.c:135 loader/kickstart.c:145 loader/kickstart.c:187
 #: loader/kickstart.c:192 loader/kickstart.c:514 loader/modules.c:395
-#: loader/modules.c:411 loader/net.c:1658 loader/net.c:1682
+#: loader/modules.c:411 loader/net.c:1666 loader/net.c:1690
 #: loader/nfsinstall.c:384 loader/urlinstall.c:374 loader/urlinstall.c:385
 #: loader/urlinstall.c:392
 msgid "Kickstart Error"
@@ -4078,62 +4078,62 @@ msgstr ""
 msgid "You must enter both a valid IPv6 address and a CIDR prefix."
 msgstr ""
 
-#: loader/net.c:1659
+#: loader/net.c:1667
 #, c-format
 msgid "Bad argument to kickstart network command: %s"
 msgstr ""
 
-#: loader/net.c:1683
+#: loader/net.c:1691
 #, c-format
 msgid "Bad bootproto %s specified in network command"
 msgstr ""
 
-#: loader/net.c:1798
+#: loader/net.c:1806
 msgid "Seconds:"
 msgstr ""
 
-#: loader/net.c:1996
+#: loader/net.c:2004
 msgid "Networking Device"
 msgstr ""
 
-#: loader/net.c:1997
+#: loader/net.c:2005
 msgid ""
 "You have multiple network devices on this system. Which would you like to "
 "install through?"
 msgstr ""
 
-#: loader/net.c:2001
+#: loader/net.c:2009
 msgid "Identify"
 msgstr ""
 
-#: loader/net.c:2010
+#: loader/net.c:2018
 msgid "You can identify the physical port for"
 msgstr ""
 
-#: loader/net.c:2012
+#: loader/net.c:2020
 msgid ""
 "by flashing the LED lights for a number of seconds.  Enter a number between "
 "1 and 30 to set the duration to flash the LED port lights."
 msgstr ""
 
-#: loader/net.c:2019
+#: loader/net.c:2027
 msgid "Identify NIC"
 msgstr ""
 
-#: loader/net.c:2032
+#: loader/net.c:2040
 msgid "Invalid Duration"
 msgstr ""
 
-#: loader/net.c:2033
+#: loader/net.c:2041
 msgid "You must enter the number of seconds as an integer between 1 and 30."
 msgstr ""
 
-#: loader/net.c:2045
+#: loader/net.c:2053
 #, c-format
 msgid "Flashing %s port lights for %d seconds."
 msgstr ""
 
-#: loader/net.c:2249 loader/net.c:2253
+#: loader/net.c:2257 loader/net.c:2261
 #, c-format
 msgid "Waiting for NetworkManager to configure %s.\n"
 msgstr ""
@@ -4757,7 +4757,7 @@ msgid ""
 "problems on the filesystem."
 msgstr ""
 
-#: storage/formats/fs.py:535 storage/partitioning.py:310
+#: storage/formats/fs.py:535 storage/partitioning.py:311
 msgid "Unrecoverable Error"
 msgstr ""
 
@@ -4850,23 +4850,23 @@ msgstr ""
 msgid "Could not log in to any of the discovered nodes"
 msgstr ""
 
-#: storage/partitioning.py:225
+#: storage/partitioning.py:226
 msgid ""
 "Could not find enough free space for automatic partitioning.  Press 'OK' to "
 "exit the installer."
 msgstr ""
 
-#: storage/partitioning.py:228
+#: storage/partitioning.py:229
 msgid ""
 "Could not find enough free space for automatic partitioning, please use "
 "another partitioning method."
 msgstr ""
 
-#: storage/partitioning.py:257
+#: storage/partitioning.py:258
 msgid "Warnings During Automatic Partitioning"
 msgstr ""
 
-#: storage/partitioning.py:259
+#: storage/partitioning.py:260
 #, python-format
 msgid ""
 "Following warnings occurred during automatic partitioning:\n"
@@ -4874,14 +4874,14 @@ msgid ""
 "%s"
 msgstr ""
 
-#: storage/partitioning.py:273 storage/partitioning.py:294
+#: storage/partitioning.py:274 storage/partitioning.py:295
 msgid ""
 "\n"
 "\n"
 "Press 'OK' to exit the installer."
 msgstr ""
 
-#: storage/partitioning.py:275
+#: storage/partitioning.py:276
 #, python-format
 msgid ""
 "Could not allocate requested partitions: \n"
@@ -4889,18 +4889,18 @@ msgid ""
 "%(msg)s.%(extra)s"
 msgstr ""
 
-#: storage/partitioning.py:296
+#: storage/partitioning.py:297
 msgid ""
 "\n"
 "\n"
 "Press 'OK' to choose a different partitioning option."
 msgstr ""
 
-#: storage/partitioning.py:298
+#: storage/partitioning.py:299
 msgid "Automatic Partitioning Errors"
 msgstr ""
 
-#: storage/partitioning.py:299
+#: storage/partitioning.py:300
 #, python-format
 msgid ""
 "The following errors occurred with your partitioning:\n"

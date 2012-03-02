@@ -222,6 +222,21 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Fri Mar 02 2012 David Cantrell <dcantrell@redhat.com> - 13.21.156-1
+- Find the CMSDASD device on guests with one CPU active (dcantrell)
+  Resolves: rhbz#736457
+- Make sure /boot is on the same disk as prepboot (mgracik)
+  Resolves: rhbz#727136
+- Implement dhcptimeout boot option (rvykydal)
+  Resolves: rhbz#769145
+- Fix EFI boot from multipath device (msivak)
+  Resolves: rhbz#691794
+- ipoib support - write TYPE to ifcfg also for disabled devices (rvykydal)
+  Related: rhbz#660686
+  Resolves: rhbz#660686
+- Fix sense of disklabel size check and add some logging (bcl)
+  Resolves: rhbz#671230
+
 * Tue Feb 28 2012 David Cantrell <dcantrell@redhat.com> - 13.21.155-1
 - Update the fs size limit for ext3/ext4 from 8TB to 16TB. (dlehman)
   Resolves: rhbz#767727
