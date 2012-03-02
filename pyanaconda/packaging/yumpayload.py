@@ -133,6 +133,12 @@ reposdir=/etc/yum.repos.d,/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/t
         if flags.testing:
             self._yum.setCacheDir()
 
+        # go ahead and get metadata for all enabled repos now
+        for repoid in self.repos:
+            repo = self._yum.repos.getRepo(repoid)
+            if repo.enabled:
+                self._getRepoMetadata(repo)
+
     ###
     ### METHODS FOR WORKING WITH REPOSITORIES
     ###
@@ -293,10 +299,30 @@ reposdir=/etc/yum.repos.d,/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/t
 
         # TODO: enable addons
 
-    def _addYumRepo(self, name, baseurl, mirrorlist=None, **kwargs):
-        """ Add a yum repo to the YumBase instance. """
+    def _getRepoMetadata(self, yumrepo):
+        """ Retrieve repo metadata if we don't already have it. """
         from yum.Errors import RepoError, RepoMDError
 
+        # And try to grab its metadata.  We do this here so it can be done
+        # on a per-repo basis, so we can then get some finer grained error
+        # handling and recovery.
+        try:
+            yumrepo.getPrimaryXML()
+            yumrepo.getOtherXML()
+        except RepoError as e:
+            raise MetadataError(e.value)
+
+        # Not getting group info is bad, but doesn't seem like a fatal error.
+        # At the worst, it just means the groups won't be displayed in the UI
+        # which isn't too bad, because you may be doing a kickstart install and
+        # picking packages instead.
+        try:
+            yumrepo.getGroups()
+        except RepoMDError:
+            log.error("failed to get groups for repo %s" % yumrepo.id)
+
+    def _addYumRepo(self, name, baseurl, mirrorlist=None, **kwargs):
+        """ Add a yum repo to the YumBase instance. """
         # First, delete any pre-existing repo with the same name.
         if name in self._yum.repos.repos:
             self._yum.repos.delete(name)
@@ -315,23 +341,7 @@ reposdir=/etc/yum.repos.d,/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/t
                                         mirrorlist=mirrorlist,
                                         **kwargs)
 
-        # And try to grab its metadata.  We do this here so it can be done
-        # on a per-repo basis, so we can then get some finer grained error
-        # handling and recovery.
-        try:
-            obj.getPrimaryXML()
-            obj.getOtherXML()
-        except RepoError as e:
-            raise MetadataError(e.value)
-
-        # Not getting group info is bad, but doesn't seem like a fatal error.
-        # At the worst, it just means the groups won't be displayed in the UI
-        # which isn't too bad, because you may be doing a kickstart install and
-        # picking packages instead.
-        try:
-            obj.getGroups()
-        except RepoMDError:
-            log.error("failed to get groups for repo %s" % repo.id)
+        self._getRepoMetadata(obj)
 
         # Adding a new repo means the cached packages and groups lists
         # are out of date.  Clear them out now so the next reference to
