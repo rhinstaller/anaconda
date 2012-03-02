@@ -733,6 +733,8 @@ if __name__ == "__main__":
     else:
         ksdata = kickstart.AnacondaKSHandler(anaconda)
 
+    anaconda.ksdata = ksdata
+
     # Some post-install parts of anaconda are implemented as kickstart
     # scripts.  Add those to the ksdata now.
     kickstart.appendPostScripts(ksdata)
@@ -806,11 +808,13 @@ if __name__ == "__main__":
         anaconda.keyboard.activate()
 
     from pyanaconda.storage import storageInitialize
+    from pyanaconda.packaging import payloadInitialize
     from pyanaconda.threads import initThreading, threadMgr
     from threading import Thread
 
     initThreading()
     threadMgr.add(Thread(name="AnaStorageThread", target=storageInitialize, args=(anaconda.storage, ksdata, anaconda.protected)))
+    threadMgr.add(Thread(name="AnaPayloadThread", target=payloadInitialize, args=(anaconda.storage, anaconda.payload)))
 
     atexit.register(exitHandler, ksdata.reboot, anaconda.storage)
     # FIXME:  This will need to be made cleaner once this file starts to take

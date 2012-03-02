@@ -391,6 +391,15 @@ class PackagePayload(Payload):
     """ A PackagePayload installs a set of packages onto the target system. """
     pass
 
+def payloadInitialize(storage, payload):
+    from pyanaconda.threads import threadMgr
+
+    storageThread = threadMgr.get("AnaStorageThread")
+    if storageThread:
+        storageThread.join()
+
+    payload.setup(storage)
+
 def show_groups():
     ksdata = makeVersion()
     obj = YumPayload(ksdata)
