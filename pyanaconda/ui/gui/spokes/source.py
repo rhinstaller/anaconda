@@ -89,10 +89,9 @@ class MediaCheckDialog(UIObject):
         GLib.io_add_watch(stdout, GLib.IOCondition.IN|GLib.IOCondition.HUP, self._checkisoStdoutWatcher)
 
         self.window.run()
-        self.window.destroy()
 
     def on_done_clicked(self, *args):
-        Gtk.main_quit()
+        self.window.destroy()
 
 # This class is responsible for popping up the dialog that allows the user to
 # choose the ISO image they want to use.  We can get away with this instead of
