@@ -1,0 +1,49 @@
+#!/usr/bin/python
+
+import os, sys
+from modulefinder import ModuleFinder
+from distutils.sysconfig import *
+
+sitedir = get_python_lib()
+libdir = get_config_var('LIBDEST')
+
+def moduledir(pyfile):
+    '''Given a python file, return the module dir it belongs to, or None.'''
+    for topdir in sitedir, libdir:
+        relpath = os.path.relpath(pyfile, topdir)
+        if '/' not in relpath: continue
+        modname = relpath.split('/')[0]
+        if modname not in ('..', 'site-packages'):
+            return os.path.join(topdir, modname)
+
+def pyfiles(moddir):
+    '''basically, "find $moddir -type f -name "*.py"'''
+    for curdir, dirs, files in os.walk(moddir):
+        for f in files:
+            if f.endswith(".py"):
+                yield os.path.join(curdir, f)
+
+
+# use modulefinder to find all the modules etc. this script uses!
+mods = []
+deps = []
+finder = ModuleFinder()
+finder.run_script(sys.argv[1]) # parse the script
+for name, mod in finder.modules.iteritems():
+    if not mod.__file__: # builtin - skip it
+        continue
+    if mod.__file__ not in deps: # grab the file itself
+        deps.append(mod.__file__)
+    moddir = moduledir(mod.__file__)
+    if moddir and moddir not in mods: # if it's part of a module..
+        deps += list(pyfiles(moddir)) # ..get the whole module
+        mods.append(moddir)
+
+# Start with some basic bits that the python install itself needs
+print get_makefile_filename()
+print get_config_h_filename()
+print os.path.join(libdir,'site.py')
+print os.path.join(libdir,'sysconfig.py')
+
+for d in deps:
+    print d

@@ -19,7 +19,7 @@
 
 dracutdir = /usr/lib/dracut/modules.d/80$(PACKAGE_NAME)
 dist_dracut_SCRIPTS = module-setup.sh \
-                      pythondeps.sh \
+                      python-deps \
 		      anaconda-lib.sh \
 		      parse-anaconda-options.sh \
 		      parse-anaconda-repo.sh \
