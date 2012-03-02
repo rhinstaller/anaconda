@@ -137,7 +137,11 @@ reposdir=/etc/yum.repos.d,/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/t
         for repoid in self.repos:
             repo = self._yum.repos.getRepo(repoid)
             if repo.enabled:
-                self._getRepoMetadata(repo)
+                try:
+                    self._getRepoMetadata(repo)
+                except MetadataError as e:
+                    log.error("error fetching metadata for %s: %s" % (repoid, e))
+                    self.removeRepo(repoid)
 
     ###
     ### METHODS FOR WORKING WITH REPOSITORIES
