@@ -690,13 +690,25 @@ class efiBootloaderInfo(bootloaderInfo):
             log.error("bootdev not found for '%s'" % (bootdisk,))
             return 1
 
-        argv = [ "efibootmgr", "-c" , "-w", "-L",
-                 productName, "-d", "%s" % (bootdev.path,),
-                 "-p", "%s" % (bootpart,),
-                 "-l", "\\EFI\\redhat\\" + self.bootloader ]
-        rc = iutil.execWithRedirect(argv[0], argv[1:], root = instRoot,
-                                    stdout = "/dev/tty5",
-                                    stderr = "/dev/tty5")
+        # if the bootdev is multipath, we need to call efibootmgr on all it's
+        # member devices
+        from storage.devices import MultipathDevice
+
+        if isinstance(bootdev, MultipathDevice):
+            bootdevlist = bootdev.parents
+        else:
+            bootdevlist = [bootdev]
+
+        for d in bootdevlist:
+            argv = [ "efibootmgr", "-c" , "-w", "-L",
+                     productName, "-d", "%s" % (d.path,),
+                     "-p", "%s" % (bootpart,),
+                     "-l", "\\EFI\\redhat\\" + self.bootloader ]
+            rc = iutil.execWithRedirect(argv[0], argv[1:], root = instRoot,
+                                        stdout = "/dev/tty5",
+                                        stderr = "/dev/tty5")
+            
+        # return last rc, the API doesn't provide anything better than this
         return rc
 
     def getEfiProductPath(self, productName, force=False):
