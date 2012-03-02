@@ -59,7 +59,7 @@ class MediaCheckDialog(UIObject):
         if condition == GLib.IOCondition.HUP:
             return False
 
-        channel = GLIb.IOChannel(fd)
+        channel = GLib.IOChannel(fd)
         line = channel.readline().strip()
 
         if not line.isdigit():
