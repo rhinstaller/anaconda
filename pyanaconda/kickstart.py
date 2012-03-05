@@ -1513,7 +1513,12 @@ def selectPackages(anaconda):
     ksdata.packages.groupList.insert(0, Group("Core"))
 
     if ksdata.packages.addBase:
-        ksdata.packages.groupList.insert(1, Group("Base"))
+        # Only add @base if it's not already in the group list.  If the
+        # %packages section contains something like "@base --optional",
+        # addBase will take effect first and yum will think the group is
+        # already selected.
+        if not Group("Base") in ksdata.packages.groupList:
+            ksdata.packages.groupList.insert(1, Group("Base"))
     else:
         log.warning("not adding Base group")
 
