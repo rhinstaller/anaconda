@@ -17,6 +17,7 @@ case "${kickstart%%:*}" in
         # network module will bring the right interface(s) online, and then..
         when_netdev_online \
             "/sbin/fetch-kickstart-net \$env{INTERFACE} $kickstart"
+        wait_for_kickstart
     ;;
     cdrom|hd|bd) # cdrom:<dev>, hd:<dev>:<path>, bd:<dev>:<path>
         splitsep ":" "$kickstart" kstype ksdev kspath
@@ -25,12 +26,10 @@ case "${kickstart%%:*}" in
             warn "inst.ks='$kickstart'"
             warn "can't get kickstart: biospart isn't supported yet"
             ksdev=""
+        else
+            when_diskdev_appears "$ksdev" \
+                "/sbin/fetch-kickstart-disk \$env{DEVNAME} $kspath"
+            wait_for_kickstart
         fi
-        [ -n "$ksdev" ] && \
-        when_diskdev_appears "$ksdev" \
-            "/sbin/fetch-kickstart-disk \$env{DEVNAME} $kspath"
     ;;
 esac
-
-# Make sure we stay in the mainloop until kickstart is fetched
-[ -n "$kickstart" ] && wait_for_kickstart
