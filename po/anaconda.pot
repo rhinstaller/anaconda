@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 13.21.155\n"
+"Project-Id-Version: anaconda 13.21.156\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2012-03-02 17:06-0500\n"
+"POT-Creation-Date: 2012-03-05 15:52-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -97,7 +97,7 @@ msgid "Installing %s\n"
 msgstr ""
 
 #: bootloader.py:55 bootloader.py:238 bootloader.py:244 gui.py:1284
-#: image.py:82 installinterfacebase.py:66 network.py:853 text.py:490
+#: image.py:82 installinterfacebase.py:66 network.py:849 text.py:490
 #: text.py:550 yuminstall.py:1583 yuminstall.py:1792 yuminstall.py:1827
 #: iw/blpasswidget.py:154 iw/upgrade_swap_gui.py:190
 #: iw/upgrade_swap_gui.py:198 iw/upgrade_swap_gui.py:205
@@ -124,8 +124,8 @@ msgstr ""
 msgid "_Exit installer"
 msgstr ""
 
-#: bootloader.py:60 image.py:92 image.py:253 kickstart.py:1465
-#: kickstart.py:1504 upgrade.py:58 yuminstall.py:1402 yuminstall.py:1579
+#: bootloader.py:60 image.py:92 image.py:253 kickstart.py:1481
+#: kickstart.py:1525 upgrade.py:58 yuminstall.py:1402 yuminstall.py:1579
 #: iw/partition_gui.py:1629 storage/__init__.py:2062
 msgid "_Continue"
 msgstr ""
@@ -158,8 +158,8 @@ msgstr ""
 msgid "In progress"
 msgstr ""
 
-#: cmdline.py:88 gui.py:1315 kickstart.py:1247 kickstart.py:1327
-#: kickstart.py:1335 kickstart.py:1374 kickstart.py:1382 text.py:396
+#: cmdline.py:88 gui.py:1315 kickstart.py:1263 kickstart.py:1343
+#: kickstart.py:1351 kickstart.py:1390 kickstart.py:1398 text.py:396
 #, python-format
 msgid ""
 "The following error was found while parsing the kickstart configuration "
@@ -467,8 +467,8 @@ msgstr ""
 #: image.py:291 livecd.py:198 livecd.py:440 partIntfHelpers.py:240 text.py:359
 #: text.py:363 yuminstall.py:420 yuminstall.py:945 yuminstall.py:1060
 #: yuminstall.py:1065 yuminstall.py:1340 yuminstall.py:1407 yuminstall.py:1603
-#: yuminstall.py:1625 iw/advanced_storage.py:379 iw/advanced_storage.py:389
-#: iw/advanced_storage.py:440 iw/autopart_type.py:95 iw/cleardisks_gui.py:44
+#: yuminstall.py:1625 iw/advanced_storage.py:384 iw/advanced_storage.py:394
+#: iw/advanced_storage.py:454 iw/autopart_type.py:95 iw/cleardisks_gui.py:44
 #: iw/cleardisks_gui.py:54 iw/filter_gui.py:437 iw/osbootwidget.py:211
 #: iw/osbootwidget.py:221 iw/raid_dialog_gui.py:220 iw/task_gui.py:54
 #: iw/task_gui.py:152 iw/task_gui.py:305 iw/task_gui.py:472
@@ -605,63 +605,63 @@ msgid ""
 "%s"
 msgstr ""
 
-#: kickstart.py:1346
+#: kickstart.py:1362
 #, python-format
 msgid "Error processing %%ksappend lines: %s"
 msgstr ""
 
-#: kickstart.py:1349
+#: kickstart.py:1365
 #, python-format
 msgid "Unknown error processing %%ksappend lines: %s"
 msgstr ""
 
-#: kickstart.py:1405 livecd.py:228
+#: kickstart.py:1421 livecd.py:228
 msgid "Post-Installation"
 msgstr ""
 
-#: kickstart.py:1406
+#: kickstart.py:1422
 msgid "Running post-installation scripts"
 msgstr ""
 
-#: kickstart.py:1422
+#: kickstart.py:1438
 msgid "Pre-Installation"
 msgstr ""
 
-#: kickstart.py:1423
+#: kickstart.py:1439
 msgid "Running pre-installation scripts"
 msgstr ""
 
-#: kickstart.py:1456
+#: kickstart.py:1472
 msgid "Missing Package"
 msgstr ""
 
-#: kickstart.py:1457
+#: kickstart.py:1473
 #, python-format
 msgid ""
 "You have specified that the package '%s' should be installed.  This package "
 "does not exist. Would you like to continue or abort this installation?"
 msgstr ""
 
-#: kickstart.py:1463 kickstart.py:1502
+#: kickstart.py:1479 kickstart.py:1523
 msgid "_Abort"
 msgstr ""
 
-#: kickstart.py:1464 kickstart.py:1503
+#: kickstart.py:1480 kickstart.py:1524
 msgid "_Ignore All"
 msgstr ""
 
-#: kickstart.py:1494
+#: kickstart.py:1515
 msgid "Missing Group"
 msgstr ""
 
-#: kickstart.py:1495
+#: kickstart.py:1516
 #, python-format
 msgid ""
 "You have specified that the group '%s' should be installed. This group does "
 "not exist. Would you like to continue or abort this installation?"
 msgstr ""
 
-#: kickstart.py:1618
+#: kickstart.py:1639
 #, python-format
 msgid ""
 "The kickstart configuration file is missing required information that "
@@ -741,17 +741,17 @@ msgstr ""
 msgid "'%s' is an invalid IP address."
 msgstr ""
 
-#: network.py:854
+#: network.py:850
 msgid ""
 "You do not have an active network connection.  This is required by some "
 "exception saving methods.  Would you like to configure your network now?"
 msgstr ""
 
-#: network.py:860 rescue.py:262 yuminstall.py:1304 iw/task_gui.py:311
+#: network.py:856 rescue.py:262 yuminstall.py:1304 iw/task_gui.py:311
 msgid "No Network Available"
 msgstr ""
 
-#: network.py:861
+#: network.py:857
 msgid "Remote exception saving methods will not work."
 msgstr ""
 
@@ -1076,27 +1076,27 @@ msgstr ""
 msgid "Use the credentials from the discovery step"
 msgstr ""
 
-#: partIntfHelpers.py:471
+#: partIntfHelpers.py:472
 msgid "iSCSI Nodes"
 msgstr ""
 
-#: partIntfHelpers.py:472
+#: partIntfHelpers.py:473
 msgid "No iSCSI nodes to log in"
 msgstr ""
 
-#: partIntfHelpers.py:513
+#: partIntfHelpers.py:516
 msgid "iSCSI Error"
 msgstr ""
 
-#: partIntfHelpers.py:518
+#: partIntfHelpers.py:521
 msgid "Discovery"
 msgstr ""
 
-#: partIntfHelpers.py:518
+#: partIntfHelpers.py:521
 msgid "Login"
 msgstr ""
 
-#: partIntfHelpers.py:519
+#: partIntfHelpers.py:522
 #, python-format
 msgid "iSCSI %s Error"
 msgstr ""
@@ -1992,11 +1992,15 @@ msgid ""
 "Requested password contains non-ASCII characters, which are not allowed."
 msgstr ""
 
-#: iw/advanced_storage.py:257
+#: iw/advanced_storage.py:260
 msgid "Node Name"
 msgstr ""
 
-#: iw/advanced_storage.py:380
+#: iw/advanced_storage.py:261
+msgid "Interface"
+msgstr ""
+
+#: iw/advanced_storage.py:385
 msgid "You must select a NIC to use."
 msgstr ""
 
@@ -2680,15 +2684,15 @@ msgstr ""
 msgid "_Logical Volumes"
 msgstr ""
 
-#: iw/network_gui.py:83 iw/network_gui.py:89
+#: iw/network_gui.py:81 iw/network_gui.py:87
 msgid "Error with Hostname"
 msgstr ""
 
-#: iw/network_gui.py:84
+#: iw/network_gui.py:82
 msgid "You must enter a valid hostname for this computer."
 msgstr ""
 
-#: iw/network_gui.py:90
+#: iw/network_gui.py:88
 #, python-format
 msgid ""
 "The hostname \"%(hostname)s\" is not valid for the following reason:\n"
@@ -2696,11 +2700,11 @@ msgid ""
 "%(herrors)s"
 msgstr ""
 
-#: iw/network_gui.py:134
+#: iw/network_gui.py:137
 msgid "Select network interface"
 msgstr ""
 
-#: iw/network_gui.py:141
+#: iw/network_gui.py:144
 msgid ""
 "This requires that you have an active network connection during the "
 "installation process.  Please configure a network interface."
@@ -4694,7 +4698,7 @@ msgid ""
 "installation."
 msgstr ""
 
-#: storage/devicetree.py:1958 storage/devicetree.py:2006
+#: storage/devicetree.py:1961 storage/devicetree.py:2009
 msgid "This partition is part of an inconsistent LVM Volume Group."
 msgstr ""
 
@@ -4805,48 +4809,48 @@ msgstr ""
 msgid "Creating %s on %s"
 msgstr ""
 
-#: storage/iscsi.py:127
+#: storage/iscsi.py:128
 msgid "Unable to change iSCSI initiator name once set"
 msgstr ""
 
-#: storage/iscsi.py:129
+#: storage/iscsi.py:130
 msgid "Must provide an iSCSI initiator name"
 msgstr ""
 
-#: storage/iscsi.py:183 storage/iscsi.py:184
+#: storage/iscsi.py:194 storage/iscsi.py:195
 msgid "Scanning iSCSI nodes"
 msgstr ""
 
-#: storage/iscsi.py:204 storage/iscsi.py:205
+#: storage/iscsi.py:246 storage/iscsi.py:247
 msgid "Initializing iSCSI initiator"
 msgstr ""
 
-#: storage/iscsi.py:260
+#: storage/iscsi.py:302
 msgid "iSCSI not available"
 msgstr ""
 
-#: storage/iscsi.py:262
+#: storage/iscsi.py:304
 msgid "No initiator name set"
 msgstr ""
 
-#: storage/iscsi.py:301
+#: storage/iscsi.py:343
 msgid "Logging in to iSCSI node"
 msgstr ""
 
-#: storage/iscsi.py:302
+#: storage/iscsi.py:344
 #, python-format
 msgid "Logging in to iSCSI node %s"
 msgstr ""
 
-#: storage/iscsi.py:336
+#: storage/iscsi.py:378
 msgid "No iSCSI nodes discovered"
 msgstr ""
 
-#: storage/iscsi.py:352
+#: storage/iscsi.py:400
 msgid "No new iSCSI nodes discovered"
 msgstr ""
 
-#: storage/iscsi.py:355
+#: storage/iscsi.py:403
 msgid "Could not log in to any of the discovered nodes"
 msgstr ""
 
@@ -5331,27 +5335,43 @@ msgid ""
 msgstr ""
 
 #: ui/adddrive.glade.h:1
-msgid "Add _FCoE SAN"
+msgid "Active network interfaces:"
 msgstr ""
 
 #: ui/adddrive.glade.h:2
-msgid "Add _ZFCP LUN"
+msgid "Add _FCoE SAN"
 msgstr ""
 
 #: ui/adddrive.glade.h:3
-msgid "Add _iSCSI target"
+msgid "Add _ZFCP LUN"
 msgstr ""
 
 #: ui/adddrive.glade.h:4
-msgid "Advanced Storage Options"
+msgid "Add _iSCSI target"
 msgstr ""
 
 #: ui/adddrive.glade.h:5
-msgid "How would you like to modify your drive configuration?"
+msgid "Advanced Storage Options"
 msgstr ""
 
 #: ui/adddrive.glade.h:6
+msgid "C_onfigure Network"
+msgstr ""
+
+#: ui/adddrive.glade.h:7
+msgid "How would you like to modify your drive configuration?"
+msgstr ""
+
+#: ui/adddrive.glade.h:8
+msgid "None"
+msgstr ""
+
+#: ui/adddrive.glade.h:9
 msgid "_Add drive"
+msgstr ""
+
+#: ui/adddrive.glade.h:10
+msgid "_Bind targets to network interfaces"
 msgstr ""
 
 #: ui/addrepo.glade.h:1

@@ -222,6 +222,25 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Mon Mar 05 2012 David Cantrell <dcantrell@redhat.com> - 13.21.157-1
+- Allow installation of optional packages from the base group via ks. (clumens)
+  Resolves: rhbz#727186
+- iscsi: add iface binding support to discovery and setup TUI (rvykydal)
+  Resolves: rhbz#500273
+- iscsi: add interface binding support to kickstart (rvykydal)
+  Resolves: rhbz#500273
+- iscsi: add Configure Network to advanced storage GUI (rvykydal)
+  Resolves: rhbz#500273
+  Related: rhbz#500273
+- iscsi: Display iface in login success dialog (rvykydal)
+  Resolves: rhbz#500273
+- iscsi: display iface in Discovered Nodes dialog (rvykydal)
+  Resolves: rhbz#500273
+- iscsi: add iface binding support to iscsi device class (nic) (rvykydal)
+  Resolves: rhbz#500273
+- iscsi: add iface binding support to discovery and setup GUI (rvykydal)
+  Resolves: rhbz#500273
+
 * Fri Mar 02 2012 David Cantrell <dcantrell@redhat.com> - 13.21.156-1
 - Find the CMSDASD device on guests with one CPU active (dcantrell)
   Resolves: rhbz#736457
