@@ -15,7 +15,8 @@ class ppcBootloaderInfo(bootloaderInfo):
 
         if machine == 'pSeries':
             for dev in self.storage.fsset.devices:
-                if dev.format.type == "prepboot":
+                if (dev.format.type == "prepboot" and
+                        dev.partedPartition.getFlag(parted.PARTITION_BOOT)):
                     retval.append(dev.path)
         elif machine == 'PMac':
             for dev in self.storage.fsset.devices:
