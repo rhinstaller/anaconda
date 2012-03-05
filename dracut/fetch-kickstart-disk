@@ -14,7 +14,7 @@ tmpmnt=$(mkuniqdir /run/install tmpmnt)
 if mount -o ro $dev $tmpmnt; then
     cp $tmpmnt$path /tmp/ks.cfg
     umount $tmpmnt
-    parse_kickstart /tmp/ks.cfg
+    parse_kickstart /tmp/ks.cfg && run_kickstart
 else
     warn "Can't get kickstart from $dev:$path"
 fi
