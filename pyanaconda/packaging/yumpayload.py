@@ -194,14 +194,9 @@ reposdir=/etc/yum.repos.d,/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/t
         method = self.data.method
         sslverify = True
         url = None
+        proxy = None
 
-        if method.method == "cdrom":
-            devices = opticalInstallMedia(storage.devicetree)
-            if devices:
-                self._setupDevice(devices[0], mountpoint=INSTALL_TREE)
-                self.install_device = devices[0]
-                url = "file://" + INSTALL_TREE
-        elif method.method == "harddrive":
+        if method.method == "harddrive":
             if method.biospart:
                 log.warning("biospart support is not implemented")
                 devspec = method.biospart
@@ -263,6 +258,13 @@ reposdir=/etc/yum.repos.d,/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/t
             url = method.url
             sslverify = not (method.noverifyssl or flags.noverifyssl)
             proxy = method.proxy or self.proxy
+        elif method.method == "cdrom" or not method.method:
+            device = opticalInstallMedia(storage.devicetree)
+            if device:
+                self.install_device = device
+                url = "file://" + INSTALL_TREE
+                if not method.method:
+                    method.method = "cdrom"
 
         self._yum.preconf.releasever = self._getReleaseVersion(url)
 
@@ -281,10 +283,9 @@ reposdir=/etc/yum.repos.d,/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/t
             self._setupNFS(INSTALL_TREE, server, path, opts)
         else:
             # check for media, fall back to default repo
-            devices = opticalInstallMedia(storage.devicetree)
-            if devices:
-                self._setupDevice(devices[0], mountpoint=INSTALL_TREE)
-                self.install_device = devices[0]
+            device = opticalInstallMedia(storage.devicetree)
+            if device:
+                self.install_device = device
 
         if self._repoNeedsNetwork(repo) and not hasActiveNetDev():
             raise NoNetworkError
@@ -331,7 +332,7 @@ reposdir=/etc/yum.repos.d,/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/t
         if baseurl and \
            not baseurl.startswith("http:") and \
            not baseurl.startswith("ftp:"):
-            baseurl = "file:/" + INSTALL_TREE
+            baseurl = "file://" + INSTALL_TREE
 
         log.debug("adding yum repo %s with baseurl %s and mirrorlist %s"
                     % (name, baseurl, mirrorlist))
