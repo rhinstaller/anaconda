@@ -176,10 +176,10 @@ def mountImage(isodir, tree, messageWindow):
         else:
             break
 
-# Return a list of Device instances containing valid optical install media
+# Return the first Device instance containing valid optical install media
 # for this product.
-def opticalInstallMedia(devicetree, mountpoint="/tmp/mnt"):
-    retval = []
+def opticalInstallMedia(devicetree, mountpoint=INSTALL_TREE):
+    retval = None
 
     for dev in devicetree.getDevicesByType("cdrom"):
         devicetree.updateDeviceFormat(dev)
@@ -192,7 +192,8 @@ def opticalInstallMedia(devicetree, mountpoint="/tmp/mnt"):
             dev.format.unmount()
             continue
 
-        retval.append(dev)
+        retval = dev
+        break
 
     return retval
 

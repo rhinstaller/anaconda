@@ -284,7 +284,8 @@ class SourceSpoke(NormalSpoke):
         # If we found any optical install media, display a selector for each
         # of those.
         added = False
-        for cdrom in opticalInstallMedia(self.devicetree, mountpoint=MOUNTPOINT):
+        cdrom = opticalInstallMedia(self.devicetree, mountpoint=MOUNTPOINT)
+        if cdrom:
             selector = AnacondaWidgets.DiskOverview(cdrom.format.label or "", "drive-removable-media", "")
             selector.path = cdrom.path
             self._autodetectMediaBox.pack_start(selector, False, False, 0)
