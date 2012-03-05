@@ -144,8 +144,19 @@ reposdir=/etc/yum.repos.d,/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/t
     ###
     @property
     def repos(self):
-        # FIXME: should this return pykickstart Repo or YumRepo?
         return self._yum.repos.repos.keys()
+
+    @property
+    def baseRepo(self):
+        repo_names = [BASE_REPO_NAME, productName.lower(), "rawhide"]
+        base_repo_name = None
+        for repo_name in repo_names:
+            if repo_name in self.repos and \
+               self._yum.repos.getRepo(repo_name).enabled:
+                base_repo_name = repo_name
+                break
+
+        return base_repo_name
 
     def _repoNeedsNetwork(self, repo):
         """ Returns True if the ksdata repo requires networking. """
