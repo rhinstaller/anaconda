@@ -900,6 +900,11 @@ class BootLoader(object):
 
         dracut_devices.extend(self.storage.fsset.swapDevices)
 
+        # Does /usr have its own device? If so, we need to tell dracut
+        usr_device = self.storage.mountpoints.get("/usr")
+        if usr_device:
+            dracut_devices.extend([usr_device])
+
         done = []
         # When we see a device whose setup string starts with a key in this
         # dict we pop that pair from the dict. When we're done looking at
