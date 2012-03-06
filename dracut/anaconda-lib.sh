@@ -73,7 +73,7 @@ disk_to_dev_path() {
 
 when_diskdev_appears() {
     local dev="${1#/dev/}" cmd=""; shift
-    cmd="/sbin/initqueue --settled --onetime --unique $*"
+    cmd="/sbin/initqueue --settled --onetime $*"
     {
         printf 'SUBSYSTEM=="block", KERNEL=="%s", RUN+="%s"\n' "$dev" "$cmd"
         printf 'SUBSYSTEM=="block", SYMLINK=="%s", RUN+="%s"\n' "$dev" "$cmd"
@@ -89,7 +89,7 @@ set_neednet() {
 
 when_netdev_online() {
     printf 'SUBSYSTEM=="net", ACTION=="online", RUN+="%s"\n' \
-             "/sbin/initqueue --settled $@" >> $rulesfile
+             "/sbin/initqueue --settled --onetime $@" >> $rulesfile
 }
 
 # Kickstart parsing goes at the end 'cuz it might use the other stuff
