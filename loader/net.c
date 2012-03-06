@@ -170,7 +170,7 @@ static char *netArpTypeStr(const char *ifname)
         ret = strdup("Ethernet");
         break;
     case ARPHRD_INFINIBAND:
-        ret = strdup("Infiniband");
+        ret = strdup("InfiniBand");
         break;
     case ARPHRD_SLIP:
         break;
