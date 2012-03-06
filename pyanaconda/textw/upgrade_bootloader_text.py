@@ -19,10 +19,9 @@
 # Author(s): Jeremy Katz <katzj@redhat.com>
 #
 
-from snack import *
-from constants_text import *
-from pyanaconda.flags import flags
-from pyanaconda.constants import *
+import snack
+from constants_text import INSTALL_OK, INSTALL_BACK, TEXT_BACK_CHECK
+from constants_text import TEXT_OK_BUTTON, TEXT_BACK_BUTTON
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
@@ -34,47 +33,29 @@ class UpgradeBootloaderWindow:
     def __call__(self, screen, anaconda):
         self.screen = screen
 
-        self.type = None
-        self.bootDev = None
+        self.dispatch = anaconda.dispatch
+        self.anaconda = anaconda
 
-        blradio = RadioGroup()
-
-        update = False
-        nobl = False
-        if anaconda.dispatch.step_disabled("instbootloader"):
+        (newbl, nobl) = (False, False)
+        if self.dispatch.step_enabled("bootloader"):
+            newbl = True
+        elif self.dispatch.step_disabled("instbootloader"):
             nobl = True
-        elif self.type and self.bootDev:
-            update = True
-
-        if (not anaconda.bootloader.can_update) or \
-           (self.type is None or self.bootDev is None):
-            t = TextboxReflowed(53,
-              _("The installer is unable to detect the boot loader "
-                "currently in use on your system."))
-
-            self.update_radio = blradio.add(_("Update boot loader configuration"),
-                                            "update", update)
-            self.update_radio.w.checkboxSetFlags(FLAG_DISABLED, FLAGS_SET)
         else:
-            t = TextboxReflowed(53,
-                                _("The installer has detected the %(type)s "
-                                  "boot loader currently installed on "
-                                  "%(bootDev)s.")
-                                % {'type': self.type, 'bootDev': self.bootDev})
+            newbl = True
 
-            self.update_radio = blradio.add(_("Update boot loader configuration"),
-                                            "update", update)
-
-        self.nobl_radio = blradio.add(_("Skip boot loader updating"),
+        blradio = snack.RadioGroup()
+        self.newbl_radio = blradio.add(_("_Create new boot loader configuration"),
+                                       "newbl", newbl)
+        self.nobl_radio = blradio.add(_("_Skip boot loader updating"),
                                       "nobl", nobl)
 
-        buttons = ButtonBar(screen, [TEXT_OK_BUTTON, TEXT_BACK_BUTTON])
+        buttons = snack.ButtonBar(screen, [TEXT_OK_BUTTON, TEXT_BACK_BUTTON])
 
-        grid = GridFormHelp(screen, _("Upgrade Boot Loader Configuration"),
-                            "bl-upgrade", 1, 5)
+        grid = snack.GridFormHelp(screen, _("Upgrade Boot Loader Configuration"),
+                                  "bl-upgrade", 1, 5)
 
-        grid.add(t, 0, 0, (0,0,0,1))
-        grid.add(self.update_radio, 0, 1, (0,0,0,0))
+        grid.add(self.newbl_radio, 0, 1, (0,0,0,0))
         grid.add(self.nobl_radio, 0, 2, (0,0,0,0))
         grid.add(buttons, 0, 3, growx = 1)
 
@@ -88,13 +69,13 @@ class UpgradeBootloaderWindow:
                 return INSTALL_BACK
 
             if blradio.getSelection() == "nobl":
-                anaconda.dispatch.skip_steps("bootloader")
-                anaconda.dispatch.skip_steps("instbootloader")
-                anaconda.bootloader.update_only = False
+                self.dispatch.skip_steps("bootloader")
+                self.dispatch.skip_steps("instbootloader")
+                self.anaconda.bootloader.skip_bootloader = True
             else:
-                anaconda.dispatch.skip_steps("bootloader")
-                anaconda.dispatch.request_steps("instbootloader")
-                anaconda.bootloader.update_only = anaconda.bootloader.can_update
+                self.dispatch.request_steps_gently("bootloader")
+                self.anaconda.bootloader.skip_bootloader = False
 
             screen.popWindow()
             return INSTALL_OK
+
