@@ -35,7 +35,7 @@ find_runtime() {
     local ti_img="" dir="$1$2"
     ti_img=$(config_get stage2 mainimage < $dir/.treeinfo 2>/dev/null)
     for f in $ti_img images/install.img LiveOS/squashfs.img; do
-        [ -e "$dir/$f" ] && echo "$dir/$f"
+        [ -e "$dir/$f" ] && echo "$dir/$f" && return
     done
 }
 
@@ -96,7 +96,8 @@ when_netdev_online() {
 
 parse_kickstart() {
     /sbin/parse-kickstart $1 > /etc/cmdline.d/80kickstart.conf
-    . /tmp/ks.info
+    unset CMDLINE  # re-read the commandline
+    . /tmp/ks.info # save the parsed kickstart
     [ -e "$parsed_kickstart" ] && cp $parsed_kickstart /run/install/ks.cfg
 }
 
