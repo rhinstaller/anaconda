@@ -119,23 +119,21 @@ run_kickstart() {
     # parse cmdline
     [ $do_repo ] && . $hookdir/cmdline/*parse-anaconda-repo.sh
 
-    # write udev rules
-    [ $do_repo ] && . $hookdir/pre-udev/*repo-genrules.sh
+    # update root.info
+    echo "root='$root'" >> /tmp/root.info
 
-    # figure out if we need to replay udev events
+    # replay udev events to trigger actions
     if [ $do_repo ]; then
-        # update root.info for ifup/netroot
-        { echo "root='$root'"; echo "netroot='$netroot'"; } >> /tmp/root.info
         case "$repotype" in
-            http|https|ftp) triggers="$triggers --subsystem-match=net" ;;
-            cdrom|hd|bd)    triggers="$triggers --subsystem-match=block" ;;
+            http*|ftp|nfs*)
+                udevadm trigger --action=online --subsystem-match=net
+            ;;
+            cdrom|hd|bd)
+                . $hookdir/pre-udev/*repo-genrules.sh
+                udevadm control --reload
+                udevadm trigger --action=change --subsystem-match=block
+            ;;
         esac
-    fi
-
-    # load and trigger new rules, if needed
-    if [ -n "$triggers" ]; then
-        udevadm control --reload
-        udevadm trigger $triggers
     fi
 
     # and that's it - we're back to the mainloop.

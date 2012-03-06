@@ -6,10 +6,8 @@ repo="$(getarg repo= inst.repo=)"
 if [ -n "$repo" ]; then
     splitsep ":" "$repo" repotype rest
     case "$repotype" in
-        http|https|ftp)
-            root="anaconda-url"; netroot="anaconda-url:$repo"; set_neednet ;;
-        nfs|nfs4|nfsiso)
-            root="anaconda-nfs"; netroot="anaconda-nfs:$rest"; set_neednet ;;
+        http|https|ftp|nfs|nfs4|nfsiso)
+            set_neednet; root="anaconda-net" ;;
         hd|cd|cdrom)
             [ -n "$rest" ] && root="anaconda-disk:$rest" ;;
         *)
