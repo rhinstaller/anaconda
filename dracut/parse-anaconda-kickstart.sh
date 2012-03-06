@@ -7,13 +7,16 @@ if [ -z "$kickstart" ]; then
     getargbool 0 ks inst.ks && kickstart='nfs:auto'
 fi
 # no root? the kickstart will probably tell us what our root device is.
-[ "$kickstart" ] && [ -z "$root" ] && root="kickstart"
+[ "$kickstart" ] && [ -z "$root" ] && root="anaconda-kickstart"
 
 case "$kickstart" in
     http:*|https:*|ftp:*|nfs:*|nfs4:*) set_neednet ;;
 esac
 
-# FIXME: this won't work until after we run udev
+# save kickstart info for later
+echo "kickstart=$kickstart" >> /tmp/ks.info
+
+# FIXME: this won't work! needs to be run after udev starts.
 # inst.ks.sendmac: send MAC addresses in HTTP headers
 if getargbool 0 kssendmac inst.ks.sendmac; then
     ifnum=0

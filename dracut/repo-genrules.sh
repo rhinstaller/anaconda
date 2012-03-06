@@ -17,8 +17,3 @@ case "$root" in
              '/sbin/anaconda-diskroot $env{DEVNAME}"\n' >> $rulesfile
   ;;
 esac
-
-# Make sure we wait for the dmsquash root device to appear
-case "$root" in
-    anaconda-*) wait_for_dev /dev/root ;;
-esac
