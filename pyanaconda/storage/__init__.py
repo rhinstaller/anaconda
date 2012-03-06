@@ -978,7 +978,7 @@ class Storage(object):
                   available raid minor if one isn't already set.
         """
         self.devicetree.registerAction(ActionCreateDevice(device))
-        if device.format.type and device.format.type != "btrfs":
+        if device.format.type:
             self.devicetree.registerAction(ActionCreateFormat(device))
 
     def destroyDevice(self, device):
