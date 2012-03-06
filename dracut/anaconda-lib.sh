@@ -96,10 +96,8 @@ when_netdev_online() {
 
 parse_kickstart() {
     /sbin/parse-kickstart $1 > /etc/cmdline.d/80kickstart.conf
-    if [ -e /tmp/ks.info ]; then
-        . /tmp/ks.info
-        cp $parsed_kickstart /run/install/ks.cfg
-    fi
+    . /tmp/ks.info
+    [ -e "$parsed_kickstart" ] && cp $parsed_kickstart /run/install/ks.cfg
 }
 
 # This is where we actually run the kickstart. Whee!
