@@ -618,6 +618,14 @@ class Network:
                     log.warning("autoconnectFCoEDevices: %s file not found" %
                                 device.path)
 
+    def hasActiveIPoIBDevice(self):
+        active_devs = getActiveNetDevs()
+        for devName, device in self.netdevices:
+            if (devName in active_devs and
+                device.get('TYPE') == 'Infiniband'):
+                return True
+        return False
+
     def write(self):
 
         ifcfglog.debug("Network.write() called")

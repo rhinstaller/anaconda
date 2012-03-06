@@ -1558,6 +1558,8 @@ debuglevel=6
             self.selectBestKernel(anaconda)
             map(self.selectPackage, anaconda.platform.packages)
             self.selectFSPackages(anaconda.id.storage)
+            if anaconda.id.network.hasActiveIPoIBDevice():
+                self.selectPackage("rdma")
             self.selectAnacondaNeeds()
         else:
             self.ayum.update()

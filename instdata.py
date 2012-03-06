@@ -182,6 +182,9 @@ class InstallData:
 
         services = list(self.storage.services)
 
+        if self.network.hasActiveIPoIBDevice():
+            services.append("rdma")
+
         if self.anaconda.isKickstart:
             services.extend(self.ksdata.services.enabled)
 
