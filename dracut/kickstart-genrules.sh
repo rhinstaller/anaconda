@@ -14,9 +14,7 @@ case "${kickstart%%:*}" in
         fi
     ;;
     http|https|ftp|nfs)
-        # network module will bring the right interface(s) online, and then..
-        when_netdev_online \
-            "/sbin/fetch-kickstart-net \$env{INTERFACE} $kickstart"
+        # handled by fetch-kickstart-net in the online hook
         wait_for_kickstart
     ;;
     cdrom|hd|bd) # cdrom:<dev>, hd:<dev>:<path>, bd:<dev>:<path>

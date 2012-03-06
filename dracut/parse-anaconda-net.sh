@@ -28,6 +28,7 @@ if [ -n "$ksdev_val" ]; then
         *) ksdev="$ksdev_val" ;;
     esac
 fi
+[ -n "$ksdev" ] && echo "ksdevice=$ksdev" >> /tmp/ks.info
 
 ip="$(getarg ip=)"
 ipv6="$(getarg ipv6=)"

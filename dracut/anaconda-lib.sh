@@ -111,7 +111,7 @@ parse_kickstart() {
 # Really what we want to do here is just start over from the "cmdline"
 # phase, but since we can't do that, we'll kind of fake it.
 run_kickstart() {
-    local triggers="" do_repo=0 # TODO: do_dd, do_updates, any others?
+    local triggers="" do_repo="" # TODO: do_dd, do_updates, any others?
 
     # figure out what to re-run
     grep -q 'inst\.repo=' /etc/cmdline.d/80kickstart.conf && do_repo=1
