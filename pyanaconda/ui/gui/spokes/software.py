@@ -1,6 +1,6 @@
 # Software selection spoke classes
 #
-# Copyright (C) 2011  Red Hat, Inc.
+# Copyright (C) 2011-2012  Red Hat, Inc.
 #
 # This copyrighted material is made available to anyone wishing to use,
 # modify, copy, or redistribute it subject to the terms and conditions of
@@ -39,7 +39,17 @@ class SoftwareSelectionSpoke(NormalSpoke):
     title = N_("SOFTWARE SELECTION")
 
     def apply(self):
-        pass
+        row = self._get_selected_desktop()
+        if not row:
+            return
+
+        self.payload.selectGroup(row[2])
+
+        for row in self._addonStore:
+            if row[0]:
+                self.payload.selectGroup(row[2])
+            else:
+                self.payload.deselectGroup(row[2])
 
     @property
     def completed(self):
@@ -51,29 +61,36 @@ class SoftwareSelectionSpoke(NormalSpoke):
         if not row:
             return _("Nothing selected")
 
-        return row[2]
+        return self.payload.description(row[2])[0]
 
     def refresh(self):
         NormalSpoke.refresh(self)
 
         self._desktopStore = self.builder.get_object("desktopStore")
         self._desktopStore.clear()
-
-        self._addSelection(self._desktopStore, "Desktop", "The default Fedora desktop.")
-        self._addSelection(self._desktopStore, "KDE Plasma Desktop", "A complete, modern desktop built using KDE Plasma.")
-        self._addSelection(self._desktopStore, "LXDE Desktop", "A light, fast, less resource-hungry desktop.")
-        self._addSelection(self._desktopStore, "XFCE Desktop", "A complete, well-integrated desktop.")
-
         self._addonStore = self.builder.get_object("addonStore")
         self._addonStore.clear()
 
-        self._addSelection(self._addonStore, "Security", "Security analysis tools.")
-        self._addSelection(self._addonStore, "Games", "A perfect showcase of the best games available in Fedora.")
-        self._addSelection(self._addonStore, "Electronic Lab", "Fedora's high-end hardware design and simulation platform.")
-        self._addSelection(self._addonStore, "Design Suite", "Open creativity.")
+        for grp in self.payload.groups:
+            # Throw out language support groups and critical-path stuff.
+            if grp.endswith("-support") or grp.startswith("critical-path-"):
+                continue
+            # Throw out core, which should always be selected.
+            elif grp == "core":
+                continue
+            elif grp == "base" or grp.endswith("-desktop"):
+                (name, desc) = self.payload.description(grp)
+                selected = self.payload.groupSelected(grp)
 
-    def _addSelection(self, store, name, description):
-        store.append([False, "<b>%s</b>\n%s" % (name, description), name])
+                itr = self._desktopStore.append([selected, "<b>%s</b>\n%s" % (name, desc), grp])
+                if selected:
+                    sel = self.builder.get_object("desktopSelector")
+                    sel.select_iter(itr)
+            else:
+                (name, desc) = self.payload.description(grp)
+                selected = self.payload.groupSelected(grp)
+
+                self._addonStore.append([selected, "<b>%s</b>\n%s" % (name, desc), grp])
 
     # Returns the row in the store corresponding to what's selected on the
     # left hand panel, or None if nothing's selected.
