@@ -149,6 +149,9 @@ class Payload(object):
     def description(self, groupid):
         raise NotImplementedError()
 
+    def groupSelected(self, groupid):
+        return Group(groupid) in self.data.packages.groupList
+
     def selectGroup(self, groupid, default=True, optional=False):
         if optional:
             include = GROUP_ALL
@@ -189,6 +192,9 @@ class Payload(object):
     @property
     def packages(self):
         raise NotImplementedError()
+
+    def packageSelected(self, pkgid):
+        return pkgid in self.data.packages.packageList
 
     def selectPackage(self, pkgid):
         """Mark a package for installation.
