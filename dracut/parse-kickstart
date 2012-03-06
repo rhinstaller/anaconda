@@ -15,7 +15,7 @@ import sys, os
 import logging
 from pykickstart.parser import KickstartParser, preprocessKickstart
 from pykickstart.version import returnClassForVersion
-from pykickstart.errors import KickstartParseError
+from pykickstart.errors import KickstartError
 from pykickstart.constants import *
 from pykickstart import commands
 from collections import OrderedDict
@@ -173,7 +173,7 @@ def process_kickstart(ksfile):
     processed_file = preprocessKickstart(ksfile)
     try:
         parser.readKickstart(processed_file)
-    except KickstartParseError as e:
+    except KickstartError as e:
         log.error(str(e))
     with open("/tmp/ks.info", "w") as f:
         f.write('parsed_kickstart="%s"\n' % processed_file)
