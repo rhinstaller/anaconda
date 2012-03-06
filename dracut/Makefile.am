@@ -31,7 +31,7 @@ dist_dracut_SCRIPTS = module-setup.sh \
 		      anaconda-diskroot \
 		      anaconda-urlroot \
 		      anaconda-copy-ks.sh \
-		      fetch-kickstart-net \
+		      fetch-kickstart-net.sh \
 		      fetch-kickstart-disk \
 		      parse-kickstart
 
