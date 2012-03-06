@@ -2,7 +2,7 @@
 # nfsroot script for anaconda
 # usage: anaconda-nfsroot INTERFACE anaconda-nfs:<server>:<path>[:options]
 
-. /lib/dracut-lib.sh
+command -v getarg >/dev/null || . /lib/dracut-lib.sh
 . /lib/nfs-lib.sh
 . /lib/anaconda-lib.sh
 

@@ -1,7 +1,7 @@
 #!/bin/bash
 # fetch-kickstart-disk - fetch kickstart from a block device
 
-. /lib/dracut-lib.sh
+command -v getarg >/dev/null || . /lib/dracut-lib.sh
 . /lib/anaconda-lib.sh
 
 dev="$1"

@@ -3,7 +3,7 @@
 # usage: anaconda-diskroot DEVICE [PATH]
 
 . /lib/anaconda-lib.sh
-. /lib/dracut-lib.sh
+command -v getarg >/dev/null || . /lib/dracut-lib.sh
 
 
 dev="$1"
