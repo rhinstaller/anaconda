@@ -22,6 +22,11 @@ if [ -z "$root" ]; then
     root="anaconda-auto-cd"
 fi
 
+# Make sure we wait for the dmsquash root device to appear
+case "$root" in
+    anaconda-*) wait_for_dev /dev/root ;;
+esac
+
 # We've got *some* root variable set.
 # Set rootok so we can move on to anaconda-genrules.sh.
 rootok=1
