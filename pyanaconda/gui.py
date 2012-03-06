@@ -41,6 +41,7 @@ import network
 from installinterfacebase import InstallInterfaceBase
 import imp
 import iw
+import re
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
@@ -1363,21 +1364,33 @@ class InstallControlWindow:
             if gtk.gdk.screen_height() < 600:
                 i.hide()
 
-            width = None
-            height = None
-            xrandr = iutil.execWithCapture("xrandr", ["-q"], stderr="/dev/tty5")
-            lines = xrandr.splitlines()
-            xrandr = filter(lambda x: "current" in x, lines)
-            if xrandr and len(xrandr) == 1:
-                fields = xrandr[0].split()
-                pos = fields.index('current')
-                if len(fields) > pos + 3:
-                    width = int(fields[pos + 1])
-                    height = int(fields[pos + 3].replace(',', ''))
+            # Find a window size that will fit on whatever display gets picked
+            # Parse the connected lines from xrandr, which look like this:
+            # DVI-I-1 connected 1680x1050+1680+0 (normal left inverted right x axis y axis) 473mm x 296mm
+            try:
+                widths = []
+                heights= []
+                xrandr = iutil.execWithCapture("xrandr", ["-q"], stderr="/dev/tty5")
+                lines = [l.split() for l in xrandr.splitlines()]
+                displays = filter(lambda x: "connected" in x, lines)
+                for fields in displays:
+                    log.debug("display: %s", (fields,))
+                    m = re.match("(\d+)x(\d+).*", fields[2])
+                    if m and len(m.groups()) == 2:
+                        widths.append(int(m.group(1)))
+                        heights.append(int(m.group(2)))
 
-            if width and height:
-                self.window.set_size_request(min(width, 800), min(height, 600))
+                # Pick the smallest size that will fit
+                width = min(widths)
+                height = min(heights)
+            except Exception as e:
+                log.info("screen size detection failed: %s", (str(e),))
+                width = 800
+                height= 600
 
+            # Set the window size, but no smaller than 800x600
+            log.info("Setting window size to %dx%d" % (width, height))
+            self.window.set_size_request(max(width, 800), max(height, 600))
         self.window.show()
 
         if flags.debug:
