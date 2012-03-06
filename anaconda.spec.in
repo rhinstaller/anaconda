@@ -236,6 +236,18 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Tue Mar 06 2012 Brian C. Lane <bcl@redhat.com> - 17.12-1
+- only allow GPT boot flag on EFI System partition (#746895) (bcl)
+- Add dracut args for /usr to bootloader (#787893) (bcl)
+- Make sure all kickstart partition reqs get appropriate weight setting.
+  (dlehman)
+- Fix test for unsupported format type in kickstart. (dlehman)
+- Update the fs size limit for ext3/ext4 from 8TB to 16TB. (dlehman)
+- Don't allow /boot on logical partition except for grub. (dlehman)
+- empty versions shouldn't be upgradable or traceback (#791317) (bcl)
+- Don't crash when broken md devices are present. (#731177) (dlehman)
+- Add missing definition of BTRFSError. (#796013) (dlehman)
+
 * Tue Feb 21 2012 Brian C. Lane <bcl@redhat.com> - 17.11-1
 - import using the right path to iutil (bcl)
 
