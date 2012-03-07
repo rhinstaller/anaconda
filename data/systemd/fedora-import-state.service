@@ -1,0 +1,14 @@
+[Unit]
+Description=Import network configuration from initramfs
+DefaultDependencies=no
+ConditionDirectoryNotEmpty=/run/initramfs/state
+Conflicts=shutdown.target
+Before=shutdown.target emergency.service emergency.target systemd-tmpfiles-setup.service
+After=remount-rootfs.service
+
+[Service]
+ExecStart=/lib/systemd/fedora-import-state
+Type=oneshot
+TimeoutSec=0
+RemainAfterExit=yes
+

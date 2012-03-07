@@ -1,0 +1,8 @@
+#!/bin/bash
+# fedora-import-state: import state files from initramfs (e.g. network config)
+
+cd /run/initramfs/state
+cp -a -t / . || exit 1
+if [ -e /sys/fs/selinux/enforce ]; then
+    find . | ( cd /; restorecon -i -f -; ) || :
+fi
