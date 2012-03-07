@@ -7,7 +7,7 @@ check() {
 }
 
 depends() {
-    echo livenet nfs img-lib convertfs
+    echo livenet nfs img-lib convertfs ifcfg
     return 0
 }
 
