@@ -23,6 +23,8 @@ import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
 N_ = lambda x: x
 
+from gi.repository import Gdk
+
 from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.gui.categories.software import SoftwareCategory
 
@@ -37,6 +39,10 @@ class SoftwareSelectionSpoke(NormalSpoke):
 
     icon = "package-x-generic-symbolic"
     title = N_("SOFTWARE SELECTION")
+
+    def __init__(self, *args, **kwargs):
+        NormalSpoke.__init__(self, *args, **kwargs)
+        self._ready = False
 
     def apply(self):
         row = self._get_selected_desktop()
@@ -56,12 +62,38 @@ class SoftwareSelectionSpoke(NormalSpoke):
         return self._get_selected_desktop() is not None
 
     @property
+    def ready(self):
+        # By default, the software selection spoke is not ready.  We have to
+        # wait until the installation source spoke is completed.  This could be
+        # becasue the user filled something out, or because we're done fetching
+        # repo metadata from the mirror list, or we detected a DVD/CD.
+        return self._ready
+
+    @property
     def status(self):
         row = self._get_selected_desktop()
         if not row:
             return _("Nothing selected")
 
         return self.payload.description(row[2])[0]
+
+    def initialize(self):
+        from pyanaconda.threads import threadMgr
+        from threading import Thread
+
+        threadMgr.add(Thread(name="AnaSoftwareWatcher", target=self._initialize))
+
+    def _initialize(self):
+        from pyanaconda.threads import threadMgr
+
+        payloadThread = threadMgr.get("AnaPayloadThread")
+        if payloadThread:
+            payloadThread.join()
+
+        self._ready = True
+        Gdk.threads_enter()
+        self.selector.set_sensitive(True)
+        Gdk.threads_leave()
 
     def refresh(self):
         NormalSpoke.refresh(self)
