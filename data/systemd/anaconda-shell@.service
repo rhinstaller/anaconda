@@ -3,7 +3,7 @@
 [Unit]
 Description=Shell on %I
 BindTo=dev-%i.device
-After=dev-%i.device
+After=dev-%i.device systemd-user-sessions.service plymouth-quit-wait.service
 
 [Service]
 Environment=TERM=linux
