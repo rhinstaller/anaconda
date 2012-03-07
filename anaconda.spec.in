@@ -222,6 +222,16 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Wed Mar 07 2012 David Cantrell <dcantrell@redhat.com> - 13.21.159-1
+- Add auto_vlan option for fcoe devices in UI (rvykydal)
+  Resolves: rhbz#735857
+- Fix value for infiniband type used in ifcfg files (rvykydal)
+  Related: rhbz#660686
+  Resolves: rhbz#660686
+- Install and enable rdma service when using IPoIB network device (rvykydal)
+  Related: rhbz#660686
+  Resolves: rhbz#660686
+
 * Wed Mar 07 2012 David Cantrell <dcantrell@redhat.com> - 13.21.158-1
 - Use read-only locking for lvm commands in udev rules. (dlehman)
   Related: rhbz#783841
