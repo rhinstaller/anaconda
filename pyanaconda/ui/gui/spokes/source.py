@@ -177,7 +177,9 @@ class SourceSpoke(NormalSpoke):
             self.data.method.method = "harddrive"
             self.data.method.partition = part.name
             self.data.method.dir = self._currentIsoFile
-        elif self._http_active(self._protocolComboBox) or self._ftp_active(self._protocolComboBox):
+        elif self._mirror_active():
+            pass
+        elif self._http_active() or self._ftp_active():
             url = self._urlEntry.get_text().strip()
 
             # If the user didn't fill in the URL entry, just return as if they
@@ -192,13 +194,13 @@ class SourceSpoke(NormalSpoke):
             # to know how to fetch, and the refresh method needs that to know
             # which element of the combo to default to should this spoke be
             # revisited.
-            if self._ftp_active(self._protocolComboBox) and not self.data.method.url.startswith("ftp://"):
+            if self._ftp_active() and not self.data.method.url.startswith("ftp://"):
                 self.data.method.url = "ftp://" + self.data.method.url
             elif self._protocolComboBox.get_active() == 0 and not self.data.method.url.startswith("http://"):
                 self.data.method.url = "http://" + self.data.method.url
             elif self._protocolComboBox.get_active() == 1 and not self.data.method.url.startswith("https://"):
                 self.data.method.url = "https://" + self.data.method.url
-        elif self._nfs_active(self._protocolComboBox):
+        elif self._nfs_active():
             url = self._urlEntry.get_text().strip()
 
             # If the user didn't fill in the URL entry, just return as if
@@ -325,9 +327,10 @@ class SourceSpoke(NormalSpoke):
     def refresh(self):
         NormalSpoke.refresh(self)
 
-        # Just set the protocol combo to a default of HTTP.  We'll set it to
-        # the right value later on, depending on the method.
+        # We default to the mirror list, and then if the method tells us
+        # something different later, we can change it.
         self._protocolComboBox.set_active(0)
+        self._urlEntry.set_sensitive(False)
 
         # Set up the default state of UI elements.
         if self.data.method.method == "url":
@@ -344,6 +347,7 @@ class SourceSpoke(NormalSpoke):
                 self._protocolComboBox.set_active(2)
                 l = 6
 
+            self._urlEntry.set_sensitive(True)
             self._urlEntry.set_text(proto[l:])
         elif self.data.method.method == "nfs":
             self._networkButton.set_active(True)
@@ -370,14 +374,17 @@ class SourceSpoke(NormalSpoke):
         # that condition here too.
         self.on_protocol_changed(self._protocolComboBox)
 
-    def _http_active(self, combo):
-        return combo.get_active() in [0, 1]
+    def _mirror_active(self):
+        return self._protocolComboBox.get_active_text().startswith("Closest")
 
-    def _ftp_active(self, combo):
-        return combo.get_active() == 2
+    def _http_active(self):
+        return self._protocolComboBox.get_active_text().startswith("http")
 
-    def _nfs_active(self, combo):
-        return combo.get_active() == 3
+    def _ftp_active(self):
+        return self._protocolComboBox.get_active_text().startswith("ftp")
+
+    def _nfs_active(self):
+        return self._protocolComboBox.get_active_text().startswith("nfs")
 
     def _get_selected_media(self):
         dev = None
@@ -460,7 +467,11 @@ class SourceSpoke(NormalSpoke):
         proxyButton = self.builder.get_object("proxyButton")
         nfsOptsBox = self.builder.get_object("nfsOptsBox")
 
+        # Only allow the URL entry to be used if we're using an HTTP/FTP
+        # method that's not the mirror list.
+        self._urlEntry.set_sensitive(self._http_active() or self._ftp_active())
+
         # Only allow the proxy button to be clicked if a proxy makes sense for
         # the currently selected protocol.
-        proxyButton.set_sensitive(self._http_active(combo))
-        nfsOptsBox.set_visible(self._nfs_active(combo))
+        proxyButton.set_sensitive(self._http_active())
+        nfsOptsBox.set_visible(self._nfs_active())
