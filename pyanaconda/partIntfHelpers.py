@@ -408,7 +408,7 @@ class iSCSIWizard():
         pass
 
     @abstractmethod
-    def display_nodes_dialog(self, found_nodes):
+    def display_nodes_dialog(self, found_nodes, ifaces):
         pass
 
     @abstractmethod
@@ -470,7 +470,8 @@ def drive_iscsi_addition(anaconda, wizard):
                     anaconda.intf.messageWindow(_("iSCSI Nodes"), 
                                                 _("No iSCSI nodes to log in"))
                     break
-                (rc, selected_nodes) = wizard.display_nodes_dialog(found_nodes)
+                (rc, selected_nodes) = wizard.display_nodes_dialog(found_nodes,
+                                                                  anaconda.id.storage.iscsi.ifaces)
                 if not rc or len(selected_nodes) == 0:
                     break
                 step = STEP_LOGIN

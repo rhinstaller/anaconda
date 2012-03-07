@@ -187,7 +187,7 @@ class iSCSITextWizard(pih.iSCSIWizard):
         # should never stop us:
         return True
 
-    def display_nodes_dialog(self, found_nodes):
+    def display_nodes_dialog(self, found_nodes, iscsi_ifaces):
         grid_height = 4
         basic_grid = None
         if self.listbox_login.current() not in \
