@@ -370,7 +370,7 @@ class iscsi(object):
     # NOTE: the same credentials are used for discovery and login
     #       (unlike in UI)
     def addTarget(self, ipaddr, port="3260", user=None, pw=None,
-                  user_in=None, pw_in=None, intf=None, target=None):
+                  user_in=None, pw_in=None, intf=None, target=None, iface=None):
         found = 0
         logged_in = 0
 
@@ -384,6 +384,12 @@ class iscsi(object):
                 log.debug("iscsi: skipping logging to iscsi node '%s'" %
                           node.name)
                 continue
+            if iface:
+                node_net_iface = self.ifaces.get(node.iface, node.iface)
+                if iface != node_net_iface:
+                    log.debug("iscsi: skipping logging to iscsi node '%s' via %s" %
+                               (node.name, node_net_iface))
+                    continue
 
             found = found + 1
 
@@ -407,6 +413,8 @@ class iscsi(object):
         for n in self.active_nodes():
             f.write("iscsi --ipaddr %s --port %s --target %s" %
                     (n.address, n.port, n.name))
+            if n.iface != "default":
+                f.write(" --iface %s" % self.ifaces[n.iface])
             auth = n.getAuth()
             if auth:
                 f.write(" --user %s" % auth.username)
