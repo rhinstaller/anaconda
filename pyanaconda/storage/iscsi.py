@@ -447,10 +447,10 @@ class iscsi(object):
             shutil.copytree("/var/lib/iscsi", ROOT_PATH + "/var/lib/iscsi",
                             symlinks=True)
 
-    def getNode(self, name, address, port):
+    def getNode(self, name, address, port, iface):
         for node in self.active_nodes():
             if node.name == name and node.address == address and \
-               node.port == int(port):
+               node.port == int(port) and node.iface == iface:
                 return node
 
         return None

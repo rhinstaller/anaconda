@@ -841,11 +841,14 @@ class DeviceTree(object):
         kwargs = { "serial": serial, "vendor": vendor, "bus": bus }
         if udev_device_is_iscsi(info):
             diskType = iScsiDiskDevice
-            kwargs["node"] = self.iscsi.getNode(
+            node = self.iscsi.getNode(
                                    udev_device_get_iscsi_name(info),
                                    udev_device_get_iscsi_address(info),
-                                   udev_device_get_iscsi_port(info))
-            kwargs["ibft"] = kwargs["node"] in self.iscsi.ibftNodes
+                                   udev_device_get_iscsi_port(info),
+                                   udev_device_get_iscsi_nic(info))
+            kwargs["node"] = node
+            kwargs["nic"] = self.iscsi.ifaces.get(node.iface, node.iface)
+            kwargs["ibft"] = node in self.iscsi.ibftNodes
             kwargs["initiator"] = self.iscsi.initiator
             log.info("%s is an iscsi disk" % name)
         elif udev_device_is_fcoe(info):
