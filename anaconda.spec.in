@@ -222,6 +222,12 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Wed Mar 07 2012 David Cantrell <dcantrell@redhat.com> - 13.21.158-1
+- Use read-only locking for lvm commands in udev rules. (dlehman)
+  Related: rhbz#783841
+- On PPC use only the boot disk in yaboot.conf (mgracik)
+  Resolves: rhbz#753108
+
 * Mon Mar 05 2012 David Cantrell <dcantrell@redhat.com> - 13.21.157-1
 - Allow installation of optional packages from the base group via ks. (clumens)
   Resolves: rhbz#727186
