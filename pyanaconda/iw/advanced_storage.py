@@ -269,7 +269,8 @@ class iSCSIGuiWizard(pih.iSCSIWizard):
         dialog.destroy()
         return (rc, selected_nodes)
 
-    def display_success_dialog(self, success_nodes, fail_nodes, fail_reason):
+    def display_success_dialog(self, success_nodes, fail_nodes, fail_reason,
+                               ifaces):
         (xml, dialog) = gui.getGladeWidget("iscsi-dialogs.glade", "success_dialog")
         w_success = xml.get_widget("label_success")
         w_success_win = xml.get_widget("scroll_window_success")
@@ -283,14 +284,14 @@ class iSCSIGuiWizard(pih.iSCSIWizard):
         w_separator = xml.get_widget("separator")
 
         if success_nodes:
-            markup = "\n".join(map(lambda n: n.name, success_nodes))
+            markup = "\n".join(map(lambda n: "%s via %s" % (n.name, ifaces.get(n.iface, n.iface)), success_nodes))
             buf = gtk.TextBuffer()
             buf.set_text(markup)
             w_success.show()
             w_success_val.set_buffer(buf)
             w_success_win.show()
         if fail_nodes:
-            markup = "\n".join(map(lambda n: n.name, fail_nodes))
+            markup = "\n".join(map(lambda n: "%s via %s" % (n.name, ifaces.get(n.iface, n.iface)), fail_nodes))
             buf = gtk.TextBuffer()
             buf.set_text(markup)
             w_fail.show()
