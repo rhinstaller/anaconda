@@ -1291,6 +1291,10 @@ int writeEnabledNetInfo(iface_t *iface) {
     fprintf(fp, "send vendor-class-identifier \"%s\";\n",
             iface->vendorclass);
 
+    if (iface->dhcptimeout) {
+        fprintf(fp, "timeout %d", iface->dhcptimeout);
+    }
+
     if (fclose(fp) == EOF) {
         free(ofile);
         return 19;
