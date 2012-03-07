@@ -229,7 +229,8 @@ class iSCSITextWizard(pih.iSCSIWizard):
                           if i in listbox.getSelection()]
         return (rc, selected_nodes)
 
-    def display_success_dialog(self, success_nodes, fail_nodes, fail_reason):
+    def display_success_dialog(self, success_nodes, fail_nodes, fail_reason,
+                               ifaces):
         buttons = [TEXT_OK_BUTTON]
         msg = _("Successfully logged into all the selected nodes.")
         msg_reason = _("Reason:")
