@@ -172,6 +172,7 @@ class iSCSILoginDialog(iSCSICredentialsDialog):
 
 class iSCSIGuiWizard(pih.iSCSIWizard):
     NODE_NAME_COL = DeviceSelector.IMMUTABLE_COL + 1
+    NODE_INTERFACE_COL = DeviceSelector.IMMUTABLE_COL + 2
 
     def __init__(self):
         self.login_dialog = None
@@ -222,7 +223,7 @@ class iSCSIGuiWizard(pih.iSCSIWizard):
 
         return self._run_dialog(self.login_dialog.dialog)
 
-    def display_nodes_dialog(self, found_nodes):
+    def display_nodes_dialog(self, found_nodes, ifaces):
         def _login_button_disabler(device_selector, login_button, checked, item):
             login_button.set_sensitive(len(device_selector.getSelected()) > 0)
 
@@ -232,14 +233,16 @@ class iSCSIGuiWizard(pih.iSCSIWizard):
             gobject.TYPE_BOOLEAN,  # visible
             gobject.TYPE_BOOLEAN,  # active (checked)
             gobject.TYPE_BOOLEAN,  # immutable
-            gobject.TYPE_STRING    # node name
+            gobject.TYPE_STRING,   # node name
+            gobject.TYPE_STRING    # node interface
             )
         map(lambda node : store.append(None, (
                     node,        # the object
                     True,        # visible
                     True,        # active
                     False,       # not immutable
-                    node.name)),  # node's name
+                    node.name,   # node's name
+                    ifaces.get(node.iface, node.iface))), # node's interface
             found_nodes)
 
         # create and setup the device selector
@@ -253,7 +256,7 @@ class iSCSIGuiWizard(pih.iSCSIWizard):
                                      ds,
                                      xml.get_widget("button_login"))
         ds.createSelectionCol(toggledCB=callback)
-        ds.addColumn(_("Node Name"), self.NODE_NAME_COL)
+        ds.addColumn(_("Interface"), self.NODE_INTERFACE_COL)
         # attach the treeview to the dialog
         sw = xml.get_widget("nodes_scrolled_window")
         sw.add(view)
