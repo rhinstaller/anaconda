@@ -556,6 +556,12 @@ def udev_device_get_iscsi_port(info):
     # IPV6 contains : within the address, the part after the last : is the port
     return path_components[address_field].split(":")[-1]
 
+def udev_device_get_iscsi_nic(info):
+    session = info["sysfs_path"].split("/")[4]
+    iface = open("/sys/class/iscsi_session/%s/ifacename" %
+                 session).read().strip()
+    return iface
+
 # fcoe disks have ID_PATH in the form of:
 # For FCoE directly over the NIC (so no VLAN and thus no DCB):
 # pci-eth#-fc-${id}
