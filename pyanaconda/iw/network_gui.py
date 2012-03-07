@@ -50,7 +50,7 @@ class NetworkWindow(InstallWindow):
         self.hostnameEntry.set_text(self.hostname)
 
         self.netconfButton = self.xml.get_widget("netconfButton")
-        self.netconfButton.connect("clicked", self._setupNetwork)
+        self.netconfButton.connect("clicked", self._netconfButton_clicked)
         if (len(self.anaconda.network.netdevices) == 0
             or flags.imageInstall
             or flags.livecdInstall):
@@ -65,8 +65,8 @@ class NetworkWindow(InstallWindow):
 
         return self.align
 
-    def _setupNetwork(self, *args):
-        self.intf.enableNetwork(just_setup=True)
+    def _netconfButton_clicked(self, *args):
+        setupNetwork(self.intf)
 
     def focus(self):
         self.hostnameEntry.grab_focus()
@@ -101,6 +101,9 @@ class NetworkWindow(InstallWindow):
 def NMCEExited(pid, condition, anaconda):
     if anaconda:
         anaconda.intf.icw.window.set_sensitive(True)
+
+def setupNetwork(intf):
+    intf.enableNetwork(just_setup=True)
 
 # TODORV: get rid of setting sensitive completely?
 def runNMCE(anaconda=None, blocking=True):
