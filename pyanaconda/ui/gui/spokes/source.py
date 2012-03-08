@@ -283,13 +283,24 @@ class SourceSpoke(NormalSpoke):
 
         Gdk.threads_enter()
 
-        # If we found any optical install media, display a selector for each
-        # of those.
         added = False
-        cdrom = opticalInstallMedia(self.devicetree, mountpoint=MOUNTPOINT)
+        cdrom = None
+        chosen = False
+
+        # If we've previously set up to use a CD/DVD method, the media has
+        # already been mounted by payload.setup.  We can't try to mount it
+        # again.  So just use what we already know to create the selector.
+        # Otherwise, check to see if there's anything available.
+        if self.data.method.method == "cdrom":
+            cdrom = self.payload.install_device
+            chosen = True
+        else:
+            cdrom = opticalInstallMedia(self.devicetree, mountpoint=MOUNTPOINT)
+
         if cdrom:
             selector = AnacondaWidgets.DiskOverview(cdrom.format.label or "", "drive-removable-media", "")
             selector.path = cdrom.path
+            selector.set_chosen(chosen)
             self._autodetectMediaBox.pack_start(selector, False, False, 0)
             added = True
 
