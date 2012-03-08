@@ -3,7 +3,7 @@
 Summary: Graphical system installer
 Name:    anaconda
 Version: #VERSION#
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPLv2+
 Group:   Applications/System
 URL:     http://fedoraproject.org/wiki/Anaconda
@@ -232,6 +232,10 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Thu Mar 08 2012 Martin Sivak <msivak@redhat.com> - 16.25.4-2
+- Fix getting product.img when doing DVD install
+  Resolves: rhbz#801435
+
 * Wed Feb 29 2012 David Cantrell <dcantrell@redhat.com> - 16.25.4-1
 - Fix dasd device type test in platform.py (dcantrell)
   Resolves: rhbz#796791
