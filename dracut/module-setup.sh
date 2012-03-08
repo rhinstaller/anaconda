@@ -24,7 +24,7 @@ install() {
     inst "$moddir/anaconda-diskroot" "/sbin/anaconda-diskroot"
     inst_hook pre-pivot 99 "$moddir/anaconda-copy-ks.sh"
     # kickstart parsing, WOOOO
-    inst_hook initqueue/online 80 "$moddir/fetch-kickstart-net.sh"
+    inst_hook initqueue/online 00 "$moddir/fetch-kickstart-net.sh"
     inst "$moddir/fetch-kickstart-disk" "/sbin/fetch-kickstart-disk"
     inst "$moddir/parse-kickstart" "/sbin/parse-kickstart"
     # python deps for parse-kickstart. DOUBLE WOOOO
