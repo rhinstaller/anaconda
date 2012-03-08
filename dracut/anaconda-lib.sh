@@ -33,7 +33,7 @@ find_iso() {
 
 find_runtime() {
     local ti_img="" dir="$1$2"
-    ti_img=$(config_get stage2 mainimage < $dir/.treeinfo 2>/dev/null)
+    [ -e $dir/.treeinfo ] && img=$(config_get stage2 mainimage < $dir/.treeinfo)
     for f in $ti_img images/install.img LiveOS/squashfs.img; do
         [ -e "$dir/$f" ] && echo "$dir/$f" && return
     done
