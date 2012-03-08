@@ -96,6 +96,30 @@ class PayloadInstallError(PayloadError):
     pass
 
 
+def get_mount_device(mountpoint):
+    import re
+    mounts = open("/proc/mounts").readlines()
+    mount_device = None
+    for mount in mounts:
+        try:
+            (device, path, rest) = mount.split(None, 2)
+        except ValueError:
+            continue
+
+        if path == mountpoint:
+            mount_device = device
+            break
+
+    if mount_device and re.match(r'/dev/loop\d+$', mount_device):
+        from pyanaconda.storage.devicelibs import loop
+        loop_name = os.path.basename(mount_device)
+        mount_device = loop.get_backing_file(loop_name)
+        log.debug("found backing file %s for loop device %s" % (mount_device,
+                                                                loop_name))
+
+    log.debug("%s is mounted on %s" % (mount_device, mountpoint))
+    return mount_device
+
 class Payload(object):
     """ Payload is an abstract class for OS install delivery methods. """
     def __init__(self, data):
@@ -112,13 +136,45 @@ class Payload(object):
         """
         pass
 
+    def reset(self):
+        """ Reset the instance, not including ksdata. """
+        pass
+
     ###
     ### METHODS FOR WORKING WITH REPOSITORIES
     ###
     @property
     def repos(self):
-        """Return a list of repo identifiers, not objects themselves."""
+        """A list of repo identifiers, not objects themselves."""
         raise NotImplementedError()
+
+    @property
+    def addOns(self):
+        """ A list of addon repo identifiers. """
+        return []
+
+    @property
+    def baseRepo(self):
+        """ The identifier of the current base repo. """
+        return None
+
+    def getRepo(self, repo_id):
+        """ Return a ksdata Repo instance matching the specified repo id. """
+        repo = None
+        for r in self.data.repo.dataList():
+            if r.name == repo_id:
+                repo = r
+                break
+
+        return repo
+
+    def updateBaseRepo(self, storage):
+        """ Update the base repository from ksdata.method. """
+        pass
+
+    def configureAddOnRepo(self, repo):
+        """ Set up an addon repo as defined in ksdata Repo repo. """
+        pass
 
     def addRepo(self, newrepo):
         """Add the repo given by the pykickstart Repo object newrepo to the
@@ -250,7 +306,7 @@ class Payload(object):
         if not url:
             return None
 
-        log.debug("retrieving treeinfo from %s (proxies: %s ; sslverify: %s"
+        log.debug("retrieving treeinfo from %s (proxies: %s ; sslverify: %s)"
                     % (url, proxies, sslverify))
 
         ugopts = {"ssl_verify_peer": sslverify,
@@ -305,15 +361,21 @@ class Payload(object):
         log.info("setting up device %s and mounting on %s" % (device.name,
                                                               mountpoint))
         if os.path.ismount(mountpoint):
-            log.debug("%s already has something mounted on it" % mountpoint)
-            return
+            mdev = get_mount_device(mountpoint)
+            log.warning("%s is already mounted on %s" % (mdev, mountpoint))
+            if mdev == device.path:
+                return
+            else:
+                log.info("mounting on top of it")
 
         try:
             device.setup()
             device.format.setup(mountpoint=mountpoint)
         except StorageError as e:
+            log.error("mount failed: %s" % e)
             exn = PayloadSetupError(str(e))
             if errorHandler.cb(exn) == ERROR_RAISE:
+                device.teardown(recursive=True)
                 raise exn
 
     def _setupNFS(self, mountpoint, server, path, options):
@@ -329,10 +391,10 @@ class Payload(object):
         try:
             isys.mount(url, mountpoint, options=options)
         except SystemError as e:
+            log.error("mount failed: %s" % e)
             exn = PayloadSetupError(str(e))
             if errorHandler.cb(exn) == ERROR_RAISE:
                 raise exn
-
 
     ###
     ### METHODS FOR INSTALLING THE PAYLOAD
@@ -413,24 +475,18 @@ def payloadInitialize(storage, payload):
 
     payload.setup(storage)
 
-def show_groups():
-    ksdata = makeVersion()
-    obj = YumPayload(ksdata)
-    obj.setup()
-
-    repo = ksdata.RepoData(name="anaconda", baseurl="http://cannonball/install/rawhide/os/")
-    obj.addRepo(repo)
+def show_groups(payload):
+    #repo = ksdata.RepoData(name="anaconda", baseurl="http://cannonball/install/rawhide/os/")
+    #obj.addRepo(repo)
 
     desktops = []
     addons = []
 
-    for grp in obj.groups:
-        if not desktops and not addons:
-            print dir(grp)
+    for grp in payload.groups:
         if grp.endswith("-desktop"):
-            desktops.append(obj.description(grp))
+            desktops.append(payload.description(grp))
         elif not grp.endswith("-support"):
-            addons.append(obj.description(grp))
+            addons.append(payload.description(grp))
 
     import pprint
 
@@ -439,8 +495,7 @@ def show_groups():
     print "==== ADDONS ===="
     pprint.pprint(addons)
 
-    print obj.groups
-
+    print payload.groups
 
 def print_txmbrs(payload, f=None):
     if f is None:
@@ -459,7 +514,6 @@ def write_txmbrs(payload, filename):
     print_txmbrs(payload, f)
     f.close()
 
-
 ###
 ### MAIN
 ###
@@ -469,53 +523,38 @@ if __name__ == "__main__":
     import pyanaconda.storage as _storage
     import pyanaconda.platform as _platform
     from pykickstart.version import makeVersion
+    from pyanaconda.packaging.yumpayload import YumPayload
 
     # set some things specially since we're just testing
     flags.testing = True
-    global ROOT_PATH
-    ROOT_PATH = "/tmp/test-root"
 
     # set up ksdata
     ksdata = makeVersion()
-    ksdata.method.method = "url"
-    ksdata.method.url = "http://husky/install/f17/os/" 
+
+    #ksdata.method.method = "url"
+    #ksdata.method.url = "http://husky/install/f17/os/"
     #ksdata.method.url = "http://dl.fedoraproject.org/pub/fedora/linux/development/17/x86_64/os/"
 
-    # set up storage
+    # set up storage and platform
     platform = _platform.getPlatform()
     storage = _storage.Storage(data=ksdata, platform=platform)
     storage.reset()
-
-    from pyanaconda.packaging.yumpayload import YumPayload
 
     # set up the payload
     payload = YumPayload(ksdata)
     payload.setup(storage)
 
-    payload.install_log = sys.stdout
     for repo in payload._yum.repos.repos.values():
         print repo.name, repo.enabled
 
-    #for gid in payload.groups:
-    #    payload.deselectGroup(gid)
+    ksdata.method.method = "url"
+    #ksdata.method.url = "http://husky/install/f17/os/"
+    ksdata.method.url = "http://dl.fedoraproject.org/pub/fedora/linux/development/17/x86_64/os/"
 
-    payload.selectGroup("core")
-    payload.selectGroup("base")
+    # now switch the base repo to what we set ksdata.method to just above
+    payload.updateBaseRepo(storage)
+    for repo in payload._yum.repos.repos.values():
+        print repo.name, repo.enabled
 
-    payload.checkSoftwareSelection()
-    write_txmbrs(payload, "/tmp/tx.1")
-
-    payload.selectGroup("development-tools")
-    payload.selectGroup("development-libs")
-    payload.checkSoftwareSelection()
-    write_txmbrs(payload, "/tmp/tx.2")
-
-    payload.deselectGroup("development-tools")
-    payload.deselectGroup("development-libs")
-    payload.selectPackage("vim-enhanced")
-    payload.checkSoftwareSelection()
-    write_txmbrs(payload, "/tmp/tx.3")
-
-    #payload.install()
-    payload.postInstall()
-
+    # list all of the groups
+    show_groups(payload)

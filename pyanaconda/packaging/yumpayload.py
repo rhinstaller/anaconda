@@ -23,11 +23,9 @@
 
 """
     TODO
-        - error handling!!!
         - document all methods
         - YumPayload
             - preupgrade
-            - clean up use of flags.testing
             - write test cases
             - more logging in key methods
             - rpm macros
@@ -63,6 +61,7 @@ from pyanaconda.constants import *
 from pyanaconda.flags import flags
 
 from pyanaconda import iutil
+from pyanaconda import isys
 from pyanaconda.network import hasActiveNetDev
 
 from pyanaconda.image import opticalInstallMedia
@@ -78,19 +77,50 @@ log = logging.getLogger("anaconda")
 from pyanaconda.errors import *
 #from pyanaconda.progress import progress
 
+default_repos = [productName.lower(), "rawhide"]
+
 class YumPayload(PackagePayload):
-    """ A YumPayload installs packages onto the target system using yum. """
+    """ A YumPayload installs packages onto the target system using yum.
+
+        User-defined (aka: addon) repos exist both in ksdata and in yum. They
+        are the only repos in ksdata.repo. The repos we find in the yum config
+        only exist in yum. Lastly, the base repo exists in yum and in
+        ksdata.method.
+    """
     def __init__(self, data):
         if rpm is None or yum is None:
             raise PayloadError("unsupported payload type")
 
         PackagePayload.__init__(self, data)
 
-        self._groups = []
-        self._packages = []
-
         self.install_device = None
         self.proxy = None                           # global proxy
+        self._cache_dir = "/var/cache/yum"
+        self._yum = None
+
+        self.reset()
+
+    def reset(self):
+        if self._yum:
+            self._yum.close()
+            del self._yum
+
+        if os.path.ismount(INSTALL_TREE) and not flags.testing:
+            isys.umount(INSTALL_TREE)
+
+        if os.path.islink(INSTALL_TREE):
+            os.unlink(INSTALL_TREE)
+
+        if os.path.ismount(ISO_DIR) and not flags.testing:
+            isys.umount(INSTALL_TREE)
+
+        if self.install_device:
+            self.install_device.teardown(recursive=True)
+
+        self.install_device = None
+
+        self._groups = []
+        self._packages = []
 
         self._yum = yum.YumBase()
 
@@ -98,12 +128,12 @@ class YumPayload(PackagePayload):
 
         # Set some configuration parameters that don't get set through a config
         # file.  yum will know what to do with these.
-        # XXX We have to try to set releasever before we trigger a read of the
-        #     repo config files. We do that from setup before adding any repos.
         self._yum.preconf.enabled_plugins = ["blacklist", "whiteout"]
         self._yum.preconf.fn = "/tmp/anaconda-yum.conf"
         self._yum.preconf.root = ROOT_PATH
-        self._cache_dir = "/var/cache/yum"
+        # set this now to the best default we've got ; we'll update it if/when
+        # we get a base repo set up
+        self._yum.preconf.releasever = self._getReleaseVersion(None)
 
     def setup(self, storage, proxy=None):
         buf = """
@@ -128,22 +158,8 @@ reposdir=/etc/yum.repos.d,/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/t
         fd.close()
 
         self.proxy = proxy
-        self._configureMethod(storage)
-        self._configureRepos(storage)
-        if flags.testing:
-            self._yum.setCacheDir()
 
-        # go ahead and get metadata for all enabled repos now
-        for repoid in self.repos:
-            repo = self._yum.repos.getRepo(repoid)
-            if repo.enabled:
-                try:
-                    self._getRepoMetadata(repo)
-                except MetadataError as e:
-                    log.error("error fetching metadata for %s: %s" % (repoid, e))
-                    self.removeRepo(repoid)
-
-        self.release()
+        self.updateBaseRepo(storage)
 
     def release(self):
         self._yum.close()
@@ -156,8 +172,12 @@ reposdir=/etc/yum.repos.d,/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/t
         return self._yum.repos.repos.keys()
 
     @property
+    def addOns(self):
+        return [r.name for r in self.data.repo.dataList()]
+
+    @property
     def baseRepo(self):
-        repo_names = [BASE_REPO_NAME, productName.lower(), "rawhide"]
+        repo_names = [BASE_REPO_NAME] + default_repos
         base_repo_name = None
         for repo_name in repo_names:
             if repo_name in self.repos and \
@@ -177,36 +197,114 @@ reposdir=/etc/yum.repos.d,/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/t
 
         return False
 
-    def _configureRepos(self, storage):
-        """ Configure the initial repository set. """
-        log.info("configuring repos")
+    def _resetMethod(self):
+        self.data.method.method = ""
+        self.data.method.url = None
+        self.data.method.server = None
+        self.data.method.dir = None
+        self.data.method.partition = None
+        self.data.method.biospart = None
+        self.data.method.noverifyssl = False
+        self.data.method.proxy = ""
+        self.data.method.opts = None
+
+    def updateBaseRepo(self, storage, fallback=True):
+        """ Update the base repo based on self.data.method.
+
+            - Tear down any previous base repo devices, symlinks, &c.
+            - Reset the YumBase instance.
+            - Try to convert the new method to a base repo.
+            - If that fails, we'll use whatever repos yum finds in the config.
+            - Set up addon repos.
+            - Filter out repos that don't make sense to have around.
+            - Get metadata for all enabled repos, disabling those for which the
+              retrieval fails.
+        """
+        log.info("updating base repo")
+
+        # start with a fresh YumBase instance
+        self.reset()
+
+        # see if we can get a usable base repo from self.data.method
+        try:
+            self._configureBaseRepo(storage)
+        except PayloadError as e:
+            log.error("failed to set up base repo: %s" % e)
+            if not fallback:
+                # XXX this leaves the configuration exactly as specified in the
+                #     on-disk yum configuration
+                self.release()
+                raise
+
+            self._resetMethod()
+
+        if BASE_REPO_NAME not in self._yum.repos.repos.keys():
+            log.info("using default repos from local yum configuration")
+
+        # set up addon repos
         # FIXME: driverdisk support
-
-        # add/enable the repos anaconda knows about
-        # identify repos based on ksdata.
         for repo in self.data.repo.dataList():
-            self._configureKSRepo(storage, repo)
+            try:
+                self.configureAddOnRepo(repo)
+            except NoNetworkError as e:
+                log.error("repo %s needs an active network connection"
+                          % repo.name)
+                self.removeRepo(repo.name)
+            except PayloadError as e:
+                log.error("repo %s setup failed: %s" % (repo.name, e))
+                self.removeRepo(repo.name)
 
-        # remove/disable repos that don't make sense during system install.
-        # If a method was given, disable any repos that aren't in ksdata.
+        # now disable and/or remove any repos that don't make sense
         for repo in self._yum.repos.repos.values():
+            """ Rules for which repos to enable/disable/remove
+
+                - always remove
+                    - source, debuginfo
+                - remove if isFinal
+                    - rawhide, development
+                - remove any repo when not isFinal and repo not enabled
+                - if a base repo is defined, disable any repo not defined by
+                  the user that is not the base repo
+
+            """
+            if repo.id in self.addOns:
+                continue
+
             if "-source" in repo.id or "-debuginfo" in repo.id:
-                log.info("excluding source or debug repo %s" % repo.id)
-                self.removeRepo(repo.id)
+                self._removeYumRepo(repo.id)
             elif isFinal and ("rawhide" in repo.id or "development" in repo.id):
-                log.info("excluding devel repo %s for non-devel anaconda" % repo.id)
-                self.removeRepo(repo.id)
+                self._removeYumRepo(repo.id)
             elif not isFinal and not repo.enabled:
-                log.info("excluding disabled repo %s for prerelease" % repo.id)
-                self.removeRepo(repo.id)
+                self._removeYumRepo(repo.id)
             elif self.data.method.method and \
                  repo.id != BASE_REPO_NAME and \
                  repo.id not in [r.name for r in self.data.repo.dataList()]:
-                log.info("disabling repo %s" % repo.id)
+                # if a method/repo was given, disable all default repos
                 self.disableRepo(repo.id)
 
-    def _configureMethod(self, storage):
-        """ Configure the base repo. """
+        # now go through and get metadata for all enabled repos
+        for repo_id in self.repos:
+            repo = self._yum.repos.getRepo(repo_id)
+            if repo.enabled:
+                try:
+                    self._getRepoMetadata(repo)
+                except PayloadError as e:
+                    log.error("failed to grab repo metadata for %s: %s"
+                              % (repo_id, e))
+                    self.disableRepo(repo_id)
+
+        self._applyYumSelections()
+        self.release()
+
+    def _configureBaseRepo(self, storage):
+        """ Configure the base repo.
+
+            If self.data.method.method is set, failure to configure a base repo
+            should generate a PayloadError exception.
+
+            If self.data.method.method is unset, no exception should be raised
+            and no repo should be configured.
+        """
         log.info("configuring base repo")
         # set up the main repo specified by method=, repo=, or ks method
         # XXX FIXME: does this need to handle whatever was set up by dracut?
@@ -234,9 +332,8 @@ reposdir=/etc/yum.repos.d,/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/t
 
             image = findFirstIsoImage(path)
             if not image:
-                exn = PayloadSetupError("failed to find valid iso image")
-                if errorHandler.cb(exn) == ERROR_RAISE:
-                    raise exn
+                device.teardown(recursive=True)
+                raise PayloadSetupError("failed to find valid iso image")
 
             if path.endswith(".iso"):
                 path = os.path.dirname(path)
@@ -248,10 +345,9 @@ reposdir=/etc/yum.repos.d,/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/t
             self.install_device = device
             url = "file://" + INSTALL_TREE
         elif method.method == "nfs":
-            # XXX what if we mount it on ISO_DIR and then create a symlink
-            #     if there are no isos instead of the remount?
-            self._setupNFS(INSTALL_TREE, method.server, method.dir,
-                           method.opts)
+            # Mount the NFS share on ISO_DIR. If it ends up not being nfsiso we
+            # will create a symlink at INSTALL_TREE pointing to ISO_DIR.
+            self._setupNFS(ISO_DIR, method.server, method.dir, method.opts)
 
             # check for ISO images in the newly mounted dir
             path = ISO_DIR
@@ -265,13 +361,19 @@ reposdir=/etc/yum.repos.d,/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/t
             # it appears there are ISO images in the dir, so assume they want to
             # install from one of them
             if image:
-                isys.umount(INSTALL_TREE)
-                self._setupNFS(ISO_DIR, method.server, method.path,
-                               method.options)
-
                 # mount the ISO on a loop
                 image = os.path.normpath("%s/%s" % (ISO_DIR, image))
                 mountImage(image, INSTALL_TREE)
+            else:
+                # create a symlink at INSTALL_TREE that points to ISO_DIR
+                try:
+                    if os.path.exists(INSTALL_TREE):
+                        os.unlink(INSTALL_TREE)
+                    os.symlink(os.path.basename(ISO_DIR), INSTALL_TREE)
+                except OSError as e:
+                    log.error("failed to update %s symlink: %s"
+                              % (INSTALL_TREE, e))
+                    raise PayloadSetupError(str(e))
 
             url = "file://" + INSTALL_TREE
         elif method.method == "url":
@@ -279,33 +381,35 @@ reposdir=/etc/yum.repos.d,/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/t
             sslverify = not (method.noverifyssl or flags.noverifyssl)
             proxy = method.proxy or self.proxy
         elif method.method == "cdrom" or not method.method:
+            # cdrom or no method specified -- check for media
             device = opticalInstallMedia(storage.devicetree)
             if device:
                 self.install_device = device
                 url = "file://" + INSTALL_TREE
                 if not method.method:
                     method.method = "cdrom"
-
-        self._yum.preconf.releasever = self._getReleaseVersion(url)
+            elif method.method == "cdrom":
+                raise PayloadSetupError("no usable optical media found")
 
         if method.method:
-            # FIXME: handle MetadataError
-            self._addYumRepo(BASE_REPO_NAME, url,
-                             proxy=proxy, sslverify=sslverify)
+            try:
+                self._addYumRepo(BASE_REPO_NAME, url,
+                                 proxy=proxy, sslverify=sslverify)
+            except MetadataError as e:
+                self._removeYumRepo(BASE_REPO_NAME)
+                raise
+            else:
+                self._yum.preconf.releasever = self._getReleaseVersion(url)
 
-    def _configureKSRepo(self, storage, repo):
+    def configureAddOnRepo(self, repo):
         """ Configure a single ksdata repo. """
-        url = getattr(repo, "baseurl", repo.mirrorlist)
-        if url.startswith("nfs:"):
-            # FIXME: create a directory other than INSTALL_TREE based on
-            #        the repo's id/name to avoid crashes if the base repo is NFS
+        url = repo.baseurl
+        if url and url.startswith("nfs:"):
             (opts, server, path) = iutil.parseNfsUrl(url)
-            self._setupNFS(INSTALL_TREE, server, path, opts)
-        else:
-            # check for media, fall back to default repo
-            device = opticalInstallMedia(storage.devicetree)
-            if device:
-                self.install_device = device
+            mountpoint = "%s/%s.nfs" % (MOUNT_DIR, repo.name)
+            self._setupNFS(mountpoint, server, path, opts)
+
+            url = "file://" + mountpoint
 
         if self._repoNeedsNetwork(repo) and not hasActiveNetDev():
             raise NoNetworkError
@@ -313,12 +417,35 @@ reposdir=/etc/yum.repos.d,/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/t
         proxy = repo.proxy or self.proxy
         sslverify = not (flags.noverifyssl or repo.noverifyssl)
 
-        # this repo does not go into ksdata -- only yum
-        self.addYumRepo(repo.id, repo.baseurl, repo.mirrorlist, cost=repo.cost,
-                        exclude=repo.excludepkgs, includepkgs=repo.includepkgs,
-                        proxy=proxy, sslverify=sslverify)
+        # this repo is already in ksdata, so we only add it to yum here
+        self._addYumRepo(repo.name, url, repo.mirrorlist, cost=repo.cost,
+                         exclude=repo.excludepkgs, includepkgs=repo.includepkgs,
+                         proxy=proxy, sslverify=sslverify)
 
-        # TODO: enable addons
+        # TODO: enable addons via treeinfo
+
+    def _applyYumSelections(self):
+        """ Apply the selections in ksdata to yum.
+
+            This follows the same ordering/pattern as kickstart.py.
+        """
+        for package in self.data.packages.packageList:
+            self.selectPackage(package)
+
+        for group in self.data.packages.groupList:
+            if group.include == GROUP_DEFAULT:
+                default = True
+            elif group.include == GROUP_ALL:
+                default = True
+                optional = True
+
+            self.selectGroup(group.name, default=default, optional=optional)
+
+        for package in self.data.packages.excludedList:
+            self.deselectPackage(package)
+
+        for group in self.data.packages.excludedGroupList:
+            self.deselectGroup(group.name)
 
     def _getRepoMetadata(self, yumrepo):
         """ Retrieve repo metadata if we don't already have it. """
@@ -327,6 +454,7 @@ reposdir=/etc/yum.repos.d,/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/t
         # And try to grab its metadata.  We do this here so it can be done
         # on a per-repo basis, so we can then get some finer grained error
         # handling and recovery.
+        log.debug("getting repo metadata for %s" % yumrepo.id)
         try:
             yumrepo.getPrimaryXML()
             yumrepo.getOtherXML()
@@ -337,6 +465,7 @@ reposdir=/etc/yum.repos.d,/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/t
         # At the worst, it just means the groups won't be displayed in the UI
         # which isn't too bad, because you may be doing a kickstart install and
         # picking packages instead.
+        log.debug("getting group info for %s" % yumrepo.id)
         try:
             yumrepo.getGroups()
         except RepoMDError:
@@ -347,12 +476,6 @@ reposdir=/etc/yum.repos.d,/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/t
         # First, delete any pre-existing repo with the same name.
         if name in self._yum.repos.repos:
             self._yum.repos.delete(name)
-
-        # Replace anything other than HTTP/FTP with file://
-        if baseurl and \
-           not baseurl.startswith("http:") and \
-           not baseurl.startswith("ftp:"):
-            baseurl = "file://" + INSTALL_TREE
 
         log.debug("adding yum repo %s with baseurl %s and mirrorlist %s"
                     % (name, baseurl, mirrorlist))
@@ -376,13 +499,33 @@ reposdir=/etc/yum.repos.d,/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/t
         self._addYumRepo(newrepo)   # FIXME: handle MetadataError
         super(YumRepo, self).addRepo(newrepo)
 
-    def removeRepo(self, repo_id):
-        """ Remove a repo as specified by id. """
-        log.debug("removing repo %s" % repo_id)
+    def _removeYumRepo(self, repo_id):
         if repo_id in self.repos:
             self._yum.repos.delete(repo_id)
 
+            self._groups = []
+            self._packages = []
+
+    def removeRepo(self, repo_id):
+        """ Remove a repo as specified by id. """
+        log.debug("removing repo %s" % repo_id)
+
+        # if this is an NFS repo, we'll want to unmount the NFS mount after
+        # removing the repo
+        mountpoint = None
+        yum_repo = self._yum.repos.getRepo(repo_id)
+        ks_repo = self.getRepo(repo_id)
+        if yum_repo and ks_repo and ks_repo.baseurl.startswith("nfs:"):
+            mountpoint = yum_repo.baseurl[0][7:]    # strip leading "file://"
+
+        self._removeYumRepo(repo_id)
         super(YumPayload, self).removeRepo(repo_id)
+
+        if mountpoint and os.path.ismount(mountpoint):
+            try:
+                isys.umount(mountpoint)
+            except SystemError as e:
+                log.error("failed to unmount nfs repo %s: %s" % (mountpoint, e))
 
     def enableRepo(self, repo_id):
         """ Enable a repo as specified by id. """
@@ -395,6 +538,9 @@ reposdir=/etc/yum.repos.d,/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/t
         log.debug("disabling repo %s" % repo_id)
         if repo_id in self.repos:
             self._yum.repos.disableRepo(repo_id)
+
+            self._groups = []
+            self._packages = []
 
     ###
     ### METHODS FOR WORKING WITH GROUPS

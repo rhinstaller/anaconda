@@ -153,8 +153,6 @@ def mountImageDirectory(method, storage):
                     raise exn
 
 def mountImage(isodir, tree, messageWindow):
-    if os.path.ismount(tree):
-        raise SystemError, "trying to mount already-mounted iso image!"
     while True:
         image = findFirstIsoImage(isodir, messageWindow)
         if image is None:
