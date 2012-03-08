@@ -594,6 +594,8 @@ class NetworkControlBox():
         self._refresh_idle = None
 
     def refresh_device_ui(self, device):
+        if not device:
+            return
 
         notebook = self.builder.get_object("notebook_types")
 
