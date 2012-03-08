@@ -10,6 +10,8 @@ repo=$(getarg repo= inst.repo=)
 
 # no repo? non-net root? we're not needed here.
 [ "$root" = "anaconda-net" ] && [ -n "$repo" ] || return 0
+# already done? don't run again.
+[ -e /dev/root ] && return 0
 
 # get network/kickstart info
 [ -e /tmp/ks.info ] && . /tmp/ks.info
