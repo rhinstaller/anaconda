@@ -93,6 +93,13 @@ class SoftwareSelectionSpoke(NormalSpoke):
         self._ready = True
         Gdk.threads_enter()
         self.selector.set_sensitive(True)
+
+        # Grabbing the list of groups could potentially take a long time the
+        # first time (yum does a lot of magic property stuff, some of which
+        # involves side effects like network access) so go ahead and grab
+        # them once now.
+        self.refresh()
+
         Gdk.threads_leave()
 
     def refresh(self):
