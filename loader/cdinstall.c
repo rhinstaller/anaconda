@@ -353,15 +353,18 @@ int loadCdromImages(struct loaderData_s *loaderData) {
 
     logMessage(DEBUGLVL, "looking for extras for CD/DVD install");
 
-    if (!loaderData->instRepo)
+    if (!loaderData->instRepo) {
+        logMessage(ERROR, "Cannot look for extras as instRepo is empty.");
         return 0;
+    }
 
     /* Skip over the leading "cdrom://". */
     tmp = loaderData->instRepo+8;
     checked_asprintf(&device, "%.*s", (int) (strchr(tmp, ':')-tmp), tmp);
 
-    if (doPwMount(device, "/mnt/install/source", "auto", "ro", NULL))
-        return 0;
+    if (doPwMount(device, "/mnt/install/source", "auto", "ro", NULL)) {
+        logMessage(WARNING, "Mounting %s on /mnt/install/source failed, is it mounted already?", device);
+    }
 
     logMessage(INFO, "Looking for updates in /mnt/install/source/images/updates.img");
     copyUpdatesImg("/mnt/install/source/images/updates.img");
@@ -369,7 +372,6 @@ int loadCdromImages(struct loaderData_s *loaderData) {
     logMessage(INFO, "Looking for product in /mnt/install/source/images/product.img");
     copyProductImg("/mnt/install/source/images/product.img");
 
-    umount("/mnt/install/source");
     return 1;
 }
 
