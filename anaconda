@@ -208,7 +208,8 @@ def parseOptions(argv = None):
     # Method of operation
     op.add_option("--autostep", action="store_true", default=False)
     op.add_option("-d", "--debug", dest="debug", action="store_true", default=False)
-    op.add_option("--kickstart", "ks", dest="ksfile")
+    op.add_option("--ks", dest="ksfile" action="store_const", const="/run/install/ks.cfg")
+    op.add_option("--kickstart", dest="ksfile")
     op.add_option("--rescue", dest="rescue", action="store_true", default=False)
     op.add_option("--targetarch", "rpmarch", dest="targetArch", type="string")
 
