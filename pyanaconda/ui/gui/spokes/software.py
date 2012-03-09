@@ -23,9 +23,8 @@ import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
 N_ = lambda x: x
 
-from gi.repository import Gdk
-
 from pyanaconda.ui.gui.spokes import NormalSpoke
+from pyanaconda.ui.gui.utils import gdk_threaded
 from pyanaconda.ui.gui.categories.software import SoftwareCategory
 
 __all__ = ["SoftwareSelectionSpoke"]
@@ -90,17 +89,15 @@ class SoftwareSelectionSpoke(NormalSpoke):
         if payloadThread:
             payloadThread.join()
 
-        self._ready = True
-        Gdk.threads_enter()
-        self.selector.set_sensitive(True)
+        with gdk_threaded():
+            self._ready = True
+            self.selector.set_sensitive(True)
 
-        # Grabbing the list of groups could potentially take a long time the
-        # first time (yum does a lot of magic property stuff, some of which
-        # involves side effects like network access) so go ahead and grab
-        # them once now.
-        self.refresh()
-
-        Gdk.threads_leave()
+            # Grabbing the list of groups could potentially take a long time the
+            # first time (yum does a lot of magic property stuff, some of which
+            # involves side effects like network access) so go ahead and grab
+            # them once now.
+            self.refresh()
 
     def refresh(self):
         NormalSpoke.refresh(self)

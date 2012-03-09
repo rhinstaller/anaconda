@@ -25,13 +25,13 @@ N_ = lambda x: x
 
 import os.path
 
-from gi.repository import AnacondaWidgets, Gdk, GLib, Gtk
+from gi.repository import AnacondaWidgets, GLib, Gtk
 
 from pyanaconda.image import opticalInstallMedia, potentialHdisoSources
 from pyanaconda.ui.gui import UIObject
 from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.gui.categories.software import SoftwareCategory
-from pyanaconda.ui.gui.utils import enlightbox
+from pyanaconda.ui.gui.utils import enlightbox, gdk_threaded
 
 __all__ = ["SourceSpoke"]
 
@@ -281,59 +281,57 @@ class SourceSpoke(NormalSpoke):
         if storageThread:
             storageThread.join()
 
-        Gdk.threads_enter()
-
         added = False
         cdrom = None
         chosen = False
 
-        # If we've previously set up to use a CD/DVD method, the media has
-        # already been mounted by payload.setup.  We can't try to mount it
-        # again.  So just use what we already know to create the selector.
-        # Otherwise, check to see if there's anything available.
-        if self.data.method.method == "cdrom":
-            cdrom = self.payload.install_device
-            chosen = True
-        else:
-            cdrom = opticalInstallMedia(self.devicetree, mountpoint=MOUNTPOINT)
+        with gdk_threaded():
+            # If we've previously set up to use a CD/DVD method, the media has
+            # already been mounted by payload.setup.  We can't try to mount it
+            # again.  So just use what we already know to create the selector.
+            # Otherwise, check to see if there's anything available.
+            if self.data.method.method == "cdrom":
+                cdrom = self.payload.install_device
+                chosen = True
+            else:
+                cdrom = opticalInstallMedia(self.devicetree, mountpoint=MOUNTPOINT)
 
-        if cdrom:
-            selector = AnacondaWidgets.DiskOverview(cdrom.format.label or "", "drive-removable-media", "")
-            selector.path = cdrom.path
-            selector.set_chosen(chosen)
-            self._autodetectMediaBox.pack_start(selector, False, False, 0)
-            added = True
+            if cdrom:
+                selector = AnacondaWidgets.DiskOverview(cdrom.format.label or "", "drive-removable-media", "")
+                selector.path = cdrom.path
+                selector.set_chosen(chosen)
+                self._autodetectMediaBox.pack_start(selector, False, False, 0)
+                added = True
 
-        # These UI elements default to not being showable.  If optical install
-        # media were found, mark them to be shown.
-        if added:
-            self._autodetectBox.set_no_show_all(False)
-            self._autodetectButton.set_no_show_all(False)
+            # These UI elements default to not being showable.  If optical install
+            # media were found, mark them to be shown.
+            if added:
+                self._autodetectBox.set_no_show_all(False)
+                self._autodetectButton.set_no_show_all(False)
 
-        # Find all hard drive partitions that could hold an ISO and add each
-        # to the diskStore.
-        store = self.builder.get_object("partitionStore")
+            # Find all hard drive partitions that could hold an ISO and add each
+            # to the diskStore.
+            store = self.builder.get_object("partitionStore")
 
-        added = False
-        for dev in potentialHdisoSources(self.devicetree):
-            store.append([dev, "%s (%s MB)" % (self._sanitize_model(dev.disk.model), int(dev.size))])
-            added = True
+            added = False
+            for dev in potentialHdisoSources(self.devicetree):
+                store.append([dev, "%s (%s MB)" % (self._sanitize_model(dev.disk.model), int(dev.size))])
+                added = True
 
-        # Again, only display these widgets if an HDISO source was found.
-        if added:
-            self._isoBox.set_no_show_all(False)
-            self._isoButton.set_no_show_all(False)
-            combo = self.builder.get_object("isoPartitionCombo")
-            combo.set_active(0)
+            # Again, only display these widgets if an HDISO source was found.
+            if added:
+                self._isoBox.set_no_show_all(False)
+                self._isoButton.set_no_show_all(False)
+                combo = self.builder.get_object("isoPartitionCombo")
+                combo.set_active(0)
 
-        # Add the mirror manager URL in as the default for HTTP and HTTPS.
-        # We'll override this later in the refresh() method, if they've already
-        # provided a URL.
-        # FIXME
+            # Add the mirror manager URL in as the default for HTTP and HTTPS.
+            # We'll override this later in the refresh() method, if they've already
+            # provided a URL.
+            # FIXME
 
-        self._ready = True
-        self.selector.set_sensitive(True)
-        Gdk.threads_leave()
+            self._ready = True
+            self.selector.set_sensitive(True)
 
     def refresh(self):
         NormalSpoke.refresh(self)

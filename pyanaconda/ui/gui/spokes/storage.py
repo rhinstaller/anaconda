@@ -44,7 +44,7 @@ from gi.repository import AnacondaWidgets
 from pyanaconda.ui.gui import UIObject
 from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.gui.categories.storage import StorageCategory
-from pyanaconda.ui.gui.utils import enlightbox
+from pyanaconda.ui.gui.utils import enlightbox, gdk_threaded
 
 from pyanaconda.storage.size import Size
 from pyanaconda.product import productName
@@ -416,42 +416,39 @@ class StorageSpoke(NormalSpoke):
         print self.data.ignoredisk.onlyuse
         self.disks = getDisks(self.devicetree)
 
-        Gdk.threads_enter()
+        with gdk_threaded():
+            # properties: kind, description, capacity, os, popup-info
+            first = True
+            for disk in self.disks:
+                if disk.removable:
+                    kind = "drive-removable-media"
+                else:
+                    kind = "drive-harddisk"
 
-        # properties: kind, description, capacity, os, popup-info
-        first = True
-        for disk in self.disks:
-            if disk.removable:
-                kind = "drive-removable-media"
-            else:
-                kind = "drive-harddisk"
+                size = size_str(disk.size)
+                popup_info = "%s | %s" % (disk.name, disk.serial)
+                overview = AnacondaWidgets.DiskOverview(disk.description,
+                                                        kind,
+                                                        size,
+                                                        popup=popup_info)
+                self.local_disks_box.pack_start(overview, False, False, 0)
 
-            size = size_str(disk.size)
-            popup_info = "%s | %s" % (disk.name, disk.serial)
-            overview = AnacondaWidgets.DiskOverview(disk.description,
-                                                    kind,
-                                                    size,
-                                                    popup=popup_info)
-            self.local_disks_box.pack_start(overview, False, False, 0)
+                # FIXME: this will need to get smarter
+                #
+                # maybe a little function that resolves each item in onlyuse using
+                # udev_resolve_devspec and compares that to the DiskDevice?
+                overview.set_chosen(disk.name in self.data.ignoredisk.onlyuse)
+                overview.connect("button-press-event", self._on_disk_clicked)
+                overview.connect("key-release-event", self._on_disk_clicked)
+                overview.show_all()
+                if first:
+                    overview.grab_focus()
+                    first = False
 
-            # FIXME: this will need to get smarter
-            #
-            # maybe a little function that resolves each item in onlyuse using
-            # udev_resolve_devspec and compares that to the DiskDevice?
-            overview.set_chosen(disk.name in self.data.ignoredisk.onlyuse)
-            overview.connect("button-press-event", self._on_disk_clicked)
-            overview.connect("key-release-event", self._on_disk_clicked)
-            overview.show_all()
-            if first:
-                overview.grab_focus()
-                first = False
+            self._update_summary()
 
-        self._update_summary()
-
-        self._ready = True
-        self.selector.set_sensitive(True)
-
-        Gdk.threads_leave()
+            self._ready = True
+            self.selector.set_sensitive(True)
 
     def _update_summary(self):
         """ Update the summary based on the UI. """

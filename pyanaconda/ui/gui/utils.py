@@ -19,7 +19,7 @@
 # Red Hat Author(s): Chris Lumens <clumens@redhat.com>
 #
 from contextlib import contextmanager
-from gi.repository import Gtk
+from gi.repository import Gdk, Gtk
 
 @contextmanager
 def enlightbox(mainWindow, dialog):
@@ -28,6 +28,12 @@ def enlightbox(mainWindow, dialog):
     dialog.set_transient_for(lightbox)
     yield
     lightbox.destroy()
+
+@contextmanager
+def gdk_threaded():
+    Gdk.threads_enter()
+    yield
+    Gdk.threads_leave()
 
 def setViewportBackground(vp):
     """Set the background color of the GtkViewport vp to be the same as the

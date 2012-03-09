@@ -22,9 +22,8 @@
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
 
-from gi.repository import Gdk
-
 from pyanaconda.ui.gui.hubs import Hub
+from pyanaconda.ui.gui.utils import gdk_threaded
 
 __all__ = ["ProgressHub"]
 
@@ -64,22 +63,19 @@ class ProgressHub(Hub):
         self._totalSteps = steps
         self._currentStep = 0
 
-        Gdk.threads_enter()
-        self._progressBar.set_fraction(0.0)
-        self._progressLabel.set_text("")
-        Gdk.threads_leave()
+        with gdk_threaded():
+            self._progressBar.set_fraction(0.0)
+            self._progressLabel.set_text("")
 
     def updateCB(self, message):
         if not self._totalSteps:
             return
 
-        Gdk.threads_enter()
-        self._progressBar.set_fraction(self._currentStep/self._totalSteps)
-        self._progressLabel.set_text(message)
-        Gdk.threads_leave()
+        with gdk_threaded():
+            self._progressBar.set_fraction(self._currentStep/self._totalSteps)
+            self._progressLabel.set_text(message)
 
     def completeCB(self):
-        Gdk.threads_enter()
-        self._progressBar.set_fraction(1.0)
-        self._progressLabel.set_text(_("Complete!"))
-        Gdk.threads_leave()
+        with gdk_threaded():
+            self._progressBar.set_fraction(1.0)
+            self._progressLabel.set_text(_("Complete!"))
