@@ -222,6 +222,10 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Fri Mar 09 2012 David Cantrell <dcantrell@redhat.com> - 13.21.160-1
+- There is no product named 'Red Hat Enterprise Linux Public Beta' (dcantrell)
+  Resolves: rhbz#801335
+
 * Wed Mar 07 2012 David Cantrell <dcantrell@redhat.com> - 13.21.159-1
 - Add auto_vlan option for fcoe devices in UI (rvykydal)
   Resolves: rhbz#735857
