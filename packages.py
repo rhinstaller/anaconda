@@ -335,7 +335,7 @@ def recreateInitrd (kernelTag, instRoot):
 
 def betaNagScreen(anaconda):
     publicBetas = { "Red Hat Linux": "Red Hat Linux Public Beta",
-                    "Red Hat Enterprise Linux": "Red Hat Enterprise Linux Public Beta",
+                    "Red Hat Enterprise Linux": "Red Hat Enterprise Linux",
                     "Fedora Core": "Fedora Core",
                     "Fedora": "Fedora" }
 
