@@ -52,6 +52,7 @@ class AnacondaOptionParser(OptionParser):
         NOTE: conflict_handler is currently ignored for boot args - they will
         always raise OptionConflictError if they conflict.
         """
+        # TODO: add kwargs to make an option commandline-only or boot-arg-only
         flags = [a for a in args if a.startswith('-')]
         bootargs = [a for a in args if not a.startswith('-')]
         do_bootarg = kwargs.pop("bootarg", True)
