@@ -1781,7 +1781,7 @@ class GRUB2(GRUB):
     def install(self):
         # XXX will installing to multiple drives work as expected with GRUBv2?
         for (stage1dev, stage2dev) in self.install_targets:
-            args = ["--no-floppy", self.grub_device_name(stage1dev)]
+            args = ["--no-floppy", stage1dev.path]
             if stage1dev == stage2dev:
                 # This is hopefully a temporary hack. GRUB2 currently refuses
                 # to install to a partition's boot block without --force.
@@ -1987,6 +1987,73 @@ class IPSeriesYaboot(Yaboot):
             log.error("FAIL: nvram --update-config %s" % update_value)
         else:
             log.info("Updated PPC boot list with the command: nvram --update-config %s" % update_value)
+
+
+class IPSeriesGRUB2(GRUB2):
+
+    # GRUB2 sets /boot bootable and not the PReP partition.  This causes the Open Firmware BIOS not
+    # to present the disk as a bootable target.  If stage2_bootable is False, then the PReP partition
+    # will be marked bootable. Confusing.
+    stage2_bootable = False
+
+    #
+    # installation
+    #
+
+    def install(self):
+        self.updateNVRAMBootList()
+
+        super(IPSeriesGRUB2, self).install()
+
+    # This will update the PowerPC's (ppc) bios boot devive order list
+    def updateNVRAMBootList(self):
+
+        log.debug("updateNVRAMBootList: self.stage1_device.path = %s" % self.stage1_device.path)
+
+        buf = iutil.execWithCapture("nvram",
+                                    ["--print-config=boot-device"],
+                                    stderr="/dev/tty5")
+
+        if len(buf) == 0:
+            log.error ("Failed to determine nvram boot device")
+            return
+
+        boot_list = buf.strip().split()
+        log.debug("updateNVRAMBootList: boot_list = %s" % boot_list)
+
+        buf = iutil.execWithCapture("ofpathname",
+                                    [self.stage1_device.path],
+                                    stderr="/dev/tty5")
+
+        if len(buf) > 0:
+            boot_disk = buf.strip()
+        else:
+            log.error("Failed to translate boot path into device name")
+            return
+
+        # Place the disk containing the PReP partition first.
+        # Remove all other occurances of it.
+        boot_list = [boot_disk] + filter(lambda x: x != boot_disk, boot_list)
+
+        update_value = "boot-device=\"%s\"" % " ".join(boot_list)
+
+        rc = iutil.execWithRedirect("nvram", ["--update-config", update_value],
+                                    stdout="/dev/tty5", stderr="/dev/tty5")
+        if rc:
+            log.error("Failed to update new boot device order")
+
+    #
+    # In addition to the normal grub configuration variable, add one more to set the size of the
+    # console's window to a standard 80x24
+    #
+    def write_defaults(self):
+        super(IPSeriesGRUB2, self).write_defaults()
+
+        defaults_file = "%s%s" % (ROOT_PATH, self.defaults_file)
+        defaults = open(defaults_file, "a+")
+        # The terminfo's X and Y size, and output location could change in the future
+        defaults.write("GRUB_TERMINFO=\"terminfo -g 80x24 console\"\n")
+        defaults.close()
 
 
 class MacYaboot(Yaboot):
