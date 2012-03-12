@@ -232,6 +232,10 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Mon Mar 12 2012 Martin Sivak <msivak@redhat.com> - 16.25.4-3
+- Transfer network state from dracut to anaconda to keep NFS working (wwoods)
+  Resolves: rhbz#799989
+
 * Thu Mar 08 2012 Martin Sivak <msivak@redhat.com> - 16.25.4-2
 - Fix getting product.img when doing DVD install
   Resolves: rhbz#801435
