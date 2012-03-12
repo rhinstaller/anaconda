@@ -222,6 +222,10 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Mon Mar 12 2012 Martin Sivak <msivak@redhat.com> - 13.21.161-1
+- Use netdevices.items() to unpack values (mgracik)
+  Resolves: rhbz#802222
+
 * Fri Mar 09 2012 David Cantrell <dcantrell@redhat.com> - 13.21.160-1
 - There is no product named 'Red Hat Enterprise Linux Public Beta' (dcantrell)
   Resolves: rhbz#801335
