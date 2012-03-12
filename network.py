@@ -620,7 +620,7 @@ class Network:
 
     def hasActiveIPoIBDevice(self):
         active_devs = getActiveNetDevs()
-        for devName, device in self.netdevices:
+        for devName, device in self.netdevices.items():
             if (devName in active_devs and
                 device.get('TYPE') == 'Infiniband'):
                 return True
