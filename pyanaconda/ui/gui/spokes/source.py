@@ -347,20 +347,20 @@ class SourceSpoke(NormalSpoke):
 
             proto = self.data.method.url
             if proto.startswith("http:"):
-                self._protocolComboBox.set_active(0)
+                self._protocolComboBox.set_active(1)
                 l = 7
             elif proto.startswith("https:"):
-                self._protocolComboBox.set_active(1)
+                self._protocolComboBox.set_active(2)
                 l = 8
             elif proto.startswith("ftp:"):
-                self._protocolComboBox.set_active(2)
+                self._protocolComboBox.set_active(3)
                 l = 6
 
             self._urlEntry.set_sensitive(True)
             self._urlEntry.set_text(proto[l:])
         elif self.data.method.method == "nfs":
             self._networkButton.set_active(True)
-            self._protocolComboBox.set_active(3)
+            self._protocolComboBox.set_active(4)
 
             self._urlEntry.set_text("%s:%s" % (self.data.method.server, self.data.method.dir))
             self.builder.get_object("nfsOptsEntry").set_text(self.data.method.opts or "")
