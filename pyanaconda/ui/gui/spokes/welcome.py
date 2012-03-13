@@ -70,6 +70,11 @@ class WelcomeLanguageSpoke(StandaloneSpoke):
         txt = welcomeLabel.get_label()
         welcomeLabel.set_label(txt % (productName.upper(), productVersion))
 
+    def refresh(self):
+        StandaloneSpoke.refresh(self)
+        store = self.builder.get_object("languageStore")
+        self._selectLanguage(store, self.data.lang.lang)
+
     def _addLanguage(self, store, native, english, setting):
         store.append([native, english, setting])
 
@@ -77,6 +82,10 @@ class WelcomeLanguageSpoke(StandaloneSpoke):
         itr = store.get_iter_first()
         while itr and store[itr][2] != language:
             itr = store.iter_next(itr)
+
+        # If we were provided with an unsupported language, just use the default.
+        if not itr:
+            return
 
         treeview = self.builder.get_object("languageView")
         selection = treeview.get_selection()
