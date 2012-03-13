@@ -75,6 +75,7 @@ import logging
 log = logging.getLogger("anaconda")
 
 from pyanaconda.errors import *
+from pyanaconda.packaging import NoSuchGroup, NoSuchPackage
 #from pyanaconda.progress import progress
 
 default_repos = [productName.lower(), "rawhide"]
@@ -582,7 +583,7 @@ reposdir=/etc/yum.repos.d,/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/t
         try:
             self._yum.selectGroup(groupid, group_package_types=pkg_types)
         except yum.Errors.GroupsError:
-            log.error("no such group: %s" % groupid)
+            raise NoSuchGroup(groupid)
 
         super(YumPayload, self).selectGroup(groupid, default=default,
                                             optional=optional)
@@ -593,7 +594,7 @@ reposdir=/etc/yum.repos.d,/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/t
         try:
             self._yum.deselectGroup(groupid, force=True)
         except yum.Errors.GroupsError:
-            log.error("no such group: %s" % groupid)
+            raise NoSuchGroup(groupid)
 
         super(YumPayload, self).deselectGroup(groupid)
 
@@ -625,7 +626,7 @@ reposdir=/etc/yum.repos.d,/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/t
         try:
             mbrs = self._yum.install(pattern=pkgid)
         except yum.Errors.InstallError:
-            log.error("no package matching %s" % pkgid)
+            raise NoSuchPackage(pkgid)
 
         super(YumPayload, self).selectPackage(pkgid)
 
