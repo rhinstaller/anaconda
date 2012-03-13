@@ -44,6 +44,9 @@ class SoftwareSelectionSpoke(NormalSpoke):
         self._ready = False
 
     def apply(self):
+        # NOTE:  Other apply methods work directly with the ksdata, but this
+        # one does not.  However, selectGroup/deselectGroup modifies ksdata as
+        # part of its operation.  So this is fine.
         row = self._get_selected_desktop()
         if not row:
             return
