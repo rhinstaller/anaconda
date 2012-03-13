@@ -570,8 +570,6 @@ reposdir=/etc/yum.repos.d,/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/t
         return (group.ui_name, group.ui_description)
 
     def selectGroup(self, groupid, default=True, optional=False):
-        super(YumPayload, self).selectGroup(groupid, default=default,
-                                            optional=optional)
         # select the group in comps
         pkg_types = ['mandatory']
         if default:
@@ -586,14 +584,18 @@ reposdir=/etc/yum.repos.d,/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/t
         except yum.Errors.GroupsError:
             log.error("no such group: %s" % groupid)
 
+        super(YumPayload, self).selectGroup(groupid, default=default,
+                                            optional=optional)
+
     def deselectGroup(self, groupid):
-        super(YumPayload, self).deselectGroup(groupid)
         # deselect the group in comps
         log.debug("deselect group %s" % groupid)
         try:
             self._yum.deselectGroup(groupid, force=True)
         except yum.Errors.GroupsError:
             log.error("no such group: %s" % groupid)
+
+        super(YumPayload, self).deselectGroup(groupid)
 
     ###
     ### METHODS FOR WORKING WITH PACKAGES
@@ -619,12 +621,13 @@ reposdir=/etc/yum.repos.d,/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/t
            pkgid - The name of a package to be installed.  This could include
                    a version or architecture component.
         """
-        super(YumPayload, self).selectPackage(pkgid)
         log.debug("select package %s" % pkgid)
         try:
             mbrs = self._yum.install(pattern=pkgid)
         except yum.Errors.InstallError:
             log.error("no package matching %s" % pkgid)
+
+        super(YumPayload, self).selectPackage(pkgid)
 
     def deselectPackage(self, pkgid):
         """Mark a package to be excluded from installation.
@@ -632,9 +635,9 @@ reposdir=/etc/yum.repos.d,/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/t
            pkgid - The name of a package to be excluded.  This could include
                    a version or architecture component.
         """
-        super(YumPayload, self).deselectPackage(pkgid)
         log.debug("deselect package %s" % pkgid)
         self._yum.tsInfo.deselect(pkgid)
+        super(YumPayload, self).deselectPackage(pkgid)
 
     ###
     ### METHODS FOR INSTALLING THE PAYLOAD
