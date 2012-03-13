@@ -4,10 +4,6 @@
 . /lib/anaconda-lib.sh
 . /lib/url-lib.sh
 
-# THIS! IS! ANACONDA!!!
-udevproperty ANACONDA=1
-# (used in udev rules to keep stuff like mdadm, multipath, etc. out of our way)
-
 # create the repodir and isodir that anaconda will look for
 mkdir -p $repodir $isodir
 

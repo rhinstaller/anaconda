@@ -26,6 +26,7 @@ dist_dracut_SCRIPTS = module-setup.sh \
 		      parse-anaconda-kickstart.sh \
 		      parse-anaconda-net.sh \
 		      repo-genrules.sh \
+		      anaconda-udevprop.sh \
 		      kickstart-genrules.sh \
 		      anaconda-netroot.sh \
 		      anaconda-diskroot \
