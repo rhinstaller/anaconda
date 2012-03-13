@@ -105,6 +105,13 @@ class Payload(object):
         """ Do any payload-specific setup. """
         raise NotImplementedError()
 
+    def release(self):
+        """ Release any resources in use by this object, but do not do final
+            cleanup.  This is useful for dealing with payload backends that do
+            not get along well with multithreaded programs.
+        """
+        pass
+
     ###
     ### METHODS FOR WORKING WITH REPOSITORIES
     ###

@@ -98,6 +98,7 @@ class SoftwareSelectionSpoke(NormalSpoke):
             # involves side effects like network access) so go ahead and grab
             # them once now.
             self.refresh()
+            self.payload.release()
 
     def refresh(self):
         NormalSpoke.refresh(self)

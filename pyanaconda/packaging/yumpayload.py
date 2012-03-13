@@ -143,6 +143,11 @@ reposdir=/etc/yum.repos.d,/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/t
                     log.error("error fetching metadata for %s: %s" % (repoid, e))
                     self.removeRepo(repoid)
 
+        self.release()
+
+    def release(self):
+        self._yum.close()
+
     ###
     ### METHODS FOR WORKING WITH REPOSITORIES
     ###
