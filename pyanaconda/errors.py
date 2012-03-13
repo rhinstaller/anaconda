@@ -39,8 +39,6 @@ class MediaMountError(Exception):
 class MediaUnmountError(Exception):
     pass
 
-import pyanaconda.storage.errors as StorageError
-
 """These constants are returned by the callback in the ErrorHandler class.
    Each represents a different kind of action the caller can take:
 
@@ -153,6 +151,28 @@ class ErrorHandler(object):
                     "and then click OK to retry.") % device.path
         self.ui.showError(message)
 
+    def noSuchGroupHandler(self, *args, **kwargs):
+        group = args[0]
+        message = _("You have specified that the group '%s' should be "
+                    "installed.  This group does not exist.  Would you like "
+                    "to skip this group and continue with "
+                    "installation?") % group
+        if self.ui.showYesNoQuestion(message):
+            return ERROR_CONTINUE
+        else:
+            return ERROR_RAISE
+
+    def noSuchPackageHandler(self, *args, **kwargs):
+        package = args[0]
+        message = _("You have specified that the package '%s' should be "
+                    "installed.  This package does not exist.  Would you "
+                    "like to skip this package and continue with "
+                    "installation?") % package
+        if self.ui.showYesNoQuestion(message):
+            return ERROR_CONTINUE
+        else:
+            return ERROR_RAISE
+
     def cb(self, exn, *args, **kwargs):
         """This method is the callback that all error handling should pass
            through.  The return value is one of the ERROR_* constants defined
@@ -166,6 +186,9 @@ class ErrorHandler(object):
            kwargs   -- A dict of keyword arguments.  The arguments expected
                        depends on the exception being handled.
         """
+        from pyanaconda.packaging import NoSuchGroup, NoSuchPackage
+        import pyanaconda.storage.errors as StorageError
+
         rc = ERROR_RAISE
 
         if not self.ui:
@@ -177,7 +200,9 @@ class ErrorHandler(object):
                 InvalidImageSizeError: self._invalidImageSizeHandler,
                 MissingImageError: self._missingImageHandler,
                 MediaMountError: self._mediaMountError,
-                MediaUnmountError: self._mediaUnmountError}
+                MediaUnmountError: self._mediaUnmountError,
+                NoSuchGroup: self._noSuchGroupHandler,
+                NoSuchPackage: self._noSuchPackageHandler}
 
         if exn in _map:
             kwargs["exception"] = exn
