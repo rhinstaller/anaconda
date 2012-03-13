@@ -69,17 +69,16 @@ class AnacondaOptionParser(OptionParser):
 
     def _get_bootarg_option(self, arg):
         """Find the correct Option for a given bootarg (if one exists)"""
+        if self.bootarg_prefix and arg.startswith(self.bootarg_prefix):
+            prefixed_option = True
+            arg = arg[len(self.bootarg_prefix):]
+        else:
+            prefixed_option = False
         option = self._boot_arg.get(arg)
-        prefixed_option = self._boot_arg.get(self.bootarg_prefix+arg)
-        if not self.bootarg_prefix:
-            return option
-        if self.require_prefix:
-            return prefixed_option
-        # even if the prefix isn't required, we still prefer it
-        if prefixed_option:
-            return prefixed_option
-        # deprecated option found? make a note of it.
-        if option:
+
+        if self.require_prefix and not prefixed_option:
+            return None
+        if option and self.bootarg_prefix and not prefixed_option:
             self.deprecated_bootargs.append(arg)
         return option
 
