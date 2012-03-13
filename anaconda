@@ -814,7 +814,7 @@ if __name__ == "__main__":
 
     initThreading()
     threadMgr.add(Thread(name="AnaStorageThread", target=storageInitialize, args=(anaconda.storage, ksdata, anaconda.protected)))
-    threadMgr.add(Thread(name="AnaPayloadThread", target=payloadInitialize, args=(anaconda.storage, anaconda.payload)))
+    threadMgr.add(Thread(name="AnaPayloadThread", target=payloadInitialize, args=(anaconda.storage, ksdata, anaconda.payload)))
 
     atexit.register(exitHandler, ksdata.reboot, anaconda.storage)
     # FIXME:  This will need to be made cleaner once this file starts to take

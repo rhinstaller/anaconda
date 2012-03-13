@@ -45,10 +45,6 @@ from pyanaconda.flags import flags
 from pyanaconda import iutil
 from pyanaconda.network import hasActiveNetDev
 
-from pyanaconda.image import opticalInstallMedia
-from pyanaconda.image import mountImage
-from pyanaconda.image import findFirstIsoImage
-
 from pykickstart.parser import Group
 
 import logging
@@ -466,7 +462,8 @@ class PackagePayload(Payload):
     """ A PackagePayload installs a set of packages onto the target system. """
     pass
 
-def payloadInitialize(storage, payload):
+def payloadInitialize(storage, ksdata, payload):
+    from pyanaconda.kickstart import selectPackages
     from pyanaconda.threads import threadMgr
 
     storageThread = threadMgr.get("AnaStorageThread")
@@ -474,6 +471,10 @@ def payloadInitialize(storage, payload):
         storageThread.join()
 
     payload.setup(storage)
+
+    # And now that we've set up the payload, we need to apply any kickstart
+    # selections.  This could include defaults from an install class.
+    selectPackages(ksdata, payload)
 
 def show_groups(payload):
     #repo = ksdata.RepoData(name="anaconda", baseurl="http://cannonball/install/rawhide/os/")
