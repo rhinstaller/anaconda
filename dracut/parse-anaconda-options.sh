@@ -10,6 +10,18 @@ mkdir -p $repodir $isodir
 # add some modules
 modprobe -q edd
 
+# NOTE: anaconda historically activated all the fancy disk devices itself,
+# and it would get very confused if they were already active when it started.
+# F17 has some support for handling already-active devices, but it's still
+# currently safer to disable these things and let anaconda activate them.
+# TODO FIXME: remove this and make anaconda handle active devices!
+{
+    for t in dm md lvm luks; do
+        # disable unless specifically enabled
+        getargbool 0 rd.$t && echo rd.$t=0
+    done
+} > /etc/cmdline.d/99-anaconda-disable-disk-activation.conf
+
 # get some info from .buildstamp
 buildstamp=/run/initramfs/.buildstamp
 [ -f /.buildstamp ] && buildstamp=/.buildstamp
