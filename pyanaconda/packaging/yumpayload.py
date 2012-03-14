@@ -188,27 +188,6 @@ reposdir=/etc/yum.repos.d,/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/t
 
         return base_repo_name
 
-    def _repoNeedsNetwork(self, repo):
-        """ Returns True if the ksdata repo requires networking. """
-        urls = [repo.baseurl] + repo.mirrorlist
-        network_protocols = ["http:", "ftp:", "nfs:", "nfsiso:"]
-        for url in urls:
-            if any([url.startswith(p) for p in network_protocols]):
-                return True
-
-        return False
-
-    def _resetMethod(self):
-        self.data.method.method = ""
-        self.data.method.url = None
-        self.data.method.server = None
-        self.data.method.dir = None
-        self.data.method.partition = None
-        self.data.method.biospart = None
-        self.data.method.noverifyssl = False
-        self.data.method.proxy = ""
-        self.data.method.opts = None
-
     def updateBaseRepo(self, storage, fallback=True):
         """ Update the base repo based on self.data.method.
 
@@ -551,7 +530,7 @@ reposdir=/etc/yum.repos.d,/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/t
         from yum.Errors import RepoError
 
         if not self._groups:
-            if not hasActiveNetDev():
+            if self.needsNetwork and not hasActiveNetDev():
                 raise NoNetworkError
 
             try:
@@ -606,7 +585,7 @@ reposdir=/etc/yum.repos.d,/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/t
         from yum.Errors import RepoError
 
         if not self._packages:
-            if not hasActiveNetDev():
+            if self.needsNetwork and not hasActiveNetDev():
                 raise NoNetworkError
 
             try:

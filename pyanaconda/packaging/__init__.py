@@ -43,7 +43,6 @@ from pyanaconda.constants import *
 from pyanaconda.flags import flags
 
 from pyanaconda import iutil
-from pyanaconda.network import hasActiveNetDev
 
 from pykickstart.parser import Group
 
@@ -163,6 +162,31 @@ class Payload(object):
                 break
 
         return repo
+
+    def _repoNeedsNetwork(self, repo):
+        """ Returns True if the ksdata repo requires networking. """
+        urls = [repo.baseurl] + repo.mirrorlist
+        network_protocols = ["http:", "ftp:", "nfs:", "nfsiso:"]
+        for url in urls:
+            if any([url.startswith(p) for p in network_protocols]):
+                return True
+
+        return False
+
+    @property
+    def needsNetwork(self):
+        return any(self._repoNeedsNetwork(r) for r in self.data.repo.dataList())
+
+    def _resetMethod(self):
+        self.data.method.method = ""
+        self.data.method.url = None
+        self.data.method.server = None
+        self.data.method.dir = None
+        self.data.method.partition = None
+        self.data.method.biospart = None
+        self.data.method.noverifyssl = False
+        self.data.method.proxy = ""
+        self.data.method.opts = None
 
     def updateBaseRepo(self, storage):
         """ Update the base repository from ksdata.method. """
