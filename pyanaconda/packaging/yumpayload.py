@@ -372,14 +372,13 @@ reposdir=/etc/yum.repos.d,/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/t
                 raise PayloadSetupError("no usable optical media found")
 
         if method.method:
+            self._yum.preconf.releasever = self._getReleaseVersion(url)
             try:
                 self._addYumRepo(BASE_REPO_NAME, url,
                                  proxy=proxy, sslverify=sslverify)
             except MetadataError as e:
                 self._removeYumRepo(BASE_REPO_NAME)
                 raise
-            else:
-                self._yum.preconf.releasever = self._getReleaseVersion(url)
 
     def configureAddOnRepo(self, repo):
         """ Configure a single ksdata repo. """
