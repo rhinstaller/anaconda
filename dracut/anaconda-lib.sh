@@ -117,10 +117,10 @@ run_kickstart() {
     grep -q 'inst\.repo=' /etc/cmdline.d/80kickstart.conf && do_repo=1
 
     # parse cmdline
-    [ $do_repo ] && . $hookdir/cmdline/*parse-anaconda-repo.sh
+    source_hook cmdline
 
-    # update root.info
-    echo "root='$root'" >> /tmp/root.info
+    # NOTE: this is deprecated and unnecessary in dracut 018
+    [ -f /tmp/root.info ] && echo "root='$root'" >> /tmp/root.info
 
     # replay udev events to trigger actions
     if [ $do_repo ]; then
