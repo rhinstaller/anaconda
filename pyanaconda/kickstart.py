@@ -1400,38 +1400,24 @@ def runTracebackScripts(anaconda):
         script.run("/", flags.serial)
     log.info("All kickstart %%traceback script(s) have been run")
 
-def selectPackages(anaconda):
-    ksdata = anaconda.ksdata
-    ignoreAll = False
-
+def selectPackages(ksdata, payload):
     # If no %packages header was seen, use the installclass's default group
     # selections.  This can also be explicitly specified with %packages
     # --default.  Otherwise, select whatever was given (even if it's nothing).
     if not packagesSeen or ksdata.packages.default:
-        anaconda.instClass.setGroupSelection(anaconda)
+        # FIXME:  Set default packaging selections here.
         if not packagesSeen:
             return
 
     for pkg in ksdata.packages.packageList:
-        num = anaconda.backend.selectPackage(pkg)
-        if ksdata.packages.handleMissing == KS_MISSING_IGNORE or ignoreAll:
-            continue
-        if num > 0:
-            continue
-        rc = anaconda.intf.messageWindow(_("Missing Package"),
-                                _("You have specified that the "
-                                  "package '%s' should be installed.  "
-                                  "This package does not exist. "
-                                  "Would you like to continue or "
-                                  "abort this installation?") %(pkg,),
-                                type="custom",
-                                custom_buttons=[_("_Abort"),
-                                                _("_Ignore All"),
-                                                _("_Continue")])
-        if rc == 0:
-            sys.exit(1)
-        elif rc == 1:
-            ignoreAll = True
+        try:
+            payload.selectPackage(pkg)
+        except NoSuchPackage as e:
+            if ksdata.packages.handleMissing == KS_MISSING_IGNORE:
+                continue
+
+            if errorHandler.cb(e) == ERROR_RAISE:
+                sys.exit(1)
 
     ksdata.packages.groupList.insert(0, Group("Core"))
 
@@ -1451,30 +1437,21 @@ def selectPackages(anaconda):
             optional = True
 
         try:
-            anaconda.backend.selectGroup(grp.name, (default, optional))
+            payload.selectGroup(grp.name, default=default, optional=optional)
         except NoSuchGroup as e:
-            if ksdata.packages.handleMissing == KS_MISSING_IGNORE or ignoreAll:
-                pass
-            else:
-                rc = anaconda.intf.messageWindow(_("Missing Group"),
-                                        _("You have specified that the "
-                                          "group '%s' should be installed. "
-                                          "This group does not exist. "
-                                          "Would you like to continue or "
-                                          "abort this installation?")
-                                        %(grp.name,),
-                                        type="custom",
-                                        custom_buttons=[_("_Abort"),
-                                                        _("_Ignore All"),
-                                                        _("_Continue")])
-                if rc == 0:
-                    sys.exit(1)
-                elif rc == 1:
-                    ignoreAll = True
+            if ksdata.packages.handleMissing == KS_MISSING_IGNORE:
+                continue
 
-    map(anaconda.backend.deselectPackage, ksdata.packages.excludedList)
-    map(lambda g: anaconda.backend.deselectGroup(g.name),
-        ksdata.packages.excludedGroupList)
+            if errorHandler.cb(e) == ERROR_RAISE:
+                sys.exit(1)
+
+    map(payload.deselectPackage, ksdata.packages.excludedList)
+
+    for grp in ksdata.packages.excludedGroupList:
+        try:
+            payload.deselectGroup(grp.name)
+        except NoSuchGroup:
+            continue
 
 def setSteps(anaconda):
     def havePackages(packages):
