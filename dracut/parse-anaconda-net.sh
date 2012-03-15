@@ -63,4 +63,8 @@ fi
 
 [ -n "$ip$ipv6$ksdev_val" ] && set_neednet
 
+# set dhcp vendor class
+dhcpclass=$(getarg inst.dhcpclass) || dhcpclass="anaconda-$(uname -srm)"
+echo "send vendor-class-identifier \"$dhcpclass\"" >> /etc/dhclient.conf
+
 unset CMDLINE
