@@ -87,13 +87,6 @@ set_neednet() {
     unset CMDLINE
 }
 
-when_netdev_online() {
-    printf 'SUBSYSTEM=="net", ACTION=="online", RUN+="%s"\n' \
-             "/sbin/initqueue --settled --onetime $@" >> $rulesfile
-}
-
-# Kickstart parsing goes at the end 'cuz it might use the other stuff
-
 parse_kickstart() {
     /sbin/parse-kickstart $1 > /etc/cmdline.d/80kickstart.conf
     unset CMDLINE  # re-read the commandline
