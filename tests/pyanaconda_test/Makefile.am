@@ -34,6 +34,7 @@ TESTS = backend_test.py \
     language_test.py \
     network_test.py \
     packages_test.py \
+    packaging_test.py \
     partintfhelpers_test.py \
     product_test.py \
     rescue_test.py \
