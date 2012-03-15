@@ -186,6 +186,19 @@ class NormalSpoke(Spoke):
         """
         pass
 
+    def initialize(self, cb=None):
+        """A special overridden version of the initialize method that optionally
+           takes a callback.  This callback should be called at the end of
+           initialization.  It is only used for those spokes with a threaded
+           initialize method.  For these spokes, the status and completed
+           properties will already have been referenced, along with adding the
+           spoke to the hub's completeness list.  Thus, the hub needs to be
+           updated after initialization.
+
+           For most spokes, this callback version is unnecessary.
+        """
+        pass
+
     @property
     def ready(self):
         """Returns True if the Spoke has all the information required to be

@@ -122,19 +122,14 @@ class Hub(UIObject):
 
                 spoke.selector = AnacondaWidgets.SpokeSelector(_(spoke.title), spoke.icon)
 
-                # Does this spoke need a while to wait for some background process
-                # to finish before it can be shown?  If so, we need to mark it as
-                # insensitive.
-                if not spoke.ready:
-                    spoke.selector.set_sensitive(False)
-
-                spoke.initialize()
+                # Set all selectors to insensitive before initialize runs.  The call to
+                # _updateCompletenessCB later will take care of setting it straight.
+                spoke.selector.set_sensitive(False)
+                spoke.initialize(cb=self._updateCompletenessCB)
 
                 # Set some default values on the associated selector that
                 # affect its display on the hub.
-                spoke.selector.set_property("status", spoke.status)
-                spoke.selector.set_incomplete(not spoke.completed)
-                self._handleCompleteness(spoke)
+                self._updateCompletenessCB(spoke)
                 spoke.selector.connect("button-press-event", self._on_spoke_clicked, spoke)
                 spoke.selector.connect("key-release-event", self._on_spoke_clicked, spoke)
 
@@ -163,6 +158,12 @@ class Hub(UIObject):
         spokeArea.add(viewport)
 
         setViewportBackground(viewport)
+
+    def _updateCompletenessCB(self, spoke):
+        spoke.selector.set_sensitive(spoke.ready)
+        spoke.selector.set_property("status", spoke.status)
+        spoke.selector.set_incomplete(not spoke.completed)
+        self._handleCompleteness(spoke)
 
     def _handleCompleteness(self, spoke):
         from gi.repository import Gtk
@@ -211,10 +212,7 @@ class Hub(UIObject):
         self._runSpoke(spoke)
 
         # Now update the selector with the current status and completeness.
-        selector.set_property("status", spoke.status)
-        selector.set_incomplete(not spoke.completed)
-
-        self._handleCompleteness(spoke)
+        self._updateCompletenessCB(spoke)
 
         # And then if that spoke wants us to jump straight to another one,
         # handle that now.

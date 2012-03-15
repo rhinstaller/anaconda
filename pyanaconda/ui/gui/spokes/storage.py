@@ -388,12 +388,12 @@ class StorageSpoke(NormalSpoke):
         self._update_disk_list()
         self._update_summary()
 
-    def initialize(self):
+    def initialize(self, cb=None):
         from pyanaconda.threads import threadMgr
         from pyanaconda.ui.gui.utils import setViewportBackground
         from threading import Thread
 
-        NormalSpoke.initialize(self)
+        NormalSpoke.initialize(self, cb)
 
         summary_label = self.builder.get_object("summary_button").get_children()[0]
         summary_label.set_use_markup(True)
@@ -404,9 +404,9 @@ class StorageSpoke(NormalSpoke):
         viewport = self.builder.get_object("localViewport")
         setViewportBackground(viewport)
 
-        threadMgr.add(Thread(name="AnaStorageWatcher", target=self._initialize))
+        threadMgr.add(Thread(name="AnaStorageWatcher", target=self._initialize, args=(cb, )))
 
-    def _initialize(self):
+    def _initialize(self, cb=None):
         from pyanaconda.threads import threadMgr
 
         storageThread = threadMgr.get("AnaStorageThread")
@@ -448,7 +448,8 @@ class StorageSpoke(NormalSpoke):
             self._update_summary()
 
             self._ready = True
-            self.selector.set_sensitive(True)
+            if cb:
+                cb(self)
 
     def _update_summary(self):
         """ Update the summary based on the UI. """

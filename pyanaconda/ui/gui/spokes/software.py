@@ -79,13 +79,15 @@ class SoftwareSelectionSpoke(NormalSpoke):
 
         return self.payload.description(row[2])[0]
 
-    def initialize(self):
+    def initialize(self, cb=None):
         from pyanaconda.threads import threadMgr
         from threading import Thread
 
-        threadMgr.add(Thread(name="AnaSoftwareWatcher", target=self._initialize))
+        NormalSpoke.initialize(self, cb)
 
-    def _initialize(self):
+        threadMgr.add(Thread(name="AnaSoftwareWatcher", target=self._initialize, args=(cb, )))
+
+    def _initialize(self, cb=None):
         from pyanaconda.threads import threadMgr
 
         payloadThread = threadMgr.get("AnaPayloadThread")
@@ -93,15 +95,16 @@ class SoftwareSelectionSpoke(NormalSpoke):
             payloadThread.join()
 
         with gdk_threaded():
-            self._ready = True
-            self.selector.set_sensitive(True)
-
             # Grabbing the list of groups could potentially take a long time the
             # first time (yum does a lot of magic property stuff, some of which
             # involves side effects like network access) so go ahead and grab
             # them once now.
             self.refresh()
             self.payload.release()
+
+            self._ready = True
+            if cb:
+                cb(self)
 
     def refresh(self):
         NormalSpoke.refresh(self)

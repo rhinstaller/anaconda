@@ -924,8 +924,8 @@ class NetworkSpoke(NormalSpoke):
         """ A short string describing which devices are connected. """
         return self.network_control_box.status()
 
-    def initialize(self):
-        NormalSpoke.initialize(self)
+    def initialize(self, cb=None):
+        NormalSpoke.initialize(self, cb)
         self.network_control_box.initialize()
 
     def refresh(self):

@@ -254,12 +254,12 @@ class SourceSpoke(NormalSpoke):
 
         self._verifyIsoButton = self.builder.get_object("verifyIsoButton")
 
-    def initialize(self):
+    def initialize(self, cb=None):
         from pyanaconda.threads import threadMgr
         from pyanaconda.ui.gui.utils import setViewportBackground
         from threading import Thread
 
-        NormalSpoke.initialize(self)
+        NormalSpoke.initialize(self, cb)
 
         self._grabObjects()
 
@@ -272,9 +272,9 @@ class SourceSpoke(NormalSpoke):
         viewport = self.builder.get_object("autodetectViewport")
         setViewportBackground(viewport)
 
-        threadMgr.add(Thread(name="AnaSourceWatcher", target=self._initialize))
+        threadMgr.add(Thread(name="AnaSourceWatcher", target=self._initialize, args=(cb, )))
 
-    def _initialize(self):
+    def _initialize(self, cb=None):
         from pyanaconda.threads import threadMgr
 
         storageThread = threadMgr.get("AnaStorageThread")
@@ -331,7 +331,8 @@ class SourceSpoke(NormalSpoke):
             # FIXME
 
             self._ready = True
-            self.selector.set_sensitive(True)
+            if cb:
+                cb(self)
 
     def refresh(self):
         NormalSpoke.refresh(self)
