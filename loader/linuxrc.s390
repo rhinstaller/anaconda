@@ -50,7 +50,6 @@ elif [ "${0##*/}" = "halt" ]; then
 fi
 
 VERSION=1.2
-NUMCPUS=$(grep processors /proc/cpuinfo | cut -c19-)
 
 export TEXTDOMAIN=s390installer
 export TEXTDOMAINDIR=/usr/lib/locale
@@ -217,6 +216,7 @@ function canonicalize_devno()
 function readcmsfile() # $1=dasdport $2=filename
 {
     local dev
+    local numcpus
     if [ $# -ne 2 ]; then return; fi
     # precondition: udevd created dasda block device node
     if ! dasd_cio_free -d $1 ; then
@@ -226,7 +226,8 @@ function readcmsfile() # $1=dasdport $2=filename
     # precondition: dasd_eckd_mod driver incl. dependencies loaded,
     #               dasd_mod must be loaded without setting any DASD online
     dev=$(canonicalize_devno $1)
-    if [ ${NUMCPUS} -eq 1 ]; then
+    numcpus=$(grep processors /proc/cpuinfo | cut -c19-)
+    if [ ${numcpus} -eq 1 ]; then
         echo 1 > /sys/bus/ccw/devices/$dev/online
     else
         if ! sysecho /sys/bus/ccw/devices/$dev/online 1; then
