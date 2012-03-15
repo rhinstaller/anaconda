@@ -71,11 +71,15 @@ class Network(commands.network.F16_Network):
         if len(self.network) == 1: # first network line gets special treatment
             net.activate = True      # activate by default
             if not net.device:       # --device is optional, defaults to..
-                net.device = "ksdev" # whatever the kickstart device was
+                net.device = self.handler.ksdevice # kickstart device, if any
         if not net.device:
             log.error("'%s': missing --device", " ".join(args))
         elif net.activate: # we only care about activated devices
-            return ksnet_to_dracut(args, lineno, net)
+            netline = ksnet_to_dracut(args, lineno, net)
+            # The first device in the kickstart is our new bootdev
+            if len(self.network) == 1:
+                netline += " bootdev=%s" % net.device
+            return netline
 
 # TODO: keymap, lang... device? upgrade? selinux?
 
@@ -94,6 +98,7 @@ class DracutHandler(handlerclass):
     def __init__(self):
         handlerclass.__init__(self, commandUpdates=dracutCmds)
         self.output = []
+        self.ksdevice = None
     def dispatcher(self, args, lineno):
         obj = handlerclass.dispatcher(self, args, lineno)
         # and execute any specified dracut_args
@@ -131,13 +136,12 @@ def init_logger():
 def ksnet_to_dracut(args, lineno, net):
     '''Translate the kickstart network data into dracut network data.'''
     line = []
-    dev = net.device
     if net.bootProto == BOOTPROTO_DHCP:
-        line.append("ip=%s:dhcp" % dev if dev else "ip=dhcp")
+        line.append("ip=%s:dhcp" % net.device)
     elif net.bootProto == BOOTPROTO_IBFT:
-        line.append("ip=%s:ibft" % dev if dev else "ip=ibft")
+        line.append("ip=%s:ibft" % net.device)
     elif net.bootProto == BOOTPROTO_BOOTP: # NOTE: no dracut support yet...
-        line.append("ip=%s:bootp" % dev if dev else "ip=bootp")
+        line.append("ip=%s:bootp" % net.device)
     elif net.bootProto == BOOTPROTO_QUERY:
         log.error("'%s': --bootproto=query is deprecated", " ".join(args))
     elif net.bootProto == BOOTPROTO_STATIC:
@@ -150,25 +154,29 @@ def ksnet_to_dracut(args, lineno, net):
                         "{0.hostname}:{0.device}".format(net))
         for ns in net.nameserver.split(","):
             line.append("nameserver=%s" % ns)
+
     if net.ipv6 == "auto":
-        line.append("ip=%s:auto6" % dev if dev else "ip=auto6")
+        line.append("ip=%s:auto6" % net.device)
     elif net.ipv6 == "dhcp":
-        line.append("ip=%s:dhcp6" % dev if dev else "ip=dhcp6")
+        line.append("ip=%s:dhcp6" % net.device)
     elif net.ipv6:
         line.append("ip=[{0.ipv6}]::{0.gateway}:{0.netmask}:" \
                     "{0.hostname}:{0.device}".format(net))
+
     if net.mtu:
         # XXX FIXME: dracut doesn't support mtu= (yet)
-        mtuarg = "mtu=%s:" % dev if dev else "mtu="
-        line.append(mtustr+str(mtu))
+        line.append("mtu=%s:%u" % (net.device, net.mtu))
     # TODO FIXME ALSO: nodns, nodefroute, noipv4, noipv6, dhcpclass
+
     if net.essid or net.wepkey or net.wpakey:
         # TODO: make dracut support wireless? (do we care?)
-        log.error("'%s': dracut doesn't support wireless networks", " ".join(args))
+        log.error("'%s': dracut doesn't support wireless networks",
+                      " ".join(args))
     return " ".join(line)
 
 def process_kickstart(ksfile):
     handler = DracutHandler()
+    handler.ksdevice = os.environ.get('ksdevice')
     parser = KickstartParser(handler)
     processed_file = preprocessKickstart(ksfile)
     try:

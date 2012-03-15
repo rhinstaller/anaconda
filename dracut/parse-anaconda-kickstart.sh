@@ -1,6 +1,9 @@
 #!/bin/bash
 # parse-anaconda-kickstart.sh: handle kickstart settings
 
+# no need to do this twice
+[ -f /tmp/ks.cfg ] && return
+
 # inst.ks: provide a "URI" for the kickstart file
 kickstart="$(getarg ks= inst.ks=)"
 if [ -z "$kickstart" ]; then
@@ -12,9 +15,7 @@ fi
 case "$kickstart" in
     http:*|https:*|ftp:*|nfs:*|nfs4:*) set_neednet ;;
 esac
-
-# save kickstart info for later
-echo "kickstart=$kickstart" >> /tmp/ks.info
+export kickstart
 
 # FIXME: this won't work! needs to be run after udev starts.
 # inst.ks.sendmac: send MAC addresses in HTTP headers
