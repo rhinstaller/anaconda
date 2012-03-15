@@ -13,10 +13,10 @@ repo=$(getarg repo= inst.repo=)
 # already done? don't run again.
 [ -e /dev/root ] && return 0
 
-# get network/kickstart info
-[ -e /tmp/ks.info ] && . /tmp/ks.info
 # user requested a specific network device, but this isn't it - bail out
 [ -n "$ksdevice" ] && [ "$ksdevice" != "$netif" ] && return 0
+# user didn't request a specific device, so the first one online wins!
+[ -z "$ksdevice" ] && ksdevice="$netif"
 
 command -v config_get >/dev/null || . /lib/anaconda-lib.sh
 

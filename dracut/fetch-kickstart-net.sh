@@ -1,16 +1,18 @@
 #!/bin/bash
-# fetch-kickstart-net - fetch kickstart file from the network
+# fetch-kickstart-net - fetch kickstart file from the network.
+# runs from the "initqueue/online" hook whenever a net interface comes online
 
 # we already processed the kickstart - exit
 [ -e /tmp/ks.cfg.done ] && return 0
 
 # no kickstart requested - exit
-[ -e /tmp/ks.info ] || return 0
-
-. /tmp/ks.info
+[ -n "$kickstart" ] || return 0
 
 # user requested a specific device, but this isn't it - exit
 [ -n "$ksdevice" ] && [ "$ksdevice" != "$netif" ] && return 0
+
+# no ksdevice was requested, so the first device online wins!
+[ -z "$ksdevice" ] && ksdevice="$netif"
 
 command -v getarg >/dev/null || . /lib/dracut-lib.sh
 . /lib/url-lib.sh

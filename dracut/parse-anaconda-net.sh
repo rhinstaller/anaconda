@@ -6,6 +6,7 @@ net_conf=/etc/cmdline.d/75-anaconda-network-options.conf
 check_depr_arg "dns" "nameserver=%s"
 
 # handle ksdevice (tell us which device to use for ip= stuff later)
+export ksdevice=""
 ksdev_val=$(getarg ksdevice=)
 if [ -n "$ksdev_val" ]; then
     case "$ksdev_val" in
@@ -14,21 +15,21 @@ if [ -n "$ksdev_val" ]; then
         ;;
         ibft)
             warn "'ksdevice=ibft' is deprecated. Using 'ip=ibft' instead."
-            echo "ip=ibft" >> $net_conf
-            ksdev="ibft0"
+            echo "ip=ibft" > $net_conf
+            ksdevice="ibft0"
         ;;
         bootif)
             warn "'ksdevice=bootif' does nothing (BOOTIF is used by default if present)"
         ;;
         ??:??:??:??:??:??)
             warn "'ksdevice=<MAC>' is deprecated. Using 'ifname=eth0:<MAC>' instead."
-            ksdev="eth0"
-            echo "ifname=$ksdev:$ksdev_val" >> $net_conf
+            ksdevice="eth0"
+            echo "ifname=$ksdevice:$ksdev_val" > $net_conf
         ;;
-        *) ksdev="$ksdev_val" ;;
+        *) ksdevice="$ksdev_val" ;;
     esac
 fi
-[ -n "$ksdev" ] && echo "ksdevice=$ksdev" >> /tmp/ks.info
+[ -n "$ksdevice" ] && echo "bootdev=$ksdevice" >> $net_conf
 
 ip="$(getarg ip=)"
 ipv6="$(getarg ipv6=)"
@@ -40,9 +41,9 @@ if [ -n "$ipv6" ] && [ -n "$ip" ]; then
     warn "if you need ipv6, use ip=dhcp6|auto6|[v6-address]."
 elif [ -n "$ipv6" ]; then # just ipv6
     case "$ipv6" in
-        auto) check_depr_arg "ipv6=auto"  "ip=${ksdev:+$ksdev:}auto6" ;;
-        dhcp) check_depr_arg "ipv6=dhcp"  "ip=${ksdev:+$ksdev:}dhcp6" ;;
-        *)    check_depr_arg "ipv6="      "ip=${ksdev:+$ksdev:}[%s]" ;;
+        auto) check_depr_arg "ipv6=auto"  "ip=${ksdevice:+$ksdevice:}auto6" ;;
+        dhcp) check_depr_arg "ipv6=dhcp"  "ip=${ksdevice:+$ksdevice:}dhcp6" ;;
+        *)    check_depr_arg "ipv6="      "ip=${ksdevice:+$ksdevice:}[%s]" ;;
     esac
 elif [ -n "$ip" ]; then # just good ol' ipv4
     case "$ip" in
@@ -54,7 +55,7 @@ elif [ -n "$ip" ]; then # just good ol' ipv4
               warn "'ip=<ip> gateway=<gw> netmask=<nm>' is deprecated."
               warn "Use 'ip=<ip>::<gw>:<nm>[:<dev>]' instead."
               strstr "$gw" ":" && gw="[$gw]" # put ipv6 addr in brackets
-              echo "ip=$ip::$gw:$nm${ksdev:+:$ksdev}" >> $net_conf
+              echo "ip=$ip::$gw:$nm${ksdevice:+:$ksdevice}" >> $net_conf
           fi
       ;;
     esac
