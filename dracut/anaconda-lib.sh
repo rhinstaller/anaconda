@@ -110,7 +110,7 @@ run_kickstart() {
     grep -q 'inst\.repo=' /etc/cmdline.d/80kickstart.conf && do_repo=1
 
     # parse cmdline
-    source_hook cmdline
+    [ $do_repo ] && . $hookdir/cmdline/*parse-anaconda-repo.sh
 
     # NOTE: this is deprecated and unnecessary in dracut 018
     [ -f /tmp/root.info ] && echo "root='$root'" >> /tmp/root.info
