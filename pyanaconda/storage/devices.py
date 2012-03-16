@@ -3741,6 +3741,9 @@ class OpticalDevice(StorageDevice):
         #try to umount and close device before ejecting
         self.teardown()
 
+        log.warning("eject forcefully disabled to make Alpha1 work")
+        return
+
         if flags.cmdline.has_key('noeject'):
             log.info("noeject in effect, not ejecting cdrom")
             return
