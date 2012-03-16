@@ -68,6 +68,8 @@ from pyanaconda.image import opticalInstallMedia
 from pyanaconda.image import mountImage
 from pyanaconda.image import findFirstIsoImage
 
+from pyanaconda.storage.size import Size
+
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
 
@@ -119,6 +121,8 @@ class YumPayload(PackagePayload):
             self.install_device.teardown(recursive=True)
 
         self.install_device = None
+
+        self._space_required = None
 
         self._groups = []
         self._packages = []
@@ -565,6 +569,7 @@ reposdir=/etc/yum.repos.d,/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/t
 
         super(YumPayload, self).selectGroup(groupid, default=default,
                                             optional=optional)
+        self._space_required = None
 
     def deselectGroup(self, groupid):
         # deselect the group in comps
@@ -575,6 +580,7 @@ reposdir=/etc/yum.repos.d,/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/t
             raise NoSuchGroup(groupid)
 
         super(YumPayload, self).deselectGroup(groupid)
+        self._space_required = None
 
     ###
     ### METHODS FOR WORKING WITH PACKAGES
@@ -607,6 +613,7 @@ reposdir=/etc/yum.repos.d,/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/t
             raise NoSuchPackage(pkgid)
 
         super(YumPayload, self).selectPackage(pkgid)
+        self._space_required = None
 
     def deselectPackage(self, pkgid):
         """Mark a package to be excluded from installation.
@@ -617,6 +624,24 @@ reposdir=/etc/yum.repos.d,/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/t
         log.debug("deselect package %s" % pkgid)
         self._yum.tsInfo.deselect(pkgid)
         super(YumPayload, self).deselectPackage(pkgid)
+        self._space_required = None
+
+    ###
+    ### METHODS FOR QUERYING STATE
+    ###
+    @property
+    def spaceRequired(self):
+        """ The total disk space (Size) required for the current selection. """
+        # XXX this will only be useful if you've run checkSoftwareSelection
+        if not self._space_required:
+            total = 0
+            for txmbr in self._yum.tsInfo.getMembers():
+                total += getattr(txmbr.po, "installedsize", 0)
+
+            total += total * 0.10   # add 10% to account for metadata, &c
+            self._space_required = Size(bytes=total)
+
+        return self._space_required
 
     ###
     ### METHODS FOR INSTALLING THE PAYLOAD
