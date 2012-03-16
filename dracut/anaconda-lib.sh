@@ -87,6 +87,18 @@ set_neednet() {
     unset CMDLINE
 }
 
+# Save the dhclient lease and put the interface name into /tmp/net.ifaces,
+# so the 'ifcfg' module will write out a proper ifcfg etc. for NetworkManager.
+# TODO: this should probably be in 40network/net-lib.sh
+save_netinfo() {
+    local netif="$1"
+    echo "$netif" >> /tmp/net.ifaces # XXX is it OK to list a netif twice?
+    read IFACES < /tmp/net.ifaces
+    for f in /tmp/dhclient.$iface.*; do
+        [ -f $f ] && cp -f $f /tmp/net.${f#/tmp/dhclient.}
+    done
+}
+
 parse_kickstart() {
     /sbin/parse-kickstart $1 > /etc/cmdline.d/80kickstart.conf
     unset CMDLINE  # re-read the commandline

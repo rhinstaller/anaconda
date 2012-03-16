@@ -44,14 +44,5 @@ case $repo in
     ;;
 esac
 
-# TODO: probably shouldn't do this if mounting the net repo fails
-
-# need these to write out the ifcfg files / leases for NetworkManager
-# TODO: this should be a save_netroot_data function in net-lib.sh
-[ -e /tmp/net.ifaces ] || echo "$netif" > /tmp/net.ifaces
-read IFACES < /tmp/net.ifaces
-for iface in $IFACES ; do
-    for f in /tmp/dhclient.$iface.*; do
-        [ -f $f ] && cp $f /tmp/net.${f#/tmp/dhclient.}
-    done
-done
+# save the ifcfg file / dhcp lease for NetworkManager
+save_netinfo $netif
