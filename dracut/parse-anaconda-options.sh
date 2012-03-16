@@ -18,7 +18,7 @@ modprobe -q edd
 {
     for t in dm md lvm luks; do
         # disable unless specifically enabled
-        getargbool 0 rd.$t && echo rd.$t=0
+        getargbool 0 rd.$t || echo rd.$t=0
     done
 } > /etc/cmdline.d/99-anaconda-disable-disk-activation.conf
 
