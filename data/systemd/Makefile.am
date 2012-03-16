@@ -18,7 +18,5 @@
 # Author: Chris Lumens <clumens@redhat.com>
 
 systemddir = /lib/systemd/system
-dist_systemd_DATA = anaconda-shell@.service anaconda.target anaconda.service instperf.service fedora-import-state.service
-systemdscriptdir = /lib/systemd
-dist_systemd_SCRIPTS = fedora-import-state
+dist_systemd_DATA = anaconda-shell@.service anaconda.target anaconda.service instperf.service
 MAINTAINERCLEANFILES = Makefile.in
