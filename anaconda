@@ -262,6 +262,8 @@ def parseOptions(argv = None):
     op.add_option("--updates", dest="updateSrc", action="store", type="string")
     op.add_option("--dlabel", action="store_true", default=False)
     op.add_option("--image", action="append", dest="images", default=[])
+    op.add_option("--memcheck", action="store_true", default=True)
+    op.add_option("--no-memcheck", action="store_false", dest="memcheck")
 
     (opts, args) = op.parse_args(argv)
     return (opts, args, op.deprecated_bootargs)
@@ -366,10 +368,17 @@ def check_memory(anaconda, opts, display_mode=None):
     if not display_mode:
         display_mode = anaconda.displayMode
 
-    extra_ram = 0
     reason = reason_strict
     total_ram = int(isys.total_memory() / 1024)
-    needed_ram = int((isys.MIN_RAM + extra_ram) / 1024)
+    needed_ram = int(isys.MIN_RAM / 1024)
+    graphical_ram = needed_ram + int(isys.GUI_INSTALL_EXTRA_RAM / 1024)
+
+    log.info("check_memory(): total:%s, needed:%s, graphical:%s" % \
+            (total_ram, needed_ram, graphical_ram))
+
+    if not opts.memcheck:
+        log.warning("CHECK_MEMORY DISABLED")
+        return
 
     if needed_ram > total_ram:
         from snack import SnackScreen, ButtonChoiceWindow
@@ -387,7 +396,7 @@ def check_memory(anaconda, opts, display_mode=None):
 
     # override display mode if machine cannot nicely run X
     if display_mode not in ('t', 'c', 's') and not flags.usevnc:
-        needed_ram += int(isys.GUI_INSTALL_EXTRA_RAM / 1024)
+        needed_ram = graphical_ram
         reason = reason_graphical
 
         if needed_ram > total_ram:
