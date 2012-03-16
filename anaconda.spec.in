@@ -232,6 +232,10 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Fri Mar 16 2012 David Cantrell <dcantrell@redhat.com> - 16.25.5-1
+- Disable eject to make Alpha1 install from DVD work (dcantrell)
+  Related: rhbz#801479
+
 * Wed Mar 14 2012 Martin Sivak <msivak@redhat.com> - 16.25.4-4
 - Disable eject to make Alpha1 install from DVD work
   This is temporary and needs to be fixed properly for upcoming releases
