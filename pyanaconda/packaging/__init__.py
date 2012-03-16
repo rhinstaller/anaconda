@@ -119,6 +119,7 @@ class Payload(object):
     """ Payload is an abstract class for OS install delivery methods. """
     def __init__(self, data):
         self.data = data
+        self.proxy = None
 
     def setup(self, storage):
         """ Do any payload-specific setup. """
