@@ -294,7 +294,7 @@ class SourceSpoke(NormalSpoke):
                 cdrom = self.payload.install_device
                 chosen = True
             else:
-                cdrom = opticalInstallMedia(self.devicetree, mountpoint=MOUNTPOINT)
+                cdrom = opticalInstallMedia(self.storage.devicetree, mountpoint=MOUNTPOINT)
 
             if cdrom:
                 selector = AnacondaWidgets.DiskOverview(cdrom.format.label or "", "drive-removable-media", "")
@@ -314,7 +314,7 @@ class SourceSpoke(NormalSpoke):
             store = self.builder.get_object("partitionStore")
 
             added = False
-            for dev in potentialHdisoSources(self.devicetree):
+            for dev in potentialHdisoSources(self.storage.devicetree):
                 store.append([dev, "%s (%s MB)" % (self._sanitize_model(dev.disk.model), int(dev.size))])
                 added = True
 
@@ -458,7 +458,7 @@ class SourceSpoke(NormalSpoke):
 
         dialog = MediaCheckDialog(self.data)
         with enlightbox(self.window, dialog.window):
-            dev = self.devicetree.getDeviceByName(dev)
+            dev = self.storage.devicetree.getDeviceByName(dev)
             dev.format.mount(mountpoint=MOUNTPOINT)
             dialog.run(MOUNTPOINT + "/" + f)
             dev.format.unmount()

@@ -36,7 +36,6 @@ platform = getPlatform()
 ksdata = makeVersion()
 storage = Storage(data=ksdata, platform=platform)
 storage.reset()
-devicetree = storage.devicetree
 instclass = DefaultInstall()
 
 payload = YumPayload(ksdata)
@@ -47,7 +46,7 @@ if not spokeClass:
     print "You forgot to set spokeClass to something."
     sys.exit(1)
 
-spoke = spokeClass(ksdata, devicetree, payload, instclass)
+spoke = spokeClass(ksdata, storage, payload, instclass)
 if hasattr(spoke, "register_event_cb"):
     spoke.register_event_cb("continue", lambda: Gtk.main_quit())
     spoke.register_event_cb("quit", lambda: Gtk.main_quit())

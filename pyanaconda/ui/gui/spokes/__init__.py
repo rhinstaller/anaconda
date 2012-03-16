@@ -55,7 +55,7 @@ class Spoke(UIObject):
     icon = None
     title = None
 
-    def __init__(self, data, devicetree, payload, instclass):
+    def __init__(self, data, storage, payload, instclass):
         """Create a new Spoke instance.
 
            The arguments this base class accepts defines the API that spokes
@@ -66,9 +66,9 @@ class Spoke(UIObject):
            ksdata       -- An instance of a pykickstart Handler object.  The
                            Spoke uses this to populate its UI with defaults
                            and to pass results back after it has run.
-           devicetree   -- An instance of storage.devicetree.DeviceTree.  This
-                           is useful for determining what storage devices are
-                           present and how they are configured.
+           storage      -- An instance of storage.Storage.  This is useful for
+                           determining what storage devices are present and how
+                           they are configured.
            payload      -- An instance of a packaging.Payload subclass.  This
                            is useful for displaying and selecting packages to
                            install, and in carrying out the actual installation.
@@ -81,7 +81,7 @@ class Spoke(UIObject):
             raise TypeError("Spoke is an abstract class")
 
         UIObject.__init__(self, data)
-        self.devicetree = devicetree
+        self.storage = storage
         self.payload = payload
         self.instclass = instclass
 
@@ -136,7 +136,7 @@ class StandaloneSpoke(Spoke):
 
     priority = 100
 
-    def __init__(self, data, devicetree, payload, instclass):
+    def __init__(self, data, storage, payload, instclass):
         """Create a StandaloneSpoke instance."""
         if self.__class__ is StandaloneSpoke:
             raise TypeError("StandaloneSpoke is an abstract class")
@@ -144,7 +144,7 @@ class StandaloneSpoke(Spoke):
         if self.preForHub and self.postForHub:
             raise AttributeError("StandaloneSpoke instance %s may not have both preForHub and postForHub set" % self)
 
-        Spoke.__init__(self, data, devicetree, payload, instclass)
+        Spoke.__init__(self, data, storage, payload, instclass)
 
     def _on_continue_clicked(self, cb):
         self.apply()
@@ -166,12 +166,12 @@ class NormalSpoke(Spoke):
        provides some basic navigation information (where you are, what you're
        installing, how to get back to the Hub) at the top of the screen.
     """
-    def __init__(self, data, devicetree, payload, instclass):
+    def __init__(self, data, storage, payload, instclass):
         """Create a NormalSpoke instance."""
         if self.__class__ is NormalSpoke:
             raise TypeError("NormalSpoke is an abstract class")
 
-        Spoke.__init__(self, data, devicetree, payload, instclass)
+        Spoke.__init__(self, data, storage, payload, instclass)
         self.selector = None
 
     def check(self):
@@ -238,12 +238,12 @@ class PersonalizationSpoke(Spoke):
        progress being made.  The PersonalizationSpoke also provides the same
        basic navigation information at the top of the screen as a NormalSpoke.
     """
-    def __init__(self, data, devicetree, payload, instclass):
+    def __init__(self, data, storage, payload, instclass):
         """Create a PersonalizationSpoke instance."""
         if self.__class__ is PersonalizationSpoke:
             raise TypeError("PersonalizationSpoke is an abstract class")
 
-        Spoke.__init__(self, data, devicetree, payload, instclass)
+        Spoke.__init__(self, data, storage, payload, instclass)
 
 def collect_spokes(category):
     """Return a list of all spoke subclasses that should appear for a given

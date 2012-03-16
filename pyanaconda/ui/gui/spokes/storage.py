@@ -414,7 +414,7 @@ class StorageSpoke(NormalSpoke):
             storageThread.join()
 
         print self.data.ignoredisk.onlyuse
-        self.disks = getDisks(self.devicetree)
+        self.disks = getDisks(self.storage.devicetree)
 
         with gdk_threaded():
             # properties: kind, description, capacity, os, popup-info
@@ -525,7 +525,7 @@ class StorageSpoke(NormalSpoke):
     def on_continue_clicked(self, button):
         # show the installation options dialog
         disks = [d for d in self.disks if d.name in self.data.ignoredisk.onlyuse]
-        (disk_free, fs_free) = get_free_space_info(disks, self.devicetree)
+        (disk_free, fs_free) = get_free_space_info(disks, self.storage.devicetree)
         required_space = 12000      # TODO: find out where to get this
         if disk_free >= required_space:
             dialog = InstallOptions1Dialog(self.data)

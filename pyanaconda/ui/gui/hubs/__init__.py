@@ -48,7 +48,7 @@ class Hub(UIObject):
        additional standalone screens either before or after them.
     """
 
-    def __init__(self, data, devicetree, payload, instclass):
+    def __init__(self, data, storage, payload, instclass):
         """Create a new Hub instance.
 
            The arguments this base class accepts defines the API that Hubs
@@ -59,9 +59,9 @@ class Hub(UIObject):
            ksdata       -- An instance of a pykickstart Handler object.  The
                            Hub uses this to populate its UI with defaults
                            and to pass results back after it has run.
-           devicetree   -- An instance of storage.devicetree.DeviceTree.  This
-                           is useful for determining what storage devices are
-                           present and how they are configured.
+           storage      -- An instance of storage.Storage.  This is useful for
+                           determining what storage devices are present and how
+                           they are configured.
            payload      -- An instance of a packaging.Payload subclass.  This
                            is useful for displaying and selecting packages to
                            install, and in carrying out the actual installation.
@@ -75,7 +75,7 @@ class Hub(UIObject):
         self._incompleteSpokes = []
         self._spokes = {}
 
-        self.devicetree = devicetree
+        self.storage = storage
         self.payload = payload
         self.instclass = instclass
 
@@ -116,7 +116,7 @@ class Hub(UIObject):
             for spokeClass in sorted(collect_spokes(obj.__class__.__name__), key=lambda s: s.title):
                 # Create the new spoke and populate its UI with whatever data.
                 # From here on, this Spoke will always exist.
-                spoke = spokeClass(self.data, self.devicetree, self.payload, self.instclass)
+                spoke = spokeClass(self.data, self.storage, self.payload, self.instclass)
                 if not spoke.showable:
                     continue
 

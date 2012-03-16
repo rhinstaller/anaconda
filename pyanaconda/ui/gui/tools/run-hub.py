@@ -36,7 +36,6 @@ platform = getPlatform()
 ksdata = makeVersion()
 storage = Storage(data=ksdata, platform=platform)
 storage.reset()
-devicetree = storage.devicetree
 instclass = DefaultInstall()
 
 payload = YumPayload(ksdata)
@@ -47,7 +46,7 @@ if not hubClass:
     print "You forgot to set hubClass to something."
     sys.exit(1)
 
-hub = hubClass(ksdata, devicetree, payload, instclass)
+hub = hubClass(ksdata, storage, payload, instclass)
 hub.register_event_cb("continue", lambda: Gtk.main_quit())
 hub.register_event_cb("quit", lambda: Gtk.main_quit())
 hub.initialize()
