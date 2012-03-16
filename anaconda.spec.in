@@ -232,6 +232,11 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Wed Mar 14 2012 Martin Sivak <msivak@redhat.com> - 16.25.4-4
+- Disable eject to make Alpha1 install from DVD work
+  This is temporary and needs to be fixed properly for upcoming releases
+  Related: rhbz#801479
+
 * Mon Mar 12 2012 Martin Sivak <msivak@redhat.com> - 16.25.4-3
 - Transfer network state from dracut to anaconda to keep NFS working (wwoods)
   Resolves: rhbz#799989
