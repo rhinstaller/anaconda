@@ -104,29 +104,30 @@ parse_kickstart() {
 # Really what we want to do here is just start over from the "cmdline"
 # phase, but since we can't do that, we'll kind of fake it.
 run_kickstart() {
-    local triggers="" do_repo="" # TODO: do_dd, do_updates, any others?
+    local do_disk="" do_net=""
 
-    # figure out what to re-run
-    grep -q 'inst\.repo=' /etc/cmdline.d/80kickstart.conf && do_repo=1
+    # kickstart's done - time to find a real root device
+    [ "$root" = "anaconda-kickstart" ] && root=""
 
-    # parse cmdline
-    [ $do_repo ] && . $hookdir/cmdline/*parse-anaconda-repo.sh
-
-    # NOTE: this is deprecated and unnecessary in dracut 018
-    [ -f /tmp/root.info ] && echo "root='$root'" >> /tmp/root.info
+    # re-parse new cmdline stuff from the kickstart
+    . $hookdir/cmdline/*parse-anaconda-repo.sh
+    # TODO: parse for other stuff ks might set (updates, dd, etc.)
+    case "$repotype" in
+        http*|ftp|nfs*) do_net=1 ;;
+        cdrom|hd|bd)    do_disk=1 ;;
+    esac
+    [ "$root" = "anaconda-auto-cd" ] && do_disk=1
 
     # replay udev events to trigger actions
-    if [ $do_repo ]; then
-        case "$repotype" in
-            http*|ftp|nfs*)
-                udevadm trigger --action=online --subsystem-match=net
-            ;;
-            cdrom|hd|bd)
-                . $hookdir/pre-udev/*repo-genrules.sh
-                udevadm control --reload
-                udevadm trigger --action=change --subsystem-match=block
-            ;;
-        esac
+    # NOTE: this line is deprecated and unnecessary in dracut 018
+    [ -f /tmp/root.info ] && echo "root='$root'" >> /tmp/root.info
+    if [ "$do_disk" ]; then
+        . $hookdir/pre-udev/*repo-genrules.sh
+        udevadm control --reload
+        udevadm trigger --action=change --subsystem-match=block
+    fi
+    if [ "$do_net" ]; then
+        udevadm trigger --action=online --subsystem-match=net
     fi
 
     # and that's it - we're back to the mainloop.
