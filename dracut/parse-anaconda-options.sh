@@ -92,5 +92,12 @@ warn_renamed_arg "ksdevice" "inst.ks.device"
 warn_renamed_arg "kssendmac" "inst.ks.sendmac"
 warn_renamed_arg "kssendsn" "inst.ks.sendsn"
 
+# updates
+warn_renamed_arg "updates" "inst.updates"
+updates=$(getarg updates inst.updates)
+if [ -n "$updates" ]; then
+    echo "live.updates=$updates" >> /etc/cmdline.d/75anaconda-options.conf
+fi
+
 # re-read the commandline args
 unset CMDLINE
