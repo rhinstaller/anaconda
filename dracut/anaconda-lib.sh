@@ -39,7 +39,7 @@ find_runtime() {
     done
 }
 
-repodir="/run/install/repo"
+repodir="/run/install/source"
 isodir="/run/install/isodir"
 rulesfile="/etc/udev/rules.d/90-anaconda.rules"
 
