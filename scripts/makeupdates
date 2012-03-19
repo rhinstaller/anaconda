@@ -102,6 +102,12 @@ def copyUpdatedFiles(tag, updates, cwd):
 
     subdirs = []
 
+    # Updates get overlaid onto the runtime filesystem. Anaconda expects them
+    # to be in /tmp/updates, so put them in $updatedir/tmp/updates.
+    tmpupdates = updates.rstrip('/')
+    if not tmpupdates.endswith("/tmp/updates"):
+        tmpupdates = os.path.join(tmpupdates, "tmp/updates")
+
     lines = doGitDiff(tag)
     for line in lines:
         fields = line.split()
@@ -122,7 +128,7 @@ def copyUpdatedFiles(tag, updates, cwd):
 
         if file.startswith('pyanaconda/'):
             sys.stdout.write("Including %s\n" % (file,))
-            update_filename = os.path.realpath(os.path.join(updates, file))
+            update_filename = os.path.realpath(os.path.join(tmpupdates, file))
             update_dir = os.path.dirname(update_filename)
             if not os.path.isdir(update_dir):
                 os.makedirs(update_dir)
@@ -132,14 +138,21 @@ def copyUpdatedFiles(tag, updates, cwd):
             subdir = fields[0]
             if subdir in ['po', 'scripts','command-stubs', 'tests',
                           'bootdisk', 'docs', 'fonts', 'utils', 'gptsync',
-                          'liveinst']:
+                          'liveinst', 'dracut']:
                 continue
             else:
                 sys.stdout.write("Including %s\n" % (file,))
-                shutil.copy2(file, updates)
+                shutil.copy2(file, tmpupdates)
+        elif file == 'anaconda':
+            # anaconda itself we just overwrite
+            sys.stdout.write("Including anaconda\n")
+            sbindir = os.path.join(updates, "usr/sbin")
+            if not os.path.isdir(sbindir):
+                os.makedirs(sbindir)
+            shutil.copy2(file, sbindir)
         else:
             sys.stdout.write("Including %s\n" % (file,))
-            shutil.copy2(file, updates)
+            shutil.copy2(file, tmpupdates)
 
 def isysChanged(tag):
     lines = doGitDiff(tag, ['isys'])
