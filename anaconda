@@ -762,7 +762,7 @@ if __name__ == "__main__":
         elif anaconda.methodstr.startswith("http") or \
              anaconda.methodstr.startswith("ftp"):
             ksdata.method.method = "url"
-            ksdata.method.nosslverify = flags.nosslverify
+            ksdata.method.noverifyssl = flags.noverifyssl
             ksdata.method.proxy = anaconda.proxy    # FIXME: username/password
 
     # now start the interface
