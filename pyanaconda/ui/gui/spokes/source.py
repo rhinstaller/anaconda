@@ -237,7 +237,10 @@ class SourceSpoke(NormalSpoke):
         elif self.data.method.method == "harddrive":
             return os.path.basename(self._currentIsoFile)
         else:
-            return _("Nothing selected")
+            if self.payload.baseRepo:
+                return _("Closest mirror")
+            else:
+                return _("Nothing selected")
 
     def _grabObjects(self):
         self._autodetectButton = self.builder.get_object("autodetectRadioButton")
