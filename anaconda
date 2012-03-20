@@ -187,7 +187,7 @@ def getAnacondaVersion():
     from pyanaconda import _isys
     return _isys.getAnacondaVersion()
 
-def parseOptions(argv = None):
+def parseOptions(argv=None, cmdline=None):
     from pyanaconda.anaconda_optparse import AnacondaOptionParser
     op = AnacondaOptionParser(version="%prog " + getAnacondaVersion(),
                               bootarg_prefix="inst.", require_prefix=False)
@@ -264,7 +264,12 @@ def parseOptions(argv = None):
     op.add_option("--memcheck", action="store_true", default=True)
     op.add_option("--no-memcheck", action="store_false", dest="memcheck")
 
-    (opts, args) = op.parse_args(argv)
+    # some defaults change based on cmdline flags
+    if cmdline is not None:
+        if "console" in cmdline:
+            op.set_defaults(display_mode="t")
+
+    (opts, args) = op.parse_args(argv, cmdline=cmdline)
     return (opts, args, op.deprecated_bootargs)
 
 def setupPythonPath():
@@ -597,8 +602,8 @@ if __name__ == "__main__":
     setupPythonUpdates()
 
     # do this early so we can set flags before initializing logging
-    (opts, args, depr) = parseOptions()
     from pyanaconda.flags import flags
+    (opts, args, depr) = parseOptions(cmdline=flags.cmdline)
     if opts.images:
         flags.imageInstall = True
 
