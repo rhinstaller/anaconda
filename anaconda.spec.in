@@ -222,6 +222,10 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Tue Mar 20 2012 David Cantrell <dcantrell@redhat.com> - 13.21.162-1
+- Fix for checking the number of CPUs on s390x (jstodola)
+  Resolves: rhbz#736457
+
 * Mon Mar 12 2012 Martin Sivak <msivak@redhat.com> - 13.21.161-1
 - Use netdevices.items() to unpack values (mgracik)
   Resolves: rhbz#802222
