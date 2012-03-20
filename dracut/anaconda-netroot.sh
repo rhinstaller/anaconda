@@ -24,6 +24,7 @@ case $repo in
     nfs*)
         . /lib/nfs-lib.sh
         info "anaconda mounting NFS repo at $repo"
+        str_starts "$repo" "nfsiso:" && repo=nfs:${repo#nfsiso:}
         mount_nfs "$repo" "$repodir" "$netif" || warn "Couldn't mount $repo"
         anaconda_live_root_dir $repodir
     ;;
