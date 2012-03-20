@@ -645,6 +645,11 @@ if __name__ == "__main__":
     iutil.execWithRedirect("localedef",
                            ["-i", deflang, "-f", defcode, DEFAULT_LANG])
 
+    # to set UTF8 mode on the terminal, we need LANG to be set usefully
+    if os.environ.get("LANG", "C") == "C":
+        os.environ['LANG'] = DEFAULT_LANG
+    print "\033%G" # UTF8 power go!
+
     import gettext
     _ = lambda x: gettext.ldgettext("anaconda", x)
 
