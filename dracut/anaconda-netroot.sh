@@ -25,8 +25,15 @@ case $repo in
         . /lib/nfs-lib.sh
         info "anaconda mounting NFS repo at $repo"
         str_starts "$repo" "nfsiso:" && repo=nfs:${repo#nfsiso:}
-        mount_nfs "$repo" "$repodir" "$netif" || warn "Couldn't mount $repo"
-        anaconda_live_root_dir $repodir
+        if [ "${repo%.iso}" == "$repo" ]; then
+            mount_nfs "$repo" "$repodir" "$netif" || warn "Couldn't mount $repo"
+            anaconda_live_root_dir $repodir
+        else
+            iso="${repo##*/}"
+            mount_nfs "${repo%$iso}" "$repodir" "$netif" || \
+                warn "Couldn't mount $repo"
+            anaconda_live_root_dir $repodir $iso
+        fi
     ;;
     http*|ftp*)
         . /lib/url-lib.sh
