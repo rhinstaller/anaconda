@@ -266,6 +266,10 @@ reposdir=/etc/yum.repos.d,/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/t
                 # if a method/repo was given, disable all default repos
                 self.disableRepo(repo.id)
 
+        self._applyYumSelections()
+        self.release()
+
+    def gatherRepoMetadata(self):
         # now go through and get metadata for all enabled repos
         for repo_id in self.repos:
             repo = self._yum.repos.getRepo(repo_id)
@@ -277,7 +281,6 @@ reposdir=/etc/yum.repos.d,/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/t
                               % (repo_id, e))
                     self.disableRepo(repo_id)
 
-        self._applyYumSelections()
         self.release()
 
     def _configureBaseRepo(self, storage):
@@ -456,6 +459,8 @@ reposdir=/etc/yum.repos.d,/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/t
 
     def _addYumRepo(self, name, baseurl, mirrorlist=None, **kwargs):
         """ Add a yum repo to the YumBase instance. """
+        from yum.Errors import RepoError
+
         # First, delete any pre-existing repo with the same name.
         if name in self._yum.repos.repos:
             self._yum.repos.delete(name)
@@ -468,7 +473,12 @@ reposdir=/etc/yum.repos.d,/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/t
                                         mirrorlist=mirrorlist,
                                         **kwargs)
 
-        self._getRepoMetadata(obj)
+        # this will trigger retrieval of repomd.xml, which is small and yet
+        # gives us some assurance that the repo config is sane
+        try:
+            obj.repoXML
+        except RepoError as e:
+            raise MetadataError(e.value)
 
         # Adding a new repo means the cached packages and groups lists
         # are out of date.  Clear them out now so the next reference to

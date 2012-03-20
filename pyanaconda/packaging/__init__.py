@@ -197,6 +197,9 @@ class Payload(object):
         """ Set up an addon repo as defined in ksdata Repo repo. """
         pass
 
+    def gatherRepoMetadata(self):
+        pass
+
     def addRepo(self, newrepo):
         """Add the repo given by the pykickstart Repo object newrepo to the
            system.  The repo will be automatically enabled and its metadata
