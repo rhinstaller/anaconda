@@ -35,6 +35,7 @@ else
     strstr "$uuid" "." && arch=${uuid##*.}
 fi
 [ -z "$arch" ] && arch=$(uname -m)
+echo Loading $product $version $arch installer...
 
 # set HTTP headers so server(s) will recognize us
 set_http_header "X-Anaconda-Architecture" "$arch"
