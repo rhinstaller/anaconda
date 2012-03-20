@@ -531,6 +531,7 @@ reposdir=/etc/yum.repos.d,/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/t
     @property
     def groups(self):
         from yum.Errors import RepoError
+        from yum.Errors import GroupsError
 
         if not self._groups:
             if self.needsNetwork and not hasActiveNetDev():
@@ -538,7 +539,7 @@ reposdir=/etc/yum.repos.d,/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/t
 
             try:
                 self._groups = self._yum.comps
-            except RepoError as e:
+            except (RepoError, GroupsError) as e:
                 raise MetadataError(e.value)
 
         return [g.groupid for g in self._groups.get_groups()]
