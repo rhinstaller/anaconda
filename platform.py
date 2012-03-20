@@ -365,7 +365,7 @@ class PPC(Platform):
     def checkBootRequest(self, req):
         errors = Platform.checkBootRequest(self, req)
 
-        if req == self.bootDevice():
+        if req != self.bootDevice():
             # yaboot cannot find /boot on a logical partition
             if hasattr(req, "partedPartition") and req.isLogical:
                 errors.append(_("The boot partition must be a primary partition."))
