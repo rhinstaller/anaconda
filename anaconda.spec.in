@@ -225,6 +225,7 @@ update-desktop-database &> /dev/null || :
 %doc docs/install-methods.txt
 %doc docs/mediacheck.txt
 /lib/systemd/system/*
+/lib/systemd/system-generators/*
 /lib/udev/rules.d/70-anaconda.rules
 %{_bindir}/instperf
 %{_sbindir}/anaconda
