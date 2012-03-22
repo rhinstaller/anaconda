@@ -100,6 +100,13 @@ def copyUpdatedFiles(tag, updates, cwd):
 
         return lst
 
+    def install_to_dir(fname, relpath):
+        sys.stdout.write("Including %s\n" % fname)
+        outdir = os.path.join(updates, relpath)
+        if not os.path.isdir(outdir):
+            os.makedirs(outdir)
+        shutil.copy2(file, outdir)
+
     subdirs = []
 
     # Updates get overlaid onto the runtime filesystem. Anaconda expects them
@@ -127,12 +134,18 @@ def copyUpdatedFiles(tag, updates, cwd):
             continue
 
         if file.startswith('pyanaconda/'):
-            sys.stdout.write("Including %s\n" % (file,))
-            update_filename = os.path.realpath(os.path.join(tmpupdates, file))
-            update_dir = os.path.dirname(update_filename)
-            if not os.path.isdir(update_dir):
-                os.makedirs(update_dir)
-            shutil.copy2(file, update_dir)
+            # pyanaconda stuff goes into /tmp/updates/[path]
+            dirname = os.path.join(tmpupdates, os.path.dirname(file))
+            install_to_dir(file, dirname)
+        elif file == 'anaconda':
+            # anaconda itself we just overwrite
+            install_to_dir(file, "usr/sbin")
+        elif file.endswith('.service') or file.endswith(".target"):
+            # same for systemd services
+            install_to_dir(file, "lib/systemd/system")
+        elif file.endswith('/anaconda-generator')
+            # yeah, this should probably be more clever..
+            install_to_dir(file, "lib/systemd/system-generators")
         elif file.find('/') != -1:
             fields = file.split('/')
             subdir = fields[0]
@@ -143,13 +156,6 @@ def copyUpdatedFiles(tag, updates, cwd):
             else:
                 sys.stdout.write("Including %s\n" % (file,))
                 shutil.copy2(file, tmpupdates)
-        elif file == 'anaconda':
-            # anaconda itself we just overwrite
-            sys.stdout.write("Including anaconda\n")
-            sbindir = os.path.join(updates, "usr/sbin")
-            if not os.path.isdir(sbindir):
-                os.makedirs(sbindir)
-            shutil.copy2(file, sbindir)
         else:
             sys.stdout.write("Including %s\n" % (file,))
             shutil.copy2(file, tmpupdates)
