@@ -22,36 +22,39 @@
 import threading
 
 class ThreadManager(object):
-    """A singleton class for managing threads.
+    """A singleton class for managing threads and processes.
 
-        Note:  This manager makes one assumption that contradicts python's
-        threading module documentation.  In this class, we assume that thread
-        names are unique and meaningful.  This is an okay assumption for us
-        to make given that anaconda is only ever going to have a handful of
-        special purpose threads.
+       Note:  This manager makes one assumption that contradicts python's
+       threading module documentation.  In this class, we assume that thread
+       names are unique and meaningful.  This is an okay assumption for us
+       to make given that anaconda is only ever going to have a handful of
+       special purpose threads.
     """
+    def __init__(self):
+        self._objs = {}
+
     def __call__(self):
         return self
 
-    def add(self, thr):
-        """Given a Thread object, add it to the list of known threads and
-           start it.  It is assumed that thr.name is unique and descriptive.
+    def add(self, obj):
+        """Given a Thread or Process object, add it to the list of known objects
+           and start it.  It is assumed that obj.name is unique and descriptive.
         """
-        thr.start()
+        if obj.name in self._objs:
+            return KeyError
+
+        self._objs[obj.name] = obj
+        obj.start()
 
     def exists(self, name):
-        """Determine if a thread exists with the given name."""
-        return self.get(name) is not None
+        """Determine if a thread or process exists with the given name."""
+        return name in self._objs
 
     def get(self, name):
-        """Given a thread name, see if it exists and return the thread object.
-           If no thread by that name exists, return None.
+        """Given an object name, see if it exists and return the object.
+           Return None if no such object exists.
         """
-        for thr in threading.enumerate():
-            if thr.name == name:
-                return thr
-
-        return None
+        return self._objs.get(name)
 
 def initThreading():
     from gi.repository import GObject
