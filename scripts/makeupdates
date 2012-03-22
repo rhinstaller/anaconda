@@ -143,7 +143,7 @@ def copyUpdatedFiles(tag, updates, cwd):
         elif file.endswith('.service') or file.endswith(".target"):
             # same for systemd services
             install_to_dir(file, "lib/systemd/system")
-        elif file.endswith('/anaconda-generator')
+        elif file.endswith('/anaconda-generator'):
             # yeah, this should probably be more clever..
             install_to_dir(file, "lib/systemd/system-generators")
         elif file.find('/') != -1:
