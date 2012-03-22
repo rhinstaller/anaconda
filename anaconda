@@ -30,13 +30,16 @@
 
 # This toplevel file is a little messy at the moment...
 
-import sys, os, re, time, subprocess
+import sys, os, re, time, subprocess, atexit
 from optparse import OptionParser
 from tempfile import mkstemp
 
 # keep up with process ID of the window manager if we start it
 wm_pid = None
 xserver_pid = None
+
+def return_tty(fd, pgrp_id):
+    os.tcsetpgrp(fd, pgrp_id)
 
 # Make sure messages sent through python's warnings module get logged.
 def AnacondaShowWarning(message, category, filename, lineno, file=sys.stderr, line=None):
@@ -605,6 +608,10 @@ class Anaconda(object):
             return []
 
 if __name__ == "__main__":
+    # Register atexit function before anything bad can happen
+    # We have to return tty control back to init's process group
+    atexit.register(return_tty, sys.stdin.fileno(), os.getpgid(os.getppid()))
+
     anaconda = Anaconda()
 
     setupPythonPath()
