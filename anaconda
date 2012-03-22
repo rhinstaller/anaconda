@@ -616,9 +616,11 @@ if __name__ == "__main__":
 
     log.info("%s %s" % (sys.argv[0], getAnacondaVersion()))
 
-    for arg in depr:
-        stdoutLog.warn("Boot argument '%s' is deprecated. "
-                       "In the future, use 'inst.%s'.", arg, arg)
+    # TODO: uncomment this when we're sure that we're doing the right thing
+    # with flags.cmdline *everywhere* it appears...
+    #for arg in depr:
+    #    stdoutLog.warn("Boot argument '%s' is deprecated. "
+    #                   "In the future, use 'inst.%s'.", arg, arg)
 
     # pull this in to get product name and versioning
     from pyanaconda import product

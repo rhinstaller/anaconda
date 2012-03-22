@@ -46,6 +46,8 @@ warn_renamed_arg() {
     arg="$(getarg $1)" && warn "'$1=$arg'" && warn "$1 has been renamed to $2"
 }
 
+warn_renamed_arg() { :; } # XXX REMOVE WHEN WE'RE READY FOR THE NEW NAMES.
+
 # check for deprecated arg, warn user, and write new arg to /etc/cmdline
 check_depr_arg() {
     local arg="" quiet="" newval=""
@@ -79,11 +81,11 @@ getarg asknetwork && warn "'asknetwork' is deprecated and has been removed." &&\
                      warn "Use an appropriate 'ip=' argument instead."
 
 # lang & keymap
-check_depr_arg "lang=" "locale.LANG=%s"
-check_depr_arg "keymap=" "vconsole.keymap=%s"
+warn_renamed_arg "lang" "inst.lang"
+warn_renamed_arg "keymap" "inst.keymap"
 
 # repo
-check_depr_arg "method=" "inst.repo=%s"
+check_depr_arg "method=" "repo=%s"
 warn_renamed_arg "repo" "inst.repo"
 
 # kickstart
