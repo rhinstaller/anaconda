@@ -728,7 +728,7 @@ int main(int argc, char **argv) {
         tcgetattr(0, &ts);
         ts.c_iflag &= ~BRKINT;
         ts.c_iflag |= IGNBRK;
-        ts.c_iflag &= ~ISIG;
+        ts.c_lflag &= ~ISIG;
         tcsetattr(0, TCSANOW, &ts);
     }
 
