@@ -44,6 +44,3 @@ case $repo in
         return 1
     ;;
 esac
-
-# save the ifcfg file / dhcp lease for NetworkManager
-save_netinfo $netif

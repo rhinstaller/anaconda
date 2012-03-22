@@ -99,5 +99,8 @@ if [ -n "$updates" ]; then
     echo "live.updates=$updates" >> /etc/cmdline.d/75anaconda-options.conf
 fi
 
+# make sure we get ifcfg for every interface that comes up
+echo "save_netinfo $netif" > $hookdir/initqueue/online/anaconda-ifcfg.sh
+
 # re-read the commandline args
 unset CMDLINE

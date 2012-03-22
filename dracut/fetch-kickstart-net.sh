@@ -47,6 +47,3 @@ if fetch_url "$kickstart" /tmp/ks.cfg; then
 else
     warn "failed to fetch kickstart from $kickstart"
 fi
-
-# save the ifcfg file / dhcp lease for NetworkManager
-save_netinfo $netif
