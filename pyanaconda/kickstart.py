@@ -524,7 +524,7 @@ class Lang(commands.lang.FC3_Lang):
         self.anaconda.instLanguage.buildLocale()
         self.anaconda.dispatch.skip_steps("language")
 
-class LogVolData(commands.logvol.F15_LogVolData):
+class LogVolData(commands.logvol.F17_LogVolData):
     def execute(self):
         storage = self.anaconda.storage
         devicetree = storage.devicetree
@@ -562,6 +562,23 @@ class LogVolData(commands.logvol.F15_LogVolData):
             if not dev:
                 raise KickstartValueError, formatErrorMsg(self.lineno, msg="No preexisting logical volume with the name \"%s\" was found." % self.name)
 
+            if self.resize:
+                if self.size < dev.currentSize:
+                    # shrink
+                    try:
+                        devicetree.registerAction(ActionResizeFormat(dev, self.size))
+                        devicetree.registerAction(ActionResizeDevice(dev, self.size))
+                    except ValueError:
+                        raise KickstartValueError(formatErrorMsg(self.lineno,
+                                msg="Invalid target size (%d) for device %s" % (self.size, dev.name)))
+                else:
+                    # grow
+                    try:
+                        devicetree.registerAction(ActionResizeDevice(dev, self.size))
+                        devicetree.registerAction(ActionResizeFormat(dev, self.size))
+                    except ValueError:
+                        raise KickstartValueError(formatErrorMsg(self.lineno,
+                                msg="Invalid target size (%d) for device %s" % (self.size, dev.name)))
             dev.format.mountpoint = self.mountpoint
             dev.format.mountopts = self.fsopts
             self.anaconda.dispatch.skip_steps("partition", "parttype")
@@ -601,6 +618,14 @@ class LogVolData(commands.logvol.F15_LogVolData):
                 raise KickstartValueError, formatErrorMsg(self.lineno, msg="Specified nonexistent LV %s in logvol command" % self.name)
 
             removeExistingFormat(device, storage)
+
+            if self.resize:
+                try:
+                    devicetree.registerAction(ActionResizeDevice(device, self.size))
+                except ValueError:
+                    raise KickstartValueError(formatErrorMsg(self.lineno,
+                            msg="Invalid target size (%d) for device %s" % (self.size, device.name)))
+
             devicetree.registerAction(ActionCreateFormat(device, format))
         else:
             # If a previous device has claimed this mount point, delete the
@@ -795,7 +820,7 @@ class DmRaid(commands.dmraid.FC6_DmRaid):
     def parse(self, args):
         raise NotImplementedError("The dmraid kickstart command is not currently supported")
 
-class PartitionData(commands.partition.F12_PartData):
+class PartitionData(commands.partition.F17_PartData):
     def execute(self):
         storage = self.anaconda.storage
         devicetree = storage.devicetree
@@ -892,6 +917,23 @@ class PartitionData(commands.partition.F12_PartData):
             if not dev:
                 raise KickstartValueError, formatErrorMsg(self.lineno, msg="No preexisting partition with the name \"%s\" was found." % self.onPart)
 
+            if self.resize:
+                if self.size < dev.currentSize:
+                    # shrink
+                    try:
+                        devicetree.registerAction(ActionResizeFormat(dev, self.size))
+                        devicetree.registerAction(ActionResizeDevice(dev, self.size))
+                    except ValueError:
+                        raise KickstartValueError(formatErrorMsg(self.lineno,
+                                msg="Invalid target size (%d) for device %s" % (self.size, dev.name)))
+                else:
+                    # grow
+                    try:
+                        devicetree.registerAction(ActionResizeDevice(dev, self.size))
+                        devicetree.registerAction(ActionResizeFormat(dev, self.size))
+                    except ValueError:
+                        raise KickstartValueError(formatErrorMsg(self.lineno,
+                                msg="Invalid target size (%d) for device %s" % (self.size, dev.name)))
             dev.format.mountpoint = self.mountpoint
             dev.format.mountopts = self.fsopts
             self.anaconda.dispatch.skip_steps("partition", "parttype")
@@ -952,6 +994,13 @@ class PartitionData(commands.partition.F12_PartData):
                 raise KickstartValueError, formatErrorMsg(self.lineno, msg="Specified nonexistent partition %s in partition command" % self.onPart)
 
             removeExistingFormat(device, storage)
+            if self.resize:
+                try:
+                    devicetree.registerAction(ActionResizeDevice(device, self.size))
+                except ValueError:
+                    raise KickstartValueError(formatErrorMsg(self.lineno,
+                            msg="Invalid target size (%d) for device %s" % (self.size, device.name)))
+
             devicetree.registerAction(ActionCreateFormat(device, kwargs["format"]))
         else:
             # If a previous device has claimed this mount point, delete the
