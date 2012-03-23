@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 17.12\n"
+"Project-Id-Version: anaconda 17.13\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2012-03-16 15:49-0700\n"
+"POT-Creation-Date: 2012-03-22 21:57-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,28 +18,28 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: anaconda:341
+#: anaconda:345
 msgid "Press <enter> for a shell"
 msgstr ""
 
-#: anaconda:355
+#: anaconda:359
 #, c-format
 msgid ""
 "%s requires %s MB of memory to install, but you only have %s MB on this "
 "machine.\n"
 msgstr ""
 
-#: anaconda:357
+#: anaconda:361
 #, c-format
 msgid ""
 "The %s graphical installer requires %s MB of memory, but you only have %s MB."
 msgstr ""
 
-#: anaconda:362
+#: anaconda:366
 msgid "Not enough RAM"
 msgstr ""
 
-#: anaconda:363
+#: anaconda:367
 msgid ""
 " Try the text mode installer by running:\n"
 "\n"
@@ -48,33 +48,33 @@ msgid ""
 " from a root terminal."
 msgstr ""
 
-#: anaconda:366
+#: anaconda:370
 msgid " Starting text mode."
 msgstr ""
 
-#: anaconda:393 pyanaconda/rescue.py:347 pyanaconda/rescue.py:379
+#: anaconda:397 pyanaconda/rescue.py:347 pyanaconda/rescue.py:379
 #: pyanaconda/rescue.py:392 pyanaconda/rescue.py:460 pyanaconda/rescue.py:477
 #: pyanaconda/rescue.py:488 pyanaconda/text.py:546
 #: pyanaconda/textw/constants_text.py:44
 msgid "OK"
 msgstr ""
 
-#: anaconda:486
+#: anaconda:490
 msgid "Would you like to use VNC?"
 msgstr ""
 
-#: anaconda:487
+#: anaconda:491
 msgid ""
 "Text mode provides a limited set of installation options. It does not allow "
 "you to specify your own partitioning layout or package selections. Would you "
 "like to use VNC mode instead?"
 msgstr ""
 
-#: anaconda:509
+#: anaconda:513
 msgid "Graphical installation is not available. Starting text mode."
 msgstr ""
 
-#: anaconda:517
+#: anaconda:521
 msgid "DISPLAY variable not set. Starting text mode."
 msgstr ""
 
@@ -163,15 +163,15 @@ msgid ""
 "partition."
 msgstr ""
 
-#: pyanaconda/bootloader.py:2206
+#: pyanaconda/bootloader.py:2273
 msgid "Bootloader"
 msgstr ""
 
-#: pyanaconda/bootloader.py:2207
+#: pyanaconda/bootloader.py:2274
 msgid "Installing bootloader."
 msgstr ""
 
-#: pyanaconda/bootloader.py:2214 pyanaconda/bootloader.py:2273
+#: pyanaconda/bootloader.py:2281 pyanaconda/bootloader.py:2340
 #: pyanaconda/gui.py:1093 pyanaconda/image.py:87
 #: pyanaconda/installinterfacebase.py:74
 #: pyanaconda/installinterfacebase.py:151 pyanaconda/packages.py:90
@@ -180,13 +180,13 @@ msgstr ""
 msgid "Warning"
 msgstr ""
 
-#: pyanaconda/bootloader.py:2215
+#: pyanaconda/bootloader.py:2282
 msgid ""
 "No kernel packages were installed on the system. Bootloader configuration "
 "will not be changed."
 msgstr ""
 
-#: pyanaconda/bootloader.py:2274
+#: pyanaconda/bootloader.py:2341
 msgid ""
 "There was an error installing the bootloader.  The system may not be "
 "bootable."
