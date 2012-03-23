@@ -168,6 +168,7 @@ class DeviceTree(object):
         self.exclusiveDisks = getattr(conf, "exclusiveDisks", [])
         self.clearPartType = getattr(conf, "clearPartType", CLEARPART_TYPE_NONE)
         self.clearPartDisks = getattr(conf, "clearPartDisks", [])
+        self.clearPartDevices = getattr(conf, "clearPartDevices", [])
         self.zeroMbr = getattr(conf, "zeroMbr", False)
         self.reinitializeDisks = getattr(conf, "reinitializeDisks", False)
         self.iscsi = iscsi
@@ -1698,7 +1699,8 @@ class DeviceTree(object):
             return
 
         if shouldClear(device, self.clearPartType,
-                       clearPartDisks=self.clearPartDisks):
+                       clearPartDisks=self.clearPartDisks,
+                       clearPartDevices=self.clearPartDevices):
             # if this is a device that will be cleared by clearpart,
             # don't bother with format-specific processing
             return

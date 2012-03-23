@@ -380,9 +380,9 @@ class BTRFSData(commands.btrfs.F17_BTRFSData):
 
         self.anaconda.dispatch.skip_steps("partition", "parttype")
 
-class ClearPart(commands.clearpart.FC3_ClearPart):
+class ClearPart(commands.clearpart.F17_ClearPart):
     def parse(self, args):
-        retval = commands.clearpart.FC3_ClearPart.parse(self, args)
+        retval = commands.clearpart.F17_ClearPart.parse(self, args)
 
         if self.type is None:
             self.type = CLEARPART_TYPE_NONE
@@ -399,11 +399,24 @@ class ClearPart(commands.clearpart.FC3_ClearPart):
 
         self.drives = drives
 
+        # Do any glob expansion now, since we need to have the real list of
+        # devices available before the execute methods run.
+        devices = []
+        for spec in self.devices:
+            matched = deviceMatches(spec)
+            if matched:
+                devices.extend(matched)
+            else:
+                raise KickstartValueError, formatErrorMsg(self.lineno, msg="Specified nonexistent device %s in clearpart device list" % spec)
+
+        self.devices = devices
+
         return retval
 
     def execute(self):
         self.anaconda.storage.config.clearPartType = self.type
         self.anaconda.storage.config.clearPartDisks = self.drives
+        self.anaconda.storage.config.clearPartDevices = self.devices
         if self.initAll:
             self.anaconda.storage.config.reinitializeDisks = self.initAll
 
@@ -913,7 +926,8 @@ class PartitionData(commands.partition.F12_PartData):
 
                 should_clear = shouldClear(disk,
                                            storage.config.clearPartType,
-                                           storage.config.clearPartDisks)
+                                           storage.config.clearPartDisks,
+                                           storage.config.clearPartDevices)
                 if disk and (disk.partitioned or should_clear):
                     kwargs["disks"] = [disk]
                     break

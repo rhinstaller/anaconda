@@ -387,8 +387,8 @@ def doAutoPartition(anaconda):
         anaconda.storage.reset()
         return DISPATCH_BACK
 
-def shouldClear(device, clearPartType, clearPartDisks=None):
-    if clearPartType not in [CLEARPART_TYPE_LINUX, CLEARPART_TYPE_ALL]:
+def shouldClear(device, clearPartType, clearPartDisks=None, clearPartDevices=None):
+    if clearPartType in [CLEARPART_TYPE_NONE, None]:
         return False
 
     if isinstance(device, PartitionDevice):
@@ -434,7 +434,30 @@ def shouldClear(device, clearPartType, clearPartDisks=None):
     if device.protected:
         return False
 
+    if clearPartType == CLEARPART_TYPE_LIST and \
+       not clearPartDevices or device.name not in clearPartDevices:
+        return False
+
     return True
+
+def recursiveRemove(storage, device):
+    log.debug("clearing %s" % device.name)
+
+    # XXX is there any argument for not removing incomplete devices?
+    #       -- maybe some RAID devices
+    devices = storage.deviceDeps(device)
+    while devices:
+        log.debug("devices to remove: %s" % ([d.name for d in devices],))
+        leaves = [d for d in devices if d.isleaf]
+        log.debug("leaves to remove: %s" % ([d.name for d in leaves],))
+        for leaf in leaves:
+            storage.destroyDevice(leaf)
+            devices.remove(leaf)
+
+    if device.isDisk:
+        storage.destroyFormat(device)
+    else:
+        storage.destroyDevice(device)
 
 def clearPartitions(storage, bootloader=None):
     """ Clear partitions and dependent devices from disks.
@@ -468,45 +491,33 @@ def clearPartitions(storage, bootloader=None):
     partitions.sort(key=lambda p: p.partedPartition.number, reverse=True)
     for part in partitions:
         log.debug("clearpart: looking at %s" % part.name)
-        if not shouldClear(part, storage.config.clearPartType, storage.config.clearPartDisks):
+        if not shouldClear(part, storage.config.clearPartType, storage.config.clearPartDisks, storage.config.clearPartDevices):
             continue
 
-        log.debug("clearing %s" % part.name)
-
-        # XXX is there any argument for not removing incomplete devices?
-        #       -- maybe some RAID devices
-        devices = storage.deviceDeps(part)
-        while devices:
-            log.debug("devices to remove: %s" % ([d.name for d in devices],))
-            leaves = [d for d in devices if d.isleaf]
-            log.debug("leaves to remove: %s" % ([d.name for d in leaves],))
-            for leaf in leaves:
-                storage.destroyDevice(leaf)
-                devices.remove(leaf)
-
+        recursiveRemove(storage, part)
         log.debug("partitions: %s" % [p.getDeviceNodeName() for p in part.partedPartition.disk.partitions])
-        storage.destroyDevice(part)
 
-    for disk in [d for d in storage.disks if d not in storage.partitioned]:
-        # clear any whole-disk formats that need clearing
-        if shouldClear(disk, storage.config.clearPartType, storage.config.clearPartDisks):
-            log.debug("clearing %s" % disk.name)
-            devices = storage.deviceDeps(disk)
-            while devices:
-                log.debug("devices to remove: %s" % ([d.name for d in devices],))
-                leaves = [d for d in devices if d.isleaf]
-                log.debug("leaves to remove: %s" % ([d.name for d in leaves],))
-                for leaf in leaves:
-                    storage.destroyDevice(leaf)
-                    devices.remove(leaf)
+    # now clear devices that are not partitions and were not implicitly cleared
+    # when clearing partitions
+    not_visited = [d for d in storage.devices if not d.partitioned]
+    while not_visited:
+        for device in [d for d in not_visited if d.isleaf]:
+            not_visited.remove(device)
 
-            destroy_action = ActionDestroyFormat(disk)
-            labelType = storage.platform.bestDiskLabelType(disk)
-            newLabel = getFormat("disklabel", device=disk.path,
-                                 labelType=labelType)
-            create_action = ActionCreateFormat(disk, format=newLabel)
-            storage.devicetree.registerAction(destroy_action)
-            storage.devicetree.registerAction(create_action)
+            if not shouldClear(device, storage.config.clearPartType, storage.config.clearPartDisks, storage.config.clearPartDevices):
+                continue
+
+            recursiveRemove(storage, device)
+
+            # put disklabels on unpartitioned disks
+            if device.isDisk and not d.partitioned:
+                labelType = storage.platform.bestDiskLabelType(disk)
+                newLabel = getFormat("disklabel", device=disk.path,
+                                     labelType=labelType)
+                create_action = ActionCreateFormat(disk, format=newLabel)
+                storage.devicetree.registerAction(create_action)
+
+        not_visited = [d for d in storage.devices if d in not_visited]
 
     # now remove any empty extended partitions
     removeEmptyExtendedPartitions(storage)

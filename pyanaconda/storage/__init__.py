@@ -282,6 +282,7 @@ class StorageDiscoveryConfig(object):
         self.exclusiveDisks = []
         self.clearPartType = None
         self.clearPartDisks = []
+        self.clearPartDevices = []
         self.reinitializeDisks = False
         self.zeroMbr = None
         self.protectedDevSpecs = []
