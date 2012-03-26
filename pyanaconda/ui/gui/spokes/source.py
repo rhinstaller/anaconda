@@ -37,6 +37,88 @@ __all__ = ["SourceSpoke"]
 
 MOUNTPOINT = "/mnt/install/isodir"
 
+class ProxyDialog(UIObject):
+    builderObjects = ["proxyDialog"]
+    mainWidgetName = "proxyDialog"
+    uiFile = "spokes/source.ui"
+
+    def on_proxy_cancel_clicked(self, *args):
+        self.window.destroy()
+
+    def on_proxy_add_clicked(self, *args):
+        # If the user unchecked the proxy entirely, that means they want it
+        # disabled.
+        if not self._proxyCheck.get_active():
+            self.data.method.proxy = ""
+            self.window.destroy()
+            return
+
+        proxy = self._proxyURLEntry.get_text()
+
+        if self._authCheck.get_active() and self._proxyUsernameEntry.get_text():
+            if self._proxyPasswordEntry.get_text():
+                proxy = self._proxyUsernameEntry.get_text() + ":" + self._proxyPasswordEntry.get_text() + "@" + proxy
+            else:
+                proxy = self._proxyUsernameEntry.get_text() + "@" + proxy
+
+        self.data.method.proxy = proxy
+        self.window.destroy()
+
+    def on_proxy_enable_toggled(self, button, *args):
+        self._proxyInfoBox.set_sensitive(button.get_active())
+
+    def on_proxy_auth_toggled(self, button, *args):
+        self._proxyAuthBox.set_sensitive(button.get_active())
+
+    def refresh(self):
+        import re
+
+        UIObject.refresh(self)
+
+        self._proxyCheck = self.builder.get_object("enableProxyCheck")
+        self._proxyInfoBox = self.builder.get_object("proxyInfoBox")
+        self._authCheck = self.builder.get_object("enableAuthCheck")
+        self._proxyAuthBox = self.builder.get_object("proxyAuthBox")
+
+        self._proxyURLEntry = self.builder.get_object("proxyURLEntry")
+        self._proxyUsernameEntry = self.builder.get_object("proxyUsernameEntry")
+        self._proxyPasswordEntry = self.builder.get_object("proxyPasswordEntry")
+
+        if not self.data.method.proxy:
+            self._proxyCheck.set_active(False)
+            self.on_proxy_enable_toggled(self._proxyCheck)
+            self._authCheck.set_active(False)
+            self.on_proxy_auth_toggled(self._authCheck)
+            return
+
+        # proxy=[protocol://][username[:password]@]host[:port][path]
+        pattern = re.compile("([A-Za-z]+://)?(([A-Za-z0-9]+)(:[^:@]+)?@)?([^:/]+)(:[0-9]+)?(/.*)?")
+        m = pattern.match(self.data.method.proxy)
+
+        if m and m.group(3):
+            self._proxyUsernameEntry.set_text(m.group(3))
+        if m and m.group(4):
+            # Skip the leading colon.
+            self._proxyPasswordEntry.set_text(m.group(4)[1:])
+        if m and m.group(5):
+            # If both a host and port was found, just paste them
+            # together using the colon at the beginning of the port
+            # match as a separator.  Otherwise, just use the host.
+            if m.group(6):
+                proxy = m.group(5) + m.group(6)
+            else:
+                proxy = m.group(5)
+
+            self._proxyURLEntry.set_text(proxy)
+
+        self._proxyCheck.set_active(self.data.method.proxy != "")
+        self._authCheck.set_active("@" in self.data.method.proxy)
+        self.on_proxy_enable_toggled(self._proxyCheck)
+        self.on_proxy_auth_toggled(self._authCheck)
+
+    def run(self):
+        self.window.run()
+
 class MediaCheckDialog(UIObject):
     builderObjects = ["mediaCheckDialog"]
     mainWidgetName = "mediaCheckDialog"
@@ -449,8 +531,10 @@ class SourceSpoke(NormalSpoke):
                 self._verifyIsoButton.set_sensitive(True)
 
     def on_proxy_clicked(self, button):
-        # FIXME:  this doesn't do anything
-        pass
+        dialog = ProxyDialog(self.data)
+        with enlightbox(self.window, dialog.window):
+            dialog.refresh()
+            dialog.run()
 
     def on_verify_iso_clicked(self, button):
         p = self._get_selected_partition()
