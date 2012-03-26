@@ -120,7 +120,8 @@ def _schedulePartitions(storage, disks):
 
         if request.fstype is None:
             request.fstype = storage.defaultFSType
-        elif request.fstype == "prepboot" and storage.bootLoaderDevice:
+        elif request.fstype == "prepboot" and storage.bootLoaderDevice and \
+             storage.bootLoaderDevice != storage.bootDevice:
             # there should never be a need for more than one of these
             # partitions, so skip them.
             log.info("skipping unneeded stage1 prepboot request")

@@ -23,6 +23,9 @@
 from ..errors import *
 from . import DeviceFormat, register_device_format
 from parted import PARTITION_PREP
+import os
+import logging
+log = logging.getLogger("storage")
 
 class PPCPRePBoot(DeviceFormat):
     """ Generic device format. """
@@ -45,6 +48,31 @@ class PPCPRePBoot(DeviceFormat):
 
         """
         DeviceFormat.__init__(self, *args, **kwargs)
+
+    def create(self, *args, **kwargs):
+        if self.exists:
+            raise FSError("PReP Boot format already exists")
+
+        DeviceFormat.create(self, *args, **kwargs)
+
+        try:
+            fd = os.open(self.device, os.O_RDWR)
+            length = os.lseek(fd, 0, os.SEEK_END)
+            os.lseek(fd, 0, os.SEEK_SET)
+            buf = '\0' * 1024 * 1024
+            while length > 0:
+                if length >= len(buf):
+                     os.write(fd, buf)
+                     length -= len(buf)
+                else:
+                     buf = '0' * length
+                     os.write(fd, buf)
+                     length = 0
+            os.close(fd)
+        except OSError as e:
+            log.error("error zeroing out %s: %s" % (self.device, e))
+            if fd:
+                os.close(fd)
 
     @property
     def status(self):
