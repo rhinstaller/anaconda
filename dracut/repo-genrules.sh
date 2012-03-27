@@ -5,7 +5,7 @@
 case "$root" in
   anaconda-disk:*)
     # anaconda-disk:<device>[:<path>]
-    strsep ":" "$root" f diskdev diskpath
+    splitsep ":" "$root" f diskdev diskpath
     diskdev=$(disk_to_dev_path $diskdev)
     when_diskdev_appears "$diskdev" \
         "/sbin/anaconda-diskroot $diskdev $diskpath"
