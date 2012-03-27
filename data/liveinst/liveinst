@@ -119,14 +119,17 @@ if [ ! -z "$UPDATES" ]; then
     fi
 
     curl -o /tmp/updates.img $UPDATES
-    mkdir /tmp/updates
 
     # We officially support two updates.img formats:  a filesystem image, and
     # a compressed cpio blob.
     if [ ! -z "$(file /tmp/updates.img | grep 'gzip compressed data')" ]; then
-        ( cd /tmp/updates ; gzip -dc /tmp/updates.img | cpio -id )
+        ( cd / ; gzip -dc /tmp/updates.img | cpio -id )
     else
-        mount -t auto /tmp/updates.img /tmp/updates
+        mkdir /tmp/updates.disk
+        mount -t auto /tmp/updates.img /tmp/updates.disk
+        cp -Rt / /tmp/updates.disk/*
+        umount /tmp/updates.disk
+        rmdir /tmp/updates.disk
     fi
 
     export PYTHONPATH=/tmp/updates:$PYTHONPATH
