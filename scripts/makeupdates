@@ -146,6 +146,8 @@ def copyUpdatedFiles(tag, updates, cwd):
         elif file.endswith('/anaconda-generator'):
             # yeah, this should probably be more clever..
             install_to_dir(file, "lib/systemd/system-generators")
+        elif file == "data/liveinst/liveinst":
+            install_to_dir(file, "usr/sbin")
         elif file.find('/') != -1:
             fields = file.split('/')
             subdir = fields[0]
