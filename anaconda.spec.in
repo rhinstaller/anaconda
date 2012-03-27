@@ -255,6 +255,15 @@ update-desktop-database &> /dev/null || :
 /usr/lib/dracut/modules.d/80%{name}/*
 
 %changelog
+* Tue Mar 27 2012 Brian C. Lane <bcl@redhat.com> - 17.15-1
+- make ks=file:... parse kickstart earlier (#806931) (wwoods)
+- Let "root=..." override "repo=..." (wwoods)
+- dracut cleanup: use consistent filenames for cmdline.d files (wwoods)
+- fix "strsep: command not found" error with repo:hd:.. (#806966) (wwoods)
+- load modules needed by Anaconda (#804522) (bcl)
+- Fix nfs/nfsiso (NM handover problems / empty net.ifaces) (wwoods)
+- Format PReP partition (hamzy)
+
 * Thu Mar 22 2012 Brian C. Lane <bcl@redhat.com> - 17.14-1
 - Revert "dracut: use /run/install/source for repodir" (bcl)
 - Disable creation of btrfs filesystems aside from kickstart. (#787341)
