@@ -90,7 +90,7 @@ when_diskdev_appears() {
 
 set_neednet() {
     if ! getargbool 0 rd.neednet; then
-        echo "rd.neednet=1" >> /etc/cmdline.d/anaconda-neednet.conf
+        echo "rd.neednet=1" > /etc/cmdline.d/80-anaconda-neednet.conf
     fi
     unset CMDLINE
 }
@@ -114,7 +114,7 @@ save_netinfo() {
 }
 
 parse_kickstart() {
-    /sbin/parse-kickstart $1 > /etc/cmdline.d/80kickstart.conf
+    /sbin/parse-kickstart $1 > /etc/cmdline.d/80-kickstart.conf
     unset CMDLINE  # re-read the commandline
     . /tmp/ks.info # save the parsed kickstart
     [ -e "$parsed_kickstart" ] && cp $parsed_kickstart /run/install/ks.cfg

@@ -57,7 +57,7 @@ check_depr_arg() {
     [ "$arg" ] || return 1
     newval=$(printf "$2" "$arg")
     [ "$quiet" ] || warn "'$1' is deprecated. Using '$newval' instead."
-    echo "$newval" >> /etc/cmdline.d/75anaconda-options.conf
+    echo "$newval" >> /etc/cmdline.d/75-anaconda-options.conf
 }
 check_depr_args() {
     local q=""
@@ -99,7 +99,7 @@ warn_renamed_arg "kssendsn" "inst.ks.sendsn"
 warn_renamed_arg "updates" "inst.updates"
 updates=$(getarg updates inst.updates)
 if [ -n "$updates" ]; then
-    echo "live.updates=$updates" >> /etc/cmdline.d/75anaconda-options.conf
+    echo "live.updates=$updates" >> /etc/cmdline.d/75-anaconda-options.conf
 fi
 
 # make sure we get ifcfg for every interface that comes up
