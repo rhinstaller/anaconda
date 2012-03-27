@@ -1,6 +1,9 @@
 #!/bin/bash
 # parse-repo-options.sh: parse the inst.repo= arg and set root/netroot
 
+# If there's a root= arg, we'll just use that
+getarg root= >/dev/null && return
+
 repo="$(getarg repo= inst.repo=)"
 
 if [ -n "$repo" ]; then
