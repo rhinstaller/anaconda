@@ -70,19 +70,17 @@ class Network(commands.network.F16_Network):
     def dracut_args(self, args, lineno, net):
         if len(self.network) == 1: # first network line gets special treatment
             net.activate = True      # activate by default
-            if not net.device:       # --device is optional, defaults to..
-                net.device = self.handler.ksdevice # kickstart device, if any
-        if not net.device:
+            # --device is optional, defaults to ksdevice
+            if net.device == "link" or not net.device:
+                net.device = self.handler.ksdevice # might be empty (ks=file:)
+        elif not net.device:
+            # every other network line needs a --device (and not "link")
             log.error("'%s': missing --device", " ".join(args))
         # write ifcfg for all listed devices
         ksnet_to_ifcfg(net)
-        # make sure /tmp/net.ifaces exists so dracut will copy them over
-        if not os.path.exists("/tmp/net.ifaces"):
-            open("/tmp/net.ifaces", "w")
         # anaconda tradition: bring up the first device listed, and no others
         if len(self.network) == 1:
-            netline = ksnet_to_dracut(args, lineno, net)
-            netline += " bootdev=%s" % net.device
+            netline = ksnet_to_dracut(args, lineno, net, bootdev=True)
             return netline
 
 # TODO: keymap, lang... device? upgrade? selinux?
@@ -137,13 +135,16 @@ def init_logger():
         pass
     return logger
 
-def ksnet_to_dracut(args, lineno, net):
+def ksnet_to_dracut(args, lineno, net, bootdev=False):
     '''Translate the kickstart network data into dracut network data.'''
     line = []
+
+    ip=""
+    # NOTE: dracut currently only does ipv4 *or* ipv6, so only one ip=arg..
     if net.bootProto in (BOOTPROTO_DHCP, BOOTPROTO_BOOTP):
-        line.append("ip=%s:dhcp" % net.device)
+        ip="dhcp"
     elif net.bootProto == BOOTPROTO_IBFT:
-        line.append("ip=%s:ibft" % net.device)
+        ip="ibft"
     elif net.bootProto == BOOTPROTO_QUERY:
         log.error("'%s': --bootproto=query is deprecated", " ".join(args))
     elif net.bootProto == BOOTPROTO_STATIC:
@@ -152,30 +153,45 @@ def ksnet_to_dracut(args, lineno, net):
         if missing:
             log.warn("line %u: network missing %s", lineno, missing)
         else:
-            line.append("ip={0.ip}::{0.gateway}:{0.netmask}:" \
-                        "{0.hostname}:{0.device}".format(net))
-        for ns in net.nameserver.split(","):
-            line.append("nameserver=%s" % ns)
-
-    if net.ipv6 == "auto":
-        line.append("ip=%s:auto6" % net.device)
+            ip="{0.ip}::{0.gateway}:{0.netmask}:" \
+               "{0.hostname}:{0.device}:none".format(net)
+    elif net.ipv6 == "auto":
+        ip="auto6"
     elif net.ipv6 == "dhcp":
-        line.append("ip=%s:dhcp6" % net.device)
+        ip="dhcp6"
     elif net.ipv6:
-        line.append("ip=[{0.ipv6}]::{0.gateway}:{0.netmask}:" \
-                    "{0.hostname}:{0.device}".format(net))
+        ip="[{0.ipv6}]::{0.gateway}:{0.netmask}:" \
+           "{0.hostname}:{0.device}:none".format(net)
+
+    if net.device and not ip.endswith(":none"):
+        line.append("ip=%s:%s" % (net.device, ip))
+    else:
+        line.append("ip=%s" % ip)
+
+    for ns in net.nameserver.split(","):
+        line.append("nameserver=%s" % ns)
 
     if net.mtu:
         # XXX FIXME: dracut doesn't support mtu= (yet)
-        line.append("mtu=%s:%u" % (net.device, net.mtu))
+        if net.device:
+            line.append("mtu=%s:%u" % (net.device, net.mtu))
+        else:
+            line.append("mtu=%u" % net.mtu)
+
     # TODO: nodefroute, noipv[46], nodns: pass along to 'ifcfg' module somehow
     # TODO FIXME dhcpclass: dracut only uses one dhclient.conf for all ifaces
     # so we can't (yet) have per-interface dhcpclass
+
+    if bootdev:
+        if net.device:
+            line.append("bootdev=%s" % net.device)
+        line.append("rd.neednet=1")
 
     if net.essid or net.wepkey or net.wpakey:
         # TODO: make dracut support wireless? (do we care?)
         log.error("'%s': dracut doesn't support wireless networks",
                       " ".join(args))
+
     return " ".join(line)
 
 def readfile(f):
@@ -187,6 +203,8 @@ def readfile(f):
 
 def ksnet_to_ifcfg(net, filename=None):
     '''Write an ifcfg file for the given kickstart network config'''
+    if not net.device:
+        return
     ifcfg = dict()
     if filename is None:
         filename = "/tmp/ifcfg/ifcfg-%s" % net.device
