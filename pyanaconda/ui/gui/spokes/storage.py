@@ -122,9 +122,6 @@ class SelectedDisksDialog(UIObject):
 
     def initialize(self, disks):
         for disk in disks:
-            if disk.name not in self.data.ignoredisk.onlyuse:
-                continue
-
             self._store.append([disk.description,
                                 size_str(disk.size),
                                 size_str(disk.format.free),
@@ -191,10 +188,10 @@ class SelectedDisksDialog(UIObject):
         model, itr = self._selection.get_selected()
         if itr:
             idx = int(model.get_value(itr, 3))
-            name = self.disks[idx].name
-            print "removing %s" % name
+            disk = self.disks[idx]
+            print "removing %s" % disk.name
             self._store.remove(itr)
-            self.data.ignoredisk.onlyuse.remove(name)
+            self.disks.remove(disk)
             self._update_summary()
 
     def on_close_clicked(self, button):
@@ -223,10 +220,10 @@ class InstallOptions1Dialog(UIObject):
         self.window.destroy()
         return rc
 
-    def refresh(self, required_space, disk_free, fs_free):
-        custom = not self.data.autopart.autopart
+    def refresh(self, required_space, disk_free, fs_free, autopart):
+        self.custom = not autopart
         self.custom_checkbutton = self.builder.get_object("options1_custom_check")
-        self.custom_checkbutton.set_active(custom)
+        self.custom_checkbutton.set_active(self.custom)
 
         options_label = self.builder.get_object("options1_label")
 
@@ -251,13 +248,6 @@ class InstallOptions1Dialog(UIObject):
                    % (productName, required_space_text))
         return sw_text
 
-    @property
-    def customize_state(self):
-        if hasattr(self, "custom_checkbutton"):
-            return self.custom_checkbutton.get_active()
-
-        return False
-
     # signal handlers
     def on_cancel_clicked(self, button):
         # return to the spoke without making any changes
@@ -275,17 +265,19 @@ class InstallOptions1Dialog(UIObject):
         print "RECLAIM CLICKED"
 
     def on_continue_clicked(self, button):
-        # TODO: handle custom checkbutton
         print "CONTINUE CLICKED"
+
+    def on_custom_toggled(self, checkbutton):
+        self.custom = checkbutton.get_active()
 
 class InstallOptions2Dialog(InstallOptions1Dialog):
     builderObjects = ["options2_dialog"]
     mainWidgetName = "options2_dialog"
 
-    def refresh(self, required_space, disk_free, fs_free):
-        custom = not self.data.autopart.autopart
+    def refresh(self, required_space, disk_free, fs_free, autopart):
+        self.custom = not autopart
         self.custom_checkbutton = self.builder.get_object("options2_custom_check")
-        self.custom_checkbutton.set_active(custom)
+        self.custom_checkbutton.set_active(self.custom)
 
         sw_text = self._get_sw_needs_text(required_space)
         label_text = _("%s\nThe disks you've selected have the following "
@@ -303,15 +295,16 @@ class InstallOptions2Dialog(InstallOptions1Dialog):
         self.builder.get_object("options2_label2").set_markup(label_text)
 
     def on_custom_toggled(self, checkbutton):
-        custom = checkbutton.get_active()
-        self.builder.get_object("options2_cancel_button").set_sensitive(not custom)
-        self.builder.get_object("options2_modify_sw_button").set_sensitive(not custom)
+        super(InstallOptions2Dialog, self).on_custom_toggled(checkbutton)
+        self.builder.get_object("options2_cancel_button").set_sensitive(not self.custom)
+        self.builder.get_object("options2_modify_sw_button").set_sensitive(not self.custom)
 
 class InstallOptions3Dialog(InstallOptions1Dialog):
     builderObjects = ["options3_dialog"]
     mainWidgetName = "options3_dialog"
 
-    def refresh(self, required_space, disk_free, fs_free):
+    def refresh(self, required_space, disk_free, fs_free, autopart):
+        self.custom = not autopart
         sw_text = self._get_sw_needs_text(required_space)
         label_text = (_("%s\nYou don't have enough space available to install "
                         "<b>%s</b>, even if you used all of the free space\n"
@@ -345,9 +338,12 @@ class StorageSpoke(NormalSpoke):
     def __init__(self, *args, **kwargs):
         NormalSpoke.__init__(self, *args, **kwargs)
         self._ready = False
+        self.selected_disks = self.data.ignoredisk.onlyuse[:]
+        self.autopart = self.data.autopart.autopart
 
     def apply(self):
-        pass
+        self.data.ignoredisk.onlyuse = self.selected_disks[:]
+        self.data.autopart.autopart = self.autopart
 
     @property
     def completed(self):
@@ -386,6 +382,19 @@ class StorageSpoke(NormalSpoke):
               return
 
         self._update_disk_list()
+        self._update_summary()
+
+    def refresh(self):
+        # synchronize our local data store with the global ksdata
+        self.selected_disks = self.data.ignoredisk.onlyuse[:]
+        self.autopart = self.data.autopart.autopart
+
+        # update the selections in the ui
+        overviews = self.local_disks_box.get_children()
+        for overview in overviews:
+            name = overview.get_property("popup-info").partition("|")[0].strip()
+            overview.set_chosen(name in self.selected_disks)
+
         self._update_summary()
 
     def initialize(self, cb=None):
@@ -437,7 +446,7 @@ class StorageSpoke(NormalSpoke):
                 #
                 # maybe a little function that resolves each item in onlyuse using
                 # udev_resolve_devspec and compares that to the DiskDevice?
-                overview.set_chosen(disk.name in self.data.ignoredisk.onlyuse)
+                overview.set_chosen(disk.name in self.selected_disks)
                 overview.connect("button-press-event", self._on_disk_clicked)
                 overview.connect("key-release-event", self._on_disk_clicked)
                 overview.show_all()
@@ -488,32 +497,34 @@ class StorageSpoke(NormalSpoke):
         self.builder.get_object("summary_button").set_sensitive(count > 0)
 
     def _update_disk_list(self):
-        """ Update ignoredisk.onlyuse based on the UI. """
+        """ Update self.selected_disks based on the UI. """
         print "UPDATING DISK LIST"
         overviews = self.local_disks_box.get_children()
         for overview in overviews:
             name = overview.get_property("popup-info").partition("|")[0].strip()
 
             selected = overview.get_chosen()
-            if selected and name not in self.data.ignoredisk.onlyuse:
-                self.data.ignoredisk.onlyuse.append(name)
+            if selected and name not in self.selected_disks:
+                self.selected_disks.append(name)
 
-            if not selected and name in self.data.ignoredisk.onlyuse:
-                self.data.ignoredisk.onlyuse.remove(name)
+            if not selected and name in self.selected_disks:
+                self.selected_disks.remove(name)
 
     # signal handlers
     def on_summary_clicked(self, button):
         # show the selected disks dialog
         dialog = SelectedDisksDialog(self.data)
-        dialog.refresh(self.disks)
+        dialog.refresh([d for d in self.disks if d.name in self.selected_disks])
         rc = self.run_lightbox_dialog(dialog)
+        # update selected disks since some may have been removed
+        self.selected_disks = [d.name for d in dialog.disks]
 
-        # update the UI to reflect changes to self.data.ignoredisk.onlyuse
+        # update the UI to reflect changes to self.selected_disks
         overviews = self.local_disks_box.get_children()
         for overview in overviews:
             name = overview.get_property("popup-info").partition("|")[0].strip()
 
-            overview.set_chosen(name in self.data.ignoredisk.onlyuse)
+            overview.set_chosen(name in self.selected_disks)
         self._update_summary()
 
     def run_lightbox_dialog(self, dialog):
@@ -524,7 +535,7 @@ class StorageSpoke(NormalSpoke):
 
     def on_continue_clicked(self, button):
         # show the installation options dialog
-        disks = [d for d in self.disks if d.name in self.data.ignoredisk.onlyuse]
+        disks = [d for d in self.disks if d.name in self.selected_disks]
         (disk_free, fs_free) = get_free_space_info(disks, self.storage.devicetree)
         required_space = 12000      # TODO: find out where to get this
         if disk_free >= required_space:
@@ -534,13 +545,13 @@ class StorageSpoke(NormalSpoke):
         else:
             dialog = InstallOptions3Dialog(self.data)
 
-        dialog.refresh(required_space, disk_free, fs_free)
+        dialog.refresh(required_space, disk_free, fs_free, self.autopart)
         rc = self.run_lightbox_dialog(dialog)
         if rc == dialog.RESPONSE_CONTINUE:
             # depending on custom/autopart, either set up autopart or show
             # custom partitioning ui
-            print "user chose to continue to partitioning (custom is %s)" % dialog.customize_state
-            Gtk.main_quit()
+            print "user chose to continue to partitioning (custom is %s)" % dialog.custom
+            self.autopart = not dialog.custom
         elif rc == dialog.RESPONSE_CANCEL:
             # stay on this spoke
             print "user chose to continue disk selection"
@@ -548,12 +559,10 @@ class StorageSpoke(NormalSpoke):
         elif rc == dialog.RESPONSE_MODIFY_SW:
             # go to software spoke
             print "user chose to modify software selection"
-            Gtk.main_quit()
             pass
         elif rc == dialog.RESPONSE_RECLAIM:
             # go to tug-of-war
             print "user chose to reclaim space"
-            Gtk.main_quit()
             pass
         elif rc == dialog.RESPONSE_QUIT:
             raise SystemExit("user-selected exit")
