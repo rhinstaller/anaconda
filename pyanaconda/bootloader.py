@@ -1789,7 +1789,8 @@ class GRUB2(GRUB):
 
             rc = iutil.execWithRedirect("grub2-install", args,
                                         stdout="/dev/tty5", stderr="/dev/tty5",
-                                        root=ROOT_PATH)
+                                        root=ROOT_PATH,
+                                        env_prune=['MALLOC_PERTURB_'])
             if rc:
                 raise BootLoaderError("bootloader install failed")
 
