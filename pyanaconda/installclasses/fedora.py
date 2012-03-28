@@ -129,9 +129,12 @@ class InstallClass(BaseInstallClass):
         return newVer >= oldVer and newVer - oldVer <= 2
 
     def setNetworkOnbootDefault(self, network):
-        if hasActiveNetDev():
-            return
+        # if something's already enabled, we can just leave the config alone
+        for devName, dev in network.netdevices.items():
+            if dev.get('ONBOOT') == 'yes':
+                return
 
+        # the default otherwise: bring up the first wired netdev with link
         for devName, dev in network.netdevices.items():
             if (not isys.isWirelessDevice(devName) and
                 isys.getLinkStatus(devName)):
