@@ -39,7 +39,11 @@ wm_pid = None
 xserver_pid = None
 
 def return_tty(fd, pgrp_id):
-    os.tcsetpgrp(fd, pgrp_id)
+    try:
+        os.tcsetpgrp(fd, pgrp_id)
+    except OSError as oserr:
+        #fails on s390 and s390x where we don't need it
+        pass
 
 # Make sure messages sent through python's warnings module get logged.
 def AnacondaShowWarning(message, category, filename, lineno, file=sys.stderr, line=None):
