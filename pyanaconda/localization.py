@@ -26,6 +26,7 @@ import os
 import re
 
 import babel
+import pytz
 
 
 LOCALE_PREFERENCES = {}
@@ -272,3 +273,24 @@ class Language(object):
 
         # XXX DEBUG
         print 'set system lang to "%s"' % self.system_lang
+
+
+def get_all_timezones(territory):
+    if isinstance(territory, LocaleInfo):
+        territory = territory.territory
+
+    try:
+        timezones = pytz.country_timezones(territory)
+    except KeyError:
+        timezones = list()
+
+    return timezones
+
+
+def get_preferred_timezone(territory):
+    try:
+        timezone = get_all_timezones(territory)[0]
+    except IndexError:
+        timezone = None
+
+    return timezone
