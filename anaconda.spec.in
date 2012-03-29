@@ -222,6 +222,12 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Thu Mar 29 2012 David Cantrell <dcantrell@redhat.com> - 13.21.164-1
+- Fix onbiosdisk comparison for kickstart installs (dcantrell)
+  Resolves: rhbz#802397
+- Catch exception when returning tty control to init on s390(x) (vpodzime)
+  Resolves: rhbz#747219
+
 * Mon Mar 26 2012 David Cantrell <dcantrell@redhat.com> - 13.21.163-1
 - Fix sense of test to identify /boot versus PReP. (dlehman)
   Related: rhbz#725418
