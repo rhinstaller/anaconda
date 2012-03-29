@@ -29,6 +29,9 @@ from pyanaconda.ui.gui import UIObject
 from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.gui.categories.localization import LocalizationCategory
 
+from pyanaconda import localization
+import datetime
+
 __all__ = ["DatetimeSpoke"]
 
 class DatetimeSpoke(NormalSpoke):
@@ -56,22 +59,26 @@ class DatetimeSpoke(NormalSpoke):
         self._citiesStore = self.builder.get_object("cities")
         self._tzmap = self.builder.get_object("tzmap")
 
+        self._regions_zones = localization.get_all_regions_and_timezones()
+
         for day in xrange(1, 32):
             self.add_to_store(self._daysStore, day)
 
-        for month in xrange(1, 13):
+        self._months_nums = dict()
+        for i in xrange(1, 13):
+            #a bit hacky way, but should return the translated string
+            #TODO: how to handle language change? Clear and populate again?
+            month = datetime.date(2000, i, 1).strftime('%B')
             self.add_to_store(self._monthsStore, month)
+            self._months_nums[month] = i
 
         for year in xrange(1990, 2051):
             self.add_to_store(self._yearsStore, year)
 
-        #TODO: replace by regions from pytz
-        for region in ["America", "Europe"]:
+        for region in self._regions_zones.keys():
             self.add_to_store(self._regionsStore, region)
-
-        #TODO: replace by cities from pytz
-        for city in ["Westford", "Brno"]:
-            self.add_to_store(self._regionsStore, region)
+            for city in self._regions_zones[region]:
+                self.add_to_store(self._citiesStore, city)
 
         self._tzmap.set_timezone("Europe/Prague")
 
