@@ -830,7 +830,7 @@ class PartitionData(commands.partition.F17_PartData):
 
         if self.onbiosdisk != "":
             for (disk, biosdisk) in storage.eddDict.iteritems():
-                if str(biosdisk) == self.onbiosdisk:
+                if "%x" % biosdisk == self.onbiosdisk:
                     self.disk = disk
                     break
 
