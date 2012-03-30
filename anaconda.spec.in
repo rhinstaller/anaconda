@@ -169,6 +169,22 @@ Obsoletes: booty
 The anaconda package contains the program which was used to install your
 system.
 
+%package dracut
+Summary: The anaconda dracut module
+BuildArch: noarch
+Requires: dracut >= 16
+Requires: dracut-network
+Requires: xz
+Requires: pykickstart
+%ifarch %{ix86} x86_64
+Requires: dmidecode
+%endif
+
+%description dracut
+The 'anaconda' dracut module handles installer-specific boot tasks and
+options. This includes driver disks, kickstarts, and finding the anaconda
+runtime on NFS/HTTP/FTP servers or local disks.
+
 %prep
 %setup -q
 
@@ -208,7 +224,6 @@ update-desktop-database &> /dev/null || :
 %doc docs/command-line.txt
 %doc docs/install-methods.txt
 %doc docs/mediacheck.txt
-%doc docs/anaconda-release-notes.txt
 /lib/systemd/system/*
 /lib/udev/rules.d/70-anaconda.rules
 %{_bindir}/instperf
@@ -222,7 +237,6 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda
 %{_libdir}/python*/site-packages/pyanaconda/*
 %{_libdir}/python*/site-packages/log_picker/*
-%{_libdir}/anaconda*
 %{_bindir}/analog
 %{_bindir}/anaconda-cleanup
 %ifarch %livearches
@@ -234,6 +248,10 @@ update-desktop-database &> /dev/null || :
 %{_datadir}/applications/*.desktop
 %{_datadir}/icons/hicolor/*
 %endif
+
+%files dracut
+%dir /usr/lib/dracut/modules.d/80%{name}
+/usr/lib/dracut/modules.d/80%{name}/*
 
 %changelog
 * Mon Feb 20 2012 Brian C. Lane <bcl@redhat.com> - 18.1-1

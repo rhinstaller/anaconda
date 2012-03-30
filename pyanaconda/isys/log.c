@@ -38,7 +38,7 @@ static FILE * main_log_tty = NULL;
 static FILE * main_log_file = NULL;
 static FILE * program_log_file = NULL;
 static loglevel_t minLevel = INFO;
-static const char * main_tag = "loader";
+static const char * main_tag = "anaconda";
 static const char * program_tag = "program";
 static const int syslog_facility = LOG_LOCAL1;
 
@@ -157,7 +157,7 @@ int tty_logfd = -1;
 int file_logfd = -1;
 
 void openLog() {
-    /* init syslog logging (so loader messages can also be forwarded to a remote
+    /* init syslog logging (so log messages can also be forwarded to a remote
        syslog daemon */
     openlog(main_tag, 0, syslog_facility);
 

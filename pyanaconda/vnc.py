@@ -44,7 +44,7 @@ class VncServer:
     def __init__(self, display="1", root="/", ip=None, name=None,
                 desktop="Desktop", password="", vncconnecthost="",
                 vncconnectport="", log_file="/tmp/vncserver.log",
-                pw_file="/tmp/vncpassword", pw_init_file="/tmp/vncpassword.dat"):
+                pw_file="/tmp/vncpassword"):
         self.display = display
         self.root = root
         self.ip = ip
@@ -55,26 +55,9 @@ class VncServer:
         self.vncconnectport = vncconnectport
         self.log_file = log_file
         self.pw_file = pw_file
-        self.pw_init_file = pw_init_file
         self.connxinfo = None
         self.anaconda = None
         self.log = logging.getLogger("anaconda.stdout")
-
-    def recoverVNCPassword(self):
-        """Rescue the vncpassword from where loader left it 
-
-        We are not to check for validity yet, if there is a file
-        pass it to the variable, if there is not, set the var 
-        to ''. We will check valididty later.
-        """
-        # see if there is a vnc password file
-        try:
-            pfile = open(self.pw_init_file, "r")
-            self.password=pfile.readline().strip()
-            pfile.close()
-            os.unlink(self.pw_init_file)
-        except (OSError, IOError):
-            self.password=""
 
     def setVNCPassword(self):
         """Set the vnc server password. Output to file. """

@@ -23,7 +23,6 @@ AC_PREREQ([2.63])
 AC_INIT([anaconda], [18.1], [anaconda-devel-list@redhat.com])
 AM_INIT_AUTOMAKE([foreign no-dist-gzip dist-bzip2])
 
-AC_CONFIG_SRCDIR([loader/loader.c])
 AC_CONFIG_HEADERS([config.h])
 AC_CONFIG_MACRO_DIR([m4])
 
@@ -257,13 +256,13 @@ AC_CONFIG_FILES([Makefile
                  data/bootdisk/x86_64/Makefile
                  data/command-stubs/Makefile
                  docs/Makefile
+                 dracut/Makefile
                  gptsync/Makefile
                  pyanaconda/installclasses/Makefile
                  pyanaconda/iw/Makefile
                  data/liveinst/Makefile
                  data/liveinst/console.apps/Makefile
                  data/liveinst/pam.d/Makefile
-                 loader/Makefile
                  data/pixmaps/Makefile
                  data/icons/Makefile
                  data/icons/hicolor/Makefile

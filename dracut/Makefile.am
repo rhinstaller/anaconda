@@ -1,6 +1,6 @@
-# scripts/Makefile.am for anaconda
+# dracut/Makefile.am for anaconda
 #
-# Copyright (C) 2009  Red Hat, Inc.
+# Copyright (C) 2012 Red Hat, Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU Lesser General Public License as published
@@ -15,19 +15,25 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-# Author: David Cantrell <dcantrell@redhat.com>
+# Author: Will Woods <wwoods@redhat.com>
 
-scriptsdir = $(libexecdir)/$(PACKAGE_NAME)
-dist_scripts_SCRIPTS = getkeymaps upd-updates
-dist_scripts_DATA    = pyrc.py
-dist_noinst_SCRIPTS  = getlangnames.py upd-kernel makeupdates
+dracutdir = /usr/lib/dracut/modules.d/80$(PACKAGE_NAME)
+dist_dracut_SCRIPTS = module-setup.sh \
+                      python-deps \
+		      anaconda-lib.sh \
+		      parse-anaconda-options.sh \
+		      parse-anaconda-repo.sh \
+		      parse-anaconda-kickstart.sh \
+		      parse-anaconda-net.sh \
+		      repo-genrules.sh \
+		      anaconda-udevprop.sh \
+		      kickstart-genrules.sh \
+		      anaconda-netroot.sh \
+		      anaconda-diskroot \
+		      anaconda-copy-ks.sh \
+		      fetch-kickstart-net.sh \
+		      fetch-kickstart-disk \
+		      parse-kickstart
 
-dist_bin_SCRIPTS = analog anaconda-cleanup instperf
-
-stage2scriptsdir = $(datadir)/$(PACKAGE_NAME)
-dist_stage2scripts_SCRIPTS = restart-anaconda
-
-miscdir = $(datadir)/$(PACKAGE_NAME)
-dist_misc_DATA = instperf.p
 
 MAINTAINERCLEANFILES = Makefile.in

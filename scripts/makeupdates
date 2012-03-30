@@ -1,9 +1,8 @@
 #!/usr/bin/python
 #
 # makeupdates - Generate an updates.img containing changes since the last
-#               tag, but only changes that do not need to be compiled.  If
-#               you need an updated _isys.so or a new loader, you should
-#               still compile things as usual.
+#               tag, but only changes to the main anaconda runtime.
+#               initrd/stage1 updates have to be created separately.
 #
 # Copyright (C) 2009  Red Hat, Inc.
 #
@@ -131,7 +130,7 @@ def copyUpdatedFiles(tag, updates, cwd):
         elif file.find('/') != -1:
             fields = file.split('/')
             subdir = fields[0]
-            if subdir in ['loader', 'po', 'scripts','command-stubs', 'tests',
+            if subdir in ['po', 'scripts','command-stubs', 'tests',
                           'bootdisk', 'docs', 'fonts', 'utils', 'gptsync',
                           'liveinst']:
                 continue
