@@ -95,6 +95,9 @@ class DatetimeSpoke(NormalSpoke):
         self._citiesFilter = self.builder.get_object("citiesFilter")
         self._citiesFilter.set_visible_func(self.city_in_region, None)
 
+        self._citiesSort = self.builder.get_object("citiesSort")
+        self._citiesSort.set_sort_column_id(0, 0) #column 0, Ascending
+
         self._tzmap.set_timezone("Europe/Prague")
 
     @property
@@ -175,19 +178,19 @@ class DatetimeSpoke(NormalSpoke):
         pass
 
     def on_region_changed(self, *args):
-        pass
+        self._citiesFilter.refilter()
 
     def on_city_changed(self, *args):
         pass
 
     def on_month_changed(self, *args):
-        pass
+        self._daysFilter.refilter()
 
     def on_day_changed(self, *args):
         pass
 
     def on_year_changed(self, *args):
-        pass
+        self._daysFilter.refilter()
 
     def on_timezone_changed(self, *args):
         pass

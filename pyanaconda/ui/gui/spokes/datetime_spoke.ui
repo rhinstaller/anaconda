@@ -81,7 +81,7 @@
                               <object class="GtkComboBox" id="regionCombobox">
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
-                                <property name="model">regionsSort</property>
+                                <property name="model">regions</property>
                                 <signal name="changed" handler="on_region_changed" swapped="no"/>
                                 <child>
                                   <object class="GtkCellRendererText" id="regionsComboRenderer"/>
@@ -114,7 +114,7 @@
                               <object class="GtkComboBox" id="cityCombobox">
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
-                                <property name="model">citiesFilter</property>
+                                <property name="model">citiesSort</property>
                                 <signal name="changed" handler="on_city_changed" swapped="no"/>
                                 <child>
                                   <object class="GtkCellRendererText" id="citiesComboRenderer"/>
@@ -601,9 +601,6 @@
       <!-- column-name name -->
       <column type="gchararray"/>
     </columns>
-  </object>
-  <object class="GtkTreeModelSort" id="regionsSort">
-    <property name="model">regions</property>
   </object>
   <object class="GtkImage" id="upImage">
     <property name="visible">True</property>
