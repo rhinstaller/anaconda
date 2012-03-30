@@ -18,7 +18,7 @@ modprobe -q edd
 {
     for t in dm md lvm luks; do
         # disable unless specifically enabled
-        getargbool 0 rd.$t && echo rd.$t=0
+        getargbool 0 rd.$t || echo rd.$t=0
     done
 } > /etc/cmdline.d/99-anaconda-disable-disk-activation.conf
 
@@ -35,6 +35,7 @@ else
     strstr "$uuid" "." && arch=${uuid##*.}
 fi
 [ -z "$arch" ] && arch=$(uname -m)
+echo Loading $product $version $arch installer...
 
 # set HTTP headers so server(s) will recognize us
 set_http_header "X-Anaconda-Architecture" "$arch"
@@ -46,6 +47,8 @@ warn_renamed_arg() {
     arg="$(getarg $1)" && warn "'$1=$arg'" && warn "$1 has been renamed to $2"
 }
 
+warn_renamed_arg() { :; } # XXX REMOVE WHEN WE'RE READY FOR THE NEW NAMES.
+
 # check for deprecated arg, warn user, and write new arg to /etc/cmdline
 check_depr_arg() {
     local arg="" quiet="" newval=""
@@ -54,7 +57,7 @@ check_depr_arg() {
     [ "$arg" ] || return 1
     newval=$(printf "$2" "$arg")
     [ "$quiet" ] || warn "'$1' is deprecated. Using '$newval' instead."
-    echo "$newval" >> /etc/cmdline.d/75anaconda-options.conf
+    echo "$newval" >> /etc/cmdline.d/75-anaconda-options.conf
 }
 check_depr_args() {
     local q=""
@@ -79,11 +82,11 @@ getarg asknetwork && warn "'asknetwork' is deprecated and has been removed." &&\
                      warn "Use an appropriate 'ip=' argument instead."
 
 # lang & keymap
-check_depr_arg "lang=" "locale.LANG=%s"
-check_depr_arg "keymap=" "vconsole.keymap=%s"
+warn_renamed_arg "lang" "inst.lang"
+warn_renamed_arg "keymap" "inst.keymap"
 
 # repo
-check_depr_arg "method=" "inst.repo=%s"
+check_depr_arg "method=" "repo=%s"
 warn_renamed_arg "repo" "inst.repo"
 
 # kickstart
@@ -91,6 +94,16 @@ warn_renamed_arg "ks" "inst.ks"
 warn_renamed_arg "ksdevice" "inst.ks.device"
 warn_renamed_arg "kssendmac" "inst.ks.sendmac"
 warn_renamed_arg "kssendsn" "inst.ks.sendsn"
+
+# updates
+warn_renamed_arg "updates" "inst.updates"
+updates=$(getarg updates inst.updates)
+if [ -n "$updates" ]; then
+    echo "live.updates=$updates" >> /etc/cmdline.d/75-anaconda-options.conf
+fi
+
+# make sure we get ifcfg for every interface that comes up
+echo 'save_netinfo $netif' > $hookdir/initqueue/online/anaconda-ifcfg.sh
 
 # re-read the commandline args
 unset CMDLINE

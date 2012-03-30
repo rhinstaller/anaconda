@@ -87,7 +87,8 @@ class Flags(object):
         if "nogpt" in self.cmdline:
             self.nogpt = True
 
-cmdline_files = ['/proc/cmdline', '/run/initramfs/etc/cmdline', '/etc/cmdline']
+cmdline_files = ['/proc/cmdline', '/run/initramfs/etc/cmdline',
+                 '/run/initramfs/etc/cmdline.d/80kickstart.conf', '/etc/cmdline']
 class BootArgs(OrderedDict):
     """
     Hold boot arguments as an OrderedDict.

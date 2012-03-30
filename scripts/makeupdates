@@ -100,7 +100,20 @@ def copyUpdatedFiles(tag, updates, cwd):
 
         return lst
 
+    def install_to_dir(fname, relpath):
+        sys.stdout.write("Including %s\n" % fname)
+        outdir = os.path.join(updates, relpath)
+        if not os.path.isdir(outdir):
+            os.makedirs(outdir)
+        shutil.copy2(file, outdir)
+
     subdirs = []
+
+    # Updates get overlaid onto the runtime filesystem. Anaconda expects them
+    # to be in /tmp/updates, so put them in $updatedir/tmp/updates.
+    tmpupdates = updates.rstrip('/')
+    if not tmpupdates.endswith("/tmp/updates"):
+        tmpupdates = os.path.join(tmpupdates, "tmp/updates")
 
     lines = doGitDiff(tag)
     for line in lines:
@@ -121,25 +134,33 @@ def copyUpdatedFiles(tag, updates, cwd):
             continue
 
         if file.startswith('pyanaconda/'):
-            sys.stdout.write("Including %s\n" % (file,))
-            update_filename = os.path.realpath(os.path.join(updates, file))
-            update_dir = os.path.dirname(update_filename)
-            if not os.path.isdir(update_dir):
-                os.makedirs(update_dir)
-            shutil.copy2(file, update_dir)
+            # pyanaconda stuff goes into /tmp/updates/[path]
+            dirname = os.path.join(tmpupdates, os.path.dirname(file))
+            install_to_dir(file, dirname)
+        elif file == 'anaconda':
+            # anaconda itself we just overwrite
+            install_to_dir(file, "usr/sbin")
+        elif file.endswith('.service') or file.endswith(".target"):
+            # same for systemd services
+            install_to_dir(file, "lib/systemd/system")
+        elif file.endswith('/anaconda-generator'):
+            # yeah, this should probably be more clever..
+            install_to_dir(file, "lib/systemd/system-generators")
+        elif file == "data/liveinst/liveinst":
+            install_to_dir(file, "usr/sbin")
         elif file.find('/') != -1:
             fields = file.split('/')
             subdir = fields[0]
             if subdir in ['po', 'scripts','command-stubs', 'tests',
                           'bootdisk', 'docs', 'fonts', 'utils', 'gptsync',
-                          'liveinst']:
+                          'liveinst', 'dracut']:
                 continue
             else:
                 sys.stdout.write("Including %s\n" % (file,))
-                shutil.copy2(file, updates)
+                shutil.copy2(file, tmpupdates)
         else:
             sys.stdout.write("Including %s\n" % (file,))
-            shutil.copy2(file, updates)
+            shutil.copy2(file, tmpupdates)
 
 def isysChanged(tag):
     lines = doGitDiff(tag, ['isys'])

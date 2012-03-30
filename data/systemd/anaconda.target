@@ -1,7 +1,11 @@
 [Unit]
-Description=The anaconda installation program
+Description=Anaconda System Services
 Requires=basic.target
-Conflicts=rescue.service rescue.target
-After=basic.target rescue.service rescue.target
+After=basic.target
 AllowIsolate=yes
-Wants=anaconda.service anaconda-shell@tty2.service anaconda-shell@hvc1.service fedora-import-state.service
+Before=anaconda@.service
+Wants=instperf.service
+Wants=rsyslog.service
+Wants=udev-settle.service
+Wants=NetworkManager.service
+Wants=plymouth-quit.service plymouth-quit-wait.service

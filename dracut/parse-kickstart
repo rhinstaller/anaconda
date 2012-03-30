@@ -76,6 +76,9 @@ class Network(commands.network.F16_Network):
             log.error("'%s': missing --device", " ".join(args))
         # write ifcfg for all listed devices
         ksnet_to_ifcfg(net)
+        # make sure /tmp/net.ifaces exists so dracut will copy them over
+        if not os.path.exists("/tmp/net.ifaces"):
+            open("/tmp/net.ifaces", "w")
         # anaconda tradition: bring up the first device listed, and no others
         if len(self.network) == 1:
             netline = ksnet_to_dracut(args, lineno, net)

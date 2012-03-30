@@ -24,8 +24,16 @@ case $repo in
     nfs*)
         . /lib/nfs-lib.sh
         info "anaconda mounting NFS repo at $repo"
-        mount_nfs "$repo" "$repodir" "$netif" || warn "Couldn't mount $repo"
-        anaconda_live_root_dir $repodir
+        str_starts "$repo" "nfsiso:" && repo=nfs:${repo#nfsiso:}
+        if [ "${repo%.iso}" == "$repo" ]; then
+            mount_nfs "$repo" "$repodir" "$netif" || warn "Couldn't mount $repo"
+            anaconda_live_root_dir $repodir
+        else
+            iso="${repo##*/}"
+            mount_nfs "${repo%$iso}" "$repodir" "$netif" || \
+                warn "Couldn't mount $repo"
+            anaconda_live_root_dir $repodir $iso
+        fi
     ;;
     http*|ftp*)
         . /lib/url-lib.sh
@@ -43,15 +51,3 @@ case $repo in
         return 1
     ;;
 esac
-
-# TODO: probably shouldn't do this if mounting the net repo fails
-
-# need these to write out the ifcfg files / leases for NetworkManager
-# TODO: this should be a save_netroot_data function in net-lib.sh
-[ -e /tmp/net.ifaces ] || echo "$netif" > /tmp/net.ifaces
-read IFACES < /tmp/net.ifaces
-for iface in $IFACES ; do
-    for f in /tmp/dhclient.$iface.*; do
-        [ -f $f ] && cp $f /tmp/net.${f#/tmp/dhclient.}
-    done
-done

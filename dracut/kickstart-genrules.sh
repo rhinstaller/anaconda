@@ -2,17 +2,6 @@
 # generate udev rules for fetching kickstarts.
 
 case "${kickstart%%:*}" in
-    file|path) # file:<path> (we accept path: but that's deprecated)
-        splitsep ":" "$kickstart" kstype kspath
-        if [ -f "$kspath" ]; then
-            cp $kspath /tmp/ks.cfg
-            parse_kickstart /tmp/ks.cfg
-            unset CMDLINE
-        else
-            warn "inst.ks='$kickstart'"
-            warn "can't find $kspath!"
-        fi
-    ;;
     http|https|ftp|nfs)
         # handled by fetch-kickstart-net in the online hook
         wait_for_kickstart

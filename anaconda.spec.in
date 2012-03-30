@@ -26,7 +26,7 @@ BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 %define intltoolver 0.31.2-3
 %define libnlver 1.0
 %define libselinuxver 1.6
-%define pykickstartver 1.99.10
+%define pykickstartver 1.99.4
 %define rpmpythonver 4.2-0.61
 %define slangver 2.0.6-2
 %define yumver 2.9.2
@@ -225,6 +225,7 @@ update-desktop-database &> /dev/null || :
 %doc docs/install-methods.txt
 %doc docs/mediacheck.txt
 /lib/systemd/system/*
+/lib/systemd/system-generators/*
 /lib/udev/rules.d/70-anaconda.rules
 %{_bindir}/instperf
 %{_sbindir}/anaconda
@@ -254,43 +255,178 @@ update-desktop-database &> /dev/null || :
 /usr/lib/dracut/modules.d/80%{name}/*
 
 %changelog
-* Mon Feb 20 2012 Brian C. Lane <bcl@redhat.com> - 18.1-1
+* Wed Mar 28 2012 Brian C. Lane <bcl@redhat.com> - 17.16-1
+- makeupdates: install liveinst to /usr/sbin (bcl)
+- liveinst: adjust updates path (#807397) (bcl)
+- dracut: add missing spaces for module loading (#804522) (bcl)
+- Don't set MALLOC_PERTURB_ when calling grub2-install. (workaround #806784)
+  (pjones)
+
+* Tue Mar 27 2012 Brian C. Lane <bcl@redhat.com> - 17.15-1
+- make ks=file:... parse kickstart earlier (#806931) (wwoods)
+- Let "root=..." override "repo=..." (wwoods)
+- dracut cleanup: use consistent filenames for cmdline.d files (wwoods)
+- fix "strsep: command not found" error with repo:hd:.. (#806966) (wwoods)
+- load modules needed by Anaconda (#804522) (bcl)
+- Fix nfs/nfsiso (NM handover problems / empty net.ifaces) (wwoods)
+- Format PReP partition (hamzy)
+
+* Thu Mar 22 2012 Brian C. Lane <bcl@redhat.com> - 17.14-1
+- Revert "dracut: use /run/install/source for repodir" (bcl)
+- Disable creation of btrfs filesystems aside from kickstart. (#787341)
+  (dlehman)
+- fix text mode KeyError crash (#804483) (wwoods)
+- Default to text-mode if 'console=XXX' was provided (#804506) (wwoods)
+- dracut startup: "Loading $product $version $arch installer..." (wwoods)
+- fix nfsiso:...:/path/to/filename.iso (#804515) (wwoods)
+- fix typo in makeupdates (bcl)
+- makeupdates: add support for updating systemd services/targets (wwoods)
+- disable warnings about boot options needing 'inst.XXX' (wwoods)
+- Create default ifcfg-* for each interface (#804504, #804716) (wwoods)
+- save ifcfg for every interface we bring up (wwoods)
+- Let systemd handle terminal setup, fix possible race with NM (wwoods)
+- Migrate PPC from Yaboot to Grub2 for Anaconda (hamzy)
+- dracut: fix anaconda-netroot for inst.repo=nfsiso:.. (wwoods)
+- dracut: accept inst.updates or updates for live.updates (wwoods)
+- makeupdates: put files the right places (wwoods)
+- dracut: use /run/install/source for repodir (wwoods)
+- read args from 80kickstart.conf (bcl)
+
+* Fri Mar 16 2012 Brian C. Lane <bcl@redhat.com> - 17.13-1
+- anaconda.service Wants=NetworkManager.service (wwoods)
+- make sure we save the network setup for any network device we used (wwoods)
+- make sure parse-kickstart's ifcfg files get copied to the system (wwoods)
+- fedora-import-state.service is in initscripts now (wwoods)
+- Add flag to disable available-memory check (for debugging etc.) (wwoods)
+- fix logic for setting set rd.{luks,dm,md,lvm}=0 (wwoods)
+- fix run_kickstart for the non-repo case (wwoods)
+- run_kickstart: go back to targeted cmdline parsing (wwoods)
+- parse-kickstart: write ifcfg files for all net devs (wwoods)
+- add the traditional anaconda dhcpclass (wwoods)
+- cleanups and fixes for ksdevice/bootdev handling (wwoods)
+- drop unused when_netdev_online function (wwoods)
+- make run_kickstart re-parse the whole commandline (wwoods)
+- set rd.{luks,dm,md,lvm}=0 unless the user says otherwise (wwoods)
+- handle inst.* cmdline args correctly (bcl)
+- fixup for syntax error in inst.ks/--kickstart patch (wwoods)
+- set ANACONDA=1 udev property in the right place (wwoods)
+- fix inst.ks handling in anaconda (wwoods)
+- fixups: run ks early, don't repeat netroot (wwoods)
+- fixup: "online" hook renamed "initqueue/online" upstream (wwoods)
+- Quiet bash error message if (optional) treeinfo is missing (wwoods)
+- a couple small cleanups/fixes for fedora-import-state.service (wwoods)
+- anaconda-shell service tweaks (wwoods)
+- add fedora-import-state.service (fix NFS root: #799989) (wwoods)
+- anaconda-netroot.sh: make sure dracut writes out the ifcfg files (wwoods)
+- Use "online" hook to handle anaconda network root devices (wwoods)
+- Fetch network kickstarts from the "online" hook (wwoods)
+- set wait_for_dev /dev/root in parse-anaconda-repo.sh (wwoods)
+- fix find_runtime() and parse_kickstart() (wwoods)
+- kickstart parsing fixups: keep running if parse fails (wwoods)
+- handle more KickstartErrors (wwoods)
+- anaconda-lib: make sure we only run when_*_online jobs once (wwoods)
+- add missing newline to /tmp/ks.info (wwoods)
+- don't source dracut-lib.sh twice (it causes crashes) (wwoods)
+- kickstart: only wait for kickstart if we're actually fetching it (wwoods)
+- fetch-kickstart-*: actually do run_kickstart (wwoods)
+- python-deps: cleanups/comments (wwoods)
+- replace pythondeps.sh with python-deps (python script) (wwoods)
+- move parse-kickstart.py back to parse-kickstart (wwoods)
+- Makefile.am: use dist_dracut_SCRIPTS to make scripts executable (wwoods)
+- fix bad path for parse-kickstart.py (wwoods)
+- refactor network handling (support ibft and ksdevice) (wwoods)
+- update Makefile.am (wwoods)
+- add fetch-kickstart-disk and fetch-kickstart-net (wwoods)
+- make cd autoprobe catchall rule actually run for each device (wwoods)
+- fix inst.repo=cdrom (wwoods)
+- move deprecation warnings into parse-anaconda-options.sh (wwoods)
+- add wait_for_kickstart() (wwoods)
+- parse-kickstart updates (wwoods)
+- anaconda-lib: rename check_isodir, add anaconda_live_root_dir (wwoods)
+- anaconda-{nfs,disk}root updates (wwoods)
+- split genrules into repo-genrules.sh and kickstart-genrules.sh (wwoods)
+- minor parse cleanups for kickstart and repo (wwoods)
+- improve handling of anaconda repo root stuff (wwoods)
+- parse-kickstart: return filename, drop biospart junk (wwoods)
+- make sure edd is loaded, if available (wwoods)
+- Drop dmidecode binary, just cat /sys/class/dmi/id/product_serial (wwoods)
+- dracut/anaconda-genrules.sh: add catch-all rule for autoprobing CDs (wwoods)
+- add more kickstart code, shuffle genrules code around (wwoods)
+- move disk_to_dev_path to anaconda-lib (wwoods)
+- edit anaconda-urlroot status messages (wwoods)
+- fix typo in anaconda-urlroot (wwoods)
+- add anaconda-urlroot (handle inst.repo=[http|ftp]) (wwoods)
+- whoops, forgot anaconda-lib.sh (wwoods)
+- dracut: check for .buildstamp in /run/initramfs (wwoods)
+- anaconda-dracut: make sure we execute pythondeps.sh (wwoods)
+- dumb typo fix: "convertfs", not "covertfs" (wwoods)
+- dracut: move to /usr/lib (wwoods)
+- dracut: depend on "convertfs" module (wwoods)
+- Make anaconda-dracut subpackage noarch (wwoods)
+- Add anaconda dracut module [WIP!] (wwoods)
+- Completely remove loader/ (wwoods)
+- We've got you cornered now, loader: remove from automake/spec/po (wwoods)
+- move linuxrc.s390 out of harm's way (wwoods)
+- move vncpassword handling into anaconda; remove recoverVNCPassword (wwoods)
+- Remove misc. references to loader (wwoods)
+- remove ancient anaconda-release-notes.txt (wwoods)
+- remove scripts/upd-initrd and scripts/upd-bootiso (wwoods)
+- Move from loader.service to anaconda.service (wwoods)
+- Schedule (no-op) btrfs format create actions. (#799154) (dlehman)
+- intelligently choose the window size (#800609) (bcl)
+- fix text upgrade bootloader dialog (#742207) (bcl)
+
+* Tue Mar 06 2012 Brian C. Lane <bcl@redhat.com> - 17.12-1
+- only allow GPT boot flag on EFI System partition (#746895) (bcl)
+- Add dracut args for /usr to bootloader (#787893) (bcl)
+- Make sure all kickstart partition reqs get appropriate weight setting.
+  (dlehman)
+- Fix test for unsupported format type in kickstart. (dlehman)
+- Update the fs size limit for ext3/ext4 from 8TB to 16TB. (dlehman)
+- Don't allow /boot on logical partition except for grub. (dlehman)
+- empty versions shouldn't be upgradable or traceback (#791317) (bcl)
+- Don't crash when broken md devices are present. (#731177) (dlehman)
+- Add missing definition of BTRFSError. (#796013) (dlehman)
+
+* Tue Feb 21 2012 Brian C. Lane <bcl@redhat.com> - 17.11-1
+- import using the right path to iutil (bcl)
+
+* Mon Feb 20 2012 Brian C. Lane <bcl@redhat.com> - 17.10-1
 - use a dracut shutdown hook to eject media (#787461) (bcl)
 - add dracut shutdown eject hook function (#787461) (bcl)
 - The createSuggested methods have changed name (#791204, #795058). (clumens)
-- iscsi: no discovery on each target login (#752066) (rvykydal)
-- Use libpwquality to check root password strength (#755883) (mgracik)
 - Generate repo= ks command only for repos added by user (#738577) (rvykydal)
-- Fix a typo (#794504). (clumens)
-- Add support for network --device=link in stage2 kickstart (#790332)
-  (rvykydal)
-- Don't set the pmbr bootable flag on Macs, whether booted via EFI or not (mjg)
-- Don't set GPT HFS+ partitions as bootable (mjg)
-- Mark HFS+ as fsckable (mjg)
-- Set default lang and create default locale files early (wwoods)
+- Use libpwquality to check root password strength (#755883) (mgracik)
 - Generate connection UUID in inital ifcfg files created by anaconda (#705328)
   (rvykydal)
 - Take in change of a binary name (brcm_iscsiuio -> iscsiuio) (#731761)
   (rvykydal)
+- Set ONBOOT=yes for FCoE devices (#755147) (rvykydal)
+- Fix a typo (#794504). (clumens)
+- Add support for network --device=link in stage2 kickstart (#790332)
+  (rvykydal)
+- Set default lang and create default locale files early (wwoods)
 - Add 'traceback' boot option for python-meh and libreport testing (vpodzime)
+
+* Thu Feb 16 2012 Brian C. Lane <bcl@redhat.com> - 17.9-1
+- Don't set the pmbr bootable flag on Macs, whether booted via EFI or not (mjg)
+- Don't set GPT HFS+ partitions as bootable (mjg)
+- Mark HFS+ as fsckable (mjg)
 - fix setattr in set_cmdline_bool (pschindl)
 - Add _mounttype to HFSPlus (mjg)
 - Add support for UEFI Mac installs (mjg)
 - Add support for HFS+ partitions (mjg)
-- Remove networking configuration steps from linuxrc.s390 (#783227) (dcantrell)
+
+* Mon Feb 13 2012 Brian C. Lane <bcl@redhat.com> - 17.8-1
 - Clear partitions' metadata when 'clearpart --initlabel' used. (#783841)
+  (cherry picked from commit 15307cc091212cc69b599b90c239492c9c9586ec)
   (dlehman)
 - Fix support for detecting existing mirrored lvs. (#734128) (dlehman)
-- Don't put partitions into device.map (pjones)
 - fix potential EFIGRUB infinite loop (bcl)
 - finish ROOT_PATH changes in bootloader (#789169) (bcl)
 - Be more verbose about upgrade failures (#735060) (bcl)
-- log tracebacks from importing formats (bcl)
 - Skip setting PMBR boot flag on EFI (#754850) (mjg)
-
-* Thu Feb 09 2012 Brian C. Lane <bcl@redhat.com> - 18.0-1
-- Set ONBOOT=yes for FCoE devices (#755147) (rvykydal)
-- Add details to transifex.doc for branching (bcl)
+- Updated transifex config for f17-branch (bcl)
 
 * Wed Feb 08 2012 Brian C. Lane <bcl@redhat.com> - 17.7-1
 - anaconda_optparse.py: a new OptionParser that also reads boot args (wwoods)

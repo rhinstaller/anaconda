@@ -83,7 +83,7 @@ class tee(threading.Thread):
 # @param root The directory to chroot to before running command.
 # @return The return code of command.
 def execWithRedirect(command, argv, stdin = None, stdout = None,
-                     stderr = None, root = '/'):
+                     stderr = None, root = '/', env_prune=[]):
     def chroot ():
         os.chroot(root)
 
@@ -128,6 +128,10 @@ def execWithRedirect(command, argv, stdin = None, stdout = None,
    
     env = os.environ.copy()
     env.update({"LC_ALL": "C"})
+
+    for var in env_prune:
+        if env.has_key(var):
+            del env[var]
 
     try:
         #prepare tee proceses

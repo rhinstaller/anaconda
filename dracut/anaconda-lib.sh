@@ -32,8 +32,9 @@ find_iso() {
 }
 
 find_runtime() {
-    local ti_img="" dir="$1$2"
-    [ -e $dir/.treeinfo ] && img=$(config_get stage2 mainimage < $dir/.treeinfo)
+    local ti_img="" dir="$1"
+    [ -e $dir/.treeinfo ] && \
+        ti_img=$(config_get stage2 mainimage < $dir/.treeinfo)
     for f in $ti_img images/install.img LiveOS/squashfs.img; do
         [ -e "$dir/$f" ] && echo "$dir/$f" && return
     done
@@ -43,17 +44,24 @@ repodir="/run/install/repo"
 isodir="/run/install/isodir"
 rulesfile="/etc/udev/rules.d/90-anaconda.rules"
 
+# try to find a usable runtime image from the repo mounted at $mnt.
+# if successful, move the mount(s) to $repodir/$isodir.
 anaconda_live_root_dir() {
-    local img="" iso="" dir="$1" path="$2"; shift 2
-    img=$(find_runtime $repodir$path)
+    local img="" iso="" mnt="$1" path="$2"; shift 2
+    img=$(find_runtime $mnt/$path)
     if [ -n "$img" ]; then
         info "anaconda: found $img"
+        [ "$dir" = "$repodir" ] || mount --move $mnt $repodir
     else
-        iso=$(find_iso $repodir$path)
+        if [ "${path%.iso}" != "$path" ]; then
+            iso=$path
+        else
+            iso=$(find_iso $mnt/$path)
+        fi
         [ -n "$iso" ] || { warn "no suitable images"; return 1; }
         info "anaconda: found $iso"
-        mount --move $repodir $isodir
-        iso=${isodir}${iso#$repodir}
+        mount --move $mnt $isodir
+        iso=${isodir}/${iso#$mnt}
         mount -o loop,ro $iso $repodir
         img=$(find_runtime $repodir) || { warn "$iso has no suitable runtime"; }
     fi
@@ -82,13 +90,31 @@ when_diskdev_appears() {
 
 set_neednet() {
     if ! getargbool 0 rd.neednet; then
-        echo "rd.neednet=1" >> /etc/cmdline.d/anaconda-neednet.conf
+        echo "rd.neednet=1" > /etc/cmdline.d/80-anaconda-neednet.conf
     fi
     unset CMDLINE
 }
 
+# Save the dhclient lease and put the interface name into /tmp/net.ifaces,
+# so the 'ifcfg' module will write out a proper ifcfg etc. for NetworkManager.
+# FIXME: this will probably be in 40network/net-lib.sh soon
+save_netinfo() {
+    local netif="$1" IFACES="" f="" i=""
+    [ -e /tmp/net.ifaces ] && read IFACES < /tmp/net.ifaces
+    # Add $netif to the front of IFACES (if it's not there already).
+    set -- "$netif"
+    for i in $IFACES; do [ "$i" != "$netif" ] && set -- "$@" "$i"; done
+    IFACES="$*"
+    for i in $IFACES; do
+        for f in /tmp/dhclient.$i.*; do
+            [ -f $f ] && cp -f $f /tmp/net.${f#/tmp/dhclient.}
+        done
+    done
+    echo $IFACES > /tmp/net.ifaces
+}
+
 parse_kickstart() {
-    /sbin/parse-kickstart $1 > /etc/cmdline.d/80kickstart.conf
+    /sbin/parse-kickstart $1 > /etc/cmdline.d/80-kickstart.conf
     unset CMDLINE  # re-read the commandline
     . /tmp/ks.info # save the parsed kickstart
     [ -e "$parsed_kickstart" ] && cp $parsed_kickstart /run/install/ks.cfg
