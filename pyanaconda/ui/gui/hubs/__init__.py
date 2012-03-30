@@ -117,7 +117,28 @@ class Hub(UIObject):
                 # Create the new spoke and populate its UI with whatever data.
                 # From here on, this Spoke will always exist.
                 spoke = spokeClass(self.data, self.storage, self.payload, self.instclass)
+
+                # If a spoke is not showable, it is unreachable in the UI.  We
+                # might as well get rid of it.
+                #
+                # NOTE:  Any kind of spoke can be unshowable.
                 if not spoke.showable:
+                    del(spoke)
+                    continue
+
+                # This allows being able to jump between two spokes without
+                # having to directly involve the hub.
+                self._spokes[spokeClass.__name__] = spoke
+
+                # If a spoke is indirect, it is reachable but not directly from
+                # a hub.  This is for things like the custom partitioning spoke,
+                # which you can only get to after going through the initial
+                # storage configuration spoke.
+                #
+                # NOTE:  This only makes sense for NormalSpokes.  Other kinds
+                # of spokes do not involve a hub.
+                if spoke.indirect:
+                    spoke.initialize(cb=self._updateCompletenessCB)
                     continue
 
                 spoke.selector = AnacondaWidgets.SpokeSelector(_(spoke.title), spoke.icon)
@@ -134,10 +155,6 @@ class Hub(UIObject):
                 spoke.selector.connect("key-release-event", self._on_spoke_clicked, spoke)
 
                 selectors.append(spoke.selector)
-
-                # These settings are a way of being able to jump between two
-                # spokes without having to involve the hub (directly).
-                self._spokes[spokeClass.__name__] = spoke
 
             if not selectors:
                 continue
@@ -212,7 +229,8 @@ class Hub(UIObject):
         self._runSpoke(spoke)
 
         # Now update the selector with the current status and completeness.
-        self._updateCompletenessCB(spoke)
+        if not spoke.indirect:
+            self._updateCompletenessCB(spoke)
 
         # And then if that spoke wants us to jump straight to another one,
         # handle that now.

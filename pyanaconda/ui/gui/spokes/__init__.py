@@ -186,6 +186,20 @@ class NormalSpoke(Spoke):
         """
         pass
 
+    @property
+    def indirect(self):
+        """If this property returns True, then this spoke is considered indirect.
+           An indirect spoke is one that can only be reached through another spoke
+           instead of directly through the hub.  One example of this is the
+           custom partitioning spoke, which may only be accessed through the
+           install destination spoke.
+
+           Indirect spokes do not need to provide a completed or status property.
+
+           For most spokes, overriding this property is unnecessary.
+        """
+        return False
+
     def initialize(self, cb=None):
         """A special overridden version of the initialize method that optionally
            takes a callback.  This callback should be called at the end of
