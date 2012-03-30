@@ -103,7 +103,7 @@ static void anaconda_spoke_window_init(AnacondaSpokeWindow *win) {
     gtk_window_set_modal(GTK_WINDOW(win), TRUE);
 
     /* Create the buttons. */
-    win->priv->back_button = gtk_button_new_with_mnemonic(_("_Back to install summary"));
+    win->priv->back_button = gtk_button_new_with_mnemonic(_("_Back"));
     gtk_widget_set_halign(win->priv->back_button, GTK_ALIGN_START);
 
     /* Hook up some signals for that button.  The signal handlers here will
