@@ -2,6 +2,18 @@
 <interface>
   <!-- interface-requires gtk+ 3.0 -->
   <!-- interface-requires AnacondaWidgets 1.0 -->
+  <object class="GtkListStore" id="cities">
+    <columns>
+      <!-- column-name name -->
+      <column type="gchararray"/>
+    </columns>
+  </object>
+  <object class="GtkTreeModelFilter" id="citiesFilter">
+    <property name="child_model">cities</property>
+  </object>
+  <object class="GtkTreeModelSort" id="citiesSort">
+    <property name="model">citiesFilter</property>
+  </object>
   <object class="AnacondaSpokeWindow" id="datetimeWindow">
     <property name="startup_id">filler</property>
     <property name="can_focus">False</property>
@@ -70,6 +82,12 @@
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
                                 <property name="model">regionsFilter</property>
+                                <child>
+                                  <object class="GtkCellRendererText" id="regionsComboRenderer"/>
+                                  <attributes>
+                                    <attribute name="text">0</attribute>
+                                  </attributes>
+                                </child>
                               </object>
                               <packing>
                                 <property name="expand">False</property>
@@ -96,6 +114,12 @@
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
                                 <property name="model">citiesFilter</property>
+                                <child>
+                                  <object class="GtkCellRendererText" id="citiesComboRenderer"/>
+                                  <attributes>
+                                    <attribute name="text">0</attribute>
+                                  </attributes>
+                                </child>
                               </object>
                               <packing>
                                 <property name="expand">False</property>
@@ -440,6 +464,12 @@
                                         <property name="visible">True</property>
                                         <property name="can_focus">False</property>
                                         <property name="model">months</property>
+                                        <child>
+                                          <object class="GtkCellRendererText" id="monthsComboRenderer"/>
+                                          <attributes>
+                                            <attribute name="text">0</attribute>
+                                          </attributes>
+                                        </child>
                                       </object>
                                       <packing>
                                         <property name="expand">False</property>
@@ -452,6 +482,12 @@
                                         <property name="visible">True</property>
                                         <property name="can_focus">False</property>
                                         <property name="model">daysFilter</property>
+                                        <child>
+                                          <object class="GtkCellRendererText" id="daysComboRenderer"/>
+                                          <attributes>
+                                            <attribute name="text">0</attribute>
+                                          </attributes>
+                                        </child>
                                       </object>
                                       <packing>
                                         <property name="expand">False</property>
@@ -464,6 +500,12 @@
                                         <property name="visible">True</property>
                                         <property name="can_focus">False</property>
                                         <property name="model">years</property>
+                                        <child>
+                                          <object class="GtkCellRendererText" id="yearsComboRenderer"/>
+                                          <attributes>
+                                            <attribute name="text">0</attribute>
+                                          </attributes>
+                                        </child>
                                       </object>
                                       <packing>
                                         <property name="expand">False</property>
@@ -511,14 +553,12 @@
       </object>
     </child>
   </object>
-  <object class="GtkListStore" id="cities"/>
-  <object class="GtkTreeModelFilter" id="citiesFilter">
-    <property name="child_model">cities</property>
+  <object class="GtkListStore" id="days">
+    <columns>
+      <!-- column-name number -->
+      <column type="guint"/>
+    </columns>
   </object>
-  <object class="GtkTreeModelSort" id="citiesSort">
-    <property name="model">citiesFilter</property>
-  </object>
-  <object class="GtkListStore" id="days"/>
   <object class="GtkTreeModelFilter" id="daysFilter">
     <property name="child_model">days</property>
   </object>
@@ -537,8 +577,18 @@
     <property name="can_focus">False</property>
     <property name="icon_name">go-down-symbolic</property>
   </object>
-  <object class="GtkListStore" id="months"/>
-  <object class="GtkListStore" id="regions"/>
+  <object class="GtkListStore" id="months">
+    <columns>
+      <!-- column-name name -->
+      <column type="gchararray"/>
+    </columns>
+  </object>
+  <object class="GtkListStore" id="regions">
+    <columns>
+      <!-- column-name name -->
+      <column type="gchararray"/>
+    </columns>
+  </object>
   <object class="GtkTreeModelFilter" id="regionsFilter">
     <property name="child_model">regions</property>
   </object>
@@ -560,5 +610,10 @@
     <property name="can_focus">False</property>
     <property name="icon_name">go-up-symbolic</property>
   </object>
-  <object class="GtkListStore" id="years"/>
+  <object class="GtkListStore" id="years">
+    <columns>
+      <!-- column-name number -->
+      <column type="guint"/>
+    </columns>
+  </object>
 </interface>
