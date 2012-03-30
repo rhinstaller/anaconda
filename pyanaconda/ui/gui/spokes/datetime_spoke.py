@@ -35,10 +35,13 @@ import datetime
 __all__ = ["DatetimeSpoke"]
 
 class DatetimeSpoke(NormalSpoke):
-    builderObjects = ["datetimeWindow", "days", "months", "years", "regions",
-                      "cities", "upImage", "upImage1", "upImage2", "downImage",
-                      "downImage1", "downImage2", "downImage3", "citiesFilter",
-                      "daysFilter", "citiesSort", "regionsSort"]
+    builderObjects = ["datetimeWindow",
+                      "days", "months", "years", "regions", "cities",
+                      "upImage", "upImage1", "upImage2", "downImage",
+                      "downImage1", "downImage2", "downImage3",
+                      "citiesFilter", "daysFilter", "citiesSort", "regionsSort",
+                      ]
+
     mainWidgetName = "datetimeWindow"
     uiFile = "spokes/datetime_spoke.ui"
 
@@ -80,6 +83,18 @@ class DatetimeSpoke(NormalSpoke):
             for city in self._regions_zones[region]:
                 self.add_to_store(self._citiesStore, city)
 
+        self._regionCombo = self.builder.get_object("regionCombobox")
+        self._cityCombo = self.builder.get_object("cityCombobox")
+        self._monthCombo = self.builder.get_object("monthCombobox")
+        self._dayCombo = self.builder.get_object("dayCombobox")
+        self._yearCombo = self.builder.get_object("yearCombobox")
+
+        self._daysFilter = self.builder.get_object("daysFilter")
+        self._daysFilter.set_visible_func(self.existing_date, None)
+
+        self._citiesFilter = self.builder.get_object("citiesFilter")
+        self._citiesFilter.set_visible_func(self.city_in_region, None)
+
         self._tzmap.set_timezone("Europe/Prague")
 
     @property
@@ -100,3 +115,43 @@ class DatetimeSpoke(NormalSpoke):
 
     def add_to_store(self, store, item):
         store.append([item])
+
+    def existing_date(self, model, itr, user_data=None):
+        if not itr:
+            return False
+        day = model[itr][0]
+
+        #days 1-28 are in every month every year
+        if day < 29:
+            return True
+
+        months_model = self._monthCombo.get_model()
+        months_iter = self._monthCombo.get_active_iter()
+        if not months_iter:
+            return True
+        month = months_model[months_iter][0]
+
+        years_model = self._yearCombo.get_model()
+        years_iter = self._yearCombo.get_active_iter()
+        if not years_iter:
+            return True
+        year = years_model[years_iter][0]
+
+        try:
+            datetime.date(year, self._months_nums[month], day)
+            return True
+        except ValueError as valerr:
+            return False
+
+    def city_in_region(self, model, itr, user_data=None):
+        if not itr:
+            return False
+        city = model[itr][0]
+
+        regions_model = self._regionCombo.get_model()
+        regions_iter = self._regionCombo.get_active_iter()
+        if not regions_iter:
+            return False
+        region = regions_model[regions_iter][0]
+
+        return city in self._regions_zones[region]
