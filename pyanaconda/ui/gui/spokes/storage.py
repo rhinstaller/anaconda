@@ -550,20 +550,20 @@ class StorageSpoke(NormalSpoke):
         if rc == dialog.RESPONSE_CONTINUE:
             # depending on custom/autopart, either set up autopart or show
             # custom partitioning ui
-            print "user chose to continue to partitioning (custom is %s)" % dialog.custom
             self.autopart = not dialog.custom
+            if dialog.custom:
+                self.skipTo = "CustomPartitioningSpoke"
+
+            self.on_back_clicked(self.window)
         elif rc == dialog.RESPONSE_CANCEL:
             # stay on this spoke
             print "user chose to continue disk selection"
-            pass
         elif rc == dialog.RESPONSE_MODIFY_SW:
             # go to software spoke
             print "user chose to modify software selection"
-            pass
         elif rc == dialog.RESPONSE_RECLAIM:
             # go to tug-of-war
             print "user chose to reclaim space"
-            pass
         elif rc == dialog.RESPONSE_QUIT:
             raise SystemExit("user-selected exit")
 
