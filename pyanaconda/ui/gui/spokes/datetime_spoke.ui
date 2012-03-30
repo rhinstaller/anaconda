@@ -82,6 +82,7 @@
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
                                 <property name="model">regionsSort</property>
+                                <signal name="changed" handler="on_region_changed" swapped="no"/>
                                 <child>
                                   <object class="GtkCellRendererText" id="regionsComboRenderer"/>
                                   <attributes>
@@ -114,6 +115,7 @@
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
                                 <property name="model">citiesFilter</property>
+                                <signal name="changed" handler="on_city_changed" swapped="no"/>
                                 <child>
                                   <object class="GtkCellRendererText" id="citiesComboRenderer"/>
                                   <attributes>
@@ -181,6 +183,7 @@
                       <object class="AnacondaTimezoneMap" id="tzmap">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
+                        <signal name="timezone-changed" handler="on_timezone_changed" swapped="no"/>
                       </object>
                       <packing>
                         <property name="expand">True</property>
@@ -259,6 +262,7 @@
                                     <property name="receives_default">True</property>
                                     <property name="use_action_appearance">False</property>
                                     <property name="image">upImage</property>
+                                    <signal name="clicked" handler="on_up_hours_clicked" swapped="no"/>
                                   </object>
                                   <packing>
                                     <property name="left_attach">0</property>
@@ -274,6 +278,7 @@
                                     <property name="receives_default">True</property>
                                     <property name="use_action_appearance">False</property>
                                     <property name="image">downImage</property>
+                                    <signal name="clicked" handler="on_down_hours_clicked" swapped="no"/>
                                   </object>
                                   <packing>
                                     <property name="left_attach">0</property>
@@ -289,6 +294,7 @@
                                     <property name="receives_default">True</property>
                                     <property name="use_action_appearance">False</property>
                                     <property name="image">upImage1</property>
+                                    <signal name="clicked" handler="on_up_ampm_clicked" swapped="no"/>
                                   </object>
                                   <packing>
                                     <property name="left_attach">4</property>
@@ -304,6 +310,7 @@
                                     <property name="receives_default">True</property>
                                     <property name="use_action_appearance">False</property>
                                     <property name="image">upImage2</property>
+                                    <signal name="clicked" handler="on_up_minutes_clicked" swapped="no"/>
                                   </object>
                                   <packing>
                                     <property name="left_attach">2</property>
@@ -319,6 +326,7 @@
                                     <property name="receives_default">True</property>
                                     <property name="use_action_appearance">False</property>
                                     <property name="image">downImage1</property>
+                                    <signal name="clicked" handler="on_down_ampm_clicked" swapped="no"/>
                                   </object>
                                   <packing>
                                     <property name="left_attach">4</property>
@@ -334,6 +342,7 @@
                                     <property name="receives_default">True</property>
                                     <property name="use_action_appearance">False</property>
                                     <property name="image">downImage2</property>
+                                    <signal name="clicked" handler="on_down_minutes_clicked" swapped="no"/>
                                   </object>
                                   <packing>
                                     <property name="left_attach">2</property>
@@ -414,6 +423,7 @@
                                         <property name="xalign">0</property>
                                         <property name="active">True</property>
                                         <property name="draw_indicator">True</property>
+                                        <signal name="toggled" handler="on_timeformat_changed" swapped="no"/>
                                       </object>
                                       <packing>
                                         <property name="expand">False</property>
@@ -464,6 +474,7 @@
                                         <property name="visible">True</property>
                                         <property name="can_focus">False</property>
                                         <property name="model">months</property>
+                                        <signal name="changed" handler="on_month_changed" swapped="no"/>
                                         <child>
                                           <object class="GtkCellRendererText" id="monthsComboRenderer"/>
                                           <attributes>
@@ -482,6 +493,7 @@
                                         <property name="visible">True</property>
                                         <property name="can_focus">False</property>
                                         <property name="model">daysFilter</property>
+                                        <signal name="changed" handler="on_day_changed" swapped="no"/>
                                         <child>
                                           <object class="GtkCellRendererText" id="daysComboRenderer"/>
                                           <attributes>
@@ -500,6 +512,7 @@
                                         <property name="visible">True</property>
                                         <property name="can_focus">False</property>
                                         <property name="model">years</property>
+                                        <signal name="changed" handler="on_year_changed" swapped="no"/>
                                         <child>
                                           <object class="GtkCellRendererText" id="yearsComboRenderer"/>
                                           <attributes>

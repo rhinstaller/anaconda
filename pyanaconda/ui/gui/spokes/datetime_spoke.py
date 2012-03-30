@@ -155,3 +155,42 @@ class DatetimeSpoke(NormalSpoke):
         region = regions_model[regions_iter][0]
 
         return city in self._regions_zones[region]
+
+    def on_up_hours_clicked(self, *args):
+        pass
+
+    def on_down_hours_clicked(self, *args):
+        pass
+
+    def on_up_minutes_clicked(self, *args):
+        pass
+
+    def on_down_minutes_clicked(self, *args):
+        pass
+
+    def on_up_ampm_clicked(self, *args):
+        pass
+
+    def on_down_ampm_clicked(self, *args):
+        pass
+
+    def on_region_changed(self, *args):
+        pass
+
+    def on_city_changed(self, *args):
+        pass
+
+    def on_month_changed(self, *args):
+        pass
+
+    def on_day_changed(self, *args):
+        pass
+
+    def on_year_changed(self, *args):
+        pass
+
+    def on_timezone_changed(self, *args):
+        pass
+
+    def on_timeformat_changed(self, *args):
+        pass
