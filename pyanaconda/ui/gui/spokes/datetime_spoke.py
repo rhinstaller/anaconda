@@ -98,6 +98,7 @@ class DatetimeSpoke(NormalSpoke):
         self._citiesSort = self.builder.get_object("citiesSort")
         self._citiesSort.set_sort_column_id(0, 0) #column 0, Ascending
 
+        self._mod_hours = 13 #TODO: change on timeformat RB change
         self._tzmap.set_timezone("Europe/Prague")
 
     @property
@@ -160,22 +161,43 @@ class DatetimeSpoke(NormalSpoke):
         return city in self._regions_zones[region]
 
     def on_up_hours_clicked(self, *args):
-        pass
+        hours_label = self.builder.get_object("hoursLabel")
+        hours = int(hours_label.get_text())
+        hours_str = "%0.2d" % ((hours + 1) % self._mod_hours)
+        hours_label.set_text(hours_str)
 
     def on_down_hours_clicked(self, *args):
-        pass
+        hours_label = self.builder.get_object("hoursLabel")
+        hours = int(hours_label.get_text())
+        hours_str = "%0.2d" % ((hours - 1) % self._mod_hours)
+        hours_label.set_text(hours_str)
 
     def on_up_minutes_clicked(self, *args):
+        minutes_label = self.builder.get_object("minutesLabel")
+        minutes = int(minutes_label.get_text())
+        minutes_str = "%0.2d" % ((minutes + 1) % 60)
+        minutes_label.set_text(minutes_str)
         pass
 
     def on_down_minutes_clicked(self, *args):
-        pass
+        minutes_label = self.builder.get_object("minutesLabel")
+        minutes = int(minutes_label.get_text())
+        minutes_str = "%0.2d" % ((minutes - 1) % 60)
+        minutes_label.set_text(minutes_str)
 
     def on_up_ampm_clicked(self, *args):
-        pass
+        label = self.builder.get_object("amPmLabel")
+        if label.get_text() == "AM":
+            label.set_text("PM")
+        else:
+            label.set_text("AM")
 
     def on_down_ampm_clicked(self, *args):
-        pass
+        label = self.builder.get_object("amPmLabel")
+        if label.get_text() == "AM":
+            label.set_text("PM")
+        else:
+            label.set_text("AM")
 
     def on_region_changed(self, *args):
         self._citiesFilter.refilter()
