@@ -1317,7 +1317,7 @@ int writeEnabledNetInfo(iface_t *iface) {
             iface->vendorclass);
 
     if (iface->dhcptimeout) {
-        fprintf(fp, "timeout %d", iface->dhcptimeout);
+        fprintf(fp, "timeout %d;", iface->dhcptimeout);
     }
 
     if (fclose(fp) == EOF) {
