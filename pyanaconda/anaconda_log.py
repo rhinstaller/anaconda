@@ -112,6 +112,9 @@ class AnacondaSyslogHandler(SysLogHandler):
         record.msg = original_msg
 
 class AnacondaLog:
+    SYSLOG_CFGFILE  = "/etc/rsyslog.conf"
+    VIRTIO_PORT = "/dev/virtio-ports/org.fedoraproject.anaconda.log.0"
+
     def __init__ (self):
         self.tty_loglevel = DEFAULT_TTY_LEVEL
         self.remote_syslog = None
@@ -202,22 +205,35 @@ class AnacondaLog:
         self.anaconda_logger.warning("%s" % warnings.formatwarning(
                 message, category, filename, lineno, line))
 
+    def restartSyslog(self):
+        os.system("systemctl restart rsyslog.service")
+
     def updateRemote(self, remote_syslog):
         """Updates the location of remote rsyslogd to forward to.
 
-        Requires updating rsyslogd config and sending SIGHUP to the daemon.
+        Requires updating rsyslogd config and restarting rsyslog
         """
-        PIDFILE  = "/var/run/syslogd.pid"
-        CFGFILE  = "/etc/rsyslog.conf"
         TEMPLATE = "*.* @@%s\n"
 
         self.remote_syslog = remote_syslog
-        with open(CFGFILE, 'a') as cfgfile:
+        with open(self.SYSLOG_CFGFILE, 'a') as cfgfile:
             forward_line = TEMPLATE % remote_syslog
             cfgfile.write(forward_line)
-        with open(PIDFILE, 'r') as pidfile:
-            pid = int(pidfile.read())
-            os.kill(pid, signal.SIGHUP)
+        self.restartSyslog()
+
+    def setupVirtio(self):
+        """Setup virtio rsyslog logging.
+        """
+        TEMPLATE = "*.* %s\n"
+
+        if not os.path.exists(self.VIRTIO_PORT) \
+           or not os.access(self.VIRTIO_PORT, os.W_OK):
+            return
+
+        with open(self.SYSLOG_CFGFILE, 'a') as cfgfile:
+            cfgfile.write(TEMPLATE % (self.VIRTIO_PORT,))
+        self.restartSyslog()
+
 
 logger = None
 def init():
