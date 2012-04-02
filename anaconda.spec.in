@@ -110,9 +110,6 @@ Requires: dosfstools
 Requires: e2fsprogs >= %{e2fsver}
 Requires: gzip
 Requires: libarchive
-%ifarch %{ix86} x86_64 ia64
-Requires: dmidecode
-%endif
 Requires: python-pyblock >= %{pythonpyblockver}
 Requires: libuser-python
 Requires: newt-python
@@ -176,9 +173,6 @@ Requires: dracut >= 16
 Requires: dracut-network
 Requires: xz
 Requires: pykickstart
-%ifarch %{ix86} x86_64
-Requires: dmidecode
-%endif
 
 %description dracut
 The 'anaconda' dracut module handles installer-specific boot tasks and
