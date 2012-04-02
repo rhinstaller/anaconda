@@ -26,6 +26,7 @@ import parted
 
 from pyanaconda import bootloader
 from pyanaconda.storage.devicelibs import mdraid
+from pyanaconda.constants import DMI_CHASSIS_VENDOR
 
 import iutil
 from flags import flags
@@ -163,6 +164,7 @@ class X86(Platform):
 
     def __init__(self, anaconda):
         super(X86, self).__init__(anaconda)
+        self.blackListGPT()
 
     def setDefaultPartitioning(self):
         """Return the default platform-specific partitioning information."""
@@ -180,6 +182,18 @@ class X86(Platform):
             return 5000
         else:
             return 0
+
+    def blackListGPT(self):
+        """ Remove GPT disk label as an option on systems where their BIOS
+            doesn't boot from GPT labeled disks.
+
+            Currently this includes: Lenovo
+        """
+        if not os.path.isfile(DMI_CHASSIS_VENDOR):
+            return
+        buf = open(DMI_CHASSIS_VENDOR).read()
+        if "LENOVO" in buf.splitlines() and "gpt" in self._disklabel_types:
+            self._disklabel_types.remove("gpt")
 
 class EFI(Platform):
     _bootloaderClass = bootloader.EFIGRUB
