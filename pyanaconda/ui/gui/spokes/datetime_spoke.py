@@ -203,7 +203,27 @@ class DatetimeSpoke(NormalSpoke):
         self._citiesFilter.refilter()
 
     def on_city_changed(self, *args):
-        pass
+        timezone = None
+
+        regions_model = self._regionCombo.get_model()
+        regions_iter = self._regionCombo.get_active_iter()
+        if regions_iter:
+            region = regions_model[regions_iter][0]
+        else:
+            region = None
+
+        cities_model = self._cityCombo.get_model()
+        cities_iter = self._cityCombo.get_active_iter()
+        if cities_iter: #there can be no city selected
+            city = cities_model[cities_iter][0]
+        else:
+            city = None
+
+        if city and region:
+            timezone = region + "/" + city
+
+        if timezone and (self._tzmap.get_timezone() != timezone):
+            self._tzmap.set_timezone(timezone)
 
     def on_month_changed(self, *args):
         self._daysFilter.refilter()
