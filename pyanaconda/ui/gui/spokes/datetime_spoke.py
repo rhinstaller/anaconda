@@ -234,8 +234,29 @@ class DatetimeSpoke(NormalSpoke):
     def on_year_changed(self, *args):
         self._daysFilter.refilter()
 
-    def on_timezone_changed(self, *args):
-        pass
+    def on_timezone_changed(self, tz_map, timezone):
+        fields = timezone.split("/", 1)
+        if len(fields) == 1:
+            #initial ""
+            return
+        else:
+            region, city = fields
+
+        itr = self._regionsStore.get_iter_first()
+        while itr:
+            if self._regionsStore[itr][0] == region:
+                self._regionCombo.set_active_iter(itr)
+                break
+
+            itr = self._regionsStore.iter_next(itr)
+
+        itr = self._citiesSort.get_iter_first()
+        while itr:
+            if self._citiesSort[itr][0] == city:
+                self._cityCombo.set_active_iter(itr)
+                break
+
+            itr = self._citiesSort.iter_next(itr)
 
     def on_timeformat_changed(self, *args):
         pass
