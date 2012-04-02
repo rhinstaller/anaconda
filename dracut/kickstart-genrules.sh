@@ -14,8 +14,8 @@ case "${kickstart%%:*}" in
             warn "can't get kickstart: biospart isn't supported yet"
             ksdev=""
         else
-            when_diskdev_appears "$ksdev" \
-                "/sbin/fetch-kickstart-disk \$env{DEVNAME} $kspath"
+            when_diskdev_appears $ksdev \
+                fetch-kickstart-disk \$env{DEVNAME} $kspath
             wait_for_kickstart
         fi
     ;;

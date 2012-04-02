@@ -81,7 +81,7 @@ disk_to_dev_path() {
 
 when_diskdev_appears() {
     local dev="${1#/dev/}" cmd=""; shift
-    cmd="/sbin/initqueue --settled --onetime $*"
+    cmd="/sbin/initqueue --settled --onetime --unique --name $1-$dev $*"
     {
         printf 'SUBSYSTEM=="block", KERNEL=="%s", RUN+="%s"\n' "$dev" "$cmd"
         printf 'SUBSYSTEM=="block", SYMLINK=="%s", RUN+="%s"\n' "$dev" "$cmd"
