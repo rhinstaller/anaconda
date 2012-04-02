@@ -99,6 +99,10 @@ class DatetimeSpoke(NormalSpoke):
         self._citiesSort.set_sort_column_id(0, 0) #column 0, Ascending
 
         self._mod_hours = 13 #TODO: change on timeformat RB change
+        self._radioButton24h = self.builder.get_object("timeFormatRB")
+        if self._radioButton24h.get_active():
+            self._set_amPm_part_sensitive(False)
+
         self._tzmap.set_timezone("Europe/Prague")
 
     @property
@@ -159,6 +163,14 @@ class DatetimeSpoke(NormalSpoke):
         region = regions_model[regions_iter][0]
 
         return city in self._regions_zones[region]
+
+    def _set_amPm_part_sensitive(self, sensitive):
+        amPmUp = self.builder.get_object("amPmUpButton")
+        amPmDown = self.builder.get_object("amPmDownButton")
+        amPmLabel = self.builder.get_object("amPmLabel")
+
+        for widget in (amPmUp, amPmDown, amPmLabel):
+            widget.set_sensitive(sensitive)
 
     def on_up_hours_clicked(self, *args):
         hours_label = self.builder.get_object("hoursLabel")
@@ -258,5 +270,10 @@ class DatetimeSpoke(NormalSpoke):
 
             itr = self._citiesSort.iter_next(itr)
 
-    def on_timeformat_changed(self, *args):
-        pass
+    def on_timeformat_changed(self, button24h, *args):
+        #connected to 24-hour radio button
+        if button24h.get_active():
+            self._set_amPm_part_sensitive(False)
+        else:
+            self._set_amPm_part_sensitive(True)
+
