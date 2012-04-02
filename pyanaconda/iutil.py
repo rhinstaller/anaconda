@@ -688,11 +688,10 @@ def isMactel():
 
     if not isX86():
         mactel = False
-    elif not os.path.exists("/usr/sbin/dmidecode"):
+    elif not os.path.isfile(DMI_CHASSIS_VENDOR):
         mactel = False
     else:
-        buf = execWithCapture("/usr/sbin/dmidecode",
-                              ["dmidecode", "-s", "system-manufacturer"])
+        buf = open(DMI_CHASSIS_VENDOR).read()
         if buf.lower().find("apple") != -1:
             mactel = True
         else:
