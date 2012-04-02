@@ -51,13 +51,13 @@ class CustomPartitioningSpoke(NormalSpoke):
     def _addCategory(self, store, name):
         return store.append(None, ["""<span size="large" weight="bold" fgcolor="grey">%s</span>""" % name, ""])
 
-    def _addPartition(self, store, itr, req):
+    def _addPartition(self, store, itr, device):
         from pyanaconda.storage.size import Size
 
-        name = self._partitionName(req)
-        size = Size(spec=str(req.size) + " MB")
+        name = self._partitionName(device)
+        size = Size(spec=str(device.size) + " MB")
 
-        return store.append(itr, ["""<span size="large" weight="bold">%s</span>\n<span size="small" fgcolor="grey">%s</span>""" % (name, req.mountpoint or ""), size.humanReadable()])
+        return store.append(itr, ["""<span size="large" weight="bold">%s</span>\n<span size="small" fgcolor="grey">%s</span>""" % (name, device.format.__dict__.get("mountpoint", "")), size.humanReadable()])
 
     def _grabObjects(self):
         self._configureBox = self.builder.get_object("configureBox")
@@ -83,22 +83,21 @@ class CustomPartitioningSpoke(NormalSpoke):
 
         setViewportBackground(self.builder.get_object("partitionsViewport"))
 
-    def _partitionName(self, req):
+    def _partitionName(self, device):
         # If there's a mountpoint, we can probably just use that.
-        if req.mountpoint:
-            if req.mountpoint == "/":
+        if hasattr(device.format, "mountpoint") and device.format.mountpoint:
+            if device.format.mountpoint == "/":
                 return "Root"
-            elif req.mountpoint.count("/") == 1:
-                return req.mountpoint[1:].capitalize()
+            elif device.format.mountpoint.count("/") == 1:
+                return device.format.mountpoint[1:].capitalize()
         else:
             # Otherwise, try to use the name of whatever format the request is.
-            from pyanaconda.storage.formats import getFormat
-            return getFormat(req.fstype).name
+            return device.format.name
 
-    def _isSystemPartition(self, req):
-        if req.mountpoint and req.mountpoint in ["/", "/boot"]:
+    def _isSystemPartition(self, mountpoint):
+        if mountpoint and mountpoint in ["/", "/boot"]:
             return True
-        elif not req.mountpoint:
+        elif not mountpoint:
             return True
         else:
             return False
@@ -110,20 +109,28 @@ class CustomPartitioningSpoke(NormalSpoke):
         self._dataItr = self._addCategory(self._store, "DATA")
         self._systemItr = self._addCategory(self._store, "SYSTEM")
 
-        # Now add all existing partition requests to the UI.
-        for req in self.storage.autoPartitionRequests:
-            if self._isSystemPartition(req):
+        # This is custom partitioning, so we start with displaying the existing
+        # setup.  The user can then modify it from there to what they want it to
+        # be.
+        for (mountpoint, device) in self.storage.mountpoints:
+            if self._isSystemPartition(mountpoint):
                 itr = self._systemItr
             else:
                 itr = self._dataItr
 
-            self._addPartition(self._store, itr, req)
+            self._addPartition(self._store, itr, device)
+
+        for swap in self.storage.swaps:
+            self._addPartition(self._store, self._systemItr, swap)
 
         # And pre-select the very first system partition.  We're guaranteed to
         # have one of those but not necessarily a data partition.  This way
         # there's always something to display in the right hand side.
         itr = self._store.iter_nth_child(self._systemItr, 0)
-        self._selection.select_iter(itr)
+        if itr:
+            self._selection.select_iter(itr)
+        else:
+            self._configureBox.set_sensitive(False)
 
         self._view.expand_all()
 
