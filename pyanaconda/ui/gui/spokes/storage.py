@@ -562,8 +562,13 @@ class StorageSpoke(NormalSpoke):
             # go to software spoke
             print "user chose to modify software selection"
         elif rc == dialog.RESPONSE_RECLAIM:
-            # go to tug-of-war
-            print "user chose to reclaim space"
+            if dialog.custom:
+                self.skipTo = "CustomPartitioningSpoke"
+            else:
+                # go to tug-of-war
+                pass
+
+            self.on_back_clicked(self.window)
         elif rc == dialog.RESPONSE_QUIT:
             raise SystemExit("user-selected exit")
 
