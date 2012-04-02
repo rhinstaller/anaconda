@@ -155,7 +155,7 @@ class KernelArguments:
         # Dracut needs the explicit ifname= because biosdevname
         # fails to rename the iface (because of BFS booting from it).
         import storage.fcoe
-        for nic, dcb in storage.fcoe.fcoe().nics:
+        for nic, dcb, auto_vlan in storage.fcoe.fcoe().nics:
             hwaddr = self.id.network.netdevices[nic].get("HWADDR")
             args.add("ifname=%s:%s" % (nic, hwaddr.lower()))
 
