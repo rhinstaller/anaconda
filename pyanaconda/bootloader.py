@@ -1175,6 +1175,11 @@ class GRUB(BootLoader):
         return ""
 
     @property
+    def splash_dir(self):
+        """ relative path to splash image directory."""
+        return GRUB._config_dir
+
+    @property
     def serial_command(self):
         command = ""
         if self.console and self.console.startswith("ttyS"):
@@ -1277,13 +1282,13 @@ class GRUB(BootLoader):
 
         if not flags.serial:
             splash = "splash.xpm.gz"
-            splash_path = os.path.normpath("%s%s/%s" % (ROOT_PATH,
-                                                        self.config_dir,
+            splash_path = os.path.normpath("%s/boot/%s/%s" % (ROOT_PATH,
+                                                        self.splash_dir,
                                                         splash))
             if os.access(splash_path, os.R_OK):
                 grub_root_grub_name = self.grub_device_name(self.stage2_device)
                 config.write("splashimage=%s/%s/%s\n" % (grub_root_grub_name,
-                                                         self.grub_config_dir,
+                                                         self.splash_dir,
                                                          splash))
                 config.write("hiddenmenu\n")
 
