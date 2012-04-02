@@ -4,8 +4,7 @@
 
 command -v getarg >/dev/null || . /lib/dracut-lib.sh
 
-# get repo and root info
-[ -e /tmp/root.info ] && . /tmp/root.info
+# get repo info
 repo=$(getarg repo= inst.repo=)
 
 # no repo? non-net root? we're not needed here.

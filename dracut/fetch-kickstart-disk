@@ -7,6 +7,7 @@ command -v getarg >/dev/null || . /lib/dracut-lib.sh
 dev="$1"
 path="${2:-/ks.cfg}"
 
+[ -e /tmp/ks.cfg.done ] && exit 1
 [ -b "$dev" ] || exit 1
 
 info "anaconda: fetching kickstart from $dev:$path"

@@ -135,6 +135,9 @@ run_kickstart() {
     # kickstart's done - time to find a real root device
     [ "$root" = "anaconda-kickstart" ] && root=""
 
+    # don't look for the kickstart again
+    kickstart=""
+
     # re-parse new cmdline stuff from the kickstart
     . $hookdir/cmdline/*parse-anaconda-repo.sh
     # TODO: parse for other stuff ks might set (updates, dd, etc.)
@@ -145,8 +148,6 @@ run_kickstart() {
     [ "$root" = "anaconda-auto-cd" ] && do_disk=1
 
     # replay udev events to trigger actions
-    # NOTE: this line is deprecated and unnecessary in dracut 018
-    [ -f /tmp/root.info ] && echo "root='$root'" >> /tmp/root.info
     if [ "$do_disk" ]; then
         . $hookdir/pre-udev/*repo-genrules.sh
         udevadm control --reload
