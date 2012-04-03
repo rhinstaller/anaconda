@@ -1101,6 +1101,8 @@ static void parseCmdLineFlags(struct loaderData_s * loaderData,
             loaderData->essid = strdup(argv[i] + 6);
         else if (!strncasecmp(argv[i], "mtu=", 4))
             loaderData->mtu = argToLong(argv[i], 4);
+        else if (!strncasecmp(argv[i], "vlanid=", 7))
+            loaderData->vlanid = argToLong(argv[i], 7);
         else if (!strncasecmp(argv[i], "wepkey=", 7))
             loaderData->wepkey = strdup(argv[i] + 7);
         else if (!strncasecmp(argv[i], "linksleep=", 10))

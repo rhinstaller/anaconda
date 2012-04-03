@@ -404,6 +404,10 @@ void setupIfaceStruct(iface_t * iface, struct loaderData_s * loaderData) {
         iface->mtu = loaderData->mtu;
     }
 
+    if (loaderData->vlanid) {
+        iface->vlanid = loaderData->vlanid;
+    }
+
     if (loaderData->peerid) {
         iface->peerid = strdup(loaderData->peerid);
     }
@@ -472,6 +476,11 @@ int readNetConfig(char * device, iface_t * iface,
     opts.ipv6Choice = 0;
     opts.v6Method = 0;
 #endif
+    char *devicename = iface->device;
+
+    if (iface->vlanid) {
+	checked_asprintf(&devicename, "%s.%d", iface->device, iface->vlanid);
+    }
 
     /* JKFIXME: we really need a way to override this and be able to change
      * our network config */
@@ -483,11 +492,11 @@ int readNetConfig(char * device, iface_t * iface,
         err = writeEnabledNetInfo(iface);
         if (err) {
             logMessage(ERROR, "failed to write %s data for %s (%d)",
-                       SYSCONFIG_PATH, iface->device, err);
+                       SYSCONFIG_PATH, devicename, err);
             return LOADER_BACK;
         }
 
-        i = wait_for_iface_activation(iface->device, iface->dhcptimeout);
+        i = wait_for_iface_activation(devicename, iface->dhcptimeout);
         newtPopWindow();
 
         if (i > 0) {
@@ -1244,7 +1253,7 @@ int writeDisabledIfcfgFile(char *device) {
     fprintf(fp, "UUID=%s\n", uuid);
     g_free(uuid);
     fprintf(fp, "ONBOOT=no\n");
-    fprintf(fp, "NM_CONTROLLED=no\n");
+    fprintf(fp, "NM_CONTROLLED=yes\n");
     /* default for network service, NM assumes it */
     fprintf(fp, "BOOTPROTO=dhcp\n");
 
@@ -1285,6 +1294,12 @@ int writeEnabledNetInfo(iface_t *iface) {
     char *nfile = NULL;
     struct utsname kv;
     char *uuid = NULL;
+    char *devicename = iface->device;
+
+    if (iface->vlanid) {
+        checked_asprintf(&devicename, "%s.%d", iface->device, iface->vlanid);
+        logMessage(DEBUGLVL, "writing ifcfg of vlan device %s", devicename);
+    }
 
     memset(&buf, '\0', sizeof(buf));
 
@@ -1304,7 +1319,7 @@ int writeEnabledNetInfo(iface_t *iface) {
         }
     }
 
-    if (asprintf(&ofile, "/etc/dhcp/dhclient-%s.conf", iface->device) == -1) {
+    if (asprintf(&ofile, "/etc/dhcp/dhclient-%s.conf", devicename) == -1) {
         return 17;
     }
 
@@ -1332,12 +1347,12 @@ int writeEnabledNetInfo(iface_t *iface) {
 
     /* write out new ifcfg-DEVICE file */
     if (asprintf(&ofile, "%s/.ifcfg-%s",
-                 NETWORK_SCRIPTS_PATH, iface->device) == -1) {
+                 NETWORK_SCRIPTS_PATH, devicename) == -1) {
         return 1;
     }
 
     if (asprintf(&nfile, "%s/ifcfg-%s",
-                 NETWORK_SCRIPTS_PATH, iface->device) == -1) {
+                 NETWORK_SCRIPTS_PATH, devicename) == -1) {
         return 13;
     }
 
@@ -1346,17 +1361,24 @@ int writeEnabledNetInfo(iface_t *iface) {
         return 2;
     }
 
-    fprintf(fp, "DEVICE=%s\n", iface->device);
+    fprintf(fp, "DEVICE=%s\n", devicename);
 #if !defined(__s390__) && !defined(__s390x__)
-    fprintf(fp, "HWADDR=%s\n", iface_mac2str(iface->device));
+    if (!iface->vlanid) {
+        fprintf(fp, "HWADDR=%s\n", iface_mac2str(devicename));
+    }
 #endif
     uuid = nm_utils_uuid_generate();
     fprintf(fp, "UUID=%s\n", uuid);
     g_free(uuid);
     fprintf(fp, "ONBOOT=yes\n");
-    char *str_type = netArpTypeStr(iface->device);
-    if (str_type) fprintf(fp, "TYPE=%s\n", str_type);
-    free(str_type);
+    if (iface->vlanid) {
+        fprintf(fp, "TYPE=Vlan\n");
+        fprintf(fp, "VLAN=yes\n");
+    } else {
+        char *str_type = netArpTypeStr(devicename);
+        if (str_type) fprintf(fp, "TYPE=%s\n", str_type);
+        free(str_type);
+    }
 
     if (!FL_NOIPV4(flags)) {
         if (iface->ipv4method == IPV4_IBFT_METHOD) {
@@ -1504,7 +1526,7 @@ int writeEnabledNetInfo(iface_t *iface) {
 
     if (!iface->defroute) {
         fprintf(fp, "DEFROUTE=no\n");
-        logMessage(INFO, "not setting default route via %s", iface->device);
+        logMessage(INFO, "not setting default route via %s", devicename);
     }
 
     if (fclose(fp) == EOF) {
@@ -1585,7 +1607,7 @@ void setKickstartNetwork(struct loaderData_s * loaderData, int argc,
     iface_t iface;
     gchar *bootProto = NULL, *device = NULL, *class = NULL, *ethtool = NULL;
     gchar *essid = NULL, *wepkey = NULL, *onboot = NULL, *gateway = NULL;
-    gint mtu = 1500;
+    gint mtu = 1500, vlanid = 0;
     gboolean noipv4 = FALSE, noipv6 = FALSE, noDns = FALSE, noksdev = FALSE, activate = FALSE, nodefroute=FALSE, firstnetdev=FALSE;
     GOptionContext *optCon = g_option_context_new(NULL);
     GError *optErr = NULL;
@@ -1623,6 +1645,7 @@ void setKickstartNetwork(struct loaderData_s * loaderData, int argc,
         { "firstnetdev", 0, 0, G_OPTION_ARG_NONE, &firstnetdev, NULL, NULL },
         { "nodefroute", 0, 0, G_OPTION_ARG_NONE, &nodefroute, NULL, NULL },
         { "dhcptimeout", 0, 0, G_OPTION_ARG_INT, &loaderData->dhcpTimeout, NULL, NULL },
+        { "vlanid", 0, 0, G_OPTION_ARG_INT, &vlanid, NULL, NULL },
         { NULL },
     };
 
@@ -1651,6 +1674,7 @@ void setKickstartNetwork(struct loaderData_s * loaderData, int argc,
     loaderData->wepkey = NULL;
     loaderData->mtu = 0;
     loaderData->dhcpTimeout = NM_DHCP_TIMEOUT;
+    loaderData->vlanid = 0;
 
 #ifdef ENABLE_IPV6
     free(loaderData->ipv6);
@@ -1752,6 +1776,10 @@ void setKickstartNetwork(struct loaderData_s * loaderData, int argc,
 
         if (mtu) {
            loaderData->mtu = mtu;
+        }
+
+        if (vlanid) {
+           loaderData->vlanid = vlanid;
         }
 
         if (noipv4)
@@ -2122,6 +2150,7 @@ int disconnectDevice(char *device) {
 }
 
 int activateDevice(struct loaderData_s * loaderData, iface_t * iface) {
+    char *devicename;
     int rc;
 
     do {
@@ -2144,9 +2173,15 @@ int activateDevice(struct loaderData_s * loaderData, iface_t * iface) {
             break;
         } while (1);
 
-        if (is_iface_activated(iface->device)) {
-            logMessage(INFO, "device %s is already activated", iface->device);
-            if ((rc = disconnectDevice(iface->device)) != 0) {
+	devicename = iface->device;
+	if (loaderData->vlanid) {
+	    checked_asprintf(&devicename, "%s.%d", iface->device, loaderData->vlanid);
+	    logMessage(DEBUGLVL, "activating vlan device %s", devicename);
+	}
+
+        if (is_iface_activated(devicename)) {
+            logMessage(INFO, "device %s is already activated", devicename);
+            if ((rc = disconnectDevice(devicename)) != 0) {
                 logMessage(ERROR, "device disconnection failed with return code %d", rc);
                 return -1;
             }
@@ -2167,18 +2202,18 @@ int activateDevice(struct loaderData_s * loaderData, iface_t * iface) {
                            loaderData->method);
 
         if (rc == LOADER_ERROR) {
-            logMessage(ERROR, "unable to activate device %s", iface->device);
+            logMessage(ERROR, "unable to activate device %s", devicename);
             return -1;
         } else if (rc == LOADER_BACK) {
             /* Going back to the interface selection screen, so unset anything
              * we set before attempting to bring the incorrect interface up.
              */
-            logMessage(ERROR, "unable to activate device %s", iface->device);
-            if ((rc = removeDhclientConfFile(iface->device)) != 0) {
+            logMessage(ERROR, "unable to activate device %s", devicename);
+            if ((rc = removeDhclientConfFile(devicename)) != 0) {
                 logMessage(ERROR, "removeDhclientConfFile failure (%s): %d",
                            __func__, rc);
             }
-            if ((rc = writeDisabledIfcfgFile(iface->device)) != 0) {
+            if ((rc = writeDisabledIfcfgFile(devicename)) != 0) {
                 logMessage(ERROR, "writeDisabledIfcfgFile failure (%s): %d",
                            __func__, rc);
             }

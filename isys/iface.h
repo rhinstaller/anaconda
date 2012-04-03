@@ -56,6 +56,9 @@ typedef struct _iface_t {
     /* MAC address as xx:xx:xx:xx:xx:xx */
     char *macaddr;
 
+    /* VLAN id (0 means none) */
+    int vlanid;
+
     /* IPv4 (store addresses in in_addr format, use inet_pton() to display) */
     struct in_addr ipaddr;
     struct in_addr netmask;

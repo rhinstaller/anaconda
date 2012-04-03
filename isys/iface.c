@@ -386,6 +386,7 @@ void iface_init_iface_t(iface_t *iface) {
     iface->ipv4method = IPV4_UNUSED_METHOD;
     iface->ipv6method = IPV6_UNUSED_METHOD;
     iface->defroute = 1;
+    iface->vlanid = 0;
 
     return;
 }

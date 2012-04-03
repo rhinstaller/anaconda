@@ -145,6 +145,7 @@ struct loaderData_s {
     int mtu;
     int noDns;
     int dhcpTimeout;
+    int vlanid;
     int ipinfo_set;
     char * ksFile;
     int method;
