@@ -62,9 +62,15 @@ elif [ -n "$ip" ]; then # just good ol' ipv4
 fi
 
 [ -n "$ip$ipv6$ksdev_val" ] && set_neednet
+unset CMDLINE
+
+# if network is needed, make sure the "online" hook runs
+if getarg rd.neednet >/dev/null; then
+    initqueue --finished --unique --name "online" \
+        [ -e /tmp/net.ifaces ] '&&' all_ifaces_up
+fi
 
 # set dhcp vendor class
 dhcpclass=$(getarg inst.dhcpclass) || dhcpclass="anaconda-$(uname -srm)"
 echo "send vendor-class-identifier \"$dhcpclass\"" >> /etc/dhclient.conf
 
-unset CMDLINE

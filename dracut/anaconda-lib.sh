@@ -32,6 +32,7 @@ find_iso() {
 }
 
 find_runtime() {
+    [ -f "$1" ] && [ "${1%.iso}" == "$1" ] && echo "$1" && return
     local ti_img="" dir="$1"
     [ -e $dir/.treeinfo ] && \
         ti_img=$(config_get stage2 mainimage < $dir/.treeinfo)
@@ -51,7 +52,7 @@ anaconda_live_root_dir() {
     img=$(find_runtime $mnt/$path)
     if [ -n "$img" ]; then
         info "anaconda: found $img"
-        [ "$dir" = "$repodir" ] || mount --move $mnt $repodir
+        [ "$mnt" = "$repodir" ] || mount --move $mnt $repodir
     else
         if [ "${path%.iso}" != "$path" ]; then
             iso=$path
@@ -79,9 +80,17 @@ disk_to_dev_path() {
     esac
 }
 
+dev_is_mounted() {
+    local dev mnt etc
+    while read dev mnt etc; do
+        [ "$dev" = "$1" ] && echo $mnt && return 0
+    done < /proc/mounts
+    return 1
+}
+
 when_diskdev_appears() {
     local dev="${1#/dev/}" cmd=""; shift
-    cmd="/sbin/initqueue --settled --onetime $*"
+    cmd="/sbin/initqueue --settled --onetime --unique --name $1-$dev $*"
     {
         printf 'SUBSYSTEM=="block", KERNEL=="%s", RUN+="%s"\n' "$dev" "$cmd"
         printf 'SUBSYSTEM=="block", SYMLINK=="%s", RUN+="%s"\n' "$dev" "$cmd"
@@ -135,6 +144,9 @@ run_kickstart() {
     # kickstart's done - time to find a real root device
     [ "$root" = "anaconda-kickstart" ] && root=""
 
+    # don't look for the kickstart again
+    kickstart=""
+
     # re-parse new cmdline stuff from the kickstart
     . $hookdir/cmdline/*parse-anaconda-repo.sh
     # TODO: parse for other stuff ks might set (updates, dd, etc.)
@@ -145,8 +157,6 @@ run_kickstart() {
     [ "$root" = "anaconda-auto-cd" ] && do_disk=1
 
     # replay udev events to trigger actions
-    # NOTE: this line is deprecated and unnecessary in dracut 018
-    [ -f /tmp/root.info ] && echo "root='$root'" >> /tmp/root.info
     if [ "$do_disk" ]; then
         . $hookdir/pre-udev/*repo-genrules.sh
         udevadm control --reload

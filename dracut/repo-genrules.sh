@@ -7,8 +7,8 @@ case "$root" in
     # anaconda-disk:<device>[:<path>]
     splitsep ":" "$root" f diskdev diskpath
     diskdev=$(disk_to_dev_path $diskdev)
-    when_diskdev_appears "$diskdev" \
-        "/sbin/anaconda-diskroot $diskdev $diskpath"
+    when_diskdev_appears $diskdev \
+        anaconda-diskroot \$env{DEVNAME} $diskpath
   ;;
   anaconda-auto-cd)
     # special catch-all rule for CDROMs
