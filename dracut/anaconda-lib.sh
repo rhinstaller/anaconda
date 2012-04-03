@@ -80,6 +80,14 @@ disk_to_dev_path() {
     esac
 }
 
+dev_is_mounted() {
+    local dev mnt etc
+    while read dev mnt etc; do
+        [ "$dev" = "$1" ] && echo $mnt && return 0
+    done < /proc/mounts
+    return 1
+}
+
 when_diskdev_appears() {
     local dev="${1#/dev/}" cmd=""; shift
     cmd="/sbin/initqueue --settled --onetime --unique --name $1-$dev $*"
