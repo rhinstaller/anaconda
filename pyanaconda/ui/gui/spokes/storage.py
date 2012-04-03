@@ -360,7 +360,9 @@ class StorageSpoke(NormalSpoke):
         """ A short string describing the current status of storage setup. """
         msg = _("No disks selected")
         if self.data.ignoredisk.onlyuse:
-            msg = _("%d disks selected") % len(self.data.ignoredisk.onlyuse)
+            msg = P_(("%d disk selected"),
+                     ("%d disks selected"),
+                     len(self.data.ignoredisk.onlyuse)) % len(self.data.ignoredisk.onlyuse)
 
             if self.data.autopart.autopart:
                 msg = _("Automatic partitioning selected")
