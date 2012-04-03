@@ -1822,9 +1822,6 @@ MAILADDR root
                     sys.exit(0)
 
     def labelEntry(self, entry, chroot):
-        # remove old label
-        entry.setLabel(None)
-
         label = entry.device.getLabel()
         if label:
             entry.setLabel(label)
@@ -1832,7 +1829,10 @@ MAILADDR root
                 entry.device.doLabel = 1
         if entry.device.doLabel is not None:
             entry.fsystem.labelDevice(entry, chroot)
-    
+        elif not label:
+            # remove old label
+            entry.setLabel(None)
+
     def formatEntry(self, entry, chroot):
         if entry.mountpoint:
             log.info("formatting %s as %s" %(entry.mountpoint, entry.fsystem.name))
