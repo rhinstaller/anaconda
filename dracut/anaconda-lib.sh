@@ -52,7 +52,7 @@ anaconda_live_root_dir() {
     img=$(find_runtime $mnt/$path)
     if [ -n "$img" ]; then
         info "anaconda: found $img"
-        [ "$dir" = "$repodir" ] || mount --move $mnt $repodir
+        [ "$mnt" = "$repodir" ] || mount --move $mnt $repodir
     else
         if [ "${path%.iso}" != "$path" ]; then
             iso=$path
