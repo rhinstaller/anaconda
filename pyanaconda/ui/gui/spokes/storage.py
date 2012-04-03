@@ -347,7 +347,7 @@ class StorageSpoke(NormalSpoke):
 
     @property
     def completed(self):
-        return False
+        return self.status != _("No disks selected")
 
     @property
     def ready(self):
