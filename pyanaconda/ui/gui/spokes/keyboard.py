@@ -109,7 +109,7 @@ class KeyboardSpoke(NormalSpoke):
 
     category = LocalizationCategory
 
-    icon = "accessories-character-map"
+    icon = "accessories-character-map-symbolic"
     title = N_("KEYBOARD")
 
     def __init__(self, *args):
