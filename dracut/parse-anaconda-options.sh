@@ -65,7 +65,6 @@ check_depr_args() {
 }
 
 check_depr_arg "serial" "console=ttyS0"
-check_depr_arg "stage2=" "root=live:%s"
 check_depr_args "blacklist=" "inst.blacklist=%s"
 check_depr_arg "nofirewire" "inst.blacklist=firewire_ohci"
 

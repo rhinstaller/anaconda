@@ -5,16 +5,21 @@
 getarg root= >/dev/null && return
 
 repo="$(getarg repo= inst.repo=)"
+stage2="$(getarg stage2= inst.stage2=)"
+
+arg="repo"
+# default to using repo, but if we have stage2=, use that
+[ -n "$stage2" ] && arg="stage2" && repo="$stage2"
 
 if [ -n "$repo" ]; then
     splitsep ":" "$repo" repotype rest
     case "$repotype" in
         http|https|ftp|nfs|nfs4|nfsiso)
-            set_neednet; root="anaconda-net" ;;
+            set_neednet; root="anaconda-net:$repo" ;;
         hd|cd|cdrom)
             [ -n "$rest" ] && root="anaconda-disk:$rest" ;;
         *)
-            warn "Invalid value for 'inst.repo': $repo" ;;
+            warn "Invalid value for 'inst.$arg': $repo" ;;
     esac
 fi
 

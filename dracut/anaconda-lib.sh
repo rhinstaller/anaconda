@@ -32,6 +32,7 @@ find_iso() {
 }
 
 find_runtime() {
+    [ -f "$1" ] && [ "${1%.iso}" == "$1" ] && echo "$1" && return
     local ti_img="" dir="$1"
     [ -e $dir/.treeinfo ] && \
         ti_img=$(config_get stage2 mainimage < $dir/.treeinfo)

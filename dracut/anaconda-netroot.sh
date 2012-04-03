@@ -5,10 +5,10 @@
 command -v getarg >/dev/null || . /lib/dracut-lib.sh
 
 # get repo info
-repo=$(getarg repo= inst.repo=)
+splitsep ":" "$root" prefix repo
 
 # no repo? non-net root? we're not needed here.
-[ "$root" = "anaconda-net" ] && [ -n "$repo" ] || return 0
+[ "$prefix" = "anaconda-net" ] && [ -n "$repo" ] || return 0
 # already done? don't run again.
 [ -e /dev/root ] && return 0
 
