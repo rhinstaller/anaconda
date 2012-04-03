@@ -141,6 +141,17 @@ class AnacondaKSScript(Script):
         if serial or self.logfile is not None:
             os.chmod("%s" % messages, 0600)
 
+class AnacondaInternalScript(AnacondaKSScript):
+    def __init__(self, *args, **kwargs):
+        AnacondaKSScript.__init__(self, *args, **kwargs)
+        self._hidden = True
+
+    def __str__(self):
+        # Scripts that implement portions of anaconda (copying screenshots and
+        # log files, setfilecons, etc.) should not be written to the output
+        # kickstart file.
+        return ""
+
 def getEscrowCertificate(anaconda, url):
     if not url:
         return None
@@ -1245,7 +1256,8 @@ class AnacondaPreParser(KickstartParser):
 
 class AnacondaKSParser(KickstartParser):
     def __init__ (self, handler, followIncludes=True, errorsAreFatal=True,
-                  missingIncludeIsFatal=True):
+                  missingIncludeIsFatal=True, scriptClass=AnacondaKSScript):
+        self.scriptClass = scriptClass
         KickstartParser.__init__(self, handler)
 
     def handleCommand (self, lineno, args):
@@ -1257,9 +1269,9 @@ class AnacondaKSParser(KickstartParser):
         return retval
 
     def setupSections(self):
-        self.registerSection(PreScriptSection(self.handler, dataObj=AnacondaKSScript))
-        self.registerSection(PostScriptSection(self.handler, dataObj=AnacondaKSScript))
-        self.registerSection(TracebackScriptSection(self.handler, dataObj=AnacondaKSScript))
+        self.registerSection(PreScriptSection(self.handler, dataObj=self.scriptClass))
+        self.registerSection(PostScriptSection(self.handler, dataObj=self.scriptClass))
+        self.registerSection(TracebackScriptSection(self.handler, dataObj=self.scriptClass))
         self.registerSection(PackageSection(self.handler))
 
 def doKickstart(anaconda):
@@ -1351,7 +1363,7 @@ def appendPostScripts(ksdata):
     # because pykickstart allows multiple parses to save their data into a
     # single data object.  Errors parsing the scripts are a bug in anaconda,
     # so just raise an exception.
-    ksparser = AnacondaKSParser(ksdata)
+    ksparser = AnacondaKSParser(ksdata, scriptClass=AnacondaInternalScript)
     ksparser.readKickstartFromString(scripts, reset=False)
 
 def runPostScripts(anaconda):
