@@ -239,10 +239,6 @@ def removeExistingFormat(device, storage):
 ### SUBCLASSES OF PYKICKSTART COMMAND HANDLERS
 ###
 
-class Authconfig(commands.authconfig.FC3_Authconfig):
-    def execute(self):
-        self.anaconda.security.auth = self.authconfig
-
 class AutoPart(commands.autopart.F16_AutoPart):
     def execute(self):
         # sets up default autopartitioning.  use clearpart separately
@@ -262,11 +258,6 @@ class AutoPart(commands.autopart.F16_AutoPart):
             self.anaconda.storage.lvmAutoPart = False
 
         self.anaconda.dispatch.skip_steps("partition", "parttype")
-
-class AutoStep(commands.autostep.FC3_AutoStep):
-    def execute(self):
-        flags.autostep = 1
-        flags.autoscreenshot = self.autoscreenshot
 
 class Bootloader(commands.bootloader.F15_Bootloader):
     def execute(self):
@@ -354,17 +345,6 @@ class Fcoe(commands.fcoe.F13_Fcoe):
 
         return fc
 
-class Firewall(commands.firewall.F14_Firewall):
-    def execute(self):
-        self.anaconda.firewall.enabled = self.enabled
-        self.anaconda.firewall.trustdevs = self.trusts
-
-        for port in self.ports:
-            self.anaconda.firewall.portlist.append (port)
-
-        for svc in self.services:
-            self.anaconda.firewall.servicelist.append (svc)
-
 class IgnoreDisk(commands.ignoredisk.RHEL6_IgnoreDisk):
     def parse(self, args):
         retval = commands.ignoredisk.RHEL6_IgnoreDisk.parse(self, args)
@@ -434,19 +414,6 @@ class IscsiName(commands.iscsiname.FC6_IscsiName):
 
         storage.iscsi.iscsi().initiator = self.iscsiname
         return retval
-
-class Keyboard(commands.keyboard.FC3_Keyboard):
-    def execute(self):
-        self.anaconda.keyboard.set(self.keyboard)
-        self.anaconda.keyboard.beenset = 1
-        self.anaconda.dispatch.skip_steps("keyboard")
-
-class Lang(commands.lang.FC3_Lang):
-    def execute(self):
-        self.anaconda.instLanguage.instLang = self.lang
-        self.anaconda.instLanguage.systemLang = self.lang
-        self.anaconda.instLanguage.buildLocale()
-        self.anaconda.dispatch.skip_steps("language")
 
 class LogVolData(commands.logvol.F15_LogVolData):
     def execute(self):
@@ -897,10 +864,6 @@ class PartitionData(commands.partition.F12_PartData):
 
         self.anaconda.dispatch.skip_steps("partition", "parttype")
 
-class Reboot(commands.reboot.FC6_Reboot):
-    def execute(self):
-        self.anaconda.dispatch.skip_steps("complete")
-
 class RaidData(commands.raid.F15_RaidData):
     def execute(self):
         raidmems = []
@@ -1038,22 +1001,6 @@ class RaidData(commands.raid.F15_RaidData):
 
         self.anaconda.dispatch.skip_steps("partition", "parttype")
 
-class RootPw(commands.rootpw.F8_RootPw):
-    def execute(self):
-        self.anaconda.users.rootPassword["password"] = self.password
-        self.anaconda.users.rootPassword["isCrypted"] = self.isCrypted
-        self.anaconda.users.rootPassword["lock"] = self.lock
-        self.anaconda.dispatch.skip_steps("accounts")
-
-class SELinux(commands.selinux.FC3_SELinux):
-    def execute(self):
-        self.anaconda.security.setSELinux(self.selinux)
-
-class SkipX(commands.skipx.FC3_SkipX):
-    def execute(self):
-        if self.anaconda.desktop is not None:
-            self.anaconda.desktop.setDefaultRunLevel(3)
-
 class Timezone(commands.timezone.FC6_Timezone):
     def execute(self):
         # check validity
@@ -1064,10 +1011,6 @@ class Timezone(commands.timezone.FC6_Timezone):
 
         self.anaconda.timezone.setTimezoneInfo(self.timezone, self.isUtc)
         self.anaconda.dispatch.skip_steps("timezone")
-
-class Upgrade(commands.upgrade.F11_Upgrade):
-    def execute(self):
-        self.anaconda.upgrade = self.upgrade
 
 class VolGroupData(commands.volgroup.FC3_VolGroupData):
     def execute(self):
@@ -1145,32 +1088,17 @@ class ZFCP(commands.zfcp.F14_ZFCP):
 # This is just the latest entry from pykickstart.handlers.control with all the
 # classes we're overriding in place of the defaults.
 commandMap = {
-        "auth": Authconfig,
-        "authconfig": Authconfig,
         "autopart": AutoPart,
-        "autostep": AutoStep,
         "bootloader": Bootloader,
         "clearpart": ClearPart,
         "dmraid": DmRaid,
         "fcoe": Fcoe,
-        "firewall": Firewall,
-        "halt": Reboot,
         "ignoredisk": IgnoreDisk,
-        "install": Upgrade,
         "iscsi": Iscsi,
         "iscsiname": IscsiName,
-        "keyboard": Keyboard,
-        "lang": Lang,
         "logging": Logging,
         "multipath": MultiPath,
-        "poweroff": Reboot,
-        "reboot": Reboot,
-        "rootpw": RootPw,
-        "selinux": SELinux,
-        "shutdown": Reboot,
-        "skipx": SkipX,
         "timezone": Timezone,
-        "upgrade": Upgrade,
         "xconfig": XConfig,
         "zfcp": ZFCP,
 }
@@ -1273,13 +1201,6 @@ class AnacondaKSParser(KickstartParser):
         self.registerSection(PostScriptSection(self.handler, dataObj=self.scriptClass))
         self.registerSection(TracebackScriptSection(self.handler, dataObj=self.scriptClass))
         self.registerSection(PackageSection(self.handler))
-
-def doKickstart(anaconda):
-    storage.storageInitialize(anaconda)
-    # Having initialized storage, we can apply all the other kickstart commands.
-    # This gives us the ability to check that storage commands are correctly
-    # formed and refer to actual devices.
-    anaconda.ksdata.execute()
 
 def preScriptPass(anaconda, file):
     # The first pass through kickstart file processing - look for %pre scripts

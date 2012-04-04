@@ -40,7 +40,7 @@ from upgrade import restoreTime
 from upgrade import upgradeMigrateFind
 from upgrade import findRootParts, queryUpgradeContinue
 from installmethod import doMethodComplete
-from kickstart import doKickstart, runPostScripts
+from kickstart import runPostScripts
 from sshd import doSshd
 from rescue import doRescue
 
@@ -250,7 +250,6 @@ class Dispatcher(object):
         # commands, used installclass and used user interface.
         self.add_step("sshd", doSshd)
         self.add_step("rescue", doRescue)
-        self.add_step("kickstart", doKickstart)
         self.add_step("language")
         self.add_step("keyboard")
         self.add_step("betanag", betaNagScreen)
