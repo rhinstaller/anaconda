@@ -107,6 +107,10 @@ class AnacondaOptionParser(OptionParser):
                 continue
             if option.takes_value() and val is None:
                 continue # TODO: emit a warning or something there?
+            if option.action == "store_true" and val in ("0", "no", "off"):
+                # special case: "mpath=0" would otherwise set mpath to True
+                setattr(values, option.dest, False)
+                continue
             option.process(arg, val, values, self)
         return values
 
