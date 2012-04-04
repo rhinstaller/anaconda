@@ -102,6 +102,9 @@ class DatetimeSpoke(NormalSpoke):
         if self._radioButton24h.get_active():
             self._set_amPm_part_sensitive(False)
 
+        self._hoursLabel = self.builder.get_object("hoursLabel")
+        self._minutesLabel = self.builder.get_object("minutesLabel")
+
         self._tzmap.set_timezone("Europe/Prague")
 
     @property
@@ -109,7 +112,7 @@ class DatetimeSpoke(NormalSpoke):
         return _("Something selected")
 
     def apply(self):
-        pass
+        GLib.source_remove(self._update_datetime_timer_id)
 
     @property
     def completed(self):
@@ -117,8 +120,12 @@ class DatetimeSpoke(NormalSpoke):
         return True
 
     def refresh(self):
-        #TODO: setup timer here!
-        pass
+        self._update_datetime()
+
+        #update the displayed time
+        self._update_datetime_timer_id = GLib.timeout_add_seconds(1,
+                                                    self._update_datetime)
+        self._start_updating_timer_id = None
 
     def add_to_store(self, store, item):
         store.append([item])
@@ -192,7 +199,81 @@ class DatetimeSpoke(NormalSpoke):
 
         return (hours + correction) % 24
 
+    def _update_datetime(self):
+        now = datetime.datetime.now()
+        if self._radioButton24h.get_active():
+            self._hoursLabel.set_text("%0.2d" % now.hour)
+        else:
+            hours, amPm = self._to_amPm(now.hour)
+            self._hoursLabel.set_text("%0.2d" % hours)
+            amPm_label = self.builder.get_object("amPmLabel")
+            amPm_label.set_text(amPm)
+
+        self._minutesLabel.set_text("%0.2d" % now.minute)
+
+        self._set_combo_selection(self._dayCombo, now.day)
+        self._set_combo_selection(self._monthCombo,
+                            datetime.date(2000, now.month, 1).strftime('%B'))
+        self._set_combo_selection(self._yearCombo, now.year)
+
+        #GLib's timer is driven by the return value of the function.
+        #It runs the fuction periodically while the returned value
+        #is True.
+        return True
+
+    def _save_system_time(self):
+        #TODO: save system time here
+
+        self._update_datetime_timer_id = GLib.timeout_add_seconds(1,
+                                                        self._update_datetime)
+
+        #run only once (after first 2 seconds of inactivity)
+        return False
+
+    def _stop_and_maybe_start_time_updating(self):
+        """
+        This method is called in every time-setting button's callback.
+        It removes the timer for updating displayed time (do not want to change
+        it wile user does it manually) and allows us to set new system time
+        only after 2 seconds long idle on time-setting buttons. This is done
+        by the _start_updating_timer that is reset in this method. So when
+        there is a 2 seconds long idle on time-setting buttons,
+        self._save_system_time method is invoked. Since it returns False,
+        this timer is then removed and only reactivated in this method (thus
+        in some time-setting button's callback).
+
+        """
+
+        #stop time updating
+        GLib.source_remove(self._update_datetime_timer_id)
+
+        #stop previous 2 seconds timer (see below)
+        if self._start_updating_timer_id:
+            GLib.source_remove(self._start_updating_timer_id)
+
+        #let the user change time and after 2 seconds of inactivity save it as
+        #the system time and start updating the displayed time
+        self._start_updating_timer_id = GLib.timeout_add_seconds(2,
+                                                    self._save_system_time)
+
+    def _set_combo_selection(self, combo, item):
+        model = combo.get_model()
+        if not model:
+            return False
+
+        itr = model.get_iter_first()
+        while itr:
+            if model[itr][0] == item:
+                combo.set_active_iter(itr)
+                return True
+
+            itr = model.iter_next(itr)
+
+        return False
+
     def on_up_hours_clicked(self, *args):
+        self._stop_and_maybe_start_time_updating()
+
         hours_label = self.builder.get_object("hoursLabel")
         hours = int(hours_label.get_text())
 
@@ -211,6 +292,8 @@ class DatetimeSpoke(NormalSpoke):
         hours_label.set_text(new_hours_str)
 
     def on_down_hours_clicked(self, *args):
+        self._stop_and_maybe_start_time_updating()
+
         hours_label = self.builder.get_object("hoursLabel")
         hours = int(hours_label.get_text())
 
@@ -229,6 +312,8 @@ class DatetimeSpoke(NormalSpoke):
         hours_label.set_text(new_hours_str)
 
     def on_up_minutes_clicked(self, *args):
+        self._stop_and_maybe_start_time_updating()
+
         minutes_label = self.builder.get_object("minutesLabel")
         minutes = int(minutes_label.get_text())
         minutes_str = "%0.2d" % ((minutes + 1) % 60)
@@ -236,12 +321,16 @@ class DatetimeSpoke(NormalSpoke):
         pass
 
     def on_down_minutes_clicked(self, *args):
+        self._stop_and_maybe_start_time_updating()
+
         minutes_label = self.builder.get_object("minutesLabel")
         minutes = int(minutes_label.get_text())
         minutes_str = "%0.2d" % ((minutes - 1) % 60)
         minutes_label.set_text(minutes_str)
 
     def on_up_ampm_clicked(self, *args):
+        self._stop_and_maybe_start_time_updating()
+
         label = self.builder.get_object("amPmLabel")
         if label.get_text() == "AM":
             label.set_text("PM")
@@ -249,6 +338,8 @@ class DatetimeSpoke(NormalSpoke):
             label.set_text("AM")
 
     def on_down_ampm_clicked(self, *args):
+        self._stop_and_maybe_start_time_updating()
+
         label = self.builder.get_object("amPmLabel")
         if label.get_text() == "AM":
             label.set_text("PM")
@@ -298,21 +389,8 @@ class DatetimeSpoke(NormalSpoke):
         else:
             region, city = fields
 
-        itr = self._regionsStore.get_iter_first()
-        while itr:
-            if self._regionsStore[itr][0] == region:
-                self._regionCombo.set_active_iter(itr)
-                break
-
-            itr = self._regionsStore.iter_next(itr)
-
-        itr = self._citiesSort.get_iter_first()
-        while itr:
-            if self._citiesSort[itr][0] == city:
-                self._cityCombo.set_active_iter(itr)
-                break
-
-            itr = self._citiesSort.iter_next(itr)
+        self._set_combo_selection(self._regionCombo, region)
+        self._set_combo_selection(self._cityCombo, city)
 
     def on_timeformat_changed(self, button24h, *args):
         hours_label = self.builder.get_object("hoursLabel")
