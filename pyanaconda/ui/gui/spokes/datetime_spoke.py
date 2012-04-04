@@ -98,7 +98,6 @@ class DatetimeSpoke(NormalSpoke):
         self._citiesSort = self.builder.get_object("citiesSort")
         self._citiesSort.set_sort_column_id(0, 0) #column 0, Ascending
 
-        self._mod_hours = 13 #TODO: change on timeformat RB change
         self._radioButton24h = self.builder.get_object("timeFormatRB")
         if self._radioButton24h.get_active():
             self._set_amPm_part_sensitive(False)
@@ -172,17 +171,62 @@ class DatetimeSpoke(NormalSpoke):
         for widget in (amPmUp, amPmDown, amPmLabel):
             widget.set_sensitive(sensitive)
 
+    def _to_amPm(self, hours):
+        if hours >= 12:
+            day_phase = "PM"
+        else:
+            day_phase = "AM"
+
+        new_hours = ((hours - 1) % 12) + 1
+
+        return (new_hours, day_phase)
+
+    def _to_24h(self, hours, day_phase):
+        correction = 0
+
+        if day_phase == "AM" and hours == 12:
+            correction = -12
+
+        elif day_phase == "PM" and hours != 12:
+            correction = 12
+
+        return (hours + correction) % 24
+
     def on_up_hours_clicked(self, *args):
         hours_label = self.builder.get_object("hoursLabel")
         hours = int(hours_label.get_text())
-        hours_str = "%0.2d" % ((hours + 1) % self._mod_hours)
-        hours_label.set_text(hours_str)
+
+        button24h = self.builder.get_object("timeFormatRB")
+        if button24h.get_active():
+            new_hours = (hours + 1) % 24
+        else:
+            amPm_label = self.builder.get_object("amPmLabel")
+            amPm = amPm_label.get_text()
+            #let's not deal with magical AM/PM arithmetics
+            new_hours = self._to_24h(hours, amPm)
+            new_hours, new_amPm = self._to_amPm((new_hours + 1) % 24)
+            amPm_label.set_text(new_amPm)
+
+        new_hours_str = "%0.2d" % new_hours
+        hours_label.set_text(new_hours_str)
 
     def on_down_hours_clicked(self, *args):
         hours_label = self.builder.get_object("hoursLabel")
         hours = int(hours_label.get_text())
-        hours_str = "%0.2d" % ((hours - 1) % self._mod_hours)
-        hours_label.set_text(hours_str)
+
+        button24h = self.builder.get_object("timeFormatRB")
+        if button24h.get_active():
+            new_hours = (hours - 1) % 24
+        else:
+            amPm_label = self.builder.get_object("amPmLabel")
+            amPm = amPm_label.get_text()
+            #let's not deal with magical AM/PM arithmetics
+            new_hours = self._to_24h(hours, amPm)
+            new_hours, new_amPm = self._to_amPm((new_hours - 1) % 24)
+            amPm_label.set_text(new_amPm)
+
+        new_hours_str = "%0.2d" % new_hours
+        hours_label.set_text(new_hours_str)
 
     def on_up_minutes_clicked(self, *args):
         minutes_label = self.builder.get_object("minutesLabel")
@@ -271,9 +315,20 @@ class DatetimeSpoke(NormalSpoke):
             itr = self._citiesSort.iter_next(itr)
 
     def on_timeformat_changed(self, button24h, *args):
+        hours_label = self.builder.get_object("hoursLabel")
+        hours = int(hours_label.get_text())
+        amPm_label = self.builder.get_object("amPmLabel")
+        amPm = amPm_label.get_text()
+
         #connected to 24-hour radio button
         if button24h.get_active():
             self._set_amPm_part_sensitive(False)
+            new_hours = self._to_24h(hours, amPm)
+
         else:
             self._set_amPm_part_sensitive(True)
+            new_hours, new_amPm = self._to_amPm(hours)
+            amPm_label.set_text(new_amPm)
+
+        hours_label.set_text("%0.2d" % new_hours)
 
