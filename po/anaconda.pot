@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 17.15\n"
+"Project-Id-Version: anaconda 17.16\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2012-03-28 16:07-0700\n"
+"POT-Creation-Date: 2012-04-03 17:09-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -92,86 +92,86 @@ msgstr ""
 msgid "/boot filesystem"
 msgstr ""
 
-#: pyanaconda/bootloader.py:476
+#: pyanaconda/bootloader.py:477
 #, python-format
 msgid ""
 "RAID sets that contain '%s' must have one of the following raid levels: %s."
 msgstr ""
 
-#: pyanaconda/bootloader.py:484
+#: pyanaconda/bootloader.py:485
 #, python-format
 msgid ""
 "RAID sets that contain '%s' must have one of the following metadata "
 "versions: %s."
 msgstr ""
 
-#: pyanaconda/bootloader.py:492
+#: pyanaconda/bootloader.py:493
 #, python-format
 msgid ""
 "RAID sets that contain '%s' must have one of the following device types: %s."
 msgstr ""
 
-#: pyanaconda/bootloader.py:508
+#: pyanaconda/bootloader.py:509
 #, python-format
 msgid "%s must have one of the following disklabel types: %s."
 msgstr ""
 
-#: pyanaconda/bootloader.py:520 pyanaconda/bootloader.py:658
+#: pyanaconda/bootloader.py:521 pyanaconda/bootloader.py:659
 #, python-format
 msgid "%s cannot be of type %s."
 msgstr ""
 
-#: pyanaconda/bootloader.py:532
+#: pyanaconda/bootloader.py:533
 #, python-format
 msgid "%s must be between %d and %d MB in size"
 msgstr ""
 
-#: pyanaconda/bootloader.py:537
+#: pyanaconda/bootloader.py:538
 #, python-format
 msgid "%s must not be smaller than %dMB."
 msgstr ""
 
-#: pyanaconda/bootloader.py:546
+#: pyanaconda/bootloader.py:547
 #, python-format
 msgid "%s must not be larger than %dMB."
 msgstr ""
 
-#: pyanaconda/bootloader.py:564
+#: pyanaconda/bootloader.py:565
 #, python-format
 msgid "%s must be within the first %dMB of the disk."
 msgstr ""
 
-#: pyanaconda/bootloader.py:574
+#: pyanaconda/bootloader.py:575
 #, python-format
 msgid "%s must be on a primary partition."
 msgstr ""
 
-#: pyanaconda/bootloader.py:698 pyanaconda/bootloader.py:803
+#: pyanaconda/bootloader.py:699 pyanaconda/bootloader.py:804
 #, python-format
 msgid "%s cannot be on an encrypted block device."
 msgstr ""
 
-#: pyanaconda/bootloader.py:761
+#: pyanaconda/bootloader.py:762
 #, python-format
 msgid "%s cannot be of type %s"
 msgstr ""
 
-#: pyanaconda/bootloader.py:1620
+#: pyanaconda/bootloader.py:1626
 msgid ""
 "Your BIOS-based system needs a special partition to boot with Fedora's new "
 "disk label format (GPT). To continue, please create a 1MB 'BIOS Boot' type "
 "partition."
 msgstr ""
 
-#: pyanaconda/bootloader.py:2274
+#: pyanaconda/bootloader.py:2280
 msgid "Bootloader"
 msgstr ""
 
-#: pyanaconda/bootloader.py:2275
+#: pyanaconda/bootloader.py:2281
 msgid "Installing bootloader."
 msgstr ""
 
-#: pyanaconda/bootloader.py:2282 pyanaconda/bootloader.py:2341
+#: pyanaconda/bootloader.py:2288 pyanaconda/bootloader.py:2347
 #: pyanaconda/gui.py:1093 pyanaconda/image.py:87
 #: pyanaconda/installinterfacebase.py:74
 #: pyanaconda/installinterfacebase.py:151 pyanaconda/packages.py:90
@@ -180,13 +180,13 @@ msgstr ""
 msgid "Warning"
 msgstr ""
 
-#: pyanaconda/bootloader.py:2283
+#: pyanaconda/bootloader.py:2289
 msgid ""
 "No kernel packages were installed on the system. Bootloader configuration "
 "will not be changed."
 msgstr ""
 
-#: pyanaconda/bootloader.py:2342
+#: pyanaconda/bootloader.py:2348
 msgid ""
 "There was an error installing the bootloader.  The system may not be "
 "bootable."
@@ -647,15 +647,15 @@ msgstr ""
 msgid "Hardware Error Encountered"
 msgstr ""
 
-#: pyanaconda/iutil.py:860
+#: pyanaconda/iutil.py:859
 msgid "Error determining boot device's disk name"
 msgstr ""
 
-#: pyanaconda/iutil.py:883
+#: pyanaconda/iutil.py:882
 msgid "the device containing /boot"
 msgstr ""
 
-#: pyanaconda/iutil.py:885
+#: pyanaconda/iutil.py:884
 #, python-format
 msgid ""
 "After shutdown, please perform a manual IPL from %s to continue installation."
@@ -1118,43 +1118,43 @@ msgstr ""
 msgid "iSCSI %s Error"
 msgstr ""
 
-#: pyanaconda/platform.py:56
+#: pyanaconda/platform.py:57
 msgid "bootloader device"
 msgstr ""
 
-#: pyanaconda/platform.py:57 data/ui/create-storage.glade.h:15
+#: pyanaconda/platform.py:58 data/ui/create-storage.glade.h:15
 msgid "RAID Device"
 msgstr ""
 
-#: pyanaconda/platform.py:58
+#: pyanaconda/platform.py:59
 msgid "First sector of boot partition"
 msgstr ""
 
-#: pyanaconda/platform.py:154
+#: pyanaconda/platform.py:155
 msgid "Master Boot Record"
 msgstr ""
 
-#: pyanaconda/platform.py:193
+#: pyanaconda/platform.py:207
 msgid "EFI System Partition"
 msgstr ""
 
-#: pyanaconda/platform.py:220
+#: pyanaconda/platform.py:234
 msgid "Apple EFI Boot Partition"
 msgstr ""
 
-#: pyanaconda/platform.py:245
+#: pyanaconda/platform.py:259
 msgid "PReP Boot Partition"
 msgstr ""
 
-#: pyanaconda/platform.py:268
+#: pyanaconda/platform.py:282
 msgid "Apple Bootstrap Partition"
 msgstr ""
 
-#: pyanaconda/platform.py:297
+#: pyanaconda/platform.py:311
 msgid "DASD"
 msgstr ""
 
-#: pyanaconda/platform.py:298
+#: pyanaconda/platform.py:312
 msgid "zFCP"
 msgstr ""
 
