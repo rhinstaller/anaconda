@@ -20,6 +20,7 @@
 import os
 import selinux
 import shlex
+import glob
 from constants import *
 from collections import OrderedDict
 
@@ -88,7 +89,7 @@ class Flags(object):
             self.nogpt = True
 
 cmdline_files = ['/proc/cmdline', '/run/initramfs/etc/cmdline',
-                 '/run/initramfs/etc/cmdline.d/80kickstart.conf', '/etc/cmdline']
+                 '/run/initramfs/etc/cmdline.d/*.conf', '/etc/cmdline']
 class BootArgs(OrderedDict):
     """
     Hold boot arguments as an OrderedDict.
@@ -109,10 +110,15 @@ class BootArgs(OrderedDict):
         Read and parse a filename (or a list of filenames).
         Files that can't be read are silently ignored.
         Returns a list of successfully read files.
+        filenames can contain *, ?, and character ranges expressed with []
         """
         readfiles = []
         if type(filenames) == str:
             filenames = [filenames]
+
+        # Expand any filename globs
+        filenames = [f for g in filenames for f in glob.glob(g)]
+
         for f in filenames:
             try:
                 self.readstr(open(f).read())
