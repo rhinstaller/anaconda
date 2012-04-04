@@ -38,6 +38,9 @@ export ANACONDA_PRODUCTNAME=$( cat /etc/system-release | sed -r -e 's/ *release.
 export ANACONDA_PRODUCTVERSION=$( cat /etc/system-release | sed -r -e 's/^.* ([0-9\.]+).*$/\1/' )
 export ANACONDA_BUGURL=${ANACONDA_BUGURL:="https://bugzilla.redhat.com/bugzilla/"}
 
+# check if we have a final release
+grep -i beta /etc/system-release > /dev/null || export ANACONDA_ISFINAL=1
+
 export PATH=/sbin:/usr/sbin:$PATH
 
 if [ -n "$DISPLAY" -a -n "$LANG" ]; then
