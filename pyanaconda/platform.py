@@ -19,6 +19,7 @@
 #
 # Authors: Chris Lumens <clumens@redhat.com>
 #
+import os
 import logging
 log = logging.getLogger("anaconda")
 
