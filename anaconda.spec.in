@@ -249,6 +249,11 @@ update-desktop-database &> /dev/null || :
 /usr/lib/dracut/modules.d/80%{name}/*
 
 %changelog
+* Tue Apr 03 2012 Brian C. Lane <bcl@redhat.com> - 17.18-1
+- Revert "Wait for device activation / "online" hook if rd.neednet is set"
+  (bcl)
+- Add missing os import to platform.py (bcl)
+
 * Tue Apr 03 2012 Brian C. Lane <bcl@redhat.com> - 17.17-1
 - Don't allow /usr as a separate partition (#804913) (clumens)
 - use /sys/class/dmi instead of dmidecode (bcl)
