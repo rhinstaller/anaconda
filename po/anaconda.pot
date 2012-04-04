@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 13.21.163\n"
+"Project-Id-Version: anaconda 13.21.164\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2012-03-29 14:30-0400\n"
+"POT-Creation-Date: 2012-04-04 14:36-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1101,17 +1101,17 @@ msgstr ""
 msgid "iSCSI %s Error"
 msgstr ""
 
-#: platform.py:100 platform.py:398 platform.py:466 platform.py:587
+#: platform.py:100 platform.py:401 platform.py:469 platform.py:590
 #: ui/create-storage.glade.h:15
 msgid "RAID Device"
 msgstr ""
 
-#: platform.py:101 platform.py:104 platform.py:399 platform.py:467
-#: platform.py:588 platform.py:591
+#: platform.py:101 platform.py:104 platform.py:402 platform.py:470
+#: platform.py:591 platform.py:594
 msgid "Master Boot Record (MBR)"
 msgstr ""
 
-#: platform.py:103 platform.py:590
+#: platform.py:103 platform.py:593
 msgid "First sector of boot partition"
 msgstr ""
 
@@ -1140,50 +1140,50 @@ msgstr ""
 msgid "Bootable partitions cannot be on an encrypted block device"
 msgstr ""
 
-#: platform.py:261
+#: platform.py:264
 msgid "EFI System Partition"
 msgstr ""
 
-#: platform.py:273
+#: platform.py:276
 msgid "You have not created a /boot/efi partition."
 msgstr ""
 
-#: platform.py:279
+#: platform.py:282
 msgid "/boot/efi is not EFI."
 msgstr ""
 
-#: platform.py:301
+#: platform.py:304
 #, python-format
 msgid "%s must have a %s disk label."
 msgstr ""
 
-#: platform.py:333
+#: platform.py:336
 #, python-format
 msgid "%s must have a bsd disk label."
 msgstr ""
 
-#: platform.py:345
+#: platform.py:348
 #, python-format
 msgid "The disk %s requires at least 1MB of free space at the beginning."
 msgstr ""
 
-#: platform.py:371
+#: platform.py:374
 msgid "The boot partition must be a primary partition."
 msgstr ""
 
-#: platform.py:401
+#: platform.py:404
 msgid "PPC PReP Boot"
 msgstr ""
 
-#: platform.py:417
+#: platform.py:420
 msgid "The boot partition must be within the first 4MB of the disk."
 msgstr ""
 
-#: platform.py:469 platform.py:472
+#: platform.py:472 platform.py:475
 msgid "Apple Bootstrap"
 msgstr ""
 
-#: platform.py:486
+#: platform.py:489
 #, python-format
 msgid "%s must have a mac disk label."
 msgstr ""

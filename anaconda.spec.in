@@ -222,6 +222,15 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Wed Apr 04 2012 David Cantrell <dcantrell@redhat.com> - 13.21.165-1
+- Set productIsFinal default value to False (mgracik)
+  Resolves: rhbz#808935
+- Correct and simplify handling of "bootable" partition requests (dlehman)
+  Resolves: rhbz#804915
+- Add semicolon to dhclient timeout option (rvykydal)
+  Resolves: rhbz#769145
+  Related: rhbz#769145
+
 * Thu Mar 29 2012 David Cantrell <dcantrell@redhat.com> - 13.21.164-1
 - Fix onbiosdisk comparison for kickstart installs (dcantrell)
   Resolves: rhbz#802397
