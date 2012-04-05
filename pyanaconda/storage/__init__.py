@@ -815,7 +815,11 @@ class Storage(object):
         else:
             hostname = ""
             if self.data:
-                hostname = self.data.network.hostname
+                for nd in self.data.network.dataList():
+                    if nd.hostname:
+                        hostname = nd.hostname
+                        break
+
             name = self.createSuggestedVGName(hostname=hostname)
 
         if name in [d.name for d in self.devices]:
