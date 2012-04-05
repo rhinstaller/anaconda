@@ -66,6 +66,15 @@ anaconda_live_root_dir() {
         mount -o loop,ro $iso $repodir
         img=$(find_runtime $repodir) || { warn "$iso has no suitable runtime"; }
     fi
+    # FIXME: make rd.live.ram clever enough to do this for us
+    if [ "$1" = "--copy-to-ram" ]; then
+        echo "Copying installer image to RAM..."
+        echo "(this may take a few minutes)"
+        cp $img /run/install/install.img
+        img=/run/install/install.img
+        umount $repodir
+        [ -n "$iso" ] && umount $isodir
+    fi
     [ -e "$img" ] && /sbin/dmsquash-live-root $img
 }
 
