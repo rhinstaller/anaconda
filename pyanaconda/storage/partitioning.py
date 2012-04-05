@@ -111,7 +111,7 @@ def _schedulePartitions(storage, disks):
         if storage.bootloader.stage1_disk not in device.disks:
             continue
 
-        if storage.bootloader._is_valid_stage1_device(device):
+        if storage.bootloader.is_valid_stage1_device(device):
             stage1_device = device
             break
 
