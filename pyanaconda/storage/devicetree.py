@@ -2084,7 +2084,10 @@ class DeviceTree(object):
             device = self.labels.get(label)
             if device is None:
                 log.error("failed to resolve device %s" % devspec)
-        elif devspec.startswith("/dev/"):
+        else:
+            if not devspec.startswith("/dev/"):
+                devspec = "/dev/" + devspec
+
             if devspec.startswith("/dev/disk/"):
                 devspec = os.path.realpath(devspec)
 
