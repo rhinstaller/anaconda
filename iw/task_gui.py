@@ -172,7 +172,7 @@ class RepoEditor:
     def createDialog(self):
 
         if self.repo:
-            self.nameEntry.set_text(self.repo.name)
+            self.nameEntry.set_text(gettext.ldgettext("comps", self.repo.name))
             if self.repo.anacondaBaseURLs:
                 url = self.repo.anacondaBaseURLs[0]
             else:
