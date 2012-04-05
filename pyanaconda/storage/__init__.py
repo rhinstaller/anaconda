@@ -1301,7 +1301,7 @@ class Storage(object):
             log.warning("either ksdata or bootloader data missing")
             return
 
-        self.bootloader.stage1_disk = self.data.bootloader.bootDrive
+        self.bootloader.stage1_disk = self.devicetree.resolveDevice(self.data.bootloader.bootDrive)
         self.bootloader.stage2_device = self.bootDevice
         self.bootloader.set_stage1_device(self.devices)
 
