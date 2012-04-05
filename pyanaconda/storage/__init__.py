@@ -649,7 +649,7 @@ class Storage(object):
     @property
     def liveImage(self):
         """ The OS image used by live installs. """
-        raise NotImplementedError()
+        return None
 
     def exceptionDisks(self):
         """ Return a list of removable devices to save exceptions to.
