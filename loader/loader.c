@@ -2256,6 +2256,11 @@ int main(int argc, char ** argv) {
     }
 #endif
 
+    /* Enable vlan and bonding support in NetworkManager */
+    if ((i = enable_NM_BOND_VLAN()) != 0) {
+        logMessage(INFO, "failed to enable VLAN for NetworkManager");
+    }
+
     /* Start NetworkManager now so it's always available to talk to. */
     if (iface_start_NetworkManager(loaderData.dhcpTimeout))
         logMessage(INFO, "failed to start NetworkManager");

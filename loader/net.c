@@ -1602,6 +1602,24 @@ int writeEnabledNetInfo(iface_t *iface) {
     return 0;
 }
 
+int enable_NM_BOND_VLAN() {
+    FILE *fp = NULL;
+
+    if ((fp = fopen(SYSCONFIG_PATH"/.network", "w")) == NULL) {
+        return 1;
+    }
+
+    fprintf(fp, "NM_BOND_VLAN_ENABLED=yes\n");
+    fclose(fp);
+    if (rename(SYSCONFIG_PATH"/.network",
+               SYSCONFIG_PATH"/network") == -1) {
+        return 2;
+    }
+
+    return 0;
+
+}
+
 void setKickstartNetwork(struct loaderData_s * loaderData, int argc, 
                          char ** argv) {
     iface_t iface;

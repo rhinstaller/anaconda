@@ -86,5 +86,6 @@ int wait_for_iface_activation(char * ifname, int timeout);
 int wait_for_iface_disconnection(char *ifname);
 int isURLRemote(char *url);
 int split_ipv6addr_prefix_length(char *str, char **address, char **prefix);
+int enable_NM_BOND_VLAN(void);
 
 #endif
