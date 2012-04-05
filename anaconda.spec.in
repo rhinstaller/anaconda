@@ -222,6 +222,12 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Thu Apr 05 2012 David Cantrell <dcantrell@redhat.com> - 13.21.166-1
+- Unpack also auto_vlan item of fcoe.nic. (rvykydal)
+  Related: rhbz#735857
+- Add getopt to all architectures (mgracik)
+  Resolves: rhbz#773545
+
 * Wed Apr 04 2012 David Cantrell <dcantrell@redhat.com> - 13.21.165-1
 - Set productIsFinal default value to False (mgracik)
   Resolves: rhbz#808935
