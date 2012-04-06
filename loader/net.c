@@ -2307,22 +2307,6 @@ int wait_for_iface_activation(char *ifname, int timeout) {
         return 2;
     }
 
-    devices = nm_client_get_devices(client);
-    for (i = 0; i < devices->len; i++) {
-        NMDevice *candidate = g_ptr_array_index(devices, i);
-        const char *name = nm_device_get_iface(candidate);
-        if (!strcmp(name, ifname)) {
-            device = candidate;
-            break;
-        }
-    }
-    if (device == NULL) {
-        logMessage(ERROR, "%s (%d): network device %s not found",
-                   __func__, __LINE__, ifname);
-        g_object_unref(client);
-        return 3;
-    }
-
     /* Create a loop for processing dbus signals */
     loop = g_main_loop_new(NULL, FALSE);
     ctx = g_main_loop_get_context(loop);
@@ -2338,15 +2322,28 @@ int wait_for_iface_activation(char *ifname, int timeout) {
         while (g_main_context_pending (ctx)) {
             g_main_context_iteration (ctx, FALSE);
         }
-        state = nm_device_get_state(device);
-        if (state == NM_DEVICE_STATE_ACTIVATED) {
-            logMessage(INFO, "%s (%d): device %s activated",
-                       __func__, __LINE__, ifname);
-            res_init();
-            g_main_loop_unref(loop);
-            g_object_unref(client);
-            return 0;
-        }
+
+	devices = nm_client_get_devices(client);
+	for (i = 0; i < devices->len; i++) {
+	    NMDevice *candidate = g_ptr_array_index(devices, i);
+	    const char *name = nm_device_get_iface(candidate);
+	    if (!strcmp(name, ifname)) {
+		device = candidate;
+		break;
+	    }
+	}
+
+	if (device != NULL) {
+	    state = nm_device_get_state(device);
+	    if (state == NM_DEVICE_STATE_ACTIVATED) {
+		logMessage(INFO, "%s (%d): device %s activated",
+			   __func__, __LINE__, ifname);
+		res_init();
+		g_main_loop_unref(loop);
+		g_object_unref(client);
+		return 0;
+	    }
+	}
 
         sleep(1);
         count++;
@@ -2354,6 +2351,13 @@ int wait_for_iface_activation(char *ifname, int timeout) {
 
     g_main_loop_unref(loop);
     g_object_unref(client);
+
+    if (device == NULL) {
+        logMessage(ERROR, "%s (%d): network device %s not found",
+                   __func__, __LINE__, ifname);
+        g_object_unref(client);
+    }
+
     return 3;
 }
 
