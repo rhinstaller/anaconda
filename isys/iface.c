@@ -474,11 +474,11 @@ gboolean is_iface_activated(char * ifname) {
 /*
  * Wait for NetworkManager to appear on the system bus
  */
-int wait_for_nm(void) {
+int wait_for_nm(int seconds) {
     int count = 0;
 
     /* send message and block until a reply or error comes back */
-    while (count < 45) {
+    while (count < seconds) {
         if (is_nm_running())
             return 0;
 
@@ -491,9 +491,9 @@ int wait_for_nm(void) {
 
 /*
  * Start NetworkManager -- requires that you have already written out the
- * control files in /etc/sysconfig for the interface.
+ * control files in /etc/sysconfig for the interface. Timeout in seconds.
  */
-int iface_start_NetworkManager(void) {
+int iface_start_NetworkManager(int timeout) {
     pid_t pid;
 
     if (is_nm_running())
@@ -520,7 +520,7 @@ int iface_start_NetworkManager(void) {
     } else if (pid == -1) {
         return 1;
     } else {
-        return wait_for_nm();
+        return wait_for_nm(timeout);
     }
 
     return 0;

@@ -34,6 +34,8 @@
 #define SYSCONFIG_PATH       "/etc/sysconfig"
 #define NETWORK_SCRIPTS_PATH "/etc/sysconfig/network-scripts"
 
+#define NM_DHCP_TIMEOUT 45
+
 struct intfconfig_s {
     newtComponent ipv4Entry, cidr4Entry;
     newtComponent gwEntry, nsEntry;
@@ -80,7 +82,7 @@ int activateDevice(struct loaderData_s * loaderData,
                        iface_t * iface);
 int disconnectDevice(char *device);
 void splitHostname (char *str, char **host, char **port);
-int wait_for_iface_activation(char * ifname);
+int wait_for_iface_activation(char * ifname, int timeout);
 int wait_for_iface_disconnection(char *ifname);
 int isURLRemote(char *url);
 int split_ipv6addr_prefix_length(char *str, char **address, char **prefix);

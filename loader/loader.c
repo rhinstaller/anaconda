@@ -2073,7 +2073,7 @@ int main(int argc, char ** argv) {
     loaderData.method = -1;
     loaderData.fw_loader_pid = -1;
     loaderData.fw_search_pathz_len = -1;
-    loaderData.dhcpTimeout = 0;
+    loaderData.dhcpTimeout = NM_DHCP_TIMEOUT;
 
     extraArgs[0] = NULL;
     parseCmdLineFlags(&loaderData, cmdLine);
@@ -2254,7 +2254,7 @@ int main(int argc, char ** argv) {
 #endif
 
     /* Start NetworkManager now so it's always available to talk to. */
-    if (iface_start_NetworkManager())
+    if (iface_start_NetworkManager(loaderData.dhcpTimeout))
         logMessage(INFO, "failed to start NetworkManager");
 
     if (!FL_CMDLINE(flags))

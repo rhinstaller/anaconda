@@ -487,7 +487,7 @@ int readNetConfig(char * device, iface_t * iface,
             return LOADER_BACK;
         }
 
-        i = wait_for_iface_activation(iface->device);
+        i = wait_for_iface_activation(iface->device, iface->dhcptimeout);
         newtPopWindow();
 
         if (i > 0) {
@@ -548,7 +548,7 @@ int readNetConfig(char * device, iface_t * iface,
         return LOADER_BACK;
     }
 
-    i = wait_for_iface_activation(iface->device);
+    i = wait_for_iface_activation(iface->device, iface->dhcptimeout);
     newtPopWindow();
 
     if (i > 0) {
@@ -1585,7 +1585,7 @@ void setKickstartNetwork(struct loaderData_s * loaderData, int argc,
     iface_t iface;
     gchar *bootProto = NULL, *device = NULL, *class = NULL, *ethtool = NULL;
     gchar *essid = NULL, *wepkey = NULL, *onboot = NULL, *gateway = NULL;
-    gint mtu = 1500, dhcpTimeout = 0;
+    gint mtu = 1500;
     gboolean noipv4 = FALSE, noipv6 = FALSE, noDns = FALSE, noksdev = FALSE, activate = FALSE, nodefroute=FALSE, firstnetdev=FALSE;
     GOptionContext *optCon = g_option_context_new(NULL);
     GError *optErr = NULL;
@@ -1622,7 +1622,7 @@ void setKickstartNetwork(struct loaderData_s * loaderData, int argc,
         { "activate", 0, 0, G_OPTION_ARG_NONE, &activate, NULL, NULL },
         { "firstnetdev", 0, 0, G_OPTION_ARG_NONE, &firstnetdev, NULL, NULL },
         { "nodefroute", 0, 0, G_OPTION_ARG_NONE, &nodefroute, NULL, NULL },
-        { "dhcptimeout", 0, 0, G_OPTION_ARG_INT, &dhcpTimeout, NULL, NULL },
+        { "dhcptimeout", 0, 0, G_OPTION_ARG_INT, &loaderData->dhcpTimeout, NULL, NULL },
         { NULL },
     };
 
@@ -1650,6 +1650,7 @@ void setKickstartNetwork(struct loaderData_s * loaderData, int argc,
     free(loaderData->wepkey);
     loaderData->wepkey = NULL;
     loaderData->mtu = 0;
+    loaderData->dhcpTimeout = NM_DHCP_TIMEOUT;
 
 #ifdef ENABLE_IPV6
     free(loaderData->ipv6);
@@ -2237,7 +2238,7 @@ void splitHostname (char *str, char **host, char **port)
 /*
  * Wait for activation of iface by NetworkManager, return non-zero on error.
  */
-int wait_for_iface_activation(char *ifname) {
+int wait_for_iface_activation(char *ifname, int timeout) {
     int count = 0, i;
     NMClient *client = NULL;
     NMState state;
@@ -2297,7 +2298,7 @@ int wait_for_iface_activation(char *ifname) {
     }
 
     /* send message and block until a reply or error comes back */
-    while (count < 45) {
+    while (count < timeout) {
         /* pump the loop again to clear the messages */
         while (g_main_context_pending (ctx)) {
             g_main_context_iteration (ctx, FALSE);
