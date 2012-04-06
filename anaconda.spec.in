@@ -249,6 +249,14 @@ update-desktop-database &> /dev/null || :
 /usr/lib/dracut/modules.d/80%{name}/*
 
 %changelog
+* Fri Apr 06 2012 Brian C. Lane <bcl@redhat.com> - 17.19-1
+- copy installer image to RAM during upgrades (#810391) (wwoods)
+- fix repo={hd,cdrom}:DEV:PATH (#810136) (wwoods)
+- read flags using filename globs (bcl)
+- Fix repo={http,ftp,nfs} (#810005) (wwoods)
+- Fix "memcheck=0" (and other store_true boot args) (wwoods)
+- write new options to zipl.conf (dan)
+
 * Tue Apr 03 2012 Brian C. Lane <bcl@redhat.com> - 17.18-1
 - Revert "Wait for device activation / "online" hook if rd.neednet is set"
   (bcl)
