@@ -90,9 +90,9 @@ disk_to_dev_path() {
 }
 
 dev_is_mounted() {
-    local dev mnt etc
+    local dev mnt etc wanted_dev="$(readlink -e -q $1)"
     while read dev mnt etc; do
-        [ "$dev" = "$1" ] && echo $mnt && return 0
+        [ "$dev" = "$wanted_dev" ] && echo $mnt && return 0
     done < /proc/mounts
     return 1
 }
