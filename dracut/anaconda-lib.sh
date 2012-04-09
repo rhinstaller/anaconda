@@ -99,7 +99,7 @@ dev_is_mounted() {
 
 when_diskdev_appears() {
     local dev="${1#/dev/}" cmd=""; shift
-    cmd="/sbin/initqueue --settled --onetime --unique --name $1-$dev $*"
+    cmd="/sbin/initqueue --settled --onetime --name $1 $*"
     {
         printf 'SUBSYSTEM=="block", KERNEL=="%s", RUN+="%s"\n' "$dev" "$cmd"
         printf 'SUBSYSTEM=="block", SYMLINK=="%s", RUN+="%s"\n' "$dev" "$cmd"
