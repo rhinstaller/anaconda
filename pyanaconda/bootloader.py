@@ -501,12 +501,16 @@ class BootLoader(object):
         self.errors = []
         self.warnings = []
         valid = True
+        constraint = self.platform.bootStage1ConstraintDict
 
         if device is None:
             return False
 
+        if not self._device_type_match(device, constraint["device_types"]):
+            log.debug("stage1 device cannot be of type %s" % device.type)
+            return False
+
         description = self.device_description(device)
-        constraint = self.platform.bootStage1ConstraintDict
 
         if self.stage2_is_valid_stage1 and device == self.stage2_device:
             # special case
@@ -518,11 +522,6 @@ class BootLoader(object):
             return valid
 
         if device.protected:
-            valid = False
-
-        if not self._device_type_match(device, constraint["device_types"]):
-            self.errors.append(_("%s cannot be of type %s.")
-                               % (description, device.type))
             valid = False
 
         if not self._is_valid_disklabel(device,
