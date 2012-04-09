@@ -82,6 +82,35 @@ class ErrorHandler(object):
     def __init__(self, ui=None):
         self.ui = ui
 
+    def _partitionErrorHandler(self, *args, **kwargs):
+        message = _("The following errors occurred with your partitioning:\n\n%(errortxt)\n\n"
+                    "The installation will now terminate.") % {"errortxt": args[0]}
+        self.ui.showError(message)
+        return ERROR_RAISE
+
+    def _partitionWarningHandler(self, *args, **kwargs):
+        message = _("The following warnings occurred with your partitioning:\n\n%(errortxt)\n\n"
+                    "Would you like to continue with the installation anyway?") % {"errortxt": args[0]}
+        if self.ui.showYesNoQuestion(message):
+            return ERROR_CONTINUE
+        else:
+            return ERROR_RAISE
+
+    def _fsResizeHandler(self, *args, **kwargs):
+        message = _("An error occurred while resizing the device %s.") % args[0]
+
+        if "details" in kwargs:
+            message += "\n\n%s" % kwargs["details"]
+
+        self.ui.showError(message)
+        return ERROR_RAISE
+
+    def _fsMigrateHandler(self, *args, **kwargs):
+        message = _("An error occurred while migrating the filesystem on device %s.") % args[0]
+        message += "\n\n%s" % args[1]
+        self.ui.showError(message)
+        return ERROR_RAISE
+
     def _noDisksHandler(self, *args, **kwargs):
         message = _("An error has occurred - no valid devices were found on "
                     "which to create new file systems.  Please check your "
@@ -194,7 +223,11 @@ class ErrorHandler(object):
         if not self.ui:
             raise exn
 
-        _map = {StorageError.NoDisksError: self._noDisksHandler,
+        _map = {StorageError.PartitioningError: self._partitionErrorHandler,
+                StorageError.PartitioningWarning: self._partitionWarningHandler,
+                StorageError.FSResizeError: self._fsResizeHandler,
+                StorageError.FSMigrateError: self._fsMigrateHandler,
+                StorageError.NoDisksError: self._noDisksHandler,
                 StorageError.DirtyFSError: self._dirtyFSHandler,
                 StorageError.FSTabTypeMismatchError: self._fstabTypeMismatchHandler,
                 InvalidImageSizeError: self._invalidImageSizeHandler,
