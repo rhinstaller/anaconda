@@ -50,11 +50,13 @@ class ProgressHub(Hub):
         self._progressLabel = self.builder.get_object("progressLabel")
 
     def refresh(self):
-        Hub.refresh(self)
+        from pyanaconda.install import doInstall
+        from pyanaconda.threads import threadMgr
+        from threading import Thread
 
-        # There's nothing to install yet, so just jump to the reboot button.
-        notebook = self.builder.get_object("progressNotebook")
-        notebook.next_page()
+        Hub.refresh(self)
+        threadMgr.add(Thread(name="AnaInstallThread", target=doInstall,
+                             args=(self.storage, self.payload, self.data, self.instclass)))
 
     @property
     def quitButton(self):
