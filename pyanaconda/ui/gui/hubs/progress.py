@@ -40,7 +40,8 @@ class ProgressHub(Hub):
 
         # Register this interface with the top-level ProgressHandler.
         from pyanaconda.progress import progress
-        progress.register(self.initCB, self.updateCB, self.completeCB)
+        progress.register(self.initCB, self.updateProgressCB,
+                          self.updateMessageCB, self.completeCB)
 
     def initialize(self):
         Hub.initialize(self)
@@ -67,12 +68,19 @@ class ProgressHub(Hub):
             self._progressBar.set_fraction(0.0)
             self._progressLabel.set_text("")
 
-    def updateCB(self, message):
+    def updateProgressCB(self):
         if not self._totalSteps:
             return
 
         with gdk_threaded():
+            self._currentStep += 1
             self._progressBar.set_fraction(self._currentStep/self._totalSteps)
+
+    def updateMessageCB(self, message):
+        if not self._totalSteps:
+            return
+
+        with gdk_threaded():
             self._progressLabel.set_text(message)
 
     def completeCB(self):

@@ -30,12 +30,14 @@ class ProgressReporter(object):
     """
     def __init__(self):
         self._initCB = None
-        self._updateCB = None
+        self._updateProgressCB = None
+        self._updateMessageCB = None
         self._completeCB = None
 
-    def register(self, initCB, updateCB, completeCB):
+    def register(self, initCB, updateProgressCB, updateMessageCB, completeCB):
         self._initCB = initCB
-        self._updateCB = updateCB
+        self._updateProgressCB = updateProgressCB
+        self._updateMessageCB = updateMessageCB
         self._completeCB = completeCB
 
     def setSteps(self, steps):
@@ -48,15 +50,24 @@ class ProgressReporter(object):
 
         self._initCB(steps)
 
-    def update(self, message):
-        """Every time something happens where the progress bar needs to be
-           updated, this method must be called with a message to be displayed
-           nearby.  The progress bar will handle filling in a little more.
+    def updateMessage(self, message):
+        """This method should be called when a task begins, so the progress
+           bar reflects what is happening and taking up time.  This method does
+           not cause the progress bar itself to be filled in any more.
         """
-        if not self._updateCB:
+        if not self._updateMessageCB:
             return
 
-        self._updateCB(message)
+        self._updateMessageCB(message)
+
+    def updateProgress(self):
+        """This method should be called when a task finishes.  It will cause
+           the progress bar to be filled in a little more.
+        """
+        if not self._updateProgressCB:
+            return
+
+        self._updateProgressCB()
 
     def complete(self):
         """When the process is complete, call this method to display a
