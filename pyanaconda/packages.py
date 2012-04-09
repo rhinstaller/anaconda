@@ -23,22 +23,13 @@
 #            Jeremy Katz <katzj@redhat.com>
 #
 
-import itertools
-import glob
 import iutil
-import isys
 import os
-import time
 import sys
-import string
-import language
 import shutil
-import traceback
 from flags import flags
 from product import *
 from constants import *
-from upgrade import bindMountDevDirectory
-from storage.errors import *
 
 import logging
 log = logging.getLogger("anaconda")
@@ -65,84 +56,6 @@ def writeKSConfiguration(anaconda):
     fn = ROOT_PATH + "/root/anaconda-ks.cfg"
 
     anaconda.writeKS(fn)
-
-def turnOnFilesystems(anaconda):
-    if anaconda.dir == DISPATCH_BACK:
-        rc = anaconda.intf.messageWindow(_("Warning"),
-                _("Filesystems have already been activated.  You "
-                  "cannot go back past this point.\n\nWould you like to "
-                  "continue with the installation?"),
-                type="custom", custom_icon=["error","error"],
-                custom_buttons=[_("_Exit installer"), _("_Continue")])
-
-        if rc == 0:
-            sys.exit(0)
-        return DISPATCH_FORWARD
-
-    if not anaconda.upgrade:
-        if (flags.livecdInstall and
-            not flags.imageInstall and
-            not anaconda.storage.fsset.active):
-            # turn off any swaps that we didn't turn on
-            # needed for live installs
-            iutil.execWithRedirect("swapoff", ["-a"],
-                                   stdout = "/dev/tty5", stderr="/dev/tty5")
-        anaconda.storage.devicetree.teardownAll()
-
-    upgrade_migrate = False
-    if anaconda.upgrade:
-        for d in anaconda.storage.migratableDevices:
-            if d.format.migrate:
-                upgrade_migrate = True
-
-    title = None
-    message = None
-    details = None
-
-    try:
-        anaconda.storage.doIt()
-    except FSResizeError as (msg, device):
-        title = _("Resizing Failed")
-        message = _("There was an error encountered while "
-                    "resizing the device %s.") % (device,)
-
-        if os.path.exists("/tmp/resize.out"):
-            details = open("/tmp/resize.out", "r").read()
-        else:
-            details = "%s" %(msg,)
-    except FSMigrateError as (msg, device):
-        title = _("Migration Failed")
-        message = _("An error was encountered while "
-                    "migrating filesystem on device %s.") % (device,)
-        details = msg
-    except Exception as e:
-        raise
-
-    if title:
-        rc = anaconda.intf.detailedMessageWindow(title, message, details,
-                        type = "custom",
-                        custom_buttons = [_("_File Bug"), _("_Exit installer")])
-
-        if rc == 0:
-            raise
-        elif rc == 1:
-            sys.exit(1)
-
-    if not anaconda.upgrade:
-        anaconda.storage.turnOnSwap()
-        anaconda.storage.mountFilesystems(raiseErrors=False,
-                                          readOnly=False,
-                                          skipRoot=anaconda.backend.skipFormatRoot)
-    else:
-        if upgrade_migrate:
-            # we should write out a new fstab with the migrated fstype
-            shutil.copyfile("%s/etc/fstab" % ROOT_PATH,
-                            "%s/etc/fstab.anaconda" % ROOT_PATH)
-            anaconda.storage.fsset.write()
-
-        # and make sure /dev is mounted so we can read the bootloader
-        bindMountDevDirectory(ROOT_PATH)
-
 
 def setupTimezone(anaconda):
     # we don't need this on an upgrade or going backwards

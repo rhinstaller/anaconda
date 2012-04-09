@@ -25,7 +25,7 @@ from types import *
 
 import indexed_dict
 from constants import *
-from packages import writeKSConfiguration, turnOnFilesystems
+from packages import writeKSConfiguration
 from packages import doPostAction
 from packages import firstbootConfiguration
 from packages import betaNagScreen
@@ -272,7 +272,6 @@ class Dispatcher(object):
         self.add_step("upgrademigfind", upgradeMigrateFind)
         self.add_step("upgrademigratefs")
         self.add_step("storagedone", storageComplete)
-        self.add_step("enablefilesystems", turnOnFilesystems)
         self.add_step("upgbootloader")
         self.add_step("bootloader")
         self.add_step("reposetup", doBackendSetup)

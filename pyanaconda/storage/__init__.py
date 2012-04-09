@@ -208,6 +208,58 @@ def storageComplete(anaconda):
     if rc == 0:
         return DISPATCH_BACK
 
+def turnOnFilesystems(storage, errorcb=None):
+    from pyanaconda.upgrade import bindMountDevDirectory
+
+    if errorcb is None:
+        errorcb = lambda *args,**kwargs: True
+
+    upgrade = "preupgrade" in flags.cmdline
+
+    if not upgrade:
+        if (flags.livecdInstall and not flags.imageInstall and not storage.fsset.active):
+            # turn off any swaps that we didn't turn on
+            # needed for live installs
+            iutil.execWithRedirect("swapoff", ["-a"],
+                                   stdout = "/dev/tty5", stderr="/dev/tty5")
+        storage.devicetree.teardownAll()
+
+    upgrade_migrate = False
+    if upgrade:
+        for d in storage.migratableDevices:
+            if d.format.migrate:
+                upgrade_migrate = True
+
+    try:
+        storage.doIt()
+    except FSResizeError as (msg, device):
+        if os.path.exists("/tmp/resize.out"):
+            details = open("/tmp/resize.out", "r").read()
+        else:
+            details = "%s" %(msg,)
+
+        errorcb(FSResizeError(), device, details=details)
+    except FSMigrateError as (msg, device):
+        errorcb(FSMigrateError(), device, msg)
+    except Exception as e:
+        raise
+
+    if not upgrade:
+        storage.turnOnSwap()
+        # FIXME:  For livecd, skipRoot needs to be True.
+        storage.mountFilesystems(raiseErrors=False,
+                                 readOnly=False,
+                                 skipRoot=False)
+    else:
+        if upgrade_migrate:
+            # we should write out a new fstab with the migrated fstype
+            shutil.copyfile("%s/etc/fstab" % ROOT_PATH,
+                            "%s/etc/fstab.anaconda" % ROOT_PATH)
+            storage.fsset.write()
+
+        # and make sure /dev is mounted so we can read the bootloader
+        bindMountDevDirectory(ROOT_PATH)
+
 def writeEscrowPackets(anaconda):
     escrowDevices = filter(lambda d: d.format.type == "luks" and \
                                      d.format.escrow_cert,
