@@ -240,27 +240,32 @@ def removeExistingFormat(device, storage):
 ###
 
 class AutoPart(commands.autopart.F16_AutoPart):
-    def execute(self):
+    def execute(self, storage, ksdata, instClass):
+        from pyanaconda.errors import errorHandler
+        from pyanaconda.platform import getPlatform
+        from pyanaconda.storage.partitioning import doAutoPartition
+
+        if not self.autopart:
+            return
+
         # sets up default autopartitioning.  use clearpart separately
         # if you want it
-        self.anaconda.instClass.setDefaultPartitioning(self.anaconda.storage, self.anaconda.platform)
-        self.anaconda.storage.doAutoPart = True
+        instClass.setDefaultPartitioning(storage, getPlatform())
+        storage.doAutoPart = True
 
         if self.encrypted:
-            self.anaconda.storage.encryptedAutoPart = True
-            self.anaconda.storage.encryptionPassphrase = self.passphrase
-            self.anaconda.storage.autoPartEscrowCert = \
-                getEscrowCertificate(self.anaconda, self.escrowcert)
-            self.anaconda.storage.autoPartAddBackupPassphrase = \
-                self.backuppassphrase
+            storage.encryptedAutoPart = True
+            storage.encryptionPassphrase = self.passphrase
+            storage.autoPartEscrowCert = getEscrowCertificate(self.anaconda, self.escrowcert)
+            storage.autoPartAddBackupPassphrase = self.backuppassphrase
 
         if not self.lvm:
-            self.anaconda.storage.lvmAutoPart = False
+            storage.lvmAutoPart = False
 
-        self.anaconda.dispatch.skip_steps("partition", "parttype")
+        doAutoPartition(storage, ksdata, errorcb=errorHandler.cb, warningcb=errorHandler.cb)
 
 class Bootloader(commands.bootloader.F17_Bootloader):
-    def execute(self):
+    def execute(self, storage, ksdata, instClass):
         if self.location == "none":
             location = None
         elif self.location == "partition":
@@ -268,46 +273,46 @@ class Bootloader(commands.bootloader.F17_Bootloader):
         else:
             location = self.location
 
-        if self.upgrade and not self.anaconda.upgrade:
+        if self.upgrade and not flags.cmdline.has_key("preupgrade"):
             raise KickstartValueError, formatErrorMsg(self.lineno, msg="Selected upgrade mode for bootloader but not doing an upgrade")
 
-        if self.upgrade and self.anaconda.bootloader.can_update:
-            self.anaconda.bootloader.update_only = True
+        if self.upgrade and storage.bootloader.can_update:
+            storage.bootloader.update_only = True
 
-        if location is None:
-            self.anaconda.dispatch.skip_steps("instbootloader")
-        else:
-            if self.appendLine:
-                args = self.appendLine.split()
-                self.anaconda.bootloader.boot_args.update(args)
+        if not location:
+            return
 
-            if self.password:
-                if self.isCrypted:
-                    self.anaconda.bootloader.encrypted_password = self.password
-                else:
-                    self.anaconda.bootloader.password = self.password
+        if self.appendLine:
+            args = self.appendLine.split()
+            storage.bootloader.boot_args.update(args)
 
-            if location != None:
-                self.anaconda.bootloader.set_preferred_stage1_type(location)
+        if self.password:
+            if self.isCrypted:
+                storage.bootloader.encrypted_password = self.password
+            else:
+                storage.bootloader.password = self.password
 
-            if self.timeout is not None:
-                self.anaconda.bootloader.timeout = self.timeout
+        if location:
+            storage.bootloader.set_preferred_stage1_type(location)
 
-            # Throw out drives specified that don't exist.
-            disk_names = [d.name for d in self.anaconda.storage.disks]
-            for drive in self.driveorder[:]:
-                if drive not in disk_names:
-                    log.warning("requested drive %s in boot drive order doesn't exist" % drive)
-                    self.driveorder.remove(drive)
+        if self.timeout is not None:
+            storage.bootloader.timeout = self.timeout
 
-            self.anaconda.bootloader.disk_order = self.driveorder
+        # Throw out drives specified that don't exist.
+        disk_names = [d.name for d in storage.disks]
+        for drive in self.driveorder[:]:
+            if drive not in disk_names:
+                log.warning("requested drive %s in boot drive order doesn't exist" % drive)
+                self.driveorder.remove(drive)
 
-            if self.bootDrive:
-                spec = udev_resolve_devspec(self.bootDrive)
-                drive = self.anaconda.storage.devicetree.getDeviceByName(spec)
-                self.anaconda.bootloader.stage1_drive = drive
+        storage.bootloader.disk_order = self.driveorder
 
-        self.anaconda.dispatch.skip_steps("upgbootloader", "bootloader")
+        if not self.bootDrive:
+            self.bootDrive = disk_names[0]
+
+        spec = udev_resolve_devspec(self.bootDrive)
+        drive = storage.devicetree.getDeviceByName(spec)
+        storage.bootloader.stage1_disk = drive
 
 class ClearPart(commands.clearpart.FC3_ClearPart):
     def parse(self, args):
@@ -1155,21 +1160,6 @@ class AnacondaKSHandler(superclass):
             self.commands[cmd].anaconda = self.anaconda
 
         return superclass.dispatcher(self, args, lineno)
-
-    def execute(self):
-        try:
-            for obj in filter(lambda o: hasattr(o, "execute"), self._dataObjs):
-                obj.anaconda = self.anaconda
-                obj.execute()
-        except KickstartError as e:
-            if self.anaconda.intf:
-                self.anaconda.intf.kickstartErrorWindow(e.__str__())
-                self.anaconda.intf.shutdown()
-                sys.exit(0)
-            else:
-                stderrLog.critical(_("The following error was found while parsing the kickstart "
-                                     "configuration file:\n\n%s") % e)
-                sys.exit(1)
 
 class AnacondaPreParser(KickstartParser):
     # A subclass of KickstartParser that only looks for %pre scripts and
