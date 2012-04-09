@@ -28,7 +28,6 @@ import os
 import sys
 import shutil
 from flags import flags
-from product import *
 from constants import *
 
 import logging
@@ -156,55 +155,6 @@ def recreateInitrd (kernelTag, instRoot):
                            [ "--mkinitrd", "--dracut", "--depmod", "--install", kernelTag ],
                            stdout = "/dev/null", stderr = "/dev/null",
                            root = instRoot)
-
-def betaNagScreen(anaconda):
-    publicBetas = { "Red Hat Linux": "Red Hat Linux Public Beta",
-                    "Red Hat Enterprise Linux": "Red Hat Enterprise Linux Public Beta",
-                    "Fedora Core": "Fedora Core",
-                    "Fedora": "Fedora" }
-
-
-    if anaconda.dir == DISPATCH_BACK:
-	return DISPATCH_DEFAULT
-
-    fileagainst = None
-    for (key, val) in publicBetas.items():
-        if productName.startswith(key):
-            fileagainst = val
-    if fileagainst is None:
-        fileagainst = "%s Beta" %(productName,)
-    
-    while 1:
-	rc = anaconda.intf.messageWindow(_("Warning"),
-				 _("Warning!  This is pre-release software!\n\n"
-                                   "Thank you for downloading this "
-				   "pre-release of %(productName)s.\n\n"
-				   "This is not a final "
-				   "release and is not intended for use "
-				   "on production systems.  The purpose of "
-				   "this release is to collect feedback "
-				   "from testers, and it is not suitable "
-				   "for day to day usage.\n\n"
-				   "To report feedback, please visit:\n\n"
-				   "   %(bugzillaUrl)s\n\n"
-				   "and file a report against '%(fileagainst)s'.\n")
-				 % {'productName': productName,
-				    'bugzillaUrl': bugzillaUrl,
-				    'fileagainst': fileagainst},
-				   type="custom", custom_icon="warning",
-				   custom_buttons=[_("_Exit"), _("_Install Anyway")])
-
-	if not rc:
-            msg =  _("Your system will now be rebooted...")
-            buttons = [_("_Back"), _("_Reboot")]
-	    rc = anaconda.intf.messageWindow( _("Warning! This is pre-release software!"),
-                                     msg,
-                                     type="custom", custom_icon="warning",
-                                     custom_buttons=buttons)
-	    if rc:
-		sys.exit(0)
-	else:
-	    break
 
 def doReIPL(anaconda):
     if not iutil.isS390() or anaconda.dir == DISPATCH_BACK:

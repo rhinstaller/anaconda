@@ -28,7 +28,6 @@ from constants import *
 from packages import writeKSConfiguration
 from packages import doPostAction
 from packages import firstbootConfiguration
-from packages import betaNagScreen
 from packages import setupTimezone
 from storage import storageInitialize
 from storage import storageComplete
@@ -252,7 +251,6 @@ class Dispatcher(object):
         self.add_step("rescue", doRescue)
         self.add_step("language")
         self.add_step("keyboard")
-        self.add_step("betanag", betaNagScreen)
         self.add_step("filtertype")
         self.add_step("filter")
         self.add_step("storageinit", storageInitialize)
