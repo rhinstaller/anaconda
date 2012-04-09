@@ -523,6 +523,12 @@ class BootLoader(object):
                                % (desc, device.format.type))
             ret = False
 
+        if mountpoints and hasattr(device.format, "mountpoint") \
+           and device.format.mountpoint not in mountpoints:
+            self.errors.append(_("%s must be mounted on one of %s.")
+                               % (desc, ", ".join(mountpoints)))
+            ret = False
+
         log.debug("_is_valid_format(%s) returning %s" % (device.name,ret))
         return ret
 
