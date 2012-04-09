@@ -442,7 +442,7 @@ class Payload(object):
 
         self.install_log = open(log_file_path, "w+")
 
-        syslogname = "%s%s.syslog" % log_file_path
+        syslogname = "%s.syslog" % log_file_path
         try:
             shutil.rmtree (syslogname)
         except OSError:
