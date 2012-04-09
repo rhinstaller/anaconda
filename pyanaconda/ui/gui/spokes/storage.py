@@ -344,6 +344,7 @@ class StorageSpoke(NormalSpoke):
     def apply(self):
         self.data.ignoredisk.onlyuse = self.selected_disks[:]
         self.data.autopart.autopart = self.autopart
+        self.data.bootloader.location = "mbr"
 
     @property
     def completed(self):
