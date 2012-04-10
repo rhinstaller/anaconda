@@ -874,6 +874,9 @@ class AnacondaYum(YumSorter):
 
                 if ksrepo.proxy:
                     self.setProxy(ksrepo, repo)
+                elif self.anaconda.proxy:
+                    log.debug("%s will use the global proxy configuration", repo.name)
+                    self.setProxy(self.anaconda, repo)
 
                 repo.enable()
                 extraRepos.append(repo)
