@@ -335,14 +335,13 @@ class ClearPart(commands.clearpart.FC3_ClearPart):
 
         return retval
 
-    def execute(self):
-        self.anaconda.storage.config.clearPartType = self.type
-        self.anaconda.storage.config.clearPartDisks = self.drives
+    def execute(self, storage, ksdata, instClass):
+        storage.config.clearPartType = self.type
+        storage.config.clearPartDisks = self.drives
         if self.initAll:
-            self.anaconda.storage.config.reinitializeDisks = self.initAll
+            storage.config.reinitializeDisks = self.initAll
 
-        clearPartitions(self.anaconda.storage)
-        self.anaconda.dispatch.skip_steps("cleardiskssel")
+        clearPartitions(storage)
 
 class Fcoe(commands.fcoe.F13_Fcoe):
     def parse(self, args):
