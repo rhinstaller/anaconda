@@ -146,7 +146,6 @@ class SwapSpace(DeviceFormat):
         """ Create the device. """
         log_method_call(self, device=self.device,
                         type=self.type, status=self.status)
-        intf = kwargs.get("intf")
         force = kwargs.get("force")
         if not force and self.exists:
             raise SwapSpaceError("format already exists")
@@ -156,23 +155,13 @@ class SwapSpace(DeviceFormat):
         elif self.status:
             raise SwapSpaceError("device exists and is active")
 
-        w = None
-        if intf:
-            w = intf.progressWindow(_("Formatting"),
-                                    _("Creating %(type)s on %(device)s")
-                                    % {"type": self.type, "device": kwargs.get("device", self.device)},
-                                    100, pulse = True)
-
         try:
             DeviceFormat.create(self, *args, **kwargs)
-            swap.mkswap(self.device, label=self.label, progress=w)
+            swap.mkswap(self.device, label=self.label)
         except Exception:
             raise
         else:
             self.exists = True
-        finally:
-            if w:
-                w.pop()
 
     def writeKS(self, f):
         f.write("swap")

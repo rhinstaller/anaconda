@@ -337,14 +337,12 @@ class FS(DeviceFormat):
 
             Keyword Arguments:
 
-                intf -- InstallInterface instance
                 options -- list of options to pass to mkfs
 
         """
         log_method_call(self, type=self.mountType, device=self.device,
                         mountpoint=self.mountpoint)
 
-        intf = kwargs.get("intf")
         options = kwargs.get("options")
 
         if self.exists:
@@ -364,26 +362,15 @@ class FS(DeviceFormat):
 
         argv = self._getFormatOptions(options=options)
 
-        w = None
-        if intf:
-            w = intf.progressWindow(_("Formatting"),
-                                    _("Creating %(type)s filesystem on %(device)s")
-                                    % {"type": self.type, "device": self.device},
-                                    100, pulse = True)
-
         try:
-            ret = iutil.execWithPulseProgress(self.mkfsProg,
-                                              argv,
-                                              stdout="/dev/tty5",
-                                              stderr="/dev/tty5",
-                                              progress=w)
+            ret = iutil.execWithRedirect(self.mkfsProg,
+                                         argv,
+                                         stdout="/dev/tty5",
+                                         stderr="/dev/tty5")
         except Exception as e:
             raise FormatCreateError(e, self.device)
-        finally:
-            if w:
-                w.pop()
 
-        if ret.rc:
+        if ret:
             raise FormatCreateError("format failed: %s" % ret.rc, self.device)
 
         self.exists = True
@@ -392,7 +379,7 @@ class FS(DeviceFormat):
         if self.label:
             self.writeLabel(self.label)
 
-    def doMigrate(self, intf=None):
+    def doMigrate(self):
         if not self.exists:
             raise FSError("filesystem has not been created")
 
@@ -432,13 +419,7 @@ class FS(DeviceFormat):
             Arguments:
 
                 None
-
-            Keyword Arguments:
-
-                intf -- InstallInterface instance
-
         """
-        intf = kwargs.get("intf")
 
         if not self.exists:
             raise FSResizeError("filesystem does not exist", self.device)
@@ -455,7 +436,7 @@ class FS(DeviceFormat):
         if not os.path.exists(self.device):
             raise FSResizeError("device does not exist", self.device)
 
-        self.doCheck(intf=intf)
+        self.doCheck()
 
         # The first minimum size can be incorrect if the fs was not
         # properly unmounted. After doCheck the minimum size will be correct
@@ -466,30 +447,18 @@ class FS(DeviceFormat):
             self.targetSize = self.minSize
             log.info("Minimum size changed, setting targetSize on %s to %s" \
                      % (self.device, self.targetSize))
-
-        w = None
-        if intf:
-            w = intf.progressWindow(_("Resizing"),
-                                    _("Resizing filesystem on %s")
-                                    % (self.device,),
-                                    100, pulse = True)
-
         try:
-            ret = iutil.execWithPulseProgress(self.resizefsProg,
-                                             self.resizeArgs,
-                                             stdout="/dev/tty5",
-                                             stderr="/dev/tty5",
-                                             progress=w)
+            ret = iutil.execWithRedirect(self.resizefsProg,
+                                         self.resizeArgs,
+                                         stdout="/dev/tty5",
+                                         stderr="/dev/tty5")
         except Exception as e:
             raise FSResizeError(e, self.device)
-        finally:
-            if w:
-                w.pop()
 
-        if ret.rc:
+        if ret:
             raise FSResizeError("resize failed: %s" % ret.rc, self.device)
 
-        self.doCheck(intf=intf)
+        self.doCheck()
 
         # XXX must be a smarter way to do this
         self._size = self.targetSize
@@ -507,7 +476,7 @@ class FS(DeviceFormat):
     def _fsckErrorMessage(self, rc):
         return _("Unknown return code: %d.") % (rc,)
 
-    def doCheck(self, intf=None):
+    def doCheck(self):
         if not self.exists:
             raise FSError("filesystem has not been created")
 
@@ -517,24 +486,13 @@ class FS(DeviceFormat):
         if not os.path.exists(self.device):
             raise FSError("device does not exist")
 
-        w = None
-        if intf:
-            w = intf.progressWindow(_("Checking"),
-                                    _("Checking filesystem on %s")
-                                    % (self.device),
-                                    100, pulse = True)
-
         try:
-            ret = iutil.execWithPulseProgress(self.fsckProg,
-                                             self._getCheckArgs(),
-                                             stdout="/dev/tty5",
-                                             stderr="/dev/tty5",
-                                             progress = w)
+            ret = iutil.execWithRedirect(self.fsckProg,
+                                         self._getCheckArgs(),
+                                         stdout="/dev/tty5",
+                                         stderr="/dev/tty5")
         except Exception as e:
             raise FSError("filesystem check failed: %s" % e)
-        finally:
-            if w:
-                w.pop()
 
         if self._fsckFailed(ret.rc):
             hdr = _("%(type)s filesystem check failure on %(device)s: ") % \
@@ -542,7 +500,8 @@ class FS(DeviceFormat):
 
             msg = self._fsckErrorMessage(ret.rc)
 
-            if intf:
+            # FIXME:  Bluh?
+            if False:
                 help = _("Errors like this usually mean there is a problem "
                          "with the filesystem that will require user "
                          "interaction to repair.  Before restarting "
@@ -967,14 +926,14 @@ class Ext2FS(FS):
 
         return msg.strip()
 
-    def doMigrate(self, intf=None):
+    def doMigrate(self):
         # if journal already exists skip
         if isys.ext2HasJournal(self.device):
             log.info("Skipping migration of %s, has a journal already."
                      % self.device)
             return
 
-        FS.doMigrate(self, intf=intf)
+        FS.doMigrate(self)
 
     def doFormat(self, *args, **kwargs):
         FS.doFormat(self, *args, **kwargs)

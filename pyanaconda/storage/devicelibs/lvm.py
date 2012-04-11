@@ -145,15 +145,14 @@ def clampSize(size, pesize, roundup=None):
 
     return long(round(float(size)/float(pesize)) * pesize)
 
-def lvm(args, progress=None):
-    ret = iutil.execWithPulseProgress("lvm", args,
-                                     stdout = "/dev/tty5",
-                                     stderr = "/dev/tty5",
-                                     progress=progress)
-    if ret.rc:
+def lvm(args):
+    ret = iutil.execWithRedirect("lvm", args,
+                                 stdout = "/dev/tty5",
+                                 stderr = "/dev/tty5")
+    if ret:
         raise LVMError(ret.stderr)
 
-def pvcreate(device, progress=None):
+def pvcreate(device):
     # we force dataalignment=1024k since we cannot get lvm to tell us what
     # the pe_start will be in advance
     args = ["pvcreate"] + \
@@ -162,7 +161,7 @@ def pvcreate(device, progress=None):
             [device]
 
     try:
-        lvm(args, progress=progress)
+        lvm(args)
     except LVMError as msg:
         raise LVMError("pvcreate failed for %s: %s" % (device, msg))
 
@@ -222,7 +221,7 @@ def pvinfo(device):
 
     return info
 
-def vgcreate(vg_name, pv_list, pe_size, progress=None):
+def vgcreate(vg_name, pv_list, pe_size):
     argv = ["vgcreate"]
     if pe_size:
         argv.extend(["-s", "%dm" % pe_size])
@@ -231,7 +230,7 @@ def vgcreate(vg_name, pv_list, pe_size, progress=None):
     argv.extend(pv_list)
 
     try:
-        lvm(argv, progress=progress)
+        lvm(argv)
     except LVMError as msg:
         raise LVMError("vgcreate failed for %s: %s" % (vg_name, msg))
 
@@ -345,7 +344,7 @@ def lvorigin(vg_name, lv_name):
 
     return origin
 
-def lvcreate(vg_name, lv_name, size, progress=None, pvs=[]):
+def lvcreate(vg_name, lv_name, size, pvs=[]):
     args = ["lvcreate"] + \
             ["-L", "%dm" % size] + \
             ["-n", lv_name] + \
@@ -353,7 +352,7 @@ def lvcreate(vg_name, lv_name, size, progress=None, pvs=[]):
             [vg_name] + pvs
 
     try:
-        lvm(args, progress=progress)
+        lvm(args)
     except LVMError as msg:
         raise LVMError("lvcreate failed for %s/%s: %s" % (vg_name, lv_name, msg))
 

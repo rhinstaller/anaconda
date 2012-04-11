@@ -191,13 +191,6 @@ class LUKS(DeviceFormat):
         if not self.hasKey:
             raise LUKSError("luks device has no key/passphrase")
 
-        intf = kwargs.get("intf")
-        w = None
-        if intf:
-            w = intf.waitWindow(_("Formatting"),
-                                _("Encrypting %s") % kwargs.get("device",
-                                                                self.device))
-
         try:
             DeviceFormat.create(self, *args, **kwargs)
             crypto.luks_format(self.device,
@@ -212,9 +205,6 @@ class LUKS(DeviceFormat):
             self.exists = True
             self.mapName = "luks-%s" % self.uuid
             self.notifyKernel()
-        finally:
-            if w:
-                w.pop()
 
     def destroy(self, *args, **kwargs):
         """ Create the format. """

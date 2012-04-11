@@ -32,12 +32,11 @@ _ = lambda x: gettext.ldgettext("anaconda", x)
 import logging
 log = logging.getLogger("storage")
 
-def dm_setup(args, progress=None):
-    ret = iutil.execWithPulseProgress("dmsetup", args,
-                                     stdout = "/dev/tty5",
-                                     stderr = "/dev/tty5",
-                                     progress=progress)
-    if ret.rc:
+def dm_setup(args):
+    ret = iutil.execWithRedirect("dmsetup", args,
+                                 stdout = "/dev/tty5",
+                                 stderr = "/dev/tty5")
+    if ret:
         raise DMError(ret.stderr)
 
 def dm_create_linear(map_name, device, length, uuid):

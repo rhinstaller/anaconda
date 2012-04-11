@@ -151,7 +151,7 @@ class DeviceAction(object):
         self.id = DeviceAction._id
         DeviceAction._id += 1
 
-    def execute(self, intf=None):
+    def execute(self):
         """ perform the action """
         pass
 
@@ -237,8 +237,8 @@ class ActionCreateDevice(DeviceAction):
         # FIXME: assert device.fs is None
         DeviceAction.__init__(self, device)
 
-    def execute(self, intf=None):
-        self.device.create(intf=intf)
+    def execute(self):
+        self.device.create()
 
     def requires(self, action):
         """ Return True if self requires action.
@@ -282,7 +282,7 @@ class ActionDestroyDevice(DeviceAction):
         if device.exists:
             device.teardown()
 
-    def execute(self, intf=None):
+    def execute(self):
         self.device.destroy()
 
         # Make sure libparted does not keep cached info for this device
@@ -363,8 +363,8 @@ class ActionResizeDevice(DeviceAction):
 
         self.device.targetSize = newsize
 
-    def execute(self, intf=None):
-        self.device.resize(intf=intf)
+    def execute(self):
+        self.device.resize()
 
     def cancel(self):
         self.device.targetSize = self.origsize
@@ -410,7 +410,10 @@ class ActionCreateFormat(DeviceAction):
         else:
             self.origFormat = getFormat(None)
 
-    def execute(self, intf=None):
+    def execute(self):
+        from pyanaconda.progress import progress
+
+        progress.updateMessage(_("Creating %(type)s on %(device)s") % {"type": self.device.format.type, "device": self.device.path})
         self.device.setup()
 
         if isinstance(self.device, PartitionDevice):
@@ -428,14 +431,15 @@ class ActionCreateFormat(DeviceAction):
 
             self.device.disk.format.commitToDisk()
 
-        self.device.format.create(intf=intf,
-                                  device=self.device.path,
+        self.device.format.create(device=self.device.path,
                                   options=self.device.formatArgs)
         # Get the UUID now that the format is created
         udev_settle()
         self.device.updateSysfsPath()
         info = udev_get_block_device(self.device.sysfsPath)
         self.device.format.uuid = udev_device_get_uuid(info)
+
+        progress.updateProgress()
 
     def cancel(self):
         self.device.format = self.origFormat
@@ -481,7 +485,7 @@ class ActionDestroyFormat(DeviceAction):
             device.format.teardown()
         self.device.format = None
 
-    def execute(self, intf=None):
+    def execute(self):
         """ wipe the filesystem signature from the device """
         self.device.setup(orig=True)
         self.format.destroy()
@@ -547,9 +551,15 @@ class ActionResizeFormat(DeviceAction):
         self.origSize = self.device.format.targetSize
         self.device.format.targetSize = newsize
 
-    def execute(self, intf=None):
+    def execute(self):
+        from pyanaconda.progress import progress
+
+        progress.updateMessage(_("Resizing filesystem on %(device)s") % {"device": self.device.path})
+
         self.device.setup(orig=True)
-        self.device.format.doResize(intf=intf)
+        self.device.format.doResize()
+
+        progress.updateProgress()
 
     def cancel(self):
         self.device.format.targetSize = self.origSize
@@ -592,9 +602,15 @@ class ActionMigrateFormat(DeviceAction):
         DeviceAction.__init__(self, device)
         self.device.format.migrate = True
 
-    def execute(self, intf=None):
+    def execute(self):
+        from pyanaconda.progress import progress
+
+        progress.updateMessage(_("Migrating filesystem on %(device)s") % {"device": self.device.path})
+
         self.device.setup(orig=True)
-        self.device.format.doMigrate(intf=intf)
+        self.device.format.doMigrate()
+
+        progress.updateProgress()
 
     def cancel(self):
         self.device.format.migrate = False

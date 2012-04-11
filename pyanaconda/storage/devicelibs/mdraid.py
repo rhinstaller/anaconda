@@ -124,16 +124,14 @@ def get_raid_max_spares(raidlevel, nummembers):
 
     raise ValueError, "invalid raid level %d" % raidlevel
 
-def mdadm(args, progress=None):
-    ret = iutil.execWithPulseProgress("mdadm", args,
-                                     stdout = "/dev/tty5",
-                                     stderr = "/dev/tty5",
-                                     progress=progress)
-    if ret.rc:
+def mdadm(args):
+    ret = iutil.execWithRedirect("mdadm", args,
+                                 stdout = "/dev/tty5",
+                                 stderr = "/dev/tty5")
+    if ret:
         raise MDRaidError(ret.stderr)
 
-def mdcreate(device, level, disks, spares=0, metadataVer=None, bitmap=False,
-             progress=None):
+def mdcreate(device, level, disks, spares=0, metadataVer=None, bitmap=False):
     argv = ["--create", device, "--run", "--level=%s" % level]
     raid_devs = len(disks) - spares
     argv.append("--raid-devices=%d" % raid_devs)
@@ -146,7 +144,7 @@ def mdcreate(device, level, disks, spares=0, metadataVer=None, bitmap=False,
     argv.extend(disks)
     
     try:
-        mdadm(argv, progress=progress)
+        mdadm(argv)
     except MDRaidError as msg:
         raise MDRaidError("mdcreate failed for %s: %s" % (device, msg))
 

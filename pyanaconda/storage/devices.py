@@ -282,7 +282,7 @@ class Device(object):
         log_method_call(self, name=self.name, kids=self.kids)
         self.kids += 1
 
-    def setup(self, intf=None):
+    def setup(self):
         """ Open, or set up, a device. """
         raise NotImplementedError("setup method not defined for Device")
 
@@ -290,7 +290,7 @@ class Device(object):
         """ Close, or tear down, a device. """
         raise NotImplementedError("teardown method not defined for Device")
 
-    def create(self, intf=None):
+    def create(self):
         """ Create the device. """
         raise NotImplementedError("create method not defined for Device")
 
@@ -666,37 +666,12 @@ class StorageDevice(Device):
             spec = "UUID=%s" % self.format.uuid
         return spec
 
-    def resize(self, intf=None):
+    def resize(self):
         """ Resize the device.
 
             New size should already be set.
         """
         raise NotImplementedError("resize method not defined for StorageDevice")
-
-    #
-    # progress/status ui
-    #
-    # We define methods to create a wait window or a pulse progress window.
-    # Device classes can define a _statusWindow method that calls the
-    # appropriate method for display during device operations. Currently,
-    # the only thing we display progress/status windows for is device creation.
-    # MD and LVM devices can pass pulse progress windows down into the
-    # devicelibs functions, but all other devices display a wait window.
-    #
-    def _progressWindow(self, intf=None, title="", msg=""):
-        w = None
-        if intf:
-            w = intf.progressWindow(title, msg, 100, pulse=True)
-        return w
-
-    def _waitWindow(self, intf=None, title="", msg=""):
-        w = None
-        if intf:
-            w = intf.waitWindow(title, msg)
-        return w
-
-    def _statusWindow(self, intf=None, title="", msg=""):
-        return self._waitWindow(intf=intf, title=title, msg=msg)
 
     #
     # setup
@@ -715,18 +690,18 @@ class StorageDevice(Device):
         self.setupParents(orig=orig)
         return True
 
-    def _setup(self, intf=None, orig=False):
+    def _setup(self, orig=False):
         """ Perform device-specific setup operations. """
         pass
 
-    def setup(self, intf=None, orig=False):
+    def setup(self, orig=False):
         """ Open, or set up, a device. """
         log_method_call(self, self.name, orig=orig, status=self.status,
                         controllable=self.controllable)
         if not self._preSetup(orig=orig):
             return
 
-        self._setup(intf=intf, orig=orig)
+        self._setup(orig=orig)
         self._postSetup()
 
     def _postSetup(self):
@@ -787,26 +762,20 @@ class StorageDevice(Device):
 
         self.setupParents()
 
-    def _create(self, w):
+    def _create(self):
         """ Perform device-specific create operations. """
         pass
 
-    def create(self, intf=None):
+    def create(self):
         """ Create the device. """
         log_method_call(self, self.name, status=self.status)
         self._preCreate()
-        w = self._statusWindow(intf=intf,
-                               title=_("Creating"),
-                               msg=_("Creating device %s") % self.path)
         try:
-            self._create(w)
+            self._create()
         except Exception as e:
             raise DeviceCreateError(str(e), self.name)
         else:
             self._postCreate()
-        finally:
-            if w:
-                w.pop()
 
     def _postCreate(self):
         """ Perform post-create operations. """
@@ -1485,7 +1454,7 @@ class PartitionDevice(StorageDevice):
 
         self._bootable = self.getFlag(parted.PARTITION_BOOT)
 
-    def _create(self, w):
+    def _create(self):
         """ Create the device. """
         log_method_call(self, self.name, status=self.status)
         self.disk.format.addPartition(self.partedPartition)
@@ -1532,7 +1501,7 @@ class PartitionDevice(StorageDevice):
 
         return (constraint, newGeometry)
 
-    def resize(self, intf=None):
+    def resize(self):
         """ Resize the device.
 
             self.targetSize must be set to the new size.
@@ -1850,7 +1819,7 @@ class DMLinearDevice(DMDevice):
                           parents=parents, sysfsPath=sysfsPath,
                           exists=exists, target="linear", dmUuid=dmUuid)
 
-    def _setup(self, intf=None, orig=False):
+    def _setup(self, orig=False):
         """ Open, or set up, a device. """
         log_method_call(self, self.name, orig=orig, status=self.status,
                         controllable=self.controllable)
@@ -2204,14 +2173,11 @@ class LVMVolumeGroupDevice(DMDevice):
                         controllable=self.controllable)
         lvm.vgdeactivate(self.name)
 
-    def _statusWindow(self, intf=None, title="", msg=""):
-        return self._progressWindow(intf=intf, title=title, msg=msg)
-
-    def _create(self, w):
+    def _create(self):
         """ Create the device. """
         log_method_call(self, self.name, status=self.status)
         pv_list = [pv.path for pv in self.parents]
-        lvm.vgcreate(self.name, pv_list, self.peSize, progress=w)
+        lvm.vgcreate(self.name, pv_list, self.peSize)
 
     def _preDestroy(self):
         StorageDevice._preDestroy(self)
@@ -2596,7 +2562,7 @@ class LVMLogicalVolumeDevice(DMDevice):
         # parent is a vg, which has no formatting (or device for that matter)
         Device.setupParents(self, orig=orig)
 
-    def _setup(self, intf=None, orig=False):
+    def _setup(self, orig=False):
         """ Open, or set up, a device. """
         log_method_call(self, self.name, orig=orig, status=self.status,
                         controllable=self.controllable)
@@ -2620,18 +2586,15 @@ class LVMLogicalVolumeDevice(DMDevice):
             else:
                 raise
 
-    def _statusWindow(self, intf=None, title="", msg=""):
-        return self._progressWindow(intf=intf, title=title, msg=msg)
-
-    def _create(self, w):
+    def _create(self):
         """ Create the device. """
         log_method_call(self, self.name, status=self.status)
         # should we use --zero for safety's sake?
         if self.singlePV:
-            lvm.lvcreate(self.vg.name, self._name, self.size, progress=w,
+            lvm.lvcreate(self.vg.name, self._name, self.size,
                          pvs=self._getSinglePV())
         else:
-            lvm.lvcreate(self.vg.name, self._name, self.size, progress=w)
+            lvm.lvcreate(self.vg.name, self._name, self.size)
 
     def _preDestroy(self):
         StorageDevice._preDestroy(self)
@@ -2651,7 +2614,7 @@ class LVMLogicalVolumeDevice(DMDevice):
 
         return [validpvs[0].path]
 
-    def resize(self, intf=None):
+    def resize(self):
         log_method_call(self, self.name, status=self.status)
         self._preDestroy()
 
@@ -3041,7 +3004,7 @@ class MDRaidArrayDevice(StorageDevice):
         """ Return a list of this array's member device instances. """
         return self.parents
 
-    def _setup(self, intf=None, orig=False):
+    def _setup(self, orig=False):
         """ Open, or set up, a device. """
         log_method_call(self, self.name, orig=orig, status=self.status,
                         controllable=self.controllable)
@@ -3097,9 +3060,6 @@ class MDRaidArrayDevice(StorageDevice):
         if self.size < 1000 or self.format.type == "swap":
             self.createBitmap = False
 
-    def _statusWindow(self, intf=None, title="", msg=""):
-        return self._progressWindow(intf=intf, title=title, msg=msg)
-
     def _postCreate(self):
         StorageDevice._postCreate(self)
         info = udev_get_block_device(self.sysfsPath)
@@ -3107,7 +3067,7 @@ class MDRaidArrayDevice(StorageDevice):
         for member in self.devices:
             member.mdUuid = self.uuid
 
-    def _create(self, w):
+    def _create(self):
         """ Create the device. """
         log_method_call(self, self.name, status=self.status)
         disks = [disk.path for disk in self.devices]
@@ -3117,8 +3077,7 @@ class MDRaidArrayDevice(StorageDevice):
                         disks,
                         spares,
                         metadataVer=self.metadataVersion,
-                        bitmap=self.createBitmap,
-                        progress=w)
+                        bitmap=self.createBitmap)
 
     @property
     def formatArgs(self):
@@ -3246,7 +3205,7 @@ class DMRaidArrayDevice(DMDevice):
         self._raidSet.activate(mknod=True)
         udev_settle()
 
-    def _setup(self, intf=None, orig=False):
+    def _setup(self, orig=False):
         """ Open, or set up, a device. """
         log_method_call(self, self.name, orig=orig, status=self.status,
                         controllable=self.controllable)
@@ -3388,7 +3347,7 @@ class MultipathDevice(DMDevice):
                 raise MPathError("failed to tear down multipath device %s: %s"
                                 % (self.name, e))
 
-    def _setup(self, intf=None, orig=False):
+    def _setup(self, orig=False):
         """ Open, or set up, a device. """
         log_method_call(self, self.name, orig=orig, status=self.status,
                         controllable=self.controllable)
@@ -3431,7 +3390,7 @@ class NoDevice(StorageDevice):
         """ Device node representing this device. """
         return self.name
 
-    def setup(self, intf=None, orig=False):
+    def setup(self, orig=False):
         """ Open, or set up, a device. """
         log_method_call(self, self.name, orig=orig, status=self.status,
                         controllable=self.controllable)
@@ -3443,7 +3402,7 @@ class NoDevice(StorageDevice):
         # just make sure the format is unmounted
         self._preTeardown(recursive=recursive)
 
-    def create(self, intf=None):
+    def create(self):
         """ Create the device. """
         log_method_call(self, self.name, status=self.status)
 
@@ -3521,7 +3480,7 @@ class FileDevice(StorageDevice):
 
         return StorageDevice._preTeardown(self, recursive=recursive)
 
-    def _create(self, w):
+    def _create(self):
         """ Create the device. """
         log_method_call(self, self.name, status=self.status)
         fd = os.open(self.path, os.O_WRONLY|os.O_CREAT|os.O_TRUNC)
@@ -3540,7 +3499,7 @@ class SparseFileDevice(FileDevice):
     """A sparse file on a filesystem.
     This exists for sparse disk images."""
     _type = "sparse file"
-    def _create(self, w):
+    def _create(self):
         """Create a sparse file."""
         log_method_call(self, self.name, status=self.status)
         fd = os.open(self.path, os.O_WRONLY|os.O_CREAT|os.O_TRUNC)
@@ -3555,7 +3514,7 @@ class DirectoryDevice(FileDevice):
     """
     _type = "directory"
 
-    def _create(self, w):
+    def _create(self):
         """ Create the device. """
         log_method_call(self, self.name, status=self.status)
         iutil.mkdirChain(self.path)
@@ -3619,7 +3578,7 @@ class LoopDevice(StorageDevice):
     def size(self):
         return self.slave.size
 
-    def _setup(self, intf=None, orig=False):
+    def _setup(self, orig=False):
         """ Open, or set up, a device. """
         log_method_call(self, self.name, orig=orig, status=self.status,
                         controllable=self.controllable)
@@ -3857,7 +3816,7 @@ class NFSDevice(StorageDevice, NetworkStorageDevice):
         """ Device node representing this device. """
         return self.name
 
-    def setup(self, intf=None, orig=False):
+    def setup(self, orig=False):
         """ Open, or set up, a device. """
         log_method_call(self, self.name, orig=orig, status=self.status,
                         controllable=self.controllable)
@@ -3867,7 +3826,7 @@ class NFSDevice(StorageDevice, NetworkStorageDevice):
         log_method_call(self, self.name, status=self.status,
                         controllable=self.controllable)
 
-    def create(self, intf=None):
+    def create(self):
         """ Create the device. """
         log_method_call(self, self.name, status=self.status)
         self._preCreate()
