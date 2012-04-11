@@ -19,6 +19,8 @@
 # Red Hat Author(s): Chris Lumens <clumens@redhat.com>
 #
 
+from __future__ import division
+
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
 
