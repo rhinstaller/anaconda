@@ -401,21 +401,28 @@ class iscsi(object):
         self.stabilize(intf)
 
     def writeKS(self, f):
+
         if not self.initiatorSet:
             return
-        f.write("iscsiname %s\n" %(self.initiator,))
+
+        nodes = ""
         for n in self.active_nodes():
-            f.write("iscsi --ipaddr %s --port %s --target %s" %
-                    (n.address, n.port, n.name))
+            if n in self.ibftNodes:
+                continue
+            nodes += "iscsi --ipaddr %s --port %s --target %s" % (n.address, n.port, n.name)
             auth = n.getAuth()
             if auth:
-                f.write(" --user %s" % auth.username)
-                f.write(" --password %s" % auth.password)
+                nodes += " --user %s" % auth.username
+                nodes += " --password %s" % auth.password
                 if len(auth.reverse_username):
-                    f.write(" --reverse-user %s" % auth.reverse_username)
+                    nodes += " --reverse-user %s" % auth.reverse_username
                 if len(auth.reverse_password):
-                    f.write(" --reverse-password %s" % auth.reverse_password)
-            f.write("\n")
+                    nodes += " --reverse-password %s" % auth.reverse_password
+            nodes += "\n"
+
+        if nodes:
+            f.write("iscsiname %s\n" %(self.initiator,))
+            f.write("%s" % nodes)
 
     def write(self, storage):
         if not self.initiatorSet:
