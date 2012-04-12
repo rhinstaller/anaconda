@@ -274,18 +274,26 @@ def upgradeUsr(anaconda):
         log.info("upgradeusr dirs are already symlinks")
         return
 
+    if anaconda.intf is not None:
+        w = anaconda.intf.waitWindow(_("Upgrade /usr symlinks"),
+                            _("Running /usr merge script"))
+
     if iutil.execWithRedirect("/usr/lib/dracut/modules.d/30convertfs/convertfs.sh",
                               [ROOT_PATH],
                               stdout="/dev/tty5", stderr="/dev/tty5"):
         log.error("convertfs failed")
 
-        rc = anaconda.intf.messageWindow(_("/usr upgrade failed"),
-                           _("convertfs failed to upgrade your system to symlink "
-                             "into /usr. This is required for Fedora 17 to work."
-                             " The upgrade cannot continue."
+        if anaconda.intf is not None:
+            w.pop()
+            rc = anaconda.intf.messageWindow(_("/usr merge failed"),
+                           _("The /usr merge script failed. This is required"
+                             " for Fedora 17 to work. The upgrade cannot continue."
                              "\n\n"))
         sys.exit(0)
     log.info("convertfs was successful")
+
+    if anaconda.intf is not None:
+        w.pop()
 
 def setSteps(anaconda):
     dispatch = anaconda.dispatch
