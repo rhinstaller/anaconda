@@ -333,7 +333,7 @@ class StorageSpoke(NormalSpoke):
 
     # other candidates: computer-symbolic, folder-symbolic
     icon = "drive-harddisk-symbolic"
-    title = N_("STORAGE CONFIGURATION")
+    title = N_("INSTALLATION DESTINATION")
 
     def __init__(self, *args, **kwargs):
         NormalSpoke.__init__(self, *args, **kwargs)
