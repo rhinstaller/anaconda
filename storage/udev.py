@@ -554,9 +554,16 @@ def udev_device_get_iscsi_port(info):
     return path_components[address_field].split(":")[-1]
 
 def udev_device_get_iscsi_nic(info):
-    session = info["sysfs_path"].split("/")[4]
-    iface = open("/sys/class/iscsi_session/%s/ifacename" %
-                 session).read().strip()
+    # '/devices/pci0000:00/0000:00:02.0/0000:09:00.0/0000:0a:01.0/0000:0e:00.2/host3/session1/target3:0:0/3:0:0:0/block/sda'
+    # The position of sessionX part depends on device
+    # (e.g. offload vs. sw; also varies for different offload devs)
+    match = re.match('/.*/(session\d+)', info["sysfs_path"])
+    if match:
+        session = match.groups()[0]
+        iface = open("/sys/class/iscsi_session/%s/ifacename" %
+                     session).read().strip()
+    else:
+        iface = None
     return iface
 
 # fcoe disks have ID_PATH in the form of:
