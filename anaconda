@@ -192,6 +192,10 @@ def parseOptions(argv=None, cmdline=None):
     op = AnacondaOptionParser(version="%prog " + getAnacondaVersion(),
                               bootarg_prefix="inst.", require_prefix=False)
 
+    # NOTE: store_false options will *not* get negated when the user does
+    # "option=0" on the boot commandline (store_true options do, though).
+    # Basically, don't use store_false unless the option starts with "no".
+
     # Interface
     op.add_option("-C", "--cmdline", dest="display_mode", action="store_const", const="c",
                   default="g")
@@ -262,7 +266,7 @@ def parseOptions(argv=None, cmdline=None):
     op.add_option("--dlabel", action="store_true", default=False)
     op.add_option("--image", action="append", dest="images", default=[])
     op.add_option("--memcheck", action="store_true", default=True)
-    op.add_option("--no-memcheck", action="store_false", dest="memcheck")
+    op.add_option("--nomemcheck", action="store_false", dest="memcheck")
 
     # some defaults change based on cmdline flags
     if cmdline is not None:

@@ -249,6 +249,41 @@ update-desktop-database &> /dev/null || :
 /usr/lib/dracut/modules.d/80%{name}/*
 
 %changelog
+* Mon Apr 09 2012 Brian C. Lane <bcl@redhat.com> - 17.20-1
+- make dev_is_mounted more reliable (wwoods)
+- fix failure to run multiple udev-triggered jobs (#811008) (wwoods)
+
+* Fri Apr 06 2012 Brian C. Lane <bcl@redhat.com> - 17.19-1
+- copy installer image to RAM during upgrades (#810391) (wwoods)
+- fix repo={hd,cdrom}:DEV:PATH (#810136) (wwoods)
+- read flags using filename globs (bcl)
+- Fix repo={http,ftp,nfs} (#810005) (wwoods)
+- Fix "memcheck=0" (and other store_true boot args) (wwoods)
+- write new options to zipl.conf (dan)
+
+* Tue Apr 03 2012 Brian C. Lane <bcl@redhat.com> - 17.18-1
+- Revert "Wait for device activation / "online" hook if rd.neednet is set"
+  (bcl)
+- Add missing os import to platform.py (bcl)
+
+* Tue Apr 03 2012 Brian C. Lane <bcl@redhat.com> - 17.17-1
+- Don't allow /usr as a separate partition (#804913) (clumens)
+- use /sys/class/dmi instead of dmidecode (bcl)
+- restore the GPT blacklist code (bcl)
+- add virtio rsyslogd logging to anaconda (bcl)
+- dracut/parse-kickstart: handle network --device=link (or none) (wwoods)
+- dracut: fix kssendmac/inst.ks.sendmac (wwoods)
+- Set ONBOOT=yes for at least one wired netdev by default (#806466) (wwoods)
+- detect live backing device (#809342) (dlehman)
+- Wait for device activation / "online" hook if rd.neednet is set (wwoods)
+- Fix kickstart failure if ks is on the same disk as stage2 (wwoods)
+- fix 'mount: Too many levels of symbolic links' error message (wwoods)
+- support {stage2,repo}=.../path/to/file.img (#808499) (wwoods)
+- dracut when_diskdev_appears: only run cmd once per device (wwoods)
+- dracut: don't do kickstart twice, don't use root.info (wwoods)
+- Don't use the bootloader config path to find the splash image (#807510)
+  (pjones)
+
 * Wed Mar 28 2012 Brian C. Lane <bcl@redhat.com> - 17.16-1
 - makeupdates: install liveinst to /usr/sbin (bcl)
 - liveinst: adjust updates path (#807397) (bcl)
