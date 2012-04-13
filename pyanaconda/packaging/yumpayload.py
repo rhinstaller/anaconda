@@ -419,6 +419,8 @@ reposdir=/etc/yum.repos.d,/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/t
             self.selectPackage(package)
 
         for group in self.data.packages.groupList:
+            default = False
+            optional = False
             if group.include == GROUP_DEFAULT:
                 default = True
             elif group.include == GROUP_ALL:
