@@ -133,6 +133,7 @@ Requires: python-bugzilla
 Requires: python-nss
 Requires: tigervnc-server-minimal
 Requires: pytz
+Requires: libxklavier-devel
 %ifarch %livearches
 Requires: usermode
 Requires: zenity

@@ -30,6 +30,7 @@ from pyanaconda.ui.gui import UIObject
 from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.gui.categories.localization import LocalizationCategory
 from pyanaconda.ui.gui.utils import enlightbox
+from pyanaconda import xklavier
 
 __all__ = ["KeyboardSpoke"]
 
@@ -37,6 +38,9 @@ class AddLayoutDialog(UIObject):
     builderObjects = ["addLayoutDialog", "newLayoutStore", "newLayoutStoreFilter"]
     mainWidgetName = "addLayoutDialog"
     uiFile = "spokes/keyboard.ui"
+
+    def __init__(self):
+        self._xkl_wrapper = xklavier.XklWrapper()
 
     def matches_entry(self, model, itr, user_data=None):
         value = model.get_value(itr, 0)
@@ -64,12 +68,8 @@ class AddLayoutDialog(UIObject):
 
     def initialize(self):
         self._store = self.builder.get_object("newLayoutStore")
-        #XXX: will use values from the libxklavier
-        self._addLayout(self._store, "English (US)")
-        self._addLayout(self._store, "English (US, with some other stuff)")
-        self._addLayout(self._store, "Czech")
-        self._addLayout(self._store, "Czech (qwerty)")
-        self._addLayout(self._store, "values from libxklavier")
+        for layout in self._xkl_wrapper.get_available_layouts():
+            self._addLayout(self._store, layout)
 
     def run(self):
         rc = self.window.run()
