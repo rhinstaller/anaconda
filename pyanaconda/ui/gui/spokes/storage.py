@@ -401,9 +401,8 @@ class StorageSpoke(NormalSpoke):
         self._update_summary()
 
     def initialize(self, cb=None):
-        from pyanaconda.threads import threadMgr
+        from pyanaconda.threads import threadMgr, AnacondaThread
         from pyanaconda.ui.gui.utils import setViewportBackground
-        from threading import Thread
 
         NormalSpoke.initialize(self, cb)
 
@@ -416,7 +415,7 @@ class StorageSpoke(NormalSpoke):
         viewport = self.builder.get_object("localViewport")
         setViewportBackground(viewport)
 
-        threadMgr.add(Thread(name="AnaStorageWatcher", target=self._initialize, args=(cb, )))
+        threadMgr.add(AnacondaThread(name="AnaStorageWatcher", target=self._initialize, args=(cb, )))
 
     def _initialize(self, cb=None):
         from pyanaconda.threads import threadMgr

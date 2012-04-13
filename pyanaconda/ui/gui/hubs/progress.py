@@ -53,12 +53,11 @@ class ProgressHub(Hub):
 
     def refresh(self):
         from pyanaconda.install import doInstall
-        from pyanaconda.threads import threadMgr
-        from threading import Thread
+        from pyanaconda.threads import threadMgr, AnacondaThread
 
         Hub.refresh(self)
-        threadMgr.add(Thread(name="AnaInstallThread", target=doInstall,
-                             args=(self.storage, self.payload, self.data, self.instclass)))
+        threadMgr.add(AnacondaThread(name="AnaInstallThread", target=doInstall,
+                                     args=(self.storage, self.payload, self.data, self.instclass)))
 
     @property
     def quitButton(self):

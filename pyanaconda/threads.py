@@ -41,10 +41,17 @@ class ThreadManager(object):
            and start it.  It is assumed that obj.name is unique and descriptive.
         """
         if obj.name in self._objs:
-            return KeyError
+            raise KeyError
 
         self._objs[obj.name] = obj
         obj.start()
+
+    def remove(self, name):
+        """Removes a thread from the list of known objects.  This should only
+           be called when a thread exits, or there will be no way to get a
+           handle on it.
+        """
+        self._objs.pop(name)
 
     def exists(self, name):
         """Determine if a thread or process exists with the given name."""
@@ -56,22 +63,22 @@ class ThreadManager(object):
         """
         return self._objs.get(name)
 
-def initThreading():
-    from gi.repository import GObject
-    GObject.threads_init()
+class AnacondaThread(threading.Thread):
+    def run(self, *args, **kwargs):
+        # http://bugs.python.org/issue1230540#msg25696
+        import sys
 
-    # http://bugs.python.org/issue1230540#msg25696
-    import sys
-    run_old = threading.Thread.run
-
-    def run(*args, **kwargs):
         try:
-            run_old(*args, **kwargs)
+            threading.Thread.run(self, *args, **kwargs)
         except (KeyboardInterrupt, SystemExit):
             raise
         except:
             sys.excepthook(*sys.exc_info())
+        finally:
+            threadMgr.remove(self.name)
 
-    threading.Thread.run = run
+def initThreading():
+    from gi.repository import GObject
+    GObject.threads_init()
 
 threadMgr = ThreadManager()

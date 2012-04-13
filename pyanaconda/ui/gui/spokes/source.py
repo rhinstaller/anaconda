@@ -340,9 +340,8 @@ class SourceSpoke(NormalSpoke):
         self._verifyIsoButton = self.builder.get_object("verifyIsoButton")
 
     def initialize(self, cb=None):
-        from pyanaconda.threads import threadMgr
+        from pyanaconda.threads import threadMgr, AnacondaThread
         from pyanaconda.ui.gui.utils import setViewportBackground
-        from threading import Thread
 
         NormalSpoke.initialize(self, cb)
 
@@ -357,7 +356,7 @@ class SourceSpoke(NormalSpoke):
         viewport = self.builder.get_object("autodetectViewport")
         setViewportBackground(viewport)
 
-        threadMgr.add(Thread(name="AnaSourceWatcher", target=self._initialize, args=(cb, )))
+        threadMgr.add(AnacondaThread(name="AnaSourceWatcher", target=self._initialize, args=(cb, )))
 
     def _initialize(self, cb=None):
         from pyanaconda.threads import threadMgr

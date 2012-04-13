@@ -80,12 +80,10 @@ class SoftwareSelectionSpoke(NormalSpoke):
         return self.payload.description(row[2])[0]
 
     def initialize(self, cb=None):
-        from pyanaconda.threads import threadMgr
-        from threading import Thread
+        from pyanaconda.threads import threadMgr, AnacondaThread
 
         NormalSpoke.initialize(self, cb)
-
-        threadMgr.add(Thread(name="AnaSoftwareWatcher", target=self._initialize, args=(cb, )))
+        threadMgr.add(AnacondaThread(name="AnaSoftwareWatcher", target=self._initialize, args=(cb, )))
 
     def _initialize(self, cb=None):
         from pyanaconda.threads import threadMgr

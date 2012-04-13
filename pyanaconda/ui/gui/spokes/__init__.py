@@ -224,8 +224,7 @@ class NormalSpoke(Spoke):
 
     def on_back_clicked(self, window):
         from gi.repository import Gtk
-        from pyanaconda.threads import threadMgr
-        from threading import Thread
+        from pyanaconda.threads import threadMgr, AnacondaThread
 
         self.window.hide()
         Gtk.main_quit()
@@ -240,7 +239,7 @@ class NormalSpoke(Spoke):
             thr.join()
 
         # And now start a new instance of the check thread.
-        threadMgr.add(Thread(name=threadName, target=self.check))
+        threadMgr.add(AnacondaThread(name=threadName, target=self.check))
 
 class PersonalizationSpoke(Spoke):
     """A PersonalizationSpoke is a Spoke subclass that is displayed when the
