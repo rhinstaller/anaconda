@@ -260,7 +260,8 @@ class SourceSpoke(NormalSpoke):
             self.data.method.partition = part.name
             self.data.method.dir = self._currentIsoFile
         elif self._mirror_active():
-            pass
+            # this preserves the url for later editing
+            self.data.method.method = None
         elif self._http_active() or self._ftp_active():
             url = self._urlEntry.get_text().strip()
 
@@ -293,6 +294,8 @@ class SourceSpoke(NormalSpoke):
             self.data.method.method = "nfs"
             (self.data.method.server, self.data.method.dir) = url.split(":", 2)
             self.data.method.opts = self.builder.get_object("nfsOptsEntry").get_text() or ""
+
+        self.payload.updateBaseRepo(self.storage)
 
     @property
     def completed(self):
@@ -462,6 +465,8 @@ class SourceSpoke(NormalSpoke):
                 self._autodetectButton.set_active(True)
             else:
                 self._networkButton.set_active(True)
+
+        # TODO: handle noUpdatesCheckbox
 
         # Then, some widgets get enabled/disabled/greyed out depending on
         # how others are set up.  We can use the signal handlers to handle

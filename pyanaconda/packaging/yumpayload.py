@@ -220,7 +220,8 @@ reposdir=/etc/yum.repos.d,/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/t
                 self.release()
                 raise
 
-            self._resetMethod()
+            # this preserves the method details while disabling it
+            self.data.method.method = None
 
         if BASE_REPO_NAME not in self._yum.repos.repos.keys():
             log.info("using default repos from local yum configuration")
