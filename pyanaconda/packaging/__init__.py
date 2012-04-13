@@ -374,6 +374,9 @@ class Payload(object):
             except ConfigParser.Error:
                 pass
 
+        if version.startswith(time.strftime("%Y")):
+            version = "rawhide"
+
         log.debug("got a release version of %s" % version)
         return version
 
