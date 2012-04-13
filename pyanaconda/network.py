@@ -354,14 +354,12 @@ class NetworkDevice(IfcfgFile):
         for d in anaconda.storage.devices:
             if (isinstance(d, storage.devices.iScsiDiskDevice) and
                 rootdev.dependsOn(d)):
-                # device is bound to nic
-                if d.nic:
-                    if self.iface == d.nic:
-                        return True
-                # device is using default interface
-                else:
+                if d.nic == "default":
                     if self.iface == ifaceForHostIP(d.host_address):
                         return True
+                elif d.nic == self.iface:
+                    return True
+
         return False
 
 class WirelessNetworkDevice(NetworkDevice):
