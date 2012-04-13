@@ -764,6 +764,7 @@ if __name__ == "__main__":
             ksdata.method.method = "url"
             ksdata.method.noverifyssl = flags.noverifyssl
             ksdata.method.proxy = anaconda.proxy    # FIXME: username/password
+            ksdata.method.url = anaconda.methodstr
 
     # now start the interface
     setupDisplay(anaconda, opts)
