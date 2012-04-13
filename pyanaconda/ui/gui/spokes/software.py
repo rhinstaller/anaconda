@@ -53,6 +53,11 @@ class SoftwareSelectionSpoke(NormalSpoke):
 
         self.payload.selectGroup(row[2])
 
+        # FIXME: We need to hook up signal handlers for select/deselect so we
+        #        know the difference between a group that was never selected
+        #        and one that was explicitly deselected. The signal handlers
+        #        should only modify some local data store -- not ksdata or
+        #        payload.
         for row in self._addonStore:
             if row[0]:
                 self.payload.selectGroup(row[2])
