@@ -222,6 +222,16 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Fri Apr 13 2012 David Cantrell <dcantrell@redhat.com> - 13.21.168-1
+- Don't write iscsi targets set up via ibft in generated ks (rvykydal)
+  Resolves: rhbz#811426
+  Related: rhbz#811426
+- Fix parsing of iscsi iface udev info for offload devices (rvykydal)
+  Resolves: rhbz#811426
+- Honour dhcptimeout set for NM in anaconda (rvykydal)
+  Resolves: rhbz#769145
+  Related: rhbz#769145
+
 * Thu Apr 05 2012 David Cantrell <dcantrell@redhat.com> - 13.21.167-1
 - Use the translated repo name in the Edit Repository dialog (vpodzime)
   Resolves: rhbz#728556
