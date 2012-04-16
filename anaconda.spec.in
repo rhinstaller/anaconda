@@ -222,6 +222,17 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Mon Apr 16 2012 David Cantrell <dcantrell@redhat.com> - 13.21.169-1
+- fall back to global proxy for repos (bcl)
+  Resolves: rhbz#788537
+- set PROXY environmental variables (bcl)
+  Resolves: rhbz#800388
+- Add /usr/bin/id to install image (mgracik)
+  Resolves: rhbz#773545
+- Disable NM for iface used by root on iscsi (rvykydal)
+  Resolves: rhbz#500273
+  Related: rhbz#500273
+
 * Fri Apr 13 2012 David Cantrell <dcantrell@redhat.com> - 13.21.168-1
 - Don't write iscsi targets set up via ibft in generated ks (rvykydal)
   Resolves: rhbz#811426
