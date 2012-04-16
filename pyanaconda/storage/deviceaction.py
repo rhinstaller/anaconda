@@ -411,35 +411,34 @@ class ActionCreateFormat(DeviceAction):
             self.origFormat = getFormat(None)
 
     def execute(self):
-        from pyanaconda.progress import progress
+        from pyanaconda.progress import progress_report
 
-        progress.updateMessage(_("Creating %(type)s on %(device)s") % {"type": self.device.format.type, "device": self.device.path})
-        self.device.setup()
+        msg = _("Creating %(type)s on %(device)s") % {"type": self.device.format.type, "device": self.device.path}
+        with progress_report(msg):
+            self.device.setup()
 
-        if isinstance(self.device, PartitionDevice):
-            for flag in partitionFlag.keys():
-                # Keep the LBA flag on pre-existing partitions
-                if flag in [ PARTITION_LBA, self.format.partedFlag ]:
-                    continue
-                self.device.unsetFlag(flag)
+            if isinstance(self.device, PartitionDevice):
+                for flag in partitionFlag.keys():
+                    # Keep the LBA flag on pre-existing partitions
+                    if flag in [ PARTITION_LBA, self.format.partedFlag ]:
+                        continue
+                    self.device.unsetFlag(flag)
 
-            if self.format.partedFlag is not None:
-                self.device.setFlag(self.format.partedFlag)
+                if self.format.partedFlag is not None:
+                    self.device.setFlag(self.format.partedFlag)
 
-            if self.format.partedSystem is not None:
-                self.device.partedPartition.system = self.format.partedSystem
+                if self.format.partedSystem is not None:
+                    self.device.partedPartition.system = self.format.partedSystem
 
-            self.device.disk.format.commitToDisk()
+                self.device.disk.format.commitToDisk()
 
-        self.device.format.create(device=self.device.path,
-                                  options=self.device.formatArgs)
-        # Get the UUID now that the format is created
-        udev_settle()
-        self.device.updateSysfsPath()
-        info = udev_get_block_device(self.device.sysfsPath)
-        self.device.format.uuid = udev_device_get_uuid(info)
-
-        progress.updateProgress()
+            self.device.format.create(device=self.device.path,
+                                      options=self.device.formatArgs)
+            # Get the UUID now that the format is created
+            udev_settle()
+            self.device.updateSysfsPath()
+            info = udev_get_block_device(self.device.sysfsPath)
+            self.device.format.uuid = udev_device_get_uuid(info)
 
     def cancel(self):
         self.device.format = self.origFormat
@@ -552,14 +551,12 @@ class ActionResizeFormat(DeviceAction):
         self.device.format.targetSize = newsize
 
     def execute(self):
-        from pyanaconda.progress import progress
+        from pyanaconda.progress import progress_report
 
-        progress.updateMessage(_("Resizing filesystem on %(device)s") % {"device": self.device.path})
-
-        self.device.setup(orig=True)
-        self.device.format.doResize()
-
-        progress.updateProgress()
+        msg = _("Resizing filesystem on %(device)s") % {"device": self.device.path}
+        with progress_report(msg):
+            self.device.setup(orig=True)
+            self.device.format.doResize()
 
     def cancel(self):
         self.device.format.targetSize = self.origSize
@@ -603,14 +600,12 @@ class ActionMigrateFormat(DeviceAction):
         self.device.format.migrate = True
 
     def execute(self):
-        from pyanaconda.progress import progress
+        from pyanaconda.progress import progress_report
 
-        progress.updateMessage(_("Migrating filesystem on %(device)s") % {"device": self.device.path})
-
-        self.device.setup(orig=True)
-        self.device.format.doMigrate()
-
-        progress.updateProgress()
+        msg = _("Migrating filesystem on %(device)s") % {"device": self.device.path}
+        with progress_report(msg):
+            self.device.setup(orig=True)
+            self.device.format.doMigrate()
 
     def cancel(self):
         self.device.format.migrate = False

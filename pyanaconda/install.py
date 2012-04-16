@@ -29,7 +29,7 @@ def doInstall(storage, payload, ksdata, instClass):
        The two main tasks for this are putting filesystems onto disks and
        installing packages onto those filesystems.
     """
-    from pyanaconda.progress import progress
+    from pyanaconda import progress
 
     # First, run all the execute methods of the ksdata.
     ksdata.bootloader.execute(storage, ksdata, instClass)
@@ -40,7 +40,7 @@ def doInstall(storage, payload, ksdata, instClass):
     steps = len(storage.devicetree.findActions(type="create", object="format")) + \
             len(storage.devicetree.findActions(type="resize", object="format")) + \
             len(storage.devicetree.findActions(type="migrate", object="format"))
-    progress.setSteps(steps)
+    progress.progressQ.put((progress.PROGRESS_CODE_INIT, [steps]))
 
     # Do partitioning.
     turnOnFilesystems(storage, errorHandler)
@@ -49,3 +49,5 @@ def doInstall(storage, payload, ksdata, instClass):
     payload.preInstall()
     payload.install()
     payload.postInstall()
+
+    progress.progressQ.put((progress.PROGRESS_CODE_COMPLETE, []))

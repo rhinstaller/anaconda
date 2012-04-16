@@ -34,16 +34,39 @@ class ProgressHub(Hub):
     mainWidgetName = "progressWindow"
     uiFile = "hubs/progress.ui"
 
+    def _update_progress(self):
+        from pyanaconda import progress
+        import Queue
+
+        q = progress.progressQ
+
+        # Grab all messages may have appeared since last time this method ran.
+        while True:
+            # Attempt to get a message out of the queue for how we should update
+            # the progress bar.  If there's no message, don't error out.
+            try:
+                (code, args) = q.get(False)
+            except Queue.Empty:
+                break
+
+            if code == progress.PROGRESS_CODE_INIT:
+                self._init_progress_bar(args[0])
+            elif code == progress.PROGRESS_CODE_STEP:
+                self._step_progress_bar()
+            elif code == progress.PROGRESS_CODE_MESSAGE:
+                self._update_progress_message(args[0])
+            elif code == progress.PROGRESS_CODE_COMPLETE:
+                self._progress_bar_complete()
+
+            q.task_done()
+
+        return True
+
     def __init__(self, data, storage, payload, instclass):
         Hub.__init__(self, data, storage, payload, instclass)
 
         self._totalSteps = 0
         self._currentStep = 0
-
-        # Register this interface with the top-level ProgressHandler.
-        from pyanaconda.progress import progress
-        progress.register(self.initCB, self.updateProgressCB,
-                          self.updateMessageCB, self.completeCB)
 
     def initialize(self):
         Hub.initialize(self)
@@ -52,10 +75,13 @@ class ProgressHub(Hub):
         self._progressLabel = self.builder.get_object("progressLabel")
 
     def refresh(self):
+        from gi.repository import GLib
         from pyanaconda.install import doInstall
         from pyanaconda.threads import threadMgr, AnacondaThread
 
         Hub.refresh(self)
+
+        GLib.idle_add(self._update_progress)
         threadMgr.add(AnacondaThread(name="AnaInstallThread", target=doInstall,
                                      args=(self.storage, self.payload, self.data, self.instclass)))
 
@@ -63,7 +89,7 @@ class ProgressHub(Hub):
     def quitButton(self):
         return self.builder.get_object("rebootButton")
 
-    def initCB(self, steps):
+    def _init_progress_bar(self, steps):
         self._totalSteps = steps
         self._currentStep = 0
 
@@ -71,7 +97,7 @@ class ProgressHub(Hub):
             self._progressBar.set_fraction(0.0)
             self._progressLabel.set_text("")
 
-    def updateProgressCB(self):
+    def _step_progress_bar(self):
         if not self._totalSteps:
             return
 
@@ -79,14 +105,14 @@ class ProgressHub(Hub):
             self._currentStep += 1
             self._progressBar.set_fraction(self._currentStep/self._totalSteps)
 
-    def updateMessageCB(self, message):
+    def _update_progress_message(self, message):
         if not self._totalSteps:
             return
 
         with gdk_threaded():
             self._progressLabel.set_text(message)
 
-    def completeCB(self):
+    def _progress_bar_complete(self):
         with gdk_threaded():
             self._progressBar.set_fraction(1.0)
             self._progressLabel.set_text(_("Complete!"))

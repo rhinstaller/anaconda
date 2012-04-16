@@ -1,5 +1,5 @@
 #
-# progress.py: one big progress bar class
+# progress.py: code for handling the one big progress bar
 #
 # Copyright (C) 2012  Red Hat, Inc.  All rights reserved.
 #
@@ -18,68 +18,35 @@
 #
 # Author(s): Chris Lumens <clumens@redhat.com>
 
-class ProgressReporter(object):
-    """In the new UI, we have one large progress bar displayed on the second
-       hub that handles progress for both storage creation and package
-       installation.  In order to do this in a UI-agnostic way (graphical,
-       text, etc.) we must have an API that can be called from anywhere without
-       knowledge of the UI details.
+from contextlib import contextmanager
+import Queue
 
-       The use of this class is very simple:  Instantiate, call setSteps once,
-       call update in a loop, and finally call complete.
-    """
-    def __init__(self):
-        self._initCB = None
-        self._updateProgressCB = None
-        self._updateMessageCB = None
-        self._completeCB = None
+# A queue to be used for communicating progress information between a subthread
+# doing all the hard work and the main thread that does the GTK updates.  This
+# queue should have elements of the following format pushed into it:
+#
+# (PROGRESS_CODE_*, [arguments])
+#
+# Arguments vary based on the code given.  See below.
+progressQ = Queue.Queue()
 
-    def register(self, initCB, updateProgressCB, updateMessageCB, completeCB):
-        self._initCB = initCB
-        self._updateProgressCB = updateProgressCB
-        self._updateMessageCB = updateMessageCB
-        self._completeCB = completeCB
+# Arguments:
+#
+# _INIT - [num_steps]
+# _STEP - []
+# _MESSAGE - [string]
+# _COMPLETE - []
+PROGRESS_CODE_INIT = 0
+PROGRESS_CODE_STEP = 1
+PROGRESS_CODE_MESSAGE = 2
+PROGRESS_CODE_COMPLETE = 3
 
-    def setSteps(self, steps):
-        """In order for the progress bar to know how big each step needs to be,
-           this method must first be called to specify the total number of
-           steps.
-        """
-        if not self._initCB:
-            return
-
-        self._initCB(steps)
-
-    def updateMessage(self, message):
-        """This method should be called when a task begins, so the progress
-           bar reflects what is happening and taking up time.  This method does
-           not cause the progress bar itself to be filled in any more.
-        """
-        if not self._updateMessageCB:
-            return
-
-        self._updateMessageCB(message)
-
-    def updateProgress(self):
-        """This method should be called when a task finishes.  It will cause
-           the progress bar to be filled in a little more.
-        """
-        if not self._updateProgressCB:
-            return
-
-        self._updateProgressCB()
-
-    def complete(self):
-        """When the process is complete, call this method to display a
-           completion method on the screen and make sure the progress bar is
-           100% full.
-        """
-        if not self._completeCB:
-            return
-
-        self._completeCB()
-
-# Create a singleton of the ProgressReporter class.  The required callbacks
-# must be registered before the class needs to be used, or nothing will
-# happen.
-progress = ProgressReporter()
+# Surround a block of code with progress updating.  Before the code runs, the
+# message is updated so the user can tell what's about to take so long.
+# Afterwards, the progress bar is updated to reflect that the task is done.
+@contextmanager
+def progress_report(message):
+    q = progressQ
+    q.put((PROGRESS_CODE_MESSAGE, [message]))
+    yield
+    q.put((PROGRESS_CODE_STEP, []))
