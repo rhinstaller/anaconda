@@ -39,7 +39,8 @@ class AddLayoutDialog(UIObject):
     mainWidgetName = "addLayoutDialog"
     uiFile = "spokes/keyboard.ui"
 
-    def __init__(self):
+    def __init__(self, *args):
+        UIObject.__init__(*args)
         self._xkl_wrapper = xklavier.XklWrapper()
 
     def matches_entry(self, model, itr, user_data=None):
