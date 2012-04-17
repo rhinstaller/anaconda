@@ -24,6 +24,8 @@ from __future__ import division
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
 
+from pyanaconda.product import productName
+
 from pyanaconda.ui.gui.hubs import Hub
 from pyanaconda.ui.gui.utils import gdk_threaded
 
@@ -59,6 +61,7 @@ class ProgressHub(Hub):
                 # There shouldn't be any more progress bar updates, so return False
                 # to indicate this method should be removed from the idle loop.
                 self._progress_bar_complete()
+                self._progressNotebook.next_page()
                 q.task_done()
                 return False
 
@@ -77,6 +80,10 @@ class ProgressHub(Hub):
 
         self._progressBar = self.builder.get_object("progressBar")
         self._progressLabel = self.builder.get_object("progressLabel")
+        self._progressNotebook = self.builder.get_object("progressNotebook")
+
+        lbl = self.builder.get_object("rebootLabel")
+        lbl.set_text(lbl.get_text() % productName)
 
     def refresh(self):
         from gi.repository import GLib
