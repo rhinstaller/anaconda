@@ -82,6 +82,9 @@ from pyanaconda.packaging import NoSuchGroup, NoSuchPackage
 
 default_repos = [productName.lower(), "rawhide"]
 
+from threading import Lock
+_yum_lock = Lock()
+
 class YumPayload(PackagePayload):
     """ A YumPayload installs packages onto the target system using yum.
 
@@ -104,9 +107,10 @@ class YumPayload(PackagePayload):
         self.reset()
 
     def reset(self):
-        if self._yum:
-            self._yum.close()
-            del self._yum
+        with _yum_lock:
+            if self._yum:
+                self._yum.close()
+                del self._yum
 
         if os.path.ismount(INSTALL_TREE) and not flags.testing:
             isys.umount(INSTALL_TREE)
@@ -127,18 +131,19 @@ class YumPayload(PackagePayload):
         self._groups = []
         self._packages = []
 
-        self._yum = yum.YumBase()
+        with _yum_lock:
+            self._yum = yum.YumBase()
 
-        self._yum.use_txmbr_in_callback = True
+            self._yum.use_txmbr_in_callback = True
 
-        # Set some configuration parameters that don't get set through a config
-        # file.  yum will know what to do with these.
-        self._yum.preconf.enabled_plugins = ["blacklist", "whiteout"]
-        self._yum.preconf.fn = "/tmp/anaconda-yum.conf"
-        self._yum.preconf.root = ROOT_PATH
-        # set this now to the best default we've got ; we'll update it if/when
-        # we get a base repo set up
-        self._yum.preconf.releasever = self._getReleaseVersion(None)
+            # Set some configuration parameters that don't get set through a config
+            # file.  yum will know what to do with these.
+            self._yum.preconf.enabled_plugins = ["blacklist", "whiteout"]
+            self._yum.preconf.fn = "/tmp/anaconda-yum.conf"
+            self._yum.preconf.root = ROOT_PATH
+            # set this now to the best default we've got ; we'll update it if/when
+            # we get a base repo set up
+            self._yum.preconf.releasever = self._getReleaseVersion(None)
 
     def setup(self, storage, proxy=None):
         buf = """
@@ -165,6 +170,11 @@ reposdir=/etc/yum.repos.d,/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/t
         self.proxy = proxy
 
         self.updateBaseRepo(storage)
+
+        # When setup is called, it's already in a separate thread. That thread
+        # will try to select groups right after this returns, so make sure we
+        # have group info ready.
+        self.gatherRepoMetadata()
 
     def release(self):
         self._yum.close()
@@ -217,7 +227,6 @@ reposdir=/etc/yum.repos.d,/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/t
             if not fallback:
                 # XXX this leaves the configuration exactly as specified in the
                 #     on-disk yum configuration
-                self.release()
                 raise
 
             # this preserves the method details while disabling it
@@ -251,6 +260,8 @@ reposdir=/etc/yum.repos.d,/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/t
                 - if a base repo is defined, disable any repo not defined by
                   the user that is not the base repo
 
+                FIXME: updates needs special handling
+
             """
             if repo.id in self.addOns:
                 continue
@@ -267,11 +278,9 @@ reposdir=/etc/yum.repos.d,/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/t
                 # if a method/repo was given, disable all default repos
                 self.disableRepo(repo.id)
 
-        self._applyYumSelections()
-        self.release()
-
     def gatherRepoMetadata(self):
         # now go through and get metadata for all enabled repos
+        log.info("gathering repo metadata")
         for repo_id in self.repos:
             repo = self._yum.repos.getRepo(repo_id)
             if repo.enabled:
@@ -282,7 +291,7 @@ reposdir=/etc/yum.repos.d,/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/t
                               % (repo_id, e))
                     self.disableRepo(repo_id)
 
-        self.release()
+        log.info("metadata retrieval complete")
 
     def _configureBaseRepo(self, storage):
         """ Configure the base repo.
@@ -416,25 +425,26 @@ reposdir=/etc/yum.repos.d,/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/t
 
             This follows the same ordering/pattern as kickstart.py.
         """
-        for package in self.data.packages.packageList:
-            self.selectPackage(package)
+        with _yum_lock:
+            for package in self.data.packages.packageList:
+                self.selectPackage(package)
 
-        for group in self.data.packages.groupList:
-            default = False
-            optional = False
-            if group.include == GROUP_DEFAULT:
-                default = True
-            elif group.include == GROUP_ALL:
-                default = True
-                optional = True
+            for group in self.data.packages.groupList:
+                default = False
+                optional = False
+                if group.include == GROUP_DEFAULT:
+                    default = True
+                elif group.include == GROUP_ALL:
+                    default = True
+                    optional = True
 
-            self.selectGroup(group.name, default=default, optional=optional)
+                self.selectGroup(group.name, default=default, optional=optional)
 
-        for package in self.data.packages.excludedList:
-            self.deselectPackage(package)
+            for package in self.data.packages.excludedList:
+                self.deselectPackage(package)
 
-        for group in self.data.packages.excludedGroupList:
-            self.deselectGroup(group.name)
+            for group in self.data.packages.excludedGroupList:
+                self.deselectGroup(group.name)
 
     def _getRepoMetadata(self, yumrepo):
         """ Retrieve repo metadata if we don't already have it. """
@@ -444,21 +454,26 @@ reposdir=/etc/yum.repos.d,/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/t
         # on a per-repo basis, so we can then get some finer grained error
         # handling and recovery.
         log.debug("getting repo metadata for %s" % yumrepo.id)
-        try:
-            yumrepo.getPrimaryXML()
-            yumrepo.getOtherXML()
-        except RepoError as e:
-            raise MetadataError(e.value)
+        #log.debug("getting repo metadata for %s (%s)" % (yumrepo.id, yumrepo.urls))
+        with _yum_lock:
+            del yumrepo.repoXML
+            try:
+                yumrepo.repoXML
+                yumrepo.getPrimaryXML()
+                yumrepo.getOtherXML()
+                yumrepo.getFileListsXML()
+            except RepoError as e:
+                raise MetadataError(e.value)
 
-        # Not getting group info is bad, but doesn't seem like a fatal error.
-        # At the worst, it just means the groups won't be displayed in the UI
-        # which isn't too bad, because you may be doing a kickstart install and
-        # picking packages instead.
-        log.debug("getting group info for %s" % yumrepo.id)
-        try:
-            yumrepo.getGroups()
-        except RepoMDError:
-            log.error("failed to get groups for repo %s" % yumrepo.id)
+            # Not getting group info is bad, but doesn't seem like a fatal error.
+            # At the worst, it just means the groups won't be displayed in the UI
+            # which isn't too bad, because you may be doing a kickstart install and
+            # picking packages instead.
+            log.debug("getting group info for %s" % yumrepo.id)
+            try:
+                yumrepo.getGroups()
+            except RepoMDError:
+                log.error("failed to get groups for repo %s" % yumrepo.id)
 
     def _addYumRepo(self, name, baseurl, mirrorlist=None, **kwargs):
         """ Add a yum repo to the YumBase instance. """
@@ -470,18 +485,22 @@ reposdir=/etc/yum.repos.d,/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/t
 
         log.debug("adding yum repo %s with baseurl %s and mirrorlist %s"
                     % (name, baseurl, mirrorlist))
-        # Then add it to yum's internal structures.
-        obj = self._yum.add_enable_repo(name,
-                                        baseurl=[baseurl],
-                                        mirrorlist=mirrorlist,
-                                        **kwargs)
+        with _yum_lock:
+            # Then add it to yum's internal structures.
+            obj = self._yum.add_enable_repo(name,
+                                            baseurl=[baseurl],
+                                            mirrorlist=mirrorlist,
+                                            **kwargs)
 
-        # this will trigger retrieval of repomd.xml, which is small and yet
-        # gives us some assurance that the repo config is sane
-        try:
-            obj.repoXML
-        except RepoError as e:
-            raise MetadataError(e.value)
+            # this will trigger retrieval of repomd.xml, which is small and yet
+            # gives us some assurance that the repo config is sane
+            orig_mdpolicy = obj.mdpolicy
+            obj.mdpolicy = "meh"
+            try:
+                obj.repoXML
+            except RepoError as e:
+                raise MetadataError(e.value)
+            obj.mdpolicy = orig_mdpolicy
 
         # Adding a new repo means the cached packages and groups lists
         # are out of date.  Clear them out now so the next reference to
@@ -497,10 +516,10 @@ reposdir=/etc/yum.repos.d,/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/t
 
     def _removeYumRepo(self, repo_id):
         if repo_id in self.repos:
-            self._yum.repos.delete(repo_id)
-
-            self._groups = []
-            self._packages = []
+            with _yum_lock:
+                self._yum.repos.delete(repo_id)
+                self._groups = []
+                self._packages = []
 
     def removeRepo(self, repo_id):
         """ Remove a repo as specified by id. """
@@ -546,25 +565,27 @@ reposdir=/etc/yum.repos.d,/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/t
         from yum.Errors import RepoError
         from yum.Errors import GroupsError
 
-        if not self._groups:
-            if self.needsNetwork and not hasActiveNetDev():
-                raise NoNetworkError
+        with _yum_lock:
+            if not self._groups:
+                if self.needsNetwork and not hasActiveNetDev():
+                    raise NoNetworkError
 
-            try:
-                self._groups = self._yum.comps
-            except (RepoError, GroupsError) as e:
-                raise MetadataError(e.value)
+                try:
+                    self._groups = self._yum.comps
+                except (RepoError, GroupsError) as e:
+                    raise MetadataError(e.value)
 
-        return [g.groupid for g in self._groups.get_groups()]
+            return [g.groupid for g in self._groups.get_groups()]
 
     def description(self, groupid):
         """ Return name/description tuple for the group specified by id. """
-        if not self._groups.has_group(groupid):
-            raise NoSuchGroup(groupid)
+        with _yum_lock:
+            if not self._groups.has_group(groupid):
+                raise NoSuchGroup(groupid)
 
-        group = self._groups.return_group(groupid)
+            group = self._groups.return_group(groupid)
 
-        return (group.ui_name, group.ui_description)
+            return (group.ui_name, group.ui_description)
 
     def selectGroup(self, groupid, default=True, optional=False):
         # select the group in comps
@@ -576,10 +597,11 @@ reposdir=/etc/yum.repos.d,/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/t
             pkg_types.append("optional")
 
         log.debug("select group %s" % groupid)
-        try:
-            self._yum.selectGroup(groupid, group_package_types=pkg_types)
-        except yum.Errors.GroupsError:
-            raise NoSuchGroup(groupid)
+        with _yum_lock:
+            try:
+                self._yum.selectGroup(groupid, group_package_types=pkg_types)
+            except yum.Errors.GroupsError:
+                raise NoSuchGroup(groupid)
 
         super(YumPayload, self).selectGroup(groupid, default=default,
                                             optional=optional)
@@ -588,10 +610,11 @@ reposdir=/etc/yum.repos.d,/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/t
     def deselectGroup(self, groupid):
         # deselect the group in comps
         log.debug("deselect group %s" % groupid)
-        try:
-            self._yum.deselectGroup(groupid, force=True)
-        except yum.Errors.GroupsError:
-            raise NoSuchGroup(groupid)
+        with _yum_lock:
+            try:
+                self._yum.deselectGroup(groupid, force=True)
+            except yum.Errors.GroupsError:
+                raise NoSuchGroup(groupid)
 
         super(YumPayload, self).deselectGroup(groupid)
         self._space_required = None
@@ -603,16 +626,17 @@ reposdir=/etc/yum.repos.d,/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/t
     def packages(self):
         from yum.Errors import RepoError
 
-        if not self._packages:
-            if self.needsNetwork and not hasActiveNetDev():
-                raise NoNetworkError
+        with _yum_lock:
+            if not self._packages:
+                if self.needsNetwork and not hasActiveNetDev():
+                    raise NoNetworkError
 
-            try:
-                self._packages = self._yum.pkgSack.returnPackages()
-            except RepoError as e:
-                raise MetadataError(e.value)
+                try:
+                    self._packages = self._yum.pkgSack.returnPackages()
+                except RepoError as e:
+                    raise MetadataError(e.value)
 
-        return self._packages
+            return self._packages
 
     def selectPackage(self, pkgid):
         """Mark a package for installation.
@@ -621,10 +645,11 @@ reposdir=/etc/yum.repos.d,/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/t
                    a version or architecture component.
         """
         log.debug("select package %s" % pkgid)
-        try:
-            mbrs = self._yum.install(pattern=pkgid)
-        except yum.Errors.InstallError:
-            raise NoSuchPackage(pkgid)
+        with _yum_lock:
+            try:
+                mbrs = self._yum.install(pattern=pkgid)
+            except yum.Errors.InstallError:
+                raise NoSuchPackage(pkgid)
 
         super(YumPayload, self).selectPackage(pkgid)
         self._space_required = None
@@ -636,7 +661,9 @@ reposdir=/etc/yum.repos.d,/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/t
                    a version or architecture component.
         """
         log.debug("deselect package %s" % pkgid)
-        self._yum.tsInfo.deselect(pkgid)
+        with _yum_lock:
+            self._yum.tsInfo.deselect(pkgid)
+
         super(YumPayload, self).deselectPackage(pkgid)
         self._space_required = None
 
@@ -649,8 +676,9 @@ reposdir=/etc/yum.repos.d,/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/t
         # XXX this will only be useful if you've run checkSoftwareSelection
         if not self._space_required:
             total = 0
-            for txmbr in self._yum.tsInfo.getMembers():
-                total += getattr(txmbr.po, "installedsize", 0)
+            with _yum_lock:
+                for txmbr in self._yum.tsInfo.getMembers():
+                    total += getattr(txmbr.po, "installedsize", 0)
 
             total += total * 0.10   # add 10% to account for metadata, &c
             self._space_required = Size(bytes=total)
@@ -673,50 +701,51 @@ reposdir=/etc/yum.repos.d,/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/t
     def checkSoftwareSelection(self):
         log.info("checking software selection")
 
-        self._yum._undoDepInstalls()
+        with _yum_lock:
+            self._yum._undoDepInstalls()
+            self._applyYumSelections()
 
-        # doPostSelection
-        # select kernel packages
-        # select packages needed for storage, bootloader
+            # doPostSelection
+            # select kernel packages
+            # select packages needed for storage, bootloader
 
-        # check dependencies
-        # XXX FIXME: set self._yum.dsCallback before entering this loop?
-        while True:
-            log.info("checking dependencies")
-            (code, msgs) = self._yum.buildTransaction(unfinished_transactions_check=False)
+            # check dependencies
+            # XXX FIXME: set self._yum.dsCallback before entering this loop?
+            while True:
+                log.info("checking dependencies")
+                (code, msgs) = self._yum.buildTransaction(unfinished_transactions_check=False)
+                if code == 0:
+                    # empty transaction?
+                    log.debug("empty transaction")
+                    break
+                elif code == 2:
+                    # success
+                    log.debug("success")
+                    break
+                elif self.data.packages.handleMissing == KS_MISSING_IGNORE:
+                    log.debug("ignoring missing due to ks config")
+                    break
+                elif self.data.upgrade.upgrade:
+                    log.debug("ignoring unresolved deps on upgrade")
+                    break
 
-            if code == 0:
-                # empty transaction?
-                log.debug("empty transaction")
-                break
-            elif code == 2:
-                # success
-                log.debug("success")
-                break
-            elif self.data.packages.handleMissing == KS_MISSING_IGNORE:
-                log.debug("ignoring missing due to ks config")
-                break
-            elif self.data.upgrade.upgrade:
-                log.debug("ignoring unresolved deps on upgrade")
-                break
+                for msg in msgs:
+                    log.warning(msg)
 
-            for msg in msgs:
-                log.warning(msg)
+                exn = DependencyError(msgs)
+                rc = errorHandler.cb(exn)
+                if rc == ERROR_RAISE:
+                    raise exn
+                elif rc == ERROR_RETRY:
+                    # FIXME: figure out how to allow modification of software set
+                    self._yum._undoDepInstalls()
+                    return False
+                elif rc == ERROR_CONTINUE:
+                    break
 
-            exn = DependencyError(msgs)
-            rc = errorHandler.cb(exn)
-            if rc == ERROR_RAISE:
-                raise exn
-            elif rc == ERROR_RETRY:
-                # FIXME: figure out how to allow modification of software set
-                self._yum._undoDepInstalls()
-                return False
-            elif rc == ERROR_CONTINUE:
-                break
+            # check free space (?)
 
-        # check free space (?)
-
-        self._removeTxSaveFile()
+            self._removeTxSaveFile()
 
     def preInstall(self):
         """ Perform pre-installation tasks. """
@@ -743,60 +772,61 @@ reposdir=/etc/yum.repos.d,/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/t
         """ Install the payload. """
         log.info("preparing transaction")
         log.debug("initialize transaction set")
-        self._yum.initActionTs()
+        with _yum_lock:
+            self._yum.initActionTs()
 
-        log.debug("populate transaction set")
-        try:
-            # uses dsCallback.transactionPopulation
-            self._yum.populateTs(keepold=0)
-        except RepoError as e:
-            log.error("error populating transaction: %s" % e)
-            exn = PayloadInstallError(str(e))
-            if errorHandler.cb(exn) == ERROR_RAISE:
-                raise exn
+            log.debug("populate transaction set")
+            try:
+                # uses dsCallback.transactionPopulation
+                self._yum.populateTs(keepold=0)
+            except RepoError as e:
+                log.error("error populating transaction: %s" % e)
+                exn = PayloadInstallError(str(e))
+                if errorHandler.cb(exn) == ERROR_RAISE:
+                    raise exn
 
-        log.debug("check transaction set")
-        self._yum.ts.check()
-        log.debug("order transaction set")
-        self._yum.ts.order()
-        self._yum.ts.clean()
+            log.debug("check transaction set")
+            self._yum.ts.check()
+            log.debug("order transaction set")
+            self._yum.ts.order()
+            self._yum.ts.clean()
 
-        # set up rpm logging to go to our log
-        self._yum.ts.ts.scriptFd = self.install_log.fileno()
-        rpm.setLogFile(self.install_log)
+            # set up rpm logging to go to our log
+            self._yum.ts.ts.scriptFd = self.install_log.fileno()
+            rpm.setLogFile(self.install_log)
 
-        # create the install callback
-        rpmcb = RPMCallback(self._yum, self.install_log,
-                            upgrade=self.data.upgrade.upgrade)
+            # create the install callback
+            rpmcb = RPMCallback(self._yum, self.install_log,
+                                upgrade=self.data.upgrade.upgrade)
 
-        if flags.testing:
-            self._yum.ts.setFlags(rpm.RPMTRANS_FLAG_TEST)
+            if flags.testing:
+                self._yum.ts.setFlags(rpm.RPMTRANS_FLAG_TEST)
 
-        log.info("running transaction")
-        try:
-            self._yum.runTransaction(cb=rpmcb)
-        except PackageSackError as e:
-            log.error("error running transaction: %s" % e)
-            exn = PayloadInstallError(str(e))
-            if errorHandler.cb(exn) == ERROR_RAISE:
-                raise exn
-        except YumRPMTransError as e:
-            log.error("error running transaction: %s" % e)
-            for error in e.errors:
-                log.error(e[0])
-            exn = PayloadInstallError(str(e))
-            if errorHandler.cb(exn) == ERROR_RAISE:
-                raise exn
-        except YumBaseError as e:
-            log.error("error [2] running transaction: %s" % e)
-            for error in e.errors:
-                log.error("%s" % e[0])
-            exn = PayloadInstallError(str(e))
-            if errorHandler.cb(exn) == ERROR_RAISE:
-                raise exn
-        finally:
-            self._yum.ts.close()
-            iutil.resetRpmDb()
+            log.info("running transaction")
+            try:
+                self._yum.runTransaction(cb=rpmcb)
+            except PackageSackError as e:
+                log.error("error running transaction: %s" % e)
+                exn = PayloadInstallError(str(e))
+                if errorHandler.cb(exn) == ERROR_RAISE:
+                    raise exn
+            except YumRPMTransError as e:
+                log.error("error running transaction: %s" % e)
+                for error in e.errors:
+                    log.error(e[0])
+                exn = PayloadInstallError(str(e))
+                if errorHandler.cb(exn) == ERROR_RAISE:
+                    raise exn
+            except YumBaseError as e:
+                log.error("error [2] running transaction: %s" % e)
+                for error in e.errors:
+                    log.error("%s" % e[0])
+                exn = PayloadInstallError(str(e))
+                if errorHandler.cb(exn) == ERROR_RAISE:
+                    raise exn
+            finally:
+                self._yum.ts.close()
+                iutil.resetRpmDb()
 
     def postInstall(self):
         """ Perform post-installation tasks. """

@@ -74,7 +74,8 @@ class SoftwareSelectionSpoke(NormalSpoke):
         # wait until the installation source spoke is completed.  This could be
         # becasue the user filled something out, or because we're done fetching
         # repo metadata from the mirror list, or we detected a DVD/CD.
-        return self._ready
+        from pyanaconda.threads import threadMgr
+        return self._ready and not threadMgr.get("AnaPayloadMDThread")
 
     @property
     def status(self):
@@ -110,7 +111,12 @@ class SoftwareSelectionSpoke(NormalSpoke):
                 cb(self)
 
     def refresh(self):
+        from pyanaconda.threads import threadMgr
         NormalSpoke.refresh(self)
+
+        mdGatherThread = threadMgr.get("AnaPayloadMDThread")
+        if mdGatherThread:
+            mdGatherThread.join()
 
         self._desktopStore = self.builder.get_object("desktopStore")
         self._desktopStore.clear()

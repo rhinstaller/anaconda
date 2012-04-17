@@ -242,6 +242,8 @@ class SourceSpoke(NormalSpoke):
         self._ready = False
 
     def apply(self):
+        from pyanaconda.threads import threadMgr, AnacondaThread
+
         if self._autodetectButton.get_active():
             dev = self._get_selected_media()
             if not dev:
@@ -296,6 +298,8 @@ class SourceSpoke(NormalSpoke):
             self.data.method.opts = self.builder.get_object("nfsOptsEntry").get_text() or ""
 
         self.payload.updateBaseRepo(self.storage)
+        threadMgr.add(AnacondaThread(name="AnaPayloadMDThread",
+                                      target=self.payload.gatherRepoMetadata))
 
     @property
     def completed(self):
@@ -367,6 +371,10 @@ class SourceSpoke(NormalSpoke):
         storageThread = threadMgr.get("AnaStorageThread")
         if storageThread:
             storageThread.join()
+
+        payloadThread = threadMgr.get("AnaPayloadThread")
+        if payloadThread:
+            payloadThread.join()
 
         added = False
         cdrom = None
