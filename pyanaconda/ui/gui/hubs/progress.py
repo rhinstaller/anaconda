@@ -24,6 +24,12 @@ from __future__ import division
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
 
+from gi.repository import GLib
+
+import itertools
+import os
+
+from pyanaconda.localeinfo import expandLangs
 from pyanaconda.product import productName
 
 from pyanaconda.ui.gui.hubs import Hub
@@ -35,6 +41,14 @@ class ProgressHub(Hub):
     builderObjects = ["progressWindow"]
     mainWidgetName = "progressWindow"
     uiFile = "hubs/progress.ui"
+
+    def __init__(self, data, storage, payload, instclass):
+        Hub.__init__(self, data, storage, payload, instclass)
+
+        self._totalSteps = 0
+        self._currentStep = 0
+
+        self._rnotes = itertools.cycle(self._get_rnotes())
 
     def _update_progress(self):
         from pyanaconda import progress
@@ -59,24 +73,49 @@ class ProgressHub(Hub):
                 self._update_progress_message(args[0])
             elif code == progress.PROGRESS_CODE_COMPLETE:
                 # There shouldn't be any more progress bar updates, so return False
-                # to indicate this method should be removed from the idle loop.
+                # to indicate this method should be removed from the idle loop.  Also,
+                # stop the rnotes cycling and display the finished message.
                 self._progress_bar_complete()
-                self._progressNotebook.next_page()
                 q.task_done()
+
+                GLib.source_remove(self._rnotes_id)
+
+                self._progressNotebook.next_page()
                 return False
 
             q.task_done()
 
         return True
 
-    def __init__(self, data, storage, payload, instclass):
-        Hub.__init__(self, data, storage, payload, instclass)
+    def _get_rnotes(self):
+        import glob
 
-        self._totalSteps = 0
-        self._currentStep = 0
+        # We first look for rnotes in paths containing the language, then in
+        # directories without the language component.  You know, just in case.
+        langs = expandLangs(os.environ["LANG"]) + [""]
+        paths = ["/tmp/updates/pixmaps/rnotes/%s/*.png",
+                 "/tmp/product/pixmaps/rnotes/%s/*.png",
+                 "/usr/share/anaconda/pixmaps/rnotes/%s/*.png"]
+
+        for (l, d) in itertools.product(langs, paths):
+            pixmaps = glob.glob(d % l)
+            if len(pixmaps) > 0:
+                return pixmaps
+
+        return []
+
+    def _cycle_rnotes(self):
+        # Change the ransom notes image every minute by grabbing the next
+        # image's filename.  Note that self._rnotes is an infinite list, so
+        # this will cycle through the images indefinitely.
+        nxt = self._rnotes.next()
+        self._rnotesImage.set_from_file(nxt)
+        return True
 
     def initialize(self):
         Hub.initialize(self)
+
+        self._rnotesImage = self.builder.get_object("ransomNotesImage")
 
         self._progressBar = self.builder.get_object("progressBar")
         self._progressLabel = self.builder.get_object("progressLabel")
@@ -86,13 +125,17 @@ class ProgressHub(Hub):
         lbl.set_text(lbl.get_text() % productName)
 
     def refresh(self):
-        from gi.repository import GLib
         from pyanaconda.install import doInstall
         from pyanaconda.threads import threadMgr, AnacondaThread
 
         Hub.refresh(self)
 
-        GLib.idle_add(self._update_progress)
+        # Adding this as a timeout below means it'll get called after 60
+        # seconds, so we need to do the first call manually.
+        self._cycle_rnotes()
+
+        self._progress_id = GLib.idle_add(self._update_progress)
+        self._rnotes_id = GLib.timeout_add_seconds(60, self._cycle_rnotes)
         threadMgr.add(AnacondaThread(name="AnaInstallThread", target=doInstall,
                                      args=(self.storage, self.payload, self.data, self.instclass)))
 
