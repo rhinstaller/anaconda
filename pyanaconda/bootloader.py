@@ -2044,7 +2044,7 @@ class IPSeriesGRUB2(GRUB2):
             log.error ("Failed to determine nvram boot device")
             return
 
-        boot_list = buf.strip().split()
+        boot_list = buf.strip().replace("\"", "").split()
         log.debug("updateNVRAMBootList: boot_list = %s" % boot_list)
 
         buf = iutil.execWithCapture("ofpathname",
@@ -2061,7 +2061,7 @@ class IPSeriesGRUB2(GRUB2):
         # Remove all other occurances of it.
         boot_list = [boot_disk] + filter(lambda x: x != boot_disk, boot_list)
 
-        update_value = "boot-device=\"%s\"" % " ".join(boot_list)
+        update_value = "boot-device=%s" % " ".join(boot_list)
 
         rc = iutil.execWithRedirect("nvram", ["--update-config", update_value],
                                     stdout="/dev/tty5", stderr="/dev/tty5")
