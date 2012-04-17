@@ -56,7 +56,11 @@ class ProgressHub(Hub):
             elif code == progress.PROGRESS_CODE_MESSAGE:
                 self._update_progress_message(args[0])
             elif code == progress.PROGRESS_CODE_COMPLETE:
+                # There shouldn't be any more progress bar updates, so return False
+                # to indicate this method should be removed from the idle loop.
                 self._progress_bar_complete()
+                q.task_done()
+                return False
 
             q.task_done()
 
