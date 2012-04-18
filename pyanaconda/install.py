@@ -32,6 +32,7 @@ def doInstall(storage, payload, ksdata, instClass):
     from pyanaconda import progress
 
     # First, run all the execute methods of the ksdata.
+    ksdata.clearpart.execute(storage, ksdata, instClass)
     ksdata.bootloader.execute(storage, ksdata, instClass)
     ksdata.autopart.execute(storage, ksdata, instClass)
 

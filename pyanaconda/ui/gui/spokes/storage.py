@@ -49,6 +49,8 @@ from pyanaconda.ui.gui.utils import enlightbox, gdk_threaded
 from pyanaconda.storage.size import Size
 from pyanaconda.product import productName
 
+from pykickstart.constants import *
+
 import gettext
 
 _ = lambda x: gettext.ldgettext("anaconda", x)
@@ -340,11 +342,13 @@ class StorageSpoke(NormalSpoke):
         self._ready = False
         self.selected_disks = self.data.ignoredisk.onlyuse[:]
         self.autopart = self.data.autopart.autopart
+        self.clearPartType = CLEARPART_TYPE_LINUX
 
     def apply(self):
         self.data.ignoredisk.onlyuse = self.selected_disks[:]
         self.data.autopart.autopart = self.autopart
         self.data.bootloader.location = "mbr"
+        self.data.clearpart.type = self.clearPartType
 
     @property
     def completed(self):
