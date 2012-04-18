@@ -38,7 +38,7 @@ class Method(commands.method.F14_Method):
         elif self.method == "nfs":
             method="nfs:%s:%s" % (self.server, self.dir)
             if self.opts:
-                method += ":%s" % opts
+                method += ":%s" % self.opts
         elif self.method == "url":
             # FIXME: self.proxy, self.noverifyssl
             method = self.url
