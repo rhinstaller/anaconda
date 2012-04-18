@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 17.19\n"
+"Project-Id-Version: anaconda 17.20\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2012-04-09 20:41-0700\n"
+"POT-Creation-Date: 2012-04-18 16:46-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -116,62 +116,67 @@ msgstr ""
 msgid "%s must have one of the following disklabel types: %s."
 msgstr ""
 
-#: pyanaconda/bootloader.py:521 pyanaconda/bootloader.py:659
+#: pyanaconda/bootloader.py:521 pyanaconda/bootloader.py:665
 #, python-format
 msgid "%s cannot be of type %s."
 msgstr ""
 
-#: pyanaconda/bootloader.py:533
+#: pyanaconda/bootloader.py:527
+#, python-format
+msgid "%s must be mounted on one of %s."
+msgstr ""
+
+#: pyanaconda/bootloader.py:539
 #, python-format
 msgid "%s must be between %d and %d MB in size"
 msgstr ""
 
-#: pyanaconda/bootloader.py:538
+#: pyanaconda/bootloader.py:544
 #, python-format
 msgid "%s must not be smaller than %dMB."
 msgstr ""
 
-#: pyanaconda/bootloader.py:547
+#: pyanaconda/bootloader.py:553
 #, python-format
 msgid "%s must not be larger than %dMB."
 msgstr ""
 
-#: pyanaconda/bootloader.py:565
+#: pyanaconda/bootloader.py:571
 #, python-format
 msgid "%s must be within the first %dMB of the disk."
 msgstr ""
 
-#: pyanaconda/bootloader.py:575
+#: pyanaconda/bootloader.py:581
 #, python-format
 msgid "%s must be on a primary partition."
 msgstr ""
 
-#: pyanaconda/bootloader.py:699 pyanaconda/bootloader.py:804
+#: pyanaconda/bootloader.py:705 pyanaconda/bootloader.py:810
 #, python-format
 msgid "%s cannot be on an encrypted block device."
 msgstr ""
 
-#: pyanaconda/bootloader.py:762
+#: pyanaconda/bootloader.py:768
 #, python-format
 msgid "%s cannot be of type %s"
 msgstr ""
 
-#: pyanaconda/bootloader.py:1626
+#: pyanaconda/bootloader.py:1632
 msgid ""
 "Your BIOS-based system needs a special partition to boot with Fedora's new "
 "disk label format (GPT). To continue, please create a 1MB 'BIOS Boot' type "
 "partition."
 msgstr ""
 
-#: pyanaconda/bootloader.py:2282
+#: pyanaconda/bootloader.py:2288
 msgid "Bootloader"
 msgstr ""
 
-#: pyanaconda/bootloader.py:2283
+#: pyanaconda/bootloader.py:2289
 msgid "Installing bootloader."
 msgstr ""
 
-#: pyanaconda/bootloader.py:2290 pyanaconda/bootloader.py:2349
+#: pyanaconda/bootloader.py:2296 pyanaconda/bootloader.py:2355
 #: pyanaconda/gui.py:1093 pyanaconda/image.py:87
 #: pyanaconda/installinterfacebase.py:74
 #: pyanaconda/installinterfacebase.py:151 pyanaconda/packages.py:90
@@ -180,13 +185,13 @@ msgstr ""
 msgid "Warning"
 msgstr ""
 
-#: pyanaconda/bootloader.py:2291
+#: pyanaconda/bootloader.py:2297
 msgid ""
 "No kernel packages were installed on the system. Bootloader configuration "
 "will not be changed."
 msgstr ""
 
-#: pyanaconda/bootloader.py:2350
+#: pyanaconda/bootloader.py:2356
 msgid ""
 "There was an error installing the bootloader.  The system may not be "
 "bootable."
@@ -1455,14 +1460,22 @@ msgstr ""
 msgid "Invalid Directories"
 msgstr ""
 
-#: pyanaconda/upgrade.py:282
-msgid "/usr upgrade failed"
+#: pyanaconda/upgrade.py:278
+msgid "Upgrade /usr symlinks"
 msgstr ""
 
-#: pyanaconda/upgrade.py:283
+#: pyanaconda/upgrade.py:279
+msgid "Running /usr merge script"
+msgstr ""
+
+#: pyanaconda/upgrade.py:288
+msgid "/usr merge failed"
+msgstr ""
+
+#: pyanaconda/upgrade.py:289
 msgid ""
-"convertfs failed to upgrade your system to symlink into /usr. This is "
-"required for Fedora 17 to work. The upgrade cannot continue.\n"
+"The /usr merge script failed. This is required for Fedora 17 to work. The "
+"upgrade cannot continue.\n"
 "\n"
 msgstr ""
 
