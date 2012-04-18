@@ -915,14 +915,12 @@ class Network:
     def dracutSetupArgs(self, networkStorageDevice):
         netargs=set()
 
-        if networkStorageDevice.nic:
-            # Storage bound to a specific nic (ie FCoE)
-            nic = networkStorageDevice.nic
-        else:
-            # Storage bound through ip, find out which interface leads to host
+        if networkStorageDevice.nic == "default":
             nic = ifaceForHostIP(networkStorageDevice.host_address)
             if not nic:
                 return ""
+        else:
+            nic = networkStorageDevice.nic
 
         if nic not in self.netdevices.keys():
             log.error('Unknown network interface: %s' % nic)
