@@ -85,6 +85,8 @@ default_repos = [productName.lower(), "rawhide"]
 from threading import Lock
 _yum_lock = Lock()
 
+_yum_cache_dir = "/tmp/yum.cache"
+
 class YumPayload(PackagePayload):
     """ A YumPayload installs packages onto the target system using yum.
 
@@ -101,12 +103,12 @@ class YumPayload(PackagePayload):
 
         self.install_device = None
         self.proxy = None                           # global proxy
-        self._cache_dir = "/var/cache/yum"
+        self._root_dir = "/tmp/yum.root"
         self._yum = None
 
         self.reset()
 
-    def reset(self):
+    def reset(self, root=None):
         with _yum_lock:
             if self._yum:
                 self._yum.close()
@@ -131,6 +133,9 @@ class YumPayload(PackagePayload):
         self._groups = []
         self._packages = []
 
+        if root is None:
+            root = self._root_dir
+
         with _yum_lock:
             self._yum = yum.YumBase()
 
@@ -140,7 +145,7 @@ class YumPayload(PackagePayload):
             # file.  yum will know what to do with these.
             self._yum.preconf.enabled_plugins = ["blacklist", "whiteout"]
             self._yum.preconf.fn = "/tmp/anaconda-yum.conf"
-            self._yum.preconf.root = ROOT_PATH
+            self._yum.preconf.root = root
             # set this now to the best default we've got ; we'll update it if/when
             # we get a base repo set up
             self._yum.preconf.releasever = self._getReleaseVersion(None)
@@ -148,7 +153,6 @@ class YumPayload(PackagePayload):
     def setup(self, storage, proxy=None):
         buf = """
 [main]
-installroot=%s
 cachedir=%s
 keepcache=0
 logfile=/tmp/yum.log
@@ -157,7 +161,7 @@ pluginpath=/usr/lib/yum-plugins,/tmp/updates/yum-plugins
 pluginconfpath=/etc/yum/pluginconf.d,/tmp/updates/pluginconf.d
 plugins=1
 reposdir=/etc/yum.repos.d,/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anaconda.repos.d
-""" % (ROOT_PATH, self._cache_dir)
+""" % _yum_cache_dir
 
         if proxy:
             # FIXME: include proxy_username, proxy_password
@@ -202,7 +206,18 @@ reposdir=/etc/yum.repos.d,/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/t
 
         return base_repo_name
 
-    def updateBaseRepo(self, storage, fallback=True):
+    def _yumCacheDirHack(self):
+        # This is what it takes to get yum to use a cache dir outside the
+        # install root. We do this so we don't have to re-gather repo meta-
+        # data after we change the install root to ROOT_PATH, which can only
+        # happen after we've enabled the new storage configuration.
+        if not self._yum.conf.cachedir.startswith(self._yum.conf.installroot):
+            return
+
+        root = self._yum.conf.installroot
+        self._yum.conf.cachedir = self._yum.conf.cachedir[len(root):]
+
+    def updateBaseRepo(self, storage, fallback=True, root=None):
         """ Update the base repo based on self.data.method.
 
             - Tear down any previous base repo devices, symlinks, &c.
@@ -217,7 +232,7 @@ reposdir=/etc/yum.repos.d,/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/t
         log.info("updating base repo")
 
         # start with a fresh YumBase instance
-        self.reset()
+        self.reset(root=root)
 
         # see if we can get a usable base repo from self.data.method
         try:
@@ -231,6 +246,8 @@ reposdir=/etc/yum.repos.d,/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/t
 
             # this preserves the method details while disabling it
             self.data.method.method = None
+        finally:
+            self._yumCacheDirHack()
 
         if BASE_REPO_NAME not in self._yum.repos.repos.keys():
             log.info("using default repos from local yum configuration")
@@ -390,6 +407,7 @@ reposdir=/etc/yum.repos.d,/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/t
 
         if method.method:
             self._yum.preconf.releasever = self._getReleaseVersion(url)
+            self._yumCacheDirHack()
             try:
                 self._addYumRepo(BASE_REPO_NAME, url,
                                  proxy=proxy, sslverify=sslverify)
@@ -747,9 +765,14 @@ reposdir=/etc/yum.repos.d,/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/t
 
             self._removeTxSaveFile()
 
-    def preInstall(self):
+    def preInstall(self, storage):
         """ Perform pre-installation tasks. """
-        super(YumPayload, self).preInstall()
+        super(YumPayload, self).preInstall(storage)
+
+        self.updateBaseRepo(None, root=ROOT_PATH)
+        self.checkSoftwareSelection()
+        log.info("about to install %d packages totalling %s"
+                 % (len(self._yum.tsInfo.getMembers()), self.spaceRequired))
 
         # doPreInstall
         # create a bunch of directories like /var, /var/lib/rpm, /root, &c (?)
@@ -928,8 +951,7 @@ class RPMCallback(object):
             self.package_file.close()
             self.package_file = None
 
-            cache_dir = os.path.normpath("%s/%s" % (ROOT_PATH, self._cache_dir))
-            if package_path.startswith(cache_dir):
+            if package_path.startswith(_yum_cache_dir):
                 try:
                     os.unlink(package_path)
                 except OSError as e:
