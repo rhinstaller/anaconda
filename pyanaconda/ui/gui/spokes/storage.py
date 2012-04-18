@@ -47,6 +47,7 @@ from pyanaconda.ui.gui.categories.storage import StorageCategory
 from pyanaconda.ui.gui.utils import enlightbox, gdk_threaded
 
 from pyanaconda.storage.size import Size
+from pyanaconda.storage.partitioning import shouldClear
 from pyanaconda.product import productName
 
 from pykickstart.constants import *
@@ -95,7 +96,7 @@ def getDisks(devicetree, fake=False):
 
     return disks
 
-def get_free_space_info(disks, devicetree):
+def get_free_space_info(disks, devicetree, clearPartType, clearPartDisks):
     disk_free = 0
     fs_free = 0
     for disk in disks:
@@ -107,7 +108,9 @@ def get_free_space_info(disks, devicetree):
         for partition in devicetree.getChildren(disk):
             # only check actual filesystems since lvm &c require a bunch of
             # operations to translate free filesystem space into free disk space
-            if hasattr(partition.format, "free"):
+            if shouldClear(partition, clearPartType, clearPartDisks):
+                disk_free += partition.size
+            elif hasattr(partition.format, "free"):
                 fs_free += partition.format.free
 
     print("disks %s have %d free, plus %s in filesystems"
@@ -115,7 +118,12 @@ def get_free_space_info(disks, devicetree):
     return (disk_free, fs_free)
 
 def size_str(mb):
-    return str(Size(spec="%s mb" % mb)).upper()
+    if isinstance(mb, Size):
+        spec = str(mb)
+    else:
+        spec = "%s mb" % mb
+
+    return str(Size(spec=spec)).upper()
 
 class SelectedDisksDialog(UIObject):
     builderObjects = ["selected_disks_dialog", "disk_store"]
@@ -486,7 +494,9 @@ class StorageSpoke(NormalSpoke):
                         break
 
                 capacity += disk.size
-                free += disk.format.free
+                free += get_free_space_info([disk], self.storage.devicetree,
+                                            self.clearPartType,
+                                            self.selected_disks)[0]
                 count += 1
 
         summary = (P_(("%d disk selected; %s capacity; %s free ..."),
@@ -543,8 +553,11 @@ class StorageSpoke(NormalSpoke):
     def on_continue_clicked(self, button):
         # show the installation options dialog
         disks = [d for d in self.disks if d.name in self.selected_disks]
-        (disk_free, fs_free) = get_free_space_info(disks, self.storage.devicetree)
-        required_space = 12000      # TODO: find out where to get this
+        (disk_free, fs_free) = get_free_space_info(disks,
+                                                   self.storage.devicetree,
+                                                   self.clearPartType,
+                                                   self.selected_disks)
+        required_space = self.payload.spaceRequired
         if disk_free >= required_space:
             dialog = InstallOptions1Dialog(self.data)
         elif sum([d.size for d in disks]) >= required_space:
