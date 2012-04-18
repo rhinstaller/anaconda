@@ -443,26 +443,25 @@ reposdir=/etc/yum.repos.d,/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/t
 
             This follows the same ordering/pattern as kickstart.py.
         """
-        with _yum_lock:
-            for package in self.data.packages.packageList:
-                self.selectPackage(package)
+        for package in self.data.packages.packageList:
+            self.selectPackage(package)
 
-            for group in self.data.packages.groupList:
-                default = False
-                optional = False
-                if group.include == GROUP_DEFAULT:
-                    default = True
-                elif group.include == GROUP_ALL:
-                    default = True
-                    optional = True
+        for group in self.data.packages.groupList:
+            default = False
+            optional = False
+            if group.include == GROUP_DEFAULT:
+                default = True
+            elif group.include == GROUP_ALL:
+                default = True
+                optional = True
 
-                self.selectGroup(group.name, default=default, optional=optional)
+            self.selectGroup(group.name, default=default, optional=optional)
 
-            for package in self.data.packages.excludedList:
-                self.deselectPackage(package)
+        for package in self.data.packages.excludedList:
+            self.deselectPackage(package)
 
-            for group in self.data.packages.excludedGroupList:
-                self.deselectGroup(group.name)
+        for group in self.data.packages.excludedGroupList:
+            self.deselectGroup(group.name)
 
     def _getRepoMetadata(self, yumrepo):
         """ Retrieve repo metadata if we don't already have it. """
@@ -721,8 +720,10 @@ reposdir=/etc/yum.repos.d,/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/t
 
         with _yum_lock:
             self._yum._undoDepInstalls()
-            self._applyYumSelections()
 
+        self._applyYumSelections()
+
+        with _yum_lock:
             # doPostSelection
             # select kernel packages
             # select packages needed for storage, bootloader
