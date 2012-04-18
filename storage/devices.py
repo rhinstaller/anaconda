@@ -3660,11 +3660,13 @@ class iScsiDiskDevice(DiskDevice, NetworkStorageDevice):
                 netroot += ":%s:%s" % (auth.reverse_username,
                                        auth.reverse_password)
 
-        netroot += "@%s::%d:%s:%s::%s" % (address,
-                                          self.node.port,
-                                          self.node.iface,
-                                          self.nic,
-                                          self.node.name)
+        iface_spec = ""
+        if self.nic != "default":
+            iface_spec = ":%s:%s" % (self.node.iface, self.nic)
+        netroot += "@%s::%d%s::%s" % (address,
+                                      self.node.port,
+                                      iface_spec,
+                                      self.node.name)
 
         initiator = "iscsi_initiator=%s" % self.initiator
 
