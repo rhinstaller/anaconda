@@ -108,8 +108,13 @@ class ProgressHub(Hub):
         # Change the ransom notes image every minute by grabbing the next
         # image's filename.  Note that self._rnotes is an infinite list, so
         # this will cycle through the images indefinitely.
-        nxt = self._rnotes.next()
-        self._rnotesImage.set_from_file(nxt)
+        try:
+            nxt = self._rnotes.next()
+        except StopIteration:
+            # there are no rnotes
+            pass
+        else:
+            self._rnotesImage.set_from_file(nxt)
         return True
 
     def initialize(self):
