@@ -78,7 +78,7 @@ log = logging.getLogger("anaconda")
 
 from pyanaconda.errors import *
 from pyanaconda.packaging import NoSuchGroup, NoSuchPackage
-#from pyanaconda.progress import progress
+from pyanaconda.progress import *
 
 default_repos = [productName.lower(), "rawhide"]
 
@@ -797,6 +797,8 @@ reposdir=/etc/yum.repos.d,/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/t
         log.info("preparing transaction")
         log.debug("initialize transaction set")
         with _yum_lock:
+            progressQ.put((PROGRESS_CODE_MESSAGE,
+                           [_("Starting installation process")]))
             self._yum.initActionTs()
 
             log.debug("populate transaction set")
@@ -827,6 +829,7 @@ reposdir=/etc/yum.repos.d,/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/t
                 self._yum.ts.setFlags(rpm.RPMTRANS_FLAG_TEST)
 
             log.info("running transaction")
+            progressQ.put((PROGRESS_CODE_STEP, []))
             try:
                 self._yum.runTransaction(cb=rpmcb)
             except PackageSackError as e:
@@ -848,7 +851,11 @@ reposdir=/etc/yum.repos.d,/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/t
                 exn = PayloadInstallError(str(e))
                 if errorHandler.cb(exn) == ERROR_RAISE:
                     raise exn
+            else:
+                self.install_log.write("*** FINISHED INSTALLING PACKAGES ***")
+                progressQ.put((PROGRESS_CODE_STEP, []))
             finally:
+                self.install_log.close()
                 self._yum.ts.close()
                 iutil.resetRpmDb()
 
@@ -876,7 +883,7 @@ reposdir=/etc/yum.repos.d,/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/t
         super(YumPayload, self).postInstall()
 
 class RPMCallback(object):
-    def __init__(self, yb, log, upgrade):
+    def __init__(self, yb, log, upgrade=False):
         self._yum = yb              # yum.YumBase
         self.install_log = log      # file instance
         self.upgrade = upgrade      # boolean
@@ -902,6 +909,9 @@ class RPMCallback(object):
     def callback(self, event, amount, total, key, userdata):
         """ Yum install callback. """
         if event == rpm.RPMCALLBACK_TRANS_START:
+            if amount == 6:
+                progressQ.put((PROGRESS_CODE_MESSAGE,
+                              [_("Preparing transaction from installation source")]))
             self.total_actions = total
             self.completed_actions = 0
         elif event == rpm.RPMCALLBACK_TRANS_PROGRESS:
@@ -915,19 +925,22 @@ class RPMCallback(object):
             # return an open fd to the file
             txmbr = self._get_txmbr(key)[1]
 
-            if self.upgrade:
-                mode = _("Upgrading")
-            else:
-                mode = _("Installing")
+            if not amount:
+                if self.upgrade:
+                    mode = _("Upgrading")
+                else:
+                    mode = _("Installing")
 
-            self.completed_actions += 1
-            self.install_log.write("%s %s %s (%d/%d)\n"
-                                    % (time.strftime("%H:%M:%S"),
-                                       mode,
-                                       txmbr.po,
-                                       self.completed_actions,
-                                       self.total_actions))
-            self.install_log.flush()
+                self.completed_actions += 1
+                pkg = "%s-%s.%s.%s" % (txmbr.name, txmbr.version,
+                                       txmbr.release, txmbr.arch)
+                msg = "%s %s (%d/%d)" % (mode, pkg,
+                                         self.completed_actions,
+                                         self.total_actions)
+                self.install_log.write("%s %s\n" % (time.strftime("%H:%M:%S"),
+                                                    msg))
+                self.install_log.flush()
+                progressQ.put((PROGRESS_CODE_MESSAGE, [msg]))
 
             self.package_file = None
             repo = self._yum.repos.getRepo(txmbr.po.repoid)
@@ -936,6 +949,10 @@ class RPMCallback(object):
                 try:
                     package_path = repo.getPackage(txmbr.po)
                 except (yum.Errors.NoMoreMirrorsRepoError, IOError):
+                    if os.path.exists(txmbr.po.localPkg()):
+                        os.unlink(txmbr.po.localPkg())
+                        log.debug("retrying download of %s" % txmbr.po)
+                        continue
                     exn = PayloadInstallError("failed to open package")
                     if errorHandler.cb(exn, txmbr.po) == ERROR_RAISE:
                         raise exn

@@ -41,6 +41,7 @@ def doInstall(storage, payload, ksdata, instClass):
     steps = len(storage.devicetree.findActions(type="create", object="format")) + \
             len(storage.devicetree.findActions(type="resize", object="format")) + \
             len(storage.devicetree.findActions(type="migrate", object="format"))
+    steps += 2  # package install setup, package install
     progress.send_init(steps)
 
     # Do partitioning.
