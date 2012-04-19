@@ -78,7 +78,7 @@ log = logging.getLogger("anaconda")
 
 from pyanaconda.errors import *
 from pyanaconda.packaging import NoSuchGroup, NoSuchPackage
-from pyanaconda.progress import *
+import pyanaconda.progress as progress
 
 default_repos = [productName.lower(), "rawhide"]
 
@@ -797,8 +797,7 @@ reposdir=/etc/yum.repos.d,/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/t
         log.info("preparing transaction")
         log.debug("initialize transaction set")
         with _yum_lock:
-            progressQ.put((PROGRESS_CODE_MESSAGE,
-                           [_("Starting installation process")]))
+            progress.send_message(_("Starting installation process"))
             self._yum.initActionTs()
 
             log.debug("populate transaction set")
@@ -829,7 +828,7 @@ reposdir=/etc/yum.repos.d,/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/t
                 self._yum.ts.setFlags(rpm.RPMTRANS_FLAG_TEST)
 
             log.info("running transaction")
-            progressQ.put((PROGRESS_CODE_STEP, []))
+            progress.send_step()
             try:
                 self._yum.runTransaction(cb=rpmcb)
             except PackageSackError as e:
@@ -853,7 +852,7 @@ reposdir=/etc/yum.repos.d,/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/t
                     raise exn
             else:
                 self.install_log.write("*** FINISHED INSTALLING PACKAGES ***")
-                progressQ.put((PROGRESS_CODE_STEP, []))
+                progress.send_step()
             finally:
                 self.install_log.close()
                 self._yum.ts.close()
@@ -910,8 +909,7 @@ class RPMCallback(object):
         """ Yum install callback. """
         if event == rpm.RPMCALLBACK_TRANS_START:
             if amount == 6:
-                progressQ.put((PROGRESS_CODE_MESSAGE,
-                              [_("Preparing transaction from installation source")]))
+                progress.send_mesage(_("Preparing transaction from installation source"))
             self.total_actions = total
             self.completed_actions = 0
         elif event == rpm.RPMCALLBACK_TRANS_PROGRESS:
@@ -940,7 +938,7 @@ class RPMCallback(object):
                 self.install_log.write("%s %s\n" % (time.strftime("%H:%M:%S"),
                                                     msg))
                 self.install_log.flush()
-                progressQ.put((PROGRESS_CODE_MESSAGE, [msg]))
+                progress.send_message(msg)
 
             self.package_file = None
             repo = self._yum.repos.getRepo(txmbr.po.repoid)
