@@ -49,7 +49,7 @@ def send_init(n_steps):
 def send_step():
     progressQ.put((PROGRESS_CODE_STEP, []))
 
-def send_message(msg):
+def send_message(message):
     progressQ.put((PROGRESS_CODE_MESSAGE, [message]))
 
 def send_complete():
