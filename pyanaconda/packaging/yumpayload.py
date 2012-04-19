@@ -947,7 +947,7 @@ class RPMCallback(object):
         """ Yum install callback. """
         if event == rpm.RPMCALLBACK_TRANS_START:
             if amount == 6:
-                progress.send_mesage(_("Preparing transaction from installation source"))
+                progress.send_message(_("Preparing transaction from installation source"))
             self.total_actions = total
             self.completed_actions = 0
         elif event == rpm.RPMCALLBACK_TRANS_PROGRESS:
