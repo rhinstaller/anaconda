@@ -444,7 +444,7 @@ reposdir=/etc/yum.repos.d,/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/t
             This follows the same ordering/pattern as kickstart.py.
         """
         for package in self.data.packages.packageList:
-            self.selectPackage(package)
+            self._selectYumPackage(package)
 
         for group in self.data.packages.groupList:
             default = False
@@ -455,13 +455,13 @@ reposdir=/etc/yum.repos.d,/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/t
                 default = True
                 optional = True
 
-            self.selectGroup(group.name, default=default, optional=optional)
+            self._selectYumGroup(group.name, default=default, optional=optional)
 
         for package in self.data.packages.excludedList:
-            self.deselectPackage(package)
+            self._deselectYumPackage(package)
 
         for group in self.data.packages.excludedGroupList:
-            self.deselectGroup(group.name)
+            self._deselectYumGroup(group.name)
 
     def _getRepoMetadata(self, yumrepo):
         """ Retrieve repo metadata if we don't already have it. """
@@ -604,7 +604,7 @@ reposdir=/etc/yum.repos.d,/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/t
 
             return (group.ui_name, group.ui_description)
 
-    def selectGroup(self, groupid, default=True, optional=False):
+    def _selectYumGroup(self, groupid, default=True, optional=False):
         # select the group in comps
         pkg_types = ['mandatory']
         if default:
@@ -620,11 +620,9 @@ reposdir=/etc/yum.repos.d,/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/t
             except yum.Errors.GroupsError:
                 raise NoSuchGroup(groupid)
 
-        super(YumPayload, self).selectGroup(groupid, default=default,
-                                            optional=optional)
         self._space_required = None
 
-    def deselectGroup(self, groupid):
+    def _deselectYumGroup(self, groupid):
         # deselect the group in comps
         log.debug("deselect group %s" % groupid)
         with _yum_lock:
@@ -633,7 +631,6 @@ reposdir=/etc/yum.repos.d,/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/t
             except yum.Errors.GroupsError:
                 raise NoSuchGroup(groupid)
 
-        super(YumPayload, self).deselectGroup(groupid)
         self._space_required = None
 
     ###
@@ -655,7 +652,7 @@ reposdir=/etc/yum.repos.d,/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/t
 
             return self._packages
 
-    def selectPackage(self, pkgid):
+    def _selectYumPackage(self, pkgid):
         """Mark a package for installation.
 
            pkgid - The name of a package to be installed.  This could include
@@ -668,10 +665,9 @@ reposdir=/etc/yum.repos.d,/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/t
             except yum.Errors.InstallError:
                 raise NoSuchPackage(pkgid)
 
-        super(YumPayload, self).selectPackage(pkgid)
         self._space_required = None
 
-    def deselectPackage(self, pkgid):
+    def _deselectYumPackage(self, pkgid):
         """Mark a package to be excluded from installation.
 
            pkgid - The name of a package to be excluded.  This could include
@@ -681,7 +677,6 @@ reposdir=/etc/yum.repos.d,/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/t
         with _yum_lock:
             self._yum.tsInfo.deselect(pkgid)
 
-        super(YumPayload, self).deselectPackage(pkgid)
         self._space_required = None
 
     ###
