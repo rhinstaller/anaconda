@@ -48,7 +48,7 @@ def doInstall(storage, payload, ksdata, instClass):
     turnOnFilesystems(storage, errorHandler)
 
     # Do packaging.
-    payload.preInstall(storage)
+    payload.preInstall()
     payload.install()
     payload.postInstall()
 

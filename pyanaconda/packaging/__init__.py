@@ -426,7 +426,7 @@ class Payload(object):
     ###
     ### METHODS FOR INSTALLING THE PAYLOAD
     ###
-    def preInstall(self, storage):
+    def preInstall(self):
         """ Perform pre-installation tasks. """
         # XXX this should be handled already
         iutil.mkdirChain(ROOT_PATH + "/root")

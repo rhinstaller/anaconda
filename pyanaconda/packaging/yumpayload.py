@@ -197,6 +197,43 @@ reposdir=%s
         root = self._yum.conf.installroot
         self._yum.conf.cachedir = self._yum.conf.cachedir[len(root):]
 
+    def _writeInstallConfig(self):
+        """ Write out the yum config that will be used to install packages.
+
+            Write out repo config files for all enabled repos, then
+            create a new YumBase instance with the new filesystem tree as its
+            install root.
+        """
+        self._repos_dir = "/tmp/yum.repos.d"
+        if not os.path.isdir(self._repos_dir):
+            os.mkdir(self._repos_dir)
+
+        for repo in self._yum.repos.listEnabled():
+            cfg_path = "%s/%s.repo" % (self._repos_dir, repo.id)
+            with open(cfg_path, "w") as f:
+                f.write("[%s]\n" % repo.id)
+                f.write("name=Install - %s\n" % repo.id)
+                f.write("enabled=1\n")
+                if repo.baseurl:
+                    f.write("baseurl=%s\n" % repo.baseurl[0])
+                elif repo.mirrorlist:
+                    f.write("mirrorlist=%s" % repo.mirrorlist)
+                else:
+                    log.error("repo %s has no baseurl or mirrorlist" % repo.id)
+                    f.close()
+                    os.unlink(cfg_path)
+                    continue
+
+        self._writeYumConfig()
+        self._resetYum(root=ROOT_PATH)
+
+        self._yumCacheDirHack()
+        self._yum.repos.populateSack(which='enabled', mdtype='all')
+
+        # trigger setup of self._yum.config
+        log.debug("installation yum config repos: %s"
+                  % ",".join([r.id for r in self._yum.repos.listEnabled()]))
+
     def release(self):
         self._yum.close()
 
@@ -767,11 +804,11 @@ reposdir=%s
 
             self._removeTxSaveFile()
 
-    def preInstall(self, storage):
+    def preInstall(self):
         """ Perform pre-installation tasks. """
-        super(YumPayload, self).preInstall(storage)
+        super(YumPayload, self).preInstall()
 
-        self.updateBaseRepo(None, root=ROOT_PATH)
+        self._writeInstallConfig()
         self.checkSoftwareSelection()
         log.info("about to install %d packages totalling %s"
                  % (len(self._yum.tsInfo.getMembers()), self.spaceRequired))
