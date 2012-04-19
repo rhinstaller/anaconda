@@ -95,9 +95,13 @@ class SoftwareSelectionSpoke(NormalSpoke):
     def _initialize(self):
         from pyanaconda.threads import threadMgr
 
+        communication.send_message(self.__class__.__name__, _("Downloading package metadata..."))
+
         payloadThread = threadMgr.get("AnaPayloadThread")
         if payloadThread:
             payloadThread.join()
+
+        communication.send_message(self.__class__.__name__, _("Downloading group metadata..."))
 
         with gdk_threaded():
             # Grabbing the list of groups could potentially take a long time the

@@ -368,9 +368,13 @@ class SourceSpoke(NormalSpoke):
     def _initialize(self):
         from pyanaconda.threads import threadMgr
 
+        communication.send_message(self.__class__.__name__, _("Probing storage..."))
+
         storageThread = threadMgr.get("AnaStorageThread")
         if storageThread:
             storageThread.join()
+
+        communication.send_message(self.__class__.__name__, _("Downloading package metadata..."))
 
         payloadThread = threadMgr.get("AnaPayloadThread")
         if payloadThread:
