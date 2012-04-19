@@ -180,9 +180,12 @@ plugins=1
 reposdir=%s
 """ % (_yum_cache_dir, self._repos_dir)
 
+        if flags.noverifyssl:
+            buf += "sslverify=0\n"
+
         if self.proxy:
             # FIXME: include proxy_username, proxy_password
-            buf += "proxy=%s" % proxy
+            buf += "proxy=%s\n" % proxy
 
         open("/tmp/anaconda-yum.conf", "w").write(buf)
 
@@ -210,6 +213,7 @@ reposdir=%s
 
         for repo in self._yum.repos.listEnabled():
             cfg_path = "%s/%s.repo" % (self._repos_dir, repo.id)
+            ks_repo = self.getRepo(repo.id)
             with open(cfg_path, "w") as f:
                 f.write("[%s]\n" % repo.id)
                 f.write("name=Install - %s\n" % repo.id)
@@ -223,6 +227,28 @@ reposdir=%s
                     f.close()
                     os.unlink(cfg_path)
                     continue
+
+                # kickstart repo modifiers
+                if ks_repo:
+                    if ks_repo.noverifyssl:
+                        f.write("verifyssl=0\n")
+
+                    if ks_repo.proxy:
+                        f.write("proxy=%s\n" % ks_repo.proxy)
+
+                    if ks_repo.cost:
+                        f.write("cost=%d\n" % ks_repo.cost)
+
+                    if ks_repo.includepkgs:
+                        f.write("includepkgs=%s\n"
+                                % ",".join(ks_repo.includepkgs))
+
+                    if ks_repo.excludepkgs:
+                        f.write("exclude=%s\n"
+                                % ",".join(ks_repo.excludepkgs))
+
+                    if ks_repo.ignoregroups:
+                        f.write("enablegroups=0\n")
 
         self._writeYumConfig()
         self._resetYum(root=ROOT_PATH)
