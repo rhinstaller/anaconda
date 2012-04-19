@@ -40,7 +40,7 @@ def doInstall(storage, payload, ksdata, instClass):
     steps = len(storage.devicetree.findActions(type="create", object="format")) + \
             len(storage.devicetree.findActions(type="resize", object="format")) + \
             len(storage.devicetree.findActions(type="migrate", object="format"))
-    progress.progressQ.put((progress.PROGRESS_CODE_INIT, [steps]))
+    progress.send_init(steps)
 
     # Do partitioning.
     turnOnFilesystems(storage, errorHandler)
@@ -50,4 +50,4 @@ def doInstall(storage, payload, ksdata, instClass):
     payload.install()
     payload.postInstall()
 
-    progress.progressQ.put((progress.PROGRESS_CODE_COMPLETE, []))
+    progress.send_complete()

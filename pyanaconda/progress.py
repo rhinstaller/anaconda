@@ -41,12 +41,25 @@ PROGRESS_CODE_STEP = 1
 PROGRESS_CODE_MESSAGE = 2
 PROGRESS_CODE_COMPLETE = 3
 
+# Convenience methods to put things into the queue without the user having to
+# know the details of the queue.
+def send_init(n_steps):
+    progressQ.put((PROGRESS_CODE_INIT, [n_steps]))
+
+def send_step():
+    progressQ.put((PROGRESS_CODE_STEP, []))
+
+def send_message(msg):
+    progressQ.put((PROGRESS_CODE_MESSAGE, [message]))
+
+def send_complete():
+    progressQ.put((PROGRESS_CODE_COMPLETE, []))
+
 # Surround a block of code with progress updating.  Before the code runs, the
 # message is updated so the user can tell what's about to take so long.
 # Afterwards, the progress bar is updated to reflect that the task is done.
 @contextmanager
 def progress_report(message):
-    q = progressQ
-    q.put((PROGRESS_CODE_MESSAGE, [message]))
+    send_message(message)
     yield
-    q.put((PROGRESS_CODE_STEP, []))
+    send_step()
