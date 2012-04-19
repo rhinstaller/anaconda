@@ -104,16 +104,13 @@ class YumPayload(PackagePayload):
         self.install_device = None
         self.proxy = None                           # global proxy
         self._root_dir = "/tmp/yum.root"
+        self._repos_dir = "/etc/yum.repos.d,/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anaconda.repos.d"
         self._yum = None
 
         self.reset()
 
     def reset(self, root=None):
-        with _yum_lock:
-            if self._yum:
-                self._yum.close()
-                del self._yum
-
+        """ Reset this instance to its initial (unconfigured) state. """
         if os.path.ismount(INSTALL_TREE) and not flags.testing:
             isys.umount(INSTALL_TREE)
 
@@ -133,10 +130,29 @@ class YumPayload(PackagePayload):
         self._groups = []
         self._packages = []
 
+        self._resetYum(root=root)
+
+    def setup(self, storage, proxy=None):
+        self.proxy = proxy
+        self._writeYumConfig()
+
+        self.updateBaseRepo(storage)
+
+        # When setup is called, it's already in a separate thread. That thread
+        # will try to select groups right after this returns, so make sure we
+        # have group info ready.
+        self.gatherRepoMetadata()
+
+    def _resetYum(self, root=None):
+        """ Delete and recreate the payload's YumBase instance. """
         if root is None:
             root = self._root_dir
 
         with _yum_lock:
+            if self._yum:
+                self._yum.close()
+                del self._yum
+
             self._yum = yum.YumBase()
 
             self._yum.use_txmbr_in_callback = True
@@ -150,7 +166,8 @@ class YumPayload(PackagePayload):
             # we get a base repo set up
             self._yum.preconf.releasever = self._getReleaseVersion(None)
 
-    def setup(self, storage, proxy=None):
+    def _writeYumConfig(self):
+        """ Write out anaconda's main yum configuration file. """
         buf = """
 [main]
 cachedir=%s
@@ -160,25 +177,25 @@ metadata_expire=never
 pluginpath=/usr/lib/yum-plugins,/tmp/updates/yum-plugins
 pluginconfpath=/etc/yum/pluginconf.d,/tmp/updates/pluginconf.d
 plugins=1
-reposdir=/etc/yum.repos.d,/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anaconda.repos.d
-""" % _yum_cache_dir
+reposdir=%s
+""" % (_yum_cache_dir, self._repos_dir)
 
-        if proxy:
+        if self.proxy:
             # FIXME: include proxy_username, proxy_password
             buf += "proxy=%s" % proxy
 
-        fd = open("/tmp/anaconda-yum.conf", "w")
-        fd.write(buf)
-        fd.close()
+        open("/tmp/anaconda-yum.conf", "w").write(buf)
 
-        self.proxy = proxy
+    def _yumCacheDirHack(self):
+        # This is what it takes to get yum to use a cache dir outside the
+        # install root. We do this so we don't have to re-gather repo meta-
+        # data after we change the install root to ROOT_PATH, which can only
+        # happen after we've enabled the new storage configuration.
+        if not self._yum.conf.cachedir.startswith(self._yum.conf.installroot):
+            return
 
-        self.updateBaseRepo(storage)
-
-        # When setup is called, it's already in a separate thread. That thread
-        # will try to select groups right after this returns, so make sure we
-        # have group info ready.
-        self.gatherRepoMetadata()
+        root = self._yum.conf.installroot
+        self._yum.conf.cachedir = self._yum.conf.cachedir[len(root):]
 
     def release(self):
         self._yum.close()
@@ -205,17 +222,6 @@ reposdir=/etc/yum.repos.d,/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/t
                 break
 
         return base_repo_name
-
-    def _yumCacheDirHack(self):
-        # This is what it takes to get yum to use a cache dir outside the
-        # install root. We do this so we don't have to re-gather repo meta-
-        # data after we change the install root to ROOT_PATH, which can only
-        # happen after we've enabled the new storage configuration.
-        if not self._yum.conf.cachedir.startswith(self._yum.conf.installroot):
-            return
-
-        root = self._yum.conf.installroot
-        self._yum.conf.cachedir = self._yum.conf.cachedir[len(root):]
 
     def updateBaseRepo(self, storage, fallback=True, root=None):
         """ Update the base repo based on self.data.method.
@@ -437,31 +443,6 @@ reposdir=/etc/yum.repos.d,/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/t
                          proxy=proxy, sslverify=sslverify)
 
         # TODO: enable addons via treeinfo
-
-    def _applyYumSelections(self):
-        """ Apply the selections in ksdata to yum.
-
-            This follows the same ordering/pattern as kickstart.py.
-        """
-        for package in self.data.packages.packageList:
-            self._selectYumPackage(package)
-
-        for group in self.data.packages.groupList:
-            default = False
-            optional = False
-            if group.include == GROUP_DEFAULT:
-                default = True
-            elif group.include == GROUP_ALL:
-                default = True
-                optional = True
-
-            self._selectYumGroup(group.name, default=default, optional=optional)
-
-        for package in self.data.packages.excludedList:
-            self._deselectYumPackage(package)
-
-        for group in self.data.packages.excludedGroupList:
-            self._deselectYumGroup(group.name)
 
     def _getRepoMetadata(self, yumrepo):
         """ Retrieve repo metadata if we don't already have it. """
@@ -709,6 +690,31 @@ reposdir=/etc/yum.repos.d,/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/t
                 pass
             else:
                 self._yum._ts_save_file = None
+
+    def _applyYumSelections(self):
+        """ Apply the selections in ksdata to yum.
+
+            This follows the same ordering/pattern as kickstart.py.
+        """
+        for package in self.data.packages.packageList:
+            self._selectYumPackage(package)
+
+        for group in self.data.packages.groupList:
+            default = False
+            optional = False
+            if group.include == GROUP_DEFAULT:
+                default = True
+            elif group.include == GROUP_ALL:
+                default = True
+                optional = True
+
+            self._selectYumGroup(group.name, default=default, optional=optional)
+
+        for package in self.data.packages.excludedList:
+            self._deselectYumPackage(package)
+
+        for group in self.data.packages.excludedGroupList:
+            self._deselectYumGroup(group.name)
 
     def checkSoftwareSelection(self):
         log.info("checking software selection")
