@@ -28,7 +28,7 @@ import os.path
 from gi.repository import AnacondaWidgets, GLib, Gtk
 
 from pyanaconda.image import opticalInstallMedia, potentialHdisoSources
-from pyanaconda.ui.gui import UIObject
+from pyanaconda.ui.gui import UIObject, communication
 from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.gui.categories.software import SoftwareCategory
 from pyanaconda.ui.gui.utils import enlightbox, gdk_threaded
@@ -346,11 +346,11 @@ class SourceSpoke(NormalSpoke):
 
         self._verifyIsoButton = self.builder.get_object("verifyIsoButton")
 
-    def initialize(self, cb=None):
+    def initialize(self):
         from pyanaconda.threads import threadMgr, AnacondaThread
         from pyanaconda.ui.gui.utils import setViewportBackground
 
-        NormalSpoke.initialize(self, cb)
+        NormalSpoke.initialize(self)
 
         self._grabObjects()
 
@@ -363,9 +363,9 @@ class SourceSpoke(NormalSpoke):
         viewport = self.builder.get_object("autodetectViewport")
         setViewportBackground(viewport)
 
-        threadMgr.add(AnacondaThread(name="AnaSourceWatcher", target=self._initialize, args=(cb, )))
+        threadMgr.add(AnacondaThread(name="AnaSourceWatcher", target=self._initialize))
 
-    def _initialize(self, cb=None):
+    def _initialize(self):
         from pyanaconda.threads import threadMgr
 
         storageThread = threadMgr.get("AnaStorageThread")
@@ -425,9 +425,8 @@ class SourceSpoke(NormalSpoke):
             # provided a URL.
             # FIXME
 
-            self._ready = True
-            if cb:
-                cb(self)
+        self._ready = True
+        communication.send_ready(self.__class__.__name__)
 
     def refresh(self):
         NormalSpoke.refresh(self)

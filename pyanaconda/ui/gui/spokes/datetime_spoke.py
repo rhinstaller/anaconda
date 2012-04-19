@@ -53,8 +53,8 @@ class DatetimeSpoke(NormalSpoke):
     def __init__(self, *args):
         NormalSpoke.__init__(self, *args)
 
-    def initialize(self, cb=None):
-        NormalSpoke.initialize(self, cb)
+    def initialize(self):
+        NormalSpoke.initialize(self)
         self._daysStore = self.builder.get_object("days")
         self._monthsStore = self.builder.get_object("months")
         self._yearsStore = self.builder.get_object("years")

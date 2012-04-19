@@ -41,7 +41,7 @@
 from gi.repository import Gdk, Gtk
 from gi.repository import AnacondaWidgets
 
-from pyanaconda.ui.gui import UIObject
+from pyanaconda.ui.gui import UIObject, communication
 from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.gui.categories.storage import StorageCategory
 from pyanaconda.ui.gui.utils import enlightbox, gdk_threaded
@@ -400,11 +400,11 @@ class StorageSpoke(NormalSpoke):
 
         self._update_summary()
 
-    def initialize(self, cb=None):
+    def initialize(self):
         from pyanaconda.threads import threadMgr, AnacondaThread
         from pyanaconda.ui.gui.utils import setViewportBackground
 
-        NormalSpoke.initialize(self, cb)
+        NormalSpoke.initialize(self)
 
         summary_label = self.builder.get_object("summary_button").get_children()[0]
         summary_label.set_use_markup(True)
@@ -415,9 +415,9 @@ class StorageSpoke(NormalSpoke):
         viewport = self.builder.get_object("localViewport")
         setViewportBackground(viewport)
 
-        threadMgr.add(AnacondaThread(name="AnaStorageWatcher", target=self._initialize, args=(cb, )))
+        threadMgr.add(AnacondaThread(name="AnaStorageWatcher", target=self._initialize))
 
-    def _initialize(self, cb=None):
+    def _initialize(self):
         from pyanaconda.threads import threadMgr
 
         storageThread = threadMgr.get("AnaStorageThread")
@@ -458,9 +458,8 @@ class StorageSpoke(NormalSpoke):
 
             self._update_summary()
 
-            self._ready = True
-            if cb:
-                cb(self)
+        self._ready = True
+        communication.send_ready(self.__class__.__name__)
 
     def _update_summary(self):
         """ Update the summary based on the UI. """

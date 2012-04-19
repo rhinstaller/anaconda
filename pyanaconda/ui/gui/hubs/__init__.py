@@ -1,6 +1,6 @@
 # Base classes for Hubs.
 #
-# Copyright (C) 2011  Red Hat, Inc.
+# Copyright (C) 2011-2012  Red Hat, Inc.
 #
 # This copyrighted material is made available to anyone wishing to use,
 # modify, copy, or redistribute it subject to the terms and conditions of
@@ -21,6 +21,8 @@
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
+
+from gi.repository import GLib
 
 from pyanaconda.ui.gui import UIObject
 from pyanaconda.ui.gui.categories import collect_categories
@@ -138,19 +140,19 @@ class Hub(UIObject):
                 # NOTE:  This only makes sense for NormalSpokes.  Other kinds
                 # of spokes do not involve a hub.
                 if spoke.indirect:
-                    spoke.initialize(cb=self._updateCompletenessCB)
+                    spoke.initialize()
                     continue
 
                 spoke.selector = AnacondaWidgets.SpokeSelector(_(spoke.title), spoke.icon)
 
                 # Set all selectors to insensitive before initialize runs.  The call to
-                # _updateCompletenessCB later will take care of setting it straight.
+                # _updateCompleteness later will take care of setting it straight.
                 spoke.selector.set_sensitive(False)
-                spoke.initialize(cb=self._updateCompletenessCB)
+                spoke.initialize()
 
                 # Set some default values on the associated selector that
                 # affect its display on the hub.
-                self._updateCompletenessCB(spoke)
+                self._updateCompleteness(spoke)
                 spoke.selector.connect("button-press-event", self._on_spoke_clicked, spoke)
                 spoke.selector.connect("key-release-event", self._on_spoke_clicked, spoke)
 
@@ -176,7 +178,7 @@ class Hub(UIObject):
 
         setViewportBackground(viewport)
 
-    def _updateCompletenessCB(self, spoke):
+    def _updateCompleteness(self, spoke):
         spoke.selector.set_sensitive(spoke.ready)
         spoke.selector.set_property("status", spoke.status)
         spoke.selector.set_incomplete(not spoke.completed)
@@ -202,9 +204,39 @@ class Hub(UIObject):
             self.window.set_info(Gtk.MessageType.WARNING, _("Please complete items marked with this icon before continuing to the next step."))
             self.continueButton.set_sensitive(False)
 
+    def _update_spokes(self):
+        from pyanaconda.ui.gui import communication
+        import Queue
+
+        q = communication.hubQ
+
+        # Grab all messages that may have appeared since last time this method ran.
+        while True:
+            try:
+                (code, args) = q.get(False)
+            except Queue.Empty:
+                break
+
+            # The first argument to all codes is the name of the spoke we are
+            # acting on.  If no such spoke exists, throw the message away.
+            spoke = self._spokes.get(args[0], None)
+            if not spoke:
+                continue
+
+            if code in [communication.HUB_CODE_READY, communication.HUB_CODE_NOT_READY]:
+                self._updateCompleteness(spoke)
+            elif code == communication.HUB_CODE_MESSAGE:
+                spoke.selector.set_property("status", args[1])
+
+            q.task_done()
+
+        return True
+
     def refresh(self):
         UIObject.refresh(self)
         self._createBox()
+
+        self._update_spoke_id = GLib.idle_add(self._update_spokes)
 
     ### SIGNAL HANDLERS
 
@@ -230,7 +262,7 @@ class Hub(UIObject):
 
         # Now update the selector with the current status and completeness.
         if not spoke.indirect:
-            self._updateCompletenessCB(spoke)
+            self._updateCompleteness(spoke)
 
         # And then if that spoke wants us to jump straight to another one,
         # handle that now.

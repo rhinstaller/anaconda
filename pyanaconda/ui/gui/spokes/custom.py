@@ -74,8 +74,8 @@ class CustomPartitioningSpoke(NormalSpoke):
         context = box.get_style_context()
         context.add_provider(provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
 
-    def initialize(self, cb=None):
-        NormalSpoke.initialize(self, cb)
+    def initialize(self):
+        NormalSpoke.initialize(self)
 
         self._grabObjects()
         self._setBoxBackground(self._availableSpaceBox, "#db3279")

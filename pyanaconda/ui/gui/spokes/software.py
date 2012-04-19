@@ -23,6 +23,7 @@ import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
 N_ = lambda x: x
 
+from pyanaconda.ui.gui import communication
 from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.gui.utils import gdk_threaded
 from pyanaconda.ui.gui.categories.software import SoftwareCategory
@@ -85,13 +86,13 @@ class SoftwareSelectionSpoke(NormalSpoke):
 
         return self.payload.description(row[2])[0]
 
-    def initialize(self, cb=None):
+    def initialize(self):
         from pyanaconda.threads import threadMgr, AnacondaThread
 
-        NormalSpoke.initialize(self, cb)
-        threadMgr.add(AnacondaThread(name="AnaSoftwareWatcher", target=self._initialize, args=(cb, )))
+        NormalSpoke.initialize(self)
+        threadMgr.add(AnacondaThread(name="AnaSoftwareWatcher", target=self._initialize))
 
-    def _initialize(self, cb=None):
+    def _initialize(self):
         from pyanaconda.threads import threadMgr
 
         payloadThread = threadMgr.get("AnaPayloadThread")
@@ -106,9 +107,8 @@ class SoftwareSelectionSpoke(NormalSpoke):
             self.refresh()
             self.payload.release()
 
-            self._ready = True
-            if cb:
-                cb(self)
+        self._ready = True
+        communication.send_ready(self.__class__.__name__)
 
     def refresh(self):
         from pyanaconda.threads import threadMgr
