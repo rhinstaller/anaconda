@@ -885,7 +885,7 @@ class RPMCallback(object):
         self.package_file = None    # file instance (package file management)
 
         self.total_actions = 0
-        self.completed_actions = 0
+        self.completed_actions = None   # will be set to 0 when starting tx
 
     def _get_txmbr(self, key):
         """ Return a (name, TransactionMember) tuple from cb key. """
@@ -918,7 +918,11 @@ class RPMCallback(object):
             # return an open fd to the file
             txmbr = self._get_txmbr(key)[1]
 
-            if not amount:
+            # If self.completed_actions is still None, that means this package
+            # is being opened to retrieve a %pretrans script. Don't log that
+            # we're installing the package unless we've been called with a
+            # TRANS_START event.
+            if self.completed_actions is not None:
                 if self.upgrade:
                     mode = _("Upgrading")
                 else:
