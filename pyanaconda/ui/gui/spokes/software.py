@@ -44,6 +44,10 @@ class SoftwareSelectionSpoke(NormalSpoke):
         NormalSpoke.__init__(self, *args, **kwargs)
         self._ready = False
 
+        self.selectedGroups = []
+        self.excludedGroups = []
+        self.desktop = None
+
     def apply(self):
         # NOTE:  Other apply methods work directly with the ksdata, but this
         # one does not.  However, selectGroup/deselectGroup modifies ksdata as
@@ -52,18 +56,10 @@ class SoftwareSelectionSpoke(NormalSpoke):
         if not row:
             return
 
+        self.payload.data.packages.groupList = []
         self.payload.selectGroup(row[2])
-
-        # FIXME: We need to hook up signal handlers for select/deselect so we
-        #        know the difference between a group that was never selected
-        #        and one that was explicitly deselected. The signal handlers
-        #        should only modify some local data store -- not ksdata or
-        #        payload.
-        for row in self._addonStore:
-            if row[0]:
-                self.payload.selectGroup(row[2])
-            else:
-                self.payload.deselectGroup(row[2])
+        for group in self.selectedGroups:
+            self.payload.selectGroup(group)
 
     @property
     def completed(self):
@@ -127,6 +123,7 @@ class SoftwareSelectionSpoke(NormalSpoke):
         self._addonStore = self.builder.get_object("addonStore")
         self._addonStore.clear()
 
+        desktops = []
         for grp in self.payload.groups:
             # Throw out language support groups and critical-path stuff.
             if grp.endswith("-support") or grp.startswith("critical-path-"):
@@ -142,11 +139,19 @@ class SoftwareSelectionSpoke(NormalSpoke):
                 if selected:
                     sel = self.builder.get_object("desktopSelector")
                     sel.select_iter(itr)
+                    self.desktop = grp
+
+                desktops.append(grp)
             else:
                 (name, desc) = self.payload.description(grp)
                 selected = self.payload.groupSelected(grp)
 
                 self._addonStore.append([selected, "<b>%s</b>\n%s" % (name, desc), grp])
+
+        self.selectedGroups = [g.name for g in self.data.packages.groupList
+                                if g.name not in desktops]
+        self.excludedGroups = [g.name
+                                for g in self.data.packages.excludedGroupList]
 
     # Returns the row in the store corresponding to what's selected on the
     # left hand panel, or None if nothing's selected.
@@ -160,7 +165,18 @@ class SoftwareSelectionSpoke(NormalSpoke):
 
     # Signal handlers
     def on_row_toggled(self, renderer, path):
-        self._addonStore[path][0] = not self._addonStore[path][0]
+        selected = not self._addonStore[path][0]
+        group = self._addonStore[path][2]
+        self._addonStore[path][0] = selected
+        if selected:
+            if group not in self.selectedGroups:
+                self.selectedGroups.append(group)
+
+            if group in self.excludedGroups:
+                self.excludedGroups.remove(group)
+
+        elif not selected and group in self.selectedGroups:
+            self.selectedGroups.remove(group)
 
     def on_custom_clicked(self, button):
         # FIXME: does nothing for now
