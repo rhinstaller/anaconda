@@ -440,34 +440,6 @@ def memInstalled():
 
     return long(mem)
 
-## Suggest the size of the swap partition that will be created.
-# @param quiet Should size information be logged?
-# @return A tuple of the minimum and maximum swap size, in megabytes.
-def swapSuggestion(quiet=0):
-    mem = memInstalled()/1024
-    mem = ((mem/16)+1)*16
-    if not quiet:
-	log.info("Detected %sM of memory", mem)
-	
-    if mem <= 256:
-        minswap = 256
-        maxswap = 512
-    else:
-        if mem > 2048:
-            minswap = 1024
-            maxswap = 2048 + mem
-        else:
-            minswap = mem
-            maxswap = 2*mem
-
-    if isS390():
-        minswap = 1
-
-    if not quiet:
-	log.info("Swap attempt of %sM to %sM", minswap, maxswap)
-
-    return (minswap, maxswap)
-
 ## Create a directory path.  Don't fail if the directory already exists.
 # @param dir The directory path to create.
 def mkdirChain(dir):
@@ -481,19 +453,6 @@ def mkdirChain(dir):
             pass
 
         log.error("could not create directory %s: %s" % (dir, e.strerror))
-
-## Get the total amount of swap memory.
-# @return The total amount of swap memory in kilobytes, or 0 if unknown.
-def swapAmount():
-    f = open("/proc/meminfo", "r")
-    lines = f.readlines()
-    f.close()
-
-    for l in lines:
-        if l.startswith("SwapTotal:"):
-            fields = string.split(l)
-            return int(fields[1])
-    return 0
 
 ## Copy a device node.
 # Copies a device node by looking at the device type, major and minor device

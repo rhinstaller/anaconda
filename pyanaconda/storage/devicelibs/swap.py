@@ -31,6 +31,8 @@ from . import dm
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
 
+import logging
+log = logging.getLogger("anaconda")
 
 def mkswap(device, label='', progress=None):
     # We use -f to force since mkswap tends to refuse creation on lvs with
@@ -123,3 +125,59 @@ def swapstatus(device):
 
     return status
 
+def swapSuggestion(quiet=False, hibernation=False):
+    """
+    Suggest the size of the swap partition that will be created.
+
+    @param quiet: log size information
+    @param hibernation: calculate swap size big enough for hibernation
+    @return: calculated swap size
+
+    """
+
+    mem = iutil.memInstalled()/1024
+    mem = ((mem/16)+1)*16
+    if not quiet:
+        log.info("Detected %sM of memory", mem)
+
+    #chart suggested in the discussion with other teams
+    if mem < 2048:
+        swap = 2 * mem
+
+    elif 2048 <= mem < 8192:
+        swap = mem
+
+    elif 8192 <= mem < 65536:
+        swap = mem / 2
+
+    else:
+        swap = 4096
+
+    if hibernation:
+        if mem <= 65536:
+            swap = mem + swap
+        else:
+            log.info("Ignoring --hibernation option on systems with 64 GB of RAM or more")
+
+    if not quiet:
+        log.info("Swap attempt of %sM", swap)
+
+    return swap
+
+def swapAmount():
+    """
+    Get the total amount of swap memory.
+
+    @return: The total amount of swap memory in kilobytes, or 0 if unknown.
+
+    """
+
+    f = open("/proc/meminfo", "r")
+    lines = f.readlines()
+    f.close()
+
+    for l in lines:
+        if l.startswith("SwapTotal:"):
+            fields = l.split()
+            return int(fields[1])
+    return 0

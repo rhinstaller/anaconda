@@ -25,6 +25,7 @@ from storage.devicelibs.mpath import MultipathConfigWriter, MultipathTopology
 from storage.formats import getFormat
 from storage.partitioning import clearPartitions
 from storage.partitioning import shouldClear
+from storage.devicelibs import swap
 import storage.iscsi
 import storage.fcoe
 import storage.zfcp
@@ -540,9 +541,9 @@ class LogVolData(commands.logvol.F17_LogVolData):
         if self.mountpoint == "swap":
             type = "swap"
             self.mountpoint = ""
-            if self.recommended:
-                (self.size, self.maxSizeMB) = iutil.swapSuggestion()
-                self.grow = True
+            if self.recommended or self.hibernation:
+                self.size = swap.swapSuggestion(hibernation=self.hibernation)
+                self.grow = False
         else:
             if self.fstype != "":
                 type = self.fstype
@@ -846,9 +847,9 @@ class PartitionData(commands.partition.F17_PartData):
         if self.mountpoint == "swap":
             type = "swap"
             self.mountpoint = ""
-            if self.recommended:
-                (self.size, self.maxSizeMB) = iutil.swapSuggestion()
-                self.grow = True
+            if self.recommended or self.hibernation:
+                self.size = swap.swapSuggestion(hibernation=self.hibernation)
+                self.grow = False
         # if people want to specify no mountpoint for some reason, let them
         # this is really needed for pSeries boot partitions :(
         elif self.mountpoint == "None":
