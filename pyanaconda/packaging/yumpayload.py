@@ -250,8 +250,11 @@ reposdir=%s
                     if ks_repo.ignoregroups:
                         f.write("enablegroups=0\n")
 
+        releasever = self._yum.conf.yumvar['releasever']
         self._writeYumConfig()
         self._resetYum(root=ROOT_PATH)
+        log.debug("setting releasever to previous value of %s" % releasever)
+        self._yum.preconf.releasever = releasever
 
         self._yumCacheDirHack()
         self._yum.repos.populateSack(which='enabled', mdtype='all')
