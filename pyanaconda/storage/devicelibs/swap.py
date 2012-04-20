@@ -164,20 +164,3 @@ def swapSuggestion(quiet=False, hibernation=False):
 
     return swap
 
-def swapAmount():
-    """
-    Get the total amount of swap memory.
-
-    @return: The total amount of swap memory in kilobytes, or 0 if unknown.
-
-    """
-
-    f = open("/proc/meminfo", "r")
-    lines = f.readlines()
-    f.close()
-
-    for l in lines:
-        if l.startswith("SwapTotal:"):
-            fields = l.split()
-            return int(fields[1])
-    return 0
