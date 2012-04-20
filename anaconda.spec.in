@@ -66,6 +66,7 @@ BuildRequires: libcurl-devel
 BuildRequires: libnl-devel >= %{libnlver}
 BuildRequires: libselinux-devel >= %{libselinuxver}
 BuildRequires: libsepol-devel
+BuildRequires: libxklavier-devel
 BuildRequires: libxml2-python
 BuildRequires: newt-devel
 BuildRequires: pango-devel
@@ -133,7 +134,7 @@ Requires: python-bugzilla
 Requires: python-nss
 Requires: tigervnc-server-minimal
 Requires: pytz
-Requires: libxklavier-devel
+Requires: libxklavier
 #libxklavier requires iso-codes, but does not have it as Requires: (see #813833)
 Requires: iso-codes
 %ifarch %livearches
