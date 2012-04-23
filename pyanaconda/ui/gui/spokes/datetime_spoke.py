@@ -109,10 +109,11 @@ class DatetimeSpoke(NormalSpoke):
 
     @property
     def status(self):
-        return _("Something selected")
+        return _("%s timezone") % self._tzmap.get_timezone()
 
     def apply(self):
         GLib.source_remove(self._update_datetime_timer_id)
+        self.data.timezone.timezone = self._tzmap.get_timezone()
 
     @property
     def completed(self):
@@ -157,16 +158,30 @@ class DatetimeSpoke(NormalSpoke):
         except ValueError as valerr:
             return False
 
+    def _get_active_city(self):
+        cities_model = self._cityCombo.get_model()
+        cities_iter = self._cityCombo.get_active_iter()
+        if not cities_iter:
+            return None
+
+        return cities_model[cities_iter][0]
+
+    def _get_active_region(self):
+        regions_model = self._regionCombo.get_model()
+        regions_iter = self._regionCombo.get_active_iter()
+        if not regions_iter:
+            return None
+
+        return regions_model[regions_iter][0]
+
     def city_in_region(self, model, itr, user_data=None):
         if not itr:
             return False
         city = model[itr][0]
 
-        regions_model = self._regionCombo.get_model()
-        regions_iter = self._regionCombo.get_active_iter()
-        if not regions_iter:
+        region = self._get_active_region()
+        if not region:
             return False
-        region = regions_model[regions_iter][0]
 
         return city in self._regions_zones[region]
 
@@ -349,22 +364,23 @@ class DatetimeSpoke(NormalSpoke):
     def on_region_changed(self, *args):
         self._citiesFilter.refilter()
 
+        # Attempt to set the city to the first one available in this newly
+        # selected region.
+        region = self._get_active_region()
+        if not region:
+            return
+
+        zone = self._regions_zones[region]
+        firstCity = sorted(list(zone))[0]
+
+        self._set_combo_selection(self._cityCombo, firstCity)
+        self._cityCombo.emit("changed")
+
     def on_city_changed(self, *args):
         timezone = None
 
-        regions_model = self._regionCombo.get_model()
-        regions_iter = self._regionCombo.get_active_iter()
-        if regions_iter:
-            region = regions_model[regions_iter][0]
-        else:
-            region = None
-
-        cities_model = self._cityCombo.get_model()
-        cities_iter = self._cityCombo.get_active_iter()
-        if cities_iter: #there can be no city selected
-            city = cities_model[cities_iter][0]
-        else:
-            city = None
+        region = self._get_active_region()
+        city = self._get_active_city()
 
         if city and region:
             timezone = region + "/" + city
