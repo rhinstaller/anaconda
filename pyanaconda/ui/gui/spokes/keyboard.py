@@ -118,7 +118,8 @@ class KeyboardSpoke(NormalSpoke):
         self._remove_last_attempt = False
 
     def apply(self):
-        pass
+        self.data.keyboard.keyboard = None
+        # FIXME:  Set the keyboard layout here, too.
 
     @property
     def completed(self):
@@ -128,7 +129,8 @@ class KeyboardSpoke(NormalSpoke):
 
     @property
     def status(self):
-        return _("Something selected")
+        # We don't need to check that self._store is empty, because that isn't allowed.
+        return self._store[0][0]
 
     def initialize(self):
         NormalSpoke.initialize(self)
