@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 17.20\n"
+"Project-Id-Version: anaconda 17.21\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2012-04-18 16:46-0700\n"
+"POT-Creation-Date: 2012-04-23 11:51-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1479,54 +1479,54 @@ msgid ""
 "\n"
 msgstr ""
 
-#: pyanaconda/vnc.py:116
+#: pyanaconda/vnc.py:125
 #, python-format
 msgid "%(productName)s %(productVersion)s installation on host %(name)s"
 msgstr ""
 
-#: pyanaconda/vnc.py:122
+#: pyanaconda/vnc.py:131
 #, python-format
 msgid "%(productName)s %(productVersion)s installation"
 msgstr ""
 
-#: pyanaconda/vnc.py:139
+#: pyanaconda/vnc.py:148
 #, python-format
 msgid "Attempting to connect to vnc client on host %s..."
 msgstr ""
 
-#: pyanaconda/vnc.py:153
+#: pyanaconda/vnc.py:162
 msgid "Connected!"
 msgstr ""
 
-#: pyanaconda/vnc.py:156
+#: pyanaconda/vnc.py:165
 msgid "Will try to connect again in 15 seconds..."
 msgstr ""
 
-#: pyanaconda/vnc.py:162
+#: pyanaconda/vnc.py:171
 #, python-format
 msgid "Giving up attempting to connect after %d try!\n"
 msgid_plural "Giving up attempting to connect after %d tries!\n"
 msgstr[0] ""
 msgstr[1] ""
 
-#: pyanaconda/vnc.py:173
+#: pyanaconda/vnc.py:182
 #, python-format
 msgid "Please manually connect your vnc client to %s to begin the install."
 msgstr ""
 
-#: pyanaconda/vnc.py:175
+#: pyanaconda/vnc.py:184
 msgid "Please manually connect your vnc client to begin the install."
 msgstr ""
 
-#: pyanaconda/vnc.py:178
+#: pyanaconda/vnc.py:187
 msgid "Starting VNC..."
 msgstr ""
 
-#: pyanaconda/vnc.py:215
+#: pyanaconda/vnc.py:224
 msgid "The VNC server is now running."
 msgstr ""
 
-#: pyanaconda/vnc.py:219
+#: pyanaconda/vnc.py:228
 msgid ""
 "\n"
 "\n"
@@ -1537,7 +1537,7 @@ msgid ""
 "\n"
 msgstr ""
 
-#: pyanaconda/vnc.py:224
+#: pyanaconda/vnc.py:233
 msgid ""
 "\n"
 "\n"
@@ -1547,7 +1547,7 @@ msgid ""
 "\n"
 msgstr ""
 
-#: pyanaconda/vnc.py:228
+#: pyanaconda/vnc.py:237
 msgid ""
 "\n"
 "\n"
@@ -1555,7 +1555,7 @@ msgid ""
 "\n"
 msgstr ""
 
-#: pyanaconda/vnc.py:230
+#: pyanaconda/vnc.py:239
 msgid ""
 "\n"
 "\n"
@@ -1563,66 +1563,66 @@ msgid ""
 "\n"
 msgstr ""
 
-#: pyanaconda/vnc.py:252 pyanaconda/vnc.py:345
+#: pyanaconda/vnc.py:261 pyanaconda/vnc.py:354
 msgid "VNC Configuration"
 msgstr ""
 
-#: pyanaconda/vnc.py:255 pyanaconda/vnc.py:349
+#: pyanaconda/vnc.py:264 pyanaconda/vnc.py:358
 msgid "No password"
 msgstr ""
 
-#: pyanaconda/vnc.py:257 pyanaconda/vnc.py:352
+#: pyanaconda/vnc.py:266 pyanaconda/vnc.py:361
 msgid ""
 "A password will prevent unauthorized listeners connecting and monitoring "
 "your installation progress.  Please enter a password to be used for the "
 "installation"
 msgstr ""
 
-#: pyanaconda/vnc.py:265 pyanaconda/vnc.py:360
+#: pyanaconda/vnc.py:274 pyanaconda/vnc.py:369
 #: pyanaconda/textw/userauth_text.py:47
 msgid "Password:"
 msgstr ""
 
-#: pyanaconda/vnc.py:266 pyanaconda/vnc.py:361
+#: pyanaconda/vnc.py:275 pyanaconda/vnc.py:370
 #: pyanaconda/textw/userauth_text.py:49
 msgid "Password (confirm):"
 msgstr ""
 
-#: pyanaconda/vnc.py:284 pyanaconda/vnc.py:383
+#: pyanaconda/vnc.py:293 pyanaconda/vnc.py:392
 #: pyanaconda/textw/userauth_text.py:70
 msgid "Password Mismatch"
 msgstr ""
 
-#: pyanaconda/vnc.py:285 pyanaconda/vnc.py:384
+#: pyanaconda/vnc.py:294 pyanaconda/vnc.py:393
 #: pyanaconda/textw/userauth_text.py:71
 msgid "The passwords you entered were different. Please try again."
 msgstr ""
 
-#: pyanaconda/vnc.py:290 pyanaconda/vnc.py:389
+#: pyanaconda/vnc.py:299 pyanaconda/vnc.py:398
 #: pyanaconda/textw/userauth_text.py:66
 msgid "Password Length"
 msgstr ""
 
-#: pyanaconda/vnc.py:291 pyanaconda/vnc.py:390
+#: pyanaconda/vnc.py:300 pyanaconda/vnc.py:399
 msgid "The password must be at least six characters long."
 msgstr ""
 
-#: pyanaconda/vnc.py:313
+#: pyanaconda/vnc.py:322
 msgid "Unable to Start X"
 msgstr ""
 
-#: pyanaconda/vnc.py:315
+#: pyanaconda/vnc.py:324
 msgid ""
 "X was unable to start on your machine.  Would you like to start VNC to "
 "connect to this computer from another computer and perform a graphical "
 "install or continue with a text mode install?"
 msgstr ""
 
-#: pyanaconda/vnc.py:334
+#: pyanaconda/vnc.py:343
 msgid "Start VNC"
 msgstr ""
 
-#: pyanaconda/vnc.py:335 pyanaconda/vnc.py:337
+#: pyanaconda/vnc.py:344 pyanaconda/vnc.py:346
 msgid "Use text mode"
 msgstr ""
 

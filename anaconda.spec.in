@@ -249,6 +249,12 @@ update-desktop-database &> /dev/null || :
 /usr/lib/dracut/modules.d/80%{name}/*
 
 %changelog
+* Mon Apr 23 2012 Brian C. Lane <bcl@redhat.com> - 17.22-1
+- anaconda displays conflicting information when using vnc (hamzy)
+- run fetch-kickstart-net.sh after setup_net (#804846, #811851) (wwoods)
+- remove now-unused 'loadkeys' stub (wwoods)
+- fix 'text' or 'cmdline' in kickstart (#814108) (wwoods)
+
 * Wed Apr 18 2012 Brian C. Lane <bcl@redhat.com> - 17.21-1
 - Fix a variable reference (#813923) (jkeating)
 - Complain about "serial" but don't assume ttyS0 (wwoods)
