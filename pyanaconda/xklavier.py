@@ -65,13 +65,25 @@ class XklWrapper(object):
         self._language_keyboard_variants = dict()
         self._country_keyboard_variants = dict()
 
+        #we want to display layouts' descriptions, but
+        #Gkbd.KeyboardDrawingDialog.set_layout needs a layout's name
+        self.description_to_name = dict()
+
+        #this might take quite a long time
+        self.configreg.foreach_language(self._get_language_variants, None)
+
     def _get_variant(self, c_reg, item, subitem, user_data=None):
         variants = list()
 
         if subitem:
-            variants.append(_Variant(item_str(subitem.name), item_str(subitem.description)))
+            name = item_str(subitem.name)
+            description = item_str(subitem.description)
         else:
-            variants.append(_Variant(item_str(item.name), item_str(item.description)))
+            name = item_str(item.name)
+            description = item_str(item.description)
+
+        self.description_to_name[description] = name
+        variants.append(_Variant(name, description))
 
         self._variants_list.append(variants)
 
@@ -95,7 +107,6 @@ class XklWrapper(object):
 
     def get_available_layouts(self):
         """A generator yielding layouts (no need to store them as a bunch)"""
-        self._configreg.foreach_language(self.get_language_variants, None)
 
         for (lang_name, lang_desc), variants in sorted(self._language_keyboard_variants.items()):
             for variant in variants:
