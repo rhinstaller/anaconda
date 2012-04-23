@@ -861,6 +861,8 @@ reposdir=%s
 
     def install(self):
         """ Install the payload. """
+        from yum.Errors import PackageSackError, RepoError, YumBaseError, YumRPMTransError
+
         log.info("preparing transaction")
         log.debug("initialize transaction set")
         with _yum_lock:

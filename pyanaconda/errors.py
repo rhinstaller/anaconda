@@ -232,8 +232,8 @@ class ErrorHandler(object):
                 StorageError.FSTabTypeMismatchError: self._fstabTypeMismatchHandler,
                 InvalidImageSizeError: self._invalidImageSizeHandler,
                 MissingImageError: self._missingImageHandler,
-                MediaMountError: self._mediaMountError,
-                MediaUnmountError: self._mediaUnmountError,
+                MediaMountError: self._mediaMountHandler,
+                MediaUnmountError: self._mediaUnmountHandler,
                 NoSuchGroup: self._noSuchGroupHandler,
                 NoSuchPackage: self._noSuchPackageHandler}
 
