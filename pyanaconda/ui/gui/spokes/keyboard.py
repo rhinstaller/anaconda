@@ -24,7 +24,7 @@ import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
 N_ = lambda x: x
 
-from gi.repository import GLib, AnacondaWidgets
+from gi.repository import GLib, AnacondaWidgets, Gkbd
 
 from pyanaconda.ui.gui import UIObject
 from pyanaconda.ui.gui.spokes import NormalSpoke
@@ -39,9 +39,9 @@ class AddLayoutDialog(UIObject):
     mainWidgetName = "addLayoutDialog"
     uiFile = "spokes/keyboard.ui"
 
-    def __init__(self, *args):
+    def __init__(self, xkl_wrapper, *args):
+        self._xkl_wrapper = xkl_wrapper
         UIObject.__init__(self, *args)
-        self._xkl_wrapper = xklavier.XklWrapper()
 
     def matches_entry(self, model, itr, user_data=None):
         value = model.get_value(itr, 0)
@@ -116,6 +116,7 @@ class KeyboardSpoke(NormalSpoke):
     def __init__(self, *args):
         NormalSpoke.__init__(self, *args)
         self._remove_last_attempt = False
+        self._xkl_wrapper = xklavier.XklWrapper()
 
     def apply(self):
         self.data.keyboard.keyboard = None
@@ -159,7 +160,7 @@ class KeyboardSpoke(NormalSpoke):
 
     # Signal handlers.
     def on_add_clicked(self, button):
-        dialog = AddLayoutDialog(self.data)
+        dialog = AddLayoutDialog(self._xkl_wrapper, self.data)
         dialog.refresh()
         dialog.initialize()
 
@@ -241,8 +242,20 @@ class KeyboardSpoke(NormalSpoke):
         store.swap(cur, nxt)
         selection.emit("changed")
 
-    def on_settings_clicked(self, button):
-        pass
+    def on_preview_clicked(self, button):
+        selection = self.builder.get_object("layoutSelection")
+        (store, cur) = selection.get_selected()
+        layout_description = store[cur]
+        layout_name = self._xkl_wrapper.description_to_name.get(layout_description, None)
+        if not layout_name:
+            return
+
+        dialog = Gkbd.KeyboardDrawing.dialog_new()
+        Gkbd.KeyboardDrawing.dialog_set_layout(dialog, self._xkl_wrapper.configreg,
+                                               layout_name)
+        with enlightbox(self.window, dialog):
+            dialog.show_all()
+            dialog.run()
 
     def on_selection_changed(self, *args):
         self.layout_selection_changed(self.builder.get_object("layoutSelection"))

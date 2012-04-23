@@ -63,6 +63,7 @@ BuildRequires: libXt-devel
 BuildRequires: libXxf86misc-devel
 BuildRequires: libblkid-devel >= %{libblkidver}
 BuildRequires: libcurl-devel
+BuildRequires: libgnomekbd-devel
 BuildRequires: libnl-devel >= %{libnlver}
 BuildRequires: libselinux-devel >= %{libselinuxver}
 BuildRequires: libsepol-devel
@@ -137,6 +138,7 @@ Requires: pytz
 Requires: libxklavier
 #libxklavier requires iso-codes, but does not have it as Requires: (see #813833)
 Requires: iso-codes
+Requires: libgnomekbd
 %ifarch %livearches
 Requires: usermode
 Requires: zenity
