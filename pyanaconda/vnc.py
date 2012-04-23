@@ -98,8 +98,17 @@ class VncServer:
                                                                      ips))
                     self.ip = ips[0]
 
-        self.name = network.getDefaultHostname(self.anaconda)
         ipstr = self.ip
+
+        try:
+            hinfo = socket.gethostbyaddr(ipstr)
+        except Exception as e:
+            log.debug("Exception caught trying to get host name of %s: %s" %
+                      (ipstr, e))
+            self.name = network.getDefaultHostname(self.anaconda)
+        else:
+            if len(hinfo) == 3:
+                self.name = hinfo[0]
 
         if self.ip.find(':') != -1:
             ipstr = "[%s]" % (self.ip,)
