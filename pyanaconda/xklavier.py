@@ -57,13 +57,15 @@ class XklWrapper(object):
         #initialize Xkl-related stuff
         display = GdkX11.x11_get_default_xdisplay()
         engine = Xkl.Engine.get_instance(display)
-        self._configreg = Xkl.ConfigRegistry.get_instance(engine)
-        self._configreg.load(False)
+
+        #needed also for Gkbd.KeyboardDrawingDialog
+        self.configreg = Xkl.ConfigRegistry.get_instance(engine)
+        self.configreg.load(False)
 
         self._language_keyboard_variants = dict()
         self._country_keyboard_variants = dict()
 
-    def get_variant(self, c_reg, item, subitem, user_data=None):
+    def _get_variant(self, c_reg, item, subitem, user_data=None):
         variants = list()
 
         if subitem:
@@ -73,21 +75,21 @@ class XklWrapper(object):
 
         self._variants_list.append(variants)
 
-    def get_language_variants(self, c_reg, item, user_data=None):
+    def _get_language_variants(self, c_reg, item, user_data=None):
         #helper "global" variable
         self._variants_list = list()
         lang_name, lang_desc = item_str(item.name), item_str(item.description)
 
-        c_reg.foreach_language_variant(lang_name, self.get_variant, None)
+        c_reg.foreach_language_variant(lang_name, self._get_variant, None)
 
         self._language_keyboard_variants[(lang_name, lang_desc)] = self._variants_list
 
-    def get_country_variants(self, c_reg, item, user_data=None):
+    def _get_country_variants(self, c_reg, item, user_data=None):
         #helper "global" variable
         self._variants_list = list()
         country_name, country_desc = item_str(item.name), item_str(item.description)
 
-        c_reg.foreach_country_variant(country_name, self.get_variant, None)
+        c_reg.foreach_country_variant(country_name, self._get_variant, None)
 
         self._country_keyboard_variants[(country_name, country_desc)] = self._variants_list
 
