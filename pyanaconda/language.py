@@ -244,6 +244,3 @@ class Language(object):
                 f.write("%s=\"%s\"\n" % (key, val))
 
         f.close()
-
-    def writeKS(self, f):
-        f.write("lang %s\n" % self.info['LANG'])

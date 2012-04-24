@@ -322,14 +322,3 @@ class Users:
                                "root": ROOT_PATH})
                 if not self.createUser(ud.name, **kwargs):
                     log.error("User %s already exists, not creating." % ud.name)
-
-    def writeKS(self, f):
-        if self.rootPassword["isCrypted"]:
-            args = " --iscrypted %s" % self.rootPassword["password"]
-        else:
-            args = " --iscrypted %s" % cryptPassword(self.rootPassword["password"], algo=self.getPassAlgo())
-
-        if self.rootPassword["lock"]:
-            args += " --lock"
-
-        f.write("rootpw %s\n" % args)

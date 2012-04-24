@@ -255,13 +255,3 @@ class LanguageTest(mock.TestCase):
         ret = lang.write()
         self.assertEqual(self.fs['/mnt/sysimage/etc/sysconfig/i18n'],
             'LANG="cs_CZ.UTF-8"\nSYSFONT="latarcyrheb-sun16"\n')
-
-    def write_ks_test(self):
-        import pyanaconda.language
-        lang = pyanaconda.language.Language()
-        lang.systemLang = 'cs'
-        f = self.fs.open('/tmp/lang', 'w')
-        lang.writeKS(f)
-        f.close()
-        self.assertEqual(self.fs['/tmp/lang'], 'lang cs_CZ.UTF-8\n')
-

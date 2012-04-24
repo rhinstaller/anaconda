@@ -20,8 +20,20 @@
 # Red Hat Author(s): Chris Lumens <clumens@redhat.com>
 #
 
+from pyanaconda.constants import ROOT_PATH
 from pyanaconda.errors import errorHandler
 from pyanaconda.storage import turnOnFilesystems
+
+def _writeKS(ksdata):
+    import os
+
+    path = ROOT_PATH + "/root/anaconda-ks.cfg"
+
+    with open(path, "w") as f:
+        f.write(str(ksdata))
+
+    # Make it so only root can read - could have passwords
+    os.chmod(path, 0600)
 
 def doInstall(storage, payload, ksdata, instClass):
     """Perform an installation.  This method takes the ksdata as prepared by
@@ -51,5 +63,9 @@ def doInstall(storage, payload, ksdata, instClass):
     payload.preInstall()
     payload.install()
     payload.postInstall()
+
+    # Write the kickstart file to the installed system (or, copy the input
+    # kickstart file over if one exists).
+    _writeKS(ksdata)
 
     progress.send_complete()

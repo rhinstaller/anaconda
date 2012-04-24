@@ -140,16 +140,3 @@ class UsersTest(mock.TestCase):
         methods = [x[0] for x in pyanaconda.users.libuser.admin().method_calls]
         self.assertEqual(methods,
             ['lookupUserByName', 'setpassUser', 'modifyUser'])
-
-    def writeks_test(self):
-        import pyanaconda.users
-        usr = pyanaconda.users.Users(self.anaconda)
-
-        f = self.fs.open('/test_file', 'w')
-        usr.writeKS(f)
-        f.close()
-
-        import re
-        self.assertTrue(
-            re.match(r"rootpw[ ]+--iscrypted[ ]+.*\n", self.fs['/test_file']))
-

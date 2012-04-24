@@ -50,16 +50,6 @@ class Security:
     def getSELinux(self):
         return self.selinux
 
-    def writeKS(self, f):
-        if not selinux_states.has_key(self.selinux):
-            log.error("unknown selinux state: %s" %(self.selinux,))
-            return
-
-	f.write("selinux --%s\n" %(selinux_states[self.selinux],))
-
-        if self.auth.strip() != "":
-            f.write("authconfig %s\n" % self.auth)
-
     def _addFingerprint(self):
         import rpm
 

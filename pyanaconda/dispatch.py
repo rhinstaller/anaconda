@@ -25,7 +25,6 @@ from types import *
 
 import indexed_dict
 from constants import *
-from packages import writeKSConfiguration
 from packages import doPostAction
 from packages import firstbootConfiguration
 from packages import setupTimezone
@@ -285,7 +284,6 @@ class Dispatcher(object):
         self.add_step("firstboot", firstbootConfiguration)
         self.add_step("instbootloader", writeBootloader)
         self.add_step("reipl", doReIPL)
-        self.add_step("writeksconfig", writeKSConfiguration)
         self.add_step("methodcomplete", doMethodComplete)
         self.add_step("postscripts", runPostScripts)
         self.add_step("dopostaction", doPostAction)

@@ -856,31 +856,6 @@ class BootLoader(object):
         config.close()
         self.write_config_post()
 
-    def writeKS(self, f):
-        """ Write bootloader section of kickstart configuration. """
-        if self.stage1_device.isDisk:
-            location = "mbr"
-        elif self.stage1_device:
-            location = "partition"
-        else:
-            location = "none\n"
-
-        f.write("bootloader --location=%s" % location)
-        if self.timeout is not None:
-            f.write(" --timeout=%d" % self.timeout)
-
-        if not self.stage1_device:
-            return
-
-        if self.disk_order:
-            f.write(" --driveorder=%s" % ",".join(self.disk_order))
-
-        append = self.boot_args - self.dracut_args
-        if append:
-            f.write(" --append=\"%s\"" % append)
-
-        f.write("\n")
-
     def read(self):
         """ Read an existing bootloader configuration. """
         raise NotImplementedError()

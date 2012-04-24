@@ -27,12 +27,6 @@ import logging
 log = logging.getLogger("anaconda")
 
 class Timezone:
-    def writeKS(self, f):
-        f.write("timezone")
-        if self.utc:
-            f.write(" --utc")
-        f.write(" %s\n" % self.tz)
-
     def write(self):
         fromFile = ROOT_PATH + "/usr/share/zoneinfo/" + self.tz
 

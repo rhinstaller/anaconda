@@ -116,7 +116,6 @@ class BaseInstallClass(object):
 		 "instbootloader",
                  "dopostaction",
                  "postscripts",
-		 "writeksconfig",
                  "methodcomplete",
 		 "complete"
 		)

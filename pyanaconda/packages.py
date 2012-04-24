@@ -50,12 +50,6 @@ def firstbootConfiguration(anaconda):
 
     return
 
-def writeKSConfiguration(anaconda):
-    log.info("Writing autokickstart file")
-    fn = ROOT_PATH + "/root/anaconda-ks.cfg"
-
-    anaconda.writeKS(fn)
-
 def setupTimezone(anaconda):
     # we don't need this on an upgrade or going backwards
     if anaconda.upgrade or flags.imageInstall or anaconda.dir == DISPATCH_BACK:

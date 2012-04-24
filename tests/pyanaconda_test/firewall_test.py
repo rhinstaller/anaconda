@@ -39,13 +39,3 @@ class FirewallTest(mock.TestCase):
                  }
              )
             ])
-
-    def default_ks_test(self):
-        """Simulate writing default fw to kickstart"""
-
-        import pyanaconda.firewall
-        fw = pyanaconda.firewall.Firewall()
-        f = self.fs.open("/tmp/fw.txt", "w")
-        fw.writeKS(f)
-        f.close()
-        self.assertEquals(self.fs["/tmp/fw.txt"], "firewall --service=ssh\n")

@@ -37,19 +37,6 @@ class TimeZoneTest(mock.TestCase):
         tz.setTimezoneInfo(ZONE, UTC)
         self.assertEqual((ZONE, UTC), (tz.tz, tz.utc))
 
-    def write_ks_test(self):
-        import pyanaconda.timezone
-        tz = pyanaconda.timezone.Timezone()
-        tz.tz = ZONE
-        tz.utc = UTC
-
-        f = self.fs.open('/test_file', 'w')
-        tz.writeKS(f)
-        f.close()
-
-        example = 'timezone --utc %s\n' % (ZONE)
-        self.assertEqual(self.fs['/test_file'], example)
-
     def write_test(self):
         import pyanaconda.timezone
 

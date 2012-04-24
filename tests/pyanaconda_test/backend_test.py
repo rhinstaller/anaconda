@@ -158,14 +158,6 @@ class BackendTest(mock.TestCase):
         ab.getDefaultGroups(anaconda)
         self.assertTrue(self.logger.warning.called)
 
-    def anaconda_backend_write_packages_ks_test(self):
-        import pyanaconda.backend
-        FILE = ''
-        anaconda = mock.Mock()
-        ab = pyanaconda.backend.AnacondaBackend(anaconda)
-        ab.writePackagesKS(FILE, anaconda)
-        self.assertTrue(self.logger.warning.called)
-
     def anaconda_backend_write_configuration_test(self):
         import pyanaconda.backend
         anaconda = mock.Mock()

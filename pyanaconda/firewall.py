@@ -38,17 +38,6 @@ class Firewall:
 	self.portlist = []
         self.servicelist = []
 
-    def writeKS(self, f):
-	f.write("firewall")
-
-        if self.enabled:
-	    for arg in self.getArgList():
-		f.write(" " + arg)
-	else:
-	    f.write(" --disabled")
-
-	f.write("\n")
-
     def getArgList(self):
 	args = []
 

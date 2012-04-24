@@ -171,19 +171,10 @@ class AnacondaBackend:
         # we just leave this one unimplemented if it's not needed
         pass
 
-    # write out the %packages section of anaconda-ks.cfg
-    def writePackagesKS(self, f, anaconda):
-        log.warning("writePackagesKS not implemented for backend!")
-
     # write out any config files that live on the installed system
     # (e.g., /etc/yum.repos.d/* files)
     def writeConfiguration(self):
         log.warning("writeConfig not implemented for backend!")
-
-    # write out any other kickstart bits the backend requires - no warning
-    # here because this may not be needed
-    def writeKS(self, f):
-        pass
 
     def complete(self, anaconda):
         pass

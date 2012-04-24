@@ -38,31 +38,6 @@ class SecurityTest(mock.TestCase):
         scrt.setSELinux('bad_state')
         self.assertTrue(scrt.getSELinux() in states)
 
-    def write_ks_1_test(self):
-        """Simulate writing security to kickstart (1)"""
-        import pyanaconda.security
-
-        scrt = pyanaconda.security.Security()
-        f = self.fs.open('/tmp/security_ks1', 'w')
-        scrt.writeKS(f)
-        f.close()
-
-        self.assertEqual(self.fs['/tmp/security_ks1'],
-            'selinux --enforcing\nauthconfig --enableshadow --passalgo=sha512\n')
-
-    def write_ks_2_test(self):
-        """Simulate writing security to kickstart (2)"""
-        import pyanaconda.security
-
-        scrt = pyanaconda.security.Security()
-        scrt.selinux = pyanaconda.security.SELINUX_DISABLED
-        f = self.fs.open('/tmp/security_ks2', 'w')
-        scrt.writeKS(f)
-        f.close()
-
-        self.assertEqual(self.fs['/tmp/security_ks2'],
-            'selinux --disabled\nauthconfig --enableshadow --passalgo=sha512\n')
-
     def write_test(self):
         """Simulate writing security (simulate executing lokkit and authconfig)"""
         import pyanaconda.security
