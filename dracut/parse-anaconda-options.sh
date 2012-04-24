@@ -63,22 +63,28 @@ check_depr_args() {
     local q=""
     for i in $(getargs $1); do check_depr_arg $q "$i" "$2" && q="--quiet"; done
 }
+check_removed_arg() {
+    local arg="$1"; shift
+    if getarg "$arg" > /dev/null; then
+        warn "'$arg' is deprecated and has been removed."
+        [ -n "$*" ] && warn "$*"
+    fi
+}
 
-check_depr_arg "serial" "console=ttyS0"
 check_depr_args "blacklist=" "inst.blacklist=%s"
 check_depr_arg "nofirewire" "inst.blacklist=firewire_ohci"
 
+# serial was never supposed to be used for anything!
+check_removed_arg serial "To change the console use 'console=' instead."
 # USB is built-in and can't be disabled anymore. DEAL WITH IT.
-getarg nousb && warn "'nousb' is deprecated. USB drivers can't be disabled."
+check_removed_arg nousb "USB drivers can't be disabled."
 # ethtool is gone. Who forces their devices to single-duplex anymore?
-getarg ethtool && warn "'ethtool' is deprecated and has been removed."
+check_removed_arg ethtool
 
 # interactive junk in initramfs
 # (maybe we'll bring it back someday?)
-getarg askmethod && warn "'askmethod' is deprecated and has been removed." && \
-                    warn "Use an appropriate 'inst.repo=' argument instead."
-getarg asknetwork && warn "'asknetwork' is deprecated and has been removed." &&\
-                     warn "Use an appropriate 'ip=' argument instead."
+check_removed_arg askmethod "Use an appropriate 'inst.repo=' argument instead."
+check_removed_arg asknetwork "Use an appropriate 'ip=' argument instead."
 
 # lang & keymap
 warn_renamed_arg "lang" "inst.lang"

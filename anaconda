@@ -793,6 +793,15 @@ if __name__ == "__main__":
             if anaconda.ksdata.clearpart.initAll:
                 anaconda.storage.config.reinitializeDisks = anaconda.ksdata.clearpart.initAll
 
+        # Set up display options.
+        # NOTE: kickstart overrides cmdline, because kickstart gets parsed last
+        if anaconda.ksdata.displaymode.displayMode is not None:
+            # this is derived from pykickstart.constants.DISPLAY_MODE_*
+            displaymap = ['cmdline', 'graphical', 'text']
+            display_mode = displaymap[anaconda.ksdata.displaymode.displayMode]
+            log.info("kickstart forcing %s mode" % display_mode)
+            opts.display_mode = display_mode[0] # 'c', 'g', or 't'
+
     # now start the interface
     setupDisplay(anaconda, opts)
     # setting the install steps requires interface to be running
