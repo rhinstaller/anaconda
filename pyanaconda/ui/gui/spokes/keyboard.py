@@ -104,7 +104,7 @@ class AddLayoutDialog(UIObject):
 
 class KeyboardSpoke(NormalSpoke):
     builderObjects = ["addedLayoutStore", "keyboardWindow",
-                      "addImage", "removeImage", "upImage", "downImage", "settingsImage"]
+                      "addImage", "removeImage", "upImage", "downImage", "previewImage"]
     mainWidgetName = "keyboardWindow"
     uiFile = "spokes/keyboard.ui"
 
@@ -246,7 +246,10 @@ class KeyboardSpoke(NormalSpoke):
         selection = self.builder.get_object("layoutSelection")
         (store, cur) = selection.get_selected()
         layout_description = store[cur]
-        layout_name = self._xkl_wrapper.description_to_name.get(layout_description, None)
+        if not layout_description:
+            return
+
+        layout_name = self._xkl_wrapper.description_to_name.get(layout_description[0], None)
         if not layout_name:
             return
 
