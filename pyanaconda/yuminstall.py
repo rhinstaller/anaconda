@@ -474,11 +474,17 @@ class AnacondaYum(yum.YumBase):
                 self._mountInstallCD()
                 self.mediagrabber = self.mediaHandler
                 self._baseRepoURL = "file://%s" % self.tree
+        elif os.path.isdir("/run/initramfs/live/repodata"):
+            # No methodstr was given.  In order to find an installation source
+            # we first check to see if dracut has already mounted the source
+            # on /run/initramfs/live/ and if not we check to see if there's a
+            # CD/DVD with packages on it. If both those fail we default to the
+            # mirrorlist URL.  The user can always change the repo with the
+            # repo editor later.
+            isys.mount("/run/initramfs/live/", self.tree, bindMount=True)
+            self.mediagrabber = self.mediaHandler
+            self._baseRepoURL = "file://%s" % self.tree
         else:
-            # No methodstr was given.  In order to find an installation source,
-            # we should first check to see if there's a CD/DVD with packages
-            # on it, and then default to the mirrorlist URL.  The user can
-            # always change the repo with the repo editor later.
             cdr = scanForMedia(self.tree, self.anaconda.storage)
             if cdr:
                 self.mediagrabber = self.mediaHandler
