@@ -109,7 +109,10 @@ class DatetimeSpoke(NormalSpoke):
 
     @property
     def status(self):
-        return _("%s timezone") % self._tzmap.get_timezone()
+        if self.data.timezone.timezone:
+            return _("%s timezone") % self.data.timezone.timezone
+        else:
+            return _("%s timezone") % self._tzmap.get_timezone()
 
     def apply(self):
         GLib.source_remove(self._update_datetime_timer_id)
@@ -127,6 +130,9 @@ class DatetimeSpoke(NormalSpoke):
         self._update_datetime_timer_id = GLib.timeout_add_seconds(1,
                                                     self._update_datetime)
         self._start_updating_timer_id = None
+
+        if self.data.timezone.timezone:
+            self._tzmap.emit("timezone-changed", self.data.timezone.timezone)
 
     def add_to_store(self, store, item):
         store.append([item])
