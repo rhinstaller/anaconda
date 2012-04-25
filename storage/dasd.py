@@ -79,6 +79,15 @@ class DASD:
             if not os.path.isfile(statusfile):
                 continue
 
+            # This works around what I believe to be a kernel bug and
+            # forces udev to notice all the information about these
+            # devices (#729910)
+            path = "/sys/block/%s" % device
+            try:
+                iutil.notify_kernel(path)
+            except Exception, e:
+                log.warning("failed to notify kernel of change: %s" % e)
+
             f = open(statusfile, "r")
             status = f.read().strip()
             f.close()
