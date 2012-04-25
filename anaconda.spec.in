@@ -222,6 +222,16 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Wed Apr 25 2012 David Cantrell <dcantrell@redhat.com> - 13.21.170-1
+- Add ip= dracut parameter for iscsi nodes using default iface (rvykydal)
+  Resolves: rhbz#500273
+  Related: rhbz#500273
+- Do not pass :default:default iscsi nic specification to dracut (rvykydal)
+  Resolves: rhbz#500273
+  Related: rhbz#500273
+- Fix a question in a storage init, when no dispatcher is present (msivak)
+  Resolves: rhbz#805910
+
 * Mon Apr 16 2012 David Cantrell <dcantrell@redhat.com> - 13.21.169-1
 - fall back to global proxy for repos (bcl)
   Resolves: rhbz#788537
