@@ -47,6 +47,10 @@ class WelcomeLanguageSpoke(StandaloneSpoke):
 
         self.data.lang.lang = lang
 
+    @property
+    def completed(self):
+        return self.data.lang.lang and self.data.lang.lang != ""
+
     def initialize(self):
         StandaloneSpoke.initialize(self)
 
