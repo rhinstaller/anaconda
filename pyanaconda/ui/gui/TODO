@@ -6,11 +6,16 @@
 - Custom partitioning needs to be revisited, then written.
 - Disk tug-o-war needs to be written.
 - Hubs need a way of noticing check threads are running (561185b0a8c2e7aaf4a9a8b551bab394116430a8).
+- Install hub needs to be skipped if all spokes are completed on a kickstart install.
+  How to handle the fact that spokes may only be ready once they're finished downloading?
+- Keyboard spoke needs to look at ksdata when setting itself up.
 - Language spoke off the first hub needs to be written.
 - Make sure proxy info makes it into ksdata (from pyanaconda/ui/gui/source.py).
-- Network spoke needs apply method.
+- Network spoke needs apply method and to look at ksdata when setting itself up.
+- NetworkStandaloneSpoke needs completed method and to look at ksdata when setting itself up.
 - Pressing Continue on the partitioning screen can result in a long pause if package metadata is
   still being downloaded (waiting for lock).
+- Storage spoke needs to look at ksdata when setting itself up.
 - Test handling of inconsistent LVM/RAID, and uninitialized disks.
 - Update exception handling.  This requires updating python-meh to use gtk3,
   which also requires updating firstboot and s-c-ks to gtk3.  I want to turn
