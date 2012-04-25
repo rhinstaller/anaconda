@@ -188,3 +188,7 @@ run_kickstart() {
 wait_for_kickstart() {
     echo "[ -e /tmp/ks.cfg.done ]" > $hookdir/initqueue/finished/kickstart.sh
 }
+
+wait_for_updates() {
+    echo "[ -e /tmp/liveupdates.done ]" > $hookdir/initqueue/finished/updates.sh
+}
