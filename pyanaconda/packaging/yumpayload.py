@@ -928,6 +928,7 @@ reposdir=%s
                 if errorHandler.cb(exn) == ERROR_RAISE:
                     raise exn
             else:
+                log.info("transaction complete")
                 self.install_log.write("*** FINISHED INSTALLING PACKAGES ***")
                 progress.send_step()
             finally:
@@ -968,6 +969,7 @@ class RPMCallback(object):
 
         self.total_actions = 0
         self.completed_actions = None   # will be set to 0 when starting tx
+        self.base_arch = iutil.getArch()
 
     def _get_txmbr(self, key):
         """ Return a (name, TransactionMember) tuple from cb key. """
@@ -1011,15 +1013,21 @@ class RPMCallback(object):
                     mode = _("Installing")
 
                 self.completed_actions += 1
-                pkg = "%s-%s.%s.%s" % (txmbr.name, txmbr.version,
-                                       txmbr.release, txmbr.arch)
-                msg = "%s %s (%d/%d)" % (mode, pkg,
-                                         self.completed_actions,
-                                         self.total_actions)
+                msg_format = "%s %s (%d/%d)"
+                progress_package = txmbr.name
+                if txmbr.arch not in ["noarch", self.base_arch]:
+                    progress_package = "%s.%s" % (txmbr.name, txmbr.arch)
+
+                progress_msg =  msg_format % (mode, progress_package,
+                                              self.completed_actions,
+                                              self.total_actions)
+                log_msg = msg_format % (mode, txmbr.po,
+                                        self.completed_actions,
+                                        self.total_actions)
                 self.install_log.write("%s %s\n" % (time.strftime("%H:%M:%S"),
-                                                    msg))
+                                                    log_msg))
                 self.install_log.flush()
-                progress.send_message(msg)
+                progress.send_message(progress_msg)
 
             self.package_file = None
             repo = self._yum.repos.getRepo(txmbr.po.repoid)
