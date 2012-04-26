@@ -1049,7 +1049,7 @@ class BootLoader(object):
         """ Write bootloader section of kickstart configuration. """
         if not self.stage1_device:
             location = "none\n"
-        elif self.stage1_device.isDisk:
+        elif self.stage1_device != self.stage2_device:
             location = "mbr"
         else:
             location = "partition"
