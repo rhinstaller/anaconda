@@ -76,7 +76,7 @@ class XklWrapper(object):
         variants = list()
 
         if subitem:
-            name = item_str(subitem.name)
+            name = item_str(item.name) + " (" + item_str(subitem.name) + ")"
             description = item_str(subitem.description)
         else:
             name = item_str(item.name)
