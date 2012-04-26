@@ -726,6 +726,8 @@ if __name__ == "__main__":
     # parse (not execute) kickstart now, the ks commands can affect things like
     # UI interface type or enabling rescue mode
     if opts.ksfile:
+        flags.automatedInstall = True
+
         kickstart.preScriptPass(anaconda, opts.ksfile)
         ksdata = kickstart.parseKickstart(anaconda, opts.ksfile)
         if ksdata.rescue.rescue:

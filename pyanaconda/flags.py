@@ -74,6 +74,7 @@ class Flags:
 
     def __init__(self):
         self.__dict__['flags'] = {}
+        self.__dict__['flags']['automatedInstall'] = False
         self.__dict__['flags']['test'] = 0
         self.__dict__['flags']['livecdInstall'] = 0
         self.__dict__['flags']['dlabel'] = 0
