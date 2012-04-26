@@ -70,9 +70,10 @@ class Platform(object):
            all the methods in this class."""
         self.anaconda = anaconda
 
-        if flags.nogpt and "gpt" in self._disklabel_types and \
-           len(self._disklabel_types) > 1:
+        if flags.gpt and "gpt" in self._disklabel_types:
+            # move GPT to the top of the list
             self._disklabel_types.remove("gpt")
+            self._disklabel_types.insert(0, "gpt")
 
     @property
     def diskLabelTypes(self):
@@ -159,13 +160,12 @@ class X86(Platform):
                           "mdarray": Platform._boot_raid_description}
 
 
-    _disklabel_types = ["gpt", "msdos"]
+    _disklabel_types = ["msdos", "gpt"]
     # XXX hpfs, if reported by blkid/udev, will end up with a type of None
     _non_linux_format_types = ["vfat", "ntfs", "hpfs"]
 
     def __init__(self, anaconda):
         super(X86, self).__init__(anaconda)
-        self.blackListGPT()
 
     def setDefaultPartitioning(self):
         """Return the default platform-specific partitioning information."""
@@ -183,18 +183,6 @@ class X86(Platform):
             return 5000
         else:
             return 0
-
-    def blackListGPT(self):
-        """ Remove GPT disk label as an option on systems where their BIOS
-            doesn't boot from GPT labeled disks.
-
-            Currently this includes: Lenovo
-        """
-        if not os.path.isfile(DMI_CHASSIS_VENDOR):
-            return
-        buf = open(DMI_CHASSIS_VENDOR).read()
-        if "LENOVO" in buf.splitlines() and "gpt" in self._disklabel_types:
-            self._disklabel_types.remove("gpt")
 
 class EFI(Platform):
     _bootloaderClass = bootloader.EFIGRUB

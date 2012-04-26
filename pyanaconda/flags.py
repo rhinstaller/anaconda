@@ -67,7 +67,7 @@ class Flags(object):
         # do things like bogl on them.  this preserves what that
         # device is
         self.virtpconsole = None
-        self.nogpt = False
+        self.gpt = False
         # parse the boot commandline
         self.cmdline = BootArgs()
         # Lock it down: no more creating new flags!
@@ -85,8 +85,8 @@ class Flags(object):
         if not selinux.is_selinux_enabled():
             self.selinux = 0
 
-        if "nogpt" in self.cmdline:
-            self.nogpt = True
+        if "gpt" in self.cmdline:
+            self.gpt = True
 
 cmdline_files = ['/proc/cmdline', '/run/initramfs/etc/cmdline',
                  '/run/initramfs/etc/cmdline.d/*.conf', '/etc/cmdline']
