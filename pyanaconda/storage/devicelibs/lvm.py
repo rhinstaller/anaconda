@@ -150,7 +150,7 @@ def lvm(args):
                                  stdout = "/dev/tty5",
                                  stderr = "/dev/tty5")
     if ret:
-        raise LVMError(ret.stderr)
+        raise LVMError("running lvm " + " ".join(args) + " failed")
 
 def pvcreate(device):
     # we force dataalignment=1024k since we cannot get lvm to tell us what

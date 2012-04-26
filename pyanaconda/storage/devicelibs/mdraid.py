@@ -129,7 +129,7 @@ def mdadm(args):
                                  stdout = "/dev/tty5",
                                  stderr = "/dev/tty5")
     if ret:
-        raise MDRaidError(ret.stderr)
+        raise MDRaidError("running mdadm " + " ".join(args) + " failed")
 
 def mdcreate(device, level, disks, spares=0, metadataVer=None, bitmap=False):
     argv = ["--create", device, "--run", "--level=%s" % level]
