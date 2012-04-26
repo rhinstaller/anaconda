@@ -335,6 +335,15 @@ class Sparc(Platform):
         start /= long(1024 / disk.device.sectorSize)
         return start+1
 
+class ARM(Platform):
+    _bootloaderClass = bootloader.GRUB2
+    _boot_stage1_device_types = ["disk"]
+    _boot_mbr_description = N_("Master Boot Record")
+    _boot_descriptions = {"disk": _boot_mbr_description,
+                          "partition": Platform._boot_partition_description}
+
+    _disklabel_types = ["msdos"]
+
 def getPlatform(anaconda):
     """Check the architecture of the system and return an instance of a
        Platform subclass to match.  If the architecture could not be determined,
@@ -361,5 +370,7 @@ def getPlatform(anaconda):
             return EFI(anaconda)
     elif iutil.isX86():
         return X86(anaconda)
+    elif iutil.isARM():
+        return ARM(anaconda)
     else:
         raise SystemError, "Could not determine system architecture."

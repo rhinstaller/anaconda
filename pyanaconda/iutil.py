@@ -766,6 +766,9 @@ def isAlpha():
 def isSparc():
     return os.uname()[4].startswith('sparc')
 
+def isARM():
+    return os.uname()[4].startswith('arm')
+
 def getArch():
     if isX86(bits=32):
         return 'i386'
@@ -779,6 +782,8 @@ def getArch():
         return 'alpha'
     elif isSparc():
         return 'sparc'
+    elif isARM():
+        return 'arm'
     else:
         return os.uname()[4]
 
