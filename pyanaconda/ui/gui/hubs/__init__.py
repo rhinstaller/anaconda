@@ -24,6 +24,8 @@ _ = lambda x: gettext.ldgettext("anaconda", x)
 
 from gi.repository import GLib
 
+from pyanaconda.flags import flags
+
 from pyanaconda.ui.gui import UIObject
 from pyanaconda.ui.gui.categories import collect_categories
 from pyanaconda.ui.gui.spokes import StandaloneSpoke, collect_spokes
@@ -74,6 +76,7 @@ class Hub(UIObject):
         """
         UIObject.__init__(self, data)
 
+        self._autoContinue = False
         self._incompleteSpokes = []
         self._spokes = {}
 
@@ -201,7 +204,12 @@ class Hub(UIObject):
             self.window.clear_info()
             self.continueButton.set_sensitive(True)
         else:
-            self.window.set_info(Gtk.MessageType.WARNING, _("Please complete items marked with this icon before continuing to the next step."))
+            if flags.automatedInstall:
+                msg = _("When all items marked with this icon are complete, installation will automatically continue.")
+            else:
+                msg = _("Please complete items marked with this icon before continuing to the next step.")
+
+            self.window.set_info(Gtk.MessageType.WARNING, msg)
             self.continueButton.set_sensitive(False)
 
     def _update_spokes(self):
@@ -225,6 +233,13 @@ class Hub(UIObject):
 
             if code in [communication.HUB_CODE_READY, communication.HUB_CODE_NOT_READY]:
                 self._updateCompleteness(spoke)
+
+                # If this is a real kickstart install (the kind with an input ks file)
+                # and all spokes are now completed, we should skip ahead to the next
+                # hub automatically.  Take into account the possibility the user is
+                # viewing a spoke right now, though.
+                if flags.automatedInstall and len(self._incompleteSpokes) == 0:
+                    self._autoContinue = True
             elif code == communication.HUB_CODE_MESSAGE:
                 spoke.selector.set_property("status", args[1])
 
@@ -273,3 +288,11 @@ class Hub(UIObject):
             spoke.skipTo = None
 
             self._on_spoke_clicked(self._spokes[dest].selector, None, self._spokes[dest])
+
+        # On automated kickstart installs, our desired behavior is to display
+        # the hub while background processes work, then skip to the progress
+        # hub immediately after everything's done.  However, this allows for
+        # the possibility that the user will be on a hub when everything
+        # finishes.  We need to wait until they're done, and then continue.
+        if self._autoContinue:
+            self.continueButton.emit("clicked")

@@ -71,6 +71,13 @@ class GraphicalUserInterface(UserInterface):
         for klass in actionClasses:
             obj = klass(data, self.storage, self.payload, self.instclass)
 
+            # If we are doing a kickstart install, some standalone spokes
+            # could already be filled out.  In taht case, we do not want
+            # to display them.
+            if isinstance(obj, StandaloneSpoke) and obj.completed:
+                del(obj)
+                continue
+
             obj.register_event_cb("continue", self._on_continue_clicked)
             obj.register_event_cb("quit", self._on_quit_clicked)
 
