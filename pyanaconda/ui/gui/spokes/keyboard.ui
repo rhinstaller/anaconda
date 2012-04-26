@@ -116,7 +116,7 @@
                       </object>
                     </child>
                     <child>
-                      <object class="GtkTreeViewColumn" id="name">
+                      <object class="GtkTreeViewColumn" id="newLayoutColumn">
                         <property name="title" translatable="yes">Name</property>
                         <property name="expand">True</property>
                         <property name="sort_column_id">0</property>
@@ -255,13 +255,13 @@ any layout to the top of the list to select it as the default.</property>
                                   </object>
                                 </child>
                                 <child>
-                                  <object class="GtkTreeViewColumn" id="name1">
+                                  <object class="GtkTreeViewColumn" id="layoutColumn">
                                     <property name="title" translatable="yes">name</property>
                                     <property name="expand">True</property>
                                     <property name="clickable">True</property>
                                     <property name="sort_column_id">0</property>
                                     <child>
-                                      <object class="GtkCellRendererText" id="nameRenderer"/>
+                                      <object class="GtkCellRendererText" id="layoutRenderer"/>
                                       <attributes>
                                         <attribute name="text">0</attribute>
                                       </attributes>

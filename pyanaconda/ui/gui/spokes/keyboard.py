@@ -34,6 +34,10 @@ from pyanaconda import xklavier
 
 __all__ = ["KeyboardSpoke"]
 
+def _show_layout(column, renderer, model, itr, wrapper):
+    value = wrapper.name_to_show_str[model[itr][0]]
+    renderer.set_property("text", value)
+
 class AddLayoutDialog(UIObject):
     builderObjects = ["addLayoutDialog", "newLayoutStore", "newLayoutStoreFilter"]
     mainWidgetName = "addLayoutDialog"
@@ -44,7 +48,8 @@ class AddLayoutDialog(UIObject):
         UIObject.__init__(self, *args)
 
     def matches_entry(self, model, itr, user_data=None):
-        value = model.get_value(itr, 0)
+        value = model[itr][0]
+        value = self._xkl_wrapper.name_to_show_str[value]
         entry_text = self._entry.get_text()
         if entry_text is not None:
             entry_text = entry_text.lower()
@@ -68,6 +73,13 @@ class AddLayoutDialog(UIObject):
         self._entry.grab_focus()
 
     def initialize(self):
+        # We want to store layouts' names but show layouts as
+        # 'language (description)'.
+        layoutColumn = self.builder.get_object("newLayoutColumn")
+        layoutRenderer = self.builder.get_object("newLayoutRenderer")
+        layoutColumn.set_cell_data_func(layoutRenderer, _show_layout,
+                                            self._xkl_wrapper)
+
         self._store = self.builder.get_object("newLayoutStore")
         for layout in self._xkl_wrapper.get_available_layouts():
             self._addLayout(self._store, layout)
@@ -131,15 +143,22 @@ class KeyboardSpoke(NormalSpoke):
     @property
     def status(self):
         # We don't need to check that self._store is empty, because that isn't allowed.
-        return self._store[0][0]
+        return self._xkl_wrapper.name_to_show_str[self._store[0][0]]
 
     def initialize(self):
         NormalSpoke.initialize(self)
 
+        # We want to store layouts' names but show layouts as
+        # 'language (description)'.
+        layoutColumn = self.builder.get_object("layoutColumn")
+        layoutRenderer = self.builder.get_object("layoutRenderer")
+        layoutColumn.set_cell_data_func(layoutRenderer, _show_layout,
+                                            self._xkl_wrapper)
+
         self._store = self.builder.get_object("addedLayoutStore")
-        self._addLayout(self._store, "English (US)")
-        self._addLayout(self._store, "Irish")
-        self._addLayout(self._store, "English (US, with some other stuff)")
+        self._addLayout(self._store, "us")
+        self._addLayout(self._store, "ie")
+        self._addLayout(self._store, "cz (qwerty)")
 
     def refresh(self):
         NormalSpoke.refresh(self)
@@ -245,17 +264,13 @@ class KeyboardSpoke(NormalSpoke):
     def on_preview_clicked(self, button):
         selection = self.builder.get_object("layoutSelection")
         (store, cur) = selection.get_selected()
-        layout_description = store[cur]
-        if not layout_description:
-            return
-
-        layout_name = self._xkl_wrapper.description_to_name.get(layout_description[0], None)
-        if not layout_name:
+        layout_row = store[cur]
+        if not layout_row:
             return
 
         dialog = Gkbd.KeyboardDrawing.dialog_new()
         Gkbd.KeyboardDrawing.dialog_set_layout(dialog, self._xkl_wrapper.configreg,
-                                               layout_name)
+                                               layout_row[0])
         with enlightbox(self.window, dialog):
             dialog.show_all()
             dialog.run()
@@ -290,3 +305,4 @@ class KeyboardSpoke(NormalSpoke):
         else:
             self._upButton.set_sensitive(True)
             self._downButton.set_sensitive(True)
+
