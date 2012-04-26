@@ -323,6 +323,9 @@ reposdir=%s
 
         if BASE_REPO_NAME not in self._yum.repos.repos.keys():
             log.info("using default repos from local yum configuration")
+            if self._yum.conf.yumvar['releasever'] == "rawhide" and \
+               "rawhide" in self.repos:
+                self.enableRepo("rawhide")
 
         # set up addon repos
         # FIXME: driverdisk support
@@ -343,8 +346,9 @@ reposdir=%s
 
                 - always remove
                     - source, debuginfo
-                - remove if isFinal
+                - disable if isFinal
                     - rawhide, development
+                - disable all other built-in repos if rawhide is enabled
                 - remove any repo when not isFinal and repo not enabled
                 - if a base repo is defined, disable any repo not defined by
                   the user that is not the base repo
@@ -358,9 +362,13 @@ reposdir=%s
             if "-source" in repo.id or "-debuginfo" in repo.id:
                 self._removeYumRepo(repo.id)
             elif isFinal and ("rawhide" in repo.id or "development" in repo.id):
+                # XXX the "development" part seems a bit heavy handed
                 self._removeYumRepo(repo.id)
-            elif not isFinal and not repo.enabled:
-                self._removeYumRepo(repo.id)
+            elif self._yum.conf.yumvar['releasever'] == "rawhide" and \
+                 "rawhide" in self.repos and \
+                 self._yum.repos.getRepo("rawhide").enabled and \
+                 repo.id != "rawhide":
+                self.disableRepo(repo.id)
             elif self.data.method.method and \
                  repo.id != BASE_REPO_NAME and \
                  repo.id not in [r.name for r in self.data.repo.dataList()]:
