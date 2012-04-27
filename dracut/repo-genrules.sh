@@ -14,6 +14,6 @@ case "$root" in
     # special catch-all rule for CDROMs
     echo 'ENV{ID_CDROM}=="1",' \
            'RUN+="/sbin/initqueue --settled --onetime' \
-             '/sbin/anaconda-diskroot $env{DEVNAME}"\n' >> $rulesfile
+             '/sbin/anaconda-diskroot $env{DEVNAME}"' >> $rulesfile
   ;;
 esac
