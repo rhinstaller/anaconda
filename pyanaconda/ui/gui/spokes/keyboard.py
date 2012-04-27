@@ -43,9 +43,9 @@ class AddLayoutDialog(UIObject):
     mainWidgetName = "addLayoutDialog"
     uiFile = "spokes/keyboard.ui"
 
-    def __init__(self, xkl_wrapper, *args):
-        self._xkl_wrapper = xkl_wrapper
+    def __init__(self, *args):
         UIObject.__init__(self, *args)
+        self._xkl_wrapper = xklavier.XklWrapper.get_instance()
 
     def matches_entry(self, model, itr, user_data=None):
         value = model[itr][0]
@@ -128,7 +128,7 @@ class KeyboardSpoke(NormalSpoke):
     def __init__(self, *args):
         NormalSpoke.__init__(self, *args)
         self._remove_last_attempt = False
-        self._xkl_wrapper = xklavier.XklWrapper()
+        self._xkl_wrapper = xklavier.XklWrapper.get_instance()
 
     def apply(self):
         self.data.keyboard.keyboard = None
@@ -179,7 +179,7 @@ class KeyboardSpoke(NormalSpoke):
 
     # Signal handlers.
     def on_add_clicked(self, button):
-        dialog = AddLayoutDialog(self._xkl_wrapper, self.data)
+        dialog = AddLayoutDialog(self.data)
         dialog.refresh()
         dialog.initialize()
 

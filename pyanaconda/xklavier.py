@@ -51,7 +51,23 @@ class _Layout(object):
         return self.desc
 
 class XklWrapper(object):
-    """Class wrapping the libxklavier functionality"""
+    """
+    Class wrapping the libxklavier functionality
+
+    Use this class as a singleton class because it provides read-only data
+    and initialization (that takes quite a lot of time) reads always the
+    same data. It doesn't have sense to make multiple instances
+
+    """
+
+    _instance = None
+
+    @staticmethod
+    def get_instance():
+        if not XklWrapper._instance:
+            XklWrapper._instance = XklWrapper()
+
+        return XklWrapper._instance
 
     def __init__(self):
         #initialize Xkl-related stuff
