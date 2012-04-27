@@ -1,5 +1,7 @@
 #!/bin/bash
 
+command -v unpack_img >/dev/null || . /lib/img-lib.sh
+
 # config_get SECTION KEY < FILE
 # read an .ini-style config file, find the KEY in the given SECTION, and return
 # the value provided for that key.
@@ -48,14 +50,16 @@ rulesfile="/etc/udev/rules.d/90-anaconda.rules"
 # try to find a usable runtime image from the repo mounted at $mnt.
 # if successful, move the mount(s) to $repodir/$isodir.
 anaconda_live_root_dir() {
-    local img="" iso="" mnt="$1" path="$2"; shift 2
+    local img="" iso="" srcdir="" mnt="$1" path="$2"; shift 2
     img=$(find_runtime $mnt/$path)
     if [ -n "$img" ]; then
         info "anaconda: found $img"
         [ "$mnt" = "$repodir" ] || mount --move $mnt $repodir
+        anaconda_auto_updates $repodir/$path/images
     else
         if [ "${path%.iso}" != "$path" ]; then
             iso=$path
+            path=${path%/*.iso}
         else
             iso=$(find_iso $mnt/$path)
         fi
@@ -65,6 +69,7 @@ anaconda_live_root_dir() {
         iso=${isodir}/${iso#$mnt}
         mount -o loop,ro $iso $repodir
         img=$(find_runtime $repodir) || { warn "$iso has no suitable runtime"; }
+        anaconda_auto_updates $isodir/$path/images
     fi
     # FIXME: make rd.live.ram clever enough to do this for us
     if [ "$1" = "--copy-to-ram" ]; then
@@ -76,6 +81,31 @@ anaconda_live_root_dir() {
         [ -n "$iso" ] && umount $isodir
     fi
     [ -e "$img" ] && /sbin/dmsquash-live-root $img
+}
+
+# find updates.img/product.img/RHUpdates and unpack/copy them so they'll
+# end up in the location(s) that anaconda expects them
+anaconda_auto_updates() {
+    local dir="$1"
+    if [ -d $dir/RHupdates ]; then
+        copytree $dir/RHupdates /updates
+    fi
+    if [ -e $dir/updates.img ]; then
+        unpack_updates_img $dir/updates.img /updates
+    fi
+    if [ -e $dir/product.img ]; then
+        unpack_updates_img $dir/product.img /updates/tmp/product
+    fi
+}
+
+# Unpack an image into the given dir.
+unpack_updates_img() {
+    local img="$1" tmpdir="/tmp/${1##*/}.$$" outdir="${2:+/updates}"
+    # NOTE: unpack_img $img $outdir can clobber existing subdirs in $outdir,
+    # which is why we use a tmpdir and copytree (which doesn't clobber)
+    unpack_img $img $tmpdir
+    copytree $tmpdir $outdir
+    rm -rf $tmpdir
 }
 
 # These could probably be in dracut-lib or similar
