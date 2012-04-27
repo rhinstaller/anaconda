@@ -80,6 +80,12 @@ anaconda_live_root_dir() {
 
 # These could probably be in dracut-lib or similar
 
+copytree() {
+    local src="$1" dest="$2"
+    mkdir -p "$dest"; dest=$(readlink -f -q "$dest")
+    ( cd "$src"; cp -a . -t "$dest" )
+}
+
 disk_to_dev_path() {
     case "$1" in
         CDLABEL=*|LABEL=*) echo "/dev/disk/by-label/${1#*LABEL=}" ;;
@@ -89,7 +95,7 @@ disk_to_dev_path() {
     esac
 }
 
-dev_is_mounted() {
+find_mount() {
     local dev mnt etc wanted_dev="$(readlink -e -q $1)"
     while read dev mnt etc; do
         [ "$dev" = "$wanted_dev" ] && echo $mnt && return 0

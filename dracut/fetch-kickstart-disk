@@ -11,7 +11,7 @@ path="${2:-/ks.cfg}"
 [ -b "$dev" ] || exit 1
 
 info "anaconda: fetching kickstart from $dev:$path"
-mnt="$(dev_is_mounted $dev)"
+mnt="$(find_mount $dev)"
 
 if [ -n "$mnt" ]; then
     cp $mnt$path /tmp/ks.cfg
