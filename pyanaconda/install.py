@@ -23,6 +23,11 @@
 from pyanaconda.constants import ROOT_PATH
 from pyanaconda.errors import errorHandler
 from pyanaconda.storage import turnOnFilesystems
+from pyanaconda.bootloader import writeBootLoader
+from pyanaconda.progress import progress_report
+
+import gettext
+_ = lambda x: gettext.ldgettext("anaconda", x)
 
 def _writeKS(ksdata):
     import os
@@ -53,7 +58,7 @@ def doInstall(storage, payload, ksdata, instClass):
     steps = len(storage.devicetree.findActions(type="create", object="format")) + \
             len(storage.devicetree.findActions(type="resize", object="format")) + \
             len(storage.devicetree.findActions(type="migrate", object="format"))
-    steps += 2  # package install setup, package install
+    steps += 4  # packages setup, packages, bootloader, post install
     progress.send_init(steps)
 
     # Do partitioning.
@@ -62,7 +67,13 @@ def doInstall(storage, payload, ksdata, instClass):
     # Do packaging.
     payload.preInstall(packages=storage.packages)
     payload.install()
-    payload.postInstall()
+
+    with progress_report(_("Performing post-install setup tasks")):
+        payload.postInstall()
+
+    # Do bootloader.
+    with progress_report(_("Installing bootloader")):
+        writeBootLoader(storage, payload)
 
     # Write the kickstart file to the installed system (or, copy the input
     # kickstart file over if one exists).

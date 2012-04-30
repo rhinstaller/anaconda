@@ -31,7 +31,7 @@ from packages import setupTimezone
 from storage import storageInitialize
 from storage import storageComplete
 from storage.partitioning import doAutoPartition
-from bootloader import writeBootloader
+from bootloader import writeBootLoader
 from flags import flags
 from upgrade import upgradeMountFilesystems
 from upgrade import restoreTime
@@ -282,7 +282,7 @@ class Dispatcher(object):
         self.add_step("postinstallconfig", doPostInstall)
         self.add_step("writeconfig", writeConfiguration)
         self.add_step("firstboot", firstbootConfiguration)
-        self.add_step("instbootloader", writeBootloader)
+        self.add_step("instbootloader", writeBootLoader)
         self.add_step("reipl", doReIPL)
         self.add_step("methodcomplete", doMethodComplete)
         self.add_step("postscripts", runPostScripts)

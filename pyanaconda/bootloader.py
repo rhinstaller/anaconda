@@ -1863,112 +1863,109 @@ class SILO(YabootSILOBase):
 
 # anaconda-specific functions
 
-def writeSysconfigKernel(anaconda, default_kernel):
+def writeSysconfigKernel(storage, version):
+    # get the name of the default kernel package based on the version
+    kernel_basename = "vmlinuz-" + version
+    kernel_file = "/boot/%s" % kernel_basename
+    if not os.path.isfile(ROOT_PATH + kernel_file):
+        kernel_file = "/boot/efi/EFI/redhat/%s" % kernel_basename
+        if not os.path.isfile(ROOT_PATH + kernel_file):
+            log.error("failed to recreate path to default kernel image")
+            return
+
+    try:
+        import rpm
+    except ImportError:
+        log.error("failed to import rpm python module")
+        return
+
+    ts = rpm.TransactionSet(ROOT_PATH)
+    mi = ts.dbMatch('basenames', kernel_file)
+    try:
+        h = mi.next()
+    except StopIteration:
+        log.error("failed to get package name for default kernel")
+        return
+
+    kernel = h.name
+
     f = open(ROOT_PATH + "/etc/sysconfig/kernel", "w+")
     f.write("# UPDATEDEFAULT specifies if new-kernel-pkg should make\n"
             "# new kernels the default\n")
     # only update the default if we're setting the default to linux (#156678)
-    if anaconda.bootloader.default.device == anaconda.storage.rootDevice:
+    if storage.bootloader.default.device == storage.rootDevice:
         f.write("UPDATEDEFAULT=yes\n")
     else:
         f.write("UPDATEDEFAULT=no\n")
     f.write("\n")
     f.write("# DEFAULTKERNEL specifies the default kernel package type\n")
-    f.write("DEFAULTKERNEL=%s\n" % default_kernel)
+    f.write("DEFAULTKERNEL=%s\n" % kernel)
     f.close()
 
-
-def writeBootloader(anaconda):
+def writeBootLoader(storage, payload):
     """ Write bootloader configuration to disk.
 
         When we get here, the bootloader will already have a default linux
         image. We only have to add images for the non-default kernels and
         adjust the default to reflect whatever the default variant is.
     """
+    from pyanaconda.errors import *
 
-    # TODO: Verify the bootloader configuration has all it needs.
-    #
-    #       - zipl doesn't need to have a stage1 device set.
-    #       - Isn't it possible for stage1 to be unset on iSeries if not using
-    #         yaboot? If so, presumably they told us not to install any
-    #         bootloader.
-    stage1_device = anaconda.bootloader.stage1_device
+    stage1_device = storage.bootloader.stage1_device
     log.info("bootloader stage1 target device is %s" % stage1_device.name)
-    stage2_device = anaconda.bootloader.stage2_device
+    stage2_device = storage.bootloader.stage2_device
     log.info("bootloader stage2 target device is %s" % stage2_device.name)
 
-    w = None
-    if anaconda.intf:
-        w = anaconda.intf.waitWindow(_("Bootloader"),
-                                     _("Installing bootloader."))
-
     # get a list of installed kernel packages
-    kernel_versions = anaconda.backend.kernelVersionList()
+    kernel_versions = payload.kernelVersionList
     if not kernel_versions:
         log.warning("no kernel was installed -- bootloader config unchanged")
-        if anaconda.intf:
-            anaconda.intf.messageWindow(_("Warning"),
-                        _("No kernel packages were installed on the system. "
-                          "Bootloader configuration will not be changed."))
         return
+
+    # all the linux images' labels are based on the default image's
+    base_label = productName
+    base_short_label = "linux"
 
     # The first one is the default kernel. Update the bootloader's default
     # entry to reflect the details of the default kernel.
-    (version, arch, nick) = kernel_versions.pop(0)
-    default_image = LinuxBootLoaderImage(device=anaconda.storage.rootDevice,
+    version = kernel_versions.pop(0)
+    default_image = LinuxBootLoaderImage(device=storage.rootDevice,
                                          version=version,
-                                         label=productName,
-                                         short="linux")
-    anaconda.bootloader.add_image(default_image)
-    anaconda.bootloader.default = default_image
+                                         label=base_label,
+                                         short=base_short_label)
+    storage.bootloader.add_image(default_image)
+    storage.bootloader.default = default_image
 
-    # all the linux images' labels are based on the default image's
-    base_label = default_image.label
-    base_short = default_image.short_label
-
-    # get the name of the default kernel package for use in
-    # /etc/sysconfig/kernel
-    default_kernel = "kernel"
-    if nick != "base":
-        default_kernel += "-%s" % nick
+    # write out /etc/sysconfig/kernel
+    writeSysconfigKernel(storage, version)
 
     # now add an image for each of the other kernels
-    used = ["base"]
-    for (version, arch, nick) in kernel_versions:
-        if nick in used:
-            nick += "-%s" % version
-
-        used.append(nick)
-        label = "%s-%s" % (base_label, nick)
-        short = "%s-%s" % (base_short, nick)
-        if anaconda.bootloader.trusted_boot:
+    for version in kernel_versions:
+        label = "%s-%s" % (base_label, version)
+        short = "%s-%s" % (base_short_label, version)
+        if storage.bootloader.trusted_boot:
             image = TbootLinuxBootLoaderImage(
-                                         device=anaconda.storage.rootDevice,
+                                         device=storage.rootDevice,
                                          version=version,
                                          label=label, short=short)
         else:
-            image = LinuxBootLoaderImage(device=anaconda.storage.rootDevice,
+            image = LinuxBootLoaderImage(device=storage.rootDevice,
                                          version=version,
                                          label=label, short=short)
-        anaconda.bootloader.add_image(image)
-
-    # write out /etc/sysconfig/kernel
-    writeSysconfigKernel(anaconda, default_kernel)
+        storage.bootloader.add_image(image)
 
     # set up dracut/fips boot args
-    anaconda.bootloader.set_boot_args(keyboard=anaconda.keyboard,
-                                      storage=anaconda.storage,
-                                      language=anaconda.instLanguage,
-                                      network=anaconda.network)
+    # XXX FIXME: do this from elsewhere?
+    #storage.bootloader.set_boot_args(keyboard=anaconda.keyboard,
+    #                                 storage=anaconda.storage,
+    #                                 language=anaconda.instLanguage,
+    #                                 network=anaconda.network)
+    storage.bootloader.set_boot_args(storage=storage,
+                                     payload=payload)
 
     try:
-        anaconda.bootloader.write()
+        storage.bootloader.write()
     except BootLoaderError as e:
-        if anaconda.intf:
-            anaconda.intf.messageWindow(_("Warning"),
-                            _("There was an error installing the bootloader.  "
-                              "The system may not be bootable."))
-    finally:
-        if w:
-            w.pop()
+        if errorHandler.cb(e) == ERROR_RAISE:
+            raise
 

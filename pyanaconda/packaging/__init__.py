@@ -120,6 +120,7 @@ class Payload(object):
     def __init__(self, data):
         self.data = data
         self.proxy = None
+        self._kernelVersionList = []
 
     def setup(self, storage):
         """ Do any payload-specific setup. """
@@ -320,7 +321,24 @@ class Payload(object):
 
     @property
     def kernelVersionList(self):
-        raise NotImplementedError()
+        if not self._kernelVersionList:
+            import glob
+            try:
+                from yum.rpmUtils.miscutils import compareVerOnly
+            except ImportError:
+                cmpfunc = cmp
+            else:
+                cmpfunc = compareVerOnly
+
+            files = glob.glob(ROOT_PATH + "/boot/vmlinuz-*")
+            files.extend(glob.glob(ROOT_PATH + "/boot/efi/EFI/redhat/vmlinuz-*"))
+            # strip off everything up to and including vmlinuz- to get versions
+            versions = [f.split("/")[-1][8:] for f in files if os.path.isfile(f)]
+            versions.sort(cmp=cmpfunc)
+            log.debug("kernel versions: %s" % versions)
+            self._kernelVersionList = versions
+
+        return self._kernelVersionList
 
     ##
     ## METHODS FOR TREE VERIFICATION
@@ -523,6 +541,24 @@ class Payload(object):
         if os.path.islink(symlink_path):
             os.unlink(symlink_path)
         os.symlink('/usr/lib/systemd/system/' + default_target, symlink_path)
+
+    def dracutSetupArgs(self):
+        args = []
+        try:
+            import rpm
+        except ImportError:
+            pass
+        else:
+            iutil.resetRpmDb()
+            ts = rpm.TransactionSet(ROOT_PATH)
+
+            # Only add "rhgb quiet" on non-s390, non-serial installs
+            if iutil.isConsoleOnVirtualTerminal() and \
+               (ts.dbMatch('provides', 'rhgb').count() or \
+                ts.dbMatch('provides', 'plymouth').count()):
+                args.extend(["rhgb", "quiet"])
+
+        return args
 
     def postInstall(self):
         """ Perform post-installation tasks. """
