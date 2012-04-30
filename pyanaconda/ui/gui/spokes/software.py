@@ -61,6 +61,14 @@ class SoftwareSelectionSpoke(NormalSpoke):
         for group in self.selectedGroups:
             self.payload.selectGroup(group)
 
+        # select some stuff people will want with their desktop
+        # XXX this is only a placeholder until the new group metadata is in
+        #     place
+        if row[2] != "base":
+            groups = ['base-x', 'fonts']
+            for group in [g for g in groups if g not in self.excludedGroups]:
+                self.payload.selectGroup(group)
+
     @property
     def completed(self):
         return self._get_selected_desktop() is not None
