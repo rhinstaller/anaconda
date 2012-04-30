@@ -593,9 +593,14 @@ class ArchivePayload(ImagePayload):
 
 class PackagePayload(Payload):
     """ A PackagePayload installs a set of packages onto the target system. """
-    def preInstall(self, packages=None):
-        # TODO: kernel selection
-        super(PackagePayload, self).preInstall(packages=packages)
+    @property
+    def kernelPackages(self):
+        from pyanaconda.isys import isPaeAvailable
+        kernels = ["kernel"]
+        if isPaeAvailable():
+            kernels.insert(0, "kernel-PAE")
+
+        return kernels
 
 def payloadInitialize(storage, ksdata, payload):
     from pyanaconda.kickstart import selectPackages

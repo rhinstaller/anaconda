@@ -790,6 +790,8 @@ reposdir=%s
         for group in self.data.packages.excludedGroupList:
             self._deselectYumGroup(group.name)
 
+        self.selectKernelPackage()
+
     def checkSoftwareSelection(self):
         log.info("checking software selection")
 
@@ -840,6 +842,35 @@ reposdir=%s
             # check free space (?)
 
             self._removeTxSaveFile()
+
+    def selectKernelPackage(self):
+        kernels = self.kernelPackages
+        selected = None
+        # XXX This is optimistic. I'm curious if yum will DTRT if I just say
+        #     "select this kernel" without jumping through hoops to figure out
+        #     which arch it should use.
+        for kernel in kernels:
+            try:
+                # XXX might need explicit arch specification
+                self._selectYumPackage(kernel)
+            except NoSuchPackage as e:
+                log.info("no %s package" % kernel)
+                continue
+            else:
+                log.info("selected %s" % kernel)
+                selected = kernel
+                # select module packages for this kernel
+
+                # select the devel package if gcc will be installed
+                if self._yum.tsInfo.matchNaevr(name="gcc"):
+                    log.info("selecting %s-devel" % kernel)
+                    # XXX might need explicit arch specification
+                    self._selectYumPackage("%s-devel" % kernel)
+
+                break
+
+        if not selected:
+            log.error("failed to select a kernel from %s" % kernels)
 
     def preInstall(self, packages=None):
         """ Perform pre-installation tasks. """
