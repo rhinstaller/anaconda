@@ -250,6 +250,8 @@ def turnOnFilesystems(storage, errorcb=None):
         storage.mountFilesystems(raiseErrors=False,
                                  readOnly=False,
                                  skipRoot=False)
+        storage.write()
+        writeEscrowPackets(storage)
     else:
         if upgrade_migrate:
             # we should write out a new fstab with the migrated fstype
@@ -260,18 +262,15 @@ def turnOnFilesystems(storage, errorcb=None):
         # and make sure /dev is mounted so we can read the bootloader
         bindMountDevDirectory(ROOT_PATH)
 
-def writeEscrowPackets(anaconda):
+def writeEscrowPackets(storage):
     escrowDevices = filter(lambda d: d.format.type == "luks" and \
                                      d.format.escrow_cert,
-                           anaconda.storage.devices)
+                           storage.devices)
 
     if not escrowDevices:
         return
 
     log.debug("escrow: writeEscrowPackets start")
-
-    wait_win = anaconda.intf.waitWindow(_("Running..."),
-                                        _("Storing encryption keys"))
 
     nss.nss.nss_init_nodb() # Does nothing if NSS is already initialized
 
@@ -283,15 +282,9 @@ def writeEscrowPackets(anaconda):
             device.format.escrow(ROOT_PATH + "/root",
                                  backupPassphrase)
 
-        wait_win.pop()
     except (IOError, RuntimeError) as e:
-        wait_win.pop()
-        anaconda.intf.messageWindow(_("Error"),
-                                    _("Error storing an encryption key: "
-                                      "%s\n") % str(e), type="custom",
-                                    custom_icon="error",
-                                    custom_buttons=[_("_Exit installer")])
-        sys.exit(1)
+        # TODO: real error handling
+        log.error("failed to store encryption key: %s" % e)
 
     log.debug("escrow: writeEscrowPackets done")
 
@@ -1265,6 +1258,9 @@ class Storage(object):
         return pkgs
 
     def write(self):
+        if not os.path.isdir("%s/etc" % ROOT_PATH):
+            os.mkdir("%s/etc" % ROOT_PATH)
+
         self.fsset.write()
         self.makeMtab()
         self.iscsi.write(self)
