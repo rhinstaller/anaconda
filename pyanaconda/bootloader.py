@@ -1762,12 +1762,13 @@ class GRUB2(GRUB):
         header.write("cat << EOF\n")
         # XXX FIXME: document somewhere that the username is "root"
         header.write("set superusers=\"root\"\n")
+        header.write("export superusers\n")
         self._encrypt_password()
         password_line = "password_pbkdf2 root " + self.encrypted_password
         header.write("%s\n" % password_line)
         header.write("EOF\n")
         header.close()
-        os.chmod(users_file, 0755)
+        os.chmod(users_file, 0700)
 
     def write_config(self):
         self.write_config_console(None)
