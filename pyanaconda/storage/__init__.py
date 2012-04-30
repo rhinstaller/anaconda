@@ -1249,6 +1249,21 @@ class Storage(object):
         with contextlib.closing(shelve.open(self._dumpFile)) as shelf:
             shelf[key] = [d.dict for d in self.devices]
 
+    @property
+    def packages(self):
+        pkgs = []
+        if self.platform:
+            pkgs.extend(self.platform.packages)
+
+        if self.bootloader:
+            pkgs.extend(self.bootloader.packages)
+
+        for device in self.fsset.devices:
+            # this takes care of device and filesystem packages
+            pkgs.extend(device.packages)
+
+        return pkgs
+
     def write(self):
         self.fsset.write()
         self.makeMtab()

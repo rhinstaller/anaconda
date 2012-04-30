@@ -841,9 +841,9 @@ reposdir=%s
 
             self._removeTxSaveFile()
 
-    def preInstall(self):
+    def preInstall(self, packages=None):
         """ Perform pre-installation tasks. """
-        super(YumPayload, self).preInstall()
+        super(YumPayload, self).preInstall(packages=packages)
 
         self._writeInstallConfig()
         self.checkSoftwareSelection()
@@ -851,9 +851,7 @@ reposdir=%s
                  % (len(self._yum.tsInfo.getMembers()), self.spaceRequired))
 
         # doPreInstall
-        # create a bunch of directories like /var, /var/lib/rpm, /root, &c (?)
         # create mountpoints for protected device mountpoints (?)
-        # initialize the backend logger
         # write static configs (storage, modprobe.d/anaconda.conf, network, keyboard)
         #   on upgrade, just make sure /etc/mtab is a symlink to /proc/self/mounts
 

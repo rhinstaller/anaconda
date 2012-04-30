@@ -426,9 +426,8 @@ class Payload(object):
     ###
     ### METHODS FOR INSTALLING THE PAYLOAD
     ###
-    def preInstall(self):
+    def preInstall(self, packages=None):
         """ Perform pre-installation tasks. """
-        # XXX this should be handled already
         iutil.mkdirChain(ROOT_PATH + "/root")
 
         if self.data.upgrade.upgrade:
@@ -451,6 +450,9 @@ class Payload(object):
         except OSError:
             pass
         instlog.start(ROOT_PATH, syslogname)
+
+        if packages is not None:
+            map(self.selectPackage, packages)
 
     def install(self):
         """ Install the payload. """
@@ -491,7 +493,9 @@ class ArchivePayload(ImagePayload):
 
 class PackagePayload(Payload):
     """ A PackagePayload installs a set of packages onto the target system. """
-    pass
+    def preInstall(self, packages=None):
+        # TODO: kernel selection
+        super(PackagePayload, self).preInstall(packages=packages)
 
 def payloadInitialize(storage, ksdata, payload):
     from pyanaconda.kickstart import selectPackages
