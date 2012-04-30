@@ -458,22 +458,86 @@ class Payload(object):
         """ Install the payload. """
         raise NotImplementedError()
 
+    def _copyDriverDiskFiles(self):
+        import glob
+        import shutil
+
+        new_firmware = False
+
+        # Multiple driver disks may be loaded, so we need to glob for all
+        # the firmware files in the common DD firmware directory
+        for f in glob.glob(DD_FIRMWARE+"/*"):
+            try:
+                shutil.copyfile(f, "%s/lib/firmware/" % ROOT_PATH)
+            except IOError as e:
+                log.error("Could not copy firmware file %s: %s" % (f, e.strerror))
+            else:
+                new_firmware = True
+
+        #copy RPMS
+        for d in glob.glob(DD_RPMS):
+            shutil.copytree(d, ROOT_PATH + "/root/" + os.path.basename(d))
+
+        #copy modules and firmware into root's home directory
+        if os.path.exists(DD_ALL):
+            try:
+                shutil.copytree(DD_ALL, ROOT_PATH + "/root/DD")
+            except IOError as e:
+                log.error("failed to copy driver disk files: %s" % e.strerror)
+                # XXX TODO: real error handling, as this is probably going to
+                #           prevent boot on some systems
+
+        if new_firmware:
+            for kernel in self.kernelVersionList:
+                log.info("recreating initrd for %s" % kernel)
+                iutil.execWithRedirect("new-kernel-pkg",
+                                       ["--mkinitrd", "--dracut",
+                                        "--depmod", "--install", kernel],
+                                       stdout="/dev/null",
+                                       stderr="/dev/null",
+                                       root=ROOT_PATH)
+
+    def _setDefaultBootTarget(self):
+        """ Set the default systemd target for the system. """
+        if not os.path.exists(ROOT_PATH + "/etc/systemd/system"):
+            log.error("systemd is not installed -- can't set default target")
+            return
+
+        try:
+            import rpm
+        except ImportError:
+            log.info("failed to import rpm -- defaulting to multi-user.target")
+            default_target = "multi-user.target"
+        else:
+            ts = rpm.TransactionSet(ROOT_PATH)
+
+            # XXX one day this might need to account for anaconda's display mode
+            if ts.dbMatch("provides", 'service(graphical-login)').count() and \
+               ts.dbMatch('provides', 'xorg-x11-server-Xorg').count() and \
+               not flags.usevnc:
+                default_target = "graphical.target"
+            else:
+                default_target = "multi-user.target"
+
+        symlink_path = ROOT_PATH + '/etc/systemd/system/default.target'
+        if os.path.islink(symlink_path):
+            os.unlink(symlink_path)
+        os.symlink('/usr/lib/systemd/system/' + default_target, symlink_path)
+
     def postInstall(self):
         """ Perform post-installation tasks. """
-        pass
 
-        # set default runlevel/target (?)
+        # set default systemd target
+        self._setDefaultBootTarget()
+
         # write out static config (storage, modprobe, keyboard, ??)
         #   kickstart should handle this before we get here
-        # copy firmware
-        # recreate initrd
-        #   postInstall or bootloader.install
-        # copy dd rpms (yum/rpm only?)
-        #   kickstart
-        # copy dd modules and firmware (yum/rpm only?)
-        #   kickstart
-        # write escrow packets
+
+        self._copyDriverDiskFiles()
+
         # stop logger
+        instlog.stop()
+
 
 class ImagePayload(Payload):
     """ An ImagePayload installs an OS image to the target system. """
