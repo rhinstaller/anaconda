@@ -249,6 +249,21 @@ update-desktop-database &> /dev/null || :
 /usr/lib/dracut/modules.d/80%{name}/*
 
 %changelog
+* Tue May 01 2012 Brian C. Lane <bcl@redhat.com> - 17.24-1
+- dracut: add anaconda_auto_updates() (product.img/updates.img) (#800107)
+  (wwoods)
+- dracut: support updates=hd:... (#807982) (wwoods)
+- dracut: add copytree, rename dev_is_mounted->find_mount (wwoods)
+- dracut: fix typo (stray '\n' in anaconda.rules) (wwoods)
+- Configure Mac bootloader (mjg)
+- Activate devices as needed when parsing /etc/fstab. (#813120) (dlehman)
+- We support resizing ntfs even though it is not supported. (#756319) (dlehman)
+- Fix the permissions on one of the files we write out. (#817171) (pjones)
+- Fix twisty logic around forcing text mode (#811868) (wwoods)
+- s390 systems are always headless (wwoods)
+- default to msdos disk labels (#816701) (bcl)
+- Wrong kickstart bootloader written (hamzy)
+
 * Thu Apr 26 2012 Brian C. Lane <bcl@redhat.com> - 17.23-1
 - Check /run/initramfs/live/ for packages (#806166) (bcl)
 - Add 'cms' dracut module on s390 (wwoods)
