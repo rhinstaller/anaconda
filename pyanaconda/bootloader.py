@@ -1575,6 +1575,19 @@ class EFIGRUB(GRUB):
         self.install()
         self.write_config()
 
+class MacEFIGRUB(EFIGRUB):
+    def mactel_config(self):
+        if os.path.exists(ROOT_PATH + "/usr/libexec/mactel-boot-setup"):
+            rc = iutil.execWithRedirect("/usr/libexec/mactel-boot-setup", [],
+                                        root=ROOT_PATH,
+                                        stdout="/dev/tty5", stderr="/dev/tty5")
+            if rc:
+                log.error("failed to configure Mac bootloader")
+
+    def install(self):
+        super(MacEFIGRUB, self).install()
+        self.mactel_config()
+
 class GRUB2(GRUB):
     """ GRUBv2
 
