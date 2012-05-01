@@ -219,6 +219,8 @@ class EFI(Platform):
             return 0
 
 class MacEFI(EFI):
+    _bootloaderClass = bootloader.MacEFIGRUB
+
     _boot_stage1_format_types = ["hfs+"]
     _boot_efi_description = N_("Apple EFI Boot Partition")
     _non_linux_format_types = ["hfs+"]
