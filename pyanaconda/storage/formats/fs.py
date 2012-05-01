@@ -152,7 +152,7 @@ class FS(DeviceFormat):
         self._size = kwargs.get("size", 0)
         self._minInstanceSize = None    # min size of this FS instance
         self._mountpoint = None     # the current mountpoint when mounted
-        if self.exists and self.supported:
+        if self.exists:
             self._size = self._getExistingSize()
             foo = self.minSize      # force calculation of minimum size
 
@@ -254,7 +254,8 @@ class FS(DeviceFormat):
         """
         size = self._size
 
-        if self.infofsProg and self.exists and not size:
+        if self.infofsProg and self.exists and not size and \
+           iutil.find_program_in_path(self.infofsProg):
             try:
                 values = []
                 argv = self._defaultInfoOptions + [ self.device ]
