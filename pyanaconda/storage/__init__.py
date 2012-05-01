@@ -2004,10 +2004,12 @@ class FSSet(object):
                                                                 fstype))
             raise UnrecognizedFSTabEntryError()
 
+        device.setup()
         fmt = getFormat(fstype, device=device.path, exists=True)
         if fstype != "auto" and None in (device.format.type, fmt.type):
             log.info("Unrecognized filesystem type for %s (%s)"
                      % (device.name, fstype))
+            device.teardown()
             raise UnrecognizedFSTabEntryError()
 
         # make sure, if we're using a device from the tree, that
@@ -2020,6 +2022,7 @@ class FSSet(object):
                 # XXX we should probably disallow migration for this fs
                 device.format = fmt
             else:
+                device.teardown()
                 raise FSTabTypeMismatchError("%s: detected as %s, fstab says %s"
                                              % (mountpoint, dtype, ftype))
         del ftype
