@@ -36,7 +36,7 @@ def item_str(s):
     i = s.find(b'\x00')
     return s[:i].decode("utf-8") #there are some non-ascii layout descriptions
 
-class _Variant(object):
+class _Layout(object):
     """Internal class representing a single layout variant"""
 
     def __init__(self, name, desc):
@@ -73,8 +73,6 @@ class XklWrapper(object):
         self.configreg.foreach_language(self._get_language_variants, None)
 
     def _get_variant(self, c_reg, item, subitem, user_data=None):
-        variants = list()
-
         if subitem:
             name = item_str(item.name) + " (" + item_str(subitem.name) + ")"
             description = item_str(subitem.description)
@@ -83,9 +81,7 @@ class XklWrapper(object):
             description = item_str(item.description)
 
         self.description_to_name[description] = name
-        variants.append(_Variant(name, description))
-
-        self._variants_list.append(variants)
+        self._variants_list.append(_Layout(name, description))
 
     def _get_language_variants(self, c_reg, item, user_data=None):
         #helper "global" variable
@@ -109,7 +105,6 @@ class XklWrapper(object):
         """A generator yielding layouts (no need to store them as a bunch)"""
 
         for (lang_name, lang_desc), variants in sorted(self._language_keyboard_variants.items()):
-            for variant in variants:
-                for layout in variant:
-                    yield "%s (%s)" % (lang_desc.encode("utf-8"), layout.description.encode("utf-8"))
+            for layout in variants:
+                yield "%s (%s)" % (lang_desc.encode("utf-8"), layout.description.encode("utf-8"))
 
