@@ -28,6 +28,7 @@ from pyanaconda.ui.gui.utils import enlightbox
 
 from pyanaconda.localization import Language, LOCALE_PREFERENCES
 from pyanaconda.product import productName, productVersion
+from pyanaconda import xklavier
 
 __all__ = ["WelcomeLanguageSpoke"]
 
@@ -38,14 +39,36 @@ class WelcomeLanguageSpoke(StandaloneSpoke):
     preForHub = SummaryHub
     priority = 0
 
+    def __init__(self, *args):
+        StandaloneSpoke.__init__(self, *args)
+        self._xklwrapper = xklavier.XklWrapper.get_instance()
+
     def apply(self):
         selected = self.builder.get_object("languageViewSelection")
         (store, itr) = selected.get_selected()
 
         lang = store[itr][2]
         self.language.select_translation(lang)
-
         self.data.lang.lang = lang
+
+        if self.data.keyboard.layouts_list:
+            #do not add layouts if there are any specified in the kickstart
+            return
+
+        #get language name without any additional specifications
+        #e.g. 'English (United States)' -> 'English'
+        lang_name = store[itr][1]
+        lang_name = lang_name.split()[0]
+
+        #add one language-related and 'English (US)' layouts by default
+        new_layouts = ['us']
+        language_layout = self._xklwrapper.get_default_language_layout(lang_name)
+        if language_layout:
+            new_layouts.append(language_layout)
+
+        for layout in new_layouts:
+            if layout not in self.data.keyboard.layouts_list:
+                self.data.keyboard.layouts_list.append(layout)
 
     @property
     def completed(self):

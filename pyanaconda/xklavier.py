@@ -105,7 +105,7 @@ class XklWrapper(object):
 
         c_reg.foreach_language_variant(lang_name, self._get_variant, lang_desc)
 
-        self._language_keyboard_variants[(lang_name, lang_desc)] = self._variants_list
+        self._language_keyboard_variants[lang_desc] = self._variants_list
 
     def _get_country_variants(self, c_reg, item, user_data=None):
         #helper "global" variable
@@ -119,7 +119,18 @@ class XklWrapper(object):
     def get_available_layouts(self):
         """A generator yielding layouts (no need to store them as a bunch)"""
 
-        for (lang_name, lang_desc), variants in sorted(self._language_keyboard_variants.items()):
+        for lang_desc, variants in sorted(self._language_keyboard_variants.items()):
             for layout in variants:
                 yield layout.name
+
+    def get_default_language_layout(self, language):
+        """Get the default layout for a given language"""
+
+        language_layouts = self._language_keyboard_variants.get(language, None)
+
+        if not language_layouts:
+            return None
+
+        #first layout (should exist for every language)
+        return language_layouts[0].name
 

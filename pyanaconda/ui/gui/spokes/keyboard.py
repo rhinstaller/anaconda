@@ -131,7 +131,12 @@ class KeyboardSpoke(NormalSpoke):
         self._xkl_wrapper = xklavier.XklWrapper.get_instance()
 
     def apply(self):
-        self.data.keyboard.keyboard = None
+        # Clear and repopulate self.data with actual values
+        self.data.keyboard.layouts_list = list()
+        itr = self._store.get_iter_first()
+        while itr:
+            self.data.keyboard.layouts_list.append(self._store[itr][0])
+            itr = self._store.iter_next(itr)
         # FIXME:  Set the keyboard layout here, too.
 
     @property
@@ -162,6 +167,11 @@ class KeyboardSpoke(NormalSpoke):
 
     def refresh(self):
         NormalSpoke.refresh(self)
+
+        # Clear and repopulate addedLayoutStore with values from self.data
+        self._store.clear()
+        for layout in self.data.keyboard.layouts_list:
+            self._addLayout(self._store, layout)
 
         self._upButton = self.builder.get_object("upButton")
         self._downButton = self.builder.get_object("downButton")
