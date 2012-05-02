@@ -96,27 +96,6 @@ def getDisks(devicetree, fake=False):
 
     return disks
 
-def get_free_space_info(disks, devicetree, clearPartType, clearPartDisks):
-    disk_free = 0
-    fs_free = 0
-    for disk in disks:
-        if not disk.partitioned:
-            continue
-
-        disk_free += disk.format.free
-
-        for partition in devicetree.getChildren(disk):
-            # only check actual filesystems since lvm &c require a bunch of
-            # operations to translate free filesystem space into free disk space
-            if shouldClear(partition, clearPartType, clearPartDisks):
-                disk_free += partition.size
-            elif hasattr(partition.format, "free"):
-                fs_free += partition.format.free
-
-    print("disks %s have %d free, plus %s in filesystems"
-          % ([d.name for d in disks], disk_free, fs_free))
-    return (disk_free, fs_free)
-
 def size_str(mb):
     if isinstance(mb, Size):
         spec = str(mb)
@@ -483,6 +462,7 @@ class StorageSpoke(NormalSpoke):
         free = 0
 
         overviews = self.local_disks_box.get_children()
+        free_space = self.storage.getFreeSpace(clearPartType=self.clearPartType)
         for overview in overviews:
             name = overview.get_property("popup-info").partition("|")[0].strip()
             selected = overview.get_chosen()
@@ -494,9 +474,7 @@ class StorageSpoke(NormalSpoke):
                         break
 
                 capacity += disk.size
-                free += get_free_space_info([disk], self.storage.devicetree,
-                                            self.clearPartType,
-                                            self.selected_disks)[0]
+                free += free_space[disk.name][0]
                 count += 1
 
         summary = (P_(("%d disk selected; %s capacity; %s free ..."),
@@ -553,10 +531,10 @@ class StorageSpoke(NormalSpoke):
     def on_continue_clicked(self, button):
         # show the installation options dialog
         disks = [d for d in self.disks if d.name in self.selected_disks]
-        (disk_free, fs_free) = get_free_space_info(disks,
-                                                   self.storage.devicetree,
-                                                   self.clearPartType,
-                                                   self.selected_disks)
+        free_space = self.storage.getFreeSpace(disks=disks,
+                                               clearPartType=self.clearPartType)
+        disk_free = sum([f[0] for f in free_space.itervalues()])
+        fs_free = sum([f[1] for f in free_space.itervalues()])
         required_space = self.payload.spaceRequired
         if disk_free >= required_space:
             dialog = InstallOptions1Dialog(self.data)

@@ -696,6 +696,52 @@ class Storage(object):
         """ The OS image used by live installs. """
         return None
 
+    def getFreeSpace(self, disks=None, clearPartType=None):
+        """ Return a dict with free space info for each disk.
+
+            The dict values are 2-tuples: (disk_free, fs_free). fs_free is
+            space available by shrinking filesystems. disk_free is space not
+            allocated to any partition.
+
+            disks and clearPartType allow specifying a set of disks other than
+            self.disks and a clearPartType value other than
+            self.config.clearPartType.
+        """
+        from partitioning import shouldClear
+        if disks is None:
+            disks = self.disks
+
+        if clearPartType is None:
+            clearPartType = self.config.clearPartType
+
+        free = {}
+        for disk in [d for d in disks if d.partitioned]:
+            should_clear = shouldClear(disk, clearPartType, [disk.name])
+            if should_clear:
+                free[disk.name] = (disk.size, 0)
+                continue
+
+            disk_free = 0
+            fs_free = 0
+            if disk.partitioned:
+                disk_free = disk.format.free
+                for partition in [p for p in self.partitions if p.disk == disk]:
+                    # only check actual filesystems since lvm &c require a bunch of
+                    # operations to translate free filesystem space into free disk
+                    # space
+                    should_clear = shouldClear(partition, clearPartType,
+                                               [d.name])
+                    if should_clear:
+                        disk_free += partition.size
+                    elif hasattr(partition.format, "free"):
+                        fs_free += partition.format.free
+            elif hasattr(disk.format, "free"):
+                fs_free = disk.format.free
+
+            free[disk.name] = (disk_free, fs_free)
+
+        return free
+
     def exceptionDisks(self):
         """ Return a list of removable devices to save exceptions to.
 
