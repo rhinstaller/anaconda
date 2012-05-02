@@ -257,7 +257,7 @@ reposdir=%s
         self._yum.preconf.releasever = releasever
 
         self._yumCacheDirHack()
-        self._yum.repos.populateSack(which='enabled', mdtype='all')
+        self.gatherRepoMetadata()
 
         # trigger setup of self._yum.config
         log.debug("installation yum config repos: %s"
