@@ -189,7 +189,8 @@ def ksnet_to_dracut(args, lineno, net, bootdev=False):
         line.append("ip=%s" % ip)
 
     for ns in net.nameserver.split(","):
-        line.append("nameserver=%s" % ns)
+        if ns:
+            line.append("nameserver=%s" % ns)
 
     if net.mtu:
         # XXX FIXME: dracut doesn't support mtu= (yet)
