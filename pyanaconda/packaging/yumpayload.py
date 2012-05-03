@@ -526,14 +526,9 @@ reposdir=%s
         # on a per-repo basis, so we can then get some finer grained error
         # handling and recovery.
         log.debug("getting repo metadata for %s" % yumrepo.id)
-        #log.debug("getting repo metadata for %s (%s)" % (yumrepo.id, yumrepo.urls))
         with _yum_lock:
-            del yumrepo.repoXML
             try:
-                yumrepo.repoXML
                 yumrepo.getPrimaryXML()
-                yumrepo.getOtherXML()
-                yumrepo.getFileListsXML()
             except RepoError as e:
                 raise MetadataError(e.value)
 
@@ -566,13 +561,11 @@ reposdir=%s
 
             # this will trigger retrieval of repomd.xml, which is small and yet
             # gives us some assurance that the repo config is sane
-            orig_mdpolicy = obj.mdpolicy
             obj.mdpolicy = "meh"
             try:
                 obj.repoXML
             except RepoError as e:
                 raise MetadataError(e.value)
-            obj.mdpolicy = orig_mdpolicy
 
         # Adding a new repo means the cached packages and groups lists
         # are out of date.  Clear them out now so the next reference to
