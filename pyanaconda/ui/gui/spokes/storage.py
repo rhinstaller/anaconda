@@ -327,12 +327,12 @@ class StorageSpoke(NormalSpoke):
     def __init__(self, *args, **kwargs):
         NormalSpoke.__init__(self, *args, **kwargs)
         self._ready = False
-        self.selected_disks = self.data.ignoredisk.onlyuse[:]
+        self.selected_disks = self.data.clearpart.drives[:]
         self.autopart = self.data.autopart.autopart
         self.clearPartType = CLEARPART_TYPE_LINUX
 
     def apply(self):
-        self.data.ignoredisk.onlyuse = self.selected_disks[:]
+        self.data.clearpart.drives = self.selected_disks[:]
         self.data.autopart.autopart = self.autopart
         self.data.bootloader.location = "mbr"
         self.data.clearpart.type = self.clearPartType
@@ -351,10 +351,10 @@ class StorageSpoke(NormalSpoke):
     def status(self):
         """ A short string describing the current status of storage setup. """
         msg = _("No disks selected")
-        if self.data.ignoredisk.onlyuse:
+        if self.data.clearpart.drives:
             msg = P_(("%d disk selected"),
                      ("%d disks selected"),
-                     len(self.data.ignoredisk.onlyuse)) % len(self.data.ignoredisk.onlyuse)
+                     len(self.data.clearpart.drives)) % len(self.data.clearpart.drives)
 
             if self.data.autopart.autopart:
                 msg = _("Automatic partitioning selected")
@@ -380,7 +380,7 @@ class StorageSpoke(NormalSpoke):
 
     def refresh(self):
         # synchronize our local data store with the global ksdata
-        self.selected_disks = self.data.ignoredisk.onlyuse[:]
+        self.selected_disks = self.data.clearpart.drives[:]
         self.autopart = self.data.autopart.autopart
 
         # update the selections in the ui
@@ -417,7 +417,8 @@ class StorageSpoke(NormalSpoke):
         if storageThread:
             storageThread.join()
 
-        print self.data.ignoredisk.onlyuse
+        print self.data.clearpart.drives
+
         self.disks = getDisks(self.storage.devicetree)
 
         with gdk_threaded():
