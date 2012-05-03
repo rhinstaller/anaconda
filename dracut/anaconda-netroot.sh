@@ -40,7 +40,7 @@ case $repo in
         info "anaconda fetching installer from $repo"
         treeinfo=$(fetch_url $repo/.treeinfo) && \
           stage2=$(config_get stage2 mainimage < $treeinfo)
-        if [ -z "$stage2" ]; then
+        if [ -z "$treeinfo" -o -z "$stage2" ]; then
             warn "can't find installer mainimage path in .treeinfo"
             stage2="LiveOS/squashfs.img"
         fi
