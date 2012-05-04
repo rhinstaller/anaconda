@@ -172,7 +172,7 @@ class ErrorHandler(object):
         else:
             return ERROR_RAISE
 
-    def mediaUnmountHandler(self, *args, **kwargs):
+    def _mediaUnmountHandler(self, *args, **kwargs):
         device = args[0]
         message = _("An error occurred unmounting the disc.  "
                     "Please make sure you're not accessing "
@@ -180,7 +180,7 @@ class ErrorHandler(object):
                     "and then click OK to retry.") % device.path
         self.ui.showError(message)
 
-    def noSuchGroupHandler(self, *args, **kwargs):
+    def _noSuchGroupHandler(self, *args, **kwargs):
         group = args[0]
         message = _("You have specified that the group '%s' should be "
                     "installed.  This group does not exist.  Would you like "
@@ -191,7 +191,7 @@ class ErrorHandler(object):
         else:
             return ERROR_RAISE
 
-    def noSuchPackageHandler(self, *args, **kwargs):
+    def _noSuchPackageHandler(self, *args, **kwargs):
         package = args[0]
         message = _("You have specified that the package '%s' should be "
                     "installed.  This package does not exist.  Would you "
