@@ -975,7 +975,7 @@ class BootLoader(object):
         # (in Network.dracutSetupArgs).
         # Dracut needs the explicit ifname= because biosdevname
         # fails to rename the iface (because of BFS booting from it).
-        for nic, dcb in fcoe().nics:
+        for nic, dcb, auto_vlan in fcoe().nics:
             hwaddr = network.netdevices[nic].get("HWADDR")
             self.boot_args.add("ifname=%s:%s" % (nic, hwaddr.lower()))
 
