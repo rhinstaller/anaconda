@@ -249,6 +249,17 @@ update-desktop-database &> /dev/null || :
 /usr/lib/dracut/modules.d/80%{name}/*
 
 %changelog
+* Fri May 04 2012 Brian C. Lane <bcl@redhat.com> - 17.25-1
+- lower minimum memory requirements by 256M (#708966) (bcl)
+- liveinst/gnome: Add a welcome screen for use by the Desktop spin
+  (kalevlember)
+- Fix anaconda not finding CD when booting without root=live:<CD> (wwoods)
+- Fix anaconda not finding CD for kickstart with 'cdrom' (#817084) (wwoods)
+- dracut parse-kickstart: don't write empty "nameserver=" (wwoods)
+- dracut: fix "repo=cdrom" (also kickstart with "cdrom") (wwoods)
+- dracut: fix kickstarting with 'network --device=MAC' (wwoods)
+- check treeinfo retrieval for stage2 (#790348) (bcl)
+
 * Tue May 01 2012 Brian C. Lane <bcl@redhat.com> - 17.24-1
 - dracut: add anaconda_auto_updates() (product.img/updates.img) (#800107)
   (wwoods)
