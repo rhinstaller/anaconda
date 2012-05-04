@@ -2109,9 +2109,6 @@ int main(int argc, char ** argv) {
 
     mlLoadModuleSet("cramfs:squashfs:iscsi_tcp");
 
-    /* Load all modules needed for IP over Infiniband */
-    mlLoadModuleSet("ib_ipoib:mlx4_core:mlx4_ib");
-
     loadScsiDhModules();
 
 #if !defined(__s390__) && !defined(__s390x__)
@@ -2235,6 +2232,10 @@ int main(int argc, char ** argv) {
     
     /* Reset depmod & modprobe to normal mode and get the rest of drivers */
     mlFreeModuleState(moduleState);
+
+    /* Load all modules needed for IP over Infiniband */
+    mlLoadModuleSet("ib_ipoib:mlx4_core:mlx4_ib");
+
     if (!FL_NOPROBE(flags)) detectHardware(USB_DETECT_DELAY);
 
     /* HAL daemon */
