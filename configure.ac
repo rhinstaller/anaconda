@@ -262,6 +262,7 @@ AC_CONFIG_FILES([Makefile
                  pyanaconda/iw/Makefile
                  data/liveinst/Makefile
                  data/liveinst/console.apps/Makefile
+                 data/liveinst/gnome/Makefile
                  data/liveinst/pam.d/Makefile
                  data/pixmaps/Makefile
                  data/icons/Makefile
