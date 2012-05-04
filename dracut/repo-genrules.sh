@@ -15,5 +15,7 @@ case "$root" in
     echo 'ENV{ID_CDROM}=="1",' \
            'RUN+="/sbin/initqueue --settled --onetime' \
              '/sbin/anaconda-diskroot $env{DEVNAME}"' >> $rulesfile
+    # HACK: anaconda demands that CDROMs be mounted at /mnt/install/source
+    ln -s repo /run/install/source
   ;;
 esac
