@@ -1,8 +1,5 @@
 - Add a base class with kill switch for check threads (561185b0a8c2e7aaf4a9a8b551bab394116430a8).
 - Add "Add custom repo..." dialog.
-- Audit progress bar and add more steps/messages around other long pauses (there's one before
-  partitioning begins, one before package installation begins, and one after package installation
-  at the least).
 - Custom partitioning needs to be revisited, then written.
 - Disk tug-o-war needs to be written.
 - Hubs need a way of noticing check threads are running (561185b0a8c2e7aaf4a9a8b551bab394116430a8).
@@ -17,6 +14,7 @@
   still being downloaded (waiting for lock).
 - Storage spoke needs to look at ksdata when setting itself up.
 - Test handling of inconsistent LVM/RAID, and uninitialized disks.
+- Translations don't work, especially not for strings with "%s" in them.
 - Update exception handling.  This requires updating python-meh to use gtk3,
   which also requires updating firstboot and s-c-ks to gtk3.  I want to turn
   s-c-ks into an anaconda wrapper first, though.

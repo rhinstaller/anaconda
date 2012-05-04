@@ -154,7 +154,6 @@ class ProgressHub(Hub):
 
         with gdk_threaded():
             self._progressBar.set_fraction(0.0)
-            self._progressLabel.set_text("")
 
     def _step_progress_bar(self):
         if not self._totalSteps:

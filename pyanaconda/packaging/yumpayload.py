@@ -875,6 +875,7 @@ reposdir=%s
     def preInstall(self, packages=None):
         """ Perform pre-installation tasks. """
         super(YumPayload, self).preInstall(packages=packages)
+        progress.send_message(_("Starting package installation process"))
 
         self._writeInstallConfig()
         self.checkSoftwareSelection()
@@ -903,7 +904,6 @@ reposdir=%s
         log.info("preparing transaction")
         log.debug("initialize transaction set")
         with _yum_lock:
-            progress.send_message(_("Starting installation process"))
             self._yum.initActionTs()
 
             log.debug("populate transaction set")
