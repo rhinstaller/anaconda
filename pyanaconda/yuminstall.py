@@ -484,6 +484,11 @@ class AnacondaYum(yum.YumBase):
             isys.mount("/run/initramfs/live/", self.tree, bindMount=True)
             self.mediagrabber = self.mediaHandler
             self._baseRepoURL = "file://%s" % self.tree
+        elif os.path.isdir("/run/install/repo/repodata"):
+            # Same hack as above. FIXME: make scanForMedia do this, dammit
+            isys.mount("/run/install/repo", self.tree, bindMount=True)
+            self.mediagrabber = self.mediaHandler
+            self._baseRepoURL = "file://%s" % self.tree
         else:
             cdr = scanForMedia(self.tree, self.anaconda.storage)
             if cdr:
