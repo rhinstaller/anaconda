@@ -30,7 +30,7 @@ from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.gui.categories.localization import LocalizationCategory
 
 from pyanaconda import localization
-import datetime
+import datetime, os
 
 __all__ = ["DatetimeSpoke"]
 
@@ -413,6 +413,8 @@ class DatetimeSpoke(NormalSpoke):
 
         self._set_combo_selection(self._regionCombo, region)
         self._set_combo_selection(self._cityCombo, city)
+        os.environ["TZ"] = timezone
+        self._update_datetime()
 
     def on_timeformat_changed(self, button24h, *args):
         hours_label = self.builder.get_object("hoursLabel")
