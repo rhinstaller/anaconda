@@ -132,7 +132,7 @@ class DatetimeSpoke(NormalSpoke):
         self._start_updating_timer_id = None
 
         if self.data.timezone.timezone:
-            self._tzmap.emit("timezone-changed", self.data.timezone.timezone)
+            self._tzmap.set_timezone(self.data.timezone.timezone)
 
     def add_to_store(self, store, item):
         store.append([item])

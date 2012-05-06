@@ -32,6 +32,7 @@ from pyanaconda.ui.gui.utils import enlightbox
 from pyanaconda.localization import Language, LOCALE_PREFERENCES
 from pyanaconda.product import productName, productVersion
 from pyanaconda import xklavier
+from pyanaconda import localization
 
 __all__ = ["WelcomeLanguageSpoke"]
 
@@ -73,6 +74,12 @@ class WelcomeLanguageSpoke(StandaloneSpoke):
         for layout in new_layouts:
             if layout not in self.data.keyboard.layouts_list:
                 self.data.keyboard.layouts_list.append(layout)
+
+        #TODO: better use GeoIP data once it is available
+        if self.language.territory and not self.data.timezone.timezone:
+            lang_timezone = localization.get_preferred_timezone(self.language.territory)
+            if lang_timezone:
+                self.data.timezone.timezone = lang_timezone
 
     @property
     def completed(self):
