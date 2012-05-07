@@ -447,52 +447,37 @@ def memInstalled():
 ## Suggest the size of the swap partition that will be created.
 # @param quiet Should size information be logged?
 # @return A tuple of the minimum and maximum swap size, in megabytes.
-def swapSuggestion(quiet=0):
+def swapSuggestion(quiet=0, hibernation=False):
     mem = memInstalled()/1024
     mem = ((mem/16)+1)*16
     if not quiet:
 	log.info("Detected %sM of memory", mem)
-	
-    #table suggested in rhbz#744129
-    if mem <= 4096:
-        minswap = 2048
-        maxswap = 2048
 
-    elif 4096 < mem <= 16384:
-        minswap = 4096
-        maxswap = 4096
+    #chart suggested in the discussion with other teams
+    #see: https://home.corp.redhat.com/wiki/swap-size-recommendations
+    if mem < 2048:
+        swap = 2 * mem
 
-    elif 16384 < mem <= 65536:
-        minswap = 8192
-        maxswap = 8192
+    elif 2048 <= mem < 8192:
+        swap = mem
 
-    elif 65536 < mem <= 262144:
-        minswap = 16384
-        maxswap = 16384
+    elif 8192 <= mem < 65536:
+        swap = mem / 2
 
     else:
-        minswap = 32768
-        maxswap = 32768
+        swap = 4096
 
     if not quiet:
-	log.info("Swap attempt of %sM to %sM", minswap, maxswap)
+	log.info("Swap attempt of %sM", swap)
 
-    return (minswap, maxswap)
+    if hibernation:
+        if mem <= 65536:
+            swap = mem + swap
+        else:
+            log.info("Ignoring --hibernation option on systems with 64 GB of RAM or more")
 
-def swapSameAsRam(quiet=0):
-    mem = memInstalled() / 1024
-    mem = ((mem / 16) + 1) * 16
-    if not quiet:
-        log.info("Detected %sM of memory", mem)
-
-    #see #rhbz587152
-    if mem <= SWAP_SIZE_LIMIT:
-        log.info("Swap attempt of %sM to %sM", mem, mem)
-        return (mem, mem)
-    else:
-        log.warning("Cannot create swap of size %sM, using upper bound %sM",
-                    mem, SWAP_SIZE_LIMIT)
-        return (SWAP_SIZE_LIMIT, SWAP_SIZE_LIMIT)
+    #we have to return minimum and maximum swap size
+    return (swap, swap)
 
 ## Create a directory path.  Don't fail if the directory already exists.
 # @param dir The directory path to create.

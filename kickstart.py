@@ -739,13 +739,10 @@ class PartitionData(commands.partition.RHEL6_PartData):
         if self.mountpoint == "swap":
             type = "swap"
             self.mountpoint = ""
-            if self.recommended:
-                (self.size, self.maxSizeMB) = iutil.swapSuggestion()
+            if self.recommended or self.hibernation:
+                (self.size, self.maxSizeMB) = iutil.swapSuggestion(hibernation=self.hibernation)
                 self.grow = True
 
-            if self.sameAsRam:
-                (self.size, self.maxSizeMB) = iutil.swapSameAsRam()
-                self.grow = False
         # if people want to specify no mountpoint for some reason, let them
         # this is really needed for pSeries boot partitions :(
         elif self.mountpoint == "None":
