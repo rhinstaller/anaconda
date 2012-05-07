@@ -1109,10 +1109,16 @@ class Storage(object):
             full += name
             return full
 
-        if full_name(name, parent) in names:
+        # also include names of any lvs in the parent for the case of the
+        # temporary vg in the lvm dialogs, which can contain lvs that are
+        # not yet in the devicetree and therefore not in self.names
+        if hasattr(parent, "lvs"):
+            names.extend([full_name(d.lvname, parent) for d in parent.lvs])
+
+        if full_name(name, parent) in names or not body:
             for i in range(100):
                 name = "%s%02d" % (template, i)
-                if name not in names:
+                if full_name(name, parent) not in names:
                     break
                 else:
                     name = ""
