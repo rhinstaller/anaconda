@@ -222,6 +222,17 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Mon May 07 2012 David Cantrell <dcantrell@redhat.com> - 13.21.171-1
+- Load mlx4 modules after DDs to make updates possible (msivak)
+  Resolves: rhbz#801094
+- Make sure all kickstart partition reqs get appropriate weight setting.
+  (dlehman)
+  Resolves: rhbz#813158
+- Show lvm vg free space as a whole number in the partition gui. (dlehman)
+  Related: rhbz#734128
+- Add sg_inq and sg_readcap to the install image (mgracik)
+  Resolves: rhbz#737097
+
 * Wed Apr 25 2012 David Cantrell <dcantrell@redhat.com> - 13.21.170-1
 - Add ip= dracut parameter for iscsi nodes using default iface (rvykydal)
   Resolves: rhbz#500273

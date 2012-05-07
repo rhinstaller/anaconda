@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 13.21.169\n"
+"Project-Id-Version: anaconda 13.21.170\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2012-04-25 11:05-0400\n"
+"POT-Creation-Date: 2012-05-07 15:39-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -124,8 +124,8 @@ msgstr ""
 msgid "_Exit installer"
 msgstr ""
 
-#: bootloader.py:60 image.py:92 image.py:253 kickstart.py:1481
-#: kickstart.py:1525 upgrade.py:58 yuminstall.py:1405 yuminstall.py:1584
+#: bootloader.py:60 image.py:92 image.py:253 kickstart.py:1485
+#: kickstart.py:1529 upgrade.py:58 yuminstall.py:1405 yuminstall.py:1584
 #: iw/partition_gui.py:1629 storage/__init__.py:2062
 msgid "_Continue"
 msgstr ""
@@ -158,8 +158,8 @@ msgstr ""
 msgid "In progress"
 msgstr ""
 
-#: cmdline.py:88 gui.py:1315 kickstart.py:1263 kickstart.py:1343
-#: kickstart.py:1351 kickstart.py:1390 kickstart.py:1398 text.py:396
+#: cmdline.py:88 gui.py:1315 kickstart.py:1267 kickstart.py:1347
+#: kickstart.py:1355 kickstart.py:1394 kickstart.py:1402 text.py:396
 #, python-format
 msgid ""
 "The following error was found while parsing the kickstart configuration "
@@ -605,63 +605,63 @@ msgid ""
 "%s"
 msgstr ""
 
-#: kickstart.py:1362
+#: kickstart.py:1366
 #, python-format
 msgid "Error processing %%ksappend lines: %s"
 msgstr ""
 
-#: kickstart.py:1365
+#: kickstart.py:1369
 #, python-format
 msgid "Unknown error processing %%ksappend lines: %s"
 msgstr ""
 
-#: kickstart.py:1421 livecd.py:228
+#: kickstart.py:1425 livecd.py:228
 msgid "Post-Installation"
 msgstr ""
 
-#: kickstart.py:1422
+#: kickstart.py:1426
 msgid "Running post-installation scripts"
 msgstr ""
 
-#: kickstart.py:1438
+#: kickstart.py:1442
 msgid "Pre-Installation"
 msgstr ""
 
-#: kickstart.py:1439
+#: kickstart.py:1443
 msgid "Running pre-installation scripts"
 msgstr ""
 
-#: kickstart.py:1472
+#: kickstart.py:1476
 msgid "Missing Package"
 msgstr ""
 
-#: kickstart.py:1473
+#: kickstart.py:1477
 #, python-format
 msgid ""
 "You have specified that the package '%s' should be installed.  This package "
 "does not exist. Would you like to continue or abort this installation?"
 msgstr ""
 
-#: kickstart.py:1479 kickstart.py:1523
+#: kickstart.py:1483 kickstart.py:1527
 msgid "_Abort"
 msgstr ""
 
-#: kickstart.py:1480 kickstart.py:1524
+#: kickstart.py:1484 kickstart.py:1528
 msgid "_Ignore All"
 msgstr ""
 
-#: kickstart.py:1515
+#: kickstart.py:1519
 msgid "Missing Group"
 msgstr ""
 
-#: kickstart.py:1516
+#: kickstart.py:1520
 #, python-format
 msgid ""
 "You have specified that the group '%s' should be installed. This group does "
 "not exist. Would you like to continue or abort this installation?"
 msgstr ""
 
-#: kickstart.py:1639
+#: kickstart.py:1643
 #, python-format
 msgid ""
 "The kickstart configuration file is missing required information that "
@@ -3892,29 +3892,29 @@ msgstr ""
 msgid "loader has already been run.  Starting shell.\n"
 msgstr ""
 
-#: loader/loader.c:2182
+#: loader/loader.c:2179
 #, c-format
 msgid "Driver disc was detected in %s. Do you want to use it?."
 msgstr ""
 
-#: loader/loader.c:2186
+#: loader/loader.c:2183
 msgid "Driver disc detected"
 msgstr ""
 
-#: loader/loader.c:2186
+#: loader/loader.c:2183
 msgid "Use it"
 msgstr ""
 
-#: loader/loader.c:2186
+#: loader/loader.c:2183
 msgid "Skip it"
 msgstr ""
 
-#: loader/loader.c:2543
+#: loader/loader.c:2544
 #, c-format
 msgid "Running anaconda %s, the %s rescue mode - please wait.\n"
 msgstr ""
 
-#: loader/loader.c:2545
+#: loader/loader.c:2546
 #, c-format
 msgid "Running anaconda %s, the %s system installer - please wait.\n"
 msgstr ""
