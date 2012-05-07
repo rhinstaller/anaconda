@@ -170,6 +170,7 @@ class SwapSpace(DeviceFormat):
             raise
         else:
             self.exists = True
+            self.notifyKernel()
         finally:
             if w:
                 w.pop()
