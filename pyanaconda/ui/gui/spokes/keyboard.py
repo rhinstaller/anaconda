@@ -161,9 +161,6 @@ class KeyboardSpoke(NormalSpoke):
                                             self._xkl_wrapper)
 
         self._store = self.builder.get_object("addedLayoutStore")
-        self._addLayout(self._store, "us")
-        self._addLayout(self._store, "ie")
-        self._addLayout(self._store, "cz (qwerty)")
 
     def refresh(self):
         NormalSpoke.refresh(self)
