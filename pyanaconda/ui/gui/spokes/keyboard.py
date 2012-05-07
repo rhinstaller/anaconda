@@ -161,6 +161,7 @@ class KeyboardSpoke(NormalSpoke):
                                             self._xkl_wrapper)
 
         self._store = self.builder.get_object("addedLayoutStore")
+        self._addLayout(self._store, "us")
 
     def refresh(self):
         NormalSpoke.refresh(self)
