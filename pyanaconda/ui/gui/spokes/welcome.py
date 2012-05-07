@@ -21,6 +21,9 @@
 
 import sys
 
+import gettext
+_ = lambda x: gettext.ldgettext("anaconda", x)
+
 from gi.repository import AnacondaWidgets, Gtk
 from pyanaconda.ui.gui.hubs.summary import SummaryHub
 from pyanaconda.ui.gui.spokes import StandaloneSpoke
@@ -42,6 +45,7 @@ class WelcomeLanguageSpoke(StandaloneSpoke):
     def __init__(self, *args):
         StandaloneSpoke.__init__(self, *args)
         self._xklwrapper = xklavier.XklWrapper.get_instance()
+        self._origStrings = {}
 
     def apply(self):
         selected = self.builder.get_object("languageViewSelection")
@@ -93,9 +97,16 @@ class WelcomeLanguageSpoke(StandaloneSpoke):
         # select the preferred translation
         self._selectLanguage(store, self.language.preferred_translation.short_name)
 
+    def retranslate(self):
+        StandaloneSpoke.retranslate(self)
         welcomeLabel = self.builder.get_object("welcomeLabel")
-        txt = welcomeLabel.get_label()
-        welcomeLabel.set_label(txt % (productName.upper(), productVersion))
+
+        if not welcomeLabel in self._origStrings:
+            self._origStrings[welcomeLabel] = welcomeLabel.get_label()
+
+        before = self._origStrings[welcomeLabel]
+        xlated = _(before) % (productName.upper(), productVersion)
+        welcomeLabel.set_label(xlated)
 
     def refresh(self):
         StandaloneSpoke.refresh(self)
