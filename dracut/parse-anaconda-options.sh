@@ -101,10 +101,18 @@ warn_renamed_arg "kssendmac" "inst.ks.sendmac"
 warn_renamed_arg "kssendsn" "inst.ks.sendsn"
 
 # updates
-warn_renamed_arg "updates" "inst.updates"
-updates=$(getarg updates inst.updates)
-if [ -n "$updates" ]; then
-    echo "live.updates=$updates" >> /etc/cmdline.d/75-anaconda-options.conf
+warn_renamed_arg "updates=" "inst.updates"
+if updates=$(getarg updates inst.updates); then
+    if [ -n "$updates" ]; then
+        export anac_updates=$updates
+        case $updates in
+            http*|ftp*|nfs*)
+                echo "live.updates=$updates" \
+                  >> /etc/cmdline.d/75-anaconda-options.conf ;;
+        esac
+    else
+        warn "'updates' requires a location for the updates disk"
+    fi
 fi
 
 # make sure we get ifcfg for every interface that comes up

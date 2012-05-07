@@ -24,6 +24,7 @@ install() {
     inst_hook cmdline 28 "$moddir/parse-anaconda-net.sh"
     inst_hook pre-udev 40 "$moddir/repo-genrules.sh"
     inst_hook pre-udev 40 "$moddir/kickstart-genrules.sh"
+    inst_hook pre-udev 40 "$moddir/updates-genrules.sh"
     inst_hook pre-trigger 40 "$moddir/anaconda-udevprop.sh"
     inst_hook initqueue/online 80 "$moddir/anaconda-netroot.sh"
     inst "$moddir/anaconda-diskroot" "/sbin/anaconda-diskroot"
@@ -31,6 +32,7 @@ install() {
     # kickstart parsing, WOOOO
     inst_hook initqueue/online 10 "$moddir/fetch-kickstart-net.sh"
     inst "$moddir/fetch-kickstart-disk" "/sbin/fetch-kickstart-disk"
+    inst "$moddir/fetch-updates-disk" "/sbin/fetch-updates-disk"
     inst "$moddir/parse-kickstart" "/sbin/parse-kickstart"
     # python deps for parse-kickstart. DOUBLE WOOOO
     $moddir/python-deps $moddir/parse-kickstart | while read dep; do

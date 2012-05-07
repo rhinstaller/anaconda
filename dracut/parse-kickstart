@@ -135,11 +135,31 @@ def init_logger():
         pass
     return logger
 
+def is_mac(addr):
+    return addr and len(addr) == 17 and addr.count(":") == 5 # good enough
+
+def find_devname(mac):
+    for netif in os.listdir("/sys/class/net"):
+        try:
+            thismac = readfile("/sys/class/net/%s/address" % netif)
+        except IOError:
+            pass
+        else:
+            if thismac.lower() == mac.lower():
+                return netif
+
 def ksnet_to_dracut(args, lineno, net, bootdev=False):
     '''Translate the kickstart network data into dracut network data.'''
     line = []
-
     ip=""
+
+    if is_mac(net.device): # this is a MAC - find the interface name
+        mac = net.device
+        net.device = find_devname(mac)
+        if net.device is None:  # iface not active - pick a name for it
+            net.device = "eth0" # we only get called once, so this is OK
+            line.append("ifname=%s:%s" % (net.device, mac.lower()))
+
     # NOTE: dracut currently only does ipv4 *or* ipv6, so only one ip=arg..
     if net.bootProto in (BOOTPROTO_DHCP, BOOTPROTO_BOOTP):
         ip="dhcp"
@@ -169,7 +189,8 @@ def ksnet_to_dracut(args, lineno, net, bootdev=False):
         line.append("ip=%s" % ip)
 
     for ns in net.nameserver.split(","):
-        line.append("nameserver=%s" % ns)
+        if ns:
+            line.append("nameserver=%s" % ns)
 
     if net.mtu:
         # XXX FIXME: dracut doesn't support mtu= (yet)
@@ -203,15 +224,18 @@ def readfile(f):
 
 def ksnet_to_ifcfg(net, filename=None):
     '''Write an ifcfg file for the given kickstart network config'''
-    if not net.device:
+    dev = net.device
+    if is_mac(dev):
+        dev = find_devname(dev)
+    if not dev:
         return
     ifcfg = dict()
     if filename is None:
-        filename = "/tmp/ifcfg/ifcfg-%s" % net.device
+        filename = "/tmp/ifcfg/ifcfg-%s" % dev
         if not os.path.isdir("/tmp/ifcfg"):
             os.makedirs("/tmp/ifcfg")
-    ifcfg['DEVICE'] = net.device
-    ifcfg['HWADDR'] = readfile("/sys/class/net/%s/address" % net.device)
+    ifcfg['DEVICE'] = dev
+    ifcfg['HWADDR'] = readfile("/sys/class/net/%s/address" % dev)
     ifcfg['UUID'] = readfile("/proc/sys/kernel/random/uuid")
     ifcfg['ONBOOT'] = "yes" if net.onboot else "no"
 

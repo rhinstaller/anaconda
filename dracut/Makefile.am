@@ -26,13 +26,15 @@ dist_dracut_SCRIPTS = module-setup.sh \
 		      parse-anaconda-kickstart.sh \
 		      parse-anaconda-net.sh \
 		      repo-genrules.sh \
-		      anaconda-udevprop.sh \
 		      kickstart-genrules.sh \
+		      updates-genrules.sh \
+		      anaconda-udevprop.sh \
 		      anaconda-netroot.sh \
 		      anaconda-diskroot \
 		      anaconda-copy-ks.sh \
 		      fetch-kickstart-net.sh \
 		      fetch-kickstart-disk \
+		      fetch-updates-disk \
 		      parse-kickstart \
 		      anaconda-modprobe.sh
 

@@ -439,7 +439,7 @@ def setupDisplay(anaconda, opts):
     vncS.anaconda = anaconda
 
     anaconda.displayMode = opts.display_mode
-    anaconda.isHeadless = opts.isHeadless
+    anaconda.isHeadless = opts.isHeadless or iutil.isS390()
 
     if opts.vnc:
         flags.usevnc = 1
@@ -507,30 +507,27 @@ def setupDisplay(anaconda, opts):
         log.info("Display mode = %s" % anaconda.displayMode)
         check_memory(anaconda, opts)
 
-        #
-        # now determine if we're going to run in GUI or TUI mode
-        #
-        # if no X server, we have to use text mode
-        if anaconda.displayMode == 'g' and not flags.livecdInstall \
-           and not iutil.isS390() \
-           and not os.access("/usr/bin/Xorg", os.X_OK):
-             stdoutLog.warning(_("Graphical installation is not available. "
-                                 "Starting text mode."))
-             time.sleep(2)
-             anaconda.displayMode = 't'
+        # Should we try to start Xorg?
+        want_x = anaconda.displayMode == 'g' and \
+                 not (flags.preexisting_x11 or flags.usevnc)
 
-        # s390/iSeries checks
-        if anaconda.isHeadless and anaconda.displayMode == "g" and not \
-           (flags.preexisting_x11 or flags.usevnc):
+        # X on a headless (e.g. s390) system? Nonsense!
+        if want_x and anaconda.isHeadless:
             stdoutLog.warning(_("DISPLAY variable not set. Starting text mode."))
             anaconda.displayMode = 't'
             graphical_failed = 1
             time.sleep(2)
+            want_x = False
 
-        # if DISPLAY not set either vnc server failed to start or we're not
-        # running on a redirected X display, so start local X server
-        if anaconda.displayMode == 'g' and not flags.preexisting_x11 and \
-           not flags.usevnc:
+        # Is Xorg is actually available?
+        if want_x and not os.access("/usr/bin/Xorg", os.X_OK):
+            stdoutLog.warning(_("Graphical installation is not available. "
+                                "Starting text mode."))
+            time.sleep(2)
+            anaconda.displayMode = 't'
+            want_x = False
+
+        if want_x:
             # The following code depends on no SIGCHLD being delivered,
             # possibly only except the one from a failing X.org. Thus
             # make sure before entering this section that all the other
