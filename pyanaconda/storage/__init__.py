@@ -708,6 +708,7 @@ class Storage(object):
             self.config.clearPartType.
         """
         from partitioning import shouldClear
+        from size import Size
         if disks is None:
             disks = self.disks
 
@@ -718,7 +719,7 @@ class Storage(object):
         for disk in [d for d in disks if d.partitioned]:
             should_clear = shouldClear(disk, clearPartType, [disk.name])
             if should_clear:
-                free[disk.name] = (disk.size, 0)
+                free[disk.name] = (Size(spec="%f mb" % disk.size), 0)
                 continue
 
             disk_free = 0
@@ -738,7 +739,8 @@ class Storage(object):
             elif hasattr(disk.format, "free"):
                 fs_free = disk.format.free
 
-            free[disk.name] = (disk_free, fs_free)
+            free[disk.name] = (Size(spec="%f mb" % disk_free),
+                               Size(spec="%f mb" % fs_free))
 
         return free
 
