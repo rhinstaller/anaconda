@@ -422,11 +422,13 @@ class AnacondaYum(yum.YumBase):
         # whatever) is mounted yet since initramfs only mounts the source
         # for the stage2 image.  We need to set up the source mount
         # now.
+        # methodstr == cdrom is a special case, meaning the first cdrom found
+        # by scanning or previously mounted as the install source.
         if flags.cmdline.has_key("preupgrade"):
             path = "/var/cache/yum/preupgrade"
             self.anaconda.methodstr = "hd::%s" % path 
             self._baseRepoURL = "file:///mnt/sysimage/%s" % path
-        elif self.anaconda.methodstr:
+        elif self.anaconda.methodstr and self.anaconda.methodstr != "cdrom":
             m = self.anaconda.methodstr
 
             if m.startswith("hd:"):
