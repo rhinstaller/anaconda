@@ -68,8 +68,6 @@ from pyanaconda.image import opticalInstallMedia
 from pyanaconda.image import mountImage
 from pyanaconda.image import findFirstIsoImage
 
-from pyanaconda.storage.size import Size
-
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
 
@@ -111,6 +109,8 @@ class YumPayload(PackagePayload):
 
     def reset(self, root=None):
         """ Reset this instance to its initial (unconfigured) state. """
+        from pyanaconda.storage.size import Size
+
         if os.path.ismount(INSTALL_TREE) and not flags.testing:
             isys.umount(INSTALL_TREE)
 
@@ -125,7 +125,7 @@ class YumPayload(PackagePayload):
 
         self.install_device = None
 
-        self._space_required = None
+        self._space_required = Size(bytes=0)
 
         self._groups = []
         self._packages = []
@@ -645,6 +645,7 @@ reposdir=%s
                 try:
                     self._groups = self._yum.comps
                 except (RepoError, GroupsError) as e:
+                    log.error("failed to get group info: %s" % e)
                     raise MetadataError(e.value)
 
             return [g.groupid for g in self._groups.get_groups()]
@@ -675,8 +676,6 @@ reposdir=%s
             except yum.Errors.GroupsError:
                 raise NoSuchGroup(groupid)
 
-        self._space_required = None
-
     def _deselectYumGroup(self, groupid):
         # deselect the group in comps
         log.debug("deselect group %s" % groupid)
@@ -685,8 +684,6 @@ reposdir=%s
                 self._yum.deselectGroup(groupid, force=True)
             except yum.Errors.GroupsError:
                 raise NoSuchGroup(groupid)
-
-        self._space_required = None
 
     ###
     ### METHODS FOR WORKING WITH PACKAGES
@@ -720,8 +717,6 @@ reposdir=%s
             except yum.Errors.InstallError:
                 raise NoSuchPackage(pkgid)
 
-        self._space_required = None
-
     def _deselectYumPackage(self, pkgid):
         """Mark a package to be excluded from installation.
 
@@ -732,23 +727,25 @@ reposdir=%s
         with _yum_lock:
             self._yum.tsInfo.deselect(pkgid)
 
-        self._space_required = None
-
     ###
     ### METHODS FOR QUERYING STATE
     ###
     @property
     def spaceRequired(self):
         """ The total disk space (Size) required for the current selection. """
-        # XXX this will only be useful if you've run checkSoftwareSelection
-        if not self._space_required:
-            total = 0
-            with _yum_lock:
-                for txmbr in self._yum.tsInfo.getMembers():
-                    total += getattr(txmbr.po, "installedsize", 0)
+        return self._space_required
 
-            total += total * 0.10   # add 10% to account for metadata, &c
-            self._space_required = Size(bytes=total)
+    def calculateSpaceNeeds(self):
+        from pyanaconda.storage.size import Size
+
+        # XXX this will only be useful if you've run checkSoftwareSelection
+        total = 0
+        with _yum_lock:
+            for txmbr in self._yum.tsInfo.getMembers():
+                total += getattr(txmbr.po, "installedsize", 0)
+
+        total += total * 0.10   # add 10% to account for metadata, &c
+        self._space_required = Size(bytes=total)
 
         return self._space_required
 
@@ -807,42 +804,28 @@ reposdir=%s
             # select packages needed for storage, bootloader
 
             # check dependencies
-            # XXX FIXME: set self._yum.dsCallback before entering this loop?
-            while True:
-                log.info("checking dependencies")
-                (code, msgs) = self._yum.buildTransaction(unfinished_transactions_check=False)
-                if code == 0:
-                    # empty transaction?
-                    log.debug("empty transaction")
-                    break
-                elif code == 2:
-                    # success
-                    log.debug("success")
-                    break
-                elif self.data.packages.handleMissing == KS_MISSING_IGNORE:
-                    log.debug("ignoring missing due to ks config")
-                    break
-                elif self.data.upgrade.upgrade:
-                    log.debug("ignoring unresolved deps on upgrade")
-                    break
-
+            log.info("checking dependencies")
+            (code, msgs) = self._yum.buildTransaction(unfinished_transactions_check=False)
+            self._removeTxSaveFile()
+            if code == 0:
+                # empty transaction?
+                log.debug("empty transaction")
+            elif code == 2:
+                # success
+                log.debug("success")
+            elif self.data.packages.handleMissing == KS_MISSING_IGNORE:
+                log.debug("ignoring missing due to ks config")
+            elif self.data.upgrade.upgrade:
+                log.debug("ignoring unresolved deps on upgrade")
+            else:
                 for msg in msgs:
                     log.warning(msg)
 
-                exn = DependencyError(msgs)
-                rc = errorHandler.cb(exn)
-                if rc == ERROR_RAISE:
-                    raise exn
-                elif rc == ERROR_RETRY:
-                    # FIXME: figure out how to allow modification of software set
-                    self._yum._undoDepInstalls()
-                    return False
-                elif rc == ERROR_CONTINUE:
-                    break
+                raise DependencyError(msgs)
 
-            # check free space (?)
-
-            self._removeTxSaveFile()
+        self.calculateSpaceNeeds()
+        log.info("%d packages selected totalling %s"
+                 % (len(self._yum.tsInfo.getMembers()), self.spaceRequired))
 
     def selectKernelPackage(self):
         kernels = self.kernelPackages
@@ -880,8 +863,6 @@ reposdir=%s
 
         self._writeInstallConfig()
         self.checkSoftwareSelection()
-        log.info("about to install %d packages totalling %s"
-                 % (len(self._yum.tsInfo.getMembers()), self.spaceRequired))
 
         # doPreInstall
         # create mountpoints for protected device mountpoints (?)
