@@ -504,7 +504,11 @@ class IscsiName(commands.iscsiname.FC6_IscsiName):
 
 class Keyboard(commands.keyboard.FC3_Keyboard):
     def execute(self):
-        self.anaconda.keyboard.set(self.keyboard)
+        try:
+            self.anaconda.keyboard.set(self.keyboard)
+        except KeyError as e:
+            raise KickstartValueError, formatErrorMsg(self.lineno, msg="Invalid keyboard: %s" % (self.keyboard,))
+
         self.anaconda.keyboard.beenset = 1
         self.anaconda.dispatch.skip_steps("keyboard")
 
