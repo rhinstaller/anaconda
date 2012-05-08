@@ -150,7 +150,6 @@ class YumPayload(PackagePayload):
 
         with _yum_lock:
             if self._yum:
-                self._yum.close()
                 del self._yum
 
             self._yum = yum.YumBase()
@@ -264,7 +263,15 @@ reposdir=%s
                   % ",".join([r.id for r in self._yum.repos.listEnabled()]))
 
     def release(self):
-        self._yum.close()
+        from yum.packageSack import MetaSack
+        log.debug("deleting package sacks")
+        if hasattr(self._yum, "_pkgSack"):
+            self._yum._pkgSack = None
+
+        self._yum.repos.pkgSack = MetaSack()
+
+        for repo in self._yum.repos.repos.values():
+            repo._sack = None
 
     ###
     ### METHODS FOR WORKING WITH REPOSITORIES
@@ -789,6 +796,7 @@ reposdir=%s
         log.info("checking software selection")
 
         with _yum_lock:
+            self.release()
             self._yum._undoDepInstalls()
 
         self._applyYumSelections()
