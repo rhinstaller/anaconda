@@ -24,7 +24,7 @@ _ = lambda x: gettext.ldgettext("anaconda", x)
 __all__ = ["ERROR_RAISE", "ERROR_CONTINUE", "ERROR_RETRY",
            "ErrorHandler",
            "InvalidImageSizeError", "MissingImageError", "MediaUnmountError",
-           "MediaMountError",
+           "MediaMountError", "ScriptError",
            "errorHandler"]
 
 class InvalidImageSizeError(Exception):
@@ -37,6 +37,9 @@ class MediaMountError(Exception):
     pass
 
 class MediaUnmountError(Exception):
+    pass
+
+class ScriptError(Exception):
     pass
 
 """These constants are returned by the callback in the ErrorHandler class.
@@ -202,6 +205,16 @@ class ErrorHandler(object):
         else:
             return ERROR_RAISE
 
+    def _scriptErrorHandler(self, *args, **kwargs):
+        lineno = args[0]
+        details = args[1]
+        message = _("There was an error running the kickstart script at line "
+                    "%s.  This is a fatal error and installation will be "
+                    "aborted.  The details of this error are:\n\n%s") % \
+                   (lineno, details)
+        self.ui.showError(message)
+        return ERROR_RAISE
+
     def cb(self, exn, *args, **kwargs):
         """This method is the callback that all error handling should pass
            through.  The return value is one of the ERROR_* constants defined
@@ -235,7 +248,8 @@ class ErrorHandler(object):
                 MediaMountError: self._mediaMountHandler,
                 MediaUnmountError: self._mediaUnmountHandler,
                 NoSuchGroup: self._noSuchGroupHandler,
-                NoSuchPackage: self._noSuchPackageHandler}
+                NoSuchPackage: self._noSuchPackageHandler,
+                ScriptError: self._scriptErrorHandler}
 
         if exn in _map:
             kwargs["exception"] = exn

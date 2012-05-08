@@ -255,7 +255,7 @@ def doRescue(anaconda):
         # NOTE: 1st script must be bash or simple python as nothing else might be available in the rescue image
         if anaconda.ksdata and anaconda.ksdata.scripts:
            from kickstart import runPostScripts
-           runPostScripts(anaconda)
+           runPostScripts(anaconda.ksdata.scripts)
         else:
            runShell()
 
@@ -479,7 +479,7 @@ def doRescue(anaconda):
     # run %post if we've mounted everything
     if rootmounted and not readOnly and anaconda.ksdata:
         from kickstart import runPostScripts
-        runPostScripts(anaconda)
+        runPostScripts(anaconda.ksdata.scripts)
 
     # start shell if reboot wasn't requested
     if not anaconda.ksdata or \

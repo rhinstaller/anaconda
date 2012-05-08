@@ -115,7 +115,6 @@ class BaseInstallClass(object):
                  "firstboot",
 		 "instbootloader",
                  "dopostaction",
-                 "postscripts",
                  "methodcomplete",
 		 "complete"
 		)

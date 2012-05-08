@@ -18,6 +18,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+from pyanaconda.errors import ScriptError, errorHandler
 from storage.deviceaction import *
 from storage.devices import LUKSDevice
 from storage.devicelibs.lvm import getPossiblePhysicalExtents
@@ -72,7 +73,7 @@ packagesSeen = False
 topology = None
 
 class AnacondaKSScript(Script):
-    def run(self, chroot, serial, intf = None):
+    def run(self, chroot, serial):
         if self.inChroot:
             scriptRoot = chroot
         else:
@@ -99,13 +100,9 @@ class AnacondaKSScript(Script):
         else:
             messages = "%s.log" % path
 
-        if intf:
-            intf.suspend()
         rc = iutil.execWithRedirect(self.interp, ["/tmp/%s" % os.path.basename(path)],
                                     stdin = messages, stdout = messages, stderr = messages,
                                     root = scriptRoot)
-        if intf:
-            intf.resume()
 
         # Always log an error.  Only fail if we have a handle on the
         # windowing system and the kickstart file included --erroronfail.
@@ -123,19 +120,7 @@ class AnacondaKSScript(Script):
                     log.error("\t%s" % l)
 
             if self.errorOnFail:
-                if intf != None:
-                    msg = _("There was an error running the kickstart "
-                            "script at line %(lineno)s.  You may examine the "
-                            "output in %(msgs)s.  This is a fatal error and "
-                            "installation will be aborted.  Press the "
-                            "OK button to exit the installer.") \
-                          % {'lineno': self.lineno, 'msgs': messages}
-
-                    if err:
-                        intf.detailedMessageWindow(_("Scriptlet Failure"), msg, err)
-                    else:
-                        intf.messageWindow(_("Scriptlet Failure"), msg)
-
+                errorHandler.cb(ScriptError(), self.lineno, err)
                 sys.exit(0)
 
         if serial or self.logfile is not None:
@@ -241,7 +226,6 @@ def removeExistingFormat(device, storage):
 
 class AutoPart(commands.autopart.F16_AutoPart):
     def execute(self, storage, ksdata, instClass):
-        from pyanaconda.errors import errorHandler
         from pyanaconda.platform import getPlatform
         from pyanaconda.storage.partitioning import doAutoPartition
 
@@ -1222,7 +1206,7 @@ def preScriptPass(anaconda, file):
             sys.exit(1)
 
     # run %pre scripts
-    runPreScripts(anaconda, ksparser.handler.scripts)
+    runPreScripts(ksparser.handler.scripts)
 
 def parseKickstart(anaconda, file):
     # preprocessing the kickstart file has already been handled by loader.
@@ -1281,12 +1265,8 @@ def appendPostScripts(ksdata):
     ksparser = AnacondaKSParser(ksdata, scriptClass=AnacondaInternalScript)
     ksparser.readKickstartFromString(scripts, reset=False)
 
-def runPostScripts(anaconda):
-    if not anaconda.ksdata:
-        return
-
-    postScripts = filter (lambda s: s.type == KS_SCRIPT_POST,
-                          anaconda.ksdata.scripts)
+def runPostScripts(scripts):
+    postScripts = filter (lambda s: s.type == KS_SCRIPT_POST, scripts)
 
     if len(postScripts) == 0:
         return
@@ -1297,17 +1277,10 @@ def runPostScripts(anaconda):
             del(os.environ[var])
 
     log.info("Running kickstart %%post script(s)")
-    if anaconda.intf is not None:
-        w = anaconda.intf.waitWindow(_("Post-Installation"),
-                            _("Running post-installation scripts"))
-        
-    map (lambda s: s.run(ROOT_PATH, flags.serial, anaconda.intf), postScripts)
-
+    map (lambda s: s.run(ROOT_PATH, flags.serial), postScripts)
     log.info("All kickstart %%post script(s) have been run")
-    if anaconda.intf is not None:
-        w.pop()
 
-def runPreScripts(anaconda, scripts):
+def runPreScripts(scripts):
     preScripts = filter (lambda s: s.type == KS_SCRIPT_PRE, scripts)
 
     if len(preScripts) == 0:
@@ -1316,14 +1289,13 @@ def runPreScripts(anaconda, scripts):
     log.info("Running kickstart %%pre script(s)")
     stdoutLog.info(_("Running pre-installation scripts"))
 
-    map (lambda s: s.run("/", flags.serial, anaconda.intf), preScripts)
+    map (lambda s: s.run("/", flags.serial), preScripts)
 
     log.info("All kickstart %%pre script(s) have been run")
 
-def runTracebackScripts(anaconda):
+def runTracebackScripts(scripts):
     log.info("Running kickstart %%traceback script(s)")
-    for script in filter (lambda s: s.type == KS_SCRIPT_TRACEBACK,
-                          anaconda.ksdata.scripts):
+    for script in filter (lambda s: s.type == KS_SCRIPT_TRACEBACK, scripts):
         script.run("/", flags.serial)
     log.info("All kickstart %%traceback script(s) have been run")
 

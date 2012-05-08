@@ -47,6 +47,7 @@ def doInstall(storage, payload, ksdata, instClass):
        installing packages onto those filesystems.
     """
     from pyanaconda import progress
+    from pyanaconda.kickstart import runPostScripts
 
     # First, run all the execute methods of the ksdata.
     ksdata.clearpart.execute(storage, ksdata, instClass)
@@ -74,6 +75,8 @@ def doInstall(storage, payload, ksdata, instClass):
     # Do bootloader.
     with progress_report(_("Installing bootloader")):
         writeBootLoader(storage, payload)
+
+    runPostScripts(ksdata.scripts)
 
     # Write the kickstart file to the installed system (or, copy the input
     # kickstart file over if one exists).

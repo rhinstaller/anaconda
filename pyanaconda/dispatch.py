@@ -38,7 +38,6 @@ from upgrade import restoreTime
 from upgrade import upgradeMigrateFind
 from upgrade import findRootParts, queryUpgradeContinue
 from installmethod import doMethodComplete
-from kickstart import runPostScripts
 from sshd import doSshd
 from rescue import doRescue
 
@@ -285,7 +284,6 @@ class Dispatcher(object):
         self.add_step("instbootloader", writeBootLoader)
         self.add_step("reipl", doReIPL)
         self.add_step("methodcomplete", doMethodComplete)
-        self.add_step("postscripts", runPostScripts)
         self.add_step("dopostaction", doPostAction)
         self.add_step("complete")
 
