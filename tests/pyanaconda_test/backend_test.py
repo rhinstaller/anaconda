@@ -9,8 +9,10 @@ class BackendTest(mock.TestCase):
 
         self.setupModules(["_isys", "block", 'parted', 'storage',
                     'pyanaconda.storage.formats', 'logging',
+                    'logging.config',
                     'ConfigParser', 'pyanaconda.anaconda_log',
-                    'pyanaconda.storage.storage_log'])
+                    'pyanaconda.storage.storage_log',
+                    'pyanaconda.yuminstall'])
 
         import pyanaconda
         pyanaconda.anaconda_log = mock.Mock()
