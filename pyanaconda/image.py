@@ -88,7 +88,7 @@ def findFirstIsoImage(path):
         if os.stat(what)[stat.ST_SIZE] % 2048:
             log.warning("%s appears to be corrupted" % what)
             exn = InvalidImageSizeError("size is not a multiple of 2048 bytes")
-            if errorHandler(exn) == ERROR_RAISE:
+            if errorHandler.cb(exn) == ERROR_RAISE:
                 raise exn
 
         log.info("Found disc at %s" % fn)
@@ -130,7 +130,7 @@ def mountImageDirectory(method, storage):
             except StorageError as e:
                 log.error("couldn't mount ISO source directory: %s" % e)
                 exn = MediaMountError(str(e))
-                if errorHandler(exn) == ERROR_RAISE:
+                if errorHandler.cb(exn) == ERROR_RAISE:
                     raise exn
     elif methodstr.startswith("nfsiso:"):
         # XXX what if we mount it on ISO_DIR and then create a symlink
@@ -149,7 +149,7 @@ def mountImageDirectory(method, storage):
             except SystemError as e:
                 log.error("couldn't mount ISO source directory: %s" % e)
                 exn = MediaMountError(str(e))
-                if errorHandler(exn) == ERROR_RAISE:
+                if errorHandler.cb(exn) == ERROR_RAISE:
                     raise exn
 
 def mountImage(isodir, tree, messageWindow):
@@ -157,7 +157,7 @@ def mountImage(isodir, tree, messageWindow):
         image = findFirstIsoImage(isodir, messageWindow)
         if image is None:
             exn = MissingImageError()
-            if errorHandler(exn) == ERROR_RAISE:
+            if errorHandler.cb(exn) == ERROR_RAISE:
                 raise exn
             else:
                 continue
@@ -167,7 +167,7 @@ def mountImage(isodir, tree, messageWindow):
             isys.mount(image, tree, fstype = 'iso9660', readOnly = True)
         except SystemError:
             exn = MissingImageError()
-            if errorHandler(exn) == ERROR_RAISE:
+            if errorHandler.cb(exn) == ERROR_RAISE:
                 raise exn
             else:
                 continue
@@ -214,7 +214,7 @@ def unmountCD(dev):
         except Exception as e:
             log.error("exception in _unmountCD: %s" %(e,))
             exn = MediaUnmountError()
-            errorHandler(exn, dev)
+            errorHandler.cb(exn, dev)
         else:
             break
 
