@@ -85,6 +85,12 @@ class ErrorHandler(object):
     def __init__(self, ui=None):
         self.ui = ui
 
+    def _kickstartErrorHandler(self, *args, **kwargs):
+        message = _("The following error was found while parsing the kickstart "
+                    "configuration file:\n\n%s") % args[0]
+        self.ui.showError(message)
+        return ERROR_RAISE
+
     def _partitionErrorHandler(self, *args, **kwargs):
         message = _("The following errors occurred with your partitioning:\n\n%(errortxt)\n\n"
                     "The installation will now terminate.") % {"errortxt": args[0]}
@@ -230,13 +236,15 @@ class ErrorHandler(object):
         """
         from pyanaconda.packaging import NoSuchGroup, NoSuchPackage
         import pyanaconda.storage.errors as StorageError
+        from pykickstart.errors import KickstartError
 
         rc = ERROR_RAISE
 
         if not self.ui:
             raise exn
 
-        _map = {StorageError.PartitioningError: self._partitionErrorHandler,
+        _map = {KickstartError: self._kickstartErrorHandler,
+                StorageError.PartitioningError: self._partitionErrorHandler,
                 StorageError.PartitioningWarning: self._partitionWarningHandler,
                 StorageError.FSResizeError: self._fsResizeHandler,
                 StorageError.FSMigrateError: self._fsMigrateHandler,

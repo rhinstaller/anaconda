@@ -40,7 +40,6 @@ import tempfile
 from flags import flags
 from constants import *
 import sys
-import string
 import urlgrabber
 import network
 import upgrade
@@ -48,10 +47,10 @@ import pykickstart.commands as commands
 from storage.devices import *
 from scdate.core import zonetab
 
-from pykickstart.base import KickstartCommand, BaseData
+from pykickstart.base import KickstartCommand
 from pykickstart.constants import *
-from pykickstart.errors import formatErrorMsg, KickstartError, KickstartValueError, KickstartParseError
-from pykickstart.parser import Group, KickstartParser, Packages, Script
+from pykickstart.errors import formatErrorMsg, KickstartError, KickstartValueError
+from pykickstart.parser import Group, KickstartParser, Script
 from pykickstart.sections import *
 from pykickstart.version import returnClassForVersion
 
@@ -1180,35 +1179,22 @@ class AnacondaKSParser(KickstartParser):
         self.registerSection(TracebackScriptSection(self.handler, dataObj=self.scriptClass))
         self.registerSection(PackageSection(self.handler))
 
-def preScriptPass(anaconda, file):
+def preScriptPass(anaconda, f):
     # The first pass through kickstart file processing - look for %pre scripts
     # and run them.  This must come in a separate pass in case a script
     # generates an included file that has commands for later.
     ksparser = AnacondaPreParser(AnacondaKSHandler(anaconda))
 
     try:
-        ksparser.readKickstart(file)
-    except (KickstartValueError, KickstartParseError) as e:
-       if anaconda.intf:
-           anaconda.intf.kickstartErrorWindow(e.__str__())
-           sys.exit(1)
-       else:
-            stderrLog.critical(_("The following error was found while parsing the kickstart "
-                              "configuration file:\n\n%s") % e)
-            sys.exit(1)
+        ksparser.readKickstart(f)
     except KickstartError as e:
-        if anaconda.intf:
-            anaconda.intf.kickstartErrorWindow("Could not open kickstart file or included file named %s" % file)
-            sys.exit(1)
-        else:
-            stderrLog.critical(_("The following error was found while parsing the kickstart "
-                              "configuration file:\n\n%s") % e)
-            sys.exit(1)
+        errorHandler.cb(KickstartError(), e)
+        sys.exit(1)
 
     # run %pre scripts
     runPreScripts(ksparser.handler.scripts)
 
-def parseKickstart(anaconda, file):
+def parseKickstart(anaconda, f):
     # preprocessing the kickstart file has already been handled by loader.
 
     handler = AnacondaKSHandler(anaconda)
@@ -1225,25 +1211,10 @@ def parseKickstart(anaconda, file):
     detect_multipaths()
 
     try:
-        ksparser.readKickstart(file)
-    except (KickstartValueError, KickstartParseError) as e:
-        if anaconda.intf:
-            anaconda.intf.kickstartErrorWindow(e.__str__())
-            sys.exit(1)
-        else:
-            stderrLog.critical(_("The following error was found while parsing the kickstart "
-                              "configuration file:\n\n%s") % e)
-            sys.exit(1)
+        ksparser.readKickstart(f)
     except KickstartError as e:
-        # We may not have an intf now, but we can do better than just raising
-        # the exception.
-        if anaconda.intf:
-            anaconda.intf.kickstartErrorWindow("Could not open kickstart file or included file named %s" % file)
-            sys.exit(1)
-        else:
-            stderrLog.critical(_("The following error was found while parsing the kickstart "
-                              "configuration file:\n\n%s") % e)
-            sys.exit(1)
+        errorHandler.cb(KickstartError(), e)
+        sys.exit(1)
 
     global packagesSeen
     packagesSeen = ksparser.getSection("%packages").timesSeen > 0
