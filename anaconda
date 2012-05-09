@@ -106,8 +106,6 @@ def startAuditDaemon():
 def doStartupX11Actions():
     global wm_pid # pid of the anaconda fork where the window manager is running
 
-    setupGraphicalLinks()
-
     # now start up the window manager
     wm_pid = startMetacityWM()
     log.info("Starting window manager, pid %s." % (wm_pid,))
@@ -251,9 +249,6 @@ def parseOptions(argv = None):
 
     return op.parse_args(argv)
 
-def setupPythonPath():
-    sys.path.append('/usr/share/system-config-date')
-
 def setupEnvironment():
     # Silly GNOME stuff
     if os.environ.has_key('HOME') and not os.environ.has_key("XAUTHORITY"):
@@ -387,15 +382,6 @@ def check_memory(anaconda, opts, display_mode=None):
                 stdoutLog.warning(reason % (product.productName, needed_ram, total_ram))
                 anaconda.displayMode = 't'
                 time.sleep(2)
-
-def setupGraphicalLinks():
-    for i in ( "imrc", "im_palette.pal", "gtk-2.0", "pango", "fonts",
-               "fb.modes"):
-        try:
-            if os.path.exists("/mnt/runtime/etc/%s" %(i,)):
-                os.symlink ("../mnt/runtime/etc/" + i, "/etc/" + i)
-        except:
-            pass
 
 def startDebugger(signum, frame):
     import epdb
@@ -561,8 +547,6 @@ def setupDisplay(anaconda, opts):
     anaconda.instClass.configure(anaconda)
 
 if __name__ == "__main__":
-    setupPythonPath()
-
     # Allow a file to be loaded as early as possible
     try:
         import updates_disk_hook
