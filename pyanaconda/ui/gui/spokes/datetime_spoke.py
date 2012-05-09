@@ -105,7 +105,11 @@ class DatetimeSpoke(NormalSpoke):
         self._hoursLabel = self.builder.get_object("hoursLabel")
         self._minutesLabel = self.builder.get_object("minutesLabel")
 
-        self._tzmap.set_timezone("Europe/Prague")
+        self._update_datetime_timer_id = None
+        if self.data.timezone.timezone:
+            self._tzmap.set_timezone(self.data.timezone.timezone)
+        else:
+            self._tzmap.set_timezone("Europe/Prague")
 
     @property
     def status(self):
@@ -116,6 +120,8 @@ class DatetimeSpoke(NormalSpoke):
 
     def apply(self):
         GLib.source_remove(self._update_datetime_timer_id)
+        self._update_datetime_timer_id = None
+
         self.data.timezone.timezone = self._tzmap.get_timezone()
 
     @property
@@ -124,8 +130,6 @@ class DatetimeSpoke(NormalSpoke):
         return True
 
     def refresh(self):
-        self._update_datetime()
-
         #update the displayed time
         self._update_datetime_timer_id = GLib.timeout_add_seconds(1,
                                                     self._update_datetime)
@@ -133,6 +137,8 @@ class DatetimeSpoke(NormalSpoke):
 
         if self.data.timezone.timezone:
             self._tzmap.set_timezone(self.data.timezone.timezone)
+
+        self._update_datetime()
 
     def add_to_store(self, store, item):
         store.append([item])
@@ -245,7 +251,9 @@ class DatetimeSpoke(NormalSpoke):
     def _save_system_time(self):
         #TODO: save system time here
 
-        self._update_datetime_timer_id = GLib.timeout_add_seconds(1,
+        #start the timer only when the spoke is shown
+        if self._update_datetime_timer_id is not None:
+            self._update_datetime_timer_id = GLib.timeout_add_seconds(1,
                                                         self._update_datetime)
 
         #run only once (after first 2 seconds of inactivity)
@@ -264,6 +272,12 @@ class DatetimeSpoke(NormalSpoke):
         in some time-setting button's callback).
 
         """
+
+        #do not start timers if the spoke is not shown
+        if self._update_datetime_timer_id is None:
+            self._update_datetime()
+            self._save_system_time()
+            return
 
         #stop time updating
         GLib.source_remove(self._update_datetime_timer_id)
