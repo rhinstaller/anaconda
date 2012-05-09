@@ -43,6 +43,7 @@ class SoftwareSelectionSpoke(NormalSpoke):
     def __init__(self, *args, **kwargs):
         NormalSpoke.__init__(self, *args, **kwargs)
         self._ready = False
+        self._error = False
 
         self.selectedGroups = []
         self.excludedGroups = []
@@ -52,6 +53,8 @@ class SoftwareSelectionSpoke(NormalSpoke):
         # NOTE:  Other apply methods work directly with the ksdata, but this
         # one does not.  However, selectGroup/deselectGroup modifies ksdata as
         # part of its operation.  So this is fine.
+        from pyanaconda.threads import threadMgr, AnacondaThread
+
         row = self._get_selected_desktop()
         if not row:
             return
@@ -69,9 +72,30 @@ class SoftwareSelectionSpoke(NormalSpoke):
             for group in [g for g in groups if g not in self.excludedGroups]:
                 self.payload.selectGroup(group)
 
+        communication.send_not_ready(self.__class__.__name__)
+        threadMgr.add(AnacondaThread(name="AnaCheckSoftwareThread",
+                                     target=self.checkSoftwareSelection))
+
+    def checkSoftwareSelection(self):
+        from pyanaconda.packaging import DependencyError
+        communication.send_message(self.__class__.__name__,
+                                   _("Checking software dependencies..."))
+        try:
+            self.payload.checkSoftwareSelection()
+        except DependencyError as e:
+            self._error = True
+            communication.send_message(self.__class__.__name__,
+                                       _("Error checking software dependencies"))
+        else:
+            communication.send_ready(self.__class__.__name__)
+            self._error = False
+
     @property
     def completed(self):
-        return self._get_selected_desktop() is not None
+        from pyanaconda.threads import threadMgr
+        return self._get_selected_desktop() is not None and \
+               not threadMgr.get("AnaCheckSoftwareThread") and \
+               not self._error
 
     @property
     def ready(self):
@@ -80,10 +104,15 @@ class SoftwareSelectionSpoke(NormalSpoke):
         # becasue the user filled something out, or because we're done fetching
         # repo metadata from the mirror list, or we detected a DVD/CD.
         from pyanaconda.threads import threadMgr
-        return self._ready and not threadMgr.get("AnaPayloadMDThread")
+        return (self._ready and not threadMgr.get("AnaPayloadMDThread") and
+                not threadMgr.get("AnaCheckSoftwareThread") and
+                self.payload.baseRepo is not None)
 
     @property
     def status(self):
+        if self._error:
+            return _("Error checking software selection")
+
         row = self._get_selected_desktop()
         if not row:
             return _("Nothing selected")

@@ -37,6 +37,9 @@ __all__ = ["SourceSpoke"]
 
 MOUNTPOINT = "/mnt/install/isodir"
 
+METADATA_DOWNLOAD_MESSAGE = _("Downloading package metadata...")
+METADATA_ERROR_MESSAGE = _("Error downloading package metadata...")
+
 class ProxyDialog(UIObject):
     builderObjects = ["proxyDialog"]
     mainWidgetName = "proxyDialog"
@@ -240,9 +243,11 @@ class SourceSpoke(NormalSpoke):
         NormalSpoke.__init__(self, *args, **kwargs)
         self._currentIsoFile = None
         self._ready = False
+        self._error = False
 
     def apply(self):
         from pyanaconda.threads import threadMgr, AnacondaThread
+        from pyanaconda.packaging import PayloadError
 
         if self._autodetectButton.get_active():
             dev = self._get_selected_media()
@@ -297,20 +302,44 @@ class SourceSpoke(NormalSpoke):
             (self.data.method.server, self.data.method.dir) = url.split(":", 2)
             self.data.method.opts = self.builder.get_object("nfsOptsEntry").get_text() or ""
 
-        self.payload.updateBaseRepo(self.storage)
-        threadMgr.add(AnacondaThread(name="AnaPayloadMDThread",
-                                      target=self.payload.gatherRepoMetadata))
+        communication.send_not_ready("SoftwareSelectionSpoke")
+        try:
+            self.payload.updateBaseRepo(self.storage, fallback=False)
+        except PayloadError as e:
+            self._error = True
+            communication.send_message(self.__class__.__name__,
+                                       _("Failed to set up install source"))
+        else:
+            self._error = False
+            threadMgr.add(AnacondaThread(name="AnaPayloadMDThread",
+                                         target=self.getRepoMetadata))
+
+    def getRepoMetadata(self):
+        communication.send_not_ready(self.__class__.__name__)
+        communication.send_message(self.__class__.__name__,
+                                   METADATA_DOWNLOAD_MESSAGE)
+        self.payload.gatherRepoMetadata()
+        self.payload.release()
+        if not self.payload.baseRepo:
+            communication.send_message(self.__class__.__name__,
+                                       METADATA_ERROR_MESSAGE)
+            communication.send_ready(self.__class__.__name__)
+            self._error = True
+        else:
+            communication.send_ready(self.__class__.__name__)
+            communication.send_ready("SoftwareSelectionSpoke")
 
     @property
     def completed(self):
-        return self.status and self.status != _("Nothing selected")
+        return not self._error and self.status and self.status != _("Nothing selected")
 
     @property
     def ready(self):
+        from pyanaconda.threads import threadMgr
         # By default, the source spoke is not ready.  We have to wait until
         # storageInitialize is done to know whether or not there's local
         # devices potentially holding install media.
-        return self._ready
+        return (self._ready and not threadMgr.get("AnaPayloadMDThread"))
 
     @property
     def status(self):
@@ -328,6 +357,8 @@ class SourceSpoke(NormalSpoke):
         else:
             if self.payload.baseRepo:
                 return _("Closest mirror")
+            elif self._error:
+                return _("Error setting up software source")
             else:
                 return _("Nothing selected")
 
@@ -374,7 +405,7 @@ class SourceSpoke(NormalSpoke):
         if storageThread:
             storageThread.join()
 
-        communication.send_message(self.__class__.__name__, _("Downloading package metadata..."))
+        communication.send_message(self.__class__.__name__, METADATA_DOWNLOAD_MESSAGE)
 
         payloadThread = threadMgr.get("AnaPayloadThread")
         if payloadThread:
