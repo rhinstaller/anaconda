@@ -249,6 +249,16 @@ update-desktop-database &> /dev/null || :
 /usr/lib/dracut/modules.d/80%{name}/*
 
 %changelog
+* Wed May 09 2012 Brian C. Lane <bcl@redhat.com> - 17.26-1
+- dracut: automatic updates.img for http/ftp (#809647) (wwoods)
+- Install grub2 /before/ writing the config file (re: rhbz #809111) (pjones)
+- makeupdates: ignore most of data directory (bcl)
+- handle 'cdrom' methodstr (#817084) (bcl)
+- Simplify what we dump in device.map for grub2-2.0-0.24.beta4.fc17 . (pjones)
+- be more clear about kickstart keyboard errors (#789725) (bcl)
+- Fix suggestDeviceName to correctly avoid in-use lv names. (#812528) (dlehman)
+- Notify the kernel/udev after creating swap space. (#818352) (dlehman)
+
 * Fri May 04 2012 Brian C. Lane <bcl@redhat.com> - 17.25-1
 - lower minimum memory requirements by 256M (#708966) (bcl)
 - liveinst/gnome: Add a welcome screen for use by the Desktop spin
