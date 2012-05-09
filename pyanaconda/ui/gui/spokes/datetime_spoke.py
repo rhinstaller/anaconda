@@ -249,7 +249,23 @@ class DatetimeSpoke(NormalSpoke):
         return True
 
     def _save_system_time(self):
-        #TODO: save system time here
+        month = self._get_combo_selection(self._monthCombo)
+        month = self._months_nums[month]
+        year = int(self._get_combo_selection(self._yearCombo))
+        minutes = int(self._minutesLabel.get_text())
+
+        hours = int(self._hoursLabel.get_text())
+        if not self._radioButton24h.get_active():
+            amPm_label = self.builder.get_object("amPmLabel")
+            hours = self._to_24h(hours, amPm_label.get_text())
+
+        day = self._get_combo_selection(self._dayCombo)
+        #day may be None if there is no such in the selected year and month
+        if day:
+            day = int(day)
+            seconds = datetime.datetime.now().second
+            os.system("date -s '%0.2d/%0.2d/%0.4d %0.2d:%0.2d:%0.2d'" %
+                                (month, day, year, hours, minutes, seconds))
 
         #start the timer only when the spoke is shown
         if self._update_datetime_timer_id is not None:
@@ -259,17 +275,17 @@ class DatetimeSpoke(NormalSpoke):
         #run only once (after first 2 seconds of inactivity)
         return False
 
-    def _stop_and_maybe_start_time_updating(self):
+    def _stop_and_maybe_start_time_updating(self, interval=2):
         """
-        This method is called in every time-setting button's callback.
-        It removes the timer for updating displayed time (do not want to change
-        it wile user does it manually) and allows us to set new system time
-        only after 2 seconds long idle on time-setting buttons. This is done
-        by the _start_updating_timer that is reset in this method. So when
-        there is a 2 seconds long idle on time-setting buttons,
-        self._save_system_time method is invoked. Since it returns False,
-        this timer is then removed and only reactivated in this method (thus
-        in some time-setting button's callback).
+        This method is called in every date/time-setting button's callback.
+        It removes the timer for updating displayed date/time (do not want to
+        change it while user does it manually) and allows us to set new system
+        date/time only after $interval seconds long idle on time-setting buttons.
+        This is done by the _start_updating_timer that is reset in this method.
+        So when there is $interval seconds long idle on date/time-setting
+        buttons, self._save_system_time method is invoked. Since it returns
+        False, this timer is then removed and only reactivated in this method
+        (thus in some date/time-setting button's callback).
 
         """
 
@@ -282,13 +298,13 @@ class DatetimeSpoke(NormalSpoke):
         #stop time updating
         GLib.source_remove(self._update_datetime_timer_id)
 
-        #stop previous 2 seconds timer (see below)
+        #stop previous $interval seconds timer (see below)
         if self._start_updating_timer_id:
             GLib.source_remove(self._start_updating_timer_id)
 
-        #let the user change time and after 2 seconds of inactivity save it as
-        #the system time and start updating the displayed time
-        self._start_updating_timer_id = GLib.timeout_add_seconds(2,
+        #let the user change date/time and after $interval seconds of inactivity
+        #save it as the system time and start updating the displayed date/time
+        self._start_updating_timer_id = GLib.timeout_add_seconds(interval,
                                                     self._save_system_time)
 
     def _set_combo_selection(self, combo, item):
@@ -305,6 +321,22 @@ class DatetimeSpoke(NormalSpoke):
             itr = model.iter_next(itr)
 
         return False
+
+    def _get_combo_selection(self, combo):
+        """
+        Get the selected item of the combobox.
+
+        @return: selected item or None
+
+        """
+
+        model = combo.get_model()
+        itr = combo.get_active_iter()
+        if not itr or not model:
+            return None
+
+        return model[itr][0]
+
 
     def on_up_hours_clicked(self, *args):
         self._stop_and_maybe_start_time_updating()
@@ -409,12 +441,14 @@ class DatetimeSpoke(NormalSpoke):
             self._tzmap.set_timezone(timezone)
 
     def on_month_changed(self, *args):
+        self._stop_and_maybe_start_time_updating(interval=5)
         self._daysFilter.refilter()
 
     def on_day_changed(self, *args):
-        pass
+        self._stop_and_maybe_start_time_updating(interval=5)
 
     def on_year_changed(self, *args):
+        self._stop_and_maybe_start_time_updating(interval=5)
         self._daysFilter.refilter()
 
     def on_timezone_changed(self, tz_map, timezone):
