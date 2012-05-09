@@ -44,7 +44,14 @@ case $repo in
             warn "can't find installer mainimage path in .treeinfo"
             stage2="LiveOS/squashfs.img"
         fi
-        runtime=$(fetch_url $repo/$stage2) && /sbin/dmsquash-live-root $runtime
+        if runtime=$(fetch_url $repo/$stage2); then
+            # NOTE: Should be the same as anaconda_auto_updates()
+            updates=$(fetch_url $repo/images/updates.img)
+            [ -n "$updates" ] && unpack_updates_img $updates /updates
+            product=$(fetch_url $repo/images/product.img)
+            [ -n "$product" ] && unpack_updates_img $product /updates/tmp/product
+            /sbin/dmsquash-live-root $runtime
+        fi
     ;;
     *)
         warn "unknown network repo URL: $repo"
