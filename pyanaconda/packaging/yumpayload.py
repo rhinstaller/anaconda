@@ -775,6 +775,8 @@ reposdir=%s
 
             This follows the same ordering/pattern as kickstart.py.
         """
+        self._selectYumGroup("core")
+
         for package in self.data.packages.packageList:
             self._selectYumPackage(package)
 
