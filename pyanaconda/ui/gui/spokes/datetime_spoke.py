@@ -98,12 +98,15 @@ class DatetimeSpoke(NormalSpoke):
         self._citiesSort = self.builder.get_object("citiesSort")
         self._citiesSort.set_sort_column_id(0, 0) #column 0, Ascending
 
-        self._radioButton24h = self.builder.get_object("timeFormatRB")
-        if self._radioButton24h.get_active():
-            self._set_amPm_part_sensitive(False)
-
         self._hoursLabel = self.builder.get_object("hoursLabel")
         self._minutesLabel = self.builder.get_object("minutesLabel")
+        self._amPmUp = self.builder.get_object("amPmUpButton")
+        self._amPmDown = self.builder.get_object("amPmDownButton")
+        self._amPmLabel = self.builder.get_object("amPmLabel")
+        self._radioButton24h = self.builder.get_object("timeFormatRB")
+
+        if self._radioButton24h.get_active():
+            self._set_amPm_part_sensitive(False)
 
         self._update_datetime_timer_id = None
         if self.data.timezone.timezone:
@@ -198,11 +201,8 @@ class DatetimeSpoke(NormalSpoke):
         return city in self._regions_zones[region]
 
     def _set_amPm_part_sensitive(self, sensitive):
-        amPmUp = self.builder.get_object("amPmUpButton")
-        amPmDown = self.builder.get_object("amPmDownButton")
-        amPmLabel = self.builder.get_object("amPmLabel")
 
-        for widget in (amPmUp, amPmDown, amPmLabel):
+        for widget in (self._amPmUp, self._amPmDown, self._amPmLabel):
             widget.set_sensitive(sensitive)
 
     def _to_amPm(self, hours):
@@ -233,8 +233,7 @@ class DatetimeSpoke(NormalSpoke):
         else:
             hours, amPm = self._to_amPm(now.hour)
             self._hoursLabel.set_text("%0.2d" % hours)
-            amPm_label = self.builder.get_object("amPmLabel")
-            amPm_label.set_text(amPm)
+            self._amPmLabel.set_text(amPm)
 
         self._minutesLabel.set_text("%0.2d" % now.minute)
 
@@ -256,8 +255,7 @@ class DatetimeSpoke(NormalSpoke):
 
         hours = int(self._hoursLabel.get_text())
         if not self._radioButton24h.get_active():
-            amPm_label = self.builder.get_object("amPmLabel")
-            hours = self._to_24h(hours, amPm_label.get_text())
+            hours = self._to_24h(hours, self._amPmLabel.get_text())
 
         day = self._get_combo_selection(self._dayCombo)
         #day may be None if there is no such in the selected year and month
@@ -341,77 +339,67 @@ class DatetimeSpoke(NormalSpoke):
     def on_up_hours_clicked(self, *args):
         self._stop_and_maybe_start_time_updating()
 
-        hours_label = self.builder.get_object("hoursLabel")
-        hours = int(hours_label.get_text())
+        hours = int(self._hoursLabel.get_text())
 
-        button24h = self.builder.get_object("timeFormatRB")
-        if button24h.get_active():
+        if self._radioButton24h.get_active():
             new_hours = (hours + 1) % 24
         else:
-            amPm_label = self.builder.get_object("amPmLabel")
-            amPm = amPm_label.get_text()
+            amPm = self._amPmLabel.get_text()
             #let's not deal with magical AM/PM arithmetics
             new_hours = self._to_24h(hours, amPm)
             new_hours, new_amPm = self._to_amPm((new_hours + 1) % 24)
-            amPm_label.set_text(new_amPm)
+            self._amPmLabel.set_text(new_amPm)
 
         new_hours_str = "%0.2d" % new_hours
-        hours_label.set_text(new_hours_str)
+        self._hoursLabel.set_text(new_hours_str)
 
     def on_down_hours_clicked(self, *args):
         self._stop_and_maybe_start_time_updating()
 
-        hours_label = self.builder.get_object("hoursLabel")
-        hours = int(hours_label.get_text())
+        hours = int(self._hoursLabel.get_text())
 
-        button24h = self.builder.get_object("timeFormatRB")
-        if button24h.get_active():
+        if self._radioButton24h.get_active():
             new_hours = (hours - 1) % 24
         else:
-            amPm_label = self.builder.get_object("amPmLabel")
-            amPm = amPm_label.get_text()
+            amPm = self._amPmLabel.get_text()
             #let's not deal with magical AM/PM arithmetics
             new_hours = self._to_24h(hours, amPm)
             new_hours, new_amPm = self._to_amPm((new_hours - 1) % 24)
-            amPm_label.set_text(new_amPm)
+            self._amPmLabel.set_text(new_amPm)
 
         new_hours_str = "%0.2d" % new_hours
-        hours_label.set_text(new_hours_str)
+        self._hoursLabel.set_text(new_hours_str)
 
     def on_up_minutes_clicked(self, *args):
         self._stop_and_maybe_start_time_updating()
 
-        minutes_label = self.builder.get_object("minutesLabel")
-        minutes = int(minutes_label.get_text())
+        minutes = int(self._minutesLabel.get_text())
         minutes_str = "%0.2d" % ((minutes + 1) % 60)
-        minutes_label.set_text(minutes_str)
+        self._minutesLabel.set_text(minutes_str)
         pass
 
     def on_down_minutes_clicked(self, *args):
         self._stop_and_maybe_start_time_updating()
 
-        minutes_label = self.builder.get_object("minutesLabel")
-        minutes = int(minutes_label.get_text())
+        minutes = int(self._minutesLabel.get_text())
         minutes_str = "%0.2d" % ((minutes - 1) % 60)
-        minutes_label.set_text(minutes_str)
+        self._minutesLabel.set_text(minutes_str)
 
     def on_up_ampm_clicked(self, *args):
         self._stop_and_maybe_start_time_updating()
 
-        label = self.builder.get_object("amPmLabel")
-        if label.get_text() == "AM":
-            label.set_text("PM")
+        if self._amPmLabel.get_text() == "AM":
+            self._amPmLabel.set_text("PM")
         else:
-            label.set_text("AM")
+            self._amPmLabel.set_text("AM")
 
     def on_down_ampm_clicked(self, *args):
         self._stop_and_maybe_start_time_updating()
 
-        label = self.builder.get_object("amPmLabel")
-        if label.get_text() == "AM":
-            label.set_text("PM")
+        if self._amPmLabel.get_text() == "AM":
+            self._amPmLabel.set_text("PM")
         else:
-            label.set_text("AM")
+            self._amPmLabel.set_text("AM")
 
     def on_region_changed(self, *args):
         self._citiesFilter.refilter()
@@ -465,10 +453,8 @@ class DatetimeSpoke(NormalSpoke):
         self._update_datetime()
 
     def on_timeformat_changed(self, button24h, *args):
-        hours_label = self.builder.get_object("hoursLabel")
-        hours = int(hours_label.get_text())
-        amPm_label = self.builder.get_object("amPmLabel")
-        amPm = amPm_label.get_text()
+        hours = int(self._hoursLabel.get_text())
+        amPm = self._amPmLabel.get_text()
 
         #connected to 24-hour radio button
         if button24h.get_active():
@@ -478,7 +464,7 @@ class DatetimeSpoke(NormalSpoke):
         else:
             self._set_amPm_part_sensitive(True)
             new_hours, new_amPm = self._to_amPm(hours)
-            amPm_label.set_text(new_amPm)
+            self._amPmLabel.set_text(new_amPm)
 
-        hours_label.set_text("%0.2d" % new_hours)
+        self._hoursLabel.set_text("%0.2d" % new_hours)
 
