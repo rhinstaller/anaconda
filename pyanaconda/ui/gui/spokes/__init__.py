@@ -93,9 +93,10 @@ class Spoke(UIObject):
 
     @property
     def completed(self):
-        """Has this spoke been visited and completed?  If not, a special
-           warning icon will be shown on the Hub and installation will not be
-           allowed to proceed.
+        """Has this spoke been visited and completed?  If not, a special warning
+           icon will be shown on the Hub beside the spoke, and a highlighted
+           message will be shown at the bottom of the Hub.  Installation will not
+           be allowed to proceed until all spokes are complete.
         """
         return False
 
@@ -105,6 +106,16 @@ class Spoke(UIObject):
            a very brief string.  The purpose of this is to display something
            on the Hub under the Spoke's title so the user can tell at a glance
            how things are configured.
+
+           A spoke's status line on the Hub can also be overloaded to provide
+           information about why a Spoke is not yet ready, or if an error has
+           occurred when setting it up.  This can be done by calling
+           send_message from pyanaconda.ui.gui.communication with the target
+           Spoke's class name and the message to be displayed.
+
+           If the Spoke was not yet ready when send_message was called, the
+           message will be overwritten with the value of this status property
+           when the Spoke becomes ready.
         """
         raise NotImplementedError
 
@@ -206,6 +217,13 @@ class NormalSpoke(Spoke):
            displayed.  Almost all spokes should keep the default value here.
            Only override this method if the Spoke requires some potentially
            long-lived process (like storage probing) before it's ready.
+
+           A Spoke may be marked as ready or not by calling send_ready or
+           send_not_ready from pyanaconda.ui.gui.communication with the
+           target Spoke's class name.
+
+           While a Spoke is not ready, a progress message may be shown to
+           give the user some feedback.  See the status property for details.
         """
         return True
 

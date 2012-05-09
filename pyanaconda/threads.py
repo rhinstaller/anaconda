@@ -64,6 +64,14 @@ class ThreadManager(object):
         return self._objs.get(name)
 
 class AnacondaThread(threading.Thread):
+    """A threading.Thread subclass that exists only for a couple purposes:
+
+       (1) Make exceptions that happen in a thread invoke our exception handling
+           code as well.  Otherwise, threads will silently die and we are doing
+           a lot of complicated code in them now.
+
+       (2) Remove themselves from the thread manager when completed.
+    """
     def run(self, *args, **kwargs):
         # http://bugs.python.org/issue1230540#msg25696
         import sys
@@ -78,6 +86,10 @@ class AnacondaThread(threading.Thread):
             threadMgr.remove(self.name)
 
 def initThreading():
+    """Set up threading for anaconda's use.  This method must be called before
+       any GTK or threading code is called, or else threads will only run when
+       an event is triggered in the GTK main loop.
+    """
     from gi.repository import GObject
     GObject.threads_init()
 
