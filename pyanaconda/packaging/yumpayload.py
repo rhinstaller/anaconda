@@ -145,11 +145,17 @@ class YumPayload(PackagePayload):
 
     def _resetYum(self, root=None):
         """ Delete and recreate the payload's YumBase instance. """
+        import shutil
         if root is None:
             root = self._root_dir
 
         with _yum_lock:
             if self._yum:
+                for repo in self._yum.repos.listEnabled():
+                    if repo.name == BASE_REPO_NAME and \
+                       os.path.isdir(repo.cachedir):
+                        shutil.rmtree(repo.cachedir)
+
                 del self._yum
 
             self._yum = yum.YumBase()
@@ -317,10 +323,10 @@ reposdir=%s
         try:
             self._configureBaseRepo(storage)
         except PayloadError as e:
-            log.error("failed to set up base repo: %s" % e)
             if not fallback:
-                # XXX this leaves the configuration exactly as specified in the
-                #     on-disk yum configuration
+                for repo in self._yum.repos.repos.values():
+                    if repo.enabled:
+                        self.disableRepo(repo.id)
                 raise
 
             # this preserves the method details while disabling it
@@ -499,6 +505,8 @@ reposdir=%s
                 self._addYumRepo(BASE_REPO_NAME, url,
                                  proxy=proxy, sslverify=sslverify)
             except MetadataError as e:
+                log.error("base repo (%s/%s) not valid -- removing it"
+                          % (method.method, url))
                 self._removeYumRepo(BASE_REPO_NAME)
                 raise
 
