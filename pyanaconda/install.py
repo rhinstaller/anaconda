@@ -49,7 +49,8 @@ def doInstall(storage, payload, ksdata, instClass):
     from pyanaconda import progress
     from pyanaconda.kickstart import runPostScripts
 
-    # First, run all the execute methods of the ksdata.
+    # First, run the execute methods of ksdata that prepare the system for
+    # installation.
     ksdata.clearpart.execute(storage, ksdata, instClass)
     ksdata.bootloader.execute(storage, ksdata, instClass)
     ksdata.autopart.execute(storage, ksdata, instClass)
@@ -75,6 +76,10 @@ def doInstall(storage, payload, ksdata, instClass):
     # Do bootloader.
     with progress_report(_("Installing bootloader")):
         writeBootLoader(storage, payload)
+
+    # Now run the execute methods of ksdata that require an installed system
+    # to be present first.
+    ksdata.services.execute(storage, ksdata, instClass)
 
     runPostScripts(ksdata.scripts)
 

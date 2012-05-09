@@ -293,20 +293,3 @@ class Anaconda(object):
         self.users.write()
         self.security.write()
         self.firewall.write()
-
-        services = list(self.storage.services)
-
-        if self.ksdata:
-            for svc in self.ksdata.services.disabled:
-                iutil.execWithRedirect("/sbin/chkconfig",
-                                       [svc, "off"],
-                                       stdout="/dev/tty5", stderr="/dev/tty5",
-                                       root=ROOT_PATH)
-
-            services.extend(self.ksdata.services.enabled)
-
-        for svc in services:
-            iutil.execWithRedirect("/sbin/chkconfig",
-                                   [svc, "on"],
-                                   stdout="/dev/tty5", stderr="/dev/tty5",
-                                   root=ROOT_PATH)

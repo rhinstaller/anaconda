@@ -993,6 +993,18 @@ class RaidData(commands.raid.F15_RaidData):
 
         self.anaconda.dispatch.skip_steps("partition", "parttype")
 
+class Services(commands.services.FC6_Services):
+    def execute(self, storage, ksdata, instClass):
+        for svc in self.disabled:
+            iutil.execWithRedirect("/sbin/chkconfig", [svc, "off"],
+                                   stdout="/dev/tty5", stderr="/dev/tty5",
+                                   root=ROOT_PATH)
+
+        for svc in self.enabled:
+            iutil.execWithRedirect("/sbin/chkconfig", [svc, "on"],
+                                   stdout="/dev/tty5", stderr="/dev/tty5",
+                                   root=ROOT_PATH)
+
 class Timezone(commands.timezone.FC6_Timezone):
     def execute(self):
         # check validity
@@ -1090,6 +1102,7 @@ commandMap = {
         "iscsiname": IscsiName,
         "logging": Logging,
         "multipath": MultiPath,
+        "services": Services,
         "timezone": Timezone,
         "xconfig": XConfig,
         "zfcp": ZFCP,
