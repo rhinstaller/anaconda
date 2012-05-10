@@ -194,6 +194,7 @@ reposdir=%s
 
         open("/tmp/anaconda-yum.conf", "w").write(buf)
 
+    # YUMFIXME: yum should allow a cache dir outside of the installroot
     def _yumCacheDirHack(self):
         # This is what it takes to get yum to use a cache dir outside the
         # install root. We do this so we don't have to re-gather repo meta-
@@ -268,6 +269,9 @@ reposdir=%s
         log.debug("installation yum config repos: %s"
                   % ",".join([r.id for r in self._yum.repos.listEnabled()]))
 
+    # YUMFIXME: there should be a way to reset package sacks without all this
+    #           knowledge of the yum internals or, better yet, some convenience
+    #           functions for multi-threaded applications
     def release(self):
         from yum.packageSack import MetaSack
         log.debug("deleting package sacks")
@@ -576,6 +580,7 @@ reposdir=%s
 
             # this will trigger retrieval of repomd.xml, which is small and yet
             # gives us some assurance that the repo config is sane
+            # YUMFIXME: yum's instant policy doesn't work as advertised
             obj.mdpolicy = "meh"
             try:
                 obj.repoXML
