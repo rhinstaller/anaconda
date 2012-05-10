@@ -161,15 +161,14 @@ class KeyboardSpoke(NormalSpoke):
                                             self._xkl_wrapper)
 
         self._store = self.builder.get_object("addedLayoutStore")
-        self._addLayout(self._store, "us")
+        self._add_data_layouts()
 
     def refresh(self):
         NormalSpoke.refresh(self)
 
         # Clear and repopulate addedLayoutStore with values from self.data
         self._store.clear()
-        for layout in self.data.keyboard.layouts_list:
-            self._addLayout(self._store, layout)
+        self._add_data_layouts()
 
         self._upButton = self.builder.get_object("upButton")
         self._downButton = self.builder.get_object("downButton")
@@ -313,4 +312,11 @@ class KeyboardSpoke(NormalSpoke):
         else:
             self._upButton.set_sensitive(True)
             self._downButton.set_sensitive(True)
+
+    def _add_data_layouts(self):
+        if self.data.keyboard.layouts_list:
+            for layout in self.data.keyboard.layouts_list:
+                self._addLayout(self._store, layout)
+        else:
+            self._addLayout(self._store, "us")
 
