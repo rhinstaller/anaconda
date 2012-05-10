@@ -24,6 +24,9 @@ from installinterfacebase import InstallInterfaceBase
 import cmdline
 from cmdline import setupProgressDisplay
 
+import gettext
+_ = lambda x: gettext.ldgettext("anaconda", x)
+
 import logging
 log = logging.getLogger("anaconda")
 
