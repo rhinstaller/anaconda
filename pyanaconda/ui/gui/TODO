@@ -8,9 +8,7 @@
 - Language spoke off the first hub needs to be written.
 - Network spoke needs apply method and to look at ksdata when setting itself up.
 - NetworkStandaloneSpoke needs completed method and to look at ksdata when setting itself up.
-- Pressing Continue on the partitioning screen can result in a long pause if package metadata is
-  still being downloaded (waiting for lock).
-- Storage spoke needs to look at ksdata when setting itself up.
+- Need to sort out checking of storage config against package set space needs.
 - Test handling of inconsistent LVM/RAID, and uninitialized disks.
 - Update exception handling.  This requires updating python-meh to use gtk3,
   which also requires updating firstboot and s-c-ks to gtk3.  I want to turn
