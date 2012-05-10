@@ -245,7 +245,7 @@ class AutoPart(commands.autopart.F16_AutoPart):
         if not self.lvm:
             storage.lvmAutoPart = False
 
-        doAutoPartition(storage, ksdata, errorcb=errorHandler.cb, warningcb=errorHandler.cb)
+        doAutoPartition(storage, ksdata)
 
 class Bootloader(commands.bootloader.F17_Bootloader):
     def execute(self, storage, ksdata, instClass):

@@ -21,7 +21,6 @@
 #
 
 from pyanaconda.constants import ROOT_PATH
-from pyanaconda.errors import errorHandler
 from pyanaconda.storage import turnOnFilesystems
 from pyanaconda.bootloader import writeBootLoader
 from pyanaconda.progress import progress_report
@@ -64,7 +63,7 @@ def doInstall(storage, payload, ksdata, instClass):
     progress.send_init(steps)
 
     # Do partitioning.
-    turnOnFilesystems(storage, errorHandler)
+    turnOnFilesystems(storage)
 
     # Do packaging.
     payload.preInstall(packages=storage.packages)

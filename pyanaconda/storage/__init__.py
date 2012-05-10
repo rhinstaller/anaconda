@@ -36,6 +36,7 @@ from pyanaconda.constants import *
 from pykickstart.constants import *
 from pyanaconda.flags import flags
 from pyanaconda import tsort
+from pyanaconda.errors import *
 
 from errors import *
 from devices import *
@@ -208,11 +209,8 @@ def storageComplete(anaconda):
     if rc == 0:
         return DISPATCH_BACK
 
-def turnOnFilesystems(storage, errorcb=None):
+def turnOnFilesystems(storage):
     from pyanaconda.upgrade import bindMountDevDirectory
-
-    if errorcb is None:
-        errorcb = lambda *args,**kwargs: True
 
     upgrade = "preupgrade" in flags.cmdline
 
@@ -232,15 +230,17 @@ def turnOnFilesystems(storage, errorcb=None):
 
     try:
         storage.doIt()
-    except FSResizeError as (msg, device):
+    except FSResizeError as e:
         if os.path.exists("/tmp/resize.out"):
             details = open("/tmp/resize.out", "r").read()
         else:
-            details = "%s" %(msg,)
+            details = e.args[1]
 
-        errorcb(FSResizeError(), device, details=details)
-    except FSMigrateError as (msg, device):
-        errorcb(FSMigrateError(), device, msg)
+        if errorHandler.cb(e, e.args[0], details=details) == ERROR_RAISE:
+            raise
+    except FSMigrateError as e:
+        if errorHandler.cb(e, e.args[0], e.args[1]) == ERROR_RAISE:
+            raise
     except Exception as e:
         raise
 
@@ -2077,15 +2077,8 @@ class FSSet(object):
                         # just write duplicates back out post-install
                         self.preserveLines.append(line)
 
-    def turnOnSwap(self, rootPath="", upgrading=None, errorcb=None):
-        """ Activate the system's swap space.
-
-            errorcb should accept an Exception instance and a Device instance
-            return True if the exception should be fatal, which is the default.
-        """
-        if errorcb is None:
-            errorcb = lambda e,d: True
-
+    def turnOnSwap(self, rootPath="", upgrading=None):
+        """ Activate the system's swap space. """
         for device in self.swapDevices:
             if isinstance(device, FileDevice):
                 # set up FileDevices' parents now that they are accessible
@@ -2105,22 +2098,14 @@ class FSSet(object):
                     device.setup()
                     device.format.setup()
                 except StorageError as e:
-                    if errorcb(e, device):
+                    if errorHandler.cb(e, device) == ERROR_RAISE:
                         raise
                 else:
                     break
 
-    def mountFilesystems(self, rootPath="", readOnly=None, errorcb=None,
+    def mountFilesystems(self, rootPath="", readOnly=None,
                          skipRoot=False, raiseErrors=None):
-        """ Mount the system's filesystems.
-
-            errorcb should accept an Exception instance and a Device instance
-            and return True if the exception should be fatal, which is the
-            default.
-        """
-        if errorcb is None:
-            errorcb = lambda e,d: True
-
+        """ Mount the system's filesystems. """
         devices = self.mountpoints.values() + self.swapDevices
         devices.extend([self.dev, self.devshm, self.devpts, self.sysfs,
                         self.proc, self.selinux, self.usb])
@@ -2157,7 +2142,7 @@ class FSSet(object):
             try:
                 device.setup()
             except Exception as msg:
-                if errorcb(e, device):
+                if errorHandler.cb(e, device) == ERROR_RAISE:
                     raise
                 else:
                     continue
@@ -2171,7 +2156,7 @@ class FSSet(object):
             except Exception as e:
                 log.error("error mounting %s on %s: %s"
                           % (device.path, device.format.mountpoint, e))
-                if errorcb(e, device):
+                if errorHandler.cb(e, device) == ERROR_RAISE:
                     raise
 
         self.active = True

@@ -28,6 +28,7 @@ import parted
 from pykickstart.constants import *
 
 from pyanaconda.constants import *
+from pyanaconda.errors import *
 
 from errors import *
 from deviceaction import *
@@ -245,7 +246,7 @@ def scheduleShrinkActions(storage):
         if device.targetSize != size:
             device.format.targetSize = device.targetSize
 
-def doAutoPartition(storage, data, errorcb=None, warningcb=None):
+def doAutoPartition(storage, data):
     log.debug("doAutoPart: %s" % storage.doAutoPart)
     log.debug("encryptedAutoPart: %s" % storage.encryptedAutoPart)
     log.debug("lvmAutoPart: %s" % storage.lvmAutoPart)
@@ -259,11 +260,6 @@ def doAutoPartition(storage, data, errorcb=None, warningcb=None):
 
     disks = []
     devs = []
-
-    if errorcb is None:
-        errorcb = lambda e: True
-    if warningcb is None:
-        warningcb = lambda e: True
 
     if storage.doAutoPart:
         scheduleShrinkActions(storage)
@@ -290,12 +286,13 @@ def doAutoPartition(storage, data, errorcb=None, warningcb=None):
         growLVM(storage)
     except PartitioningWarning as e:
         log.warning(str(e))
-        warningcb(e)
+        if errorHandler.cb(e) == ERROR_RAISE:
+            raise
     except PartitioningError as e:
         log.error(str(e))
-        errorcb(e)
-        storage.reset()
-        raise
+        if errorHandler.cb(e) == ERROR_RAISE:
+            storage.reset()
+            raise
 
     storage.setUpBootLoader()
 
@@ -307,9 +304,9 @@ def doAutoPartition(storage, data, errorcb=None, warningcb=None):
         log.warning(warning)
     if errors:
         exn = PartitioningError("\n".join(errors))
-        errorcb(exn)
-        storage.reset()
-        raise exn
+        if errorHandler.cb(exn) == ERROR_RAISE:
+            storage.reset()
+            raise exn
 
 def shouldClear(device, clearPartType, clearPartDisks=None):
     if clearPartType not in [CLEARPART_TYPE_LINUX, CLEARPART_TYPE_ALL]:
