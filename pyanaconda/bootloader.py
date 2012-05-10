@@ -1737,7 +1737,7 @@ class GRUB2(GRUB):
         defaults_file = "%s%s" % (ROOT_PATH, self.defaults_file)
         defaults = open(defaults_file, "w+")
         defaults.write("GRUB_TIMEOUT=%d\n" % self.timeout)
-        defaults.write("GRUB_DISTRIBUTOR=\"%s\"\n" % productName)
+        defaults.write("GRUB_DISTRIBUTOR=\"$(sed 's, release .*$,,g' /etc/system-release)\""))
         defaults.write("GRUB_DEFAULT=saved\n")
         if self.console and self.console.startswith("ttyS"):
             defaults.write("GRUB_TERMINAL=\"serial console\"\n")
@@ -1748,6 +1748,7 @@ class GRUB2(GRUB):
         # boot arguments
         log.info("bootloader.py: used boot args: %s " % self.boot_args)
         defaults.write("GRUB_CMDLINE_LINUX=\"%s\"\n" % self.boot_args)
+        defaults.write("GRUB_DISABLE_RECOVERY=\"true\"")
         defaults.write("GRUB_THEME=\"/boot/grub2/themes/system/theme.txt\"")
         defaults.close()
 
