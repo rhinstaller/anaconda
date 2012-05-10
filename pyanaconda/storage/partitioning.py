@@ -143,6 +143,7 @@ def _schedulePartitions(storage, disks):
                 stage1_device.format.mountpoint = "/boot/efi"
 
             log.debug(stage1_device)
+            continue
 
         # This is a little unfortunate but let the backend dictate the rootfstype
         # so that things like live installs can do the right thing
