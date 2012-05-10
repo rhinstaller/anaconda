@@ -126,6 +126,7 @@ class SoftwareSelectionSpoke(NormalSpoke):
         threadMgr.add(AnacondaThread(name="AnaSoftwareWatcher", target=self._initialize))
 
     def _initialize(self):
+        from pyanaconda.packaging import MetadataError
         from pyanaconda.threads import threadMgr
 
         communication.send_message(self.__class__.__name__, _("Downloading package metadata..."))
@@ -141,7 +142,13 @@ class SoftwareSelectionSpoke(NormalSpoke):
             # first time (yum does a lot of magic property stuff, some of which
             # involves side effects like network access) so go ahead and grab
             # them once now.
-            self.refresh()
+            try:
+                self.refresh()
+            except MetadataError:
+                communication.send_message(self.__class__.__name__,
+                                           _("No installation source available"))
+                return
+
             self.payload.release()
 
         self._ready = True
