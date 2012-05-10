@@ -947,8 +947,21 @@ class NetworkStandaloneSpoke(StandaloneSpoke):
         parent = self.builder.get_object("AnacondaStandaloneWindow-action_area5")
         parent.add(self.network_control_box.vbox)
 
+        self._initially_available = False
+        self._now_available = False
+
     def apply(self):
-        pass
+        self._now_available = self.network_control_box.status() != _("Not connected")
+
+        if not self.payload.baseRepo and not self._initially_available and self._now_available:
+            from pyanaconda.packaging import payloadInitialize
+            from pyanaconda.threads import threadMgr, AnacondaThread
+
+            payloadThread = threadMgr.get("AnaPayloadThread")
+            if payloadThread:
+                payloadThread.join()
+
+            threadMgr.add(AnacondaThread(name="AnaPayloadThread", target=payloadInitialize, args=(self.storage, self.data, self.payload)))
 
     def initialize(self):
         StandaloneSpoke.initialize(self)
@@ -957,6 +970,8 @@ class NetworkStandaloneSpoke(StandaloneSpoke):
     def refresh(self):
         StandaloneSpoke.refresh(self)
         self.network_control_box.refresh()
+
+        self._initially_available = self.network_control_box.status() != _("Not connected")
 
     def on_back_clicked(self, window):
         self.window.hide()
