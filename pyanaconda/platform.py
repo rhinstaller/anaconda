@@ -188,10 +188,7 @@ class EFI(Platform):
     _bootloaderClass = bootloader.EFIGRUB
 
     _boot_stage1_format_types = ["efi"]
-    _boot_stage1_device_types = ["partition", "mdarray"]
-    _boot_stage1_raid_levels = [mdraid.RAID1]
-    _boot_stage1_raid_metadata = ["1.0"]
-    _boot_stage1_raid_member_types = ["partition"]
+    _boot_stage1_device_types = ["partition"]
     _boot_stage1_mountpoints = ["/boot/efi"]
     _boot_efi_description = N_("EFI System Partition")
     _boot_descriptions = {"partition": _boot_efi_description,

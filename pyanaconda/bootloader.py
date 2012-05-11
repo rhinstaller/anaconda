@@ -1464,6 +1464,12 @@ class EFIGRUB(GRUB):
     can_dual_boot = False
     _config_dir = "efi/EFI/redhat"
 
+    # list of strings representing options for boot device types
+    stage2_device_types = ["partition"]
+    stage2_raid_levels = []
+    stage2_raid_member_types = []
+    stage2_raid_metadata = []
+
     stage2_is_valid_stage1 = False
     stage2_bootable = False
     stage2_max_end_mb = None
