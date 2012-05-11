@@ -586,77 +586,7 @@ class Network:
 
         for devName in devNames:
             dev = self.netdevices[devName]
-
-            line = "network"
-
-            # ipv4 and ipv6
-            if dev.get("ONBOOT"):
-                line += " --onboot %s" % dev.get("ONBOOT")
-            line += " --device %s" % dev.iface
-            if dev.get('MTU') and dev.get('MTU') != "0":
-                line += " --mtu=%s" % dev.get('MTU')
-
-            # ipv4
-            if not dev.get('BOOTPROTO'):
-                line += " --noipv4"
-            else:
-                if dev.get('BOOTPROTO').lower() == 'dhcp':
-                    line += " --bootproto dhcp"
-                    if dev.get('DHCPCLASS'):
-                        line += " --dhcpclass %s" % dev.get('DHCPCLASS')
-                elif dev.get('IPADDR'):
-                    line += " --bootproto static --ip %s" % dev.get('IPADDR')
-                    netmask = dev.get('NETMASK')
-                    prefix  = dev.get('PREFIX')
-                    if not netmask and prefix:
-                        netmask = isys.prefix2netmask(int(prefix))
-                    if netmask:
-                        line += " --netmask %s" % netmask
-                    # note that --gateway is common for ipv4 and ipv6
-                    if dev.get('GATEWAY'):
-                        line += " --gateway %s" % dev.get('GATEWAY')
-
-            # ipv6
-            if (not dev.get('IPV6INIT') or
-                dev.get('IPV6INIT') == "no"):
-                line += " --noipv6"
-            else:
-                if dev.get('IPV6_AUTOCONF') == "yes":
-                    line += " --ipv6 auto"
-                else:
-                    if dev.get('IPV6ADDR'):
-                        line += " --ipv6 %s" % dev.get('IPV6ADDR')
-                        if dev.get('IPV6_DEFAULTGW'):
-                            line += " --gateway %s" % dev.get('IPV6_DEFAULTGW')
-                    if dev.get('DHCPV6') == "yes":
-                        line += " --ipv6 dhcp"
-
-            # ipv4 and ipv6
-            dnsline = ''
-            for key in dev.info.keys():
-                if key.upper().startswith('DNS'):
-                    if dnsline == '':
-                        dnsline = dev.get(key)
-                    else:
-                        dnsline += "," + dev.get(key)
-            if dnsline:
-                line += " --nameserver %s" % dnsline
-
-            if dev.get("ETHTOOL_OPTS"):
-                line += " --ethtool %s" % dev.get("ETHTOOL_OPTS")
-
-            if dev.get("ESSID"):
-                line += " --essid %s" % dev.get("ESSID")
-
-            # hostname
-            if dev.get("DHCP_HOSTNAME"):
-                line += " --hostname %s" % dev.get("DHCP_HOSTNAME")
-            elif dev.get("BOOTPROTO").lower != "dhcp":
-                if (self.hostname and
-                    self.hostname != "localhost.localdomain"):
-                    line += " --hostname %s" % self.hostname
-
-            line += "\n"
+            line = "%s" % kickstartNetworkData(dev, self.hostname)
             f.write(line)
 
     def hasNameServers(self, hash):
@@ -920,6 +850,82 @@ class Network:
             netargs.add(znet)
 
         return netargs
+
+def kickstartNetworkData(ifcfg, hostname=None):
+
+    from pyanaconda.kickstart import NetworkData
+    kwargs = {}
+
+    # ipv4 and ipv6
+    if not ifcfg.get("ESSID"):
+        kwargs["device"] = ifcfg.iface
+    if ifcfg.get("ONBOOT") and ifcfg.get("ONBOOT" ) == "no":
+        kwargs["onboot"] = False
+    if ifcfg.get('MTU') and ifcfg.get('MTU') != "0":
+        kwargs["mtu"] = ifcfg.get('MTU')
+
+    # ipv4
+    if not ifcfg.get('BOOTPROTO'):
+        kwargs["noipv4"] = True
+    else:
+        if ifcfg.get('BOOTPROTO').lower() == 'dhcp':
+            kwargs["bootProto"] = "dhcp"
+            if ifcfg.get('DHCPCLASS'):
+                kwargs["dhcpclass"] = ifcfg.get('DHCPCLASS')
+        elif ifcfg.get('IPADDR'):
+            kwargs["bootProto"] = "static"
+            kwargs["ip"] = ifcfg.get('IPADDR')
+            netmask = ifcfg.get('NETMASK')
+            prefix  = ifcfg.get('PREFIX')
+            if not netmask and prefix:
+                netmask = isys.prefix2netmask(int(prefix))
+            if netmask:
+                kwargs["netmask"] = netmask
+            # note that --gateway is common for ipv4 and ipv6
+            if ifcfg.get('GATEWAY'):
+                kwargs["gateway"] = ifcfg.get('GATEWAY')
+
+    # ipv6
+    if (not ifcfg.get('IPV6INIT') or
+        ifcfg.get('IPV6INIT') == "no"):
+        kwargs["noipv6"] = True
+    else:
+        if ifcfg.get('IPV6_AUTOCONF') == "yes":
+            kwargs["ipv6"] = "auto"
+        else:
+            if ifcfg.get('IPV6ADDR'):
+                kwargs["ipv6"] = ifcfg.get('IPV6ADDR')
+                if ifcfg.get('IPV6_DEFAULTGW'):
+                    kwargs["gateway"] = ifcfg.get('IPV6_DEFAULTGW')
+            if ifcfg.get('DHCPV6') == "yes":
+                kwargs["ipv6"] = "dhcp"
+
+    # ipv4 and ipv6
+    dnsline = ''
+    for key in ifcfg.info.keys():
+        if key.upper().startswith('DNS'):
+            if dnsline == '':
+                dnsline = ifcfg.get(key)
+            else:
+                dnsline += "," + ifcfg.get(key)
+    if dnsline:
+        kwargs["nameserver"] = dnsline
+
+    if ifcfg.get("ETHTOOL_OPTS"):
+        kwargs["ethtool"] = ifcfg.get("ETHTOOL_OPTS")
+
+    if ifcfg.get("ESSID"):
+        kwargs["essid"] = ifcfg.get("ESSID")
+
+    # hostname
+    if ifcfg.get("DHCP_HOSTNAME"):
+        kwargs["hostname"] = ifcfg.get("DHCP_HOSTNAME")
+    elif ifcfg.get("BOOTPROTO").lower != "dhcp":
+        if (hostname and
+            hostname != "localhost.localdomain"):
+            kwargs["hostname"] = hostname
+
+    return NetworkData(**kwargs)
 
 def getSSIDs(devices_to_scan=None):
 

@@ -39,6 +39,8 @@ from pyanaconda.ui.gui.spokes import NormalSpoke, StandaloneSpoke
 from pyanaconda.ui.gui.categories.software import SoftwareCategory
 from pyanaconda.ui.gui.hubs.summary import SummaryHub
 
+from pyanaconda.network import NetworkDevice, netscriptsDir, kickstartNetworkData, getActiveNetDevs
+
 from gi.repository import GLib, GObject, Pango, Gio, NetworkManager, NMClient
 import dbus
 import socket
@@ -923,6 +925,11 @@ class NetworkControlBox():
 
         return sec_str
 
+    @property
+    def listed_devices(self):
+        return [row[DEVICES_COLUMN_OBJECT] for
+                row in self.builder.get_object("liststore_devices")]
+
 class NetworkSpoke(NormalSpoke):
     builderObjects = ["networkWindow", "liststore_wireless_network", "liststore_devices"]
     mainWidgetName = "networkWindow"
@@ -938,7 +945,11 @@ class NetworkSpoke(NormalSpoke):
         self.network_control_box = NetworkControlBox(self.builder)
 
     def apply(self):
-        pass
+        self.data.network.network = []
+        for dev in self.network_control_box.listed_devices:
+            network_data = getKSNetworkData(dev)
+            if network_data is not None:
+                self.data.network.network.append(network_data)
 
     @property
     def completed(self):
@@ -956,7 +967,6 @@ class NetworkSpoke(NormalSpoke):
     def refresh(self):
         NormalSpoke.refresh(self)
         self.network_control_box.refresh()
-
 
 class NetworkStandaloneSpoke(StandaloneSpoke):
     builderObjects = ["networkStandaloneWindow", "networkControlBox_vbox", "liststore_wireless_network", "liststore_devices"]
@@ -976,6 +986,12 @@ class NetworkStandaloneSpoke(StandaloneSpoke):
         self._now_available = False
 
     def apply(self):
+        self.data.network.network = []
+        for dev in self.network_control_box.listed_devices:
+            network_data = getKSNetworkData(dev)
+            if network_data is not None:
+                self.data.network.network.append(network_data)
+
         self._now_available = self.network_control_box.status() != _("Not connected")
 
         if not self.payload.baseRepo and not self._initially_available and self._now_available:
@@ -1002,6 +1018,25 @@ class NetworkStandaloneSpoke(StandaloneSpoke):
         self.window.hide()
         Gtk.main_quit()
 
+def getKSNetworkData(device):
+    retval = None
+
+    ifcfg_suffix = None
+    if device.get_device_type() == NetworkManager.DeviceType.ETHERNET:
+        ifcfg_suffix = device.get_iface()
+    elif device.get_device_type() == NetworkManager.DeviceType.WIFI:
+        ap = device.get_active_access_point()
+        if ap:
+            ifcfg_suffix = ap.get_ssid()
+
+    if ifcfg_suffix:
+        device_cfg = NetworkDevice(netscriptsDir, ifcfg_suffix)
+        device_cfg.loadIfcfgFile()
+        retval = kickstartNetworkData(device_cfg)
+        if device.get_iface() in getActiveNetDevs():
+            retval.activate = True
+
+    return retval
 
 if __name__ == "__main__":
 
