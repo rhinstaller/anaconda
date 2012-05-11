@@ -28,7 +28,6 @@
 #   see we_dont_have_nm_applet_as_secrets_agent
 # - callback on NM_CLIENT_ACTIVE_CONNECTIONS
 # - support connection to hidden network (ap-other)
-# - apply(): fill ksdata (from ifcfg files!)
 # - device_is_stored
 # - NMClient.CLIENT_WIRELESS_ENABLED callback (hw switch?) - test
 # - nm-c-e run: blocking? logging?
@@ -245,7 +244,6 @@ class NetworkControlBox():
 
         self.builder.get_object("notebook_types").set_show_tabs(False)
 
-        self._refresh_idle = None
         # to prevent UI update signals races
         self._updating_device = False
 
@@ -330,7 +328,8 @@ class NetworkControlBox():
         selection.select_iter(devices_store.get_iter_first())
 
     def refresh(self):
-        self.refresh_ui()
+        device = self.selected_device()
+        self.refresh_ui(device)
 
     def status(self):
         active_wired_devs = []
@@ -366,15 +365,23 @@ class NetworkControlBox():
     # Signal handlers.
     def on_device_selection_changed(self, *args):
         print "DBG: on_device_selection_changed"
-        self.refresh_ui()
+        device = self.selected_device()
+        self.refresh_ui(device)
 
     def on_device_state_changed(self, *args):
         print "DBG: on_device_state_changed"
-        self.refresh_ui()
+        device = args[0]
+        new_state = args[1]
+        self._refresh_carrier_info()
+        read_config_values = (new_state == NetworkManager.DeviceState.ACTIVATED)
+        if device == self.selected_device():
+            self.refresh_ui(device, read_config_values)
 
+    # TODO: remove/fix
     def on_active_connections_changed(self, *args):
         print "DBG: on_active_connections_changed"
-        self.refresh_ui()
+        device = self.selected_device()
+        self.refresh_ui(device)
 
     def on_wireless_ap_changed_cb(self, combobox, *args):
         print "DBG: on_wireles_ap_changed_cb"
@@ -442,8 +449,8 @@ class NetworkControlBox():
             print "DBG: off switch ignored"
             return
 
-        print "DBG: off switch"
         active = switch.get_active()
+        print "DBG: off switch active: %s" % active
 
         device = self.selected_device()
 
@@ -580,104 +587,49 @@ class NetworkControlBox():
         for row in rows_to_remove:
             del(row)
 
-    def refresh_ui(self):
-        if self._refresh_idle:
-            print "DBG: refresh_ui_idle found"
-            return
-        time.sleep(0.3)
-        self._refresh_idle = GLib.idle_add(self.refresh_ui_idle)
-        print "DBG: refresh_ui_idle planned"
+    def refresh_ui(self, device, read_config_values=False):
+        self._refresh_device_type_page(device)
+        self._refresh_header_ui(device)
+        self._refresh_speed_hwaddr(device)
+        self._refresh_ap(device)
+        if read_config_values:
+            num_of_tries = 3
+        else:
+            num_of_tries = 0
+        self._refresh_device_cfg((device, num_of_tries))
 
-    def refresh_ui_idle(self):
-        print "DBG: refreshing ui"
-        self.refresh_device_ui(self.selected_device())
-        self._refresh_idle = None
+    def _refresh_device_cfg(self, dev_tries):
+        device, num_of_tries = dev_tries
+        ipv4cfg = None
+        ipv6cfg = None
 
-    def refresh_device_ui(self, device):
-        if not device:
-            return
+        if num_of_tries > 0:
+            ipv4cfg = device.get_ip4_config()
+            ipv6cfg = device.get_ip6_config()
+            if not ipv4cfg and not ipv6cfg:
+                GLib.timeout_add(300, self._refresh_device_cfg, (device,
+                                                                 num_of_tries-1))
+                return False
 
-        notebook = self.builder.get_object("notebook_types")
+        # We might need to wait for config objects to become available
+        if device.get_state() == NetworkManager.DeviceState.ACTIVATED:
+            # Activating device with neither ipv4 nor ipv6 configured shouldn't
+            # loop endlessly so set timeout
+            timeout = 1
+            while timeout > 0 and not ipv4cfg and not ipv6cfg:
+                while GLib.main_context_default().iteration(False):
+                    pass
+                ipv4cfg = device.get_ip4_config()
+                ipv6cfg = device.get_ip6_config()
+                time.sleep(0.3)
+                timeout = timeout - 0.3
 
         dev_type = device.get_device_type()
-
         if dev_type == NetworkManager.DeviceType.ETHERNET:
-
             dt = "wired"
-            notebook.set_current_page(0)
-
-            self._refresh_header_ui(device, dt)
-
-            speed = device.get_speed()
-            if device.get_state() == NetworkManager.DeviceState.UNAVAILABLE:
-                speed_str = None
-            elif speed:
-                speed_str = _("%d Mb/s") % speed
-            else:
-                speed_str = ""
-            self._set_device_info_value(dt, "speed", speed_str)
-
-            self._set_device_info_value(dt, "mac", device.get_hw_address())
-
         elif dev_type == NetworkManager.DeviceType.WIFI:
-
             dt = "wireless"
-            notebook.set_current_page(1)
 
-            self._refresh_header_ui(device, dt)
-
-            speed = device.get_bitrate()
-            if device.get_state() == NetworkManager.DeviceState.UNAVAILABLE:
-                speed_str = None
-            elif speed:
-                speed_str = _("%d Mb/s") % (speed / 1000)
-            else:
-                speed_str = ""
-            self._set_device_info_value(dt, "speed", speed_str)
-
-            self._set_device_info_value(dt, "mac", device.get_hw_address())
-
-            if device.get_state() == NetworkManager.DeviceState.UNAVAILABLE:
-                ap_str = None
-            else:
-                active_ap = device.get_active_access_point()
-                if active_ap:
-                    active_ap_dbus = dbus.SystemBus().get_object(NM_SERVICE,
-                                                                 active_ap.get_path())
-                    ap_str = self._ap_security_string_dbus(active_ap_dbus)
-                    # TODO NM_GI_BUGS move to gi after fixed in NM
-                    # - NetworkManager.80211ApFlags
-                    # - active_ap.get_flags, get_wpa_flags, get_rsn_flags
-                    #ap_str = self._ap_security_string(active_ap)
-                else:
-                    ap_str = ""
-
-            self._set_device_info_value(dt, "security", ap_str)
-
-            if device.get_state() == NetworkManager.DeviceState.UNAVAILABLE:
-                self.builder.get_object("heading_wireless_network_name").hide()
-                self.builder.get_object("combobox_wireless_network_name").hide()
-            else:
-                self.builder.get_object("heading_wireless_network_name").show()
-                self.builder.get_object("combobox_wireless_network_name").show()
-
-                store = self.builder.get_object("liststore_wireless_network")
-                self._updating_device = True
-                store.clear()
-                aps = self._get_strongest_unique_aps(device.get_access_points())
-                for ap in aps:
-                    active = active_ap and active_ap.get_path() == ap.get_path()
-                    self._add_ap(ap, active)
-                # TODO: add access point other...
-                self._updating_device = False
-
-        else:
-            print ("DBG: unsupported device type in the list!")
-            return
-
-        # Only dhcp info is presented for ipv4, for static go to Options...?
-
-        ipv4cfg = device.get_ip4_config()
         if (ipv4cfg
             and device.get_state() == NetworkManager.DeviceState.ACTIVATED):
             addr = socket.inet_ntoa(struct.pack('=L',
@@ -703,7 +655,6 @@ class NetworkControlBox():
 
         # TODO NM_GI_BUGS - segfaults on get_addres(), get_prefix()
         ipv6_addr = None
-        ipv6cfg = device.get_ip6_config()
         if (ipv6cfg
             and device.get_state() == NetworkManager.DeviceState.ACTIVATED):
             config = dbus.SystemBus().get_object(NM_SERVICE, ipv6cfg.get_path())
@@ -720,13 +671,82 @@ class NetworkControlBox():
         elif ipv6_addr:
             self.builder.get_object("heading_%s_ipv6" % dt).set_label(_("IP Address"))
 
-        self._refresh_carrier_info()
+        return False
+
+    def _refresh_ap(self, device):
+        if device.get_device_type() != NetworkManager.DeviceType.WIFI:
+            return
+
+        if device.get_state() == NetworkManager.DeviceState.UNAVAILABLE:
+            ap_str = None
+        else:
+            active_ap = device.get_active_access_point()
+            if active_ap:
+                active_ap_dbus = dbus.SystemBus().get_object(NM_SERVICE,
+                                                             active_ap.get_path())
+                ap_str = self._ap_security_string_dbus(active_ap_dbus)
+                # TODO NM_GI_BUGS move to gi after fixed in NM
+                # - NetworkManager.80211ApFlags
+                # - active_ap.get_flags, get_wpa_flags, get_rsn_flags
+                #ap_str = self._ap_security_string(active_ap)
+            else:
+                ap_str = ""
+
+        self._set_device_info_value("wireless", "security", ap_str)
+
+        if device.get_state() == NetworkManager.DeviceState.UNAVAILABLE:
+            self.builder.get_object("heading_wireless_network_name").hide()
+            self.builder.get_object("combobox_wireless_network_name").hide()
+        else:
+            self.builder.get_object("heading_wireless_network_name").show()
+            self.builder.get_object("combobox_wireless_network_name").show()
+
+            store = self.builder.get_object("liststore_wireless_network")
+            self._updating_device = True
+            store.clear()
+            aps = self._get_strongest_unique_aps(device.get_access_points())
+            for ap in aps:
+                active = active_ap and active_ap.get_path() == ap.get_path()
+                self._add_ap(ap, active)
+            # TODO: add access point other...
+            self._updating_device = False
+
+    def _refresh_speed_hwaddr(self, device):
+        dev_type = device.get_device_type()
+        if dev_type == NetworkManager.DeviceType.ETHERNET:
+            dt = "wired"
+            speed = device.get_speed()
+        elif dev_type == NetworkManager.DeviceType.WIFI:
+            dt = "wireless"
+            speed = device.get_bitrate() / 1000
+
+        if device.get_state() == NetworkManager.DeviceState.UNAVAILABLE:
+            speed_str = None
+        elif speed:
+            speed_str = _("%d Mb/s") % speed
+        else:
+            speed_str = ""
+        self._set_device_info_value(dt, "speed", speed_str)
+        self._set_device_info_value(dt, "mac", device.get_hw_address())
+
+    def _refresh_device_type_page(self, device):
+        notebook = self.builder.get_object("notebook_types")
+        dev_type = device.get_device_type()
+        if dev_type == NetworkManager.DeviceType.ETHERNET:
+            notebook.set_current_page(0)
+        elif dev_type == NetworkManager.DeviceType.WIFI:
+            notebook.set_current_page(1)
 
     def _refresh_carrier_info(self):
         for i in self.builder.get_object("liststore_devices"):
             i[DEVICES_COLUMN_TITLE] = self._dev_title(i[DEVICES_COLUMN_OBJECT])
 
-    def _refresh_header_ui(self, device, dev_type_str):
+    def _refresh_header_ui(self, device):
+        dev_type = device.get_device_type()
+        if dev_type == NetworkManager.DeviceType.ETHERNET:
+            dev_type_str = "wired"
+        elif dev_type == NetworkManager.DeviceType.WIFI:
+            dev_type_str = "wireless"
 
         if dev_type_str == "wired":
             # update icon according to device status
