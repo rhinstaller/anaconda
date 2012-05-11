@@ -125,7 +125,7 @@ we_dont_have_nm_applet_as_secrets_agent = True
 # so we have to disconnect from former ap before trying
 # to connect to new one bound to fail due to no secrets
 
-__all__ = ["NetworkSpoke"]
+__all__ = ["NetworkSpoke", "NetworkStandaloneSpoke"]
 
 class CellRendererSignal(Gtk.CellRendererPixbuf):
 
