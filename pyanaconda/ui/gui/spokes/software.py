@@ -109,8 +109,12 @@ class SoftwareSelectionSpoke(NormalSpoke):
 
     @property
     def status(self):
+        from pyanaconda.threads import threadMgr
         if self._error:
             return _("Error checking software selection")
+
+        if threadMgr.get("AnaPayloadMDThread") or self.payload.baseRepo is None:
+            return _("Installation source not set up")
 
         row = self._get_selected_desktop()
         if not row:
