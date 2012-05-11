@@ -42,7 +42,6 @@ class SoftwareSelectionSpoke(NormalSpoke):
 
     def __init__(self, *args, **kwargs):
         NormalSpoke.__init__(self, *args, **kwargs)
-        self._ready = False
         self._error = False
 
         self.selectedGroups = []
@@ -104,7 +103,7 @@ class SoftwareSelectionSpoke(NormalSpoke):
         # becasue the user filled something out, or because we're done fetching
         # repo metadata from the mirror list, or we detected a DVD/CD.
         from pyanaconda.threads import threadMgr
-        return (self._ready and not threadMgr.get("AnaPayloadMDThread") and
+        return (not threadMgr.get("AnaPayloadMDThread") and
                 not threadMgr.get("AnaCheckSoftwareThread") and
                 self.payload.baseRepo is not None)
 
@@ -151,7 +150,6 @@ class SoftwareSelectionSpoke(NormalSpoke):
 
             self.payload.release()
 
-        self._ready = True
         communication.send_ready(self.__class__.__name__)
 
     def refresh(self):
