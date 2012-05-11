@@ -650,6 +650,7 @@ reposdir=%s
         from yum.Errors import RepoError
         from yum.Errors import GroupsError
 
+        groups = []
         with _yum_lock:
             if not self._groups:
                 if self.needsNetwork and not hasActiveNetDev():
@@ -659,9 +660,11 @@ reposdir=%s
                     self._groups = self._yum.comps
                 except (RepoError, GroupsError) as e:
                     log.error("failed to get group info: %s" % e)
-                    raise MetadataError(e.value)
 
-            return [g.groupid for g in self._groups.get_groups()]
+            if self._groups:
+                groups = [g.groupid for g in self._groups.get_groups()]
+
+        return groups
 
     def description(self, groupid):
         """ Return name/description tuple for the group specified by id. """
@@ -713,7 +716,7 @@ reposdir=%s
                 try:
                     self._packages = self._yum.pkgSack.returnPackages()
                 except RepoError as e:
-                    raise MetadataError(e.value)
+                    log.error("failed to get package list: %s" % e)
 
             return self._packages
 
