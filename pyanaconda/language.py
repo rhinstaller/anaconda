@@ -102,10 +102,10 @@ class Language(object):
         if not self.localeInfo.has_key(self._systemLang):
             return
 
-        if self.localeInfo[self._systemLang][2] == "none":
+        if self.localeInfo[self._systemLang][2] == "False":
             self.info["SYSFONT"] = None
         else:
-            self.info["SYSFONT"] = self.localeInfo[self._systemLang][2]
+            self.info["SYSFONT"] = "latarcyrheb-sun16"
 
         # XXX hack - because of exceptional cases on the var - zh_CN.GB2312
         if self._systemLang == "zh_CN.GB18030":
