@@ -282,10 +282,7 @@ class KeyboardSpoke(NormalSpoke):
             dialog.show_all()
             dialog.run()
 
-    def on_selection_changed(self, *args):
-        self.layout_selection_changed(self.builder.get_object("layoutSelection"))
-
-    def layout_selection_changed(self, selection):
+    def on_selection_changed(self, selection, *args):
         # We don't have to worry about multiple rows being selected in this
         # function, because that's disabled by the widget.
         if not selection.count_selected_rows():
