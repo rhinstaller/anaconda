@@ -185,6 +185,8 @@ static void anaconda_spoke_selector_init(AnacondaSpokeSelector *spoke) {
     markup = g_markup_printf_escaped("<span style='italic' size='large'>%s</span>", _(DEFAULT_STATUS));
     gtk_label_set_markup(GTK_LABEL(spoke->priv->status_label), markup);
     gtk_misc_set_alignment(GTK_MISC(spoke->priv->status_label), 0, 0);
+    gtk_label_set_ellipsize(GTK_LABEL(spoke->priv->status_label), PANGO_ELLIPSIZE_MIDDLE);
+    gtk_label_set_max_width_chars(GTK_LABEL(spoke->priv->status_label), 45);
     g_free(markup);
 
     /* Add everything to the grid, add the grid to the widget. */

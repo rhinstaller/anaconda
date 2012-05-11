@@ -344,10 +344,7 @@ class SourceSpoke(NormalSpoke):
     @property
     def status(self):
         if self.data.method.method == "url":
-            if len(self.data.method.url) > 42:
-                return self.data.method.url[:30] + "..." + self.data.method.url[-12:]
-            else:
-                return self.data.method.url
+            return self.data.method.url
         elif self.data.method.method == "nfs":
             return _("NFS server %s") % self.data.method.server
         elif self.data.method.method == "cdrom":
