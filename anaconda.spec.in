@@ -222,6 +222,11 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Fri May 11 2012 David Cantrell <dcantrell@redhat.com> - 13.21.172-1
+- Change swap suggestions to the chart proposed in the discussion
+  (vpodzime)
+  Resolves: rhbz#744129
+
 * Mon May 07 2012 David Cantrell <dcantrell@redhat.com> - 13.21.171-1
 - Load mlx4 modules after DDs to make updates possible (msivak)
   Resolves: rhbz#801094

@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 13.21.170\n"
+"Project-Id-Version: anaconda 13.21.171\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2012-05-07 15:39-0400\n"
+"POT-Creation-Date: 2012-05-11 15:03-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -124,8 +124,8 @@ msgstr ""
 msgid "_Exit installer"
 msgstr ""
 
-#: bootloader.py:60 image.py:92 image.py:253 kickstart.py:1485
-#: kickstart.py:1529 upgrade.py:58 yuminstall.py:1405 yuminstall.py:1584
+#: bootloader.py:60 image.py:92 image.py:253 kickstart.py:1482
+#: kickstart.py:1526 upgrade.py:58 yuminstall.py:1405 yuminstall.py:1584
 #: iw/partition_gui.py:1629 storage/__init__.py:2062
 msgid "_Continue"
 msgstr ""
@@ -158,8 +158,8 @@ msgstr ""
 msgid "In progress"
 msgstr ""
 
-#: cmdline.py:88 gui.py:1315 kickstart.py:1267 kickstart.py:1347
-#: kickstart.py:1355 kickstart.py:1394 kickstart.py:1402 text.py:396
+#: cmdline.py:88 gui.py:1315 kickstart.py:1264 kickstart.py:1344
+#: kickstart.py:1352 kickstart.py:1391 kickstart.py:1399 text.py:396
 #, python-format
 msgid ""
 "The following error was found while parsing the kickstart configuration "
@@ -563,15 +563,15 @@ msgstr ""
 msgid "Hardware Error Encountered"
 msgstr ""
 
-#: iutil.py:862
+#: iutil.py:847
 msgid "Error determining boot device's disk name"
 msgstr ""
 
-#: iutil.py:885
+#: iutil.py:870
 msgid "the device containing /boot"
 msgstr ""
 
-#: iutil.py:887
+#: iutil.py:872
 #, python-format
 msgid ""
 "After shutdown, please perform a manual IPL from %s to continue installation."
@@ -605,63 +605,63 @@ msgid ""
 "%s"
 msgstr ""
 
-#: kickstart.py:1366
+#: kickstart.py:1363
 #, python-format
 msgid "Error processing %%ksappend lines: %s"
 msgstr ""
 
-#: kickstart.py:1369
+#: kickstart.py:1366
 #, python-format
 msgid "Unknown error processing %%ksappend lines: %s"
 msgstr ""
 
-#: kickstart.py:1425 livecd.py:228
+#: kickstart.py:1422 livecd.py:228
 msgid "Post-Installation"
 msgstr ""
 
-#: kickstart.py:1426
+#: kickstart.py:1423
 msgid "Running post-installation scripts"
 msgstr ""
 
-#: kickstart.py:1442
+#: kickstart.py:1439
 msgid "Pre-Installation"
 msgstr ""
 
-#: kickstart.py:1443
+#: kickstart.py:1440
 msgid "Running pre-installation scripts"
 msgstr ""
 
-#: kickstart.py:1476
+#: kickstart.py:1473
 msgid "Missing Package"
 msgstr ""
 
-#: kickstart.py:1477
+#: kickstart.py:1474
 #, python-format
 msgid ""
 "You have specified that the package '%s' should be installed.  This package "
 "does not exist. Would you like to continue or abort this installation?"
 msgstr ""
 
-#: kickstart.py:1483 kickstart.py:1527
+#: kickstart.py:1480 kickstart.py:1524
 msgid "_Abort"
 msgstr ""
 
-#: kickstart.py:1484 kickstart.py:1528
+#: kickstart.py:1481 kickstart.py:1525
 msgid "_Ignore All"
 msgstr ""
 
-#: kickstart.py:1519
+#: kickstart.py:1516
 msgid "Missing Group"
 msgstr ""
 
-#: kickstart.py:1520
+#: kickstart.py:1517
 #, python-format
 msgid ""
 "You have specified that the group '%s' should be installed. This group does "
 "not exist. Would you like to continue or abort this installation?"
 msgstr ""
 
-#: kickstart.py:1643
+#: kickstart.py:1640
 #, python-format
 msgid ""
 "The kickstart configuration file is missing required information that "
