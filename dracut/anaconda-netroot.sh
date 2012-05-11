@@ -25,6 +25,13 @@ case $repo in
         . /lib/nfs-lib.sh
         info "anaconda mounting NFS repo at $repo"
         str_starts "$repo" "nfsiso:" && repo=nfs:${repo#nfsiso:}
+        # HACK: work around some Mysterious NFS4 Badness (#811242 and friends)
+        # by defaulting to nfsvers=3 when no version is requested
+        nfs_to_var $repo $netif
+        if [ "$nfs" != "nfs4" ] && ! strstr "$options" "vers="; then
+            repo="nfs:$options,nfsvers=3:$server:$path"
+        fi
+        # END HACK. FIXME: Figure out what is up with nfs4, jeez
         if [ "${repo%.iso}" == "$repo" ]; then
             mount_nfs "$repo" "$repodir" "$netif" || warn "Couldn't mount $repo"
             anaconda_live_root_dir $repodir
