@@ -354,7 +354,7 @@ class NetworkDevice(IfcfgFile):
         for d in anaconda.storage.devices:
             if (isinstance(d, storage.devices.iScsiDiskDevice) and
                 rootdev.dependsOn(d)):
-                if d.nic == "default":
+                if d.nic == "default" or ":" in d.nic:
                     if self.iface == ifaceForHostIP(d.host_address):
                         return True
                 elif d.nic == self.iface:
@@ -915,7 +915,7 @@ class Network:
     def dracutSetupArgs(self, networkStorageDevice):
         netargs=set()
 
-        if networkStorageDevice.nic == "default":
+        if networkStorageDevice.nic == "default" or ":" in networkStorageDevice.nic:
             nic = ifaceForHostIP(networkStorageDevice.host_address)
             if not nic:
                 return ""
