@@ -249,6 +249,13 @@ update-desktop-database &> /dev/null || :
 /usr/lib/dracut/modules.d/80%{name}/*
 
 %changelog
+* Mon May 14 2012 Brian C. Lane <bcl@redhat.com> - 17.27-1
+- anaconda-cleanup: umount /run/media too (#820750) (bcl)
+- Disable md /boot and /boot/efi on EFI. (#816823) (dlehman)
+- dracut: use nfs3 by default (#811242) (wwoods)
+- script.py error message needs gettext (bcl)
+- We have a grub2 theme now, so say to use it. (pjones)
+
 * Wed May 09 2012 Brian C. Lane <bcl@redhat.com> - 17.26-1
 - dracut: automatic updates.img for http/ftp (#809647) (wwoods)
 - Install grub2 /before/ writing the config file (re: rhbz #809111) (pjones)
