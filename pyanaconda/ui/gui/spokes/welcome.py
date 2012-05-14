@@ -56,6 +56,12 @@ class WelcomeLanguageSpoke(StandaloneSpoke):
         self.language.select_translation(lang)
         self.data.lang.lang = lang
 
+        #TODO: better use GeoIP data once it is available
+        if self.language.territory and not self.data.timezone.timezone:
+            lang_timezone = localization.get_preferred_timezone(self.language.territory)
+            if lang_timezone:
+                self.data.timezone.timezone = lang_timezone
+
         if self.data.keyboard.layouts_list:
             #do not add layouts if there are any specified in the kickstart
             return
@@ -75,12 +81,6 @@ class WelcomeLanguageSpoke(StandaloneSpoke):
             if layout not in self.data.keyboard.layouts_list:
                 self.data.keyboard.layouts_list.append(layout)
                 self._xklwrapper.add_layout(layout)
-
-        #TODO: better use GeoIP data once it is available
-        if self.language.territory and not self.data.timezone.timezone:
-            lang_timezone = localization.get_preferred_timezone(self.language.territory)
-            if lang_timezone:
-                self.data.timezone.timezone = lang_timezone
 
     @property
     def completed(self):
