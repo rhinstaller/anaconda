@@ -128,7 +128,9 @@ def _schedulePartitions(storage, disks):
             log.debug(request)
             log.debug(storage.bootLoaderDevice)
             continue
-        elif request.fstype == "efi" and storage.bootLoaderDevice:
+        elif request.fstype in ("efi", "hfs+") and \
+             storage.bootLoaderDevice and \
+             storage.bootLoaderDevice.format.type == request.fstype:
             # there should never be a need for more than one of these
             # partitions, so skip them.
             log.info("skipping unneeded stage1 efi request")
