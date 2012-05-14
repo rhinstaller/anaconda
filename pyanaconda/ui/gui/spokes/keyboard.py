@@ -183,6 +183,17 @@ class KeyboardSpoke(NormalSpoke):
 
     def _addLayout(self, store, name):
         store.append([name])
+        self._xkl_wrapper.add_layout(name)
+
+    def _removeLayout(self, store, itr):
+        """
+        Remove the layout specified by store iterator from the store and
+        X runtime configuration.
+
+        """
+
+        self._xkl_wrapper.remove_layout(store[itr][0])
+        store.remove(itr)
 
     # Signal handlers.
     def on_add_clicked(self, button):
@@ -202,13 +213,14 @@ class KeyboardSpoke(NormalSpoke):
                     duplicates.add(item)
                 itr = self._store.iter_next(itr)
 
-            if self._remove_last_attempt:
-                self._store.remove(self._store.get_iter_first())
-                self._remove_last_attempt = False
-
             for layout in dialog.chosen_layouts:
                 if layout not in duplicates:
                     self._addLayout(self._store, layout)
+
+            if self._remove_last_attempt:
+                itr = self._store.get_iter_first()
+                self._removeLayout(self._store, itr)
+                self._remove_last_attempt = False
 
     def on_remove_clicked(self, button):
         selection = self.builder.get_object("layoutSelection")
@@ -222,7 +234,7 @@ class KeyboardSpoke(NormalSpoke):
             itr2 = store.iter_next(itr2)
             if itr2: #next one existing
                 selection.select_iter(itr2)
-                store.remove(itr)
+                self._removeLayout(store, itr)
                 return
 
             #nothing left, run AddLayout dialog to replace the current layout
@@ -239,7 +251,8 @@ class KeyboardSpoke(NormalSpoke):
         while itr3 and (store[itr3][0] != store[itr][0]):
             itr2 = store.iter_next(itr2)
             itr3 = store.iter_next(itr3)
-        store.remove(itr)
+
+        self._removeLayout(store, itr)
         selection.select_iter(itr2)
 
     def on_up_clicked(self, button):

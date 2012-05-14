@@ -74,6 +74,7 @@ class WelcomeLanguageSpoke(StandaloneSpoke):
         for layout in new_layouts:
             if layout not in self.data.keyboard.layouts_list:
                 self.data.keyboard.layouts_list.append(layout)
+                self._xklwrapper.add_layout(layout)
 
         #TODO: better use GeoIP data once it is available
         if self.language.territory and not self.data.timezone.timezone:
