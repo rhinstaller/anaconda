@@ -68,7 +68,7 @@ if not image_install:
 # unmount filesystems
 for mounted in reversed(open("/proc/mounts").readlines()):
     (device, mountpoint, rest) = mounted.split(" ", 2)
-    if mountpoint.startswith("/mnt/anactest"):
+    if mountpoint.startswith("/mnt/anactest") or mountpoint.startswith("/run/initramfs"):
         continue
 
     # Always clean up anaconda's mountpoints.
@@ -77,8 +77,8 @@ for mounted in reversed(open("/proc/mounts").readlines()):
 
     # If this is for a live install, unmount any non-nodev filesystem that
     # isn't related to the live image.
-    if (mountpoint.startswith("/media") or device.startswith("/dev")) and \
-       live_install and not "live" in mounted:
+    if ("/media" in mountpoint or device.startswith("/dev")) \
+       and live_install and not "live" in device:
         os.system("umount %s" % mountpoint)
 
 os.system("udevadm control --env=ANACONDA=1")
