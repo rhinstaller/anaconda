@@ -222,6 +222,13 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Tue May 15 2012 David Cantrell <dcantrell@redhat.com> - 13.21.173-1
+- Set network configuration for root on partial offload iscsi devices
+  (rvykydal)
+  Resolves: rhbz#819132
+- Fix traceback trying to import textw.netconfig_text (dcantrell)
+  Resolves: rhbz#785400
+
 * Fri May 11 2012 David Cantrell <dcantrell@redhat.com> - 13.21.172-1
 - Change swap suggestions to the chart proposed in the discussion
   (vpodzime)
