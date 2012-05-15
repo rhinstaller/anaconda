@@ -387,7 +387,7 @@ class InstallInterface(InstallInterfaceBase):
     def enableNetwork(self):
         if len(self.anaconda.id.network.netdevices) == 0:
             return False
-        from textw.netconfig_text import NetworkConfiguratorText
+        from netconfig_text import NetworkConfiguratorText
         w = NetworkConfiguratorText(self.screen, self.anaconda)
         ret = w.run()
         return ret != INSTALL_BACK
