@@ -103,7 +103,8 @@ class SoftwareSelectionSpoke(NormalSpoke):
         # becasue the user filled something out, or because we're done fetching
         # repo metadata from the mirror list, or we detected a DVD/CD.
         from pyanaconda.threads import threadMgr
-        return (not threadMgr.get("AnaPayloadMDThread") and
+        return (not threadMgr.get("AnaSoftwareWatcher") and
+                not threadMgr.get("AnaPayloadMDThread") and
                 not threadMgr.get("AnaCheckSoftwareThread") and
                 self.payload.baseRepo is not None)
 
