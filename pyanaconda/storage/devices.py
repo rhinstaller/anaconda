@@ -2465,6 +2465,8 @@ class LVMLogicalVolumeDevice(DMDevice):
             validpvs = filter(lambda x: float(x.size) >= self.req_size,
                               self.vg.pvs)
             if not validpvs:
+                for dev in self.parents:
+                    dev.removeChild()
                 raise SinglePhysicalVolumeError(self.singlePVerr)
 
         # here we go with the circular references
@@ -2717,11 +2719,15 @@ class MDRaidArrayDevice(StorageDevice):
             self.level = mdraid.raidLevel(level)
 
         if self.growable and self.level != 0:
+            for dev in self.parents:
+                dev.removeChild()
             raise ValueError("Only RAID0 arrays can contain growable members")
 
         # For new arrays check if we have enough members
         if (not exists and parents and
                 len(parents) < mdraid.get_raid_min_members(self.level)):
+            for dev in self.parents:
+                dev.removeChild()
             raise ValueError, P_("A RAID%(raidLevel)d set requires at least %(minMembers)d member",
                                  "A RAID%(raidLevel)d set requires at least %(minMembers)d members",
                                  mdraid.get_raid_min_members(self.level)) % \
@@ -2750,6 +2756,8 @@ class MDRaidArrayDevice(StorageDevice):
 
         self.formatClass = get_device_format_class("mdmember")
         if not self.formatClass:
+            for dev in self.parents:
+                dev.removeChild()
             raise DeviceError("cannot find class for 'mdmember'", self.name)
 
         if self.exists and self.uuid:
