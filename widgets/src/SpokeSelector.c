@@ -182,7 +182,7 @@ static void anaconda_spoke_selector_init(AnacondaSpokeSelector *spoke) {
 
     /* Create the status label. */
     spoke->priv->status_label = gtk_label_new(NULL);
-    markup = g_markup_printf_escaped("<span style='italic' size='large'>%s</span>", _(DEFAULT_STATUS));
+    markup = g_markup_printf_escaped("<span style='italic' size='large' foreground='grey'>%s</span>", _(DEFAULT_STATUS));
     gtk_label_set_markup(GTK_LABEL(spoke->priv->status_label), markup);
     gtk_misc_set_alignment(GTK_MISC(spoke->priv->status_label), 0, 0);
     gtk_label_set_ellipsize(GTK_LABEL(spoke->priv->status_label), PANGO_ELLIPSIZE_MIDDLE);
@@ -229,7 +229,7 @@ static void anaconda_spoke_selector_set_property(GObject *object, guint prop_id,
            break;
 
         case PROP_STATUS: {
-            char *markup = g_markup_printf_escaped("<span style='italic' size='large'>%s</span>", g_value_get_string(value));
+            char *markup = g_markup_printf_escaped("<span style='italic' size='large' foreground='grey'>%s</span>", g_value_get_string(value));
             gtk_label_set_markup(GTK_LABEL(priv->status_label), markup);
             g_free(markup);
             break;
