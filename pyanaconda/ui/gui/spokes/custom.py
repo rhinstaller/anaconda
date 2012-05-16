@@ -22,6 +22,7 @@
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
 N_ = lambda x: x
+P_ = lambda x, y, z: gettext.ldngettext("anaconda", x, y, z)
 
 from pyanaconda.storage.size import Size
 
@@ -67,6 +68,8 @@ class CustomPartitioningSpoke(NormalSpoke):
         self._store = self.builder.get_object("partitionStore")
         self._view = self.builder.get_object("partitionView")
         self._selection = self.builder.get_object("partitionView-selection")
+
+        self._summaryButton = self.builder.get_object("summary_button")
 
     def initialize(self):
         NormalSpoke.initialize(self)
@@ -126,6 +129,15 @@ class CustomPartitioningSpoke(NormalSpoke):
         self._availableSpaceLabel.set_text("%.2f GB" % self._currentFreeSpace())
         self._totalSpaceLabel.set_text("%.2f GB" % self._currentTotalSpace())
 
+        summaryLabel = self._summaryButton.get_children()[0]
+        count = len(self.data.clearpart.drives)
+        summary = P_("%d storage device selected",
+                     "%d storage devices selected",
+                     count) % count
+
+        summaryLabel.set_use_markup(True)
+        summaryLabel.set_markup("<span foreground='blue'><u>%s</u></span>" % summary)
+
         # This is custom partitioning, so we start with displaying the existing
         # setup.  The user can then modify it from there to what they want it to
         # be.
@@ -164,6 +176,9 @@ class CustomPartitioningSpoke(NormalSpoke):
         pass
 
     def on_remove_clicked(self, button):
+        pass
+
+    def on_summary_clicked(self, button):
         pass
 
     def on_configure_clicked(self, button):
