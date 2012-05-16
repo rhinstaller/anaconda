@@ -249,6 +249,10 @@ update-desktop-database &> /dev/null || :
 /usr/lib/dracut/modules.d/80%{name}/*
 
 %changelog
+* Wed May 16 2012 Brian C. Lane <bcl@redhat.com> - 17.28-1
+- Partially revert "We have a grub2 theme now, so say to use it." (#822123)
+  (pjones)
+
 * Mon May 14 2012 Brian C. Lane <bcl@redhat.com> - 17.27-1
 - anaconda-cleanup: umount /run/media too (#820750) (bcl)
 - Disable md /boot and /boot/efi on EFI. (#816823) (dlehman)
