@@ -35,13 +35,13 @@ def gdk_threaded():
     yield
     Gdk.threads_leave()
 
-def setViewportBackground(vp):
+def setViewportBackground(vp, color="@theme_bg_color"):
     """Set the background color of the GtkViewport vp to be the same as the
        overall UI background.  This should not be called for every viewport,
        as that will affect things like TreeViews as well.
     """
 
     provider = Gtk.CssProvider()
-    provider.load_from_data("GtkViewport { background-color: @theme_bg_color }")
+    provider.load_from_data("GtkViewport { background-color: %s }" % color)
     context = vp.get_style_context()
     context.add_provider(provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)

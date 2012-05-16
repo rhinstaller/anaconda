@@ -61,28 +61,19 @@ class CustomPartitioningSpoke(NormalSpoke):
 
     def _grabObjects(self):
         self._configureBox = self.builder.get_object("configureBox")
-        self._availableSpaceBox = self.builder.get_object("availableSpaceBox")
         self._availableSpaceLabel = self.builder.get_object("availableSpaceLabel")
-        self._totalSpaceBox = self.builder.get_object("totalSpaceBox")
         self._totalSpaceLabel = self.builder.get_object("totalSpaceLabel")
 
         self._store = self.builder.get_object("partitionStore")
         self._view = self.builder.get_object("partitionView")
         self._selection = self.builder.get_object("partitionView-selection")
 
-    def _setBoxBackground(self, box, color):
-        provider = Gtk.CssProvider()
-        provider.load_from_data("GtkBox { background-color: %s; }" % color)
-        context = box.get_style_context()
-        context.add_provider(provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
-
     def initialize(self):
         NormalSpoke.initialize(self)
 
         self._grabObjects()
-        self._setBoxBackground(self._availableSpaceBox, "#db3279")
-        self._setBoxBackground(self._totalSpaceBox, "#60605b")
-
+        setViewportBackground(self.builder.get_object("availableSpaceViewport"), "#db3279")
+        setViewportBackground(self.builder.get_object("totalSpaceViewport"), "#60605b")
         setViewportBackground(self.builder.get_object("partitionsViewport"))
 
     def _partitionName(self, device):
