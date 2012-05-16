@@ -23,6 +23,8 @@ import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
 N_ = lambda x: x
 
+from pyanaconda.storage.size import Size
+
 from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.gui.utils import setViewportBackground
 from pyanaconda.ui.gui.categories.storage import StorageCategory
@@ -52,8 +54,6 @@ class CustomPartitioningSpoke(NormalSpoke):
         return store.append(None, ["""<span size="large" weight="bold" fgcolor="grey">%s</span>""" % name, ""])
 
     def _addPartition(self, store, itr, device):
-        from pyanaconda.storage.size import Size
-
         name = self._partitionName(device)
         size = Size(spec=str(device.size) + " MB")
 
@@ -62,7 +62,9 @@ class CustomPartitioningSpoke(NormalSpoke):
     def _grabObjects(self):
         self._configureBox = self.builder.get_object("configureBox")
         self._availableSpaceBox = self.builder.get_object("availableSpaceBox")
+        self._availableSpaceLabel = self.builder.get_object("availableSpaceLabel")
         self._totalSpaceBox = self.builder.get_object("totalSpaceBox")
+        self._totalSpaceLabel = self.builder.get_object("totalSpaceLabel")
 
         self._store = self.builder.get_object("partitionStore")
         self._view = self.builder.get_object("partitionView")
@@ -70,7 +72,7 @@ class CustomPartitioningSpoke(NormalSpoke):
 
     def _setBoxBackground(self, box, color):
         provider = Gtk.CssProvider()
-        provider.load_from_data("GtkBox { background-color: %s }" % color)
+        provider.load_from_data("GtkBox { background-color: %s; }" % color)
         context = box.get_style_context()
         context.add_provider(provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
 
@@ -102,12 +104,36 @@ class CustomPartitioningSpoke(NormalSpoke):
         else:
             return False
 
+    def _currentFreeSpace(self):
+        """Add up all the free space on selected disks and return it as a Size."""
+        totalFree = 0
+
+        freeDisks = self.storage.getFreeSpace(disks=[d for d in self.storage.devicetree.devices if d.name in self.data.clearpart.drives])
+        for tup in freeDisks.values():
+            for chunk in tup:
+                totalFree += chunk
+
+        return Size(totalFree).convertTo("GB")
+
+    def _currentTotalSpace(self):
+        """Add up the sizes of all selected disks and return it as a Size."""
+        totalSpace = 0
+
+        disks = [d for d in self.storage.devicetree.devices if d.name in self.data.clearpart.drives]
+        for disk in disks:
+            totalSpace += disk.size
+
+        return Size(spec="%s MB" % totalSpace).convertTo("GB")
+
     def refresh(self):
         NormalSpoke.refresh(self)
         self._store.clear()
 
         self._dataItr = self._addCategory(self._store, "DATA")
         self._systemItr = self._addCategory(self._store, "SYSTEM")
+
+        self._availableSpaceLabel.set_text("%.2f GB" % self._currentFreeSpace())
+        self._totalSpaceLabel.set_text("%.2f GB" % self._currentTotalSpace())
 
         # This is custom partitioning, so we start with displaying the existing
         # setup.  The user can then modify it from there to what they want it to
