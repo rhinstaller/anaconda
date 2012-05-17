@@ -248,6 +248,9 @@ class SourceSpoke(NormalSpoke):
     def apply(self):
         from pyanaconda.threads import threadMgr, AnacondaThread
         from pyanaconda.packaging import PayloadError
+        import copy
+
+        old_source = copy.copy(self.data.method)
 
         if self._autodetectButton.get_active():
             dev = self._get_selected_media()
@@ -255,6 +258,10 @@ class SourceSpoke(NormalSpoke):
                 return
 
             self.data.method.method = "cdrom"
+            if old_source.method == "cdrom":
+                # XXX maybe we should always redo it for cdrom in case they
+                #     switched disks
+                return
         elif self._isoButton.get_active():
             # If the user didn't select a partition (not sure how that would
             # happen) or didn't choose a directory (more likely), then return
@@ -266,6 +273,10 @@ class SourceSpoke(NormalSpoke):
             self.data.method.method = "harddrive"
             self.data.method.partition = part.name
             self.data.method.dir = self._currentIsoFile
+            if (old_source.method == "harddrive" and
+                old_source.partition == self.data.method.partition and
+                old_source.dir == self.data.method.dir):
+                return
         elif self._mirror_active():
             # this preserves the url for later editing
             self.data.method.method = None
@@ -301,6 +312,12 @@ class SourceSpoke(NormalSpoke):
             self.data.method.method = "nfs"
             (self.data.method.server, self.data.method.dir) = url.split(":", 2)
             self.data.method.opts = self.builder.get_object("nfsOptsEntry").get_text() or ""
+
+            if (old_source.method == "nfs" and
+                old_source.server == self.data.method.server and
+                old_source.dir == self.data.method.dir and
+                old_source.opts == self.data.method.opts):
+                return
 
         communication.send_not_ready("SoftwareSelectionSpoke")
         try:
