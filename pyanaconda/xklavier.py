@@ -236,3 +236,28 @@ class XklWrapper(object):
         if not self._rec.activate(self._engine):
             raise XklWrapperError("Failed to remove layout '%s (%s)'" % (layout,
                                                                        variant))
+    def replace_layouts(self, layouts_list):
+        """
+        Method that replaces the layouts defined in the current X configuration
+        with the new ones given.
+
+        @param layouts_list: list of layouts defined as either 'layout' or
+                             'layout (variant)'
+        @raise XklWrapperError: if layouts cannot be replaced with the new ones
+
+        """
+
+        new_layouts = list()
+        new_variants = list()
+
+        for layout_variant in layouts_list:
+            (layout, variant) = self._parse_layout_variant(layout_variant)
+            new_layouts.append(layout)
+            new_variants.append(variant)
+
+        self._rec.set_layouts(new_layouts)
+        self._rec.set_variants(new_variants)
+
+        if not self._rec.activate(self._engine):
+            msg = "Failed to replace layouts with: %s" % ",".join(layouts_list)
+            raise XklWrapperError(msg)
