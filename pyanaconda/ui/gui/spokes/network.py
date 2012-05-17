@@ -278,9 +278,8 @@ class NetworkControlBox():
                                                              self.on_device_off_toggled)
         self.builder.get_object("device_wireless_off_switch").connect("notify::active",
                                                              self.on_device_off_toggled)
-        # TODO
-        #self.client.connect("notify::%s" % NMClient.CLIENT_WIRELESS_ENABLED,
-        #                    self._wireless_enabled_toggled)
+        self.client.connect("notify::%s" % NMClient.CLIENT_WIRELESS_ENABLED,
+                            self.on_wireless_enabled)
 
         self.builder.get_object("button_wired_options").connect("clicked",
                                                            self.on_edit_connection)
@@ -443,6 +442,12 @@ class NetworkControlBox():
             return
 
         subprocess.Popen(["nm-connection-editor", "--edit", "%s" % uuid])
+
+    def on_wireless_enabled(self, *args):
+        switch = self.builder.get_object("device_wireless_off_switch")
+        self._updating_device = True
+        switch.set_active(self.client.wireless_get_enabled())
+        self._updating_device = False
 
     def on_device_off_toggled(self, switch, *args):
         if self._updating_device:
@@ -775,7 +780,7 @@ class NetworkControlBox():
             if not configuration_of_disconnected_devices_allowed:
                 self.builder.get_object("button_%s_options" % dev_type_str).set_sensitive(state == NetworkManager.DeviceState.ACTIVATED)
         elif dev_type_str == "wireless":
-            switch.set_active(self.client.wireless_get_enabled())
+            self.on_wireless_enabled()
 
     def _set_device_info_value(self, dev_type_str, info, value_str):
         heading = self.builder.get_object("heading_%s_%s" % (dev_type_str, info))
