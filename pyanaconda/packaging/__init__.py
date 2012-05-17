@@ -411,7 +411,11 @@ class Payload(object):
             if mdev == device.path:
                 return
             else:
-                log.info("mounting on top of it")
+                try:
+                    isys.umount(mountpoint, removeDir=False)
+                except Exception as e:
+                    log.error(str(e))
+                    log.info("umount failed -- mounting on top of it")
 
         try:
             device.setup()
@@ -427,8 +431,19 @@ class Payload(object):
         """ Prepare an NFS directory for use as a package source. """
         log.info("mounting %s:%s:%s on %s" % (server, path, options, mountpoint))
         if os.path.ismount(mountpoint):
-            log.debug("%s already has something mounted on it" % mountpoint)
-            return
+            dev = get_mount_device(mountpoint)
+            _server, colon, _path = dev.partition(":")
+            if colon == ":" and server == _server and path == _path:
+                log.debug("%s:%s already mounted on %s" % (server, path,
+                                                           mountpoint))
+                return
+            else:
+                log.debug("%s already has something mounted on it" % mountpoint)
+                try:
+                    isys.umount(mountpoint, removeDir=False)
+                except Exception as e:
+                    log.error(str(e))
+                    log.info("umount failed -- mounting on top of it")
 
         # mount the specified directory
         url = "%s:%s" % (server, path)

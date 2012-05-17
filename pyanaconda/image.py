@@ -152,17 +152,21 @@ def mountImageDirectory(method, storage):
                 if errorHandler.cb(exn) == ERROR_RAISE:
                     raise exn
 
-def mountImage(isodir, tree, messageWindow):
+def mountImage(isodir, tree):
     while True:
-        image = findFirstIsoImage(isodir, messageWindow)
-        if image is None:
-            exn = MissingImageError()
-            if errorHandler.cb(exn) == ERROR_RAISE:
-                raise exn
-            else:
-                continue
+        if os.path.isfile(isodir):
+            image = isodir
+        else:
+            image = findFirstIsoImage(isodir)
+            if image is None:
+                exn = MissingImageError()
+                if errorHandler.cb(exn) == ERROR_RAISE:
+                    raise exn
+                else:
+                    continue
 
-        image = os.path.normpath("%s/%s" % (isodir, image))
+            image = os.path.normpath("%s/%s" % (isodir, image))
+
         try:
             isys.mount(image, tree, fstype = 'iso9660', readOnly = True)
         except SystemError:
@@ -190,6 +194,7 @@ def opticalInstallMedia(devicetree, mountpoint=INSTALL_TREE):
             dev.format.unmount()
             continue
 
+        dev.format.unmount()
         retval = dev
         break
 

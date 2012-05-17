@@ -63,6 +63,7 @@ def doInstall(storage, payload, ksdata, instClass):
     progress.send_init(steps)
 
     # Do partitioning.
+    payload.preStorage()
     turnOnFilesystems(storage)
 
     # Do packaging.

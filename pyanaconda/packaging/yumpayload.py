@@ -111,17 +111,26 @@ class YumPayload(PackagePayload):
         """ Reset this instance to its initial (unconfigured) state. """
         from pyanaconda.storage.size import Size
 
+        """
+            cdrom: install_device.teardown (INSTALL_TREE)
+            hd: umount INSTALL_TREE, install_device.teardown (ISO_DIR)
+            nfs: umount INSTALL_TREE
+            nfsiso: umount INSTALL_TREE, umount ISO_DIR
+        """
         if os.path.ismount(INSTALL_TREE) and not flags.testing:
-            isys.umount(INSTALL_TREE)
-
-        if os.path.islink(INSTALL_TREE):
-            os.unlink(INSTALL_TREE)
+            if self.install_device and \
+               get_mount_device(INSTALL_TREE) == self.install_device.path:
+                self.install_device.teardown(recursive=True)
+            else:
+                isys.umount(INSTALL_TREE, removeDir=False)
 
         if os.path.ismount(ISO_DIR) and not flags.testing:
-            isys.umount(INSTALL_TREE)
-
-        if self.install_device:
-            self.install_device.teardown(recursive=True)
+            if self.install_device and \
+               get_mount_device(ISO_DIR) == self.install_device.path:
+                self.install_device.teardown(recursive=True)
+            else:
+                # NFS
+                isys.umount(ISO_DIR, removeDir=False)
 
         self.install_device = None
 
@@ -283,6 +292,11 @@ reposdir=%s
         for repo in self._yum.repos.repos.values():
             repo._sack = None
 
+    def preStorage(self):
+        self._yum.close()
+        if os.path.ismount(INSTALL_TREE):
+            isys.umount(INSTALL_TREE, removeDir=False)
+
     ###
     ### METHODS FOR WORKING WITH REPOSITORIES
     ###
@@ -407,6 +421,48 @@ reposdir=%s
 
         log.info("metadata retrieval complete")
 
+    @property
+    def ISOImage(self):
+        if self.data.method.method == "harddrive":
+            return get_mount_device(INSTALL_TREE)[len(ISO_DIR)+1:]
+
+    def _setUpMedia(self, device):
+        method = self.data.method
+        if method.method == "harddrive":
+            self._setupDevice(device, mountpoint=ISO_DIR)
+
+            # check for ISO images in the newly mounted dir
+            path = ISO_DIR
+            if method.dir:
+                path = os.path.normpath("%s/%s" % (path, method.dir))
+
+            # XXX it would be nice to streamline this when we're just setting
+            #     things back up after storage activation instead of having to
+            #     pretend we don't already know which ISO image we're going to
+            #     use
+            image = findFirstIsoImage(path)
+            if not image:
+                device.teardown(recursive=True)
+                raise PayloadSetupError("failed to find valid iso image")
+
+            if path.endswith(".iso"):
+                path = os.path.dirname(path)
+
+            # this could already be set up the first time through
+            if not os.path.ismount(INSTALL_TREE):
+                # mount the ISO on a loop
+                image = os.path.normpath("%s/%s" % (path, image))
+                mountImage(image, INSTALL_TREE)
+
+            if not method.dir.endswith(".iso"):
+                method.dir = os.path.normpath("%s/%s" % (method.dir,
+                                                         os.path.basename(image)))
+                while method.dir.startswith("/"):
+                    # riduculous
+                    method.dir = method.dir[1:]
+        else:
+            device.format.setup(mountpoint=INSTALL_TREE)
+
     def _configureBaseRepo(self, storage):
         """ Configure the base repo.
 
@@ -434,25 +490,7 @@ reposdir=%s
 
             # FIXME: teach DeviceTree.resolveDevice about biospart
             device = storage.devicetree.resolveDevice(devspec)
-            self._setupDevice(device, mountpoint=ISO_DIR)
-
-            # check for ISO images in the newly mounted dir
-            path = ISO_DIR
-            if method.dir:
-                path = os.path.normpath("%s/%s" % (path, method.dir))
-
-            image = findFirstIsoImage(path)
-            if not image:
-                device.teardown(recursive=True)
-                raise PayloadSetupError("failed to find valid iso image")
-
-            if path.endswith(".iso"):
-                path = os.path.dirname(path)
-
-            # mount the ISO on a loop
-            image = os.path.normpath("%s/%s" % (path, image))
-            mountImage(image, INSTALL_TREE)
-
+            self._setUpMedia(device)
             self.install_device = device
             url = "file://" + INSTALL_TREE
         elif method.method == "nfs":
@@ -489,6 +527,7 @@ reposdir=%s
             # cdrom or no method specified -- check for media
             device = opticalInstallMedia(storage.devicetree)
             if device:
+                self._setUpMedia(device)
                 self.install_device = device
                 url = "file://" + INSTALL_TREE
                 if not method.method:
@@ -617,7 +656,7 @@ reposdir=%s
 
         if mountpoint and os.path.ismount(mountpoint):
             try:
-                isys.umount(mountpoint)
+                isys.umount(mountpoint, removeDir=False)
             except SystemError as e:
                 log.error("failed to unmount nfs repo %s: %s" % (mountpoint, e))
 
@@ -872,6 +911,9 @@ reposdir=%s
         """ Perform pre-installation tasks. """
         super(YumPayload, self).preInstall(packages=packages)
         progress.send_message(_("Starting package installation process"))
+
+        if self.install_device:
+            self._setUpMedia(self.install_device)
 
         self._writeInstallConfig()
         self.checkSoftwareSelection()

@@ -203,6 +203,7 @@ class IsoChooser(UIObject):
     def run(self, dev):
         retval = None
 
+        unmount = not dev.format.status
         dev.format.mount(mountpoint=MOUNTPOINT)
 
         # If any directory was chosen, return that.  Otherwise, return None.
@@ -212,7 +213,8 @@ class IsoChooser(UIObject):
             if f:
                 retval = f.replace(MOUNTPOINT, "")
 
-        dev.format.unmount()
+        if unmount:
+            dev.format.unmount()
 
         self.window.destroy()
         return retval
@@ -360,6 +362,8 @@ class SourceSpoke(NormalSpoke):
 
     @property
     def status(self):
+        if not self.ready:
+            return _("Not ready")
         if self.data.method.method == "url":
             return self.data.method.url
         elif self.data.method.method == "nfs":
@@ -447,6 +451,9 @@ class SourceSpoke(NormalSpoke):
                 self._autodetectMediaBox.pack_start(selector, False, False, 0)
                 added = True
 
+            if self.data.method.method == "harddrive":
+                self._currentIsoFile = self.payload.ISOImage
+
             # These UI elements default to not being showable.  If optical install
             # media were found, mark them to be shown.
             if added:
@@ -458,16 +465,21 @@ class SourceSpoke(NormalSpoke):
             store = self.builder.get_object("partitionStore")
 
             added = False
+            active = 0
+            idx = 0
             for dev in potentialHdisoSources(self.storage.devicetree):
                 store.append([dev, "%s (%s MB)" % (self._sanitize_model(dev.disk.model), int(dev.size))])
+                if dev.name == self.data.method.partition:
+                    active = idx
                 added = True
+                idx += 1
 
             # Again, only display these widgets if an HDISO source was found.
             if added:
                 self._isoBox.set_no_show_all(False)
                 self._isoButton.set_no_show_all(False)
                 combo = self.builder.get_object("isoPartitionCombo")
-                combo.set_active(0)
+                combo.set_active(active)
 
             # Add the mirror manager URL in as the default for HTTP and HTTPS.
             # We'll override this later in the refresh() method, if they've already
@@ -511,7 +523,7 @@ class SourceSpoke(NormalSpoke):
         elif self.data.method.method == "harddrive":
             self._isoButton.set_active(True)
 
-            self._isoChooserButton.set_label(os.path.basename(self.data.method.dir))
+            self._isoChooserButton.set_label(os.path.basename(self._currentIsoFile))
             self._isoChooserButton.set_use_underline(False)
         else:
             # No method was given in advance, so now we need to make a sensible
@@ -606,9 +618,11 @@ class SourceSpoke(NormalSpoke):
         dialog = MediaCheckDialog(self.data)
         with enlightbox(self.window, dialog.window):
             dev = self.storage.devicetree.getDeviceByName(dev)
+            unmount = not dev.format.status
             dev.format.mount(mountpoint=MOUNTPOINT)
             dialog.run(MOUNTPOINT + "/" + f)
-            dev.format.unmount()
+            if unmount:
+                dev.format.unmount()
 
     def on_verify_media_clicked(self, button):
         dev = self._get_selected_media()
