@@ -1631,6 +1631,11 @@ class GRUB2(GRUB):
     stage2_raid_levels = [mdraid.RAID0, mdraid.RAID1, mdraid.RAID4,
                           mdraid.RAID5, mdraid.RAID6, mdraid.RAID10]
 
+    def __init__(self, storage):
+        super(GRUB2, self).__init__(self, storage)
+        self.boot_args.add("$([ -x /usr/sbin/rhcrashkernel-param ] && "\
+                            "/usr/sbin/rhcrashkernel-param)")
+
     # XXX we probably need special handling for raid stage1 w/ gpt disklabel
     #     since it's unlikely there'll be a bios boot partition on each disk
 
