@@ -38,6 +38,7 @@ import devicelibs.dm
 import devicelibs.lvm
 import devicelibs.mpath
 import devicelibs.loop
+import devicelibs.edd
 from udev import *
 from pyanaconda import iutil
 from pyanaconda import platform
@@ -2073,8 +2074,6 @@ class DeviceTree(object):
                 (uuid.startswith("'") and uuid.endswith("'"))):
                 uuid = uuid[1:-1]
             device = self.uuids.get(uuid)
-            if device is None:
-                log.error("failed to resolve device %s" % devspec)
         elif devspec.startswith("LABEL="):
             # device-by-label
             label = devspec.partition("=")[2]
@@ -2082,8 +2081,13 @@ class DeviceTree(object):
                 (label.startswith("'") and label.endswith("'"))):
                 label = label[1:-1]
             device = self.labels.get(label)
-            if device is None:
-                log.error("failed to resolve device %s" % devspec)
+        elif re.match(r'(0x)?[A-Za-z0-9]{2}(p\d+)?$', devspec):
+            # BIOS drive number
+            spec = int(devspec, 16)
+            for (edd_name, edd_number) in devicelibs.edd.edd_dict.items():
+                if edd_number == spec:
+                    device = self.getDeviceByName(edd_name)
+                    break
         else:
             if not devspec.startswith("/dev/"):
                 devspec = "/dev/" + devspec

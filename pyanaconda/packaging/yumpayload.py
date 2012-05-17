@@ -488,7 +488,6 @@ reposdir=%s
             else:
                 devspec = method.partition
 
-            # FIXME: teach DeviceTree.resolveDevice about biospart
             device = storage.devicetree.resolveDevice(devspec)
             self._setUpMedia(device)
             self.install_device = device

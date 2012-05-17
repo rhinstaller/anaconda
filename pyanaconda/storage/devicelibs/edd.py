@@ -202,7 +202,7 @@ def get_edd_dict(devices):
     """
     mbr_dict = collect_mbrs(devices)
     edd_entries_dict = collect_edd_data()
-    edd_dict = {}
+    global edd_dict
     for (edd_number, edd_entry) in edd_entries_dict.items():
         log.debug("edd: data extracted from 0x%x:\n%s" % (edd_number, edd_entry))
         matcher = EddMatcher(edd_entry)
@@ -227,3 +227,5 @@ def get_edd_dict(devices):
             continue
         log.error("edd: unable to match edd entry 0x%x" % edd_number)
     return edd_dict
+
+edd_dict = {}
