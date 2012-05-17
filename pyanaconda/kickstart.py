@@ -45,6 +45,7 @@ import network
 import pykickstart.commands as commands
 from storage.devices import *
 from scdate.core import zonetab
+from pyanaconda import keyboard
 
 from pykickstart.base import KickstartCommand
 from pykickstart.constants import *
@@ -1084,6 +1085,11 @@ class ZFCP(commands.zfcp.F14_ZFCP):
 
         return fcp
 
+class Keyboard(commands.keyboard.F18_Keyboard):
+    def execute(self, *args):
+        if self.layouts_list:
+            keyboard.write_layouts_config(self, ROOT_PATH)
+
 ###
 ### HANDLERS
 ###
@@ -1099,6 +1105,7 @@ commandMap = {
         "ignoredisk": IgnoreDisk,
         "iscsi": Iscsi,
         "iscsiname": IscsiName,
+        "keyboard": Keyboard,
         "logging": Logging,
         "multipath": MultiPath,
         "services": Services,

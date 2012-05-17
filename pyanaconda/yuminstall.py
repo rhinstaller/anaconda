@@ -1617,8 +1617,6 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
             anaconda.network.write()
             anaconda.network.copyConfigToPath()
             anaconda.storage.write()
-            if not anaconda.isHeadless:
-                anaconda.keyboard.write(ROOT_PATH)
         else:
             # ensure that /etc/mtab is a symlink to /proc/self/mounts
             anaconda.storage.makeMtab()

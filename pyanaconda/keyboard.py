@@ -30,7 +30,101 @@ for listing and various modifications of keyboard layouts settings.
 
 """
 
+import os
 from gi.repository import Xkl, Gdk, GdkX11
+
+class KeyboardConfigError(Exception):
+    """Exception class for keyboard configuration related problems"""
+
+    pass
+
+def _parse_layout_variant(layout):
+    """
+    Parse layout and variant from the string that may look like 'layout' or
+    'layout (variant)'.
+
+    @return: the (layout, variant) pair, where variant can be ""
+    @rtype: tuple
+
+    """
+
+    variant = ""
+
+    lbracket_idx = layout.find("(")
+    rbracket_idx = layout.rfind(")")
+    if lbracket_idx != -1:
+        variant = layout[(lbracket_idx + 1) : rbracket_idx]
+        layout = layout[:lbracket_idx].strip()
+
+    return (layout, variant)
+
+def get_layouts_xorg_conf(keyboard):
+    """
+    Get the xorg.conf content setting up layouts in the ksdata.
+
+    @param keyboard: ksdata.keyboard object
+    @rtype: str
+
+    """
+
+    layouts = list()
+    variants = list()
+
+    for layout_variant in keyboard.layouts_list:
+        (layout, variant) = _parse_layout_variant(layout_variant)
+        layouts.append(layout)
+        variants.append(variant)
+
+    #section header
+    ret = 'Section "InputClass"\n'\
+          '\tIdentifier\t"kickstart"\n'\
+          '\tMatchIsKeyboard\t"on"\n'
+
+    #layouts
+    ret += '\tOption\t"XkbLayout"\t'
+    ret += '"' + ','.join(layouts) + '"\n'
+
+    #variants
+    ret += '\tOption\t"XkbVariant"\t'
+    ret += '"' + ','.join(variants) + '"\n'
+
+    #switching
+    #TODO: add option for switching combination
+    #for now, let's default to Alt+Shift
+    ret += '\tOption\t"XkbOptions"\t'
+    ret += '"grp:alt_shift_toggle"\n'
+
+    #section footer
+    ret += 'EndSection'
+
+    return ret
+
+def write_layouts_config(keyboard, root):
+    """
+    Function that writes a file with layouts configuration to
+    $root/etc/X11/xorg.conf.d/01-anaconda-layouts.conf
+
+    @param keyboard: ksdata.keyboard object
+    @param root: path to the root of the installed system
+
+    """
+
+    conf_dir = os.path.join(root, "/etc/X11/xorg.conf.d")
+    conf_file = "01-anaconda-keyboard.conf"
+
+    try:
+        if not os.path.isdir(conf_dir):
+            os.makedirs(conf_dir)
+
+    except OSError as oserr:
+        raise KeyboardConfigError("Cannot create directory xorg.conf.d")
+
+    try:
+        with open(os.path.join(conf_dir, conf_file), "w") as f:
+            f.write(get_layouts_xorg_conf(keyboard))
+
+    except IOError as ioerr:
+        raise KeyboardConfigError("Cannot write keyboard configuration file")
 
 def item_str(s):
     """Convert a zero-terminated byte array to a proper str"""
@@ -52,7 +146,7 @@ class _Layout(object):
     def description(self):
         return self.desc
 
-class XklWrapperError(Exception):
+class XklWrapperError(KeyboardConfigError):
     """Exception class for reporting libxklavier-related problems"""
 
     pass
@@ -160,26 +254,6 @@ class XklWrapper(object):
         #first layout (should exist for every language)
         return language_layouts[0].name
 
-    def _parse_layout_variant(self, layout):
-        """
-        Parse layout and variant from the string that may look like 'layout' or
-        'layout (variant)'.
-
-        @return: the (layout, variant) pair, where variant can be ""
-        @rtype: tuple
-
-        """
-
-        variant = ""
-
-        lbracket_idx = layout.find("(")
-        rbracket_idx = layout.rfind(")")
-        if lbracket_idx != -1:
-            variant = layout[(lbracket_idx + 1) : rbracket_idx]
-            layout = layout[:lbracket_idx].strip()
-
-        return (layout, variant)
-
     def add_layout(self, layout):
         """
         Method that tries to add a given layout to the current X configuration.
@@ -195,7 +269,7 @@ class XklWrapper(object):
         """
 
         #we can get 'layout' or 'layout (variant)'
-        (layout, variant) = self._parse_layout_variant(layout)
+        (layout, variant) = _parse_layout_variant(layout)
 
         #do not add the same layout-variant combinanion multiple times
         if (layout, variant) in zip(self._rec.layouts, self._rec.variants):
@@ -221,7 +295,7 @@ class XklWrapper(object):
         """
 
         #we can get 'layout' or 'layout (variant)'
-        (layout, variant) = self._parse_layout_variant(layout)
+        (layout, variant) = _parse_layout_variant(layout)
 
         layouts_variants = zip(self._rec.layouts, self._rec.variants)
 
@@ -253,7 +327,7 @@ class XklWrapper(object):
         new_variants = list()
 
         for layout_variant in layouts_list:
-            (layout, variant) = self._parse_layout_variant(layout_variant)
+            (layout, variant) = _parse_layout_variant(layout_variant)
             new_layouts.append(layout)
             new_variants.append(variant)
 

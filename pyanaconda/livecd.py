@@ -316,8 +316,6 @@ class LiveCDCopyBackend(backend.AnacondaBackend):
         if os.path.exists("/etc/modprobe.conf"):
             shutil.copyfile("/etc/modprobe.conf", 
                             ROOT_PATH + "/etc/modprobe.conf")
-        # set the same keyboard the user selected in the keyboard dialog:
-        anaconda.keyboard.write(ROOT_PATH)
 
         # rebuild the initrd(s)
         vers = self.kernelVersionList()
