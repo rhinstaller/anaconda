@@ -456,9 +456,9 @@ reposdir=%s
             self.install_device = device
             url = "file://" + INSTALL_TREE
         elif method.method == "nfs":
-            # Mount the NFS share on ISO_DIR. If it ends up not being nfsiso we
-            # will create a symlink at INSTALL_TREE pointing to ISO_DIR.
-            self._setupNFS(ISO_DIR, method.server, method.dir, method.opts)
+            # Mount the NFS share on INSTALL_TREE. If it ends up being nfsiso
+            # we will move the mountpoint to ISO_DIR.
+            self._setupNFS(INSTALL_TREE, method.server, method.dir, method.opts)
 
             # check for ISO images in the newly mounted dir
             path = ISO_DIR
@@ -472,19 +472,13 @@ reposdir=%s
             # it appears there are ISO images in the dir, so assume they want to
             # install from one of them
             if image:
+                # move the mount to ISO_DIR
+                iutil.execWithRedirect("mount",
+                                       ["--move", INSTALL_TREE, ISO_DIR],
+                                       stderr="/ev/tty5", stdout="/dev/tty5")
                 # mount the ISO on a loop
                 image = os.path.normpath("%s/%s" % (ISO_DIR, image))
                 mountImage(image, INSTALL_TREE)
-            else:
-                # create a symlink at INSTALL_TREE that points to ISO_DIR
-                try:
-                    if os.path.exists(INSTALL_TREE):
-                        os.unlink(INSTALL_TREE)
-                    os.symlink(os.path.basename(ISO_DIR), INSTALL_TREE)
-                except OSError as e:
-                    log.error("failed to update %s symlink: %s"
-                              % (INSTALL_TREE, e))
-                    raise PayloadSetupError(str(e))
 
             url = "file://" + INSTALL_TREE
         elif method.method == "url":
