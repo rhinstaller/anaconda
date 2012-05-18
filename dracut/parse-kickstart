@@ -32,13 +32,14 @@ class Method(commands.method.F14_Method):
             method="cdrom"
         elif self.method == "harddrive":
             if self.biospart:
-                method="bd:%s:%s" % (self.partition, self.dir)
+                method="bd:{0.partition}:{0.dir}".format(self)
             else:
-                method="hd:%s:%s" % (self.partition, self.dir)
+                method="hd:{0.partition}:{0.dir}".format(self)
         elif self.method == "nfs":
-            method="nfs:%s:%s" % (self.server, self.dir)
             if self.opts:
-                method += ":%s" % self.opts
+                method="nfs:{0.opts}:{0.server}:{0.dir}".format(self)
+            else:
+                method="nfs:{0.server}:{0.dir}".format(self)
         elif self.method == "url":
             # FIXME: self.proxy, self.noverifyssl
             method = self.url
