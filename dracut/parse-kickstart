@@ -162,43 +162,33 @@ def ksnet_to_dracut(args, lineno, net, bootdev=False):
             line.append("ifname=%s:%s" % (net.device, mac.lower()))
 
     # NOTE: dracut currently only does ipv4 *or* ipv6, so only one ip=arg..
+    # we'll use the ipv4 config if it's present.
     if net.bootProto in (BOOTPROTO_DHCP, BOOTPROTO_BOOTP):
-        ip="dhcp"
+        net.autoconf="dhcp"
     elif net.bootProto == BOOTPROTO_IBFT:
-        ip="ibft"
+        net.autoconf="ibft"
     elif net.bootProto == BOOTPROTO_QUERY:
         log.error("'%s': --bootproto=query is deprecated", " ".join(args))
     elif net.bootProto == BOOTPROTO_STATIC:
-        req = ("gateway", "netmask", "nameserver", "ip")
-        missing = ", ".join("--%s" % i for i in req if not hasattr(net, i))
-        if missing:
-            log.warn("line %u: network missing %s", lineno, missing)
-        else:
-            ip="{0.ip}::{0.gateway}:{0.netmask}:" \
-               "{0.hostname}:{0.device}:none".format(net)
+        net.autoconf="none"
     elif net.ipv6 == "auto":
-        ip="auto6"
+        net.autoconf="auto6"
     elif net.ipv6 == "dhcp":
-        ip="dhcp6"
+        net.autoconf="dhcp6"
     elif net.ipv6:
-        ip="[{0.ipv6}]::{0.gateway}:{0.netmask}:" \
-           "{0.hostname}:{0.device}:none".format(net)
+        net.autoconf="none"
 
-    if net.device and not ip.endswith(":none"):
-        line.append("ip=%s:%s" % (net.device, ip))
-    else:
-        line.append("ip=%s" % ip)
+    if ":" in net.gateway:
+        net.gateway = "[%s]" % net.gateway
+
+    ip=":".join(net.ip or "[%s]" % net.ipv6, "", net.gateway, net.netmask,
+                net.hostname, net.device, net.autoconf, net.mtu)
+
+    line.append("ip=%s" % ip)
 
     for ns in net.nameserver.split(","):
         if ns:
             line.append("nameserver=%s" % ns)
-
-    if net.mtu:
-        # XXX FIXME: dracut doesn't support mtu= (yet)
-        if net.device:
-            line.append("mtu=%s:%u" % (net.device, net.mtu))
-        else:
-            line.append("mtu=%u" % net.mtu)
 
     # TODO: nodefroute, noipv[46], nodns: pass along to 'ifcfg' module somehow
     # TODO FIXME dhcpclass: dracut only uses one dhclient.conf for all ifaces
