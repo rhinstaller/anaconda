@@ -23,13 +23,13 @@ import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
 N_ = lambda x: x
 
-from gi.repository import AnacondaWidgets, GLib
+from gi.repository import AnacondaWidgets, GLib, Gtk
 
 from pyanaconda.ui.gui import UIObject
 from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.gui.categories.localization import LocalizationCategory
 
-from pyanaconda import localization
+from pyanaconda import localization, iutil, network
 import datetime, os
 
 __all__ = ["DatetimeSpoke"]
@@ -142,6 +142,17 @@ class DatetimeSpoke(NormalSpoke):
             self._tzmap.set_timezone(self.data.timezone.timezone)
 
         self._update_datetime()
+
+        has_active_network = network.hasActiveNetDev()
+        if not has_active_network:
+            self._show_no_network_warning()
+        else:
+            self.window.clear_info()
+
+        ntp_working = has_active_network and iutil.service_running("chronyd")
+
+        self._networkTimeSwitch = self.builder.get_object("networkTimeSwitch")
+        self._networkTimeSwitch.set_active(ntp_working)
 
     def add_to_store(self, store, item):
         store.append([item])
@@ -467,4 +478,42 @@ class DatetimeSpoke(NormalSpoke):
             self._amPmLabel.set_text(new_amPm)
 
         self._hoursLabel.set_text("%0.2d" % new_hours)
+
+    def _set_date_time_setting_sensitive(self, sensitive):
+        #contains all date/time setting widgets
+        footer_alignment = self.builder.get_object("footerAlignment")
+        footer_alignment.set_sensitive(sensitive)
+
+    def _show_no_network_warning(self):
+        self.window.set_info(Gtk.MessageType.WARNING,
+                             _("You need to set up networking first if you "\
+                               "want to use NTP"))
+
+    def on_ntp_switched(self, switch, *args):
+        #turned ON
+        if switch.get_active():
+            if not network.hasActiveNetDev():
+                self._show_no_network_warning()
+                switch.set_active(False)
+                return
+            else:
+                self.window.clear_info()
+
+            ret = iutil.start_service("chronyd")
+            self._set_date_time_setting_sensitive(False)
+
+            #if starting chronyd failed and chronyd is not running,
+            #set switch back to OFF
+            if (ret != 0) and not iutil.service_running("chronyd"):
+                switch.set_active(False)
+
+        #turned OFF
+        else:
+            self._set_date_time_setting_sensitive(True)
+            ret = iutil.stop_service("chronyd")
+
+            #if stopping chronyd failed and chronyd is running,
+            #set switch back to ON
+            if (ret != 0) and iutil.service_running("chronyd"):
+                switch.set_active(True)
 

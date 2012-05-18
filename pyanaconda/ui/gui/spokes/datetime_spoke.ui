@@ -159,6 +159,7 @@
                                         <property name="halign">end</property>
                                         <property name="valign">start</property>
                                         <property name="use_action_appearance">False</property>
+                                        <signal name="notify::active" handler="on_ntp_switched" swapped="no"/>
                                       </object>
                                     </child>
                                   </object>

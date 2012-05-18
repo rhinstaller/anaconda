@@ -1015,3 +1015,28 @@ def lsmod():
     with open("/proc/modules") as f:
         lines = f.readlines()
     return [l.split()[0] for l in lines]
+
+def _run_systemctl(command, service):
+    """
+    Runs 'systemctl command service.service'
+
+    @return: exit status of the systemctl
+
+    """
+
+    service_name = service + ".service"
+    ret = execWithRedirect("systemctl", [command, service_name], stdin=None,
+                           stdout="/dev/tty5", stderr="/dev/tty5")
+
+    return ret
+
+def start_service(service):
+    return _run_systemctl("start", service)
+
+def stop_service(service):
+    return _run_systemctl("stop", service)
+
+def service_running(service):
+    ret = _run_systemctl("status", service)
+
+    return ret == 0
