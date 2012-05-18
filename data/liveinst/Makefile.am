@@ -17,7 +17,7 @@
 #
 # Author: David Cantrell <dcantrell@redhat.com>
 
-SUBDIRS = console.apps pam.d
+SUBDIRS = console.apps gnome pam.d
 
 if IS_LIVEINST_ARCH
 dist_sbin_SCRIPTS  = liveinst

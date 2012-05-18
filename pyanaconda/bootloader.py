@@ -1760,7 +1760,7 @@ class GRUB2(GRUB):
         log.info("bootloader.py: used boot args: %s " % self.boot_args)
         defaults.write("GRUB_CMDLINE_LINUX=\"%s\"\n" % self.boot_args)
         defaults.write("GRUB_DISABLE_RECOVERY=\"true\"")
-        defaults.write("GRUB_THEME=\"/boot/grub2/themes/system/theme.txt\"")
+        defaults.write("#GRUB_THEME=\"/boot/grub2/themes/system/theme.txt\"")
         defaults.close()
 
     def _encrypt_password(self):
@@ -1803,7 +1803,6 @@ class GRUB2(GRUB):
 
     def write_config(self):
         self.write_config_console(None)
-        self.write_device_map()
         self.write_defaults()
 
         # if we fail to setup password auth we should complete the
@@ -1851,6 +1850,21 @@ class GRUB2(GRUB):
             if rc:
                 raise BootLoaderError("bootloader install failed")
 
+    def write(self):
+        """ Write the bootloader configuration and install the bootloader. """
+        if self.update_only:
+            self.update()
+            return
+
+        self.write_device_map()
+        self.stage2_device.format.sync(root=ROOT_PATH)
+        sync()
+        self.install()
+        sync()
+        self.stage2_device.format.sync(root=ROOT_PATH)
+        self.write_config()
+        sync()
+        self.stage2_device.format.sync(root=ROOT_PATH)
 
 class YabootSILOBase(BootLoader):
     def write_config_password(self, config):
