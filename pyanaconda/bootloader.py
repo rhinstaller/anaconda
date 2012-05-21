@@ -1470,130 +1470,6 @@ class GRUB(BootLoader):
     def has_windows(self):
         return len(self.bootable_chain_devices) != 0
 
-
-class EFIGRUB(GRUB):
-    packages = ["grub-efi", "efibootmgr"]
-    can_dual_boot = False
-    _config_dir = "efi/EFI/redhat"
-
-    # list of strings representing options for boot device types
-    stage2_device_types = ["partition"]
-    stage2_raid_levels = []
-    stage2_raid_member_types = []
-    stage2_raid_metadata = []
-
-    stage2_is_valid_stage1 = False
-    stage2_bootable = False
-    stage2_max_end_mb = None
-
-    def efibootmgr(self, *args, **kwargs):
-        if kwargs.pop("capture", False):
-            exec_func = iutil.execWithCapture
-        else:
-            exec_func = iutil.execWithRedirect
-
-        return exec_func("efibootmgr", list(args), **kwargs)
-
-    #
-    # configuration
-    #
-
-    @property
-    def efi_product_path(self):
-        """ The EFI product path.
-
-            eg: HD(1,800,64000,faacb4ef-e361-455e-bd97-ca33632550c3)
-        """
-        buf = self.efibootmgr("-v", stderr="/dev/tty5", capture=True)
-        matches = re.search(productName + r'\s+(HD\(.+?\))', buf)
-        if matches and matches.groups():
-            return matches.group(1)
-        return ""
-
-    @property
-    def grub_conf_device_line(self):
-        return "device %s %s\n" % (self.grub_device_name(self.stage2_device),
-                                   self.efi_product_path)
-
-    #
-    # installation
-    #
-
-    def remove_efi_boot_target(self):
-        buf = self.efibootmgr(capture=True)
-        for line in buf.splitlines():
-            try:
-                (slot, _product) = line.split(None, 1)
-            except ValueError:
-                continue
-
-            if _product == productName:
-                slot_id = slot[4:8]
-                # slot_id is hex, we can't use .isint and use this regex:
-                if not re.match("^[0-9a-fA-F]+$", slot_id):
-                    log.warning("failed to parse efi boot slot (%s)" % slot)
-                    continue
-
-                rc = self.efibootmgr("-b", slot_id, "-B",
-                                     root=ROOT_PATH,
-                                     stdout="/dev/tty5", stderr="/dev/tty5")
-                if rc:
-                    raise BootLoaderError("failed to remove old efi boot entry")
-
-    def add_efi_boot_target(self):
-        boot_efi = self.storage.mountpoints["/boot/efi"]
-        if boot_efi.type == "partition":
-            boot_disk = boot_efi.disk
-            boot_part_num = boot_efi.partedPartition.number
-        elif boot_efi.type == "mdarray":
-            # FIXME: I'm just guessing here. This probably needs the full
-            #        treatment, ie: multiple targets for each member.
-            boot_disk = boot_efi.parents[0].disk
-            boot_part_num = boot_efi.parents[0].partedPartition.number
-        boot_part_num = str(boot_part_num)
-
-        rc = self.efibootmgr("-c", "-w", "-L", productName,
-                             "-d", boot_disk.path, "-p", boot_part_num,
-                             "-l", "\\EFI\\redhat\\grub.efi",
-                             root=ROOT_PATH,
-                             stdout="/dev/tty5", stderr="/dev/tty5")
-        if rc:
-            raise BootLoaderError("failed to set new efi boot target")
-
-    def install(self):
-        self.remove_efi_boot_target()
-        self.add_efi_boot_target()
-
-    def update(self):
-        self.install()
-
-    #
-    # installation
-    #
-    def write(self):
-        """ Write the bootloader configuration and install the bootloader. """
-        if self.update_only:
-            self.update()
-            return
-
-        sync()
-        self.stage2_device.format.sync(root=ROOT_PATH)
-        self.install()
-        self.write_config()
-
-class MacEFIGRUB(EFIGRUB):
-    def mactel_config(self):
-        if os.path.exists(ROOT_PATH + "/usr/libexec/mactel-boot-setup"):
-            rc = iutil.execWithRedirect("/usr/libexec/mactel-boot-setup", [],
-                                        root=ROOT_PATH,
-                                        stdout="/dev/tty5", stderr="/dev/tty5")
-            if rc:
-                log.error("failed to configure Mac bootloader")
-
-    def install(self):
-        super(MacEFIGRUB, self).install()
-        self.mactel_config()
-
 class GRUB2(GRUB):
     """ GRUBv2
 
@@ -1760,7 +1636,7 @@ class GRUB2(GRUB):
         log.info("bootloader.py: used boot args: %s " % self.boot_args)
         defaults.write("GRUB_CMDLINE_LINUX=\"%s\"\n" % self.boot_args)
         defaults.write("GRUB_DISABLE_RECOVERY=\"true\"")
-        defaults.write("#GRUB_THEME=\"/boot/grub2/themes/system/theme.txt\"")
+        defaults.write("GRUB_THEME=\"/boot/grub2/themes/system/theme.txt\"\n")
         defaults.close()
 
     def _encrypt_password(self):
@@ -1865,6 +1741,109 @@ class GRUB2(GRUB):
         self.write_config()
         sync()
         self.stage2_device.format.sync(root=ROOT_PATH)
+
+class EFIGRUB(GRUB2):
+    packages = ["grub2-efi", "efibootmgr"]
+    can_dual_boot = False
+
+    @property
+    def _config_dir(self):
+        return "efi/EFI/%s" % (self.storage.anaconda.instClass.efi_dir,)
+
+    def efibootmgr(self, *args, **kwargs):
+        if kwargs.pop("capture", False):
+            exec_func = iutil.execWithCapture
+        else:
+            exec_func = iutil.execWithRedirect
+
+        return exec_func("efibootmgr", list(args), **kwargs)
+
+    #
+    # installation
+    #
+
+    def remove_efi_boot_target(self):
+        buf = self.efibootmgr(capture=True)
+        for line in buf.splitlines():
+            try:
+                (slot, _product) = line.split(None, 1)
+            except ValueError:
+                continue
+
+            if _product == productName:
+                slot_id = slot[4:8]
+                # slot_id is hex, we can't use .isint and use this regex:
+                if not re.match("^[0-9a-fA-F]+$", slot_id):
+                    log.warning("failed to parse efi boot slot (%s)" % slot)
+                    continue
+
+                rc = self.efibootmgr("-b", slot_id, "-B",
+                                     root=ROOT_PATH,
+                                     stdout="/dev/tty5", stderr="/dev/tty5")
+                if rc:
+                    raise BootLoaderError("failed to remove old efi boot entry")
+
+    @property
+    def efi_dir_as_efifs_dir(self):
+        ret = self._config_dir.replace('efi/', '')
+        return ret.replace('/', '\\')
+
+    def add_efi_boot_target(self):
+        boot_efi = self.storage.mountpoints["/boot/efi"]
+        if boot_efi.type == "partition":
+            boot_disk = boot_efi.disk
+            boot_part_num = boot_efi.partedPartition.number
+        elif boot_efi.type == "mdarray":
+            # FIXME: I'm just guessing here. This probably needs the full
+            #        treatment, ie: multiple targets for each member.
+            boot_disk = boot_efi.parents[0].disk
+            boot_part_num = boot_efi.parents[0].partedPartition.number
+        boot_part_num = str(boot_part_num)
+
+        rc = self.efibootmgr("-c", "-w", "-L", productName,
+                             "-d", boot_disk.path, "-p", boot_part_num,
+                             "-l",
+                             self.efi_dir_as_efifs_dir + "\\grubx64.efi",
+                             root=ROOT_PATH,
+                             stdout="/dev/tty5", stderr="/dev/tty5")
+        if rc:
+            raise BootLoaderError("failed to set new efi boot target")
+
+    def install(self):
+        self.remove_efi_boot_target()
+        self.add_efi_boot_target()
+
+    def update(self):
+        self.install()
+
+    #
+    # installation
+    #
+    def write(self):
+        """ Write the bootloader configuration and install the bootloader. """
+        if self.update_only:
+            self.update()
+            return
+
+        sync()
+        self.stage2_device.format.sync(root=ROOT_PATH)
+        self.install()
+        self.write_config()
+
+
+class MacEFIGRUB(EFIGRUB):
+    def mactel_config(self):
+        if os.path.exists(ROOT_PATH + "/usr/libexec/mactel-boot-setup"):
+            rc = iutil.execWithRedirect("/usr/libexec/mactel-boot-setup", [],
+                                        root=ROOT_PATH,
+                                        stdout="/dev/tty5", stderr="/dev/tty5")
+            if rc:
+                log.error("failed to configure Mac bootloader")
+
+    def install(self):
+        super(MacEFIGRUB, self).install()
+        self.mactel_config()
+
 
 class YabootSILOBase(BootLoader):
     def write_config_password(self, config):
