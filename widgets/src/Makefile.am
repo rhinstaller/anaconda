@@ -1,6 +1,6 @@
 # Makefile.am for anaconda widgets
 #
-# Copyright (C) 2011  Red Hat, Inc.
+# Copyright (C) 2011-2012  Red Hat, Inc.
 #
 # This copyrighted material is made available to anyone wishing to use,
 # modify, copy, or redistribute it subject to the terms and conditions of
@@ -28,6 +28,7 @@ DISTCHECK_CONFIGURE_FLAGS = --enable-introspection --enable-gtk-doc
 GISOURCES = BaseWindow.c \
 	 DiskOverview.c \
 	 HubWindow.c \
+	 MountpointSelector.c \
 	 SpokeSelector.c \
 	 SpokeWindow.c \
 	 StandaloneWindow.c \
@@ -37,6 +38,7 @@ GISOURCES = BaseWindow.c \
 GIHDRS = BaseWindow.h \
 	 DiskOverview.h \
 	 HubWindow.h \
+	 MountpointSelector.h \
 	 SpokeSelector.h \
 	 SpokeWindow.h \
 	 StandaloneWindow.h \
