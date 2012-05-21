@@ -28,17 +28,219 @@ from gi.repository import AnacondaWidgets, GLib, Gtk
 from pyanaconda.ui.gui import UIObject
 from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.gui.categories.localization import LocalizationCategory
+from pyanaconda.ui.gui.utils import enlightbox
 
-from pyanaconda import localization, iutil, network
-import datetime, os
+from pyanaconda import localization, iutil, network, ntp
+from pyanaconda.threads import threadMgr, AnacondaThread
+
+import datetime, os, threading
 
 __all__ = ["DatetimeSpoke"]
+
+SERVER_OK = 0
+SERVER_NOK = 1
+SERVER_QUERY = 2
+
+POOL_SERVERS_NOTE = _("Note: pool servers may not be available all the time")
+
+class NTPconfigDialog(UIObject):
+    builderObjects = ["ntpConfigDialog", "addImage", "serversStore"]
+    mainWidgetName = "ntpConfigDialog"
+    uiFile = "spokes/datetime_spoke.ui"
+
+    def __init__(self, *args):
+        UIObject.__init__(self, *args)
+
+        #used to ensure uniqueness of the threads' names
+        self._threads_counter = 0
+
+        #epoch is increased when serversStore is repopulated
+        self._epoch = 0
+        self._epoch_lock = threading.Lock()
+
+    @property
+    def working_server(self):
+        itr = self._serversStore.get_iter_first()
+        while itr:
+            row = self._serversStore[itr]
+            if row[1] == SERVER_OK and row[2]:
+                #server is checked and working
+                return row[0]
+
+            itr = self._serversStore.iter_next(itr)
+
+        return None
+
+    def _render_working(self, column, renderer, model, itr, user_data=None):
+        #get the value in the second column
+        value = model[itr][1]
+
+        if value == SERVER_QUERY:
+            renderer.set_property("stock-id", "gtk-dialog-question")
+        elif value == SERVER_OK:
+            renderer.set_property("stock-id", "gtk-yes")
+        else:
+            renderer.set_property("stock-id", "gtk-no")
+
+    def initialize(self):
+        self.window.set_size_request(500, 400)
+
+        workingColumn = self.builder.get_object("workingColumn")
+        workingRenderer = self.builder.get_object("workingRenderer")
+        workingColumn.set_cell_data_func(workingRenderer, self._render_working)
+
+        self._serverEntry = self.builder.get_object("serverEntry")
+        self._serversStore = self.builder.get_object("serversStore")
+        self._poolsNote = self.builder.get_object("poolsNote")
+
+        self._initialize_store_from_config()
+
+    def _initialize_store_from_config(self):
+        self._serversStore.clear()
+        self._poolsNote.set_text("")
+        for server in ntp.get_servers_from_config():
+            self._add_server(server)
+
+    def refresh(self):
+        self._serverEntry.grab_focus()
+
+    def refresh_servers_state(self):
+        itr = self._serversStore.get_iter_first()
+        while itr:
+            self._refresh_server_working(itr)
+            itr = self._serversStore.iter_next(itr)
+
+    def run(self):
+        self.window.show()
+        rc = self.window.run()
+        self.window.hide()
+
+        #OK clicked
+        if rc == 1:
+            new_servers = list()
+
+            itr = self._serversStore.get_iter_first()
+            while itr:
+                row = self._serversStore[itr]
+
+                #if server checked
+                if row[2]:
+                    new_servers.append(row[0])
+
+                itr = self._serversStore.iter_next(itr)
+
+            ntp.save_servers_to_config(new_servers)
+            iutil.restart_service("chronyd")
+
+        #Cancel clicked, window destroyed...
+        else:
+            self._epoch_lock.acquire()
+            self._epoch += 1
+            self._epoch_lock.release()
+
+            self._initialize_store_from_config()
+
+        return rc
+
+    def _set_server_ok_nok(self, itr, epoch_started):
+        """
+        If the server is working, set its data to SERVER_OK, otherwise set its
+        data to SERVER_NOK.
+
+        @param itr: iterator of the $server's row in the self._serversStore
+
+        """
+
+        def set_store_value(arg_tuple):
+            """
+            We need a function for this, because this way it can be added to
+            the MainLoop with thread-safe GLib.idle_add (but only with one
+            argument).
+
+            @param arg_tuple: (store, itr, column, value)
+
+            """
+
+            (store, itr, column, value) = arg_tuple
+            store.set_value(itr, column, value)
+
+        orig_hostname = self._serversStore[itr][0]
+        server_working = ntp.ntp_server_working(self._serversStore[itr][0])
+
+        #do not let dialog change epoch while we are modifying data
+        self._epoch_lock.acquire()
+
+        #check if we are in the same epoch as the dialog (and the serversStore)
+        #and if the server wasn't changed meanwhile
+        if epoch_started == self._epoch:
+            actual_hostname = self._serversStore[itr][0]
+
+            if orig_hostname == actual_hostname:
+                if server_working:
+                    GLib.idle_add(set_store_value, (self._serversStore,
+                                                    itr, 1, SERVER_OK))
+                else:
+                    GLib.idle_add(set_store_value, (self._serversStore,
+                                                    itr, 1, SERVER_NOK))
+        self._epoch_lock.release()
+
+    def _refresh_server_working(self, itr):
+        """ Runs a new thread with _set_server_ok_nok(itr) as a taget. """
+
+        self._serversStore.set_value(itr, 1, SERVER_QUERY)
+        new_thread_name = "AnaNTPserver%d" % self._threads_counter
+        threadMgr.add(AnacondaThread(name=new_thread_name,
+                                     target=self._set_server_ok_nok,
+                                     args=(itr, self._epoch)))
+        self._threads_counter += 1
+
+    def _add_server(self, server):
+        itr = self._serversStore.get_iter_first()
+        while itr:
+            if self._serversStore[itr][0] == server:
+                #do not add duplicate items
+                return
+
+            itr = self._serversStore.iter_next(itr)
+
+        itr = self._serversStore.append([server, SERVER_QUERY, True])
+
+        if "pool" in server:
+            self._poolsNote.set_text(POOL_SERVERS_NOTE)
+
+        #do not block UI while starting thread (may take some time)
+        GLib.idle_add(self._refresh_server_working, itr)
+
+    def on_entry_activated(self, entry, *args):
+        self._add_server(entry.get_text())
+        entry.set_text("")
+
+    def on_add_clicked(self, *args):
+        self._add_server(self._serverEntry.get_text())
+        self._serverEntry.set_text("")
+
+    def on_use_server_toggled(self, renderer, path, *args):
+        itr = self._serversStore.get_iter(path)
+        old_value = self._serversStore[itr][2]
+
+        self._serversStore.set_value(itr, 2, not old_value)
+
+    def on_server_edited(self, renderer, path, new_text, *args):
+        itr = self._serversStore.get_iter(path)
+
+        if self._serversStore[itr][0] == new_text:
+            return
+
+        self._serversStore.set_value(itr, 0, new_text)
+        self._serversStore.set_value(itr, 1, SERVER_QUERY)
+
+        self._refresh_server_working(itr)
 
 class DatetimeSpoke(NormalSpoke):
     builderObjects = ["datetimeWindow",
                       "days", "months", "years", "regions", "cities",
                       "upImage", "upImage1", "upImage2", "downImage",
-                      "downImage1", "downImage2", "downImage3",
+                      "downImage1", "downImage2", "downImage3", "configImage",
                       "citiesFilter", "daysFilter", "citiesSort", "regionsSort",
                       ]
 
@@ -114,6 +316,9 @@ class DatetimeSpoke(NormalSpoke):
         else:
             self._tzmap.set_timezone("Europe/Prague")
 
+        self._config_dialog = NTPconfigDialog(self.data)
+        self._config_dialog.initialize()
+
     @property
     def status(self):
         if self.data.timezone.timezone:
@@ -148,6 +353,7 @@ class DatetimeSpoke(NormalSpoke):
             self._show_no_network_warning()
         else:
             self.window.clear_info()
+            GLib.idle_add(self._config_dialog.refresh_servers_state)
 
         ntp_working = has_active_network and iutil.service_running("chronyd")
 
@@ -489,6 +695,10 @@ class DatetimeSpoke(NormalSpoke):
                              _("You need to set up networking first if you "\
                                "want to use NTP"))
 
+    def _show_no_ntp_server_warning(self):
+        self.window.set_info(Gtk.MessageType.WARNING,
+                             _("You have no working NTP server configured"))
+
     def on_ntp_switched(self, switch, *args):
         #turned ON
         if switch.get_active():
@@ -498,6 +708,8 @@ class DatetimeSpoke(NormalSpoke):
                 return
             else:
                 self.window.clear_info()
+                if self._config_dialog.working_server is None:
+                    self._show_no_ntp_server_warning()
 
             ret = iutil.start_service("chronyd")
             self._set_date_time_setting_sensitive(False)
@@ -516,4 +728,16 @@ class DatetimeSpoke(NormalSpoke):
             #set switch back to ON
             if (ret != 0) and iutil.service_running("chronyd"):
                 switch.set_active(True)
+
+    def on_ntp_config_clicked(self, *args):
+        self._config_dialog.refresh()
+
+        with enlightbox(self.window, self._config_dialog.window):
+            response = self._config_dialog.run()
+
+        if response == 1:
+            if self._config_dialog.working_server is None:
+                self._show_no_ntp_server_warning()
+            else:
+                self.window.clear_info()
 
