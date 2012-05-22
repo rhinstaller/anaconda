@@ -249,6 +249,9 @@ update-desktop-database &> /dev/null || :
 /usr/lib/dracut/modules.d/80%{name}/*
 
 %changelog
+* Tue May 22 2012 Brian C. Lane <bcl@redhat.com> - 17.29-1
+- Set serial flag when encountering console argument (#823861) (msivak)
+
 * Wed May 16 2012 Brian C. Lane <bcl@redhat.com> - 17.28-1
 - Partially revert "We have a grub2 theme now, so say to use it." (#822123)
   (pjones)
