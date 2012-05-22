@@ -249,6 +249,11 @@ update-desktop-database &> /dev/null || :
 /usr/lib/dracut/modules.d/80%{name}/*
 
 %changelog
+* Tue May 22 2012 David Cantrell <dcantrell@redhat.com> - 17.28.1-1
+- Set serial flag when encountering console argument (#823861) (msivak)
+- dracut parse-kickstart: support --mtu and clean up a bit (wwoods)
+- dracut parse-kickstart: fix 'nfs --opts ...' (wwoods)
+
 * Wed May 16 2012 Brian C. Lane <bcl@redhat.com> - 17.28-1
 - Partially revert "We have a grub2 theme now, so say to use it." (#822123)
   (pjones)
