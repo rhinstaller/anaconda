@@ -272,6 +272,7 @@ def parseOptions(argv=None, cmdline=None):
     if cmdline is not None:
         if "console" in cmdline:
             op.set_defaults(display_mode="t")
+            op.set_defaults(serial=True)
 
     (opts, args) = op.parse_args(argv, cmdline=cmdline)
     return (opts, args, op.deprecated_bootargs)
