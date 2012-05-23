@@ -490,6 +490,7 @@ class StorageSpoke(NormalSpoke):
         else:
             self.window.clear_info()
 
+        self.builder.get_object("continue_button").set_sensitive(count > 0)
         self.builder.get_object("summary_button").set_sensitive(count > 0)
 
     def _update_disk_list(self):
