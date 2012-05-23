@@ -231,7 +231,7 @@ class CustomPartitioningSpoke(NormalSpoke):
             for chunk in tup:
                 totalFree += chunk
 
-        return Size(totalFree).convertTo("GB")
+        return Size(totalFree)
 
     def _currentTotalSpace(self):
         """Add up the sizes of all selected disks and return it as a Size."""
@@ -241,13 +241,13 @@ class CustomPartitioningSpoke(NormalSpoke):
         for disk in disks:
             totalSpace += disk.size
 
-        return Size(spec="%s MB" % totalSpace).convertTo("GB")
+        return Size(spec="%s MB" % totalSpace)
 
     def refresh(self):
         NormalSpoke.refresh(self)
 
-        self._availableSpaceLabel.set_text("%.2f GB" % self._currentFreeSpace())
-        self._totalSpaceLabel.set_text("%.2f GB" % self._currentTotalSpace())
+        self._availableSpaceLabel.set_text(str(self._currentFreeSpace()))
+        self._totalSpaceLabel.set_text(str(self._currentTotalSpace()))
 
         summaryLabel = self._summaryButton.get_children()[0]
         count = len(self.data.clearpart.drives)
