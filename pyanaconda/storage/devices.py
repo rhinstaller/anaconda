@@ -355,6 +355,13 @@ class Device(object):
         return self._type
 
     @property
+    def ancestors(self):
+        l = set(self)
+        for p in [d for d in self.parents if d not in l]:
+            l.update(set(p.ancestors))
+        return list(l)
+
+    @property
     def packages(self):
         """ List of packages required to manage devices of this type.
 
