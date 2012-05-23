@@ -356,7 +356,7 @@ class Device(object):
 
     @property
     def ancestors(self):
-        l = set(self)
+        l = set([self])
         for p in [d for d in self.parents if d not in l]:
             l.update(set(p.ancestors))
         return list(l)

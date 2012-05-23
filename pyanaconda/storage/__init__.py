@@ -2362,7 +2362,7 @@ def findExistingInstallations(devicetree):
         iutil.mkdirChain(ROOT_PATH)
 
     roots = []
-    for device in anaconda.storage.devicetree.leaves:
+    for device in devicetree.leaves:
         if not device.format.linuxNative or not device.format.mountable:
             continue
 
@@ -2394,13 +2394,24 @@ def findExistingInstallations(devicetree):
 
         (mounts, swaps) = parseFSTab(devicetree, chroot=ROOT_PATH)
         roots.append(Root(mounts=mounts, swaps=swaps, name=name))
+        device.teardown()
 
     return roots
 
 class Root(object):
     def __init__(self, mounts=None, swaps=None, name=None):
-        self.mounts = {}    # mountpoint key, StorageDevice value
-        self.swaps = []     # StorageDevice
+        # mountpoint key, StorageDevice value
+        if not mounts:
+            self.mounts = {}
+        else:
+            self.mounts = mounts
+
+        # StorageDevice
+        if not swaps:
+            self.swaps = []
+        else:
+            self.swaps = swaps
+
         self.name = name    # eg: "Fedora Linux 16 for x86_64", "Linux on sda2"
 
         if not self.name and "/" in self.mounts:
@@ -2431,7 +2442,7 @@ def parseFSTab(devicetree, chroot=None):
         log.info("error parsing blkid.tab: %s" % e)
         blkidTab = None
 
-    cryptTab = CryptTab(self.devicetree, blkidTab=blkidTab, chroot=chroot)
+    cryptTab = CryptTab(devicetree, blkidTab=blkidTab, chroot=chroot)
     try:
         cryptTab.parse(chroot=chroot)
         log.debug("crypttab maps: %s" % cryptTab.mappings.keys())
