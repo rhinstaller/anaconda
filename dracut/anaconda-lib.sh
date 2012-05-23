@@ -100,7 +100,7 @@ anaconda_auto_updates() {
 
 # Unpack an image into the given dir.
 unpack_updates_img() {
-    local img="$1" tmpdir="/tmp/${1##*/}.$$" outdir="${2:+/updates}"
+    local img="$1" tmpdir="/tmp/${1##*/}.$$" outdir="${2:-/updates}"
     # NOTE: unpack_img $img $outdir can clobber existing subdirs in $outdir,
     # which is why we use a tmpdir and copytree (which doesn't clobber)
     unpack_img $img $tmpdir
