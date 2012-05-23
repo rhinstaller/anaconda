@@ -4,6 +4,22 @@ from ..overrides import override
 Anaconda = modules['AnacondaWidgets']._introspection_module
 __all__ = []
 
+class MountpointSelector(Anaconda.MountpointSelector):
+    def __init__(self, name=None, size=None, mountpoint=None):
+        Anaconda.MountpointSelector.__init__(self)
+
+        if name:
+            self.set_property("name", name)
+
+        if size:
+            self.set_property("size", size)
+
+        if mountpoint:
+            self.set_property("mountpoint", mountpoint)
+
+MountpointSelector = override(MountpointSelector)
+__all__.append('MountpointSelector')
+
 class SpokeSelector(Anaconda.SpokeSelector):
     def __init__(self, title=None, icon=None, status=None):
         Anaconda.SpokeSelector.__init__(self)
