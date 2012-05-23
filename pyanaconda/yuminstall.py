@@ -17,8 +17,6 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-from flags import flags
-
 import ConfigParser
 import sys
 import os
@@ -32,6 +30,10 @@ import tempfile
 import itertools
 import re
 
+class NoSuchGroup(Exception):
+    pass
+
+from flags import flags
 
 import anaconda_log
 import rpm
@@ -45,12 +47,12 @@ from yum.constants import *
 from yum.Errors import *
 from yum.misc import to_unicode
 from yum.yumRepo import YumRepository
-from backend import AnacondaBackend
 from product import isFinal, productName, productVersion, productStamp
 from constants import *
 from image import *
 from compssort import *
 import packages
+from backend import AnacondaBackend
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
@@ -71,9 +73,6 @@ urlgrabber.grabber.default_grabber.opts.user_agent = "%s (anaconda)/%s" %(produc
 
 import iutil
 import isys
-
-class NoSuchGroup(Exception):
-    pass
 
 def size_string (size):
     def number_format(s):

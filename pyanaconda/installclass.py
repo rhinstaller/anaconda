@@ -245,7 +245,11 @@ def availableClasses(showHidden=0):
 
     path = []
 
-    for dir in ["installclasses",
+    env_path = []
+    if "ANACONDA_INSTALL_CLASSES" in os.environ:
+        env_path += os.environ["ANACONDA_INSTALL_CLASSES"].split(":")
+
+    for dir in env_path + ["installclasses",
                 "/tmp/updates/pyanaconda/installclasses",
                 "/tmp/product/pyanaconda/installclasses",
                 "%s/pyanaconda/installclasses" % get_python_lib(plat_specific=1) ]:
@@ -316,6 +320,7 @@ def getBaseInstallClass():
     # figure out what installclass we should base on.
     allavail = availableClasses(showHidden = 1)
     avail = availableClasses(showHidden = 0)
+
     if len(avail) == 1:
         (cname, cobject, clogo) = avail[0]
         log.info("using only installclass %s" %(cname,))

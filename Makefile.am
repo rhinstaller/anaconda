@@ -102,3 +102,7 @@ unittest:
 
 unittests-logpicker:
 	PYTHONPATH=tests/:.:utils/ nosetests tests/logpicker_test
+
+# GUI TESTING
+runspoke:
+	ANACONDA_DATA=${PWD}/data ANACONDA_WIDGETS_DATA=${PWD}/widgets/data ANACONDA_INSTALL_CLASSES=${PWD}/pyanaconda/installclasses PYTHONPATH=.:pyanaconda/isys/.libs:widgets/python/:widgets/src/.libs/ LD_LIBRARY_PATH=widgets/src/.libs  UIPATH=pyanaconda/ui/gui/   GI_TYPELIB_PATH=widgets/src/ pyanaconda/ui/gui/tools/run-spoke.py ${SPOKE_MODULE} ${SPOKE_CLASS}

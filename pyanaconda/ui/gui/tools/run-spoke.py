@@ -3,6 +3,11 @@
 from gi.repository import AnacondaWidgets, Gtk
 import ctypes, sys
 
+# Check command line arguments
+if len(sys.argv)<2:
+    print "Usage: $0 <spoke module name> [<spoke widget class>]"
+    sys.exit(1)
+
 # This is a hack to make sure the AnacondaWidgets library gets loaded
 ctypes.CDLL("libAnacondaWidgets.so.0", ctypes.RTLD_GLOBAL)
 
@@ -24,13 +29,41 @@ flags.testing = True
 
 initThreading()
 
-# NOTE:  To run your spoke, you need to do the proper import here (may need to
-# set $PYTHONPATH as well) and set spokeClass to be the class from that import.
-# I suppose this could be done automatically somehow, but that's hard and this
-# is a development testing tool.
-#from pyanaconda.ui.gui.spokes.software import SoftwareSelectionSpoke
-#spokeClass = SoftwareSelectionSpoke
+# Figure out the name of spoke module entered on command line
+spokeModuleName = "pyanaconda.ui.gui.spokes.%s" % sys.argv[1]
+
+# Set default spoke class
 spokeClass = None
+
+# Load spoke specified on the command line
+# If the spoke module was specified, but the spoke class was not,
+# try to find it using class hierarchy
+try:
+    spokeClassName = sys.argv[2]
+    __import__(spokeModuleName, fromlist = [spokeClassName])
+    spokeModule = sys.modules[spokeModuleName]
+except IndexError:
+    __import__(spokeModuleName)
+    spokeModule = sys.modules[spokeModuleName]
+    from pyanaconda.ui.gui.spokes import NormalSpoke
+    for k,v in vars(spokeModule).iteritems():
+        try:
+            if issubclass(v, NormalSpoke):
+                spokeClassName = k
+                spokeClass = v
+                break
+        except TypeError:
+            pass
+    
+if not spokeClass:
+    try:
+        spokeClass = getattr(spokeModule, spokeClassName)
+    except KeyError:
+        print "Spoke %s could not be found in %s" % (spokeClassName, spokeModuleName)
+        sys.exit(1)
+
+
+print "Running spoke %s from %s" % (spokeClass, spokeModule)
 
 platform = getPlatform()
 ksdata = makeVersion()
