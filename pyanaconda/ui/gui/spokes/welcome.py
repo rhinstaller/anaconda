@@ -33,7 +33,7 @@ from pyanaconda.ui.gui.categories.localization import LocalizationCategory
 
 from pyanaconda.localization import Language, LOCALE_PREFERENCES
 from pyanaconda.product import productName, productVersion
-from pyanaconda import xklavier
+from pyanaconda import keyboard
 from pyanaconda import localization
 
 __all__ = ["WelcomeLanguageSpoke", "LanguageSpoke"]
@@ -43,7 +43,7 @@ class LanguageMixIn(object):
 
     def __init__(self, labelName = "welcomeLabel",
                  viewName = "languageView", selectionName = "languageViewSelection"):
-        self._xklwrapper = xklavier.XklWrapper.get_instance()
+        self._xklwrapper = keyboard.XklWrapper.get_instance()
         self._origStrings = {}
         self._labelName = labelName
         self._viewName = viewName

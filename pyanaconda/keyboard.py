@@ -20,12 +20,14 @@
 #
 
 """
-This module wraps the libxklavier functionality to protect Anaconda
+This module include functions and classes for dealing with multiple layouts
+in Anaconda. It wraps the libxklavier functionality to protect Anaconda
 from dealing with its "nice" API that looks like a Lisp-influenced
 "good old C".
 
 It provides a XklWrapper class with several methods that can be used
 for listing and various modifications of keyboard layouts settings.
+
 """
 
 from gi.repository import Xkl, Gdk, GdkX11

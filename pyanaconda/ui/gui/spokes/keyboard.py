@@ -30,7 +30,7 @@ from pyanaconda.ui.gui import UIObject
 from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.gui.categories.localization import LocalizationCategory
 from pyanaconda.ui.gui.utils import enlightbox
-from pyanaconda import xklavier
+from pyanaconda import keyboard
 
 __all__ = ["KeyboardSpoke"]
 
@@ -45,7 +45,7 @@ class AddLayoutDialog(UIObject):
 
     def __init__(self, *args):
         UIObject.__init__(self, *args)
-        self._xkl_wrapper = xklavier.XklWrapper.get_instance()
+        self._xkl_wrapper = keyboard.XklWrapper.get_instance()
 
     def matches_entry(self, model, itr, user_data=None):
         value = model[itr][0]
@@ -128,7 +128,7 @@ class KeyboardSpoke(NormalSpoke):
     def __init__(self, *args):
         NormalSpoke.__init__(self, *args)
         self._remove_last_attempt = False
-        self._xkl_wrapper = xklavier.XklWrapper.get_instance()
+        self._xkl_wrapper = keyboard.XklWrapper.get_instance()
 
     def apply(self):
         # Clear and repopulate self.data with actual values

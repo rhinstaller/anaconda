@@ -120,7 +120,7 @@ def doStartupX11Actions(keyboard):
 
     # setup layouts
     if keyboard.layouts_list:
-        from pyanaconda.xklavier import XklWrapper, XklWrapperError
+        from pyanaconda.keyboard import XklWrapper, XklWrapperError
 
         layouts = keyboard.layouts_list
         xklwrapper = XklWrapper.get_instance()
