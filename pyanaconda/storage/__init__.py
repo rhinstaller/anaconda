@@ -396,6 +396,7 @@ class Storage(object):
                                      iscsi=self.iscsi,
                                      dasd=self.dasd)
         self.fsset = FSSet(self.devicetree)
+        self.roots = {}
         self.services = set()
 
     def doIt(self):
@@ -497,7 +498,20 @@ class Storage(object):
             self.bootloader.stage1_device = None
             self.bootloader.stage2_device = None
 
+        self.roots = findExistingInstallations(self.devicetree)
+
         self.dumpState("initial")
+
+    @property
+    def unusedDevices(self):
+        used_devices = []
+        for root in self.roots:
+            for device in root.mounts.values() + root.swaps:
+                used_devices.extend(device.ancestors)
+
+        used = set(used_devices)
+        _all = set(self.devices)
+        return list(_all.difference(used))
 
     @property
     def devices(self):
@@ -1529,98 +1543,6 @@ class Storage(object):
 
         return 0
 
-def getReleaseString():
-    relName = None
-    relVer = None
-
-    try:
-        relArch = iutil.execWithCapture("arch", [], root=ROOT_PATH).strip()
-    except:
-        relArch = None
-
-    filename = "%s/etc/redhat-release" % ROOT_PATH
-    if os.access(filename, os.R_OK):
-        with open(filename) as f:
-            try:
-                relstr = f.readline().strip()
-            except (IOError, AttributeError):
-                relstr = ""
-
-        # get the release name and version
-        # assumes that form is something
-        # like "Red Hat Linux release 6.2 (Zoot)"
-        (product, sep, version) = relstr.partition(" release ")
-        if sep:
-            relName = product
-            relVer = version.split()[0]
-
-    return (relArch, relName, relVer)
-
-def findExistingRootDevices(anaconda, upgradeany=False):
-    """ Return a tuple of:
-        list of all root filesystems in the device tree.
-        list of previous installs that cannot be upgraded.
-    """
-    rootDevs = []
-    notUpgradable = []
-
-    if not os.path.exists(ROOT_PATH):
-        iutil.mkdirChain(ROOT_PATH)
-
-    roots = []
-    for device in anaconda.storage.devicetree.leaves:
-        if not device.format.linuxNative or not device.format.mountable:
-            continue
-
-        if device.protected:
-            # can't upgrade the part holding hd: media so why look at it?
-            continue
-
-        try:
-            device.setup()
-        except Exception as e:
-            log.warning("setup of %s failed: %s" % (device.name, e))
-            continue
-
-        try:
-            device.format.mount(options="ro", mountpoint=ROOT_PATH)
-        except Exception as e:
-            log.warning("mount of %s as %s failed: %s" % (device.name,
-                                                          device.format.type,
-                                                          e))
-            device.teardown()
-            continue
-
-        if os.access(ROOT_PATH + "/etc/fstab", os.R_OK):
-            try:
-                (arch, product, version) = getReleaseString()
-            except ValueError:
-                # This likely isn't our product, so don't even count it as
-                # notUpgradable.
-                log.info("findExistingRootDevices: no release string.")
-                continue
-            finally:
-                device.teardown(recursive=True)
-
-            if arch is None:
-                # we failed to determine the arch (for instance when we cant'
-                # run a binary on the target system)
-                log.info("findExistingRootDevices: no arch.")
-                continue
-
-            if upgradeany or \
-               anaconda.instClass.productUpgradable(arch, product, version):
-                rootDevs.append((device, "%s %s" % (product, version)))
-            else:
-                notUpgradable.append((product, version, device.name))
-                log.info("product %s, version %s, arch %s found on %s is not upgradable"
-                         % (product, version, arch, device.name))
-        else:
-            # this handles unmounting the filesystem
-            device.teardown(recursive=True)
-
-    return (rootDevs, notUpgradable)
-
 def mountExistingSystem(fsset, rootEnt,
                         allowDirty=None, dirtyCB=None,
                         readOnly=None):
@@ -2406,3 +2328,140 @@ class FSSet(object):
             fstab += line
 
         return fstab
+
+
+def getReleaseString():
+    relName = None
+    relVer = None
+
+    try:
+        relArch = iutil.execWithCapture("arch", [], root=ROOT_PATH).strip()
+    except:
+        relArch = None
+
+    filename = "%s/etc/redhat-release" % ROOT_PATH
+    if os.access(filename, os.R_OK):
+        with open(filename) as f:
+            try:
+                relstr = f.readline().strip()
+            except (IOError, AttributeError):
+                relstr = ""
+
+        # get the release name and version
+        # assumes that form is something
+        # like "Red Hat Linux release 6.2 (Zoot)"
+        (product, sep, version) = relstr.partition(" release ")
+        if sep:
+            relName = product
+            relVer = version.split()[0]
+
+    return (relArch, relName, relVer)
+
+def findExistingInstallations(devicetree):
+    if not os.path.exists(ROOT_PATH):
+        iutil.mkdirChain(ROOT_PATH)
+
+    roots = []
+    for device in anaconda.storage.devicetree.leaves:
+        if not device.format.linuxNative or not device.format.mountable:
+            continue
+
+        try:
+            device.setup()
+        except Exception as e:
+            log.warning("setup of %s failed: %s" % (device.name, e))
+            continue
+
+        try:
+            device.format.mount(options="ro", mountpoint=ROOT_PATH)
+        except Exception as e:
+            log.warning("mount of %s as %s failed: %s" % (device.name,
+                                                          device.format.type,
+                                                          e))
+            device.teardown()
+            continue
+
+        if not os.access(ROOT_PATH + "/etc/fstab", os.R_OK):
+            device.teardown(recursive=True)
+            continue
+
+        try:
+            (arch, product, version) = getReleaseString()
+        except ValueError:
+            name = "Linux on %s" % device.name
+        else:
+            name = "%s Linux %s for %s" % (product, version, arch)
+
+        (mounts, swaps) = parseFSTab(devicetree, chroot=ROOT_PATH)
+        roots.append(Root(mounts=mounts, swaps=swaps, name=name))
+
+    return roots
+
+class Root(object):
+    def __init__(self, mounts=None, swaps=None, name=None):
+        self.mounts = {}    # mountpoint key, StorageDevice value
+        self.swaps = []     # StorageDevice
+        self.name = name    # eg: "Fedora Linux 16 for x86_64", "Linux on sda2"
+
+        if not self.name and "/" in self.mounts:
+            self.name = self.mounts["/"].format.uuid
+
+    @property
+    def device(self):
+        return self.mounts.get("/")
+
+def parseFSTab(devicetree, chroot=None):
+    """ parse /etc/fstab and return a tuple of a mount dict and swap list """
+    if not chroot or not os.path.isdir(chroot):
+        chroot = ROOT_PATH
+
+    mounts = {}
+    swaps = []
+    path = "%s/etc/fstab" % chroot
+    if not os.access(path, os.R_OK):
+        # XXX should we raise an exception instead?
+        log.info("cannot open %s for read" % path)
+        return (mounts, swaps)
+
+    blkidTab = BlkidTab(chroot=chroot)
+    try:
+        blkidTab.parse()
+        log.debug("blkid.tab devs: %s" % blkidTab.devices.keys())
+    except Exception as e:
+        log.info("error parsing blkid.tab: %s" % e)
+        blkidTab = None
+
+    cryptTab = CryptTab(self.devicetree, blkidTab=blkidTab, chroot=chroot)
+    try:
+        cryptTab.parse(chroot=chroot)
+        log.debug("crypttab maps: %s" % cryptTab.mappings.keys())
+    except Exception as e:
+        log.info("error parsing crypttab: %s" % e)
+        cryptTab = None
+
+    with open(path) as f:
+        log.debug("parsing %s" % path)
+        for line in f.readlines():
+            # strip off comments
+            (line, pound, comment) = line.partition("#")
+            fields = line.split(None, 3)
+
+            if len(fields) < 4:
+                continue
+
+            (devspec, mountpoint, fstype, rest) = fields
+
+            # find device in the tree
+            device = devicetree.resolveDevice(devspec,
+                                              cryptTab=cryptTab,
+                                              blkidTab=blkidTab)
+
+            if device is None:
+                continue
+
+            if fstype != "swap":
+                mounts[mountpoint] = device
+            else:
+                swaps.append(device)
+
+    return (mounts, swaps)
