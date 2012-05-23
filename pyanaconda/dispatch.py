@@ -33,10 +33,6 @@ from storage import storageComplete
 from storage.partitioning import doAutoPartition
 from bootloader import writeBootLoader
 from flags import flags
-from upgrade import upgradeMountFilesystems
-from upgrade import restoreTime
-from upgrade import upgradeMigrateFind
-from upgrade import findRootParts, queryUpgradeContinue
 from installmethod import doMethodComplete
 from sshd import doSshd
 from rescue import doRescue
@@ -252,7 +248,6 @@ class Dispatcher(object):
         self.add_step("filtertype")
         self.add_step("filter")
         self.add_step("storageinit", storageInitialize)
-        self.add_step("findrootparts", findRootParts)
         self.add_step("findinstall")
         self.add_step("network")
         self.add_step("timezone")
@@ -262,10 +257,6 @@ class Dispatcher(object):
         self.add_step("cleardiskssel")
         self.add_step("autopartitionexecute", doAutoPartition)
         self.add_step("partition")
-        self.add_step("upgrademount", upgradeMountFilesystems)
-        self.add_step("restoretime", restoreTime)
-        self.add_step("upgradecontinue", queryUpgradeContinue)
-        self.add_step("upgrademigfind", upgradeMigrateFind)
         self.add_step("upgrademigratefs")
         self.add_step("storagedone", storageComplete)
         self.add_step("upgbootloader")

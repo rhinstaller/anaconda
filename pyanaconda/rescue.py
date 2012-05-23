@@ -20,7 +20,6 @@
 #            Jeremy Katz <katzj@redhat.com>
 #
 
-import upgrade
 from snack import *
 from constants import *
 from textw.constants_text import *

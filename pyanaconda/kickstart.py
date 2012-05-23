@@ -42,7 +42,6 @@ from constants import *
 import sys
 import urlgrabber
 import network
-import upgrade
 import pykickstart.commands as commands
 from storage.devices import *
 from scdate.core import zonetab
@@ -1335,82 +1334,3 @@ def selectPackages(ksdata, payload):
             payload.deselectGroup(grp.name)
         except NoSuchGroup:
             continue
-
-def setSteps(anaconda):
-    def havePackages(packages):
-        return len(packages.groupList) > 0 or len(packages.packageList) > 0 or \
-               len(packages.excludedList) > 0 or len(packages.excludedGroupList) > 0
-
-    dispatch = anaconda.dispatch
-    ksdata = anaconda.ksdata
-
-    if ksdata.upgrade.upgrade:
-        upgrade.setSteps(anaconda)
-
-        # we have no way to specify migrating yet
-        dispatch.skip_steps("upgrademigfind")
-        dispatch.skip_steps("upgrademigratefs")
-        dispatch.skip_steps("upgradecontinue")
-        dispatch.skip_steps("findinstall")
-        dispatch.skip_steps("language")
-        dispatch.skip_steps("keyboard")
-        dispatch.skip_steps("betanag")
-    else:
-        anaconda.instClass.setSteps(anaconda)
-        dispatch.skip_steps("findrootparts")
-    dispatch.request_steps("kickstart")
-
-    dispatch.skip_steps("betanag")
-    dispatch.skip_steps("network")
-
-    # Storage is initialized for us right when kickstart processing starts.
-    dispatch.skip_steps("storageinit")
-
-    # Make sure to automatically reboot if told to.
-    if ksdata.reboot.action in [KS_REBOOT, KS_SHUTDOWN]:
-        dispatch.skip_steps("complete")
-
-    # If the package section included anything, skip group selection.
-    if ksdata.upgrade.upgrade:
-        dispatch.skip_steps("tasksel", "group-selection")
-
-        # Special check for this, since it doesn't make any sense.
-        if packagesSeen:
-            log.warning("Ignoring contents of %packages section due to upgrade.")
-    elif havePackages(ksdata.packages):
-        dispatch.skip_steps("tasksel", "group-selection")
-    else:
-        if packagesSeen:
-            dispatch.skip_steps("tasksel", "group-selection")
-        else:
-            dispatch.request_steps("tasksel")
-
-    if ksdata.ignoredisk.interactive:
-        dispatch.request_steps("filtertype", "filter")
-    else:
-        # Since ignoredisk is optional and not specifying it means you want to
-        # consider all possible disks, we should not stop on the filter steps
-        # unless we've been told to.
-        dispatch.skip_steps("filtertype", "filter")
-
-    # Text mode doesn't have all the steps that graphical mode does, so we
-    # can't stop and prompt for missing information.  Make sure we've got
-    # everything that would be provided by a missing section now and error
-    # out if we don't.
-    if anaconda.displayMode == "t":
-        missingSteps = [("bootloader", "Bootloader configuration"),
-                        ("filter", "Disks to use in installation"),
-                        ("cleardiskssel", "Disks to clear"),
-                        ("group-selection", "Package selection")]
-        errors = []
-
-        for (step, msg) in missingSteps:
-            if dispatch.step_enabled(step):
-                errors.append(msg)
-
-        if len(errors) > 0:
-            anaconda.intf.kickstartErrorWindow(_("The kickstart configuration "
-                "file is missing required information that anaconda cannot "
-                "prompt for.  Please add the following sections and try "
-                "again:\n%s") % ", ".join(errors))
-            sys.exit(0)
