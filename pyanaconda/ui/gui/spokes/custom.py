@@ -25,6 +25,7 @@ N_ = lambda x: x
 P_ = lambda x, y, z: gettext.ldngettext("anaconda", x, y, z)
 
 from pyanaconda.product import productName, productVersion
+from pyanaconda.storage import findExistingInstallations
 from pyanaconda.storage.size import Size
 
 from pyanaconda.ui.gui.spokes import NormalSpoke
@@ -61,11 +62,13 @@ class Accordion(Gtk.Box):
 
         self.add(expander)
         self._expanders.append(expander)
-        expander.connect("notify::expand", self._onExpanded)
+        expander.connect("activate", self._onExpanded)
         expander.show()
 
-    def _onExpanded(self, obj, pspec):
-        if not obj.get_expanded():
+    def _onExpanded(self, obj):
+        # Currently is expanded, but clicking it this time means it will be
+        # un-expanded.  So we want to return.
+        if obj.get_expanded():
             return
 
         for expander in self._expanders:
@@ -76,7 +79,7 @@ class Accordion(Gtk.Box):
 # comprise a single installed OS into two categories - Data filesystems and System filesystems.
 # Each filesystem is described by a single MountpointSelector.
 class Page(Gtk.Box):
-    def __init__(self_):
+    def __init__(self):
         Gtk.Box.__init__(self, orientation=Gtk.Orientation.VERTICAL, spacing=6)
 
         # Create the Data label and a box to store all its members in.
@@ -98,19 +101,49 @@ class Page(Gtk.Box):
         label.set_margin_left(24)
         return label
 
-    def addDevice(self, device, ty):
-        selector = MountpointSelector(device.name, device.size, device.mountpoint)
-        selector.connect("button-release-event", self._onClicked)
+    def addDevice(self, name, size, mountpoint, cb):
+        selector = MountpointSelector()
+        selector = MountpointSelector(name, str(Size(spec="%s MB" % size)), mountpoint or "")
+        selector.connect("button-release-event", self._onClicked, cb)
         self._members.append(selector)
 
-        if ty == DATA_DEVICE:
+        if self._mountpointType(mountpoint) == DATA_DEVICE:
             self._dataBox.add(selector)
         else:
             self._systemBox.add(selector)
 
-    def _onClicked(self, obj, event):
+    def _mountpointType(self, mountpoint):
+        if not mountpoint:
+            # This catches things like swap.
+            return SYSTEM_DEVICE
+        elif mountpoint in ["/", "/boot", "/boot/efi", "/tmp", "/usr", "/var"]:
+            return SYSTEM_DEVICE
+        else:
+            return DATA_DEVICE
+
+    def _onClicked(self, selector, event, cb):
+        # First, change the highlighting on the selected object.
         for mem in self._members:
-            mem._onClicked(mem == obj)
+            # FIXME:  put something here.
+            pass
+
+        # Then, this callback will set up the right hand side of the screen to
+        # show the details for the newly selected object.
+        cb(selector)
+
+class UnknownPage(Page):
+    def __init__(self):
+        # For this type of page, there's only one place to store members.
+        Gtk.Box.__init__(self, orientation=Gtk.Orientation.VERTICAL, spacing=6)
+        self._members = []
+
+    def addDevice(self, name, size, mountpoint, cb):
+        selector = MountpointSelector()
+        selector = MountpointSelector(name, str(Size(spec="%s MB" % size)), mountpoint or "")
+        selector.connect("button-release-event", self._onClicked, cb)
+
+        self._members.append(selector)
+        self.add(selector)
 
 # This is a special Page that is displayed when no new installation has been automatically
 # created, and shows the user how to go about doing that.  The intention is that an instance
@@ -166,15 +199,6 @@ class CustomPartitioningSpoke(NormalSpoke):
     def indirect(self):
         return True
 
-    def _addCategory(self, store, name):
-        return store.append(None, ["""<span size="large" weight="bold" fgcolor="grey">%s</span>""" % name, ""])
-
-    def _addPartition(self, store, itr, device):
-        name = self._partitionName(device)
-        size = Size(spec=str(device.size) + " MB")
-
-        return store.append(itr, ["""<span size="large" weight="bold">%s</span>\n<span size="small" fgcolor="grey">%s</span>""" % (name, device.format.__dict__.get("mountpoint", "")), size.humanReadable()])
-
     def _grabObjects(self):
         self._configureBox = self.builder.get_object("configureBox")
         self._availableSpaceLabel = self.builder.get_object("availableSpaceLabel")
@@ -194,33 +218,57 @@ class CustomPartitioningSpoke(NormalSpoke):
         setViewportBackground(self._viewport)
 
         self._accordion = Accordion()
+        self._viewport.add(self._accordion)
 
         page = CreateNewPage()
         self._accordion.addPage(_("New %s %s Install") % (productName, productVersion), page)
-        self._viewport.add(self._accordion)
 
         self._partitionsNotebook.set_current_page(0)
         label = self.builder.get_object("whenCreateLabel")
         label.set_text(label.get_text() % (productName, productVersion))
 
-    def _partitionName(self, device):
-        # If there's a mountpoint, we can probably just use that.
-        if hasattr(device.format, "mountpoint") and device.format.mountpoint:
-            if device.format.mountpoint == "/":
-                return "Root"
-            elif device.format.mountpoint.count("/") == 1:
-                return device.format.mountpoint[1:].capitalize()
-        else:
-            # Otherwise, try to use the name of whatever format the request is.
-            return device.format.name
+        # Now add in all the existing operating systems.
+        installations = findExistingInstallations(self.storage.devicetree)
+        for i in installations:
+            page = Page()
 
-    def _isSystemPartition(self, mountpoint):
-        if mountpoint and mountpoint in ["/", "/boot"]:
-            return True
-        elif not mountpoint:
-            return True
+            for swap in i.swaps:
+                page.addDevice("Swap", swap.size, None, self.on_selector_clicked)
+
+            for (mountpoint, device) in i.mounts.iteritems():
+                page.addDevice(self._mountpointName(mountpoint) or device.format.name, device.size, mountpoint, self.on_selector_clicked)
+
+            page.show_all()
+            self._accordion.addPage(i.name, page)
+
+        # Anything that doesn't go with an OS we understand?  Put it in the Other box.
+        unused = filter(lambda d: d.disks, self.storage.unusedDevices)
+        if unused:
+            page = UnknownPage()
+
+            for u in unused:
+                page.addDevice(u.format.name, u.size, None, self.on_selector_clicked)
+
+            page.show_all()
+            self._accordion.addPage(_("Unknown"), page)
+
+    def _mountpointName(self, mountpoint):
+        # If there's a mount point, apply a kind of lame scheme to it to figure
+        # out what the name should be.  Basically, just look for the last directory
+        # in the mount point's path and capitalize the first letter.  So "/boot"
+        # becomes "Boot", and "/usr/local" becomes "Local".
+        if mountpoint == "/":
+            return "Root"
+        elif mountpoint != None:
+            try:
+                lastSlash = mountpoint.rindex("/")
+            except ValueError:
+                # No slash in the mount point?  I suppose that's possible.
+                return None
+
+            return mountpoint[lastSlash+1:].capitalize()
         else:
-            return False
+            return None
 
     def _currentFreeSpace(self):
         """Add up all the free space on selected disks and return it as a Size."""
@@ -277,4 +325,7 @@ class CustomPartitioningSpoke(NormalSpoke):
         pass
 
     def on_configure_clicked(self, button):
+        pass
+
+    def on_selector_clicked(self, selector):
         pass
