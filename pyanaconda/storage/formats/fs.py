@@ -1412,7 +1412,8 @@ class NTFS(FS):
         if self._minInstanceSize is None:
             # we try one time to determine the minimum size.
             size = self._minSize
-            if self.exists and os.path.exists(self.device):
+            if self.exists and os.path.exists(self.device) and \
+               iutil.find_program_in_path(self.resizefsProg):
                 minSize = None
                 buf = iutil.execWithCapture(self.resizefsProg,
                                             ["-m", self.device],
