@@ -1,7 +1,17 @@
 #!/usr/bin/python
 
+import sys, os
+
+import gi.overrides
+
+# We need this so we can tell GI to look for overrides objects
+# also in anaconda source directories
+for p in os.environ.get("ANACONDA_WIDGETS_OVERRIDES", "").split(":"):
+    gi.overrides.__path__.insert(0, p)
+
 from gi.repository import AnacondaWidgets, Gtk
-import ctypes, sys
+
+import ctypes
 import os.path
 
 # Check command line arguments
