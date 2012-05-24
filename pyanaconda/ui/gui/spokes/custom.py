@@ -104,7 +104,8 @@ class Page(Gtk.Box):
     def addDevice(self, name, size, mountpoint, cb):
         selector = MountpointSelector()
         selector = MountpointSelector(name, str(Size(spec="%s MB" % size)), mountpoint or "")
-        selector.connect("button-release-event", self._onClicked, cb)
+        selector.connect("button-press-event", self._onClicked, cb)
+        selector.connect("key-release-event", self._onClicked, cb)
         self._members.append(selector)
 
         if self._mountpointType(mountpoint) == DATA_DEVICE:
@@ -122,10 +123,16 @@ class Page(Gtk.Box):
             return DATA_DEVICE
 
     def _onClicked(self, selector, event, cb):
-        # First, change the highlighting on the selected object.
-        for mem in self._members:
-            # FIXME:  put something here.
-            pass
+        from gi.repository import Gdk
+
+        # This handler only runs for these two kinds of events, and only for
+        # activate-type keys (space, enter) in the latter event's case.
+        if event and not event.type in [Gdk.EventType.BUTTON_PRESS, Gdk.EventType.KEY_RELEASE]:
+            return
+
+        if event and event.type == Gdk.EventType.KEY_RELEASE and \
+           event.keyval not in [Gdk.KEY_space, Gdk.KEY_Return, Gdk.KEY_ISO_Enter, Gdk.KEY_KP_Enter, Gdk.KEY_KP_Space]:
+              return
 
         # Then, this callback will set up the right hand side of the screen to
         # show the details for the newly selected object.
@@ -140,7 +147,8 @@ class UnknownPage(Page):
     def addDevice(self, name, size, mountpoint, cb):
         selector = MountpointSelector()
         selector = MountpointSelector(name, str(Size(spec="%s MB" % size)), mountpoint or "")
-        selector.connect("button-release-event", self._onClicked, cb)
+        selector.connect("button-press-event", self._onClicked, cb)
+        selector.connect("key-release-event", self._onClicked, cb)
 
         self._members.append(selector)
         self.add(selector)
