@@ -113,6 +113,8 @@ class Page(Gtk.Box):
         else:
             self._systemBox.add(selector)
 
+        return selector
+
     def _mountpointType(self, mountpoint):
         if not mountpoint:
             # This catches things like swap.
@@ -152,6 +154,8 @@ class UnknownPage(Page):
 
         self._members.append(selector)
         self.add(selector)
+
+        return selector
 
 # This is a special Page that is displayed when no new installation has been automatically
 # created, and shows the user how to go about doing that.  The intention is that an instance
@@ -241,10 +245,12 @@ class CustomPartitioningSpoke(NormalSpoke):
             page = Page()
 
             for swap in i.swaps:
-                page.addDevice("Swap", swap.size, None, self.on_selector_clicked)
+                selector = page.addDevice("Swap", swap.size, None, self.on_selector_clicked)
+                selector._device = swap
 
             for (mountpoint, device) in i.mounts.iteritems():
-                page.addDevice(self._mountpointName(mountpoint) or device.format.name, device.size, mountpoint, self.on_selector_clicked)
+                selector = page.addDevice(self._mountpointName(mountpoint) or device.format.name, device.size, mountpoint, self.on_selector_clicked)
+                selector._device = device
 
             page.show_all()
             self._accordion.addPage(i.name, page)
@@ -255,7 +261,8 @@ class CustomPartitioningSpoke(NormalSpoke):
             page = UnknownPage()
 
             for u in unused:
-                page.addDevice(u.format.name, u.size, None, self.on_selector_clicked)
+                selector = page.addDevice(u.format.name, u.size, None, self.on_selector_clicked)
+                selector._device = u
 
             page.show_all()
             self._accordion.addPage(_("Unknown"), page)
@@ -314,6 +321,53 @@ class CustomPartitioningSpoke(NormalSpoke):
         summaryLabel.set_use_markup(True)
         summaryLabel.set_markup("<span foreground='blue'><u>%s</u></span>" % summary)
 
+    ###
+    ### RIGHT HAND SIDE METHODS
+    ###
+
+    def _description(self, name):
+        if name == "Swap":
+            return _("The 'swap' area on your computer is used by the operating\n" \
+                     "system when running low on memory.")
+        elif name == "Boot":
+            return _("The 'boot' area on your computer is where files needed\n" \
+                     "to start the operating system are stored.")
+        elif name == "Root":
+            return _("The 'root' area on your computer is where core system\n" \
+                     "files and applications are stored.")
+        elif name == "Home":
+            return _("The 'home' area on your computer is where all your personal\n" \
+                     "data is stored.")
+        elif name == "BIOS Boot":
+            return _("No one knows what this could possibly be for.")
+        else:
+            return ""
+
+    def _populate_right_side(self, selector):
+        encryptCheckbox = self.builder.get_object("encryptCheckbox")
+        labelEntry = self.builder.get_object("labelEntry")
+        selectedDeviceLabel = self.builder.get_object("selectedDeviceLabel")
+        selectedDeviceDescLabel = self.builder.get_object("selectedDeviceDescLabel")
+        sizeSpinner = self.builder.get_object("sizeSpinner")
+
+        device = selector._device
+
+        selectedDeviceLabel.set_text(selector.props.name)
+        selectedDeviceDescLabel.set_text(self._description(selector.props.name))
+
+        labelEntry.set_text(getattr(device.format, "label", "") or "")
+        labelEntry.set_sensitive(getattr(device.format, "labelfsProg", "") != "")
+
+        sizeSpinner.set_range(device.minSize, device.maxSize)
+        sizeSpinner.set_value(device.size)
+        sizeSpinner.set_sensitive(device.resizable)
+
+        encryptCheckbox.set_active(device.encrypted)
+
+    ###
+    ### SIGNAL HANDLERS
+    ###
+
     def on_back_clicked(self, button):
         self.skipTo = "StorageSpoke"
         NormalSpoke.on_back_clicked(self, button)
@@ -336,4 +390,8 @@ class CustomPartitioningSpoke(NormalSpoke):
         pass
 
     def on_selector_clicked(self, selector):
-        pass
+        # Make sure we're showing details instead of the "here's how you create
+        # a new OS" label.
+        self._partitionsNotebook.set_current_page(1)
+
+        self._populate_right_side(selector)
