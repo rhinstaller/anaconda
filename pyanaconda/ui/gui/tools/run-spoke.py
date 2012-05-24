@@ -2,6 +2,7 @@
 
 from gi.repository import AnacondaWidgets, Gtk
 import ctypes, sys
+import os.path
 
 # Check command line arguments
 if len(sys.argv)<2:
@@ -29,8 +30,23 @@ flags.testing = True
 
 initThreading()
 
-# Figure out the name of spoke module entered on command line
-spokeModuleName = "pyanaconda.ui.gui.spokes.%s" % sys.argv[1]
+# Figure out the part we are about to show: hub/spoke?
+# And get the name of the module which represents it
+if os.path.basename(sys.argv[0]) == "run-spoke.py":
+    spokeModuleName = "pyanaconda.ui.gui.spokes.%s" % sys.argv[1]
+    from pyanaconda.ui.gui.spokes import NormalSpoke
+    spokeBaseClass = NormalSpoke
+    spokeText = "spoke"
+    SpokeText = "Spoke"
+elif os.path.basename(sys.argv[0]) == "run-hub.py":
+    spokeModuleName = "pyanaconda.ui.gui.hubs.%s" % sys.argv[1]
+    from pyanaconda.ui.gui.hubs import Hub
+    spokeBaseClass = Hub
+    spokeText = "hub"
+    SpokeText = "Hub"
+else:
+    print "You have to run this command as run-spoke.py or run-hub.py."
+    sys.exit(1)
 
 # Set default spoke class
 spokeClass = None
@@ -45,10 +61,9 @@ try:
 except IndexError:
     __import__(spokeModuleName)
     spokeModule = sys.modules[spokeModuleName]
-    from pyanaconda.ui.gui.spokes import NormalSpoke
     for k,v in vars(spokeModule).iteritems():
         try:
-            if issubclass(v, NormalSpoke):
+            if issubclass(v, spokeBaseClass) and v != spokeBaseClass:
                 spokeClassName = k
                 spokeClass = v
                 break
@@ -59,11 +74,11 @@ if not spokeClass:
     try:
         spokeClass = getattr(spokeModule, spokeClassName)
     except KeyError:
-        print "Spoke %s could not be found in %s" % (spokeClassName, spokeModuleName)
+        print "%s %s could not be found in %s" % (SpokeText, spokeClassName, spokeModuleName)
         sys.exit(1)
 
 
-print "Running spoke %s from %s" % (spokeClass, spokeModule)
+print "Running %s %s from %s" % (spokeText, spokeClass, spokeModule)
 
 platform = getPlatform()
 ksdata = makeVersion()
@@ -75,10 +90,6 @@ payload = YumPayload(ksdata)
 payload.setup(storage)
 payload.install_log = sys.stdout
 
-if not spokeClass:
-    print "You forgot to set spokeClass to something."
-    sys.exit(1)
-
 spoke = spokeClass(ksdata, storage, payload, instclass)
 if hasattr(spoke, "register_event_cb"):
     spoke.register_event_cb("continue", lambda: Gtk.main_quit())
@@ -86,7 +97,7 @@ if hasattr(spoke, "register_event_cb"):
 spoke.initialize()
 
 if not spoke.showable:
-    print "This spoke is not showable, but I'll continue anyway."
+    print "This %s is not showable, but I'll continue anyway." % spokeText
 
 spoke.refresh()
 spoke.window.set_beta(True)
@@ -96,6 +107,7 @@ spoke.window.show_all()
 Gtk.main()
 
 if hasattr(spoke, "status"):
-    print "Spoke status:\n%s\n" % spoke.status
-print "Spoke completed:\n%s\n" % spoke.completed
-print "Spoke kickstart fragment:\n%s" % ksdata
+    print "%s status:\n%s\n" % (SpokeText, spoke.status)
+if hasattr(spoke, "completed"):
+    print "%s completed:\n%s\n" % (SpokeText, spoke.completed)
+print "%s kickstart fragment:\n%s" % (SpokeText, ksdata)
