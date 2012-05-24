@@ -34,8 +34,8 @@ initThreading()
 # And get the name of the module which represents it
 if os.path.basename(sys.argv[0]) == "run-spoke.py":
     spokeModuleName = "pyanaconda.ui.gui.spokes.%s" % sys.argv[1]
-    from pyanaconda.ui.gui.spokes import NormalSpoke
-    spokeBaseClass = NormalSpoke
+    from pyanaconda.ui.gui.spokes import Spoke
+    spokeBaseClass = Spoke
     spokeText = "spoke"
     SpokeText = "Spoke"
 elif os.path.basename(sys.argv[0]) == "run-hub.py":
