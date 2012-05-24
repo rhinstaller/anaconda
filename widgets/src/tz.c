@@ -41,6 +41,20 @@ static void sort_locations_by_country (GPtrArray *locations);
 static gchar * tz_data_file_get (void);
 static void load_backward_tz (TzDB *tz_db);
 
+/* Returns path to anaconda widgets data directory using the value of the
+ * environment variable ANACONDA_WIDGETS_DATA or WIDGETS_DATADIR macro
+ * (defined in Makefile.am) if the environment variable is not defined.
+ */
+gchar *get_widgets_datadir() {
+    gchar *env_value;
+
+    env_value = getenv("ANACONDA_WIDGETS_DATA");
+    if (env_value == NULL)
+        return WIDGETS_DATADIR;
+    else
+        return env_value;
+}
+
 /* ---------------- *
  * Public interface *
  * ---------------- */
@@ -381,13 +395,17 @@ load_backward_tz (TzDB *tz_db)
   GError *error = NULL;
   char **lines, *contents;
   guint i;
+  gchar *file;
 
   tz_db->backward = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, g_free);
 
-  if (g_file_get_contents (BACKWARDDIR "timezones_backward", &contents, NULL, &error) == FALSE) {
+  file = g_strdup_printf ("%s/" TZMAP_DATADIR "/timezones_backward", get_widgets_datadir());
+  if (g_file_get_contents (file, &contents, NULL, &error) == FALSE) {
       g_warning ("Failed to load 'backward' file: %s", error->message);
       return;
     }
+  g_free(file);
+
   lines = g_strsplit (contents, "\n", -1);
   g_free (contents);
   for (i = 0; lines[i] != NULL; i++) {

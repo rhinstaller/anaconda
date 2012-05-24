@@ -22,10 +22,6 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#ifndef BACKWARDDIR
-#define BACKWARDDIR "/usr/share/anaconda/tzmapdata/"
-#endif
-
 #ifndef _E_TZ_H
 #define _E_TZ_H
 
@@ -37,6 +33,7 @@ typedef struct _TzDB TzDB;
 typedef struct _TzLocation TzLocation;
 typedef struct _TzInfo TzInfo;
 
+gchar *get_widgets_datadir();
 
 struct _TzDB
 {

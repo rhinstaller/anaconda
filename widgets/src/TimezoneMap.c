@@ -24,6 +24,7 @@
 #include "TimezoneMap.h"
 #include <math.h>
 #include <string.h>
+#include <stdlib.h>
 #include "tz.h"
 
 /**
@@ -72,7 +73,6 @@ enum {
 };
 
 static guint signals[LAST_SIGNAL];
-
 
 static AnacondaTimezoneMapOffset color_codes[] =
 {
@@ -335,7 +335,8 @@ anaconda_timezone_map_draw (GtkWidget *widget,
   cairo_paint (cr);
 
   /* paint hilight */
-  file = g_strdup_printf (TZMAP_DATADIR "/timezone_%s.png",
+  file = g_strdup_printf ("%s/" TZMAP_DATADIR "/timezone_%s.png",
+                          get_widgets_datadir(),
                           g_ascii_formatd (buf, sizeof (buf),
                                            "%g", priv->selected_offset));
   orig_hilight = gdk_pixbuf_new_from_file (file, &err);
@@ -360,7 +361,10 @@ anaconda_timezone_map_draw (GtkWidget *widget,
     }
 
   /* load pin icon */
-  pin = gdk_pixbuf_new_from_file (TZMAP_DATADIR "/pin.png", &err);
+
+  file = g_strdup_printf("%s/" TZMAP_DATADIR "/pin.png", get_widgets_datadir());
+  pin = gdk_pixbuf_new_from_file (file, &err);
+  g_free(file);
 
   if (err) {
       g_warning ("Could not load pin icon: %s", err->message);
@@ -521,11 +525,13 @@ static void
 anaconda_timezone_map_init (AnacondaTimezoneMap *self) {
   AnacondaTimezoneMapPrivate *priv;
   GError *err = NULL;
+  gchar *file;
 
   priv = self->priv = TIMEZONE_MAP_PRIVATE (self);
 
-  priv->orig_background = gdk_pixbuf_new_from_file (TZMAP_DATADIR "/bg.png",
-                                                    &err);
+  file = g_strdup_printf("%s/" TZMAP_DATADIR "/bg.png", get_widgets_datadir());
+  priv->orig_background = gdk_pixbuf_new_from_file (file, &err);
+  g_free(file);
 
   if (!priv->orig_background) {
       g_warning ("Could not load background image: %s",
@@ -533,8 +539,10 @@ anaconda_timezone_map_init (AnacondaTimezoneMap *self) {
       g_clear_error (&err);
     }
 
-  priv->orig_color_map = gdk_pixbuf_new_from_file (TZMAP_DATADIR "/cc.png",
-                                                   &err);
+  file = g_strdup_printf("%s/" TZMAP_DATADIR "/cc.png", get_widgets_datadir());
+  priv->orig_color_map = gdk_pixbuf_new_from_file (file, &err);
+  g_free(file);
+
   if (!priv->orig_color_map) {
       g_warning ("Could not load background image: %s",
                  (err) ? err->message : "Unknown error");
