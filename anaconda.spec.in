@@ -248,6 +248,17 @@ update-desktop-database &> /dev/null || :
 /usr/lib/dracut/modules.d/80%{name}/*
 
 %changelog
+* Thu May 24 2012 David Cantrell <dcantrell@redhat.com> - 17.28.2-1
+- Don't call a util we don't have (jkeating)
+  Resolves: rhbz#824690
+- Don't support hfsplus in RHEL7 (jkeating)
+  Resolves: rhbz#818912
+- Fix 'updates' in kickstart (wwoods)
+- Fix unpack_updates_img argument handling (wwoods)
+  Resolves: rhbz#811979
+- Fix dasd device type test in platform.py (dcantrell)
+  Resolves: rhbz#796791
+
 * Tue May 22 2012 David Cantrell <dcantrell@redhat.com> - 17.28.1-1
 - Set serial flag when encountering console argument (#823861) (msivak)
 - dracut parse-kickstart: support --mtu and clean up a bit (wwoods)
