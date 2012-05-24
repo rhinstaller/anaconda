@@ -52,7 +52,7 @@ class Accordion(Gtk.Box):
     def addPage(self, pageTitle, contents):
         label = Gtk.Label()
         label.set_markup("""<span size='large' weight='bold' fgcolor='black'>%s</span>""" % pageTitle)
-        label.set_halign(Gtk.Align.START)
+        label.set_alignment(0, 0.5)
         label.set_line_wrap(True)
 
         expander = Gtk.Expander()
@@ -158,7 +158,7 @@ class CreateNewPage(Page):
         self._createBox.set_margin_left(16)
 
         label = Gtk.Label(_("You haven't created any mount points for your %s %s installation yet:") % (productName, productVersion))
-        label.set_halign(Gtk.Align.START)
+        label.set_alignment(0, 0.5)
         label.set_line_wrap(True)
         self._createBox.add(label)
 
@@ -173,7 +173,7 @@ class CreateNewPage(Page):
         self._createBox.add(self._createNewButton)
 
         label = Gtk.Label(_("Or, create new mount points below with the '+' icon."))
-        label.set_halign(Gtk.Align.START)
+        label.set_alignment(0, 0.5)
         label.set_line_wrap(True)
         self._createBox.add(label)
 

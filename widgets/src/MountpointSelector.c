@@ -155,6 +155,7 @@ static void anaconda_mountpoint_selector_init(AnacondaMountpointSelector *mountp
     markup = g_markup_printf_escaped("<span fgcolor='black' size='large' weight='bold'>%s</span>", _(DEFAULT_NAME));
     gtk_label_set_markup(GTK_LABEL(mountpoint->priv->name_label), markup);
     gtk_misc_set_alignment(GTK_MISC(mountpoint->priv->name_label), 0, 0);
+    gtk_widget_set_hexpand(GTK_WIDGET(mountpoint->priv->name_label), TRUE);
     g_free(markup);
 
     /* Create the size label. */
@@ -167,8 +168,9 @@ static void anaconda_mountpoint_selector_init(AnacondaMountpointSelector *mountp
     /* Create the mountpoint label. */
     mountpoint->priv->mountpoint_label = gtk_label_new(NULL);
     markup = g_markup_printf_escaped("<span fgcolor='grey' size='small'>%s</span>", _(DEFAULT_MOUNTPOINT));
-    gtk_label_set_markup(GTK_LABEL(mountpoint->priv->name_label), markup);
-    gtk_misc_set_alignment(GTK_MISC(mountpoint->priv->name_label), 0, 0);
+    gtk_label_set_markup(GTK_LABEL(mountpoint->priv->mountpoint_label), markup);
+    gtk_misc_set_alignment(GTK_MISC(mountpoint->priv->mountpoint_label), 0, 0);
+    gtk_widget_set_hexpand(GTK_WIDGET(mountpoint->priv->mountpoint_label), TRUE);
     g_free(markup);
 
     /* Add everything to the grid, add the grid to the widget. */
