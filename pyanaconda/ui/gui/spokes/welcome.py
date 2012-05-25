@@ -23,33 +23,34 @@ import sys
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
+N_ = lambda x: x
 
 from gi.repository import AnacondaWidgets, Gtk
 from pyanaconda.ui.gui.hubs.summary import SummaryHub
-from pyanaconda.ui.gui.spokes import StandaloneSpoke
+from pyanaconda.ui.gui.spokes import StandaloneSpoke, NormalSpoke
 from pyanaconda.ui.gui.utils import enlightbox
+from pyanaconda.ui.gui.categories.localization import LocalizationCategory
 
 from pyanaconda.localization import Language, LOCALE_PREFERENCES
 from pyanaconda.product import productName, productVersion
 from pyanaconda import xklavier
 from pyanaconda import localization
 
-__all__ = ["WelcomeLanguageSpoke"]
+__all__ = ["WelcomeLanguageSpoke", "LanguageSpoke"]
 
-class WelcomeLanguageSpoke(StandaloneSpoke):
-    mainWidgetName = "welcomeWindow"
-    uiFile = "spokes/welcome.ui"
+class LanguageMixIn(object):
+    builderObjects = ["languageStore"]
 
-    preForHub = SummaryHub
-    priority = 0
-
-    def __init__(self, *args):
-        StandaloneSpoke.__init__(self, *args)
+    def __init__(self, labelName = "welcomeLabel",
+                 viewName = "languageView", selectionName = "languageViewSelection"):
         self._xklwrapper = xklavier.XklWrapper.get_instance()
         self._origStrings = {}
+        self._labelName = labelName
+        self._viewName = viewName
+        self._selectionName = selectionName
 
     def apply(self):
-        selected = self.builder.get_object("languageViewSelection")
+        selected = self.builder.get_object(self._selectionName)
         (store, itr) = selected.get_selected()
 
         lang = store[itr][2]
@@ -87,8 +88,6 @@ class WelcomeLanguageSpoke(StandaloneSpoke):
         return self.data.lang.lang and self.data.lang.lang != ""
 
     def initialize(self):
-        StandaloneSpoke.initialize(self)
-
         store = self.builder.get_object("languageStore")
 
         # TODO We can use the territory from geoip here
@@ -106,8 +105,7 @@ class WelcomeLanguageSpoke(StandaloneSpoke):
         self._selectLanguage(store, self.language.preferred_translation.short_name)
 
     def retranslate(self):
-        StandaloneSpoke.retranslate(self)
-        welcomeLabel = self.builder.get_object("welcomeLabel")
+        welcomeLabel = self.builder.get_object(self._labelName)
 
         if not welcomeLabel in self._origStrings:
             self._origStrings[welcomeLabel] = welcomeLabel.get_label()
@@ -116,10 +114,24 @@ class WelcomeLanguageSpoke(StandaloneSpoke):
         xlated = _(before) % (productName.upper(), productVersion)
         welcomeLabel.set_label(xlated)
 
-    def refresh(self):
-        StandaloneSpoke.refresh(self)
+    def refresh(self, displayArea):
         store = self.builder.get_object("languageStore")
         self._selectLanguage(store, self.data.lang.lang)
+
+        # Rip the label and language selection window
+        # from where it is right now and add it to this
+        # spoke.
+        # This way we can share the dialog and code
+        # between Welcome and Language spokes
+        langList = self.builder.get_object("languageWindow")
+        langList.get_parent().remove(langList)
+        langLabel = self.builder.get_object("pickLanguageLabel")
+        langLabel.get_parent().remove(langLabel)
+
+        content = self.builder.get_object(displayArea)
+        content.pack_start(child = langLabel, fill = True, expand = False, padding = 0)
+        content.pack_start(child = langList, fill = True, expand = True, padding = 0)
+
 
     def _addLanguage(self, store, native, english, setting):
         store.append([native, english, setting])
@@ -133,7 +145,7 @@ class WelcomeLanguageSpoke(StandaloneSpoke):
         if not itr:
             return
 
-        treeview = self.builder.get_object("languageView")
+        treeview = self.builder.get_object(self._viewName)
         selection = treeview.get_selection()
         selection.select_iter(itr)
         path = store.get_path(itr)
@@ -142,13 +154,35 @@ class WelcomeLanguageSpoke(StandaloneSpoke):
     # Signal handlers.
     def on_selection_changed(self, selection):
         (store, selected) = selection.get_selected_rows()
-        self.window.set_may_continue(len(selected) > 0)
+        if hasattr(self.window, "set_may_continue"):
+            self.window.set_may_continue(len(selected) > 0)
 
         if selected:
             lang = store[selected[0]][2]
             self.language.set_install_lang(lang)
             self.language.set_system_lang(lang)
             self.retranslate()
+
+
+class WelcomeLanguageSpoke(LanguageMixIn, StandaloneSpoke):
+    mainWidgetName = "welcomeWindow"
+    uiFile = "spokes/welcome.ui"
+    builderObjects = LanguageMixIn.builderObjects + [mainWidgetName, "betaWarnDialog"]
+
+    preForHub = SummaryHub
+    priority = 0
+
+    def __init__(self, *args):
+        StandaloneSpoke.__init__(self, *args)
+        LanguageMixIn.__init__(self)
+
+    def retranslate(self):
+        StandaloneSpoke.retranslate(self)
+        LanguageMixIn.retranslate(self)
+        
+    def refresh(self):
+        StandaloneSpoke.refresh(self)
+        LanguageMixIn.refresh(self, "welcomeWindowContentBox")
 
     # Override the default in StandaloneSpoke so we can display the beta
     # warning dialog first.
@@ -163,3 +197,41 @@ class WelcomeLanguageSpoke(StandaloneSpoke):
             sys.exit(0)
         else:
             StandaloneSpoke._on_continue_clicked(self, cb)
+
+
+class LanguageSpoke(LanguageMixIn, NormalSpoke):
+    mainWidgetName = "languageSpokeWindow"
+    uiFile = "spokes/welcome.ui"
+    builderObjects = LanguageMixIn.builderObjects + [mainWidgetName, WelcomeLanguageSpoke.mainWidgetName]
+
+    category = LocalizationCategory
+
+    icon = "accessories-character-map-symbolic"
+    title = N_("LANGUAGE")
+
+    
+    def __init__(self, *args):
+        NormalSpoke.__init__(self, *args)
+        LanguageMixIn.__init__(self)
+
+    def retranslate(self):
+        print "retranslate"
+        NormalSpoke.retranslate(self)
+        LanguageMixIn.retranslate(self)
+        
+    def refresh(self):
+        NormalSpoke.refresh(self)
+        LanguageMixIn.refresh(self, "languageSpokeWindowContentBox")
+
+    @property
+    def completed(self):
+        # The language spoke is always completed, as it does not require you do
+        # anything.  There's always a default selected.
+        return True
+
+    @property
+    def status(self):
+        selected = self.builder.get_object(self._selectionName)
+        (store, itr) = selected.get_selected()
+
+        return store[itr][0]
