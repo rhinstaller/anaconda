@@ -125,3 +125,16 @@ runhub:
 	UIPATH=pyanaconda/ui/gui/ \
 	GI_TYPELIB_PATH=widgets/src/ \
 	pyanaconda/ui/gui/tools/run-hub.py ${HUB_MODULE} ${HUB_CLASS}
+
+runglade:
+	ANACONDA_DATA=${PWD}/data \
+	ANACONDA_WIDGETS_OVERRIDES=${PWD}/widgets/python \
+	ANACONDA_WIDGETS_DATA=${PWD}/widgets/data \
+	ANACONDA_INSTALL_CLASSES=${PWD}/pyanaconda/installclasses \
+	PYTHONPATH=.:pyanaconda/isys/.libs:widgets/python/:widgets/src/.libs/ \
+	LD_LIBRARY_PATH=widgets/src/.libs \
+	UIPATH=pyanaconda/ui/gui/ \
+	GI_TYPELIB_PATH=widgets/src/ \
+	GLADE_CATALOG_SEARCH_PATH=${PWD}/widgets/glade \
+	GLADE_MODULE_SEARCH_PATH=${PWD}/widgets/src/.libs \
+	glade ${GLADE_FILE}
