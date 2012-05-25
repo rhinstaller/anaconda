@@ -1036,6 +1036,9 @@ def start_service(service):
 def stop_service(service):
     return _run_systemctl("stop", service)
 
+def restart_service(service):
+    return _run_systemctl("restart", service)
+
 def service_running(service):
     ret = _run_systemctl("status", service)
 
