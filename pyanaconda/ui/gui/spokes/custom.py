@@ -358,9 +358,19 @@ class CustomPartitioningSpoke(NormalSpoke):
         labelEntry.set_text(getattr(device.format, "label", "") or "")
         labelEntry.set_sensitive(getattr(device.format, "labelfsProg", "") != "")
 
+        if labelEntry.get_sensitive():
+            labelEntry.props.has_tooltip = False
+        else:
+            labelEntry.set_tooltip_text(_("This file system does not support labels."))
+
         sizeSpinner.set_range(device.minSize, device.maxSize)
         sizeSpinner.set_value(device.size)
         sizeSpinner.set_sensitive(device.resizable)
+
+        if sizeSpinner.get_sensitive():
+            sizeSpinner.props.has_tooltip = False
+        else:
+            sizeSpinner.set_tooltip_text(_("This file system may not be resized."))
 
         encryptCheckbox.set_active(device.encrypted)
 
