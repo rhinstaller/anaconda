@@ -234,6 +234,7 @@ you'll be able to view their details here.</property>
                                   <object class="GtkEntry" id="labelEntry">
                                     <property name="visible">True</property>
                                     <property name="can_focus">True</property>
+                                    <property name="hexpand">True</property>
                                     <property name="invisible_char">●</property>
                                     <property name="invisible_char_set">True</property>
                                   </object>
@@ -263,11 +264,13 @@ you'll be able to view their details here.</property>
                                     <property name="can_focus">True</property>
                                     <property name="halign">end</property>
                                     <property name="invisible_char">●</property>
+                                    <property name="width_chars">7</property>
                                     <property name="invisible_char_set">True</property>
+                                    <property name="numeric">True</property>
                                   </object>
                                   <packing>
                                     <property name="expand">False</property>
-                                    <property name="fill">True</property>
+                                    <property name="fill">False</property>
                                     <property name="position">3</property>
                                   </packing>
                                 </child>
