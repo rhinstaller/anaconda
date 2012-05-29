@@ -222,6 +222,10 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Tue May 29 2012 David Cantrell <dcantrell@redhat.com> - 13.21.174-1
+- Pick up latest translation work (dcantrell)
+  Resolves: rhbz#816414
+
 * Tue May 15 2012 David Cantrell <dcantrell@redhat.com> - 13.21.173-1
 - Set network configuration for root on partial offload iscsi devices
   (rvykydal)
