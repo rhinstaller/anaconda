@@ -213,6 +213,10 @@ class LanguageSpoke(LanguageMixIn, NormalSpoke):
         NormalSpoke.__init__(self, *args)
         LanguageMixIn.__init__(self)
 
+    def initialize(self):
+        LanguageMixIn.initialize(self)
+        NormalSpoke.initialize(self)
+
     def retranslate(self):
         NormalSpoke.retranslate(self)
         LanguageMixIn.retranslate(self)

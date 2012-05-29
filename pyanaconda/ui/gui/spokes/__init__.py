@@ -100,6 +100,11 @@ class Spoke(UIObject):
         """
         return False
 
+    def initialize(self):
+        UIObject.initialize(self)
+
+        self.window.set_property("window-name", self.title or "")
+
     @property
     def status(self):
         """Given the current status of whatever this Spoke configures, return
