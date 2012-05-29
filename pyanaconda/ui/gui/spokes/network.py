@@ -370,9 +370,9 @@ class NetworkControlBox():
         self.refresh_ui(device)
 
     def on_device_state_changed(self, *args):
-        print "DBG: on_device_state_changed"
         device = args[0]
         new_state = args[1]
+        print "DBG: on_device_state_changed to: %d" % new_state
         self._refresh_carrier_info()
         read_config_values = (new_state == NetworkManager.DeviceState.ACTIVATED)
         if device == self.selected_device():
@@ -453,11 +453,11 @@ class NetworkControlBox():
 
     def on_device_off_toggled(self, switch, *args):
         if self._updating_device:
-            print "DBG: off switch ignored"
+            print "DBG: on_device_off_toggled ignored"
             return
 
         active = switch.get_active()
-        print "DBG: off switch active: %s" % active
+        print "DBG: on_device_off_toggled from: %s" % active
 
         device = self.selected_device()
 
@@ -595,6 +595,7 @@ class NetworkControlBox():
             del(row)
 
     def refresh_ui(self, device, read_config_values=False):
+        print "DBG: refresh ui %s" % device
         self._refresh_device_type_page(device)
         self._refresh_header_ui(device)
         self._refresh_speed_hwaddr(device)
