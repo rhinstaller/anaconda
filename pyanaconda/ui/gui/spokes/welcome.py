@@ -179,7 +179,7 @@ class WelcomeLanguageSpoke(LanguageMixIn, StandaloneSpoke):
     def retranslate(self):
         StandaloneSpoke.retranslate(self)
         LanguageMixIn.retranslate(self)
-        
+
     def refresh(self):
         StandaloneSpoke.refresh(self)
         LanguageMixIn.refresh(self, "welcomeWindowContentBox")
@@ -209,16 +209,14 @@ class LanguageSpoke(LanguageMixIn, NormalSpoke):
     icon = "accessories-character-map-symbolic"
     title = N_("LANGUAGE")
 
-    
     def __init__(self, *args):
         NormalSpoke.__init__(self, *args)
         LanguageMixIn.__init__(self)
 
     def retranslate(self):
-        print "retranslate"
         NormalSpoke.retranslate(self)
         LanguageMixIn.retranslate(self)
-        
+
     def refresh(self):
         NormalSpoke.refresh(self)
         LanguageMixIn.refresh(self, "languageSpokeWindowContentBox")

@@ -265,14 +265,8 @@ class Language(object):
         # the set of languages/mofiles which gettext knows about
         gettext._translations = {}
 
-        # XXX DEBUG
-        print 'set install lang to "%s"' % self.install_lang
-
     def set_system_lang(self, langcode):
         self.system_lang = langcode
-
-        # XXX DEBUG
-        print 'set system lang to "%s"' % self.system_lang
 
 
 def get_all_territory_timezones(territory):
