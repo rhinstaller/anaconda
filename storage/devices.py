@@ -3634,18 +3634,35 @@ class iScsiDiskDevice(DiskDevice, NetworkStorageDevice):
         self.ibft = kwargs.pop("ibft")
         self.nic = kwargs.pop("nic")
         self.initiator = kwargs.pop("initiator")
-        DiskDevice.__init__(self, device, **kwargs)
-        NetworkStorageDevice.__init__(self, host_address=self.node.address,
-                                      nic=self.nic)
-        log.debug("created new iscsi disk %s %s:%d via %s:%s" % (self.node.name,
-                                                              self.node.address,
-                                                              self.node.port,
-                                                              self.node.iface,
-                                                              self.nic))
+
+        if self.node is None:
+            # qla4xxx partial offload
+            name = kwargs.pop("fw_name")
+            address = kwargs.pop("fw_address")
+            port = kwargs.pop("fw_port")
+            DiskDevice.__init__(self, device, **kwargs)
+            NetworkStorageDevice.__init__(self,
+                                          host_address=address,
+                                          nic=self.nic)
+            log.debug("created new iscsi disk %s %s:%s using fw initiator %s"
+                      % (name, address, port, self.initiator))
+        else:
+            DiskDevice.__init__(self, device, **kwargs)
+            NetworkStorageDevice.__init__(self, host_address=self.node.address,
+                                          nic=self.nic)
+            log.debug("created new iscsi disk %s %s:%d via %s:%s" % (self.node.name,
+                                                                  self.node.address,
+                                                                  self.node.port,
+                                                                  self.node.iface,
+                                                                  self.nic))
 
     def dracutSetupArgs(self):
         if self.ibft:
             return set(["iscsi_firmware"])
+
+        # qla4xxx partial offload
+        if self.node is None:
+            return set()
 
         address = self.node.address
         # surround ipv6 addresses with []

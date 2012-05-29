@@ -1180,16 +1180,26 @@ class DeviceTree(object):
         kwargs = { "serial": serial, "vendor": vendor, "bus": bus }
         if udev_device_is_iscsi(info):
             diskType = iScsiDiskDevice
-            node = self.iscsi.getNode(
-                                   udev_device_get_iscsi_name(info),
-                                   udev_device_get_iscsi_address(info),
-                                   udev_device_get_iscsi_port(info),
-                                   udev_device_get_iscsi_nic(info))
-            kwargs["node"] = node
-            kwargs["nic"] = self.iscsi.ifaces.get(node.iface, node.iface)
-            kwargs["ibft"] = node in self.iscsi.ibftNodes
-            kwargs["initiator"] = self.iscsi.initiator
-            log.debug("%s is an iscsi disk" % name)
+            initiator = udev_device_get_iscsi_initiator(info)
+            target = udev_device_get_iscsi_name(info)
+            address = udev_device_get_iscsi_address(info)
+            port = udev_device_get_iscsi_port(info)
+            nic = udev_device_get_iscsi_nic(info)
+            kwargs["initiator"] = initiator
+            if initiator == self.iscsi.initiator:
+                node = self.iscsi.getNode(target, address, port, nic)
+                kwargs["node"] = node
+                kwargs["ibft"] = node in self.iscsi.ibftNodes
+                kwargs["nic"] = self.iscsi.ifaces.get(node.iface, node.iface)
+                log.debug("%s is an iscsi disk" % name)
+            else:
+                # qla4xxx partial offload
+                kwargs["node"] = None
+                kwargs["ibft"] = False
+                kwargs["nic"] = "offload:not_accessible_via_iscsiadm"
+                kwargs["fw_address"] = address
+                kwargs["fw_port"] = port
+                kwargs["fw_name"] = name
         elif udev_device_is_fcoe(info):
             diskType = FcoeDiskDevice
             kwargs["nic"]        = udev_device_get_fcoe_nic(info)
