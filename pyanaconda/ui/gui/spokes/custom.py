@@ -195,7 +195,7 @@ class CreateNewPage(Page):
         pass
 
 class CustomPartitioningSpoke(NormalSpoke):
-    builderObjects = ["customStorageWindow",
+    builderObjects = ["customStorageWindow", "sizeAdjustment",
                       "partitionStore",
                       "addImage", "removeImage", "settingsImage"]
     mainWidgetName = "customStorageWindow"
