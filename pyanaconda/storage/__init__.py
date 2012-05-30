@@ -1972,7 +1972,9 @@ class FSSet(object):
         elif ":" in devspec and fstype.startswith("nfs"):
             # NFS -- preserve but otherwise ignore
             device = NFSDevice(devspec,
+                               exists=True,
                                format=getFormat(fstype,
+                                                exists=True,
                                                 device=devspec))
         elif devspec.startswith("/") and fstype == "swap":
             # swap file
