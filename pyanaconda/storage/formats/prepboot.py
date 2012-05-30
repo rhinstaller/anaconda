@@ -50,8 +50,8 @@ class PPCPRePBoot(DeviceFormat):
     def status(self):
         return False
 
-    @property
-    def supported(self):
+    @classmethod
+    def getSupported(self):
         from pyanaconda import platform
         return isinstance(platform.getPlatform(), platform.IPSeriesPPC)
 
