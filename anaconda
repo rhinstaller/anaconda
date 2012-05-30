@@ -277,6 +277,8 @@ def parseOptions(argv=None, cmdline=None):
     return (opts, args, op.deprecated_bootargs)
 
 def setupPythonPath():
+    # First add our updates path
+    sys.path.insert(0, '/tmp/updates/')
     sys.path.append('/usr/share/system-config-date')
 
 def setupEnvironment():
