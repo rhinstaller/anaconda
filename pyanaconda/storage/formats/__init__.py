@@ -50,9 +50,13 @@ def register_device_format(fmt_class):
 default_fstypes = ("ext4", "ext3", "ext2")
 def get_default_filesystem_type():
     for fstype in default_fstypes:
-        cls = get_device_format_class(fstype)
-        if cls.getSupported() and cls.getFormattable() and cls.getMountable():
-            return cls
+        try:
+            supported = get_device_format_class(fstype).supported
+        except AttributeError:
+            supported = None
+
+        if supported:
+            return fstype
 
     raise DeviceFormatError("None of %s is supported by your kernel" % ",".join(default_fstypes))
 
@@ -225,10 +229,6 @@ class DeviceFormat(object):
 
     @property
     def name(self):
-        return self.getName()
-
-    @classmethod
-    def getName(self):
         if self._name:
             name = self._name
         else:
@@ -237,10 +237,6 @@ class DeviceFormat(object):
 
     @property
     def type(self):
-        return self.getType()
-
-    @classmethod
-    def getType(self):
         return self._type
 
     def probe(self):
@@ -348,22 +344,15 @@ class DeviceFormat(object):
                 self.device and 
                 os.path.exists(self.device))
 
-    @classmethod
-    def getFormattable(self):
-        return self._formattable
-
     @property
     def formattable(self):
         """ Can we create formats of this type? """
-        return self.getFormattable()
-
-    @classmethod
-    def getSupported(self):
-        return self._supported
+        return self._formattable
 
     @property
     def supported(self):
-        return self.getSupported()
+        """ Is this format a supported type? """
+        return self._supported
 
     @property
     def packages(self):
@@ -394,14 +383,10 @@ class DeviceFormat(object):
         """ Is this format type native to linux? """
         return self._linuxNative
 
-    @classmethod
-    def getMountable(self):
-        return False
-
     @property
     def mountable(self):
         """ Is this something we can mount? """
-        return self.getMountable()
+        return False
 
     @property
     def dump(self):

@@ -51,8 +51,8 @@ class BIOSBoot(DeviceFormat):
     def status(self):
         return False
 
-    @classmethod
-    def getSupported(self):
+    @property
+    def supported(self):
         from pyanaconda import platform
         return isinstance(platform.getPlatform(), platform.X86)
 

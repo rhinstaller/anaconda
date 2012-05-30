@@ -738,13 +738,13 @@ class FS(DeviceFormat):
 
         return True
 
-    @classmethod
-    def getSupported(self):
+    @property
+    def supported(self):
         log_method_call(self, supported=self._supported)
         return self._supported and self.utilsAvailable
 
-    @classmethod
-    def getMountable(self):
+    @property
+    def mountable(self):
         canmount = (self.mountType in kernel_filesystems) or \
                    (os.access("/sbin/mount.%s" % (self.mountType,), os.X_OK))
         modpath = os.path.realpath(os.path.join("/lib/modules", os.uname()[2]))
@@ -1079,8 +1079,8 @@ class EFIFS(FATFS):
     _name = "EFI System Partition"
     _minSize = 50
 
-    @classmethod
-    def getSupported(self):
+    @property
+    def supported(self):
         from pyanaconda import platform
         p = platform.getPlatform()
         return (isinstance(p, platform.EFI) and
@@ -1142,8 +1142,8 @@ class GFS2(FS):
     # partition table type correctly for btrfs partitions
     # partedSystem = fileSystemType["gfs2"]
 
-    @classmethod
-    def getSupported(self):
+    @property
+    def supported(self):
         """ Is this filesystem a supported type? """
         supported = self._supported
         if flags.cmdline.has_key("gfs2"):
@@ -1174,8 +1174,8 @@ class JFS(FS):
     _existingSizeFields = ["Aggregate block size:", "Aggregate size:"]
     partedSystem = fileSystemType["jfs"]
 
-    @classmethod
-    def getSupported(self):
+    @property
+    def supported(self):
         """ Is this filesystem a supported type? """
         supported = self._supported
         if flags.cmdline.has_key("jfs"):
@@ -1208,8 +1208,8 @@ class ReiserFS(FS):
     _existingSizeFields = ["Count of blocks on the device:", "Blocksize:"]
     partedSystem = fileSystemType["reiserfs"]
 
-    @classmethod
-    def getSupported(self):
+    @property
+    def supported(self):
         """ Is this filesystem a supported type? """
         supported = self._supported
         if flags.cmdline.has_key("reiserfs"):
@@ -1296,8 +1296,8 @@ class AppleBootstrapFS(HFS):
     _minSize = 800.00 / 1024.00
     _maxSize = 1
 
-    @classmethod
-    def getSupported(self):
+    @property
+    def supported(self):
         from pyanaconda import platform
         return (isinstance(platform.getPlatform(), platform.NewWorldPPC)
                 and self.utilsAvailable)
@@ -1334,8 +1334,8 @@ class NTFS(FS):
     _existingSizeFields = ["Cluster Size:", "Volume Size in Clusters:"]
     partedSystem = fileSystemType["ntfs"]
 
-    @classmethod
-    def getMountable(self):
+    @property
+    def mountable(self):
         return False
 
     def _fsckFailed(self, rc):
@@ -1395,8 +1395,8 @@ class NFS(FS):
         if devspec is not None and ":" not in devspec:
             raise ValueError("device must be of the form <host>:<path>")
 
-    @classmethod
-    def getMountable(self):
+    @property
+    def mountable(self):
         return False
 
     def _setDevice(self, devspec):
@@ -1490,8 +1490,8 @@ register_device_format(TmpFS)
 class BindFS(FS):
     _type = "bind"
 
-    @classmethod
-    def getMountable(self):
+    @property
+    def mountable(self):
         return True
 
     def _getExistingSize(self):
@@ -1506,9 +1506,9 @@ register_device_format(BindFS)
 class SELinuxFS(NoDevFS):
     _type = "selinuxfs"
 
-    @classmethod
-    def getMountable(self):
-        return flags.selinux and super(SELinuxFS, self).getMountable()
+    @property
+    def mountable(self):
+        return flags.selinux and super(SELinuxFS, self).mountable
 
 register_device_format(SELinuxFS)
 
