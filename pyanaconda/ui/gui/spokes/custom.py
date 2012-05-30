@@ -25,7 +25,6 @@ N_ = lambda x: x
 P_ = lambda x, y, z: gettext.ldngettext("anaconda", x, y, z)
 
 from pyanaconda.product import productName, productVersion
-from pyanaconda.storage import findExistingInstallations
 from pyanaconda.storage.size import Size
 
 from pyanaconda.ui.gui.spokes import NormalSpoke
@@ -240,8 +239,7 @@ class CustomPartitioningSpoke(NormalSpoke):
         label.set_text(label.get_text() % (productName, productVersion))
 
         # Now add in all the existing operating systems.
-        installations = findExistingInstallations(self.storage.devicetree)
-        for i in installations:
+        for i in self.storage.roots:
             page = Page()
 
             for swap in i.swaps:
