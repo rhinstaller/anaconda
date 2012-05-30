@@ -25,6 +25,7 @@ N_ = lambda x: x
 P_ = lambda x, y, z: gettext.ldngettext("anaconda", x, y, z)
 
 from pyanaconda.product import productName, productVersion
+from pyanaconda.storage.formats import device_formats
 from pyanaconda.storage.size import Size
 
 from pyanaconda.ui.gui.spokes import NormalSpoke
@@ -265,6 +266,13 @@ class CustomPartitioningSpoke(NormalSpoke):
             page.show_all()
             self._accordion.addPage(_("Unknown"), page)
 
+        # Populate the list of valid filesystem types from the format classes.
+        combo = self.builder.get_object("fileSystemTypeCombo")
+        for cls in device_formats.itervalues():
+            obj = cls()
+            if obj.supported and obj.formattable:
+                combo.append_text(obj.name)
+
     def _mountpointName(self, mountpoint):
         # If there's a mount point, apply a kind of lame scheme to it to figure
         # out what the name should be.  Basically, just look for the last directory
@@ -347,6 +355,8 @@ class CustomPartitioningSpoke(NormalSpoke):
         selectedDeviceLabel = self.builder.get_object("selectedDeviceLabel")
         selectedDeviceDescLabel = self.builder.get_object("selectedDeviceDescLabel")
         sizeSpinner = self.builder.get_object("sizeSpinner")
+        typeCombo = self.builder.get_object("deviceTypeCombo")
+        fsCombo = self.builder.get_object("fileSystemTypeCombo")
 
         device = selector._device
 
@@ -371,6 +381,21 @@ class CustomPartitioningSpoke(NormalSpoke):
             sizeSpinner.set_tooltip_text(_("This file system may not be resized."))
 
         encryptCheckbox.set_active(device.encrypted)
+
+        # FIXME:  What do we do if we can't figure it out?
+        if device.type == "lvmlv":
+            typeCombo.set_active(1)
+        elif device.type in ["dm-raid array", "mdarray"]:
+            typeCombo.set_active(2)
+        elif device.type == "partition":
+            typeCombo.set_active(3)
+
+        # FIXME:  What do we do if we can't figure it out?
+        model = fsCombo.get_model()
+        for i in range(0, len(model)):
+            if model[i][0] == device.format.name:
+                fsCombo.set_active(i)
+                break
 
     ###
     ### SIGNAL HANDLERS
