@@ -761,10 +761,15 @@ if __name__ == "__main__":
         elif anaconda.methodstr.startswith("hd:"):
             ksdata.method.method = "harddrive"
             url = anaconda.methodstr.split(":", 1)[1]
-            if url.count(":") == 1:
-                (device, path) = url.split(":")
-            else:
-                (device, fstype, path) = url.split(":")
+            url_parts = url.split(":")
+            device = url_parts[0]
+            path = ""
+            if len(url_parts) == 2:
+                path = url_parts[1]
+            elif len(url_parts) == 3:
+                fstype = url_parts[1]   # XXX not used
+                path = url_parts[2]
+
             ksdata.method.partition = device
             ksdata.method.dir = path
         elif anaconda.methodstr.startswith("http") or \
