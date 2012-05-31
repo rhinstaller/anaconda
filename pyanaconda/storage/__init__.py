@@ -1238,7 +1238,7 @@ class Storage(object):
             #
             if self.platform.weight(fstype="biosboot") and \
                stage1 and stage1.isDisk and \
-               getattr(device.format, "labelType", None) == "gpt":
+               getattr(stage1.format, "labelType", None) == "gpt":
                 missing = True
                 for part in [p for p in self.partitions if p.disk == stage1]:
                     if part.format.type == "biosboot":
