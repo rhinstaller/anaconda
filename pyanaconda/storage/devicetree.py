@@ -1058,7 +1058,7 @@ class DeviceTree(object):
         device.originalFormat = device.format
 
     def handleUdevDiskLabelFormat(self, info, device):
-        disklabel_type = info.get("PART_TABLE_TYPE")
+        disklabel_type = info.get("ID_PART_TABLE_TYPE")
         log_method_call(self, device=device.name, label_type=disklabel_type)
         # if there is no disklabel on the device
         if disklabel_type is None and \
