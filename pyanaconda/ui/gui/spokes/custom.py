@@ -222,6 +222,8 @@ class CustomPartitioningSpoke(NormalSpoke):
         self._partitionsNotebook = self.builder.get_object("partitionsNotebook")
 
     def initialize(self):
+        from pyanaconda.storage.devices import DiskDevice
+
         NormalSpoke.initialize(self)
 
         self._grabObjects()
@@ -255,7 +257,7 @@ class CustomPartitioningSpoke(NormalSpoke):
             self._accordion.addPage(i.name, page)
 
         # Anything that doesn't go with an OS we understand?  Put it in the Other box.
-        unused = filter(lambda d: d.disks, self.storage.unusedDevices)
+        unused = filter(lambda d: d.disks and not isinstance(d, DiskDevice), self.storage.unusedDevices)
         if unused:
             page = UnknownPage()
 
