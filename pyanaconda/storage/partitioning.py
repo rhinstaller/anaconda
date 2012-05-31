@@ -272,7 +272,7 @@ def doAutoPartition(storage, data):
         log.debug("devs: %s" % devs)
 
         if disks == []:
-            raise PartitioningError("not enough free space")
+            raise NoDisksError
 
         _schedulePartitions(storage, disks)
 
