@@ -180,11 +180,17 @@ def ksnet_to_dracut(args, lineno, net, bootdev=False):
 
     if ":" in net.gateway:
         net.gateway = "[%s]" % net.gateway
+    if net.ipv6 and not net.ip:
+        ip = "[%s]" % net.ipv6
+    else:
+        ip = net.ip
 
-    ip=":".join(net.ip or "[%s]" % net.ipv6, "", net.gateway, net.netmask,
-                net.hostname, net.device, net.autoconf, net.mtu)
+    iplist = [ip, "", net.gateway, net.netmask,
+              net.hostname, net.device, net.autoconf]
+    if net.mtu:
+        iplist.append(net.mtu)
 
-    line.append("ip=%s" % ip)
+    line.append("ip=" + ":".join(i or "" for i in iplist))
 
     for ns in net.nameserver.split(","):
         if ns:
