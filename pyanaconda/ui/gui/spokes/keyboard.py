@@ -266,6 +266,7 @@ class KeyboardSpoke(NormalSpoke):
             return
 
         store.swap(cur, prev)
+        self._flush_layouts_to_X()
         selection.emit("changed")
 
     def on_down_clicked(self, button):
@@ -279,6 +280,7 @@ class KeyboardSpoke(NormalSpoke):
             return
 
         store.swap(cur, nxt)
+        self._flush_layouts_to_X()
         selection.emit("changed")
 
     def on_preview_clicked(self, button):
@@ -329,4 +331,14 @@ class KeyboardSpoke(NormalSpoke):
                 self._addLayout(self._store, layout)
         else:
             self._addLayout(self._store, "us")
+
+    def _flush_layouts_to_X(self):
+        layouts_list = list()
+
+        itr = self._store.get_iter_first()
+        while itr:
+            layouts_list.append(self._store[itr][0])
+            itr = self._store.iter_next(itr)
+
+        self._xkl_wrapper.replace_layouts(layouts_list)
 
