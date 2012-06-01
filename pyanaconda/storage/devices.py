@@ -3827,7 +3827,7 @@ class DASDDevice(DiskDevice):
         return "DASD device %s" % self.busid
 
     def getOpts(self):
-        return map(lambda (k, v): "%s=%s" % (k, v,), self.opts.items())
+        return ["%s=%s" % (k, v) for k, v in self.opts.items() if v == '1']
 
     def dracutSetupArgs(self):
         conf = "/etc/dasd.conf"
