@@ -63,7 +63,29 @@ class Accordion(Gtk.Box):
         self.add(expander)
         self._expanders.append(expander)
         expander.connect("activate", self._onExpanded)
-        expander.show()
+        expander.show_all()
+
+    def removePage(self, pageTitle):
+        # First, remove the expander from the list of expanders we maintain.
+        target = None
+        for e in self._expanders:
+            if e.get_label_widget().get_text() == pageTitle:
+                target = e
+                break
+
+        if not target:
+            return
+
+        self._expanders.remove(target)
+
+        # Then, remove it from the box.
+        self.remove(target)
+
+    def removeAllPages(self):
+        for e in self._expanders:
+            self.remove(e)
+
+        self._expanders = []
 
     def _onExpanded(self, obj):
         # Currently is expanded, but clicking it this time means it will be
@@ -162,7 +184,7 @@ class UnknownPage(Page):
 # of this class will be packed into the Accordion first and then when the new installation
 # is created, it will be removed and replaced with a Page for it.
 class CreateNewPage(Page):
-    def __init__(self):
+    def __init__(self, cb):
         Gtk.Box.__init__(self, orientation=Gtk.Orientation.VERTICAL, spacing=6)
 
         # Create a box where we store the "Here's how you create a new blah" info.
@@ -181,7 +203,7 @@ class CreateNewPage(Page):
         label.set_markup("""<span foreground='blue'><u>Click here to create them automatically.</u></span>""")
 
         self._createNewButton.set_halign(Gtk.Align.START)
-        self._createNewButton.connect("clicked", self._onCreateClicked)
+        self._createNewButton.connect("clicked", cb)
         self._createBox.add(self._createNewButton)
 
         label = Gtk.Label(_("Or, create new mount points below with the '+' icon."))
@@ -190,9 +212,6 @@ class CreateNewPage(Page):
         self._createBox.add(label)
 
         self.add(self._createBox)
-
-    def _onCreateClicked(self, button):
-        pass
 
 class CustomPartitioningSpoke(NormalSpoke):
     builderObjects = ["customStorageWindow", "sizeAdjustment",
@@ -203,6 +222,10 @@ class CustomPartitioningSpoke(NormalSpoke):
 
     category = StorageCategory
     title = N_("MANUAL PARTITIONING")
+
+    def __init__(self, data, storage, payload, instclass):
+        NormalSpoke.__init__(self, data, storage, payload, instclass)
+        self._ran_autopart = False
 
     def apply(self):
         pass
@@ -234,40 +257,6 @@ class CustomPartitioningSpoke(NormalSpoke):
         self._accordion = Accordion()
         self._viewport.add(self._accordion)
 
-        page = CreateNewPage()
-        self._accordion.addPage(_("New %s %s Install") % (productName, productVersion), page)
-
-        self._partitionsNotebook.set_current_page(0)
-        label = self.builder.get_object("whenCreateLabel")
-        label.set_text(label.get_text() % (productName, productVersion))
-
-        # Now add in all the existing operating systems.
-        for i in self.storage.roots:
-            page = Page()
-
-            for swap in i.swaps:
-                selector = page.addDevice("Swap", swap.size, None, self.on_selector_clicked)
-                selector._device = swap
-
-            for (mountpoint, device) in i.mounts.iteritems():
-                selector = page.addDevice(self._mountpointName(mountpoint) or device.format.name, device.size, mountpoint, self.on_selector_clicked)
-                selector._device = device
-
-            page.show_all()
-            self._accordion.addPage(i.name, page)
-
-        # Anything that doesn't go with an OS we understand?  Put it in the Other box.
-        unused = filter(lambda d: d.disks and not isinstance(d, DiskDevice), self.storage.unusedDevices)
-        if unused:
-            page = UnknownPage()
-
-            for u in unused:
-                selector = page.addDevice(u.format.name, u.size, None, self.on_selector_clicked)
-                selector._device = u
-
-            page.show_all()
-            self._accordion.addPage(_("Unknown"), page)
-
         # Populate the list of valid filesystem types from the format classes.
         combo = self.builder.get_object("fileSystemTypeCombo")
         for cls in device_formats.itervalues():
@@ -293,11 +282,18 @@ class CustomPartitioningSpoke(NormalSpoke):
         else:
             return None
 
+    def _clearpartDevices(self):
+        return [d for d in self.storage.devicetree.devices if d.name in self.data.clearpart.drives]
+
+    def _unusedDevices(self):
+        from pyanaconda.storage.devices import DiskDevice
+        return [d for d in self.storage.unusedDevices if d.disks and not isinstance(d, DiskDevice)]
+
     def _currentFreeSpace(self):
         """Add up all the free space on selected disks and return it as a Size."""
         totalFree = 0
 
-        freeDisks = self.storage.getFreeSpace(disks=[d for d in self.storage.devicetree.devices if d.name in self.data.clearpart.drives])
+        freeDisks = self.storage.getFreeSpace(disks=self._clearpartDevices())
         for tup in freeDisks.values():
             for chunk in tup:
                 totalFree += chunk
@@ -308,8 +304,7 @@ class CustomPartitioningSpoke(NormalSpoke):
         """Add up the sizes of all selected disks and return it as a Size."""
         totalSpace = 0
 
-        disks = [d for d in self.storage.devicetree.devices if d.name in self.data.clearpart.drives]
-        for disk in disks:
+        for disk in self._clearpartDevices():
             totalSpace += disk.size
 
         return Size(spec="%s MB" % totalSpace)
@@ -317,6 +312,10 @@ class CustomPartitioningSpoke(NormalSpoke):
     def refresh(self):
         NormalSpoke.refresh(self)
 
+        # Make sure we start with a clean slate.
+        self._accordion.removeAllPages()
+
+        # Set up the free space/available space displays in the bottom left.
         self._availableSpaceLabel.set_text(str(self._currentFreeSpace()))
         self._totalSpaceLabel.set_text(str(self._currentTotalSpace()))
 
@@ -328,6 +327,45 @@ class CustomPartitioningSpoke(NormalSpoke):
 
         summaryLabel.set_use_markup(True)
         summaryLabel.set_markup("<span foreground='blue'><u>%s</u></span>" % summary)
+
+        # Now it's time to populate the accordion.
+
+        # If we've not yet run autopart, add an instance of CreateNewPage.  This
+        # ensures it's only added once.
+        if not self._ran_autopart:
+            page = CreateNewPage(self.on_create_clicked)
+            self._accordion.addPage(_("New %s %s Installation") % (productName, productVersion), page)
+
+            self._partitionsNotebook.set_current_page(0)
+            label = self.builder.get_object("whenCreateLabel")
+            label.set_text(label.get_text() % (productName, productVersion))
+
+        # Add in all the existing (or autopart-created) operating systems.
+        for i in self.storage.roots:
+            page = Page()
+
+            for swap in i.swaps:
+                selector = page.addDevice("Swap", swap.size, None, self.on_selector_clicked)
+                selector._device = swap
+
+            for (mountpoint, device) in i.mounts.iteritems():
+                selector = page.addDevice(self._mountpointName(mountpoint) or device.format.name, device.size, mountpoint, self.on_selector_clicked)
+                selector._device = device
+
+            page.show_all()
+            self._accordion.addPage(i.name, page)
+
+        # Anything that doesn't go with an OS we understand?  Put it in the Other box.
+        unused = self._unusedDevices()
+        if unused:
+            page = UnknownPage()
+
+            for u in unused:
+                selector = page.addDevice(u.format.name, u.size, None, self.on_selector_clicked)
+                selector._device = u
+
+            page.show_all()
+            self._accordion.addPage(_("Unknown"), page)
 
     ###
     ### RIGHT HAND SIDE METHODS
@@ -430,3 +468,47 @@ class CustomPartitioningSpoke(NormalSpoke):
         self._partitionsNotebook.set_current_page(1)
 
         self._populate_right_side(selector)
+
+    def on_create_clicked(self, button):
+        from pyanaconda.storage import Root
+        from pyanaconda.storage.devices import DiskDevice
+        from pyanaconda.storage.partitioning import doAutoPartition
+
+        # Pick the first disk to be the destination device for the bootloader.
+        # This appears to be the minimum amount of configuration required to
+        # make autopart happy with the bootloader settings.
+        if not self.data.bootloader.bootDrive:
+            self.data.bootloader.bootDrive = self.storage.bootloader.disks[0].name
+
+        # Then do autopartitioning.  We do not do any clearpart first.  This is
+        # custom partitioning, so you have to make your own room.
+        # FIXME:  Handle all the autopart exns here.
+        self.data.autopart.autopart = True
+        self.data.autopart.execute(self.storage, self.data, self.instclass)
+
+        # Create a new Root object for the new installation and put it into
+        # the storage object.  This means any boot-related devices we make for
+        # this new install (biosboot, etc.) will show up as unused and therefore
+        # be put into the Unknown page.
+        mounts = {}
+        swaps = []
+
+        # Devices just created by autopartitioning will be listed as unused
+        # since they are not yet a part of any known Root.
+        for device in self._unusedDevices():
+            if device.format.type == "swap":
+                swaps.append(device)
+
+            if hasattr(device.format, "mountpoint"):
+                mounts[device.format.mountpoint] = device
+
+        newName = _("New %s %s Installation") % (productName, productVersion)
+        root = Root(mounts=mounts, swaps=swaps, name=newName)
+        self.storage.roots.append(root)
+
+        # Setting this ensures the CreateNewPage instance does not reappear when
+        # refresh is called.
+        self._ran_autopart = True
+
+        # And refresh the spoke to make the new partitions appear.
+        self.refresh()
