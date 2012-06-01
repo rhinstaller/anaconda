@@ -246,6 +246,7 @@ class CustomPartitioningSpoke(NormalSpoke):
 
     def initialize(self):
         from pyanaconda.storage.devices import DiskDevice
+        from pyanaconda.storage.formats.fs import FS
 
         NormalSpoke.initialize(self)
 
@@ -258,10 +259,13 @@ class CustomPartitioningSpoke(NormalSpoke):
         self._viewport.add(self._accordion)
 
         # Populate the list of valid filesystem types from the format classes.
+        # Unfortunately, we have to narrow them down a little bit more because
+        # this list will include things like PVs and RAID members.
         combo = self.builder.get_object("fileSystemTypeCombo")
         for cls in device_formats.itervalues():
             obj = cls()
-            if obj.supported and obj.formattable:
+            if obj.supported and obj.formattable and \
+               (isinstance(obj, FS) or obj.type in ["biosboot", "prepboot", "swap"]):
                 combo.append_text(obj.name)
 
     def _mountpointName(self, mountpoint):
