@@ -300,7 +300,9 @@ class XklWrapper(object):
         layouts_variants = zip(self._rec.layouts, self._rec.variants)
 
         if not (layout, variant) in layouts_variants:
-            raise XklWrapperError("'%s (%s)' not in the list of added layouts")
+            msg = "'%s (%s)' not in the list of added layouts" % (layout,
+                                                                  variant)
+            raise XklWrapperError(msg)
 
         idx = layouts_variants.index((layout, variant))
         new_layouts = self._rec.layouts[:idx] + self._rec.layouts[(idx + 1):]
