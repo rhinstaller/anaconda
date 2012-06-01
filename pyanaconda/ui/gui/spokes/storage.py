@@ -462,25 +462,17 @@ class StorageSpoke(NormalSpoke):
         capacity = 0
         free = 0
 
-        overviews = self.local_disks_box.get_children()
         free_space = self.storage.getFreeSpace(clearPartType=self.clearPartType)
-        for overview in overviews:
-            name = overview.get_property("popup-info").partition("|")[0].strip()
-            selected = overview.get_chosen()
-            if selected:
-                disk = None
-                for _disk in self.disks:
-                    if _disk.name == name:
-                        disk = _disk
-                        break
+        selected = [d for d in self.disks if d.name in self.selected_disks]
 
-                capacity += disk.size
-                free += free_space[disk.name][0]
-                count += 1
+        for disk in selected:
+            capacity += disk.size
+            free += free_space[disk.name][0]
+            count += 1
 
         summary = (P_(("%d disk selected; %s capacity; %s free ..."),
                       ("%d disks selected; %s capacity; %s free ..."),
-                      count) % (count, size_str(capacity), size_str(free)))
+                      count) % (count, str(Size(spec="%s MB" % capacity)), str(Size(free))))
         markup = "<span foreground='blue'><u>%s</u></span>" % summary
         summary_label = self.builder.get_object("summary_button").get_children()[0]
         summary_label.set_markup(markup)
