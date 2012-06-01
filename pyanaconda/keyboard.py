@@ -31,7 +31,6 @@ for listing and various modifications of keyboard layouts settings.
 """
 
 import os
-from gi.repository import Xkl, Gdk, GdkX11
 
 class KeyboardConfigError(Exception):
     """Exception class for keyboard configuration related problems"""
@@ -171,6 +170,8 @@ class XklWrapper(object):
         return XklWrapper._instance
 
     def __init__(self):
+        from gi.repository import Xkl, GdkX11
+
         #initialize Xkl-related stuff
         display = GdkX11.x11_get_default_xdisplay()
         self._engine = Xkl.Engine.get_instance(display)
