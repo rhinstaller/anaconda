@@ -24,7 +24,7 @@ import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
 N_ = lambda x: x
 
-from gi.repository import GLib, AnacondaWidgets, Gkbd
+from gi.repository import GLib, Gkbd
 
 from pyanaconda.ui.gui import UIObject
 from pyanaconda.ui.gui.spokes import NormalSpoke
