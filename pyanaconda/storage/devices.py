@@ -439,7 +439,7 @@ class StorageDevice(Device):
 
     def __init__(self, name, format=None,
                  size=None, major=None, minor=None,
-                 sysfsPath='', parents=None, exists=None, serial=None,
+                 sysfsPath='', parents=None, exists=False, serial=None,
                  vendor="", model="", bus=""):
         """ Create a StorageDevice instance.
 
@@ -1074,7 +1074,7 @@ class PartitionDevice(StorageDevice):
     def __init__(self, name, format=None,
                  size=None, grow=False, maxsize=None,
                  major=None, minor=None, bootable=None,
-                 sysfsPath='', parents=None, exists=None,
+                 sysfsPath='', parents=None, exists=False,
                  partType=None, primary=False, weight=0):
         """ Create a PartitionDevice instance.
 
@@ -1680,7 +1680,7 @@ class DMDevice(StorageDevice):
     _devDir = "/dev/mapper"
 
     def __init__(self, name, format=None, size=None, dmUuid=None,
-                 target=None, exists=None, parents=None, sysfsPath=''):
+                 target=None, exists=False, parents=None, sysfsPath=''):
         """ Create a DMDevice instance.
 
             Arguments:
@@ -1803,7 +1803,7 @@ class DMLinearDevice(DMDevice):
     _isDisk = True
 
     def __init__(self, name, format=None, size=None, dmUuid=None,
-                 exists=None, parents=None, sysfsPath=''):
+                 exists=False, parents=None, sysfsPath=''):
         """ Create a DMLinearDevice instance.
 
             Arguments:
@@ -1867,7 +1867,7 @@ class DMCryptDevice(DMDevice):
     _type = "dm-crypt"
 
     def __init__(self, name, format=None, size=None, uuid=None,
-                 exists=None, sysfsPath='', parents=None):
+                 exists=False, sysfsPath='', parents=None):
         """ Create a DMCryptDevice instance.
 
             Arguments:
@@ -1892,7 +1892,7 @@ class LUKSDevice(DMCryptDevice):
     _packages = ["cryptsetup-luks"]
 
     def __init__(self, name, format=None, size=None, uuid=None,
-                 exists=None, sysfsPath='', parents=None):
+                 exists=False, sysfsPath='', parents=None):
         """ Create a LUKSDevice instance.
 
             Arguments:
@@ -1954,7 +1954,7 @@ class LVMVolumeGroupDevice(DMDevice):
 
     def __init__(self, name, parents, size=None, free=None,
                  peSize=None, peCount=None, peFree=None, pvCount=None,
-                 uuid=None, exists=None, sysfsPath=''):
+                 uuid=None, exists=False, sysfsPath=''):
         """ Create a LVMVolumeGroupDevice instance.
 
             Arguments:
@@ -2377,7 +2377,7 @@ class LVMLogicalVolumeDevice(DMDevice):
 
     def __init__(self, name, vgdev, size=None, uuid=None,
                  stripes=1, logSize=0, snapshotSpace=0,
-                 format=None, exists=None, sysfsPath='',
+                 format=None, exists=False, sysfsPath='',
                  grow=None, maxsize=None, percent=None,
                  singlePV=False):
         """ Create a LVMLogicalVolumeDevice instance.
@@ -2667,7 +2667,7 @@ class MDRaidArrayDevice(StorageDevice):
 
     def __init__(self, name, level=None, major=None, minor=None, size=None,
                  memberDevices=None, totalDevices=None,
-                 uuid=None, format=None, exists=None, metadataVersion=None,
+                 uuid=None, format=None, exists=False, metadataVersion=None,
                  parents=None, sysfsPath=''):
         """ Create a MDRaidArrayDevice instance.
 
@@ -3428,7 +3428,7 @@ class FileDevice(StorageDevice):
     _devDir = ""
 
     def __init__(self, path, format=None, size=None,
-                 exists=None, parents=None):
+                 exists=False, parents=None):
         """ Create a FileDevice instance.
 
             Arguments:
@@ -3532,7 +3532,7 @@ class LoopDevice(StorageDevice):
     _type = "loop"
 
     def __init__(self, name=None, format=None, size=None, sysfsPath=None,
-                 exists=None, parents=None):
+                 exists=False, parents=None):
         """ Create a LoopDevice instance.
 
             Arguments:
@@ -3684,7 +3684,7 @@ class OpticalDevice(StorageDevice):
     """
     _type = "cdrom"
 
-    def __init__(self, name, major=None, minor=None, exists=None,
+    def __init__(self, name, major=None, minor=None, exists=False,
                  format=None, parents=None, sysfsPath='', vendor="",
                  model=""):
         StorageDevice.__init__(self, name, format=format,
