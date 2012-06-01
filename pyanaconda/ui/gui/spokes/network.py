@@ -611,6 +611,7 @@ class NetworkControlBox():
         ipv4cfg = None
         ipv6cfg = None
 
+        # We might need to wait for config objects to become available
         if num_of_tries > 0:
             ipv4cfg = device.get_ip4_config()
             ipv6cfg = device.get_ip6_config()
@@ -618,19 +619,6 @@ class NetworkControlBox():
                 GLib.timeout_add(300, self._refresh_device_cfg, (device,
                                                                  num_of_tries-1))
                 return False
-
-        # We might need to wait for config objects to become available
-        if device.get_state() == NetworkManager.DeviceState.ACTIVATED:
-            # Activating device with neither ipv4 nor ipv6 configured shouldn't
-            # loop endlessly so set timeout
-            timeout = 1
-            while timeout > 0 and not ipv4cfg and not ipv6cfg:
-                while GLib.main_context_default().iteration(False):
-                    pass
-                ipv4cfg = device.get_ip4_config()
-                ipv6cfg = device.get_ip6_config()
-                time.sleep(0.3)
-                timeout = timeout - 0.3
 
         dev_type = device.get_device_type()
         if dev_type == NetworkManager.DeviceType.ETHERNET:
