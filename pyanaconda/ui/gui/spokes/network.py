@@ -594,7 +594,7 @@ class NetworkControlBox():
         for row in rows_to_remove:
             del(row)
 
-    def refresh_ui(self, device, read_config_values=False):
+    def refresh_ui(self, device, read_config_values=True):
         print "DBG: refresh ui %s" % device
         self._refresh_device_type_page(device)
         self._refresh_header_ui(device)
