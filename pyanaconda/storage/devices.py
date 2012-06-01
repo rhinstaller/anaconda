@@ -3831,23 +3831,48 @@ class DASDDevice(DiskDevice):
 
     def dracutSetupArgs(self):
         conf = "/etc/dasd.conf"
-        opts = {}
-
+        line = None
         if os.path.isfile(conf):
             f = open(conf)
-            lines = filter(lambda y: not y.startswith('#') and y != '',
-                           map(lambda x: x.strip(), f.readlines()))
+            # grab the first line that starts with our busID
+            line = [line for line in f.readlines()
+                    if line.startswith(self.busid)][:1]
             f.close()
 
-            for line in lines:
-                parts = line.split()
-                if parts != []:
-                    opts[parts[0]] = parts
+        # See if we got a line.  If not, grab our getOpts
+        if not line:
+            line = self.busid
+            for devopt in self.getOpts():
+                line += " %s" % devopt
 
-        if self.busid in opts.keys():
-            return set(["rd.dasd=%s" % ",".join(opts[self.busid])])
+        # Create a translation mapping from dasd.conf format to module format
+        translate = {'use_diag': 'diag',
+                     'readonly': 'ro',
+                     'erplog': 'erplog',
+                     'failfast': 'failfast'}
+
+        # this is a really awkward way of determining if the
+        # feature found is actually desired (1, not 0), plus
+        # translating that feature into the actual kernel module
+        # value
+        opts = []
+        parts = line.split()
+        for chunk in parts[1:]:
+            try:
+                feat, val = chunk.split('=')
+                if int(val):
+                    opts.append(translate[feat])
+            except:
+                # If we don't know what the feature is (feat not in translate
+                # or if we get a val that doesn't cleanly convert to an int
+                # we can't do anything with it.
+                log.warning("failed to parse dasd feature %s" % chunk)
+
+        if opts:
+            return set(["rd.dasd=%s(%s)" % (self.busid,
+                                            ":".join(opts))])
         else:
-            return set(["rd.dasd=%s" % ",".join([self.busid] + self.getOpts())])
+            return set(["rd.dasd=%s" % self.busid])
 
 class NFSDevice(StorageDevice, NetworkStorageDevice):
     """ An NFS device """
