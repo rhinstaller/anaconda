@@ -1710,10 +1710,13 @@ class GRUB2(GRUB):
     # installation
     #
 
-    def install(self):
+    def install(self, args=None):
+        if args is None:
+            args = []
+
         # XXX will installing to multiple drives work as expected with GRUBv2?
         for (stage1dev, stage2dev) in self.install_targets:
-            args = ["--no-floppy", stage1dev.path]
+            args += ["--no-floppy", stage1dev.path]
             if stage1dev == stage2dev:
                 # This is hopefully a temporary hack. GRUB2 currently refuses
                 # to install to a partition's boot block without --force.
@@ -2054,7 +2057,7 @@ class IPSeriesGRUB2(GRUB2):
     def install(self):
         self.updateNVRAMBootList()
 
-        super(IPSeriesGRUB2, self).install()
+        super(IPSeriesGRUB2, self).install(args=["--no-nvram"])
 
     # This will update the PowerPC's (ppc) bios boot devive order list
     def updateNVRAMBootList(self):
