@@ -104,6 +104,7 @@ class YumPayload(PackagePayload):
         self._root_dir = "/tmp/yum.root"
         self._repos_dir = "/etc/yum.repos.d,/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anaconda.repos.d"
         self._yum = None
+        self._setup = False
 
         self.reset()
 
@@ -136,7 +137,7 @@ class YumPayload(PackagePayload):
 
         self._space_required = Size(bytes=0)
 
-        self._groups = []
+        self._groups = None
         self._packages = []
 
         self._resetYum(root=root)
@@ -144,6 +145,7 @@ class YumPayload(PackagePayload):
     def setup(self, storage, proxy=None):
         self.proxy = proxy
         self._writeYumConfig()
+        self._setup = True
 
         self.updateBaseRepo(storage)
 
@@ -302,6 +304,9 @@ reposdir=%s
     ###
     @property
     def repos(self):
+        if not self._setup:
+            return []
+
         return self._yum.repos.repos.keys()
 
     @property
@@ -622,7 +627,7 @@ reposdir=%s
         # Adding a new repo means the cached packages and groups lists
         # are out of date.  Clear them out now so the next reference to
         # either will cause it to be regenerated.
-        self._groups = []
+        self._groups = None
         self._packages = []
 
     def addRepo(self, newrepo):
@@ -635,7 +640,7 @@ reposdir=%s
         if repo_id in self.repos:
             with _yum_lock:
                 self._yum.repos.delete(repo_id)
-                self._groups = []
+                self._groups = None
                 self._packages = []
 
     def removeRepo(self, repo_id):
@@ -671,40 +676,50 @@ reposdir=%s
         if repo_id in self.repos:
             self._yum.repos.disableRepo(repo_id)
 
-            self._groups = []
+            self._groups = None
             self._packages = []
 
     ###
     ### METHODS FOR WORKING WITH GROUPS
     ###
     @property
+    def _yumGroups(self):
+        """ yum.comps.Comps instance. """
+        with _yum_lock:
+            if not self._groups:
+                if not self.needsNetwork or hasActiveNetDev():
+                    try:
+                        self._groups = self._yum.comps
+                    except (RepoError, GroupsError) as e:
+                        log.error("failed to get group info: %s" % e)
+
+        return self._groups
+
+    @property
     def groups(self):
+        """ List of group ids. """
         from yum.Errors import RepoError
         from yum.Errors import GroupsError
 
         groups = []
-        with _yum_lock:
-            if not self._groups:
-                if self.needsNetwork and not hasActiveNetDev():
-                    raise NoNetworkError
-
-                try:
-                    self._groups = self._yum.comps
-                except (RepoError, GroupsError) as e:
-                    log.error("failed to get group info: %s" % e)
-
-            if self._groups:
-                groups = [g.groupid for g in self._groups.get_groups()]
+        yum_groups = self._yumGroups
+        if yum_groups:
+            with _yum_lock:
+                groups = [g.groupid for g in yum_groups.get_groups()]
 
         return groups
 
     def description(self, groupid):
         """ Return name/description tuple for the group specified by id. """
+        groups = self._yumGroups
+        if not groups:
+            return (groupid, groupid)
+
         with _yum_lock:
-            if not self._groups.has_group(groupid):
+            if not groups.has_group(groupid):
                 raise NoSuchGroup(groupid)
 
-            group = self._groups.return_group(groupid)
+            group = groups.return_group(groupid)
 
             return (group.ui_name, group.ui_description)
 
