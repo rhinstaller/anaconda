@@ -238,6 +238,8 @@ class CustomPartitioningSpoke(NormalSpoke):
 
     def __init__(self, data, storage, payload, instclass):
         NormalSpoke.__init__(self, data, storage, payload, instclass)
+
+        self._current_selector = None
         self._ran_autopart = False
 
     def apply(self):
@@ -406,17 +408,16 @@ class CustomPartitioningSpoke(NormalSpoke):
         else:
             return ""
 
-    def _save_right_side(self):
-        # Save the contents of the right hand side to the current selector.
-        page = self._accordion.currentPage()
-        if not page:
-            return
-
-        selector = page.currentSelector()
+    def _save_right_side(self, selector):
         if not selector:
             return
 
+        labelEntry = self.builder.get_object("labelEntry")
+
         device = selector._device
+
+        if hasattr(device.format, "label") and labelEntry.get_text():
+            device.format.label = labelEntry.get_text()
 
     def _populate_right_side(self, selector):
         encryptCheckbox = self.builder.get_object("encryptCheckbox")
@@ -466,6 +467,8 @@ class CustomPartitioningSpoke(NormalSpoke):
                 fsCombo.set_active(i)
                 break
 
+        self._current_selector = selector
+
     ###
     ### SIGNAL HANDLERS
     ###
@@ -477,7 +480,7 @@ class CustomPartitioningSpoke(NormalSpoke):
     # Use the default back action here, since the finish button takes the user
     # to the install summary screen.
     def on_finish_clicked(self, button):
-        self._save_right_side()
+        self._save_right_side(self._current_selector)
         NormalSpoke.on_back_clicked(self, button)
 
     def on_add_clicked(self, button):
@@ -497,7 +500,7 @@ class CustomPartitioningSpoke(NormalSpoke):
         # a new OS" label.
         self._partitionsNotebook.set_current_page(1)
 
-        self._save_right_side()
+        self._save_right_side(self._current_selector)
         self._populate_right_side(selector)
 
     def on_create_clicked(self, button):
