@@ -68,7 +68,7 @@ class Accordion(Gtk.Box):
     def currentPage(self):
         for e in self._expanders:
             if e.get_expanded():
-                return e
+                return e.get_child()
 
         return None
 
