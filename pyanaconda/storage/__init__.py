@@ -210,8 +210,6 @@ def storageComplete(anaconda):
         return DISPATCH_BACK
 
 def turnOnFilesystems(storage):
-    from pyanaconda.upgrade import bindMountDevDirectory
-
     upgrade = "preupgrade" in flags.cmdline
 
     if not upgrade:
@@ -253,6 +251,8 @@ def turnOnFilesystems(storage):
         storage.write()
         writeEscrowPackets(storage)
     else:
+        from pyanaconda.upgrade import bindMountDevDirectory
+
         if upgrade_migrate:
             # we should write out a new fstab with the migrated fstype
             shutil.copyfile("%s/etc/fstab" % ROOT_PATH,
