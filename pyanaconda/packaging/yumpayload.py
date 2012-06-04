@@ -235,10 +235,10 @@ reposdir=%s
                 f.write("[%s]\n" % repo.id)
                 f.write("name=Install - %s\n" % repo.id)
                 f.write("enabled=1\n")
-                if repo.baseurl:
-                    f.write("baseurl=%s\n" % repo.baseurl[0])
-                elif repo.mirrorlist:
+                if repo.mirrorlist:
                     f.write("mirrorlist=%s" % repo.mirrorlist)
+                elif repo.baseurl:
+                    f.write("baseurl=%s\n" % repo.baseurl[0])
                 else:
                     log.error("repo %s has no baseurl or mirrorlist" % repo.id)
                     f.close()
@@ -517,7 +517,7 @@ reposdir=%s
                 # move the mount to ISO_DIR
                 iutil.execWithRedirect("mount",
                                        ["--move", INSTALL_TREE, ISO_DIR],
-                                       stderr="/ev/tty5", stdout="/dev/tty5")
+                                       stderr="/dev/tty5", stdout="/dev/tty5")
                 # mount the ISO on a loop
                 image = os.path.normpath("%s/%s" % (ISO_DIR, image))
                 mountImage(image, INSTALL_TREE)
