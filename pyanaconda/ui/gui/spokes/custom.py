@@ -65,6 +65,13 @@ class Accordion(Gtk.Box):
         expander.connect("activate", self._onExpanded)
         expander.show_all()
 
+    def currentPage(self):
+        for e in self._expanders:
+            if e.get_expanded():
+                return e
+
+        return None
+
     def removePage(self, pageTitle):
         # First, remove the expander from the list of expanders we maintain.
         target = None
@@ -115,6 +122,7 @@ class Page(Gtk.Box):
         self.add(self._systemBox)
 
         self._members = []
+        self._currentSelector = None
 
     def _make_category_label(self, name):
         label = Gtk.Label()
@@ -136,6 +144,9 @@ class Page(Gtk.Box):
             self._systemBox.add(selector)
 
         return selector
+
+    def currentSelector(self):
+        return self._currentSelector
 
     def _mountpointType(self, mountpoint):
         if not mountpoint:
@@ -160,6 +171,7 @@ class Page(Gtk.Box):
 
         # Then, this callback will set up the right hand side of the screen to
         # show the details for the newly selected object.
+        self._currentSelector = selector
         cb(selector)
 
 class UnknownPage(Page):
@@ -167,6 +179,7 @@ class UnknownPage(Page):
         # For this type of page, there's only one place to store members.
         Gtk.Box.__init__(self, orientation=Gtk.Orientation.VERTICAL, spacing=6)
         self._members = []
+        self._currentSelector = None
 
     def addDevice(self, name, size, mountpoint, cb):
         selector = MountpointSelector()
@@ -393,6 +406,18 @@ class CustomPartitioningSpoke(NormalSpoke):
         else:
             return ""
 
+    def _save_right_side(self):
+        # Save the contents of the right hand side to the current selector.
+        page = self._accordion.currentPage()
+        if not page:
+            return
+
+        selector = page.currentSelector()
+        if not selector:
+            return
+
+        device = selector._device
+
     def _populate_right_side(self, selector):
         encryptCheckbox = self.builder.get_object("encryptCheckbox")
         labelEntry = self.builder.get_object("labelEntry")
@@ -452,6 +477,7 @@ class CustomPartitioningSpoke(NormalSpoke):
     # Use the default back action here, since the finish button takes the user
     # to the install summary screen.
     def on_finish_clicked(self, button):
+        self._save_right_side()
         NormalSpoke.on_back_clicked(self, button)
 
     def on_add_clicked(self, button):
@@ -471,6 +497,7 @@ class CustomPartitioningSpoke(NormalSpoke):
         # a new OS" label.
         self._partitionsNotebook.set_current_page(1)
 
+        self._save_right_side()
         self._populate_right_side(selector)
 
     def on_create_clicked(self, button):
