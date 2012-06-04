@@ -595,6 +595,9 @@ class NetworkControlBox():
             del(row)
 
     def refresh_ui(self, device, read_config_values=True):
+        if not device:
+            return
+
         print "DBG: refresh ui %s" % device
         self._refresh_device_type_page(device)
         self._refresh_header_ui(device)
