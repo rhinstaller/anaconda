@@ -329,6 +329,8 @@ class StorageSpoke(NormalSpoke):
         self._ready = False
         self.selected_disks = self.data.clearpart.drives[:]
         self.autopart = self.data.autopart.autopart
+
+        # FIXME:  This needs to be set to a real value via some TBD UI.
         self.clearPartType = CLEARPART_TYPE_LINUX
 
     def apply(self):
