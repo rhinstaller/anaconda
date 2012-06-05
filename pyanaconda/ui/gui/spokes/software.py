@@ -85,16 +85,19 @@ class SoftwareSelectionSpoke(NormalSpoke):
             self._error = True
             communication.send_message(self.__class__.__name__,
                                        _("Error checking software dependencies"))
+            self._tx_id = None
         else:
             communication.send_ready(self.__class__.__name__)
             self._error = False
+            self._tx_id = self.payload.txID
 
     @property
     def completed(self):
         from pyanaconda.threads import threadMgr
         return self._get_selected_desktop() is not None and \
                not threadMgr.get("AnaCheckSoftwareThread") and \
-               not self._error
+               not self._error and \
+               self.payload.txID and self._tx_id == self.payload.txID
 
     @property
     def ready(self):

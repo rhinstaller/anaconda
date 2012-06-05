@@ -182,6 +182,8 @@ class YumPayload(PackagePayload):
             # we get a base repo set up
             self._yum.preconf.releasever = self._getReleaseVersion(None)
 
+        self.txID = None
+
     def _writeYumConfig(self):
         """ Write out anaconda's main yum configuration file. """
         buf = """
@@ -856,6 +858,7 @@ reposdir=%s
 
     def checkSoftwareSelection(self):
         log.info("checking software selection")
+        self.txID = time.time()
 
         with _yum_lock:
             self.release()
