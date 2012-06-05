@@ -19,6 +19,24 @@
 # Red Hat Author(s): Chris Lumens <clumens@redhat.com>
 #
 
+# TODO:
+# - Accordion and the Page classes should be broken out into a support file.
+# - Add button doesn't do anything.  It may need to ask for what kind of thing is being
+#   added, too.
+# - Clicking or using a keyboard to open an expander doesn't work.
+# - Clicking on a MountpointSelector does not cause it to be highlighted in blue.
+# - Deleting a newly created device is not reflected in available space in the bottom left.
+# - Device descriptions, suggested sizes, etc. should be moved out into a support file.
+# - Removing a device is not very smart.  It needs to take into account LUKS, LVM, RAID,
+#   all that kind of stuff.  If this is the last device in one of those containers, all
+#   the containers should be deleted too.
+# - Summary button doesn't do anything.  What's it supposed to do?
+# - Tabbing behavior in the accordion is weird.
+# - The currently selected MS does not have a little > arrow shown.
+# - The remove confirmation dialog doesn't do anything yet.
+# - When all members of a page are removed, the page should be removed from the
+#   accordion and the RHS should be updated to display something else.
+
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
 N_ = lambda x: x
@@ -28,8 +46,9 @@ from pyanaconda.product import productName, productVersion
 from pyanaconda.storage.formats import device_formats
 from pyanaconda.storage.size import Size
 
+from pyanaconda.ui.gui import UIObject
 from pyanaconda.ui.gui.spokes import NormalSpoke
-from pyanaconda.ui.gui.utils import setViewportBackground
+from pyanaconda.ui.gui.utils import enlightbox, setViewportBackground
 from pyanaconda.ui.gui.categories.storage import StorageCategory
 
 from gi.repository.AnacondaWidgets import MountpointSelector
@@ -58,12 +77,18 @@ class Accordion(Gtk.Box):
         expander = Gtk.Expander()
         expander.set_label_widget(label)
         expander.add(contents)
-        expander.set_expanded(isinstance(contents, CreateNewPage))
 
         self.add(expander)
         self._expanders.append(expander)
         expander.connect("activate", self._onExpanded)
         expander.show_all()
+
+    def _find_by_title(self, title):
+        for e in self._expanders:
+            if e.get_label_widget().get_text() == title:
+                return e
+
+        return None
 
     def currentPage(self):
         for e in self._expanders:
@@ -72,14 +97,14 @@ class Accordion(Gtk.Box):
 
         return None
 
+    def expandPage(self, pageTitle):
+        page = self._find_by_title(pageTitle)
+        if page:
+            self._onExpanded(page)
+
     def removePage(self, pageTitle):
         # First, remove the expander from the list of expanders we maintain.
-        target = None
-        for e in self._expanders:
-            if e.get_label_widget().get_text() == pageTitle:
-                target = e
-                break
-
+        target = self._find_by_title(pageTitle)
         if not target:
             return
 
@@ -98,11 +123,11 @@ class Accordion(Gtk.Box):
         # Currently is expanded, but clicking it this time means it will be
         # un-expanded.  So we want to return.
         if obj.get_expanded():
+            obj.set_expanded(False)
             return
 
         for expander in self._expanders:
-            if expander is not obj:
-                expander.set_expanded(False)
+            expander.set_expanded(expander == obj)
 
 # A Page is a box that is stored in an Accordion.  It breaks down all the filesystems that
 # comprise a single installed OS into two categories - Data filesystems and System filesystems.
@@ -226,6 +251,40 @@ class CreateNewPage(Page):
 
         self.add(self._createBox)
 
+class AddDialog(UIObject):
+    builderObjects = ["addDialog"]
+    mainWidgetName = "addDialog"
+    uiFile = "spokes/custom.ui"
+
+    def on_add_cancel_clicked(self, button, *args):
+        self.window.destroy()
+
+    def on_add_confirm_clicked(self, button, *args):
+        self.window.destroy()
+
+    def refresh(self):
+        UIObject.refresh(self)
+
+    def run(self):
+        return self.window.run()
+
+class ConfirmDeleteDialog(UIObject):
+    builderObjects = ["confirmDeleteDialog"]
+    mainWidgetName = "confirmDeleteDialog"
+    uiFile = "spokes/custom.ui"
+
+    def on_delete_cancel_clicked(self, button, *args):
+        self.window.destroy()
+
+    def on_delete_confirm_clicked(self, button, *args):
+        self.window.destroy()
+
+    def refresh(self):
+        UIObject.refresh(self)
+
+    def run(self):
+        return self.window.run()
+
 class CustomPartitioningSpoke(NormalSpoke):
     builderObjects = ["customStorageWindow", "sizeAdjustment",
                       "partitionStore",
@@ -258,6 +317,10 @@ class CustomPartitioningSpoke(NormalSpoke):
 
         self._viewport = self.builder.get_object("partitionsViewport")
         self._partitionsNotebook = self.builder.get_object("partitionsNotebook")
+
+        self._addButton = self.builder.get_object("addButton")
+        self._removeButton = self.builder.get_object("removeButton")
+        self._configButton = self.builder.get_object("configureButton")
 
     def initialize(self):
         from pyanaconda.storage.devices import DiskDevice
@@ -347,32 +410,48 @@ class CustomPartitioningSpoke(NormalSpoke):
         summaryLabel.set_use_markup(True)
         summaryLabel.set_markup("<span foreground='blue'><u>%s</u></span>" % summary)
 
+        # Start with buttons disabled, since no filesystem is selected.
+        self._removeButton.set_sensitive(False)
+        self._configButton.set_sensitive(False)
+
         # Now it's time to populate the accordion.
+
+        # We can only have one page expanded at a time.
+        did_expand = False
 
         # If we've not yet run autopart, add an instance of CreateNewPage.  This
         # ensures it's only added once.
         if not self._ran_autopart:
             page = CreateNewPage(self.on_create_clicked)
-            self._accordion.addPage(_("New %s %s Installation") % (productName, productVersion), page)
+            title = _("New %s %s Installation") % (productName, productVersion)
+            self._accordion.addPage(title, page)
+            self._accordion.expandPage(title)
+            did_expand = True
 
             self._partitionsNotebook.set_current_page(0)
             label = self.builder.get_object("whenCreateLabel")
             label.set_text(label.get_text() % (productName, productVersion))
 
         # Add in all the existing (or autopart-created) operating systems.
-        for i in self.storage.roots:
+        for root in self.storage.roots:
             page = Page()
 
-            for swap in i.swaps:
+            for swap in root.swaps:
                 selector = page.addDevice("Swap", swap.size, None, self.on_selector_clicked)
                 selector._device = swap
+                selector._root = root
 
-            for (mountpoint, device) in i.mounts.iteritems():
+            for (mountpoint, device) in root.mounts.iteritems():
                 selector = page.addDevice(self._mountpointName(mountpoint) or device.format.name, device.size, mountpoint, self.on_selector_clicked)
                 selector._device = device
+                selector._root = root
 
             page.show_all()
-            self._accordion.addPage(i.name, page)
+            self._accordion.addPage(root.name, page)
+
+            if not did_expand and self._current_selector and root == self._current_selector._root:
+                did_expand = True
+                self._accordion.expandPage(root.name)
 
         # Anything that doesn't go with an OS we understand?  Put it in the Other box.
         unused = self._unusedDevices()
@@ -382,9 +461,14 @@ class CustomPartitioningSpoke(NormalSpoke):
             for u in unused:
                 selector = page.addDevice(u.format.name, u.size, None, self.on_selector_clicked)
                 selector._device = u
+                selector._root = unused
 
             page.show_all()
             self._accordion.addPage(_("Unknown"), page)
+
+            if not did_expand and self._current_selector and unused == self._current_selector._root:
+                did_expand = True
+                self._accordion.expandPage(_("Unknown"))
 
     ###
     ### RIGHT HAND SIDE METHODS
@@ -484,10 +568,64 @@ class CustomPartitioningSpoke(NormalSpoke):
         NormalSpoke.on_back_clicked(self, button)
 
     def on_add_clicked(self, button):
-        pass
+        dialog = AddDialog(self.data)
+        with enlightbox(self.window, dialog.window):
+            dialog.refresh()
+            rc = dialog.run()
+
+            if rc == 1:
+                # FIXME:  Do creation.
+                pass
+
+    def _remove_from_ui(self, root, device):
+        if device in root.swaps:
+            root.swaps.remove(device)
+        elif hasattr(device.format, "mountpoint") and device.format.mountpoint in root.mounts:
+            root.mounts.pop(device.format.mountpoint)
+        else:
+            # Can this ever happen?
+            return
+
+        # Now that it's removed from the installation root, refreshing the
+        # display will have the effect of making it disappear.  It's like
+        # it never existed.
+        self.refresh()
+
+        page = self._accordion.currentPage()
+        if not page or not page._members:
+            return
+
+        self._populate_right_side(page._members[0])
 
     def on_remove_clicked(self, button):
-        pass
+        from pyanaconda.storage.deviceaction import ActionDestroyFormat, ActionDestroyDevice
+
+        if not self._current_selector:
+            return
+
+        device = self._current_selector._device
+        if device.exists:
+            # This is a device that exists on disk and most likely has data
+            # on it.  Thus, we first need to confirm with the user and then
+            # schedule actions to delete the thing.
+            dialog = ConfirmDeleteDialog(self.data)
+            with enlightbox(self.window, dialog.window):
+                dialog.refresh()
+                rc = dialog.run()
+
+                if rc == 1:
+                    self._remove_from_ui(self, self._current_selector._root, device)
+                    self.storage.devicetree.registerAction(ActionDestroyFormat(device))
+                    self.storage.devicetree.registerAction(ActionDestroyDevice(device))
+        else:
+            # This is a device we just created during custom partitioning so
+            # it's never existed on disk and there's no data on it.  Thus, we
+            # don't need to ask before deleting.  Remove it from the UI first
+            # and then cancel the actions that would create it.
+            self._remove_from_ui(self._current_selector._root, device)
+
+            actions = self.storage.devicetree.findActions(device=device)
+            map(self.storage.devicetree.cancelAction, reversed(actions))
 
     def on_summary_clicked(self, button):
         pass
@@ -502,6 +640,9 @@ class CustomPartitioningSpoke(NormalSpoke):
 
         self._save_right_side(self._current_selector)
         self._populate_right_side(selector)
+
+        self._removeButton.set_sensitive(True)
+        self._configButton.set_sensitive(True)
 
     def on_create_clicked(self, button):
         from pyanaconda.storage import Root
@@ -546,3 +687,4 @@ class CustomPartitioningSpoke(NormalSpoke):
 
         # And refresh the spoke to make the new partitions appear.
         self.refresh()
+        self._accordion.expandPage(newName)
