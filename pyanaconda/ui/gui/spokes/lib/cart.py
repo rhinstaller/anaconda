@@ -44,7 +44,7 @@ class SelectedDisksDialog(UIObject):
     mainWidgetName = "selected_disks_dialog"
     uiFile = "spokes/lib/cart.ui"
 
-    def initialize(self, disks):
+    def initialize(self, disks, showRemove=True):
         for disk in disks:
             self._store.append([disk.description,
                                 size_str(disk.size),
@@ -53,7 +53,10 @@ class SelectedDisksDialog(UIObject):
         self.disks = disks[:]
         self._update_summary()
 
-    def refresh(self, disks):
+        if not showRemove:
+            self.builder.get_object("remove_button").hide()
+
+    def refresh(self, disks, showRemove=True):
         print "REFRESH selected disks dialog"
         super(SelectedDisksDialog, self).refresh()
 
@@ -64,7 +67,7 @@ class SelectedDisksDialog(UIObject):
 
         # clear out the store and repopulate it from the devicetree
         self._store.clear()
-        self.initialize(disks)
+        self.initialize(disks, showRemove)
 
     def run(self):
         rc = self.window.run()

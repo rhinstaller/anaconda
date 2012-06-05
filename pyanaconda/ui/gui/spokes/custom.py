@@ -30,7 +30,6 @@
 # - Removing a device is not very smart.  It needs to take into account LUKS, LVM, RAID,
 #   all that kind of stuff.  If this is the last device in one of those containers, all
 #   the containers should be deleted too.
-# - Summary button doesn't do anything.  What's it supposed to do?
 # - Tabbing behavior in the accordion is weird.
 # - The currently selected MS does not have a little > arrow shown.
 # - The remove confirmation dialog doesn't do anything yet.
@@ -48,6 +47,7 @@ from pyanaconda.storage.size import Size
 
 from pyanaconda.ui.gui import UIObject
 from pyanaconda.ui.gui.spokes import NormalSpoke
+from pyanaconda.ui.gui.spokes.lib.cart import SelectedDisksDialog
 from pyanaconda.ui.gui.utils import enlightbox, setViewportBackground
 from pyanaconda.ui.gui.categories.storage import StorageCategory
 
@@ -628,7 +628,11 @@ class CustomPartitioningSpoke(NormalSpoke):
             map(self.storage.devicetree.cancelAction, reversed(actions))
 
     def on_summary_clicked(self, button):
-        pass
+        dialog = SelectedDisksDialog(self.data)
+
+        with enlightbox(self.window, dialog.window):
+            dialog.refresh(self._clearpartDevices(), showRemove=False)
+            dialog.run()
 
     def on_configure_clicked(self, button):
         pass
