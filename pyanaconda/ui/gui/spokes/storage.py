@@ -43,6 +43,7 @@ from gi.repository import AnacondaWidgets
 
 from pyanaconda.ui.gui import UIObject, communication
 from pyanaconda.ui.gui.spokes import NormalSpoke
+from pyanaconda.ui.gui.spokes.lib.cart import SelectedDisksDialog
 from pyanaconda.ui.gui.categories.storage import StorageCategory
 from pyanaconda.ui.gui.utils import enlightbox, gdk_threaded
 
@@ -103,95 +104,6 @@ def size_str(mb):
         spec = "%s mb" % mb
 
     return str(Size(spec=spec)).upper()
-
-class SelectedDisksDialog(UIObject):
-    builderObjects = ["selected_disks_dialog", "disk_store"]
-    mainWidgetName = "selected_disks_dialog"
-    uiFile = "spokes/storage.ui"
-
-    def initialize(self, disks):
-        for disk in disks:
-            self._store.append([disk.description,
-                                size_str(disk.size),
-                                size_str(disk.format.free),
-                                str(disks.index(disk))])
-        self.disks = disks[:]
-        self._update_summary()
-
-    def refresh(self, disks):
-        print "REFRESH selected disks dialog"
-        super(SelectedDisksDialog, self).refresh()
-
-        self._view = self.builder.get_object("disk_view")
-        self._store = self.builder.get_object("disk_store")
-        self._selection = self.builder.get_object("disk_selection")
-        self._summary_label = self.builder.get_object("summary_label")
-
-        # clear out the store and repopulate it from the devicetree
-        self._store.clear()
-        self.initialize(disks)
-
-    def run(self):
-        rc = self.window.run()
-        self.window.destroy()
-        return rc
-
-    def _get_selection_refs(self):
-        selected_refs = []
-        if self._selection.count_selected_rows():
-            model, selected_paths = self._selection.get_selected_rows()
-            selected_refs = [Gtk.TreeRowReference() for p in selected_paths]
-
-        return selected_refs
-
-    def _update_summary(self):
-        count = 0
-        size = 0
-        free = 0
-        itr = self._store.get_iter_first()
-        while itr:
-            count += 1
-            size += Size(spec=self._store.get_value(itr, 1))
-            free += Size(spec=self._store.get_value(itr, 2))
-            itr = self._store.iter_next(itr)
-
-        size = str(Size(bytes=long(size))).upper()
-        free = str(Size(bytes=long(free))).upper()
-
-        text = P_(("<b>%d disk; %s capacity; %s free space</b> "
-                   "(unpartitioned and in filesystems)"),
-                  ("<b>%d disks; %s capacity; %s free space</b> "
-                   "(unpartitioned and in filesystems)"),
-                  count) % (count, size, free)
-        self._summary_label.set_markup(text)
-
-    # signal handlers
-    def on_remove_clicked(self, button):
-        print "REMOVE CLICKED"#: %s" % self._selection.get_selected().get_value(3)
-        # remove the selected disk(s) from the list and update the summary label
-        #selected_refs = self._get_selection_refs()
-        #for ref in selected_refs:
-        #    path = ref.get_path()
-        #    itr = model.get_iter_from_string(path)
-        #    self._store.remove(itr)
-        model, itr = self._selection.get_selected()
-        if itr:
-            idx = int(model.get_value(itr, 3))
-            disk = self.disks[idx]
-            print "removing %s" % disk.name
-            self._store.remove(itr)
-            self.disks.remove(disk)
-            self._update_summary()
-
-    def on_close_clicked(self, button):
-        print "CLOSE CLICKED"
-
-    def on_selection_changed(self, *args):
-        print "SELECTION CHANGED"
-        model, itr = self._selection.get_selected()
-        if itr:
-            print "new selection: %s" % model.get_value(itr, 3)
-
 
 class InstallOptions1Dialog(UIObject):
     builderObjects = ["options1_dialog"]
