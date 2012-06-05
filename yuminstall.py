@@ -1285,6 +1285,8 @@ class YumBackend(AnacondaBackend):
         self.selectBestKernel(anaconda)
         self.selectBootloader()
         self.selectFSPackages(anaconda.id.fsset, anaconda.id.diskset)
+        if anaconda.id.network.hasActiveIPoIBDevice():
+            self.selectPackage("openib")
 
         self.selectAnacondaNeeds()
 

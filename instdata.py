@@ -190,6 +190,12 @@ class InstallData:
                                        stdout="/dev/tty5", stderr="/dev/tty5",
                                        root=self.anaconda.rootPath)
 
+        if self.network.hasActiveIPoIBDevice():
+            iutil.execWithRedirect("/sbin/chkconfig",
+                                   ["openibd", "on"],
+                                   stdout="/dev/tty5", stderr="/dev/tty5",
+                                   root=self.anaconda.rootPath)
+
         if self.anaconda.isKickstart:
             for svc in self.ksdata.services["disabled"]:
                 iutil.execWithRedirect("/sbin/chkconfig",

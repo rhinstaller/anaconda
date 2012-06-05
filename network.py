@@ -173,6 +173,21 @@ class NetworkDevice(SimpleConfigFile):
 	elif dev.startswith('iucv'):
 	    self.info["TYPE"] = "IUCV"
 
+    def isIPoIB(self):
+        devname = self.info["DEVICE"]
+        try:
+            f = open("/sys/class/net/%s/type" % devname, "r")
+        except Exception, e:
+            log.error("Got an exception trying to get type of %s: "
+                      "%s" %(devname, e))
+            return None
+        type = f.read().strip()
+        f.close()
+        # ARPHRD_INFINIBAND macro from linux/if_arp.h
+        return type == "32"
+
+
+
 class Network:
     def __init__(self):
 	self.firstnetdevice = None
@@ -442,6 +457,12 @@ class Network:
             str = str + ns
         return str
             
+
+    def hasActiveIPoIBDevice(self):
+        for device in self.netdevices.values():
+            if device.get("onboot") and device.isIPoIB():
+                return True
+        return False
 
     def writeKS(self, f):
 	devNames = self.netdevices.keys()
