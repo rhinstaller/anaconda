@@ -82,7 +82,7 @@ class BootloaderPasswordWidget:
             self.passButton.set_sensitive(False)
             self.setPassLabel()
         else:
-            if self.passwordWindow() == 2:
+            if self.passwordWindow() != 1:
                 widget.set_active(0)
             self.setPassLabel()
 
@@ -129,7 +129,7 @@ class BootloaderPasswordWidget:
 
         while 1:
             rc = dialog.run()
-            if rc == 2:
+            if rc != 1:
                 break
 
             if pwEntry.get_text() != confirmEntry.get_text():

@@ -123,8 +123,8 @@ class RaidEditor:
 	while 1:
 	    rc = self.dialog.run()
 
-	    # user hit cancel, do nothing
-	    if rc == 2:
+	    # user hit cancel or Esc, do nothing
+	    if rc != 1:
 		self.destroy()
 		return None
 
@@ -637,8 +637,8 @@ class RaidCloneDialog:
 	while 1:
 	    rc = self.dialog.run()
 
-	    # user hit cancel, do nothing
-	    if rc == 2:
+	    # user hit cancel or Esc, do nothing
+	    if rc != 1:
 		self.destroy()
 		return None
 

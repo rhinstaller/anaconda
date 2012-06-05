@@ -201,8 +201,8 @@ class OSBootWidget:
         while 1:
             rc = dialog.run()
 
-            # cancel
-            if rc == 2:
+            # cancel or Esc
+            if rc != 1:
                 break
 
             label = labelEntry.get_text()

@@ -1302,7 +1302,7 @@ class PartitionWindow(InstallWindow):
 	dialog.show_all()
 	rc = dialog.run()
 	dialog.destroy()
-	if rc == 2:
+	if rc != 1:
 	    return
 
 	# see which option they choose

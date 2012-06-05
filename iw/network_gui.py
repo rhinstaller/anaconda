@@ -221,7 +221,8 @@ class NetworkWindow(InstallWindow):
         while rc == 1:
             editwin.run()
             rc = editwin.getInputValidationResults()
-            if rc == 3:
+            if rc == 3 or rc == 0:
+                editwin.close()
                 return
 
         # collect results
@@ -595,9 +596,10 @@ class NetworkDeviceEditWindow:
         self.ptp_table = self.xml.get_widget("ptp_table")
         self.ptp_address = self.xml.get_widget("ptp_ip")
 
-        self.valid_input = 1
+        self.valid_input = 0
 
     def getInputValidationResults(self):
+        # 0=not set (dialog exited with Esc)
         # 1=invalid input
         # 2=valid input
         # 3=cancel pressed
@@ -607,6 +609,7 @@ class NetworkDeviceEditWindow:
         self.toplevel.show_all()
 
     def run(self):
+        self.valid_input = 0
         self.toplevel.run()
 
     def close(self):
@@ -857,7 +860,6 @@ class NetworkDeviceEditWindow:
 
     def cancelClicked(self, args):
         self.valid_input = 3
-        self.toplevel.destroy()
 
     def _setManualIPv4Sensitivity(self, sensitive):
         self.ipv4_address_label.set_sensitive(sensitive)

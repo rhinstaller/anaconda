@@ -490,7 +490,7 @@ class VolumeGroupEditor:
 
 	while 1:
 	    rc = dialog.run()
-	    if rc == 2:
+	    if rc != 1:
 		dialog.destroy()
 		return
 
@@ -902,7 +902,7 @@ class VolumeGroupEditor:
 	while 1:
 	    rc = self.dialog.run()
 
-	    if rc == 2:
+	    if rc != 1:
 		self.destroy()
 		return None
 

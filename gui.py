@@ -1047,10 +1047,10 @@ class InstallInterface:
     def getInstallKey(self, anaconda, key = ""):
         d = InstallKeyWindow(anaconda, key)
         rc = d.run()
-        if rc == 0:
-            ret = None
-        else:
+        if rc == 1:
             ret = d.get_key()
+        else:
+            ret = None
         d.destroy()
         return ret
 
