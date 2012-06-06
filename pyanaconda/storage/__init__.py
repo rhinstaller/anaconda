@@ -471,6 +471,10 @@ class Storage(object):
         if getattr(self.anaconda, "upgrade", False):
             self.config.clearPartType = CLEARPART_TYPE_NONE
 
+        if self.dasd:
+            # Reset the internal dasd list (823534)
+            self.dasd.clear_device_list()
+
         self.devicetree = DeviceTree(intf=self.intf,
                                      conf=self.config,
                                      passphrase=self.encryptionPassphrase,

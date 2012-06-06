@@ -196,6 +196,10 @@ class DASD:
         if dasd:
             self._devices.append(dasd)
 
+    def clear_device_list(self):
+        """ Clear the device list to force re-populate on next access. """
+        self._devices = []
+
     def write(self):
         """ Write /etc/dasd.conf to target system for all DASD devices
             configured during installation.
