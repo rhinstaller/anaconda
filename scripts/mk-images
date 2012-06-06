@@ -609,6 +609,7 @@ makeinitrd() {
       ln -sf /proc/self/fd/0 stdin
       ln -sf /proc/self/fd/1 stdout
       ln -sf /proc/self/fd/2 stderr
+      ln -sf /proc/self/fd fd
     )
 
     if [ "$BUILDARCH" = "ppc" -o "$BUILDARCH" = "ppc64" ]; then
