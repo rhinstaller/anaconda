@@ -44,7 +44,7 @@ enum {
 
 #define DEFAULT_NAME        "Root"
 #define DEFAULT_SIZE        "0 GB"
-#define DEFAULT_MOUNTPOINT  "/"
+#define DEFAULT_MOUNTPOINT  ""
 
 struct _AnacondaMountpointSelectorPrivate {
     GtkWidget *grid;
@@ -167,7 +167,7 @@ static void anaconda_mountpoint_selector_init(AnacondaMountpointSelector *mountp
 
     /* Create the mountpoint label. */
     mountpoint->priv->mountpoint_label = gtk_label_new(NULL);
-    markup = g_markup_printf_escaped("<span fgcolor='grey' size='small'>%s</span>", _(DEFAULT_MOUNTPOINT));
+    markup = g_markup_printf_escaped("<span fgcolor='grey' size='small'>%s</span>", DEFAULT_MOUNTPOINT);
     gtk_label_set_markup(GTK_LABEL(mountpoint->priv->mountpoint_label), markup);
     gtk_misc_set_alignment(GTK_MISC(mountpoint->priv->mountpoint_label), 0, 0);
     gtk_widget_set_hexpand(GTK_WIDGET(mountpoint->priv->mountpoint_label), TRUE);

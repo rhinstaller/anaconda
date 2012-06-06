@@ -50,7 +50,6 @@ from pyanaconda.ui.gui.spokes.lib.accordion import *
 from pyanaconda.ui.gui.utils import enlightbox, setViewportBackground
 from pyanaconda.ui.gui.categories.storage import StorageCategory
 
-from gi.repository.AnacondaWidgets import MountpointSelector
 from gi.repository import Gtk
 
 __all__ = ["CustomPartitioningSpoke"]
