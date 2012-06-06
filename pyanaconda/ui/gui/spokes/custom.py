@@ -31,7 +31,6 @@
 #   the containers should be deleted too.
 # - Tabbing behavior in the accordion is weird.
 # - The currently selected MS does not have a little > arrow shown.
-# - The remove confirmation dialog doesn't do anything yet.
 # - When all members of a page are removed, the page should be removed from the
 #   accordion and the RHS should be updated to display something else.
 
@@ -84,8 +83,16 @@ class ConfirmDeleteDialog(UIObject):
     def on_delete_confirm_clicked(self, button, *args):
         self.window.destroy()
 
-    def refresh(self):
+    def refresh(self, mountpoint, device):
         UIObject.refresh(self)
+        label = self.builder.get_object("confirmLabel")
+
+        if mountpoint:
+            txt = "%s (%s)" % (mountpoint, device)
+        else:
+            txt = device
+
+        label.set_text(label.get_text() % txt)
 
     def run(self):
         return self.window.run()
@@ -415,11 +422,11 @@ class CustomPartitioningSpoke(NormalSpoke):
             # schedule actions to delete the thing.
             dialog = ConfirmDeleteDialog(self.data)
             with enlightbox(self.window, dialog.window):
-                dialog.refresh()
+                dialog.refresh(getattr(device.format, "mountpoint", None), device.name)
                 rc = dialog.run()
 
                 if rc == 1:
-                    self._remove_from_ui(self, self._current_selector._root, device)
+                    self._remove_from_ui(self._current_selector._root, device)
                     self.storage.devicetree.registerAction(ActionDestroyFormat(device))
                     self.storage.devicetree.registerAction(ActionDestroyDevice(device))
         else:
