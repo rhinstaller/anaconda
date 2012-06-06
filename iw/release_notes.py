@@ -67,8 +67,7 @@ class ReleaseNotesViewer:
 			try:
 				tmpfile = os.path.abspath(
                                         self.anaconda.dispatch.method.getFilename(
-                                                fn, destdir="/tmp", retry=0,
-                                                loglevel=logging.INFO))
+                                                fn, destdir="/tmp", retry=0))
 				if tmpfile is None:
 					continue
 
