@@ -24,7 +24,7 @@
 #   added, too.
 # - Clicking or using a keyboard to open an expander doesn't work.
 # - Clicking on a MountpointSelector does not cause it to be highlighted in blue.
-# - Deleting a newly created device is not reflected in available space in the bottom left.
+# - Deleting an LV is not reflected in available space in the bottom left.
 # - Device descriptions, suggested sizes, etc. should be moved out into a support file.
 # - Removing a device is not very smart.  It needs to take into account LUKS, LVM, RAID,
 #   all that kind of stuff.  If this is the last device in one of those containers, all
@@ -121,10 +121,6 @@ class CustomPartitioningSpoke(NormalSpoke):
 
     def _grabObjects(self):
         self._configureBox = self.builder.get_object("configureBox")
-        self._availableSpaceLabel = self.builder.get_object("availableSpaceLabel")
-        self._totalSpaceLabel = self.builder.get_object("totalSpaceLabel")
-
-        self._summaryButton = self.builder.get_object("summary_button")
 
         self._viewport = self.builder.get_object("partitionsViewport")
         self._partitionsNotebook = self.builder.get_object("partitionsNotebook")
@@ -202,13 +198,12 @@ class CustomPartitioningSpoke(NormalSpoke):
 
         return Size(spec="%s MB" % totalSpace)
 
-    def refresh(self):
-        NormalSpoke.refresh(self)
-
-        # Make sure we start with a clean slate.
-        self._accordion.removeAllPages()
-
+    def _updateSpaceDisplay(self):
         # Set up the free space/available space displays in the bottom left.
+        self._availableSpaceLabel = self.builder.get_object("availableSpaceLabel")
+        self._totalSpaceLabel = self.builder.get_object("totalSpaceLabel")
+        self._summaryButton = self.builder.get_object("summary_button")
+
         self._availableSpaceLabel.set_text(str(self._currentFreeSpace()))
         self._totalSpaceLabel.set_text(str(self._currentTotalSpace()))
 
@@ -220,6 +215,15 @@ class CustomPartitioningSpoke(NormalSpoke):
 
         summaryLabel.set_use_markup(True)
         summaryLabel.set_markup("<span foreground='blue'><u>%s</u></span>" % summary)
+
+    def refresh(self):
+        NormalSpoke.refresh(self)
+        self._do_refresh()
+        self._updateSpaceDisplay()
+
+    def _do_refresh(self):
+        # Make sure we start with a clean slate.
+        self._accordion.removeAllPages()
 
         # Start with buttons disabled, since no filesystem is selected.
         self._removeButton.set_sensitive(False)
@@ -388,7 +392,7 @@ class CustomPartitioningSpoke(NormalSpoke):
                 # FIXME:  Do creation.
                 pass
 
-    def _remove_from_ui(self, root, device):
+    def _remove_from_ui(self, root, device, cb):
         if device in root.swaps:
             root.swaps.remove(device)
         elif hasattr(device.format, "mountpoint") and device.format.mountpoint in root.mounts:
@@ -400,13 +404,29 @@ class CustomPartitioningSpoke(NormalSpoke):
         # Now that it's removed from the installation root, refreshing the
         # display will have the effect of making it disappear.  It's like
         # it never existed.
-        self.refresh()
+        self._do_refresh()
 
+        # Make sure there's something displayed on the RHS.  Just default to
+        # the first mountpoint in the page.
         page = self._accordion.currentPage()
         if not page or not page._members:
             return
 
         self._populate_right_side(page._members[0])
+
+        # Finally, do the remove actions.  This has to come after updating the
+        # display or device.format.mountpoint will disappear and the code at the
+        # top of this method won't work.
+        cb(device)
+        self._updateSpaceDisplay()
+
+    def _remove_existing_cb(self, device):
+        self.storage.devicetree.registerAction(ActionDestroyFormat(device))
+        self.storage.devicetree.registerAction(ActionDestroyDevice(device))
+
+    def _remove_created_cb(self, device):
+        actions = self.storage.devicetree.findActions(device=device)
+        map(self.storage.devicetree.cancelAction, reversed(actions))
 
     def on_remove_clicked(self, button):
         from pyanaconda.storage.deviceaction import ActionDestroyFormat, ActionDestroyDevice
@@ -425,18 +445,15 @@ class CustomPartitioningSpoke(NormalSpoke):
                 rc = dialog.run()
 
                 if rc == 1:
-                    self._remove_from_ui(self._current_selector._root, device)
-                    self.storage.devicetree.registerAction(ActionDestroyFormat(device))
-                    self.storage.devicetree.registerAction(ActionDestroyDevice(device))
+                    self._remove_from_ui(self._current_selector._root, device,
+                                         self._remove_existing_cb)
         else:
             # This is a device we just created during custom partitioning so
             # it's never existed on disk and there's no data on it.  Thus, we
             # don't need to ask before deleting.  Remove it from the UI first
             # and then cancel the actions that would create it.
-            self._remove_from_ui(self._current_selector._root, device)
-
-            actions = self.storage.devicetree.findActions(device=device)
-            map(self.storage.devicetree.cancelAction, reversed(actions))
+            self._remove_from_ui(self._current_selector._root, device,
+                                 self._remove_created_cb)
 
     def on_summary_clicked(self, button):
         dialog = SelectedDisksDialog(self.data)
