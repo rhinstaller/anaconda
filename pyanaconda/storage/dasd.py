@@ -26,6 +26,7 @@ from pyanaconda.storage.errors import DasdFormatError
 from pyanaconda.storage.devices import deviceNameToDiskByPath
 from pyanaconda.constants import *
 from pyanaconda.flags import flags
+from pyanaconda.baseudev import udev_trigger
 
 import logging
 log = logging.getLogger("anaconda")
@@ -85,6 +86,9 @@ class DASD:
 
         if not iutil.isS390():
             return
+
+        # Trigger udev data about the dasd devices on the system
+        udev_trigger(action="change", name="dasd*")
 
         log.info("Checking for unformatted DASD devices:")
 
