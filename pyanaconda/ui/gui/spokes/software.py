@@ -27,6 +27,8 @@ from pyanaconda.ui.gui import communication
 from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.gui.utils import gdk_threaded
 from pyanaconda.ui.gui.categories.software import SoftwareCategory
+from pyanaconda.ui.gui.utils import enlightbox
+from .source import AdditionalReposDialog
 
 __all__ = ["SoftwareSelectionSpoke"]
 
@@ -47,6 +49,8 @@ class SoftwareSelectionSpoke(NormalSpoke):
         self.selectedGroups = []
         self.excludedGroups = []
         self.desktop = None
+
+        self._addRepoDialog = AdditionalReposDialog(self.data)
 
     def apply(self):
         # NOTE:  Other apply methods work directly with the ksdata, but this
@@ -229,5 +233,6 @@ class SoftwareSelectionSpoke(NormalSpoke):
             self.selectedGroups.remove(group)
 
     def on_custom_clicked(self, button):
-        # FIXME: does nothing for now
-        pass
+        with enlightbox(self.window, self._addRepoDialog.window):
+            response =  self._addRepoDialog.run()
+
