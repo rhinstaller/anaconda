@@ -420,6 +420,10 @@ class Storage(object):
         else:
             clearPartType = self.clearPartType
 
+        if self.dasd:
+            # Reset the internal dasd list (823534)
+            self.dasd.clear_device_list()
+
         self.devicetree = DeviceTree(intf=self.anaconda.intf,
                                      ignored=self.ignoredDisks,
                                      exclusive=self.exclusiveDisks,
