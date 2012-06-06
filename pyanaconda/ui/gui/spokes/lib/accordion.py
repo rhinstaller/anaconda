@@ -123,7 +123,6 @@ class Page(Gtk.Box):
         self.add(self._systemBox)
 
         self._members = []
-        self._currentSelector = None
 
     def _make_category_label(self, name):
         label = Gtk.Label()
@@ -145,9 +144,6 @@ class Page(Gtk.Box):
             self._systemBox.add(selector)
 
         return selector
-
-    def currentSelector(self):
-        return self._currentSelector
 
     def _mountpointType(self, mountpoint):
         if not mountpoint:
@@ -172,7 +168,6 @@ class Page(Gtk.Box):
 
         # Then, this callback will set up the right hand side of the screen to
         # show the details for the newly selected object.
-        self._currentSelector = selector
         cb(selector)
 
 class UnknownPage(Page):
@@ -180,7 +175,6 @@ class UnknownPage(Page):
         # For this type of page, there's only one place to store members.
         Gtk.Box.__init__(self, orientation=Gtk.Orientation.VERTICAL, spacing=6)
         self._members = []
-        self._currentSelector = None
 
     def addDevice(self, name, size, mountpoint, cb):
         selector = MountpointSelector()
