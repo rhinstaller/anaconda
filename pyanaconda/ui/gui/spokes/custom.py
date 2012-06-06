@@ -22,7 +22,6 @@
 # TODO:
 # - Add button doesn't do anything.  It may need to ask for what kind of thing is being
 #   added, too.
-# - Clicking or using a keyboard to open an expander doesn't work.
 # - Clicking on a MountpointSelector does not cause it to be highlighted in blue.
 # - Deleting an LV is not reflected in available space in the bottom left.
 # - Device descriptions, suggested sizes, etc. should be moved out into a support file.

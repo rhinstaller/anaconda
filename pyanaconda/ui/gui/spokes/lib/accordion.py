@@ -76,7 +76,7 @@ class Accordion(Gtk.Box):
     def expandPage(self, pageTitle):
         page = self._find_by_title(pageTitle)
         if page:
-            self._onExpanded(page)
+            page.emit("activate")
 
     def removePage(self, pageTitle):
         # First, remove the expander from the list of expanders we maintain.
@@ -96,14 +96,14 @@ class Accordion(Gtk.Box):
         self._expanders = []
 
     def _onExpanded(self, obj):
-        # Currently is expanded, but clicking it this time means it will be
-        # un-expanded.  So we want to return.
-        if obj.get_expanded():
-            obj.set_expanded(False)
-            return
-
+        # Set all other expanders to closed, but don't do anything to the
+        # expander this method was called on.  It's already been handled by
+        # the default activate signal handler.
         for expander in self._expanders:
-            expander.set_expanded(expander == obj)
+            if expander == obj:
+                continue
+
+            expander.set_expanded(False)
 
 # A Page is a box that is stored in an Accordion.  It breaks down all the filesystems that
 # comprise a single installed OS into two categories - Data filesystems and System filesystems.
