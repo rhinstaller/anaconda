@@ -578,13 +578,6 @@ class Network:
 
         ip = self.lookupHostname()
 
-        # If the hostname is not resolvable, tie it to 127.0.0.1
-        if not ip and self.hostname != "localhost.localdomain":
-            localline += self.hostname + " "
-            l = string.split(self.hostname, ".")
-            if len(l) > 1:
-                localline += l[0] + " "
-
         localline += "localhost.localdomain localhost\n"
         f.write("# Do not remove the following line, or various programs\n")
         f.write("# that require network functionality will fail.\n")
