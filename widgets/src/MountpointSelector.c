@@ -17,7 +17,10 @@
  * Author: Chris Lumens <clumens@redhat.com>
  */
 
+#include <unistd.h>
 #include <gdk/gdk.h>
+#include <glib.h>
+#include <glib/gstdio.h>
 
 #include "MountpointSelector.h"
 #include "intl.h"
@@ -118,7 +121,7 @@ static void anaconda_mountpoint_selector_class_init(AnacondaMountpointSelectorCl
  * anaconda_mountpoint_selector_new:
  *
  * Creates a new #AnacondaMountpointSelector, which is a selectable display for a
- * single mountpoint.  Many mountpoints may be pot together into a list, displaying
+ * single mountpoint.  Many mountpoints may be put together into a list, displaying
  * all configured filesystems at once.
  *
  * Returns: A new #AnacondaMountpointSelector.
@@ -127,7 +130,33 @@ GtkWidget *anaconda_mountpoint_selector_new() {
     return g_object_new(ANACONDA_TYPE_MOUNTPOINT_SELECTOR, NULL);
 }
 
+static gchar *find_pixmap(const gchar *file) {
+    const gchar *envvar;
+    gchar **paths, **iterator = NULL;
+
+    envvar = g_getenv("PIXMAPPATH");
+    if (!envvar)
+       envvar = g_strdup("/usr/share/anaconda/pixmaps");
+
+    paths = g_strsplit(envvar, ":", 0);
+    iterator = paths;
+
+    while (*iterator != NULL) {
+        gchar *path = g_strjoin("/", *iterator, file, NULL);
+
+        if (!g_access(path, R_OK))
+           return path;
+
+        g_free(path);
+        iterator++;
+    }
+
+    g_strfreev(paths);
+    return NULL;
+}
+
 static void anaconda_mountpoint_selector_init(AnacondaMountpointSelector *mountpoint) {
+    gchar *pixmap_path;
     char *markup;
 
     mountpoint->priv = G_TYPE_INSTANCE_GET_PRIVATE(mountpoint,
@@ -147,8 +176,15 @@ static void anaconda_mountpoint_selector_init(AnacondaMountpointSelector *mountp
     gtk_grid_set_column_spacing(GTK_GRID(mountpoint->priv->grid), 12);
     gtk_widget_set_margin_left(GTK_WIDGET(mountpoint->priv->grid), 30);
 
-    /* Create the icons. */
-    mountpoint->priv->arrow = NULL;
+    /* Create the icon.  We don't need to check if find_pixmap returned NULL
+     * since gtk_image_new_from_file will just display a broken image icon in
+     * that case.  That's good enough error notification.
+     */
+    pixmap_path = find_pixmap("right-arrow-icon.png");
+    mountpoint->priv->arrow = gtk_image_new_from_file(pixmap_path);
+    gtk_widget_set_no_show_all(GTK_WIDGET(mountpoint->priv->arrow), TRUE);
+    gtk_widget_set_margin_right(GTK_WIDGET(mountpoint->priv->arrow), 6);
+    g_free(pixmap_path);
 
     /* Create the name label. */
     mountpoint->priv->name_label = gtk_label_new(NULL);
@@ -162,7 +198,7 @@ static void anaconda_mountpoint_selector_init(AnacondaMountpointSelector *mountp
     mountpoint->priv->size_label = gtk_label_new(NULL);
     markup = g_markup_printf_escaped("<span fgcolor='black' size='large' weight='bold'>%s</span>", _(DEFAULT_SIZE));
     gtk_label_set_markup(GTK_LABEL(mountpoint->priv->size_label), markup);
-    gtk_misc_set_alignment(GTK_MISC(mountpoint->priv->size_label), 0, 0);
+    gtk_misc_set_alignment(GTK_MISC(mountpoint->priv->size_label), 0, 0.5);
     g_free(markup);
 
     /* Create the mountpoint label. */
@@ -175,7 +211,8 @@ static void anaconda_mountpoint_selector_init(AnacondaMountpointSelector *mountp
 
     /* Add everything to the grid, add the grid to the widget. */
     gtk_grid_attach(GTK_GRID(mountpoint->priv->grid), mountpoint->priv->name_label, 0, 0, 1, 1);
-    gtk_grid_attach(GTK_GRID(mountpoint->priv->grid), mountpoint->priv->size_label, 1, 0, 1, 1);
+    gtk_grid_attach(GTK_GRID(mountpoint->priv->grid), mountpoint->priv->size_label, 1, 0, 1, 2);
+    gtk_grid_attach(GTK_GRID(mountpoint->priv->grid), mountpoint->priv->arrow, 2, 0, 1, 2);
     gtk_grid_attach(GTK_GRID(mountpoint->priv->grid), mountpoint->priv->mountpoint_label, 0, 1, 1, 2);
 
     gtk_container_add(GTK_CONTAINER(mountpoint), mountpoint->priv->grid);
@@ -232,8 +269,14 @@ static gboolean anaconda_mountpoint_selector_focus_changed(GtkWidget *widget, Gd
     GtkStateFlags new_state;
 
     new_state = gtk_widget_get_state_flags(widget) & ~GTK_STATE_FOCUSED;
-    if (event->in)
+    if (event->in) {
+        gtk_widget_show(GTK_WIDGET(ANACONDA_MOUNTPOINT_SELECTOR(widget)->priv->arrow));
         new_state |= GTK_STATE_FOCUSED;
+    }
+    else {
+        gtk_widget_hide(GTK_WIDGET(ANACONDA_MOUNTPOINT_SELECTOR(widget)->priv->arrow));
+    }
+
     gtk_widget_set_state_flags(widget, new_state, TRUE);
     return FALSE;
 }

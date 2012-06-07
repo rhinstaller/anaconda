@@ -29,7 +29,6 @@
 #   all that kind of stuff.  If this is the last device in one of those containers, all
 #   the containers should be deleted too.
 # - Tabbing behavior in the accordion is weird.
-# - The currently selected MS does not have a little > arrow shown.
 # - When all members of a page are removed, the page should be removed from the
 #   accordion and the RHS should be updated to display something else.
 
