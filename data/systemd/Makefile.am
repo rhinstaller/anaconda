@@ -19,6 +19,6 @@
 
 systemddir = /lib/systemd/system
 generatordir = /lib/systemd/system-generators
-dist_systemd_DATA = anaconda-shell@.service anaconda.target anaconda@.service instperf.service
+dist_systemd_DATA = anaconda-shell@.service anaconda.target anaconda@.service instperf.service anaconda-sshd.service
 dist_generator_SCRIPTS = anaconda-generator
 MAINTAINERCLEANFILES = Makefile.in
