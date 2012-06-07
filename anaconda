@@ -610,6 +610,7 @@ if __name__ == "__main__":
     from pyanaconda import iutil
     from pyanaconda import vnc
     from pyanaconda import kickstart
+    from pyanaconda import ntp
 
     import gettext
     _ = lambda x: gettext.ldgettext("anaconda", x)
@@ -834,6 +835,14 @@ if __name__ == "__main__":
     threadMgr.add(AnacondaThread(name="AnaPayloadThread", target=payloadInitialize, args=(anaconda.storage, ksdata, anaconda.payload)))
 
     atexit.register(exitHandler, ksdata.reboot, anaconda.storage)
+
+    # setup ntp servers and start NTP daemon if not requested otherwise
+    if (not flags.imageInstall) and anaconda.ksdata.timezone.ntp_servers:
+        ntp.save_servers_to_config(anaconda.ksdata.timezone.ntp_servers)
+
+    if not anaconda.ksdata.timezone.nontp:
+        iutil.start_service("chronyd")
+
     # FIXME:  This will need to be made cleaner once this file starts to take
     # shape with the new UI code.
     anaconda._intf.setup(ksdata)
