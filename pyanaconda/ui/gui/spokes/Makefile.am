@@ -1,4 +1,4 @@
-# Copyright (C) 2011  Red Hat, Inc.
+# Copyright (C) 2011, 2012  Red Hat, Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU Lesser General Public License as published
@@ -14,6 +14,8 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 # Author: Chris Lumens <clumens@redhat.com>
+
+SUBDIRS = lib
 
 MAINTAINERCLEANFILES = Makefile.in
 
