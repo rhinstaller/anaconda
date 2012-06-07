@@ -658,7 +658,7 @@ class DeviceTree(object):
                 if slave_name.startswith("dm-"):
                     dev_name = dm.name_from_dm_node(slave_name)
                 else:
-                    dev_name = slave_name
+                    dev_name = slave_name.replace("!", "/") # handles cciss
                 slave_dev = self.getDeviceByName(dev_name)
                 path = os.path.normpath("%s/%s" % (dir, slave_name))
                 new_info = udev_get_block_device(os.path.realpath(path)[4:])
