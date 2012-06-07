@@ -74,6 +74,9 @@ check_removed_arg() {
 check_depr_args "blacklist=" "inst.blacklist=%s"
 check_depr_arg "nofirewire" "inst.blacklist=firewire_ohci"
 
+# ssh
+check_depr_arg "sshd" "inst.sshd"
+
 # serial was never supposed to be used for anything!
 check_removed_arg serial "To change the console use 'console=' instead."
 # USB is built-in and can't be disabled anymore. DEAL WITH IT.
