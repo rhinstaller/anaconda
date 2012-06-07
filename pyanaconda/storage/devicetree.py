@@ -860,7 +860,12 @@ class DeviceTree(object):
             log.info("%s is an fcoe disk" % name)
         elif udev_device_get_md_container(info):
             diskType = MDRaidArrayDevice
-            parentName = devicePathToName(udev_device_get_md_container(info))
+            parentPath = udev_device_get_md_container(info)
+            if os.path.islink(parentPath):
+                parentPath = os.path.join(os.path.dirname(parentPath),
+                                          os.readlink(parentPath))
+
+            parentName = devicePathToName(os.path.normpath(parentPath))
             container = self.getDeviceByName(parentName)
             if not container:
                 container_sysfs = "/class/block/" + parentName
