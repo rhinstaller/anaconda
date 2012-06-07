@@ -62,6 +62,9 @@ struct _AnacondaMountpointSelectorClass {
 GType       anaconda_mountpoint_selector_get_type (void);
 GtkWidget  *anaconda_mountpoint_selector_new      ();
 
+gboolean    anaconda_mountpoint_selector_get_chosen (AnacondaMountpointSelector *widget);
+void        anaconda_mountpoint_selector_set_chosen (AnacondaMountpointSelector *widget, gboolean is_chosen);
+
 G_END_DECLS
 
 #endif

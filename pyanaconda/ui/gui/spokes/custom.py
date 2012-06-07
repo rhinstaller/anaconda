@@ -22,7 +22,6 @@
 # TODO:
 # - Add button doesn't do anything.  It may need to ask for what kind of thing is being
 #   added, too.
-# - Clicking on a MountpointSelector does not cause it to be highlighted in blue.
 # - Deleting an LV is not reflected in available space in the bottom left.
 # - Device descriptions, suggested sizes, etc. should be moved out into a support file.
 # - Removing a device is not very smart.  It needs to take into account LUKS, LVM, RAID,
@@ -364,8 +363,6 @@ class CustomPartitioningSpoke(NormalSpoke):
                 fsCombo.set_active(i)
                 break
 
-        self._current_selector = selector
-
     ###
     ### SIGNAL HANDLERS
     ###
@@ -468,8 +465,15 @@ class CustomPartitioningSpoke(NormalSpoke):
         # a new OS" label.
         self._partitionsNotebook.set_current_page(1)
 
-        self._save_right_side(self._current_selector)
+        # Take care of the previously chosen selector.
+        if self._current_selector:
+            self._save_right_side(self._current_selector)
+            self._current_selector.set_chosen(False)
+
+        # Set up the newly chosen selector.
         self._populate_right_side(selector)
+        selector.set_chosen(True)
+        self._current_selector = selector
 
         self._removeButton.set_sensitive(True)
         self._configButton.set_sensitive(True)

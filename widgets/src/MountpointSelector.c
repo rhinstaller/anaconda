@@ -53,6 +53,8 @@ struct _AnacondaMountpointSelectorPrivate {
     GtkWidget *grid;
     GtkWidget *name_label, *size_label, *mountpoint_label;
     GtkWidget *arrow;
+
+    gboolean   chosen;
 };
 
 G_DEFINE_TYPE(AnacondaMountpointSelector, anaconda_mountpoint_selector, GTK_TYPE_EVENT_BOX)
@@ -60,6 +62,7 @@ G_DEFINE_TYPE(AnacondaMountpointSelector, anaconda_mountpoint_selector, GTK_TYPE
 static void anaconda_mountpoint_selector_get_property(GObject *object, guint prop_id, GValue *value, GParamSpec *pspec);
 static void anaconda_mountpoint_selector_set_property(GObject *object, guint prop_id, const GValue *value, GParamSpec *pspec);
 
+static void     anaconda_mountpoint_selector_toggle_background(AnacondaMountpointSelector *widget);
 static gboolean anaconda_mountpoint_selector_focus_changed(GtkWidget *widget, GdkEventFocus *event, gpointer user_data);
 
 static void anaconda_mountpoint_selector_class_init(AnacondaMountpointSelectorClass *klass) {
@@ -186,6 +189,9 @@ static void anaconda_mountpoint_selector_init(AnacondaMountpointSelector *mountp
     gtk_widget_set_margin_right(GTK_WIDGET(mountpoint->priv->arrow), 6);
     g_free(pixmap_path);
 
+    /* Set some properties. */
+    mountpoint->priv->chosen = FALSE;
+
     /* Create the name label. */
     mountpoint->priv->name_label = gtk_label_new(NULL);
     markup = g_markup_printf_escaped("<span fgcolor='black' size='large' weight='bold'>%s</span>", _(DEFAULT_NAME));
@@ -279,4 +285,45 @@ static gboolean anaconda_mountpoint_selector_focus_changed(GtkWidget *widget, Gd
 
     gtk_widget_set_state_flags(widget, new_state, TRUE);
     return FALSE;
+}
+
+static void anaconda_mountpoint_selector_toggle_background(AnacondaMountpointSelector *widget) {
+    if (widget->priv->chosen) {
+        GdkRGBA color;
+        gdk_rgba_parse(&color, "#4a90d9");
+        gtk_widget_override_background_color(GTK_WIDGET(widget), GTK_STATE_FLAG_NORMAL, &color);
+    }
+    else
+       gtk_widget_override_background_color(GTK_WIDGET(widget), GTK_STATE_FLAG_NORMAL, NULL);
+}
+
+/**
+ * anaconda_mountpoint_selector_get_chosen:
+ * @widget: a #AnacondaMountpointSelector
+ *
+ * Returns whether or not this mountpoint has been chosen by the user.
+ *
+ * Returns: Whether @widget has been chosen.
+ *
+ * Since: 1.0
+ */
+gboolean anaconda_mountpoint_selector_get_chosen(AnacondaMountpointSelector *widget) {
+    return widget->priv->chosen;
+}
+
+/**
+ * anaconda_mountpoint_selector_set_chosen:
+ * @widget: a #AnacondaMountpointSelector
+ * @is_chosen: %TRUE if this mountpoint is chosen.
+ *
+ * Specifies whether the mountpoint shown by this selector has been chosen by
+ * the user.  If so, a special background will be set as a visual indicator.
+ *
+ * Since: 1.0
+ */
+void anaconda_mountpoint_selector_set_chosen(AnacondaMountpointSelector *widget, gboolean is_chosen) {
+    widget->priv->chosen = is_chosen;
+    anaconda_mountpoint_selector_toggle_background(widget);
+    if (is_chosen)
+        gtk_widget_grab_focus(GTK_WIDGET(widget));
 }

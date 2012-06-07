@@ -136,6 +136,7 @@ class Page(Gtk.Box):
         selector = MountpointSelector(name, str(Size(spec="%s MB" % size)), mountpoint or "")
         selector.connect("button-press-event", self._onClicked, cb)
         selector.connect("key-release-event", self._onClicked, cb)
+        selector.connect("focus-in-event", self._onClicked, cb)
         self._members.append(selector)
 
         if self._mountpointType(mountpoint) == DATA_DEVICE:
@@ -157,9 +158,7 @@ class Page(Gtk.Box):
     def _onClicked(self, selector, event, cb):
         from gi.repository import Gdk
 
-        # This handler only runs for these two kinds of events, and only for
-        # activate-type keys (space, enter) in the latter event's case.
-        if event and not event.type in [Gdk.EventType.BUTTON_PRESS, Gdk.EventType.KEY_RELEASE]:
+        if event and not event.type in [Gdk.EventType.BUTTON_PRESS, Gdk.EventType.KEY_RELEASE, Gdk.EventType.FOCUS_CHANGE]:
             return
 
         if event and event.type == Gdk.EventType.KEY_RELEASE and \
@@ -181,6 +180,7 @@ class UnknownPage(Page):
         selector = MountpointSelector(name, str(Size(spec="%s MB" % size)), mountpoint or "")
         selector.connect("button-press-event", self._onClicked, cb)
         selector.connect("key-release-event", self._onClicked, cb)
+        selector.connect("focus-in-event", self._onClicked, cb)
 
         self._members.append(selector)
         self.add(selector)
