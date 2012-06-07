@@ -71,6 +71,21 @@ class NTPconfigDialog(UIObject):
 
         return None
 
+    @property
+    def servers(self):
+        ret = list()
+
+        itr = self._serversStore.get_iter_first()
+        while itr:
+            row = self._serversStore[itr]
+            if row[2]:
+                #server checked
+                ret.append(row[0])
+
+            itr = self._serversStore.iter_next()
+
+        return ret
+
     def _render_working(self, column, renderer, model, itr, user_data=None):
         #get the value in the second column
         value = model[itr][1]
@@ -736,6 +751,8 @@ class DatetimeSpoke(NormalSpoke):
             response = self._config_dialog.run()
 
         if response == 1:
+            self.data.timezone.ntp_servers = self._config_dialog.servers
+
             if self._config_dialog.working_server is None:
                 self._show_no_ntp_server_warning()
             else:

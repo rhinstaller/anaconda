@@ -46,6 +46,7 @@ import pykickstart.commands as commands
 from storage.devices import *
 from scdate.core import zonetab
 from pyanaconda import keyboard
+from pyanaconda import ntp
 
 from pykickstart.base import KickstartCommand
 from pykickstart.constants import *
@@ -1015,6 +1016,10 @@ class Timezone(commands.timezone.FC6_Timezone):
 
         self.anaconda.timezone.setTimezoneInfo(self.timezone, self.isUtc)
         self.anaconda.dispatch.skip_steps("timezone")
+
+        chronyd_conf_path = os.path.join(ROOT_PATH, ntp.NTP_CONFIG_FILE)
+        ntp.save_servers_to_config(self.ntp_servers,
+                                   conf_file_path=chronyd_conf_path)
 
 class VolGroupData(commands.volgroup.FC3_VolGroupData):
     def execute(self):
