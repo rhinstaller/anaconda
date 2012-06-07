@@ -707,8 +707,14 @@ class DatetimeSpoke(NormalSpoke):
                 return
             else:
                 self.window.clear_info()
-                if self._config_dialog.working_server is None:
+
+                working_server = self._config_dialog.working_server
+                if working_server is None:
                     self._show_no_ntp_server_warning()
+                else:
+                    #we need a one-time sync here, because chronyd would not change
+                    #the time as drastically as we need
+                    ntp.one_time_sync_async(working_server)
 
             ret = iutil.start_service("chronyd")
             self._set_date_time_setting_sensitive(False)

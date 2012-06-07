@@ -25,6 +25,9 @@ Module facilitating the work with NTP servers and NTP daemon's configuration
 
 import re, os, tempfile
 
+from pyanaconda import iutil
+from pyanaconda.threads import threadMgr, AnacondaThread
+
 NTP_CONFIG_FILE = "/etc/chrony.conf"
 
 #example line:
@@ -143,3 +146,48 @@ def save_servers_to_config(servers, conf_file_path=NTP_CONFIG_FILE,
 
     old_conf_file.close()
     new_conf_file.close()
+
+def one_time_sync(server, callback=None):
+    """
+    Synchronize the system time with a given NTP server. Note that this
+    function is blocking and will not return until the time gets synced or
+    querying server fails (may take some time before timeouting).
+
+    @param server: NTP server
+    @param callback: callback function to run after sync or failure
+    @type callback: a function taking one boolean argument (success)
+    @return: True if the sync was successful, False otherwise
+
+    """
+
+    ret = iutil.execWithRedirect("rdate", ["-s", server], stdout="/dev/tty5",
+                                 stderr="/dev/tty5")
+
+    success = ret == 0
+
+    if callback is not None:
+        callback(success)
+
+    return success
+
+def one_time_sync_async(server, callback=None):
+    """
+    Asynchronously synchronize the system time with a given NTP server. This
+    function is non-blocking it starts a new thread for synchronization and
+    returns. Use callback argument to specify the function called when the
+    new thread finishes if needed.
+
+    @param server: NTP server
+    @param callback: callback function to run after sync or failure
+    @type callback: a function taking one boolean argument (success)
+
+    """
+
+    thread_name = "AnaSyncTime_%s" % server
+    if threadMgr.get(thread_name):
+        #syncing with the same server running
+        return
+
+    threadMgr.add(AnacondaThread(name=thread_name, target=one_time_sync,
+                                 args=(server, callback)))
+
