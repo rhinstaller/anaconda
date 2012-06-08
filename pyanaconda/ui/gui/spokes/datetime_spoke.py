@@ -60,14 +60,10 @@ class NTPconfigDialog(UIObject):
 
     @property
     def working_server(self):
-        itr = self._serversStore.get_iter_first()
-        while itr:
-            row = self._serversStore[itr]
+        for row in self._serversStore:
             if row[1] == SERVER_OK and row[2]:
                 #server is checked and working
                 return row[0]
-
-            itr = self._serversStore.iter_next(itr)
 
         return None
 
@@ -75,14 +71,10 @@ class NTPconfigDialog(UIObject):
     def servers(self):
         ret = list()
 
-        itr = self._serversStore.get_iter_first()
-        while itr:
-            row = self._serversStore[itr]
+        for row in self._serversStore:
             if row[2]:
                 #server checked
                 ret.append(row[0])
-
-            itr = self._serversStore.iter_next()
 
         return ret
 
@@ -134,15 +126,10 @@ class NTPconfigDialog(UIObject):
         if rc == 1:
             new_servers = list()
 
-            itr = self._serversStore.get_iter_first()
-            while itr:
-                row = self._serversStore[itr]
-
+            for row in self._serversStore:
                 #if server checked
                 if row[2]:
                     new_servers.append(row[0])
-
-                itr = self._serversStore.iter_next(itr)
 
             ntp.save_servers_to_config(new_servers)
             iutil.restart_service("chronyd")
@@ -210,13 +197,10 @@ class NTPconfigDialog(UIObject):
         self._threads_counter += 1
 
     def _add_server(self, server):
-        itr = self._serversStore.get_iter_first()
-        while itr:
-            if self._serversStore[itr][0] == server:
+        for row in self._serversStore:
+            if row[0] == server:
                 #do not add duplicate items
                 return
-
-            itr = self._serversStore.iter_next(itr)
 
         itr = self._serversStore.append([server, SERVER_QUERY, True])
 

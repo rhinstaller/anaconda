@@ -66,13 +66,10 @@ def get_servers_from_config(conf_file_path=NTP_CONFIG_FILE,
 
     try:
         with open(conf_file_path, "r") as conf_file:
-            line = conf_file.readline()
-            while line:
+            for line in conf_file:
                 match = srv_regexp.match(line)
                 if match:
                     ret.append(match.group(1))
-
-                line = conf_file.readline()
 
     except IOError as ioerr:
         msg = "Cannot open config file %s for reading (%s)" % (conf_file_path,
@@ -128,12 +125,9 @@ def save_servers_to_config(servers, conf_file_path=NTP_CONFIG_FILE,
         new_conf_file.write("server " + server + " iburst\n")
 
     #copy non-server lines from the old config and skip our heading
-    line = old_conf_file.readline()
-    while line:
+    for line in old_conf_file:
         if not srv_regexp.match(line) and line != heading:
             new_conf_file.write(line)
-
-        line = old_conf_file.readline()
 
     if not out_file_path:
         try:

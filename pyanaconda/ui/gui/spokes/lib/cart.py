@@ -86,12 +86,10 @@ class SelectedDisksDialog(UIObject):
         count = 0
         size = 0
         free = 0
-        itr = self._store.get_iter_first()
-        while itr:
+        for row in self._store:
             count += 1
-            size += Size(spec=self._store.get_value(itr, 1))
-            free += Size(spec=self._store.get_value(itr, 2))
-            itr = self._store.iter_next(itr)
+            size += Size(spec=row[1])
+            free += Size(spec=row[2])
 
         size = str(Size(bytes=long(size))).upper()
         free = str(Size(bytes=long(free))).upper()

@@ -133,10 +133,8 @@ class KeyboardSpoke(NormalSpoke):
     def apply(self):
         # Clear and repopulate self.data with actual values
         self.data.keyboard.layouts_list = list()
-        itr = self._store.get_iter_first()
-        while itr:
-            self.data.keyboard.layouts_list.append(self._store[itr][0])
-            itr = self._store.iter_next(itr)
+        for row in self._store:
+            self.data.keyboard.layouts_list.append(row[0])
         # FIXME:  Set the keyboard layout here, too.
 
     @property
@@ -206,12 +204,10 @@ class KeyboardSpoke(NormalSpoke):
 
         if response == 1:
             duplicates = set()
-            itr = self._store.get_iter_first()
-            while itr:
-                item = self._store[itr][0]
+            for row in self._store:
+                item = row[0]
                 if item in dialog.chosen_layouts:
                     duplicates.add(item)
-                itr = self._store.iter_next(itr)
 
             for layout in dialog.chosen_layouts:
                 if layout not in duplicates:
@@ -335,10 +331,8 @@ class KeyboardSpoke(NormalSpoke):
     def _flush_layouts_to_X(self):
         layouts_list = list()
 
-        itr = self._store.get_iter_first()
-        while itr:
-            layouts_list.append(self._store[itr][0])
-            itr = self._store.iter_next(itr)
+        for row in self._store:
+            layouts_list.append(row[0])
 
         self._xkl_wrapper.replace_layouts(layouts_list)
 
