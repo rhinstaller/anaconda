@@ -1170,7 +1170,7 @@ class Storage(object):
         errors = []
 
         mustbeonlinuxfs = ['/', '/var', '/tmp', '/usr', '/home', '/usr/share', '/usr/lib']
-        mustbeonroot = ['/bin','/dev','/sbin','/etc','/lib','/root', '/mnt', 'lost+found', '/proc', '/usr']
+        mustbeonroot = ['/bin','/dev','/sbin','/etc','/lib','/root', '/mnt', 'lost+found', '/proc']
 
         filesystems = self.mountpoints
         root = self.fsset.rootDevice
