@@ -58,7 +58,6 @@ class Flags(object):
         self.targetarch = None
         self.useIPv4 = True
         self.useIPv6 = True
-        self.sshd = 0
         self.preexisting_x11 = False
         self.noverifyssl = False
         self.imageInstall = False
@@ -76,7 +75,7 @@ class Flags(object):
             self.read_cmdline()
 
     def read_cmdline(self):
-        for f in ("selinux", "sshd", "debug"):
+        for f in ("selinux", "debug"):
             self.set_cmdline_bool(f)
 
         if "rpmarch" in self.cmdline:
