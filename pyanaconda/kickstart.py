@@ -47,9 +47,9 @@ import urlgrabber
 import network
 import pykickstart.commands as commands
 from storage.devices import *
-from scdate.core import zonetab
 from pyanaconda import keyboard
 from pyanaconda import ntp
+from pyanaconda import localization
 from pyanaconda.simpleconfig import SimpleConfigFile
 
 from pykickstart.base import KickstartCommand
@@ -1253,14 +1253,8 @@ class Services(commands.services.FC6_Services):
 
 class Timezone(commands.timezone.F18_Timezone):
     def execute(self):
-        # check validity
-        tab = zonetab.ZoneTab()
-        if self.timezone not in (entry.tz.replace(' ','_') for entry in
-                                 tab.getEntries()):
+        if not localization.is_valid_timezone(self.timezone):
             log.warning("Timezone %s set in kickstart is not valid." % (self.timezone,))
-
-        self.anaconda.timezone.setTimezoneInfo(self.timezone, self.isUtc)
-
         chronyd_conf_path = os.path.normpath(ROOT_PATH + ntp.NTP_CONFIG_FILE)
         ntp.save_servers_to_config(self.ntpservers,
                                    conf_file_path=chronyd_conf_path)

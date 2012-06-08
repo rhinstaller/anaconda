@@ -301,3 +301,6 @@ def get_all_regions_and_timezones():
             result[parts[0]].add(parts[1])
 
     return result
+
+def is_valid_timezone(timezone):
+    return timezone in pytz.common_timezones
