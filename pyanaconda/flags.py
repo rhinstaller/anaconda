@@ -67,6 +67,7 @@ class Flags(object):
         # device is
         self.virtpconsole = None
         self.gpt = False
+        self.leavebootorder = False
         # parse the boot commandline
         self.cmdline = BootArgs()
         # Lock it down: no more creating new flags!
@@ -75,7 +76,7 @@ class Flags(object):
             self.read_cmdline()
 
     def read_cmdline(self):
-        for f in ("selinux", "debug"):
+        for f in ("selinux", "debug", "leavebootorder"):
             self.set_cmdline_bool(f)
 
         if "rpmarch" in self.cmdline:

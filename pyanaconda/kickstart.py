@@ -256,7 +256,7 @@ class AutoStep(commands.autostep.FC3_AutoStep):
         flags.autostep = 1
         flags.autoscreenshot = self.autoscreenshot
 
-class Bootloader(commands.bootloader.F17_Bootloader):
+class Bootloader(commands.bootloader.F18_Bootloader):
     def execute(self):
         if self.location == "none":
             location = None
@@ -303,6 +303,9 @@ class Bootloader(commands.bootloader.F17_Bootloader):
                 spec = udev_resolve_devspec(self.bootDrive)
                 drive = self.anaconda.storage.devicetree.getDeviceByName(spec)
                 self.anaconda.bootloader.stage1_drive = drive
+
+        if self.leavebootorder:
+            flags.leavebootorder = True
 
         self.anaconda.dispatch.skip_steps("upgbootloader", "bootloader")
 

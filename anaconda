@@ -267,6 +267,7 @@ def parseOptions(argv=None, cmdline=None):
     op.add_option("--image", action="append", dest="images", default=[])
     op.add_option("--memcheck", action="store_true", default=True)
     op.add_option("--nomemcheck", action="store_false", dest="memcheck")
+    op.add_option("--leavebootorder", action="store_true", default=False)
 
     # some defaults change based on cmdline flags
     if cmdline is not None:
