@@ -248,6 +248,14 @@ update-desktop-database &> /dev/null || :
 /usr/lib/dracut/modules.d/80%{name}/*
 
 %changelog
+* Fri Jun 08 2012 David Cantrell <dcantrell@redhat.com> - 17.28.4-1
+- Handle md arrays with cciss member devices. (dlehman)
+  Related: rhbz#797065
+- Assure pvremove that we indeed want it to remove a pv. (dlehman)
+  Resolves: rhbz#820575
+- Resolve symbolic link values of MD_CONTAINER. (dlehman)
+  Resolves: rhbz#822313
+
 * Thu Jun 07 2012 David Cantrell <dcantrell@redhat.com> - 17.28.3-1
 - Use dasd_mod format for rd.dasd= content (jkeating)
   Resolves: rhbz#825256
