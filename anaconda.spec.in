@@ -248,6 +248,14 @@ update-desktop-database &> /dev/null || :
 /usr/lib/dracut/modules.d/80%{name}/*
 
 %changelog
+* Thu Jun 07 2012 David Cantrell <dcantrell@redhat.com> - 17.28.3-1
+- Use dasd_mod format for rd.dasd= content (jkeating)
+  Resolves: rhbz#825256
+- dracut: fix parse-kickstart traceback with 'network' command (wwoods)
+  Resolves: rhbz#824842
+- Do not --force systemctl reboot (rvykydal)
+  Resolves: rhbz#818581
+
 * Thu May 24 2012 David Cantrell <dcantrell@redhat.com> - 17.28.2-1
 - Don't call a util we don't have (jkeating)
   Resolves: rhbz#824690
