@@ -24,6 +24,7 @@
 #   added, too.
 # - Deleting an LV is not reflected in available space in the bottom left.
 # - Device descriptions, suggested sizes, etc. should be moved out into a support file.
+# - Newly created devices can not be resized (because self.resizable requires self.exists).
 # - Removing a device is not very smart.  It needs to take into account LUKS, LVM, RAID,
 #   all that kind of stuff.  If this is the last device in one of those containers, all
 #   the containers should be deleted too.
@@ -119,8 +120,10 @@ class CustomPartitioningSpoke(NormalSpoke):
     def _grabObjects(self):
         self._configureBox = self.builder.get_object("configureBox")
 
-        self._viewport = self.builder.get_object("partitionsViewport")
+        self._partitionsViewport = self.builder.get_object("partitionsViewport")
         self._partitionsNotebook = self.builder.get_object("partitionsNotebook")
+
+        self._optionsNotebook = self.builder.get_object("optionsNotebook")
 
         self._addButton = self.builder.get_object("addButton")
         self._removeButton = self.builder.get_object("removeButton")
@@ -135,10 +138,17 @@ class CustomPartitioningSpoke(NormalSpoke):
         self._grabObjects()
         setViewportBackground(self.builder.get_object("availableSpaceViewport"), "#db3279")
         setViewportBackground(self.builder.get_object("totalSpaceViewport"), "#60605b")
-        setViewportBackground(self._viewport)
+        setViewportBackground(self._partitionsViewport)
+
+        # Set the background of the options notebook to slightly darker than
+        # everything else, and give it a border.
+        provider = Gtk.CssProvider()
+        provider.load_from_data("GtkNotebook { background-color: shade(@theme_bg_color, 0.95); border-width: 1px; border-style: solid; border-color: @borders; }")
+        context = self._optionsNotebook.get_style_context()
+        context.add_provider(provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
 
         self._accordion = Accordion()
-        self._viewport.add(self._accordion)
+        self._partitionsViewport.add(self._accordion)
 
         # Populate the list of valid filesystem types from the format classes.
         # Unfortunately, we have to narrow them down a little bit more because
@@ -522,3 +532,18 @@ class CustomPartitioningSpoke(NormalSpoke):
         # And refresh the spoke to make the new partitions appear.
         self.refresh()
         self._accordion.expandPage(newName)
+
+    def on_device_type_changed(self, combo):
+        text = combo.get_active_text()
+
+        if text == _("BTRFS"):
+            self._optionsNotebook.show()
+            self._optionsNotebook.set_current_page(0)
+        elif text == _("LVM"):
+            self._optionsNotebook.show()
+            self._optionsNotebook.set_current_page(1)
+        elif text == _("RAID"):
+            self._optionsNotebook.show()
+            self._optionsNotebook.set_current_page(2)
+        elif text == _("Standard Partition"):
+            self._optionsNotebook.hide()

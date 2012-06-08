@@ -1,3 +1,5 @@
+- alt-tab needs to be disabled, or things need to be redone so only one anaconda window
+  is ever displayed at a time
 - Add a base class with kill switch for check threads (561185b0a8c2e7aaf4a9a8b551bab394116430a8).
 - Add "Add custom repo..." dialog.
 - Disk tug-o-war needs to be written.
@@ -9,6 +11,7 @@
 - NetworkStandaloneSpoke needs completed method and to look at ksdata when setting itself up.
 - Need to sort out checking of storage config against package set space needs.
 - Port hand cursor to MountpointSelectors.
+- Something causes the up and down arrows to resize the anaconda window.
 - Test handling of inconsistent LVM/RAID, and uninitialized disks.
 - There are three different free space displays - on lower left of install destination, on
   disk shopping cart, and on lower left of custom partition.  They're all different.  Which
