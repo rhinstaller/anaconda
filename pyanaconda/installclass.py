@@ -84,7 +84,6 @@ class BaseInstallClass(object):
     def setSteps(self, anaconda):
         dispatch = anaconda.dispatch
 	dispatch.schedule_steps(
-		 "sshd",
 		 "language",
 		 "keyboard",
                  "filtertype",

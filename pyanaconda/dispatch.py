@@ -43,7 +43,6 @@ from upgrade import upgradeMigrateFind
 from upgrade import findRootParts, queryUpgradeContinue, upgradeUsr
 from installmethod import doMethodComplete
 from kickstart import doKickstart, runPostScripts
-from sshd import doSshd
 from rescue import doRescue
 
 from backend import doPostSelection, doBackendSetup, doBasePackageSelect
@@ -250,7 +249,6 @@ class Dispatcher(object):
         # Note that not only a subset of the steps is executed for a particular
         # run, depending on the kind of installation, user selection, kickstart
         # commands, used installclass and used user interface.
-        self.add_step("sshd", doSshd)
         self.add_step("rescue", doRescue)
         self.add_step("kickstart", doKickstart)
         self.add_step("language")
