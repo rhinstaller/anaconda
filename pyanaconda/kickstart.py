@@ -499,7 +499,6 @@ class Lang(commands.lang.FC3_Lang):
     def execute(self):
         self.anaconda.instLanguage.instLang = self.lang
         self.anaconda.instLanguage.systemLang = self.lang
-        self.anaconda.instLanguage.buildLocale()
         self.anaconda.dispatch.skip_steps("language")
 
 class LogVolData(commands.logvol.F15_LogVolData):

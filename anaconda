@@ -715,11 +715,6 @@ if __name__ == "__main__":
     from pyanaconda import vnc
     from pyanaconda import kickstart
 
-    # Write out the default locale before anything imports locale (#731356)
-    deflang, defcode = DEFAULT_LANG.split('.')
-    iutil.execWithRedirect("localedef",
-                           ["-i", deflang, "-f", defcode, DEFAULT_LANG])
-
     # to set UTF8 mode on the terminal, we need LANG to be set usefully
     if os.environ.get("LANG", "C") == "C":
         os.environ['LANG'] = DEFAULT_LANG
@@ -916,7 +911,6 @@ if __name__ == "__main__":
         opts.lang = opts.lang.replace(".utf8", ".UTF-8")
         anaconda.dispatch.skip_steps("language")
         anaconda.instLanguage.instLang = opts.lang
-        anaconda.instLanguage.buildLocale()
         anaconda.instLanguage.systemLang = opts.lang
         anaconda.timezone.setTimezoneInfo(anaconda.instLanguage.getDefaultTimeZone())
 
