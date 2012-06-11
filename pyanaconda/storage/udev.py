@@ -581,9 +581,11 @@ def udev_device_get_iscsi_initiator(info):
     initiator = None
     if udev_device_is_partoff_iscsi(info):
         host = re.match('.*/(host\d+)', info["sysfs_path"]).groups()[0]
-        initiator = open("/sys/class/iscsi_host/%s/initiatorname" %
-                         host).read().strip()
-    else:
+        if host:
+            initiator_file = "/sys/class/iscsi_host/%s/initiatorname" % host
+            if os.access(initiator_file, os.R_OK):
+                initiator = open(initiator_file).read().strip()
+    if initiator is None:
         session = udev_device_get_iscsi_session(info)
         if session:
             initiator = open("/sys/class/iscsi_session/%s/initiatorname" %
