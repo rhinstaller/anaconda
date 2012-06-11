@@ -249,6 +249,18 @@ update-desktop-database &> /dev/null || :
 /usr/lib/dracut/modules.d/80%{name}/*
 
 %changelog
+* Mon Jun 11 2012 David Cantrell <dcantrell@redhat.com> - 17.28.5-1
+- Don't start anaconda directly on s390x (jkeating)
+  Resolves: rhbz#811477
+- Don't return unset DASD features (jkeating)
+  Resolves: rhbz#824829
+- Move sshpw handling out of Anaconda (jkeating)
+  Related: rhbz#811477
+- Use systemd to startup sshd when desired (jkeating)
+  Related: rhbz#811477
+- Set the python path within anaconda (jkeating)
+  Related: rhbz#811477
+
 * Fri Jun 08 2012 David Cantrell <dcantrell@redhat.com> - 17.28.4-1
 - Handle md arrays with cciss member devices. (dlehman)
   Related: rhbz#797065

@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 17.28.3\n"
+"Project-Id-Version: anaconda 17.28.4\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2012-06-08 14:25-0400\n"
+"POT-Creation-Date: 2012-06-11 16:19-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,28 +17,28 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: anaconda:350
+#: anaconda:352
 msgid "Press <enter> for a shell"
 msgstr ""
 
-#: anaconda:364
+#: anaconda:366
 #, c-format
 msgid ""
 "%s requires %s MB of memory to install, but you only have %s MB on this "
 "machine.\n"
 msgstr ""
 
-#: anaconda:366
+#: anaconda:368
 #, c-format
 msgid ""
 "The %s graphical installer requires %s MB of memory, but you only have %s MB."
 msgstr ""
 
-#: anaconda:371
+#: anaconda:373
 msgid "Not enough RAM"
 msgstr ""
 
-#: anaconda:372
+#: anaconda:374
 msgid ""
 " Try the text mode installer by running:\n"
 "\n"
@@ -47,34 +47,43 @@ msgid ""
 " from a root terminal."
 msgstr ""
 
-#: anaconda:375
+#: anaconda:377
 msgid " Starting text mode."
 msgstr ""
 
-#: anaconda:402 pyanaconda/rescue.py:347 pyanaconda/rescue.py:379
+#: anaconda:404 pyanaconda/rescue.py:347 pyanaconda/rescue.py:379
 #: pyanaconda/rescue.py:392 pyanaconda/rescue.py:460 pyanaconda/rescue.py:477
 #: pyanaconda/rescue.py:488 pyanaconda/text.py:546
 #: pyanaconda/textw/constants_text.py:44
 msgid "OK"
 msgstr ""
 
-#: anaconda:495
+#: anaconda:497
 msgid "Would you like to use VNC?"
 msgstr ""
 
-#: anaconda:496
+#: anaconda:498
 msgid ""
 "Text mode provides a limited set of installation options. It does not allow "
 "you to specify your own partitioning layout or package selections. Would you "
 "like to use VNC mode instead?"
 msgstr ""
 
-#: anaconda:517
+#: anaconda:519
 msgid "DISPLAY variable not set. Starting text mode."
 msgstr ""
 
-#: anaconda:525
+#: anaconda:527
 msgid "Graphical installation is not available. Starting text mode."
+msgstr ""
+
+#: anaconda:658
+#, c-format
+msgid "Please ssh install@%s to begin the install."
+msgstr ""
+
+#: anaconda:660
+msgid "Please ssh install@<host> to continue installation."
 msgstr ""
 
 #: pyanaconda/backend.py:132
