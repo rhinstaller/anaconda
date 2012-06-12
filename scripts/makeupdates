@@ -101,6 +101,13 @@ def copyUpdatedFiles(tag, updates, cwd):
 
         return lst
 
+    def install_to_dir(fname, relpath):
+        sys.stdout.write("Including %s\n" % fname)
+        outdir = os.path.join(updates, relpath)
+        if not os.path.isdir(outdir):
+            os.makedirs(outdir)
+        shutil.copy2(file, outdir)
+
     subdirs = []
 
     lines = doGitDiff(tag)
@@ -121,7 +128,12 @@ def copyUpdatedFiles(tag, updates, cwd):
            file.endswith('.sh') or file == 'configure.ac':
             continue
 
-        if file.startswith('pyanaconda/'):
+        if file.endswith('.ui'):
+            # UI files should go under ui/<dir> where dir is the directory
+            # above the file.ui
+            uidir = os.path.dirname(file).split(os.path.sep)[-1]
+            install_to_dir(file, os.path.join("ui",uidir))
+        elif file.startswith('pyanaconda/'):
             sys.stdout.write("Including %s\n" % (file,))
             update_filename = os.path.realpath(os.path.join(updates, file))
             update_dir = os.path.dirname(update_filename)
