@@ -189,6 +189,12 @@ def getAnacondaVersion():
 
 def parseOptions(argv=None, cmdline=None):
     from pyanaconda.anaconda_optparse import AnacondaOptionParser
+
+    # NOTE: for each long option (like '--repo'), AnacondaOptionParser
+    # checks the boot arguments for bootarg_prefix+option ('inst.repo').
+    # If require_prefix is False, it also accepts the option without the
+    # bootarg_prefix ('repo').
+    # See anaconda_optparse.py and BootArgs (in flags.py) for details.
     op = AnacondaOptionParser(version="%prog " + getAnacondaVersion(),
                               bootarg_prefix="inst.", require_prefix=False)
 
