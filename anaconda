@@ -594,16 +594,7 @@ def setupDisplay(anaconda, opts):
 
 def prompt_for_ssh():
     # Do some work here to get the ip addr / hostname to pass
-    # to the user.  This code won't make use of /tmp/updates/ contents as
-    # it hasn't been loaded yet.
-    import logging
-    from pyanaconda import anaconda_log
-    anaconda_log.init()
-    anaconda_log.logger.setupVirtio()
-
-    log = logging.getLogger("anaconda")
-    stdoutLog = logging.getLogger("anaconda.stdout")
-
+    # to the user.
     from pyanaconda import network
     from pyanaconda import isys
     import socket
@@ -660,13 +651,6 @@ def prompt_for_ssh():
 
 
 if __name__ == "__main__":
-    # see if we're on s390x and if we've got an ssh connection
-    uname = os.uname()
-    if uname[4] == 's390x':
-        if not 'SSH_CONNECTION' in os.environ:
-            prompt_for_ssh()
-            sys.exit(0)
-
     setupPythonPath()
 
     # Allow a file to be loaded as early as possible
@@ -696,6 +680,17 @@ if __name__ == "__main__":
     if os.geteuid() != 0:
         stdoutLog.error("anaconda must be run as root.")
         sys.exit(0)
+
+    # see if we're on s390x and if we've got an ssh connection
+    uname = os.uname()
+    if uname[4] == 's390x':
+        if 'SSH_CONNECTION' not in os.environ and "RUNKS" not in flags.cmdline:
+            prompt_for_ssh()
+            sys.exit(0)
+        # If we get RUNKS, we default to cmdline display mode, because nothing
+        # else will work.  Kickstart options can still override.
+        if "RUNKS" in flags.cmdline:
+            opts.display_mode = 'c'
 
     log.info("%s %s" % (sys.argv[0], getAnacondaVersion()))
 
