@@ -222,6 +222,10 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Tue Jun 12 2012 David Cantrell <dcantrell@redhat.com> - 13.21.176-1
+- Find initiator name for partial offload iscsi bnx2i devices (rvykydal)
+  Resolves: rhbz#830756
+
 * Fri Jun 01 2012 David Cantrell <dcantrell@redhat.com> - 13.21.175-1
 - Adapt to fipvlan naming change (rvykydal)
   Resolves: rhbz#823086
