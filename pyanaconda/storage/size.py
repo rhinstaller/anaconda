@@ -142,6 +142,21 @@ class Size(Decimal):
     def __str__(self):
         return self.humanReadable()
 
+    def __repr__(self):
+        return "Size('%s')" % self
+
+    def __add__(self, other):
+        return Size(bytes=Decimal.__add__(self, other))
+
+    def __sub__(self, other):
+        return Size(bytes=Decimal.__sub__(self, other))
+
+    def __mul__(self, other):
+        return Size(bytes=Decimal.__mul__(self, other))
+
+    def __div__(self, other):
+        return Size(bytes=Decimal.__div__(self, other))
+
     def _trimEnd(self, val):
         """ Internal method to trim trailing zeros. """
         val = re.sub(r'(\.\d*?)0+$', '\\1', val)
@@ -187,7 +202,7 @@ class Size(Decimal):
             return "%s b" % check
 
         for factor, prefix, abbr in _prefixes:
-            newcheck = self / Decimal(factor)
+            newcheck = super(Size, self).__div__(Decimal(factor))
 
             if newcheck < 1000:
                 if places is not None:
