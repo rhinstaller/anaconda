@@ -2,8 +2,7 @@
 # This is roughly equivalent to getty@.service, except we go straight to bash
 [Unit]
 Description=Shell on %I
-BindTo=dev-%i.device
-After=dev-%i.device systemd-user-sessions.service plymouth-quit-wait.service
+After=systemd-user-sessions.service plymouth-quit-wait.service
 
 [Service]
 WorkingDirectory=/
