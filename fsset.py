@@ -683,11 +683,26 @@ class ext3FileSystem(extFileSystem):
     def __init__(self):
         extFileSystem.__init__(self)
         self.name = "ext3"
+        self.maxSizeMB = 16 * 1024 * 1024
         self.extraFormatArgs = [ "-j" ]
         self.partedFileSystemType = parted.file_system_type_get("ext3")
 
     def formatDevice(self, entry, progress, chroot='/'):
-        extFileSystem.formatDevice(self, entry, progress, chroot)
+        devicePath = entry.device.setupDevice(chroot)
+        devArgs = self.getDeviceArgs(entry.device)
+        args = [ "/usr/sbin/mkfs.ext3", devicePath, "-i", str(entry.bytesPerInode) ]
+
+        args.extend(devArgs)
+        args.extend(self.extraFormatArgs)
+
+        log.info("Format command:  %s\n" % str(args))
+
+        rc = ext2FormatFilesystem(args, "/dev/tty5",
+                                  progress,
+                                  entry.mountpoint)
+        if rc:
+            raise SystemError
+
         extFileSystem.setExt3Options(self, entry, progress, chroot)
 
 fileSystemTypeRegister(ext3FileSystem())
@@ -732,6 +747,7 @@ class ext4FileSystem(extFileSystem):
     def __init__(self):
         extFileSystem.__init__(self)
         self.name = "ext4"
+        self.maxSizeMB = 16 * 1024 * 1024
         # options are set in mke4fs.conf
         #self.extraFormatArgs = [ "-j", "-I", "256"]
         self.partedFileSystemType = parted.file_system_type_get("ext3")
