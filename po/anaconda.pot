@@ -8,11 +8,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anaconda 17.28.6\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2012-06-12 13:23+0200\n"
+"POT-Creation-Date: 2012-06-13 17:47-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -78,12 +77,12 @@ msgstr ""
 msgid "Graphical installation is not available. Starting text mode."
 msgstr ""
 
-#: anaconda:658
+#: anaconda:649
 #, c-format
 msgid "Please ssh install@%s to begin the install."
 msgstr ""
 
-#: anaconda:660
+#: anaconda:651
 msgid "Please ssh install@<host> to continue installation."
 msgstr ""
 
@@ -336,7 +335,7 @@ msgid "Cancel"
 msgstr ""
 
 #: pyanaconda/gui.py:655 pyanaconda/gui.py:656 pyanaconda/gui.py:753
-#: pyanaconda/gui.py:834 pyanaconda/gui.py:835 data/ui/anaconda.glade.h:1
+#: pyanaconda/gui.py:834 pyanaconda/gui.py:835 data/ui/anaconda.glade.h:3
 msgid "_Debug"
 msgstr ""
 
@@ -588,7 +587,7 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: pyanaconda/installinterfacebase.py:103
-#: data/ui/reinitialize-dialog.glade.h:1
+#: data/ui/reinitialize-dialog.glade.h:3
 msgid "Storage Device Warning"
 msgstr ""
 
@@ -793,8 +792,8 @@ msgstr ""
 
 #: pyanaconda/network.py:87
 msgid ""
-"Hostname must start with a valid character in the ranges 'a-z', 'A-Z', or "
-"'0-9'"
+"Hostname must start with a valid character in the ranges 'a-z', 'A-Z', or '0-"
+"9'"
 msgstr ""
 
 #: pyanaconda/network.py:92
@@ -1019,8 +1018,8 @@ msgstr ""
 #, python-format
 msgid ""
 "The following critical errors exist with your requested partitioning scheme. "
-"These errors must be corrected prior to continuing with your install of "
-"%(productName)s.\n"
+"These errors must be corrected prior to continuing with your install of %"
+"(productName)s.\n"
 "\n"
 "%(errorstr)s"
 msgstr ""
@@ -1136,7 +1135,7 @@ msgstr ""
 msgid "bootloader device"
 msgstr ""
 
-#: pyanaconda/platform.py:59 data/ui/create-storage.glade.h:8
+#: pyanaconda/platform.py:59 data/ui/create-storage.glade.h:15
 msgid "RAID Device"
 msgstr ""
 
@@ -1820,8 +1819,8 @@ msgstr ""
 #: pyanaconda/yuminstall.py:1093
 #, python-format
 msgid ""
-"There was an error running your transaction for the following reason(s): "
-"%s.\n"
+"There was an error running your transaction for the following reason(s): %"
+"s.\n"
 msgstr ""
 
 #: pyanaconda/yuminstall.py:1285
@@ -2312,8 +2311,8 @@ msgstr ""
 #: pyanaconda/iw/filter_gui.py:151
 #, python-format
 msgid ""
-"Selected devices: %(selectedDevices)s (%(selectedSize)s MB) out of "
-"%(totalDevices)s (%(totalSize)s MB)."
+"Selected devices: %(selectedDevices)s (%(selectedSize)s MB) out of %"
+"(totalDevices)s (%(totalSize)s MB)."
 msgstr ""
 
 #: pyanaconda/iw/filter_gui.py:401
@@ -2421,17 +2420,17 @@ msgstr ""
 #: pyanaconda/iw/lvm_dialog_gui.py:181
 #, python-format
 msgid ""
-"The physical extent size cannot be changed because the value selected "
-"(%(curpe)10.2f MB) is larger than the smallest physical volume "
-"(%(maxpvsize)10.2f MB) in the volume group."
+"The physical extent size cannot be changed because the value selected (%"
+"(curpe)10.2f MB) is larger than the smallest physical volume (%(maxpvsize)"
+"10.2f MB) in the volume group."
 msgstr ""
 
 #: pyanaconda/iw/lvm_dialog_gui.py:195
 #, python-format
 msgid ""
-"The physical extent size cannot be changed because the value selected "
-"(%(curpe)10.2f MB) is too large compared to the size of the smallest "
-"physical volume (%(maxpvsize)10.2f MB) in the volume group."
+"The physical extent size cannot be changed because the value selected (%"
+"(curpe)10.2f MB) is too large compared to the size of the smallest physical "
+"volume (%(maxpvsize)10.2f MB) in the volume group."
 msgstr ""
 
 #: pyanaconda/iw/lvm_dialog_gui.py:209
@@ -2571,8 +2570,8 @@ msgstr ""
 #, python-format
 msgid ""
 "The size entered for this logical volume (%(size)d MB) combined with the "
-"size of the other logical volume(s) exceeds the size of the volume group "
-"(%(tempvgsize)d MB). Please make the volume group larger or make the logical "
+"size of the other logical volume(s) exceeds the size of the volume group (%"
+"(tempvgsize)d MB). Please make the volume group larger or make the logical "
 "volume smaller."
 msgstr ""
 
@@ -3212,7 +3211,7 @@ msgstr ""
 msgid "You must provide a repository name."
 msgstr ""
 
-#: pyanaconda/iw/task_gui.py:499 data/ui/addrepo.glade.h:1
+#: pyanaconda/iw/task_gui.py:499 data/ui/addrepo.glade.h:3
 msgid "Add Repository"
 msgstr ""
 
@@ -3271,9 +3270,9 @@ msgstr ""
 #, python-format
 msgid ""
 "This release of %(productName)s supports an updated file system, which has "
-"several benefits over the file system traditionally shipped in "
-"%(productName)s.  This installation program can migrate formatted partitions "
-"without data loss.\n"
+"several benefits over the file system traditionally shipped in %(productName)"
+"s.  This installation program can migrate formatted partitions without data "
+"loss.\n"
 "\n"
 "Which of these partitions would you like to migrate?"
 msgstr ""
@@ -3988,8 +3987,8 @@ msgstr ""
 #: pyanaconda/storage/zfcp.py:176
 #, python-format
 msgid ""
-"Could not add LUN %(fcplun)s to WWPN %(wwpn)s on zFCP device %(devnum)s "
-"(%(e)s)."
+"Could not add LUN %(fcplun)s to WWPN %(wwpn)s on zFCP device %(devnum)s (%(e)"
+"s)."
 msgstr ""
 
 #: pyanaconda/storage/zfcp.py:182
@@ -4015,15 +4014,15 @@ msgstr ""
 #: pyanaconda/storage/zfcp.py:260
 #, python-format
 msgid ""
-"Could not correctly delete SCSI device of zFCP %(devnum)s %(wwpn)s "
-"%(fcplun)s (%(e)s)."
+"Could not correctly delete SCSI device of zFCP %(devnum)s %(wwpn)s %(fcplun)"
+"s (%(e)s)."
 msgstr ""
 
 #: pyanaconda/storage/zfcp.py:269
 #, python-format
 msgid ""
-"Could not remove LUN %(fcplun)s at WWPN %(wwpn)s on zFCP device %(devnum)s "
-"(%(e)s)."
+"Could not remove LUN %(fcplun)s at WWPN %(wwpn)s on zFCP device %(devnum)s (%"
+"(e)s)."
 msgstr ""
 
 #: pyanaconda/storage/zfcp.py:287
@@ -4334,15 +4333,15 @@ msgid "Close"
 msgstr ""
 
 #: data/liveinst/liveinst.desktop.in.h:1
-msgid "Install to Hard Drive"
-msgstr ""
-
-#: data/liveinst/liveinst.desktop.in.h:2
 msgid "Install"
 msgstr ""
 
-#: data/liveinst/liveinst.desktop.in.h:3
+#: data/liveinst/liveinst.desktop.in.h:2
 msgid "Install the live CD to your hard disk"
+msgstr ""
+
+#: data/liveinst/liveinst.desktop.in.h:3
+msgid "Install to Hard Drive"
 msgstr ""
 
 #: liveinst:5
@@ -4350,40 +4349,38 @@ msgid "Starting Install to Hard Drive"
 msgstr ""
 
 #: data/ui/GroupSelector.glade.h:1
-msgid "_Optional packages"
-msgstr ""
-
-#: data/ui/GroupSelector.glade.h:2
-msgid "dialog1"
-msgstr ""
-
-#: data/ui/GroupSelector.glade.h:3
 msgid ""
 "Some packages associated with this group are not required to be installed "
 "but may provide additional functionality.  Please choose the packages which "
 "you would like to have installed."
 msgstr ""
 
-#: data/ui/GroupSelector.glade.h:4
-msgid "_Select"
-msgstr ""
-
-#: data/ui/GroupSelector.glade.h:5
-msgid "_Select all optional packages"
-msgstr ""
-
-#: data/ui/GroupSelector.glade.h:6
+#: data/ui/GroupSelector.glade.h:2
 msgid "_Deselect"
 msgstr ""
 
-#: data/ui/GroupSelector.glade.h:7
+#: data/ui/GroupSelector.glade.h:3
 msgid "_Deselect all optional packages"
 msgstr ""
 
+#: data/ui/GroupSelector.glade.h:4
+msgid "_Optional packages"
+msgstr ""
+
+#: data/ui/GroupSelector.glade.h:5
+msgid "_Select"
+msgstr ""
+
+#: data/ui/GroupSelector.glade.h:6
+msgid "_Select all optional packages"
+msgstr ""
+
+#: data/ui/GroupSelector.glade.h:7
+msgid "dialog1"
+msgstr ""
+
 #: data/ui/account.glade.h:1
-msgid ""
-"The root account is used for administering the system.  Enter a password for "
-"the root user."
+msgid "Confirm:"
 msgstr ""
 
 #: data/ui/account.glade.h:2
@@ -4391,44 +4388,45 @@ msgid "Root Password:"
 msgstr ""
 
 #: data/ui/account.glade.h:3
-msgid "Confirm:"
+msgid ""
+"The root account is used for administering the system.  Enter a password for "
+"the root user."
 msgstr ""
 
 #: data/ui/adddrive.glade.h:1
-msgid "Advanced Storage Options"
-msgstr ""
-
-#: data/ui/adddrive.glade.h:2
-msgid "_Add drive"
-msgstr ""
-
-#: data/ui/adddrive.glade.h:3
-msgid "How would you like to modify your drive configuration?"
-msgstr ""
-
-#: data/ui/adddrive.glade.h:4
-msgid "Add _iSCSI target"
-msgstr ""
-
-#: data/ui/adddrive.glade.h:5
-msgid "Add _ZFCP LUN"
-msgstr ""
-
-#: data/ui/adddrive.glade.h:6
 msgid "Add _FCoE SAN"
 msgstr ""
 
-#: data/ui/addrepo.glade.h:2
-msgid ""
-"Please provide the configuration information for this software repository."
+#: data/ui/adddrive.glade.h:2
+msgid "Add _ZFCP LUN"
 msgstr ""
 
-#: data/ui/addrepo.glade.h:3
+#: data/ui/adddrive.glade.h:3
+msgid "Add _iSCSI target"
+msgstr ""
+
+#: data/ui/adddrive.glade.h:4
+msgid "Advanced Storage Options"
+msgstr ""
+
+#: data/ui/adddrive.glade.h:5
+msgid "How would you like to modify your drive configuration?"
+msgstr ""
+
+#: data/ui/adddrive.glade.h:6
+msgid "_Add drive"
+msgstr ""
+
+#: data/ui/addrepo.glade.h:1
 msgid "<b>Repository _name:</b>"
 msgstr ""
 
-#: data/ui/addrepo.glade.h:4
+#: data/ui/addrepo.glade.h:2
 msgid "<b>Repository _type:</b>"
+msgstr ""
+
+#: data/ui/addrepo.glade.h:4
+msgid "Configure _proxy"
 msgstr ""
 
 #: data/ui/addrepo.glade.h:5
@@ -4440,19 +4438,20 @@ msgid ""
 msgstr ""
 
 #: data/ui/addrepo.glade.h:9
-msgid "Repository _URL"
+msgid "Opt_ions"
 msgstr ""
 
 #: data/ui/addrepo.glade.h:10
-msgid "URL is a _mirror list"
+msgid ""
+"Please provide the configuration information for this software repository."
 msgstr ""
 
 #: data/ui/addrepo.glade.h:11
-msgid "Configure _proxy"
+msgid "Proxy U_RL (host:port)"
 msgstr ""
 
 #: data/ui/addrepo.glade.h:12
-msgid "Proxy U_RL (host:port)"
+msgid "Proxy pass_word"
 msgstr ""
 
 #: data/ui/addrepo.glade.h:13
@@ -4460,19 +4459,19 @@ msgid "Proxy u_sername"
 msgstr ""
 
 #: data/ui/addrepo.glade.h:14
-msgid "Proxy pass_word"
+msgid "Repository _URL"
 msgstr ""
 
 #: data/ui/addrepo.glade.h:15
-msgid "_Server"
+msgid "Select A Directory"
 msgstr ""
 
 #: data/ui/addrepo.glade.h:16
-msgid "_Path"
+msgid "URL is a _mirror list"
 msgstr ""
 
 #: data/ui/addrepo.glade.h:17
-msgid "Opt_ions"
+msgid "_Directory"
 msgstr ""
 
 #: data/ui/addrepo.glade.h:18
@@ -4480,91 +4479,105 @@ msgid "_Partition"
 msgstr ""
 
 #: data/ui/addrepo.glade.h:19
-msgid "_Directory"
+msgid "_Path"
 msgstr ""
 
 #: data/ui/addrepo.glade.h:20
-msgid "Select A Directory"
+msgid "_Server"
 msgstr ""
 
-#: data/ui/anaconda.glade.h:3
-msgid "_Next"
-msgstr ""
-
-#: data/ui/anaconda.glade.h:4
+#: data/ui/anaconda.glade.h:1
 msgid "Reboo_t"
 msgstr ""
 
+#: data/ui/anaconda.glade.h:4
+msgid "_Next"
+msgstr ""
+
 #: data/ui/autopart.glade.h:1
-msgid "Which type of installation would you like?"
+msgid "<b>Shrink partition _to size (in MB):</b>"
 msgstr ""
 
 #: data/ui/autopart.glade.h:2
-msgid "Use _LVM"
-msgstr ""
-
-#: data/ui/autopart.glade.h:3
-msgid "_Encrypt system"
-msgstr ""
-
-#: data/ui/autopart.glade.h:4
 msgid "Re_view and modify partitioning layout"
 msgstr ""
 
-#: data/ui/autopart.glade.h:5
+#: data/ui/autopart.glade.h:3
+msgid "Use _LVM"
+msgstr ""
+
+#: data/ui/autopart.glade.h:4
 msgid "Volume to Shrink"
 msgstr ""
 
-#: data/ui/autopart.glade.h:6
-msgid "_Shrink"
-msgstr ""
-
-#: data/ui/autopart.glade.h:7
+#: data/ui/autopart.glade.h:5
 msgid ""
 "Which partition would you like to shrink to make room for your installation?"
 msgstr ""
 
+#: data/ui/autopart.glade.h:6
+msgid "Which type of installation would you like?"
+msgstr ""
+
+#: data/ui/autopart.glade.h:7
+msgid "_Encrypt system"
+msgstr ""
+
 #: data/ui/autopart.glade.h:8
-msgid "<b>Shrink partition _to size (in MB):</b>"
+msgid "_Shrink"
 msgstr ""
 
 #: data/ui/blwhere.glade.h:1
-msgid "Boot loader device"
-msgstr ""
-
-#: data/ui/blwhere.glade.h:2
-msgid "Where would you like to install the boot loader for your system?"
-msgstr ""
-
-#: data/ui/blwhere.glade.h:3
-msgid "MBR"
-msgstr ""
-
-#: data/ui/blwhere.glade.h:4
 msgid "/boot"
 msgstr ""
 
-#: data/ui/blwhere.glade.h:5
-msgid "First BIOS drive:"
-msgstr ""
-
-#: data/ui/blwhere.glade.h:6
-msgid "Second BIOS drive:"
-msgstr ""
-
-#: data/ui/blwhere.glade.h:7
-msgid "Third BIOS drive:"
-msgstr ""
-
-#: data/ui/blwhere.glade.h:8
-msgid "Fourth BIOS drive:"
-msgstr ""
-
-#: data/ui/blwhere.glade.h:9
+#: data/ui/blwhere.glade.h:2
 msgid "BIOS Drive Order"
 msgstr ""
 
+#: data/ui/blwhere.glade.h:3
+msgid "Boot loader device"
+msgstr ""
+
+#: data/ui/blwhere.glade.h:4
+msgid "First BIOS drive:"
+msgstr ""
+
+#: data/ui/blwhere.glade.h:5
+msgid "Fourth BIOS drive:"
+msgstr ""
+
+#: data/ui/blwhere.glade.h:6
+msgid "MBR"
+msgstr ""
+
+#: data/ui/blwhere.glade.h:7
+msgid "Second BIOS drive:"
+msgstr ""
+
+#: data/ui/blwhere.glade.h:8
+msgid "Third BIOS drive:"
+msgstr ""
+
+#: data/ui/blwhere.glade.h:9
+msgid "Where would you like to install the boot loader for your system?"
+msgstr ""
+
 #: data/ui/cleardisks.glade.h:1
+msgid "<b>Data Storage Devices</b> (to be mounted only)"
+msgstr ""
+
+#: data/ui/cleardisks.glade.h:2
+msgid "<b>Install Target Devices</b>"
+msgstr ""
+
+#: data/ui/cleardisks.glade.h:3
+msgid ""
+"<b>Tip:</b> Install target devices will be reformatted and wiped of any "
+"data.  Make sure you have backups."
+msgstr ""
+
+#: data/ui/cleardisks.glade.h:4
 msgid ""
 "Below are the storage devices you've selected to be a part of this "
 "installation.  Please indicate using the arrows below which devices you'd "
@@ -4574,30 +4587,20 @@ msgid ""
 "bootloader installed."
 msgstr ""
 
-#: data/ui/cleardisks.glade.h:2
-msgid "<b>Data Storage Devices</b> (to be mounted only)"
-msgstr ""
-
-#: data/ui/cleardisks.glade.h:3
-msgid "<b>Install Target Devices</b>"
-msgstr ""
-
-#: data/ui/cleardisks.glade.h:4
-msgid ""
-"<b>Tip:</b> Install target devices will be reformatted and wiped of any "
-"data.  Make sure you have backups."
-msgstr ""
-
 #: data/ui/create-storage.glade.h:1
-msgid "Create Storage"
+msgid ""
+"<span size=\"small\" color=\"gray\">Create a RAID formatted partition</span>"
 msgstr ""
 
 #: data/ui/create-storage.glade.h:2
-msgid "Create Partition"
+msgid ""
+"<span size=\"small\" color=\"gray\">Create a logical volume on selected "
+"volume group</span>"
 msgstr ""
 
 #: data/ui/create-storage.glade.h:3
-msgid "Standard Partition"
+msgid ""
+"<span size=\"small\" color=\"gray\">Create an LVM formatted partition</span>"
 msgstr ""
 
 #: data/ui/create-storage.glade.h:4
@@ -4606,59 +4609,55 @@ msgid ""
 msgstr ""
 
 #: data/ui/create-storage.glade.h:5
-msgid "Create Software RAID"
-msgstr ""
-
-#: data/ui/create-storage.glade.h:6
-msgid "RAID Partition"
-msgstr ""
-
-#: data/ui/create-storage.glade.h:7
-msgid ""
-"<span size=\"small\" color=\"gray\">Create a RAID formatted partition</span>"
-msgstr ""
-
-#: data/ui/create-storage.glade.h:9
-msgid ""
-"<span size=\"small\" color=\"gray\">Requires at least 2 free RAID formatted "
-"partitions</span>"
-msgstr ""
-
-#: data/ui/create-storage.glade.h:10
-msgid "Create LVM"
-msgstr ""
-
-#: data/ui/create-storage.glade.h:11
-msgid "LVM Volume Group"
-msgstr ""
-
-#: data/ui/create-storage.glade.h:12
 msgid ""
 "<span size=\"small\" color=\"gray\">Requires at least 1 free LVM formatted "
 "partition</span>"
 msgstr ""
 
-#: data/ui/create-storage.glade.h:13
+#: data/ui/create-storage.glade.h:6
+msgid ""
+"<span size=\"small\" color=\"gray\">Requires at least 2 free RAID formatted "
+"partitions</span>"
+msgstr ""
+
+#: data/ui/create-storage.glade.h:7
+msgid "C_reate"
+msgstr ""
+
+#: data/ui/create-storage.glade.h:8
+msgid "Create LVM"
+msgstr ""
+
+#: data/ui/create-storage.glade.h:9
+msgid "Create Partition"
+msgstr ""
+
+#: data/ui/create-storage.glade.h:10
+msgid "Create Software RAID"
+msgstr ""
+
+#: data/ui/create-storage.glade.h:11
+msgid "Create Storage"
+msgstr ""
+
+#: data/ui/create-storage.glade.h:12
 msgid "LVM Logical Volume"
 msgstr ""
 
-#: data/ui/create-storage.glade.h:14
-msgid ""
-"<span size=\"small\" color=\"gray\">Create a logical volume on selected "
-"volume group</span>"
-msgstr ""
-
-#: data/ui/create-storage.glade.h:15
+#: data/ui/create-storage.glade.h:13
 msgid "LVM Physical Volume"
 msgstr ""
 
+#: data/ui/create-storage.glade.h:14
+msgid "LVM Volume Group"
+msgstr ""
+
 #: data/ui/create-storage.glade.h:16
-msgid ""
-"<span size=\"small\" color=\"gray\">Create an LVM formatted partition</span>"
+msgid "RAID Partition"
 msgstr ""
 
 #: data/ui/create-storage.glade.h:17
-msgid "C_reate"
+msgid "Standard Partition"
 msgstr ""
 
 #: data/ui/detailed-dialog.glade.h:1
@@ -4690,13 +4689,13 @@ msgid "Configure FCoE Parameters"
 msgstr ""
 
 #: data/ui/fcoe-config.glade.h:2
+msgid "NIC:"
+msgstr ""
+
+#: data/ui/fcoe-config.glade.h:3
 msgid ""
 "Please select the network interface which is connected to\n"
 "your FCoE switch."
-msgstr ""
-
-#: data/ui/fcoe-config.glade.h:4
-msgid "NIC:"
 msgstr ""
 
 #: data/ui/fcoe-config.glade.h:5
@@ -4709,8 +4708,9 @@ msgstr ""
 
 #: data/ui/filter.glade.h:1
 msgid ""
-"Please select the drives you'd like to install the operating system on, as "
-"well as any drives you'd like to automatically mount on your system:"
+"<b>Tip:</b> Selected drives will not be formatted unless you choose to do so "
+"later during installation.  Also, note that post-installation you may mount "
+"drives you did not select here by modifying your /etc/fstab file."
 msgstr ""
 
 #: data/ui/filter.glade.h:2
@@ -4718,187 +4718,188 @@ msgid "Basic Devices"
 msgstr ""
 
 #: data/ui/filter.glade.h:3
-msgid "Firmware RAID"
-msgstr ""
-
-#: data/ui/filter.glade.h:4
 msgid "Filter By:"
 msgstr ""
 
+#: data/ui/filter.glade.h:4
+msgid "Firmware RAID"
+msgstr ""
+
 #: data/ui/filter.glade.h:5
+msgid "Identifier:"
+msgstr ""
+
+#: data/ui/filter.glade.h:6
 msgid ""
 "Interconnect\n"
 "Vendor\n"
 "Identifier"
 msgstr ""
 
-#: data/ui/filter.glade.h:8
-msgid "Show Only Devices Using:"
-msgstr ""
-
 #: data/ui/filter.glade.h:9
-msgid "Show Only Devices From:"
+msgid "LUN:"
 msgstr ""
 
 #: data/ui/filter.glade.h:10
-msgid "Show Identifiers that Include:"
-msgstr ""
-
-#: data/ui/filter.glade.h:11
 msgid "Multipath Devices"
 msgstr ""
 
-#: data/ui/filter.glade.h:12
+#: data/ui/filter.glade.h:11
 msgid "Other SAN Devices"
 msgstr ""
 
-#: data/ui/filter.glade.h:13
-msgid "Search By:"
+#: data/ui/filter.glade.h:12
+msgid ""
+"Please select the drives you'd like to install the operating system on, as "
+"well as any drives you'd like to automatically mount on your system:"
 msgstr ""
 
-#: data/ui/filter.glade.h:14
+#: data/ui/filter.glade.h:13
 msgid ""
 "Port / Target / LUN\n"
 "Target Identifier"
 msgstr ""
 
-#: data/ui/filter.glade.h:16
+#: data/ui/filter.glade.h:15
 msgid "Port:"
 msgstr ""
 
-#: data/ui/filter.glade.h:17
-msgid "Target:"
-msgstr ""
-
-#: data/ui/filter.glade.h:18
-msgid "LUN:"
-msgstr ""
-
-#: data/ui/filter.glade.h:19
-msgid "Identifier:"
-msgstr ""
-
-#: data/ui/filter.glade.h:20
-msgid "Search Results:"
-msgstr ""
-
-#: data/ui/filter.glade.h:21
+#: data/ui/filter.glade.h:16
 msgid "Search"
 msgstr ""
 
-#: data/ui/filter.glade.h:22
-msgid "_Device Options"
+#: data/ui/filter.glade.h:17
+msgid "Search By:"
 msgstr ""
 
-#: data/ui/filter.glade.h:23
-msgid "_Add Advanced Target"
+#: data/ui/filter.glade.h:18
+msgid "Search Results:"
 msgstr ""
 
-#: data/ui/filter.glade.h:25
+#: data/ui/filter.glade.h:20
 #, no-c-format
 msgid "Selected devices: %s (%s) out of %s (%s)."
 msgstr ""
 
+#: data/ui/filter.glade.h:21
+msgid "Show Identifiers that Include:"
+msgstr ""
+
+#: data/ui/filter.glade.h:22
+msgid "Show Only Devices From:"
+msgstr ""
+
+#: data/ui/filter.glade.h:23
+msgid "Show Only Devices Using:"
+msgstr ""
+
+#: data/ui/filter.glade.h:24
+msgid "Target:"
+msgstr ""
+
+#: data/ui/filter.glade.h:25
+msgid "_Add Advanced Target"
+msgstr ""
+
 #: data/ui/filter.glade.h:26
-msgid ""
-"<b>Tip:</b> Selected drives will not be formatted unless you choose to do so "
-"later during installation.  Also, note that post-installation you may mount "
-"drives you did not select here by modifying your /etc/fstab file."
+msgid "_Device Options"
 msgstr ""
 
 #: data/ui/iscsi-dialogs.glade.h:1
-msgid "iSCSI Discovery Details"
+msgid "CHAP Password:"
 msgstr ""
 
 #: data/ui/iscsi-dialogs.glade.h:2
+msgid "CHAP Username:"
+msgstr ""
+
+#: data/ui/iscsi-dialogs.glade.h:3
+msgid "Check the nodes you wish to log into:"
+msgstr ""
+
+#: data/ui/iscsi-dialogs.glade.h:4
+msgid "Reason:"
+msgstr ""
+
+#: data/ui/iscsi-dialogs.glade.h:5
+msgid "Retry _Login"
+msgstr ""
+
+#: data/ui/iscsi-dialogs.glade.h:6
+msgid "Reverse CHAP Password:"
+msgstr ""
+
+#: data/ui/iscsi-dialogs.glade.h:7
+msgid "Reverse CHAP Username:"
+msgstr ""
+
+#: data/ui/iscsi-dialogs.glade.h:8
+msgid "Start _Discovery"
+msgstr ""
+
+#: data/ui/iscsi-dialogs.glade.h:9
+msgid "Successfully logged in and attached the following nodes:"
+msgstr ""
+
+#: data/ui/iscsi-dialogs.glade.h:10
+msgid "Target IP Address:"
+msgstr ""
+
+#: data/ui/iscsi-dialogs.glade.h:11
 msgid ""
 "To use iSCSI disks, you must provide the address of your iSCSI target and "
 "the iSCSI initiator name you've configured for your host."
 msgstr ""
 
-#: data/ui/iscsi-dialogs.glade.h:3
-msgid "Target IP Address:"
-msgstr ""
-
-#: data/ui/iscsi-dialogs.glade.h:4
-msgid "iSCSI Initiator Name:"
-msgstr ""
-
-#: data/ui/iscsi-dialogs.glade.h:5
+#: data/ui/iscsi-dialogs.glade.h:12
 msgid ""
 "What kind of iSCSI <b>discovery authentication</b> do you wish to perform:"
 msgstr ""
 
-#: data/ui/iscsi-dialogs.glade.h:6
-msgid "CHAP Username:"
-msgstr ""
-
-#: data/ui/iscsi-dialogs.glade.h:7
-msgid "CHAP Password:"
-msgstr ""
-
-#: data/ui/iscsi-dialogs.glade.h:8
-msgid "Reverse CHAP Username:"
-msgstr ""
-
-#: data/ui/iscsi-dialogs.glade.h:9
-msgid "Reverse CHAP Password:"
-msgstr ""
-
-#: data/ui/iscsi-dialogs.glade.h:10
-msgid "_Cancel"
-msgstr ""
-
-#: data/ui/iscsi-dialogs.glade.h:11
-msgid "Start _Discovery"
-msgstr ""
-
-#: data/ui/iscsi-dialogs.glade.h:12
-msgid "iSCSI Discovered Nodes"
-msgstr ""
-
 #: data/ui/iscsi-dialogs.glade.h:13
-msgid "Check the nodes you wish to log into:"
-msgstr ""
-
-#: data/ui/iscsi-dialogs.glade.h:14
-msgid "_Login"
-msgstr ""
-
-#: data/ui/iscsi-dialogs.glade.h:15
-msgid "iSCSI Nodes Login"
-msgstr ""
-
-#: data/ui/iscsi-dialogs.glade.h:16
 msgid "What kind of iSCSI <b>login authentication</b> do you wish to perform:"
 msgstr ""
 
-#: data/ui/iscsi-dialogs.glade.h:17
-msgid "iSCSI Login Results"
+#: data/ui/iscsi-dialogs.glade.h:14
+msgid "_Cancel"
 msgstr ""
 
-#: data/ui/iscsi-dialogs.glade.h:18
-msgid "Successfully logged in and attached the following nodes:"
+#: data/ui/iscsi-dialogs.glade.h:15
+msgid "_Login"
 msgstr ""
 
-#: data/ui/iscsi-dialogs.glade.h:19
-msgid "iSCSI login has failed for the following nodes:"
-msgstr ""
-
-#: data/ui/iscsi-dialogs.glade.h:20
-msgid "Reason:"
-msgstr ""
-
-#: data/ui/iscsi-dialogs.glade.h:21
+#: data/ui/iscsi-dialogs.glade.h:16
 msgid "_OK"
 msgstr ""
 
+#: data/ui/iscsi-dialogs.glade.h:17
+msgid "iSCSI Discovered Nodes"
+msgstr ""
+
+#: data/ui/iscsi-dialogs.glade.h:18
+msgid "iSCSI Discovery Details"
+msgstr ""
+
+#: data/ui/iscsi-dialogs.glade.h:19
+msgid "iSCSI Initiator Name:"
+msgstr ""
+
+#: data/ui/iscsi-dialogs.glade.h:20
+msgid "iSCSI Login Results"
+msgstr ""
+
+#: data/ui/iscsi-dialogs.glade.h:21
+msgid "iSCSI Nodes Login"
+msgstr ""
+
 #: data/ui/iscsi-dialogs.glade.h:22
-msgid "Retry _Login"
+msgid "iSCSI login has failed for the following nodes:"
 msgstr ""
 
 #: data/ui/lukspassphrase.glade.h:1
-msgid "Enter passphrase for encrypted partition"
+msgid ""
+"Also add this passphrase to all existing encrypted devices to streamline the "
+"boot process"
 msgstr ""
 
 #: data/ui/lukspassphrase.glade.h:2
@@ -4908,34 +4909,42 @@ msgid ""
 msgstr ""
 
 #: data/ui/lukspassphrase.glade.h:3
-msgid "Enter passphrase:"
-msgstr ""
-
-#: data/ui/lukspassphrase.glade.h:4
 msgid "Confirm passphrase:"
 msgstr ""
 
+#: data/ui/lukspassphrase.glade.h:4
+msgid "Enter passphrase for encrypted partition"
+msgstr ""
+
 #: data/ui/lukspassphrase.glade.h:5
-msgid ""
-"Also add this passphrase to all existing encrypted devices to streamline the "
-"boot process"
+msgid "Enter passphrase:"
 msgstr ""
 
 #: data/ui/network.glade.h:1
-msgid ""
-"Please name this computer.  The hostname identifies the computer on a "
-"network."
+msgid "Hostname:"
 msgstr ""
 
 #: data/ui/network.glade.h:2
-msgid "Hostname:"
+msgid ""
+"Please name this computer.  The hostname identifies the computer on a "
+"network."
 msgstr ""
 
 #: data/ui/network.glade.h:3
 msgid "_Configure Network"
 msgstr ""
 
+#: data/ui/tasksel.glade.h:1
+msgid "Customize _later"
+msgstr ""
+
 #: data/ui/tasksel.glade.h:2
+msgid ""
+"Please select any additional repositories that you want to use for software "
+"installation."
+msgstr ""
+
+#: data/ui/tasksel.glade.h:4
 #, no-c-format
 msgid ""
 "The default installation of %s includes a set of software applicable for "
@@ -4943,28 +4952,18 @@ msgid ""
 "support?"
 msgstr ""
 
-#: data/ui/tasksel.glade.h:3
+#: data/ui/tasksel.glade.h:5
 msgid ""
 "You can further customize the software selection now, or after install via "
 "the software management application."
 msgstr ""
 
-#: data/ui/tasksel.glade.h:4
-msgid "Customize _later"
-msgstr ""
-
-#: data/ui/tasksel.glade.h:5
-msgid "_Customize now"
-msgstr ""
-
 #: data/ui/tasksel.glade.h:6
-msgid ""
-"Please select any additional repositories that you want to use for software "
-"installation."
+msgid "_Add additional software repositories"
 msgstr ""
 
 #: data/ui/tasksel.glade.h:7
-msgid "_Add additional software repositories"
+msgid "_Customize now"
 msgstr ""
 
 #: data/ui/tasksel.glade.h:8
@@ -4972,43 +4971,40 @@ msgid "_Modify repository"
 msgstr ""
 
 #: data/ui/zfcp-config.glade.h:1
-msgid "Add FCP device"
+msgid "<b>Device number:</b>"
 msgstr ""
 
 #: data/ui/zfcp-config.glade.h:2
+msgid "<b>FCP LUN:</b>"
+msgstr ""
+
+#: data/ui/zfcp-config.glade.h:3
+msgid "<b>WWPN:</b>"
+msgstr ""
+
+#: data/ui/zfcp-config.glade.h:4
+msgid "Add FCP device"
+msgstr ""
+
+#: data/ui/zfcp-config.glade.h:5
 msgid ""
 "zSeries machines can access industry-standard SCSI devices via Fibre Channel "
 "(FCP). You need to provide a 16 bit device number, a 64 bit World Wide Port "
 "Name (WWPN), and a 64 bit FCP LUN for each device."
 msgstr ""
 
-#: data/ui/zfcp-config.glade.h:3
-msgid "<b>Device number:</b>"
-msgstr ""
-
-#: data/ui/zfcp-config.glade.h:4
-msgid "<b>WWPN:</b>"
-msgstr ""
-
-#: data/ui/zfcp-config.glade.h:5
-msgid "<b>FCP LUN:</b>"
-msgstr ""
-
-#: data/ui/reinitialize-dialog.glade.h:2
-msgid "_Yes, discard any data"
-msgstr ""
-
-#: data/ui/reinitialize-dialog.glade.h:3
-msgid "_No, keep any data"
-msgstr ""
-
-#: data/ui/reinitialize-dialog.glade.h:4
+#: data/ui/reinitialize-dialog.glade.h:1
 msgid ""
 "<span size=\"large\" weight=\"bold\">The storage device below may contain "
 "data.</span>"
 msgstr ""
 
-#: data/ui/reinitialize-dialog.glade.h:5
+#: data/ui/reinitialize-dialog.glade.h:2
+msgid ""
+"Apply my choice to all devices with undetected partitions or filesystems."
+msgstr ""
+
+#: data/ui/reinitialize-dialog.glade.h:4
 msgid ""
 "We could not detect partitions or filesystems on this device.\n"
 "\n"
@@ -5020,9 +5016,12 @@ msgid ""
 "Are you sure this device does not contain valuable data?"
 msgstr ""
 
+#: data/ui/reinitialize-dialog.glade.h:9
+msgid "_No, keep any data"
+msgstr ""
+
 #: data/ui/reinitialize-dialog.glade.h:10
-msgid ""
-"Apply my choice to all devices with undetected partitions or filesystems."
+msgid "_Yes, discard any data"
 msgstr ""
 
 #: data/lang-table.h:1

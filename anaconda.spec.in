@@ -249,7 +249,14 @@ update-desktop-database &> /dev/null || :
 /usr/lib/dracut/modules.d/80%{name}/*
 
 %changelog
+* Wed Jun 13 2012 David Cantrell <dcantrell@redhat.com> - 17.28.7-1
+- Drop refs to dev-%i.device from anaconda-shell@.service (wwoods)
+  Resolves: rhbz#826984
+- Handle RUNKS boot argument (jkeating)
+  Resolves: rhbz#831301
+
 * Tue Jun 12 2012 Martin Sivak <msivak@redhat.com> - 17.28.6-1
+- /bin/python -> /usr/bin/python (msivak)
 
 * Mon Jun 11 2012 David Cantrell <dcantrell@redhat.com> - 17.28.5-1
 - Don't start anaconda directly on s390x (jkeating)
