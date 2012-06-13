@@ -229,6 +229,7 @@ class Hub(UIObject):
             # acting on.  If no such spoke exists, throw the message away.
             spoke = self._spokes.get(args[0], None)
             if not spoke:
+                q.task_done()
                 continue
 
             if code in [communication.HUB_CODE_READY, communication.HUB_CODE_NOT_READY]:
@@ -251,7 +252,7 @@ class Hub(UIObject):
         UIObject.refresh(self)
         self._createBox()
 
-        self._update_spoke_id = GLib.idle_add(self._update_spokes)
+        self._update_spoke_id = GLib.timeout_add_seconds(1, self._update_spokes)
 
     ### SIGNAL HANDLERS
 
