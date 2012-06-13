@@ -232,15 +232,26 @@ class NetworkControlBox():
         self.builder.get_object("add_toolbutton").set_sensitive(False)
         self.builder.get_object("remove_toolbutton").set_sensitive(False)
 
-        for id in ["start_hotspot_button",
-                   "stop_hotspot_button",
-                   "heading_hotspot_network_name",
-                   "heading_hotspot_security_key",
-                   "label_hotspot_network_name",
-                   "label_hotspot_security_key",
-                   "devices_toolbar",
-                   "hbox54",
-                  ]:
+        not_supported = ["start_hotspot_button",
+                         "stop_hotspot_button",
+                         "heading_hotspot_network_name",
+                         "heading_hotspot_security_key",
+                         "label_hotspot_network_name",
+                         "label_hotspot_security_key",
+                         "devices_toolbar",
+                         "hbox54",
+                        ]
+
+        do_not_show_in_refresh = ["heading_wireless_network_name",
+                                  "combobox_wireless_network_name"]
+        do_not_show_in_refresh += ["%s_%s_%s" % (widget, type, value)
+                                   for widget in ["heading", "label"]
+                                   for type in ["wired", "wireless"]
+                                   for value in ["ipv4", "ipv6", "dns", "route"]]
+        do_not_show_in_refresh += ["%s_wired_subnet" % widget
+                                   for widget in ["heading", "label"]]
+
+        for id in not_supported + do_not_show_in_refresh:
             self.builder.get_object(id).set_no_show_all(True)
             self.builder.get_object(id).hide()
 
