@@ -110,6 +110,7 @@ class CustomPartitioningSpoke(NormalSpoke):
 
         self._current_selector = None
         self._ran_autopart = False
+        self._when_create_text = ""
 
     def apply(self):
         pass
@@ -135,6 +136,9 @@ class CustomPartitioningSpoke(NormalSpoke):
         from pyanaconda.storage.formats.fs import FS
 
         NormalSpoke.initialize(self)
+
+        label = self.builder.get_object("whenCreateLabel")
+        self._when_create_text = label.get_text()
 
         self._grabObjects()
         setViewportBackground(self.builder.get_object("availableSpaceViewport"), "#db3279")
@@ -253,7 +257,7 @@ class CustomPartitioningSpoke(NormalSpoke):
 
             self._partitionsNotebook.set_current_page(0)
             label = self.builder.get_object("whenCreateLabel")
-            label.set_text(label.get_text() % (productName, productVersion))
+            label.set_text(self._when_create_text % (productName, productVersion))
 
         # Add in all the existing (or autopart-created) operating systems.
         for root in self.storage.roots:
