@@ -1147,7 +1147,7 @@ class DeviceTree(object):
                                labelType=labelType,
                                exists=not initlabel)
         except InvalidDiskLabelError:
-            self.addIgnoredDisk(device.name)
+            log.info("no usable disklabel on %s" % device.name)
             return
 
         if not format.exists:
