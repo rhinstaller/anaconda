@@ -249,8 +249,30 @@ class StorageSpoke(NormalSpoke):
     def apply(self):
         self.data.clearpart.drives = self.selected_disks[:]
         self.data.autopart.autopart = self.autopart
+
+        # no thanks, lvm
+        self.data.autopart.lvm = False
+
+        if self.autopart:
+            self.clearPartType = CLEARPART_TYPE_ALL
+        else:
+            self.clearPartType = CLEARPART_TYPE_NONE
+
         self.data.bootloader.location = "mbr"
+
+        # Pick the first disk to be the destination device for the bootloader.
+        # This appears to be the minimum amount of configuration required to
+        # make autopart happy with the bootloader settings.
+        if not self.data.bootloader.bootDrive:
+            self.data.bootloader.bootDrive = self.storage.bootloader.disks[0].name
+
         self.data.clearpart.type = self.clearPartType
+
+        # FIXME: this will not work when users enter this spoke multiple times
+        #        unless they just keep doing autopart
+        self.data.clearpart.execute(self.storage, self.data, self.instclass)
+        self.data.bootloader.execute(self.storage, self.data, self.instclass)
+        self.data.autopart.execute(self.storage, self.data, self.instclass)
 
     @property
     def completed(self):

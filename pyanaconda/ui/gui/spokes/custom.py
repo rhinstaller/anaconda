@@ -496,12 +496,6 @@ class CustomPartitioningSpoke(NormalSpoke):
         from pyanaconda.storage.devices import DiskDevice
         from pyanaconda.storage.partitioning import doAutoPartition
 
-        # Pick the first disk to be the destination device for the bootloader.
-        # This appears to be the minimum amount of configuration required to
-        # make autopart happy with the bootloader settings.
-        if not self.data.bootloader.bootDrive:
-            self.data.bootloader.bootDrive = self.storage.bootloader.disks[0].name
-
         # Then do autopartitioning.  We do not do any clearpart first.  This is
         # custom partitioning, so you have to make your own room.
         # FIXME:  Handle all the autopart exns here.

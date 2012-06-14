@@ -48,12 +48,6 @@ def doInstall(storage, payload, ksdata, instClass):
     from pyanaconda import progress
     from pyanaconda.kickstart import runPostScripts
 
-    # First, run the execute methods of ksdata that prepare the system for
-    # installation.
-    ksdata.clearpart.execute(storage, ksdata, instClass)
-    ksdata.bootloader.execute(storage, ksdata, instClass)
-    ksdata.autopart.execute(storage, ksdata, instClass)
-
     # We really only care about actions that affect filesystems, since
     # those are the ones that take the most time.
     steps = len(storage.devicetree.findActions(type="create", object="format")) + \
