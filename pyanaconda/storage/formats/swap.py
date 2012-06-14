@@ -45,6 +45,9 @@ class SwapSpace(DeviceFormat):
     _supported = True                  # is supported
     _linuxNative = True                # for clearpart
 
+    #see rhbz#744129 for details
+    _maxSize = 128 * 1024
+
     def __init__(self, *args, **kwargs):
         """ Create a SwapSpace instance.
 
