@@ -108,7 +108,7 @@ def write_layouts_config(keyboard, root):
 
     """
 
-    conf_dir = os.path.join(root, "/etc/X11/xorg.conf.d")
+    conf_dir = os.path.normpath(root + "/etc/X11/xorg.conf.d")
     conf_file = "01-anaconda-keyboard.conf"
 
     try:

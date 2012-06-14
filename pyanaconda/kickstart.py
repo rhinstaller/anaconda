@@ -1017,7 +1017,7 @@ class Timezone(commands.timezone.FC6_Timezone):
         self.anaconda.timezone.setTimezoneInfo(self.timezone, self.isUtc)
         self.anaconda.dispatch.skip_steps("timezone")
 
-        chronyd_conf_path = os.path.join(ROOT_PATH, ntp.NTP_CONFIG_FILE)
+        chronyd_conf_path = os.path.normpath(ROOT_PATH + ntp.NTP_CONFIG_FILE)
         ntp.save_servers_to_config(self.ntp_servers,
                                    conf_file_path=chronyd_conf_path)
 
