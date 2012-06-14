@@ -150,7 +150,7 @@ class X86(Platform):
                           "mdarray": Platform._boot_raid_description}
 
 
-    _disklabel_types = ["gpt", "msdos"]
+    _disklabel_types = ["msdos", "gpt"]
     # XXX hpfs, if reported by blkid/udev, will end up with a type of None
     _non_linux_format_types = ["vfat", "ntfs", "hpfs"]
 
