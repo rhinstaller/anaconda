@@ -4,16 +4,15 @@
   <!-- interface-requires AnacondaWidgets 1.0 -->
   <object class="GtkDialog" id="additionalReposDialog">
     <property name="can_focus">False</property>
-    <property name="valign">start</property>
     <property name="border_width">5</property>
     <property name="type_hint">dialog</property>
     <child internal-child="vbox">
-      <object class="GtkBox" id="dialog-vbox5">
+      <object class="GtkBox" id="dialog-vbox6">
         <property name="can_focus">False</property>
         <property name="orientation">vertical</property>
         <property name="spacing">2</property>
         <child internal-child="action_area">
-          <object class="GtkButtonBox" id="dialog-action_area5">
+          <object class="GtkButtonBox" id="dialog-action_area6">
             <property name="can_focus">False</property>
             <property name="layout_style">end</property>
             <child>
@@ -59,7 +58,6 @@
           <object class="GtkBox" id="box4">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="vexpand">True</property>
             <property name="orientation">vertical</property>
             <property name="spacing">8</property>
             <child>
@@ -106,6 +104,7 @@
                     <property name="can_focus">True</property>
                     <property name="hexpand">True</property>
                     <property name="invisible_char">●</property>
+                    <property name="invisible_char_set">True</property>
                     <property name="secondary_icon_stock">gtk-delete</property>
                     <signal name="changed" handler="on_filter_changed" swapped="no"/>
                     <signal name="icon-press" handler="on_filter_icon_press" swapped="no"/>
@@ -131,9 +130,10 @@
                         <property name="can_focus">True</property>
                         <property name="model">peopleRepositoriesFilter</property>
                         <property name="headers_visible">False</property>
+                        <property name="headers_clickable">False</property>
                         <property name="search_column">1</property>
                         <child internal-child="selection">
-                          <object class="GtkTreeSelection" id="treeview-selection1">
+                          <object class="GtkTreeSelection" id="treeview-selection">
                             <signal name="changed" handler="on_selection_changed" swapped="no"/>
                           </object>
                         </child>
@@ -170,9 +170,6 @@
                     <property name="active">True</property>
                     <property name="draw_indicator">True</property>
                     <signal name="toggled" handler="on_source_changed" swapped="no"/>
-                    <child>
-                      <placeholder/>
-                    </child>
                   </object>
                   <packing>
                     <property name="left_attach">0</property>
@@ -210,15 +207,6 @@
                 <child>
                   <placeholder/>
                 </child>
-                <child>
-                  <placeholder/>
-                </child>
-                <child>
-                  <placeholder/>
-                </child>
-                <child>
-                  <placeholder/>
-                </child>
               </object>
               <packing>
                 <property name="expand">True</property>
@@ -237,6 +225,7 @@
                     <property name="can_focus">True</property>
                     <property name="hexpand">True</property>
                     <property name="invisible_char">●</property>
+                    <property name="invisible_char_set">True</property>
                     <property name="secondary_icon_stock">gtk-delete</property>
                     <signal name="changed" handler="on_url_changed" swapped="no"/>
                     <signal name="icon-press" handler="on_url_icon_press" swapped="no"/>
@@ -256,12 +245,8 @@
                     <property name="receives_default">False</property>
                     <property name="use_action_appearance">False</property>
                     <property name="xalign">0</property>
-                    <property name="active">True</property>
                     <property name="draw_indicator">True</property>
                     <property name="group">addRepositorySelectList</property>
-                    <child>
-                      <placeholder/>
-                    </child>
                   </object>
                   <packing>
                     <property name="left_attach">0</property>
@@ -334,15 +319,6 @@
                     <property name="width">1</property>
                     <property name="height">1</property>
                   </packing>
-                </child>
-                <child>
-                  <placeholder/>
-                </child>
-                <child>
-                  <placeholder/>
-                </child>
-                <child>
-                  <placeholder/>
                 </child>
               </object>
               <packing>
@@ -748,21 +724,6 @@ TeXlive 2012 repository</col>
                     <child>
                       <placeholder/>
                     </child>
-                    <child>
-                      <placeholder/>
-                    </child>
-                    <child>
-                      <placeholder/>
-                    </child>
-                    <child>
-                      <placeholder/>
-                    </child>
-                    <child>
-                      <placeholder/>
-                    </child>
-                    <child>
-                      <placeholder/>
-                    </child>
                   </object>
                   <packing>
                     <property name="expand">False</property>
@@ -852,21 +813,6 @@ TeXlive 2012 repository</col>
                         <property name="width">1</property>
                         <property name="height">1</property>
                       </packing>
-                    </child>
-                    <child>
-                      <placeholder/>
-                    </child>
-                    <child>
-                      <placeholder/>
-                    </child>
-                    <child>
-                      <placeholder/>
-                    </child>
-                    <child>
-                      <placeholder/>
-                    </child>
-                    <child>
-                      <placeholder/>
                     </child>
                   </object>
                   <packing>
