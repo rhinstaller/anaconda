@@ -290,7 +290,7 @@ class CustomPartitioningSpoke(NormalSpoke):
             for u in unused:
                 selector = page.addDevice(u.format.name, u.size, None, self.on_selector_clicked)
                 selector._device = u
-                selector._root = unused
+                selector._root = None
 
             page.show_all()
             self._accordion.addPage(page)
@@ -404,14 +404,18 @@ class CustomPartitioningSpoke(NormalSpoke):
                 # FIXME:  Do creation.
                 pass
 
-    def _remove_from_ui(self, root, device, cb):
-        if device in root.swaps:
+    def _remove_from_ui(self, root, device):
+        if root is None:
+            pass    # unused device
+        elif device in root.swaps:
             root.swaps.remove(device)
-        elif hasattr(device.format, "mountpoint") and device.format.mountpoint in root.mounts:
-            root.mounts.pop(device.format.mountpoint)
-        else:
-            # Can this ever happen?
-            return
+        elif hasattr(device.format, "mountpoint") and \
+             device in root.mounts.values():
+            mountpoints = [m for (m,d) in root.mounts.items() if d == device]
+            for mountpoint in mountpoints:
+                root.mounts.pop(mountpoint)
+
+        self.storage.destroyDevice(device)
 
         # Now that it's removed from the installation root, refreshing the
         # display will have the effect of making it disappear.  It's like
@@ -420,28 +424,16 @@ class CustomPartitioningSpoke(NormalSpoke):
 
         # Make sure there's something displayed on the RHS.  Just default to
         # the first mountpoint in the page.
+        # FIXME: the current page appears to be the default/empty/create page,
+        #        even if you've obviously gone into one of the roots to remove
+        #        a device
         page = self._accordion.currentPage()
-        if not page or not page._members:
-            return
+        if getattr(page, "_members", []):
+            self._populate_right_side(page._members[0])
 
-        self._populate_right_side(page._members[0])
-
-        # Finally, do the remove actions.  This has to come after updating the
-        # display or device.format.mountpoint will disappear and the code at the
-        # top of this method won't work.
-        cb(device)
         self._updateSpaceDisplay()
 
-    def _remove_existing_cb(self, device):
-        self.storage.devicetree.registerAction(ActionDestroyFormat(device))
-        self.storage.devicetree.registerAction(ActionDestroyDevice(device))
-
-    def _remove_created_cb(self, device):
-        actions = self.storage.devicetree.findActions(device=device)
-        map(self.storage.devicetree.cancelAction, reversed(actions))
-
     def on_remove_clicked(self, button):
-        from pyanaconda.storage.deviceaction import ActionDestroyFormat, ActionDestroyDevice
 
         if not self._current_selector:
             return
@@ -456,16 +448,10 @@ class CustomPartitioningSpoke(NormalSpoke):
                 dialog.refresh(getattr(device.format, "mountpoint", None), device.name)
                 rc = dialog.run()
 
-                if rc == 1:
-                    self._remove_from_ui(self._current_selector._root, device,
-                                         self._remove_existing_cb)
-        else:
-            # This is a device we just created during custom partitioning so
-            # it's never existed on disk and there's no data on it.  Thus, we
-            # don't need to ask before deleting.  Remove it from the UI first
-            # and then cancel the actions that would create it.
-            self._remove_from_ui(self._current_selector._root, device,
-                                 self._remove_created_cb)
+                if rc == 0:
+                    return
+
+        self._remove_from_ui(self._current_selector._root, device)
 
     def on_summary_clicked(self, button):
         dialog = SelectedDisksDialog(self.data)
@@ -516,10 +502,13 @@ class CustomPartitioningSpoke(NormalSpoke):
         # Devices just created by autopartitioning will be listed as unused
         # since they are not yet a part of any known Root.
         for device in self._unusedDevices():
+            if device.exists:
+                continue
+
             if device.format.type == "swap":
                 swaps.append(device)
 
-            if hasattr(device.format, "mountpoint"):
+            if getattr(device.format, "mountpoint", None):
                 mounts[device.format.mountpoint] = device
 
         newName = _("New %s %s Installation") % (productName, productVersion)
