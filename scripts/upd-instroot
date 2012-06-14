@@ -118,8 +118,9 @@ PACKAGES="glibc glibc-common setup openssl python python-libs newt slang libseli
 	 libstdc++ expat libgcc readline ncurses yum python-sqlite
 	 python-elementtree pykickstart e2fsprogs-libs iscsi-initiator-utils
 	 db4 rhpxl xorg-x11-server-Xorg libuser system-config-date
-         yum-metadata-parser gfs2-utils libvolume_id rhel-instnum yum-kmod
-	 libdhcp libnl libdhcp6client libdhcp4client device-mapper-multipath
+         yum-metadata-parser gfs-utils kmod-gfs gfs2-utils libvolume_id
+         rhel-instnum yum-kmod libdhcp libnl libdhcp6client libdhcp4client
+         device-mapper-multipath
 	 kpartx dmraid python-pyblock mkinitrd libbdevid libbdevid-python
 	 libselinux-python nss udev keyutils-libs nspr python-iniparse
 	 cryptsetup-luks e4fsprogs fipscheck fipscheck-lib libdrm libmlx4

@@ -1224,9 +1224,9 @@ class Partitions:
 
                 # no gfs support in grub
                 if (bootreq and bootreq.fstype and
-                    bootreq.fstype.getName() == "gfs2"):
-                    errors.append("Bootable partitions cannot be on a GFS2 "
-                                  "filesystem.")
+                    bootreq.fstype.getName() in ["gfs", "gfs2"]):
+                    errors.append("Bootable partitions cannot be on a GFS "
+                                  "nor a GFS2 filesystem.")
                     
                 # no ext4 support in grub
                 if (bootreq and bootreq.fstype and

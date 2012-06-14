@@ -539,6 +539,36 @@ class jfsFileSystem(FileSystemType):
                                   
 fileSystemTypeRegister(jfsFileSystem())
 
+class gfsFileSystem(FileSystemType):
+    def __init__(self):
+        FileSystemType.__init__(self)
+        self.partedFileSystemType = None
+        self.formattable = 1
+        self.checked = 0
+        self.linuxnativefs = 1
+        if flags.cmdline.has_key("gfs"):
+            self.supported = -1
+        else:
+            self.supported = 0
+
+        self.name = "gfs"
+        self.packages = [ "gfs-utils" ]
+
+        self.maxSizeMB = 8 * 1024 * 1024
+
+    def formatDevice(self, entry, progress, chroot='/'):
+        devicePath = entry.device.setupDevice(chroot)
+        rc = iutil.execWithRedirect("/usr/sbin/mkfs.gfs",
+                                    ["-j", "1", "-p", "lock_nolock",
+                                     "-O", devicePath],
+                                    stdout = "/dev/tty5",
+                                    stderr = "/dev/tty5")
+
+        if rc:
+            raise SystemError
+
+fileSystemTypeRegister(gfsFileSystem())
+
 class gfs2FileSystem(FileSystemType):
     def __init__(self):
         FileSystemType.__init__(self)
