@@ -687,6 +687,7 @@ reposdir=%s
     @property
     def _yumGroups(self):
         """ yum.comps.Comps instance. """
+        from yum.Errors import RepoError, GroupsError
         with _yum_lock:
             if not self._groups:
                 if not self.needsNetwork or hasActiveNetDev():
