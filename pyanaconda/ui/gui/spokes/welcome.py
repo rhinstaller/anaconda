@@ -34,7 +34,7 @@ from pyanaconda.ui.gui.categories.localization import LocalizationCategory
 from pyanaconda.localization import Language, LOCALE_PREFERENCES
 from pyanaconda.product import isFinal, productName, productVersion
 from pyanaconda import keyboard
-from pyanaconda import localization
+from pyanaconda import timezone
 
 __all__ = ["WelcomeLanguageSpoke", "LanguageSpoke"]
 
@@ -59,7 +59,7 @@ class LanguageMixIn(object):
 
         #TODO: better use GeoIP data once it is available
         if self.language.territory and not self.data.timezone.timezone:
-            lang_timezone = localization.get_preferred_timezone(self.language.territory)
+            lang_timezone = timezone.get_preferred_timezone(self.language.territory)
             if lang_timezone:
                 self.data.timezone.timezone = lang_timezone
 

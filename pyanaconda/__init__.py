@@ -76,7 +76,6 @@ class Anaconda(object):
         self.simpleFilter = not iutil.isS390()
         self.stage2 = None
         self._storage = None
-        self._timezone = None
         self.updateSrc = None
         self.upgrade = flags.cmdline.has_key("preupgrade")
         self.upgradeRoot = None
@@ -188,15 +187,6 @@ class Anaconda(object):
 
         return self._storage
 
-    @property
-    def timezone(self):
-        if not self._timezone:
-            import timezone
-            self._timezone = timezone.Timezone()
-            self._timezone.setTimezoneInfo(self.instLanguage.getDefaultTimeZone())
-
-        return self._timezone
-
     def dumpState(self):
         from meh.dump import ReverseExceptionDump
         from inspect import stack as _stack
@@ -267,7 +257,6 @@ class Anaconda(object):
         self.writeXdriver()
         self.instLanguage.write()
 
-        self.timezone.write()
         network.write_sysconfig_network()
         network.disableIPV6()
         network.copyConfigToPath(ROOT_PATH)

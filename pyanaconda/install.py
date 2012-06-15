@@ -84,6 +84,7 @@ def doInstall(storage, payload, ksdata, instClass):
     ksdata.firstboot.execute(storage, ksdata, instClass)
     ksdata.services.execute(storage, ksdata, instClass)
     ksdata.keyboard.execute(storage, ksdata, instClass)
+    ksdata.timezone.execute(storage, ksdata, instClass)
 
     # Creating users and groups requires some pre-configuration.
     u = Users()

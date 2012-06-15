@@ -26,7 +26,6 @@ import os
 import re
 
 import babel
-import pytz
 
 
 LOCALE_PREFERENCES = {}
@@ -267,40 +266,3 @@ class Language(object):
 
     def set_system_lang(self, langcode):
         self.system_lang = langcode
-
-
-def get_all_territory_timezones(territory):
-    if isinstance(territory, LocaleInfo):
-        territory = territory.territory
-
-    try:
-        timezones = pytz.country_timezones(territory)
-    except KeyError:
-        timezones = list()
-
-    return timezones
-
-
-def get_preferred_timezone(territory):
-    try:
-        timezone = get_all_territory_timezones(territory)[0]
-    except IndexError:
-        timezone = None
-
-    return timezone
-
-def get_all_regions_and_timezones():
-    result = OrderedDict()
-
-    for tz in pytz.common_timezones:
-        parts = tz.split("/", 1)
-
-        if len(parts) > 1:
-            if parts[0] not in result:
-                result[parts[0]] = set()
-            result[parts[0]].add(parts[1])
-
-    return result
-
-def is_valid_timezone(timezone):
-    return timezone in pytz.common_timezones

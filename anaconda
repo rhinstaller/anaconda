@@ -930,7 +930,7 @@ if __name__ == "__main__":
         opts.lang = opts.lang.replace(".utf8", ".UTF-8")
         anaconda.instLanguage.instLang = opts.lang
         anaconda.instLanguage.systemLang = opts.lang
-        anaconda.timezone.setTimezoneInfo(anaconda.instLanguage.getDefaultTimeZone())
+        anaconda.ksdata.timezone.timezone = anaconda.instLanguage.getDefaultTimeZone()
 
     from pyanaconda.storage import storageInitialize
     from pyanaconda.packaging import payloadInitialize

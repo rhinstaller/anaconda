@@ -1,72 +1,158 @@
 #
-# timezone.py - timezone install data
+# Copyright (C) 2012  Red Hat, Inc.
 #
-# Copyright (C) 2001  Red Hat, Inc.  All rights reserved.
+# This copyrighted material is made available to anyone wishing to use,
+# modify, copy, or redistribute it subject to the terms and conditions of
+# the GNU General Public License v.2, or (at your option) any later version.
+# This program is distributed in the hope that it will be useful, but WITHOUT
+# ANY WARRANTY expressed or implied, including the implied warranties of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General
+# Public License for more details.  You should have received a copy of the
+# GNU General Public License along with this program; if not, write to the
+# Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+# 02110-1301, USA.  Any Red Hat trademarks that are incorporated in the
+# source code or documentation are not subject to the GNU General Public
+# License and may only be used or replicated with the express permission of
+# Red Hat, Inc.
 #
-# This program is free software; you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation; either version 2 of the License, or
-# (at your option) any later version.
-#
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
-#
-# You should have received a copy of the GNU General Public License
-# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+# Red Hat Author(s): Vratislav Podzimek <vpodzime@redhat.com>
 #
 
-import shutil
-import iutil
+"""
+Module providing functions for getting the list of timezones, writing timezone
+configuration, valid timezones recognition etc.
+
+"""
+
 import os
-from flags import flags
-from pyanaconda.constants import ROOT_PATH
+import pytz
+from collections import OrderedDict
+
+from pyanaconda import localization
 
 import logging
 log = logging.getLogger("anaconda")
 
-class Timezone:
-    def write(self):
-        fromFile = ROOT_PATH + "/usr/share/zoneinfo/" + self.tz
+class TimezoneConfigError(Exception):
+    """Exception class for timezone configuration related problems"""
+    pass
 
-        if not os.access(fromFile, os.R_OK):
-            log.error("Timezone to be copied (%s) doesn't exist" % fromFile)
-        else:
-            try:
-                shutil.copyfile(fromFile, ROOT_PATH + "/etc/localtime")
-            except EnvironmentError as e:
-                log.error("Error copying timezone (from %s): %s" % (fromFile, e.strerror))
+def write_timezone_config(timezone, root):
+    """
+    Write timezone configuration for the system specified by root.
 
-        f = open(ROOT_PATH + "/etc/sysconfig/clock", "w")
+    @param timezone: ksdata.timezone object
+    @param root: path to the root
+    @raise: TimezoneConfigError
 
-        f.write('ZONE="%s"\n' % self.tz)
-        f.close()
+    """
 
+    # we want to create a relative symlink
+    tz_file = "/usr/share/zoneinfo/" + timezone.timezone
+    rooted_tz_file = os.path.normpath(root + tz_file)
+    relative_path = os.path.normpath("../" + tz_file)
+    link_path = os.path.normpath(root + "/etc/localtime")
+
+    if not os.access(rooted_tz_file, os.R_OK):
+        log.error("Timezone to be linked (%s) doesn't exist" % rooted_tz_file)
+    else:
         try:
-            f = open(ROOT_PATH + "/etc/adjtime", "r")
-            lines = f.readlines()
-            f.close()
-        except:
-            lines = [ "0.0 0 0.0\n", "0\n" ]
+            os.symlink(relative_path, link_path)
+        except OSError as oserr:
+            log.error("Error when symlinking timezone (from %s): %s" % \
+                      (rooted_tz_file, oserr.strerror))
 
-        f = open(ROOT_PATH + "/etc/adjtime", "w")
-        f.write(lines[0])
-        f.write(lines[1])
-        if self.utc:
-            f.write("UTC\n")
-        else:
-            f.write("LOCAL\n")
-        f.close()
+    try:
+        with open(os.path.normpath(root + "/etc/sysconfig/clock"), "w") as fobj:
+            fobj.write('ZONE="%s"\n' % timezone.timezone)
+    except IOError as ioerr:
+        msg = "Error while writing /etc/sysconfig/clock file: %s" % \
+                ioerr.strerror
+        raise TimezoneConfigError(msg)
 
-    def getTimezoneInfo(self):
-        return (self.tz, self.utc)
+    try:
+        fobj = open(os.path.normpath(root + "/etc/adjtime"), "r")
+        lines = fobj.readlines()
+        fobj.close()
+    except IOError:
+        lines = [ "0.0 0 0.0\n", "0\n" ]
 
-    def setTimezoneInfo(self, timezone, asUtc = 0):
-        log.info("set timezone: %s, utc: %d" % (timezone, asUtc))
-        self.tz = timezone
-        self.utc = asUtc
+    try:
+        with open(os.path.normpath(root + "/etc/adjtime"), "w") as fobj:
+            fobj.write(lines[0])
+            fobj.write(lines[1])
+            if timezone.isUtc:
+                fobj.write("UTC\n")
+            else:
+                fobj.write("LOCAL\n")
+    except IOError as ioerr:
+        msg = "Error while writing /etc/adjtime file: %s" % ioerr.strerror
+        raise TimezoneConfigError(msg)
 
-    def __init__(self):
-        self.tz = "America/New_York"
-        self.utc = 0
+def get_all_territory_timezones(territory):
+    """
+    Return the list of timezones for a given territory.
+
+    @param territory: either localization.LocaleInfo or territory
+
+    """
+
+    if isinstance(territory, localization.LocaleInfo):
+        territory = territory.territory
+
+    try:
+        timezones = pytz.country_timezones(territory)
+    except KeyError:
+        timezones = list()
+
+    return timezones
+
+
+def get_preferred_timezone(territory):
+    """
+    Get the preferred timezone for a given territory. Note that this function
+    simply returns the first timezone in the list of timezones for a given
+    territory.
+
+    @param territory: either localization.LocaleInfo or territory
+
+    """
+
+    try:
+        timezone = get_all_territory_timezones(territory)[0]
+    except IndexError:
+        timezone = None
+
+    return timezone
+
+def get_all_regions_and_timezones():
+    """
+    Get a dictionary mapping the regions to the list of their timezones.
+
+    @rtype: dict
+
+    """
+
+    result = OrderedDict()
+
+    for tz in pytz.common_timezones:
+        parts = tz.split("/", 1)
+
+        if len(parts) > 1:
+            if parts[0] not in result:
+                result[parts[0]] = set()
+            result[parts[0]].add(parts[1])
+
+    return result
+
+def is_valid_timezone(timezone):
+    """
+    Check if a given string is an existing timezone.
+
+    @type timezone: str
+    @rtype: bool
+
+    """
+
+    return timezone in pytz.common_timezones
+
