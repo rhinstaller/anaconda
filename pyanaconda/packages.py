@@ -44,8 +44,8 @@ def setupTimezone(anaconda):
     if anaconda.upgrade or flags.imageInstall or anaconda.dir == DISPATCH_BACK:
         return
 
-    os.environ["TZ"] = anaconda.timezone.tz
-    tzfile = "/usr/share/zoneinfo/" + anaconda.timezone.tz
+    os.environ["TZ"] = anaconda.ksdata.timezone.timezone
+    tzfile = "/usr/share/zoneinfo/" + anaconda.ksdata.timezone.timezone
     tzlocalfile = "/etc/localtime"
     if not os.access(tzfile, os.R_OK):
         log.error("unable to set timezone")
@@ -62,7 +62,7 @@ def setupTimezone(anaconda):
     if iutil.isS390():
         return
     args = [ "--hctosys" ]
-    if anaconda.timezone.utc:
+    if anaconda.ksdata.timezone.isUtc:
         args.append("-u")
 
     try:

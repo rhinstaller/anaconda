@@ -30,7 +30,7 @@ from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.gui.categories.localization import LocalizationCategory
 from pyanaconda.ui.gui.utils import enlightbox
 
-from pyanaconda import localization, iutil, network, ntp
+from pyanaconda import timezone, iutil, network, ntp
 from pyanaconda.threads import threadMgr, AnacondaThread
 
 import datetime, os, threading
@@ -263,7 +263,7 @@ class DatetimeSpoke(NormalSpoke):
         self._citiesStore = self.builder.get_object("cities")
         self._tzmap = self.builder.get_object("tzmap")
 
-        self._regions_zones = localization.get_all_regions_and_timezones()
+        self._regions_zones = timezone.get_all_regions_and_timezones()
 
         for day in xrange(1, 32):
             self.add_to_store(self._daysStore, day)
