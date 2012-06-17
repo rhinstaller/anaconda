@@ -1,0 +1,10 @@
+[Unit]
+Description=Clean Up Initramfs
+Before=anaconda@.service
+ConditionPathIsDirectory=/run/initramfs/usr/lib/modules
+
+[Service]
+Type=notify
+NotifyAccess=all
+RemainAfterExit=yes
+ExecStart=/usr/sbin/anaconda-cleanup-initramfs
