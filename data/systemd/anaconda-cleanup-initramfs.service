@@ -7,4 +7,5 @@ ConditionPathIsDirectory=/run/initramfs/usr/lib/modules
 Type=notify
 NotifyAccess=all
 RemainAfterExit=yes
+Nice=19
 ExecStart=/usr/sbin/anaconda-cleanup-initramfs
