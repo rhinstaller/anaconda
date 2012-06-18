@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.250
+Version: 11.1.2.251
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -128,6 +128,13 @@ fi
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Mon Jun 18 2012 Martin Gracik <mgracik@redhat.com> 11.1.2.251-1
+- Change limit for ext[34] to 16T and use mkfs.ext3 when formating ext3 (#769287) (vpodzime)
+- Close dialogs as canceled if Esc is hit (#773573) (vpodzime)
+- Do not remove filesystem labels set in kickstart (#797075) (mgracik)
+- getFilename takes no loglevel parameter (#760496) (mgracik)
+- Add link to /proc/self/fd in /dev (#784159) (mgracik)
+
 * Fri Dec 23 2011 Martin Gracik <mgracik@redhat.com> 11.1.2.250-1
 - Check if the anaconda attribute is set in YumSorter (mgracik)
   Related: rhbz#756707
