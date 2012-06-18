@@ -128,7 +128,7 @@ fi
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
-* Mon Jun 18 2012 Martin Gracik <mgracik@redhat.com> 11.1.2.251-1
+* Mon Jun 18 2012 Martin Gracik <mgracik@redhat.com> 11.1.2.251-2
 - Change limit for ext[34] to 16T and use mkfs.ext3 when formating ext3 (vpodzime)
   Resolves: rhbz#769287
 - Close dialogs as canceled if Esc is hit (vpodzime)
