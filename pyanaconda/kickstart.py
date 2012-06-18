@@ -1006,7 +1006,7 @@ class Services(commands.services.FC6_Services):
                                    stdout="/dev/tty5", stderr="/dev/tty5",
                                    root=ROOT_PATH)
 
-class Timezone(commands.timezone.FC6_Timezone):
+class Timezone(commands.timezone.F18_Timezone):
     def execute(self):
         # check validity
         tab = zonetab.ZoneTab()
@@ -1018,7 +1018,7 @@ class Timezone(commands.timezone.FC6_Timezone):
         self.anaconda.dispatch.skip_steps("timezone")
 
         chronyd_conf_path = os.path.normpath(ROOT_PATH + ntp.NTP_CONFIG_FILE)
-        ntp.save_servers_to_config(self.ntp_servers,
+        ntp.save_servers_to_config(self.ntpservers,
                                    conf_file_path=chronyd_conf_path)
 
 class VolGroupData(commands.volgroup.FC3_VolGroupData):

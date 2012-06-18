@@ -741,7 +741,7 @@ class DatetimeSpoke(NormalSpoke):
             response = self._config_dialog.run()
 
         if response == 1:
-            self.data.timezone.ntp_servers = self._config_dialog.servers
+            self.data.timezone.ntpservers = self._config_dialog.servers
 
             if self._config_dialog.working_server is None:
                 self._show_no_ntp_server_warning()
