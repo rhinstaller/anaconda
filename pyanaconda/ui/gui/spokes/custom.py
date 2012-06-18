@@ -25,6 +25,7 @@
 # - Deleting an LV is not reflected in available space in the bottom left.
 # - Device descriptions, suggested sizes, etc. should be moved out into a support file.
 # - Newly created devices can not be resized (because self.resizable requires self.exists).
+# - Remove the entire installation if '-' is pressed when a Page has the focus.
 # - Removing a device is not very smart.  It needs to take into account LUKS, LVM, RAID,
 #   all that kind of stuff.  If this is the last device in one of those containers, all
 #   the containers should be deleted too.
