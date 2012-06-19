@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 17.28.6\n"
+"Project-Id-Version: anaconda 17.28.7\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2012-06-13 17:47-0400\n"
+"POT-Creation-Date: 2012-06-19 16:31-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,28 +17,28 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: anaconda:352
+#: anaconda:353
 msgid "Press <enter> for a shell"
 msgstr ""
 
-#: anaconda:366
+#: anaconda:367
 #, c-format
 msgid ""
 "%s requires %s MB of memory to install, but you only have %s MB on this "
 "machine.\n"
 msgstr ""
 
-#: anaconda:368
+#: anaconda:369
 #, c-format
 msgid ""
 "The %s graphical installer requires %s MB of memory, but you only have %s MB."
 msgstr ""
 
-#: anaconda:373
+#: anaconda:374
 msgid "Not enough RAM"
 msgstr ""
 
-#: anaconda:374
+#: anaconda:375
 msgid ""
 " Try the text mode installer by running:\n"
 "\n"
@@ -47,42 +47,42 @@ msgid ""
 " from a root terminal."
 msgstr ""
 
-#: anaconda:377
+#: anaconda:378
 msgid " Starting text mode."
 msgstr ""
 
-#: anaconda:404 pyanaconda/rescue.py:347 pyanaconda/rescue.py:379
+#: anaconda:405 pyanaconda/rescue.py:347 pyanaconda/rescue.py:379
 #: pyanaconda/rescue.py:392 pyanaconda/rescue.py:460 pyanaconda/rescue.py:477
 #: pyanaconda/rescue.py:488 pyanaconda/text.py:546
 #: pyanaconda/textw/constants_text.py:44
 msgid "OK"
 msgstr ""
 
-#: anaconda:497
+#: anaconda:498
 msgid "Would you like to use VNC?"
 msgstr ""
 
-#: anaconda:498
+#: anaconda:499
 msgid ""
 "Text mode provides a limited set of installation options. It does not allow "
 "you to specify your own partitioning layout or package selections. Would you "
 "like to use VNC mode instead?"
 msgstr ""
 
-#: anaconda:519
+#: anaconda:520
 msgid "DISPLAY variable not set. Starting text mode."
 msgstr ""
 
-#: anaconda:527
+#: anaconda:528
 msgid "Graphical installation is not available. Starting text mode."
 msgstr ""
 
-#: anaconda:649
+#: anaconda:650
 #, c-format
 msgid "Please ssh install@%s to begin the install."
 msgstr ""
 
-#: anaconda:651
+#: anaconda:652
 msgid "Please ssh install@<host> to continue installation."
 msgstr ""
 
@@ -169,22 +169,22 @@ msgstr ""
 msgid "%s cannot be of type %s"
 msgstr ""
 
-#: pyanaconda/bootloader.py:1651
+#: pyanaconda/bootloader.py:1655
 msgid ""
 "Your BIOS-based system needs a special partition to boot with Fedora's new "
 "disk label format (GPT). To continue, please create a 1MB 'BIOS Boot' type "
 "partition."
 msgstr ""
 
-#: pyanaconda/bootloader.py:2328
+#: pyanaconda/bootloader.py:2335
 msgid "Bootloader"
 msgstr ""
 
-#: pyanaconda/bootloader.py:2329
+#: pyanaconda/bootloader.py:2336
 msgid "Installing bootloader."
 msgstr ""
 
-#: pyanaconda/bootloader.py:2336 pyanaconda/bootloader.py:2395
+#: pyanaconda/bootloader.py:2343 pyanaconda/bootloader.py:2402
 #: pyanaconda/gui.py:1093 pyanaconda/image.py:87
 #: pyanaconda/installinterfacebase.py:74
 #: pyanaconda/installinterfacebase.py:151 pyanaconda/packages.py:90
@@ -193,13 +193,13 @@ msgstr ""
 msgid "Warning"
 msgstr ""
 
-#: pyanaconda/bootloader.py:2337
+#: pyanaconda/bootloader.py:2344
 msgid ""
 "No kernel packages were installed on the system. Bootloader configuration "
 "will not be changed."
 msgstr ""
 
-#: pyanaconda/bootloader.py:2396
+#: pyanaconda/bootloader.py:2403
 msgid ""
 "There was an error installing the bootloader.  The system may not be "
 "bootable."
@@ -222,9 +222,9 @@ msgid ""
 msgstr ""
 
 #: pyanaconda/cmdline.py:104 pyanaconda/gui.py:1148
-#: pyanaconda/kickstart.py:1343 pyanaconda/kickstart.py:1402
-#: pyanaconda/kickstart.py:1410 pyanaconda/kickstart.py:1440
-#: pyanaconda/kickstart.py:1450 pyanaconda/text.py:400
+#: pyanaconda/kickstart.py:1346 pyanaconda/kickstart.py:1405
+#: pyanaconda/kickstart.py:1413 pyanaconda/kickstart.py:1443
+#: pyanaconda/kickstart.py:1453 pyanaconda/text.py:400
 #, python-format
 msgid ""
 "The following error was found while parsing the kickstart configuration "
@@ -499,8 +499,8 @@ msgid ""
 "choose to continue if you think this is in error."
 msgstr ""
 
-#: pyanaconda/image.py:97 pyanaconda/kickstart.py:1531
-#: pyanaconda/kickstart.py:1570 pyanaconda/packages.py:95
+#: pyanaconda/image.py:97 pyanaconda/kickstart.py:1534
+#: pyanaconda/kickstart.py:1573 pyanaconda/packages.py:95
 #: pyanaconda/upgrade.py:58 pyanaconda/upgrade.py:105
 #: pyanaconda/yuminstall.py:1339 pyanaconda/yuminstall.py:1524
 #: pyanaconda/iw/partition_gui.py:1630 pyanaconda/storage/__init__.py:2327
@@ -702,53 +702,53 @@ msgid ""
 "%s"
 msgstr ""
 
-#: pyanaconda/kickstart.py:489
+#: pyanaconda/kickstart.py:492
 msgid "Could not log into any iSCSI nodes at the portal."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1475 pyanaconda/livecd.py:196
+#: pyanaconda/kickstart.py:1478 pyanaconda/livecd.py:196
 msgid "Post-Installation"
 msgstr ""
 
-#: pyanaconda/kickstart.py:1476
+#: pyanaconda/kickstart.py:1479
 msgid "Running post-installation scripts"
 msgstr ""
 
-#: pyanaconda/kickstart.py:1491
+#: pyanaconda/kickstart.py:1494
 msgid "Running pre-installation scripts"
 msgstr ""
 
-#: pyanaconda/kickstart.py:1522
+#: pyanaconda/kickstart.py:1525
 msgid "Missing Package"
 msgstr ""
 
-#: pyanaconda/kickstart.py:1523
+#: pyanaconda/kickstart.py:1526
 #, python-format
 msgid ""
 "You have specified that the package '%s' should be installed.  This package "
 "does not exist. Would you like to continue or abort this installation?"
 msgstr ""
 
-#: pyanaconda/kickstart.py:1529 pyanaconda/kickstart.py:1568
+#: pyanaconda/kickstart.py:1532 pyanaconda/kickstart.py:1571
 msgid "_Abort"
 msgstr ""
 
-#: pyanaconda/kickstart.py:1530 pyanaconda/kickstart.py:1569
+#: pyanaconda/kickstart.py:1533 pyanaconda/kickstart.py:1572
 msgid "_Ignore All"
 msgstr ""
 
-#: pyanaconda/kickstart.py:1560
+#: pyanaconda/kickstart.py:1563
 msgid "Missing Group"
 msgstr ""
 
-#: pyanaconda/kickstart.py:1561
+#: pyanaconda/kickstart.py:1564
 #, python-format
 msgid ""
 "You have specified that the group '%s' should be installed. This group does "
 "not exist. Would you like to continue or abort this installation?"
 msgstr ""
 
-#: pyanaconda/kickstart.py:1653
+#: pyanaconda/kickstart.py:1656
 #, python-format
 msgid ""
 "The kickstart configuration file is missing required information that "
