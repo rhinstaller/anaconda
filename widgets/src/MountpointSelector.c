@@ -54,6 +54,8 @@ struct _AnacondaMountpointSelectorPrivate {
     GtkWidget *name_label, *size_label, *mountpoint_label;
     GtkWidget *arrow;
 
+    GdkCursor *cursor;
+
     gboolean   chosen;
 };
 
@@ -61,6 +63,9 @@ G_DEFINE_TYPE(AnacondaMountpointSelector, anaconda_mountpoint_selector, GTK_TYPE
 
 static void anaconda_mountpoint_selector_get_property(GObject *object, guint prop_id, GValue *value, GParamSpec *pspec);
 static void anaconda_mountpoint_selector_set_property(GObject *object, guint prop_id, const GValue *value, GParamSpec *pspec);
+
+static void anaconda_mountpoint_selector_realize(GtkWidget *widget, gpointer user_data);
+static void anaconda_mountpoint_selector_finalize(AnacondaMountpointSelector *widget);
 
 static void     anaconda_mountpoint_selector_toggle_background(AnacondaMountpointSelector *widget);
 static gboolean anaconda_mountpoint_selector_focus_changed(GtkWidget *widget, GdkEventFocus *event, gpointer user_data);
@@ -70,6 +75,7 @@ static void anaconda_mountpoint_selector_class_init(AnacondaMountpointSelectorCl
 
     object_class->set_property = anaconda_mountpoint_selector_set_property;
     object_class->get_property = anaconda_mountpoint_selector_get_property;
+    object_class->finalize = (GObjectFinalizeFunc) anaconda_mountpoint_selector_finalize;
 
     /**
      * AnacondaMountpointSelector:name:
@@ -174,6 +180,10 @@ static void anaconda_mountpoint_selector_init(AnacondaMountpointSelector *mountp
     g_signal_connect(mountpoint, "focus-in-event", G_CALLBACK(anaconda_mountpoint_selector_focus_changed), NULL);
     g_signal_connect(mountpoint, "focus-out-event", G_CALLBACK(anaconda_mountpoint_selector_focus_changed), NULL);
 
+    /* Set "hand" cursor shape when over the selector */
+    mountpoint->priv->cursor = gdk_cursor_new(GDK_HAND2);
+    g_signal_connect(mountpoint, "realize", G_CALLBACK(anaconda_mountpoint_selector_realize), NULL);
+
     /* Create the grid. */
     mountpoint->priv->grid = gtk_grid_new();
     gtk_grid_set_column_spacing(GTK_GRID(mountpoint->priv->grid), 12);
@@ -222,6 +232,16 @@ static void anaconda_mountpoint_selector_init(AnacondaMountpointSelector *mountp
     gtk_grid_attach(GTK_GRID(mountpoint->priv->grid), mountpoint->priv->mountpoint_label, 0, 1, 1, 2);
 
     gtk_container_add(GTK_CONTAINER(mountpoint), mountpoint->priv->grid);
+}
+
+static void anaconda_mountpoint_selector_finalize(AnacondaMountpointSelector *widget) {
+    g_object_unref(widget->priv->cursor);
+}
+
+static void anaconda_mountpoint_selector_realize(GtkWidget *widget, gpointer user_data) {
+    AnacondaMountpointSelector *mountpoint = ANACONDA_MOUNTPOINT_SELECTOR(widget);
+
+    gdk_window_set_cursor(gtk_widget_get_window(widget), mountpoint->priv->cursor);
 }
 
 static void anaconda_mountpoint_selector_get_property(GObject *object, guint prop_id, GValue *value, GParamSpec *pspec) {
