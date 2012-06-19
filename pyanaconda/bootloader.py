@@ -1068,6 +1068,9 @@ class BootLoader(object):
         if append:
             f.write(" --append=\"%s\"" % append)
 
+        if flags.leavebootorder:
+            f.write(" --leavebootorder")
+
         f.write("\n")
 
     def read(self):
@@ -1549,7 +1552,8 @@ class EFIGRUB(GRUB):
             raise BootLoaderError("failed to set new efi boot target")
 
     def install(self):
-        self.remove_efi_boot_target()
+        if not flags.leavebootorder:
+            self.remove_efi_boot_target()
         self.add_efi_boot_target()
 
     def update(self):
@@ -2054,7 +2058,10 @@ class IPSeriesGRUB2(GRUB2):
     #
 
     def install(self):
-        self.updateNVRAMBootList()
+        if flags.leavebootorder:
+            log.info("leavebootorder passed as an option. Will not update the NVRAM boot list.")
+        else:
+            self.updateNVRAMBootList()
 
         super(IPSeriesGRUB2, self).install()
 
