@@ -26,6 +26,7 @@ from pyanaconda.storage.errors import DasdFormatError
 from pyanaconda.storage.devices import deviceNameToDiskByPath
 from pyanaconda.constants import *
 from pyanaconda.flags import flags
+from pyanaconda.baseudev import udev_trigger
 
 import logging
 log = logging.getLogger("anaconda")
@@ -85,6 +86,9 @@ class DASD:
 
         if not iutil.isS390():
             return
+
+        # Trigger udev data about the dasd devices on the system
+        udev_trigger(action="change", name="dasd*")
 
         log.info("Checking for unformatted DASD devices:")
 
@@ -195,6 +199,10 @@ class DASD:
         """ Adds a DASDDevice to the internal list of DASDs. """
         if dasd:
             self._devices.append(dasd)
+
+    def clear_device_list(self):
+        """ Clear the device list to force re-populate on next access. """
+        self._devices = []
 
     def write(self):
         """ Write /etc/dasd.conf to target system for all DASD devices

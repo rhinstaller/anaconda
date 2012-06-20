@@ -241,7 +241,6 @@ class Dispatcher(object):
         # Note that not only a subset of the steps is executed for a particular
         # run, depending on the kind of installation, user selection, kickstart
         # commands, used installclass and used user interface.
-        self.add_step("sshd", doSshd)
         self.add_step("rescue", doRescue)
         self.add_step("language")
         self.add_step("keyboard")
@@ -258,6 +257,7 @@ class Dispatcher(object):
         self.add_step("autopartitionexecute", doAutoPartition)
         self.add_step("partition")
         self.add_step("upgrademigratefs")
+        self.add_step("upgradeusr", upgradeUsr)
         self.add_step("storagedone", storageComplete)
         self.add_step("upgbootloader")
         self.add_step("bootloader")

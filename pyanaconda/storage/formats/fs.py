@@ -152,7 +152,7 @@ class FS(DeviceFormat):
         self._size = kwargs.get("size", 0)
         self._minInstanceSize = None    # min size of this FS instance
         self._mountpoint = None     # the current mountpoint when mounted
-        if self.exists and self.supported:
+        if self.exists:
             self._size = self._getExistingSize()
             foo = self.minSize      # force calculation of minimum size
 
@@ -254,7 +254,8 @@ class FS(DeviceFormat):
         """
         size = self._size
 
-        if self.infofsProg and self.exists and not size:
+        if self.infofsProg and self.exists and not size and \
+           iutil.find_program_in_path(self.infofsProg):
             try:
                 values = []
                 argv = self._defaultInfoOptions + [ self.device ]
@@ -1029,6 +1030,12 @@ class Ext3FS(Ext2FS):
     _defaultMigrateOptions = ["-O", "extents"]
     partedSystem = fileSystemType["ext3"]
 
+    # It is possible for a user to specify an fsprofile that defines a blocksize
+    # smaller than the default of 4096 bytes and therefore to make liars of us
+    # with regard to this maximum filesystem size, but if they're doing such
+    # things they should know the implications of their chosen block size.
+    _maxSize = 16 * 1024 * 1024
+
 register_device_format(Ext3FS)
 
 
@@ -1095,7 +1102,7 @@ class BTRFS(FS):
     _mkfs = "mkfs.btrfs"
     _modules = ["btrfs"]
     _resizefs = "btrfsctl"
-    _formattable = True
+    _formattable = False    # this disables creation via the UI
     _linuxNative = True
     _maxLabelChars = 256
     _supported = True
@@ -1104,9 +1111,27 @@ class BTRFS(FS):
     _packages = ["btrfs-progs"]
     _minSize = 256
     _maxSize = 16 * 1024 * 1024
-    # FIXME parted needs to be thaught about btrfs so that we can set the
+    # FIXME parted needs to be taught about btrfs so that we can set the
     # partition table type correctly for btrfs partitions
     # partedSystem = fileSystemType["btrfs"]
+
+    def __init__(self, *args, **kwargs):
+        super(BTRFS, self).__init__(*args, **kwargs)
+        self.volUUID = kwargs.pop("volUUID", None)
+
+    def create(self, *args, **kwargs):
+        # filesystem creation is done in storage.devicelibs.btrfs.create_volume
+        pass
+
+    def setup(self, *args, **kwargs):
+        log_method_call(self, type=self.mountType, device=self.device,
+                        mountpoint=self.mountpoint)
+        if not self.mountpoint and "mountpoint" not in kwargs:
+            # Since btrfs vols have subvols the format setup is automatic.
+            # Don't try to mount it if there's no mountpoint.
+            return
+
+        return self.mount(*args, **kwargs)
 
     def _getFormatOptions(self, options=None):
         argv = []
@@ -1308,11 +1333,18 @@ class AppleBootstrapFS(HFS):
 register_device_format(AppleBootstrapFS)
 
 
-# this doesn't need to be here
 class HFSPlus(FS):
     _type = "hfs+"
     _modules = ["hfsplus"]
     _udevTypes = ["hfsplus"]
+    _mkfs = "mkfs.hfsplus"
+    _fsck = "fsck.hfsplus"
+    _packages = ["hfsplus-tools"]
+    _formattable = True
+    _mountType = "hfsplus"
+    _minSize = 1
+    _maxSize = 2 * 1024 * 1024
+    _check = True
     partedSystem = fileSystemType["hfs+"]
 
 register_device_format(HFSPlus)
@@ -1349,7 +1381,8 @@ class NTFS(FS):
         if self._minInstanceSize is None:
             # we try one time to determine the minimum size.
             size = self._minSize
-            if self.exists and os.path.exists(self.device):
+            if self.exists and os.path.exists(self.device) and \
+               iutil.find_program_in_path(self.resizefsProg):
                 minSize = None
                 buf = iutil.execWithCapture(self.resizefsProg,
                                             ["-m", self.device],

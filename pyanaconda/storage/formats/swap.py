@@ -162,6 +162,7 @@ class SwapSpace(DeviceFormat):
             raise
         else:
             self.exists = True
+            self.notifyKernel()
 
     def writeKS(self, f):
         f.write("swap")

@@ -84,7 +84,6 @@ class BaseInstallClass(object):
     def setSteps(self, anaconda):
         dispatch = anaconda.dispatch
 	dispatch.schedule_steps(
-		 "sshd",
 		 "language",
 		 "keyboard",
                  "filtertype",
@@ -172,10 +171,10 @@ class BaseInstallClass(object):
     def setDefaultPartitioning(self, storage, platform):
         autorequests = [PartSpec(mountpoint="/", fstype=storage.defaultFSType,
                                  size=1024, maxSize=50*1024, grow=True,
-                                 asVol=True, encrypted=True),
+                                 btr=True, lv=True, encrypted=True),
                         PartSpec(mountpoint="/home", fstype=storage.defaultFSType,
                                  size=500, grow=True, requiredSpace=50*1024,
-                                 asVol=True, encrypted=True)]
+                                 btr=True, lv=True, encrypted=True)]
 
         bootreq = platform.setDefaultPartitioning()
         if bootreq:
@@ -183,7 +182,7 @@ class BaseInstallClass(object):
 
         (minswap, maxswap) = iutil.swapSuggestion()
         autorequests.append(PartSpec(fstype="swap", size=minswap, maxSize=maxswap,
-                                     grow=True, asVol=True, encrypted=True))
+                                     grow=True, lv=True, encrypted=True))
 
         storage.autoPartitionRequests = autorequests
 
@@ -198,6 +197,11 @@ class BaseInstallClass(object):
         pass
 
     def productUpgradable(self, arch, oldprod, oldver):
+        """ Return a tuple with:
+            (Upgradable True|False, dict of tests and status)
+
+            The dict has True|False for: product, version, arch tests.
+        """
         def archesEq(a, b):
             import re
 
@@ -206,7 +210,12 @@ class BaseInstallClass(object):
             else:
                 return a == b
 
-        return self.productMatches(oldprod) and self.versionMatches(oldver) and archesEq(arch, productArch)
+        result = { "product" : self.productMatches(oldprod),
+                   "version"  : self.versionMatches(oldver),
+                   "arch"     : archesEq(arch, productArch)
+                 }
+
+        return (all(result.values()), result)
 
     def setNetworkOnbootDefault(self, network):
         pass

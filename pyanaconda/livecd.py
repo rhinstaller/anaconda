@@ -199,6 +199,11 @@ class LiveCDCopyBackend(backend.AnacondaBackend):
         # resize rootfs first, since it is 100% full due to genMinInstDelta
         rootDevice = anaconda.storage.rootDevice
         rootDevice.setup()
+
+        # This is a workaround to make sure the m_time it set to current time so that
+        # the e2fsck before resizing doesn't get confused by times in the future
+        rootDevice.format.testMount()
+
         rootDevice.format.targetSize = rootDevice.size
         rootDevice.format.doResize(intf=anaconda.intf)
 

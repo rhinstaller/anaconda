@@ -21,7 +21,6 @@ import gtk
 import gtk.glade
 import gobject
 from pyanaconda import gui
-import gzip
 from iw_gui import *
 from pyanaconda.image import *
 from pyanaconda.constants import *

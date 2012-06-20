@@ -19,11 +19,15 @@
 #
 # Authors: Chris Lumens <clumens@redhat.com>
 #
+import os
+import logging
+log = logging.getLogger("anaconda")
 
 import parted
 
 from pyanaconda import bootloader
 from pyanaconda.storage.devicelibs import mdraid
+from pyanaconda.constants import DMI_CHASSIS_VENDOR
 
 import iutil
 from flags import flags
@@ -65,9 +69,10 @@ class Platform(object):
            returned by getPlatform below.  Not all subclasses need to provide
            all the methods in this class."""
 
-        if flags.nogpt and "gpt" in self._disklabel_types and \
-           len(self._disklabel_types) > 1:
+        if flags.gpt and "gpt" in self._disklabel_types:
+            # move GPT to the top of the list
             self._disklabel_types.remove("gpt")
+            self._disklabel_types.insert(0, "gpt")
 
     @property
     def diskLabelTypes(self):
@@ -101,14 +106,20 @@ class Platform(object):
 
         # if there's a required type for this device type, use that
         labelType = self.requiredDiskLabelType(device.partedDevice.type)
+        log.debug("required disklabel type for %s (%s) is %s"
+                  % (device.name, device.partedDevice.type, labelType))
         if not labelType:
             # otherwise, use the first supported type for this platform
             # that is large enough to address the whole device
             labelType = self.defaultDiskLabelType
+            log.debug("default disklabel type for %s is %s" % (device.name,
+                                                               labelType))
             for lt in self.diskLabelTypes:
                 l = parted.freshDisk(device=device.partedDevice, ty=lt)
-                if l.maxPartitionStartSector < device.partedDevice.length:
+                if l.maxPartitionStartSector > device.partedDevice.length:
                     labelType = lt
+                    log.debug("selecting %s disklabel for %s based on size"
+                              % (labelType, device.name))
                     break
 
         return labelType
@@ -156,7 +167,6 @@ class X86(Platform):
 
     def __init__(self):
         super(X86, self).__init__()
-        self.blackListGPT()
 
     def setDefaultPartitioning(self):
         """Return the default platform-specific partitioning information."""
@@ -175,21 +185,11 @@ class X86(Platform):
         else:
             return 0
 
-    def blackListGPT(self):
-        buf = iutil.execWithCapture("dmidecode",
-                                    ["-s", "chassis-manufacturer"],
-                                    stderr="/dev/tty5")
-        if "LENOVO" in buf.splitlines() and "gpt" in self._disklabel_types:
-            self._disklabel_types.remove("gpt")
-
 class EFI(Platform):
     bootloaderClass = bootloader.EFIGRUB
 
     _boot_stage1_format_types = ["efi"]
-    _boot_stage1_device_types = ["partition", "mdarray"]
-    _boot_stage1_raid_levels = [mdraid.RAID1]
-    _boot_stage1_raid_metadata = ["1.0"]
-    _boot_stage1_raid_member_types = ["partition"]
+    _boot_stage1_device_types = ["partition"]
     _boot_stage1_mountpoints = ["/boot/efi"]
     _boot_efi_description = N_("EFI System Partition")
     _boot_descriptions = {"partition": _boot_efi_description,
@@ -203,6 +203,7 @@ class EFI(Platform):
         from storage.partspec import PartSpec
         ret = Platform.setDefaultPartitioning(self)
         ret.append(PartSpec(mountpoint="/boot/efi", fstype="efi", size=20,
+                            maxSize=200,
                             grow=True, weight=self.weight(fstype="efi")))
         return ret
 
@@ -215,9 +216,25 @@ class EFI(Platform):
         else:
             return 0
 
+class MacEFI(EFI):
+    _bootloaderClass = bootloader.MacEFIGRUB
+
+    _boot_stage1_format_types = ["hfs+"]
+    _boot_efi_description = N_("Apple EFI Boot Partition")
+    _non_linux_format_types = ["hfs+"]
+    _packages = ["mactel-boot"]
+
+    def setDefaultPartitioning(self):
+        from storage.partspec import PartSpec
+        ret = Platform.setDefaultPartitioning(self)
+        ret.append(PartSpec(mountpoint="/boot/efi", fstype="hfs+", size=20,
+                            maxSize=200,
+                            grow=True, weight=self.weight(mountpoint="/boot/efi")))
+        return ret
+
 class PPC(Platform):
     _ppcMachine = iutil.getPPCMachine()
-    bootloaderClass = bootloader.Yaboot
+    _bootloaderClass = bootloader.GRUB2
     _boot_stage1_device_types = ["partition"]
 
     @property
@@ -225,7 +242,7 @@ class PPC(Platform):
         return self._ppcMachine
 
 class IPSeriesPPC(PPC):
-    bootloaderClass = bootloader.IPSeriesYaboot
+    _bootloaderClass = bootloader.IPSeriesGRUB2
     _boot_stage1_format_types = ["prepboot"]
     _boot_stage1_max_end_mb = 10
     _boot_prep_description = N_("PReP Boot Partition")
@@ -280,6 +297,11 @@ class S390(Platform):
     _packages = ["s390utils"]
     _disklabel_types = ["msdos", "dasd"]
     _boot_stage1_device_types = ["disk", "partition"]
+    _boot_dasd_description = N_("DASD")
+    _boot_zfcp_description = N_("zFCP")
+    _boot_descriptions = {"dasd": _boot_dasd_description,
+                          "zfcp": _boot_zfcp_description,
+                          "partition": Platform._boot_partition_description}
 
     def __init__(self):
         Platform.__init__(self)
@@ -288,12 +310,14 @@ class S390(Platform):
         """Return the default platform-specific partitioning information."""
         from storage.partspec import PartSpec
         return [PartSpec(mountpoint="/boot", size=500,
-                         weight=self.weight(mountpoint="/boot"), asVol=True,
+#TODO: need to pass this info in w/o using anaconda object
+#                        fstype=self.anaconda.storage.defaultBootFSType,
+                         weight=self.weight(mountpoint="/boot"), lv=True,
                          singlePV=True)]
 
     def requiredDiskLabelType(self, device_type):
         """The required disklabel type for the specified device type."""
-        if device_type == "dasd":
+        if device_type == parted.DEVICE_DASD:
             return "dasd"
 
         return super(S390, self).requiredDiskLabelType(device_type)
@@ -311,6 +335,15 @@ class Sparc(Platform):
         start = long(sectors * heads)
         start /= long(1024 / disk.device.sectorSize)
         return start+1
+
+class ARM(Platform):
+    _bootloaderClass = bootloader.GRUB2
+    _boot_stage1_device_types = ["disk"]
+    _boot_mbr_description = N_("Master Boot Record")
+    _boot_descriptions = {"disk": _boot_mbr_description,
+                          "partition": Platform._boot_partition_description}
+
+    _disklabel_types = ["msdos"]
 
 def getPlatform():
     """Check the architecture of the system and return an instance of a
@@ -332,8 +365,13 @@ def getPlatform():
     elif iutil.isSparc():
         return Sparc()
     elif iutil.isEfi():
-        return EFI()
+        if iutil.isMactel():
+            return MacEFI()
+        else:
+            return EFI()
     elif iutil.isX86():
         return X86()
+    elif iutil.isARM():
+        return ARM()
     else:
         raise SystemError, "Could not determine system architecture."

@@ -172,6 +172,7 @@ class iSCSILoginDialog(iSCSICredentialsDialog):
 
 class iSCSIGuiWizard(pih.iSCSIWizard):
     NODE_NAME_COL = DeviceSelector.IMMUTABLE_COL + 1
+    NODE_INTERFACE_COL = DeviceSelector.IMMUTABLE_COL + 2
 
     def __init__(self):
         self.login_dialog = None
@@ -222,7 +223,7 @@ class iSCSIGuiWizard(pih.iSCSIWizard):
 
         return self._run_dialog(self.login_dialog.dialog)
 
-    def display_nodes_dialog(self, found_nodes):
+    def display_nodes_dialog(self, found_nodes, ifaces):
         def _login_button_disabler(device_selector, login_button, checked, item):
             login_button.set_sensitive(len(device_selector.getSelected()) > 0)
 
@@ -232,14 +233,16 @@ class iSCSIGuiWizard(pih.iSCSIWizard):
             gobject.TYPE_BOOLEAN,  # visible
             gobject.TYPE_BOOLEAN,  # active (checked)
             gobject.TYPE_BOOLEAN,  # immutable
-            gobject.TYPE_STRING    # node name
+            gobject.TYPE_STRING,   # node name
+            gobject.TYPE_STRING    # node interface
             )
         map(lambda node : store.append(None, (
                     node,        # the object
                     True,        # visible
                     True,        # active
                     False,       # not immutable
-                    node.name)),  # node's name
+                    node.name,   # node's name
+                    ifaces.get(node.iface, node.iface))), # node's interface
             found_nodes)
 
         # create and setup the device selector
@@ -253,7 +256,7 @@ class iSCSIGuiWizard(pih.iSCSIWizard):
                                      ds,
                                      xml.get_widget("button_login"))
         ds.createSelectionCol(toggledCB=callback)
-        ds.addColumn(_("Node Name"), self.NODE_NAME_COL)
+        ds.addColumn(_("Interface"), self.NODE_INTERFACE_COL)
         # attach the treeview to the dialog
         sw = xml.get_widget("nodes_scrolled_window")
         sw.add(view)
@@ -266,7 +269,8 @@ class iSCSIGuiWizard(pih.iSCSIWizard):
         dialog.destroy()
         return (rc, selected_nodes)
 
-    def display_success_dialog(self, success_nodes, fail_nodes, fail_reason):
+    def display_success_dialog(self, success_nodes, fail_nodes, fail_reason,
+                               ifaces):
         (xml, dialog) = gui.getGladeWidget("iscsi-dialogs.glade", "success_dialog")
         w_success = xml.get_widget("label_success")
         w_success_win = xml.get_widget("scroll_window_success")
@@ -280,14 +284,14 @@ class iSCSIGuiWizard(pih.iSCSIWizard):
         w_separator = xml.get_widget("separator")
 
         if success_nodes:
-            markup = "\n".join(map(lambda n: n.name, success_nodes))
+            markup = "\n".join(map(lambda n: "%s via %s" % (n.name, ifaces.get(n.iface, n.iface)), success_nodes))
             buf = gtk.TextBuffer()
             buf.set_text(markup)
             w_success.show()
             w_success_val.set_buffer(buf)
             w_success_win.show()
         if fail_nodes:
-            markup = "\n".join(map(lambda n: n.name, fail_nodes))
+            markup = "\n".join(map(lambda n: "%s via %s" % (n.name, ifaces.get(n.iface, n.iface)), fail_nodes))
             buf = gtk.TextBuffer()
             buf.set_text(markup)
             w_fail.show()
@@ -322,6 +326,7 @@ def addFcoeDrive(anaconda):
     (dxml, dialog) = gui.getGladeWidget("fcoe-config.glade", "fcoeDialog")
     combo = dxml.get_widget("fcoeNicCombo")
     dcb_cb = dxml.get_widget("dcbCheckbutton")
+    auto_vlan_cb = dxml.get_widget("autovlanCheckbutton")
 
     # Populate the combo
     cell = gtk.CellRendererText()
@@ -382,8 +387,9 @@ def addFcoeDrive(anaconda):
 
         try:
             anaconda.storage.fcoe.addSan(store.get_value(iter, 1),
-                                         dcb=dcb_cb.get_active(),
-                                         intf=anaconda.intf)
+                                            dcb=dcb_cb.get_active(),
+                                            auto_vlan=auto_vlan_cb.get_active(),
+                                            intf=anaconda.intf)
         except IOError as e:
             anaconda.intf.messageWindow(_("Error"), str(e))
             rc = gtk.RESPONSE_CANCEL
@@ -393,7 +399,7 @@ def addFcoeDrive(anaconda):
     dialog.destroy()
     return rc
 
-def addIscsiDrive(anaconda):
+def addIscsiDrive(anaconda, bind=False):
     """
     Displays a series of dialogs that walk the user through discovering and
     logging into iscsi nodes.
@@ -406,6 +412,15 @@ def addIscsiDrive(anaconda):
         if not anaconda.intf.enableNetwork():
             log.info("addIscsiDrive(): early exit, network disabled.")
             return gtk.RESPONSE_CANCEL
+
+    # This will modify behaviour of iscsi.discovery() function
+    if pyanaconda.storage.iscsi.iscsi().mode == "none" and not bind:
+        pyanaconda.storage.iscsi.iscsi().delete_interfaces()
+    elif (pyanaconda.storage.iscsi.iscsi().mode == "none" and bind) \
+          or pyanaconda.storage.iscsi.iscsi().mode == "bind":
+        active = set(network.getActiveNetDevs())
+        created = set(pyanaconda.storage.iscsi.iscsi().ifaces.values())
+        pyanaconda.storage.iscsi.iscsi().create_interfaces(active - created)
 
     wizard = iSCSIGuiWizard()
     login_ok_nodes = pih.drive_iscsi_addition(anaconda, wizard)
@@ -454,10 +469,26 @@ def addDrive(anaconda):
     if not pyanaconda.storage.iscsi.has_iscsi():
         dxml.get_widget("iscsiRadio").set_sensitive(False)
         dxml.get_widget("iscsiRadio").set_active(False)
+        dxml.get_widget("iscsiBindCheck").set_sensitive(False)
+    else:
+        dxml.get_widget("iscsiBindCheck").set_active(bool(pyanaconda.storage.iscsi.iscsi().ifaces))
+        dxml.get_widget("iscsiBindCheck").set_sensitive(pyanaconda.storage.iscsi.iscsi().mode == "none")
 
     if not pyanaconda.storage.fcoe.has_fcoe():
         dxml.get_widget("fcoeRadio").set_sensitive(False)
         dxml.get_widget("fcoeRadio").set_active(False)
+
+    def update_active_ifaces():
+        active_ifaces = network.getActiveNetDevs()
+        dxml.get_widget("ifaceLabel").set_text(", ".join(active_ifaces))
+
+    def netconfButton_clicked(*args):
+        from pyanaconda.iw.network_gui import setupNetwork
+        setupNetwork(anaconda.intf)
+        update_active_ifaces()
+
+    dxml.get_widget("netconfButton").connect("clicked", netconfButton_clicked)
+    update_active_ifaces()
 
     #figure out what advanced devices we have available and put focus on the first one
     group = dxml.get_widget("iscsiRadio").get_group()
@@ -474,7 +505,8 @@ def addDrive(anaconda):
         return False
 
     if dxml.get_widget("iscsiRadio").get_active() and pyanaconda.storage.iscsi.has_iscsi():
-        rc = addIscsiDrive(anaconda)
+        bind = dxml.get_widget("iscsiBindCheck").get_active()
+        rc = addIscsiDrive(anaconda, bind)
     elif dxml.get_widget("fcoeRadio").get_active() and pyanaconda.storage.fcoe.has_fcoe():
         rc = addFcoeDrive(anaconda)
     elif dxml.get_widget("zfcpRadio") is not None and dxml.get_widget("zfcpRadio").get_active():

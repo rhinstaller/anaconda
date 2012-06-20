@@ -49,6 +49,7 @@ log = logging.getLogger("anaconda")
 sysconfigDir = "/etc/sysconfig"
 netscriptsDir = "%s/network-scripts" % (sysconfigDir)
 networkConfFile = "%s/network" % (sysconfigDir)
+ipv6ConfFile = "/etc/modprobe.d/ipv6.conf"
 ifcfgLogFile = "/tmp/ifcfg.log"
 CONNECTION_TIMEOUT = 45
 
@@ -113,7 +114,7 @@ def getDefaultHostname(anaconda):
                     hn = hinfo[0]
                     break
 
-    if hn and hn != 'localhost' and hn != 'localhost.localdomain':
+    if hn and hn not in ('(none)', 'localhost', 'localhost.localdomain'):
         return hn
 
     try:
@@ -121,10 +122,10 @@ def getDefaultHostname(anaconda):
     except:
         hn = None
 
-    if not hn or hn == '(none)' or hn == 'localhost' or hn == 'localhost.localdomain':
+    if not hn or hn in ('(none)', 'localhost', 'localhost.localdomain'):
         hn = socket.gethostname()
 
-    if not hn or hn == '(none)' or hn == 'localhost':
+    if not hn or hn in ('(none)', 'localhost'):
         hn = 'localhost.localdomain'
 
     return hn
@@ -241,6 +242,28 @@ class NetworkDevice(IfcfgFile):
 
         return s
 
+    # anaconda doesn't actually need this configuration, but if we don't write
+    # it to the installed system then 'ifup' doesn't work after install.
+    # FIXME: make 'ifup' use its own defaults!
+    def setDefaultConfig(self):
+        ifcfglog.debug("NetworkDevice %s: setDefaultConfig()" % self.iface)
+        self.set(("DEVICE", self.iface),
+                 ("BOOTPROTO", "dhcp"),
+                 ("ONBOOT", "no")) # for "security", or something
+
+        try:
+            mac = open("/sys/class/net/%s/address" % self.iface).read().strip()
+            self.set(("HWADDR", mac.upper()))
+        except IOError as e:
+            ifcfglog.warning("HWADDR: %s" % str(e))
+
+        try:
+            uuid = open("/proc/sys/kernel/random/uuid").read().strip()
+            self.set(("UUID", uuid))
+        except IOError as e:
+            ifcfglog.warning("UUID: %s" % str(e))
+
+        self.writeIfcfgFile()
 
     def loadIfcfgFile(self):
         ifcfglog.debug("%s:\n%s" % (self.path, self.fileContent()))
@@ -310,6 +333,8 @@ class NetworkDevice(IfcfgFile):
         shutil.move(newifcfg, keyfile)
 
     def fileContent(self):
+        if not os.path.exists(self.path):
+            return ""
         f = open(self.path, 'r')
         content = f.read()
         f.close()
@@ -318,7 +343,7 @@ class NetworkDevice(IfcfgFile):
     def usedByFCoE(self, anaconda):
         import storage
         for d in anaconda.storage.devices:
-            if (isinstance(d, storage.devices.NetworkStorageDevice) and
+            if (isinstance(d, storage.devices.FcoeDiskDevice) and
                 d.nic == self.iface):
                 return True
         return False
@@ -327,20 +352,14 @@ class NetworkDevice(IfcfgFile):
         import storage
         rootdev = anaconda.storage.rootDevice
         for d in anaconda.storage.devices:
-            if (isinstance(d, storage.devices.NetworkStorageDevice) and
-                d.host_address and
+            if (isinstance(d, storage.devices.iScsiDiskDevice) and
                 rootdev.dependsOn(d)):
-                if self.iface == ifaceForHostIP(d.host_address):
+                if d.nic == "default":
+                    if self.iface == ifaceForHostIP(d.host_address):
+                        return True
+                elif d.nic == self.iface:
                     return True
-        return False
 
-    def usedByISCSI(self, anaconda):
-        import storage
-        for d in anaconda.storage.devices:
-            if (isinstance(d, storage.devices.NetworkStorageDevice) and
-                d.host_address):
-                if self.iface == ifaceForHostIP(d.host_address):
-                    return True
         return False
 
 class WirelessNetworkDevice(NetworkDevice):
@@ -415,9 +434,7 @@ class Network:
                 if os.access(device.path, os.R_OK):
                     device.loadIfcfgFile()
                 else:
-                    log.info("Network.update(): %s file not found" %
-                             device.path)
-                    continue
+                    device.setDefaultConfig()
 
             # TODORV - the last iface in loop wins, might be ok,
             #          not worthy of special juggling
@@ -434,7 +451,8 @@ class Network:
             bootif_mac = None
             if ksdevice == 'bootif' and "BOOTIF" in flags.cmdline:
                 bootif_mac = flags.cmdline["BOOTIF"][3:].replace("-", ":").upper()
-            for dev in self.netdevices:
+            # sort for ksdevice=link (to select the same device as in initrd))
+            for dev in sorted(self.netdevices):
                 mac = self.netdevices[dev].get('HWADDR').upper()
                 if ksdevice == 'link' and isys.getLinkStatus(dev):
                     self.ksdevice = dev
@@ -467,6 +485,10 @@ class Network:
 
     def setHostname(self, hn):
         self.hostname = hn
+        if flags.imageInstall:
+            log.info("image install -- not setting hostname")
+            return
+
         log.info("setting installation environment hostname to %s" % hn)
         iutil.execWithRedirect("hostname", ["-v", hn ],
                                stdout="/dev/tty5", stderr="/dev/tty5")
@@ -656,6 +678,9 @@ class Network:
         self._copyFileToPath("/etc/udev/rules.d/70-persistent-net.rules",
                              ROOT_PATH, overwrite=flags.livecdInstall)
 
+        self._copyFileToPath(ipv6ConfFile, ROOT_PATH,
+                             overwrite=flags.livecdInstall)
+
     def disableNMForStorageDevices(self, anaconda):
         for devName, device in self.netdevices.items():
             if (device.usedByFCoE(anaconda) or
@@ -669,6 +694,20 @@ class Network:
                              "controlled by NM" % device.path)
                 else:
                     log.warning("disableNMForStorageDevices: %s file not found" %
+                                device.path)
+
+    def autostartFCoEDevices(self, anaconda):
+        for devName, device in self.netdevices.items():
+            if device.usedByFCoE(anaconda):
+                dev = NetworkDevice(ROOT_PATH + netscriptsDir, devName)
+                if os.access(dev.path, os.R_OK):
+                    dev.loadIfcfgFile()
+                    dev.set(('ONBOOT', 'yes'))
+                    dev.writeIfcfgFile()
+                    log.debug("setting ONBOOT=yes for network device %s used by fcoe"
+                              % device.path)
+                else:
+                    log.warning("autoconnectFCoEDevices: %s file not found" %
                                 device.path)
 
     def write(self):
@@ -715,6 +754,19 @@ class Network:
             dev.writeIfcfgFile()
 
         # /etc/resolv.conf is managed by NM
+
+        # disable ipv6
+        if ('noipv6' in flags.cmdline
+            and not [dev for dev in devices
+                     if dev.get('IPV6INIT') == "yes"]):
+            if os.path.exists(ipv6ConfFile):
+                log.warning('Not disabling ipv6, %s exists' % ipv6ConfFile)
+            else:
+                log.info('Disabling ipv6 on target system')
+                f = open(ipv6ConfFile, "w")
+                f.write("# Anaconda disabling ipv6\n")
+                f.write("options ipv6 disable=1\n")
+                f.close()
 
     def waitForDevicesActivation(self, devices):
         waited_devs_props = {}
@@ -779,14 +831,12 @@ class Network:
     def dracutSetupArgs(self, networkStorageDevice):
         netargs=set()
 
-        if networkStorageDevice.nic:
-            # Storage bound to a specific nic (ie FCoE)
-            nic = networkStorageDevice.nic
-        else:
-            # Storage bound through ip, find out which interface leads to host
+        if networkStorageDevice.nic == "default":
             nic = ifaceForHostIP(networkStorageDevice.host_address)
             if not nic:
                 return ""
+        else:
+            nic = networkStorageDevice.nic
 
         if nic not in self.netdevices.keys():
             log.error('Unknown network interface: %s' % nic)

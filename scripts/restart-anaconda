@@ -19,11 +19,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-RESTART_FILE=/tmp/restart_anaconda
-
-# this is how loader knows it should restart stuff. 
-# it will also delete the file once the restart is in progress.
-touch $RESTART_FILE
+rm -rf /tmp/updates || echo "Error removing /tmp/updates. Updates won't be re-downloaded." >&2
 
 if [[ -f /var/run/iscsid.pid ]]; then
     # iscsid must die else it will cause us troubles on the next run
@@ -31,8 +27,8 @@ if [[ -f /var/run/iscsid.pid ]]; then
     /sbin/iscsiadm -m node --logoutall=all
 fi
 
-# This will kill all programs in the loader group and restart the
+# This will kill all programs in the anaconda group and restart the
 # service.
-systemctl stop loader.service
+systemctl stop anaconda.service
 anaconda-cleanup
-systemctl start --no-block loader.service
+systemctl start --no-block anaconda.service

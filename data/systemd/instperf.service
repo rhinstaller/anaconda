@@ -1,7 +1,7 @@
 [Unit]
 ConditionKernelCommandLine=debug
 Description=anaconda performance monitor
-Before=loader.service
+Before=anaconda.service
 
 [Service]
 WorkingDirectory=/

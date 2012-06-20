@@ -71,6 +71,20 @@ your FCoE switch.</property>
                 <property name="position">2</property>
               </packing>
             </child>
+            <child>
+              <widget class="GtkCheckButton" id="autovlanCheckbutton">
+                <property name="label" translatable="yes">Use auto vlan</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">False</property>
+                <property name="active">True</property>
+                <property name="draw_indicator">True</property>
+              </widget>
+              <packing>
+                <property name="expand">False</property>
+                <property name="position">3</property>
+              </packing>
+            </child>
           </widget>
           <packing>
             <property name="position">2</property>

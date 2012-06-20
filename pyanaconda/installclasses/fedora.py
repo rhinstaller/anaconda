@@ -32,6 +32,7 @@ from pyanaconda import installmethod
 from pyanaconda import yuminstall
 
 import rpmUtils.arch
+from decimal import Decimal
 
 class InstallClass(BaseInstallClass):
     # name has underscore used for mnemonics, strip if you dont need it
@@ -55,7 +56,7 @@ class InstallClass(BaseInstallClass):
               ["base", "base-x", "core", "development-libs",
                "development-tools", "editors", "fonts", "gnome-desktop",
                "gnome-software-development", "graphical-internet", "graphics",
-               "hardware-support", "input-methods", "java", "text-internet",
+               "hardware-support", "input-methods", "java", "sound-and-video", "text-internet",
                "x-software-development"]),
              (N_("Web Server"),
               ["admin-tools", "base", "base-x", "core", "editors",
@@ -64,6 +65,8 @@ class InstallClass(BaseInstallClass):
              (N_("Minimal"), ["core"])]
 
     _l10n_domain = "anaconda"
+
+    efi_dir = "fedora"
 
     def getPackagePaths(self, uri):
         if not type(uri) == types.ListType:
@@ -105,11 +108,14 @@ class InstallClass(BaseInstallClass):
         return False
 
     def versionMatches(self, oldver):
+        if oldver is None:
+            return False
+
         try:
-            oldVer = float(oldver)
+            oldVer = Decimal(oldver)
             # Trim off any "-Alpha" or "-Beta".
-            newVer = float(productVersion.split('-')[0])
-        except ValueError:
+            newVer = Decimal(productVersion.split('-')[0])
+        except Exception:
             return True
 
         # This line means we do not support upgrading from anything older
@@ -117,9 +123,12 @@ class InstallClass(BaseInstallClass):
         return newVer >= oldVer and newVer - oldVer <= 2
 
     def setNetworkOnbootDefault(self, network):
-        if hasActiveNetDev():
-            return
+        # if something's already enabled, we can just leave the config alone
+        for devName, dev in network.netdevices.items():
+            if dev.get('ONBOOT') == 'yes':
+                return
 
+        # the default otherwise: bring up the first wired netdev with link
         for devName, dev in network.netdevices.items():
             if (not isys.isWirelessDevice(devName) and
                 isys.getLinkStatus(devName)):

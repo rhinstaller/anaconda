@@ -320,7 +320,10 @@ def udev_device_get_md_name(info):
     return info.get("MD_DEVNAME")
 
 def udev_device_get_vg_name(info):
-    return info.get('LVM2_VG_NAME', info.get('DM_VG_NAME'))
+    return info['LVM2_VG_NAME']
+
+def udev_device_get_lv_vg_name(info):
+    return info['DM_VG_NAME']
 
 def udev_device_get_vg_uuid(info):
     return info['LVM2_VG_UUID']
@@ -552,6 +555,19 @@ def udev_device_get_iscsi_port(info):
 
     # IPV6 contains : within the address, the part after the last : is the port
     return path_components[address_field].split(":")[-1]
+
+def udev_device_get_iscsi_nic(info):
+    # '/devices/pci0000:00/0000:00:02.0/0000:09:00.0/0000:0a:01.0/0000:0e:00.2/host3/session1/target3:0:0/3:0:0:0/block/sda'
+    # The position of sessionX part depends on device
+    # (e.g. offload vs. sw; also varies for different offload devs)
+    match = re.match('/.*/(session\d+)', info["sysfs_path"])
+    if match:
+        session = match.groups()[0]
+        iface = open("/sys/class/iscsi_session/%s/ifacename" %
+                     session).read().strip()
+    else:
+        iface = None
+    return iface
 
 # fcoe disks have ID_PATH in the form of:
 # For FCoE directly over the NIC (so no VLAN and thus no DCB):

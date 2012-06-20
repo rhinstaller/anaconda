@@ -191,9 +191,9 @@ class PartitionTypeWindow(InstallWindow):
             self.dispatch.request_steps_gently("cleardiskssel")
 
             if self.lvmButton.get_active():
-                self.storage.lvmAutoPart = True
+                self.storage.autoPartType = AUTOPART_TYPE_LVM
             else:
-                self.storage.lvmAutoPart = False
+                self.storage.autoPartType = AUTOPART_TYPE_PLAIN
 
             if self.encryptButton.get_active():
                 self.storage.encryptedAutoPart = True
@@ -263,7 +263,7 @@ class PartitionTypeWindow(InstallWindow):
         self.reviewButton.set_active(
             step_data.get("review_checked", self.dispatch.step_enabled("partition")))
         self.encryptButton.set_active(self.storage.encryptedAutoPart)
-        self.lvmButton.set_active(self.storage.lvmAutoPart)
+        self.lvmButton.set_active(self.storage.autoPartType == AUTOPART_TYPE_LVM)
 
         self.buttonGroup = pixmapRadioButtonGroup()
         self.buttonGroup.addEntry("all", _("Use _All Space"),

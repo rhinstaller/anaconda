@@ -1,0 +1,32 @@
+#!/bin/bash
+# fetch-kickstart-disk - fetch kickstart from a block device
+
+command -v getarg >/dev/null || . /lib/dracut-lib.sh
+. /lib/anaconda-lib.sh
+
+dev="$1"
+path="${2:-/ks.cfg}"
+
+[ -e /tmp/ks.cfg.done ] && exit 1
+[ -b "$dev" ] || exit 1
+
+info "anaconda: fetching kickstart from $dev:$path"
+mnt="$(find_mount $dev)"
+
+if [ -n "$mnt" ]; then
+    cp $mnt$path /tmp/ks.cfg
+else
+    tmpmnt="$(mkuniqdir /run/install tmpmnt)"
+    if mount -o ro $dev $tmpmnt; then
+        cp $tmpmnt$path /tmp/ks.cfg
+        umount $tmpmnt
+        rmdir $tmpmnt
+    fi
+fi
+
+if [ -f /tmp/ks.cfg ]; then
+    parse_kickstart /tmp/ks.cfg
+    run_kickstart
+else
+    warn "Can't get kickstart from $dev:$path"
+fi

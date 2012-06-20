@@ -45,7 +45,6 @@ from deviceaction import *
 from formats import getFormat
 from formats import get_device_format_class
 from formats import get_default_filesystem_type
-from devicelibs.lvm import safeLvmName
 from devicelibs.dm import name_from_dm_node
 from devicelibs.crypto import generateBackupPassphrase
 from devicelibs.mpath import MultipathConfigWriter
@@ -317,6 +316,7 @@ class StorageDiscoveryConfig(object):
         self.exclusiveDisks = []
         self.clearPartType = None
         self.clearPartDisks = []
+        self.clearPartDevices = []
         self.reinitializeDisks = False
         self.zeroMbr = None
         self.protectedDevSpecs = []
@@ -368,7 +368,7 @@ class Storage(object):
         self.doAutoPart = False
         self.clearPartChoice = None
         self.encryptedAutoPart = False
-        self.lvmAutoPart = True
+        self.autoPartType = AUTOPART_TYPE_LVM
         self.encryptionPassphrase = None
         self.escrowCertificates = {}
         self.autoPartEscrowCert = None
@@ -426,10 +426,24 @@ class Storage(object):
                                p.getFlag(parted.PARTITION_BOOT):
                                 skip = True
                                 break
+
+                    # GPT labeled disks should only have bootable set on the
+                    # EFI system partition (parted sets the EFI System GUID on
+                    # GPT partitions with the boot flag)
+                    if dev.disk.format.labelType == "gpt" and \
+                       dev.format.type != "efi":
+                           skip = True
+
                     if skip:
-                         log.info("not setting boot flag on %s as there is"
-                                  "another active partition" % dev.name)
+                         log.info("not setting boot flag on %s" % dev.name)
                          continue
+                    # hfs+ partitions on gpt can't be marked bootable via
+                    # parted
+                    if dev.disk.format.partedDisk.type == "gpt" and \
+                            dev.format.type == "hfs+":
+                        log.info("not setting boot flag on hfs+ partition"
+                                 " %s" % dev.name)
+                        continue
                     log.info("setting boot flag on %s" % dev.name)
                     dev.bootable = True
 
@@ -478,6 +492,10 @@ class Storage(object):
         clearPartType = self.config.clearPartType # save this before overriding it
         if self.data and self.data.upgrade.upgrade:
             self.config.clearPartType = CLEARPART_TYPE_NONE
+
+        if self.dasd:
+            # Reset the internal dasd list (823534)
+            self.dasd.clear_device_list()
 
         self.devicetree.reset(conf=self.config,
                               passphrase=self.encryptionPassphrase,
@@ -686,6 +704,11 @@ class Storage(object):
         return raidMinors
 
     @property
+    def btrfsVolumes(self):
+        return sorted(self.devicetree.getDevicesByType("btrfs volume"),
+                      key=lambda d: d.name)
+
+    @property
     def swaps(self):
         """ A list of the swap devices in the device tree.
 
@@ -757,6 +780,10 @@ class Storage(object):
                                Size(spec="%f mb" % fs_free))
 
         return free
+
+    @property
+    def names(self):
+        return self.devicetree.names
 
     def exceptionDisks(self):
         """ Return a list of removable devices to save exceptions to.
@@ -927,9 +954,9 @@ class Storage(object):
                         hostname = nd.hostname
                         break
 
-            name = self.createSuggestedVGName(hostname=hostname)
+            name = self.suggestContainerName(hostname=hostname, prefix="vg")
 
-        if name in [d.name for d in self.devices]:
+        if name in self.names:
             raise ValueError("name already in use")
 
         return LVMVolumeGroupDevice(name, pvs, *args, **kwargs)
@@ -951,14 +978,68 @@ class Storage(object):
                 swap = True
             else:
                 swap = False
-            name = self.createSuggestedLVName(vg,
-                                              swap=swap,
-                                              mountpoint=mountpoint)
+            name = self.suggestDeviceName(prefix="lv",
+                                          parent=vg,
+                                          swap=swap,
+                                          mountpoint=mountpoint)
 
-        if name in [d.name for d in self.devices]:
+        if name in self.names:
             raise ValueError("name already in use")
 
         return LVMLogicalVolumeDevice(name, vg, *args, **kwargs)
+
+    def newBTRFS(self, *args, **kwargs):
+        """ Return a new BTRFSVolumeDevice or BRFSSubVolumeDevice. """
+        log.debug("newBTRFS: args = %s ; kwargs = %s" % (args, kwargs))
+        name = kwargs.pop("name", None)
+        if args:
+            name = args[0]
+
+        mountpoint = kwargs.pop("mountpoint", None)
+        fmt_kwargs = {"mountpoint": mountpoint}
+
+        if kwargs.pop("subvol", False):
+            dev_class = BTRFSSubVolumeDevice
+            # make sure there's a valid parent device
+            parents = kwargs.get("parents", [])
+            if not parents or len(parents) != 1 or \
+               not isinstance(parents[0], BTRFSVolumeDevice):
+                raise ValueError("new btrfs subvols require a parent volume")
+
+            # set up the subvol name, using mountpoint if necessary
+            if not name:
+                # for btrfs this only needs to ensure the subvol name is not
+                # already in use within the parent volume
+                name = self.suggestDeviceName(mountpoint=mountpoint)
+            fmt_kwargs["mountopts"] = "subvol=%s" % name
+            kwargs.pop("metaDataLevel", None)
+            kwargs.pop("dataLevel", None)
+        else:
+            dev_class = BTRFSVolumeDevice
+            # set up the volume label, using hostname if necessary
+            if not name:
+                hostname = ""
+                if hasattr(self.anaconda, "network"):
+                    hostname = self.anaconda.network.hostname
+
+                name = self.suggestContainerName(prefix="btrfs",
+                                                 hostname=hostname)
+            #if name and name.startswith("btrfs_"):
+            #    fmt_kwargs["label"] = name[6:]
+            #elif name and not name.startswith("btrfs"):
+            fmt_kwargs["label"] = name
+
+        # do we want to prevent a subvol with a name that matches another dev?
+        if name in self.names:
+            raise ValueError("name already in use")
+
+        # discard fmt_type since it's btrfs always
+        kwargs.pop("fmt_type", None)
+
+        # this is to avoid auto-scheduled format create actions
+        device = dev_class(name, **kwargs)
+        device.format = getFormat("btrfs", **fmt_kwargs)
+        return device
 
     def createDevice(self, device):
         """ Schedule creation of a device.
@@ -1029,71 +1110,96 @@ class Storage(object):
                 return True
         return False
 
-    def createSuggestedVGName(self, hostname=None):
-        """ Return a reasonable, unused VG name. """
-        # try to create a volume group name incorporating the hostname
-        if hostname not in (None, "", 'localhost', 'localhost.localdomain'):
-            template = "vg_%s" % (hostname.split('.')[0].lower(),)
-            vgtemplate = safeLvmName(template)
-        elif flags.imageInstall:
-            vgtemplate = "vg_image"
-        else:
-            vgtemplate = "VolGroup"
+    def safeDeviceName(self, name):
+        """ Convert a device name to something safe and return that.
 
-        vgnames = [vg.name for vg in self.vgs]
-        if vgtemplate not in vgnames and \
-                vgtemplate not in lvm.lvm_vg_blacklist:
-            return vgtemplate
+            LVM limits lv names to 128 characters. I don't know the limits for
+            the other various device types, so I'm going to pick a number so
+            that we don't have to have an entire fucking library to determine
+            device name limits.
+        """
+        max_len = 96    # No, you don't need longer names than this. Really.
+        tmp = name.strip()
+        tmp = tmp.replace("/", "_")
+        tmp = re.sub("[^0-9a-zA-Z._-]", "", tmp)
+        tmp = tmp.lstrip("_")
+
+        if len(tmp) > max_len:
+            tmp = tmp[:max_len]
+
+        return tmp
+
+    def suggestContainerName(self, hostname=None, prefix=""):
+        """ Return a reasonable, unused device name. """
+        # try to create a device name incorporating the hostname
+        if hostname not in (None, "", 'localhost', 'localhost.localdomain'):
+            template = "%s_%s" % (prefix, hostname.split('.')[0].lower())
+            template = self.safeDeviceName(template)
+        elif flags.imageInstall:
+            template = "%s_image" % prefix
         else:
-            i = 0
-            while 1:
-                tmpname = "%s%02d" % (vgtemplate, i,)
-                if not tmpname in vgnames and \
-                        tmpname not in lvm.lvm_vg_blacklist:
+            template = prefix
+
+        names = self.names
+        name = template
+        if name in names:
+            name = None
+            for i in range(100):
+                tmpname = "%s%02d" % (template, i,)
+                if tmpname not in names:
+                    name = tmpname
                     break
 
-                i += 1
-                if i > 99:
-                    tmpname = ""
+            if not name:
+                log.error("failed to create device name based on prefix "
+                          "'%s' and hostname '%s'" % (prefix, hostname))
+                raise RuntimeError("unable to find suitable device name")
 
-            return tmpname
+        return name
 
-    def createSuggestedLVName(self, vg, swap=None, mountpoint=None):
+    def suggestDeviceName(self, parent=None, swap=None,
+                                  mountpoint=None, prefix=""):
         """ Return a suitable, unused name for a new logical volume. """
-        # FIXME: this is not at all guaranteed to work
+        body = ""
         if mountpoint:
-            # try to incorporate the mountpoint into the name
-            if mountpoint == '/':
-                lvtemplate = 'lv_root'
+            if mountpoint == "/":
+                body = "_root"
             else:
-                if mountpoint.startswith("/"):
-                    template = "lv_%s" % mountpoint[1:]
-                else:
-                    template = "lv_%s" % (mountpoint,)
+                body = mountpoint.replace("/", "_")
+        elif swap:
+            body = "_swap"
 
-                lvtemplate = safeLvmName(template)
-        else:
-            if swap:
-                if len([s for s in self.swaps if s in vg.lvs]):
-                    idx = len([s for s in self.swaps if s in vg.lvs])
-                    while True:
-                        lvtemplate = "lv_swap%02d" % idx
-                        if lvtemplate in [lv.lvname for lv in vg.lvs]:
-                            idx += 1
-                        else:
-                            break
-                else:
-                    lvtemplate = "lv_swap"
-            else:
-                idx = len(vg.lvs)
-                while True:
-                    lvtemplate = "LogVol%02d" % idx
-                    if lvtemplate in [l.lvname for l in vg.lvs]:
-                        idx += 1
-                    else:
-                        break
+        template = self.safeDeviceName(prefix + body)
+        names = self.names
+        name = template
+        def full_name(name, parent):
+            full = ""
+            if parent:
+                full = "%s-" % parent.name
+            full += name
+            return full
 
-        return lvtemplate
+        # also include names of any lvs in the parent for the case of the
+        # temporary vg in the lvm dialogs, which can contain lvs that are
+        # not yet in the devicetree and therefore not in self.names
+        if hasattr(parent, "lvs"):
+            names.extend([full_name(d.lvname, parent) for d in parent.lvs])
+
+        if full_name(name, parent) in names or not body:
+            for i in range(100):
+                name = "%s%02d" % (template, i)
+                if full_name(name, parent) not in names:
+                    break
+                else:
+                    name = ""
+
+            if not name:
+                log.error("failed to create device name based on parent '%s', "
+                          "prefix '%s', mountpoint '%s', swap '%s'"
+                          % (parent.name, prefix, mountpoint, swap))
+                raise RuntimeError("unable to find suitable device name")
+
+        return name
 
     def doEncryptionPassphraseRetrofits(self):
         """ Add the global passphrase to all preexisting LUKS devices.
@@ -1844,7 +1950,9 @@ class FSSet(object):
         elif ":" in devspec and fstype.startswith("nfs"):
             # NFS -- preserve but otherwise ignore
             device = NFSDevice(devspec,
+                               exists=True,
                                format=getFormat(fstype,
+                                                exists=True,
                                                 device=devspec))
         elif devspec.startswith("/") and fstype == "swap":
             # swap file
@@ -1878,18 +1986,18 @@ class FSSet(object):
             if devspec == "none" or \
                isinstance(format, get_device_format_class("nodev")):
                 device = NoDevice(format=format)
-            else:
-                device = StorageDevice(devspec, format=format)
 
         if device is None:
             log.error("failed to resolve %s (%s) from fstab" % (devspec,
                                                                 fstype))
             raise UnrecognizedFSTabEntryError()
 
+        device.setup()
         fmt = getFormat(fstype, device=device.path, exists=True)
         if fstype != "auto" and None in (device.format.type, fmt.type):
             log.info("Unrecognized filesystem type for %s (%s)"
                      % (device.name, fstype))
+            device.teardown()
             raise UnrecognizedFSTabEntryError()
 
         # make sure, if we're using a device from the tree, that
@@ -1902,6 +2010,7 @@ class FSSet(object):
                 # XXX we should probably disallow migration for this fs
                 device.format = fmt
             else:
+                device.teardown()
                 raise FSTabTypeMismatchError("%s: detected as %s, fstab says %s"
                                              % (mountpoint, dtype, ftype))
         del ftype

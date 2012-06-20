@@ -31,7 +31,6 @@
 # This toplevel file is a little messy at the moment...
 
 import atexit, sys, os, re, time, subprocess
-from optparse import OptionParser
 from tempfile import mkstemp
 
 # keep up with process ID of the window manager if we start it
@@ -51,18 +50,25 @@ def exitHandler(rebootData, storage, exitCode=None):
             while True:
                 time.sleep(10000)
 
-    if flags.livecdInstall:
-        os.system("systemctl --force --no-wall reboot")
-    else:
+    if image_count:
+        anaconda.storage.umountFilesystems(ignoreErrors=True, swapoff=False)
+        devicetree = anaconda.storage.devicetree
+        devicetree.teardownAll()
+        for name in devicetree.diskImages:
+            device = devicetree.getDeviceByName(name)
+            for loop in device.parents:
+                loop.controllable = True
+            device.deactivate(recursive=True)
+
+    if anaconda.ksdata and not flags.imageInstall:
         from pykickstart.constants import KS_SHUTDOWN, KS_WAIT, KS_REBOOT
+        from pyanaconda.iutil import dracut_eject
 
         if rebootData.eject:
             for drive in storage.devicetree.devices:
                 if drive.type != "cdrom":
                     continue
-
-                log.info("attempting to eject %s" % drive.path)
-                drive.eject()
+                dracut_eject(drive.path)
 
         if rebootData.action == KS_SHUTDOWN:
             os.system("systemctl --force --no-wall poweroff")
@@ -70,6 +76,8 @@ def exitHandler(rebootData, storage, exitCode=None):
             os.system("systemctl --force --no-wall halt")
         else: # reboot action is KS_REBOOT or None
             os.system("systemctl --force --no-wall reboot")
+    elif flags.livecdInstall:
+        os.system("systemctl --force --no-wall reboot")
 
 def startMetacityWM():
     childpid = os.fork()
@@ -199,14 +207,27 @@ def getAnacondaVersion():
     from pyanaconda import _isys
     return _isys.getAnacondaVersion()
 
-def parseOptions(argv = None):
-    op = OptionParser(version="%prog " + getAnacondaVersion())
+def parseOptions(argv=None, cmdline=None):
+    from pyanaconda.anaconda_optparse import AnacondaOptionParser
+
+    # NOTE: for each long option (like '--repo'), AnacondaOptionParser
+    # checks the boot arguments for bootarg_prefix+option ('inst.repo').
+    # If require_prefix is False, it also accepts the option without the
+    # bootarg_prefix ('repo').
+    # See anaconda_optparse.py and BootArgs (in flags.py) for details.
+    op = AnacondaOptionParser(version="%prog " + getAnacondaVersion(),
+                              bootarg_prefix="inst.", require_prefix=False)
+
+    # NOTE: store_false options will *not* get negated when the user does
+    # "option=0" on the boot commandline (store_true options do, though).
+    # Basically, don't use store_false unless the option starts with "no".
 
     # Interface
     op.add_option("-C", "--cmdline", dest="display_mode", action="store_const", const="c",
                   default="g")
     op.add_option("-G", "--graphical", dest="display_mode", action="store_const", const="g")
     op.add_option("-T", "--text", dest="display_mode", action="store_const", const="t")
+    op.add_option("-S", "--script", dest="display_mode", action="store_const", const="s")
 
     # Network
     op.add_option("--noipv4", action="store_true", default=False)
@@ -217,9 +238,10 @@ def parseOptions(argv = None):
     # Method of operation
     op.add_option("--autostep", action="store_true", default=False)
     op.add_option("-d", "--debug", dest="debug", action="store_true", default=False)
+    op.add_option("--ks", dest="ksfile", action="store_const", const="/run/install/ks.cfg")
     op.add_option("--kickstart", dest="ksfile")
     op.add_option("--rescue", dest="rescue", action="store_true", default=False)
-    op.add_option("--targetarch", dest="targetArch", nargs=1, type="string")
+    op.add_option("--targetarch", "rpmarch", dest="targetArch", type="string")
 
     op.add_option("-m", "--method", dest="method", default=None)
     op.add_option("--repo", dest="method", default=None)
@@ -237,6 +259,7 @@ def parseOptions(argv = None):
     op.add_option("--virtpconsole")
     op.add_option("--vnc", action="store_true", default=False)
     op.add_option("--vncconnect")
+    op.add_option("--vncpassword", default="")
     op.add_option("--xdriver", dest="xdriver", action="store", type="string", default=None)
 
     # Language
@@ -268,8 +291,22 @@ def parseOptions(argv = None):
     op.add_option("--updates", dest="updateSrc", action="store", type="string")
     op.add_option("--dlabel", action="store_true", default=False)
     op.add_option("--image", action="append", dest="images", default=[])
+    op.add_option("--memcheck", action="store_true", default=True)
+    op.add_option("--nomemcheck", action="store_false", dest="memcheck")
+    op.add_option("--leavebootorder", action="store_true", default=False)
 
-    return op.parse_args(argv)
+    # some defaults change based on cmdline flags
+    if cmdline is not None:
+        if "console" in cmdline:
+            op.set_defaults(display_mode="t")
+
+    (opts, args) = op.parse_args(argv, cmdline=cmdline)
+    return (opts, args, op.deprecated_bootargs)
+
+def setupPythonPath():
+    # First add our updates path
+    sys.path.insert(0, '/tmp/updates/')
+    sys.path.append('/usr/share/system-config-date')
 
 def setupEnvironment():
     # Silly GNOME stuff
@@ -368,10 +405,17 @@ def check_memory(anaconda, opts, display_mode=None):
     if not display_mode:
         display_mode = anaconda.displayMode
 
-    extra_ram = 0
     reason = reason_strict
     total_ram = int(isys.total_memory() / 1024)
-    needed_ram = int((isys.MIN_RAM + extra_ram) / 1024)
+    needed_ram = int(isys.MIN_RAM / 1024)
+    graphical_ram = needed_ram + int(isys.GUI_INSTALL_EXTRA_RAM / 1024)
+
+    log.info("check_memory(): total:%s, needed:%s, graphical:%s" % \
+            (total_ram, needed_ram, graphical_ram))
+
+    if not opts.memcheck:
+        log.warning("CHECK_MEMORY DISABLED")
+        return
 
     if needed_ram > total_ram:
         from snack import SnackScreen, ButtonChoiceWindow
@@ -388,8 +432,8 @@ def check_memory(anaconda, opts, display_mode=None):
         sys.exit(1)
 
     # override display mode if machine cannot nicely run X
-    if display_mode not in ('t', 'c') and not flags.usevnc:
-        needed_ram += int(isys.GUI_INSTALL_EXTRA_RAM / 1024)
+    if display_mode not in ('t', 'c', 's') and not flags.usevnc:
+        needed_ram = graphical_ram
         reason = reason_graphical
 
         if needed_ram > total_ram:
@@ -415,12 +459,12 @@ def setupDisplay(anaconda, opts):
     vncS.anaconda = anaconda
 
     anaconda.displayMode = opts.display_mode
-    anaconda.isHeadless = opts.isHeadless
+    anaconda.isHeadless = opts.isHeadless or iutil.isS390()
 
     if opts.vnc:
         flags.usevnc = 1
         anaconda.displayMode = 'g'
-        vncS.recoverVNCPassword()
+        vncS.password = opts.vncpassword
 
         # Only consider vncconnect when vnc is a param
         if opts.vncconnect:
@@ -483,29 +527,27 @@ def setupDisplay(anaconda, opts):
         log.info("Display mode = %s" % anaconda.displayMode)
         check_memory(anaconda, opts)
 
-        #
-        # now determine if we're going to run in GUI or TUI mode
-        #
-        # if no X server, we have to use text mode
-        if not flags.livecdInstall and not iutil.isS390() and \
-           not os.access("/usr/bin/Xorg", os.X_OK):
-             stdoutLog.warning(_("Graphical installation is not available. "
-                                 "Starting text mode."))
-             time.sleep(2)
-             anaconda.displayMode = 't'
+        # Should we try to start Xorg?
+        want_x = anaconda.displayMode == 'g' and \
+                 not (flags.preexisting_x11 or flags.usevnc)
 
-        # s390/iSeries checks
-        if anaconda.isHeadless and anaconda.displayMode == "g" and not \
-           (flags.preexisting_x11 or flags.usevnc):
+        # X on a headless (e.g. s390) system? Nonsense!
+        if want_x and anaconda.isHeadless:
             stdoutLog.warning(_("DISPLAY variable not set. Starting text mode."))
             anaconda.displayMode = 't'
             graphical_failed = 1
             time.sleep(2)
+            want_x = False
 
-        # if DISPLAY not set either vnc server failed to start or we're not
-        # running on a redirected X display, so start local X server
-        if anaconda.displayMode == 'g' and not flags.preexisting_x11 and \
-           not flags.usevnc:
+        # Is Xorg is actually available?
+        if want_x and not os.access("/usr/bin/Xorg", os.X_OK):
+            stdoutLog.warning(_("Graphical installation is not available. "
+                                "Starting text mode."))
+            time.sleep(2)
+            anaconda.displayMode = 't'
+            want_x = False
+
+        if want_x:
             # The following code depends on no SIGCHLD being delivered,
             # possibly only except the one from a failing X.org. Thus
             # make sure before entering this section that all the other
@@ -568,6 +610,64 @@ def setupDisplay(anaconda, opts):
     anaconda.initInterface()
     anaconda.instClass.configure(anaconda)
 
+def prompt_for_ssh():
+    # Do some work here to get the ip addr / hostname to pass
+    # to the user.
+    from pyanaconda import network
+    from pyanaconda import isys
+    import socket
+    import gettext
+    _ = lambda x: gettext.ldgettext("anaconda", x)
+
+    # see if we can sniff out network info
+    netinfo = network.Network()
+
+    devices = netinfo.netdevices
+    active_devs = network.getActiveNetDevs()
+
+    ip = None
+    if active_devs != []:
+        devname = devices[active_devs[0]].iface
+        try:
+            ips = (isys.getIPAddresses(devname, version=4) +
+                   isys.getIPAddresses(devname, version=6))
+        except Exception as e:
+            stdoutLog.warning("Got an exception trying to get the ip addr "
+                        "of %s: %s" % (devname, e))
+        else:
+            if ips and ips[0] not in ("127.0.0.1", "::1"):
+                stdoutLog.debug("IPs (using first) of device %s: %s" % (devname,
+                                                                 ips))
+                ip = ips[0]
+
+    ipstr = ip
+
+    try:
+        hinfo = socket.gethostbyaddr(ipstr)
+    except Exception as e:
+        stdoutLog.debug("Exception caught trying to get host name of %s: %s" %
+                  (ipstr, e))
+        name = network.getDefaultHostname(None)
+    else:
+        if len(hinfo) == 3:
+            name = hinfo[0]
+
+    if ip.find(':') != -1:
+        ipstr = "[%s]" % (ip,)
+
+    if (name is not None) and (not name.startswith('localhost')) and (ipstr is not None):
+        connxinfo = "%s (%s)" % (socket.getfqdn(name=name), ipstr,)
+    elif ipstr is not None:
+        connxinfo = "%s" % (ipstr,)
+    else:
+        connxinfo = None
+
+    if connxinfo:
+        stdoutLog.info(_("Please ssh install@%s to begin the install.") % connxinfo)
+    else:
+        stdoutLog.info(_("Please ssh install@<host> to continue installation."))
+
+
 if __name__ == "__main__":
     # Allow a file to be loaded as early as possible
     try:
@@ -579,8 +679,8 @@ if __name__ == "__main__":
     setupPythonUpdates()
 
     # do this early so we can set flags before initializing logging
-    (opts, args) = parseOptions()
     from pyanaconda.flags import flags
+    (opts, args, depr) = parseOptions(cmdline=flags.cmdline)
     if opts.images:
         flags.imageInstall = True
 
@@ -588,6 +688,7 @@ if __name__ == "__main__":
     import logging
     from pyanaconda import anaconda_log
     anaconda_log.init()
+    anaconda_log.logger.setupVirtio()
 
     log = logging.getLogger("anaconda")
     stdoutLog = logging.getLogger("anaconda.stdout")
@@ -596,11 +697,28 @@ if __name__ == "__main__":
         stdoutLog.error("anaconda must be run as root.")
         sys.exit(0)
 
+    # see if we're on s390x and if we've got an ssh connection
+    uname = os.uname()
+    if uname[4] == 's390x':
+        if 'SSH_CONNECTION' not in os.environ and "RUNKS" not in flags.cmdline:
+            prompt_for_ssh()
+            sys.exit(0)
+        # If we get RUNKS, we default to cmdline display mode, because nothing
+        # else will work.  Kickstart options can still override.
+        if "RUNKS" in flags.cmdline:
+            opts.display_mode = 'c'
+
     log.info("%s %s" % (sys.argv[0], getAnacondaVersion()))
+
+    # TODO: uncomment this when we're sure that we're doing the right thing
+    # with flags.cmdline *everywhere* it appears...
+    #for arg in depr:
+    #    stdoutLog.warn("Boot argument '%s' is deprecated. "
+    #                   "In the future, use 'inst.%s'.", arg, arg)
 
     # pull this in to get product name and versioning
     from pyanaconda import product
-    from pyanaconda.constants import ROOT_PATH
+    from pyanaconda.constants import ROOT_PATH, DEFAULT_LANG
 
     from pyanaconda import isys
     isys.initLog()
@@ -611,6 +729,11 @@ if __name__ == "__main__":
     from pyanaconda import vnc
     from pyanaconda import kickstart
     from pyanaconda import ntp
+
+    # to set UTF8 mode on the terminal, we need LANG to be set usefully
+    if os.environ.get("LANG", "C") == "C":
+        os.environ['LANG'] = DEFAULT_LANG
+    print "\033%G" # UTF8 power go!
 
     import gettext
     _ = lambda x: gettext.ldgettext("anaconda", x)
@@ -810,6 +933,8 @@ if __name__ == "__main__":
 
     if image_count:
         anaconda.storage.setupDiskImages()
+        anaconda.dispatch.skip_steps("filtertype")
+        anaconda.simpleFilter = True
 
     # comment out the next line to make exceptions non-fatal
     from pyanaconda.exception import initExceptionHandling
@@ -822,7 +947,6 @@ if __name__ == "__main__":
         # this is lame, but make things match what we expect (#443408)
         opts.lang = opts.lang.replace(".utf8", ".UTF-8")
         anaconda.instLanguage.instLang = opts.lang
-        anaconda.instLanguage.buildLocale()
         anaconda.instLanguage.systemLang = opts.lang
         anaconda.timezone.setTimezoneInfo(anaconda.instLanguage.getDefaultTimeZone())
 

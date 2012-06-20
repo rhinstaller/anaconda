@@ -1,0 +1,301 @@
+#!/usr/bin/python
+#vim: set fileencoding=utf8
+# parse-kickstart - read a kickstart file and emit equivalent dracut boot args.
+#
+# Copyright © 2012 Red Hat, Inc.
+# BLAH BLAH GPL BLAH.
+#
+# Designed to run inside the dracut initramfs environment.
+# Requires python 2.7 or later.
+#
+# Authors:
+#   Will Woods <wwoods@redhat.com>
+
+import sys, os
+import logging
+from pykickstart.parser import KickstartParser, preprocessKickstart
+from pykickstart.version import returnClassForVersion
+from pykickstart.errors import KickstartError
+from pykickstart.constants import *
+from pykickstart import commands
+from collections import OrderedDict
+
+# Default logging: none
+log = logging.getLogger('parse-kickstart').addHandler(logging.NullHandler())
+
+# Here are the kickstart commands we care about:
+
+class Method(commands.method.F14_Method):
+    '''install methods: cdrom, harddrive, nfs, url'''
+    def dracut_args(self, args, lineno, obj):
+        if self.method == "cdrom":
+            method="cdrom"
+        elif self.method == "harddrive":
+            if self.biospart:
+                method="bd:%s:%s" % (self.partition, self.dir)
+            else:
+                method="hd:%s:%s" % (self.partition, self.dir)
+        elif self.method == "nfs":
+            method="nfs:%s:%s" % (self.server, self.dir)
+            if self.opts:
+                method += ":%s" % self.opts
+        elif self.method == "url":
+            # FIXME: self.proxy, self.noverifyssl
+            method = self.url
+        return "inst.repo=%s" % method
+
+class Updates(commands.updates.F7_Updates):
+    def dracut_args(self, args, lineno, obj):
+        if self.url == "floppy":
+            return "live.updates=/dev/fd0"
+        elif self.url:
+            return "live.updates=%s" % self.url
+
+class MediaCheck(commands.mediacheck.FC4_MediaCheck):
+    def dracut_args(self, args, lineno, obj):
+        if self.mediacheck:
+            return "rd.live.check"
+
+class DriverDisk(commands.driverdisk.F14_DriverDisk):
+    def dracut_args(self, args, lineno, obj):
+        dd = self.driverdiskList[-1]
+        if dd.biospart:
+            location = "bd:%s" % dd.biospart
+        else:
+            location = dd.partition or dd.source
+        if location:
+            return "inst.driverdisk=%s" % location
+
+class Network(commands.network.F16_Network):
+    def dracut_args(self, args, lineno, net):
+        if len(self.network) == 1: # first network line gets special treatment
+            net.activate = True      # activate by default
+            # --device is optional, defaults to ksdevice
+            if net.device == "link" or not net.device:
+                net.device = self.handler.ksdevice # might be empty (ks=file:)
+        elif not net.device:
+            # every other network line needs a --device (and not "link")
+            log.error("'%s': missing --device", " ".join(args))
+        # write ifcfg for all listed devices
+        ksnet_to_ifcfg(net)
+        # anaconda tradition: bring up the first device listed, and no others
+        if len(self.network) == 1:
+            netline = ksnet_to_dracut(args, lineno, net, bootdev=True)
+            return netline
+
+# TODO: keymap, lang... device? upgrade? selinux?
+
+dracutCmds = {
+    'cdrom': Method,
+    'harddrive': Method,
+    'nfs': Method,
+    'url': Method,
+    'updates': Updates,
+    'mediacheck': MediaCheck,
+    'driverdisk': DriverDisk,
+    'network': Network,
+}
+handlerclass = returnClassForVersion()
+class DracutHandler(handlerclass):
+    def __init__(self):
+        handlerclass.__init__(self, commandUpdates=dracutCmds)
+        self.output = []
+        self.ksdevice = None
+    def dispatcher(self, args, lineno):
+        obj = handlerclass.dispatcher(self, args, lineno)
+        # and execute any specified dracut_args
+        cmd = args[0]
+        command = self.commands[cmd]
+        if hasattr(command, "dracut_args"):
+            log.debug("kickstart line %u: handling %s", lineno, cmd)
+            line = " ".join(args)
+            self.output.append(command.dracut_args(args, lineno, obj))
+        return obj
+
+# set up logging
+class KmsgFormatter(logging.Formatter):
+    '''Formats log output for /dev/kmsg like dracut does.'''
+    def format(self, record):
+        if record.levelno <= logging.INFO: tag = "<30>"
+        elif record.levelno <= logging.WARNING: tag = "<28>"
+        else: tag = "<24>"
+        return tag + logging.Formatter.format(self, record)
+def init_logger():
+    logfmt = "%(name)s %(levelname)s: %(message)s"
+    stderr = logging.StreamHandler()
+    stderr.setFormatter(logging.Formatter(logfmt))
+    logger = logging.getLogger('parse-kickstart')
+    logger.setLevel(logging.WARNING)
+    logger.addHandler(stderr)
+    try:
+        kmsg = logging.FileHandler("/dev/kmsg", "w")
+        kmsg.setFormatter(KmsgFormatter(logfmt))
+        logger.addHandler(kmsg)
+    except IOError:
+        pass
+    return logger
+
+def is_mac(addr):
+    return addr and len(addr) == 17 and addr.count(":") == 5 # good enough
+
+def find_devname(mac):
+    for netif in os.listdir("/sys/class/net"):
+        try:
+            thismac = readfile("/sys/class/net/%s/address" % netif)
+        except IOError:
+            pass
+        else:
+            if thismac.lower() == mac.lower():
+                return netif
+
+def ksnet_to_dracut(args, lineno, net, bootdev=False):
+    '''Translate the kickstart network data into dracut network data.'''
+    line = []
+    ip=""
+
+    if is_mac(net.device): # this is a MAC - find the interface name
+        mac = net.device
+        net.device = find_devname(mac)
+        if net.device is None:  # iface not active - pick a name for it
+            net.device = "eth0" # we only get called once, so this is OK
+            line.append("ifname=%s:%s" % (net.device, mac.lower()))
+
+    # NOTE: dracut currently only does ipv4 *or* ipv6, so only one ip=arg..
+    if net.bootProto in (BOOTPROTO_DHCP, BOOTPROTO_BOOTP):
+        ip="dhcp"
+    elif net.bootProto == BOOTPROTO_IBFT:
+        ip="ibft"
+    elif net.bootProto == BOOTPROTO_QUERY:
+        log.error("'%s': --bootproto=query is deprecated", " ".join(args))
+    elif net.bootProto == BOOTPROTO_STATIC:
+        req = ("gateway", "netmask", "nameserver", "ip")
+        missing = ", ".join("--%s" % i for i in req if not hasattr(net, i))
+        if missing:
+            log.warn("line %u: network missing %s", lineno, missing)
+        else:
+            ip="{0.ip}::{0.gateway}:{0.netmask}:" \
+               "{0.hostname}:{0.device}:none".format(net)
+    elif net.ipv6 == "auto":
+        ip="auto6"
+    elif net.ipv6 == "dhcp":
+        ip="dhcp6"
+    elif net.ipv6:
+        ip="[{0.ipv6}]::{0.gateway}:{0.netmask}:" \
+           "{0.hostname}:{0.device}:none".format(net)
+
+    if net.device and not ip.endswith(":none"):
+        line.append("ip=%s:%s" % (net.device, ip))
+    else:
+        line.append("ip=%s" % ip)
+
+    for ns in net.nameserver.split(","):
+        if ns:
+            line.append("nameserver=%s" % ns)
+
+    if net.mtu:
+        # XXX FIXME: dracut doesn't support mtu= (yet)
+        if net.device:
+            line.append("mtu=%s:%u" % (net.device, net.mtu))
+        else:
+            line.append("mtu=%u" % net.mtu)
+
+    # TODO: nodefroute, noipv[46], nodns: pass along to 'ifcfg' module somehow
+    # TODO FIXME dhcpclass: dracut only uses one dhclient.conf for all ifaces
+    # so we can't (yet) have per-interface dhcpclass
+
+    if bootdev:
+        if net.device:
+            line.append("bootdev=%s" % net.device)
+        line.append("rd.neednet=1")
+
+    if net.essid or net.wepkey or net.wpakey:
+        # TODO: make dracut support wireless? (do we care?)
+        log.error("'%s': dracut doesn't support wireless networks",
+                      " ".join(args))
+
+    return " ".join(line)
+
+def readfile(f):
+    try:
+        val = open(f).readline().strip()
+    except IOError:
+        val = None
+    return val
+
+def ksnet_to_ifcfg(net, filename=None):
+    '''Write an ifcfg file for the given kickstart network config'''
+    dev = net.device
+    if is_mac(dev):
+        dev = find_devname(dev)
+    if not dev:
+        return
+    ifcfg = dict()
+    if filename is None:
+        filename = "/tmp/ifcfg/ifcfg-%s" % dev
+        if not os.path.isdir("/tmp/ifcfg"):
+            os.makedirs("/tmp/ifcfg")
+    ifcfg['DEVICE'] = dev
+    ifcfg['HWADDR'] = readfile("/sys/class/net/%s/address" % dev)
+    ifcfg['UUID'] = readfile("/proc/sys/kernel/random/uuid")
+    ifcfg['ONBOOT'] = "yes" if net.onboot else "no"
+
+    # dhcp etc.
+    ifcfg['BOOTPROTO'] = net.bootProto
+    if net.bootProto == 'static':
+        ifcfg['IPADDR'] = net.ip
+        ifcfg['NETMASK'] = net.netmask
+        ifcfg['GATEWAY'] = net.gateway
+    if net.bootProto == 'dhcp':
+        if net.hostname:
+            ifcfg['DHCP_HOSTNAME'] = net.hostname
+
+    # ipv6 settings
+    if net.noipv6:
+        ifcfg['IPV6INIT'] = "no"
+    if net.ipv6 == 'dhcp':
+        ifcfg['DHCPV6C'] = "yes"
+        ifcfg['IPV6_AUTOCONF'] = "no"
+    elif ':' in net.ipv6:
+        ifcfg['IPV6ADDR'] = net.ipv6
+
+    # misc stuff
+    if net.mtu:
+        ifcfg['MTU'] = net.mtu
+    if net.nameserver:
+        ifcfg['DNS1'] = net.nameserver
+    if net.nodefroute:
+        ifcfg['DEFROUTE'] = "no"
+
+    # TODO: dhcpclass, ethtool, etc. (see comments in ksnet_to_dracut())
+    # TODO: handle essid/wepkey/wpakey (maybe inside anaconda)
+
+    try:
+        outf = open(filename, "w")
+        outf.write('# Generated by parse-kickstart\n')
+        for k,v in ifcfg.items():
+            outf.write("%s=%s\n" % (k,v))
+        outf.close()
+    except IOError as e:
+        log.error("can't write %s: %s" % (filename, str(e)))
+    else:
+        return filename
+
+def process_kickstart(ksfile):
+    handler = DracutHandler()
+    handler.ksdevice = os.environ.get('ksdevice')
+    parser = KickstartParser(handler)
+    processed_file = preprocessKickstart(ksfile)
+    try:
+        parser.readKickstart(processed_file)
+    except KickstartError as e:
+        log.error(str(e))
+    with open("/tmp/ks.info", "a") as f:
+        f.write('parsed_kickstart="%s"\n' % processed_file)
+    return processed_file, handler.output
+
+if __name__ == '__main__':
+    log = init_logger()
+    for path in sys.argv[1:]:
+        outfile, output = process_kickstart(path)
+        for line in filter(None, output):
+            print line

@@ -74,6 +74,9 @@ urlgrabber.grabber.default_grabber.opts.user_agent = "%s (anaconda)/%s" %(produc
 import iutil
 import isys
 
+class NoSuchGroup(Exception):
+    pass
+
 def size_string (size):
     def number_format(s):
         return locale.format("%s", s, 1)
@@ -246,11 +249,17 @@ class AnacondaCallback:
             # we should only error out for fatal script errors or the cpio and
             # unpack problems.
             if what != rpm.RPMCALLBACK_SCRIPT_ERROR or total:
+                if what == rpm.RPMCALLBACK_CPIO_ERROR:
+                    error_type = _("cpio")
+                elif what == rpm.RPMCALLBACK_UNPACK_ERROR:
+                    error_type = _("unpack")
+                else:
+                    error_type = _("script")
                 self.messageWindow(_("Error Installing Package"),
-                    _("A fatal error occurred when installing the %s "
+                    _("A %s error occurred when installing the %s "
                       "package.  This could indicate errors when reading "
                       "the installation media.  Installation cannot "
-                      "continue.") % name,
+                      "continue.") % (error_type, name),
                     type="custom", custom_icon="error",
                     custom_buttons=[_("_Exit installer")])
                 sys.exit(1)
@@ -389,33 +398,17 @@ class AnacondaYum(yum.YumBase):
             if verifyMedia(self.tree, None):
                 return
 
-            dev.format.unmount()
+        dev.format.unmount()
 
-        dev.eject()
+        log.error("Wrong disc found on %s" % (self.tree))
+        if self.anaconda.intf:
+            self.anaconda.intf.beep()
 
-        while True:
-            if self.anaconda.intf:
-                self.anaconda.intf.beep()
-
-            self.anaconda.intf.messageWindow(_("Change Disc"),
-                _("Please insert the %(productName)s disc to continue.")
-                % {'productName': productName})
-
-            try:
-                dev.format.mount()
-
-                if verifyMedia(self.tree, self._timestamp):
-                    break
-
-                self.anaconda.intf.messageWindow(_("Wrong Disc"),
-                        _("That's not the correct %s disc.")
-                          % (productName,))
-
-                dev.format.unmount()
-                dev.eject()
-            except Exception:
-                self.anaconda.intf.messageWindow(_("Error"),
-                        _("Unable to access the disc."))
+            self.messageWindow(_("Wrong Disc"),
+                _("That's not the correct %s disc.") % (productName),
+                type="custom", custom_icon="error",
+                custom_buttons=[_("_Exit installer")])
+        sys.exit(1)
 
     def _mountInstallImage(self):
         umountImage(self.tree)
@@ -428,14 +421,16 @@ class AnacondaYum(yum.YumBase):
     def configBaseURL(self):
         # We only have a methodstr if method= or repo= was passed to
         # anaconda.  No source for this base repo (the CD media, NFS,
-        # whatever) is mounted yet since loader only mounts the source
+        # whatever) is mounted yet since initramfs only mounts the source
         # for the stage2 image.  We need to set up the source mount
         # now.
+        # methodstr == cdrom is a special case, meaning the first cdrom found
+        # by scanning or previously mounted as the install source.
         if flags.cmdline.has_key("preupgrade"):
             path = "/var/cache/yum/preupgrade"
             self.anaconda.methodstr = "hd::%s" % path 
             self._baseRepoURL = "file:///mnt/sysimage/%s" % path
-        elif self.anaconda.methodstr:
+        elif self.anaconda.methodstr and self.anaconda.methodstr != "cdrom":
             m = self.anaconda.methodstr
 
             if m.startswith("hd:"):
@@ -470,7 +465,7 @@ class AnacondaYum(yum.YumBase):
                 (opts, server, path) = iutil.parseNfsUrl(m)
                 isys.mount(server+":"+path, self.tree, "nfs", options=opts)
 
-                # This really should be fixed in loader instead but for now see
+                # This really should be fixed in initrd instead but for now see
                 # if there's images and if so go with this being an NFSISO
                 # install instead.
                 image = findFirstIsoImage(self.tree, self.anaconda.intf.messageWindow)
@@ -483,6 +478,21 @@ class AnacondaYum(yum.YumBase):
                 self._mountInstallCD()
                 self.mediagrabber = self.mediaHandler
                 self._baseRepoURL = "file://%s" % self.tree
+        elif os.path.isdir("/run/initramfs/live/repodata"):
+            # No methodstr was given.  In order to find an installation source
+            # we first check to see if dracut has already mounted the source
+            # on /run/initramfs/live/ and if not we check to see if there's a
+            # CD/DVD with packages on it. If both those fail we default to the
+            # mirrorlist URL.  The user can always change the repo with the
+            # repo editor later.
+            isys.mount("/run/initramfs/live/", self.tree, bindMount=True)
+            self.mediagrabber = self.mediaHandler
+            self._baseRepoURL = "file://%s" % self.tree
+        elif os.path.isdir("/run/install/repo/repodata"):
+            # Same hack as above. FIXME: make scanForMedia do this, dammit
+            isys.mount("/run/install/repo", self.tree, bindMount=True)
+            self.mediagrabber = self.mediaHandler
+            self._baseRepoURL = "file://%s" % self.tree
         else:
             # No methodstr was given.  In order to find an installation source,
             # we should first check to see if there's a CD/DVD with packages
@@ -591,9 +601,6 @@ class AnacondaYum(yum.YumBase):
         dest has dest.proxy set to the host and port (no un/pw)
         dest.proxy_username and dest.proxy_password are set if present in src
         """
-        # This is the same pattern as from loader/urls.c:splitProxyParam
-        # except that the POSIX classes have been replaced with character
-        # ranges
         # NOTE: If this changes, update tests/regex/proxy.py
         #
         # proxy=[protocol://][username[:password]@]host[:port][path]
@@ -768,6 +775,10 @@ class AnacondaYum(yum.YumBase):
         filelogger.setLevel(logging.INFO)
         filelogger.propagate = False
 
+    def doFileLogSetup(self, uid, logfile):
+        # don't do the file log as it can lead to open fds
+        # being left and an inability to clean up after ourself
+        pass
 
     def doConfigSetup(self, fn='/tmp/anaconda-yum.conf', root='/'):
         if hasattr(self, "preconf"):
