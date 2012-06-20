@@ -44,9 +44,9 @@ class Accordion(Gtk.Box):
         Gtk.Box.__init__(self, orientation=Gtk.Orientation.VERTICAL, spacing=12)
         self._expanders = []
 
-    def addPage(self, pageTitle, contents):
+    def addPage(self, contents):
         label = Gtk.Label()
-        label.set_markup("""<span size='large' weight='bold' fgcolor='black'>%s</span>""" % pageTitle)
+        label.set_markup("""<span size='large' weight='bold' fgcolor='black'>%s</span>""" % contents.pageTitle)
         label.set_alignment(0, 0.5)
         label.set_line_wrap(True)
 
@@ -61,7 +61,7 @@ class Accordion(Gtk.Box):
 
     def _find_by_title(self, title):
         for e in self._expanders:
-            if e.get_label_widget().get_text() == title:
+            if e.get_child().pageTitle == title:
                 return e
 
         return None
@@ -123,6 +123,7 @@ class Page(Gtk.Box):
         self.add(self._systemBox)
 
         self._members = []
+        self.pageTitle = ""
 
     def _make_category_label(self, name):
         label = Gtk.Label()
@@ -174,6 +175,7 @@ class UnknownPage(Page):
         # For this type of page, there's only one place to store members.
         Gtk.Box.__init__(self, orientation=Gtk.Orientation.VERTICAL, spacing=6)
         self._members = []
+        self.pageTitle = ""
 
     def addDevice(self, name, size, mountpoint, cb):
         selector = MountpointSelector()
@@ -194,6 +196,7 @@ class UnknownPage(Page):
 class CreateNewPage(Page):
     def __init__(self, cb):
         Gtk.Box.__init__(self, orientation=Gtk.Orientation.VERTICAL, spacing=6)
+        self.pageTitle = ""
 
         # Create a box where we store the "Here's how you create a new blah" info.
         self._createBox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=6)

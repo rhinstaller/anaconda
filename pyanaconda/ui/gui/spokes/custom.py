@@ -246,9 +246,9 @@ class CustomPartitioningSpoke(NormalSpoke):
         # ensures it's only added once.
         if not self._ran_autopart:
             page = CreateNewPage(self.on_create_clicked)
-            title = _("New %s %s Installation") % (productName, productVersion)
-            self._accordion.addPage(title, page)
-            self._accordion.expandPage(title)
+            page.pageTitle = _("New %s %s Installation") % (productName, productVersion)
+            self._accordion.addPage(page)
+            self._accordion.expandPage(page.pageTitle)
             did_expand = True
 
             self._partitionsNotebook.set_current_page(0)
@@ -258,6 +258,7 @@ class CustomPartitioningSpoke(NormalSpoke):
         # Add in all the existing (or autopart-created) operating systems.
         for root in self.storage.roots:
             page = Page()
+            page.pageTitle = root.name
 
             for swap in root.swaps:
                 selector = page.addDevice("Swap", swap.size, None, self.on_selector_clicked)
@@ -270,7 +271,7 @@ class CustomPartitioningSpoke(NormalSpoke):
                 selector._root = root
 
             page.show_all()
-            self._accordion.addPage(root.name, page)
+            self._accordion.addPage(page)
 
             if not did_expand and self._current_selector and root == self._current_selector._root:
                 did_expand = True
@@ -280,6 +281,7 @@ class CustomPartitioningSpoke(NormalSpoke):
         unused = self._unusedDevices()
         if unused:
             page = UnknownPage()
+            page.pageTitle = _("Unknown")
 
             for u in unused:
                 selector = page.addDevice(u.format.name, u.size, None, self.on_selector_clicked)
@@ -287,11 +289,11 @@ class CustomPartitioningSpoke(NormalSpoke):
                 selector._root = unused
 
             page.show_all()
-            self._accordion.addPage(_("Unknown"), page)
+            self._accordion.addPage(page)
 
             if not did_expand and self._current_selector and unused == self._current_selector._root:
                 did_expand = True
-                self._accordion.expandPage(_("Unknown"))
+                self._accordion.expandPage(page.pageTitle)
 
     ###
     ### RIGHT HAND SIDE METHODS
