@@ -404,6 +404,14 @@ class CustomPartitioningSpoke(NormalSpoke):
                 # FIXME:  Do creation.
                 pass
 
+    def _destroy_device(self, device):
+        # if this device has parents with no other children, remove them too
+        parents = device.parents[:]
+        self.storage.destroyDevice(device)
+        for parent in parents:
+            if parent.kids == 0 and not parent.isDisk:
+                self._destroy_device(parent)
+
     def _remove_from_ui(self, root, device):
         if root is None:
             pass    # unused device
@@ -415,7 +423,7 @@ class CustomPartitioningSpoke(NormalSpoke):
             for mountpoint in mountpoints:
                 root.mounts.pop(mountpoint)
 
-        self.storage.destroyDevice(device)
+        self._destroy_device(device)
 
         # Now that it's removed from the installation root, refreshing the
         # display will have the effect of making it disappear.  It's like
