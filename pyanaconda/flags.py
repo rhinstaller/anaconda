@@ -68,6 +68,7 @@ class Flags(object):
         self.virtpconsole = None
         self.gpt = False
         self.leavebootorder = False
+        self.testing = False
         # parse the boot commandline
         self.cmdline = BootArgs()
         # Lock it down: no more creating new flags!
