@@ -192,14 +192,14 @@ class CustomPartitioningSpoke(NormalSpoke):
 
     def _currentFreeSpace(self):
         """Add up all the free space on selected disks and return it as a Size."""
-        totalFree = 0
+        totalFree = Size(bytes=0)
 
         freeDisks = self.storage.getFreeSpace(disks=self._clearpartDevices())
         for tup in freeDisks.values():
             for chunk in tup:
                 totalFree += chunk
 
-        return Size(totalFree)
+        return totalFree
 
     def _currentTotalSpace(self):
         """Add up the sizes of all selected disks and return it as a Size."""

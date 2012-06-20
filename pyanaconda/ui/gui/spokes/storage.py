@@ -393,7 +393,7 @@ class StorageSpoke(NormalSpoke):
         print "UPDATING SUMMARY"
         count = 0
         capacity = 0
-        free = 0
+        free = Size(bytes=0)
 
         free_space = self.storage.getFreeSpace(clearPartType=self.clearPartType)
         selected = [d for d in self.disks if d.name in self.selected_disks]
@@ -405,7 +405,7 @@ class StorageSpoke(NormalSpoke):
 
         summary = (P_(("%d disk selected; %s capacity; %s free ..."),
                       ("%d disks selected; %s capacity; %s free ..."),
-                      count) % (count, str(Size(spec="%s MB" % capacity)), str(Size(free))))
+                      count) % (count, str(Size(spec="%s MB" % capacity)), free))
         markup = "<span foreground='blue'><u>%s</u></span>" % summary
         summary_label = self.builder.get_object("summary_button").get_children()[0]
         summary_label.set_markup(markup)
