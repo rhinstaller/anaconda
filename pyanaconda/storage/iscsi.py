@@ -162,7 +162,6 @@ class iscsi(object):
 
 
     def _startIBFT(self):
->>>>>>> master
         if not flags.ibft:
             return
 
