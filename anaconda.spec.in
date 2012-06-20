@@ -53,7 +53,7 @@ BuildRequires: e2fsprogs-devel >= %{e2fsver}
 BuildRequires: elfutils-devel
 BuildRequires: gettext >= %{gettextver}
 BuildRequires: gtk3-devel gtk-doc
-BuildRequires: gobject-introspection-devel glade3-libgladeui-devel pygobject3
+BuildRequires: gobject-introspection-devel glade-devel pygobject3
 BuildRequires: intltool >= %{intltoolver}
 BuildRequires: isomd5sum-static >= %{isomd5sumver}
 BuildRequires: libarchive-devel
@@ -189,7 +189,7 @@ This package contains a set of custom GTK+ widgets used by the anaconda installe
 %package widgets-devel
 Summary: Development files for anaconda-widgets
 Group: Development/Libraries
-Requires: glade3
+Requires: glade
 
 %description widgets-devel
 This package contains libraries and header files needed for writing the anaconda
