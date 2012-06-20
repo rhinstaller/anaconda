@@ -148,6 +148,10 @@ class Size(Decimal):
     def __add__(self, other):
         return Size(bytes=Decimal.__add__(self, other))
 
+    # needed to make sum() work with Size arguments
+    def __radd__(self, other):
+        return Size(bytes=Decimal.__radd__(self, other))
+
     def __sub__(self, other):
         return Size(bytes=Decimal.__sub__(self, other))
 
