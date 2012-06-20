@@ -360,7 +360,6 @@ class StorageSpoke(NormalSpoke):
 
         with gdk_threaded():
             # properties: kind, description, capacity, os, popup-info
-            first = True
             for disk in self.disks:
                 if disk.removable:
                     kind = "drive-removable-media"
@@ -383,9 +382,6 @@ class StorageSpoke(NormalSpoke):
                 overview.connect("button-press-event", self._on_disk_clicked)
                 overview.connect("key-release-event", self._on_disk_clicked)
                 overview.show_all()
-                if first:
-                    overview.grab_focus()
-                    first = False
 
             self._update_summary()
 
