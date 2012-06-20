@@ -34,7 +34,6 @@ from storage.partitioning import doAutoPartition
 from bootloader import writeBootLoader
 from flags import flags
 from installmethod import doMethodComplete
-from sshd import doSshd
 from rescue import doRescue
 
 from backend import doPostSelection, doBackendSetup, doBasePackageSelect
