@@ -274,7 +274,9 @@ class Hub(UIObject):
            event.keyval not in [Gdk.KEY_space, Gdk.KEY_Return, Gdk.KEY_ISO_Enter, Gdk.KEY_KP_Enter, Gdk.KEY_KP_Space]:
               return
 
-        selector.grab_focus()
+        if selector:
+            selector.grab_focus()
+
         self._runSpoke(spoke)
 
         # Now update the selector with the current status and completeness.
