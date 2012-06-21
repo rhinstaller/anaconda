@@ -768,7 +768,7 @@ class Storage(object):
                     # operations to translate free filesystem space into free disk
                     # space
                     should_clear = shouldClear(partition, clearPartType,
-                                               [d.name])
+                                               [disk.name])
                     if should_clear:
                         disk_free += partition.size
                     elif hasattr(partition.format, "free"):
