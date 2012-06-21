@@ -344,6 +344,10 @@ def doAutoPartition(storage, data):
 def shouldClear(device, clearPartType, clearPartDisks=None, clearPartDevices=None):
     if clearPartType in [CLEARPART_TYPE_NONE, None]:
         return False
+    if not clearPartDisks:
+        clearPartDisks = []
+    if not clearPartDevices:
+        clearPartDevices = []
 
     if isinstance(device, PartitionDevice):
         # Never clear the special first partition on a Mac disk label, as that
@@ -357,7 +361,7 @@ def shouldClear(device, clearPartType, clearPartDisks=None, clearPartDevices=Non
             return False
 
         # If we got a list of disks to clear, make sure this one's on it
-        if clearPartDisks and device.disk.name not in clearPartDisks:
+        if device.disk.name not in clearPartDisks:
             return False
 
         # We don't want to fool with extended partitions, freespace, &c
@@ -373,7 +377,7 @@ def shouldClear(device, clearPartType, clearPartDisks=None, clearPartDevices=Non
             return False
     elif device.isDisk and not device.partitioned:
         # If we got a list of disks to clear, make sure this one's on it
-        if clearPartDisks and device.name not in clearPartDisks:
+        if device.name not in clearPartDisks:
             return False
 
         # Never clear disks with hidden formats
