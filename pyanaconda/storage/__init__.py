@@ -753,7 +753,7 @@ class Storage(object):
             clearPartType = self.config.clearPartType
 
         free = {}
-        for disk in [d for d in disks if d.partitioned]:
+        for disk in disks:
             should_clear = shouldClear(disk, clearPartType, [disk.name])
             if should_clear:
                 free[disk.name] = (Size(spec="%f mb" % disk.size), 0)
