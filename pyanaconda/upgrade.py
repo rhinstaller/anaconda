@@ -82,11 +82,18 @@ def findRootParts(anaconda):
 
         if notUpgradable and not anaconda.rootParts:
             oldInstalls = ""
-            for info in notUpgradable:
-                if None in info[:2]:
-                    oldInstalls += _("Unknown release on %s") % (info[2])
+            for product, version, arch, name, tests in notUpgradable:
+                if None in (product, version):
+                    oldInstalls = _("Unknown release on %s -") % (name)
                 else:
-                    oldInstalls += "%s %s on %s" % (info)
+                    oldInstalls = "%s %s %s on %s -" % (product, version, arch, name)
+
+                if not tests["product"]:
+                    oldInstalls += _(" Product mismatch.")
+                if not tests["version"]:
+                    oldInstalls += _(" Version mismatch.")
+                if not tests["arch"]:
+                    oldInstalls += _(" Architecture mismatch.")
                 oldInstalls += "\n"
             rc = anaconda.intf.messageWindow(_("Cannot Upgrade"),
                     _("Your current installation cannot be upgraded. This "
@@ -256,6 +263,38 @@ def upgradeMountFilesystems(anaconda):
     except Exception as e:
         log.warning("error checking selinux state: %s" %(e,))
 
+def upgradeUsr(anaconda):
+    """
+    Handle the upgrade of /bin, /sbin, /lib, /lib64 to symlinks into /usr/
+    This uses dracut's convertfs module
+    """
+    dirs = ["/bin", "/sbin", "/lib", "/lib64"]
+    dirs = [ROOT_PATH+d for d in dirs]
+    if all(map(os.path.islink, dirs)):
+        log.info("upgradeusr dirs are already symlinks")
+        return
+
+    if anaconda.intf is not None:
+        w = anaconda.intf.waitWindow(_("Upgrade /usr symlinks"),
+                            _("Running /usr merge script"))
+
+    if iutil.execWithRedirect("/usr/lib/dracut/modules.d/30convertfs/convertfs.sh",
+                              [ROOT_PATH],
+                              stdout="/dev/tty5", stderr="/dev/tty5"):
+        log.error("convertfs failed")
+
+        if anaconda.intf is not None:
+            w.pop()
+            rc = anaconda.intf.messageWindow(_("/usr merge failed"),
+                           _("The /usr merge script failed. This is required"
+                             " for Fedora 17 to work. The upgrade cannot continue."
+                             "\n\n"))
+        sys.exit(0)
+    log.info("convertfs was successful")
+
+    if anaconda.intf is not None:
+        w.pop()
+
 def setSteps(anaconda):
     dispatch = anaconda.dispatch
     dispatch.reset_scheduling() # scrap what is scheduled
@@ -278,6 +317,7 @@ def setSteps(anaconda):
                 "upgrademigratefs",
                 "enablefilesystems",
                 "upgradecontinue",
+                "upgradeusr",
                 "reposetup",
                 "upgbootloader",
                 "postselection",

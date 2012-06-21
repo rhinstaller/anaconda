@@ -1,0 +1,14 @@
+#!/bin/bash
+# fedora-import-state: import state files from initramfs (e.g. network config)
+
+# exit early if root isn't writeable
+[ -w / ] || exit 0
+
+# copy state into root
+cd /run/initramfs/state
+cp -a -t / .
+
+# run restorecon on the copied files
+if [ -e /sys/fs/selinux/enforce ]; then
+    find . | ( cd /; restorecon -i -f -; ) || :
+fi

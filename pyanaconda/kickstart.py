@@ -243,12 +243,12 @@ class AutoPart(commands.autopart.F16_AutoPart):
             storage.autoPartEscrowCert = getEscrowCertificate(self.anaconda, self.escrowcert)
             storage.autoPartAddBackupPassphrase = self.backuppassphrase
 
-        if not self.lvm:
-            storage.lvmAutoPart = False
+        if self.type is not None:
+            storage.autoPartType = self.type
 
         doAutoPartition(storage, ksdata)
 
-class Bootloader(commands.bootloader.F17_Bootloader):
+class Bootloader(commands.bootloader.F18_Bootloader):
     def execute(self, storage, ksdata, instClass):
         if self.location == "none":
             location = None
@@ -298,9 +298,86 @@ class Bootloader(commands.bootloader.F17_Bootloader):
         drive = storage.devicetree.getDeviceByName(spec)
         storage.bootloader.stage1_disk = drive
 
-class ClearPart(commands.clearpart.FC3_ClearPart):
+        if self.leavebootorder:
+            flags.leavebootorder = True
+
+class BTRFSData(commands.btrfs.F17_BTRFSData):
+    def execute(self):
+        storage = self.anaconda.storage
+        devicetree = storage.devicetree
+
+        storage.doAutoPart = False
+
+        members = []
+
+        # Get a list of all the devices that make up this volume.
+        for member in self.devices:
+            # if using --onpart, use original device
+            member_name = self.anaconda.ksdata.onPart.get(member, member)
+            if member_name:
+                dev = devicetree.getDeviceByName(member_name)
+            if not dev:
+                dev = devicetree.resolveDevice(member)
+
+            if dev and dev.format.type == "luks":
+                try:
+                    dev = devicetree.getChildren(dev)[0]
+                except IndexError:
+                    dev = None
+            if not dev:
+                raise KickstartValueError, formatErrorMsg(self.lineno, msg="Tried to use undefined partition %s in BTRFS volume specification" % member)
+
+            members.append(dev)
+
+        if self.subvol:
+            name = self.name
+        elif self.label:
+            name = self.label
+        else:
+            name = None
+
+        if len(members) == 0 and not self.preexist:
+            raise KickstartValueError, formatErrorMsg(self.lineno, msg="BTRFS volume defined without any member devices.  Either specify member devices or use --useexisting.")
+
+        # allow creating btrfs vols/subvols without specifying mountpoint
+        if self.mountpoint in ("none", "None"):
+            self.mountpoint = ""
+
+        # Sanity check mountpoint
+        if self.mountpoint != "" and self.mountpoint[0] != '/':
+            raise KickstartValueError, formatErrorMsg(self.lineno, msg="The mount point \"%s\" is not valid." % (self.mountpoint,))
+
+        if self.preexist:
+            device = devicetree.getDeviceByName(self.name)
+            if not device:
+                device = udev_resolve_devspec(self.name)
+
+            if not device:
+                raise KickstartValueError, formatErrorMsg(self.lineno, msg="Specified nonexistent BTRFS volume %s in btrfs command" % self.name)
+        else:
+            # If a previous device has claimed this mount point, delete the
+            # old one.
+            try:
+                if self.mountpoint:
+                    device = storage.mountpoints[self.mountpoint]
+                    storage.destroyDevice(device)
+            except KeyError:
+                pass
+
+            request = storage.newBTRFS(name=name,
+                                       subvol=self.subvol,
+                                       mountpoint=self.mountpoint,
+                                       metaDataLevel=self.metaDataLevel,
+                                       dataLevel=self.dataLevel,
+                                       parents=members)
+
+            storage.createDevice(request)
+
+        self.anaconda.dispatch.skip_steps("partition", "parttype")
+
+class ClearPart(commands.clearpart.F17_ClearPart):
     def parse(self, args):
-        retval = commands.clearpart.FC3_ClearPart.parse(self, args)
+        retval = commands.clearpart.F17_ClearPart.parse(self, args)
 
         if self.type is None:
             self.type = CLEARPART_TYPE_NONE
@@ -317,11 +394,25 @@ class ClearPart(commands.clearpart.FC3_ClearPart):
 
         self.drives = drives
 
+        # Do any glob expansion now, since we need to have the real list of
+        # devices available before the execute methods run.
+        devices = []
+        for spec in self.devices:
+            matched = deviceMatches(spec)
+            if matched:
+                devices.extend(matched)
+            else:
+                raise KickstartValueError, formatErrorMsg(self.lineno, msg="Specified nonexistent device %s in clearpart device list" % spec)
+
+        self.devices = devices
+
         return retval
 
     def execute(self, storage, ksdata, instClass):
         storage.config.clearPartType = self.type
         storage.config.clearPartDisks = self.drives
+        storage.config.clearPartDevices = self.devices
+
         if self.initAll:
             storage.config.reinitializeDisks = self.initAll
 
@@ -334,7 +425,7 @@ class Fcoe(commands.fcoe.F13_Fcoe):
         if fc.nic not in isys.getDeviceProperties():
             raise KickstartValueError, formatErrorMsg(self.lineno, msg="Specified nonexistent nic %s in fcoe command" % fc.nic)
 
-        storage.fcoe.fcoe().addSan(nic=fc.nic, dcb=fc.dcb)
+        storage.fcoe.fcoe().addSan(nic=fc.nic, dcb=fc.dcb, auto_vlan=True)
 
         return fc
 
@@ -365,36 +456,32 @@ class IgnoreDisk(commands.ignoredisk.RHEL6_IgnoreDisk):
 
         return retval
 
-class Iscsi(commands.iscsi.F10_Iscsi):
-    class Login(object):
-        def __init__(self, iscsi_obj, tg_data):
-            self.iscsi_obj = iscsi_obj
-            self.tg_data = tg_data
-
-        def login(self, node):
-            if self.tg_data.target and self.tg_data.target != node.name:
-                log.debug("kickstart: skipping logging to iscsi node '%s'" %
-                          node.name)
-                return False
-            (rc, _) = self.iscsi_obj.log_into_node(
-                node, self.tg_data.user, self.tg_data.password,
-                self.tg_data.user_in, self.tg_data.password_in)
-            return rc
-
+class Iscsi(commands.iscsi.F17_Iscsi):
     def parse(self, args):
-        tg = commands.iscsi.F10_Iscsi.parse(self, args)
+        tg = commands.iscsi.F17_Iscsi.parse(self, args)
+
+        if tg.iface:
+            active_ifaces = network.getActiveNetDevs()
+            if tg.iface not in active_ifaces:
+                raise KickstartValueError, formatErrorMsg(self.lineno, msg="network interface %s required by iscsi %s target is not up" % (tg.iface, tg.target))
+
+        mode = storage.iscsi.iscsi().mode
+        if mode == "none":
+            if tg.iface:
+                storage.iscsi.iscsi().create_interfaces(active_ifaces)
+        elif ((mode == "bind" and not tg.iface)
+              or (mode == "default" and tg.iface)):
+            raise KickstartValueError, formatErrorMsg(self.lineno, msg="iscsi --iface must be specified (binding used) either for all targets or for none")
 
         try:
-            iscsi_obj = storage.iscsi.iscsi()
-            discovered_nodes = iscsi_obj.discover(
-                tg.ipaddr, tg.port, tg.user, tg.password,
-                tg.user_in, tg.password_in)
-            login = self.Login(iscsi_obj, tg)
-            logged_into_nodes = filter(login.login, discovered_nodes)
-            if len(logged_into_nodes) < 1:
-                msg = _("Could not log into any iSCSI nodes at the portal.")
-                raise KickstartValueError, formatErrorMsg(self.lineno,
-                                                          msg=msg)
+            storage.iscsi.iscsi().addTarget(tg.ipaddr, tg.port, tg.user,
+                                            tg.password, tg.user_in,
+                                            tg.password_in,
+                                            target=tg.target,
+                                            iface=tg.iface)
+            log.info("added iscsi target %s at %s via %s" %(tg.target,
+                                                            tg.ipaddr,
+                                                            tg.iface))
         except (IOError, ValueError) as e:
             raise KickstartValueError, formatErrorMsg(self.lineno,
                                                       msg=str(e))
@@ -408,7 +495,7 @@ class IscsiName(commands.iscsiname.FC6_IscsiName):
         storage.iscsi.iscsi().initiator = self.iscsiname
         return retval
 
-class LogVolData(commands.logvol.F15_LogVolData):
+class LogVolData(commands.logvol.F17_LogVolData):
     def execute(self):
         storage = self.anaconda.storage
         devicetree = storage.devicetree
@@ -446,6 +533,23 @@ class LogVolData(commands.logvol.F15_LogVolData):
             if not dev:
                 raise KickstartValueError, formatErrorMsg(self.lineno, msg="No preexisting logical volume with the name \"%s\" was found." % self.name)
 
+            if self.resize:
+                if self.size < dev.currentSize:
+                    # shrink
+                    try:
+                        devicetree.registerAction(ActionResizeFormat(dev, self.size))
+                        devicetree.registerAction(ActionResizeDevice(dev, self.size))
+                    except ValueError:
+                        raise KickstartValueError(formatErrorMsg(self.lineno,
+                                msg="Invalid target size (%d) for device %s" % (self.size, dev.name)))
+                else:
+                    # grow
+                    try:
+                        devicetree.registerAction(ActionResizeDevice(dev, self.size))
+                        devicetree.registerAction(ActionResizeFormat(dev, self.size))
+                    except ValueError:
+                        raise KickstartValueError(formatErrorMsg(self.lineno,
+                                msg="Invalid target size (%d) for device %s" % (self.size, dev.name)))
             dev.format.mountpoint = self.mountpoint
             dev.format.mountopts = self.fsopts
             self.anaconda.dispatch.skip_steps("partition", "parttype")
@@ -472,7 +576,7 @@ class LogVolData(commands.logvol.F15_LogVolData):
                            label=self.label,
                            fsprofile=self.fsprofile,
                            mountopts=self.fsopts)
-        if not format:
+        if not format.type:
             raise KickstartValueError, formatErrorMsg(self.lineno, msg="The \"%s\" filesystem type is not supported." % type)
 
         # If we were given a pre-existing LV to create a filesystem on, we need
@@ -485,6 +589,14 @@ class LogVolData(commands.logvol.F15_LogVolData):
                 raise KickstartValueError, formatErrorMsg(self.lineno, msg="Specified nonexistent LV %s in logvol command" % self.name)
 
             removeExistingFormat(device, storage)
+
+            if self.resize:
+                try:
+                    devicetree.registerAction(ActionResizeDevice(device, self.size))
+                except ValueError:
+                    raise KickstartValueError(formatErrorMsg(self.lineno,
+                            msg="Invalid target size (%d) for device %s" % (self.size, device.name)))
+
             devicetree.registerAction(ActionCreateFormat(device, format))
         else:
             # If a previous device has claimed this mount point, delete the
@@ -581,7 +693,15 @@ class NetworkData(commands.network.F16_NetworkData):
         else:
             if self.device.lower() == "ibft":
                 return
-            if self.device.lower() == "bootif":
+            if self.device.lower() == "link":
+                for dev in sorted(devices):
+                    if isys.getLinkStatus(dev):
+                        device = dev
+                        break
+                else:
+                    raise KickstartValueError, formatErrorMsg(self.lineno, msg="No device with link found")
+
+            elif self.device.lower() == "bootif":
                 if "BOOTIF" in flags.cmdline:
                     # MAC address like 01-aa-bb-cc-dd-ee-ff
                     device = flags.cmdline["BOOTIF"][3:]
@@ -671,7 +791,7 @@ class DmRaid(commands.dmraid.FC6_DmRaid):
     def parse(self, args):
         raise NotImplementedError("The dmraid kickstart command is not currently supported")
 
-class PartitionData(commands.partition.F12_PartData):
+class PartitionData(commands.partition.F17_PartData):
     def execute(self):
         storage = self.anaconda.storage
         devicetree = storage.devicetree
@@ -681,7 +801,7 @@ class PartitionData(commands.partition.F12_PartData):
 
         if self.onbiosdisk != "":
             for (disk, biosdisk) in storage.eddDict.iteritems():
-                if str(biosdisk) == self.onbiosdisk:
+                if "%x" % biosdisk == self.onbiosdisk:
                     self.disk = disk
                     break
 
@@ -703,17 +823,14 @@ class PartitionData(commands.partition.F12_PartData):
             else:
                 type = storage.defaultFSType
         elif self.mountpoint == 'appleboot':
-            type = "Apple Bootstrap"
+            type = "appleboot"
             self.mountpoint = ""
-            kwargs["weight"] = self.anaconda.platform.weight(fstype="appleboot")
         elif self.mountpoint == 'prepboot':
-            type = "PPC PReP Boot"
+            type = "prepboot"
             self.mountpoint = ""
-            kwargs["weight"] = self.anaconda.platform.weight(fstype="prepboot")
         elif self.mountpoint == 'biosboot':
             type = "biosboot"
             self.mountpoint = ""
-            kwargs["weight"] = self.anaconda.platform.weight(fstype="biosboot")
         elif self.mountpoint.startswith("raid."):
             type = "mdmember"
             kwargs["name"] = self.mountpoint
@@ -736,10 +853,23 @@ class PartitionData(commands.partition.F12_PartData):
             if self.onPart:
                 self.anaconda.ksdata.onPart[kwargs["name"]] = self.onPart
             self.mountpoint = ""
+        elif self.mountpoint.startswith("btrfs."):
+            type = "btrfs"
+            kwargs["name"] = self.mountpoint
+
+            if devicetree.getDeviceByName(kwargs["name"]):
+                raise KickstartValueError, formatErrorMsg(self.lineno, msg="BTRFS partition defined multiple times")
+
+            # store "btrfs." alias for other ks partitioning commands
+            if self.onPart:
+                self.anaconda.ksdata.onPart[kwargs["name"]] = self.onPart
+            self.mountpoint = ""
         elif self.mountpoint == "/boot/efi":
-            type = "EFI System Partition"
-            self.fsopts = "defaults,uid=0,gid=0,umask=0077,shortname=winnt"
-            kwargs["weight"] = self.anaconda.platform.weight(fstype="efi")
+            if iutil.isMactel():
+                type = "hfs+"
+            else:
+                type = "EFI System Partition"
+                self.fsopts = "defaults,uid=0,gid=0,umask=0077,shortname=winnt"
         else:
             if self.fstype != "":
                 type = self.fstype
@@ -758,6 +888,23 @@ class PartitionData(commands.partition.F12_PartData):
             if not dev:
                 raise KickstartValueError, formatErrorMsg(self.lineno, msg="No preexisting partition with the name \"%s\" was found." % self.onPart)
 
+            if self.resize:
+                if self.size < dev.currentSize:
+                    # shrink
+                    try:
+                        devicetree.registerAction(ActionResizeFormat(dev, self.size))
+                        devicetree.registerAction(ActionResizeDevice(dev, self.size))
+                    except ValueError:
+                        raise KickstartValueError(formatErrorMsg(self.lineno,
+                                msg="Invalid target size (%d) for device %s" % (self.size, dev.name)))
+                else:
+                    # grow
+                    try:
+                        devicetree.registerAction(ActionResizeDevice(dev, self.size))
+                        devicetree.registerAction(ActionResizeFormat(dev, self.size))
+                    except ValueError:
+                        raise KickstartValueError(formatErrorMsg(self.lineno,
+                                msg="Invalid target size (%d) for device %s" % (self.size, dev.name)))
             dev.format.mountpoint = self.mountpoint
             dev.format.mountopts = self.fsopts
             self.anaconda.dispatch.skip_steps("partition", "parttype")
@@ -769,7 +916,7 @@ class PartitionData(commands.partition.F12_PartData):
                                      label=self.label,
                                      fsprofile=self.fsprofile,
                                      mountopts=self.fsopts)
-        if not kwargs["format"]:
+        if not kwargs["format"].type:
             raise KickstartValueError, formatErrorMsg(self.lineno, msg="The \"%s\" filesystem type is not supported." % type)
 
         # If we were given a specific disk to create the partition on, verify
@@ -792,7 +939,8 @@ class PartitionData(commands.partition.F12_PartData):
 
                 should_clear = shouldClear(disk,
                                            storage.config.clearPartType,
-                                           storage.config.clearPartDisks)
+                                           storage.config.clearPartDisks,
+                                           storage.config.clearPartDevices)
                 if disk and (disk.partitioned or should_clear):
                     kwargs["disks"] = [disk]
                     break
@@ -817,6 +965,13 @@ class PartitionData(commands.partition.F12_PartData):
                 raise KickstartValueError, formatErrorMsg(self.lineno, msg="Specified nonexistent partition %s in partition command" % self.onPart)
 
             removeExistingFormat(device, storage)
+            if self.resize:
+                try:
+                    devicetree.registerAction(ActionResizeDevice(device, self.size))
+                except ValueError:
+                    raise KickstartValueError(formatErrorMsg(self.lineno,
+                            msg="Invalid target size (%d) for device %s" % (self.size, device.name)))
+
             devicetree.registerAction(ActionCreateFormat(device, kwargs["format"]))
         else:
             # If a previous device has claimed this mount point, delete the
@@ -827,6 +982,13 @@ class PartitionData(commands.partition.F12_PartData):
                     storage.destroyDevice(device)
             except KeyError:
                 pass
+
+            if "format" in kwargs:
+                # set weight based on fstype and mountpoint
+                mpt = getattr(kwargs["format"], "mountpoint", None)
+                fstype = kwargs["format"].type
+                kwargs["weight"] = self.anaconda.platform.weight(fstype=fstype,
+                                                                 mountpoint=mpt)
 
             request = storage.newPartition(**kwargs)
 
@@ -880,6 +1042,15 @@ class RaidData(commands.raid.F15_RaidData):
                 raise KickstartValueError, formatErrorMsg(self.lineno, msg="PV partition defined multiple times")
 
             self.mountpoint = ""
+        elif self.mountpoint.startswith("btrfs."):
+            type = "btrfs"
+            kwargs["name"] = self.mountpoint
+            self.anaconda.ksdata.onPart[kwargs["name"]] = devicename
+
+            if devicetree.getDeviceByName(kwargs["name"]):
+                raise KickstartValueError, formatErrorMsg(self.lineno, msg="BTRFS partition defined multiple times")
+
+            self.mountpoint = ""
         else:
             if self.fstype != "":
                 type = self.fstype
@@ -929,7 +1100,7 @@ class RaidData(commands.raid.F15_RaidData):
                                      fsprofile=self.fsprofile,
                                      mountpoint=self.mountpoint,
                                      mountopts=self.fsopts)
-        if not kwargs["format"]:
+        if not kwargs["format"].type:
             raise KickstartValueError, formatErrorMsg(self.lineno, msg="The \"%s\" filesystem type is not supported." % type)
 
         kwargs["name"] = devicename
@@ -1021,7 +1192,7 @@ class Timezone(commands.timezone.F18_Timezone):
         ntp.save_servers_to_config(self.ntpservers,
                                    conf_file_path=chronyd_conf_path)
 
-class VolGroupData(commands.volgroup.FC3_VolGroupData):
+class VolGroupData(commands.volgroup.FC16_VolGroupData):
     def execute(self):
         pvs = []
 
@@ -1120,6 +1291,7 @@ commandMap = {
 }
 
 dataMap = {
+        "BTRFSData": BTRFSData,
         "LogVolData": LogVolData,
         "NetworkData": NetworkData,
         "PartData": PartitionData,
@@ -1219,7 +1391,7 @@ def preScriptPass(anaconda, f):
     runPreScripts(ksparser.handler.scripts)
 
 def parseKickstart(anaconda, f):
-    # preprocessing the kickstart file has already been handled by loader.
+    # preprocessing the kickstart file has already been handled in initramfs.
 
     handler = AnacondaKSHandler(anaconda)
     ksparser = AnacondaKSParser(handler)
@@ -1316,7 +1488,12 @@ def selectPackages(ksdata, payload):
     ksdata.packages.groupList.insert(0, Group("Core"))
 
     if ksdata.packages.addBase:
-        ksdata.packages.groupList.insert(1, Group("Base"))
+        # Only add @base if it's not already in the group list.  If the
+        # %packages section contains something like "@base --optional",
+        # addBase will take effect first and yum will think the group is
+        # already selected.
+        if not Group("Base") in ksdata.packages.groupList:
+            ksdata.packages.groupList.insert(1, Group("Base"))
     else:
         log.warning("not adding Base group")
 

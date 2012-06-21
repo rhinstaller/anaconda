@@ -1,0 +1,46 @@
+#!/bin/bash
+# anaconda-generator: generate services needed for anaconda operation
+
+# Source in the dracut lib so we can parse cmd line arguments
+. /run/initramfs/usr/lib/dracut-lib.sh
+
+# set up dirs
+systemd_dir=/lib/systemd/system
+target_dir=$systemd_dir/anaconda.target.wants
+mkdir -p $target_dir
+
+# create symlink anaconda.target.wants/SERVICE@TTY.service
+service_on_tty() {
+    local service="$1" tty="$2"
+    local service_instance="${service/@.service/@$tty.service}"
+    ln -sf $systemd_dir/$service $target_dir/$service_instance
+}
+
+# find the real tty for /dev/console
+tty="console"
+while [ -f /sys/class/tty/$tty/active ]; do
+    tty=$(< /sys/class/tty/$tty/active)
+    tty=${tty##* } # last item in the list
+done
+consoletty="$tty"
+
+# put anaconda on the real console
+service_on_tty anaconda@.service $consoletty
+
+# put a shell on tty2 and the first virtualization console we find
+for tty in tty2 hvc0 hvc1 xvc0 hvsi0 hvsi1 hvsi2; do
+    [ "$tty" = "$consoletty" ] && continue
+    if [ -d /sys/class/tty/$tty ]; then
+        service_on_tty anaconda-shell@.service $tty
+        [ "$tty" != "tty2" ] && break
+    fi
+done
+
+# enable the ssh service
+# NOTE: We have a match for s390x here because the console sucks on that
+# platform.  Really any platform with a crappy console that can't do curses
+# or have multiple VTs should get sshd spawned automatically, but we don't
+# yet have a good way of detecting these platforms.
+if getargbool 0 inst.sshd || [ $(uname -m) = "s390x" ]; then
+    ln -sf $systemd_dir/anaconda-sshd.service $target_dir/anaconda-sshd.service
+fi

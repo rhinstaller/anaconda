@@ -187,7 +187,7 @@ class iSCSITextWizard(pih.iSCSIWizard):
         # should never stop us:
         return True
 
-    def display_nodes_dialog(self, found_nodes):
+    def display_nodes_dialog(self, found_nodes, ifaces):
         grid_height = 4
         basic_grid = None
         if self.listbox_login.current() not in \
@@ -210,7 +210,10 @@ class iSCSITextWizard(pih.iSCSIWizard):
         # unfortunately, Listbox.add won't accept node directly as the second
         # argument, we have to remember the list and use an index
         for i, node in enumerate(found_nodes):
-            listbox.append(node.name, i, selected=True)
+            node_description = "%s via %s" % (node.name,
+                                              ifaces.get(node.iface,
+                                                         node.iface))
+            listbox.append(node_description, i, selected=True)
         grid.add(listbox, 0, 1, padding=(0, 1, 0, 1))
 
         if basic_grid:
@@ -229,7 +232,8 @@ class iSCSITextWizard(pih.iSCSIWizard):
                           if i in listbox.getSelection()]
         return (rc, selected_nodes)
 
-    def display_success_dialog(self, success_nodes, fail_nodes, fail_reason):
+    def display_success_dialog(self, success_nodes, fail_nodes, fail_reason,
+                               ifaces):
         buttons = [TEXT_OK_BUTTON]
         msg = _("Successfully logged into all the selected nodes.")
         msg_reason = _("Reason:")
@@ -294,7 +298,13 @@ class addDriveDialog(object):
     def addDriveDialog(self, screen):
         newdrv = []
         if iscsi.has_iscsi():
-            newdrv.append("Add iSCSI target")
+            if iscsi.iscsi().mode == "none":
+                newdrv.append("Add iSCSI target")
+                newdrv.append("Add iSCSI target - use interface binding")
+            elif iscsi.iscsi().mode == "bind":
+                newdrv.append("Add iSCSI target - use interface binding")
+            elif iscsi.iscsi().mode == "default":
+                newdrv.append("Add iSCSI target")
         if iutil.isS390():
             newdrv.append( "Add zFCP LUN" )
         if fcoe.has_fcoe():
@@ -325,9 +335,10 @@ class addDriveDialog(object):
             except ValueError as e:
                 ButtonChoiceWindow(screen, _("Error"), str(e))
                 return INSTALL_BACK
-        else:
+        elif newdrv[choice].startswith("Add iSCSI target"):
+            bind = newdrv[choice] == "Add iSCSI target - use interface binding"
             try:
-                return self.addIscsiDriveDialog(screen)
+                return self.addIscsiDriveDialog(screen, bind)
             except (ValueError, IOError) as e:
                 ButtonChoiceWindow(screen, _("Error"), str(e))
                 return INSTALL_BACK
@@ -383,9 +394,11 @@ class addDriveDialog(object):
 
         dcbCheckbox = Checkbox(_("Use DCB"), 1)
         grid.add(dcbCheckbox, 0, 2, anchorLeft = 1)
+        autovlanCheckbox = Checkbox(_("Use auto vlan"), 1)
+        grid.add(autovlanCheckbox, 0, 3, anchorLeft = 1)
 
         buttons = ButtonBar(screen, [TEXT_OK_BUTTON, TEXT_BACK_BUTTON] )
-        grid.add(buttons, 0, 3, anchorLeft = 1, growx = 1)
+        grid.add(buttons, 0, 4, anchorLeft = 1, growx = 1)
 
         result = grid.run()
         if buttons.buttonPressed(result) == TEXT_BACK_CHECK:
@@ -394,14 +407,15 @@ class addDriveDialog(object):
 
         nic = interfaceList.current()
         dcb = dcbCheckbox.selected()
+        auto_vlan = autovlanCheckbox.selected()
 
-        fcoe.fcoe().addSan(nic=nic, dcb=dcb,
+        fcoe.fcoe().addSan(nic=nic, dcb=dcb, auto_vlan=auto_vlan,
                                    intf=self.anaconda.intf)
 
         screen.popWindow()
         return INSTALL_OK
 
-    def addIscsiDriveDialog(self, screen):
+    def addIscsiDriveDialog(self, screen, bind=False):
         if not network.hasActiveNetDev():
             ButtonChoiceWindow(screen, _("Error"),
                                "Must have a network configuration set up "
@@ -409,6 +423,15 @@ class addDriveDialog(object):
                                "'linux asknetwork'")
             log.info("addIscsiDriveDialog(): early exit, network disabled.")
             return INSTALL_BACK
+
+        # This will modify behaviour of iscsi.discovery() function
+        if iscsi.iscsi().mode == "none" and not bind:
+            iscsi.iscsi().delete_interfaces()
+        elif (iscsi.iscsi().mode == "none" and bind) \
+              or iscsi.iscsi().mode == "bind":
+            active = set(network.getActiveNetDevs())
+            created = set(iscsi.iscsi().ifaces.values())
+            iscsi.iscsi().create_interfaces(active - created)
 
         wizard = iSCSITextWizard(screen)
         login_ok_nodes = pih.drive_iscsi_addition(self.anaconda, wizard)

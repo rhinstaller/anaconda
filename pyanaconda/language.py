@@ -21,23 +21,17 @@
 #
 
 import os
-import re
 import string
 import locale
 
 import gettext
-from pyanaconda.constants import ROOT_PATH
+from pyanaconda.constants import ROOT_PATH, DEFAULT_LANG
 import localeinfo
 from simpleconfig import SimpleConfigFile
 import system_config_keyboard.keyboard as keyboard
 
 import logging
 log = logging.getLogger("anaconda")
-
-def langComponents(astring):
-    pattern = re.compile("(?P<language>[A-Za-z]+)(_(?P<territory>[A-Za-z]+))?(\.(?P<codeset>[-\w]+))?(@(?P<modifier>[-\w]+))?")
-    m = pattern.match(astring)
-    return m.groupdict()
 
 class Language(object):
     def _setInstLang(self, value):
@@ -51,7 +45,7 @@ class Language(object):
             self._instLang = value
 
         # If we're running in text mode, value may not be a supported language
-        # to display.  We need to default to en_US.UTF-8 for now.
+        # to display.  Fall back to the default for now.
         if self.displayMode == 't':
             for (lang, info) in self.localeInfo.iteritems():
                 if lang == self._instLang and info[2] == "False":
@@ -102,10 +96,10 @@ class Language(object):
         if not self.localeInfo.has_key(self._systemLang):
             return
 
-        if self.localeInfo[self._systemLang][2] == "none":
+        if self.localeInfo[self._systemLang][2] == "False":
             self.info["SYSFONT"] = None
         else:
-            self.info["SYSFONT"] = self.localeInfo[self._systemLang][2]
+            self.info["SYSFONT"] = "latarcyrheb-sun16"
 
         # XXX hack - because of exceptional cases on the var - zh_CN.GB2312
         if self._systemLang == "zh_CN.GB18030":
@@ -117,7 +111,7 @@ class Language(object):
     systemLang = property(lambda s: s._systemLang, lambda s, v: s._setSystemLang(v))
 
     def __init__ (self, display_mode = 'g'):
-        self._default = "en_US.UTF-8"
+        self._default = DEFAULT_LANG
         self.displayMode = display_mode
         self.info = {}
         self.nativeLangNames = {}
@@ -158,18 +152,6 @@ class Language(object):
 
     def available(self):
         return self.nativeLangNames.keys()
-
-    def buildLocale(self):
-        import iutil
-
-        c = langComponents(self._instLang)
-        locale_p = c["language"]
-        if c["territory"]:
-            locale_p += "_" + c["territory"]
-        if c["modifier"]:
-            locale_p += "@" + c["modifier"]
-
-        iutil.execWithRedirect("localedef", ["-i", locale_p, "-f", c["codeset"] or "UTF-8", self._instLang])
 
     def dracutSetupArgs(self):
         args=set()

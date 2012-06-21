@@ -1,0 +1,11 @@
+[Unit]
+Description=OpenSSH server daemon
+Before=anaconda.target
+After=syslog.target network.target
+
+[Service]
+EnvironmentFile=/etc/sysconfig/sshd
+ExecStartPre=/usr/sbin/sshd-keygen
+ExecStartPre=/usr/sbin/handle-sshpw
+ExecStart=/usr/sbin/sshd -D $OPTIONS -f /etc/ssh/sshd_config.anaconda
+ExecReload=/bin/kill -HUP $MAINPID

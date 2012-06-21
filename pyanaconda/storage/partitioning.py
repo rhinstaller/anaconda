@@ -63,13 +63,13 @@ def _getCandidateDisks(storage):
 
     return disks
 
-def _schedulePVs(storage, disks):
-    """ Schedule creation of an lvm pv partition on each disk in disks. """
-    # create a separate pv partition for each disk with free space
+def _scheduleImplicitPartitions(storage, disks):
+    """ Schedule creation of a lvm/btrfs partition on each disk in disks. """
+    # create a separate pv or btrfs partition for each disk with free space
     devs = []
 
-    # only schedule PVs if there are LV autopart reqs
-    if not storage.lvmAutoPart:
+    # only schedule the partitions if either lvm or btrfs autopart was chosen
+    if storage.autoPartType not in (AUTOPART_TYPE_LVM, AUTOPART_TYPE_BTRFS):
         return devs
 
     for disk in disks:
@@ -78,7 +78,10 @@ def _schedulePVs(storage, disks):
             fmt_args = {"escrow_cert": storage.autoPartEscrowCert,
                         "add_backup_passphrase": storage.autoPartAddBackupPassphrase}
         else:
-            fmt_type = "lvmpv"
+            if storage.autoPartType == AUTOPART_TYPE_LVM:
+                fmt_type = "lvmpv"
+            else:
+                fmt_type = "btrfs"
             fmt_args = {}
         part = storage.newPartition(fmt_type=fmt_type,
                                                 fmt_args=fmt_args,
@@ -120,7 +123,8 @@ def _schedulePartitions(storage, disks):
     # First pass is for partitions only. We'll do LVs later.
     #
     for request in storage.autoPartitionRequests:
-        if request.asVol and storage.lvmAutoPart:
+        if (request.lv and storage.autoPartType == AUTOPART_TYPE_LVM) or \
+           (request.btr and storage.autoPartType == AUTOPART_TYPE_BTRFS):
             continue
 
         if request.requiredSpace and request.requiredSpace > free:
@@ -132,7 +136,8 @@ def _schedulePartitions(storage, disks):
             else:
                 request.fstype = storage.defaultFSType
 
-        elif request.fstype in ("prepboot", "efi", "biosboot") and stage1_device:
+        elif request.fstype in ("prepboot", "efi", "biosboot", "hfs+") and \
+             stage1_device:
             # there should never be a need for more than one of these
             # partitions, so skip them.
             log.info("skipping unneeded stage1 %s request" % request.fstype)
@@ -179,16 +184,27 @@ def _schedulePartitions(storage, disks):
     # make sure preexisting broken lvm/raid configs get out of the way
     return
 
-def _scheduleLVs(storage, devs):
-    """ Schedule creation of autopart lvm lvs. """
+def _scheduleVolumes(storage, devs):
+    """ Schedule creation of autopart lvm/btrfs volumes. """
     if not devs:
         return
+
+    if storage.autoPartType == AUTOPART_TYPE_LVM:
+        new_container = storage.newVG
+        new_volume = storage.newLV
+        format_name = "lvmpv"
+        parent_kw = "pvs"
+    else:
+        new_container = storage.newBTRFS
+        new_volume = storage.newBTRFS
+        format_name = "btrfs"
+        parent_kw = "parents"
 
     if storage.encryptedAutoPart:
         pvs = []
         for dev in devs:
             pv = LUKSDevice("luks-%s" % dev.name,
-                            format=getFormat("lvmpv", device=dev.path),
+                            format=getFormat(format_name, device=dev.path),
                             size=dev.size,
                             parents=dev)
             pvs.append(pv)
@@ -197,10 +213,8 @@ def _scheduleLVs(storage, devs):
         pvs = devs
 
     # create a vg containing all of the autopart pvs
-    vg = storage.newVG(pvs=pvs)
-    storage.createDevice(vg)
-
-    initialVGSize = vg.size
+    container = new_container(**{parent_kw: pvs})
+    storage.createDevice(container)
 
     #
     # Convert storage.autoPartitionRequests into Device instances and
@@ -208,28 +222,46 @@ def _scheduleLVs(storage, devs):
     #
     # Second pass, for LVs only.
     for request in storage.autoPartitionRequests:
-        if not request.asVol or not storage.lvmAutoPart:
+        btr = storage.autoPartType == AUTOPART_TYPE_BTRFS and request.btr
+        lv = storage.autoPartType == AUTOPART_TYPE_LVM and request.lv
+
+        if not btr and not lv:
             continue
 
-        if request.requiredSpace and request.requiredSpace > initialVGSize:
+        # required space isn't relevant on btrfs
+        if lv and \
+           request.requiredSpace and request.requiredSpace > container.size:
             continue
 
         if request.fstype is None:
-            request.fstype = storage.defaultFSType
+            if btr:
+                # btrfs volumes can only contain btrfs filesystems
+                request.fstype = "btrfs"
+            else:
+                request.fstype = storage.defaultFSType
 
         # This is a little unfortunate but let the backend dictate the rootfstype
         # so that things like live installs can do the right thing
+        # XXX FIXME: yes, unfortunate. Disallow btrfs autopart on live install.
         if request.mountpoint == "/" and storage.liveImage:
+            if btr:
+                raise PartitioningError("live install can't do btrfs autopart")
+
             request.fstype = storage.liveImage.format.type
 
-        # FIXME: move this to a function and handle exceptions
-        dev = storage.newLV(vg=vg,
-                            fmt_type=request.fstype,
-                            mountpoint=request.mountpoint,
-                            grow=request.grow,
-                            maxsize=request.maxSize,
-                            size=request.size,
-                            singlePV=request.singlePV)
+        kwargs = {"mountpoint": request.mountpoint,
+                  "fmt_type": request.fstype}
+        if lv:
+            kwargs.update({"vg": container,
+                           "grow": request.grow,
+                           "maxsize": request.maxSize,
+                           "size": request.size,
+                           "singlePV": request.singlePV})
+        else:
+            kwargs.update({"parents": [container],
+                           "subvol": True})
+
+        dev = new_volume(**kwargs)
 
         # schedule the device for creation
         storage.createDevice(dev)
@@ -237,8 +269,8 @@ def _scheduleLVs(storage, devs):
 def scheduleShrinkActions(storage):
     """ Schedule actions to shrink partitions as per autopart selection. """
     for (path, size) in storage.shrinkPartitions.items():
-        device = storage.devicetree.getDeviceByPath(path)
-        if not device:
+        device = storage.devicetree.getDeviceByPath(path, preferLeaves=False)
+        if not device or not isinstance(device, PartitionDevice):
             raise StorageError("device %s scheduled for shrink disappeared"
                                 % path)
         storage.devicetree.registerAction(ActionResizeFormat(device, size))
@@ -267,7 +299,7 @@ def doAutoPartition(storage, data):
         clearPartitions(storage)
 
         disks = _getCandidateDisks(storage)
-        devs = _schedulePVs(storage, disks)
+        devs = _scheduleImplicitPartitions(storage, disks)
         log.debug("candidate disks: %s" % disks)
         log.debug("devs: %s" % devs)
 
@@ -281,7 +313,7 @@ def doAutoPartition(storage, data):
         doPartitioning(storage)
 
         if storage.doAutoPart:
-            _scheduleLVs(storage, devs)
+            _scheduleVolumes(storage, devs)
 
         # grow LVs
         growLVM(storage)
@@ -309,9 +341,13 @@ def doAutoPartition(storage, data):
             storage.reset()
             raise exn
 
-def shouldClear(device, clearPartType, clearPartDisks=None):
-    if clearPartType not in [CLEARPART_TYPE_LINUX, CLEARPART_TYPE_ALL]:
+def shouldClear(device, clearPartType, clearPartDisks=None, clearPartDevices=None):
+    if clearPartType in [CLEARPART_TYPE_NONE, None]:
         return False
+    if not clearPartDisks:
+        clearPartDisks = []
+    if not clearPartDevices:
+        clearPartDevices = []
 
     if isinstance(device, PartitionDevice):
         # Never clear the special first partition on a Mac disk label, as that
@@ -325,7 +361,7 @@ def shouldClear(device, clearPartType, clearPartDisks=None):
             return False
 
         # If we got a list of disks to clear, make sure this one's on it
-        if clearPartDisks and device.disk.name not in clearPartDisks:
+        if device.disk.name not in clearPartDisks:
             return False
 
         # We don't want to fool with extended partitions, freespace, &c
@@ -341,7 +377,7 @@ def shouldClear(device, clearPartType, clearPartDisks=None):
             return False
     elif device.isDisk and not device.partitioned:
         # If we got a list of disks to clear, make sure this one's on it
-        if clearPartDisks and device.name not in clearPartDisks:
+        if device.name not in clearPartDisks:
             return False
 
         # Never clear disks with hidden formats
@@ -356,7 +392,30 @@ def shouldClear(device, clearPartType, clearPartDisks=None):
     if device.protected:
         return False
 
+    if clearPartType == CLEARPART_TYPE_LIST and \
+       not clearPartDevices or device.name not in clearPartDevices:
+        return False
+
     return True
+
+def recursiveRemove(storage, device):
+    log.debug("clearing %s" % device.name)
+
+    # XXX is there any argument for not removing incomplete devices?
+    #       -- maybe some RAID devices
+    devices = storage.deviceDeps(device)
+    while devices:
+        log.debug("devices to remove: %s" % ([d.name for d in devices],))
+        leaves = [d for d in devices if d.isleaf]
+        log.debug("leaves to remove: %s" % ([d.name for d in leaves],))
+        for leaf in leaves:
+            storage.destroyDevice(leaf)
+            devices.remove(leaf)
+
+    if device.isDisk:
+        storage.destroyFormat(device)
+    else:
+        storage.destroyDevice(device)
 
 def clearPartitions(storage):
     """ Clear partitions and dependent devices from disks.
@@ -390,45 +449,33 @@ def clearPartitions(storage):
     partitions.sort(key=lambda p: p.partedPartition.number, reverse=True)
     for part in partitions:
         log.debug("clearpart: looking at %s" % part.name)
-        if not shouldClear(part, storage.config.clearPartType, storage.config.clearPartDisks):
+        if not shouldClear(part, storage.config.clearPartType, storage.config.clearPartDisks, storage.config.clearPartDevices):
             continue
 
-        log.debug("clearing %s" % part.name)
-
-        # XXX is there any argument for not removing incomplete devices?
-        #       -- maybe some RAID devices
-        devices = storage.deviceDeps(part)
-        while devices:
-            log.debug("devices to remove: %s" % ([d.name for d in devices],))
-            leaves = [d for d in devices if d.isleaf]
-            log.debug("leaves to remove: %s" % ([d.name for d in leaves],))
-            for leaf in leaves:
-                storage.destroyDevice(leaf)
-                devices.remove(leaf)
-
+        recursiveRemove(storage, part)
         log.debug("partitions: %s" % [p.getDeviceNodeName() for p in part.partedPartition.disk.partitions])
-        storage.destroyDevice(part)
 
-    for disk in [d for d in storage.disks if d not in storage.partitioned]:
-        # clear any whole-disk formats that need clearing
-        if shouldClear(disk, storage.config.clearPartType, storage.config.clearPartDisks):
-            log.debug("clearing %s" % disk.name)
-            devices = storage.deviceDeps(disk)
-            while devices:
-                log.debug("devices to remove: %s" % ([d.name for d in devices],))
-                leaves = [d for d in devices if d.isleaf]
-                log.debug("leaves to remove: %s" % ([d.name for d in leaves],))
-                for leaf in leaves:
-                    storage.destroyDevice(leaf)
-                    devices.remove(leaf)
+    # now clear devices that are not partitions and were not implicitly cleared
+    # when clearing partitions
+    not_visited = [d for d in storage.devices if not d.partitioned]
+    while not_visited:
+        for device in [d for d in not_visited if d.isleaf]:
+            not_visited.remove(device)
 
-            destroy_action = ActionDestroyFormat(disk)
-            labelType = storage.platform.bestDiskLabelType(disk)
-            newLabel = getFormat("disklabel", device=disk.path,
-                                 labelType=labelType)
-            create_action = ActionCreateFormat(disk, format=newLabel)
-            storage.devicetree.registerAction(destroy_action)
-            storage.devicetree.registerAction(create_action)
+            if not shouldClear(device, storage.config.clearPartType, storage.config.clearPartDisks, storage.config.clearPartDevices):
+                continue
+
+            recursiveRemove(storage, device)
+
+            # put disklabels on unpartitioned disks
+            if device.isDisk and not d.partitioned:
+                labelType = storage.platform.bestDiskLabelType(disk)
+                newLabel = getFormat("disklabel", device=disk.path,
+                                     labelType=labelType)
+                create_action = ActionCreateFormat(disk, format=newLabel)
+                storage.devicetree.registerAction(create_action)
+
+        not_visited = [d for d in storage.devices if d in not_visited]
 
     # now remove any empty extended partitions
     removeEmptyExtendedPartitions(storage)
@@ -437,10 +484,11 @@ def clearPartitions(storage):
     # we're going to completely clear it.
     boot_disk = storage.bootDisk
     for disk in storage.partitioned:
-        if not boot_disk:
+        if not boot_disk and not storage.config.reinitializeDisks:
             break
 
-        if disk != boot_disk:
+        if not storage.config.reinitializeDisks and \
+           (boot_disk is not None and disk != boot_disk):
             continue
 
         if storage.config.clearPartType != CLEARPART_TYPE_ALL or \

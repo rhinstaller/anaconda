@@ -63,7 +63,6 @@ class LanguageWindow:
 
         anaconda.instLanguage.instLang = choice
         anaconda.instLanguage.systemLang = choice
-        anaconda.instLanguage.buildLocale()
         anaconda.timezone.setTimezoneInfo(anaconda.instLanguage.getDefaultTimeZone())
 
 	anaconda.intf.drawFrame()

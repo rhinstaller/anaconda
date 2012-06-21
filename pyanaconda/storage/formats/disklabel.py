@@ -26,6 +26,7 @@ import copy
 from pyanaconda.flags import flags
 
 from pyanaconda.anaconda_log import log_method_call
+from pyanaconda import iutil
 import parted
 import _ped
 from ..errors import *
@@ -164,6 +165,17 @@ class DiskLabel(DeviceFormat):
             # turn off cylinder alignment
             if self._partedDisk.isFlagAvailable(parted.DISK_CYLINDER_ALIGNMENT):
                 self._partedDisk.unsetFlag(parted.DISK_CYLINDER_ALIGNMENT)
+
+            # Set the boot flag on the GPT PMBR, this helps some BIOS systems boot
+            if self._partedDisk.isFlagAvailable(parted.DISK_GPT_PMBR_BOOT):
+                # MAC canboot as EFI or as BIOS, neither should have PMBR boot set
+                if iutil.isEfi() or iutil.isMactel():
+                    log.debug("Not setting pmbr_boot on %s" % (self._partedDisk,))
+                else:
+                    self._partedDisk.setFlag(parted.DISK_GPT_PMBR_BOOT)
+                    log.debug("Set pmbr_boot on %s" % (self._partedDisk,))
+            else:
+                log.debug("Did not set pmbr_boot on %s" % (self._partedDisk,))
 
         return self._partedDisk
 

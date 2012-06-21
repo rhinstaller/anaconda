@@ -1,0 +1,33 @@
+#!/bin/bash
+# fetch-updates-disk - fetch updates from a block device
+
+command -v getarg >/dev/null || . /lib/dracut-lib.sh
+command -v unpack_updates_img >/dev/null || . /lib/anaconda-lib.sh
+
+dev="$1"
+path="${2:-/updates.img}"
+
+[ -d "$path" ] && path=$path/updates.img
+[ -b "$dev" ] || exit 1
+
+info "anaconda: fetching updates from $dev:$path"
+
+mnt="$(find_mount $dev)"
+if [ -n "$mnt" ]; then
+    cp $mnt$path /tmp/updates.img
+else
+    tmpmnt="$(mkuniqdir /run/install tmpmnt)"
+    if mount -o ro $dev $tmpmnt; then
+        cp $tmpmnt$path /tmp/updates.img
+        umount $tmpmnt
+    fi
+    rmdir $tmpmnt
+fi
+
+if [ -f /tmp/updates.img ]; then
+    unpack_updates_img /tmp/updates.img /updates
+    rm /tmp/updates.img
+    echo "$dev:$path" >> /tmp/liveupdates.done
+else
+    warn "anaconda: failed to get updates from $dev:$path"
+fi

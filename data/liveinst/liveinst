@@ -41,16 +41,18 @@ if [[ "$LIVECMD $*" =~ "--liveinst" ]]; then
     LIVE_INSTALL=1
 fi
 
-
+# Try to sort out where the live device is
 if [ -z "$LIVE_BLOCK" ]; then
-    if [ -b "/dev/mapper/live-osimg-min" ]; then
+    if [ -b "/run/initramfs/live-baseloop" ]; then
+       LIVE_BLOCK=`readlink -f /run/initramfs/live-baseloop`
+    elif [ -b "/dev/mapper/live-osimg-min" ]; then
        LIVE_BLOCK="/dev/mapper/live-osimg-min"
-    else
+    elif [ -b "/dev/live-osimg" ]; then
        LIVE_BLOCK="/dev/live-osimg"
     fi
 fi
 
-if [ $LIVE_INSTALL = 1 -a ! -b $LIVE_BLOCK ]; then
+if [ $LIVE_INSTALL = 1 -a ! -b "$LIVE_BLOCK" ]; then
   zenity --error --title="Not a Live image" --text "Can't do live image installation unless running from a live image"
   exit 1
 fi
@@ -60,7 +62,7 @@ fi
 # loading and lvm control in this file, too.
 ANACONDA=${LIVECMD:=anaconda --liveinst --method=livecd://$LIVE_BLOCK $INSTLANG}
 
-# load modules that would get loaded by the loader... (#230945)
+# load modules that would get loaded by the initramfs (#230945)
 for i in raid0 raid1 raid5 raid6 raid456 raid10 dm-mod dm-zero dm-mirror dm-snapshot dm-multipath dm-round-robin vfat dm-crypt cbc sha256 lrw xts iscsi_tcp iscsi_ibft; do /sbin/modprobe $i 2>/dev/null ; done
 
 export ANACONDA_PRODUCTNAME=$( cat /etc/system-release | sed -r -e 's/ *release.*//' )
@@ -117,14 +119,17 @@ if [ ! -z "$UPDATES" ]; then
     fi
 
     curl -o /tmp/updates.img $UPDATES
-    mkdir /tmp/updates
 
     # We officially support two updates.img formats:  a filesystem image, and
     # a compressed cpio blob.
     if [ ! -z "$(file /tmp/updates.img | grep 'gzip compressed data')" ]; then
-        ( cd /tmp/updates ; gzip -dc /tmp/updates.img | cpio -id )
+        ( cd / ; gzip -dc /tmp/updates.img | cpio -id )
     else
-        mount -t auto /tmp/updates.img /tmp/updates
+        mkdir /tmp/updates.disk
+        mount -t auto /tmp/updates.img /tmp/updates.disk
+        cp -Rt / /tmp/updates.disk/*
+        umount /tmp/updates.disk
+        rmdir /tmp/updates.disk
     fi
 
     export PYTHONPATH=/tmp/updates:$PYTHONPATH

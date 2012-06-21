@@ -139,6 +139,9 @@ class MPathError(StorageError):
 class LoopError(StorageError):
     pass
 
+class BTRFSError(StorageError):
+    pass
+
 # DeviceTree
 class DeviceTreeError(StorageError):
     pass

@@ -90,7 +90,7 @@ def augmentEnv():
 # @param root The directory to chroot to before running command.
 # @return The return code of command.
 def execWithRedirect(command, argv, stdin = None, stdout = None,
-                     stderr = None, root = '/'):
+                     stderr = None, root = '/', env_prune=[]):
     if flags.testing:
         log.info("not running command because we're testing: %s %s"
                    % (command, " ".join(argv)))
@@ -113,6 +113,7 @@ def execWithRedirect(command, argv, stdin = None, stdout = None,
     elif stdin is None or not isinstance(stdin, file):
         stdin = sys.stdin.fileno()
 
+    orig_stdout = stdout
     if isinstance(stdout, str):
         stdout = os.open(stdout, os.O_RDWR|os.O_CREAT)
         stdoutclose = lambda : os.close(stdout)
@@ -121,7 +122,9 @@ def execWithRedirect(command, argv, stdin = None, stdout = None,
     elif stdout is None or not isinstance(stdout, file):
         stdout = sys.stdout.fileno()
 
-    if isinstance(stderr, str):
+    if isinstance(stderr, str) and isinstance(orig_stdout, str) and stderr == orig_stdout:
+        stderr = stdout
+    elif isinstance(stderr, str):
         stderr = os.open(stderr, os.O_RDWR|os.O_CREAT)
         stderrclose = lambda : os.close(stderr)
     elif isinstance(stderr, int):
@@ -134,6 +137,10 @@ def execWithRedirect(command, argv, stdin = None, stdout = None,
     #prepare os pipes for feeding tee proceses
     pstdout, pstdin = os.pipe()
     perrout, perrin = os.pipe()
+
+    for var in env_prune:
+        if env.has_key(var):
+            del env[var]
 
     try:
         #prepare tee proceses
@@ -697,11 +704,10 @@ def isMactel():
 
     if not isX86():
         mactel = False
-    elif not os.path.exists("/usr/sbin/dmidecode"):
+    elif not os.path.isfile(DMI_CHASSIS_VENDOR):
         mactel = False
     else:
-        buf = execWithCapture("/usr/sbin/dmidecode",
-                              ["dmidecode", "-s", "system-manufacturer"])
+        buf = open(DMI_CHASSIS_VENDOR).read()
         if buf.lower().find("apple") != -1:
             mactel = True
         else:
@@ -776,6 +782,9 @@ def isAlpha():
 def isSparc():
     return os.uname()[4].startswith('sparc')
 
+def isARM():
+    return os.uname()[4].startswith('arm')
+
 def getArch():
     if isX86(bits=32):
         return 'i386'
@@ -789,6 +798,8 @@ def getArch():
         return 'alpha'
     elif isSparc():
         return 'sparc'
+    elif isARM():
+        return 'arm'
     else:
         return os.uname()[4]
 
@@ -1043,3 +1054,28 @@ def service_running(service):
     ret = _run_systemctl("status", service)
 
     return ret == 0
+
+def dracut_eject(device):
+    """
+    Use dracut shutdown hook to eject media after the system is shutdown.
+    This is needed because we are running from the squashfs.img on the media
+    so ejecting too early will crash the installer.
+    """
+    if not device:
+        return
+
+    try:
+        if not os.path.exists(DRACUT_SHUTDOWN_EJECT):
+            f = open(DRACUT_SHUTDOWN_EJECT, "w")
+            f.write("#!/bin/sh\n")
+            f.write("# Created by Anaconda\n")
+        else:
+            f = open(DRACUT_SHUTDOWN_EJECT, "a")
+
+        f.write("eject %s\n" % (device,))
+        f.close()
+        os.chmod(DRACUT_SHUTDOWN_EJECT, 0755)
+        log.info("Wrote dracut shutdown eject hook for %s" % (device,))
+    except Exception, e:
+        log.error("Error writing dracut shutdown eject hook for %s: %s" % (device, e))
+

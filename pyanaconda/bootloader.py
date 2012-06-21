@@ -33,6 +33,7 @@ from pyanaconda.product import productName
 from pyanaconda.flags import flags
 from pyanaconda.constants import *
 from pyanaconda.storage.errors import StorageError
+from pyanaconda.storage.fcoe import fcoe
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
@@ -74,6 +75,39 @@ def is_windows_boot_block(block):
 def has_windows_boot_block(device):
     return is_windows_boot_block(get_boot_block(device))
 
+class serial_opts(object):
+    def __init__(self):
+        self.speed = None
+        self.parity = None
+        self.word = None
+        self.stop = None
+        self.flow = None
+
+def parse_serial_opt(arg):
+    """Parse and split serial console options.
+
+    Documentation/kernel-parameters.txt says:
+      ttyS<n>[,options]
+                Use the specified serial port.  The options are of
+                the form "bbbbpnf", where "bbbb" is the baud rate,
+                "p" is parity ("n", "o", or "e"), "n" is number of
+                bits, and "f" is flow control ("r" for RTS or
+                omit it).  Default is "9600n8".
+    but note that everything after the baud rate is optional, so these are
+    all valid: 9600, 19200n, 38400n8, 9600e7r"""
+    opts = serial_opts()
+    m = re.match('\d+', arg)
+    if m is None:
+        return opts
+    opts.speed = m.group()
+    idx = len(opts.speed)
+    try:
+        opts.parity = arg[idx+0]
+        opts.word   = arg[idx+1]
+        opts.flow   = arg[idx+2]
+    except IndexError:
+        pass
+    return opts
 
 class BootLoaderError(Exception):
     pass
@@ -199,6 +233,7 @@ class BootLoader(object):
     stage2_format_types = ["ext4", "ext3", "ext2"]
     stage2_mountpoints = ["/boot", "/"]
     stage2_bootable = False
+    stage2_must_be_primary = True
     stage2_description = N_("/boot filesystem")
     stage2_max_end_mb = 2 * 1024 * 1024
 
@@ -396,6 +431,12 @@ class BootLoader(object):
                                % (desc, device.format.type))
             ret = False
 
+        if mountpoints and hasattr(device.format, "mountpoint") \
+           and device.format.mountpoint not in mountpoints:
+            self.errors.append(_("%s must be mounted on one of %s.")
+                               % (desc, ", ".join(mountpoints)))
+            ret = False
+
         log.debug("_is_valid_format(%s) returning %s" % (device.name,ret))
         return ret
 
@@ -441,6 +482,15 @@ class BootLoader(object):
                 ret = False
 
         log.debug("_is_valid_location(%s) returning %s" % (device.name,ret))
+        return ret
+
+    def _is_valid_partition(self, device, primary=None, desc=""):
+        ret = True
+        if device.type == "partition" and primary and not device.isPrimary:
+            self.errors.append(_("%s must be on a primary partition.") % desc)
+            ret = False
+
+        log.debug("_is_valid_partition(%s) returning %s" % (device.name,ret))
         return ret
 
     #
@@ -625,6 +675,10 @@ class BootLoader(object):
                                        desc=self.stage2_description):
             valid = False
 
+        if not self._is_valid_partition(device,
+                                        primary=self.stage2_must_be_primary):
+            valid = False
+
         if not self._is_valid_md(device, device_types=self.stage2_device_types,
                                  raid_levels=self.stage2_raid_levels,
                                  metadata=self.stage2_raid_metadata,
@@ -723,6 +777,11 @@ class BootLoader(object):
 
         dracut_devices.extend(storage.fsset.swapDevices)
 
+        # Does /usr have its own device? If so, we need to tell dracut
+        usr_device = self.storage.mountpoints.get("/usr")
+        if usr_device:
+            dracut_devices.extend([usr_device])
+
         done = []
         # When we see a device whose setup string starts with a key in this
         # dict we pop that pair from the dict. When we're done looking at
@@ -777,6 +836,17 @@ class BootLoader(object):
                 setup_string = cfg_obj.dracutSetupString()
                 self.boot_args.add(setup_string)
                 self.dracut_args.add(setup_string)
+
+        # This is needed for FCoE, bug #743784. The case:
+        # We discover LUN on an iface which is part of multipath setup.
+        # If the iface is disconnected after discovery anaconda doesn't
+        # write dracut ifname argument for the disconnected iface path
+        # (in Network.dracutSetupArgs).
+        # Dracut needs the explicit ifname= because biosdevname
+        # fails to rename the iface (because of BFS booting from it).
+        for nic, dcb, auto_vlan in fcoe().nics:
+            hwaddr = network.netdevices[nic].get("HWADDR")
+            self.boot_args.add("ifname=%s:%s" % (nic, hwaddr.lower()))
 
         #
         # preservation of some of our boot args
@@ -900,6 +970,7 @@ class GRUB(BootLoader):
 
     stage2_is_valid_stage1 = True
     stage2_bootable = True
+    stage2_must_be_primary = False
 
     # list of strings representing options for boot device types
     stage2_device_types = ["partition", "mdarray"]
@@ -955,18 +1026,31 @@ class GRUB(BootLoader):
         return ""
 
     @property
+    def splash_dir(self):
+        """ relative path to splash image directory."""
+        return GRUB._config_dir
+
+    @property
     def serial_command(self):
         command = ""
         if self.console and self.console.startswith("ttyS"):
             unit = self.console[-1]
-            speed = "9600"
-            for opt in self.console_options.split(","):
-                if opt.isdigit():
-                    speed = opt
-                    break
-
-            command = "serial --unit=%s --speed=%s" % (unit, speed)
-
+            command = ["serial"]
+            s = parse_serial_opt(self.console_options)
+            if unit and unit != '0':
+                command.append("--unit=%s" % unit)
+            if s.speed and s.speed != '9600':
+                command.append("--speed=%s" % s.speed)
+            if s.parity:
+                if s.parity == 'o':
+                    command.append("--parity=odd")
+                elif s.parity == 'e':
+                    command.append("--parity=even")
+            if s.word and s.word != '8':
+                command.append("--word=%s" % s.word)
+            if s.stop and s.stop != '1':
+                command.append("--stop=%s" % s.stop)
+            command = " ".join(command)
         return command
 
     def write_config_console(self, config):
@@ -1049,13 +1133,13 @@ class GRUB(BootLoader):
 
         if not flags.serial:
             splash = "splash.xpm.gz"
-            splash_path = os.path.normpath("%s%s/%s" % (ROOT_PATH,
-                                                        self.config_dir,
+            splash_path = os.path.normpath("%s/boot/%s/%s" % (ROOT_PATH,
+                                                        self.splash_dir,
                                                         splash))
             if os.access(splash_path, os.R_OK):
                 grub_root_grub_name = self.grub_device_name(self.stage2_device)
                 config.write("splashimage=%s/%s/%s\n" % (grub_root_grub_name,
-                                                         self.grub_config_dir,
+                                                         self.splash_dir,
                                                          splash))
                 config.write("hiddenmenu\n")
 
@@ -1236,111 +1320,6 @@ class GRUB(BootLoader):
         self.warnings = warnings
         return ret
 
-
-class EFIGRUB(GRUB):
-    packages = ["grub-efi", "efibootmgr"]
-    can_dual_boot = False
-    _config_dir = "efi/EFI/redhat"
-
-    stage2_is_valid_stage1 = False
-    stage2_bootable = False
-    stage2_max_end_mb = None
-
-    def efibootmgr(self, *args, **kwargs):
-        if kwargs.pop("capture", False):
-            exec_func = iutil.execWithCapture
-        else:
-            exec_func = iutil.execWithRedirect
-
-        return exec_func("efibootmgr", list(args), **kwargs)
-
-    #
-    # configuration
-    #
-
-    @property
-    def efi_product_path(self):
-        """ The EFI product path.
-
-            eg: HD(1,800,64000,faacb4ef-e361-455e-bd97-ca33632550c3)
-        """
-        buf = self.efibootmgr("-v", stderr="/dev/tty5", capture=True)
-        matches = re.search(productName + r'\s+(HD\(.+?\))', buf)
-        if matches and matches.groups():
-            return matches.group(1)
-        return ""
-
-    @property
-    def grub_conf_device_line(self):
-        return "device %s %s\n" % (self.grub_device_name(self.stage2_device),
-                                   self.efi_product_path)
-
-    #
-    # installation
-    #
-
-    def remove_efi_boot_target(self):
-        buf = self.efibootmgr(capture=True)
-        for line in buf.splitlines():
-            try:
-                (slot, _product) = line.split(None, 1)
-            except ValueError:
-                continue
-
-            if _product == productName:
-                slot_id = slot[4:8]
-                # slot_id is hex, we can't use .isint and use this regex:
-                if not re.match("^[0-9a-fA-F]+$", slot_id):
-                    log.warning("failed to parse efi boot slot (%s)" % slot)
-                    continue
-
-                rc = self.efibootmgr("-b", slot_id, "-B",
-                                     root=ROOT_PATH,
-                                     stdout="/dev/tty5", stderr="/dev/tty5")
-                if rc:
-                    raise BootLoaderError("failed to remove old efi boot entry")
-
-    def add_efi_boot_target(self):
-        boot_efi = self.stage1_device
-        if boot_efi.type == "partition":
-            boot_disk = boot_efi.disk
-            boot_part_num = boot_efi.partedPartition.number
-        elif boot_efi.type == "mdarray":
-            # FIXME: I'm just guessing here. This probably needs the full
-            #        treatment, ie: multiple targets for each member.
-            boot_disk = boot_efi.parents[0].disk
-            boot_part_num = boot_efi.parents[0].partedPartition.number
-        boot_part_num = str(boot_part_num)
-
-        rc = self.efibootmgr("-c", "-w", "-L", productName,
-                             "-d", boot_disk.path, "-p", boot_part_num,
-                             "-l", "\\EFI\\redhat\\grub.efi",
-                             root=ROOT_PATH,
-                             stdout="/dev/tty5", stderr="/dev/tty5")
-        if rc:
-            raise BootLoaderError("failed to set new efi boot target")
-
-    def install(self):
-        self.remove_efi_boot_target()
-        self.add_efi_boot_target()
-
-    def update(self):
-        self.write()
-
-    #
-    # installation
-    #
-    def write(self, install_root=""):
-        """ Write the bootloader configuration and install the bootloader. """
-        if self.update_only:
-            self.update(install_root=install_root)
-            return
-
-        sync()
-        self.stage2_device.format.sync(root=install_root)
-        self.install(install_root=install_root)
-        self.write_config(install_root=install_root)
-
 class GRUB2(GRUB):
     """ GRUBv2
 
@@ -1374,9 +1353,14 @@ class GRUB2(GRUB):
 
     # requirements for boot devices
     stage2_format_types = ["ext4", "ext3", "ext2", "btrfs"]
-    stage2_device_types = ["partition", "mdarray", "lvmlv"]
+    stage2_device_types = ["partition", "mdarray", "lvmlv", "btrfs volume"]
     stage2_raid_levels = [mdraid.RAID0, mdraid.RAID1, mdraid.RAID4,
                           mdraid.RAID5, mdraid.RAID6, mdraid.RAID10]
+
+    def __init__(self, storage):
+        super(GRUB2, self).__init__(storage)
+        self.boot_args.add("$([ -x /usr/sbin/rhcrashkernel-param ] && "\
+                            "/usr/sbin/rhcrashkernel-param)")
 
     # XXX we probably need special handling for raid stage1 w/ gpt disklabel
     #     since it's unlikely there'll be a bios boot partition on each disk
@@ -1402,7 +1386,8 @@ class GRUB2(GRUB):
         if disk is not None:
             name = "(hd%d" % self.disks.index(disk)
             if hasattr(device, "disk"):
-                name += ",%d" % device.partedPartition.number
+                lt = device.disk.format.labelType
+                name += ",%s%d" % (lt, device.partedPartition.number)
             name += ")"
         return name
 
@@ -1421,25 +1406,31 @@ class GRUB2(GRUB):
         if os.access(map_path, os.R_OK):
             os.rename(map_path, map_path + ".anacbak")
 
-        dev_map = open(map_path, "w")
-        dev_map.write("# this device map was generated by anaconda\n")
         devices = self.disks
         if self.stage1_device not in devices:
             devices.append(self.stage1_device)
 
-        if self.stage2_device not in devices:
-            devices.append(self.stage2_device)
+        for disk in self.stage2_device.disks:
+            if disk not in devices:
+                devices.append(disk)
 
-        for disk in devices:
-            dev_map.write("%s      %s\n" % (self.grub_device_name(disk),
-                                            disk.path))
+        devices = [d for d in devices if d.isDisk]
+
+        if len(devices) == 0:
+            return
+
+        dev_map = open(map_path, "w")
+        dev_map.write("# this device map was generated by anaconda\n")
+        for drive in devices:
+            dev_map.write("%s      %s\n" % (self.grub_device_name(drive),
+                                            drive.path))
         dev_map.close()
 
     def write_defaults(self):
         defaults_file = "%s%s" % (ROOT_PATH, self.defaults_file)
         defaults = open(defaults_file, "w+")
         defaults.write("GRUB_TIMEOUT=%d\n" % self.timeout)
-        defaults.write("GRUB_DISTRIBUTOR=\"%s\"\n" % productName)
+        defaults.write("GRUB_DISTRIBUTOR=\"$(sed 's, release .*$,,g' /etc/system-release)\"")
         defaults.write("GRUB_DEFAULT=saved\n")
         if self.console and self.console.startswith("ttyS"):
             defaults.write("GRUB_TERMINAL=\"serial console\"\n")
@@ -1450,6 +1441,8 @@ class GRUB2(GRUB):
         # boot arguments
         log.info("bootloader.py: used boot args: %s " % self.boot_args)
         defaults.write("GRUB_CMDLINE_LINUX=\"%s\"\n" % self.boot_args)
+        defaults.write("GRUB_DISABLE_RECOVERY=\"true\"")
+        defaults.write("GRUB_THEME=\"/boot/grub2/themes/system/theme.txt\"\n")
         defaults.close()
 
     def _encrypt_password(self):
@@ -1482,16 +1475,16 @@ class GRUB2(GRUB):
         header.write("cat << EOF\n")
         # XXX FIXME: document somewhere that the username is "root"
         header.write("set superusers=\"root\"\n")
+        header.write("export superusers\n")
         self._encrypt_password()
         password_line = "password_pbkdf2 root " + self.encrypted_password
         header.write("%s\n" % password_line)
         header.write("EOF\n")
         header.close()
-        os.chmod(users_file, 0755)
+        os.chmod(users_file, 0700)
 
     def write_config(self):
         self.write_config_console(None)
-        self.write_device_map()
         self.write_defaults()
 
         # if we fail to setup password auth we should complete the
@@ -1523,10 +1516,13 @@ class GRUB2(GRUB):
     # installation
     #
 
-    def install(self):
-        # XXX will installing to multiple disks work as expected with GRUBv2?
+    def install(self, args=None):
+        if args is None:
+            args = []
+
+        # XXX will installing to multiple drives work as expected with GRUBv2?
         for (stage1dev, stage2dev) in self.install_targets:
-            args = ["--no-floppy", self.grub_device_name(stage1dev)]
+            args += ["--no-floppy", stage1dev.path]
             if stage1dev == stage2dev:
                 # This is hopefully a temporary hack. GRUB2 currently refuses
                 # to install to a partition's boot block without --force.
@@ -1534,9 +1530,129 @@ class GRUB2(GRUB):
 
             rc = iutil.execWithRedirect("grub2-install", args,
                                         stdout="/dev/tty5", stderr="/dev/tty5",
-                                        root=ROOT_PATH)
+                                        root=ROOT_PATH,
+                                        env_prune=['MALLOC_PERTURB_'])
             if rc:
                 raise BootLoaderError("bootloader install failed")
+
+    def write(self):
+        """ Write the bootloader configuration and install the bootloader. """
+        if self.update_only:
+            self.update()
+            return
+
+        self.write_device_map()
+        self.stage2_device.format.sync(root=ROOT_PATH)
+        sync()
+        self.install()
+        sync()
+        self.stage2_device.format.sync(root=ROOT_PATH)
+        self.write_config()
+        sync()
+        self.stage2_device.format.sync(root=ROOT_PATH)
+
+class EFIGRUB(GRUB2):
+    packages = ["grub2-efi", "efibootmgr"]
+    can_dual_boot = False
+
+    @property
+    def _config_dir(self):
+        return "efi/EFI/%s" % (self.storage.anaconda.instClass.efi_dir,)
+
+    def efibootmgr(self, *args, **kwargs):
+        if kwargs.pop("capture", False):
+            exec_func = iutil.execWithCapture
+        else:
+            exec_func = iutil.execWithRedirect
+
+        return exec_func("efibootmgr", list(args), **kwargs)
+
+    #
+    # installation
+    #
+
+    def remove_efi_boot_target(self):
+        buf = self.efibootmgr(capture=True)
+        for line in buf.splitlines():
+            try:
+                (slot, _product) = line.split(None, 1)
+            except ValueError:
+                continue
+
+            if _product == productName:
+                slot_id = slot[4:8]
+                # slot_id is hex, we can't use .isint and use this regex:
+                if not re.match("^[0-9a-fA-F]+$", slot_id):
+                    log.warning("failed to parse efi boot slot (%s)" % slot)
+                    continue
+
+                rc = self.efibootmgr("-b", slot_id, "-B",
+                                     root=ROOT_PATH,
+                                     stdout="/dev/tty5", stderr="/dev/tty5")
+                if rc:
+                    raise BootLoaderError("failed to remove old efi boot entry")
+
+    @property
+    def efi_dir_as_efifs_dir(self):
+        ret = self._config_dir.replace('efi/', '')
+        return ret.replace('/', '\\')
+
+    def add_efi_boot_target(self):
+        boot_efi = self.storage.mountpoints["/boot/efi"]
+        if boot_efi.type == "partition":
+            boot_disk = boot_efi.disk
+            boot_part_num = boot_efi.partedPartition.number
+        elif boot_efi.type == "mdarray":
+            # FIXME: I'm just guessing here. This probably needs the full
+            #        treatment, ie: multiple targets for each member.
+            boot_disk = boot_efi.parents[0].disk
+            boot_part_num = boot_efi.parents[0].partedPartition.number
+        boot_part_num = str(boot_part_num)
+
+        rc = self.efibootmgr("-c", "-w", "-L", productName,
+                             "-d", boot_disk.path, "-p", boot_part_num,
+                             "-l",
+                             self.efi_dir_as_efifs_dir + "\\grubx64.efi",
+                             root=ROOT_PATH,
+                             stdout="/dev/tty5", stderr="/dev/tty5")
+        if rc:
+            raise BootLoaderError("failed to set new efi boot target")
+
+    def install(self):
+        if not flags.leavebootorder:
+            self.remove_efi_boot_target()
+        self.add_efi_boot_target()
+
+    def update(self):
+        self.install()
+
+    #
+    # installation
+    #
+    def write(self):
+        """ Write the bootloader configuration and install the bootloader. """
+        if self.update_only:
+            self.update()
+            return
+
+        sync()
+        self.stage2_device.format.sync(root=ROOT_PATH)
+        self.install()
+        self.write_config()
+
+
+class MacEFIGRUB(EFIGRUB):
+    def mactel_config(self):
+        if os.path.exists(ROOT_PATH + "/usr/libexec/mactel-boot-setup"):
+            rc = iutil.execWithRedirect("/usr/libexec/mactel-boot-setup", [],
+                                        root=ROOT_PATH,
+                                        stdout="/dev/tty5", stderr="/dev/tty5")
+            if rc:
+                log.error("failed to configure Mac bootloader")
+
+    def install(self):
+        super(MacEFIGRUB, self).install()
+        self.mactel_config()
 
 
 class YabootSILOBase(BootLoader):
@@ -1683,6 +1799,126 @@ class IPSeriesYaboot(Yaboot):
         config.write("nonvram\n")   # only on pSeries?
         config.write("fstype=raw\n")
 
+    #
+    # installation
+    #
+
+    def install(self):
+        self.updatePowerPCBootList()
+
+        super(IPSeriesYaboot, self).install()
+
+    def updatePowerPCBootList(self):
+
+        log.debug("updatePowerPCBootList: self.stage1_device.path = %s" % self.stage1_device.path)
+
+        buf = iutil.execWithCapture("nvram",
+                                    ["--print-config=boot-device"],
+                                    stderr="/dev/tty5")
+
+        if len(buf) == 0:
+            log.error ("FAIL: nvram --print-config=boot-device")
+            return
+
+        boot_list = buf.strip().split()
+        log.debug("updatePowerPCBootList: boot_list = %s" % boot_list)
+
+        buf = iutil.execWithCapture("ofpathname",
+                                    [self.stage1_device.path],
+                                    stderr="/dev/tty5")
+
+        if len(buf) > 0:
+            boot_disk = buf.strip()
+            log.debug("updatePowerPCBootList: boot_disk = %s" % boot_disk)
+        else:
+            log.error("FAIL: ofpathname %s" % self.stage1_device.path)
+            return
+
+        # Place the disk containing the PReP partition first.
+        # Remove all other occurances of it.
+        boot_list = [boot_disk] + filter(lambda x: x != boot_disk, boot_list)
+
+        log.debug("updatePowerPCBootList: updated boot_list = %s" % boot_list)
+
+        update_value = "boot-device=%s" % " ".join(boot_list)
+
+        rc = iutil.execWithRedirect("nvram", ["--update-config", update_value],
+                                    stdout="/dev/tty5", stderr="/dev/tty5")
+        if rc:
+            log.error("FAIL: nvram --update-config %s" % update_value)
+        else:
+            log.info("Updated PPC boot list with the command: nvram --update-config %s" % update_value)
+
+
+class IPSeriesGRUB2(GRUB2):
+
+    # GRUB2 sets /boot bootable and not the PReP partition.  This causes the Open Firmware BIOS not
+    # to present the disk as a bootable target.  If stage2_bootable is False, then the PReP partition
+    # will be marked bootable. Confusing.
+    stage2_bootable = False
+
+    #
+    # installation
+    #
+
+    def install(self):
+        if flags.leavebootorder:
+            log.info("leavebootorder passed as an option. Will not update the NVRAM boot list.")
+        else:
+            self.updateNVRAMBootList()
+
+        super(IPSeriesGRUB2, self).install(args=["--no-nvram"])
+
+    # This will update the PowerPC's (ppc) bios boot devive order list
+    def updateNVRAMBootList(self):
+
+        log.debug("updateNVRAMBootList: self.stage1_device.path = %s" % self.stage1_device.path)
+
+        buf = iutil.execWithCapture("nvram",
+                                    ["--print-config=boot-device"],
+                                    stderr="/dev/tty5")
+
+        if len(buf) == 0:
+            log.error ("Failed to determine nvram boot device")
+            return
+
+        boot_list = buf.strip().replace("\"", "").split()
+        log.debug("updateNVRAMBootList: boot_list = %s" % boot_list)
+
+        buf = iutil.execWithCapture("ofpathname",
+                                    [self.stage1_device.path],
+                                    stderr="/dev/tty5")
+
+        if len(buf) > 0:
+            boot_disk = buf.strip()
+        else:
+            log.error("Failed to translate boot path into device name")
+            return
+
+        # Place the disk containing the PReP partition first.
+        # Remove all other occurances of it.
+        boot_list = [boot_disk] + filter(lambda x: x != boot_disk, boot_list)
+
+        update_value = "boot-device=%s" % " ".join(boot_list)
+
+        rc = iutil.execWithRedirect("nvram", ["--update-config", update_value],
+                                    stdout="/dev/tty5", stderr="/dev/tty5")
+        if rc:
+            log.error("Failed to update new boot device order")
+
+    #
+    # In addition to the normal grub configuration variable, add one more to set the size of the
+    # console's window to a standard 80x24
+    #
+    def write_defaults(self):
+        super(IPSeriesGRUB2, self).write_defaults()
+
+        defaults_file = "%s%s" % (ROOT_PATH, self.defaults_file)
+        defaults = open(defaults_file, "a+")
+        # The terminfo's X and Y size, and output location could change in the future
+        defaults.write("GRUB_TERMINFO=\"terminfo -g 80x24 console\"\n")
+        defaults.close()
+
 
 class MacYaboot(Yaboot):
     prog = "mkofboot"
@@ -1731,7 +1967,7 @@ class ZIPL(BootLoader):
                                                      image.initrd)
             else:
                 initrd_line = ""
-            args.add("root=%s/%s" % (self.boot_dir, image.kernel))
+            args.add("root=%s" % image.device.fstabSpec)
             args.update(self.boot_args)
             log.info("bootloader.py: used boot args: %s " % args)
             stanza = ("[%(label)s]\n"
@@ -1746,6 +1982,8 @@ class ZIPL(BootLoader):
 
     def write_config_header(self, config):
         header = ("[defaultboot]\n"
+                  "defaultauto\n"
+                  "prompt=1\n"
                   "timeout=%(timeout)d\n"
                   "default=%(default)s\n"
                   "target=/boot\n"

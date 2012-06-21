@@ -38,12 +38,14 @@ class InstallClass(BaseInstallClass):
     hidden = 1
 
     bootloaderTimeoutDefault = 5
-    bootloaderExtraArgs = ["crashkernel=auto"]
+    bootloaderExtraArgs = []
 
     tasks = [(N_("Minimal"),
               ["core"])]
 
     _l10n_domain = "comps"
+
+    efi_dir = "redhat"
 
     def getPackagePaths(self, uri):
         if not type(uri) == types.ListType:

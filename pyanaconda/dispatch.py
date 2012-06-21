@@ -34,7 +34,6 @@ from storage.partitioning import doAutoPartition
 from bootloader import writeBootLoader
 from flags import flags
 from installmethod import doMethodComplete
-from sshd import doSshd
 from rescue import doRescue
 
 from backend import doPostSelection, doBackendSetup, doBasePackageSelect
@@ -241,7 +240,6 @@ class Dispatcher(object):
         # Note that not only a subset of the steps is executed for a particular
         # run, depending on the kind of installation, user selection, kickstart
         # commands, used installclass and used user interface.
-        self.add_step("sshd", doSshd)
         self.add_step("rescue", doRescue)
         self.add_step("language")
         self.add_step("keyboard")

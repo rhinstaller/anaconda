@@ -20,6 +20,7 @@
 
 import os, shutil, string
 from constants import *
+from iutil import dracut_eject
 
 import logging
 log = logging.getLogger("anaconda")
@@ -28,8 +29,7 @@ import isys, product
 
 def doMethodComplete(anaconda):
     def _ejectDevice():
-        # Ejecting the CD/DVD for kickstart is handled only after %post scripts
-        # have been run.
+        # Ejecting the CD/DVD for kickstart is handled at the end of anaconda
         if anaconda.ksdata:
             return None
 
@@ -41,7 +41,7 @@ def doMethodComplete(anaconda):
             dev = anaconda.stage2[8:].split(':')[0]
             return anaconda.storage.devicetree.getDeviceByName(dev)
 
-    anaconda.backend.complete(anaconda)
     dev = _ejectDevice()
     if dev:
-        dev.eject()
+        dracut_eject(dev.path)
+    anaconda.backend.complete(anaconda)

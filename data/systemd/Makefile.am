@@ -18,5 +18,17 @@
 # Author: Chris Lumens <clumens@redhat.com>
 
 systemddir = /lib/systemd/system
-dist_systemd_DATA = anaconda-shell@.service anaconda.target loader.service instperf.service
+generatordir = /lib/systemd/system-generators
+
+dist_systemd_DATA = anaconda@.service \
+		    anaconda.target \
+		    anaconda-shell@.service \
+		    instperf.service \
+		    anaconda-sshd.service \
+		    anaconda-cleanup-initramfs.service
+
+dist_generator_SCRIPTS = anaconda-generator
+
+dist_sbin_SCRIPTS = anaconda-cleanup-initramfs
+
 MAINTAINERCLEANFILES = Makefile.in

@@ -20,32 +20,117 @@
 import os
 import selinux
 import shlex
+import glob
 from constants import *
+from collections import OrderedDict
 
 # A lot of effort, but it only allows a limited set of flags to be referenced
-class Flags:
-
-    def __getattr__(self, attr):
-        if self.__dict__['flags'].has_key(attr):
-            return self.__dict__['flags'][attr]
-        raise AttributeError, attr
-
+class Flags(object):
     def __setattr__(self, attr, val):
-        if self.__dict__['flags'].has_key(attr):
-            self.__dict__['flags'][attr] = val
-        else:
+        if attr not in self.__dict__ and not self._in_init:
             raise AttributeError, attr
+        else:
+            self.__dict__[attr] = val
 
     def get(self, attr, val=None):
-        if self.__dict__['flags'].has_key(attr):
-            return self.__dict__['flags'][attr]
-        else:
-            return val
+        return getattr(self, attr, val)
 
-    def createCmdlineDict(self):
-        cmdlineDict = {}
-        cmdline = open("/proc/cmdline", "r").read().strip()
+    def set_cmdline_bool(self, flag):
+        if flag in self.cmdline:
+            setattr(self, flag, self.cmdline.getbool(flag))
 
+    def __init__(self, read_cmdline=True):
+        self.__dict__['_in_init'] = True
+        self.test = 0
+        self.livecdInstall = 0
+        self.dlabel = 0
+        self.ibft = 1
+        self.iscsi = 0
+        self.serial = 0
+        self.autostep = 0
+        self.autoscreenshot = 0
+        self.usevnc = 0
+        self.vncquestion = True
+        self.mpath = 1
+        self.dmraid = 1
+        self.selinux = SELINUX_DEFAULT
+        self.debug = 0
+        self.targetarch = None
+        self.useIPv4 = True
+        self.useIPv6 = True
+        self.preexisting_x11 = False
+        self.noverifyssl = False
+        self.imageInstall = False
+        self.automatedInstall = False
+        # for non-physical consoles like some ppc and sgi altix,
+        # we need to preserve the console device and not try to
+        # do things like bogl on them.  this preserves what that
+        # device is
+        self.virtpconsole = None
+        self.gpt = False
+        self.leavebootorder = False
+        self.testing = False
+        # parse the boot commandline
+        self.cmdline = BootArgs()
+        # Lock it down: no more creating new flags!
+        self.__dict__['_in_init'] = False
+        if read_cmdline:
+            self.read_cmdline()
+
+    def read_cmdline(self):
+        for f in ("selinux", "debug", "leavebootorder", "testing"):
+            self.set_cmdline_bool(f)
+
+        if "rpmarch" in self.cmdline:
+            self.targetarch = self.cmdline.get("rpmarch")
+
+        if not selinux.is_selinux_enabled():
+            self.selinux = 0
+
+        if "gpt" in self.cmdline:
+            self.gpt = True
+
+cmdline_files = ['/proc/cmdline', '/run/initramfs/etc/cmdline',
+                 '/run/initramfs/etc/cmdline.d/*.conf', '/etc/cmdline']
+class BootArgs(OrderedDict):
+    """
+    Hold boot arguments as an OrderedDict.
+    """
+    def __init__(self, cmdline=None, files=cmdline_files):
+        """
+        Create a BootArgs object.
+        Reads each of the "files", then parses "cmdline" if it was provided.
+        """
+        OrderedDict.__init__(self)
+        if files:
+            self.read(files)
+        if cmdline:
+            self.readstr(cmdline)
+
+    def read(self, filenames):
+        """
+        Read and parse a filename (or a list of filenames).
+        Files that can't be read are silently ignored.
+        Returns a list of successfully read files.
+        filenames can contain *, ?, and character ranges expressed with []
+        """
+        readfiles = []
+        if type(filenames) == str:
+            filenames = [filenames]
+
+        # Expand any filename globs
+        filenames = [f for g in filenames for f in glob.glob(g)]
+
+        for f in filenames:
+            try:
+                self.readstr(open(f).read())
+                readfiles.append(f)
+            except IOError:
+                continue
+        return readfiles
+
+    def readstr(self, cmdline):
+        cmdline = cmdline.strip()
         # if the BOOT_IMAGE contains a space, pxelinux will strip one of the
         # quotes leaving one at the end that shlex doesn't know what to do
         # with
@@ -56,73 +141,30 @@ class Flags:
         lst = shlex.split(cmdline)
 
         for i in lst:
-            try:
+            if "=" in i:
                 (key, val) = i.split("=", 1)
-            except:
+            else:
                 key = i
                 val = None
 
-            cmdlineDict[key] = val
+            self[key] = val
 
-        return cmdlineDict
-
-    def decideCmdlineFlag(self, flag):
-        if self.__dict__['flags']['cmdline'].has_key(flag) \
-                and not self.__dict__['flags']['cmdline'].has_key("no" + flag) \
-                and self.__dict__['flags']['cmdline'][flag] != "0":
-            self.__dict__['flags'][flag] = 1
-
-    def __init__(self):
-        self.__dict__['flags'] = {}
-        self.__dict__['flags']['automatedInstall'] = False
-        self.__dict__['flags']['test'] = 0
-        self.__dict__['flags']['livecdInstall'] = 0
-        self.__dict__['flags']['dlabel'] = 0
-        self.__dict__['flags']['ibft'] = 1
-        self.__dict__['flags']['iscsi'] = 0
-        self.__dict__['flags']['serial'] = 0
-        self.__dict__['flags']['autostep'] = 0
-        self.__dict__['flags']['autoscreenshot'] = 0
-        self.__dict__['flags']['usevnc'] = 0
-        self.__dict__['flags']['vncquestion'] = True
-        self.__dict__['flags']['mpath'] = 1
-        self.__dict__['flags']['dmraid'] = 1
-        self.__dict__['flags']['selinux'] = SELINUX_DEFAULT
-        self.__dict__['flags']['debug'] = 0
-        self.__dict__['flags']['targetarch'] = None
-        self.__dict__['flags']['cmdline'] = self.createCmdlineDict()
-        self.__dict__['flags']['useIPv4'] = True
-        self.__dict__['flags']['useIPv6'] = True
-        self.__dict__['flags']['sshd'] = 0
-        self.__dict__['flags']['preexisting_x11'] = False
-        self.__dict__['flags']['noverifyssl'] = False
-        self.__dict__['flags']['imageInstall'] = False
-        # for non-physical consoles like some ppc and sgi altix,
-        # we need to preserve the console device and not try to
-        # do things like bogl on them.  this preserves what that
-        # device is
-        self.__dict__['flags']['virtpconsole'] = None
-
-        for x in ['selinux']:
-            if self.__dict__['flags']['cmdline'].has_key(x):
-                if self.__dict__['flags']['cmdline'][x]:
-                    self.__dict__['flags'][x] = 1
+    def getbool(self, arg, default=False):
+        """
+        Return the value of the given arg, as a boolean. The rules are:
+        - "arg", "arg=val": True
+        - "noarg", "noarg=val", "arg=[0|off|no]": False
+        """
+        result = default
+        for a in self:
+            if a == arg:
+                if self[arg] in ("0", "off", "no"):
+                    result = False
                 else:
-                    self.__dict__['flags'][x] = 0
-
-        self.decideCmdlineFlag('sshd')
-
-        if self.__dict__['flags']['cmdline'].has_key("debug"):
-            self.__dict__['flags']['debug'] = self.__dict__['flags']['cmdline']['debug']
-
-        if self.__dict__['flags']['cmdline'].has_key("rpmarch"):
-            self.__dict__['flags']['targetarch'] = self.__dict__['flags']['cmdline']['rpmarch']
-
-        if not selinux.is_selinux_enabled():
-            self.__dict__['flags']['selinux'] = 0
-
-        self.__dict__['flags']['nogpt'] = self.__dict__['flags']['cmdline'].has_key("nogpt")
-        self.__dict__['flags']['testing'] = self.__dict__['flags']['cmdline'].has_key("testing")
+                    result = True
+            elif a == 'no'+arg:
+                result = False # XXX: should noarg=off -> True?
+        return result
 
 global flags
 flags = Flags()
