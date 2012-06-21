@@ -25,7 +25,6 @@
 # - Deleting an LV is not reflected in available space in the bottom left.
 # - Device descriptions, suggested sizes, etc. should be moved out into a support file.
 # - Newly created devices can not be resized (because self.resizable requires self.exists).
-# - Remove the entire installation if '-' is pressed when a Page has the focus.
 # - Removing a device is not very smart.  It needs to take into account LUKS, LVM, RAID,
 #   all that kind of stuff.  If this is the last device in one of those containers, all
 #   the containers should be deleted too.
@@ -412,7 +411,7 @@ class CustomPartitioningSpoke(NormalSpoke):
             if parent.kids == 0 and not parent.isDisk:
                 self._destroy_device(parent)
 
-    def _remove_from_ui(self, root, device):
+    def _remove_from_root(self, root, device):
         if root is None:
             pass    # unused device
         elif device in root.swaps:
@@ -423,11 +422,10 @@ class CustomPartitioningSpoke(NormalSpoke):
             for mountpoint in mountpoints:
                 root.mounts.pop(mountpoint)
 
-        self._destroy_device(device)
-
-        # Now that it's removed from the installation root, refreshing the
-        # display will have the effect of making it disappear.  It's like
-        # it never existed.
+    def _update_ui_for_removals(self):
+        # Now that devices have been removed from the installation root,
+        # refreshing the display will have the effect of making them disappear.
+        # It's like they never existed.
         self._do_refresh()
 
         # Make sure there's something displayed on the RHS.  Just default to
@@ -442,24 +440,50 @@ class CustomPartitioningSpoke(NormalSpoke):
         self._updateSpaceDisplay()
 
     def on_remove_clicked(self, button):
+        if self._current_selector:
+            device = self._current_selector._device
+            if device.exists:
+                # This is a device that exists on disk and most likely has data
+                # on it.  Thus, we first need to confirm with the user and then
+                # schedule actions to delete the thing.
+                dialog = ConfirmDeleteDialog(self.data)
+                with enlightbox(self.window, dialog.window):
+                    dialog.refresh(getattr(device.format, "mountpoint", None), device.name)
+                    rc = dialog.run()
 
-        if not self._current_selector:
-            return
+                    if rc == 0:
+                        return
 
-        device = self._current_selector._device
-        if device.exists:
-            # This is a device that exists on disk and most likely has data
-            # on it.  Thus, we first need to confirm with the user and then
-            # schedule actions to delete the thing.
+            self._remove_from_root(self._current_selector._root, device)
+            self._destroy_device(device)
+            self._update_ui_for_removals()
+        elif self._accordion.currentPage():
+            # This is a complete installed system.  Thus, we first need to confirm
+            # with the user and then schedule actions to delete everything.
+            page = self._accordion.currentPage()
             dialog = ConfirmDeleteDialog(self.data)
+
+            root = None
+            for r in self.storage.roots:
+                if r.name == page.pageTitle:
+                    root = r
+                    break
+
+            if not root:
+                return
+
             with enlightbox(self.window, dialog.window):
-                dialog.refresh(getattr(device.format, "mountpoint", None), device.name)
+                dialog.refresh(None, page.pageTitle)
                 rc = dialog.run()
 
                 if rc == 0:
                     return
 
-        self._remove_from_ui(self._current_selector._root, device)
+            for device in root.swaps + root.mounts.values():
+                self._remove_from_root(root, device)
+                self._destroy_device(device)
+
+            self._update_ui_for_removals()
 
     def on_summary_clicked(self, button):
         dialog = SelectedDisksDialog(self.data)
