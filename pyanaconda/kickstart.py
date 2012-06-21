@@ -840,7 +840,7 @@ class PartitionData(commands.partition.F17_PartData):
                     self.disk = disk
                     break
 
-            if self.disk == "":
+            if not self.disk:
                 raise KickstartValueError, formatErrorMsg(self.lineno, msg="Specified BIOS disk %s cannot be determined" % self.onbiosdisk)
 
         if self.mountpoint == "swap":
