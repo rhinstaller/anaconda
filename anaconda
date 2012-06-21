@@ -669,6 +669,8 @@ def prompt_for_ssh():
 
 
 if __name__ == "__main__":
+    setupPythonPath()
+
     # Allow a file to be loaded as early as possible
     try:
         import updates_disk_hook
