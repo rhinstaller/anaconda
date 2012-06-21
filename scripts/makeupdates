@@ -137,7 +137,7 @@ def copyUpdatedFiles(tag, updates, cwd):
             # UI files should go under ui/<dir> where dir is the directory
             # above the file.ui
             uidir = os.path.dirname(file).split(os.path.sep)[-1]
-            install_to_dir(file, os.path.join("ui",uidir))
+            install_to_dir(file, os.path.join(tmpupdates, "ui", uidir))
         elif file.startswith('pyanaconda/'):
             # pyanaconda stuff goes into /tmp/updates/[path]
             dirname = os.path.join(tmpupdates, os.path.dirname(file))
@@ -166,10 +166,10 @@ def copyUpdatedFiles(tag, updates, cwd):
                 continue
             else:
                 sys.stdout.write("Including %s\n" % (file,))
-                shutil.copy2(file, tmpupdates)
+                install_to_dir(file, tmpupdates)
         else:
             sys.stdout.write("Including %s\n" % (file,))
-            shutil.copy2(file, tmpupdates)
+            install_to_dir(file, tmpupdates)
 
 def isysChanged(tag):
     lines = doGitDiff(tag, ['isys'])
