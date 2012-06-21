@@ -63,6 +63,8 @@ struct _AnacondaDiskOverviewPrivate {
     GtkWidget *os_label;
     GtkWidget *tooltip;
 
+    GdkCursor *cursor;
+
     gboolean chosen;
 };
 
@@ -73,6 +75,9 @@ static void anaconda_disk_overview_get_property(GObject *object, guint prop_id, 
 static void anaconda_disk_overview_set_property(GObject *object, guint prop_id, const GValue *value, GParamSpec *pspec);
 static void anaconda_disk_overview_toggle_background(AnacondaDiskOverview *widget);
 
+static void anaconda_disk_overview_realize(GtkWidget *widget, gpointer user_data);
+static void anaconda_disk_overview_finalize(AnacondaDiskOverview *widget);
+
 static gboolean anaconda_disk_overview_focus_changed(GtkWidget *widget, GdkEventFocus *event, gpointer user_data);
 
 static void anaconda_disk_overview_class_init(AnacondaDiskOverviewClass *klass) {
@@ -80,6 +85,7 @@ static void anaconda_disk_overview_class_init(AnacondaDiskOverviewClass *klass) 
 
     object_class->set_property = anaconda_disk_overview_set_property;
     object_class->get_property = anaconda_disk_overview_get_property;
+    object_class->finalize = (GObjectFinalizeFunc) anaconda_disk_overview_finalize;
 
     /**
      * AnacondaDiskOverview:kind:
@@ -193,6 +199,10 @@ static void anaconda_disk_overview_init(AnacondaDiskOverview *widget) {
     g_signal_connect(widget, "focus-in-event", G_CALLBACK(anaconda_disk_overview_focus_changed), NULL);
     g_signal_connect(widget, "focus-out-event", G_CALLBACK(anaconda_disk_overview_focus_changed), NULL);
 
+    /* Set "hand" cursor shape when over the selector */
+    widget->priv->cursor = gdk_cursor_new(GDK_HAND2);
+    g_signal_connect(widget, "realize", G_CALLBACK(anaconda_disk_overview_realize), NULL);
+
     /* Set some properties. */
     widget->priv->chosen = FALSE;
 
@@ -260,6 +270,16 @@ static void anaconda_disk_overview_toggle_background(AnacondaDiskOverview *widge
     }
     else
         gtk_widget_override_background_color(GTK_WIDGET(widget), GTK_STATE_FLAG_NORMAL, NULL);
+}
+
+static void anaconda_disk_overview_finalize(AnacondaDiskOverview *widget) {
+    g_object_unref(widget->priv->cursor);
+}
+
+static void anaconda_disk_overview_realize(GtkWidget *widget, gpointer user_data) {
+    AnacondaDiskOverview *overview = ANACONDA_DISK_OVERVIEW(widget);
+
+    gdk_window_set_cursor(gtk_widget_get_window(widget), overview->priv->cursor);
 }
 
 static void anaconda_disk_overview_get_property(GObject *object, guint prop_id, GValue *value, GParamSpec *pspec) {
