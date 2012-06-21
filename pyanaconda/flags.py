@@ -61,6 +61,7 @@ class Flags(object):
         self.preexisting_x11 = False
         self.noverifyssl = False
         self.imageInstall = False
+        self.automatedInstall = False
         # for non-physical consoles like some ppc and sgi altix,
         # we need to preserve the console device and not try to
         # do things like bogl on them.  this preserves what that
