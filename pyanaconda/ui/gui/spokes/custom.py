@@ -29,8 +29,6 @@
 #   all that kind of stuff.  If this is the last device in one of those containers, all
 #   the containers should be deleted too.
 # - Tabbing behavior in the accordion is weird.
-# - When all members of a page are removed, the page should be removed from the
-#   accordion and the RHS should be updated to display something else.
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
@@ -454,8 +452,15 @@ class CustomPartitioningSpoke(NormalSpoke):
                     if rc == 0:
                         return
 
-            self._remove_from_root(self._current_selector._root, device)
+            root = self._current_selector._root
+
+            self._remove_from_root(root, device)
             self._destroy_device(device)
+
+            # If the root is now empty, remove it.
+            if len(root.swaps + root.mounts.values()) == 0:
+                self.storage.roots.remove(root)
+
             self._update_ui_for_removals()
         elif self._accordion.currentPage():
             # This is a complete installed system.  Thus, we first need to confirm
@@ -463,6 +468,7 @@ class CustomPartitioningSpoke(NormalSpoke):
             page = self._accordion.currentPage()
             dialog = ConfirmDeleteDialog(self.data)
 
+            # Find the root this page displays.
             root = None
             for r in self.storage.roots:
                 if r.name == page.pageTitle:
@@ -479,9 +485,13 @@ class CustomPartitioningSpoke(NormalSpoke):
                 if rc == 0:
                     return
 
+            # Destroy all devices.
             for device in root.swaps + root.mounts.values():
-                self._remove_from_root(root, device)
                 self._destroy_device(device)
+
+            # Remove the root entirely.  This will cause the empty Page to be
+            # deleted from the left hand side.
+            self.storage.roots.remove(root)
 
             self._update_ui_for_removals()
 
