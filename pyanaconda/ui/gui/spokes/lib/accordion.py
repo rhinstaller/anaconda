@@ -44,7 +44,7 @@ class Accordion(Gtk.Box):
         Gtk.Box.__init__(self, orientation=Gtk.Orientation.VERTICAL, spacing=12)
         self._expanders = []
 
-    def addPage(self, contents):
+    def addPage(self, contents, cb=None):
         label = Gtk.Label()
         label.set_markup("""<span size='large' weight='bold' fgcolor='black'>%s</span>""" % contents.pageTitle)
         label.set_alignment(0, 0.5)
@@ -56,7 +56,7 @@ class Accordion(Gtk.Box):
 
         self.add(expander)
         self._expanders.append(expander)
-        expander.connect("activate", self._onExpanded)
+        expander.connect("activate", self._onExpanded, cb)
         expander.show_all()
 
     def _find_by_title(self, title):
@@ -95,7 +95,7 @@ class Accordion(Gtk.Box):
 
         self._expanders = []
 
-    def _onExpanded(self, obj):
+    def _onExpanded(self, obj, cb=None):
         # Set all other expanders to closed, but don't do anything to the
         # expander this method was called on.  It's already been handled by
         # the default activate signal handler.
@@ -104,6 +104,9 @@ class Accordion(Gtk.Box):
                 continue
 
             expander.set_expanded(False)
+
+        if cb:
+            cb(obj.get_child())
 
 # A Page is a box that is stored in an Accordion.  It breaks down all the filesystems that
 # comprise a single installed OS into two categories - Data filesystems and System filesystems.
@@ -135,9 +138,9 @@ class Page(Gtk.Box):
     def addDevice(self, name, size, mountpoint, cb):
         selector = MountpointSelector()
         selector = MountpointSelector(name, str(Size(spec="%s MB" % size)), mountpoint or "")
-        selector.connect("button-press-event", self._onClicked, cb)
-        selector.connect("key-release-event", self._onClicked, cb)
-        selector.connect("focus-in-event", self._onClicked, cb)
+        selector.connect("button-press-event", self._onSelectorClicked, cb)
+        selector.connect("key-release-event", self._onSelectorClicked, cb)
+        selector.connect("focus-in-event", self._onSelectorClicked, cb)
         self._members.append(selector)
 
         if self._mountpointType(mountpoint) == DATA_DEVICE:
@@ -156,7 +159,7 @@ class Page(Gtk.Box):
         else:
             return DATA_DEVICE
 
-    def _onClicked(self, selector, event, cb):
+    def _onSelectorClicked(self, selector, event, cb):
         from gi.repository import Gdk
 
         if event and not event.type in [Gdk.EventType.BUTTON_PRESS, Gdk.EventType.KEY_RELEASE, Gdk.EventType.FOCUS_CHANGE]:
@@ -180,9 +183,9 @@ class UnknownPage(Page):
     def addDevice(self, name, size, mountpoint, cb):
         selector = MountpointSelector()
         selector = MountpointSelector(name, str(Size(spec="%s MB" % size)), mountpoint or "")
-        selector.connect("button-press-event", self._onClicked, cb)
-        selector.connect("key-release-event", self._onClicked, cb)
-        selector.connect("focus-in-event", self._onClicked, cb)
+        selector.connect("button-press-event", self._onSelectorClicked, cb)
+        selector.connect("key-release-event", self._onSelectorClicked, cb)
+        selector.connect("focus-in-event", self._onSelectorClicked, cb)
 
         self._members.append(selector)
         self.add(selector)

@@ -237,7 +237,7 @@ class CustomPartitioningSpoke(NormalSpoke):
         # Make sure we start with a clean slate.
         self._accordion.removeAllPages()
 
-        # Start with buttons disabled, since no filesystem is selected.
+        # Start with buttons disabled, since nothing is selected.
         self._removeButton.set_sensitive(False)
         self._configButton.set_sensitive(False)
 
@@ -251,7 +251,7 @@ class CustomPartitioningSpoke(NormalSpoke):
         if not self._ran_autopart:
             page = CreateNewPage(self.on_create_clicked)
             page.pageTitle = _("New %s %s Installation") % (productName, productVersion)
-            self._accordion.addPage(page)
+            self._accordion.addPage(page, cb=self.on_page_clicked)
             self._accordion.expandPage(page.pageTitle)
             did_expand = True
 
@@ -275,7 +275,7 @@ class CustomPartitioningSpoke(NormalSpoke):
                 selector._root = root
 
             page.show_all()
-            self._accordion.addPage(page)
+            self._accordion.addPage(page, cb=self.on_page_clicked)
 
             if not did_expand and self._current_selector and root == self._current_selector._root:
                 did_expand = True
@@ -293,7 +293,7 @@ class CustomPartitioningSpoke(NormalSpoke):
                 selector._root = None
 
             page.show_all()
-            self._accordion.addPage(page)
+            self._accordion.addPage(page, cb=self.on_page_clicked)
 
             if not did_expand and self._current_selector and unused == self._current_selector._root:
                 did_expand = True
@@ -486,8 +486,17 @@ class CustomPartitioningSpoke(NormalSpoke):
         selector.set_chosen(True)
         self._current_selector = selector
 
-        self._removeButton.set_sensitive(True)
         self._configButton.set_sensitive(True)
+
+    def on_page_clicked(self, page):
+        # This is called when a Page header is clicked upon so we can support
+        # deleting an entire installation at once and displaying something
+        # on the RHS.
+        if isinstance(page, CreateNewPage) or isinstance(page, UnknownPage):
+            self._removeButton.set_sensitive(False)
+            return
+
+        self._removeButton.set_sensitive(True)
 
     def on_create_clicked(self, button):
         from pyanaconda.storage import Root
