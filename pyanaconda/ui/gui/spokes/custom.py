@@ -35,6 +35,7 @@ P_ = lambda x, y, z: gettext.ldngettext("anaconda", x, y, z)
 from pyanaconda.product import productName, productVersion
 from pyanaconda.storage.formats import device_formats
 from pyanaconda.storage.size import Size
+from pyanaconda.storage import Root
 
 from pyanaconda.ui.gui import UIObject
 from pyanaconda.ui.gui.spokes import NormalSpoke
@@ -46,6 +47,8 @@ from pyanaconda.ui.gui.categories.storage import StorageCategory
 from gi.repository import Gtk
 
 __all__ = ["CustomPartitioningSpoke"]
+
+new_install_name = = _("New %s %s Installation") % (productName, productVersion)
 
 class AddDialog(UIObject):
     builderObjects = ["addDialog"]
@@ -240,11 +243,15 @@ class CustomPartitioningSpoke(NormalSpoke):
         # We can only have one page expanded at a time.
         did_expand = False
 
+        unused = self._unusedDevices()
+        new_devices = [d for d in self.storage.devicetree.leaves if d not in unused and not d.exists]
+        roots = self.storage.roots[:]
+
         # If we've not yet run autopart, add an instance of CreateNewPage.  This
         # ensures it's only added once.
-        if not self._ran_autopart:
+        if not self._ran_autopart and not new_devices:
             page = CreateNewPage(self.on_create_clicked)
-            page.pageTitle = _("New %s %s Installation") % (productName, productVersion)
+            page.pageTitle = new_install_name
             self._accordion.addPage(page, cb=self.on_page_clicked)
             self._accordion.expandPage(page.pageTitle)
             did_expand = True
@@ -252,18 +259,32 @@ class CustomPartitioningSpoke(NormalSpoke):
             self._partitionsNotebook.set_current_page(0)
             label = self.builder.get_object("whenCreateLabel")
             label.set_text(self._when_create_text % (productName, productVersion))
+        elif new_devices:
+            swaps = [d for d in new_devices if d in self.storage.swaps]
+            mounts = dict([(d.format.mountpoint, d) for d in new_devices if getattr(d.format, "mountpoint", None)])
+            new_root = Root(mounts=mounts, swaps=swaps, name=new_install_name)
+            roots.insert(0, new_root)
 
         # Add in all the existing (or autopart-created) operating systems.
-        for root in self.storage.roots:
+        for root in roots:
+            if root.device and root.device not in self.storage.devices:
+                continue
+
             page = Page()
             page.pageTitle = root.name
 
-            for swap in root.swaps:
-                selector = page.addDevice("Swap", swap.size, None, self.on_selector_clicked)
-                selector._device = swap
+            for device in root.swaps:
+                if device not in self.storage.devices:
+                    continue
+
+                selector = page.addDevice("Swap", device.size, None, self.on_selector_clicked)
+                selector._device = device
                 selector._root = root
 
             for (mountpoint, device) in root.mounts.iteritems():
+                if device not in self.storage.devices:
+                    continue
+
                 selector = page.addDevice(self._mountpointName(mountpoint) or device.format.name, device.size, mountpoint, self.on_selector_clicked)
                 selector._device = device
                 selector._root = root
@@ -276,7 +297,6 @@ class CustomPartitioningSpoke(NormalSpoke):
                 self._accordion.expandPage(root.name)
 
         # Anything that doesn't go with an OS we understand?  Put it in the Other box.
-        unused = self._unusedDevices()
         if unused:
             page = UnknownPage()
             page.pageTitle = _("Unknown")
@@ -539,29 +559,7 @@ class CustomPartitioningSpoke(NormalSpoke):
         # FIXME:  Handle all the autopart exns here.
         self.data.autopart.autopart = True
         self.data.autopart.execute(self.storage, self.data, self.instclass)
-
-        # Create a new Root object for the new installation and put it into
-        # the storage object.  This means any boot-related devices we make for
-        # this new install (biosboot, etc.) will show up as unused and therefore
-        # be put into the Unknown page.
-        mounts = {}
-        swaps = []
-
-        # Devices just created by autopartitioning will be listed as unused
-        # since they are not yet a part of any known Root.
-        for device in self._unusedDevices():
-            if device.exists:
-                continue
-
-            if device.format.type == "swap":
-                swaps.append(device)
-
-            if getattr(device.format, "mountpoint", None):
-                mounts[device.format.mountpoint] = device
-
-        newName = _("New %s %s Installation") % (productName, productVersion)
-        root = Root(mounts=mounts, swaps=swaps, name=newName)
-        self.storage.roots.append(root)
+        self.data.autopart.autopart = False
 
         # Setting this ensures the CreateNewPage instance does not reappear when
         # refresh is called.
@@ -569,7 +567,7 @@ class CustomPartitioningSpoke(NormalSpoke):
 
         # And refresh the spoke to make the new partitions appear.
         self.refresh()
-        self._accordion.expandPage(newName)
+        self._accordion.expandPage(new_install_name)
 
     def on_device_type_changed(self, combo):
         text = combo.get_active_text()
