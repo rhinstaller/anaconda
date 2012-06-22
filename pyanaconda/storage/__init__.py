@@ -525,6 +525,10 @@ class Storage(object):
             for device in root.mounts.values() + root.swaps:
                 used_devices.extend(device.ancestors)
 
+        for new in [d for d in self.devicetree.leaves if not d.exists]:
+            if new in self.swaps or getattr(new.format, "mountpoint", None):
+                used_devices.extend(new.ancestors)
+
         used = set(used_devices)
         _all = set(self.devices)
         return list(_all.difference(used))
