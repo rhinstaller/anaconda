@@ -50,6 +50,7 @@ from pyanaconda.ui.gui.utils import enlightbox, gdk_threaded
 from pyanaconda.storage.size import Size
 from pyanaconda.storage.partitioning import shouldClear
 from pyanaconda.product import productName
+from pyanaconda.flags import flags
 
 from pykickstart.constants import *
 
@@ -241,6 +242,11 @@ class StorageSpoke(NormalSpoke):
         NormalSpoke.__init__(self, *args, **kwargs)
         self._ready = False
         self.selected_disks = self.data.clearpart.drives[:]
+
+        if not flags.automatedInstall:
+            # default to using autopart for interactive installs
+            self.data.autopart.autopart = True
+
         self.autopart = self.data.autopart.autopart
 
         # FIXME:  This needs to be set to a real value via some TBD UI.
@@ -260,18 +266,20 @@ class StorageSpoke(NormalSpoke):
 
         self.data.bootloader.location = "mbr"
 
+        self.data.clearpart.type = self.clearPartType
+
+        if self.autopart:
+            self.data.clearpart.execute(self.storage, self.data, self.instclass)
+
         # Pick the first disk to be the destination device for the bootloader.
         # This appears to be the minimum amount of configuration required to
         # make autopart happy with the bootloader settings.
         if not self.data.bootloader.bootDrive:
             self.data.bootloader.bootDrive = self.storage.bootloader.disks[0].name
 
-        self.data.clearpart.type = self.clearPartType
-
-        # FIXME: this will not work when users enter this spoke multiple times
-        #        unless they just keep doing autopart
-        self.data.clearpart.execute(self.storage, self.data, self.instclass)
         self.data.bootloader.execute(self.storage, self.data, self.instclass)
+
+        # this won't do anything if autopart is not selected
         self.data.autopart.execute(self.storage, self.data, self.instclass)
 
     @property
