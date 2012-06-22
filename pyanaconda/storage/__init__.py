@@ -509,9 +509,7 @@ class Storage(object):
         if self.bootloader:
             # clear out bootloader attributes that refer to devices that are
             # no longer in the tree
-            boot_disks = [d for d in self.disks if d.partitioned]
-            boot_disks.sort(cmp=self.compareDisks, key=lambda d: d.name)
-            self.bootloader.set_disk_list(boot_disks)
+            self.updateBootLoaderDiskList()
             self.bootloader.stage1_disk = None
             self.bootloader.stage1_device = None
             self.bootloader.stage2_device = None
@@ -1525,6 +1523,11 @@ class Storage(object):
         if self._bootloader is None and self.platform is not None:
             self._bootloader = self.platform.bootloaderClass(self.platform)
         return self._bootloader
+
+    def updateBootLoaderDiskList(self):
+        boot_disks = [d for d in self.disks if d.partitioned]
+        boot_disks.sort(cmp=self.compareDisks, key=lambda d: d.name)
+        self.bootloader.set_disk_list(boot_disks)
 
     def setUpBootLoader(self):
         """ Propagate ksdata into BootLoader. """

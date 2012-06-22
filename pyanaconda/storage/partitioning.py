@@ -524,6 +524,9 @@ def clearPartitions(storage):
         storage.devicetree.registerAction(destroy_action)
         storage.devicetree.registerAction(create_action)
 
+    if storage.bootloader:
+        storage.updateBootLoaderDiskList()
+
 def removeEmptyExtendedPartitions(storage):
     for disk in storage.partitioned:
         log.debug("checking whether disk %s has an empty extended" % disk.name)
