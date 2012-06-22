@@ -201,6 +201,12 @@ def copyUpdatedIsys(updates, cwd):
     if os.path.isfile(isysmodule):
         shutil.copy2(isysmodule, updates)
 
+def addRpms(updates, add_rpms):
+    for rpm in add_rpms:
+        cmd = "cd %s && rpm2cpio %s | cpio -dium" % (updates, rpm)
+        sys.stdout.write(cmd+"\n")
+        os.system(cmd)
+
 def createUpdatesImage(cwd, updates):
     os.chdir(updates)
     os.system("find . | cpio -c -o | gzip -9cv > %s/updates.img" % (cwd,))
@@ -214,6 +220,7 @@ def usage(cmd):
     sys.stdout.write("    -h, --help       Display this help and exit.\n")
     sys.stdout.write("    -t, --tag        Make image from TAG to HEAD.\n")
     sys.stdout.write("    -o, --offset     Make image from (latest_tag - OFFSET) to HEAD.\n")
+    sys.stdout.write("    -a, --add        Add contents of rpm to the update\n")
 
 def main(argv):
     prog = os.path.basename(sys.argv[0])
@@ -225,10 +232,11 @@ def main(argv):
     tag = None
     opts = []
     offset = 0
+    add_rpms = []
 
     try:
-        opts, args = getopt.getopt(sys.argv[1:], 't:o:kc?',
-                                   ['tag=', 'offset=',
+        opts, args = getopt.getopt(sys.argv[1:], 'a:t:o:kc?',
+                                   ['add=', 'tag=', 'offset=',
                                     'keep', 'compile', 'help'])
     except getopt.GetoptError:
         help = True
@@ -244,6 +252,8 @@ def main(argv):
             tag = a
         elif o in ('-o', '--offset'):
             offset = int(a)
+        elif o in ('-a', '--add'):
+            add_rpms.append(os.path.abspath(a))
         else:
             unknown = True
 
@@ -274,6 +284,9 @@ def main(argv):
     if compile:
         if isysChanged(tag):
             copyUpdatedIsys(updates, cwd)
+
+    if add_rpms:
+        addRpms(updates, add_rpms)
 
     createUpdatesImage(cwd, updates)
 
