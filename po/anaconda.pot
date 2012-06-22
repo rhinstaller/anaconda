@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 17.28.7\n"
+"Project-Id-Version: anaconda 17.28.8\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2012-06-19 16:31-0400\n"
+"POT-Creation-Date: 2012-06-22 11:17-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -222,9 +222,9 @@ msgid ""
 msgstr ""
 
 #: pyanaconda/cmdline.py:104 pyanaconda/gui.py:1148
-#: pyanaconda/kickstart.py:1346 pyanaconda/kickstart.py:1405
-#: pyanaconda/kickstart.py:1413 pyanaconda/kickstart.py:1443
-#: pyanaconda/kickstart.py:1453 pyanaconda/text.py:400
+#: pyanaconda/kickstart.py:1326 pyanaconda/kickstart.py:1385
+#: pyanaconda/kickstart.py:1393 pyanaconda/kickstart.py:1423
+#: pyanaconda/kickstart.py:1433 pyanaconda/text.py:400
 #, python-format
 msgid ""
 "The following error was found while parsing the kickstart configuration "
@@ -499,8 +499,8 @@ msgid ""
 "choose to continue if you think this is in error."
 msgstr ""
 
-#: pyanaconda/image.py:97 pyanaconda/kickstart.py:1534
-#: pyanaconda/kickstart.py:1573 pyanaconda/packages.py:95
+#: pyanaconda/image.py:97 pyanaconda/kickstart.py:1514
+#: pyanaconda/kickstart.py:1553 pyanaconda/packages.py:95
 #: pyanaconda/upgrade.py:58 pyanaconda/upgrade.py:105
 #: pyanaconda/yuminstall.py:1339 pyanaconda/yuminstall.py:1524
 #: pyanaconda/iw/partition_gui.py:1630 pyanaconda/storage/__init__.py:2327
@@ -538,8 +538,8 @@ msgstr ""
 #: pyanaconda/yuminstall.py:919 pyanaconda/yuminstall.py:1006
 #: pyanaconda/yuminstall.py:1011 pyanaconda/yuminstall.py:1284
 #: pyanaconda/yuminstall.py:1344 pyanaconda/yuminstall.py:1551
-#: pyanaconda/yuminstall.py:1573 pyanaconda/iw/advanced_storage.py:378
-#: pyanaconda/iw/advanced_storage.py:388 pyanaconda/iw/advanced_storage.py:438
+#: pyanaconda/yuminstall.py:1573 pyanaconda/iw/advanced_storage.py:382
+#: pyanaconda/iw/advanced_storage.py:392 pyanaconda/iw/advanced_storage.py:451
 #: pyanaconda/iw/autopart_type.py:95 pyanaconda/iw/cleardisks_gui.py:44
 #: pyanaconda/iw/cleardisks_gui.py:54 pyanaconda/iw/filter_gui.py:443
 #: pyanaconda/iw/lvm_dialog_gui.py:802 pyanaconda/iw/osbootwidget.py:209
@@ -702,53 +702,49 @@ msgid ""
 "%s"
 msgstr ""
 
-#: pyanaconda/kickstart.py:492
-msgid "Could not log into any iSCSI nodes at the portal."
-msgstr ""
-
-#: pyanaconda/kickstart.py:1478 pyanaconda/livecd.py:196
+#: pyanaconda/kickstart.py:1458 pyanaconda/livecd.py:196
 msgid "Post-Installation"
 msgstr ""
 
-#: pyanaconda/kickstart.py:1479
+#: pyanaconda/kickstart.py:1459
 msgid "Running post-installation scripts"
 msgstr ""
 
-#: pyanaconda/kickstart.py:1494
+#: pyanaconda/kickstart.py:1474
 msgid "Running pre-installation scripts"
 msgstr ""
 
-#: pyanaconda/kickstart.py:1525
+#: pyanaconda/kickstart.py:1505
 msgid "Missing Package"
 msgstr ""
 
-#: pyanaconda/kickstart.py:1526
+#: pyanaconda/kickstart.py:1506
 #, python-format
 msgid ""
 "You have specified that the package '%s' should be installed.  This package "
 "does not exist. Would you like to continue or abort this installation?"
 msgstr ""
 
-#: pyanaconda/kickstart.py:1532 pyanaconda/kickstart.py:1571
+#: pyanaconda/kickstart.py:1512 pyanaconda/kickstart.py:1551
 msgid "_Abort"
 msgstr ""
 
-#: pyanaconda/kickstart.py:1533 pyanaconda/kickstart.py:1572
+#: pyanaconda/kickstart.py:1513 pyanaconda/kickstart.py:1552
 msgid "_Ignore All"
 msgstr ""
 
-#: pyanaconda/kickstart.py:1563
+#: pyanaconda/kickstart.py:1543
 msgid "Missing Group"
 msgstr ""
 
-#: pyanaconda/kickstart.py:1564
+#: pyanaconda/kickstart.py:1544
 #, python-format
 msgid ""
 "You have specified that the group '%s' should be installed. This group does "
 "not exist. Would you like to continue or abort this installation?"
 msgstr ""
 
-#: pyanaconda/kickstart.py:1656
+#: pyanaconda/kickstart.py:1636
 #, python-format
 msgid ""
 "The kickstart configuration file is missing required information that "
@@ -1106,27 +1102,27 @@ msgstr ""
 msgid "Use the credentials from the discovery step"
 msgstr ""
 
-#: pyanaconda/partIntfHelpers.py:472
+#: pyanaconda/partIntfHelpers.py:471
 msgid "iSCSI Nodes"
 msgstr ""
 
-#: pyanaconda/partIntfHelpers.py:473
-msgid "No new iSCSI nodes discovered"
+#: pyanaconda/partIntfHelpers.py:472
+msgid "No iSCSI nodes to log in"
 msgstr ""
 
-#: pyanaconda/partIntfHelpers.py:514
+#: pyanaconda/partIntfHelpers.py:515
 msgid "iSCSI Error"
 msgstr ""
 
-#: pyanaconda/partIntfHelpers.py:519
+#: pyanaconda/partIntfHelpers.py:520
 msgid "Discovery"
 msgstr ""
 
-#: pyanaconda/partIntfHelpers.py:519
+#: pyanaconda/partIntfHelpers.py:520
 msgid "Login"
 msgstr ""
 
-#: pyanaconda/partIntfHelpers.py:520
+#: pyanaconda/partIntfHelpers.py:521
 #, python-format
 msgid "iSCSI %s Error"
 msgstr ""
@@ -2013,11 +2009,11 @@ msgid ""
 "Requested password contains non-ASCII characters, which are not allowed."
 msgstr ""
 
-#: pyanaconda/iw/advanced_storage.py:256
-msgid "Node Name"
+#: pyanaconda/iw/advanced_storage.py:259
+msgid "Interface"
 msgstr ""
 
-#: pyanaconda/iw/advanced_storage.py:379
+#: pyanaconda/iw/advanced_storage.py:383
 msgid "You must select a NIC to use."
 msgstr ""
 
@@ -2732,21 +2728,21 @@ msgid ""
 "%(herrors)s"
 msgstr ""
 
-#: pyanaconda/iw/network_gui.py:134
+#: pyanaconda/iw/network_gui.py:137
 msgid "Select network interface"
 msgstr ""
 
-#: pyanaconda/iw/network_gui.py:141
+#: pyanaconda/iw/network_gui.py:144
 msgid ""
 "This requires that you have an active network connection during the "
 "installation process.  Please configure a network interface."
 msgstr ""
 
-#: pyanaconda/iw/network_gui.py:211
+#: pyanaconda/iw/network_gui.py:214
 msgid "Select APs"
 msgstr ""
 
-#: pyanaconda/iw/network_gui.py:218
+#: pyanaconda/iw/network_gui.py:221
 msgid "Select APs for wireless devices"
 msgstr ""
 
@@ -3857,37 +3853,49 @@ msgstr ""
 msgid "Creating %(type)s on %(device)s"
 msgstr ""
 
-#: pyanaconda/storage/iscsi.py:120
+#: pyanaconda/storage/iscsi.py:123
 msgid "Unable to change iSCSI initiator name once set"
 msgstr ""
 
-#: pyanaconda/storage/iscsi.py:122
+#: pyanaconda/storage/iscsi.py:125
 msgid "Must provide an iSCSI initiator name"
 msgstr ""
 
-#: pyanaconda/storage/iscsi.py:153 pyanaconda/storage/iscsi.py:154
+#: pyanaconda/storage/iscsi.py:191 pyanaconda/storage/iscsi.py:192
 msgid "Scanning iSCSI nodes"
 msgstr ""
 
-#: pyanaconda/storage/iscsi.py:174 pyanaconda/storage/iscsi.py:175
+#: pyanaconda/storage/iscsi.py:243 pyanaconda/storage/iscsi.py:244
 msgid "Initializing iSCSI initiator"
 msgstr ""
 
-#: pyanaconda/storage/iscsi.py:230
+#: pyanaconda/storage/iscsi.py:304
 msgid "iSCSI not available"
 msgstr ""
 
-#: pyanaconda/storage/iscsi.py:232
+#: pyanaconda/storage/iscsi.py:306
 msgid "No initiator name set"
 msgstr ""
 
-#: pyanaconda/storage/iscsi.py:260
+#: pyanaconda/storage/iscsi.py:345
 msgid "Logging in to iSCSI node"
 msgstr ""
 
-#: pyanaconda/storage/iscsi.py:261
+#: pyanaconda/storage/iscsi.py:346
 #, python-format
 msgid "Logging in to iSCSI node %s"
+msgstr ""
+
+#: pyanaconda/storage/iscsi.py:380
+msgid "No iSCSI nodes discovered"
+msgstr ""
+
+#: pyanaconda/storage/iscsi.py:396
+msgid "No new iSCSI nodes discovered"
+msgstr ""
+
+#: pyanaconda/storage/iscsi.py:399
+msgid "Could not log in to any of the discovered nodes"
 msgstr ""
 
 #: pyanaconda/storage/partitioning.py:307
@@ -4394,27 +4402,43 @@ msgid ""
 msgstr ""
 
 #: data/ui/adddrive.glade.h:1
-msgid "Add _FCoE SAN"
+msgid "Active network interfaces:"
 msgstr ""
 
 #: data/ui/adddrive.glade.h:2
-msgid "Add _ZFCP LUN"
+msgid "Add _FCoE SAN"
 msgstr ""
 
 #: data/ui/adddrive.glade.h:3
-msgid "Add _iSCSI target"
+msgid "Add _ZFCP LUN"
 msgstr ""
 
 #: data/ui/adddrive.glade.h:4
-msgid "Advanced Storage Options"
+msgid "Add _iSCSI target"
 msgstr ""
 
 #: data/ui/adddrive.glade.h:5
-msgid "How would you like to modify your drive configuration?"
+msgid "Advanced Storage Options"
 msgstr ""
 
 #: data/ui/adddrive.glade.h:6
+msgid "C_onfigure Network"
+msgstr ""
+
+#: data/ui/adddrive.glade.h:7
+msgid "How would you like to modify your drive configuration?"
+msgstr ""
+
+#: data/ui/adddrive.glade.h:8
+msgid "None"
+msgstr ""
+
+#: data/ui/adddrive.glade.h:9
 msgid "_Add drive"
+msgstr ""
+
+#: data/ui/adddrive.glade.h:10
+msgid "_Bind targets to network interfaces"
 msgstr ""
 
 #: data/ui/addrepo.glade.h:1

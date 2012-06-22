@@ -249,6 +249,48 @@ update-desktop-database &> /dev/null || :
 /usr/lib/dracut/modules.d/80%{name}/*
 
 %changelog
+* Fri Jun 22 2012 David Cantrell <dcantrell@redhat.com> - 17.28.9-1
+- Use the correct path to kickstart files (jkeating)
+  Resolves: rhbz#833070
+- Find initiator name for partial offload iscsi bnx2i devices (rvykydal)
+  Resolves: rhbz#831470
+- Handle offload qla4xxx iscsi devices properly (rvykydal)
+  Resolves: rhbz#831470
+- Set network configuration for root on partial offload iscsi devices
+  (rvykydal)
+  Resolves: rhbz#831470
+- Add ip= dracut parameter for iscsi nodes using default iface (rvykydal)
+  Resolves: rhbz#831470
+- Do not pass :default:default iscsi nic specification to dracut (rvykydal)
+  Resolves: rhbz#831470
+  Related: rhbz#831470
+- Disable NM for iface used by root on iscsi (rvykydal)
+  Resolves: rhbz#831470
+  Related: rhbz#831470
+- Don't write iscsi targets set up via ibft in generated ks (rvykydal)
+  Resolves: rhbz#831470
+  Related: rhbz#831470
+- Fix parsing of iscsi iface udev info for offload devices (rvykydal)
+  Resolves: rhbz#831470
+- iscsi: add iface binding support to discovery and setup TUI (rvykydal)
+  Resolves: rhbz#831470
+- iscsi: add Configure Network to advanced storage GUI (rvykydal)
+  Resolves: rhbz#831470
+  Related: rhbz#831470
+- iscsi: Display iface in login success dialog (rvykydal)
+  Resolves: rhbz#831470
+- iscsi: display iface in Discovered Nodes dialog (rvykydal)
+  Resolves: rhbz#831470
+- iscsi: add iface binding support to iscsi device class (nic) (rvykydal)
+  Resolves: rhbz#831470
+- iscsi: add iface binding support to discovery and setup GUI (rvykydal)
+  Resolves: rhbz#831470
+- iscsi: fix listing of active nodes of a target (rvykydal)
+  Resolves: rhbz#831470
+  Related: rhbz#831470
+- iscsi: no discovery on each target login (rvykydal)
+  Resolves: rhbz#831470
+
 * Tue Jun 19 2012 David Cantrell <dcantrell@redhat.com> - 17.28.8-1
 - Require pykickstart-1.99.13 or later (dcantrell)
   Related: rhbz#824801
