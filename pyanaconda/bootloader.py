@@ -2147,7 +2147,7 @@ def writeBootLoader(storage, payload):
         image. We only have to add images for the non-default kernels and
         adjust the default to reflect whatever the default variant is.
     """
-    from pyanaconda.errors import *
+    from pyanaconda.errors import BootLoaderError
 
     stage1_device = storage.bootloader.stage1_device
     log.info("bootloader stage1 target device is %s" % stage1_device.name)
