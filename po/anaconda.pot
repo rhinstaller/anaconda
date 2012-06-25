@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 17.28.8\n"
+"Project-Id-Version: anaconda 17.28.9\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2012-06-22 11:17-0400\n"
+"POT-Creation-Date: 2012-06-25 14:11-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -222,9 +222,9 @@ msgid ""
 msgstr ""
 
 #: pyanaconda/cmdline.py:104 pyanaconda/gui.py:1148
-#: pyanaconda/kickstart.py:1326 pyanaconda/kickstart.py:1385
-#: pyanaconda/kickstart.py:1393 pyanaconda/kickstart.py:1423
-#: pyanaconda/kickstart.py:1433 pyanaconda/text.py:400
+#: pyanaconda/kickstart.py:1325 pyanaconda/kickstart.py:1384
+#: pyanaconda/kickstart.py:1392 pyanaconda/kickstart.py:1422
+#: pyanaconda/kickstart.py:1432 pyanaconda/text.py:400
 #, python-format
 msgid ""
 "The following error was found while parsing the kickstart configuration "
@@ -499,8 +499,8 @@ msgid ""
 "choose to continue if you think this is in error."
 msgstr ""
 
-#: pyanaconda/image.py:97 pyanaconda/kickstart.py:1514
-#: pyanaconda/kickstart.py:1553 pyanaconda/packages.py:95
+#: pyanaconda/image.py:97 pyanaconda/kickstart.py:1513
+#: pyanaconda/kickstart.py:1552 pyanaconda/packages.py:95
 #: pyanaconda/upgrade.py:58 pyanaconda/upgrade.py:105
 #: pyanaconda/yuminstall.py:1339 pyanaconda/yuminstall.py:1524
 #: pyanaconda/iw/partition_gui.py:1630 pyanaconda/storage/__init__.py:2327
@@ -702,49 +702,49 @@ msgid ""
 "%s"
 msgstr ""
 
-#: pyanaconda/kickstart.py:1458 pyanaconda/livecd.py:196
+#: pyanaconda/kickstart.py:1457 pyanaconda/livecd.py:196
 msgid "Post-Installation"
 msgstr ""
 
-#: pyanaconda/kickstart.py:1459
+#: pyanaconda/kickstart.py:1458
 msgid "Running post-installation scripts"
 msgstr ""
 
-#: pyanaconda/kickstart.py:1474
+#: pyanaconda/kickstart.py:1473
 msgid "Running pre-installation scripts"
 msgstr ""
 
-#: pyanaconda/kickstart.py:1505
+#: pyanaconda/kickstart.py:1504
 msgid "Missing Package"
 msgstr ""
 
-#: pyanaconda/kickstart.py:1506
+#: pyanaconda/kickstart.py:1505
 #, python-format
 msgid ""
 "You have specified that the package '%s' should be installed.  This package "
 "does not exist. Would you like to continue or abort this installation?"
 msgstr ""
 
-#: pyanaconda/kickstart.py:1512 pyanaconda/kickstart.py:1551
+#: pyanaconda/kickstart.py:1511 pyanaconda/kickstart.py:1550
 msgid "_Abort"
 msgstr ""
 
-#: pyanaconda/kickstart.py:1513 pyanaconda/kickstart.py:1552
+#: pyanaconda/kickstart.py:1512 pyanaconda/kickstart.py:1551
 msgid "_Ignore All"
 msgstr ""
 
-#: pyanaconda/kickstart.py:1543
+#: pyanaconda/kickstart.py:1542
 msgid "Missing Group"
 msgstr ""
 
-#: pyanaconda/kickstart.py:1544
+#: pyanaconda/kickstart.py:1543
 #, python-format
 msgid ""
 "You have specified that the group '%s' should be installed. This group does "
 "not exist. Would you like to continue or abort this installation?"
 msgstr ""
 
-#: pyanaconda/kickstart.py:1636
+#: pyanaconda/kickstart.py:1635
 #, python-format
 msgid ""
 "The kickstart configuration file is missing required information that "
@@ -2378,7 +2378,7 @@ msgstr ""
 msgid "Language Selection"
 msgstr ""
 
-#: pyanaconda/iw/language_gui.py:82 pyanaconda/textw/language_text.py:46
+#: pyanaconda/iw/language_gui.py:81 pyanaconda/textw/language_text.py:46
 msgid "What language would you like to use during the installation process?"
 msgstr ""
 
