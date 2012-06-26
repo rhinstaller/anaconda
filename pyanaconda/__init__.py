@@ -185,9 +185,9 @@ class Anaconda(object):
     def protected(self):
         import stat
 
-        if os.path.exists("/dev/live") and \
-           stat.S_ISBLK(os.stat("/dev/live")[stat.ST_MODE]):
-            return [os.readlink("/dev/live")]
+        if os.path.exists("/run/initramfs/livedev") and \
+           stat.S_ISBLK(os.stat("/run/initramfs/livedev")[stat.ST_MODE]):
+            return [os.readlink("/run/initramfs/livedev")]
         elif self.methodstr and self.methodstr.startswith("hd:"):
             method = self.methodstr[3:]
             return [method.split(":", 3)[0]]
