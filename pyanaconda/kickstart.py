@@ -224,7 +224,7 @@ def removeExistingFormat(device, storage):
 ### SUBCLASSES OF PYKICKSTART COMMAND HANDLERS
 ###
 
-class AutoPart(commands.autopart.F16_AutoPart):
+class AutoPart(commands.autopart.F17_AutoPart):
     def execute(self, storage, ksdata, instClass):
         from pyanaconda.platform import getPlatform
         from pyanaconda.storage.partitioning import doAutoPartition
