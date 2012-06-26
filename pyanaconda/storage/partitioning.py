@@ -282,7 +282,7 @@ def scheduleShrinkActions(storage):
 def doAutoPartition(storage, data):
     log.debug("doAutoPart: %s" % storage.doAutoPart)
     log.debug("encryptedAutoPart: %s" % storage.encryptedAutoPart)
-    log.debug("lvmAutoPart: %s" % storage.lvmAutoPart)
+    log.debug("autoPartType: %s" % storage.autoPartType)
     log.debug("clearPartType: %s" % storage.config.clearPartType)
     log.debug("clearPartDisks: %s" % storage.config.clearPartDisks)
     log.debug("autoPartitionRequests:\n%s" % "".join([str(p) for p in storage.autoPartitionRequests]))
