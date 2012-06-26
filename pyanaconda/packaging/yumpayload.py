@@ -299,8 +299,6 @@ reposdir=%s
     def preStorage(self):
         self.release()
         self._yum.close()
-        if os.path.ismount(INSTALL_TREE):
-            isys.umount(INSTALL_TREE, removeDir=False)
 
     ###
     ### METHODS FOR WORKING WITH REPOSITORIES
