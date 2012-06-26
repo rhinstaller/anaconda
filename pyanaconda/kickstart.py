@@ -107,15 +107,16 @@ class AnacondaKSScript(Script):
         if rc != 0:
             log.error("Error code %s running the kickstart script at line %s" % (rc, self.lineno))
 
-            try:
-                f = open(messages, "r")
-            except IOError as e:
-                err = None
-            else:
-                err = f.readlines()
-                f.close()
-                for l in err:
-                    log.error("\t%s" % l)
+            if os.path.isfile(messages):
+                try:
+                    f = open(messages, "r")
+                except IOError as e:
+                    err = None
+                else:
+                    err = f.readlines()
+                    f.close()
+                    for l in err:
+                        log.error("\t%s" % l)
 
             if self.errorOnFail:
                 errorHandler.cb(ScriptError(), self.lineno, err)
