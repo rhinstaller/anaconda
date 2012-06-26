@@ -509,7 +509,6 @@ class Storage(object):
         if self.bootloader:
             # clear out bootloader attributes that refer to devices that are
             # no longer in the tree
-            self.updateBootLoaderDiskList()
             self.bootloader.stage1_disk = None
             self.bootloader.stage1_device = None
             self.bootloader.stage2_device = None
@@ -517,6 +516,22 @@ class Storage(object):
         self.roots = findExistingInstallations(self.devicetree)
 
         self.dumpState("initial")
+
+        # if zerombr is set, go ahead and slap a disklabel on any disk that
+        # doesn't have (recognizeable) formatting
+        if self.config.zeroMbr:
+            for disk in self.disks:
+                if disk.format.type is None:
+                    log.info("zerombr: initializing %s" % disk.name)
+
+                    labelType = storage.platform.bestDiskLabelType(disk)
+                    newLabel = getFormat("disklabel", device=disk.path,
+                                         labelType=labelType)
+                    create_action = ActionCreateFormat(disk, format=newLabel)
+                    storage.devicetree.registerAction(create_action)
+
+        # we may have added candidate boot disks just above by initializing
+        self.updateBootLoaderDiskList()
 
     @property
     def unusedDevices(self):

@@ -455,28 +455,6 @@ def clearPartitions(storage):
         recursiveRemove(storage, part)
         log.debug("partitions: %s" % [p.getDeviceNodeName() for p in part.partedPartition.disk.partitions])
 
-    # now clear devices that are not partitions and were not implicitly cleared
-    # when clearing partitions
-    not_visited = [d for d in storage.devices if not d.partitioned]
-    while not_visited:
-        for device in [d for d in not_visited if d.isleaf]:
-            not_visited.remove(device)
-
-            if not shouldClear(device, storage.config.clearPartType, storage.config.clearPartDisks, storage.config.clearPartDevices):
-                continue
-
-            recursiveRemove(storage, device)
-
-            # put disklabels on unpartitioned disks
-            if device.isDisk and not d.partitioned:
-                labelType = storage.platform.bestDiskLabelType(disk)
-                newLabel = getFormat("disklabel", device=disk.path,
-                                     labelType=labelType)
-                create_action = ActionCreateFormat(disk, format=newLabel)
-                storage.devicetree.registerAction(create_action)
-
-        not_visited = [d for d in storage.devices if d in not_visited]
-
     # now remove any empty extended partitions
     removeEmptyExtendedPartitions(storage)
 
