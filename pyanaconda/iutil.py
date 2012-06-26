@@ -138,6 +138,8 @@ def execWithRedirect(command, argv, stdin = None, stdout = None,
     pstdout, pstdin = os.pipe()
     perrout, perrin = os.pipe()
 
+    env = augmentEnv()
+
     for var in env_prune:
         if env.has_key(var):
             del env[var]
@@ -155,7 +157,7 @@ def execWithRedirect(command, argv, stdin = None, stdout = None,
                                 stdout=pstdin,
                                 stderr=perrin,
                                 preexec_fn=chroot, cwd=root,
-                                env=augmentEnv())
+                                env=env)
 
         proc.wait()
         ret = proc.returncode
