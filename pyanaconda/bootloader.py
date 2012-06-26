@@ -778,7 +778,7 @@ class BootLoader(object):
         dracut_devices.extend(storage.fsset.swapDevices)
 
         # Does /usr have its own device? If so, we need to tell dracut
-        usr_device = self.storage.mountpoints.get("/usr")
+        usr_device = storage.mountpoints.get("/usr")
         if usr_device:
             dracut_devices.extend([usr_device])
 
