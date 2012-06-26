@@ -1021,8 +1021,11 @@ class Storage(object):
             # set up the volume label, using hostname if necessary
             if not name:
                 hostname = ""
-                if hasattr(self.anaconda, "network"):
-                    hostname = self.anaconda.network.hostname
+                if self.data:
+                    for nd in self.data.network.dataList():
+                        if nd.hostname:
+                            hostname = nd.hostname
+                            break
 
                 name = self.suggestContainerName(prefix="btrfs",
                                                  hostname=hostname)

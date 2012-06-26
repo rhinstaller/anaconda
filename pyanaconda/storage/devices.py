@@ -3909,9 +3909,6 @@ class BTRFSDevice(StorageDevice):
         self.sysfsPath = self.parents[0].sysfsPath
         log.debug("%s sysfsPath set to %s" % (self.name, self.sysfsPath))
 
-    def _statusWindow(self, intf=None, title="", msg=""):
-        return self._progressWindow(intf=intf, title=title, msg=msg)
-
     def _postCreate(self):
         super(BTRFSDevice, self)._postCreate()
         self.format.exists = True
@@ -4066,24 +4063,23 @@ class BTRFSVolumeDevice(BTRFSDevice):
 
         return subvols
 
-    def createSubVolumes(self, intf=None):
+    def createSubVolumes(self):
         self._do_temp_mount()
         for name, subvol in self.subvolumes:
             if subvol.exists:
                 continue
-            subvolume.create(mountpoint=self._temp_dir_prefix, intf=intf)
+            subvolume.create(mountpoint=self._temp_dir_prefix)
         self._undo_temp_mount()
 
     def removeSubVolume(self, name):
         raise NotImplementedError()
 
-    def _create(self, w):
+    def _create(self):
         log_method_call(self, self.name, status=self.status)
         btrfs.create_volume(devices=[d.path for d in self.parents],
                             label=self.format.label,
                             data=self.dataLevel,
-                            metadata=self.metaDataLevel,
-                            progress=w)
+                            metadata=self.metaDataLevel)
 
     def _destroy(self):
         log_method_call(self, self.name, status=self.status)
@@ -4110,14 +4106,14 @@ class BTRFSSubVolumeDevice(BTRFSDevice):
         log_method_call(self, name=self.name, orig=orig, kids=self.kids)
         self.volume.setup(orig=orig)
 
-    def _create(self, w):
+    def _create(self):
         log_method_call(self, self.name, status=self.status)
         self.volume._do_temp_mount()
         mountpoint = self.volume.format._mountpoint
         if not mountpoint:
             raise RuntimeError("btrfs subvol create requires mounted volume")
 
-        btrfs.create_subvolume(mountpoint, self.name, progress=w)
+        btrfs.create_subvolume(mountpoint, self.name)
         self.volume._undo_temp_mount()
 
     def _destroy(self):

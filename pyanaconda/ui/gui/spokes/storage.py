@@ -257,7 +257,7 @@ class StorageSpoke(NormalSpoke):
         self.data.autopart.autopart = self.autopart
 
         # no thanks, lvm
-        self.data.autopart.lvm = False
+        self.data.autopart.type = AUTOPART_TYPE_PLAIN
 
         if self.autopart:
             self.clearPartType = CLEARPART_TYPE_ALL

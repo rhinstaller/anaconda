@@ -980,8 +980,8 @@ class GRUB(BootLoader):
 
     packages = ["grub"]
 
-    def __init__(self, storage):
-        super(GRUB, self).__init__(storage)
+    def __init__(self, platform=None):
+        super(GRUB, self).__init__(platform=platform)
         self.encrypted_password = ""
 
     #
@@ -1357,8 +1357,8 @@ class GRUB2(GRUB):
     stage2_raid_levels = [mdraid.RAID0, mdraid.RAID1, mdraid.RAID4,
                           mdraid.RAID5, mdraid.RAID6, mdraid.RAID10]
 
-    def __init__(self, storage):
-        super(GRUB2, self).__init__(storage)
+    def __init__(self, platform=None):
+        super(GRUB2, self).__init__(platform=platform)
         self.boot_args.add("$([ -x /usr/sbin/rhcrashkernel-param ] && "\
                            "/usr/sbin/rhcrashkernel-param || :)")
 
@@ -1708,9 +1708,6 @@ class Yaboot(YabootSILOBase):
     stage2_device_types = ["partition", "mdarray"]
     stage2_device_raid_levels = [mdraid.RAID1]
 
-    def __init__(self, storage):
-        BootLoader.__init__(self, storage)
-
     #
     # configuration
     #
@@ -2000,20 +1997,6 @@ class ZIPL(BootLoader):
         buf = iutil.execWithCapture("zipl", [],
                                     stderr="/dev/tty5",
                                     root=ROOT_PATH)
-        for line in buf.splitlines():
-            if line.startswith("Preparing boot device: "):
-                # Output here may look like:
-                #     Preparing boot device: dasdb (0200).
-                #     Preparing boot device: dasdl.
-                # We want to extract the device name and pass that.
-                name = re.sub(".+?: ", "", line)
-                name = re.sub("(\s\(.+\))?\.$", "", name)
-                device = self.storage.devicetree.getDeviceByName(name)
-                if not device:
-                    raise BootLoaderError("could not find IPL device")
-
-                self.stage1_device = device
-
 
 class SILO(YabootSILOBase):
     name = "SILO"
