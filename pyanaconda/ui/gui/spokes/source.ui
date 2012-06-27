@@ -915,6 +915,7 @@ TeXlive 2012 repository</col>
                     <property name="no_show_all">True</property>
                     <property name="margin_left">24</property>
                     <property name="spacing">6</property>
+                    <property name="sensitive">False</property>
                     <child>
                       <object class="GtkScrolledWindow" id="autodetectWindow">
                         <property name="visible">True</property>
@@ -983,6 +984,7 @@ TeXlive 2012 repository</col>
                     <property name="xalign">0</property>
                     <property name="active">True</property>
                     <property name="draw_indicator">True</property>
+                    <property name="group">isoRadioButton</property>
                   </object>
                   <packing>
                     <property name="expand">False</property>
@@ -996,6 +998,7 @@ TeXlive 2012 repository</col>
                     <property name="no_show_all">True</property>
                     <property name="margin_left">24</property>
                     <property name="spacing">6</property>
+                    <property name="sensitive">False</property>
                     <child>
                       <object class="GtkLabel" id="label6">
                         <property name="visible">True</property>
@@ -1096,6 +1099,7 @@ TeXlive 2012 repository</col>
                     <property name="margin_left">24</property>
                     <property name="orientation">vertical</property>
                     <property name="spacing">6</property>
+                    <property name="sensitive">False</property>
                     <child>
                       <object class="GtkBox" id="urlBox">
                         <property name="visible">True</property>
