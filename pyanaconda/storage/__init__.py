@@ -525,12 +525,7 @@ class Storage(object):
             for disk in self.disks:
                 if disk.format.type is None:
                     log.info("zerombr: initializing %s" % disk.name)
-
-                    labelType = storage.platform.bestDiskLabelType(disk)
-                    newLabel = getFormat("disklabel", device=disk.path,
-                                         labelType=labelType)
-                    create_action = ActionCreateFormat(disk, format=newLabel)
-                    storage.devicetree.registerAction(create_action)
+                    self.reinitializeDisk(disk)
 
         # we may have added candidate boot disks just above by initializing
         self.updateBootLoaderDiskList()
@@ -891,6 +886,18 @@ class Storage(object):
             if disk.format.labelType == self.platform.bestDiskLabelType(disk):
                 continue
 
+            self.reinitializeDisk(disk)
+
+        self.updateBootLoaderDiskList()
+
+    def reinitializeDisk(self, disk):
+        """ (Re)initialize a disk by creating a disklabel on it.
+
+            The disk should not contain any partitions except perhaps for a
+            magic partitions on mac and sun disklabels.
+        """
+        # first, remove magic mac/sun partitions from the parted Disk
+        if disk.partitioned:
             magic_partitions = {"mac": 1, "sun": 3}
             if disk.format.labelType in magic_partitions:
                 number = magic_partitions[disk.format.labelType]
@@ -903,14 +910,23 @@ class Storage(object):
                         # disk. Still, we need it out of the devicetree.
                         self.devicetree._removeDevice(part, moddisk=False)
 
-            destroy_action = ActionDestroyFormat(disk)
-            newLabel = getFormat("disklabel", device=disk.path,
-                                 labelType=nativeLabelType)
-            create_action = ActionCreateFormat(disk, format=newLabel)
-            self.devicetree.registerAction(destroy_action)
-            self.devicetree.registerAction(create_action)
+        if disk.partitioned and disk.format.partitions:
+            raise ValueError("cannot reinitialize a disk that has partitions")
 
-        self.updateBootLoaderDiskList()
+        # remove existing formatting from the disk
+        destroy_action = ActionDestroyFormat(disk)
+        self.devicetree.registerAction(destroy_action)
+
+        if self.platform:
+            labelType = self.platform.bestDiskLabelType(disk)
+        else:
+            labelType = None
+
+        # create a new disklabel on the disk
+        newLabel = getFormat("disklabel", device=disk.path,
+                             labelType=labelType)
+        create_action = ActionCreateFormat(disk, format=newLabel)
+        self.devicetree.registerAction(create_action)
 
     def removeEmptyExtendedPartitions(self):
         for disk in self.partitioned:
