@@ -177,13 +177,27 @@ class AnacondaCallback:
             while self.openfile is None:
                 trynumber += 1
                 try:
-                    fn = repo.getPackage(po)
+                    # checkfunc gets passed to yum's use of URLGrabber which
+                    # then calls it with the file being fetched. verifyPkg
+                    # makes sure the checksum matches the one in the metadata.
+                    #
+                    # From the URLGrab documents:
+                    # checkfunc=(function, ('arg1', 2), {'kwarg': 3})
+                    # results in a callback like:
+                    #   function(obj, 'arg1', 2, kwarg=3)
+                    #     obj.filename = '/tmp/stuff'
+                    #     obj.url = 'http://foo.com/stuff'
+                    checkfunc = (self.ayum.verifyPkg, (po, 1), {})
+                    fn = repo.getPackage(po, checkfunc=checkfunc)
 
                     f = open(fn, 'r')
                     self.openfile = f
                 except yum.Errors.NoMoreMirrorsRepoError:
                     self.ayum._handleFailure(po, trynumber)
                 except IOError:
+                    self.ayum._handleFailure(po, trynumber)
+                except URLGrabError as e:
+                    log.error("URLGrabError: %s" % (e,))
                     self.ayum._handleFailure(po, trynumber)
                 except yum.Errors.RepoError, e:
                     continue
