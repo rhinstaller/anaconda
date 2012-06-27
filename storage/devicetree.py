@@ -971,6 +971,20 @@ class DeviceTree(object):
         if name.startswith("loop") or name.startswith("ram"):
             return True
 
+        # Ignore any readonly disks
+        if (udev_device_is_disk(info) and not
+            (udev_device_is_cdrom(info) or
+             udev_device_is_partition(info) or
+             udev_device_is_dm_partition(info) or
+             udev_device_is_dm_lvm(info) or
+             udev_device_is_dm_crypt(info) or
+             (udev_device_is_md(info) and not
+              udev_device_get_md_container(info)))):
+            if iutil.get_sysfs_attr(info["sysfs_path"], 'ro') == '1':
+                log.debug("Ignoring read only device %s" % name)
+                self.addIgnoredDisk(name)
+                return True
+
         # FIXME: check for virtual devices whose slaves are on the ignore list
 
     def addUdevDMDevice(self, info):
