@@ -24,7 +24,6 @@ from storage.devices import LUKSDevice
 from storage.devicelibs.lvm import getPossiblePhysicalExtents
 from storage.devicelibs.mpath import MultipathConfigWriter, MultipathTopology
 from storage.formats import getFormat
-from storage.partitioning import clearPartitions
 import storage.iscsi
 import storage.fcoe
 import storage.zfcp
@@ -415,7 +414,7 @@ class ClearPart(commands.clearpart.F17_ClearPart):
         if self.initAll:
             storage.config.reinitializeDisks = self.initAll
 
-        clearPartitions(storage)
+        storage.clearPartitions()
 
 class Fcoe(commands.fcoe.F13_Fcoe):
     def parse(self, args):

@@ -296,7 +296,7 @@ def doAutoPartition(storage, data):
 
     if storage.doAutoPart:
         scheduleShrinkActions(storage)
-        clearPartitions(storage)
+        storage.clearPartitions()
 
         disks = _getCandidateDisks(storage)
         devs = _scheduleImplicitPartitions(storage, disks)
@@ -340,127 +340,6 @@ def doAutoPartition(storage, data):
         if errorHandler.cb(exn) == ERROR_RAISE:
             storage.reset()
             raise exn
-
-def recursiveRemove(storage, device):
-    log.debug("clearing %s" % device.name)
-
-    # XXX is there any argument for not removing incomplete devices?
-    #       -- maybe some RAID devices
-    devices = storage.deviceDeps(device)
-    while devices:
-        log.debug("devices to remove: %s" % ([d.name for d in devices],))
-        leaves = [d for d in devices if d.isleaf]
-        log.debug("leaves to remove: %s" % ([d.name for d in leaves],))
-        for leaf in leaves:
-            storage.destroyDevice(leaf)
-            devices.remove(leaf)
-
-    if device.isDisk:
-        storage.destroyFormat(device)
-    else:
-        storage.destroyDevice(device)
-
-def clearPartitions(storage):
-    """ Clear partitions and dependent devices from disks.
-
-        Arguments:
-
-            storage -- a storage.Storage instance
-
-        Keyword arguments:
-
-            None
-
-        NOTES:
-
-            - Needs some error handling, especially for the parted bits.
-
-    """
-    if storage.config.clearPartType in (None, CLEARPART_TYPE_NONE):
-        # not much to do
-        return
-
-    if not hasattr(storage.platform, "diskLabelTypes"):
-        raise StorageError("can't clear partitions without platform data")
-
-    # we are only interested in partitions that physically exist
-    partitions = [p for p in storage.partitions if p.exists]
-    # Sort partitions by descending partition number to minimize confusing
-    # things like multiple "destroy sda5" actions due to parted renumbering
-    # partitions. This can still happen through the UI but it makes sense to
-    # avoid it where possible.
-    partitions.sort(key=lambda p: p.partedPartition.number, reverse=True)
-    for part in partitions:
-        log.debug("clearpart: looking at %s" % part.name)
-        if not storage.shouldClear(part):
-            continue
-
-        recursiveRemove(storage, part)
-        log.debug("partitions: %s" % [p.getDeviceNodeName() for p in part.partedPartition.disk.partitions])
-
-    # now remove any empty extended partitions
-    removeEmptyExtendedPartitions(storage)
-
-    # make sure that the the boot device has the correct disklabel type if
-    # we're going to completely clear it.
-    # also handles clearpart --initlabel
-    boot_disk = storage.bootDisk
-    for disk in storage.partitioned:
-        if not boot_disk and not storage.config.reinitializeDisks:
-            break
-
-        if not storage.config.reinitializeDisks and \
-           (boot_disk is not None and disk != boot_disk):
-            continue
-
-        if storage.config.clearPartType != CLEARPART_TYPE_ALL or \
-           (storage.config.clearPartDisks and
-            disk.name not in storage.config.clearPartDisks):
-            continue
-
-        # don't reinitialize the disklabel if the disk contains install media
-        # or pvs from inconsistent vgs
-        if filter(lambda p: p.dependsOn(disk), storage.protectedDevices):
-            continue
-
-        nativeLabelType = storage.platform.bestDiskLabelType(disk)
-        if disk.format.labelType == nativeLabelType:
-            continue
-
-        magic_partitions = {"mac": 1, "sun": 3}
-        if disk.format.labelType in magic_partitions:
-            number = magic_partitions[disk.format.labelType]
-            # remove the magic partition
-            for part in storage.partitions:
-                if part.disk == disk and part.partedPartition.number == number:
-                    log.debug("clearing %s" % part.name)
-                    # We can't schedule the magic partition for removal
-                    # because parted will not allow us to remove it from the
-                    # disk. Still, we need it out of the devicetree.
-                    storage.devicetree._removeDevice(part, moddisk=False)
-
-        destroy_action = ActionDestroyFormat(disk)
-        newLabel = getFormat("disklabel", device=disk.path,
-                             labelType=nativeLabelType)
-        create_action = ActionCreateFormat(disk, format=newLabel)
-        storage.devicetree.registerAction(destroy_action)
-        storage.devicetree.registerAction(create_action)
-
-    if storage.bootloader:
-        storage.updateBootLoaderDiskList()
-
-def removeEmptyExtendedPartitions(storage):
-    for disk in storage.partitioned:
-        log.debug("checking whether disk %s has an empty extended" % disk.name)
-        extended = disk.format.extendedPartition
-        logical_parts = disk.format.logicalPartitions
-        log.debug("extended is %s ; logicals is %s" % (extended, [p.getDeviceNodeName() for p in logical_parts]))
-        if extended and not logical_parts:
-            log.debug("removing empty extended partition from %s" % disk.name)
-            extended_name = devicePathToName(extended.getDeviceNodeName())
-            extended = storage.devicetree.getDeviceByName(extended_name)
-            storage.destroyDevice(extended)
-            #disk.partedDisk.removePartition(extended.partedPartition)
 
 def partitionCompare(part1, part2):
     """ More specifically defined partitions come first.
