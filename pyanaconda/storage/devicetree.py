@@ -1101,26 +1101,6 @@ class DeviceTree(object):
                 pass
             return
 
-        # if the disk contains protected partitions we will not wipe the
-        # disklabel even if clearpart --initlabel was specified
-        if not self.clearPartDisks or device.name in self.clearPartDisks:
-            initlabel = self.reinitializeDisks
-            sysfs_path = udev_device_get_sysfs_path(info)
-            for protected in self.protectedDevNames:
-                # check for protected partition
-                _p = "/sys/%s/%s" % (sysfs_path, protected)
-                if os.path.exists(os.path.normpath(_p)):
-                    initlabel = False
-                    break
-
-                # check for protected partition on a device-mapper disk
-                disk_name = re.sub(r'p\d+$', '', protected)
-                if disk_name != protected and disk_name == device.name:
-                    initlabel = False
-                    break
-        else:
-            initlabel = False
-
         # we're going to pass the "best" disklabel type into the DiskLabel
         # constructor, but it only has meaning for non-existent disklabels.
         labelType = self.platform.bestDiskLabelType(device)
@@ -1133,25 +1113,6 @@ class DeviceTree(object):
         except InvalidDiskLabelError:
             log.info("no usable disklabel on %s" % device.name)
             return
-
-        if not format.exists:
-            # if we just initialized a disklabel we should schedule
-            # actions for destruction of the previous format and creation
-            # of the new one
-            self.registerAction(ActionDestroyFormat(device))
-            self.registerAction(ActionCreateFormat(device, format))
-
-            # If this is a mac-formatted disk we just initialized, make
-            # sure the partition table partition gets added to the device
-            # tree.
-            if device.format.partedDisk.type == "mac" and \
-               len(device.format.partitions) == 1:
-                name = device.format.partitions[0].getDeviceNodeName()
-                if not self.getDeviceByName(name):
-                    partDevice = PartitionDevice(name, exists=True,
-                                                 parents=[device])
-                    self._addDevice(partDevice)
-
         else:
             device.format = format
 
