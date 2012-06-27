@@ -1,6 +1,6 @@
 Name: anaconda
-Version: 11.1.2.251
-Release: 2
+Version: 11.1.2.252
+Release: 1
 License: GPL
 Summary: Graphical system installer
 Group: Applications/System
@@ -128,6 +128,12 @@ fi
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Jun 27 2012 Martin Gracik <mgracik@redhat.com> 11.1.2.252-1
+- Add gfs support (vpodzime)
+  Resolves: rhbz#754213
+- Fix handling of invalid bios disks (jkeating)
+  Resolves: rhbz#819721
+
 * Mon Jun 18 2012 Martin Gracik <mgracik@redhat.com> 11.1.2.251-2
 - Change limit for ext[34] to 16T and use mkfs.ext3 when formating ext3 (vpodzime)
   Resolves: rhbz#769287
