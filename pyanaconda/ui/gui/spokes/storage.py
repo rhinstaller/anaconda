@@ -48,7 +48,6 @@ from pyanaconda.ui.gui.categories.storage import StorageCategory
 from pyanaconda.ui.gui.utils import enlightbox, gdk_threaded
 
 from pyanaconda.storage.size import Size
-from pyanaconda.storage.partitioning import shouldClear
 from pyanaconda.product import productName
 from pyanaconda.flags import flags
 

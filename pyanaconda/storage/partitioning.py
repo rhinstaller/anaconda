@@ -341,63 +341,6 @@ def doAutoPartition(storage, data):
             storage.reset()
             raise exn
 
-def shouldClear(device, clearPartType, clearPartDisks=None, clearPartDevices=None):
-    if clearPartType in [CLEARPART_TYPE_NONE, None]:
-        return False
-    if not clearPartDisks:
-        clearPartDisks = []
-    if not clearPartDevices:
-        clearPartDevices = []
-
-    if isinstance(device, PartitionDevice):
-        # Never clear the special first partition on a Mac disk label, as that
-        # holds the partition table itself.
-        # Something similar for the third partition on a Sun disklabel.
-        if device.disk.format.partedDisk.type == "mac" and \
-           device.partedPartition.number == 1:
-            return False
-        elif device.disk.format.labelType == "sun" and \
-             device.partedPartition.number == 3:
-            return False
-
-        # If we got a list of disks to clear, make sure this one's on it
-        if device.disk.name not in clearPartDisks:
-            return False
-
-        # We don't want to fool with extended partitions, freespace, &c
-        if device.partType not in [parted.PARTITION_NORMAL,
-                                   parted.PARTITION_LOGICAL]:
-            return False
-
-        if clearPartType == CLEARPART_TYPE_LINUX and \
-           not device.format.linuxNative and \
-           not device.getFlag(parted.PARTITION_LVM) and \
-           not device.getFlag(parted.PARTITION_RAID) and \
-           not device.getFlag(parted.PARTITION_SWAP):
-            return False
-    elif device.isDisk and not device.partitioned:
-        # If we got a list of disks to clear, make sure this one's on it
-        if device.name not in clearPartDisks:
-            return False
-
-        # Never clear disks with hidden formats
-        if device.format.hidden:
-            return False
-
-        if clearPartType == CLEARPART_TYPE_LINUX and \
-           not device.format.linuxNative:
-            return False
-
-    # Don't clear devices holding install media.
-    if device.protected:
-        return False
-
-    if clearPartType == CLEARPART_TYPE_LIST and \
-       not clearPartDevices or device.name not in clearPartDevices:
-        return False
-
-    return True
-
 def recursiveRemove(storage, device):
     log.debug("clearing %s" % device.name)
 
@@ -449,7 +392,7 @@ def clearPartitions(storage):
     partitions.sort(key=lambda p: p.partedPartition.number, reverse=True)
     for part in partitions:
         log.debug("clearpart: looking at %s" % part.name)
-        if not shouldClear(part, storage.config.clearPartType, storage.config.clearPartDisks, storage.config.clearPartDevices):
+        if not storage.shouldClear(part):
             continue
 
         recursiveRemove(storage, part)
@@ -460,6 +403,7 @@ def clearPartitions(storage):
 
     # make sure that the the boot device has the correct disklabel type if
     # we're going to completely clear it.
+    # also handles clearpart --initlabel
     boot_disk = storage.bootDisk
     for disk in storage.partitioned:
         if not boot_disk and not storage.config.reinitializeDisks:

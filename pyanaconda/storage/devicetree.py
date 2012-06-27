@@ -30,7 +30,6 @@ import pprint
 from errors import *
 from devices import *
 from deviceaction import *
-from partitioning import shouldClear
 from pykickstart.constants import *
 import formats
 import devicelibs.mdraid
@@ -155,11 +154,11 @@ class DeviceTree(object):
     """
 
     def __init__(self, conf=None, passphrase=None, luksDict=None,
-                 iscsi=None, dasd=None):
-        self.reset(conf, passphrase, luksDict, iscsi, dasd)
+                 iscsi=None, dasd=None, shouldClear=None):
+        self.reset(conf, passphrase, luksDict, iscsi, dasd, shouldClear)
 
     def reset(self, conf=None, passphrase=None, luksDict=None,
-              iscsi=None, dasd=None):
+              iscsi=None, dasd=None, shouldClear=None):
         # internal data members
         self._devices = []
         self._actions = []
@@ -171,11 +170,8 @@ class DeviceTree(object):
         self.populated = False
 
         self.exclusiveDisks = getattr(conf, "exclusiveDisks", [])
-        self.clearPartType = getattr(conf, "clearPartType", CLEARPART_TYPE_NONE)
-        self.clearPartDisks = getattr(conf, "clearPartDisks", [])
-        self.clearPartDevices = getattr(conf, "clearPartDevices", [])
         self.zeroMbr = getattr(conf, "zeroMbr", False)
-        self.reinitializeDisks = getattr(conf, "reinitializeDisks", False)
+        self.shouldClear = shouldClear or (lambda d: False)
         self.iscsi = iscsi
         self.dasd = dasd
         self.mpathFriendlyNames = getattr(conf, "mpathFriendlyNames", True)
@@ -1632,9 +1628,7 @@ class DeviceTree(object):
             device.format = formats.DeviceFormat()
             return
 
-        if shouldClear(device, self.clearPartType,
-                       clearPartDisks=self.clearPartDisks,
-                       clearPartDevices=self.clearPartDevices):
+        if self.shouldClear(device):
             # if this is a device that will be cleared by clearpart,
             # don't bother with format-specific processing
             return

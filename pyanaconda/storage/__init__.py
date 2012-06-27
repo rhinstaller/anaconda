@@ -394,7 +394,8 @@ class Storage(object):
                                      passphrase=self.encryptionPassphrase,
                                      luksDict=self.__luksDevs,
                                      iscsi=self.iscsi,
-                                     dasd=self.dasd)
+                                     dasd=self.dasd,
+                                     shouldClear=self.shouldClear)
         self.fsset = FSSet(self.devicetree)
         self.roots = {}
         self.services = set()
@@ -501,7 +502,8 @@ class Storage(object):
                               passphrase=self.encryptionPassphrase,
                               luksDict=self.__luksDevs,
                               iscsi=self.iscsi,
-                              dasd=self.dasd)
+                              dasd=self.dasd,
+                              shouldClear=self.shouldClear)
         self.devicetree.populate(cleanupOnly=cleanupOnly)
         self.config.clearPartType = clearPartType # set it back
         self.fsset = FSSet(self.devicetree)
@@ -750,6 +752,64 @@ class Storage(object):
         """ The OS image used by live installs. """
         return None
 
+    def shouldClear(self, device, **kwargs):
+        clearPartType = kwargs.get("clearPartType", self.config.clearPartType)
+        clearPartDisks = kwargs.get("clearPartDisks",
+                                    self.config.clearPartDisks)
+        clearPartDevices = kwargs.get("clearPartDevices",
+                                      self.config.clearPartDevices)
+
+        if clearPartType in [CLEARPART_TYPE_NONE, None]:
+            return False
+
+        if isinstance(device, PartitionDevice):
+            # Never clear the special first partition on a Mac disk label, as
+            # that holds the partition table itself.
+            # Something similar for the third partition on a Sun disklabel.
+            if device.disk.format.labelType == "mac" and \
+               device.partedPartition.number == 1:
+                return False
+            elif device.disk.format.labelType == "sun" and \
+                 device.partedPartition.number == 3:
+                return False
+
+            # If we got a list of disks to clear, make sure this one's on it
+            if clearPartDisks and device.disk.name not in clearPartDisks:
+                return False
+
+            # We don't want to fool with extended partitions, freespace, &c
+            if not device.isPrimary and not device.isLogical:
+                return False
+
+            if clearPartType == CLEARPART_TYPE_LINUX and \
+               not device.format.linuxNative and \
+               not device.getFlag(parted.PARTITION_LVM) and \
+               not device.getFlag(parted.PARTITION_RAID) and \
+               not device.getFlag(parted.PARTITION_SWAP):
+                return False
+        elif device.isDisk and not device.partitioned:
+            # If we got a list of disks to clear, make sure this one's on it
+            if clearPartDisks and device.name not in clearPartDisks:
+                return False
+
+            # Never clear disks with hidden formats
+            if device.format.hidden:
+                return False
+
+            if clearPartType == CLEARPART_TYPE_LINUX and \
+               not device.format.linuxNative:
+                return False
+
+        # Don't clear devices holding install media.
+        if device.protected:
+            return False
+
+        if clearPartType == CLEARPART_TYPE_LIST and \
+           device.name not in clearPartDevices:
+            return False
+
+        return True
+
     def getFreeSpace(self, disks=None, clearPartType=None):
         """ Return a dict with free space info for each disk.
 
@@ -761,7 +821,6 @@ class Storage(object):
             self.disks and a clearPartType value other than
             self.config.clearPartType.
         """
-        from partitioning import shouldClear
         from size import Size
         if disks is None:
             disks = self.disks
@@ -771,7 +830,8 @@ class Storage(object):
 
         free = {}
         for disk in disks:
-            should_clear = shouldClear(disk, clearPartType, [disk.name])
+            should_clear = self.shouldClear(disk, clearPartType=clearPartType,
+                                            clearPartDisks=[disk.name])
             if should_clear:
                 free[disk.name] = (Size(spec="%f mb" % disk.size), 0)
                 continue
@@ -784,8 +844,9 @@ class Storage(object):
                     # only check actual filesystems since lvm &c require a bunch of
                     # operations to translate free filesystem space into free disk
                     # space
-                    should_clear = shouldClear(partition, clearPartType,
-                                               [disk.name])
+                    should_clear = self.shouldClear(partition,
+                                                    clearPartType=clearPartType,
+                                                    clearPartDisks=[disk.name])
                     if should_clear:
                         disk_free += partition.size
                     elif hasattr(partition.format, "free"):

@@ -25,7 +25,6 @@ from storage.devicelibs.lvm import getPossiblePhysicalExtents
 from storage.devicelibs.mpath import MultipathConfigWriter, MultipathTopology
 from storage.formats import getFormat
 from storage.partitioning import clearPartitions
-from storage.partitioning import shouldClear
 import storage.iscsi
 import storage.fcoe
 import storage.zfcp
@@ -937,10 +936,7 @@ class PartitionData(commands.partition.F17_PartData):
                 if not disk.partitionable:
                     raise KickstartValueError, formatErrorMsg(self.lineno, msg="Cannot install to read-only media %s." % n)
 
-                should_clear = shouldClear(disk,
-                                           storage.config.clearPartType,
-                                           storage.config.clearPartDisks,
-                                           storage.config.clearPartDevices)
+                should_clear = storage.shouldClear(disk)
                 if disk and (disk.partitioned or should_clear):
                     kwargs["disks"] = [disk]
                     break
