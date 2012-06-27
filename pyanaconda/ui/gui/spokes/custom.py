@@ -48,7 +48,7 @@ from gi.repository import Gtk
 
 __all__ = ["CustomPartitioningSpoke"]
 
-new_install_name = = _("New %s %s Installation") % (productName, productVersion)
+new_install_name = _("New %s %s Installation") % (productName, productVersion)
 
 class AddDialog(UIObject):
     builderObjects = ["addDialog"]
@@ -474,8 +474,9 @@ class CustomPartitioningSpoke(NormalSpoke):
             self._remove_from_root(root, device)
             self._destroy_device(device)
 
-            # If the root is now empty, remove it.
-            if len(root.swaps + root.mounts.values()) == 0:
+            # If the root is now empty, remove it. Devices from the Unused page
+            # will have no root.
+            if root and len(root.swaps + root.mounts.values()) == 0:
                 self.storage.roots.remove(root)
 
             self._update_ui_for_removals()
@@ -538,6 +539,7 @@ class CustomPartitioningSpoke(NormalSpoke):
         self._current_selector = selector
 
         self._configButton.set_sensitive(True)
+        self._removeButton.set_sensitive(True)
 
     def on_page_clicked(self, page):
         # This is called when a Page header is clicked upon so we can support
