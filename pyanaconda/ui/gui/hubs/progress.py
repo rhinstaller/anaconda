@@ -174,3 +174,6 @@ class ProgressHub(Hub):
         with gdk_threaded():
             self._progressBar.set_fraction(1.0)
             self._progressLabel.set_text(_("Complete!"))
+
+            spinner = self.builder.get_object("progressSpinner")
+            spinner.stop()
