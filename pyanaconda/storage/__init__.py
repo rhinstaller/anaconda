@@ -883,7 +883,8 @@ class Storage(object):
             if filter(lambda p: p.dependsOn(disk), self.protectedDevices):
                 continue
 
-            if disk.format.labelType == self.platform.bestDiskLabelType(disk):
+            if not self.config.reinitializeDisks and \
+               disk.format.labelType == self.platform.bestDiskLabelType(disk):
                 continue
 
             self.reinitializeDisk(disk)
