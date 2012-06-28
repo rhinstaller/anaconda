@@ -80,23 +80,11 @@ class VncServer:
         # see if we can sniff out network info
         netinfo = network.Network()
 
-        devices = netinfo.netdevices
-        active_devs = network.getActiveNetDevs()
+        self.ip = netinfo.getFirstRealIP()
 
-        self.ip = None
-        if active_devs != []:
-            devname = devices[active_devs[0]].iface
-            try:
-                ips = (isys.getIPAddresses(devname, version=4) +
-                       isys.getIPAddresses(devname, version=6))
-            except Exception as e:
-                log.warning("Got an exception trying to get the self.ip addr "
-                            "of %s: %s" % (devname, e))
-            else:
-                if ips and ips[0] not in ("127.0.0.1", "::1"):
-                    log.info("IPs (using first) of device %s: %s" % (devname,
-                                                                     ips))
-                    self.ip = ips[0]
+        if not self.ip:
+            # Raise this here which will be caught higher up
+            raise Exception("No IP addresses found.")
 
         ipstr = self.ip
 
@@ -187,7 +175,11 @@ class VncServer:
         self.log.info(_("Starting VNC..."))
 
         # Lets call it from here for now.
-        self.initialize()
+        try:
+            self.initialize()
+        except Exception, e:
+            stdoutLog.critical("Could not initialize the VNC server: %s" % e)
+            sys.exit(1)
 
         if self.password and len(self.password) < 6:
             self.changeVNCPasswdWindow()
