@@ -170,54 +170,45 @@
                             <property name="hscrollbar_policy">never</property>
                             <property name="shadow_type">in</property>
                             <child>
-                              <object class="GtkViewport" id="viewport1">
+                              <object class="GtkTreeView" id="addonView">
                                 <property name="visible">True</property>
-                                <property name="can_focus">False</property>
+                                <property name="can_focus">True</property>
+                                <property name="margin_left">6</property>
+                                <property name="margin_right">6</property>
+                                <property name="margin_top">6</property>
+                                <property name="margin_bottom">6</property>
+                                <property name="model">addonStore</property>
+                                <property name="headers_visible">False</property>
+                                <property name="headers_clickable">False</property>
+                                <property name="search_column">0</property>
                                 <child>
-                                  <object class="GtkTreeView" id="addonView">
-                                    <property name="visible">True</property>
-                                    <property name="can_focus">True</property>
-                                    <property name="margin_left">6</property>
-                                    <property name="margin_right">6</property>
-                                    <property name="margin_top">6</property>
-                                    <property name="margin_bottom">6</property>
-                                    <property name="model">addonStore</property>
-                                    <property name="headers_visible">False</property>
-                                    <property name="headers_clickable">False</property>
-                                    <property name="search_column">0</property>
-                                    <child internal-child="selection">
-                                      <object class="GtkTreeSelection" id="treeview-selection"/>
-                                    </child>
+                                  <object class="GtkTreeViewColumn" id="addonSelectedCol">
+                                    <property name="title" translatable="yes">column</property>
+                                    <signal name="clicked" handler="on_row_toggled" swapped="no"/>
                                     <child>
-                                      <object class="GtkTreeViewColumn" id="addonSelectedCol">
-                                        <property name="title" translatable="yes">column</property>
-                                        <signal name="clicked" handler="on_row_toggled" swapped="no"/>
-                                        <child>
-                                          <object class="GtkCellRendererToggle" id="addonSelectedRenderer">
-                                            <property name="yalign">0</property>
-                                            <signal name="toggled" handler="on_row_toggled" swapped="no"/>
-                                          </object>
-                                          <attributes>
-                                            <attribute name="active">0</attribute>
-                                          </attributes>
-                                        </child>
+                                      <object class="GtkCellRendererToggle" id="addonSelectedRenderer">
+                                        <property name="yalign">0</property>
+                                        <signal name="toggled" handler="on_row_toggled" swapped="no"/>
                                       </object>
+                                      <attributes>
+                                        <attribute name="active">0</attribute>
+                                      </attributes>
                                     </child>
+                                  </object>
+                                </child>
+                                <child>
+                                  <object class="GtkTreeViewColumn" id="addonDescCol">
+                                    <property name="title" translatable="yes">column</property>
                                     <child>
-                                      <object class="GtkTreeViewColumn" id="addonDescCol">
-                                        <property name="title" translatable="yes">column</property>
-                                        <child>
-                                          <object class="GtkCellRendererText" id="addonDescRenderer">
-                                            <property name="width">250</property>
-                                            <property name="yalign">0</property>
-                                            <property name="wrap_mode">word-char</property>
-                                            <property name="wrap_width">200</property>
-                                          </object>
-                                          <attributes>
-                                            <attribute name="markup">1</attribute>
-                                          </attributes>
-                                        </child>
+                                      <object class="GtkCellRendererText" id="addonDescRenderer">
+                                        <property name="width">250</property>
+                                        <property name="yalign">0</property>
+                                        <property name="wrap_mode">word-char</property>
+                                        <property name="wrap_width">200</property>
                                       </object>
+                                      <attributes>
+                                        <attribute name="markup">1</attribute>
+                                      </attributes>
                                     </child>
                                   </object>
                                 </child>
