@@ -28,6 +28,7 @@ import os.path
 import errno
 import subprocess
 import threading
+import re
 
 from flags import flags
 from constants import *
@@ -1080,4 +1081,107 @@ def dracut_eject(device):
         log.info("Wrote dracut shutdown eject hook for %s" % (device,))
     except Exception, e:
         log.error("Error writing dracut shutdown eject hook for %s: %s" % (device, e))
+
+class ProxyStringError(Exception):
+    pass
+
+class ProxyString(object):
+    """ Handle a proxy url
+    """
+    def __init__(self, url=None, protocol="http://", host=None, port="3128",
+                 username=None, password=None):
+        """ Initialize with either url
+        ([protocol://][username[:password]@]host[:port]) or pass host and
+        optionally:
+
+        protocol    http, https, ftp
+        host        hostname without protocol
+        port        port number (defaults to 3128)
+        username    username
+        password    password
+
+        The str() of the object is the full proxy url
+
+        ProxyString.url is the full url including username:password@
+        ProxyString.noauth_url is the url without username:password@
+        """
+        self.url = url
+        self.protocol = protocol
+        self.host = host
+        self.port = str(port)
+        self.username = username
+        self.password = password
+        self.proxy_auth = ""
+        self.noauth_url = None
+
+        if url:
+            self.parse_url()
+        elif not host:
+            raise ProxyStringError("No host url")
+        else:
+            self.parse_components()
+
+    def parse_url(self):
+        """ Parse the proxy url into its component pieces
+        """
+        # NOTE: If this changes, update tests/regex/proxy.py
+        #
+        # proxy=[protocol://][username[:password]@]host[:port][path]
+        # groups
+        # 1 = protocol
+        # 2 = username:password@
+        # 3 = username
+        # 4 = password
+        # 5 = hostname
+        # 6 = port
+        # 7 = extra
+        pattern = re.compile("([A-Za-z]+://)?(([A-Za-z0-9]+)(:[^:@]+)?@)?([^:/]+)(:[0-9]+)?(/.*)?")
+        m = pattern.match(self.url)
+        if not m:
+            raise ProxyStringError("malformed url, cannot parse it.")
+
+        # If no protocol was given default to http.
+        if m.group(1):
+            self.protocol = m.group(1)
+        else:
+            self.protocol = "http://"
+
+        if m.group(3):
+            self.username = m.group(3)
+
+        if m.group(4):
+            # Skip the leading colon
+            self.password = m.group(4)[1:]
+
+        if m.group(5):
+            self.host = m.group(5)
+            if m.group(6):
+                # Skip the leading colon
+                self.port = m.group(6)[1:]
+        else:
+            raise ProxyStringError("url has no host component")
+
+        self.parse_components()
+
+    def parse_components(self):
+        """ Parse the components of a proxy url into url and noauth_url
+        """
+        if self.username or self.password:
+            self.proxy_auth = "%s:%s@" % (self.username or "",
+                                          self.password or "")
+
+        self.url = self.protocol + self.proxy_auth + self.host + ":" + self.port
+        self.noauth_url = self.protocol + self.host + ":" + self.port
+
+    @property
+    def dict(self):
+        """ return a dict of all the elements of the proxy string
+        url, noauth_url, protocol, host, port, username, password
+        """
+        components = ["url", "noauth_url", "protocol", "host", "port",
+                      "username", "password"]
+        return dict([(k, getattr(self, k)) for k in components]) 
+
+    def __str__(self):
+        return self.url
 

@@ -213,7 +213,6 @@ def parseOptions(argv=None, cmdline=None):
     op.add_option("--noipv4", action="store_true", default=False)
     op.add_option("--noipv6", action="store_true", default=False)
     op.add_option("--proxy")
-    op.add_option("--proxyAuth")
 
     # Method of operation
     op.add_option("--autostep", action="store_true", default=False)
@@ -776,15 +775,6 @@ if __name__ == "__main__":
     if opts.proxy:
         anaconda.proxy = opts.proxy
 
-        if opts.proxyAuth:
-            filename = opts.proxyAuth
-            ret = open(filename, "r").readlines()
-            os.unlink(filename)
-
-            anaconda.proxyUsername = ret[0].rstrip()
-            if len(ret) == 2:
-                anaconda.proxyPassword = ret[1].rstrip()
-
     if opts.updateSrc:
         anaconda.updateSrc = opts.updateSrc
 
@@ -868,6 +858,10 @@ if __name__ == "__main__":
     # scripts.  Add those to the ksdata now.
     kickstart.appendPostScripts(ksdata)
 
+    # cmdline flags override kickstart settings
+    ksdata.method.proxy = anaconda.proxy
+    ksdata.method.noverifyssl = flags.noverifyssl
+
     # set ksdata.method based on anaconda.method if it isn't already set
     if anaconda.methodstr and not ksdata.method.method:
         if anaconda.methodstr.startswith("cdrom"):
@@ -896,8 +890,6 @@ if __name__ == "__main__":
         elif anaconda.methodstr.startswith("http") or \
              anaconda.methodstr.startswith("ftp"):
             ksdata.method.method = "url"
-            ksdata.method.noverifyssl = flags.noverifyssl
-            ksdata.method.proxy = anaconda.proxy    # FIXME: username/password
             ksdata.method.url = anaconda.methodstr
 
     # setup keyboard layout from the command line option and let

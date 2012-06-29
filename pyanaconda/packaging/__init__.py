@@ -43,6 +43,7 @@ from pyanaconda.constants import *
 from pyanaconda.flags import flags
 
 from pyanaconda import iutil
+from pyanaconda.iutil import ProxyString, ProxyStringError
 
 from pykickstart.parser import Group
 
@@ -118,8 +119,9 @@ def get_mount_device(mountpoint):
 class Payload(object):
     """ Payload is an abstract class for OS install delivery methods. """
     def __init__(self, data):
+        """ data is a kickstart.AnacondaKSHandler class
+        """
         self.data = data
-        self.proxy = None
         self._kernelVersionList = []
 
     def setup(self, storage):
@@ -378,9 +380,14 @@ class Payload(object):
                                                                     version))
 
         proxies = {}
-        if self.proxy:
-            proxies = {"http": self.proxy,
-                       "https": self.proxy}
+        if self.data.method.proxy:
+            try:
+                proxy = ProxyString(self.data.method.proxy)
+                proxies = {"http": proxy.url,
+                           "https": proxy.url}
+            except ProxyStringError as e:
+                log.info("Failed to parse proxy for _getReleaseVersion %s: %s" \
+                         % (self.data.method.proxy, e))
 
         treeinfo = self._getTreeInfo(url, not flags.noverifyssl, proxies)
         if treeinfo:

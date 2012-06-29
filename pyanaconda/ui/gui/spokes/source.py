@@ -24,6 +24,9 @@ import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
 N_ = lambda x: x
 
+import logging
+log = logging.getLogger("anaconda")
+
 import os.path
 
 from gi.repository import AnacondaWidgets, GLib, Gtk
@@ -33,6 +36,7 @@ from pyanaconda.ui.gui import UIObject, communication
 from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.gui.categories.software import SoftwareCategory
 from pyanaconda.ui.gui.utils import enlightbox, gdk_threaded
+from pyanaconda.iutil import ProxyString, ProxyStringError
 
 __all__ = ["SourceSpoke"]
 
@@ -57,15 +61,23 @@ class ProxyDialog(UIObject):
             self.window.destroy()
             return
 
-        proxy = self._proxyURLEntry.get_text()
+        url = self._proxyURLEntry.get_text()
+        if self._authCheck.get_active():
+            username = self._proxyPasswordEntry.get_text()
+            password = self._proxyPasswordEntry.get_text()
+        else:
+            username = None
+            password = None
 
-        if self._authCheck.get_active() and self._proxyUsernameEntry.get_text():
-            if self._proxyPasswordEntry.get_text():
-                proxy = self._proxyUsernameEntry.get_text() + ":" + self._proxyPasswordEntry.get_text() + "@" + proxy
-            else:
-                proxy = self._proxyUsernameEntry.get_text() + "@" + proxy
+        try:
+            proxy = ProxyString(url=url, username=username, password=password)
+            self.data.method.proxy = proxy.url
+        except ProxyStringError as e:
+            log.error("Failed to parse proxy for ProxyDialog Add - %s:%s@%s: %s" \
+                      % (username, password, url, e))
+            # TODO - tell the user they entered an invalid proxy and let them retry
+            self.data.method.proxy = ""
 
-        self.data.method.proxy = proxy
         self.window.destroy()
 
     def on_proxy_enable_toggled(self, button, *args):
@@ -95,28 +107,19 @@ class ProxyDialog(UIObject):
             self.on_proxy_auth_toggled(self._authCheck)
             return
 
-        # proxy=[protocol://][username[:password]@]host[:port][path]
-        pattern = re.compile("([A-Za-z]+://)?(([A-Za-z0-9]+)(:[^:@]+)?@)?([^:/]+)(:[0-9]+)?(/.*)?")
-        m = pattern.match(self.data.method.proxy)
+        try:
+            proxy = ProxyString(self.data.method.proxy)
+            if proxy.username:
+                self._proxyUsernameEntry.set_text(proxy.username)
+            if proxy.password:
+                self._proxyPasswordEntry.set_text(proxy.password)
+            self._proxyURLEntry.set_text(proxy.noauth_url)
+        except ProxyStringError as e:
+            log.error("Failed to parse proxy for ProxyDialog.refresh %s: %s" % (self.data.method.proxy, e))
+            return
 
-        if m and m.group(3):
-            self._proxyUsernameEntry.set_text(m.group(3))
-        if m and m.group(4):
-            # Skip the leading colon.
-            self._proxyPasswordEntry.set_text(m.group(4)[1:])
-        if m and m.group(5):
-            # If both a host and port was found, just paste them
-            # together using the colon at the beginning of the port
-            # match as a separator.  Otherwise, just use the host.
-            if m.group(6):
-                proxy = m.group(5) + m.group(6)
-            else:
-                proxy = m.group(5)
-
-            self._proxyURLEntry.set_text(proxy)
-
-        self._proxyCheck.set_active(self.data.method.proxy != "")
-        self._authCheck.set_active("@" in self.data.method.proxy)
+        self._proxyCheck.set_active(True)
+        self._authCheck.set_active(bool(proxy.username or proxy.password))
         self.on_proxy_enable_toggled(self._proxyCheck)
         self.on_proxy_auth_toggled(self._authCheck)
 
@@ -816,5 +819,5 @@ class SourceSpoke(NormalSpoke):
 
         # Only allow the proxy button to be clicked if a proxy makes sense for
         # the currently selected protocol.
-        proxyButton.set_sensitive(self._http_active())
+        proxyButton.set_sensitive(self._http_active() or self._mirror_active())
         nfsOptsBox.set_visible(self._nfs_active())

@@ -61,6 +61,7 @@ from pyanaconda.constants import *
 from pyanaconda.flags import flags
 
 from pyanaconda import iutil
+from pyanaconda.iutil import ProxyString, ProxyStringError
 from pyanaconda import isys
 from pyanaconda.network import hasActiveNetDev
 
@@ -100,7 +101,6 @@ class YumPayload(PackagePayload):
         PackagePayload.__init__(self, data)
 
         self.install_device = None
-        self.proxy = None                           # global proxy
         self._root_dir = "/tmp/yum.root"
         self._repos_dir = "/etc/yum.repos.d,/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anaconda.repos.d"
         self._yum = None
@@ -142,8 +142,7 @@ class YumPayload(PackagePayload):
 
         self._resetYum(root=root)
 
-    def setup(self, storage, proxy=None):
-        self.proxy = proxy
+    def setup(self, storage):
         self._writeYumConfig()
         self._setup = True
 
@@ -201,9 +200,17 @@ reposdir=%s
         if flags.noverifyssl:
             buf += "sslverify=0\n"
 
-        if self.proxy:
-            # FIXME: include proxy_username, proxy_password
-            buf += "proxy=%s\n" % proxy
+        if self.data.method.proxy:
+            try:
+                proxy = ProxyString(self.data.method.proxy)
+                buf += "proxy=%s\n" % (proxy.noauth_url,)
+                if proxy.username:
+                    buf += "proxy_username=%s\n" % (proxy.username,)
+                if proxy.password:
+                    buf += "proxy_password=%s\n" % (proxy.password,)
+            except ProxyStringError as e:
+                log.error("Failed to parse proxy for _writeYumConfig %s: %s" \
+                          % (self.data.method.proxy, e))
 
         open("/tmp/anaconda-yum.conf", "w").write(buf)
 
@@ -250,10 +257,19 @@ reposdir=%s
                 # kickstart repo modifiers
                 if ks_repo:
                     if ks_repo.noverifyssl:
-                        f.write("verifyssl=0\n")
+                        f.write("sslverify=0\n")
 
                     if ks_repo.proxy:
-                        f.write("proxy=%s\n" % ks_repo.proxy)
+                        try:
+                            proxy = ProxyString(ks_repo.proxy)
+                            f.write("proxy=%s\n" % (proxy.noauth_url,))
+                            if proxy.username:
+                                f.write("proxy_username=%s\n" % (proxy.username,))
+                            if proxy_password:
+                                f.write("proxy_password=%s\n" % (proxy.password,))
+                        except ProxyStringError as e:
+                            log.error("Failed to parse proxy for _writeInstallConfig %s: %s" \
+                                      % (self.data.method.proxy, e))
 
                     if ks_repo.cost:
                         f.write("cost=%d\n" % ks_repo.cost)
@@ -485,7 +501,6 @@ reposdir=%s
         method = self.data.method
         sslverify = True
         url = None
-        proxy = None
 
         if method.method == "harddrive":
             if method.biospart:
@@ -527,7 +542,6 @@ reposdir=%s
         elif method.method == "url":
             url = method.url
             sslverify = not (method.noverifyssl or flags.noverifyssl)
-            proxy = method.proxy or self.proxy
         elif method.method == "cdrom" or not method.method:
             # cdrom or no method specified -- check for media
             device = opticalInstallMedia(storage.devicetree)
@@ -545,7 +559,7 @@ reposdir=%s
             self._yumCacheDirHack()
             try:
                 self._addYumRepo(BASE_REPO_NAME, url,
-                                 proxy=proxy, sslverify=sslverify)
+                                 proxyurl=method.proxy, sslverify=sslverify)
             except MetadataError as e:
                 log.error("base repo (%s/%s) not valid -- removing it"
                           % (method.method, url))
@@ -565,13 +579,13 @@ reposdir=%s
         if self._repoNeedsNetwork(repo) and not hasActiveNetDev():
             raise NoNetworkError
 
-        proxy = repo.proxy or self.proxy
+        proxy = repo.proxy or self.data.method.proxy
         sslverify = not (flags.noverifyssl or repo.noverifyssl)
 
         # this repo is already in ksdata, so we only add it to yum here
         self._addYumRepo(repo.name, url, repo.mirrorlist, cost=repo.cost,
                          exclude=repo.excludepkgs, includepkgs=repo.includepkgs,
-                         proxy=proxy, sslverify=sslverify)
+                         proxyurl=proxy, sslverify=sslverify)
 
         # TODO: enable addons via treeinfo
 
@@ -599,13 +613,25 @@ reposdir=%s
             except RepoMDError:
                 log.error("failed to get groups for repo %s" % yumrepo.id)
 
-    def _addYumRepo(self, name, baseurl, mirrorlist=None, **kwargs):
+    def _addYumRepo(self, name, baseurl, mirrorlist=None, proxyurl=None, **kwargs):
         """ Add a yum repo to the YumBase instance. """
         from yum.Errors import RepoError
 
         # First, delete any pre-existing repo with the same name.
         if name in self._yum.repos.repos:
             self._yum.repos.delete(name)
+
+        if proxyurl:
+            try:
+                proxy = ProxyString(proxyurl)
+                kwargs["proxy"] = proxy.noauth_url
+                if proxy.username:
+                    kwargs["proxy_username"] = proxy.username
+                if proxy.password:
+                    kwargs["proxy_password"] = proxy.password
+            except ProxyStringError as e:
+                log.error("Failed to parse proxy for _addYumRepo %s: %s" \
+                          % (proxyurl, e))
 
         log.debug("adding yum repo %s with baseurl %s and mirrorlist %s"
                     % (name, baseurl, mirrorlist))
