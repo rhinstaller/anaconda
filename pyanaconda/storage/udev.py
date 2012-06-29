@@ -585,11 +585,16 @@ def udev_device_get_iscsi_initiator(info):
             initiator_file = "/sys/class/iscsi_host/%s/initiatorname" % host
             if os.access(initiator_file, os.R_OK):
                 initiator = open(initiator_file).read().strip()
+                log.debug("found offload iscsi initiatorname %s in file %s" %
+                          (initiator, initiator_file))
+                if initiator.lstrip("(").rstrip(")").lower() == "null":
+                    initiator = None
     if initiator is None:
         session = udev_device_get_iscsi_session(info)
         if session:
             initiator = open("/sys/class/iscsi_session/%s/initiatorname" %
                              session).read().strip()
+            log.debug("found iscsi initiatorname %s" % initiator)
     return initiator
 
 
