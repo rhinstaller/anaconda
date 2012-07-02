@@ -426,5 +426,15 @@ class DiskLabel(DeviceFormat):
 
         return free
 
+    @property
+    def magicPartitionNumber(self):
+        """ Number of disklabel-type-specific special partition. """
+        if self.labelType == "mac":
+            return 1
+        elif self.labelType == "sun":
+            return 3
+        else:
+            return 0
+
 register_device_format(DiskLabel)
 

@@ -1446,6 +1446,15 @@ class PartitionDevice(StorageDevice):
 
         self.partedPartition.unsetFlag(flag)
 
+    @property
+    def isMagic(self):
+        if not self.disk:
+            return False
+
+        number = getattr(self.partedPartition, "number", -1)
+        magic = self.disk.format.magicPartitionNumber
+        return (number == magic)
+
     def probe(self):
         """ Probe for any missing information about this device.
 

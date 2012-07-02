@@ -77,16 +77,7 @@ def storageInitialize(storage, ksdata, protected):
 
     # Before we set up the storage system, we need to know which disks to
     # ignore, etc.  Luckily that's all in the kickstart data.
-    storage.config.zeroMbr = ksdata.zerombr.zerombr
-    storage.config.ignoreDiskInteractive = ksdata.ignoredisk.interactive
-    storage.config.ignoredDisks = ksdata.ignoredisk.ignoredisk
-    storage.config.exclusiveDisks = ksdata.ignoredisk.onlyuse
-
-    if ksdata.clearpart.type is not None:
-        storage.config.clearPartType = ksdata.clearpart.type
-        storage.config.clearPartDisks = ksdata.clearpart.drives
-        if ksdata.clearpart.initAll:
-            storage.config.reinitializeDisks = ksdata.clearpart.initAll
+    storage.config.update(ksdata)
 
     lvm.lvm_vg_blacklist = []
 
@@ -317,11 +308,23 @@ class StorageDiscoveryConfig(object):
         self.clearPartType = None
         self.clearPartDisks = []
         self.clearPartDevices = []
-        self.reinitializeDisks = False
-        self.zeroMbr = None
+        self.initializeDisks = False
         self.protectedDevSpecs = []
         self.diskImages = {}
         self.mpathFriendlyNames = True
+
+        # Whether clearPartitions removes scheduled/non-existent devices and
+        # disklabels depends on this flag.
+        self.clearNonExistent = False
+
+    def update(self, ksdata):
+        self.ignoredDisks = ksdata.ignoredisk.ignoredisk[:]
+        self.exclusiveDisks = ksdata.ignoredisk.onlyuse[:]
+        self.clearPartType = ksdata.clearpart.type
+        self.clearPartDisks = ksdata.clearpart.drives[:]
+        self.clearPartDevices = ksdata.clearpart.devices[:]
+        self.initializeDisks = ksdata.clearpart.initAll
+        self.zeroMbr = ksdata.zerombr.zerombr
 
     def writeKS(self, f):
         # clearpart
@@ -334,7 +337,7 @@ class StorageDiscoveryConfig(object):
 
         if self.clearPartDisks:
             args += ["--drives=%s" % ",".join(self.clearPartDisks)]
-        if self.reinitializeDisks:
+        if self.initializeDisks:
             args += ["--initlabel"]
 
         f.write("#clearpart %s\n" % " ".join(args))
@@ -483,13 +486,16 @@ class Storage(object):
             if device.format.type == "luks" and device.format.exists:
                 self.__luksDevs[device.format.uuid] = device.format._LUKS__passphrase
 
+        if self.data:
+            self.config.update(self.data)
+
         if not flags.imageInstall:
             self.iscsi.startup()
             self.fcoe.startup()
             self.zfcp.startup()
             self.dasd.startup(None,
                               self.config.exclusiveDisks,
-                              self.config.zeroMbr)
+                              self.config.initializeDisks)
         clearPartType = self.config.clearPartType # save this before overriding it
         if self.data and self.data.upgrade.upgrade:
             self.config.clearPartType = CLEARPART_TYPE_NONE
@@ -519,15 +525,6 @@ class Storage(object):
 
         self.dumpState("initial")
 
-        # if zerombr is set, go ahead and slap a disklabel on any disk that
-        # doesn't have (recognizeable) formatting
-        if self.config.zeroMbr:
-            for disk in self.disks:
-                if disk.format.type is None:
-                    log.info("zerombr: initializing %s" % disk.name)
-                    self.reinitializeDisk(disk)
-
-        # we may have added candidate boot disks just above by initializing
         self.updateBootLoaderDiskList()
 
     @property
@@ -754,22 +751,37 @@ class Storage(object):
         clearPartDevices = kwargs.get("clearPartDevices",
                                       self.config.clearPartDevices)
 
-        if clearPartType in [CLEARPART_TYPE_NONE, None]:
+        for disk in device.disks:
+            # this will not include disks with hidden formats like multipath
+            # and firmware raid member disks
+            if clearPartDisks and disk.name not in clearPartDisks:
+                return False
+
+        if not self.config.clearNonExistent:
+            if not device.exists:
+                return False
+
+            if device.isDisk:
+                if not device.format.exists:
+                    return False
+
+                for partition in self.devicetree.getChildren(device):
+                    if not (partition.isMagic or self.shouldClear(partition)):
+                        return False
+
+        # the only devices we want to clear when clearPartType is
+        # CLEARPART_TYPE_NONE are uninitialized disks in clearPartDisks, and
+        # then only when we have been asked to initialize disks as needed
+        if clearPartType in [CLEARPART_TYPE_NONE, None] and \
+           not (device.isDisk and device.format.type is None and
+                self.config.initializeDisks):
             return False
 
         if isinstance(device, PartitionDevice):
             # Never clear the special first partition on a Mac disk label, as
             # that holds the partition table itself.
             # Something similar for the third partition on a Sun disklabel.
-            if device.disk.format.labelType == "mac" and \
-               device.partedPartition.number == 1:
-                return False
-            elif device.disk.format.labelType == "sun" and \
-                 device.partedPartition.number == 3:
-                return False
-
-            # If we got a list of disks to clear, make sure this one's on it
-            if clearPartDisks and device.disk.name not in clearPartDisks:
+            if device.isMagic:
                 return False
 
             # We don't want to fool with extended partitions, freespace, &c
@@ -782,17 +794,27 @@ class Storage(object):
                not device.getFlag(parted.PARTITION_RAID) and \
                not device.getFlag(parted.PARTITION_SWAP):
                 return False
-        elif device.isDisk and not device.partitioned:
-            # If we got a list of disks to clear, make sure this one's on it
-            if clearPartDisks and device.name not in clearPartDisks:
-                return False
+        elif device.isDisk:
+            if device.partitioned and clearPartType != CLEARPART_TYPE_ALL:
+                # if clearPartType is not CLEARPART_TYPE_ALL but we'll still be
+                # removing every partition from the disk, return True since we
+                # will want to be able to create a new disklabel on this disk
+                for partition in self.devicetree.getChildren(device):
+                    if not (partition.isMagic or self.shouldClear(partition)):
+                        return False
 
             # Never clear disks with hidden formats
             if device.format.hidden:
                 return False
 
+            # When clearPartType is CLEARPART_TYPE_LINUX and a disk has non-
+            # linux whole-disk formatting, do not clear it. The exception is
+            # the case of an uninitialized disk when we've been asked to
+            # initialize disks as needed
             if clearPartType == CLEARPART_TYPE_LINUX and \
-               not device.format.linuxNative:
+               not (self.config.initializeDisks and
+                    device.format.type is None) and \
+               not device.partitioned and not device.format.linuxNative:
                 return False
 
         # Don't clear devices holding install media.
@@ -836,22 +858,16 @@ class Storage(object):
                 - Needs some error handling
 
         """
-        if self.config.clearPartType in (None, CLEARPART_TYPE_NONE):
-            # not much to do
-            return
-
-        # XXX FIXME: We can still clear partitions. What we can't do is create
-        #            appropriately-typed disklabels.
         if not hasattr(self.platform, "diskLabelTypes"):
             raise StorageError("can't clear partitions without platform data")
 
-        # we are only interested in partitions that physically exist
-        partitions = [p for p in self.partitions if p.exists]
         # Sort partitions by descending partition number to minimize confusing
         # things like multiple "destroy sda5" actions due to parted renumbering
         # partitions. This can still happen through the UI but it makes sense to
         # avoid it where possible.
-        partitions.sort(key=lambda p: p.partedPartition.number, reverse=True)
+        partitions = sorted(self.partitions,
+                            key=lambda p: p.partedPartition.number,
+                            reverse=True)
         for part in partitions:
             log.debug("clearpart: looking at %s" % part.name)
             if not self.shouldClear(part):
@@ -863,35 +879,17 @@ class Storage(object):
         # now remove any empty extended partitions
         self.removeEmptyExtendedPartitions()
 
-        # make sure that the the boot device has the correct disklabel type if
-        # we're going to completely clear it.
-        # also handles clearpart --initlabel
-        boot_disk = self.bootDisk
-        for disk in self.partitioned:
-            if not boot_disk and not self.config.reinitializeDisks:
-                break
-
-            if not self.config.reinitializeDisks and \
-               (boot_disk is not None and disk != boot_disk):
-                continue
-
+        # ensure all disks have appropriate disklabels
+        for disk in self.disks:
             if not self.shouldClear(disk):
                 continue
 
-            # don't reinitialize the disklabel if the disk contains install media
-            # or pvs from inconsistent vgs
-            if filter(lambda p: p.dependsOn(disk), self.protectedDevices):
-                continue
-
-            if not self.config.reinitializeDisks and \
-               disk.format.labelType == self.platform.bestDiskLabelType(disk):
-                continue
-
-            self.reinitializeDisk(disk)
+            log.debug("clearpart: initializing %s" % disk.name)
+            self.initializeDisk(disk)
 
         self.updateBootLoaderDiskList()
 
-    def reinitializeDisk(self, disk):
+    def initializeDisk(self, disk):
         """ (Re)initialize a disk by creating a disklabel on it.
 
             The disk should not contain any partitions except perhaps for a
@@ -912,7 +910,7 @@ class Storage(object):
                         self.devicetree._removeDevice(part, moddisk=False)
 
         if disk.partitioned and disk.format.partitions:
-            raise ValueError("cannot reinitialize a disk that has partitions")
+            raise ValueError("cannot initialize a disk that has partitions")
 
         # remove existing formatting from the disk
         destroy_action = ActionDestroyFormat(disk)

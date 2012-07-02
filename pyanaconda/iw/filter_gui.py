@@ -621,7 +621,7 @@ class FilterWindow(InstallWindow):
         zfcp.ZFCP().startup(anaconda.intf)
         dasd.DASD().startup(anaconda.intf,
                                     anaconda.storage.config.exclusiveDisks,
-                                    anaconda.storage.config.zeroMbr)
+                                    anaconda.storage.config.initializeDisks)
         disks = self._getFilterDisks()
 
         mcw = MultipathConfigWriter()

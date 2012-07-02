@@ -170,7 +170,6 @@ class DeviceTree(object):
         self.populated = False
 
         self.exclusiveDisks = getattr(conf, "exclusiveDisks", [])
-        self.zeroMbr = getattr(conf, "zeroMbr", False)
         self.shouldClear = shouldClear or (lambda d: False)
         self.iscsi = iscsi
         self.dasd = dasd

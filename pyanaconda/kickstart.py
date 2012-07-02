@@ -413,7 +413,7 @@ class ClearPart(commands.clearpart.F17_ClearPart):
         storage.config.clearPartDevices = self.devices
 
         if self.initAll:
-            storage.config.reinitializeDisks = self.initAll
+            storage.config.initializeDisks = self.initAll
 
         storage.clearPartitions()
 

@@ -295,8 +295,8 @@ def doAutoPartition(storage, data):
     devs = []
 
     if storage.doAutoPart:
+        # XXX this doesn't belong on newui
         scheduleShrinkActions(storage)
-        storage.clearPartitions()
 
         disks = _getCandidateDisks(storage)
         devs = _scheduleImplicitPartitions(storage, disks)

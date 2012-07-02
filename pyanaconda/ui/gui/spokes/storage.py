@@ -265,10 +265,16 @@ class StorageSpoke(NormalSpoke):
 
         self.data.bootloader.location = "mbr"
 
+        self.data.clearpart.initAll = True
         self.data.clearpart.type = self.clearPartType
+        self.storage.config.update(self.data)
 
-        if self.autopart:
-            self.data.clearpart.execute(self.storage, self.data, self.instclass)
+        # If autopart is selected we want to remove whatever has been
+        # created/scheduled to make room for autopart.
+        # If custom is selected, we want to leave alone any storage layout the
+        # user may have set up before now.
+        self.storage.config.clearNonExistent = self.data.autopart.autopart
+        self.data.clearpart.execute(self.storage, self.data, self.instclass)
 
         # Pick the first disk to be the destination device for the bootloader.
         # This appears to be the minimum amount of configuration required to
