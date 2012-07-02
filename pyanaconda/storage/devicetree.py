@@ -1678,6 +1678,15 @@ class DeviceTree(object):
         for leaf in filter(lambda leaf: leaf.type == "lvmvg" and not leaf.complete, self.leaves):
             leafInconsistencies(leaf)
 
+        for md in [d for d in self.leaves if d.type == "mdarray" and len(d.parents) < d.memberDevices]:
+            log.debug("removing incomplete/degraded md array %s" % md.name)
+            try:
+                md.teardown()
+            except StorageError as e:
+                log.error("failed to deactivate %s: %s" % (md.name, e))
+
+            self._removeDevice(md)
+
     def _recursiveRemove(self, device):
         for d in self.getChildren(device):
             self._recursiveRemove(d)
