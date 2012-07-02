@@ -1,4 +1,4 @@
-# Copyright (C) 2011  Red Hat, Inc.
+# Copyright (C) 2011, 2012  Red Hat, Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU Lesser General Public License as published
@@ -22,3 +22,6 @@ MAINTAINERCLEANFILES = Makefile.in
 pkgpyexecdir = $(pyexecdir)/py$(PACKAGE_NAME)
 guidir       = $(pkgpyexecdir)/ui/gui
 gui_PYTHON   = *.py
+
+uidir        = $(datadir)/$(PACKAGE_NAME)/ui/
+dist_ui_DATA = *.ui

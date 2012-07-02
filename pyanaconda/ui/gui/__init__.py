@@ -18,7 +18,7 @@
 #
 # Red Hat Author(s): Chris Lumens <clumens@redhat.com>
 #
-import importlib, inspect, os
+import importlib, inspect, os, sys
 
 from pyanaconda.ui import UserInterface
 from pyanaconda.ui.gui.utils import enlightbox
@@ -176,8 +176,13 @@ class GraphicalUserInterface(UserInterface):
         self._actions.pop(0)
 
     def _on_quit_clicked(self):
-        from gi.repository import Gtk
-        Gtk.main_quit()
+        dialog = QuitDialog(None)
+        with enlightbox(self._actions[0].window, dialog.window):
+            rc = dialog.run()
+            dialog.window.destroy()
+
+        if rc == 1:
+            sys.exit(0)
 
 class UIObject(object):
     """This is the base class from which all other UI classes are derived.  It
@@ -381,6 +386,15 @@ class UIObject(object):
             self._window = self.builder.get_object(self.mainWidgetName)
 
         return self._window
+
+class QuitDialog(UIObject):
+    builderObjects = ["quitDialog"]
+    mainWidgetName = "quitDialog"
+    uiFile = "main.ui"
+
+    def run(self):
+        rc = self.window.run()
+        return rc
 
 def collect(subpath, pred):
     """Traverse the subdirectory (given by subpath) of this module's current
