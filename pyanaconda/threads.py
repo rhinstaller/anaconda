@@ -71,7 +71,14 @@ class AnacondaThread(threading.Thread):
            a lot of complicated code in them now.
 
        (2) Remove themselves from the thread manager when completed.
+
+       (3) All created threads are made daemonic, which means anaconda will quit
+           when the main process is killed.
     """
+    def __init__(self, *args, **kwargs):
+        threading.Thread.__init__(self, *args, **kwargs)
+        self.daemon = True
+
     def run(self, *args, **kwargs):
         # http://bugs.python.org/issue1230540#msg25696
         import sys
