@@ -91,9 +91,10 @@ class SoftwareSelectionSpoke(NormalSpoke):
                                        _("Error checking software dependencies"))
             self._tx_id = None
         else:
-            communication.send_ready(self.__class__.__name__)
             self._error = False
             self._tx_id = self.payload.txID
+        finally:
+            communication.send_ready(self.__class__.__name__)
 
     @property
     def completed(self):
