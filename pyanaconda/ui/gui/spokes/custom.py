@@ -514,10 +514,11 @@ class CustomPartitioningSpoke(NormalSpoke):
             self._update_ui_for_removals()
 
     def on_summary_clicked(self, button):
+        free = self.storage.getFreeSpace()
         dialog = SelectedDisksDialog(self.data)
 
         with enlightbox(self.window, dialog.window):
-            dialog.refresh(self._clearpartDevices(), showRemove=False)
+            dialog.refresh(self._clearpartDevices(), free, showRemove=False)
             dialog.run()
 
     def on_configure_clicked(self, button):
