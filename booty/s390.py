@@ -156,7 +156,8 @@ class s390BootloaderInfo(bootloaderInfo):
 
         if not justConfigFile:
             rc = iutil.execWithCapture("zipl", [], root = instRoot,
-                                       stderr = "/dev/stderr")
+                                       stderr = "/dev/stderr",
+                                       fatal = True)
             for line in rc.splitlines():
                 if line.startswith("Preparing boot device: "):
                     # Output here may look like:
