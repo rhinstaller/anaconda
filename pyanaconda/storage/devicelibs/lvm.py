@@ -83,7 +83,20 @@ def lvm_cc_addFilterRejectRegexp(regexp):
     log.debug("lvm filter: adding %s to the reject list" % regexp)
     config_args_data["filterRejects"].append(regexp)
 
-    # compoes config once more.
+    # compose config once more.
+    _composeConfig()
+
+def lvm_cc_removeFilterRejectRegexp(regexp):
+    """ Remove a regular expression from the --config string."""
+    global config_args_data
+    log.debug("lvm filter: removing %s from the reject list" % regexp)
+    try:
+        config_args_data["filterRejects"].remove(regexp)
+    except ValueError:
+        log.debug("%s wasn't in the reject list" % regexp)
+        return
+
+    # compose config once more.
     _composeConfig()
 
 def lvm_cc_resetFilter():

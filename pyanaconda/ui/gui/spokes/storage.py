@@ -240,7 +240,12 @@ class StorageSpoke(NormalSpoke):
     def __init__(self, *args, **kwargs):
         NormalSpoke.__init__(self, *args, **kwargs)
         self._ready = False
-        self.selected_disks = self.data.clearpart.drives[:]
+        self.selected_disks = self.data.ignoredisk.onlyuse[:]
+
+        # This list gets set up once in initialize and should not be modified
+        # except perhaps to add advanced devices. It will remain the full list
+        # of disks that can be included in the install.
+        self.disks = []
 
         if not flags.automatedInstall:
             # default to using autopart for interactive installs
@@ -252,6 +257,7 @@ class StorageSpoke(NormalSpoke):
         self.clearPartType = CLEARPART_TYPE_LINUX
 
     def apply(self):
+        self.data.ignoredisk.onlyuse = self.selected_disks[:]
         self.data.clearpart.drives = self.selected_disks[:]
         self.data.autopart.autopart = self.autopart
 
@@ -262,6 +268,14 @@ class StorageSpoke(NormalSpoke):
             self.clearPartType = CLEARPART_TYPE_ALL
         else:
             self.clearPartType = CLEARPART_TYPE_NONE
+
+        for disk in self.disks:
+            if disk.name not in self.selected_disks and \
+               disk in self.storage.devices:
+                self.storage.devicetree.hide(disk)
+            elif disk.name in self.selected_disks and \
+                 disk not in self.storage.devices:
+                self.storage.devicetree.unhide(disk)
 
         self.data.bootloader.location = "mbr"
 
@@ -301,10 +315,10 @@ class StorageSpoke(NormalSpoke):
     def status(self):
         """ A short string describing the current status of storage setup. """
         msg = _("No disks selected")
-        if self.data.clearpart.drives:
+        if self.data.ignoredisk.onlyuse:
             msg = P_(("%d disk selected"),
                      ("%d disks selected"),
-                     len(self.data.clearpart.drives)) % len(self.data.clearpart.drives)
+                     len(self.data.ignoredisk.onlyuse)) % len(self.data.ignoredisk.onlyuse)
 
             if self.data.autopart.autopart:
                 msg = _("Automatic partitioning selected")
@@ -330,7 +344,7 @@ class StorageSpoke(NormalSpoke):
 
     def refresh(self):
         # synchronize our local data store with the global ksdata
-        self.selected_disks = self.data.clearpart.drives[:]
+        self.selected_disks = self.data.ignoredisk.onlyuse[:]
         self.autopart = self.data.autopart.autopart
 
         # update the selections in the ui
@@ -367,7 +381,7 @@ class StorageSpoke(NormalSpoke):
         if storageThread:
             storageThread.join()
 
-        print self.data.clearpart.drives
+        print self.data.ignoredisk.onlyuse
 
         self.disks = getDisks(self.storage.devicetree)
 
@@ -408,7 +422,9 @@ class StorageSpoke(NormalSpoke):
         capacity = 0
         free = Size(bytes=0)
 
-        free_space = self.storage.getFreeSpace(clearPartType=self.clearPartType)
+        # pass in our disk list so hidden disks' free space is available
+        free_space = self.storage.getFreeSpace(disks=self.disks,
+                                               clearPartType=self.clearPartType)
         selected = [d for d in self.disks if d.name in self.selected_disks]
 
         for disk in selected:
@@ -448,7 +464,8 @@ class StorageSpoke(NormalSpoke):
     # signal handlers
     def on_summary_clicked(self, button):
         # show the selected disks dialog
-        free_space = self.storage.getFreeSpace()
+        # pass in our disk list so hidden disks' free space is available
+        free_space = self.storage.getFreeSpace(disks=self.disks)
         dialog = SelectedDisksDialog(self.data,)
         dialog.refresh([d for d in self.disks if d.name in self.selected_disks],
                        free_space)

@@ -166,6 +166,8 @@ class DeviceTree(object):
         # a list of all device names we encounter
         self.names = []
 
+        self._hidden = []
+
         # indicates whether or not the tree has been fully populated
         self.populated = False
 
@@ -1686,12 +1688,45 @@ class DeviceTree(object):
 
             self._removeDevice(md)
 
-    def _recursiveRemove(self, device):
+    def hide(self, device):
         for d in self.getChildren(device):
-            self._recursiveRemove(d)
+            self.hide(d)
 
-        device.teardown()
-        self._removeDevice(device)
+        log.info("hiding device %s %s (id %d)" % (device.type,
+                                                  device.name,
+                                                  device.id))
+
+        for action in reversed(self._actions):
+            if not action.device.dependsOn(device) and action.device != device:
+                continue
+
+            log.debug("cancelling action: %s" % action)
+            try:
+                action.cancel()
+            except Exception:
+                log.warning("failed to cancel action while hiding %s: %s"
+                            % (device.name, action))
+            finally:
+                self._actions.remove(action)
+
+        # XXX modifications that do not require actions, like setting a
+        #     mountpoint, will not be reversed here
+
+        # we're intentionally not modifying self.names here
+        self._devices.remove(device)
+        self._hidden.append(device)
+        lvm.lvm_cc_addFilterRejectRegexp(device.name)
+
+    def unhide(self, device):
+        # the hidden list should be in leaves-first order
+        for hidden in reversed(self._hidden):
+            if hidden == device or hidden.dependsOn(device):
+                log.info("unhiding device %s %s (id %d)" % (hidden.type,
+                                                            hidden.name,
+                                                            hidden.id))
+                self._hidden.remove(hidden)
+                self._devices.append(hidden)
+                lvm.lvm_cc_removeFilterRejectRegexp(device.name)
 
     def _setupLvs(self):
         ret = False
