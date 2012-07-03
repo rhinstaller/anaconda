@@ -292,7 +292,7 @@ class CustomPartitioningSpoke(NormalSpoke):
             page.show_all()
             self._accordion.addPage(page, cb=self.on_page_clicked)
 
-            if not did_expand and self._current_selector and root == self._current_selector._root:
+            if not did_expand and self._current_selector and root.name == self._current_selector._root.name:
                 did_expand = True
                 self._accordion.expandPage(root.name)
 
