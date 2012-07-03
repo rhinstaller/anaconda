@@ -106,7 +106,6 @@ class CustomPartitioningSpoke(NormalSpoke):
         NormalSpoke.__init__(self, data, storage, payload, instclass)
 
         self._current_selector = None
-        self._ran_autopart = False
         self._when_create_text = ""
 
     def apply(self):
@@ -249,7 +248,7 @@ class CustomPartitioningSpoke(NormalSpoke):
 
         # If we've not yet run autopart, add an instance of CreateNewPage.  This
         # ensures it's only added once.
-        if not self._ran_autopart and not new_devices:
+        if not new_devices:
             page = CreateNewPage(self.on_create_clicked)
             page.pageTitle = new_install_name
             self._accordion.addPage(page, cb=self.on_page_clicked)
@@ -259,7 +258,7 @@ class CustomPartitioningSpoke(NormalSpoke):
             self._partitionsNotebook.set_current_page(0)
             label = self.builder.get_object("whenCreateLabel")
             label.set_text(self._when_create_text % (productName, productVersion))
-        elif new_devices:
+        else:
             swaps = [d for d in new_devices if d in self.storage.swaps]
             mounts = dict([(d.format.mountpoint, d) for d in new_devices if getattr(d.format, "mountpoint", None)])
             new_root = Root(mounts=mounts, swaps=swaps, name=new_install_name)
@@ -563,10 +562,6 @@ class CustomPartitioningSpoke(NormalSpoke):
         self.data.autopart.autopart = True
         self.data.autopart.execute(self.storage, self.data, self.instclass)
         self.data.autopart.autopart = False
-
-        # Setting this ensures the CreateNewPage instance does not reappear when
-        # refresh is called.
-        self._ran_autopart = True
 
         # And refresh the spoke to make the new partitions appear.
         self.refresh()
