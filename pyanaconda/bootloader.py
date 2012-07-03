@@ -2195,7 +2195,8 @@ class ZIPL(BootLoader):
     def install(self):
         buf = iutil.execWithCapture("zipl", [],
                                     stderr="/dev/tty5",
-                                    root=ROOT_PATH)
+                                    root=ROOT_PATH,
+                                    fatal=True)
         for line in buf.splitlines():
             if line.startswith("Preparing boot device: "):
                 # Output here may look like:
