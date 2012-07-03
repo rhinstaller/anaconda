@@ -476,7 +476,7 @@ class CustomPartitioningSpoke(NormalSpoke):
 
             # If the root is now empty, remove it. Devices from the Unused page
             # will have no root.
-            if root and len(root.swaps + root.mounts.values()) == 0:
+            if self.storage.roots and root and len(root.swaps + root.mounts.values()) == 0:
                 self.storage.roots.remove(root)
 
             self._update_ui_for_removals()
