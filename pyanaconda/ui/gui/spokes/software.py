@@ -164,6 +164,10 @@ class SoftwareSelectionSpoke(NormalSpoke):
 
         communication.send_ready(self.__class__.__name__)
 
+        # If packages were provided by an input kickstart file (or some other means),
+        # we should do dependency solving here.
+        self.apply()
+
     def refresh(self):
         from pyanaconda.threads import threadMgr
         NormalSpoke.refresh(self)
