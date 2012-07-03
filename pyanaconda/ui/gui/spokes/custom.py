@@ -450,6 +450,7 @@ class CustomPartitioningSpoke(NormalSpoke):
         page = self._accordion.currentPage()
         if getattr(page, "_members", []):
             self._populate_right_side(page._members[0])
+            page._members[0].grab_focus()
 
         self._updateSpaceDisplay()
 
