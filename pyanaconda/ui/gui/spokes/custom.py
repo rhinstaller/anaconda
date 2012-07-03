@@ -488,10 +488,8 @@ class CustomPartitioningSpoke(NormalSpoke):
 
             # Find the root this page displays.
             root = None
-            for r in self.storage.roots:
-                if r.name == page.pageTitle:
-                    root = r
-                    break
+            if len(page._members) > 0:
+                root = page._members[0]._root
 
             if not root:
                 return
@@ -509,7 +507,8 @@ class CustomPartitioningSpoke(NormalSpoke):
 
             # Remove the root entirely.  This will cause the empty Page to be
             # deleted from the left hand side.
-            self.storage.roots.remove(root)
+            if root in self.storage.roots:
+                self.storage.roots.remove(root)
 
             self._update_ui_for_removals()
 
