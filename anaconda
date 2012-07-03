@@ -111,34 +111,14 @@ def startAuditDaemon():
     os.waitpid(childpid, 0)
 
 # function to handle X startup special issues for anaconda
-def doStartupX11Actions(keyboard):
-    """
-    Start window manager and set up keyboard layouts if requested in kickstart
-    or on command line.
-
-    @param keyboard: ksdata.keyboard object
-
-    """
+def doStartupX11Actions():
+    """Start window manager"""
 
     global wm_pid # pid of the anaconda fork where the window manager is running
 
     # now start up the window manager
     wm_pid = startMetacityWM()
     log.info("Starting window manager, pid %s." % (wm_pid,))
-
-    # setup layouts
-    if keyboard.layouts_list:
-        from pyanaconda.keyboard import XklWrapper, XklWrapperError
-
-        layouts = keyboard.layouts_list
-        xklwrapper = XklWrapper.get_instance()
-
-        try:
-            xklwrapper.replace_layouts(layouts)
-
-        except XklWrapperError as xklerr:
-            msg = "Failed to activate layouts %s" % ",".join(layouts)
-            log.error(msg)
 
 def set_x_resolution(runres):
     # cant do this if no window manager is running because otherwise when we
@@ -580,7 +560,7 @@ def setupDisplay(anaconda, opts):
 
                 signal.pause()
                 os.environ["DISPLAY"] = ":1"
-                doStartupX11Actions(anaconda.ksdata.keyboard)
+                doStartupX11Actions()
             except (OSError, RuntimeError):
                 stdoutLog.warning("X startup failed, falling back to text mode")
                 anaconda.displayMode = 't'
@@ -604,10 +584,25 @@ def setupDisplay(anaconda, opts):
         # if they want us to use VNC do that now
         if anaconda.displayMode == 'g' and flags.usevnc:
             runVNC(vncS)
-            doStartupX11Actions(anaconda.ksdata.keyboard)
+            doStartupX11Actions()
 
     # with X running we can initialize the UI interface
     anaconda.initInterface()
+
+    # setup layouts
+    if anaconda.ksdata.keyboard.layouts_list:
+        from pyanaconda.keyboard import XklWrapper, XklWrapperError
+
+        layouts = anaconda.ksdata.keyboard.layouts_list
+        xklwrapper = XklWrapper.get_instance()
+
+        try:
+            xklwrapper.replace_layouts(layouts)
+
+        except XklWrapperError as xklerr:
+            msg = "Failed to activate layouts %s" % ",".join(layouts)
+            log.error(msg)
+
     anaconda.instClass.configure(anaconda)
 
 def prompt_for_ssh():
