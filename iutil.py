@@ -182,8 +182,10 @@ def execWithRedirect(command, argv, stdin = None, stdout = None,
 # @param stdin The file descriptor to read stdin from.
 # @param stderr The file descriptor to redirect stderr to.
 # @param root The directory to chroot to before running command.
+# @param fatal Boolean to determine if non-zero exit is fatal.
 # @return The output of command from stdout.
-def execWithCapture(command, argv, stdin = None, stderr = None, root='/'):
+def execWithCapture(command, argv, stdin = None, stderr = None, root='/',
+                    fatal = False):
     def chroot():
         os.chroot(root)
 
@@ -240,6 +242,10 @@ def execWithCapture(command, argv, stdin = None, stderr = None, root='/'):
 
             if proc.returncode is not None:
                 break
+        # if we have anything other than a clean exit, and we get the fatal
+        # option, raise the OSError.
+        if proc.returncode and fatal:
+            raise OSError('Non-zero return code: %s' % proc.returncode)
     except OSError as e:
         log.error ("Error running " + command + ": " + e.strerror)
         closefds()
