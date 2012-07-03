@@ -411,6 +411,7 @@ class FS(DeviceFormat):
         # the other option is to actually replace this instance with an
         # instance of the new filesystem type.
         self._type = self.migrationTarget
+        self._mountType = self.migrationTarget
 
     @property
     def resizeArgs(self):
