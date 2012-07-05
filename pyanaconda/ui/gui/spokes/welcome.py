@@ -39,7 +39,7 @@ from pyanaconda import localization
 __all__ = ["WelcomeLanguageSpoke", "LanguageSpoke"]
 
 class LanguageMixIn(object):
-    builderObjects = ["languageStore"]
+    builderObjects = ["languageStore", "languageEntryCompletion"]
 
     def __init__(self, labelName = "welcomeLabel",
                  viewName = "languageView", selectionName = "languageViewSelection"):
@@ -104,6 +104,9 @@ class LanguageMixIn(object):
         # select the preferred translation
         self._selectLanguage(store, self.language.preferred_translation.short_name)
 
+        self._view = self.builder.get_object(self._viewName)
+        self._selection = self.builder.get_object(self._selectionName)
+
     def retranslate(self):
         welcomeLabel = self.builder.get_object(self._labelName)
 
@@ -118,6 +121,11 @@ class LanguageMixIn(object):
         store = self.builder.get_object("languageStore")
         self._selectLanguage(store, self.data.lang.lang)
 
+        # I shouldn't have to do this outside of GtkBuilder, but see:
+        # https://bugzilla.gnome.org/show_bug.cgi?id=614150
+        completion = self.builder.get_object("languageEntryCompletion")
+        completion.set_text_column(1)
+
         # Rip the label and language selection window
         # from where it is right now and add it to this
         # spoke.
@@ -127,11 +135,13 @@ class LanguageMixIn(object):
         langList.get_parent().remove(langList)
         langLabel = self.builder.get_object("pickLanguageLabel")
         langLabel.get_parent().remove(langLabel)
+        langEntry = self.builder.get_object("languageEntry")
+        langEntry.get_parent().remove(langEntry)
 
         content = self.builder.get_object(displayArea)
         content.pack_start(child = langLabel, fill = True, expand = False, padding = 0)
         content.pack_start(child = langList, fill = True, expand = True, padding = 0)
-
+        content.pack_start(child = langEntry, fill = True, expand = False, padding = 0)
 
     def _addLanguage(self, store, native, english, setting):
         store.append([native, english, setting])
@@ -163,6 +173,21 @@ class LanguageMixIn(object):
             self.language.set_system_lang(lang)
             self.retranslate()
 
+            languageEntry = self.builder.get_object("languageEntry")
+            languageEntry.set_text("")
+
+    def on_clear_icon_clicked(self, entry, icon_pos, event):
+        if icon_pos == Gtk.EntryIconPosition.SECONDARY:
+            entry.set_text("")
+
+    def on_completion_matched(self, completion, model, itr):
+        # If the user uses the entry underneath the list of languages to pick
+        # language, make sure the list stays in sync.
+        self._selection.select_iter(itr)
+
+        # And keep the selected item in the middle of the view.
+        path = model.get_path(itr)
+        self._view.scroll_to_cell(path, None, True, 0.5, 0.5)
 
 class WelcomeLanguageSpoke(LanguageMixIn, StandaloneSpoke):
     mainWidgetName = "welcomeWindow"

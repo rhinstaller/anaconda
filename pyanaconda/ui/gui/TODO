@@ -13,9 +13,6 @@
 - Test handling of inconsistent LVM/RAID, and uninitialized disks.
 - The Install Destination "Back" button is the only one that cancels everything instead of
   applies.  Do something about this.
-- There are three different free space displays - on lower left of install destination, on
-  disk shopping cart, and on lower left of custom partition.  They're all different.  Which
-  is correct?
 + Update exception handling.  This requires updating python-meh to use gtk3,
   which also requires updating firstboot and s-c-ks to gtk3.  I want to turn
   s-c-ks into an anaconda wrapper first, though.
