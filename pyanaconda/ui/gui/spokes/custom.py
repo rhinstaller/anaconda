@@ -436,22 +436,21 @@ class CustomPartitioningSpoke(NormalSpoke):
             for mountpoint in mountpoints:
                 root.mounts.pop(mountpoint)
 
+    def _show_first_mountpoint(self):
+        # Make sure there's something displayed on the RHS.  Just default to
+        # the first mountpoint in the page.
+        page = self._accordion.currentPage()
+        if getattr(page, "_members", []):
+            self._populate_right_side(page._members[0])
+            page._members[0].grab_focus()
+
     def _update_ui_for_removals(self):
         # Now that devices have been removed from the installation root,
         # refreshing the display will have the effect of making them disappear.
         # It's like they never existed.
         self._do_refresh()
 
-        # Make sure there's something displayed on the RHS.  Just default to
-        # the first mountpoint in the page.
-        # FIXME: the current page appears to be the default/empty/create page,
-        #        even if you've obviously gone into one of the roots to remove
-        #        a device
-        page = self._accordion.currentPage()
-        if getattr(page, "_members", []):
-            self._populate_right_side(page._members[0])
-            page._members[0].grab_focus()
-
+        self._show_first_mountpoint()
         self._updateSpaceDisplay()
 
     def on_remove_clicked(self, button):
@@ -563,9 +562,12 @@ class CustomPartitioningSpoke(NormalSpoke):
         self.data.autopart.execute(self.storage, self.data, self.instclass)
         self.data.autopart.autopart = False
 
-        # And refresh the spoke to make the new partitions appear.
+        # Refresh the spoke to make the new partitions appear.
         self.refresh()
         self._accordion.expandPage(new_install_name)
+
+        # And then display the first filesystem on the RHS.
+        self._show_first_mountpoint()
 
     def on_device_type_changed(self, combo):
         text = combo.get_active_text()
