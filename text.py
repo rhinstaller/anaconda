@@ -248,7 +248,7 @@ class PassphraseEntryWindow:
 
         passphrase = None
         isglobal = False
-        if res == TEXT_OK_CHECK:
+        if res == TEXT_OK_CHECK or rc == "F12":
             passphrase = passphraseentry.value().strip()
             isglobal = globalcheckbox.selected()
 
