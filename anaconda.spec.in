@@ -249,6 +249,10 @@ update-desktop-database &> /dev/null || :
 /usr/lib/dracut/modules.d/80%{name}/*
 
 %changelog
+* Fri Jul 06 2012 David Cantrell <dcantrell@redhat.com> - 17.28.11-1
+- Let kickstart users log to device nodes (bcl)
+  Resolves: rhbz#835563
+
 * Mon Jun 25 2012 David Cantrell <dcantrell@redhat.com> - 17.28.10-1
 - Save RAM by using pregenerated locale files (wwoods)
   Resolves: rhbz#834518
