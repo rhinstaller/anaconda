@@ -1316,6 +1316,7 @@ class FileSystemSet:
         self.reset()
         self.volumesCreated = 0
         self.anaconda = anaconda
+        self.unknownFSlines = list()
 
     def isActive(self):
         return self.mountcount != 0
@@ -1431,7 +1432,20 @@ class FileSystemSet:
         new = FileSystemSet(self.anaconda)
         for entry in self.entries:
             new.add (entry)
+        new.unknownFSlines = self.unknownFSlines[:]
         return new
+
+    def extend (self, fsset):
+        """
+        Extends the entry set and the list of unknownFSlines with values
+        from a given fsset.
+
+        """
+
+        for entry in fsset.entries:
+            self.add(entry)
+
+        self.unknownFSlines.extend(fsset.unknownFSlines)
 
     def fstab (self):
         format = "%-23s %-23s %-7s %-15s %d %d\n"
@@ -1460,6 +1474,11 @@ class FileSystemSet:
                                           entry.fsystem.getName(),
                                           options, entry.fsck,
                                           entry.order)
+
+        # append commented out lines with unknown (not supported) filesystems
+        for line in self.unknownFSlines:
+            fstab += "#" + line
+
         return fstab
 
     def mtab (self):
@@ -2969,6 +2988,9 @@ def readFstab (anaconda):
             break
         # "none" is valid as an fs type for bind mounts (#151458)
         if fsystem is None and (string.find(fields[3], "bind") == -1):
+            # add the line to the list of lines that will be commented out in
+            # the new fstab
+            fsset.unknownFSlines.append(line)
             continue
         
         label = None

@@ -198,8 +198,7 @@ def mountRootPartition(anaconda, rootInfo, oldfsset, allowDirty = 0,
 
     oldfsset.reset()
     newfsset = readFstab(anaconda)
-    for entry in newfsset.entries:
-        oldfsset.add(entry)
+    oldfsset.extend(newfsset)
 
     isys.umount(anaconda.rootPath)
 
