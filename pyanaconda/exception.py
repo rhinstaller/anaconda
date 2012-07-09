@@ -103,7 +103,10 @@ class AnacondaExceptionHandler(ExceptionHandler):
         print("\nEntering debugger...")
         import pdb
         pdb.post_mortem (tb)
-        os.kill(os.getpid(), signal.SIGKILL)
+        try:
+            isys.vtActivate(6)
+        except SystemError:
+            pass
 
 def initExceptionHandling(anaconda):
     fileList = [ "/tmp/anaconda.log",
