@@ -2,10 +2,6 @@
 <interface>
   <!-- interface-requires gtk+ 3.0 -->
   <!-- interface-requires AnacondaWidgets 1.0 -->
-  <object class="GtkEntryCompletion" id="languageEntryCompletion">
-    <property name="model">languageStore</property>
-    <signal name="match-selected" handler="on_completion_matched" swapped="no"/>
-  </object>
   <object class="GtkDialog" id="betaWarnDialog">
     <property name="can_focus">False</property>
     <property name="border_width">5</property>
@@ -137,6 +133,10 @@ OS you can rely on.  It's for testing purposes only.</property>
       <action-widget response="1">continueButton</action-widget>
     </action-widgets>
   </object>
+  <object class="GtkEntryCompletion" id="languageEntryCompletion">
+    <property name="model">languageStore</property>
+    <signal name="match-selected" handler="on_completion_matched" swapped="no"/>
+  </object>
   <object class="AnacondaSpokeWindow" id="languageSpokeWindow">
     <property name="startup_id">filler</property>
     <property name="can_focus">False</property>
@@ -233,7 +233,7 @@ OS you can rely on.  It's for testing purposes only.</property>
               <object class="GtkBox" id="welcomeWindowContentBox">
                 <property name="can_focus">False</property>
                 <property name="orientation">vertical</property>
-                <property name="spacing">6</property>
+                <property name="spacing">5</property>
                 <child>
                   <object class="GtkLabel" id="welcomeLabel">
                     <property name="visible">True</property>
@@ -268,79 +268,101 @@ OS you can rely on.  It's for testing purposes only.</property>
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkScrolledWindow" id="languageWindow">
+                  <object class="GtkAlignment" id="languageAlignment">
                     <property name="visible">True</property>
-                    <property name="can_focus">True</property>
+                    <property name="can_focus">False</property>
                     <property name="halign">center</property>
-                    <property name="hscrollbar_policy">never</property>
-                    <property name="shadow_type">in</property>
+                    <property name="vexpand">True</property>
+                    <property name="yalign">0</property>
                     <child>
-                      <object class="GtkTreeView" id="languageView">
+                      <object class="GtkBox" id="box1">
                         <property name="visible">True</property>
-                        <property name="can_focus">True</property>
-                        <property name="model">languageStore</property>
-                        <property name="headers_visible">False</property>
-                        <property name="search_column">0</property>
-                        <child internal-child="selection">
-                          <object class="GtkTreeSelection" id="languageViewSelection">
-                            <signal name="changed" handler="on_selection_changed" swapped="no"/>
-                          </object>
-                        </child>
+                        <property name="can_focus">False</property>
+                        <property name="orientation">vertical</property>
                         <child>
-                          <object class="GtkTreeViewColumn" id="nativeName">
-                            <property name="title" translatable="yes">nativeName</property>
-                            <property name="expand">True</property>
-                            <property name="clickable">True</property>
-                            <property name="sort_column_id">0</property>
+                          <object class="GtkScrolledWindow" id="languageWindow">
+                            <property name="visible">True</property>
+                            <property name="can_focus">True</property>
+                            <property name="vexpand">True</property>
+                            <property name="hscrollbar_policy">never</property>
+                            <property name="shadow_type">in</property>
                             <child>
-                              <object class="GtkCellRendererText" id="nativeNameRenderer">
-                                <property name="font">Sans 14</property>
+                              <object class="GtkTreeView" id="languageView">
+                                <property name="visible">True</property>
+                                <property name="can_focus">True</property>
+                                <property name="model">languageStore</property>
+                                <property name="headers_visible">False</property>
+                                <property name="search_column">0</property>
+                                <child internal-child="selection">
+                                  <object class="GtkTreeSelection" id="languageViewSelection">
+                                    <signal name="changed" handler="on_selection_changed" swapped="no"/>
+                                  </object>
+                                </child>
+                                <child>
+                                  <object class="GtkTreeViewColumn" id="nativeName">
+                                    <property name="title" translatable="yes">nativeName</property>
+                                    <property name="expand">True</property>
+                                    <property name="clickable">True</property>
+                                    <property name="sort_column_id">0</property>
+                                    <child>
+                                      <object class="GtkCellRendererText" id="nativeNameRenderer">
+                                        <property name="font">Sans 14</property>
+                                      </object>
+                                      <attributes>
+                                        <attribute name="text">0</attribute>
+                                      </attributes>
+                                    </child>
+                                  </object>
+                                </child>
+                                <child>
+                                  <object class="GtkTreeViewColumn" id="englishName">
+                                    <property name="title" translatable="yes">englishName</property>
+                                    <property name="expand">True</property>
+                                    <property name="clickable">True</property>
+                                    <property name="sort_column_id">1</property>
+                                    <child>
+                                      <object class="GtkCellRendererText" id="englishNameRenderer">
+                                        <property name="font">Sans Italic 14</property>
+                                        <property name="foreground">gray</property>
+                                      </object>
+                                      <attributes>
+                                        <attribute name="text">1</attribute>
+                                      </attributes>
+                                    </child>
+                                  </object>
+                                </child>
                               </object>
-                              <attributes>
-                                <attribute name="text">0</attribute>
-                              </attributes>
                             </child>
                           </object>
+                          <packing>
+                            <property name="expand">False</property>
+                            <property name="fill">True</property>
+                            <property name="position">0</property>
+                          </packing>
                         </child>
                         <child>
-                          <object class="GtkTreeViewColumn" id="englishName">
-                            <property name="title" translatable="yes">englishName</property>
-                            <property name="expand">True</property>
-                            <property name="clickable">True</property>
-                            <property name="sort_column_id">1</property>
-                            <child>
-                              <object class="GtkCellRendererText" id="englishNameRenderer">
-                                <property name="font">Sans Italic 14</property>
-                                <property name="foreground">gray</property>
-                              </object>
-                              <attributes>
-                                <attribute name="text">1</attribute>
-                              </attributes>
-                            </child>
+                          <object class="GtkEntry" id="languageEntry">
+                            <property name="visible">True</property>
+                            <property name="can_focus">True</property>
+                            <property name="invisible_char">●</property>
+                            <property name="invisible_char_set">True</property>
+                            <property name="secondary_icon_name">edit-clear-symbolic</property>
+                            <property name="completion">languageEntryCompletion</property>
+                            <signal name="icon-release" handler="on_clear_icon_clicked" swapped="no"/>
                           </object>
+                          <packing>
+                            <property name="expand">False</property>
+                            <property name="fill">True</property>
+                            <property name="position">1</property>
+                          </packing>
                         </child>
                       </object>
                     </child>
                   </object>
                   <packing>
-                    <property name="expand">True</property>
-                    <property name="fill">True</property>
-                    <property name="position">2</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkEntry" id="languageEntry">
-                    <property name="visible">True</property>
-                    <property name="can_focus">True</property>
-                    <property name="invisible_char">●</property>
-                    <property name="secondary_icon_name">edit-clear-symbolic</property>
-                    <property name="completion">languageEntryCompletion</property>
-                    <signal name="icon-release" handler="on_clear_icon_clicked" swapped="no"/>
-                  </object>
-                  <packing>
                     <property name="expand">False</property>
                     <property name="fill">True</property>
-                    <property name="position">3</property>
+                    <property name="position">2</property>
                   </packing>
                 </child>
               </object>

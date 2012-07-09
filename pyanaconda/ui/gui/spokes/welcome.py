@@ -131,17 +131,14 @@ class LanguageMixIn(object):
         # spoke.
         # This way we can share the dialog and code
         # between Welcome and Language spokes
-        langList = self.builder.get_object("languageWindow")
-        langList.get_parent().remove(langList)
         langLabel = self.builder.get_object("pickLanguageLabel")
         langLabel.get_parent().remove(langLabel)
-        langEntry = self.builder.get_object("languageEntry")
-        langEntry.get_parent().remove(langEntry)
+        langAlign = self.builder.get_object("languageAlignment")
+        langAlign.get_parent().remove(langAlign)
 
         content = self.builder.get_object(displayArea)
         content.pack_start(child = langLabel, fill = True, expand = False, padding = 0)
-        content.pack_start(child = langList, fill = True, expand = True, padding = 0)
-        content.pack_start(child = langEntry, fill = True, expand = False, padding = 0)
+        content.pack_start(child = langAlign, fill = True, expand = True, padding = 0)
 
     def _addLanguage(self, store, native, english, setting):
         store.append([native, english, setting])
