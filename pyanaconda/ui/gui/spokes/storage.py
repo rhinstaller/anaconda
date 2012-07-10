@@ -273,7 +273,7 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         self.autopart = self.data.autopart.autopart
 
         # FIXME:  This needs to be set to a real value via some TBD UI.
-        self.clearPartType = CLEARPART_TYPE_LINUX
+        self.clearPartType = CLEARPART_TYPE_NONE
 
     def apply(self):
         self.data.ignoredisk.onlyuse = self.selected_disks[:]
@@ -450,8 +450,7 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         free = Size(bytes=0)
 
         # pass in our disk list so hidden disks' free space is available
-        free_space = self.storage.getFreeSpace(disks=self.disks,
-                                               clearPartType=self.clearPartType)
+        free_space = self.storage.getFreeSpace(disks=self.disks)
         selected = [d for d in self.disks if d.name in self.selected_disks]
 
         for disk in selected:
@@ -518,7 +517,7 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         # show the installation options dialog
         disks = [d for d in self.disks if d.name in self.selected_disks]
         free_space = self.storage.getFreeSpace(disks=disks,
-                                               clearPartType=self.clearPartType)
+                                               clearPartType=CLEARPART_TYPE_ALL)
         disk_free = sum([f[0] for f in free_space.itervalues()])
         fs_free = sum([f[1] for f in free_space.itervalues()])
         required_space = self.payload.spaceRequired
