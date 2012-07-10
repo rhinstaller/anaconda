@@ -136,23 +136,17 @@ class AnacondaInternalScript(AnacondaKSScript):
         # kickstart file.
         return ""
 
-def getEscrowCertificate(anaconda, url):
+def getEscrowCertificate(escrowCerts, url):
     if not url:
         return None
 
-    if url in anaconda.storage.escrowCertificates:
-        return anaconda.storage.escrowCertificates[url]
+    if url in escrowCerts:
+        return escrowCerts[url]
 
     needs_net = not url.startswith("/") and not url.startswith("file:")
     if needs_net and not network.hasActiveNetDev():
-        msg = _("Escrow certificate with url %s requires network to be enabled "
-                "in loader or configured in kickstart file." % url)
-        if anaconda.intf:
-            anaconda.intf.kickstartErrorWindow(msg)
-            sys.exit(1)
-        else:
-            stderrLog.critical(msg)
-            sys.exit(1)
+        msg = _("Escrow certificate %s requires the network.") % url
+        raise KickstartError(msg)
 
     log.info("escrow: downloading %s" % (url,))
 
@@ -160,19 +154,14 @@ def getEscrowCertificate(anaconda, url):
         f = urlgrabber.urlopen(url)
     except urlgrabber.grabber.URLGrabError as e:
         msg = _("The following error was encountered while downloading the escrow certificate:\n\n%s" % e)
-        if anaconda.intf:
-            anaconda.intf.kickstartErrorWindow(msg)
-            sys.exit(1)
-        else:
-            stderrLog.critical(msg)
-            sys.exit(1)
+        raise KickstartError(msg)
 
     try:
-        anaconda.storage.escrowCertificates[url] = f.read()
+        escrowCerts[url] = f.read()
     finally:
         f.close()
 
-    return anaconda.storage.escrowCertificates[url]
+    return escrowCerts[url]
 
 def detect_multipaths():
     global topology
@@ -239,7 +228,7 @@ class AutoPart(commands.autopart.F17_AutoPart):
         if self.encrypted:
             storage.encryptedAutoPart = True
             storage.encryptionPassphrase = self.passphrase
-            storage.autoPartEscrowCert = getEscrowCertificate(self.anaconda, self.escrowcert)
+            storage.autoPartEscrowCert = getEscrowCertificate(storage.escrowCertificates, self.escrowcert)
             storage.autoPartAddBackupPassphrase = self.backuppassphrase
 
         if self.type is not None:
@@ -301,8 +290,7 @@ class Bootloader(commands.bootloader.F18_Bootloader):
             flags.leavebootorder = True
 
 class BTRFSData(commands.btrfs.F17_BTRFSData):
-    def execute(self):
-        storage = self.anaconda.storage
+    def execute(self, storage, ksdata, instClass):
         devicetree = storage.devicetree
 
         storage.doAutoPart = False
@@ -312,7 +300,7 @@ class BTRFSData(commands.btrfs.F17_BTRFSData):
         # Get a list of all the devices that make up this volume.
         for member in self.devices:
             # if using --onpart, use original device
-            member_name = self.anaconda.ksdata.onPart.get(member, member)
+            member_name = ksdata.onPart.get(member, member)
             if member_name:
                 dev = devicetree.getDeviceByName(member_name)
             if not dev:
@@ -371,8 +359,6 @@ class BTRFSData(commands.btrfs.F17_BTRFSData):
                                        parents=members)
 
             storage.createDevice(request)
-
-        self.anaconda.dispatch.skip_steps("partition", "parttype")
 
 class ClearPart(commands.clearpart.F17_ClearPart):
     def parse(self, args):
@@ -495,8 +481,7 @@ class IscsiName(commands.iscsiname.FC6_IscsiName):
         return retval
 
 class LogVolData(commands.logvol.F17_LogVolData):
-    def execute(self):
-        storage = self.anaconda.storage
+    def execute(self, storage, ksdata, instClass):
         devicetree = storage.devicetree
 
         storage.doAutoPart = False
@@ -549,9 +534,9 @@ class LogVolData(commands.logvol.F17_LogVolData):
                     except ValueError:
                         raise KickstartValueError(formatErrorMsg(self.lineno,
                                 msg="Invalid target size (%d) for device %s" % (self.size, dev.name)))
+
             dev.format.mountpoint = self.mountpoint
             dev.format.mountopts = self.fsopts
-            self.anaconda.dispatch.skip_steps("partition", "parttype")
             return
 
         # Make sure this LV name is not already used in the requested VG.
@@ -621,7 +606,7 @@ class LogVolData(commands.logvol.F17_LogVolData):
             if self.passphrase and not storage.encryptionPassphrase:
                 storage.encryptionPassphrase = self.passphrase
 
-            cert = getEscrowCertificate(self.anaconda, self.escrowcert)
+            cert = getEscrowCertificate(storage.escrowCertificates, self.escrowcert)
             if self.preexist:
                 luksformat = format
                 device.format = getFormat("luks", passphrase=self.passphrase, device=device.path,
@@ -639,8 +624,6 @@ class LogVolData(commands.logvol.F17_LogVolData):
                                      format=luksformat,
                                      parents=request)
             storage.createDevice(luksdev)
-
-        self.anaconda.dispatch.skip_steps("partition", "parttype")
 
 class Logging(commands.logging.FC6_Logging):
     def execute(self, *args):
@@ -791,8 +774,7 @@ class DmRaid(commands.dmraid.FC6_DmRaid):
         raise NotImplementedError("The dmraid kickstart command is not currently supported")
 
 class PartitionData(commands.partition.F17_PartData):
-    def execute(self):
-        storage = self.anaconda.storage
+    def execute(self, storage, ksdata, instClass):
         devicetree = storage.devicetree
         kwargs = {}
 
@@ -839,7 +821,7 @@ class PartitionData(commands.partition.F17_PartData):
 
             # store "raid." alias for other ks partitioning commands
             if self.onPart:
-                self.anaconda.ksdata.onPart[kwargs["name"]] = self.onPart
+                ksdata.onPart[kwargs["name"]] = self.onPart
             self.mountpoint = ""
         elif self.mountpoint.startswith("pv."):
             type = "lvmpv"
@@ -850,7 +832,7 @@ class PartitionData(commands.partition.F17_PartData):
 
             # store "pv." alias for other ks partitioning commands
             if self.onPart:
-                self.anaconda.ksdata.onPart[kwargs["name"]] = self.onPart
+                ksdata.onPart[kwargs["name"]] = self.onPart
             self.mountpoint = ""
         elif self.mountpoint.startswith("btrfs."):
             type = "btrfs"
@@ -861,7 +843,7 @@ class PartitionData(commands.partition.F17_PartData):
 
             # store "btrfs." alias for other ks partitioning commands
             if self.onPart:
-                self.anaconda.ksdata.onPart[kwargs["name"]] = self.onPart
+                ksdata.onPart[kwargs["name"]] = self.onPart
             self.mountpoint = ""
         elif self.mountpoint == "/boot/efi":
             if iutil.isMactel():
@@ -904,9 +886,9 @@ class PartitionData(commands.partition.F17_PartData):
                     except ValueError:
                         raise KickstartValueError(formatErrorMsg(self.lineno,
                                 msg="Invalid target size (%d) for device %s" % (self.size, dev.name)))
+
             dev.format.mountpoint = self.mountpoint
             dev.format.mountopts = self.fsopts
-            self.anaconda.dispatch.skip_steps("partition", "parttype")
             return
 
         # Now get a format to hold a lot of these extra values.
@@ -983,18 +965,17 @@ class PartitionData(commands.partition.F17_PartData):
                 # set weight based on fstype and mountpoint
                 mpt = getattr(kwargs["format"], "mountpoint", None)
                 fstype = kwargs["format"].type
-                kwargs["weight"] = self.anaconda.platform.weight(fstype=fstype,
-                                                                 mountpoint=mpt)
+                kwargs["weight"] = storage.platform.weight(fstype=fstype,
+                                                           mountpoint=mpt)
 
             request = storage.newPartition(**kwargs)
-
             storage.createDevice(request)
 
         if self.encrypted:
             if self.passphrase and not storage.encryptionPassphrase:
                storage.encryptionPassphrase = self.passphrase
 
-            cert = getEscrowCertificate(self.anaconda, self.escrowcert)
+            cert = getEscrowCertificate(storage.escrowCertificates, self.escrowcert)
             if self.onPart:
                 luksformat = format
                 device.format = getFormat("luks", passphrase=self.passphrase, device=device.path,
@@ -1013,14 +994,11 @@ class PartitionData(commands.partition.F17_PartData):
                                      parents=request)
             storage.createDevice(luksdev)
 
-        self.anaconda.dispatch.skip_steps("partition", "parttype")
-
 class RaidData(commands.raid.F15_RaidData):
-    def execute(self):
+    def execute(self, storage, ksdata, instClass):
         raidmems = []
         devicename = "md%d" % self.device
 
-        storage = self.anaconda.storage
         devicetree = storage.devicetree
         kwargs = {}
 
@@ -1032,7 +1010,7 @@ class RaidData(commands.raid.F15_RaidData):
         elif self.mountpoint.startswith("pv."):
             type = "lvmpv"
             kwargs["name"] = self.mountpoint
-            self.anaconda.ksdata.onPart[kwargs["name"]] = devicename
+            ksdata.onPart[kwargs["name"]] = devicename
 
             if devicetree.getDeviceByName(kwargs["name"]):
                 raise KickstartValueError, formatErrorMsg(self.lineno, msg="PV partition defined multiple times")
@@ -1041,7 +1019,7 @@ class RaidData(commands.raid.F15_RaidData):
         elif self.mountpoint.startswith("btrfs."):
             type = "btrfs"
             kwargs["name"] = self.mountpoint
-            self.anaconda.ksdata.onPart[kwargs["name"]] = devicename
+            ksdata.onPart[kwargs["name"]] = devicename
 
             if devicetree.getDeviceByName(kwargs["name"]):
                 raise KickstartValueError, formatErrorMsg(self.lineno, msg="BTRFS partition defined multiple times")
@@ -1051,7 +1029,7 @@ class RaidData(commands.raid.F15_RaidData):
             if self.fstype != "":
                 type = self.fstype
             elif self.mountpoint == "/boot" and \
-                 "mdarray" in self.anaconda.bootloader.stage2_device_types:
+                 "mdarray" in storage.bootloader.stage2_device_types:
                 type = storage.defaultBootFSType
             else:
                 type = storage.defaultFSType
@@ -1072,13 +1050,12 @@ class RaidData(commands.raid.F15_RaidData):
 
             dev.format.mountpoint = self.mountpoint
             dev.format.mountopts = self.fsopts
-            self.anaconda.dispatch.skip_steps("partition", "parttype")
             return
 
         # Get a list of all the RAID members.
         for member in self.members:
             # if member is using --onpart, use original device
-            member = self.anaconda.ksdata.onPart.get(member, member)
+            member = ksdata.onPart.get(member, member)
             dev = devicetree.getDeviceByName(member)
             if dev and dev.format.type == "luks":
                 try:
@@ -1140,7 +1117,7 @@ class RaidData(commands.raid.F15_RaidData):
             if self.passphrase and not storage.encryptionPassphrase:
                storage.encryptionPassphrase = self.passphrase
 
-            cert = getEscrowCertificate(self.anaconda, self.escrowcert)
+            cert = getEscrowCertificate(storage.escrowCertificates, self.escrowcert)
             if self.preexist:
                 luksformat = format
                 device.format = getFormat("luks", passphrase=self.passphrase, device=device.path,
@@ -1158,8 +1135,6 @@ class RaidData(commands.raid.F15_RaidData):
                                      format=luksformat,
                                      parents=request)
             storage.createDevice(luksdev)
-
-        self.anaconda.dispatch.skip_steps("partition", "parttype")
 
 class Services(commands.services.FC6_Services):
     def execute(self, storage, ksdata, instClass):
@@ -1189,10 +1164,9 @@ class Timezone(commands.timezone.F18_Timezone):
                                    conf_file_path=chronyd_conf_path)
 
 class VolGroupData(commands.volgroup.FC16_VolGroupData):
-    def execute(self):
+    def execute(self, storage, ksdata, instClass):
         pvs = []
 
-        storage = self.anaconda.storage
         devicetree = storage.devicetree
 
         storage.doAutoPart = False
@@ -1200,7 +1174,7 @@ class VolGroupData(commands.volgroup.FC16_VolGroupData):
         # Get a list of all the physical volume devices that make up this VG.
         for pv in self.physvols:
             # if pv is using --onpart, use original device
-            pv = self.anaconda.ksdata.onPart.get(pv, pv)
+            pv = ksdata.onPart.get(pv, pv)
             dev = devicetree.getDeviceByName(pv)
             if dev and dev.format.type == "luks":
                 try:
