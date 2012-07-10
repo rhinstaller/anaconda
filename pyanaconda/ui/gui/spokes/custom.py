@@ -39,6 +39,7 @@ from pyanaconda.storage import Root
 
 from pyanaconda.ui.gui import UIObject
 from pyanaconda.ui.gui.spokes import NormalSpoke
+from pyanaconda.ui.gui.spokes.storage import StorageChecker
 from pyanaconda.ui.gui.spokes.lib.cart import SelectedDisksDialog
 from pyanaconda.ui.gui.spokes.lib.accordion import *
 from pyanaconda.ui.gui.utils import enlightbox, setViewportBackground
@@ -92,7 +93,7 @@ class ConfirmDeleteDialog(UIObject):
     def run(self):
         return self.window.run()
 
-class CustomPartitioningSpoke(NormalSpoke):
+class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
     builderObjects = ["customStorageWindow", "sizeAdjustment",
                       "partitionStore",
                       "addImage", "removeImage", "settingsImage"]
@@ -109,7 +110,7 @@ class CustomPartitioningSpoke(NormalSpoke):
         self._when_create_text = ""
 
     def apply(self):
-        pass
+        StorageChecker.run(self)
 
     @property
     def indirect(self):

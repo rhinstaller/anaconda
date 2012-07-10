@@ -226,7 +226,26 @@ class InstallOptions3Dialog(InstallOptions1Dialog):
                        "version of <b>%s</b>, or quit the installer.") % (productName, productName)
         self.builder.get_object("options3_label2").set_markup(label_text)
 
-class StorageSpoke(NormalSpoke):
+class StorageChecker(object):
+    errors = []
+    warnings = []
+    _mainSpokeClass = "StorageSpoke"
+
+    def run(self):
+        from pyanaconda.threads import threadMgr
+        from pyanaconda.threads import AnacondaThread
+
+        communication.send_not_ready(self._mainSpokeClass)
+        threadMgr.add(AnacondaThread(name="AnaCheckStorageThread",
+                                     target=self.checkStorage))
+
+    def checkStorage(self):
+        communication.send_message(self._mainSpokeClass,
+                                   _("Checking storage configuration..."))
+        (self.errors, self.warnings) = self.storage.sanityCheck()
+        communication.send_ready(self._mainSpokeClass)
+
+class StorageSpoke(NormalSpoke, StorageChecker):
     builderObjects = ["storageWindow"]
     mainWidgetName = "storageWindow"
     uiFile = "spokes/storage.ui"
@@ -301,15 +320,21 @@ class StorageSpoke(NormalSpoke):
         # this won't do anything if autopart is not selected
         self.data.autopart.execute(self.storage, self.data, self.instclass)
 
+        StorageChecker.run(self)
+
     @property
     def completed(self):
-        return self.status != _("No disks selected")
+        from pyanaconda.threads import threadMgr
+        return (threadMgr.get("AnaCheckStorageThread") is None and
+                self.storage.rootDevice is not None and
+                not self.errors)
 
     @property
     def ready(self):
         # By default, the storage spoke is not ready.  We have to wait until
         # storageInitialize is done.
-        return self._ready
+        from pyanaconda.threads import threadMgr
+        return self._ready and not threadMgr.get("AnaCheckStorageThread")
 
     @property
     def status(self):
@@ -320,10 +345,12 @@ class StorageSpoke(NormalSpoke):
                      ("%d disks selected"),
                      len(self.data.ignoredisk.onlyuse)) % len(self.data.ignoredisk.onlyuse)
 
-            if self.data.autopart.autopart:
+            if self.errors:
+                msg = _("Error checking storage configuration")
+            elif self.data.autopart.autopart:
                 msg = _("Automatic partitioning selected")
-
-                # if we had a storage instance we could check for a defined root
+            else:
+                msg = _("Custom partitioning selected")
 
         return msg
 
