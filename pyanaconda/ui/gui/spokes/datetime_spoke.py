@@ -297,7 +297,7 @@ class DatetimeSpoke(NormalSpoke):
         self._citiesFilter.set_visible_func(self.city_in_region, None)
 
         self._citiesSort = self.builder.get_object("citiesSort")
-        self._citiesSort.set_sort_column_id(0, 0) #column 0, Ascending
+        self._citiesSort.set_sort_column_id(0, Gtk.SortType.ASCENDING)
 
         self._hoursLabel = self.builder.get_object("hoursLabel")
         self._minutesLabel = self.builder.get_object("minutesLabel")
