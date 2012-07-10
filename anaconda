@@ -849,6 +849,10 @@ if __name__ == "__main__":
         ksdata = kickstart.parseKickstart(anaconda, opts.ksfile)
         if ksdata.rescue.rescue:
             anaconda.rescue = True
+
+        # Some kickstart commands must be executed immediately, as they affect
+        # how anaconda operates.
+        ksdata.logging.execute()
     else:
         ksdata = kickstart.AnacondaKSHandler(anaconda)
 

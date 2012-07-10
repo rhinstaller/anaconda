@@ -643,7 +643,7 @@ class LogVolData(commands.logvol.F17_LogVolData):
         self.anaconda.dispatch.skip_steps("partition", "parttype")
 
 class Logging(commands.logging.FC6_Logging):
-    def execute(self):
+    def execute(self, *args):
         if logger.tty_loglevel == DEFAULT_TTY_LEVEL:
             # not set from the command line
             level = logLevelMap[self.level]
