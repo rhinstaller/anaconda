@@ -45,6 +45,7 @@ class SoftwareSelectionSpoke(NormalSpoke):
     def __init__(self, *args, **kwargs):
         NormalSpoke.__init__(self, *args, **kwargs)
         self._error = False
+        self._tx_id = None
 
         self.selectedGroups = []
         self.excludedGroups = []
