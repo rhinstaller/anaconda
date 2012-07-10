@@ -9,10 +9,10 @@
   </object>
   <object class="GtkDialog" id="addLayoutDialog">
     <property name="can_focus">False</property>
-    <property name="decorated">False</property>
     <property name="border_width">5</property>
     <property name="default_height">450</property>
     <property name="type_hint">dialog</property>
+    <property name="decorated">False</property>
     <child internal-child="vbox">
       <object class="GtkBox" id="dialog-vbox1">
         <property name="can_focus">False</property>
@@ -107,7 +107,7 @@
                   <object class="GtkTreeView" id="newLayoutView">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
-                    <property name="model">newLayoutStoreFilter</property>
+                    <property name="model">newLayoutStoreSort</property>
                     <property name="headers_visible">False</property>
                     <property name="headers_clickable">False</property>
                     <child internal-child="selection">
@@ -192,6 +192,8 @@
         <child internal-child="nav_area">
           <object class="GtkGrid" id="AnacondaSpokeWindow-nav_area1">
             <property name="can_focus">False</property>
+            <property name="n_rows">2</property>
+            <property name="n_columns">2</property>
           </object>
           <packing>
             <property name="expand">False</property>
@@ -472,15 +474,18 @@ any layout to the top of the list to select it as the default.</property>
   <object class="GtkTreeModelFilter" id="newLayoutStoreFilter">
     <property name="child_model">newLayoutStore</property>
   </object>
-  <object class="GtkImage" id="removeImage">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="icon_name">list-remove-symbolic</property>
+  <object class="GtkTreeModelSort" id="newLayoutStoreSort">
+    <property name="model">newLayoutStoreFilter</property>
   </object>
   <object class="GtkImage" id="previewImage">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
     <property name="icon_name">input-keyboard-symbolic</property>
+  </object>
+  <object class="GtkImage" id="removeImage">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="icon_name">list-remove-symbolic</property>
   </object>
   <object class="GtkImage" id="upImage">
     <property name="visible">True</property>

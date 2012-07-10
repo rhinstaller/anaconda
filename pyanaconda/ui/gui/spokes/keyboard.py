@@ -24,7 +24,7 @@ import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
 N_ = lambda x: x
 
-from gi.repository import GLib, Gkbd
+from gi.repository import GLib, Gkbd, Gtk
 
 from pyanaconda.ui.gui import UIObject
 from pyanaconda.ui.gui.spokes import NormalSpoke
@@ -39,7 +39,8 @@ def _show_layout(column, renderer, model, itr, wrapper):
     renderer.set_property("text", value)
 
 class AddLayoutDialog(UIObject):
-    builderObjects = ["addLayoutDialog", "newLayoutStore", "newLayoutStoreFilter"]
+    builderObjects = ["addLayoutDialog", "newLayoutStore",
+                      "newLayoutStoreFilter", "newLayoutStoreSort"]
     mainWidgetName = "addLayoutDialog"
     uiFile = "spokes/keyboard.ui"
 
@@ -66,9 +67,26 @@ class AddLayoutDialog(UIObject):
         except ValueError as valerr:
             return False
 
+    def compare_layouts(self, model, itr1, itr2, user_data=None):
+        """
+        We want to sort layouts by their show strings not their names.
+        This function is an instance of GtkTreeIterCompareFunc().
+
+        """
+
+        value1 = model[itr1][0]
+        value2 = model[itr2][0]
+        show_str1 = self._xkl_wrapper.name_to_show_str[value1]
+        show_str2 = self._xkl_wrapper.name_to_show_str[value2]
+
+        if show_str1 < show_str2:
+            return -1
+        elif show_str1 == show_str2:
+            return 0
+        else:
+            return 1
+
     def refresh(self):
-        self._treeModelFilter = self.builder.get_object("newLayoutStoreFilter")
-        self._treeModelFilter.set_visible_func(self.matches_entry, None)
         self._entry = self.builder.get_object("addLayoutEntry")
         self._entry.grab_focus()
 
@@ -79,6 +97,10 @@ class AddLayoutDialog(UIObject):
         layoutRenderer = self.builder.get_object("newLayoutRenderer")
         layoutColumn.set_cell_data_func(layoutRenderer, _show_layout,
                                             self._xkl_wrapper)
+        self._treeModelFilter = self.builder.get_object("newLayoutStoreFilter")
+        self._treeModelFilter.set_visible_func(self.matches_entry, None)
+        self._treeModelSort = self.builder.get_object("newLayoutStoreSort")
+        self._treeModelSort.set_default_sort_func(self.compare_layouts, None)
 
         self._store = self.builder.get_object("newLayoutStore")
         for layout in self._xkl_wrapper.get_available_layouts():
