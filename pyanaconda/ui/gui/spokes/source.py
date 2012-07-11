@@ -500,11 +500,17 @@ class SourceSpoke(NormalSpoke):
         try:
             self.payload.updateBaseRepo(self.storage, fallback=False)
         except PayloadError as e:
+            log.error("PayloadError: %s" % (e,))
             self._error = True
             communication.send_message(self.__class__.__name__,
                                        _("Failed to set up install source"))
+            if not self.data.method.proxy:
+                self.window.set_info(Gtk.MessageType.WARNING, _("Failed to set up install source, check the repo url"))
+            else:
+                self.window.set_info(Gtk.MessageType.WARNING, _("Failed to set up install source, check the repo url and proxy settings"))
         else:
             self._error = False
+            self.window.clear_info()
             threadMgr.add(AnacondaThread(name="AnaPayloadMDThread",
                                          target=self.getRepoMetadata))
 
