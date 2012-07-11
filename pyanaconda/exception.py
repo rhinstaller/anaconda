@@ -101,6 +101,8 @@ class AnacondaExceptionHandler(ExceptionHandler):
         termios.tcsetattr(si, termios.TCSADRAIN, attr)
 
         print("\nEntering debugger...")
+        print("Use 'continue' command to quit the debugger and get back to "\
+              "the main window")
         import pdb
         pdb.post_mortem (tb)
         try:
