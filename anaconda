@@ -845,8 +845,8 @@ if __name__ == "__main__":
     if opts.ksfile:
         flags.automatedInstall = True
 
-        kickstart.preScriptPass(anaconda, opts.ksfile)
-        ksdata = kickstart.parseKickstart(anaconda, opts.ksfile)
+        kickstart.preScriptPass(opts.ksfile)
+        ksdata = kickstart.parseKickstart(opts.ksfile)
         if ksdata.rescue.rescue:
             anaconda.rescue = True
 
@@ -854,7 +854,7 @@ if __name__ == "__main__":
         # how anaconda operates.
         ksdata.logging.execute()
     else:
-        ksdata = kickstart.AnacondaKSHandler(anaconda)
+        ksdata = kickstart.AnacondaKSHandler()
 
     anaconda.ksdata = ksdata
 

@@ -1272,42 +1272,9 @@ dataMap = {
 superclass = returnClassForVersion()
 
 class AnacondaKSHandler(superclass):
-    def __init__ (self, anaconda):
+    def __init__ (self):
         superclass.__init__(self, commandUpdates=commandMap, dataUpdates=dataMap)
-
-        self.anaconda = anaconda
         self.onPart = {}
-
-        # All the KickstartCommand and KickstartData objects that
-        # handleCommand returns, so we can later iterate over them and run
-        # the execute methods.  These really should be stored in the order
-        # they're seen in the kickstart file.
-        self._dataObjs = []
-
-    def add(self, obj):
-        if isinstance(obj, KickstartCommand):
-            # Commands can only be run once, and the latest one seen takes
-            # precedence over any earlier ones.
-            i = 0
-            while i < len(self._dataObjs):
-                if self._dataObjs[i].__class__ == obj.__class__:
-                    self._dataObjs.pop(i)
-                    break
-
-                i += 1
-
-            self._dataObjs.append(obj)
-        else:
-            # Data objects can be seen over and over again.
-            self._dataObjs.append(obj)
-
-    def dispatcher(self, args, lineno):
-        cmd = args[0]
-
-        if self.commands.has_key(cmd):
-            self.commands[cmd].anaconda = self.anaconda
-
-        return superclass.dispatcher(self, args, lineno)
 
 class AnacondaPreParser(KickstartParser):
     # A subclass of KickstartParser that only looks for %pre scripts and
@@ -1335,9 +1302,7 @@ class AnacondaKSParser(KickstartParser):
         if not self.handler:
             return
 
-        retval = KickstartParser.handleCommand(self, lineno, args)
-        self.handler.add(retval)
-        return retval
+        return KickstartParser.handleCommand(self, lineno, args)
 
     def setupSections(self):
         self.registerSection(PreScriptSection(self.handler, dataObj=self.scriptClass))
@@ -1345,11 +1310,11 @@ class AnacondaKSParser(KickstartParser):
         self.registerSection(TracebackScriptSection(self.handler, dataObj=self.scriptClass))
         self.registerSection(PackageSection(self.handler))
 
-def preScriptPass(anaconda, f):
+def preScriptPass(f):
     # The first pass through kickstart file processing - look for %pre scripts
     # and run them.  This must come in a separate pass in case a script
     # generates an included file that has commands for later.
-    ksparser = AnacondaPreParser(AnacondaKSHandler(anaconda))
+    ksparser = AnacondaPreParser(AnacondaKSHandler())
 
     try:
         ksparser.readKickstart(f)
@@ -1360,10 +1325,10 @@ def preScriptPass(anaconda, f):
     # run %pre scripts
     runPreScripts(ksparser.handler.scripts)
 
-def parseKickstart(anaconda, f):
+def parseKickstart(f):
     # preprocessing the kickstart file has already been handled in initramfs.
 
-    handler = AnacondaKSHandler(anaconda)
+    handler = AnacondaKSHandler()
     ksparser = AnacondaKSParser(handler)
 
     # We need this so all the /dev/disk/* stuff is set up before parsing.
