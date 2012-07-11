@@ -23,6 +23,8 @@ import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
 N_ = lambda x: x
 
+from pyanaconda.flags import flags
+
 from pyanaconda.ui.gui import communication
 from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.gui.utils import gdk_threaded
@@ -100,10 +102,16 @@ class SoftwareSelectionSpoke(NormalSpoke):
     @property
     def completed(self):
         from pyanaconda.threads import threadMgr
-        return self._get_selected_desktop() is not None and \
-               not threadMgr.get("AnaCheckSoftwareThread") and \
-               not self._error and \
-               self.payload.txID and self._tx_id == self.payload.txID
+        from pyanaconda.kickstart import packagesSeen
+
+        processingDone = not threadMgr.get("AnaCheckSoftwareThread") and \
+                         not self._error and \
+                         self._tx_id == self.payload.txID
+
+        if flags.automatedInstall:
+            return packagesSeen and processingDone
+        else:
+            return self._get_selected_desktop() is not None and processingDone
 
     @property
     def ready(self):
@@ -119,7 +127,9 @@ class SoftwareSelectionSpoke(NormalSpoke):
 
     @property
     def status(self):
+        from pyanaconda.kickstart import packagesSeen
         from pyanaconda.threads import threadMgr
+
         if self._error:
             return _("Error checking software selection")
 
@@ -128,6 +138,12 @@ class SoftwareSelectionSpoke(NormalSpoke):
 
         row = self._get_selected_desktop()
         if not row:
+            # Kickstart installs with %packages will have a row selected, unless
+            # they did an install without a desktop environment.  This should
+            # catch that one case.
+            if flags.automatedInstall and packagesSeen:
+                return _("Custom software selected")
+
             return _("Nothing selected")
 
         return self.payload.description(row[2])[0]
