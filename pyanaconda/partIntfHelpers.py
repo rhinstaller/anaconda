@@ -472,7 +472,7 @@ def drive_iscsi_addition(anaconda, wizard):
                                                 _("No iSCSI nodes to log in"))
                     break
                 (rc, selected_nodes) = wizard.display_nodes_dialog(found_nodes,
-                                                                  anaconda.id.storage.iscsi.ifaces)
+                                                                  anaconda.storage.iscsi.ifaces)
                 if not rc or len(selected_nodes) == 0:
                     break
                 step = STEP_LOGIN
@@ -499,7 +499,7 @@ def drive_iscsi_addition(anaconda, wizard):
                 rc = wizard.display_success_dialog(login_ok_nodes, 
                                                    login_fail_nodes,
                                                    login_fail_msg,
-                                                   anaconda.id.storage.iscsi.ifaces)
+                                                   anaconda.storage.iscsi.ifaces)
                 if rc:
                     step = STEP_STABILIZE
                 else:
