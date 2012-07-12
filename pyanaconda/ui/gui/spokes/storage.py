@@ -47,6 +47,7 @@ from pyanaconda.ui.gui.spokes.lib.cart import SelectedDisksDialog
 from pyanaconda.ui.gui.categories.storage import StorageCategory
 from pyanaconda.ui.gui.utils import enlightbox, gdk_threaded
 
+from pyanaconda.storage import doKickstartStorage
 from pyanaconda.storage.size import Size
 from pyanaconda.product import productName
 from pyanaconda.flags import flags
@@ -243,7 +244,7 @@ class StorageChecker(object):
         communication.send_message(self._mainSpokeClass,
                                    _("Checking storage configuration..."))
         (self.errors, self.warnings) = self.storage.sanityCheck()
-        communication.send_ready(self._mainSpokeClass)
+        communication.send_ready(self._mainSpokeClass, justUpdate=True)
 
 class StorageSpoke(NormalSpoke, StorageChecker):
     builderObjects = ["storageWindow"]
@@ -307,7 +308,6 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         # If custom is selected, we want to leave alone any storage layout the
         # user may have set up before now.
         self.storage.config.clearNonExistent = self.data.autopart.autopart
-        self.data.clearpart.execute(self.storage, self.data, self.instclass)
 
         # Pick the first disk to be the destination device for the bootloader.
         # This appears to be the minimum amount of configuration required to
@@ -315,12 +315,8 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         if not self.data.bootloader.bootDrive:
             self.data.bootloader.bootDrive = self.storage.bootloader.disks[0].name
 
-        self.data.bootloader.execute(self.storage, self.data, self.instclass)
-
-        # this won't do anything if autopart is not selected
-        self.data.autopart.execute(self.storage, self.data, self.instclass)
-
-        StorageChecker.run(self)
+    def execute(self):
+        doKickstartStorage(self.storage, self.data, self.instclass, self)
 
     @property
     def completed(self):

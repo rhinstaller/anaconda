@@ -100,6 +100,18 @@ class Spoke(UIObject):
         """
         return False
 
+    def execute(self):
+        """Cause the data object to take effect on the target system.  This will
+           usually be as simple as calling one or more of the execute methods on
+           the data object.  This method does not need to be provided by all
+           subclasses.
+
+           This method will be called in two different places:  (1) Immediately
+           after initialize on kickstart installs.  (2) Immediately after apply
+           in all cases.
+        """
+        pass
+
     def initialize(self):
         UIObject.initialize(self)
 

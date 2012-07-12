@@ -34,7 +34,7 @@ hubQ = Queue.Queue()
 
 # Arguments:
 #
-# _READY - [spoke_name]
+# _READY - [spoke_name, justUpdate]
 # _NOT_READY - [spoke_name]
 # _MESSAGE - [spoke_name, string]
 HUB_CODE_READY = 0
@@ -43,8 +43,13 @@ HUB_CODE_MESSAGE = 2
 
 # Convenience methods to put things into the queue without the user having to
 # know the details of the queue.
-def send_ready(spoke):
-    hubQ.put((HUB_CODE_READY, [spoke]))
+def send_ready(spoke, justUpdate=False):
+    """Tell the hub that a spoke given by the name "spoke" has become ready,
+       and that it should be made sensitive on the hub.  Some processing may
+       also occur after a spoke has become ready.  However, if the justUpdate
+       parameter is True, no processing will occur.
+    """
+    hubQ.put((HUB_CODE_READY, [spoke, justUpdate]))
 
 def send_not_ready(spoke):
     hubQ.put((HUB_CODE_NOT_READY, [spoke]))

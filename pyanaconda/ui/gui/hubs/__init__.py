@@ -102,6 +102,7 @@ class Hub(UIObject):
         # button handler to kill its own layer of main loop.
         Gtk.main()
         action.apply()
+        action.execute()
 
     def _createBox(self):
         from gi.repository import Gtk, AnacondaWidgets
@@ -158,6 +159,10 @@ class Hub(UIObject):
                 self._updateCompleteness(spoke)
                 spoke.selector.connect("button-press-event", self._on_spoke_clicked, spoke)
                 spoke.selector.connect("key-release-event", self._on_spoke_clicked, spoke)
+
+                # If this is a kickstart install, attempt to execute any provided ksdata now.
+                if flags.automatedInstall and spoke.ready:
+                    spoke.execute()
 
                 selectors.append(spoke.selector)
 
@@ -232,15 +237,25 @@ class Hub(UIObject):
                 q.task_done()
                 continue
 
-            if code in [communication.HUB_CODE_READY, communication.HUB_CODE_NOT_READY]:
+            if code == communication.HUB_CODE_NOT_READY:
+                self._updateCompleteness(spoke)
+            elif code == communication.HUB_CODE_READY:
                 self._updateCompleteness(spoke)
 
                 # If this is a real kickstart install (the kind with an input ks file)
                 # and all spokes are now completed, we should skip ahead to the next
                 # hub automatically.  Take into account the possibility the user is
                 # viewing a spoke right now, though.
-                if flags.automatedInstall and len(self._incompleteSpokes) == 0:
-                    self._autoContinue = True
+                if flags.automatedInstall:
+                    # Spokes that were not initially ready got the execute call in
+                    # _createBox skipped.  Now that it's become ready, do it.  Note
+                    # that we also provide a way to skip this processing (see comments
+                    # communication.py) to prevent getting caught in a loop.
+                    if not args[1]:
+                        spoke.execute()
+
+                    if len(self._incompleteSpokes) == 0:
+                        self._autoContinue = True
             elif code == communication.HUB_CODE_MESSAGE:
                 spoke.selector.set_property("status", args[1])
 
