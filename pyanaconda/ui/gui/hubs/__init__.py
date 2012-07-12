@@ -78,6 +78,7 @@ class Hub(UIObject):
 
         self._autoContinue = False
         self._incompleteSpokes = []
+        self._notReadySpokes = []
         self._spokes = {}
 
         self.storage = storage
@@ -154,6 +155,9 @@ class Hub(UIObject):
                 spoke.selector.set_sensitive(False)
                 spoke.initialize()
 
+                if not spoke.ready:
+                    self._notReadySpokes.append(spoke)
+
                 # Set some default values on the associated selector that
                 # affect its display on the hub.
                 self._updateCompleteness(spoke)
@@ -205,9 +209,10 @@ class Hub(UIObject):
             if spoke not in self._incompleteSpokes:
                 self._incompleteSpokes.append(spoke)
 
+        self._updateContinueButton()
+
         if len(self._incompleteSpokes) == 0:
             self.window.clear_info()
-            self.continueButton.set_sensitive(True)
         else:
             if flags.automatedInstall:
                 msg = _("When all items marked with this icon are complete, installation will automatically continue.")
@@ -215,7 +220,9 @@ class Hub(UIObject):
                 msg = _("Please complete items marked with this icon before continuing to the next step.")
 
             self.window.set_info(Gtk.MessageType.WARNING, msg)
-            self.continueButton.set_sensitive(False)
+
+    def _updateContinueButton(self):
+        self.continueButton.set_sensitive(len(self._incompleteSpokes) == 0 and len(self._notReadySpokes) == 0)
 
     def _update_spokes(self):
         from pyanaconda.ui.gui import communication
@@ -239,8 +246,18 @@ class Hub(UIObject):
 
             if code == communication.HUB_CODE_NOT_READY:
                 self._updateCompleteness(spoke)
+
+                if spoke not in self._notReadySpokes:
+                    self._notReadySpokes.append(spoke)
+
+                self._updateContinueButton()
             elif code == communication.HUB_CODE_READY:
                 self._updateCompleteness(spoke)
+
+                if spoke in self._notReadySpokes:
+                    self._notReadySpokes.remove(spoke)
+
+                self._updateContinueButton()
 
                 # If this is a real kickstart install (the kind with an input ks file)
                 # and all spokes are now completed, we should skip ahead to the next
