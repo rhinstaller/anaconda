@@ -672,7 +672,8 @@ class NetworkData(commands.network.F16_NetworkData):
     def execute(self):
         if flags.imageInstall:
             if self.hostname != "":
-                self.anaconda.network.setHostname(self.hostname)
+                self.anaconda.network.hostname = self.hostname
+                network.setHostname(self.hostname)
 
             # Only set hostname
             return
@@ -681,7 +682,8 @@ class NetworkData(commands.network.F16_NetworkData):
         # only set hostname
         if self.essid:
             if self.hostname != "":
-                self.anaconda.network.setHostname(self.hostname)
+                self.anaconda.network.hostname = self.hostname
+                network.setHostname(self.hostname)
             return
 
         devices = self.anaconda.network.netdevices
@@ -733,7 +735,8 @@ class NetworkData(commands.network.F16_NetworkData):
                     break
 
         if self.hostname != "":
-            self.anaconda.network.setHostname(self.hostname)
+            self.anaconda.network.hostname = self.hostname
+            network.setHostname(self.hostname)
             if not dev:
                 # Only set hostname
                 return
@@ -784,10 +787,10 @@ class NetworkData(commands.network.F16_NetworkData):
                 dev.set(("ETHTOOL_OPTS", self.ethtool))
 
             if self.nameserver != "":
-                self.anaconda.network.setDNS(self.nameserver, dev.iface)
+                dev.setDNS(self.nameserver)
 
             if self.gateway != "":
-                self.anaconda.network.setGateway(self.gateway, dev.iface)
+                dev.setGateway(self.gateway)
 
         if self.nodefroute:
             dev.set (("DEFROUTE", "no"))

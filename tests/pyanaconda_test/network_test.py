@@ -262,6 +262,28 @@ class NetworkTest(mock.TestCase):
         self.assertEqual(nd.info, {'KEY': 'other_value'})
         self.assertTrue(nd._dirty)
 
+    def networkdevice_set_gateway_test(self):
+        import pyanaconda.network
+        nd = pyanaconda.network.NetworkDevice(self.NETSCRIPTSDIR, self.DEVICE)
+        nd.setGateway('10.0.0.1')
+        self.assertEqual(nd.info, {'GATEWAY': '10.0.0.1'})
+        self.assertTrue(nd._dirty)
+
+    def networkdevice_set_gateway_ipv6_test(self):
+        import pyanaconda.network
+        nd = pyanaconda.network.NetworkDevice(self.NETSCRIPTSDIR, self.DEVICE)
+        nd.setGateway('fe80::5675:d0ff:feac:4d3f')
+        self.assertEqual(nd.info, {'IPV6_DEFAULTGW': 'fe80::5675:d0ff:feac:4d3f'})
+        self.assertTrue(nd._dirty)
+
+    def networkdevice_set_dns_test(self):
+        import pyanaconda.network
+        nd = pyanaconda.network.NetworkDevice(self.NETSCRIPTSDIR, self.DEVICE)
+        nd.setDNS('10.0.0.1, 10.0.0.2')
+        self.assertEqual(nd.info, {'DNS1': '10.0.0.1'})
+        self.assertEqual(nd.info, {'DNS2': '10.0.0.2'})
+        self.assertTrue(nd._dirty)
+
     def networkdevice_keyfile_path_test(self):
         import pyanaconda.network
         nd = pyanaconda.network.NetworkDevice(self.NETSCRIPTSDIR, self.DEVICE)
@@ -294,14 +316,6 @@ class NetworkTest(mock.TestCase):
         self.assertEqual(pyanaconda.network.shutil.move.call_args[0],
             (TMP_FILE, '%s/keys-%s' % (TMP_DIR, self.DEVICE)))
 
-    def network_get_device_test(self):
-        import pyanaconda.network
-
-        nw = pyanaconda.network.Network()
-        nw.netdevices['dev'] = 'device'
-        ret = nw.getDevice('dev')
-        self.assertEqual(ret, 'device')
-
     def network_get_ks_device_1_test(self):
         import pyanaconda.network
         nw = pyanaconda.network.Network()
@@ -323,57 +337,6 @@ class NetworkTest(mock.TestCase):
         nw.ksdevice = 'ksdev'
         ret = nw.getKSDevice()
         self.assertEqual(ret, 'device')
-
-    def network_set_hostname_test(self):
-        import pyanaconda.network
-        pyanaconda.network.iutil.execWithRedirect = mock.Mock()
-        nw = pyanaconda.network.Network()
-        nw.setHostname('DESKTOP')
-        self.assertEqual(nw.hostname, 'DESKTOP')
-
-    def network_set_dns_test(self):
-        import pyanaconda.network
-        nw = pyanaconda.network.Network()
-        nw.netdevices['dev'] = mock.Mock()
-        nw.setDNS('10.0.0.1, 10.0.0.2', 'dev')
-        self.assertEqual(nw.netdevices['dev'].method_calls,
-            [('set', (('DNS1', '10.0.0.1'),), {}),
-            ('set', (('DNS2', '10.0.0.2'),), {})]
-        )
-
-    def network_set_gateway_test(self):
-        import pyanaconda.network
-        nw = pyanaconda.network.Network()
-        nw.netdevices['eth0'] = mock.Mock()
-        nw.setGateway('10.0.0.1', 'eth0')
-        self.assertEqual(pyanaconda.network.Network.netdevices['eth0'].method_calls,
-            [('set', (('GATEWAY', '10.0.0.1'),), {})])
-
-    def network_lookup_hostname_1_test(self):
-        import pyanaconda.network
-        nw = pyanaconda.network.Network()
-        nw.hostname = None
-        ret = nw.lookupHostname()
-        self.assertEqual(ret, None)
-
-    def network_lookup_hostname_2_test(self):
-        import pyanaconda.network
-        nw = pyanaconda.network.Network()
-        nw.hostname = 'desktop'
-        pyanaconda.network.hasActiveNetDev = mock.Mock(return_value=False)
-        ret = nw.lookupHostname()
-        self.assertEqual(ret, None)
-
-    def network_lookup_hostname_3_test(self):
-        import pyanaconda.network
-        pyanaconda.network.socket.getaddrinfo.return_value = \
-            [(0, 0, 0, 0, ('10.1.1.1', 0))]
-
-        nw = pyanaconda.network.Network()
-        nw.hostname = 'desktop'
-        pyanaconda.network.hasActiveNetDev = mock.Mock(return_value=True)
-        ret = nw.lookupHostname()
-        self.assertEqual(ret, '10.1.1.1')
 
     def network_write_ifcfg_files_test(self):
         import pyanaconda.network
@@ -458,22 +421,6 @@ class NetworkTest(mock.TestCase):
         self.assertEqual(self.fs[TMPFILE],
             'network --device eth0 --bootproto dhcp --noipv6\n')
 
-    def network_has_name_server_1_test(self):
-        import pyanaconda.network
-        hash = {'foo':'', 'bar':''}
-
-        nw = pyanaconda.network.Network()
-        ret = nw.hasNameServers(hash)
-        self.assertFalse(ret)
-
-    def network_has_name_server_2_test(self):
-        import pyanaconda.network
-        hash = {'foo':'', 'bar':'', 'dnsserver':''}
-
-        nw = pyanaconda.network.Network()
-        ret = nw.hasNameServers(hash)
-        self.assertTrue(ret)
-
     def network_has_wireless_dev_1_test(self):
         import pyanaconda.network
         pyanaconda.network.isys = mock.Mock()
@@ -556,8 +503,7 @@ class NetworkTest(mock.TestCase):
         pyanaconda.network.dbus.Interface().Get.return_value = \
             pyanaconda.network.isys.NM_STATE_CONNECTED_GLOBAL
 
-        nw = pyanaconda.network.Network()
-        ret = nw.waitForConnection()
+        ret = pyanaconda.network.waitForConnection()
         self.assertTrue(ret)
 
     def network_wait_for_connection_2_test(self):
@@ -568,19 +514,18 @@ class NetworkTest(mock.TestCase):
         pyanaconda.network.isys.NM_STATE_CONNECTED = self.OK
         pyanaconda.network.time.sleep = mock.Mock()
 
-        nw = pyanaconda.network.Network()
-        ret = nw.waitForConnection()
+        ret = pyanaconda.network.waitForConnection()
         self.assertFalse(ret)
 
     def network_bring_up_test(self):
         import pyanaconda.network
         pyanaconda.network.Network.write = mock.Mock()
-        pyanaconda.network.Network.waitForConnection = mock.Mock()
+        pyanaconda.network.waitForConnection = mock.Mock()
 
         nw = pyanaconda.network.Network()
         nw.bringUp()
         self.assertTrue(pyanaconda.network.Network.write.called)
-        self.assertTrue(pyanaconda.network.Network.waitForConnection.called)
+        self.assertTrue(pyanaconda.network.waitForConnection.called)
 
     def iface_for_host_ip_test(self):
         import pyanaconda.network

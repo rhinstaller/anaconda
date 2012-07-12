@@ -390,9 +390,9 @@ class NetworkConfiguratorText:
         else:
             dev.set(("IPV6INIT", "no"))
 
-        self.anaconda.network.unsetDNS(devname)
+        self.netdevs[devname].unsetDNS()
         if nameservers:
-            self.anaconda.network.setDNS(nameservers, devname)
+            self.netdevs[devname].setDNS(nameservers)
 
         dev.set(('ONBOOT', 'yes'))
 

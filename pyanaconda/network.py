@@ -362,6 +362,31 @@ class NetworkDevice(IfcfgFile):
 
         return False
 
+    def setGateway(self, gw):
+        if ':' in gw:
+            self.set(('IPV6_DEFAULTGW', gw))
+        else:
+            self.set(('GATEWAY', gw))
+
+    def unsetDNS(self):
+        """Unset all DNS* ifcfg parameters."""
+        i = 1
+        while True:
+            if self.get("DNS%d" % i):
+                self.unset("DNS%d" %i)
+            else:
+                break
+            i += 1
+
+    def setDNS(self, ns):
+        dns = ns.split(',')
+        i = 1
+        for addr in dns:
+            addr = addr.strip()
+            dnslabel = "DNS%d" % (i,)
+            self.set((dnslabel, addr))
+            i += 1
+
 class WirelessNetworkDevice(NetworkDevice):
 
     """
@@ -469,11 +494,6 @@ class Network:
                         self.ksdevice = dev
                         break
 
-
-
-    def getDevice(self, device):
-        return self.netdevices[device]
-
     def getKSDevice(self):
         if self.ksdevice is None:
             return None
@@ -482,42 +502,6 @@ class Network:
             return self.netdevices[self.ksdevice]
         except:
             return None
-
-    def setHostname(self, hn):
-        self.hostname = hn
-        if flags.imageInstall:
-            log.info("image install -- not setting hostname")
-            return
-
-        log.info("setting installation environment hostname to %s" % hn)
-        iutil.execWithRedirect("hostname", ["-v", hn ],
-                               stdout="/dev/tty5", stderr="/dev/tty5")
-
-    def unsetDNS(self, devname):
-        """Unset all DNS* ifcfg parameters."""
-        i = 1
-        dev = self.netdevices[devname]
-        while True:
-            if dev.get("DNS%d" % i):
-                dev.unset("DNS%d" %i)
-            else:
-                break
-            i += 1
-
-    def setDNS(self, ns, device):
-        dns = ns.split(',')
-        i = 1
-        for addr in dns:
-            addr = addr.strip()
-            dnslabel = "DNS%d" % (i,)
-            self.netdevices[device].set((dnslabel, addr))
-            i += 1
-
-    def setGateway(self, gw, device):
-        if ':' in gw:
-            self.netdevices[device].set(('IPV6_DEFAULTGW', gw))
-        else:
-            self.netdevices[device].set(('GATEWAY', gw))
 
     @property
     def gateway(self):
@@ -536,29 +520,6 @@ class Network:
                 dev.get('DEFROUTE') != "no"):
                 return dev.get('IPV6_DEFAULTGW')
         return ""
-
-    def lookupHostname(self):
-        # can't look things up if they don't exist!
-        if not self.hostname or self.hostname == "localhost.localdomain":
-            return None
-
-        if not hasActiveNetDev():
-            log.warning("no network devices were available to look up host name")
-            return None
-
-        try:
-            (family, socktype, proto, canonname, sockaddr) = \
-                socket.getaddrinfo(self.hostname, None, socket.AF_INET)[0]
-            (ip, port) = sockaddr
-        except:
-            try:
-                (family, socktype, proto, canonname, sockaddr) = \
-                    socket.getaddrinfo(self.hostname, None, socket.AF_INET6)[0]
-                (ip, port, flowinfo, scopeid) = sockaddr
-            except:
-                return None
-
-        return ip
 
     # Note that the file is written-out only if there is a value
     # that has changed.
@@ -595,10 +556,6 @@ class Network:
                             "NM_CONTROLLED=yes\n")
             ifcfgfile.close()
 
-
-    def getSSIDs(self):
-        return getSSIDs()
-
     def writeKS(self, f):
         devNames = self.netdevices.keys()
         devNames.sort()
@@ -610,16 +567,6 @@ class Network:
             dev = self.netdevices[devName]
             line = "%s" % kickstartNetworkData(dev, self.hostname)
             f.write(line)
-
-    def hasNameServers(self, hash):
-        if hash.keys() == []:
-            return False
-
-        for key in hash.keys():
-            if key.upper().startswith('DNS'):
-                return True
-
-        return False
 
     def hasWirelessDev(self):
         for dev in self.netdevices:
@@ -768,60 +715,12 @@ class Network:
                 f.write("options ipv6 disable=1\n")
                 f.close()
 
-    def waitForDevicesActivation(self, devices):
-        waited_devs_props = {}
-
-        bus = dbus.SystemBus()
-        nm = bus.get_object(isys.NM_SERVICE, isys.NM_MANAGER_PATH)
-        device_paths = nm.get_dbus_method("GetDevices")()
-        for device_path in device_paths:
-            device = bus.get_object(isys.NM_SERVICE, device_path)
-            device_props_iface = dbus.Interface(device, isys.DBUS_PROPS_IFACE)
-            iface = str(device_props_iface.Get(isys.NM_DEVICE_IFACE, "Interface"))
-            if iface in devices:
-                waited_devs_props[iface] = device_props_iface
-
-        i = 0
-        while True:
-            for dev, device_props_iface in waited_devs_props.items():
-                state = device_props_iface.Get(isys.NM_DEVICE_IFACE, "State")
-                if state == isys.NM_DEVICE_STATE_ACTIVATED:
-                    waited_devs_props.pop(dev)
-            if len(waited_devs_props) == 0 or i >= CONNECTION_TIMEOUT:
-                break
-            i += 1
-            time.sleep(1)
-
-        return waited_devs_props.keys()
-
-    # write out current configuration state and wait for NetworkManager
-    # to bring the device up, watch NM state and return to the caller
-    # once we have a state
-    def waitForConnection(self):
-        bus = dbus.SystemBus()
-        nm = bus.get_object(isys.NM_SERVICE, isys.NM_MANAGER_PATH)
-        props = dbus.Interface(nm, isys.DBUS_PROPS_IFACE)
-
-        i = 0
-        while i < CONNECTION_TIMEOUT:
-            state = props.Get(isys.NM_SERVICE, "State")
-            if nmIsConnected(state):
-                return True
-            i += 1
-            time.sleep(1)
-
-        state = props.Get(isys.NM_SERVICE, "State")
-        if nmIsConnected(state):
-            return True
-
-        return False
-
     # write out current configuration state and wait for NetworkManager
     # to bring the device up, watch NM state and return to the caller
     # once we have a state
     def bringUp(self):
         self.write()
-        if self.waitForConnection():
+        if waitForConnection():
             resetResolver()
             return True
         else:
@@ -900,6 +799,55 @@ class Network:
             netargs.add(znet)
 
         return netargs
+
+def waitForDevicesActivation(devices):
+    waited_devs_props = {}
+
+    bus = dbus.SystemBus()
+    nm = bus.get_object(isys.NM_SERVICE, isys.NM_MANAGER_PATH)
+    device_paths = nm.get_dbus_method("GetDevices")()
+    for device_path in device_paths:
+        device = bus.get_object(isys.NM_SERVICE, device_path)
+        device_props_iface = dbus.Interface(device, isys.DBUS_PROPS_IFACE)
+        iface = str(device_props_iface.Get(isys.NM_DEVICE_IFACE, "Interface"))
+        if iface in devices:
+            waited_devs_props[iface] = device_props_iface
+
+    i = 0
+    while True:
+        for dev, device_props_iface in waited_devs_props.items():
+            state = device_props_iface.Get(isys.NM_DEVICE_IFACE, "State")
+            if state == isys.NM_DEVICE_STATE_ACTIVATED:
+                waited_devs_props.pop(dev)
+        if len(waited_devs_props) == 0 or i >= CONNECTION_TIMEOUT:
+            break
+        i += 1
+        time.sleep(1)
+
+    return waited_devs_props.keys()
+
+# write out current configuration state and wait for NetworkManager
+# to bring the device up, watch NM state and return to the caller
+# once we have a state
+def waitForConnection():
+    bus = dbus.SystemBus()
+    nm = bus.get_object(isys.NM_SERVICE, isys.NM_MANAGER_PATH)
+    props = dbus.Interface(nm, isys.DBUS_PROPS_IFACE)
+
+    i = 0
+    while i < CONNECTION_TIMEOUT:
+        state = props.Get(isys.NM_SERVICE, "State")
+        if nmIsConnected(state):
+            return True
+        i += 1
+        time.sleep(1)
+
+    state = props.Get(isys.NM_SERVICE, "State")
+    if nmIsConnected(state):
+        return True
+
+    return False
+
 
 def kickstartNetworkData(ifcfg, hostname=None):
 
@@ -1037,3 +985,11 @@ def resetResolver():
     isys.resetResolv()
     urlgrabber.grabber.reset_curl_obj()
 
+def setHostname(hn):
+    if flags.imageInstall:
+        log.info("image install -- not setting hostname")
+        return
+
+    log.info("setting installation environment hostname to %s" % hn)
+    iutil.execWithRedirect("hostname", ["-v", hn ],
+                           stdout="/dev/tty5", stderr="/dev/tty5")
