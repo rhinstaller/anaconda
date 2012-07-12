@@ -78,6 +78,7 @@ class Hub(UIObject):
 
         self._autoContinue = False
         self._incompleteSpokes = []
+        self._inSpoke = False
         self._notReadySpokes = []
         self._spokes = {}
 
@@ -271,8 +272,11 @@ class Hub(UIObject):
                     if not args[1]:
                         spoke.execute()
 
-                    if len(self._incompleteSpokes) == 0:
-                        self._autoContinue = True
+                    if len(self._incompleteSpokes) == 0 and len(self._notReadySpokes) == 0:
+                        if self._inSpoke:
+                            self._autoContinue = True
+                        else:
+                            self.continueButton.emit("clicked")
             elif code == communication.HUB_CODE_MESSAGE:
                 spoke.selector.set_property("status", args[1])
 
@@ -309,7 +313,9 @@ class Hub(UIObject):
         if selector:
             selector.grab_focus()
 
+        self._inSpoke = True
         self._runSpoke(spoke)
+        self._inSpoke = False
 
         # Now update the selector with the current status and completeness.
         if not spoke.indirect:
