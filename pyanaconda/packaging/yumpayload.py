@@ -1024,14 +1024,14 @@ reposdir=%s
             except YumRPMTransError as e:
                 log.error("error running transaction: %s" % e)
                 for error in e.errors:
-                    log.error(e[0])
+                    log.error(error[0])
                 exn = PayloadInstallError(str(e))
                 if errorHandler.cb(exn) == ERROR_RAISE:
                     raise exn
             except YumBaseError as e:
                 log.error("error [2] running transaction: %s" % e)
                 for error in e.errors:
-                    log.error("%s" % e[0])
+                    log.error("%s" % error[0])
                 exn = PayloadInstallError(str(e))
                 if errorHandler.cb(exn) == ERROR_RAISE:
                     raise exn
