@@ -316,28 +316,6 @@ class NetworkTest(mock.TestCase):
         self.assertEqual(pyanaconda.network.shutil.move.call_args[0],
             (TMP_FILE, '%s/keys-%s' % (TMP_DIR, self.DEVICE)))
 
-    def network_get_ks_device_1_test(self):
-        import pyanaconda.network
-        nw = pyanaconda.network.Network()
-        nw.ksdevice = None
-        ret = nw.getKSDevice()
-        self.assertEqual(ret, None)
-
-    def network_get_ks_device_2_test(self):
-        import pyanaconda.network
-        nw = pyanaconda.network.Network()
-        nw.ksdevice = 'ksdev'
-        ret = nw.getKSDevice()
-        self.assertEqual(ret, None)
-
-    def network_get_ks_device_3_test(self):
-        import pyanaconda.network
-        nw = pyanaconda.network.Network()
-        nw.netdevices['ksdev'] = 'device'
-        nw.ksdevice = 'ksdev'
-        ret = nw.getKSDevice()
-        self.assertEqual(ret, 'device')
-
     def network_write_ifcfg_files_test(self):
         import pyanaconda.network
         nw = pyanaconda.network.Network()

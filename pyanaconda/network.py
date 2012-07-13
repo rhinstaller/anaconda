@@ -494,15 +494,6 @@ class Network:
                         self.ksdevice = dev
                         break
 
-    def getKSDevice(self):
-        if self.ksdevice is None:
-            return None
-
-        try:
-            return self.netdevices[self.ksdevice]
-        except:
-            return None
-
     @property
     def gateway(self):
         """GATEWAY - last device in list wins"""
