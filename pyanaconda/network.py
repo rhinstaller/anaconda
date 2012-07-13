@@ -512,41 +512,6 @@ class Network:
                 return dev.get('IPV6_DEFAULTGW')
         return ""
 
-    # Note that the file is written-out only if there is a value
-    # that has changed.
-    def writeIfcfgFiles(self):
-        for device in self.netdevices.values():
-            device.writeIfcfgFile()
-
-    # devices == None => set for all
-    def updateActiveDevices(self, devices=None):
-        for devname, device in self.netdevices.items():
-            if devices and devname not in devices:
-                device.set(('ONBOOT', 'no'))
-            else:
-                device.set(('ONBOOT', 'yes'))
-
-    def getOnbootControlledIfaces(self):
-        ifaces = []
-        for iface, device in self.netdevices.items():
-            if (device.get('ONBOOT') == "yes" and
-                device.get('NM_CONTROLLED') == "yes"):
-                ifaces.append(iface)
-        return ifaces
-
-    def writeSSIDifcfgs(self, devssids):
-        ssids = []
-        for ssidlist in devssids.values():
-            ssids.extend(ssidlist)
-        for ssid in ssids:
-            path = "{0}/ifcfg-{1}".format(netscriptsDir, ssid)
-            ifcfgfile = open(path, "w")
-            ifcfgfile.write("NAME={0}\n".format(ssid)+
-                            "TYPE=Wireless\n"+
-                            "ESSID={0}\n".format(ssid)+
-                            "NM_CONTROLLED=yes\n")
-            ifcfgfile.close()
-
     def writeKS(self, f):
         devNames = self.netdevices.keys()
         devNames.sort()
@@ -558,12 +523,6 @@ class Network:
             dev = self.netdevices[devName]
             line = "%s" % kickstartNetworkData(dev, self.hostname)
             f.write(line)
-
-    def hasWirelessDev(self):
-        for dev in self.netdevices:
-            if isys.isWirelessDevice(dev):
-                return True
-        return False
 
     def _copyFileToPath(self, file, instPath='', overwrite=False):
         if not os.path.isfile(file):
