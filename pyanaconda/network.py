@@ -728,7 +728,6 @@ class Network:
 
     # get a kernel cmdline string for dracut needed for access to host host
     def dracutSetupArgs(self, networkStorageDevice):
-        netargs=set()
 
         if networkStorageDevice.nic == "default":
             nic = ifaceForHostIP(networkStorageDevice.host_address)
@@ -741,64 +740,9 @@ class Network:
             log.error('Unknown network interface: %s' % nic)
             return ""
 
-        dev = self.netdevices[nic]
-
-        if dev.get('BOOTPROTO') == 'ibft':
-            netargs.add("ip=ibft")
-        elif networkStorageDevice.host_address:
-            if self.hostname:
-                hostname = self.hostname
-            else:
-                hostname = ""
-
-            # if using ipv6
-            if ':' in networkStorageDevice.host_address:
-                if dev.get('DHCPV6C') == "yes":
-                    # XXX combination with autoconf not yet clear,
-                    # support for dhcpv6 is not yet implemented in NM/ifcfg-rh
-                    netargs.add("ip=%s:dhcp6" % nic)
-                elif dev.get('IPV6_AUTOCONF') == "yes":
-                    netargs.add("ip=%s:auto6" % nic)
-                elif dev.get('IPV6ADDR'):
-                    ipaddr = "[%s]" % dev.get('IPV6ADDR')
-                    if dev.get('IPV6_DEFAULTGW'):
-                        gateway = "[%s]" % dev.get('IPV6_DEFAULTGW')
-                    else:
-                        gateway = ""
-                    netargs.add("ip=%s::%s:%s:%s:%s:none" % (ipaddr, gateway,
-                               dev.get('PREFIX'), hostname, nic))
-            else:
-                if dev.get('bootproto').lower() == 'dhcp':
-                    netargs.add("ip=%s:dhcp" % nic)
-                else:
-                    if dev.get('GATEWAY'):
-                        gateway = dev.get('GATEWAY')
-                    else:
-                        gateway = ""
-
-                    netmask = dev.get('netmask')
-                    prefix  = dev.get('prefix')
-                    if not netmask and prefix:
-                        netmask = isys.prefix2netmask(int(prefix))
-
-                    netargs.add("ip=%s::%s:%s:%s:%s:none" % (dev.get('ipaddr'),
-                               gateway, netmask, hostname, nic))
-
-        hwaddr = dev.get("HWADDR")
-        if hwaddr:
-            netargs.add("ifname=%s:%s" % (nic, hwaddr.lower()))
-
-        nettype = dev.get("NETTYPE")
-        subchannels = dev.get("SUBCHANNELS")
-        if iutil.isS390() and nettype and subchannels:
-            znet = "rd.znet=%s,%s" % (nettype, subchannels)
-            options = dev.get("OPTIONS").strip("'\"")
-            if options:
-                options = filter(lambda x: x != '', options.split(' '))
-                znet += ",%s" % (','.join(options))
-            netargs.add(znet)
-
-        return netargs
+        return dracutBootArguments(self.netdevices[nic],
+                                   networkStorageDevice.host_address,
+                                   self.hostname)
 
 def waitForDevicesActivation(devices):
     waited_devs_props = {}
@@ -848,6 +792,65 @@ def waitForConnection():
 
     return False
 
+
+def dracutBootArguments(ifcfg, storage_ipaddr, hostname=None):
+
+    netargs = set()
+    devname = ifcfg.iface
+
+    if ifcfg.get('BOOTPROTO') == 'ibft':
+        netargs.add("ip=ibft")
+    elif storage_ipaddr:
+        if hostname is None:
+            hostname = ""
+        # if using ipv6
+        if ':' in storage_ipaddr:
+            if ifcfg.get('DHCPV6C') == "yes":
+                # XXX combination with autoconf not yet clear,
+                # support for dhcpv6 is not yet implemented in NM/ifcfg-rh
+                netargs.add("ip=%s:dhcp6" % devname)
+            elif ifcfg.get('IPV6_AUTOCONF') == "yes":
+                netargs.add("ip=%s:auto6" % devname)
+            elif ifcfg.get('IPV6ADDR'):
+                ipaddr = "[%s]" % ifcfg.get('IPV6ADDR')
+                if ifcfg.get('IPV6_DEFAULTGW'):
+                    gateway = "[%s]" % ifcfg.get('IPV6_DEFAULTGW')
+                else:
+                    gateway = ""
+                netargs.add("ip=%s::%s:%s:%s:%s:none" % (ipaddr, gateway,
+                           ifcfg.get('PREFIX'), hostname, devname))
+        else:
+            if ifcfg.get('bootproto').lower() == 'dhcp':
+                netargs.add("ip=%s:dhcp" % devname)
+            else:
+                if ifcfg.get('GATEWAY'):
+                    gateway = ifcfg.get('GATEWAY')
+                else:
+                    gateway = ""
+
+                netmask = ifcfg.get('netmask')
+                prefix  = ifcfg.get('prefix')
+                if not netmask and prefix:
+                    netmask = isys.prefix2netmask(int(prefix))
+
+                netargs.add("ip=%s::%s:%s:%s:%s:none" % (ifcfg.get('ipaddr'),
+                           gateway, netmask, hostname, devname))
+
+    hwaddr = ifcfg.get("HWADDR")
+    if hwaddr:
+        netargs.add("ifname=%s:%s" % (devname, hwaddr.lower()))
+
+    nettype = ifcfg.get("NETTYPE")
+    subchannels = ifcfg.get("SUBCHANNELS")
+    if iutil.isS390() and nettype and subchannels:
+        znet = "rd.znet=%s,%s" % (nettype, subchannels)
+        options = ifcfg.get("OPTIONS").strip("'\"")
+        if options:
+            options = filter(lambda x: x != '', options.split(' '))
+            znet += ",%s" % (','.join(options))
+        netargs.add(znet)
+
+    return netargs
 
 def kickstartNetworkData(ifcfg, hostname=None):
 
