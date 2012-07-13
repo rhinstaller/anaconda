@@ -704,8 +704,7 @@ class Network:
 
         # disable ipv6
         if ('noipv6' in flags.cmdline
-            and not [dev for dev in devices
-                     if dev.get('IPV6INIT') == "yes"]):
+            and not any(dev.get('IPV6INIT') == "yes" for dev in devices)):
             if os.path.exists(ipv6ConfFile):
                 log.warning('Not disabling ipv6, %s exists' % ipv6ConfFile)
             else:
