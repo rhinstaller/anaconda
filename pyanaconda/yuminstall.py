@@ -1471,6 +1471,11 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
             if selectKernel("kernel-PAE"):
                 foundkernel = True
 
+        if not foundkernel and iutil.isARM():
+            if anaconda.platform.armMachine is not None:
+                selectKernel("kernel-" + anaconda.platform.armMachine)
+                foundkernel = True
+
         if not foundkernel:
             selectKernel("kernel")
 

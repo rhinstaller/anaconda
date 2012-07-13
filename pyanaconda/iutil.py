@@ -640,6 +640,20 @@ def getPPCMacBook():
         return 1
     return 0
 
+## Get the ARM processor variety.
+# @return The ARM processor variety type, or 0 if not ARM.
+def getARMMachine():
+    if not isARM():
+        return 0
+
+    armMachine = os.uname()[2].rpartition('.' )[2]
+
+    if armMachine.startswith('arm'):
+        return None
+    else:
+        return armMachine
+
+
 cell = None
 ## Determine if the hardware is the Cell platform.
 # @return True if so, False otherwise.

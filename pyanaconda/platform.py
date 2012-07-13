@@ -337,6 +337,7 @@ class Sparc(Platform):
         return start+1
 
 class ARM(Platform):
+    _armMachine = iutil.getARMMachine()
     _bootloaderClass = bootloader.GRUB2
     _boot_stage1_device_types = ["disk"]
     _boot_mbr_description = N_("Master Boot Record")
@@ -344,6 +345,10 @@ class ARM(Platform):
                           "partition": Platform._boot_partition_description}
 
     _disklabel_types = ["msdos"]
+
+    @property
+    def armMachine(self):
+        return self._armMachine
 
 def getPlatform():
     """Check the architecture of the system and return an instance of a
