@@ -72,7 +72,7 @@ class NetworkConfiguratorText:
         devnames.sort()
 
         # Preselect device set in kickstart
-        ksdevice = self.anaconda.ksdevice
+        ksdevice = network.get_ksdevice_name()
 
         for devname in devnames:
             hwaddr = self.netdevs[devname].get("HWADDR")

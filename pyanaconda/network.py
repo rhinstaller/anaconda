@@ -444,7 +444,6 @@ class Network:
         ifcfglog.debug("Network.update() called")
 
         self.netdevices = {}
-        self.ksdevice = None
 
         if flags.imageInstall:
             return
@@ -469,30 +468,6 @@ class Network:
             device.description = isys.getNetDevDesc(iface)
 
             self.netdevices[iface] = device
-
-
-        ksdevice = flags.cmdline.get('ksdevice', None)
-        if ksdevice:
-            bootif_mac = None
-            if ksdevice == 'bootif' and "BOOTIF" in flags.cmdline:
-                bootif_mac = flags.cmdline["BOOTIF"][3:].replace("-", ":").upper()
-            # sort for ksdevice=link (to select the same device as in initrd))
-            for dev in sorted(self.netdevices):
-                mac = self.netdevices[dev].get('HWADDR').upper()
-                if ksdevice == 'link' and isys.getLinkStatus(dev):
-                    self.ksdevice = dev
-                    break
-                elif ksdevice == 'bootif':
-                    if bootif_mac == mac:
-                        self.ksdevice = dev
-                        break
-                elif ksdevice == dev:
-                    self.ksdevice = dev
-                    break
-                elif ':' in ksdevice:
-                    if ksdevice.upper() == mac:
-                        self.ksdevice = dev
-                        break
 
     @property
     def gateway(self):
@@ -953,3 +928,33 @@ def copyConfigToPath(destPath):
 
     _copyFileToPath(ipv6ConfFile, destPath,
                          overwrite=flags.livecdInstall)
+
+def get_ksdevice_name(ksspec=""):
+
+    if not ksspec:
+        ksspec = flags.cmdline.get('ksdevice', "")
+    ksdevice = ksspec
+
+    bootif_mac = None
+    if ksdevice == 'bootif' and "BOOTIF" in flags.cmdline:
+        bootif_mac = flags.cmdline["BOOTIF"][3:].replace("-", ":").upper()
+    for dev in sorted(getDevices()):
+        # "eth0"
+        if ksdevice == dev:
+            break
+        # "link"
+        elif ksdevice == 'link' and isys.getLinkStatus(dev):
+            ksdevice = dev
+            break
+        # "XX:XX:XX:XX:XX:XX" (mac address)
+        elif ':' in ksdevice:
+            if ksdevice.upper() == isys.getMacAddress(dev):
+                ksdevice = dev
+                break
+        # "bootif" and BOOTIF==XX:XX:XX:XX:XX:XX
+        elif ksdevice == 'bootif':
+            if bootif_mac == isys.getMacAddress(dev):
+                ksdevice = dev
+                break
+
+    return ksdevice

@@ -689,9 +689,9 @@ class NetworkData(commands.network.F16_NetworkData):
         devices = self.anaconda.network.netdevices
 
         if not self.device:
-            if self.anaconda.network.ksdevice:
+            if "ksdevice" in flags.cmdline:
                 msg = "ksdevice boot parameter"
-                device = self.anaconda.network.ksdevice
+                device = network.get_ksdevice_name(flags.cmdline["ksdevice"])
             elif network.hasActiveNetDev():
                 # device activated in stage 1 by network kickstart command
                 msg = "first active device"
