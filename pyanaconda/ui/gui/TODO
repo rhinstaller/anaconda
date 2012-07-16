@@ -1,16 +1,18 @@
+Fedora 18
+=========
 + Add "Add custom repo..." dialog.
+- Add simple keyboard layout selection to welcome language screen.
 - Can the entry next to "Closest Mirror" be filled in with something to make it look less weird?
 - Disk tug-o-war needs to be written.
 - Do the really slow redraws happen on real hardware, or just virt?
-- Install hub needs to be skipped if all spokes are completed on a kickstart install.
-  How to handle the fact that spokes may only be ready once they're finished downloading?
+- Media install selectors take up all horizontal space on source spoke.
 - Network spoke needs apply method and to look at ksdata when setting itself up.
 - NetworkStandaloneSpoke needs completed method and to look at ksdata when setting itself up.
 - Need to sort out checking of storage config against package set space needs.
 - Reword "Continue" button on Install Destination confirmation to give a better indicator of
   where you go next.
+- The setting on the welcome screen does not get reflected on the language and keyboard spokes.
 - Something causes the up and down arrows to resize the anaconda window.
-- Test handling of inconsistent LVM/RAID, and uninitialized disks.
 + Update exception handling.  This requires updating python-meh to use gtk3,
   which also requires updating firstboot and s-c-ks to gtk3.  I want to turn
   s-c-ks into an anaconda wrapper first, though.
@@ -18,3 +20,9 @@
 - Why does the first hub jump left a little bit the first time you use the keyboard to navigate?
 - We need a way for users to look at the list of problems resulting from the
   software dependency check and the storage sanity check
+
+Beyond
+======
+- "Choose Disks" dialog before hub #1.
+- Device filtering.
+- Write out in-progress install to kickstart file, detect it on restart
