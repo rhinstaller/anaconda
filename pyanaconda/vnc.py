@@ -105,7 +105,7 @@ class VncServer:
         except Exception as e:
             log.debug("Exception caught trying to get host name of %s: %s" %
                       (ipstr, e))
-            self.name = network.getDefaultHostname(self.anaconda)
+            self.name = network.getHostname()
         else:
             if len(hinfo) == 3:
                 self.name = hinfo[0]

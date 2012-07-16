@@ -94,7 +94,7 @@ def sanityCheckHostname(hostname):
     return None
 
 # Try to determine what the hostname should be for this system
-def getDefaultHostname(anaconda):
+def getHostname():
     resetResolver()
 
     hn = None
@@ -113,14 +113,6 @@ def getDefaultHostname(anaconda):
                 if len(hinfo) == 3:
                     hn = hinfo[0]
                     break
-
-    if hn and hn not in ('(none)', 'localhost', 'localhost.localdomain'):
-        return hn
-
-    try:
-        hn = anaconda.network.hostname
-    except:
-        hn = None
 
     if not hn or hn in ('(none)', 'localhost', 'localhost.localdomain'):
         hn = socket.gethostname()
@@ -436,8 +428,6 @@ class Network:
 
     def __init__(self):
 
-        self.hostname = socket.gethostname()
-
         self.update()
 
     def update(self):
@@ -459,11 +449,6 @@ class Network:
                     device.loadIfcfgFile()
                 else:
                     device.setDefaultConfig()
-
-            # TODORV - the last iface in loop wins, might be ok,
-            #          not worthy of special juggling
-            if device.get('HOSTNAME'):
-                self.hostname = device.get('HOSTNAME')
 
             device.description = isys.getNetDevDesc(iface)
 
@@ -494,9 +479,10 @@ class Network:
         if len(devNames) == 0:
             return
 
+        hostname = getHostname()
         for devName in devNames:
             dev = self.netdevices[devName]
-            line = "%s" % kickstartNetworkData(dev, self.hostname)
+            line = "%s" % kickstartNetworkData(dev, hostname)
             f.write(line)
 
     def disableNMForStorageDevices(self, anaconda):
@@ -546,9 +532,9 @@ class Network:
         f.write("NETWORKING=yes\n")
         f.write("HOSTNAME=")
 
-        # use instclass hostname if set(kickstart) to override
-        if self.hostname:
-            f.write(self.hostname + "\n")
+        hostname = getHostname()
+        if hostname:
+            f.write(hostname + "\n")
         else:
             f.write("localhost.localdomain\n")
 
@@ -616,7 +602,7 @@ class Network:
 
         return dracutBootArguments(self.netdevices[nic],
                                    networkStorageDevice.host_address,
-                                   self.hostname)
+                                   getHostname())
 
 def getDevices():
     # TODO: filter with existence of ifcfg file?

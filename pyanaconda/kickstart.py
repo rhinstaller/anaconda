@@ -672,7 +672,6 @@ class NetworkData(commands.network.F16_NetworkData):
     def execute(self):
         if flags.imageInstall:
             if self.hostname != "":
-                self.anaconda.network.hostname = self.hostname
                 network.setHostname(self.hostname)
 
             # Only set hostname
@@ -682,7 +681,6 @@ class NetworkData(commands.network.F16_NetworkData):
         # only set hostname
         if self.essid:
             if self.hostname != "":
-                self.anaconda.network.hostname = self.hostname
                 network.setHostname(self.hostname)
             return
 
@@ -735,7 +733,6 @@ class NetworkData(commands.network.F16_NetworkData):
                     break
 
         if self.hostname != "":
-            self.anaconda.network.hostname = self.hostname
             network.setHostname(self.hostname)
             if not dev:
                 # Only set hostname
