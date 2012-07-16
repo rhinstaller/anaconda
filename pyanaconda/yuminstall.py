@@ -1626,7 +1626,7 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
             if not anaconda.ksdata:
                 anaconda.instClass.setNetworkOnbootDefault(anaconda.network)
             anaconda.network.write()
-            anaconda.network.copyConfigToPath()
+            network.copyConfigToPath(ROOT_PATH)
             anaconda.storage.write()
         else:
             # ensure that /etc/mtab is a symlink to /proc/self/mounts

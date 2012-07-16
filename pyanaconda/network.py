@@ -524,60 +524,6 @@ class Network:
             line = "%s" % kickstartNetworkData(dev, self.hostname)
             f.write(line)
 
-    def _copyFileToPath(self, file, instPath='', overwrite=False):
-        if not os.path.isfile(file):
-            return False
-        destfile = os.path.join(instPath, file.lstrip('/'))
-        if (os.path.isfile(destfile) and not overwrite):
-            return False
-        if not os.path.isdir(os.path.dirname(destfile)):
-            iutil.mkdirChain(os.path.dirname(destfile))
-        shutil.copy(file, destfile)
-        return True
-
-    def _copyIfcfgFiles(self):
-        files = os.listdir(netscriptsDir)
-        for cfgFile in files:
-            if cfgFile.startswith(("ifcfg-","keys-")):
-                srcfile = os.path.join(netscriptsDir, cfgFile)
-                self._copyFileToPath(srcfile, ROOT_PATH)
-
-    def copyConfigToPath(self):
-        if flags.imageInstall:
-            # for image installs we only want to write out
-            # /etc/sysconfig/network
-            destfile = os.path.normpath(ROOT_PATH + networkConfFile)
-            if not os.path.isdir(os.path.dirname(destfile)):
-                iutil.mkdirChain(os.path.dirname(destfile))
-            shutil.move("/tmp/sysconfig-network", destfile)
-            return
-
-        # /etc/sysconfig/network-scripts/ifcfg-*
-        # /etc/sysconfig/network-scripts/keys-*
-        # we can copy all of them
-        self._copyIfcfgFiles()
-
-        # /etc/dhcp/dhclient-DEVICE.conf
-        # TODORV: do we really don't want overwrite on live cd?
-        for devName, device in self.netdevices.items():
-            dhclientfile = os.path.join("/etc/dhcp/dhclient-%s.conf" % devName)
-            self._copyFileToPath(dhclientfile, ROOT_PATH)
-
-        # /etc/sysconfig/network
-        self._copyFileToPath(networkConfFile, ROOT_PATH,
-                             overwrite=flags.livecdInstall)
-
-        # /etc/resolv.conf
-        self._copyFileToPath("/etc/resolv.conf", ROOT_PATH,
-                             overwrite=flags.livecdInstall)
-
-        # /etc/udev/rules.d/70-persistent-net.rules
-        self._copyFileToPath("/etc/udev/rules.d/70-persistent-net.rules",
-                             ROOT_PATH, overwrite=flags.livecdInstall)
-
-        self._copyFileToPath(ipv6ConfFile, ROOT_PATH,
-                             overwrite=flags.livecdInstall)
-
     def disableNMForStorageDevices(self, anaconda):
         for devName, device in self.netdevices.items():
             if (device.usedByFCoE(anaconda) or
@@ -607,6 +553,10 @@ class Network:
                     log.warning("autoconnectFCoEDevices: %s file not found" %
                                 device.path)
 
+    # TODO:
+    # - do not write ifcfg files
+    # - separate function for sysconfig/network
+    # - separate fnc for ipv6
     def write(self):
         ifcfglog.debug("Network.write() called")
 
@@ -692,6 +642,10 @@ class Network:
         return dracutBootArguments(self.netdevices[nic],
                                    networkStorageDevice.host_address,
                                    self.hostname)
+
+def getDevices():
+    # TODO: filter with existence of ifcfg file?
+    return isys.getDeviceProperties().keys()
 
 def waitForDevicesActivation(devices):
     waited_devs_props = {}
@@ -945,3 +899,57 @@ def setHostname(hn):
     log.info("setting installation environment hostname to %s" % hn)
     iutil.execWithRedirect("hostname", ["-v", hn ],
                            stdout="/dev/tty5", stderr="/dev/tty5")
+
+def _copyFileToPath(file, destPath='', overwrite=False):
+    if not os.path.isfile(file):
+        return False
+    destfile = os.path.join(destPath, file.lstrip('/'))
+    if (os.path.isfile(destfile) and not overwrite):
+        return False
+    if not os.path.isdir(os.path.dirname(destfile)):
+        iutil.mkdirChain(os.path.dirname(destfile))
+    shutil.copy(file, destfile)
+    return True
+
+def _copyIfcfgFiles(destPath):
+    files = os.listdir(netscriptsDir)
+    for cfgFile in files:
+        if cfgFile.startswith(("ifcfg-","keys-")):
+            srcfile = os.path.join(netscriptsDir, cfgFile)
+            _copyFileToPath(srcfile, destPath)
+
+def copyConfigToPath(destPath):
+    if flags.imageInstall:
+        # for image installs we only want to write out
+        # /etc/sysconfig/network
+        destfile = os.path.normpath(destPath + networkConfFile)
+        if not os.path.isdir(os.path.dirname(destfile)):
+            iutil.mkdirChain(os.path.dirname(destfile))
+        shutil.move("/tmp/sysconfig-network", destfile)
+        return
+
+    # /etc/sysconfig/network-scripts/ifcfg-*
+    # /etc/sysconfig/network-scripts/keys-*
+    # we can copy all of them
+    _copyIfcfgFiles(destPath)
+
+    # /etc/dhcp/dhclient-DEVICE.conf
+    # TODORV: do we really don't want overwrite on live cd?
+    for devName in getDevices():
+        dhclientfile = os.path.join("/etc/dhcp/dhclient-%s.conf" % devName)
+        _copyFileToPath(dhclientfile, destPath)
+
+    # /etc/sysconfig/network
+    _copyFileToPath(networkConfFile, destPath,
+                         overwrite=flags.livecdInstall)
+
+    # /etc/resolv.conf
+    _copyFileToPath("/etc/resolv.conf", destPath,
+                         overwrite=flags.livecdInstall)
+
+    # /etc/udev/rules.d/70-persistent-net.rules
+    _copyFileToPath("/etc/udev/rules.d/70-persistent-net.rules",
+                         destPath, overwrite=flags.livecdInstall)
+
+    _copyFileToPath(ipv6ConfFile, destPath,
+                         overwrite=flags.livecdInstall)

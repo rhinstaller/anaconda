@@ -349,24 +349,6 @@ class NetworkTest(mock.TestCase):
         self.assertEqual(self.fs[TMPFILE],
             'network --device eth0 --bootproto dhcp --noipv6\n')
 
-    def network_copy_config_to_path_test(self):
-        import pyanaconda.network
-        pyanaconda.network.Network._copyFileToPath = mock.Mock()
-        pyanaconda.network.Network._copyIfcfgFiles = mock.Mock()
-
-
-        nw = pyanaconda.network.Network()
-        nw.netdevices['dev'] = mock.Mock()
-        nw.netdevices['dev'].path = self.DEV_FILE
-        nw.netdevices['dev'].keyfilePath = self.DEV_KEY_FILE
-        ret = nw.copyConfigToPath()
-        self.assertEqual(pyanaconda.network.Network._copyFileToPath.call_args_list,
-            [(('/etc/dhcp/dhclient-dev.conf', '/mnt/sysimage'), {}),
-             (('/tmp/etc/sysconfig/network', '/mnt/sysimage'), {'overwrite': 0}),
-             (('/etc/resolv.conf', '/mnt/sysimage'), {'overwrite': 0}),
-             (('/etc/udev/rules.d/70-persistent-net.rules', '/mnt/sysimage'), {'overwrite': 0})]
-        )
-
     def network_disable_nm_for_storage_devices_test(self):
         import pyanaconda.network
         pyanaconda.network.NetworkDevice = mock.Mock()
