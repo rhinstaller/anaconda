@@ -272,8 +272,10 @@ class EFI(Platform):
             NOTE: X86 does not have a separate checkBootRequest method,
                   so this one must work for x86 as well as EFI.
         """
-        if not req:
+        if not req and self.isEfi:
             return [_("You have not created a /boot/efi partition.")]
+        elif not req:
+            return [_("You have not created a bootable partition.")]
 
         errors = Platform.checkBootRequest(self, req)
 
