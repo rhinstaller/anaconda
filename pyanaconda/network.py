@@ -582,24 +582,6 @@ class Network:
         else:
             return False
 
-    # get a kernel cmdline string for dracut needed for access to host host
-    def dracutSetupArgs(self, networkStorageDevice):
-
-        if networkStorageDevice.nic == "default":
-            nic = ifaceForHostIP(networkStorageDevice.host_address)
-            if not nic:
-                return ""
-        else:
-            nic = networkStorageDevice.nic
-
-        if nic not in self.netdevices.keys():
-            log.error('Unknown network interface: %s' % nic)
-            return ""
-
-        return dracutBootArguments(self.netdevices[nic],
-                                   networkStorageDevice.host_address,
-                                   getHostname())
-
 def getDevices():
     # TODO: filter with existence of ifcfg file?
     return isys.getDeviceProperties().keys()
@@ -652,6 +634,25 @@ def waitForConnection():
 
     return False
 
+# get a kernel cmdline string for dracut needed for access to storage host
+def dracutSetupArgs(networkStorageDevice):
+
+    if networkStorageDevice.nic == "default":
+        nic = ifaceForHostIP(networkStorageDevice.host_address)
+        if not nic:
+            return ""
+    else:
+        nic = networkStorageDevice.nic
+
+    if nic not in getDevices():
+        log.error('Unknown network interface: %s' % nic)
+        return ""
+
+    ifcfg = NetworkDevice(netscriptsDir, nic)
+    ifcfg.loadIfcfgFile()
+    return dracutBootArguments(ifcfg,
+                               networkStorageDevice.host_address,
+                               getHostname())
 
 def dracutBootArguments(ifcfg, storage_ipaddr, hostname=None):
 
