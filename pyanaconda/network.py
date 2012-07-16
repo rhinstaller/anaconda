@@ -205,7 +205,6 @@ class NetworkDevice(IfcfgFile):
 
     def __init__(self, dir, iface):
         IfcfgFile.__init__(self, dir, iface)
-        self.description = ""
         if iface.startswith('ctc'):
             self.info["TYPE"] = "CTC"
         self.wepkey = ""
@@ -391,7 +390,6 @@ class WirelessNetworkDevice(NetworkDevice):
         self.info = dict()
         self.iface = iface
         self.dir = ""
-        self.description = ""
 
     def clear(self):
         self.info = dict()
@@ -449,8 +447,6 @@ class Network:
                     device.loadIfcfgFile()
                 else:
                     device.setDefaultConfig()
-
-            device.description = isys.getNetDevDesc(iface)
 
             self.netdevices[iface] = device
 
