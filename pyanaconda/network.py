@@ -538,12 +538,6 @@ class Network:
 
         devices = self.netdevices.values()
 
-        # /etc/sysconfig/network-scripts/ifcfg-*
-        # /etc/sysconfig/network-scripts/keys-*
-        for dev in devices:
-
-            dev.writeIfcfgFile()
-
         # /etc/resolv.conf is managed by NM
 
         # disable ipv6
