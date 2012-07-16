@@ -468,19 +468,6 @@ class Network:
                 return dev.get('IPV6_DEFAULTGW')
         return ""
 
-    def writeKS(self, f):
-        devNames = self.netdevices.keys()
-        devNames.sort()
-
-        if len(devNames) == 0:
-            return
-
-        hostname = getHostname()
-        for devName in devNames:
-            dev = self.netdevices[devName]
-            line = "%s" % kickstartNetworkData(dev, hostname)
-            f.write(line)
-
     def disableNMForStorageDevices(self, anaconda):
         for devName, device in self.netdevices.items():
             if (device.usedByFCoE(anaconda) or
