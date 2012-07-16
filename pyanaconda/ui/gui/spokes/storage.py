@@ -351,8 +351,6 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         return msg
 
     def _on_disk_clicked(self, overview, event):
-        print "DISK CLICKED: %s" % overview.get_property("popup-info").partition("|")[0].strip()
-
         # This handler only runs for these two kinds of events, and only for
         # activate-type keys (space, enter) in the latter event's case.
         if not event.type in [Gdk.EventType.BUTTON_PRESS, Gdk.EventType.KEY_RELEASE]:
@@ -404,8 +402,6 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         if storageThread:
             storageThread.join()
 
-        print self.data.ignoredisk.onlyuse
-
         self.disks = getDisks(self.storage.devicetree)
 
         with gdk_threaded():
@@ -440,7 +436,6 @@ class StorageSpoke(NormalSpoke, StorageChecker):
 
     def _update_summary(self):
         """ Update the summary based on the UI. """
-        print "UPDATING SUMMARY"
         count = 0
         capacity = 0
         free = Size(bytes=0)
@@ -471,7 +466,6 @@ class StorageSpoke(NormalSpoke, StorageChecker):
 
     def _update_disk_list(self):
         """ Update self.selected_disks based on the UI. """
-        print "UPDATING DISK LIST"
         overviews = self.local_disks_box.get_children()
         for overview in overviews:
             name = overview.get_property("popup-info").partition("|")[0].strip()

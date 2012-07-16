@@ -57,7 +57,6 @@ class SelectedDisksDialog(UIObject):
             self.builder.get_object("remove_button").hide()
 
     def refresh(self, disks, free, showRemove=True):
-        print "REFRESH selected disks dialog"
         super(SelectedDisksDialog, self).refresh()
 
         self._view = self.builder.get_object("disk_view")
@@ -103,7 +102,6 @@ class SelectedDisksDialog(UIObject):
 
     # signal handlers
     def on_remove_clicked(self, button):
-        print "REMOVE CLICKED"#: %s" % self._selection.get_selected().get_value(3)
         # remove the selected disk(s) from the list and update the summary label
         #selected_refs = self._get_selection_refs()
         #for ref in selected_refs:
@@ -114,7 +112,6 @@ class SelectedDisksDialog(UIObject):
         if itr:
             idx = int(model.get_value(itr, 3))
             disk = self.disks[idx]
-            print "removing %s" % disk.name
             self._store.remove(itr)
             self.disks.remove(disk)
             self._update_summary()
@@ -123,7 +120,6 @@ class SelectedDisksDialog(UIObject):
         print "CLOSE CLICKED"
 
     def on_selection_changed(self, *args):
-        print "SELECTION CHANGED"
         model, itr = self._selection.get_selected()
         if itr:
             print "new selection: %s" % model.get_value(itr, 3)

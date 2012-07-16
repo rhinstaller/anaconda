@@ -358,14 +358,12 @@ class NetworkControlBox():
 
     # Signal handlers.
     def on_device_selection_changed(self, *args):
-        print "DBG: on_device_selection_changed"
         device = self.selected_device()
         self.refresh_ui(device)
 
     def on_device_state_changed(self, *args):
         device = args[0]
         new_state = args[1]
-        print "DBG: on_device_state_changed to: %d" % new_state
         self._refresh_carrier_info()
         read_config_values = (new_state == NetworkManager.DeviceState.ACTIVATED)
         if device == self.selected_device():
@@ -373,25 +371,19 @@ class NetworkControlBox():
 
     # TODO: remove/fix
     def on_active_connections_changed(self, *args):
-        print "DBG: on_active_connections_changed"
         device = self.selected_device()
         self.refresh_ui(device)
 
     def on_wireless_ap_changed_cb(self, combobox, *args):
-        print "DBG: on_wireles_ap_changed_cb"
-
         if self._updating_device:
             return
         iter = combobox.get_active_iter()
         if not iter:
             return
 
-        print "DBG: on_wireless_ap_changed_cb was not ignored"
-
         device = self.selected_device()
         ap_obj_path, ssid_target = combobox.get_model().get(iter, 0, 1)
         if ap_obj_path == "ap-other...":
-            print "DBG: connection to hidden network not supported (nm-applet)"
             return
 
         if we_dont_have_nm_applet_as_secrets_agent:
@@ -433,7 +425,6 @@ class NetworkControlBox():
         if con:
             uuid = con.get_uuid()
         else:
-            print "DBG: no connection to be edited found"
             return
 
         subprocess.Popen(["nm-connection-editor", "--edit", "%s" % uuid])
@@ -446,12 +437,9 @@ class NetworkControlBox():
 
     def on_device_off_toggled(self, switch, *args):
         if self._updating_device:
-            print "DBG: on_device_off_toggled ignored"
             return
 
         active = switch.get_active()
-        print "DBG: on_device_off_toggled from: %s" % active
-
         device = self.selected_device()
 
         dev_type = device.get_device_type()
@@ -508,10 +496,7 @@ class NetworkControlBox():
         return False
 
     def add_device(self, device):
-        print "DBG: adding device %s" % device
-
         if self._device_is_stored(device):
-            print "DBG: device already stored"
             return
 
         if device.get_device_type() not in self.supported_device_types:
@@ -591,7 +576,6 @@ class NetworkControlBox():
         if not device:
             return
 
-        print "DBG: refresh ui %s" % device
         self._refresh_device_type_page(device)
         self._refresh_header_ui(device)
         self._refresh_speed_hwaddr(device)
