@@ -1138,13 +1138,16 @@ class RaidData(commands.raid.F15_RaidData):
 
 class Services(commands.services.FC6_Services):
     def execute(self, storage, ksdata, instClass):
-        for svc in self.disabled:
-            iutil.execWithRedirect("/sbin/chkconfig", [svc, "off"],
+        disabled = map(lambda s: s + ".service", self.disabled)
+        enabled = map(lambda s: s + ".service", self.enabled)
+
+        if disabled:
+            iutil.execWithRedirect("systemctl", ["disable"] + disabled,
                                    stdout="/dev/tty5", stderr="/dev/tty5",
                                    root=ROOT_PATH)
 
-        for svc in self.enabled:
-            iutil.execWithRedirect("/sbin/chkconfig", [svc, "on"],
+        if enabled:
+            iutil.execWithRedirect("systemctl", ["enable"] + enabled,
                                    stdout="/dev/tty5", stderr="/dev/tty5",
                                    root=ROOT_PATH)
 
