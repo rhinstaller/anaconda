@@ -1,0 +1,15 @@
+[Unit]
+Description=Anaconda Text Console
+Requires=anaconda.service
+After=anaconda.target anaconda.service
+
+[Service]
+Type=simple
+WorkingDirectory=/root
+Environment=LANG=en_US.UTF-8
+ExecStartPre=/usr/bin/echo -e \033%G
+ExecStart=/usr/bin/tmux -u attach -t anaconda
+StandardInput=tty-force
+TTYPath=/dev/%I
+TTYReset=yes
+Restart=always

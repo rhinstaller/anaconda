@@ -29,6 +29,9 @@ langdir               = $(datadir)/$(PACKAGE_NAME)
 lang_DATA             = lang-names
 dist_lang_DATA        = lang-table
 
+tmuxdir               = $(datadir)/$(PACKAGE_NAME)
+dist_tmux_DATA        = tmux.conf
+
 if IS_S390
 shareddir             = $(datadir)/$(PACKAGE_NAME)
 dist_shared_SCRIPTS   = linuxrc.s390
