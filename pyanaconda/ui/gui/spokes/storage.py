@@ -243,7 +243,8 @@ class StorageChecker(object):
     def checkStorage(self):
         communication.send_message(self._mainSpokeClass,
                                    _("Checking storage configuration..."))
-        (self.errors, self.warnings) = self.storage.sanityCheck()
+        (StorageChecker.errors,
+         StorageChecker.warnings) = self.storage.sanityCheck()
         communication.send_ready(self._mainSpokeClass, justUpdate=True)
 
 class StorageSpoke(NormalSpoke, StorageChecker):
