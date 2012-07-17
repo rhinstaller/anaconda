@@ -177,3 +177,4 @@ class ProgressHub(Hub):
 
             spinner = self.builder.get_object("progressSpinner")
             spinner.stop()
+            spinner.hide()
