@@ -490,18 +490,6 @@ class Network:
 
         # /etc/resolv.conf is managed by NM
 
-        # disable ipv6
-        if ('noipv6' in flags.cmdline
-            and not any(dev.get('IPV6INIT') == "yes" for dev in devices)):
-            if os.path.exists(ipv6ConfFile):
-                log.warning('Not disabling ipv6, %s exists' % ipv6ConfFile)
-            else:
-                log.info('Disabling ipv6 on target system')
-                f = open(ipv6ConfFile, "w")
-                f.write("# Anaconda disabling ipv6\n")
-                f.write("options ipv6 disable=1\n")
-                f.close()
-
     # write out current configuration state and wait for NetworkManager
     # to bring the device up, watch NM state and return to the caller
     # once we have a state
@@ -873,6 +861,25 @@ def get_ksdevice_name(ksspec=""):
 
     return ksdevice
 
+# note that NetworkDevice.get returns "" if key is not found
+def get_ifcfg_value(iface, key, root_path=""):
+    dev = NetworkDevice(os.path.normpath(root_path + netscriptsDir), iface)
+    dev.loadIfcfgFile()
+    return dev.get(key)
+
+# TODO: do it right in sysroot (instead of copying the files later)?
+def disableIPV6():
+    if ('noipv6' in flags.cmdline
+        and not any(get_ifcfg_value(dev, 'IPV6INIT') == "yes"
+                    for dev in getDevices())):
+        if os.path.exists(ipv6ConfFile):
+            log.warning('Not disabling ipv6, %s exists' % ipv6ConfFile)
+        else:
+            log.info('Disabling ipv6 on target system')
+            f = open(ipv6ConfFile, "w")
+            f.write("# Anaconda disabling ipv6\n")
+            f.write("options ipv6 disable=1\n")
+            f.close()
 
 def disableNMForStorageDevices(storage):
     for devname in getDevices():

@@ -269,6 +269,7 @@ class Anaconda(object):
         if not self.ksdata:
             self.instClass.setNetworkOnbootDefault(self.network)
         self.network.write()
+        network.disableIPV6()
         network.copyConfigToPath(ROOT_PATH)
         network.disableNMForStorageDevices(self.storage)
         network.autostartFCoEDevices(self.storage)
