@@ -32,10 +32,14 @@ _ = lambda x: gettext.ldgettext("anaconda", x)
 N_ = lambda x: x
 P_ = lambda x, y, z: gettext.ldngettext("anaconda", x, y, z)
 
+from pykickstart.constants import *
+
 from pyanaconda.product import productName, productVersion
 from pyanaconda.storage.formats import device_formats
 from pyanaconda.storage.size import Size
 from pyanaconda.storage import Root
+from pyanaconda.storage.partitioning import doPartitioning
+from pyanaconda.storage.errors import StorageError
 
 from pyanaconda.ui.gui import UIObject
 from pyanaconda.ui.gui.spokes import NormalSpoke
@@ -56,10 +60,23 @@ class AddDialog(UIObject):
     mainWidgetName = "addDialog"
     uiFile = "spokes/custom.ui"
 
+    def __init__(self, *args, **kwargs):
+        UIObject.__init__(self, *args, **kwargs)
+        self.size = Size(bytes=0)
+        self.mountpoint = ""
+
     def on_add_cancel_clicked(self, button, *args):
         self.window.destroy()
 
     def on_add_confirm_clicked(self, button, *args):
+        self.mountpoint = self.builder.get_object("addMountPointEntry").get_text()
+
+        size_text = self.builder.get_object("sizeEntry").get_text()
+        try:
+            self.size = Size(spec=size_text)
+        except Exception:
+            pass
+
         self.window.destroy()
 
     def refresh(self):
@@ -110,6 +127,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         self._when_create_text = ""
 
     def apply(self):
+        self.storage.setUpBootLoader()
         StorageChecker.run(self)
 
     @property
@@ -292,7 +310,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             page.show_all()
             self._accordion.addPage(page, cb=self.on_page_clicked)
 
-            if not did_expand and self._current_selector and root.name == self._current_selector._root.name:
+            if not did_expand and getattr(self._current_selector, "_root", None) and root.name == self._current_selector._root.name:
                 did_expand = True
                 self._accordion.expandPage(root.name)
 
@@ -414,9 +432,48 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             dialog.refresh()
             rc = dialog.run()
 
-            if rc == 1:
-                # FIXME:  Do creation.
-                pass
+            if rc != 1:
+                # user cancel
+                return
+
+        # create a device of the default type, using any disks, with an
+        # appropriate fstype and mountpoint
+        mountpoint = dialog.mountpoint
+        size = dialog.size
+        fstype = self.storage.defaultFSType
+        if mountpoint.lower() == "swap":
+            fstype = "swap"
+            mountpoint = None
+        elif mountpoint == "/boot":
+            fstype = self.storage.defaultBootFSType
+        elif mountpoint == "/boot/efi":
+            if iutil.isMactel():
+                fstype = "hfs+"
+            else:
+                fstype = "efi"
+        elif not mountpoint or not mountpoint.startswith("/") or \
+             mountpoint in self.storage.mountpoints.keys():
+            return
+
+        if not size:
+            # no size specified, so use the default size
+            size = None
+
+        if self.data.autopart.type == AUTOPART_TYPE_PLAIN:
+            # create a partition for this new filesystem
+            size_mb = float(size.convertTo(spec="mb"))
+            device = self.storage.newPartition(size=size_mb,
+                                               fmt_type=fstype,
+                                               mountpoint=mountpoint)
+            self.storage.createDevice(device)
+            try:
+                doPartitioning(self.storage)
+            except StorageError as e:
+                actions = self.storage.devicetree.findActions(device=device)
+                for a in reversed(actions):
+                    self.storage.devicetree.cancelAction(a)
+            else:
+                self._do_refresh()
 
     def _destroy_device(self, device):
         # if this device has parents with no other children, remove them too
@@ -476,7 +533,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
             # If the root is now empty, remove it. Devices from the Unused page
             # will have no root.
-            if self.storage.roots and root and len(root.swaps + root.mounts.values()) == 0:
+            if root and root in self.storage.roots and len(root.swaps + root.mounts.values()) == 0:
                 self.storage.roots.remove(root)
 
             self._update_ui_for_removals()
