@@ -30,7 +30,7 @@
  * on the entire screen.  Examples include the keyboard and language
  * configuration screens off the first hub.
  *
- * The iwndow consists of two areas:
+ * The window consists of two areas:
  *
  * - A navigation area in the top of the screen, inherited from #AnacondaBaseWindow
  *   and augmented with a back button.
