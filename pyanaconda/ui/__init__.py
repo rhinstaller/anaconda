@@ -71,9 +71,9 @@ class UserInterface(object):
     ### MESSAGE HANDLING METHODS
     ###
     def showError(self, message):
-        """Display an error dialog with the given message.  After this dialog
-           is displayed, anaconda will quit.  There is no return value.  This
-           method must be implemented by all UserInterface subclasses.
+        """Display an error dialog with the given message. There is no return
+           value. This method must be implemented by all UserInterface
+           subclasses.
 
            In the code, this method should be used sparingly and only for
            critical errors that anaconda cannot figure out how to recover from.

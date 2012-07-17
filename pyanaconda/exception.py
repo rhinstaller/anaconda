@@ -35,18 +35,22 @@ from pyanaconda.constants import ROOT_PATH
 import logging
 log = logging.getLogger("anaconda")
 
+import gettext
+_ = lambda x: gettext.ldgettext("anaconda", x)
+
+
 class AnacondaExceptionHandler(ExceptionHandler):
     def handleException(self, (ty, value, tb), obj):
-        import traceback
-
-        # Save the exception to the filesystem first.
-        self.exn = self.exnClass((ty, value, tb), self.conf)
-        (fd, self.exnFile) = self.openFile()
-        text = self.exn.write(obj, fd)
-        fd.close()
-
-        traceback.print_exception(ty, value, tb)
-        os._exit(10)
+        if issubclass(ty, storage.errors.StorageError) and value.hardware_fault:
+            hw_error_msg = _("The installation was stopped due to what "
+                             "seems to be a problem with your hardware. "
+                             "The exact error message is:\n\n%s.\n\n "
+                             "The installer will now terminate.") % str(value)
+            self.intf.showError(hw_error_msg)
+            sys.exit(0)
+        else:
+            super(AnacondaExceptionHandler, self).handleException((ty, value, tb),
+                                                                  obj)
 
     def postWriteHook(self, (ty, value, tb), anaconda):
         # See if /mnt/sysimage is present and put exception there as well
