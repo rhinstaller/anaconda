@@ -32,7 +32,7 @@ from pyanaconda.ui.gui.utils import enlightbox
 from pyanaconda.ui.gui.categories.localization import LocalizationCategory
 
 from pyanaconda.localization import Language, LOCALE_PREFERENCES
-from pyanaconda.product import productName, productVersion
+from pyanaconda.product import isFinal, productName, productVersion
 from pyanaconda import keyboard
 from pyanaconda import localization
 
@@ -209,6 +209,11 @@ class WelcomeLanguageSpoke(LanguageMixIn, StandaloneSpoke):
     # Override the default in StandaloneSpoke so we can display the beta
     # warning dialog first.
     def _on_continue_clicked(self, cb):
+        # Don't display the betanag dialog if this is the final release.
+        if isFinal:
+            StandaloneSpoke._on_continue_clicked(self, cb)
+            return
+
         dlg = self.builder.get_object("betaWarnDialog")
 
         with enlightbox(self.window, dlg):
