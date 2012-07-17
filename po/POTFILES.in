@@ -59,6 +59,21 @@ pyanaconda/storage/iscsi.py
 pyanaconda/storage/partitioning.py
 pyanaconda/storage/zfcp.py
 
+# Graphical interface
+pyanaconda/ui/gui/categories/localization.py
+pyanaconda/ui/gui/categories/software.py
+pyanaconda/ui/gui/hubs/progress.py
+pyanaconda/ui/gui/spokes/custom.py
+pyanaconda/ui/gui/spokes/datetime_spoke.py
+pyanaconda/ui/gui/spokes/keyboard.py
+pyanaconda/ui/gui/spokes/network.py
+pyanaconda/ui/gui/spokes/software.py
+pyanaconda/ui/gui/spokes/source.py
+pyanaconda/ui/gui/spokes/storage.py
+pyanaconda/ui/gui/spokes/welcome.py
+pyanaconda/ui/gui/spokes/lib/accordion.py
+pyanaconda/ui/gui/spokes/lib/cart.py
+
 # Text mode user interface source files
 pyanaconda/textw/complete_text.py
 pyanaconda/textw/constants_text.py
