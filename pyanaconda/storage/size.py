@@ -185,7 +185,7 @@ class Size(Decimal):
             check = _makeSpecs(prefix, abbr)
 
             if spec in check:
-                return self / Decimal(factor)
+                return Decimal(self / Decimal(factor))
 
         return None
 
