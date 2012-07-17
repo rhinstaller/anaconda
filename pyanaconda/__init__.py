@@ -268,7 +268,7 @@ class Anaconda(object):
         self.timezone.write()
         if not self.ksdata:
             self.instClass.setNetworkOnbootDefault(self.network)
-        self.network.write()
+        network.write_sysconfig_network()
         network.disableIPV6()
         network.copyConfigToPath(ROOT_PATH)
         network.disableNMForStorageDevices(self.storage)

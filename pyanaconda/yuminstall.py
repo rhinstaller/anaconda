@@ -1625,7 +1625,7 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
                                 ROOT_PATH + "/etc/modprobe.d/anaconda.conf")
             if not anaconda.ksdata:
                 anaconda.instClass.setNetworkOnbootDefault(anaconda.network)
-            anaconda.network.write()
+            network.write_sysconfig_network()
             network.disableIPV6()
             network.copyConfigToPath(ROOT_PATH)
             anaconda.storage.write()

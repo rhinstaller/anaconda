@@ -349,25 +349,6 @@ class NetworkTest(mock.TestCase):
         self.assertEqual(self.fs[TMPFILE],
             'network --device eth0 --bootproto dhcp --noipv6\n')
 
-    def network_write_test(self):
-        import pyanaconda.network
-        pyanaconda.network.shutil = mock.Mock()
-        pyanaconda.network.os = mock.Mock()
-        pyanaconda.network.os.path.isfile.return_value = True
-        self.fs.open(self.NETWORKCONFFILE, 'w')
-
-        device = pyanaconda.network.NetworkDevice(
-            self.NETSCRIPTSDIR, self.DEVICE)
-        device.loadIfcfgFile()
-
-        nw = pyanaconda.network.Network()
-        nw.domains = ['localdomain']
-        nw.netdevices[self.DEVICE] = device
-        nw.write()
-
-        self.assertEqual(self.fs['%s.new' % self.NETWORKCONFFILE],
-            'NETWORKING=yes\nHOSTNAME=localhost.localdomain\n')
-
     def network_wait_for_connection_1_test(self):
         import pyanaconda.network
         pyanaconda.network.dbus = mock.Mock()
