@@ -261,7 +261,6 @@ AC_CONFIG_FILES([Makefile
                  dracut/Makefile
                  gptsync/Makefile
                  pyanaconda/installclasses/Makefile
-                 pyanaconda/iw/Makefile
                  data/liveinst/Makefile
                  data/liveinst/console.apps/Makefile
                  data/liveinst/gnome/Makefile

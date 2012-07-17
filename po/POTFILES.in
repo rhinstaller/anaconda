@@ -9,7 +9,6 @@ pyanaconda/cmdline.py
 pyanaconda/compssort.py
 pyanaconda/constants.py
 pyanaconda/firewall.py
-pyanaconda/gui.py
 pyanaconda/image.py
 pyanaconda/installclass.py
 pyanaconda/installinterfacebase.py
@@ -29,38 +28,6 @@ pyanaconda/yuminstall.py
 # Install class definitions
 pyanaconda/installclasses/fedora.py
 pyanaconda/installclasses/rhel.py
-
-# Graphical user interface source files
-pyanaconda/iw/DeviceSelector.py
-pyanaconda/iw/GroupSelector.py
-pyanaconda/iw/account_gui.py
-pyanaconda/iw/advanced_storage.py
-pyanaconda/iw/autopart_type.py
-pyanaconda/iw/blpasswidget.py
-pyanaconda/iw/bootloader_main_gui.py
-pyanaconda/iw/checklist.py
-pyanaconda/iw/cleardisks_gui.py
-pyanaconda/iw/congrats_gui.py
-pyanaconda/iw/datacombo.py
-pyanaconda/iw/examine_gui.py
-pyanaconda/iw/filter_gui.py
-pyanaconda/iw/filter_type.py
-pyanaconda/iw/iw_gui.py
-pyanaconda/iw/language_gui.py
-pyanaconda/iw/lvm_dialog_gui.py
-pyanaconda/iw/network_gui.py
-pyanaconda/iw/osbootwidget.py
-pyanaconda/iw/package_gui.py
-pyanaconda/iw/partition_dialog_gui.py
-pyanaconda/iw/partition_gui.py
-pyanaconda/iw/partition_ui_helpers_gui.py
-pyanaconda/iw/pixmapRadioButtonGroup_gui.py
-pyanaconda/iw/raid_dialog_gui.py
-pyanaconda/iw/task_gui.py
-pyanaconda/iw/timezone_gui.py
-pyanaconda/iw/upgrade_bootloader_gui.py
-pyanaconda/iw/upgrade_migratefs_gui.py
-pyanaconda/iw/zipl_gui.py
 
 # Packaging module source files
 pyanaconda/packaging/__init__.py

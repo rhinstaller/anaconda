@@ -17,7 +17,7 @@
 #
 # Author: Martin Sivak <msivak@redhat.com>
 
-SUBDIRS = installclasses isys iw textw storage ui packaging
+SUBDIRS = installclasses isys textw storage ui packaging
 
 MAINTAINERCLEANFILES = Makefile.in
 
