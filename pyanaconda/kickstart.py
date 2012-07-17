@@ -414,6 +414,23 @@ class Fcoe(commands.fcoe.F13_Fcoe):
 
         return fc
 
+class Firstboot(commands.firstboot.FC3_Firstboot):
+    def execute(self, *args):
+        if not os.path.exists("/lib/systemd/system/firstboot-graphical.service"):
+            return
+
+        action = "enable"
+
+        if self.firstboot == FIRSTBOOT_SKIP:
+            action = "disable"
+        elif self.firstboot == FIRSTBOOT_RECONFIG:
+            f = open(ROOT_PATH + "/etc/reconfigSys", "w+")
+            f.close()
+
+        iutil.execWithRedirect("systemctl", [action, "firstboot-graphical.service"],
+                               stdout="/dev/tty5", stderr="/dev/tty5",
+                               root=ROOT_PATH)
+
 class IgnoreDisk(commands.ignoredisk.RHEL6_IgnoreDisk):
     def parse(self, args):
         retval = commands.ignoredisk.RHEL6_IgnoreDisk.parse(self, args)
@@ -1250,6 +1267,7 @@ commandMap = {
         "clearpart": ClearPart,
         "dmraid": DmRaid,
         "fcoe": Fcoe,
+        "firstboot": Firstboot,
         "ignoredisk": IgnoreDisk,
         "iscsi": Iscsi,
         "iscsiname": IscsiName,

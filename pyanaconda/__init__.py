@@ -107,15 +107,6 @@ class Anaconda(object):
         return self._bootloader
 
     @property
-    def firstboot(self):
-        from pykickstart.constants import FIRSTBOOT_DEFAULT
-
-        if self.ksdata:
-            return self.ksdata.firstboot.firstboot
-        else:
-            return FIRSTBOOT_DEFAULT
-
-    @property
     def instClass(self):
         if not self._instClass:
             from installclass import DefaultInstall

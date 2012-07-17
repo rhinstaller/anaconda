@@ -39,17 +39,6 @@ _ = lambda x: gettext.ldgettext("anaconda", x)
 def doPostAction(anaconda):
     anaconda.instClass.postAction(anaconda)
 
-def firstbootConfiguration(anaconda):
-    if anaconda.firstboot == FIRSTBOOT_RECONFIG:
-        f = open(ROOT_PATH + '/etc/reconfigSys', 'w+')
-        f.close()
-    elif anaconda.firstboot == FIRSTBOOT_SKIP:
-        f = open(ROOT_PATH + '/etc/sysconfig/firstboot', 'w+')
-        f.write('RUN_FIRSTBOOT=NO')
-        f.close()
-
-    return
-
 def setupTimezone(anaconda):
     # we don't need this on an upgrade or going backwards
     if anaconda.upgrade or flags.imageInstall or anaconda.dir == DISPATCH_BACK:

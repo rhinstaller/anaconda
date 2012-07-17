@@ -13,6 +13,8 @@ Fedora 18
   where you go next.
 - The setting on the welcome screen does not get reflected on the language and keyboard spokes.
 - Something causes the up and down arrows to resize the anaconda window.
+- Some interactive install defaults are different from kickstart (firstboot, ?).  These need to
+  be loaded somewhere up front for an interactive install.
 + Update exception handling.  This requires updating python-meh to use gtk3,
   which also requires updating firstboot and s-c-ks to gtk3.  I want to turn
   s-c-ks into an anaconda wrapper first, though.

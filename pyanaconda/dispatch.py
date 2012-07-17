@@ -26,7 +26,6 @@ from types import *
 import indexed_dict
 from constants import *
 from packages import doPostAction
-from packages import firstbootConfiguration
 from packages import setupTimezone
 from storage import storageInitialize
 from storage import storageComplete
@@ -269,7 +268,6 @@ class Dispatcher(object):
         self.add_step("installpackages", doInstall)
         self.add_step("postinstallconfig", doPostInstall)
         self.add_step("writeconfig", writeConfiguration)
-        self.add_step("firstboot", firstbootConfiguration)
         self.add_step("instbootloader", writeBootLoader)
         self.add_step("reipl", doReIPL)
         self.add_step("methodcomplete", doMethodComplete)
