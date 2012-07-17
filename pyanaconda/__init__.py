@@ -43,7 +43,7 @@ _ = lambda x: gettext.ldgettext("anaconda", x)
 
 class Anaconda(object):
     def __init__(self):
-        import desktop, dispatch, firewall, security
+        import desktop, firewall, security
         import system_config_keyboard.keyboard as keyboard
         from flags import flags
 
@@ -52,7 +52,6 @@ class Anaconda(object):
         self.canReIPL = False
         self.desktop = desktop.Desktop()
         self.dir = None
-        self.dispatch = dispatch.Dispatcher(self)
         self.displayMode = None
         self.extraModules = []
         self.firewall = firewall.Firewall()

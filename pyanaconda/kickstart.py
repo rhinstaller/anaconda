@@ -1157,7 +1157,6 @@ class Timezone(commands.timezone.F18_Timezone):
             log.warning("Timezone %s set in kickstart is not valid." % (self.timezone,))
 
         self.anaconda.timezone.setTimezoneInfo(self.timezone, self.isUtc)
-        self.anaconda.dispatch.skip_steps("timezone")
 
         chronyd_conf_path = os.path.normpath(ROOT_PATH + ntp.NTP_CONFIG_FILE)
         ntp.save_servers_to_config(self.ntpservers,

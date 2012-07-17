@@ -121,7 +121,6 @@ def initExceptionHandling(anaconda):
                                  "accounts",
                                  "bootloader.password",
                                  "comps",
-                                 "dispatch",
                                  "hdList",
                                  "ksdata",
                                  "instLanguage.font",

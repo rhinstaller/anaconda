@@ -117,7 +117,6 @@ class RescueInterface(InstallInterfaceBase):
 
     def run(self, anaconda):
         self.anaconda = anaconda
-        self.anaconda.dispatch.dispatch()
 
     def __init__(self):
         InstallInterfaceBase.__init__(self)

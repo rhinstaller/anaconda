@@ -153,7 +153,6 @@ class InstallInterface(InstallInterfaceBase):
 
     def run(self, anaconda):
         self.anaconda = anaconda
-        self.anaconda.dispatch.dispatch()
 
     def display_step(self, step):
         if stepToClasses.has_key(step):
