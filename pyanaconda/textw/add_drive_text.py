@@ -24,6 +24,7 @@ from snack import *
 from constants_text import *
 from pyanaconda.constants import *
 import pyanaconda.partIntfHelpers as pih 
+from pyanaconda import isys
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
@@ -363,8 +364,7 @@ class addDriveDialog(object):
         return INSTALL_OK
 
     def addFcoeDriveDialog(self, screen):
-        netdevs = self.anaconda.network.netdevices
-        devs = netdevs.keys()
+        devs = network.getDevices()
         devs.sort()
 
         if not devs:
@@ -381,7 +381,7 @@ class addDriveDialog(object):
 
         interfaceList = Listbox(height=len(devs), scroll=1)
         for dev in devs:
-            hwaddr = netdevs[dev].get("HWADDR")
+            hwaddr = isys.getMacAddress(dev)
             if hwaddr:
                 desc = "%s - %.50s" % (dev, hwaddr)
             else:

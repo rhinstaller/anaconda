@@ -21,7 +21,7 @@ from pyanaconda.installclass import BaseInstallClass
 from pyanaconda.constants import *
 from pyanaconda.product import *
 from pyanaconda import iutil
-from pyanaconda.network import hasActiveNetDev
+from pyanaconda import network
 from pyanaconda import isys
 
 import os, types
@@ -122,17 +122,20 @@ class InstallClass(BaseInstallClass):
         # than two versions ago!
         return newVer >= oldVer and newVer - oldVer <= 2
 
-    def setNetworkOnbootDefault(self, network):
+    def setNetworkOnbootDefault(self):
         # if something's already enabled, we can just leave the config alone
-        for devName, dev in network.netdevices.items():
-            if dev.get('ONBOOT') == 'yes':
+        for devName in network.getDevices():
+            if network.get_ifcfg_value(devName, "ONBOOT", ROOT_PATH) == "yes":
                 return
 
         # the default otherwise: bring up the first wired netdev with link
-        for devName, dev in network.netdevices.items():
+        for devName in network.getDevices():
             if (not isys.isWirelessDevice(devName) and
                 isys.getLinkStatus(devName)):
+                dev = network.NetworkDevice(ROOT_PATH + network.netscriptsDir, devName)
+                dev.loadIfcfgFile()
                 dev.set(('ONBOOT', 'yes'))
+                dev.writeIfcfgFile()
                 break
 
     def __init__(self):

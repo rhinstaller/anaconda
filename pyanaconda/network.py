@@ -405,40 +405,22 @@ class Network:
 
     def __init__(self):
 
-        self.update()
+        ifcfglog.debug("Network object created called")
 
-    def update(self):
-        ifcfglog.debug("Network.update() called")
-
-        self.netdevices = {}
-
+        # TODO this may need to be handled in getDevices()
         if flags.imageInstall:
             return
+
+        # TODO this should go away (patch pending),
+        # default ifcfg files should be created in dracut
 
         # populate self.netdevices
         devhash = isys.getDeviceProperties(dev=None)
         for iface in devhash.keys():
-            if isys.isWirelessDevice(iface):
-                device = WirelessNetworkDevice(iface)
-            else:
+            if not isys.isWirelessDevice(iface):
                 device = NetworkDevice(netscriptsDir, iface)
-                if os.access(device.path, os.R_OK):
-                    device.loadIfcfgFile()
-                else:
+                if not os.access(device.path, os.R_OK):
                     device.setDefaultConfig()
-
-            self.netdevices[iface] = device
-
-    # write out current configuration state and wait for NetworkManager
-    # to bring the device up, watch NM state and return to the caller
-    # once we have a state
-    def bringUp(self):
-        write_sysconfig_network()
-        if waitForConnection():
-            resetResolver()
-            return True
-        else:
-            return False
 
 def getDevices():
     # TODO: filter with existence of ifcfg file?

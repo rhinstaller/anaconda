@@ -93,7 +93,7 @@ class RescueInterface(InstallInterfaceBase):
 	    return OkCancelWindow(self.screen, title, text)
 
     def enableNetwork(self, anaconda):
-        if len(anaconda.network.netdevices) == 0:
+        if len(network.getDevices()) == 0:
             return False
         from textw.netconfig_text import NetworkConfiguratorText
         w = NetworkConfiguratorText(self.screen, anaconda)
@@ -171,18 +171,6 @@ def makeResolvConf(instPath):
     f.write(buf)
     f.close()
 
-#
-# Write out something useful for networking and start interfaces
-#
-def startNetworking(network, intf):
-    # do lo first
-    if os.system("/usr/sbin/ifconfig lo 127.0.0.1"):
-        log.error("Error trying to start lo in rescue.py::startNetworking()")
-
-    # start up dhcp interfaces first
-    if not network.bringUp():
-        log.error("Error bringing up network interfaces")
-
 def runShell(screen = None, msg=""):
     if screen:
         screen.suspend()
@@ -238,7 +226,6 @@ def doRescue(anaconda):
                           "will not be available in rescue mode."))
                     break
 
-                startNetworking(anaconda.network, anaconda.intf)
                 break
             else:
                 break

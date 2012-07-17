@@ -45,7 +45,7 @@ class NetworkConfiguratorText:
     def __init__(self, screen, anaconda):
         self.screen = screen
         self.anaconda = anaconda
-        self.netdevs = self.anaconda.network.netdevices
+        self.netdevs = network.getDevices()
 
         self._initValues()
 
@@ -68,14 +68,13 @@ class NetworkConfiguratorText:
         dev_list = []
         selected_devname = None
 
-        devnames = self.netdevs.keys()
-        devnames.sort()
+        devnames = self.netdevs.sort()
 
         # Preselect device set in kickstart
         ksdevice = network.get_ksdevice_name()
 
         for devname in devnames:
-            hwaddr = self.netdevs[devname].get("HWADDR")
+            hwaddr = isys.getMacAddress(devname)
 
             if hwaddr:
                 desc = "%s - %.50s" % (devname, hwaddr)
@@ -348,7 +347,9 @@ class NetworkConfiguratorText:
            Returns True in case of success, False if failed.
         """
 
-        dev = self.netdevs[devname]
+        dev = network.NetworkDevice(ROOT_PATH, devname)
+        dev.loadIfcfgFile()
+
         nameservers = ''
 
         if self.ipv4Selected:
@@ -395,15 +396,18 @@ class NetworkConfiguratorText:
         dev.set(('ONBOOT', 'yes'))
 
         w = self.anaconda.intf.waitWindow(_("Configuring Network Interfaces"), _("Waiting for NetworkManager"))
-        result = self.anaconda.network.bringUp()
+        dev.writeIfcfgFile()
+        result = network.waitForConnection()
         w.pop()
         if not result:
             self.anaconda.intf.messageWindow(_("Network Error"),
                                              _("There was an error configuring "
                                                "network device %s") % dev.iface)
             dev.set(("ONBOOT", "no"))
+            dev.writeIfcfgFile()
             return False
 
+        network.resetResolver()
         return True
 
     def _ipv4MethodToggled(self, *args):

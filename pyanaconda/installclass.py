@@ -153,7 +153,7 @@ class BaseInstallClass(object):
 
         return (all(result.values()), result)
 
-    def setNetworkOnbootDefault(self, network):
+    def setNetworkOnbootDefault(self):
         pass
 
     def __init__(self):
