@@ -261,6 +261,7 @@ class Anaconda(object):
             self.methodstr = methodstr
 
     def write(self):
+        import network
         self.writeXdriver()
         self.instLanguage.write()
 
@@ -269,8 +270,8 @@ class Anaconda(object):
             self.instClass.setNetworkOnbootDefault(self.network)
         self.network.write()
         network.copyConfigToPath(ROOT_PATH)
-        self.network.disableNMForStorageDevices(self)
-        self.network.autostartFCoEDevices(self)
+        network.disableNMForStorageDevices(self.storage)
+        network.autostartFCoEDevices(self.storage)
         self.desktop.write()
         self.security.write()
         self.firewall.write()

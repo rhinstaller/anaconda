@@ -39,6 +39,7 @@ from flags import flags
 from simpleconfig import IfcfgFile
 from pyanaconda.constants import ROOT_PATH
 import urlgrabber.grabber
+from pyanaconda.storage.devices import FcoeDiskDevice, iScsiDiskDevice
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
@@ -331,28 +332,6 @@ class NetworkDevice(IfcfgFile):
         f.close()
         return content
 
-    def usedByFCoE(self, anaconda):
-        import storage
-        for d in anaconda.storage.devices:
-            if (isinstance(d, storage.devices.FcoeDiskDevice) and
-                d.nic == self.iface):
-                return True
-        return False
-
-    def usedByRootOnISCSI(self, anaconda):
-        import storage
-        rootdev = anaconda.storage.rootDevice
-        for d in anaconda.storage.devices:
-            if (isinstance(d, storage.devices.iScsiDiskDevice) and
-                rootdev.dependsOn(d)):
-                if d.nic == "default":
-                    if self.iface == ifaceForHostIP(d.host_address):
-                        return True
-                elif d.nic == self.iface:
-                    return True
-
-        return False
-
     def setGateway(self, gw):
         if ':' in gw:
             self.set(('IPV6_DEFAULTGW', gw))
@@ -467,35 +446,6 @@ class Network:
                 dev.get('DEFROUTE') != "no"):
                 return dev.get('IPV6_DEFAULTGW')
         return ""
-
-    def disableNMForStorageDevices(self, anaconda):
-        for devName, device in self.netdevices.items():
-            if (device.usedByFCoE(anaconda) or
-                device.usedByRootOnISCSI(anaconda)):
-                dev = NetworkDevice(ROOT_PATH + netscriptsDir, devName)
-                if os.access(dev.path, os.R_OK):
-                    dev.loadIfcfgFile()
-                    dev.set(('NM_CONTROLLED', 'no'))
-                    dev.writeIfcfgFile()
-                    log.info("network device %s used by storage will not be "
-                             "controlled by NM" % device.path)
-                else:
-                    log.warning("disableNMForStorageDevices: %s file not found" %
-                                device.path)
-
-    def autostartFCoEDevices(self, anaconda):
-        for devName, device in self.netdevices.items():
-            if device.usedByFCoE(anaconda):
-                dev = NetworkDevice(ROOT_PATH + netscriptsDir, devName)
-                if os.access(dev.path, os.R_OK):
-                    dev.loadIfcfgFile()
-                    dev.set(('ONBOOT', 'yes'))
-                    dev.writeIfcfgFile()
-                    log.debug("setting ONBOOT=yes for network device %s used by fcoe"
-                              % device.path)
-                else:
-                    log.warning("autoconnectFCoEDevices: %s file not found" %
-                                device.path)
 
     # TODO:
     # - do not write ifcfg files
@@ -922,3 +872,53 @@ def get_ksdevice_name(ksspec=""):
                 break
 
     return ksdevice
+
+
+def disableNMForStorageDevices(storage):
+    for devname in getDevices():
+        if (usedByFCoE(devname, storage) or
+            usedByRootOnISCSI(devname, storage)):
+            dev = NetworkDevice(ROOT_PATH + netscriptsDir, devname)
+            if os.access(dev.path, os.R_OK):
+                dev.loadIfcfgFile()
+                dev.set(('NM_CONTROLLED', 'no'))
+                dev.writeIfcfgFile()
+                log.info("network device %s used by storage will not be "
+                         "controlled by NM" % devname)
+            else:
+                log.warning("disableNMForStorageDevices: ifcfg file for %s not found" %
+                            devname)
+
+def autostartFCoEDevices(storage):
+    for devname in getDevices():
+        if usedByFCoE(devname, storage):
+            dev = NetworkDevice(ROOT_PATH + netscriptsDir, devname)
+            if os.access(dev.path, os.R_OK):
+                dev.loadIfcfgFile()
+                dev.set(('ONBOOT', 'yes'))
+                dev.writeIfcfgFile()
+                log.debug("setting ONBOOT=yes for network device %s used by fcoe"
+                          % devname)
+            else:
+                log.warning("autoconnectFCoEDevices: ifcfg file for %s not found" %
+                            devname)
+
+def usedByFCoE(iface, storage):
+    for d in storage.devices:
+        if (isinstance(d, FcoeDiskDevice) and
+            d.nic == iface):
+            return True
+    return False
+
+def usedByRootOnISCSI(iface, storage):
+    rootdev = storage.rootDevice
+    for d in storage.devices:
+        if (isinstance(d, iScsiDiskDevice) and
+            rootdev.dependsOn(d)):
+            if d.nic == "default":
+                if iface == ifaceForHostIP(d.host_address):
+                    return True
+            elif d.nic == iface:
+                return True
+
+    return False

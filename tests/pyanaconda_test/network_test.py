@@ -349,25 +349,6 @@ class NetworkTest(mock.TestCase):
         self.assertEqual(self.fs[TMPFILE],
             'network --device eth0 --bootproto dhcp --noipv6\n')
 
-    def network_disable_nm_for_storage_devices_test(self):
-        import pyanaconda.network
-        pyanaconda.network.NetworkDevice = mock.Mock()
-        pyanaconda.network.os = mock.Mock()
-        pyanaconda.network.os.access.return_value = True
-
-        nw = pyanaconda.network.Network()
-        nw.netdevices['dev'] = mock.Mock()
-        anaconda= mock.Mock()
-
-        nw.disableNMForStorageDevices(anaconda)
-        self.assertEqual(pyanaconda.network.NetworkDevice.call_args_list,
-             [(('/mnt/sysimage/tmp/etc/sysconfig/network-scripts', 'dev'), {})])
-        self.assertEqual(pyanaconda.network.NetworkDevice().method_calls,
-            [('loadIfcfgFile', (), {}),
-             ('set', (('NM_CONTROLLED', 'no'),), {}),
-             ('writeIfcfgFile', (), {})]
-         )
-
     def network_write_test(self):
         import pyanaconda.network
         pyanaconda.network.shutil = mock.Mock()
