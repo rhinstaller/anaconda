@@ -754,7 +754,7 @@ reposdir=%s
 
         return groups
 
-    def description(self, groupid):
+    def groupDescription(self, groupid):
         """ Return name/description tuple for the group specified by id. """
         groups = self._yumGroups
         if not groups:
