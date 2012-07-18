@@ -355,7 +355,7 @@ int nfsmount(const char *spec, const char *node, int *flags,
 	nolock = 0;
 	noac = 0;
 	retry = 10000;		/* 10000 minutes ~ 1 week */
-	tcp = 0;
+	tcp = 1;		/* nfs-utils uses tcp per default */
 
 	mountprog = MOUNTPROG;
 	mountvers = 0;
