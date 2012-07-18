@@ -50,6 +50,7 @@ class SoftwareSelectionSpoke(NormalSpoke):
         NormalSpoke.__init__(self, *args, **kwargs)
         self._errorMsgs = None
         self._tx_id = None
+        self._selectFlag = False
 
         self.selectedGroups = []
         self.excludedGroups = []
@@ -67,6 +68,7 @@ class SoftwareSelectionSpoke(NormalSpoke):
         if not row:
             return
 
+        self._selectFlag = False
         self.payload.data.packages.groupList = []
         self.payload.selectEnvironment(row[2])
         self.environment = row[2]
@@ -218,6 +220,7 @@ class SoftwareSelectionSpoke(NormalSpoke):
         self.selectedGroups = [g.name for g in self.data.packages.groupList]
         self.excludedGroups = [g.name
                                 for g in self.data.packages.excludedGroupList]
+        self._selectFlag = True
 
         if self._errorMsgs:
             self.window.set_info(Gtk.MessageType.WARNING, _("Error checking software dependencies.  Click for details."))
@@ -234,6 +237,8 @@ class SoftwareSelectionSpoke(NormalSpoke):
 
     # Signal handlers
     def on_environment_chosen(self, blah):
+        if not self._selectFlag:
+            return
         row = self._get_selected_environment()
         if row:
             self.environment = row[2]
