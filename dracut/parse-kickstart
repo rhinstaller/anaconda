@@ -195,9 +195,9 @@ def ksnet_to_dracut(args, lineno, net, bootdev=False):
     if net.mtu:
         # XXX FIXME: dracut doesn't support mtu= (yet)
         if net.device:
-            line.append("mtu=%s:%u" % (net.device, net.mtu))
+            line.append("mtu=%s:%s" % (net.device, net.mtu))
         else:
-            line.append("mtu=%u" % net.mtu)
+            line.append("mtu=%s" % net.mtu)
 
     # TODO: nodefroute, noipv[46], nodns: pass along to 'ifcfg' module somehow
     # TODO FIXME dhcpclass: dracut only uses one dhclient.conf for all ifaces
