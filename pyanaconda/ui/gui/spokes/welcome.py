@@ -89,6 +89,8 @@ class LanguageMixIn(object):
 
     def initialize(self):
         store = self.builder.get_object("languageStore")
+        self._selection = self.builder.get_object(self._selectionName)
+        self._view = self.builder.get_object(self._viewName)
 
         # TODO We can use the territory from geoip here
         # to preselect the translation, when it's available.
@@ -101,11 +103,11 @@ class LanguageMixIn(object):
             self._addLanguage(store, trans.display_name,
                               trans.english_name, trans.short_name)
 
-        # select the preferred translation
-        self._selectLanguage(store, self.language.preferred_translation.short_name)
+        # select the preferred translation if there wasn't any
+        (store, itr) = self._selection.get_selected()
+        if not itr:
+            self._selectLanguage(store, self.language.preferred_translation.short_name)
 
-        self._view = self.builder.get_object(self._viewName)
-        self._selection = self.builder.get_object(self._selectionName)
 
     def retranslate(self):
         welcomeLabel = self.builder.get_object(self._labelName)
@@ -205,6 +207,10 @@ class WelcomeLanguageSpoke(LanguageMixIn, StandaloneSpoke):
     def refresh(self):
         StandaloneSpoke.refresh(self)
         LanguageMixIn.refresh(self, "welcomeWindowContentBox")
+
+    def initialize(self):
+        LanguageMixIn.initialize(self)
+        StandaloneSpoke.initialize(self)
 
     # Override the default in StandaloneSpoke so we can display the beta
     # warning dialog first.
