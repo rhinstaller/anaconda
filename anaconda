@@ -646,6 +646,8 @@ def prompt_for_ssh():
 
 
 if __name__ == "__main__":
+    print "Starting installer, one moment..."
+
     setupPythonPath()
 
     # Allow a file to be loaded as early as possible
@@ -707,6 +709,13 @@ if __name__ == "__main__":
     from pyanaconda import iutil
     from pyanaconda import vnc
     from pyanaconda import kickstart
+
+    verdesc = "%s for %s %s" % (getAnacondaVersion(),
+                                product.productName, product.productVersion)
+    if product.isFinal:
+        print "anaconda %s started."
+    else:
+        print "anaconda %s (pre-release) started."
 
     # to set UTF8 mode on the terminal, we need LANG to be set usefully
     if os.environ.get("LANG", "C") == "C":
