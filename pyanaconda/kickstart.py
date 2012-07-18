@@ -1506,3 +1506,10 @@ def selectPackages(ksdata, payload):
             payload.deselectGroup(grp.name)
         except NoSuchGroup:
             continue
+
+def doKickstartStorage(storage, ksdata, instclass):
+    """ Setup storage state from the kickstart data """
+    ksdata.clearpart.execute(storage, ksdata, instclass)
+    ksdata.bootloader.execute(storage, ksdata, instclass)
+    ksdata.autopart.execute(storage, ksdata, instclass)
+

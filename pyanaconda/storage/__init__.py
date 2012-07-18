@@ -2781,8 +2781,3 @@ def parseFSTab(devicetree, chroot=None):
 
     return (mounts, swaps)
 
-def doKickstartStorage(storage, ksdata, instclass, checker):
-    ksdata.clearpart.execute(storage, ksdata, instclass)
-    ksdata.bootloader.execute(storage, ksdata, instclass)
-    ksdata.autopart.execute(storage, ksdata, instclass)
-    checker.run()

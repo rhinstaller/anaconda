@@ -47,7 +47,7 @@ from pyanaconda.ui.gui.spokes.lib.cart import SelectedDisksDialog
 from pyanaconda.ui.gui.categories.storage import StorageCategory
 from pyanaconda.ui.gui.utils import enlightbox, gdk_threaded
 
-from pyanaconda.storage import doKickstartStorage
+from pyanaconda.kickstart import doKickstartStorage
 from pyanaconda.storage.size import Size
 from pyanaconda.product import productName
 from pyanaconda.flags import flags
@@ -317,7 +317,8 @@ class StorageSpoke(NormalSpoke, StorageChecker):
             self.data.bootloader.bootDrive = self.storage.bootloader.disks[0].name
 
     def execute(self):
-        doKickstartStorage(self.storage, self.data, self.instclass, self)
+        doKickstartStorage(self.storage, self.data, self.instclass)
+        self.run()
 
     @property
     def completed(self):
