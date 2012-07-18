@@ -12,7 +12,7 @@
       <column type="gchararray"/>
     </columns>
   </object>
-  <object class="GtkListStore" id="desktopStore">
+  <object class="GtkListStore" id="environmentStore">
     <columns>
       <!-- column-name repoSelected -->
       <column type="gboolean"/>
@@ -61,7 +61,7 @@
                     <property name="spacing">24</property>
                     <property name="homogeneous">True</property>
                     <child>
-                      <object class="GtkBox" id="desktopBox">
+                      <object class="GtkBox" id="environmentBox">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="orientation">vertical</property>
@@ -83,7 +83,7 @@
                           </packing>
                         </child>
                         <child>
-                          <object class="GtkScrolledWindow" id="desktopScrolledWindow">
+                          <object class="GtkScrolledWindow" id="environmentScrolledWindow">
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="hscrollbar_policy">never</property>
@@ -94,25 +94,27 @@
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
                                 <child>
-                                  <object class="GtkTreeView" id="desktopView">
+                                  <object class="GtkTreeView" id="environmentView">
                                     <property name="visible">True</property>
                                     <property name="can_focus">True</property>
                                     <property name="margin_left">6</property>
                                     <property name="margin_right">6</property>
                                     <property name="margin_top">6</property>
                                     <property name="margin_bottom">6</property>
-                                    <property name="model">desktopStore</property>
+                                    <property name="model">environmentStore</property>
                                     <property name="headers_visible">False</property>
                                     <property name="headers_clickable">False</property>
                                     <property name="search_column">0</property>
                                     <child internal-child="selection">
-                                      <object class="GtkTreeSelection" id="desktopSelector"/>
+                                      <object class="GtkTreeSelection" id="environmentSelector">
+                                        <signal name="changed" handler="on_environment_chosen" swapped="no"/>
+                                      </object>
                                     </child>
                                     <child>
-                                      <object class="GtkTreeViewColumn" id="desktopDescCol">
+                                      <object class="GtkTreeViewColumn" id="environmentDescCol">
                                         <property name="title" translatable="yes">column</property>
                                         <child>
-                                          <object class="GtkCellRendererText" id="desktopDescRenderer">
+                                          <object class="GtkCellRendererText" id="environmentDescRenderer">
                                             <property name="width">250</property>
                                             <property name="yalign">0</property>
                                             <property name="wrap_mode">word-char</property>

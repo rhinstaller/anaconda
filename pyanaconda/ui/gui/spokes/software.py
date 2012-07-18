@@ -37,7 +37,7 @@ import sys
 __all__ = ["SoftwareSelectionSpoke"]
 
 class SoftwareSelectionSpoke(NormalSpoke):
-    builderObjects = ["addonStore", "desktopStore", "softwareWindow"]
+    builderObjects = ["addonStore", "environmentStore", "softwareWindow"]
     mainWidgetName = "softwareWindow"
     uiFile = "spokes/software.glade"
 
@@ -53,7 +53,7 @@ class SoftwareSelectionSpoke(NormalSpoke):
 
         self.selectedGroups = []
         self.excludedGroups = []
-        self.desktop = None
+        self.environment = None
 
         self._addRepoDialog = AdditionalReposDialog(self.data)
 
@@ -63,22 +63,15 @@ class SoftwareSelectionSpoke(NormalSpoke):
         # part of its operation.  So this is fine.
         from pyanaconda.threads import threadMgr, AnacondaThread
 
-        row = self._get_selected_desktop()
+        row = self._get_selected_environment()
         if not row:
             return
 
         self.payload.data.packages.groupList = []
-        self.payload.selectGroup(row[2])
+        self.payload.selectEnvironment(row[2])
+        self.environment = row[2]
         for group in self.selectedGroups:
             self.payload.selectGroup(group)
-
-        # select some stuff people will want with their desktop
-        # XXX this is only a placeholder until the new group metadata is in
-        #     place
-        if row[2] != "base":
-            groups = ['base-x', 'fonts']
-            for group in [g for g in groups if g not in self.excludedGroups]:
-                self.payload.selectGroup(group)
 
         communication.send_not_ready(self.__class__.__name__)
         threadMgr.add(AnacondaThread(name="AnaCheckSoftwareThread",
@@ -113,7 +106,7 @@ class SoftwareSelectionSpoke(NormalSpoke):
         if flags.automatedInstall:
             return packagesSeen and processingDone
         else:
-            return self._get_selected_desktop() is not None and processingDone
+            return self._get_selected_environment() is not None and processingDone
 
     @property
     def ready(self):
@@ -138,7 +131,7 @@ class SoftwareSelectionSpoke(NormalSpoke):
         if threadMgr.get("AnaPayloadMDThread") or self.payload.baseRepo is None:
             return _("Installation source not set up")
 
-        row = self._get_selected_desktop()
+        row = self._get_selected_environment()
         if not row:
             # Kickstart installs with %packages will have a row selected, unless
             # they did an install without a desktop environment.  This should
@@ -148,7 +141,7 @@ class SoftwareSelectionSpoke(NormalSpoke):
 
             return _("Nothing selected")
 
-        return self.payload.description(row[2])[0]
+        return self.payload.environmentDescription(row[2])[0]
 
     def initialize(self):
         from pyanaconda.threads import threadMgr, AnacondaThread
@@ -198,38 +191,31 @@ class SoftwareSelectionSpoke(NormalSpoke):
         if mdGatherThread:
             mdGatherThread.join()
 
-        self._desktopStore = self.builder.get_object("desktopStore")
-        self._desktopStore.clear()
+        self._environmentStore = self.builder.get_object("environmentStore")
+        self._environmentStore.clear()
+
+        clasess = []
+        for environment in self.payload.environments:
+            (name, desc) = self.payload.environmentDescription(environment)
+
+            itr = self._environmentStore.append([environment == self.environment, "<b>%s</b>\n%s" % (name, desc), environment])
+            if environment == self.environment:
+                sel = self.builder.get_object("environmentSelector")
+                sel.select_iter(itr)
+        self.refreshAddons()
+
+    def refreshAddons(self):
         self._addonStore = self.builder.get_object("addonStore")
         self._addonStore.clear()
+        if self.environment:
+            for grp in self.payload.groups:
+                if self.payload.environmentHasOption(self.environment, grp) or self.payload._isGroupVisible(grp):
+                    (name, desc) = self.payload.groupDescription(grp)
+                    selected = self.payload.groupSelected(grp)
 
-        desktops = []
-        for grp in self.payload.groups:
-            # Throw out language support groups and critical-path stuff.
-            if grp.endswith("-support") or grp.startswith("critical-path-"):
-                continue
-            # Throw out core, which should always be selected.
-            elif grp == "core":
-                continue
-            elif grp == "base" or grp.endswith("-desktop"):
-                (name, desc) = self.payload.description(grp)
-                selected = self.payload.groupSelected(grp)
+                    self._addonStore.append([selected, "<b>%s</b>\n%s" % (name, desc), grp])
 
-                itr = self._desktopStore.append([selected, "<b>%s</b>\n%s" % (name, desc), grp])
-                if selected:
-                    sel = self.builder.get_object("desktopSelector")
-                    sel.select_iter(itr)
-                    self.desktop = grp
-
-                desktops.append(grp)
-            else:
-                (name, desc) = self.payload.description(grp)
-                selected = self.payload.groupSelected(grp)
-
-                self._addonStore.append([selected, "<b>%s</b>\n%s" % (name, desc), grp])
-
-        self.selectedGroups = [g.name for g in self.data.packages.groupList
-                                if g.name not in desktops]
+        self.selectedGroups = [g.name for g in self.data.packages.groupList]
         self.excludedGroups = [g.name
                                 for g in self.data.packages.excludedGroupList]
 
@@ -238,15 +224,21 @@ class SoftwareSelectionSpoke(NormalSpoke):
 
     # Returns the row in the store corresponding to what's selected on the
     # left hand panel, or None if nothing's selected.
-    def _get_selected_desktop(self):
-        desktopView = self.builder.get_object("desktopView")
-        (store, itr) = desktopView.get_selection().get_selected()
+    def _get_selected_environment(self):
+        environmentView = self.builder.get_object("environmentView")
+        (store, itr) = environmentView.get_selection().get_selected()
         if not itr:
             return None
 
-        return self._desktopStore[itr]
+        return self._environmentStore[itr]
 
     # Signal handlers
+    def on_environment_chosen(self, blah):
+        row = self._get_selected_environment()
+        if row:
+            self.environment = row[2]
+            self.refreshAddons()
+
     def on_row_toggled(self, renderer, path):
         selected = not self._addonStore[path][0]
         group = self._addonStore[path][2]
