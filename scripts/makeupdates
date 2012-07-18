@@ -161,10 +161,10 @@ def copyUpdatedFiles(tag, updates, cwd):
                 continue
             else:
                 sys.stdout.write("Including %s\n" % (file,))
-                shutil.copy2(file, tmpupdates)
+                install_to_dir(file, tmpupdates)
         else:
             sys.stdout.write("Including %s\n" % (file,))
-            shutil.copy2(file, tmpupdates)
+            install_to_dir(file, tmpupdates)
 
 def isysChanged(tag):
     lines = doGitDiff(tag, ['isys'])
