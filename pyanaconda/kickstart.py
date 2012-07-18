@@ -431,6 +431,16 @@ class Firstboot(commands.firstboot.FC3_Firstboot):
                                stdout="/dev/tty5", stderr="/dev/tty5",
                                root=ROOT_PATH)
 
+class Group(commands.group.F12_Group):
+    def execute(self, storage, ksdata, instClass, users):
+        algo = users.getPassAlgo(ksdata.authconfig.authconfig)
+
+        for grp in self.groupList:
+            kwargs = grp.__dict__
+            kwargs.update({"root": ROOT_PATH})
+            if not users.createGroup(grp.name, **kwargs):
+                log.error("Group %s already exists, not creating." % grp.name)
+
 class IgnoreDisk(commands.ignoredisk.RHEL6_IgnoreDisk):
     def parse(self, args):
         retval = commands.ignoredisk.RHEL6_IgnoreDisk.parse(self, args)
@@ -1153,6 +1163,11 @@ class RaidData(commands.raid.F15_RaidData):
                                      parents=request)
             storage.createDevice(luksdev)
 
+class RootPw(commands.rootpw.F8_RootPw):
+    def execute(self, storage, ksdata, instClass, users):
+        algo = users.getPassAlgo(ksdata.authconfig.authconfig)
+        users.setRootPassword(self.password, self.isCrypted, self.lock, algo)
+
 class Services(commands.services.FC6_Services):
     def execute(self, storage, ksdata, instClass):
         disabled = map(lambda s: s + ".service", self.disabled)
@@ -1181,6 +1196,16 @@ class Timezone(commands.timezone.F18_Timezone):
         chronyd_conf_path = os.path.normpath(ROOT_PATH + ntp.NTP_CONFIG_FILE)
         ntp.save_servers_to_config(self.ntpservers,
                                    conf_file_path=chronyd_conf_path)
+
+class User(commands.user.F12_User):
+    def execute(self, storage, ksdata, instClass, users):
+        algo = users.getPassAlgo(ksdata.authconfig.authconfig)
+
+        for usr in self.userList:
+            kwargs = usr.__dict__
+            kwargs.update({"algo": algo, "root": ROOT_PATH})
+            if not users.createUser(usr.name, **kwargs):
+                log.error("User %s already exists, not creating." % usr.name)
 
 class VolGroupData(commands.volgroup.FC16_VolGroupData):
     def execute(self, storage, ksdata, instClass):
@@ -1268,14 +1293,17 @@ commandMap = {
         "dmraid": DmRaid,
         "fcoe": Fcoe,
         "firstboot": Firstboot,
+        "group": Group,
         "ignoredisk": IgnoreDisk,
         "iscsi": Iscsi,
         "iscsiname": IscsiName,
         "keyboard": Keyboard,
         "logging": Logging,
         "multipath": MultiPath,
+        "rootpw": RootPw,
         "services": Services,
         "timezone": Timezone,
+        "user": User,
         "xconfig": XConfig,
         "zfcp": ZFCP,
 }

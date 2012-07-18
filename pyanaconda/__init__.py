@@ -83,7 +83,6 @@ class Anaconda(object):
         self.updateSrc = None
         self.upgrade = flags.cmdline.has_key("preupgrade")
         self.upgradeRoot = None
-        self._users = None
         self.mehConfig = None
         self.clearPartTypeSelection = None      # User's GUI selection
         self.clearPartTypeSystem = None         # System's selection
@@ -185,14 +184,6 @@ class Anaconda(object):
             return []
 
     @property
-    def users(self):
-        if not self._users:
-            import users
-            self._users = users.Users(self)
-
-        return self._users
-
-    @property
     def storage(self):
         if not self._storage:
             import storage
@@ -281,6 +272,5 @@ class Anaconda(object):
         self.network.disableNMForStorageDevices(self)
         self.network.autostartFCoEDevices(self)
         self.desktop.write()
-        self.users.write()
         self.security.write()
         self.firewall.write()

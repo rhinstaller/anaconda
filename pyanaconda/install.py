@@ -24,6 +24,7 @@ from pyanaconda.constants import ROOT_PATH
 from pyanaconda.storage import turnOnFilesystems
 from pyanaconda.bootloader import writeBootLoader
 from pyanaconda.progress import progress_report
+from pyanaconda.users import createLuserConf, Users
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
@@ -76,6 +77,13 @@ def doInstall(storage, payload, ksdata, instClass):
     ksdata.firstboot.execute(storage, ksdata, instClass)
     ksdata.services.execute(storage, ksdata, instClass)
     ksdata.keyboard.execute(storage, ksdata, instClass)
+
+    # Creating users and groups requires some pre-configuration.
+    u = Users()
+    createLuserConf(ROOT_PATH, algoname=u.getPassAlgo(ksdata.authconfig.authconfig))
+    ksdata.rootpw.execute(storage, ksdata, instClass, u)
+    ksdata.group.execute(storage, ksdata, instClass, u)
+    ksdata.user.execute(storage, ksdata, instClass, u)
 
     runPostScripts(ksdata.scripts)
 
