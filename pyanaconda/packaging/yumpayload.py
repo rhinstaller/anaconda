@@ -714,6 +714,94 @@ reposdir=%s
             self._packages = []
 
     ###
+    ### METHODS FOR WORKING WITH ENVIRONMENTS
+    ###
+    @property
+    def environments(self):
+        """ List of environment ids. """
+        from yum.Errors import RepoError
+        from yum.Errors import GroupsError
+
+        environments = []
+        yum_groups = self._yumGroups
+        if yum_groups:
+            with _yum_lock:
+                environments = [i.environmentid for i in yum_groups.get_environments()]
+
+        return environments
+
+    def environmentSelected(self, environmentid):
+        groups = self._yumGroups
+        if not groups:
+            return False
+
+        with _yum_lock:
+            if not groups.has_environment(environmentid):
+                raise NoSuchGroup(environmentid)
+
+            environment = groups.return_environment(environmentid)
+            for group in environment.groups:
+                if not self.groupSelected(group):
+                    return False
+            return True
+
+    def environmentHasOption(self, environmentid, grpid):
+        groups = self._yumGroups
+        if not groups:
+            return False
+
+        with _yum_lock:
+            if not groups.has_environment(environmentid):
+                raise NoSuchGroup(environmentid)
+
+            environment = groups.return_environment(environmentid)
+            if grpid in environment.options:
+                return True
+        return False
+
+    def environmentDescription(self, environmentid):
+        """ Return name/description tuple for the environment specified by id. """
+        groups = self._yumGroups
+        if not groups:
+            return (environmentid, environmentid)
+
+        with _yum_lock:
+            if not groups.has_environment(environmentid):
+                raise NoSuchGroup(environmentid)
+
+            environment = groups.return_environment(environmentid)
+
+            return (environment.ui_name, environment.ui_description)
+
+    def selectEnvironment(self, environmentid):
+        groups = self._yumGroups
+        if not groups:
+            return
+
+        with _yum_lock:
+            if not groups.has_environment(environmentid):
+                raise NoSuchGroup(environmentid)
+
+            environment = groups.return_environment(environmentid)
+            for group in environment.groups:
+                self.selectGroup(group)
+
+    def deselectEnvironment(self, environmentid):
+        groups = self._yumGroups
+        if not groups:
+            return
+
+        with _yum_lock:
+            if not groups.has_environment(environmentid):
+                raise NoSuchGroup(environmentid)
+
+            environment = groups.return_environment(environmentid)
+            for group in environment.groups:
+                self.deselectGroup(group)
+            for group in environment.options:
+                self.deselectGroup(group)
+
+    ###
     ### METHODS FOR WORKING WITH GROUPS
     ###
     @property

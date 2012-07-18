@@ -234,6 +234,25 @@ class Payload(object):
         raise NotImplementedError()
 
     ###
+    ### METHODS FOR WORKING WITH ENVIRONMENTS
+    ###
+    @property
+    def environments(self):
+        raise NotImplementedError()
+
+    def environmentSelected(self, environmentid):
+        raise NotImplementedError()
+
+    def environmentDescription(self, environmentid):
+        raise NotImplementedError()
+
+    def selectEnvironment(self, environmentid):
+        raise NotImplementedError()
+
+    def deselectEnvironment(self, environmentid):
+        raise NotImplementedError()
+
+    ###
     ### METHODS FOR WORKING WITH GROUPS
     ###
     @property
