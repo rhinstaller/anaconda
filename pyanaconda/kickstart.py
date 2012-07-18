@@ -289,6 +289,11 @@ class Bootloader(commands.bootloader.F18_Bootloader):
         if self.leavebootorder:
             flags.leavebootorder = True
 
+class BTRFS(commands.btrfs.F17_BTRFS):
+    def execute(self, storage, ksdata, instClass):
+        for b in self.btrfsList:
+            b.execute(storage, ksdata, instClass)
+
 class BTRFSData(commands.btrfs.F17_BTRFSData):
     def execute(self, storage, ksdata, instClass):
         devicetree = storage.devicetree
@@ -506,6 +511,11 @@ class IscsiName(commands.iscsiname.FC6_IscsiName):
 
         storage.iscsi.iscsi().initiator = self.iscsiname
         return retval
+
+class LogVol(commands.logvol.F17_LogVol):
+    def execute(self, storage, ksdata, instClass):
+        for l in self.lvList:
+            l.execute(storage, ksdata, instClass)
 
 class LogVolData(commands.logvol.F17_LogVolData):
     def execute(self, storage, ksdata, instClass):
@@ -800,6 +810,11 @@ class DmRaid(commands.dmraid.FC6_DmRaid):
     def parse(self, args):
         raise NotImplementedError("The dmraid kickstart command is not currently supported")
 
+class Partition(commands.partition.F17_Partition):
+    def execute(self, storage, ksdata, instClass):
+        for p in self.partitions:
+            p.execute(storage, ksdata, instClass)
+
 class PartitionData(commands.partition.F17_PartData):
     def execute(self, storage, ksdata, instClass):
         devicetree = storage.devicetree
@@ -1021,6 +1036,11 @@ class PartitionData(commands.partition.F17_PartData):
                                      parents=request)
             storage.createDevice(luksdev)
 
+class Raid(commands.raid.F15_Raid):
+    def execute(self, storage, ksdata, instClass):
+        for r in self.raidList:
+            r.execute(storage, ksdata, instClass)
+
 class RaidData(commands.raid.F15_RaidData):
     def execute(self, storage, ksdata, instClass):
         raidmems = []
@@ -1207,6 +1227,11 @@ class User(commands.user.F12_User):
             if not users.createUser(usr.name, **kwargs):
                 log.error("User %s already exists, not creating." % usr.name)
 
+class VolGroup(commands.volgroup.FC16_VolGroup):
+    def execute(self, storage, ksdata, instClass):
+        for v in self.vgList:
+            v.execute(storage, ksdata, instClass)
+
 class VolGroupData(commands.volgroup.FC16_VolGroupData):
     def execute(self, storage, ksdata, instClass):
         pvs = []
@@ -1288,6 +1313,7 @@ class Keyboard(commands.keyboard.F18_Keyboard):
 # classes we're overriding in place of the defaults.
 commandMap = {
         "autopart": AutoPart,
+        "btrfs": BTRFS,
         "bootloader": Bootloader,
         "clearpart": ClearPart,
         "dmraid": DmRaid,
@@ -1299,11 +1325,16 @@ commandMap = {
         "iscsiname": IscsiName,
         "keyboard": Keyboard,
         "logging": Logging,
+        "logvol": LogVol,
         "multipath": MultiPath,
+        "part": Partition,
+        "partition": Partition,
+        "raid": Raid,
         "rootpw": RootPw,
         "services": Services,
         "timezone": Timezone,
         "user": User,
+        "volgroup": VolGroup,
         "xconfig": XConfig,
         "zfcp": ZFCP,
 }
@@ -1507,9 +1538,14 @@ def selectPackages(ksdata, payload):
         except NoSuchGroup:
             continue
 
-def doKickstartStorage(storage, ksdata, instclass):
+def doKickstartStorage(storage, ksdata, instClass):
     """ Setup storage state from the kickstart data """
-    ksdata.clearpart.execute(storage, ksdata, instclass)
-    ksdata.bootloader.execute(storage, ksdata, instclass)
-    ksdata.autopart.execute(storage, ksdata, instclass)
+    ksdata.clearpart.execute(storage, ksdata, instClass)
+    ksdata.bootloader.execute(storage, ksdata, instClass)
+    ksdata.autopart.execute(storage, ksdata, instClass)
+    ksdata.btrfs.execute(storage, ksdata, instClass)
+    ksdata.raid.execute(storage, ksdata, instClass)
+    ksdata.volgroup.execute(storage, ksdata, instClass)
+    ksdata.logvol.execute(storage, ksdata, instClass)
+    ksdata.partition.execute(storage, ksdata, instClass)
 
