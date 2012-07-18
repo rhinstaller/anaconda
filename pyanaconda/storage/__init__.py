@@ -2683,8 +2683,9 @@ def findExistingInstallations(devicetree):
             log.warning("setup of %s failed: %s" % (device.name, e))
             continue
 
+        options = device.format.options + ",ro"
         try:
-            device.format.mount(options="ro", mountpoint=ROOT_PATH)
+            device.format.mount(options=options, mountpoint=ROOT_PATH)
         except Exception as e:
             log.warning("mount of %s as %s failed: %s" % (device.name,
                                                           device.format.type,
@@ -2766,17 +2767,18 @@ def parseFSTab(devicetree, chroot=None):
         for line in f.readlines():
             # strip off comments
             (line, pound, comment) = line.partition("#")
-            fields = line.split(None, 3)
+            fields = line.split(None, 4)
 
-            if len(fields) < 4:
+            if len(fields) < 5:
                 continue
 
-            (devspec, mountpoint, fstype, rest) = fields
+            (devspec, mountpoint, fstype, options, rest) = fields
 
             # find device in the tree
             device = devicetree.resolveDevice(devspec,
                                               cryptTab=cryptTab,
-                                              blkidTab=blkidTab)
+                                              blkidTab=blkidTab,
+                                              options=options)
 
             if device is None:
                 continue

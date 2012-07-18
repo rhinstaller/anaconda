@@ -1123,6 +1123,10 @@ class BTRFS(FS):
         # filesystem creation is done in storage.devicelibs.btrfs.create_volume
         pass
 
+    def destroy(self, *args, **kwargs):
+        # filesystem creation is done in storage.devicelibs.btrfs.delete_volume
+        pass
+
     def setup(self, *args, **kwargs):
         log_method_call(self, type=self.mountType, device=self.device,
                         mountpoint=self.mountpoint)

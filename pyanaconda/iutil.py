@@ -1082,6 +1082,16 @@ def dracut_eject(device):
     except Exception, e:
         log.error("Error writing dracut shutdown eject hook for %s: %s" % (device, e))
 
+def get_option_value(opt_name, options):
+    """ Return the value of a named option in the specified options string. """
+    for opt in options.split(","):
+        if "=" not in opt:
+            continue
+
+        name, val = opt.split("=")
+        if name == opt_name:
+            return val.strip()
+
 class ProxyStringError(Exception):
     pass
 

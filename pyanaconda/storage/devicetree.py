@@ -1529,11 +1529,12 @@ class DeviceTree(object):
                 if vol_path in [sv.name for sv in btrfs_dev.subvolumes]:
                     continue
                 fmt = getFormat("btrfs", device=btrfs_dev.path, exists=True,
-                                mountopts="subvol=%d" % vol_id)
+                                mountopts="subvol=%s" % vol_path)
                 subvol = BTRFSSubVolumeDevice(vol_path,
                                               vol_id=vol_id,
                                               format=fmt,
-                                              parents=[btrfs_dev])
+                                              parents=[btrfs_dev],
+                                              exists=True)
                 self._addDevice(subvol)
 
     def handleUdevDeviceFormat(self, info, device):
@@ -2148,7 +2149,7 @@ class DeviceTree(object):
         """ Return a list of a device's children. """
         return [c for c in self._devices if device in c.parents]
 
-    def resolveDevice(self, devspec, blkidTab=None, cryptTab=None):
+    def resolveDevice(self, devspec, blkidTab=None, cryptTab=None, options=None):
         # find device in the tree
         device = None
         if devspec.startswith("UUID="):
@@ -2231,6 +2232,22 @@ class DeviceTree(object):
                         # looks like we may have one
                         lv = "%s-%s" % (vg_name, lv_name)
                         device = self.getDeviceByName(lv)
+
+        # check mount options for btrfs volumes in case it's a subvol
+        if device and device.type == "btrfs volume" and options:
+            attr = None
+            if "subvol=" in options:
+                attr = "name"
+                val = iutil.get_option_value("subvol", options)
+            elif "subvolid=" in options:
+                attr = "vol_id"
+                val = iutil.get_option_value("subvolid", options)
+
+            if attr and val:
+                for subvol in device.subvolumes:
+                    if getattr(subvol, attr, None) == val:
+                        device = subvol
+                        break
 
         if device:
             log.debug("resolved '%s' to '%s' (%s)" % (devspec, device.name, device.type))

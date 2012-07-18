@@ -3943,19 +3943,31 @@ class BTRFSDevice(StorageDevice):
     def _temp_dir_prefix(self):
         return "btrfs-tmp.%s" % self.id
 
-    def _do_temp_mount(self):
+    def _do_temp_mount(self, orig=False):
         if self.format.status or not self.exists:
             return
 
         tmpdir = tempfile.mkdtemp(prefix=self._temp_dir_prefix)
-        self.format.mount(mountpoint=tmpdir)
+        if orig:
+            fmt = self.originalFormat
+        else:
+            fmt = self.format
+
+        fmt.mount(mountpoint=tmpdir)
 
     def _undo_temp_mount(self):
-        if self.format.status:
-            mountpoint = self.format._mountpoint
-            if os.path.basename(mountpoint).startswith(self._temp_dir_prefix):
-                self.format.unmount()
-                os.rmdir(mountpoint)
+        if getattr(self.format, "_mountpoint", None):
+            fmt = self.format
+        elif getattr(self.originalFormat, "_mountpoint", None):
+            fmt = self.originalFormat
+        else:
+            return
+
+        mountpoint = fmt._mountpoint
+
+        if os.path.basename(mountpoint).startswith(self._temp_dir_prefix):
+            fmt.unmount()
+            os.rmdir(mountpoint)
 
     @property
     def path(self):
@@ -3990,6 +4002,7 @@ class BTRFSVolumeDevice(BTRFSDevice):
                                     label=label,
                                     volUUID=self.uuid,
                                     device=self.path)
+            self.originalFormat = self.format
 
         label = getattr(self.format, "label", None)
         if label:
@@ -4058,7 +4071,7 @@ class BTRFSVolumeDevice(BTRFSDevice):
         subvols = []
         self.setup(orig=True)
         try:
-            self._do_temp_mount()
+            self._do_temp_mount(orig=True)
         except FSError as e:
             log.debug("btrfs temp mount failed: %s" % e)
             return subvols
@@ -4127,10 +4140,10 @@ class BTRFSSubVolumeDevice(BTRFSDevice):
 
     def _destroy(self):
         log_method_call(self, self.name, status=self.status)
-        self.volume._do_temp_mount()
-        mountpoint = self.volume.format._mountpoint
+        self.volume._do_temp_mount(orig=True)
+        mountpoint = self.volume.originalFormat._mountpoint
         if not mountpoint:
             raise RuntimeError("btrfs subvol destroy requires mounted volume")
         btrfs.delete_subvolume(mountpoint, self.name)
-        self.volume._removeSubVolume()
+        self.volume._removeSubVolume(self.name)
         self.volume._undo_temp_mount()
