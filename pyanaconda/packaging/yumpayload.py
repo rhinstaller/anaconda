@@ -856,6 +856,18 @@ reposdir=%s
 
             return (group.ui_name, group.ui_description)
 
+    def _isGroupVisible(self, groupid):
+        groups = self._yumGroups
+        if not groups:
+            return False
+
+        with _yum_lock:
+            if not groups.has_group(groupid):
+                return False
+
+            group = groups.return_group(groupid)
+            return group.user_visible
+
     def _selectYumGroup(self, groupid, default=True, optional=False):
         # select the group in comps
         pkg_types = ['mandatory']
