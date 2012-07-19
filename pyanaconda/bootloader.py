@@ -1522,13 +1522,13 @@ class GRUB2(GRUB):
 
         # XXX will installing to multiple drives work as expected with GRUBv2?
         for (stage1dev, stage2dev) in self.install_targets:
-            args += ["--no-floppy", stage1dev.path]
+            grub_args = args + ["--no-floppy", stage1dev.path]
             if stage1dev == stage2dev:
                 # This is hopefully a temporary hack. GRUB2 currently refuses
                 # to install to a partition's boot block without --force.
-                args.insert(0, '--force')
+                grub_args.insert(0, '--force')
 
-            rc = iutil.execWithRedirect("grub2-install", args,
+            rc = iutil.execWithRedirect("grub2-install", grub_args,
                                         stdout="/dev/tty5", stderr="/dev/tty5",
                                         root=ROOT_PATH,
                                         env_prune=['MALLOC_PERTURB_'])
