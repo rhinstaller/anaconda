@@ -24,6 +24,7 @@ from storage.devices import LUKSDevice
 from storage.devicelibs.lvm import getPossiblePhysicalExtents
 from storage.devicelibs.mpath import MultipathConfigWriter, MultipathTopology
 from storage.formats import getFormat
+from storage.partitioning import doPartitioning
 import storage.iscsi
 import storage.fcoe
 import storage.zfcp
@@ -1543,9 +1544,11 @@ def doKickstartStorage(storage, ksdata, instClass):
     ksdata.clearpart.execute(storage, ksdata, instClass)
     ksdata.bootloader.execute(storage, ksdata, instClass)
     ksdata.autopart.execute(storage, ksdata, instClass)
-    ksdata.btrfs.execute(storage, ksdata, instClass)
+    ksdata.partition.execute(storage, ksdata, instClass)
     ksdata.raid.execute(storage, ksdata, instClass)
     ksdata.volgroup.execute(storage, ksdata, instClass)
     ksdata.logvol.execute(storage, ksdata, instClass)
-    ksdata.partition.execute(storage, ksdata, instClass)
+    ksdata.btrfs.execute(storage, ksdata, instClass)
+    storage.setUpBootLoader()
+    doPartitioning(storage)
 

@@ -60,6 +60,9 @@ _ = lambda x: gettext.ldgettext("anaconda", x)
 N_ = lambda x: x
 P_ = lambda x, y, z: gettext.ldngettext("anaconda", x, y, z)
 
+import logging
+log = logging.getLogger("anaconda")
+
 __all__ = ["StorageSpoke"]
 
 class FakeDiskLabel(object):
@@ -246,6 +249,10 @@ class StorageChecker(object):
         (StorageChecker.errors,
          StorageChecker.warnings) = self.storage.sanityCheck()
         communication.send_ready(self._mainSpokeClass, justUpdate=True)
+        for e in self.errors:
+            log.error(e)
+        for w in self.warnings:
+            log.warn(w)
 
 class StorageSpoke(NormalSpoke, StorageChecker):
     builderObjects = ["storageWindow"]

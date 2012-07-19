@@ -97,6 +97,10 @@ def storageInitialize(storage, ksdata, protected):
     if not storage.disks:
         raise NoDisksError
 
+    # kickstart uses all the disks
+    if flags.automatedInstall:
+        ksdata.ignoredisk.onlyuse = [d.name for d in storage.disks]
+
 # dispatch.py helper function
 def storageComplete(anaconda):
     devs = anaconda.storage.devicetree.getDevicesByType("luks/dm-crypt")
