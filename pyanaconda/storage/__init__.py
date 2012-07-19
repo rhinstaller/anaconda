@@ -1186,6 +1186,7 @@ class Storage(object):
             fmt_kwargs["mountopts"] = "subvol=%s" % name
             kwargs.pop("metaDataLevel", None)
             kwargs.pop("dataLevel", None)
+            kwargs.pop("size", None)
         else:
             dev_class = BTRFSVolumeDevice
             # set up the volume label, using hostname if necessary
@@ -1215,6 +1216,10 @@ class Storage(object):
         device = dev_class(name, **kwargs)
         device.format = getFormat("btrfs", **fmt_kwargs)
         return device
+
+    def newBTRFSSubVolume(self, *args, **kwargs):
+        kwargs["subvol"] = True
+        return self.newBTRFS(*args, **kwargs)
 
     def createDevice(self, device):
         """ Schedule creation of a device.
