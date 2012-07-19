@@ -1627,7 +1627,7 @@ class GRUB2(GRUB):
         defaults_file = "%s%s" % (ROOT_PATH, self.defaults_file)
         defaults = open(defaults_file, "w+")
         defaults.write("GRUB_TIMEOUT=%d\n" % self.timeout)
-        defaults.write("GRUB_DISTRIBUTOR=\"$(sed 's, release .*$,,g' /etc/system-release)\""))
+        defaults.write("GRUB_DISTRIBUTOR=\"$(sed 's, release .*$,,g' /etc/system-release)\"")
         defaults.write("GRUB_DEFAULT=saved\n")
         if self.console and self.console.startswith("ttyS"):
             defaults.write("GRUB_TERMINAL=\"serial console\"\n")
