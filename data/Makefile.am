@@ -17,7 +17,7 @@
 #
 # Author: Martin Sivak <msivak@redhat.com>
 
-SUBDIRS = bootdisk command-stubs icons liveinst pixmaps systemd ui post-scripts
+SUBDIRS = bootdisk command-stubs icons liveinst pixmaps systemd post-scripts
 
 EXTRA_DIST = lang-table
 CLEANFILES = *~ lang-names 
