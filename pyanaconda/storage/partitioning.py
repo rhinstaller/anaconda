@@ -87,7 +87,7 @@ def _scheduleImplicitPartitions(storage, disks):
         part = storage.newPartition(fmt_type=fmt_type,
                                                 fmt_args=fmt_args,
                                                 grow=True,
-                                                disks=[disk])
+                                                parents=[disk])
         storage.createDevice(part)
         devs.append(part)
 
@@ -171,7 +171,7 @@ def _schedulePartitions(storage, disks):
                                             grow=request.grow,
                                             maxsize=request.maxSize,
                                             mountpoint=request.mountpoint,
-                                            disks=disks,
+                                            parents=disks,
                                             weight=request.weight)
 
         # schedule the device for creation
@@ -199,12 +199,10 @@ def _scheduleVolumes(storage, devs):
         new_container = storage.newVG
         new_volume = storage.newLV
         format_name = "lvmpv"
-        parent_kw = "pvs"
     else:
         new_container = storage.newBTRFS
         new_volume = storage.newBTRFS
         format_name = "btrfs"
-        parent_kw = "parents"
 
     if storage.encryptedAutoPart:
         pvs = []
@@ -219,7 +217,7 @@ def _scheduleVolumes(storage, devs):
         pvs = devs
 
     # create a vg containing all of the autopart pvs
-    container = new_container(**{parent_kw: pvs})
+    container = new_container(parents=pvs)
     storage.createDevice(container)
 
     #
@@ -258,7 +256,7 @@ def _scheduleVolumes(storage, devs):
         kwargs = {"mountpoint": request.mountpoint,
                   "fmt_type": request.fstype}
         if lv:
-            kwargs.update({"vg": container,
+            kwargs.update({"parents": [container],
                            "grow": request.grow,
                            "maxsize": request.maxSize,
                            "size": request.size,

@@ -1080,13 +1080,6 @@ class Storage(object):
                                                                None),
                                          **kwargs.pop("fmt_args", {}))
 
-        if kwargs.has_key("disks"):
-            parents = kwargs.pop("disks")
-            if isinstance(parents, Device):
-                kwargs["parents"] = [parents]
-            else:
-                kwargs["parents"] = parents
-
         if kwargs.has_key("name"):
             name = kwargs.pop("name")
         else:
@@ -1115,7 +1108,7 @@ class Storage(object):
 
     def newVG(self, *args, **kwargs):
         """ Return a new LVMVolumeGroupDevice instance. """
-        pvs = kwargs.pop("pvs", [])
+        pvs = kwargs.pop("parents", [])
         for pv in pvs:
             if pv not in self.devices:
                 raise ValueError("pv is not in the device tree")
@@ -1139,9 +1132,7 @@ class Storage(object):
 
     def newLV(self, *args, **kwargs):
         """ Return a new LVMLogicalVolumeDevice instance. """
-        if kwargs.has_key("vg"):
-            vg = kwargs.pop("vg")
-
+        vg = kwargs.get("parents", [None])[0]
         mountpoint = kwargs.pop("mountpoint", None)
         if kwargs.has_key("fmt_type"):
             kwargs["format"] = getFormat(kwargs.pop("fmt_type"),
@@ -1162,7 +1153,7 @@ class Storage(object):
         if name in self.names:
             raise ValueError("name already in use")
 
-        return LVMLogicalVolumeDevice(name, vg, *args, **kwargs)
+        return LVMLogicalVolumeDevice(name, *args, **kwargs)
 
     def newBTRFS(self, *args, **kwargs):
         """ Return a new BTRFSVolumeDevice or BRFSSubVolumeDevice. """

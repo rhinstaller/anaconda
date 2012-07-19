@@ -651,7 +651,7 @@ class LogVolData(commands.logvol.F17_LogVolData):
 
             request = storage.newLV(format=format,
                                     name=self.name,
-                                    vg=vg,
+                                    parents=[vg],
                                     size=self.size,
                                     grow=self.grow,
                                     maxsize=self.maxSizeMB,
@@ -990,12 +990,12 @@ class PartitionData(commands.partition.F17_PartData):
 
                 should_clear = storage.shouldClear(disk)
                 if disk and (disk.partitioned or should_clear):
-                    kwargs["disks"] = [disk]
+                    kwargs["parents"] = [disk]
                     break
                 elif disk:
                     raise KickstartValueError, formatErrorMsg(self.lineno, msg="Specified unpartitioned disk %s in partition command" % self.disk)
 
-            if not kwargs["disks"]:
+            if not kwargs["parents"]:
                 raise KickstartValueError, formatErrorMsg(self.lineno, msg="Specified nonexistent disk %s in partition command" % self.disk)
 
         kwargs["grow"] = self.grow
@@ -1300,7 +1300,7 @@ class VolGroupData(commands.volgroup.FC16_VolGroupData):
         elif self.vgname in [vg.name for vg in storage.vgs]:
             raise KickstartValueError(formatErrorMsg(self.lineno, msg="The volume group name \"%s\" is already in use." % self.vgname))
         else:
-            request = storage.newVG(pvs=pvs,
+            request = storage.newVG(parents=pvs,
                                     name=self.vgname,
                                     peSize=self.pesize/1024.0)
 

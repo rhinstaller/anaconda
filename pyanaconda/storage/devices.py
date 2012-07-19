@@ -1964,7 +1964,7 @@ class LVMVolumeGroupDevice(DMDevice):
     _type = "lvmvg"
     _packages = ["lvm2"]
 
-    def __init__(self, name, parents, size=None, free=None,
+    def __init__(self, name, parents=None, size=None, free=None,
                  peSize=None, peCount=None, peFree=None, pvCount=None,
                  uuid=None, exists=False, sysfsPath=''):
         """ Create a LVMVolumeGroupDevice instance.
@@ -2387,7 +2387,7 @@ class LVMLogicalVolumeDevice(DMDevice):
     _resizable = True
     _packages = ["lvm2"]
 
-    def __init__(self, name, vgdev, size=None, uuid=None,
+    def __init__(self, name, parents=None, size=None, uuid=None,
                  stripes=1, logSize=0, snapshotSpace=0,
                  format=None, exists=False, sysfsPath='',
                  grow=None, maxsize=None, percent=None,
@@ -2418,15 +2418,15 @@ class LVMLogicalVolumeDevice(DMDevice):
                     percent -- percent of VG space to take
 
         """
-        if isinstance(vgdev, list):
-            if len(vgdev) != 1:
+        if isinstance(parents, list):
+            if len(parents) != 1:
                 raise ValueError("constructor requires a single LVMVolumeGroupDevice instance")
-            elif not isinstance(vgdev[0], LVMVolumeGroupDevice):
+            elif not isinstance(parents[0], LVMVolumeGroupDevice):
                 raise ValueError("constructor requires a LVMVolumeGroupDevice instance")
-        elif not isinstance(vgdev, LVMVolumeGroupDevice):
+        elif not isinstance(parents, LVMVolumeGroupDevice):
             raise ValueError("constructor requires a LVMVolumeGroupDevice instance")
         DMDevice.__init__(self, name, size=size, format=format,
-                          sysfsPath=sysfsPath, parents=vgdev,
+                          sysfsPath=sysfsPath, parents=parents,
                           exists=exists)
 
         self.singlePVerr = ("%(mountpoint)s is restricted to a single "
