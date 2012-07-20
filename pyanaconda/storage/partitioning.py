@@ -75,7 +75,8 @@ def _scheduleImplicitPartitions(storage, disks):
     for disk in disks:
         if storage.encryptedAutoPart:
             fmt_type = "luks"
-            fmt_args = {"escrow_cert": storage.autoPartEscrowCert,
+            fmt_args = {"passphrase": storage.encryptionPassphrase,
+                        "escrow_cert": storage.autoPartEscrowCert,
                         "add_backup_passphrase": storage.autoPartAddBackupPassphrase}
         else:
             if storage.autoPartType == AUTOPART_TYPE_LVM:
@@ -156,11 +157,16 @@ def _schedulePartitions(storage, disks):
             request.fstype = storage.liveImage.format.type
 
         if request.encrypted and storage.encryptedAutoPart:
-            fstype = "luks"
+            fmt_type = "luks"
+            fmt_args = {"passphrase": storage.encryptionPassphrase,
+                        "escrow_cert": storage.autoPartEscrowCert,
+                        "add_backup_passphrase": storage.autoPartAddBackupPassphrase}
         else:
-            fstype = request.fstype
+            fmt_type = request.fstype
+            fmt_args = {}
 
-        dev = storage.newPartition(fmt_type=fstype,
+        dev = storage.newPartition(fmt_type=fmt_type,
+                                            fmt_args=fmt_args,
                                             size=request.size,
                                             grow=request.grow,
                                             maxsize=request.maxSize,
