@@ -50,7 +50,8 @@ BTERMMODS="vga16fb"
 CRYPTOMODS="aead aes_generic ansi_cprng anubis arc4 authenc blowfish cast5 cast6 cbc ccm chainiv crypto_algapi crypto_api crypto_blkcipher crypto_hash crypto_null cryptomgr ctr deflate des ecb eseqiv gf128mul hmac khazad krng md4 md5 michael_mic rng seqiv serpent sha256 sha512 tcrypt tea tgr192 twofish wp512 xcbc xts"
 PCMCIASOCKMODS="yenta_socket i82365 tcic pcmcia"
 INFINIBANDMODS="ib_ipoib"
-INITRDMODS="$USBMODS $FIREWIREMODS $IDEMODS $SCSIMODS $FSMODS $LVMMODS $RAIDMODS $CRYPTOMODS $BTERMMODS $COMMONMODS $PCMCIASOCKMODS $INFINIBANDMODS =scsi =net"
+MSHVMODS="hv_storvsc hv_mouse hv_netvsc hv_vmbus"
+INITRDMODS="$USBMODS $FIREWIREMODS $IDEMODS $SCSIMODS $FSMODS $LVMMODS $RAIDMODS $CRYPTOMODS $BTERMMODS $COMMONMODS $PCMCIASOCKMODS $INFINIBANDMODS $MSHVMODS =scsi =net"
 
 # Set, verify, and create paths
     KERNELPATH=$1
