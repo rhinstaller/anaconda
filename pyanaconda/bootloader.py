@@ -1682,6 +1682,10 @@ class GRUB2(GRUB):
 
     def write_config(self):
         self.write_config_console(None)
+        # See if we have a password and if so update the boot args before we
+        # write out the defaults file.
+        if self.password or self.encrypted_password:
+            self.boot_args.add("rd.shell=0")
         self.write_defaults()
 
         # if we fail to setup password auth we should complete the
@@ -1865,6 +1869,8 @@ class YabootSILOBase(BootLoader):
                 continue
 
             args = Arguments()
+            if self.password or self.encrypted_password:
+                args.add("rd.shell=0")
             if image.initrd:
                 initrd_line = "\tinitrd=%s/%s\n" % (self.boot_prefix,
                                                     image.initrd)
