@@ -99,7 +99,10 @@ def storageInitialize(storage, ksdata, protected):
 
     # kickstart uses all the disks
     if flags.automatedInstall:
-        ksdata.ignoredisk.onlyuse = [d.name for d in storage.disks]
+        if not ksdata.ignoredisk.onlyuse:
+            ksdata.ignoredisk.onlyuse = [d.name for d in storage.disks \
+                                         if d.name not in ksdata.ignoredisk.ignoredisk]
+            log.debug("onlyuse is now: %s" % (",".join(ksdata.ignoredisk.onlyuse)))
 
 # dispatch.py helper function
 def storageComplete(anaconda):

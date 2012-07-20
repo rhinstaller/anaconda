@@ -249,9 +249,9 @@ class StorageChecker(object):
         (StorageChecker.errors,
          StorageChecker.warnings) = self.storage.sanityCheck()
         communication.send_ready(self._mainSpokeClass, justUpdate=True)
-        for e in self.errors:
+        for e in StorageChecker.errors:
             log.error(e)
-        for w in self.warnings:
+        for w in StorageChecker.warnings:
             log.warn(w)
 
 class StorageSpoke(NormalSpoke, StorageChecker):
