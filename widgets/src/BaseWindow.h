@@ -54,9 +54,13 @@ struct _AnacondaBaseWindow {
  *                the widget class structure in order for the class mechanism
  *                to work correctly.  This allows a AnacondaBaseWindowClass
  *                pointer to be cast to a #GtkWindow pointer.
+ * @info_bar_clicked : Function pointer called when the #AnacondaBaseWindow::info-bar-clicked
+ *                     signal is emitted.
  */
 struct _AnacondaBaseWindowClass {
     GtkWindowClass parent_class;
+
+    void (* info_bar_clicked) (AnacondaBaseWindow *window);
 };
 
 GType       anaconda_base_window_get_type (void);

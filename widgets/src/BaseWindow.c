@@ -69,6 +69,13 @@
  */
 
 enum {
+    SIGNAL_INFO_BAR_CLICKED,
+    LAST_SIGNAL
+};
+
+static guint window_signals[LAST_SIGNAL] = { 0 };
+
+enum {
     PROP_DISTRIBUTION = 1,
     PROP_WINDOW_NAME
 };
@@ -79,7 +86,7 @@ enum {
 
 struct _AnacondaBaseWindowPrivate {
     gboolean    is_beta, info_shown;
-    GtkWidget  *main_box, *info_bar;
+    GtkWidget  *main_box, *event_box, *info_bar;
     GtkWidget  *alignment;
     GtkWidget  *nav_area, *action_area;
     GtkWidget  *name_label, *distro_label, *beta_label;
@@ -91,6 +98,8 @@ struct _AnacondaBaseWindowPrivate {
 static void anaconda_base_window_get_property(GObject *object, guint prop_id, GValue *value, GParamSpec *pspec);
 static void anaconda_base_window_set_property(GObject *object, guint prop_id, const GValue *value, GParamSpec *pspec);
 static void anaconda_base_window_buildable_init(GtkBuildableIface *iface);
+
+static gboolean anaconda_base_window_info_bar_clicked(GtkWidget *widget, GdkEvent *event, AnacondaBaseWindow *win);
 
 G_DEFINE_TYPE_WITH_CODE(AnacondaBaseWindow, anaconda_base_window, GTK_TYPE_WINDOW,
                         G_IMPLEMENT_INTERFACE(GTK_TYPE_BUILDABLE, anaconda_base_window_buildable_init))
@@ -132,6 +141,25 @@ static void anaconda_base_window_class_init(AnacondaBaseWindowClass *klass) {
                                                         P_("The name of this spoke"),
                                                         DEFAULT_WINDOW_NAME,
                                                         G_PARAM_READWRITE));
+
+    klass->info_bar_clicked = NULL;
+
+    /**
+     * AnacondaBaseWindow::info-bar-clicked:
+     * @window: the window that received the signal
+     *
+     * Emitted when a visible info bar at the bottom of the window has been clicked
+     * (pressed and released).
+     *
+     * Since: 1.0
+     */
+    window_signals[SIGNAL_INFO_BAR_CLICKED] = g_signal_new("info-bar-clicked",
+                                                           G_TYPE_FROM_CLASS(object_class),
+                                                           G_SIGNAL_RUN_FIRST | G_SIGNAL_ACTION,
+                                                           G_STRUCT_OFFSET(AnacondaBaseWindowClass, info_bar_clicked),
+                                                           NULL, NULL,
+                                                           g_cclosure_marshal_VOID__VOID,
+                                                           G_TYPE_NONE, 0);
 
     g_type_class_add_private(object_class, sizeof(AnacondaBaseWindowPrivate));
 }
@@ -395,7 +423,20 @@ void anaconda_base_window_set_info(AnacondaBaseWindow *win, GtkMessageType ty, c
 
     win->priv->info_bar = gtk_info_bar_new();
     gtk_widget_set_no_show_all(win->priv->info_bar, TRUE);
-    gtk_box_pack_end(GTK_BOX(win->priv->main_box), win->priv->info_bar, FALSE, FALSE, 0);
+
+    /* Wrap the info bar in an event box so clicking on it will do something. */
+    win->priv->event_box = gtk_event_box_new();
+    gtk_container_add(GTK_CONTAINER(win->priv->event_box), win->priv->info_bar);
+
+    gtk_box_pack_end(GTK_BOX(win->priv->main_box), win->priv->event_box, FALSE, FALSE, 0);
+
+    /* Hook up the signal handler for the info bar.  It will just raise our own
+     * custom signal for the whole window.  It will be disconnected when the info
+     * bar is hidden.
+     */
+    gtk_widget_add_events(GTK_WIDGET(win->priv->event_box), GDK_BUTTON_RELEASE_MASK);
+    g_signal_connect(win->priv->event_box, "button-release-event",
+                     G_CALLBACK(anaconda_base_window_info_bar_clicked), win);
 
     content_area = gtk_info_bar_get_content_area(GTK_INFO_BAR(win->priv->info_bar));
 
@@ -408,6 +449,11 @@ void anaconda_base_window_set_info(AnacondaBaseWindow *win, GtkMessageType ty, c
     gtk_widget_show(win->priv->info_bar);
 
     win->priv->info_shown = TRUE;
+}
+
+static gboolean anaconda_base_window_info_bar_clicked(GtkWidget *wiget, GdkEvent *event, AnacondaBaseWindow *win) {
+    g_signal_emit(win, window_signals[SIGNAL_INFO_BAR_CLICKED], 0);
+    return FALSE;
 }
 
 /**
@@ -424,8 +470,11 @@ void anaconda_base_window_clear_info(AnacondaBaseWindow *win) {
     if (!win->priv->info_shown)
         return;
 
+    g_object_disconnect(win->priv->info_bar, "button-release-event", NULL);
+
     gtk_widget_hide(win->priv->info_bar);
     gtk_widget_destroy(win->priv->info_bar);
+    gtk_widget_destroy(win->priv->event_box);
     win->priv->info_shown = FALSE;
 }
 
