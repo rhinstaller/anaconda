@@ -80,12 +80,11 @@ class VncServer:
         # see if we can sniff out network info
         netinfo = network.Network()
 
-        devices = netinfo.netdevices
         active_devs = network.getActiveNetDevs()
 
         self.ip = None
         if active_devs != []:
-            devname = devices[active_devs[0]].iface
+            devname = active_devs[0]
             try:
                 ips = (isys.getIPAddresses(devname, version=4) +
                        isys.getIPAddresses(devname, version=6))
@@ -105,7 +104,7 @@ class VncServer:
         except Exception as e:
             log.debug("Exception caught trying to get host name of %s: %s" %
                       (ipstr, e))
-            self.name = network.getDefaultHostname(self.anaconda)
+            self.name = network.getHostname()
         else:
             if len(hinfo) == 3:
                 self.name = hinfo[0]

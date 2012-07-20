@@ -1623,10 +1623,11 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
             if os.access("/etc/modprobe.d/anaconda.conf", os.R_OK):
                 shutil.copyfile("/etc/modprobe.d/anaconda.conf", 
                                 ROOT_PATH + "/etc/modprobe.d/anaconda.conf")
+            network.write_sysconfig_network()
+            network.disableIPV6()
+            network.copyConfigToPath(ROOT_PATH)
             if not anaconda.ksdata:
-                anaconda.instClass.setNetworkOnbootDefault(anaconda.network)
-            anaconda.network.write()
-            anaconda.network.copyConfigToPath()
+                anaconda.instClass.setNetworkOnbootDefault()
             anaconda.storage.write()
         else:
             # ensure that /etc/mtab is a symlink to /proc/self/mounts

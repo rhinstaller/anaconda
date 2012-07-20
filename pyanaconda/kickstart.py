@@ -685,7 +685,7 @@ class NetworkData(commands.network.F16_NetworkData):
     def execute(self):
         if flags.imageInstall:
             if self.hostname != "":
-                self.anaconda.network.setHostname(self.hostname)
+                network.setHostname(self.hostname)
 
             # Only set hostname
             return
@@ -694,22 +694,22 @@ class NetworkData(commands.network.F16_NetworkData):
         # only set hostname
         if self.essid:
             if self.hostname != "":
-                self.anaconda.network.setHostname(self.hostname)
+                network.setHostname(self.hostname)
             return
 
-        devices = self.anaconda.network.netdevices
+        devices = network.getDevices()
 
         if not self.device:
-            if self.anaconda.network.ksdevice:
+            if "ksdevice" in flags.cmdline:
                 msg = "ksdevice boot parameter"
-                device = self.anaconda.network.ksdevice
+                device = network.get_ksdevice_name(flags.cmdline["ksdevice"])
             elif network.hasActiveNetDev():
                 # device activated in stage 1 by network kickstart command
                 msg = "first active device"
                 device = network.getActiveNetDevs()[0]
             else:
                 msg = "first device found"
-                device = min(devices.keys())
+                device = min(devices)
             log.info("unspecified network --device in kickstart, using %s (%s)" %
                      (device, msg))
         else:
@@ -735,18 +735,22 @@ class NetworkData(commands.network.F16_NetworkData):
         # If we were given a network device name, grab the device object.
         # If we were given a MAC address, resolve that to a device name
         # and then grab the device object.  Otherwise, errors.
-        dev = None
 
-        if devices.has_key(device):
-            dev = devices[device]
-        else:
-            for (key, val) in devices.iteritems():
-                if val.get("HWADDR").lower() == device.lower():
-                    dev = val
+        if device not in devices:
+            for d in devices:
+                if isys.getMacAddress(d).lower() == device.lower():
+                    device = d
                     break
 
+        dev = network.NetworkDevice(ROOT_PATH, device)
+        try:
+            dev.loadIfcfgFile()
+        except IOError as e:
+            log.info("Can't load ifcfg file %s" % dev.path)
+            dev = None
+
         if self.hostname != "":
-            self.anaconda.network.setHostname(self.hostname)
+            network.setHostname(self.hostname)
             if not dev:
                 # Only set hostname
                 return
@@ -797,13 +801,17 @@ class NetworkData(commands.network.F16_NetworkData):
                 dev.set(("ETHTOOL_OPTS", self.ethtool))
 
             if self.nameserver != "":
-                self.anaconda.network.setDNS(self.nameserver, dev.iface)
+                dev.setDNS(self.nameserver)
 
             if self.gateway != "":
-                self.anaconda.network.setGateway(self.gateway, dev.iface)
+                dev.setGateway(self.gateway)
 
         if self.nodefroute:
             dev.set (("DEFROUTE", "no"))
+
+    #TODO
+    # write ifcfg file, carefuly handle ONBOOT value,
+    # problems - might activate the device!!!
 
 class MultiPath(commands.multipath.FC6_MultiPath):
     def parse(self, args):

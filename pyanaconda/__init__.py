@@ -261,16 +261,18 @@ class Anaconda(object):
             self.methodstr = methodstr
 
     def write(self):
+        import network
         self.writeXdriver()
         self.instLanguage.write()
 
         self.timezone.write()
+        network.write_sysconfig_network()
+        network.disableIPV6()
+        network.copyConfigToPath(ROOT_PATH)
         if not self.ksdata:
-            self.instClass.setNetworkOnbootDefault(self.network)
-        self.network.write()
-        self.network.copyConfigToPath()
-        self.network.disableNMForStorageDevices(self)
-        self.network.autostartFCoEDevices(self)
+            self.instClass.setNetworkOnbootDefault()
+        network.disableNMForStorageDevices(self.storage)
+        network.autostartFCoEDevices(self.storage)
         self.desktop.write()
         self.security.write()
         self.firewall.write()
