@@ -50,7 +50,9 @@ from pyanaconda import ntp
 from pykickstart.base import KickstartCommand
 from pykickstart.constants import *
 from pykickstart.errors import formatErrorMsg, KickstartError, KickstartValueError
-from pykickstart.parser import Group, KickstartParser, Script
+from pykickstart.parser import KickstartParser
+from pykickstart.parser import Group as PackageGroup
+from pykickstart.parser import Script as KSScript
 from pykickstart.sections import *
 from pykickstart.version import returnClassForVersion
 
@@ -71,7 +73,7 @@ packagesSeen = False
 # so it needs to know about them in some additional way: have the topology ready.
 topology = None
 
-class AnacondaKSScript(Script):
+class AnacondaKSScript(KSScript):
     def run(self, chroot, serial):
         if self.inChroot:
             scriptRoot = chroot
@@ -1500,15 +1502,15 @@ def selectPackages(ksdata, payload):
             if errorHandler.cb(e) == ERROR_RAISE:
                 sys.exit(1)
 
-    ksdata.packages.groupList.insert(0, Group("Core"))
+    ksdata.packages.groupList.insert(0, PackageGroup("Core"))
 
     if ksdata.packages.addBase:
         # Only add @base if it's not already in the group list.  If the
         # %packages section contains something like "@base --optional",
         # addBase will take effect first and yum will think the group is
         # already selected.
-        if not Group("Base") in ksdata.packages.groupList:
-            ksdata.packages.groupList.insert(1, Group("Base"))
+        if not PackageGroup("Base") in ksdata.packages.groupList:
+            ksdata.packages.groupList.insert(1, PackageGroup("Base"))
     else:
         log.warning("not adding Base group")
 
