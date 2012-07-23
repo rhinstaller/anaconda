@@ -171,12 +171,6 @@ def swapoff (path):
 def swapon (path):
     return _isys.swapon (path)
 
-## Load a keyboard layout for text mode installs.
-# @param keymap The keyboard layout to load.  This must be one of the values
-#               from rhpl.KeyboardModels.
-def loadKeymap(keymap):
-    return _isys.loadKeymap (keymap)
-
 def resetResolv():
     return _isys.resetresolv()
 

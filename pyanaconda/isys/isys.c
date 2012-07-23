@@ -126,7 +126,6 @@ static PyMethodDef isysModuleMethods[] = {
     { "resetresolv", (PyCFunction) doResetResolv, METH_VARARGS, NULL },
     { "swapon",  (PyCFunction) doSwapon, METH_VARARGS, NULL },
     { "swapoff",  (PyCFunction) doSwapoff, METH_VARARGS, NULL },
-    { "loadKeymap", (PyCFunction) doLoadKeymap, METH_VARARGS, NULL },
     { "vtActivate", (PyCFunction) doVtActivate, METH_VARARGS, NULL},
     { "isPseudoTTY", (PyCFunction) doisPseudoTTY, METH_VARARGS, NULL},
     { "isVioConsole", (PyCFunction) doisVioConsole, METH_NOARGS, NULL},
