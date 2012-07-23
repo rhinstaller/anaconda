@@ -715,6 +715,7 @@ if __name__ == "__main__":
     from pyanaconda import vnc
     from pyanaconda import kickstart
     from pyanaconda import ntp
+    from pyanaconda import keyboard
 
     verdesc = "%s for %s %s" % (getAnacondaVersion(),
                                 product.productName, product.productVersion)
@@ -868,6 +869,15 @@ if __name__ == "__main__":
 
     anaconda.ksdata = ksdata
 
+    # setup keyboard layout from the command line option and let
+    # it override from kickstart if/when X is initialized
+    if opts.keymap:
+        if not ksdata.keyboard.keyboard:
+            ksdata.keyboard.keyboard = opts.keymap
+
+    if ksdata.keyboard.keyboard:
+        keyboard.activate_console_keymap(ksdata.keyboard.keyboard)
+
     # Some post-install parts of anaconda are implemented as kickstart
     # scripts.  Add those to the ksdata now.
     kickstart.appendPostScripts(ksdata)
@@ -905,14 +915,6 @@ if __name__ == "__main__":
              anaconda.methodstr.startswith("ftp"):
             ksdata.method.method = "url"
             ksdata.method.url = anaconda.methodstr
-
-    # setup keyboard layout from the command line option and let
-    # it override from kickstart if/when X is initialized
-    if opts.keymap:
-        if not ksdata.keyboard.keyboard:
-            ksdata.keyboard.keyboard = opts.keymap
-        anaconda.keyboard.set(opts.keymap)
-        anaconda.keyboard.activate()
 
     # now start the interface
     setupDisplay(anaconda, opts)

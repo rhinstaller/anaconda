@@ -44,7 +44,6 @@ _ = lambda x: gettext.ldgettext("anaconda", x)
 class Anaconda(object):
     def __init__(self):
         import desktop, firewall, security
-        import system_config_keyboard.keyboard as keyboard
         from flags import flags
 
         self._backend = None
@@ -60,7 +59,6 @@ class Anaconda(object):
         self._instLanguage = None
         self._intf = None
         self.isHeadless = False
-        self.keyboard = keyboard.Keyboard()
         self.ksdata = None
         self.mediaDevice = None
         self.methodstr = None

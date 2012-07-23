@@ -142,26 +142,6 @@ class LanguageTest(mock.TestCase):
         ret = lang.getCurrentLangSearchList()
         self.assertEqual(set(ret), set(['cs_CZ.UTF-8', 'cs_CZ', 'cs', 'C']))
 
-    def get_default_keyboard_default_test(self):
-        import pyanaconda.language
-        lang = pyanaconda.language.Language()
-        ret = lang.getDefaultKeyboard()
-        self.assertEqual(ret, 'us')
-
-    def get_default_keyboard_after_set_test(self):
-        import pyanaconda.language
-        lang = pyanaconda.language.Language()
-        lang.systemLang = 'cs'
-        ret = lang.getDefaultKeyboard()
-        self.assertEqual(ret, 'cz-lat2')
-
-    def get_default_keyboard_with_cs_CZ_locale_test(self):
-        import pyanaconda.language
-        pyanaconda.language.os.environ = {'LANG': 'cs'}
-        lang = pyanaconda.language.Language()
-        ret = lang.getDefaultKeyboard()
-        self.assertEqual(ret, 'cz-lat2')
-
     def get_default_time_zone_default_test(self):
         import pyanaconda.language
         pyanaconda.language.os.path.exists = mock.Mock(return_value=False)

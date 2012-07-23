@@ -28,7 +28,6 @@ import gettext
 from pyanaconda.constants import ROOT_PATH, DEFAULT_LANG
 import localeinfo
 from simpleconfig import SimpleConfigFile
-import system_config_keyboard.keyboard as keyboard
 
 import logging
 log = logging.getLogger("anaconda")
@@ -164,17 +163,6 @@ class Language(object):
 
     def getCurrentLangSearchList(self):
         return localeinfo.expandLangs(self.systemLang) + ['C']
-
-    def getDefaultKeyboard(self):
-        try:
-            return self.localeInfo[self.systemLang][3]
-        except KeyError:
-            try:
-                kbd = keyboard.Keyboard()
-                kbd.read(ROOT_PATH)
-                return kbd.get()
-            except:
-                return self.localeInfo[self._default][3]
 
     def getDefaultTimeZone(self):
         try:

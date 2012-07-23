@@ -31,6 +31,11 @@ for listing and various modifications of keyboard layouts settings.
 """
 
 import os
+import re
+from pyanaconda import iutil
+
+import logging
+log = logging.getLogger("anaconda")
 
 class KeyboardConfigError(Exception):
     """Exception class for keyboard configuration related problems"""
@@ -100,30 +105,80 @@ def get_layouts_xorg_conf(keyboard):
 
 def write_layouts_config(keyboard, root):
     """
-    Function that writes a file with layouts configuration to
-    $root/etc/X11/xorg.conf.d/01-anaconda-layouts.conf
+    Function that writes files with layouts configuration to
+    $root/etc/X11/xorg.conf.d/01-anaconda-layouts.conf and
+    $root/etc/sysconfig/keyboard.
 
     @param keyboard: ksdata.keyboard object
     @param root: path to the root of the installed system
 
     """
 
-    conf_dir = os.path.normpath(root + "/etc/X11/xorg.conf.d")
-    conf_file = "01-anaconda-keyboard.conf"
+    xconf_dir = os.path.normpath(root + "/etc/X11/xorg.conf.d")
+    xconf_file = "01-anaconda-keyboard.conf"
+
+    sysconf_file = "/etc/sysconfig/keyboard"
 
     try:
-        if not os.path.isdir(conf_dir):
-            os.makedirs(conf_dir)
+        if not os.path.isdir(xconf_dir):
+            os.makedirs(xconf_dir)
 
     except OSError as oserr:
         raise KeyboardConfigError("Cannot create directory xorg.conf.d")
 
     try:
-        with open(os.path.join(conf_dir, conf_file), "w") as f:
-            f.write(get_layouts_xorg_conf(keyboard))
+        with open(os.path.join(xconf_dir, xconf_file), "w") as fobj:
+            fobj.write(get_layouts_xorg_conf(keyboard))
+
+        with open(sysconf_file, "w") as fobj:
+            fobj.write('KEYTABLE="%s"\n' % keyboard.keyboard)
 
     except IOError as ioerr:
-        raise KeyboardConfigError("Cannot write keyboard configuration file")
+        raise KeyboardConfigError("Cannot write keyboard configuration files")
+
+def activate_console_keymap(keymap):
+    """
+    Try to setup a given keymap as a console keymap. If there is no such
+    keymap, try to setup a basic variant (e.g. 'cz' instead of 'cz (qwerty)').
+
+    @param keymap: a keymap
+    @type keymap: string
+    @raise KeyboardConfigError: if loadkeys command is not available
+    @return: False if failed to activate both the given keymap and its basic
+             variant, True otherwise
+
+    """
+
+    try:
+        #TODO: replace with calling systemd-localed methods once it can load
+        #      X layouts
+        ret = iutil.execWithRedirect("loadkeys", [keymap], stdout="/dev/tty5",
+                                     stderr="/dev/tty5")
+    except OSError as oserr:
+        msg = "'loadkeys' command not available (%s)" % oserr.strerror
+        raise KeyboardConfigError(msg)
+
+    if ret != 0:
+        log.error("Failed to activate keymap %s" % keymap)
+
+        #failed to activate the given keymap, extract and try
+        #the basic keymap -- e.g. 'cz-cp1250' -> 'cz'
+        parts = re.split(r'[- _(]', keymap, 1)
+        if len(parts) == 0:
+            log.error("Failed to extract basic keymap from: %s" % keymap)
+            return False
+
+        keymap = parts[0]
+
+        ret = iutil.execWithRedirect("loadkeys", [keymap], stdout="/dev/tty5",
+                                     stderr="/dev/tty5")
+
+        if ret != 0:
+            log.error("Failed to activate basic variant %s" % keymap)
+        else:
+            log.error("Activated basic variant %s, instead" % keymap)
+
+    return ret == 0
 
 def item_str(s):
     """Convert a zero-terminated byte array to a proper str"""
