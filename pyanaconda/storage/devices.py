@@ -105,6 +105,7 @@ from devicelibs import lvm
 from devicelibs import dm
 from devicelibs import loop
 from devicelibs import btrfs
+from devicelibs import crypto
 import parted
 import _ped
 import block
@@ -1934,8 +1935,7 @@ class LUKSDevice(DMCryptDevice):
     @property
     def size(self):
         if not self.exists or not self.partedDevice:
-            # the LUKS metadata area is 2MB
-            size = float(self.slave.size) - 2.0
+            size = float(self.slave.size) - crypto.LUKS_METADATA_SIZE
         else:
             size = self.partedDevice.getSize()
         return size
