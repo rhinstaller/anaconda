@@ -354,6 +354,7 @@ class DeviceTree(object):
         # don't include "req%d" partition names
         if ((newdev.type != "partition" or
              not newdev.name.startswith("req")) and
+            newdev.type != "btrfs volume" and
             newdev.name not in self.names):
             self.names.append(newdev.name)
         log.info("added %s %s (id %d) to device tree" % (newdev.type,
