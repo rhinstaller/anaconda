@@ -1269,7 +1269,7 @@ class Chunk(object):
     def sortRequests(self):
         pass
 
-    def growRequests(self):
+    def growRequests(self, uniform=False):
         """ Calculate growth amounts for requests in this chunk. """
         log.debug("Chunk.growRequests: %r" % self)
 
@@ -1285,17 +1285,22 @@ class Chunk(object):
         while not self.done and self.pool and last_pool != self.pool:
             last_pool = self.pool    # to keep from getting stuck
             self.base = new_base
+            if uniform:
+                growth = last_pool / self.remaining
+
             log.debug("%d requests and %d (%dMB) left in chunk" %
                         (self.remaining, self.pool, self.lengthToSize(self.pool)))
             for p in self.requests:
                 if p.done:
                     continue
 
-                # Each request is allocated free units from the pool
-                # based on the relative _base_ sizes of the remaining
-                # growable requests.
-                share = p.base / float(self.base)
-                growth = int(share * last_pool) # truncate, don't round
+                if not uniform:
+                    # Each request is allocated free units from the pool
+                    # based on the relative _base_ sizes of the remaining
+                    # growable requests.
+                    share = p.base / float(self.base)
+                    growth = int(share * last_pool) # truncate, don't round
+
                 p.growth += growth
                 self.pool -= growth
                 log.debug("adding %d (%dMB) to %d (%s)" %
