@@ -2023,7 +2023,7 @@ class LVMVolumeGroupDevice(DMDevice):
 
         # TODO: validate peSize if given
         if not self.peSize:
-            self.peSize = 32.0   # MB
+            self.peSize = lvm.LVM_PE_SIZE  # MB
 
         if not self.exists:
             self.pvCount = len(self.parents)
