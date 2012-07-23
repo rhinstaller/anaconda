@@ -2696,6 +2696,9 @@ def findExistingInstallations(devicetree):
             name = "%s Linux %s for %s" % (product, version, arch)
 
         (mounts, swaps) = parseFSTab(devicetree, chroot=ROOT_PATH)
+        if not mounts and not swaps:
+            # empty /etc/fstab. weird, but I've seen it happen.
+            continue
         roots.append(Root(mounts=mounts, swaps=swaps, name=name))
         device.teardown()
 
