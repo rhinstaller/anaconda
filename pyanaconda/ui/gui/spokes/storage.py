@@ -267,6 +267,8 @@ class StorageSpoke(NormalSpoke, StorageChecker):
 
     def __init__(self, *args, **kwargs):
         NormalSpoke.__init__(self, *args, **kwargs)
+        self.applyOnSkip = True
+
         self._ready = False
         self.selected_disks = self.data.ignoredisk.onlyuse[:]
 

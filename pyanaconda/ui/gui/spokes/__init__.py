@@ -76,6 +76,12 @@ class Spoke(UIObject):
                            is useful for determining distribution-specific
                            installation information like default package
                            selections and default partitioning.
+
+           applyOnSkip  -- Run the apply method, even in the case where skipTo
+                           is set.  You usually don't want this set to True, since
+                           the skipTo attribute means to jump to another spoke
+                           right away.  However, there are instances where running
+                           apply anyway can be useful.
         """
         if self.__class__ is Spoke:
             raise TypeError("Spoke is an abstract class")
@@ -84,6 +90,8 @@ class Spoke(UIObject):
         self.storage = storage
         self.payload = payload
         self.instclass = instclass
+
+        self.applyOnSkip = False
 
     def apply(self):
         """Apply the selections made on this Spoke to the object's preset

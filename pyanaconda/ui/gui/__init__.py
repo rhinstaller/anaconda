@@ -253,6 +253,7 @@ class UIObject(object):
 
         self.data = data
         self.skipTo = None
+        self.applyOnSkip = False
 
         from gi.repository import Gtk
 
