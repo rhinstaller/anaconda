@@ -28,6 +28,7 @@
     <property name="startup_id">filler</property>
     <property name="window_name">SOFTWARE SELECTION</property>
     <signal name="back-clicked" handler="on_back_clicked" swapped="no"/>
+    <signal name="info-bar-clicked" handler="on_info_bar_clicked" swapped="no"/>
     <child internal-child="main_box">
       <object class="GtkBox" id="AnacondaSpokeWindow-main_box1">
         <property name="can_focus">False</property>
@@ -181,6 +182,9 @@
                                 <property name="headers_visible">False</property>
                                 <property name="headers_clickable">False</property>
                                 <property name="search_column">0</property>
+                                <child internal-child="selection">
+                                  <object class="GtkTreeSelection" id="treeview-selection2"/>
+                                </child>
                                 <child>
                                   <object class="GtkTreeViewColumn" id="addonSelectedCol">
                                     <property name="title" translatable="yes">column</property>
