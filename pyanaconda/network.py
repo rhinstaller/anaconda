@@ -750,9 +750,6 @@ def copyConfigToPath(destPath):
     _copyFileToPath("/etc/udev/rules.d/70-persistent-net.rules",
                          destPath, overwrite=flags.livecdInstall)
 
-    _copyFileToPath(ipv6ConfFile, destPath,
-                         overwrite=flags.livecdInstall)
-
 def get_ksdevice_name(ksspec=""):
 
     if not ksspec:
@@ -831,16 +828,16 @@ def write_sysconfig_network():
     if not flags.imageInstall:
         shutil.move(newnetwork, networkConfFile)
 
-# TODO: do it right in sysroot (instead of copying the files later)?
-def disableIPV6():
+def disableIPV6(rootpath):
+    cfgfile = os.path.normpath(rootpath + ipv6ConfFile)
     if ('noipv6' in flags.cmdline
         and not any(get_ifcfg_value(dev, 'IPV6INIT') == "yes"
                     for dev in getDevices())):
-        if os.path.exists(ipv6ConfFile):
-            log.warning('Not disabling ipv6, %s exists' % ipv6ConfFile)
+        if os.path.exists(cfgfile):
+            log.warning('Not disabling ipv6, %s exists' % cfgfile)
         else:
             log.info('Disabling ipv6 on target system')
-            f = open(ipv6ConfFile, "w")
+            f = open(cfgfile, "w")
             f.write("# Anaconda disabling ipv6\n")
             f.write("options ipv6 disable=1\n")
             f.close()
@@ -901,7 +898,7 @@ def usedByRootOnISCSI(iface, storage):
 
 def writeNetworkConf(storage, ksdata, instClass):
     write_sysconfig_network()
-    disableIPV6()
+    disableIPV6(ROOT_PATH)
     copyConfigToPath(ROOT_PATH)
     # TODO the default for ONBOOT needs to be lay down
     # before newui we didn't set it for kickstart installs
