@@ -31,6 +31,8 @@ import os
 
 from pyanaconda.localeinfo import expandLangs
 from pyanaconda.product import productName
+from pyanaconda.flags import flags
+from pykickstart.constants import KS_WAIT, KS_SHUTDOWN, KS_REBOOT
 
 from pyanaconda.ui.gui.hubs import Hub
 from pyanaconda.ui.gui.utils import gdk_threaded
@@ -81,6 +83,11 @@ class ProgressHub(Hub):
                 GLib.source_remove(self._rnotes_id)
 
                 self._progressNotebook.next_page()
+
+                # kickstart install, continue automatically if reboot or shutdown selected
+                if flags.automatedInstall and self.data.reboot.action in [KS_REBOOT, KS_SHUTDOWN]:
+                    self.continueButton.emit("clicked")
+
                 return False
 
             q.task_done()
@@ -145,7 +152,7 @@ class ProgressHub(Hub):
                                      args=(self.storage, self.payload, self.data, self.instclass)))
 
     @property
-    def quitButton(self):
+    def continueButton(self):
         return self.builder.get_object("rebootButton")
 
     def _init_progress_bar(self, steps):

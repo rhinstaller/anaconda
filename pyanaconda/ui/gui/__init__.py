@@ -136,9 +136,9 @@ class GraphicalUserInterface(UserInterface):
     ### SIGNAL HANDLING METHODS
     ###
     def _on_continue_clicked(self):
-        # If we're on the last screen, clicking Continue is the same as clicking Quit.
+        # If we're on the last screen, clicking Continue quits.
         if len(self._actions) == 1:
-            self._on_quit_clicked()
+            sys.exit(0)
             return
 
         # If the current action wants us to jump to an arbitrary point ahead,
