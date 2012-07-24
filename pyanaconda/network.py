@@ -746,10 +746,6 @@ def copyConfigToPath(destPath):
     _copyFileToPath("/etc/resolv.conf", destPath,
                          overwrite=flags.livecdInstall)
 
-    # /etc/udev/rules.d/70-persistent-net.rules
-    _copyFileToPath("/etc/udev/rules.d/70-persistent-net.rules",
-                         destPath, overwrite=flags.livecdInstall)
-
 def get_ksdevice_name(ksspec=""):
 
     if not ksspec:
