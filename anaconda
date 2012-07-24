@@ -840,21 +840,36 @@ if __name__ == "__main__":
 
     os.system("udevadm control --env=ANACONDA=1")
 
-    # parse (not execute) kickstart now, the ks commands can affect things like
-    # UI interface type or enabling rescue mode
+    # If we were given a kickstart file on the command line, parse (but do not
+    # execute) that now.  Otherwise, load in defaults from kickstart files
+    # shipped with the installation media.
+    ksdata = None
     if opts.ksfile:
         flags.automatedInstall = True
-
-        kickstart.preScriptPass(opts.ksfile)
-        ksdata = kickstart.parseKickstart(opts.ksfile)
-        if ksdata.rescue.rescue:
-            anaconda.rescue = True
-
-        # Some kickstart commands must be executed immediately, as they affect
-        # how anaconda operates.
-        ksdata.logging.execute()
+        files = [opts.ksfile]
     else:
+        files = ["/tmp/updates/interactive-defaults.ks",
+                 "/usr/share/anaconda/interactive-defaults.ks"]
+
+    for f in files:
+        if not os.path.exists(f):
+            continue
+
+        kickstart.preScriptPass(f)
+        ksdata = kickstart.parseKickstart(f)
+
+        # Only load the first defaults file we find.
+        break
+
+    if not ksdata:
         ksdata = kickstart.AnacondaKSHandler()
+
+    if ksdata.rescue.rescue:
+        anaconda.rescue = True
+
+    # Some kickstart commands must be executed immediately, as they affect
+    # how anaconda operates.
+    ksdata.logging.execute()
 
     anaconda.ksdata = ksdata
 

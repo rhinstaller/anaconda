@@ -22,6 +22,9 @@ SUBDIRS = bootdisk command-stubs icons liveinst pixmaps systemd post-scripts
 EXTRA_DIST = lang-table
 CLEANFILES = *~ lang-names 
 
+ksdir                 = $(datadir)/$(PACKAGE_NAME)
+dist_ks_DATA          = interactive-defaults.ks
+
 udevdir               = /lib/udev/rules.d
 dist_udev_DATA        = 70-anaconda.rules
 
