@@ -716,6 +716,7 @@ def _copyIfcfgFiles(destPath):
             srcfile = os.path.join(netscriptsDir, cfgFile)
             _copyFileToPath(srcfile, destPath)
 
+# TODO: routing info from /etc/sysconfig/network-scripts?
 def copyConfigToPath(destPath):
     if flags.imageInstall:
         # for image installs we only want to write out
@@ -892,3 +893,13 @@ def usedByRootOnISCSI(iface, storage):
                 return True
 
     return False
+
+def writeNetworkConf(storage, ksdata, instClass):
+    write_sysconfig_network()
+    disableIPV6()
+    copyConfigToPath(ROOT_PATH)
+    # TODO the default for ONBOOT needs to be lay down
+    # before newui we didn't set it for kickstart installs
+    instClass.setNetworkOnbootDefault()
+    disableNMForStorageDevices(storage)
+    autostartFCoEDevices(storage)

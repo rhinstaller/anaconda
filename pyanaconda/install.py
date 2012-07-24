@@ -25,6 +25,7 @@ from pyanaconda.storage import turnOnFilesystems
 from pyanaconda.bootloader import writeBootLoader
 from pyanaconda.progress import progress_report
 from pyanaconda.users import createLuserConf, Users
+from pyanaconda.network import writeNetworkConf
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
@@ -85,6 +86,8 @@ def doInstall(storage, payload, ksdata, instClass):
     ksdata.services.execute(storage, ksdata, instClass)
     ksdata.keyboard.execute(storage, ksdata, instClass)
     ksdata.timezone.execute(storage, ksdata, instClass)
+
+    writeNetworkConf(storage, ksdata, instClass)
 
     # Creating users and groups requires some pre-configuration.
     u = Users()
