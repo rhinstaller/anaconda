@@ -19,7 +19,7 @@
 # Author(s): Jeremy Katz <katzj@redhat.com>
 #
 
-import iutil, shlex
+import iutil
 from flags import flags
 from pyanaconda.constants import ROOT_PATH
 from pykickstart.constants import *
@@ -33,8 +33,6 @@ selinux_states = { SELINUX_DISABLED: "disabled",
 
 class Security:
     def __init__(self):
-        self.auth = "--enableshadow --passalgo=sha512"
-
         if flags.selinux == 1:
             self.selinux = SELINUX_ENFORCING
         else:
@@ -50,14 +48,6 @@ class Security:
     def getSELinux(self):
         return self.selinux
 
-    def _addFingerprint(self):
-        import rpm
-
-        iutil.resetRpmDb()
-        ts = rpm.TransactionSet(ROOT_PATH)
-        # pylint: disable-msg=E1101
-        return ts.dbMatch('provides', 'fprintd-pam').count()
-
     def write(self):
         args = []
 
@@ -65,22 +55,9 @@ class Security:
             log.error("unknown selinux state: %s" %(self.selinux,))
             return
 
-        args = args + [ "--selinux=%s" %(selinux_states[self.selinux],) ]
-
         try:
             iutil.execWithRedirect("/usr/sbin/lokkit", args,
                                    root=ROOT_PATH, stdout="/dev/null",
                                    stderr="/dev/null")
         except (RuntimeError, OSError) as msg:
             log.error ("lokkit run failed: %s" %(msg,))
-
-        args = ["--update", "--nostart"] + shlex.split(self.auth)
-        if self._addFingerprint():
-            args += ["--enablefingerprint"]
-
-        try:
-            iutil.execWithRedirect("/usr/sbin/authconfig", args,
-                                   stdout = "/dev/tty5", stderr = "/dev/tty5",
-                                   root=ROOT_PATH)
-        except RuntimeError as msg:
-                log.error("Error running %s: %s", args, msg)

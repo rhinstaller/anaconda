@@ -38,6 +38,7 @@ import os.path
 import tempfile
 from flags import flags
 from constants import *
+import shlex
 import sys
 import urlgrabber
 import network
@@ -214,6 +215,22 @@ def removeExistingFormat(device, storage):
 ###
 ### SUBCLASSES OF PYKICKSTART COMMAND HANDLERS
 ###
+
+class Authconfig(commands.authconfig.FC3_Authconfig):
+    def execute(self, *args):
+        args = ["--update", "--nostart"] + shlex.split(self.authconfig)
+
+        if not flags.automatedInstall and \
+           (os.path.exists(ROOT_PATH + "/lib64/security/pam_fprintd.so") or \
+            os.path.exists(ROOT_PATH + "/lib/security/pam_fprintd.so")):
+            args += ["--enablefingerprint"]
+
+        try:
+            iutil.execWithRedirect("/usr/sbin/authconfig", args,
+                                   stdout="/dev/tty5", stderr="/dev/tty5",
+                                   root=ROOT_PATH)
+        except RuntimeError as msg:
+            log.error("Error running /usr/sbin/authconfig %s: %s", args, msg)
 
 class AutoPart(commands.autopart.F17_AutoPart):
     def execute(self, storage, ksdata, instClass):
@@ -424,7 +441,7 @@ class Fcoe(commands.fcoe.F13_Fcoe):
 
 class Firstboot(commands.firstboot.FC3_Firstboot):
     def execute(self, *args):
-        if not os.path.exists("/lib/systemd/system/firstboot-graphical.service"):
+        if not os.path.exists(ROOT_PATH + "/lib/systemd/system/firstboot-graphical.service"):
             return
 
         action = "enable"
@@ -1323,6 +1340,8 @@ class Keyboard(commands.keyboard.F18_Keyboard):
 # This is just the latest entry from pykickstart.handlers.control with all the
 # classes we're overriding in place of the defaults.
 commandMap = {
+        "auth": Authconfig,
+        "authconfig": Authconfig,
         "autopart": AutoPart,
         "btrfs": BTRFS,
         "bootloader": Bootloader,
