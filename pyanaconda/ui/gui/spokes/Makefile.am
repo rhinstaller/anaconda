@@ -24,4 +24,4 @@ spokesdir        = $(pkgpyexecdir)/ui/gui/spokes
 spokes_PYTHON    = *.py
 
 uidir            = $(datadir)/$(PACKAGE_NAME)/ui/spokes
-dist_ui_DATA     = *.ui
+dist_ui_DATA     = *.glade

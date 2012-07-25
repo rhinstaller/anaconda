@@ -39,7 +39,7 @@ __all__ = ["SoftwareSelectionSpoke"]
 class SoftwareSelectionSpoke(NormalSpoke):
     builderObjects = ["addonStore", "desktopStore", "softwareWindow"]
     mainWidgetName = "softwareWindow"
-    uiFile = "spokes/software.ui"
+    uiFile = "spokes/software.glade"
 
     category = SoftwareCategory
 

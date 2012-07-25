@@ -24,4 +24,4 @@ guidir       = $(pkgpyexecdir)/ui/gui
 gui_PYTHON   = *.py
 
 uidir        = $(datadir)/$(PACKAGE_NAME)/ui/
-dist_ui_DATA = *.ui
+dist_ui_DATA = *.glade

@@ -58,7 +58,7 @@ new_install_name = _("New %s %s Installation") % (productName, productVersion)
 class AddDialog(UIObject):
     builderObjects = ["addDialog"]
     mainWidgetName = "addDialog"
-    uiFile = "spokes/custom.ui"
+    uiFile = "spokes/custom.glade"
 
     def __init__(self, *args, **kwargs):
         UIObject.__init__(self, *args, **kwargs)
@@ -88,7 +88,7 @@ class AddDialog(UIObject):
 class ConfirmDeleteDialog(UIObject):
     builderObjects = ["confirmDeleteDialog"]
     mainWidgetName = "confirmDeleteDialog"
-    uiFile = "spokes/custom.ui"
+    uiFile = "spokes/custom.glade"
 
     def on_delete_cancel_clicked(self, button, *args):
         self.window.destroy()
@@ -115,7 +115,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                       "partitionStore",
                       "addImage", "removeImage", "settingsImage"]
     mainWidgetName = "customStorageWindow"
-    uiFile = "spokes/custom.ui"
+    uiFile = "spokes/custom.glade"
 
     category = StorageCategory
     title = N_("MANUAL PARTITIONING")

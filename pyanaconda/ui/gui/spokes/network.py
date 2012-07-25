@@ -902,7 +902,7 @@ class NetworkControlBox():
 class NetworkSpoke(NormalSpoke):
     builderObjects = ["networkWindow", "liststore_wireless_network", "liststore_devices"]
     mainWidgetName = "networkWindow"
-    uiFile = "spokes/network.ui"
+    uiFile = "spokes/network.glade"
 
     title = N_("NETWORK CONFIGURATION")
     icon = "network-transmit-receive-symbolic"
@@ -962,7 +962,7 @@ class NetworkSpoke(NormalSpoke):
 class NetworkStandaloneSpoke(StandaloneSpoke):
     builderObjects = ["networkStandaloneWindow", "networkControlBox_vbox", "liststore_wireless_network", "liststore_devices"]
     mainWidgetName = "networkStandaloneWindow"
-    uiFile = "spokes/network.ui"
+    uiFile = "spokes/network.glade"
 
     preForHub = SummaryHub
     priority = 10
@@ -1040,7 +1040,7 @@ if __name__ == "__main__":
 
     builder = Gtk.Builder()
     import os
-    ui_file_path = os.environ.get('UIPATH')+'spokes/network.ui'
+    ui_file_path = os.environ.get('UIPATH')+'spokes/network.glade'
     builder.add_from_file(ui_file_path)
 
     n = NetworkControlBox(builder)

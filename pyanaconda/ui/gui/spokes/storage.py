@@ -113,7 +113,7 @@ def size_str(mb):
 class InstallOptions1Dialog(UIObject):
     builderObjects = ["options1_dialog"]
     mainWidgetName = "options1_dialog"
-    uiFile = "spokes/storage.ui"
+    uiFile = "spokes/storage.glade"
 
     RESPONSE_CANCEL = 0
     RESPONSE_CONTINUE = 1
@@ -257,7 +257,7 @@ class StorageChecker(object):
 class StorageSpoke(NormalSpoke, StorageChecker):
     builderObjects = ["storageWindow"]
     mainWidgetName = "storageWindow"
-    uiFile = "spokes/storage.ui"
+    uiFile = "spokes/storage.glade"
 
     category = StorageCategory
 

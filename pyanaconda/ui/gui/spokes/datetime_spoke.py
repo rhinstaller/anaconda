@@ -46,7 +46,7 @@ POOL_SERVERS_NOTE = _("Note: pool servers may not be available all the time")
 class NTPconfigDialog(UIObject):
     builderObjects = ["ntpConfigDialog", "addImage", "serversStore"]
     mainWidgetName = "ntpConfigDialog"
-    uiFile = "spokes/datetime_spoke.ui"
+    uiFile = "spokes/datetime_spoke.glade"
 
     def __init__(self, *args):
         UIObject.__init__(self, *args)
@@ -244,7 +244,7 @@ class DatetimeSpoke(NormalSpoke):
                       ]
 
     mainWidgetName = "datetimeWindow"
-    uiFile = "spokes/datetime_spoke.ui"
+    uiFile = "spokes/datetime_spoke.glade"
 
     category = LocalizationCategory
 

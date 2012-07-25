@@ -26,7 +26,7 @@ __all__ = ["SummaryHub"]
 class SummaryHub(Hub):
     builderObjects = ["summaryWindow"]
     mainWidgetName = "summaryWindow"
-    uiFile = "hubs/summary.ui"
+    uiFile = "hubs/summary.glade"
 
     # FIXME:  I really hate this.
 

@@ -40,7 +40,7 @@ __all__ = ["ProgressHub"]
 class ProgressHub(Hub):
     builderObjects = ["progressWindow"]
     mainWidgetName = "progressWindow"
-    uiFile = "hubs/progress.ui"
+    uiFile = "hubs/progress.glade"
 
     def __init__(self, data, storage, payload, instclass):
         Hub.__init__(self, data, storage, payload, instclass)

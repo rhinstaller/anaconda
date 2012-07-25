@@ -28,7 +28,7 @@ __all__ = ["DetailedErrorDialog"]
 class DetailedErrorDialog(UIObject):
     builderObjects = ["detailedErrorDialog", "detailedTextBuffer"]
     mainWidgetName = "detailedErrorDialog"
-    uiFile = "detailederror.ui"
+    uiFile = "detailederror.glade"
 
     def refresh(self, msg):
         buf = self.builder.get_object("detailedTextBuffer")

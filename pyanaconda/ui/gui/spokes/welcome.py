@@ -190,7 +190,7 @@ class LanguageMixIn(object):
 
 class WelcomeLanguageSpoke(LanguageMixIn, StandaloneSpoke):
     mainWidgetName = "welcomeWindow"
-    uiFile = "spokes/welcome.ui"
+    uiFile = "spokes/welcome.glade"
     builderObjects = LanguageMixIn.builderObjects + [mainWidgetName, "betaWarnDialog"]
 
     preForHub = SummaryHub
@@ -234,7 +234,7 @@ class WelcomeLanguageSpoke(LanguageMixIn, StandaloneSpoke):
 
 class LanguageSpoke(LanguageMixIn, NormalSpoke):
     mainWidgetName = "languageSpokeWindow"
-    uiFile = "spokes/welcome.ui"
+    uiFile = "spokes/welcome.glade"
     builderObjects = LanguageMixIn.builderObjects + [mainWidgetName, WelcomeLanguageSpoke.mainWidgetName]
 
     category = LocalizationCategory

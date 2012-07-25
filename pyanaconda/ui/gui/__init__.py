@@ -391,7 +391,7 @@ class UIObject(object):
 class QuitDialog(UIObject):
     builderObjects = ["quitDialog"]
     mainWidgetName = "quitDialog"
-    uiFile = "main.ui"
+    uiFile = "main.glade"
 
     def run(self):
         rc = self.window.run()
