@@ -352,6 +352,7 @@ class Storage(object):
         self.eddDict = {}
 
         self.__luksDevs = {}
+        self.size_sets = []
 
         self.iscsi = iscsi.iscsi()
         self.fcoe = fcoe.fcoe()
