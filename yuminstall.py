@@ -1296,6 +1296,12 @@ debuglevel=6
         self.ayum = AnacondaYum(anaconda)
         self.ayum.setup()
 
+        if anaconda.id.getUpgrade():
+            # If we are doing an upgrade, we need to enable all repos,
+            # so that packages from them get updated.
+            for repo in self.ayum.repos.repos.itervalues():
+                repo.enable()
+
         self.ayum.doMacros()
 
         # If any enabled repositories require networking, go ahead and bring
