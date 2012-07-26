@@ -49,6 +49,11 @@ from devicelibs.dm import name_from_dm_node
 from devicelibs.crypto import generateBackupPassphrase
 from devicelibs.mpath import MultipathConfigWriter
 from devicelibs.edd import get_edd_dict
+from devicelibs.mdraid import get_member_space
+from devicelibs.lvm import get_pv_space
+from .partitioning import SameSizeSet
+from .partitioning import TotalSizeSet
+from .partitioning import doPartitioning
 from udev import *
 import iscsi
 import fcoe
@@ -1098,7 +1103,8 @@ class Storage(object):
         if kwargs.has_key("fmt_type"):
             kwargs["format"] = getFormat(kwargs.pop("fmt_type"),
                                          mountpoint=kwargs.pop("mountpoint",
-                                                               None))
+                                                               None),
+                                         **kwargs.pop("fmt_args", {}))
 
         if kwargs.has_key("minor"):
             kwargs["minor"] = int(kwargs["minor"])
@@ -1142,7 +1148,8 @@ class Storage(object):
         mountpoint = kwargs.pop("mountpoint", None)
         if kwargs.has_key("fmt_type"):
             kwargs["format"] = getFormat(kwargs.pop("fmt_type"),
-                                         mountpoint=mountpoint)
+                                         mountpoint=mountpoint,
+                                         **kwargs.pop("fmt_args", {}))
 
         if kwargs.has_key("name"):
             name = kwargs.pop("name")
@@ -1169,7 +1176,9 @@ class Storage(object):
             name = args[0]
 
         mountpoint = kwargs.pop("mountpoint", None)
-        fmt_kwargs = {"mountpoint": mountpoint}
+
+        fmt_args = kwargs.pop("fmt_args", {})
+        fmt_args.update({"mountpoint": mountpoint})
 
         if kwargs.pop("subvol", False):
             dev_class = BTRFSSubVolumeDevice
@@ -1184,7 +1193,7 @@ class Storage(object):
                 # for btrfs this only needs to ensure the subvol name is not
                 # already in use within the parent volume
                 name = self.suggestDeviceName(mountpoint=mountpoint)
-            fmt_kwargs["mountopts"] = "subvol=%s" % name
+            fmt_args["mountopts"] = "subvol=%s" % name
             kwargs.pop("metaDataLevel", None)
             kwargs.pop("dataLevel", None)
             kwargs.pop("size", None)
@@ -1201,10 +1210,8 @@ class Storage(object):
 
                 name = self.suggestContainerName(prefix="btrfs",
                                                  hostname=hostname)
-            #if name and name.startswith("btrfs_"):
-            #    fmt_kwargs["label"] = name[6:]
-            #elif name and not name.startswith("btrfs"):
-            fmt_kwargs["label"] = name
+            if "label" not in fmt_args:
+                fmt_args["label"] = name
 
         # do we want to prevent a subvol with a name that matches another dev?
         if name in self.names:
@@ -1215,7 +1222,7 @@ class Storage(object):
 
         # this is to avoid auto-scheduled format create actions
         device = dev_class(name, **kwargs)
-        device.format = getFormat("btrfs", **fmt_kwargs)
+        device.format = getFormat("btrfs", **fmt_args)
         return device
 
     def newBTRFSSubVolume(self, *args, **kwargs):
@@ -1363,9 +1370,6 @@ class Storage(object):
         # also include names of any lvs in the parent for the case of the
         # temporary vg in the lvm dialogs, which can contain lvs that are
         # not yet in the devicetree and therefore not in self.names
-        if hasattr(parent, "lvs"):
-            names.extend([full_name(d.lvname, parent) for d in parent.lvs])
-
         if full_name(name, parent) in names or not body:
             for i in range(100):
                 name = "%s%02d" % (template, i)
@@ -1852,6 +1856,231 @@ class Storage(object):
                     return 1
 
         return 0
+
+    def getFSType(self, mountpoint=None):
+        """ Return the default filesystem type based on mountpoint. """
+        fstype = self.defaultFSType
+        if not mountpoint:
+            # just return the default
+            pass
+        elif mountpoint.lower() == "swap":
+            fstype = "swap"
+        elif mountpoint == "/boot":
+            fstype = self.defaultBootFSType
+        elif mountpoint == "/boot/efi":
+            if iutil.isMactel():
+                fstype = "hfs+"
+            else:
+                fstype = "efi"
+
+        return fstype
+
+    def setContainerMembers(self, container, factory):
+        # set up member devices
+        container_size = 0
+        if container:
+            log.debug("using container %s with %d devices" % (container.name,
+                                len(self.devicetree.getChildren(container))))
+            container_size = factory.container_size_func(container)
+            log.debug("raw container size reported as %d" % container_size)
+            disks = list(set([d for m in container.parents for d in m.disks]))
+            disks.sort(key=lambda d: d.name, cmp=self.compareDisks)
+            factory.disks = disks
+
+        device_space = factory.device_size
+        log.debug("device requires %d" % device_space)
+        container_size += device_space
+
+        # XXX TODO: multiple member devices per disk
+
+        # XXX Never try to reuse member devices. They can be converted by the
+        #     user into free space.
+        if container:
+            members = container.parents[:]
+            for member in members[:]:
+                if isinstance(member, LUKSDevice):
+                    member = member.slave
+
+                member.req_base_size = PartitionDevice.defaultSize
+                member.req_size = member.req_base_size
+                member.req_grow = True
+
+                for ss in self.size_sets[:]:
+                    if member in ss.devices:
+                        self.size_sets.remove(ss)
+        else:
+            # set up members as needed to accommodate the device
+            members = []
+            for disk in factory.disks:
+                if factory.encrypted:
+                    luks_format = factory.member_format
+                    member_format = "luks"
+                else:
+                    member_format = factory.member_format
+
+                member = self.newPartition(parents=[disk], grow=True,
+                                           fmt_type=member_format)
+                self.createDevice(member)
+                if factory.encrypted:
+                    fmt = getFormat(luks_format)
+                    member = LUKSDevice("luks-%s" % member.name,
+                                        parents=[member], format=fmt)
+                    self.createDevice(member)
+
+                members.append(member)
+
+        log.debug("adding a %s with size %d" % (factory.set_class.__name__,
+                                                container_size))
+        size_set = factory.set_class(members, container_size)
+        self.size_sets.append(size_set)
+
+        try:
+            doPartitioning(self)
+        except StorageError as e:
+            log.error("UI: failed to allocate partitions: %s" % e)
+            for device in members:
+                actions = self.devicetree.findActions(device=device)
+                for a in reversed(actions):
+                    self.devicetree.cancelAction(a)
+            # FIXME: revert container to its original state?
+            return
+        else:
+            # fix the sizes of all allocated partitions
+            for partition in self.partitions:
+                partition.req_grow = False
+                partition.req_base_size = partition.size
+                partition.req_size = partition.size
+
+        return members
+
+    def getDeviceFactory(self, device_type, size, **kwargs):
+        disks = kwargs.get("disks", [])
+        encrypted = kwargs.get("encrypted", False)
+
+        # md, btrfs, lvm
+        raid_level = kwargs.get("level")
+
+        class_table = {AUTOPART_TYPE_LVM: LVMFactory,
+                       AUTOPART_TYPE_BTRFS: BTRFSFactory}
+
+        factory_class = class_table.get(device_type, MDFactory)
+        log.debug("instantiating %s: %r, %s, %s, %s" % (factory_class,
+                    self, size, [d.name for d in disks], raid_level))
+        return factory_class(self, size, disks, raid_level, encrypted)
+
+    def newDevice(self, device_type, size, **kwargs):
+        """ Schedule creation of a device based on a top-down specification.
+
+            Arguments:
+
+                device_type         an AUTOPART_TYPE constant (lvm|btrfs|plain)
+                size                device's requested size
+
+            Keyword arguments:
+
+                mountpoint          the device's mountpoint
+                fstype              the device's filesystem type, or swap
+                label               filesystem label
+                disks               the set of disks we can allocate from
+                encrypted           boolean
+
+                level               (btrfs/md only) RAID level
+
+                striped             (lvm only) boolean
+                mirrored            (lvm only) boolean
+
+        """
+        mountpoint = kwargs.get("mountpoint")
+        fstype = kwargs.get("fstype")
+        label = kwargs.get("label")
+        disks = kwargs.get("disks")
+        encrypted = kwargs.get("encrypted", self.data.autopart.encrypted)
+
+        # XXX temporary?
+        size = float(size.convertTo(spec="mb"))
+
+        # md, btrfs
+        raid_level = kwargs.get("level")
+
+        # lvm
+        striped = kwargs.get("striped")
+        mirrored = kwargs.get("mirrored")
+
+        if not fstype:
+            fstype = self.getFSType(mountpoint=mountpoint)
+            if fstype == "swap":
+                mountpoint = None
+
+        if fstype == "swap" and device_type == AUTOPART_TYPE_BTRFS:
+            device_type = AUTOPART_TYPE_PLAIN
+        elif device_type != AUTOPART_TYPE_PLAIN and \
+             mountpoint and mountpoint.startswith("/boot"):
+            device_type = AUTOPART_TYPE_PLAIN
+
+        fmt_args = {}
+        if label:
+            fmt_args["label"] = label
+
+        # TODO: striping, mirroring, &c
+        # TODO: non-partition members (pv-on-md)
+        if device_type == AUTOPART_TYPE_PLAIN:
+            device = self.newPartition(grow=True, maxsize=size,
+                                       fmt_type=fstype, mountpoint=mountpoint,
+                                       fmt_args=fmt_args)
+            self.createDevice(device)
+            try:
+                doPartitioning(self)
+            except StorageError as e:
+                log.error("failed to allocate partitions: %s" % e)
+                actions = self.devicetree.findActions(device=device)
+                for a in reversed(actions):
+                    self.devicetree.cancelAction(a)
+            else:
+                # fix the sizes of all allocated partitions
+                for partition in self.partitions:
+                    partition.req_grow = False
+                    partition.req_base_size = partition.size
+                    partition.req_size = partition.size
+
+            return
+
+        factory = self.getDeviceFactory(device_type, size, **kwargs)
+
+        for p in self.partitions:
+            log.debug("%r" % p)
+
+        container = None
+        containers = [c for c in factory.container_list if not c.exists]
+        if containers:
+            container = containers[0]
+
+        parents = self.setContainerMembers(container, factory)
+
+        # set up container
+        if not container and factory.new_container_attr:
+            log.debug("creating new container")
+            container = factory.new_container(parents=parents)
+            self.createDevice(container)
+
+        if container:
+            parents = [container]
+            log.debug("%r" % container)
+
+        # add the new device to the container
+        if factory.new_device_attr:
+            free = getattr(container, "freeSpace", size)
+            if free < size:
+                log.info("adjusting device size from %.2f to %.2f so it fits "
+                         "in container" % (size, free))
+                size = free
+
+            log.debug("creating new device")
+            device = factory.new_device(parents=parents,
+                                        size=size,
+                                        fmt_type=fstype,
+                                        mountpoint=mountpoint,
+                                        fmt_args=fmt_args)
+            self.createDevice(device)
 
 def mountExistingSystem(fsset, rootDevice,
                         allowDirty=None, dirtyCB=None,
@@ -2794,3 +3023,112 @@ def parseFSTab(devicetree, chroot=None):
 
     return (mounts, swaps)
 
+
+class DeviceFactory(object):
+    type_desc = None
+    member_format = None
+    new_container_attr = None
+    new_device_attr = None
+    container_list_attr = None
+
+    def __init__(self, storage, size, disks, raid_level, encrypted):
+        self.storage = storage
+        self.size = size
+        self.disks = disks
+        self.raid_level = raid_level
+        self.encrypted = encrypted
+
+        self.size_func_kwargs = {}
+
+        if raid_level in ("raid1", "raid10"):
+            self.set_class = SameSizeSet
+        else:
+            self.set_class = TotalSizeSet
+
+    @property
+    def container_list(self):
+        return getattr(self.storage, self.container_list_attr)
+
+    def new_container(self, *args, **kwargs):
+        return getattr(self.storage, self.new_container_attr)(*args, **kwargs)
+
+    def new_device(self, *args, **kwargs):
+        return getattr(self.storage, self.new_device_attr)(*args, **kwargs)
+
+    def container_size_func(self, container):
+        return container.size
+
+    @property
+    def device_size(self):
+        return self.size
+
+
+class BTRFSFactory(DeviceFactory):
+    type_desc = "btrfs"
+    member_format = "btrfs"
+    new_container_attr = "newBTRFS"
+    new_device_attr = "newBTRFSSubVolume"
+    container_list_attr = "btrfsVolumes"
+
+    def __init__(self, storage, size, disks, raid_level, encrypted):
+        super(BTRFSFactory, self).__init__(storage, size, disks, raid_level,
+                                           encrypted)
+        self.raid_level = raid_level or "single"
+
+    @property
+    def device_size(self):
+        # until we get/need something better
+        if self.raid_level in ("single", "raid0"):
+            return self.size
+        elif self.raid_level in ("raid1", "raid10"):
+            return self.size * len(self.disks)
+
+    def container_size_func(self, container):
+        if container.exists:
+            size = container.size
+        else:
+            size = sum([s._size for s in container.subvolumes])
+
+        return size
+
+class LVMFactory(DeviceFactory):
+    type_desc = "lvm"
+    member_format = "lvmpv"
+    new_container_attr = "newVG"
+    new_device_attr = "newLV"
+    container_list_attr = "vgs"
+
+    def __init__(self, storage, size, disks, raid_level, encrypted):
+        super(LVMFactory, self).__init__(storage, size, disks, raid_level,
+                                         encrypted)
+        if raid_level in ("raid1", "raid10"):
+            self.size_func_kwargs["mirrored"] = True
+        if raid_level in ("raid0", "raid10"):
+            self.size_func_kwargs["striped"] = True
+
+    @property
+    def device_size(self):
+        return get_pv_space(self.size, len(self.disks), **self.size_func_kwargs)
+
+    def container_size_func(self, container):
+        return container.size - container.freeSpace
+
+class MDFactory(DeviceFactory):
+    type_desc = "md"
+    member_format = "mdmember"
+    new_container_attr = None
+    new_device_attr = "newMD"
+
+    def __init__(self, storage, size, disks, raid_level, encrypted):
+        super(MDFactory, self).__init__(storage, size, disks, raid_level,
+                                        encrypted)
+        self.size_func_kwargs = {"level": raid_level}
+
+    @property
+    def container_list(self):
+        return []
+
+    @property
+    def device_size(self):
+        return get_member_space(self.size, len(self.disks),
+                                **self.size_func_kwargs)
