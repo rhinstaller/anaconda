@@ -269,7 +269,8 @@ class SoftwareSelectionSpoke(NormalSpoke):
         if not self._errorMsgs:
             return
 
-        dialog = DetailedErrorDialog(self.data)
+        dialog = DetailedErrorDialog(self.data, buttons=[_("_Quit"), _("_Remove Packages"),
+                                                         _("_Modify Software Source")])
         with enlightbox(self.window, dialog.window):
             dialog.refresh(self._errorMsgs)
             rc = dialog.run()

@@ -26,9 +26,29 @@ from pyanaconda.ui.gui import UIObject
 __all__ = ["DetailedErrorDialog"]
 
 class DetailedErrorDialog(UIObject):
+    """This class provides a lightboxable dialog to display a very detailed
+       set of error messages, like might be required to display the results
+       of package dependency solving or storage sanity checking.
+
+       By default, this dialog has only a single button - cancel, displayed
+       on the far left hand side of the dialog, with a response ID of 0.
+       For all other buttons, provide a kwarg named "buttons" as a list of
+       translated labels.  Each will have an incrementing response ID
+       starting with 1.  It is up to the caller of the "run" method to do
+       something with the returned response ID.
+    """
     builderObjects = ["detailedErrorDialog", "detailedTextBuffer"]
     mainWidgetName = "detailedErrorDialog"
     uiFile = "detailederror.glade"
+
+    def __init__(self, *args, **kwargs):
+        buttons = kwargs.pop("buttons", [])
+        UIObject.__init__(self, *args, **kwargs)
+
+        i = 1
+        for button in buttons:
+            self.window.add_button(button, i)
+            i += 1
 
     def refresh(self, msg):
         buf = self.builder.get_object("detailedTextBuffer")
