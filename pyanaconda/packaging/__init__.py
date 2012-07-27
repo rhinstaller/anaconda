@@ -169,7 +169,9 @@ class Payload(object):
 
     def _repoNeedsNetwork(self, repo):
         """ Returns True if the ksdata repo requires networking. """
-        urls = [repo.baseurl] + repo.mirrorlist
+        urls = [repo.baseurl]
+        if repo.mirrorlist:
+            urls.extend(repo.mirrorlist)
         network_protocols = ["http:", "ftp:", "nfs:", "nfsiso:"]
         for url in urls:
             if any([url.startswith(p) for p in network_protocols]):
