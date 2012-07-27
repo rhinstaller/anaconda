@@ -139,27 +139,29 @@ class Size(Decimal):
 
         return self
 
-    def __str__(self):
+    def __str__(self, context=None):
         return self.humanReadable()
 
     def __repr__(self):
         return "Size('%s')" % self
 
-    def __add__(self, other):
-        return Size(bytes=Decimal.__add__(self, other))
+    def __add__(self, other, context=None):
+        return Size(bytes=Decimal.__add__(self, other, context=context))
 
     # needed to make sum() work with Size arguments
-    def __radd__(self, other):
-        return Size(bytes=Decimal.__radd__(self, other))
+    def __radd__(self, other, context=None):
+        return Size(bytes=Decimal.__radd__(self, other, context=context))
 
-    def __sub__(self, other):
-        return Size(bytes=Decimal.__sub__(self, other))
+    def __sub__(self, other, context=None):
+        # subtraction is implemented using __add__ and negation, so we'll
+        # be getting passed a Size
+        return Decimal.__sub__(self, other, context=context)
 
-    def __mul__(self, other):
-        return Size(bytes=Decimal.__mul__(self, other))
+    def __mul__(self, other, context=None):
+        return Size(bytes=Decimal.__mul__(self, other, context=context))
 
-    def __div__(self, other):
-        return Size(bytes=Decimal.__div__(self, other))
+    def __div__(self, other, context=None):
+        return Size(bytes=Decimal.__div__(self, other, context=context))
 
     def _trimEnd(self, val):
         """ Internal method to trim trailing zeros. """
