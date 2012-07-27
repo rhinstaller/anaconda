@@ -25,7 +25,7 @@ N_ = lambda x: x
 
 from gi.repository import AnacondaWidgets, GLib, Gtk
 
-from pyanaconda.ui.gui import UIObject
+from pyanaconda.ui.gui import GUIObject
 from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.gui.categories.localization import LocalizationCategory
 from pyanaconda.ui.gui.utils import enlightbox
@@ -43,13 +43,13 @@ SERVER_QUERY = 2
 
 POOL_SERVERS_NOTE = _("Note: pool servers may not be available all the time")
 
-class NTPconfigDialog(UIObject):
+class NTPconfigDialog(GUIObject):
     builderObjects = ["ntpConfigDialog", "addImage", "serversStore"]
     mainWidgetName = "ntpConfigDialog"
     uiFile = "spokes/datetime_spoke.ui"
 
     def __init__(self, *args):
-        UIObject.__init__(self, *args)
+        GUIObject.__init__(self, *args)
 
         #used to ensure uniqueness of the threads' names
         self._threads_counter = 0

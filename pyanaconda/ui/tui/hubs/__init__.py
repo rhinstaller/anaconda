@@ -1,12 +1,12 @@
 from .. import simpleline as tui
-from .. import common
+from pyanaconda.ui.tui import TUIObject
 
-class TUIHub(common.UIObject):
+class TUIHub(TUIObject):
     spokes = []
     title = "Default HUB title"
 
     def __init__(self, app, data):
-        tui.UIScreen.__init__(self, app, data)
+        TUIObject.__init__(self, app)
         self._spokes = {}
         self._spoke_count = 0
 

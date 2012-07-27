@@ -21,7 +21,7 @@
 
 from gi.repository import Gtk
 
-from pyanaconda.ui.gui import UIObject
+from pyanaconda.ui.gui import GUIObject
 from pyanaconda.storage.size import Size
 
 import gettext
@@ -39,7 +39,7 @@ def size_str(mb):
 
     return str(Size(spec=spec)).upper()
 
-class SelectedDisksDialog(UIObject):
+class SelectedDisksDialog(GUIObject):
     builderObjects = ["selected_disks_dialog", "disk_store"]
     mainWidgetName = "selected_disks_dialog"
     uiFile = "spokes/lib/cart.ui"

@@ -164,9 +164,8 @@ class App(object):
 class UIScreen(object):
     title = u"Screen.."
 
-    def __init__(self, app, data):
+    def __init__(self, app):
         self._app = app
-        self._data = data
         self._window = []
 
     def refresh(self, args = None):
@@ -194,10 +193,6 @@ class UIScreen(object):
 
     def prompt(self):
         return u"\tPlease make your choice from above ['q' to quit]: "
-
-    @property
-    def data(self):
-        return self._data
 
     @property
     def app(self):

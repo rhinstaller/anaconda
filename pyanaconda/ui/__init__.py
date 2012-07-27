@@ -21,6 +21,10 @@
 
 __all__ = ["UserInterface", "collect"]
 
+import os
+import importlib
+import inspect
+
 class UserInterface(object):
     """This is the base class for all kinds of install UIs.  It primarily
        defines what kinds of dialogs and entry widgets every interface must
@@ -122,7 +126,7 @@ def collect(module_pattern, path, pred):
             continue
 
         mod_name = module_file[:-3]
-        module = importlib.import_module(module_pattern % mod_name))
+        module = importlib.import_module(module_pattern % mod_name)
 
         p = lambda obj: inspect.isclass(obj) and pred(obj)
 

@@ -32,7 +32,7 @@ import os.path
 from gi.repository import AnacondaWidgets, GLib, Gtk
 
 from pyanaconda.image import opticalInstallMedia, potentialHdisoSources
-from pyanaconda.ui.gui import UIObject, communication
+from pyanaconda.ui.gui import GUIObject, communication
 from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.gui.categories.software import SoftwareCategory
 from pyanaconda.ui.gui.utils import enlightbox, gdk_threaded
@@ -45,7 +45,7 @@ MOUNTPOINT = "/mnt/install/isodir"
 METADATA_DOWNLOAD_MESSAGE = _("Downloading package metadata...")
 METADATA_ERROR_MESSAGE = _("Error downloading package metadata...")
 
-class ProxyDialog(UIObject):
+class ProxyDialog(GUIObject):
     builderObjects = ["proxyDialog"]
     mainWidgetName = "proxyDialog"
     uiFile = "spokes/source.ui"
@@ -89,7 +89,7 @@ class ProxyDialog(UIObject):
     def refresh(self):
         import re
 
-        UIObject.refresh(self)
+        GUIObject.refresh(self)
 
         self._proxyCheck = self.builder.get_object("enableProxyCheck")
         self._proxyInfoBox = self.builder.get_object("proxyInfoBox")
@@ -126,7 +126,7 @@ class ProxyDialog(UIObject):
     def run(self):
         self.window.run()
 
-class MediaCheckDialog(UIObject):
+class MediaCheckDialog(GUIObject):
     builderObjects = ["mediaCheckDialog"]
     mainWidgetName = "mediaCheckDialog"
     uiFile = "spokes/source.ui"
@@ -193,13 +193,13 @@ class MediaCheckDialog(UIObject):
 #     result from run(), the file path you use is relative to the root of the
 #     mounted partition.  In other words, it will not contain the
 #     "/mnt/isodir/install" part.  This is consistent with the rest of anaconda.
-class IsoChooser(UIObject):
+class IsoChooser(GUIObject):
     builderObjects = ["isoChooserDialog", "isoFilter"]
     mainWidgetName = "isoChooserDialog"
     uiFile = "spokes/source.ui"
 
     def refresh(self, currentFile=""):
-        UIObject.refresh(self)
+        GUIObject.refresh(self)
         self._chooser = self.builder.get_object("isoChooser")
         self._chooser.connect("current-folder-changed", self.on_folder_changed)
         self._chooser.set_filename(MOUNTPOINT + "/" + currentFile)
@@ -235,7 +235,7 @@ class IsoChooser(UIObject):
         if not d.startswith(MOUNTPOINT):
             chooser.set_current_folder(MOUNTPOINT)
 
-class AdditionalReposDialog(UIObject):
+class AdditionalReposDialog(GUIObject):
     builderObjects = ["additionalReposDialog", "peopleRepositories", "peopleRepositoriesFilter"]
     mainWidgetName = "additionalReposDialog"
     uiFile = "spokes/source.ui"
@@ -243,7 +243,7 @@ class AdditionalReposDialog(UIObject):
     typingTimeout = 1
 
     def __init__(self, *args, **kwargs):
-        UIObject.__init__(self, *args, **kwargs)
+        GUIObject.__init__(self, *args, **kwargs)
 
         self._filterTimer = None
         self._urlTimer = None
@@ -279,7 +279,7 @@ class AdditionalReposDialog(UIObject):
         self._sourceSelectionUrl = self.builder.get_object("addRepositorySelectUrl")
 
     def refresh(self, currentFile=""):
-        UIObject.refresh(self)
+        GUIObject.refresh(self)
 
     def run(self):
         retval = None

@@ -21,6 +21,7 @@
 
 N_ = lambda x: x
 
+import os.path
 from pyanaconda.ui.gui import collect
 
 __all__ = ["SpokeCategory", "collect_categories"]
@@ -72,4 +73,4 @@ class SpokeCategory(object):
 
 def collect_categories():
     """Return a list of all category subclasses."""
-    return collect("categories", lambda obj: getattr(obj, "displayOnHub", None) != None)
+    return collect("pyanaconda.ui.gui.categories.%s", os.path.dirname(__file__), lambda obj: getattr(obj, "displayOnHub", None) != None)

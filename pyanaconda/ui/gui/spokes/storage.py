@@ -41,7 +41,7 @@
 from gi.repository import Gdk, Gtk
 from gi.repository import AnacondaWidgets
 
-from pyanaconda.ui.gui import UIObject, communication
+from pyanaconda.ui.gui import GUIObject, communication
 from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.gui.spokes.lib.cart import SelectedDisksDialog
 from pyanaconda.ui.gui.categories.storage import StorageCategory
@@ -107,7 +107,7 @@ def size_str(mb):
 
     return str(Size(spec=spec)).upper()
 
-class InstallOptions1Dialog(UIObject):
+class InstallOptions1Dialog(GUIObject):
     builderObjects = ["options1_dialog"]
     mainWidgetName = "options1_dialog"
     uiFile = "spokes/storage.ui"

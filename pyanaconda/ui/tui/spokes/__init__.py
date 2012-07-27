@@ -1,12 +1,18 @@
 from .. import simpleline as tui
-from .. import common
+from pyanaconda.ui.tui import TUIObject
+from pyanaconda.ui import common
 
-class TUISpoke(common.UIObject, tui.Widget):
+__all__ = ["TUISpoke", "StandaloneSpoke", "NormalSpoke", "PersonalizationSpoke",
+           "collect_spokes", "collect_categories"]
+
+class TUISpoke(TUIObject, tui.Widget, common.Spoke):
     title = u"Default spoke title"
+    category = u""
 
-    def __init__(self, app, data):
-        common.UIObject.__init__(self, app, data)
+    def __init__(self, app, ksdata, storage, payload, instclass):
+        TUIObject.__init__(self, app)
         tui.Widget.__init__(self)
+        common.Spoke.__init__(self, ksdata, storage, payload, instclass)
 
     @property
     def status(self):
@@ -17,8 +23,7 @@ class TUISpoke(common.UIObject, tui.Widget):
         return True
 
     def refresh(self, args = None):
-        common.UIObject.refresh(self, args)
-
+        TUIObject.refresh(self, args)
         return True
 
     def input(self, key):
@@ -30,7 +35,22 @@ class TUISpoke(common.UIObject, tui.Widget):
         c.render(width)
         self.draw(c)
 
-class StandaloneTUISpoke(TUISpoke):
-    preForHub = False
-    postForHub = False
-    title = "Standalone spoke title"
+class StandaloneTUISpoke(TUISpoke, common.StandaloneSpoke):
+    pass
+
+class NormalTUISpoke(TUISpoke, common.NormalSpoke):
+    pass
+
+class PersonalizationTUISpoke(TUISpoke, common.PersonalizationSpoke):
+    pass
+
+def collect_spokes(category):
+    """Return a list of all spoke subclasses that should appear for a given
+       category.
+    """
+    return collect("pyanaconda.ui.tui.spokes.%s", os.path.dirname(__file__), lambda obj: hasattr(obj, "category") and obj.category != None and obj.category.__name__ == category)
+
+def collect_categories():
+    classes = collect("pyanaconda.ui.tui.spokes.%s", os.path.dirname(__file__), lambda obj: hasattr(obj, "category") and obj.category != None and obj.category != "")
+    categories = set([c.category for c in classes])
+    return categories

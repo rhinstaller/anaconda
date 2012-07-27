@@ -41,7 +41,7 @@ from pyanaconda.storage import Root
 from pyanaconda.storage.partitioning import doPartitioning
 from pyanaconda.storage.errors import StorageError
 
-from pyanaconda.ui.gui import UIObject
+from pyanaconda.ui.gui import GUIObject
 from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.gui.spokes.storage import StorageChecker
 from pyanaconda.ui.gui.spokes.lib.cart import SelectedDisksDialog
@@ -55,13 +55,13 @@ __all__ = ["CustomPartitioningSpoke"]
 
 new_install_name = _("New %s %s Installation") % (productName, productVersion)
 
-class AddDialog(UIObject):
+class AddDialog(GUIObject):
     builderObjects = ["addDialog"]
     mainWidgetName = "addDialog"
     uiFile = "spokes/custom.ui"
 
     def __init__(self, *args, **kwargs):
-        UIObject.__init__(self, *args, **kwargs)
+        GUIObject.__init__(self, *args, **kwargs)
         self.size = Size(bytes=0)
         self.mountpoint = ""
 
@@ -80,12 +80,12 @@ class AddDialog(UIObject):
         self.window.destroy()
 
     def refresh(self):
-        UIObject.refresh(self)
+        GUIObject.refresh(self)
 
     def run(self):
         return self.window.run()
 
-class ConfirmDeleteDialog(UIObject):
+class ConfirmDeleteDialog(GUIObject):
     builderObjects = ["confirmDeleteDialog"]
     mainWidgetName = "confirmDeleteDialog"
     uiFile = "spokes/custom.ui"
@@ -97,7 +97,7 @@ class ConfirmDeleteDialog(UIObject):
         self.window.destroy()
 
     def refresh(self, mountpoint, device):
-        UIObject.refresh(self)
+        GUIObject.refresh(self)
         label = self.builder.get_object("confirmLabel")
 
         if mountpoint:

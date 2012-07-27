@@ -26,11 +26,12 @@ from gi.repository import GLib
 
 from pyanaconda.flags import flags
 
-from pyanaconda.ui.gui import UIObject
+from pyanaconda.ui import common
+from pyanaconda.ui.gui import GUIObject
 from pyanaconda.ui.gui.categories import collect_categories
 from pyanaconda.ui.gui.spokes import StandaloneSpoke, collect_spokes
 
-class Hub(UIObject):
+class Hub(GUIObject, common.Hub):
     """A Hub is an overview UI screen.  A Hub consists of one or more grids of
        configuration options that the user may choose from.  Each grid is
        provided by a SpokeCategory, and each option is provided by a Spoke.
@@ -74,17 +75,14 @@ class Hub(UIObject):
                            installation information like default package
                            selections and default partitioning.
         """
-        UIObject.__init__(self, data)
+        GUIObject.__init__(self, data)
+        common.Hub.__init__(self, data, storage, payload, instclass)
 
         self._autoContinue = False
         self._incompleteSpokes = []
         self._inSpoke = False
         self._notReadySpokes = []
         self._spokes = {}
-
-        self.storage = storage
-        self.payload = payload
-        self.instclass = instclass
 
     def _runSpoke(self, action):
         from gi.repository import Gtk
@@ -285,7 +283,7 @@ class Hub(UIObject):
         return True
 
     def refresh(self):
-        UIObject.refresh(self)
+        GUIObject.refresh(self)
         self._createBox()
 
         self._update_spoke_id = GLib.timeout_add_seconds(1, self._update_spokes)

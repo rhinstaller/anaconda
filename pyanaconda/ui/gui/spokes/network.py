@@ -34,7 +34,7 @@
 
 from gi.repository import Gtk, AnacondaWidgets
 
-from pyanaconda.ui.gui import UIObject
+from pyanaconda.ui.gui import GUIObject
 from pyanaconda.ui.gui.spokes import NormalSpoke, StandaloneSpoke
 from pyanaconda.ui.gui.categories.software import SoftwareCategory
 from pyanaconda.ui.gui.hubs.summary import SummaryHub

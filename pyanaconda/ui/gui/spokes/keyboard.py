@@ -26,7 +26,7 @@ N_ = lambda x: x
 
 from gi.repository import GLib, Gkbd, Gtk
 
-from pyanaconda.ui.gui import UIObject
+from pyanaconda.ui.gui import GUIObject
 from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.gui.categories.localization import LocalizationCategory
 from pyanaconda.ui.gui.utils import enlightbox
@@ -38,14 +38,14 @@ def _show_layout(column, renderer, model, itr, wrapper):
     value = wrapper.name_to_show_str[model[itr][0]]
     renderer.set_property("text", value)
 
-class AddLayoutDialog(UIObject):
+class AddLayoutDialog(GUIObject):
     builderObjects = ["addLayoutDialog", "newLayoutStore",
                       "newLayoutStoreFilter", "newLayoutStoreSort"]
     mainWidgetName = "addLayoutDialog"
     uiFile = "spokes/keyboard.ui"
 
     def __init__(self, *args):
-        UIObject.__init__(self, *args)
+        GUIObject.__init__(self, *args)
         self._xkl_wrapper = keyboard.XklWrapper.get_instance()
 
     def matches_entry(self, model, itr, user_data=None):
@@ -357,4 +357,3 @@ class KeyboardSpoke(NormalSpoke):
             layouts_list.append(row[0])
 
         self._xkl_wrapper.replace_layouts(layouts_list)
-

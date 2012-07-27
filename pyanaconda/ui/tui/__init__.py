@@ -16,6 +16,9 @@ class ErrorDialog(tui.UIScreen):
         text = tui.TextWidget(self._message)
         self.window.append(tui.CenterWidget(text))
 
+    def prompt(self):
+        return u"Press enter to exit."
+
     def input(self, key):
         self.close()
 
@@ -114,3 +117,29 @@ class TextUserInterface(ui.UserInterface):
         question_window = YesNoDialog(message)
         self._app.switch_window_modal(question_window)
         return question_window.answer
+
+class TUIObject(tui.UIScreen, common.UIObject):
+    title = u"Default title"
+
+    def __init__(self, app):
+        tui.UIScreen.__init__(self, app)
+        common.UIObject.__init__(self)
+
+    @property
+    def showable(self):
+        return True
+
+    def teardown(self):
+        pass
+
+    def initialize(self):
+        pass
+
+    def refresh(self):
+        """Put everything to display into self.window list."""
+        pass
+
+    def retranslate(self):
+        # do retranslation stuff
+        # redraw
+        self.app.switch_screen(self)

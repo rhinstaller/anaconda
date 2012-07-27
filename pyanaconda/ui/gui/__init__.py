@@ -20,7 +20,7 @@
 #
 import importlib, inspect, os, sys
 
-from pyanaconda.ui import UserInterface
+from pyanaconda.ui import UserInterface, common, collect
 from pyanaconda.ui.gui.utils import enlightbox
 
 import gettext
@@ -54,16 +54,7 @@ class GraphicalUserInterface(UserInterface):
 
         # First, grab a list of all the standalone spokes.
         path = os.path.join(os.path.dirname(__file__), "spokes")
-        standalones = collect("pyanaconda.ui.gui.spokes.%s", path, lambda obj: issubclass(obj, StandaloneSpoke) and \
-                              getattr(obj, "preForHub", False) or getattr(obj, "postForHub", False))
-
-        actionClasses = []
-        for hub in self._hubs:
-            actionClasses.extend(sorted(filter(lambda obj: getattr(obj, "preForHub", None) == hub, standalones),
-                                        key=lambda obj: obj.priority))
-            actionClasses.append(hub)
-            actionClasses.extend(sorted(filter(lambda obj: getattr(obj, "postForHub", None) == hub, standalones),
-                                        key=lambda obj: obj.priority))
+        actionClasses = self.getActionClasses("pyanaconda.ui.gui.spokes.%s", path, self._hubs, StandaloneSpoke)
 
         # Instantiate all hubs and their pre/post standalone spokes, passing
         # the arguments defining our spoke API and setting up continue/quit
@@ -185,8 +176,8 @@ class GraphicalUserInterface(UserInterface):
         if rc == 1:
             sys.exit(0)
 
-class UIObject(object):
-    """This is the base class from which all other UI classes are derived.  It
+class GUIObject(common.UIObject):
+    """This is the base class from which all other GUI classes are derived.  It
        thus contains only attributes and methods that are common to everything
        else.  It should not be directly instantiated.
 
@@ -241,8 +232,10 @@ class UIObject(object):
                        spoke off a hub.  They can only skip to the hub
                        itself.
         """
-        if self.__class__ is UIObject:
-            raise TypeError("UIObject is an abstract class")
+        common.UIObject.__init__(self, data)
+
+        if self.__class__ is GUIObject:
+            raise TypeError("GUIObject is an abstract class")
 
         # This couldn't possibly be a bigger hack job.  This structure holds the
         # untranslated strings out of each widget.  retranslate works by taking the
@@ -252,7 +245,6 @@ class UIObject(object):
         # original English, so we'd be looking up translations by translations.
         self._origStrings = {}
 
-        self.data = data
         self.skipTo = None
 
         from gi.repository import Gtk
@@ -300,15 +292,6 @@ class UIObject(object):
 
         _screenshotIndex += 1
 
-    def initialize(self):
-        """Perform whatever actions are necessary to pre-fill the UI with
-           values.  This method is called only once, after the object is
-           created.  The difference between this method and __init__ is that
-           this method may take a long time (especially for NormalSpokes) and
-           thus may be run in its own thread.
-        """
-        pass
-
     def retranslate(self):
         """This method should be called when the current language is changed
            in order to update the UI for the new language.  Since we don't get
@@ -342,39 +325,6 @@ class UIObject(object):
                 xlated = _(before)
                 getattr(obj, funcs[1])(xlated)
 
-    def refresh(self):
-        """Perform whatever actions are necessary to reset the UI immediately
-           before it is displayed.  This method is called every time a screen
-           is shown, which could potentially be several times in the case of a
-           NormalSpoke.  Thus, it's important to not do things like populate
-           stores (which could result in the store having duplicate entries) or
-           anything that takes a long time (as that will result in a delay
-           between the user's action and showing the results).
-
-           For anything potentially long-lived, use the initialize method.
-        """
-        pass
-
-    @property
-    def showable(self):
-        """Should this object even be shown?  This method is useful for checking
-           some precondition before this screen is shown.  If False is returned,
-           the screen will be skipped and the object destroyed.
-        """
-        return True
-
-    def teardown(self):
-        """Perform whatever actions are necessary to clean up after this object
-           is done.  It's not necessary for every subclass to have an instance
-           of this method.
-
-           NOTE:  It is important for this method to not destroy self.window if
-           you are making a Spoke or Hub subclass.  It is assumed that once
-           these are instantiated, they live until the program terminates.  This
-           is required for various status notifications.
-        """
-        pass
-
     @property
     def window(self):
         """Return the top-level object out of the GtkBuilder representation
@@ -388,7 +338,7 @@ class UIObject(object):
 
         return self._window
 
-class QuitDialog(UIObject):
+class QuitDialog(GUIObject):
     builderObjects = ["quitDialog"]
     mainWidgetName = "quitDialog"
     uiFile = "main.ui"
@@ -396,27 +346,3 @@ class QuitDialog(UIObject):
     def run(self):
         rc = self.window.run()
         return rc
-
-def collect(module_pattern, path, pred):
-    """Traverse the subdirectory (given by subpath) of this module's current
-       directory and find all classes that math the given category.  This is
-       then returned as a list of classes.  If category is None, this method
-       will return a list of all matching subclasses.
-
-       It is suggested you use collect_categories or collect_spokes instead of
-       this lower-level method.
-    """
-    retval = []
-    for module_file in os.listdir( + "/" + subpath):
-        if not module_file.endswith(".py") or module_file in [__file__, "__init__.py"]:
-            continue
-
-        mod_name = module_file[:-3]
-        module = importlib.import_module(module_pattern % mod_name))
-
-        p = lambda obj: inspect.isclass(obj) and pred(obj)
-
-        for (name, val) in inspect.getmembers(module, p):
-            retval.append(val)
-
-    return retval
