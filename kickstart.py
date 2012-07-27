@@ -1106,7 +1106,7 @@ class VolGroupData(commands.volgroup.F16_VolGroupData):
         for pv in self.physvols:
             # if pv is using --onpart, use original device
             pv = anaconda.id.ksdata.onPart.get(pv, pv)
-            dev = devicetree.getDeviceByName(pv)
+            dev = devicetree.getDeviceByName(udev_resolve_devspec(pv))
             if dev and dev.format.type == "luks":
                 try:
                     dev = devicetree.getChildren(dev)[0]
