@@ -886,7 +886,7 @@ done
 doPostImages
 
 # do some clean up before making the cramfs of the second stage
-rm -rf $INSTIMGTEMPLATE/usr/lib/anaconda-runtime $INSTIMGTEMPLATE/usr/lib/syslinux $IMGPATH/usr/lib/syslinux
+rm -rf $INSTIMGTEMPLATE/usr/lib/anaconda-runtime $INSTIMGTEMPLATE/usr/share/syslinux $IMGPATH/usr/share/syslinux
 
 if [ -n "$foundakernel" ]; then
   # make the second stage
