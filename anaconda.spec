@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.252
+Version: 11.1.2.253
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -128,6 +128,20 @@ fi
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Fri Jul 27 2012 Martin Gracik <mgracik@redhat.com> 11.1.2.253-1
+- Syslinux changed paths from /usr/lib to /usr/share (mgracik)
+  Resolves: rhbz#843290
+- Install and enable openibd service if IPoIB is used (rvykydal)
+  Resolves: rhbz#788871
+- Do not add unresolvable hostname to 127.0.0.1 of /etc/hosts (rvykydal)
+  Resolves: rhbz#750681
+- Fix NFS mounting (jkeating)
+  Resolves: rhbz#841136
+- Add the Hyper-V drivers (mgracik)
+  Resolves: rhbz#824880
+- Comment out the fstab lines with unknown filesystem rather then ignoring them (vpodzime)
+  Resolves: rhbz#754213
+
 * Wed Jun 27 2012 Martin Gracik <mgracik@redhat.com> 11.1.2.252-1
 - Add gfs support (vpodzime)
   Resolves: rhbz#754213
