@@ -53,8 +53,9 @@ class GraphicalUserInterface(UserInterface):
         self._hubs.extend([SummaryHub, ProgressHub])
 
         # First, grab a list of all the standalone spokes.
-        standalones = collect("spokes", lambda obj: issubclass(obj, StandaloneSpoke) and \
-                                                    getattr(obj, "preForHub", False) or getattr(obj, "postForHub", False))
+        path = os.path.join(os.path.dirname(__file__), "spokes")
+        standalones = collect("pyanaconda.ui.gui.spokes.%s", path, lambda obj: issubclass(obj, StandaloneSpoke) and \
+                              getattr(obj, "preForHub", False) or getattr(obj, "postForHub", False))
 
         actionClasses = []
         for hub in self._hubs:
@@ -396,7 +397,7 @@ class QuitDialog(UIObject):
         rc = self.window.run()
         return rc
 
-def collect(subpath, pred):
+def collect(module_pattern, path, pred):
     """Traverse the subdirectory (given by subpath) of this module's current
        directory and find all classes that math the given category.  This is
        then returned as a list of classes.  If category is None, this method
@@ -406,12 +407,12 @@ def collect(subpath, pred):
        this lower-level method.
     """
     retval = []
-    for module_file in os.listdir(os.path.dirname(__file__) + "/" + subpath):
+    for module_file in os.listdir( + "/" + subpath):
         if not module_file.endswith(".py") or module_file in [__file__, "__init__.py"]:
             continue
 
         mod_name = module_file[:-3]
-        module = importlib.import_module("pyanaconda.ui.gui.%s.%s" % (subpath, mod_name))
+        module = importlib.import_module(module_pattern % mod_name))
 
         p = lambda obj: inspect.isclass(obj) and pred(obj)
 
