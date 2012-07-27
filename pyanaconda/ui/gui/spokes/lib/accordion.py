@@ -23,7 +23,6 @@ import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
 
 from pyanaconda.product import productName, productVersion
-from pyanaconda.storage.size import Size
 
 from gi.repository.AnacondaWidgets import MountpointSelector
 from gi.repository import Gtk
@@ -137,7 +136,7 @@ class Page(Gtk.Box):
 
     def addDevice(self, name, size, mountpoint, cb):
         selector = MountpointSelector()
-        selector = MountpointSelector(name, str(Size(spec="%s MB" % size)), mountpoint or "")
+        selector = MountpointSelector(name, str(size).upper(), mountpoint or "")
         selector.connect("button-press-event", self._onSelectorClicked, cb)
         selector.connect("key-release-event", self._onSelectorClicked, cb)
         selector.connect("focus-in-event", self._onSelectorClicked, cb)
@@ -182,7 +181,7 @@ class UnknownPage(Page):
 
     def addDevice(self, name, size, mountpoint, cb):
         selector = MountpointSelector()
-        selector = MountpointSelector(name, str(Size(spec="%s MB" % size)), mountpoint or "")
+        selector = MountpointSelector(name, str(size).upper(), mountpoint or "")
         selector.connect("button-press-event", self._onSelectorClicked, cb)
         selector.connect("key-release-event", self._onSelectorClicked, cb)
         selector.connect("focus-in-event", self._onSelectorClicked, cb)

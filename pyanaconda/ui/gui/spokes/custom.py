@@ -32,13 +32,17 @@ _ = lambda x: gettext.ldgettext("anaconda", x)
 N_ = lambda x: x
 P_ = lambda x, y, z: gettext.ldngettext("anaconda", x, y, z)
 
+from contextlib import contextmanager
+
 from pykickstart.constants import *
 
 from pyanaconda.product import productName, productVersion
 from pyanaconda.storage.formats import device_formats
+from pyanaconda.storage.formats import getFormat
 from pyanaconda.storage.size import Size
 from pyanaconda.storage import Root
 from pyanaconda.storage.partitioning import doPartitioning
+from pyanaconda.storage.partitioning import doAutoPartition
 from pyanaconda.storage.errors import StorageError
 
 from pyanaconda.ui.gui import UIObject
@@ -51,9 +55,25 @@ from pyanaconda.ui.gui.categories.storage import StorageCategory
 
 from gi.repository import Gtk
 
+import logging
+log = logging.getLogger("anaconda")
+
 __all__ = ["CustomPartitioningSpoke"]
 
 new_install_name = _("New %s %s Installation") % (productName, productVersion)
+
+class UIStorageFilter(logging.Filter):
+    def filter(self, record):
+        record.name = "storage.ui"
+        return True
+
+@contextmanager
+def ui_storage_logger():
+    storage_log = logging.getLogger("storage")
+    f = UIStorageFilter()
+    storage_log.addFilter(f)
+    yield
+    storage_log.removeFilter(f)
 
 class AddDialog(UIObject):
     builderObjects = ["addDialog"]
@@ -125,8 +145,98 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
         self._current_selector = None
         self._when_create_text = ""
+        self._devices = []
+        self._unused_devices = None     # None indicates uninitialized
+        self._free_space = Size(bytes=0)
+
+    def _propagate_actions(self, actions):
+        """ Register actions from the UI with the main Storage instance. """
+        for ui_action in actions:
+            ui_device = ui_action.device
+            device = self.storage.devicetree.getDeviceByID(ui_device.id)
+            if device is None:
+                # This device does not exist in the main devicetree.
+                #
+                # That means it was created in the ui. If it is still present in
+                # the ui device list, schedule a create action for it. If not,
+                # just ignore it.
+                if not ui_action.isCreate or ui_device not in self._devices:
+                    # this is a device that was created and then destroyed here
+                    continue
+
+            args = [device]
+            if ui_action.isResize:
+                args.append(ui_device.targetSize)
+
+            if ui_action.isCreate and ui_action.isFormat:
+                args.append(ui_device.format)
+
+            if ui_action.isCreate and ui_action.isDevice:
+                # We're going to just move the already-defined device into the
+                # main devicetree, but first we need to replace its parents
+                # with the corresponding devices from the main devicetree
+                # instead of the ones from our local devicetree.
+                parents = [self.storage.devicetree.getDeviceByID(p.id)
+                            for p in ui_device.parents]
+
+                if hasattr(ui_device, "partedPartition"):
+                    # This cleans up any references to parted.Disk instances
+                    # that only exist in our local devicetree.
+                    ui_device.partedPartition = None
+
+                    req_disks = [self.storage.devicetree.getDeviceByID(p.id)
+                                    for p in ui_device.req_disks]
+                    ui_device.req_disks = req_disks
+
+                # If we somehow ended up with a different number of parents
+                # go ahead and take a dump on the floor.
+                assert(len(parents) == len(ui_device.parents))
+                ui_device.parents = parents
+                args = [ui_device]
+
+            log.debug("duplicating action '%s'" % ui_action)
+            action = ui_action.__class__(*args)
+            self.storage.devicetree.registerAction(action)
 
     def apply(self):
+        ui_devicetree = self.__storage.devicetree
+
+        log.debug("converting custom spoke changes into actions")
+        for action in ui_devicetree.findActions():
+            log.debug("%s" % action)
+
+        # schedule actions for device removals, resizes
+        actions = ui_devicetree.findActions(type="destroy")
+        partition_destroys = [a for a in actions
+                                if a.device.type == "partition"]
+        actions.extend(ui_devicetree.findActions(type="resize"))
+        self._propagate_actions(actions)
+
+        # register all disklabel create actions
+        actions = ui_devicetree.findActions(type="create", object="format")
+        disklabel_creates = [a for a in actions
+                                if a.device.format.type == "disklabel"]
+        self._propagate_actions(disklabel_creates)
+
+        # register partition create actions, including formatting
+        actions = ui_devicetree.findActions(type="create")
+        partition_creates = [a for a in actions if a.device.type == "partition"]
+        self._propagate_actions(partition_creates)
+
+        if partition_creates or partition_destroys:
+            try:
+                doPartitioning(self.storage)
+            except Exception as e:
+                # TODO: error handling
+                raise
+
+        # register all other create actions
+        already_handled = disklabel_creates + partition_creates
+        actions = [a for a in ui_devicetree.findActions(type="create")
+                        if a not in already_handled]
+        self._propagate_actions(actions)
+
+        # set up bootloader and check the configuration
         self.storage.setUpBootLoader()
         StorageChecker.run(self)
 
@@ -147,7 +257,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         self._configButton = self.builder.get_object("configureButton")
 
     def initialize(self):
-        from pyanaconda.storage.devices import DiskDevice
         from pyanaconda.storage.formats.fs import FS
 
         NormalSpoke.initialize(self)
@@ -198,40 +307,40 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         else:
             return None
 
+    @property
     def _clearpartDevices(self):
-        return [d for d in self.storage.devicetree.devices if d.name in self.data.clearpart.drives]
+        return [d for d in self._devices if d.name in self.data.clearpart.drives]
 
-    def _unusedDevices(self):
-        from pyanaconda.storage.devices import DiskDevice
-        return [d for d in self.storage.unusedDevices if d.disks and not isinstance(d, DiskDevice)]
+    @property
+    def unusedDevices(self):
+        if self._unused_devices is None:
+            self._unused_devices = [d for d in self.__storage.unusedDevices
+                                        if d.disks and not d.isDisk]
 
-    def _currentFreeSpace(self):
+        return self._unused_devices
+
+    def _setCurrentFreeSpace(self):
         """Add up all the free space on selected disks and return it as a Size."""
-        totalFree = Size(bytes=0)
-
-        freeDisks = self.storage.getFreeSpace(disks=self._clearpartDevices())
-        for tup in freeDisks.values():
-            for chunk in tup:
-                totalFree += chunk
-
-        return totalFree
+        freeDisks = self.__storage.getFreeSpace(clearPartType=CLEARPART_TYPE_NONE)
+        self._free_space = sum([f[0] for f in freeDisks.values()])
 
     def _currentTotalSpace(self):
         """Add up the sizes of all selected disks and return it as a Size."""
         totalSpace = 0
 
-        for disk in self._clearpartDevices():
+        for disk in self._clearpartDevices:
             totalSpace += disk.size
 
         return Size(spec="%s MB" % totalSpace)
 
     def _updateSpaceDisplay(self):
         # Set up the free space/available space displays in the bottom left.
+        self._setCurrentFreeSpace()
         self._availableSpaceLabel = self.builder.get_object("availableSpaceLabel")
         self._totalSpaceLabel = self.builder.get_object("totalSpaceLabel")
         self._summaryButton = self.builder.get_object("summary_button")
 
-        self._availableSpaceLabel.set_text(str(self._currentFreeSpace()))
+        self._availableSpaceLabel.set_text(str(self._free_space))
         self._totalSpaceLabel.set_text(str(self._currentTotalSpace()))
 
         summaryLabel = self._summaryButton.get_children()[0]
@@ -245,7 +354,14 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
     def refresh(self):
         NormalSpoke.refresh(self)
+        self.__storage = self.storage.copy()
+        self.__storage.devicetree._actions = [] # keep things simple
+        self._devices = self.__storage.devices
         self._do_refresh()
+
+        # update our free space number based on Storage
+        self._setCurrentFreeSpace()
+
         self._updateSpaceDisplay()
 
     def _do_refresh(self):
@@ -261,9 +377,13 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         # We can only have one page expanded at a time.
         did_expand = False
 
-        unused = self._unusedDevices()
-        new_devices = [d for d in self.storage.devicetree.leaves if d not in unused and not d.exists]
-        roots = self.storage.roots[:]
+        unused = [d for d in self.unusedDevices if d.isleaf]
+        new_devices = [d for d in self._devices if not d.exists]
+
+        log.debug("ui: unused=%s" % [d.name for d in unused])
+        log.debug("ui: new_devices=%s" % [d.name for d in new_devices])
+
+        ui_roots = self.__storage.roots[:]
 
         # If we've not yet run autopart, add an instance of CreateNewPage.  This
         # ensures it's only added once.
@@ -278,39 +398,44 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             label = self.builder.get_object("whenCreateLabel")
             label.set_text(self._when_create_text % (productName, productVersion))
         else:
-            swaps = [d for d in new_devices if d in self.storage.swaps]
-            mounts = dict([(d.format.mountpoint, d) for d in new_devices if getattr(d.format, "mountpoint", None)])
+            swaps = [d for d in new_devices if d.format.type == "swap"]
+            mounts = dict([(d.format.mountpoint, d) for d in new_devices
+                                if getattr(d.format, "mountpoint", None)])
             new_root = Root(mounts=mounts, swaps=swaps, name=new_install_name)
-            roots.insert(0, new_root)
+            ui_roots.insert(0, new_root)
 
         # Add in all the existing (or autopart-created) operating systems.
-        for root in roots:
-            if root.device and root.device not in self.storage.devices:
+        for root in ui_roots:
+            # don't make a page if none of the root's devices are left
+            if not [d for d in root.swaps + root.mounts.values()
+                        if d in self._devices]:
                 continue
 
             page = Page()
             page.pageTitle = root.name
 
             for device in root.swaps:
-                if device not in self.storage.devices:
+                if device not in self._devices:
                     continue
 
-                selector = page.addDevice("Swap", device.size, None, self.on_selector_clicked)
+                selector = page.addDevice("Swap",
+                                          Size(spec="%f MB" % device.size),
+                                          None, self.on_selector_clicked)
                 selector._device = device
                 selector._root = root
 
             for (mountpoint, device) in root.mounts.iteritems():
-                if device not in self.storage.devices:
+                if device not in self._devices:
                     continue
 
-                selector = page.addDevice(self._mountpointName(mountpoint) or device.format.name, device.size, mountpoint, self.on_selector_clicked)
+                selector = page.addDevice(self._mountpointName(mountpoint) or device.format.name, Size(spec="%f MB" % device.size), mountpoint, self.on_selector_clicked)
                 selector._device = device
                 selector._root = root
 
             page.show_all()
             self._accordion.addPage(page, cb=self.on_page_clicked)
 
-            if not did_expand and getattr(self._current_selector, "_root", None) and root.name == self._current_selector._root.name:
+            if not did_expand:
                 did_expand = True
                 self._accordion.expandPage(root.name)
 
@@ -320,14 +445,14 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             page.pageTitle = _("Unknown")
 
             for u in unused:
-                selector = page.addDevice(u.format.name, u.size, None, self.on_selector_clicked)
+                selector = page.addDevice(u.format.name, Size(spec="%f MB" % u.size), None, self.on_selector_clicked)
                 selector._device = u
                 selector._root = None
 
             page.show_all()
             self._accordion.addPage(page, cb=self.on_page_clicked)
 
-            if not did_expand and self._current_selector and unused == self._current_selector._root:
+            if not did_expand:
                 did_expand = True
                 self._accordion.expandPage(page.pageTitle)
 
@@ -361,7 +486,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
         device = selector._device
 
-        if hasattr(device.format, "label") and labelEntry.get_text():
+        if labelEntry.get_text() and hasattr(device.format, "label"):
             device.format.label = labelEntry.get_text()
 
     def _populate_right_side(self, selector):
@@ -379,14 +504,16 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         selectedDeviceDescLabel.set_text(self._description(selector.props.name))
 
         labelEntry.set_text(getattr(device.format, "label", "") or "")
-        labelEntry.set_sensitive(getattr(device.format, "labelfsProg", "") != "")
+        can_label = getattr(device.format, "labelfsProg", "") != ""
+        labelEntry.set_sensitive(can_label)
 
         if labelEntry.get_sensitive():
             labelEntry.props.has_tooltip = False
         else:
             labelEntry.set_tooltip_text(_("This file system does not support labels."))
 
-        sizeSpinner.set_range(device.minSize, device.maxSize)
+        sizeSpinner.set_range(device.minSize,
+                              device.maxSize)
         sizeSpinner.set_value(device.size)
         sizeSpinner.set_sensitive(device.resizable)
 
@@ -400,15 +527,17 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         # FIXME:  What do we do if we can't figure it out?
         if device.type == "lvmlv":
             typeCombo.set_active(1)
-        elif device.type in ["dm-raid array", "mdarray"]:
+        elif device.type == "mdarray":
             typeCombo.set_active(2)
         elif device.type == "partition":
             typeCombo.set_active(3)
+        elif device.type.startswith("btrfs"):
+            typeCombo.set_active(0)
 
         # FIXME:  What do we do if we can't figure it out?
         model = fsCombo.get_model()
         for i in range(0, len(model)):
-            if model[i][0] == device.format.name:
+            if model[i][0] == device.format.type:
                 fsCombo.set_active(i)
                 break
 
@@ -439,47 +568,68 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         # create a device of the default type, using any disks, with an
         # appropriate fstype and mountpoint
         mountpoint = dialog.mountpoint
-        size = dialog.size
-        fstype = self.storage.defaultFSType
+        log.debug("requested size = %s  ; available space = %s"
+                    % (dialog.size, self._free_space))
+        size = min(dialog.size, self._free_space)
+        fstype = self.storage.getFSType(mountpoint)
+        encrypted = self.data.autopart.encrypted
+
+        # we're doing nothing here to ensure that bootable requests end up on
+        # the boot disk, but the weight from platform should take care of this
+
         if mountpoint.lower() == "swap":
-            fstype = "swap"
             mountpoint = None
-        elif mountpoint == "/boot":
-            fstype = self.storage.defaultBootFSType
-        elif mountpoint == "/boot/efi":
-            if iutil.isMactel():
-                fstype = "hfs+"
-            else:
-                fstype = "efi"
-        elif not mountpoint or not mountpoint.startswith("/") or \
-             mountpoint in self.storage.mountpoints.keys():
-            return
 
-        if not size:
-            # no size specified, so use the default size
-            size = None
+        # TODO: validate the mountpoint for sanity and uniqueness
 
-        if self.data.autopart.type == AUTOPART_TYPE_PLAIN:
-            # create a partition for this new filesystem
-            size_mb = float(size.convertTo(spec="mb"))
-            device = self.storage.newPartition(size=size_mb,
-                                               fmt_type=fstype,
-                                               mountpoint=mountpoint)
-            self.storage.createDevice(device)
-            try:
-                doPartitioning(self.storage)
-            except StorageError as e:
-                actions = self.storage.devicetree.findActions(device=device)
-                for a in reversed(actions):
-                    self.storage.devicetree.cancelAction(a)
-            else:
-                self._do_refresh()
+        device_type = self.data.autopart.type
+        if device_type == AUTOPART_TYPE_LVM and \
+             mountpoint == "/boot/efi":
+            device_type = AUTOPART_TYPE_PLAIN
+        elif device_type == AUTOPART_TYPE_BTRFS and \
+             (fstype == "swap" or \
+              (mountpoint and mountpoint.startswith("/boot"))):
+            device_type = AUTOPART_TYPE_PLAIN
+
+        disks = self._clearpartDevices
+
+        with ui_storage_logger():
+            self.__storage.newDevice(device_type,
+                                     size=float(size.convertTo(spec="mb")),
+                                     fstype=fstype,
+                                     mountpoint=mountpoint,
+                                     encrypted=encrypted,
+                                     disks=disks)
+        self._devices = self.__storage.devices
+        self._do_refresh()
+        self._updateSpaceDisplay()
 
     def _destroy_device(self, device):
+        with ui_storage_logger():
+            self.__storage.destroyDevice(device)
+
+        self._devices = self.__storage.devices
+
+        # should this be in DeviceTree._removeDevice?
+        container = None
+        if hasattr(device, "vg"):
+            device.vg._removeLogVol(device)
+            container = device.vg
+            device_type = AUTOPART_TYPE_LVM
+        elif hasattr(device, "volume"):
+            device.volume._removeSubVolume(device.name)
+            container = device.volume
+            device_type = AUTOPART_TYPE_BTRFS
+
+        if container and not container.exists:
+            # adjust container to size of remaining devices
+            with ui_storage_logger():
+                # TODO: raid
+                factory = self.__storage.getDeviceFactory(device_type, 0)
+                parents = self.__storage.setContainerMembers(container, factory)
+
         # if this device has parents with no other children, remove them too
-        parents = device.parents[:]
-        self.storage.destroyDevice(device)
-        for parent in parents:
+        for parent in device.parents:
             if parent.kids == 0 and not parent.isDisk:
                 self._destroy_device(parent)
 
@@ -488,8 +638,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             pass    # unused device
         elif device in root.swaps:
             root.swaps.remove(device)
-        elif hasattr(device.format, "mountpoint") and \
-             device in root.mounts.values():
+        elif device in root.mounts.values():
             mountpoints = [m for (m,d) in root.mounts.items() if d == device]
             for mountpoint in mountpoints:
                 root.mounts.pop(mountpoint)
@@ -520,7 +669,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                 # schedule actions to delete the thing.
                 dialog = ConfirmDeleteDialog(self.data)
                 with enlightbox(self.window, dialog.window):
-                    dialog.refresh(getattr(device.format, "mountpoint", None), device.name)
+                    dialog.refresh(getattr(device.format, "mountpoint", ""),
+                                   device.name)
                     rc = dialog.run()
 
                     if rc == 0:
@@ -530,12 +680,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
             self._remove_from_root(root, device)
             self._destroy_device(device)
-
-            # If the root is now empty, remove it. Devices from the Unused page
-            # will have no root.
-            if root and root in self.storage.roots and len(root.swaps + root.mounts.values()) == 0:
-                self.storage.roots.remove(root)
-
             self._update_ui_for_removals()
         elif self._accordion.currentPage():
             # This is a complete installed system.  Thus, we first need to confirm
@@ -562,19 +706,14 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             for device in root.swaps + root.mounts.values():
                 self._destroy_device(device)
 
-            # Remove the root entirely.  This will cause the empty Page to be
-            # deleted from the left hand side.
-            if root in self.storage.roots:
-                self.storage.roots.remove(root)
-
             self._update_ui_for_removals()
 
     def on_summary_clicked(self, button):
-        free = self.storage.getFreeSpace()
+        free = self._free_space
         dialog = SelectedDisksDialog(self.data)
 
         with enlightbox(self.window, dialog.window):
-            dialog.refresh(self._clearpartDevices(), free, showRemove=False)
+            dialog.refresh(self._clearpartDevices, free, showRemove=False)
             dialog.run()
 
     def on_configure_clicked(self, button):
@@ -608,20 +747,28 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
         self._removeButton.set_sensitive(True)
 
-    def on_create_clicked(self, button):
-        from pyanaconda.storage import Root
-        from pyanaconda.storage.devices import DiskDevice
-        from pyanaconda.storage.partitioning import doAutoPartition
+    def _do_autopart(self):
+        # There are never any non-existent devices around when this runs.
+        log.debug("running automatic partitioning")
+        self.__storage.doAutoPart = True
+        with ui_storage_logger():
+            doAutoPartition(self.__storage, self.data)
+        self.__storage.doAutoPart = False
+        self._devices = self.__storage.devices
+        log.debug("finished automatic partitioning")
 
+    def on_create_clicked(self, button):
         # Then do autopartitioning.  We do not do any clearpart first.  This is
         # custom partitioning, so you have to make your own room.
-        # FIXME:  Handle all the autopart exns here.
-        self.data.autopart.autopart = True
-        self.data.autopart.execute(self.storage, self.data, self.instclass)
-        self.data.autopart.autopart = False
+        self._do_autopart()
 
         # Refresh the spoke to make the new partitions appear.
-        self.refresh()
+        log.debug("refreshing ui")
+        self._do_refresh()
+        log.debug("finished refreshing ui")
+        log.debug("updating space display")
+        self._updateSpaceDisplay()
+        log.debug("finished updating space display")
         self._accordion.expandPage(new_install_name)
 
         # And then display the first filesystem on the RHS.
@@ -641,3 +788,5 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             self._optionsNotebook.set_current_page(2)
         elif text == _("Standard Partition"):
             self._optionsNotebook.hide()
+
+

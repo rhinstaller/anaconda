@@ -1996,9 +1996,6 @@ class Storage(object):
         disks = kwargs.get("disks")
         encrypted = kwargs.get("encrypted", self.data.autopart.encrypted)
 
-        # XXX temporary?
-        size = float(size.convertTo(spec="mb"))
-
         # md, btrfs
         raid_level = kwargs.get("level")
 
@@ -2089,6 +2086,13 @@ class Storage(object):
         for partition in new.partitions:
             if not partition._partedPartition:
                 continue
+
+            # don't ask me why, but we have to update the refs in req_disks
+            req_disks = []
+            for disk in partition.req_disks:
+                req_disks.append(new.devicetree.getDeviceByID(disk.id))
+
+            partition.req_disks = req_disks
 
             p = partition.disk.format.partedDisk.getPartitionByPath(partition.path)
             partition.partedPartition = p
