@@ -104,6 +104,9 @@ class InstallClass(BaseInstallClass):
         return False
 
     def versionMatches(self, oldver):
+        if oldver is None:
+            return False
+
         oldMajor = oldver.split(".")[0]
         newMajor = productVersion.split(".")[0]
 
