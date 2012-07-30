@@ -153,7 +153,7 @@ class YumPayload(PackagePayload):
         # have group info ready.
         self.gatherRepoMetadata()
 
-    def _resetYum(self, root=None):
+    def _resetYum(self, root=None, keep_cache=False):
         """ Delete and recreate the payload's YumBase instance. """
         import shutil
         if root is None:
@@ -161,10 +161,11 @@ class YumPayload(PackagePayload):
 
         with _yum_lock:
             if self._yum:
-                for repo in self._yum.repos.listEnabled():
-                    if repo.name == BASE_REPO_NAME and \
-                       os.path.isdir(repo.cachedir):
-                        shutil.rmtree(repo.cachedir)
+                if not keep_cache:
+                    for repo in self._yum.repos.listEnabled():
+                        if repo.name == BASE_REPO_NAME and \
+                           os.path.isdir(repo.cachedir):
+                            shutil.rmtree(repo.cachedir)
 
                 del self._yum
 
@@ -287,7 +288,7 @@ reposdir=%s
 
         releasever = self._yum.conf.yumvar['releasever']
         self._writeYumConfig()
-        self._resetYum(root=ROOT_PATH)
+        self._resetYum(root=ROOT_PATH, keep_cache=True)
         log.debug("setting releasever to previous value of %s" % releasever)
         self._yum.preconf.releasever = releasever
 
