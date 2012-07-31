@@ -45,6 +45,9 @@ import time
 
 from . import *
 
+import logging
+log = logging.getLogger("anaconda")
+
 try:
     import rpm
 except ImportError:
@@ -71,9 +74,6 @@ from pyanaconda.image import findFirstIsoImage
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
-
-import logging
-log = logging.getLogger("anaconda")
 
 from pyanaconda.errors import *
 from pyanaconda.packaging import NoSuchGroup, NoSuchPackage
@@ -1133,6 +1133,7 @@ class RPMCallback(object):
                 log_msg = msg_format % (mode, txmbr.po,
                                         self.completed_actions,
                                         self.total_actions)
+                log.info(log_msg)
                 self.install_log.write("%s %s\n" % (time.strftime("%H:%M:%S"),
                                                     log_msg))
                 self.install_log.flush()
