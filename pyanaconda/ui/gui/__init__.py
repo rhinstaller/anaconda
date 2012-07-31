@@ -19,6 +19,7 @@
 # Red Hat Author(s): Chris Lumens <clumens@redhat.com>
 #
 import importlib, inspect, os, sys
+import meh.ui.gui
 
 from pyanaconda.ui import UserInterface
 from pyanaconda.ui.gui.utils import enlightbox
@@ -131,6 +132,16 @@ class GraphicalUserInterface(UserInterface):
             dlg.destroy()
 
         return bool(rc)
+
+    def mainExceptionWindow(self, text, exn_file, *args, **kwargs):
+        meh_intf = meh.ui.gui.GraphicalIntf()
+
+        return meh_intf.mainExceptionWindow(text, exn_file)
+
+
+    def saveExceptionWindow(self, account_manager, signature, *args, **kwargs):
+        meh_intf = meh.ui.gui.GraphicalIntf()
+        meh_intf.saveExceptionWindow(account_manager, signature)
 
     ###
     ### SIGNAL HANDLING METHODS

@@ -92,3 +92,15 @@ class UserInterface(object):
            want to overwhelm the user with choices.
         """
         raise NotImplementedError
+
+    def mainExceptionWindow(self, text, exn_file):
+        """Return window with the exception and buttons for debugging, bug
+           reporting and exitting the installer.
+
+           This method will be called only when unhandled exception appears.
+        """
+        raise NotImplementedError
+
+    def saveExceptionWindow(self, account_manager, signature):
+        """Show a window that provides a way to report a bug."""
+        raise NotImplementedError
