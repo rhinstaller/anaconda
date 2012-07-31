@@ -44,13 +44,13 @@ initThreading()
 # And get the name of the module which represents it
 if os.path.basename(sys.argv[0]) == "run-spoke.py":
     spokeModuleName = "pyanaconda.ui.gui.spokes.%s" % sys.argv[1]
-    from pyanaconda.ui.gui.spokes import Spoke
+    from pyanaconda.ui.common import Spoke
     spokeBaseClass = Spoke
     spokeText = "spoke"
     SpokeText = "Spoke"
 elif os.path.basename(sys.argv[0]) == "run-hub.py":
     spokeModuleName = "pyanaconda.ui.gui.hubs.%s" % sys.argv[1]
-    from pyanaconda.ui.gui.hubs import Hub
+    from pyanaconda.ui.common import Hub
     spokeBaseClass = Hub
     spokeText = "hub"
     SpokeText = "Hub"
@@ -76,10 +76,9 @@ except IndexError:
             if issubclass(v, spokeBaseClass) and v != spokeBaseClass:
                 spokeClassName = k
                 spokeClass = v
-                break
         except TypeError:
             pass
-    
+
 if not spokeClass:
     try:
         spokeClass = getattr(spokeModule, spokeClassName)

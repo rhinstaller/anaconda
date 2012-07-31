@@ -21,6 +21,8 @@
 
 __all__ = ["ExitMainLoop", "App", "UIScreen", "Widget"]
 
+import readline
+
 class ExitAllMainLoops(Exception):
     pass
 
@@ -29,9 +31,10 @@ class ExitMainLoop(Exception):
 
 
 class App(object):
-    def __init__(self, title, yes_or_no_question = None):
+    def __init__(self, title, yes_or_no_question = None, width = 80):
         self._header = title
-        self._spacer = "\n".join(2*[80*"="])
+        self._spacer = "\n".join(2*[width*"="])
+        self._width = width
         self.quit_question = yes_or_no_question
 
         # screen stack contains triplets
@@ -54,7 +57,7 @@ class App(object):
     def switch_screen_modal(self, ui, args = None):
         """Starts a new screen right away, so the caller can collect data back. When the new screen is closed, the caller is redisplayed."""
         self._screens.append((ui, args, True))
-        self.redraw()
+        self._do_redraw()
 
     def schedule_screen(self, ui, args = None):
         """Add screen to the bottom of the stack."""
@@ -82,8 +85,6 @@ class App(object):
             raise ExitMainLoop()
 
         screen, args, newloop = self._screens[-1]
-        input_needed = screen.refresh(args)
-        screen.window.show_all()
 
         if newloop == True:
             self._screens.pop()
@@ -91,8 +92,10 @@ class App(object):
             self.mainloop()
             self.redraw()
             input_needed = False # we have to skip input once, to redisplay the screen first
-
-        self._redraw = False
+        else:
+            input_needed = screen.refresh(args)
+            screen.window.show_all()
+            self._redraw = False
 
         return input_needed
 
@@ -107,14 +110,23 @@ class App(object):
         last_screen = None
         error_counter = 0
         while self._screens:
+            if self._redraw:
+                print self._spacer
+
             try:
                 if self._redraw or last_screen != self._screens[-1]:
                     if not self._do_redraw():
                         continue
 
-                last_screen = self._screens[-1]
+                last_screen = self._screens[-1][0]
 
-                c = raw_input(last_screen.prompt())
+                prompt = last_screen.prompt()
+                if prompt is None:
+                    self.redraw()
+                    continue
+
+                c = raw_input(prompt)
+
                 if not self.input(c):
                     error_counter += 1
 
@@ -123,7 +135,6 @@ class App(object):
 
                 if self._redraw:
                     error_counter = 0
-                    print self._spacer
             except ExitMainLoop:
                 break
             except ExitAllMainLoops:
@@ -140,10 +151,11 @@ class App(object):
             self.close_screen()
             return True
 
-        elif self._screens and (key == 'quit'):
+        elif self._screens and (key == 'q'):
             if self.quit_question:
-                self.switch_screen_modal(self.quit_question(u"Do you really want to quit?"))
-                if self.quit_question.answer:
+                d = self.quit_question(self, u"Do you really want to quit?")
+                self.switch_screen_modal(d)
+                if d.answer:
                     raise ExitAllMainLoops()
             return True
 
@@ -160,6 +172,9 @@ class App(object):
     def store(self):
         return self._store
 
+    @property
+    def width(self):
+        return self._width
 
 class UIScreen(object):
     title = u"Screen.."
@@ -170,7 +185,7 @@ class UIScreen(object):
 
     def refresh(self, args = None):
         """Method which prepares the screen to self._window. If user input is requested, return True."""
-        self.window = [self.title, u""]
+        self._window = [self.title, u""]
 
     @property
     def window(self):
@@ -179,7 +194,7 @@ class UIScreen(object):
     def show_all(self):
         for w in self._window:
             if hasattr(w, "render"):
-                w.render(app.width)
+                w.render(self.app.width)
             print unicode(w)
 
     show = show_all
@@ -192,6 +207,7 @@ class UIScreen(object):
         return key
 
     def prompt(self):
+        """Return the text to be shown as prompt or handle the prompt and return None."""
         return u"\tPlease make your choice from above ['q' to quit]: "
 
     @property

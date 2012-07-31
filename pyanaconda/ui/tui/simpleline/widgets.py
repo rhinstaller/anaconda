@@ -31,7 +31,7 @@ class TextWidget(base.Widget):
         self._text = text
 
     def render(self, width):
-        self.clear()
+        base.Widget.render(self, width)
         self.write(self._text, width = width)
 
 class CenterWidget(base.Widget):
@@ -40,7 +40,7 @@ class CenterWidget(base.Widget):
         self._w = w
 
     def render(self, width):
-        self.clear()
+        base.Widget.render(self, width)
         self._w.render(width)
         self.draw(self._w, col = (width - self._w.width) / 2)
 
@@ -60,7 +60,7 @@ class ColumnWidget(base.Widget):
         self._columns = columns
 
     def render(self, width):
-        self.clear()
+        base.Widget.render(self, width)
 
         x = 0
         for col_width,col in self._columns:
@@ -87,7 +87,7 @@ class CheckboxWidget(base.Widget):
         self._completed = completed
 
     def render(self, width):
-        self.clear()
+        base.Widget.render(self, width)
 
         if self.completed:
             checkchar = "x"

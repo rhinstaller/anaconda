@@ -1,3 +1,7 @@
+import os
+import importlib
+import inspect
+
 class UIObject(object):
     """This is the base class from which all other UI classes are derived.  It
        thus contains only attributes and methods that are common to everything
@@ -77,6 +81,10 @@ class UIObject(object):
            to display this UI object.
         """
         raise TypeError("UIObject.window has to be overriden")
+
+    @property
+    def data(self):
+        return self._data
 
 class Spoke(UIObject):
     """A Spoke is a single configuration screen.  There are several different
@@ -189,6 +197,8 @@ class Spoke(UIObject):
         raise NotImplementedError
 
 class NormalSpoke(Spoke):
+    priority = 100
+
     @property
     def indirect(self):
         """If this property returns True, then this spoke is considered indirect.
@@ -244,8 +254,6 @@ class StandaloneSpoke(NormalSpoke):
     """
     preForHub = None
     postForHub = None
-
-    priority = 100
 
     def __init__(self, data, storage, payload, instclass):
         """Create a StandaloneSpoke instance."""
@@ -342,3 +350,25 @@ class Hub(UIObject):
         self.storage = storage
         self.payload = payload
         self.instclass = instclass
+
+def collect(module_pattern, path, pred):
+    """Traverse the directory (given by path) and find all classes that match
+       the given predicate.  This is then returned as a list of classes.
+
+       It is suggested you use collect_categories or collect_spokes instead of
+       this lower-level method.
+    """
+    retval = []
+    for module_file in os.listdir(path):
+        if not module_file.endswith(".py") or module_file == "__init__.py":
+            continue
+
+        mod_name = module_file[:-3]
+        module = importlib.import_module(module_pattern % mod_name)
+
+        p = lambda obj: inspect.isclass(obj) and pred(obj)
+
+        for (name, val) in inspect.getmembers(module, p):
+            retval.append(val)
+
+    return retval

@@ -22,8 +22,7 @@
 __all__ = ["UserInterface", "collect"]
 
 import os
-import importlib
-import inspect
+from common import collect
 
 class UserInterface(object):
     """This is the base class for all kinds of install UIs.  It primarily
@@ -112,25 +111,3 @@ class UserInterface(object):
                                         key=lambda obj: obj.priority))
 
         return actionClasses
-
-def collect(module_pattern, path, pred):
-    """Traverse the directory (given by path) and find all classes that match
-       the given predicate.  This is then returned as a list of classes.
-
-       It is suggested you use collect_categories or collect_spokes instead of
-       this lower-level method.
-    """
-    retval = []
-    for module_file in os.listdir(path):
-        if not module_file.endswith(".py") or module_file == "__init__.py":
-            continue
-
-        mod_name = module_file[:-3]
-        module = importlib.import_module(module_pattern % mod_name)
-
-        p = lambda obj: inspect.isclass(obj) and pred(obj)
-
-        for (name, val) in inspect.getmembers(module, p):
-            retval.append(val)
-
-    return retval

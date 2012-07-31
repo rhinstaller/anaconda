@@ -1,20 +1,18 @@
 from pyanaconda import ui
+from pyanaconda.ui import common
 import simpleline as tui
-
-from hubs.summary import SummaryHub
-from hubs.progress import ProgressHub
-from spokes import StandaloneSpoke
 
 class ErrorDialog(tui.UIScreen):
     title = u"Error"
 
-    def __init__(self, data, message):
+    def __init__(self, app, message):
+        tui.UIScreen.__init__(self, app)
         self._message = message
 
     def refresh(self, args = None):
         tui.UIScreen.refresh(self, args)
         text = tui.TextWidget(self._message)
-        self.window.append(tui.CenterWidget(text))
+        self._window.append(tui.CenterWidget(text))
 
     def prompt(self):
         return u"Press enter to exit."
@@ -25,15 +23,17 @@ class ErrorDialog(tui.UIScreen):
 class YesNoDialog(tui.UIScreen):
     title = u"Question"
 
-    def __init__(self, data, message):
+    def __init__(self, app, message):
+        tui.UIScreen.__init__(self, app)
         self._message = message
         self._response = None
 
     def refresh(self, args = None):
         tui.UIScreen.refresh(self, args)
         text = tui.TextWidget(self._message)
-        self.window.append(tui.CenterWidget(text))
-        self.window.append(u"")
+        self._window.append(tui.CenterWidget(text))
+        self._window.append(u"")
+        return True
 
     def prompt(self):
         return u"Please respond 'yes' or 'no': "
@@ -50,28 +50,37 @@ class YesNoDialog(tui.UIScreen):
             return None
 
         else:
-            return key
+            return False
+
+    @property
+    def answer(self):
+        return self._response
 
 class TextUserInterface(ui.UserInterface):
 
     def __init__(self, storage, payload, instclass):
         ui.UserInterface.__init__(self, storage, payload, instclass)
         self._app = None
-        self._hubs = []
 
     def setup(self, data):
         """Construct all the objects required to implement this interface.
            This method must be provided by all subclasses.
         """
         self._app = tui.App(u"Anaconda", yes_or_no_question = YesNoDialog)
-        self._hubs = []
+
+        from hubs.summary import SummaryHub
+        #from hubs.progress import ProgressHub
+        self._hubs = [SummaryHub]
+
+
+        from spokes import StandaloneSpoke
 
         # First, grab a list of all the standalone spokes.
         path = os.path.join(os.path.dirname(__file__), "spokes")
         actionClasses = self.getActionClasses("pyanaconda.ui.tui.spokes.%s", path, self._hubs, StandaloneSpoke)
 
         for klass in actionClasses:
-            obj = klass(data, self.storage, self.payload, self.instclass)
+            obj = klass(self._app, data, self.storage, self.payload, self.instclass)
 
             # If we are doing a kickstart install, some standalone spokes
             # could already be filled out.  In taht case, we do not want
@@ -100,7 +109,7 @@ class TextUserInterface(ui.UserInterface):
            In the code, this method should be used sparingly and only for
            critical errors that anaconda cannot figure out how to recover from.
         """
-        error_window = ErrorDialog(message)
+        error_window = ErrorDialog(self._app, message)
         self._app.switch_window(error_window)
 
     def showYesNoQuestion(self, message):
@@ -114,16 +123,16 @@ class TextUserInterface(ui.UserInterface):
            times where anaconda cannot make a reasonable decision.  We don't
            want to overwhelm the user with choices.
         """
-        question_window = YesNoDialog(message)
+        question_window = YesNoDialog(self._app, message)
         self._app.switch_window_modal(question_window)
         return question_window.answer
 
 class TUIObject(tui.UIScreen, common.UIObject):
     title = u"Default title"
 
-    def __init__(self, app):
+    def __init__(self, app, data):
         tui.UIScreen.__init__(self, app)
-        common.UIObject.__init__(self)
+        common.UIObject.__init__(self, data)
 
     @property
     def showable(self):
@@ -135,9 +144,9 @@ class TUIObject(tui.UIScreen, common.UIObject):
     def initialize(self):
         pass
 
-    def refresh(self):
+    def refresh(self, args = None):
         """Put everything to display into self.window list."""
-        pass
+        tui.UIScreen.refresh(self, args)
 
     def retranslate(self):
         # do retranslation stuff
