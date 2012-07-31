@@ -76,8 +76,6 @@ class AnacondaExceptionHandler(ExceptionHandler):
         except SystemError:
             pass
 
-        self.intf.__del__ ()
-
         pidfl = "/tmp/vncshell.pid"
         if os.path.exists(pidfl) and os.path.isfile(pidfl):
             pf = open(pidfl, "r")
