@@ -224,7 +224,7 @@ class AnacondaLog:
     def setupVirtio(self):
         """Setup virtio rsyslog logging.
         """
-        TEMPLATE = "*.* %s\n"
+        TEMPLATE = "*.* %s;anaconda_syslog\n"
 
         if not os.path.exists(self.VIRTIO_PORT) \
            or not os.access(self.VIRTIO_PORT, os.W_OK):
