@@ -23,6 +23,15 @@ from collections import OrderedDict
 # Default logging: none
 log = logging.getLogger('parse-kickstart').addHandler(logging.NullHandler())
 
+# Helper function for reading simple files in /sys
+def readsysfile(f):
+    '''Return the contents of f, or "" if missing.'''
+    try:
+        val = open(f).readline().strip()
+    except IOError:
+        val = ""
+    return val
+
 # Here are the kickstart commands we care about:
 
 class Method(commands.method.F14_Method):
@@ -143,13 +152,9 @@ def is_mac(addr):
 
 def find_devname(mac):
     for netif in os.listdir("/sys/class/net"):
-        try:
-            thismac = readfile("/sys/class/net/%s/address" % netif)
-        except IOError:
-            pass
-        else:
-            if thismac.lower() == mac.lower():
-                return netif
+        thismac = readsysfile("/sys/class/net/%s/address" % netif)
+        if thismac.lower() == mac.lower():
+            return netif
 
 def ksnet_to_dracut(args, lineno, net, bootdev=False):
     '''Translate the kickstart network data into dracut network data.'''
@@ -218,13 +223,6 @@ def ksnet_to_dracut(args, lineno, net, bootdev=False):
 
     return " ".join(line)
 
-def readfile(f):
-    try:
-        val = open(f).readline().strip()
-    except IOError:
-        val = None
-    return val
-
 def ksnet_to_ifcfg(net, filename=None):
     '''Write an ifcfg file for the given kickstart network config'''
     dev = net.device
@@ -238,8 +236,8 @@ def ksnet_to_ifcfg(net, filename=None):
         if not os.path.isdir("/tmp/ifcfg"):
             os.makedirs("/tmp/ifcfg")
     ifcfg['DEVICE'] = dev
-    ifcfg['HWADDR'] = readfile("/sys/class/net/%s/address" % dev)
-    ifcfg['UUID'] = readfile("/proc/sys/kernel/random/uuid")
+    ifcfg['HWADDR'] = readsysfile("/sys/class/net/%s/address" % dev)
+    ifcfg['UUID'] = readsysfile("/proc/sys/kernel/random/uuid")
     ifcfg['ONBOOT'] = "yes" if net.onboot else "no"
 
     # dhcp etc.
