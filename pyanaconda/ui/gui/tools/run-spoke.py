@@ -98,7 +98,6 @@ instclass = DefaultInstall()
 
 payload = YumPayload(ksdata)
 payload.setup(storage)
-payload.install_log = sys.stdout
 
 spoke = spokeClass(ksdata, storage, payload, instclass)
 if hasattr(spoke, "register_event_cb"):

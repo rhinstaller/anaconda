@@ -50,8 +50,6 @@ from pykickstart.parser import Group
 import logging
 log = logging.getLogger("anaconda")
 
-from pyanaconda.backend_log import log as instlog
-
 from pyanaconda.errors import *
 #from pyanaconda.progress import progress
 
@@ -472,27 +470,6 @@ class Payload(object):
         """ Perform pre-installation tasks. """
         iutil.mkdirChain(ROOT_PATH + "/root")
 
-        if self.data.upgrade.upgrade:
-            mode = "upgrade"
-        else:
-            mode = "install"
-
-        log_file_name = "%s.log" % mode
-        log_file_path = "%s/root/%s" % (ROOT_PATH, log_file_name)
-        try:
-            shutil.rmtree (log_file_path)
-        except OSError:
-            pass
-
-        self.install_log = open(log_file_path, "w+")
-
-        syslogname = "%s.syslog" % log_file_path
-        try:
-            shutil.rmtree (syslogname)
-        except OSError:
-            pass
-        instlog.start(ROOT_PATH, syslogname)
-
         if packages is not None:
             map(self.selectPackage, packages)
 
@@ -594,10 +571,6 @@ class Payload(object):
         #   kickstart should handle this before we get here
 
         self._copyDriverDiskFiles()
-
-        # stop logger
-        instlog.stop()
-
 
 class ImagePayload(Payload):
     """ An ImagePayload installs an OS image to the target system. """

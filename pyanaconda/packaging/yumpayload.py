@@ -1002,13 +1002,8 @@ reposdir=%s
             self._yum.ts.order()
             self._yum.ts.clean()
 
-            # set up rpm logging to go to our log
-            self._yum.ts.ts.scriptFd = self.install_log.fileno()
-            rpm.setLogFile(self.install_log)
-
             # create the install callback
-            rpmcb = RPMCallback(self._yum, self.install_log,
-                                upgrade=self.data.upgrade.upgrade)
+            rpmcb = RPMCallback(self._yum, upgrade=self.data.upgrade.upgrade)
 
             if flags.testing:
                 self._yum.ts.setFlags(rpm.RPMTRANS_FLAG_TEST)
@@ -1038,10 +1033,8 @@ reposdir=%s
                     raise exn
             else:
                 log.info("transaction complete")
-                self.install_log.write("*** FINISHED INSTALLING PACKAGES ***")
                 progress.send_step()
             finally:
-                self.install_log.close()
                 self._yum.ts.close()
                 iutil.resetRpmDb()
 
@@ -1069,9 +1062,8 @@ reposdir=%s
         super(YumPayload, self).postInstall()
 
 class RPMCallback(object):
-    def __init__(self, yb, log, upgrade=False):
+    def __init__(self, yb, upgrade=False):
         self._yum = yb              # yum.YumBase
-        self.install_log = log      # file instance
         self.upgrade = upgrade      # boolean
 
         self.package_file = None    # file instance (package file management)
@@ -1134,9 +1126,6 @@ class RPMCallback(object):
                                         self.completed_actions,
                                         self.total_actions)
                 log.info(log_msg)
-                self.install_log.write("%s %s\n" % (time.strftime("%H:%M:%S"),
-                                                    log_msg))
-                self.install_log.flush()
                 progress.send_message(progress_msg)
 
             self.package_file = None
