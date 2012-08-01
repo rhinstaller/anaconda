@@ -628,29 +628,31 @@ class NetworkData(commands.network.RHEL6_NetworkData):
                     raise KickstartValueError, formatErrorMsg(self.lineno, msg="Using --device=bootif without BOOTIF= boot option supplied")
             else: device = self.device
 
-        # If we were given a network device name, grab the device object.
-        # If we were given a MAC address, resolve that to a device name
-        # and then grab the device object.  Otherwise, errors.
-        dev = None
+        # MAC address device specification
+        for (key, val) in devices.iteritems():
+            if val.get("HWADDR").lower() == device.lower():
+                device = key
+                break
 
-        if devices.has_key(device):
-            dev = devices[device]
-        else:
-            for (key, val) in devices.iteritems():
-                if val.get("HWADDR").lower() == device.lower():
-                    dev = val
-                    break
+        dev = devices.get(device, None)
 
         if self.hostname != "":
             anaconda.id.network.setHostname(self.hostname)
             anaconda.id.network.overrideDHCPhostname = True
-            if not dev:
+
+        if not dev:
+            if self.hostname:
                 # Only set hostname
                 return
-        else:
-            if not dev:
+            else:
                 raise KickstartValueError, formatErrorMsg(self.lineno, msg="The provided network interface %s does not exist" % device)
 
+        if self.vlanid:
+            devname = "%s.%s" % (device, self.vlanid)
+            # ifcfg file for vlan device was not created in loader
+            if devname not in devices:
+                log.info("vlan %s not configured, only supported for devices activated during installation" % devname)
+                return
 
         # ipv4 settings
         if not self.noipv4:
