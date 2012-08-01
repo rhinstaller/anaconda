@@ -48,7 +48,7 @@ from pyanaconda.iutil import ProxyString, ProxyStringError
 from pykickstart.parser import Group
 
 import logging
-log = logging.getLogger("anaconda")
+log = logging.getLogger("packaging")
 
 from pyanaconda.errors import *
 #from pyanaconda.progress import progress
