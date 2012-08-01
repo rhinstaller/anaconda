@@ -210,8 +210,6 @@ def turnOnFilesystems(storage):
         storage.write()
         writeEscrowPackets(storage)
     else:
-        from pyanaconda.upgrade import bindMountDevDirectory
-
         if upgrade_migrate:
             # we should write out a new fstab with the migrated fstype
             shutil.copyfile("%s/etc/fstab" % ROOT_PATH,
@@ -219,7 +217,10 @@ def turnOnFilesystems(storage):
             storage.fsset.write()
 
         # and make sure /dev is mounted so we can read the bootloader
-        bindMountDevDirectory(ROOT_PATH)
+        getFormat("bind",
+                  device="/dev",
+                  mountpoint="/dev",
+                  exists=True).mount(chroot=ROOT_PATH)
 
 def writeEscrowPackets(storage):
     escrowDevices = filter(lambda d: d.format.type == "luks" and \
