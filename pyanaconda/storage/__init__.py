@@ -1843,11 +1843,10 @@ class Storage(object):
 
         return 0
 
-def mountExistingSystem(fsset, rootEnt,
+def mountExistingSystem(fsset, rootDevice,
                         allowDirty=None, dirtyCB=None,
                         readOnly=None):
     """ Mount filesystems specified in rootDevice's /etc/fstab file. """
-    rootDevice = rootEnt[0]
     rootPath = ROOT_PATH
     if dirtyCB is None:
         dirtyCB = lambda l: False
