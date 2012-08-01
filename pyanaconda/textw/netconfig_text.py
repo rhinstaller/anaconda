@@ -32,19 +32,18 @@ _ = lambda x: gettext.ldgettext("anaconda", x)
 
 class NetworkConfiguratorText:
     def _handleIPError(self, field, errmsg):
-        self.anaconda.intf.messageWindow(_("Error With Data"),
+        self.intf.messageWindow(_("Error With Data"),
                                          _("An error occurred converting the "
                                            "value entered for "
                                            "\"%(field)s\":\n%(errmsg)s") \
                                          % {'field': field, 'errmsg': errmsg})
 
     def _handleIPMissing(self, field):
-        self.anaconda.intf.messageWindow(_("Error With Data"),
+        self.intf.messageWindow(_("Error With Data"),
                                          _("A value is required for the field %s") % field)
 
-    def __init__(self, screen, anaconda):
+    def __init__(self, screen, intf):
         self.screen = screen
-        self.anaconda = anaconda
         self.netdevs = network.getDevices()
 
         self._initValues()
@@ -264,7 +263,7 @@ class NetworkConfiguratorText:
 
     def _checkValues(self):
         if not self.ipv4Selected and not self.ipv6Selected:
-            self.anaconda.intf.messageWindow(_("Missing protocol"),
+            self.intf.messageWindow(_("Missing protocol"),
                                _("You must select at least one protocol version"))
             return False
 
@@ -395,12 +394,12 @@ class NetworkConfiguratorText:
 
         dev.set(('ONBOOT', 'yes'))
 
-        w = self.anaconda.intf.waitWindow(_("Configuring Network Interfaces"), _("Waiting for NetworkManager"))
+        w = self.intf.waitWindow(_("Configuring Network Interfaces"), _("Waiting for NetworkManager"))
         dev.writeIfcfgFile()
         result = network.waitForConnection()
         w.pop()
         if not result:
-            self.anaconda.intf.messageWindow(_("Network Error"),
+            self.intf.messageWindow(_("Network Error"),
                                              _("There was an error configuring "
                                                "network device %s") % dev.iface)
             dev.set(("ONBOOT", "no"))
