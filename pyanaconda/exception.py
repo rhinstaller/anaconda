@@ -31,6 +31,7 @@ from flags import flags
 import kickstart
 import storage.errors
 from pyanaconda.constants import ROOT_PATH
+from gi.repository import GLib
 
 import logging
 log = logging.getLogger("anaconda")
@@ -41,6 +42,22 @@ _ = lambda x: gettext.ldgettext("anaconda", x)
 
 class AnacondaExceptionHandler(ExceptionHandler):
     def handleException(self, (ty, value, tb), obj):
+
+        def run_handleException_on_idle(args_tuple):
+            """
+            Helper function with one argument only so that it can be registered
+            with GLib.idle_add() to run on idle.
+
+            @param args_tuple: ((ty, value, tb), obj)
+
+            """
+
+            trace, obj = args_tuple
+            ty, value, tb = trace
+
+            super(AnacondaExceptionHandler, self).handleException((ty, value, tb),
+                                                                  obj)
+
         if issubclass(ty, storage.errors.StorageError) and value.hardware_fault:
             hw_error_msg = _("The installation was stopped due to what "
                              "seems to be a problem with your hardware. "
@@ -49,8 +66,14 @@ class AnacondaExceptionHandler(ExceptionHandler):
             self.intf.showError(hw_error_msg)
             sys.exit(0)
         else:
-            super(AnacondaExceptionHandler, self).handleException((ty, value, tb),
-                                                                  obj)
+            if GLib.main_depth() > 0:
+                # main loop is running, don't crash it by running another one
+                # potentially from a different thread
+                GLib.idle_add(run_handleException_on_idle,
+                                ((ty, value, tb), obj))
+            else:
+                super(AnacondaExceptionHandler, self).handleException(
+                                                        (ty, value, tb), obj)
 
     def postWriteHook(self, (ty, value, tb), anaconda):
         # See if /mnt/sysimage is present and put exception there as well
