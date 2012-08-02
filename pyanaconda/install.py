@@ -62,7 +62,7 @@ def doInstall(storage, payload, ksdata, instClass):
     turnOnFilesystems(storage)
 
     # Do packaging.
-    payload.preInstall(packages=storage.packages)
+    payload.preInstall(packages=storage.packages, groups=payload.languageGroups(ksdata.lang.lang))
     payload.install()
 
     with progress_report(_("Performing post-install setup tasks")):

@@ -236,6 +236,9 @@ class Payload(object):
     def groups(self):
         raise NotImplementedError()
 
+    def languageGroups(self, lang):
+        raise NotImplementedError()
+
     def description(self, groupid):
         raise NotImplementedError()
 
@@ -466,12 +469,15 @@ class Payload(object):
     ###
     ### METHODS FOR INSTALLING THE PAYLOAD
     ###
-    def preInstall(self, packages=None):
+    def preInstall(self, packages=None, groups=None):
         """ Perform pre-installation tasks. """
         iutil.mkdirChain(ROOT_PATH + "/root")
 
-        if packages is not None:
+        if packages:
             map(self.selectPackage, packages)
+
+        if groups:
+            map(self.selectGroup, groups)
 
     def install(self):
         """ Install the payload. """

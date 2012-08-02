@@ -739,6 +739,16 @@ reposdir=%s
 
         return groups
 
+    def languageGroups(self, lang):
+        groups = []
+        yum_groups = self._yumGroups
+
+        if yum_groups:
+            with _yum_lock:
+                groups = [g.groupid for g in yum_groups.get_groups() if g.langonly == lang]
+
+        return groups
+
     def description(self, groupid):
         """ Return name/description tuple for the group specified by id. """
         groups = self._yumGroups
@@ -952,9 +962,9 @@ reposdir=%s
         if not selected:
             log.error("failed to select a kernel from %s" % kernels)
 
-    def preInstall(self, packages=None):
+    def preInstall(self, packages=None, groups=None):
         """ Perform pre-installation tasks. """
-        super(YumPayload, self).preInstall(packages=packages)
+        super(YumPayload, self).preInstall(packages=packages, groups=groups)
         progress.send_message(_("Starting package installation process"))
 
         if self.install_device:
