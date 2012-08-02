@@ -39,7 +39,7 @@ class DetailedErrorDialog(UIObject):
     """
     builderObjects = ["detailedErrorDialog", "detailedTextBuffer"]
     mainWidgetName = "detailedErrorDialog"
-    uiFile = "detailederror.glade"
+    uiFile = "spokes/lib/detailederror.glade"
 
     def __init__(self, *args, **kwargs):
         buttons = kwargs.pop("buttons", [])
