@@ -1,5 +1,5 @@
 from .. import simpleline as tui
-from pyanaconda.ui.tui import TUIObject
+from pyanaconda.ui.tui.tuiobject import TUIObject
 from pyanaconda.ui.common import Spoke, StandaloneSpoke, NormalSpoke, PersonalizationSpoke, collect
 import os
 
@@ -7,6 +7,17 @@ __all__ = ["TUISpoke", "StandaloneSpoke", "NormalSpoke", "PersonalizationSpoke",
            "collect_spokes", "collect_categories"]
 
 class TUISpoke(TUIObject, tui.Widget, Spoke):
+    """Base TUI Spoke class implementing the pyanaconda.ui.common.Spoke API.
+    It also acts as a Widget so we can easily add it to Hub, where is shows
+    as a summary box with title, description and completed checkbox.
+
+    :param title: title of this spoke
+    :type title: unicode
+
+    :param category: category this spoke belongs to
+    :type category: string
+    """
+
     title = u"Default spoke title"
     category = u""
 
@@ -28,9 +39,11 @@ class TUISpoke(TUIObject, tui.Widget, Spoke):
         return True
 
     def input(self, key):
+        """Handle the input, the base class just forwards it to the App level."""
         return key
 
     def render(self, width):
+        """Render the summary representation for Hub to internal buffer."""
         tui.Widget.render(self, width)
         c = tui.CheckboxWidget(completed = self.completed, title = self.title, text = self.status)
         c.render(width)

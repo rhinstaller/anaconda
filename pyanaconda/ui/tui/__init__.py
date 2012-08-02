@@ -1,11 +1,23 @@
 from pyanaconda import ui
 from pyanaconda.ui import common
 import simpleline as tui
+from hubs.summary import SummaryHub
+from spokes import StandaloneSpoke
 
 class ErrorDialog(tui.UIScreen):
+    """Dialog screen for reporting errors to user."""
+
     title = u"Error"
 
     def __init__(self, app, message):
+        """
+        :param app: the running application reference
+        :type app: instance of App class
+
+        :param message: the message to show to the user
+        :type message: unicode
+        """
+
         tui.UIScreen.__init__(self, app)
         self._message = message
 
@@ -18,12 +30,23 @@ class ErrorDialog(tui.UIScreen):
         return u"Press enter to exit."
 
     def input(self, key):
+        """This dialog is closed by any input."""
         self.close()
 
 class YesNoDialog(tui.UIScreen):
+    """Dialog screen for Yes - No questions."""
+
     title = u"Question"
 
     def __init__(self, app, message):
+        """
+        :param app: the running application reference
+        :type app: instance of App class
+
+        :param message: the message to show to the user
+        :type message: unicode
+        """
+
         tui.UIScreen.__init__(self, app)
         self._message = message
         self._response = None
@@ -54,11 +77,27 @@ class YesNoDialog(tui.UIScreen):
 
     @property
     def answer(self):
+        """The response can be True (yes), False (no) or None (no response)."""
         return self._response
 
 class TextUserInterface(ui.UserInterface):
+    """This is the main class for Text user interface."""
 
     def __init__(self, storage, payload, instclass):
+        """
+        For detailed description of the arguments see
+        the parent class.
+
+        :param storage: storage backend reference
+        :type storage: instance of pyanaconda.Storage
+
+        :param payload: payload (usually yum) reference
+        :type payload: instance of payload handler
+
+        :param instclass: install class reference
+        :type instclass: instance of install class
+        """
+
         ui.UserInterface.__init__(self, storage, payload, instclass)
         self._app = None
 
@@ -67,13 +106,7 @@ class TextUserInterface(ui.UserInterface):
            This method must be provided by all subclasses.
         """
         self._app = tui.App(u"Anaconda", yes_or_no_question = YesNoDialog)
-
-        from hubs.summary import SummaryHub
-        #from hubs.progress import ProgressHub
         self._hubs = [SummaryHub]
-
-
-        from spokes import StandaloneSpoke
 
         # First, grab a list of all the standalone spokes.
         path = os.path.join(os.path.dirname(__file__), "spokes")
@@ -126,29 +159,3 @@ class TextUserInterface(ui.UserInterface):
         question_window = YesNoDialog(self._app, message)
         self._app.switch_window_modal(question_window)
         return question_window.answer
-
-class TUIObject(tui.UIScreen, common.UIObject):
-    title = u"Default title"
-
-    def __init__(self, app, data):
-        tui.UIScreen.__init__(self, app)
-        common.UIObject.__init__(self, data)
-
-    @property
-    def showable(self):
-        return True
-
-    def teardown(self):
-        pass
-
-    def initialize(self):
-        pass
-
-    def refresh(self, args = None):
-        """Put everything to display into self.window list."""
-        tui.UIScreen.refresh(self, args)
-
-    def retranslate(self):
-        # do retranslation stuff
-        # redraw
-        self.app.switch_screen(self)
