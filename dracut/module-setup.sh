@@ -26,6 +26,7 @@ install() {
     inst_hook pre-udev 40 "$moddir/kickstart-genrules.sh"
     inst_hook pre-udev 40 "$moddir/updates-genrules.sh"
     inst_hook pre-trigger 40 "$moddir/anaconda-udevprop.sh"
+    inst_hook initqueue/settled 00 "$moddir/anaconda-ks-sendheaders.sh"
     inst_hook initqueue/online 80 "$moddir/anaconda-netroot.sh"
     inst "$moddir/anaconda-diskroot" "/sbin/anaconda-diskroot"
     inst_hook pre-pivot 99 "$moddir/anaconda-copy-ks.sh"
