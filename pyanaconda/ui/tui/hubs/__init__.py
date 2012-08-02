@@ -64,6 +64,9 @@ class TUIHub(TUIObject, common.Hub):
                     del spoke
                     continue
 
+                if spoke.indirect:
+                    continue
+
                 self._spoke_count += 1
                 self._keys[self._spoke_count] = spoke
                 self._spokes[spoke.__class__.__name__] = spoke
