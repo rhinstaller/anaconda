@@ -504,6 +504,10 @@ class Storage(object):
             for device in root.mounts.values() + root.swaps:
                 used_devices.extend(device.ancestors)
 
+                if getattr(device, "isLogical", False):
+                    extended = device.disk.format.extendedPartition.path
+                    used_devices.append(self.devicetree.getDeviceByPath(extended))
+
         for new in [d for d in self.devicetree.leaves if not d.exists]:
             if new in self.swaps or getattr(new.format, "mountpoint", None):
                 used_devices.extend(new.ancestors)
