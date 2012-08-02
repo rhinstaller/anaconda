@@ -183,6 +183,8 @@ parse_kickstart() {
 #
 # Really what we want to do here is just start over from the "cmdline"
 # phase, but since we can't do that, we'll kind of fake it.
+#
+# XXX THIS IS KIND OF A GROSS HACK AND WE NEED A BETTER WAY TO DO IT
 run_kickstart() {
     local do_disk="" do_net=""
 
