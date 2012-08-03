@@ -58,6 +58,7 @@ class Flags(object):
         self.targetarch = None
         self.useIPv4 = True
         self.useIPv6 = True
+        self.armPlatform = None
         self.preexisting_x11 = False
         self.noverifyssl = False
         self.imageInstall = False

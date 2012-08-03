@@ -646,6 +646,9 @@ def getARMMachine():
     if not isARM():
         return 0
 
+    if flags.armPlatform:
+        return flags.armPlatform
+
     armMachine = os.uname()[2].rpartition('.' )[2]
 
     if armMachine.startswith('arm'):
