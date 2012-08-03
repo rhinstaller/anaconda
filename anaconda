@@ -71,13 +71,13 @@ def exitHandler(rebootData, storage, exitCode=None):
                 dracut_eject(drive.path)
 
         if rebootData.action == KS_SHUTDOWN:
-            os.system("systemctl --force --no-wall poweroff")
+            os.system("systemctl --no-wall poweroff")
         elif rebootData.action == KS_WAIT:
-            os.system("systemctl --force --no-wall halt")
+            os.system("systemctl --no-wall halt")
         else: # reboot action is KS_REBOOT or None
-            os.system("systemctl --force --no-wall reboot")
+            os.system("systemctl --no-wall reboot")
     elif flags.livecdInstall:
-        os.system("systemctl --force --no-wall reboot")
+        os.system("systemctl --no-wall reboot")
 
 def startMetacityWM():
     childpid = os.fork()
@@ -615,23 +615,11 @@ def prompt_for_ssh():
     # see if we can sniff out network info
     netinfo = network.Network()
 
-    devices = netinfo.netdevices
-    active_devs = network.getActiveNetDevs()
+    ip = netinfo.getFirstRealIP()
 
-    ip = None
-    if active_devs != []:
-        devname = devices[active_devs[0]].iface
-        try:
-            ips = (isys.getIPAddresses(devname, version=4) +
-                   isys.getIPAddresses(devname, version=6))
-        except Exception as e:
-            stdoutLog.warning("Got an exception trying to get the ip addr "
-                        "of %s: %s" % (devname, e))
-        else:
-            if ips and ips[0] not in ("127.0.0.1", "::1"):
-                stdoutLog.debug("IPs (using first) of device %s: %s" % (devname,
-                                                                 ips))
-                ip = ips[0]
+    if not ip:
+        stdoutLog.error("No IP addresses found, cannot continue installation.")
+        sys.exit(1)
 
     ipstr = ip
 
@@ -662,6 +650,8 @@ def prompt_for_ssh():
 
 
 if __name__ == "__main__":
+    print "Starting installer, one moment..."
+
     setupPythonPath()
 
     # Allow a file to be loaded as early as possible
@@ -725,10 +715,12 @@ if __name__ == "__main__":
     from pyanaconda import kickstart
     from pyanaconda import ntp
 
-    # to set UTF8 mode on the terminal, we need LANG to be set usefully
-    if os.environ.get("LANG", "C") == "C":
-        os.environ['LANG'] = DEFAULT_LANG
-    print "\033%G" # UTF8 power go!
+    verdesc = "%s for %s %s" % (getAnacondaVersion(),
+                                product.productName, product.productVersion)
+    if product.isFinal:
+        print "anaconda %s started."
+    else:
+        print "anaconda %s (pre-release) started."
 
     import gettext
     _ = lambda x: gettext.ldgettext("anaconda", x)

@@ -173,7 +173,7 @@ class iSCSITextWizard(pih.iSCSIWizard):
         result = grid.run()
         button = grid.buttons.buttonPressed(result)
         self.screen.popWindow()
-        return True if button == TEXT_OK_CHECK else False
+        return bool(button == TEXT_OK_CHECK or result == "F12")
 
     def destroy_dialogs(self):
         pass

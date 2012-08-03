@@ -200,8 +200,10 @@ def execWithRedirect(command, argv, stdin = None, stdout = None,
 # @param stdin The file descriptor to read stdin from.
 # @param stderr The file descriptor to redirect stderr to.
 # @param root The directory to chroot to before running command.
+# @param fatal Boolean to determine if non-zero exit is fatal.
 # @return The output of command from stdout.
 def execWithCapture(command, argv, stdin = None, stderr = None, root='/'):
+                    fatal = False):
     if flags.testing:
         log.info("not running command because we're testing: %s %s"
                     % (command, " ".join(argv)))
@@ -257,6 +259,10 @@ def execWithCapture(command, argv, stdin = None, stderr = None, root='/'):
 
             if proc.returncode is not None:
                 break
+        # if we have anything other than a clean exit, and we get the fatal
+        # option, raise the OSError.
+        if proc.returncode and fatal:
+            raise OSError('Non-zero return code: %s' % proc.returncode)
     except OSError as e:
         log.error ("Error running " + command + ": " + e.strerror)
         closefds()
@@ -459,34 +465,6 @@ def memInstalled():
 
     return long(mem)
 
-## Suggest the size of the swap partition that will be created.
-# @param quiet Should size information be logged?
-# @return A tuple of the minimum and maximum swap size, in megabytes.
-def swapSuggestion(quiet=0):
-    mem = memInstalled()/1024
-    mem = ((mem/16)+1)*16
-    if not quiet:
-	log.info("Detected %sM of memory", mem)
-	
-    if mem <= 256:
-        minswap = 256
-        maxswap = 512
-    else:
-        if mem > 2048:
-            minswap = 1024
-            maxswap = 2048 + mem
-        else:
-            minswap = mem
-            maxswap = 2*mem
-
-    if isS390():
-        minswap = 1
-
-    if not quiet:
-	log.info("Swap attempt of %sM to %sM", minswap, maxswap)
-
-    return (minswap, maxswap)
-
 ## Create a directory path.  Don't fail if the directory already exists.
 # @param dir The directory path to create.
 def mkdirChain(dir):
@@ -500,19 +478,6 @@ def mkdirChain(dir):
             pass
 
         log.error("could not create directory %s: %s" % (dir, e.strerror))
-
-## Get the total amount of swap memory.
-# @return The total amount of swap memory in kilobytes, or 0 if unknown.
-def swapAmount():
-    f = open("/proc/meminfo", "r")
-    lines = f.readlines()
-    f.close()
-
-    for l in lines:
-        if l.startswith("SwapTotal:"):
-            fields = string.split(l)
-            return int(fields[1])
-    return 0
 
 ## Copy a device node.
 # Copies a device node by looking at the device type, major and minor device

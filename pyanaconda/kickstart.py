@@ -24,7 +24,7 @@ from storage.devices import LUKSDevice
 from storage.devicelibs.lvm import getPossiblePhysicalExtents
 from storage.devicelibs.mpath import MultipathConfigWriter, MultipathTopology
 from storage.formats import getFormat
-from storage.partitioning import doPartitioning
+from storage.partitioning import doPartitioning, clearPartitions, shouldClear, swap
 import storage.iscsi
 import storage.fcoe
 import storage.zfcp
@@ -546,9 +546,9 @@ class LogVolData(commands.logvol.F17_LogVolData):
         if self.mountpoint == "swap":
             type = "swap"
             self.mountpoint = ""
-            if self.recommended:
-                (self.size, self.maxSizeMB) = iutil.swapSuggestion()
-                self.grow = True
+            if self.recommended or self.hibernation:
+                self.size = swap.swapSuggestion(hibernation=self.hibernation)
+                self.grow = False
         else:
             if self.fstype != "":
                 type = self.fstype
@@ -856,15 +856,15 @@ class PartitionData(commands.partition.F17_PartData):
                     self.disk = disk
                     break
 
-            if self.disk == "":
+            if not self.disk:
                 raise KickstartValueError, formatErrorMsg(self.lineno, msg="Specified BIOS disk %s cannot be determined" % self.onbiosdisk)
 
         if self.mountpoint == "swap":
             type = "swap"
             self.mountpoint = ""
-            if self.recommended:
-                (self.size, self.maxSizeMB) = iutil.swapSuggestion()
-                self.grow = True
+            if self.recommended or self.hibernation:
+                self.size = swap.swapSuggestion(hibernation=self.hibernation)
+                self.grow = False
         # if people want to specify no mountpoint for some reason, let them
         # this is really needed for pSeries boot partitions :(
         elif self.mountpoint == "None":

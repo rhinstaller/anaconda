@@ -25,7 +25,7 @@ done
 consoletty="$tty"
 
 # put anaconda on the real console
-service_on_tty anaconda@.service $consoletty
+service_on_tty anaconda-tmux@.service $consoletty
 
 # put a shell on tty2 and the first virtualization console we find
 for tty in tty2 hvc0 hvc1 xvc0 hvsi0 hvsi1 hvsi2; do

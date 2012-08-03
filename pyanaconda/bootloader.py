@@ -1475,6 +1475,10 @@ class GRUB2(GRUB):
 
     def write_config(self):
         self.write_config_console(None)
+        # See if we have a password and if so update the boot args before we
+        # write out the defaults file.
+        if self.password or self.encrypted_password:
+            self.boot_args.add("rd.shell=0")
         self.write_defaults()
 
         # if we fail to setup password auth we should complete the
@@ -1658,6 +1662,8 @@ class YabootSILOBase(BootLoader):
                 continue
 
             args = Arguments()
+            if self.password or self.encrypted_password:
+                args.add("rd.shell=0")
             if image.initrd:
                 initrd_line = "\tinitrd=%s/%s\n" % (self.boot_prefix,
                                                     image.initrd)
@@ -1986,7 +1992,21 @@ class ZIPL(BootLoader):
         # DWL FIXME: resolve the boot device to a StorageDevice from storage
         buf = iutil.execWithCapture("zipl", [],
                                     stderr="/dev/tty5",
-                                    root=ROOT_PATH)
+                                    root=ROOT_PATH,
+                                    fatal=True)
+        for line in buf.splitlines():
+            if line.startswith("Preparing boot device: "):
+                # Output here may look like:
+                #     Preparing boot device: dasdb (0200).
+                #     Preparing boot device: dasdl.
+                # We want to extract the device name and pass that.
+                name = re.sub(".+?: ", "", line)
+                name = re.sub("(\s\(.+\))?\.$", "", name)
+                device = self.storage.devicetree.getDeviceByName(name)
+                if not device:
+                    raise BootLoaderError("could not find IPL device")
+
+                self.stage1_device = device
 
 class SILO(YabootSILOBase):
     name = "SILO"

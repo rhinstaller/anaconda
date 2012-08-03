@@ -263,7 +263,6 @@ update-desktop-database &> /dev/null || :
 %{_sbindir}/logpicker
 %{_sbindir}/anaconda-cleanup-initramfs
 %ifarch i386 i486 i586 i686 x86_64
-%{_sbindir}/gptsync
 %{_sbindir}/showpart
 %endif
 %{_datadir}/anaconda

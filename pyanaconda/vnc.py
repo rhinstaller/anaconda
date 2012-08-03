@@ -186,7 +186,11 @@ class VncServer:
         self.log.info(_("Starting VNC..."))
 
         # Lets call it from here for now.
-        self.initialize()
+        try:
+            self.initialize()
+        except Exception, e:
+            stdoutLog.critical("Could not initialize the VNC server: %s" % e)
+            sys.exit(1)
 
         if self.password and len(self.password) < 6:
             self.changeVNCPasswdWindow()

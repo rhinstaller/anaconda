@@ -241,7 +241,7 @@ class PassphraseEntryWindow:
         res = buttons.buttonPressed(rc)
 
         passphrase = None
-        if res == TEXT_OK_CHECK:
+        if res == TEXT_OK_CHECK or rc == "F12":
             passphrase = passphraseentry.value().strip()
 
         self.rc = passphrase

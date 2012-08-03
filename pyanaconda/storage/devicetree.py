@@ -599,6 +599,20 @@ class DeviceTree(object):
                 self.addIgnoredDisk(name)
                 return True
 
+        # Ignore any readonly disks
+        if (udev_device_is_disk(info) and not
+            (udev_device_is_cdrom(info) or
+             udev_device_is_partition(info) or
+             udev_device_is_dm_partition(info) or
+             udev_device_is_dm_lvm(info) or
+             udev_device_is_dm_crypt(info) or
+             (udev_device_is_md(info) and not
+              udev_device_get_md_container(info)))):
+            if iutil.get_sysfs_attr(info["sysfs_path"], 'ro') == '1':
+                log.debug("Ignoring read only device %s" % name)
+                self.addIgnoredDisk(name)
+                return True
+
         # FIXME: check for virtual devices whose slaves are on the ignore list
 
     def addUdevLVDevice(self, info):
@@ -846,16 +860,26 @@ class DeviceTree(object):
         kwargs = { "serial": serial, "vendor": vendor, "bus": bus }
         if udev_device_is_iscsi(info):
             diskType = iScsiDiskDevice
-            node = self.iscsi.getNode(
-                                   udev_device_get_iscsi_name(info),
-                                   udev_device_get_iscsi_address(info),
-                                   udev_device_get_iscsi_port(info),
-                                   udev_device_get_iscsi_nic(info))
-            kwargs["node"] = node
-            kwargs["nic"] = self.iscsi.ifaces.get(node.iface, node.iface)
-            kwargs["ibft"] = node in self.iscsi.ibftNodes
-            kwargs["initiator"] = self.iscsi.initiator
-            log.info("%s is an iscsi disk" % name)
+            initiator = udev_device_get_iscsi_initiator(info)
+            target = udev_device_get_iscsi_name(info)
+            address = udev_device_get_iscsi_address(info)
+            port = udev_device_get_iscsi_port(info)
+            nic = udev_device_get_iscsi_nic(info)
+            kwargs["initiator"] = initiator
+            if initiator == self.iscsi.initiator:
+                node = self.iscsi.getNode(target, address, port, nic)
+                kwargs["node"] = node
+                kwargs["ibft"] = node in self.iscsi.ibftNodes
+                kwargs["nic"] = self.iscsi.ifaces.get(node.iface, node.iface)
+                log.info("%s is an iscsi disk" % name)
+            else:
+                # qla4xxx partial offload
+                kwargs["node"] = None
+                kwargs["ibft"] = False
+                kwargs["nic"] = "offload:not_accessible_via_iscsiadm"
+                kwargs["fw_address"] = address
+                kwargs["fw_port"] = port
+                kwargs["fw_name"] = name
         elif udev_device_is_fcoe(info):
             diskType = FcoeDiskDevice
             kwargs["nic"]        = udev_device_get_fcoe_nic(info)
