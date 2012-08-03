@@ -1473,7 +1473,7 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
 
         if not foundkernel and iutil.isARM():
             if anaconda.platform.armMachine is not None:
-                selectKernel("kernel-" + anaconda.platform.armMachine)
+                selectKernel("kernel-%s" % anaconda.platform.armMachine)
                 foundkernel = True
 
         if not foundkernel:
