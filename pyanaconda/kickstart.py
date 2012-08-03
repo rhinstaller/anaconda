@@ -23,8 +23,9 @@ from storage.deviceaction import *
 from storage.devices import LUKSDevice
 from storage.devicelibs.lvm import getPossiblePhysicalExtents
 from storage.devicelibs.mpath import MultipathConfigWriter, MultipathTopology
+from storage.devicelibs import swap
 from storage.formats import getFormat
-from storage.partitioning import doPartitioning, clearPartitions, shouldClear, swap
+from storage.partitioning import doPartitioning
 import storage.iscsi
 import storage.fcoe
 import storage.zfcp
