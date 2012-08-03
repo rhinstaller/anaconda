@@ -69,8 +69,12 @@ class AppTests(unittest.TestCase):
         self.app.switch_screen_modal(self.screen)
 
 class WidgetTests(unittest.TestCase):
+    TEXT = u"test1\ntesting line\nte"
+    BLOCK = u"xxy\nxxx\nxxx"
+    BLOCK_TEXT = u"test1xxy\ntestixxxline\nte   xxx"
+
     def setUp(self):
-        self.widget = base.Widget(default = u"test1\ntesting line\nte")
+        self.widget = base.Widget(default = self.TEXT)
 
     def test_height(self):
         self.assertEquals(self.widget.height, 3)
@@ -82,6 +86,31 @@ class WidgetTests(unittest.TestCase):
         self.widget.clear()
         self.assertEquals(self.widget.content, [])
         self.assertEquals(self.widget.cursor, (0, 0))
+
+    def test_rendering(self):
+        self.assertEqual(unicode(self.widget), self.TEXT)
+
+    def test_draw(self):
+        target = base.Widget()
+        target.draw(self.widget)
+        self.assertEqual(unicode(target), self.TEXT)
+
+    def test_write(self):
+        self.widget.clear()
+        self.widget.write(self.TEXT)
+        self.assertEqual(unicode(self.widget), self.TEXT)
+
+    def test_block_write(self):
+        self.widget.setxy(0, 5)
+        self.widget.write(self.BLOCK, block = True)
+        self.assertEqual(unicode(self.widget), self.BLOCK_TEXT)
+
+    def test_block_draw(self):
+        source = base.Widget()
+        source.write(self.BLOCK)
+        self.widget.draw(source, row = 0, col = 5)
+        self.assertEqual(unicode(self.widget), self.BLOCK_TEXT)
+
 
 if __name__ == '__main__':
     unittest.main()

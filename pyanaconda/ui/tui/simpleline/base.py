@@ -539,7 +539,7 @@ class Widget(object):
         if col is None:
             col = self._cursor[1]
 
-        if width is None:
+        if width is None and self._max_width:
             width = self._max_width - col
 
         x = row
@@ -547,15 +547,6 @@ class Widget(object):
 
         # emulate typing machine
         for c in text:
-            # if the line is not in buffer, create it
-            if x >= len(self._buffer):
-                for i in range(x - len(self._buffer) + 1):
-                    self._buffer.append(list())
-
-            # if the line's length is not enough, fill it with spaces
-            if y >= len(self._buffer[x]):
-                self._buffer[x] += ((y - len(self._buffer[x]) + 1) * list(u" "))
-
             # process newline
             if c == "\n":
                 x += 1
@@ -565,12 +556,22 @@ class Widget(object):
                     y = 0
                 continue
 
+            # if the line is not in buffer, create it
+            if x >= len(self._buffer):
+                for i in range(x - len(self._buffer) + 1):
+                    self._buffer.append(list())
+
+            # if the line's length is not enough, fill it with spaces
+            if y >= len(self._buffer[x]):
+                self._buffer[x] += ((y - len(self._buffer[x]) + 1) * list(u" "))
+
+
             # "type" character
             self._buffer[x][y] = c
 
             # shift to the next char
             y += 1
-            if y >= col + width:
+            if not width is None and y >= col + width:
                 x += 1
                 if block:
                     y = col
