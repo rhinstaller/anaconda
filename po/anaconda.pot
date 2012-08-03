@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anaconda 18.2\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2012-08-02 17:05-0400\n"
+"POT-Creation-Date: 2012-08-03 16:44-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -77,12 +77,12 @@ msgstr ""
 msgid "Graphical installation is not available. Starting text mode."
 msgstr ""
 
-#: anaconda:659
+#: anaconda:647
 #, c-format
 msgid "Please ssh install@%s to begin the install."
 msgstr ""
 
-#: anaconda:661
+#: anaconda:649
 msgid "Please ssh install@<host> to continue installation."
 msgstr ""
 
@@ -216,7 +216,7 @@ msgstr ""
 msgid " against anaconda at %s"
 msgstr ""
 
-#: pyanaconda/installclass.py:68
+#: pyanaconda/installclass.py:69
 msgid "Install on System"
 msgstr ""
 
@@ -264,26 +264,26 @@ msgstr ""
 msgid "_Exit installer"
 msgstr ""
 
-#: pyanaconda/iutil.py:883
+#: pyanaconda/iutil.py:848
 msgid "Error determining boot device's disk name"
 msgstr ""
 
-#: pyanaconda/iutil.py:906
+#: pyanaconda/iutil.py:871
 msgid "the device containing /boot"
 msgstr ""
 
-#: pyanaconda/iutil.py:908
+#: pyanaconda/iutil.py:873
 #, python-format
 msgid ""
 "After shutdown, please perform a manual IPL from %s to continue installation."
 msgstr ""
 
-#: pyanaconda/kickstart.py:152
+#: pyanaconda/kickstart.py:153
 #, python-format
 msgid "Escrow certificate %s requires the network."
 msgstr ""
 
-#: pyanaconda/kickstart.py:160
+#: pyanaconda/kickstart.py:161
 #, python-format
 msgid ""
 "The following error was encountered while downloading the escrow "
@@ -292,7 +292,7 @@ msgid ""
 "%s"
 msgstr ""
 
-#: pyanaconda/kickstart.py:1501
+#: pyanaconda/kickstart.py:1502
 msgid "Running pre-installation scripts"
 msgstr ""
 
@@ -553,11 +553,11 @@ msgstr ""
 msgid "Starting VNC..."
 msgstr ""
 
-#: pyanaconda/vnc.py:223
+#: pyanaconda/vnc.py:227
 msgid "The VNC server is now running."
 msgstr ""
 
-#: pyanaconda/vnc.py:227
+#: pyanaconda/vnc.py:231
 msgid ""
 "\n"
 "\n"
@@ -568,7 +568,7 @@ msgid ""
 "\n"
 msgstr ""
 
-#: pyanaconda/vnc.py:232
+#: pyanaconda/vnc.py:236
 msgid ""
 "\n"
 "\n"
@@ -578,7 +578,7 @@ msgid ""
 "\n"
 msgstr ""
 
-#: pyanaconda/vnc.py:236
+#: pyanaconda/vnc.py:240
 msgid ""
 "\n"
 "\n"
@@ -586,7 +586,7 @@ msgid ""
 "\n"
 msgstr ""
 
-#: pyanaconda/vnc.py:238
+#: pyanaconda/vnc.py:242
 msgid ""
 "\n"
 "\n"
@@ -594,61 +594,61 @@ msgid ""
 "\n"
 msgstr ""
 
-#: pyanaconda/vnc.py:260 pyanaconda/vnc.py:353
+#: pyanaconda/vnc.py:264 pyanaconda/vnc.py:357
 msgid "VNC Configuration"
 msgstr ""
 
-#: pyanaconda/vnc.py:263 pyanaconda/vnc.py:357
+#: pyanaconda/vnc.py:267 pyanaconda/vnc.py:361
 msgid "No password"
 msgstr ""
 
-#: pyanaconda/vnc.py:265 pyanaconda/vnc.py:360
+#: pyanaconda/vnc.py:269 pyanaconda/vnc.py:364
 msgid ""
 "A password will prevent unauthorized listeners connecting and monitoring "
 "your installation progress.  Please enter a password to be used for the "
 "installation"
 msgstr ""
 
-#: pyanaconda/vnc.py:273 pyanaconda/vnc.py:368
+#: pyanaconda/vnc.py:277 pyanaconda/vnc.py:372
 msgid "Password:"
 msgstr ""
 
-#: pyanaconda/vnc.py:274 pyanaconda/vnc.py:369
+#: pyanaconda/vnc.py:278 pyanaconda/vnc.py:373
 msgid "Password (confirm):"
 msgstr ""
 
-#: pyanaconda/vnc.py:292 pyanaconda/vnc.py:391
+#: pyanaconda/vnc.py:296 pyanaconda/vnc.py:395
 msgid "Password Mismatch"
 msgstr ""
 
-#: pyanaconda/vnc.py:293 pyanaconda/vnc.py:392
+#: pyanaconda/vnc.py:297 pyanaconda/vnc.py:396
 msgid "The passwords you entered were different. Please try again."
 msgstr ""
 
-#: pyanaconda/vnc.py:298 pyanaconda/vnc.py:397
+#: pyanaconda/vnc.py:302 pyanaconda/vnc.py:401
 msgid "Password Length"
 msgstr ""
 
-#: pyanaconda/vnc.py:299 pyanaconda/vnc.py:398
+#: pyanaconda/vnc.py:303 pyanaconda/vnc.py:402
 msgid "The password must be at least six characters long."
 msgstr ""
 
-#: pyanaconda/vnc.py:321
+#: pyanaconda/vnc.py:325
 msgid "Unable to Start X"
 msgstr ""
 
-#: pyanaconda/vnc.py:323
+#: pyanaconda/vnc.py:327
 msgid ""
 "X was unable to start on your machine.  Would you like to start VNC to "
 "connect to this computer from another computer and perform a graphical "
 "install or continue with a text mode install?"
 msgstr ""
 
-#: pyanaconda/vnc.py:342
+#: pyanaconda/vnc.py:346
 msgid "Start VNC"
 msgstr ""
 
-#: pyanaconda/vnc.py:343 pyanaconda/vnc.py:345
+#: pyanaconda/vnc.py:347 pyanaconda/vnc.py:349
 msgid "Use text mode"
 msgstr ""
 
@@ -1248,17 +1248,17 @@ msgstr ""
 msgid "filesystem configuration missing a type"
 msgstr ""
 
-#: pyanaconda/storage/formats/fs.py:478
+#: pyanaconda/storage/formats/fs.py:479
 #, python-format
 msgid "Unknown return code: %d."
 msgstr ""
 
-#: pyanaconda/storage/formats/fs.py:499
+#: pyanaconda/storage/formats/fs.py:500
 #, python-format
 msgid "%(type)s filesystem check failure on %(device)s: "
 msgstr ""
 
-#: pyanaconda/storage/formats/fs.py:506
+#: pyanaconda/storage/formats/fs.py:507
 msgid ""
 "Errors like this usually mean there is a problem with the filesystem that "
 "will require user interaction to repair.  Before restarting installation, "
@@ -1267,37 +1267,37 @@ msgid ""
 "problems on the filesystem."
 msgstr ""
 
-#: pyanaconda/storage/formats/fs.py:514
+#: pyanaconda/storage/formats/fs.py:515
 msgid "Unrecoverable Error"
 msgstr ""
 
-#: pyanaconda/storage/formats/fs.py:888
+#: pyanaconda/storage/formats/fs.py:889
 msgid "File system errors left uncorrected."
 msgstr ""
 
-#: pyanaconda/storage/formats/fs.py:889
+#: pyanaconda/storage/formats/fs.py:890
 msgid "Operational error."
 msgstr ""
 
-#: pyanaconda/storage/formats/fs.py:890
+#: pyanaconda/storage/formats/fs.py:891
 msgid "Usage or syntax error."
 msgstr ""
 
-#: pyanaconda/storage/formats/fs.py:891
+#: pyanaconda/storage/formats/fs.py:892
 msgid "e2fsck cancelled by user request."
 msgstr ""
 
-#: pyanaconda/storage/formats/fs.py:892
+#: pyanaconda/storage/formats/fs.py:893
 msgid "Shared library error."
 msgstr ""
 
-#: pyanaconda/storage/formats/fs.py:1060
+#: pyanaconda/storage/formats/fs.py:1061
 msgid ""
 "Recoverable errors have been detected or dosfsck has discovered an internal "
 "inconsistency."
 msgstr ""
 
-#: pyanaconda/storage/formats/fs.py:1062
+#: pyanaconda/storage/formats/fs.py:1063
 msgid "Usage error."
 msgstr ""
 
@@ -1425,20 +1425,20 @@ msgstr ""
 msgid "Could not set zFCP device %(devnum)s offline (%(e)s)."
 msgstr ""
 
-#: pyanaconda/ui/gui/__init__.py:97
+#: pyanaconda/ui/gui/__init__.py:98
 #, python-format
 msgid "%(productName)s %(productVersion)s INSTALLATION"
 msgstr ""
 
-#: pyanaconda/ui/gui/__init__.py:113
+#: pyanaconda/ui/gui/__init__.py:114
 msgid "_Exit Installer"
 msgstr ""
 
-#: pyanaconda/ui/gui/__init__.py:126
+#: pyanaconda/ui/gui/__init__.py:127
 msgid "_No"
 msgstr ""
 
-#: pyanaconda/ui/gui/__init__.py:126
+#: pyanaconda/ui/gui/__init__.py:127
 msgid "_Yes"
 msgstr ""
 
