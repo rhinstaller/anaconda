@@ -718,9 +718,9 @@ if __name__ == "__main__":
     verdesc = "%s for %s %s" % (getAnacondaVersion(),
                                 product.productName, product.productVersion)
     if product.isFinal:
-        print "anaconda %s started."
+        print "anaconda %s started." % verdesc
     else:
-        print "anaconda %s (pre-release) started."
+        print "anaconda %s (pre-release) started." % verdesc
 
     import gettext
     _ = lambda x: gettext.ldgettext("anaconda", x)
