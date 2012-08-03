@@ -117,8 +117,8 @@ class BaseInstallClass(object):
         if bootreq:
             autorequests.extend(bootreq)
 
-        swap = swap.swapSuggestion()
-        autorequests.append(PartSpec(fstype="swap", size=swap, grow=False,
+        swp = swap.swapSuggestion()
+        autorequests.append(PartSpec(fstype="swap", size=swp, grow=False,
                                      lv=True, encrypted=True))
 
         storage.autoPartitionRequests = autorequests
