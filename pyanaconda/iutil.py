@@ -202,7 +202,7 @@ def execWithRedirect(command, argv, stdin = None, stdout = None,
 # @param root The directory to chroot to before running command.
 # @param fatal Boolean to determine if non-zero exit is fatal.
 # @return The output of command from stdout.
-def execWithCapture(command, argv, stdin = None, stderr = None, root='/'):
+def execWithCapture(command, argv, stdin = None, stderr = None, root='/',
                     fatal = False):
     if flags.testing:
         log.info("not running command because we're testing: %s %s"
