@@ -243,7 +243,7 @@ class App(object):
                     continue
 
                 # get the input from user
-                c = raw_input(prompt)
+                c = self.raw_input(prompt)
 
                 # process the input, if it wasn't processed (valid)
                 # increment the error counter
@@ -263,6 +263,11 @@ class App(object):
             # more processing in the future
             except ExitAllMainLoops:
                 raise
+
+    def raw_input(self, prompt):
+        """This method reads one input from user. Its basic form has only one line,
+        but we might need to override it for more complex apps or testing."""
+        return raw_input(prompt)
 
     def input(self, key):
         """Method called internally to process unhandled input key presses.
