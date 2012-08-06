@@ -64,7 +64,7 @@ class TUIHub(TUIObject, common.Hub):
 
         return True
 
-    def input(self, key):
+    def input(self, args, key):
         """Handle user input. Numbers are used to show a spoke, the rest is passed
         to the higher level for processing."""
         try:

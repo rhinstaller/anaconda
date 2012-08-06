@@ -234,7 +234,7 @@ class App(object):
                 last_screen = self._screens[-1][0]
 
                 # get the screen's prompt
-                prompt = last_screen.prompt()
+                prompt = last_screen.prompt(self._screens[-1][1])
 
                 # None means prompt handled the input by itself
                 # ask for redraw and continue
@@ -247,7 +247,7 @@ class App(object):
 
                 # process the input, if it wasn't processed (valid)
                 # increment the error counter
-                if not self.input(c):
+                if not self.input(self._screens[-1][1], c):
                     error_counter += 1
 
                 # redraw the screen after 5 bad inputs
@@ -269,9 +269,12 @@ class App(object):
         but we might need to override it for more complex apps or testing."""
         return raw_input(prompt)
 
-    def input(self, key):
+    def input(self, args, key):
         """Method called internally to process unhandled input key presses.
         Also handles the main quit and close commands.
+
+        :param args: optional argument passed from switch_screen calls
+        :type args: anything
 
         :param key: the string entered by user
         :type key: unicode
@@ -283,7 +286,7 @@ class App(object):
 
         # delegate the handling to active screen first
         if self._screens:
-            key = self._screens[-1][0].input(key)
+            key = self._screens[-1][0].input(args, key)
             if key is None:
                 return True
 
@@ -368,11 +371,14 @@ class UIScreen(object):
         """This does nothing in TUI, it is here to make API similar."""
         pass
 
-    def input(self, key):
+    def input(self, args, key):
         """Method called to process input. If the input is not handled here, return it.
 
         :param key: input string to process
         :type key: unicode
+
+        :param args: optional argument passed from switch_screen calls
+        :type args: anything
 
         :return: return True or None if key was handled, False if the screen should not
                  process input on the App and key if you want it to.
@@ -381,13 +387,16 @@ class UIScreen(object):
 
         return key
 
-    def prompt(self):
+    def prompt(self, args = None):
         """Return the text to be shown as prompt or handle the prompt and return None.
+
+        :param args: optional argument passed from switch_screen calls
+        :type args: anything
 
         :return: returns text to be shown next to the prompt for input or None
                  to skip further input processing
         :rtype: unicode|None
-"""
+        """
         return u"\tPlease make your choice from above ['q' to quit]: "
 
     @property

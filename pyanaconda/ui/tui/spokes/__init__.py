@@ -38,7 +38,7 @@ class TUISpoke(TUIObject, tui.Widget, Spoke):
         TUIObject.refresh(self, args)
         return True
 
-    def input(self, key):
+    def input(self, args, key):
         """Handle the input, the base class just forwards it to the App level."""
         return key
 

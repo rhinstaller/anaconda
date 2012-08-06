@@ -28,7 +28,7 @@ class PasswordSpoke(NormalTUISpoke):
 
         return True
 
-    def prompt(self):
+    def prompt(self, args = None):
         """Overriden prompt as password typing is special."""
         p1 = getpass.getpass("Password: ")
         p2 = getpass.getpass("Password (confirm): ")
