@@ -1097,6 +1097,15 @@ class Storage(object):
         else:
             name = "req%d" % self.nextID
 
+        if "weight" not in kwargs:
+            fmt = kwargs.get("format")
+            if fmt:
+                mountpoint = getattr(fmt, "mountpoint", None)
+
+                kwargs["weight"] = self.platform.weight(mountpoint=mountpoint,
+                                                        fstype=fmt.type)
+
+
         return PartitionDevice(name, *args, **kwargs)
 
     def newMDArray(self, *args, **kwargs):

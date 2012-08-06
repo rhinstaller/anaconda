@@ -1033,13 +1033,6 @@ class PartitionData(commands.partition.F17_PartData):
             except KeyError:
                 pass
 
-            if "format" in kwargs:
-                # set weight based on fstype and mountpoint
-                mpt = getattr(kwargs["format"], "mountpoint", None)
-                fstype = kwargs["format"].type
-                kwargs["weight"] = storage.platform.weight(fstype=fstype,
-                                                           mountpoint=mpt)
-
             request = storage.newPartition(**kwargs)
             storage.createDevice(request)
 
