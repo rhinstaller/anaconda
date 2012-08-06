@@ -15,10 +15,10 @@
 #
 # Author: Chris Lumens <clumens@redhat.com>
 
-SUBDIRS = gui tui
+SUBDIRS = 
 
 MAINTAINERCLEANFILES = Makefile.in
 
 pkgpyexecdir = $(pyexecdir)/py$(PACKAGE_NAME)
-uidir        = $(pkgpyexecdir)/ui
-ui_PYTHON    = *.py
+simplelinedir        = $(pkgpyexecdir)/ui/tui/simpleline
+simpleline_PYTHON    = *.py

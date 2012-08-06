@@ -15,10 +15,10 @@
 #
 # Author: Chris Lumens <clumens@redhat.com>
 
-SUBDIRS = gui tui
+SUBDIRS = hubs spokes simpleline tools
 
 MAINTAINERCLEANFILES = Makefile.in
 
 pkgpyexecdir = $(pyexecdir)/py$(PACKAGE_NAME)
-uidir        = $(pkgpyexecdir)/ui
-ui_PYTHON    = *.py
+tuidir        = $(pkgpyexecdir)/ui/tui
+tui_PYTHON    = *.py

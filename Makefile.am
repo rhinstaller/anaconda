@@ -131,14 +131,14 @@ runtextspoke:
 	ANACONDA_INSTALL_CLASSES=${PWD}/pyanaconda/installclasses \
 	PYTHONPATH=.:pyanaconda/isys/.libs:widgets/python/:widgets/src/.libs/ \
 	LD_LIBRARY_PATH=widgets/src/.libs \
-	pyanaconda/ui/tui/tools/run-spoke.py ${SPOKE_MODULE} ${SPOKE_CLASS}
+	pyanaconda/ui/tui/tools/run-text-spoke.py ${SPOKE_MODULE} ${SPOKE_CLASS}
 
 runtexthub:
 	ANACONDA_DATA=${PWD}/data \
 	ANACONDA_INSTALL_CLASSES=${PWD}/pyanaconda/installclasses \
 	PYTHONPATH=.:pyanaconda/isys/.libs:widgets/python/:widgets/src/.libs/ \
 	LD_LIBRARY_PATH=widgets/src/.libs \
-	pyanaconda/ui/tui/tools/run-hub.py ${HUB_MODULE} ${HUB_CLASS}
+	pyanaconda/ui/tui/tools/run-text-hub.py ${HUB_MODULE} ${HUB_CLASS}
 
 
 runglade:

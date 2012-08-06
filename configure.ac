@@ -296,6 +296,11 @@ AC_CONFIG_FILES([Makefile
                  pyanaconda/ui/gui/spokes/lib/Makefile
                  pyanaconda/ui/gui/tools/Makefile
                  pyanaconda/ui/gui/Makefile
+                 pyanaconda/ui/tui/hubs/Makefile
+                 pyanaconda/ui/tui/simpleline/Makefile
+                 pyanaconda/ui/tui/spokes/Makefile
+                 pyanaconda/ui/tui/tools/Makefile
+                 pyanaconda/ui/tui/Makefile
                  tests/Makefile
                  tests/mock/Makefile
                  tests/kickstart_test/Makefile

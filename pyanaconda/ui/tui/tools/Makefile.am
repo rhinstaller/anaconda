@@ -15,10 +15,4 @@
 #
 # Author: Chris Lumens <clumens@redhat.com>
 
-SUBDIRS = gui tui
-
-MAINTAINERCLEANFILES = Makefile.in
-
-pkgpyexecdir = $(pyexecdir)/py$(PACKAGE_NAME)
-uidir        = $(pkgpyexecdir)/ui
-ui_PYTHON    = *.py
+EXTRA_DIST = run-text-hub.py run-text-spoke.py
