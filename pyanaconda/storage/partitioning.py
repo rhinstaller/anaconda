@@ -131,12 +131,6 @@ def _schedulePartitions(storage, disks):
         if request.requiredSpace and request.requiredSpace > free:
             continue
 
-        if request.fstype is None:
-            if request.mountpoint == "/boot":
-                request.fstype = storage.defaultBootFSType
-            else:
-                request.fstype = storage.defaultFSType
-
         elif request.fstype in ("prepboot", "efi", "biosboot", "hfs+") and \
              stage1_device:
             # there should never be a need for more than one of these

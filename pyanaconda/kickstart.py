@@ -236,7 +236,6 @@ class Authconfig(commands.authconfig.FC3_Authconfig):
 
 class AutoPart(commands.autopart.F17_AutoPart):
     def execute(self, storage, ksdata, instClass):
-        from pyanaconda.platform import getPlatform
         from pyanaconda.storage.partitioning import doAutoPartition
 
         if not self.autopart:
@@ -244,7 +243,7 @@ class AutoPart(commands.autopart.F17_AutoPart):
 
         # sets up default autopartitioning.  use clearpart separately
         # if you want it
-        instClass.setDefaultPartitioning(storage, getPlatform())
+        instClass.setDefaultPartitioning(storage)
         storage.doAutoPart = True
 
         if self.encrypted:

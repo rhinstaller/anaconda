@@ -310,8 +310,6 @@ class S390(Platform):
         """Return the default platform-specific partitioning information."""
         from storage.partspec import PartSpec
         return [PartSpec(mountpoint="/boot", size=500,
-#TODO: need to pass this info in w/o using anaconda object
-#                        fstype=self.anaconda.storage.defaultBootFSType,
                          weight=self.weight(mountpoint="/boot"), lv=True,
                          singlePV=True)]
 
