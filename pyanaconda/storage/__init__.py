@@ -26,6 +26,7 @@ import stat
 import errno
 import sys
 import statvfs
+import copy
 
 import nss.nss
 import parted
@@ -2081,6 +2082,20 @@ class Storage(object):
                                         mountpoint=mountpoint,
                                         fmt_args=fmt_args)
             self.createDevice(device)
+
+    def copy(self):
+        new = copy.deepcopy(self)
+        # go through and re-get partedPartitions from the disks since they
+        # don't get deep-copied
+        for partition in new.partitions:
+            if not partition._partedPartition:
+                continue
+
+            p = partition.disk.format.partedDisk.getPartitionByPath(partition.path)
+            partition.partedPartition = p
+
+        return new
+
 
 def mountExistingSystem(fsset, rootDevice,
                         allowDirty=None, dirtyCB=None,
