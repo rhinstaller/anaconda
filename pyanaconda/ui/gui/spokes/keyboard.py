@@ -138,6 +138,7 @@ class AddLayoutDialog(UIObject):
 
 class KeyboardSpoke(NormalSpoke):
     builderObjects = ["addedLayoutStore", "keyboardWindow",
+                      "layoutTestBuffer",
                       "addImage", "removeImage", "upImage", "downImage", "previewImage"]
     mainWidgetName = "keyboardWindow"
     uiFile = "spokes/keyboard.glade"
@@ -185,6 +186,11 @@ class KeyboardSpoke(NormalSpoke):
 
     def refresh(self):
         NormalSpoke.refresh(self)
+
+        # Clear out the layout testing box every time the spoke is loaded.  It
+        # doesn't make sense to leave temporary data laying around.
+        buf = self.builder.get_object("layoutTestBuffer")
+        buf.set_text("")
 
         # Clear and repopulate addedLayoutStore with values from self.data
         self._store.clear()
