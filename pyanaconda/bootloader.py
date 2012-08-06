@@ -620,6 +620,7 @@ class BootLoader(object):
         return valid
 
     def set_stage1_device(self, devices):
+        self.stage1_device = None
         if not self.stage1_disk:
             raise BootLoaderError("need stage1 disk to set stage1 device")
 
@@ -627,7 +628,6 @@ class BootLoader(object):
             self.stage1_device = self.stage2_device
             return
 
-        self.stage1_device = None
         for device in devices:
             if self.stage1_disk not in device.disks:
                 continue

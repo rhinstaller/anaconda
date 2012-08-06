@@ -38,6 +38,7 @@ from pykickstart.constants import *
 from pyanaconda.flags import flags
 from pyanaconda import tsort
 from pyanaconda.errors import *
+from pyanaconda.bootloader import BootLoaderError
 
 from errors import *
 from devices import *
@@ -1751,7 +1752,10 @@ class Storage(object):
 
         self.bootloader.stage1_disk = self.devicetree.resolveDevice(self.data.bootloader.bootDrive)
         self.bootloader.stage2_device = self.bootDevice
-        self.bootloader.set_stage1_device(self.devices)
+        try:
+            self.bootloader.set_stage1_device(self.devices)
+        except BootLoaderError as e:
+            log.debug("failed to set bootloader stage1 device: %s" % e)
 
     @property
     def bootDisk(self):
@@ -1767,6 +1771,10 @@ class Storage(object):
         if self.fsset:
             dev = self.mountpoints.get("/boot", self.rootDevice)
         return dev
+
+    @property
+    def bootLoaderDevice(self):
+        return getattr(self.bootloader, "stage1_device", None)
 
     @property
     def bootFSTypes(self):
