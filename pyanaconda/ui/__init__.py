@@ -76,9 +76,9 @@ class UserInterface(object):
     ### MESSAGE HANDLING METHODS
     ###
     def showError(self, message):
-        """Display an error dialog with the given message.  After this dialog
-           is displayed, anaconda will quit.  There is no return value.  This
-           method must be implemented by all UserInterface subclasses.
+        """Display an error dialog with the given message. There is no return
+           value. This method must be implemented by all UserInterface
+           subclasses.
 
            In the code, this method should be used sparingly and only for
            critical errors that anaconda cannot figure out how to recover from.
@@ -111,3 +111,16 @@ class UserInterface(object):
                                         key=lambda obj: obj.priority))
 
         return actionClasses
+
+    def mainExceptionWindow(self, text, exn_file):
+        """Return window with the exception and buttons for debugging, bug
+           reporting and exitting the installer.
+
+           This method will be called only when unhandled exception appears.
+        """
+        raise NotImplementedError
+
+    def saveExceptionWindow(self, account_manager, signature):
+        """Show a window that provides a way to report a bug."""
+        raise NotImplementedError
+

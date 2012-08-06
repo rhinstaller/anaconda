@@ -1,6 +1,6 @@
 [Unit]
 Description=Clean Up Initramfs
-Before=anaconda@.service
+Before=anaconda.service
 ConditionPathIsDirectory=/run/initramfs/usr/lib/modules
 
 [Service]

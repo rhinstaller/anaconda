@@ -1,0 +1,9 @@
+[Unit]
+Description=Anaconda
+After=anaconda.target
+
+[Service]
+Type=forking
+Environment=HOME=/root MALLOC_CHECK_=2 MALLOC_PERTURB_=204 PATH=/usr/bin:/bin:/sbin:/usr/sbin:/mnt/sysimage/bin:/mnt/sysimage/usr/bin:/mnt/sysimage/usr/sbin:/mnt/sysimage/sbin LANG=en_US.UTF-8
+WorkingDirectory=/root
+ExecStart=/usr/bin/tmux -u -f /usr/share/anaconda/tmux.conf start

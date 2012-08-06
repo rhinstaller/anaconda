@@ -146,6 +146,7 @@ class Spoke(UIObject):
         self.storage = storage
         self.payload = payload
         self.instclass = instclass
+        self.applyOnSkip = False
 
     def apply(self):
         """Apply the selections made on this Spoke to the object's preset

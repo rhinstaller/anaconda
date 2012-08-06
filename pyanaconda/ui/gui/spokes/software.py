@@ -25,19 +25,21 @@ N_ = lambda x: x
 
 from pyanaconda.flags import flags
 
-from pyanaconda.ui.gui import communication
+from pyanaconda.ui.gui import UIObject, communication
 from pyanaconda.ui.gui.spokes import NormalSpoke
-from pyanaconda.ui.gui.utils import gdk_threaded
+from pyanaconda.ui.gui.spokes.lib.detailederror import DetailedErrorDialog
+from pyanaconda.ui.gui.utils import enlightbox, gdk_threaded
 from pyanaconda.ui.gui.categories.software import SoftwareCategory
-from pyanaconda.ui.gui.utils import enlightbox
 from .source import AdditionalReposDialog
+
+import sys
 
 __all__ = ["SoftwareSelectionSpoke"]
 
 class SoftwareSelectionSpoke(NormalSpoke):
     builderObjects = ["addonStore", "desktopStore", "softwareWindow"]
     mainWidgetName = "softwareWindow"
-    uiFile = "spokes/software.ui"
+    uiFile = "spokes/software.glade"
 
     category = SoftwareCategory
 
@@ -46,7 +48,7 @@ class SoftwareSelectionSpoke(NormalSpoke):
 
     def __init__(self, *args, **kwargs):
         NormalSpoke.__init__(self, *args, **kwargs)
-        self._error = False
+        self._errorMsgs = None
         self._tx_id = None
 
         self.selectedGroups = []
@@ -89,12 +91,12 @@ class SoftwareSelectionSpoke(NormalSpoke):
         try:
             self.payload.checkSoftwareSelection()
         except DependencyError as e:
-            self._error = True
+            self._errorMsgs = "\n".join(sorted(e.message))
             communication.send_message(self.__class__.__name__,
                                        _("Error checking software dependencies"))
             self._tx_id = None
         else:
-            self._error = False
+            self._errorMsgs = None
             self._tx_id = self.payload.txID
         finally:
             communication.send_ready(self.__class__.__name__)
@@ -105,7 +107,7 @@ class SoftwareSelectionSpoke(NormalSpoke):
         from pyanaconda.kickstart import packagesSeen
 
         processingDone = not threadMgr.get("AnaCheckSoftwareThread") and \
-                         not self._error and \
+                         not self._errorMsgs and \
                          self._tx_id == self.payload.txID
 
         if flags.automatedInstall:
@@ -130,7 +132,7 @@ class SoftwareSelectionSpoke(NormalSpoke):
         from pyanaconda.kickstart import packagesSeen
         from pyanaconda.threads import threadMgr
 
-        if self._error:
+        if self._errorMsgs:
             return _("Error checking software selection")
 
         if threadMgr.get("AnaPayloadMDThread") or self.payload.baseRepo is None:
@@ -187,6 +189,8 @@ class SoftwareSelectionSpoke(NormalSpoke):
         self.apply()
 
     def refresh(self):
+        from gi.repository import Gtk
+
         from pyanaconda.threads import threadMgr
         NormalSpoke.refresh(self)
 
@@ -229,6 +233,9 @@ class SoftwareSelectionSpoke(NormalSpoke):
         self.excludedGroups = [g.name
                                 for g in self.data.packages.excludedGroupList]
 
+        if self._errorMsgs:
+            self.window.set_info(Gtk.MessageType.WARNING, _("Error checking software dependencies.  Click for details."))
+
     # Returns the row in the store corresponding to what's selected on the
     # left hand panel, or None if nothing's selected.
     def _get_selected_desktop(self):
@@ -258,3 +265,28 @@ class SoftwareSelectionSpoke(NormalSpoke):
         with enlightbox(self.window, self._addRepoDialog.window):
             response =  self._addRepoDialog.run()
 
+    def on_info_bar_clicked(self, *args):
+        if not self._errorMsgs:
+            return
+
+        dialog = DetailedErrorDialog(self.data, buttons=[_("_Quit"), _("_Remove Packages"),
+                                                         _("_Modify Software Source")])
+        with enlightbox(self.window, dialog.window):
+            dialog.refresh(self._errorMsgs)
+            rc = dialog.run()
+
+        dialog.window.destroy()
+
+        if rc == 0:
+            # Close the dialog so the user can change selections.
+            pass
+        elif rc == 1:
+            # Quit.
+            sys.exit(0)
+        elif rc == 2:
+            # TODO:  Attempt to remove the affected packages.
+            pass
+        elif rc == 3:
+            # Send the user to the installation source spoke.
+            self.skipTo = "SourceSpoke"
+            self.window.emit("back-clicked")

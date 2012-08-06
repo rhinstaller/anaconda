@@ -101,8 +101,10 @@ class Hub(GUIObject, common.Hub):
         # prevent the user from switching away.  It's up to the spoke's back
         # button handler to kill its own layer of main loop.
         Gtk.main()
-        action.apply()
-        action.execute()
+
+        if not action.skipTo or (action.skipTo and action.applyOnSkip):
+            action.apply()
+            action.execute()
 
     def _createBox(self):
         from gi.repository import Gtk, AnacondaWidgets

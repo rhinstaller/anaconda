@@ -36,7 +36,7 @@ from localeinfo import expandLangs
 from flags import flags
 from textw.constants_text import *
 from constants import *
-from network import hasActiveNetDev
+from network import hasActiveNetDev, getDevices
 from installinterfacebase import InstallInterfaceBase
 import imp
 import textw
@@ -241,7 +241,7 @@ class PassphraseEntryWindow:
         res = buttons.buttonPressed(rc)
 
         passphrase = None
-        if res == TEXT_OK_CHECK:
+        if res == TEXT_OK_CHECK or rc == "F12":
             passphrase = passphraseentry.value().strip()
 
         self.rc = passphrase
@@ -389,7 +389,7 @@ class InstallInterface(InstallInterfaceBase):
         return passphrase
 
     def enableNetwork(self):
-        if len(self.anaconda.network.netdevices) == 0:
+        if len(getDevices) == 0:
             return False
         from textw.netconfig_text import NetworkConfiguratorText
         w = NetworkConfiguratorText(self.screen, self.anaconda)

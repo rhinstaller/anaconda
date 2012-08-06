@@ -23,7 +23,6 @@
 from snack import *
 from constants import *
 from textw.constants_text import *
-from textw.add_drive_text import addDriveDialog
 from text import WaitWindow, OkCancelWindow, ProgressWindow, PassphraseEntryWindow, stepToClasses
 from flags import flags
 import sys
@@ -92,11 +91,11 @@ class RescueInterface(InstallInterfaceBase):
 	else:
 	    return OkCancelWindow(self.screen, title, text)
 
-    def enableNetwork(self, anaconda):
-        if len(anaconda.network.netdevices) == 0:
+    def enableNetwork(self):
+        if len(network.getDevices()) == 0:
             return False
         from textw.netconfig_text import NetworkConfiguratorText
-        w = NetworkConfiguratorText(self.screen, anaconda)
+        w = NetworkConfiguratorText(self.screen, self)
         ret = w.run()
         return ret != INSTALL_BACK
 
@@ -114,9 +113,6 @@ class RescueInterface(InstallInterfaceBase):
 
     def resume(self):
         pass
-
-    def run(self, anaconda):
-        self.anaconda = anaconda
 
     def __init__(self):
         InstallInterfaceBase.__init__(self)
@@ -171,18 +167,6 @@ def makeResolvConf(instPath):
     f.write(buf)
     f.close()
 
-#
-# Write out something useful for networking and start interfaces
-#
-def startNetworking(network, intf):
-    # do lo first
-    if os.system("/usr/sbin/ifconfig lo 127.0.0.1"):
-        log.error("Error trying to start lo in rescue.py::startNetworking()")
-
-    # start up dhcp interfaces first
-    if not network.bringUp():
-        log.error("Error bringing up network interfaces")
-
 def runShell(screen = None, msg=""):
     if screen:
         screen.suspend()
@@ -204,7 +188,7 @@ def runShell(screen = None, msg=""):
     if os.path.exists("/usr/bin/firstaidkit-qs"):
         proc = subprocess.Popen(["/usr/bin/firstaidkit-qs"])
         proc.wait()
-    
+
     if proc is None or proc.returncode!=0:
         if os.path.exists("/bin/bash"):
             iutil.execConsole()
@@ -215,7 +199,9 @@ def runShell(screen = None, msg=""):
     if screen:
         screen.finish()
 
-def doRescue(anaconda):
+def doRescue(rescue_mount, ksdata, platform):
+    import storage
+
     for file in [ "services", "protocols", "group", "joe", "man.config",
                   "nsswitch.conf", "selinux", "mke2fs.conf" ]:
         try:
@@ -223,107 +209,82 @@ def doRescue(anaconda):
         except OSError:
             pass
 
+    intf = RescueInterface()
+
     # see if they would like networking enabled
     if not network.hasActiveNetDev():
+        rc = ButtonChoiceWindow(intf.screen, _("Setup Networking"),
+            _("Do you want to start the network interfaces on "
+              "this system?"), [_("Yes"), _("No")])
 
-        while True:
-            rc = ButtonChoiceWindow(anaconda.intf.screen, _("Setup Networking"),
-                _("Do you want to start the network interfaces on "
-                  "this system?"), [_("Yes"), _("No")])
-
-            if rc != _("No").lower():
-                if not anaconda.intf.enableNetwork(anaconda):
-                    anaconda.intf.messageWindow(_("No Network Available"),
-                        _("Unable to activate a networking device.  Networking "
-                          "will not be available in rescue mode."))
-                    break
-
-                startNetworking(anaconda.network, anaconda.intf)
-                break
-            else:
-                break
-
-    # shutdown the interface now
-    anaconda.intf.shutdown()
-    anaconda.intf = None
+        if rc != _("No").lower():
+            if not intf.enableNetwork():
+                intf.messageWindow(_("No Network Available"),
+                    _("Unable to activate a networking device.  Networking "
+                      "will not be available in rescue mode."))
 
     # Early shell access with no disk access attempts
-    if not anaconda.rescue_mount:
+    if not rescue_mount:
         # the %post should be responsible for mounting all needed file systems
         # NOTE: 1st script must be bash or simple python as nothing else might be available in the rescue image
-        if anaconda.ksdata and anaconda.ksdata.scripts:
+        if flags.automatedInstall and ksdata.scripts:
            from kickstart import runPostScripts
-           runPostScripts(anaconda.ksdata.scripts)
+           runPostScripts(ksdata.scripts)
         else:
            runShell()
 
         sys.exit(0)
 
-    anaconda.intf = RescueInterface()
-
-    if anaconda.ksdata:
-        if anaconda.ksdata.rescue and anaconda.ksdata.rescue.romount:
-            readOnly = 1
-        else:
-            readOnly = 0
+    if flags.automatedInstall:
+        readOnly = ksdata.rescue.romount
     else:
         # prompt to see if we should try and find root filesystem and mount
         # everything in /etc/fstab on that root
         while True:
-            rc = ButtonChoiceWindow(anaconda.intf.screen, _("Rescue"),
+            rc = ButtonChoiceWindow(intf.screen, _("Rescue"),
                 _("The rescue environment will now attempt to find your "
                   "Linux installation and mount it under the directory "
                   "%s.  You can then make any changes required to your "
                   "system.  If you want to proceed with this step choose "
                   "'Continue'.  You can also choose to mount your file systems "
                   "read-only instead of read-write by choosing 'Read-Only'.  "
-                  "If you need to activate SAN devices choose 'Advanced'."
                   "\n\n"
                   "If for some reason this process fails you can choose 'Skip' "
                   "and this step will be skipped and you will go directly to a "
                   "command shell.\n\n") % (ROOT_PATH,),
-                  [_("Continue"), _("Read-Only"), _("Skip"), _("Advanced")] )
+                  [_("Continue"), _("Read-Only"), _("Skip")] )
 
             if rc == _("Skip").lower():
-                runShell(anaconda.intf.screen)
+                runShell(intf.screen)
                 sys.exit(0)
-            elif rc == _("Advanced").lower():
-                addDialog = addDriveDialog(anaconda)
-                addDialog.addDriveDialog(anaconda.intf.screen)
-                continue
-            elif rc == _("Read-Only").lower():
-                readOnly = 1
             else:
-                readOnly = 0
+                readOnly = rc == _("Read-Only").lower()
+
             break
 
-    import storage
-    storage.storageInitialize(anaconda)
+    sto = storage.Storage(ksdata, platform)
+    storage.storageInitialize(sto, ksdata, [])
+    roots = storage.findExistingInstallations(sto.devicetree)
 
-    (disks, notUpgradable) = storage.findExistingRootDevices(anaconda, upgradeany=True)
-
-    if not disks:
+    if not roots:
         root = None
-    elif (len(disks) == 1) or anaconda.ksdata:
-        root = disks[0]
+    elif len(roots) == 1 or ksdata.upgrade.upgrade:
+        root = roots[0]
     else:
-        height = min (len (disks), 12)
+        height = min (len (roots), 12)
         if height == 12:
             scroll = 1
         else:
             scroll = 0
 
-        devList = []
-        for (device, relstr) in disks:
-            if getattr(device.format, "label", None):
-                devList.append("%s (%s) - %s" % (device.name, device.format.label, relstr))
-            else:
-                devList.append("%s - %s" % (device.name, relstr))
+        lst = []
+        for root in roots:
+            lst.append("%s" % root.name)
 
         (button, choice) = \
-            ListboxChoiceWindow(anaconda.intf.screen, _("System to Rescue"),
+            ListboxChoiceWindow(intf.screen, _("System to Rescue"),
                                 _("Which device holds the root partition "
-                                  "of your installation?"), devList,
+                                  "of your installation?"), lst,
                                 [ _("OK"), _("Exit") ], width = 30,
                                 scroll = scroll, height = height,
                                 help = "multipleroot")
@@ -331,15 +292,15 @@ def doRescue(anaconda):
         if button == _("Exit").lower():
             root = None
         else:
-            root = disks[choice]
+            root = roots[choice]
 
-    rootmounted = 0
+    rootmounted = False
 
     if root:
         try:
             # TODO: add a callback to warn about dirty filesystems
-            rc = mountExistingSystem(anaconda.storage.fsset, root,
-                                     allowDirty = 1,
+            rc = mountExistingSystem(sto.fsset, root.device,
+                                     allowDirty = True,
                                      readOnly = readOnly)
 
             if not flags.imageInstall:
@@ -350,20 +311,20 @@ def doRescue(anaconda):
                         "when you are finished.") % ANACONDA_CLEANUP
 
             if rc == -1:
-                if anaconda.ksdata:
+                if flags.automatedInstall:
                     log.error("System had dirty file systems which you chose not to mount")
                 else:
-                    ButtonChoiceWindow(anaconda.intf.screen, _("Rescue"),
+                    ButtonChoiceWindow(intf.screen, _("Rescue"),
                         _("Your system had dirty file systems which you chose not "
                           "to mount.  Press return to get a shell from which "
                           "you can fsck and mount your partitions. %s") % msg,
                         [_("OK")], width = 50)
-                rootmounted = 0
+                rootmounted = False
             else:
-                if anaconda.ksdata:
+                if flags.automatedInstall:
                     log.info("System has been mounted under: %s" % ROOT_PATH)
                 else:
-                    ButtonChoiceWindow(anaconda.intf.screen, _("Rescue"),
+                    ButtonChoiceWindow(intf.screen, _("Rescue"),
                        _("Your system has been mounted under %(rootPath)s.\n\n"
                          "Press <return> to get a shell. If you would like to "
                          "make your system the root environment, run the command:\n\n"
@@ -371,12 +332,12 @@ def doRescue(anaconda):
                                        {'rootPath': ROOT_PATH,
                                         'msg': msg},
                                        [_("OK")] )
-                rootmounted = 1
+                rootmounted = True
 
                 # now turn on swap
                 if not readOnly:
                     try:
-                        anaconda.storage.turnOnSwap()
+                        sto.turnOnSwap()
                     except StorageError:
                         log.error("Error enabling swap")
 
@@ -424,7 +385,7 @@ def doRescue(anaconda):
             raise
         except Exception as e:
             log.error("doRescue caught exception: %s" % e)
-            if anaconda.ksdata:
+            if flags.automatedInstall:
                 log.error("An error occurred trying to mount some or all of your system")
             else:
                 if not flags.imageInstall:
@@ -434,16 +395,15 @@ def doRescue(anaconda):
                     msg = _("Run %s to unmount the system "
                             "when you are finished.") % ANACONDA_CLEANUP
 
-                ButtonChoiceWindow(anaconda.intf.screen, _("Rescue"),
+                ButtonChoiceWindow(intf.screen, _("Rescue"),
                     _("An error occurred trying to mount some or all of your "
                       "system. Some of it may be mounted under %s.\n\n"
                       "Press <return> to get a shell.") % ROOT_PATH + msg,
                       [_("OK")] )
     else:
-        if anaconda.ksdata and \
-               anaconda.ksdata.reboot.action in [KS_REBOOT, KS_SHUTDOWN]:
+        if flags.automatedInstall and ksdata.reboot.action in [KS_REBOOT, KS_SHUTDOWN]:
             log.info("No Linux partitions found")
-            anaconda.intf.screen.finish()
+            intf.screen.finish()
             print(_("You don't have any Linux partitions.  Rebooting.\n"))
             sys.exit(0)
         else:
@@ -452,7 +412,7 @@ def doRescue(anaconda):
                         "from the shell.")
             else:
                 msg = ""
-            ButtonChoiceWindow(anaconda.intf.screen, _("Rescue Mode"),
+            ButtonChoiceWindow(intf.screen, _("Rescue Mode"),
                                _("You don't have any Linux partitions. Press "
                                  "return to get a shell.%s") % msg,
                                [ _("OK") ], width = 50)
@@ -460,28 +420,27 @@ def doRescue(anaconda):
     msgStr = ""
 
     if rootmounted and not readOnly:
-        anaconda.storage.makeMtab()
+        sto.makeMtab()
         try:
             makeResolvConf(ROOT_PATH)
         except (OSError, IOError) as e:
             log.error("error making a resolv.conf: %s" %(e,))
         msgStr = _("Your system is mounted under the %s directory.") % (ROOT_PATH,)
-        ButtonChoiceWindow(anaconda.intf.screen, _("Rescue"), msgStr, [_("OK")] )
+        ButtonChoiceWindow(intf.screen, _("Rescue"), msgStr, [_("OK")] )
 
     # we do not need ncurses anymore, shut them down
-    anaconda.intf.shutdown()
+    intf.shutdown()
 
     #create /etc/fstab in ramdisk, so it is easier to work with RO mounted filesystems
     makeFStab()
 
     # run %post if we've mounted everything
-    if rootmounted and not readOnly and anaconda.ksdata:
+    if rootmounted and not readOnly and flags.automatedInstall:
         from kickstart import runPostScripts
-        runPostScripts(anaconda.ksdata.scripts)
+        runPostScripts(ksdata.scripts)
 
     # start shell if reboot wasn't requested
-    if not anaconda.ksdata or \
-           not anaconda.ksdata.reboot.action in [KS_REBOOT, KS_SHUTDOWN]:
+    if not flags.automatedInstall or not ksdata.reboot.action in [KS_REBOOT, KS_SHUTDOWN]:
         runShell(msg=msgStr)
 
     sys.exit(0)

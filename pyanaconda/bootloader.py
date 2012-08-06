@@ -28,12 +28,13 @@ import struct
 
 from pyanaconda import iutil
 from pyanaconda.storage.devicelibs import mdraid
-from pyanaconda.isys import sync
+from pyanaconda.isys import sync, getMacAddress
 from pyanaconda.product import productName
 from pyanaconda.flags import flags
 from pyanaconda.constants import *
 from pyanaconda.storage.errors import StorageError
 from pyanaconda.storage.fcoe import fcoe
+import pyanaconda.network
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
@@ -750,14 +751,11 @@ class BootLoader(object):
             Keyword Arguments:
 
                 storage - a pyanaconda.storage.Storage instance
-                network - a pyanaconda.network.Network instance (for network
-                          storage devices' boot arguments)
 
             All other arguments are expected to have a dracutSetupArgs()
             method.
         """
         storage = kwargs.pop("storage", None)
-        network = kwargs.pop("network", None)
 
         #
         # FIPS
@@ -811,15 +809,7 @@ class BootLoader(object):
                 # network storage
                 # XXX this is nothing to be proud of
                 if isinstance(dep, NetworkStorageDevice):
-                    if network is None:
-                        log.error("missing network instance for setup of boot "
-                                  "command line for network storage device %s"
-                                  % dep.name)
-                        raise BootLoaderError("missing network instance when "
-                                              "setting boot args for network "
-                                              "storage device")
-
-                    setup_args = network.dracutSetupArgs(dep)
+                    setup_args = pyanaconda.network.dracutSetupArgs(dep)
                     self.boot_args.update(setup_args)
                     self.dracut_args.update(setup_args)
 
@@ -845,7 +835,7 @@ class BootLoader(object):
         # Dracut needs the explicit ifname= because biosdevname
         # fails to rename the iface (because of BFS booting from it).
         for nic, dcb, auto_vlan in fcoe().nics:
-            hwaddr = network.netdevices[nic].get("HWADDR")
+            hwaddr = getMacAddress(nic)
             self.boot_args.add("ifname=%s:%s" % (nic, hwaddr.lower()))
 
         #
@@ -1485,6 +1475,10 @@ class GRUB2(GRUB):
 
     def write_config(self):
         self.write_config_console(None)
+        # See if we have a password and if so update the boot args before we
+        # write out the defaults file.
+        if self.password or self.encrypted_password:
+            self.boot_args.add("rd.shell=0")
         self.write_defaults()
 
         # if we fail to setup password auth we should complete the
@@ -1522,13 +1516,13 @@ class GRUB2(GRUB):
 
         # XXX will installing to multiple drives work as expected with GRUBv2?
         for (stage1dev, stage2dev) in self.install_targets:
-            args += ["--no-floppy", stage1dev.path]
+            grub_args = args + ["--no-floppy", stage1dev.path]
             if stage1dev == stage2dev:
                 # This is hopefully a temporary hack. GRUB2 currently refuses
                 # to install to a partition's boot block without --force.
-                args.insert(0, '--force')
+                grub_args.insert(0, '--force')
 
-            rc = iutil.execWithRedirect("grub2-install", args,
+            rc = iutil.execWithRedirect("grub2-install", grub_args,
                                         stdout="/dev/tty5", stderr="/dev/tty5",
                                         root=ROOT_PATH,
                                         env_prune=['MALLOC_PERTURB_'])
@@ -1668,6 +1662,8 @@ class YabootSILOBase(BootLoader):
                 continue
 
             args = Arguments()
+            if self.password or self.encrypted_password:
+                args.add("rd.shell=0")
             if image.initrd:
                 initrd_line = "\tinitrd=%s/%s\n" % (self.boot_prefix,
                                                     image.initrd)
@@ -1996,7 +1992,21 @@ class ZIPL(BootLoader):
         # DWL FIXME: resolve the boot device to a StorageDevice from storage
         buf = iutil.execWithCapture("zipl", [],
                                     stderr="/dev/tty5",
-                                    root=ROOT_PATH)
+                                    root=ROOT_PATH,
+                                    fatal=True)
+        for line in buf.splitlines():
+            if line.startswith("Preparing boot device: "):
+                # Output here may look like:
+                #     Preparing boot device: dasdb (0200).
+                #     Preparing boot device: dasdl.
+                # We want to extract the device name and pass that.
+                name = re.sub(".+?: ", "", line)
+                name = re.sub("(\s\(.+\))?\.$", "", name)
+                device = self.storage.devicetree.getDeviceByName(name)
+                if not device:
+                    raise BootLoaderError("could not find IPL device")
+
+                self.stage1_device = device
 
 class SILO(YabootSILOBase):
     name = "SILO"

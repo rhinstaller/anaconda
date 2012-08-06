@@ -97,20 +97,15 @@ def storageInitialize(storage, ksdata, protected):
     if not storage.disks:
         raise NoDisksError
 
+    # kickstart uses all the disks
+    if flags.automatedInstall:
+        if not ksdata.ignoredisk.onlyuse:
+            ksdata.ignoredisk.onlyuse = [d.name for d in storage.disks \
+                                         if d.name not in ksdata.ignoredisk.ignoredisk]
+            log.debug("onlyuse is now: %s" % (",".join(ksdata.ignoredisk.onlyuse)))
+
 # dispatch.py helper function
 def storageComplete(anaconda):
-    if anaconda.dir == DISPATCH_BACK:
-        rc = anaconda.intf.messageWindow(_("Installation cannot continue."),
-                                _("The storage configuration you have "
-                                  "chosen has already been activated. You "
-                                  "can no longer return to the disk editing "
-                                  "screen. Would you like to continue with "
-                                  "the installation process?"),
-                                type = "yesno")
-        if rc == 0:
-            sys.exit(0)
-        return DISPATCH_FORWARD
-
     devs = anaconda.storage.devicetree.getDevicesByType("luks/dm-crypt")
     existing_luks = False
     new_luks = False
@@ -156,32 +151,6 @@ def storageComplete(anaconda):
 
     if anaconda.ksdata:
         return
-
-    # Prevent users from installing on s390x with (a) no /boot volume, (b) the
-    # root volume on LVM, and (c) the root volume not restricted to a single
-    # PV
-    # NOTE: There is not really a way for users to create a / volume
-    # restricted to a single PV.  The backend support is there, but there are
-    # no UI hook-ups to drive that functionality, but I do not personally
-    # care.  --dcantrell
-    if iutil.isS390() and \
-       not anaconda.storage.mountpoints.has_key('/boot') and \
-       anaconda.storage.mountpoints['/'].type == 'lvmlv' and \
-       not anaconda.storage.mountpoints['/'].singlePV:
-        rc = anaconda.intf.messageWindow(_("Missing /boot Volume"),
-                                         _("This platform requires /boot on "
-                                           "a dedicated partition or logical "
-                                           "volume.  If you do not want a "
-                                           "/boot volume, you must place / "
-                                           "on a dedicated non-LVM "
-                                           "partition."),
-                                         type="custom", custom_icon="error",
-                                         custom_buttons=[_("Go _back"),
-                                                         _("_Exit installer")],
-                                         default=0)
-        if rc == 0:
-            return DISPATCH_BACK
-        sys.exit(1)
 
     rc = anaconda.intf.messageWindow(_("Confirm"),
                                 _("The partitioning options you have selected "
@@ -241,8 +210,6 @@ def turnOnFilesystems(storage):
         storage.write()
         writeEscrowPackets(storage)
     else:
-        from pyanaconda.upgrade import bindMountDevDirectory
-
         if upgrade_migrate:
             # we should write out a new fstab with the migrated fstype
             shutil.copyfile("%s/etc/fstab" % ROOT_PATH,
@@ -250,7 +217,10 @@ def turnOnFilesystems(storage):
             storage.fsset.write()
 
         # and make sure /dev is mounted so we can read the bootloader
-        bindMountDevDirectory(ROOT_PATH)
+        getFormat("bind",
+                  device="/dev",
+                  mountpoint="/dev",
+                  exists=True).mount(chroot=ROOT_PATH)
 
 def writeEscrowPackets(storage):
     escrowDevices = filter(lambda d: d.format.type == "luks" and \
@@ -533,6 +503,10 @@ class Storage(object):
         for root in self.roots:
             for device in root.mounts.values() + root.swaps:
                 used_devices.extend(device.ancestors)
+
+                if getattr(device, "isLogical", False):
+                    extended = device.disk.format.extendedPartition.path
+                    used_devices.append(self.devicetree.getDeviceByPath(extended))
 
         for new in [d for d in self.devicetree.leaves if not d.exists]:
             if new in self.swaps or getattr(new.format, "mountpoint", None):
@@ -1111,13 +1085,6 @@ class Storage(object):
                                                                None),
                                          **kwargs.pop("fmt_args", {}))
 
-        if kwargs.has_key("disks"):
-            parents = kwargs.pop("disks")
-            if isinstance(parents, Device):
-                kwargs["parents"] = [parents]
-            else:
-                kwargs["parents"] = parents
-
         if kwargs.has_key("name"):
             name = kwargs.pop("name")
         else:
@@ -1146,7 +1113,7 @@ class Storage(object):
 
     def newVG(self, *args, **kwargs):
         """ Return a new LVMVolumeGroupDevice instance. """
-        pvs = kwargs.pop("pvs", [])
+        pvs = kwargs.pop("parents", [])
         for pv in pvs:
             if pv not in self.devices:
                 raise ValueError("pv is not in the device tree")
@@ -1170,9 +1137,7 @@ class Storage(object):
 
     def newLV(self, *args, **kwargs):
         """ Return a new LVMLogicalVolumeDevice instance. """
-        if kwargs.has_key("vg"):
-            vg = kwargs.pop("vg")
-
+        vg = kwargs.get("parents", [None])[0]
         mountpoint = kwargs.pop("mountpoint", None)
         if kwargs.has_key("fmt_type"):
             kwargs["format"] = getFormat(kwargs.pop("fmt_type"),
@@ -1193,7 +1158,7 @@ class Storage(object):
         if name in self.names:
             raise ValueError("name already in use")
 
-        return LVMLogicalVolumeDevice(name, vg, *args, **kwargs)
+        return LVMLogicalVolumeDevice(name, *args, **kwargs)
 
     def newBTRFS(self, *args, **kwargs):
         """ Return a new BTRFSVolumeDevice or BRFSSubVolumeDevice. """
@@ -1469,6 +1434,21 @@ class Storage(object):
             warnings.append(_("Your root partition is less than 250 "
                               "megabytes which is usually too small to "
                               "install %s.") % (productName,))
+
+        # Prevent users from installing on s390x with (a) no /boot volume, (b) the
+        # root volume on LVM, and (c) the root volume not restricted to a single
+        # PV
+        # NOTE: There is not really a way for users to create a / volume
+        # restricted to a single PV.  The backend support is there, but there are
+        # no UI hook-ups to drive that functionality, but I do not personally
+        # care.  --dcantrell
+        if iutil.isS390() and \
+           not self.mountpoints.has_key('/boot') and \
+           root.type == 'lvmlv' and not root.singlePV:
+            errors.append(_("This platform requires /boot on a dedicated "
+                            "partition or logical volume.  If you do not "
+                            "want a /boot volume, you must place / on a "
+                            "dedicated non-LVM partition."))
 
         # FIXME: put a check here for enough space on the filesystems. maybe?
 
@@ -1867,11 +1847,10 @@ class Storage(object):
 
         return 0
 
-def mountExistingSystem(fsset, rootEnt,
+def mountExistingSystem(fsset, rootDevice,
                         allowDirty=None, dirtyCB=None,
                         readOnly=None):
     """ Mount filesystems specified in rootDevice's /etc/fstab file. """
-    rootDevice = rootEnt[0]
     rootPath = ROOT_PATH
     if dirtyCB is None:
         dirtyCB = lambda l: False
@@ -2699,8 +2678,9 @@ def findExistingInstallations(devicetree):
             log.warning("setup of %s failed: %s" % (device.name, e))
             continue
 
+        options = device.format.options + ",ro"
         try:
-            device.format.mount(options="ro", mountpoint=ROOT_PATH)
+            device.format.mount(options=options, mountpoint=ROOT_PATH)
         except Exception as e:
             log.warning("mount of %s as %s failed: %s" % (device.name,
                                                           device.format.type,
@@ -2720,8 +2700,11 @@ def findExistingInstallations(devicetree):
             name = "%s Linux %s for %s" % (product, version, arch)
 
         (mounts, swaps) = parseFSTab(devicetree, chroot=ROOT_PATH)
-        roots.append(Root(mounts=mounts, swaps=swaps, name=name))
         device.teardown()
+        if not mounts and not swaps:
+            # empty /etc/fstab. weird, but I've seen it happen.
+            continue
+        roots.append(Root(mounts=mounts, swaps=swaps, name=name))
 
     return roots
 
@@ -2782,17 +2765,18 @@ def parseFSTab(devicetree, chroot=None):
         for line in f.readlines():
             # strip off comments
             (line, pound, comment) = line.partition("#")
-            fields = line.split(None, 3)
+            fields = line.split(None, 4)
 
-            if len(fields) < 4:
+            if len(fields) < 5:
                 continue
 
-            (devspec, mountpoint, fstype, rest) = fields
+            (devspec, mountpoint, fstype, options, rest) = fields
 
             # find device in the tree
             device = devicetree.resolveDevice(devspec,
                                               cryptTab=cryptTab,
-                                              blkidTab=blkidTab)
+                                              blkidTab=blkidTab,
+                                              options=options)
 
             if device is None:
                 continue
@@ -2804,8 +2788,3 @@ def parseFSTab(devicetree, chroot=None):
 
     return (mounts, swaps)
 
-def doKickstartStorage(storage, ksdata, instclass, checker):
-    ksdata.clearpart.execute(storage, ksdata, instclass)
-    ksdata.bootloader.execute(storage, ksdata, instclass)
-    ksdata.autopart.execute(storage, ksdata, instclass)
-    checker.run()

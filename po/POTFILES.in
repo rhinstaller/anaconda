@@ -3,7 +3,6 @@
 
 # Main anaconda source files
 anaconda
-pyanaconda/backend.py
 pyanaconda/bootloader.py
 pyanaconda/cmdline.py
 pyanaconda/compssort.py
@@ -14,13 +13,10 @@ pyanaconda/installclass.py
 pyanaconda/installinterfacebase.py
 pyanaconda/iutil.py
 pyanaconda/kickstart.py
-pyanaconda/livecd.py
 pyanaconda/network.py
 pyanaconda/packages.py
 pyanaconda/platform.py
 pyanaconda/rescue.py
-pyanaconda/text.py
-pyanaconda/upgrade.py
 pyanaconda/vnc.py
 pyanaconda/yuminstall.py
 
@@ -60,8 +56,11 @@ pyanaconda/storage/partitioning.py
 pyanaconda/storage/zfcp.py
 
 # Graphical interface
+pyanaconda/ui/gui/__init__.py
+pyanaconda/ui/gui/categories/__init__.py
 pyanaconda/ui/gui/categories/localization.py
 pyanaconda/ui/gui/categories/software.py
+pyanaconda/ui/gui/hubs/__init__.py
 pyanaconda/ui/gui/hubs/progress.py
 pyanaconda/ui/gui/spokes/custom.py
 pyanaconda/ui/gui/spokes/datetime_spoke.py
@@ -74,19 +73,20 @@ pyanaconda/ui/gui/spokes/welcome.py
 pyanaconda/ui/gui/spokes/lib/accordion.py
 pyanaconda/ui/gui/spokes/lib/cart.py
 
-# Text mode user interface source files
-pyanaconda/textw/complete_text.py
-pyanaconda/textw/constants_text.py
-pyanaconda/textw/keyboard_text.py
-pyanaconda/textw/language_text.py
-pyanaconda/textw/netconfig_text.py
-pyanaconda/textw/partition_text.py
-pyanaconda/textw/progress_text.py
-pyanaconda/textw/timezone_text.py
-pyanaconda/textw/upgrade_bootloader_text.py
-pyanaconda/textw/upgrade_text.py
-pyanaconda/textw/userauth_text.py
-pyanaconda/textw/zipl_text.py
+# Interface files.
+pyanaconda/ui/gui/spokes/datetime_spoke.glade
+pyanaconda/ui/gui/spokes/network.glade
+pyanaconda/ui/gui/spokes/software.glade
+pyanaconda/ui/gui/spokes/storage.glade
+pyanaconda/ui/gui/spokes/keyboard.glade
+pyanaconda/ui/gui/spokes/source.glade
+pyanaconda/ui/gui/spokes/welcome.glade
+pyanaconda/ui/gui/spokes/custom.glade
+pyanaconda/ui/gui/spokes/lib/cart.glade
+pyanaconda/ui/gui/spokes/lib/detailederror.glade
+pyanaconda/ui/gui/main.glade
+pyanaconda/ui/gui/hubs/summary.glade
+pyanaconda/ui/gui/hubs/progress.glade
 
 # welcome screen for GNOME Shell
 data/liveinst/gnome/fedora-welcome
@@ -95,27 +95,6 @@ data/liveinst/gnome/fedora-welcome.desktop.in
 # liveinst source files
 data/liveinst/liveinst.desktop.in.h
 data/liveinst/console.apps/liveinst.h
-
-# Glade definition files
-data/ui/GroupSelector.glade.h
-data/ui/account.glade.h
-data/ui/adddrive.glade.h
-data/ui/addrepo.glade.h
-data/ui/anaconda.glade.h
-data/ui/autopart.glade.h
-data/ui/blwhere.glade.h
-data/ui/cleardisks.glade.h
-data/ui/create-storage.glade.h
-data/ui/detailed-dialog.glade.h
-data/ui/device-options.glade.h
-data/ui/fcoe-config.glade.h
-data/ui/filter.glade.h
-data/ui/iscsi-dialogs.glade.h
-data/ui/lukspassphrase.glade.h
-data/ui/network.glade.h
-data/ui/tasksel.glade.h
-data/ui/zfcp-config.glade.h
-data/ui/reinitialize-dialog.glade.h
 
 # lang-table
 data/lang-table.h

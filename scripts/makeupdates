@@ -133,9 +133,9 @@ def copyUpdatedFiles(tag, updates, cwd):
            file.endswith('.sh') or file == 'configure.ac':
             continue
 
-        if file.endswith('.ui'):
+        if file.endswith('.glade'):
             # Some UI files should go under ui/<dir> where dir is the
-            # directory above the file.ui
+            # directory above the file.glade
             uidir = os.path.dirname(file).split(os.path.sep)[-1]
             if uidir in ["hubs", "spokes"]:
                 install_to_dir(file, os.path.join(tmpupdates, "ui", uidir))
@@ -164,7 +164,7 @@ def copyUpdatedFiles(tag, updates, cwd):
             fields = file.split('/')
             subdir = fields[0]
             if subdir in ['po', 'scripts','command-stubs', 'tests',
-                          'bootdisk', 'docs', 'fonts', 'utils', 'gptsync',
+                          'bootdisk', 'docs', 'fonts', 'utils',
                           'liveinst', 'dracut', 'data']:
                 continue
             else:
@@ -174,8 +174,8 @@ def copyUpdatedFiles(tag, updates, cwd):
             sys.stdout.write("Including %s\n" % (file,))
             install_to_dir(file, tmpupdates)
 
-def isysChanged(tag):
-    lines = doGitDiff(tag, ['isys'])
+def _compilableChanged(tag, compilable):
+    lines = doGitDiff(tag, [compilable])
 
     for line in lines:
         fields = line.split()
@@ -195,6 +195,12 @@ def isysChanged(tag):
 
     return False
 
+def isysChanged(tag):
+    return _compilableChanged(tag, 'isys')
+
+def widgetsChanged(tag):
+    return _compilableChanged(tag, 'widgets')
+
 def copyUpdatedIsys(updates, cwd):
     os.chdir(cwd)
 
@@ -208,6 +214,39 @@ def copyUpdatedIsys(updates, cwd):
     isysmodule = os.path.realpath(cwd + '/isys/.libs/_isys.so')
     if os.path.isfile(isysmodule):
         shutil.copy2(isysmodule, updates)
+
+def copyUpdatedWidgets(updates, cwd):
+    os.chdir(cwd)
+
+    if os.path.isdir("/lib64"):
+        libdir = "/lib64/"
+    else:
+        libdir = "/lib/"
+
+    if not os.path.isdir(updates + libdir):
+        os.makedirs(updates + libdir)
+
+    if not os.path.isdir(updates + libdir + "girepository-1.0"):
+        os.makedirs(updates + libdir + "girepository-1.0")
+
+    if not os.path.isfile('Makefile'):
+        if not os.path.isfile('configure'):
+            os.system('./autogen.sh')
+        of.system('./configure --enable-gtk-doc --enable-introspection')
+
+    os.system('make')
+
+    files = ["libAnacondaWidgets.so", "libAnacondaWidgets.so.0", "libAnacondaWidgets.so.0.0.0"]
+    for f in files:
+        path = os.path.normpath(cwd + "/widgets/src/.libs/" + f)
+        if os.path.islink(path):
+            os.symlink(os.readlink(path), updates + libdir + os.path.basename(path))
+        elif os.path.isfile(path):
+            shutil.copy2(path, updates + libdir)
+
+    typelib = os.path.realpath(cwd + "/widgets/src/AnacondaWidgets-1.0.typelib")
+    if os.path.isfile(typelib):
+        shutil.copy2(typelib, updates + libdir + "girepository-1.0")
 
 def addRpms(updates, add_rpms):
     for rpm in add_rpms:
@@ -292,6 +331,9 @@ def main(argv):
     if compile:
         if isysChanged(tag):
             copyUpdatedIsys(updates, cwd)
+
+        if widgetsChanged(tag):
+            copyUpdatedWidgets(updates, cwd)
 
     if add_rpms:
         addRpms(updates, add_rpms)

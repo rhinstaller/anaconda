@@ -22,4 +22,4 @@ hubsdir        = $(pkgpyexecdir)/ui/gui/hubs
 hubs_PYTHON    = *.py
 
 uidir          = $(datadir)/$(PACKAGE_NAME)/ui/hubs
-dist_ui_DATA   = *.ui
+dist_ui_DATA   = *.glade

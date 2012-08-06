@@ -48,9 +48,7 @@ from pyanaconda.iutil import ProxyString, ProxyStringError
 from pykickstart.parser import Group
 
 import logging
-log = logging.getLogger("anaconda")
-
-from pyanaconda.backend_log import log as instlog
+log = logging.getLogger("packaging")
 
 from pyanaconda.errors import *
 #from pyanaconda.progress import progress
@@ -169,7 +167,9 @@ class Payload(object):
 
     def _repoNeedsNetwork(self, repo):
         """ Returns True if the ksdata repo requires networking. """
-        urls = [repo.baseurl] + repo.mirrorlist
+        urls = [repo.baseurl]
+        if repo.mirrorlist:
+            urls.extend(repo.mirrorlist)
         network_protocols = ["http:", "ftp:", "nfs:", "nfsiso:"]
         for url in urls:
             if any([url.startswith(p) for p in network_protocols]):
@@ -234,6 +234,9 @@ class Payload(object):
     ###
     @property
     def groups(self):
+        raise NotImplementedError()
+
+    def languageGroups(self, lang):
         raise NotImplementedError()
 
     def description(self, groupid):
@@ -466,33 +469,15 @@ class Payload(object):
     ###
     ### METHODS FOR INSTALLING THE PAYLOAD
     ###
-    def preInstall(self, packages=None):
+    def preInstall(self, packages=None, groups=None):
         """ Perform pre-installation tasks. """
         iutil.mkdirChain(ROOT_PATH + "/root")
 
-        if self.data.upgrade.upgrade:
-            mode = "upgrade"
-        else:
-            mode = "install"
-
-        log_file_name = "%s.log" % mode
-        log_file_path = "%s/root/%s" % (ROOT_PATH, log_file_name)
-        try:
-            shutil.rmtree (log_file_path)
-        except OSError:
-            pass
-
-        self.install_log = open(log_file_path, "w+")
-
-        syslogname = "%s.syslog" % log_file_path
-        try:
-            shutil.rmtree (syslogname)
-        except OSError:
-            pass
-        instlog.start(ROOT_PATH, syslogname)
-
-        if packages is not None:
+        if packages:
             map(self.selectPackage, packages)
+
+        if groups:
+            map(self.selectGroup, groups)
 
     def install(self):
         """ Install the payload. """
@@ -592,10 +577,6 @@ class Payload(object):
         #   kickstart should handle this before we get here
 
         self._copyDriverDiskFiles()
-
-        # stop logger
-        instlog.stop()
-
 
 class ImagePayload(Payload):
     """ An ImagePayload installs an OS image to the target system. """

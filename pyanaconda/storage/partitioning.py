@@ -75,7 +75,8 @@ def _scheduleImplicitPartitions(storage, disks):
     for disk in disks:
         if storage.encryptedAutoPart:
             fmt_type = "luks"
-            fmt_args = {"escrow_cert": storage.autoPartEscrowCert,
+            fmt_args = {"passphrase": storage.encryptionPassphrase,
+                        "escrow_cert": storage.autoPartEscrowCert,
                         "add_backup_passphrase": storage.autoPartAddBackupPassphrase}
         else:
             if storage.autoPartType == AUTOPART_TYPE_LVM:
@@ -86,7 +87,7 @@ def _scheduleImplicitPartitions(storage, disks):
         part = storage.newPartition(fmt_type=fmt_type,
                                                 fmt_args=fmt_args,
                                                 grow=True,
-                                                disks=[disk])
+                                                parents=[disk])
         storage.createDevice(part)
         devs.append(part)
 
@@ -156,16 +157,21 @@ def _schedulePartitions(storage, disks):
             request.fstype = storage.liveImage.format.type
 
         if request.encrypted and storage.encryptedAutoPart:
-            fstype = "luks"
+            fmt_type = "luks"
+            fmt_args = {"passphrase": storage.encryptionPassphrase,
+                        "escrow_cert": storage.autoPartEscrowCert,
+                        "add_backup_passphrase": storage.autoPartAddBackupPassphrase}
         else:
-            fstype = request.fstype
+            fmt_type = request.fstype
+            fmt_args = {}
 
-        dev = storage.newPartition(fmt_type=fstype,
+        dev = storage.newPartition(fmt_type=fmt_type,
+                                            fmt_args=fmt_args,
                                             size=request.size,
                                             grow=request.grow,
                                             maxsize=request.maxSize,
                                             mountpoint=request.mountpoint,
-                                            disks=disks,
+                                            parents=disks,
                                             weight=request.weight)
 
         # schedule the device for creation
@@ -193,12 +199,10 @@ def _scheduleVolumes(storage, devs):
         new_container = storage.newVG
         new_volume = storage.newLV
         format_name = "lvmpv"
-        parent_kw = "pvs"
     else:
         new_container = storage.newBTRFS
         new_volume = storage.newBTRFS
         format_name = "btrfs"
-        parent_kw = "parents"
 
     if storage.encryptedAutoPart:
         pvs = []
@@ -213,7 +217,7 @@ def _scheduleVolumes(storage, devs):
         pvs = devs
 
     # create a vg containing all of the autopart pvs
-    container = new_container(**{parent_kw: pvs})
+    container = new_container(parents=pvs)
     storage.createDevice(container)
 
     #
@@ -252,7 +256,7 @@ def _scheduleVolumes(storage, devs):
         kwargs = {"mountpoint": request.mountpoint,
                   "fmt_type": request.fstype}
         if lv:
-            kwargs.update({"vg": container,
+            kwargs.update({"parents": [container],
                            "grow": request.grow,
                            "maxsize": request.maxSize,
                            "size": request.size,
@@ -1265,7 +1269,7 @@ class Chunk(object):
     def sortRequests(self):
         pass
 
-    def growRequests(self):
+    def growRequests(self, uniform=False):
         """ Calculate growth amounts for requests in this chunk. """
         log.debug("Chunk.growRequests: %r" % self)
 
@@ -1281,17 +1285,22 @@ class Chunk(object):
         while not self.done and self.pool and last_pool != self.pool:
             last_pool = self.pool    # to keep from getting stuck
             self.base = new_base
+            if uniform:
+                growth = last_pool / self.remaining
+
             log.debug("%d requests and %d (%dMB) left in chunk" %
                         (self.remaining, self.pool, self.lengthToSize(self.pool)))
             for p in self.requests:
                 if p.done:
                     continue
 
-                # Each request is allocated free units from the pool
-                # based on the relative _base_ sizes of the remaining
-                # growable requests.
-                share = p.base / float(self.base)
-                growth = int(share * last_pool) # truncate, don't round
+                if not uniform:
+                    # Each request is allocated free units from the pool
+                    # based on the relative _base_ sizes of the remaining
+                    # growable requests.
+                    share = p.base / float(self.base)
+                    growth = int(share * last_pool) # truncate, don't round
+
                 p.growth += growth
                 self.pool -= growth
                 log.debug("adding %d (%dMB) to %d (%s)" %

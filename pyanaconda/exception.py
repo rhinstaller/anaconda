@@ -31,22 +31,49 @@ from flags import flags
 import kickstart
 import storage.errors
 from pyanaconda.constants import ROOT_PATH
+from gi.repository import GLib
 
 import logging
 log = logging.getLogger("anaconda")
 
+import gettext
+_ = lambda x: gettext.ldgettext("anaconda", x)
+
+
 class AnacondaExceptionHandler(ExceptionHandler):
     def handleException(self, (ty, value, tb), obj):
-        import traceback
 
-        # Save the exception to the filesystem first.
-        self.exn = self.exnClass((ty, value, tb), self.conf)
-        (fd, self.exnFile) = self.openFile()
-        text = self.exn.write(obj, fd)
-        fd.close()
+        def run_handleException_on_idle(args_tuple):
+            """
+            Helper function with one argument only so that it can be registered
+            with GLib.idle_add() to run on idle.
 
-        traceback.print_exception(ty, value, tb)
-        os._exit(10)
+            @param args_tuple: ((ty, value, tb), obj)
+
+            """
+
+            trace, obj = args_tuple
+            ty, value, tb = trace
+
+            super(AnacondaExceptionHandler, self).handleException((ty, value, tb),
+                                                                  obj)
+
+        if issubclass(ty, storage.errors.StorageError) and value.hardware_fault:
+            hw_error_msg = _("The installation was stopped due to what "
+                             "seems to be a problem with your hardware. "
+                             "The exact error message is:\n\n%s.\n\n "
+                             "The installer will now terminate.") % str(value)
+            self.intf.showError(hw_error_msg)
+            sys.exit(0)
+        else:
+            if GLib.main_depth() > 0:
+                # main loop is running, don't crash it by running another one
+                # potentially from a different thread
+                GLib.idle_add(run_handleException_on_idle,
+                                ((ty, value, tb), obj))
+            else:
+                super(AnacondaExceptionHandler, self).handleException(
+                                                        (ty, value, tb), obj)
 
     def postWriteHook(self, (ty, value, tb), anaconda):
         # See if /mnt/sysimage is present and put exception there as well
@@ -72,8 +99,6 @@ class AnacondaExceptionHandler(ExceptionHandler):
         except SystemError:
             pass
 
-        self.intf.__del__ ()
-
         pidfl = "/tmp/vncshell.pid"
         if os.path.exists(pidfl) and os.path.isfile(pidfl):
             pf = open(pidfl, "r")
@@ -97,9 +122,14 @@ class AnacondaExceptionHandler(ExceptionHandler):
         termios.tcsetattr(si, termios.TCSADRAIN, attr)
 
         print("\nEntering debugger...")
+        print("Use 'continue' command to quit the debugger and get back to "\
+              "the main window")
         import pdb
         pdb.post_mortem (tb)
-        os.kill(os.getpid(), signal.SIGKILL)
+        try:
+            isys.vtActivate(6)
+        except SystemError:
+            pass
 
 def initExceptionHandling(anaconda):
     fileList = [ "/tmp/anaconda.log",

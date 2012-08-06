@@ -32,20 +32,19 @@ _ = lambda x: gettext.ldgettext("anaconda", x)
 
 class NetworkConfiguratorText:
     def _handleIPError(self, field, errmsg):
-        self.anaconda.intf.messageWindow(_("Error With Data"),
+        self.intf.messageWindow(_("Error With Data"),
                                          _("An error occurred converting the "
                                            "value entered for "
                                            "\"%(field)s\":\n%(errmsg)s") \
                                          % {'field': field, 'errmsg': errmsg})
 
     def _handleIPMissing(self, field):
-        self.anaconda.intf.messageWindow(_("Error With Data"),
+        self.intf.messageWindow(_("Error With Data"),
                                          _("A value is required for the field %s") % field)
 
-    def __init__(self, screen, anaconda):
+    def __init__(self, screen, intf):
         self.screen = screen
-        self.anaconda = anaconda
-        self.netdevs = self.anaconda.network.netdevices
+        self.netdevs = network.getDevices()
 
         self._initValues()
 
@@ -68,16 +67,13 @@ class NetworkConfiguratorText:
         dev_list = []
         selected_devname = None
 
-        devnames = self.netdevs.keys()
-        devnames.sort()
+        devnames = self.netdevs.sort()
 
         # Preselect device set in kickstart
-        ksdevice = self.anaconda.network.getKSDevice()
-        if ksdevice:
-            ksdevice = ksdevice.iface
+        ksdevice = network.get_ksdevice_name()
 
         for devname in devnames:
-            hwaddr = self.netdevs[devname].get("HWADDR")
+            hwaddr = isys.getMacAddress(devname)
 
             if hwaddr:
                 desc = "%s - %.50s" % (devname, hwaddr)
@@ -267,7 +263,7 @@ class NetworkConfiguratorText:
 
     def _checkValues(self):
         if not self.ipv4Selected and not self.ipv6Selected:
-            self.anaconda.intf.messageWindow(_("Missing protocol"),
+            self.intf.messageWindow(_("Missing protocol"),
                                _("You must select at least one protocol version"))
             return False
 
@@ -350,7 +346,9 @@ class NetworkConfiguratorText:
            Returns True in case of success, False if failed.
         """
 
-        dev = self.netdevs[devname]
+        dev = network.NetworkDevice(ROOT_PATH, devname)
+        dev.loadIfcfgFile()
+
         nameservers = ''
 
         if self.ipv4Selected:
@@ -390,22 +388,25 @@ class NetworkConfiguratorText:
         else:
             dev.set(("IPV6INIT", "no"))
 
-        self.anaconda.network.unsetDNS(devname)
+        self.netdevs[devname].unsetDNS()
         if nameservers:
-            self.anaconda.network.setDNS(nameservers, devname)
+            self.netdevs[devname].setDNS(nameservers)
 
         dev.set(('ONBOOT', 'yes'))
 
-        w = self.anaconda.intf.waitWindow(_("Configuring Network Interfaces"), _("Waiting for NetworkManager"))
-        result = self.anaconda.network.bringUp()
+        w = self.intf.waitWindow(_("Configuring Network Interfaces"), _("Waiting for NetworkManager"))
+        dev.writeIfcfgFile()
+        result = network.waitForConnection()
         w.pop()
         if not result:
-            self.anaconda.intf.messageWindow(_("Network Error"),
+            self.intf.messageWindow(_("Network Error"),
                                              _("There was an error configuring "
                                                "network device %s") % dev.iface)
             dev.set(("ONBOOT", "no"))
+            dev.writeIfcfgFile()
             return False
 
+        network.resetResolver()
         return True
 
     def _ipv4MethodToggled(self, *args):

@@ -42,8 +42,12 @@
 import os
 import shutil
 import time
+import tempfile
 
 from . import *
+
+import logging
+log = logging.getLogger("packaging")
 
 try:
     import rpm
@@ -71,9 +75,6 @@ from pyanaconda.image import findFirstIsoImage
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
-
-import logging
-log = logging.getLogger("anaconda")
 
 from pyanaconda.errors import *
 from pyanaconda.packaging import NoSuchGroup, NoSuchPackage
@@ -153,7 +154,7 @@ class YumPayload(PackagePayload):
         # have group info ready.
         self.gatherRepoMetadata()
 
-    def _resetYum(self, root=None):
+    def _resetYum(self, root=None, keep_cache=False):
         """ Delete and recreate the payload's YumBase instance. """
         import shutil
         if root is None:
@@ -161,10 +162,11 @@ class YumPayload(PackagePayload):
 
         with _yum_lock:
             if self._yum:
-                for repo in self._yum.repos.listEnabled():
-                    if repo.name == BASE_REPO_NAME and \
-                       os.path.isdir(repo.cachedir):
-                        shutil.rmtree(repo.cachedir)
+                if not keep_cache:
+                    for repo in self._yum.repos.listEnabled():
+                        if repo.name == BASE_REPO_NAME and \
+                           os.path.isdir(repo.cachedir):
+                            shutil.rmtree(repo.cachedir)
 
                 del self._yum
 
@@ -287,7 +289,7 @@ reposdir=%s
 
         releasever = self._yum.conf.yumvar['releasever']
         self._writeYumConfig()
-        self._resetYum(root=ROOT_PATH)
+        self._resetYum(root=ROOT_PATH, keep_cache=True)
         log.debug("setting releasever to previous value of %s" % releasever)
         self._yum.preconf.releasever = releasever
 
@@ -737,6 +739,16 @@ reposdir=%s
 
         return groups
 
+    def languageGroups(self, lang):
+        groups = []
+        yum_groups = self._yumGroups
+
+        if yum_groups:
+            with _yum_lock:
+                groups = [g.groupid for g in yum_groups.get_groups() if g.langonly == lang]
+
+        return groups
+
     def description(self, groupid):
         """ Return name/description tuple for the group specified by id. """
         groups = self._yumGroups
@@ -950,9 +962,9 @@ reposdir=%s
         if not selected:
             log.error("failed to select a kernel from %s" % kernels)
 
-    def preInstall(self, packages=None):
+    def preInstall(self, packages=None, groups=None):
         """ Perform pre-installation tasks. """
-        super(YumPayload, self).preInstall(packages=packages)
+        super(YumPayload, self).preInstall(packages=packages, groups=groups)
         progress.send_message(_("Starting package installation process"))
 
         if self.install_device:
@@ -1001,12 +1013,13 @@ reposdir=%s
             self._yum.ts.order()
             self._yum.ts.clean()
 
-            # set up rpm logging to go to our log
-            self._yum.ts.ts.scriptFd = self.install_log.fileno()
-            rpm.setLogFile(self.install_log)
+            # Write scriptlet output to a file to be logged later
+            script_log = tempfile.NamedTemporaryFile(delete=False)
+            self._yum.ts.ts.scriptFd = script_log.fileno()
+            rpm.setLogFile(script_log)
 
             # create the install callback
-            rpmcb = RPMCallback(self._yum, self.install_log,
+            rpmcb = RPMCallback(self._yum, script_log,
                                 upgrade=self.data.upgrade.upgrade)
 
             if flags.testing:
@@ -1037,12 +1050,19 @@ reposdir=%s
                     raise exn
             else:
                 log.info("transaction complete")
-                self.install_log.write("*** FINISHED INSTALLING PACKAGES ***")
                 progress.send_step()
             finally:
-                self.install_log.close()
                 self._yum.ts.close()
                 iutil.resetRpmDb()
+                script_log.close()
+
+                # log the contents of the scriptlet logfile
+                log.info("==== start rpm scriptlet logs ====")
+                with open(script_log.name) as f:
+                    for l in f:
+                        log.info(l)
+                log.info("==== end rpm scriptlet logs ====")
+                os.unlink(script_log.name)
 
     def postInstall(self):
         """ Perform post-installation tasks. """
@@ -1070,7 +1090,7 @@ reposdir=%s
 class RPMCallback(object):
     def __init__(self, yb, log, upgrade=False):
         self._yum = yb              # yum.YumBase
-        self.install_log = log      # file instance
+        self.install_log = log      # logfile for yum script logs
         self.upgrade = upgrade      # boolean
 
         self.package_file = None    # file instance (package file management)
@@ -1132,9 +1152,10 @@ class RPMCallback(object):
                 log_msg = msg_format % (mode, txmbr.po,
                                         self.completed_actions,
                                         self.total_actions)
-                self.install_log.write("%s %s\n" % (time.strftime("%H:%M:%S"),
-                                                    log_msg))
+                log.info(log_msg)
+                self.install_log.write(log_msg+"\n")
                 self.install_log.flush()
+
                 progress.send_message(progress_msg)
 
             self.package_file = None

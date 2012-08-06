@@ -241,7 +241,7 @@ class ErrorHandler(object):
         rc = ERROR_RAISE
 
         if not self.ui:
-            raise exn
+            raise
 
         _map = {KickstartError: self._kickstartErrorHandler,
                 StorageError.PartitioningError: self._partitionErrorHandler,

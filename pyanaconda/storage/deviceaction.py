@@ -288,7 +288,10 @@ class ActionDestroyDevice(DeviceAction):
         # Make sure libparted does not keep cached info for this device
         # and returns it when we create a new device with the same name
         if self.device.partedDevice:
-            self.device.partedDevice.removeFromCache()
+            try:
+                self.device.partedDevice.removeFromCache()
+            except Exception:
+                pass
 
     def requires(self, action):
         """ Return True if self requires action.

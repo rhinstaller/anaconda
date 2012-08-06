@@ -71,13 +71,13 @@ def exitHandler(rebootData, storage, exitCode=None):
                 dracut_eject(drive.path)
 
         if rebootData.action == KS_SHUTDOWN:
-            os.system("systemctl --force --no-wall poweroff")
+            os.system("systemctl --no-wall poweroff")
         elif rebootData.action == KS_WAIT:
-            os.system("systemctl --force --no-wall halt")
+            os.system("systemctl --no-wall halt")
         else: # reboot action is KS_REBOOT or None
-            os.system("systemctl --force --no-wall reboot")
+            os.system("systemctl --no-wall reboot")
     elif flags.livecdInstall:
-        os.system("systemctl --force --no-wall reboot")
+        os.system("systemctl --no-wall reboot")
 
 def startMetacityWM():
     childpid = os.fork()
@@ -463,127 +463,126 @@ def setupDisplay(anaconda, opts):
         anaconda.writeXdriver(root="/")
 
     if anaconda.rescue:
-        anaconda.displayMode = 'r'
-    else:
-        if anaconda.ksdata:
-            if anaconda.ksdata.vnc.enabled:
-                flags.usevnc = 1
-                anaconda.displayMode = 'g'
+        return
 
-                if vncS.password == "":
-                    vncS.password = anaconda.ksdata.vnc.password
+    if anaconda.ksdata.vnc.enabled:
+        flags.usevnc = 1
+        anaconda.displayMode = 'g'
 
-                if vncS.vncconnecthost == "":
-                    vncS.vncconnecthost = anaconda.ksdata.vnc.host
+        if vncS.password == "":
+            vncS.password = anaconda.ksdata.vnc.password
 
-                if vncS.vncconnectport == "":
-                    vncS.vncconnectport = anaconda.ksdata.vnc.port
+        if vncS.vncconnecthost == "":
+            vncS.vncconnecthost = anaconda.ksdata.vnc.host
 
-            flags.vncquestion = False
+        if vncS.vncconnectport == "":
+            vncS.vncconnectport = anaconda.ksdata.vnc.port
 
-        # disable VNC over text question when not enough memory is available
-        if iutil.memInstalled() < isys.MIN_GUI_RAM:
-            flags.vncquestion = False
+    flags.vncquestion = False
 
-        if os.environ.has_key('DISPLAY'):
-            flags.preexisting_x11 = True
+    # disable VNC over text question when not enough memory is available
+    if iutil.memInstalled() < isys.MIN_GUI_RAM:
+        flags.vncquestion = False
 
-        if anaconda.displayMode == 't' and flags.vncquestion:
-            #we prefer vnc over text mode, so ask about that
-            title = _("Would you like to use VNC?")
-            message = _("Text mode provides a limited set of installation "
-                        "options. It does not allow you to specify your "
-                        "own partitioning layout or package selections. "
-                        "Would you like to use VNC mode instead?")
+    if os.environ.has_key('DISPLAY'):
+        flags.preexisting_x11 = True
 
-            ret = vnc.askVncWindow(title, message)
-            if ret != -1:
-                anaconda.displayMode = 'g'
-                flags.usevnc = 1
-                if ret is not None:
-                    vncS.password = ret
+    if anaconda.displayMode == 't' and flags.vncquestion:
+        #we prefer vnc over text mode, so ask about that
+        title = _("Would you like to use VNC?")
+        message = _("Text mode provides a limited set of installation "
+                    "options. It does not allow you to specify your "
+                    "own partitioning layout or package selections. "
+                    "Would you like to use VNC mode instead?")
 
-        log.info("Display mode = %s" % anaconda.displayMode)
-        check_memory(anaconda, opts)
+        ret = vnc.askVncWindow(title, message)
+        if ret != -1:
+            anaconda.displayMode = 'g'
+            flags.usevnc = 1
+            if ret is not None:
+                vncS.password = ret
 
-        # Should we try to start Xorg?
-        want_x = anaconda.displayMode == 'g' and \
-                 not (flags.preexisting_x11 or flags.usevnc)
+    log.info("Display mode = %s" % anaconda.displayMode)
+    check_memory(anaconda, opts)
 
-        # X on a headless (e.g. s390) system? Nonsense!
-        if want_x and anaconda.isHeadless:
-            stdoutLog.warning(_("DISPLAY variable not set. Starting text mode."))
+    # Should we try to start Xorg?
+    want_x = anaconda.displayMode == 'g' and \
+             not (flags.preexisting_x11 or flags.usevnc)
+
+    # X on a headless (e.g. s390) system? Nonsense!
+    if want_x and anaconda.isHeadless:
+        stdoutLog.warning(_("DISPLAY variable not set. Starting text mode."))
+        anaconda.displayMode = 't'
+        graphical_failed = 1
+        time.sleep(2)
+        want_x = False
+
+    # Is Xorg is actually available?
+    if want_x and not os.access("/usr/bin/Xorg", os.X_OK):
+        stdoutLog.warning(_("Graphical installation is not available. "
+                            "Starting text mode."))
+        time.sleep(2)
+        anaconda.displayMode = 't'
+        want_x = False
+
+    if want_x:
+        # The following code depends on no SIGCHLD being delivered,
+        # possibly only except the one from a failing X.org. Thus
+        # make sure before entering this section that all the other
+        # children of anaconda have terminated or were forked into
+        # an orphan (which won't deliver a SIGCHLD to mess up the
+        # fragile signaling below). start X with its USR1 handler
+        # set to ignore.  this will make it send us SIGUSR1 if it
+        # succeeds.  if it fails, catch SIGCHLD and bomb out.
+        def sigchld_handler(num, frame):
+            raise OSError(0, "SIGCHLD caught when trying to start the X server.")
+
+        def sigusr1_handler(num, frame):
+            log.debug("X server has signalled a successful start.")
+
+        def preexec_fn():
+            signal.signal(signal.SIGUSR1, signal.SIG_IGN)
+
+        old_sigusr1 = signal.signal(signal.SIGUSR1, sigusr1_handler)
+        old_sigchld = signal.signal(signal.SIGCHLD, sigchld_handler)
+        xout = open("/dev/tty5", "w")
+        try:
+            proc = subprocess.Popen(["Xorg", "-br",
+                                     "-logfile", "/tmp/X.log",
+                                     ":1", "vt6", "-s", "1440", "-ac",
+                                     "-nolisten", "tcp", "-dpi", "96",
+                                     "-noreset"],
+                                     close_fds=True,
+                                     stdout=xout, stderr=xout,
+                                     preexec_fn=preexec_fn)
+
+            signal.pause()
+            os.environ["DISPLAY"] = ":1"
+            doStartupX11Actions()
+        except (OSError, RuntimeError):
+            stdoutLog.warning("X startup failed, falling back to text mode")
             anaconda.displayMode = 't'
             graphical_failed = 1
             time.sleep(2)
-            want_x = False
+        finally:
+            signal.signal(signal.SIGUSR1, old_sigusr1)
+            signal.signal(signal.SIGCHLD, old_sigchld)
 
-        # Is Xorg is actually available?
-        if want_x and not os.access("/usr/bin/Xorg", os.X_OK):
-            stdoutLog.warning(_("Graphical installation is not available. "
-                                "Starting text mode."))
-            time.sleep(2)
-            anaconda.displayMode = 't'
-            want_x = False
+    set_x_resolution(opts.runres)
 
-        if want_x:
-            # The following code depends on no SIGCHLD being delivered,
-            # possibly only except the one from a failing X.org. Thus
-            # make sure before entering this section that all the other
-            # children of anaconda have terminated or were forked into
-            # an orphan (which won't deliver a SIGCHLD to mess up the
-            # fragile signaling below). start X with its USR1 handler
-            # set to ignore.  this will make it send us SIGUSR1 if it
-            # succeeds.  if it fails, catch SIGCHLD and bomb out.
-            def sigchld_handler(num, frame):
-                raise OSError(0, "SIGCHLD caught when trying to start the X server.")
+    if anaconda.displayMode == 't' and graphical_failed and \
+         not anaconda.ksdata:
+        ret = vnc.askVncWindow()
+        if ret != -1:
+            anaconda.displayMode = 'g'
+            flags.usevnc = 1
+            if ret is not None:
+                vncS.password = ret
 
-            def sigusr1_handler(num, frame):
-                log.debug("X server has signalled a successful start.")
-
-            def preexec_fn():
-                signal.signal(signal.SIGUSR1, signal.SIG_IGN)
-
-            old_sigusr1 = signal.signal(signal.SIGUSR1, sigusr1_handler)
-            old_sigchld = signal.signal(signal.SIGCHLD, sigchld_handler)
-            xout = open("/dev/tty5", "w")
-            try:
-                proc = subprocess.Popen(["Xorg", "-br",
-                                         "-logfile", "/tmp/X.log",
-                                         ":1", "vt6", "-s", "1440", "-ac",
-                                         "-nolisten", "tcp", "-dpi", "96",
-                                         "-noreset"],
-                                         close_fds=True,
-                                         stdout=xout, stderr=xout,
-                                         preexec_fn=preexec_fn)
-
-                signal.pause()
-                os.environ["DISPLAY"] = ":1"
-                doStartupX11Actions()
-            except (OSError, RuntimeError):
-                stdoutLog.warning("X startup failed, falling back to text mode")
-                anaconda.displayMode = 't'
-                graphical_failed = 1
-                time.sleep(2)
-            finally:
-                signal.signal(signal.SIGUSR1, old_sigusr1)
-                signal.signal(signal.SIGCHLD, old_sigchld)
-
-        set_x_resolution(opts.runres)
-
-        if anaconda.displayMode == 't' and graphical_failed and \
-             not anaconda.ksdata:
-            ret = vnc.askVncWindow()
-            if ret != -1:
-                anaconda.displayMode = 'g'
-                flags.usevnc = 1
-                if ret is not None:
-                    vncS.password = ret
-
-        # if they want us to use VNC do that now
-        if anaconda.displayMode == 'g' and flags.usevnc:
-            runVNC(vncS)
-            doStartupX11Actions()
+    # if they want us to use VNC do that now
+    if anaconda.displayMode == 'g' and flags.usevnc:
+        runVNC(vncS)
+        doStartupX11Actions()
 
     # with X running we can initialize the UI interface
     anaconda.initInterface()
@@ -616,23 +615,11 @@ def prompt_for_ssh():
     # see if we can sniff out network info
     netinfo = network.Network()
 
-    devices = netinfo.netdevices
-    active_devs = network.getActiveNetDevs()
+    ip = netinfo.getFirstRealIP()
 
-    ip = None
-    if active_devs != []:
-        devname = devices[active_devs[0]].iface
-        try:
-            ips = (isys.getIPAddresses(devname, version=4) +
-                   isys.getIPAddresses(devname, version=6))
-        except Exception as e:
-            stdoutLog.warning("Got an exception trying to get the ip addr "
-                        "of %s: %s" % (devname, e))
-        else:
-            if ips and ips[0] not in ("127.0.0.1", "::1"):
-                stdoutLog.debug("IPs (using first) of device %s: %s" % (devname,
-                                                                 ips))
-                ip = ips[0]
+    if not ip:
+        stdoutLog.error("No IP addresses found, cannot continue installation.")
+        sys.exit(1)
 
     ipstr = ip
 
@@ -663,6 +650,8 @@ def prompt_for_ssh():
 
 
 if __name__ == "__main__":
+    print "Starting installer, one moment..."
+
     setupPythonPath()
 
     # Allow a file to be loaded as early as possible
@@ -726,10 +715,12 @@ if __name__ == "__main__":
     from pyanaconda import kickstart
     from pyanaconda import ntp
 
-    # to set UTF8 mode on the terminal, we need LANG to be set usefully
-    if os.environ.get("LANG", "C") == "C":
-        os.environ['LANG'] = DEFAULT_LANG
-    print "\033%G" # UTF8 power go!
+    verdesc = "%s for %s %s" % (getAnacondaVersion(),
+                                product.productName, product.productVersion)
+    if product.isFinal:
+        print "anaconda %s started." % verdesc
+    else:
+        print "anaconda %s (pre-release) started." % verdesc
 
     import gettext
     _ = lambda x: gettext.ldgettext("anaconda", x)
@@ -840,21 +831,36 @@ if __name__ == "__main__":
 
     os.system("udevadm control --env=ANACONDA=1")
 
-    # parse (not execute) kickstart now, the ks commands can affect things like
-    # UI interface type or enabling rescue mode
+    # If we were given a kickstart file on the command line, parse (but do not
+    # execute) that now.  Otherwise, load in defaults from kickstart files
+    # shipped with the installation media.
+    ksdata = None
     if opts.ksfile:
         flags.automatedInstall = True
-
-        kickstart.preScriptPass(opts.ksfile)
-        ksdata = kickstart.parseKickstart(opts.ksfile)
-        if ksdata.rescue.rescue:
-            anaconda.rescue = True
-
-        # Some kickstart commands must be executed immediately, as they affect
-        # how anaconda operates.
-        ksdata.logging.execute()
+        files = [opts.ksfile]
     else:
+        files = ["/tmp/updates/interactive-defaults.ks",
+                 "/usr/share/anaconda/interactive-defaults.ks"]
+
+    for f in files:
+        if not os.path.exists(f):
+            continue
+
+        kickstart.preScriptPass(f)
+        ksdata = kickstart.parseKickstart(f)
+
+        # Only load the first defaults file we find.
+        break
+
+    if not ksdata:
         ksdata = kickstart.AnacondaKSHandler()
+
+    if ksdata.rescue.rescue:
+        anaconda.rescue = True
+
+    # Some kickstart commands must be executed immediately, as they affect
+    # how anaconda operates.
+    ksdata.logging.execute()
 
     anaconda.ksdata = ksdata
 
@@ -945,6 +951,10 @@ if __name__ == "__main__":
     from pyanaconda.storage import storageInitialize
     from pyanaconda.packaging import payloadInitialize
     from pyanaconda.threads import initThreading, threadMgr, AnacondaThread
+
+    if anaconda.rescue:
+        from pyanaconda.rescue import doRescue
+        doRescue(anaconda.rescue_mount, ksdata, anaconda.platform)
 
     initThreading()
     threadMgr.add(AnacondaThread(name="AnaStorageThread", target=storageInitialize, args=(anaconda.storage, ksdata, anaconda.protected)))

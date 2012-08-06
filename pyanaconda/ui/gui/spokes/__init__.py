@@ -31,6 +31,33 @@ class Spoke(GUIObject, common.Spoke):
         GUIObject.__init__(self, data)
         common.Spoke.__init__(self, data, storage, payload, instclass)
 
+    def apply(self):
+        """Apply the selections made on this Spoke to the object's preset
+           data object.  This method must be provided by every subclass.
+        """
+        raise NotImplementedError
+
+    @property
+    def completed(self):
+        """Has this spoke been visited and completed?  If not, a special warning
+           icon will be shown on the Hub beside the spoke, and a highlighted
+           message will be shown at the bottom of the Hub.  Installation will not
+           be allowed to proceed until all spokes are complete.
+        """
+        return False
+
+    def execute(self):
+        """Cause the data object to take effect on the target system.  This will
+           usually be as simple as calling one or more of the execute methods on
+           the data object.  This method does not need to be provided by all
+           subclasses.
+
+           This method will be called in two different places:  (1) Immediately
+           after initialize on kickstart installs.  (2) Immediately after apply
+           in all cases.
+        """
+        pass
+
     def initialize(self):
         GUIObject.initialize(self)
 

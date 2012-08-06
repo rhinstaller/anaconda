@@ -23,7 +23,9 @@ from storage.deviceaction import *
 from storage.devices import LUKSDevice
 from storage.devicelibs.lvm import getPossiblePhysicalExtents
 from storage.devicelibs.mpath import MultipathConfigWriter, MultipathTopology
+from storage.devicelibs import swap
 from storage.formats import getFormat
+from storage.partitioning import doPartitioning
 import storage.iscsi
 import storage.fcoe
 import storage.zfcp
@@ -37,6 +39,7 @@ import os.path
 import tempfile
 from flags import flags
 from constants import *
+import shlex
 import sys
 import urlgrabber
 import network
@@ -49,7 +52,9 @@ from pyanaconda import ntp
 from pykickstart.base import KickstartCommand
 from pykickstart.constants import *
 from pykickstart.errors import formatErrorMsg, KickstartError, KickstartValueError
-from pykickstart.parser import Group, KickstartParser, Script
+from pykickstart.parser import KickstartParser
+from pykickstart.parser import Group as PackageGroup
+from pykickstart.parser import Script as KSScript
 from pykickstart.sections import *
 from pykickstart.version import returnClassForVersion
 
@@ -70,7 +75,7 @@ packagesSeen = False
 # so it needs to know about them in some additional way: have the topology ready.
 topology = None
 
-class AnacondaKSScript(Script):
+class AnacondaKSScript(KSScript):
     def run(self, chroot, serial):
         if self.inChroot:
             scriptRoot = chroot
@@ -212,6 +217,22 @@ def removeExistingFormat(device, storage):
 ### SUBCLASSES OF PYKICKSTART COMMAND HANDLERS
 ###
 
+class Authconfig(commands.authconfig.FC3_Authconfig):
+    def execute(self, *args):
+        args = ["--update", "--nostart"] + shlex.split(self.authconfig)
+
+        if not flags.automatedInstall and \
+           (os.path.exists(ROOT_PATH + "/lib64/security/pam_fprintd.so") or \
+            os.path.exists(ROOT_PATH + "/lib/security/pam_fprintd.so")):
+            args += ["--enablefingerprint"]
+
+        try:
+            iutil.execWithRedirect("/usr/sbin/authconfig", args,
+                                   stdout="/dev/tty5", stderr="/dev/tty5",
+                                   root=ROOT_PATH)
+        except RuntimeError as msg:
+            log.error("Error running /usr/sbin/authconfig %s: %s", args, msg)
+
 class AutoPart(commands.autopart.F17_AutoPart):
     def execute(self, storage, ksdata, instClass):
         from pyanaconda.platform import getPlatform
@@ -288,6 +309,11 @@ class Bootloader(commands.bootloader.F18_Bootloader):
 
         if self.leavebootorder:
             flags.leavebootorder = True
+
+class BTRFS(commands.btrfs.F17_BTRFS):
+    def execute(self, storage, ksdata, instClass):
+        for b in self.btrfsList:
+            b.execute(storage, ksdata, instClass)
 
 class BTRFSData(commands.btrfs.F17_BTRFSData):
     def execute(self, storage, ksdata, instClass):
@@ -416,7 +442,7 @@ class Fcoe(commands.fcoe.F13_Fcoe):
 
 class Firstboot(commands.firstboot.FC3_Firstboot):
     def execute(self, *args):
-        if not os.path.exists("/lib/systemd/system/firstboot-graphical.service"):
+        if not os.path.exists(ROOT_PATH + "/lib/systemd/system/firstboot-graphical.service"):
             return
 
         action = "enable"
@@ -507,6 +533,11 @@ class IscsiName(commands.iscsiname.FC6_IscsiName):
         storage.iscsi.iscsi().initiator = self.iscsiname
         return retval
 
+class LogVol(commands.logvol.F17_LogVol):
+    def execute(self, storage, ksdata, instClass):
+        for l in self.lvList:
+            l.execute(storage, ksdata, instClass)
+
 class LogVolData(commands.logvol.F17_LogVolData):
     def execute(self, storage, ksdata, instClass):
         devicetree = storage.devicetree
@@ -516,9 +547,9 @@ class LogVolData(commands.logvol.F17_LogVolData):
         if self.mountpoint == "swap":
             type = "swap"
             self.mountpoint = ""
-            if self.recommended:
-                (self.size, self.maxSizeMB) = iutil.swapSuggestion()
-                self.grow = True
+            if self.recommended or self.hibernation:
+                self.size = swap.swapSuggestion(hibernation=self.hibernation)
+                self.grow = False
         else:
             if self.fstype != "":
                 type = self.fstype
@@ -621,7 +652,7 @@ class LogVolData(commands.logvol.F17_LogVolData):
 
             request = storage.newLV(format=format,
                                     name=self.name,
-                                    vg=vg,
+                                    parents=[vg],
                                     size=self.size,
                                     grow=self.grow,
                                     maxsize=self.maxSizeMB,
@@ -672,7 +703,7 @@ class NetworkData(commands.network.F16_NetworkData):
     def execute(self):
         if flags.imageInstall:
             if self.hostname != "":
-                self.anaconda.network.setHostname(self.hostname)
+                network.setHostname(self.hostname)
 
             # Only set hostname
             return
@@ -681,22 +712,22 @@ class NetworkData(commands.network.F16_NetworkData):
         # only set hostname
         if self.essid:
             if self.hostname != "":
-                self.anaconda.network.setHostname(self.hostname)
+                network.setHostname(self.hostname)
             return
 
-        devices = self.anaconda.network.netdevices
+        devices = network.getDevices()
 
         if not self.device:
-            if self.anaconda.network.ksdevice:
+            if "ksdevice" in flags.cmdline:
                 msg = "ksdevice boot parameter"
-                device = self.anaconda.network.ksdevice
+                device = network.get_ksdevice_name(flags.cmdline["ksdevice"])
             elif network.hasActiveNetDev():
                 # device activated in stage 1 by network kickstart command
                 msg = "first active device"
                 device = network.getActiveNetDevs()[0]
             else:
                 msg = "first device found"
-                device = min(devices.keys())
+                device = min(devices)
             log.info("unspecified network --device in kickstart, using %s (%s)" %
                      (device, msg))
         else:
@@ -722,18 +753,22 @@ class NetworkData(commands.network.F16_NetworkData):
         # If we were given a network device name, grab the device object.
         # If we were given a MAC address, resolve that to a device name
         # and then grab the device object.  Otherwise, errors.
-        dev = None
 
-        if devices.has_key(device):
-            dev = devices[device]
-        else:
-            for (key, val) in devices.iteritems():
-                if val.get("HWADDR").lower() == device.lower():
-                    dev = val
+        if device not in devices:
+            for d in devices:
+                if isys.getMacAddress(d).lower() == device.lower():
+                    device = d
                     break
 
+        dev = network.NetworkDevice(ROOT_PATH, device)
+        try:
+            dev.loadIfcfgFile()
+        except IOError as e:
+            log.info("Can't load ifcfg file %s" % dev.path)
+            dev = None
+
         if self.hostname != "":
-            self.anaconda.network.setHostname(self.hostname)
+            network.setHostname(self.hostname)
             if not dev:
                 # Only set hostname
                 return
@@ -784,13 +819,17 @@ class NetworkData(commands.network.F16_NetworkData):
                 dev.set(("ETHTOOL_OPTS", self.ethtool))
 
             if self.nameserver != "":
-                self.anaconda.network.setDNS(self.nameserver, dev.iface)
+                dev.setDNS(self.nameserver)
 
             if self.gateway != "":
-                self.anaconda.network.setGateway(self.gateway, dev.iface)
+                dev.setGateway(self.gateway)
 
         if self.nodefroute:
             dev.set (("DEFROUTE", "no"))
+
+    #TODO
+    # write ifcfg file, carefuly handle ONBOOT value,
+    # problems - might activate the device!!!
 
 class MultiPath(commands.multipath.FC6_MultiPath):
     def parse(self, args):
@@ -799,6 +838,11 @@ class MultiPath(commands.multipath.FC6_MultiPath):
 class DmRaid(commands.dmraid.FC6_DmRaid):
     def parse(self, args):
         raise NotImplementedError("The dmraid kickstart command is not currently supported")
+
+class Partition(commands.partition.F17_Partition):
+    def execute(self, storage, ksdata, instClass):
+        for p in self.partitions:
+            p.execute(storage, ksdata, instClass)
 
 class PartitionData(commands.partition.F17_PartData):
     def execute(self, storage, ksdata, instClass):
@@ -813,15 +857,15 @@ class PartitionData(commands.partition.F17_PartData):
                     self.disk = disk
                     break
 
-            if self.disk == "":
+            if not self.disk:
                 raise KickstartValueError, formatErrorMsg(self.lineno, msg="Specified BIOS disk %s cannot be determined" % self.onbiosdisk)
 
         if self.mountpoint == "swap":
             type = "swap"
             self.mountpoint = ""
-            if self.recommended:
-                (self.size, self.maxSizeMB) = iutil.swapSuggestion()
-                self.grow = True
+            if self.recommended or self.hibernation:
+                self.size = swap.swapSuggestion(hibernation=self.hibernation)
+                self.grow = False
         # if people want to specify no mountpoint for some reason, let them
         # this is really needed for pSeries boot partitions :(
         elif self.mountpoint == "None":
@@ -947,12 +991,12 @@ class PartitionData(commands.partition.F17_PartData):
 
                 should_clear = storage.shouldClear(disk)
                 if disk and (disk.partitioned or should_clear):
-                    kwargs["disks"] = [disk]
+                    kwargs["parents"] = [disk]
                     break
                 elif disk:
                     raise KickstartValueError, formatErrorMsg(self.lineno, msg="Specified unpartitioned disk %s in partition command" % self.disk)
 
-            if not kwargs["disks"]:
+            if not kwargs["parents"]:
                 raise KickstartValueError, formatErrorMsg(self.lineno, msg="Specified nonexistent disk %s in partition command" % self.disk)
 
         kwargs["grow"] = self.grow
@@ -1020,6 +1064,11 @@ class PartitionData(commands.partition.F17_PartData):
                                      format=luksformat,
                                      parents=request)
             storage.createDevice(luksdev)
+
+class Raid(commands.raid.F15_Raid):
+    def execute(self, storage, ksdata, instClass):
+        for r in self.raidList:
+            r.execute(storage, ksdata, instClass)
 
 class RaidData(commands.raid.F15_RaidData):
     def execute(self, storage, ksdata, instClass):
@@ -1207,6 +1256,11 @@ class User(commands.user.F12_User):
             if not users.createUser(usr.name, **kwargs):
                 log.error("User %s already exists, not creating." % usr.name)
 
+class VolGroup(commands.volgroup.FC16_VolGroup):
+    def execute(self, storage, ksdata, instClass):
+        for v in self.vgList:
+            v.execute(storage, ksdata, instClass)
+
 class VolGroupData(commands.volgroup.FC16_VolGroupData):
     def execute(self, storage, ksdata, instClass):
         pvs = []
@@ -1247,7 +1301,7 @@ class VolGroupData(commands.volgroup.FC16_VolGroupData):
         elif self.vgname in [vg.name for vg in storage.vgs]:
             raise KickstartValueError(formatErrorMsg(self.lineno, msg="The volume group name \"%s\" is already in use." % self.vgname))
         else:
-            request = storage.newVG(pvs=pvs,
+            request = storage.newVG(parents=pvs,
                                     name=self.vgname,
                                     peSize=self.pesize/1024.0)
 
@@ -1287,7 +1341,10 @@ class Keyboard(commands.keyboard.F18_Keyboard):
 # This is just the latest entry from pykickstart.handlers.control with all the
 # classes we're overriding in place of the defaults.
 commandMap = {
+        "auth": Authconfig,
+        "authconfig": Authconfig,
         "autopart": AutoPart,
+        "btrfs": BTRFS,
         "bootloader": Bootloader,
         "clearpart": ClearPart,
         "dmraid": DmRaid,
@@ -1299,11 +1356,16 @@ commandMap = {
         "iscsiname": IscsiName,
         "keyboard": Keyboard,
         "logging": Logging,
+        "logvol": LogVol,
         "multipath": MultiPath,
+        "part": Partition,
+        "partition": Partition,
+        "raid": Raid,
         "rootpw": RootPw,
         "services": Services,
         "timezone": Timezone,
         "user": User,
+        "volgroup": VolGroup,
         "xconfig": XConfig,
         "zfcp": ZFCP,
 }
@@ -1468,15 +1530,15 @@ def selectPackages(ksdata, payload):
             if errorHandler.cb(e) == ERROR_RAISE:
                 sys.exit(1)
 
-    ksdata.packages.groupList.insert(0, Group("Core"))
+    ksdata.packages.groupList.insert(0, PackageGroup("Core"))
 
     if ksdata.packages.addBase:
         # Only add @base if it's not already in the group list.  If the
         # %packages section contains something like "@base --optional",
         # addBase will take effect first and yum will think the group is
         # already selected.
-        if not Group("Base") in ksdata.packages.groupList:
-            ksdata.packages.groupList.insert(1, Group("Base"))
+        if not PackageGroup("Base") in ksdata.packages.groupList:
+            ksdata.packages.groupList.insert(1, PackageGroup("Base"))
     else:
         log.warning("not adding Base group")
 
@@ -1506,3 +1568,17 @@ def selectPackages(ksdata, payload):
             payload.deselectGroup(grp.name)
         except NoSuchGroup:
             continue
+
+def doKickstartStorage(storage, ksdata, instClass):
+    """ Setup storage state from the kickstart data """
+    ksdata.clearpart.execute(storage, ksdata, instClass)
+    ksdata.bootloader.execute(storage, ksdata, instClass)
+    ksdata.autopart.execute(storage, ksdata, instClass)
+    ksdata.partition.execute(storage, ksdata, instClass)
+    ksdata.raid.execute(storage, ksdata, instClass)
+    ksdata.volgroup.execute(storage, ksdata, instClass)
+    ksdata.logvol.execute(storage, ksdata, instClass)
+    ksdata.btrfs.execute(storage, ksdata, instClass)
+    storage.setUpBootLoader()
+    doPartitioning(storage)
+

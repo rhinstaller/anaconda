@@ -42,7 +42,7 @@ class AddLayoutDialog(GUIObject):
     builderObjects = ["addLayoutDialog", "newLayoutStore",
                       "newLayoutStoreFilter", "newLayoutStoreSort"]
     mainWidgetName = "addLayoutDialog"
-    uiFile = "spokes/keyboard.ui"
+    uiFile = "spokes/keyboard.glade"
 
     def __init__(self, *args):
         GUIObject.__init__(self, *args)
@@ -140,7 +140,7 @@ class KeyboardSpoke(NormalSpoke):
     builderObjects = ["addedLayoutStore", "keyboardWindow",
                       "addImage", "removeImage", "upImage", "downImage", "previewImage"]
     mainWidgetName = "keyboardWindow"
-    uiFile = "spokes/keyboard.ui"
+    uiFile = "spokes/keyboard.glade"
 
     category = LocalizationCategory
 

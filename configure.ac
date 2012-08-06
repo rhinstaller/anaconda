@@ -20,7 +20,7 @@
 m4_define(python_required_version, 2.5)
 
 AC_PREREQ([2.63])
-AC_INIT([anaconda], [18.2], [anaconda-devel-list@redhat.com])
+AC_INIT([anaconda], [18.3], [anaconda-devel-list@redhat.com])
 AM_INIT_AUTOMAKE([foreign no-dist-gzip dist-bzip2])
 
 AC_CONFIG_HEADERS([config.h])
@@ -259,7 +259,6 @@ AC_CONFIG_FILES([Makefile
                  data/command-stubs/Makefile
                  docs/Makefile
                  dracut/Makefile
-                 gptsync/Makefile
                  pyanaconda/installclasses/Makefile
                  data/liveinst/Makefile
                  data/liveinst/console.apps/Makefile
@@ -314,7 +313,6 @@ AC_CONFIG_FILES([Makefile
                  tests/logpicker_test/archiving_test/Makefile
                  tests/logpicker_test/logmining_test/Makefile
                  pyanaconda/textw/Makefile
-                 data/ui/Makefile
                  data/post-scripts/Makefile
                  utils/Makefile
                  utils/log_picker/Makefile

@@ -44,6 +44,7 @@ MAIN_LOG_FILE = "/tmp/anaconda.log"
 MAIN_LOG_TTY = "/dev/tty3"
 PROGRAM_LOG_FILE = "/tmp/program.log"
 STORAGE_LOG_FILE = "/tmp/storage.log"
+PACKAGING_LOG_FILE = "/tmp/packaging.log"
 ANACONDA_SYSLOG_FACILITY = SysLogHandler.LOG_LOCAL1
 
 logLevelMap = {"debug": logging.DEBUG, "info": logging.INFO,
@@ -151,6 +152,13 @@ class AnacondaLog:
                             minLevel=logging.DEBUG)
         self.forwardToSyslog(program_logger)
 
+        # Create the packaging logger.
+        packaging_logger = logging.getLogger("packaging")
+        packaging_logger.setLevel(logging.DEBUG)
+        self.addFileHandler(PACKAGING_LOG_FILE, packaging_logger,
+                            minLevel=logging.DEBUG)
+        self.forwardToSyslog(packaging_logger)
+
         # Create a second logger for just the stuff we want to dup on
         # stdout.  Anything written here will also get passed up to the
         # parent loggers for processing and possibly be written to the
@@ -224,7 +232,7 @@ class AnacondaLog:
     def setupVirtio(self):
         """Setup virtio rsyslog logging.
         """
-        TEMPLATE = "*.* %s\n"
+        TEMPLATE = "*.* %s;anaconda_syslog\n"
 
         if not os.path.exists(self.VIRTIO_PORT) \
            or not os.access(self.VIRTIO_PORT, os.W_OK):

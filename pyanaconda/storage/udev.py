@@ -556,18 +556,47 @@ def udev_device_get_iscsi_port(info):
     # IPV6 contains : within the address, the part after the last : is the port
     return path_components[address_field].split(":")[-1]
 
-def udev_device_get_iscsi_nic(info):
+def udev_device_get_iscsi_session(info):
     # '/devices/pci0000:00/0000:00:02.0/0000:09:00.0/0000:0a:01.0/0000:0e:00.2/host3/session1/target3:0:0/3:0:0:0/block/sda'
     # The position of sessionX part depends on device
     # (e.g. offload vs. sw; also varies for different offload devs)
+    session = None
     match = re.match('/.*/(session\d+)', info["sysfs_path"])
     if match:
         session = match.groups()[0]
+    else:
+        log.error("udev_device_get_iscsi_session: session not found in %s" % info)
+    return session
+
+
+def udev_device_get_iscsi_nic(info):
+    iface = None
+    session = udev_device_get_iscsi_session(info)
+    if session:
         iface = open("/sys/class/iscsi_session/%s/ifacename" %
                      session).read().strip()
-    else:
-        iface = None
     return iface
+
+def udev_device_get_iscsi_initiator(info):
+    initiator = None
+    if udev_device_is_partoff_iscsi(info):
+        host = re.match('.*/(host\d+)', info["sysfs_path"]).groups()[0]
+        if host:
+            initiator_file = "/sys/class/iscsi_host/%s/initiatorname" % host
+            if os.access(initiator_file, os.R_OK):
+                initiator = open(initiator_file).read().strip()
+                log.debug("found offload iscsi initiatorname %s in file %s" %
+                          (initiator, initiator_file))
+                if initiator.lstrip("(").rstrip(")").lower() == "null":
+                    initiator = None
+    if initiator is None:
+        session = udev_device_get_iscsi_session(info)
+        if session:
+            initiator = open("/sys/class/iscsi_session/%s/initiatorname" %
+                             session).read().strip()
+            log.debug("found iscsi initiatorname %s" % initiator)
+    return initiator
+
 
 # fcoe disks have ID_PATH in the form of:
 # For FCoE directly over the NIC (so no VLAN and thus no DCB):

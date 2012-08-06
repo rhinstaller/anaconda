@@ -47,7 +47,7 @@ from pyanaconda.ui.gui.spokes.lib.cart import SelectedDisksDialog
 from pyanaconda.ui.gui.categories.storage import StorageCategory
 from pyanaconda.ui.gui.utils import enlightbox, gdk_threaded
 
-from pyanaconda.storage import doKickstartStorage
+from pyanaconda.kickstart import doKickstartStorage
 from pyanaconda.storage.size import Size
 from pyanaconda.product import productName
 from pyanaconda.flags import flags
@@ -59,6 +59,9 @@ import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
 N_ = lambda x: x
 P_ = lambda x, y, z: gettext.ldngettext("anaconda", x, y, z)
+
+import logging
+log = logging.getLogger("anaconda")
 
 __all__ = ["StorageSpoke"]
 
@@ -110,7 +113,7 @@ def size_str(mb):
 class InstallOptions1Dialog(GUIObject):
     builderObjects = ["options1_dialog"]
     mainWidgetName = "options1_dialog"
-    uiFile = "spokes/storage.ui"
+    uiFile = "spokes/storage.glade"
 
     RESPONSE_CANCEL = 0
     RESPONSE_CONTINUE = 1
@@ -246,11 +249,15 @@ class StorageChecker(object):
         (StorageChecker.errors,
          StorageChecker.warnings) = self.storage.sanityCheck()
         communication.send_ready(self._mainSpokeClass, justUpdate=True)
+        for e in StorageChecker.errors:
+            log.error(e)
+        for w in StorageChecker.warnings:
+            log.warn(w)
 
 class StorageSpoke(NormalSpoke, StorageChecker):
     builderObjects = ["storageWindow"]
     mainWidgetName = "storageWindow"
-    uiFile = "spokes/storage.ui"
+    uiFile = "spokes/storage.glade"
 
     category = StorageCategory
 
@@ -260,6 +267,8 @@ class StorageSpoke(NormalSpoke, StorageChecker):
 
     def __init__(self, *args, **kwargs):
         NormalSpoke.__init__(self, *args, **kwargs)
+        self.applyOnSkip = True
+
         self._ready = False
         self.selected_disks = self.data.ignoredisk.onlyuse[:]
 
@@ -310,14 +319,9 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         # user may have set up before now.
         self.storage.config.clearNonExistent = self.data.autopart.autopart
 
-        # Pick the first disk to be the destination device for the bootloader.
-        # This appears to be the minimum amount of configuration required to
-        # make autopart happy with the bootloader settings.
-        if not self.data.bootloader.bootDrive:
-            self.data.bootloader.bootDrive = self.storage.bootloader.disks[0].name
-
     def execute(self):
-        doKickstartStorage(self.storage, self.data, self.instclass, self)
+        doKickstartStorage(self.storage, self.data, self.instclass)
+        self.run()
 
     @property
     def completed(self):

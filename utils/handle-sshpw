@@ -28,7 +28,7 @@ from pykickstart.parser import *
 from pykickstart.version import makeVersion
 import pyanaconda.users as users
 
-ksfile = '/ks.cfg.done'
+ksfile = '/run/install/ks.cfg'
 
 # see if we have a file to work with
 if not os.path.exists(ksfile):
@@ -37,9 +37,9 @@ if not os.path.exists(ksfile):
 ksparser = KickstartParser(makeVersion())
 ksparser.readKickstart(ksfile)
 
-# we need to have a libuser.conf that points to the installer root for  
-# sshpw, but after that we start sshd, we need one that points to the   
-# install target. 
+# we need to have a libuser.conf that points to the installer root for
+# sshpw, but after that we start sshd, we need one that points to the
+# install target.
 luserConf = users.createLuserConf(instPath="")
 # Pass a fake anaconda object in because it won't be needed
 u = users.Users(None)

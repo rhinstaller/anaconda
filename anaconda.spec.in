@@ -26,7 +26,7 @@ BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 %define intltoolver 0.31.2-3
 %define libnlver 1.0
 %define libselinuxver 1.6
-%define pykickstartver 1.99.4
+%define pykickstartver 1.99.14
 %define rpmpythonver 4.2-0.61
 %define slangver 2.0.6-2
 %define yumver 2.9.2
@@ -40,7 +40,7 @@ BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 %define yumutilsver 1.1.11-3
 %define iscsiver 6.2.0.870-3
 %define pythoncryptsetupver 0.1.1
-%define mehver 0.8
+%define mehver 0.13-1
 %define sckeyboardver 1.3.1
 %define libblkidver 2.17.1-1
 %define fcoeutilsver 1.0.12-3.20100323git
@@ -52,8 +52,11 @@ BuildRequires: device-mapper-devel >= %{dmver}
 BuildRequires: e2fsprogs-devel >= %{e2fsver}
 BuildRequires: elfutils-devel
 BuildRequires: gettext >= %{gettextver}
-BuildRequires: gtk3-devel gtk-doc
-BuildRequires: gobject-introspection-devel glade-devel pygobject3
+BuildRequires: gtk3-devel
+BuildRequires: gtk-doc
+BuildRequires: gobject-introspection-devel
+BuildRequires: glade-devel
+BuildRequires: pygobject3
 BuildRequires: intltool >= %{intltoolver}
 BuildRequires: isomd5sum-static >= %{isomd5sumver}
 BuildRequires: libarchive-devel
@@ -84,7 +87,8 @@ BuildRequires: yum >= %{yumver}
 BuildRequires: zlib-devel
 BuildRequires: NetworkManager-devel >= %{nmver}
 BuildRequires: NetworkManager-glib-devel >= %{nmver}
-BuildRequires: dbus-devel >= %{dbusver}, dbus-python
+BuildRequires: dbus-devel >= %{dbusver}
+BuildRequires: dbus-python
 BuildRequires: system-config-keyboard >= %{sckeyboardver}
 %ifarch %livearches
 BuildRequires: desktop-file-utils
@@ -258,10 +262,6 @@ update-desktop-database &> /dev/null || :
 %{_sbindir}/handle-sshpw
 %{_sbindir}/logpicker
 %{_sbindir}/anaconda-cleanup-initramfs
-%ifarch i386 i486 i586 i686 x86_64
-%{_sbindir}/gptsync
-%{_sbindir}/showpart
-%endif
 %{_datadir}/anaconda
 %{_prefix}/libexec/anaconda
 %{_libdir}/python*/site-packages/pyanaconda/*
@@ -295,6 +295,10 @@ update-desktop-database &> /dev/null || :
 /usr/lib/dracut/modules.d/80%{name}/*
 
 %changelog
+* Fri Aug 03 2012 Chris Lumens <clumens@redhat.com> - 18.3-1
+- New graphical user interface.
+- Removed loader.
+
 * Wed Apr 18 2012 Brian C. Lane <bcl@redhat.com> - 18.2-1
 - Fixes from F17 branch
 

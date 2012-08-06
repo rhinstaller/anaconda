@@ -105,6 +105,7 @@ from devicelibs import lvm
 from devicelibs import dm
 from devicelibs import loop
 from devicelibs import btrfs
+from devicelibs import crypto
 import parted
 import _ped
 import block
@@ -1934,8 +1935,7 @@ class LUKSDevice(DMCryptDevice):
     @property
     def size(self):
         if not self.exists or not self.partedDevice:
-            # the LUKS metadata area is 2MB
-            size = float(self.slave.size) - 2.0
+            size = float(self.slave.size) - crypto.LUKS_METADATA_SIZE
         else:
             size = self.partedDevice.getSize()
         return size
@@ -1964,7 +1964,7 @@ class LVMVolumeGroupDevice(DMDevice):
     _type = "lvmvg"
     _packages = ["lvm2"]
 
-    def __init__(self, name, parents, size=None, free=None,
+    def __init__(self, name, parents=None, size=None, free=None,
                  peSize=None, peCount=None, peFree=None, pvCount=None,
                  uuid=None, exists=False, sysfsPath=''):
         """ Create a LVMVolumeGroupDevice instance.
@@ -2387,7 +2387,7 @@ class LVMLogicalVolumeDevice(DMDevice):
     _resizable = True
     _packages = ["lvm2"]
 
-    def __init__(self, name, vgdev, size=None, uuid=None,
+    def __init__(self, name, parents=None, size=None, uuid=None,
                  stripes=1, logSize=0, snapshotSpace=0,
                  format=None, exists=False, sysfsPath='',
                  grow=None, maxsize=None, percent=None,
@@ -2418,15 +2418,15 @@ class LVMLogicalVolumeDevice(DMDevice):
                     percent -- percent of VG space to take
 
         """
-        if isinstance(vgdev, list):
-            if len(vgdev) != 1:
+        if isinstance(parents, list):
+            if len(parents) != 1:
                 raise ValueError("constructor requires a single LVMVolumeGroupDevice instance")
-            elif not isinstance(vgdev[0], LVMVolumeGroupDevice):
+            elif not isinstance(parents[0], LVMVolumeGroupDevice):
                 raise ValueError("constructor requires a LVMVolumeGroupDevice instance")
-        elif not isinstance(vgdev, LVMVolumeGroupDevice):
+        elif not isinstance(parents, LVMVolumeGroupDevice):
             raise ValueError("constructor requires a LVMVolumeGroupDevice instance")
         DMDevice.__init__(self, name, size=size, format=format,
-                          sysfsPath=sysfsPath, parents=vgdev,
+                          sysfsPath=sysfsPath, parents=parents,
                           exists=exists)
 
         self.singlePVerr = ("%(mountpoint)s is restricted to a single "
@@ -3642,18 +3642,35 @@ class iScsiDiskDevice(DiskDevice, NetworkStorageDevice):
         self.ibft = kwargs.pop("ibft")
         self.nic = kwargs.pop("nic")
         self.initiator = kwargs.pop("initiator")
-        DiskDevice.__init__(self, device, **kwargs)
-        NetworkStorageDevice.__init__(self, host_address=self.node.address,
-                                      nic=self.nic)
-        log.debug("created new iscsi disk %s %s:%d via %s:%s" % (self.node.name,
-                                                              self.node.address,
-                                                              self.node.port,
-                                                              self.node.iface,
-                                                              self.nic))
+
+        if self.node is None:
+            # qla4xxx partial offload
+            name = kwargs.pop("fw_name")
+            address = kwargs.pop("fw_address")
+            port = kwargs.pop("fw_port")
+            DiskDevice.__init__(self, device, **kwargs)
+            NetworkStorageDevice.__init__(self,
+                                          host_address=address,
+                                          nic=self.nic)
+            log.debug("created new iscsi disk %s %s:%s using fw initiator %s"
+                      % (name, address, port, self.initiator))
+        else:
+            DiskDevice.__init__(self, device, **kwargs)
+            NetworkStorageDevice.__init__(self, host_address=self.node.address,
+                                          nic=self.nic)
+            log.debug("created new iscsi disk %s %s:%d via %s:%s" % (self.node.name,
+                                                                  self.node.address,
+                                                                  self.node.port,
+                                                                  self.node.iface,
+                                                                  self.nic))
 
     def dracutSetupArgs(self):
         if self.ibft:
             return set(["iscsi_firmware"])
+
+        # qla4xxx partial offload
+        if self.node is None:
+            return set()
 
         address = self.node.address
         # surround ipv6 addresses with []
@@ -3943,19 +3960,31 @@ class BTRFSDevice(StorageDevice):
     def _temp_dir_prefix(self):
         return "btrfs-tmp.%s" % self.id
 
-    def _do_temp_mount(self):
+    def _do_temp_mount(self, orig=False):
         if self.format.status or not self.exists:
             return
 
         tmpdir = tempfile.mkdtemp(prefix=self._temp_dir_prefix)
-        self.format.mount(mountpoint=tmpdir)
+        if orig:
+            fmt = self.originalFormat
+        else:
+            fmt = self.format
+
+        fmt.mount(mountpoint=tmpdir)
 
     def _undo_temp_mount(self):
-        if self.format.status:
-            mountpoint = self.format._mountpoint
-            if os.path.basename(mountpoint).startswith(self._temp_dir_prefix):
-                self.format.unmount()
-                os.rmdir(mountpoint)
+        if getattr(self.format, "_mountpoint", None):
+            fmt = self.format
+        elif getattr(self.originalFormat, "_mountpoint", None):
+            fmt = self.originalFormat
+        else:
+            return
+
+        mountpoint = fmt._mountpoint
+
+        if os.path.basename(mountpoint).startswith(self._temp_dir_prefix):
+            fmt.unmount()
+            os.rmdir(mountpoint)
 
     @property
     def path(self):
@@ -3990,6 +4019,7 @@ class BTRFSVolumeDevice(BTRFSDevice):
                                     label=label,
                                     volUUID=self.uuid,
                                     device=self.path)
+            self.originalFormat = self.format
 
         label = getattr(self.format, "label", None)
         if label:
@@ -4058,7 +4088,7 @@ class BTRFSVolumeDevice(BTRFSDevice):
         subvols = []
         self.setup(orig=True)
         try:
-            self._do_temp_mount()
+            self._do_temp_mount(orig=True)
         except FSError as e:
             log.debug("btrfs temp mount failed: %s" % e)
             return subvols
@@ -4127,10 +4157,10 @@ class BTRFSSubVolumeDevice(BTRFSDevice):
 
     def _destroy(self):
         log_method_call(self, self.name, status=self.status)
-        self.volume._do_temp_mount()
-        mountpoint = self.volume.format._mountpoint
+        self.volume._do_temp_mount(orig=True)
+        mountpoint = self.volume.originalFormat._mountpoint
         if not mountpoint:
             raise RuntimeError("btrfs subvol destroy requires mounted volume")
         btrfs.delete_subvolume(mountpoint, self.name)
-        self.volume._removeSubVolume()
+        self.volume._removeSubVolume(self.name)
         self.volume._undo_temp_mount()

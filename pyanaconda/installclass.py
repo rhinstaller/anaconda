@@ -32,6 +32,7 @@ import types
 from constants import *
 from product import *
 from storage.partspec import *
+from storage.devicelibs import swap
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
@@ -116,9 +117,9 @@ class BaseInstallClass(object):
         if bootreq:
             autorequests.extend(bootreq)
 
-        (minswap, maxswap) = iutil.swapSuggestion()
-        autorequests.append(PartSpec(fstype="swap", size=minswap, maxSize=maxswap,
-                                     grow=True, lv=True, encrypted=True))
+        swp = swap.swapSuggestion()
+        autorequests.append(PartSpec(fstype="swap", size=swp, grow=False,
+                                     lv=True, encrypted=True))
 
         storage.autoPartitionRequests = autorequests
 
@@ -153,7 +154,7 @@ class BaseInstallClass(object):
 
         return (all(result.values()), result)
 
-    def setNetworkOnbootDefault(self, network):
+    def setNetworkOnbootDefault(self):
         pass
 
     def __init__(self):

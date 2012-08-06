@@ -25,7 +25,6 @@ import shutil
 import iutil
 import os, sys
 import logging
-import backend_log
 from constants import *
 
 import isys
@@ -98,7 +97,6 @@ class AnacondaBackend:
 
         storage.writeEscrowPackets(anaconda)
         sys.stdout.flush()
-        backend_log.log.stop()
 
     def doInstall(self, anaconda):
         log.warning("doInstall not implemented for backend!")
@@ -126,7 +124,6 @@ class AnacondaBackend:
             shutil.rmtree (syslogname)
         except OSError:
             pass
-        backend_log.log.start(instPath, syslogname)
 
         if self.anaconda.upgrade:
             self.modeText = _("%s Upgrading %s\n")

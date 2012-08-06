@@ -48,7 +48,7 @@ METADATA_ERROR_MESSAGE = _("Error downloading package metadata...")
 class ProxyDialog(GUIObject):
     builderObjects = ["proxyDialog"]
     mainWidgetName = "proxyDialog"
-    uiFile = "spokes/source.ui"
+    uiFile = "spokes/source.glade"
 
     def on_proxy_cancel_clicked(self, *args):
         self.window.destroy()
@@ -129,7 +129,7 @@ class ProxyDialog(GUIObject):
 class MediaCheckDialog(GUIObject):
     builderObjects = ["mediaCheckDialog"]
     mainWidgetName = "mediaCheckDialog"
-    uiFile = "spokes/source.ui"
+    uiFile = "spokes/source.glade"
 
     def _checkisoEndsCB(self, pid, status):
         doneButton = self.builder.get_object("doneButton")
@@ -196,7 +196,7 @@ class MediaCheckDialog(GUIObject):
 class IsoChooser(GUIObject):
     builderObjects = ["isoChooserDialog", "isoFilter"]
     mainWidgetName = "isoChooserDialog"
-    uiFile = "spokes/source.ui"
+    uiFile = "spokes/source.glade"
 
     def refresh(self, currentFile=""):
         GUIObject.refresh(self)
@@ -238,7 +238,7 @@ class IsoChooser(GUIObject):
 class AdditionalReposDialog(GUIObject):
     builderObjects = ["additionalReposDialog", "peopleRepositories", "peopleRepositoriesFilter"]
     mainWidgetName = "additionalReposDialog"
-    uiFile = "spokes/source.ui"
+    uiFile = "spokes/source.glade"
 
     typingTimeout = 1
 
@@ -409,7 +409,7 @@ class AdditionalReposDialog(GUIObject):
 class SourceSpoke(NormalSpoke):
     builderObjects = ["isoChooser", "isoFilter", "partitionStore", "sourceWindow", "dirImage"]
     mainWidgetName = "sourceWindow"
-    uiFile = "spokes/source.ui"
+    uiFile = "spokes/source.glade"
 
     category = SoftwareCategory
 

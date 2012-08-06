@@ -354,6 +354,7 @@ class DeviceTree(object):
         # don't include "req%d" partition names
         if ((newdev.type != "partition" or
              not newdev.name.startswith("req")) and
+            newdev.type != "btrfs volume" and
             newdev.name not in self.names):
             self.names.append(newdev.name)
         log.info("added %s %s (id %d) to device tree" % (newdev.type,
@@ -595,6 +596,20 @@ class DeviceTree(object):
                 not udev_device_get_md_container(info)):
             if self.exclusiveDisks and name not in self.exclusiveDisks:
                 log.debug("device '%s' not in exclusiveDisks" % name)
+                self.addIgnoredDisk(name)
+                return True
+
+        # Ignore any readonly disks
+        if (udev_device_is_disk(info) and not
+            (udev_device_is_cdrom(info) or
+             udev_device_is_partition(info) or
+             udev_device_is_dm_partition(info) or
+             udev_device_is_dm_lvm(info) or
+             udev_device_is_dm_crypt(info) or
+             (udev_device_is_md(info) and not
+              udev_device_get_md_container(info)))):
+            if iutil.get_sysfs_attr(info["sysfs_path"], 'ro') == '1':
+                log.debug("Ignoring read only device %s" % name)
                 self.addIgnoredDisk(name)
                 return True
 
@@ -845,16 +860,26 @@ class DeviceTree(object):
         kwargs = { "serial": serial, "vendor": vendor, "bus": bus }
         if udev_device_is_iscsi(info):
             diskType = iScsiDiskDevice
-            node = self.iscsi.getNode(
-                                   udev_device_get_iscsi_name(info),
-                                   udev_device_get_iscsi_address(info),
-                                   udev_device_get_iscsi_port(info),
-                                   udev_device_get_iscsi_nic(info))
-            kwargs["node"] = node
-            kwargs["nic"] = self.iscsi.ifaces.get(node.iface, node.iface)
-            kwargs["ibft"] = node in self.iscsi.ibftNodes
-            kwargs["initiator"] = self.iscsi.initiator
-            log.info("%s is an iscsi disk" % name)
+            initiator = udev_device_get_iscsi_initiator(info)
+            target = udev_device_get_iscsi_name(info)
+            address = udev_device_get_iscsi_address(info)
+            port = udev_device_get_iscsi_port(info)
+            nic = udev_device_get_iscsi_nic(info)
+            kwargs["initiator"] = initiator
+            if initiator == self.iscsi.initiator:
+                node = self.iscsi.getNode(target, address, port, nic)
+                kwargs["node"] = node
+                kwargs["ibft"] = node in self.iscsi.ibftNodes
+                kwargs["nic"] = self.iscsi.ifaces.get(node.iface, node.iface)
+                log.info("%s is an iscsi disk" % name)
+            else:
+                # qla4xxx partial offload
+                kwargs["node"] = None
+                kwargs["ibft"] = False
+                kwargs["nic"] = "offload:not_accessible_via_iscsiadm"
+                kwargs["fw_address"] = address
+                kwargs["fw_port"] = port
+                kwargs["fw_name"] = name
         elif udev_device_is_fcoe(info):
             diskType = FcoeDiskDevice
             kwargs["nic"]        = udev_device_get_fcoe_nic(info)
@@ -1529,11 +1554,12 @@ class DeviceTree(object):
                 if vol_path in [sv.name for sv in btrfs_dev.subvolumes]:
                     continue
                 fmt = getFormat("btrfs", device=btrfs_dev.path, exists=True,
-                                mountopts="subvol=%d" % vol_id)
+                                mountopts="subvol=%s" % vol_path)
                 subvol = BTRFSSubVolumeDevice(vol_path,
                                               vol_id=vol_id,
                                               format=fmt,
-                                              parents=[btrfs_dev])
+                                              parents=[btrfs_dev],
+                                              exists=True)
                 self._addDevice(subvol)
 
     def handleUdevDeviceFormat(self, info, device):
@@ -2148,7 +2174,7 @@ class DeviceTree(object):
         """ Return a list of a device's children. """
         return [c for c in self._devices if device in c.parents]
 
-    def resolveDevice(self, devspec, blkidTab=None, cryptTab=None):
+    def resolveDevice(self, devspec, blkidTab=None, cryptTab=None, options=None):
         # find device in the tree
         device = None
         if devspec.startswith("UUID="):
@@ -2231,6 +2257,22 @@ class DeviceTree(object):
                         # looks like we may have one
                         lv = "%s-%s" % (vg_name, lv_name)
                         device = self.getDeviceByName(lv)
+
+        # check mount options for btrfs volumes in case it's a subvol
+        if device and device.type == "btrfs volume" and options:
+            attr = None
+            if "subvol=" in options:
+                attr = "name"
+                val = iutil.get_option_value("subvol", options)
+            elif "subvolid=" in options:
+                attr = "vol_id"
+                val = iutil.get_option_value("subvolid", options)
+
+            if attr and val:
+                for subvol in device.subvolumes:
+                    if getattr(subvol, attr, None) == val:
+                        device = subvol
+                        break
 
         if device:
             log.debug("resolved '%s' to '%s' (%s)" % (devspec, device.name, device.type))

@@ -42,7 +42,7 @@ def size_str(mb):
 class SelectedDisksDialog(GUIObject):
     builderObjects = ["selected_disks_dialog", "disk_store"]
     mainWidgetName = "selected_disks_dialog"
-    uiFile = "spokes/lib/cart.ui"
+    uiFile = "spokes/lib/cart.glade"
 
     def initialize(self, disks, free, showRemove=True):
         for disk in disks:

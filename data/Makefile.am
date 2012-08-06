@@ -17,10 +17,13 @@
 #
 # Author: Martin Sivak <msivak@redhat.com>
 
-SUBDIRS = bootdisk command-stubs icons liveinst pixmaps systemd ui post-scripts
+SUBDIRS = bootdisk command-stubs icons liveinst pixmaps systemd post-scripts
 
 EXTRA_DIST = lang-table
 CLEANFILES = *~ lang-names 
+
+ksdir                 = $(datadir)/$(PACKAGE_NAME)
+dist_ks_DATA          = interactive-defaults.ks
 
 udevdir               = /lib/udev/rules.d
 dist_udev_DATA        = 70-anaconda.rules
@@ -28,6 +31,9 @@ dist_udev_DATA        = 70-anaconda.rules
 langdir               = $(datadir)/$(PACKAGE_NAME)
 lang_DATA             = lang-names
 dist_lang_DATA        = lang-table
+
+tmuxdir               = $(datadir)/$(PACKAGE_NAME)
+dist_tmux_DATA        = tmux.conf
 
 if IS_S390
 shareddir             = $(datadir)/$(PACKAGE_NAME)

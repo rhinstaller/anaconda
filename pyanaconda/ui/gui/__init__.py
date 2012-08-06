@@ -19,6 +19,7 @@
 # Red Hat Author(s): Chris Lumens <clumens@redhat.com>
 #
 import importlib, inspect, os, sys
+import meh.ui.gui
 
 from pyanaconda.ui import UserInterface, common, collect
 from pyanaconda.ui.gui.utils import enlightbox
@@ -124,13 +125,23 @@ class GraphicalUserInterface(UserInterface):
 
         return bool(rc)
 
+    def mainExceptionWindow(self, text, exn_file, *args, **kwargs):
+        meh_intf = meh.ui.gui.GraphicalIntf()
+
+        return meh_intf.mainExceptionWindow(text, exn_file)
+
+
+    def saveExceptionWindow(self, account_manager, signature, *args, **kwargs):
+        meh_intf = meh.ui.gui.GraphicalIntf()
+        meh_intf.saveExceptionWindow(account_manager, signature)
+
     ###
     ### SIGNAL HANDLING METHODS
     ###
     def _on_continue_clicked(self):
-        # If we're on the last screen, clicking Continue is the same as clicking Quit.
+        # If we're on the last screen, clicking Continue quits.
         if len(self._actions) == 1:
-            self._on_quit_clicked()
+            sys.exit(0)
             return
 
         # If the current action wants us to jump to an arbitrary point ahead,
@@ -246,6 +257,7 @@ class GUIObject(common.UIObject):
         self._origStrings = {}
 
         self.skipTo = None
+        self.applyOnSkip = False
 
         from gi.repository import Gtk
 
@@ -341,7 +353,7 @@ class GUIObject(common.UIObject):
 class QuitDialog(GUIObject):
     builderObjects = ["quitDialog"]
     mainWidgetName = "quitDialog"
-    uiFile = "main.ui"
+    uiFile = "main.glade"
 
     def run(self):
         rc = self.window.run()
