@@ -26,6 +26,7 @@ from storage.devicelibs.mpath import MultipathConfigWriter, MultipathTopology
 from storage.devicelibs import swap
 from storage.formats import getFormat
 from storage.partitioning import doPartitioning
+from storage.partitioning import growLVM
 import storage.iscsi
 import storage.fcoe
 import storage.zfcp
@@ -538,6 +539,9 @@ class LogVol(commands.logvol.F17_LogVol):
         for l in self.lvList:
             l.execute(storage, ksdata, instClass)
 
+        if self.lvList:
+            growLVM(storage)
+
 class LogVolData(commands.logvol.F17_LogVolData):
     def execute(self, storage, ksdata, instClass):
         devicetree = storage.devicetree
@@ -843,6 +847,9 @@ class Partition(commands.partition.F17_Partition):
     def execute(self, storage, ksdata, instClass):
         for p in self.partitions:
             p.execute(storage, ksdata, instClass)
+
+        if self.partitions:
+            doPartitioning(storage)
 
 class PartitionData(commands.partition.F17_PartData):
     def execute(self, storage, ksdata, instClass):
@@ -1592,5 +1599,4 @@ def doKickstartStorage(storage, ksdata, instClass):
     ksdata.logvol.execute(storage, ksdata, instClass)
     ksdata.btrfs.execute(storage, ksdata, instClass)
     storage.setUpBootLoader()
-    doPartitioning(storage)
 
