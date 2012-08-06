@@ -32,24 +32,21 @@ _ = lambda x: gettext.ldgettext("anaconda", x)
 import logging
 log = logging.getLogger("storage")
 
-def btrfs(args, progress=None, capture=False):
+def btrfs(args, capture=False):
     kwargs = {}
     kwargs["stderr"] = "/dev/tty5"
     if capture:
-        # execWithCapture can't take a progress window so it gets ignored
         exec_func = iutil.execWithCapture
     else:
-        exec_func = iutil.execWithPulseProgress
+        exec_func = iutil.execWithRedirect
         kwargs["stdout"] = "/dev/tty5"
-        kwargs["progress"] = progress
 
     ret = exec_func("btrfs", args, **kwargs)
-    if not capture and ret.rc:
-        raise BTRFSError(ret.stderr)
-
+    if ret:
+        raise BTRFSError(ret)
     return ret
 
-def create_volume(devices, label=None, data=None, metadata=None, progress=None):
+def create_volume(devices, label=None, data=None, metadata=None):
     """ For now, data and metadata must be strings mkfs.btrfs understands. """
     if not devices:
         raise ValueError("no devices specified")
@@ -68,11 +65,10 @@ def create_volume(devices, label=None, data=None, metadata=None, progress=None):
 
     args.extend(devices)
 
-    ret = iutil.execWithPulseProgress("mkfs.btrfs", args,
-                                      stdout="/dev/tty5", stderr="/dev/tty5",
-                                      progress=progress)
-    if ret.rc:
-        raise BTRFSError(ret.stderr)
+    ret = iutil.execWithRedirect("mkfs.btrfs", args,
+                                 stdout="/dev/tty5", stderr="/dev/tty5")
+    if ret:
+        raise BTRFSError(ret)
 
     return ret
 
@@ -82,21 +78,21 @@ def create_volume(devices, label=None, data=None, metadata=None, progress=None):
 
 # remove device
 
-def create_subvolume(mountpoint, name, progress=None):
+def create_subvolume(mountpoint, name):
     if not os.path.ismount(mountpoint):
         raise ValueError("volume not mounted")
 
     path = os.path.normpath("%s/%s" % (mountpoint, name))
     args = ["subvol", "create", path]
-    return btrfs(args, progress=progress)
+    return btrfs(args)
 
-def delete_subvolume(mountpoint, name, progress=None):
+def delete_subvolume(mountpoint, name):
     if not os.path.ismount(mountpoint):
         raise ValueError("volume not mounted")
 
     path = os.path.normpath("%s/%s" % (mountpoint, name))
     args = ["subvol", "delete", path]
-    return btrfs(args, progress=progress)
+    return btrfs(args)
 
 def create_snapshot(source, dest):
     pass
