@@ -146,6 +146,8 @@ struct loaderData_s {
     int noDns;
     int dhcpTimeout;
     int vlanid;
+    char * bonding_slaves;
+    char * bonding_opts;
     int ipinfo_set;
     char * ksFile;
     int method;

@@ -87,5 +87,8 @@ int wait_for_iface_disconnection(char *ifname);
 int isURLRemote(char *url);
 int split_ipv6addr_prefix_length(char *str, char **address, char **prefix);
 int enable_NM_BOND_VLAN(void);
+int split_bond_option(char *str, char **bondname, char **bondslaves, char **options);
+int networkDeviceExists(char *name);
+int writeBondSlaveIfcfgFile(char *slave, char *master);
 
 #endif

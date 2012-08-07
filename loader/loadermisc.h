@@ -32,5 +32,6 @@ int copyFileFd(int infd, char * dest, progressCB pbcb,
                struct progressCBdata *data, long long total);
 int simpleStringCmp(const void * a, const void * b);
 guint64 totalMemory(void);
+int replaceChars(char *str, char old, char new);
 
 #endif

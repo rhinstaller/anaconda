@@ -142,3 +142,16 @@ guint64 totalMemory(void) {
     g_strfreev(lines);
     return total;
 }
+
+int replaceChars(char *str, char old, char new) {
+    char *pos = str;
+    int count = 0;
+    while (*pos != '\0') {
+        if (*pos == old) {
+            *pos = new;
+            count++;
+        }
+        pos++;
+    }
+    return count;
+}

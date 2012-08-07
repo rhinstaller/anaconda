@@ -259,6 +259,21 @@ int split_ipv6addr_prefix_length(char *str, char **address, char **prefix) {
     return rc;
 }
 
+int split_bond_option(char *str, char **bondname, char **bondslaves, char **options) {
+    gchar **elements = g_strsplit(str, ":", 3);
+    int rc = 0;
+
+    if (elements[0] && elements[1]) {
+        *bondname = strdup(elements[0]);
+        *bondslaves = strdup(elements[1]);
+        if (elements[2]) {
+            *options = strdup(elements[2]);
+        }
+        rc = 1;
+    }
+    g_strfreev(elements);
+    return rc;
+}
 
 /* given loader data from kickstart, populate network configuration struct */
 void setupIfaceStruct(iface_t * iface, struct loaderData_s * loaderData) {
@@ -406,6 +421,13 @@ void setupIfaceStruct(iface_t * iface, struct loaderData_s * loaderData) {
 
     if (loaderData->vlanid) {
         iface->vlanid = loaderData->vlanid;
+    }
+
+    if (loaderData->bonding_slaves) {
+        iface->bonding_slaves = strdup(loaderData->bonding_slaves);
+        if (loaderData->bonding_opts) {
+            iface->bonding_opts = strdup(loaderData->bonding_opts);
+        }
     }
 
     if (loaderData->peerid) {
@@ -1165,6 +1187,21 @@ int manualNetConfig(char * device, iface_t * iface,
     return LOADER_OK;
 }
 
+int networkDeviceExists(char *name) {
+    int i = 0;
+    struct device **devs = NULL;
+
+    devs = getDevices(DEVICE_NETWORK);
+
+    for (i = 0; devs && devs[i]; i++) {
+        if (!strcmp(name, devs[i]->device)) {
+            return 1;
+        }
+    }
+
+    return 0;
+}
+
 /*
  * By default, we disable all network interfaces and then only
  * bring up the ones the user wants.
@@ -1363,7 +1400,7 @@ int writeEnabledNetInfo(iface_t *iface) {
 
     fprintf(fp, "DEVICE=%s\n", devicename);
 #if !defined(__s390__) && !defined(__s390x__)
-    if (!iface->vlanid) {
+    if (!iface->vlanid && !iface->bonding_slaves) {
         fprintf(fp, "HWADDR=%s\n", iface_mac2str(devicename));
     }
 #endif
@@ -1374,6 +1411,11 @@ int writeEnabledNetInfo(iface_t *iface) {
     if (iface->vlanid) {
         fprintf(fp, "TYPE=Vlan\n");
         fprintf(fp, "VLAN=yes\n");
+    } else if (iface->bonding_slaves) {
+        fprintf(fp, "TYPE=Bond\n");
+        if (iface->bonding_opts) {
+            fprintf(fp, "BONDING_OPTS=\"%s\"\n", iface->bonding_opts);
+        }
     } else {
         char *str_type = netArpTypeStr(devicename);
         if (str_type) fprintf(fp, "TYPE=%s\n", str_type);
@@ -1535,6 +1577,24 @@ int writeEnabledNetInfo(iface_t *iface) {
         return 8;
     }
 
+    if (iface->bonding_slaves) {
+        gchar **slaves = NULL;
+        int i;
+
+        if ((slaves = g_strsplit(iface->bonding_slaves, ",", 0)) != NULL) {
+            for (i=0; i < g_strv_length(slaves); i++) {
+                if (slaves[i] != NULL && g_strcmp0(slaves[i], "")) {
+                    if (networkDeviceExists(slaves[i])) {
+                        writeBondSlaveIfcfgFile(slaves[i], iface->device);
+                    } else {
+                        logMessage(WARNING, "bond slave device %s does not exist", slaves[i]);
+                    }
+                }
+            }
+            g_strfreev(slaves);
+        }
+    }
+
     if (rename(ofile, nfile) == -1) {
         free(ofile);
         free(nfile);
@@ -1618,6 +1678,58 @@ int enable_NM_BOND_VLAN() {
 
     return 0;
 
+}
+
+int writeBondSlaveIfcfgFile(char *slave, char *master) {
+    char *ofile = NULL;
+    char *nfile = NULL;
+    FILE *fp = NULL;
+    char *uuid = NULL;
+
+    checked_asprintf(&ofile, "%s/.ifcfg-%s",
+                     NETWORK_SCRIPTS_PATH,
+                     slave);
+    checked_asprintf(&nfile, "%s/ifcfg-%s",
+                     NETWORK_SCRIPTS_PATH,
+                     slave);
+
+    if ((fp = fopen(ofile, "w")) == NULL) {
+        free(ofile);
+        free(nfile);
+        return 2;
+    }
+
+    fprintf(fp, "DEVICE=%s\n", slave);
+    fprintf(fp, "HWADDR=%s\n", iface_mac2str(slave));
+    uuid = nm_utils_uuid_generate();
+    fprintf(fp, "SLAVE=yes\n");
+    fprintf(fp, "MASTER=%s\n", master);
+    fprintf(fp, "UUID=%s\n", uuid);
+    g_free(uuid);
+    fprintf(fp, "ONBOOT=yes\n");
+    fprintf(fp, "NM_CONTROLLED=yes\n");
+
+    if (fclose(fp) == EOF) {
+        return 3;
+    }
+
+    if (rename(ofile, nfile) == -1) {
+        free(ofile);
+        free(nfile);
+        return 4;
+    }
+
+    if (ofile) {
+        free(ofile);
+        ofile = NULL;
+    }
+
+    if (nfile) {
+        free(nfile);
+        nfile = NULL;
+    }
+
+    return 0;
 }
 
 void setKickstartNetwork(struct loaderData_s * loaderData, int argc, 
@@ -1853,6 +1965,11 @@ int chooseNetworkInterface(struct loaderData_s * loaderData) {
     struct newtWinEntry entry[] = {{N_("Seconds:"), (char **) &seconds, 0},
                                    {NULL, NULL, 0 }};
     extern int num_link_checks;
+
+    if (loaderData->bonding_slaves) {
+        logMessage(INFO, "bonded device %s chosen", loaderData->netDev);
+        return LOADER_NOOP;
+    }
 
     devs = getDevices(DEVICE_NETWORK);
     if (!devs) {

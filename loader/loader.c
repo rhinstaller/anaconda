@@ -706,6 +706,8 @@ static void readNetInfo(struct loaderData_s ** ld) {
     loaderData->ipv6prefix = NULL;
     loaderData->gateway6 = NULL;
 #endif
+    loaderData->bonding_slaves = NULL;
+    loaderData->bonding_opts = NULL;
 
     /*
      * The ifcfg file is written out by /sbin/init on s390x (which is
@@ -884,6 +886,36 @@ static void parseCmdLineIpv6(struct loaderData_s * loaderData, char *argv)
 }
 #endif
 
+/*
+ * parse bond=<bondname>:<bondslaves>[:<options>]
+ *
+ * dracut option syntax
+ *
+ * bondslaves separated with ',': eth0,eth1
+ * options separated with ',' or with ';' if ',' is used in option
+ */
+static int parseCmdLineBond(struct loaderData_s * loaderData, char *argv)
+{
+    if (split_bond_option(argv+5,
+                          &(loaderData->netDev),
+                          &(loaderData->bonding_slaves),
+                          &(loaderData->bonding_opts))) {
+        if (loaderData->bonding_opts) {
+            if (strchr(loaderData->bonding_opts, ';')) {
+                replaceChars(loaderData->bonding_opts, ';', ' ');
+            } else {
+                replaceChars(loaderData->bonding_opts, ',', ' ');
+            }
+        }
+        loaderData->netDev_set = 1;
+        return 1;
+    } else {
+        logMessage(WARNING, "parseCmdLineBond could not parse %s", argv);
+        return 0;
+    }
+
+}
+
 static long argToLong(char *arg, int offset) {
     long retval;
 
@@ -913,7 +945,6 @@ static void parseCmdLineFlags(struct loaderData_s * loaderData,
     GError *optErr = NULL;
     int numExtraArgs = 0;
     int i;
-    char *front;
 
     /* we want to default to graphical and allow override with 'text' */
     flags |= LOADER_FLAGS_GRAPHICAL;
@@ -1044,13 +1075,8 @@ static void parseCmdLineFlags(struct loaderData_s * loaderData,
             loaderData->bootIf = strdup(argv[i] + 10);
 
             /* scan the BOOTIF value and replace '-' with ':' */
-            front = loaderData->bootIf;
-            if (front) {
-                while (*front != '\0') {
-                    if (*front == '-')
-                        *front = ':';
-                    front++;
-                }
+            if (loaderData->bootIf) {
+                replaceChars(loaderData->bootIf, '-', ':');
             }
 
             loaderData->bootIf_set = 1;
@@ -1103,6 +1129,9 @@ static void parseCmdLineFlags(struct loaderData_s * loaderData,
             loaderData->mtu = argToLong(argv[i], 4);
         else if (!strncasecmp(argv[i], "vlanid=", 7))
             loaderData->vlanid = argToLong(argv[i], 7);
+        else if (!strncasecmp(argv[i], "bond=", 5))
+            /* overrides ksdevice setting */
+            parseCmdLineBond(loaderData, argv[i]);
         else if (!strncasecmp(argv[i], "wepkey=", 7))
             loaderData->wepkey = strdup(argv[i] + 7);
         else if (!strncasecmp(argv[i], "linksleep=", 10))
