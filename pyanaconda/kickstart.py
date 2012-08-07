@@ -1212,7 +1212,7 @@ class RaidData(commands.raid.F15_RaidData):
                                      parents=request)
             storage.createDevice(luksdev)
 
-class RootPw(commands.rootpw.F8_RootPw):
+class RootPw(commands.rootpw.F18_RootPw):
     def execute(self, storage, ksdata, instClass, users):
         algo = users.getPassAlgo(ksdata.authconfig.authconfig)
         users.setRootPassword(self.password, self.isCrypted, self.lock, algo)
