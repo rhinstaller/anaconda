@@ -600,8 +600,14 @@ class PackagePayload(Payload):
     def kernelPackages(self):
         from pyanaconda.isys import isPaeAvailable
         kernels = ["kernel"]
+
         if isPaeAvailable():
             kernels.insert(0, "kernel-PAE")
+
+        # most ARM systems use platform-specific kernels
+        if iutil.isARM():
+            if anaconda.platform.armMachine is not None:
+                kernels = ["kernel-%s" % anaconda.platform.armMachine]
 
         return kernels
 
