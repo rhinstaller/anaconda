@@ -43,7 +43,7 @@ _ = lambda x: gettext.ldgettext("anaconda", x)
 
 class Anaconda(object):
     def __init__(self):
-        import desktop, firewall, security
+        import desktop, firewall
         from flags import flags
 
         self._backend = None
@@ -73,7 +73,6 @@ class Anaconda(object):
         self.rescue = False
         self.rescue_mount = True
         self.rootParts = None
-        self.security = security.Security()
         self.simpleFilter = not iutil.isS390()
         self.stage2 = None
         self._storage = None
@@ -272,5 +271,4 @@ class Anaconda(object):
         network.disableNMForStorageDevices(self.storage)
         network.autostartFCoEDevices(self.storage)
         self.desktop.write()
-        self.security.write()
         self.firewall.write()
