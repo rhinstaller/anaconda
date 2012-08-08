@@ -265,19 +265,6 @@ def _scheduleVolumes(storage, devs):
         # schedule the device for creation
         storage.createDevice(dev)
 
-def scheduleShrinkActions(storage):
-    """ Schedule actions to shrink partitions as per autopart selection. """
-    for (path, size) in storage.shrinkPartitions.items():
-        device = storage.devicetree.getDeviceByPath(path, preferLeaves=False)
-        if not device or not isinstance(device, PartitionDevice):
-            raise StorageError("device %s scheduled for shrink disappeared"
-                                % path)
-        storage.devicetree.registerAction(ActionResizeFormat(device, size))
-        storage.devicetree.registerAction(ActionResizeDevice(device, size))
-        # aligning the partition's new end sector may have changed the size
-        if device.targetSize != size:
-            device.format.targetSize = device.targetSize
-
 def doAutoPartition(storage, data):
     log.debug("doAutoPart: %s" % storage.doAutoPart)
     log.debug("encryptedAutoPart: %s" % storage.encryptedAutoPart)
@@ -294,9 +281,6 @@ def doAutoPartition(storage, data):
     devs = []
 
     if storage.doAutoPart:
-        # XXX this doesn't belong on newui
-        scheduleShrinkActions(storage)
-
         disks = _getCandidateDisks(storage)
         devs = _scheduleImplicitPartitions(storage, disks)
         log.debug("candidate disks: %s" % disks)

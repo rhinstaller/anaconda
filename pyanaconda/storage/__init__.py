@@ -355,7 +355,6 @@ class Storage(object):
         self.autoPartAddBackupPassphrase = False
         self.encryptionRetrofit = False
         self.autoPartitionRequests = []
-        self.shrinkPartitions = {}
         self.eddDict = {}
 
         self.__luksDevs = {}
