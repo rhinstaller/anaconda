@@ -1546,7 +1546,7 @@ class GRUB2(GRUB):
         self.stage2_device.format.sync(root=ROOT_PATH)
 
 class EFIGRUB(GRUB2):
-    packages = ["grub2-efi", "efibootmgr"]
+    packages = ["grub2-efi", "efibootmgr", "shim"]
     can_dual_boot = False
 
     @property
@@ -1606,7 +1606,7 @@ class EFIGRUB(GRUB2):
         rc = self.efibootmgr("-c", "-w", "-L", productName,
                              "-d", boot_disk.path, "-p", boot_part_num,
                              "-l",
-                             self.efi_dir_as_efifs_dir + "\\grubx64.efi",
+                             self.efi_dir_as_efifs_dir + "\\shim.efi",
                              root=ROOT_PATH,
                              stdout="/dev/tty5", stderr="/dev/tty5")
         if rc:
