@@ -1752,7 +1752,7 @@ class DeviceTree(object):
                                                             hidden.id))
                 self._hidden.remove(hidden)
                 self._devices.append(hidden)
-                lvm.lvm_cc_removeFilterRejectRegexp(device.name)
+                lvm.lvm_cc_removeFilterRejectRegexp(hidden.name)
 
     def _setupLvs(self):
         ret = False
