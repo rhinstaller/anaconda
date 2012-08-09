@@ -335,30 +335,6 @@ def expandFTPMethod(str):
     except:
         return None
 
-def runVNC(vncS):
-    vncS.startServer()
-
-    child = os.fork()
-    if child == 0:
-        for p in ('/tmp/updates/pyrc.py', \
-                '/usr/share/anaconda/pyrc.py'):
-            if os.access(p, os.R_OK|os.X_OK):
-                os.environ['PYTHONSTARTUP'] = p
-                break
-
-        while True:
-            # Not having a virtual terminal or otherwise free console
-            # are the only places we /really/ need a shell on tty1,
-            # and everywhere else this just gets in the way of pdb.  But we
-            # don't want to return, because that'll return try to start X
-            # a second time.
-            if iutil.isConsoleOnVirtualTerminal() or iutil.isS390():
-                    time.sleep(10000)
-            else:
-                    print _("Press <enter> for a shell")
-                    sys.stdin.readline()
-                    iutil.execConsole()
-
 def gtk_warning(title, reason):
     import gtk
     dialog = gtk.MessageDialog(type = gtk.MESSAGE_ERROR,
@@ -582,7 +558,7 @@ def setupDisplay(anaconda, opts):
 
     # if they want us to use VNC do that now
     if anaconda.displayMode == 'g' and flags.usevnc:
-        runVNC(vncS)
+        vncS.startServer()
         doStartupX11Actions()
 
     # with X running we can initialize the UI interface
