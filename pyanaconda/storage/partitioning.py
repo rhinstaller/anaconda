@@ -263,6 +263,7 @@ def _scheduleVolumes(storage, devs):
                            "singlePV": request.singlePV})
         else:
             kwargs.update({"parents": [container],
+                           "size": request.size,
                            "subvol": True})
 
         dev = new_volume(**kwargs)
@@ -321,6 +322,8 @@ def doAutoPartition(storage, data):
 
         # grow LVs
         growLVM(storage)
+
+        growBTRFS(storage)
     except PartitioningWarning as e:
         log.warning(str(e))
         if errorHandler.cb(e) == ERROR_RAISE:
@@ -1080,13 +1083,14 @@ class Request(object):
         self.device = device
         self.growth = 0                     # growth in sectors
         self.max_growth = 0                 # max growth in sectors
-        self.done = not device.req_grow     # can we grow this request more?
+        self.done = not getattr(device, "req_grow", True)  # can we grow this
+                                                           # request more?
         self.base = 0                       # base sectors
 
     @property
     def growable(self):
         """ True if this request is growable. """
-        return self.device.req_grow
+        return getattr(self.device, "req_grow", True)
 
     @property
     def id(self):
@@ -1918,3 +1922,21 @@ def growLVM(storage):
             # initial size.
             req.device.size = chunk.lengthToSize(req.base + req.growth)
 
+def growBTRFS(storage):
+    """ Set up relative sizes for subvolumes after autopart for custom ui. """
+    for vol in storage.btrfsVolumes:
+        if vol.exists:
+            continue
+
+        requests = []
+        for subvol in vol.subvolumes:
+            request = Request(subvol)
+            request.base = subvol._size
+            requests.append(request)
+
+        chunk = Chunk(int(vol.size), requests=requests)
+        chunk.path = "btrfs %s" % vol.name
+        chunk.growRequests()
+
+        for req in chunk.requests:
+            req.device._size = chunk.lengthToSize(req.base + req.growth)
