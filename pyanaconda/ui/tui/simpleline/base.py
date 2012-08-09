@@ -291,14 +291,14 @@ class App(object):
                 return True
 
         # global close command
-        if self._screens and (key == 'c'):
+        if self._screens and (key == _('c')):
             self.close_screen()
             return True
 
         # global quit command
-        elif self._screens and (key == 'q'):
+        elif self._screens and (key == _('q')):
             if self.quit_question:
-                d = self.quit_question(self, u"Do you really want to quit?")
+                d = self.quit_question(self, _(u"Do you really want to quit?"))
                 self.switch_screen_modal(d)
                 if d.answer:
                     raise ExitAllMainLoops()
@@ -397,7 +397,7 @@ class UIScreen(object):
                  to skip further input processing
         :rtype: unicode|None
         """
-        return u"\tPlease make your choice from above ['q' to quit]: "
+        return _(u"\tPlease make your choice from above ['q' to quit]: ")
 
     @property
     def app(self):
