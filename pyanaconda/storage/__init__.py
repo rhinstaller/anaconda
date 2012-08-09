@@ -1145,7 +1145,7 @@ class Storage(object):
                         hostname = nd.hostname
                         break
 
-            name = self.suggestContainerName(hostname=hostname, prefix="vg")
+            name = self.suggestContainerName(hostname=hostname)
 
         if name in self.names:
             raise ValueError("name already in use")
@@ -1168,8 +1168,7 @@ class Storage(object):
                 swap = True
             else:
                 swap = False
-            name = self.suggestDeviceName(prefix="lv",
-                                          parent=vg,
+            name = self.suggestDeviceName(parent=vg,
                                           swap=swap,
                                           mountpoint=mountpoint)
 
@@ -1217,14 +1216,9 @@ class Storage(object):
                             hostname = nd.hostname
                             break
 
-                name = self.suggestContainerName(prefix="btrfs",
-                                                 hostname=hostname)
+                name = self.suggestContainerName(hostname=hostname)
             if "label" not in fmt_args:
                 fmt_args["label"] = name
-
-        # do we want to prevent a subvol with a name that matches another dev?
-        if name in self.names:
-            raise ValueError("name already in use")
 
         # discard fmt_type since it's btrfs always
         kwargs.pop("fmt_type", None)
@@ -1328,14 +1322,18 @@ class Storage(object):
 
     def suggestContainerName(self, hostname=None, prefix=""):
         """ Return a reasonable, unused device name. """
+        if not prefix:
+            prefix = shortProductName
+
         # try to create a device name incorporating the hostname
         if hostname not in (None, "", 'localhost', 'localhost.localdomain'):
             template = "%s_%s" % (prefix, hostname.split('.')[0].lower())
             template = self.safeDeviceName(template)
-        elif flags.imageInstall:
-            template = "%s_image" % prefix
         else:
             template = prefix
+
+        if flags.imageInstall:
+            template = "%s_image" % template
 
         names = self.names
         name = template
@@ -1360,11 +1358,14 @@ class Storage(object):
         body = ""
         if mountpoint:
             if mountpoint == "/":
-                body = "_root"
+                body = "root"
             else:
-                body = mountpoint.replace("/", "_")
+                body = mountpoint[1:].replace("/", "_")
         elif swap:
-            body = "_swap"
+            body = "swap"
+
+        if prefix:
+            body = "_" + body
 
         template = self.safeDeviceName(prefix + body)
         names = self.names

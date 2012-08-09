@@ -49,6 +49,11 @@ productArch = product.productArch
 bugzillaUrl = product.bugUrl
 isFinal = product.isFinal
 
+# for use in device names, eg: "fedora", "rhel"
+shortProductName = productName.lower()
+if productName.count(" "):
+    shortProductName = ''.join(s[0] for s in shortProductName.split())
+
 exceptionText = _("An unhandled exception has occurred.  This "
                   "is most likely a bug.  Please save a copy of "
                   "the detailed exception and file a bug report")
