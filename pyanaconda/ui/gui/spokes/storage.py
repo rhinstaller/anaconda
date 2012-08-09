@@ -312,6 +312,7 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         self.data.clearpart.initAll = True
         self.data.clearpart.type = self.clearPartType
         self.storage.config.update(self.data)
+        self.storage.autoPartType = self.data.autopart.type
 
         # If autopart is selected we want to remove whatever has been
         # created/scheduled to make room for autopart.
