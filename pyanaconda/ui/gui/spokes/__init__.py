@@ -19,7 +19,8 @@
 # Red Hat Author(s): Chris Lumens <clumens@redhat.com>
 #
 
-from pyanaconda.ui import collect, common
+from pyanaconda.ui import common
+from pyanaconda.ui.common import collect
 from pyanaconda.ui.gui import GUIObject
 import os.path
 

@@ -22,7 +22,7 @@
 N_ = lambda x: x
 
 import os.path
-from pyanaconda.ui.gui import collect
+from pyanaconda.ui.common import collect
 
 __all__ = ["SpokeCategory", "collect_categories"]
 

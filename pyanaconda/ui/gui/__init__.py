@@ -21,13 +21,13 @@
 import importlib, inspect, os, sys
 import meh.ui.gui
 
-from pyanaconda.ui import UserInterface, common, collect
+from pyanaconda.ui import UserInterface, common
 from pyanaconda.ui.gui.utils import enlightbox
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
 
-__all__ = ["GraphicalUserInterface", "UIObject", "collect"]
+__all__ = ["GraphicalUserInterface", "UIObject"]
 
 _screenshotIndex = 0
 

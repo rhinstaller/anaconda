@@ -19,7 +19,7 @@
 # Red Hat Author(s): Chris Lumens <clumens@redhat.com>
 #
 
-__all__ = ["UserInterface", "collect"]
+__all__ = ["UserInterface"]
 
 import os
 from common import collect
