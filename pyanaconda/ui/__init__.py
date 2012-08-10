@@ -98,7 +98,26 @@ class UserInterface(object):
         """
         raise NotImplementedError
 
-    def getActionClasses(module_pattern, path, hubs, standalone_class):
+    def getActionClasses(self, module_pattern, path, hubs, standalone_class):
+        """Collect all the Hub and Spoke classes which should be enqueued for
+           processing and order them according to their pre/post dependencies.
+
+           :param module_pattern: the full name pattern (pyanaconda.ui.gui.spokes.%s)
+                                  of modules we about to import from path
+           :type module_pattern: string
+
+           :param path: the directory we are picking up modules from
+           :type path: string
+
+           :param hubs: the list of Hub classes we check to be in pre/postForHub
+                        attribute of Spokes to pick up
+           :type hubs: common.Hub based types
+
+           :param standalone_class: the parent type of Spokes we want to pick up
+           :type standalone_class: common.StandaloneSpoke based types
+        """
+
+
         standalones = collect(module_pattern, path, lambda obj: issubclass(obj, standalone_class) and \
                               getattr(obj, "preForHub", False) or getattr(obj, "postForHub", False))
 
@@ -123,4 +142,3 @@ class UserInterface(object):
     def saveExceptionWindow(self, account_manager, signature):
         """Show a window that provides a way to report a bug."""
         raise NotImplementedError
-

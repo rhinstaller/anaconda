@@ -353,12 +353,25 @@ class Hub(UIObject):
         self.instclass = instclass
 
 def collect(module_pattern, path, pred):
-    """Traverse the directory (given by path) and find all classes that match
+    """Traverse the directory (given by path), import all files as a module
+       module_pattern % filename and find all classes withing that match
        the given predicate.  This is then returned as a list of classes.
 
        It is suggested you use collect_categories or collect_spokes instead of
        this lower-level method.
+
+       :param module_pattern: the full name pattern (pyanaconda.ui.gui.spokes.%s)
+                              of modules we about to import from path
+       :type module_pattern: string
+
+       :param path: the directory we are picking up modules from
+       :type path: string
+
+
+       :param pred: function which marks classes as good to import
+       :type pred: function with one argument returning True or False
     """
+
     retval = []
     for module_file in os.listdir(path):
         if not module_file.endswith(".py") or module_file == "__init__.py":

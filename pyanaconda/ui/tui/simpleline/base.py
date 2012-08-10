@@ -24,12 +24,12 @@ __all__ = ["App", "UIScreen", "Widget"]
 import readline
 
 class ExitAllMainLoops(Exception):
-    """This exceptions ends the whole App mainloop structure. App.run() quits
+    """This exception ends the whole App mainloop structure. App.run() quits
        after it is processed."""
     pass
 
 class ExitMainLoop(Exception):
-    """This eceptions ends the outermost mainloop. Used internally when dialogs
+    """This exception ends the outermost mainloop. Used internally when dialogs
        close."""
     pass
 
@@ -48,9 +48,13 @@ class App(object):
        - close current window and return to the next one in stack
        """
 
+    START_MAINLOOP = True
+    STOP_MAINLOOP = False
+    NOP = None
+
     def __init__(self, title, yes_or_no_question = None, width = 80):
         """
-        :param title: application title for whenewer we need to display app name
+        :param title: application title for whenever we need to display app name
         :type title: unicode
 
         :param yes_or_no_question: UIScreen object class used for Quit dialog
@@ -103,7 +107,7 @@ class App(object):
         :type args: anything
         """
 
-        self._screens.append((ui, args, None))
+        self._screens.append((ui, args, self.NOP))
         self.redraw()
 
     def switch_screen_modal(self, ui, args = None):
@@ -120,7 +124,7 @@ class App(object):
         """
 
         # set the third item to True so new loop gets started
-        self._screens.append((ui, args, True))
+        self._screens.append((ui, args, self.START_MAINLOOP))
         self._do_redraw()
 
     def schedule_screen(self, ui, args = None):
@@ -133,7 +137,7 @@ class App(object):
         :param args: optional argument, please see switch_screen for details
         :type args: anything
         """
-        self._screens.insert(0, (ui, args, None))
+        self._screens.insert(0, (ui, args, self.NOP))
 
     def close_screen(self, scr = None):
         """Close the currently displayed screen and exit it's main loop
@@ -149,10 +153,10 @@ class App(object):
 
         # this cannot happen, if we are closing the window,
         # the loop must have been running or not be there at all
-        assert oldloop != True
+        assert oldloop != self.START_MAINLOOP
 
         # we are in modal window, end it's loop
-        if oldloop == False:
+        if oldloop == self.STOP_MAINLOOP:
             raise ExitMainLoop()
 
         if self._screens:
@@ -176,12 +180,12 @@ class App(object):
         screen, args, newloop = self._screens[-1]
 
         # new mainloop is requested
-        if newloop == True:
+        if newloop == self.START_MAINLOOP:
             # change the record to indicate mainloop is running
             self._screens.pop()
-            self._screens.append((screen, args, False))
+            self._screens.append((screen, args, self.STOP_MAINLOOP))
             # start the mainloop
-            self.mainloop()
+            self._mainloop()
             # after the mainloop ends, set the redraw flag
             # and skip the input processing once, to redisplay the screen first
             self.redraw()
@@ -204,7 +208,7 @@ class App(object):
         except ExitAllMainLoops:
             pass
 
-    def mainloop(self):
+    def _mainloop(self):
         """Single mainloop. Do not use directly, start the application using run()."""
 
         # ask for redraw by default
