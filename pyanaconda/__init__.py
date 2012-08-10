@@ -223,11 +223,16 @@ class Anaconda(object):
         if self._intf:
             raise RuntimeError, "Second attempt to initialize the InstallInterface"
 
-        if self.displayMode != 'g':
-            raise RuntimeError("Due to UI rewrite in progress, only graphical installs are supported")
-
-        from pyanaconda.ui.gui import GraphicalUserInterface
-        self._intf = GraphicalUserInterface(self.storage, self.payload, self.instClass)
+        if self.displayMode == 'g':
+            from pyanaconda.ui.gui import GraphicalUserInterface
+            self._intf = GraphicalUserInterface(self.storage, self.payload,
+                                                self.instClass)
+        elif self.displayMode in ['t', 'c']: # text and command line are the same
+            from pyanaconda.ui.tui import TextUserInterface
+            self._intf = TextUserInterface(self.storage, self.payload,
+                                           self.instClass)
+        else:
+            raise RuntimeError("Unsupported displayMode: %s" % self.displayMode)
 
     def writeXdriver(self, root = None):
         # this should go away at some point, but until it does, we
