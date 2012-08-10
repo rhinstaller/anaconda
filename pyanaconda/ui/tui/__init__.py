@@ -23,6 +23,7 @@ from pyanaconda import ui
 from pyanaconda.ui import common
 import simpleline as tui
 from hubs.summary import SummaryHub
+from hubs.progress import ProgressHub
 from spokes import StandaloneSpoke
 
 import os
@@ -132,7 +133,7 @@ class TextUserInterface(ui.UserInterface):
            This method must be provided by all subclasses.
         """
         self._app = tui.App(u"Anaconda", yes_or_no_question = YesNoDialog)
-        self._hubs = [SummaryHub]
+        self._hubs = [SummaryHub, ProgressHub]
 
         # First, grab a list of all the standalone spokes.
         path = os.path.join(os.path.dirname(__file__), "spokes")
