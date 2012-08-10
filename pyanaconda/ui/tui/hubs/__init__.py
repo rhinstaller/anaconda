@@ -23,6 +23,9 @@ from pyanaconda.ui.tui.tuiobject import TUIObject
 from pyanaconda.ui.tui.spokes import collect_spokes
 from pyanaconda.ui import common
 
+import gettext
+_ = lambda x: gettext.ldgettext("anaconda", x)
+
 class TUIHub(TUIObject, common.Hub):
     """Base Hub class implementing the pyanaconda.ui.common.Hub interface.
     It uses text based categories to look for relevant Spokes and manages
@@ -37,7 +40,7 @@ class TUIHub(TUIObject, common.Hub):
     """
 
     categories = []
-    title = "Default HUB title"
+    title = _("Default HUB title")
 
     def __init__(self, app, data, storage, payload, instclass):
         TUIObject.__init__(self, app, data)
