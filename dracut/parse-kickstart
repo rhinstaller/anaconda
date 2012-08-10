@@ -92,6 +92,15 @@ class Network(commands.network.F16_Network):
             netline = ksnet_to_dracut(args, lineno, net, bootdev=True)
             return netline
 
+class DisplayMode(commands.displaymode.FC3_DisplayMode):
+    def dracut_args(self, args, lineno, obj):
+        if self.displayMode == DISPLAY_MODE_CMDLINE:
+            return "inst.cmdline"
+        elif self.displayMode == DISPLAY_MODE_TEXT:
+            return "inst.text"
+        elif self.displayMode == DISPLAY_MODE_GRAPHICAL:
+            return "inst.graphical"
+
 # TODO: keymap, lang... device? upgrade? selinux?
 
 dracutCmds = {
@@ -103,6 +112,9 @@ dracutCmds = {
     'mediacheck': MediaCheck,
     'driverdisk': DriverDisk,
     'network': Network,
+    'cmdline': DisplayMode,
+    'graphical': DisplayMode,
+    'text': DisplayMode,
 }
 handlerclass = returnClassForVersion()
 class DracutHandler(handlerclass):
