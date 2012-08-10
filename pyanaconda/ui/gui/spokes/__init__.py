@@ -28,9 +28,6 @@ __all__ = ["Spoke", "StandaloneSpoke", "NormalSpoke", "PersonalizationSpoke",
            "collect_spokes"]
 
 class Spoke(GUIObject, common.Spoke):
-    def __init__(self, data, storage, payload, instclass):
-        GUIObject.__init__(self, data)
-        common.Spoke.__init__(self, data, storage, payload, instclass)
 
     def apply(self):
         """Apply the selections made on this Spoke to the object's preset
