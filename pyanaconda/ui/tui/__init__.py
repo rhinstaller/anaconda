@@ -25,10 +25,13 @@ import simpleline as tui
 from hubs.summary import SummaryHub
 from spokes import StandaloneSpoke
 
+import gettext
+_ = lambda x: gettext.ldgettext("anaconda", x)
+
 class ErrorDialog(tui.UIScreen):
     """Dialog screen for reporting errors to user."""
 
-    title = u"Error"
+    title = _("Error")
 
     def __init__(self, app, message):
         """
@@ -48,7 +51,7 @@ class ErrorDialog(tui.UIScreen):
         self._window.append(tui.CenterWidget(text))
 
     def prompt(self, args = None):
-        return u"Press enter to exit."
+        return _("Press enter to exit.")
 
     def input(self, args, key):
         """This dialog is closed by any input."""
@@ -57,7 +60,7 @@ class ErrorDialog(tui.UIScreen):
 class YesNoDialog(tui.UIScreen):
     """Dialog screen for Yes - No questions."""
 
-    title = u"Question"
+    title = _("Question")
 
     def __init__(self, app, message):
         """
@@ -80,15 +83,15 @@ class YesNoDialog(tui.UIScreen):
         return True
 
     def prompt(self, args):
-        return u"Please respond 'yes' or 'no': "
+        return _("Please respond 'yes' or 'no': ")
 
     def input(self, args, key):
-        if key == "yes":
+        if key == _("yes"):
             self._response = True
             self.close()
             return None
 
-        elif key == "no":
+        elif key == _("no"):
             self._response = False
             self.close()
             return None
