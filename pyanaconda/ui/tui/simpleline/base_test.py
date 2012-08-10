@@ -21,6 +21,12 @@
 import base
 import unittest
 
+### dummy translation
+def _(t):
+    return t
+__builtins__._ = _
+
+
 class DummyScreen(base.UIScreen):
     def refresh(self, args):
         self._window = []

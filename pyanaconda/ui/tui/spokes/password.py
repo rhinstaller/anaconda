@@ -2,6 +2,10 @@ from pyanaconda.ui.tui.spokes import NormalTUISpoke
 from pyanaconda.ui.tui.simpleline import TextWidget
 import getpass
 
+import gettext
+_ = lambda x: gettext.ldgettext("anaconda", x)
+
+
 class PasswordSpoke(NormalTUISpoke):
     title = _("Set root password")
     category = "password"

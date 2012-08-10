@@ -2,8 +2,11 @@ from pyanaconda.ui.tui.spokes import NormalTUISpoke
 from pyanaconda.ui.tui.simpleline import TextWidget, ColumnWidget
 from pyanaconda import localization
 
+import gettext
+_ = lambda x: gettext.ldgettext("anaconda", x)
+
 class TimeZoneSpoke(NormalTUISpoke):
-    title = "Timezone settings"
+    title = _("Timezone settings")
     category = "localization"
 
     def __init__(self, app, data, storage, payload, instclass):

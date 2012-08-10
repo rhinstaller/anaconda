@@ -23,6 +23,9 @@ __all__ = ["App", "UIScreen", "Widget"]
 
 import readline
 
+import gettext
+_ = lambda x: gettext.ldgettext("anaconda", x)
+
 class ExitAllMainLoops(Exception):
     """This exception ends the whole App mainloop structure. App.run() quits
        after it is processed."""
