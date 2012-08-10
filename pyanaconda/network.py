@@ -477,7 +477,7 @@ def waitForConnection():
 # get a kernel cmdline string for dracut needed for access to storage host
 def dracutSetupArgs(networkStorageDevice):
 
-    if networkStorageDevice.nic == "default":
+    if networkStorageDevice.nic == "default" or ":" in networkStorageDevice.nic:
         nic = ifaceForHostIP(networkStorageDevice.host_address)
         if not nic:
             return ""
@@ -885,7 +885,7 @@ def usedByRootOnISCSI(iface, storage):
     for d in storage.devices:
         if (isinstance(d, iScsiDiskDevice) and
             rootdev.dependsOn(d)):
-            if d.nic == "default":
+            if d.nic == "default" or ":" in d.nic:
                 if iface == ifaceForHostIP(d.host_address):
                     return True
             elif d.nic == iface:

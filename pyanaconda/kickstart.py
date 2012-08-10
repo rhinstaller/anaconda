@@ -48,6 +48,7 @@ from storage.devices import *
 from scdate.core import zonetab
 from pyanaconda import keyboard
 from pyanaconda import ntp
+from pyanaconda.simpleconfig import SimpleConfigFile
 
 from pykickstart.base import KickstartCommand
 from pykickstart.constants import *
@@ -1212,10 +1213,28 @@ class RaidData(commands.raid.F15_RaidData):
                                      parents=request)
             storage.createDevice(luksdev)
 
-class RootPw(commands.rootpw.F8_RootPw):
+class RootPw(commands.rootpw.F18_RootPw):
     def execute(self, storage, ksdata, instClass, users):
         algo = users.getPassAlgo(ksdata.authconfig.authconfig)
         users.setRootPassword(self.password, self.isCrypted, self.lock, algo)
+
+class SELinux(commands.selinux.FC3_SELinux):
+    def execute(self, *args):
+        selinux_states = { SELINUX_DISABLED: "disabled",
+                           SELINUX_ENFORCING: "enforcing",
+                           SELINUX_PERMISSIVE: "permissive" }
+
+        if self.selinux not in selinux_states:
+            log.error("unknown selinux state: %s" % (self.selinux,))
+            return
+
+        try:
+            selinux_cfg = SimpleConfigFile(ROOT_PATH+"/etc/selinux/config")
+            selinux_cfg.read()
+            selinux_cfg.set(("SELINUX", selinux_states[self.selinux]))
+            selinux_cfg.write()
+        except IOError as msg:
+            log.error ("Error setting selinux mode: %s" % (msg,))
 
 class Services(commands.services.FC6_Services):
     def execute(self, storage, ksdata, instClass):
@@ -1362,6 +1381,7 @@ commandMap = {
         "partition": Partition,
         "raid": Raid,
         "rootpw": RootPw,
+        "selinux": SELinux,
         "services": Services,
         "timezone": Timezone,
         "user": User,

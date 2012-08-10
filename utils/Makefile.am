@@ -22,6 +22,5 @@ SUBDIRS = log_picker
 utilsdir            = $(libexecdir)/$(PACKAGE_NAME)
 
 dist_sbin_SCRIPTS    = logpicker handle-sshpw
-utils_PROGRAMS      = mapshdr readmap
 
 MAINTAINERCLEANFILES = Makefile.in

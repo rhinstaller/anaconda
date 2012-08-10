@@ -26,7 +26,7 @@ BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 %define intltoolver 0.31.2-3
 %define libnlver 1.0
 %define libselinuxver 1.6
-%define pykickstartver 1.99.14
+%define pykickstartver 1.99.15
 %define rpmpythonver 4.2-0.61
 %define slangver 2.0.6-2
 %define yumver 2.9.2
@@ -40,7 +40,7 @@ BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 %define yumutilsver 1.1.11-3
 %define iscsiver 6.2.0.870-3
 %define pythoncryptsetupver 0.1.1
-%define mehver 0.13-1
+%define mehver 0.14-1
 %define sckeyboardver 1.3.1
 %define libblkidver 2.17.1-1
 %define fcoeutilsver 1.0.12-3.20100323git
@@ -89,7 +89,6 @@ BuildRequires: NetworkManager-devel >= %{nmver}
 BuildRequires: NetworkManager-glib-devel >= %{nmver}
 BuildRequires: dbus-devel >= %{dbusver}
 BuildRequires: dbus-python
-BuildRequires: system-config-keyboard >= %{sckeyboardver}
 %ifarch %livearches
 BuildRequires: desktop-file-utils
 %endif
@@ -130,7 +129,6 @@ Requires: python-cryptsetup >= %{pythoncryptsetupver}
 Requires: mdadm
 Requires: lvm2
 Requires: util-linux >= 2.15.1
-Requires: system-config-keyboard >= %{sckeyboardver}
 Requires: dbus-python
 Requires: python-pwquality
 Requires: python-bugzilla

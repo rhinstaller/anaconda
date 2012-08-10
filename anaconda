@@ -221,6 +221,7 @@ def parseOptions(argv=None, cmdline=None):
     op.add_option("--kickstart", dest="ksfile")
     op.add_option("--rescue", dest="rescue", action="store_true", default=False)
     op.add_option("--targetarch", "rpmarch", dest="targetArch", type="string")
+    op.add_option("--armplatform", dest="armPlatform", type="string")
 
     op.add_option("-m", "--method", dest="method", default=None)
     op.add_option("--repo", dest="method", default=None)
@@ -333,30 +334,6 @@ def expandFTPMethod(str):
         return ret
     except:
         return None
-
-def runVNC(vncS):
-    vncS.startServer()
-
-    child = os.fork()
-    if child == 0:
-        for p in ('/tmp/updates/pyrc.py', \
-                '/usr/share/anaconda/pyrc.py'):
-            if os.access(p, os.R_OK|os.X_OK):
-                os.environ['PYTHONSTARTUP'] = p
-                break
-
-        while True:
-            # Not having a virtual terminal or otherwise free console
-            # are the only places we /really/ need a shell on tty1,
-            # and everywhere else this just gets in the way of pdb.  But we
-            # don't want to return, because that'll return try to start X
-            # a second time.
-            if iutil.isConsoleOnVirtualTerminal() or iutil.isS390():
-                    time.sleep(10000)
-            else:
-                    print _("Press <enter> for a shell")
-                    sys.stdin.readline()
-                    iutil.execConsole()
 
 def gtk_warning(title, reason):
     import gtk
@@ -581,7 +558,7 @@ def setupDisplay(anaconda, opts):
 
     # if they want us to use VNC do that now
     if anaconda.displayMode == 'g' and flags.usevnc:
-        runVNC(vncS)
+        vncS.startServer()
         doStartupX11Actions()
 
     # with X running we can initialize the UI interface
@@ -714,6 +691,7 @@ if __name__ == "__main__":
     from pyanaconda import vnc
     from pyanaconda import kickstart
     from pyanaconda import ntp
+    from pyanaconda import keyboard
 
     verdesc = "%s for %s %s" % (getAnacondaVersion(),
                                 product.productName, product.productVersion)
@@ -803,6 +781,9 @@ if __name__ == "__main__":
     if opts.targetArch:
         flags.targetarch = opts.targetArch
 
+    if opts.armPlatform:
+        flags.armPlatform = opts.armPlatform
+
     # set flags
     flags.dmraid = opts.dmraid
     flags.mpath = opts.mpath
@@ -864,6 +845,15 @@ if __name__ == "__main__":
 
     anaconda.ksdata = ksdata
 
+    # setup keyboard layout from the command line option and let
+    # it override from kickstart if/when X is initialized
+    if opts.keymap:
+        if not ksdata.keyboard.keyboard:
+            ksdata.keyboard.keyboard = opts.keymap
+
+    if ksdata.keyboard.keyboard:
+        keyboard.activate_console_keymap(ksdata.keyboard.keyboard)
+
     # Some post-install parts of anaconda are implemented as kickstart
     # scripts.  Add those to the ksdata now.
     kickstart.appendPostScripts(ksdata)
@@ -901,14 +891,6 @@ if __name__ == "__main__":
              anaconda.methodstr.startswith("ftp"):
             ksdata.method.method = "url"
             ksdata.method.url = anaconda.methodstr
-
-    # setup keyboard layout from the command line option and let
-    # it override from kickstart if/when X is initialized
-    if opts.keymap:
-        if not ksdata.keyboard.keyboard:
-            ksdata.keyboard.keyboard = opts.keymap
-        anaconda.keyboard.set(opts.keymap)
-        anaconda.keyboard.activate()
 
     # now start the interface
     setupDisplay(anaconda, opts)

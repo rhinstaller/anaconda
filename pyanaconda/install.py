@@ -75,6 +75,7 @@ def doInstall(storage, payload, ksdata, instClass):
     # Now run the execute methods of ksdata that require an installed system
     # to be present first.
     ksdata.authconfig.execute(storage, ksdata, instClass)
+    ksdata.selinux.execute(storage, ksdata, instClass)
     ksdata.firstboot.execute(storage, ksdata, instClass)
     ksdata.services.execute(storage, ksdata, instClass)
     ksdata.keyboard.execute(storage, ksdata, instClass)
