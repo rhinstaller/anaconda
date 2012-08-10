@@ -1,6 +1,6 @@
 Name: anaconda
 Version: 11.1.2.253
-Release: 1
+Release: 2
 License: GPL
 Summary: Graphical system installer
 Group: Applications/System
@@ -128,6 +128,10 @@ fi
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Fri Aug 10 2012 Radek Vykydal <rvykydal@redhat.com> 11.1.2.253-2
+- New kudzu is needed to support in-box MS PV drivers (rvykydal)
+  Related: rhbz#824880
+
 * Fri Jul 27 2012 Martin Gracik <mgracik@redhat.com> 11.1.2.253-1
 - Syslinux changed paths from /usr/lib to /usr/share (mgracik)
   Resolves: rhbz#843290
