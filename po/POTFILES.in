@@ -55,6 +55,22 @@ pyanaconda/storage/iscsi.py
 pyanaconda/storage/partitioning.py
 pyanaconda/storage/zfcp.py
 
+# Interfaces
+pyanaconda/ui/common.py
+pyanaconda/ui/__init__.py
+
+# Text interface
+pyanaconda/ui/tui/hubs/summary.py
+pyanaconda/ui/tui/hubs/__init__.py
+pyanaconda/ui/tui/tuiobject.py
+pyanaconda/ui/tui/simpleline/widgets.py
+pyanaconda/ui/tui/simpleline/base.py
+pyanaconda/ui/tui/simpleline/__init__.py
+pyanaconda/ui/tui/spokes/password.py
+pyanaconda/ui/tui/spokes/time.py
+pyanaconda/ui/tui/spokes/__init__.py
+pyanaconda/ui/tui/__init__.py
+
 # Graphical interface
 pyanaconda/ui/gui/__init__.py
 pyanaconda/ui/gui/categories/__init__.py
