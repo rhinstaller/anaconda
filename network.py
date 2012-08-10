@@ -406,6 +406,22 @@ class Network:
             self.netdevices[device].set((dnslabel, addr))
             i += 1
 
+    @property
+    def gateway(self):
+        """GATEWAY - last device in list wins"""
+        for dev in reversed(self.netdevices.values()):
+            if dev.get('GATEWAY'):
+                return dev.get('GATEWAY')
+        return ""
+
+    @property
+    def ipv6_defaultgw(self):
+        """IPV6_DEFAULTGW - last device in list wins"""
+        for dev in reversed(self.netdevices.values()):
+            if dev.get('IPV6_DEFAULTGW'):
+                return dev.get('IPV6_DEFAULTGW')
+        return ""
+
     def setGateway(self, gw, device):
         if ':' in gw:
             self.netdevices[device].set(('IPV6_DEFAULTGW', gw))
@@ -681,11 +697,11 @@ class Network:
         else:
             f.write("localhost.localdomain\n")
 
-        if dev.get('GATEWAY'):
-            f.write("GATEWAY=%s\n" % (dev.get('GATEWAY'),))
+        if self.gateway:
+            f.write("GATEWAY=%s\n" % self.gateway)
 
-        if dev.get('IPV6_DEFAULTGW'):
-            f.write("IPV6_DEFAULTGW=%s\n" % (dev.get('IPV6_DEFAULTGW'),))
+        if self.ipv6_defaultgw:
+            f.write("IPV6_DEFAULTGW=%s\n" % self.ipv6_defaultgw)
 
         if self.hasBondDevice() or self.hasVlanDevice():
             f.write("NM_BOND_VLAN_ENABLED=yes\n")
