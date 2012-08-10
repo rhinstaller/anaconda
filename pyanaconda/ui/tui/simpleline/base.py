@@ -204,7 +204,7 @@ class App(object):
         working."""
 
         try:
-            self.mainloop()
+            self._mainloop()
         except ExitAllMainLoops:
             pass
 

@@ -61,7 +61,7 @@ class AppTests(unittest.TestCase):
         assert self.app._screens[0][0] is not None
 
     def test_modal_starts_mainloop(self):
-        self.app.mainloop = raiseOK
+        self.app._mainloop = raiseOK
         self.assertRaises(OKException, self.app.switch_screen_modal, (self.screen,))
 
     def test_exits_modal_screen(self):
