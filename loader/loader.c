@@ -900,13 +900,6 @@ static int parseCmdLineBond(struct loaderData_s * loaderData, char *argv)
                           &(loaderData->netDev),
                           &(loaderData->bonding_slaves),
                           &(loaderData->bonding_opts))) {
-        if (loaderData->bonding_opts) {
-            if (strchr(loaderData->bonding_opts, ';')) {
-                replaceChars(loaderData->bonding_opts, ';', ' ');
-            } else {
-                replaceChars(loaderData->bonding_opts, ',', ' ');
-            }
-        }
         loaderData->netDev_set = 1;
         return 1;
     } else {

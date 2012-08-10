@@ -1414,6 +1414,11 @@ int writeEnabledNetInfo(iface_t *iface) {
     } else if (iface->bonding_slaves) {
         fprintf(fp, "TYPE=Bond\n");
         if (iface->bonding_opts) {
+            if (strchr(iface->bonding_opts, ';')) {
+                replaceChars(iface->bonding_opts, ';', ' ');
+            } else {
+                replaceChars(iface->bonding_opts, ',', ' ');
+            }
             fprintf(fp, "BONDING_OPTS=\"%s\"\n", iface->bonding_opts);
         }
     } else {
@@ -1776,6 +1781,8 @@ void setKickstartNetwork(struct loaderData_s * loaderData, int argc,
         { "nodefroute", 0, 0, G_OPTION_ARG_NONE, &nodefroute, NULL, NULL },
         { "dhcptimeout", 0, 0, G_OPTION_ARG_INT, &loaderData->dhcpTimeout, NULL, NULL },
         { "vlanid", 0, 0, G_OPTION_ARG_INT, &vlanid, NULL, NULL },
+        { "bondslaves", 0, 0, G_OPTION_ARG_STRING, &loaderData->bonding_slaves, NULL, NULL},
+        { "bondopts", 0, 0, G_OPTION_ARG_STRING, &loaderData->bonding_opts, NULL, NULL},
         { NULL },
     };
 
@@ -1805,6 +1812,10 @@ void setKickstartNetwork(struct loaderData_s * loaderData, int argc,
     loaderData->mtu = 0;
     loaderData->dhcpTimeout = NM_DHCP_TIMEOUT;
     loaderData->vlanid = 0;
+    free(loaderData->bonding_slaves);
+    loaderData->bonding_slaves = NULL;
+    free(loaderData->bonding_opts);
+    loaderData->bonding_opts = NULL;
 
 #ifdef ENABLE_IPV6
     free(loaderData->ipv6);
