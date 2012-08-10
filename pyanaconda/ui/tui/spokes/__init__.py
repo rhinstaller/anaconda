@@ -23,6 +23,9 @@ from pyanaconda.ui.tui.tuiobject import TUIObject
 from pyanaconda.ui.common import Spoke, StandaloneSpoke, NormalSpoke, PersonalizationSpoke, collect
 import os
 
+import gettext
+_ = lambda x: gettext.ldgettext("anaconda", x)
+
 __all__ = ["TUISpoke", "StandaloneSpoke", "NormalSpoke", "PersonalizationSpoke",
            "collect_spokes", "collect_categories"]
 
@@ -38,7 +41,7 @@ class TUISpoke(TUIObject, tui.Widget, Spoke):
     :type category: string
     """
 
-    title = u"Default spoke title"
+    title = _("Default spoke title")
     category = u""
 
     def __init__(self, app, data, storage, payload, instclass):
@@ -48,7 +51,7 @@ class TUISpoke(TUIObject, tui.Widget, Spoke):
 
     @property
     def status(self):
-        return "testing status..."
+        return _("testing status...")
 
     @property
     def completed(self):
