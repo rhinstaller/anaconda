@@ -6,8 +6,8 @@ class PasswordSpoke(NormalTUISpoke):
     title = _("Set root password")
     category = "password"
 
-    def __init__(self, app, ksdata, storage, payload, instclass):
-        NormalTUISpoke.__init__(self, app, ksdata, storage, payload, instclass)
+    def __init__(self, app, data, storage, payload, instclass):
+        NormalTUISpoke.__init__(self, app, data, storage, payload, instclass)
         self._password = None
 
     @property

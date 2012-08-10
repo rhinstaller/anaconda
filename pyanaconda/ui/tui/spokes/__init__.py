@@ -41,10 +41,10 @@ class TUISpoke(TUIObject, tui.Widget, Spoke):
     title = u"Default spoke title"
     category = u""
 
-    def __init__(self, app, ksdata, storage, payload, instclass):
-        TUIObject.__init__(self, app, ksdata)
+    def __init__(self, app, data, storage, payload, instclass):
+        TUIObject.__init__(self, app, data)
         tui.Widget.__init__(self)
-        Spoke.__init__(self, ksdata, storage, payload, instclass)
+        Spoke.__init__(self, data, storage, payload, instclass)
 
     @property
     def status(self):

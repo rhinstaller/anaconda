@@ -6,8 +6,8 @@ class TimeZoneSpoke(NormalTUISpoke):
     title = "Timezone settings"
     category = "localization"
 
-    def __init__(self, app, ksdata, storage, payload, instclass):
-        NormalTUISpoke.__init__(self, app, ksdata, storage, payload, instclass)
+    def __init__(self, app, data, storage, payload, instclass):
+        NormalTUISpoke.__init__(self, app, data, storage, payload, instclass)
 
     def initialize(self):
         self._timezones = dict([(k, sorted(v)) for k,v in localization.get_all_regions_and_timezones().iteritems()])

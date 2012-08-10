@@ -125,7 +125,7 @@ class Spoke(UIObject):
            in the anaconda class, as that would be a big mess.  Instead, a
            Spoke may count on the following:
 
-           ksdata       -- An instance of a pykickstart Handler object.  The
+           data         -- An instance of a pykickstart Handler object.  The
                            Spoke uses this to populate its UI with defaults
                            and to pass results back after it has run.
            storage      -- An instance of storage.Storage.  This is useful for
@@ -200,6 +200,23 @@ class Spoke(UIObject):
 class NormalSpoke(Spoke):
     priority = 100
 
+    """A NormalSpoke is a Spoke subclass that is displayed when the user
+       selects something on a Hub.  This is what most Spokes in anaconda will
+       be based on.
+
+       From a layout perspective, a NormalSpoke takes up the entire screen
+       therefore hiding the Hub and its action area.  The NormalSpoke also
+       provides some basic navigation information (where you are, what you're
+       installing, how to get back to the Hub) at the top of the screen.
+    """
+    def __init__(self, data, storage, payload, instclass):
+        """Create a NormalSpoke instance."""
+        if self.__class__ is NormalSpoke:
+            raise TypeError("NormalSpoke is an abstract class")
+
+        Spoke.__init__(self, data, storage, payload, instclass)
+        self.selector = None
+
     @property
     def indirect(self):
         """If this property returns True, then this spoke is considered indirect.
@@ -266,22 +283,6 @@ class StandaloneSpoke(NormalSpoke):
 
         Spoke.__init__(self, data, storage, payload, instclass)
 
-    """A NormalSpoke is a Spoke subclass that is displayed when the user
-       selects something on a Hub.  This is what most Spokes in anaconda will
-       be based on.
-
-       From a layout perspective, a NormalSpoke takes up the entire screen
-       therefore hiding the Hub and its action area.  The NormalSpoke also
-       provides some basic navigation information (where you are, what you're
-       installing, how to get back to the Hub) at the top of the screen.
-    """
-    def __init__(self, data, storage, payload, instclass):
-        """Create a NormalSpoke instance."""
-        if self.__class__ is NormalSpoke:
-            raise TypeError("NormalSpoke is an abstract class")
-
-        Spoke.__init__(self, data, storage, payload, instclass)
-        self.selector = None
 
 
 class PersonalizationSpoke(Spoke):
@@ -331,7 +332,7 @@ class Hub(UIObject):
            in the anaconda class, as that would be a big mess.  Instead, a
            Hub may count on the following:
 
-           ksdata       -- An instance of a pykickstart Handler object.  The
+           data         -- An instance of a pykickstart Handler object.  The
                            Hub uses this to populate its UI with defaults
                            and to pass results back after it has run.
            storage      -- An instance of storage.Storage.  This is useful for
