@@ -36,6 +36,10 @@ _ = lambda x: gettext.ldgettext("anaconda", x)
 
 MAX_LV_SLOTS = 256
 
+# some of lvm's defaults that we have no way to ask it for
+LVM_PE_START = 1.0      # MB
+LVM_PE_SIZE = 4.0       # MB
+
 def has_lvm():
     if iutil.find_program_in_path("lvm"):
         for line in open("/proc/devices").readlines():
@@ -142,6 +146,17 @@ def clampSize(size, pesize, roundup=None):
         round = math.floor
 
     return long(round(float(size)/float(pesize)) * pesize)
+
+def get_pv_space(size, disks, pesize=LVM_PE_SIZE,
+                 striped=False, mirrored=False):
+    """ Given specs for an LV, return total PV space required. """
+    # XXX default extent size should be something we can ask of lvm
+    # TODO: handle striped and mirrored
+    # this is adding one extent for the lv's metadata
+    space = clampSize(size, pesize, roundup=True) + \
+            (LVM_PE_START * disks) + \
+            pesize
+    return space
 
 def lvm(args):
     ret = iutil.execWithRedirect("lvm", args,

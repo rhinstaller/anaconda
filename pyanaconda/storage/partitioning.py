@@ -131,12 +131,6 @@ def _schedulePartitions(storage, disks):
         if request.requiredSpace and request.requiredSpace > free:
             continue
 
-        if request.fstype is None:
-            if request.mountpoint == "/boot":
-                request.fstype = storage.defaultBootFSType
-            else:
-                request.fstype = storage.defaultFSType
-
         elif request.fstype in ("prepboot", "efi", "biosboot", "hfs+") and \
              stage1_device:
             # there should never be a need for more than one of these
@@ -263,25 +257,13 @@ def _scheduleVolumes(storage, devs):
                            "singlePV": request.singlePV})
         else:
             kwargs.update({"parents": [container],
+                           "size": request.size,
                            "subvol": True})
 
         dev = new_volume(**kwargs)
 
         # schedule the device for creation
         storage.createDevice(dev)
-
-def scheduleShrinkActions(storage):
-    """ Schedule actions to shrink partitions as per autopart selection. """
-    for (path, size) in storage.shrinkPartitions.items():
-        device = storage.devicetree.getDeviceByPath(path, preferLeaves=False)
-        if not device or not isinstance(device, PartitionDevice):
-            raise StorageError("device %s scheduled for shrink disappeared"
-                                % path)
-        storage.devicetree.registerAction(ActionResizeFormat(device, size))
-        storage.devicetree.registerAction(ActionResizeDevice(device, size))
-        # aligning the partition's new end sector may have changed the size
-        if device.targetSize != size:
-            device.format.targetSize = device.targetSize
 
 def doAutoPartition(storage, data):
     log.debug("doAutoPart: %s" % storage.doAutoPart)
@@ -299,9 +281,6 @@ def doAutoPartition(storage, data):
     devs = []
 
     if storage.doAutoPart:
-        # XXX this doesn't belong on newui
-        scheduleShrinkActions(storage)
-
         disks = _getCandidateDisks(storage)
         devs = _scheduleImplicitPartitions(storage, disks)
         log.debug("candidate disks: %s" % disks)
@@ -321,6 +300,8 @@ def doAutoPartition(storage, data):
 
         # grow LVs
         growLVM(storage)
+
+        growBTRFS(storage)
     except PartitioningWarning as e:
         log.warning(str(e))
         if errorHandler.cb(e) == ERROR_RAISE:
@@ -768,8 +749,7 @@ def doPartitioning(storage):
     for part in storage.partitions:
         part.req_bootable = False
 
-        if part.exists or \
-           (storage.deviceImmutable(part) and part.partedPartition):
+        if part.exists:
             # if the partition is preexisting or part of a complex device
             # then we shouldn't modify it
             partitions.remove(part)
@@ -789,7 +769,7 @@ def doPartitioning(storage):
     free = getFreeRegions(disks)
     try:
         allocatePartitions(storage, disks, partitions, free)
-        growPartitions(disks, partitions, free)
+        growPartitions(disks, partitions, free, size_sets=storage.size_sets)
     finally:
         # The number and thus the name of partitions may have changed now,
         # allocatePartitions() takes care of this for new partitions, but not
@@ -1081,13 +1061,14 @@ class Request(object):
         self.device = device
         self.growth = 0                     # growth in sectors
         self.max_growth = 0                 # max growth in sectors
-        self.done = not device.req_grow     # can we grow this request more?
+        self.done = not getattr(device, "req_grow", True)  # can we grow this
+                                                           # request more?
         self.base = 0                       # base sectors
 
     @property
     def growable(self):
         """ True if this request is growable. """
-        return self.device.req_grow
+        return getattr(self.device, "req_grow", True)
 
     @property
     def id(self):
@@ -1188,6 +1169,8 @@ class Chunk(object):
             for req in requests:
                 self.addRequest(req)
 
+        self.skip_list = []
+
     def __repr__(self):
         s = ("%(type)s instance --\n"
              "device = %(device)s  length = %(length)d  size = %(size)d\n"
@@ -1211,6 +1194,22 @@ class Chunk(object):
 
         if not req.done:
             self.base += req.base
+
+    def reclaim(self, request, amount):
+        """ Reclaim units from a request and return them to the pool. """
+        log.debug("reclaim: %s %d (%d MB)" % (request, amount, self.lengthToSize(amount)))
+        if request.growth < amount:
+            log.error("tried to reclaim %d from request with %d of growth"
+                        % (amount, request.growth))
+            raise ValueError("cannot reclaim more than request has grown")
+
+        request.growth -= amount
+        self.pool += amount
+
+        # put this request in the skip list so we don't try to grow it the
+        # next time we call growRequests to allocate the newly re-acquired pool
+        if request not in self.skip_list:
+            self.skip_list.append(request)
 
     @property
     def growth(self):
@@ -1291,7 +1290,7 @@ class Chunk(object):
             log.debug("%d requests and %d (%dMB) left in chunk" %
                         (self.remaining, self.pool, self.lengthToSize(self.pool)))
             for p in self.requests:
-                if p.done:
+                if p.done or p in self.skip_list:
                     continue
 
                 if not uniform:
@@ -1335,6 +1334,10 @@ class Chunk(object):
 
                 if self.pool == 0:
                     break
+
+        # requests that were skipped over this time through are back on the
+        # table next time
+        self.skip_list = []
 
 
 class DiskChunk(Chunk):
@@ -1549,7 +1552,121 @@ def getDiskChunks(disk, partitions, free):
 
     return chunks
 
-def growPartitions(disks, partitions, free):
+class TotalSizeSet(object):
+    """ Set of device requests with a target combined size.
+
+        This will be handled by growing the requests until the desired combined
+        size has been achieved.
+    """
+    def __init__(self, devices, size):
+        self.devices = devices
+        self.size = size
+
+        self.requests = []
+
+        self.allocated = sum([d.req_base_size for d in self.devices])
+        log.debug("set.allocated = %d" % self.allocated)
+
+    def allocate(self, amount):
+        log.debug("allocating %d to TotalSizeSet with %d/%d (%d needed)"
+                    % (amount, self.allocated, self.size, self.needed))
+        self.allocated += amount
+
+    @property
+    def needed(self):
+        return self.size - self.allocated
+
+    def deallocate(self, amount):
+        log.debug("deallocating %d from TotalSizeSet with %d/%d (%d needed)"
+                    % (amount, self.allocated, self.size, self.needed))
+        self.allocated -= amount
+
+class SameSizeSet(object):
+    """ Set of device requests with a common target size. """
+    def __init__(self, devices, size, grow=False, max_size=None):
+        self.devices = devices
+        self.size = int(size / len(devices))
+        self.grow = grow
+        self.max_size = max_size
+
+        self.requests = []
+
+def manageSizeSets(size_sets, chunks):
+    growth_by_request = {}
+    requests_by_device = {}
+    chunks_by_request = {}
+    for chunk in chunks:
+        for request in chunk.requests:
+            requests_by_device[request.device] = request
+            chunks_by_request[request] = chunk
+            growth_by_request[request] = 0
+
+    for i in range(2):
+        reclaimed = dict([(chunk, 0) for chunk in chunks])
+        for ss in size_sets:
+            if isinstance(ss, TotalSizeSet):
+                # TotalSizeSet members are trimmed to achieve the requested
+                # total size
+                log.debug("set: %s %d/%d" % ([d.name for d in ss.devices],
+                                              ss.allocated, ss.size))
+
+                for device in ss.devices:
+                    request = requests_by_device[device]
+                    if request.done:
+                        continue
+
+                    chunk = chunks_by_request[request]
+                    new_growth = request.growth - growth_by_request[request]
+                    ss.allocate(chunk.lengthToSize(new_growth))
+
+                # decide how much to take back from each request
+                # We may assume that all requests have the same base size.
+                # We're shooting for a roughly equal distribution by trimming
+                # growth from the requests that have grown the most first.
+                requests = sorted([requests_by_device[d] for d in ss.devices],
+                                  key=lambda r: r.growth, reverse=True)
+                for request in requests:
+                    chunk = chunks_by_request[request]
+                    log.debug("%s" % request)
+                    log.debug("needed: %d" % ss.needed)
+
+                    if ss.needed < 0:
+                        # it would be good to take back some from each device
+                        # instead of taking all from the last one(s)
+                        extra = min(-chunk.sizeToLength(ss.needed),
+                                    request.growth)
+                        reclaimed[chunk] += extra
+                        chunk.reclaim(request, extra)
+                        ss.deallocate(chunk.lengthToSize(extra))
+
+                    if ss.needed <= 0:
+                        request.done = True
+
+            elif isinstance(ss, SameSizeSet):
+                # SameSizeSet members all have the same size as the smallest
+                # member
+                requests = [requests_by_device[d] for d in ss.devices]
+                min_growth = min([r.growth for r in requests])
+                for request in requests:
+                    if request.growth > min_growth:
+                        chunk = chunks_by_request[request]
+                        extra = request.growth - min_growth
+                        reclaimed[chunk] += extra
+                        chunk.reclaim(request, extra)
+                        request.done = True
+                    elif request.growth == min_growth:
+                        request.done = True
+
+        # store previous growth amounts so we know how much was allocated in
+        # the latest growRequests call
+        for request in growth_by_request.keys():
+            growth_by_request[request] = request.growth
+
+        for chunk in chunks:
+            if reclaimed[chunk] and not chunk.done:
+                chunk.growRequests()
+
+def growPartitions(disks, partitions, free, size_sets=None):
     """ Grow all growable partition requests.
 
         Partitions have already been allocated from chunks of free space on
@@ -1575,16 +1692,17 @@ def growPartitions(disks, partitions, free):
         log.debug("no growable partitions")
         return
 
+    if size_sets is None:
+        size_sets = []
+
     log.debug("growable partitions are %s" % [p.name for p in all_growable])
 
+    #
+    # collect info about each disk and the requests it contains
+    #
+    chunks = []
     for disk in disks:
-        log.debug("growing partitions on %s" % disk.name)
         sector_size = disk.format.partedDevice.sectorSize
-
-        # find any extended partition on this disk
-        extended_geometry = getattr(disk.format.extendedPartition,
-                                    "geometry",
-                                    None)  # parted.Geometry
 
         # list of free space regions on this disk prior to partition allocation
         disk_free = [f for f in free if f.device.path == disk.path]
@@ -1592,19 +1710,42 @@ def growPartitions(disks, partitions, free):
             log.debug("no free space on %s" % disk.name)
             continue
 
-        chunks = getDiskChunks(disk, partitions, disk_free)
-        log.debug("disk %s has %d chunks" % (disk.name, len(chunks)))
-        # grow the partitions in each chunk as a group
+        disk_chunks = getDiskChunks(disk, partitions, disk_free)
+        log.debug("disk %s has %d chunks" % (disk.name, len(disk_chunks)))
+        chunks.extend(disk_chunks)
+
+    #
+    # grow the partitions in each chunk as a group
+    #
+    for chunk in chunks:
+        if not chunk.hasGrowable:
+            # no growable partitions in this chunk
+            continue
+
+        chunk.growRequests()
+
+    # adjust set members' growth amounts as needed
+    manageSizeSets(size_sets, chunks)
+
+    for disk in disks:
+        log.debug("growing partitions on %s" % disk.name)
         for chunk in chunks:
+            if chunk.path != disk.path:
+                continue
+
             if not chunk.hasGrowable:
                 # no growable partitions in this chunk
                 continue
 
-            chunk.growRequests()
-
             # recalculate partition geometries
             disklabel = disk.format
             start = chunk.geometry.start
+
+            # find any extended partition on this disk
+            extended_geometry = getattr(disklabel.extendedPartition,
+                                        "geometry",
+                                        None)  # parted.Geometry
+
             # align start sector as needed
             if not disklabel.alignment.isAligned(chunk.geometry, start):
                 start = disklabel.alignment.alignUp(chunk.geometry, start)
@@ -1759,3 +1900,21 @@ def growLVM(storage):
             # initial size.
             req.device.size = chunk.lengthToSize(req.base + req.growth)
 
+def growBTRFS(storage):
+    """ Set up relative sizes for subvolumes after autopart for custom ui. """
+    for vol in storage.btrfsVolumes:
+        if vol.exists:
+            continue
+
+        requests = []
+        for subvol in vol.subvolumes:
+            request = Request(subvol)
+            request.base = subvol._size
+            requests.append(request)
+
+        chunk = Chunk(int(vol.size), requests=requests)
+        chunk.path = "btrfs %s" % vol.name
+        chunk.growRequests()
+
+        for req in chunk.requests:
+            req.device._size = chunk.lengthToSize(req.base + req.growth)

@@ -76,9 +76,7 @@ class InstallClass(BaseInstallClass):
 
     def configure(self, anaconda):
 	BaseInstallClass.configure(self, anaconda)
-        BaseInstallClass.setDefaultPartitioning(self,
-                                                anaconda.storage,
-                                                anaconda.platform)
+        BaseInstallClass.setDefaultPartitioning(self, anaconda.storage)
 
     def setGroupSelection(self, anaconda):
         BaseInstallClass.setGroupSelection(self, anaconda)

@@ -1742,6 +1742,8 @@ class DeviceTree(object):
         self._devices.remove(device)
         self._hidden.append(device)
         lvm.lvm_cc_addFilterRejectRegexp(device.name)
+        for parent in device.parents:
+            parent.removeChild()
 
     def unhide(self, device):
         # the hidden list should be in leaves-first order
@@ -1752,7 +1754,9 @@ class DeviceTree(object):
                                                             hidden.id))
                 self._hidden.remove(hidden)
                 self._devices.append(hidden)
-                lvm.lvm_cc_removeFilterRejectRegexp(device.name)
+                lvm.lvm_cc_removeFilterRejectRegexp(hidden.name)
+                for parent in device.parents:
+                    parent.addChild()
 
     def _setupLvs(self):
         ret = False
@@ -2101,6 +2105,11 @@ class DeviceTree(object):
 
     def getDevicesByInstance(self, device_class):
         return [d for d in self._devices if isinstance(d, device_class)]
+
+    def getDeviceByID(self, id_num):
+        for device in self._devices:
+            if device.id == id_num:
+                return device
 
     @property
     def devices(self):

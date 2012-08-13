@@ -26,6 +26,7 @@ from storage.devicelibs.mpath import MultipathConfigWriter, MultipathTopology
 from storage.devicelibs import swap
 from storage.formats import getFormat
 from storage.partitioning import doPartitioning
+from storage.partitioning import growLVM
 import storage.iscsi
 import storage.fcoe
 import storage.zfcp
@@ -236,7 +237,6 @@ class Authconfig(commands.authconfig.FC3_Authconfig):
 
 class AutoPart(commands.autopart.F17_AutoPart):
     def execute(self, storage, ksdata, instClass):
-        from pyanaconda.platform import getPlatform
         from pyanaconda.storage.partitioning import doAutoPartition
 
         if not self.autopart:
@@ -244,7 +244,7 @@ class AutoPart(commands.autopart.F17_AutoPart):
 
         # sets up default autopartitioning.  use clearpart separately
         # if you want it
-        instClass.setDefaultPartitioning(storage, getPlatform())
+        instClass.setDefaultPartitioning(storage)
         storage.doAutoPart = True
 
         if self.encrypted:
@@ -538,6 +538,9 @@ class LogVol(commands.logvol.F17_LogVol):
     def execute(self, storage, ksdata, instClass):
         for l in self.lvList:
             l.execute(storage, ksdata, instClass)
+
+        if self.lvList:
+            growLVM(storage)
 
 class LogVolData(commands.logvol.F17_LogVolData):
     def execute(self, storage, ksdata, instClass):
@@ -845,6 +848,9 @@ class Partition(commands.partition.F17_Partition):
         for p in self.partitions:
             p.execute(storage, ksdata, instClass)
 
+        if self.partitions:
+            doPartitioning(storage)
+
 class PartitionData(commands.partition.F17_PartData):
     def execute(self, storage, ksdata, instClass):
         devicetree = storage.devicetree
@@ -1032,13 +1038,6 @@ class PartitionData(commands.partition.F17_PartData):
                     storage.destroyDevice(device)
             except KeyError:
                 pass
-
-            if "format" in kwargs:
-                # set weight based on fstype and mountpoint
-                mpt = getattr(kwargs["format"], "mountpoint", None)
-                fstype = kwargs["format"].type
-                kwargs["weight"] = storage.platform.weight(fstype=fstype,
-                                                           mountpoint=mpt)
 
             request = storage.newPartition(**kwargs)
             storage.createDevice(request)
@@ -1600,5 +1599,4 @@ def doKickstartStorage(storage, ksdata, instClass):
     ksdata.logvol.execute(storage, ksdata, instClass)
     ksdata.btrfs.execute(storage, ksdata, instClass)
     storage.setUpBootLoader()
-    doPartitioning(storage)
 

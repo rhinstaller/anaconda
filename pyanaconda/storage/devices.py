@@ -274,9 +274,6 @@ class Device(object):
               "parents": [p.name for p in self.parents]}
         return d
 
-    def writeKS(self, f, preexisting=False, noformat=False, s=None):
-        return
-
     def removeChild(self):
         log_method_call(self, name=self.name, kids=self.kids)
         self.kids -= 1
@@ -1219,34 +1216,6 @@ class PartitionDevice(StorageDevice):
                       "flags": self.partedPartition.getFlagsAsString()})
         return d
 
-    def writeKS(self, f, preexisting=False, noformat=False, s=None):
-        args = []
-
-        if self.isExtended:
-            return
-
-        if self.req_grow:
-            args.append("--grow")
-        if self.req_max_size:
-            args.append("--maxsize=%s" % self.req_max_size)
-        if self.req_primary:
-            args.append("--asprimary")
-        if self.req_size:
-            args.append("--size=%s" % (self.req_size or self.defaultSize))
-        if preexisting:
-            if len(self.req_disks) == 1:
-                args.append("--ondisk=%s" % self.req_disks[0].name)
-            else:
-                args.append("--onpart=%s" % self.name)
-        if noformat:
-            args.append("--noformat")
-
-        f.write("#part ")
-        self.format.writeKS(f)
-        f.write(" %s" % " ".join(args))
-        if s:
-            f.write(" %s" % s)
-
     def _setTargetSize(self, newsize):
         if newsize != self.currentSize:
             # change this partition's geometry in-memory so that other
@@ -1925,13 +1894,6 @@ class LUKSDevice(DMCryptDevice):
                                parents=parents, sysfsPath=sysfsPath,
                                uuid=None, exists=exists)
 
-    def writeKS(self, f, preexisting=False, noformat=False, s=None):
-        self.slave.writeKS(f, preexisting=preexisting, noformat=noformat, s=s)
-        f.write(" ")
-        self.format.writeKS(f)
-        if s:
-            f.write(" %s" % s)
-
     @property
     def size(self):
         if not self.exists or not self.partedDevice:
@@ -2023,7 +1985,7 @@ class LVMVolumeGroupDevice(DMDevice):
 
         # TODO: validate peSize if given
         if not self.peSize:
-            self.peSize = 32.0   # MB
+            self.peSize = lvm.LVM_PE_SIZE  # MB
 
         if not self.exists:
             self.pvCount = len(self.parents)
@@ -2068,27 +2030,6 @@ class LVMVolumeGroupDevice(DMDevice):
                   "reserved_space": self.reserved_space,
                   "lvNames": [lv.name for lv in self.lvs]})
         return d
-
-    def writeKS(self, f, preexisting=False, noformat=False, s=None):
-        args = ["--pesize=%s" % int(self.peSize * 1024)]
-        pvs = []
-
-        for pv in self.pvs:
-            pvs.append("pv.%s" % pv.format.majorminor)
-
-        if preexisting:
-            args.append("--useexisting")
-        if noformat:
-            args.append("--noformat")
-
-        if self.reserved_space:
-            args.append("--reserved-space=%d" % self.reserved_space)
-        elif self.reserved_percent:
-            args.append("--reserved-percent=%d" % self.reserved_percent)
-
-        f.write("#volgroup %s %s %s" % (self.name, " ".join(args), " ".join(pvs)))
-        if s:
-            f.write(" %s" % s)
 
     @property
     def mapName(self):
@@ -2492,32 +2433,6 @@ class LVMLogicalVolumeDevice(DMDevice):
 
         return d
 
-    def writeKS(self, f, preexisting=False, noformat=False, s=None):
-        args = ["--name=%s" % self.lvname,
-                "--vgname=%s" % self.vg.name]
-
-        if self.req_grow:
-            args.extend(["--grow", "--size=%s" % (self.req_size or 1)])
-
-            if self.req_max_size > 0:
-                args.append("--maxsize=%s" % self.req_max_size)
-        else:
-            if self.req_percent > 0:
-                args.append("--percent=%s" % self.req_percent)
-            elif self.req_size > 0:
-                args.append("--size=%s" % self.req_size)
-
-        if preexisting:
-            args.append("--useexisting")
-        if noformat:
-            args.append("--noformat")
-
-        f.write("#logvol ")
-        self.format.writeKS(f)
-        f.write(" %s" % " ".join(args))
-        if s:
-            f.write(" %s" % s)
-
     @property
     def mirrored(self):
         return self.stripes > 1
@@ -2840,28 +2755,6 @@ class MDRaidArrayDevice(StorageDevice):
                   "totalDevices": self.totalDevices,
                   "metadataVersion": self.metadataVersion})
         return d
-
-    def writeKS(self, f, preexisting=False, noformat=False, s=None):
-        args = ["--level=%s" % self.level,
-                "--device=%s" % self.name]
-        mems = []
-
-        if self.spares > 0:
-            args.append("--spares=%s" % self.spares)
-        if preexisting:
-            args.append("--useexisting")
-        if noformat:
-            args.append("--noformat")
-
-        for mem in self.parents:
-            mems.append("raid.%s" % mem.format.majorminor)
-
-        f.write("#raid ")
-        self.format.writeKS(f)
-        f.write(" %s" % " ".join(args))
-        f.write(" %s" % " ".join(mems))
-        if s:
-            f.write(" %s" % s)
 
     @property
     def mdadmConfEntry(self):

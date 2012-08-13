@@ -437,7 +437,4 @@ class DeviceFormat(object):
                 (udev_device_get_major(dev), udev_device_get_minor(dev))
         return self._majorminor
 
-    def writeKS(self, f):
-        return
-
 collect_device_format_classes()

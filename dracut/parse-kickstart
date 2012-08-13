@@ -285,7 +285,7 @@ def ksnet_to_ifcfg(net, filename=None):
 def process_kickstart(ksfile):
     handler = DracutHandler()
     handler.ksdevice = os.environ.get('ksdevice')
-    parser = KickstartParser(handler)
+    parser = KickstartParser(handler, missingIncludeIsFatal=False)
     log.info("processing kickstart file %s", ksfile)
     processed_file = preprocessKickstart(ksfile)
     try:

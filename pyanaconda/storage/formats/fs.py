@@ -868,16 +868,6 @@ class FS(DeviceFormat):
     def sync(self, root="/"):
         pass
 
-    def writeKS(self, f):
-        f.write("%s --fstype=%s" % (self.mountpoint, self.type))
-
-        if self.label:
-            f.write(" --label=\"%s\"" % self.label)
-
-        if self.fsprofile:
-            f.write(" --fsprofile=\"%s\"" % self.fsprofile)
-
-
 class Ext2FS(FS):
     """ ext2 filesystem. """
     _type = "ext2"
@@ -1332,9 +1322,6 @@ class AppleBootstrapFS(HFS):
         return (isinstance(platform.getPlatform(), platform.NewWorldPPC)
                 and self.utilsAvailable)
 
-    def writeKS(self, f):
-        f.write("appleboot --fstype=%s" % self.type)
-
 register_device_format(AppleBootstrapFS)
 
 
@@ -1471,9 +1458,6 @@ class Iso9660FS(FS):
     _migratable = False
     _defaultMountOptions = ["ro"]
 
-    def writeKS(self, f):
-        return
-
 register_device_format(Iso9660FS)
 
 
@@ -1491,9 +1475,6 @@ class NoDevFS(FS):
 
     def _getExistingSize(self):
         pass
-
-    def writeKS(self, f):
-        return
 
 register_device_format(NoDevFS)
 
@@ -1534,9 +1515,6 @@ class BindFS(FS):
 
     def _getExistingSize(self):
         pass
-
-    def writeKS(self, f):
-        return
 
 register_device_format(BindFS)
 

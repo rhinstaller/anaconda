@@ -65,7 +65,7 @@ class LVMPhysicalVolume(DeviceFormat):
         self.vgUuid = kwargs.get("vgUuid")
         # liblvm may be able to tell us this at some point, even
         # for not-yet-created devices
-        self.peStart = kwargs.get("peStart", 1.0)    # in MB
+        self.peStart = kwargs.get("peStart", lvm.LVM_PE_START)    # in MB
 
         self.inconsistentVG = False
 
@@ -140,9 +140,6 @@ class LVMPhysicalVolume(DeviceFormat):
         # XXX hack
         return (self.exists and self.vgName and
                 os.path.isdir("/dev/mapper/%s" % self.vgName))
-
-    def writeKS(self, f):
-        f.write("pv.%s" % self.majorminor)
 
 register_device_format(LVMPhysicalVolume)
 

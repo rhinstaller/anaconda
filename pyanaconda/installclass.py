@@ -105,7 +105,7 @@ class BaseInstallClass(object):
         # provided as a way for other products to specify their own.
         return None
 
-    def setDefaultPartitioning(self, storage, platform):
+    def setDefaultPartitioning(self, storage):
         autorequests = [PartSpec(mountpoint="/", fstype=storage.defaultFSType,
                                  size=1024, maxSize=50*1024, grow=True,
                                  btr=True, lv=True, encrypted=True),
@@ -113,13 +113,20 @@ class BaseInstallClass(object):
                                  size=500, grow=True, requiredSpace=50*1024,
                                  btr=True, lv=True, encrypted=True)]
 
-        bootreq = platform.setDefaultPartitioning()
-        if bootreq:
-            autorequests.extend(bootreq)
+        bootreqs = storage.platform.setDefaultPartitioning()
+        if bootreqs:
+            autorequests.extend(bootreqs)
 
         swp = swap.swapSuggestion()
         autorequests.append(PartSpec(fstype="swap", size=swp, grow=False,
                                      lv=True, encrypted=True))
+
+        for autoreq in autorequests:
+            if autoreq.fstype is None:
+                if autoreq.mountpoint == "/boot":
+                    autoreq.fstype = storage.defaultBootFSType
+                else:
+                    autoreq.fstype = storage.defaultFSType
 
         storage.autoPartitionRequests = autorequests
 

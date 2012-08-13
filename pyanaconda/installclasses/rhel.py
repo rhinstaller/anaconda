@@ -55,9 +55,7 @@ class InstallClass(BaseInstallClass):
 
     def configure(self, anaconda):
         BaseInstallClass.configure(self, anaconda)
-        BaseInstallClass.setDefaultPartitioning(self,
-                                                anaconda.storage,
-                                                anaconda.platform)
+        BaseInstallClass.setDefaultPartitioning(self, anaconda.storage)
 
     def productMatches(self, oldprod):
         if oldprod is None:

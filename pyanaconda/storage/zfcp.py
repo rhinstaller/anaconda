@@ -411,14 +411,6 @@ class ZFCP:
             except ValueError as e:
                 log.warn(str(e))
 
-    def writeKS(self, f):
-        if len(self.fcpdevs) == 0:
-            return
-        for d in self.fcpdevs:
-            f.write("zfcp --devnum %s --wwpn %s --fcplun %s\n" %(d.devnum,
-                                                                 d.wwpn,
-                                                                 d.fcplun))
-
     def write(self):
         if len(self.fcpdevs) == 0:
             return

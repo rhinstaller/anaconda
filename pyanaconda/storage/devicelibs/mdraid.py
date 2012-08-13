@@ -31,6 +31,10 @@ _ = lambda x: gettext.ldgettext("anaconda", x)
 import logging
 log = logging.getLogger("storage")
 
+# these defaults were determined empirically
+MD_SUPERBLOCK_SIZE = 2.0    # MB
+MD_CHUNK_SIZE = 0.5         # MB
+
 # raidlevels constants
 RAID10 = 10
 RAID6 = 6
@@ -123,6 +127,40 @@ def get_raid_max_spares(raidlevel, nummembers):
             return max_spares_func()
 
     raise ValueError, "invalid raid level %d" % raidlevel
+
+def get_member_space(size, disks, level=None):
+    space = 0   # size of *each* member device
+
+    if isinstance(level, str):
+        level = raidLevel(level)
+
+    min_members = get_raid_min_members(level)
+    if disks < min_members:
+        raise ValueError("raid%d requires at least %d disks"
+                         % (level, min_members))
+
+    if level == RAID0:
+        # you need the sum of the member sizes to equal your desired capacity
+        space = size / disks
+    elif level == RAID1:
+        # you need each member's size to equal your desired capacity
+        space = size
+    elif level in (RAID4, RAID5):
+        # you need the sum of all but one members' sizes to equal your desired
+        # capacity
+        space = size / (disks - 1)
+    elif level == RAID6:
+        # you need the sum of all but two members' sizes to equal your desired
+        # capacity
+        space = size / (disks - 2)
+    elif level == RAID10:
+        # you need the sum of the member sizes to equal twice your desired
+        # capacity
+        space = size / (disks / 2.0)
+
+    space += MD_SUPERBLOCK_SIZE
+
+    return space * disks
 
 def mdadm(args):
     ret = iutil.execWithRedirect("mdadm", args,

@@ -18,7 +18,7 @@
 #
 # Red Hat Author(s): Chris Lumens <clumens@redhat.com>
 #
-import importlib, inspect, os, sys
+import importlib, inspect, os, sys, time
 import meh.ui.gui
 
 from pyanaconda.ui import UserInterface, common
@@ -26,6 +26,9 @@ from pyanaconda.ui.gui.utils import enlightbox
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
+
+import logging
+log = logging.getLogger("anaconda")
 
 __all__ = ["GraphicalUserInterface", "UIObject"]
 
@@ -78,6 +81,18 @@ class GraphicalUserInterface(UserInterface):
 
     def run(self):
         from gi.repository import Gtk
+
+        if Gtk.main_level() > 0:
+            # Gtk main loop running. That means python-meh caught exception
+            # and runs its main loop. Do not crash Gtk by running another one
+            # from a different thread and just wait until python-meh is
+            # finished, then quit.
+            log.error("Unhandled exception caught, waiting for python-meh to "\
+                      "exit")
+            while Gtk.main_level() > 0:
+                time.sleep(2)
+
+            sys.exit(0)
 
         from pyanaconda.product import isFinal, productName, productVersion
 

@@ -85,10 +85,13 @@ class DiskLabel(DeviceFormat):
         """
         new = self.__class__.__new__(self.__class__)
         memo[id(self)] = new
-        shallow_copy_attrs = ('_partedDevice', '_partedDisk', '_origPartedDisk')
+        shallow_copy_attrs = ('_partedDevice', '_alignment', '_endAlignment')
+        duplicate_attrs = ('_partedDisk', '_origPartedDisk')
         for (attr, value) in self.__dict__.items():
             if attr in shallow_copy_attrs:
                 setattr(new, attr, copy.copy(value))
+            elif attr in duplicate_attrs:
+                setattr(new, attr, value.duplicate())
             else:
                 setattr(new, attr, copy.deepcopy(value, memo))
 
