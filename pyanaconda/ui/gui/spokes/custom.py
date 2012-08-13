@@ -377,7 +377,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         # We can only have one page expanded at a time.
         did_expand = False
 
-        unused = [d for d in self.unusedDevices if d.isleaf]
+        unused = [d for d in self.unusedDevices if d.isleaf and d in self._devices]
         new_devices = [d for d in self._devices if not d.exists]
 
         log.debug("ui: unused=%s" % [d.name for d in unused])
