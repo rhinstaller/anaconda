@@ -74,7 +74,7 @@ class Accordion(Gtk.Box):
 
     def expandPage(self, pageTitle):
         page = self._find_by_title(pageTitle)
-        if page:
+        if page and not page.get_expanded():
             page.emit("activate")
 
     def removePage(self, pageTitle):
