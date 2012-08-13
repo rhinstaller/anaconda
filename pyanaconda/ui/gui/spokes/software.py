@@ -25,7 +25,7 @@ N_ = lambda x: x
 
 from pyanaconda.flags import flags
 
-from pyanaconda.ui.gui import UIObject, communication
+from pyanaconda.ui.gui import communication
 from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.gui.spokes.lib.detailederror import DetailedErrorDialog
 from pyanaconda.ui.gui.utils import enlightbox, gdk_threaded
