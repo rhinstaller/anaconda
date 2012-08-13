@@ -110,9 +110,6 @@ class MDRaidMember(DeviceFormat):
     def hidden(self):
         return (self._hidden or self.biosraid)
 
-    def writeKS(self, f):
-        f.write("raid.%s" % self.majorminor)
-
 # nodmraid -> Wether to use BIOS RAID or not
 # Note the anaconda cmdline has not been parsed yet when we're first imported,
 # so we can not use flags.dmraid here

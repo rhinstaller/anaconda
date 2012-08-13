@@ -303,31 +303,6 @@ class StorageDiscoveryConfig(object):
         self.initializeDisks = ksdata.clearpart.initAll
         self.zeroMbr = ksdata.zerombr.zerombr
 
-    def writeKS(self, f):
-        # clearpart
-        if self.clearPartType is None or self.clearPartType == CLEARPART_TYPE_NONE:
-            args = ["--none"]
-        elif self.clearPartType == CLEARPART_TYPE_LINUX:
-            args = ["--linux"]
-        else:
-            args = ["--all"]
-
-        if self.clearPartDisks:
-            args += ["--drives=%s" % ",".join(self.clearPartDisks)]
-        if self.initializeDisks:
-            args += ["--initlabel"]
-
-        f.write("#clearpart %s\n" % " ".join(args))
-
-        # ignoredisks
-        if self.ignoreDiskInteractive:
-            f.write("#ignoredisk --interactive\n")
-        elif self.ignoredDisks:
-            f.write("#ignoredisk --drives=%s\n" % ",".join(self.ignoredDisks))
-        elif self.exclusiveDisks:
-            f.write("#ignoredisk --only-use=%s\n" % ",".join(self.exclusiveDisks))
-
-
 class Storage(object):
     def __init__(self, data=None, platform=None):
         """ Create a Storage instance.
@@ -1645,69 +1620,6 @@ class Storage(object):
         self.fcoe.write()
         self.zfcp.write()
         self.dasd.write()
-
-    def writeKS(self, f):
-        def useExisting(lst):
-            foundCreateDevice = False
-            foundCreateFormat = False
-
-            for l in lst:
-                if isinstance(l, ActionCreateDevice):
-                    foundCreateDevice = True
-                elif isinstance(l, ActionCreateFormat):
-                    foundCreateFormat = True
-
-            return (foundCreateFormat and not foundCreateDevice)
-
-        log.warning("Storage.writeKS not completely implemented")
-        f.write("# The following is the partition information you requested\n")
-        f.write("# Note that any partitions you deleted are not expressed\n")
-        f.write("# here so unless you clear all partitions first, this is\n")
-        f.write("# not guaranteed to work\n")
-
-        self.config.writeKS(f)
-
-        # the various partitioning commands
-        dict = {}
-        actions = filter(lambda x: x.device.format.type != "luks",
-                         self.devicetree.findActions(type="create"))
-
-        for action in actions:
-            if dict.has_key(action.device.path):
-                dict[action.device.path].append(action)
-            else:
-                dict[action.device.path] = [action]
-
-        devices = self.devices
-        edges = []
-        for dev in devices:
-            deps = [d for d in devices if dev.dependsOn(d)]
-            for dep in deps:
-                edges.append((devices.index(dep), devices.index(dev)))
-
-        g = tsort.create_graph(range(len(devices)), edges)
-        order = tsort.tsort(g)
-        for idx in order:
-            device = devices[idx]
-            if device.format.type == "luks":
-                continue
-
-            # If there's no action for the given device, it must be one
-            # we are reusing.
-            if not dict.has_key(device.path):
-                noformat = True
-                preexisting = True
-            else:
-                noformat = False
-                preexisting = useExisting(dict[device.path])
-
-            device.writeKS(f, preexisting=preexisting, noformat=noformat)
-            f.write("\n")
-
-        self.iscsi.writeKS(f)
-        self.fcoe.writeKS(f)
-        self.zfcp.writeKS(f)
-        f.write("\n")
 
     def turnOnSwap(self, upgrading=None):
         self.fsset.turnOnSwap(rootPath=ROOT_PATH,

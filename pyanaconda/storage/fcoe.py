@@ -141,10 +141,6 @@ class fcoe(object):
         self._stabilize()
         self.nics.append((nic, dcb, auto_vlan))
 
-    def writeKS(self, f):
-        # fixme plenty (including add ks support for fcoe in general)
-        return
-
     def write(self):
         if not self.nics:
             return

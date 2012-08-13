@@ -141,8 +141,5 @@ class LVMPhysicalVolume(DeviceFormat):
         return (self.exists and self.vgName and
                 os.path.isdir("/dev/mapper/%s" % self.vgName))
 
-    def writeKS(self, f):
-        f.write("pv.%s" % self.majorminor)
-
 register_device_format(LVMPhysicalVolume)
 
