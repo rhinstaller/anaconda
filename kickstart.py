@@ -644,6 +644,9 @@ class NetworkData(commands.network.RHEL6_NetworkData):
             if self.hostname:
                 # Only set hostname
                 return
+            elif self.bondslaves:
+                log.info("bond %s not configured, only supported for devices activated during installation" % device)
+                return
             else:
                 raise KickstartValueError, formatErrorMsg(self.lineno, msg="The provided network interface %s does not exist" % device)
 
