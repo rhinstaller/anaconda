@@ -21,11 +21,11 @@
 
 from gi.repository import Gtk
 
-from pyanaconda.ui.gui import UIObject
+from pyanaconda.ui.gui import GUIObject
 
 __all__ = ["DetailedErrorDialog"]
 
-class DetailedErrorDialog(UIObject):
+class DetailedErrorDialog(GUIObject):
     """This class provides a lightboxable dialog to display a very detailed
        set of error messages, like might be required to display the results
        of package dependency solving or storage sanity checking.
@@ -43,7 +43,7 @@ class DetailedErrorDialog(UIObject):
 
     def __init__(self, *args, **kwargs):
         buttons = kwargs.pop("buttons", [])
-        UIObject.__init__(self, *args, **kwargs)
+        GUIObject.__init__(self, *args, **kwargs)
 
         i = 1
         for button in buttons:
