@@ -2,27 +2,35 @@
 <interface>
   <!-- interface-requires gtk+ 3.0 -->
   <!-- interface-requires AnacondaWidgets 1.0 -->
-  <object class="GtkListStore" id="cities">
-    <columns>
-      <!-- column-name name -->
-      <column type="gchararray"/>
-    </columns>
-  </object>
-  <object class="GtkTreeModelFilter" id="citiesFilter">
-    <property name="child_model">cities</property>
-  </object>
-  <object class="GtkTreeModelSort" id="citiesSort">
-    <property name="model">citiesFilter</property>
+  <object class="GtkImage" id="addImage">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="icon_name">list-add-symbolic</property>
   </object>
   <object class="GtkImage" id="configImage">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
     <property name="icon_name">system-run-symbolic</property>
   </object>
-  <object class="GtkImage" id="addImage">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="icon_name">list-add-symbolic</property>
+  <object class="GtkTreeModelFilter" id="daysFilter">
+    <property name="child_model">days</property>
+  </object>
+  <object class="GtkListStore" id="cities">
+    <columns>
+      <!-- column-name name -->
+      <column type="gchararray"/>
+    </columns>
+  </object>
+  <object class="GtkEntryCompletion" id="cityCompletion">
+    <property name="model">citiesSort</property>
+    <property name="text_column">0</property>
+    <signal name="match-selected" handler="on_completion_match_selected" object="cityCombobox" swapped="no"/>
+  </object>
+  <object class="GtkTreeModelFilter" id="citiesFilter">
+    <property name="child_model">cities</property>
+  </object>
+  <object class="GtkTreeModelSort" id="citiesSort">
+    <property name="model">citiesFilter</property>
   </object>
   <object class="AnacondaSpokeWindow" id="datetimeWindow">
     <property name="startup_id">filler</property>
@@ -35,18 +43,9 @@
         <property name="can_focus">False</property>
         <property name="orientation">vertical</property>
         <property name="spacing">6</property>
-        <child internal-child="nav_box">
-          <object class="GtkEventBox" id="AnacondaSpokeWindow-nav_box1">
-            <child internal-child="nav_area">
-              <object class="GtkGrid" id="AnacondaSpokeWindow-nav_area1">
-                <property name="can_focus">False</property>
-                <property name="margin_left">6</property>
-                <property name="margin_right">6</property>
-                <property name="margin_top">6</property>
-                <property name="n_rows">2</property>
-                <property name="n_columns">2</property>
-              </object>
-            </child>
+        <child internal-child="nav_area">
+          <object class="GtkGrid" id="AnacondaSpokeWindow-nav_area1">
+            <property name="can_focus">False</property>
           </object>
           <packing>
             <property name="expand">False</property>
@@ -100,12 +99,19 @@
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
                                 <property name="model">regions</property>
-                                <signal name="changed" handler="on_region_changed" swapped="no"/>
-                                <child>
-                                  <object class="GtkCellRendererText" id="regionsComboRenderer"/>
-                                  <attributes>
-                                    <attribute name="text">0</attribute>
-                                  </attributes>
+                                <property name="has_entry">True</property>
+                                <property name="entry_text_column">0</property>
+                                <signal name="changed" handler="on_region_changed" object="regionsEntry" swapped="no"/>
+                                <child internal-child="entry">
+                                  <object class="GtkEntry" id="regionsEntry">
+                                    <property name="can_focus">True</property>
+                                    <property name="events">GDK_KEY_RELEASE_MASK | GDK_STRUCTURE_MASK</property>
+                                    <property name="width_chars">20</property>
+                                    <property name="completion">regionCompletion</property>
+                                    <signal name="key-release-event" handler="on_city_region_key_released" swapped="no"/>
+                                    <signal name="activate" handler="on_city_region_text_entry_activated" swapped="no"/>
+                                    <signal name="focus-out-event" handler="on_entry_left" swapped="no"/>
+                                  </object>
                                 </child>
                               </object>
                               <packing>
@@ -135,12 +141,19 @@
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
                                 <property name="model">citiesSort</property>
-                                <signal name="changed" handler="on_city_changed" swapped="no"/>
-                                <child>
-                                  <object class="GtkCellRendererText" id="citiesComboRenderer"/>
-                                  <attributes>
-                                    <attribute name="text">0</attribute>
-                                  </attributes>
+                                <property name="has_entry">True</property>
+                                <property name="entry_text_column">0</property>
+                                <signal name="changed" handler="on_city_changed" object="citiesEntry" swapped="no"/>
+                                <child internal-child="entry">
+                                  <object class="GtkEntry" id="citiesEntry">
+                                    <property name="can_focus">True</property>
+                                    <property name="events">GDK_KEY_RELEASE_MASK | GDK_STRUCTURE_MASK</property>
+                                    <property name="width_chars">20</property>
+                                    <property name="completion">cityCompletion</property>
+                                    <signal name="key-release-event" handler="on_city_region_key_released" swapped="no"/>
+                                    <signal name="activate" handler="on_city_region_text_entry_activated" swapped="no"/>
+                                    <signal name="focus-out-event" handler="on_entry_left" swapped="no"/>
+                                  </object>
                                 </child>
                               </object>
                               <packing>
@@ -182,7 +195,6 @@
                                         <property name="can_focus">True</property>
                                         <property name="halign">end</property>
                                         <property name="valign">start</property>
-                                        <property name="use_action_appearance">False</property>
                                         <signal name="notify::active" handler="on_ntp_switched" swapped="no"/>
                                       </object>
                                       <packing>
@@ -197,7 +209,6 @@
                                         <property name="visible">True</property>
                                         <property name="can_focus">True</property>
                                         <property name="receives_default">True</property>
-                                        <property name="use_action_appearance">False</property>
                                         <property name="image">configImage</property>
                                         <signal name="clicked" handler="on_ntp_config_clicked" swapped="no"/>
                                       </object>
@@ -309,7 +320,6 @@
                                     <property name="visible">True</property>
                                     <property name="can_focus">True</property>
                                     <property name="receives_default">True</property>
-                                    <property name="use_action_appearance">False</property>
                                     <property name="image">upImage</property>
                                     <signal name="clicked" handler="on_up_hours_clicked" swapped="no"/>
                                   </object>
@@ -325,7 +335,6 @@
                                     <property name="visible">True</property>
                                     <property name="can_focus">True</property>
                                     <property name="receives_default">True</property>
-                                    <property name="use_action_appearance">False</property>
                                     <property name="image">downImage</property>
                                     <signal name="clicked" handler="on_down_hours_clicked" swapped="no"/>
                                   </object>
@@ -341,7 +350,6 @@
                                     <property name="visible">True</property>
                                     <property name="can_focus">True</property>
                                     <property name="receives_default">True</property>
-                                    <property name="use_action_appearance">False</property>
                                     <property name="image">upImage1</property>
                                     <signal name="clicked" handler="on_up_ampm_clicked" swapped="no"/>
                                   </object>
@@ -357,7 +365,6 @@
                                     <property name="visible">True</property>
                                     <property name="can_focus">True</property>
                                     <property name="receives_default">True</property>
-                                    <property name="use_action_appearance">False</property>
                                     <property name="image">upImage2</property>
                                     <signal name="clicked" handler="on_up_minutes_clicked" swapped="no"/>
                                   </object>
@@ -373,7 +380,6 @@
                                     <property name="visible">True</property>
                                     <property name="can_focus">True</property>
                                     <property name="receives_default">True</property>
-                                    <property name="use_action_appearance">False</property>
                                     <property name="image">downImage1</property>
                                     <signal name="clicked" handler="on_down_ampm_clicked" swapped="no"/>
                                   </object>
@@ -389,7 +395,6 @@
                                     <property name="visible">True</property>
                                     <property name="can_focus">True</property>
                                     <property name="receives_default">True</property>
-                                    <property name="use_action_appearance">False</property>
                                     <property name="image">downImage2</property>
                                     <signal name="clicked" handler="on_down_minutes_clicked" swapped="no"/>
                                   </object>
@@ -623,8 +628,37 @@
       <column type="guint"/>
     </columns>
   </object>
-  <object class="GtkTreeModelFilter" id="daysFilter">
-    <property name="child_model">days</property>
+  <object class="GtkImage" id="downImage">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="icon_name">go-down-symbolic</property>
+  </object>
+  <object class="GtkImage" id="downImage1">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="icon_name">go-down-symbolic</property>
+  </object>
+  <object class="GtkImage" id="downImage2">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="icon_name">go-down-symbolic</property>
+  </object>
+  <object class="GtkListStore" id="regions">
+    <columns>
+      <!-- column-name name -->
+      <column type="gchararray"/>
+    </columns>
+  </object>
+  <object class="GtkEntryCompletion" id="regionCompletion">
+    <property name="model">regions</property>
+    <property name="text_column">0</property>
+    <signal name="match-selected" handler="on_completion_match_selected" object="regionCombobox" swapped="no"/>
+  </object>
+  <object class="GtkListStore" id="months">
+    <columns>
+      <!-- column-name name -->
+      <column type="gchararray"/>
+    </columns>
   </object>
   <object class="GtkDialog" id="ntpConfigDialog">
     <property name="can_focus">False</property>
@@ -694,7 +728,6 @@
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
                                 <property name="receives_default">True</property>
-                                <property name="use_action_appearance">False</property>
                                 <property name="image">addImage</property>
                                 <signal name="clicked" handler="on_add_clicked" swapped="no"/>
                               </object>
@@ -815,7 +848,6 @@
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
-                <property name="use_action_appearance">False</property>
                 <property name="use_stock">True</property>
               </object>
               <packing>
@@ -830,7 +862,6 @@
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
-                <property name="use_action_appearance">False</property>
                 <property name="use_stock">True</property>
               </object>
               <packing>
@@ -853,33 +884,6 @@
       <action-widget response="0">cancelButton</action-widget>
       <action-widget response="1">okButton</action-widget>
     </action-widgets>
-  </object>
-  <object class="GtkImage" id="downImage">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="icon_name">go-down-symbolic</property>
-  </object>
-  <object class="GtkImage" id="downImage1">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="icon_name">go-down-symbolic</property>
-  </object>
-  <object class="GtkImage" id="downImage2">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="icon_name">go-down-symbolic</property>
-  </object>
-  <object class="GtkListStore" id="months">
-    <columns>
-      <!-- column-name name -->
-      <column type="gchararray"/>
-    </columns>
-  </object>
-  <object class="GtkListStore" id="regions">
-    <columns>
-      <!-- column-name name -->
-      <column type="gchararray"/>
-    </columns>
   </object>
   <object class="GtkListStore" id="serversStore">
     <columns>

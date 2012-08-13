@@ -27,7 +27,7 @@ import logging
 log = logging.getLogger("anaconda")
 
 # pylint: disable-msg=E0611
-from gi.repository import AnacondaWidgets, GLib, Gtk
+from gi.repository import AnacondaWidgets, GLib, Gtk, Gdk
 
 from pyanaconda.ui.gui import GUIObject
 from pyanaconda.ui.gui.spokes import NormalSpoke
@@ -285,6 +285,7 @@ class DatetimeSpoke(NormalSpoke):
                       "upImage", "upImage1", "upImage2", "downImage",
                       "downImage1", "downImage2", "downImage3", "configImage",
                       "citiesFilter", "daysFilter", "citiesSort", "regionsSort",
+                      "cityCompletion", "regionCompletion",
                       ]
 
     mainWidgetName = "datetimeWindow"
@@ -327,6 +328,10 @@ class DatetimeSpoke(NormalSpoke):
             self.add_to_store(self._regionsStore, region)
             for city in self._regions_zones[region]:
                 self.add_to_store(self._citiesStore, city)
+
+        # we need to know it the new value is the same as previous or not
+        self._old_region = None
+        self._old_city = None
 
         self._regionCombo = self.builder.get_object("regionCombobox")
         self._cityCombo = self.builder.get_object("cityCombobox")
@@ -428,8 +433,8 @@ class DatetimeSpoke(NormalSpoke):
 
     @property
     def mandatory(self):
-        return True        
-    
+        return True
+
     def refresh(self):
         #update the displayed time
         self._update_datetime_timer_id = GLib.timeout_add_seconds(1,
@@ -663,6 +668,11 @@ class DatetimeSpoke(NormalSpoke):
 
         return model[itr][0]
 
+    def _restore_old_city_region(self):
+        """Restore stored "old" (or last valid) values."""
+
+        self._set_combo_selection(self._regionCombo, self._old_region)
+        self._set_combo_selection(self._cityCombo, self._old_city)
 
     def on_up_hours_clicked(self, *args):
         self._stop_and_maybe_start_time_updating()
@@ -729,26 +739,48 @@ class DatetimeSpoke(NormalSpoke):
         else:
             self._amPmLabel.set_text("AM")
 
-    def on_region_changed(self, *args):
-        self._citiesFilter.refilter()
+    def on_region_changed(self, combo, *args):
+        """
+        @see: on_city_changed
 
-        # Attempt to set the city to the first one available in this newly
-        # selected region.
+        """
+
         region = self._get_active_region()
-        if not region:
+        if not region or region == self._old_region:
+            # region entry being edited or old_value chosen, no action needed
+            # @see: on_city_changed
             return
 
+        self._citiesFilter.refilter()
+
+        # Set the city to the first one available in this newly selected region.
         zone = self._regions_zones[region]
         firstCity = sorted(list(zone))[0]
 
         self._set_combo_selection(self._cityCombo, firstCity)
-        self._cityCombo.emit("changed")
+        self._old_region = region
+        self._old_city = firstCity
 
-    def on_city_changed(self, *args):
+    def on_city_changed(self, combo, *args):
+        """
+        ComboBox emits ::changed signal not only when something is selected, but
+        also when its entry's text is changed. We need to distinguish between
+        those two cases ('London' typed in the entry => no action until ENTER is
+        hit etc.; 'London' chosen in the expanded combobox => update timezone
+        map and do all necessary actions). Fortunately when entry is being
+        edited, self._get_active_city returns None.
+
+        """
+
         timezone = None
 
         region = self._get_active_region()
         city = self._get_active_city()
+
+        if not region or not city or (region == self._old_region and
+                                      city == self._old_city):
+            # entry being edited or no change, no actions needed
+            return
 
         if city and region:
             timezone = region + "/" + city
@@ -764,6 +796,41 @@ class DatetimeSpoke(NormalSpoke):
 
         elif timezone and (self._tzmap.get_timezone() != timezone):
             self._tzmap.set_timezone(timezone)
+
+        # update "old" values
+        self._old_city = city
+        print "Storing %s" % city
+
+    def on_entry_left(self, entry, *args):
+        # user clicked somewhere else or hit TAB => finished editing
+        entry.emit("activate")
+
+    def on_city_region_key_released(self, entry, event, *args):
+        if event.type == Gdk.EventType.KEY_RELEASE and \
+                event.keyval == Gdk.KEY_Escape:
+            # editing canceled
+            self._restore_old_city_region()
+
+    def on_completion_match_selected(self, combo, model, itr):
+        item = None
+        if model and itr:
+            item = model[itr][0]
+        if item:
+            self._set_combo_selection(combo, item)
+
+    def on_city_region_text_entry_activated(self, entry):
+        combo = entry.get_parent()
+        model = combo.get_model()
+        itr = model.get_iter_first()
+        entry_text = entry.get_text().lower()
+
+        for row in model:
+            if entry_text == row[0].lower():
+                self._set_combo_selection(combo, row[0])
+                return
+
+        # non-matching value entered, reset to old values
+        self._restore_old_city_region()
 
     def on_month_changed(self, *args):
         self._stop_and_maybe_start_time_updating(interval=5)
