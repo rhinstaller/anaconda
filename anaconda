@@ -916,9 +916,11 @@ if __name__ == "__main__":
         anaconda.storage.setupDiskImages()
         anaconda.simpleFilter = True
 
-    # comment out the next line to make exceptions non-fatal
-    from pyanaconda.exception import initExceptionHandling
-    anaconda.mehConfig = initExceptionHandling(anaconda)
+
+    if anaconda.displayMode == 'g':
+        # comment out the next line to make exceptions non-fatal
+        from pyanaconda.exception import initExceptionHandling
+        anaconda.mehConfig = initExceptionHandling(anaconda)
 
     # add our own additional signal handlers
     signal.signal(signal.SIGUSR2, lambda signum, frame: anaconda.dumpState())
