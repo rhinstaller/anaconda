@@ -25,6 +25,8 @@ import simpleline as tui
 from hubs.summary import SummaryHub
 from spokes import StandaloneSpoke
 
+import os
+
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
 
