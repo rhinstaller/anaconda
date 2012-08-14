@@ -99,4 +99,11 @@ class TUIHub(TUIObject, common.Hub):
             return None
 
         except (ValueError, KeyError):
+            # If we get a continue, check for unfinished spokes.  If unfinished
+            # don't continue
+            if key == _('c'):
+                for spoke in self._spokes.values():
+                    if not spoke.completed:
+                        print(_("Please complete all spokes before continuing"))
+                        return False
             return key
