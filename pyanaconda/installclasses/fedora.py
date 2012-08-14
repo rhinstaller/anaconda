@@ -20,7 +20,6 @@
 from pyanaconda.installclass import BaseInstallClass
 from pyanaconda.constants import *
 from pyanaconda.product import *
-from pyanaconda import iutil
 from pyanaconda import network
 from pyanaconda import isys
 
@@ -28,10 +27,6 @@ import os, types
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
 
-from pyanaconda import installmethod
-from pyanaconda import yuminstall
-
-import rpmUtils.arch
 from decimal import Decimal
 
 class InstallClass(BaseInstallClass):

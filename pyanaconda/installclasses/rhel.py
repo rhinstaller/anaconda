@@ -20,11 +20,7 @@
 from pyanaconda.installclass import BaseInstallClass
 from pyanaconda.constants import *
 from pyanaconda.product import *
-import os
 import types
-
-from pyanaconda import installmethod
-from pyanaconda import yuminstall
 
 class InstallClass(BaseInstallClass):
     # name has underscore used for mnemonics, strip if you dont need it
