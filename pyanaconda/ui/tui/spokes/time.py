@@ -45,7 +45,7 @@ class TimeZoneSpoke(NormalTUISpoke):
 
     @property
     def completed(self):
-        return self.data.timezone.timezone or self._selection
+        return bool(self.data.timezone.timezone or self._selection)
 
     @property
     def status(self):
