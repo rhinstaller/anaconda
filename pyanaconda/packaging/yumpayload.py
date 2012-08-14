@@ -48,9 +48,11 @@ log = logging.getLogger("packaging")
 
 try:
     import rpm
+    import rpmUtils
 except ImportError:
     log.error("import of rpm failed")
     rpm = None
+    rpmUtils = None
 
 try:
     import yum
@@ -1005,6 +1007,9 @@ reposdir=%s
         log.debug("initialize transaction set")
         with _yum_lock:
             self._yum.initActionTs()
+
+            if rpmUtils and rpmUtils.arch.isMultiLibArch():
+                self._yum.ts.ts.setColor(3)
 
             log.debug("populate transaction set")
             try:
