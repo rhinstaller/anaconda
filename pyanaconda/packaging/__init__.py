@@ -53,6 +53,10 @@ log = logging.getLogger("packaging")
 from pyanaconda.errors import *
 #from pyanaconda.progress import progress
 
+from pyanaconda.product import productName, productVersion
+import urlgrabber
+urlgrabber.grabber.default_grabber.opts.user_agent = "%s (anaconda)/%s" %(productName, productVersion)
+
 ###
 ### ERROR HANDLING
 ###
