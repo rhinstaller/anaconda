@@ -154,6 +154,8 @@ def copyUpdatedFiles(tag, updates, cwd):
         elif file.endswith('/anaconda-generator'):
             # yeah, this should probably be more clever..
             install_to_dir(file, "lib/systemd/system-generators")
+        elif file == "data/tmux.conf":
+            install_to_dir(file, "usr/share/anaconda")
         elif file == "data/liveinst/liveinst":
             install_to_dir(file, "usr/sbin")
         elif file == "data/70-anaconda.rules":
