@@ -222,6 +222,37 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Tue Aug 14 2012 Brian C. Lane <bcl@redhat.com> - 13.21.177-1
+- Enable all addon repos when doing upgrade (vpodzime)
+  Resolves: rhbz#746925
+- Add VMware PV drivers (vpodzime)
+  Resolves: rhbz#837835
+- Use udev_resolve_devspec to recognize the partition used in --onpart
+  (vpodzime)
+  Resolves: rhbz#809640
+- Clear internal dasd list when resetting storage (jkeating)
+  Resolves: rhbz#823534
+- Reset selinux context on /etc/zipl.conf (jkeating)
+  Resolves: rhbz#818875
+- Remove unnecessary BOOTPROTO line from ifcfg files (jkeating)
+  Resolves: rhbz#819486
+- Make zipl call sensitive to non-zero exit (jkeating)
+  Resolves: rhbz#730023
+- Provide option to make non-zero exits fatal (jkeating)
+  Related: rhbz#730023
+- Keep format _mountType in sync with _type (jkeating)
+  Resolves: rhbz#828650
+- Check passphrase unless explicit cancel (jkeating)
+  Resolves: rhbz#821724
+- Accept iSCSI details on F12 press (jkeating)
+  Resolves: rhbz#823447
+- Add readonly disks to the ignored list (jkeating)
+  Resolves: rhbz#772977
+- Trigger udev to get device details visible (jkeating)
+  Resolves: rhbz#729910
+- Add ability to match sysname when triggering udev (jkeating)
+  Related: rhbz#729910
+
 * Tue Jun 12 2012 David Cantrell <dcantrell@redhat.com> - 13.21.176-1
 - Find initiator name for partial offload iscsi bnx2i devices (rvykydal)
   Resolves: rhbz#830756
