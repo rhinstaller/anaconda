@@ -28,9 +28,6 @@
             - preupgrade
             - write test cases
             - more logging in key methods
-            - rpm macros
-                - __file_context_path
-                    - what does this do if we run in permissive mode?
             - handling of proxy needs cleanup
                 - passed to anaconda as --proxy, --proxyUsername, and
                   --proxyPassword
@@ -987,6 +984,18 @@ reposdir=%s
 
         if self.data.packages.excludeDocs:
             rpm.addMacro("_excludedocs", "1")
+
+        if flags.selinux:
+            for d in ["/tmp/updates",
+                      "/etc/selinux/targeted/contexts/files",
+                      "/etc/security/selinux/src/policy",
+                      "/etc/security/selinux"]:
+                f = d + "/file_contexts"
+                if os.access(f, os.R_OK):
+                    rpm.addMacro("__file_context_path", f)
+                    break
+        else:
+            rpm.addMacros("__file_context_path", "%{nil}")
 
     def install(self):
         """ Install the payload. """
