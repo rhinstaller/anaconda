@@ -24,13 +24,12 @@ from pyanaconda.ui.common import collect
 from pyanaconda.ui.gui import GUIObject
 import os.path
 
-__all__ = ["Spoke", "StandaloneSpoke", "NormalSpoke", "PersonalizationSpoke",
+__all__ = ["StandaloneSpoke", "NormalSpoke", "PersonalizationSpoke",
            "collect_spokes"]
 
-class Spoke(GUIObject, common.Spoke):
-    def __init__(self, data, storage, payload, instclass):
+class Spoke(GUIObject):
+    def __init__(self, data):
         GUIObject.__init__(self, data)
-        common.Spoke.__init__(self, data, storage, payload, instclass)
 
     def apply(self):
         """Apply the selections made on this Spoke to the object's preset
@@ -65,6 +64,10 @@ class Spoke(GUIObject, common.Spoke):
         self.window.set_property("window-name", self.title or "")
 
 class StandaloneSpoke(Spoke, common.StandaloneSpoke):
+    def __init__(self, data, storage, payload, instclass):
+        Spoke.__init__(self, data)
+        common.StandaloneSpoke.__init__(self, data, storage, payload, instclass)
+
     def _on_continue_clicked(self, cb):
         self.apply()
         cb()
@@ -76,6 +79,10 @@ class StandaloneSpoke(Spoke, common.StandaloneSpoke):
             self.window.connect("quit-clicked", lambda *args: cb())
 
 class NormalSpoke(Spoke, common.NormalSpoke):
+    def __init__(self, data, storage, payload, instclass):
+        Spoke.__init__(self, data)
+        common.NormalSpoke.__init__(self, data, storage, payload, instclass)
+
     def on_back_clicked(self, window):
         from gi.repository import Gtk
 
@@ -83,7 +90,9 @@ class NormalSpoke(Spoke, common.NormalSpoke):
         Gtk.main_quit()
 
 class PersonalizationSpoke(Spoke, common.PersonalizationSpoke):
-    pass
+    def __init__(self, data, storage, payload, instclass):
+        Spoke.__init__(self, data)
+        common.PersonalizationSpoke.__init__(self, data, storage, payload, instclass)
 
 def collect_spokes(category):
     """Return a list of all spoke subclasses that should appear for a given
