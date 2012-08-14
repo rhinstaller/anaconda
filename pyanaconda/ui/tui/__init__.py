@@ -148,7 +148,7 @@ class TextUserInterface(ui.UserInterface):
                 del(obj)
                 continue
 
-            self._app.schedule_window(obj)
+            self._app.schedule_screen(obj)
 
     def run(self):
         """Run the interface.  This should do little more than just pass
