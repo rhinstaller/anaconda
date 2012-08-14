@@ -404,7 +404,7 @@ class UIScreen(object):
                  to skip further input processing
         :rtype: unicode|None
         """
-        return _(u"\tPlease make your choice from above ['q' to quit]: ")
+        return _(u"  Please make your choice from above ['q' to quit | 'c' to continue]: ")
 
     @property
     def app(self):
