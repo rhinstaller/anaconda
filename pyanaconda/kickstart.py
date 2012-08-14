@@ -31,7 +31,8 @@ import storage.iscsi
 import storage.fcoe
 import storage.zfcp
 
-from yuminstall import NoSuchGroup
+from pyanaconda.packaging import NoSuchGroup
+
 import glob
 import iutil
 import isys
