@@ -181,6 +181,12 @@ class YumPayload(PackagePayload):
             # set this now to the best default we've got ; we'll update it if/when
             # we get a base repo set up
             self._yum.preconf.releasever = self._getReleaseVersion(None)
+            # Hammer the yum logs to nothing, we log around yum.  This is
+            # to prevent stuff from leaking to the screen.  Need a less hammer
+            # approach to this so that we could have rich yum logs but clean
+            # screens
+            self._yum.preconf.debuglevel = 0
+            self._yum.preconf.errorlevel = 0
 
         self.txID = None
 
