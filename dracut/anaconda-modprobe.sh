@@ -7,7 +7,10 @@ MODULE_LIST="cramfs squashfs iscsi_tcp "
 
 SCSI_MODULES=/lib/modules/$KERNEL/kernel/drivers/scsi/device_handler/
 for m in $SCSI_MODULES/*.ko; do
-    MODULE_LIST+=" `basename $m .ko` "
+    # Shell spew to work around not having basename
+    # Trim the paths off the prefix, then the . suffix
+    a="${m##*/}"
+    MODULE_LIST+=" ${a%*.}"
 done
 
 if [ "$ARCH" != "s390" -a "$ARCH" != "s390x" ]; then
