@@ -141,10 +141,16 @@ class GraphicalUserInterface(UserInterface):
         return bool(rc)
 
     def mainExceptionWindow(self, text, exn_file, *args, **kwargs):
+        from gi.repository import Gtk
         meh_intf = meh.ui.gui.GraphicalIntf()
+        exc_window = meh_intf.mainExceptionWindow(text, exn_file)
 
-        return meh_intf.mainExceptionWindow(text, exn_file)
+        # without WindowGroup, python-meh's window is insensitive if it appears
+        # above a spoke (Gtk.Window running its own Gtk.main loop)
+        window_group = Gtk.WindowGroup()
+        window_group.add_window(exc_window._main_window)
 
+        return exc_window
 
     def saveExceptionWindow(self, account_manager, signature, *args, **kwargs):
         meh_intf = meh.ui.gui.GraphicalIntf()
