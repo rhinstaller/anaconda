@@ -17,11 +17,11 @@ depends() {
 install() {
     # anaconda
     inst "$moddir/anaconda-lib.sh" "/lib/anaconda-lib.sh"
-    inst_hook cmdline 24 "$moddir/anaconda-modprobe.sh"
     inst_hook cmdline 25 "$moddir/parse-anaconda-options.sh"
     inst_hook cmdline 26 "$moddir/parse-anaconda-kickstart.sh"
     inst_hook cmdline 27 "$moddir/parse-anaconda-repo.sh"
     inst_hook cmdline 28 "$moddir/parse-anaconda-net.sh"
+    inst_hook pre-udev 30 "$moddir/anaconda-modprobe.sh"
     inst_hook pre-udev 40 "$moddir/repo-genrules.sh"
     inst_hook pre-udev 40 "$moddir/kickstart-genrules.sh"
     inst_hook pre-udev 40 "$moddir/updates-genrules.sh"

@@ -26,6 +26,6 @@ MODULE_LIST+=" raid0 raid1 raid5 raid6 raid456 raid10 linear dm-mod dm-zero  \
               sha256 lrw xts "
 
 for m in $MODULE_LIST; do
-    modprobe $m
+    modprobe $m &>/dev/null
 done
 
