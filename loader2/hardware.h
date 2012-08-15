@@ -21,6 +21,8 @@ void dasdSetup(moduleList modLoaded, moduleDeps modDeps,
                moduleInfoSet modInfo);
 void infinibandSetup(moduleList modLoaded, moduleDeps modDeps,
                      moduleInfoSet modInfo);
+void hypervBusSetup(moduleList modLoaded, moduleDeps modDeps,
+                     moduleInfoSet modInfo);
 void ipv6Setup(moduleList modLoaded, moduleDeps modDeps,
                moduleInfoSet modInfo);
 void spufsSetup(moduleList modLoaded, moduleDeps modDeps,

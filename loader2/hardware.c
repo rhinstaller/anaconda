@@ -105,7 +105,7 @@ static int detectHardware(moduleInfoSet modInfo, char *** modules) {
                            BUS_PCI | BUS_SBUS | BUS_VIO | BUS_MACIO |
                            /* Waiting on kudzu to define BUS_EBUS */
                            /* BUS_PCMCIA | BUS_XEN | BUS_VIRTIO | BUS_EBUS, */
-                           BUS_PCMCIA | BUS_XEN | BUS_VIRTIO,
+                           BUS_PCMCIA | BUS_XEN | BUS_VIRTIO | BUS_VMBUS,
                            PROBE_ALL);
 
     logMessage(DEBUGLVL, "finished bus probing");
@@ -308,6 +308,11 @@ void ipv6Setup(moduleList modLoaded, moduleDeps modDeps,
         mlLoadModule("ipv6", modLoaded, modDeps, modInfo, NULL);
 }
 
+void hypervBusSetup(moduleList modLoaded, moduleDeps modDeps,
+                     moduleInfoSet modInfo)
+{
+    mlLoadModule("hv_vmbus", modLoaded, modDeps, modInfo, NULL);
+}
 
 void scsiSetup(moduleList modLoaded, moduleDeps modDeps,
                moduleInfoSet modInfo) {
