@@ -48,7 +48,7 @@ enum {
 
 /* Defaults for each property. */
 #define DEFAULT_DESCRIPTION   N_("New Device")
-#define DEFAULT_KIND          N_("drive-harddisk")
+#define DEFAULT_KIND          "drive-harddisk"
 #define DEFAULT_CAPACITY      N_("0 MB")
 #define DEFAULT_OS            ""
 #define DEFAULT_POPUP_INFO    ""

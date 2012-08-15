@@ -49,8 +49,8 @@ enum {
     LAST_SIGNAL
 };
 
-#define QUIT_TEXT "_QUIT"
-#define CONTINUE_TEXT "_CONTINUE"
+#define QUIT_TEXT       N_("_QUIT")
+#define CONTINUE_TEXT   N_("_CONTINUE")
 
 static guint window_signals[LAST_SIGNAL] = { 0 };
 

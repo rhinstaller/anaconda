@@ -45,8 +45,8 @@ enum {
     PROP_MOUNTPOINT
 };
 
-#define DEFAULT_NAME        "Root"
-#define DEFAULT_SIZE        "0 GB"
+#define DEFAULT_NAME        N_("Root")
+#define DEFAULT_SIZE        N_("0 GB")
 #define DEFAULT_MOUNTPOINT  ""
 
 struct _AnacondaMountpointSelectorPrivate {
