@@ -106,6 +106,19 @@ pyanaconda/ui/gui/main.glade
 pyanaconda/ui/gui/hubs/summary.glade
 pyanaconda/ui/gui/hubs/progress.glade
 
+# Custom widgets.
+widgets/src/BaseWindow.c
+widgets/src/DiskOverview.c
+widgets/src/HubWindow.c
+widgets/src/MountpointSelector.c
+widgets/src/SpokeSelector.c
+widgets/src/SpokeWindow.c
+widgets/src/StandaloneWindow.c
+widgets/src/TimezoneMap.c
+widgets/src/glade-adaptor.c
+widgets/src/lightbox.c
+widgets/src/tz.c
+
 # welcome screen for GNOME Shell
 data/liveinst/gnome/fedora-welcome
 data/liveinst/gnome/fedora-welcome.desktop.in
