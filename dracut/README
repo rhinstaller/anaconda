@@ -1,0 +1,90 @@
+SOME IMPORTANT NOTES ABOUT HOW DRACUT WORKS
+===========================================
+Will Woods <wwoods@redhat.com>
+v1.0, August 15 2012
+
+
+
+File locations / installation
+-----------------------------
+
+The files are installed into the initramfs according to the instructions in
+`module-setup.sh`. So this line:
+
+  inst_hook cmdline 25 "$moddir/parse-anaconda-options.sh"
+
+means that the file `parse-anaconda-options.sh` will be installed at priority
+`25` in the `cmdline` hook. In practice, this means that it will be located at
+
+  /lib/dracut/hooks/cmdline/25-parse-anaconda-options.sh
+
+inside the initramfs.
+
+
+
+Hooks and script ordering
+-------------------------
+
+The hooks run in the following order:
+
+cmdline::
+    This is where you parse (and _only_ parse) the boot commandline. Just
+    set up config files and do sanity checks; the real action is later.
+
+pre-udev::
+    This is where you write out udev rules (before udev starts).
+
+pre-trigger::
+    At this point udev is running but *kernel modules haven't been loaded*.
+    If you need to set udev environment variables, set them here.
+
+initqueue::
+    This is the mainloop, where initramfs tries to find/fetch rootfs.
+    Scripts in this hook will run _repeatedly_ until finished or timeout (see
+    below).
+
+initqueue/settled::
+    This part of the mainloop only runs once _udev is settled_, i.e. once all
+    devices have been found.
+
+initqueue/online::
+    This hook runs _every time a network device goes online_.
+
+initqueue/finished::
+    If all the scripts here return success dracut exits the mainloop, _even if
+    some initqueue scripts have not yet run_.
+    To put it another way, if you want dracut to wait for something to happen,
+    you need a script in `initqueue/finished` that returns non-zero _until_
+    the thing you're waiting for happens.
+
+pre-mount::
+    Runs _once_ before trying to mount rootfs.
+
+mount::
+    Each script in this hook runs in order, until one of them mounts rootfs at
+    `$NEWROOT`. May run multiple times.
+
+pre-pivot::
+    This is where you (e.g.) copy files into `$NEWROOT` before switching over.
+
+cleanup::
+    Clean up after your other hooks.
+
+The scripts _within_ each hook run according to the numeric priority given in
+the `inst_hook` lines in `module-setup.sh`.
+
+
+
+Variable scope / sharing data between scripts
+---------------------------------------------
+
+Each script in a hook gets sourced by the same `bash` interpreter. If you
+define a function or variable in a script, each subsequent script _in the same
+hook_ can see and use it, but *it won't be visible to other hooks.*
+
+If you export a variable, it will be available to all subsequent scripts. You
+can, of course, also share data by writing files to /tmp.
+
+*NOTE:* You can break _other_ modules by accidentally overwriting their
+variables. Avoid the following variable names in your own code:
+`root netroot updates fstype resume splash`
