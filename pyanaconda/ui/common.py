@@ -16,7 +16,8 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-# Red Hat Author(s): Martin Sivak <msivak@redhat.com>
+# Red Hat Author(s): Chris Lumens <clumens@redhat.com>
+#                    Martin Sivak <msivak@redhat.com>
 #
 
 import os
