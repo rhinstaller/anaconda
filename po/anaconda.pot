@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 18.3\n"
+"Project-Id-Version: anaconda 18.4\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2012-08-13 15:30-0400\n"
+"POT-Creation-Date: 2012-08-15 15:34-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -274,12 +274,12 @@ msgid ""
 "After shutdown, please perform a manual IPL from %s to continue installation."
 msgstr ""
 
-#: pyanaconda/kickstart.py:155
+#: pyanaconda/kickstart.py:156
 #, python-format
 msgid "Escrow certificate %s requires the network."
 msgstr ""
 
-#: pyanaconda/kickstart.py:163
+#: pyanaconda/kickstart.py:164
 #, python-format
 msgid ""
 "The following error was encountered while downloading the escrow "
@@ -288,7 +288,7 @@ msgid ""
 "%s"
 msgstr ""
 
-#: pyanaconda/kickstart.py:1521
+#: pyanaconda/kickstart.py:1522
 msgid "Running pre-installation scripts"
 msgstr ""
 
@@ -669,7 +669,7 @@ msgstr[1] ""
 msgid "Preparing to install"
 msgstr ""
 
-#: pyanaconda/yuminstall.py:136 pyanaconda/packaging/yumpayload.py:1119
+#: pyanaconda/yuminstall.py:136 pyanaconda/packaging/yumpayload.py:1139
 msgid "Preparing transaction from installation source"
 msgstr ""
 
@@ -755,6 +755,7 @@ msgstr ""
 #: pyanaconda/yuminstall.py:1017 pyanaconda/yuminstall.py:1290
 #: pyanaconda/yuminstall.py:1350 pyanaconda/yuminstall.py:1562
 #: pyanaconda/yuminstall.py:1584 pyanaconda/storage/zfcp.py:375
+#: pyanaconda/ui/tui/__init__.py:37
 msgid "Error"
 msgstr ""
 
@@ -785,6 +786,7 @@ msgstr ""
 
 #: pyanaconda/yuminstall.py:1019 pyanaconda/yuminstall.py:1114
 #: pyanaconda/yuminstall.py:1537 pyanaconda/yuminstall.py:1591
+#: widgets/src/SpokeWindow.c:106
 msgid "_Back"
 msgstr ""
 
@@ -944,11 +946,11 @@ msgstr ""
 msgid "Installation Progress"
 msgstr ""
 
-#: pyanaconda/installclasses/fedora.py:40
+#: pyanaconda/installclasses/fedora.py:35
 msgid "_Fedora"
 msgstr ""
 
-#: pyanaconda/installclasses/fedora.py:41
+#: pyanaconda/installclasses/fedora.py:36
 #, python-format
 msgid ""
 "The default installation of %s includes a set of software applicable for "
@@ -956,46 +958,46 @@ msgid ""
 "software now."
 msgstr ""
 
-#: pyanaconda/installclasses/fedora.py:50
+#: pyanaconda/installclasses/fedora.py:45
 msgid "Graphical Desktop"
 msgstr ""
 
-#: pyanaconda/installclasses/fedora.py:55
+#: pyanaconda/installclasses/fedora.py:50
 msgid "Software Development"
 msgstr ""
 
-#: pyanaconda/installclasses/fedora.py:61
+#: pyanaconda/installclasses/fedora.py:56
 msgid "Web Server"
 msgstr ""
 
-#: pyanaconda/installclasses/fedora.py:65 pyanaconda/installclasses/rhel.py:43
+#: pyanaconda/installclasses/fedora.py:60 pyanaconda/installclasses/rhel.py:39
 msgid "Minimal"
 msgstr ""
 
-#: pyanaconda/installclasses/rhel.py:32
+#: pyanaconda/installclasses/rhel.py:28
 msgid "Red Hat Enterprise Linux"
 msgstr ""
 
-#: pyanaconda/installclasses/rhel.py:33
+#: pyanaconda/installclasses/rhel.py:29
 #, python-format
 msgid ""
 "The default installation of %s is a minimum install. You can optionally "
 "select a different set of software now."
 msgstr ""
 
-#: pyanaconda/packaging/yumpayload.py:968
+#: pyanaconda/packaging/yumpayload.py:973
 msgid "Starting package installation process"
 msgstr ""
 
-#: pyanaconda/packaging/yumpayload.py:1139
+#: pyanaconda/packaging/yumpayload.py:1159
 msgid "Upgrading"
 msgstr ""
 
-#: pyanaconda/packaging/yumpayload.py:1141
+#: pyanaconda/packaging/yumpayload.py:1161
 msgid "Installing"
 msgstr ""
 
-#: pyanaconda/packaging/yumpayload.py:1198
+#: pyanaconda/packaging/yumpayload.py:1218
 msgid "Performing post-install setup tasks"
 msgstr ""
 
@@ -1421,24 +1423,213 @@ msgstr ""
 msgid "Could not set zFCP device %(devnum)s offline (%(e)s)."
 msgstr ""
 
-#: pyanaconda/ui/gui/__init__.py:113
+#: pyanaconda/ui/tui/hubs/progress.py:37
+msgid "Installation Hub"
+msgstr ""
+
+#: pyanaconda/ui/tui/hubs/progress.py:111
+msgid "\tInstallation complete.  Press return to quit"
+msgstr ""
+
+#: pyanaconda/ui/tui/hubs/summary.py:28
+msgid "Install hub"
+msgstr ""
+
+#: pyanaconda/ui/tui/hubs/__init__.py:43
+msgid "Default HUB title"
+msgstr ""
+
+#: pyanaconda/ui/tui/hubs/__init__.py:104
+#: pyanaconda/ui/tui/simpleline/base.py:301
+msgid "c"
+msgstr ""
+
+#: pyanaconda/ui/tui/hubs/__init__.py:107
+msgid "Please complete all spokes before continuing"
+msgstr ""
+
+#: pyanaconda/ui/tui/simpleline/base.py:306
+msgid "q"
+msgstr ""
+
+#: pyanaconda/ui/tui/simpleline/base.py:308
+msgid "Do you really want to quit?"
+msgstr ""
+
+#: pyanaconda/ui/tui/simpleline/base.py:407
+msgid "  Please make your choice from above ['q' to quit | 'c' to continue]: "
+msgstr ""
+
+#: pyanaconda/ui/tui/spokes/password.py:31
+msgid "Set root password"
+msgstr ""
+
+#: pyanaconda/ui/tui/spokes/password.py:45
+msgid "Password is not set."
+msgstr ""
+
+#: pyanaconda/ui/tui/spokes/password.py:47
+msgid "Password is set."
+msgstr ""
+
+#: pyanaconda/ui/tui/spokes/password.py:52
+msgid "Please select new root password. You will have to type it twice."
+msgstr ""
+
+#: pyanaconda/ui/tui/spokes/password.py:58
+msgid "Password: "
+msgstr ""
+
+#: pyanaconda/ui/tui/spokes/password.py:59
+msgid "Password (confirm): "
+msgstr ""
+
+#: pyanaconda/ui/tui/spokes/password.py:62
+msgid "Passwords do not match!"
+msgstr ""
+
+#: pyanaconda/ui/tui/spokes/storage.py:44
+msgid "Use All Space"
+msgstr ""
+
+#: pyanaconda/ui/tui/spokes/storage.py:45
+msgid "Replace Existing Linux system(s)"
+msgstr ""
+
+#: pyanaconda/ui/tui/spokes/storage.py:46
+msgid "Use Free Space"
+msgstr ""
+
+#: pyanaconda/ui/tui/spokes/storage.py:89
+msgid "Install Destination"
+msgstr ""
+
+#: pyanaconda/ui/tui/spokes/storage.py:109
+#: pyanaconda/ui/gui/spokes/storage.py:344
+msgid "No disks selected"
+msgstr ""
+
+#: pyanaconda/ui/tui/spokes/storage.py:116
+#: pyanaconda/ui/gui/spokes/storage.py:351
+msgid "Error checking storage configuration"
+msgstr ""
+
+#: pyanaconda/ui/tui/spokes/storage.py:119
+#: pyanaconda/ui/gui/spokes/storage.py:353
+msgid "Automatic partitioning selected"
+msgstr ""
+
+#: pyanaconda/ui/tui/spokes/storage.py:121
+#: pyanaconda/ui/gui/spokes/storage.py:355
+msgid "Custom partitioning selected"
+msgstr ""
+
+#: pyanaconda/ui/tui/spokes/storage.py:157
+#: pyanaconda/ui/gui/spokes/storage.py:466
+msgid "No disks selected; please select at least one disk to install to."
+msgstr ""
+
+#: pyanaconda/ui/tui/spokes/storage.py:170
+#: pyanaconda/ui/gui/spokes/source.py:601
+#: pyanaconda/ui/gui/spokes/storage.py:405
+msgid "Probing storage..."
+msgstr ""
+
+#: pyanaconda/ui/tui/spokes/storage.py:255
+msgid "Generating updated storage configuration"
+msgstr ""
+
+#: pyanaconda/ui/tui/spokes/storage.py:263
+#: pyanaconda/ui/gui/spokes/storage.py:248
+msgid "Checking storage configuration..."
+msgstr ""
+
+#: pyanaconda/ui/tui/spokes/storage.py:298
+msgid "Autopartitioning Options"
+msgstr ""
+
+#: pyanaconda/ui/tui/spokes/storage.py:329
+msgid ""
+"Installation requires partitioning of your hard drive.  Select what space to "
+"use for the install target."
+msgstr ""
+
+#: pyanaconda/ui/tui/spokes/time.py:30
+msgid "Timezone settings"
+msgstr ""
+
+#: pyanaconda/ui/tui/spokes/time.py:53 pyanaconda/ui/tui/spokes/time.py:55
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:324
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:326
+#, python-format
+msgid "%s timezone"
+msgstr ""
+
+#: pyanaconda/ui/tui/spokes/time.py:57
+msgid "Timezone is not set."
+msgstr ""
+
+#: pyanaconda/ui/tui/spokes/time.py:65
+#, python-format
+msgid "Available timezones in region %s"
+msgstr ""
+
+#: pyanaconda/ui/tui/spokes/time.py:68
+msgid "Available regions"
+msgstr ""
+
+#: pyanaconda/ui/tui/spokes/time.py:131
+msgid ""
+"Please select the timezone.\n"
+"Use numbers or type names directly [b to region list, q to quit]: "
+msgstr ""
+
+#: pyanaconda/ui/tui/spokes/__init__.py:44
+msgid "Default spoke title"
+msgstr ""
+
+#: pyanaconda/ui/tui/spokes/__init__.py:54
+msgid "testing status..."
+msgstr ""
+
+#: pyanaconda/ui/tui/__init__.py:57
+msgid "Press enter to exit."
+msgstr ""
+
+#: pyanaconda/ui/tui/__init__.py:66
+msgid "Question"
+msgstr ""
+
+#: pyanaconda/ui/tui/__init__.py:89
+msgid "Please respond 'yes' or 'no': "
+msgstr ""
+
+#: pyanaconda/ui/tui/__init__.py:92
+msgid "yes"
+msgstr ""
+
+#: pyanaconda/ui/tui/__init__.py:97
+msgid "no"
+msgstr ""
+
+#: pyanaconda/ui/gui/__init__.py:105
 #, python-format
 msgid "%(productName)s %(productVersion)s INSTALLATION"
 msgstr ""
 
-#: pyanaconda/ui/gui/__init__.py:129
+#: pyanaconda/ui/gui/__init__.py:121
 msgid "_Exit Installer"
 msgstr ""
 
-#: pyanaconda/ui/gui/__init__.py:142
+#: pyanaconda/ui/gui/__init__.py:134
 msgid "_No"
 msgstr ""
 
-#: pyanaconda/ui/gui/__init__.py:142
+#: pyanaconda/ui/gui/__init__.py:134
 msgid "_Yes"
 msgstr ""
 
-#: pyanaconda/ui/gui/categories/__init__.py:43
+#: pyanaconda/ui/gui/categories/__init__.py:44
 msgid "DEFAULT TITLE"
 msgstr ""
 
@@ -1450,13 +1641,13 @@ msgstr ""
 msgid "SOFTWARE"
 msgstr ""
 
-#: pyanaconda/ui/gui/hubs/__init__.py:221
+#: pyanaconda/ui/gui/hubs/__init__.py:219
 msgid ""
 "When all items marked with this icon are complete, installation will "
 "automatically continue."
 msgstr ""
 
-#: pyanaconda/ui/gui/hubs/__init__.py:223
+#: pyanaconda/ui/gui/hubs/__init__.py:221
 msgid ""
 "Please complete items marked with this icon before continuing to the next "
 "step."
@@ -1545,12 +1736,6 @@ msgstr ""
 
 #: pyanaconda/ui/gui/spokes/datetime_spoke.py:252
 msgid "DATE & TIME"
-msgstr ""
-
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:324
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:326
-#, python-format
-msgid "%s timezone"
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/datetime_spoke.py:694
@@ -1665,7 +1850,7 @@ msgstr ""
 msgid "Enterprise"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:893
+#: pyanaconda/ui/gui/spokes/network.py:893 widgets/src/SpokeSelector.c:52
 msgid "None"
 msgstr ""
 
@@ -1809,11 +1994,6 @@ msgstr ""
 msgid "Error setting up software source"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:601
-#: pyanaconda/ui/gui/spokes/storage.py:405
-msgid "Probing storage..."
-msgstr ""
-
 #: pyanaconda/ui/gui/spokes/storage.py:136
 #, python-format
 msgid ""
@@ -1865,32 +2045,8 @@ msgid ""
 "quit the installer."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.py:248
-msgid "Checking storage configuration..."
-msgstr ""
-
 #: pyanaconda/ui/gui/spokes/storage.py:266
 msgid "INSTALLATION DESTINATION"
-msgstr ""
-
-#: pyanaconda/ui/gui/spokes/storage.py:344
-msgid "No disks selected"
-msgstr ""
-
-#: pyanaconda/ui/gui/spokes/storage.py:351
-msgid "Error checking storage configuration"
-msgstr ""
-
-#: pyanaconda/ui/gui/spokes/storage.py:353
-msgid "Automatic partitioning selected"
-msgstr ""
-
-#: pyanaconda/ui/gui/spokes/storage.py:355
-msgid "Custom partitioning selected"
-msgstr ""
-
-#: pyanaconda/ui/gui/spokes/storage.py:466
-msgid "No disks selected; please select at least one disk to install to."
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/welcome.py:243
@@ -2196,7 +2352,7 @@ msgid "summary"
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/storage.glade:775
-#: pyanaconda/ui/gui/hubs/summary.glade:91
+#: pyanaconda/ui/gui/hubs/summary.glade:91 widgets/src/StandaloneWindow.c:53
 msgid "_CONTINUE"
 msgstr ""
 
@@ -2575,7 +2731,7 @@ msgid ""
 "installation process?"
 msgstr ""
 
-#: pyanaconda/ui/gui/hubs/summary.glade:73
+#: pyanaconda/ui/gui/hubs/summary.glade:73 widgets/src/StandaloneWindow.c:52
 msgid "_QUIT"
 msgstr ""
 
@@ -2587,6 +2743,38 @@ msgstr ""
 
 #: pyanaconda/ui/gui/hubs/progress.glade:146
 msgid "_REBOOT"
+msgstr ""
+
+#: widgets/src/BaseWindow.c:83
+msgid "DISTRIBUTION INSTALLATION"
+msgstr ""
+
+#: widgets/src/BaseWindow.c:84
+msgid "SPOKE NAME"
+msgstr ""
+
+#: widgets/src/BaseWindow.c:85
+msgid "PRE-RELEASE / TESTING"
+msgstr ""
+
+#: widgets/src/DiskOverview.c:50
+msgid "New Device"
+msgstr ""
+
+#: widgets/src/DiskOverview.c:52
+msgid "0 MB"
+msgstr ""
+
+#: widgets/src/MountpointSelector.c:48
+msgid "Root"
+msgstr ""
+
+#: widgets/src/MountpointSelector.c:49
+msgid "0 GB"
+msgstr ""
+
+#: widgets/src/SpokeSelector.c:53
+msgid "New Selector"
 msgstr ""
 
 #: data/liveinst/gnome/fedora-welcome:64
