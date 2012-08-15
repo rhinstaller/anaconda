@@ -248,7 +248,7 @@ static void anaconda_base_window_init(AnacondaBaseWindow *win) {
     g_free(markup);
     gtk_misc_set_alignment(GTK_MISC(win->priv->distro_label), 0, 0);
 
-    win->priv->orig_name = g_strdup(DEFAULT_DISTRIBUTION);
+    win->priv->orig_distro = g_strdup(DEFAULT_DISTRIBUTION);
 
     /* Create the betanag label. */
     win->priv->beta_label = gtk_label_new(NULL);
