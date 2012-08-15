@@ -335,7 +335,7 @@ class Sparc(Platform):
         return start+1
 
 class ARM(Platform):
-    _armMachine = iutil.getARMMachine()
+    _armMachine = None
     _bootloaderClass = bootloader.GRUB2
     _boot_stage1_device_types = ["disk"]
     _boot_mbr_description = N_("Master Boot Record")
@@ -346,6 +346,8 @@ class ARM(Platform):
 
     @property
     def armMachine(self):
+        if not self._armMachine:
+            self._armMachine = iutil.getARMMachine()
         return self._armMachine
 
 def getPlatform():
