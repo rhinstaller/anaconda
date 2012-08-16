@@ -1921,6 +1921,20 @@ class Storage(object):
                     self, size, [d.name for d in disks], raid_level))
         return factory_class(self, size, disks, raid_level, encrypted)
 
+    def getContainer(self, factory, device=None):
+        container = None
+        if device:
+            if hasattr(device, "vg"):
+                container = device.vg
+            elif hasattr(device, "volume"):
+                container = device.volume
+        else:
+            containers = [c for c in factory.container_list if not c.exists]
+            if containers:
+                container = containers[0]
+
+        return container
+
     def newDevice(self, device_type, size, **kwargs):
         """ Schedule creation of a device based on a top-down specification.
 
@@ -1978,17 +1992,7 @@ class Storage(object):
 
         factory = self.getDeviceFactory(device_type, size, **kwargs)
         self.size_sets = [] # clear this since there are no growable reqs now
-
-        container = None
-        if device:
-            if hasattr(device, "vg"):
-                container = device.vg
-            elif hasattr(device, "volume"):
-                container = device.volume
-        else:
-            containers = [c for c in factory.container_list if not c.exists]
-            if containers:
-                container = containers[0]
+        container = self.getContainer(factory, device=device)
 
         # TODO: striping, mirroring, &c
         # TODO: non-partition members (pv-on-md)
