@@ -2033,6 +2033,9 @@ class Storage(object):
                 device.size = size
 
             factory.post_create()
+
+            if not device.size:
+                raise StorageError("failed to adjust device")
         elif factory.new_device_attr:
             # add the new device to the container
             free = getattr(container, "freeSpace", size)
@@ -2049,6 +2052,10 @@ class Storage(object):
                                         fmt_args=fmt_args)
             self.createDevice(device)
             factory.post_create()
+            if not device.size:
+                # FIXME: this is incomplete at best (container, &c)
+                self.destroyDevice(device)
+                raise StorageError("failed to create device")
 
     def copy(self):
         new = copy.deepcopy(self)
