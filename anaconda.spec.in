@@ -222,6 +222,16 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Thu Aug 16 2012 Brian C. Lane <bcl@redhat.com> - 13.21.178-1
+- verify package checksums against metadata (bcl)
+  Resolves: rhbz#681224
+- Include sha256sum in the installroot (jkeating)
+  Resolves: rhbz#838742
+- change missing boot partition error (bcl)
+  Resolves: rhbz#821336
+- fix typo in GPT warning (bcl)
+  Resolves: rhbz#801337
+
 * Tue Aug 14 2012 Brian C. Lane <bcl@redhat.com> - 13.21.177-1
 - Enable all addon repos when doing upgrade (vpodzime)
   Resolves: rhbz#746925
