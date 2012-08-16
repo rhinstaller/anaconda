@@ -1934,12 +1934,17 @@ class Storage(object):
                 striped             (lvm only) boolean
                 mirrored            (lvm only) boolean
 
+                device              an already-defined but non-existent device
+                                    to adjust instead of creating a new device
+
         """
         mountpoint = kwargs.get("mountpoint")
         fstype = kwargs.get("fstype")
         label = kwargs.get("label")
         disks = kwargs.get("disks")
         encrypted = kwargs.get("encrypted", self.data.autopart.encrypted)
+
+        device = kwargs.get("device")
 
         # md, btrfs
         raid_level = kwargs.get("level")
@@ -1967,9 +1972,15 @@ class Storage(object):
         self.size_sets = [] # clear this since there are no growable reqs now
 
         container = None
-        containers = [c for c in factory.container_list if not c.exists]
-        if containers:
-            container = containers[0]
+        if device:
+            if hasattr(device, "vg"):
+                container = device.vg
+            elif hasattr(device, "volume"):
+                container = device.volume
+        else:
+            containers = [c for c in factory.container_list if not c.exists]
+            if containers:
+                container = containers[0]
 
         # TODO: striping, mirroring, &c
         # TODO: non-partition members (pv-on-md)
@@ -1985,8 +1996,33 @@ class Storage(object):
             parents = [container]
             log.debug("%r" % container)
 
-        # add the new device to the container
-        if factory.new_device_attr:
+        if device:
+            # We are adjusting the size of a device. The StorageDevice instance
+            # exists, but the underlying device does not.
+            free = getattr(container, "freeSpace", None)
+            if free is not None:
+                free += device.size
+
+            if size != device.size:
+                log.info("adjusting device size from %.2f to %.2f"
+                                % (device.size, size))
+
+            if free is not None and free < size:
+                log.info("adjusting device size from %.2f to %.2f so it fits "
+                         "in container" % (size, free))
+                size = free
+
+            if hasattr(device, "req_base_size"):
+                device.req_base_size = getattr(device, "defaultSize", 500)
+                device.req_size = device.req_base_size
+                device.req_max_size = size
+                device.req_grow = True
+            else:
+                device.size = size
+
+            factory.post_create()
+        elif factory.new_device_attr:
+            # add the new device to the container
             free = getattr(container, "freeSpace", size)
             if free < size:
                 log.info("adjusting device size from %.2f to %.2f so it fits "
