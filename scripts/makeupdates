@@ -110,10 +110,11 @@ def copyUpdatedFiles(tag, updates, cwd):
     subdirs = []
 
     # Updates get overlaid onto the runtime filesystem. Anaconda expects them
-    # to be in /tmp/updates, so put them in $updatedir/tmp/updates.
+    # to be in /run/install/updates, so put them in
+    # $updatedir/run/install/updates.
     tmpupdates = updates.rstrip('/')
-    if not tmpupdates.endswith("/tmp/updates"):
-        tmpupdates = os.path.join(tmpupdates, "tmp/updates")
+    if not tmpupdates.endswith("/run/install/updates"):
+        tmpupdates = os.path.join(tmpupdates, "run/install/updates")
 
     lines = doGitDiff(tag)
     for line in lines:
