@@ -293,6 +293,14 @@ update-desktop-database &> /dev/null || :
 /usr/lib/dracut/modules.d/80%{name}/*
 
 %changelog
+* Thu Aug 16 2012 Chris Lumens <clumens@redhat.com> - 18.6-1
+- Remove linuxrc.s390 (dcantrell)
+- Source in url-lib.sh if we don't have it (#847831) (jkeating)
+- parse-kickstart: add proc_cmdline (fix init_logger()) (wwoods)
+- Remove the data/bootdisk directory tree. (clumens)
+- Remove duplicate boot disk setting code (#848841). (clumens)
+- Force authconfig to be installed on the target system (#848803). (clumens)
+
 * Wed Aug 15 2012 Chris Lumens <clumens@redhat.com> - 18.5-1
 - Mark/unmark some strings for translation, as appropriate. (clumens)
 - Save the distro label into the right variable for retranslation. (clumens)
