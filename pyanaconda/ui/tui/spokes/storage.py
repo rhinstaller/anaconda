@@ -245,12 +245,6 @@ class StorageSpoke(NormalTUISpoke):
         # user may have set up before now.
         self.storage.config.clearNonExistent = self.data.autopart.autopart
 
-        # Pick the first disk to be the destination device for the bootloader.
-        # This appears to be the minimum amount of configuration required to
-        # make autopart happy with the bootloader settings.
-        if not self.data.bootloader.bootDrive:
-            self.data.bootloader.bootDrive = self.storage.bootloader.disks[0].name
-
     def execute(self):
         print(_("Generating updated storage configuration"))
         try:
