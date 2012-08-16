@@ -53,10 +53,6 @@ AC_CHECK_LIB([blkid], [blkid_get_cache],
              [AC_SUBST(BLKID_LIBS, [-lblkid])],
              [AC_MSG_FAILURE([*** libblkid not usable.])])
 
-AC_CHECK_LIB([checkisomd5], [mediaCheckFile],
-             [AC_SUBST(CHECKISOMD5_LIBS, [-lcheckisomd5])],
-             [AC_MSG_FAILURE([*** libcheckisomd5 not usable.])])
-
 AC_CHECK_LIB([ext2fs], [ext2fs_initialize],
              [AC_SUBST(EXT2FS_LIBS, [-lext2fs])],
              [AC_MSG_FAILURE([*** libext2fs not usable.])])
