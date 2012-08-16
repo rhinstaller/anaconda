@@ -1,4 +1,4 @@
-# liveinst/Makefile.am for anaconda
+# data/Makefile.am for anaconda
 #
 # Copyright (C) 2009  Red Hat, Inc.
 #
@@ -34,11 +34,6 @@ dist_lang_DATA        = lang-table
 
 tmuxdir               = $(datadir)/$(PACKAGE_NAME)
 dist_tmux_DATA        = tmux.conf
-
-if IS_S390
-shareddir             = $(datadir)/$(PACKAGE_NAME)
-dist_shared_SCRIPTS   = linuxrc.s390
-endif
 
 MAINTAINERCLEANFILES = Makefile.in
 
