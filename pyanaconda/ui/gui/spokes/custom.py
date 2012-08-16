@@ -499,15 +499,140 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             return ""
 
     def _save_right_side(self, selector):
+        """ Save settings from RHS and apply changes to the device.
+
+            This method must never trigger a call to self._do_refresh.
+        """
         if not selector:
             return
 
         labelEntry = self.builder.get_object("labelEntry")
 
         device = selector._device
+        if device not in self._devices:
+            # just-removed device
+            return
 
-        if labelEntry.get_text() and hasattr(device.format, "label"):
-            device.format.label = labelEntry.get_text()
+        log.info("ui: saving changes to device %s" % device.name)
+
+        # TODO: encryption, raid, member type
+
+        size = self.builder.get_object("sizeSpinner").get_value()
+        log.debug("new size: %s" % size)
+        log.debug("old size: %s" % device.size)
+
+        device_type = self.builder.get_object("deviceTypeCombo").get_active()
+        device_type_map = {DEVICE_TYPE_PARTITION: AUTOPART_TYPE_PLAIN,
+                           DEVICE_TYPE_BTRFS: AUTOPART_TYPE_BTRFS,
+                           DEVICE_TYPE_LVM: AUTOPART_TYPE_LVM,
+                           DEVICE_TYPE_MD: None}
+        device_type = device_type_map[device_type]
+        log.debug("new device type: %s" % device_type)
+
+        fs_type_combo = self.builder.get_object("fileSystemTypeCombo")
+        fs_type_index = fs_type_combo.get_active()
+        fs_type = fs_type_combo.get_model()[fs_type_index][0]
+        log.debug("new fs type: %s" % fs_type)
+
+        encrypted = self.builder.get_object("encryptCheckbox").get_active()
+        log.debug("new encryption setting: %s" % encrypted)
+
+        # TODO: get mountpoint, disks
+        label = self.builder.get_object("labelEntry").get_text()
+
+        # FIXME: shouldn't we be getting this from the ui somehow instead?
+        mountpoint = getattr(device.format, "mountpoint", None)
+
+        with ui_storage_logger():
+            # create a new factory using the appropriate size and type
+            # XXX ignoring raid, encryption for now
+            factory = self.__storage.getDeviceFactory(device_type, size,
+                                                      disks=device.disks)
+
+        # for raid settings, we'll need to adjust the member set and container,
+        # and possibly also its devices
+
+        # for member type, we'll have to adjust the member set.
+        # XXX not going to worry about this for now
+
+        # for device type, we'll need to save the device's format, remove the
+        # current device, then create a device of the requested type.
+        device_types = {"partition": AUTOPART_TYPE_PLAIN,
+                        "lvmlv": AUTOPART_TYPE_LVM,
+                        "btrfs subvolume": AUTOPART_TYPE_BTRFS}
+        current_device_type = device_types.get(device.type)
+        if current_device_type != device_type:
+            # remove the current device
+            root = self._current_selector._root
+            self._remove_from_root(root, device)
+            self._destroy_device(device)
+
+            with ui_storage_logger():
+                # XXX skipping encryption, raid for now
+                # Use any disks with space in addition to any disks used by
+                # a defined container.
+                disks = [d for d in self._clearpartDevices
+                            if getattr(d.format, "free", 0) > 500]
+                container = self.__storage.getContainer(factory)
+                if container:
+                    disks = list(set(disks).union(container.disks))
+                log.debug("disks: %s" % [d.name for d in disks])
+                self.__storage.newDevice(device_type, size, fstype=fs_type,
+                                         disks=disks,
+                                         mountpoint=mountpoint, label=label)
+                self._devices = self.__storage.devices
+
+            # newest device should be the one with the highest id
+            max_id = max([d.id for d in self._devices])
+
+            # update the selector with the new device and its size
+            selector._device = self.__storage.devicetree.getDeviceByID(max_id)
+            selector.props.size = str(Size(spec="%f MB" % device.size)).upper()
+            self._updateSpaceDisplay()
+            return
+
+        # new size means resize for existing devices and adjust for new ones
+        if int(size) != int(device.size):
+            if device.exists and device.resizable:
+                with ui_storage_logger():
+                    self.__storage.resizeDevice(device, size)
+                    log.debug("%r" % device)
+                    log.debug("new size: %s" % device.size)
+                    log.debug("target size: %s" % device.targetSize)
+            else:
+                with ui_storage_logger():
+                    self.__storage.newDevice(device_type, size,
+                                             device=device,
+                                             disks=device.disks)
+
+            log.debug("updating selector size to '%s'"
+                       % str(Size(spec="%f MB" % device.size)).upper())
+            # update the selector's size property
+            selector.props.size = str(Size(spec="%f MB" % device.size)).upper()
+            self._updateSpaceDisplay()
+
+        # for fstype we'll need to instantiate a new DeviceFormat and schedule
+        # creation of it
+        if fs_type != device.format.type:
+            with ui_storage_logger():
+                new_format = getFormat(fs_type,
+                                       mountpoint=mountpoint, label=label,
+                                       device=device.path)
+                self.__storage.formatDevice(device, new_format)
+
+        # for encryption, I'm not sure if we'll want to modify the
+        # container/device or just create a new one
+
+        #
+        # Set various attributes that do not require actions.
+        #
+        #
+        if label and getattr(device.format, "label", label) != label:
+            device.format.label = label
+
+        if mountpoint and \
+           getattr(device.format, "mountpoint", mountpoint) != mountpoint:
+            device.format.mountpoint = mountpoint
 
     def _populate_right_side(self, selector):
         log.debug("populate_right_side: %s" % selector._device)
