@@ -1823,6 +1823,14 @@ class Storage(object):
         return fstype
 
     def setContainerMembers(self, container, factory):
+        """ Set up and return the container's member partitions. """
+        if factory.member_list is not None:
+            # short-circuit the logic below for partitions
+            return factory.member_list
+
+        if factory.container_size_func is None:
+            return []
+
         # set up member devices
         container_size = 0
         if container:
@@ -1851,10 +1859,6 @@ class Storage(object):
                 member.req_base_size = PartitionDevice.defaultSize
                 member.req_size = member.req_base_size
                 member.req_grow = True
-
-                for ss in self.size_sets[:]:
-                    if member in ss.devices:
-                        self.size_sets.remove(ss)
         else:
             # set up members as needed to accommodate the device
             members = []
@@ -1879,28 +1883,21 @@ class Storage(object):
         log.debug("adding a %s with size %d" % (factory.set_class.__name__,
                                                 container_size))
         size_set = factory.set_class(members, container_size)
-        self.size_sets.append(size_set)
+        self.size_sets = [size_set]
+        self.allocatePartitions()
+        return members
 
+    def allocatePartitions(self):
+        """ Allocate all requested partitions. """
         try:
             doPartitioning(self)
         except StorageError as e:
             log.error("UI: failed to allocate partitions: %s" % e)
-            for device in members:
-                actions = self.devicetree.findActions(device=device)
-                for a in reversed(actions):
-                    self.devicetree.cancelAction(a)
             # FIXME: revert container to its original state?
-            return
-        else:
-            # fix the sizes of all allocated partitions
-            for partition in self.partitions:
-                partition.req_grow = False
-                partition.req_base_size = partition.size
-                partition.req_size = partition.size
-
-        return members
+            raise
 
     def getDeviceFactory(self, device_type, size, **kwargs):
+        """ Return a suitable DeviceFactory instance for device_type. """
         disks = kwargs.get("disks", [])
         encrypted = kwargs.get("encrypted", False)
 
@@ -1908,7 +1905,8 @@ class Storage(object):
         raid_level = kwargs.get("level")
 
         class_table = {AUTOPART_TYPE_LVM: LVMFactory,
-                       AUTOPART_TYPE_BTRFS: BTRFSFactory}
+                       AUTOPART_TYPE_BTRFS: BTRFSFactory,
+                       AUTOPART_TYPE_PLAIN: PartitionFactory}
 
         factory_class = class_table.get(device_type, MDFactory)
         log.debug("instantiating %s: %r, %s, %s, %s" % (factory_class,
@@ -1965,39 +1963,16 @@ class Storage(object):
         if label:
             fmt_args["label"] = label
 
-        # TODO: striping, mirroring, &c
-        # TODO: non-partition members (pv-on-md)
-        if device_type == AUTOPART_TYPE_PLAIN:
-            device = self.newPartition(grow=True, maxsize=size,
-                                       fmt_type=fstype, mountpoint=mountpoint,
-                                       fmt_args=fmt_args)
-            self.createDevice(device)
-            try:
-                doPartitioning(self)
-            except StorageError as e:
-                log.error("failed to allocate partitions: %s" % e)
-                actions = self.devicetree.findActions(device=device)
-                for a in reversed(actions):
-                    self.devicetree.cancelAction(a)
-            else:
-                # fix the sizes of all allocated partitions
-                for partition in self.partitions:
-                    partition.req_grow = False
-                    partition.req_base_size = partition.size
-                    partition.req_size = partition.size
-
-            return
-
         factory = self.getDeviceFactory(device_type, size, **kwargs)
-
-        for p in self.partitions:
-            log.debug("%r" % p)
+        self.size_sets = [] # clear this since there are no growable reqs now
 
         container = None
         containers = [c for c in factory.container_list if not c.exists]
         if containers:
             container = containers[0]
 
+        # TODO: striping, mirroring, &c
+        # TODO: non-partition members (pv-on-md)
         parents = self.setContainerMembers(container, factory)
 
         # set up container
@@ -2025,6 +2000,7 @@ class Storage(object):
                                         mountpoint=mountpoint,
                                         fmt_args=fmt_args)
             self.createDevice(device)
+            factory.post_create()
 
     def copy(self):
         new = copy.deepcopy(self)
@@ -2991,20 +2967,25 @@ def parseFSTab(devicetree, chroot=None):
 
 class DeviceFactory(object):
     type_desc = None
-    member_format = None
-    new_container_attr = None
-    new_device_attr = None
-    container_list_attr = None
+    member_format = None        # format type for member devices
+    new_container_attr = None   # name of Storage method to create a container
+    new_device_attr = None      # name of Storage method to create a device
+    container_list_attr = None  # name of Storage attribute to list containers
 
     def __init__(self, storage, size, disks, raid_level, encrypted):
-        self.storage = storage
-        self.size = size
-        self.disks = disks
+        self.storage = storage          # the Storage instance
+        self.size = size                # the requested size for this device
+        self.disks = disks              # the set of disks to allocate from
         self.raid_level = raid_level
         self.encrypted = encrypted
 
-        self.size_func_kwargs = {}
+        # this is a list of member devices, used to short-circuit the logic in
+        # setContainerMembers for case of a partition
+        self.member_list = None
 
+        self.size_func_kwargs = {}      # keyword args to pass to size function
+
+        # choose a size set class for member partition allocation
         if raid_level in ("raid1", "raid10"):
             self.set_class = SameSizeSet
         else:
@@ -3012,21 +2993,51 @@ class DeviceFactory(object):
 
     @property
     def container_list(self):
+        """ A list of containers of the type used by this device. """
+        if not self.container_list_attr:
+            return []
+
         return getattr(self.storage, self.container_list_attr)
 
     def new_container(self, *args, **kwargs):
+        """ Return the newly created container for this device. """
         return getattr(self.storage, self.new_container_attr)(*args, **kwargs)
 
     def new_device(self, *args, **kwargs):
+        """ Return the newly created device. """
         return getattr(self.storage, self.new_device_attr)(*args, **kwargs)
 
+    def post_create(self):
+        """ Perform actions required after device creation. """
+        pass
+
     def container_size_func(self, container):
+        """ Return the total used space in the specified container. """
         return container.size
 
     @property
     def device_size(self):
+        """ The total disk space required for this device. """
         return self.size
 
+class PartitionFactory(DeviceFactory):
+    type_desc = "partition"
+    new_device_attr = "newPartition"
+
+    def __init__(self, storage, size, disks, raid_level, encrypted):
+        super(PartitionFactory, self).__init__(storage, size, disks, raid_level,
+                                               encrypted)
+        self.member_list = self.disks
+
+    def new_device(self, *args, **kwargs):
+        size = kwargs.pop("size")
+        device = self.storage.newPartition(*args,
+                                           grow=True, maxsize=size,
+                                           **kwargs)
+        return device
+
+    def post_create(self):
+        self.storage.allocatePartitions()
 
 class BTRFSFactory(DeviceFactory):
     type_desc = "btrfs"

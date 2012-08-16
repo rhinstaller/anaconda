@@ -770,6 +770,15 @@ def doPartitioning(storage):
     try:
         allocatePartitions(storage, disks, partitions, free)
         growPartitions(disks, partitions, free, size_sets=storage.size_sets)
+    except Exception:
+        raise
+    else:
+        # Mark all growable requests as no longer growable.
+        for partition in storage.partitions:
+            log.debug("fixing size of %s at %.2f" % (partition, partition.size))
+            partition.req_grow = False
+            partition.req_base_size = partition.size
+            partition.req_size = partition.size
     finally:
         # The number and thus the name of partitions may have changed now,
         # allocatePartitions() takes care of this for new partitions, but not
