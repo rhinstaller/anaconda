@@ -32,6 +32,22 @@ def readsysfile(f):
         val = ""
     return val
 
+def read_cmdline(f):
+    '''Returns an OrderedDict containing key-value pairs from a file with
+    boot arguments (e.g. /proc/cmdline).'''
+    args = OrderedDict()
+    try:
+        lines = open(f).readlines()
+    except IOError:
+        lines = []
+    for line in lines:
+        for arg in line.split():
+            k,e,v = arg.partition("=")
+            args[k] = v
+    return args
+
+proc_cmdline = read_cmdline("/proc/cmdline")
+
 # Here are the kickstart commands we care about:
 
 class Method(commands.method.F14_Method):
