@@ -141,9 +141,17 @@ class GraphicalUserInterface(UserInterface):
         return bool(rc)
 
     def mainExceptionWindow(self, text, exn_file, *args, **kwargs):
-        from gi.repository import Gtk
+        from gi.repository import Gtk, AnacondaWidgets
+
         meh_intf = meh.ui.gui.GraphicalIntf()
         exc_window = meh_intf.mainExceptionWindow(text, exn_file)
+
+        # exception may appear before self._actions gets populated
+        if len(self._actions) > 0:
+            lightbox = AnacondaWidgets.lb_show_over(self._actions[0].window)
+
+            # TODO p-m: add window property to the MainExceptionWindow class
+            exc_window._main_window.set_transient_for(lightbox)
 
         # without WindowGroup, python-meh's window is insensitive if it appears
         # above a spoke (Gtk.Window running its own Gtk.main loop)
