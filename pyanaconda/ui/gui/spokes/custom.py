@@ -365,6 +365,11 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         self._updateSpaceDisplay()
 
     def _do_refresh(self):
+        # We can only have one page expanded at a time.
+        page_order = []
+        if self._accordion.currentPage():
+            page_order.append(self._accordion.currentPage().pageTitle)
+
         # Make sure we start with a clean slate.
         self._accordion.removeAllPages()
 
@@ -373,9 +378,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         self._configButton.set_sensitive(False)
 
         # Now it's time to populate the accordion.
-
-        # We can only have one page expanded at a time.
-        did_expand = False
 
         unused = [d for d in self.unusedDevices if d.isleaf and d in self._devices]
         new_devices = [d for d in self._devices if not d.exists]
@@ -391,8 +393,9 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             page = CreateNewPage(self.on_create_clicked)
             page.pageTitle = new_install_name
             self._accordion.addPage(page, cb=self.on_page_clicked)
-            self._accordion.expandPage(page.pageTitle)
-            did_expand = True
+
+            if page.pageTitle not in page_order:
+                page_order.append(page.pageTitle)
 
             self._partitionsNotebook.set_current_page(0)
             label = self.builder.get_object("whenCreateLabel")
@@ -435,9 +438,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             page.show_all()
             self._accordion.addPage(page, cb=self.on_page_clicked)
 
-            if not did_expand:
-                did_expand = True
-                self._accordion.expandPage(root.name)
+            if root.name not in page_order:
+                page_order.append(root.name)
 
         # Anything that doesn't go with an OS we understand?  Put it in the Other box.
         if unused:
@@ -452,9 +454,16 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             page.show_all()
             self._accordion.addPage(page, cb=self.on_page_clicked)
 
-            if not did_expand:
-                did_expand = True
-                self._accordion.expandPage(page.pageTitle)
+            if page.pageTitle not in page_order:
+                page_order.append(page.pageTitle)
+
+        for page_name in page_order:
+            try:
+                self._accordion.expandPage(page_name)
+            except LookupError:
+                continue
+            else:
+                break
 
     ###
     ### RIGHT HAND SIDE METHODS
