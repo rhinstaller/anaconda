@@ -250,12 +250,6 @@ AC_CONFIG_SUBDIRS([widgets])
 
 AC_CONFIG_FILES([Makefile
                  data/Makefile
-                 data/bootdisk/Makefile
-                 data/bootdisk/i386/Makefile
-                 data/bootdisk/ppc/Makefile
-                 data/bootdisk/sparc/Makefile
-                 data/bootdisk/s390x/Makefile
-                 data/bootdisk/x86_64/Makefile
                  data/command-stubs/Makefile
                  docs/Makefile
                  dracut/Makefile

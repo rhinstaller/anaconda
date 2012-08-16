@@ -166,7 +166,7 @@ def copyUpdatedFiles(tag, updates, cwd):
             fields = file.split('/')
             subdir = fields[0]
             if subdir in ['po', 'scripts','command-stubs', 'tests',
-                          'bootdisk', 'docs', 'fonts', 'utils',
+                          'docs', 'fonts', 'utils',
                           'liveinst', 'dracut', 'data']:
                 continue
             else:

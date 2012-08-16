@@ -1,8 +1,0 @@
-init-message = "\nWelcome to the %BITS%-bit %PRODUCT% %VERSION% installer!\nHit <TAB> for boot options.\n\n"
-timeout=6000
-default=linux
-
-image=/ppc/ppc%BITS%/vmlinuz
-	label=linux
-	initrd=/ppc/ppc%BITS%/ramdisk.image.gz
-	read-only
