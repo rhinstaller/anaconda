@@ -20,11 +20,9 @@
 #
 
 # TODO:
-# - Add button doesn't do anything.  It may need to ask for what kind of thing is being
-#   added, too.
 # - Deleting an LV is not reflected in available space in the bottom left.
+#   - this is only true for preexisting LVs
 # - Device descriptions, suggested sizes, etc. should be moved out into a support file.
-# - Newly created devices can not be resized (because self.resizable requires self.exists).
 # - Tabbing behavior in the accordion is weird.
 
 import gettext
@@ -61,6 +59,11 @@ log = logging.getLogger("anaconda")
 __all__ = ["CustomPartitioningSpoke"]
 
 new_install_name = _("New %s %s Installation") % (productName, productVersion)
+
+DEVICE_TYPE_BTRFS = 0
+DEVICE_TYPE_LVM = 1
+DEVICE_TYPE_MD = 2
+DEVICE_TYPE_PARTITION = 3
 
 class UIStorageFilter(logging.Filter):
     def filter(self, record):
@@ -471,6 +474,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                 break
 
         self._initialized = True
+        self._show_first_mountpoint()
 
     ###
     ### RIGHT HAND SIDE METHODS
@@ -506,6 +510,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             device.format.label = labelEntry.get_text()
 
     def _populate_right_side(self, selector):
+        log.debug("populate_right_side: %s" % selector._device)
         encryptCheckbox = self.builder.get_object("encryptCheckbox")
         labelEntry = self.builder.get_object("labelEntry")
         selectedDeviceLabel = self.builder.get_object("selectedDeviceLabel")
@@ -528,10 +533,18 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         else:
             labelEntry.set_tooltip_text(_("This file system does not support labels."))
 
-        sizeSpinner.set_range(device.minSize,
-                              device.maxSize)
+        if device.exists:
+            min_size = device.minSize
+            max_size = device.maxSize
+        else:
+            min_size = max(device.format.minSize, 1.0)
+            max_size = device.size + float(self._free_space.convertTo(spec="mb")) # FIXME
+
+        log.debug("min: %s  max: %s  current: %s" % (min_size, max_size, device.size))
+        sizeSpinner.set_range(min_size,
+                              max_size)
         sizeSpinner.set_value(device.size)
-        sizeSpinner.set_sensitive(device.resizable)
+        sizeSpinner.set_sensitive(device.resizable or not device.exists)
 
         if sizeSpinner.get_sensitive():
             sizeSpinner.props.has_tooltip = False
@@ -542,18 +555,18 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
         # FIXME:  What do we do if we can't figure it out?
         if device.type == "lvmlv":
-            typeCombo.set_active(1)
+            typeCombo.set_active(DEVICE_TYPE_LVM)
         elif device.type == "mdarray":
-            typeCombo.set_active(2)
+            typeCombo.set_active(DEVICE_TYPE_MD)
         elif device.type == "partition":
-            typeCombo.set_active(3)
+            typeCombo.set_active(DEVICE_TYPE_PARTITION)
         elif device.type.startswith("btrfs"):
-            typeCombo.set_active(0)
+            typeCombo.set_active(DEVICE_TYPE_BTRFS)
 
         # FIXME:  What do we do if we can't figure it out?
         model = fsCombo.get_model()
         for i in range(0, len(model)):
-            if model[i][0] == device.format.type:
+            if model[i][0] == device.format.name:
                 fsCombo.set_active(i)
                 break
 
@@ -572,6 +585,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         NormalSpoke.on_back_clicked(self, button)
 
     def on_add_clicked(self, button):
+        self._save_right_side(self._current_selector)
+
         dialog = AddDialog(self.data)
         with enlightbox(self.window, dialog.window):
             dialog.refresh()
@@ -586,7 +601,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         mountpoint = dialog.mountpoint
         log.debug("requested size = %s  ; available space = %s"
                     % (dialog.size, self._free_space))
-        size = min(dialog.size, self._free_space)
+        size = dialog.size
         fstype = self.storage.getFSType(mountpoint)
         encrypted = self.data.autopart.encrypted
 
@@ -659,11 +674,22 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             for mountpoint in mountpoints:
                 root.mounts.pop(mountpoint)
 
-    def _show_first_mountpoint(self):
+    def _show_first_mountpoint(self, page=None):
         # Make sure there's something displayed on the RHS.  Just default to
         # the first mountpoint in the page.
-        page = self._accordion.currentPage()
+        if not page:
+            page = self._accordion.currentPage()
+
+        log.debug("show first mountpoint: %s" % getattr(page, "pageTitle", None))
         if getattr(page, "_members", []):
+            log.debug("page %s has %d members" % (page.pageTitle, len(page._members)))
+            # Make sure we're showing details instead of the "here's how you create
+            # a new OS" label.
+            if self._current_selector:
+                self._current_selector.set_chosen(False)
+            self._partitionsNotebook.set_current_page(1)
+            self._current_selector = page._members[0]
+            self._current_selector.set_chosen(True)
             self._populate_right_side(page._members[0])
             page._members[0].grab_focus()
 
@@ -693,7 +719,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                         return
 
             root = self._current_selector._root
-
+            log.info("ui: removing device %s" % device.name)
             self._remove_from_root(root, device)
             self._destroy_device(device)
             self._update_ui_for_removals()
@@ -744,7 +770,9 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         self._partitionsNotebook.set_current_page(1)
 
         # Take care of the previously chosen selector.
-        if self._current_selector:
+        if self._current_selector and self._initialized:
+            log.debug("current selector: %s" % self._current_selector._device)
+            log.debug("new selector: %s" % selector._device)
             self._save_right_side(self._current_selector)
             self._current_selector.set_chosen(False)
 
@@ -757,11 +785,23 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         self._removeButton.set_sensitive(True)
 
     def on_page_clicked(self, page):
+        log.debug("page clicked: %s" % getattr(page, "pageTitle", None))
+        if self._current_selector:
+            self._save_right_side(self._current_selector)
+            self._current_selector.set_chosen(False)
+            self._current_selector = None
+
+        self._show_first_mountpoint(page=page)
+
         # This is called when a Page header is clicked upon so we can support
         # deleting an entire installation at once and displaying something
         # on the RHS.
-        if isinstance(page, CreateNewPage) or isinstance(page, UnknownPage):
+        if isinstance(page, CreateNewPage):
+            # Make sure we're showing details instead of the "here's how you create
+            # a new OS" label.
+            self._partitionsNotebook.set_current_page(0)
             self._removeButton.set_sensitive(False)
+
             return
 
         self._removeButton.set_sensitive(True)
@@ -798,13 +838,13 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
         if text == _("BTRFS"):
             self._optionsNotebook.show()
-            self._optionsNotebook.set_current_page(0)
+            self._optionsNotebook.set_current_page(DEVICE_TYPE_BTRFS)
         elif text == _("LVM"):
             self._optionsNotebook.show()
-            self._optionsNotebook.set_current_page(1)
+            self._optionsNotebook.set_current_page(DEVICE_TYPE_LVM)
         elif text == _("RAID"):
             self._optionsNotebook.show()
-            self._optionsNotebook.set_current_page(2)
+            self._optionsNotebook.set_current_page(DEVICE_TYPE_MD)
         elif text == _("Standard Partition"):
             self._optionsNotebook.hide()
 
