@@ -1833,14 +1833,18 @@ class Storage(object):
 
         # set up member devices
         container_size = 0
+        add_disks = []
         if container:
             log.debug("using container %s with %d devices" % (container.name,
                                 len(self.devicetree.getChildren(container))))
             container_size = factory.container_size_func(container)
             log.debug("raw container size reported as %d" % container_size)
-            disks = list(set([d for m in container.parents for d in m.disks]))
-            disks.sort(key=lambda d: d.name, cmp=self.compareDisks)
-            factory.disks = disks
+            _disks = list(set([d for m in container.parents for d in m.disks]))
+
+            # see if factory.disks contains disks not already in use
+            add_disks = [d for d in factory.disks if d not in _disks]
+        else:
+            add_disks = factory.disks
 
         device_space = factory.device_size
         log.debug("device requires %d" % device_space)
@@ -1850,6 +1854,9 @@ class Storage(object):
 
         # XXX Never try to reuse member devices. They can be converted by the
         #     user into free space.
+        members = []
+
+        # prepare already-defined member partitions for reallocation
         if container:
             members = container.parents[:]
             for member in members[:]:
@@ -1859,31 +1866,32 @@ class Storage(object):
                 member.req_base_size = PartitionDevice.defaultSize
                 member.req_size = member.req_base_size
                 member.req_grow = True
-        else:
-            # set up members as needed to accommodate the device
-            members = []
-            for disk in factory.disks:
-                if factory.encrypted:
-                    luks_format = factory.member_format
-                    member_format = "luks"
-                else:
-                    member_format = factory.member_format
 
-                member = self.newPartition(parents=[disk], grow=True,
-                                           fmt_type=member_format)
+        # set up new members as needed to accommodate the device
+        for disk in add_disks:
+            if factory.encrypted:
+                luks_format = factory.member_format
+                member_format = "luks"
+            else:
+                member_format = factory.member_format
+
+            member = self.newPartition(parents=[disk], grow=True,
+                                       fmt_type=member_format)
+            self.createDevice(member)
+            if factory.encrypted:
+                fmt = getFormat(luks_format)
+                member = LUKSDevice("luks-%s" % member.name,
+                                    parents=[member], format=fmt)
                 self.createDevice(member)
-                if factory.encrypted:
-                    fmt = getFormat(luks_format)
-                    member = LUKSDevice("luks-%s" % member.name,
-                                        parents=[member], format=fmt)
-                    self.createDevice(member)
 
-                members.append(member)
+            members.append(member)
+            if container:
+                container.addMember(member)
 
         log.debug("adding a %s with size %d" % (factory.set_class.__name__,
                                                 container_size))
         size_set = factory.set_class(members, container_size)
-        self.size_sets = [size_set]
+        self.size_sets.append(size_set)
         self.allocatePartitions()
         return members
 
