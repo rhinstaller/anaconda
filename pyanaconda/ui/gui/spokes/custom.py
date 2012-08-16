@@ -149,6 +149,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         self._unused_devices = None     # None indicates uninitialized
         self._free_space = Size(bytes=0)
 
+        self._initialized = False
+
     def _propagate_actions(self, actions):
         """ Register actions from the UI with the main Storage instance. """
         for ui_action in actions:
@@ -365,6 +367,9 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         self._updateSpaceDisplay()
 
     def _do_refresh(self):
+        # block mountpoint selector signal handler for now
+        self._initialized = False
+
         # We can only have one page expanded at a time.
         page_order = []
         if self._accordion.currentPage():
@@ -464,6 +469,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                 continue
             else:
                 break
+
+        self._initialized = True
 
     ###
     ### RIGHT HAND SIDE METHODS
@@ -729,6 +736,9 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         pass
 
     def on_selector_clicked(self, selector):
+        if not self._initialized:
+            return
+
         # Make sure we're showing details instead of the "here's how you create
         # a new OS" label.
         self._partitionsNotebook.set_current_page(1)

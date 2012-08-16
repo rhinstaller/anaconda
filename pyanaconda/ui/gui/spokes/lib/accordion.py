@@ -138,11 +138,10 @@ class Page(Gtk.Box):
         return label
 
     def addDevice(self, name, size, mountpoint, cb):
-        selector = MountpointSelector()
         selector = MountpointSelector(name, str(size).upper(), mountpoint or "")
         selector.connect("button-press-event", self._onSelectorClicked, cb)
-        selector.connect("key-release-event", self._onSelectorClicked, cb)
-        selector.connect("focus-in-event", self._onSelectorClicked, cb)
+        #selector.connect("key-release-event", self._onSelectorClicked, cb)
+        #selector.connect("focus-in-event", self._onSelectorClicked, cb)
         self._members.append(selector)
 
         if self._mountpointType(mountpoint) == DATA_DEVICE:
@@ -183,11 +182,10 @@ class UnknownPage(Page):
         self.pageTitle = ""
 
     def addDevice(self, name, size, mountpoint, cb):
-        selector = MountpointSelector()
         selector = MountpointSelector(name, str(size).upper(), mountpoint or "")
         selector.connect("button-press-event", self._onSelectorClicked, cb)
-        selector.connect("key-release-event", self._onSelectorClicked, cb)
-        selector.connect("focus-in-event", self._onSelectorClicked, cb)
+        #selector.connect("key-release-event", self._onSelectorClicked, cb)
+        #selector.connect("focus-in-event", self._onSelectorClicked, cb)
 
         self._members.append(selector)
         self.add(selector)
