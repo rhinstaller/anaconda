@@ -1592,6 +1592,8 @@ def selectPackages(ksdata, payload):
 def doKickstartStorage(storage, ksdata, instClass):
     """ Setup storage state from the kickstart data """
     ksdata.clearpart.execute(storage, ksdata, instClass)
+    if not storage.disks:
+        return
     ksdata.bootloader.execute(storage, ksdata, instClass)
     ksdata.autopart.execute(storage, ksdata, instClass)
     ksdata.partition.execute(storage, ksdata, instClass)
