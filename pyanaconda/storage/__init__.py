@@ -1231,6 +1231,24 @@ class Storage(object):
         self.devicetree.registerAction(ActionDestroyFormat(device))
         self.devicetree.registerAction(ActionCreateFormat(device, format))
 
+    def resizeDevice(self, device, new_size):
+        classes = []
+        if device.resizable:
+            classes.append(ActionResizeDevice)
+
+        if device.format.resizable:
+            classes.append(ActionResizeFormat)
+
+        if not classes:
+            raise ValueError("device cannot be resized")
+
+        # if this is a shrink, schedule the format resize first
+        if new_size < device.size:
+            classes.reverse()
+
+        for action_class in classes:
+            self.devicetree.registerAction(action_class(device, new_size))
+
     def formatByDefault(self, device):
         """Return whether the device should be reformatted by default."""
         formatlist = ['/boot', '/var', '/tmp', '/usr']
