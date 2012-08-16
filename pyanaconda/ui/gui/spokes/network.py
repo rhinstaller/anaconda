@@ -337,7 +337,9 @@ class NetworkControlBox():
         treeview = self.builder.get_object("treeview_devices")
         devices_store = self.builder.get_object("liststore_devices")
         selection = treeview.get_selection()
-        selection.select_iter(devices_store.get_iter_first())
+        itr = devices_store.get_iter_first()
+        if itr:
+            selection.select_iter(itr)
 
     def refresh(self):
         device = self.selected_device()
