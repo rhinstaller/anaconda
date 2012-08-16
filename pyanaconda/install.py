@@ -62,7 +62,12 @@ def doInstall(storage, payload, ksdata, instClass):
     turnOnFilesystems(storage)
 
     # Do packaging.
-    payload.preInstall(packages=storage.packages, groups=payload.languageGroups(ksdata.lang.lang))
+
+    # anaconda requires storage packages in order to make sure the target
+    # system is bootable and configurable, and some other packages in order
+    # to finish setting up the system.
+    packages = storage.packages + ["authconfig", "system-config-firewall-base"]
+    payload.preInstall(packages=packages, groups=payload.languageGroups(ksdata.lang.lang))
     payload.install()
 
     with progress_report(_("Performing post-install setup tasks")):
