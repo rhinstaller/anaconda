@@ -324,10 +324,13 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
         return self._unused_devices
 
+    @property
+    def _currentFreeInfo(self):
+        return self.__storage.getFreeSpace(clearPartType=CLEARPART_TYPE_NONE)
+
     def _setCurrentFreeSpace(self):
         """Add up all the free space on selected disks and return it as a Size."""
-        freeDisks = self.__storage.getFreeSpace(clearPartType=CLEARPART_TYPE_NONE)
-        self._free_space = sum([f[0] for f in freeDisks.values()])
+        self._free_space = sum([f[0] for f in self._currentFreeInfo.values()])
 
     def _currentTotalSpace(self):
         """Add up the sizes of all selected disks and return it as a Size."""
@@ -876,11 +879,11 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             self._update_ui_for_removals()
 
     def on_summary_clicked(self, button):
-        free = self._free_space
         dialog = SelectedDisksDialog(self.data)
 
         with enlightbox(self.window, dialog.window):
-            dialog.refresh(self._clearpartDevices, free, showRemove=False)
+            dialog.refresh(self._clearpartDevices, self._currentFreeInfo,
+                           showRemove=False)
             dialog.run()
 
     def on_configure_clicked(self, button):
