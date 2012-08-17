@@ -1180,6 +1180,7 @@ class Storage(object):
             fmt_args["mountopts"] = "subvol=%s" % name
             kwargs.pop("metaDataLevel", None)
             kwargs.pop("dataLevel", None)
+            kwargs.pop("size", None)
         else:
             dev_class = BTRFSVolumeDevice
             # set up the volume label, using hostname if necessary
@@ -3113,14 +3114,6 @@ class BTRFSFactory(DeviceFactory):
             return self.size
         elif self.raid_level in ("raid1", "raid10"):
             return self.size * len(self.disks)
-
-    def container_size_func(self, container):
-        if container.exists:
-            size = container.size
-        else:
-            size = sum([s._size for s in container.subvolumes])
-
-        return size
 
 class LVMFactory(DeviceFactory):
     type_desc = "lvm"

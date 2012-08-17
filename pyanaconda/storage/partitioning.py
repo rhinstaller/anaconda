@@ -300,8 +300,6 @@ def doAutoPartition(storage, data):
 
         # grow LVs
         growLVM(storage)
-
-        growBTRFS(storage)
     except PartitioningWarning as e:
         log.warning(str(e))
         if errorHandler.cb(e) == ERROR_RAISE:
@@ -1908,22 +1906,3 @@ def growLVM(storage):
             # pesize-1. As a result, you can't just add the growth to the
             # initial size.
             req.device.size = chunk.lengthToSize(req.base + req.growth)
-
-def growBTRFS(storage):
-    """ Set up relative sizes for subvolumes after autopart for custom ui. """
-    for vol in storage.btrfsVolumes:
-        if vol.exists:
-            continue
-
-        requests = []
-        for subvol in vol.subvolumes:
-            request = Request(subvol)
-            request.base = subvol._size
-            requests.append(request)
-
-        chunk = Chunk(int(vol.size), requests=requests)
-        chunk.path = "btrfs %s" % vol.name
-        chunk.growRequests()
-
-        for req in chunk.requests:
-            req.device._size = chunk.lengthToSize(req.base + req.growth)
