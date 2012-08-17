@@ -2009,42 +2009,15 @@ class Storage(object):
             parents = [container]
             log.debug("%r" % container)
 
+        # this will set the device's size if a device is passed in
+        size = factory.set_device_size(container, device=device)
         if device:
             # We are adjusting the size of a device. The StorageDevice instance
             # exists, but the underlying device does not.
-            free = getattr(container, "freeSpace", None)
-            if free is not None:
-                free += device.size
-
-            if size != device.size:
-                log.info("adjusting device size from %.2f to %.2f"
-                                % (device.size, size))
-
-            if free is not None and free < size:
-                log.info("adjusting device size from %.2f to %.2f so it fits "
-                         "in container" % (size, free))
-                size = free
-
-            if hasattr(device, "req_base_size"):
-                device.req_base_size = getattr(device, "defaultSize", 500)
-                device.req_size = device.req_base_size
-                device.req_max_size = size
-                device.req_grow = True
-            else:
-                device.size = size
-
             factory.post_create()
-
             if not device.size:
                 raise StorageError("failed to adjust device")
         elif factory.new_device_attr:
-            # add the new device to the container
-            free = getattr(container, "freeSpace", size)
-            if free < size:
-                log.info("adjusting device size from %.2f to %.2f so it fits "
-                         "in container" % (size, free))
-                size = free
-
             log.debug("creating new device")
             device = factory.new_device(parents=parents,
                                         size=size,
@@ -3076,6 +3049,9 @@ class DeviceFactory(object):
         """ The total disk space required for this device. """
         return self.size
 
+    def set_device_size(self, container, device=None):
+        return self.size
+
 class PartitionFactory(DeviceFactory):
     type_desc = "partition"
     new_device_attr = "newPartition"
@@ -3094,6 +3070,20 @@ class PartitionFactory(DeviceFactory):
 
     def post_create(self):
         self.storage.allocatePartitions()
+
+    def set_device_size(self, container, device=None):
+        size = self.size
+        if device:
+            if size != device.size:
+                log.info("adjusting device size from %.2f to %.2f"
+                                % (device.size, size))
+
+            device.req_base_size = device.defaultSize
+            device.req_size = device.req_base_size
+            device.req_max_size = size
+            device.req_grow = True
+
+        return size
 
 class BTRFSFactory(DeviceFactory):
     type_desc = "btrfs"
@@ -3136,6 +3126,26 @@ class LVMFactory(DeviceFactory):
 
     def container_size_func(self, container):
         return container.size - container.freeSpace
+
+    def set_device_size(self, container, device=None):
+        size = self.size
+        free = container.freeSpace
+        if device:
+            free += device.size
+
+        if free < size:
+            log.info("adjusting device size from %.2f to %.2f so it fits "
+                     "in container" % (size, free))
+            size = free
+
+        if device:
+            if size != device.size:
+                log.info("adjusting device size from %.2f to %.2f"
+                                % (device.size, size))
+
+            device.size = size
+
+        return size
 
 class MDFactory(DeviceFactory):
     type_desc = "md"
