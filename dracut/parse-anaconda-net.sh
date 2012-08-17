@@ -22,8 +22,8 @@ if [ -n "$ksdev_val" ]; then
             warn "'ksdevice=bootif' does nothing (BOOTIF is used by default if present)"
         ;;
         ??:??:??:??:??:??)
-            warn "'ksdevice=<MAC>' is deprecated. Using 'ifname=eth0:<MAC>' instead."
-            ksdevice="eth0"
+            warn "'ksdevice=<MAC>' is deprecated. Using 'ifname=ksdev0:<MAC>' instead."
+            ksdevice="ksdev0"
             echo "ifname=$ksdevice:$ksdev_val" > $net_conf
         ;;
         *) ksdevice="$ksdev_val" ;;

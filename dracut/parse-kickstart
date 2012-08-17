@@ -214,7 +214,7 @@ def ksnet_to_dracut(args, lineno, net, bootdev=False):
         mac = net.device
         net.device = find_devname(mac)
         if net.device is None:  # iface not active - pick a name for it
-            net.device = "eth0" # we only get called once, so this is OK
+            net.device = "ksdev0" # we only get called once, so this is OK
             line.append("ifname=%s:%s" % (net.device, mac.lower()))
 
     # NOTE: dracut currently only does ipv4 *or* ipv6, so only one ip=arg..
