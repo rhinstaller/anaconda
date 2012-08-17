@@ -590,7 +590,10 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
             # update the selector with the new device and its size
             selector._device = self.__storage.devicetree.getDeviceByID(max_id)
-            selector.props.size = str(Size(spec="%f MB" % device.size)).upper()
+            selector.props.size = str(Size(spec="%f MB" % selector._device.size)).upper()
+
+            # TODO: if btrfs, also update sizes of other subvols' selectors
+
             self._updateSpaceDisplay()
             return
 
