@@ -149,24 +149,6 @@ set_neednet() {
     unset CMDLINE
 }
 
-# Save the dhclient lease and put the interface name into /tmp/net.ifaces,
-# so the 'ifcfg' module will write out a proper ifcfg etc. for NetworkManager.
-# FIXME: this will probably be in 40network/net-lib.sh soon
-save_netinfo() {
-    local netif="$1" IFACES="" f="" i=""
-    [ -e /tmp/net.ifaces ] && read IFACES < /tmp/net.ifaces
-    # Add $netif to the front of IFACES (if it's not there already).
-    set -- "$netif"
-    for i in $IFACES; do [ "$i" != "$netif" ] && set -- "$@" "$i"; done
-    IFACES="$*"
-    for i in $IFACES; do
-        for f in /tmp/dhclient.$i.*; do
-            [ -f $f ] && cp -f $f /tmp/net.${f#/tmp/dhclient.}
-        done
-    done
-    echo $IFACES > /tmp/net.ifaces
-}
-
 parse_kickstart() {
     /sbin/parse-kickstart $1 > /etc/cmdline.d/80-kickstart.conf
     unset CMDLINE  # re-read the commandline
