@@ -694,6 +694,9 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         elif device.type.startswith("btrfs"):
             typeCombo.set_active(DEVICE_TYPE_BTRFS)
 
+        # you can't change the type of an existing device
+        typeCombo.set_sensitive(not device.exists)
+
         # FIXME:  What do we do if we can't figure it out?
         model = fsCombo.get_model()
         for i in range(0, len(model)):
