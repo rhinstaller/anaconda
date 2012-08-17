@@ -4,6 +4,9 @@
 
 command -v getarg >/dev/null || . /lib/dracut-lib.sh
 
+# initqueue/online hook passes interface name as $1
+netif="$1"
+
 # get repo info
 # splitsep ":" "$root" prefix repo # FIXME: doesn't work as documented!
 prefix=${root%%:*}; repo=${root#*:}

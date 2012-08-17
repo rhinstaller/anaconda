@@ -2,6 +2,9 @@
 # fetch-kickstart-net - fetch kickstart file from the network.
 # runs from the "initqueue/online" hook whenever a net interface comes online
 
+# initqueue/online hook passes interface name as $1
+netif="$1"
+
 # we already processed the kickstart - exit
 [ -e /tmp/ks.cfg.done ] && return 0
 
