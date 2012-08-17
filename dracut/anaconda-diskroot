@@ -13,10 +13,4 @@ path="$2" # optional, could be empty
 
 info "anaconda using disk root at $dev"
 mount $dev $repodir || warn "Couldn't mount $dev"
-# HACK: umount $dev on upgrades so anaconda doesn't crash.
-# FIXME: make anaconda handle this cleanly (mount --rbind/--move)
-if getargbool 0 preupgrade upgrade inst.upgrade; then
-    anaconda_live_root_dir $repodir $path --copy-to-ram
-else
-    anaconda_live_root_dir $repodir $path
-fi
+anaconda_live_root_dir $repodir $path
