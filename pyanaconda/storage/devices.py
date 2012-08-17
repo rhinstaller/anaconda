@@ -852,7 +852,7 @@ class StorageDevice(Device):
         """ Set the device's size to a new value. """
         if newsize > self.maxSize:
             raise DeviceError("device cannot be larger than %s MB" %
-                              (self.maxSize(),), self.name)
+                              (self.maxSize,), self.name)
         self._size = newsize
 
     size = property(lambda x: x._getSize(),
