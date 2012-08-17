@@ -473,14 +473,14 @@ def swapSuggestion(quiet=0, hibernation=False):
     else:
         swap = 4096
 
-    if not quiet:
-	log.info("Swap attempt of %sM", swap)
-
     if hibernation:
         if mem <= 65536:
             swap = mem + swap
         else:
             log.info("Ignoring --hibernation option on systems with 64 GB of RAM or more")
+
+    if not quiet:
+	log.info("Swap attempt of %sM", swap)
 
     #we have to return minimum and maximum swap size
     return (swap, swap)

@@ -465,7 +465,7 @@ class Lang(commands.lang.FC3_Lang):
         anaconda.id.instLanguage.systemLang = self.lang
         anaconda.id.ksdata.skipSteps.append("language")
 
-class LogVolData(commands.logvol.F12_LogVolData):
+class LogVolData(commands.logvol.RHEL6_LogVolData):
     def execute(self, anaconda):
         storage = anaconda.id.storage
         devicetree = storage.devicetree
@@ -475,8 +475,8 @@ class LogVolData(commands.logvol.F12_LogVolData):
         if self.mountpoint == "swap":
             type = "swap"
             self.mountpoint = ""
-            if self.recommended:
-                (self.size, self.maxSizeMB) = iutil.swapSuggestion()
+            if self.recommended or self.hibernation:
+                (self.size, self.maxSizeMB) = iutil.swapSuggestion(hibernation=self.hibernation)
                 self.grow = True
         else:
             if self.fstype != "":
