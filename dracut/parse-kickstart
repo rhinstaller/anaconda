@@ -93,20 +93,34 @@ class DriverDisk(commands.driverdisk.F14_DriverDisk):
 
 class Network(commands.network.F16_Network):
     def dracut_args(self, args, lineno, net):
-        if len(self.network) == 1: # first network line gets special treatment
-            net.activate = True      # activate by default
-            # --device is optional, defaults to ksdevice
+        '''
+        NOTE: The first 'network' line get special treatment:
+            * '--activate' is always enabled
+            * '--device' is optional (defaults to the 'ksdevice=' boot arg)
+            * the device gets brought online in initramfs
+        '''
+        netline = None
+
+        # first 'network' line
+        if len(self.network) == 1
+            net.activate = True
             if net.device == "link" or not net.device:
-                net.device = self.handler.ksdevice # might be empty (ks=file:)
-        elif not net.device:
-            # every other network line needs a --device (and not "link")
-            log.error("'%s': missing --device", " ".join(args))
-        # write ifcfg for all listed devices
-        ksnet_to_ifcfg(net)
-        # anaconda tradition: bring up the first device listed, and no others
-        if len(self.network) == 1:
+                # NOTE: this might still be empty (e.g. 'ks=file:...')
+                # XXX FIXME: handle "link" properly?
+                net.device = self.handler.ksdevice
+            # tell dracut to bring this device up
             netline = ksnet_to_dracut(args, lineno, net, bootdev=True)
-            return netline
+
+        else:
+            # all subsequent 'network' lines require '--device'
+            if not net.device or net.device == "link":
+                log.error("'%s': missing --device", " ".join(args))
+                return
+
+        # write ifcfg so NM will set up the device correctly later
+        ksnet_to_ifcfg(net)
+
+        return netline
 
 class DisplayMode(commands.displaymode.FC3_DisplayMode):
     def dracut_args(self, args, lineno, obj):
