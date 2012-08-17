@@ -1093,7 +1093,7 @@ class BTRFS(FS):
     _mkfs = "mkfs.btrfs"
     _modules = ["btrfs"]
     _resizefs = "btrfsctl"
-    _formattable = False    # this disables creation via the UI
+    _formattable = True
     _linuxNative = True
     _maxLabelChars = 256
     _supported = True
