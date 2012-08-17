@@ -142,11 +142,15 @@ when_diskdev_appears() {
     } >> $rulesfile
 }
 
+# dracut doesn't bring up the network unless:
+#   a) $netroot is set (i.e. you have a network root device), or
+#   b) /tmp/net.ifaces exists.
+# So for non-root things that need the network (like kickstart) we need to
+# make sure /tmp/net.ifaces exists.
+# For details see 40network/net-genrules.sh (and the rest of 40network).
 set_neednet() {
-    if ! getargbool 0 rd.neednet; then
-        echo "rd.neednet=1" > /etc/cmdline.d/80-anaconda-neednet.conf
-    fi
-    unset CMDLINE
+    # if there's no netroot, make sure /tmp/net.ifaces exists
+    [ -z "$netroot" ] && >> /tmp/net.ifaces
 }
 
 parse_kickstart() {
