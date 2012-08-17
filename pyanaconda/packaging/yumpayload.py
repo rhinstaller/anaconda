@@ -550,16 +550,24 @@ reposdir=%s
             url = method.url
             sslverify = not (method.noverifyssl or flags.noverifyssl)
         elif method.method == "cdrom" or not method.method:
-            # cdrom or no method specified -- check for media
-            device = opticalInstallMedia(storage.devicetree)
+            # Did dracut leave the DVD mounted for us?
+            device = get_mount_device("/run/install/repo")
             if device:
-                self._setUpMedia(device)
-                self.install_device = device
-                url = "file://" + INSTALL_TREE
+                self.install_device = storage.devicetree.getDeviceByPath(device)
+                url = "file:///run/install/repo"
                 if not method.method:
                     method.method = "cdrom"
-            elif method.method == "cdrom":
-                raise PayloadSetupError("no usable optical media found")
+            else:
+                # cdrom or no method specified -- check for media
+                device = opticalInstallMedia(storage.devicetree)
+                if device:
+                    self._setUpMedia(device)
+                    self.install_device = device
+                    url = "file://" + INSTALL_TREE
+                    if not method.method:
+                        method.method = "cdrom"
+                elif method.method == "cdrom":
+                    raise PayloadSetupError("no usable optical media found")
 
         if method.method:
             self._yum.preconf.releasever = self._getReleaseVersion(url)
