@@ -2,8 +2,8 @@
 # generate udev rules for handling anaconda-specific root devices
 # (just the disk-based ones - the network ones are done by netroot)
 
-# see if we need anaconda-lib.sh
-command -v unpack_updates_img >/dev/null || . /lib/anaconda-lib.sh
+# import anaconda-lib for when_diskdev_appears
+command -v when_diskdev_appears >/dev/null || . /lib/anaconda-lib.sh
 
 case "$root" in
   anaconda-disk:*)

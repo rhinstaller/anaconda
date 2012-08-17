@@ -1,5 +1,9 @@
 #!/bin/bash
 # load modules needed by anaconda
+
+# load anaconda-lib for the subsequent scripts in this hook
+. /lib/anaconda-lib.sh
+
 ARCH=$(uname -m)
 KERNEL=$(uname -r)
 
