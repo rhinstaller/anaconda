@@ -45,20 +45,6 @@ elif [ -n "$ipv6" ]; then # just ipv6
         dhcp) check_depr_arg "ipv6=dhcp"  "ip=${ksdevice:+$ksdevice:}dhcp6" ;;
         *)    check_depr_arg "ipv6="      "ip=${ksdevice:+$ksdevice:}[%s]" ;;
     esac
-elif [ -n "$ip" ]; then # just good ol' ipv4
-    case "$ip" in
-      dhcp|*:*) ;; # these are acceptable for dracut
-      *.*.*.*)
-          nm="$(getarg netmask=)" || warn "ip=<ip> missing gateway=<gw>!"
-          gw="$(getarg gateway=)" || warn "ip=<ip> missing netmask=<nm>!"
-          if [ -n "$nm" ] && [ -n "$gw" ]; then
-              warn "'ip=<ip> gateway=<gw> netmask=<nm>' is deprecated."
-              warn "Use 'ip=<ip>::<gw>:<nm>[:<dev>]' instead."
-              strstr "$gw" ":" && gw="[$gw]" # put ipv6 addr in brackets
-              echo "ip=$ip::$gw:$nm${ksdevice:+:$ksdevice}" >> $net_conf
-          fi
-      ;;
-    esac
 fi
 
 [ -n "$ip$ipv6$ksdev_val" ] && set_neednet
