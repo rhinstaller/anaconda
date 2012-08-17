@@ -697,6 +697,16 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         elif btrfs_included and not include_btrfs:
             typeCombo.remove(len(typeCombo.get_model()) - 1)
 
+        # if the format is unknown/none, add that to the list
+        # otherwise, make sure it's not in the list
+        unknown_fmt = getFormat(None)
+        include_unknown = device.format.type is None
+        unknown_included = fsCombo.get_model()[-1][0] == unknown_fmt.name
+        if include_unknown and not unknown_included:
+            fsCombo.append_text(unknown_fmt.name)
+        elif unknown_included and not include_unknown:
+            fsCombo.remove(len(fsCombo.get_model()) - 1)
+
         # FIXME:  What do we do if we can't figure it out?
         if device.type == "lvmlv":
             typeCombo.set_active(DEVICE_TYPE_LVM)
