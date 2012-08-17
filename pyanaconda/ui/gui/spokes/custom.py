@@ -60,10 +60,12 @@ __all__ = ["CustomPartitioningSpoke"]
 
 new_install_name = _("New %s %s Installation") % (productName, productVersion)
 
-DEVICE_TYPE_BTRFS = 0
-DEVICE_TYPE_LVM = 1
-DEVICE_TYPE_MD = 2
-DEVICE_TYPE_PARTITION = 3
+# btrfs has to be the last type in the list since it gets removed and added
+# depending on the device's formatting
+DEVICE_TYPE_LVM = 0
+DEVICE_TYPE_MD = 1
+DEVICE_TYPE_PARTITION = 2
+DEVICE_TYPE_BTRFS = 3
 
 class UIStorageFilter(logging.Filter):
     def filter(self, record):
@@ -291,7 +293,9 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         for cls in device_formats.itervalues():
             obj = cls()
             if obj.supported and obj.formattable and \
-               (isinstance(obj, FS) or obj.type in ["biosboot", "prepboot", "swap"]):
+               obj.type != "btrfs" and \
+               (isinstance(obj, FS) or
+                obj.type in ["biosboot", "prepboot", "swap"]):
                 combo.append_text(obj.name)
 
     def _mountpointName(self, mountpoint):
@@ -684,6 +688,15 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
         encryptCheckbox.set_active(device.encrypted)
 
+        # if the format is swap the device type can't be btrfs
+        include_btrfs = device.format.type != "swap"
+        # btrfs has to be the last type in the list
+        btrfs_included = typeCombo.get_model()[-1][0] == "BTRFS"
+        if include_btrfs and not btrfs_included:
+            typeCombo.append_text("BTRFS")
+        elif btrfs_included and not include_btrfs:
+            typeCombo.remove(len(typeCombo.get_model()) - 1)
+
         # FIXME:  What do we do if we can't figure it out?
         if device.type == "lvmlv":
             typeCombo.set_active(DEVICE_TYPE_LVM)
@@ -970,9 +983,19 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
     def on_device_type_changed(self, combo):
         text = combo.get_active_text()
 
+        # if device type is not btrfs we want to make sure btrfs is not in the
+        # fstype combo
+        include_btrfs = False
+        fs_type_sensitive = True
+
         if text == _("BTRFS"):
             self._optionsNotebook.show()
             self._optionsNotebook.set_current_page(DEVICE_TYPE_BTRFS)
+
+            # add btrfs to the fstype combo and lock it in
+            test_fmt = getFormat("btrfs")
+            include_btrfs = test_fmt.supported and test_fmt.formattable
+            fs_type_sensitive = False
         elif text == _("LVM"):
             self._optionsNotebook.show()
             self._optionsNotebook.set_current_page(DEVICE_TYPE_LVM)
@@ -982,4 +1005,21 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         elif text == _("Standard Partition"):
             self._optionsNotebook.hide()
 
+        # begin btrfs magic
+        fsCombo = self.builder.get_object("fileSystemTypeCombo")
+        model = fsCombo.get_model()
+        btrfs_included = "btrfs" in [f[0] for f in model]
+        active_index = 0
+        if btrfs_included and not include_btrfs:
+            for i in range(0, len(model)):
+                if model[i][0] == self.storage.defaultFSType:
+                    active_index = i
+                    break
+            fsCombo.remove(len(model) - 1)  # remove btrfs, which is always last
+        elif include_btrfs and not btrfs_included:
+            fsCombo.append_text("btrfs")
+            active_index = len(fsCombo.get_model()) - 1
 
+        fsCombo.set_active(active_index)
+        fsCombo.set_sensitive(fs_type_sensitive)
+        # end btrfs magic
