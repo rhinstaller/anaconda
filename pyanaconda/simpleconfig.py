@@ -95,9 +95,12 @@ class SimpleConfigFile(object):
         # Move the temporary file (with 0600 permissions) over the top of the
         # original and preserve the original's permissions
         filename = os.path.realpath(filename)
-        m = os.stat(filename)
+        if os.path.exists(filename):
+            m = os.stat(filename).st_mode
+        else:
+            m = int('0100644', 8)
         shutil.move(tmpf.name, filename)
-        os.chmod(filename, m.st_mode)
+        os.chmod(filename, m)
 
     def set(self, *args):
         for key, value in args:
