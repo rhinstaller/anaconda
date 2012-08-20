@@ -102,7 +102,7 @@ class Network(commands.network.F16_Network):
         netline = None
 
         # first 'network' line
-        if len(self.network) == 1
+        if len(self.network) == 1:
             net.activate = True
             if net.device == "link" or not net.device:
                 # NOTE: this might still be empty (e.g. 'ks=file:...')
