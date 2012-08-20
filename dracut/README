@@ -1,7 +1,8 @@
 SOME IMPORTANT NOTES ABOUT HOW DRACUT WORKS
 ===========================================
 Will Woods <wwoods@redhat.com>
-v1.0, August 15 2012
+v1.0, August 2012
+// vim: set syntax=asciidoc textwidth=78:
 
 
 
@@ -41,7 +42,7 @@ pre-trigger::
 initqueue::
     This is the mainloop, where initramfs tries to find/fetch rootfs.
     Scripts in this hook will run _repeatedly_ until finished or timeout (see
-    below).
+    below). Runs at 0.5-second intervals.
 
 initqueue/settled::
     This part of the mainloop only runs once _udev is settled_, i.e. once all
@@ -75,16 +76,53 @@ the `inst_hook` lines in `module-setup.sh`.
 
 
 
-Variable scope / sharing data between scripts
----------------------------------------------
+Variables, scope, sharing data between scripts
+----------------------------------------------
 
 Each script in a hook gets sourced by the same `bash` interpreter. If you
 define a function or variable in a script, each subsequent script _in the same
 hook_ can see and use it, but *it won't be visible to other hooks.*
 
 If you export a variable, it will be available to all subsequent scripts. You
-can, of course, also share data by writing files to /tmp.
+can, of course, also share data by writing files to `/tmp`.
 
 *NOTE:* You can break _other_ modules by accidentally overwriting their
-variables. Avoid the following variable names in your own code:
-`root netroot updates fstype resume splash`
+variables. Avoid the following variable names in your own code.
+
+Exported Variables
+~~~~~~~~~~~~~~~~~~
+
+==== Special dracut variables ====
+$root:: The root device. Must be set by the end of the `cmdline` hook.
+        Might not actually be a device (e.g. "nfs").
+$rflags:: Mount flags for the root device.
+$fstype:: The fstype of the root filesystem. Usually `auto`.
+$netroot:: The network root location. Syntax depends on type of network root.
+
+==== Read-only dracut variables ====
+$NEWROOT:: Mountpoint for the root filesystem. Usually `/sysroot`.
+$hookdir:: Location of the dracut hooks. Usually `/lib/dracut/hooks`.
+$RDRETRY:: Number of loops to try before giving up. Usually *60* (=30 seconds).
+$main_loop:: Counter for the current mainloop iteration.
+$DRACUT_QUIET:: Whether dracut should operate quietly; `yes` or `no`.
+                (Don't worry about this; just use `info()` or `warn()` instead)
+$UDEVVERSION:: Self-explanatory.
+
+==== Variables from other modules ====
+$resume, $splash:: Used by `95resume`.
+$CURL_HOME:: Exported by `45url-lib`.
+
+==== Anaconda ====
+$kickstart:: Anaconda-style URL for the kickstart.
+$anac_updates:: Anaconda-style URL for `updates.img`.
+$ksdevice:: Network device to use for fetching kickstart/stage2/etc.
+
+
+
+Further Reading
+---------------
+Dracut documentation:
+http://www.kernel.org/pub/linux/utils/boot/dracut/dracut.html
+
+My other set of dracut notes:
+http://wwoods.fedorapeople.org/doc/dracut-notes.html
