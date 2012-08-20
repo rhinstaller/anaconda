@@ -263,7 +263,8 @@ def ksnet_to_dracut(args, lineno, net, bootdev=False):
     if bootdev:
         if net.device:
             line.append("bootdev=%s" % net.device)
-        line.append("rd.neednet=1")
+        # touch /tmp/net.ifaces to make sure dracut brings up network
+        open("/tmp/net.ifaces", "a")
 
     if net.essid or net.wepkey or net.wpakey:
         # TODO: make dracut support wireless? (do we care?)
