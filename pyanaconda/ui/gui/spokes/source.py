@@ -641,27 +641,6 @@ class SourceSpoke(NormalSpoke):
                 self._autodetectBox.set_no_show_all(False)
                 self._autodetectButton.set_no_show_all(False)
 
-            # Find all hard drive partitions that could hold an ISO and add each
-            # to the diskStore.
-            store = self.builder.get_object("partitionStore")
-
-            added = False
-            active = 0
-            idx = 0
-            for dev in potentialHdisoSources(self.storage.devicetree):
-                store.append([dev, "%s (%s MB)" % (self._sanitize_model(dev.disk.model), int(dev.size))])
-                if dev.name == self.data.method.partition:
-                    active = idx
-                added = True
-                idx += 1
-
-            # Again, only display these widgets if an HDISO source was found.
-            if added:
-                self._isoBox.set_no_show_all(False)
-                self._isoButton.set_no_show_all(False)
-                combo = self.builder.get_object("isoPartitionCombo")
-                combo.set_active(active)
-
             # Add the mirror manager URL in as the default for HTTP and HTTPS.
             # We'll override this later in the refresh() method, if they've already
             # provided a URL.
@@ -672,6 +651,30 @@ class SourceSpoke(NormalSpoke):
 
     def refresh(self):
         NormalSpoke.refresh(self)
+
+        # Find all hard drive partitions that could hold an ISO and add each
+        # to the partitionStore.  This has to be done here because if the user
+        # has done partitioning first, they may have blown away partitions
+        # found during _initialize on the partitioning spoke.
+        store = self.builder.get_object("partitionStore")
+        store.clear()
+
+        added = False
+        active = 0
+        idx = 0
+        for dev in potentialHdisoSources(self.storage.devicetree):
+            store.append([dev, "%s (%s MB)" % (self._sanitize_model(dev.disk.model), int(dev.size))])
+            if dev.name == self.data.method.partition:
+                active = idx
+            added = True
+            idx += 1
+
+        # Again, only display these widgets if an HDISO source was found.
+        if added:
+            self._isoBox.set_no_show_all(False)
+            self._isoButton.set_no_show_all(False)
+            combo = self.builder.get_object("isoPartitionCombo")
+            combo.set_active(active)
 
         # We default to the mirror list, and then if the method tells us
         # something different later, we can change it.

@@ -203,7 +203,7 @@ def opticalInstallMedia(devicetree, mountpoint=INSTALL_TREE):
 # Return a list of Device instances that may have HDISO install media
 # somewhere.  Candidate devices are simply any that we can mount.
 def potentialHdisoSources(devicetree):
-    return filter(lambda d: d.format.mountable, devicetree.getDevicesByType("partition"))
+    return filter(lambda d: d.format.exists and d.format.mountable, devicetree.getDevicesByType("partition"))
 
 def umountImage(tree):
     if os.path.ismount(tree):
