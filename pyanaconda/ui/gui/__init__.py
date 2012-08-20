@@ -149,9 +149,7 @@ class GraphicalUserInterface(UserInterface):
         # exception may appear before self._actions gets populated
         if len(self._actions) > 0:
             lightbox = AnacondaWidgets.lb_show_over(self._actions[0].window)
-
-            # TODO p-m: add window property to the MainExceptionWindow class
-            exc_window._main_window.set_transient_for(lightbox)
+            exc_window.main_window.set_transient_for(lightbox)
 
         # without WindowGroup, python-meh's window is insensitive if it appears
         # above a spoke (Gtk.Window running its own Gtk.main loop)
