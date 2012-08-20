@@ -1076,6 +1076,28 @@ def get_option_value(opt_name, options):
         if name == opt_name:
             return val.strip()
 
+def vtActivate(num):
+    """
+    Try to switch to tty number $num.
+
+    @type num: int
+    @return: whether the switch was successful or not
+    @rtype: bool
+
+    """
+
+    try:
+        ret = execWithRedirect("chvt", [str(num)], stdout="/dev/tty5",
+                                stderr="/dev/tty5")
+    except OSError as oserr:
+        ret = -1
+        log.error("Failed to run chvt: %s", oserr.strerror)
+
+    if ret != 0:
+        log.error("Failed to switch to tty%d", num)
+
+    return ret == 0
+
 class ProxyStringError(Exception):
     pass
 

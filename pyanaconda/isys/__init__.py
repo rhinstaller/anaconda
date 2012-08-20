@@ -265,11 +265,6 @@ def driveUsesModule(device, modules):
                     pass
     return rc
 
-def vtActivate (num):
-    if iutil.isS390():
-        return
-    _isys.vtActivate (num)
-
 def isPseudoTTY (fd):
     return _isys.isPseudoTTY (fd)
 

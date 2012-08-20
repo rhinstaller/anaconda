@@ -44,7 +44,7 @@ def exitHandler(rebootData, storage, exitCode=None):
         anaconda.intf.shutdown()
 
         if "nokill" in flags.cmdline:
-            isys.vtActivate(1)
+            iutil.vtActivate(1)
             print "anaconda halting due to nokill flag."
             print "The system will be rebooted when you press Ctrl-Alt-Delete."
             while True:

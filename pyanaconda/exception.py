@@ -23,6 +23,7 @@
 from meh.handler import *
 from meh.dump import *
 import isys
+import iutil
 import sys
 import os
 import shutil
@@ -104,10 +105,7 @@ class AnacondaExceptionHandler(ExceptionHandler):
     def runDebug(self, (ty, value, tb)):
         # vtActivate does not work on certain ppc64 machines, so just skip
         # that and continue with the rest of the debugger setup.
-        try:
-            isys.vtActivate(1)
-        except SystemError:
-            pass
+        iutil.vtActivate(1)
 
         pidfl = "/tmp/vncshell.pid"
         if os.path.exists(pidfl) and os.path.isfile(pidfl):
@@ -136,10 +134,8 @@ class AnacondaExceptionHandler(ExceptionHandler):
               "the main window")
         import pdb
         pdb.post_mortem (tb)
-        try:
-            isys.vtActivate(6)
-        except SystemError:
-            pass
+
+        iutil.vtActivate(6)
 
 def initExceptionHandling(anaconda):
     fileList = [ "/tmp/anaconda.log",

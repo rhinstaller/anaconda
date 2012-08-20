@@ -164,6 +164,7 @@ Requires: dhclient
 Requires: anaconda-yum-plugins
 Requires: libselinux-python >= %{libselinuxver}
 Requires: fcoe-utils >= %{fcoeutilsver}
+Requires: kbd
 %ifarch %{sparc}
 Requires: elftoaout piggyback
 %endif

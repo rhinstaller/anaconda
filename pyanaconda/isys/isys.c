@@ -95,7 +95,6 @@ static PyObject * doResetResolv(PyObject * s, PyObject * args);
 static PyObject * doExt2Dirty(PyObject * s, PyObject * args);
 static PyObject * doExt2HasJournal(PyObject * s, PyObject * args);
 static PyObject * doEjectCdrom(PyObject * s, PyObject * args);
-static PyObject * doVtActivate(PyObject * s, PyObject * args);
 static PyObject * doisPseudoTTY(PyObject * s, PyObject * args);
 static PyObject * doisVioConsole(PyObject * s);
 static PyObject * doSync(PyObject * s, PyObject * args);
@@ -125,7 +124,6 @@ static PyMethodDef isysModuleMethods[] = {
     { "resetresolv", (PyCFunction) doResetResolv, METH_VARARGS, NULL },
     { "swapon",  (PyCFunction) doSwapon, METH_VARARGS, NULL },
     { "swapoff",  (PyCFunction) doSwapoff, METH_VARARGS, NULL },
-    { "vtActivate", (PyCFunction) doVtActivate, METH_VARARGS, NULL},
     { "isPseudoTTY", (PyCFunction) doisPseudoTTY, METH_VARARGS, NULL},
     { "isVioConsole", (PyCFunction) doisVioConsole, METH_NOARGS, NULL},
     { "sync", (PyCFunction) doSync, METH_VARARGS, NULL},
@@ -436,20 +434,6 @@ static PyObject * doEjectCdrom(PyObject * s, PyObject * args) {
      */
     ioctl(fd, CDROM_LOCKDOOR, 0);
     if (ioctl(fd, CDROMEJECT, 1)) {
-	PyErr_SetFromErrno(PyExc_SystemError);
-	return NULL;
-    }
-
-    Py_INCREF(Py_None);
-    return Py_None;
-}
-
-static PyObject * doVtActivate(PyObject * s, PyObject * args) {
-    int vtnum;
-
-    if (!PyArg_ParseTuple(args, "i", &vtnum)) return NULL;
-
-    if (ioctl(0, VT_ACTIVATE, vtnum)) {
 	PyErr_SetFromErrno(PyExc_SystemError);
 	return NULL;
     }
