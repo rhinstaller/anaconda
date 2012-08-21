@@ -852,7 +852,7 @@ class Partition(commands.partition.F17_Partition):
         if self.partitions:
             doPartitioning(storage)
 
-class PartitionData(commands.partition.F17_PartData):
+class PartitionData(commands.partition.F18_PartData):
     def execute(self, storage, ksdata, instClass):
         devicetree = storage.devicetree
         kwargs = {}
