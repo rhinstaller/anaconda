@@ -1291,7 +1291,18 @@ class RPMCallback(object):
 
             while self.package_file is None:
                 try:
-                    package_path = repo.getPackage(txmbr.po)
+                    # checkfunc gets passed to yum's use of URLGrabber which
+                    # then calls it with the file being fetched. verifyPkg
+                    # makes sure the checksum matches the one in the metadata.
+                    #
+                    # From the URLGrab documents:
+                    # checkfunc=(function, ('arg1', 2), {'kwarg': 3})
+                    # results in a callback like:
+                    #   function(obj, 'arg1', 2, kwarg=3)
+                    #     obj.filename = '/tmp/stuff'
+                    #     obj.url = 'http://foo.com/stuff'
+                    checkfunc = (self._yum.verifyPkg, (txmbr.po, 1), {})
+                    package_path = repo.getPackage(txmbr.po, checkfunc=checkfunc)
                 except (yum.Errors.NoMoreMirrorsRepoError, IOError):
                     if os.path.exists(txmbr.po.localPkg()):
                         os.unlink(txmbr.po.localPkg())
@@ -1302,6 +1313,11 @@ class RPMCallback(object):
                         raise exn
                 except yum.Errors.RepoError:
                     continue
+                except URLGrabError as e:
+                    log.error("URLGrabError: %s" % (e,))
+                    exn = PayloadInstallError("failed to get package")
+                    if errorHandler.cb(exn, txmbr.po) == ERROR_RAISE:
+                        raise exn
 
                 self.package_file = open(package_path)
 
