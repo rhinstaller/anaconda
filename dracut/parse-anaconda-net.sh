@@ -51,6 +51,6 @@ fi
 
 # set dhcp vendor class
 dhcpclass=$(getarg inst.dhcpclass) || dhcpclass="anaconda-$(uname -srm)"
-echo "send vendor-class-identifier \"$dhcpclass\"" >> /etc/dhclient.conf
+echo "send vendor-class-identifier \"$dhcpclass\";" >> /etc/dhclient.conf
 
 unset CMDLINE
