@@ -184,8 +184,6 @@ class SoftwareSelectionSpoke(NormalSpoke):
         self.apply()
 
     def refresh(self):
-        from gi.repository import Gtk
-
         from pyanaconda.threads import threadMgr
         NormalSpoke.refresh(self)
 
@@ -207,6 +205,8 @@ class SoftwareSelectionSpoke(NormalSpoke):
         self.refreshAddons()
 
     def refreshAddons(self):
+        from gi.repository import Gtk
+
         self._addonStore = self.builder.get_object("addonStore")
         self._addonStore.clear()
         if self.environment:
