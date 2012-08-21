@@ -1,6 +1,6 @@
 Name: anaconda
-Version: 11.1.2.253
-Release: 2
+Version: 11.1.2.254
+Release: 1
 License: GPL
 Summary: Graphical system installer
 Group: Applications/System
@@ -128,6 +128,10 @@ fi
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Aug 21 2012 Radek Vykydal <rvykydal@redhat.com> 11.1.2.254-1
+- Load and probe hyperv bus (VM_BUS) (#824880)
+  Related: rhbz#824880
+
 * Fri Aug 10 2012 Radek Vykydal <rvykydal@redhat.com> 11.1.2.253-2
 - New kudzu is needed to support in-box MS PV drivers (rvykydal)
   Related: rhbz#824880
