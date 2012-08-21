@@ -543,7 +543,7 @@ class LogVol(commands.logvol.F17_LogVol):
         if self.lvList:
             growLVM(storage)
 
-class LogVolData(commands.logvol.F17_LogVolData):
+class LogVolData(commands.logvol.F18_LogVolData):
     def execute(self, storage, ksdata, instClass):
         devicetree = storage.devicetree
 
