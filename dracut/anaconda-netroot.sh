@@ -8,8 +8,7 @@ command -v getarg >/dev/null || . /lib/dracut-lib.sh
 netif="$1"
 
 # get repo info
-# splitsep ":" "$root" prefix repo # FIXME: doesn't work as documented!
-prefix=${root%%:*}; repo=${root#*:}
+splitsep ":" "$root" prefix repo
 
 # no repo? non-net root? we're not needed here.
 [ "$prefix" = "anaconda-net" ] && [ -n "$repo" ] || return 0
