@@ -81,14 +81,26 @@ def ui_storage_logger():
     storage_log.removeFilter(f)
 
 class AddDialog(GUIObject):
-    builderObjects = ["addDialog"]
+    builderObjects = ["addDialog", "mountPointStore", "mountPointCompletion"]
     mainWidgetName = "addDialog"
     uiFile = "spokes/custom.glade"
 
     def __init__(self, *args, **kwargs):
+        self.mountpoints = kwargs.pop("mountpoints", [])
         GUIObject.__init__(self, *args, **kwargs)
         self.size = Size(bytes=0)
         self.mountpoint = ""
+
+        # sure, add whatever you want to this list. this is just a start.
+        paths = ["/", "/boot", "/home", "/usr", "/var", "swap"]
+        store = self.builder.get_object("mountPointStore")
+        for path in paths:
+            if path not in self.mountpoints:
+                store.append([path])
+
+        completion = self.builder.get_object("mountPointCompletion")
+        completion.set_text_column(0)
+        completion.set_popup_completion(True)
 
     def on_add_cancel_clicked(self, button, *args):
         self.window.destroy()
@@ -744,7 +756,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
     def on_add_clicked(self, button):
         self._save_right_side(self._current_selector)
 
-        dialog = AddDialog(self.data)
+        dialog = AddDialog(self.data,
+                           mountpoints=self.__storage.mountpoints.keys())
         with enlightbox(self.window, dialog.window):
             dialog.refresh()
             rc = dialog.run()
