@@ -12,9 +12,7 @@ arg="repo"
 [ -n "$stage2" ] && arg="stage2" && repo="$stage2"
 
 if [ -n "$repo" ]; then
-    #splitsep ":" "$repo" repotype rest # FIXME: splitsep is buggy
-    repotype=${repo%%:*}
-    rest=${repo#$repotype:}; [ "$rest" = "$repo" ] && rest=""
+    splitsep ":" "$repo" repotype rest
     case "$repotype" in
         http|https|ftp|nfs|nfs4|nfsiso)
             set_neednet; root="anaconda-net:$repo" ;;
