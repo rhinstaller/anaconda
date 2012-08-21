@@ -23,7 +23,7 @@
 from pyanaconda.ui.tui.spokes import NormalTUISpoke
 from pyanaconda.ui.tui.simpleline import TextWidget
 from pyanaconda.ui.tui import YesNoDialog
-from pyanaconda.users import validatePassword
+from pyanaconda.users import cryptPassword, validatePassword
 from pwquality import PWQError
 
 import gettext
@@ -89,6 +89,6 @@ class PasswordSpoke(NormalTUISpoke):
         self.close()
 
     def apply(self):
-        self.data.rootpw.password = self._password
-        self.data.rootpw.isCrypted = False
+        self.data.rootpw.password = cryptPassword(self._password)
+        self.data.rootpw.isCrypted = True
         self.data.rootpw.lock = False
