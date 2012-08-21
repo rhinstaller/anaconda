@@ -14,7 +14,7 @@ for m in $SCSI_MODULES/*.ko; do
     # Shell spew to work around not having basename
     # Trim the paths off the prefix, then the . suffix
     a="${m##*/}"
-    MODULE_LIST+=" ${a%*.}"
+    MODULE_LIST+=" ${a%.*}"
 done
 
 if [ "$ARCH" != "s390" -a "$ARCH" != "s390x" ]; then
