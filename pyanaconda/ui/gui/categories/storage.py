@@ -20,6 +20,8 @@
 #                    David Lehman <dlehman@redhat.com>
 #
 
+N_ = lambda x: x
+
 from pyanaconda.ui.gui.categories import SpokeCategory
 from pyanaconda.ui.gui.hubs.summary import SummaryHub
 
@@ -27,4 +29,4 @@ __all__ = ["StorageCategory"]
 
 class StorageCategory(SpokeCategory):
     displayOnHub = SummaryHub
-    title = "STORAGE"
+    title = N_("STORAGE")
