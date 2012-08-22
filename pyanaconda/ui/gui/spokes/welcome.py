@@ -106,7 +106,9 @@ class LanguageMixIn(object):
         # select the preferred translation if there wasn't any
         (store, itr) = self._selection.get_selected()
         if not itr:
-            self._selectLanguage(store, self.language.preferred_translation.short_name)
+            lang = self.data.lang.lang or \
+                   self.language.preferred_translation.short_name
+            self._selectLanguage(store, lang)
 
 
     def retranslate(self):
