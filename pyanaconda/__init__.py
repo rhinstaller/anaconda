@@ -237,21 +237,6 @@ class Anaconda(object):
         f.write('Section "Device"\n\tIdentifier "Videocard0"\n\tDriver "%s"\nEndSection\n' % self.xdriver)
         f.close()
 
-    def setMethodstr(self, methodstr):
-        if methodstr.startswith("cdrom://"):
-            (device, tree) = string.split(methodstr[8:], ":", 1)
-
-            if not tree.startswith("/"):
-                tree = "/%s" %(tree,)
-
-            if device.startswith("/dev/"):
-                device = device[5:]
-
-            self.mediaDevice = device
-            self.methodstr = "cdrom://%s" % tree
-        else:
-            self.methodstr = methodstr
-
     def write(self):
         import network
         self.writeXdriver()
