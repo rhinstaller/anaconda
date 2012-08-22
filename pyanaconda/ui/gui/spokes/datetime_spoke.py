@@ -248,7 +248,7 @@ class DatetimeSpoke(NormalSpoke):
 
     category = LocalizationCategory
 
-    icon = "preferences-system-date-and-time-symbolic"
+    icon = "preferences-system-time-symbolic"
     title = N_("DATE & TIME")
 
     def __init__(self, *args):
