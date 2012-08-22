@@ -169,31 +169,12 @@ class DracutHandler(handlerclass):
             self.output.append(command.dracut_args(args, lineno, obj))
         return obj
 
-# set up logging
-class KmsgFormatter(logging.Formatter):
-    '''Formats log output for /dev/kmsg like dracut does.'''
-    def format(self, record):
-        if record.levelno <= logging.INFO: tag = "<30>"
-        elif record.levelno <= logging.WARNING: tag = "<28>"
-        else: tag = "<24>"
-        return tag + logging.Formatter.format(self, record)
-def init_logger(level=logging.WARNING):
-    if 'rd.debug' in proc_cmdline:
+def init_logger(level=None):
+    if level is None and 'rd.debug' in proc_cmdline:
         level = logging.DEBUG
-    elif 'rd.info' in proc_cmdline:
-        level = logging.INFO
     logfmt = "%(name)s %(levelname)s: %(message)s"
-    stderr = logging.StreamHandler()
-    stderr.setFormatter(logging.Formatter(logfmt))
+    logging.basicConfig(format=logfmt, level=level)
     logger = logging.getLogger('parse-kickstart')
-    logger.setLevel(level)
-    logger.addHandler(stderr)
-    try:
-        kmsg = logging.FileHandler("/dev/kmsg", "w")
-        kmsg.setFormatter(KmsgFormatter(logfmt))
-        logger.addHandler(kmsg)
-    except IOError:
-        pass
     return logger
 
 def is_mac(addr):
