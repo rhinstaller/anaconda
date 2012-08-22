@@ -621,6 +621,8 @@ class NetworkControlBox():
             self._set_device_info_value(dt, "route", gateway)
             if dt == "wired":
                 prefix = ipv4cfg.get_addresses()[0].get_prefix()
+                nm_utils.nm_utils_ip4_prefix_to_netmask.argtypes = [ctypes.c_uint32]
+                nm_utils.nm_utils_ip4_prefix_to_netmask.restype = ctypes.c_uint32
                 netmask = nm_utils.nm_utils_ip4_prefix_to_netmask(prefix)
                 netmask = socket.inet_ntoa(struct.pack('=L', netmask))
                 self._set_device_info_value(dt, "subnet", netmask)
