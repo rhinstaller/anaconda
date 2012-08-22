@@ -154,7 +154,7 @@ class GraphicalUserInterface(UserInterface):
         # without WindowGroup, python-meh's window is insensitive if it appears
         # above a spoke (Gtk.Window running its own Gtk.main loop)
         window_group = Gtk.WindowGroup()
-        window_group.add_window(exc_window._main_window)
+        window_group.add_window(exc_window.main_window)
 
         return exc_window
 
