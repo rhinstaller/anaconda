@@ -143,7 +143,9 @@ Requires: zenity
 %endif
 Requires: createrepo >= %{createrepover}
 Requires: squashfs-tools
+%if ! 0%{?rhel}
 Requires: hfsplus-tools
+%endif
 Requires: genisoimage >= %{genisoimagever}
 Requires: GConf2 >= %{gconfversion}
 %ifarch %{ix86} x86_64
