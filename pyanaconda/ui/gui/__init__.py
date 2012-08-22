@@ -41,6 +41,7 @@ class GraphicalUserInterface(UserInterface):
     def __init__(self, storage, payload, instclass):
         UserInterface.__init__(self, storage, payload, instclass)
 
+        self._actions = []
         self._hubs = []
         self._ui = None
 
@@ -63,7 +64,6 @@ class GraphicalUserInterface(UserInterface):
         # Instantiate all hubs and their pre/post standalone spokes, passing
         # the arguments defining our spoke API and setting up continue/quit
         # signal handlers.
-        self._actions = []
         for klass in actionClasses:
             obj = klass(data, self.storage, self.payload, self.instclass)
 
