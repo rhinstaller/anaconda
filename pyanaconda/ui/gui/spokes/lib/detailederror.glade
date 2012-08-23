@@ -15,14 +15,12 @@
         <property name="orientation">vertical</property>
         <property name="spacing">2</property>
         <child>
-          <object class="GtkLabel" id="label2">
+          <object class="GtkLabel" id="detailedLabel">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="margin_bottom">18</property>
             <property name="xalign">0</property>
-            <property name="label" translatable="yes">The following software marked for installation has errors.  This is likely caused by an error with
-your installation source.  You can attempt to remove these packages from your installation,
-change your installation source, or quit the installer.</property>
+            <property name="label" translatable="yes">An unknown error occurred during installation.  Details are below.</property>
           </object>
           <packing>
             <property name="expand">False</property>
