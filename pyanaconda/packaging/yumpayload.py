@@ -310,18 +310,20 @@ reposdir=%s
     #           functions for multi-threaded applications
     def release(self):
         from yum.packageSack import MetaSack
-        log.debug("deleting package sacks")
-        if hasattr(self._yum, "_pkgSack"):
-            self._yum._pkgSack = None
+        with _yum_lock:
+            log.debug("deleting package sacks")
+            if hasattr(self._yum, "_pkgSack"):
+                self._yum._pkgSack = None
 
-        self._yum.repos.pkgSack = MetaSack()
+            self._yum.repos.pkgSack = MetaSack()
 
-        for repo in self._yum.repos.repos.values():
-            repo._sack = None
+            for repo in self._yum.repos.repos.values():
+                repo._sack = None
 
     def preStorage(self):
         self.release()
-        self._yum.close()
+        with _yum_lock:
+            self._yum.close()
 
     ###
     ### METHODS FOR WORKING WITH REPOSITORIES
@@ -570,8 +572,9 @@ reposdir=%s
                     raise PayloadSetupError("no usable optical media found")
 
         if method.method:
-            self._yum.preconf.releasever = self._getReleaseVersion(url)
-            self._yumCacheDirHack()
+            with _yum_lock:
+                self._yum.preconf.releasever = self._getReleaseVersion(url)
+                self._yumCacheDirHack()
             try:
                 self._addYumRepo(BASE_REPO_NAME, url,
                                  proxyurl=method.proxy, sslverify=sslverify)
@@ -633,8 +636,9 @@ reposdir=%s
         from yum.Errors import RepoError
 
         # First, delete any pre-existing repo with the same name.
-        if name in self._yum.repos.repos:
-            self._yum.repos.delete(name)
+        with _yum_lock:
+            if name in self._yum.repos.repos:
+                self._yum.repos.delete(name)
 
         if proxyurl:
             try:
@@ -1011,8 +1015,9 @@ reposdir=%s
         log.info("checking software selection")
         self.txID = time.time()
 
+        self.release()
+
         with _yum_lock:
-            self.release()
             self._yum._undoDepInstalls()
 
         self._applyYumSelections()
