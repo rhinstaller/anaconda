@@ -44,6 +44,7 @@ from gi.repository import AnacondaWidgets
 from pyanaconda.ui.gui import GUIObject, communication
 from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.gui.spokes.lib.cart import SelectedDisksDialog
+from pyanaconda.ui.gui.spokes.lib.detailederror import DetailedErrorDialog
 from pyanaconda.ui.gui.categories.storage import StorageCategory
 from pyanaconda.ui.gui.utils import enlightbox, gdk_threaded
 
@@ -55,6 +56,7 @@ from pyanaconda.flags import flags
 from pykickstart.constants import *
 
 import gettext
+import sys
 
 _ = lambda x: gettext.ldgettext("anaconda", x)
 N_ = lambda x: x
@@ -382,6 +384,9 @@ class StorageSpoke(NormalSpoke, StorageChecker):
 
         self._update_summary()
 
+        if self.errors:
+            self.window.set_info(Gtk.MessageType.WARNING, _("Error checking storage configuration.  Click for details."))
+
     def initialize(self):
         from pyanaconda.threads import threadMgr, AnacondaThread
         from pyanaconda.ui.gui.utils import setViewportBackground
@@ -568,3 +573,25 @@ class StorageSpoke(NormalSpoke, StorageChecker):
 
     def on_add_disk_clicked(self, button):
         print "ADD DISK CLICKED"
+
+    def on_info_bar_clicked(self, *args):
+        if not self.errors:
+            return
+
+        label = _("The following errors were encountered when checking your storage "
+                  "configuration.  You can modify your storage layout\nor quit the "
+                  "installer.")
+        dialog = DetailedErrorDialog(self.data, buttons=[_("_Quit")], label=label)
+        with enlightbox(self.window, dialog.window):
+            errors = "\n".join(self.errors)
+            dialog.refresh(errors)
+            rc = dialog.run()
+
+        dialog.window.destroy()
+
+        if rc == 0:
+            # Close the dialog so the user can change selections.
+            pass
+        elif rc == 1:
+            # Quit.
+            sys.exit(0)
