@@ -43,12 +43,16 @@ class DetailedErrorDialog(GUIObject):
 
     def __init__(self, *args, **kwargs):
         buttons = kwargs.pop("buttons", [])
+        label = kwargs.pop("label", None)
         GUIObject.__init__(self, *args, **kwargs)
 
         i = 1
         for button in buttons:
             self.window.add_button(button, i)
             i += 1
+
+        if label:
+            self.builder.get_object("detailedLabel").set_text(label)
 
     def refresh(self, msg):
         buf = self.builder.get_object("detailedTextBuffer")

@@ -266,8 +266,13 @@ class SoftwareSelectionSpoke(NormalSpoke):
         if not self._errorMsgs:
             return
 
+        label = _("The following software marked for installation has errors.  "
+                  "This is likely caused by an error with\nyour installation source.  "
+                  "You can attempt to remove these packages from your installation.\n"
+                  "change your installation source, or quit the installer.")
         dialog = DetailedErrorDialog(self.data, buttons=[_("_Quit"), _("_Remove Packages"),
-                                                         _("_Modify Software Source")])
+                                                         _("_Modify Software Source")],
+                                                label=label)
         with enlightbox(self.window, dialog.window):
             dialog.refresh(self._errorMsgs)
             rc = dialog.run()
