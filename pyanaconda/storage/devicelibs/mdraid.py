@@ -209,12 +209,10 @@ def mdactivate(device, members=[], super_minor=None, uuid=None):
     
     if uuid:
         identifier = "--uuid=%s" % uuid
-    elif super_minor is not None:
-        identifier = "--super-minor=%d" % super_minor
     else:
         identifier = ""
 
-    args = ["--assemble", device, identifier, "--run", "--auto=md"]
+    args = ["--assemble", device, identifier, "--run"]
     args += members
 
     try:
@@ -252,3 +250,12 @@ def mdexamine(device):
 
     return info
 
+def md_node_from_name(name):
+    named_path = "/dev/md/" + name
+    try:
+        # /dev/mapper/ nodes are usually symlinks to /dev/dm-N
+        node = os.path.basename(os.readlink(named_path))
+    except OSError as e:
+        raise MDRaidError("md_node_from_name failed: %s" % e)
+    else:
+        return node

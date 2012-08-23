@@ -665,15 +665,6 @@ class Storage(object):
         return unused
 
     @property
-    def unusedMDMinors(self):
-        """ Return a list of unused minors for use in RAID. """
-        raidMinors = range(0,32)
-        for array in self.mdarrays + self.mdcontainers:
-            if array.minor is not None and array.minor in raidMinors:
-                raidMinors.remove(array.minor)
-        return raidMinors
-
-    @property
     def btrfsVolumes(self):
         return sorted(self.devicetree.getDevicesByType("btrfs volume"),
                       key=lambda d: d.name)
@@ -1095,15 +1086,14 @@ class Storage(object):
                                                                None),
                                          **kwargs.pop("fmt_args", {}))
 
-        if kwargs.has_key("minor"):
-            kwargs["minor"] = int(kwargs["minor"])
-        else:
-            kwargs["minor"] = self.unusedMDMinors[0]
-
         if kwargs.has_key("name"):
             name = kwargs.pop("name")
         else:
-            name = "md%d" % kwargs["minor"]
+            swap = getattr(kwargs.get("format"), "type", None) == "swap"
+            mountpoint = getattr(kwargs.get("format"), "mountpoint", None)
+            name = self.suggestDeviceName(prefix=shortProductName,
+                                          swap=swap,
+                                          mountpoint=mountpoint)
 
         return MDRaidArrayDevice(name, *args, **kwargs)
 

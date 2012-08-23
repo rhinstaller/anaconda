@@ -2596,6 +2596,7 @@ class MDRaidArrayDevice(StorageDevice):
     """ An mdraid (Linux RAID) device. """
     _type = "mdarray"
     _packages = ["mdadm"]
+    _devDir = "/dev/md"
 
     def __init__(self, name, level=None, major=None, minor=None, size=None,
                  memberDevices=None, totalDevices=None,
@@ -2629,11 +2630,6 @@ class MDRaidArrayDevice(StorageDevice):
         elif level is not None:
             self.level = mdraid.raidLevel(level)
 
-        if self.growable and self.level != 0:
-            for dev in self.parents:
-                dev.removeChild()
-            raise ValueError("Only RAID0 arrays can contain growable members")
-
         # For new arrays check if we have enough members
         if (not exists and parents and
                 len(parents) < mdraid.get_raid_min_members(self.level)):
@@ -2647,7 +2643,7 @@ class MDRaidArrayDevice(StorageDevice):
         self.uuid = uuid
         self._totalDevices = numeric_type(totalDevices)
         self._memberDevices = numeric_type(memberDevices)
-        self.sysfsPath = "/devices/virtual/block/%s" % name
+
         self.chunkSize = 512.0 / 1024.0         # chunk size in MB
         self.superBlockSize = 2.0               # superblock size in MB
 
@@ -2820,7 +2816,8 @@ class MDRaidArrayDevice(StorageDevice):
             raise DeviceError("device has not been created", self.name)
 
         if self.status:
-            self.sysfsPath = "/devices/virtual/block/%s" % self.name
+            md_node = mdraid.md_node_from_name(self.name)
+            self.sysfsPath = "/devices/virtual/block/%s" % md_node
         else:
             self.sysfsPath = ''
 
@@ -2927,6 +2924,10 @@ class MDRaidArrayDevice(StorageDevice):
         """ Return a list of this array's member device instances. """
         return self.parents
 
+    def _postSetup(self):
+        super(MDRaidArrayDevice, self)._postSetup()
+        self.updateSysfsPath()
+
     def _setup(self, orig=False):
         """ Open, or set up, a device. """
         log_method_call(self, self.name, orig=orig, status=self.status,
@@ -2938,7 +2939,6 @@ class MDRaidArrayDevice(StorageDevice):
 
         mdraid.mdactivate(self.path,
                           members=disks,
-                          super_minor=self.minor,
                           uuid=self.uuid)
 
     def teardown(self, recursive=None):
@@ -2984,7 +2984,14 @@ class MDRaidArrayDevice(StorageDevice):
             self.createBitmap = False
 
     def _postCreate(self):
+        # this is critical since our status method requires a valid sysfs path
+        md_node = mdraid.md_node_from_name(self.name)
+        self.sysfsPath = "/devices/virtual/block/%s" % md_node
+        self.exists = True  # I think we can remove this.
+
         StorageDevice._postCreate(self)
+
+        # update our uuid attribute with the new array's UUID
         info = udev_get_block_device(self.sysfsPath)
         self.uuid = udev_device_get_md_uuid(info)
         for member in self.devices:

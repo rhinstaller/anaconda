@@ -29,6 +29,7 @@ from pyanaconda.iutil import execWithRedirect
 from pyanaconda.anaconda_log import log_method_call
 from ..errors import *
 from ..devicelibs.dm import dm_node_from_name
+from ..devicelibs.mdraid import md_node_from_name
 from ..udev import udev_device_get_major, udev_device_get_minor
 
 import gettext
@@ -256,6 +257,12 @@ class DeviceFormat(object):
                 name = dm_node_from_name(os.path.basename(self.device))
             except DMError:
                 log.warning("failed to get dm node for %s" % self.device)
+                return
+        elif self.device.startswith("/dev/md/"):
+            try:
+                name = md_node_from_name(os.path.basename(self.device))
+            except MDRaidError:
+                log.warning("failed to get md node for %s" % self.device)
                 return
         else:
             name = self.device

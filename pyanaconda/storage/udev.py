@@ -137,7 +137,14 @@ def udev_get_block_device(sysfs_path):
 # udev database entries.
 def udev_device_get_name(udev_info):
     """ Return the best name for a device based on the udev db data. """
-    return udev_info.get("DM_NAME", udev_info["name"])
+    if "MD_DEVNAME" in udev_info:
+        name = udev_info["MD_DEVNAME"]
+    elif "DM_NAME" in udev_info:
+        name = udev_info["DM_NAME"]
+    else:
+        name = udev_info["name"]
+
+    return name
 
 def udev_device_get_format(udev_info):
     """ Return a device's format type as reported by udev. """

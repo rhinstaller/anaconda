@@ -1375,7 +1375,6 @@ class DeviceTree(object):
 
             md_name = None
             md_metadata = None
-            minor = None
 
             # check the list of devices udev knows about to see if the array
             # this device belongs to is already active
@@ -1394,7 +1393,6 @@ class DeviceTree(object):
 
                 if dev_uuid == md_uuid and dev_level == md_level:
                     md_name = udev_device_get_name(dev)
-                    minor = udev_device_get_minor(dev)
                     md_metadata = dev.get("MD_METADATA")
                     break
 
@@ -1403,42 +1401,27 @@ class DeviceTree(object):
                 md_metadata = md_info.get("metadata", "0.90")
 
             if not md_name:
-                # try to name the array based on the preferred minor
                 md_path = md_info.get("device", "")
                 md_name = devicePathToName(md_info.get("device", ""))
                 if md_name:
                     try:
-                        # md_name can be either md# or md/#
+                        # md_name can be md<minor>, md/<minor>, or md/<name>
                         if md_name.startswith("md/"):
-                            minor = int(md_name[3:])     # strip off leading "md/"
-                            md_name = "md%d" % minor     # use a regular md# name
+                            md_name = md_name[3:]
                         else:
-                            minor = int(md_name[2:])     # strip off leading "md"
+                            md_name = md_name[2:]
                     except (IndexError, ValueError):
-                        minor = None
                         md_name = None
                     else:
                         array = self.getDeviceByName(md_name)
                         if array and array.uuid != md_uuid:
                             md_name = None
 
-                if not md_name:
-                    # if we don't have a name yet, find the first unused minor
-                    minor = 0
-                    while True:
-                        if self.getDeviceByName("md%d" % minor):
-                            minor += 1
-                        else:
-                            break
-
-                    md_name = "md%d" % minor
-
             log.info("using name %s for md array containing member %s"
                         % (md_name, device.name))
             try:
                 md_array = MDRaidArrayDevice(md_name,
                                              level=md_level,
-                                             minor=minor,
                                              memberDevices=md_devices,
                                              uuid=md_uuid,
                                              metadataVersion=md_metadata,
