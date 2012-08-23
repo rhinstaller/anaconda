@@ -860,7 +860,8 @@ def disableNMForStorageDevices(storage):
                 log.warning("disableNMForStorageDevices: ifcfg file for %s not found" %
                             devname)
 
-def autostartFCoEDevices(storage):
+# sets ONBOOT=yes (and its mirror value in ksdata) for devices used by FCoE
+def autostartFCoEDevices(storage, ksdata):
     for devname in getDevices():
         if usedByFCoE(devname, storage):
             dev = NetworkDevice(ROOT_PATH + netscriptsDir, devname)
@@ -870,6 +871,10 @@ def autostartFCoEDevices(storage):
                 dev.writeIfcfgFile()
                 log.debug("setting ONBOOT=yes for network device %s used by fcoe"
                           % devname)
+                for nd in ksdata.network.network:
+                    if nd.device == dev.iface:
+                        nd.onboot = True
+                        break
             else:
                 log.warning("autoconnectFCoEDevices: ifcfg file for %s not found" %
                             devname)
@@ -900,6 +905,7 @@ def writeNetworkConf(storage, ksdata, instClass):
     copyConfigToPath(ROOT_PATH)
     # TODO the default for ONBOOT needs to be lay down
     # before newui we didn't set it for kickstart installs
-    instClass.setNetworkOnbootDefault()
+    instClass.setNetworkOnbootDefault(ksdata)
+    # NM_CONTROLLED is not mirrored in ksdata
     disableNMForStorageDevices(storage)
-    autostartFCoEDevices(storage)
+    autostartFCoEDevices(storage, ksdata)

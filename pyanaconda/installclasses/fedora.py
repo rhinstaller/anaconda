@@ -115,7 +115,7 @@ class InstallClass(BaseInstallClass):
         # than two versions ago!
         return newVer >= oldVer and newVer - oldVer <= 2
 
-    def setNetworkOnbootDefault(self):
+    def setNetworkOnbootDefault(self, ksdata):
         # if something's already enabled, we can just leave the config alone
         for devName in network.getDevices():
             if network.get_ifcfg_value(devName, "ONBOOT", ROOT_PATH) == "yes":
@@ -129,6 +129,10 @@ class InstallClass(BaseInstallClass):
                 dev.loadIfcfgFile()
                 dev.set(('ONBOOT', 'yes'))
                 dev.writeIfcfgFile()
+                for nd in ksdata.network.network:
+                    if nd.device == dev.iface:
+                        nd.onboot = True
+                        break
                 break
 
     def __init__(self):

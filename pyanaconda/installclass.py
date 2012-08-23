@@ -161,7 +161,8 @@ class BaseInstallClass(object):
 
         return (all(result.values()), result)
 
-    def setNetworkOnbootDefault(self):
+    # sets default ONBOOT values and updates ksdata accordingly
+    def setNetworkOnbootDefault(self, ksdata):
         pass
 
     def __init__(self):
