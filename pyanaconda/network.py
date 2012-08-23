@@ -773,11 +773,7 @@ def write_sysconfig_network(rootpath, ksdata, overwrite=False):
     f.write("NETWORKING=yes\n")
     f.write("HOSTNAME=")
 
-    hostname = getHostname()
-    if hostname:
-        f.write(hostname + "\n")
-    else:
-        f.write("localhost.localdomain\n")
+    f.write("HOSTNAME=%s\n" % ksdata.network.hostname)
 
     gateway = ipv6_defaultgw = None
     for iface in reversed(getDevices()):

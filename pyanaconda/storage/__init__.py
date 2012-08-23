@@ -1117,11 +1117,8 @@ class Storage(object):
             name = kwargs.pop("name")
         else:
             hostname = ""
-            if self.data:
-                for nd in self.data.network.dataList():
-                    if nd.hostname:
-                        hostname = nd.hostname
-                        break
+            if self.data and self.data.network.hostname is not None:
+                hostname = self.data.network.hostname
 
             name = self.suggestContainerName(hostname=hostname)
 
@@ -1189,11 +1186,8 @@ class Storage(object):
             # set up the volume label, using hostname if necessary
             if not name:
                 hostname = ""
-                if self.data:
-                    for nd in self.data.network.dataList():
-                        if nd.hostname:
-                            hostname = nd.hostname
-                            break
+                if self.data and self.data.network.hostname is not None:
+                    hostname = self.data.network.hostname
 
                 name = self.suggestContainerName(hostname=hostname)
             if "label" not in fmt_args:
