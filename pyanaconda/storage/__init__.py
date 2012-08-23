@@ -484,6 +484,9 @@ class Storage(object):
         used_devices = []
         for root in self.roots:
             for device in root.mounts.values() + root.swaps:
+                if device not in self.devices:
+                    continue
+
                 used_devices.extend(device.ancestors)
 
                 if getattr(device, "isLogical", False):
