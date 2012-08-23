@@ -1890,10 +1890,8 @@ class Storage(object):
     def getDeviceFactory(self, device_type, size, **kwargs):
         """ Return a suitable DeviceFactory instance for device_type. """
         disks = kwargs.get("disks", [])
+        raid_level = kwargs.get("raid_level")
         encrypted = kwargs.get("encrypted", False)
-
-        # md, btrfs, lvm
-        raid_level = kwargs.get("level")
 
         class_table = {AUTOPART_TYPE_LVM: LVMFactory,
                        AUTOPART_TYPE_BTRFS: BTRFSFactory,
@@ -1934,10 +1932,7 @@ class Storage(object):
                 disks               the set of disks we can allocate from
                 encrypted           boolean
 
-                level               (btrfs/md only) RAID level
-
-                striped             (lvm only) boolean
-                mirrored            (lvm only) boolean
+                raid_level          (btrfs/md/lvm only) RAID level (string)
 
                 device              an already-defined but non-existent device
                                     to adjust instead of creating a new device
@@ -1952,11 +1947,7 @@ class Storage(object):
         device = kwargs.get("device")
 
         # md, btrfs
-        raid_level = kwargs.get("level")
-
-        # lvm
-        striped = kwargs.get("striped")
-        mirrored = kwargs.get("mirrored")
+        raid_level = kwargs.get("raid_level")
 
         if not fstype:
             fstype = self.getFSType(mountpoint=mountpoint)
@@ -3003,7 +2994,7 @@ class DeviceFactory(object):
         self.size_func_kwargs = {}      # keyword args to pass to size function
 
         # choose a size set class for member partition allocation
-        if raid_level in ("raid1", "raid10"):
+        if raid_level is not None and raid_level.startswith("raid"):
             self.set_class = SameSizeSet
         else:
             self.set_class = TotalSizeSet
@@ -3102,6 +3093,11 @@ class BTRFSFactory(DeviceFactory):
         elif self.raid_level in ("raid1", "raid10"):
             return self.size * len(self.disks)
 
+    def new_device(self, *args, **kwargs):
+        kwargs["dataLevel"] = self.raid_level
+        kwargs["metaDataLevel"] = self.raid_level
+        return super(BTRFSFactory, self).new_device(*args, **kwargs)
+
 class LVMFactory(DeviceFactory):
     type_desc = "lvm"
     member_format = "lvmpv"
@@ -3148,7 +3144,7 @@ class MDFactory(DeviceFactory):
     type_desc = "md"
     member_format = "mdmember"
     new_container_attr = None
-    new_device_attr = "newMD"
+    new_device_attr = "newMDArray"
 
     def __init__(self, storage, size, disks, raid_level, encrypted):
         super(MDFactory, self).__init__(storage, size, disks, raid_level,
@@ -3163,3 +3159,9 @@ class MDFactory(DeviceFactory):
     def device_size(self):
         return get_member_space(self.size, len(self.disks),
                                 **self.size_func_kwargs)
+
+    def new_device(self, *args, **kwargs):
+        kwargs["level"] = self.raid_level
+        kwargs["totalDevices"] = len(kwargs.get("parents"))
+        kwargs["memberDevices"] = len(kwargs.get("parents"))
+        return super(MDFactory, self).new_device(*args, **kwargs)

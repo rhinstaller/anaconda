@@ -77,6 +77,13 @@ def getRaidLevels():
 
 raid_levels = getRaidLevels()
 
+raid_descriptors = {RAID10: ("raid10", "RAID10", "10", 10),
+                    RAID6: ("raid6", "RAID6", "6", 6),
+                    RAID5: ("raid5", "RAID5", "5", 5),
+                    RAID4: ("raid4", "RAID4", "4", 4),
+                    RAID1: ("raid1", "mirror", "RAID1", "1", 1),
+                    RAID0: ("raid0", "stripe", "RAID0", "0", 0)}
+
 def raidLevel(descriptor):
     for level in raid_levels:
         if isRaid(level, descriptor):
@@ -84,15 +91,14 @@ def raidLevel(descriptor):
     else:
         raise ValueError, "invalid raid level descriptor %s" % descriptor
 
+def raidLevelString(level):
+    if level in raid_descriptors.keys():
+        return raid_descriptors[level][0]
+    else:
+        raise ValueError("invalid raid level constant %s") % level
+
 def isRaid(raid, raidlevel):
     """Return whether raidlevel is a valid descriptor of raid"""
-    raid_descriptors = {RAID10: ("RAID10", "raid10", "10", 10),
-                        RAID6: ("RAID6", "raid6", "6", 6),
-                        RAID5: ("RAID5", "raid5", "5", 5),
-                        RAID4: ("RAID4", "raid4", "4", 4),
-                        RAID1: ("mirror", "RAID1", "raid1", "1", 1),
-                        RAID0: ("stripe", "RAID0", "raid0", "0", 0)}
-
     if raid in raid_descriptors:
         return raidlevel in raid_descriptors[raid]
     else:
