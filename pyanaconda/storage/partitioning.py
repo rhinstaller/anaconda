@@ -1653,10 +1653,15 @@ def manageSizeSets(size_sets, chunks):
                 # SameSizeSet members all have the same size as the smallest
                 # member
                 requests = [requests_by_device[d] for d in ss.devices]
-                min_growth = min([r.growth for r in requests])
+                _min_growth = min([r.growth for r in requests])
+                log.debug("set: %s %d" % ([d.name for d in ss.devices], ss.size))
+                log.debug("min growth is %d" % _min_growth)
                 for request in requests:
+                    chunk = chunks_by_request[request]
+                    _max_growth = chunk.sizeToLength(ss.size) - request.base
+                    log.debug("max growth for %s is %d" % (request, _max_growth))
+                    min_growth = max(min(_min_growth, _max_growth), 0)
                     if request.growth > min_growth:
-                        chunk = chunks_by_request[request]
                         extra = request.growth - min_growth
                         reclaimed[chunk] += extra
                         chunk.reclaim(request, extra)
