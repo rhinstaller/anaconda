@@ -3058,6 +3058,7 @@ class DeviceFactory(object):
 class PartitionFactory(DeviceFactory):
     type_desc = "partition"
     new_device_attr = "newPartition"
+    default_size = PartitionDevice.defaultSize
 
     def __init__(self, storage, size, disks, raid_level, encrypted):
         super(PartitionFactory, self).__init__(storage, size, disks, raid_level,
@@ -3065,9 +3066,17 @@ class PartitionFactory(DeviceFactory):
         self.member_list = self.disks
 
     def new_device(self, *args, **kwargs):
-        size = kwargs.pop("size")
+        # only use the default as a base size for a growable partition if the
+        # requested size is greater than the default size
+        if kwargs["size"] > PartitionFactory.default_size:
+            grow = True
+            max_size = kwargs.pop("size")
+        else:
+            grow = False
+            max_size = None
+
         device = self.storage.newPartition(*args,
-                                           grow=True, maxsize=size,
+                                           grow=grow, maxsize=max_size,
                                            **kwargs)
         return device
 
@@ -3081,10 +3090,10 @@ class PartitionFactory(DeviceFactory):
                 log.info("adjusting device size from %.2f to %.2f"
                                 % (device.size, size))
 
-            device.req_base_size = device.defaultSize
+            device.req_base_size = min(PartitionFactory.default_size, size)
             device.req_size = device.req_base_size
             device.req_max_size = size
-            device.req_grow = True
+            device.req_grow = size > device.req_base_size
 
         return size
 
