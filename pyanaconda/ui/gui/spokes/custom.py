@@ -450,6 +450,14 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             page = Page()
             page.pageTitle = root.name
 
+            for (mountpoint, device) in root.mounts.iteritems():
+                if device not in self._devices:
+                    continue
+
+                selector = page.addDevice(self._mountpointName(mountpoint) or device.format.name, Size(spec="%f MB" % device.size), mountpoint, self.on_selector_clicked)
+                selector._device = device
+                selector._root = root
+
             for device in root.swaps:
                 if device not in self._devices:
                     continue
@@ -457,14 +465,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                 selector = page.addDevice("Swap",
                                           Size(spec="%f MB" % device.size),
                                           None, self.on_selector_clicked)
-                selector._device = device
-                selector._root = root
-
-            for (mountpoint, device) in root.mounts.iteritems():
-                if device not in self._devices:
-                    continue
-
-                selector = page.addDevice(self._mountpointName(mountpoint) or device.format.name, Size(spec="%f MB" % device.size), mountpoint, self.on_selector_clicked)
                 selector._device = device
                 selector._root = root
 
