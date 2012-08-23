@@ -31,6 +31,7 @@ N_ = lambda x: x
 P_ = lambda x, y, z: gettext.ldngettext("anaconda", x, y, z)
 
 from contextlib import contextmanager
+import re
 
 from pykickstart.constants import *
 
@@ -108,7 +109,12 @@ class AddDialog(GUIObject):
     def on_add_confirm_clicked(self, button, *args):
         self.mountpoint = self.builder.get_object("addMountPointEntry").get_text()
 
-        size_text = self.builder.get_object("sizeEntry").get_text()
+        size_text = self.builder.get_object("sizeEntry").get_text().strip()
+
+        # if no unit was specified, default to MB
+        if not re.search(r'[A-Za-z]+$', size_text):
+            size_text += "MB"
+
         try:
             self.size = Size(spec=size_text)
         except Exception:
