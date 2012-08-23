@@ -217,7 +217,7 @@ class EFI(Platform):
             return 0
 
 class MacEFI(EFI):
-    _bootloaderClass = bootloader.MacEFIGRUB
+    bootloaderClass = bootloader.MacEFIGRUB
 
     _boot_stage1_format_types = ["hfs+"]
     _boot_efi_description = N_("Apple EFI Boot Partition")
@@ -234,7 +234,7 @@ class MacEFI(EFI):
 
 class PPC(Platform):
     _ppcMachine = iutil.getPPCMachine()
-    _bootloaderClass = bootloader.GRUB2
+    bootloaderClass = bootloader.GRUB2
     _boot_stage1_device_types = ["partition"]
 
     @property
@@ -242,7 +242,7 @@ class PPC(Platform):
         return self._ppcMachine
 
 class IPSeriesPPC(PPC):
-    _bootloaderClass = bootloader.IPSeriesGRUB2
+    bootloaderClass = bootloader.IPSeriesGRUB2
     _boot_stage1_format_types = ["prepboot"]
     _boot_stage1_max_end_mb = 10
     _boot_prep_description = N_("PReP Boot Partition")
@@ -336,7 +336,7 @@ class Sparc(Platform):
 
 class ARM(Platform):
     _armMachine = None
-    _bootloaderClass = bootloader.GRUB2
+    bootloaderClass = bootloader.GRUB2
     _boot_stage1_device_types = ["disk"]
     _boot_mbr_description = N_("Master Boot Record")
     _boot_descriptions = {"disk": _boot_mbr_description,
