@@ -589,10 +589,7 @@ def prompt_for_ssh():
     import gettext
     _ = lambda x: gettext.ldgettext("anaconda", x)
 
-    # see if we can sniff out network info
-    netinfo = network.Network()
-
-    ip = netinfo.getFirstRealIP()
+    ip = network.getFirstRealIP()
 
     if not ip:
         stdoutLog.error("No IP addresses found, cannot continue installation.")
@@ -934,8 +931,8 @@ if __name__ == "__main__":
 
     from pyanaconda.storage import storageInitialize
     from pyanaconda.packaging import payloadInitialize
+    from pyanaconda.network import networkInitialize
     from pyanaconda.threads import initThreading, threadMgr, AnacondaThread
-    from pyanaconda.network import Network
 
     if anaconda.rescue:
         from pyanaconda.rescue import doRescue
@@ -944,7 +941,8 @@ if __name__ == "__main__":
     initThreading()
     threadMgr.add(AnacondaThread(name="AnaStorageThread", target=storageInitialize, args=(anaconda.storage, ksdata, anaconda.protected)))
     threadMgr.add(AnacondaThread(name="AnaPayloadThread", target=payloadInitialize, args=(anaconda.storage, ksdata, anaconda.payload)))
-    Network()
+    # TODO start dhcp in thread if we have no connection
+    networkInitialize(ksdata)
 
     atexit.register(exitHandler, ksdata.reboot, anaconda.storage)
 

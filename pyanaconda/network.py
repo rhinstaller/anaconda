@@ -94,6 +94,25 @@ def sanityCheckHostname(hostname):
 
     return None
 
+# Return a list of IP addresses for all active devices.
+def getIPs():
+    ips = []
+    for devname in getActiveNetDevs():
+        try:
+            ips += (isys.getIPAddresses(devname, version=4) +
+                   isys.getIPAddresses(devname, version=6))
+        except Exception as e:
+            log.warning("Got an exception trying to get the ip addr "
+                        "of %s: %s" % (devname, e))
+    return ips
+
+# Return the first real non-local IP we find
+def getFirstRealIP():
+    for ip in getIPs():
+        if ip not in ("127.0.0.1", "::1"):
+            return ip
+    return None
+
 # Try to determine what the hostname should be for this system
 def getHostname():
     resetResolver()
@@ -400,27 +419,12 @@ class WirelessNetworkDevice(NetworkDevice):
     def write(self):
         pass
 
-
-class Network:
-
-    def __init__(self):
-
-        ifcfglog.debug("Network object created called")
-
-        # TODO this may need to be handled in getDevices()
-        if flags.imageInstall:
-            return
-
-        # TODO this should go away (patch pending),
-        # default ifcfg files should be created in dracut
-
-        # populate self.netdevices
-        devhash = isys.getDeviceProperties(dev=None)
-        for iface in devhash.keys():
-            if not isys.isWirelessDevice(iface):
-                device = NetworkDevice(netscriptsDir, iface)
-                if not os.access(device.path, os.R_OK):
-                    device.setDefaultConfig()
+def createMissingDefaultIfcfgs():
+    for iface in getDevices():
+        if not isys.isWirelessDevice(iface):
+            device = NetworkDevice(netscriptsDir, iface)
+            if not os.access(device.path, os.R_OK):
+                device.setDefaultConfig()
 
 def getDevices():
     # TODO: filter with existence of ifcfg file?
@@ -878,3 +882,16 @@ def writeNetworkConf(storage, ksdata, instClass):
     # NM_CONTROLLED is not mirrored in ksdata
     disableNMForStorageDevices(storage)
     autostartFCoEDevices(storage, ksdata)
+
+# networking initialization and ksdata object update
+def networkInitialize(ksdata):
+    from pyanaconda.kickstart import NetworkData
+
+    if not flags.imageInstall:
+        # XXX: this should go to anaconda dracut
+        createMissingDefaultIfcfgs()
+
+    if ksdata.network.hostname is None:
+        hostname = getHostname()
+        nd = NetworkData(hostname=hostname)
+        ksdata.network.network.append(nd)
