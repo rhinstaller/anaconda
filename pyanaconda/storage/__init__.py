@@ -1802,7 +1802,7 @@ class Storage(object):
 
         return fstype
 
-    def setContainerMembers(self, container, factory):
+    def setContainerMembers(self, container, factory, members=None):
         """ Set up and return the container's member partitions. """
         if factory.member_list is not None:
             # short-circuit the logic below for partitions
@@ -1814,12 +1814,21 @@ class Storage(object):
         # set up member devices
         container_size = 0
         add_disks = []
+
+        if members is None:
+            members = []
+
+        if container:
+            members = container.parents[:]
+
         if container:
             log.debug("using container %s with %d devices" % (container.name,
                                 len(self.devicetree.getChildren(container))))
             container_size = factory.container_size_func(container)
             log.debug("raw container size reported as %d" % container_size)
-            _disks = list(set([d for m in container.parents for d in m.disks]))
+
+        if members:
+            _disks = list(set([d for m in members for d in m.disks]))
 
             # see if factory.disks contains disks not already in use
             add_disks = [d for d in factory.disks if d not in _disks]
@@ -1832,20 +1841,14 @@ class Storage(object):
 
         # XXX TODO: multiple member devices per disk
 
-        # XXX Never try to reuse member devices. They can be converted by the
-        #     user into free space.
-        members = []
-
         # prepare already-defined member partitions for reallocation
-        if container:
-            members = container.parents[:]
-            for member in members[:]:
-                if isinstance(member, LUKSDevice):
-                    member = member.slave
+        for member in members[:]:
+            if isinstance(member, LUKSDevice):
+                member = member.slave
 
-                member.req_base_size = PartitionDevice.defaultSize
-                member.req_size = member.req_base_size
-                member.req_grow = True
+            member.req_base_size = PartitionDevice.defaultSize
+            member.req_size = member.req_base_size
+            member.req_grow = True
 
         # set up new members as needed to accommodate the device
         for disk in add_disks:
@@ -1976,7 +1979,12 @@ class Storage(object):
 
         # TODO: striping, mirroring, &c
         # TODO: non-partition members (pv-on-md)
-        parents = self.setContainerMembers(container, factory)
+
+        members = []
+        if device and device.type == "mdarray":
+            members = device.parents
+
+        parents = self.setContainerMembers(container, factory, members=members)
 
         # set up container
         if not container and factory.new_container_attr:
