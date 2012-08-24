@@ -309,6 +309,10 @@ class DatetimeSpoke(NormalSpoke):
         self._amPmLabel = self.builder.get_object("amPmLabel")
         self._radioButton24h = self.builder.get_object("timeFormatRB")
 
+        self._ntpSwitch = self.builder.get_object("networkTimeSwitch")
+        self._added_chrony = False
+        self._enabled_chrony = False
+
         if self._radioButton24h.get_active():
             self._set_amPm_part_sensitive(False)
 
@@ -339,6 +343,30 @@ class DatetimeSpoke(NormalSpoke):
         self._update_datetime_timer_id = None
 
         self.data.timezone.timezone = self._tzmap.get_timezone()
+
+        if self._ntpSwitch.get_active():
+            # turned ON
+            self.data.timezone.nontp = False
+            if not "chrony" in self.data.packages.packageList:
+                self.data.packages.packageList.append("chrony")
+                self._added_chrony = True
+
+            if not "chronyd" in self.data.services.enabled and \
+                    not "chronyd" in self.data.services.disabled:
+                self.data.services.enabled.append("chronyd")
+                self._enabled_chrony = True
+        else:
+            # turned OFF
+            self.data.timezone.nontp = True
+            if self._added_chrony and ("chrony" in
+                                        self.data.packages.packageList):
+                self.data.packages.packageList.remove("chrony")
+                self._added_chrony = False
+
+            if self._enabled_chrony and ("chronyd" in
+                                            self.data.services.enabled):
+                self.data.services.enabled.remove("chronyd")
+                self._enabled_chrony = False
 
     @property
     def completed(self):
