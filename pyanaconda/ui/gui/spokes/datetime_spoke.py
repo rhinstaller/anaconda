@@ -23,6 +23,9 @@ import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
 N_ = lambda x: x
 
+import logging
+log = logging.getLogger("anaconda")
+
 from gi.repository import AnacondaWidgets, GLib, Gtk
 
 from pyanaconda.ui.gui import GUIObject
@@ -310,10 +313,12 @@ class DatetimeSpoke(NormalSpoke):
             self._set_amPm_part_sensitive(False)
 
         self._update_datetime_timer_id = None
-        if self.data.timezone.timezone:
+        if timezone.is_valid_timezone(self.data.timezone.timezone):
             self._tzmap.set_timezone(self.data.timezone.timezone)
         else:
-            self._tzmap.set_timezone("Europe/Prague")
+            log.warning("%s is not a valid timezone, falling back to default "\
+                        "(America/New_York)")
+            self._tzmap.set_timezone("America/New_York")
 
         self._config_dialog = NTPconfigDialog(self.data)
         self._config_dialog.initialize()
@@ -321,7 +326,11 @@ class DatetimeSpoke(NormalSpoke):
     @property
     def status(self):
         if self.data.timezone.timezone:
-            return _("%s timezone") % self.data.timezone.timezone
+            if timezone.is_valid_timezone(self.data.timezone.timezone):
+                return _("%s timezone") % self.data.timezone.timezone
+            else:
+                return _("Invalid timezone")
+
         else:
             return _("%s timezone") % self._tzmap.get_timezone()
 
@@ -333,8 +342,7 @@ class DatetimeSpoke(NormalSpoke):
 
     @property
     def completed(self):
-        #Always completed -- some date, time and timezone are always set
-        return True
+        return timezone.is_valid_timezone(self.data.timezone.timezone)
 
     def refresh(self):
         #update the displayed time
@@ -342,7 +350,7 @@ class DatetimeSpoke(NormalSpoke):
                                                     self._update_datetime)
         self._start_updating_timer_id = None
 
-        if self.data.timezone.timezone:
+        if timezone.is_valid_timezone(self.data.timezone.timezone):
             self._tzmap.set_timezone(self.data.timezone.timezone)
 
         self._update_datetime()
