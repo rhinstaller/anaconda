@@ -380,6 +380,7 @@ reposdir=%s
 
             # this preserves the method details while disabling it
             self.data.method.method = None
+            self.install_device = None
         finally:
             self._yumCacheDirHack()
 
