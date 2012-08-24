@@ -457,6 +457,8 @@ class SourceSpoke(NormalSpoke):
         elif self._mirror_active():
             # this preserves the url for later editing
             self.data.method.method = None
+            if not old_source.method:
+                return
         elif self._http_active() or self._ftp_active():
             url = self._urlEntry.get_text().strip()
 
@@ -478,6 +480,10 @@ class SourceSpoke(NormalSpoke):
                 self.data.method.url = "http://" + self.data.method.url
             elif self._protocolComboBox.get_active() == 1 and not self.data.method.url.startswith("https://"):
                 self.data.method.url = "https://" + self.data.method.url
+
+            if (old_source.method == "url" and
+                old_source.url == self.data.method.url):
+                return
         elif self._nfs_active():
             url = self._urlEntry.get_text().strip()
 
