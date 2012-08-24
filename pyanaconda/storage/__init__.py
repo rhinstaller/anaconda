@@ -724,9 +724,10 @@ class Storage(object):
                 if not device.format.exists:
                     return False
 
-                for partition in self.devicetree.getChildren(device):
-                    if not (partition.isMagic or self.shouldClear(partition)):
-                        return False
+                if device.partitioned:
+                    for partition in self.devicetree.getChildren(device):
+                        if not (partition.isMagic or self.shouldClear(partition)):
+                            return False
 
         # the only devices we want to clear when clearPartType is
         # CLEARPART_TYPE_NONE are uninitialized disks in clearPartDisks, and
