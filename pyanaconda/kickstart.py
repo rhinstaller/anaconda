@@ -1261,9 +1261,12 @@ class Timezone(commands.timezone.F18_Timezone):
             self.timezone = "America/New_York"
 
         timezone.write_timezone_config(self, ROOT_PATH)
-        chronyd_conf_path = os.path.normpath(ROOT_PATH + ntp.NTP_CONFIG_FILE)
-        ntp.save_servers_to_config(self.ntpservers,
-                                   conf_file_path=chronyd_conf_path)
+
+        # write out NTP configuration (if set)
+        if not self.nontp and self.ntpservers:
+            chronyd_conf_path = os.path.normpath(ROOT_PATH + ntp.NTP_CONFIG_FILE)
+            ntp.save_servers_to_config(self.ntpservers,
+                                       conf_file_path=chronyd_conf_path)
 
 class User(commands.user.F12_User):
     def execute(self, storage, ksdata, instClass, users):
