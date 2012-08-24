@@ -553,10 +553,11 @@ reposdir=%s
             # Did dracut leave the DVD mounted for us?
             device = get_mount_device("/run/install/repo")
             if device:
-                self.install_device = storage.devicetree.getDeviceByPath(device)
-                url = "file:///run/install/repo"
-                if not method.method:
-                    method.method = "cdrom"
+                if os.path.isdir("/run/install/repo/os/repodata"):
+                    self.install_device = storage.devicetree.getDeviceByPath(device)
+                    url = "file:///run/install/repo"
+                    if not method.method:
+                        method.method = "cdrom"
             else:
                 # cdrom or no method specified -- check for media
                 device = opticalInstallMedia(storage.devicetree)
