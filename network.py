@@ -624,6 +624,10 @@ class Network:
                 return True
         return False
 
+    def hasBondDevice(self):
+        return any (dev for dev in self.netdevices.values()
+                    if dev.get('TYPE') == 'Bond')
+
     def write(self):
 
         ifcfglog.debug("Network.write() called")
@@ -678,6 +682,9 @@ class Network:
 
         if dev.get('IPV6_DEFAULTGW'):
             f.write("IPV6_DEFAULTGW=%s\n" % (dev.get('IPV6_DEFAULTGW'),))
+
+        if self.hasBondDevice():
+            f.write("NM_BOND_VLAN_ENABLED=yes\n")
 
         f.close()
         shutil.move(newnetwork, networkConfFile)
