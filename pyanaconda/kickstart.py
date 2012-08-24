@@ -1253,8 +1253,12 @@ class Services(commands.services.FC6_Services):
 
 class Timezone(commands.timezone.F18_Timezone):
     def execute(self, *args):
+        # write out timezone configuration
         if not timezone.is_valid_timezone(self.timezone):
-            log.warning("Timezone %s set in kickstart is not valid." % (self.timezone,))
+            # this should never happen, but for pity's sake
+            log.warning("Timezone %s set in kickstart is not valid, falling "\
+                        "back to default (America/New_York)." % (self.timezone,))
+            self.timezone = "America/New_York"
 
         timezone.write_timezone_config(self, ROOT_PATH)
         chronyd_conf_path = os.path.normpath(ROOT_PATH + ntp.NTP_CONFIG_FILE)
