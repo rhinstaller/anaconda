@@ -93,6 +93,21 @@ class DependencyError(PayloadError):
 class PayloadInstallError(PayloadError):
     pass
 
+def get_mount_paths(dev):
+    mounts = open("/proc/mounts").readlines()
+    mount_paths = []
+    for mount in mounts:
+        try:
+            (device, path, rest) = mount.split(None, 2)
+        except ValueError:
+            continue
+
+        if dev == device:
+            mount_paths.append(path)
+
+    if mount_paths:
+        log.debug("%s is mounted on %s" % (dev, ', '.join(mount_paths)))
+    return mount_paths
 
 def get_mount_device(mountpoint):
     import re
