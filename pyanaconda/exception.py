@@ -66,12 +66,22 @@ class AnacondaExceptionHandler(ExceptionHandler):
             self.intf.showError(hw_error_msg)
             sys.exit(0)
         else:
-            if GLib.main_depth() > 0:
-                # main loop is running, don't crash it by running another one
-                # potentially from a different thread
-                GLib.idle_add(run_handleException_on_idle,
-                                ((ty, value, tb), obj))
-            else:
+            try:
+                from gi.repository import Gtk
+
+                if Gtk.main_level() > 0:
+                    # main loop is running, don't crash it by running another one
+                    # potentially from a different thread
+                    GLib.idle_add(run_handleException_on_idle,
+                                    ((ty, value, tb), obj))
+                else:
+                    super(AnacondaExceptionHandler, self).handleException(
+                                                        (ty, value, tb), obj)
+
+            except RuntimeError:
+                # X not running (Gtk cannot be initialized)
+                print "An unknown error has occured, look at the "\
+                      "/tmp/anaconda-tb* file(s) for more details"
                 super(AnacondaExceptionHandler, self).handleException(
                                                         (ty, value, tb), obj)
 
