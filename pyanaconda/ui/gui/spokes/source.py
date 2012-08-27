@@ -402,7 +402,7 @@ class AdditionalReposDialog(GUIObject):
     def on_filter_icon_press(self, w, pos, event):
         """Callback for delete all icon in the people repositories filter
            text entry."""
-        self._peopleRepositoriesFilter.set_text("")
+        self._peopleRepositoriesFilterEntry.set_text("")
         self.on_filter_timeout(w)
 
 
