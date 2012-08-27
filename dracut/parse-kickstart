@@ -237,10 +237,6 @@ def ksnet_to_dracut(args, lineno, net, bootdev=False):
         else:
             line.append("mtu=%s" % net.mtu)
 
-    # TODO: nodefroute, noipv[46], nodns: pass along to 'ifcfg' module somehow
-    # TODO FIXME dhcpclass: dracut only uses one dhclient.conf for all ifaces
-    # so we can't (yet) have per-interface dhcpclass
-
     if bootdev:
         if net.device:
             line.append("bootdev=%s" % net.device)
@@ -298,8 +294,7 @@ def ksnet_to_ifcfg(net, filename=None):
     if net.nodefroute:
         ifcfg['DEFROUTE'] = "no"
 
-    # TODO: dhcpclass, ethtool, etc. (see comments in ksnet_to_dracut())
-    # TODO: handle essid/wepkey/wpakey (maybe inside anaconda)
+    # TODO: dhcpclass, ethtool, essid/wepkey/wpakay, etc.
 
     try:
         log.info("writing ifcfg for %s", dev)
