@@ -355,7 +355,7 @@ class AdditionalReposDialog(GUIObject):
     def on_url_icon_press(self, w, pos, event):
         """Callback for the delete all icon in url text field."""
         self._repositoryUrl.set_text("")
-        self.on_url_changed(w, None)
+        self.on_url_changed(w)
         self.repository_status(None, _("enter URL of your desired repository"))
 
     def repository_status(self, valid, description, epoch = None, still_spinning = False):
@@ -403,7 +403,7 @@ class AdditionalReposDialog(GUIObject):
         """Callback for delete all icon in the people repositories filter
            text entry."""
         self._peopleRepositoriesFilter.set_text("")
-        self.on_filter_timeout(w, None)
+        self.on_filter_timeout(w)
 
 
 class SourceSpoke(NormalSpoke):
