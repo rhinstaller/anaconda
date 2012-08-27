@@ -435,6 +435,7 @@ class SourceSpoke(NormalSpoke):
                 return
 
             self.data.method.method = "cdrom"
+            self.payload.install_device = dev
             if old_source.method == "cdrom":
                 # XXX maybe we should always redo it for cdrom in case they
                 #     switched disks
@@ -747,7 +748,7 @@ class SourceSpoke(NormalSpoke):
         dev = None
         for child in self._autodetectMediaBox.get_children():
             if child.get_chosen():
-                dev = child.path
+                dev = child
                 break
 
         return dev
@@ -822,7 +823,7 @@ class SourceSpoke(NormalSpoke):
 
         dialog = MediaCheckDialog(self.data)
         with enlightbox(self.window, dialog.window):
-            dialog.run(dev)
+            dialog.run(dev.path)
 
     def on_protocol_changed(self, combo):
         proxyButton = self.builder.get_object("proxyButton")
