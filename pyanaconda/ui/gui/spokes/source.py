@@ -334,7 +334,7 @@ class AdditionalReposDialog(GUIObject):
 
         self._repositorySpinner.start()
         self._repositoryDesc.set_text(_("Getting info about requested repository"))
-        self._repositoryIcon.set_from_stock("XXX_RESOLVING", Gtk.GTK_ICON_SIZE_MENU)
+        self._repositoryIcon.set_from_stock("XXX_RESOLVING", Gtk.IconSize.MENU)
 
         return False
 
@@ -368,11 +368,11 @@ class AdditionalReposDialog(GUIObject):
         self._repositoryDesc.set_text(description)
 
         if valid is None:
-            self._repositoryIcon.set_from_stock("XXX_NONE", Gtk.GTK_ICON_SIZE_MENU)
+            self._repositoryIcon.set_from_stock("XXX_NONE", Gtk.IconSize.MENU)
         elif valid:
-            self._repositoryIcon.set_from_stock("GTK_APPLY", Gtk.GTK_ICON_SIZE_MENU)
+            self._repositoryIcon.set_from_stock("gtk-apply", Gtk.IconSize.MENU)
         else:
-            self._repositoryIcon.set_from_stock("GTK_ERROR", Gtk.GTK_ICON_SIZE_MENU)
+            self._repositoryIcon.set_from_stock("gtk-error", Gtk.IconSize.MENU)
 
         if not still_spinning:
             self._repositorySpinner.stop()
