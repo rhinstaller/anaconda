@@ -492,6 +492,10 @@ reposdir=%s
                 while method.dir.startswith("/"):
                     # riduculous
                     method.dir = method.dir[1:]
+        # Check to see if the device is already mounted, in which case
+        # we don't need to mount it again
+        elif method.method == "cdrom" and get_mount_paths(device.path):
+                return
         else:
             device.format.setup(mountpoint=INSTALL_TREE)
 
@@ -555,20 +559,21 @@ reposdir=%s
         elif method.method == "cdrom" or not method.method:
             # Did dracut leave the DVD mounted for us?
             device = get_mount_device("/run/install/repo")
-            if device:
+            # Only look at the dracut mount if we don't already have a cdrom
+            if device and not self.install_device:
                 self.install_device = storage.devicetree.getDeviceByPath(device)
                 url = "file:///run/install/repo"
                 if not method.method:
                     method.method = "cdrom"
             else:
                 # cdrom or no method specified -- check for media
-                device = opticalInstallMedia(storage.devicetree)
-                if device:
-                    self._setUpMedia(device)
-                    self.install_device = device
-                    url = "file://" + INSTALL_TREE
+                if not self.install_device:
+                    self.install_device = opticalInstallMedia(storage.devicetree)
+                if self.install_device:
                     if not method.method:
                         method.method = "cdrom"
+                    self._setUpMedia(self.install_device)
+                    url = "file://" + INSTALL_TREE
                 elif method.method == "cdrom":
                     raise PayloadSetupError("no usable optical media found")
 
