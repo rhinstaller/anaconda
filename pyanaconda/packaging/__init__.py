@@ -145,6 +145,12 @@ class Payload(object):
         """ Do any payload-specific setup. """
         raise NotImplementedError()
 
+    def preStorage(self):
+        """ Do any payload-specific work necessary before writing the storage
+            configuration.  This method need not be provided by all payloads.
+        """
+        pass
+
     def release(self):
         """ Release any resources in use by this object, but do not do final
             cleanup.  This is useful for dealing with payload backends that do
@@ -275,7 +281,7 @@ class Payload(object):
         raise NotImplementedError()
 
     def languageGroups(self, lang):
-        raise NotImplementedError()
+        return []
 
     def groupDescription(self, groupid):
         raise NotImplementedError()
