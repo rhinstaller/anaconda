@@ -48,7 +48,7 @@ from pyanaconda.errors import *
 class LiveImagePayload(ImagePayload):
     """ A LivePayload copies the source image onto the target system. """
     def setup(self, storage):
-        super(LiveImagePayload, self).setup()
+        super(LiveImagePayload, self).setup(storage)
         if not stat.S_ISBLK(os.stat(self.image_file)[stat.ST_MODE]):
             raise PayloadSetupError("unable to find image")
 
