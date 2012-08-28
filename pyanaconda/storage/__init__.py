@@ -2991,8 +2991,6 @@ class DeviceFactory(object):
         # setContainerMembers for case of a partition
         self.member_list = None
 
-        self.size_func_kwargs = {}      # keyword args to pass to size function
-
         # choose a size set class for member partition allocation
         if raid_level is not None and raid_level.startswith("raid"):
             self.set_class = SameSizeSet
@@ -3105,17 +3103,13 @@ class LVMFactory(DeviceFactory):
     new_device_attr = "newLV"
     container_list_attr = "vgs"
 
-    def __init__(self, storage, size, disks, raid_level, encrypted):
-        super(LVMFactory, self).__init__(storage, size, disks, raid_level,
-                                         encrypted)
-        if raid_level in ("raid1", "raid10"):
-            self.size_func_kwargs["mirrored"] = True
-        if raid_level in ("raid0", "raid10"):
-            self.size_func_kwargs["striped"] = True
-
     @property
     def device_size(self):
-        return get_pv_space(self.size, len(self.disks), **self.size_func_kwargs)
+        if self.raid_level in ("raid1", "raid10"):
+            size_func_kwargs["mirrored"] = True
+        if self.raid_level in ("raid0", "raid10"):
+            size_func_kwargs["striped"] = True
+        return get_pv_space(self.size, len(self.disks), **size_func_kwargs)
 
     def container_size_func(self, container):
         return container.size - container.freeSpace
@@ -3146,11 +3140,6 @@ class MDFactory(DeviceFactory):
     new_container_attr = None
     new_device_attr = "newMDArray"
 
-    def __init__(self, storage, size, disks, raid_level, encrypted):
-        super(MDFactory, self).__init__(storage, size, disks, raid_level,
-                                        encrypted)
-        self.size_func_kwargs = {"level": raid_level}
-
     @property
     def container_list(self):
         return []
@@ -3158,7 +3147,7 @@ class MDFactory(DeviceFactory):
     @property
     def device_size(self):
         return get_member_space(self.size, len(self.disks),
-                                **self.size_func_kwargs)
+                                level=self.raid_level)
 
     def new_device(self, *args, **kwargs):
         kwargs["level"] = self.raid_level
