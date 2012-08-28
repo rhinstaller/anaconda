@@ -965,7 +965,11 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         if mountpoint.lower() == "swap":
             mountpoint = None
 
-        # TODO: validate the mountpoint for sanity and uniqueness
+        # TODO: validate the mountpoint for sanity
+        if mountpoint in self.__storage.mountpoints:
+            # FIXME: do this in the add dialog
+            log.error("ignoring request to create duplicate %s" % mountpoint)
+            return
 
         device_type = self.data.autopart.type
         if device_type == AUTOPART_TYPE_LVM and \
