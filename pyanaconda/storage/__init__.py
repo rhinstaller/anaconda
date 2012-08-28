@@ -1610,18 +1610,18 @@ class Storage(object):
 
     @property
     def packages(self):
-        pkgs = []
+        pkgs = set()
         if self.platform:
-            pkgs.extend(self.platform.packages)
+            pkgs.update(self.platform.packages)
 
         if self.bootloader:
-            pkgs.extend(self.bootloader.packages)
+            pkgs.update(self.bootloader.packages)
 
         for device in self.fsset.devices:
             # this takes care of device and filesystem packages
-            pkgs.extend(device.packages)
+            pkgs.update(device.packages)
 
-        return pkgs
+        return list(pkgs)
 
     def write(self):
         if not os.path.isdir("%s/etc" % ROOT_PATH):
