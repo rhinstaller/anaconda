@@ -432,6 +432,8 @@ def getDirSize(dir):
 	    curpath = '%s/%s' % (dir, f)
 	    sinfo = os.lstat(curpath)
             if stat.S_ISDIR(sinfo[stat.ST_MODE]):
+                if os.path.ismount(curpath):
+                    continue
                 if mydev == sinfo[stat.ST_DEV]:
                     dsize += getSubdirSize(curpath)
             elif stat.S_ISREG(sinfo[stat.ST_MODE]):
