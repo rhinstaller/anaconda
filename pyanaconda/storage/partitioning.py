@@ -813,10 +813,7 @@ def allocatePartitions(storage, disks, partitions, freespace):
 
         # obtain the set of candidate disks
         req_disks = []
-        if _part.disk:
-            # we have a already selected a disk for this request
-            req_disks = [_part.disk]
-        elif _part.req_disks:
+        if _part.req_disks:
             # use the requested disk set
             req_disks = _part.req_disks
         else:
