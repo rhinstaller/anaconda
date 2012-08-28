@@ -11,11 +11,6 @@ class LocaleinfoTest(mock.TestCase):
     def tearDown(self):
         self.tearDownModules()
 
-    def expandLangs_test(self):
-        from pyanaconda import localeinfo
-        exp = localeinfo.expandLangs("fr_FR.utf8@euro")
-        self.assertEqual(exp, ['fr_FR.utf8@euro', 'fr_FR', 'fr@euro', 'fr'])
-
     def get_test(self):
         from pyanaconda import localeinfo
 

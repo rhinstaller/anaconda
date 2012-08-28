@@ -54,30 +54,3 @@ def get(default):
     # Hard code this to prevent errors in the build environment.
     localeInfo['C'] = localeInfo[default]
     return localeInfo
-
-# Converts a single language into a "language search path". For example,
-# fr_FR.utf8@euro would become "fr_FR.utf8@euro fr_FR.utf8 fr_FR fr"
-def expandLangs(astring):
-    langs = [astring]
-    charset = None
-    base = None
-
-    # remove charset ...
-    if '.' in astring:
-        langs.append(string.split(astring, '.')[0])
-
-    if '@' in astring:
-        charset = string.split(astring, '@')[1]
-
-    if '_' in astring:
-        base = string.split(astring, '_')[0]
-
-        if charset:
-            langs.append("%s@%s" % (base, charset))
-
-        langs.append(base)
-    else:
-        langs.append(astring[:2])
-
-    return langs
-
