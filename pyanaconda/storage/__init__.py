@@ -2868,7 +2868,8 @@ def findExistingInstallations(devicetree):
 
     roots = []
     for device in devicetree.leaves:
-        if not device.format.linuxNative or not device.format.mountable:
+        if not device.format.linuxNative or not device.format.mountable or \
+           not device.controllable:
             continue
 
         try:
