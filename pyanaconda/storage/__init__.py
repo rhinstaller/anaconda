@@ -80,6 +80,8 @@ def storageInitialize(storage, ksdata, protected):
 
     # XXX I don't understand why I have to do this, but this is needed to
     #     populate the udev db
+    iutil.execWithRedirect("udevadm", ["control", "--property=ANACONDA=1"],
+                           stdout="/dev/tty5", stderr="/dev/tty5")
     udev_trigger(subsystem="block", action="change")
 
     # Before we set up the storage system, we need to know which disks to
