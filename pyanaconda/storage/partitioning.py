@@ -910,7 +910,8 @@ def allocatePartitions(storage, disks, partitions, freespace):
 
             if best and free != best:
                 update = True
-                if _part.req_grow:
+                allocated = new_partitions[:new_partitions.index(_part)+1]
+                if any([p.req_grow for p in allocated]):
                     log.debug("evaluating growth potential for new layout")
                     new_growth = 0
                     for disk_path in disklabels.keys():
