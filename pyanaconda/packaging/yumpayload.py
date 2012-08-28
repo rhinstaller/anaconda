@@ -886,6 +886,21 @@ reposdir=%s
             group = groups.return_group(groupid)
             return group.user_visible
 
+    def _groupHasInstallableMembers(self, groupid):
+        groups = self._yumGroups
+        if not groups:
+            return False
+
+        with _yum_lock:
+            if not groups.has_group(groupid):
+                return False
+
+            group = groups.return_group(groupid)
+            pkgs = group.mandatory_packages.keys() + group.default_packages.keys()
+            if pkgs:
+                return True
+            return False
+
     def _selectYumGroup(self, groupid, default=True, optional=False):
         # select the group in comps
         pkg_types = ['mandatory']
