@@ -31,7 +31,7 @@ from pyanaconda.ui.gui.spokes import StandaloneSpoke, NormalSpoke
 from pyanaconda.ui.gui.utils import enlightbox
 from pyanaconda.ui.gui.categories.localization import LocalizationCategory
 
-from pyanaconda.localization import Language, LOCALE_PREFERENCES
+from pyanaconda.localization import Language, LOCALE_PREFERENCES, expand_langs
 from pyanaconda.product import isFinal, productName, productVersion
 from pyanaconda import keyboard
 from pyanaconda import timezone
@@ -149,7 +149,7 @@ class LanguageMixIn(object):
 
     def _selectLanguage(self, store, language):
         itr = store.get_iter_first()
-        while itr and store[itr][2] != language:
+        while itr and store[itr][2] not in expand_langs(language):
             itr = store.iter_next(itr)
 
         # If we were provided with an unsupported language, just use the default.
