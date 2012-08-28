@@ -43,11 +43,19 @@ import logging
 log = logging.getLogger("anaconda")
 
 from pyanaconda.errors import *
-#from pyanaconda.progress import progress
+from pyanaconda import progress
 from pyanaconda.storage.size import Size
+
+import gettext
+_ = lambda x: gettext.ldgettext("anaconda", x)
 
 class LiveImagePayload(ImagePayload):
     """ A LivePayload copies the source image onto the target system. """
+    def preInstall(self, packages=None, groups=None):
+        """ Perform pre-installation tasks. """
+        super(LiveImagePayload, self).preInstall(packages=packages, groups=groups)
+        progress.send_message(_("Installing software"))
+
     def install(self):
         """ Install the payload. """
         cmd = "rsync"
