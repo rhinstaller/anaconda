@@ -280,6 +280,9 @@ def ksnet_to_ifcfg(net, filename=None):
     # ipv6 settings
     if net.noipv6:
         ifcfg['IPV6INIT'] = "no"
+    elif net.ipv6:
+        ifcfg['IPV6INIT'] = "yes"
+
     if net.ipv6 == 'dhcp':
         ifcfg['DHCPV6C'] = "yes"
         ifcfg['IPV6_AUTOCONF'] = "no"
