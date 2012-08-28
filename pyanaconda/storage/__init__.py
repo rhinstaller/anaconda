@@ -1463,15 +1463,6 @@ class Storage(object):
 
         # FIXME: put a check here for enough space on the filesystems. maybe?
 
-        # livecds have to have the rootfs type match up
-        if (root and
-            self.liveImage and
-            root.format.type != self.liveImage.format.type):
-            errors.append(_("Your / partition does not match the "
-                            "the live image you are installing from.  "
-                            "It must be formatted as %s.")
-                          % (self.liveImage.format.type,))
-
         for (mount, size) in checkSizes:
             if mount in filesystems and filesystems[mount].size < size:
                 warnings.append(_("Your %(mount)s partition is less than "

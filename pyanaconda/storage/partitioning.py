@@ -145,11 +145,6 @@ def _schedulePartitions(storage, disks):
             log.debug(stage1_device)
             continue
 
-        # This is a little unfortunate but let the backend dictate the rootfstype
-        # so that things like live installs can do the right thing
-        if request.mountpoint == "/" and storage.liveImage:
-            request.fstype = storage.liveImage.format.type
-
         if request.encrypted and storage.encryptedAutoPart:
             fmt_type = "luks"
             fmt_args = {"passphrase": storage.encryptionPassphrase,
@@ -237,15 +232,6 @@ def _scheduleVolumes(storage, devs):
                 request.fstype = "btrfs"
             else:
                 request.fstype = storage.defaultFSType
-
-        # This is a little unfortunate but let the backend dictate the rootfstype
-        # so that things like live installs can do the right thing
-        # XXX FIXME: yes, unfortunate. Disallow btrfs autopart on live install.
-        if request.mountpoint == "/" and storage.liveImage:
-            if btr:
-                raise PartitioningError("live install can't do btrfs autopart")
-
-            request.fstype = storage.liveImage.format.type
 
         kwargs = {"mountpoint": request.mountpoint,
                   "fmt_type": request.fstype}
