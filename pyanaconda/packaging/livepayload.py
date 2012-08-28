@@ -44,6 +44,7 @@ log = logging.getLogger("anaconda")
 
 from pyanaconda.errors import *
 #from pyanaconda.progress import progress
+from pyanaconda.storage.size import Size
 
 class LiveImagePayload(ImagePayload):
     """ A LivePayload copies the source image onto the target system. """
@@ -65,3 +66,7 @@ class LiveImagePayload(ImagePayload):
             exn = PayloadInstallError(err)
             if errorHandler.cb(exn) == ERROR_RAISE:
                 raise exn
+
+    @property
+    def spaceRequired(self):
+        return Size(bytes=iutil.getDirSize("/")*1024)
