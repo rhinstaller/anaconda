@@ -20,6 +20,7 @@
 import sys
 sys.path.append("..")
 import localeinfo
+import localization
 
 import gettext
 
@@ -27,7 +28,7 @@ localeInfo = localeinfo.get("en_US.UTF-8")
 names = {}
 for k in localeInfo.keys():
     found = False
-    for l in localeinfo.expandLangs(k):
+    for l in localization.expand_langs(k):
         try:
             f = open("../po/%s.gmo" %(l,))
         except (OSError, IOError):

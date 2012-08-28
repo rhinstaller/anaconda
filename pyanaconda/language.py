@@ -26,7 +26,7 @@ import locale
 
 import gettext
 from pyanaconda.constants import ROOT_PATH, DEFAULT_LANG
-import localeinfo
+import localization
 from simpleconfig import SimpleConfigFile
 
 import logging
@@ -144,7 +144,7 @@ class Language(object):
                      fr_CA -> ValueError
         """
         for key in self.localeInfo.keys():
-            if lang in localeinfo.expandLangs(key):
+            if lang in localization.expand_langs(key):
                 return key
 
         raise ValueError
@@ -162,7 +162,7 @@ class Language(object):
         return args
 
     def getCurrentLangSearchList(self):
-        return localeinfo.expandLangs(self.systemLang) + ['C']
+        return localization.expand_langs(self.systemLang) + ['C']
 
     def getDefaultTimeZone(self):
         try:

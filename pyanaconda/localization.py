@@ -138,6 +138,35 @@ def get_available_translations(domain=None, localedir=None):
 
         yield LocaleInfo(localedata)
 
+def expand_langs(astring):
+    """
+    Converts a single language into a "language search path". For example,
+    fr_FR.utf8@euro would become "fr_FR.utf8@euro fr_FR.utf8 fr_FR fr"
+
+    """
+
+    langs = [astring]
+    charset = None
+    base = None
+
+    # remove charset ...
+    if '.' in astring:
+        langs.append(astring.split('.')[0])
+
+    if '@' in astring:
+        charset = astring.split('@')[1]
+
+    if '_' in astring:
+        base = astring.split('_')[0]
+
+        if charset:
+            langs.append("%s@%s" % (base, charset))
+
+        langs.append(base)
+    else:
+        langs.append(astring[:2])
+
+    return langs
 
 class PreferredLocale(object):
 
