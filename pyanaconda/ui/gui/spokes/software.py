@@ -123,6 +123,10 @@ class SoftwareSelectionSpoke(NormalSpoke):
                 self.payload.baseRepo is not None)
 
     @property
+    def showable(self):
+        return not flags.livecdInstall
+
+    @property
     def status(self):
         from pyanaconda.kickstart import packagesSeen
         from pyanaconda.threads import threadMgr

@@ -31,6 +31,7 @@ import os.path
 
 from gi.repository import AnacondaWidgets, GLib, Gtk
 
+from pyanaconda.flags import flags
 from pyanaconda.image import opticalInstallMedia, potentialHdisoSources
 from pyanaconda.ui.gui import GUIObject, communication
 from pyanaconda.ui.gui.spokes import NormalSpoke
@@ -731,6 +732,10 @@ class SourceSpoke(NormalSpoke):
         # how others are set up.  We can use the signal handlers to handle
         # that condition here too.
         self.on_protocol_changed(self._protocolComboBox)
+
+    @property
+    def showable(self):
+        return not flags.livecdInstall
 
     def _mirror_active(self):
         return self._protocolComboBox.get_active_text().startswith("Closest")
