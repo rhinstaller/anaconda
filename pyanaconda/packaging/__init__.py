@@ -620,11 +620,10 @@ class ImagePayload(Payload):
     """ An ImagePayload installs an OS image to the target system. """
     def __init__(self, data):
         super(ImagePayload, self).__init__(data)
-        self.image_file = None
 
     def setup(self, storage):
-        if not self.image_file:
-            exn = PayloadSetupError("image file not set")
+        if not os.path.ismount("/run/initramfs/live"):
+            exn = PayloadSetupError("live image is not mounted")
             if errorHandler.cb(exn) == ERROR_RAISE:
                 raise exn
 
