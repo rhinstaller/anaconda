@@ -415,6 +415,10 @@ class StorageSpoke(NormalSpoke, StorageChecker):
 
         self.disks = getDisks(self.storage.devicetree)
 
+        # if there's only one disk, select it by default
+        if len(self.disks) == 1 and not self.selected_disks:
+            self.data.ignoredisk.onlyuse = [self.disks[0].name]
+
         with gdk_threaded():
             # properties: kind, description, capacity, os, popup-info
             for disk in self.disks:
