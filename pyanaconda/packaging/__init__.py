@@ -624,14 +624,7 @@ class Payload(object):
 
 class ImagePayload(Payload):
     """ An ImagePayload installs an OS image to the target system. """
-    def __init__(self, data):
-        super(ImagePayload, self).__init__(data)
-
-    def setup(self, storage):
-        if not os.path.ismount("/run/initramfs/live"):
-            exn = PayloadSetupError("live image is not mounted")
-            if errorHandler.cb(exn) == ERROR_RAISE:
-                raise exn
+    pass
 
 class ArchivePayload(ImagePayload):
     """ An ArchivePayload unpacks source archives onto the target system. """

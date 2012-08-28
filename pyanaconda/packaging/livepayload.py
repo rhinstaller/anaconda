@@ -51,6 +51,12 @@ _ = lambda x: gettext.ldgettext("anaconda", x)
 
 class LiveImagePayload(ImagePayload):
     """ A LivePayload copies the source image onto the target system. """
+    def setup(self, storage):
+        if not os.path.ismount("/run/initramfs/live"):
+            exn = PayloadSetupError("live image is not mounted")
+            if errorHandler.cb(exn) == ERROR_RAISE:
+                raise exn
+
     def preInstall(self, packages=None, groups=None):
         """ Perform pre-installation tasks. """
         super(LiveImagePayload, self).preInstall(packages=packages, groups=groups)
