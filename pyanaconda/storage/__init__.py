@@ -1877,6 +1877,9 @@ class Storage(object):
                                                 container_size))
         size_set = factory.set_class(members, container_size)
         self.size_sets.append(size_set)
+        for member in members:
+            member.req_max_size = size_set.size
+
         self.allocatePartitions()
         return members
 
