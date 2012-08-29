@@ -17,6 +17,7 @@
 # Red Hat, Inc.
 #
 # Red Hat Author(s): Chris Lumens <clumens@redhat.com>
+#                    David Lehman <dlehman@redhat.com>
 #
 
 # TODO:
@@ -115,11 +116,17 @@ class AddDialog(GUIObject):
     mainWidgetName = "addDialog"
     uiFile = "spokes/custom.glade"
 
+    invalid_mountpoint_msg = _("That mount point is invalid. "
+                               "Try something else?")
+    mountpoint_in_use_msg = _("That mount point is already in use. "
+                              "Try something else?")
+
     def __init__(self, *args, **kwargs):
         self.mountpoints = kwargs.pop("mountpoints", [])
         GUIObject.__init__(self, *args, **kwargs)
         self.size = Size(bytes=0)
         self.mountpoint = ""
+        self._error = False
 
         # sure, add whatever you want to this list. this is just a start.
         paths = ["/", "/boot", "/home", "/usr", "/var", "swap"]
@@ -132,9 +139,41 @@ class AddDialog(GUIObject):
         completion.set_text_column(0)
         completion.set_popup_completion(True)
 
-    def on_add_confirm_clicked(self, button, *args):
-        self.mountpoint = self.builder.get_object("addMountPointEntry").get_text()
+    def validate_mountpoint(self):
+        mountpoint = self.builder.get_object("addMountPointEntry").get_text()
+        warning_label = self.builder.get_object("mountPointWarningLabel")
+        valid = True
+        if mountpoint in self.mountpoints:
+            warning_label.set_text(self.mountpoint_in_use_msg)
+            self._warningBox.show_all()
+            valid = False
+        elif not mountpoint:
+            self._warningBox.hide()
+            valid = False
+        elif (mountpoint.lower() not in ("swap", "biosboot", "prepboot") and
+              ((len(mountpoint) > 1 and mountpoint.endswith("/")) or
+               not mountpoint.startswith("/") or
+               " " in mountpoint or
+               re.search(r'/\.*/', mountpoint) or
+               re.search(r'/\.+$', mountpoint))):
+            # - does not end with '/' unless mountpoint _is_ '/'
+            # - starts with '/' except for "swap", &c
+            # - does not contain spaces
+            # - does not contain pairs of '/' enclosing zero or more '.'
+            # - does not end with '/' followed by one or more '.'
+            warning_label.set_text(self.invalid_mountpoint_msg)
+            self._warningBox.show_all()
+            valid = False
 
+        self._error = not valid
+        return valid
+
+    def on_add_confirm_clicked(self, button, *args):
+        self._error = False
+        if not self.validate_mountpoint():
+            return
+
+        self.mountpoint = self.builder.get_object("addMountPointEntry").get_text()
         size_text = self.builder.get_object("sizeEntry").get_text().strip()
 
         # if no unit was specified, default to MB
@@ -150,9 +189,14 @@ class AddDialog(GUIObject):
 
     def refresh(self):
         GUIObject.refresh(self)
+        self._warningBox = self.builder.get_object("addLabelWarningBox")
+        self._warningBox.hide()
 
     def run(self):
-        return self.window.run()
+        while True:
+            rc = self.window.run()
+            if not self._error:
+                return rc
 
 class ConfirmDeleteDialog(GUIObject):
     builderObjects = ["confirmDeleteDialog"]
@@ -962,12 +1006,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
         if mountpoint.lower() == "swap":
             mountpoint = None
-
-        # TODO: validate the mountpoint for sanity
-        if mountpoint in self.__storage.mountpoints:
-            # FIXME: do this in the add dialog
-            log.error("ignoring request to create duplicate %s" % mountpoint)
-            return
 
         device_type = self.data.autopart.type
         if device_type == AUTOPART_TYPE_LVM and \

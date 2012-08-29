@@ -142,6 +142,7 @@ after creating the mount point below.</property>
               <object class="GtkEntry" id="addMountPointEntry">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
+                <property name="tooltip_text" translatable="yes">eg: "/", "/home", "swap" (minus the quotation marks)</property>
                 <property name="invisible_char">●</property>
                 <property name="completion">mountPointCompletion</property>
               </object>
@@ -155,7 +156,6 @@ after creating the mount point below.</property>
             <child>
               <object class="GtkBox" id="addLabelWarningBox">
                 <property name="can_focus">False</property>
-                <property name="no_show_all">True</property>
                 <property name="valign">start</property>
                 <property name="spacing">6</property>
                 <child>
@@ -172,7 +172,7 @@ after creating the mount point below.</property>
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkLabel" id="label13">
+                  <object class="GtkLabel" id="mountPointWarningLabel">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <property name="label" translatable="yes">That mount point is already in
