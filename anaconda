@@ -620,8 +620,6 @@ def prompt_for_ssh():
 if __name__ == "__main__":
     print "Starting installer, one moment..."
 
-    setupPythonPath()
-
     # Allow a file to be loaded as early as possible
     try:
         import updates_disk_hook
@@ -630,6 +628,7 @@ if __name__ == "__main__":
 
     # this handles setting up updates for pypackages to minimize the set needed
     setupPythonUpdates()
+    setupPythonPath()
 
     # do this early so we can set flags before initializing logging
     from pyanaconda.flags import flags
