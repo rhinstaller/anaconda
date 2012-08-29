@@ -1,19 +1,20 @@
 Fedora 18
 =========
-+ Add "Add custom repo..." dialog.
 - Add simple keyboard layout selection to welcome language screen.
 - Can the entry next to "Closest Mirror" be filled in with something to make it look less weird?
 - Disk tug-o-war needs to be written.
 - Do the really slow redraws happen on real hardware, or just virt?
+- Make "Add custom repo..." dialog useful.
 - Media install selectors take up all horizontal space on source spoke.
 - Network spoke needs apply method and to look at ksdata when setting itself up.
 - NetworkStandaloneSpoke needs completed method and to look at ksdata when setting itself up.
 - Need to sort out checking of storage config against package set space needs.
 - Reword "Continue" button on Install Destination confirmation to give a better indicator of
   where you go next.
-- The setting on the welcome screen does not get reflected on the language and keyboard spokes.
 - Something causes the up and down arrows to resize the anaconda window.
 - Wall of anaconda needs to be taken into account.
+- When you display a spoke, the hub needs to be hidden so you can't alt-tab.  This is especially
+  bad on liveinst.
 - Why does the first hub jump left a little bit the first time you use the keyboard to navigate?
 - In custom storage, it'd be nice to be able to say something like "Use this
   previous installation as the starting storage configuration for the system
