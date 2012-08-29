@@ -295,6 +295,63 @@ update-desktop-database &> /dev/null || :
 /usr/lib/dracut/modules.d/80%{name}/*
 
 %changelog
+* Wed Aug 29 2012 Chris Lumens <clumens@redhat.com> - 18.6.2-1
+- We now BuildRequires python-babel as well. (clumens)
+- Update TODO list. (clumens)
+- Only show groups in the UI if they have members that install by default
+  (default or manadtory packages). (notting)
+- Symlink /run/initramfs/inst.{updates,product} to /tmp (jkeating)
+- Use shutil.move for replacing old config with the new one (vpodzime)
+- Honor user's choice on NTP (ON/OFF) (vpodzime)
+- Don't crash if someone gives us bad timezone (vpodzime)
+- Use expand_langs to find matching language (LanguageSpoke) (vpodzime)
+- Move expandLangs to localization module (vpodzime)
+- Use Gtk.main_level() to check if main loop is already running (vpodzime)
+- Move setup from ImagePayload to LiveImagePayload. (clumens)
+- Avoid duplicates in the packages property. (clumens)
+- Set a progress message when liveinst starts installing software. (clumens)
+- Fix default definitions of some payload class methods. (clumens)
+- Add a spaceRequired property for LiveImagePayload. (clumens)
+- getDirSize should stay on a single filesystem, not look at submounts.
+  (clumens)
+- Don't look for existing installations on live devices. (clumens)
+- We don't need image_file in the live payload. (clumens)
+- Now that we're using rsync, the livecd and rootfs do not have to match.
+  (clumens)
+- Disable software selection and source spokes on live installs. (clumens)
+- Fix args to LiveImagePayload.setup (#852272). (clumens)
+- require anaconda-widgets (bcl)
+- Handle already mounted optical devices (#851274) (jkeating)
+- Return full device object of selected optical drive (jkeating)
+- Add a method to determine if device is mounted (jkeating)
+- anaconda-cleanup: fix DeviceTree args (bcl)
+- Unset install_device if repo setup fails (jkeating)
+- _peopleRepositoriesFilter -> _peopleRepositoriesFilterEntry (#852182).
+  (clumens)
+- on_*_changed callbacks take one argument, not two. (clumens)
+- Use the correct icon size constant. (clumens)
+- remove dead code (setMethodstr, expandFTPMethod) (wwoods)
+- parse-kickstart: update some TODO comments (wwoods)
+- parse-kickstart: simplify logging (wwoods)
+- enable fastestmirror yum plugin (#849797) (bcl)
+- Add mounts before swaps so the default selection is a mount. (dlehman)
+- Use MB if a new mountpoint size does not include a unit spec. (#850839)
+  (dlehman)
+- Correctly handle partitions with sizes smaller than 500MB. (#850839)
+  (dlehman)
+- Don't include removed devices in Storage.unusedDevices. (dlehman)
+- Handle SameSizeSet growth trimming when all members are too large. (dlehman)
+- Add several missing yum lock aqcuisitions. (#851212) (dlehman)
+- Offer completions for new mountpoints. (dlehman)
+- Add old_source checking for closest mirror and url methods too (#851336).
+  (clumens)
+- _bootloaderClass -> bootloaderClass for some platforms (#848173). (clumens)
+- Make the storage info bar clickable to reveal error messages. (clumens)
+- Move the software-specific error message out of the DetailedErrorDialog
+  class. (clumens)
+- Add a gui password spoke (jkeating)
+- Put traceback reports on a diet. (clumens)
+
 * Wed Aug 22 2012 Chris Lumens <clumens@redhat.com> - 18.6.1-1
 - Do another _main_window -> main_window change. (clumens)
 - Mark the storage category title for translation. (clumens)
