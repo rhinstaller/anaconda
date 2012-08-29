@@ -57,6 +57,12 @@ def write_timezone_config(timezone, root):
         log.error("Timezone to be linked (%s) doesn't exist" % rooted_tz_file)
     else:
         try:
+            # os.symlink fails if link_path exists, so try to remove it first
+            os.remove(link_path)
+        except OSError:
+            pass
+
+        try:
             os.symlink(relative_path, link_path)
         except OSError as oserr:
             log.error("Error when symlinking timezone (from %s): %s" % \
