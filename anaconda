@@ -144,7 +144,8 @@ def setupPythonUpdates():
     # from /run/install/ -- JLK
     for dirname in ("updates", "product"):
         if os.path.exists("/run/install/%s" % dirname):
-            os.symlink("/run/install/%s", "/tmp/%s" % (dirname, dirname))
+            os.symlink("/run/install/%s" % dirname,
+                       "/tmp/%s" % dirname)
 
     if not os.path.exists("/tmp/updates"):
         return
