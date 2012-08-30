@@ -28,6 +28,7 @@ from errors import *
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
+P_ = lambda x, y, z: gettext.ldngettext("anaconda", x, y, z)
 
 # Decimal prefixes for different size increments, along with the name
 # and accepted abbreviation for the prefix.  These prefixes are all

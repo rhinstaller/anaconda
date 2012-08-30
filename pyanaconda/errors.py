@@ -133,7 +133,7 @@ class ErrorHandler(object):
         devs = kwargs.pop("devices")
         message = _("The following file systems for your Linux system were "
                     "not unmounted cleanly.  Would you like to mount them "
-                    "anyway?\n%s") % "\n".join(devices)
+                    "anyway?\n%s") % "\n".join(devs)
         if self.ui.showYesNoQuestion(message):
             return ERROR_CONTINUE
         else:
