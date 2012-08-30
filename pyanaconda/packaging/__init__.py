@@ -43,6 +43,7 @@ from pyanaconda.constants import *
 from pyanaconda.flags import flags
 
 from pyanaconda import iutil
+from pyanaconda import isys
 from pyanaconda.iutil import ProxyString, ProxyStringError
 
 from pykickstart.parser import Group
@@ -51,6 +52,7 @@ import logging
 log = logging.getLogger("packaging")
 
 from pyanaconda.errors import *
+from pyanaconda.storage.errors import StorageError
 #from pyanaconda.progress import progress
 
 from pyanaconda.product import productName, productVersion
@@ -143,6 +145,7 @@ class Payload(object):
 
     def setup(self, storage):
         """ Do any payload-specific setup. """
+        self.storage = storage
         raise NotImplementedError()
 
     def preStorage(self):
@@ -373,11 +376,11 @@ class Payload(object):
         if not self._kernelVersionList:
             import glob
             try:
-                from yum.rpmUtils.miscutils import compareVerOnly
+                import yum
             except ImportError:
                 cmpfunc = cmp
             else:
-                cmpfunc = compareVerOnly
+                cmpfunc = yum.rpmUtils.miscutils.compareVerOnly
 
             files = glob.glob(ROOT_PATH + "/boot/vmlinuz-*")
             files.extend(glob.glob(ROOT_PATH + "/boot/efi/EFI/redhat/vmlinuz-*"))
@@ -634,16 +637,15 @@ class PackagePayload(Payload):
     """ A PackagePayload installs a set of packages onto the target system. """
     @property
     def kernelPackages(self):
-        from pyanaconda.isys import isPaeAvailable
         kernels = ["kernel"]
 
-        if isPaeAvailable():
+        if isys.isPaeAvailable():
             kernels.insert(0, "kernel-PAE")
 
         # most ARM systems use platform-specific kernels
         if iutil.isARM():
-            if anaconda.platform.armMachine is not None:
-                kernels = ["kernel-%s" % anaconda.platform.armMachine]
+            if self.storage.platform.armMachine is not None:
+                kernels = ["kernel-%s" % self.storage.platform.armMachine]
 
         return kernels
 
