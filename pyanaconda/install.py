@@ -86,6 +86,7 @@ def doInstall(storage, payload, ksdata, instClass):
     ksdata.services.execute(storage, ksdata, instClass)
     ksdata.keyboard.execute(storage, ksdata, instClass)
     ksdata.timezone.execute(storage, ksdata, instClass)
+    ksdata.lang.execute(storage, ksdata, instClass)
 
     writeNetworkConf(storage, ksdata, instClass)
 

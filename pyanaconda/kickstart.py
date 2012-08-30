@@ -50,6 +50,7 @@ from storage.devices import *
 from pyanaconda import keyboard
 from pyanaconda import ntp
 from pyanaconda import timezone
+from pyanaconda import localization
 from pyanaconda.simpleconfig import SimpleConfigFile
 
 from pykickstart.base import KickstartCommand
@@ -534,6 +535,10 @@ class IscsiName(commands.iscsiname.FC6_IscsiName):
 
         storage.iscsi.iscsi().initiator = self.iscsiname
         return retval
+
+class Lang(commands.lang.FC3_Lang):
+    def execute(self, *args, **kwargs):
+        localization.write_language_configuration(self, ROOT_PATH)
 
 class LogVol(commands.logvol.F17_LogVol):
     def execute(self, storage, ksdata, instClass):
@@ -1380,6 +1385,7 @@ commandMap = {
         "iscsi": Iscsi,
         "iscsiname": IscsiName,
         "keyboard": Keyboard,
+        "language": Lang,
         "logging": Logging,
         "logvol": LogVol,
         "multipath": MultiPath,

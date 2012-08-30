@@ -30,6 +30,13 @@ import babel
 
 LOCALE_PREFERENCES = {}
 
+SYSCONF_I18N_FILE_PATH = "/etc/sysconfig/i18n"
+LOCALE_CONF_FILE_PATH = "/etc/locale.conf"
+
+class LocalizationConfigError(Exception):
+    """Exception class for localization configuration related problems"""
+
+    pass
 
 class LocaleInfo(object):
 
@@ -167,6 +174,34 @@ def expand_langs(astring):
         langs.append(astring[:2])
 
     return langs
+
+def write_language_configuration(lang, root):
+    """
+    Write language configuration to the $root/etc/sysconfig/i18n and the
+    $root/etc/locale.conf files.
+
+    @param lang: ksdata.lang object
+    @param root: path to the root of the installed system
+
+    """
+
+    try:
+        fpath = os.path.normpath(root + SYSCONF_I18N_FILE_PATH)
+        with open(fpath, "w") as fobj:
+            fobj.write('LANG="%s"\n' % lang.lang)
+
+    except IOError as ioerr:
+        msg = "Cannot write language configuration file: %s" % ioerr.strerror
+        raise LocalizationConfigError(msg)
+
+    try:
+        fpath = os.path.normpath(root + LOCALE_CONF_FILE_PATH)
+        with open(fpath, "w") as fobj:
+            fobj.write('LANG="%s"\n' % lang.lang)
+
+    except IOError as ioerr:
+        msg = "Cannot write language configuration file: %s" % ioerr.strerror
+        raise LocalizationConfigError(msg)
 
 class PreferredLocale(object):
 

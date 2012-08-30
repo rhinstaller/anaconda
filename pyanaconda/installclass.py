@@ -25,7 +25,6 @@ from distutils.sysconfig import get_python_lib
 import os, sys, iutil
 import isys
 import string
-import language
 import imputil
 import types
 

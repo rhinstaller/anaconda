@@ -56,7 +56,6 @@ class Anaconda(object):
         self.firewall = firewall.Firewall()
         self.id = None
         self._instClass = None
-        self._instLanguage = None
         self._intf = None
         self.isHeadless = False
         self.ksdata = None
@@ -108,14 +107,6 @@ class Anaconda(object):
             self._instClass = DefaultInstall()
 
         return self._instClass
-
-    @property
-    def instLanguage(self):
-        if not self._instLanguage:
-            import language
-            self._instLanguage = language.Language(self.displayMode)
-
-        return self._instLanguage
 
     def _getInterface(self):
         return self._intf
@@ -240,7 +231,6 @@ class Anaconda(object):
     def write(self):
         import network
         self.writeXdriver()
-        self.instLanguage.write()
 
         network.write_sysconfig_network()
         network.disableIPV6()
