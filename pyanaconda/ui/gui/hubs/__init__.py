@@ -94,6 +94,7 @@ class Hub(GUIObject, common.Hub):
         action.window.set_beta(self.window.get_beta())
         action.window.set_property("distribution", self.window.get_property("distribution"))
 
+        action.window.set_transient_for(self.window)
         action.window.show_all()
 
         # Start a recursive main loop for this spoke, which will prevent
@@ -101,6 +102,7 @@ class Hub(GUIObject, common.Hub):
         # prevent the user from switching away.  It's up to the spoke's back
         # button handler to kill its own layer of main loop.
         Gtk.main()
+        action.window.set_transient_for(None)
 
         if not action.skipTo or (action.skipTo and action.applyOnSkip):
             action.apply()
