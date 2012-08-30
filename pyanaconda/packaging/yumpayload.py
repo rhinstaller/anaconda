@@ -112,12 +112,10 @@ class YumPayload(PackagePayload):
         """ Reset this instance to its initial (unconfigured) state. """
         from pyanaconda.storage.size import Size
 
-        """
-            cdrom: install_device.teardown (INSTALL_TREE)
-            hd: umount INSTALL_TREE, install_device.teardown (ISO_DIR)
-            nfs: umount INSTALL_TREE
-            nfsiso: umount INSTALL_TREE, umount ISO_DIR
-        """
+        # cdrom: install_device.teardown (INSTALL_TREE)
+        # hd: umount INSTALL_TREE, install_device.teardown (ISO_DIR)
+        # nfs: umount INSTALL_TREE
+        # nfsiso: umount INSTALL_TREE, umount ISO_DIR
         if os.path.ismount(INSTALL_TREE) and not flags.testing:
             if self.install_device and \
                get_mount_device(INSTALL_TREE) == self.install_device.path:
@@ -272,7 +270,7 @@ reposdir=%s
                             f.write("proxy=%s\n" % (proxy.noauth_url,))
                             if proxy.username:
                                 f.write("proxy_username=%s\n" % (proxy.username,))
-                            if proxy_password:
+                            if proxy.password:
                                 f.write("proxy_password=%s\n" % (proxy.password,))
                         except ProxyStringError as e:
                             log.error("Failed to parse proxy for _writeInstallConfig %s: %s" \
@@ -405,20 +403,18 @@ reposdir=%s
 
         # now disable and/or remove any repos that don't make sense
         for repo in self._yum.repos.repos.values():
-            """ Rules for which repos to enable/disable/remove
-
-                - always remove
-                    - source, debuginfo
-                - disable if isFinal
-                    - rawhide, development
-                - disable all other built-in repos if rawhide is enabled
-                - remove any repo when not isFinal and repo not enabled
-                - if a base repo is defined, disable any repo not defined by
-                  the user that is not the base repo
-
-                FIXME: updates needs special handling
-
-            """
+            # Rules for which repos to enable/disable/remove
+            #
+            # - always remove
+            #     - source, debuginfo
+            # - disable if isFinal
+            #     - rawhide, development
+            # - disable all other built-in repos if rawhide is enabled
+            # - remove any repo when not isFinal and repo not enabled
+            # - if a base repo is defined, disable any repo not defined by
+            #   the user that is not the base repo
+            #
+            # FIXME: updates needs special handling
             if repo.id in self.addOns:
                 continue
 
@@ -685,8 +681,8 @@ reposdir=%s
     def addRepo(self, newrepo):
         """ Add a ksdata repo. """
         log.debug("adding new repo %s" % newrepo.name)
-        self._addYumRepo(newrepo)   # FIXME: handle MetadataError
-        super(YumRepo, self).addRepo(newrepo)
+        self._addYumRepo(newrepo.name, newrepo.baseurl, newrepo.mirrorlist, newrepo.proxy)   # FIXME: handle MetadataError
+        super(YumPayload, self).addRepo(newrepo)
 
     def _removeYumRepo(self, repo_id):
         if repo_id in self.repos:
@@ -1137,7 +1133,7 @@ reposdir=%s
                     rpm.addMacro("__file_context_path", f)
                     break
         else:
-            rpm.addMacros("__file_context_path", "%{nil}")
+            rpm.addMacro("__file_context_path", "%{nil}")
 
     def install(self):
         """ Install the payload. """
@@ -1329,6 +1325,11 @@ class RPMCallback(object):
                     #     obj.url = 'http://foo.com/stuff'
                     checkfunc = (self._yum.verifyPkg, (txmbr.po, 1), {})
                     package_path = repo.getPackage(txmbr.po, checkfunc=checkfunc)
+                except URLGrabError as e:
+                    log.error("URLGrabError: %s" % (e,))
+                    exn = PayloadInstallError("failed to get package")
+                    if errorHandler.cb(exn, txmbr.po) == ERROR_RAISE:
+                        raise exn
                 except (yum.Errors.NoMoreMirrorsRepoError, IOError):
                     if os.path.exists(txmbr.po.localPkg()):
                         os.unlink(txmbr.po.localPkg())
@@ -1339,11 +1340,6 @@ class RPMCallback(object):
                         raise exn
                 except yum.Errors.RepoError:
                     continue
-                except URLGrabError as e:
-                    log.error("URLGrabError: %s" % (e,))
-                    exn = PayloadInstallError("failed to get package")
-                    if errorHandler.cb(exn, txmbr.po) == ERROR_RAISE:
-                        raise exn
 
                 self.package_file = open(package_path)
 
