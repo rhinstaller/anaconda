@@ -19,8 +19,7 @@
 
 SUBDIRS = command-stubs icons liveinst pixmaps systemd post-scripts
 
-EXTRA_DIST = lang-table
-CLEANFILES = *~ lang-names 
+CLEANFILES = *~
 
 ksdir                 = $(datadir)/$(PACKAGE_NAME)
 dist_ks_DATA          = interactive-defaults.ks
@@ -28,14 +27,7 @@ dist_ks_DATA          = interactive-defaults.ks
 udevdir               = /lib/udev/rules.d
 dist_udev_DATA        = 70-anaconda.rules
 
-langdir               = $(datadir)/$(PACKAGE_NAME)
-lang_DATA             = lang-names
-dist_lang_DATA        = lang-table
-
 tmuxdir               = $(datadir)/$(PACKAGE_NAME)
 dist_tmux_DATA        = tmux.conf
 
 MAINTAINERCLEANFILES = Makefile.in
-
-lang-names: lang-table
-	PYTHONPATH="$(top_srcdir)/pyanaconda" $(PYTHON) ../scripts/getlangnames.py > lang-names
