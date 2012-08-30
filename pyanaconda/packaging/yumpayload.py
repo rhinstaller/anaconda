@@ -205,6 +205,9 @@ reposdir=%s
         if flags.noverifyssl:
             buf += "sslverify=0\n"
 
+        if self.data.packages.multiLib:
+            buf += "multilib_policy=all\n"
+
         if self.data.method.proxy:
             try:
                 proxy = ProxyString(self.data.method.proxy)
@@ -1214,6 +1217,37 @@ reposdir=%s
                 log.info("==== end rpm scriptlet logs ====")
                 os.unlink(script_log.name)
 
+    def writeMultiLibConfig(self):
+        if not self.data.packages.multiLib:
+            return
+
+        # write out the yum config with the new multilib_policy value
+        # FIXME: switch to using yum-config-manager once it stops expanding
+        #        all yumvars and writing out the expanded pairs to the conf
+        yb = yum.YumBase()
+        yum_conf_path = "/etc/yum.conf"
+        yb.preconf.fn = ROOT_PATH + yum_conf_path
+        yb.conf.multilib_policy = "all"
+
+        # this will appear in yum.conf, which is silly
+        yb.conf.config_file_path = yum_conf_path
+
+        # hack around yum having expanded $basearch in the cachedir value
+        cachedir = yb.conf.cachedir.replace("/%s/" % yb.arch.basearch,
+                                            "/$basearch/")
+        yb.conf.cachedir = cachedir
+        yum_conf = ROOT_PATH + yum_conf_path
+        if os.path.exists(yum_conf):
+            try:
+                os.rename(yum_conf, yum_conf + ".anacbak")
+            except OSError as e:
+                log.error("failed to back up yum.conf: %s" % e)
+
+        try:
+            yb.conf.write(open(yum_conf, "w"))
+        except Exception as e:
+            log.error("failed to write out yum.conf: %s" % e)
+
     def postInstall(self):
         """ Perform post-installation tasks. """
         self._yum.close()
@@ -1234,6 +1268,8 @@ reposdir=%s
         # TODO: on preupgrade, remove the preupgrade dir
 
         self._removeTxSaveFile()
+
+        self.writeMultiLibConfig()
 
         super(YumPayload, self).postInstall()
 
