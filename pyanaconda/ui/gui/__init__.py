@@ -171,6 +171,8 @@ class GraphicalUserInterface(UserInterface):
             sys.exit(0)
             return
 
+        ndx = 0
+
         # If the current action wants us to jump to an arbitrary point ahead,
         # look for where that is now.
         if self._actions[0].skipTo:

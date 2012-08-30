@@ -299,9 +299,9 @@ def doRescue(rescue_mount, ksdata, platform):
     if root:
         try:
             # TODO: add a callback to warn about dirty filesystems
-            rc = mountExistingSystem(sto.fsset, root.device,
-                                     allowDirty = True,
-                                     readOnly = readOnly)
+            mountExistingSystem(sto.fsset, root.device,
+                                allowDirty = True,
+                                readOnly = readOnly)
 
             if not flags.imageInstall:
                 msg = _("The system will reboot automatically when you exit "
