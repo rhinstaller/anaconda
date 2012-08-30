@@ -26,6 +26,7 @@ import locale
 
 import gettext
 from pyanaconda.constants import ROOT_PATH, DEFAULT_LANG
+import localeinfo
 import localization
 from simpleconfig import SimpleConfigFile
 
