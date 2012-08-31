@@ -207,7 +207,7 @@ class StorageSpoke(NormalTUISpoke):
             self._update_disk_list(self.disks[number -1])
             return None
 
-        except (ValueError, KeyError):
+        except (ValueError, KeyError, IndexError):
             return key
 
     def apply(self):
@@ -345,5 +345,5 @@ class AutoPartSpoke(NormalTUISpoke):
             self.close()
             return False
 
-        except (ValueError, KeyError):
+        except (ValueError, KeyError, IndexError):
             return key
