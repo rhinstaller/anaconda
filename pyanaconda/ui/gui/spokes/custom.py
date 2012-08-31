@@ -132,9 +132,6 @@ class AddDialog(GUIObject):
         completion.set_text_column(0)
         completion.set_popup_completion(True)
 
-    def on_add_cancel_clicked(self, button, *args):
-        self.window.destroy()
-
     def on_add_confirm_clicked(self, button, *args):
         self.mountpoint = self.builder.get_object("addMountPointEntry").get_text()
 
@@ -948,6 +945,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
             if rc != 1:
                 # user cancel
+                dialog.window.destroy()
                 return
 
         # create a device of the default type, using any disks, with an
