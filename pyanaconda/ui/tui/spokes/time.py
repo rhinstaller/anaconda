@@ -99,7 +99,7 @@ class TimeZoneSpoke(NormalTUISpoke):
                 else:
                     self.app.switch_screen(self, self._regions[keyid])
             return True
-        except ValueError:
+        except (ValueError, IndexError):
             pass
 
         if key.lower() in self._lower_zones:
