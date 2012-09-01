@@ -38,10 +38,11 @@ MAKING A RELEASE
 ----------------
 
 git clean -d -x -f
-./autogen.sh && ./configure
+./autogen.sh && ./configure --disable-static \
+--enable-introspection --enable-gtk-doc
 make bumpver                      # tx pull by dependent po-pull target
 git commit -a -m "New version."   # DO NOT run 'git clean -d -x -f' after
-make release                      # signed tag happens after dist now
+make && make release              # signed tag happens after dist now
 
 The process here is mostly the same.  I do not recommend that you run
 git clean between 'make bumpver' and 'make release'.  The reason is you
