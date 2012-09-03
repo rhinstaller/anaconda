@@ -558,7 +558,7 @@ def setupDisplay(anaconda, opts):
     anaconda.initInterface()
 
     # setup layouts
-    if anaconda.ksdata.keyboard.layouts_list:
+    if anaconda.displayMode == 'g' and anaconda.ksdata.keyboard.layouts_list:
         from pyanaconda.keyboard import XklWrapper, XklWrapperError
 
         layouts = anaconda.ksdata.keyboard.layouts_list
