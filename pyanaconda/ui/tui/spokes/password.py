@@ -37,12 +37,12 @@ class PasswordSpoke(NormalTUISpoke):
 
     @property
     def completed(self):
-        return self._password is not None
+        return True
 
     @property
     def status(self):
-        if self._password is None:
-            return _("Password is not set.")
+        if not self.data.rootpw.password:
+            return _("Root account disabled.")
         else:
             return _("Password is set.")
 
