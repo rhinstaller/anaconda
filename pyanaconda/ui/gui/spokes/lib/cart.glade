@@ -12,6 +12,8 @@
       <column type="gchararray"/>
       <!-- column-name id -->
       <column type="gchararray"/>
+      <!-- column-name unique -->
+      <column type="gint"/>
     </columns>
   </object>
   <object class="GtkDialog" id="selected_disks_dialog">

@@ -49,7 +49,8 @@ class SelectedDisksDialog(GUIObject):
             self._store.append([disk.description,
                                 size_str(disk.size),
                                 size_str(free[disk.name][0]),
-                                str(disks.index(disk))])
+                                str(disks.index(disk)),
+                                disk.id])
         self.disks = disks[:]
         self._update_summary()
 
@@ -110,8 +111,15 @@ class SelectedDisksDialog(GUIObject):
         #    self._store.remove(itr)
         model, itr = self._selection.get_selected()
         if itr:
-            idx = int(model.get_value(itr, 3))
-            disk = self.disks[idx]
+            disk = None
+            for d in self.disks:
+                if d.id == self._store[itr][4]:
+                    disk = d
+                    break
+
+            if not disk:
+                return
+
             self._store.remove(itr)
             self.disks.remove(disk)
             self._update_summary()
