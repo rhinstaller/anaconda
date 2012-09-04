@@ -70,3 +70,4 @@ class PasswordSpoke(NormalTUISpoke):
     def apply(self):
         self.data.rootpw.password = self._password
         self.data.rootpw.isCrypted = False
+        self.data.rootpw.lock = False
