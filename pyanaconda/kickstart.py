@@ -849,7 +849,7 @@ class DmRaid(commands.dmraid.FC6_DmRaid):
     def parse(self, args):
         raise NotImplementedError("The dmraid kickstart command is not currently supported")
 
-class Partition(commands.partition.F17_Partition):
+class Partition(commands.partition.F18_Partition):
     def execute(self, storage, ksdata, instClass):
         for p in self.partitions:
             p.execute(storage, ksdata, instClass)
