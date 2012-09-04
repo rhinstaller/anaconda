@@ -117,7 +117,8 @@ def write_layouts_config(keyboard, root):
     xconf_dir = os.path.normpath(root + "/etc/X11/xorg.conf.d")
     xconf_file = "01-anaconda-keyboard.conf"
 
-    sysconf_file = "/etc/sysconfig/keyboard"
+    sysconf_dir = os.path.normpath(root + "/etc/sysconfig")
+    sysconf_file = "keyboard"
 
     try:
         if not os.path.isdir(xconf_dir):
@@ -130,7 +131,7 @@ def write_layouts_config(keyboard, root):
         with open(os.path.join(xconf_dir, xconf_file), "w") as fobj:
             fobj.write(get_layouts_xorg_conf(keyboard))
 
-        with open(sysconf_file, "w") as fobj:
+        with open(os.path.join(sysconf_dir, sysconf_file), "w") as fobj:
             fobj.write('KEYTABLE="%s"\n' % keyboard.keyboard)
 
     except IOError as ioerr:
