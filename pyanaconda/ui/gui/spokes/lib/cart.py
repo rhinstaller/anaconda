@@ -49,7 +49,7 @@ class SelectedDisksDialog(GUIObject):
             self._store.append([disk.description,
                                 size_str(disk.size),
                                 size_str(free[disk.name][0]),
-                                str(disks.index(disk)),
+                                disk.serial,
                                 disk.id])
         self.disks = disks[:]
         self._update_summary()
