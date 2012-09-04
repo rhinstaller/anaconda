@@ -358,6 +358,11 @@ int explodeRPM(const char *source,
             }
 
             fclose(fdout);
+
+            /* set access rights */
+            if (chmod(filename+offset, fstat->st_mode)) {
+                logMessage(ERROR, "Failed to set the rights for %s to %04o", filename+offset, fstat->st_mode);
+            }
         }
 
         /* symlink, we assume that the path contained in symlink
