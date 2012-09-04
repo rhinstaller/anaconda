@@ -243,6 +243,10 @@ class SoftwareSelectionSpoke(NormalSpoke):
     def on_environment_chosen(self, blah):
         if not self._selectFlag:
             return
+
+        if self.environment:
+            self.payload.deselectEnvironment(self.environment)
+
         row = self._get_selected_environment()
         if row:
             self.environment = row[2]
