@@ -201,7 +201,7 @@ static gboolean _doLoadModule(const gchar *module, gchar **args) {
         gchar **argv = NULL;
         gint fd = -1;
 
-        if ((argv = g_malloc0(3 * sizeof(*argv))) == NULL) {
+        if ((argv = g_malloc0(4 * sizeof(*argv))) == NULL) {
             logMessage(ERROR, "%s (%d): %m", __func__, __LINE__);
             abort();
         }
@@ -216,8 +216,9 @@ static gboolean _doLoadModule(const gchar *module, gchar **args) {
         }
 
         argv[0] = "/sbin/modprobe";
-        argv[1] = g_strdup(module);
-        argv[2] = NULL;
+        argv[1] = "-b";
+        argv[2] = g_strdup(module);
+        argv[3] = NULL;
 
         if (args) {
             for (i = 0; args[i] ; i++) {
