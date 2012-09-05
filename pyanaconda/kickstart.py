@@ -1389,7 +1389,7 @@ commandMap = {
         "iscsi": Iscsi,
         "iscsiname": IscsiName,
         "keyboard": Keyboard,
-        "language": Lang,
+        "lang": Lang,
         "logging": Logging,
         "logvol": LogVol,
         "multipath": MultiPath,
