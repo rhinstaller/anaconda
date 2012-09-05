@@ -133,9 +133,9 @@ def get_available_translations(domain=None, localedir=None):
     messagefiles = gettext.find(domain, localedir, langdict.keys(), all=True)
     languages = [path.split(os.path.sep)[-3] for path in messagefiles]
 
-    # usually there are no message files for en_US
-    if 'en_US' not in languages:
-        languages.append('en_US')
+    # usually there are no message files for en
+    if 'en' not in languages:
+        languages.append('en')
 
     for langcode in languages:
         try:
@@ -243,8 +243,8 @@ class Language(object):
     def __init__(self, preferences={}, territory=None):
         self.translations = {repr(locale):locale for locale in get_available_translations()}
         self.locales = {repr(locale):locale for locale in get_all_locales()}
-        self.preferred_translation = self.translations['en_US']
-        self.preferred_locales = [self.locales['en_US']]
+        self.preferred_translation = self.translations['en']
+        self.preferred_locales = [self.locales['en']]
         self.preferred_locale = self.preferred_locales[0]
 
         self.all_preferences = preferences
