@@ -138,7 +138,7 @@ class AnacondaExceptionHandler(ExceptionHandler):
         iutil.vtActivate(6)
 
 def initExceptionHandling(anaconda):
-    fileList = [ "/tmp/anaconda.log",
+    fileList = [ "/tmp/anaconda.log", "/tmp/packaging.log",
                  "/tmp/program.log", "/tmp/storage.log", "/tmp/ifcfg.log",
                  "/tmp/yum.log", ROOT_PATH + "/root/install.log",
                  ROOT_PATH + "/root/upgrade.log", "/proc/cmdline" ]
