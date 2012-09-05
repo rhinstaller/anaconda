@@ -205,6 +205,13 @@ def deviceMatches(spec):
 
     return matches
 
+def lookupAlias(devicetree, alias):
+    for dev in devicetree.devices:
+        if getattr(dev, "req_name", None) == alias:
+            return dev
+
+    return None
+
 # Remove any existing formatting on a device, but do not remove the partition
 # itself.  This sets up an existing device to be used in a --onpart option.
 def removeExistingFormat(device, storage):
@@ -331,7 +338,7 @@ class BTRFSData(commands.btrfs.F17_BTRFSData):
             # if using --onpart, use original device
             member_name = ksdata.onPart.get(member, member)
             if member_name:
-                dev = devicetree.getDeviceByName(member_name)
+                dev = devicetree.getDeviceByName(member_name) or lookupAlias(devicetree, member)
             if not dev:
                 dev = devicetree.resolveDevice(member)
 
@@ -899,36 +906,33 @@ class PartitionData(commands.partition.F18_PartData):
         elif self.mountpoint.startswith("raid."):
             type = "mdmember"
             kwargs["name"] = self.mountpoint
+            self.mountpoint = ""
 
             if devicetree.getDeviceByName(kwargs["name"]):
                 raise KickstartValueError, formatErrorMsg(self.lineno, msg="RAID partition defined multiple times")
 
-            # store "raid." alias for other ks partitioning commands
             if self.onPart:
                 ksdata.onPart[kwargs["name"]] = self.onPart
-            self.mountpoint = ""
         elif self.mountpoint.startswith("pv."):
             type = "lvmpv"
             kwargs["name"] = self.mountpoint
+            self.mountpoint = ""
 
             if devicetree.getDeviceByName(kwargs["name"]):
                 raise KickstartValueError, formatErrorMsg(self.lineno, msg="PV partition defined multiple times")
 
-            # store "pv." alias for other ks partitioning commands
             if self.onPart:
                 ksdata.onPart[kwargs["name"]] = self.onPart
-            self.mountpoint = ""
         elif self.mountpoint.startswith("btrfs."):
             type = "btrfs"
             kwargs["name"] = self.mountpoint
+            self.mountpoint = ""
 
             if devicetree.getDeviceByName(kwargs["name"]):
                 raise KickstartValueError, formatErrorMsg(self.lineno, msg="BTRFS partition defined multiple times")
 
-            # store "btrfs." alias for other ks partitioning commands
             if self.onPart:
                 ksdata.onPart[kwargs["name"]] = self.onPart
-            self.mountpoint = ""
         elif self.mountpoint == "/boot/efi":
             if iutil.isMactel():
                 type = "hfs+"
@@ -1137,15 +1141,15 @@ class RaidData(commands.raid.F15_RaidData):
         # Get a list of all the RAID members.
         for member in self.members:
             # if member is using --onpart, use original device
-            member = ksdata.onPart.get(member, member)
-            dev = devicetree.getDeviceByName(member)
+            mem = ksdata.onPart.get(member, member) or lookupAlias(devicetree, member)
+            dev = devicetree.getDeviceByName(mem)
             if dev and dev.format.type == "luks":
                 try:
                     dev = devicetree.getChildren(dev)[0]
                 except IndexError:
                     dev = None
             if not dev:
-                raise KickstartValueError, formatErrorMsg(self.lineno, msg="Tried to use undefined partition %s in RAID specification" % member)
+                raise KickstartValueError, formatErrorMsg(self.lineno, msg="Tried to use undefined partition %s in RAID specification" % mem)
 
             raidmems.append(dev)
 
@@ -1303,7 +1307,7 @@ class VolGroupData(commands.volgroup.FC16_VolGroupData):
         for pv in self.physvols:
             # if pv is using --onpart, use original device
             pv = ksdata.onPart.get(pv, pv)
-            dev = devicetree.getDeviceByName(pv)
+            dev = devicetree.getDeviceByName(pv) or lookupAlias(devicetree, pv)
             if dev and dev.format.type == "luks":
                 try:
                     dev = devicetree.getChildren(dev)[0]
