@@ -1592,15 +1592,14 @@ class EFIGRUB(GRUB2):
         return ret.replace('/', '\\')
 
     def add_efi_boot_target(self):
-        boot_efi = self.storage.mountpoints["/boot/efi"]
-        if boot_efi.type == "partition":
-            boot_disk = boot_efi.disk
-            boot_part_num = boot_efi.partedPartition.number
-        elif boot_efi.type == "mdarray":
+        if self.stage1_device.type == "partition":
+            boot_disk = self.stage1_device.disk
+            boot_part_num = self.stage1_device.partedPartition.number
+        elif self.stage1_device.type == "mdarray":
             # FIXME: I'm just guessing here. This probably needs the full
             #        treatment, ie: multiple targets for each member.
-            boot_disk = boot_efi.parents[0].disk
-            boot_part_num = boot_efi.parents[0].partedPartition.number
+            boot_disk = self.stage1_device.parents[0].disk
+            boot_part_num = self.stage1_device.parents[0].partedPartition.number
         boot_part_num = str(boot_part_num)
 
         rc = self.efibootmgr("-c", "-w", "-L", productName,
