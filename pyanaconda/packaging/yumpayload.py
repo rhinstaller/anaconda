@@ -352,7 +352,8 @@ reposdir=%s
 
         return base_repo_name
 
-    def updateBaseRepo(self, storage, fallback=True, root=None):
+    def updateBaseRepo(self, storage, fallback=True, root=None,
+                       checkmount=True):
         """ Update the base repo based on self.data.method.
 
             - Tear down any previous base repo devices, symlinks, &c.
@@ -371,7 +372,7 @@ reposdir=%s
 
         # see if we can get a usable base repo from self.data.method
         try:
-            self._configureBaseRepo(storage)
+            self._configureBaseRepo(storage, checkmount=checkmount)
         except PayloadError as e:
             if not fallback:
                 for repo in self._yum.repos.repos.values():
@@ -498,7 +499,7 @@ reposdir=%s
         else:
             device.format.setup(mountpoint=INSTALL_TREE)
 
-    def _configureBaseRepo(self, storage):
+    def _configureBaseRepo(self, storage, checkmount=True):
         """ Configure the base repo.
 
             If self.data.method.method is set, failure to configure a base repo
@@ -506,6 +507,9 @@ reposdir=%s
 
             If self.data.method.method is unset, no exception should be raised
             and no repo should be configured.
+
+            If checkmount is true, check the dracut mount to see if we have
+            usable media mounted.
         """
         log.info("configuring base repo")
         # set up the main repo specified by method=, repo=, or ks method
@@ -555,7 +559,7 @@ reposdir=%s
         elif method.method == "url":
             url = method.url
             sslverify = not (method.noverifyssl or flags.noverifyssl)
-        elif method.method == "cdrom" or not method.method:
+        elif method.method == "cdrom" or (checkmount and not method.method):
             # Did dracut leave the DVD mounted for us?
             device = get_mount_device("/run/install/repo")
             # Only look at the dracut mount if we don't already have a cdrom
