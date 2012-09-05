@@ -54,7 +54,8 @@ def doInstall(storage, payload, ksdata, instClass):
     steps = len(storage.devicetree.findActions(type="create", object="format")) + \
             len(storage.devicetree.findActions(type="resize", object="format")) + \
             len(storage.devicetree.findActions(type="migrate", object="format"))
-    steps += 4  # packages setup, packages, bootloader, post install
+    steps += 5  # packages setup, packages, bootloader, post install,
+                # configuring
     progress.send_init(steps)
 
     # Do partitioning.
@@ -77,21 +78,22 @@ def doInstall(storage, payload, ksdata, instClass):
     with progress_report(_("Installing bootloader")):
         writeBootLoader(storage, payload, instClass)
 
-    # Now run the execute methods of ksdata that require an installed system
-    # to be present first.
-    ksdata.authconfig.execute(storage, ksdata, instClass)
-    ksdata.selinux.execute(storage, ksdata, instClass)
-    ksdata.firstboot.execute(storage, ksdata, instClass)
-    ksdata.services.execute(storage, ksdata, instClass)
-    ksdata.keyboard.execute(storage, ksdata, instClass)
-    ksdata.timezone.execute(storage, ksdata, instClass)
+    with progress_report(_("Configuring installed system")):
+        # Now run the execute methods of ksdata that require an installed system
+        # to be present first.
+        ksdata.authconfig.execute(storage, ksdata, instClass)
+        ksdata.selinux.execute(storage, ksdata, instClass)
+        ksdata.firstboot.execute(storage, ksdata, instClass)
+        ksdata.services.execute(storage, ksdata, instClass)
+        ksdata.keyboard.execute(storage, ksdata, instClass)
+        ksdata.timezone.execute(storage, ksdata, instClass)
 
-    # Creating users and groups requires some pre-configuration.
-    u = Users()
-    createLuserConf(ROOT_PATH, algoname=u.getPassAlgo(ksdata.authconfig.authconfig))
-    ksdata.rootpw.execute(storage, ksdata, instClass, u)
-    ksdata.group.execute(storage, ksdata, instClass, u)
-    ksdata.user.execute(storage, ksdata, instClass, u)
+        # Creating users and groups requires some pre-configuration.
+        u = Users()
+        createLuserConf(ROOT_PATH, algoname=u.getPassAlgo(ksdata.authconfig.authconfig))
+        ksdata.rootpw.execute(storage, ksdata, instClass, u)
+        ksdata.group.execute(storage, ksdata, instClass, u)
+        ksdata.user.execute(storage, ksdata, instClass, u)
 
     runPostScripts(ksdata.scripts)
 
