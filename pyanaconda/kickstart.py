@@ -1564,16 +1564,6 @@ def selectPackages(ksdata, payload):
 
     ksdata.packages.groupList.insert(0, PackageGroup("Core"))
 
-    if ksdata.packages.addBase:
-        # Only add @base if it's not already in the group list.  If the
-        # %packages section contains something like "@base --optional",
-        # addBase will take effect first and yum will think the group is
-        # already selected.
-        if not PackageGroup("Base") in ksdata.packages.groupList:
-            ksdata.packages.groupList.insert(1, PackageGroup("Base"))
-    else:
-        log.warning("not adding Base group")
-
     for grp in ksdata.packages.groupList:
         default = False
         optional = False
