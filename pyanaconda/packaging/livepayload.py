@@ -65,7 +65,11 @@ class LiveImagePayload(ImagePayload):
     def install(self):
         """ Install the payload. """
         cmd = "rsync"
-        args = ["-rlptgoDHAXvx", "/", ROOT_PATH]
+        # preserve: permissions, owners, groups, ACL's, xattrs, times,
+        #           symlinks, hardlinks
+        # go recursively, include devices and special files, don't cross
+        # file system boundaries, print processed files
+        args = ["-pogAXtlHrDxv", "/", ROOT_PATH]
         try:
             rc = iutil.execWithRedirect(cmd, args,
                                         stderr="/dev/tty5", stdout="/dev/tty5")
