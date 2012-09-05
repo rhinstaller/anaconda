@@ -132,7 +132,7 @@ def luks_add_key(device,
         raise ValueError("luks_add_key requires passphrase")
 
     cs = CryptSetup(device=device, yesDialog = askyes, logFunc = dolog, passwordDialog = askpassphrase)
-    rc = cs.addPassphrase(passphrase = passphrase, newPassphrase = new_passphrase)
+    rc = cs.addKeyByPassphrase(passphrase = passphrase, newPassphrase = new_passphrase)
     
     if rc<0:
         raise CryptoError("luks add key failed with errcode %d" % (rc,))
