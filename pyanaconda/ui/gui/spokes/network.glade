@@ -1729,7 +1729,7 @@ updates available for you.</property>
                                     </child>
                                   </object>
                                   <packing>
-                                    <property name="position">2</property>
+                                    <property name="position">3</property>
                                   </packing>
                                 </child>
                                 <child type="tab">
@@ -1739,7 +1739,7 @@ updates available for you.</property>
                                     <property name="label">vpn</property>
                                   </object>
                                   <packing>
-                                    <property name="position">2</property>
+                                    <property name="position">3</property>
                                     <property name="tab_fill">False</property>
                                   </packing>
                                 </child>
@@ -2097,7 +2097,7 @@ updates available for you.</property>
                                     </child>
                                   </object>
                                   <packing>
-                                    <property name="position">2</property>
+                                    <property name="position">4</property>
                                   </packing>
                                 </child>
                                 <child type="tab">
@@ -2107,7 +2107,44 @@ updates available for you.</property>
                                     <property name="label">proxy</property>
                                   </object>
                                   <packing>
-                                    <property name="position">2</property>
+                                    <property name="position">4</property>
+                                    <property name="tab_fill">False</property>
+                                  </packing>
+                                </child>
+                                <child>
+                                  <object class="GtkVBox" id="vboxNodevice">
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">False</property>
+                                    <property name="border_width">12</property>
+                                    <property name="spacing">6</property>
+                                    <child>
+                                      <object class="GtkLabel" id="label2">
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">False</property>
+                                        <property name="label" translatable="yes">No network devices available</property>
+                                      </object>
+                                      <packing>
+                                        <property name="expand">False</property>
+                                        <property name="fill">False</property>
+                                        <property name="position">0</property>
+                                      </packing>
+                                    </child>
+                                    <child>
+                                      <placeholder/>
+                                    </child>
+                                  </object>
+                                  <packing>
+                                    <property name="position">5</property>
+                                  </packing>
+                                </child>
+                                <child type="tab">
+                                  <object class="GtkLabel" id="label1">
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">False</property>
+                                    <property name="label">nodevice</property>
+                                  </object>
+                                  <packing>
+                                    <property name="position">5</property>
                                     <property name="tab_fill">False</property>
                                   </packing>
                                 </child>
@@ -2121,7 +2158,7 @@ updates available for you.</property>
                                     <property name="label">other</property>
                                   </object>
                                   <packing>
-                                    <property name="position">2</property>
+                                    <property name="position">6</property>
                                     <property name="tab_fill">False</property>
                                   </packing>
                                 </child>

@@ -575,7 +575,10 @@ class NetworkControlBox():
             del(row)
 
     def refresh_ui(self, device, read_config_values=True):
+
         if not device:
+            notebook = self.builder.get_object("notebook_types")
+            notebook.set_current_page(5)
             return
 
         self._refresh_device_type_page(device)
