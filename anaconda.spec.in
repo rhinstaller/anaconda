@@ -161,6 +161,7 @@ Requires: openssh
 Requires: isomd5sum
 Requires: yum-utils >= %{yumutilsver}
 Requires: NetworkManager >= %{nmver}
+Requires: nm-connection-editor
 Requires: dhclient
 Requires: anaconda-yum-plugins
 Requires: libselinux-python >= %{libselinuxver}
