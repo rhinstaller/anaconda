@@ -1551,7 +1551,11 @@ class EFIGRUB(GRUB2):
 
     @property
     def _config_dir(self):
-        return "efi/EFI/%s" % (self.storage.anaconda.instClass.efi_dir,)
+        return "efi/EFI/%s" % (self.efi_dir,)
+
+    def __init__(self, platform=None):
+        super(EFIGRUB, self).__init__(platform=platform)
+        self.efi_dir = 'BOOT'
 
     def efibootmgr(self, *args, **kwargs):
         if kwargs.pop("capture", False):
@@ -2132,7 +2136,7 @@ def writeSysconfigKernel(storage, version):
     f.write("DEFAULTKERNEL=%s\n" % kernel)
     f.close()
 
-def writeBootLoader(storage, payload):
+def writeBootLoader(storage, payload, instClass):
     """ Write bootloader configuration to disk.
 
         When we get here, the bootloader will already have a default linux
@@ -2165,6 +2169,8 @@ def writeBootLoader(storage, payload):
                                          short=base_short_label)
     storage.bootloader.add_image(default_image)
     storage.bootloader.default = default_image
+    if hasattr(storage.bootloader, 'efi_dir'):
+        storage.bootloader.efi_dir = instClass.efi_dir
 
     # write out /etc/sysconfig/kernel
     writeSysconfigKernel(storage, version)
