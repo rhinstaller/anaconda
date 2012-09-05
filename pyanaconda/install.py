@@ -76,7 +76,7 @@ def doInstall(storage, payload, ksdata, instClass):
 
     # Do bootloader.
     with progress_report(_("Installing bootloader")):
-        writeBootLoader(storage, payload)
+        writeBootLoader(storage, payload, instClass)
 
     # Now run the execute methods of ksdata that require an installed system
     # to be present first.
