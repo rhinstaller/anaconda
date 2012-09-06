@@ -2,7 +2,7 @@
 # anaconda-generator: generate services needed for anaconda operation
 
 # Source in the dracut lib so we can parse cmd line arguments
-. /run/initramfs/usr/lib/dracut-lib.sh
+. /usr/lib/dracut/modules.d/99base/dracut-lib.sh
 
 # set up dirs
 systemd_dir=/lib/systemd/system
