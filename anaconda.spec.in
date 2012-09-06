@@ -168,6 +168,7 @@ Requires: fcoe-utils >= %{fcoeutilsver}
 Requires: kbd
 Requires: chrony
 Requires: rdate
+Requires: rsync
 %ifarch %{sparc}
 Requires: elftoaout piggyback
 %endif
