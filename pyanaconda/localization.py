@@ -77,7 +77,12 @@ class LocaleInfo(object):
         if self.variant is not None:
             formatstr += '#{0.variant}'
 
-        return formatstr.format(self)
+        langcode = formatstr.format(self)
+        if "." not in langcode:
+            # add enconding suffix
+            langcode = langcode + ".UTF-8"
+
+        return langcode
 
     def __str__(self):
         return self.english_name.encode('ascii', 'replace')
@@ -208,8 +213,8 @@ class Language(object):
     def __init__(self, preferences={}, territory=None):
         self.translations = {repr(locale):locale for locale in get_available_translations()}
         self.locales = {repr(locale):locale for locale in get_all_locales()}
-        self.preferred_translation = self.translations['en']
-        self.preferred_locales = [self.locales['en']]
+        self.preferred_translation = self.translations['en.UTF-8']
+        self.preferred_locales = [self.locales['en.UTF-8']]
         self.preferred_locale = self.preferred_locales[0]
 
         self.all_preferences = preferences
