@@ -319,12 +319,30 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         partition_creates = [a for a in actions if a.device.type == "partition"]
         self._propagate_actions(partition_creates)
 
+        # catch changed size of partitions defined prior to this visit
+        for ui_device in self.__storage.partitions:
+            device = self.storage.devicetree.getDeviceByID(ui_device.id)
+            if device and not device.exists and ui_device.size != device.size:
+                device.req_base_size = ui_device.req_base_size
+                device.req_size = ui_device.req_size
+
         if partition_creates or partition_destroys:
             try:
                 doPartitioning(self.storage)
             except Exception as e:
                 # TODO: error handling
                 raise
+
+        # catch changed size of non-partition devices defined prior to this
+        # visit
+        for ui_device in self.__storage.devices:
+            if ui_device in self.__storage.partitions:
+                # did partitions before doPartitioning
+                continue
+
+            device = self.storage.devicetree.getDeviceByID(ui_device.id)
+            if device and not device.exists and ui_device.size != device.size:
+                device._size = ui_device._size
 
         # register all other create actions
         already_handled = disklabel_creates + partition_creates
