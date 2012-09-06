@@ -2711,7 +2711,7 @@ class MDRaidArrayDevice(StorageDevice):
             elif self.level == mdraid.RAID10:
                 size = (self.memberDevices / 2.0) * smallestMemberSize
                 size -= size % self.chunkSize
-            log.debug("non-existant RAID %s size == %s" % (self.level, size))
+            log.debug("non-existent RAID %s size == %s" % (self.level, size))
         else:
             size = self.partedDevice.getSize()
             log.debug("existing RAID %s size == %s" % (self.level, size))
@@ -2815,7 +2815,9 @@ class MDRaidArrayDevice(StorageDevice):
         if not self.exists:
             raise DeviceError("device has not been created", self.name)
 
-        if self.status:
+        # We don't use self.status here because self.status requires a valid
+        # sysfs path to function correctly.
+        if os.path.exists(self.path):
             md_node = mdraid.md_node_from_name(self.name)
             self.sysfsPath = "/devices/virtual/block/%s" % md_node
         else:

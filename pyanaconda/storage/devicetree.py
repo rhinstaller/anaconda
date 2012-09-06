@@ -1024,7 +1024,8 @@ class DeviceTree(object):
         #
         if device:
             # we successfully looked up the device. skip to format handling.
-            pass
+            # first, grab the parted.Device while it's active
+            _unused = device.partedDevice
         elif udev_device_is_loop(info):
             log.info("%s is a loop device" % name)
             device = self.addUdevLoopDevice(info)
@@ -1080,6 +1081,7 @@ class DeviceTree(object):
         # Don't try to do format handling on drives without media or
         # if we didn't end up with a device somehow.
         if not device or not device.mediaPresent:
+            log.debug("no device or no media present")
             return
 
         # now handle the device's formatting
@@ -1425,12 +1427,12 @@ class DeviceTree(object):
                                              memberDevices=md_devices,
                                              uuid=md_uuid,
                                              metadataVersion=md_metadata,
-                                             sysfsPath=sysfs_path,
                                              exists=True)
             except ValueError as e:
                 log.error("failed to create md array: %s" % e)
                 return
 
+            md_array.updateSysfsPath()
             md_array._addDevice(device)
             self._addDevice(md_array)
 
@@ -1641,6 +1643,7 @@ class DeviceTree(object):
         if self.shouldClear(device):
             # if this is a device that will be cleared by clearpart,
             # don't bother with format-specific processing
+            log.debug("skipping further processing due to clearpart")
             return
 
         #
