@@ -153,32 +153,52 @@ def get_available_translations(domain=None, localedir=None):
 def expand_langs(astring):
     """
     Converts a single language into a "language search path". For example,
-    fr_FR.utf8@euro would become "fr_FR.utf8@euro fr_FR.utf8 fr_FR fr"
+    for "fr_FR.UTF-8@euro" would return set containing:
+    "fr", "fr_FR", "fr_FR.UTF-8@euro", "fr.UTF-8@euro", "fr_FR@euro",
+    "fr_FR.UTF-8", "fr@euro", "fr.UTF-8"
+
+    @rtype: list of strings
 
     """
 
-    langs = [astring]
-    charset = None
+    langs = set([astring])
+
     base = None
+    loc = None
+    encoding = None
+    script = None
 
-    # remove charset ...
-    if '.' in astring:
-        langs.append(astring.split('.')[0])
+    if "@" in astring:
+        (astring, script) = astring.split("@", 1)
 
-    if '@' in astring:
-        charset = astring.split('@')[1]
+    if "." in astring:
+        (astring, encoding) = astring.split(".", 1)
 
-    if '_' in astring:
-        base = astring.split('_')[0]
+    if "_" in astring:
+        (astring, loc) = astring.split("_", 1)
 
-        if charset:
-            langs.append("%s@%s" % (base, charset))
+    base = astring
 
-        langs.append(base)
-    else:
-        langs.append(astring[:2])
+    if not base:
+        return list(langs)
 
-    return langs
+    if not encoding:
+        encoding = "UTF-8"
+
+    langs.add(base)
+    langs.add("%s.%s" % (base, encoding))
+
+    if loc:
+        langs.add("%s_%s" % (base, loc))
+        langs.add("%s_%s.%s" %(base, loc, encoding))
+    if script:
+        langs.add("%s@%s" % (base, script))
+        langs.add("%s.%s@%s" % (base, encoding, script))
+
+    if loc and script:
+        langs.add("%s_%s@%s" % (base, loc, script))
+
+    return list(langs)
 
 def write_language_configuration(lang, root):
     """
