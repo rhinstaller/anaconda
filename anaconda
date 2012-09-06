@@ -898,7 +898,7 @@ if __name__ == "__main__":
         anaconda.simpleFilter = True
 
     # sets yum's multilib_policy to "all" (as opposed to "best")
-    ksdata.packages.multiLib = multiLib
+    ksdata.packages.multiLib = opts.multiLib
 
     if anaconda.displayMode == 'g':
         # comment out the next line to make exceptions non-fatal
