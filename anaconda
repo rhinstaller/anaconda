@@ -60,7 +60,7 @@ def exitHandler(rebootData, storage, exitCode=None):
                 loop.controllable = True
             device.deactivate(recursive=True)
 
-    if anaconda.ksdata and not flags.imageInstall:
+    if not flags.imageInstall and not flags.livecdInstall:
         from pykickstart.constants import KS_SHUTDOWN, KS_WAIT, KS_REBOOT
         from pyanaconda.iutil import dracut_eject
 
@@ -76,8 +76,6 @@ def exitHandler(rebootData, storage, exitCode=None):
             os.system("systemctl --no-wall halt")
         else: # reboot action is KS_REBOOT or None
             os.system("systemctl --no-wall reboot")
-    elif flags.livecdInstall:
-        os.system("systemctl --no-wall reboot")
 
 def startMetacityWM():
     childpid = os.fork()
