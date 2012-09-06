@@ -1853,6 +1853,7 @@ class Storage(object):
             member.req_grow = True
 
         # set up new members as needed to accommodate the device
+        new_members = []
         for disk in add_disks:
             if factory.encrypted:
                 luks_format = factory.member_format
@@ -1860,8 +1861,13 @@ class Storage(object):
             else:
                 member_format = factory.member_format
 
-            member = self.newPartition(parents=[disk], grow=True,
-                                       fmt_type=member_format)
+            try:
+                member = self.newPartition(parents=[disk], grow=True,
+                                           fmt_type=member_format)
+            except StorageError as e:
+                log.error("failed to create new member partition: %s" % e)
+                continue
+
             self.createDevice(member)
             if factory.encrypted:
                 fmt = getFormat(luks_format)
@@ -1870,6 +1876,7 @@ class Storage(object):
                 self.createDevice(member)
 
             members.append(member)
+            new_members.append(member)
             if container:
                 container.addMember(member)
 
@@ -1880,7 +1887,14 @@ class Storage(object):
         for member in members:
             member.req_max_size = size_set.size
 
-        self.allocatePartitions()
+        try:
+            self.allocatePartitions()
+        except PartitioningError as e:
+            # try to clean up by destroying all newly added members before re-
+            # raising the exception
+            self.__cleanUpMemberDevices(new_members, container=container)
+            raise
+
         return members
 
     def allocatePartitions(self):
@@ -1888,8 +1902,7 @@ class Storage(object):
         try:
             doPartitioning(self)
         except StorageError as e:
-            log.error("UI: failed to allocate partitions: %s" % e)
-            # FIXME: revert container to its original state?
+            log.error("failed to allocate partitions: %s" % e)
             raise
 
     def getDeviceFactory(self, device_type, size, **kwargs):
@@ -1921,6 +1934,18 @@ class Storage(object):
 
         return container
 
+    def __cleanUpMemberDevices(self, members, container=None):
+        for member in members:
+            if container:
+                container.removeMember(member)
+
+            if isinstance(member, LUKSDevice):
+                self.destroyDevice(member)
+                member = member.slave
+
+            if not member.isDisk:
+                self.destroyDevice(member)
+
     def newDevice(self, device_type, size, **kwargs):
         """ Schedule creation of a device based on a top-down specification.
 
@@ -1942,6 +1967,22 @@ class Storage(object):
                 device              an already-defined but non-existent device
                                     to adjust instead of creating a new device
 
+
+            Error handling:
+
+                If device is None, meaning we're creating a device, the error
+                handling aims to remove all evidence of the attempt to create a
+                new device by removing unused container devices, reverting the
+                size of container devices that contain other devices, &c.
+
+                If the device is not None, meaning we're adjusting the size of
+                a defined device, the error handling aims to revert the device
+                and any container to it previous size.
+
+                In either case, we re-raise the exception so the caller knows
+                there was a failure. If we failed to clean up as described above
+                we raise ErrorRecoveryFailure to alert the caller that things
+                will likely be in an inconsistent state.
         """
         mountpoint = kwargs.get("mountpoint")
         fstype = kwargs.get("fstype")
@@ -1980,12 +2021,44 @@ class Storage(object):
         if device and device.type == "mdarray":
             members = device.parents
 
-        parents = self.setContainerMembers(container, factory, members=members)
+        try:
+            parents = self.setContainerMembers(container, factory,
+                                               members=members)
+        except PartitioningError as e:
+            # If this is a new device, just clean up and get out.
+            if device:
+                # If this is a defined device, try to clean up by reallocating
+                # members as before and then get out.
+                factory.disks = device.disks
+                factory.size = device.size  # this should work
+
+                if members:
+                    # If this is an md array we have to reset its member set
+                    # here.
+                    # If there is a container device, its member set was reset
+                    # in the exception handler in setContainerMembers.
+                    device.parents = members
+
+                try:
+                    self.setContainerMembers(container, factory,
+                                             members=members)
+                except StorageError as e:
+                    log.error("failed to revert device size: %s" % e)
+                    raise ErrorRecoveryFailure("failed to revert container")
+
+            raise
 
         # set up container
         if not container and factory.new_container_attr:
             log.debug("creating new container")
-            container = factory.new_container(parents=parents)
+            try:
+                container = factory.new_container(parents=parents)
+            except StorageError as e:
+                log.error("failed to create new device: %s" % e)
+                # Clean up by destroying the newly created member devices.
+                self.__cleanUpMemberDevices(parents)
+                raise
+
             self.createDevice(container)
 
         if container:
@@ -1997,22 +2070,79 @@ class Storage(object):
         if device:
             # We are adjusting the size of a device. The StorageDevice instance
             # exists, but the underlying device does not.
-            factory.post_create()
-            if not device.size:
-                raise StorageError("failed to adjust device")
+            old_size = device.size
+            e = None
+            try:
+                factory.post_create()
+            except StorageError as e:
+                log.error("device post-create method failed: %s" % e)
+            else:
+                if not device.size:
+                    e = StorageError("failed to adjust device")
+
+            if e:
+                # Clean up by reverting the device to its previous size.
+                factory.size = old_size
+                factory.set_device_size(container, device=device)
+                try:
+                    factory.post_create()
+                except StorageError as e:
+                    # yes, we're replacing e here.
+                    log.error("failed to revert device size: %s" % e)
+                    raise ErrorRecoveryFailure("failed to revert device size")
+
+                raise(e)
         elif factory.new_device_attr:
             log.debug("creating new device")
-            device = factory.new_device(parents=parents,
-                                        size=size,
-                                        fmt_type=fstype,
-                                        mountpoint=mountpoint,
-                                        fmt_args=fmt_args)
+            try:
+                device = factory.new_device(parents=parents,
+                                            size=size,
+                                            fmt_type=fstype,
+                                            mountpoint=mountpoint,
+                                            fmt_args=fmt_args)
+            except StorageError as e:
+                log.error("device instance creation failed: %s" % e)
+                # Clean up. If there is a container and it has other devices,
+                # try to revert it. If there is a container and it has no other
+                # devices, remove it. If there is not a container, remove all of
+                # the parents.
+                if container:
+                    if container.kids:
+                        factory.size = 0
+                        factory.disks = container.disks
+                        try:
+                            self.setContainerMembers(container, factory)
+                        except StorageError as e:
+                            log.error("failed to revert container: %s" % e)
+                            raise ErrorRecoveryFailure("failed to revert container")
+                    else:
+                        self.destroyDevice(container)
+                        self.__cleanUpMemberDevices(container.parents)
+                else:
+                    self.__cleanUpMemberDevices(parents)
+
+                raise
+
             self.createDevice(device)
-            factory.post_create()
-            if not device.size:
-                # FIXME: this is incomplete at best (container, &c)
+            e = None
+            try:
+                factory.post_create()
+            except StorageError as e:
+                log.error("device post-create method failed: %s" % e)
+            else:
+                if not device.size:
+                    e = StorageError("failed to create device")
+
+            if e:
+                # Clean up by destroying members, container, and device.
                 self.destroyDevice(device)
-                raise StorageError("failed to create device")
+                members = device.parents
+                if container:
+                    self.destroyDevice(container)
+                    members = container.parents
+
+                self.__cleanUpMemberDevices(members)
+                raise
 
     def copy(self):
         new = copy.deepcopy(self)

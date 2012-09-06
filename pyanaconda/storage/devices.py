@@ -2213,6 +2213,9 @@ class LVMVolumeGroupDevice(DMDevice):
         # and update our pv count
         self.pvCount = len(self.parents)
 
+    def removeMember(self, member):
+        self._removePV(member)
+
     # We can't rely on lvm to tell us about our size, free space, &c
     # since we could have modifications queued, unless the VG and all of
     # its PVs already exist.
@@ -3986,6 +3989,16 @@ class BTRFSVolumeDevice(BTRFSDevice):
 
         self.parents.append(member)
         member.addChild()
+
+    def removeMember(self, member):
+        if member not in self.parents:
+            raise ValueError("member is not part of this volume")
+
+        if self.exists:
+            raise DeviceError("cannot remove member from an existing volume")
+
+        self.parents.remove(member)
+        member.removeChild()
 
     def _addSubVolume(self, vol):
         if vol.name in [v.name for v in self.subvolumes]:

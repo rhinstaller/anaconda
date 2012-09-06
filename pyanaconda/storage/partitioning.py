@@ -266,34 +266,34 @@ def doAutoPartition(storage, data):
     disks = []
     devs = []
 
-    if storage.doAutoPart:
-        if not storage.partitioned:
-            raise NoDisksError("No usable disks selected")
+    if not storage.doAutoPart:
+        return
 
-        disks = _getCandidateDisks(storage)
-        devs = _scheduleImplicitPartitions(storage, disks)
-        log.debug("candidate disks: %s" % disks)
-        log.debug("devs: %s" % devs)
+    if not storage.partitioned:
+        raise NoDisksError("No usable disks selected")
 
-        if disks == []:
-            raise NotEnoughFreeSpaceError("Not enough free space on disks for "
-                                          "automatic partitioning")
+    disks = _getCandidateDisks(storage)
+    devs = _scheduleImplicitPartitions(storage, disks)
+    log.debug("candidate disks: %s" % disks)
+    log.debug("devs: %s" % devs)
 
-        _schedulePartitions(storage, disks)
+    if disks == []:
+        raise NotEnoughFreeSpaceError("Not enough free space on disks for "
+                                      "automatic partitioning")
+
+    _schedulePartitions(storage, disks)
 
     # run the autopart function to allocate and grow partitions
     try:
         doPartitioning(storage)
 
-        if storage.doAutoPart:
-            _scheduleVolumes(storage, devs)
+        _scheduleVolumes(storage, devs)
 
         # grow LVs
         growLVM(storage)
     except PartitioningError as e:
         log.error(str(e))
         if errorHandler.cb(e) == ERROR_RAISE:
-            storage.reset()
             raise
 
     storage.setUpBootLoader()
@@ -307,7 +307,6 @@ def doAutoPartition(storage, data):
     if errors:
         exn = PartitioningError("\n".join(errors))
         if errorHandler.cb(exn) == ERROR_RAISE:
-            storage.reset()
             raise exn
 
 def partitionCompare(part1, part2):

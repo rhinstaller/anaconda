@@ -49,6 +49,9 @@ from pyanaconda.storage import Root
 from pyanaconda.storage.partitioning import doPartitioning
 from pyanaconda.storage.partitioning import doAutoPartition
 from pyanaconda.storage.errors import StorageError
+from pyanaconda.storage.errors import NoDisksError
+from pyanaconda.storage.errors import NotEnoughFreeSpaceError
+from pyanaconda.storage.errors import ErrorRecoveryFailure
 from pyanaconda.storage.devicelibs import mdraid
 
 from pyanaconda.ui.gui import GUIObject
@@ -67,6 +70,10 @@ log = logging.getLogger("anaconda")
 __all__ = ["CustomPartitioningSpoke"]
 
 new_install_name = _("New %s %s Installation") % (productName, productVersion)
+unrecoverable_error_msg = _("Storage configuration reset due to unrecoverable "
+                            "error. Click for details.")
+device_configuration_error_msg = _("Device reconfiguration failed. Click for "
+                                   "details.")
 
 # btrfs has to be the last type in the list since it gets removed and added
 # depending on the device's formatting
@@ -471,13 +478,15 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         summaryLabel.set_use_markup(True)
         summaryLabel.set_markup("<span foreground='blue'><u>%s</u></span>" % summary)
 
-    def refresh(self):
-        NormalSpoke.refresh(self)
+    def _reset_storage(self):
         self.__storage = self.storage.copy()
         self.__storage.devicetree._actions = [] # keep things simple
         self._devices = self.__storage.devices
-        self._do_refresh()
 
+    def refresh(self):
+        NormalSpoke.refresh(self)
+        self._reset_storage()
+        self._do_refresh()
         # update our free space number based on Storage
         self._setCurrentFreeSpace()
 
@@ -612,6 +621,21 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         else:
             return ""
 
+    def _replace_device(self, *args, **kwargs):
+        """ Create a replacement device and update the device selector. """
+        selector = kwargs.pop("selector", None)
+        self.__storage.newDevice(*args, **kwargs)
+
+        self._devices = self.__storage.devices
+
+        if selector:
+            # newest device should be the one with the highest id
+            max_id = max([d.id for d in self._devices])
+
+            # update the selector with the new device and its size
+            selector._device = self.__storage.devicetree.getDeviceByID(max_id)
+            selector.props.size = str(Size(spec="%f MB" % selector._device.size)).upper()
+
     def _save_right_side(self, selector):
         """ Save settings from RHS and apply changes to the device.
 
@@ -679,9 +703,13 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         current_device_type = device_types.get(device.type)
         if current_device_type != device_type:
             # remove the current device
+            self.clear_errors()
             root = self._current_selector._root
             self._remove_from_root(root, device)
             self._destroy_device(device)
+            if device in self._devices:
+                # the removal failed. don't continue.
+                return
 
             with ui_storage_logger():
                 # XXX skipping encryption for now
@@ -693,18 +721,55 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                 if container:
                     disks = list(set(disks).union(container.disks))
                 log.debug("disks: %s" % [d.name for d in disks])
-                self.__storage.newDevice(device_type, size, fstype=fs_type,
-                                         disks=disks,
-                                         mountpoint=mountpoint, label=label,
-                                         raid_level=raid_level)
-                self._devices = self.__storage.devices
+                try:
+                    self._replace_device(device_type, size, fstype=fs_type,
+                                         disks=disks, mountpoint=mountpoint,
+                                         label=label, raid_level=raid_level,
+                                         selector=selector)
+                except ErrorRecoveryFailure as e:
+                    self._error = e
+                    self.window.set_info(Gtk.MessageType.WARNING,
+                                         unrecoverable_error_msg)
+                    self.window.show_all()
+                    self._reset_storage()
+                except StorageError as e:
+                    log.error("newDevice failed: %s" % e)
+                    self._error = e
+                    self.window.set_info(Gtk.MessageType.WARNING,
+                                         device_configuration_error_msg)
+                    self.window.show_all()
 
-            # newest device should be the one with the highest id
-            max_id = max([d.id for d in self._devices])
+                    # in this case we have removed the old device so we now have
+                    # to re-create it
+                    device_type = device_types.get(device.type)
+                    raid_level = None
+                    if hasattr(device, "level"):
+                        # md
+                        raid_level = mdraid.raidLevelString(device.level)
+                    elif hasattr(device, "dataLevel"):
+                        raid_level = device.dataLevel
+                    elif hasattr(device, "volume"):
+                        # btrfs subvol
+                        raid_level = device.volume.dataLevel
 
-            # update the selector with the new device and its size
-            selector._device = self.__storage.devicetree.getDeviceByID(max_id)
-            selector.props.size = str(Size(spec="%f MB" % selector._device.size)).upper()
+                    mountpoint = getattr(device.format, "mountpoint", None)
+                    label = getattr(device.format, "label", None)
+
+                    try:
+                        self._replace_device(device_type, device.size,
+                                             fstype=device.format.type,
+                                             mountpoint=mountpoint,
+                                             label=label,
+                                             raid_level=raid_level,
+                                             selector=selector)
+                    except StorageError as e:
+                        # failed to recover.
+                        self.clear_errors()
+                        self._error = e
+                        self.window.set_info(Gtk.MessageType.WARNING,
+                                             unrecoverable_error_msg)
+                        self.window.show_all()
+                        self._reset_storage()
 
             # TODO: if btrfs, also update sizes of other subvols' selectors
 
@@ -713,18 +778,43 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
         # new size means resize for existing devices and adjust for new ones
         if int(size) != int(device.size):
+            self.clear_errors()
+            old_size = device.size
             if device.exists and device.resizable:
                 with ui_storage_logger():
-                    self.__storage.resizeDevice(device, size)
-                    log.debug("%r" % device)
-                    log.debug("new size: %s" % device.size)
-                    log.debug("target size: %s" % device.targetSize)
+                    try:
+                        self.__storage.resizeDevice(device, size)
+                    except StorageError as e:
+                        log.error("failed to schedule device resize: %s" % e)
+                        device.size = old_size
+                        self._error = e
+                        self.window.set_info(Gtk.MessageType.WARNING,
+                                             _("Device resize request failed. "
+                                               "Click for details."))
+                        self.window.show_all()
+                    else:
+                        log.debug("%r" % device)
+                        log.debug("new size: %s" % device.size)
+                        log.debug("target size: %s" % device.targetSize)
             else:
                 with ui_storage_logger():
-                    self.__storage.newDevice(device_type, size,
-                                             device=device,
-                                             disks=device.disks,
-                                             raid_level=raid_level)
+                    try:
+                        self.__storage.newDevice(device_type, size,
+                                                 device=device,
+                                                 disks=device.disks,
+                                                 raid_level=raid_level)
+                    except ErrorRecoveryFailure as e:
+                        self._error = e
+                        self.window.set_info(Gtk.MessageType.WARNING,
+                                             unrecoverable_error_msg)
+                        self.window.show_all()
+                        self._reset_storage()
+                    except StorageError as e:
+                        log.error("newDevice failed: %s" % e)
+                        self._error = e
+                        self.window.set_info(Gtk.MessageType.WARNING,
+                                             device_configuration_error_msg)
+                        self.window.show_all()
 
             log.debug("updating selector size to '%s'"
                        % str(Size(spec="%f MB" % device.size)).upper())
@@ -735,11 +825,22 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         # for fstype we'll need to instantiate a new DeviceFormat and schedule
         # creation of it
         if fs_type != device.format.type:
+            self.clear_errors()
             with ui_storage_logger():
+                old_format = device.format
                 new_format = getFormat(fs_type,
                                        mountpoint=mountpoint, label=label,
                                        device=device.path)
-                self.__storage.formatDevice(device, new_format)
+                try:
+                    self.__storage.formatDevice(device, new_format)
+                except StorageError as e:
+                    log.error("failed to register device format action: %s" % e)
+                    device.format = old_format
+                    self._error = e
+                    self.window.set_info(Gtk.MessageType.WARNING,
+                                         _("Device reformat request failed. "
+                                           "Click for details."))
+                    self.window.show_all()
 
         # for encryption, I'm not sure if we'll want to modify the
         # container/device or just create a new one
@@ -1036,21 +1137,47 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             device_type = AUTOPART_TYPE_PLAIN
 
         disks = self._clearpartDevices
+        self.clear_errors()
 
         with ui_storage_logger():
-            self.__storage.newDevice(device_type,
-                                     size=float(size.convertTo(spec="mb")),
-                                     fstype=fstype,
-                                     mountpoint=mountpoint,
-                                     encrypted=encrypted,
-                                     disks=disks)
+            try:
+                self.__storage.newDevice(device_type,
+                                         size=float(size.convertTo(spec="mb")),
+                                         fstype=fstype,
+                                         mountpoint=mountpoint,
+                                         encrypted=encrypted,
+                                         disks=disks)
+            except ErrorRecoveryFailure as e:
+                log.error("error recovery failure")
+                self._error = e
+                self.window.set_info(Gtk.MessageType.ERROR,
+                                     unrecoverable_error_msg)
+                self.window.show_all()
+                self._reset_storage()
+            except StorageError as e:
+                log.error("newDevice failed: %s" % e)
+                self._error = e
+                self.window.set_info(Gtk.MessageType.ERROR,
+                                     _("Failed to add new device. Click for "
+                                       "details."))
+                self.window.show_all()
+
         self._devices = self.__storage.devices
         self._do_refresh()
         self._updateSpaceDisplay()
 
     def _destroy_device(self, device):
+        self.clear_errors()
         with ui_storage_logger():
-            self.__storage.destroyDevice(device)
+            try:
+                self.__storage.destroyDevice(device)
+            except StorageError as e:
+                log.error("failed to schedule device removal: %s" % e)
+                self._error = e
+                self.window.set_info(Gtk.MessageType.WARNING,
+                                     _("Device removal request failed. Click "
+                                       "for details."))
+                self.window.show_all()
 
         self._devices = self.__storage.devices
 
@@ -1224,11 +1351,37 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         # There are never any non-existent devices around when this runs.
         log.debug("running automatic partitioning")
         self.__storage.doAutoPart = True
+        self.clear_errors()
         with ui_storage_logger():
-            doAutoPartition(self.__storage, self.data)
-        self.__storage.doAutoPart = False
-        self._devices = self.__storage.devices
-        log.debug("finished automatic partitioning")
+            try:
+                doAutoPartition(self.__storage, self.data)
+            except NoDisksError as e:
+                # No handling should be required for this.
+                log.error("doAutoPartition failed: %s" % e)
+                self._error = e
+                self.window.set_info(Gtk.MessageType.ERROR,
+                                     _("No disks selected."))
+                self.window.show_all()
+            except NotEnoughFreeSpaceError as e:
+                # No handling should be required for this.
+                log.error("doAutoPartition failed: %s" % e)
+                self._error = e
+                self.window.set_info(Gtk.MessageType.ERROR,
+                                     _("Not enough free space on selected disks."))
+                self.window.show_all()
+            except StorageError as e:
+                log.error("doAutoPartition failed: %s" % e)
+                self._reset_storage()
+                self._error = e
+                self.window.set_info(Gtk.MessageType.ERROR,
+                                     _("Automatic partitioning failed. Click "
+                                       "for details."))
+                self.window.show_all()
+            else:
+                self._devices = self.__storage.devices
+            finally:
+                self.__storage.doAutoPart = False
+                log.debug("finished automatic partitioning")
 
     def on_create_clicked(self, button):
         # Then do autopartitioning.  We do not do any clearpart first.  This is
@@ -1295,3 +1448,21 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         fsCombo.set_active(active_index)
         fsCombo.set_sensitive(fs_type_sensitive)
         # end btrfs magic
+
+    def clear_errors(self):
+        self._error = None
+        self.window.clear_info()
+
+    def on_info_bar_clicked(self, *args):
+        log.debug("info bar clicked: %s (%s)" % (self._error, args))
+        if not self._error:
+            return
+
+        dlg = Gtk.MessageDialog(flags=Gtk.DialogFlags.MODAL,
+                                message_type=Gtk.MessageType.ERROR,
+                                buttons=Gtk.ButtonsType.CLOSE,
+                                message_format=str(self._error))
+
+        with enlightbox(self.window, dlg):
+            dlg.run()
+            dlg.destroy()

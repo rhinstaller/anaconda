@@ -50,6 +50,7 @@ from pyanaconda.ui.gui.utils import enlightbox, gdk_threaded
 
 from pyanaconda.kickstart import doKickstartStorage
 from pyanaconda.storage.size import Size
+from pyanaconda.storage.errors import StorageError
 from pyanaconda.product import productName
 from pyanaconda.flags import flags
 
@@ -326,8 +327,21 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         self.storage.config.clearNonExistent = self.data.autopart.autopart
 
     def execute(self):
-        doKickstartStorage(self.storage, self.data, self.instclass)
-        self.run()
+        try:
+            doKickstartStorage(self.storage, self.data, self.instclass)
+        except StorageError as e:
+            log.error("storage configuration failed: %s" % e)
+            communication.send_not_ready(self.__class__.__name__)
+            communication.send_message(self.__class__.__name__,
+                                   _("Failed to save storage configuration..."))
+            self.data.clearpart.type = CLEARPART_TYPE_NONE
+            self.data.clearpart.initAll = False
+            self.storage.config.update(self.data)
+            self.storage.autoPartType = self.data.clearpart.type
+            self.storage.reset()
+            communication.send_ready(self.__class__.__name__)
+        else:
+            self.run()
 
     @property
     def completed(self):
