@@ -108,8 +108,11 @@ class NTPconfigDialog(GUIObject):
     def _initialize_store_from_config(self):
         self._serversStore.clear()
         self._poolsNote.set_text("")
-        for server in ntp.get_servers_from_config():
-            self._add_server(server)
+        try:
+            for server in ntp.get_servers_from_config():
+                self._add_server(server)
+        except ntp.NTPconfigError as ntperr:
+            log.warning("Failed to load NTP servers configuration")
 
     def refresh(self):
         self._serverEntry.grab_focus()
