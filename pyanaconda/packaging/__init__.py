@@ -142,6 +142,7 @@ class Payload(object):
         """
         self.data = data
         self._kernelVersionList = []
+        self._createdInitrds = False
 
     def setup(self, storage):
         """ Do any payload-specific setup. """
@@ -560,14 +561,22 @@ class Payload(object):
                 #           prevent boot on some systems
 
         if new_firmware:
-            for kernel in self.kernelVersionList:
-                log.info("recreating initrd for %s" % kernel)
-                iutil.execWithRedirect("new-kernel-pkg",
-                                       ["--mkinitrd", "--dracut",
-                                        "--depmod", "--install", kernel],
-                                       stdout="/dev/null",
-                                       stderr="/dev/null",
-                                       root=ROOT_PATH)
+            self._recreateInitrds()
+
+    def _recreateInitrds(self, force=False):
+        if not force and self._createdInitrds:
+            return
+
+        for kernel in self.kernelVersionList:
+            log.info("recreating initrd for %s" % kernel)
+            iutil.execWithRedirect("new-kernel-pkg",
+                                   ["--mkinitrd", "--dracut",
+                                    "--depmod", "--install", kernel],
+                                   stdout="/dev/null",
+                                   stderr="/dev/null",
+                                   root=ROOT_PATH)
+        self._createdInitrds = True
+
 
     def _setDefaultBootTarget(self):
         """ Set the default systemd target for the system. """
