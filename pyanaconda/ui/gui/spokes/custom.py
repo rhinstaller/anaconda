@@ -86,7 +86,8 @@ raid_level_features = {"raid0": ["Performance"],
                        "raid10": ["Performance", "Redundancy"],
                        "raid4": ["Performance", "Error"],
                        "raid5": ["Performance", "DistError"],
-                       "raid6": ["Performance", "RedundantError"]}
+                       "raid6": ["Performance", "RedundantError"],
+                       "single": []}
 
 # disabled features by raid_level
 raid_disabled_features = {"raid1": ["Error", "DistError", "RedundantError"]}
