@@ -31,6 +31,7 @@
 """
 import os
 import stat
+from pyanaconda import isys
 
 from . import *
 
@@ -52,10 +53,13 @@ _ = lambda x: gettext.ldgettext("anaconda", x)
 class LiveImagePayload(ImagePayload):
     """ A LivePayload copies the source image onto the target system. """
     def setup(self, storage):
-        if not os.path.ismount("/run/initramfs/live"):
-            exn = PayloadSetupError("live image is not mounted")
+        # Mount the live device and copy from it instead of the overlay at /
+        osimg = storage.devicetree.getDeviceByPath(self.data.method.partition)
+        if not stat.S_ISBLK(os.stat(osimg.path)[stat.ST_MODE]):
+            exn = PayloadSetupError("%s is not a valid block device" % (self.data.method.partition,))
             if errorHandler.cb(exn) == ERROR_RAISE:
                 raise exn
+        isys.mount(osimg.path, INSTALL_TREE, fstype="auto", readOnly=True)
 
     def preInstall(self, packages=None, groups=None):
         """ Perform pre-installation tasks. """
@@ -65,7 +69,11 @@ class LiveImagePayload(ImagePayload):
     def install(self):
         """ Install the payload. """
         cmd = "rsync"
-        args = ["-rlptgoDHAXvx", "/", ROOT_PATH]
+        # preserve: permissions, owners, groups, ACL's, xattrs, times,
+        #           symlinks, hardlinks
+        # go recursively, include devices and special files, don't cross
+        # file system boundaries
+        args = ["-pogAXtlHrDx", INSTALL_TREE+"/", ROOT_PATH]
         try:
             rc = iutil.execWithRedirect(cmd, args,
                                         stderr="/dev/tty5", stdout="/dev/tty5")
@@ -74,12 +82,19 @@ class LiveImagePayload(ImagePayload):
         else:
             err = None
             if rc != 0:
-                err = "%s exited with code %d" % (cmd, rc)
+                log.info("%s exited with code %d" % (cmd, rc))
 
         if err:
             exn = PayloadInstallError(err)
             if errorHandler.cb(exn) == ERROR_RAISE:
                 raise exn
+
+    def postInstall(self):
+        """ Perform post-installation tasks. """
+        isys.umount(INSTALL_TREE, removeDir=True)
+
+        super(LiveImagePayload, self).postInstall()
+        self._recreateInitrds()
 
     @property
     def spaceRequired(self):
