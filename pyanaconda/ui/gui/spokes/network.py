@@ -958,6 +958,9 @@ class NetworkSpoke(NormalSpoke):
 
                 msg = _("Connected devices: %s") % devlist
 
+        if not self.network_control_box.listed_devices:
+            msg = _("No network devices available")
+
         return msg
 
     def initialize(self):
