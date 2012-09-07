@@ -21,6 +21,8 @@
 import importlib, inspect, os, sys, time
 import meh.ui.gui
 
+from gi.repository import Gdk
+
 from pyanaconda.ui import UserInterface, common
 from pyanaconda.ui.gui.utils import enlightbox
 
@@ -30,7 +32,7 @@ _ = lambda x: gettext.ldgettext("anaconda", x)
 import logging
 log = logging.getLogger("anaconda")
 
-__all__ = ["GraphicalUserInterface", "UIObject"]
+__all__ = ["GraphicalUserInterface", "UIObject", "busyCursor", "unbusyCursor"]
 
 _screenshotIndex = 0
 
@@ -54,6 +56,8 @@ class GraphicalUserInterface(UserInterface):
         from hubs.summary import SummaryHub
         from hubs.progress import ProgressHub
         from spokes import StandaloneSpoke
+
+        busyCursor()
 
         self._hubs.extend([SummaryHub, ProgressHub])
 
@@ -81,6 +85,8 @@ class GraphicalUserInterface(UserInterface):
 
     def run(self):
         from gi.repository import Gtk
+
+        unbusyCursor()
 
         if Gtk.main_level() > 0:
             # Gtk main loop running. That means python-meh caught exception
@@ -387,3 +393,11 @@ class QuitDialog(GUIObject):
     def run(self):
         rc = self.window.run()
         return rc
+
+def busyCursor():
+    window = Gdk.get_default_root_window()
+    window.set_cursor(Gdk.Cursor(Gdk.CursorType.WATCH))
+
+def unbusyCursor():
+    window = Gdk.get_default_root_window()
+    window.set_cursor(Gdk.Cursor(Gdk.CursorType.ARROW))
