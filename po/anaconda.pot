@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 18.6.4\n"
+"Project-Id-Version: anaconda 18.6.5\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2012-08-31 19:58-0700\n"
+"POT-Creation-Date: 2012-09-07 15:53-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -669,7 +669,7 @@ msgstr[1] ""
 msgid "Preparing to install"
 msgstr ""
 
-#: pyanaconda/yuminstall.py:136 pyanaconda/packaging/yumpayload.py:1273
+#: pyanaconda/yuminstall.py:136 pyanaconda/packaging/yumpayload.py:1269
 msgid "Preparing transaction from installation source"
 msgstr ""
 
@@ -985,23 +985,23 @@ msgid ""
 "select a different set of software now."
 msgstr ""
 
-#: pyanaconda/packaging/livepayload.py:63
+#: pyanaconda/packaging/livepayload.py:67
 msgid "Installing software"
 msgstr ""
 
-#: pyanaconda/packaging/yumpayload.py:1107
+#: pyanaconda/packaging/yumpayload.py:1103
 msgid "Starting package installation process"
 msgstr ""
 
-#: pyanaconda/packaging/yumpayload.py:1293
+#: pyanaconda/packaging/yumpayload.py:1289
 msgid "Upgrading"
 msgstr ""
 
-#: pyanaconda/packaging/yumpayload.py:1295
+#: pyanaconda/packaging/yumpayload.py:1291
 msgid "Installing"
 msgstr ""
 
-#: pyanaconda/packaging/yumpayload.py:1368
+#: pyanaconda/packaging/yumpayload.py:1364
 msgid "Performing post-install setup tasks"
 msgstr ""
 
@@ -1502,33 +1502,33 @@ msgid "Install Destination"
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/storage.py:109
-#: pyanaconda/ui/gui/spokes/storage.py:346
+#: pyanaconda/ui/gui/spokes/storage.py:349
 msgid "No disks selected"
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/storage.py:116
-#: pyanaconda/ui/gui/spokes/storage.py:353
+#: pyanaconda/ui/gui/spokes/storage.py:356
 msgid "Error checking storage configuration"
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/storage.py:119
-#: pyanaconda/ui/gui/spokes/storage.py:355
+#: pyanaconda/ui/gui/spokes/storage.py:358
 msgid "Automatic partitioning selected"
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/storage.py:121
-#: pyanaconda/ui/gui/spokes/storage.py:357
+#: pyanaconda/ui/gui/spokes/storage.py:360
 msgid "Custom partitioning selected"
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/storage.py:157
-#: pyanaconda/ui/gui/spokes/storage.py:471
+#: pyanaconda/ui/gui/spokes/storage.py:474
 msgid "No disks selected; please select at least one disk to install to."
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/storage.py:170
 #: pyanaconda/ui/gui/spokes/source.py:609
-#: pyanaconda/ui/gui/spokes/storage.py:410
+#: pyanaconda/ui/gui/spokes/storage.py:413
 msgid "Probing storage..."
 msgstr ""
 
@@ -1537,7 +1537,7 @@ msgid "Generating updated storage configuration"
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/storage.py:257
-#: pyanaconda/ui/gui/spokes/storage.py:250
+#: pyanaconda/ui/gui/spokes/storage.py:253
 msgid "Checking storage configuration..."
 msgstr ""
 
@@ -1556,8 +1556,8 @@ msgid "Timezone settings"
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/time.py:53 pyanaconda/ui/tui/spokes/time.py:55
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:334
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:339
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:337
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:342
 #, python-format
 msgid "%s timezone"
 msgstr ""
@@ -1731,19 +1731,19 @@ msgstr ""
 msgid "Note: pool servers may not be available all the time"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:255
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:258
 msgid "DATE & TIME"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:336
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:339
 msgid "Invalid timezone"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:730
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:733
 msgid "You need to set up networking first if you want to use NTP"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:735
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:738
 msgid "You have no working NTP server configured"
 msgstr ""
 
@@ -1859,21 +1859,21 @@ msgstr ""
 msgid "NETWORK CONFIGURATION"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:934
+#: pyanaconda/ui/gui/spokes/network.py:936
 msgid "Not connected"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:941
+#: pyanaconda/ui/gui/spokes/network.py:943
 #, python-format
 msgid "Wireless (%s) connected to %s"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:944
+#: pyanaconda/ui/gui/spokes/network.py:946
 #, python-format
 msgid "Wired (%s) connected"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:954
+#: pyanaconda/ui/gui/spokes/network.py:956
 #, python-format
 msgid "Connected devices: %s"
 msgstr ""
@@ -1975,7 +1975,7 @@ msgid ""
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/software.py:277
-#: pyanaconda/ui/gui/spokes/storage.py:584 pyanaconda/ui/gui/main.glade:36
+#: pyanaconda/ui/gui/spokes/storage.py:587 pyanaconda/ui/gui/main.glade:36
 msgid "_Quit"
 msgstr ""
 
@@ -2054,21 +2054,21 @@ msgid ""
 "You're all set!"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.py:154
+#: pyanaconda/ui/gui/spokes/storage.py:157
 #, python-format
 msgid ""
 "Your current <b>%s</b> software selection requires <b>%s</b> of available "
 "space."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.py:191
+#: pyanaconda/ui/gui/spokes/storage.py:194
 #, python-format
 msgid ""
 "%s\n"
 "The disks you've selected have the following amounts of free space:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.py:199
+#: pyanaconda/ui/gui/spokes/storage.py:202
 #, python-format
 msgid ""
 "<b>You don't have enough space available to install %s</b>, but we can help "
@@ -2076,7 +2076,7 @@ msgid ""
 "reclaim space by shrinking or removing existing partitions."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.py:217
+#: pyanaconda/ui/gui/spokes/storage.py:220
 #, python-format
 msgid ""
 "%s\n"
@@ -2085,7 +2085,7 @@ msgid ""
 "available on the selected disks."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.py:227
+#: pyanaconda/ui/gui/spokes/storage.py:230
 #, python-format
 msgid ""
 "<b>You don't have enough space available to install %s</b>, even if you used "
@@ -2096,15 +2096,15 @@ msgid ""
 "quit the installer."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.py:268
+#: pyanaconda/ui/gui/spokes/storage.py:271
 msgid "INSTALLATION DESTINATION"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.py:388
+#: pyanaconda/ui/gui/spokes/storage.py:391
 msgid "Error checking storage configuration.  Click for details."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.py:581
+#: pyanaconda/ui/gui/spokes/storage.py:584
 msgid ""
 "The following errors were encountered when checking your storage "
 "configuration.  You can modify your storage layout\n"

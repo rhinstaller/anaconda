@@ -300,6 +300,25 @@ update-desktop-database &> /dev/null || :
 /usr/lib/dracut/modules.d/80%{name}/*
 
 %changelog
+* Fri Sep 07 2012 Chris Lumens <clumens@redhat.com> - 18.6.6-1
+- Rewrite expand_langs to return more items (vpodzime)
+- Don't depend on storage or instClass in EFIGRUB (pjones)
+- Use self.stage1_device where appropriate in EFIGRUB. (pjones)
+- Add UTF-8 enconding suffix to our language strings (#854688) (vpodzime)
+- Store "en" as the default, not "en_US". (clumens)
+- Require rsync (vpodzime)
+- Don't rely on chrony.conf file being available (#854899) (vpodzime)
+- Require chrony and rdate, because Anaconda needs them (#854899) (vpodzime)
+- fixup live install (#853988, #854962) (bcl)
+- And then fix an assortment of non-packaging pylint errors, too. (clumens)
+- Fix problems in the packaging module that pylint detected. (clumens)
+- network spoke: require connection only for url and nfs methods (#853899)
+  (rvykydal)
+- Explicitly disable the rootpw lock (#853788) (jkeating)
+- require nm-connection-editor (#854586) (bcl)
+- Include packaging log in exception reports. (dlehman)
+- need to run make before make release (bcl)
+
 * Fri Aug 31 2012 Brian C. Lane <bcl@redhat.com> - 18.6.5-1
 - update transifex.txt for newui (bcl)
 - Handle invalid spoke input (#853253) (jkeating)
