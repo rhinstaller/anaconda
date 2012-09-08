@@ -24,7 +24,7 @@ from pyanaconda.constants import ROOT_PATH
 from pyanaconda.storage import turnOnFilesystems
 from pyanaconda.bootloader import writeBootLoader
 from pyanaconda.progress import progress_report
-from pyanaconda.users import createLuserConf, Users
+from pyanaconda.users import createLuserConf, getPassAlgo, Users
 from pyanaconda.network import writeNetworkConf
 
 import gettext
@@ -93,8 +93,8 @@ def doInstall(storage, payload, ksdata, instClass):
         writeNetworkConf(storage, ksdata, instClass)
 
         # Creating users and groups requires some pre-configuration.
+        createLuserConf(ROOT_PATH, algoname=getPassAlgo(ksdata.authconfig.authconfig))
         u = Users()
-        createLuserConf(ROOT_PATH, algoname=u.getPassAlgo(ksdata.authconfig.authconfig))
         ksdata.rootpw.execute(storage, ksdata, instClass, u)
         ksdata.group.execute(storage, ksdata, instClass, u)
         ksdata.user.execute(storage, ksdata, instClass, u)

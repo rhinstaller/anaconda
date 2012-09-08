@@ -52,6 +52,7 @@ from pyanaconda import ntp
 from pyanaconda import timezone
 from pyanaconda import localization
 from pyanaconda.simpleconfig import SimpleConfigFile
+from pyanaconda.users import getPassAlgo
 
 from pykickstart.base import KickstartCommand
 from pykickstart.constants import *
@@ -469,7 +470,7 @@ class Firstboot(commands.firstboot.FC3_Firstboot):
 
 class Group(commands.group.F12_Group):
     def execute(self, storage, ksdata, instClass, users):
-        algo = users.getPassAlgo(ksdata.authconfig.authconfig)
+        algo = getPassAlgo(ksdata.authconfig.authconfig)
 
         for grp in self.groupList:
             kwargs = grp.__dict__
@@ -1224,7 +1225,7 @@ class RaidData(commands.raid.F15_RaidData):
 
 class RootPw(commands.rootpw.F18_RootPw):
     def execute(self, storage, ksdata, instClass, users):
-        algo = users.getPassAlgo(ksdata.authconfig.authconfig)
+        algo = getPassAlgo(ksdata.authconfig.authconfig)
         users.setRootPassword(self.password, self.isCrypted, self.lock, algo)
 
 class SELinux(commands.selinux.FC3_SELinux):
@@ -1282,7 +1283,7 @@ class Timezone(commands.timezone.F18_Timezone):
 
 class User(commands.user.F12_User):
     def execute(self, storage, ksdata, instClass, users):
-        algo = users.getPassAlgo(ksdata.authconfig.authconfig)
+        algo = getPassAlgo(ksdata.authconfig.authconfig)
 
         for usr in self.userList:
             kwargs = usr.__dict__
