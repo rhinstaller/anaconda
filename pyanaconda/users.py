@@ -33,7 +33,11 @@ import logging
 log = logging.getLogger("anaconda")
 
 def createLuserConf(instPath, algoname='sha512'):
-    """Writes a libuser.conf for instPath."""
+    """ Writes a libuser.conf for instPath.
+
+        This must be called before User() is instantiated the first time
+        so that libuser.admin will use the temporary config file.
+    """
     createTmp = False
     try:
         fn = os.environ["LIBUSER_CONF"]
@@ -70,6 +74,19 @@ directory = %(instPath)s/etc
     os.environ["LIBUSER_CONF"] = fn
 
     return fn
+
+def getPassAlgo(authconfigStr):
+    """ Reads the auth string and returns a string indicating our desired
+        password encoding algorithm.
+    """
+    if authconfigStr.find("--enablemd5") != -1 or authconfigStr.find("--passalgo=md5") != -1:
+        return 'md5'
+    elif authconfigStr.find("--passalgo=sha256") != -1:
+        return 'sha256'
+    elif authconfigStr.find("--passalgo=sha512") != -1:
+        return 'sha512'
+    else:
+        return None
 
 # These are explained in crypt/crypt-entry.c in glibc's code.  The prefixes
 # we use for the different crypt salts:
@@ -268,18 +285,6 @@ class Users:
             return True
         else:
             return False
-
-    # Reads the auth string and returns a string indicating our desired
-    # password encoding algorithm.
-    def getPassAlgo(self, authconfigStr):
-        if authconfigStr.find("--enablemd5") != -1 or authconfigStr.find("--passalgo=md5") != -1:
-            return 'md5'
-        elif authconfigStr.find("--passalgo=sha256") != -1:
-            return 'sha256'
-        elif authconfigStr.find("--passalgo=sha512") != -1:
-            return 'sha512'
-        else:
-            return None
 
     def setUserPassword(self, username, password, isCrypted, lock, algo=None):
         user = self.admin.lookupUserByName(username)
