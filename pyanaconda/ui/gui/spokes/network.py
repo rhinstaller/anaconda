@@ -34,6 +34,7 @@
 
 from gi.repository import Gtk, AnacondaWidgets
 
+from pyanaconda.flags import flags
 from pyanaconda.ui.gui import GUIObject
 from pyanaconda.ui.gui.spokes import NormalSpoke, StandaloneSpoke
 from pyanaconda.ui.gui.categories.software import SoftwareCategory
@@ -962,6 +963,10 @@ class NetworkSpoke(NormalSpoke):
             msg = _("No network devices available")
 
         return msg
+
+    @property
+    def showable(self):
+        return not (flags.livecdInstall or flags.imageInstall)
 
     def initialize(self):
         NormalSpoke.initialize(self)
