@@ -190,7 +190,7 @@ def pvresize(device, size):
         raise LVMError("pvresize failed for %s: %s" % (device, msg))
 
 def pvremove(device):
-    args = ["pvremove", "--force", "--force"] + \
+    args = ["pvremove", "--force", "--force", "--yes"] + \
             config_args + \
             [device]
 
