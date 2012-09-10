@@ -106,8 +106,21 @@
                                     <property name="headers_clickable">False</property>
                                     <property name="search_column">0</property>
                                     <child internal-child="selection">
-                                      <object class="GtkTreeSelection" id="environmentSelector">
-                                        <signal name="changed" handler="on_environment_chosen" swapped="no"/>
+                                      <object class="GtkTreeSelection" id="environmentSelector"/>
+                                    </child>
+                                    <child>
+                                      <object class="GtkTreeViewColumn" id="environmentSelectedCol">
+                                        <property name="title" translatable="yes">column</property>
+                                        <child>
+                                          <object class="GtkCellRendererToggle" id="environmentSelectedRenderer">
+                                            <property name="yalign">0</property>
+                                            <property name="radio">True</property>
+                                            <signal name="toggled" handler="on_environment_toggled" swapped="no"/>
+                                          </object>
+                                          <attributes>
+                                            <attribute name="active">0</attribute>
+                                          </attributes>
+                                        </child>
                                       </object>
                                     </child>
                                     <child>
@@ -190,11 +203,11 @@
                                 <child>
                                   <object class="GtkTreeViewColumn" id="addonSelectedCol">
                                     <property name="title" translatable="yes">column</property>
-                                    <signal name="clicked" handler="on_row_toggled" swapped="no"/>
+                                    <signal name="clicked" handler="on_addon_toggled" swapped="no"/>
                                     <child>
                                       <object class="GtkCellRendererToggle" id="addonSelectedRenderer">
                                         <property name="yalign">0</property>
-                                        <signal name="toggled" handler="on_row_toggled" swapped="no"/>
+                                        <signal name="toggled" handler="on_addon_toggled" swapped="no"/>
                                       </object>
                                       <attributes>
                                         <attribute name="active">0</attribute>

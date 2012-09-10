@@ -240,19 +240,22 @@ class SoftwareSelectionSpoke(NormalSpoke):
         return self._environmentStore[itr]
 
     # Signal handlers
-    def on_environment_chosen(self, blah):
+    def on_environment_toggled(self, renderer, path):
         if not self._selectFlag:
             return
+
+        # First, mark every row as unselected so the radio button on whatever
+        # row was previously selected will be cleared out.
+        for row in self._environmentStore:
+            row[0] = False
 
         if self.environment:
             self.payload.deselectEnvironment(self.environment)
 
-        row = self._get_selected_environment()
-        if row:
-            self.environment = row[2]
-            self.refreshAddons()
+        self.environment = self._environmentStore[path][2]
+        self.refreshAddons()
 
-    def on_row_toggled(self, renderer, path):
+    def on_addon_toggled(self, renderer, path):
         selected = not self._addonStore[path][0]
         group = self._addonStore[path][2]
         self._addonStore[path][0] = selected
