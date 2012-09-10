@@ -146,7 +146,7 @@ class ProgressHub(Hub):
         # seconds, so we need to do the first call manually.
         self._cycle_rnotes()
 
-        self._progress_id = GLib.idle_add(self._update_progress)
+        self._progress_id = GLib.timeout_add(250, self._update_progress)
         self._rnotes_id = GLib.timeout_add_seconds(60, self._cycle_rnotes)
         threadMgr.add(AnacondaThread(name="AnaInstallThread", target=doInstall,
                                      args=(self.storage, self.payload, self.data, self.instclass)))
