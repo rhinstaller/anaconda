@@ -286,7 +286,8 @@ class KeyboardSpoke(NormalSpoke):
 
         (store, cur) = selection.get_selected()
         prev = cur.copy()
-        if not store.iter_previous(prev):
+        prev = store.iter_previous(prev)
+        if not prev:
             return
 
         store.swap(cur, prev)
