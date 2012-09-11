@@ -24,7 +24,7 @@ from __future__ import division
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
 
-from gi.repository import GLib
+from gi.repository import GLib, Gtk
 
 import itertools
 import os
@@ -49,8 +49,6 @@ class ProgressHub(Hub):
 
         self._totalSteps = 0
         self._currentStep = 0
-
-        self._rnotes = itertools.cycle(self._get_rnotes())
 
     def _update_progress(self):
         from pyanaconda import progress
@@ -82,7 +80,7 @@ class ProgressHub(Hub):
 
                 GLib.source_remove(self._rnotes_id)
 
-                self._progressNotebook.next_page()
+                self._progressNotebook.set_current_page(0)
 
                 # kickstart install, continue automatically if reboot or shutdown selected
                 if flags.automatedInstall and self.data.reboot.action in [KS_REBOOT, KS_SHUTDOWN]:
@@ -113,21 +111,20 @@ class ProgressHub(Hub):
 
     def _cycle_rnotes(self):
         # Change the ransom notes image every minute by grabbing the next
-        # image's filename.  Note that self._rnotes is an infinite list, so
-        # this will cycle through the images indefinitely.
+        # image's filename.  Note that self._rnotesPages is an infinite list,
+        # so this will cycle through the images indefinitely.
         try:
-            nxt = self._rnotes.next()
+            nxt = self._rnotesPages.next()
         except StopIteration:
             # there are no rnotes
             pass
         else:
-            self._rnotesImage.set_from_file(nxt)
+            self._progressNotebook.set_current_page(nxt)
+
         return True
 
     def initialize(self):
         Hub.initialize(self)
-
-        self._rnotesImage = self.builder.get_object("ransomNotesImage")
 
         self._progressBar = self.builder.get_object("progressBar")
         self._progressLabel = self.builder.get_object("progressLabel")
@@ -135,6 +132,24 @@ class ProgressHub(Hub):
 
         lbl = self.builder.get_object("rebootLabel")
         lbl.set_text(lbl.get_text() % productName)
+
+        rnotes = self._get_rnotes()
+        if rnotes:
+            # Add a new page in the notebook for each ransom note image.
+            for f in rnotes:
+                img = Gtk.Image.new_from_file(f)
+                img.show()
+                self._progressNotebook.append_page(img, None)
+
+            # An infinite list of the page numbers containing ransom notes images.
+            self._rnotesPages = itertools.cycle(range(1, self._progressNotebook.get_n_pages()-1))
+        else:
+            # Add a blank page to the notebook and we'll just cycle to that
+            # over and over again.
+            blank = Gtk.Box()
+            blank.show()
+            self._progressNotebook.append_page(blank, None)
+            self._rnotesPages = itertools.cycle([1])
 
     def refresh(self):
         from pyanaconda.install import doInstall
