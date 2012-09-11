@@ -1067,9 +1067,9 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         elif device.type.startswith("btrfs"):
             typeCombo.set_active(DEVICE_TYPE_BTRFS)
             if hasattr(device, "volume"):
-                raid_level = device.volume.dataLevel
+                raid_level = device.volume.dataLevel or "single"
             else:
-                raid_level = device.dataLevel
+                raid_level = device.dataLevel or "single"
 
         # you can't change the type of an existing device
         typeCombo.set_sensitive(not device.exists)
