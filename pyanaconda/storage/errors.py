@@ -157,7 +157,7 @@ class DeviceActionError(StorageError):
 class PartitioningError(StorageError):
     pass
 
-class PartitioningWarning(StorageError):
+class NotEnoughFreeSpaceError(StorageError):
     pass
 
 # udev

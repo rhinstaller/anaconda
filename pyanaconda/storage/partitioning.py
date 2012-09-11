@@ -267,13 +267,17 @@ def doAutoPartition(storage, data):
     devs = []
 
     if storage.doAutoPart:
+        if not storage.partitioned:
+            raise NoDisksError("No usable disks selected")
+
         disks = _getCandidateDisks(storage)
         devs = _scheduleImplicitPartitions(storage, disks)
         log.debug("candidate disks: %s" % disks)
         log.debug("devs: %s" % devs)
 
         if disks == []:
-            raise NoDisksError
+            raise NotEnoughFreeSpaceError("Not enough free space on disks for "
+                                          "automatic partitioning")
 
         _schedulePartitions(storage, disks)
 
@@ -286,10 +290,6 @@ def doAutoPartition(storage, data):
 
         # grow LVs
         growLVM(storage)
-    except PartitioningWarning as e:
-        log.warning(str(e))
-        if errorHandler.cb(e) == ERROR_RAISE:
-            raise
     except PartitioningError as e:
         log.error(str(e))
         if errorHandler.cb(e) == ERROR_RAISE:
