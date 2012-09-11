@@ -192,6 +192,10 @@ class AddDialog(GUIObject):
             self.size = Size(spec=size_text)
         except Exception:
             pass
+        else:
+            # Minimum size for ui-created partitions is 1MB.
+            if self.size.convertTo(spec="mb") < 1:
+                self.size = Size(spec="1mb")
 
         self.window.destroy()
 
