@@ -1615,13 +1615,21 @@ class PartitionDevice(StorageDevice):
     @property
     def maxSize(self):
         """ The maximum size this partition can be. """
-        # XXX: this is MB by default
-        maxPartSize = self.partedPartition.getMaxAvailableSize()
-
-        if self.format.maxSize > maxPartSize:
-            return maxPartSize
+        # XXX Only allow growth up to the amount of free space following this
+        #     partition on disk. We don't care about leading free space --
+        #     a filesystem cannot be relocated, so if you want to use space
+        #     before and after your partition, remove it and create a new one.
+        sector = self.partedPartition.geometry.end + 1
+        maxPartSize = self.size
+        try:
+            partition = self.partedPartition.disk.getPartitionBySector(sector)
+        except _ped.PartitionException:
+            pass
         else:
-            return self.format.maxSize
+            if partition.type == parted.PARTITION_FREESPACE:
+                maxPartSize = self.size + math.floor(partition.getSize())
+
+        return min(self.format.maxSize, maxPartSize)
 
     @property
     def currentSize(self):
