@@ -1847,7 +1847,7 @@ class Storage(object):
             if isinstance(member, LUKSDevice):
                 member = member.slave
 
-            member.req_base_size = PartitionDevice.defaultSize
+            member.req_base_size = 1
             member.req_size = member.req_base_size
             member.req_grow = True
 
@@ -1861,7 +1861,7 @@ class Storage(object):
                 member_format = factory.member_format
 
             try:
-                member = self.newPartition(parents=[disk], grow=True,
+                member = self.newPartition(parents=[disk], grow=True, size=1,
                                            fmt_type=member_format)
             except StorageError as e:
                 log.error("failed to create new member partition: %s" % e)
@@ -3166,7 +3166,7 @@ class DeviceFactory(object):
 class PartitionFactory(DeviceFactory):
     type_desc = "partition"
     new_device_attr = "newPartition"
-    default_size = PartitionDevice.defaultSize
+    default_size = 1
 
     def __init__(self, storage, size, disks, raid_level, encrypted):
         super(PartitionFactory, self).__init__(storage, size, disks, raid_level,
@@ -3174,14 +3174,9 @@ class PartitionFactory(DeviceFactory):
         self.member_list = self.disks
 
     def new_device(self, *args, **kwargs):
-        # only use the default as a base size for a growable partition if the
-        # requested size is greater than the default size
-        if kwargs["size"] > PartitionFactory.default_size:
-            grow = True
-            max_size = kwargs.pop("size")
-        else:
-            grow = False
-            max_size = None
+        grow = True
+        max_size = kwargs.pop("size")
+        kwargs["size"] = 1
 
         device = self.storage.newPartition(*args,
                                            grow=grow, maxsize=max_size,
