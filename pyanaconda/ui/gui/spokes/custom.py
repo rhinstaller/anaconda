@@ -485,6 +485,12 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
     def _reset_storage(self):
         self.__storage = self.storage.copy()
         self.__storage.devicetree._actions = [] # keep things simple
+
+        # hide removable disks containing install media
+        for disk in self.__storage.disks:
+            if disk.removable and disk.protected:
+                self.__storage.devicetree.hide(disk)
+
         self._devices = self.__storage.devices
 
     def refresh(self):
