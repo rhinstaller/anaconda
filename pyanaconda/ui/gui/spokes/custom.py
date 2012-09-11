@@ -137,7 +137,8 @@ class AddDialog(GUIObject):
         self._error = False
 
         # sure, add whatever you want to this list. this is just a start.
-        paths = ["/", "/boot", "/home", "/usr", "/var", "swap"]
+        paths = ["/", "/boot", "/home", "/usr", "/var",
+                 "swap", "biosboot", "prepboot"]
         store = self.builder.get_object("mountPointStore")
         for path in paths:
             if path not in self.mountpoints:
@@ -545,6 +546,11 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             swaps = [d for d in new_devices if d.format.type == "swap"]
             mounts = dict([(d.format.mountpoint, d) for d in new_devices
                                 if getattr(d.format, "mountpoint", None)])
+
+            for d in new_devices:
+                if d.format.type in ("prepboot", "biosboot"):
+                    mounts[d.format.type] = d
+
             new_root = Root(mounts=mounts, swaps=swaps, name=new_install_name)
             ui_roots.insert(0, new_root)
 
@@ -627,7 +633,11 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             return _("The 'home' area on your computer is where all your personal\n" \
                      "data is stored.")
         elif name == "BIOS Boot":
-            return _("No one knows what this could possibly be for.")
+            return _("The BIOS boot partition is required to enable booting\n"
+                     "from GPT-partitioned disks on BIOS hardware.")
+        elif name == "PReP Boot":
+            return _("The PReP boot partition is required as part of the\n"
+                     "bootloader configuration on some PPC platforms.")
         else:
             return ""
 
@@ -834,7 +844,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
         # for fstype we'll need to instantiate a new DeviceFormat and schedule
         # creation of it
-        if fs_type != device.format.type:
+        if fs_type != device.format.name:
             self.clear_errors()
             with ui_storage_logger():
                 old_format = device.format
@@ -1046,7 +1056,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         encryptCheckbox.set_active(device.encrypted)
 
         # if the format is swap the device type can't be btrfs
-        include_btrfs = device.format.type != "swap"
+        include_btrfs = device.format.type not in ("swap", "prepboot",
+                                                   "biosboot")
         # btrfs has to be the last type in the list
         btrfs_included = typeCombo.get_model()[-1][0] == "BTRFS"
         if include_btrfs and not btrfs_included:
@@ -1134,7 +1145,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         # we're doing nothing here to ensure that bootable requests end up on
         # the boot disk, but the weight from platform should take care of this
 
-        if mountpoint.lower() == "swap":
+        if mountpoint.lower() in ("swap", "biosboot", "prepboot"):
             mountpoint = None
 
         device_type = self.data.autopart.type
@@ -1142,7 +1153,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
              mountpoint == "/boot/efi":
             device_type = AUTOPART_TYPE_PLAIN
         elif device_type == AUTOPART_TYPE_BTRFS and \
-             (fstype == "swap" or \
+             (fstype in ("swap", "biosboot", "prepboot") or \
               (mountpoint and mountpoint.startswith("/boot"))):
             device_type = AUTOPART_TYPE_PLAIN
 

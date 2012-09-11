@@ -155,7 +155,8 @@ class Page(Gtk.Box):
         if not mountpoint:
             # This catches things like swap.
             return SYSTEM_DEVICE
-        elif mountpoint in ["/", "/boot", "/boot/efi", "/tmp", "/usr", "/var"]:
+        elif mountpoint in ["/", "/boot", "/boot/efi", "/tmp", "/usr", "/var",
+                            "biosboot", "prepboot"]:
             return SYSTEM_DEVICE
         else:
             return DATA_DEVICE

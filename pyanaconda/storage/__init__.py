@@ -1791,8 +1791,8 @@ class Storage(object):
         if not mountpoint:
             # just return the default
             pass
-        elif mountpoint.lower() == "swap":
-            fstype = "swap"
+        elif mountpoint.lower() in ("swap", "biosboot", "prepboot"):
+            fstype = mountpoint.lower()
         elif mountpoint == "/boot":
             fstype = self.defaultBootFSType
         elif mountpoint == "/boot/efi":
