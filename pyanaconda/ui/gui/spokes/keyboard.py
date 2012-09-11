@@ -106,6 +106,12 @@ class AddLayoutDialog(GUIObject):
         for layout in self._xkl_wrapper.get_available_layouts():
             self._addLayout(self._store, layout)
 
+        self._confirmAddButton = self.builder.get_object("confirmAddButton")
+
+        self._newLayoutSelection = self.builder.get_object("newLayoutSelection")
+        selected = self._newLayoutSelection.count_selected_rows()
+        self._confirmAddButton.set_sensitive(selected)
+
     def run(self):
         rc = self.window.run()
         self.window.destroy()
@@ -123,6 +129,10 @@ class AddLayoutDialog(GUIObject):
         for path in pathlist:
             itr = store.get_iter(path)
             self._chosen_layouts.append(store[itr][0])
+
+    def on_add_layout_selection_changed(self, selection):
+        selected = selection.count_selected_rows()
+        self._confirmAddButton.set_sensitive(selected)
 
     def on_cancel_clicked(self, *args):
         print "CANCELING"

@@ -115,6 +115,7 @@
                     <child internal-child="selection">
                       <object class="GtkTreeSelection" id="newLayoutSelection">
                         <property name="mode">multiple</property>
+                        <signal name="changed" handler="on_add_layout_selection_changed" swapped="no"/>
                       </object>
                     </child>
                     <child>
