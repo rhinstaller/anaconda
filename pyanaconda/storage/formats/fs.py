@@ -496,11 +496,11 @@ class FS(DeviceFormat):
         except Exception as e:
             raise FSError("filesystem check failed: %s" % e)
 
-        if self._fsckFailed(ret.rc):
+        if self._fsckFailed(ret):
             hdr = _("%(type)s filesystem check failure on %(device)s: ") % \
                     {"type": self.type, "device": self.device}
 
-            msg = self._fsckErrorMessage(ret.rc)
+            msg = self._fsckErrorMessage(ret)
 
             # FIXME:  Bluh?
             if False:
