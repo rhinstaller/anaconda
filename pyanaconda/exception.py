@@ -28,6 +28,7 @@ import sys
 import os
 import shutil
 import signal
+import time
 from flags import flags
 import kickstart
 import storage.errors
@@ -165,3 +166,36 @@ def initExceptionHandling(anaconda):
     handler.install(anaconda)
 
     return conf
+
+def test_exception_handling():
+    """
+    Function that can be used for testing exception handling in anaconda. It
+    tries to prepare a worst case scenario designed from bugs seen so far.
+
+    """
+
+    # XXX: this is a huge hack, but probably the only way, how we can get
+    #      "unique" stack and thus unique hash and new bugreport
+    def raise_exception(msg, non_ascii):
+        timestamp = str(time.time()).split(".", 1)[0]
+
+        code = """
+def f%s(msg, non_ascii):
+        raise RuntimeError(msg)
+
+f%s(msg, non_ascii)
+""" % (timestamp, timestamp)
+
+        eval(compile(code, "str_eval", "exec"))
+
+    # test non-ascii characters dumping
+    non_ascii = u'\u0159'
+
+    msg = "NOTABUG: testing exception handling"
+
+    # raise exception from a separate thread
+    # XXX: may create a circular dependency if imported globally
+    from pyanaconda.threads import AnacondaThread, threadMgr
+    threadMgr.add(AnacondaThread(name="AnaExceptionHandlingTest",
+                                 target=raise_exception,
+                                 args=(msg, non_ascii)))

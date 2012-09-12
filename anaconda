@@ -906,12 +906,14 @@ if __name__ == "__main__":
     # sets yum's multilib_policy to "all" (as opposed to "best")
     ksdata.packages.multiLib = opts.multiLib
 
+    from pyanaconda import exception
     if anaconda.displayMode == 'g':
         # comment out the next line to make exceptions non-fatal
-        from pyanaconda.exception import initExceptionHandling
-        anaconda.mehConfig = initExceptionHandling(anaconda)
+        anaconda.mehConfig = exception.initExceptionHandling(anaconda)
 
     # add our own additional signal handlers
+    signal.signal(signal.SIGUSR1, lambda signum, frame:
+                                         exception.test_exception_handling())
     signal.signal(signal.SIGUSR2, lambda signum, frame: anaconda.dumpState())
 
     if opts.lang:
