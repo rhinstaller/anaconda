@@ -80,11 +80,6 @@ class ProgressHub(TUIHub):
                 # There shouldn't be any more progress updates, so return
                 q.task_done()
 
-                # kickstart install, continue automatically if reboot or shutdown selected
-                if flags.automatedInstall and self.data.reboot.action in [KS_REBOOT, KS_SHUTDOWN]:
-                    # Just pretend like we got input, and our input doesn't care
-                    # what it gets, it just quits.
-                    self.input(None, None)
 
                 if self._stepped:
                     print('')
@@ -94,7 +89,7 @@ class ProgressHub(TUIHub):
         return True
 
     def refresh(self, args):
-        from pyanaconda.install import doInstall
+        from pyanaconda.install import doInstall, doConfiguration
         from pyanaconda.threads import threadMgr, AnacondaThread
 
         # We print this here because we don't really use the window object
@@ -105,7 +100,22 @@ class ProgressHub(TUIHub):
                                            self.instclass)))
 
         # This will run until we're all done with the install thread.
-        return self._update_progress()
+        self._update_progress()
+
+        threadMgr.add(AnacondaThread(name="AnaConfigurationThread", target=doConfiguration,
+                                     args=(self.storage, self.payload, self.data,
+                                           self.instclass)))
+
+        # This will run until we're all done with the configuration thread.
+        self._update_progress()
+
+        # kickstart install, continue automatically if reboot or shutdown selected
+        if flags.automatedInstall and self.data.reboot.action in [KS_REBOOT, KS_SHUTDOWN]:
+            # Just pretend like we got input, and our input doesn't care
+            # what it gets, it just quits.
+            self.input(None, None)
+        
+        return True
 
     def prompt(self, args = None):
         return(_("\tInstallation complete.  Press return to quit"))

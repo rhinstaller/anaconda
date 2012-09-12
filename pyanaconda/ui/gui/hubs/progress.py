@@ -49,8 +49,33 @@ class ProgressHub(Hub):
 
         self._totalSteps = 0
         self._currentStep = 0
+        self._configurationDone = False
 
-    def _update_progress(self):
+    def _do_configuration(self, widget = None, reenable_ransom = True):
+        from pyanaconda.install import doConfiguration
+        from pyanaconda.threads import threadMgr, AnacondaThread
+
+        assert self._configurationDone == False
+
+        self._configurationDone = True
+
+        # Disable all personalization spokes
+        self.builder.get_object("progressWindow-scroll").set_sensitive(False)
+
+        if reenable_ransom:
+            self._start_ransom_notes()
+
+        self._progress_id = GLib.timeout_add(250, self._update_progress, self._configuration_done)
+        threadMgr.add(AnacondaThread(name="AnaConfigurationThread", target=doConfiguration,
+                                     args=(self.storage, self.payload, self.data, self.instclass)))
+
+    def _start_ransom_notes(self):
+        # Adding this as a timeout below means it'll get called after 60
+        # seconds, so we need to do the first call manually.
+        self._cycle_rnotes()
+        self._rnotes_id = GLib.timeout_add_seconds(60, self._cycle_rnotes)
+
+    def _update_progress(self, callback = None):
         from pyanaconda import progress
         import Queue
 
@@ -78,19 +103,39 @@ class ProgressHub(Hub):
                 self._progress_bar_complete()
                 q.task_done()
 
-                GLib.source_remove(self._rnotes_id)
-
-                self._progressNotebook.set_current_page(0)
-
-                # kickstart install, continue automatically if reboot or shutdown selected
-                if flags.automatedInstall and self.data.reboot.action in [KS_REBOOT, KS_SHUTDOWN]:
-                    self.continueButton.emit("clicked")
+                if callback:
+                    callback()
 
                 return False
 
             q.task_done()
 
         return True
+
+
+    def _configuration_done(self):
+        # Configuration done, remove ransom notes timer
+        # and switch to the Reboot page
+
+        GLib.source_remove(self._rnotes_id)
+        self._progressNotebook.set_current_page(1)
+
+        # kickstart install, continue automatically if reboot or shutdown selected
+        if flags.automatedInstall and self.data.reboot.action in [KS_REBOOT, KS_SHUTDOWN]:
+            self.continueButton.emit("clicked")
+
+
+    def _install_done(self):
+        # package installation done, check personalization spokes
+        # and start the configuration step if all is ready
+        if not self._inSpoke and self.continuePossible:
+            self._do_configuration(reenable_ransom = False)
+
+        else:
+            # some mandatory spokes are not ready
+            # switch to configure and finish page
+            GLib.source_remove(self._rnotes_id)
+            self._progressNotebook.set_current_page(0)
 
     def _get_rnotes(self):
         import glob
@@ -130,6 +175,9 @@ class ProgressHub(Hub):
         self._progressLabel = self.builder.get_object("progressLabel")
         self._progressNotebook = self.builder.get_object("progressNotebook")
 
+        lbl = self.builder.get_object("configurationLabel")
+        lbl.set_text(lbl.get_text() % productName)
+
         lbl = self.builder.get_object("rebootLabel")
         lbl.set_text(lbl.get_text() % productName)
 
@@ -142,14 +190,14 @@ class ProgressHub(Hub):
                 self._progressNotebook.append_page(img, None)
 
             # An infinite list of the page numbers containing ransom notes images.
-            self._rnotesPages = itertools.cycle(range(1, self._progressNotebook.get_n_pages()-1))
+            self._rnotesPages = itertools.cycle(range(2, self._progressNotebook.get_n_pages()-2))
         else:
             # Add a blank page to the notebook and we'll just cycle to that
             # over and over again.
             blank = Gtk.Box()
             blank.show()
             self._progressNotebook.append_page(blank, None)
-            self._rnotesPages = itertools.cycle([1])
+            self._rnotesPages = itertools.cycle([2])
 
     def refresh(self):
         from pyanaconda.install import doInstall
@@ -157,14 +205,16 @@ class ProgressHub(Hub):
 
         Hub.refresh(self)
 
-        # Adding this as a timeout below means it'll get called after 60
-        # seconds, so we need to do the first call manually.
-        self._cycle_rnotes()
-
-        self._progress_id = GLib.timeout_add(250, self._update_progress)
-        self._rnotes_id = GLib.timeout_add_seconds(60, self._cycle_rnotes)
+        self._start_ransom_notes()
+        self._progress_id = GLib.timeout_add(250, self._update_progress, self._install_done)
         threadMgr.add(AnacondaThread(name="AnaInstallThread", target=doInstall,
                                      args=(self.storage, self.payload, self.data, self.instclass)))
+
+    def _updateContinueButton(self):
+        if self._configurationDone:
+            self.continueButton.set_sensitive(self.continuePossible)
+        else:
+            self.builder.get_object("configureButton").set_sensitive(self.continuePossible)
 
     @property
     def continueButton(self):
@@ -177,6 +227,9 @@ class ProgressHub(Hub):
         with gdk_threaded():
             self._progressBar.set_fraction(0.0)
 
+            spinner = self.builder.get_object("progressSpinner")
+            spinner.start()
+            
     def _step_progress_bar(self):
         if not self._totalSteps:
             return

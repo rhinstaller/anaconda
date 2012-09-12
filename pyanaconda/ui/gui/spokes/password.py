@@ -30,8 +30,7 @@ import pwquality
 import string
 
 from pyanaconda.ui.gui.spokes import NormalSpoke
-# Need a new category I guess
-from pyanaconda.ui.gui.categories.localization import LocalizationCategory
+from pyanaconda.ui.gui.categories.user_settings import UserSettingsCategory
 #from _isys import isCapsLockEnabled
 
 __all__ = ["PasswordSpoke"]
@@ -43,8 +42,7 @@ class PasswordSpoke(NormalSpoke):
     mainWidgetName = "passwordWindow"
     uiFile = "spokes/password.glade"
 
-    # update this category to something... new?
-    category = LocalizationCategory
+    category = UserSettingsCategory
 
     icon = "dialog-password-symbolic"
     title = N_("ROOT PASSWORD")

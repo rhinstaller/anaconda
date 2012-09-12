@@ -224,8 +224,12 @@ class Hub(GUIObject, common.Hub):
 
             self.window.set_info(Gtk.MessageType.WARNING, msg)
 
+    @property
+    def continuePossible(self):
+        return len(self._incompleteSpokes) == 0 and len(self._notReadySpokes) == 0
+        
     def _updateContinueButton(self):
-        self.continueButton.set_sensitive(len(self._incompleteSpokes) == 0 and len(self._notReadySpokes) == 0)
+        self.continueButton.set_sensitive(self.continuePossible)
 
     def _update_spokes(self):
         from pyanaconda.ui.gui import communication
