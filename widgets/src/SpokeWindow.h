@@ -56,13 +56,13 @@ struct _AnacondaSpokeWindow {
  *                the widget class structure in order for the class mechanism
  *                to work correctly.  This allows an AnacondaSpokeWindowClass
  *                pointer to be cast to an #AnacondaBaseWindow pointer.
- * @back_clicked: Function pointer called when the #AnacondaSpokeWindow::back-clicked
- *                signal is emitted.
+ * @button_clicked: Function pointer called when the #AnacondaSpokeWindow::button-clicked
+ *                  signal is emitted.
  */
 struct _AnacondaSpokeWindowClass {
     AnacondaBaseWindowClass parent_class;
 
-    void (* back_clicked)  (AnacondaSpokeWindow *window);
+    void (* button_clicked)  (AnacondaSpokeWindow *window);
 };
 
 GType       anaconda_spoke_window_get_type (void);

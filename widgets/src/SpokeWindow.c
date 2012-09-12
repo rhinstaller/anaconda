@@ -33,48 +33,52 @@
  * The window consists of two areas:
  *
  * - A navigation area in the top of the screen, inherited from #AnacondaBaseWindow
- *   and augmented with a back button.
+ *   and augmented with a button in the upper left corner.
  *
  * - An action area in the rest of the screen, taking up a majority of the
  *   space.  This is where widgets will be added and the user will do things.
  */
 
 enum {
-    SIGNAL_BACK_CLICKED,
+    SIGNAL_BUTTON_CLICKED,
     LAST_SIGNAL
 };
+
+#define DEFAULT_BUTTON_TEXT _("Back")
 
 static guint window_signals[LAST_SIGNAL] = { 0 };
 
 struct _AnacondaSpokeWindowPrivate {
-    GtkWidget  *back_button;
+    GtkWidget  *button;
 };
 
-static void anaconda_spoke_window_back_clicked(GtkButton *button,
-                                               AnacondaSpokeWindow *win);
+static void anaconda_spoke_window_button_clicked(GtkButton *button,
+                                                 AnacondaSpokeWindow *win);
 
 G_DEFINE_TYPE(AnacondaSpokeWindow, anaconda_spoke_window, ANACONDA_TYPE_BASE_WINDOW)
 
 static void anaconda_spoke_window_class_init(AnacondaSpokeWindowClass *klass) {
     GObjectClass *object_class = G_OBJECT_CLASS(klass);
 
-    klass->back_clicked = NULL;
+    klass->button_clicked = NULL;
 
     /**
-     * AnacondaSpokeWindow::back-clicked:
+     * AnacondaSpokeWindow::button-clicked:
      * @window: the window that received the signal
      *
-     * Emitted when the back button has been activated (pressed and released).
+     * Emitted when the button in the upper left corner has been activated
+     * (pressed and released).  This is commonly the button that takes the user
+     * back to the hub, but could do other things.
      *
      * Since: 1.0
      */
-    window_signals[SIGNAL_BACK_CLICKED] = g_signal_new("back-clicked",
-                                                       G_TYPE_FROM_CLASS(object_class),
-                                                       G_SIGNAL_RUN_FIRST | G_SIGNAL_ACTION,
-                                                       G_STRUCT_OFFSET(AnacondaSpokeWindowClass, back_clicked),
-                                                       NULL, NULL,
-                                                       g_cclosure_marshal_VOID__VOID,
-                                                       G_TYPE_NONE, 0);
+    window_signals[SIGNAL_BUTTON_CLICKED] = g_signal_new("button-clicked",
+                                                         G_TYPE_FROM_CLASS(object_class),
+                                                         G_SIGNAL_RUN_FIRST | G_SIGNAL_ACTION,
+                                                         G_STRUCT_OFFSET(AnacondaSpokeWindowClass, button_clicked),
+                                                         NULL, NULL,
+                                                         g_cclosure_marshal_VOID__VOID,
+                                                         G_TYPE_NONE, 0);
 
     g_type_class_add_private(object_class, sizeof(AnacondaSpokeWindowPrivate));
 }
@@ -103,21 +107,21 @@ static void anaconda_spoke_window_init(AnacondaSpokeWindow *win) {
     gtk_window_set_modal(GTK_WINDOW(win), TRUE);
 
     /* Create the buttons. */
-    win->priv->back_button = gtk_button_new_with_mnemonic(_("_Back"));
-    gtk_widget_set_halign(win->priv->back_button, GTK_ALIGN_START);
+    win->priv->button = gtk_button_new_with_mnemonic(DEFAULT_BUTTON_TEXT);
+    gtk_widget_set_halign(win->priv->button, GTK_ALIGN_START);
 
     /* Hook up some signals for that button.  The signal handlers here will
      * just raise our own custom signals for the whole window.
      */
-    g_signal_connect(win->priv->back_button, "clicked",
-                     G_CALLBACK(anaconda_spoke_window_back_clicked), win);
+    g_signal_connect(win->priv->button, "clicked",
+                     G_CALLBACK(anaconda_spoke_window_button_clicked), win);
 
-    /* And then put the back button into the navigation area. */
+    /* And then put the button into the navigation area. */
     nav_area = anaconda_base_window_get_nav_area(ANACONDA_BASE_WINDOW(win));
-    gtk_grid_attach(GTK_GRID(nav_area), win->priv->back_button, 0, 1, 1, 1);
+    gtk_grid_attach(GTK_GRID(nav_area), win->priv->button, 0, 1, 1, 1);
 }
 
-static void anaconda_spoke_window_back_clicked(GtkButton *button,
-                                               AnacondaSpokeWindow *win) {
-    g_signal_emit(win, window_signals[SIGNAL_BACK_CLICKED], 0);
+static void anaconda_spoke_window_button_clicked(GtkButton *button,
+                                                 AnacondaSpokeWindow *win) {
+    g_signal_emit(win, window_signals[SIGNAL_BUTTON_CLICKED], 0);
 }

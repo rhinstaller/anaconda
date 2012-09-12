@@ -302,4 +302,4 @@ class SoftwareSelectionSpoke(NormalSpoke):
         elif rc == 3:
             # Send the user to the installation source spoke.
             self.skipTo = "SourceSpoke"
-            self.window.emit("back-clicked")
+            self.window.emit("button-clicked")
