@@ -300,6 +300,10 @@ update-desktop-database &> /dev/null || :
 /usr/lib/dracut/modules.d/80%{name}/*
 
 %changelog
+* Wed Sep 12 2012 Brian C. Lane <bcl@redhat.com> - 18.6.8-1
+- Write storage configs after payload install for live installs. (#856836)
+  (dlehman)
+
 * Mon Sep 10 2012 Chris Lumens <clumens@redhat.com> - 18.6.7-1
 - fix root password setup (#855481) (bcl)
 - Mark ksdata.*.execute invocations as another step (vpodzime)
