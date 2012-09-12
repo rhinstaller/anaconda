@@ -624,6 +624,10 @@ class Network:
                 return True
         return False
 
+    def hasVlanDevice(self):
+        return any(dev for dev in self.netdevices.values()
+                   if dev.get('TYPE') == 'Vlan')
+
     def hasBondDevice(self):
         return any (dev for dev in self.netdevices.values()
                     if dev.get('TYPE') == 'Bond')
@@ -683,7 +687,7 @@ class Network:
         if dev.get('IPV6_DEFAULTGW'):
             f.write("IPV6_DEFAULTGW=%s\n" % (dev.get('IPV6_DEFAULTGW'),))
 
-        if self.hasBondDevice():
+        if self.hasBondDevice() or self.hasVlanDevice():
             f.write("NM_BOND_VLAN_ENABLED=yes\n")
 
         f.close()
