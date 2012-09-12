@@ -2077,7 +2077,7 @@ int main(int argc, char ** argv) {
     if (virtpcon) flags |= LOADER_FLAGS_VIRTPCONSOLE;
 
     /* uncomment to send mac address in ks=http:/ header by default*/
-    flags |= LOADER_FLAGS_KICKSTART_SEND_MAC;
+    /* flags |= LOADER_FLAGS_KICKSTART_SEND_MAC; */
 
     /* JKFIXME: I do NOT like this... it also looks kind of bogus */
 #if defined(__s390__) || defined(__s390x__)
