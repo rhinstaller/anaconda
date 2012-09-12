@@ -40,11 +40,15 @@
  */
 
 enum {
+    PROP_BUTTON_LABEL = 1
+};
+
+#define DEFAULT_BUTTON_LABEL _("Back")
+
+enum {
     SIGNAL_BUTTON_CLICKED,
     LAST_SIGNAL
 };
-
-#define DEFAULT_BUTTON_TEXT _("Back")
 
 static guint window_signals[LAST_SIGNAL] = { 0 };
 
@@ -52,15 +56,38 @@ struct _AnacondaSpokeWindowPrivate {
     GtkWidget  *button;
 };
 
+G_DEFINE_TYPE(AnacondaSpokeWindow, anaconda_spoke_window, ANACONDA_TYPE_BASE_WINDOW)
+
+static void anaconda_spoke_window_get_property(GObject *object, guint prop_id, GValue *value, GParamSpec *pspec);
+static void anaconda_spoke_window_set_property(GObject *object, guint prop_id, const GValue *value, GParamSpec *pspec);
+
 static void anaconda_spoke_window_button_clicked(GtkButton *button,
                                                  AnacondaSpokeWindow *win);
-
-G_DEFINE_TYPE(AnacondaSpokeWindow, anaconda_spoke_window, ANACONDA_TYPE_BASE_WINDOW)
 
 static void anaconda_spoke_window_class_init(AnacondaSpokeWindowClass *klass) {
     GObjectClass *object_class = G_OBJECT_CLASS(klass);
 
+    object_class->set_property = anaconda_spoke_window_set_property;
+    object_class->get_property = anaconda_spoke_window_get_property;
+
     klass->button_clicked = NULL;
+
+    /**
+     * AnacondaSpokeWindow:button-label:
+     *
+     * The :button-label string is the text used to label the button displayed
+     * in the upper lefthand of the window.  By default, this is a back button
+     * but could be anything else appropriate.
+     *
+     * Since: 1.0
+     */
+    g_object_class_install_property(object_class,
+                                    PROP_BUTTON_LABEL,
+                                    g_param_spec_string("button-label",
+                                                        P_("Button Label"),
+                                                        P_("Label to appear on the upper left button"),
+                                                        DEFAULT_BUTTON_LABEL,
+                                                        G_PARAM_READWRITE));
 
     /**
      * AnacondaSpokeWindow::button-clicked:
@@ -107,7 +134,7 @@ static void anaconda_spoke_window_init(AnacondaSpokeWindow *win) {
     gtk_window_set_modal(GTK_WINDOW(win), TRUE);
 
     /* Create the buttons. */
-    win->priv->button = gtk_button_new_with_mnemonic(DEFAULT_BUTTON_TEXT);
+    win->priv->button = gtk_button_new_with_mnemonic(DEFAULT_BUTTON_LABEL);
     gtk_widget_set_halign(win->priv->button, GTK_ALIGN_START);
 
     /* Hook up some signals for that button.  The signal handlers here will
@@ -124,4 +151,27 @@ static void anaconda_spoke_window_init(AnacondaSpokeWindow *win) {
 static void anaconda_spoke_window_button_clicked(GtkButton *button,
                                                  AnacondaSpokeWindow *win) {
     g_signal_emit(win, window_signals[SIGNAL_BUTTON_CLICKED], 0);
+}
+
+static void anaconda_spoke_window_get_property(GObject *object, guint prop_id, GValue *value, GParamSpec *pspec) {
+    AnacondaSpokeWindow *widget = ANACONDA_SPOKE_WINDOW(object);
+    AnacondaSpokeWindowPrivate *priv = widget->priv;
+
+    switch(prop_id) {
+        case PROP_BUTTON_LABEL:
+            g_value_set_string (value, gtk_button_get_label(GTK_BUTTON(priv->button)));
+            break;
+    }
+}
+
+static void anaconda_spoke_window_set_property(GObject *object, guint prop_id, const GValue *value, GParamSpec *pspec) {
+    AnacondaSpokeWindow *widget = ANACONDA_SPOKE_WINDOW(object);
+    AnacondaSpokeWindowPrivate *priv = widget->priv;
+
+    switch(prop_id) {
+        case PROP_BUTTON_LABEL:
+            gtk_button_set_label(GTK_BUTTON(priv->button), g_value_get_string(value));
+            gtk_button_set_use_underline(GTK_BUTTON(priv->button), TRUE);
+            break;
+    }
 }
