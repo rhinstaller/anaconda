@@ -4,21 +4,21 @@
   <!-- interface-requires AnacondaWidgets 1.0 -->
   <object class="GtkListStore" id="addonStore">
     <columns>
-      <!-- column-name repoSelected -->
+      <!-- column-name addonSelected -->
       <column type="gboolean"/>
-      <!-- column-name repoMarkup -->
+      <!-- column-name addonMarkup -->
       <column type="gchararray"/>
-      <!-- column-name repoName -->
+      <!-- column-name addonName -->
       <column type="gchararray"/>
     </columns>
   </object>
   <object class="GtkListStore" id="environmentStore">
     <columns>
-      <!-- column-name repoSelected -->
+      <!-- column-name envSelected -->
       <column type="gboolean"/>
-      <!-- column-name repoMarkup -->
+      <!-- column-name envMarkup -->
       <column type="gchararray"/>
-      <!-- column-name repoName -->
+      <!-- column-name envName -->
       <column type="gchararray"/>
     </columns>
   </object>
