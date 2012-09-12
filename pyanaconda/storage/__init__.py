@@ -214,7 +214,6 @@ def turnOnFilesystems(storage):
         storage.mountFilesystems(raiseErrors=False,
                                  readOnly=False,
                                  skipRoot=False)
-        storage.write()
         writeEscrowPackets(storage)
     else:
         if upgrade_migrate:
