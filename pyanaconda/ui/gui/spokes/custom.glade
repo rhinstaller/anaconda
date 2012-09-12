@@ -590,6 +590,7 @@ you'll be able to view their details here.</property>
                               <object class="GtkExpander" id="customizeExpander">
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
+                                <property name="use_underline">True</property>
                                 <child>
                                   <object class="GtkGrid" id="grid3">
                                     <property name="visible">True</property>
@@ -662,13 +663,14 @@ you'll be able to view their details here.</property>
                                     </child>
                                     <child>
                                       <object class="GtkCheckButton" id="encryptCheckbox">
-                                        <property name="label" translatable="yes">Encrypt</property>
+                                        <property name="label" translatable="yes">_Encrypt</property>
                                         <property name="use_action_appearance">False</property>
                                         <property name="visible">True</property>
                                         <property name="can_focus">True</property>
                                         <property name="receives_default">False</property>
                                         <property name="halign">start</property>
                                         <property name="use_action_appearance">False</property>
+                                        <property name="use_underline">True</property>
                                         <property name="xalign">0</property>
                                         <property name="draw_indicator">True</property>
                                       </object>
@@ -778,12 +780,6 @@ you'll be able to view their details here.</property>
                                                 <property name="width">1</property>
                                                 <property name="height">1</property>
                                               </packing>
-                                            </child>
-                                            <child>
-                                              <placeholder/>
-                                            </child>
-                                            <child>
-                                              <placeholder/>
                                             </child>
                                           </object>
                                         </child>
@@ -1130,30 +1126,6 @@ you'll be able to view their details here.</property>
                                                 <property name="height">1</property>
                                               </packing>
                                             </child>
-                                            <child>
-                                              <placeholder/>
-                                            </child>
-                                            <child>
-                                              <placeholder/>
-                                            </child>
-                                            <child>
-                                              <placeholder/>
-                                            </child>
-                                            <child>
-                                              <placeholder/>
-                                            </child>
-                                            <child>
-                                              <placeholder/>
-                                            </child>
-                                            <child>
-                                              <placeholder/>
-                                            </child>
-                                            <child>
-                                              <placeholder/>
-                                            </child>
-                                            <child>
-                                              <placeholder/>
-                                            </child>
                                           </object>
                                           <packing>
                                             <property name="position">2</property>
@@ -1179,7 +1151,8 @@ you'll be able to view their details here.</property>
                                   <object class="GtkLabel" id="label3">
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
-                                    <property name="label" translatable="yes">Customize...</property>
+                                    <property name="label" translatable="yes">_Customize...</property>
+                                    <property name="use_underline">True</property>
                                   </object>
                                 </child>
                               </object>
