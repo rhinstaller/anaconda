@@ -52,11 +52,7 @@ class ProgressHub(TUIHub):
         while True:
             # Attempt to get a message out of the queue for how we should update
             # the progress bar.  If there's no message, don't error out.
-            try:
-                (code, args) = q.get(False)
-            except Queue.Empty:
-                time.sleep(1)
-                continue
+            (code, args) = q.get()
 
             if code == progress.PROGRESS_CODE_INIT:
                 # Text mode doesn't have a finite progress bar
