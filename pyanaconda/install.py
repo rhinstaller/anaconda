@@ -26,6 +26,7 @@ from pyanaconda.bootloader import writeBootLoader
 from pyanaconda.progress import progress_report
 from pyanaconda.users import createLuserConf, getPassAlgo, Users
 from pyanaconda.network import writeNetworkConf
+from pyanaconda.flags import flags
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
@@ -62,6 +63,8 @@ def doInstall(storage, payload, ksdata, instClass):
     # Do partitioning.
     payload.preStorage()
     turnOnFilesystems(storage)
+    if not flags.livecdInstall:
+        storage.write()
 
     # Do packaging.
 
@@ -71,6 +74,9 @@ def doInstall(storage, payload, ksdata, instClass):
     packages = storage.packages + ["authconfig", "system-config-firewall-base"]
     payload.preInstall(packages=packages, groups=payload.languageGroups(ksdata.lang.lang))
     payload.install()
+
+    if flags.livecdInstall:
+        storage.write()
 
     with progress_report(_("Performing post-install setup tasks")):
         payload.postInstall()
