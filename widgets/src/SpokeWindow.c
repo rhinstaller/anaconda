@@ -43,7 +43,7 @@ enum {
     PROP_BUTTON_LABEL = 1
 };
 
-#define DEFAULT_BUTTON_LABEL _("Back")
+#define DEFAULT_BUTTON_LABEL _("_Done")
 
 enum {
     SIGNAL_BUTTON_CLICKED,

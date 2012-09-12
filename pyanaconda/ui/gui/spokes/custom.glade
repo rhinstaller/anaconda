@@ -314,6 +314,7 @@ all of the data on %s?</property>
     <property name="can_focus">False</property>
     <property name="startup_id">filler</property>
     <property name="window_name">MANUAL PARTITIONING</property>
+    <property name="button-label">_Back to destination selection</property>
     <signal name="button-clicked" handler="on_back_clicked" swapped="no"/>
     <signal name="info-bar-clicked" handler="on_info_bar_clicked" swapped="no"/>
     <child internal-child="main_box">
