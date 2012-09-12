@@ -252,6 +252,8 @@ class SoftwareSelectionSpoke(NormalSpoke):
         if self.environment:
             self.payload.deselectEnvironment(self.environment)
 
+        # Then mark the clicked environment as selected and update the screen.
+        self._environmentStore[path][0] = True
         self.environment = self._environmentStore[path][2]
         self.refreshAddons()
 
