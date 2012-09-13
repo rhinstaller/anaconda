@@ -44,6 +44,8 @@ SERVER_OK = 0
 SERVER_NOK = 1
 SERVER_QUERY = 2
 
+DEFAULT_TZ = "America/New_York"
+
 POOL_SERVERS_NOTE = _("Note: pool servers may not be available all the time")
 
 class NTPconfigDialog(GUIObject):
@@ -324,8 +326,9 @@ class DatetimeSpoke(NormalSpoke):
             self._tzmap.set_timezone(self.data.timezone.timezone)
         else:
             log.warning("%s is not a valid timezone, falling back to default "\
-                        "(America/New_York)")
-            self._tzmap.set_timezone("America/New_York")
+                        "(%s)" % (self.data.timezone.timezone, DEFAULT_TZ))
+            self._tzmap.set_timezone(DEFAULT_TZ)
+            self.data.timezone.timezone = DEFAULT_TZ
 
         self._config_dialog = NTPconfigDialog(self.data)
         self._config_dialog.initialize()
