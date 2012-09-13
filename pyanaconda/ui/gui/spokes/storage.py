@@ -145,9 +145,6 @@ class InstallOptions1Dialog(GUIObject):
         options_label.set_markup(options_text)
 
     def _set_free_space_labels(self, disk_free, fs_free):
-        self.disk_free_label = self.builder.get_object("options1_disk_free_label")
-        self.fs_free_label = self.builder.get_object("options1_fs_free_label")
-
         disk_free_text = size_str(disk_free)
         self.disk_free_label.set_text(disk_free_text)
 
