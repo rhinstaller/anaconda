@@ -927,9 +927,31 @@ def allocatePartitions(storage, disks, partitions, freespace):
                         # add the current request to the temp disk to set up
                         # its partedPartition attribute with a base geometry
                         if disk_path == _disk.path:
+                            _part_type = new_part_type
+                            _free = best
+                            if new_part_type == parted.PARTITION_EXTENDED:
+                                addPartition(disklabel, best, new_part_type,
+                                             None)
+
+                                _part_type = parted.PARTITION_LOGICAL
+
+                                _free = getBestFreeSpaceRegion(disklabel.partedDisk,
+                                                               _part_type,
+                                                               _part.req_size,
+                                                               boot=boot,
+                                                               grow=_part.req_grow)
+                                if not _free:
+                                    log.info("not enough space after adding "
+                                             "extended partition for growth test")
+                                    if new_part_type == parted.PARTITION_EXTENDED:
+                                        e = disklabel.extendedPartition
+                                        disklabel.partedDisk.removePartition(e)
+
+                                    continue
+
                             temp_part = addPartition(disklabel,
-                                                     best,
-                                                     new_part_type,
+                                                     _free,
+                                                     _part_type,
                                                      _part.req_size)
                             _part.partedPartition = temp_part
                             _part.disk = _disk
@@ -965,13 +987,17 @@ def allocatePartitions(storage, disks, partitions, freespace):
                     _part.partedPartition = None
                     _part.disk = None
 
+                    if new_part_type == parted.PARTITION_EXTENDED:
+                        e = disklabel.extendedPartition
+                        disklabel.partedDisk.removePartition(e)
+
                     log.debug("total growth: %d sectors" % new_growth)
 
                     # update the chosen free region unless the previous
                     # choice yielded greater total growth
-                    if new_growth < growth:
-                        log.debug("keeping old free: %d < %d" % (new_growth,
-                                                                 growth))
+                    if new_growth <= growth:
+                        log.debug("keeping old free: %d <= %d" % (new_growth,
+                                                                  growth))
                         update = False
                     else:
                         growth = new_growth
