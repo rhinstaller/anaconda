@@ -565,7 +565,8 @@ class BootLoader(object):
 
         if self.stage2_is_valid_stage1 and device == self.stage2_device:
             # special case
-            valid = self.is_valid_stage2_device(device)
+            valid = (self.stage2_is_preferred_stage1 and
+                     self.is_valid_stage2_device(device))
 
             # we'll be checking stage2 separately so don't duplicate messages
             self.problems = []
