@@ -774,6 +774,21 @@ def doPartitioning(storage):
 
         updateExtendedPartitions(storage, disks)
 
+        for part in [p for p in storage.partitions if not p.exists]:
+            problem = part.checkSize()
+            if problem < 0:
+                raise PartitioningError("partition is too small for %s formatting "
+                                        "(allowable size is %d MB to %d MB)"
+                                        % (part.format.name,
+                                           part.format.minSize,
+                                           part.format.maxSize))
+            elif problem > 0:
+                raise PartitioningError("partition is too large for %s formatting "
+                                        "(allowable size is %d MB to %d MB)"
+                                        % (part.format.name,
+                                           part.format.minSize,
+                                           part.format.maxSize))
+
 def allocatePartitions(storage, disks, partitions, freespace):
     """ Allocate partitions based on requested features.
 
@@ -852,20 +867,6 @@ def allocatePartitions(storage, disks, partitions, freespace):
             # growth it allows
             if _part.req_grow:
                 current_free = None
-
-            problem = _part.checkSize()
-            if problem < 0:
-                raise PartitioningError("partition is too small for %s formatting "
-                                        "(allowable size is %d MB to %d MB)"
-                                        % (_part.format.name,
-                                           _part.format.minSize,
-                                           _part.format.maxSize))
-            elif problem > 0:
-                raise PartitioningError("partition is too large for %s formatting "
-                                        "(allowable size is %d MB to %d MB)"
-                                        % (_part.format.name,
-                                           _part.format.minSize,
-                                           _part.format.maxSize))
 
             log.debug("checking freespace on %s" % _disk.name)
 
