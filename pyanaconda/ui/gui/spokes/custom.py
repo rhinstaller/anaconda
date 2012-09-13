@@ -1027,7 +1027,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         selectedDeviceDescLabel.set_text(self._description(selector.props.name))
 
         labelEntry.set_text(getattr(device.format, "label", "") or "")
-        can_label = getattr(device.format, "labelfsProg", "") != ""
+        can_label = (hasattr(device.format, "label") and
+                     not device.format.exists)
         labelEntry.set_sensitive(can_label)
 
         if labelEntry.get_sensitive():
