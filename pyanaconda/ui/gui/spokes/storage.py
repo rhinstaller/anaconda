@@ -51,6 +51,7 @@ from pyanaconda.ui.gui.utils import enlightbox, gdk_threaded
 from pyanaconda.kickstart import doKickstartStorage
 from pyanaconda.storage.size import Size
 from pyanaconda.storage.errors import StorageError
+from pyanaconda.threads import threadMgr, AnacondaThread
 from pyanaconda.product import productName
 from pyanaconda.flags import flags
 
@@ -242,9 +243,6 @@ class StorageChecker(object):
     _mainSpokeClass = "StorageSpoke"
 
     def run(self):
-        from pyanaconda.threads import threadMgr
-        from pyanaconda.threads import AnacondaThread
-
         communication.send_not_ready(self._mainSpokeClass)
         threadMgr.add(AnacondaThread(name="AnaCheckStorageThread",
                                      target=self.checkStorage))
@@ -327,6 +325,13 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         self.storage.config.clearNonExistent = self.data.autopart.autopart
 
     def execute(self):
+        # Spawn storage execution as a separate thread so there's no big delay
+        # going back from this spoke to the hub while StorageChecker.run runs.
+        # Yes, this means there's a thread spawning another thread.  Sorry.
+        threadMgr.add(AnacondaThread(name="AnaExecuteStorageThread",
+                                     target=self._doExecute))
+
+    def _doExecute(self):
         try:
             doKickstartStorage(self.storage, self.data, self.instclass)
         except StorageError as e:
@@ -345,8 +350,7 @@ class StorageSpoke(NormalSpoke, StorageChecker):
 
     @property
     def completed(self):
-        from pyanaconda.threads import threadMgr
-        return (threadMgr.get("AnaCheckStorageThread") is None and
+        return (threadMgr.get("AnaExecuteStorageThread") is None and
                 self.storage.rootDevice is not None and
                 not self.errors)
 
@@ -354,8 +358,7 @@ class StorageSpoke(NormalSpoke, StorageChecker):
     def ready(self):
         # By default, the storage spoke is not ready.  We have to wait until
         # storageInitialize is done.
-        from pyanaconda.threads import threadMgr
-        return self._ready and not threadMgr.get("AnaCheckStorageThread")
+        return self._ready and not threadMgr.get("AnaExecuteStorageThread")
 
     @property
     def status(self):
@@ -405,7 +408,6 @@ class StorageSpoke(NormalSpoke, StorageChecker):
             self.window.set_info(Gtk.MessageType.WARNING, _("Error checking storage configuration.  Click for details."))
 
     def initialize(self):
-        from pyanaconda.threads import threadMgr, AnacondaThread
         from pyanaconda.ui.gui.utils import setViewportBackground
 
         NormalSpoke.initialize(self)
@@ -422,8 +424,6 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         threadMgr.add(AnacondaThread(name="AnaStorageWatcher", target=self._initialize))
 
     def _initialize(self):
-        from pyanaconda.threads import threadMgr
-
         communication.send_message(self.__class__.__name__, _("Probing storage..."))
 
         storageThread = threadMgr.get("AnaStorageThread")
