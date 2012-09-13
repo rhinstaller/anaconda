@@ -482,6 +482,18 @@ static void createDevices(void) {
                     strerror(errno));
     }
 
+    if (symlink("/proc/self/fd/0", "/dev/stdin"))
+        printf("failed to create /dev/stdin symlink to /proc/self/fd/0");
+
+    if (symlink("/proc/self/fd/1", "/dev/stdout"))
+        printf("failed to create /dev/stdout symlink to /proc/self/fd/1");
+
+    if (symlink("/proc/self/fd/2", "/dev/stderr"))
+        printf("failed to create /dev/stderr symlink to /proc/self/fd/2");
+
+    if (symlink("/proc/self/fd", "/dev/fd"))
+        printf("failed to create /dev/fd symlink to /proc/self/fd");
+
     /* Restore umask for minimal side affects */
     umask(previous_umask); 
 }
