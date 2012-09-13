@@ -641,6 +641,17 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         else:
             return ""
 
+    def _update_btrfs_selectors(self):
+        """ Update all btrfs selectors' size properties. """
+        # we're only updating selectors in the new root. problem?
+        page = self._accordion._find_by_title(new_install_name).get_child()
+        if not hasattr(page, "_members"):
+            return
+
+        for selector in page._members:
+            if selector._device.type.startswith("btrfs"):
+                selector.props.size = str(Size(spec="%f MB" % selector._device.size)).upper()
+
     def _replace_device(self, *args, **kwargs):
         """ Create a replacement device and update the device selector. """
         selector = kwargs.pop("selector", None)
@@ -791,7 +802,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                         self.window.show_all()
                         self._reset_storage()
 
-            # TODO: if btrfs, also update sizes of other subvols' selectors
+            # update size props of all btrfs devices' selectors
+            self._update_btrfs_selectors()
 
             self._updateSpaceDisplay()
             return
@@ -840,6 +852,10 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                        % str(Size(spec="%f MB" % device.size)).upper())
             # update the selector's size property
             selector.props.size = str(Size(spec="%f MB" % device.size)).upper()
+
+            # update size props of all btrfs devices' selectors
+            self._update_btrfs_selectors()
+
             self._updateSpaceDisplay()
 
         # for fstype we'll need to instantiate a new DeviceFormat and schedule
