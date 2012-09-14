@@ -69,6 +69,9 @@ log = logging.getLogger("anaconda")
 
 __all__ = ["CustomPartitioningSpoke"]
 
+NOTEBOOK_LABEL_PAGE = 0
+NOTEBOOK_DETAILS_PAGE = 1
+
 new_install_name = _("New %s %s Installation") % (productName, productVersion)
 unrecoverable_error_msg = _("Storage configuration reset due to unrecoverable "
                             "error. Click for details.")
@@ -383,6 +386,12 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                ui_device.format.label != device.format.label:
                 device.format.label = ui_device.format.label
 
+            # if this device was removed from the new installation it should be
+            # completely reset to its initial state
+            if ui_device.format == ui_device.originalFormat and \
+               ui_device.size == ui_device.currentSize:
+                self.storage.resetDevice(device)
+
         # set up bootloader and check the configuration
         self.storage.setUpBootLoader()
         StorageChecker.run(self)
@@ -464,9 +473,32 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
     def unusedDevices(self):
         if self._unused_devices is None:
             self._unused_devices = [d for d in self.__storage.unusedDevices
-                                        if d.disks and not d.isDisk]
+                                        if d.disks and not d.isDisk and
+                                           d.isleaf]
 
         return self._unused_devices
+
+    @property
+    def existingSwaps(self):
+        return [d for d in self._devices
+                    if d.format.type == "swap" and d.format.exists]
+
+    @property
+    def existingBootLoaderDevices(self):
+        devices = []
+        format_types = ["biosboot", "prepboot"]
+        for device in self._devices:
+            if not device.format.exists:
+                continue
+
+            if device.format.type not in format_types:
+                continue
+
+            disk_names = [d.name for d in device.disks]
+            if self.data.bootloader.bootDrive in disk_names:
+                devices.append(device)
+
+        return devices
 
     @property
     def _currentFreeInfo(self):
@@ -514,6 +546,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                 self.__storage.devicetree.hide(disk)
 
         self._devices = self.__storage.devices
+        self._unused_devices = None
 
     def refresh(self):
         NormalSpoke.refresh(self)
@@ -527,6 +560,9 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
     def _do_refresh(self):
         # block mountpoint selector signal handler for now
         self._initialized = False
+        if self._current_selector:
+            self._current_selector.set_chosen(False)
+            self._current_selector = None
 
         # We can only have one page expanded at a time.
         page_order = []
@@ -542,7 +578,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
         # Now it's time to populate the accordion.
 
-        unused = [d for d in self.unusedDevices if d.isleaf and d in self._devices]
         # A device scheduled for formatting only belongs in the new root.
         new_devices = [d for d in self._devices if not d.format.exists]
 
@@ -552,11 +587,13 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         new_mounts = [d for d in self.__storage.mountpoints.values() if d.exists]
         if new_mounts:
             new_devices.extend(self.__storage.mountpoints.values())
-            new_devices.extend(self.__storage.swaps)
+            new_devices.extend(self.existingSwaps)
+            new_devices.extend(self.existingBootLoaderDevices)
 
         new_devices = list(set(new_devices))
 
-        log.debug("ui: unused=%s" % [d.name for d in unused])
+        log.debug("ui: devices=%s" % [d.name for d in self._devices])
+        log.debug("ui: unused=%s" % [d.name for d in self.unusedDevices])
         log.debug("ui: new_devices=%s" % [d.name for d in new_devices])
 
         ui_roots = self.__storage.roots[:]
@@ -571,7 +608,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             if page.pageTitle not in page_order:
                 page_order.append(page.pageTitle)
 
-            self._partitionsNotebook.set_current_page(0)
+            self._partitionsNotebook.set_current_page(NOTEBOOK_LABEL_PAGE)
             label = self.builder.get_object("whenCreateLabel")
             label.set_text(self._when_create_text % (productName, productVersion))
         else:
@@ -579,9 +616,9 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             mounts = dict([(d.format.mountpoint, d) for d in new_devices
                                 if getattr(d.format, "mountpoint", None)])
 
-            for d in new_devices:
-                if d.format.type in ("prepboot", "biosboot"):
-                    mounts[d.format.type] = d
+            for device in new_devices:
+                if device in self.existingBootLoaderDevices:
+                    mounts[device.format.type] = device
 
             new_root = Root(mounts=mounts, swaps=swaps, name=new_install_name)
             ui_roots.insert(0, new_root)
@@ -625,11 +662,11 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                 page_order.append(root.name)
 
         # Anything that doesn't go with an OS we understand?  Put it in the Other box.
-        if unused:
+        if self.unusedDevices:
             page = UnknownPage()
             page.pageTitle = _("Unknown")
 
-            for u in unused:
+            for u in self.unusedDevices:
                 selector = page.addDevice(u.format.name, Size(spec="%f MB" % u.size), None, self.on_selector_clicked)
                 selector._device = u
                 selector._root = None
@@ -649,7 +686,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                 break
 
         self._initialized = True
-        self._show_first_mountpoint()
+        self.on_page_clicked(self._accordion.currentPage())
 
     ###
     ### RIGHT HAND SIDE METHODS
@@ -676,6 +713,39 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                      "bootloader configuration on some PPC platforms.")
         else:
             return ""
+
+    def add_new_selector(self, device):
+        """ Add an entry for device to the new install Page. """
+        page = self._accordion._find_by_title(new_install_name).get_child()
+        devices = [device]
+        if not hasattr(page, "_members"):
+            # remove the CreateNewPage and replace it with a regular Page
+            expander = self._accordion._find_by_title(new_install_name)
+            expander.remove(expander.get_child())
+
+            page = Page()
+            page.pageTitle = new_install_name
+            expander.add(page)
+
+            # pull in all the existing swap devices
+            devices.extend(self.existingSwaps)
+
+            # also pull in biosboot and prepboot that are on our boot disk
+            devices.extend(self.existingBootLoaderDevices)
+
+        for _device in devices:
+            mountpoint = getattr(_device.format, "mountpoint", "") or ""
+
+            if _device.format.type == "swap":
+                name = "Swap"
+            else:
+                name = self._mountpointName(mountpoint) or _device.format.name
+
+            selector = page.addDevice(name, Size(spec="%f MB" % _device.size),
+                                      mountpoint, self.on_selector_clicked)
+            selector._device = _device
+
+        page.show_all()
 
     def _update_btrfs_selectors(self):
         """ Update all btrfs selectors' size properties. """
@@ -708,7 +778,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
             This method must never trigger a call to self._do_refresh.
         """
-        if not selector:
+        if not self._initialized or not selector:
             return
 
         device = selector._device
@@ -750,6 +820,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             mountpoint = mountPointEntry.get_text()
 
         old_mountpoint = getattr(device.format, "mountpoint", "") or ""
+        log.debug("old mountpoint: %s" % old_mountpoint)
+        log.debug("new mountpoint: %s" % mountpoint)
         if mountpoint is not None and mountpoint != old_mountpoint:
             error = validate_mountpoint(mountpoint, self.__storage.mountpoints.keys())
             if error:
@@ -772,8 +844,9 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         # for member type, we'll have to adjust the member set.
         # XXX not going to worry about this for now
 
-        # for device type, we'll need to save the device's format, remove the
-        # current device, then create a device of the requested type.
+        ##
+        ## DEVICE TYPE (early return)
+        ##
         device_types = {"partition": AUTOPART_TYPE_PLAIN,
                         "lvmlv": AUTOPART_TYPE_LVM,
                         "btrfs subvolume": AUTOPART_TYPE_BTRFS,
@@ -783,7 +856,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             # remove the current device
             self.clear_errors()
             root = self._current_selector._root
-            self._remove_from_root(root, device)
             self._destroy_device(device)
             if device in self._devices:
                 # the removal failed. don't continue.
@@ -847,8 +919,9 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                         self.window.show_all()
                         self._reset_storage()
                 else:
-                    # TODO: if old_mountpoint isn't set, remove this selector
-                    #       from the old root and add it to the new one
+                    # you can't change the type of an existing device, so we
+                    # don't need to concern ourselves with adding a new
+                    # selector to the new page
                     selector.props.mountpoint = mountpoint
                     selector.props.name = (self._mountpointName(mountpoint) or
                                            selector._device.format.name)
@@ -859,6 +932,9 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             self._updateSpaceDisplay()
             return
 
+        ##
+        ## SIZE
+        ##
         # new size means resize for existing devices and adjust for new ones
         if int(size) != int(device.size):
             self.clear_errors()
@@ -909,8 +985,9 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
             self._updateSpaceDisplay()
 
-        # for fstype we'll need to instantiate a new DeviceFormat and schedule
-        # creation of it
+        ##
+        ## FORMATTING
+        ##
         if fs_type != device.format.name:
             self.clear_errors()
             with ui_storage_logger():
@@ -929,33 +1006,48 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                                            "Click for details."))
                     self.window.show_all()
                 else:
-                    # TODO: if old_mountpoint isn't set, remove this selector
-                    #       from the old root and add it to the new one
-                    selector.props.mountpoint = mountpoint
-                    selector.props.name = (self._mountpointName(mountpoint) or
-                                           selector._device.format.name)
+                    if old_mountpoint:
+                        selector.props.mountpoint = mountpoint
+                        selector.props.name = (self._mountpointName(mountpoint)
+                                               or selector._device.format.name)
+                    else:
+                        # first, remove this selector from any page(s) and add
+                        # it to the new page
+                        for page in self._accordion.allPages:
+                            for _selector in getattr(page, "_members", []):
+                                if _selector._device == device:
+                                    page.removeSelector(_selector)
+                                    if not page._members:
+                                        log.debug("removing empty page %s" % page.pageTitle)
+                                        self._accordion.removePage(page.pageTitle)
+
+                        self.add_new_selector(device)
 
             return
 
         # for encryption, I'm not sure if we'll want to modify the
         # container/device or just create a new one
 
-        #
+        ##
+        ## FORMATTING ATTRIBUTES
+        ##
         # Set various attributes that do not require actions.
-        #
-        #
         if old_label != label and hasattr(device.format, "label") and \
            not device.format.exists:
+            log.debug("updating label to %s" % label)
             device.format.label = label
 
         if mountpoint and old_mountpoint != mountpoint:
+            log.debug("updating mountpoint to %s" % mountpoint)
             device.format.mountpoint = mountpoint
-            # TODO: if old_mountpoint isn't set, remove this selector
-            #       from the old root and add it to the new one
-            selector.props.mountpoint = mountpoint
-
-        selector.props.name = (self._mountpointName(mountpoint) or
-                               selector._device.format.name)
+            if old_mountpoint:
+                selector.props.mountpoint = mountpoint
+                selector.props.name = (self._mountpointName(mountpoint)
+                                       or selector._device.format.name)
+            else:
+                # add an entry to the new page but do not remove any entries
+                # from other pages since we haven't altered the filesystem
+                self.add_new_selector(device)
 
     def _get_raid_widget_dict(self, device_type):
         """ Return dict of widget tuples with feature keys for device_type. """
@@ -1313,17 +1405,10 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             if parent.kids == 0 and not parent.isDisk:
                 self._destroy_device(parent)
 
-    def _remove_from_root(self, root, device):
-        if root is None:
-            pass    # unused device
-        elif device in root.swaps:
-            root.swaps.remove(device)
-        elif device in root.mounts.values():
-            mountpoints = [m for (m,d) in root.mounts.items() if d == device]
-            for mountpoint in mountpoints:
-                root.mounts.pop(mountpoint)
-
     def _show_first_mountpoint(self, page=None):
+        if not self._initialized:
+            return
+
         # Make sure there's something displayed on the RHS.  Just default to
         # the first mountpoint in the page.
         if not page:
@@ -1336,25 +1421,36 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             # a new OS" label.
             if self._current_selector:
                 self._current_selector.set_chosen(False)
-            self._partitionsNotebook.set_current_page(1)
+            self._partitionsNotebook.set_current_page(NOTEBOOK_DETAILS_PAGE)
             self._current_selector = page._members[0]
             self._current_selector.set_chosen(True)
             self._populate_right_side(page._members[0])
             page._members[0].grab_focus()
-
-    def _update_ui_for_removals(self):
-        # Now that devices have been removed from the installation root,
-        # refreshing the display will have the effect of making them disappear.
-        # It's like they never existed.
-        self._do_refresh()
-
-        self._show_first_mountpoint()
-        self._updateSpaceDisplay()
+        else:
+            self._current_selector = None
 
     def on_remove_clicked(self, button):
+        page = self._accordion.currentPage()
+        log.info("on_remove_clicked: %s" % page.pageTitle)
+
         if self._current_selector:
             device = self._current_selector._device
-            if device.exists:
+            log.debug("removing device '%s' from page %s" % (device,
+                                                             page.pageTitle))
+            if page.pageTitle == new_install_name:
+                if device.exists:
+                    # This is an existing device that was added to the new page.
+                    # All we want to do is revert any changes to the device and
+                    # it will end up back in whatever old pages it came from.
+                    with ui_storage_logger():
+                        self.__storage.resetDevice(device)
+
+                    log.debug("updated device: %s" % device)
+                else:
+                    # Destroying a non-existing device doesn't require any
+                    # confirmation.
+                    self._destroy_device(device)
+            else:
                 # This is a device that exists on disk and most likely has data
                 # on it.  Thus, we first need to confirm with the user and then
                 # schedule actions to delete the thing.
@@ -1367,12 +1463,10 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                     if rc == 0:
                         return
 
-            root = self._current_selector._root
-            log.info("ui: removing device %s" % device.name)
-            self._remove_from_root(root, device)
-            self._destroy_device(device)
-            self._update_ui_for_removals()
-        elif self._accordion.currentPage():
+                self._destroy_device(device)
+
+            log.info("ui: removed device %s" % device.name)
+        elif page:
             # This is a complete installed system.  Thus, we first need to confirm
             # with the user and then schedule actions to delete everything.
             page = self._accordion.currentPage()
@@ -1397,7 +1491,12 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             for device in root.swaps + root.mounts.values():
                 self._destroy_device(device)
 
-            self._update_ui_for_removals()
+        # Now that devices have been removed from the installation root,
+        # refreshing the display will have the effect of making them disappear.
+        # It's like they never existed.
+        self._do_refresh()
+        self._updateSpaceDisplay()
+        self._show_first_mountpoint()
 
     def on_summary_clicked(self, button):
         dialog = SelectedDisksDialog(self.data)
@@ -1416,7 +1515,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
         # Make sure we're showing details instead of the "here's how you create
         # a new OS" label.
-        self._partitionsNotebook.set_current_page(1)
+        self._partitionsNotebook.set_current_page(NOTEBOOK_DETAILS_PAGE)
 
         # Take care of the previously chosen selector.
         if self._current_selector and self._initialized:
@@ -1435,6 +1534,9 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         return True
 
     def on_page_clicked(self, page):
+        if not self._initialized:
+            return
+
         log.debug("page clicked: %s" % getattr(page, "pageTitle", None))
         if self._current_selector:
             self._save_right_side(self._current_selector)
@@ -1447,14 +1549,12 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         # deleting an entire installation at once and displaying something
         # on the RHS.
         if isinstance(page, CreateNewPage):
-            # Make sure we're showing details instead of the "here's how you create
-            # a new OS" label.
-            self._partitionsNotebook.set_current_page(0)
+            # Make sure we're showing "here's how you create a new OS" label
+            # instead of device/mountpoint details.
+            self._partitionsNotebook.set_current_page(NOTEBOOK_LABEL_PAGE)
             self._removeButton.set_sensitive(False)
-
-            return
-
-        self._removeButton.set_sensitive(True)
+        else:
+            self._removeButton.set_sensitive(True)
 
     def _do_autopart(self):
         # There are never any non-existent devices around when this runs.
@@ -1510,6 +1610,9 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         self._show_first_mountpoint()
 
     def on_fs_type_changed(self, combo):
+        if not self._initialized:
+            return
+
         new_type = combo.get_active_text()
         log.debug("fs type changed: %s" % new_type)
         fmt = getFormat(new_type)
@@ -1519,6 +1622,9 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         mountPointEntry.set_sensitive(fmt.mountable)
 
     def on_device_type_changed(self, combo):
+        if not self._initialized:
+            return
+
         new_type = combo.get_active()
         log.debug("device_type_changed: %s %s" % (new_type,
                                                   combo.get_active_text()))

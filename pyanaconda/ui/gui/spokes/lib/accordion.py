@@ -65,6 +65,10 @@ class Accordion(Gtk.Box):
 
         return None
 
+    @property
+    def allPages(self):
+        return [e.get_child() for e in self._expanders]
+
     def currentPage(self):
         for e in self._expanders:
             if e.get_expanded():
@@ -151,6 +155,14 @@ class Page(Gtk.Box):
 
         return selector
 
+    def removeSelector(self, selector):
+        if self._mountpointType(selector.props.mountpoint) == DATA_DEVICE:
+            self._dataBox.remove(selector)
+        else:
+            self._systemBox.remove(selector)
+
+        self._members.remove(selector)
+
     def _mountpointType(self, mountpoint):
         if not mountpoint:
             # This catches things like swap.
@@ -192,6 +204,10 @@ class UnknownPage(Page):
         self.add(selector)
 
         return selector
+
+    def removeSelector(self, selector):
+        self.remove(selector)
+        self._members.remove(selector)
 
 # This is a special Page that is displayed when no new installation has been automatically
 # created, and shows the user how to go about doing that.  The intention is that an instance
