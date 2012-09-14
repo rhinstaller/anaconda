@@ -367,6 +367,22 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                         if a not in already_handled]
         self._propagate_actions(actions)
 
+        # check for changes that do not use actions
+        for ui_device in self.__storage.devices:
+            device = self.storage.devicetree.getDeviceByID(ui_device.id)
+            if not device:
+                continue
+
+            if device.format.mountable and \
+               ui_device.format.mountpoint != device.format.mountpoint:
+                device.format.mountpoint = ui_device.format.mountpoint
+
+            # we can only label new formats as of now
+            if hasattr(device.format, "label") and \
+               not device.format.exists and \
+               ui_device.format.label != device.format.label:
+                device.format.label = ui_device.format.label
+
         # set up bootloader and check the configuration
         self.storage.setUpBootLoader()
         StorageChecker.run(self)
