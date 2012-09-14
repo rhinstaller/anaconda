@@ -529,6 +529,13 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         unused = [d for d in self.unusedDevices if d.isleaf and d in self._devices]
         new_devices = [d for d in self._devices if not d.exists]
 
+        # if mountpoints have been assigned to any existing devices, go ahead
+        # and pull those in along with any existing swap devices
+        new_mounts = self.__storage.mountpoints.values()
+        if new_mounts:
+            new_devices.extend(self.__storage.mountpoints.values())
+            new_devices.extend(self.__storage.swaps)
+
         log.debug("ui: unused=%s" % [d.name for d in unused])
         log.debug("ui: new_devices=%s" % [d.name for d in new_devices])
 
@@ -709,11 +716,22 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         encrypted = self.builder.get_object("encryptCheckbox").get_active()
         log.debug("new encryption setting: %s" % encrypted)
 
-        # TODO: get mountpoint, disks
+        # TODO: get disks
         label = self.builder.get_object("labelEntry").get_text()
+        old_label = getattr(device.format, "label", "") or ""
 
-        # FIXME: shouldn't we be getting this from the ui somehow instead?
-        mountpoint = getattr(device.format, "mountpoint", None)
+        mountpoint = None   # None means format type is not mountable
+        mountPointEntry = self.builder.get_object("mountPointEntry")
+        if mountPointEntry.get_sensitive():
+            mountpoint = mountPointEntry.get_text()
+
+        old_mountpoint = getattr(device.format, "mountpoint", "") or ""
+        if mountpoint is not None and mountpoint != old_mountpoint:
+            error = validate_mountpoint(mountpoint, self.__storage.mountpoints.keys())
+            if error:
+                self._error = mountpoint_validation_msgs[error]
+                self.window.set_info(Gtk.MessageType.WARNING, self._error)
+                return
 
         raid_level = self._get_raid_level()
 
@@ -788,14 +806,12 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                         # btrfs subvol
                         raid_level = device.volume.dataLevel
 
-                    mountpoint = getattr(device.format, "mountpoint", None)
-                    label = getattr(device.format, "label", None)
-
                     try:
+                        # XXX FIXME: pass old raid level -- not new one
                         self._replace_device(device_type, device.size,
                                              fstype=device.format.type,
-                                             mountpoint=mountpoint,
-                                             label=label,
+                                             mountpoint=old_mountpoint,
+                                             label=old_label,
                                              raid_level=raid_level,
                                              selector=selector)
                     except StorageError as e:
@@ -806,6 +822,12 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                                              unrecoverable_error_msg)
                         self.window.show_all()
                         self._reset_storage()
+                else:
+                    # TODO: if old_mountpoint isn't set, remove this selector
+                    #       from the old root and add it to the new one
+                    selector.props.mountpoint = mountpoint
+                    selector.props.name = (self._mountpointName(mountpoint) or
+                                           selector._device.format.name)
 
             # update size props of all btrfs devices' selectors
             self._update_btrfs_selectors()
@@ -882,6 +904,14 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                                          _("Device reformat request failed. "
                                            "Click for details."))
                     self.window.show_all()
+                else:
+                    # TODO: if old_mountpoint isn't set, remove this selector
+                    #       from the old root and add it to the new one
+                    selector.props.mountpoint = mountpoint
+                    selector.props.name = (self._mountpointName(mountpoint) or
+                                           selector._device.format.name)
+
+            return
 
         # for encryption, I'm not sure if we'll want to modify the
         # container/device or just create a new one
@@ -890,12 +920,18 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         # Set various attributes that do not require actions.
         #
         #
-        if label and getattr(device.format, "label", label) != label:
+        if old_label != label and hasattr(device.format, "label") and \
+           not device.format.exists:
             device.format.label = label
 
-        if mountpoint and \
-           getattr(device.format, "mountpoint", mountpoint) != mountpoint:
+        if mountpoint and old_mountpoint != mountpoint:
             device.format.mountpoint = mountpoint
+            # TODO: if old_mountpoint isn't set, remove this selector
+            #       from the old root and add it to the new one
+            selector.props.mountpoint = mountpoint
+
+        selector.props.name = (self._mountpointName(mountpoint) or
+                               selector._device.format.name)
 
     def _get_raid_widget_dict(self, device_type):
         """ Return dict of widget tuples with feature keys for device_type. """
@@ -1036,6 +1072,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         log.debug("populate_right_side: %s" % selector._device)
         encryptCheckbox = self.builder.get_object("encryptCheckbox")
         labelEntry = self.builder.get_object("labelEntry")
+        mountPointEntry = self.builder.get_object("mountPointEntry")
         selectedDeviceLabel = self.builder.get_object("selectedDeviceLabel")
         selectedDeviceDescLabel = self.builder.get_object("selectedDeviceDescLabel")
         sizeSpinner = self.builder.get_object("sizeSpinner")
@@ -1047,7 +1084,12 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         selectedDeviceLabel.set_text(selector.props.name)
         selectedDeviceDescLabel.set_text(self._description(selector.props.name))
 
+        mountPointEntry.set_text(getattr(device.format, "mountpoint", "") or "")
+        mountPointEntry.set_sensitive(hasattr(device.format, "mountpoint"))
+
         labelEntry.set_text(getattr(device.format, "label", "") or "")
+        # We could label existing formats that have a labelFsProg if we added an
+        # ActionLabelFormat class.
         can_label = (hasattr(device.format, "label") and
                      not device.format.exists)
         labelEntry.set_sensitive(can_label)
@@ -1442,6 +1484,15 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
         # And then display the first filesystem on the RHS.
         self._show_first_mountpoint()
+
+    def on_fs_type_changed(self, combo):
+        new_type = combo.get_active_text()
+        log.debug("fs type changed: %s" % new_type)
+        fmt = getFormat(new_type)
+        mountPointEntry = self.builder.get_object("mountPointEntry")
+        labelEntry = self.builder.get_object("labelEntry")
+        labelEntry.set_sensitive(hasattr(fmt, "label"))
+        mountPointEntry.set_sensitive(fmt.mountable)
 
     def on_device_type_changed(self, combo):
         new_type = combo.get_active()
