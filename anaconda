@@ -1111,7 +1111,7 @@ if __name__ == "__main__":
             if ksdata.clearpart.initAll:
                 anaconda.id.storage.reinitializeDisks = ksdata.clearpart.initAll
 
-        storage.storageInitialize(anaconda)
+        storage.storageInitialize(anaconda, examine_all=False)
 
         # Now having initialized storage, we can apply all the other kickstart
         # commands.  This gives us the ability to check that storage commands

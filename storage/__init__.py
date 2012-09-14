@@ -64,9 +64,14 @@ _ = lambda x: gettext.ldgettext("anaconda", x)
 import logging
 log = logging.getLogger("storage")
 
-def storageInitialize(anaconda):
-    storage = anaconda.id.storage
+def storageInitialize(anaconda, examine_all=True):
+    """ Initialize the storage system
 
+        Setting examine_all to False will use clearPartType to
+        determine which disks will be used. This should be set to False
+        for kickstart and True for everything else.
+    """
+    storage = anaconda.id.storage
     storage.shutdown()
 
     if anaconda.dir == DISPATCH_BACK:
@@ -87,7 +92,7 @@ def storageInitialize(anaconda):
     # Set up the protected partitions list now.
     if anaconda.protected:
         storage.protectedDevSpecs.extend(anaconda.protected)
-        storage.reset()
+        storage.reset(examine_all=examine_all)
 
         if not flags.livecdInstall and not storage.protectedDevices:
             if anaconda.id.getUpgrade():
@@ -100,7 +105,7 @@ def storageInitialize(anaconda):
                     type="custom", custom_buttons = [_("_Exit installer")])
                 sys.exit(1)
     else:
-        storage.reset()
+        storage.reset(examine_all=examine_all)
 
     if not storage.disks:
         custom_buttons=[_("_Try again"), _("_Exit installer")]
@@ -395,8 +400,13 @@ class Storage(object):
 
         # TODO: iscsi.shutdown()
 
-    def reset(self):
+    def reset(self, examine_all=False):
         """ Reset storage configuration to reflect actual system state.
+
+            Setting examine_all will cause it to examine all devices regardless
+            of the clearPartType setting which could cause it to skip some
+            devices. This is useful when looking for existing partitions to be
+            upgraded.
 
             This should rescan from scratch but not clobber user-obtained
             information like passphrases, iscsi config, &c
@@ -415,7 +425,7 @@ class Storage(object):
         self.fcoe.startup(self.anaconda.intf)
         self.zfcp.startup(self.anaconda.intf)
         self.dasd.startup(self.anaconda.intf, self.exclusiveDisks, self.zeroMbr)
-        if self.anaconda.id.getUpgrade():
+        if examine_all:
             clearPartType = CLEARPART_TYPE_NONE
         else:
             clearPartType = self.clearPartType

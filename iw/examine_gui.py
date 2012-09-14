@@ -95,10 +95,7 @@ class UpgradeExamineWindow (InstallWindow):
             # moving forward from autopart, not back.
             # temporarily unset storage.clearPartType so that all devices will be
             # found during storage reset
-            clearPartType = self.anaconda.id.storage.clearPartType
-            self.anaconda.id.storage.clearPartType = None
-            self.anaconda.id.storage.reset()
-            self.anaconda.id.storage.clearPartType = clearPartType
+            self.anaconda.id.storage.reset(examine_all=True)
 
         # we might get here after storage reset that obsoleted
         # root device objects we had found

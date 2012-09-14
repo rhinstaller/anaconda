@@ -157,10 +157,7 @@ class PartitionTypeWindow(InstallWindow):
         # found during storage reset
         if not self._isInteractiveKS() or \
                (self._isInteractiveKS() and len(self.storage.devicetree.findActions(type="create")) == 0):
-            clearPartType = self.anaconda.id.storage.clearPartType
-            self.anaconda.id.storage.clearPartType = None
-            self.anaconda.id.storage.reset()
-            self.anaconda.id.storage.clearPartType = clearPartType
+            self.anaconda.id.storage.reset(examine_all=True)
 
         self.storage.clearPartChoice = self.buttonGroup.getCurrent()
 

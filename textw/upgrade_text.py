@@ -206,6 +206,17 @@ class UpgradeSwapWindow:
 	
 class UpgradeExamineWindow:
     def __call__ (self, screen, anaconda):
+        if anaconda.dir == DISPATCH_BACK:
+            # reset storage to catch any changes
+            anaconda.id.storage.reset(examine_all=True)
+
+        # we might get here after storage reset that obsoleted
+        # root device objects we had found
+        if not anaconda.id.rootParts:
+            anaconda.id.rootParts = upgrade.findExistingRoots(anaconda,
+                                                              flags.cmdline.has_key("upgradeany"))
+            upgrade.setUpgradeRoot(anaconda)
+
         parts = anaconda.id.rootParts
 
         height = min(len(parts), 11) + 1
