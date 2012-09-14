@@ -75,6 +75,20 @@ unrecoverable_error_msg = _("Storage configuration reset due to unrecoverable "
 device_configuration_error_msg = _("Device reconfiguration failed. Click for "
                                    "details.")
 
+empty_mountpoint_msg = _("Please enter a valid mountpoint.")
+invalid_mountpoint_msg = _("That mount point is invalid. Try something else?")
+mountpoint_in_use_msg = _("That mount point is already in use. Try something else?")
+
+MOUNTPOINT_OK = 0
+MOUNTPOINT_INVALID = 1
+MOUNTPOINT_IN_USE = 2
+MOUNTPOINT_EMPTY = 3
+
+mountpoint_validation_msgs = {MOUNTPOINT_OK: "",
+                              MOUNTPOINT_INVALID: invalid_mountpoint_msg,
+                              MOUNTPOINT_IN_USE: mountpoint_in_use_msg,
+                              MOUNTPOINT_EMPTY: empty_mountpoint_msg}
+
 # btrfs has to be the last type in the list since it gets removed and added
 # depending on the device's formatting
 # FIXME: use these everywhere instead of the AUTOPART_TYPE constants
@@ -119,15 +133,39 @@ def ui_storage_logger():
     yield
     storage_log.removeFilter(f)
 
+def populate_mountpoint_store(store, used_mountpoints):
+    # sure, add whatever you want to this list. this is just a start.
+    paths = ["/", "/boot", "/home", "/usr", "/var",
+             "swap", "biosboot", "prepboot"]
+    for path in paths:
+        if path not in used_mountpoints:
+            store.append([path])
+
+def validate_mountpoint(mountpoint, used_mountpoints):
+    valid = MOUNTPOINT_OK
+    if mountpoint in used_mountpoints:
+        valid = MOUNTPOINT_IN_USE
+    elif not mountpoint:
+        valid = MOUNTPOINT_EMPTY
+    elif (mountpoint.lower() not in ("swap", "biosboot", "prepboot") and
+          ((len(mountpoint) > 1 and mountpoint.endswith("/")) or
+           not mountpoint.startswith("/") or
+           " " in mountpoint or
+           re.search(r'/\.*/', mountpoint) or
+           re.search(r'/\.+$', mountpoint))):
+        # - does not end with '/' unless mountpoint _is_ '/'
+        # - starts with '/' except for "swap", &c
+        # - does not contain spaces
+        # - does not contain pairs of '/' enclosing zero or more '.'
+        # - does not end with '/' followed by one or more '.'
+        valid = MOUNTPOINT_INVALID
+
+    return valid
+
 class AddDialog(GUIObject):
     builderObjects = ["addDialog", "mountPointStore", "mountPointCompletion"]
     mainWidgetName = "addDialog"
     uiFile = "spokes/custom.glade"
-
-    invalid_mountpoint_msg = _("That mount point is invalid. "
-                               "Try something else?")
-    mountpoint_in_use_msg = _("That mount point is already in use. "
-                              "Try something else?")
 
     def __init__(self, *args, **kwargs):
         self.mountpoints = kwargs.pop("mountpoints", [])
@@ -136,53 +174,20 @@ class AddDialog(GUIObject):
         self.mountpoint = ""
         self._error = False
 
-        # sure, add whatever you want to this list. this is just a start.
-        paths = ["/", "/boot", "/home", "/usr", "/var",
-                 "swap", "biosboot", "prepboot"]
         store = self.builder.get_object("mountPointStore")
-        for path in paths:
-            if path not in self.mountpoints:
-                store.append([path])
+        populate_mountpoint_store(store, self.mountpoints)
 
         completion = self.builder.get_object("mountPointCompletion")
         completion.set_text_column(0)
         completion.set_popup_completion(True)
 
-    def validate_mountpoint(self):
-        mountpoint = self.builder.get_object("addMountPointEntry").get_text()
-        warning_label = self.builder.get_object("mountPointWarningLabel")
-        valid = True
-        if mountpoint in self.mountpoints:
-            warning_label.set_text(self.mountpoint_in_use_msg)
-            self._warningBox.show_all()
-            valid = False
-        elif not mountpoint:
-            self._warningBox.hide()
-            valid = False
-        elif (mountpoint.lower() not in ("swap", "biosboot", "prepboot") and
-              ((len(mountpoint) > 1 and mountpoint.endswith("/")) or
-               not mountpoint.startswith("/") or
-               " " in mountpoint or
-               re.search(r'/\.*/', mountpoint) or
-               re.search(r'/\.+$', mountpoint))):
-            # - does not end with '/' unless mountpoint _is_ '/'
-            # - starts with '/' except for "swap", &c
-            # - does not contain spaces
-            # - does not contain pairs of '/' enclosing zero or more '.'
-            # - does not end with '/' followed by one or more '.'
-            warning_label.set_text(self.invalid_mountpoint_msg)
-            self._warningBox.show_all()
-            valid = False
-
-        self._error = not valid
-        return valid
-
     def on_add_confirm_clicked(self, button, *args):
-        self._error = False
-        if not self.validate_mountpoint():
+        self.mountpoint = self.builder.get_object("addMountPointEntry").get_text()
+        self._error = validate_mountpoint(self.mountpoint, self.mountpoints)
+        self._warningLabel.set_text(mountpoint_validation_msgs[self._error])
+        if self._error:
             return
 
-        self.mountpoint = self.builder.get_object("addMountPointEntry").get_text()
         size_text = self.builder.get_object("sizeEntry").get_text().strip()
 
         # if no unit was specified, default to MB
@@ -202,8 +207,8 @@ class AddDialog(GUIObject):
 
     def refresh(self):
         GUIObject.refresh(self)
-        self._warningBox = self.builder.get_object("addLabelWarningBox")
-        self._warningBox.hide()
+        self._warningLabel = self.builder.get_object("mountPointWarningLabel")
+        self._warningLabel.set_text("")
 
     def run(self):
         while True:
