@@ -131,7 +131,7 @@ def _schedulePartitions(storage, disks):
         if request.requiredSpace and request.requiredSpace > free:
             continue
 
-        elif request.fstype in ("prepboot", "efi", "biosboot", "hfs+") and \
+        elif request.fstype in ("prepboot", "efi", "hfs+") and \
              stage1_device:
             # there should never be a need for more than one of these
             # partitions, so skip them.
@@ -144,6 +144,21 @@ def _schedulePartitions(storage, disks):
 
             log.debug(stage1_device)
             continue
+        elif request.fstype == "biosboot":
+            is_gpt = (stage1_device and
+                      getattr(stage1_device.format, "labelType", None) == "gpt")
+            has_bios_boot = (stage1_device and
+                             any([p.format.type == "biosboot"
+                                    for p in storage.partitions
+                                        if p.disk == stage1_device]))
+            if not (stage1_device and stage1_device.isDisk and
+                    is_gpt and not has_bios_boot):
+                # there should never be a need for more than one of these
+                # partitions, so skip them.
+                log.info("skipping unneeded stage1 %s request" % request.fstype)
+                log.debug(request)
+                log.debug(stage1_device)
+                continue
 
         if request.encrypted and storage.encryptedAutoPart:
             fmt_type = "luks"
