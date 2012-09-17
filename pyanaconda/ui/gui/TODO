@@ -6,18 +6,10 @@ Fedora 18
 - Disk tug-o-war needs to be written.
 - Do the really slow redraws happen on real hardware, or just virt?
 - Fix retranslating once a different language is selected.
-- Fix the big pause between leaving the storage spoke and displaying the hub (needs error handling
-  pushed first).
 - Live inst in particular needs a more useful installation progress bar.
 - Make "Add custom repo..." dialog useful.
 - Media install selectors take up all horizontal space on source spoke.
-- Network spoke needs apply method and to look at ksdata when setting itself up.
-- NetworkStandaloneSpoke needs completed method and to look at ksdata when setting itself up.
 - Need to sort out checking of storage config against package set space needs.
-- Reword "Back" button on spokes to say something more about how we're applying changes and
-  going back to the hub.
-- Reword "Continue" button on Install Destination confirmation to give a better indicator of
-  where you go next.
 - Wall of anaconda needs to be taken into account.
 - Why does the first hub jump left a little bit the first time you use the keyboard to navigate?
   Software selection also does this.
