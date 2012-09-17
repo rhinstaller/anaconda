@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.254
+Version: 11.1.2.255
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -128,6 +128,12 @@ fi
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Mon Sep 17 2012 David Cantrell <dcantrell@redhat.com> 11.1.2.255-1
+- Increase size of diskboot.img (jkeating)
+  Resolves: rhbz#812719
+- Disable Encryption on SW RAID (bcl)
+  Resolves: rhbz#771901
+
 * Tue Aug 21 2012 Radek Vykydal <rvykydal@redhat.com> 11.1.2.254-1
 - Load and probe hyperv bus (VM_BUS) (#824880)
   Related: rhbz#824880
