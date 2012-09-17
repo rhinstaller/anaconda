@@ -97,14 +97,6 @@ class ErrorHandler(object):
         self.ui.showError(message)
         return ERROR_RAISE
 
-    def _partitionWarningHandler(self, *args, **kwargs):
-        message = _("The following warnings occurred with your partitioning:\n\n%(errortxt)\n\n"
-                    "Would you like to continue with the installation anyway?") % {"errortxt": args[0]}
-        if self.ui.showYesNoQuestion(message):
-            return ERROR_CONTINUE
-        else:
-            return ERROR_RAISE
-
     def _fsResizeHandler(self, *args, **kwargs):
         message = _("An error occurred while resizing the device %s.") % args[0]
 
@@ -245,7 +237,6 @@ class ErrorHandler(object):
 
         _map = {KickstartError: self._kickstartErrorHandler,
                 StorageError.PartitioningError: self._partitionErrorHandler,
-                StorageError.PartitioningWarning: self._partitionWarningHandler,
                 StorageError.FSResizeError: self._fsResizeHandler,
                 StorageError.FSMigrateError: self._fsMigrateHandler,
                 StorageError.NoDisksError: self._noDisksHandler,
