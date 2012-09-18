@@ -21,6 +21,7 @@
 
 from pyanaconda.ui.tui.spokes import NormalTUISpoke
 from pyanaconda.ui.tui.simpleline import TextWidget
+from pyanaconda.flags import flags
 import getpass
 
 import gettext
@@ -37,14 +38,16 @@ class PasswordSpoke(NormalTUISpoke):
 
     @property
     def completed(self):
-        return True
+        return bool(self.data.rootpw.password or self.data.rootpw.lock)
 
     @property
     def status(self):
-        if not self.data.rootpw.password:
-            return _("Root account disabled.")
-        else:
+        if self.data.rootpw.password:
             return _("Password is set.")
+        elif self.data.rootpw.lock:
+            return _("Root account is disabled.")
+        else:
+            return _("Password is not set.")
 
     def refresh(self, args = None):
         NormalTUISpoke.refresh(self, args)
