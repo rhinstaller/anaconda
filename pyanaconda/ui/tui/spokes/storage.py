@@ -115,6 +115,10 @@ class StorageSpoke(NormalTUISpoke):
         return self._ready and not threadMgr.get("AnaStorageWatcher")
 
     @property
+    def mandatory(self):
+        return True
+
+    @property
     def status(self):
         """ A short string describing the current status of storage setup. """
         msg = _("No disks selected")

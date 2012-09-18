@@ -103,7 +103,7 @@ class TUIHub(TUIObject, common.Hub):
             # don't continue
             if key == _('c'):
                 for spoke in self._spokes.values():
-                    if not spoke.completed:
+                    if not spoke.completed and spoke.mandatory:
                         print(_("Please complete all spokes before continuing"))
                         return False
             return key

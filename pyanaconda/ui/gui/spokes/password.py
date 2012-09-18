@@ -82,6 +82,10 @@ class PasswordSpoke(NormalSpoke):
         else:
             return _("Root password is not set")
 
+    @property
+    def mandatory(self):
+        return False
+        
     def apply(self):
         self.data.rootpw.password = cryptPassword(self._password)
         self.data.rootpw.isCrypted = True

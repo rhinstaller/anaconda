@@ -202,14 +202,14 @@ class Hub(GUIObject, common.Hub):
         spoke.selector.set_sensitive(spoke.ready)
         spoke.selector.set_property("status", spoke.status)
         spoke.selector.set_tooltip_markup(spoke.status)
-        spoke.selector.set_incomplete(not spoke.completed)
+        spoke.selector.set_incomplete(not spoke.completed and spoke.mandatory)
         self._handleCompleteness(spoke)
 
     def _handleCompleteness(self, spoke):
         # Add the spoke to the incomplete list if it's now incomplete, and make
         # sure it's not on the list if it's now complete.  Then show the box if
         # it's needed and hide it if it's not.
-        if spoke.completed:
+        if not spoke.mandatory or spoke.completed:
             if spoke in self._incompleteSpokes:
                 self._incompleteSpokes.remove(spoke)
         else:

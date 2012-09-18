@@ -17,7 +17,7 @@
 # Red Hat, Inc.
 #
 # Red Hat Author(s): Chris Lumens <clumens@redhat.com>
-#
+#                    Martin Sivak <msivak@redhat.com>
 
 from pyanaconda.ui import common
 from pyanaconda.ui.common import collect

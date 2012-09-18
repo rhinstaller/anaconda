@@ -130,6 +130,10 @@ class SoftwareSelectionSpoke(NormalSpoke):
             return self._get_selected_environment() is not None and processingDone
 
     @property
+    def mandatory(self):
+        return True
+        
+    @property
     def ready(self):
         # By default, the software selection spoke is not ready.  We have to
         # wait until the installation source spoke is completed.  This could be

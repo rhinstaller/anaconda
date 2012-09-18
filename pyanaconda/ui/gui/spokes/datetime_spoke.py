@@ -426,6 +426,10 @@ class DatetimeSpoke(NormalSpoke):
     def completed(self):
         return timezone.is_valid_timezone(self.data.timezone.timezone)
 
+    @property
+    def mandatory(self):
+        return True        
+    
     def refresh(self):
         #update the displayed time
         self._update_datetime_timer_id = GLib.timeout_add_seconds(1,

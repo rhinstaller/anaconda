@@ -981,9 +981,12 @@ class NetworkSpoke(NormalSpoke):
     @property
     def completed(self):
         # TODO: check also if source requires updates when implemented
-        return (self.data.method.method not in ("url", "nfs") or
-                len(self.network_control_box.activated_connections()) > 0)
+        return len(self.network_control_box.activated_connections()) > 0
 
+    @property
+    def mandatory(self):
+        return self.data.method.method in ("url", "nfs")
+    
     @property
     def status(self):
         """ A short string describing which devices are connected. """

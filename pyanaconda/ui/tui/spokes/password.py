@@ -44,6 +44,10 @@ class PasswordSpoke(NormalTUISpoke):
         return bool(self.data.rootpw.password or self.data.rootpw.lock)
 
     @property
+    def mandatory(self):
+        return True
+
+    @property
     def status(self):
         if self.data.rootpw.password:
             return _("Password is set.")

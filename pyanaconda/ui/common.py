@@ -171,13 +171,23 @@ class Spoke(UIObject):
 
     @property
     def completed(self):
-        """Has this spoke been visited and completed?  If not, a special warning
-           icon will be shown on the Hub beside the spoke, and a highlighted
-           message will be shown at the bottom of the Hub.  Installation will not
-           be allowed to proceed until all spokes are complete.
+        """Has this spoke been visited and completed?  If not and the spoke is
+           mandatory, a special warning icon will be shown on the Hub beside the
+           spoke, and a highlighted message will be shown at the bottom of the
+           Hub.  Installation will not be allowed to proceed until all mandatory
+           spokes are complete.
         """
         return False
 
+    @property
+    def mandatory(self):
+        """Mark this spoke as mandatory. Installation will not be allowed
+           to proceed until all mandatory spokes are complete.
+
+           Spokes are mandatory unless marked as not being so.
+        """
+        return True
+    
     def execute(self):
         """Cause the data object to take effect on the target system.  This will
            usually be as simple as calling one or more of the execute methods on

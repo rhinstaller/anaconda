@@ -48,6 +48,10 @@ class TimeZoneSpoke(NormalTUISpoke):
         return bool(self.data.timezone.timezone or self._selection)
 
     @property
+    def mandatory(self):
+        return True
+
+    @property
     def status(self):
         if self.data.timezone.timezone:
             return _("%s timezone") % self.data.timezone.timezone

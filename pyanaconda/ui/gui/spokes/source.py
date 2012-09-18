@@ -597,6 +597,10 @@ class SourceSpoke(NormalSpoke):
         return not self._error and self.status and self.status != _("Nothing selected")
 
     @property
+    def mandatory(self):
+        return True
+        
+    @property
     def ready(self):
         from pyanaconda.threads import threadMgr
         # By default, the source spoke is not ready.  We have to wait until
