@@ -1311,7 +1311,7 @@ class GRUB(BootLoader):
         ret = [d for d in devices if self.is_valid_stage2_device(d, linux=False, non_linux=True)]
         self.errors = errors
         self.warnings = warnings
-        return ret
+        return bool(ret)
 
 class GRUB2(GRUB):
     """ GRUBv2
