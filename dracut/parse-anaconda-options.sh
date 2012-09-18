@@ -103,6 +103,13 @@ warn_renamed_arg "ksdevice" "inst.ks.device"
 warn_renamed_arg "kssendmac" "inst.ks.sendmac"
 warn_renamed_arg "kssendsn" "inst.ks.sendsn"
 
+# Ignore self-signed SSL certs
+warn_renamed_arg "noverifyssl" "inst.noverifyssl"
+if $(getargbool 0 noverifyssl inst.noverifyssl); then
+    # Tell dracut to use curl --insecure
+    echo "rd.noverifyssl" >> /etc/cmdline.d/75-anaconda-options.conf
+fi
+
 # updates
 warn_renamed_arg "updates=" "inst.updates"
 if updates=$(getarg updates inst.updates); then
