@@ -227,9 +227,6 @@ class ProgressHub(Hub):
         with gdk_threaded():
             self._progressBar.set_fraction(0.0)
 
-            spinner = self.builder.get_object("progressSpinner")
-            spinner.start()
-            
     def _step_progress_bar(self):
         if not self._totalSteps:
             return
