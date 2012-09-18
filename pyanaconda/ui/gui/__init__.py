@@ -27,6 +27,7 @@ from pyanaconda.product import distributionText, isFinal
 
 from pyanaconda.ui import UserInterface, common
 from pyanaconda.ui.gui.utils import enlightbox, gtk_thread_wait
+from pyanaconda.product import isFinal, productName, productVersion
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
@@ -42,7 +43,9 @@ class GraphicalUserInterface(UserInterface):
     """This is the standard GTK+ interface we try to steer everything to using.
        It is suitable for use both directly and via VNC.
     """
-    def __init__(self, storage, payload, instclass):
+    def __init__(self, storage, payload, instclass,
+                 distributionText = distributionText, isFinal = isFinal):
+        
         UserInterface.__init__(self, storage, payload, instclass)
 
         self._actions = []
@@ -51,23 +54,41 @@ class GraphicalUserInterface(UserInterface):
 
         self.data = None
 
+        self._distributionText = distributionText
+        self._isFinal = isFinal
+
         # This is a hack to make sure the AnacondaWidgets library gets loaded
         # before the introspection stuff.
         import ctypes
         ctypes.CDLL("libAnacondaWidgets.so.0", ctypes.RTLD_GLOBAL)
 
-    def setup(self, data):
+    def _list_hubs(self):
         from hubs.summary import SummaryHub
         from hubs.progress import ProgressHub
+        return [SummaryHub, ProgressHub]
+
+    def _list_standalone_paths(self):
+        path = os.path.join(os.path.dirname(__file__), "spokes")
+        return [("pyanaconda.ui.gui.spokes.%s", path)]
+    
+    def _is_standalone(self, obj):
+        from spokes import StandaloneSpoke
+        return isinstance(obj, StandaloneSpoke)
+
+    def setup(self, data):
+        busyCursor()
+        
+        self._actions = self.getActionClasses(self._list_hubs())
+        self.data = data
+
+    def getActionClasses(self, hubs):
         from spokes import StandaloneSpoke
 
-        busyCursor()
+        # First, grab a list of all the standalone spokes.
+        standalones = self._collectActionClasses(self._list_standalone_paths(), StandaloneSpoke)
 
-        hubs = [SummaryHub, ProgressHub]
-        path = os.path.join(os.path.dirname(__file__), "spokes")
-
-        self._actions = self.getActionClasses("pyanaconda.ui.gui.spokes.%s", path, hubs, StandaloneSpoke)
-        self.data = data
+        # Second, order them according to their relationship
+        return self._orderActionClasses(standalones, hubs, StandaloneSpoke)
 
     def _instantiateAction(self, actionClass):
         from spokes import StandaloneSpoke
@@ -120,8 +141,8 @@ class GraphicalUserInterface(UserInterface):
 
         self._currentAction.refresh()
 
-        self._currentAction.window.set_beta(not isFinal)
-        self._currentAction.window.set_property("distribution", distributionText().upper())
+        self._currentAction.window.set_beta(not self._isFinal())
+        self._currentAction.window.set_property("distribution", self._distributionText().upper())
 
         # Set fonts app-wide, where possible
         settings = Gtk.Settings.get_default()
@@ -241,7 +262,7 @@ class GraphicalUserInterface(UserInterface):
 
         nextAction.initialize()
         nextAction.window.set_beta(self._currentAction.window.get_beta())
-        nextAction.window.set_property("distribution", distributionText().upper())
+        nextAction.window.set_property("distribution", self._distributionText().upper())
 
         if not nextAction.showable:
             self._currentAction.window.hide()

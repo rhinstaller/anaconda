@@ -71,6 +71,13 @@ class SpokeCategory(object):
 
         return g
 
-def collect_categories():
-    """Return a list of all category subclasses."""
-    return collect("pyanaconda.ui.gui.categories.%s", os.path.dirname(__file__), lambda obj: getattr(obj, "displayOnHub", None) != None)
+def collect_categories(mask_paths):
+    """Return a list of all category subclasses. Look for them in modules
+       imported as module_mask % basename(f) where f is name of all files in path.
+    """
+    categories = []
+    for mask, path in mask_paths:
+        spokes.extend(collect(mask, path, lambda obj: getattr(obj, "displayOnHub", None) != None)
+        
+    return categories
+

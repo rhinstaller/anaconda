@@ -113,22 +113,44 @@ class Hub(GUIObject, common.Hub):
             action.apply()
             action.execute()
 
+    def _list_spokes_mask_paths(self):
+        return [("pyanaconda.ui.gui.spokes.%s", os.path.join(os.path.dirname(__file__), "spokes"))]
+
+    def _list_categories_mask_paths(self):
+        return [("pyanaconda.ui.gui.categories.%s", os.path.join(os.path.dirname(__file__), "categories"))]
+            
+    def _collectCategoriesAndSpokes(self):
+        """collects categories and spokes to be displayed on this Hub
+
+           :return: dictionary mapping category class to list of spoke classes
+           :rtype: dictionary[category class] -> [ list of spoke classes ]
+        """
+
+        ret = {}
+        
+        # Collect all the categories this hub displays, then collect all the
+        # spokes belonging to all those categories.
+        categories = sorted(filter(lambda c: c.displayOnHub == self.__class__, collect_categories(self._list_categories_mask_paths())),
+                            key=lambda c: c.title)
+        for c in categories:
+            ret[c] = collect_spokes(self._list_spokes_mask_paths(), c.__name__)
+
+        return ret
+            
     def _createBox(self):
         from gi.repository import Gtk, AnacondaWidgets
         from pyanaconda.ui.gui.utils import setViewportBackground
 
-        # Collect all the categories this hub displays, then collect all the
-        # spokes belonging to all those categories.
-        categories = sorted(filter(lambda c: c.displayOnHub == self.__class__, collect_categories()),
-                            key=lambda c: c.title)
-
+        cats_and_spokes = self._collectCategoriesAndSpokes()
+        categories = cats_and_spokes.keys()
+        
         box = Gtk.VBox(False, 6)
 
         for c in categories:
             obj = c()
 
             selectors = []
-            for spokeClass in sorted(collect_spokes(obj.__class__.__name__), key=lambda s: s.title):
+            for spokeClass in sorted(cats_and_spokes[c], key=lambda s: s.title):
                 # Create the new spoke and populate its UI with whatever data.
                 # From here on, this Spoke will always exist.
                 spoke = spokeClass(self.data, self.storage, self.payload, self.instclass)

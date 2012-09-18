@@ -94,8 +94,19 @@ class PersonalizationSpoke(Spoke, common.PersonalizationSpoke):
         Spoke.__init__(self, data)
         common.PersonalizationSpoke.__init__(self, data, storage, payload, instclass)
 
-def collect_spokes(category):
+def collect_spokes(mask_paths, category):
     """Return a list of all spoke subclasses that should appear for a given
-       category.
+       category. Look for them in files imported as module_path % basename(f)
+
+       :param mask_paths: list of mask, path tuples to search for classes
+       :type mask_paths: list of (mask, path)
+
+       :return: list of Spoke classes belonging to category
+       :rtype: list of Spoke classes
+
     """
-    return collect("pyanaconda.ui.gui.spokes.%s", os.path.dirname(__file__), lambda obj: hasattr(obj, "category") and obj.category != None and obj.category.__name__ == category)
+    spokes = []
+    for mask, path in mask_paths:
+        spokes.extend(collect(mask, path, lambda obj: hasattr(obj, "category") and obj.category != None and obj.category.__name__ == category))
+        
+    return spokes

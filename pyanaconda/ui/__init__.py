@@ -98,13 +98,36 @@ class UserInterface(object):
         """
         raise NotImplementedError
 
-    def getActionClasses(self, module_pattern, path, hubs, standalone_class):
+    def _collectActionClasses(self, module_pattern_w_path, standalone_class):
         """Collect all the Hub and Spoke classes which should be enqueued for
-           processing and order them according to their pre/post dependencies.
+           processing.
 
-           :param module_pattern: the full name pattern (pyanaconda.ui.gui.spokes.%s)
-                                  of modules we about to import from path
-           :type module_pattern: string
+           :param module_pattern_w_path: the full name patterns (pyanaconda.ui.gui.spokes.%s)
+                                         and directory paths to modules we are about to import
+           :type module_pattern_w_path: list of (string, string)
+
+           :param standalone_class: the parent type of Spokes we want to pick up
+           :type standalone_class: common.StandaloneSpoke based types
+
+           :return: list of Spoke classes with standalone_class as a parent
+           :rtype: list of Spoke classes
+
+        """
+        standalones = []
+
+        for module_pattern, path in module_pattern_w_path:
+            standalones.extend(collect(module_pattern, path, lambda obj: issubclass(obj, standalone_class) and \
+                                       getattr(obj, "preForHub", False) or getattr(obj, "postForHub", False)))
+
+        return standalones
+    
+    def _orderActionClasses(self, spokes, hubs, standalone_class):
+        """Order all the Hub and Spoke classes which should be enqueued for
+           processing according to their pre/post dependencies.
+
+           :param spokes: the classes we are to about order according
+                          to the hub dependencies
+           :type spokes: list of Spoke instances
 
            :param path: the directory we are picking up modules from
            :type path: string
@@ -117,16 +140,12 @@ class UserInterface(object):
            :type standalone_class: common.StandaloneSpoke based types
         """
 
-
-        standalones = collect(module_pattern, path, lambda obj: issubclass(obj, standalone_class) and \
-                              getattr(obj, "preForHub", False) or getattr(obj, "postForHub", False))
-
         actionClasses = []
         for hub in hubs:
-            actionClasses.extend(sorted(filter(lambda obj: getattr(obj, "preForHub", None) == hub, standalones),
+            actionClasses.extend(sorted(filter(lambda obj: getattr(obj, "preForHub", None) == hub, spokes),
                                         key=lambda obj: obj.priority))
             actionClasses.append(hub)
-            actionClasses.extend(sorted(filter(lambda obj: getattr(obj, "postForHub", None) == hub, standalones),
+            actionClasses.extend(sorted(filter(lambda obj: getattr(obj, "postForHub", None) == hub, spokes),
                                         key=lambda obj: obj.priority))
 
         return actionClasses
