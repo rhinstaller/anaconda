@@ -17,9 +17,13 @@
 # Red Hat, Inc.
 #
 # Red Hat Author(s): Martin Sivak <msivak@redhat.com>
+#                    Jesse Keating <jkeating@redhat.com>
 #
 
 from pyanaconda.ui.tui.hubs import TUIHub
+from pyanaconda.flags import flags
+import sys
+import time
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
@@ -27,3 +31,27 @@ _ = lambda x: gettext.ldgettext("anaconda", x)
 class SummaryHub(TUIHub):
     title = _("Install hub")
     categories = ["source", "localization", "destination", "password"]
+
+    def __init__(self, app, data, storage, payload, instclass):
+        TUIHub.__init__(self, app, data, storage, payload, instclass)
+        if flags.automatedInstall:
+            sys.stdout.write(_("Starting automated install"))
+            sys.stdout.flush()
+            spokes = self._keys.values()
+            while not all(spoke.ready for spoke in spokes):
+                sys.stdout.write('.')
+                sys.stdout.flush()
+                time.sleep(1)
+
+            print('')
+            for spoke in spokes:
+                spoke.execute()
+
+    # override the prompt so that we can skip user input on kickstarts
+    # where all the data is in hand.  If not in hand, do the actual prompt.
+    def prompt(self, args=None):
+        if flags.automatedInstall and \
+        all(spoke.completed for spoke in self._keys.values()):
+            self.close()
+            return None
+        return TUIHub.prompt(self, args)
