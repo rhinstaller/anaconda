@@ -77,7 +77,7 @@ def collect_categories(mask_paths):
     """
     categories = []
     for mask, path in mask_paths:
-        spokes.extend(collect(mask, path, lambda obj: getattr(obj, "displayOnHub", None) != None)
+        categories.extend(collect(mask, path, lambda obj: getattr(obj, "displayOnHub", None) != None)
         
     return categories
 

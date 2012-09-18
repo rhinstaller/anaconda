@@ -52,7 +52,7 @@ class TUIHub(TUIObject, common.Hub):
 
         # look for spokes having category present in self.categories
         for c in self.categories:
-            spokes = collect_spokes(c)
+            spokes = collect_spokes([("pyanaconda.ui.tui.spokes.%s", os.path.join(os.path.dirname(__file__), "spokes"))], c)
 
             # sort them according to their priority
             for s in sorted(spokes, key = lambda s: s.priority):
