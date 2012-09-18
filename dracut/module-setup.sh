@@ -30,6 +30,7 @@ install() {
     inst_hook initqueue/online 80 "$moddir/anaconda-netroot.sh"
     inst "$moddir/anaconda-diskroot" "/sbin/anaconda-diskroot"
     inst_hook pre-pivot 99 "$moddir/anaconda-copy-ks.sh"
+    inst_hook pre-pivot 99 "$moddir/anaconda-copy-cmdline.sh"
     # kickstart parsing, WOOOO
     inst_hook initqueue/online 10 "$moddir/fetch-kickstart-net.sh"
     inst "$moddir/fetch-kickstart-disk" "/sbin/fetch-kickstart-disk"
