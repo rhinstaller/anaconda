@@ -21,7 +21,7 @@
 #
 
 import os
-import importlib
+import imp
 import inspect
 
 class UIObject(object):
@@ -380,19 +380,18 @@ class Hub(UIObject):
 
 def collect(module_pattern, path, pred):
     """Traverse the directory (given by path), import all files as a module
-       module_pattern % filename and find all classes withing that match
+       module_pattern % filename and find all classes within that match
        the given predicate.  This is then returned as a list of classes.
 
        It is suggested you use collect_categories or collect_spokes instead of
        this lower-level method.
 
        :param module_pattern: the full name pattern (pyanaconda.ui.gui.spokes.%s)
-                              of modules we about to import from path
+                              we want to assign to imported modules
        :type module_pattern: string
 
        :param path: the directory we are picking up modules from
        :type path: string
-
 
        :param pred: function which marks classes as good to import
        :type pred: function with one argument returning True or False
@@ -400,11 +399,30 @@ def collect(module_pattern, path, pred):
 
     retval = []
     for module_file in os.listdir(path):
-        if not module_file.endswith(".py") or module_file == "__init__.py":
+        if (not module_file.endswith(".py")) and \
+           (not module_file.endswith(".so")):
+            continue
+        
+        if module_file == "__init__.py":
             continue
 
-        mod_name = module_file[:-3]
-        module = importlib.import_module(module_pattern % mod_name)
+        try:
+            mod_name = module_file[:module_file.rindex(".")]
+        except ValueError:
+            mod_name = module_file
+
+        mod_info = None
+        module = None
+        try:    
+            imp.acquire_lock()
+            mod_info = imp.find_module(mod_name, [path])
+            module = imp.load_module(module_pattern % mod_name, *mod_info)
+            imp.release_lock()
+        except ImportError:
+            continue
+        finally:
+            if mod_info and mod_info[0]:
+                mod_info[0].close()
 
         p = lambda obj: inspect.isclass(obj) and pred(obj)
 
