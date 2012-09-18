@@ -2050,8 +2050,24 @@ int chooseNetworkInterface(struct loaderData_s * loaderData) {
 
     if (ksMacAddr)
         free(ksMacAddr);
-    if (foundDev == 1)
+
+    /* If we know what device to use then we can return early */
+    if (foundDev == 1) {
+
+        /* BZ 784001: Need to wait for link so that later network
+         *            requests won't attempt to use the device before
+         *            it is ready. */
+        for (rc = 0; rc < num_link_checks; rc++) {
+            if (get_link_status(loaderData->netDev) == 0) {
+                logMessage(INFO, "%s still has no link, waiting", loaderData->netDev);
+                sleep(1);
+            } else {
+                logMessage(INFO, "%s has link, using it", loaderData->netDev);
+                break;
+            }
+        }
         return LOADER_NOOP;
+    }
 
     devices[deviceNums] = NULL;
     deviceNames[deviceNums] = NULL;
