@@ -91,8 +91,8 @@ class Flags(object):
         if "gpt" in self.cmdline:
             self.gpt = True
 
-cmdline_files = ['/proc/cmdline', '/run/initramfs/etc/cmdline',
-                 '/run/initramfs/etc/cmdline.d/*.conf', '/etc/cmdline']
+cmdline_files = ['/proc/cmdline', '/run/install/cmdline',
+                 '/run/install/cmdline.d/*.conf', '/etc/cmdline']
 class BootArgs(OrderedDict):
     """
     Hold boot arguments as an OrderedDict.
