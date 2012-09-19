@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.255
+Version: 11.1.2.256
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -128,6 +128,10 @@ fi
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Sep 19 2012 Radek Vykydal <rvykydal@redhat.com> 11.1.2.256-1
+- Create /dev/* symlinks after we mount tmpfs on /dev (vpodzime)
+  Resolves: rhbz#784159
+
 * Mon Sep 17 2012 David Cantrell <dcantrell@redhat.com> 11.1.2.255-1
 - Increase size of diskboot.img (jkeating)
   Resolves: rhbz#812719
