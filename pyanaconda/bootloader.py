@@ -1594,7 +1594,7 @@ class EFIGRUB(GRUB2):
     @property
     def efi_dir_as_efifs_dir(self):
         ret = self._config_dir.replace('efi/', '')
-        return ret.replace('/', '\\')
+        return "\\" + ret.replace('/', '\\')
 
     def add_efi_boot_target(self):
         if self.stage1_device.type == "partition":
