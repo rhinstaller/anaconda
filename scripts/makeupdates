@@ -235,7 +235,7 @@ def copyUpdatedWidgets(updates, cwd):
     if not os.path.isfile('Makefile'):
         if not os.path.isfile('configure'):
             os.system('./autogen.sh')
-        of.system('./configure --enable-gtk-doc --enable-introspection')
+        os.system('./configure --enable-gtk-doc --enable-introspection')
 
     os.system('make')
 
