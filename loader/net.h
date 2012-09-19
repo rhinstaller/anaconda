@@ -27,8 +27,8 @@
 #define DHCP_METHOD_STR   _("Dynamic IP configuration (DHCP)")
 #define MANUAL_METHOD_STR _("Manual configuration")
 #ifdef ENABLE_IPV6
-#define DHCPV6_METHOD_STR _("Dynamic IP configuration (DHCPv6)")
-#define AUTO_METHOD_STR   _("Automatic neighbor discovery")
+#define DHCPV6_METHOD_STR _("Automatic, DHCP only")
+#define AUTO_METHOD_STR   _("Automatic")
 #endif
 
 #define SYSCONFIG_PATH       "/etc/sysconfig"
