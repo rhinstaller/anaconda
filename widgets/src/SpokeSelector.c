@@ -59,6 +59,8 @@ struct _AnacondaSpokeSelectorPrivate {
     GtkWidget *title_label;
     GtkWidget *status_label;
     GdkCursor *cursor;
+
+    GtkCssProvider *status_provider;
 };
 
 G_DEFINE_TYPE(AnacondaSpokeSelector, anaconda_spoke_selector, GTK_TYPE_EVENT_BOX)
@@ -190,12 +192,15 @@ static void anaconda_spoke_selector_init(AnacondaSpokeSelector *spoke) {
 
     /* Create the status label. */
     spoke->priv->status_label = gtk_label_new(NULL);
-    markup = g_markup_printf_escaped("<span style='italic' size='large' foreground='grey'>%s</span>", _(DEFAULT_STATUS));
+    markup = g_markup_printf_escaped("<span style='italic' size='large'>%s</span>", _(DEFAULT_STATUS));
     gtk_label_set_markup(GTK_LABEL(spoke->priv->status_label), markup);
     gtk_misc_set_alignment(GTK_MISC(spoke->priv->status_label), 0, 0);
     gtk_label_set_ellipsize(GTK_LABEL(spoke->priv->status_label), PANGO_ELLIPSIZE_MIDDLE);
     gtk_label_set_max_width_chars(GTK_LABEL(spoke->priv->status_label), 45);
     g_free(markup);
+
+    spoke->priv->status_provider = gtk_css_provider_new();
+    gtk_css_provider_load_from_data(spoke->priv->status_provider, "GtkLabel { color: @text_color }", -1, NULL);
 
     /* Add everything to the grid, add the grid to the widget. */
     gtk_grid_attach(GTK_GRID(spoke->priv->grid), spoke->priv->icon, 0, 0, 1, 2);
@@ -241,9 +246,17 @@ static void anaconda_spoke_selector_set_property(GObject *object, guint prop_id,
            break;
 
         case PROP_STATUS: {
-            char *markup = g_markup_printf_escaped("<span style='italic' size='large' foreground='grey'>%s</span>", g_value_get_string(value));
+            char *markup = g_markup_printf_escaped("<span style='italic' size='large'>%s</span>", g_value_get_string(value));
+            GtkStyleContext *context = gtk_widget_get_style_context(GTK_WIDGET(priv->status_label));
+
             gtk_label_set_markup(GTK_LABEL(priv->status_label), markup);
             g_free(markup);
+
+            if (gtk_widget_get_sensitive(GTK_WIDGET(widget)))
+                gtk_style_context_add_provider(context, GTK_STYLE_PROVIDER(priv->status_provider), GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
+            else
+                gtk_style_context_remove_provider(context, GTK_STYLE_PROVIDER(priv->status_provider));
+
             break;
         }
 
