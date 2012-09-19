@@ -850,10 +850,10 @@ if __name__ == "__main__":
         elif anaconda.methodstr.startswith("nfs"):
             ksdata.method.method = "nfs"
             url = anaconda.methodstr.split(":", 1)[1]
-            (opts, server, path) = iutil.parseNfsUrl(url)
+            (options, server, path) = iutil.parseNfsUrl(url)
             ksdata.method.server = server
             ksdata.method.dir = path
-            ksdata.method.opts = opts
+            ksdata.method.opts = options
         elif anaconda.methodstr.startswith("hd:"):
             ksdata.method.method = "harddrive"
             url = anaconda.methodstr.split(":", 1)[1]
