@@ -64,7 +64,7 @@ class ProxyDialog(GUIObject):
 
         url = self._proxyURLEntry.get_text()
         if self._authCheck.get_active():
-            username = self._proxyPasswordEntry.get_text()
+            username = self._proxyUsernameEntry.get_text()
             password = self._proxyPasswordEntry.get_text()
         else:
             username = None
