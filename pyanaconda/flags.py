@@ -24,9 +24,13 @@ import glob
 from constants import *
 from collections import OrderedDict
 
+import logging
+log = logging.getLogger("anaconda")
+
 # A lot of effort, but it only allows a limited set of flags to be referenced
 class Flags(object):
     def __setattr__(self, attr, val):
+        # pylint: disable-msg=E1101
         if attr not in self.__dict__ and not self._in_init:
             raise AttributeError, attr
         else:
@@ -168,6 +172,29 @@ class BootArgs(OrderedDict):
             elif a == 'no'+arg:
                 result = False # XXX: should noarg=off -> True?
         return result
+
+def can_touch_runtime_system(msg):
+    """
+    Guard that should be used before doing actions that modify runtime system.
+
+    @param msg: message to be logged in case that runtime system cannot be touched
+    @rtype: bool
+
+    """
+
+    if flags.livecdInstall:
+        log.info("Not doing '%s' in live installation" % msg)
+        return False
+
+    if flags.imageInstall:
+        log.info("Not doing '%s' in image installation" % msg)
+        return False
+
+    if flags.testing:
+        log.info("Not doing '%s', because we are just testing" % msg)
+        return False
+
+    return True
 
 global flags
 flags = Flags()
