@@ -69,14 +69,6 @@ def write_timezone_config(timezone, root):
                       (rooted_tz_file, oserr.strerror))
 
     try:
-        with open(os.path.normpath(root + "/etc/sysconfig/clock"), "w") as fobj:
-            fobj.write('ZONE="%s"\n' % timezone.timezone)
-    except IOError as ioerr:
-        msg = "Error while writing /etc/sysconfig/clock file: %s" % \
-                ioerr.strerror
-        raise TimezoneConfigError(msg)
-
-    try:
         fobj = open(os.path.normpath(root + "/etc/adjtime"), "r")
         lines = fobj.readlines()
         fobj.close()

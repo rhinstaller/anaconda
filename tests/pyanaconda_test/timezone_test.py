@@ -51,8 +51,6 @@ class TimeZoneTest(mock.TestCase):
         f.close()
 
         tz.write()
-        example = 'ZONE="%s"\n' % ZONE
-        self.assertEqual(self.fs['/mnt/sysimage/etc/sysconfig/clock'], example)
         self.assertEqual(self.fs['/mnt/sysimage/etc/adjtime'], ADJTIME)
 
 
