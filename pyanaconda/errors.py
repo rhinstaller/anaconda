@@ -226,33 +226,29 @@ class ErrorHandler(object):
            kwargs   -- A dict of keyword arguments.  The arguments expected
                        depends on the exception being handled.
         """
-        from pyanaconda.packaging import NoSuchGroup, NoSuchPackage
-        import pyanaconda.storage.errors as StorageError
-        from pykickstart.errors import KickstartError
-
         rc = ERROR_RAISE
 
         if not self.ui:
             raise
 
-        _map = {KickstartError: self._kickstartErrorHandler,
-                StorageError.PartitioningError: self._partitionErrorHandler,
-                StorageError.FSResizeError: self._fsResizeHandler,
-                StorageError.FSMigrateError: self._fsMigrateHandler,
-                StorageError.NoDisksError: self._noDisksHandler,
-                StorageError.DirtyFSError: self._dirtyFSHandler,
-                StorageError.FSTabTypeMismatchError: self._fstabTypeMismatchHandler,
-                InvalidImageSizeError: self._invalidImageSizeHandler,
-                MissingImageError: self._missingImageHandler,
-                MediaMountError: self._mediaMountHandler,
-                MediaUnmountError: self._mediaUnmountHandler,
-                NoSuchGroup: self._noSuchGroupHandler,
-                NoSuchPackage: self._noSuchPackageHandler,
-                ScriptError: self._scriptErrorHandler}
+        _map = {"KickstartError": self._kickstartErrorHandler,
+                "PartitioningError": self._partitionErrorHandler,
+                "FSResizeError": self._fsResizeHandler,
+                "FSMigrateError": self._fsMigrateHandler,
+                "NoDisksError": self._noDisksHandler,
+                "DirtyFSError": self._dirtyFSHandler,
+                "FSTabTypeMismatchError": self._fstabTypeMismatchHandler,
+                "InvalidImageSizeError": self._invalidImageSizeHandler,
+                "MissingImageError": self._missingImageHandler,
+                "MediaMountError": self._mediaMountHandler,
+                "MediaUnmountError": self._mediaUnmountHandler,
+                "NoSuchGroup": self._noSuchGroupHandler,
+                "NoSuchPackage": self._noSuchPackageHandler,
+                "ScriptError": self._scriptErrorHandler}
 
-        if exn in _map:
+        if exn.__class__.__name__ in _map:
             kwargs["exception"] = exn
-            rc = _map[exn](*args, **kwargs)
+            rc = _map[exn.__class__.__name__](*args, **kwargs)
 
         return rc
 
