@@ -1,11 +1,10 @@
 BaseWindow -
 
 DiskOverview -
-   - allow tabbing between widgets
    - add utilization pie chart
-   - need to specify big vs. small
 
 SpokeSelector -
+   - status text should be white when a selector is focused
 
 SpokeWindow -
 
@@ -23,5 +22,3 @@ Misc -
    - add test cases
    - coding standard document
    - can CSS live outside of C files?
-   - should the BaseWindow background be white?  if so, other widgets will need to
-     act similar.
