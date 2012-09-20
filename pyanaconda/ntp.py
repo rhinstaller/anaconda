@@ -135,6 +135,9 @@ def save_servers_to_config(servers, conf_file_path=NTP_CONFIG_FILE,
         if not srv_regexp.match(line) and line != heading:
             new_conf_file.write(line)
 
+    old_conf_file.close()
+    new_conf_file.close()
+
     if not out_file_path:
         try:
             stat = os.stat(conf_file_path)
@@ -146,9 +149,6 @@ def save_servers_to_config(servers, conf_file_path=NTP_CONFIG_FILE,
                   "the new one (%s)" % (oserr.strerror)
 
             raise NTPconfigError(msg)
-
-    old_conf_file.close()
-    new_conf_file.close()
 
 def one_time_sync(server, callback=None):
     """
