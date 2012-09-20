@@ -34,10 +34,16 @@ from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.gui.categories.localization import LocalizationCategory
 from pyanaconda.ui.gui.utils import enlightbox
 
-from pyanaconda import timezone, iutil, network, ntp
+from pyanaconda import timezone
+from pyanaconda import iutil
+from pyanaconda import network
+from pyanaconda import ntp
+from pyanaconda import flags
 from pyanaconda.threads import threadMgr, AnacondaThread
 
-import datetime, os, threading
+import datetime
+import os
+import threading
 
 __all__ = ["DatetimeSpoke"]
 
@@ -111,11 +117,16 @@ class NTPconfigDialog(GUIObject):
     def _initialize_store_from_config(self):
         self._serversStore.clear()
         self._poolsNote.set_text("")
-        try:
-            for server in ntp.get_servers_from_config():
+
+        if self.data.timezone.ntpservers:
+            for server in self.data.timezone.ntpservers:
                 self._add_server(server)
-        except ntp.NTPconfigError as ntperr:
-            log.warning("Failed to load NTP servers configuration")
+        else:
+            try:
+                for server in ntp.get_servers_from_config():
+                    self._add_server(server)
+            except ntp.NTPconfigError as ntperr:
+                log.warning("Failed to load NTP servers configuration")
 
     def refresh(self):
         self._serverEntry.grab_focus()
@@ -140,8 +151,9 @@ class NTPconfigDialog(GUIObject):
                 if row[2]:
                     new_servers.append(row[0])
 
-            ntp.save_servers_to_config(new_servers)
-            iutil.restart_service("chronyd")
+            if flags.can_touch_runtime_system("save NTP servers configuration"):
+                ntp.save_servers_to_config(new_servers)
+                iutil.restart_service("chronyd")
 
         #Cancel clicked, window destroyed...
         else:
@@ -331,6 +343,9 @@ class DatetimeSpoke(NormalSpoke):
             self._tzmap.set_timezone(DEFAULT_TZ)
             self.data.timezone.timezone = DEFAULT_TZ
 
+        if not flags.can_touch_runtime_system("modify system time and date"):
+            self._set_date_time_setting_sensitive(False)
+
         self._config_dialog = NTPconfigDialog(self.data)
         self._config_dialog.initialize()
 
@@ -397,10 +412,12 @@ class DatetimeSpoke(NormalSpoke):
             self.window.clear_info()
             GLib.idle_add(self._config_dialog.refresh_servers_state)
 
-        ntp_working = has_active_network and iutil.service_running("chronyd")
+        if flags.can_touch_runtime_system("get NTP service state"):
+            ntp_working = has_active_network and iutil.service_running("chronyd")
+        else:
+            ntp_working = not self.data.timezone.nontp
 
-        self._networkTimeSwitch = self.builder.get_object("networkTimeSwitch")
-        self._networkTimeSwitch.set_active(ntp_working)
+        self._ntpSwitch.set_active(ntp_working)
 
     def add_to_store(self, store, item):
         store.append([item])
@@ -512,6 +529,9 @@ class DatetimeSpoke(NormalSpoke):
         otherwise call it again and again.
 
         """
+
+        if not flags.can_touch_runtime_system("save system time"):
+            return False
 
         month = self._get_combo_selection(self._monthCombo)
         if not month:
@@ -755,8 +775,12 @@ class DatetimeSpoke(NormalSpoke):
                              _("You have no working NTP server configured"))
 
     def on_ntp_switched(self, switch, *args):
-        #turned ON
         if switch.get_active():
+            #turned ON
+            if not flags.can_touch_runtime_system("start NTP service"):
+                #cannot touch runtime system, not much to do here
+                return
+
             if not network.hasActiveNetDev():
                 self._show_no_network_warning()
                 switch.set_active(False)
@@ -780,8 +804,12 @@ class DatetimeSpoke(NormalSpoke):
             if (ret != 0) and not iutil.service_running("chronyd"):
                 switch.set_active(False)
 
-        #turned OFF
         else:
+            #turned OFF
+            if not flags.can_touch_runtime_system("stop NTP service"):
+                #cannot touch runtime system, nothing to do here
+                return
+
             self._set_date_time_setting_sensitive(True)
             ret = iutil.stop_service("chronyd")
 
