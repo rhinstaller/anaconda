@@ -679,9 +679,12 @@ class SourceSpoke(NormalSpoke):
             idx += 1
 
         # Again, only display these widgets if an HDISO source was found.
+        self._isoBox.set_no_show_all(not added)
+        self._isoBox.set_visible(added)
+        self._isoButton.set_no_show_all(not added)
+        self._isoButton.set_visible(added)
+
         if added:
-            self._isoBox.set_no_show_all(False)
-            self._isoButton.set_no_show_all(False)
             combo = self.builder.get_object("isoPartitionCombo")
             combo.set_active(active)
 
