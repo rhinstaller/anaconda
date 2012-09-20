@@ -121,6 +121,9 @@ bumpver: po-pull
 	if [ ! -z "$(MAP)" ]; then \
 		opts="$${opts} -m $(MAP)" ; \
 	fi ; \
+	if [ ! -z "$(BZDEBUG)" ]; then \
+		opts="$${opts} -d" ; \
+	fi ; \
 	scripts/makebumpver $${opts} || exit 1 ; \
 	$(MAKE) -C po $(PACKAGE_NAME).pot-update ; \
 	tx push $(TX_PUSH_ARGS)

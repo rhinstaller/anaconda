@@ -20,6 +20,11 @@
 #
 # Author: David Cantrell <dcantrell@redhat.com>
 
+import logging
+logging.basicConfig(level=logging.DEBUG)
+log = logging.getLogger("bugzilla")
+log.setLevel(logging.INFO)
+
 import bugzilla
 import datetime
 import getopt
@@ -32,6 +37,7 @@ import textwrap
 
 class MakeBumpVer:
     def __init__(self, *args, **kwargs):
+        log.debug("%s" % (kwargs,))
         self.bzserver = 'bugzilla.redhat.com'
         self.bzurl = "https://%s/xmlrpc.cgi" % self.bzserver
         self.username = None
@@ -137,9 +143,11 @@ class MakeBumpVer:
             print
 
         if not self.bz.logged_in:
-            self.bz.login(self.username, self.password)
+            rc = self.bz.login(self.username, self.password)
+            log.debug("login rc = %s" % (rc,))
 
         bugs = self.bz.query({'bug_id': bug})
+        log.debug("bugs = %s" % (bugs))
 
         if len(bugs) != 1:
             return None
@@ -375,6 +383,7 @@ def usage(cmd):
     sys.stdout.write("    -b, --bugreport  Bug reporting email address.\n")
     sys.stdout.write("    -i, --ignore     Comma separated list of git commits to ignore.\n")
     sys.stdout.write("    -m, --map        Comma separated list of FEDORA_BZ=RHEL_BZ mappings.\n")
+    sys.stdout.write("    -d, --debug      Turn on debug logging to stdout\n")
     sys.stdout.write("\nThe -i switch is intended for use with utility commits that we do not need to\n")
     sys.stdout.write("reference in the spec file changelog.  The -m switch is used to map a Fedora\n")
     sys.stdout.write("BZ number to a RHEL BZ number for the spec file changelog.  Use -m if you have\n")
@@ -392,10 +401,10 @@ def main(argv):
     opts, args = [], []
 
     try:
-        opts, args = getopt.getopt(sys.argv[1:], 'n:v:r:b:i:m:?',
+        opts, args = getopt.getopt(sys.argv[1:], 'n:v:r:b:i:m:d?',
                                    ['name=', 'version=', 'release=',
                                     'bugreport=', 'ignore=', 'map=',
-                                    'help'])
+                                    'debug', 'help'])
     except getopt.GetoptError:
         help = True
 
@@ -412,6 +421,8 @@ def main(argv):
             ignore = a
         elif o in ('-m', '--map'):
             bugmap = a
+        elif o in ('-d', '--debug'):
+            log.setLevel(logging.DEBUG)
         elif o in ('-?', '--help'):
             help = True
         else:
