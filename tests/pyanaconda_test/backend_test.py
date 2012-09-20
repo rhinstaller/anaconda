@@ -208,7 +208,6 @@ class BackendTest(mock.TestCase):
 
         pyanaconda.backend.doBasePackageSelect(anaconda)
         self.assertTrue(anaconda.backend.resetPackageSelections.called)
-        self.assertTrue(pyanaconda.backend.kickstart.selectPackages.called)
 
     def do_base_package_select_2_test(self):
         import pyanaconda.backend

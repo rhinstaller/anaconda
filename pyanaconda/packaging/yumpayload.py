@@ -38,6 +38,7 @@
 
 import os
 import shutil
+import sys
 import time
 import tempfile
 
@@ -78,6 +79,8 @@ _ = lambda x: gettext.ldgettext("anaconda", x)
 from pyanaconda.errors import *
 from pyanaconda.packaging import NoSuchGroup, NoSuchPackage
 import pyanaconda.progress as progress
+
+from pykickstart.constants import KS_MISSING_IGNORE
 
 default_repos = [productName.lower(), "rawhide"]
 
@@ -1006,6 +1009,13 @@ reposdir=%s
             else:
                 self._yum._ts_save_file = None
 
+    def _handleMissing(self, exn):
+        if self.data.packages.handleMissing == KS_MISSING_IGNORE:
+            return
+
+        if errorHandler.cb(exn, str(exn)) == ERROR_RAISE:
+            sys.exit(1)
+
     def _applyYumSelections(self):
         """ Apply the selections in ksdata to yum.
 
@@ -1014,7 +1024,10 @@ reposdir=%s
         self._selectYumGroup("core")
 
         for package in self.data.packages.packageList:
-            self._selectYumPackage(package)
+            try:
+                self._selectYumPackage(package)
+            except NoSuchPackage as e:
+                self._handleMissing(e)
 
         for group in self.data.packages.groupList:
             default = False
@@ -1025,13 +1038,22 @@ reposdir=%s
                 default = True
                 optional = True
 
-            self._selectYumGroup(group.name, default=default, optional=optional)
+            try:
+                self._selectYumGroup(group.name, default=default, optional=optional)
+            except NoSuchGroup as e:
+                self._handleMissing(e)
 
         for package in self.data.packages.excludedList:
-            self._deselectYumPackage(package)
+            try:
+                self._deselectYumPackage(package)
+            except NoSuchPackage as e:
+                self._handleMissing(e)
 
         for group in self.data.packages.excludedGroupList:
-            self._deselectYumGroup(group.name)
+            try:
+                self._deselectYumGroup(group.name)
+            except NoSuchGroup as e:
+                self._handleMissing(e)
 
         self.selectKernelPackage()
 

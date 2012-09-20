@@ -31,8 +31,6 @@ import storage.iscsi
 import storage.fcoe
 import storage.zfcp
 
-from pyanaconda.packaging import NoSuchGroup
-
 import glob
 import iutil
 import isys
@@ -58,7 +56,6 @@ from pykickstart.base import KickstartCommand
 from pykickstart.constants import *
 from pykickstart.errors import formatErrorMsg, KickstartError, KickstartValueError
 from pykickstart.parser import KickstartParser
-from pykickstart.parser import Group as PackageGroup
 from pykickstart.parser import Script as KSScript
 from pykickstart.sections import *
 from pykickstart.version import returnClassForVersion
@@ -1547,54 +1544,6 @@ def runTracebackScripts(scripts):
     for script in filter (lambda s: s.type == KS_SCRIPT_TRACEBACK, scripts):
         script.run("/", flags.serial)
     log.info("All kickstart %%traceback script(s) have been run")
-
-def selectPackages(ksdata, payload):
-    # If no %packages header was seen, use the installclass's default group
-    # selections.  This can also be explicitly specified with %packages
-    # --default.  Otherwise, select whatever was given (even if it's nothing).
-    if not packagesSeen or ksdata.packages.default:
-        # FIXME:  Set default packaging selections here.
-        if not packagesSeen:
-            return
-
-    for pkg in ksdata.packages.packageList:
-        try:
-            payload.selectPackage(pkg)
-        except NoSuchPackage as e:
-            if ksdata.packages.handleMissing == KS_MISSING_IGNORE:
-                continue
-
-            if errorHandler.cb(e) == ERROR_RAISE:
-                sys.exit(1)
-
-    ksdata.packages.groupList.insert(0, PackageGroup("Core"))
-
-    for grp in ksdata.packages.groupList:
-        default = False
-        optional = False
-
-        if grp.include == GROUP_DEFAULT:
-            default = True
-        elif grp.include == GROUP_ALL:
-            default = True
-            optional = True
-
-        try:
-            payload.selectGroup(grp.name, default=default, optional=optional)
-        except NoSuchGroup as e:
-            if ksdata.packages.handleMissing == KS_MISSING_IGNORE:
-                continue
-
-            if errorHandler.cb(e) == ERROR_RAISE:
-                sys.exit(1)
-
-    map(payload.deselectPackage, ksdata.packages.excludedList)
-
-    for grp in ksdata.packages.excludedGroupList:
-        try:
-            payload.deselectGroup(grp.name)
-        except NoSuchGroup:
-            continue
 
 def doKickstartStorage(storage, ksdata, instClass):
     """ Setup storage state from the kickstart data """
