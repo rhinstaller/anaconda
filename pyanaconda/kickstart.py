@@ -308,7 +308,11 @@ class Bootloader(commands.bootloader.F18_Bootloader):
 
         storage.bootloader.disk_order = self.driveorder
 
-        if not self.bootDrive:
+        if self.bootDrive:
+            if not self.bootDrive in disk_names:
+                raise KickstartValueError, formatErrorMsg(self.lineno,
+                        msg="Requested boot drive %s doesn't exist" % self.bootDrive)
+        else:
             self.bootDrive = disk_names[0]
 
         spec = udev_resolve_devspec(self.bootDrive)
