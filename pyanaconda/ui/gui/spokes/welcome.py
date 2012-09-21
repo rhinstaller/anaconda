@@ -35,6 +35,7 @@ from pyanaconda.localization import Language, LOCALE_PREFERENCES, expand_langs
 from pyanaconda.product import isFinal, productName, productVersion
 from pyanaconda import keyboard
 from pyanaconda import timezone
+from pyanaconda import flags
 
 __all__ = ["WelcomeLanguageSpoke", "LanguageSpoke"]
 
@@ -81,7 +82,8 @@ class LanguageMixIn(object):
         for layout in new_layouts:
             if layout not in self.data.keyboard.layouts_list:
                 self.data.keyboard.layouts_list.append(layout)
-                self._xklwrapper.add_layout(layout)
+                if flags.can_touch_runtime_system("add runtime X layout"):
+                    self._xklwrapper.add_layout(layout)
 
     @property
     def completed(self):

@@ -388,7 +388,7 @@ any layout to the top of the list to select it as the default.</property>
                         <property name="orientation">vertical</property>
                         <property name="spacing">6</property>
                         <child>
-                          <object class="GtkLabel" id="label2">
+                          <object class="GtkLabel" id="testingLabel">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
                             <property name="halign">start</property>
@@ -401,7 +401,7 @@ any layout to the top of the list to select it as the default.</property>
                           </packing>
                         </child>
                         <child>
-                          <object class="GtkScrolledWindow" id="scrolledwindow2">
+                          <object class="GtkScrolledWindow" id="testingWindow">
                             <property name="height_request">100</property>
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
@@ -421,7 +421,7 @@ any layout to the top of the list to select it as the default.</property>
                           </packing>
                         </child>
                         <child>
-                          <object class="GtkLabel" id="layoutSwitchButton">
+                          <object class="GtkLabel" id="layoutSwitchLabel">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
                             <property name="halign">end</property>

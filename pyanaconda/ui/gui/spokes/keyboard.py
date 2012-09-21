@@ -32,6 +32,7 @@ from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.gui.categories.localization import LocalizationCategory
 from pyanaconda.ui.gui.utils import enlightbox
 from pyanaconda import keyboard
+from pyanaconda import flags
 
 __all__ = ["KeyboardSpoke"]
 
@@ -202,6 +203,22 @@ class KeyboardSpoke(NormalSpoke):
         self._store = self.builder.get_object("addedLayoutStore")
         self._add_data_layouts()
 
+        if not flags.can_touch_runtime_system("test X layouts"):
+            # Disable area for testing layouts as we cannot make
+            # it work without modifying runtime system
+
+            widgets = [self.builder.get_object("testingLabel"),
+                       self.builder.get_object("testingWindow"),
+                       self.builder.get_object("layoutSwitchLabel")]
+
+            # Use testingLabel's text to explain why this part is not
+            # sensitive.
+            widgets[0].set_text(_("Testing layouts configuration not "
+                                  "available."))
+
+            for widget in widgets:
+                widget.set_sensitive(False)
+
     def refresh(self):
         NormalSpoke.refresh(self)
 
@@ -227,7 +244,8 @@ class KeyboardSpoke(NormalSpoke):
 
     def _addLayout(self, store, name):
         store.append([name])
-        self._xkl_wrapper.add_layout(name)
+        if flags.can_touch_runtime_system("add runtime X layout"):
+            self._xkl_wrapper.add_layout(name)
 
     def _removeLayout(self, store, itr):
         """
@@ -236,7 +254,8 @@ class KeyboardSpoke(NormalSpoke):
 
         """
 
-        self._xkl_wrapper.remove_layout(store[itr][0])
+        if flags.can_touch_runtime_system("remove runtime X layout"):
+            self._xkl_wrapper.remove_layout(store[itr][0])
         store.remove(itr)
 
     # Signal handlers.
@@ -309,7 +328,8 @@ class KeyboardSpoke(NormalSpoke):
             return
 
         store.swap(cur, prev)
-        self._flush_layouts_to_X()
+        if flags.can_touch_runtime_system("reorder runtime X layouts"):
+            self._flush_layouts_to_X()
         selection.emit("changed")
 
     def on_down_clicked(self, button):
@@ -323,7 +343,8 @@ class KeyboardSpoke(NormalSpoke):
             return
 
         store.swap(cur, nxt)
-        self._flush_layouts_to_X()
+        if flags.can_touch_runtime_system("reorder runtime X layouts"):
+            self._flush_layouts_to_X()
         selection.emit("changed")
 
     def on_preview_clicked(self, button):
