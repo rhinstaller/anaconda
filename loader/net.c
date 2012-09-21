@@ -279,7 +279,6 @@ int split_bond_option(char *str, char **bondname, char **bondslaves, char **opti
 void setupIfaceStruct(iface_t * iface, struct loaderData_s * loaderData) {
     struct in_addr addr;
     struct in6_addr addr6;
-    char * c;
 
     memset(&addr, 0, sizeof(addr));
     memset(&addr6, 0, sizeof(addr6));
@@ -369,39 +368,8 @@ void setupIfaceStruct(iface_t * iface, struct loaderData_s * loaderData) {
 #endif
 
     if (loaderData->dns) {
-        char * buf;
-        char ret[INET6_ADDRSTRLEN+1];
-        buf = strdup(loaderData->dns);
-
-        /* Scan the dns parameter for multiple comma-separated IP addresses */
-        c = strtok(buf, ",");
-        while ((iface->numdns < MAXNS) && (c != NULL)) {
-            if (inet_pton(AF_INET, c, &addr) >= 1) {
-                iface->dns[iface->numdns] = strdup(c);
-                iface->numdns++;
-
-                if (inet_ntop(AF_INET, &addr, ret, INET_ADDRSTRLEN) == NULL) {
-                    logMessage(ERROR, "%s (%d): %s", __func__, __LINE__, strerror(errno));
-                } else {
-                    logMessage(DEBUGLVL, "adding dns4 %s", ret);
-                    c = strtok(NULL, ",");
-                }
-            } else if (inet_pton(AF_INET6, c, &addr6) >= 1) {
-                iface->dns[iface->numdns] = strdup(c);
-                iface->numdns++;
-
-                if (inet_ntop(AF_INET6, &addr6, ret, INET6_ADDRSTRLEN) == NULL) {
-                    logMessage(ERROR, "%s (%d): %s", __func__, __LINE__, strerror(errno));
-                } else {
-                    logMessage(DEBUGLVL, "adding dns6 %s", ret);
-                    c = strtok(NULL, ",");
-                }
-            }
-        }
-
-
-
         logMessage(INFO, "dnsservers is %s", loaderData->dns);
+        parseDnsServers(loaderData->dns, iface);
     }
 
     if (loaderData->domain) {
@@ -803,9 +771,7 @@ int manualNetConfig(char * device, iface_t * iface,
     int i, rows, pos, cidr, have[2], stack[2];
     char *buf = NULL;
     char ret[48];
-    struct in_addr addr;
 #ifdef ENABLE_IPV6
-    struct in6_addr addr6;
     int prefix;
 #endif
     struct in_addr *tmpaddr = NULL;
@@ -1007,9 +973,15 @@ int manualNetConfig(char * device, iface_t * iface,
     }
 
     if (iface->numdns) {
-        newtEntrySet(ipcomps->nsEntry, iface->dns[0], 1);
-    } else if (iface->numdns) {
-        newtEntrySet(ipcomps->nsEntry, iface->dns[0], 1);
+        gchar *dnss, *d = NULL;
+        dnss = g_strdup(iface->dns[0]);
+        for (i = 1; i < iface->numdns; i++) {
+            d = g_strjoin(",", dnss, iface->dns[i], NULL);
+            g_free(dnss);
+            dnss = d;
+        }
+        newtEntrySet(ipcomps->nsEntry, dnss, 1);
+        g_free(dnss);
     }
 
     newtComponentAddCallback(ipcomps->gwEntry, ipCallback, ipcomps);
@@ -1140,16 +1112,8 @@ int manualNetConfig(char * device, iface_t * iface,
 
         /* gather nameservers */
         if (ipcomps->ns) {
-#ifdef ENABLE_IPV6
-            if ((inet_pton(AF_INET, ipcomps->ns, &addr) >= 1) ||
-                (inet_pton(AF_INET6, ipcomps->ns, &addr6) >= 1)) {
-#else
-            if (inet_pton(AF_INET, ipcomps->ns, &addr) >= 1) {
-#endif
-                iface->dns[0] = strdup(ipcomps->ns);
-                if (iface->numdns < 1)
-                    iface->numdns = 1;
-            }
+            iface->numdns = 0;
+            parseDnsServers(ipcomps->ns, iface);
         }
 
         /* user selected back, but we've saved what they entered already */
@@ -2611,6 +2575,44 @@ int isURLRemote(char *url) {
         return 1;
     } else {
         return 0;
+    }
+}
+
+void parseDnsServers(const char *dnss, iface_t *iface) {
+    char * buf, *c;
+    char ret[INET6_ADDRSTRLEN+1];
+    buf = strdup(dnss);
+    struct in_addr addr;
+    struct in6_addr addr6;
+
+    memset(&addr, 0, sizeof(addr));
+    memset(&addr6, 0, sizeof(addr6));
+
+
+    /* Scan the dns parameter for multiple comma-separated IP addresses */
+    c = strtok(buf, ",");
+    while ((iface->numdns < MAXNS) && (c != NULL)) {
+        if (inet_pton(AF_INET, c, &addr) >= 1) {
+            iface->dns[iface->numdns] = strdup(c);
+            iface->numdns++;
+
+            if (inet_ntop(AF_INET, &addr, ret, INET_ADDRSTRLEN) == NULL) {
+                logMessage(ERROR, "%s (%d): %s", __func__, __LINE__, strerror(errno));
+            } else {
+                logMessage(DEBUGLVL, "adding dns4 %s", ret);
+                c = strtok(NULL, ",");
+            }
+        } else if (inet_pton(AF_INET6, c, &addr6) >= 1) {
+            iface->dns[iface->numdns] = strdup(c);
+            iface->numdns++;
+
+            if (inet_ntop(AF_INET6, &addr6, ret, INET6_ADDRSTRLEN) == NULL) {
+                logMessage(ERROR, "%s (%d): %s", __func__, __LINE__, strerror(errno));
+            } else {
+                logMessage(DEBUGLVL, "adding dns6 %s", ret);
+                c = strtok(NULL, ",");
+            }
+        }
     }
 }
 

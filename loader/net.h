@@ -90,5 +90,5 @@ int enable_NM_BOND_VLAN(void);
 int split_bond_option(char *str, char **bondname, char **bondslaves, char **options);
 int networkDeviceExists(char *name);
 int writeBondSlaveIfcfgFile(char *slave, char *master);
-
+void parseDnsServers(const char *dnss, iface_t *iface);
 #endif
