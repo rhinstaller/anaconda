@@ -26,6 +26,7 @@ N_ = lambda x: x
 import logging
 log = logging.getLogger("anaconda")
 
+# pylint: disable-msg=E0611
 from gi.repository import AnacondaWidgets, GLib, Gtk
 
 from pyanaconda.ui.gui import GUIObject
@@ -506,14 +507,27 @@ class DatetimeSpoke(NormalSpoke):
         return True
 
     def _save_system_time(self):
+        """
+        Returning False from this method removes the timer that would
+        otherwise call it again and again.
+
+        """
+
         month = self._get_combo_selection(self._monthCombo)
+        if not month:
+            return False
         month = self._months_nums[month]
-        year = int(self._get_combo_selection(self._yearCombo))
-        minutes = int(self._minutesLabel.get_text())
+
+        year_str = self._get_combo_selection(self._yearCombo)
+        if not year_str:
+            return False
+        year = int(year_str)
 
         hours = int(self._hoursLabel.get_text())
         if not self._radioButton24h.get_active():
             hours = self._to_24h(hours, self._amPmLabel.get_text())
+
+        minutes = int(self._minutesLabel.get_text())
 
         day = self._get_combo_selection(self._dayCombo)
         #day may be None if there is no such in the selected year and month
