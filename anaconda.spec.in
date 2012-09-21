@@ -222,6 +222,49 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Thu Sep 20 2012 Brian C. Lane <bcl@redhat.com> - 13.21.179-1
+- Take into account all configured ifaces when setting GATEWAY (rvykydal)
+  Resolves: rhbz#846393
+- Use proper labeling of automatic ipv6 configuration in loader (rvykydal)
+  Resolves: rhbz#656315
+- Don't limit linksleep option to ksdevice="link" ifaces (dustymabe)
+  Resolves: rhbz#784001
+- Rescan all disks when moving back through UI (bcl)
+  Resolves: rhbz#804557
+- vlan support: enable vlan in NM in target system (rvykydal)
+  Resolves: rhbz#668065
+- Do not do kssendmac by default.  That's what the parameter is for (mpoole).
+  (clumens)
+  Resolves: rhbz#814253
+- bonding support: enable bonding in NM in target system (rvykydal)
+  Resolves: rhbz#662007
+- bonding support: only in loader (i.e. for activated devices) (rvykydal)
+  Resolves: rhbz#662007
+- bonding support: kickstart (rvykydal)
+  Resolves: rhbz#662007
+- bonding support: boot option (rvykydal)
+  Resolves: rhbz#662007
+- vlan support: only in loader (i.e. for activated devices) (rvykydal)
+  Resolves: rhbz#668065
+- vlan support: enable vlan in NM in installer (sysconfig/network) (rvykydal)
+  Resolves: rhbz#668065
+- vlan support: vlan device is found only when activated (rvykydal)
+  Resolves: rhbz#668065
+- vlan support: loader (rvykydal)
+  Resolves: rhbz#668065
+- Add missing '-fcoe' suffix to fipvlan -f option (rvykydal)
+  Resolves: rhbz#836321
+- Enable modprobe blacklists (msivak)
+  Resolves: rhbz#840723
+- Restore execute bits for DUD binaries (msivak)
+  Resolves: rhbz#819564
+- Require new version of pykickstart (vpodzime)
+  Related: rhbz#848818
+- Add support for swap --hibernation on LVM (vpodzime)
+  Resolves: rhbz#848818
+- Try to use both udev_resolve_devspec(pv) and pv as device name (vpodzime)
+  Resolves: rhbz#809640
+
 * Thu Aug 16 2012 Brian C. Lane <bcl@redhat.com> - 13.21.178-1
 - verify package checksums against metadata (bcl)
   Resolves: rhbz#681224
