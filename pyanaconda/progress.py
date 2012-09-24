@@ -36,10 +36,12 @@ progressQ = Queue.Queue()
 # _STEP - []
 # _MESSAGE - [string]
 # _COMPLETE - []
+# _QUIT - [exit_code]
 PROGRESS_CODE_INIT = 0
 PROGRESS_CODE_STEP = 1
 PROGRESS_CODE_MESSAGE = 2
 PROGRESS_CODE_COMPLETE = 3
+PROGRESS_CODE_QUIT = 4
 
 # Convenience methods to put things into the queue without the user having to
 # know the details of the queue.
@@ -54,6 +56,9 @@ def send_message(message):
 
 def send_complete():
     progressQ.put((PROGRESS_CODE_COMPLETE, []))
+
+def send_quit(code):
+    progressQ.put((PROGRESS_CODE_QUIT, [code]))
 
 # Surround a block of code with progress updating.  Before the code runs, the
 # message is updated so the user can tell what's about to take so long.

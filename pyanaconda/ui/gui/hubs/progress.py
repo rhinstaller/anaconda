@@ -28,6 +28,7 @@ from gi.repository import GLib, Gtk
 
 import itertools
 import os
+import sys
 
 from pyanaconda.localization import expand_langs
 from pyanaconda.product import productName
@@ -107,6 +108,8 @@ class ProgressHub(Hub):
                     callback()
 
                 return False
+            elif code == progress.PROGRESS_CODE_QUIT:
+                sys.exit(args[0])
 
             q.task_done()
 

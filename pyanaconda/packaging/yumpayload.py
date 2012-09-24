@@ -1014,6 +1014,11 @@ reposdir=%s
             return
 
         if errorHandler.cb(exn, str(exn)) == ERROR_RAISE:
+            # The progress bar polls kind of slowly, thus installation could
+            # still continue for a bit before the quit message is processed.
+            # Doing a sys.exit also ensures the running thread quits before
+            # it can do anything else.
+            progress.send_quit(1)
             sys.exit(1)
 
     def _applyYumSelections(self):
