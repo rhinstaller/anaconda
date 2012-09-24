@@ -1221,6 +1221,15 @@ class Storage(object):
         self.devicetree.registerAction(ActionDestroyFormat(device))
         self.devicetree.registerAction(ActionCreateFormat(device, format))
 
+    def resetDevice(self, device):
+        """ Cancel all scheduled actions and reset formatting. """
+        actions = self.devicetree.findActions(device=device)
+        for action in reversed(actions):
+            self.devicetree.cancelAction(action)
+
+        # make sure any random overridden attributes are reset
+        device.format = copy.copy(device.originalFormat)
+
     def resizeDevice(self, device, new_size):
         classes = []
         if device.resizable:
