@@ -485,7 +485,7 @@ class Storage(object):
         used_devices = []
         for root in self.roots:
             for device in root.mounts.values() + root.swaps:
-                if device not in self.devices:
+                if device not in self.devices or not device.format.exists:
                     continue
 
                 used_devices.extend(device.ancestors)
