@@ -484,7 +484,7 @@ class StorageDevice(Device):
         self.controllable = not flags.testing
 
         self.format = format
-        self.originalFormat = self.format
+        self.originalFormat = copy.copy(self.format)
         self.fstabComment = ""
         self._targetSize = self._size
 
@@ -3935,7 +3935,7 @@ class BTRFSVolumeDevice(BTRFSDevice):
                                     label=label,
                                     volUUID=self.uuid,
                                     device=self.path)
-            self.originalFormat = self.format
+            self.originalFormat = copy.copy(self.format)
 
         label = getattr(self.format, "label", None)
         if label:

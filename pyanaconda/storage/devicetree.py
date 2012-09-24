@@ -26,6 +26,7 @@ import block
 import re
 import shutil
 import pprint
+import copy
 
 from errors import *
 from devices import *
@@ -1089,7 +1090,7 @@ class DeviceTree(object):
         log.info("got device: %r" % device)
         if device.format.type:
             log.info("got format: %r" % device.format)
-        device.originalFormat = device.format
+        device.originalFormat = copy.copy(device.format)
 
     def handleUdevDiskLabelFormat(self, info, device):
         disklabel_type = info.get("ID_PART_TABLE_TYPE")
