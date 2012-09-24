@@ -934,6 +934,8 @@ class Storage(object):
                         fs_free += partition.format.free
             elif hasattr(disk.format, "free"):
                 fs_free = disk.format.free
+            elif disk.format.type is None:
+                disk_free = disk.size
 
             free[disk.name] = (Size(spec="%f mb" % disk_free),
                                Size(spec="%f mb" % fs_free))
