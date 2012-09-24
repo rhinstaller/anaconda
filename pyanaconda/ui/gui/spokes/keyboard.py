@@ -134,9 +134,6 @@ class AddLayoutDialog(GUIObject):
         selected = selection.count_selected_rows()
         self._confirmAddButton.set_sensitive(selected)
 
-    def on_cancel_clicked(self, *args):
-        print "CANCELING"
-
     def on_entry_changed(self, *args):
         self._treeModelFilter.refilter()
 
