@@ -26,6 +26,7 @@ from pyanaconda.ui.tui.spokes import NormalTUISpoke
 from pyanaconda.ui.tui.simpleline import TextWidget, CheckboxWidget
 
 from pyanaconda.storage.size import Size
+from pyanaconda.storage.errors import StorageError
 from pyanaconda.flags import flags
 from pyanaconda.kickstart import doKickstartStorage
 from pyanaconda.threads import threadMgr, AnacondaThread
@@ -255,18 +256,24 @@ class StorageSpoke(NormalTUISpoke):
     def execute(self):
         print(_("Generating updated storage configuration"))
         try:
-            # Try to do the storage, absorb any tracebacks for now
-            # We will catch any failures when checking the sanity
             doKickstartStorage(self.storage, self.data, self.instclass)
-        except:
-            pass
-        # Doing this in foreground now, candidate for background thread
-        print(_("Checking storage configuration..."))
-        (self.errors, warnings) = self.storage.sanityCheck()
-        for e in self.errors:
-            log.error(e)
-        for w in warnings:
-            log.warn(w)
+        except StorageError as e:
+            log.error("storage configuration failed: %s" % e)
+            self.errors = e
+            self.data.clearpart.type = CLEARPART_TYPE_ALL
+            self.data.clearpart.initAll = False
+            self.storage.config.update(self.data)
+            self.storage.autoPartType = self.data.clearpart.type
+            self.storage.reset()
+            self._ready = True
+        else:
+            print(_("Checking storage configuration..."))
+            (self.errors, warnings) = self.storage.sanityCheck()
+            self._ready = True
+            for e in self.errors:
+                log.error(e)
+            for w in warnings:
+                log.warn(w)
 
     def initialize(self):
         NormalTUISpoke.initialize(self)
