@@ -543,14 +543,18 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         # Now it's time to populate the accordion.
 
         unused = [d for d in self.unusedDevices if d.isleaf and d in self._devices]
-        new_devices = [d for d in self._devices if not d.exists]
+        # A device scheduled for formatting only belongs in the new root.
+        new_devices = [d for d in self._devices if not d.format.exists]
 
-        # if mountpoints have been assigned to any existing devices, go ahead
-        # and pull those in along with any existing swap devices
-        new_mounts = self.__storage.mountpoints.values()
+        # If mountpoints have been assigned to any existing devices, go ahead
+        # and pull those in along with any existing swap devices. It doesn't
+        # matter if the formats being mounted exist or not.
+        new_mounts = [d for d in self.__storage.mountpoints.values() if d.exists]
         if new_mounts:
             new_devices.extend(self.__storage.mountpoints.values())
             new_devices.extend(self.__storage.swaps)
+
+        new_devices = list(set(new_devices))
 
         log.debug("ui: unused=%s" % [d.name for d in unused])
         log.debug("ui: new_devices=%s" % [d.name for d in new_devices])
@@ -584,16 +588,19 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
         # Add in all the existing (or autopart-created) operating systems.
         for root in ui_roots:
-            # don't make a page if none of the root's devices are left
+            # Don't make a page if none of the root's devices are left.
+            # Also, only include devices in an old page if the format is intact.
             if not [d for d in root.swaps + root.mounts.values()
-                        if d in self._devices]:
+                        if d in self._devices and
+                           (root.name == new_install_name or d.format.exists)]:
                 continue
 
             page = Page()
             page.pageTitle = root.name
 
             for (mountpoint, device) in root.mounts.iteritems():
-                if device not in self._devices:
+                if device not in self._devices or \
+                   (root.name != new_install_name and not device.format.exists):
                     continue
 
                 selector = page.addDevice(self._mountpointName(mountpoint) or device.format.name, Size(spec="%f MB" % device.size), mountpoint, self.on_selector_clicked)
@@ -601,7 +608,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                 selector._root = root
 
             for device in root.swaps:
-                if device not in self._devices:
+                if device not in self._devices or \
+                   (root.name != new_install_name and not device.format.exists):
                     continue
 
                 selector = page.addDevice("Swap",
