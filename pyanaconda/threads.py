@@ -85,7 +85,7 @@ class AnacondaThread(threading.Thread):
 
         try:
             threading.Thread.run(self, *args, **kwargs)
-        except (KeyboardInterrupt, SystemExit):
+        except KeyboardInterrupt:
             raise
         except:
             sys.excepthook(*sys.exc_info())
