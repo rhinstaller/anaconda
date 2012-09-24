@@ -343,7 +343,9 @@ class StorageSpoke(NormalSpoke, StorageChecker):
             self.storage.reset()
             communication.send_ready(self.__class__.__name__)
         else:
-            self.run()
+            if self.autopart:
+                # this was already run as part of doAutoPartition. dumb.
+                self.run()
 
     @property
     def completed(self):
