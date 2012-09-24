@@ -28,6 +28,7 @@ from pyanaconda.ui.tui.simpleline import TextWidget, CheckboxWidget
 from pyanaconda.storage.size import Size
 from pyanaconda.flags import flags
 from pyanaconda.kickstart import doKickstartStorage
+from pyanaconda.threads import threadMgr, AnacondaThread
 
 from pykickstart.constants import *
 
@@ -93,6 +94,8 @@ class StorageSpoke(NormalTUISpoke):
         NormalTUISpoke.__init__(self, app, data, storage, payload, instclass)
         self.selected_disks = self.data.ignoredisk.onlyuse[:]
 
+        self._ready = False
+
         # This list gets set up once in initialize and should not be modified
         # except perhaps to add advanced devices. It will remain the full list
         # of disks that can be included in the install.
@@ -101,7 +104,13 @@ class StorageSpoke(NormalTUISpoke):
 
     @property
     def completed(self):
-        return bool(self.selected_disks and not self.errors)
+        return bool(self.storage.rootDevice and not self.errors)
+
+    @property
+    def ready(self):
+        # By default, the storage spoke is not ready.  We have to wait until
+        # storageInitialize is done.
+        return self._ready and not threadMgr.get("AnaStorageWatcher")
 
     @property
     def status(self):
@@ -162,8 +171,6 @@ class StorageSpoke(NormalTUISpoke):
         NormalTUISpoke.refresh(self, args)
 
         # Join the initialization thread to block on it
-        from pyanaconda.threads import threadMgr
-
         initThread = threadMgr.get("AnaStorageWatcher")
         if initThread:
             # This print is foul.  Need a better message display
@@ -262,8 +269,6 @@ class StorageSpoke(NormalTUISpoke):
             log.warn(w)
 
     def initialize(self):
-        from pyanaconda.threads import threadMgr, AnacondaThread
-
         NormalTUISpoke.initialize(self)
 
         threadMgr.add(AnacondaThread(name="AnaStorageWatcher",
@@ -275,8 +280,6 @@ class StorageSpoke(NormalTUISpoke):
     def _initialize(self):
         # Secondary initialize so wait for the storage thread
         # to complete before populating our disk list
-
-        from pyanaconda.threads import threadMgr
 
         storageThread = threadMgr.get("AnaStorageThread")
         if storageThread:
