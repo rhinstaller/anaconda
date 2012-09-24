@@ -24,7 +24,8 @@ import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
 N_ = lambda x: x
 
-from gi.repository import GLib, Gkbd, Gtk
+# pylint: disable-msg=E0611
+from gi.repository import GLib, Gkbd, Gtk, Gdk
 
 from pyanaconda.ui.gui import GUIObject
 from pyanaconda.ui.gui.spokes import NormalSpoke
@@ -139,6 +140,16 @@ class AddLayoutDialog(GUIObject):
 
     def on_entry_icon_clicked(self, *args):
         self._entry.set_text("")
+
+    def on_layout_view_button_press(self, widget, event, *args):
+        # BUG: Gdk.EventType.2BUTTON_PRESS results in syntax error
+        if event.type == getattr(Gdk.EventType, "2BUTTON_PRESS"):
+            # double-click should close the dialog
+            button = self.builder.get_object("confirmAddButton")
+            button.emit("clicked")
+
+        # let the other actions happen as well
+        return False
 
     def _addLayout(self, store, name):
         store.append([name])

@@ -108,9 +108,11 @@
                   <object class="GtkTreeView" id="newLayoutView">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <property name="events">GDK_BUTTON_PRESS_MASK | GDK_STRUCTURE_MASK</property>
                     <property name="model">newLayoutStoreSort</property>
                     <property name="headers_visible">False</property>
                     <property name="headers_clickable">False</property>
+                    <signal name="button-press-event" handler="on_layout_view_button_press" swapped="no"/>
                     <child internal-child="selection">
                       <object class="GtkTreeSelection" id="newLayoutSelection">
                         <property name="mode">multiple</property>
