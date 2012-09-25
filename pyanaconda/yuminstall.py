@@ -50,7 +50,6 @@ from yum.yumRepo import YumRepository
 from product import isFinal, productName, productVersion, productStamp
 from constants import *
 from image import *
-from compssort import *
 import packages
 from backend import AnacondaBackend
 
