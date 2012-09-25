@@ -299,6 +299,50 @@ update-desktop-database &> /dev/null || :
 /usr/lib/dracut/modules.d/80%{name}/*
 
 %changelog
+* Tue Sep 25 2012 Chris Lumens <clumens@redhat.com> - 18.9-1
+- And remove compssort.py from POTFILES.in, too. (clumens)
+- Select a default environment (#858180). (clumens)
+- Remove compssort.py. (clumens)
+- Don't attempt to catch and re-raise a SystemError from AnacondaThread.run.
+  (clumens)
+- Add a progress message for quitting the installer. (clumens)
+- GUI error handling dialogs need to be protected from threading deadlocks.
+  (clumens)
+- Initialize gdk threading as well. (clumens)
+- Handle --ignoremissing in _applyYumSelections (#859021). (clumens)
+- Fix the destination path for anaconda.xlog (#860041). (clumens)
+- Hide the ISO install source if you've nuked all possible drives (#858088).
+  (clumens)
+- Don't write out /etc/sysconfig/clock anymore (#859217). (clumens)
+- Index the exn mapping by string, not by object. (clumens)
+- Don't write HOSTNAME=HOSTNAME=myhostnamehere (#859141). (clumens)
+- Close temp file before moving it (#858681) (vpodzime)
+- Update widget-specific TODO list. (clumens)
+- Don't use grey for the status text of a SpokeSelector (#855638). (clumens)
+- Fix a typo in makeupdates. (clumens)
+- UEFI paths must include a leading backslash on some machines. (#856938)
+  (pjones)
+- Read cmdline files from /run/install (jkeating)
+- Copy command line files prior to pivot (jkeating)
+- Grab the proxy username from the correct text entry (#858536). (clumens)
+- Remove our use of scsi_wait_scan (#858393). (clumens)
+- Don't overwrite the opts attribute on NFS installs (#858700). (clumens)
+- Change the keyboard shortcut for the updates checkbox. (clumens)
+- Add the storage category to POTFILES.in. (clumens)
+- Don't explicitly start the progress spinner in python code. (clumens)
+- Move the progress bar back down to the bottom of the progress hub. (clumens)
+- Remove a bunch of stuff from the TODO list for a change. (clumens)
+- Move check of new partition size against format limits. (dlehman)
+- Improve growth check when deciding where to allocate new partitions.
+  (dlehman)
+- Keep btrfs selectors' sizes in sync as volume size changes. (dlehman)
+- Allow specification of a label for new swap space via custom ui. (dlehman)
+- Don't allow stage2 as stage1 unless specified via location. (dlehman)
+- Remove reference to PartitioningWarning, which was removed last week
+  (#875931). (clumens)
+- Add a way to test exception handling (vpodzime)
+- Fix dumpState to work with the new python-meh (#856235) (vpodzime)
+
 * Fri Sep 14 2012 Chris Lumens <clumens@redhat.com> - 18.8-1
 - Make sure the InstallOptionsNDialogs get the correct space labels. (clumens)
 - Get rid of the big pause going from the storage spoke back to the hub.

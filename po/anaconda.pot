@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 18.7\n"
+"Project-Id-Version: anaconda 18.8\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2012-09-14 13:57-0400\n"
+"POT-Creation-Date: 2012-09-25 16:22-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -145,12 +145,12 @@ msgstr ""
 msgid "%s must be on a primary partition."
 msgstr ""
 
-#: pyanaconda/bootloader.py:614 pyanaconda/bootloader.py:704
+#: pyanaconda/bootloader.py:615 pyanaconda/bootloader.py:705
 #, python-format
 msgid "%s cannot be on an encrypted block device."
 msgstr ""
 
-#: pyanaconda/bootloader.py:662
+#: pyanaconda/bootloader.py:663
 #, python-format
 msgid "%s cannot be of type %s"
 msgstr ""
@@ -249,14 +249,14 @@ msgstr ""
 msgid "Hardware Error Encountered"
 msgstr ""
 
-#: pyanaconda/installinterfacebase.py:69 pyanaconda/yuminstall.py:264
-#: pyanaconda/yuminstall.py:410 pyanaconda/yuminstall.py:836
-#: pyanaconda/yuminstall.py:1014 pyanaconda/yuminstall.py:1019
-#: pyanaconda/yuminstall.py:1056 pyanaconda/yuminstall.py:1108
-#: pyanaconda/yuminstall.py:1114 pyanaconda/yuminstall.py:1270
-#: pyanaconda/yuminstall.py:1285 pyanaconda/yuminstall.py:1340
-#: pyanaconda/yuminstall.py:1535 pyanaconda/yuminstall.py:1568
-#: pyanaconda/yuminstall.py:1591
+#: pyanaconda/installinterfacebase.py:69 pyanaconda/yuminstall.py:263
+#: pyanaconda/yuminstall.py:409 pyanaconda/yuminstall.py:835
+#: pyanaconda/yuminstall.py:1013 pyanaconda/yuminstall.py:1018
+#: pyanaconda/yuminstall.py:1055 pyanaconda/yuminstall.py:1107
+#: pyanaconda/yuminstall.py:1113 pyanaconda/yuminstall.py:1269
+#: pyanaconda/yuminstall.py:1284 pyanaconda/yuminstall.py:1339
+#: pyanaconda/yuminstall.py:1534 pyanaconda/yuminstall.py:1567
+#: pyanaconda/yuminstall.py:1590
 msgid "_Exit installer"
 msgstr ""
 
@@ -274,12 +274,12 @@ msgid ""
 "After shutdown, please perform a manual IPL from %s to continue installation."
 msgstr ""
 
-#: pyanaconda/kickstart.py:158
+#: pyanaconda/kickstart.py:155
 #, python-format
 msgid "Escrow certificate %s requires the network."
 msgstr ""
 
-#: pyanaconda/kickstart.py:166
+#: pyanaconda/kickstart.py:163
 #, python-format
 msgid ""
 "The following error was encountered while downloading the escrow "
@@ -288,7 +288,7 @@ msgid ""
 "%s"
 msgstr ""
 
-#: pyanaconda/kickstart.py:1539
+#: pyanaconda/kickstart.py:1536
 msgid "Running pre-installation scripts"
 msgstr ""
 
@@ -396,8 +396,8 @@ msgstr ""
 msgid "No"
 msgstr ""
 
-#: pyanaconda/rescue.py:222 pyanaconda/yuminstall.py:831
-#: pyanaconda/yuminstall.py:1265
+#: pyanaconda/rescue.py:222 pyanaconda/yuminstall.py:830
+#: pyanaconda/yuminstall.py:1264
 msgid "No Network Available"
 msgstr ""
 
@@ -648,118 +648,118 @@ msgstr ""
 msgid "Use text mode"
 msgstr ""
 
-#: pyanaconda/yuminstall.py:88
+#: pyanaconda/yuminstall.py:87
 #, python-format
 msgid "%s MB"
 msgstr ""
 
-#: pyanaconda/yuminstall.py:91
+#: pyanaconda/yuminstall.py:90
 #, python-format
 msgid "%s KB"
 msgstr ""
 
-#: pyanaconda/yuminstall.py:93
+#: pyanaconda/yuminstall.py:92
 #, python-format
 msgid "%s Byte"
 msgid_plural "%s Bytes"
 msgstr[0] ""
 msgstr[1] ""
 
-#: pyanaconda/yuminstall.py:135 pyanaconda/ui/gui/hubs/progress.glade:80
+#: pyanaconda/yuminstall.py:134 pyanaconda/ui/gui/hubs/progress.glade:79
 msgid "Preparing to install"
 msgstr ""
 
-#: pyanaconda/yuminstall.py:136 pyanaconda/packaging/yumpayload.py:1309
+#: pyanaconda/yuminstall.py:135 pyanaconda/packaging/yumpayload.py:1336
 msgid "Preparing transaction from installation source"
 msgstr ""
 
-#: pyanaconda/yuminstall.py:171
+#: pyanaconda/yuminstall.py:170
 #, python-format
 msgid "<b>Upgrading %(pkgStr)s</b> (%(size)s)\n"
 msgstr ""
 
-#: pyanaconda/yuminstall.py:174
+#: pyanaconda/yuminstall.py:173
 #, python-format
 msgid "<b>Installing %(pkgStr)s</b> (%(size)s)\n"
 msgstr ""
 
-#: pyanaconda/yuminstall.py:219
+#: pyanaconda/yuminstall.py:218
 #, python-format
 msgid "Packages completed: %(donepkgs)d of %(numpkgs)d"
 msgid_plural "Packages completed: %(donepkgs)d of %(numpkgs)d"
 msgstr[0] ""
 msgstr[1] ""
 
-#: pyanaconda/yuminstall.py:233
+#: pyanaconda/yuminstall.py:232
 #, python-format
 msgid "<b>Cleaning up %s</b>"
 msgstr ""
 
-#: pyanaconda/yuminstall.py:253
+#: pyanaconda/yuminstall.py:252
 msgid "cpio"
 msgstr ""
 
-#: pyanaconda/yuminstall.py:255
+#: pyanaconda/yuminstall.py:254
 msgid "unpack"
 msgstr ""
 
-#: pyanaconda/yuminstall.py:257
+#: pyanaconda/yuminstall.py:256
 msgid "script"
 msgstr ""
 
-#: pyanaconda/yuminstall.py:258
+#: pyanaconda/yuminstall.py:257
 msgid "Error Installing Package"
 msgstr ""
 
-#: pyanaconda/yuminstall.py:259
+#: pyanaconda/yuminstall.py:258
 #, python-format
 msgid ""
 "A %s error occurred when installing the %s package.  This could indicate "
 "errors when reading the installation media.  Installation cannot continue."
 msgstr ""
 
-#: pyanaconda/yuminstall.py:407
+#: pyanaconda/yuminstall.py:406
 msgid "Wrong Disc"
 msgstr ""
 
-#: pyanaconda/yuminstall.py:408
+#: pyanaconda/yuminstall.py:407
 #, python-format
 msgid "That's not the correct %s disc."
 msgstr ""
 
-#: pyanaconda/yuminstall.py:565
+#: pyanaconda/yuminstall.py:564
 #, python-format
 msgid "Repository %r is missing name in configuration, using id"
 msgstr ""
 
-#: pyanaconda/yuminstall.py:832 pyanaconda/yuminstall.py:1266
+#: pyanaconda/yuminstall.py:831 pyanaconda/yuminstall.py:1265
 msgid ""
 "Some of your software repositories require networking, but there was an "
 "error enabling the network on your system."
 msgstr ""
 
-#: pyanaconda/yuminstall.py:920 pyanaconda/yuminstall.py:922
+#: pyanaconda/yuminstall.py:919 pyanaconda/yuminstall.py:921
 msgid "Re_boot"
 msgstr ""
 
-#: pyanaconda/yuminstall.py:920
+#: pyanaconda/yuminstall.py:919
 msgid "_Eject"
 msgstr ""
 
-#: pyanaconda/yuminstall.py:922 pyanaconda/yuminstall.py:1285
-#: pyanaconda/yuminstall.py:1340 pyanaconda/yuminstall.py:1568
+#: pyanaconda/yuminstall.py:921 pyanaconda/yuminstall.py:1284
+#: pyanaconda/yuminstall.py:1339 pyanaconda/yuminstall.py:1567
 msgid "_Retry"
 msgstr ""
 
-#: pyanaconda/yuminstall.py:925 pyanaconda/yuminstall.py:1012
-#: pyanaconda/yuminstall.py:1017 pyanaconda/yuminstall.py:1290
-#: pyanaconda/yuminstall.py:1350 pyanaconda/yuminstall.py:1562
-#: pyanaconda/yuminstall.py:1584 pyanaconda/storage/zfcp.py:375
+#: pyanaconda/yuminstall.py:924 pyanaconda/yuminstall.py:1011
+#: pyanaconda/yuminstall.py:1016 pyanaconda/yuminstall.py:1289
+#: pyanaconda/yuminstall.py:1349 pyanaconda/yuminstall.py:1561
+#: pyanaconda/yuminstall.py:1583 pyanaconda/storage/zfcp.py:375
 #: pyanaconda/ui/tui/__init__.py:37
 msgid "Error"
 msgstr ""
 
-#: pyanaconda/yuminstall.py:926
+#: pyanaconda/yuminstall.py:925
 #, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file, a corrupt "
@@ -770,106 +770,106 @@ msgid ""
 "\n"
 msgstr ""
 
-#: pyanaconda/yuminstall.py:973
+#: pyanaconda/yuminstall.py:972
 msgid "Retrying"
 msgstr ""
 
-#: pyanaconda/yuminstall.py:973
+#: pyanaconda/yuminstall.py:972
 msgid "Retrying download."
 msgstr ""
 
-#: pyanaconda/yuminstall.py:1008
+#: pyanaconda/yuminstall.py:1007
 #, python-format
 msgid ""
 "There was an error running your transaction for the following reason: %s\n"
 msgstr ""
 
-#: pyanaconda/yuminstall.py:1019 pyanaconda/yuminstall.py:1114
-#: pyanaconda/yuminstall.py:1537 pyanaconda/yuminstall.py:1591
+#: pyanaconda/yuminstall.py:1018 pyanaconda/yuminstall.py:1113
+#: pyanaconda/yuminstall.py:1536 pyanaconda/yuminstall.py:1590
 msgid "_Back"
 msgstr ""
 
-#: pyanaconda/yuminstall.py:1052
+#: pyanaconda/yuminstall.py:1051
 #, python-format
 msgid ""
 "There was an error running your transaction for the following reason: %s.\n"
 msgstr ""
 
-#: pyanaconda/yuminstall.py:1054 pyanaconda/yuminstall.py:1106
-#: pyanaconda/yuminstall.py:1111
+#: pyanaconda/yuminstall.py:1053 pyanaconda/yuminstall.py:1105
+#: pyanaconda/yuminstall.py:1110
 msgid "Error Running Transaction"
 msgstr ""
 
-#: pyanaconda/yuminstall.py:1060 pyanaconda/yuminstall.py:1061
+#: pyanaconda/yuminstall.py:1059 pyanaconda/yuminstall.py:1060
 msgid "file conflicts"
 msgstr ""
 
-#: pyanaconda/yuminstall.py:1062
+#: pyanaconda/yuminstall.py:1061
 msgid "older package(s)"
 msgstr ""
 
-#: pyanaconda/yuminstall.py:1063
+#: pyanaconda/yuminstall.py:1062
 msgid "insufficient disk space"
 msgstr ""
 
-#: pyanaconda/yuminstall.py:1064
+#: pyanaconda/yuminstall.py:1063
 msgid "insufficient disk inodes"
 msgstr ""
 
-#: pyanaconda/yuminstall.py:1065
+#: pyanaconda/yuminstall.py:1064
 msgid "package conflicts"
 msgstr ""
 
-#: pyanaconda/yuminstall.py:1066
+#: pyanaconda/yuminstall.py:1065
 msgid "package already installed"
 msgstr ""
 
-#: pyanaconda/yuminstall.py:1067
+#: pyanaconda/yuminstall.py:1066
 msgid "required package"
 msgstr ""
 
-#: pyanaconda/yuminstall.py:1068
+#: pyanaconda/yuminstall.py:1067
 msgid "package for incorrect arch"
 msgstr ""
 
-#: pyanaconda/yuminstall.py:1069
+#: pyanaconda/yuminstall.py:1068
 msgid "package for incorrect os"
 msgstr ""
 
-#: pyanaconda/yuminstall.py:1083
+#: pyanaconda/yuminstall.py:1082
 msgid "You need more space on the following file systems:\n"
 msgstr ""
 
-#: pyanaconda/yuminstall.py:1096
+#: pyanaconda/yuminstall.py:1095
 #, python-format
 msgid ""
 "There were file conflicts when checking the packages to be installed:\n"
 "%s\n"
 msgstr ""
 
-#: pyanaconda/yuminstall.py:1099
+#: pyanaconda/yuminstall.py:1098
 #, python-format
 msgid ""
 "There was an error running your transaction for the following reason(s): "
 "%s.\n"
 msgstr ""
 
-#: pyanaconda/yuminstall.py:1291
+#: pyanaconda/yuminstall.py:1290
 msgid ""
 "Unable to read group information from repositories.  This is a problem with "
 "the generation of your install tree."
 msgstr ""
 
-#: pyanaconda/yuminstall.py:1340
+#: pyanaconda/yuminstall.py:1339
 msgid "Edit"
 msgstr ""
 
-#: pyanaconda/yuminstall.py:1345 pyanaconda/yuminstall.py:1535
+#: pyanaconda/yuminstall.py:1344 pyanaconda/yuminstall.py:1534
 #: pyanaconda/ui/gui/spokes/storage.glade:45
 msgid "_Continue"
 msgstr ""
 
-#: pyanaconda/yuminstall.py:1351 pyanaconda/yuminstall.py:1563
+#: pyanaconda/yuminstall.py:1350 pyanaconda/yuminstall.py:1562
 #, python-format
 msgid ""
 "Unable to read package metadata. This may be due to a missing repodata "
@@ -879,11 +879,11 @@ msgid ""
 "%s"
 msgstr ""
 
-#: pyanaconda/yuminstall.py:1539
+#: pyanaconda/yuminstall.py:1538
 msgid "Warning"
 msgstr ""
 
-#: pyanaconda/yuminstall.py:1540
+#: pyanaconda/yuminstall.py:1539
 msgid ""
 "Some of the packages you have selected for install are missing "
 "dependencies.  You can exit the installation, go back and change your "
@@ -892,7 +892,7 @@ msgid ""
 "missing components."
 msgstr ""
 
-#: pyanaconda/yuminstall.py:1585
+#: pyanaconda/yuminstall.py:1584
 #, python-format
 msgid ""
 "Your selected packages require %d MB of free space for installation, but you "
@@ -900,48 +900,48 @@ msgid ""
 "installer."
 msgstr ""
 
-#: pyanaconda/yuminstall.py:1670
+#: pyanaconda/yuminstall.py:1669
 msgid "Post Upgrade"
 msgstr ""
 
-#: pyanaconda/yuminstall.py:1671
+#: pyanaconda/yuminstall.py:1670
 msgid "Performing post-upgrade configuration"
 msgstr ""
 
-#: pyanaconda/yuminstall.py:1673
+#: pyanaconda/yuminstall.py:1672
 msgid "Post Installation"
 msgstr ""
 
-#: pyanaconda/yuminstall.py:1674
+#: pyanaconda/yuminstall.py:1673
 msgid "Performing post-installation configuration"
 msgstr ""
 
-#: pyanaconda/yuminstall.py:1833
+#: pyanaconda/yuminstall.py:1832
 msgid "Installation Starting"
 msgstr ""
 
-#: pyanaconda/yuminstall.py:1834
+#: pyanaconda/yuminstall.py:1833
 msgid "Starting installation process"
 msgstr ""
 
-#: pyanaconda/yuminstall.py:1872
+#: pyanaconda/yuminstall.py:1871
 msgid "Dependency Check"
 msgstr ""
 
-#: pyanaconda/yuminstall.py:1873
+#: pyanaconda/yuminstall.py:1872
 msgid "Checking dependencies in packages selected for installation"
 msgstr ""
 
-#: pyanaconda/yuminstall.py:1929 pyanaconda/yuminstall.py:1945
+#: pyanaconda/yuminstall.py:1928 pyanaconda/yuminstall.py:1944
 msgid "Retrieving installation information."
 msgstr ""
 
-#: pyanaconda/yuminstall.py:1931 pyanaconda/yuminstall.py:1947
+#: pyanaconda/yuminstall.py:1930 pyanaconda/yuminstall.py:1946
 #, python-format
 msgid "Retrieving installation information for %s."
 msgstr ""
 
-#: pyanaconda/yuminstall.py:1932 pyanaconda/yuminstall.py:1948
+#: pyanaconda/yuminstall.py:1931 pyanaconda/yuminstall.py:1947
 msgid "Installation Progress"
 msgstr ""
 
@@ -988,19 +988,19 @@ msgstr ""
 msgid "Installing software"
 msgstr ""
 
-#: pyanaconda/packaging/yumpayload.py:1110
+#: pyanaconda/packaging/yumpayload.py:1137
 msgid "Starting package installation process"
 msgstr ""
 
-#: pyanaconda/packaging/yumpayload.py:1329
+#: pyanaconda/packaging/yumpayload.py:1356
 msgid "Upgrading"
 msgstr ""
 
-#: pyanaconda/packaging/yumpayload.py:1331
+#: pyanaconda/packaging/yumpayload.py:1358
 msgid "Installing"
 msgstr ""
 
-#: pyanaconda/packaging/yumpayload.py:1404
+#: pyanaconda/packaging/yumpayload.py:1431
 msgid "Performing post-install setup tasks"
 msgstr ""
 
@@ -1613,15 +1613,15 @@ msgstr ""
 msgid "%(productName)s %(productVersion)s INSTALLATION"
 msgstr ""
 
-#: pyanaconda/ui/gui/__init__.py:127
+#: pyanaconda/ui/gui/__init__.py:128
 msgid "_Exit Installer"
 msgstr ""
 
-#: pyanaconda/ui/gui/__init__.py:140
+#: pyanaconda/ui/gui/__init__.py:142
 msgid "_No"
 msgstr ""
 
-#: pyanaconda/ui/gui/__init__.py:140
+#: pyanaconda/ui/gui/__init__.py:142
 msgid "_Yes"
 msgstr ""
 
@@ -1635,6 +1635,10 @@ msgstr ""
 
 #: pyanaconda/ui/gui/categories/software.py:31
 msgid "SOFTWARE"
+msgstr ""
+
+#: pyanaconda/ui/gui/categories/storage.py:32
+msgid "STORAGE"
 msgstr ""
 
 #: pyanaconda/ui/gui/hubs/__init__.py:221
@@ -1727,39 +1731,39 @@ msgid ""
 "bootloader configuration on some PPC platforms."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:812
+#: pyanaconda/ui/gui/spokes/custom.py:824
 msgid "Device resize request failed. Click for details."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:861
+#: pyanaconda/ui/gui/spokes/custom.py:877
 msgid "Device reformat request failed. Click for details."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:1036
+#: pyanaconda/ui/gui/spokes/custom.py:1053
 msgid "This file system does not support labels."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:1054
+#: pyanaconda/ui/gui/spokes/custom.py:1071
 msgid "This file system may not be resized."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:1182
+#: pyanaconda/ui/gui/spokes/custom.py:1199
 msgid "Failed to add new device. Click for details."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:1199
+#: pyanaconda/ui/gui/spokes/custom.py:1216
 msgid "Device removal request failed. Click for details."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:1384
+#: pyanaconda/ui/gui/spokes/custom.py:1401
 msgid "No disks selected."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:1391
+#: pyanaconda/ui/gui/spokes/custom.py:1408
 msgid "Not enough free space on selected disks."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:1398
+#: pyanaconda/ui/gui/spokes/custom.py:1415
 msgid "Automatic partitioning failed. Click for details."
 msgstr ""
 
@@ -2002,11 +2006,11 @@ msgstr ""
 msgid "No installation source available"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/software.py:230
+#: pyanaconda/ui/gui/spokes/software.py:241
 msgid "Error checking software dependencies.  Click for details."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/software.py:282
+#: pyanaconda/ui/gui/spokes/software.py:293
 msgid ""
 "The following software marked for installation has errors.  This is likely "
 "caused by an error with\n"
@@ -2015,16 +2019,16 @@ msgid ""
 "change your installation source, or quit the installer."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/software.py:286
+#: pyanaconda/ui/gui/spokes/software.py:297
 #: pyanaconda/ui/gui/spokes/storage.py:602 pyanaconda/ui/gui/main.glade:36
 msgid "_Quit"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/software.py:286
+#: pyanaconda/ui/gui/spokes/software.py:297
 msgid "_Remove Packages"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/software.py:287
+#: pyanaconda/ui/gui/spokes/software.py:298
 msgid "_Modify Software Source"
 msgstr ""
 
@@ -2628,7 +2632,7 @@ msgstr ""
 
 #: pyanaconda/ui/gui/spokes/source.glade:1233
 msgid ""
-"_Don't install the latest available software updates. Install the default "
+"D_on't install the latest available software updates. Install the default "
 "versions provided by the install source above."
 msgstr ""
 
@@ -2843,24 +2847,24 @@ msgstr ""
 msgid "_BEGIN INSTALLATION"
 msgstr ""
 
-#: pyanaconda/ui/gui/hubs/progress.glade:125
+#: pyanaconda/ui/gui/hubs/progress.glade:124
 msgid ""
 "%s is now successfully installed on your system, but some configuration "
 "still needs to be done. \n"
 "Finish it and then click the Finish configuration button please."
 msgstr ""
 
-#: pyanaconda/ui/gui/hubs/progress.glade:137
+#: pyanaconda/ui/gui/hubs/progress.glade:136
 msgid "_Finish configuration"
 msgstr ""
 
-#: pyanaconda/ui/gui/hubs/progress.glade:178
+#: pyanaconda/ui/gui/hubs/progress.glade:177
 msgid ""
 "%s is now successfully installed on your system and ready\n"
 "for you to use!  Go ahead and reboot to start using it!"
 msgstr ""
 
-#: pyanaconda/ui/gui/hubs/progress.glade:190
+#: pyanaconda/ui/gui/hubs/progress.glade:189
 msgid "_REBOOT"
 msgstr ""
 
