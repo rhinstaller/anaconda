@@ -199,13 +199,24 @@ class SoftwareSelectionSpoke(NormalSpoke):
         self._environmentStore.clear()
 
         clasess = []
+        firstEnvironment = True
         for environment in self.payload.environments:
             (name, desc) = self.payload.environmentDescription(environment)
 
             itr = self._environmentStore.append([environment == self.environment, "<b>%s</b>\n%s" % (name, desc), environment])
-            if environment == self.environment:
+            # Either:
+            # (1) Select the environment given by kickstart or selected last
+            #     time this spoke was displayed; or
+            # (2) Select the first environment given by display order as the
+            #     default if nothing is selected.
+            if (environment == self.environment) or \
+               (not self.environment and firstEnvironment):
                 sel = self.builder.get_object("environmentSelector")
                 sel.select_iter(itr)
+                self.environment = environment
+
+            firstEnvironment = False
+
         self.refreshAddons()
 
     def refreshAddons(self):
