@@ -54,4 +54,7 @@ class SummaryHub(TUIHub):
         all(spoke.completed for spoke in self._keys.values()):
             self.close()
             return None
+        if not flags.ksprompt:
+            errtxt = _("Can't have a question in command line mode!")
+            raise RuntimeError(errtxt)
         return TUIHub.prompt(self, args)
