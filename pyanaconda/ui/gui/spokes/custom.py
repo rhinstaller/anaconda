@@ -588,7 +588,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         # Now it's time to populate the accordion.
 
         # A device scheduled for formatting only belongs in the new root.
-        new_devices = [d for d in self._devices if not d.format.exists]
+        new_devices = [d for d in self._devices if not d.format.exists and
+                                                   not d.partitioned]
 
         # If mountpoints have been assigned to any existing devices, go ahead
         # and pull those in along with any existing swap devices. It doesn't
