@@ -42,6 +42,8 @@ import re
 from pykickstart.constants import *
 
 from pyanaconda.product import productName, productVersion
+from pyanaconda.threads import threadMgr
+
 from pyanaconda.storage.formats import device_formats
 from pyanaconda.storage.formats import getFormat
 from pyanaconda.storage.size import Size
@@ -550,6 +552,13 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
     def refresh(self):
         NormalSpoke.refresh(self)
+
+        # Make sure the storage spoke execute method has finished before we
+        # copy the storage instance.
+        t = threadMgr.get("AnaExecuteStorageThread")
+        if t:
+            t.join()
+
         self._reset_storage()
         self._do_refresh()
         # update our free space number based on Storage
