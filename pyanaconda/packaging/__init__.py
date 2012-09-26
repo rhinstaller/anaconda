@@ -507,7 +507,7 @@ class Payload(object):
         url = "%s:%s" % (server, path)
 
         try:
-            isys.mount(url, mountpoint, options=options)
+            isys.mount(url, mountpoint, fstype="nfs", options=options)
         except SystemError as e:
             log.error("mount failed: %s" % e)
             exn = PayloadSetupError(str(e))
