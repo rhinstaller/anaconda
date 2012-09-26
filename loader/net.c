@@ -2593,26 +2593,23 @@ void parseDnsServers(const char *dnss, iface_t *iface) {
     c = strtok(buf, ",");
     while ((iface->numdns < MAXNS) && (c != NULL)) {
         if (inet_pton(AF_INET, c, &addr) >= 1) {
-            iface->dns[iface->numdns] = strdup(c);
-            iface->numdns++;
-
             if (inet_ntop(AF_INET, &addr, ret, INET_ADDRSTRLEN) == NULL) {
                 logMessage(ERROR, "%s (%d): %s", __func__, __LINE__, strerror(errno));
             } else {
                 logMessage(DEBUGLVL, "adding dns4 %s", ret);
-                c = strtok(NULL, ",");
+                iface->dns[iface->numdns] = strdup(c);
+                iface->numdns++;
             }
         } else if (inet_pton(AF_INET6, c, &addr6) >= 1) {
-            iface->dns[iface->numdns] = strdup(c);
-            iface->numdns++;
-
             if (inet_ntop(AF_INET6, &addr6, ret, INET6_ADDRSTRLEN) == NULL) {
                 logMessage(ERROR, "%s (%d): %s", __func__, __LINE__, strerror(errno));
             } else {
                 logMessage(DEBUGLVL, "adding dns6 %s", ret);
-                c = strtok(NULL, ",");
+                iface->dns[iface->numdns] = strdup(c);
+                iface->numdns++;
             }
         }
+        c = strtok(NULL, ",");
     }
 }
 
