@@ -1948,6 +1948,10 @@ class ZIPL(BootLoader):
     image_label_attr = "short_label"
     preserve_args = ["cio_ignore"]
 
+    def __init__(self, platform=None):
+        super(ZIPL, self).__init__(platform=platform)
+        self.stage1_name = None
+
     #
     # configuration
     #
@@ -1993,7 +1997,6 @@ class ZIPL(BootLoader):
     #
 
     def install(self):
-        # DWL FIXME: resolve the boot device to a StorageDevice from storage
         buf = iutil.execWithCapture("zipl", [],
                                     stderr="/dev/tty5",
                                     root=ROOT_PATH,
@@ -2005,12 +2008,10 @@ class ZIPL(BootLoader):
                 #     Preparing boot device: dasdl.
                 # We want to extract the device name and pass that.
                 name = re.sub(".+?: ", "", line)
-                name = re.sub("(\s\(.+\))?\.$", "", name)
-                device = self.storage.devicetree.getDeviceByName(name)
-                if not device:
-                    raise BootLoaderError("could not find IPL device")
+                self.stage1_name = re.sub("(\s\(.+\))?\.$", "", name)
 
-                self.stage1_device = device
+        if not self.stage1_name:
+            raise BootLoaderError("could not find IPL device")
 
 class SILO(YabootSILOBase):
     name = "SILO"
