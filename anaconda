@@ -882,6 +882,10 @@ if __name__ == "__main__":
     # now start the interface
     setupDisplay(anaconda, opts)
 
+    # Set flag to prompt for missing ks data
+    if anaconda.displayMode == 'c':
+        flags.ksprompt = False
+
     image_count = 0
     for image in opts.images:
         image_spec = image.rsplit(":", 1)

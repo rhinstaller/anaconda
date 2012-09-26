@@ -71,6 +71,8 @@ class Flags(object):
         self.gpt = False
         self.leavebootorder = False
         self.testing = False
+        # ksprompt is whether or not to prompt for missing ksdata
+        self.ksprompt = True
         # parse the boot commandline
         self.cmdline = BootArgs()
         # Lock it down: no more creating new flags!
