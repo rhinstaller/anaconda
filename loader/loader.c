@@ -1276,13 +1276,17 @@ static void checkTaintFlag(void) {
     }
 
     if (l & (1 << 28)) {
-        startNewt();
-        newtWinMessage(_("Unsupported Hardware Detected"), _("OK"),
-                       _("This hardware (or a combination thereof) is not "
-                         "supported by Red Hat.  For more information on "
-                         "supported hardware, please refer to "
-                         "http://www.redhat.com/hardware."));
-        stopNewt();
+        if(!FL_UNSUPPORTED_HW(flags)) {
+            startNewt();
+            newtWinMessage(_("Unsupported Hardware Detected"), _("OK"),
+                           _("This hardware (or a combination thereof) is not "
+                             "supported by Red Hat.  For more information on "
+                             "supported hardware, please refer to "
+                             "http://www.redhat.com/hardware."));
+            stopNewt();
+        } else {
+            logMessage(WARNING, "Installing on Unsupported Hardware.");
+        }
     }
 
     g_free(contents);

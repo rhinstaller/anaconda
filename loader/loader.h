@@ -73,6 +73,7 @@
 #define LOADER_FLAGS_AUTOMODDISK        (((uint64_t) 1) << 40)
 #define LOADER_FLAGS_NOEJECT            (((uint64_t) 1) << 41)
 #define LOADER_FLAGS_NOVERIFYSSL        (((uint64_t) 1) << 42)
+#define LOADER_FLAGS_UNSUPPORTED_HW     (((uint64_t) 1) << 43)
 
 #define FL_TEXT(a)               ((a) & LOADER_FLAGS_TEXT)
 #define FL_RESCUE(a)             ((a) & LOADER_FLAGS_RESCUE)
@@ -112,6 +113,7 @@
 #define FL_AUTOMODDISK(a)        ((a) & LOADER_FLAGS_AUTOMODDISK)
 #define FL_NOEJECT(a)            ((a) & LOADER_FLAGS_NOEJECT)
 #define FL_NOVERIFYSSL(a)        ((a) & LOADER_FLAGS_NOVERIFYSSL)
+#define FL_UNSUPPORTED_HW(a)     ((a) & LOADER_FLAGS_UNSUPPORTED_HW)
 
 void startNewt(void);
 void stopNewt(void);
