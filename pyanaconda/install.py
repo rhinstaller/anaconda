@@ -47,7 +47,7 @@ def doConfiguration(storage, payload, ksdata, instClass):
     from pyanaconda.kickstart import runPostScripts
 
     progress.send_init(4)
-    
+
     # Now run the execute methods of ksdata that require an installed system
     # to be present first.
     with progress_report(_("Configuring installed system")):
@@ -58,15 +58,14 @@ def doConfiguration(storage, payload, ksdata, instClass):
         ksdata.keyboard.execute(storage, ksdata, instClass)
         ksdata.timezone.execute(storage, ksdata, instClass)
         ksdata.lang.execute(storage, ksdata, instClass)
-        
+
     with progress_report(_("Writing network configuration")):
         writeNetworkConf(storage, ksdata, instClass)
 
     # Creating users and groups requires some pre-configuration.
     with progress_report(_("Creating users")):
-        u = Users()
         createLuserConf(ROOT_PATH, algoname=getPassAlgo(ksdata.authconfig.authconfig))
-
+        u = Users()
         ksdata.rootpw.execute(storage, ksdata, instClass, u)
         ksdata.group.execute(storage, ksdata, instClass, u)
         ksdata.user.execute(storage, ksdata, instClass, u)
@@ -79,7 +78,7 @@ def doConfiguration(storage, payload, ksdata, instClass):
     _writeKS(ksdata)
 
     progress.send_complete()
-    
+
 def doInstall(storage, payload, ksdata, instClass):
     """Perform an installation.  This method takes the ksdata as prepared by
        the UI (the first hub, in graphical mode) and applies it to the disk.
