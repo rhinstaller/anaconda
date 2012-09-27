@@ -22,6 +22,8 @@
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
 
+import os
+
 # pylint: disable-msg=E0611
 from gi.repository import GLib
 
@@ -113,12 +115,6 @@ class Hub(GUIObject, common.Hub):
             action.apply()
             action.execute()
 
-    def _list_spokes_mask_paths(self):
-        return [("pyanaconda.ui.gui.spokes.%s", os.path.join(os.path.dirname(__file__), "spokes"))]
-
-    def _list_categories_mask_paths(self):
-        return [("pyanaconda.ui.gui.categories.%s", os.path.join(os.path.dirname(__file__), "categories"))]
-            
     def _collectCategoriesAndSpokes(self):
         """collects categories and spokes to be displayed on this Hub
 
@@ -130,10 +126,10 @@ class Hub(GUIObject, common.Hub):
         
         # Collect all the categories this hub displays, then collect all the
         # spokes belonging to all those categories.
-        categories = sorted(filter(lambda c: c.displayOnHub == self.__class__, collect_categories(self._list_categories_mask_paths())),
+        categories = sorted(filter(lambda c: c.displayOnHub == self.__class__, collect_categories(self.paths["categories"])),
                             key=lambda c: c.title)
         for c in categories:
-            ret[c] = collect_spokes(self._list_spokes_mask_paths(), c.__name__)
+            ret[c] = collect_spokes(self.paths["spokes"], c.__name__)
 
         return ret
             

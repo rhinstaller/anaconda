@@ -23,6 +23,19 @@
 import os
 import imp
 import inspect
+import copy
+
+class PathDict(dict):
+    """Dictionary class supporting + operator"""
+    def __add__(self, ext):
+        new_dict = copy.copy(self)
+        for key, value in ext.iteritems():
+            try:
+                new_dict[key].extend(value)
+            except KeyError:
+                new_dict[key] = value[:]
+
+        return new_dict
 
 class UIObject(object):
     """This is the base class from which all other UI classes are derived.  It
@@ -377,7 +390,13 @@ class Hub(UIObject):
         self.storage = storage
         self.payload = payload
         self.instclass = instclass
+        self.paths = {}
 
+    def set_path(self, path_id, paths):
+        """Update the paths attribute with list of tuples in the form (module
+           name format string, directory name)"""
+        self.paths[path_id] = paths
+        
 def collect(module_pattern, path, pred):
     """Traverse the directory (given by path), import all files as a module
        module_pattern % filename and find all classes within that match

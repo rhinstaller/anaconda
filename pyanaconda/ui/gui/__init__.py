@@ -28,6 +28,7 @@ from pyanaconda.product import distributionText, isFinal
 from pyanaconda.ui import UserInterface, common
 from pyanaconda.ui.gui.utils import enlightbox, gtk_thread_wait
 from pyanaconda.product import isFinal, productName, productVersion
+import os.path
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
@@ -62,17 +63,26 @@ class GraphicalUserInterface(UserInterface):
         import ctypes
         ctypes.CDLL("libAnacondaWidgets.so.0", ctypes.RTLD_GLOBAL)
 
+    basemask = "pyanaconda.ui.gui"
+    basepath = os.path.dirname(__file__)
+    paths = UserInterface.paths + {
+            "categories": [(basemask + ".categories.%s",
+                        os.path.join(basepath, "categories"))],
+            "spokes": [(basemask + ".spokes.%s",
+                        os.path.join(basepath, "spokes"))],
+            "hubs": [(basemask + ".hubs.%s",
+                      os.path.join(basepath, "hubs"))]
+            }
+        
     def _list_hubs(self):
-        from hubs.summary import SummaryHub
-        from hubs.progress import ProgressHub
+        """Return a list of Hub classes to be imported to this interface"""
+        from .hubs.summary import SummaryHub
+        from .hubs.progress import ProgressHub
         return [SummaryHub, ProgressHub]
 
-    def _list_standalone_paths(self):
-        path = os.path.join(os.path.dirname(__file__), "spokes")
-        return [("pyanaconda.ui.gui.spokes.%s", path)]
-    
     def _is_standalone(self, obj):
-        from spokes import StandaloneSpoke
+        """Is the spoke passed as obj standalone?"""
+        from .spokes import StandaloneSpoke
         return isinstance(obj, StandaloneSpoke)
 
     def setup(self, data):
@@ -82,13 +92,16 @@ class GraphicalUserInterface(UserInterface):
         self.data = data
 
     def getActionClasses(self, hubs):
-        from spokes import StandaloneSpoke
+        """Grab all relevant standalone spokes, add them to the passed
+           list of hubs and order the list according to the
+           relationships between hubs and standalones."""
+        from .spokes import StandaloneSpoke
 
         # First, grab a list of all the standalone spokes.
-        standalones = self._collectActionClasses(self._list_standalone_paths(), StandaloneSpoke)
+        standalones = self._collectActionClasses(self.paths["spokes"], StandaloneSpoke)
 
         # Second, order them according to their relationship
-        return self._orderActionClasses(standalones, hubs, StandaloneSpoke)
+        return self._orderActionClasses(standalones, hubs)
 
     def _instantiateAction(self, actionClass):
         from spokes import StandaloneSpoke
@@ -97,10 +110,15 @@ class GraphicalUserInterface(UserInterface):
         # spoke API and setting up continue/quit signal handlers.
         obj = actionClass(self.data, self.storage, self.payload, self.instclass)
 
+        # set spoke search paths in Hubs
+        if hasattr(obj, "set_path"):
+            obj.set_path("spokes", self.paths["spokes"])
+            obj.set_path("categories", self.paths["categories"])
+            
         # If we are doing a kickstart install, some standalone spokes
         # could already be filled out.  In that case, we do not want
         # to display them.
-        if isinstance(obj, StandaloneSpoke) and obj.completed:
+        if self._is_standalone(obj) and obj.completed:
             del(obj)
             return None
 

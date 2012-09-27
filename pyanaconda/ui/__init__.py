@@ -22,7 +22,7 @@
 __all__ = ["UserInterface"]
 
 import os
-from common import collect
+from .common import collect, PathDict
 
 class UserInterface(object):
     """This is the base class for all kinds of install UIs.  It primarily
@@ -59,6 +59,11 @@ class UserInterface(object):
         from pyanaconda.errors import errorHandler
         errorHandler.ui = self
 
+
+    basepath = os.path.dirname(__file__)
+    basemask = "pyanaconda.ui"
+    paths = PathDict({})
+    
     def setup(self, data):
         """Construct all the objects required to implement this interface.
            This method must be provided by all subclasses.
@@ -121,7 +126,7 @@ class UserInterface(object):
 
         return standalones
     
-    def _orderActionClasses(self, spokes, hubs, standalone_class):
+    def _orderActionClasses(self, spokes, hubs):
         """Order all the Hub and Spoke classes which should be enqueued for
            processing according to their pre/post dependencies.
 
@@ -129,15 +134,9 @@ class UserInterface(object):
                           to the hub dependencies
            :type spokes: list of Spoke instances
 
-           :param path: the directory we are picking up modules from
-           :type path: string
-
            :param hubs: the list of Hub classes we check to be in pre/postForHub
                         attribute of Spokes to pick up
            :type hubs: common.Hub based types
-
-           :param standalone_class: the parent type of Spokes we want to pick up
-           :type standalone_class: common.StandaloneSpoke based types
         """
 
         actionClasses = []

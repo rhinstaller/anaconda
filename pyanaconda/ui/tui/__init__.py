@@ -129,26 +129,47 @@ class TextUserInterface(ui.UserInterface):
         ui.UserInterface.__init__(self, storage, payload, instclass)
         self._app = None
 
+    basemask = "pyanaconda.ui.tui"
+    basepath = os.path.dirname(__file__)
+    paths = ui.UserInterface.paths + {
+            "spokes": [(basemask + ".spokes.%s",
+                        os.path.join(basepath, "spokes"))],
+            "hubs": [(basemask + ".hubs.%s",
+                      os.path.join(basepath, "hubs"))]
+            }
+    
+    def _list_hubs(self):
+        """returns the list of hubs to use"""
+        return [SummaryHub, ProgressHub]
+
+    def _is_standalone(self, spoke):
+        """checks if the passed spoke is standalone"""
+        return isinstance(spoke, StandaloneSpoke)
+    
     def setup(self, data):
         """Construct all the objects required to implement this interface.
            This method must be provided by all subclasses.
         """
         self._app = tui.App(u"Anaconda", yes_or_no_question = YesNoDialog)
-        self._hubs = [SummaryHub, ProgressHub]
+        _hubs = self._list_hubs()
 
         # First, grab a list of all the standalone spokes.
         path = os.path.join(os.path.dirname(__file__), "spokes")
-        actionClasses = self.getActionClasses("pyanaconda.ui.tui.spokes.%s", path, self._hubs, StandaloneSpoke)
-
+        spokes = self._collectActionClasses(self.paths["spokes"], StandaloneSpoke)
+        actionClasses = self._orderActionClasses(spokes, _hubs)
+        
         for klass in actionClasses:
             obj = klass(self._app, data, self.storage, self.payload, self.instclass)
 
             # If we are doing a kickstart install, some standalone spokes
             # could already be filled out.  In taht case, we do not want
             # to display them.
-            if isinstance(obj, StandaloneSpoke) and obj.completed:
+            if self._is_standalone(obj) and obj.completed:
                 del(obj)
                 continue
+
+            if hasattr(obj, "set_path"):
+                obj.set_path("spokes", self.paths["spokes"])
 
             self._app.schedule_screen(obj)
 

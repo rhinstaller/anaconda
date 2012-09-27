@@ -47,6 +47,10 @@ class PasswordSpoke(NormalSpoke):
     icon = "dialog-password-symbolic"
     title = N_("ROOT PASSWORD")
 
+    @classmethod
+    def firstboot(cls):
+        return True
+    
     def __init__(self, *args):
         NormalSpoke.__init__(self, *args)
         self._password = None
