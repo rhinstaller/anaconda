@@ -975,7 +975,8 @@ class RaidData(commands.raid.F12_RaidData):
         for member in self.members:
             # if member is using --onpart, use original device
             member = anaconda.id.ksdata.onPart.get(member, member)
-            dev = devicetree.getDeviceByName(member)
+            dev_name = udev_resolve_devspec(member) or member
+            dev = devicetree.getDeviceByName(dev_name)
             if dev and dev.format.type == "luks":
                 try:
                     dev = devicetree.getChildren(dev)[0]
