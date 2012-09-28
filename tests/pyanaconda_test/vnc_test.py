@@ -9,6 +9,9 @@ class VncTest(mock.TestCase):
         self.setupModules(["_isys", "block", "logging", "ConfigParser"])
         self.fs = mock.DiskIO()
 
+        self.anaconda = mock.Mock()
+        self.anaconda.ksdata.vnc.password = ''
+
         import pyanaconda
         pyanaconda.anaconda_log = mock.Mock()
 
@@ -36,6 +39,7 @@ class VncTest(mock.TestCase):
     def set_vnc_password_1_test(self):
         import pyanaconda.vnc
         server = pyanaconda.vnc.VncServer()
+        server.anaconda = self.anaconda
         pyanaconda.vnc.iutil = mock.Mock()
         pyanaconda.vnc.os.pipe.return_value = (1, 2)
 
