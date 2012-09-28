@@ -88,3 +88,7 @@ DRACUT_SHUTDOWN_EJECT = "/run/initramfs/usr/lib/dracut/hooks/shutdown/99anaconda
 
 # DMI information paths
 DMI_CHASSIS_VENDOR = "/sys/class/dmi/id/chassis_vendor"
+
+# VNC questions
+USEVNC = _("Start VNC")
+USETEXT = _("Use text mode")

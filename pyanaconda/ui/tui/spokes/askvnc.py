@@ -1,0 +1,135 @@
+# Ask vnc text spoke
+#
+# Copyright (C) 2012  Red Hat, Inc.
+#
+# This copyrighted material is made available to anyone wishing to use,
+# modify, copy, or redistribute it subject to the terms and conditions of
+# the GNU General Public License v.2, or (at your option) any later version.
+# This program is distributed in the hope that it will be useful, but WITHOUT
+# ANY WARRANTY expressed or implied, including the implied warranties of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General
+# Public License for more details.  You should have received a copy of the
+# GNU General Public License along with this program; if not, write to the
+# Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+# 02110-1301, USA.  Any Red Hat trademarks that are incorporated in the
+# source code or documentation are not subject to the GNU General Public
+# License and may only be used or replicated with the express permission of
+# Red Hat, Inc.
+#
+# Red Hat Author(s): Jesse Keating <jkeating@redhat.com>
+#
+
+from pyanaconda.ui.tui.spokes import NormalTUISpoke
+from pyanaconda.ui.tui.simpleline import TextWidget, ColumnWidget
+from pyanaconda.constants import USEVNC, USETEXT
+
+import gettext
+_ = lambda x: gettext.ldgettext("anaconda", x)
+
+
+class AskVNCSpoke(NormalTUISpoke):
+    title = _("VNC")
+    category = "vnc"
+
+    # This spoke is kinda standalone, not meant to be used with a hub
+    # We pass in some fake data just to make our parents happy
+    def __init__(self, app, data, storage=None, payload=None,
+                 instclass=None, message=None):
+        NormalTUISpoke.__init__(self, app, data, storage, payload, instclass)
+        if message:
+            self._message = message
+        else:
+            self._message = _("X was unable to start on your "
+                              "machine.  Would you like to "
+                              "start VNC to connect to "
+                              "this computer from another "
+                              "computer and perform a "
+                              "graphical install or continue "
+                              "with a text mode install?")
+
+        self._choices = (USEVNC, USETEXT)
+        self._usevnc = False
+
+    @property
+    def indirect(self):
+        return True
+
+    def refresh(self, args = None):
+        NormalTUISpoke.refresh(self, args)
+
+        self._window += [TextWidget(self._message), ""]
+
+        for idx, choice in enumerate(self._choices):
+            number = TextWidget("%2d)" % (idx + 1))
+            c = ColumnWidget([(3, [number]), (None, [TextWidget(choice)])], 1)
+            self._window += [c, ""]
+
+        return True
+
+    def input(self, args, key):
+        """Override input so that we can launch the VNC password spoke"""
+
+        try:
+            number = int(key)
+            choice = self._choices[number -1]
+        except (ValueError, KeyError, IndexError):
+            return key
+
+        if choice == USETEXT:
+            self._usevnc = False
+        else:
+            self._usevnc = True
+            newspoke = VNCPassSpoke(self.app, self.data, self.storage,
+                                    self.payload, self.instclass)
+            self.app.switch_screen_modal(newspoke)
+
+        self.apply()
+        self.close()
+        return None
+
+    def apply(self):
+        self.data.vnc.enabled = self._usevnc
+
+class VNCPassSpoke(NormalTUISpoke):
+    title = _("VNC Password")
+    category = "vnc"
+
+    def __init__(self, app, data, storage, payload, instclass):
+        NormalTUISpoke.__init__(self, app, data, storage, payload, instclass)
+        self._password = ""
+
+    @property
+    def indirect(self):
+        return True
+
+    @property
+    def completed(self):
+        return True # We're always complete
+
+    def refresh(self, args = None):
+        NormalTUISpoke.refresh(self, args)
+        self._window += [TextWidget(_("Please provide VNC password. You will have to type it twice. \n" \
+                                       "Leave blank for no password")), ""]
+
+        return True
+
+    def prompt(self, args = None):
+        """Override prompt as password typing is special."""
+        p1 = raw_input(_("Password: "))
+        p2 = raw_input(_("Password (confirm): "))
+
+        if p1 != p2:
+            print _("Passwords do not match!")
+            return None
+        elif p1 > 0 < 6:
+            print _("The password must be at least "
+                    "six characters long.")
+            return None
+        else:
+            self._password = p1
+            self.apply()
+
+        self.close()
+
+    def apply(self):
+        self.data.vnc.password = self._password
