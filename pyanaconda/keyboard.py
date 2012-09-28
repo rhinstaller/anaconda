@@ -132,7 +132,7 @@ def write_layouts_config(keyboard, root):
             fobj.write(get_layouts_xorg_conf(keyboard))
 
         with open(os.path.join(sysconf_dir, sysconf_file), "w") as fobj:
-            fobj.write('KEYTABLE="%s"\n' % keyboard.keyboard)
+            fobj.write('vconsole.keymap="%s"\n' % keyboard.keyboard)
 
     except IOError as ioerr:
         raise KeyboardConfigError("Cannot write keyboard configuration files")
