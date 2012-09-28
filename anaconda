@@ -403,6 +403,9 @@ def startDebugger(signum, frame):
     epdb.serve(skip=1)
 
 def setupDisplay(anaconda, opts):
+    from pyanaconda.ui.tui.simpleline import App
+    from pyanaconda.ui.tui.spokes.askvnc import AskVNCSpoke
+
     graphical_failed = 0
     vncS = vnc.VncServer()          # The vnc Server object.
     vncS.anaconda = anaconda
@@ -448,8 +451,6 @@ def setupDisplay(anaconda, opts):
         if vncS.vncconnectport == "":
             vncS.vncconnectport = anaconda.ksdata.vnc.port
 
-    flags.vncquestion = False
-
     # disable VNC over text question when not enough memory is available
     if iutil.memInstalled() < isys.MIN_GUI_RAM:
         flags.vncquestion = False
@@ -459,18 +460,20 @@ def setupDisplay(anaconda, opts):
 
     if anaconda.displayMode == 't' and flags.vncquestion:
         #we prefer vnc over text mode, so ask about that
-        title = _("Would you like to use VNC?")
         message = _("Text mode provides a limited set of installation "
                     "options. It does not allow you to specify your "
                     "own partitioning layout or package selections. "
                     "Would you like to use VNC mode instead?")
 
-        ret = vnc.askVncWindow(title, message)
-        if ret != -1:
+        app = App("VNC Question")
+        spoke = AskVNCSpoke(app, anaconda.ksdata, message=message)
+        app.schedule_screen(spoke)
+        app.run()
+
+        if anaconda.ksdata.vnc.enabled:
             anaconda.displayMode = 'g'
             flags.usevnc = 1
-            if ret is not None:
-                vncS.password = ret
+            vncS.password = anaconda.ksdata.vnc.password
 
     log.info("Display mode = %s" % anaconda.displayMode)
     check_memory(anaconda, opts)
@@ -541,13 +544,16 @@ def setupDisplay(anaconda, opts):
     set_x_resolution(opts.runres)
 
     if anaconda.displayMode == 't' and graphical_failed and \
-         not anaconda.ksdata:
-        ret = vnc.askVncWindow()
-        if ret != -1:
+         not anaconda.ksdata.vnc.enabled:
+        app = App("VNC Question")
+        spoke = AskVNCSpoke(app, anaconda.ksdata)
+        app.schedule_screen(spoke)
+        app.run()
+
+        if anaconda.ksdata.vnc.enabled:
             anaconda.displayMode = 'g'
             flags.usevnc = 1
-            if ret is not None:
-                vncS.password = ret
+            vncS.password = anaconda.ksdata.vnc.password
 
     # if they want us to use VNC do that now
     if anaconda.displayMode == 'g' and flags.usevnc:
