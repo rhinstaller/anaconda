@@ -406,6 +406,7 @@ def setupDisplay(anaconda, opts):
     from pyanaconda.ui.tui.simpleline import App
     from pyanaconda.ui.tui.spokes.askvnc import AskVNCSpoke
     from pykickstart.constants import DISPLAY_MODE_TEXT
+    from pyanaconda import network
 
     graphical_failed = 0
     vncS = vnc.VncServer()          # The vnc Server object.
@@ -458,6 +459,14 @@ def setupDisplay(anaconda, opts):
 
     # disable VNC question if we were explicitly asked for text in kickstart
     if anaconda.ksdata.displaymode.displayMode == DISPLAY_MODE_TEXT:
+        flags.vncquestion = False
+
+    # disable VNC question if we don't have network
+    if not network.hasActiveNetDev():
+        flags.vncquestion = False
+
+    # disable VNC question if we don't have X
+    if not os.access('/usr/bin/Xvnc', os.X_OK):
         flags.vncquestion = False
 
     if os.environ.has_key('DISPLAY'):
@@ -549,7 +558,7 @@ def setupDisplay(anaconda, opts):
     set_x_resolution(opts.runres)
 
     if anaconda.displayMode == 't' and graphical_failed and \
-         not anaconda.ksdata.vnc.enabled:
+         flags.vncquestion and not anaconda.ksdata.vnc.enabled:
         app = App("VNC Question")
         spoke = AskVNCSpoke(app, anaconda.ksdata)
         app.schedule_screen(spoke)
