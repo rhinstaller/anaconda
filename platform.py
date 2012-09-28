@@ -114,16 +114,16 @@ class Platform(object):
         if not req:
             return [_("You have not created a bootable partition.")]
 
-        if req.type == "mdarray" and req.level != 1:
-            errors.append(_("Bootable partitions can only be on RAID1 devices."))
-
         # most arches can't have boot on a logical volume
         if req.type == "lvmlv" and not self.supportsLvmBoot:
             errors.append(_("Bootable partitions cannot be on a logical volume."))
 
         # most arches can't have boot on RAID
-        if req.type == "mdarray" and not self.supportsMdRaidBoot:
-            errors.append(_("Bootable partitions cannot be on a RAID device."))
+        if req.type == "mdarray":
+            if not self.supportsMdRaidBoot:
+                errors.append(_("Bootable partitions cannot be on a RAID device."))
+            elif req.level != 1:
+                errors.append(_("Bootable partitions can only be on RAID1 devices."))
 
         # Make sure /boot is on a supported FS type.  This prevents crazy
         # things like boot on vfat.
