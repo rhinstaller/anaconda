@@ -125,7 +125,7 @@ class VNCPassSpoke(NormalTUISpoke):
         if p1 != p2:
             print _("Passwords do not match!")
             return None
-        elif p1 > 0 < 6:
+        elif 0 < len(p1) < 6:
             print _("The password must be at least "
                     "six characters long.")
             return None
