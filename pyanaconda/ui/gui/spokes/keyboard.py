@@ -30,7 +30,7 @@ from gi.repository import GLib, Gkbd, Gtk, Gdk
 from pyanaconda.ui.gui import GUIObject
 from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.gui.categories.localization import LocalizationCategory
-from pyanaconda.ui.gui.utils import enlightbox
+from pyanaconda.ui.gui.utils import enlightbox, gdk_threaded
 from pyanaconda import keyboard
 from pyanaconda import flags
 
@@ -264,8 +264,9 @@ class KeyboardSpoke(NormalSpoke):
         dialog.refresh()
         dialog.initialize()
 
-        with enlightbox(self.window, dialog.window):
-            response = dialog.run()
+        with gdk_threaded():
+            with enlightbox(self.window, dialog.window):
+                response = dialog.run()
 
         if response == 1:
             duplicates = set()
