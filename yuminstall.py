@@ -234,7 +234,10 @@ class AnacondaCallback:
                                           self.numpkgs)
                                        % {'donepkgs': self.donepkgs,
                                           'numpkgs': self.numpkgs})
-            self.progress.set_fraction(float(self.doneSize / self.totalSize))
+            if self.totalSize > 0:
+                self.progress.set_fraction(float(self.doneSize / self.totalSize))
+            else:
+                self.progress.set_fraction(0.0)
             self.progress.processEvents()
 
             self.inProgressPo = None
