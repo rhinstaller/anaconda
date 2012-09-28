@@ -94,9 +94,14 @@ class VNCPassSpoke(NormalTUISpoke):
     title = _("VNC Password")
     category = "vnc"
 
-    def __init__(self, app, data, storage, payload, instclass):
+    def __init__(self, app, data, storage, payload, instclass, message=None):
         NormalTUISpoke.__init__(self, app, data, storage, payload, instclass)
         self._password = ""
+        if message:
+            self._message = message
+        else:
+            self._message = _("Please provide VNC password. You will have to type it twice. \n"
+                              "Leave blank for no password")
 
     @property
     def indirect(self):
@@ -108,8 +113,7 @@ class VNCPassSpoke(NormalTUISpoke):
 
     def refresh(self, args = None):
         NormalTUISpoke.refresh(self, args)
-        self._window += [TextWidget(_("Please provide VNC password. You will have to type it twice. \n" \
-                                       "Leave blank for no password")), ""]
+        self._window += [TextWidget(self._message), ""]
 
         return True
 
