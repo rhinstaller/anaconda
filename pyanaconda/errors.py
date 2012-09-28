@@ -93,7 +93,7 @@ class ErrorHandler(object):
 
     def _partitionErrorHandler(self, *args, **kwargs):
         message = _("The following errors occurred with your partitioning:\n\n%(errortxt)\n\n"
-                    "The installation will now terminate.") % {"errortxt": args[0]}
+                    "The installation will now terminate.") % {"errortxt": str(kwargs["exception"])}
         self.ui.showError(message)
         return ERROR_RAISE
 
