@@ -19,17 +19,17 @@
 # Author(s): Jeremy Katz <katzj@redhat.com>
 #
 
-import os, sys, string
+import os, sys
 import time
-from snack import *
 from constants import *
-from textw.constants_text import *
 import network
-import isys
 import product
 import socket
 import subprocess
 import iutil
+
+from pyanaconda.ui.tui.simpleline import App
+from pyanaconda.ui.tui.spokes.askvnc import VNCPassSpoke
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
@@ -219,14 +219,14 @@ class VncServer:
                                 "set a password, it will be used in case the connection \n"
                                 "to the vncviewer is unsuccessful\n\n"))
         elif self.password == "":
-             self.log.warning(_("\n\nWARNING!!! VNC server running with NO PASSWORD!\n"
+            self.log.warning(_("\n\nWARNING!!! VNC server running with NO PASSWORD!\n"
                                 "You can use the vncpassword=<password> boot option\n"
                                 "if you would like to secure the server.\n\n"))
         elif self.password != "":
-             self.log.warning(_("\n\nYou chose to execute vnc with a password. \n\n"))
+            self.log.warning(_("\n\nYou chose to execute vnc with a password. \n\n"))
         else:
-             self.log.warning(_("\n\nUnknown Error.  Aborting. \n\n"))
-             sys.exit(1)
+            self.log.warning(_("\n\nUnknown Error.  Aborting. \n\n"))
+            sys.exit(1)
 
         # Lets try to configure the vnc server to whatever the user specified
         if self.vncconnecthost != "":
@@ -242,164 +242,15 @@ class VncServer:
         """ Change the password to a sane parameter.
 
         We ask user to input a password that len(password) > 6
-        or password == ''. Have to find a way to put askVncWindow
-        and this method together.
+        or password == ''.
         """
 
-        screen = SnackScreen()
-        grid = GridFormHelp(screen, _("VNC Configuration"),"vnc", 1, 10)
+        message = _("VNC password provided was not at least 6 characters long.\n"
+                    "Please enter a new one.  Leave blank for no password.")
+        app = App("VNC PASSWORD")
+        spoke = VNCPassSpoke(app, self.anaconda.ksdata, None, None, None,
+                             message)
+        app.schedule_screen(spoke)
+        app.run()
 
-        bb = ButtonBar(screen, (TEXT_OK_BUTTON,
-                                (_("No password"), "nopass")))
-
-        text = _("A password will prevent unauthorized listeners "
-                 "connecting and monitoring your installation progress.  "
-                 "Please enter a password to be used for the installation")
-        grid.add(TextboxReflowed(40, text), 0, 0, (0, 0, 0, 1))
-
-        entry1 = Entry (16, password = 1)
-        entry2 = Entry (16, password = 1)
-        passgrid = Grid (2, 2)
-        passgrid.setField (Label (_("Password:")), 0, 0, (0, 0, 1, 0), anchorLeft = 1)
-        passgrid.setField (Label (_("Password (confirm):")), 0, 1, (0, 0, 1, 0), anchorLeft = 1)
-        passgrid.setField (entry1, 1, 0)
-        passgrid.setField (entry2, 1, 1)
-        grid.add (passgrid, 0, 1, (0, 0, 0, 1))
-
-        grid.add(bb, 0, 8, (0, 1, 1, 0), growx = 1)
-
-        while 1:
-            res = grid.run()
-            rc = bb.buttonPressed(res)
-
-            if rc == "nopass":
-                screen.finish()
-                return ""
-            else:
-                pw = entry1.value()
-                cf = entry2.value()
-                if pw != cf:
-                    ButtonChoiceWindow(screen, _("Password Mismatch"),
-                                       _("The passwords you entered were "
-                                         "different. Please try again."),
-                                       buttons = [ TEXT_OK_BUTTON ],
-                                       width = 50)
-                elif len(pw) < 6:
-                    ButtonChoiceWindow(screen, _("Password Length"),
-                                       _("The password must be at least "
-                                         "six characters long."),
-                                       buttons = [ TEXT_OK_BUTTON ],
-                                       width = 50)
-                else:
-                    screen.finish()
-                    self.password = pw
-                    return 
-
-                entry1.set("")
-                entry2.set("")
-                continue
-            continue
-
-def askVncWindow(title = None, message = None):
-    if not os.access('/usr/bin/Xvnc', os.X_OK):
-        return -1
-
-    if not network.hasActiveNetDev():
-        return -1
-
-    if not title:
-        title = _("Unable to Start X")
-    if not message:
-        message = _("X was unable to start on your "
-                    "machine.  Would you like to "
-                    "start VNC to connect to "
-                    "this computer from another "
-                    "computer and perform a "
-                    "graphical install or continue "
-                    "with a text mode install?")
-
-    screen = SnackScreen()
-    vncpass = None
-    vncconnect = 0
-
-    STEP_MESSAGE = 0
-    STEP_PASS = 1
-    STEP_DONE = 3
-    step = 0
-    while step < STEP_DONE:
-        if step == STEP_MESSAGE:
-            button = ButtonChoiceWindow(screen, title, message,
-                                        buttons = [ _("Start VNC"),
-                                                    _("Use text mode") ])
-
-	    if button == string.lower (_("Use text mode")):
-                screen.finish()
-                return -1
-            else:
-                step = STEP_PASS
-                continue
-
-        if step == STEP_PASS:
-            grid = GridFormHelp(screen, _("VNC Configuration"),
-                                "vnc", 1, 10)
-
-            bb = ButtonBar(screen, (TEXT_OK_BUTTON,
-                                    (_("No password"), "nopass"),
-                                    TEXT_BACK_BUTTON))
-
-            text = _("A password will prevent unauthorized listeners "
-                     "connecting and monitoring your installation progress.  "
-                     "Please enter a password to be used for the installation")
-            grid.add(TextboxReflowed(40, text), 0, 0, (0, 0, 0, 1))
-
-            entry1 = Entry (16, password = 1)
-            entry2 = Entry (16, password = 1)
-            passgrid = Grid (2, 2)
-            passgrid.setField (Label (_("Password:")), 0, 0, (0, 0, 1, 0), anchorLeft = 1)
-            passgrid.setField (Label (_("Password (confirm):")), 0, 1, (0, 0, 1, 0), anchorLeft = 1)
-            passgrid.setField (entry1, 1, 0)
-            passgrid.setField (entry2, 1, 1)
-            grid.add (passgrid, 0, 1, (0, 0, 0, 1))
-
-            grid.add(bb, 0, 8, (0, 1, 1, 0), growx = 1)
-
-            while 1:
-                res = grid.run()
-                rc = bb.buttonPressed(res)
-
-                if rc == TEXT_BACK_CHECK:
-                    screen.popWindow()
-                    step = STEP_MESSAGE
-                    break
-                elif rc == "nopass":
-                    screen.finish()
-                    return None
-                else:
-                    pw = entry1.value()
-                    cf = entry2.value()
-                    if pw != cf:
-                        ButtonChoiceWindow(screen, _("Password Mismatch"),
-                                           _("The passwords you entered were "
-                                             "different. Please try again."),
-                                           buttons = [ TEXT_OK_BUTTON ],
-                                           width = 50)
-                    elif len(pw) < 6:
-                        ButtonChoiceWindow(screen, _("Password Length"),
-                                           _("The password must be at least "
-                                             "six characters long."),
-                                           buttons = [ TEXT_OK_BUTTON ],
-                                           width = 50)
-                    else:
-                        screen.finish()
-                        return pw
-
-                    entry1.set("")
-                    entry2.set("")
-                    continue
-                continue
-
-    screen.finish()
-    return -1
-
-if __name__ == "__main__":
-    askVncWindow()
+        self.password = self.anaconda.ksdata.vnc.password
