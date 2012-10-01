@@ -131,7 +131,7 @@ class InstallOptions1Dialog(GUIObject):
         self.window.destroy()
         return rc
 
-    def refresh(self, required_space, disk_free, fs_free, autopart):
+    def refresh(self, required_space, disks_size, disk_free, fs_free, autopart):
         self.custom = not autopart
         self.custom_checkbutton = self.builder.get_object("options1_custom_check")
         self.custom_checkbutton.set_active(self.custom)
@@ -145,7 +145,10 @@ class InstallOptions1Dialog(GUIObject):
                         % productName)
         options_label.set_markup(options_text)
 
-    def _set_free_space_labels(self, disk_free, fs_free):
+    def _set_free_space_labels(self, disks_size, disk_free, fs_free):
+        disks_size_text = size_str(disks_size)
+        self.disks_size_label.set_text(disks_size_text)
+
         disk_free_text = size_str(disk_free)
         self.disk_free_label.set_text(disk_free_text)
 
@@ -185,7 +188,7 @@ class InstallOptions2Dialog(InstallOptions1Dialog):
     builderObjects = ["options2_dialog"]
     mainWidgetName = "options2_dialog"
 
-    def refresh(self, required_space, disk_free, fs_free, autopart):
+    def refresh(self, required_space, disks_size, disk_free, fs_free, autopart):
         self.custom = not autopart
         self.custom_checkbutton = self.builder.get_object("options2_custom_check")
         self.custom_checkbutton.set_active(self.custom)
@@ -197,7 +200,8 @@ class InstallOptions2Dialog(InstallOptions1Dialog):
 
         self.disk_free_label = self.builder.get_object("options2_disk_free_label")
         self.fs_free_label = self.builder.get_object("options2_fs_free_label")
-        self._set_free_space_labels(disk_free, fs_free)
+        self.disks_size_label = self.builder.get_object("options2_disks_size_label")
+        self._set_free_space_labels(disks_size, disk_free, fs_free)
 
         label_text = (_("<b>You don't have enough space available to install "
                         "%s</b>, but we can help you\n"
@@ -214,7 +218,7 @@ class InstallOptions3Dialog(InstallOptions1Dialog):
     builderObjects = ["options3_dialog"]
     mainWidgetName = "options3_dialog"
 
-    def refresh(self, required_space, disk_free, fs_free, autopart):
+    def refresh(self, required_space, disks_size, disk_free, fs_free, autopart):
         self.custom = not autopart
         sw_text = self._get_sw_needs_text(required_space)
         label_text = (_("%s\nYou don't have enough space available to install "
@@ -225,7 +229,8 @@ class InstallOptions3Dialog(InstallOptions1Dialog):
 
         self.disk_free_label = self.builder.get_object("options3_disk_free_label")
         self.fs_free_label = self.builder.get_object("options3_fs_free_label")
-        self._set_free_space_labels(disk_free, fs_free)
+        self.disks_size_label = self.builder.get_object("options3_disks_size_label")
+        self._set_free_space_labels(disks_free, disk_free, fs_free)
 
         label_text = _("<b>You don't have enough space available to install "
                        "%s</b>, even if you used all of the free space\n"
@@ -562,7 +567,7 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         else:
             dialog = InstallOptions3Dialog(self.data)
 
-        dialog.refresh(required_space, disk_free, fs_free, self.autopart)
+        dialog.refresh(required_space, disks_size, disk_free, fs_free, self.autopart)
         rc = self.run_lightbox_dialog(dialog)
         if rc == dialog.RESPONSE_CONTINUE:
             # depending on custom/autopart, either set up autopart or show

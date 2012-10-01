@@ -235,6 +235,7 @@
               <object class="GtkLabel" id="options2_title_label">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
+                <property name="margin_bottom">6</property>
                 <property name="xalign">0</property>
                 <property name="label" translatable="yes">INSTALLATION OPTIONS</property>
                 <attributes>
@@ -286,6 +287,7 @@
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="margin_left">6</property>
+                <property name="margin_bottom">12</property>
                 <property name="row_spacing">6</property>
                 <property name="column_spacing">6</property>
                 <property name="row_homogeneous">True</property>
@@ -347,6 +349,37 @@
                   <packing>
                     <property name="left_attach">1</property>
                     <property name="top_attach">1</property>
+                    <property name="width">1</property>
+                    <property name="height">1</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkLabel" id="options2_disks_size_label">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="xalign">1</property>
+                    <property name="label" translatable="yes">disks size</property>
+                    <attributes>
+                      <attribute name="weight" value="bold"/>
+                    </attributes>
+                  </object>
+                  <packing>
+                    <property name="left_attach">0</property>
+                    <property name="top_attach">2</property>
+                    <property name="width">1</property>
+                    <property name="height">1</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkLabel" id="options2_disks_size_desc_label">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="xalign">0</property>
+                    <property name="label" translatable="yes">Space in selected disks reclaimable by deleting existing partitions.</property>
+                  </object>
+                  <packing>
+                    <property name="left_attach">1</property>
+                    <property name="top_attach">2</property>
                     <property name="width">1</property>
                     <property name="height">1</property>
                   </packing>
@@ -484,6 +517,7 @@
               <object class="GtkLabel" id="options3_title_label">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
+                <property name="margin_bottom">6</property>
                 <property name="xalign">0</property>
                 <property name="label" translatable="yes">INSTALLATION OPTIONS</property>
                 <attributes>
@@ -515,6 +549,7 @@
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="margin_left">6</property>
+                <property name="margin_bottom">12</property>
                 <property name="row_spacing">6</property>
                 <property name="column_spacing">6</property>
                 <property name="row_homogeneous">True</property>
@@ -580,6 +615,37 @@
                     <property name="height">1</property>
                   </packing>
                 </child>
+                <child>
+                  <object class="GtkLabel" id="options3_disks_size_label">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="xalign">1</property>
+                    <property name="label" translatable="yes">disks size</property>
+                    <attributes>
+                      <attribute name="weight" value="bold"/>
+                    </attributes>
+                  </object>
+                  <packing>
+                    <property name="left_attach">0</property>
+                    <property name="top_attach">2</property>
+                    <property name="width">1</property>
+                    <property name="height">1</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkLabel" id="options3_disks_size_desc_label">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="xalign">0</property>
+                    <property name="label" translatable="yes">Space in selected disks reclaimable by deleting existing partitions.</property>
+                  </object>
+                  <packing>
+                    <property name="left_attach">1</property>
+                    <property name="top_attach">2</property>
+                    <property name="width">1</property>
+                    <property name="height">1</property>
+                  </packing>
+                </child>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -628,8 +694,8 @@
     <property name="startup_id">filler</property>
     <property name="mnemonics_visible">False</property>
     <property name="window_name">INSTALLATION DESTINATION</property>
-    <signal name="button-clicked" handler="on_back_clicked" swapped="no"/>
     <signal name="info-bar-clicked" handler="on_info_bar_clicked" swapped="no"/>
+    <signal name="button-clicked" handler="on_back_clicked" swapped="no"/>
     <child internal-child="main_box">
       <object class="GtkBox" id="AnacondaSpokeWindow-main_box1">
         <property name="can_focus">False</property>
