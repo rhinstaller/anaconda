@@ -284,8 +284,6 @@ class StorageSpoke(NormalSpoke, StorageChecker):
             self.data.autopart.autopart = True
 
         self.autopart = self.data.autopart.autopart
-
-        # FIXME:  This needs to be set to a real value via some TBD UI.
         self.clearPartType = CLEARPART_TYPE_NONE
 
     def apply(self):
@@ -296,10 +294,7 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         # no thanks, lvm
         self.data.autopart.type = AUTOPART_TYPE_PLAIN
 
-        if self.autopart:
-            self.clearPartType = CLEARPART_TYPE_ALL
-        else:
-            self.clearPartType = CLEARPART_TYPE_NONE
+        self.clearPartType = CLEARPART_TYPE_NONE
 
         for disk in self.disks:
             if disk.name not in self.selected_disks and \
@@ -539,7 +534,7 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         # show the installation options dialog
         disks = [d for d in self.disks if d.name in self.selected_disks]
         free_space = self.storage.getFreeSpace(disks=disks,
-                                               clearPartType=CLEARPART_TYPE_ALL)
+                                               clearPartType=CLEARPART_TYPE_NONE)
         disk_free = sum([f[0] for f in free_space.itervalues()])
         fs_free = sum([f[1] for f in free_space.itervalues()])
 
