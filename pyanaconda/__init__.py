@@ -79,8 +79,6 @@ class Anaconda(object):
         self.upgrade = flags.cmdline.has_key("preupgrade")
         self.upgradeRoot = None
         self.mehConfig = None
-        self.clearPartTypeSelection = None      # User's GUI selection
-        self.clearPartTypeSystem = None         # System's selection
 
         # *sigh* we still need to be able to write this out
         self.xdriver = None
