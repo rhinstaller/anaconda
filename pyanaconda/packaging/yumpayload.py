@@ -136,7 +136,10 @@ class YumPayload(PackagePayload):
 
         self.install_device = None
 
-        self._space_required = Size(bytes=0)
+        # This value comes from a default install of the x86_64 Fedora 18.  It
+        # is meant as a best first guess only.  Once package metadata is
+        # available we can use that as a better value.
+        self._space_required = Size(spec="2800 MB")
 
         self._groups = None
         self._packages = []
