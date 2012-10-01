@@ -533,6 +533,8 @@ class StorageSpoke(NormalSpoke, StorageChecker):
     def on_continue_clicked(self, button):
         # show the installation options dialog
         disks = [d for d in self.disks if d.name in self.selected_disks]
+        disks_size = sum(Size(spec="%f MB" % d.size) for d in disks)
+
         free_space = self.storage.getFreeSpace(disks=disks,
                                                clearPartType=CLEARPART_TYPE_NONE)
         disk_free = sum([f[0] for f in free_space.itervalues()])
@@ -555,7 +557,7 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         required_space = self.payload.spaceRequired
         if disk_free + new_free >= required_space:
             dialog = InstallOptions1Dialog(self.data)
-        elif sum([d.size for d in disks]) >= required_space:
+        elif disks_size >= required_space:
             dialog = InstallOptions2Dialog(self.data)
         else:
             dialog = InstallOptions3Dialog(self.data)
