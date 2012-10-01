@@ -45,6 +45,7 @@ from pyanaconda.ui.gui import GUIObject, communication
 from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.gui.spokes.lib.cart import SelectedDisksDialog
 from pyanaconda.ui.gui.spokes.lib.detailederror import DetailedErrorDialog
+from pyanaconda.ui.gui.spokes.lib.resize import ResizeDialog
 from pyanaconda.ui.gui.categories.storage import StorageCategory
 from pyanaconda.ui.gui.utils import enlightbox, gdk_threaded
 
@@ -584,8 +585,14 @@ class StorageSpoke(NormalSpoke, StorageChecker):
             if dialog.custom:
                 self.skipTo = "CustomPartitioningSpoke"
             else:
-                # go to tug-of-war
-                pass
+                resizeDialog = ResizeDialog(self.data, self.storage)
+                resizeDialog.refresh(disks)
+
+                # resizeDialog handles okay/cancel on its own, so we can throw
+                # out the return value.
+                self.run_lightbox_dialog(resizeDialog)
+                self.on_continue_clicked(button)
+                return
 
             self.on_back_clicked(self.window)
         elif rc == dialog.RESPONSE_QUIT:
