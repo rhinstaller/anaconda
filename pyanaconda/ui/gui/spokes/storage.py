@@ -330,12 +330,15 @@ class StorageSpoke(NormalSpoke, StorageChecker):
                                      target=self._doExecute))
 
     def _doExecute(self):
+        self._ready = False
+        communication.send_not_ready(self.__class__.__name__)
+        communication.send_message(self.__class__.__name__,
+                               _("Saving storage configuration..."))
         try:
             doKickstartStorage(self.storage, self.data, self.instclass)
         except StorageError as e:
             log.error("storage configuration failed: %s" % e)
             self.errors = str(e).split("\n")
-            communication.send_not_ready(self.__class__.__name__)
             communication.send_message(self.__class__.__name__,
                                    _("Failed to save storage configuration..."))
             self.data.clearpart.type = CLEARPART_TYPE_NONE
@@ -343,11 +346,13 @@ class StorageSpoke(NormalSpoke, StorageChecker):
             self.storage.config.update(self.data)
             self.storage.autoPartType = self.data.clearpart.type
             self.storage.reset()
-            communication.send_ready(self.__class__.__name__)
         else:
             if self.autopart:
                 # this was already run as part of doAutoPartition. dumb.
                 self.run()
+        finally:
+            self._ready = True
+            communication.send_ready(self.__class__.__name__)
 
     @property
     def completed(self):
@@ -359,7 +364,7 @@ class StorageSpoke(NormalSpoke, StorageChecker):
     def ready(self):
         # By default, the storage spoke is not ready.  We have to wait until
         # storageInitialize is done.
-        return self._ready and not threadMgr.get("AnaExecuteStorageThread")
+        return self._ready
 
     @property
     def status(self):
