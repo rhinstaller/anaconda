@@ -779,6 +779,8 @@ def write_sysconfig_network(rootpath, ksdata, overwrite=False):
 
     gateway = ipv6_defaultgw = None
     for iface in reversed(getDevices()):
+        if isys.isWirelessDevice(iface):
+            continue
         dev = NetworkDevice(netscriptsDir, iface)
         dev.loadIfcfgFile()
         if dev.get('DEFROUTE') != "no":
