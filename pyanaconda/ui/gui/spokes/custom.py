@@ -190,6 +190,7 @@ class AddDialog(GUIObject):
         self.mountpoint = self.builder.get_object("addMountPointEntry").get_text()
         self._error = validate_mountpoint(self.mountpoint, self.mountpoints)
         self._warningLabel.set_text(mountpoint_validation_msgs[self._error])
+        self.window.show_all()
         if self._error:
             return
 
@@ -217,6 +218,7 @@ class AddDialog(GUIObject):
 
     def run(self):
         while True:
+            self._error = None
             rc = self.window.run()
             if not self._error:
                 return rc
