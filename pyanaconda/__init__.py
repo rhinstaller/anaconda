@@ -44,7 +44,7 @@ _ = lambda x: gettext.ldgettext("anaconda", x)
 
 class Anaconda(object):
     def __init__(self):
-        import desktop, firewall
+        import desktop
         from flags import flags
 
         self._backend = None
@@ -54,7 +54,6 @@ class Anaconda(object):
         self.dir = None
         self.displayMode = None
         self.extraModules = []
-        self.firewall = firewall.Firewall()
         self.id = None
         self._instClass = None
         self._intf = None
@@ -246,4 +245,3 @@ class Anaconda(object):
         network.disableNMForStorageDevices(self.storage)
         network.autostartFCoEDevices(self.storage)
         self.desktop.write()
-        self.firewall.write()

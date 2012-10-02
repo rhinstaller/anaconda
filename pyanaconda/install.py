@@ -59,6 +59,7 @@ def doConfiguration(storage, payload, ksdata, instClass):
         ksdata.keyboard.execute(storage, ksdata, instClass)
         ksdata.timezone.execute(storage, ksdata, instClass)
         ksdata.lang.execute(storage, ksdata, instClass)
+        ksdata.firewall.execute(storage, ksdata, instClass)
 
     with progress_report(_("Writing network configuration")):
         writeNetworkConf(storage, ksdata, instClass)
@@ -112,7 +113,7 @@ def doInstall(storage, payload, ksdata, instClass):
     # anaconda requires storage packages in order to make sure the target
     # system is bootable and configurable, and some other packages in order
     # to finish setting up the system.
-    packages = storage.packages + ["authconfig", "system-config-firewall-base"]
+    packages = storage.packages + ["authconfig", "firewalld"]
     payload.preInstall(packages=packages, groups=payload.languageGroups(ksdata.lang.lang))
     payload.install()
 

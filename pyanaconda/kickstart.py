@@ -451,6 +451,37 @@ class Fcoe(commands.fcoe.F13_Fcoe):
 
         return fc
 
+class Firewall(commands.firewall.F14_Firewall):
+    def execute(self, storage, ksdata, instClass):
+        args = []
+        # enabled is None if neither --enable or --disable is passed
+        # default to enabled if nothing has been set.
+        if self.enabled == False:
+            args += ["--disabled"]
+        else:
+            args += ["--enabled"]
+
+        if not "ssh" in self.services and not "22:tcp" in self.ports:
+            args += ["--service=ssh"]
+
+        for dev in self.trusts:
+            args += [ "--trust=%s" % (dev,) ]
+
+        for port in self.ports:
+            args += [ "--port=%s" % (port,) ]
+
+        for service in self.services:
+            args += [ "--service=%s" % (service,) ]
+
+        cmd = "/usr/bin/firewall-offline-cmd"
+        if not os.path.exists(ROOT_PATH+cmd):
+            msg = _("%s is missing. Cannot setup firewall.") % (cmd,)
+            raise KickstartError(msg)
+        else:
+            iutil.execWithRedirect(cmd, args,
+                                   stdout="/dev/tty5", stderr="/dev/tty5",
+                                   root=ROOT_PATH)
+
 class Firstboot(commands.firstboot.FC3_Firstboot):
     def execute(self, *args):
         if not os.path.exists(ROOT_PATH + "/lib/systemd/system/firstboot-graphical.service"):
@@ -1396,6 +1427,7 @@ commandMap = {
         "clearpart": ClearPart,
         "dmraid": DmRaid,
         "fcoe": Fcoe,
+        "firewall": Firewall,
         "firstboot": Firstboot,
         "group": Group,
         "ignoredisk": IgnoreDisk,
