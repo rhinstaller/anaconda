@@ -168,6 +168,7 @@ Requires: kbd
 Requires: chrony
 Requires: rdate
 Requires: rsync
+Requires: hostname
 %ifarch %{sparc}
 Requires: elftoaout piggyback
 %endif
