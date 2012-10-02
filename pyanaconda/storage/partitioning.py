@@ -299,17 +299,11 @@ def doAutoPartition(storage, data):
     _schedulePartitions(storage, disks)
 
     # run the autopart function to allocate and grow partitions
-    try:
-        doPartitioning(storage)
+    doPartitioning(storage)
+    _scheduleVolumes(storage, devs)
 
-        _scheduleVolumes(storage, devs)
-
-        # grow LVs
-        growLVM(storage)
-    except PartitioningError as e:
-        log.error(str(e))
-        if errorHandler.cb(e) == ERROR_RAISE:
-            raise
+    # grow LVs
+    growLVM(storage)
 
     storage.setUpBootLoader()
 
@@ -320,9 +314,7 @@ def doAutoPartition(storage, data):
     for warning in warnings:
         log.warning(warning)
     if errors:
-        exn = PartitioningError("\n".join(errors))
-        if errorHandler.cb(exn) == ERROR_RAISE:
-            raise exn
+        raise PartitioningError("\n".join(errors))
 
 def partitionCompare(part1, part2):
     """ More specifically defined partitions come first.

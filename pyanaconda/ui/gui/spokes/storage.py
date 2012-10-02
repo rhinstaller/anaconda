@@ -334,6 +334,7 @@ class StorageSpoke(NormalSpoke, StorageChecker):
             doKickstartStorage(self.storage, self.data, self.instclass)
         except StorageError as e:
             log.error("storage configuration failed: %s" % e)
+            self.errors = str(e).split("\n")
             communication.send_not_ready(self.__class__.__name__)
             communication.send_message(self.__class__.__name__,
                                    _("Failed to save storage configuration..."))
