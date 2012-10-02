@@ -105,8 +105,8 @@ class SoftwareSelectionSpoke(NormalSpoke):
                          not self._errorMsgs and \
                          self._tx_id == self.payload.txID
 
-        if flags.automatedInstall:
-            return packagesSeen and processingDone
+        if flags.automatedInstall and packagesSeen:
+            return processingDone
         else:
             return self._get_selected_environment() is not None and processingDone
 
