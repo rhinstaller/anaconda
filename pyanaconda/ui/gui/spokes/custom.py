@@ -1702,3 +1702,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         with enlightbox(self.window, dlg):
             dlg.run()
             dlg.destroy()
+
+    def on_apply_clicked(self, button):
+        """ call _save_right_side, then, perhaps, populate_right_side. """
+        self._save_right_side(self._current_selector)
