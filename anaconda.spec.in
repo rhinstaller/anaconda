@@ -298,6 +298,29 @@ update-desktop-database &> /dev/null || :
 /usr/lib/dracut/modules.d/80%{name}/*
 
 %changelog
+* Tue Oct 02 2012 Chris Lumens <clumens@redhat.com> - 18.11-1
+- Use gdk_threaded() when running AddLayout dialog (vpodzime)
+- Work the anaconda object into the VNC test (jkeating)
+- Use askvnc spoke to change vnc password (jkeating)
+- Fix logic error in vnc password length check (jkeating)
+- Allow vncpassword spoke text to be configurable (jkeating)
+- Don't ask for VNC if we can't do it (jkeating)
+- Skip VNC prompt if text is requested in kickstart (jkeating)
+- KEYTABLE is now vconsole.keymap (#859298) (bcl)
+- The partitionErrorHandler text needs a 's' in the format string (#861376).
+  (clumens)
+- Fix a problem with storage error handling (#861376). (clumens)
+- Fix bootloader setup on s390. (#857940) (dlehman)
+- Make Keboard and Welcome spokes runtime-system friendly (vpodzime)
+- Make DateTime spoke runtime-system friendly (vpodzime)
+- Add a guard for testing if we can modify runtime system (vpodzime)
+- Bring back prompt for VNC (jkeating)
+- Add standalone spoke to prompt for VNC (jkeating)
+- Fail on incomplete ksdata when in cmdline mode (jkeating)
+- Add a flag attribute to handle cmdline mode (jkeating)
+- fix libuser setup (#855481) (bcl)
+- Remove obsolete requirement on comps-extras. (notting)
+
 * Wed Sep 26 2012 Chris Lumens <clumens@redhat.com> - 18.10-1
 - isys.mount needs to be told when something should be mounted NFS (#860273).
   (clumens)
