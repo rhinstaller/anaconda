@@ -3245,6 +3245,7 @@ class LVMFactory(DeviceFactory):
 
     @property
     def device_size(self):
+        size_func_kwargs = {}
         if self.raid_level in ("raid1", "raid10"):
             size_func_kwargs["mirrored"] = True
         if self.raid_level in ("raid0", "raid10"):
