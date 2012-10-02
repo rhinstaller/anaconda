@@ -2944,6 +2944,8 @@ class FSSet(object):
                 if device.dependsOn(netdev):
                     options = options + ",_netdev"
                     break
+            if device.encrypted:
+                options += ",x-systemd.device-timeout=0"
             devspec = device.fstabSpec
             dump = device.format.dump
             if device.format.check and mountpoint == "/":
