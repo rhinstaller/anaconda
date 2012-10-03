@@ -69,6 +69,10 @@ class Accordion(Gtk.Box):
     def allPages(self):
         return [e.get_child() for e in self._expanders]
 
+    @property
+    def allSelectors(self):
+        return [s for p in self.allPages for s in getattr(p, "_members", [])]
+
     def currentPage(self):
         for e in self._expanders:
             if e.get_expanded():
