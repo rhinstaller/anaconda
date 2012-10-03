@@ -136,7 +136,7 @@ class PasswordSpoke(NormalSpoke):
                     pass
                 else:
                     self._error = _("You have provided a weak password: %s. "
-                                    " Press Back again to use anyway.") % msg
+                                    " Press Done again to use anyway.") % msg
                     self._oldweak = pw
                     return False
 
