@@ -100,6 +100,26 @@ class LocaleInfo(object):
     def __eq__(self, other):
         return repr(self) == repr(other)
 
+def mangleLocale(inLocale):
+    mangleMap = {"af":  "af_ZA",  "am":  "am_ET",  "ar":  "ar_SA",  "as":  "as_IN",
+                 "ast": "ast_ES", "bg":  "bg_BG",  "bn":  "bn_BD",  "ca":  "ca_ES",
+                 "cs":  "cs_CZ",  "cy":  "cy_GB",  "da":  "da_DK",  "de":  "de_DE",
+                 "el":  "el_GR",  "en":  "en_US",  "es":  "es_ES",  "et":  "et_EE",
+                 "fa":  "fa_IR",  "fi":  "fi_FI",  "fr":  "fr_FR",  "gl":  "gl_ES",
+                 "gu":  "gu_IN",  "he":  "he_IL",  "hi":  "hi_IN",  "hr":  "hr_HR",
+                 "hu":  "hu_HU",  "id":  "id_ID",  "ilo": "ilo_PH", "is":  "is_IS",
+                 "it":  "it_IT",  "ja":  "ja_JP",  "kk":  "kk_KK",  "kn":  "kn_IN",
+                 "ko":  "ko_KR",  "lt":  "lt_LT",  "lv":  "lv_LV",  "mai": "mai_IN",
+                 "mk":  "mk_MK",  "ml":  "ml_IN",  "mr":  "mr_IN",  "ms":  "ms_MY",
+                 "nb":  "nb_NO",  "nds": "nds_DE", "ne":  "ne_NP",  "nl":  "nl_NL",
+                 "nn":  "nn_NO",  "nso": "nso_ZA", "or":  "or_IN",  "pa":  "pa_IN",
+                 "pl":  "pl_PL",  "pt":  "pt_PT",  "ro":  "ro_RO",  "ru":  "ru_RU",
+                 "si":  "si_LK",  "sk":  "sk_SK",  "sl":  "sl_SI",  "sq":  "sq_AL",
+                 "sr":  "sr_RS",  "sv":  "sv_SE",  "ta":  "ta_IN",  "te":  "te_IN",
+                 "tg":  "tg_TG",  "th":  "th_TH",  "tr":  "tr_TR",  "uk":  "uk_UA",
+                 "ur":  "ur_PK",  "vi":  "vi_VN",  "zu":  "zu_ZA"}
+
+    return mangleMap.get(inLocale, inLocale)
 
 # XXX this should probably be somewhere else
 def partition(seq, func=bool, func_range=(True, False)):
@@ -144,7 +164,7 @@ def get_available_translations(domain=None, localedir=None):
 
     for langcode in languages:
         try:
-            localedata = babel.Locale.parse(langcode)
+            localedata = babel.Locale.parse(mangleLocale(langcode))
         except babel.core.UnknownLocaleError:
             continue
 
@@ -268,8 +288,8 @@ class Language(object):
     def __init__(self, preferences={}, territory=None):
         self.translations = {repr(locale):locale for locale in get_available_translations()}
         self.locales = {repr(locale):locale for locale in get_all_locales()}
-        self.preferred_translation = self.translations['en.UTF-8']
-        self.preferred_locales = [self.locales['en.UTF-8']]
+        self.preferred_translation = self.translations['en_US.UTF-8']
+        self.preferred_locales = [self.locales['en_US.UTF-8']]
         self.preferred_locale = self.preferred_locales[0]
 
         self.all_preferences = preferences
