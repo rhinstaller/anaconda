@@ -78,7 +78,7 @@ packagesSeen = False
 topology = None
 
 class AnacondaKSScript(KSScript):
-    def run(self, chroot, serial):
+    def run(self, chroot):
         if self.inChroot:
             scriptRoot = chroot
         else:
@@ -103,7 +103,9 @@ class AnacondaKSScript(KSScript):
             if not os.path.exists(d):
                 os.makedirs(d)
         else:
-            messages = "%s.log" % path
+            # Always log outside the chroot, we copy those logs into the
+            # chroot later.
+            messages = "/tmp/%s.log" % os.path.basename(path)
 
         rc = iutil.execWithRedirect(self.interp, ["/tmp/%s" % os.path.basename(path)],
                                     stdin = messages, stdout = messages, stderr = messages,
@@ -128,9 +130,6 @@ class AnacondaKSScript(KSScript):
             if self.errorOnFail:
                 errorHandler.cb(ScriptError(), self.lineno, err)
                 sys.exit(0)
-
-        if serial or self.logfile is not None:
-            os.chmod("%s" % messages, 0600)
 
 class AnacondaInternalScript(AnacondaKSScript):
     def __init__(self, *args, **kwargs):
@@ -1527,7 +1526,7 @@ def runPostScripts(scripts):
             del(os.environ[var])
 
     log.info("Running kickstart %%post script(s)")
-    map (lambda s: s.run(ROOT_PATH, flags.serial), postScripts)
+    map (lambda s: s.run(ROOT_PATH), postScripts)
     log.info("All kickstart %%post script(s) have been run")
 
 def runPreScripts(scripts):
@@ -1539,14 +1538,14 @@ def runPreScripts(scripts):
     log.info("Running kickstart %%pre script(s)")
     stdoutLog.info(_("Running pre-installation scripts"))
 
-    map (lambda s: s.run("/", flags.serial), preScripts)
+    map (lambda s: s.run("/"), preScripts)
 
     log.info("All kickstart %%pre script(s) have been run")
 
 def runTracebackScripts(scripts):
     log.info("Running kickstart %%traceback script(s)")
     for script in filter (lambda s: s.type == KS_SCRIPT_TRACEBACK, scripts):
-        script.run("/", flags.serial)
+        script.run("/")
     log.info("All kickstart %%traceback script(s) have been run")
 
 def doKickstartStorage(storage, ksdata, instClass):
