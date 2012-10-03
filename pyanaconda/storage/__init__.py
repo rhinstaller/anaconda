@@ -1866,7 +1866,7 @@ class Storage(object):
         # set up new members as needed to accommodate the device
         new_members = []
         for disk in add_disks:
-            if factory.encrypted:
+            if factory.encrypted and factory.encrypt_members:
                 luks_format = factory.member_format
                 member_format = "luks"
             else:
@@ -1880,7 +1880,7 @@ class Storage(object):
                 continue
 
             self.createDevice(member)
-            if factory.encrypted:
+            if factory.encrypted and factory.encrypt_members:
                 fmt = getFormat(luks_format)
                 member = LUKSDevice("luks-%s" % member.name,
                                     parents=[member], format=fmt)
@@ -2109,6 +2109,14 @@ class Storage(object):
                 raise(e)
         elif factory.new_device_attr:
             log.debug("creating new device")
+            if factory.encrypted and factory.encrypt_leaves:
+                luks_fmt_type = fstype
+                luks_fmt_args = fmt_args
+                luks_mountpoint = mountpoint
+                fstype = "luks"
+                mountpoint = None
+                fmt_args = {}
+
             try:
                 device = factory.new_device(parents=parents,
                                             size=size,
@@ -2158,6 +2166,14 @@ class Storage(object):
 
                 self.__cleanUpMemberDevices(members)
                 raise
+
+            if factory.encrypted and factory.encrypt_leaves:
+                fmt = getFormat(luks_fmt_type,
+                                mountpoint=luks_mountpoint,
+                                **luks_fmt_args)
+                luks_device = LUKSDevice("luks-" + device.name,
+                                         parents=[device], format=fmt)
+                self.createDevice(luks_device)
 
     def copy(self):
         new = copy.deepcopy(self)
@@ -3131,6 +3147,8 @@ class DeviceFactory(object):
     new_container_attr = None   # name of Storage method to create a container
     new_device_attr = None      # name of Storage method to create a device
     container_list_attr = None  # name of Storage attribute to list containers
+    encrypt_members = False
+    encrypt_leaves = True
 
     def __init__(self, storage, size, disks, raid_level, encrypted):
         self.storage = storage          # the Storage instance
@@ -3224,6 +3242,8 @@ class BTRFSFactory(DeviceFactory):
     new_container_attr = "newBTRFS"
     new_device_attr = "newBTRFSSubVolume"
     container_list_attr = "btrfsVolumes"
+    encrypt_members = True
+    encrypt_leaves = False
 
     def __init__(self, storage, size, disks, raid_level, encrypted):
         super(BTRFSFactory, self).__init__(storage, size, disks, raid_level,
