@@ -22,6 +22,7 @@
 from pyanaconda.ui.tui.spokes import NormalTUISpoke
 from pyanaconda.ui.tui.simpleline import TextWidget, ColumnWidget
 from pyanaconda.constants import USEVNC, USETEXT
+import getpass
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
@@ -119,8 +120,8 @@ class VNCPassSpoke(NormalTUISpoke):
 
     def prompt(self, args = None):
         """Override prompt as password typing is special."""
-        p1 = raw_input(_("Password: "))
-        p2 = raw_input(_("Password (confirm): "))
+        p1 = getpass.getpass(_("Password: "))
+        p2 = getpass.getpass(_("Password (confirm): "))
 
         if p1 != p2:
             print _("Passwords do not match!")
