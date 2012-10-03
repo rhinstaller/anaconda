@@ -32,12 +32,17 @@ for listing and various modifications of keyboard layouts settings.
 
 import os
 import re
+import dbus
 from pyanaconda import iutil
 
 from gi.repository import Xkl
 
 import logging
 log = logging.getLogger("anaconda")
+
+LOCALED_SERVICE = "org.freedesktop.locale1"
+LOCALED_OBJECT_PATH = "/org/freedesktop/locale1"
+LOCALED_IFACE = "org.freedesktop.locale1"
 
 class KeyboardConfigError(Exception):
     """Exception class for keyboard configuration related problems"""
@@ -63,6 +68,23 @@ def _parse_layout_variant(layout):
         layout = layout[:lbracket_idx].strip()
 
     return (layout, variant)
+
+def _join_layout_variant(layout, variant=""):
+    """
+    Join layout and variant to form the commonly used 'layout (variant)'
+    or 'layout' (if variant is missing) format.
+
+    @type layout: string
+    @type variant: string
+    @return: 'layout (variant)' or 'layout' string
+    @rtype: string
+
+    """
+
+    if variant:
+        return "%s (%s)" % (layout, variant)
+    else:
+        return layout
 
 def get_layouts_xorg_conf(keyboard):
     """
@@ -232,6 +254,7 @@ class XklWrapper(object):
         return XklWrapper._instance
 
     def __init__(self):
+        # pylint: disable-msg=E0611
         from gi.repository import GdkX11
 
         #initialize Xkl-related stuff
@@ -417,3 +440,92 @@ class XklWrapper(object):
         if not self._rec.activate(self._engine):
             msg = "Failed to replace layouts with: %s" % ",".join(layouts_list)
             raise XklWrapperError(msg)
+
+class LocaledWrapperError(KeyboardConfigError):
+    """Exception class for reporting Localed-related problems"""
+    pass
+
+class LocaledWrapper(object):
+    """
+    Class wrapping systemd-localed daemon functionality.
+
+    """
+
+    def __init__(self):
+        bus = dbus.SystemBus()
+
+        try:
+            localed = bus.get_object(LOCALED_SERVICE, LOCALED_OBJECT_PATH)
+        except dbus.DBusException:
+            raise LocaledWrapperError("Failed to get locale object")
+
+        try:
+            self._locale_iface = dbus.Interface(localed, LOCALED_IFACE)
+        except dbus.DBusException:
+            raise LocaledWrapperError("Failed to get locale interface")
+
+        try:
+            self._props_iface = dbus.Interface(localed, dbus.PROPERTIES_IFACE)
+        except dbus.DBusException:
+            raise LocaledWrapperError("Failed to get properties interface")
+
+    def set_and_convert_keymap(self, keymap):
+        """
+        Method that sets VConsole keymap and returns X11 layout and
+        variant that (systemd-localed thinks) match given keymap best.
+
+        @return: string containing "layout (variant)" or "layout" if variant
+                 is missing
+        @rtype: string
+
+        """
+
+        # args: keymap, keymap_toggle, convert, user_interaction
+        # where convert indicates whether the keymap should be converted
+        # to X11 layout and user_interaction indicates whether PolicyKit
+        # should ask for credentials or not
+        try:
+            self._locale_iface.SetVConsoleKeyboard(keymap, "", True, False)
+        except dbus.DBusException:
+            msg = "Failed to call SetVConsoleKeyboard method"
+            raise LocaledWrapperError(msg)
+
+        try:
+            layout = self._props_iface.Get(LOCALED_IFACE, "X11Layout")
+        except dbus.DBusException:
+            raise LocaledWrapperError("locale has no X11Layout property")
+
+        try:
+            variant = self._props_iface.Get(LOCALED_IFACE, "X11Variant")
+        except dbus.DBusException:
+            raise LocaledWrapperError("locale has no X11Variant property")
+
+        return _join_layout_variant(layout, variant)
+
+    def set_and_convert_layout(self, layout_variant):
+        """
+        Method that sets X11 layout and variant (for later X sessions)
+        and returns VConsole keymap that (systemd-localed thinks) matches
+        given layout and variant best.
+
+        @return: a keymap matching layout and variant best
+        @rtype: string
+
+        """
+
+        (layout, variant) = _parse_layout_variant(layout_variant)
+
+        # args: layout, model, variant, options, convert, user_interaction
+        # where convert indicates whether the keymap should be converted
+        # to X11 layout and user_interaction indicates whether PolicyKit
+        # should ask for credentials or not
+        try:
+            self._locale_iface.SetX11Keyboard(layout, "", variant, "", True, False)
+        except dbus.DBusException:
+            msg = "Failed to call SetX11Keyboard method"
+            raise LocaledWrapperError(msg)
+
+        try:
+            return self._props_iface.Get(LOCALED_IFACE, "VConsoleKeymap")
+        except dbus.DBusException:
+            raise LocaledWrapperError("locale has no VConsoleKeymap property")
