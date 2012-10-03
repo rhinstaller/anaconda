@@ -1150,7 +1150,9 @@ class DeviceTree(object):
         # look up or create the mapped device
         if not self.getDeviceByName(device.format.mapName):
             passphrase = self.__luksDevs.get(device.format.uuid)
-            if passphrase:
+            if device.format.configured:
+                pass
+            elif passphrase:
                 device.format.passphrase = passphrase
             elif device.format.uuid in self.__luksDevs:
                 log.info("skipping previously-skipped luks device %s"
@@ -1162,11 +1164,15 @@ class DeviceTree(object):
                     # this makes device.configured return True
                     device.format.passphrase = 'yabbadabbadoo'
             else:
-                passphrase = getLUKSPassphrase(None,
-                                                device,
-                                                self.__passphrases)
-                if passphrase and passphrase not in self.__passphrases:
-                    self.__passphrases.append(passphrase)
+                # Try each known passphrase.
+                for passphrase in self.__luksDevs.values():
+                    device.format.passphrase = passphrase
+                    try:
+                        device.format.setup()
+                    except CryptoError:
+                        device.format.passphrase = None
+                    else:
+                        break
 
             luks_device = LUKSDevice(device.format.mapName,
                                      parents=[device],
