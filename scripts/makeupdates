@@ -137,11 +137,13 @@ def copyUpdatedFiles(tag, updates, cwd):
         if file.endswith('.glade'):
             # Some UI files should go under ui/<dir> where dir is the
             # directory above the file.glade
-            uidir = os.path.dirname(file).split(os.path.sep)[-1]
-            if uidir in ["hubs", "spokes"]:
-                install_to_dir(file, os.path.join(tmpupdates, "ui", uidir))
-            else:
-                install_to_dir(file, os.path.join(tmpupdates, "ui"))
+            dir_parts = os.path.dirname(file).split(os.path.sep)
+            g_idx = dir_parts.index("gui")
+            uidir = os.path.sep.join(dir_parts[g_idx+1:])
+            path_comps = [tmpupdates, "ui"]
+            if uidir:
+                path_comps.append(uidir)
+            install_to_dir(file, os.path.join(*path_comps))
         elif file.startswith('pyanaconda/'):
             # pyanaconda stuff goes into /tmp/updates/[path]
             dirname = os.path.join(tmpupdates, os.path.dirname(file))
