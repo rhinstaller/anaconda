@@ -114,6 +114,26 @@ class UIObject(object):
     def data(self):
         return self._data
 
+class FirstbootSpokeMixIn(object):
+    """This MixIn class marks Spokes as usable for Firstboot."""
+
+    @classmethod
+    def configure_tag(cls):
+        """This method defines textual id (or list of those) that will
+           be written into the after-install customization status
+           file for the firstboot and GIE to know that the spoke was
+           configured in anaconda."""
+        return None
+
+    @classmethod
+    def firstboot(cls):
+        """This method is responsible for beginning Spoke initialization
+           in the firstboot environment (even before __init__).
+
+           It should return True if the spoke is to be shown on the
+           FirstbootHub and False if it should be skipped."""
+        return True
+    
 class Spoke(UIObject):
     """A Spoke is a single configuration screen.  There are several different
        places where a Spoke can be displayed, each of which will have its own
