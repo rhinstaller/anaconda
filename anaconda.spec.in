@@ -222,6 +222,19 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Wed Oct 03 2012 Brian C. Lane <bcl@redhat.com> - 13.21.180-1
+- use udev_resolve_devspec to resolve raid onpart members (bcl)
+  Resolves: rhbz#809641
+- fix duplicate raid error message on unsupported arch (kamalesh)
+  Resolves: rhbz#811197
+- handle zero size package metadata (bcl)
+  Resolves: rhbz#823690
+- Fix handling of non-valid nameserver ips (rvykydal)
+  Resolves: rhbz#795535
+  Related: rhbz#795535
+- Support multiple nameservers in loader TUI (rvykydal)
+  Resolves: rhbz#795535
+
 * Thu Sep 20 2012 Brian C. Lane <bcl@redhat.com> - 13.21.179-1
 - Take into account all configured ifaces when setting GATEWAY (rvykydal)
   Resolves: rhbz#846393
