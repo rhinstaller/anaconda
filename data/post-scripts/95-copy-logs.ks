@@ -1,3 +1,4 @@
+# Note, this script log will not be copied to the installed system.
 %post --nochroot
 
 mkdir -p /mnt/sysimage/var/log/anaconda
@@ -9,6 +10,7 @@ mkdir -p /mnt/sysimage/var/log/anaconda
 [ -e /tmp/storage.log ] && cp /tmp/storage.log $ANA_INSTALL_PATH/var/log/anaconda/anaconda.storage.log
 [ -e /tmp/ifcfg.log ] && cp /tmp/ifcfg.log $ANA_INSTALL_PATH/var/log/anaconda/anaconda.ifcfg.log
 [ -e /tmp/yum.log ] && cp /tmp/yum.log $ANA_INSTALL_PATH/var/log/anaconda/anaconda.yum.log
+cp /tmp/ks-script*.log $ANA_INSTALL_PATH/var/log/anaconda/
 chmod 0600 /mnt/sysimage/var/log/anaconda/*
 
 %end
