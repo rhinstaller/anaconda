@@ -2021,6 +2021,10 @@ class Storage(object):
             fmt_args["label"] = label
 
         factory = self.getDeviceFactory(device_type, size, **kwargs)
+
+        if not factory.disks:
+            raise StorageError("no disks specified for new device")
+
         self.size_sets = [] # clear this since there are no growable reqs now
         container = self.getContainer(factory, device=device)
 
