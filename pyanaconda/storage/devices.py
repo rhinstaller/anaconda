@@ -3937,14 +3937,13 @@ class BTRFSVolumeDevice(BTRFSDevice):
                                     device=self.path)
             self.originalFormat = copy.copy(self.format)
 
-        label = getattr(self.format, "label", None)
-        if label:
-            self._name = label
-
     def _setFormat(self, format):
         """ Set the Device's format. """
         super(BTRFSVolumeDevice, self)._setFormat(format)
-        self._name = getattr(self.format, "label", "btrfs.%d" % self.id)
+        self._name = "btrfs.%d" % self.id
+        label = getattr(self.format, "label", None)
+        if label:
+            self._name = label
 
     def _addDevice(self, device):
         """ Add a new device to this volume.
