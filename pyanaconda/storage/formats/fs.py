@@ -51,6 +51,10 @@ try:
 except OSError:
     lost_and_found_context = None
 
+# these are for converting to/from SI for ntfsresize
+mb = 1000 * 1000.0
+mib = 1024 * 1024.0
+
 fs_configs = {}
 
 def get_kernel_filesystems():
@@ -1383,8 +1387,8 @@ class NTFS(FS):
                     if not l.startswith("Minsize"):
                         continue
                     try:
-                        _min = l.split(":")[1].strip()
-                        minSize = min(self.currentSize, int(_min) + 250)
+                        minSize = int(l.split(":")[1].strip())  # MB
+                        minSize *= (mb / mib)                   # MiB
                     except (IndexError, ValueError) as e:
                         minSize = None
                         log.warning("Unable to parse output for minimum size on %s: %s" %(self.device, e))
@@ -1403,7 +1407,8 @@ class NTFS(FS):
     def resizeArgs(self):
         # You must supply at least two '-f' options to ntfsresize or
         # the proceed question will be presented to you.
-        argv = ["-ff", "-s", "%dM" % (self.targetSize,), self.device]
+        targetSize = (mib / mb) * self.targetSize # convert MiB to MB
+        argv = ["-ff", "-s", "%dM" % (targetSize,), self.device]
         return argv
 
 
