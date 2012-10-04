@@ -715,6 +715,7 @@ class SourceSpoke(NormalSpoke):
             self._protocolComboBox.set_active(4)
 
             self._urlEntry.set_text("%s:%s" % (self.data.method.server, self.data.method.dir))
+            self._urlEntry.set_sensitive(True)
             self.builder.get_object("nfsOptsEntry").set_text(self.data.method.opts or "")
         elif self.data.method.method == "harddrive":
             self._isoButton.set_active(True)
@@ -839,8 +840,8 @@ class SourceSpoke(NormalSpoke):
         nfsOptsBox = self.builder.get_object("nfsOptsBox")
 
         # Only allow the URL entry to be used if we're using an HTTP/FTP
-        # method that's not the mirror list.
-        self._urlEntry.set_sensitive(self._http_active() or self._ftp_active())
+        # method that's not the mirror list, or an NFS method.
+        self._urlEntry.set_sensitive(self._http_active() or self._ftp_active() or self._nfs_active())
 
         # Only allow the proxy button to be clicked if a proxy makes sense for
         # the currently selected protocol.
