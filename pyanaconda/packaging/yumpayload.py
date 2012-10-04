@@ -327,6 +327,12 @@ reposdir=%s
             for repo in self._yum.repos.repos.values():
                 repo._sack = None
 
+    def deleteYumTS(self):
+        with _yum_lock:
+            log.debug("deleting yum transaction info")
+            del self._yum.tsInfo
+            del self._yum.ts
+
     def preStorage(self):
         self.release()
         with _yum_lock:
@@ -1070,9 +1076,7 @@ reposdir=%s
         self.txID = time.time()
 
         self.release()
-
-        with _yum_lock:
-            self._yum._undoDepInstalls()
+        self.deleteYumTS()
 
         self._applyYumSelections()
 
