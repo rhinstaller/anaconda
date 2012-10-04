@@ -4030,7 +4030,7 @@ class BTRFSVolumeDevice(BTRFSDevice):
             return subvols
 
         try:
-            subvols = btrfs.list_subvolumes(self.format._mountpoint)
+            subvols = btrfs.list_subvolumes(self.originalFormat._mountpoint)
         except BTRFSError as e:
             log.debug("failed to list subvolumes: %s" % e)
         finally:
