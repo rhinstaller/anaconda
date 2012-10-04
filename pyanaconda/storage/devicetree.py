@@ -2196,18 +2196,22 @@ class DeviceTree(object):
                     break
         else:
             if not devspec.startswith("/dev/"):
-                devspec = "/dev/" + devspec
+                device = self.getDeviceByName(devspec)
+                if not device:
+                    devspec = "/dev/" + devspec
 
-            if devspec.startswith("/dev/disk/"):
-                devspec = os.path.realpath(devspec)
+            if not device:
+                if devspec.startswith("/dev/disk/"):
+                    devspec = os.path.realpath(devspec)
 
                 if devspec.startswith("/dev/dm-"):
                     dm_name = devicelibs.dm.name_from_dm_node(devspec[5:])
                     if dm_name:
                         devspec = "/dev/mapper/" + dm_name
 
-            # device path
-            device = self.getDeviceByPath(devspec)
+                # device path
+                device = self.getDeviceByPath(devspec)
+
             if device is None:
                 if blkidTab:
                     # try to use the blkid.tab to correlate the device
