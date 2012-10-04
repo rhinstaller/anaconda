@@ -59,7 +59,7 @@ class ResizeDialog(GUIObject):
     mainWidgetName = "resizeDialog"
     uiFile = "spokes/lib/resize.glade"
 
-    def __init__(self, data, storage):
+    def __init__(self, data, storage, payload):
         GUIObject.__init__(self, data)
         self.storage = storage
 
@@ -70,6 +70,10 @@ class ResizeDialog(GUIObject):
         self._diskStore = self.builder.get_object("diskStore")
         self._reclaimable_label = self.builder.get_object("reclaimableSpaceLabel")
         self._selected_label = self.builder.get_object("selectedSpaceLabel")
+
+        self._required_label = self.builder.get_object("requiredSpaceLabel")
+        markup = self._required_label.get_label()
+        self._required_label.set_markup(markup % size_str(payload.spaceRequired))
 
     def _description(self, part):
         # First, try to find the partition in some known Root.  If we find

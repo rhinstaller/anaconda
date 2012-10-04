@@ -594,7 +594,7 @@ class StorageSpoke(NormalSpoke, StorageChecker):
             if dialog.custom:
                 self.skipTo = "CustomPartitioningSpoke"
             else:
-                resizeDialog = ResizeDialog(self.data, self.storage)
+                resizeDialog = ResizeDialog(self.data, self.storage, self.payload)
                 resizeDialog.refresh(disks)
 
                 # resizeDialog handles okay/cancel on its own, so we can throw
