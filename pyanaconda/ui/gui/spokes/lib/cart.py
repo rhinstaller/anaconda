@@ -31,6 +31,13 @@ P_ = lambda x, y, z: gettext.ldngettext("anaconda", x, y, z)
 
 __all__ = ["SelectedDisksDialog"]
 
+IS_BOOT_COL = 0
+DESCRIPTION_COL = 1
+SIZE_COL = 2
+FREE_SPACE_COL = 3
+SERIAL_COL = 4
+ID_COL = 5
+
 def size_str(mb):
     if isinstance(mb, Size):
         spec = str(mb)
@@ -46,7 +53,8 @@ class SelectedDisksDialog(GUIObject):
 
     def initialize(self, disks, free, showRemove=True):
         for disk in disks:
-            self._store.append([disk.description,
+            self._store.append([False,
+                                disk.description,
                                 size_str(disk.size),
                                 size_str(free[disk.name][0]),
                                 disk.serial,
@@ -57,7 +65,23 @@ class SelectedDisksDialog(GUIObject):
         if not showRemove:
             self.builder.get_object("remove_button").hide()
 
-    def refresh(self, disks, free, showRemove=True):
+        # Set up the default boot device.  Use what's in the ksdata if anything,
+        # then fall back to the first device.
+        default_id = None
+        if self.data.bootloader.bootDrive:
+            for d in self.disks:
+                if d.name == self.data.bootloader.bootDrive:
+                    default_id = d.id
+
+        if not default_id:
+            default_id = self.disks[0].id
+
+        for row in self._store:
+            if row[ID_COL] == default_id:
+                row[IS_BOOT_COL] = True
+                break
+
+    def refresh(self, free, showRemove=True):
         super(SelectedDisksDialog, self).refresh()
 
         self._view = self.builder.get_object("disk_view")
@@ -88,8 +112,8 @@ class SelectedDisksDialog(GUIObject):
         free = 0
         for row in self._store:
             count += 1
-            size += Size(spec=row[1])
-            free += Size(spec=row[2])
+            size += Size(spec=row[SIZE_COL])
+            free += Size(spec=row[FREE_SPACE_COL])
 
         size = str(Size(bytes=long(size))).upper()
         free = str(Size(bytes=long(free))).upper()
@@ -103,31 +127,54 @@ class SelectedDisksDialog(GUIObject):
 
     # signal handlers
     def on_remove_clicked(self, button):
-        # remove the selected disk(s) from the list and update the summary label
-        #selected_refs = self._get_selection_refs()
-        #for ref in selected_refs:
-        #    path = ref.get_path()
-        #    itr = model.get_iter_from_string(path)
-        #    self._store.remove(itr)
         model, itr = self._selection.get_selected()
-        if itr:
-            disk = None
-            for d in self.disks:
-                if d.id == self._store[itr][4]:
-                    disk = d
-                    break
+        if not itr:
+            return
 
-            if not disk:
-                return
+        disk = None
+        for d in self.disks:
+            if disk.id == self._store[itr][ID_COL]:
+                disk = d
+                break
 
-            self._store.remove(itr)
-            self.disks.remove(disk)
-            self._update_summary()
+        if not disk:
+            return
+
+        # If this disk was marked as the boot device, just change to the first one
+        # instead.
+        resetBootDevice = self._store[itr][IS_BOOT_COL]
+
+        # remove the selected disk(s) from the list and update the summary label
+        self._store.remove(itr)
+        self.disks.remove(disk)
+
+        if resetBootDevice and len(self._store) > 0:
+            self._store[0][IS_BOOT_COL] = True
+
+        self._update_summary()
 
     def on_close_clicked(self, button):
-        print "CLOSE CLICKED"
+        # Save the boot device setting.
+        for row in self._store:
+            if row[IS_BOOT_COL]:
+                for disk in self.disks:
+                    if disk.id == row[ID_COL]:
+                        self.data.bootloader.bootDrive = dev.name
+                        return
 
     def on_selection_changed(self, *args):
         model, itr = self._selection.get_selected()
         if itr:
-            print "new selection: %s" % model.get_value(itr, 3)
+            print "new selection: %s" % model.get_value(itr, SERIAL_COL)
+
+    def on_set_as_boot_clicked(self, button):
+        model, itr = self._selection.get_selected()
+        if not itr:
+            return
+
+        # First make sure the previous device is unselected.
+        for row in self._store:
+            row[IS_BOOT_COL] = False
+
+        # Now set the currently selected device to be the boot target.
+        self._store[itr][IS_BOOT_COL] = True

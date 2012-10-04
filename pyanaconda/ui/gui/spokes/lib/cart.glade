@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
   <!-- interface-requires gtk+ 3.0 -->
-  <!-- interface-requires AnacondaWidgets 1.0 -->
   <object class="GtkListStore" id="disk_store">
     <columns>
+      <!-- column-name isBootDisk -->
+      <column type="gboolean"/>
       <!-- column-name Description -->
       <column type="gchararray"/>
       <!-- column-name capacity -->
@@ -104,6 +105,19 @@
                           <object class="GtkTreeSelection" id="disk_selection"/>
                         </child>
                         <child>
+                          <object class="GtkTreeViewColumn" id="boot_column">
+                            <property name="title" translatable="yes">Boot</property>
+                            <child>
+                              <object class="GtkCellRendererPixbuf" id="boot_renderer">
+                                <property name="stock_id">gtk-apply</property>
+                              </object>
+                              <attributes>
+                                <attribute name="visible">0</attribute>
+                              </attributes>
+                            </child>
+                          </object>
+                        </child>
+                        <child>
                           <object class="GtkTreeViewColumn" id="description_column">
                             <property name="spacing">6</property>
                             <property name="title" translatable="yes">Description</property>
@@ -111,7 +125,7 @@
                             <child>
                               <object class="GtkCellRendererText" id="description_renderer"/>
                               <attributes>
-                                <attribute name="text">0</attribute>
+                                <attribute name="text">1</attribute>
                               </attributes>
                             </child>
                           </object>
@@ -124,7 +138,7 @@
                             <child>
                               <object class="GtkCellRendererText" id="capacity_renderer"/>
                               <attributes>
-                                <attribute name="text">1</attribute>
+                                <attribute name="text">2</attribute>
                               </attributes>
                             </child>
                           </object>
@@ -136,7 +150,7 @@
                             <child>
                               <object class="GtkCellRendererText" id="free_renderer"/>
                               <attributes>
-                                <attribute name="text">2</attribute>
+                                <attribute name="text">3</attribute>
                               </attributes>
                             </child>
                           </object>
@@ -148,7 +162,7 @@
                             <child>
                               <object class="GtkCellRendererText" id="id_renderer"/>
                               <attributes>
-                                <attribute name="text">3</attribute>
+                                <attribute name="text">4</attribute>
                               </attributes>
                             </child>
                           </object>
@@ -165,16 +179,45 @@
               </packing>
             </child>
             <child>
-              <object class="GtkButton" id="remove_button">
-                <property name="label">_Remove</property>
-                <property name="use_action_appearance">False</property>
+              <object class="GtkBox" id="box1">
                 <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">True</property>
-                <property name="halign">start</property>
-                <property name="use_action_appearance">False</property>
-                <property name="use_underline">True</property>
-                <signal name="clicked" handler="on_remove_clicked" swapped="no"/>
+                <property name="can_focus">False</property>
+                <property name="spacing">12</property>
+                <child>
+                  <object class="GtkButton" id="set_as_boot_button">
+                    <property name="label" translatable="yes">_Set as Boot Device</property>
+                    <property name="use_action_appearance">False</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="receives_default">True</property>
+                    <property name="use_action_appearance">False</property>
+                    <property name="use_underline">True</property>
+                    <signal name="clicked" handler="on_set_as_boot_clicked" swapped="no"/>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">0</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkButton" id="remove_button">
+                    <property name="label">_Remove</property>
+                    <property name="use_action_appearance">False</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="receives_default">True</property>
+                    <property name="halign">start</property>
+                    <property name="use_action_appearance">False</property>
+                    <property name="use_underline">True</property>
+                    <signal name="clicked" handler="on_remove_clicked" swapped="no"/>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">1</property>
+                  </packing>
+                </child>
               </object>
               <packing>
                 <property name="expand">False</property>
