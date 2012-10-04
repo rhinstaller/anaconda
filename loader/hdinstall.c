@@ -54,6 +54,8 @@
 /* boot flags */
 extern uint64_t flags;
 
+extern uint8_t bios_disk_err;
+
 /* given a partition device and directory, tries to mount hd install image */
 static char * setupIsoImages(char * device, char * dirName, char * location) {
     int rc = 0;
@@ -448,7 +450,7 @@ int kickstartFromHD(char *kssrc) {
 
 
 int kickstartFromBD(char *kssrc) {
-    int rc;
+    int rc, iter = 0;
     char *p, *np = NULL, *r = NULL, *tmpstr, *ksdev, *kspath, *biosksdev;
 
     logMessage(INFO, "getting kickstart file from biosdrive");
@@ -478,6 +480,13 @@ int kickstartFromBD(char *kssrc) {
 
     *r = '\0';
     biosksdev = getBiosDisk((p + 1));
+    /*Probing the bios disks for 5 times or waiting for 30 seconds */
+    for (iter = 0; bios_disk_err && iter < 5; ++iter){
+        logMessage(INFO, "Probing the bios storage devices, Retry count is %d out of 5", (iter+1));
+        logMessage(INFO, "Sleeping for %d seconds", (1 << iter));
+        sleep(1 << iter);
+        biosksdev = getBiosDisk((p + 1));
+    }
     if(!biosksdev){
         startNewt();
         newtWinMessage(_("Error"), _("OK"),

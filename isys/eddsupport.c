@@ -47,6 +47,7 @@
 
 #define HASH_TABLE_SIZE 17
 
+uint8_t bios_disk_err = 0;
 
 struct diskMapEntry{
     uint32_t key;
@@ -323,7 +324,7 @@ char * getBiosDisk(char *biosStr) {
     struct diskMapEntry * disk;
     int ret;
 
-    if (diskHashInit == 0) {
+    if (diskHashInit == 0 || bios_disk_err == 1) {
         probeBiosDisks();
         diskHashInit = 1;
     }
@@ -333,7 +334,14 @@ char * getBiosDisk(char *biosStr) {
 
     ret = sscanf(biosStr,"%x",&biosNum);
     disk = lookupHashItem(mbrSigToName, biosNum);
-    if (disk) return disk->diskname;
+
+    if (disk) {
+        bios_disk_err = 0;
+        return disk->diskname;
+    }
+    else {
+        bios_disk_err = 1;
+    }
 
     return NULL;
 }
