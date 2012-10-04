@@ -580,20 +580,6 @@ def setupDisplay(anaconda, opts):
     # with X running we can initialize the UI interface
     anaconda.initInterface()
 
-    # setup layouts
-    if anaconda.displayMode == 'g' and anaconda.ksdata.keyboard.layouts_list:
-        from pyanaconda.keyboard import XklWrapper, XklWrapperError
-
-        layouts = anaconda.ksdata.keyboard.layouts_list
-        xklwrapper = XklWrapper.get_instance()
-
-        try:
-            xklwrapper.replace_layouts(layouts)
-
-        except XklWrapperError as xklerr:
-            msg = "Failed to activate layouts %s" % ",".join(layouts)
-            log.error(msg)
-
     anaconda.instClass.configure(anaconda)
 
 def prompt_for_ssh():
@@ -856,7 +842,7 @@ if __name__ == "__main__":
             ksdata.keyboard.keyboard = opts.keymap
 
     if ksdata.keyboard.keyboard:
-        keyboard.activate_console_keymap(ksdata.keyboard.keyboard)
+        keyboard.activate_keyboard(ksdata.keyboard)
 
     # Some post-install parts of anaconda are implemented as kickstart
     # scripts.  Add those to the ksdata now.

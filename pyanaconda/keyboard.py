@@ -31,7 +31,6 @@ for listing and various modifications of keyboard layouts settings.
 """
 
 import os
-import re
 import dbus
 from pyanaconda import iutil
 
@@ -98,7 +97,7 @@ def get_layouts_xorg_conf(keyboard):
     layouts = list()
     variants = list()
 
-    for layout_variant in keyboard.layouts_list:
+    for layout_variant in keyboard.x_layouts:
         (layout, variant) = _parse_layout_variant(layout_variant)
         layouts.append(layout)
         variants.append(variant)
@@ -131,83 +130,149 @@ def get_layouts_xorg_conf(keyboard):
 
     return ret
 
-def write_layouts_config(keyboard, root):
+def write_keyboard_config(keyboard, root, convert=True, weight=0):
     """
     Function that writes files with layouts configuration to
-    $root/etc/X11/xorg.conf.d/01-anaconda-layouts.conf and
-    $root/etc/sysconfig/keyboard.
+    $root/etc/X11/xorg.conf.d/01-anaconda-layouts.conf,
+    $root/etc/sysconfig/keyboard and $root/etc/vconsole.conf.
 
     @param keyboard: ksdata.keyboard object
     @param root: path to the root of the installed system
+    @param convert: whether to convert specified values to get the missing
+                    ones
+    @param weight: weight (prefix) of the xorg.conf file written out
 
     """
 
+    localed = LocaledWrapper()
+
+    if convert:
+        # populate vc_keymap and x_layouts if they are missing
+        if keyboard.x_layouts and not keyboard.vc_keymap:
+            keyboard.vc_keymap = \
+                        localed.set_and_convert_layout(keyboard.x_layouts[0])
+
+        if not keyboard.vc_keymap:
+            keyboard.vc_keymap = "us"
+
+        if not keyboard.x_layouts:
+            c_lay_var = localed.set_and_convert_keymap(keyboard.vc_keymap)
+            keyboard.x_layouts.append(c_lay_var)
+
     xconf_dir = os.path.normpath(root + "/etc/X11/xorg.conf.d")
-    xconf_file = "01-anaconda-keyboard.conf"
+    xconf_file = "%0.2d-anaconda-keyboard.conf" % weight
 
     sysconf_dir = os.path.normpath(root + "/etc/sysconfig")
     sysconf_file = "keyboard"
+
+    vcconf_dir = os.path.normpath(root + "/etc")
+    vcconf_file = "vconsole.conf"
+
+    errors = []
 
     try:
         if not os.path.isdir(xconf_dir):
             os.makedirs(xconf_dir)
 
     except OSError as oserr:
-        raise KeyboardConfigError("Cannot create directory xorg.conf.d")
+        errors.append("Cannot create directory xorg.conf.d")
 
-    try:
-        with open(os.path.join(xconf_dir, xconf_file), "w") as fobj:
-            fobj.write(get_layouts_xorg_conf(keyboard))
+    if keyboard.x_layouts:
+        try:
+            with open(os.path.join(xconf_dir, xconf_file), "w") as fobj:
+                fobj.write(get_layouts_xorg_conf(keyboard))
+        except IOError as ioerr:
+            errors.append("Cannot write X keyboard configuration file")
 
-        with open(os.path.join(sysconf_dir, sysconf_file), "w") as fobj:
-            fobj.write('vconsole.keymap="%s"\n' % keyboard.keyboard)
+    if keyboard.vc_keymap:
+        try:
+            with open(os.path.join(sysconf_dir, sysconf_file), "w") as fobj:
+                fobj.write('vconsole.keymap="%s"\n' % keyboard.vc_keymap)
 
-    except IOError as ioerr:
-        raise KeyboardConfigError("Cannot write keyboard configuration files")
+        except IOError as ioerr:
+            errors.append("Cannot write sysconfig keyboard configuration file")
 
-def activate_console_keymap(keymap):
+        try:
+            with open(os.path.join(vcconf_dir, vcconf_file), "w") as fobj:
+                fobj.write('KEYMAP="%s"\n' % keyboard.vc_keymap)
+        except IOError as ioerr:
+            errors.append("Cannot write vconsole configuration file")
+
+    if errors:
+        raise KeyboardConfigError("\n".join(errors))
+
+def _try_to_load_keymap(keymap):
     """
-    Try to setup a given keymap as a console keymap. If there is no such
-    keymap, try to setup a basic variant (e.g. 'cz' instead of 'cz (qwerty)').
+    Method that tries to load keymap and returns boolean indicating if it was
+    successfull or not. It can be used to test if given string is VConsole
+    keymap or not, but in case it is given valid keymap, IT REALLY LOADS IT!.
 
-    @param keymap: a keymap
     @type keymap: string
     @raise KeyboardConfigError: if loadkeys command is not available
-    @return: False if failed to activate both the given keymap and its basic
-             variant, True otherwise
+    @return: True if given string was a valid keymap and thus was loaded,
+             False otherwise
 
     """
 
+    # BUG: systemd-localed should be able to tell us if we are trying to
+    #      activate invalid keymap. Then we will be able to get rid of this
+    #      fuction
+
+    ret = 0
+
     try:
-        #TODO: replace with calling systemd-localed methods once it can load
-        #      X layouts
         ret = iutil.execWithRedirect("loadkeys", [keymap], stdout="/dev/tty5",
                                      stderr="/dev/tty5")
     except OSError as oserr:
         msg = "'loadkeys' command not available (%s)" % oserr.strerror
         raise KeyboardConfigError(msg)
 
-    if ret != 0:
-        log.error("Failed to activate keymap %s" % keymap)
-
-        #failed to activate the given keymap, extract and try
-        #the basic keymap -- e.g. 'cz-cp1250' -> 'cz'
-        parts = re.split(r'[- _(]', keymap, 1)
-        if len(parts) == 0:
-            log.error("Failed to extract basic keymap from: %s" % keymap)
-            return False
-
-        keymap = parts[0]
-
-        ret = iutil.execWithRedirect("loadkeys", [keymap], stdout="/dev/tty5",
-                                     stderr="/dev/tty5")
-
-        if ret != 0:
-            log.error("Failed to activate basic variant %s" % keymap)
-        else:
-            log.error("Activated basic variant %s, instead" % keymap)
-
     return ret == 0
+
+def activate_keyboard(keyboard):
+    """
+    Try to setup VConsole keymap and X11 layouts as specified in kickstart.
+
+    @param keyboard: ksdata.keyboard object
+    @type keyboard: ksdata.keyboard object
+
+    """
+
+    localed = LocaledWrapper()
+    c_lay_var = ""
+    c_keymap = ""
+
+    if keyboard._keyboard and not (keyboard.vc_keymap or keyboard.x_layouts):
+        # we were give only one value in old format of the keyboard command
+        # try to guess if we were given VConsole keymap or X11 layout
+        is_keymap = _try_to_load_keymap(keyboard._keyboard)
+
+        if is_keymap:
+            keyboard.vc_keymap = keyboard._keyboard
+        else:
+            keyboard.x_layouts.append(keyboard._keyboard)
+
+    if keyboard.vc_keymap:
+        valid_keymap = _try_to_load_keymap(keyboard.vc_keymap)
+        if not valid_keymap:
+            log.error("'%s' is not a valid VConsole keymap, not loading" % \
+                        keyboard.vc_keymap)
+        else:
+            # activate VConsole keymap and get converted layout and variant
+            c_lay_var = localed.set_and_convert_keymap(keyboard.vc_keymap)
+
+    if not keyboard.x_layouts and c_lay_var:
+        keyboard.x_layouts.append(c_lay_var)
+
+    if keyboard.x_layouts:
+        c_keymap = localed.set_and_convert_layout(keyboard.x_layouts[0])
+
+        if not keyboard.vc_keymap:
+            keyboard.vc_keymap = c_keymap
+
+        # write out full configuration that will be loaded by X server
+        # (systemd-localed writes configuration with only one layout)
+        write_keyboard_config(keyboard, root="/", convert=False, weight=99)
 
 def item_str(s):
     """Convert a zero-terminated byte array to a proper str"""

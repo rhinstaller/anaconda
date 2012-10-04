@@ -64,7 +64,7 @@ class LanguageMixIn(object):
             if lang_timezone:
                 self.data.timezone.timezone = lang_timezone
 
-        if self.data.keyboard.layouts_list:
+        if self.data.keyboard.x_layouts:
             #do not add layouts if there are any specified in the kickstart
             return
 
@@ -80,8 +80,8 @@ class LanguageMixIn(object):
             new_layouts.append(language_layout)
 
         for layout in new_layouts:
-            if layout not in self.data.keyboard.layouts_list:
-                self.data.keyboard.layouts_list.append(layout)
+            if layout not in self.data.keyboard.x_layouts:
+                self.data.keyboard.x_layouts.append(layout)
                 if flags.can_touch_runtime_system("add runtime X layout"):
                     self._xklwrapper.add_layout(layout)
 

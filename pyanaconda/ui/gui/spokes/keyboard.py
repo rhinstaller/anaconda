@@ -174,9 +174,9 @@ class KeyboardSpoke(NormalSpoke):
 
     def apply(self):
         # Clear and repopulate self.data with actual values
-        self.data.keyboard.layouts_list = list()
+        self.data.keyboard.x_layouts = list()
         for row in self._store:
-            self.data.keyboard.layouts_list.append(row[0])
+            self.data.keyboard.x_layouts.append(row[0])
         # FIXME:  Set the keyboard layout here, too.
 
     @property
@@ -397,8 +397,8 @@ class KeyboardSpoke(NormalSpoke):
             self._downButton.set_sensitive(True)
 
     def _add_data_layouts(self):
-        if self.data.keyboard.layouts_list:
-            for layout in self.data.keyboard.layouts_list:
+        if self.data.keyboard.x_layouts:
+            for layout in self.data.keyboard.x_layouts:
                 self._addLayout(self._store, layout)
         else:
             self._addLayout(self._store, "us")

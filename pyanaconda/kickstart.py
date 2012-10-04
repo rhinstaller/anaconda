@@ -1366,8 +1366,7 @@ class ZFCP(commands.zfcp.F14_ZFCP):
 
 class Keyboard(commands.keyboard.F18_Keyboard):
     def execute(self, *args):
-        if self.layouts_list:
-            keyboard.write_layouts_config(self, ROOT_PATH)
+        keyboard.write_keyboard_config(self, ROOT_PATH)
 
 ###
 ### HANDLERS
