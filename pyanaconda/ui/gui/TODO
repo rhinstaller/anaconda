@@ -25,5 +25,14 @@ Fedora 18
 Beyond
 ======
 - "Choose Disks" dialog before hub #1.
+- Code quality:
+    - Docstrings and comments are lacking.
+    - Split out especially large spokes (storage.py, custom.py) into logically separate
+      files.
 - Device filtering.
+- Spokes should have some way to tell if other spokes are ready (see _software_is_ready
+  in storage.py).
+- Tracking and expressing dependencies on threads is tedious:
+    - Create constants for thread names.
+    - Add decorators to express the dependency and wait until it's met?
 - Write out in-progress install to kickstart file, detect it on restart
