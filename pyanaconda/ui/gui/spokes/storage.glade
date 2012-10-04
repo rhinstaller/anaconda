@@ -24,13 +24,11 @@
             <child>
               <object class="GtkButton" id="options1_cancel_button">
                 <property name="label" translatable="yes">Cancel &amp; _add more disks</property>
-                <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
                 <property name="halign">center</property>
                 <property name="border_width">6</property>
-                <property name="use_action_appearance">False</property>
                 <property name="use_underline">True</property>
                 <signal name="clicked" handler="on_cancel_clicked" swapped="no"/>
               </object>
@@ -43,14 +41,12 @@
             <child>
               <object class="GtkButton" id="options_continue_button1">
                 <property name="label" translatable="yes">_Continue</property>
-                <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="has_focus">True</property>
                 <property name="receives_default">True</property>
                 <property name="halign">center</property>
                 <property name="border_width">6</property>
-                <property name="use_action_appearance">False</property>
                 <property name="use_underline">True</property>
                 <signal name="clicked" handler="on_continue_clicked" swapped="no"/>
               </object>
@@ -108,11 +104,9 @@
             <child>
               <object class="GtkCheckButton" id="options1_custom_check">
                 <property name="label" translatable="yes">Let me customize the _partitioning of the disks instead.</property>
-                <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
-                <property name="use_action_appearance">False</property>
                 <property name="use_underline">True</property>
                 <property name="xalign">0</property>
                 <property name="draw_indicator">True</property>
@@ -161,13 +155,11 @@
             <child>
               <object class="GtkButton" id="options2_cancel_button">
                 <property name="label" translatable="yes">Cancel &amp; _add more disks</property>
-                <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
                 <property name="halign">center</property>
                 <property name="border_width">6</property>
-                <property name="use_action_appearance">False</property>
                 <property name="use_underline">True</property>
                 <signal name="clicked" handler="on_cancel_clicked" swapped="no"/>
               </object>
@@ -180,13 +172,11 @@
             <child>
               <object class="GtkButton" id="options2_modify_sw_button">
                 <property name="label" translatable="yes">_Modify software selection</property>
-                <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
                 <property name="halign">center</property>
                 <property name="border_width">6</property>
-                <property name="use_action_appearance">False</property>
                 <property name="use_underline">True</property>
                 <signal name="clicked" handler="on_modify_sw_clicked" swapped="no"/>
               </object>
@@ -200,14 +190,12 @@
             <child>
               <object class="GtkButton" id="options2_reclaim_button">
                 <property name="label" translatable="yes">Reclaim _space</property>
-                <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="has_focus">True</property>
                 <property name="receives_default">True</property>
                 <property name="halign">center</property>
                 <property name="border_width">6</property>
-                <property name="use_action_appearance">False</property>
                 <property name="use_underline">True</property>
                 <signal name="clicked" handler="on_reclaim_clicked" swapped="no"/>
               </object>
@@ -251,11 +239,9 @@
             <child>
               <object class="GtkCheckButton" id="options2_custom_check">
                 <property name="label" translatable="yes">I don't need help; let me _review &amp; customize disk partitioning to reclaim space.</property>
-                <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
-                <property name="use_action_appearance">False</property>
                 <property name="use_underline">True</property>
                 <property name="xalign">0</property>
                 <property name="draw_indicator">True</property>
@@ -442,13 +428,11 @@
             <child>
               <object class="GtkButton" id="options3_quit_button">
                 <property name="label" translatable="yes">_Quit installer</property>
-                <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
                 <property name="halign">center</property>
                 <property name="border_width">6</property>
-                <property name="use_action_appearance">False</property>
                 <property name="use_underline">True</property>
                 <signal name="clicked" handler="on_quit_clicked" swapped="no"/>
               </object>
@@ -461,13 +445,11 @@
             <child>
               <object class="GtkButton" id="options3_modify_sw_button">
                 <property name="label" translatable="yes">_Modify software selection</property>
-                <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
                 <property name="halign">center</property>
                 <property name="border_width">6</property>
-                <property name="use_action_appearance">False</property>
                 <property name="use_underline">True</property>
                 <signal name="clicked" handler="on_modify_sw_clicked" swapped="no"/>
               </object>
@@ -481,14 +463,12 @@
             <child>
               <object class="GtkButton" id="options3_cancel_button">
                 <property name="label" translatable="yes">_Cancel</property>
-                <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="has_focus">True</property>
                 <property name="receives_default">True</property>
                 <property name="halign">center</property>
                 <property name="border_width">6</property>
-                <property name="use_action_appearance">False</property>
                 <property name="use_underline">True</property>
                 <signal name="clicked" handler="on_cancel_clicked" swapped="no"/>
               </object>
@@ -776,25 +756,45 @@
           <packing>
             <property name="expand">True</property>
             <property name="fill">True</property>
-            <property name="position">3</property>
+            <property name="position">1</property>
           </packing>
         </child>
         <child>
-          <object class="GtkBox" id="box2">
+          <object class="GtkGrid" id="grid3">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="margin_left">6</property>
             <property name="margin_right">6</property>
             <property name="margin_bottom">6</property>
-            <property name="spacing">6</property>
+            <property name="row_spacing">6</property>
+            <property name="column_spacing">6</property>
             <child>
-              <object class="GtkButton" id="summary_button">
-                <property name="label" translatable="yes">summary</property>
-                <property name="use_action_appearance">False</property>
+              <object class="GtkButton" id="continue_button">
+                <property name="label" translatable="yes">_CONTINUE</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
-                <property name="use_action_appearance">False</property>
+                <property name="halign">end</property>
+                <property name="valign">end</property>
+                <property name="hexpand">True</property>
+                <property name="use_underline">True</property>
+                <property name="xalign">1</property>
+                <signal name="clicked" handler="on_continue_clicked" swapped="no"/>
+              </object>
+              <packing>
+                <property name="left_attach">1</property>
+                <property name="top_attach">0</property>
+                <property name="width">1</property>
+                <property name="height">2</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkButton" id="summary_button">
+                <property name="label" translatable="yes">Full disk summary and options...</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">True</property>
+                <property name="halign">start</property>
                 <property name="relief">none</property>
                 <property name="use_underline">True</property>
                 <property name="focus_on_click">False</property>
@@ -802,35 +802,32 @@
                 <signal name="clicked" handler="on_summary_clicked" swapped="no"/>
               </object>
               <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="position">0</property>
+                <property name="left_attach">0</property>
+                <property name="top_attach">1</property>
+                <property name="width">1</property>
+                <property name="height">1</property>
               </packing>
             </child>
             <child>
-              <object class="GtkButton" id="continue_button">
-                <property name="label" translatable="yes">_CONTINUE</property>
-                <property name="use_action_appearance">False</property>
+              <object class="GtkLabel" id="summary_label">
                 <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">True</property>
-                <property name="use_action_appearance">False</property>
-                <property name="use_underline">True</property>
-                <property name="xalign">1</property>
-                <signal name="clicked" handler="on_continue_clicked" swapped="no"/>
+                <property name="can_focus">False</property>
+                <property name="halign">start</property>
+                <property name="margin_left">6</property>
+                <property name="label" translatable="yes">summary</property>
               </object>
               <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="pack_type">end</property>
-                <property name="position">1</property>
+                <property name="left_attach">0</property>
+                <property name="top_attach">0</property>
+                <property name="width">1</property>
+                <property name="height">1</property>
               </packing>
             </child>
           </object>
           <packing>
             <property name="expand">False</property>
             <property name="fill">True</property>
-            <property name="position">4</property>
+            <property name="position">2</property>
           </packing>
         </child>
       </object>
