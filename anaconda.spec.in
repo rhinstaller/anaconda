@@ -299,6 +299,26 @@ update-desktop-database &> /dev/null || :
 /usr/lib/dracut/modules.d/80%{name}/*
 
 %changelog
+* Wed Oct 03 2012 Brian C. Lane <bcl@redhat.com> - 18.12-1
+- copy-logs changed names (bcl)
+- Reference correct UI button name (#862409) (jkeating)
+- Don't echo vnc password to the screen (#862593) (jkeating)
+- Make the log copy script the last one to run (jkeating)
+- Copy ks script logs into the install root as well (jkeating)
+- Create ks script logs outside of chroot (jkeating)
+- Don't look for ifcfgs of wireless devices (#860791) (rvykydal)
+- doAutoPartition should raise errors instead of handle them. (clumens)
+- In the install options dialogs, call out how much space is on selected disks.
+  (clumens)
+- In order to display the resize prompt dialog, we need to compare Sizes to
+  Sizes. (clumens)
+- Use a better starting value for required space than 0. (clumens)
+- Default to CLEARPART_TYPE_NONE (#855976). (clumens)
+- Remove some unused clearpart-related settings. (clumens)
+- Hook up the new resize dialog. (clumens)
+- Add a resize dialog. (clumens)
+- Require the hostname package (#862419) (jkeating)
+
 * Tue Oct 02 2012 Chris Lumens <clumens@redhat.com> - 18.11-1
 - Use gdk_threaded() when running AddLayout dialog (vpodzime)
 - Work the anaconda object into the VNC test (jkeating)
