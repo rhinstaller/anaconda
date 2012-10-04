@@ -869,8 +869,7 @@ if __name__ == "__main__":
             ksdata.method.method = "cdrom"
         elif anaconda.methodstr.startswith("nfs"):
             ksdata.method.method = "nfs"
-            url = anaconda.methodstr.split(":", 1)[1]
-            (options, server, path) = iutil.parseNfsUrl(url)
+            (options, server, path) = iutil.parseNfsUrl(anaconda.methodstr)
             ksdata.method.server = server
             ksdata.method.dir = path
             ksdata.method.opts = options
