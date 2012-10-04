@@ -38,7 +38,7 @@
 
 """
 
-from gi.repository import Gdk, Gtk
+from gi.repository import Gdk, GLib, Gtk
 from gi.repository import AnacondaWidgets
 
 from pyanaconda.ui.gui import GUIObject, communication
@@ -126,6 +126,10 @@ class InstallOptions1Dialog(GUIObject):
     RESPONSE_RECLAIM = 3
     RESPONSE_QUIT = 4
 
+    def __init__(self, *args, **kwargs):
+        self.payload = kwargs.pop("payload")
+        GUIObject.__init__(self, *args, **kwargs)
+
     def run(self):
         rc = self.window.run()
         self.window.destroy()
@@ -161,6 +165,34 @@ class InstallOptions1Dialog(GUIObject):
                       "<b>%s</b> of available space.")
                    % (productName, required_space_text))
         return sw_text
+
+    # Methods to handle sensitivity of the modify button.
+    def _software_is_ready(self):
+        # FIXME:  Would be nicer to just ask the spoke if it's ready.
+        return (not threadMgr.get("AnaPayloadThread") and
+                not threadMgr.get("AnaSoftwareWatcher") and
+                not threadMgr.get("AnaCheckSoftwareThread") and
+                self.payload.baseRepo is not None)
+
+    def _check_for_storage_thread(self, button):
+        if self._software_is_ready():
+            button.set_sensitive(True)
+            button.set_has_tooltip(False)
+            button.show_all()
+
+            # False means this function should never be called again.
+            return False
+        else:
+            return True
+
+    def _add_button_watcher(self, widgetName):
+        # If the payload fetching thread is still running, the user can't go to
+        # modify the software selection screen.  Thus, we have to set the button
+        # insensitive and wait until software selection is ready to go.
+        modify_button = self.builder.get_object(widgetName)
+        if not self._software_is_ready():
+            modify_button.set_sensitive(False)
+            GLib.timeout_add_seconds(1, self._check_for_storage_thread, modify_button)
 
     # signal handlers
     def on_cancel_clicked(self, button):
@@ -209,6 +241,8 @@ class InstallOptions2Dialog(InstallOptions1Dialog):
                       % productName)
         self.builder.get_object("options2_label2").set_markup(label_text)
 
+        self._add_button_watcher("options2_modify_sw_button")
+
     def on_custom_toggled(self, checkbutton):
         super(InstallOptions2Dialog, self).on_custom_toggled(checkbutton)
         self.builder.get_object("options2_cancel_button").set_sensitive(not self.custom)
@@ -239,6 +273,8 @@ class InstallOptions3Dialog(InstallOptions1Dialog):
                        "modify your software selection to install a smaller "
                        "version of <b>%s</b>, or quit the installer.") % (productName, productName)
         self.builder.get_object("options3_label2").set_markup(label_text)
+
+        self._add_button_watcher("options3_modify_sw_button")
 
 class StorageChecker(object):
     errors = []
@@ -570,9 +606,9 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         if disk_free + new_free >= required_space:
             dialog = InstallOptions1Dialog(self.data)
         elif disks_size >= required_space:
-            dialog = InstallOptions2Dialog(self.data)
+            dialog = InstallOptions2Dialog(self.data, payload=self.payload)
         else:
-            dialog = InstallOptions3Dialog(self.data)
+            dialog = InstallOptions3Dialog(self.data, payload=self.payload)
 
         dialog.refresh(required_space, disks_size, disk_free, fs_free, self.autopart)
         rc = self.run_lightbox_dialog(dialog)
@@ -589,7 +625,8 @@ class StorageSpoke(NormalSpoke, StorageChecker):
             print "user chose to continue disk selection"
         elif rc == dialog.RESPONSE_MODIFY_SW:
             # go to software spoke
-            print "user chose to modify software selection"
+            self.skipTo = "SoftwareSelectionSpoke"
+            self.on_back_clicked(self.window)
         elif rc == dialog.RESPONSE_RECLAIM:
             if dialog.custom:
                 self.skipTo = "CustomPartitioningSpoke"

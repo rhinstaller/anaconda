@@ -175,6 +175,7 @@
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
+                <property name="tooltip_text" translatable="yes">Please wait... software metadata still loading.</property>
                 <property name="halign">center</property>
                 <property name="border_width">6</property>
                 <property name="use_underline">True</property>
@@ -451,6 +452,7 @@
                 <property name="halign">center</property>
                 <property name="border_width">6</property>
                 <property name="use_underline">True</property>
+                <property name="tooltip_text" translatable="yes">Please wait... software metadata still loading.</property>
                 <signal name="clicked" handler="on_modify_sw_clicked" swapped="no"/>
               </object>
               <packing>
