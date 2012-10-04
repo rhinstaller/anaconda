@@ -597,7 +597,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         # and pull those in along with any existing swap devices. It doesn't
         # matter if the formats being mounted exist or not.
         new_mounts = [d for d in self.__storage.mountpoints.values() if d.exists]
-        if new_mounts:
+        if new_mounts or new_devices:
             new_devices.extend(self.__storage.mountpoints.values())
             new_devices.extend(self.existingSwaps)
             new_devices.extend(self.existingBootLoaderDevices)
