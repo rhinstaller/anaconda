@@ -120,6 +120,9 @@ class ResizeDialog(GUIObject):
             for part in disk.format.partitions:
                 dev = self.storage.devicetree.getDeviceByPath(part.path)
 
+                if dev.isExtended and disk.format.logicalPartitions:
+                    continue
+
                 # Devices that are not resizable are still deletable.
                 if dev.resizable:
                     freeSize = dev.size - dev.minSize
