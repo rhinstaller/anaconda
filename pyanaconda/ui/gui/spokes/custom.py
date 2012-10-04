@@ -1382,6 +1382,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
     def _destroy_device(self, device):
         self.clear_errors()
         with ui_storage_logger():
+            is_logical_partition = getattr(device, "isLogical", False)
             try:
                 self.__storage.destroyDevice(device)
             except StorageError as e:
@@ -1391,6 +1392,9 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                                      _("Device removal request failed. Click "
                                        "for details."))
                 self.window.show_all()
+            else:
+                if is_logical_partition:
+                    self.__storage.removeEmptyExtendedPartitions()
 
         self._devices = self.__storage.devices
 
