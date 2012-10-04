@@ -315,7 +315,7 @@ class FS(DeviceFormat):
         if self.exists:
             if self.currentSize and self.minSize and \
                self.currentSize != self.minSize:
-                free = int(self.currentSize - self.minSize)     # truncate
+                free = int(max(0, self.currentSize - self.minSize)) # truncate
 
         return free
 
@@ -1383,8 +1383,8 @@ class NTFS(FS):
                     if not l.startswith("Minsize"):
                         continue
                     try:
-                        min = l.split(":")[1].strip()
-                        minSize = int(min) + 250
+                        _min = l.split(":")[1].strip()
+                        minSize = min(self.currentSize, int(_min) + 250)
                     except (IndexError, ValueError) as e:
                         minSize = None
                         log.warning("Unable to parse output for minimum size on %s: %s" %(self.device, e))
