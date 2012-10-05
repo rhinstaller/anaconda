@@ -521,12 +521,6 @@ class Payload(object):
         """ Perform pre-installation tasks. """
         iutil.mkdirChain(ROOT_PATH + "/root")
 
-        if packages:
-            map(self.selectPackage, packages)
-
-        if groups:
-            map(self.selectGroup, groups)
-
     def install(self):
         """ Install the payload. """
         raise NotImplementedError()

@@ -109,6 +109,9 @@ class YumPayload(PackagePayload):
         self._yum = None
         self._setup = False
 
+        self._requiredPackages = []
+        self._requiredGroups = []
+
         self.reset()
 
     def reset(self, root=None):
@@ -1070,6 +1073,7 @@ reposdir=%s
                 self._handleMissing(e)
 
         self.selectKernelPackage()
+        self.selectRequiredPackages()
 
     def checkSoftwareSelection(self):
         log.info("checking software selection")
@@ -1138,10 +1142,20 @@ reposdir=%s
         if not selected:
             log.error("failed to select a kernel from %s" % kernels)
 
+    def selectRequiredPackages(self):
+        if self._requiredPackages:
+            map(self._selectYumPackage, self._requiredPackages)
+
+        if self._requiredGroups:
+            map(self._selectYumGroup, self._requiredGroups)
+
     def preInstall(self, packages=None, groups=None):
         """ Perform pre-installation tasks. """
-        super(YumPayload, self).preInstall(packages=packages, groups=groups)
+        super(YumPayload, self).preInstall()
         progress.send_message(_("Starting package installation process"))
+
+        self._requiredPackages = packages
+        self._requiredGroups = groups
 
         if self.install_device:
             self._setUpMedia(self.install_device)
