@@ -420,6 +420,11 @@ class XklWrapper(object):
 
         return groups_names[state.group]
 
+    def is_valid_layout(self, layout):
+        """Return if given layout is valid layout or not"""
+
+        return layout in self.name_to_show_str
+
     def add_layout(self, layout):
         """
         Method that tries to add a given layout to the current X configuration.

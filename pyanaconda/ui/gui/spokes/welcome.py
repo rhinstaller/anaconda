@@ -64,6 +64,14 @@ class LanguageMixIn(object):
             if lang_timezone:
                 self.data.timezone.timezone = lang_timezone
 
+        #remove all X layouts that are not valid X layouts (unsupported)
+        #from the ksdata
+        #XXX: could go somewhere else, but we need X running and we have
+        #     XklWrapper instance here
+        for layout in self.data.keyboard.x_layouts:
+            if not self._xklwrapper.is_valid_layout(layout):
+                self.data.keyboard.x_layouts.remove(layout)
+
         if self.data.keyboard.x_layouts:
             #do not add layouts if there are any specified in the kickstart
             return
