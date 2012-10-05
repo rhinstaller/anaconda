@@ -108,7 +108,7 @@ def mangleLocale(inLocale):
                  "fa":  "fa_IR",  "fi":  "fi_FI",  "fr":  "fr_FR",  "gl":  "gl_ES",
                  "gu":  "gu_IN",  "he":  "he_IL",  "hi":  "hi_IN",  "hr":  "hr_HR",
                  "hu":  "hu_HU",  "id":  "id_ID",  "ilo": "ilo_PH", "is":  "is_IS",
-                 "it":  "it_IT",  "ja":  "ja_JP",  "kk":  "kk_KK",  "kn":  "kn_IN",
+                 "it":  "it_IT",  "ja":  "ja_JP",  "kk":  "kk_KZ",  "kn":  "kn_IN",
                  "ko":  "ko_KR",  "lt":  "lt_LT",  "lv":  "lv_LV",  "mai": "mai_IN",
                  "mk":  "mk_MK",  "ml":  "ml_IN",  "mr":  "mr_IN",  "ms":  "ms_MY",
                  "nb":  "nb_NO",  "nds": "nds_DE", "ne":  "ne_NP",  "nl":  "nl_NL",
@@ -116,7 +116,7 @@ def mangleLocale(inLocale):
                  "pl":  "pl_PL",  "pt":  "pt_PT",  "ro":  "ro_RO",  "ru":  "ru_RU",
                  "si":  "si_LK",  "sk":  "sk_SK",  "sl":  "sl_SI",  "sq":  "sq_AL",
                  "sr":  "sr_RS",  "sv":  "sv_SE",  "ta":  "ta_IN",  "te":  "te_IN",
-                 "tg":  "tg_TG",  "th":  "th_TH",  "tr":  "tr_TR",  "uk":  "uk_UA",
+                 "tg":  "tg_TJ",  "th":  "th_TH",  "tr":  "tr_TR",  "uk":  "uk_UA",
                  "ur":  "ur_PK",  "vi":  "vi_VN",  "zu":  "zu_ZA"}
 
     return mangleMap.get(inLocale, inLocale)
