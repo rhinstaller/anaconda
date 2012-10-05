@@ -93,8 +93,10 @@ def get_layouts_xorg_conf(keyboard):
     ret += '"' + ','.join(layouts) + '"\n'
 
     #variants
-    ret += '\tOption\t"XkbVariant"\t'
-    ret += '"' + ','.join(variants) + '"\n'
+    if any(variants):
+        #write out this line only if some variants are specified
+        ret += '\tOption\t"XkbVariant"\t'
+        ret += '"' + ','.join(variants) + '"\n'
 
     #switching
     #TODO: add option for switching combination
