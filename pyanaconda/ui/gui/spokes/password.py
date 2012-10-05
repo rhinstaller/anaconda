@@ -55,8 +55,6 @@ class PasswordSpoke(NormalSpoke):
 
     def initialize(self):
         NormalSpoke.initialize(self)
-        # Set the rootpw to locked by default, setting a password is optional
-        self.data.rootpw.lock = True
         # place holders for the text boxes
         self.pw = self.builder.get_object("pw")
         self.confirm = self.builder.get_object("confirm")
@@ -77,10 +75,12 @@ class PasswordSpoke(NormalSpoke):
     def status(self):
         if self._error:
             return _("Error setting root password")
+        if self.data.rootpw.password:
+            return _("Root password is set")
         elif self.data.rootpw.lock:
             return _("Root account is disabled")
         else:
-            return _("Root password is set")
+            return _("Root password is not set")
 
     def apply(self):
         if self._password:
@@ -95,11 +95,7 @@ class PasswordSpoke(NormalSpoke):
 
     @property
     def completed(self):
-        # FUTURE -- update completed to false if package payload doesn't
-        # include firstboot and some environment to run it in
-        # We are by default complete, but locked.  If a user attempts to set
-        # a password but fails, then we are no longer complete.
-        return not self._error
+        return bool(self.data.rootpw.password or self.data.rootpw.lock)
 
     def _validatePassword(self):
         # Do various steps to validate the password
