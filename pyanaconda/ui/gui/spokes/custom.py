@@ -48,18 +48,22 @@ from pyanaconda.storage.formats import device_formats
 from pyanaconda.storage.formats import getFormat
 from pyanaconda.storage.size import Size
 from pyanaconda.storage import Root
+from pyanaconda.storage import findExistingInstallations
 from pyanaconda.storage.partitioning import doPartitioning
 from pyanaconda.storage.partitioning import doAutoPartition
 from pyanaconda.storage.errors import StorageError
 from pyanaconda.storage.errors import NoDisksError
 from pyanaconda.storage.errors import NotEnoughFreeSpaceError
 from pyanaconda.storage.errors import ErrorRecoveryFailure
+from pyanaconda.storage.errors import CryptoError
 from pyanaconda.storage.devicelibs import mdraid
+from pyanaconda.storage.devices import LUKSDevice
 
 from pyanaconda.ui.gui import GUIObject
 from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.gui.spokes.storage import StorageChecker
 from pyanaconda.ui.gui.spokes.lib.cart import SelectedDisksDialog
+from pyanaconda.ui.gui.spokes.lib.passphrase import PassphraseDialog
 from pyanaconda.ui.gui.spokes.lib.accordion import *
 from pyanaconda.ui.gui.utils import enlightbox, setViewportBackground
 from pyanaconda.ui.gui.categories.storage import StorageCategory
@@ -73,6 +77,7 @@ __all__ = ["CustomPartitioningSpoke"]
 
 NOTEBOOK_LABEL_PAGE = 0
 NOTEBOOK_DETAILS_PAGE = 1
+NOTEBOOK_LUKS_PAGE = 2
 
 new_install_name = _("New %s %s Installation") % (productName, productVersion)
 unrecoverable_error_msg = _("Storage configuration reset due to unrecoverable "
@@ -273,7 +278,14 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         """ Register actions from the UI with the main Storage instance. """
         for ui_action in actions:
             ui_device = ui_action.device
-            device = self.storage.devicetree.getDeviceByID(ui_device.id)
+            if isinstance(ui_device, LUKSDevice) and ui_device.exists:
+                # LUKS device that was unlocked during this spoke visit
+                # The ids won't match in this case because we instantiated the
+                # LUKSDevice both in the spoke's devicetree and in the main one.
+                device = self.storage.devicetree.getDeviceByName(ui_device.name)
+            else:
+                device = self.storage.devicetree.getDeviceByID(ui_device.id)
+
             if device is None:
                 # This device does not exist in the main devicetree.
                 #
@@ -324,6 +336,31 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         log.debug("converting custom spoke changes into actions")
         for action in ui_devicetree.findActions():
             log.debug("%s" % action)
+
+        # Find any LUKS devices that have been unlocked in this visit to the
+        # custom spoke and find their descendant devices before we do anything
+        # else.
+        ui_luks_devices = [d for d in self._devices
+                                if isinstance(d, LUKSDevice) and
+                                   d.exists and not
+                                   self.storage.devicetree.getDeviceByID(d.id)]
+        for ui_luks_device in ui_luks_devices:
+            if ui_luks_device not in self._devices:
+                # since removed
+                continue
+
+            ui_slave = ui_luks_device.slave
+            slave = self.storage.devicetree.getDeviceByID(ui_slave.id)
+            slave.format.passphrase = ui_slave.format._LUKS__passphrase
+            luks_device = LUKSDevice(slave.format.mapName,
+                                     parents=[slave],
+                                     exists=True)
+            luks_device.setup()
+            self.storage.devicetree._addDevice(luks_device)
+
+        # XXX What if the user has changed storage config in the shell?
+        if ui_luks_devices:
+            self.storage.devicetree.populate()
 
         # schedule actions for device removals, resizes
         actions = ui_devicetree.findActions(type="destroy")
@@ -395,6 +432,13 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             if ui_device.format == ui_device.originalFormat and \
                ui_device.size == ui_device.currentSize:
                 self.storage.resetDevice(device)
+
+        # apply global passphrase to all new encrypted devices
+        self.data.autopart.passphrase = self.passphrase
+        for device in self.storage.devices:
+            if device.format.type == "luks" and not device.format.exists:
+                log.debug("using global passphrase for %s" % device.name)
+                device.format.passphrase = self.data.autopart.passphrase
 
         # set up bootloader and check the configuration
         self.storage.setUpBootLoader()
@@ -561,6 +605,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         if t:
             t.join()
 
+        self.passphrase = self.data.autopart.passphrase
         self._reset_storage()
         self._do_refresh()
         # update our free space number based on Storage
@@ -590,7 +635,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         # Now it's time to populate the accordion.
 
         # A device scheduled for formatting only belongs in the new root.
-        new_devices = [d for d in self._devices if not d.format.exists and
+        new_devices = [d for d in self._devices if d.isleaf and
+                                                   not d.format.exists and
                                                    not d.partitioned]
 
         # If mountpoints have been assigned to any existing devices, go ahead
@@ -800,7 +846,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
         log.info("ui: saving changes to device %s" % device.name)
 
-        # TODO: encryption, raid, member type
+        # TODO: member type, disk set
 
         size = self.builder.get_object("sizeSpinner").get_value()
         log.debug("new size: %s" % size)
@@ -819,10 +865,11 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         fs_type = fs_type_combo.get_model()[fs_type_index][0]
         log.debug("new fs type: %s" % fs_type)
 
+        prev_encrypted = device.encrypted
+        log.debug("old encryption setting: %s" % prev_encrypted)
         encrypted = self.builder.get_object("encryptCheckbox").get_active()
         log.debug("new encryption setting: %s" % encrypted)
 
-        # TODO: get disks
         label = self.builder.get_object("labelEntry").get_text()
         old_label = getattr(device.format, "label", "") or ""
 
@@ -845,9 +892,9 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
         with ui_storage_logger():
             # create a new factory using the appropriate size and type
-            # XXX ignoring encryption for now
             factory = self.__storage.getDeviceFactory(device_type, size,
                                                       disks=device.disks,
+                                                      encrypted=encrypted,
                                                       raid_level=raid_level)
 
         # for raid settings, we'll need to adjust the member set and container,
@@ -863,8 +910,13 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                         "lvmlv": AUTOPART_TYPE_LVM,
                         "btrfs subvolume": AUTOPART_TYPE_BTRFS,
                         "mdarray": None}
-        current_device_type = device_types.get(device.type)
+        current_device_type = device.type
+        if current_device_type == "luks/dm-crypt":
+            current_device_type = device.slave.type
+        current_device_type = device_types.get(current_device_type)
         if current_device_type != device_type:
+            log.info("changing device type from %s to %s" % (current_device_type,
+                                                             device_type))
             # remove the current device
             self.clear_errors()
             root = self._current_selector._root
@@ -874,7 +926,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                 return
 
             with ui_storage_logger():
-                # XXX skipping encryption for now
                 # Use any disks with space in addition to any disks used by
                 # a defined container.
                 disks = [d for d in self._clearpartDevices
@@ -887,6 +938,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                     self._replace_device(device_type, size, fstype=fs_type,
                                          disks=disks, mountpoint=mountpoint,
                                          label=label, raid_level=raid_level,
+                                         encrypted=encrypted,
                                          selector=selector)
                 except ErrorRecoveryFailure as e:
                     self._error = e
@@ -921,6 +973,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                                              mountpoint=old_mountpoint,
                                              label=old_label,
                                              raid_level=raid_level,
+                                             encrypted=encrypted,
                                              selector=selector)
                     except StorageError as e:
                         # failed to recover.
@@ -998,6 +1051,37 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             self._updateSpaceDisplay()
 
         ##
+        ## ENCRYPTION
+        ##
+        old_device = device
+        if prev_encrypted and not encrypted:
+            log.info("removing encryption from %s" % device.name)
+            with ui_storage_logger():
+                self.__storage.destroyDevice(device)
+                self._devices.remove(device)
+                old_device = device
+                device = device.slave
+                selector._device = device
+                for s in self._accordion.allSelectors:
+                    if s._device == old_device:
+                        s._device = device
+        elif encrypted and not prev_encrypted:
+            log.info("applying encryption to %s" % device.name)
+            with ui_storage_logger():
+                old_device = device
+                new_fmt = getFormat("luks", device=device.path)
+                self.__storage.formatDevice(device, new_fmt)
+                luks_dev = LUKSDevice("luks-" + device.name,
+                                      parents=[device])
+                self.__storage.createDevice(luks_dev)
+                self._devices.append(luks_dev)
+                device = luks_dev
+                selector._device = device
+                for s in self._accordion.allSelectors:
+                    if s._device == old_device:
+                        s._device = device
+
+        ##
         ## FORMATTING
         ##
         if fs_type != device.format.name:
@@ -1027,7 +1111,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                         # it to the new page
                         for page in self._accordion.allPages:
                             for _selector in getattr(page, "_members", []):
-                                if _selector._device == device:
+                                if _selector._device in (device, old_device):
                                     page.removeSelector(_selector)
                                     if not page._members:
                                         log.debug("removing empty page %s" % page.pageTitle)
@@ -1036,9 +1120,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                         self.add_new_selector(device)
 
             return
-
-        # for encryption, I'm not sure if we'll want to modify the
-        # container/device or just create a new one
 
         ##
         ## FORMATTING ATTRIBUTES
@@ -1208,6 +1289,10 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         fsCombo = self.builder.get_object("fileSystemTypeCombo")
 
         device = selector._device
+        if device.type == "luks/dm-crypt":
+            use_dev = device.slave
+        else:
+            use_dev = device
 
         selectedDeviceLabel.set_text(selector.props.name)
         selectedDeviceDescLabel.set_text(self._description(selector.props.name))
@@ -1222,7 +1307,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                      not device.format.exists)
         labelEntry.set_sensitive(can_label)
 
-        if labelEntry.get_sensitive():
+        if hasattr(device.format, "label"):
             labelEntry.props.has_tooltip = False
         else:
             labelEntry.set_tooltip_text(_("This file system does not support labels."))
@@ -1248,8 +1333,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         encryptCheckbox.set_active(device.encrypted)
 
         # if the format is swap the device type can't be btrfs
-        include_btrfs = device.format.type not in ("swap", "prepboot",
-                                                   "biosboot")
+        include_btrfs = use_dev.format.type not in ("swap", "prepboot",
+                                                    "biosboot")
         # btrfs has to be the last type in the list
         btrfs_included = typeCombo.get_model()[-1][0] == "BTRFS"
         if include_btrfs and not btrfs_included:
@@ -1269,20 +1354,20 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
         # FIXME:  What do we do if we can't figure it out?
         raid_level = None
-        if device.type == "lvmlv":
+        if use_dev.type == "lvmlv":
             # TODO: striping/mirroring
             typeCombo.set_active(DEVICE_TYPE_LVM)
-        elif device.type == "mdarray":
+        elif use_dev.type == "mdarray":
             typeCombo.set_active(DEVICE_TYPE_MD)
-            raid_level = mdraid.raidLevelString(device.level)
-        elif device.type == "partition":
+            raid_level = mdraid.raidLevelString(use_dev.level)
+        elif use_dev.type == "partition":
             typeCombo.set_active(DEVICE_TYPE_PARTITION)
-        elif device.type.startswith("btrfs"):
+        elif use_dev.type.startswith("btrfs"):
             typeCombo.set_active(DEVICE_TYPE_BTRFS)
-            if hasattr(device, "volume"):
-                raid_level = device.volume.dataLevel or "single"
+            if hasattr(use_dev, "volume"):
+                raid_level = use_dev.volume.dataLevel or "single"
             else:
-                raid_level = device.dataLevel or "single"
+                raid_level = use_dev.dataLevel or "single"
 
         # you can't change the type of an existing device
         typeCombo.set_sensitive(not device.exists)
@@ -1309,6 +1394,21 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
     # to the install summary screen.
     def on_finish_clicked(self, button):
         self._save_right_side(self._current_selector)
+
+        new_luks = any([d for d in self.__storage.devices
+                            if d.format.type == "luks" and
+                               not d.format.exists])
+        if new_luks:
+            dialog = PassphraseDialog(self.data)
+            with enlightbox(self.window, dialog.window):
+                rc = dialog.run()
+
+            if rc == 0:
+                # Cancel. Leave the old passphrase set if there was one.
+                return
+
+            self.passphrase = dialog.passphrase
+
         NormalSpoke.on_back_clicked(self, button)
 
     def on_add_clicked(self, button):
@@ -1432,16 +1532,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
         log.debug("show first mountpoint: %s" % getattr(page, "pageTitle", None))
         if getattr(page, "_members", []):
-            log.debug("page %s has %d members" % (page.pageTitle, len(page._members)))
-            # Make sure we're showing details instead of the "here's how you create
-            # a new OS" label.
-            if self._current_selector:
-                self._current_selector.set_chosen(False)
-            self._partitionsNotebook.set_current_page(NOTEBOOK_DETAILS_PAGE)
-            self._current_selector = page._members[0]
-            self._current_selector.set_chosen(True)
-            self._populate_right_side(page._members[0])
-            page._members[0].grab_focus()
+            self.on_selector_clicked(page._members[0])
         else:
             self._current_selector = None
 
@@ -1510,6 +1601,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         # Now that devices have been removed from the installation root,
         # refreshing the display will have the effect of making them disappear.
         # It's like they never existed.
+        self._unused_devices = None     # why do we cache this?
         self._do_refresh()
         self._updateSpaceDisplay()
         self._show_first_mountpoint()
@@ -1529,16 +1621,33 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         if not self._initialized:
             return
 
-        # Make sure we're showing details instead of the "here's how you create
-        # a new OS" label.
-        self._partitionsNotebook.set_current_page(NOTEBOOK_DETAILS_PAGE)
-
         # Take care of the previously chosen selector.
         if self._current_selector and self._initialized:
             log.debug("current selector: %s" % self._current_selector._device)
             log.debug("new selector: %s" % selector._device)
-            self._save_right_side(self._current_selector)
+            nb_page = self._partitionsNotebook.get_current_page()
+            log.debug("notebook page = %s" % nb_page)
+            if nb_page != NOTEBOOK_LUKS_PAGE:
+                self._save_right_side(self._current_selector)
+
             self._current_selector.set_chosen(False)
+
+        if selector._device.format.type == "luks" and \
+           selector._device.format.exists:
+            self._partitionsNotebook.set_current_page(NOTEBOOK_LUKS_PAGE)
+            selectedDeviceLabel = self.builder.get_object("encryptedDeviceLabel")
+            selectedDeviceDescLabel = self.builder.get_object("encryptedDeviceDescriptionLabel")
+            selectedDeviceLabel.set_text(selector.props.name)
+            selectedDeviceDescLabel.set_text(self._description(selector.props.name))
+            selector.set_chosen(True)
+            self._current_selector = selector
+            self._configButton.set_sensitive(False)
+            self._removeButton.set_sensitive(True)
+            return
+
+        # Make sure we're showing details instead of the "here's how you create
+        # a new OS" label.
+        self._partitionsNotebook.set_current_page(NOTEBOOK_DETAILS_PAGE)
 
         # Set up the newly chosen selector.
         self._populate_right_side(selector)
@@ -1710,3 +1819,43 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
     def on_apply_clicked(self, button):
         """ call _save_right_side, then, perhaps, populate_right_side. """
         self._save_right_side(self._current_selector)
+
+    def on_unlock_clicked(self, button):
+        """ try to open the luks device, populate, then call _do_refresh. """
+        self.clear_errors()
+        device = self._current_selector._device
+        log.info("trying to unlock %s..." % device.name)
+        entry = self.builder.get_object("passphraseEntry")
+        passphrase = entry.get_text()
+        device.format.passphrase = passphrase
+        try:
+            device.format.setup()
+        except CryptoError as e:
+            log.error("failed to unlock %s: %s" % (device.name, e))
+            self._error = e
+            device.format.passphrase = None
+            entry.set_text("")
+            self.window.set_info(Gtk.MessageType.WARNING,
+                                 _("Failed to unlock encrypted block device. "
+                                   "Click for details"))
+            self.window.show_all()
+            return
+
+        log.info("unlocked %s, now going to populate devicetree..." % device.name)
+        with ui_storage_logger():
+            luks_dev = LUKSDevice(device.format.mapName,
+                                  parents=[device],
+                                  exists=True)
+            self.__storage.devicetree._addDevice(luks_dev)
+            # save the passphrase for possible reset and to try for other devs
+            self.__storage._Storage__luksDevs[device.format.uuid] = passphrase
+            self.__storage.devicetree._DeviceTree__luksDevs[device.format.uuid] = passphrase
+            # XXX What if the user has changed things using the shell?
+            self.__storage.devicetree.populate()
+            # look for new roots
+            self.__storage.roots = findExistingInstallations(self.__storage.devicetree)
+
+        self._devices = self.__storage.devices
+        self._unused_devices = None     # why do we cache this?
+        self._current_selector = None
+        self._do_refresh()

@@ -331,6 +331,8 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         self.data.ignoredisk.onlyuse = self.selected_disks[:]
         self.data.clearpart.drives = self.selected_disks[:]
         self.data.autopart.autopart = self.autopart
+        self.data.autopart.encrypted = self.encrypted
+        self.data.autopart.passphrase = self.passphrase
 
         # no thanks, lvm
         self.data.autopart.type = AUTOPART_TYPE_PLAIN
@@ -351,6 +353,8 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         self.data.clearpart.type = self.clearPartType
         self.storage.config.update(self.data)
         self.storage.autoPartType = self.data.autopart.type
+        self.storage.encryptedAutoPart = self.data.autopart.encrypted
+        self.storage.encryptionPassphrase = self.data.autopart.passphrase
 
         # If autopart is selected we want to remove whatever has been
         # created/scheduled to make room for autopart.
@@ -437,6 +441,8 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         # synchronize our local data store with the global ksdata
         self.selected_disks = self.data.ignoredisk.onlyuse[:]
         self.autopart = self.data.autopart.autopart
+        self.encrypted = self.data.autopart.encrypted
+        self.passphrase = self.data.autopart.passphrase
 
         # update the selections in the ui
         overviews = self.local_disks_box.get_children()
