@@ -264,9 +264,8 @@ class KeyboardSpoke(NormalSpoke):
         dialog.refresh()
         dialog.initialize()
 
-        with gdk_threaded():
-            with enlightbox(self.window, dialog.window):
-                response = dialog.run()
+        with enlightbox(self.window, dialog.window):
+            response = dialog.run()
 
         if response == 1:
             duplicates = set()
@@ -283,6 +282,13 @@ class KeyboardSpoke(NormalSpoke):
                 itr = self._store.get_iter_first()
                 self._removeLayout(self._store, itr)
                 self._remove_last_attempt = False
+
+    def _run_add_from_removed(self, button):
+        # Only call gdk_threaded when necessary (when we need to run the add
+        # dialog from the on_remove_clicked path) or we'll introduce a different
+        # deadlock.
+        with gdk_threaded():
+            self.on_add_clicked(button)
 
     def on_remove_clicked(self, button):
         selection = self.builder.get_object("layoutSelection")
@@ -304,7 +310,7 @@ class KeyboardSpoke(NormalSpoke):
             #redrawn
             self._remove_last_attempt = True
             add_button = self.builder.get_object("addLayoutButton")
-            GLib.idle_add(self.on_add_clicked, add_button)
+            GLib.idle_add(self._run_add_from_removed, add_button)
             return
 
         #the selected item is not the first, select the previous one
