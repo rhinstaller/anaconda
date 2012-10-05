@@ -34,6 +34,8 @@ import os
 import re
 from pyanaconda import iutil
 
+from gi.repository import Xkl
+
 import logging
 log = logging.getLogger("anaconda")
 
@@ -226,7 +228,7 @@ class XklWrapper(object):
         return XklWrapper._instance
 
     def __init__(self):
-        from gi.repository import Xkl, GdkX11
+        from gi.repository import GdkX11
 
         #initialize Xkl-related stuff
         display = GdkX11.x11_get_default_xdisplay()
@@ -310,6 +312,21 @@ class XklWrapper(object):
 
         #first layout (should exist for every language)
         return language_layouts[0].name
+
+    def get_current_layout_name(self):
+        """
+        Get current activated X layout's name
+
+        @return: current activated X layout's name (e.g. "Czech (qwerty)")
+
+        """
+
+        self._engine.start_listen(Xkl.EngineListenModes.TRACK_KEYBOARD_STATE)
+        state = self._engine.get_current_state()
+        groups_names = self._engine.get_groups_names()
+        self._engine.stop_listen(Xkl.EngineListenModes.TRACK_KEYBOARD_STATE)
+
+        return groups_names[state.group]
 
     def add_layout(self, layout):
         """
