@@ -36,16 +36,180 @@ _ = lambda x: gettext.ldgettext("anaconda", x)
 import logging
 log = logging.getLogger("anaconda")
 
-__all__ = ["GraphicalUserInterface", "UIObject", "busyCursor", "unbusyCursor"]
+__all__ = ["GraphicalUserInterface", "UIObject", "busyCursor", "unbusyCursor", "QuitDialog"]
 
 _screenshotIndex = 0
+
+class GUIObject(common.UIObject):
+    """This is the base class from which all other GUI classes are derived.  It
+       thus contains only attributes and methods that are common to everything
+       else.  It should not be directly instantiated.
+
+       Class attributes:
+
+       builderObjects   -- A list of UI object names that should be extracted from
+                           uiFile and exposed for this class to use.  If this list
+                           is empty, all objects will be exposed.
+
+                           Only the following kinds of objects need to be exported:
+
+                           (1) Top-level objects (like GtkDialogs) that are directly
+                           used in Python.
+
+                           (2) Top-level objects that are not directly used in
+                           Python, but are used by another object somewhere down
+                           in the hierarchy.  This includes things like a custom
+                           GtkImage used by a button that is part of an exported
+                           dialog, and a GtkListStore that is the model of a
+                           Gtk*View that is part of an exported object.
+       mainWidgetName   -- The name of the top-level widget this object
+                           object implements.  This will be the widget searched
+                           for in uiFile by the window property.
+       uiFile           -- The location of an XML file that describes the layout
+                           of widgets shown by this object.  UI files are
+                           searched for relative to the same directory as this
+                           object's module.
+    """
+    builderObjects = []
+    mainWidgetName = None
+    uiFile = ""
+
+    def __init__(self, data):
+        """Create a new UIObject instance, including loading its uiFile and
+           all UI-related objects.
+
+           Instance attributes:
+
+           data     -- An instance of a pykickstart Handler object.  The Hub
+                       never directly uses this instance.  Instead, it passes
+                       it down into Spokes when they are created and applied.
+                       The Hub simply stores this instance so it doesn't need
+                       to be passed by the user.
+           skipTo   -- If this attribute is set to something other than None,
+                       it must be the name of a class (as a string).  Then,
+                       the interface will skip to the first instance of that
+                       class in the action list instead of going on to
+                       whatever the next action is normally.
+
+                       Note that actions may only skip ahead, never backwards.
+                       Also, standalone spokes may not skip to an individual
+                       spoke off a hub.  They can only skip to the hub
+                       itself.
+        """
+        common.UIObject.__init__(self, data)
+
+        if self.__class__ is GUIObject:
+            raise TypeError("GUIObject is an abstract class")
+
+        self.skipTo = None
+        self.applyOnSkip = False
+
+        from gi.repository import Gtk
+
+        self.builder = Gtk.Builder()
+        self.builder.set_translation_domain("anaconda")
+        self._window = None
+
+        if self.builderObjects:
+            self.builder.add_objects_from_file(self._findUIFile(), self.builderObjects)
+        else:
+            self.builder.add_from_file(self._findUIFile())
+
+        self.builder.connect_signals(self)
+        self.window.connect("key-release-event", self._handlePrntScreen)
+
+    def _findUIFile(self):
+        path = os.environ.get("UIPATH", "./:/tmp/updates/:/tmp/updates/ui/:/usr/share/anaconda/ui/")
+        for d in path.split(":"):
+            testPath = os.path.normpath(d + self.uiFile)
+            if os.path.isfile(testPath) and os.access(testPath, os.R_OK):
+                return testPath
+
+        raise IOError("Could not load UI file '%s' for object '%s'" % (self.uiFile, self))
+
+    def _handlePrntScreen(self, window, event):
+        global _screenshotIndex
+
+        if event.keyval != Gdk.KEY_Print:
+            return
+
+        # Make sure the screenshot directory exists.
+        if not os.access("/tmp/anaconda-screenshots", os.W_OK):
+            os.mkdir("/tmp/anaconda-screenshots")
+
+        fn = "/tmp/anaconda-screenshots/screenshot-%04d.png" % _screenshotIndex
+
+        win = window.get_window()
+        width = win.get_width()
+        height = win.get_height()
+
+        pixbuf = Gdk.pixbuf_get_from_window(win, 0, 0, width, height)
+        pixbuf.savev(fn, "png", [], [])
+
+        _screenshotIndex += 1
+
+    @property
+    def window(self):
+        """Return the top-level object out of the GtkBuilder representation
+           previously loaded by the load method.
+        """
+
+        # This will raise an AttributeError if the subclass failed to set a
+        # mainWidgetName attribute, which is exactly what I want.
+        if not self._window:
+            self._window = self.builder.get_object(self.mainWidgetName)
+
+        return self._window
+
+    def clear_info(self):
+        """Clear any info bar from the bottom of the screen."""
+        self.window.clear_info()
+
+    def set_error(self, msg):
+        """Display an info bar along the bottom of the screen with the provided
+           message.  This method is used to display critical errors anaconda
+           may not be able to do anything about, but that the user may.  A
+           suitable background color and icon will be displayed.
+        """
+        self.window.set_error(msg)
+
+    def set_info(self, msg):
+        """Display an info bar along the bottom of the screen with the provided
+           message.  This method is used to display informational text -
+           non-critical warnings during partitioning, for instance.  The user
+           should investigate these messages but doesn't have to.  A suitable
+           background color and icon will be displayed.
+        """
+        self.window.set_info(msg)
+
+    def set_warning(self, msg):
+        """Display an info bar along the bottom of the screen with the provided
+           message.  This method is used to display errors the user needs to
+           attend to in order to continue installation.  This is the bulk of
+           messages.  A suitable background color and icon will be displayed.
+        """
+        self.window.set_warning(msg)
+
+class QuitDialog(GUIObject):
+    builderObjects = ["quitDialog"]
+    mainWidgetName = "quitDialog"
+    uiFile = "main.glade"
+
+    MESSAGE = ""
+    
+    def run(self):
+        if self.MESSAGE:
+            self.builder.get_object("quit_message").set_label(_(self.MESSAGE))
+        rc = self.window.run()
+        return rc
 
 class GraphicalUserInterface(UserInterface):
     """This is the standard GTK+ interface we try to steer everything to using.
        It is suitable for use both directly and via VNC.
     """
     def __init__(self, storage, payload, instclass,
-                 distributionText = distributionText, isFinal = isFinal):
+                 distributionText = distributionText, isFinal = isFinal,
+                 quitDialog = QuitDialog):
         
         UserInterface.__init__(self, storage, payload, instclass)
 
@@ -57,7 +221,8 @@ class GraphicalUserInterface(UserInterface):
 
         self._distributionText = distributionText
         self._isFinal = isFinal
-
+        self._quitDialog = quitDialog
+    
         # This is a hack to make sure the AnacondaWidgets library gets loaded
         # before glade tries to use Anaconda types
         # glade file should contain the following line to make this seamless
@@ -303,7 +468,7 @@ class GraphicalUserInterface(UserInterface):
         self._actions.pop(0)
 
     def _on_quit_clicked(self):
-        dialog = QuitDialog(None)
+        dialog = self._quitDialog(None)
         with enlightbox(self._currentAction.window, dialog.window):
             rc = dialog.run()
             dialog.window.destroy()
@@ -311,164 +476,7 @@ class GraphicalUserInterface(UserInterface):
         if rc == 1:
             sys.exit(0)
 
-class GUIObject(common.UIObject):
-    """This is the base class from which all other GUI classes are derived.  It
-       thus contains only attributes and methods that are common to everything
-       else.  It should not be directly instantiated.
 
-       Class attributes:
-
-       builderObjects   -- A list of UI object names that should be extracted from
-                           uiFile and exposed for this class to use.  If this list
-                           is empty, all objects will be exposed.
-
-                           Only the following kinds of objects need to be exported:
-
-                           (1) Top-level objects (like GtkDialogs) that are directly
-                           used in Python.
-
-                           (2) Top-level objects that are not directly used in
-                           Python, but are used by another object somewhere down
-                           in the hierarchy.  This includes things like a custom
-                           GtkImage used by a button that is part of an exported
-                           dialog, and a GtkListStore that is the model of a
-                           Gtk*View that is part of an exported object.
-       mainWidgetName   -- The name of the top-level widget this object
-                           object implements.  This will be the widget searched
-                           for in uiFile by the window property.
-       uiFile           -- The location of an XML file that describes the layout
-                           of widgets shown by this object.  UI files are
-                           searched for relative to the same directory as this
-                           object's module.
-    """
-    builderObjects = []
-    mainWidgetName = None
-    uiFile = ""
-
-    def __init__(self, data):
-        """Create a new UIObject instance, including loading its uiFile and
-           all UI-related objects.
-
-           Instance attributes:
-
-           data     -- An instance of a pykickstart Handler object.  The Hub
-                       never directly uses this instance.  Instead, it passes
-                       it down into Spokes when they are created and applied.
-                       The Hub simply stores this instance so it doesn't need
-                       to be passed by the user.
-           skipTo   -- If this attribute is set to something other than None,
-                       it must be the name of a class (as a string).  Then,
-                       the interface will skip to the first instance of that
-                       class in the action list instead of going on to
-                       whatever the next action is normally.
-
-                       Note that actions may only skip ahead, never backwards.
-                       Also, standalone spokes may not skip to an individual
-                       spoke off a hub.  They can only skip to the hub
-                       itself.
-        """
-        common.UIObject.__init__(self, data)
-
-        if self.__class__ is GUIObject:
-            raise TypeError("GUIObject is an abstract class")
-
-        self.skipTo = None
-        self.applyOnSkip = False
-
-        from gi.repository import Gtk
-
-        self.builder = Gtk.Builder()
-        self.builder.set_translation_domain("anaconda")
-        self._window = None
-
-        if self.builderObjects:
-            self.builder.add_objects_from_file(self._findUIFile(), self.builderObjects)
-        else:
-            self.builder.add_from_file(self._findUIFile())
-
-        self.builder.connect_signals(self)
-        self.window.connect("key-release-event", self._handlePrntScreen)
-
-    def _findUIFile(self):
-        path = os.environ.get("UIPATH", "./:/tmp/updates/:/tmp/updates/ui/:/usr/share/anaconda/ui/")
-        for d in path.split(":"):
-            testPath = os.path.normpath(d + self.uiFile)
-            if os.path.isfile(testPath) and os.access(testPath, os.R_OK):
-                return testPath
-
-        raise IOError("Could not load UI file '%s' for object '%s'" % (self.uiFile, self))
-
-    def _handlePrntScreen(self, window, event):
-        global _screenshotIndex
-
-        if event.keyval != Gdk.KEY_Print:
-            return
-
-        # Make sure the screenshot directory exists.
-        if not os.access("/tmp/anaconda-screenshots", os.W_OK):
-            os.mkdir("/tmp/anaconda-screenshots")
-
-        fn = "/tmp/anaconda-screenshots/screenshot-%04d.png" % _screenshotIndex
-
-        win = window.get_window()
-        width = win.get_width()
-        height = win.get_height()
-
-        pixbuf = Gdk.pixbuf_get_from_window(win, 0, 0, width, height)
-        pixbuf.savev(fn, "png", [], [])
-
-        _screenshotIndex += 1
-
-    @property
-    def window(self):
-        """Return the top-level object out of the GtkBuilder representation
-           previously loaded by the load method.
-        """
-
-        # This will raise an AttributeError if the subclass failed to set a
-        # mainWidgetName attribute, which is exactly what I want.
-        if not self._window:
-            self._window = self.builder.get_object(self.mainWidgetName)
-
-        return self._window
-
-    def clear_info(self):
-        """Clear any info bar from the bottom of the screen."""
-        self.window.clear_info()
-
-    def set_error(self, msg):
-        """Display an info bar along the bottom of the screen with the provided
-           message.  This method is used to display critical errors anaconda
-           may not be able to do anything about, but that the user may.  A
-           suitable background color and icon will be displayed.
-        """
-        self.window.set_error(msg)
-
-    def set_info(self, msg):
-        """Display an info bar along the bottom of the screen with the provided
-           message.  This method is used to display informational text -
-           non-critical warnings during partitioning, for instance.  The user
-           should investigate these messages but doesn't have to.  A suitable
-           background color and icon will be displayed.
-        """
-        self.window.set_info(msg)
-
-    def set_warning(self, msg):
-        """Display an info bar along the bottom of the screen with the provided
-           message.  This method is used to display errors the user needs to
-           attend to in order to continue installation.  This is the bulk of
-           messages.  A suitable background color and icon will be displayed.
-        """
-        self.window.set_warning(msg)
-
-class QuitDialog(GUIObject):
-    builderObjects = ["quitDialog"]
-    mainWidgetName = "quitDialog"
-    uiFile = "main.glade"
-
-    def run(self):
-        rc = self.window.run()
-        return rc
 
 def busyCursor():
     window = Gdk.get_default_root_window()
@@ -477,3 +485,5 @@ def busyCursor():
 def unbusyCursor():
     window = Gdk.get_default_root_window()
     window.set_cursor(Gdk.Cursor(Gdk.CursorType.ARROW))
+
+    

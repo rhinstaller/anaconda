@@ -18,11 +18,9 @@
             <child>
               <object class="GtkButton" id="cancelButton">
                 <property name="label" translatable="yes">_Cancel</property>
-                <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
-                <property name="use_action_appearance">False</property>
                 <property name="use_underline">True</property>
               </object>
               <packing>
@@ -34,11 +32,9 @@
             <child>
               <object class="GtkButton" id="quitButton">
                 <property name="label" translatable="yes">_Quit</property>
-                <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
-                <property name="use_action_appearance">False</property>
                 <property name="use_underline">True</property>
               </object>
               <packing>
@@ -74,7 +70,7 @@
               </packing>
             </child>
             <child>
-              <object class="GtkLabel" id="label1">
+              <object class="GtkLabel" id="quit_message">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="label" translatable="yes">Are you sure you wish to quit the
