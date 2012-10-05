@@ -350,6 +350,36 @@ class ARM(Platform):
             self._armMachine = iutil.getARMMachine()
         return self._armMachine
 
+class omapARM(ARM):
+    _boot_stage1_format_types = ["vfat"]
+    _boot_stage1_device_types = ["partition"]
+    _boot_stage1_mountpoints = ["/boot/uboot"]
+    _boot_uboot_description = N_("U-Boot Partition")
+    _boot_descriptions = {"partition": _boot_uboot_description}
+
+    def setDefaultPartitioning(self):
+        """Return the ARM-OMAP platform-specific partitioning information."""
+        from storage.partspec import PartSpec
+        ret = [PartSpec(mountpoint="/boot/uboot", fstype="vfat",
+                        size=20, maxSize=200, grow=True,
+                        weight=self.weight(fstype="vfat", mountpoint="/boot/uboot"))]
+        ret.append(PartSpec(mountpoint="/", fstype="ext4",
+                            size=2000, maxSize=3000,
+                            weight=self.weight(mountpoint="/")))
+        return ret
+
+    def weight(self, fstype=None, mountpoint=None):
+        """Return the ARM-OMAP platform-specific weights for the uboot
+           and / partitions.  On OMAP, uboot must be the first partition,
+           and '/' must be the last partition, so we try to weight them
+           accordingly."""
+        if fstype == "vfat" and mountpoint == "/boot/uboot":
+            return 6000
+        elif mountpoint == "/":
+            return -100
+        else:
+            return Platform.weight(self, fstype=fstype, mountpoint=mountpoint)
+
 def getPlatform():
     """Check the architecture of the system and return an instance of a
        Platform subclass to match.  If the architecture could not be determined,
@@ -377,6 +407,10 @@ def getPlatform():
     elif iutil.isX86():
         return X86()
     elif iutil.isARM():
-        return ARM()
+        armMachine = iutil.getARMMachine()
+        if armMachine == "omap":
+            return omapARM()
+        else:
+            return ARM()
     else:
         raise SystemError, "Could not determine system architecture."
