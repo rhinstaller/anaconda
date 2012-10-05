@@ -299,6 +299,53 @@ update-desktop-database &> /dev/null || :
 /usr/lib/dracut/modules.d/80%{name}/*
 
 %changelog
+* Fri Oct 05 2012 Chris Lumens <clumens@redhat.com> - 18.13-1
+- Make sure packages anaconda requires are installed. (clumens)
+- Add method returning current activated X layout (vpodzime)
+- Fix a deadlock when trying to add a keyboard layout (#862612). (clumens)
+- ntfsresize uses SI (MB) while the rest of us use IEC (MiB). (#862109)
+  (dlehman)
+- Remove empty extended partitions after removing a logical partition.
+  (dlehman)
+- Handle all logical/extended partitions in unusedDevices. (dlehman)
+- Update autopart/custom setting before moving to reclaim dialog. (#863225)
+  (dlehman)
+- Raise an exception early in newDevice if no disks were specified. (#858139)
+  (dlehman)
+- Fix a regression in BTRFSVolumeDevice.listSubVolumes. (#862742) (dlehman)
+- Fix behavior of resolveDevice when devspec is a device name. (dlehman)
+- Prevent BTRFS volumes from ever having the name None. (dlehman)
+- Prevent negative free value for filesystems. (#861812) (dlehman)
+- Don't show extended partitions that contain logical partitions. (#862971)
+  (dlehman)
+- Delete ts data instead of trying to undo dep installs. (#851114) (dlehman)
+- Change the manglings for a couple locales (petersen). (clumens)
+- Hook up the "Modify Software Selection" button on install opts dialogs.
+  (clumens)
+- More TODO list updates. (clumens)
+- Add a label to the resize dialog for how much space is required. (clumens)
+- Add a column to the disk shopping cart for setting the boot device (#860430).
+  (clumens)
+- Rework the disk shopping cart link a little bit. (clumens)
+- Do not use constant value in SoftwareSpoke's completed property (vpodzime)
+- Pull in existing swaps and bootloader devices whenever there are mounts.
+  (dlehman)
+- Revert broken logic for newly formatted devices in unusedDevices. (dlehman)
+- Add an apply button to the device/mountpoint configuration options. (dlehman)
+- Don't base StorageSpoke.ready on storage execute thread presence. (#861574)
+  (dlehman)
+- Prevent systemd timeout waiting for encryption passphrase. (#861123)
+  (dlehman)
+- Fix traceback when switching device type to lvm. (#860990) (dlehman)
+- Fix error handling in the add mountpoint dialog. (#860992) (dlehman)
+- Allow xfs /boot. (dlehman)
+- Fix makeupdates to work for glade files in subdirs of spokes/ or hubs/.
+  (dlehman)
+- Fix parsing of NFS method strings (#860966) (jkeating)
+- Make the URL entry sensitive for NFS installs, too (#863014). (clumens)
+- Add in a locale mapping to avoid incorrect system settings (#858591).
+  (clumens)
+
 * Wed Oct 03 2012 Brian C. Lane <bcl@redhat.com> - 18.12-1
 - copy-logs changed names (bcl)
 - Reference correct UI button name (#862409) (jkeating)
