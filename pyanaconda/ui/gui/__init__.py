@@ -59,9 +59,14 @@ class GraphicalUserInterface(UserInterface):
         self._isFinal = isFinal
 
         # This is a hack to make sure the AnacondaWidgets library gets loaded
-        # before the introspection stuff.
-        import ctypes
-        ctypes.CDLL("libAnacondaWidgets.so.0", ctypes.RTLD_GLOBAL)
+        # before glade tries to use Anaconda types
+        # glade file should contain the following line to make this seamless
+        #
+        # <requires lib="AnacondaWidgets" version="1.0"/>
+        #
+        # but the current (3.4) version of GtkBuilder does not support
+        # requires elements with 3rd party libraries
+        from gi.repository import AnacondaWidgets
 
     basemask = "pyanaconda.ui.gui"
     basepath = os.path.dirname(__file__)
