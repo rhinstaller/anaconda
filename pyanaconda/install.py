@@ -26,7 +26,8 @@ from pyanaconda.bootloader import writeBootLoader
 from pyanaconda.progress import progress_report
 from pyanaconda.users import createLuserConf, getPassAlgo, Users
 from pyanaconda.network import writeNetworkConf
-from pyanaconda.flags import flags
+from pyanaconda import flags
+from pyanaconda import timezone
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
@@ -88,6 +89,10 @@ def doInstall(storage, payload, ksdata, instClass):
     from pyanaconda import progress
     from pyanaconda.kickstart import runPostScripts
 
+    # First save system time to HW clock.
+    if flags.can_touch_runtime_system("save system time to HW clock"):
+        timezone.save_hw_clock(ksdata.timezone)
+
     # We really only care about actions that affect filesystems, since
     # those are the ones that take the most time.
     steps = len(storage.devicetree.findActions(type="create", object="format")) + \
@@ -99,7 +104,7 @@ def doInstall(storage, payload, ksdata, instClass):
     # Do partitioning.
     payload.preStorage()
     turnOnFilesystems(storage)
-    if not flags.livecdInstall:
+    if not flags.flags.livecdInstall:
         storage.write()
 
     # Do packaging.
@@ -111,7 +116,7 @@ def doInstall(storage, payload, ksdata, instClass):
     payload.preInstall(packages=packages, groups=payload.languageGroups(ksdata.lang.lang))
     payload.install()
 
-    if flags.livecdInstall:
+    if flags.flags.livecdInstall:
         storage.write()
 
     with progress_report(_("Performing post-install setup tasks")):

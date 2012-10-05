@@ -1262,6 +1262,13 @@ class Services(commands.services.FC6_Services):
                                    root=ROOT_PATH)
 
 class Timezone(commands.timezone.F18_Timezone):
+    def __init__(self, *args):
+        commands.timezone.F18_Timezone.__init__(self, *args)
+
+        #TODO: Do we need to set it to False in case of dual-boot?
+        #default to UTC HW clock in Anaconda
+        self.isUtc = True
+
     def execute(self, *args):
         # write out timezone configuration
         if not timezone.is_valid_timezone(self.timezone):

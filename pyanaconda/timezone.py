@@ -29,6 +29,7 @@ import pytz
 from collections import OrderedDict
 
 from pyanaconda import localization
+from pyanaconda import iutil
 
 import logging
 log = logging.getLogger("anaconda")
@@ -86,6 +87,24 @@ def write_timezone_config(timezone, root):
     except IOError as ioerr:
         msg = "Error while writing /etc/adjtime file: %s" % ioerr.strerror
         raise TimezoneConfigError(msg)
+
+def save_hw_clock(timezone):
+    """
+    Save system time to HW clock.
+
+    @param timezone: ksdata.timezone object
+
+    """
+
+    cmd = "hwclock"
+    args = ["--systohc"]
+    if timezone.isUtc:
+        args.append("--utc")
+    else:
+        args.append("--local")
+
+    iutil.execWithRedirect(cmd, args, stdout="/dev/tty5", stderr="/dev/tty5")
+
 
 def get_all_territory_timezones(territory):
     """
