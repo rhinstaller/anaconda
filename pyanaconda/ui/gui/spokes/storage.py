@@ -380,7 +380,7 @@ class StorageSpoke(NormalSpoke, StorageChecker):
             self.data.clearpart.type = CLEARPART_TYPE_NONE
             self.data.clearpart.initAll = False
             self.storage.config.update(self.data)
-            self.storage.autoPartType = self.data.clearpart.type
+            self.storage.autoPartType = self.data.autopart.type
             self.storage.reset()
         else:
             if self.autopart:
@@ -628,6 +628,8 @@ class StorageSpoke(NormalSpoke, StorageChecker):
             self.skipTo = "SoftwareSelectionSpoke"
             self.on_back_clicked(self.window)
         elif rc == dialog.RESPONSE_RECLAIM:
+            self.autopart = not dialog.custom
+
             if dialog.custom:
                 self.skipTo = "CustomPartitioningSpoke"
             else:
