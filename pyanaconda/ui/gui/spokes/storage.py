@@ -44,6 +44,7 @@ from gi.repository import AnacondaWidgets
 from pyanaconda.ui.gui import GUIObject, communication
 from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.gui.spokes.lib.cart import SelectedDisksDialog
+from pyanaconda.ui.gui.spokes.lib.passphrase import PassphraseDialog
 from pyanaconda.ui.gui.spokes.lib.detailederror import DetailedErrorDialog
 from pyanaconda.ui.gui.spokes.lib.resize import ResizeDialog
 from pyanaconda.ui.gui.categories.storage import StorageCategory
@@ -444,6 +445,9 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         self.encrypted = self.data.autopart.encrypted
         self.passphrase = self.data.autopart.passphrase
 
+        encrypt_checkbutton = self.builder.get_object("encryption_checkbutton")
+        encrypt_checkbutton.set_active(self.encrypted)
+
         # update the selections in the ui
         overviews = self.local_disks_box.get_children()
         for overview in overviews:
@@ -622,8 +626,21 @@ class StorageSpoke(NormalSpoke, StorageChecker):
             # depending on custom/autopart, either set up autopart or show
             # custom partitioning ui
             self.autopart = not dialog.custom
+
+            # even if they're not doing autopart, setting autopart.encrypted
+            # establishes a default of encrypting new devices
+            encrypt_button = self.builder.get_object("encryption_checkbutton")
+            self.encrypted = encrypt_button.get_active()
+
             if dialog.custom:
                 self.skipTo = "CustomPartitioningSpoke"
+            elif self.encrypted:
+                dialog = PassphraseDialog(self.data)
+                rc = self.run_lightbox_dialog(dialog)
+                if rc == 0:
+                    return
+
+                self.passphrase = dialog.passphrase
 
             self.on_back_clicked(self.window)
         elif rc == dialog.RESPONSE_CANCEL:
@@ -635,6 +652,11 @@ class StorageSpoke(NormalSpoke, StorageChecker):
             self.on_back_clicked(self.window)
         elif rc == dialog.RESPONSE_RECLAIM:
             self.autopart = not dialog.custom
+
+            # even if they're not doing autopart, setting autopart.encrypted
+            # establishes a default of encrypting new devices
+            encrypt_button = self.builder.get_object("encryption_checkbutton")
+            self.encrypted = encrypt_button.get_active()
 
             if dialog.custom:
                 self.skipTo = "CustomPartitioningSpoke"

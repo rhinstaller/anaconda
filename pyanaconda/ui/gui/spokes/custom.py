@@ -1449,6 +1449,11 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
               (mountpoint and mountpoint.startswith("/boot"))):
             device_type = AUTOPART_TYPE_PLAIN
 
+        # some devices should never be encrypted
+        if ((mountpoint and mountpoint.startswith("/boot")) or
+            fstype in ("biosboot", "prepboot")):
+            encrypted = False
+
         disks = self._clearpartDevices
         self.clear_errors()
 
