@@ -127,7 +127,7 @@ class InstallOptions1Dialog(GUIObject):
     RESPONSE_QUIT = 4
 
     def __init__(self, *args, **kwargs):
-        self.payload = kwargs.pop("payload")
+        self.payload = kwargs.pop("payload", None)
         GUIObject.__init__(self, *args, **kwargs)
 
     def run(self):
