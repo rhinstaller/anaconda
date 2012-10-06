@@ -81,7 +81,7 @@ class SelectedDisksDialog(GUIObject):
                 row[IS_BOOT_COL] = True
                 break
 
-    def refresh(self, free, showRemove=True):
+    def refresh(self, disks, free, showRemove=True):
         super(SelectedDisksDialog, self).refresh()
 
         self._view = self.builder.get_object("disk_view")
