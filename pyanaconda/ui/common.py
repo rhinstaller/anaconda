@@ -24,6 +24,7 @@ import os
 import imp
 import inspect
 import copy
+import sys
 
 class PathDict(dict):
     """Dictionary class supporting + operator"""
@@ -452,10 +453,13 @@ def collect(module_pattern, path, pred):
 
         mod_info = None
         module = None
+        
         try:    
             imp.acquire_lock()
             mod_info = imp.find_module(mod_name, [path])
-            module = imp.load_module(module_pattern % mod_name, *mod_info)
+            module = sys.modules.get(module_pattern % mod_name)
+            if not module:
+                module = imp.load_module(module_pattern % mod_name, *mod_info)
             imp.release_lock()
         except ImportError:
             continue
