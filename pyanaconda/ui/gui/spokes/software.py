@@ -32,6 +32,8 @@ from pyanaconda.ui.gui.utils import enlightbox, gdk_threaded
 from pyanaconda.ui.gui.categories.software import SoftwareCategory
 from .source import AdditionalReposDialog
 
+from pykickstart.parser import Group
+
 import sys
 
 __all__ = ["SoftwareSelectionSpoke"]
@@ -260,8 +262,12 @@ class SoftwareSelectionSpoke(NormalSpoke):
         for row in self._environmentStore:
             row[0] = False
 
-        if self.environment:
-            self.payload.deselectEnvironment(self.environment)
+        # Remove all groups from the previous environment from the selected
+        # list, but don't explicitly exclude them.
+        for groupid in self.payload.environmentGroups(self.environment):
+            grp = Group(groupid)
+            if grp in self.data.packages.groupList:
+                self.data.packages.groupList.remove(grp)
 
         # Then mark the clicked environment as selected and update the screen.
         self._environmentStore[path][0] = True

@@ -277,6 +277,9 @@ class Payload(object):
     def deselectEnvironment(self, environmentid):
         raise NotImplementedError()
 
+    def environmentGroups(self, environmentid):
+        raise NotImplementedError()
+
     ###
     ### METHODS FOR WORKING WITH GROUPS
     ###

@@ -837,6 +837,18 @@ reposdir=%s
             for group in environment.options:
                 self.deselectGroup(group)
 
+    def environmentGroups(self, environmentid):
+        groups = self._yumGroups
+        if not groups:
+            return []
+
+        with _yum_lock:
+            if not groups.has_environment(environmentid):
+                raise NoSuchGroup(environmentid)
+
+            environment = groups.return_environment(environmentid)
+            return environment.groups + environment.options
+
     ###
     ### METHODS FOR WORKING WITH GROUPS
     ###
