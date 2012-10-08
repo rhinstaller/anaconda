@@ -299,6 +299,20 @@ update-desktop-database &> /dev/null || :
 /usr/lib/dracut/modules.d/80%{name}/*
 
 %changelog
+* Mon Oct 08 2012 Brian C. Lane <bcl@redhat.com> - 18.14-1
+- Add UI support for encrypted automatic partitioning. (dlehman)
+- Add support to the custom spoke for encrypted block devices. (dlehman)
+- Add a page for decrypting existing LUKS devices. (dlehman)
+- Add a dialog for collecting a passphrase for newly encrypted devices.
+  (dlehman)
+- Add a property that provides a list of all selectors in the accordion.
+  (dlehman)
+- Handle luks formats during populate if they have a passphrase set. (dlehman)
+- Add encryption support to the device factory classes. (dlehman)
+- s/dev/disk in the disk shopping cart. (clumens)
+- Set a default payload in InstallOptions1Dialog (#863582). (clumens)
+- Pass disks into the SelectedDisksDialog (#863588). (clumens)
+
 * Fri Oct 05 2012 Chris Lumens <clumens@redhat.com> - 18.13-1
 - Make sure packages anaconda requires are installed. (clumens)
 - Add method returning current activated X layout (vpodzime)
