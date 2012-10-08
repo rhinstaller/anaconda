@@ -46,6 +46,7 @@ from pyanaconda.threads import threadMgr
 
 from pyanaconda.storage.formats import device_formats
 from pyanaconda.storage.formats import getFormat
+from pyanaconda.storage.formats.fs import FS
 from pyanaconda.storage.size import Size
 from pyanaconda.storage import Root
 from pyanaconda.storage import findExistingInstallations
@@ -99,8 +100,11 @@ mountpoint_validation_msgs = {MOUNTPOINT_OK: "",
                               MOUNTPOINT_IN_USE: mountpoint_in_use_msg,
                               MOUNTPOINT_EMPTY: empty_mountpoint_msg}
 
-# btrfs has to be the last type in the list since it gets removed and added
-# depending on the device's formatting
+DEVICE_TEXT_LVM = _("LVM")
+DEVICE_TEXT_MD = _("RAID")
+DEVICE_TEXT_PARTITION = _("Standard Partition")
+DEVICE_TEXT_BTRFS = _("BTRFS")
+
 # FIXME: use these everywhere instead of the AUTOPART_TYPE constants
 DEVICE_TYPE_LVM = 0
 DEVICE_TYPE_MD = 1
@@ -269,6 +273,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         self._current_selector = None
         self._when_create_text = ""
         self._devices = []
+        self._fs_types = []             # list of supported fstypes
         self._unused_devices = None     # None indicates uninitialized
         self._free_space = Size(bytes=0)
 
@@ -461,8 +466,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         self._configButton = self.builder.get_object("configureButton")
 
     def initialize(self):
-        from pyanaconda.storage.formats.fs import FS
-
         NormalSpoke.initialize(self)
 
         label = self.builder.get_object("whenCreateLabel")
@@ -486,14 +489,20 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         # Populate the list of valid filesystem types from the format classes.
         # Unfortunately, we have to narrow them down a little bit more because
         # this list will include things like PVs and RAID members.
-        combo = self.builder.get_object("fileSystemTypeCombo")
+        fsCombo = self.builder.get_object("fileSystemTypeCombo")
+        fsCombo.remove_all()
+        self._fs_types = []
         for cls in device_formats.itervalues():
             obj = cls()
-            if obj.supported and obj.formattable and \
-               obj.type != "btrfs" and \
-               (isinstance(obj, FS) or
-                obj.type in ["biosboot", "prepboot", "swap"]):
-                combo.append_text(obj.name)
+
+            # btrfs is always handled by on_device_type_changed
+            supported_fs = (obj.type != "btrfs" and
+                            obj.supported and obj.formattable and
+                            (isinstance(obj, FS) or
+                             obj.type in ["biosboot", "prepboot", "swap"]))
+            if supported_fs:
+                fsCombo.append_text(obj.name)
+                self._fs_types.append(obj.name)
 
     def _mountpointName(self, mountpoint):
         # If there's a mount point, apply a kind of lame scheme to it to figure
@@ -852,7 +861,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         log.debug("new size: %s" % size)
         log.debug("old size: %s" % device.size)
 
-        device_type = self.builder.get_object("deviceTypeCombo").get_active()
+        device_type = self._get_current_device_type()
         device_type_map = {DEVICE_TYPE_PARTITION: AUTOPART_TYPE_PLAIN,
                            DEVICE_TYPE_BTRFS: AUTOPART_TYPE_BTRFS,
                            DEVICE_TYPE_LVM: AUTOPART_TYPE_LVM,
@@ -1226,8 +1235,9 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             (button, label) = widget_dict[feature]
             button.set_sensitive(feature not in disabled)
 
-    def _populate_raid(self, device_type, raid_level, size):
+    def _populate_raid(self, raid_level, size):
         """ Set up the raid-specific portion of the device details. """
+        device_type = self._get_current_device_type()
         log.debug("populate_raid: %s, %s" % (device_type, raid_level))
 
         if device_type == DEVICE_TYPE_MD:
@@ -1276,6 +1286,24 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
             # some features are not available to some raid levels
             button.set_sensitive(feature not in disabled)
+
+    def _get_current_device_type(self):
+        typeCombo = self.builder.get_object("deviceTypeCombo")
+        device_type_text = typeCombo.get_active_text()
+        log.info("getting device type for %s" % device_type_text)
+        device_type = None
+        if device_type_text == DEVICE_TEXT_LVM:
+            device_type = DEVICE_TYPE_LVM
+        elif device_type_text == DEVICE_TEXT_MD:
+            device_type = DEVICE_TYPE_MD
+        elif device_type_text == DEVICE_TEXT_PARTITION:
+            device_type = DEVICE_TYPE_PARTITION
+        elif device_type_text == DEVICE_TEXT_BTRFS:
+            device_type = DEVICE_TYPE_BTRFS
+        else:
+            log.error("unknown device type: '%s'" % device_type_text)
+
+        return device_type
 
     def _populate_right_side(self, selector):
         log.debug("populate_right_side: %s" % selector._device)
@@ -1332,38 +1360,93 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
         encryptCheckbox.set_active(device.encrypted)
 
+        ##
+        ## Set up the filesystem type combo.
+        ##
+
+        # remove any fs types that aren't supported
+        remove_indices = []
+        for idx, data in enumerate(fsCombo.get_model()):
+            fs_type = data[0]
+            if fs_type not in self._fs_types:
+                remove_indices.insert(0, idx)
+                continue
+
+            if fs_type == device.format.name:
+                fsCombo.set_active(idx)
+
+        for remove_idx in remove_indices:
+            fsCombo.remove(remove_idx)
+
+        # if the current device has unsupported formatting, add an entry for it
+        if device.format.name not in self._fs_types:
+            fsCombo.append_text(device.format.name)
+            fsCombo.set_active(len(fsCombo.get_model()) - 1)
+
+        # Give them a way to reset to original formatting. Whenever we add a
+        # "reformat this" widget this will need revisiting.
+        if device.exists and \
+           device.format.type != device.originalFormat.type and \
+           device.originalFormat.type not in self._fs_types:
+            fsCombo.append_text(device.originalFormat.name)
+
+        ##
+        ## Set up the device type combo.
+        ##
+
+        btrfs_pos = None
+        btrfs_included = False
+        md_pos = None
+        md_included = False
+        for idx, itr in enumerate(typeCombo.get_model()):
+            if itr[0] == DEVICE_TEXT_BTRFS:
+                btrfs_pos = idx
+                btrfs_included = True
+            elif itr[0] == DEVICE_TEXT_MD:
+                md_pos = idx
+                md_included = True
+
+        # only include md if there are two or more disks
+        include_md = (use_dev.type == "mdarray" or
+                      len(self._clearpartDevices) > 1)
+        if include_md and not md_included:
+            typeCombo.append_text(DEVICE_TEXT_RAID)
+        elif md_included and not include_md:
+            typeCombo.remove(md_pos)
+
         # if the format is swap the device type can't be btrfs
         include_btrfs = use_dev.format.type not in ("swap", "prepboot",
                                                     "biosboot")
-        # btrfs has to be the last type in the list
-        btrfs_included = typeCombo.get_model()[-1][0] == "BTRFS"
         if include_btrfs and not btrfs_included:
-            typeCombo.append_text("BTRFS")
+            typeCombo.append_text(DEVICE_TEXT_BTRFS)
         elif btrfs_included and not include_btrfs:
-            typeCombo.remove(len(typeCombo.get_model()) - 1)
+            typeCombo.remove(btrfs_pos)
 
-        # if the format is unknown/none, add that to the list
-        # otherwise, make sure it's not in the list
-        unknown_fmt = getFormat(None)
-        include_unknown = device.format.type is None
-        unknown_included = fsCombo.get_model()[-1][0] == unknown_fmt.name
-        if include_unknown and not unknown_included:
-            fsCombo.append_text(unknown_fmt.name)
-        elif unknown_included and not include_unknown:
-            fsCombo.remove(len(fsCombo.get_model()) - 1)
+        md_pos = None
+        btrfs_pos = None
+        partition_pos = None
+        lvm_pos = None
+        for idx, itr in enumerate(typeCombo.get_model()):
+            if itr[0] == DEVICE_TEXT_BTRFS:
+                btrfs_pos = idx
+            elif itr[0] == DEVICE_TEXT_MD:
+                md_pos = idx
+            elif itr[0] == DEVICE_TEXT_PARTITION:
+                partition_pos = idx
+            elif itr[0] == DEVICE_TEXT_LVM:
+                lvm_pos = idx
 
-        # FIXME:  What do we do if we can't figure it out?
         raid_level = None
         if use_dev.type == "lvmlv":
             # TODO: striping/mirroring
-            typeCombo.set_active(DEVICE_TYPE_LVM)
+            typeCombo.set_active(lvm_pos)
         elif use_dev.type == "mdarray":
-            typeCombo.set_active(DEVICE_TYPE_MD)
+            typeCombo.set_active(md_pos)
             raid_level = mdraid.raidLevelString(use_dev.level)
         elif use_dev.type == "partition":
-            typeCombo.set_active(DEVICE_TYPE_PARTITION)
+            typeCombo.set_active(partition_pos)
         elif use_dev.type.startswith("btrfs"):
-            typeCombo.set_active(DEVICE_TYPE_BTRFS)
+            typeCombo.set_active(btrfs_pos)
             if hasattr(use_dev, "volume"):
                 raid_level = use_dev.volume.dataLevel or "single"
             else:
@@ -1372,14 +1455,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         # you can't change the type of an existing device
         typeCombo.set_sensitive(not device.exists)
 
-        # FIXME:  What do we do if we can't figure it out?
-        model = fsCombo.get_model()
-        for i in range(0, len(model)):
-            if model[i][0] == device.format.name:
-                fsCombo.set_active(i)
-                break
-
-        self._populate_raid(typeCombo.get_active(), raid_level, device.size)
+        self._populate_raid(raid_level, device.size)
         self.builder.get_object("optionsNotebook").set_sensitive(not device.exists)
 
     ###
@@ -1744,10 +1820,13 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             return
 
         new_type = combo.get_active_text()
+        if new_type is None:
+            return
         log.debug("fs type changed: %s" % new_type)
         fmt = getFormat(new_type)
         mountPointEntry = self.builder.get_object("mountPointEntry")
         labelEntry = self.builder.get_object("labelEntry")
+        # FIXME: can't set a label on an existing format as of now
         labelEntry.set_sensitive(hasattr(fmt, "label"))
         mountPointEntry.set_sensitive(fmt.mountable)
 
@@ -1755,9 +1834,11 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         if not self._initialized:
             return
 
-        new_type = combo.get_active()
+        new_type = self._get_current_device_type()
         log.debug("device_type_changed: %s %s" % (new_type,
                                                   combo.get_active_text()))
+        if new_type is None:
+            return
 
         # if device type is not btrfs we want to make sure btrfs is not in the
         # fstype combo
@@ -1782,19 +1863,27 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             raid_level = "raid0"
 
         size = self.builder.get_object("sizeSpinner").get_value()
-        self._populate_raid(new_type, raid_level, size)
+        self._populate_raid(raid_level, size)
 
         # begin btrfs magic
         fsCombo = self.builder.get_object("fileSystemTypeCombo")
         model = fsCombo.get_model()
-        btrfs_included = "btrfs" in [f[0] for f in model]
-        active_index = 0
+        btrfs_included = False
+        btrfs_pos = None
+        for idx, data in enumerate(model):
+            if data[0] == "btrfs":
+                btrfs_included = True
+                btrfs_pos = idx
+
+        active_index = fsCombo.get_active()
+        fstype = fsCombo.get_active_text()
         if btrfs_included and not include_btrfs:
             for i in range(0, len(model)):
-                if model[i][0] == self.storage.defaultFSType:
+                if fstype == "btrfs" and \
+                   model[i][0] == self.storage.defaultFSType:
                     active_index = i
                     break
-            fsCombo.remove(len(model) - 1)  # remove btrfs, which is always last
+            fsCombo.remove(btrfs_pos)
         elif include_btrfs and not btrfs_included:
             fsCombo.append_text("btrfs")
             active_index = len(fsCombo.get_model()) - 1
