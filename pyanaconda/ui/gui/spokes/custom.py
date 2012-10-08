@@ -1260,7 +1260,12 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                                                       raid_level=base_level)
 
         widget_dict = self._get_raid_widget_dict(device_type)
-        base_size = factory.device_size
+        try:
+            base_size = factory.device_size
+        except ValueError as e:
+            log.error("failed to populate UI raid options: %s" % e)
+            return
+
         active = raid_level_features[raid_level]
         disabled = self._get_raid_disabled_features(raid_level)
         for feature in raid_features:
