@@ -102,8 +102,19 @@ spoke = spokeClass(ksdata, storage, payload, instclass)
 if hasattr(spoke, "register_event_cb"):
     spoke.register_event_cb("continue", lambda: Gtk.main_quit())
     spoke.register_event_cb("quit", lambda: Gtk.main_quit())
-spoke.initialize()
 
+if hasattr(spoke, "set_path"):
+    spoke.set_path("categories", [
+        ("pyanaconda.ui.gui.categories.%s",
+         os.path.join(os.path.dirname(__file__),"..", "categories"))
+         ])
+    spoke.set_path("spokes", [
+        ("pyanaconda.ui.gui.spokes.%s",
+         os.path.join(os.path.dirname(__file__), "..", "spokes"))
+         ])
+    
+spoke.initialize()
+    
 if not spoke.showable:
     print "This %s is not showable, but I'll continue anyway." % spokeText
 
