@@ -159,7 +159,7 @@ class SelectedDisksDialog(GUIObject):
             if row[IS_BOOT_COL]:
                 for disk in self.disks:
                     if disk.id == row[ID_COL]:
-                        self.data.bootloader.bootDrive = dev.name
+                        self.data.bootloader.bootDrive = disk.name
                         return
 
     def on_selection_changed(self, *args):
