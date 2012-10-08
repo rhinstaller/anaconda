@@ -996,7 +996,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                     # you can't change the type of an existing device, so we
                     # don't need to concern ourselves with adding a new
                     # selector to the new page
-                    selector.props.mountpoint = mountpoint
+                    selector.props.mountpoint = (mountpoint or
+                                                 selector._device.format.name)
                     selector.props.name = (self._mountpointName(mountpoint) or
                                            selector._device.format.name)
 
@@ -1112,7 +1113,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                     self.window.show_all()
                 else:
                     if old_mountpoint:
-                        selector.props.mountpoint = mountpoint
+                        selector.props.mountpoint = (mountpoint or
+                                                     selector._device.format.name)
                         selector.props.name = (self._mountpointName(mountpoint)
                                                or selector._device.format.name)
                     else:
