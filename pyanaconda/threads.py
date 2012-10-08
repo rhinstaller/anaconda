@@ -19,6 +19,9 @@
 #
 # Author(s):  Chris Lumens <clumens@redhat.com>
 #
+import logging
+log = logging.getLogger("anaconda")
+
 import threading
 
 class ThreadManager(object):
@@ -83,6 +86,7 @@ class AnacondaThread(threading.Thread):
         # http://bugs.python.org/issue1230540#msg25696
         import sys
 
+        log.info("Running Thread: %s (%s)" % (self.name, self.ident))
         try:
             threading.Thread.run(self, *args, **kwargs)
         except KeyboardInterrupt:
@@ -91,6 +95,7 @@ class AnacondaThread(threading.Thread):
             sys.excepthook(*sys.exc_info())
         finally:
             threadMgr.remove(self.name)
+            log.info("Thread Done: %s (%s)" % (self.name, self.ident))
 
 def initThreading():
     """Set up threading for anaconda's use.  This method must be called before

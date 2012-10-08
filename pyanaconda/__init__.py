@@ -29,6 +29,7 @@
 #
 
 import os, time, string
+import sys
 import iutil
 import isys
 from constants import ROOT_PATH
@@ -179,15 +180,23 @@ class Anaconda(object):
     def dumpState(self):
         from meh.dump import ReverseExceptionDump
         from inspect import stack as _stack
+        from traceback import format_stack
 
         # Skip the frames for dumpState and the signal handler.
         stack = _stack()[2:]
         stack.reverse()
         exn = ReverseExceptionDump((None, None, stack), self.mehConfig)
 
+        # gather up info on the running threads
+        threads = "\nThreads\n-------\n"
+        for thread_id, frame in sys._current_frames().iteritems():
+            threads += "\nThread %s\n" % (thread_id,)
+            threads += "".join(format_stack(frame))
+
         # dump to a unique file
         (fd, filename) = mkstemp(prefix="anaconda-tb-", dir="/tmp")
         dump_text = exn.traceback_and_object_dump(self)
+        dump_text += threads
         dump_text = dump_text.encode("utf-8")
         os.write(fd, dump_text)
         os.close(fd)

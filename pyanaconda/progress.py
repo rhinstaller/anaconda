@@ -18,6 +18,9 @@
 #
 # Author(s): Chris Lumens <clumens@redhat.com>
 
+import logging
+log = logging.getLogger("anaconda")
+
 from contextlib import contextmanager
 import Queue
 
@@ -66,5 +69,6 @@ def send_quit(code):
 @contextmanager
 def progress_report(message):
     send_message(message)
+    log.info(message)
     yield
     send_step()
