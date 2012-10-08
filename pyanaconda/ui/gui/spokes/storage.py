@@ -247,7 +247,8 @@ class InstallOptions2Dialog(InstallOptions1Dialog):
     def on_custom_toggled(self, checkbutton):
         super(InstallOptions2Dialog, self).on_custom_toggled(checkbutton)
         self.builder.get_object("options2_cancel_button").set_sensitive(not self.custom)
-        self.builder.get_object("options2_modify_sw_button").set_sensitive(not self.custom)
+        sensitive = not self.custom and self._software_is_ready()
+        self.builder.get_object("options2_modify_sw_button").set_sensitive(sensitive)
 
 class InstallOptions3Dialog(InstallOptions1Dialog):
     builderObjects = ["options3_dialog"]
