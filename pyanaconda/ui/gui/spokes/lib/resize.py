@@ -75,6 +75,8 @@ class ResizeDialog(GUIObject):
         markup = self._required_label.get_label()
         self._required_label.set_markup(markup % size_str(payload.spaceRequired))
 
+        self._reclaimDescLabel = self.builder.get_object("reclaimDescLabel")
+
     def _description(self, part):
         # First, try to find the partition in some known Root.  If we find
         # it, return the mountpoint as the description.
@@ -98,6 +100,8 @@ class ResizeDialog(GUIObject):
         totalReclaimableSpace = 0
 
         self._selectedReclaimableSpace = 0
+
+        canShrinkSomething = False
 
         # Shouldn't have to do this outside of glade, but see:
         # https://bugzilla.gnome.org/show_bug.cgi?id=685003
@@ -126,6 +130,7 @@ class ResizeDialog(GUIObject):
                 # Devices that are not resizable are still deletable.
                 if dev.resizable:
                     freeSize = dev.size - dev.minSize
+                    canShrinkSomething = True
                 else:
                     freeSize = dev.size
 
@@ -147,6 +152,20 @@ class ResizeDialog(GUIObject):
             totalReclaimableSpace += diskReclaimableSpace
 
         self._update_labels(totalDisks, totalReclaimableSpace, 0)
+
+        description = _("You don't have enough free space available for this installation.\n\n"
+                        "You can remove existing filesystems you no longer need to free up space "
+                        "for this installation.  Removing a filesystem will permanently delete all "
+                        "of the data it contains.")
+
+        if canShrinkSomething:
+            description += "\n\n"
+            description += _("There is also free space available in pre-existing filesystems.  "
+                             "While it's risky and we recommend you back up your data first, you "
+                             "can recover that free disk space and make it available for this "
+                             "installation below.")
+
+        self._reclaimDescLabel.set_text(description)
 
     def _update_labels(self, nDisks=None, totalReclaimable=None, selectedReclaimable=None):
         if nDisks is not None and totalReclaimable is not None:
