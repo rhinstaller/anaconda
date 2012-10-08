@@ -103,9 +103,6 @@ def storageInitialize(storage, ksdata, protected):
     else:
         storage.reset()
 
-    if not storage.disks:
-        raise NoDisksError
-
     # kickstart uses all the disks
     if flags.automatedInstall:
         if not ksdata.ignoredisk.onlyuse:

@@ -542,7 +542,9 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         summary_label = self.builder.get_object("summary_label")
         summary_label.set_text(summary)
 
-        if count == 0:
+        if len(self.disks) == 0:
+            self.window.set_info(Gtk.MessageType.WARNING, _("No disks detected.  Please shut down the computer, connect at least one disk, and restart to complete installation."))
+        elif count == 0:
             self.window.set_info(Gtk.MessageType.WARNING, _("No disks selected; please select at least one disk to install to."))
         else:
             self.window.clear_info()

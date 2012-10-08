@@ -65,6 +65,9 @@ class SelectedDisksDialog(GUIObject):
         if not showRemove:
             self.builder.get_object("remove_button").hide()
 
+        if not disks:
+            return
+
         # Set up the default boot device.  Use what's in the ksdata if anything,
         # then fall back to the first device.
         default_id = None
