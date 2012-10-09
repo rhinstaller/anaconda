@@ -42,7 +42,7 @@ def btrfs(args, capture=False):
         kwargs["stdout"] = "/dev/tty5"
 
     ret = exec_func("btrfs", args, **kwargs)
-    if ret:
+    if ret and not capture:
         raise BTRFSError(ret)
     return ret
 
