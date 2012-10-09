@@ -41,8 +41,7 @@ ksparser.readKickstart(ksfile)
 # sshpw, but after that we start sshd, we need one that points to the
 # install target.
 luserConf = users.createLuserConf(instPath="")
-# Pass a fake anaconda object in because it won't be needed
-u = users.Users(None)
+u = users.Users()
 
 userdata = ksparser.handler.sshpw.dataList()
 for ud in userdata:
