@@ -388,6 +388,7 @@ class StorageSpoke(NormalSpoke, StorageChecker):
             self.storage.config.update(self.data)
             self.storage.autoPartType = self.data.autopart.type
             self.storage.reset()
+            self.disks = getDisks(self.storage.devicetree)
         else:
             if self.autopart:
                 # this was already run as part of doAutoPartition. dumb.
