@@ -300,7 +300,8 @@ class SoftwareSelectionSpoke(NormalSpoke):
                   "This is likely caused by an error with\nyour installation source.  "
                   "You can attempt to remove these packages from your installation.\n"
                   "change your installation source, or quit the installer.")
-        dialog = DetailedErrorDialog(self.data, buttons=[_("_Quit"), _("_Remove Packages"),
+        dialog = DetailedErrorDialog(self.data, buttons=[_("_Quit"), _("_Cancel"),
+                                                         _("_Remove Packages"),
                                                          _("_Modify Software Source")],
                                                 label=label)
         with enlightbox(self.window, dialog.window):
@@ -310,11 +311,11 @@ class SoftwareSelectionSpoke(NormalSpoke):
         dialog.window.destroy()
 
         if rc == 0:
-            # Close the dialog so the user can change selections.
-            pass
-        elif rc == 1:
             # Quit.
             sys.exit(0)
+        elif rc == 1:
+            # Close the dialog so the user can change selections.
+            pass
         elif rc == 2:
             # TODO:  Attempt to remove the affected packages.
             pass

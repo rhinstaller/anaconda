@@ -23,6 +23,9 @@ from gi.repository import Gtk
 
 from pyanaconda.ui.gui import GUIObject
 
+import gettext
+_ = lambda x: gettext.ldgettext("anaconda", x)
+
 __all__ = ["DetailedErrorDialog"]
 
 class DetailedErrorDialog(GUIObject):
@@ -30,12 +33,12 @@ class DetailedErrorDialog(GUIObject):
        set of error messages, like might be required to display the results
        of package dependency solving or storage sanity checking.
 
-       By default, this dialog has only a single button - cancel, displayed
-       on the far left hand side of the dialog, with a response ID of 0.
-       For all other buttons, provide a kwarg named "buttons" as a list of
-       translated labels.  Each will have an incrementing response ID
-       starting with 1.  It is up to the caller of the "run" method to do
-       something with the returned response ID.
+       If no buttons are provided, this dialog will have only a single button:
+       cancel, with a response ID of 0.  Otherwise, the kwarg named "buttons"
+       should be a list of translated labels.  Each will have an incrementing
+       response ID starting with 0, and any Quit button will be placed on the
+       far left hand side of the dialog.  It's up to the caller of the "run"
+       method to do something with the returned response ID.
     """
     builderObjects = ["detailedErrorDialog", "detailedTextBuffer"]
     mainWidgetName = "detailedErrorDialog"
@@ -46,10 +49,20 @@ class DetailedErrorDialog(GUIObject):
         label = kwargs.pop("label", None)
         GUIObject.__init__(self, *args, **kwargs)
 
-        i = 1
-        for button in buttons:
-            self.window.add_button(button, i)
-            i += 1
+        if not buttons:
+            self.window.add_button(_("_Cancel"), 0)
+        else:
+            buttonbox = self.builder.get_object("detailedButtonBox")
+            i = 0
+
+            for button in buttons:
+                widget = self.window.add_button(button, i)
+
+                # Quit buttons should always appear left-most.
+                if button == _("_Quit"):
+                    buttonbox.set_child_secondary(widget, True)
+
+                i += 1
 
         if label:
             self.builder.get_object("detailedLabel").set_text(label)

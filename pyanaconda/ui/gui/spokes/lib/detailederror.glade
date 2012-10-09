@@ -50,26 +50,11 @@
           </packing>
         </child>
         <child internal-child="action_area">
-          <object class="GtkButtonBox" id="dialog-action_area2">
+          <object class="GtkButtonBox" id="detailedButtonBox">
             <property name="can_focus">False</property>
             <property name="layout_style">end</property>
             <child>
-              <object class="GtkButton" id="detailedCancelButton">
-                <property name="label">gtk-cancel</property>
-                <property name="use_action_appearance">False</property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">True</property>
-                <property name="halign">start</property>
-                <property name="use_action_appearance">False</property>
-                <property name="use_stock">True</property>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">False</property>
-                <property name="position">0</property>
-                <property name="secondary">True</property>
-              </packing>
+              <placeholder/>
             </child>
           </object>
           <packing>
@@ -81,8 +66,5 @@
         </child>
       </object>
     </child>
-    <action-widgets>
-      <action-widget response="0">detailedCancelButton</action-widget>
-    </action-widgets>
   </object>
 </interface>

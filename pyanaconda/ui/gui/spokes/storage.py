@@ -690,7 +690,7 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         label = _("The following errors were encountered when checking your storage "
                   "configuration.  You can modify your storage layout\nor quit the "
                   "installer.")
-        dialog = DetailedErrorDialog(self.data, buttons=[_("_Quit")], label=label)
+        dialog = DetailedErrorDialog(self.data, buttons=[_("_Quit"), _("_Modify Storage Layout")], label=label)
         with enlightbox(self.window, dialog.window):
             errors = "\n".join(self.errors)
             dialog.refresh(errors)
@@ -699,8 +699,8 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         dialog.window.destroy()
 
         if rc == 0:
-            # Close the dialog so the user can change selections.
-            pass
-        elif rc == 1:
             # Quit.
             sys.exit(0)
+        elif rc == 1:
+            # Close the dialog so the user can change selections.
+            pass
