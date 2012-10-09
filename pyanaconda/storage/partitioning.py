@@ -1583,7 +1583,15 @@ class TotalSizeSet(object):
         size has been achieved.
     """
     def __init__(self, devices, size):
-        self.devices = devices
+        self.devices = []
+        for device in devices:
+            if isinstance(device, LUKSDevice):
+                partition = device.slave
+            else:
+                partition = device
+
+            self.devices.append(partition)
+
         self.size = size
 
         self.requests = []
@@ -1608,7 +1616,15 @@ class TotalSizeSet(object):
 class SameSizeSet(object):
     """ Set of device requests with a common target size. """
     def __init__(self, devices, size, grow=False, max_size=None):
-        self.devices = devices
+        self.devices = []
+        for device in devices:
+            if isinstance(device, LUKSDevice):
+                partition = device.slave
+            else:
+                partition = device
+
+            self.devices.append(partition)
+
         self.size = int(size / len(devices))
         self.grow = grow
         self.max_size = max_size
