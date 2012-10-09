@@ -134,6 +134,9 @@ feature_raid_levels = {"Performance": "raid0",
                        "DistError": "raid5",
                        "RedundantError": "raid6"}
 
+partition_only_format_types = ["efi", "hfs+", "prepboot", "biosboot",
+                               "appleboot"]
+
 class UIStorageFilter(logging.Filter):
     def filter(self, record):
         record.name = "storage.ui"
@@ -895,9 +898,33 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             if error:
                 self._error = mountpoint_validation_msgs[error]
                 self.window.set_info(Gtk.MessageType.WARNING, self._error)
+                self.window.show_all()
                 return
 
         raid_level = self._get_raid_level()
+
+        fs_type_short = getFormat(fs_type).type
+
+        ##
+        ## VALIDATION
+        ##
+        error = None
+        if device_type != AUTOPART_TYPE_PLAIN and mountpoint == "/boot/efi":
+            error = (_("/boot/efi must be on a device of type %s")
+                     % DEVICE_TEXT_PARTITION)
+        elif device_type != AUTOPART_TYPE_PLAIN and \
+             fs_type_short in partition_only_format_types:
+            error = (_("%s must be on a device of type %s")
+                     % (fs_type, DEVICE_TEXT_PARTITION))
+        elif mountpoint and encrypted and mountpoint.startswith("/boot"):
+            error = _("%s cannot be encrypted") % mountpoint
+        elif encrypted and fs_type_short in partition_only_format_types:
+            error = _("%s cannot be encrypted") % fs_type
+
+        if error:
+            self.window.set_info(Gtk.MessageType.WARNING, error)
+            self.window.show_all()
+            return
 
         with ui_storage_logger():
             # create a new factory using the appropriate size and type
@@ -1422,8 +1449,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             typeCombo.remove(md_pos)
 
         # if the format is swap the device type can't be btrfs
-        include_btrfs = use_dev.format.type not in ("swap", "prepboot",
-                                                    "biosboot")
+        include_btrfs = (use_dev.format.type not in
+                            partition_only_format_types + ["swap"])
         if include_btrfs and not btrfs_included:
             typeCombo.append_text(DEVICE_TEXT_BTRFS)
         elif btrfs_included and not include_btrfs:
@@ -1524,17 +1551,16 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             mountpoint = None
 
         device_type = self.data.autopart.type
-        if device_type == AUTOPART_TYPE_LVM and \
+        if device_type != AUTOPART_TYPE_PLAIN and \
              mountpoint == "/boot/efi":
             device_type = AUTOPART_TYPE_PLAIN
-        elif device_type == AUTOPART_TYPE_BTRFS and \
-             (fstype in ("swap", "biosboot", "prepboot") or \
-              (mountpoint and mountpoint.startswith("/boot"))):
+        elif device_type != AUTOPART_TYPE_PLAIN and \
+             fstype in partition_only_format_types:
             device_type = AUTOPART_TYPE_PLAIN
 
         # some devices should never be encrypted
         if ((mountpoint and mountpoint.startswith("/boot")) or
-            fstype in ("biosboot", "prepboot")):
+            fstype in partition_only_format_types):
             encrypted = False
 
         disks = self._clearpartDevices
