@@ -50,7 +50,7 @@ class DetailedErrorDialog(GUIObject):
         GUIObject.__init__(self, *args, **kwargs)
 
         if not buttons:
-            self.window.add_button(_("_Cancel"), 0)
+            widget = self.window.add_button(_("_Cancel"), 0)
         else:
             buttonbox = self.builder.get_object("detailedButtonBox")
             i = 0
@@ -63,6 +63,9 @@ class DetailedErrorDialog(GUIObject):
                     buttonbox.set_child_secondary(widget, True)
 
                 i += 1
+
+        widget.set_can_default(True)
+        widget.grab_default()
 
         if label:
             self.builder.get_object("detailedLabel").set_text(label)
