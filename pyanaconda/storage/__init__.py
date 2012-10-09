@@ -2010,9 +2010,6 @@ class Storage(object):
 
         if fstype == "swap" and device_type == AUTOPART_TYPE_BTRFS:
             device_type = AUTOPART_TYPE_PLAIN
-        elif device_type != AUTOPART_TYPE_PLAIN and \
-             mountpoint and mountpoint.startswith("/boot"):
-            device_type = AUTOPART_TYPE_PLAIN
 
         fmt_args = {}
         if label:
