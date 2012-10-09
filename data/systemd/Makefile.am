@@ -21,6 +21,7 @@ systemddir = /lib/systemd/system
 generatordir = /lib/systemd/system-generators
 
 dist_systemd_DATA = anaconda.service \
+		    anaconda-direct.service \
 		    anaconda.target \
 		    anaconda-tmux@.service \
 		    anaconda-shell@.service \

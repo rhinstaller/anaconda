@@ -1,0 +1,19 @@
+[Install]
+WantedBy=anaconda.target
+
+[Unit]
+Description=the anaconda installation program
+Wants=instperf.service rsyslog.service udev-settle.service NetworkManager.service
+After=instperf.service rsyslog.service udev-settle.service NetworkManager.service anaconda-sshd.service
+Requires=anaconda.service
+
+[Service]
+Environment=HOME=/root MALLOC_CHECK_=2 MALLOC_PERTURB_=204 PATH=/usr/bin:/bin:/sbin:/usr
+Type=oneshot
+WorkingDirectory=/root
+ExecStart=/usr/sbin/anaconda
+StandardInput=
+StandardOutput=journal+console
+StandardError=journal+console
+TimeoutSec=0
+
