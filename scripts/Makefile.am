@@ -18,7 +18,7 @@
 # Author: David Cantrell <dcantrell@redhat.com>
 
 scriptsdir = $(libexecdir)/$(PACKAGE_NAME)
-dist_scripts_SCRIPTS = upd-updates
+dist_scripts_SCRIPTS = upd-updates run-anaconda
 dist_scripts_DATA    = pyrc.py
 dist_noinst_SCRIPTS  = upd-kernel makeupdates
 
