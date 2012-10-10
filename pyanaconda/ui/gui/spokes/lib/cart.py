@@ -136,7 +136,7 @@ class SelectedDisksDialog(GUIObject):
 
         disk = None
         for d in self.disks:
-            if disk.id == self._store[itr][ID_COL]:
+            if d.id == self._store[itr][ID_COL]:
                 disk = d
                 break
 
