@@ -169,7 +169,7 @@ class LanguageMixIn(object):
 
     def _selectLanguage(self, store, language):
         itr = store.get_iter_first()
-        while itr and store[itr][2] not in expand_langs(language):
+        while itr and language not in expand_langs(store[itr][2]):
             itr = store.iter_next(itr)
 
         # If we were provided with an unsupported language, just use the default.
