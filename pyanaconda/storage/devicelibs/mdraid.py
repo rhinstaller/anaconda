@@ -89,20 +89,20 @@ def raidLevel(descriptor):
         if isRaid(level, descriptor):
             return level
     else:
-        raise ValueError, "invalid raid level descriptor %s" % descriptor
+        raise MDRaidError("invalid raid level descriptor %s" % descriptor)
 
 def raidLevelString(level):
     if level in raid_descriptors.keys():
         return raid_descriptors[level][0]
     else:
-        raise ValueError("invalid raid level constant %s") % level
+        raise MDRaidError("invalid raid level constant %s" % level)
 
 def isRaid(raid, raidlevel):
     """Return whether raidlevel is a valid descriptor of raid"""
     if raid in raid_descriptors:
         return raidlevel in raid_descriptors[raid]
     else:
-        raise ValueError, "invalid raid level %d" % raid
+        raise MDRaidError("invalid raid level %d" % raid)
 
 def get_raid_min_members(raidlevel):
     """Return the minimum number of raid members required for raid level"""
@@ -117,7 +117,7 @@ def get_raid_min_members(raidlevel):
         if isRaid(raid, raidlevel):
             return min_members
 
-    raise ValueError, "invalid raid level %d" % raidlevel
+    raise MDRaidError("invalid raid level %d" % raidlevel)
 
 def get_raid_max_spares(raidlevel, nummembers):
     """Return the maximum number of raid spares for raidlevel."""
@@ -132,7 +132,7 @@ def get_raid_max_spares(raidlevel, nummembers):
         if isRaid(raid, raidlevel):
             return max_spares_func()
 
-    raise ValueError, "invalid raid level %d" % raidlevel
+    raise MDRaidError("invalid raid level %d" % raidlevel)
 
 def get_member_space(size, disks, level=None):
     space = 0   # size of *each* member device
@@ -142,7 +142,7 @@ def get_member_space(size, disks, level=None):
 
     min_members = get_raid_min_members(level)
     if disks < min_members:
-        raise ValueError("raid%d requires at least %d disks"
+        raise MDRaidError("raid%d requires at least %d disks"
                          % (level, min_members))
 
     if level == RAID0:
@@ -211,7 +211,7 @@ def mdadd(device):
 
 def mdactivate(device, members=[], super_minor=None, uuid=None):
     if super_minor is None and not uuid:
-        raise ValueError("mdactivate requires either a uuid or a super-minor")
+        raise MDRaidError("mdactivate requires either a uuid or a super-minor")
     
     if uuid:
         identifier = "--uuid=%s" % uuid
