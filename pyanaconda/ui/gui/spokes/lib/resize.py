@@ -120,9 +120,7 @@ class ResizeDialog(GUIObject):
             diskReclaimableSpace = 0
 
             # Then add all its partitions.
-            for part in disk.format.partitions:
-                dev = self.storage.devicetree.getDeviceByPath(part.path)
-
+            for dev in self.storage.devicetree.getChildren(disk):
                 if dev.isExtended and disk.format.logicalPartitions:
                     continue
 
