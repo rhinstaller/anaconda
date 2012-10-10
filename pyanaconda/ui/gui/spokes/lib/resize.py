@@ -24,7 +24,6 @@ from __future__ import division
 from gi.repository import Gtk
 
 from pyanaconda.ui.gui import GUIObject
-from pyanaconda.storage.deviceaction import *
 from pyanaconda.storage.size import Size
 
 import gettext
@@ -239,14 +238,11 @@ class ResizeDialog(GUIObject):
             return False
         elif action == SHRINK:
             if device.resizable:
-                self.storage.devicetree.registerAction(ActionResizeFormat(device, device.minSize))
-                self.storage.devicetree.registerAction(ActionResizeDevice(device, device.minSize))
+                self.storage.resizeDevice(device, device.minSize)
             else:
-                self.storage.devicetree.registerAction(ActionDestroyFormat(device))
-                self.storage.devicetree.registerAction(ActionDestroyDevice(device))
+                self.storage.recursiveRemove(device)
         elif action == DELETE:
-            self.storage.devicetree.registerAction(ActionDestroyFormat(device))
-            self.storage.devicetree.registerAction(ActionDestroyDevice(device))
+            self.storage.recursiveRemove(device)
 
         return False
 
