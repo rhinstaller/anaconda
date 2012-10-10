@@ -1652,9 +1652,6 @@ def manageSizeSets(size_sets, chunks):
 
                 for device in ss.devices:
                     request = requests_by_device[device]
-                    if request.done:
-                        continue
-
                     chunk = chunks_by_request[request]
                     new_growth = request.growth - growth_by_request[request]
                     ss.allocate(chunk.lengthToSize(new_growth))
