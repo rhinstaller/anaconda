@@ -111,6 +111,10 @@ DEVICE_TYPE_MD = 1
 DEVICE_TYPE_PARTITION = 2
 DEVICE_TYPE_BTRFS = 3
 
+options_page_dict = {DEVICE_TYPE_LVM: 0,
+                     DEVICE_TYPE_MD: 1,
+                     DEVICE_TYPE_BTRFS: 2}
+
 # raid feature names. These are the basis for some UI widget names.
 raid_features = ["Performance", "Redundancy", "Error", "DistError",
                  "RedundantError"]
@@ -1910,7 +1914,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             self._optionsNotebook.hide()
         else:
             self._optionsNotebook.show()
-            self._optionsNotebook.set_current_page(new_type)
+            self._optionsNotebook.set_current_page(options_page_dict[new_type])
 
         raid_level = None
         if new_type == DEVICE_TYPE_BTRFS:
