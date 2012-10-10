@@ -1142,8 +1142,8 @@ class RaidData(commands.raid.F15_RaidData):
         # Get a list of all the RAID members.
         for member in self.members:
             # if member is using --onpart, use original device
-            mem = ksdata.onPart.get(member, member) or lookupAlias(devicetree, member)
-            dev = devicetree.getDeviceByName(mem)
+            mem = ksdata.onPart.get(member, member)
+            dev = devicetree.getDeviceByName(mem) or lookupAlias(devicetree, mem)
             if dev and dev.format.type == "luks":
                 try:
                     dev = devicetree.getChildren(dev)[0]
