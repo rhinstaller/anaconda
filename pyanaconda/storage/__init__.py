@@ -1848,6 +1848,7 @@ class Storage(object):
         device_space = factory.device_size
         log.debug("device requires %d" % device_space)
         container_size += device_space
+        base_size = max(1, getFormat(factory.member_format).minSize)
 
         # XXX TODO: multiple member devices per disk
 
@@ -1856,7 +1857,7 @@ class Storage(object):
             if isinstance(member, LUKSDevice):
                 member = member.slave
 
-            member.req_base_size = 1
+            member.req_base_size = base_size
             member.req_size = member.req_base_size
             member.req_grow = True
 
@@ -1870,7 +1871,8 @@ class Storage(object):
                 member_format = factory.member_format
 
             try:
-                member = self.newPartition(parents=[disk], grow=True, size=1,
+                member = self.newPartition(parents=[disk], grow=True,
+                                           size=base_size,
                                            fmt_type=member_format)
             except StorageError as e:
                 log.error("failed to create new member partition: %s" % e)
@@ -3223,7 +3225,8 @@ class PartitionFactory(DeviceFactory):
                 log.info("adjusting device size from %.2f to %.2f"
                                 % (device.size, size))
 
-            device.req_base_size = min(PartitionFactory.default_size, size)
+            size = min(PartitionFactory.default_size, size)
+            device.req_base_size = max(size, device.format.minSize)
             device.req_size = device.req_base_size
             device.req_max_size = size
             device.req_grow = size > device.req_base_size
