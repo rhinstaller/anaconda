@@ -194,6 +194,7 @@ static void anaconda_base_window_init(AnacondaBaseWindow *win) {
     /* Set properties on the parent (Gtk.Window) class. */
     gtk_window_set_decorated(GTK_WINDOW(win), FALSE);
     gtk_window_maximize(GTK_WINDOW(win));
+    g_object_set(win, "expand", TRUE, NULL);
     gtk_container_set_border_width(GTK_CONTAINER(win), 0);
 
     /* First, construct a top-level box that everything will go in.  Remember
