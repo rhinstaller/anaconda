@@ -1749,7 +1749,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         self._unused_devices = None     # why do we cache this?
         self._do_refresh()
         self._updateSpaceDisplay()
-        self._show_first_mountpoint()
 
     def on_summary_clicked(self, button):
         dialog = SelectedDisksDialog(self.data)
@@ -1874,10 +1873,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         log.debug("updating space display")
         self._updateSpaceDisplay()
         log.debug("finished updating space display")
-        self._accordion.expandPage(new_install_name)
-
-        # And then display the first filesystem on the RHS.
-        self._show_first_mountpoint()
 
     def on_fs_type_changed(self, combo):
         if not self._initialized:
