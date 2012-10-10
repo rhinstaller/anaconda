@@ -547,8 +547,8 @@ class NetworkControlBox():
         title = '<span size="large">%s (%s%s)</span>' % (self._dev_type_str(device),
                                                          device.get_iface(),
                                                          unplugged)
-        title += '\n<span size="small">%s %s</span>' % (device.get_vendor(),
-                                                        device.get_product())
+        title += '\n<span size="small">%s %s</span>' % (device.get_vendor() or "",
+                                                        device.get_product() or "")
         return title
 
     def _dev_type_str(self, device):
