@@ -138,10 +138,13 @@ def setupPythonUpdates():
     from distutils.sysconfig import get_python_lib
 
     # Temporary hack for F18 alpha to symlink updates and product directories
-    # into tmpfs.  To be removed after alpha in order to directly use content
+    # into tmpfs.  To be removed after beta in order to directly use content
     # from /run/install/ -- JLK
     for dirname in ("updates", "product"):
         if os.path.exists("/run/install/%s" % dirname):
+            if os.path.islink("/tmp/%s" % dirname):
+                # Assume updates have already been setup
+                return
             os.symlink("/run/install/%s" % dirname,
                        "/tmp/%s" % dirname)
 
