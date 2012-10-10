@@ -395,7 +395,7 @@ class StorageSpoke(NormalSpoke, StorageChecker):
                 self.run()
         finally:
             self._ready = True
-            communication.send_ready(self.__class__.__name__)
+            communication.send_ready(self.__class__.__name__, justUpdate=True)
 
     @property
     def completed(self):
