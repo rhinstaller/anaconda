@@ -339,6 +339,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             self.storage.devicetree.registerAction(action)
 
     def apply(self):
+        self.clear_errors()
         ui_devicetree = self.__storage.devicetree
 
         log.debug("converting custom spoke changes into actions")
@@ -609,6 +610,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         self._unused_devices = None
 
     def refresh(self):
+        self.clear_errors()
         NormalSpoke.refresh(self)
 
         # Make sure the storage spoke execute method has finished before we
