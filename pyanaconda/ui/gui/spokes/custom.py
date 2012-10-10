@@ -939,9 +939,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                                                       encrypted=encrypted,
                                                       raid_level=raid_level)
 
-        # for raid settings, we'll need to adjust the member set and container,
-        # and possibly also its devices
-
         # for member type, we'll have to adjust the member set.
         # XXX not going to worry about this for now
 
@@ -951,14 +948,37 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         device_types = {"partition": AUTOPART_TYPE_PLAIN,
                         "lvmlv": AUTOPART_TYPE_LVM,
                         "btrfs subvolume": AUTOPART_TYPE_BTRFS,
+                        "btrfs volume": AUTOPART_TYPE_BTRFS,
                         "mdarray": None}
         current_device_type = device.type
+        use_dev = device
         if current_device_type == "luks/dm-crypt":
             current_device_type = device.slave.type
+            use_dev = device.slave
         current_device_type = device_types.get(current_device_type)
-        if current_device_type != device_type:
-            log.info("changing device type from %s to %s" % (current_device_type,
-                                                             device_type))
+
+        old_raid_level = None
+        if current_device_type is None:
+            old_raid_level = mdraid.raidLevelString(use_dev.level)
+        elif current_device_type == AUTOPART_TYPE_BTRFS:
+            if hasattr(use_dev, "dataLevel"):
+                old_raid_level = use_dev.dataLevel or "single"
+            else:
+                old_raid_level = use_dev.volume.dataLevel or "single"
+
+        changed_device_type = (current_device_type != device_type)
+        changed_raid_level = (current_device_type == device_type and
+                              device_type in (None, AUTOPART_TYPE_BTRFS) and
+                              old_raid_level != raid_level)
+
+        if changed_device_type or changed_raid_level:
+            if changed_device_type:
+                log.info("changing device type from %s to %s"
+                            % (current_device_type, device_type))
+            else:
+                log.info("changing raid level from %s to %s"
+                            % (old_raid_level, raid_level))
+
             # remove the current device
             self.clear_errors()
             root = self._current_selector._root
