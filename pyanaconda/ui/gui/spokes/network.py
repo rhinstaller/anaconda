@@ -280,6 +280,7 @@ class NetworkControlBox():
         model = combobox.get_model()
         model.set_sort_column_id(2, Gtk.SortType.ASCENDING)
         combobox.connect("changed", self.on_wireless_ap_changed_cb)
+        self.selected_ssid = None
 
         # NM Client
         self.client.connect("device-added", self.on_device_added)
@@ -386,6 +387,7 @@ class NetworkControlBox():
 
         device = self.selected_device()
         ap_obj_path, ssid_target = combobox.get_model().get(iter, 0, 1)
+        self.selected_ssid = ssid_target
         if ap_obj_path == "ap-other...":
             return
 
@@ -416,14 +418,10 @@ class NetworkControlBox():
 
         con = self.find_active_connection_for_device(device)
         if not con and configuration_of_disconnected_devices_allowed:
+            ssid = None
             if device.get_device_type() == NetworkManager.DeviceType.WIFI:
-                combobox = self.builder.get_object("combobox_wireless_network_name")
-                iter = combobox.get_active_iter()
-                if not iter:
-                    return
-                ap_obj_path, ssid = combobox.get_model().get(iter, 0, 1)
-
-            con = self.find_connection_for_device(device, ssid=None)
+                ssid = self.selected_ssid
+            con = self.find_connection_for_device(device, ssid)
 
         if con:
             uuid = con.get_uuid()
@@ -693,6 +691,13 @@ class NetworkControlBox():
                 active = active_ap and active_ap.get_path() == ap.get_path()
                 self._add_ap(ap, active)
             # TODO: add access point other...
+            if active_ap:
+                combobox = self.builder.get_object("combobox_wireless_network_name")
+                for i in combobox.get_model():
+                    if i[1] == active_ap.get_ssid():
+                        combobox.set_active_iter(i.iter)
+                        self.selected_ssid = active_ap.get_ssid()
+                        break
             self._updating_device = False
 
     def _refresh_speed_hwaddr(self, device):
