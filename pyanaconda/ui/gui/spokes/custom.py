@@ -1011,6 +1011,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                     try:
                         # XXX FIXME: pass old raid level -- not new one
                         self._replace_device(device_type, device.size,
+                                             disks=disks,
                                              fstype=device.format.type,
                                              mountpoint=old_mountpoint,
                                              label=old_label,
