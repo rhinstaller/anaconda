@@ -770,6 +770,9 @@ def doPartitioning(storage):
             partition.req_base_size = partition.size
             partition.req_size = partition.size
     finally:
+        # these are only valid for one allocation run
+        storage.size_sets = []
+
         # The number and thus the name of partitions may have changed now,
         # allocatePartitions() takes care of this for new partitions, but not
         # for pre-existing ones, so we update the name of all partitions here
