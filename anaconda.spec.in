@@ -299,6 +299,37 @@ update-desktop-database &> /dev/null || :
 /usr/lib/dracut/modules.d/80%{name}/*
 
 %changelog
+* Wed Oct 10 2012 Brian C. Lane <bcl@redhat.com> - 18.15-1
+- add noverifyssl to anaconda-dracut (#852229) (bcl)
+- Don't crash when running anaconda a second time (jkeating)
+- Handle ssh prompt in new tmux world (jkeating)
+- Add a service to run anaconda directly on the tty (jkeating)
+- Add a script to attach to anaconda's tmux (jkeating)
+- Add ARM-OMAP class to create a uboot partition to support the boot-loader.
+  (dmarlin)
+- Avoid a loop of storage spoke executions during kickstart (#865048).
+  (clumens)
+- Correct lookup of raid.XX "mountpoints" for kickstart installs (#864764).
+  (clumens)
+- Change language matching on the welcome screen back around. (clumens)
+- Another attempt at fixing the squished screen bug (#849211). (clumens)
+- Fix a stupid typo in the disk shopping cart (#864842). (clumens)
+- Reorder the buttons and labels on the bottom left of the storage spoke.
+  (clumens)
+- Modify the DetailedErrorDialog buttons. (clumens)
+- Sync up hidden/unhidden disks between the UI and storage module (#864180).
+  (clumens)
+- When handling a storage error, reload self.disks (#862972). (clumens)
+- Fix sshd bringup when also using a kickstart file (#863441) (jkeating)
+- Require root password spoke be visited (#859069) (jkeating)
+- add some thread logging (bcl)
+- Reword the description on the resize dialog (#863577). (clumens)
+- Present an error message if no disks are detected (#864093). (clumens)
+- When changing environments, don't explicitly exclude groups (#863886).
+  (clumens)
+- Fix marking the "Modify Software Selection" button as sensitive in one case.
+  (clumens)
+
 * Mon Oct 08 2012 Brian C. Lane <bcl@redhat.com> - 18.14-1
 - Add UI support for encrypted automatic partitioning. (dlehman)
 - Add support to the custom spoke for encrypted block devices. (dlehman)
