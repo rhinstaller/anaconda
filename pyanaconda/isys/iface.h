@@ -171,11 +171,6 @@ int iface_restart_NetworkManager(void);
 int iface_set_interface_mtu(char *ifname, int mtu);
 
 /*
- * Checks if interface is wireless
- */
-int is_wireless_device(char *ifname);
-
-/*
  * Checks if the state means nm is connected
  */
 int is_connected_state(NMState state);

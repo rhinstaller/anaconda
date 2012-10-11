@@ -66,6 +66,7 @@ NM_STATE_CONNECTED_LOCAL = 50
 NM_STATE_CONNECTED_SITE = 60
 NM_STATE_CONNECTED_GLOBAL = 70
 NM_DEVICE_STATE_ACTIVATED = 100
+NM_DEVICE_TYPE_WIFI = 2
 
 DBUS_PROPS_IFACE = "org.freedesktop.DBus.Properties"
 
@@ -362,8 +363,22 @@ def getNetDevDesc(dev):
     return desc
 
 # Determine if a network device is a wireless device.
-def isWirelessDevice(dev):
-    return _isys.isWirelessDevice(dev)
+def isWirelessDevice(dev_name):
+    bus = dbus.SystemBus()
+    nm = bus.get_object(NM_SERVICE, NM_MANAGER_PATH)
+    devlist = nm.get_dbus_method("GetDevices")()
+
+    for path in devlist:
+        device = bus.get_object(NM_SERVICE, path)
+        device_props_iface = dbus.Interface(device, DBUS_PROPS_IFACE)
+
+        iface = device_props_iface.Get(NM_DEVICE_IFACE, "Interface")
+        if iface == dev_name:
+            device_type = device_props_iface.Get(NM_DEVICE_IFACE, "DeviceType")
+            return device_type == NM_DEVICE_TYPE_WIFI
+
+    return False
+
 
 # Get IP addresses for a network device.
 # Returns list of ipv4 or ipv6 addresses, depending

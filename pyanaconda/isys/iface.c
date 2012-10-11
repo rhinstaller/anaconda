@@ -620,36 +620,3 @@ ifacemtu_error1:
     return ret;
 }
 
-/*
- * Checks if interface is wireless
- */
-int is_wireless_device(char *ifname){
-    NMClient *client = NULL;
-    NMDevice *candidate = NULL;
-    const GPtrArray *devices;
-    const char *iface;
-    int i;
-
-    g_type_init();
-
-    client = nm_client_new();
-    if (!client) {
-        return 0;
-    }
-
-    devices = nm_client_get_devices(client);
-    for (i = 0; devices && (i < devices->len); i++) {
-        candidate = g_ptr_array_index(devices, i);
-        if (NM_IS_DEVICE_WIFI (candidate)) {
-            iface = nm_device_get_iface(candidate);
-            if (!strcmp(ifname, iface)) {
-                g_object_unref(client);
-                return 1;
-            }
-        }
-
-    }
-    g_object_unref(client);
-    return 0;
-}
-
