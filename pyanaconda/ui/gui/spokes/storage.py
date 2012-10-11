@@ -383,11 +383,35 @@ class StorageSpoke(NormalSpoke, StorageChecker):
             self.errors = str(e).split("\n")
             communication.send_message(self.__class__.__name__,
                                    _("Failed to save storage configuration..."))
-            self.data.clearpart.type = CLEARPART_TYPE_NONE
-            self.data.clearpart.initAll = False
-            self.storage.config.update(self.data)
-            self.storage.autoPartType = self.data.autopart.type
-            self.storage.reset()
+            original_type = self.data.autopart.type
+            if original_type != AUTOPART_TYPE_LVM:
+                communication.send_message(self.__class__.__name__,
+                                           _("Automatic partitioning failed..."))
+                log.info("trying with lvm...")
+                self.storage.reset()
+                communication.send_message(self.__class__.__name__,
+                                           _("Trying fallback configuration..."))
+                self.data.autopart.type = AUTOPART_TYPE_LVM
+                self.storage.autoPartType = AUTOPART_TYPE_LVM
+                try:
+                    doKickstartStorage(self.storage, self.data, self.instclass)
+                except StorageError as e2:
+                    log.error("lvm failed, too: %s" % e2)
+                else:
+                    self.errors = []
+
+            if self.errors:
+                communication.send_message(self.__class__.__name__,
+                                       _("Failed to save storage configuration..."))
+                self.data.autopart.type = original_type
+                self.data.clearpart.type = CLEARPART_TYPE_NONE
+                self.data.clearpart.initAll = False
+                self.storage.config.update(self.data)
+                self.storage.autoPartType = original_type
+                self.storage.reset()
+            else:
+                self.run()  # emulating success path below
+
             self.disks = getDisks(self.storage.devicetree)
         else:
             if self.autopart:
