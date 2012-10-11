@@ -686,6 +686,7 @@ class LogVolData(commands.logvol.F18_LogVolData):
             if self.preexist:
                 luksformat = format
                 device.format = getFormat("luks", passphrase=self.passphrase, device=device.path,
+                                          cipher=self.cipher,
                                           escrow_cert=cert,
                                           add_backup_passphrase=self.backuppassphrase)
                 luksdev = LUKSDevice("luks%d" % storage.nextID,
@@ -694,6 +695,7 @@ class LogVolData(commands.logvol.F18_LogVolData):
             else:
                 luksformat = request.format
                 request.format = getFormat("luks", passphrase=self.passphrase,
+                                           cipher=self.cipher,
                                            escrow_cert=cert,
                                            add_backup_passphrase=self.backuppassphrase)
                 luksdev = LUKSDevice("luks%d" % storage.nextID,
@@ -1061,6 +1063,7 @@ class PartitionData(commands.partition.F18_PartData):
             if self.onPart:
                 luksformat = format
                 device.format = getFormat("luks", passphrase=self.passphrase, device=device.path,
+                                          cipher=self.cipher,
                                           escrow_cert=cert,
                                           add_backup_passphrase=self.backuppassphrase)
                 luksdev = LUKSDevice("luks%d" % storage.nextID,
@@ -1069,6 +1072,7 @@ class PartitionData(commands.partition.F18_PartData):
             else:
                 luksformat = request.format
                 request.format = getFormat("luks", passphrase=self.passphrase,
+                                           cipher=self.cipher,
                                            escrow_cert=cert,
                                            add_backup_passphrase=self.backuppassphrase)
                 luksdev = LUKSDevice("luks%d" % storage.nextID,
@@ -1208,6 +1212,7 @@ class RaidData(commands.raid.F15_RaidData):
             if self.preexist:
                 luksformat = format
                 device.format = getFormat("luks", passphrase=self.passphrase, device=device.path,
+                                          cipher=self.cipher,
                                           escrow_cert=cert,
                                           add_backup_passphrase=self.backuppassphrase)
                 luksdev = LUKSDevice("luks%d" % storage.nextID,
@@ -1216,6 +1221,7 @@ class RaidData(commands.raid.F15_RaidData):
             else:
                 luksformat = request.format
                 request.format = getFormat("luks", passphrase=self.passphrase,
+                                           cipher=self.cipher,
                                            escrow_cert=cert,
                                            add_backup_passphrase=self.backuppassphrase)
                 luksdev = LUKSDevice("luks%d" % storage.nextID,
