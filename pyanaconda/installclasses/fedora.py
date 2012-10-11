@@ -118,7 +118,8 @@ class InstallClass(BaseInstallClass):
     def setNetworkOnbootDefault(self, ksdata):
         # if something's already enabled, we can just leave the config alone
         for devName in network.getDevices():
-            if network.get_ifcfg_value(devName, "ONBOOT", ROOT_PATH) == "yes":
+            if not isys.isWirelessDevice(devName) and \
+               network.get_ifcfg_value(devName, "ONBOOT", ROOT_PATH) == "yes":
                 return
 
         # the default otherwise: bring up the first wired netdev with link
