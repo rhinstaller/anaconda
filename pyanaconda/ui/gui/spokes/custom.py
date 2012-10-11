@@ -553,13 +553,10 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                     if d.format.type == "swap" and d.format.exists]
 
     @property
-    def existingBootLoaderDevices(self):
+    def bootLoaderDevices(self):
         devices = []
         format_types = ["biosboot", "prepboot"]
         for device in self._devices:
-            if not device.format.exists:
-                continue
-
             if device.format.type not in format_types:
                 continue
 
@@ -668,7 +665,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         if new_mounts or new_devices:
             new_devices.extend(self.__storage.mountpoints.values())
             new_devices.extend(self.existingSwaps)
-            new_devices.extend(self.existingBootLoaderDevices)
+            new_devices.extend(self.bootLoaderDevices)
 
         new_devices = list(set(new_devices))
 
@@ -697,7 +694,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                                 if getattr(d.format, "mountpoint", None)])
 
             for device in new_devices:
-                if device in self.existingBootLoaderDevices:
+                if device in self.bootLoaderDevices:
                     mounts[device.format.type] = device
 
             new_root = Root(mounts=mounts, swaps=swaps, name=new_install_name)
@@ -811,7 +808,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             devices.extend(self.existingSwaps)
 
             # also pull in biosboot and prepboot that are on our boot disk
-            devices.extend(self.existingBootLoaderDevices)
+            devices.extend(self.bootLoaderDevices)
 
         for _device in devices:
             mountpoint = getattr(_device.format, "mountpoint", "") or ""
