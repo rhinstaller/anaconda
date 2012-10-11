@@ -1130,6 +1130,15 @@ class Storage(object):
 
         if kwargs.has_key("name"):
             name = kwargs.pop("name")
+            # make sure the specified name is sensible
+            safe_vg_name = self.safeDeviceName(vg.name)
+            full_name = "%s-%s" % (safe_vg_name, name)
+            safe_name = self.safeDeviceName(full_name)
+            if safe_name != full_name:
+                new_name = safe_name[len(safe_vg_name)+1:]
+                log.warning("using '%s' instead of specified name '%s'"
+                                % (new_name, name))
+                name = new_name
         else:
             if kwargs.get("format") and kwargs["format"].type == "swap":
                 swap = True
