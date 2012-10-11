@@ -1006,7 +1006,7 @@ def allocatePartitions(storage, disks, partitions, freespace):
 
                     # update the chosen free region unless the previous
                     # choice yielded greater total growth
-                    if new_growth <= growth:
+                    if free is not None and new_growth <= growth:
                         log.debug("keeping old free: %d <= %d" % (new_growth,
                                                                   growth))
                         update = False
