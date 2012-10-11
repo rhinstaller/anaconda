@@ -2013,6 +2013,10 @@ class ZIPL(BootLoader):
         if not self.stage1_name:
             raise BootLoaderError("could not find IPL device")
 
+        # do the reipl
+        message = iutil.reIPL(self.stage1_name)
+        log.info(message)
+
 class SILO(YabootSILOBase):
     name = "SILO"
     _config_file = "silo.conf"

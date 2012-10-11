@@ -860,14 +860,7 @@ def numeric_type(num):
 
     return num
 
-def reIPL(anaconda, loader_pid):
-    try:
-        ipldev = anaconda.storage.bootloader.stage1_name
-    except AttributeError:
-        message = _("Error determining boot device's disk name")
-        log.warning(message)
-        return message
-
+def reIPL(ipldev):
     try:
         rc = execWithRedirect("chreipl", ["node", "/dev/" + ipldev],
                               stdout = "/dev/tty5",
@@ -878,7 +871,6 @@ def reIPL(anaconda, loader_pid):
                  ipldev, e)
 
     if rc:
-        anaconda.canReIPL = False
         devstring = None
 
         for disk in anaconda.storage.disks:
@@ -892,13 +884,12 @@ def reIPL(anaconda, loader_pid):
         message = _("After shutdown, please perform a manual IPL from %s "
                     "to continue installation." % devstring)
 
-        log.info("reIPL configuration failed => halt")
-        os.kill(os.getppid(), signal.SIGUSR1)
+        log.info("reIPL configuration failed")
+        #os.kill(os.getppid(), signal.SIGUSR1)
     else:
-        anaconda.canReIPL = True
         message = None
-        log.info("reIPL configuration successful => reboot")
-        os.kill(os.getppid(), signal.SIGUSR2)
+        log.info("reIPL configuration successful")
+        #os.kill(os.getppid(), signal.SIGUSR2)
 
     return message
 
