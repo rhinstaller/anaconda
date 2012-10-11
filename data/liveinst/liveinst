@@ -99,6 +99,12 @@ for opt in `cat /proc/cmdline` $*; do
     --updates=*)
         UPDATES="${opt#--updates=}"
         ;;
+    inst.updates=*)
+        UPDATES="${opt#inst.updates=}"
+        ;;
+    --inst.updates=*)
+        UPDATES="${opt#--inst.updates=}"
+        ;;
     esac
 done
 
