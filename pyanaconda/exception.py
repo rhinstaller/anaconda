@@ -69,7 +69,11 @@ class AnacondaExceptionHandler(ExceptionHandler):
             sys.exit(0)
         else:
             try:
-                from gi.repository import Gtk
+                from gi.repository import Gtk, Gdk
+
+                # Release Gdk lock to prevent deadlocks in cases when
+                # exception appeared in gdk_threaded block
+                Gdk.threads_leave()
 
                 if Gtk.main_level() > 0:
                     # main loop is running, don't crash it by running another one
