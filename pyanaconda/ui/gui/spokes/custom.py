@@ -1715,30 +1715,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                 self._destroy_device(device)
 
             log.info("ui: removed device %s" % device.name)
-        elif page:
-            # This is a complete installed system.  Thus, we first need to confirm
-            # with the user and then schedule actions to delete everything.
-            page = self._accordion.currentPage()
-            dialog = ConfirmDeleteDialog(self.data)
-
-            # Find the root this page displays.
-            root = None
-            if len(page._members) > 0:
-                root = page._members[0]._root
-
-            if not root:
-                return
-
-            with enlightbox(self.window, dialog.window):
-                dialog.refresh(None, page.pageTitle)
-                rc = dialog.run()
-
-                if rc == 0:
-                    return
-
-            # Destroy all devices.
-            for device in root.swaps + root.mounts.values():
-                self._destroy_device(device)
 
         # Now that devices have been removed from the installation root,
         # refreshing the display will have the effect of making them disappear.
