@@ -153,6 +153,8 @@ class fcoe(object):
                 line = "fcoe --nic %s" % nic
                 if dcb:
                     line += " --dcb"
+                if auto_vlan:
+                    line += " --autovlan"
                 line += "\n"
                 f.write(line)
 

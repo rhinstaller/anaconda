@@ -352,9 +352,9 @@ class ClearPart(commands.clearpart.FC3_ClearPart):
         anaconda.id.ksdata.skipSteps.append("cleardiskssel")
         anaconda.id.ksdata.skipOnTextInteractive.append("cleardiskssel")
 
-class Fcoe(commands.fcoe.F13_Fcoe):
+class Fcoe(commands.fcoe.RHEL6_Fcoe):
     def parse(self, args):
-        fc = commands.fcoe.F13_Fcoe.parse(self, args)
+        fc = commands.fcoe.RHEL6_Fcoe.parse(self, args)
 
         if fc.nic not in isys.getDeviceProperties():
             raise KickstartValueError, formatErrorMsg(self.lineno, msg="Specified nonexistent nic %s in fcoe command" % fc.nic)
@@ -363,7 +363,7 @@ class Fcoe(commands.fcoe.F13_Fcoe):
             log.info("Kickstart fcoe device %s already added from EDD, ignoring"
                     % fc.nic)
         else:
-            storage.fcoe.fcoe().addSan(nic=fc.nic, dcb=fc.dcb, auto_vlan=True)
+            storage.fcoe.fcoe().addSan(nic=fc.nic, dcb=fc.dcb, auto_vlan=fc.autovlan)
             storage.fcoe.fcoe().ksnics.append(fc.nic)
 
         return fc
