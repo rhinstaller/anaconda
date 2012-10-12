@@ -248,15 +248,22 @@ class ConfirmDeleteDialog(GUIObject):
     mainWidgetName = "confirmDeleteDialog"
     uiFile = "spokes/custom.glade"
 
+    @property
+    def deleteAll(self):
+        return self._removeAll.get_active()
+
     def on_delete_cancel_clicked(self, button, *args):
         self.window.destroy()
 
     def on_delete_confirm_clicked(self, button, *args):
         self.window.destroy()
 
-    def refresh(self, mountpoint, device):
+    def refresh(self, mountpoint, device, rootName):
         GUIObject.refresh(self)
         label = self.builder.get_object("confirmLabel")
+
+        self._removeAll = self.builder.get_object("removeAllCheckbox")
+        self._removeAll.set_label(self._removeAll.get_label() % rootName)
 
         if mountpoint:
             txt = "%s (%s)" % (mountpoint, device)
@@ -1709,13 +1716,17 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             dialog = ConfirmDeleteDialog(self.data)
             with enlightbox(self.window, dialog.window):
                 dialog.refresh(getattr(device.format, "mountpoint", ""),
-                               device.name)
+                               device.name, selector._root.name)
                 rc = dialog.run()
 
                 if rc == 0:
                     return
 
-            self._destroy_device(device)
+            if dialog.deleteAll:
+                for dev in selector._root.swaps + selector._root.mounts.values():
+                    self._destroy_device(dev)
+            else:
+                self._destroy_device(device)
 
         log.info("ui: removed device %s" % device.name)
 
