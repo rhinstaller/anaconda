@@ -17,11 +17,14 @@
 # Red Hat, Inc.
 #
 # Red Hat Author(s): Martin Sivak <msivak@redhat.com>
+#                    Jesse Keating <jkeating@redhat.com>
 #
 
 from pyanaconda.ui.tui.spokes import NormalTUISpoke
 from pyanaconda.ui.tui.simpleline import TextWidget
-from pyanaconda.flags import flags
+from pyanaconda.ui.tui import YesNoDialog
+from pyanaconda.users import validatePassword
+from pwquality import PWQError
 import getpass
 
 import gettext
@@ -58,17 +61,29 @@ class PasswordSpoke(NormalTUISpoke):
 
     def prompt(self, args = None):
         """Overriden prompt as password typing is special."""
-        p1 = getpass.getpass(_("Password: "))
-        p2 = getpass.getpass(_("Password (confirm): "))
+        pw = getpass.getpass(_("Password: "))
+        confirm = getpass.getpass(_("Password (confirm): "))
 
-        if p1 != p2:
-            print _("Passwords do not match!")
-        else:
-            self._password = p1
-            self.apply()
+        error = None
+        # just returning an error is either blank or mismatched
+        # passwords.  Raising is because of poor quality.
+        try:
+            error = validatePassword(pw, confirm)
+            if error:
+                print(error)
+                return None
+        except PWQError as (e, msg):
+            error = _("You have provided a weak password: %s. " % msg)
+            error += _("\nWould you like to use it anyway?")
+            question_window = YesNoDialog(self._app, error)
+            self._app.switch_screen_modal(question_window)
+            if not question_window.answer:
+                return None
+
+        self._password = pw
+        self.apply()
 
         self.close()
-        #return None
 
     def apply(self):
         self.data.rootpw.password = self._password
