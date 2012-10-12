@@ -43,12 +43,12 @@ def exitHandler(rebootData, storage, exitCode=None):
     if exitCode:
         anaconda.intf.shutdown()
 
-        if "nokill" in flags.cmdline:
-            iutil.vtActivate(1)
-            print "anaconda halting due to nokill flag."
-            print "The system will be rebooted when you press Ctrl-Alt-Delete."
-            while True:
-                time.sleep(10000)
+    if "nokill" in flags.cmdline:
+        iutil.vtActivate(1)
+        print "anaconda halting due to nokill flag."
+        print "The system will be rebooted when you press Ctrl-Alt-Delete."
+        while True:
+            time.sleep(10000)
 
     if image_count:
         anaconda.storage.umountFilesystems(ignoreErrors=True, swapoff=False)
