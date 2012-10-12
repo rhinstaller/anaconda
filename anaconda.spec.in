@@ -299,6 +299,23 @@ update-desktop-database &> /dev/null || :
 /usr/lib/dracut/modules.d/80%{name}/*
 
 %changelog
+* Thu Oct 11 2012 Brian C. Lane <bcl@redhat.com> - 18.16-1
+- Don't try to load ifcfg files for wifi devices (#865355) (vpodzime)
+- Rewrite isWirelessDevice to Python and DBus calls (#862801) (vpodzime)
+- Use a capital "B" in the size module (#859932). (clumens)
+- The environment window needs a vertical scroll bar (#865066). (clumens)
+- liveinst should recognize inst.updates too (#865398). (clumens)
+- Improve validation of device edit requests. (dlehman)
+- Fix listing of subvolumes for existing btrfs volumes. (dlehman)
+- Remove overzealous correction of device type for /boot*. (#863574) (dlehman)
+- Pad filesystem minimum sizes to ensure other OS can still run. (dlehman)
+- Handle encrypted partitions in size set classes. (dlehman)
+- Don't set mountpoints of "(null)" in mountpoint selectors. (dlehman)
+- Prevent crash trying to populate raid options on a one-disk system. (dlehman)
+- Rework type combos and don't offer RAID on one-disk systems. (dlehman)
+- Bundle more of data/ in updates.img (jkeating)
+- Revive reipl (#860244) (jkeating)
+
 * Wed Oct 10 2012 Brian C. Lane <bcl@redhat.com> - 18.15-1
 - add noverifyssl to anaconda-dracut (#852229) (bcl)
 - Don't crash when running anaconda a second time (jkeating)

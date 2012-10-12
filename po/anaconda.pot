@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 18.14\n"
+"Project-Id-Version: anaconda 18.15\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2012-10-10 17:44-0700\n"
+"POT-Creation-Date: 2012-10-11 17:36-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -265,15 +265,11 @@ msgstr ""
 msgid "_Exit installer"
 msgstr ""
 
-#: pyanaconda/iutil.py:867
-msgid "Error determining boot device's disk name"
-msgstr ""
-
-#: pyanaconda/iutil.py:890
+#: pyanaconda/iutil.py:882
 msgid "the device containing /boot"
 msgstr ""
 
-#: pyanaconda/iutil.py:892
+#: pyanaconda/iutil.py:884
 #, python-format
 msgid ""
 "After shutdown, please perform a manual IPL from %s to continue installation."
@@ -1242,13 +1238,13 @@ msgstr ""
 msgid "Shared library error."
 msgstr ""
 
-#: pyanaconda/storage/formats/fs.py:1055
+#: pyanaconda/storage/formats/fs.py:1059
 msgid ""
 "Recoverable errors have been detected or dosfsck has discovered an internal "
 "inconsistency."
 msgstr ""
 
-#: pyanaconda/storage/formats/fs.py:1057
+#: pyanaconda/storage/formats/fs.py:1061
 msgid "Usage error."
 msgstr ""
 
@@ -1657,121 +1653,153 @@ msgstr ""
 msgid "Complete!"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:82
+#: pyanaconda/ui/gui/spokes/custom.py:83
 #, python-format
 msgid "New %s %s Installation"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:83
+#: pyanaconda/ui/gui/spokes/custom.py:84
 msgid ""
 "Storage configuration reset due to unrecoverable error. Click for details."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:85
+#: pyanaconda/ui/gui/spokes/custom.py:86
 msgid "Device reconfiguration failed. Click for details."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:88
+#: pyanaconda/ui/gui/spokes/custom.py:89
 msgid "Please enter a valid mountpoint."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:89
+#: pyanaconda/ui/gui/spokes/custom.py:90
 msgid "That mount point is invalid. Try something else?"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:90
+#: pyanaconda/ui/gui/spokes/custom.py:91
 msgid "That mount point is already in use. Try something else?"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:264
+#: pyanaconda/ui/gui/spokes/custom.py:103
+msgid "LVM"
+msgstr ""
+
+#: pyanaconda/ui/gui/spokes/custom.py:104
+msgid "RAID"
+msgstr ""
+
+#: pyanaconda/ui/gui/spokes/custom.py:105
+msgid "Standard Partition"
+msgstr ""
+
+#: pyanaconda/ui/gui/spokes/custom.py:106
+msgid "BTRFS"
+msgstr ""
+
+#: pyanaconda/ui/gui/spokes/custom.py:271
 msgid "MANUAL PARTITIONING"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:580
+#: pyanaconda/ui/gui/spokes/custom.py:592
 #, python-format
 msgid "%d storage device selected"
 msgid_plural "%d storage devices selected"
 msgstr[0] ""
 msgstr[1] ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:725
+#: pyanaconda/ui/gui/spokes/custom.py:737
 #: pyanaconda/ui/gui/spokes/network.py:557
 msgid "Unknown"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:755
+#: pyanaconda/ui/gui/spokes/custom.py:767
 msgid ""
 "The 'swap' area on your computer is used by the operating\n"
 "system when running low on memory."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:758
+#: pyanaconda/ui/gui/spokes/custom.py:770
 msgid ""
 "The 'boot' area on your computer is where files needed\n"
 "to start the operating system are stored."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:761
+#: pyanaconda/ui/gui/spokes/custom.py:773
 msgid ""
 "The 'root' area on your computer is where core system\n"
 "files and applications are stored."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:764
+#: pyanaconda/ui/gui/spokes/custom.py:776
 msgid ""
 "The 'home' area on your computer is where all your personal\n"
 "data is stored."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:767
+#: pyanaconda/ui/gui/spokes/custom.py:779
 msgid ""
 "The BIOS boot partition is required to enable booting\n"
 "from GPT-partitioned disks on BIOS hardware."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:770
+#: pyanaconda/ui/gui/spokes/custom.py:782
 msgid ""
 "The PReP boot partition is required as part of the\n"
 "bootloader configuration on some PPC platforms."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:1016
+#: pyanaconda/ui/gui/spokes/custom.py:913
+#, python-format
+msgid "/boot/efi must be on a device of type %s"
+msgstr ""
+
+#: pyanaconda/ui/gui/spokes/custom.py:917
+#, python-format
+msgid "%s must be on a device of type %s"
+msgstr ""
+
+#: pyanaconda/ui/gui/spokes/custom.py:920
+#: pyanaconda/ui/gui/spokes/custom.py:922
+#, python-format
+msgid "%s cannot be encrypted"
+msgstr ""
+
+#: pyanaconda/ui/gui/spokes/custom.py:1053
 msgid "Device resize request failed. Click for details."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:1101
+#: pyanaconda/ui/gui/spokes/custom.py:1138
 msgid "Device reformat request failed. Click for details."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:1313
+#: pyanaconda/ui/gui/spokes/custom.py:1375
 msgid "This file system does not support labels."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:1331
+#: pyanaconda/ui/gui/spokes/custom.py:1393
 msgid "This file system may not be resized."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:1479
+#: pyanaconda/ui/gui/spokes/custom.py:1588
 msgid "Failed to add new device. Click for details."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:1497
+#: pyanaconda/ui/gui/spokes/custom.py:1606
 msgid "Device removal request failed. Click for details."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:1702
+#: pyanaconda/ui/gui/spokes/custom.py:1811
 msgid "No disks selected."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:1709
+#: pyanaconda/ui/gui/spokes/custom.py:1818
 msgid "Not enough free space on selected disks."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:1716
+#: pyanaconda/ui/gui/spokes/custom.py:1825
 msgid "Automatic partitioning failed. Click for details."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:1844
+#: pyanaconda/ui/gui/spokes/custom.py:1966
 msgid "Failed to unlock encrypted block device. Click for details"
 msgstr ""
 
@@ -2475,18 +2503,18 @@ msgstr ""
 msgid "Choose your environment"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/software.glade:113
-#: pyanaconda/ui/gui/spokes/software.glade:128
-#: pyanaconda/ui/gui/spokes/software.glade:205
-#: pyanaconda/ui/gui/spokes/software.glade:220
+#: pyanaconda/ui/gui/spokes/software.glade:112
+#: pyanaconda/ui/gui/spokes/software.glade:127
+#: pyanaconda/ui/gui/spokes/software.glade:204
+#: pyanaconda/ui/gui/spokes/software.glade:219
 msgid "column"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/software.glade:171
+#: pyanaconda/ui/gui/spokes/software.glade:170
 msgid "Choose your add-ons"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/software.glade:245
+#: pyanaconda/ui/gui/spokes/software.glade:244
 msgid "_Add custom add-on..."
 msgstr ""
 
