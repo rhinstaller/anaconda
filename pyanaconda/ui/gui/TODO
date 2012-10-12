@@ -1,15 +1,15 @@
 Fedora 18
 =========
-- Add simple keyboard layout selection to welcome language screen.
+- Add encryption option to text mode partitioning.
 - Add keyboard options dialog.
+- Add simple keyboard layout selection to welcome language screen.
 - Can the entry next to "Closest Mirror" be filled in with something to make it look less weird?
 - Disk tug-o-war needs to be written.
-- Do the really slow redraws happen on real hardware, or just virt?
+- Fix redraw issues.
 - Fix retranslating once a different language is selected.
 - Live inst in particular needs a more useful installation progress bar.
 - Make "Add custom repo..." dialog useful.
 - Media install selectors take up all horizontal space on source spoke.
-- Need to sort out checking of storage config against package set space needs.
 - Wall of anaconda needs to be taken into account.
 - Why does the first hub jump left a little bit the first time you use the keyboard to navigate?
   Software selection also does this.
@@ -25,11 +25,16 @@ Fedora 18
 Beyond
 ======
 - "Choose Disks" dialog before hub #1.
+- Add device names to tooltips for DiskOverviews, etc.?
 - Code quality:
     - Docstrings and comments are lacking.
     - Split out especially large spokes (storage.py, custom.py) into logically separate
       files.
 - Device filtering.
+- "Hub" shouldn't be in the page title for any text mode hub.
+- Make the storage apply button look like it belongs with the rest of the per-mountpoint
+  stuff.
+- Progress reporting for metadata downloading could be handy.
 - Spokes should have some way to tell if other spokes are ready (see _software_is_ready
   in storage.py).
 - Tracking and expressing dependencies on threads is tedious:
