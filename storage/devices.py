@@ -3715,7 +3715,10 @@ class FcoeDiskDevice(DiskDevice, NetworkStorageDevice):
         else:
             dcbOpt = "nodcb"
 
-        return set(["fcoe=edd:%s" % dcbOpt])
+        if nic in fcoe().ksnics:
+            return set(["fcoe=%s:%s" % (nic, dcbOpt)])
+        else:
+            return set(["fcoe=edd:%s" % dcbOpt])
 
 
 class OpticalDevice(StorageDevice):

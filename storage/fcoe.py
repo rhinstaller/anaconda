@@ -60,6 +60,7 @@ class fcoe(object):
         self.started = False
         self.lldpadStarted = False
         self.nics = []
+        self.ksnics = []
 
     # So that users can write fcoe() to get the singleton instance
     def __call__(self):
@@ -147,8 +148,13 @@ class fcoe(object):
         self.nics.append((nic, dcb, auto_vlan))
 
     def writeKS(self, f):
-        # fixme plenty (including add ks support for fcoe in general)
-        return
+        for nic, dcb, auto_vlan in self.nics:
+            if nic in self.ksnics:
+                line = "fcoe --nic %s" % nic
+                if dcb:
+                    line += " --dcb"
+                line += "\n"
+                f.write(line)
 
     def write(self, instPath, anaconda):
         if not self.nics:
