@@ -1679,42 +1679,45 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             self._current_selector = None
 
     def on_remove_clicked(self, button):
-        page = self._accordion.currentPage()
-        log.info("on_remove_clicked: %s" % page.pageTitle)
+        # Nothing displayed on the RHS?  Nothing to remove.
+        if not self._current_selector:
+            return
 
-        if self._current_selector:
-            device = self._current_selector._device
-            log.debug("removing device '%s' from page %s" % (device,
-                                                             page.pageTitle))
-            if page.pageTitle == new_install_name:
-                if device.exists:
-                    # This is an existing device that was added to the new page.
-                    # All we want to do is revert any changes to the device and
-                    # it will end up back in whatever old pages it came from.
-                    with ui_storage_logger():
-                        self.__storage.resetDevice(device)
+        selector = self._current_selector
+        log.info("on_remove_clicked: %s" % selector._root.name)
 
-                    log.debug("updated device: %s" % device)
-                else:
-                    # Destroying a non-existing device doesn't require any
-                    # confirmation.
-                    self._destroy_device(device)
+        device = self._current_selector._device
+        log.debug("removing device '%s' from page %s" % (device, selector._root.name))
+
+        if selector._root.name == new_install_name:
+            if device.exists:
+                # This is an existing device that was added to the new page.
+                # All we want to do is revert any changes to the device and
+                # it will end up back in whatever old pages it came from.
+                with ui_storage_logger():
+                    self.__storage.resetDevice(device)
+
+                log.debug("updated device: %s" % device)
             else:
-                # This is a device that exists on disk and most likely has data
-                # on it.  Thus, we first need to confirm with the user and then
-                # schedule actions to delete the thing.
-                dialog = ConfirmDeleteDialog(self.data)
-                with enlightbox(self.window, dialog.window):
-                    dialog.refresh(getattr(device.format, "mountpoint", ""),
-                                   device.name)
-                    rc = dialog.run()
-
-                    if rc == 0:
-                        return
-
+                # Destroying a non-existing device doesn't require any
+                # confirmation.
                 self._destroy_device(device)
+        else:
+            # This is a device that exists on disk and most likely has data
+            # on it.  Thus, we first need to confirm with the user and then
+            # schedule actions to delete the thing.
+            dialog = ConfirmDeleteDialog(self.data)
+            with enlightbox(self.window, dialog.window):
+                dialog.refresh(getattr(device.format, "mountpoint", ""),
+                               device.name)
+                rc = dialog.run()
 
-            log.info("ui: removed device %s" % device.name)
+                if rc == 0:
+                    return
+
+            self._destroy_device(device)
+
+        log.info("ui: removed device %s" % device.name)
 
         # Now that devices have been removed from the installation root,
         # refreshing the display will have the effect of making them disappear.
