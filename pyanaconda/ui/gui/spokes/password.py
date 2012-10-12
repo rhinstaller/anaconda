@@ -25,8 +25,8 @@ N_ = lambda x: x
 
 from gi.repository import Gtk
 
-from pyanaconda.users import cryptPassword
-import pwquality
+from pyanaconda.users import cryptPassword, validatePassword
+from pwquality import PWQError
 import string
 
 from pyanaconda.ui.gui.spokes import NormalSpoke
@@ -101,48 +101,24 @@ class PasswordSpoke(NormalSpoke):
         # Do various steps to validate the password
         # sets self._error to an error string
         # Return True if valid, False otherwise
+        self._error = False
         pw = self.pw.get_text()
         confirm = self.confirm.get_text()
 
-        # if both pw and confirm are blank, password is disabled.
-        if (pw and not confirm) or (confirm and not pw):
-            self._error = _("You must enter your root password "
-                           "and confirm it by typing it a second "
-                           "time to continue.")
-            return False
-
-        if pw != confirm:
-            self._error = _("The passwords you entered were "
-                            "different.  Please try again.")
-            return False
-
-        if pw and len(pw) < 6:
-            self._error = _("The root password must be at least "
-                            "six characters long.")
-            return False
-
-        if pw:
-            try:
-                settings = pwquality.PWQSettings()
-                settings.read_config()
-                settings.check(pw, None, "root")
-            except pwquality.PWQError as (e, msg):
-                if pw == self._oldweak:
-                    # We got a second attempt with the same weak password
-                    pass
-                else:
-                    self._error = _("You have provided a weak password: %s. "
-                                    " Press Done again to use anyway.") % msg
-                    self._oldweak = pw
-                    return False
-
-        legal = string.digits + string.ascii_letters + string.punctuation + " "
-        for letter in pw:
-            if letter not in legal:
-                self._error = _("Requested password contains "
-                                "non-ASCII characters, which are "
-                                "not allowed.")
+        try:
+            self._error = validatePassword(pw, confirm)
+        except PWQError as (e, msg):
+            if pw == self._oldweak:
+                # We got a second attempt with the same weak password
+                pass
+            else:
+                self._error = _("You have provided a weak password: %s. "
+                                " Press Done again to use anyway.") % msg
+                self._oldweak = pw
                 return False
+
+        if self._error:
+            return False
 
         # if no errors, clear the info for next time we go into the spoke
         self._password = pw
