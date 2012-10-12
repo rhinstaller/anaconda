@@ -455,10 +455,7 @@ class FilterWindow(InstallWindow):
                                      not udev_device_get_md_container(d),
                            udev_get_block_devices())
 
-        mcw = MultipathConfigWriter()
-        cfg = mcw.write(friendly_names=True)
-        with open("/etc/multipath.conf", "w+") as mpath_cfg:
-            mpath_cfg.write(cfg)
+        writeMultipathConf(friendly_names=True)
 
         (new_singlepaths, new_mpaths, new_partitions) = identifyMultipaths(new_disks)
         (new_raids, new_nonraids) = self.split_list(lambda d: isRAID(d) and not isCCISS(d),
@@ -624,10 +621,7 @@ class FilterWindow(InstallWindow):
                                  not udev_device_get_md_container(d),
                        udev_get_block_devices())
 
-        mcw = MultipathConfigWriter()
-        cfg = mcw.write(friendly_names=True)
-        with open("/etc/multipath.conf", "w+") as mpath_cfg:
-            mpath_cfg.write(cfg)
+        writeMultipathConf(friendly_names=True)
 
         # identifyMultipaths() uses 'multipath -d' and 'multipath -ll' to find
         # mpath devices. In case there are devices already set up they won't

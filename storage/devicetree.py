@@ -2095,9 +2095,8 @@ class DeviceTree(object):
                      % (livetarget,))
             self.protectedDevNames.append(livetarget)
 
-        cfg = self.__multipathConfigWriter.write(self.mpathFriendlyNames)
-        with open("/etc/multipath.conf", "w+") as mpath_cfg:
-            mpath_cfg.write(cfg)
+        devicelibs.mpath.writeMultipathConf(writer=self.__multipathConfigWriter,
+                                            friendly_names=self.mpathFriendlyNames)
 
         devices = udev_get_block_devices()
         (singles, mpaths, partitions) = devicelibs.mpath.identifyMultipaths(devices)
@@ -2138,9 +2137,9 @@ class DeviceTree(object):
         for d in self.devices:
             if not d.name in whitelist:
                 self.__multipathConfigWriter.addBlacklistDevice(d)
-        cfg = self.__multipathConfigWriter.write(self.mpathFriendlyNames)
-        with open("/etc/multipath.conf", "w+") as mpath_cfg:
-            mpath_cfg.write(cfg)
+
+        devicelibs.mpath.writeMultipathConf(writer=self.__multipathConfigWriter,
+                                            friendly_names=self.mpathFriendlyNames)
 
         # Now, loop and scan for devices that have appeared since the two above
         # blocks or since previous iterations.

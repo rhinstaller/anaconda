@@ -2,6 +2,7 @@
 import re
 
 from ..udev import *
+from flags import flags
 import iutil
 import logging
 
@@ -303,6 +304,19 @@ blacklist {
         ret += '}\n'
 
         return ret
+
+def writeMultipathConf(writer=None, friendly_names=True):
+    if not flags.mpath:
+        # not writing out a multipath.conf will effectively blacklist all mpaths
+        # which will prevent any of them from being activated during install
+        return
+
+    if writer is None:
+        writer = MultipathConfigWriter()
+
+    cfg = writer.write(friendly_names=friendly_names)
+    with open("/etc/multipath.conf", "w+") as mpath_cfg:
+        mpath_cfg.write(cfg)
 
 def flush_mpaths():
     iutil.execWithRedirect("multipath", ["-F"])
