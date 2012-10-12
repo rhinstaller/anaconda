@@ -3,6 +3,7 @@ import re
 
 from ..udev import udev_device_is_disk
 from pyanaconda import iutil
+from pyanaconda.flags import flags
 from pyanaconda.anaconda_log import log_method_call
 
 import logging
@@ -265,6 +266,17 @@ blacklist {
         ret += '}\n'
 
         return ret
+
+    def writeConfig(self, friendly_names=True):
+        if not flags.mpath:
+            # not writing out a multipath.conf will effectively blacklist all
+            # mpath which will prevent any of them from being activated during
+            # install
+            return
+
+        cfg = self.write(friendly_names)
+        with open("/etc/multipath.conf", "w+") as mpath_cfg:
+            mpath_cfg.write(cfg)
 
 def flush_mpaths():
     iutil.execWithRedirect("multipath", ["-F"])
