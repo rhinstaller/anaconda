@@ -280,7 +280,8 @@ class KeyboardSpoke(NormalSpoke):
 
             if self._remove_last_attempt:
                 itr = self._store.get_iter_first()
-                self._removeLayout(self._store, itr)
+                if not self._store[itr][0] in dialog.chosen_layouts:
+                    self._removeLayout(self._store, itr)
                 self._remove_last_attempt = False
 
     def _run_add_from_removed(self, button):
