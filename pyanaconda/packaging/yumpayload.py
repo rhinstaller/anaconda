@@ -349,7 +349,11 @@ reposdir=%s
         if not self._setup:
             return []
 
-        return self._yum.repos.repos.keys()
+        _repos = []
+        with _yum_lock:
+            _repos = self._yum.repos.repos.keys()
+
+        return _repos
 
     @property
     def addOns(self):
