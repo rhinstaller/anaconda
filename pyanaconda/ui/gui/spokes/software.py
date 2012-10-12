@@ -32,6 +32,7 @@ from pyanaconda.ui.gui.utils import enlightbox, gdk_threaded
 from pyanaconda.ui.gui.categories.software import SoftwareCategory
 from .source import AdditionalReposDialog
 
+from pyanaconda.kickstart import packagesSeen
 from pykickstart.parser import Group
 
 import sys
@@ -67,15 +68,13 @@ class SoftwareSelectionSpoke(NormalSpoke):
         from pyanaconda.threads import threadMgr, AnacondaThread
 
         row = self._get_selected_environment()
-        if not row:
-            return
-
-        self._selectFlag = False
-        self.payload.data.packages.groupList = []
-        self.payload.selectEnvironment(row[2])
-        self.environment = row[2]
-        for group in self.selectedGroups:
-            self.payload.selectGroup(group)
+        if row:
+            self._selectFlag = False
+            self.payload.data.packages.groupList = []
+            self.payload.selectEnvironment(row[2])
+            self.environment = row[2]
+            for group in self.selectedGroups:
+                self.payload.selectGroup(group)
 
         communication.send_not_ready(self.__class__.__name__)
         threadMgr.add(AnacondaThread(name="AnaCheckSoftwareThread",
@@ -101,7 +100,6 @@ class SoftwareSelectionSpoke(NormalSpoke):
     @property
     def completed(self):
         from pyanaconda.threads import threadMgr
-        from pyanaconda.kickstart import packagesSeen
 
         processingDone = not threadMgr.get("AnaCheckSoftwareThread") and \
                          not self._errorMsgs and \
@@ -130,7 +128,6 @@ class SoftwareSelectionSpoke(NormalSpoke):
 
     @property
     def status(self):
-        from pyanaconda.kickstart import packagesSeen
         from pyanaconda.threads import threadMgr
 
         if self._errorMsgs:
@@ -169,19 +166,28 @@ class SoftwareSelectionSpoke(NormalSpoke):
 
         communication.send_message(self.__class__.__name__, _("Downloading group metadata..."))
 
-        with gdk_threaded():
-            # Grabbing the list of groups could potentially take a long time the
-            # first time (yum does a lot of magic property stuff, some of which
-            # involves side effects like network access) so go ahead and grab
-            # them once now.
-            try:
-                self.refresh()
-            except MetadataError:
-                communication.send_message(self.__class__.__name__,
-                                           _("No installation source available"))
-                return
+        # we have no way to select environments with kickstart right now
+        # so don't try.
+        if flags.automatedInstall and packagesSeen:
+            # We don't want to do a full refresh, just
+            # join the metadata thread
+            mdGatherThread = threadMgr.get("AnaPayloadMDThread")
+            if mdGatherThread:
+                mdGatherThread.join()
+        else:
+            with gdk_threaded():
+                # Grabbing the list of groups could potentially take a long time the
+                # first time (yum does a lot of magic property stuff, some of which
+                # involves side effects like network access) so go ahead and grab
+                # them once now.
+                try:
+                    self.refresh()
+                except MetadataError:
+                    communication.send_message(self.__class__.__name__,
+                                               _("No installation source available"))
+                    return
 
-            self.payload.release()
+        self.payload.release()
 
         communication.send_ready(self.__class__.__name__)
 
