@@ -27,10 +27,14 @@ import tempfile
 import os
 import os.path
 import iutil
+import pwquality
 from pyanaconda.constants import ROOT_PATH
 
 import logging
 log = logging.getLogger("anaconda")
+
+import gettext
+_ = lambda x: gettext.ldgettext("anaconda", x)
 
 def createLuserConf(instPath, algoname='sha512'):
     """ Writes a libuser.conf for instPath.
@@ -110,6 +114,40 @@ def cryptPassword(password, algo=None):
                                            string.digits + './')
 
     return crypt.crypt (password, saltstr)
+
+def validatePassword(pw, confirm, minlen=6):
+    # Do various steps to validate the password
+    # Return an error string, or None for no errors
+    # If inital checks pass, pwquality will be tested.  Raises
+    # from pwquality will pass up to the calling code
+
+    # if both pw and confirm are blank, password is disabled.
+    if (pw and not confirm) or (confirm and not pw):
+        error = _("You must enter your root password "
+                  "and confirm it by typing it a second "
+                  "time to continue.")
+        return error
+
+    if pw != confirm:
+        error = _("The passwords you entered were "
+                  "different.  Please try again.")
+        return error
+
+    legal = string.digits + string.ascii_letters + string.punctuation + " "
+    for letter in pw:
+        if letter not in legal:
+            error = _("Requested password contains "
+                      "non-ASCII characters, which are "
+                      "not allowed.")
+            return error
+
+    if pw:
+        settings = pwquality.PWQSettings()
+        settings.read_config()
+        settings.minlen = minlen
+        settings.check(pw, None, "root")
+
+    return None
 
 class Users:
     def __init__ (self):
