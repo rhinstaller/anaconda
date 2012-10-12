@@ -818,12 +818,11 @@ class SourceSpoke(NormalSpoke):
 
         dialog = MediaCheckDialog(self.data)
         with enlightbox(self.window, dialog.window):
-            dev = self.storage.devicetree.getDeviceByName(dev)
-            unmount = not dev.format.status
-            dev.format.mount(mountpoint=MOUNTPOINT)
+            unmount = not p.format.status
+            p.format.mount(mountpoint=MOUNTPOINT)
             dialog.run(MOUNTPOINT + "/" + f)
             if unmount:
-                dev.format.unmount()
+                p.format.unmount()
 
     def on_verify_media_clicked(self, button):
         dev = self._get_selected_media()
