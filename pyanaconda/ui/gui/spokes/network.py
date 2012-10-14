@@ -428,7 +428,13 @@ class NetworkControlBox():
         else:
             return
 
-        subprocess.Popen(["nm-connection-editor", "--edit", "%s" % uuid])
+        self.builder.get_object("button_wired_options").set_sensitive(False)
+        proc = subprocess.Popen(["nm-connection-editor", "--edit", "%s" % uuid])
+
+        GLib.child_watch_add(proc.pid, self.on_nmce_exited)
+
+    def on_nmce_exited(self, pid, condition):
+        self.builder.get_object("button_wired_options").set_sensitive(True)
 
     def on_wireless_enabled(self, *args):
         switch = self.builder.get_object("device_wireless_off_switch")
