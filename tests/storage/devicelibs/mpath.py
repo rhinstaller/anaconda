@@ -58,6 +58,20 @@ size=100G features='0' hwhandler='1 rdac' wp=rw
   `- 2:0:0:1 sdd 8:48 active undef running
 """
 
+    # bug #803883
+    output5 = """\
+Apr 10 11:38:10 | sdb: alua not supported
+create: mpatha (35000039328130360) undef IBM-ESXS,MBF2600RC
+size=559G features='0' hwhandler='0' wp=undef
+`-+- policy='round-robin 0' prio=1 status=undef
+  `- 2:3:0:0   sda 8:0  undef ready running
+Apr 10 11:38:10 | sdb: alua not supported
+reject: mpathb (1IBM     IPR-0   62E954E914C7A220) undef IBM,IPR-0   62E954E9
+size=532G features='1 queue_if_no_path' hwhandler='1 alua' wp=undef
+`-+- policy='round-robin 0' prio=-1 status=undef
+  `- 2:255:1:0 sdb 8:16 undef ready running
+"""
+
     def setUp(self):
         self.setupModules(
             ['_isys', 'logging', 'anaconda_log', 'block'])
@@ -81,6 +95,9 @@ size=100G features='0' hwhandler='1 rdac' wp=rw
         self.assertEqual(topology,
                          {'3600a0b800067fabc000067694d23fe6e' : ['sdb','sdd'],
                           '3600a0b800067fcc9000001f34d23ff88' : ['sda', 'sdc']})
+        topology = mpath.parseMultipathOutput(self.output5)
+        self.assertEqual(topology, {'mpatha':['sda']})
+
 
 def suite():
     return unittest.TestLoader().loadTestsFromTestCase(MPathTestCase)

@@ -76,12 +76,13 @@ def parseMultipathOutput(output):
     if output is None:
         return mpaths
 
+    action = None
     name = None
     devices = []
 
     policy = re.compile('^[|+` -]+policy')
     device = re.compile('^[|+` -]+[0-9]+:[0-9]+:[0-9]+:[0-9]+ +([a-zA-Z0-9!/]+)')
-    create = re.compile('^(create: )?(mpath\w+|[a-f0-9]+)')
+    create = re.compile('^(?:([a-z]+): )?(mpath\w+|[a-f0-9]+)')
 
     lines = output.split('\n')
     for line in lines:
@@ -92,11 +93,11 @@ def parseMultipathOutput(output):
         if not lexemes:
             break
         if cmatch and cmatch.group(2):
-            if name and devices:
+            if name and devices and action in (None, 'create'):
                 mpaths[name] = devices
-                name = None
-                devices = []
+            action = cmatch.group(1)
             name = cmatch.group(2)
+            devices = []
         elif lexemes[0].startswith('size='):
             pass
         elif pmatch:
@@ -104,7 +105,7 @@ def parseMultipathOutput(output):
         elif dmatch:
             devices.append(dmatch.groups()[0].replace('!','/'))
 
-    if name and devices:
+    if name and devices and action in (None, 'create'):
         mpaths[name] = devices
 
     return mpaths
