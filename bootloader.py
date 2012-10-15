@@ -227,9 +227,9 @@ def writeBootloader(anaconda):
     f.write("# DEFAULTKERNEL specifies the default kernel package type\n")
     f.write("DEFAULTKERNEL=%s\n" %(defkern,))
     if anaconda.id.bootloader.trusted_boot:
-        f.write("# HYPERVISOR specifies the default multiboot kernel\n");
-        f.write("HYPERVISOR=/boot/tboot.gz\n");
-        f.write("HYPERVISOR_ARGS=logging=vga,serial,memory\n");
+        f.write("# HYPERVISOR specifies the default multiboot kernel\n")
+        f.write("HYPERVISOR=/boot/tboot.gz\n")
+        f.write("HYPERVISOR_ARGS=logging=vga,serial,memory\n")
     f.close()
 
     dosync()
