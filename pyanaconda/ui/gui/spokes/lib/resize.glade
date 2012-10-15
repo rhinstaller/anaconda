@@ -193,6 +193,7 @@
                         <property name="title" translatable="yes">Action</property>
                         <child>
                           <object class="GtkCellRendererCombo" id="actionRenderer">
+                            <property name="has_entry">False</property>
                             <property name="model">actionStore</property>
                             <property name="text_column">0</property>
                             <signal name="changed" handler="on_action_changed" swapped="no"/>
