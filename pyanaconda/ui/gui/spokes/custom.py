@@ -264,6 +264,7 @@ class ConfirmDeleteDialog(GUIObject):
 
         self._removeAll = self.builder.get_object("removeAllCheckbox")
         self._removeAll.set_label(self._removeAll.get_label() % rootName)
+        self._removeAll.set_sensitive(rootName is not None)
 
         if mountpoint:
             txt = "%s (%s)" % (mountpoint, device)
@@ -1690,13 +1691,18 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         if not self._current_selector:
             return
 
+        page = self._accordion.currentPage()
         selector = self._current_selector
-        log.info("on_remove_clicked: %s" % selector._root.name)
-
         device = self._current_selector._device
-        log.debug("removing device '%s' from page %s" % (device, selector._root.name))
+        root_name = None
+        if selector._root:
+            root_name = selector._root.name
+        elif page:
+            root_name = page.pageTitle
 
-        if selector._root.name == new_install_name:
+        log.debug("removing device '%s' from page %s" % (device, root_name))
+
+        if root_name == new_install_name:
             if device.exists:
                 # This is an existing device that was added to the new page.
                 # All we want to do is revert any changes to the device and
@@ -1716,14 +1722,14 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             dialog = ConfirmDeleteDialog(self.data)
             with enlightbox(self.window, dialog.window):
                 dialog.refresh(getattr(device.format, "mountpoint", ""),
-                               device.name, selector._root.name)
+                               device.name, root_name)
                 rc = dialog.run()
 
                 if rc == 0:
                     return
 
             if dialog.deleteAll:
-                for dev in selector._root.swaps + selector._root.mounts.values():
+                for dev in [s._device for s in page._members]:
                     self._destroy_device(dev)
             else:
                 self._destroy_device(device)
