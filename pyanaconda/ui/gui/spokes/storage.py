@@ -266,7 +266,7 @@ class InstallOptions3Dialog(InstallOptions1Dialog):
         self.disk_free_label = self.builder.get_object("options3_disk_free_label")
         self.fs_free_label = self.builder.get_object("options3_fs_free_label")
         self.disks_size_label = self.builder.get_object("options3_disks_size_label")
-        self._set_free_space_labels(disks_free, disk_free, fs_free)
+        self._set_free_space_labels(disks_size, disk_free, fs_free)
 
         label_text = _("<b>You don't have enough space available to install "
                        "%s</b>, even if you used all of the free space\n"
