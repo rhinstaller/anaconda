@@ -59,7 +59,8 @@ class AnacondaExceptionHandler(ExceptionHandler):
 
             super(AnacondaExceptionHandler, self).handleException((ty, value, tb),
                                                                   obj)
-
+            return False
+            
         if issubclass(ty, storage.errors.StorageError) and value.hardware_fault:
             hw_error_msg = _("The installation was stopped due to what "
                              "seems to be a problem with your hardware. "

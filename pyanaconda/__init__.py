@@ -211,9 +211,6 @@ class Anaconda(object):
             raise RuntimeError, "Second attempt to initialize the InstallInterface"
 
         if self.displayMode == 'g':
-            from gi.repository import Gdk
-            Gdk.threads_init()
-
             from pyanaconda.ui.gui import GraphicalUserInterface
             self._intf = GraphicalUserInterface(self.storage, self.payload,
                                                 self.instClass)
