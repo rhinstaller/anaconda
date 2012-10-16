@@ -206,7 +206,7 @@ class Size(Decimal):
         check = self._trimEnd("%d" % self)
 
         if Decimal(check) < 1000:
-            return "%s B" % check
+            return "%s b" % check
 
         for factor, prefix, abbr in _prefixes:
             newcheck = super(Size, self).__div__(Decimal(factor))
