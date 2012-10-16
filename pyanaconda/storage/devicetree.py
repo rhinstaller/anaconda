@@ -155,11 +155,11 @@ class DeviceTree(object):
     """
 
     def __init__(self, conf=None, passphrase=None, luksDict=None,
-                 iscsi=None, dasd=None, shouldClear=None):
-        self.reset(conf, passphrase, luksDict, iscsi, dasd, shouldClear)
+                 iscsi=None, dasd=None):
+        self.reset(conf, passphrase, luksDict, iscsi, dasd)
 
     def reset(self, conf=None, passphrase=None, luksDict=None,
-              iscsi=None, dasd=None, shouldClear=None):
+              iscsi=None, dasd=None):
         # internal data members
         self._devices = []
         self._actions = []
@@ -173,7 +173,6 @@ class DeviceTree(object):
         self.populated = False
 
         self.exclusiveDisks = getattr(conf, "exclusiveDisks", [])
-        self.shouldClear = shouldClear or (lambda d: False)
         self.iscsi = iscsi
         self.dasd = dasd
         self.mpathFriendlyNames = getattr(conf, "mpathFriendlyNames", True)
@@ -1645,12 +1644,6 @@ class DeviceTree(object):
             log.warning("type '%s' on '%s' invalid, assuming no format" %
                       (format_type, name,))
             device.format = formats.DeviceFormat()
-            return
-
-        if self.shouldClear(device):
-            # if this is a device that will be cleared by clearpart,
-            # don't bother with format-specific processing
-            log.debug("skipping further processing due to clearpart")
             return
 
         #

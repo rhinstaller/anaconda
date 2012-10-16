@@ -348,8 +348,7 @@ class Storage(object):
                                      passphrase=self.encryptionPassphrase,
                                      luksDict=self.__luksDevs,
                                      iscsi=self.iscsi,
-                                     dasd=self.dasd,
-                                     shouldClear=self.shouldClear)
+                                     dasd=self.dasd)
         self.fsset = FSSet(self.devicetree)
         self.roots = {}
         self.services = set()
@@ -459,8 +458,7 @@ class Storage(object):
                               passphrase=self.encryptionPassphrase,
                               luksDict=self.__luksDevs,
                               iscsi=self.iscsi,
-                              dasd=self.dasd,
-                              shouldClear=self.shouldClear)
+                              dasd=self.dasd)
         self.devicetree.populate(cleanupOnly=cleanupOnly)
         self.config.clearPartType = clearPartType # set it back
         self.fsset = FSSet(self.devicetree)
