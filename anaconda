@@ -887,6 +887,10 @@ if __name__ == "__main__":
         else:
             log.error("Unknown method: %s", (anaconda.methodstr,))
 
+    # init threading before Gtk can do anything
+    from pyanaconda.threads import initThreading, threadMgr, AnacondaThread
+    initThreading()
+
     # now start the interface
     setupDisplay(anaconda, opts)
 
@@ -935,13 +939,11 @@ if __name__ == "__main__":
     from pyanaconda.storage import storageInitialize
     from pyanaconda.packaging import payloadInitialize
     from pyanaconda.network import networkInitialize
-    from pyanaconda.threads import initThreading, threadMgr, AnacondaThread
 
     if anaconda.rescue:
         from pyanaconda.rescue import doRescue
         doRescue(anaconda.rescue_mount, ksdata, anaconda.platform)
 
-    initThreading()
     threadMgr.add(AnacondaThread(name="AnaStorageThread", target=storageInitialize, args=(anaconda.storage, ksdata, anaconda.protected)))
     threadMgr.add(AnacondaThread(name="AnaPayloadThread", target=payloadInitialize, args=(anaconda.storage, ksdata, anaconda.payload)))
     # TODO start dhcp in thread if we have no connection
