@@ -157,8 +157,7 @@ class AddLayoutDialog(GUIObject):
 
 class KeyboardSpoke(NormalSpoke):
     builderObjects = ["addedLayoutStore", "keyboardWindow",
-                      "layoutTestBuffer",
-                      "addImage", "removeImage", "upImage", "downImage", "previewImage"]
+                      "layoutTestBuffer"]
     mainWidgetName = "keyboardWindow"
     uiFile = "spokes/keyboard.glade"
 

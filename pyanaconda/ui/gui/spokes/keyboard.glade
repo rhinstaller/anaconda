@@ -2,11 +2,7 @@
 <interface>
   <!-- interface-requires gtk+ 3.0 -->
   <!-- interface-requires AnacondaWidgets 1.0 -->
-  <object class="GtkImage" id="addImage">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="icon_name">list-add-symbolic</property>
-  </object>
+  <object class="GtkTextBuffer" id="layoutTestBuffer"/>
   <object class="GtkDialog" id="addLayoutDialog">
     <property name="can_focus">False</property>
     <property name="border_width">5</property>
@@ -25,11 +21,9 @@
             <child>
               <object class="GtkButton" id="cancelButton">
                 <property name="label">gtk-cancel</property>
-                <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
-                <property name="use_action_appearance">False</property>
                 <property name="use_stock">True</property>
               </object>
               <packing>
@@ -41,11 +35,9 @@
             <child>
               <object class="GtkButton" id="confirmAddButton">
                 <property name="label">gtk-add</property>
-                <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
-                <property name="use_action_appearance">False</property>
                 <property name="use_stock">True</property>
                 <signal name="clicked" handler="on_confirm_add_clicked" swapped="no"/>
               </object>
@@ -76,6 +68,7 @@
                 <property name="halign">start</property>
                 <property name="label" translatable="yes">ADD A KEYBOARD LAYOUT</property>
                 <attributes>
+                  <attribute name="font-desc" value="Cantarell Bold 10"/>
                   <attribute name="weight" value="bold"/>
                 </attributes>
               </object>
@@ -89,7 +82,11 @@
               <object class="GtkLabel" id="label3">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
+                <property name="xalign">0</property>
                 <property name="label" translatable="yes">You may add a keyboard layout by selecting it below:</property>
+                <attributes>
+                  <attribute name="font-desc" value="Cantarell 12"/>
+                </attributes>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -176,11 +173,6 @@
       <column type="gchararray"/>
     </columns>
   </object>
-  <object class="GtkImage" id="downImage">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="icon_name">go-down-symbolic</property>
-  </object>
   <object class="AnacondaSpokeWindow" id="keyboardWindow">
     <property name="startup_id">filler</property>
     <property name="can_focus">False</property>
@@ -206,9 +198,12 @@
         <child internal-child="alignment">
           <object class="GtkAlignment" id="AnacondaSpokeWindow-alignment1">
             <property name="can_focus">False</property>
+            <property name="margin_top">24</property>
             <property name="yalign">0</property>
-            <property name="xscale">0</property>
-            <property name="yscale">0.5</property>
+            <property name="xscale">0.75</property>
+            <property name="yscale">0.75</property>
+            <property name="left_padding">24</property>
+            <property name="right_padding">24</property>
             <child internal-child="action_area">
               <object class="GtkBox" id="keyboardWindow-actionArea">
                 <property name="can_focus">False</property>
@@ -218,11 +213,14 @@
                   <object class="GtkLabel" id="pickLayoutLabel">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
-                    <property name="label" translatable="yes">Which keyboard layouts would you like to use on this system?  You may move
-any layout to the top of the list to select it as the default.</property>
+                    <property name="margin_bottom">24</property>
+                    <property name="xalign">0</property>
+                    <property name="label" translatable="yes">Which keyboard layouts would you like to use on this system?  You may move any layout to the top of the list to select it as the default.</property>
                     <property name="wrap">True</property>
                     <attributes>
-                      <attribute name="font-desc" value="Sans 14"/>
+                      <attribute name="font-desc" value="Cantarell 12"/>
+                      <attribute name="weight" value="normal"/>
+                      <attribute name="scale" value="1"/>
                     </attributes>
                   </object>
                   <packing>
@@ -235,17 +233,19 @@ any layout to the top of the list to select it as the default.</property>
                   <object class="GtkBox" id="box2">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
-                    <property name="spacing">12</property>
+                    <property name="spacing">30</property>
                     <child>
                       <object class="GtkBox" id="leftSideBox">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
+                        <property name="halign">start</property>
                         <property name="orientation">vertical</property>
                         <child>
                           <object class="GtkScrolledWindow" id="scrolledwindow1">
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="shadow_type">in</property>
+                            <property name="min_content_width">240</property>
                             <child>
                               <object class="GtkTreeView" id="layoutView">
                                 <property name="visible">True</property>
@@ -268,6 +268,7 @@ any layout to the top of the list to select it as the default.</property>
                                       <object class="GtkCellRendererText" id="layoutRenderer"/>
                                       <attributes>
                                         <attribute name="text">0</attribute>
+                                        <attribute name="foreground-rgba">6</attribute>
                                       </attributes>
                                     </child>
                                   </object>
@@ -282,102 +283,95 @@ any layout to the top of the list to select it as the default.</property>
                           </packing>
                         </child>
                         <child>
-                          <object class="GtkButtonBox" id="buttonbox1">
+                          <object class="GtkToolbar" id="toolbar1">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
-                            <property name="homogeneous">True</property>
-                            <property name="layout_style">start</property>
+                            <property name="toolbar_style">icons</property>
+                            <property name="icon_size">1</property>
+                            <style>
+                              <class name="STYLE_CLASS_INLINE_TOOLBAR"/>
+                            </style>
                             <child>
-                              <object class="GtkButton" id="addLayoutButton">
-                                <property name="use_action_appearance">False</property>
+                              <object class="GtkToolButton" id="addLayoutButton">
                                 <property name="visible">True</property>
-                                <property name="can_focus">True</property>
-                                <property name="receives_default">True</property>
-                                <property name="use_action_appearance">False</property>
-                                <property name="image">addImage</property>
+                                <property name="can_focus">False</property>
+                                <property name="label" translatable="yes">Add layout</property>
+                                <property name="use_underline">True</property>
+                                <property name="icon_name">list-add-symbolic</property>
                                 <signal name="clicked" handler="on_add_clicked" swapped="no"/>
                               </object>
                               <packing>
                                 <property name="expand">False</property>
-                                <property name="fill">True</property>
-                                <property name="position">0</property>
+                                <property name="homogeneous">True</property>
                               </packing>
                             </child>
                             <child>
-                              <object class="GtkButton" id="removeLayoutButton">
-                                <property name="use_action_appearance">False</property>
+                              <object class="GtkToolButton" id="removeLayoutButton">
                                 <property name="visible">True</property>
-                                <property name="can_focus">True</property>
-                                <property name="receives_default">True</property>
-                                <property name="use_action_appearance">False</property>
-                                <property name="image">removeImage</property>
+                                <property name="can_focus">False</property>
+                                <property name="label" translatable="yes">Remove layout</property>
+                                <property name="use_underline">True</property>
+                                <property name="icon_name">list-remove-symbolic</property>
                                 <signal name="clicked" handler="on_remove_clicked" swapped="no"/>
                               </object>
                               <packing>
                                 <property name="expand">False</property>
-                                <property name="fill">True</property>
-                                <property name="position">1</property>
+                                <property name="homogeneous">True</property>
                               </packing>
                             </child>
                             <child>
-                              <object class="GtkButton" id="upButton">
-                                <property name="use_action_appearance">False</property>
+                              <object class="GtkToolButton" id="upButton">
                                 <property name="visible">True</property>
-                                <property name="can_focus">True</property>
-                                <property name="receives_default">True</property>
-                                <property name="use_action_appearance">False</property>
-                                <property name="image">upImage</property>
+                                <property name="can_focus">False</property>
+                                <property name="label" translatable="yes">Move selected layout up</property>
+                                <property name="use_underline">True</property>
+                                <property name="icon_name">go-up-symbolic</property>
                                 <signal name="clicked" handler="on_up_clicked" swapped="no"/>
                               </object>
                               <packing>
                                 <property name="expand">False</property>
-                                <property name="fill">True</property>
-                                <property name="position">2</property>
+                                <property name="homogeneous">True</property>
                               </packing>
                             </child>
                             <child>
-                              <object class="GtkButton" id="downButton">
-                                <property name="use_action_appearance">False</property>
+                              <object class="GtkToolButton" id="downButton">
                                 <property name="visible">True</property>
-                                <property name="can_focus">True</property>
-                                <property name="receives_default">True</property>
-                                <property name="use_action_appearance">False</property>
-                                <property name="image">downImage</property>
+                                <property name="can_focus">False</property>
+                                <property name="label" translatable="yes">Move selected layout down</property>
+                                <property name="use_underline">True</property>
+                                <property name="icon_name">go-down-symbolic</property>
                                 <signal name="clicked" handler="on_down_clicked" swapped="no"/>
                               </object>
                               <packing>
                                 <property name="expand">False</property>
-                                <property name="fill">True</property>
-                                <property name="position">3</property>
+                                <property name="homogeneous">True</property>
                               </packing>
                             </child>
                             <child>
-                              <object class="GtkButton" id="previewButton">
-                                <property name="use_action_appearance">False</property>
+                              <object class="GtkToolButton" id="previewButton">
                                 <property name="visible">True</property>
-                                <property name="can_focus">True</property>
-                                <property name="receives_default">True</property>
-                                <property name="use_action_appearance">False</property>
-                                <property name="image">previewImage</property>
+                                <property name="can_focus">False</property>
+                                <property name="label" translatable="yes">Preview layout</property>
+                                <property name="use_underline">True</property>
+                                <property name="icon_name">input-keyboard-symbolic</property>
                                 <signal name="clicked" handler="on_preview_clicked" swapped="no"/>
                               </object>
                               <packing>
                                 <property name="expand">False</property>
-                                <property name="fill">True</property>
-                                <property name="position">4</property>
+                                <property name="homogeneous">True</property>
                               </packing>
                             </child>
                           </object>
                           <packing>
                             <property name="expand">False</property>
-                            <property name="fill">False</property>
+                            <property name="fill">True</property>
                             <property name="position">1</property>
                           </packing>
                         </child>
                       </object>
                       <packing>
                         <property name="expand">False</property>
-                        <property name="fill">True</property>
+                        <property name="fill">False</property>
                         <property name="position">0</property>
                       </packing>
                     </child>
@@ -393,6 +387,9 @@ any layout to the top of the list to select it as the default.</property>
                             <property name="can_focus">False</property>
                             <property name="halign">start</property>
                             <property name="label" translatable="yes">Test the selected layout below:</property>
+                            <attributes>
+                              <attribute name="font-desc" value="Cantarell 10"/>
+                            </attributes>
                           </object>
                           <packing>
                             <property name="expand">False</property>
@@ -427,6 +424,7 @@ any layout to the top of the list to select it as the default.</property>
                             <property name="halign">end</property>
                             <property name="label" translatable="yes">Alt + Shift to switch layouts.</property>
                             <attributes>
+                              <attribute name="font-desc" value="Cantarell Italic 10"/>
                               <attribute name="style" value="italic"/>
                             </attributes>
                           </object>
@@ -439,12 +437,10 @@ any layout to the top of the list to select it as the default.</property>
                         <child>
                           <object class="GtkButton" id="optionsButton">
                             <property name="label" translatable="yes">_Options...</property>
-                            <property name="use_action_appearance">False</property>
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="receives_default">True</property>
                             <property name="halign">end</property>
-                            <property name="use_action_appearance">False</property>
                             <property name="use_underline">True</property>
                           </object>
                           <packing>
@@ -480,7 +476,6 @@ any layout to the top of the list to select it as the default.</property>
       </object>
     </child>
   </object>
-  <object class="GtkTextBuffer" id="layoutTestBuffer"/>
   <object class="GtkListStore" id="newLayoutStore">
     <columns>
       <!-- column-name name -->
@@ -492,20 +487,5 @@ any layout to the top of the list to select it as the default.</property>
   </object>
   <object class="GtkTreeModelSort" id="newLayoutStoreSort">
     <property name="model">newLayoutStoreFilter</property>
-  </object>
-  <object class="GtkImage" id="previewImage">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="icon_name">input-keyboard-symbolic</property>
-  </object>
-  <object class="GtkImage" id="removeImage">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="icon_name">list-remove-symbolic</property>
-  </object>
-  <object class="GtkImage" id="upImage">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="icon_name">go-up-symbolic</property>
   </object>
 </interface>
