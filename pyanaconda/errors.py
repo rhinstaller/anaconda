@@ -213,6 +213,14 @@ class ErrorHandler(object):
         self.ui.showError(message)
         return ERROR_RAISE
 
+    def _payloadInstallHandler(self, *args, **kwargs):
+        package = args[0]
+        message = _("There was an error installing the %s package.  This is "
+                    "a fatal error and installation will be aborted.") % \
+                   package
+        self.ui.showError(message)
+        return ERROR_RAISE
+
     def cb(self, exn, *args, **kwargs):
         """This method is the callback that all error handling should pass
            through.  The return value is one of the ERROR_* constants defined
@@ -244,7 +252,8 @@ class ErrorHandler(object):
                 "MediaUnmountError": self._mediaUnmountHandler,
                 "NoSuchGroup": self._noSuchGroupHandler,
                 "NoSuchPackage": self._noSuchPackageHandler,
-                "ScriptError": self._scriptErrorHandler}
+                "ScriptError": self._scriptErrorHandler,
+                "PayloadInstallError": self._payloadInstallHandler}
 
         if exn.__class__.__name__ in _map:
             kwargs["exception"] = exn
