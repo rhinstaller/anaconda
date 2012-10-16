@@ -1246,7 +1246,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
     def _get_raid_level(self):
         """ Return the raid level string based on the current ui selections. """
-        device_type = self.builder.get_object("deviceTypeCombo").get_active()
+        device_type = self._get_current_device_type()
         widget_dict = self._get_raid_widget_dict(device_type)
         if not widget_dict:
             return None
@@ -1298,7 +1298,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
     def _update_disabled_raid_features(self, raid_level):
         """ Update disabled feature widgets based on raid level. """
-        device_type = self.builder.get_object("deviceTypeCombo").get_active()
+        device_type = self._get_current_device_type()
         widget_dict = self._get_raid_widget_dict(device_type)
         disabled = self._get_raid_disabled_features(raid_level)
         for feature in raid_features:
