@@ -1975,9 +1975,11 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         passphrase = entry.get_text()
         device.format.passphrase = passphrase
         try:
+            device.setup()
             device.format.setup()
-        except CryptoError as e:
+        except StorageError as e:
             log.error("failed to unlock %s: %s" % (device.name, e))
+            device.teardown(recursive=True)
             self._error = e
             device.format.passphrase = None
             entry.set_text("")
