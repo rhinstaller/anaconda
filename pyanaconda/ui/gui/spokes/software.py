@@ -134,7 +134,7 @@ class SoftwareSelectionSpoke(NormalSpoke):
         if self._errorMsgs:
             return _("Error checking software selection")
 
-        if threadMgr.get("AnaPayloadMDThread") or self.payload.baseRepo is None:
+        if not self.ready:
             return _("Installation source not set up")
 
         row = self._get_selected_environment()
