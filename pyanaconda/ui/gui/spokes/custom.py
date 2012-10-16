@@ -331,7 +331,13 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                 args.append(ui_device.targetSize)
 
             if ui_action.isCreate and ui_action.isFormat:
-                args.append(ui_device.format)
+                if ui_device.format.type == "disklabel":
+                    # A DiskLabel instance will have partitions already in it.
+                    args.append(getFormat("disklabel",
+                                          device=ui_device.path,
+                                          labelType=ui_device.format.labelType))
+                else:
+                    args.append(ui_device.format)
 
             if ui_action.isCreate and ui_action.isDevice:
                 # We're going to just move the already-defined device into the
@@ -1653,6 +1659,13 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             else:
                 if is_logical_partition:
                     self.__storage.removeEmptyExtendedPartitions()
+
+        # If we've just removed the last partition and the disklabel is pre-
+        # existing, reinitialize the disk.
+        if device.type == "partition" and device.disk.format.exists:
+            with ui_storage_logger():
+                if self.__storage.shouldClear(device.disk):
+                    self.__storage.initializeDisk(device.disk)
 
         self._devices = self.__storage.devices
 
