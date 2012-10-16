@@ -1665,7 +1665,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             container = device.volume
             device_type = AUTOPART_TYPE_BTRFS
 
-        if container and not container.exists:
+        if container and not container.exists and \
+           self.__storage.devicetree.getChildren(container):
             # adjust container to size of remaining devices
             with ui_storage_logger():
                 # TODO: raid
