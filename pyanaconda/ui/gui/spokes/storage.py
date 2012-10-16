@@ -40,7 +40,6 @@
 
 from gi.repository import Gdk, GLib, Gtk
 from gi.repository import AnacondaWidgets
-
 from pyanaconda.ui.gui import GUIObject, communication
 from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.gui.spokes.lib.cart import SelectedDisksDialog
@@ -48,7 +47,7 @@ from pyanaconda.ui.gui.spokes.lib.passphrase import PassphraseDialog
 from pyanaconda.ui.gui.spokes.lib.detailederror import DetailedErrorDialog
 from pyanaconda.ui.gui.spokes.lib.resize import ResizeDialog
 from pyanaconda.ui.gui.categories.storage import StorageCategory
-from pyanaconda.ui.gui.utils import enlightbox, gdk_threaded
+from pyanaconda.ui.gui.utils import enlightbox, gtk_thread_wait
 
 from pyanaconda.kickstart import doKickstartStorage
 from pyanaconda.storage.size import Size
@@ -516,16 +515,18 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         if len(self.disks) == 1 and not self.selected_disks:
             self.data.ignoredisk.onlyuse = [self.disks[0].name]
 
-        with gdk_threaded():
-            # properties: kind, description, capacity, os, popup-info
-            for disk in self.disks:
-                if disk.removable:
-                    kind = "drive-removable-media"
-                else:
-                    kind = "drive-harddisk"
+        # properties: kind, description, capacity, os, popup-info
+        for disk in self.disks:
+            if disk.removable:
+                kind = "drive-removable-media"
+            else:
+                kind = "drive-harddisk"
 
-                size = size_str(disk.size)
-                popup_info = "%s | %s" % (disk.name, disk.serial)
+            size = size_str(disk.size)
+            popup_info = "%s | %s" % (disk.name, disk.serial)
+
+            @gtk_thread_wait
+            def gtk_action():
                 overview = AnacondaWidgets.DiskOverview(disk.description,
                                                         kind,
                                                         size,
@@ -541,8 +542,10 @@ class StorageSpoke(NormalSpoke, StorageChecker):
                 overview.connect("key-release-event", self._on_disk_clicked)
                 overview.show_all()
 
-            self._update_summary()
+                self._update_summary()
 
+            gtk_action()
+                
         self._ready = True
         communication.send_ready(self.__class__.__name__)
 

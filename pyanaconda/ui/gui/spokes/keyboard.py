@@ -30,7 +30,7 @@ from gi.repository import GLib, Gkbd, Gtk, Gdk
 from pyanaconda.ui.gui import GUIObject
 from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.gui.categories.localization import LocalizationCategory
-from pyanaconda.ui.gui.utils import enlightbox, gdk_threaded
+from pyanaconda.ui.gui.utils import enlightbox, gtk_call_once
 from pyanaconda import keyboard
 from pyanaconda import flags
 
@@ -89,12 +89,12 @@ class AddLayoutDialog(GUIObject):
             return 1
 
     def refresh(self):
-        self._entry = self.builder.get_object("addLayoutEntry")
         self._entry.grab_focus()
 
     def initialize(self):
         # We want to store layouts' names but show layouts as
         # 'language (description)'.
+        self._entry = self.builder.get_object("addLayoutEntry")
         layoutColumn = self.builder.get_object("newLayoutColumn")
         layoutRenderer = self.builder.get_object("newLayoutRenderer")
         layoutColumn.set_cell_data_func(layoutRenderer, _show_layout,
@@ -261,8 +261,8 @@ class KeyboardSpoke(NormalSpoke):
     # Signal handlers.
     def on_add_clicked(self, button):
         dialog = AddLayoutDialog(self.data)
-        dialog.refresh()
         dialog.initialize()
+        dialog.refresh()
 
         with enlightbox(self.window, dialog.window):
             response = dialog.run()
@@ -284,13 +284,6 @@ class KeyboardSpoke(NormalSpoke):
                     self._removeLayout(self._store, itr)
                 self._remove_last_attempt = False
 
-    def _run_add_from_removed(self, button):
-        # Only call gdk_threaded when necessary (when we need to run the add
-        # dialog from the on_remove_clicked path) or we'll introduce a different
-        # deadlock.
-        with gdk_threaded():
-            self.on_add_clicked(button)
-
     def on_remove_clicked(self, button):
         selection = self.builder.get_object("layoutSelection")
         if not selection.count_selected_rows():
@@ -311,7 +304,7 @@ class KeyboardSpoke(NormalSpoke):
             #redrawn
             self._remove_last_attempt = True
             add_button = self.builder.get_object("addLayoutButton")
-            GLib.idle_add(self._run_add_from_removed, add_button)
+            gtk_call_once(self.on_add_clicked, add_button)
             return
 
         #the selected item is not the first, select the previous one

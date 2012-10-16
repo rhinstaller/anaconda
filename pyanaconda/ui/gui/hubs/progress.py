@@ -36,7 +36,7 @@ from pyanaconda.flags import flags
 from pykickstart.constants import KS_WAIT, KS_SHUTDOWN, KS_REBOOT
 
 from pyanaconda.ui.gui.hubs import Hub
-from pyanaconda.ui.gui.utils import gdk_threaded
+from pyanaconda.ui.gui.utils import gtk_thread_nowait, gtk_call_once
 
 __all__ = ["ProgressHub"]
 
@@ -227,29 +227,26 @@ class ProgressHub(Hub):
         self._totalSteps = steps
         self._currentStep = 0
 
-        with gdk_threaded():
-            self._progressBar.set_fraction(0.0)
+        gtk_call_once(self._progressBar.set_fraction, 0.0)
 
     def _step_progress_bar(self):
         if not self._totalSteps:
             return
 
-        with gdk_threaded():
-            self._currentStep += 1
-            self._progressBar.set_fraction(self._currentStep/self._totalSteps)
+        self._currentStep += 1
+        gtk_call_once(self._progressBar.set_fraction, self._currentStep/self._totalSteps)
 
     def _update_progress_message(self, message):
         if not self._totalSteps:
             return
 
-        with gdk_threaded():
-            self._progressLabel.set_text(message)
+        gtk_call_once(self._progressLabel.set_text, message)
 
+    @gtk_thread_nowait
     def _progress_bar_complete(self):
-        with gdk_threaded():
-            self._progressBar.set_fraction(1.0)
-            self._progressLabel.set_text(_("Complete!"))
+        self._progressBar.set_fraction(1.0)
+        self._progressLabel.set_text(_("Complete!"))
 
-            spinner = self.builder.get_object("progressSpinner")
-            spinner.stop()
-            spinner.hide()
+        spinner = self.builder.get_object("progressSpinner")
+        spinner.stop()
+        spinner.hide()

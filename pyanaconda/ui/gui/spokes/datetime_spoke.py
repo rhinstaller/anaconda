@@ -32,7 +32,7 @@ from gi.repository import AnacondaWidgets, GLib, Gtk
 from pyanaconda.ui.gui import GUIObject
 from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.gui.categories.localization import LocalizationCategory
-from pyanaconda.ui.gui.utils import enlightbox
+from pyanaconda.ui.gui.utils import enlightbox, gtk_thread_nowait, gtk_call_once
 
 from pyanaconda import timezone
 from pyanaconda import iutil
@@ -174,6 +174,7 @@ class NTPconfigDialog(GUIObject):
 
         """
 
+        @gtk_thread_nowait
         def set_store_value(arg_tuple):
             """
             We need a function for this, because this way it can be added to
@@ -200,13 +201,14 @@ class NTPconfigDialog(GUIObject):
 
             if orig_hostname == actual_hostname:
                 if server_working:
-                    GLib.idle_add(set_store_value, (self._serversStore,
-                                                    itr, 1, SERVER_OK))
+                    set_store_value((self._serversStore,
+                                    itr, 1, SERVER_OK))
                 else:
-                    GLib.idle_add(set_store_value, (self._serversStore,
-                                                    itr, 1, SERVER_NOK))
+                    set_store_value((self._serversStore,
+                                    itr, 1, SERVER_NOK))
         self._epoch_lock.release()
 
+    @gtk_thread_nowait
     def _refresh_server_working(self, itr):
         """ Runs a new thread with _set_server_ok_nok(itr) as a taget. """
 
@@ -229,7 +231,7 @@ class NTPconfigDialog(GUIObject):
             self._poolsNote.set_text(POOL_SERVERS_NOTE)
 
         #do not block UI while starting thread (may take some time)
-        GLib.idle_add(self._refresh_server_working, itr)
+        self._refresh_server_working(itr)
 
     def on_entry_activated(self, entry, *args):
         self._add_server(entry.get_text())
@@ -410,7 +412,7 @@ class DatetimeSpoke(NormalSpoke):
             self._show_no_network_warning()
         else:
             self.window.clear_info()
-            GLib.idle_add(self._config_dialog.refresh_servers_state)
+            gtk_call_once(self._config_dialog.refresh_servers_state)
 
         if flags.can_touch_runtime_system("get NTP service state"):
             ntp_working = has_active_network and iutil.service_running("chronyd")
