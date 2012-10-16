@@ -206,7 +206,7 @@ class Size(Decimal):
         check = self._trimEnd("%d" % self)
 
         if Decimal(check) < 1000:
-            return "%s b" % check
+            return "%s B" % check
 
         for factor, prefix, abbr in _prefixes:
             newcheck = super(Size, self).__div__(Decimal(factor))
@@ -227,7 +227,7 @@ class Size(Decimal):
                             retval = "%s.%s" % (whole, fraction[:max_places])
 
                 if abbr:
-                    return retval + " " + abbr + _("b")
+                    return retval + " " + abbr + _("B")
                 else:
                     return retval + " " + prefix + P_("byte", "bytes", newcheck)
 
