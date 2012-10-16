@@ -53,7 +53,7 @@ _binaryPrefix = [(1024, _("kibi"), _("Ki")),
                  (1024**7, _("zebi"), None),
                  (1024**8, _("yobi"), None)]
 
-_bytes = [_('B'), _('byte'), _('bytes')]
+_bytes = [_('b'), _('byte'), _('bytes')]
 _prefixes = _decimalPrefix + _binaryPrefix
 
 def _makeSpecs(prefix, abbr):
@@ -227,7 +227,7 @@ class Size(Decimal):
                             retval = "%s.%s" % (whole, fraction[:max_places])
 
                 if abbr:
-                    return retval + " " + abbr + _("B")
+                    return retval + " " + abbr + _("b")
                 else:
                     return retval + " " + prefix + P_("byte", "bytes", newcheck)
 
