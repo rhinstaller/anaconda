@@ -1074,6 +1074,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             self._update_btrfs_selectors()
 
             self._updateSpaceDisplay()
+            self._populate_right_side(selector)
             return
 
         ##
@@ -1128,6 +1129,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             self._update_btrfs_selectors()
 
             self._updateSpaceDisplay()
+            self._populate_right_side(selector)
 
         ##
         ## ENCRYPTION
