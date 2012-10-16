@@ -166,13 +166,18 @@ def populate_mountpoint_store(store, used_mountpoints):
         if path not in used_mountpoints:
             store.append([path])
 
-def validate_mountpoint(mountpoint, used_mountpoints):
+def validate_mountpoint(mountpoint, used_mountpoints, strict=True):
+    if strict:
+        fake_mountpoints = []
+    else:
+        fake_mountpoints = ["swap", "biosboot", "prepboot"]
+
     valid = MOUNTPOINT_OK
     if mountpoint in used_mountpoints:
         valid = MOUNTPOINT_IN_USE
     elif not mountpoint:
         valid = MOUNTPOINT_EMPTY
-    elif (mountpoint.lower() not in ("swap", "biosboot", "prepboot") and
+    elif (mountpoint.lower() not in fake_mountpoints and
           ((len(mountpoint) > 1 and mountpoint.endswith("/")) or
            not mountpoint.startswith("/") or
            " " in mountpoint or
@@ -208,7 +213,8 @@ class AddDialog(GUIObject):
 
     def on_add_confirm_clicked(self, button, *args):
         self.mountpoint = self.builder.get_object("addMountPointEntry").get_text()
-        self._error = validate_mountpoint(self.mountpoint, self.mountpoints)
+        self._error = validate_mountpoint(self.mountpoint, self.mountpoints,
+                                          strict=False)
         self._warningLabel.set_text(mountpoint_validation_msgs[self._error])
         self.window.show_all()
         if self._error:
