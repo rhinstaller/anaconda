@@ -699,6 +699,16 @@ class Storage(object):
         clearPartDevices = kwargs.get("clearPartDevices",
                                       self.config.clearPartDevices)
 
+        def empty_disk(device):
+            empty = True
+            if device.partitioned:
+                partitions = self.devicetree.getChildren(device)
+                empty = all([p.isMagic for p in partitions])
+            else:
+                empty = (device.format.type is None)
+
+            return empty
+
         for disk in device.disks:
             # this will not include disks with hidden formats like multipath
             # and firmware raid member disks
@@ -706,25 +716,20 @@ class Storage(object):
                 return False
 
         if not self.config.clearNonExistent:
-            if not device.exists:
+            if (device.isDisk and not device.format.exists) or \
+               (not device.isDisk and not device.exists):
                 return False
 
-            if device.isDisk:
-                if not device.format.exists:
-                    return False
-
-                if device.partitioned:
-                    for partition in self.devicetree.getChildren(device):
-                        if not (partition.isMagic or self.shouldClear(partition)):
-                            return False
-
         # the only devices we want to clear when clearPartType is
-        # CLEARPART_TYPE_NONE are uninitialized disks in clearPartDisks, and
-        # then only when we have been asked to initialize disks as needed
-        if clearPartType in [CLEARPART_TYPE_NONE, None] and \
-           not (device.isDisk and device.format.type is None and
-                self.config.initializeDisks):
-            return False
+        # CLEARPART_TYPE_NONE are uninitialized disks, or disks with no
+        # partitions, in clearPartDisks, and then only when we have been asked
+        # to initialize disks as needed
+        if clearPartType in [CLEARPART_TYPE_NONE, None]:
+            if not self.config.initializeDisks or not device.isDisk:
+                return False
+
+            if not empty_disk(device):
+                return False
 
         if isinstance(device, PartitionDevice):
             # Never clear the special first partition on a Mac disk label, as
@@ -748,9 +753,8 @@ class Storage(object):
                 # if clearPartType is not CLEARPART_TYPE_ALL but we'll still be
                 # removing every partition from the disk, return True since we
                 # will want to be able to create a new disklabel on this disk
-                for partition in self.devicetree.getChildren(device):
-                    if not (partition.isMagic or self.shouldClear(partition)):
-                        return False
+                if not empty_disk(device):
+                    return False
 
             # Never clear disks with hidden formats
             if device.format.hidden:
