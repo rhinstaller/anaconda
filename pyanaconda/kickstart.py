@@ -241,7 +241,7 @@ class Authconfig(commands.authconfig.FC3_Authconfig):
         except RuntimeError as msg:
             log.error("Error running /usr/sbin/authconfig %s: %s", args, msg)
 
-class AutoPart(commands.autopart.F17_AutoPart):
+class AutoPart(commands.autopart.F18_AutoPart):
     def execute(self, storage, ksdata, instClass):
         from pyanaconda.storage.partitioning import doAutoPartition
 
@@ -256,6 +256,7 @@ class AutoPart(commands.autopart.F17_AutoPart):
         if self.encrypted:
             storage.encryptedAutoPart = True
             storage.encryptionPassphrase = self.passphrase
+            storage.encryptionCipher = self.cipher
             storage.autoPartEscrowCert = getEscrowCertificate(storage.escrowCertificates, self.escrowcert)
             storage.autoPartAddBackupPassphrase = self.backuppassphrase
 
@@ -579,7 +580,7 @@ class Lang(commands.lang.FC3_Lang):
     def execute(self, *args, **kwargs):
         localization.write_language_configuration(self, ROOT_PATH)
 
-class LogVol(commands.logvol.F17_LogVol):
+class LogVol(commands.logvol.F18_LogVol):
     def execute(self, storage, ksdata, instClass):
         for l in self.lvList:
             l.execute(storage, ksdata, instClass)
@@ -1111,12 +1112,12 @@ class PartitionData(commands.partition.F18_PartData):
                                      parents=request)
             storage.createDevice(luksdev)
 
-class Raid(commands.raid.F15_Raid):
+class Raid(commands.raid.F18_Raid):
     def execute(self, storage, ksdata, instClass):
         for r in self.raidList:
             r.execute(storage, ksdata, instClass)
 
-class RaidData(commands.raid.F15_RaidData):
+class RaidData(commands.raid.F18_RaidData):
     def execute(self, storage, ksdata, instClass):
         raidmems = []
         devicename = "md%d" % self.device

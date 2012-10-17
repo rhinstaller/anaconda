@@ -76,6 +76,7 @@ def _scheduleImplicitPartitions(storage, disks):
         if storage.encryptedAutoPart:
             fmt_type = "luks"
             fmt_args = {"passphrase": storage.encryptionPassphrase,
+                        "cipher": storage.encryptionCipher,
                         "escrow_cert": storage.autoPartEscrowCert,
                         "add_backup_passphrase": storage.autoPartAddBackupPassphrase}
         else:
@@ -163,6 +164,7 @@ def _schedulePartitions(storage, disks):
         if request.encrypted and storage.encryptedAutoPart:
             fmt_type = "luks"
             fmt_args = {"passphrase": storage.encryptionPassphrase,
+                        "cipher": storage.encryptionCipher,
                         "escrow_cert": storage.autoPartEscrowCert,
                         "add_backup_passphrase": storage.autoPartAddBackupPassphrase}
         else:
