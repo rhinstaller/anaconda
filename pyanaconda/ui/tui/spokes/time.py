@@ -69,7 +69,7 @@ class TimeZoneSpoke(NormalTUISpoke):
             displayed = [TextWidget(z) for z in self._regions]
 
         def _prep(i, w):
-            number = TextWidget("%2d)" % i)
+            number = TextWidget("%2d)" % (i + 1))
             return ColumnWidget([(4, [number]), (None, [w])], 1)
 
         # split zones to three columns
@@ -85,7 +85,7 @@ class TimeZoneSpoke(NormalTUISpoke):
 
     def input(self, args, key):
         try:
-            keyid = int(key)
+            keyid = int(key) - 1
             if args:
                 self._selection = "%s/%s" % (args, self._timezones[args][keyid])
                 self.apply()
