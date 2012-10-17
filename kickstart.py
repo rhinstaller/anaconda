@@ -234,7 +234,7 @@ class Authconfig(commands.authconfig.FC3_Authconfig):
     def execute(self, anaconda):
         anaconda.id.auth = self.authconfig
 
-class AutoPart(commands.autopart.F12_AutoPart):
+class AutoPart(commands.autopart.RHEL6_AutoPart):
     def execute(self, anaconda):
         # sets up default autopartitioning.  use clearpart separately
         # if you want it
@@ -244,6 +244,7 @@ class AutoPart(commands.autopart.F12_AutoPart):
         if self.encrypted:
             anaconda.id.storage.encryptedAutoPart = True
             anaconda.id.storage.encryptionPassphrase = self.passphrase
+            anaconda.id.storage.encryptionCipher = self.cipher
             anaconda.id.storage.autoPartEscrowCert = \
                 getEscrowCertificate(anaconda, self.escrowcert)
             anaconda.id.storage.autoPartAddBackupPassphrase = \
@@ -930,7 +931,7 @@ class Reboot(commands.reboot.FC6_Reboot):
     def execute(self, anaconda):
         anaconda.id.ksdata.skipSteps.append("complete")
 
-class RaidData(commands.raid.F12_RaidData):
+class RaidData(commands.raid.RHEL6_RaidData):
     def execute(self, anaconda):
         raidmems = []
         devicename = "md%d" % self.device

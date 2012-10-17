@@ -68,6 +68,7 @@ def _createFreeSpacePartitions(anaconda):
         if anaconda.id.storage.encryptedAutoPart:
             fmt_type = "luks"
             fmt_args = {"escrow_cert": anaconda.id.storage.autoPartEscrowCert,
+                        "cipher": anaconda.id.storage.encryptionCipher,
                         "add_backup_passphrase": anaconda.id.storage.autoPartAddBackupPassphrase}
         else:
             fmt_type = "lvmpv"

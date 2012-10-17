@@ -109,6 +109,8 @@ class LUKS(DeviceFormat):
 
     def writeKS(self, f):
         f.write(" --encrypted")
+        if self.cipher:
+            f.write(" --cipher=\"%s\"" % self.cipher)
 
     @property
     def dict(self):

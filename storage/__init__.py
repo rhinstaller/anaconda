@@ -311,6 +311,7 @@ class Storage(object):
         self.clearPartChoice = None
         self.encryptedAutoPart = False
         self.encryptionPassphrase = None
+        self.encryptionCipher = None
         self.autoPartEscrowCert = None
         self.autoPartAddBackupPassphrase = False
         self.encryptionRetrofit = False
