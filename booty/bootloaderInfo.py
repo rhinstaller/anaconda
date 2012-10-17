@@ -168,8 +168,8 @@ class KernelArguments:
 
         if flags.cmdline.get("fips") == "1":
             bootDev = self.id.storage.mountpoints.get("/boot", rootDev)
-            bootArgs.add("boot=%s" % bootDev.fstabSpec)
             if bootDev is not rootDev:
+                bootArgs.add("boot=%s" % bootDev.fstabSpec)
                 neededDevs = [ rootDev, bootDev ]
 
         if self.id.storage.fsset.swapDevices:
