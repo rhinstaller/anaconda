@@ -38,6 +38,7 @@ from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.gui.categories.software import SoftwareCategory
 from pyanaconda.ui.gui.utils import enlightbox, gtk_thread_wait
 from pyanaconda.iutil import ProxyString, ProxyStringError
+from pyanaconda.ui.gui.utils import gtk_call_once
 
 __all__ = ["SourceSpoke"]
 
