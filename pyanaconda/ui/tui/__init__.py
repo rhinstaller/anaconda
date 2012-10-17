@@ -170,7 +170,7 @@ class TextUserInterface(ui.UserInterface):
            critical errors that anaconda cannot figure out how to recover from.
         """
         error_window = ErrorDialog(self._app, message)
-        self._app.switch_window(error_window)
+        self._app.switch_screen(error_window)
 
     def showYesNoQuestion(self, message):
         """Display a dialog with the given message that presents the user a yes
@@ -184,5 +184,5 @@ class TextUserInterface(ui.UserInterface):
            want to overwhelm the user with choices.
         """
         question_window = YesNoDialog(self._app, message)
-        self._app.switch_window_modal(question_window)
+        self._app.switch_screen_modal(question_window)
         return question_window.answer
