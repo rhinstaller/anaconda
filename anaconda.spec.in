@@ -300,6 +300,14 @@ update-desktop-database &> /dev/null || :
 /usr/lib/dracut/modules.d/80%{name}/*
 
 %changelog
+* Wed Oct 17 2012 Brian C. Lane <bcl@redhat.com> - 18.18-1
+- remove firewall.py from POTFILES.in (bcl)
+- Add missing pieces for kickstart's encryption cipher option. (dlehman)
+- update to use firewalld (#815540) (bcl)
+- Fix a typo in method name (#863765) (msivak)
+- Add missing import (#867296) (msivak)
+- There is no anaconda object available in writeSysconfigKernel (vpodzime)
+
 * Tue Oct 16 2012 Brian C. Lane <bcl@redhat.com> - 18.17-1
 - Add an error handler for fatal package installation errors (#865291).
   (clumens)
