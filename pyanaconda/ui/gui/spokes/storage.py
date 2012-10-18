@@ -340,13 +340,11 @@ class StorageSpoke(NormalSpoke, StorageChecker):
 
         self.clearPartType = CLEARPART_TYPE_NONE
 
-        for disk in self.disks:
-            if disk.name not in self.selected_disks and \
-               disk in self.storage.devices:
-                self.storage.devicetree.hide(disk)
-            elif disk.name in self.selected_disks and \
-                 disk not in self.storage.devices:
-                self.storage.devicetree.unhide(disk)
+        if self.data.bootloader.bootDrive and \
+           self.data.bootloader.bootDrive not in self.selected_disks:
+            self.data.bootloader.bootDrive = None
+            self.storage.bootloader.stage1_disk = None
+            self.storage.bootloader.stage1_device = None
 
         self.data.bootloader.location = "mbr"
 
@@ -620,6 +618,15 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         return rc
 
     def on_continue_clicked(self, button):
+        # hide/unhide disks as requested
+        for disk in self.disks:
+            if disk.name not in self.selected_disks and \
+               disk in self.storage.devices:
+                self.storage.devicetree.hide(disk)
+            elif disk.name in self.selected_disks and \
+                 disk not in self.storage.devices:
+                self.storage.devicetree.unhide(disk)
+
         # show the installation options dialog
         disks = [d for d in self.disks if d.name in self.selected_disks]
         disks_size = sum(Size(spec="%f MB" % d.size) for d in disks)
