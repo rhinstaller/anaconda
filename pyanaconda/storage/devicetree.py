@@ -1165,7 +1165,7 @@ class DeviceTree(object):
                     device.format.passphrase = 'yabbadabbadoo'
             else:
                 # Try each known passphrase.
-                for passphrase in self.__luksDevs.values():
+                for passphrase in self.__passphrases:
                     device.format.passphrase = passphrase
                     try:
                         device.format.setup()

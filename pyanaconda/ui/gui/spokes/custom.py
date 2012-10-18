@@ -393,6 +393,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                                      parents=[slave],
                                      exists=True)
             luks_device.setup()
+            self.storage.savePassphrase(slave)
             self.storage.devicetree._addDevice(luks_device)
 
         # XXX What if the user has changed storage config in the shell?
@@ -2018,8 +2019,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                                   exists=True)
             self.__storage.devicetree._addDevice(luks_dev)
             # save the passphrase for possible reset and to try for other devs
-            self.__storage._Storage__luksDevs[device.format.uuid] = passphrase
-            self.__storage.devicetree._DeviceTree__luksDevs[device.format.uuid] = passphrase
+            self.__storage.savePassphrase(device)
             # XXX What if the user has changed things using the shell?
             self.__storage.devicetree.populate()
             # look for new roots

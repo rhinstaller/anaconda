@@ -1400,6 +1400,13 @@ class Storage(object):
 
         return name
 
+    def savePassphrase(self, device):
+        """ Save a device's LUKS passphrase in case of reset. """
+        passphrase = device.format._LUKS__passphrase
+        self.__luksDevs[device.format.uuid] = passphrase
+        self.devicetree._DeviceTree__luksDevs[device.format.uuid] = passphrase
+        self.devicetree._DeviceTree__passphrases.append(passphrase)
+
     def doEncryptionPassphraseRetrofits(self):
         """ Add the global passphrase to all preexisting LUKS devices.
 
