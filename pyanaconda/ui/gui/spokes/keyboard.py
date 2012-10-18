@@ -36,9 +36,18 @@ from pyanaconda import flags
 
 __all__ = ["KeyboardSpoke"]
 
+# %s will be replaced by key combination like Alt+Shift
+LAYOUT_SWITCHING_INFO = _("%s to switch layouts.")
+
 def _show_layout(column, renderer, model, itr, wrapper):
     value = wrapper.name_to_show_str[model[itr][0]]
     renderer.set_property("text", value)
+
+def _show_description(column, renderer, model, itr, wrapper):
+    value = wrapper.switch_to_show_str[model[itr][0]]
+    if model[itr][1]:
+        value = "<b>%s</b>" % value
+    renderer.set_property("markup", value)
 
 class AddLayoutDialog(GUIObject):
     builderObjects = ["addLayoutDialog", "newLayoutStore",
@@ -155,6 +164,91 @@ class AddLayoutDialog(GUIObject):
     def _addLayout(self, store, name):
         store.append([name])
 
+
+class ConfigureSwitchingDialog(GUIObject):
+    """Class representing a dialog for layout switching configuration"""
+
+    builderObjects = ["switchingDialog", "switchingOptsStore",
+                      "switchingOptsSort",]
+    mainWidgetName = "switchingDialog"
+    uiFile = "spokes/keyboard.glade"
+
+    def __init__(self, *args):
+        GUIObject.__init__(self, *args)
+        self._xkl_wrapper = keyboard.XklWrapper.get_instance()
+
+        self._switchingOptsStore = self.builder.get_object("switchingOptsStore")
+
+    def initialize(self):
+        # we want to display "Alt + Shift" rather than "grp:alt_shift_toggle"
+        descColumn = self.builder.get_object("descColumn")
+        descRenderer = self.builder.get_object("descRenderer")
+        descColumn.set_cell_data_func(descRenderer, _show_description,
+                                            self._xkl_wrapper)
+
+        self._switchingOptsSort = self.builder.get_object("switchingOptsSort")
+        self._switchingOptsSort.set_default_sort_func(self._compare_options, None)
+
+        for opt in self._xkl_wrapper.get_switching_options():
+            self._add_option(opt)
+
+    def refresh(self):
+        itr = self._switchingOptsStore.get_iter_first()
+        while itr:
+            option = self._switchingOptsStore[itr][0]
+            if option in self.data.keyboard.switch_options:
+                self._switchingOptsStore.set_value(itr, 1, True)
+            else:
+                self._switchingOptsStore.set_value(itr, 1, False)
+
+            itr = self._switchingOptsStore.iter_next(itr)
+
+    def run(self):
+        rc = self.window.run()
+        self.window.hide()
+        return rc
+
+    def _add_option(self, option):
+        """Add option to the list as unchecked"""
+
+        self._switchingOptsStore.append([option, False])
+
+    def _compare_options(self, model, itr1, itr2, user_data=None):
+        """
+        We want to sort options by their show strings not their names.
+        This function is an instance of GtkTreeIterCompareFunc().
+
+        """
+
+        value1 = model[itr1][0]
+        value2 = model[itr2][0]
+        show_str1 = self._xkl_wrapper.switch_to_show_str[value1]
+        show_str2 = self._xkl_wrapper.switch_to_show_str[value2]
+
+        if show_str1 < show_str2:
+            return -1
+        elif show_str1 == show_str2:
+            return 0
+        else:
+            return 1
+
+    @property
+    def checked_options(self):
+        """Property returning all checked options from the list"""
+
+        ret = [row[0] for row in self._switchingOptsStore if row[1] and row[0]]
+        return ret
+
+    def on_use_option_toggled(self, renderer, path, *args):
+        itr = self._switchingOptsSort.get_iter(path)
+
+        # Get itr for the *store*.
+        itr = self._switchingOptsSort.convert_iter_to_child_iter(itr)
+        old_value = self._switchingOptsStore[itr][1]
+
+        self._switchingOptsStore.set_value(itr, 1, not old_value)
+
+
 class KeyboardSpoke(NormalSpoke):
     builderObjects = ["addedLayoutStore", "keyboardWindow",
                       "layoutTestBuffer"]
@@ -202,6 +296,11 @@ class KeyboardSpoke(NormalSpoke):
         self._store = self.builder.get_object("addedLayoutStore")
         self._add_data_layouts()
 
+        self._switching_dialog = ConfigureSwitchingDialog(self.data)
+        self._switching_dialog.initialize()
+
+        self._layoutSwitchLabel = self.builder.get_object("layoutSwitchLabel")
+
         if not flags.can_touch_runtime_system("test X layouts"):
             # Disable area for testing layouts as we cannot make
             # it work without modifying runtime system
@@ -241,6 +340,8 @@ class KeyboardSpoke(NormalSpoke):
         self._removeButton.set_sensitive(False)
         self._previewButton.set_sensitive(False)
 
+        self._refresh_switching_info()
+
     def _addLayout(self, store, name):
         store.append([name])
         if flags.can_touch_runtime_system("add runtime X layout"):
@@ -256,6 +357,16 @@ class KeyboardSpoke(NormalSpoke):
         if flags.can_touch_runtime_system("remove runtime X layout"):
             self._xkl_wrapper.remove_layout(store[itr][0])
         store.remove(itr)
+
+    def _refresh_switching_info(self):
+        if self.data.keyboard.switch_options:
+            first_option = self.data.keyboard.switch_options[0]
+            desc = self._xkl_wrapper.switch_to_show_str[first_option]
+
+            self._layoutSwitchLabel.set_text(LAYOUT_SWITCHING_INFO % desc)
+        else:
+            self._layoutSwitchLabel.set_text(_("Layout switching not "
+                                               "configured."))
 
     # Signal handlers.
     def on_add_clicked(self, button):
@@ -388,6 +499,24 @@ class KeyboardSpoke(NormalSpoke):
         else:
             self._upButton.set_sensitive(True)
             self._downButton.set_sensitive(True)
+
+    def on_options_clicked(self, *args):
+        self._switching_dialog.refresh()
+
+        with enlightbox(self.window, self._switching_dialog.window):
+            response = self._switching_dialog.run()
+
+        if response != 1:
+            # Cancel clicked, dialog destroyed
+            return
+
+        # OK clicked, set and save switching options.
+        new_options = self._switching_dialog.checked_options
+        self._xkl_wrapper.set_switching_options(new_options)
+        self.data.keyboard.switch_options = new_options
+
+        # Refresh switching info label.
+        self._refresh_switching_info()
 
     def _add_data_layouts(self):
         if self.data.keyboard.x_layouts:
