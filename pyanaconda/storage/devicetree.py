@@ -832,11 +832,12 @@ class DeviceTree(object):
                                      major=udev_device_get_major(info),
                                      minor=udev_device_get_minor(info),
                                      exists=True, parents=[disk])
-        except DeviceError:
+        except DeviceError as e:
             # corner case sometime the kernel accepts a partition table
             # which gets rejected by parted, in this case we will
             # prompt to re-initialize the disk, so simply skip the
             # faulty partitions.
+            log.error("Failed to instantiate PartitionDevice: %s" % e)
             return
 
         self._addDevice(device)
