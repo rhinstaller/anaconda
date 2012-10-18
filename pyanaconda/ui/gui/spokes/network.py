@@ -933,11 +933,14 @@ class NetworkSpoke(NormalSpoke):
         self.network_control_box = NetworkControlBox(self.builder)
 
     def apply(self):
+        hostname = self.data.network.hostname
         self.data.network.network = []
         for dev in self.network_control_box.listed_devices:
             network_data = getKSNetworkData(dev)
             if network_data is not None:
                 self.data.network.network.append(network_data)
+        nd = kickstartNetworkData(hostname=hostname)
+        self.data.network.network.append(nd)
 
     @property
     def completed(self):
@@ -1055,7 +1058,7 @@ def getKSNetworkData(device):
     if ifcfg_suffix:
         device_cfg = NetworkDevice(netscriptsDir, ifcfg_suffix)
         device_cfg.loadIfcfgFile()
-        retval = kickstartNetworkData(device_cfg)
+        retval = kickstartNetworkData(ifcfg=device_cfg)
         if device.get_iface() in getActiveNetDevs():
             retval.activate = True
 

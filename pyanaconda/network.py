@@ -557,10 +557,13 @@ def dracutBootArguments(ifcfg, storage_ipaddr, hostname=None):
 
     return netargs
 
-def kickstartNetworkData(ifcfg, hostname=None):
+def kickstartNetworkData(ifcfg=None, hostname=None):
 
     from pyanaconda.kickstart import NetworkData
     kwargs = {}
+
+    if not ifcfg and hostname:
+        return NetworkData(hostname=hostname, bootProto="")
 
     # ipv4 and ipv6
     if not ifcfg.get("ESSID"):
@@ -893,5 +896,5 @@ def networkInitialize(ksdata):
 
     if ksdata.network.hostname is None:
         hostname = getHostname()
-        nd = NetworkData(hostname=hostname)
+        nd = kickstartNetworkData(hostname=hostname)
         ksdata.network.network.append(nd)
