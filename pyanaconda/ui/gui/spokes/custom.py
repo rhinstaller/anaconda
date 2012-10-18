@@ -1499,7 +1499,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         include_md = (use_dev.type == "mdarray" or
                       len(self._clearpartDevices) > 1)
         if include_md and not md_included:
-            typeCombo.append_text(DEVICE_TEXT_RAID)
+            typeCombo.append_text(DEVICE_TEXT_MD)
         elif md_included and not include_md:
             typeCombo.remove(md_pos)
 
