@@ -1762,8 +1762,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         # refreshing the display will have the effect of making them disappear.
         # It's like they never existed.
         self._unused_devices = None     # why do we cache this?
-        self._do_refresh()
         self._updateSpaceDisplay()
+        self._do_refresh()
 
     def on_summary_clicked(self, button):
         dialog = SelectedDisksDialog(self.data)
