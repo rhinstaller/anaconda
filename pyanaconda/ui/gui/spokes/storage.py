@@ -413,6 +413,7 @@ class StorageSpoke(NormalSpoke, StorageChecker):
 
             self.disks = getDisks(self.storage.devicetree)
         else:
+            self.errors = []
             if self.autopart:
                 # this was already run as part of doAutoPartition. dumb.
                 self.run()
