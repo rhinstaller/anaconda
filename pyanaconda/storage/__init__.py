@@ -3243,11 +3243,13 @@ class PartitionFactory(DeviceFactory):
                 log.info("adjusting device size from %.2f to %.2f"
                                 % (device.size, size))
 
-            size = min(PartitionFactory.default_size, size)
-            device.req_base_size = max(size, device.format.minSize)
-            device.req_size = device.req_base_size
+            base_size = max(PartitionFactory.default_size,
+                            device.format.minSize)
+            size = max(base_size, size)
+            device.req_base_size = base_size
+            device.req_size = base_size
             device.req_max_size = size
-            device.req_grow = size > device.req_base_size
+            device.req_grow = size > base_size
 
         return size
 
