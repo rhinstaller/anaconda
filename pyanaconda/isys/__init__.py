@@ -48,6 +48,7 @@ log = logging.getLogger("anaconda")
 
 NM_SERVICE = "org.freedesktop.NetworkManager"
 NM_MANAGER_PATH = "/org/freedesktop/NetworkManager"
+NM_SETTINGS_PATH = "/org/freedesktop/NetworkManager/Settings"
 NM_MANAGER_IFACE = "org.freedesktop.NetworkManager"
 NM_ACTIVE_CONNECTION_IFACE = "org.freedesktop.NetworkManager.Connection.Active"
 NM_CONNECTION_IFACE = "org.freedesktop.NetworkManager.Settings.Connection"

@@ -419,12 +419,42 @@ class WirelessNetworkDevice(NetworkDevice):
     def write(self):
         pass
 
+def get_NM_object(path):
+    return dbus.SystemBus().get_object(isys.NM_SERVICE, path)
+
+# Handle default auto connections created by NM upon start
+# For server, those will be turned off in NetworkManager.conf
 def createMissingDefaultIfcfgs():
-    for iface in getDevices():
-        if not isys.isWirelessDevice(iface):
-            device = NetworkDevice(netscriptsDir, iface)
-            if not os.access(device.path, os.R_OK):
-                device.setDefaultConfig()
+    nm = get_NM_object(isys.NM_MANAGER_PATH)
+    dev_paths = nm.GetDevices()
+    settings = get_NM_object(isys.NM_SETTINGS_PATH)
+    con_paths = settings.ListConnections()
+    for devpath in dev_paths:
+        device = get_NM_object(devpath)
+        device_props_iface = dbus.Interface(device, isys.DBUS_PROPS_IFACE)
+        devicetype = device_props_iface.Get(isys.NM_DEVICE_IFACE, "DeviceType")
+        if devicetype == isys.NM_DEVICE_TYPE_WIFI:
+            continue
+        # if there is no ifcfg file for the device
+        interface = str(device_props_iface.Get(isys.NM_DEVICE_IFACE, "Interface"))
+        device_cfg = NetworkDevice(netscriptsDir, interface)
+        if os.access(device_cfg.path, os.R_OK):
+            continue
+        # check if there is a connection for the device (default autoconnection)
+        hwaddr = device_props_iface.Get(isys.NM_DEVICE_WIRED_IFACE, "HwAddress")
+        for con_path in con_paths:
+            con = get_NM_object(con_path)
+            setting = con.GetSettings()
+            con_hwaddr = ":".join("%02X" % byte for byte in
+                                  setting['802-3-ethernet']['mac-address'])
+            # if so, write its configuration with name changed to iface
+            if con_hwaddr.upper() == hwaddr.upper():
+                setting['connection']['id'] = interface
+                con.Update(setting)
+                break
+        else:
+            # if there is no connection, create default ifcfg
+            device_cfg.setDefaultConfig()
 
 def getDevices():
     # TODO: filter with existence of ifcfg file?
