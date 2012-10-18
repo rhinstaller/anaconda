@@ -648,22 +648,11 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         disk_free = sum([f[0] for f in free_space.itervalues()])
         fs_free = sum([f[1] for f in free_space.itervalues()])
 
-        # add in total size of new filesystems
-        new_free_mb = 0
-        for mountpoint, device in self.storage.mountpoints.items():
-            if mountpoint != "/" and not mountpoint.startswith("/usr") and \
-               not mountpoint.startswith("/var"):
-                # only count system mounts
-                continue
-
-            if device.format.exists:
-                new_free_mb += getattr(device.format, "free", 0)
-            else:
-                new_free_mb += device.size
-        new_free = Size(spec="%f MB" % new_free_mb)
-
         required_space = self.payload.spaceRequired
-        if disk_free + new_free >= required_space:
+        log.debug("disk free: %s  fs free: %s  sw needs: %s" % (disk_free,
+                                                                fs_free,
+                                                                required_space))
+        if disk_free >= required_space:
             dialog = InstallOptions1Dialog(self.data)
         elif disks_size >= required_space:
             dialog = InstallOptions2Dialog(self.data, payload=self.payload)
