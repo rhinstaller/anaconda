@@ -1190,22 +1190,26 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                                            "Click for details."))
                     self.window.show_all()
                 else:
-                    if old_mountpoint:
-                        selector.props.mountpoint = (mountpoint or
-                                                     selector._device.format.name)
-                        selector.props.name = (self._mountpointName(mountpoint)
-                                               or selector._device.format.name)
-                    else:
-                        # first, remove this selector from any page(s) and add
-                        # it to the new page
-                        for page in self._accordion.allPages:
-                            for _selector in getattr(page, "_members", []):
-                                if _selector._device in (device, old_device):
-                                    page.removeSelector(_selector)
-                                    if not page._members:
-                                        log.debug("removing empty page %s" % page.pageTitle)
-                                        self._accordion.removePage(page.pageTitle)
+                    # first, remove this selector from any old install page(s)
+                    new_selector = None
+                    for page in self._accordion.allPages:
+                        for _selector in getattr(page, "_members", []):
+                            if _selector._device in (device, old_device):
+                                if page.pageTitle == new_install_name:
+                                    new_selector = _selector
+                                    continue
 
+                                page.removeSelector(_selector)
+                                if not page._members:
+                                    log.debug("removing empty page %s" % page.pageTitle)
+                                    self._accordion.removePage(page.pageTitle)
+
+                    # either update the existing selector or add a new one
+                    if new_selector:
+                        new_selector.props.mountpoint = mountpoint or ""
+                        new_selector.props.name = (self._mountpointName(mountpoint)
+                                                   or device.format.name)
+                    else:
                         self.add_new_selector(device)
 
             return
