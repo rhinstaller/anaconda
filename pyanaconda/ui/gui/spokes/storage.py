@@ -328,6 +328,8 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         self.autopart = self.data.autopart.autopart
         self.clearPartType = CLEARPART_TYPE_NONE
 
+        self._previous_autopart = False
+
     def apply(self):
         self.data.ignoredisk.onlyuse = self.selected_disks[:]
         self.data.clearpart.drives = self.selected_disks[:]
@@ -467,6 +469,8 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         self.autopart = self.data.autopart.autopart
         self.encrypted = self.data.autopart.encrypted
         self.passphrase = self.data.autopart.passphrase
+
+        self._previous_autopart = self.autopart
 
         encrypt_checkbutton = self.builder.get_object("encryption_checkbutton")
         encrypt_checkbutton.set_active(self.encrypted)
@@ -618,6 +622,14 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         return rc
 
     def on_continue_clicked(self, button):
+        # Remove all non-existing devices if autopart was active when we last
+        # refreshed.
+        if self._previous_autopart:
+            self._previous_autopart = False
+            actions = self.storage.devicetree.findActions(type="create")
+            for action in reversed(actions):
+                self.storage.devicetree.cancelAction(action)
+
         # hide/unhide disks as requested
         for disk in self.disks:
             if disk.name not in self.selected_disks and \
