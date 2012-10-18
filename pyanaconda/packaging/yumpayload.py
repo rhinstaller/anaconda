@@ -237,11 +237,12 @@ reposdir=%s
         # install root. We do this so we don't have to re-gather repo meta-
         # data after we change the install root to ROOT_PATH, which can only
         # happen after we've enabled the new storage configuration.
-        if not self._yum.conf.cachedir.startswith(self._yum.conf.installroot):
-            return
+        with _yum_lock:
+            if not self._yum.conf.cachedir.startswith(self._yum.conf.installroot):
+                return
 
-        root = self._yum.conf.installroot
-        self._yum.conf.cachedir = self._yum.conf.cachedir[len(root):]
+            root = self._yum.conf.installroot
+            self._yum.conf.cachedir = self._yum.conf.cachedir[len(root):]
 
     def _writeInstallConfig(self):
         """ Write out the yum config that will be used to install packages.
@@ -606,7 +607,8 @@ reposdir=%s
         if method.method:
             with _yum_lock:
                 self._yum.preconf.releasever = self._getReleaseVersion(url)
-                self._yumCacheDirHack()
+
+            self._yumCacheDirHack()
             try:
                 self._addYumRepo(BASE_REPO_NAME, url,
                                  proxyurl=method.proxy, sslverify=sslverify)
