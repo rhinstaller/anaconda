@@ -96,6 +96,9 @@ def save_hw_clock(timezone):
 
     """
 
+    if iutil.isS390():
+        return
+
     cmd = "hwclock"
     args = ["--systohc"]
     if timezone.isUtc:
