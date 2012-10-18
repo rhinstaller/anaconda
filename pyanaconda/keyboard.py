@@ -34,6 +34,7 @@ import os
 import dbus
 from pyanaconda import iutil
 
+# pylint: disable-msg=E0611
 from gi.repository import Xkl
 
 import logging
@@ -340,23 +341,26 @@ class XklWrapper(object):
             if not self._rec.activate(self._engine):
                 raise XklWrapperError("Failed to initialize layouts")
 
-        #initialize layout switching to Alt+Shift
-        self._rec.set_options(self._rec.options + ["grp:alt_shift_toggle"])
-        if not self._rec.activate(self._engine):
-            raise XklWrapperError("Cannot initialize layout switching")
-
         #needed also for Gkbd.KeyboardDrawingDialog
         self.configreg = Xkl.ConfigRegistry.get_instance(self._engine)
         self.configreg.load(False)
 
         self._language_keyboard_variants = dict()
         self._country_keyboard_variants = dict()
+        self._switching_options = list()
 
         #we want to display layouts as 'language (description)'
         self.name_to_show_str = dict()
 
+        #we want to display layout switching options as e.g. "Alt + Shift" not
+        #as "grp:alt_shift_toggle"
+        self.switch_to_show_str = dict()
+
         #this might take quite a long time
         self.configreg.foreach_language(self._get_language_variants, None)
+
+        #'grp' means that we want layout (group) switching options
+        self.configreg.foreach_option('grp', self._get_switch_option, None)
 
     def _get_variant(self, c_reg, item, subitem, dest):
         if subitem:
@@ -387,12 +391,25 @@ class XklWrapper(object):
 
         self._country_keyboard_variants[(country_name, country_desc)] = self._variants_list
 
+    def _get_switch_option(self, c_reg, item, user_data=None):
+        """Helper function storing layout switching options in foreach cycle"""
+        desc = item_str(item.description)
+        name = item_str(item.name)
+
+        self._switching_options.append(name)
+        self.switch_to_show_str[name] = desc
+
     def get_available_layouts(self):
         """A generator yielding layouts (no need to store them as a bunch)"""
 
         for lang_desc, variants in sorted(self._language_keyboard_variants.items()):
             for layout in variants:
                 yield layout.name
+
+    def get_switching_options(self):
+        """Method returning list of available layout switching options"""
+
+        return self._switching_options
 
     def get_default_language_layout(self, language):
         """Get the default layout for a given language"""
@@ -509,6 +526,28 @@ class XklWrapper(object):
 
         if not self._rec.activate(self._engine):
             msg = "Failed to replace layouts with: %s" % ",".join(layouts_list)
+            raise XklWrapperError(msg)
+
+    def set_switching_options(self, options):
+        """
+        Method that sets options for layout switching. It replaces the old
+        options with the new ones.
+
+        @param options: layout switching options to be set
+        @type options: list or generator
+        @raise XklWrapperError: if the old options cannot be replaced with the
+                                new ones
+
+        """
+
+        #preserve old "non-switching options"
+        new_options = [opt for opt in self._rec.options if "grp:" not in opt]
+        new_options += options
+
+        self._rec.set_options(new_options)
+
+        if not self._rec.activate(self._engine):
+            msg = "Failed to set switching options to: %s" % ",".join(options)
             raise XklWrapperError(msg)
 
 class LocaledWrapperError(KeyboardConfigError):
