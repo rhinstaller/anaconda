@@ -97,6 +97,7 @@ class SoftwareSelectionSpoke(NormalSpoke):
         self._origEnvironment = self.environment
 
         communication.send_not_ready(self.__class__.__name__)
+        communication.send_not_ready("SourceSpoke")
         threadMgr.add(AnacondaThread(name="AnaCheckSoftwareThread",
                                      target=self.checkSoftwareSelection))
 
@@ -116,6 +117,7 @@ class SoftwareSelectionSpoke(NormalSpoke):
             self._tx_id = self.payload.txID
         finally:
             communication.send_ready(self.__class__.__name__)
+            communication.send_ready("SourceSpoke")
 
     @property
     def completed(self):
@@ -132,7 +134,7 @@ class SoftwareSelectionSpoke(NormalSpoke):
     def ready(self):
         # By default, the software selection spoke is not ready.  We have to
         # wait until the installation source spoke is completed.  This could be
-        # becasue the user filled something out, or because we're done fetching
+        # because the user filled something out, or because we're done fetching
         # repo metadata from the mirror list, or we detected a DVD/CD.
         return (not threadMgr.get("AnaSoftwareWatcher") and
                 not threadMgr.get("AnaPayloadMDThread") and

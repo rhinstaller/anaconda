@@ -549,10 +549,15 @@ class SourceSpoke(NormalSpoke):
         # By default, the source spoke is not ready.  We have to wait until
         # storageInitialize is done to know whether or not there's local
         # devices potentially holding install media.
-        return (self._ready and not threadMgr.get("AnaPayloadMDThread"))
+        log.info('source spoke ready: %s' % self._ready)
+        return (self._ready and not threadMgr.get("AnaPayloadMDThread") and
+                not threadMgr.get("AnaCheckSoftwareThread"))
 
     @property
     def status(self):
+        from pyanaconda.threads import threadMgr
+        if threadMgr.get("AnaCheckSoftwareThread"):
+            return _("Checking software dependencies...")
         if not self.ready:
             return _("Not ready")
         if self.data.method.method == "url":
