@@ -900,6 +900,9 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         device_type = device_type_map[device_type]
         log.debug("new device type: %s" % device_type)
 
+        reformat = self.builder.get_object("reformatCheckbox").get_active()
+        log.debug("reformat: %s" % reformat)
+
         fs_type_combo = self.builder.get_object("fileSystemTypeCombo")
         fs_type_index = fs_type_combo.get_active()
         fs_type = fs_type_combo.get_model()[fs_type_index][0]
@@ -907,10 +910,18 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
         prev_encrypted = device.encrypted
         log.debug("old encryption setting: %s" % prev_encrypted)
-        encrypted = self.builder.get_object("encryptCheckbox").get_active()
+        encryption_checkbox = self.builder.get_object("encryptCheckbox")
+        encrypted = None
+        if encryption_checkbox.get_sensitive():
+            encrypted = encryption_checkbox.get_active()
+
         log.debug("new encryption setting: %s" % encrypted)
 
-        label = self.builder.get_object("labelEntry").get_text()
+        label_entry = self.builder.get_object("labelEntry")
+        label = ""
+        if label_entry.get_sensitive():
+            label = label_entry.get_text()
+
         old_label = getattr(device.format, "label", "") or ""
 
         mountpoint = None   # None means format type is not mountable
@@ -1138,81 +1149,88 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             self._updateSpaceDisplay()
             self._populate_right_side(selector)
 
-        ##
-        ## ENCRYPTION
-        ##
-        old_device = device
-        if prev_encrypted and not encrypted:
-            log.info("removing encryption from %s" % device.name)
-            with ui_storage_logger():
-                self.__storage.destroyDevice(device)
-                self._devices.remove(device)
-                old_device = device
-                device = device.slave
-                selector._device = device
-                for s in self._accordion.allSelectors:
-                    if s._device == old_device:
-                        s._device = device
-        elif encrypted and not prev_encrypted:
-            log.info("applying encryption to %s" % device.name)
-            with ui_storage_logger():
-                old_device = device
-                new_fmt = getFormat("luks", device=device.path)
-                self.__storage.formatDevice(device, new_fmt)
-                luks_dev = LUKSDevice("luks-" + device.name,
-                                      parents=[device])
-                self.__storage.createDevice(luks_dev)
-                self._devices.append(luks_dev)
-                device = luks_dev
-                selector._device = device
-                for s in self._accordion.allSelectors:
-                    if s._device == old_device:
-                        s._device = device
+        if reformat:
+            ##
+            ## ENCRYPTION
+            ##
+            old_fs_type = device.format.type
+            old_device = device
+            if prev_encrypted and not encrypted:
+                log.info("removing encryption from %s" % device.name)
+                with ui_storage_logger():
+                    self.__storage.destroyDevice(device)
+                    self._devices.remove(device)
+                    old_device = device
+                    device = device.slave
+                    selector._device = device
+                    for s in self._accordion.allSelectors:
+                        if s._device == old_device:
+                            s._device = device
+            elif encrypted and not prev_encrypted:
+                log.info("applying encryption to %s" % device.name)
+                with ui_storage_logger():
+                    old_device = device
+                    new_fmt = getFormat("luks", device=device.path)
+                    self.__storage.formatDevice(device, new_fmt)
+                    luks_dev = LUKSDevice("luks-" + device.name,
+                                          parents=[device])
+                    self.__storage.createDevice(luks_dev)
+                    self._devices.append(luks_dev)
+                    device = luks_dev
+                    selector._device = device
+                    for s in self._accordion.allSelectors:
+                        if s._device == old_device:
+                            s._device = device
 
-        ##
-        ## FORMATTING
-        ##
-        if fs_type != device.format.name:
-            self.clear_errors()
-            with ui_storage_logger():
-                old_format = device.format
-                new_format = getFormat(fs_type,
-                                       mountpoint=mountpoint, label=label,
-                                       device=device.path)
-                try:
-                    self.__storage.formatDevice(device, new_format)
-                except StorageError as e:
-                    log.error("failed to register device format action: %s" % e)
-                    device.format = old_format
-                    self._error = e
-                    self.window.set_info(Gtk.MessageType.WARNING,
-                                         _("Device reformat request failed. "
-                                           "Click for details."))
-                    self.window.show_all()
-                else:
-                    # first, remove this selector from any old install page(s)
-                    new_selector = None
-                    for page in self._accordion.allPages:
-                        for _selector in getattr(page, "_members", []):
-                            if _selector._device in (device, old_device):
-                                if page.pageTitle == new_install_name:
-                                    new_selector = _selector
-                                    continue
-
-                                page.removeSelector(_selector)
-                                if not page._members:
-                                    log.debug("removing empty page %s" % page.pageTitle)
-                                    self._accordion.removePage(page.pageTitle)
-
-                    # either update the existing selector or add a new one
-                    if new_selector:
-                        new_selector.props.mountpoint = mountpoint or ""
-                        new_selector.props.name = (self._mountpointName(mountpoint)
-                                                   or device.format.name)
+            ##
+            ## FORMATTING
+            ##
+            encryption_changed = (device != old_device)
+            fs_type_changed = (fs_type_short != old_fs_type)
+            fs_exists = old_device.format.exists
+            if encryption_changed or fs_type_changed or fs_exists:
+                log.info("scheduling reformat of %s as %s" % (device.name,
+                                                              fs_type_short))
+                self.clear_errors()
+                with ui_storage_logger():
+                    old_format = device.format
+                    new_format = getFormat(fs_type,
+                                           mountpoint=mountpoint, label=label,
+                                           device=device.path)
+                    try:
+                        self.__storage.formatDevice(device, new_format)
+                    except StorageError as e:
+                        log.error("failed to register device format action: %s" % e)
+                        device.format = old_format
+                        self._error = e
+                        self.window.set_info(Gtk.MessageType.WARNING,
+                                             _("Device reformat request failed. "
+                                               "Click for details."))
+                        self.window.show_all()
                     else:
-                        self.add_new_selector(device)
+                        # first, remove this selector from any old install page(s)
+                        new_selector = None
+                        for page in self._accordion.allPages:
+                            for _selector in getattr(page, "_members", []):
+                                if _selector._device in (device, old_device):
+                                    if page.pageTitle == new_install_name:
+                                        new_selector = _selector
+                                        continue
 
-            return
+                                    page.removeSelector(_selector)
+                                    if not page._members:
+                                        log.debug("removing empty page %s" % page.pageTitle)
+                                        self._accordion.removePage(page.pageTitle)
+
+                        # either update the existing selector or add a new one
+                        if new_selector:
+                            new_selector.props.mountpoint = mountpoint or ""
+                            new_selector.props.name = (self._mountpointName(mountpoint)
+                                                       or device.format.name)
+                        else:
+                            self.add_new_selector(device)
+
+                return
 
         ##
         ## FORMATTING ATTRIBUTES
@@ -1397,6 +1415,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
     def _populate_right_side(self, selector):
         log.debug("populate_right_side: %s" % selector._device)
         encryptCheckbox = self.builder.get_object("encryptCheckbox")
+        reformatCheckbox = self.builder.get_object("reformatCheckbox")
         labelEntry = self.builder.get_object("labelEntry")
         mountPointEntry = self.builder.get_object("mountPointEntry")
         selectedDeviceLabel = self.builder.get_object("selectedDeviceLabel")
@@ -1447,7 +1466,10 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         else:
             sizeSpinner.set_tooltip_text(_("This file system may not be resized."))
 
+        reformatCheckbox.set_active(not device.format.exists)
+        reformatCheckbox.set_sensitive(use_dev.exists)
         encryptCheckbox.set_active(device.encrypted)
+        encryptCheckbox.set_sensitive(reformatCheckbox.get_active())
 
         ##
         ## Set up the filesystem type combo.
@@ -1478,6 +1500,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
            device.format.type != device.originalFormat.type and \
            device.originalFormat.type not in self._fs_types:
             fsCombo.append_text(device.originalFormat.name)
+
+        fsCombo.set_sensitive(reformatCheckbox.get_active())
 
         ##
         ## Set up the device type combo.
@@ -1894,6 +1918,25 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         self._updateSpaceDisplay()
         log.debug("finished updating space display")
 
+    def on_reformat_toggled(self, widget):
+        active = widget.get_active()
+
+        encryption_checkbutton = self.builder.get_object("encryptCheckbox")
+        encryption_checkbutton.set_sensitive(active)
+
+        fs_combo = self.builder.get_object("fileSystemTypeCombo")
+        fs_combo.set_sensitive(active)
+
+        # The label entry can only be sensitive if reformat is active and the
+        # currently selected filesystem can be labeled.
+        label_active = active
+        if active:
+            fmt = getFormat(fs_combo.get_active_text())
+            label_active = active and hasattr(fmt, "label")
+
+        label_entry = self.builder.get_object("labelEntry")
+        label_entry.set_sensitive(label_active)
+
     def on_fs_type_changed(self, combo):
         if not self._initialized:
             return
@@ -1905,8 +1948,10 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         fmt = getFormat(new_type)
         mountPointEntry = self.builder.get_object("mountPointEntry")
         labelEntry = self.builder.get_object("labelEntry")
+        reformat_checkbox = self.builder.get_object("reformatCheckbox")
         # FIXME: can't set a label on an existing format as of now
-        labelEntry.set_sensitive(hasattr(fmt, "label"))
+        labelEntry.set_sensitive(reformat_checkbox.get_active() and
+                                 hasattr(fmt, "label"))
         mountPointEntry.set_sensitive(fmt.mountable)
 
     def on_device_type_changed(self, combo):
