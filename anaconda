@@ -460,6 +460,10 @@ def setupDisplay(anaconda, opts):
     if iutil.memInstalled() < isys.MIN_GUI_RAM:
         flags.vncquestion = False
 
+    # disable VNC question if text mode is requested and this is a ks install
+    if anaconda.displayMode == 't' and flags.automatedInstall:
+        flags.vncquestion = False
+
     # disable VNC question if we were explicitly asked for text in kickstart
     if anaconda.ksdata.displaymode.displayMode == DISPLAY_MODE_TEXT:
         flags.vncquestion = False
