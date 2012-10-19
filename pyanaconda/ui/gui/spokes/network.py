@@ -405,10 +405,10 @@ class NetworkControlBox():
             self.client.add_and_activate_connection(None, device, ap_obj_path,
                                                     None, None)
 
-    def on_device_added(self, device):
+    def on_device_added(self, device, *args):
         self.add_device(device)
 
-    def on_device_removed(self, device):
+    def on_device_removed(self, device, *args):
         self.remove_device(device)
 
     def on_edit_connection(self, *args):
