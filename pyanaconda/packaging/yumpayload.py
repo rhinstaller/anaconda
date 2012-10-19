@@ -334,6 +334,7 @@ reposdir=%s
     def deleteYumTS(self):
         with _yum_lock:
             log.debug("deleting yum transaction info")
+            self._yum.closeRpmDB()
             del self._yum.tsInfo
             del self._yum.ts
 
