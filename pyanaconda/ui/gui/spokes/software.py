@@ -62,6 +62,10 @@ class SoftwareSelectionSpoke(NormalSpoke):
 
         self._addRepoDialog = AdditionalReposDialog(self.data)
 
+        # Used for detecting whether anything's changed in the spoke.
+        self._origAddons = []
+        self._origEnvironment = None
+
     def apply(self):
         # NOTE:  Other apply methods work directly with the ksdata, but this
         # one does not.  However, selectGroup/deselectGroup modifies ksdata as
@@ -69,13 +73,25 @@ class SoftwareSelectionSpoke(NormalSpoke):
         from pyanaconda.threads import threadMgr, AnacondaThread
 
         row = self._get_selected_environment()
-        if row:
-            self._selectFlag = False
-            self.payload.data.packages.groupList = []
-            self.payload.selectEnvironment(row[2])
-            self.environment = row[2]
-            for group in self.selectedGroups:
-                self.payload.selectGroup(group)
+        if not row:
+            return
+
+        addons = self._get_selected_addons()
+
+        # Don't redo dep solving if nothing's changed.
+        if row[2] == self._origEnvironment and set(addons) == set(self._origAddons):
+            return
+
+        self._selectFlag = False
+        self.payload.data.packages.groupList = []
+        self.payload.selectEnvironment(row[2])
+        self.environment = row[2]
+        for group in self.selectedGroups:
+            self.payload.selectGroup(group)
+
+        # And then save these values so we can check next time.
+        self._origAddons = addons
+        self._origEnvironment = self.environment
 
         communication.send_not_ready(self.__class__.__name__)
         threadMgr.add(AnacondaThread(name="AnaCheckSoftwareThread",
@@ -200,7 +216,7 @@ class SoftwareSelectionSpoke(NormalSpoke):
             communication.send_message(self.__class__.__name__,
                                        _("No installation source available"))
             return False
-        
+
     def refresh(self):
         from pyanaconda.threads import threadMgr
         NormalSpoke.refresh(self)
@@ -253,6 +269,9 @@ class SoftwareSelectionSpoke(NormalSpoke):
 
         if self._errorMsgs:
             self.window.set_info(Gtk.MessageType.WARNING, _("Error checking software dependencies.  Click for details."))
+
+    def _get_selected_addons(self):
+        return [row[2] for row in self._addonStore if row[0]]
 
     # Returns the row in the store corresponding to what's selected on the
     # left hand panel, or None if nothing's selected.
