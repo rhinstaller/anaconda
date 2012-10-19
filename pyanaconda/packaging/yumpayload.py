@@ -1101,6 +1101,10 @@ reposdir=%s
         log.info("checking software selection")
         self.txID = time.time()
 
+        if self.skipBroken:
+            log.info("running software check with skip_broken = True")
+            self._yum.conf.skip_broken = True
+
         self.release()
         self.deleteYumTS()
 

@@ -24,6 +24,8 @@ _ = lambda x: gettext.ldgettext("anaconda", x)
 N_ = lambda x: x
 
 from pyanaconda.flags import flags
+from pyanaconda.kickstart import packagesSeen
+from pyanaconda.threads import threadMgr, AnacondaThread
 
 from pyanaconda.ui.gui import communication
 from pyanaconda.ui.gui.spokes import NormalSpoke
@@ -31,10 +33,10 @@ from pyanaconda.ui.gui.spokes.lib.detailederror import DetailedErrorDialog
 from pyanaconda.ui.gui.utils import enlightbox, gtk_thread_wait
 from pyanaconda.ui.gui.categories.software import SoftwareCategory
 from .source import AdditionalReposDialog
-from gi.repository import GLib
 
-from pyanaconda.kickstart import packagesSeen
 from pykickstart.parser import Group
+
+from gi.repository import GLib
 
 import sys
 
@@ -63,6 +65,7 @@ class SoftwareSelectionSpoke(NormalSpoke):
         self._addRepoDialog = AdditionalReposDialog(self.data)
 
         # Used for detecting whether anything's changed in the spoke.
+        self._clickedRemove = False
         self._origAddons = []
         self._origEnvironment = None
 
@@ -70,8 +73,6 @@ class SoftwareSelectionSpoke(NormalSpoke):
         # NOTE:  Other apply methods work directly with the ksdata, but this
         # one does not.  However, selectGroup/deselectGroup modifies ksdata as
         # part of its operation.  So this is fine.
-        from pyanaconda.threads import threadMgr, AnacondaThread
-
         row = self._get_selected_environment()
         if not row:
             return
@@ -79,7 +80,8 @@ class SoftwareSelectionSpoke(NormalSpoke):
         addons = self._get_selected_addons()
 
         # Don't redo dep solving if nothing's changed.
-        if row[2] == self._origEnvironment and set(addons) == set(self._origAddons):
+        if row[2] == self._origEnvironment and set(addons) == set(self._origAddons) and \
+           not self._clickedRemove:
             return
 
         self._selectFlag = False
@@ -90,6 +92,7 @@ class SoftwareSelectionSpoke(NormalSpoke):
             self.payload.selectGroup(group)
 
         # And then save these values so we can check next time.
+        self._clickedRemove = False
         self._origAddons = addons
         self._origEnvironment = self.environment
 
@@ -116,8 +119,6 @@ class SoftwareSelectionSpoke(NormalSpoke):
 
     @property
     def completed(self):
-        from pyanaconda.threads import threadMgr
-
         processingDone = not threadMgr.get("AnaCheckSoftwareThread") and \
                          not self._errorMsgs and \
                          self._tx_id == self.payload.txID
@@ -133,7 +134,6 @@ class SoftwareSelectionSpoke(NormalSpoke):
         # wait until the installation source spoke is completed.  This could be
         # becasue the user filled something out, or because we're done fetching
         # repo metadata from the mirror list, or we detected a DVD/CD.
-        from pyanaconda.threads import threadMgr
         return (not threadMgr.get("AnaSoftwareWatcher") and
                 not threadMgr.get("AnaPayloadMDThread") and
                 not threadMgr.get("AnaCheckSoftwareThread") and
@@ -145,8 +145,6 @@ class SoftwareSelectionSpoke(NormalSpoke):
 
     @property
     def status(self):
-        from pyanaconda.threads import threadMgr
-
         if self._errorMsgs:
             return _("Error checking software selection")
 
@@ -166,14 +164,10 @@ class SoftwareSelectionSpoke(NormalSpoke):
         return self.payload.environmentDescription(row[2])[0]
 
     def initialize(self):
-        from pyanaconda.threads import threadMgr, AnacondaThread
-
         NormalSpoke.initialize(self)
         threadMgr.add(AnacondaThread(name="AnaSoftwareWatcher", target=self._initialize))
 
     def _initialize(self):
-        from pyanaconda.threads import threadMgr
-
         communication.send_message(self.__class__.__name__, _("Downloading package metadata..."))
 
         payloadThread = threadMgr.get("AnaPayloadThread")
@@ -218,7 +212,6 @@ class SoftwareSelectionSpoke(NormalSpoke):
             return False
 
     def refresh(self):
-        from pyanaconda.threads import threadMgr
         NormalSpoke.refresh(self)
 
         mdGatherThread = threadMgr.get("AnaPayloadMDThread")
@@ -269,6 +262,8 @@ class SoftwareSelectionSpoke(NormalSpoke):
 
         if self._errorMsgs:
             self.window.set_info(Gtk.MessageType.WARNING, _("Error checking software dependencies.  Click for details."))
+        else:
+            self.window.clear_info()
 
     def _get_selected_addons(self):
         return [row[2] for row in self._addonStore if row[0]]
@@ -348,8 +343,16 @@ class SoftwareSelectionSpoke(NormalSpoke):
             # Close the dialog so the user can change selections.
             pass
         elif rc == 2:
-            # TODO:  Attempt to remove the affected packages.
-            pass
+            # This setting is just so we know to try re-resolving dependencies
+            # even if the user didn't change any other settings.
+            self._clickedRemove = True
+
+            # Attempt to remove the affected packages.  For yum payloads, we
+            # do this by just attempting to re-resolve dependencies with
+            # skip_broken set.
+            self._errorMsgs = None
+            self.payload.skipBroken = True
+            self.window.emit("button-clicked")
         elif rc == 3:
             # Send the user to the installation source spoke.
             self.skipTo = "SourceSpoke"
