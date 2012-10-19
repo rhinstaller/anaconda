@@ -121,10 +121,9 @@ def get_layouts_xorg_conf(keyboard):
         ret += '"' + ','.join(variants) + '"\n'
 
     #switching
-    #TODO: add option for switching combination
-    #for now, let's default to Alt+Shift
-    ret += '\tOption\t"XkbOptions"\t'
-    ret += '"grp:alt_shift_toggle"\n'
+    if any(keyboard.switch_options):
+        ret += '\tOption\t"XkbOptions"\t'
+        ret += '"' + ','.join(keyboard.switch_options) + '"\n'
 
     #section footer
     ret += 'EndSection'
