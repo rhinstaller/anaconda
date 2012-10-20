@@ -300,6 +300,42 @@ update-desktop-database &> /dev/null || :
 /usr/lib/dracut/modules.d/80%{name}/*
 
 %changelog
+* Fri Oct 19 2012 Brian C. Lane <bcl@redhat.com> - 18.19-1
+- Reset the comps to empty along with everything else in yum. (clumens)
+- Hook up the "Remove Packages" button on the dep solving error screen.
+  (clumens)
+- If nothing's changed in the software spoke, don't redo dep solving. (clumens)
+- skip vnc prompt with text mode and kickstart (bcl)
+- Use correct name for MD RAID device description text. (dlehman)
+- Fix selector management after a reformat action is scheduled. (dlehman)
+- Aqcuire yum lock before doing the work of _yumCacheDirHack. (#858993)
+  (dlehman)
+- Reset error list on success of doKickstartStorage. (dlehman)
+- Tighten up management of passphrases across Storage resets. (#865364)
+  (dlehman)
+- Do not count not-yet-created filesystems as free space. (#866895) (dlehman)
+- Remove any preexisting autopart layout before space check. (#866895)
+  (dlehman)
+- Apply disk selections to the devicetree before the space check. (#866895)
+  (dlehman)
+- Update free space totals before refresh after removing a device. (dlehman)
+- Log exceptions raised from PartitionDevice constructor. (dlehman)
+- Fix size specs for PartitionFactory. (dlehman)
+- Reinitialize disks after removing the last partition from custom spoke.
+  (dlehman)
+- Refactor shouldClear slightly. (dlehman)
+- Use correct means for getting device type in the custom spoke. (dlehman)
+- Repopulate the RHS after editing a device. (dlehman)
+- Don't bother resizing a container that has just been emptied. (dlehman)
+- Don't allow implicit fstype change via mountpoint. (#866953) (dlehman)
+- Set up devices before trying to decrypt them. (#865247, #867533) (dlehman)
+- Don't short-circuit devicetree populate based on clearpart setting. (dlehman)
+- Keep hostname when updating ksdata after GUI network configuration (#866516)
+  (rvykydal)
+- don't save system time on s390 (#867856) (dan)
+- Network spoke: make Configure button insensitive when running nmce (#865931)
+  (rvykydal)
+
 * Wed Oct 17 2012 Brian C. Lane <bcl@redhat.com> - 18.18-1
 - remove firewall.py from POTFILES.in (bcl)
 - Add missing pieces for kickstart's encryption cipher option. (dlehman)
