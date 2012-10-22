@@ -20,6 +20,7 @@
 #
 
 import sys
+import re
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
@@ -156,7 +157,7 @@ class LanguageMixIn(object):
         self._languageStoreFilter.refilter()
 
     def _addLanguage(self, store, native, english, setting):
-        store.append([native, english, setting])
+        store.append(['<span lang="%s">%s</span>' % (re.sub('\..*', '', setting), native), english, setting])
 
     def _matchesEntry(self, model, itr, *args):
         native = model[itr][0]
