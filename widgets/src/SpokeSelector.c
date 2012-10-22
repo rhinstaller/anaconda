@@ -18,6 +18,7 @@
  */
 
 #include <gdk/gdk.h>
+#include <pango/pango.h>
 
 #include "SpokeSelector.h"
 #include "intl.h"
@@ -147,6 +148,19 @@ GtkWidget *anaconda_spoke_selector_new() {
     return g_object_new(ANACONDA_TYPE_SPOKE_SELECTOR, NULL);
 }
 
+static void format_status_label(AnacondaSpokeSelector *spoke, const char *markup) {
+    PangoAttrList *attrs;
+
+    attrs = pango_attr_list_new();
+    pango_attr_list_insert(attrs, pango_attr_style_new(PANGO_STYLE_ITALIC));
+    pango_attr_list_insert(attrs, pango_attr_scale_new(PANGO_SCALE_LARGE));
+
+    gtk_label_set_markup(GTK_LABEL(spoke->priv->status_label), markup);
+    gtk_label_set_attributes(GTK_LABEL(spoke->priv->status_label), attrs);
+
+    pango_attr_list_unref(attrs);
+}
+
 static void anaconda_spoke_selector_init(AnacondaSpokeSelector *spoke) {
     char *markup;
 
@@ -192,12 +206,10 @@ static void anaconda_spoke_selector_init(AnacondaSpokeSelector *spoke) {
 
     /* Create the status label. */
     spoke->priv->status_label = gtk_label_new(NULL);
-    markup = g_markup_printf_escaped("<span style='italic' size='large'>%s</span>", _(DEFAULT_STATUS));
-    gtk_label_set_markup(GTK_LABEL(spoke->priv->status_label), markup);
+    format_status_label(spoke, _(DEFAULT_STATUS));
     gtk_misc_set_alignment(GTK_MISC(spoke->priv->status_label), 0, 0);
     gtk_label_set_ellipsize(GTK_LABEL(spoke->priv->status_label), PANGO_ELLIPSIZE_MIDDLE);
     gtk_label_set_max_width_chars(GTK_LABEL(spoke->priv->status_label), 45);
-    g_free(markup);
 
     spoke->priv->status_provider = gtk_css_provider_new();
     gtk_css_provider_load_from_data(spoke->priv->status_provider, "GtkLabel { color: @text_color }", -1, NULL);
@@ -246,11 +258,9 @@ static void anaconda_spoke_selector_set_property(GObject *object, guint prop_id,
            break;
 
         case PROP_STATUS: {
-            char *markup = g_markup_printf_escaped("<span style='italic' size='large'>%s</span>", g_value_get_string(value));
             GtkStyleContext *context = gtk_widget_get_style_context(GTK_WIDGET(priv->status_label));
 
-            gtk_label_set_markup(GTK_LABEL(priv->status_label), markup);
-            g_free(markup);
+            format_status_label(widget, g_value_get_string(value));
 
             if (gtk_widget_get_sensitive(GTK_WIDGET(widget)))
                 gtk_style_context_add_provider(context, GTK_STYLE_PROVIDER(priv->status_provider), GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
