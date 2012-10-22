@@ -709,7 +709,7 @@ class StorageSpoke(NormalSpoke, StorageChecker):
                 # resizeDialog handles okay/cancel on its own, so we can throw
                 # out the return value.
                 self.run_lightbox_dialog(resizeDialog)
-                self.on_continue_clicked(button)
+                self.window.emit("button-clicked")
                 return
 
             self.on_back_clicked(self.window)
