@@ -152,6 +152,9 @@ class Page(Gtk.Box):
         #selector.connect("focus-in-event", self._onSelectorClicked, cb)
         self._members.append(selector)
 
+        selector._device = None
+        selector._root = None
+
         if self._mountpointType(mountpoint) == DATA_DEVICE:
             self._dataBox.add(selector)
         else:

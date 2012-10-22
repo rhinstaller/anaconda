@@ -767,7 +767,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             for u in self.unusedDevices:
                 selector = page.addDevice(u.format.name, Size(spec="%f MB" % u.size), None, self.on_selector_clicked)
                 selector._device = u
-                selector._root = None
 
             page.show_all()
             self._accordion.addPage(page, cb=self.on_page_clicked)
