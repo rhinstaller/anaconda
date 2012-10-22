@@ -1443,7 +1443,7 @@ class RPMCallback(object):
                 except URLGrabError as e:
                     log.error("URLGrabError: %s" % (e,))
                     exn = PayloadInstallError("failed to get package")
-                    if errorHandler.cb(exn, txmbr.po) == ERROR_RAISE:
+                    if errorHandler.cb(exn, package=txmbr.po) == ERROR_RAISE:
                         raise exn
                 except (yum.Errors.NoMoreMirrorsRepoError, IOError):
                     if os.path.exists(txmbr.po.localPkg()):
@@ -1451,7 +1451,7 @@ class RPMCallback(object):
                         log.debug("retrying download of %s" % txmbr.po)
                         continue
                     exn = PayloadInstallError("failed to open package")
-                    if errorHandler.cb(exn, txmbr.po) == ERROR_RAISE:
+                    if errorHandler.cb(exn, package=txmbr.po) == ERROR_RAISE:
                         raise exn
                 except yum.Errors.RepoError:
                     continue
@@ -1491,5 +1491,5 @@ class RPMCallback(object):
             # unpack problems.
             if event != rpm.RPMCALLBACK_SCRIPT_ERROR or total:
                 exn = PayloadInstallError("cpio, unpack, or fatal script error")
-                if errorHandler.cb(exn, name) == ERROR_RAISE:
+                if errorHandler.cb(exn, package=name) == ERROR_RAISE:
                     raise exn

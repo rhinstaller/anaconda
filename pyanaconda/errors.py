@@ -214,10 +214,16 @@ class ErrorHandler(object):
         return ERROR_RAISE
 
     def _payloadInstallHandler(self, *args, **kwargs):
-        package = args[0]
-        message = _("There was an error installing the %s package.  This is "
-                    "a fatal error and installation will be aborted.") % \
-                   package
+        package = kwargs.pop("package", None)
+        if package:
+            message = _("There was an error installing the %s package.  This is "
+                        "a fatal error and installation will be aborted.") % \
+                       package
+        else:
+            message = _("The following error occurred while installing.  This is "
+                        "a fatal error and installation will be aborted.")
+            message += "\n\n" + str(kwargs["exception"])
+
         self.ui.showError(message)
         return ERROR_RAISE
 
