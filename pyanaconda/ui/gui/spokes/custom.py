@@ -957,6 +957,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             error = _("%s cannot be encrypted") % mountpoint
         elif encrypted and fs_type_short in partition_only_format_types:
             error = _("%s cannot be encrypted") % fs_type
+        elif mountpoint == "/" and device.format.exists and not reformat:
+            error = _("You must create a new filesystem on the root device.")
 
         if error:
             self.window.set_info(Gtk.MessageType.WARNING, error)

@@ -1541,6 +1541,11 @@ class Storage(object):
             if mountpoint in mustbeonlinuxfs and (not dev.format.mountable or not dev.format.linuxNative):
                 errors.append(_("The mount point %s must be on a linux file system.") % mountpoint)
 
+        if self.rootDevice and self.rootDevice.format.exists:
+            e = self.mustFormat(self.rootDevice)
+            if e:
+                errors.append(e)
+
         return (errors, warnings)
 
     def isProtected(self, device):
