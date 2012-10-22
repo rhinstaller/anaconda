@@ -85,14 +85,20 @@ class LanguageMixIn(object):
         #add one language-related and 'English (US)' layouts by default
         new_layouts = ['us']
         language_layout = self._xklwrapper.get_default_language_layout(lang_name)
-        if language_layout:
+        if language_layout and language_layout not in new_layouts:
             new_layouts.append(language_layout)
 
         for layout in new_layouts:
-            if layout not in self.data.keyboard.x_layouts:
-                self.data.keyboard.x_layouts.append(layout)
-                if flags.can_touch_runtime_system("add runtime X layout"):
-                    self._xklwrapper.add_layout(layout)
+            self.data.keyboard.x_layouts.append(layout)
+            if flags.can_touch_runtime_system("add runtime X layout"):
+                self._xklwrapper.add_layout(layout)
+
+        if len(new_layouts) >= 2 and not self.data.keyboard.switch_options:
+            #initialize layout switching if needed
+            self.data.keyboard.switch_options = ["grp:alt_shift_toggle"]
+
+            if flags.can_touch_runtime_system("init layout switching"):
+                self._xklwrapper.set_switching_options(["grp:alt_shift_toggle"])
 
     @property
     def completed(self):
