@@ -480,7 +480,7 @@ void anaconda_base_window_clear_info(AnacondaBaseWindow *win) {
 }
 
 /**
- * anaconda_base_window_retranslate
+ * anaconda_base_window_retranslate:
  * @win: a #AnacondaBaseWindow
  *
  * Reload translations for this widget as needed.  Generally, this is not

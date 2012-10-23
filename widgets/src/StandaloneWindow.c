@@ -195,7 +195,7 @@ void anaconda_standalone_window_set_may_continue(AnacondaStandaloneWindow *win,
 }
 
 /**
- * anaconda_standalone_window_retranslate
+ * anaconda_standalone_window_retranslate:
  * @win: a #AnacondaStaldaloneWindow
  *
  * Reload translations for this widget as needed.  Generally, this is not
