@@ -61,6 +61,7 @@ class ResizeDialog(GUIObject):
     def __init__(self, data, storage, payload):
         GUIObject.__init__(self, data)
         self.storage = storage
+        self.payload = payload
 
         self._actionStore = self.builder.get_object("actionStore")
         self._diskStore = self.builder.get_object("diskStore")
@@ -72,9 +73,11 @@ class ResizeDialog(GUIObject):
 
         self._required_label = self.builder.get_object("requiredSpaceLabel")
         markup = self._required_label.get_label()
-        self._required_label.set_markup(markup % size_str(payload.spaceRequired))
+        self._required_label.set_markup(markup % size_str(self.payload.spaceRequired))
 
         self._reclaimDescLabel = self.builder.get_object("reclaimDescLabel")
+
+        self._resizeButton = self.builder.get_object("resizeButton")
 
     def _description(self, part):
         # First, try to find the partition in some known Root.  If we find
@@ -223,6 +226,10 @@ class ResizeDialog(GUIObject):
         self._selectedReclaimableSpace = 0
         self._diskStore.foreach(self._sumReclaimableSpace, None)
         self._update_labels(selectedReclaimable=self._selectedReclaimableSpace)
+
+        got = Size(spec="%s MB" % self._selectedReclaimableSpace)
+        need = self.payload.spaceRequired
+        self._resizeButton.set_sensitive(got >= need)
 
     def _scheduleActions(self, model, path, itr, *args):
         (editable, action, ident) = model.get(itr, EDITABLE_COL, ACTION_COL, DEVICE_ID_COL)
