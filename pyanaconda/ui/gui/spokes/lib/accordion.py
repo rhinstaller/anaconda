@@ -207,6 +207,9 @@ class UnknownPage(Page):
         #selector.connect("key-release-event", self._onSelectorClicked, cb)
         #selector.connect("focus-in-event", self._onSelectorClicked, cb)
 
+        selector._device = None
+        selector._root = None
+
         self._members.append(selector)
         self.add(selector)
 
