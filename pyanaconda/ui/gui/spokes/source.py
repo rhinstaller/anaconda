@@ -470,23 +470,22 @@ class SourceSpoke(NormalSpoke):
             if url == "":
                 return
 
-            self.data.method.method = "url"
-            self.data.method.url = url
-
             # Make sure the URL starts with the protocol.  yum will want that
             # to know how to fetch, and the refresh method needs that to know
             # which element of the combo to default to should this spoke be
             # revisited.
-            if self._ftp_active() and not self.data.method.url.startswith("ftp://"):
-                self.data.method.url = "ftp://" + self.data.method.url
-            elif self._protocolComboBox.get_active() == 1 and not self.data.method.url.startswith("http://"):
-                self.data.method.url = "http://" + self.data.method.url
-            elif self._protocolComboBox.get_active() == 2 and not self.data.method.url.startswith("https://"):
-                self.data.method.url = "https://" + self.data.method.url
+            if self._ftp_active() and not url.startswith("ftp://"):
+                url = "ftp://" + url
+            elif self._protocolComboBox.get_active() == 1 and not url.startswith("http://"):
+                url = "http://" + url
+            elif self._protocolComboBox.get_active() == 2 and not url.startswith("https://"):
+                url = "https://" + url
 
-            if (old_source.method == "url" and
-                old_source.url == self.data.method.url):
+            if old_source.method == "url" and old_source.url == url:
                 return
+
+            self.data.method.method = "url"
+            self.data.method.url = url
         elif self._nfs_active():
             url = self._urlEntry.get_text().strip()
 
