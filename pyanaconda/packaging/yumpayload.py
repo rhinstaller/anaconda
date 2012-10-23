@@ -571,7 +571,7 @@ reposdir=%s
                 # move the mount to ISO_DIR
                 # work around inability to move shared filesystems
                 iutil.execWithRedirect("mount",
-                                       ["--rprivate", "/"],
+                                       ["--make-rprivate", "/"],
                                        stderr="/dev/tty5", stdout="/dev/tty5")
                 iutil.execWithRedirect("mount",
                                        ["--move", INSTALL_TREE, ISO_DIR],

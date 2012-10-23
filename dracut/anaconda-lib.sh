@@ -54,7 +54,7 @@ anaconda_live_root_dir() {
     img=$(find_runtime $mnt/$path)
     if [ -n "$img" ]; then
         info "anaconda: found $img"
-        [ "$mnt" = "$repodir" ] || { mount --rprivate /; mount --move $mnt $isodir; }
+        [ "$mnt" = "$repodir" ] || { mount --make-rprivate /; mount --move $mnt $isodir; }
         anaconda_auto_updates $repodir/$path/images
     else
         if [ "${path%.iso}" != "$path" ]; then
@@ -65,7 +65,7 @@ anaconda_live_root_dir() {
         fi
         [ -n "$iso" ] || { warn "no suitable images"; return 1; }
         info "anaconda: found $iso"
-        mount --rprivate /
+        mount --make-rprivate /
         mount --move $mnt $isodir
         iso=${isodir}/${iso#$mnt}
         mount -o loop,ro $iso $repodir
