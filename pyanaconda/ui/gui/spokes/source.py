@@ -490,9 +490,10 @@ class SourceSpoke(NormalSpoke):
         elif self._nfs_active():
             url = self._urlEntry.get_text().strip()
 
-            # If the user didn't fill in the URL entry, just return as if
-            # they selected nothing.
-            if url == "":
+            # If the user didn't fill in the URL entry, or it does not contain
+            # a ':' (so, no host/directory split), just return as if they
+            # selected nothing.
+            if url == "" or not ':' in url:
                 return
 
             self.data.method.method = "nfs"
@@ -641,7 +642,7 @@ class SourceSpoke(NormalSpoke):
                 selector.path = cdrom.path
                 selector.set_chosen(chosen)
                 self._autodetectMediaBox.pack_start(selector, False, False, 0)
-                
+
             gtk_action_1()
             added = True
 
