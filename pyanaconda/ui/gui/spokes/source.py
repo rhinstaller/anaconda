@@ -481,7 +481,7 @@ class SourceSpoke(NormalSpoke):
                 self.data.method.url = "ftp://" + self.data.method.url
             elif self._protocolComboBox.get_active() == 1 and not self.data.method.url.startswith("http://"):
                 self.data.method.url = "http://" + self.data.method.url
-            elif self._protocolComboBox.get_active() == 1 and not self.data.method.url.startswith("https://"):
+            elif self._protocolComboBox.get_active() == 2 and not self.data.method.url.startswith("https://"):
                 self.data.method.url = "https://" + self.data.method.url
 
             if (old_source.method == "url" and
