@@ -1666,7 +1666,7 @@ class YabootSILOBase(BootLoader):
                 continue
 
             args = Arguments()
-            if self.password or self.encrypted_password:
+            if self.password:
                 args.add("rd.shell=0")
             if image.initrd:
                 initrd_line = "\tinitrd=%s/%s\n" % (self.boot_prefix,
