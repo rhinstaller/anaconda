@@ -258,9 +258,6 @@ class ConfirmDeleteDialog(GUIObject):
     def deleteAll(self):
         return self._removeAll.get_active()
 
-    def on_delete_cancel_clicked(self, button, *args):
-        self.window.destroy()
-
     def on_delete_confirm_clicked(self, button, *args):
         self.window.destroy()
 
@@ -1776,6 +1773,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                 rc = dialog.run()
 
                 if rc == 0:
+                    dialog.window.destroy()
                     return
 
             if dialog.deleteAll:
