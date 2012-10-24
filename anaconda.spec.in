@@ -300,6 +300,33 @@ update-desktop-database &> /dev/null || :
 /usr/lib/dracut/modules.d/80%{name}/*
 
 %changelog
+* Tue Oct 23 2012 Brian C. Lane <bcl@redhat.com> - 18.20-1
+- Add dialog for configuring layout switching options (vpodzime)
+- Initialize layout switching if needed (vpodzime)
+- Save layout switching configuration (vpodzime)
+- Add support for layout switching options to XklWrapper (vpodzime)
+- We need to set _root in two places for a MountpointSelector. (clumens)
+- Correctly destroy the deletion confirmation dialog. (clumens)
+- Don't set self.data.method.url until after checking for a protocol (#869102).
+  (clumens)
+- Fix an undetected bug when setting up an HTTPS method. (clumens)
+- YabootSILOBase objects don't have an encrypted_password parameter (#869016).
+  (clumens)
+- rprivate -> make-rprivate (#869246). (clumens)
+- If NFS is selected in the source spoke, the URL must contain a colon
+  (#869103). (clumens)
+- Modify behavior when leaving the reclaim storage dialog (#864128, #867770,
+  #868903). (clumens)
+- Set the status text in the SpokeSelector widget differently now. (clumens)
+- Use the correct font for each language on the welcome screen (#868836,
+  tagoh). (clumens)
+- Everywhere we make a MountpointSelector, give it a _root attr (#868702).
+  (clumens)
+- payloadInstallHandler should only optionally take a package argument
+  (#868542). (clumens)
+- Add a reformat checkbutton to indicate a desire to reformat the device.
+  (dlehman)
+
 * Fri Oct 19 2012 Brian C. Lane <bcl@redhat.com> - 18.19-1
 - Reset the comps to empty along with everything else in yum. (clumens)
 - Hook up the "Remove Packages" button on the dep solving error screen.
