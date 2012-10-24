@@ -171,14 +171,15 @@ class DiskLabel(DeviceFormat):
 
             # Set the boot flag on the GPT PMBR, this helps some BIOS systems boot
             if self._partedDisk.isFlagAvailable(parted.DISK_GPT_PMBR_BOOT):
-                # MAC canboot as EFI or as BIOS, neither should have PMBR boot set
+                # MAC can boot as EFI or as BIOS, neither should have PMBR boot set
                 if iutil.isEfi() or iutil.isMactel():
-                    log.debug("Not setting pmbr_boot on %s" % (self._partedDisk,))
+                    self._partedDisk.unsetFlag(parted.DISK_GPT_PMBR_BOOT)
+                    log.debug("Clear pmbr_boot on %s" % (self._partedDisk,))
                 else:
                     self._partedDisk.setFlag(parted.DISK_GPT_PMBR_BOOT)
                     log.debug("Set pmbr_boot on %s" % (self._partedDisk,))
             else:
-                log.debug("Did not set pmbr_boot on %s" % (self._partedDisk,))
+                log.debug("Did not change pmbr_boot on %s" % (self._partedDisk,))
 
         return self._partedDisk
 
