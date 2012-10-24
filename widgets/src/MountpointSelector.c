@@ -298,9 +298,11 @@ static gboolean anaconda_mountpoint_selector_focus_changed(GtkWidget *widget, Gd
     if (event->in) {
         gtk_widget_show(GTK_WIDGET(ANACONDA_MOUNTPOINT_SELECTOR(widget)->priv->arrow));
         new_state |= GTK_STATE_FOCUSED;
+        anaconda_mountpoint_selector_set_chosen(ANACONDA_MOUNTPOINT_SELECTOR(widget), TRUE);
     }
     else {
         gtk_widget_hide(GTK_WIDGET(ANACONDA_MOUNTPOINT_SELECTOR(widget)->priv->arrow));
+        anaconda_mountpoint_selector_set_chosen(ANACONDA_MOUNTPOINT_SELECTOR(widget), FALSE);
     }
 
     gtk_widget_set_state_flags(widget, new_state, TRUE);
