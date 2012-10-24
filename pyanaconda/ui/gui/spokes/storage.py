@@ -645,10 +645,22 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         disks = [d for d in self.disks if d.name in self.selected_disks]
         disks_size = sum(Size(spec="%f MB" % d.size) for d in disks)
 
-        free_space = self.storage.getFreeSpace(disks=disks,
-                                               clearPartType=CLEARPART_TYPE_NONE)
-        disk_free = sum([f[0] for f in free_space.itervalues()])
-        fs_free = sum([f[1] for f in free_space.itervalues()])
+        # Figure out if the existing disk labels will work on this platform
+        # you need to have at least one of the platform's labels in order for
+        # any of the free space to be useful.
+        disk_labels = set([disk.format.labelType for disk in disks \
+                                                 if hasattr(disk.format, "labelType")])
+        platform_labels = set(self.storage.platform.diskLabelTypes)
+        if disk_labels and platform_labels.isdisjoint(disk_labels):
+            disk_free = 0
+            fs_free = 0
+            log.debug("Need disklabel: %s have: %s" % (", ".join(platform_labels),
+                                                       ", ".join(disk_labels)))
+        else:
+            free_space = self.storage.getFreeSpace(disks=disks,
+                                                   clearPartType=CLEARPART_TYPE_NONE)
+            disk_free = sum([f[0] for f in free_space.itervalues()])
+            fs_free = sum([f[1] for f in free_space.itervalues()])
 
         required_space = self.payload.spaceRequired
         log.debug("disk free: %s  fs free: %s  sw needs: %s" % (disk_free,
