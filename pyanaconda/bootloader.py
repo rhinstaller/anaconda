@@ -1549,6 +1549,8 @@ class GRUB2(GRUB):
 class EFIGRUB(GRUB2):
     packages = ["grub2-efi", "efibootmgr", "shim"]
     can_dual_boot = False
+    stage2_is_valid_stage1 = False
+    stage2_bootable = False
 
     @property
     def _config_dir(self):
