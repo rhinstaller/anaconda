@@ -548,7 +548,8 @@ def getPPCMachine():
                 'Maple'    : 'pSeries',
                 'Cell'     : 'pSeries',
                 'Momentum' : 'pSeries',
-                'PS3'      : 'PS3'
+                'PS3'      : 'PS3',
+                'PowerNV'  : 'pSeries'
                 }
 
     f = open('/proc/cpuinfo', 'r')
