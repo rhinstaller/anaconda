@@ -154,8 +154,8 @@ def get_available_translations(domain=None, localedir=None):
     domain = domain or gettext._current_domain
     localedir = localedir or gettext._default_localedir
 
-    langdict = babel.Locale('en', 'US').languages
-    messagefiles = gettext.find(domain, localedir, langdict.keys(), all=True)
+    langs = babel.localedata.list()
+    messagefiles = gettext.find(domain, localedir, langs, all=True)
     languages = [path.split(os.path.sep)[-3] for path in messagefiles]
 
     # usually there are no message files for en
