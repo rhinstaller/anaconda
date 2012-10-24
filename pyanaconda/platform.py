@@ -394,7 +394,7 @@ def getPlatform():
         elif ppcMachine == "PS3":
             return PS3()
         else:
-            raise SystemError, "Unsupported PPC machine type"
+            raise SystemError, "Unsupported PPC machine type: %s" % ppcMachine
     elif iutil.isS390():
         return S390()
     elif iutil.isSparc():
