@@ -113,7 +113,9 @@ CRYPTOMODS="sha256_generic cbc xts lrw aes_generic crypto_blkcipher crc32c ecb a
 PCMCIASOCKMODS="yenta_socket i82365 tcic pcmcia"
 INFINIBANDMODS="ib_qib mlx4_ib"
 VMPVMODS="vmxnet3 vmware_balloon vmw_pvsci"
-INITRDMODS="$USBMODS $FIREWIREMODS $IDEMODS $SCSIMODS $FSMODS $LVMMODS $RAIDMODS $CRYPTOMODS $COMMONMODS $PCMCIASOCKMODS $INFINIBANDMODS $SDMODS $VMPVMODS =scsi =net =drm"
+MSPVMODS="hv_storvsc hid_hyperv hv_netvsc hv_vmbus hv_util ata_piix"
+INITRDMODS="$USBMODS $FIREWIREMODS $IDEMODS $SCSIMODS $FSMODS $LVMMODS $RAIDMODS $CRYPTOMODS $COMMONMODS \
+            $PCMCIASOCKMODS $INFINIBANDMODS $SDMODS $VMPVMODS $MSPVMODS =scsi =net =drm"
 
 . $(dirname $0)/buildinstall.functions
 
