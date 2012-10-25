@@ -413,9 +413,9 @@ class StorageSpoke(NormalSpoke, StorageChecker):
 
             self.disks = getDisks(self.storage.devicetree)
         else:
-            self.errors = []
             if self.autopart:
                 # this was already run as part of doAutoPartition. dumb.
+                self.errors = []
                 self.run()
         finally:
             self._ready = True
@@ -424,6 +424,7 @@ class StorageSpoke(NormalSpoke, StorageChecker):
     @property
     def completed(self):
         return (threadMgr.get("AnaExecuteStorageThread") is None and
+                threadMgr.get("AnaCheckStorageThread") is None and
                 self.storage.rootDevice is not None and
                 not self.errors)
 
