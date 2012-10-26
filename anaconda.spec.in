@@ -222,6 +222,10 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Fri Oct 26 2012 Brian C. Lane <bcl@redhat.com> - 13.21.183-1
+- Add Microsoft PV drivers (vpodzime)
+  Resolves: rhbz#834689
+
 * Mon Oct 22 2012 Brian C. Lane <bcl@redhat.com> - 13.21.182-1
 - Do not use boot= in grub with fips=1 and /boot on / (vpodzime)
   Resolves: rhbz#851249
