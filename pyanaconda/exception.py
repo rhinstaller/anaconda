@@ -157,6 +157,7 @@ def initExceptionHandling(anaconda):
                   attrSkipList=["_intf._actions",
                                 "_intf.storage.bootloader.password",
                                 "_intf.storage.data",
+                                "_intf.storage.encryptionPassphrase",
                                 "_bootloader.encrypted_password",
                                 "_bootloader.password",
                                 "payload._groups",

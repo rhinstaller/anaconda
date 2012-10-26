@@ -86,6 +86,8 @@ def log_method_call(d, *args, **kwargs):
 
     for k, v in kwargs.items():
         fmt += " %s: %s ;"
+        if "pass" in k.lower() and v:
+            v = "Skipped"
         fmt_args.extend([k, v])
 
     logging.getLogger("storage").debug(fmt % tuple(fmt_args))
