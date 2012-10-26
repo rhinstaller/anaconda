@@ -257,9 +257,6 @@ class SoftwareSelectionSpoke(NormalSpoke):
 
                     self._addonStore.append([selected, "<b>%s</b>\n%s" % (name, desc), grp])
 
-        self.selectedGroups = [g.name for g in self.data.packages.groupList]
-        self.excludedGroups = [g.name
-                                for g in self.data.packages.excludedGroupList]
         self._selectFlag = True
 
         if self._errorMsgs:
@@ -290,12 +287,11 @@ class SoftwareSelectionSpoke(NormalSpoke):
         for row in self._environmentStore:
             row[0] = False
 
-        # Remove all groups from the previous environment from the selected
-        # list, but don't explicitly exclude them.
+        # Then, remove all the groups that were selected by the previously
+        # selected environment.
         for groupid in self.payload.environmentGroups(self.environment):
-            grp = Group(groupid)
-            if grp in self.data.packages.groupList:
-                self.data.packages.groupList.remove(grp)
+            if groupid in self.selectedGroups:
+                self.selectedGroups.remove(groupid)
 
         # Then mark the clicked environment as selected and update the screen.
         self._environmentStore[path][0] = True
