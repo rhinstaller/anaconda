@@ -21,6 +21,7 @@
 
 from pyanaconda import ui
 from pyanaconda.ui import common
+from pyanaconda.flags import flags
 import simpleline as tui
 from hubs.summary import SummaryHub
 from hubs.progress import ProgressHub
@@ -182,7 +183,12 @@ class TextUserInterface(ui.UserInterface):
            In the code, this method should be used sparingly and only for those
            times where anaconda cannot make a reasonable decision.  We don't
            want to overwhelm the user with choices.
+
+           When cmdline mode is active, the default will be to answer no.
         """
+        if flags.automatedInstall and not flags.ksprompt:
+            # If we're in cmdline mode, just say no.
+            return False
         question_window = YesNoDialog(self._app, message)
         self._app.switch_screen_modal(question_window)
         return question_window.answer
