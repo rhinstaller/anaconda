@@ -3846,6 +3846,7 @@ class BTRFSDevice(StorageDevice):
         if not args or not args[0]:
             args = ("btrfs.%d" % Device._id,)
 
+        self.req_size = kwargs.pop("size", None)
         super(BTRFSDevice, self).__init__(*args, **kwargs)
 
     def updateSysfsPath(self):
@@ -3947,6 +3948,13 @@ class BTRFSVolumeDevice(BTRFSDevice):
         label = getattr(self.format, "label", None)
         if label:
             self._name = label
+
+    def _getSize(self):
+        size = sum([d.size for d in self.parents])
+        if self.dataLevel in ("raid1", "raid10"):
+            size /= len(self.parents)
+
+        return size
 
     def _addDevice(self, device):
         """ Add a new device to this volume.
