@@ -168,6 +168,10 @@ class StorageSpoke(NormalTUISpoke):
         elif count == 0:
             summary = (_("No disks selected; please select at least one disk to install to."))
 
+        # Append storage errors to the summary
+        if self.errors:
+            summary = summary + "\n" + "\n".join(self.errors)
+
         return summary
 
     def refresh(self, args = None):
@@ -261,7 +265,8 @@ class StorageSpoke(NormalTUISpoke):
             doKickstartStorage(self.storage, self.data, self.instclass)
         except StorageError as e:
             log.error("storage configuration failed: %s" % e)
-            self.errors = e
+            print _("storage configuration failed: %s") % e
+            self.errors = [str(e)]
             self.data.clearpart.type = CLEARPART_TYPE_ALL
             self.data.clearpart.initAll = False
             self.storage.config.update(self.data)
@@ -274,8 +279,10 @@ class StorageSpoke(NormalTUISpoke):
             self._ready = True
             for e in self.errors:
                 log.error(e)
+                print e
             for w in warnings:
                 log.warn(w)
+                print w
 
     def initialize(self):
         NormalTUISpoke.initialize(self)
