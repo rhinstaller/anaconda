@@ -1667,6 +1667,7 @@ def manageSizeSets(size_sets, chunks):
                 # growth from the requests that have grown the most first.
                 requests = sorted([requests_by_device[d] for d in ss.devices],
                                   key=lambda r: r.growth, reverse=True)
+                needed = ss.needed
                 for request in requests:
                     chunk = chunks_by_request[request]
                     log.debug("%s" % request)
@@ -1675,8 +1676,13 @@ def manageSizeSets(size_sets, chunks):
                     if ss.needed < 0:
                         # it would be good to take back some from each device
                         # instead of taking all from the last one(s)
-                        extra = min(-chunk.sizeToLength(ss.needed),
-                                    request.growth)
+                        extra = -chunk.sizeToLength(needed) / len(ss.devices)
+                        if extra > request.growth and i == 0:
+                            log.debug("not reclaiming from this request")
+                            continue
+                        else:
+                            extra = min(extra, request.growth)
+
                         reclaimed[chunk] += extra
                         chunk.reclaim(request, extra)
                         ss.deallocate(chunk.lengthToSize(extra))
