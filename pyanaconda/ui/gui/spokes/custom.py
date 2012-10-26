@@ -1692,7 +1692,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
         # If we've just removed the last partition and the disklabel is pre-
         # existing, reinitialize the disk.
-        if device.type == "partition" and device.disk.format.exists:
+        if device.type == "partition" and device.exists and \
+           device.disk.format.exists:
             with ui_storage_logger():
                 if self.__storage.shouldClear(device.disk):
                     self.__storage.initializeDisk(device.disk)
