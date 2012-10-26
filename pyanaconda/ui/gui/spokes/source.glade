@@ -19,11 +19,9 @@
             <child>
               <object class="GtkButton" id="add_repo_cancel_button">
                 <property name="label">gtk-cancel</property>
-                <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
-                <property name="use_action_appearance">False</property>
                 <property name="use_stock">True</property>
               </object>
               <packing>
@@ -35,11 +33,9 @@
             <child>
               <object class="GtkButton" id="add_repo_add_button">
                 <property name="label" translatable="yes">_Add</property>
-                <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
-                <property name="use_action_appearance">False</property>
                 <property name="use_underline">True</property>
               </object>
               <packing>
@@ -163,11 +159,9 @@
                 </child>
                 <child>
                   <object class="GtkRadioButton" id="addRepositorySelectList">
-                    <property name="use_action_appearance">False</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">False</property>
-                    <property name="use_action_appearance">False</property>
                     <property name="xalign">0</property>
                     <property name="active">True</property>
                     <property name="draw_indicator">True</property>
@@ -241,11 +235,9 @@
                 </child>
                 <child>
                   <object class="GtkRadioButton" id="addRepositorySelectUrl">
-                    <property name="use_action_appearance">False</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">False</property>
-                    <property name="use_action_appearance">False</property>
                     <property name="xalign">0</property>
                     <property name="draw_indicator">True</property>
                     <property name="group">addRepositorySelectList</property>
@@ -368,11 +360,9 @@
             <child>
               <object class="GtkButton" id="cancelChooserButton">
                 <property name="label">gtk-cancel</property>
-                <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
-                <property name="use_action_appearance">False</property>
                 <property name="use_stock">True</property>
               </object>
               <packing>
@@ -384,11 +374,9 @@
             <child>
               <object class="GtkButton" id="openChooserButton">
                 <property name="label">gtk-open</property>
-                <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
-                <property name="use_action_appearance">False</property>
                 <property name="use_stock">True</property>
               </object>
               <packing>
@@ -449,12 +437,10 @@
             <child>
               <object class="GtkButton" id="doneButton">
                 <property name="label" translatable="yes">_DONE</property>
-                <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="sensitive">False</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
-                <property name="use_action_appearance">False</property>
                 <property name="use_underline">True</property>
                 <signal name="clicked" handler="on_done_clicked" swapped="no"/>
               </object>
@@ -604,11 +590,9 @@ TeXlive 2012 repository</col>
             <child>
               <object class="GtkButton" id="proxyCancelButton">
                 <property name="label" translatable="yes">_CANCEL</property>
-                <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
-                <property name="use_action_appearance">False</property>
                 <property name="use_underline">True</property>
                 <signal name="clicked" handler="on_proxy_cancel_clicked" swapped="no"/>
               </object>
@@ -621,11 +605,9 @@ TeXlive 2012 repository</col>
             <child>
               <object class="GtkButton" id="proxyAddButton">
                 <property name="label" translatable="yes">_ADD</property>
-                <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
-                <property name="use_action_appearance">False</property>
                 <property name="use_underline">True</property>
                 <signal name="clicked" handler="on_proxy_add_clicked" swapped="no"/>
               </object>
@@ -651,11 +633,9 @@ TeXlive 2012 repository</col>
             <child>
               <object class="GtkCheckButton" id="enableProxyCheck">
                 <property name="label" translatable="yes">_Enable HTTP Proxy</property>
-                <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
-                <property name="use_action_appearance">False</property>
                 <property name="use_underline">True</property>
                 <property name="xalign">0</property>
                 <property name="draw_indicator">True</property>
@@ -737,11 +717,9 @@ TeXlive 2012 repository</col>
                 <child>
                   <object class="GtkCheckButton" id="enableAuthCheck">
                     <property name="label" translatable="yes">_Use Authentication</property>
-                    <property name="use_action_appearance">False</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">False</property>
-                    <property name="use_action_appearance">False</property>
                     <property name="use_underline">True</property>
                     <property name="xalign">0</property>
                     <property name="draw_indicator">True</property>
@@ -868,12 +846,18 @@ TeXlive 2012 repository</col>
         <child internal-child="alignment">
           <object class="GtkAlignment" id="AnacondaSpokeWindow-alignment1">
             <property name="can_focus">False</property>
+            <property name="hexpand">True</property>
+            <property name="vexpand">True</property>
             <property name="yalign">0</property>
-            <property name="xscale">0</property>
-            <property name="yscale">0.5</property>
+            <property name="top_padding">12</property>
+            <property name="bottom_padding">48</property>
+            <property name="left_padding">24</property>
+            <property name="right_padding">24</property>
             <child internal-child="action_area">
               <object class="GtkBox" id="sourceWindow-actionArea">
                 <property name="can_focus">False</property>
+                <property name="hexpand">True</property>
+                <property name="vexpand">True</property>
                 <property name="orientation">vertical</property>
                 <property name="spacing">6</property>
                 <child>
@@ -883,6 +867,7 @@ TeXlive 2012 repository</col>
                     <property name="halign">start</property>
                     <property name="label" translatable="yes">WHICH INSTALLATION SOURCE WOULD YOU LIKE TO USE?</property>
                     <attributes>
+                      <attribute name="font-desc" value="Cantarell 10"/>
                       <attribute name="weight" value="bold"/>
                     </attributes>
                   </object>
@@ -895,12 +880,10 @@ TeXlive 2012 repository</col>
                 <child>
                   <object class="GtkRadioButton" id="autodetectRadioButton">
                     <property name="label" translatable="yes">_Auto-detected install media:</property>
-                    <property name="use_action_appearance">False</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">False</property>
                     <property name="no_show_all">True</property>
                     <property name="margin_left">12</property>
-                    <property name="use_action_appearance">False</property>
                     <property name="use_underline">True</property>
                     <property name="xalign">0</property>
                     <property name="draw_indicator">True</property>
@@ -914,11 +897,11 @@ TeXlive 2012 repository</col>
                 </child>
                 <child>
                   <object class="GtkBox" id="autodetectBox">
+                    <property name="sensitive">False</property>
                     <property name="can_focus">False</property>
                     <property name="no_show_all">True</property>
                     <property name="margin_left">24</property>
                     <property name="spacing">6</property>
-                    <property name="sensitive">False</property>
                     <child>
                       <object class="GtkScrolledWindow" id="autodetectWindow">
                         <property name="visible">True</property>
@@ -952,12 +935,10 @@ TeXlive 2012 repository</col>
                     <child>
                       <object class="GtkButton" id="verifyMediaButton">
                         <property name="label" translatable="yes">_Verify</property>
-                        <property name="use_action_appearance">False</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">True</property>
                         <property name="valign">center</property>
-                        <property name="use_action_appearance">False</property>
                         <property name="use_underline">True</property>
                         <signal name="clicked" handler="on_verify_media_clicked" swapped="no"/>
                       </object>
@@ -977,12 +958,10 @@ TeXlive 2012 repository</col>
                 <child>
                   <object class="GtkRadioButton" id="isoRadioButton">
                     <property name="label" translatable="yes">_ISO file:</property>
-                    <property name="use_action_appearance">False</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">False</property>
                     <property name="no_show_all">True</property>
                     <property name="margin_left">12</property>
-                    <property name="use_action_appearance">False</property>
                     <property name="use_underline">True</property>
                     <property name="xalign">0</property>
                     <property name="active">True</property>
@@ -996,11 +975,11 @@ TeXlive 2012 repository</col>
                 </child>
                 <child>
                   <object class="GtkBox" id="isoBox">
+                    <property name="sensitive">False</property>
                     <property name="can_focus">False</property>
                     <property name="no_show_all">True</property>
                     <property name="margin_left">24</property>
                     <property name="spacing">6</property>
-                    <property name="sensitive">False</property>
                     <child>
                       <object class="GtkLabel" id="label6">
                         <property name="visible">True</property>
@@ -1034,11 +1013,9 @@ TeXlive 2012 repository</col>
                     <child>
                       <object class="GtkButton" id="isoChooserButton">
                         <property name="label" translatable="yes">_Choose an ISO</property>
-                        <property name="use_action_appearance">False</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">True</property>
-                        <property name="use_action_appearance">False</property>
                         <property name="use_underline">True</property>
                         <signal name="clicked" handler="on_chooser_clicked" swapped="no"/>
                       </object>
@@ -1051,12 +1028,10 @@ TeXlive 2012 repository</col>
                     <child>
                       <object class="GtkButton" id="verifyIsoButton">
                         <property name="label" translatable="yes">_Verify</property>
-                        <property name="use_action_appearance">False</property>
                         <property name="visible">True</property>
                         <property name="sensitive">False</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">True</property>
-                        <property name="use_action_appearance">False</property>
                         <property name="use_underline">True</property>
                         <signal name="clicked" handler="on_verify_iso_clicked" object="isoChooserButton" swapped="no"/>
                       </object>
@@ -1076,12 +1051,10 @@ TeXlive 2012 repository</col>
                 <child>
                   <object class="GtkRadioButton" id="networkRadioButton">
                     <property name="label" translatable="yes">On the _network:</property>
-                    <property name="use_action_appearance">False</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">False</property>
                     <property name="margin_left">12</property>
-                    <property name="use_action_appearance">False</property>
                     <property name="use_underline">True</property>
                     <property name="xalign">0</property>
                     <property name="active">True</property>
@@ -1097,11 +1070,11 @@ TeXlive 2012 repository</col>
                 <child>
                   <object class="GtkBox" id="networkBox">
                     <property name="visible">True</property>
+                    <property name="sensitive">False</property>
                     <property name="can_focus">False</property>
                     <property name="margin_left">24</property>
                     <property name="orientation">vertical</property>
                     <property name="spacing">6</property>
-                    <property name="sensitive">False</property>
                     <child>
                       <object class="GtkBox" id="urlBox">
                         <property name="visible">True</property>
@@ -1143,11 +1116,9 @@ TeXlive 2012 repository</col>
                         <child>
                           <object class="GtkButton" id="proxyButton">
                             <property name="label" translatable="yes">_Proxy setup...</property>
-                            <property name="use_action_appearance">False</property>
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="receives_default">True</property>
-                            <property name="use_action_appearance">False</property>
                             <property name="use_underline">True</property>
                             <signal name="clicked" handler="on_proxy_clicked" swapped="no"/>
                           </object>
@@ -1219,6 +1190,7 @@ TeXlive 2012 repository</col>
                     <property name="margin_top">12</property>
                     <property name="label" translatable="yes">UPDATES</property>
                     <attributes>
+                      <attribute name="font-desc" value="Cantarell 10"/>
                       <attribute name="weight" value="bold"/>
                     </attributes>
                   </object>
@@ -1231,12 +1203,10 @@ TeXlive 2012 repository</col>
                 <child>
                   <object class="GtkCheckButton" id="noUpdatesCheckbox">
                     <property name="label" translatable="yes">D_on't install the latest available software updates. Install the default versions provided by the install source above.</property>
-                    <property name="use_action_appearance">False</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">False</property>
                     <property name="margin_left">12</property>
-                    <property name="use_action_appearance">False</property>
                     <property name="use_underline">True</property>
                     <property name="xalign">0</property>
                     <property name="draw_indicator">True</property>
