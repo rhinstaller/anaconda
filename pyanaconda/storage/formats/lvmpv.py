@@ -44,6 +44,7 @@ class LVMPhysicalVolume(DeviceFormat):
     _formattable = True                 # can be formatted
     _supported = True                   # is supported
     _linuxNative = True                 # for clearpart
+    _minSize = lvm.LVM_PE_SIZE * 2      # one for metadata and one for data
     _packages = ["lvm2"]                # required packages
 
     def __init__(self, *args, **kwargs):
