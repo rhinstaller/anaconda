@@ -300,6 +300,16 @@ update-desktop-database &> /dev/null || :
 /usr/lib/dracut/modules.d/80%{name}/*
 
 %changelog
+* Thu Oct 25 2012 Brian C. Lane <bcl@redhat.com> - 18.21-1
+- Add PowerNV as a recognized PPC platform (nacc)
+- anaconda should print unknown platform information (hamzy)
+- Toggle chosen property on focus change (MountpointSelector) (vpodzime)
+- Lock source spoke while depsolving (#867591) (jkeating)
+- In custom part, don't display mountpoints without associated disks (#865942).
+  (clumens)
+- Tie "Reclaim Space" button sensitivity to how much space the user freed
+  (#869375). (clumens)
+
 * Tue Oct 23 2012 Brian C. Lane <bcl@redhat.com> - 18.20-1
 - Add dialog for configuring layout switching options (vpodzime)
 - Initialize layout switching if needed (vpodzime)
