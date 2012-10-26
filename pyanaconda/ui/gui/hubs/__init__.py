@@ -278,10 +278,10 @@ class Hub(GUIObject, common.Hub):
                     if not args[1]:
                         spoke.execute()
 
-                    if len(self._incompleteSpokes) == 0 and len(self._notReadySpokes) == 0:
+                    if self.continuePossible:
                         if self._inSpoke:
                             self._autoContinue = True
-                        else:
+                        elif q.empty():
                             self.continueButton.emit("clicked")
             elif code == communication.HUB_CODE_MESSAGE:
                 spoke.selector.set_property("status", args[1])
