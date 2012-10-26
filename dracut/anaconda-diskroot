@@ -3,8 +3,24 @@
 # usage: anaconda-diskroot DEVICE [PATH]
 
 . /lib/anaconda-lib.sh
-command -v getarg >/dev/null || . /lib/dracut-lib.sh
+command -v getargbool >/dev/null || . /lib/dracut-lib.sh
 
+# Run checkisomd5 on a device
+run_checkisomd5() {
+    livedev=$1
+    if getargbool 0 rd.live.check -d check; then
+        [ -b $livedev ] && fs=$(blkid -s TYPE -o value $livedev)
+        if [ "$fs" = "iso9660" -o "$fs" = "udf" ]; then
+            [ -x /bin/plymouth ] && /bin/plymouth --hide-splash
+            checkisomd5 --verbose $livedev
+            if [ $? -ne 0 ]; then
+                die "CD check failed!"
+                exit 1
+            fi
+            [ -x /bin/plymouth ] && /bin/plymouth --show-splash
+        fi
+    fi
+}
 
 dev="$1"
 path="$2" # optional, could be empty
@@ -14,3 +30,4 @@ path="$2" # optional, could be empty
 info "anaconda using disk root at $dev"
 mount $dev $repodir || warn "Couldn't mount $dev"
 anaconda_live_root_dir $repodir $path
+run_checkisomd5 $dev
