@@ -154,7 +154,6 @@ def get_pv_space(size, disks, pesize=LVM_PE_SIZE,
     # TODO: handle striped and mirrored
     # this is adding one extent for the lv's metadata
     space = clampSize(size, pesize, roundup=True) + \
-            (LVM_PE_START * disks) + \
             pesize
     return space
 
