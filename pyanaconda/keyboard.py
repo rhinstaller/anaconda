@@ -187,7 +187,7 @@ def write_keyboard_config(keyboard, root, convert=True, weight=0):
     if keyboard.vc_keymap:
         try:
             with open(os.path.join(sysconf_dir, sysconf_file), "w") as fobj:
-                fobj.write('vconsole.keymap="%s"\n' % keyboard.vc_keymap)
+                fobj.write('KEYMAP="%s"\n' % keyboard.vc_keymap)
 
         except IOError as ioerr:
             errors.append("Cannot write sysconfig keyboard configuration file")
