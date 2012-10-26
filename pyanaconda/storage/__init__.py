@@ -3215,6 +3215,11 @@ class BTRFSFactory(DeviceFactory):
                                            encrypted)
         self.raid_level = raid_level or "single"
 
+    def new_container(self, *args, **kwargs):
+        """ Return the newly created container for this device. """
+        kwargs["dataLevel"] = self.raid_level
+        return getattr(self.storage, self.new_container_attr)(*args, **kwargs)
+
     @property
     def device_size(self):
         # until we get/need something better
