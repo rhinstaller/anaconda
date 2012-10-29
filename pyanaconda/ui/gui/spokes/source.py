@@ -21,6 +21,7 @@
 #
 
 import gettext
+import time
 _ = lambda x: gettext.ldgettext("anaconda", x)
 N_ = lambda x: x
 
@@ -39,11 +40,14 @@ from pyanaconda.ui.gui.categories.software import SoftwareCategory
 from pyanaconda.ui.gui.utils import enlightbox, gtk_thread_wait
 from pyanaconda.iutil import ProxyString, ProxyStringError
 from pyanaconda.ui.gui.utils import gtk_call_once
+from pyanaconda.threads import threadMgr, AnacondaThread
+from pyanaconda.packaging import PayloadError
 
 __all__ = ["SourceSpoke"]
 
 MOUNTPOINT = "/mnt/install/isodir"
 
+BASEREPO_SETUP_MESSAGE = _("Setting up installation source...")
 METADATA_DOWNLOAD_MESSAGE = _("Downloading package metadata...")
 METADATA_ERROR_MESSAGE = _("Error downloading package metadata...")
 
@@ -425,8 +429,6 @@ class SourceSpoke(NormalSpoke):
         self._error = False
 
     def apply(self):
-        from pyanaconda.threads import threadMgr, AnacondaThread
-        from pyanaconda.packaging import PayloadError
         import copy
 
         old_source = copy.copy(self.data.method)
@@ -505,7 +507,21 @@ class SourceSpoke(NormalSpoke):
                 old_source.opts == self.data.method.opts):
                 return
 
+        threadMgr.add(AnacondaThread(name="AnaPayloadMDThread",
+                                     target=self.getRepoMetadata))
+        self.window.clear_info()
+
+    def getRepoMetadata(self):
         communication.send_not_ready("SoftwareSelectionSpoke")
+        communication.send_not_ready(self.__class__.__name__)
+        communication.send_message(self.__class__.__name__,
+                                   BASEREPO_SETUP_MESSAGE)
+        # this sleep is lame, but without it the message above doesn't seem
+        # to get processed by the hub in time, and is never shown.
+        # FIXME this should get removed when we figure out how to ensure
+        # that the message takes effect on the hub before we try to mount
+        # a bad NFS server.
+        time.sleep(1)
         try:
             self.payload.updateBaseRepo(fallback=False, checkmount=False)
         except PayloadError as e:
@@ -517,26 +533,21 @@ class SourceSpoke(NormalSpoke):
                 self.window.set_info(Gtk.MessageType.WARNING, _("Failed to set up install source, check the repo url"))
             else:
                 self.window.set_info(Gtk.MessageType.WARNING, _("Failed to set up install source, check the repo url and proxy settings"))
+            communication.send_ready(self.__class__.__name__)
         else:
             self._error = False
-            self.window.clear_info()
-            threadMgr.add(AnacondaThread(name="AnaPayloadMDThread",
-                                         target=self.getRepoMetadata))
-
-    def getRepoMetadata(self):
-        communication.send_not_ready(self.__class__.__name__)
-        communication.send_message(self.__class__.__name__,
-                                   METADATA_DOWNLOAD_MESSAGE)
-        self.payload.gatherRepoMetadata()
-        self.payload.release()
-        if not self.payload.baseRepo:
             communication.send_message(self.__class__.__name__,
-                                       METADATA_ERROR_MESSAGE)
-            communication.send_ready(self.__class__.__name__)
-            self._error = True
-        else:
-            communication.send_ready(self.__class__.__name__)
-            communication.send_ready("SoftwareSelectionSpoke")
+                                       METADATA_DOWNLOAD_MESSAGE)
+            self.payload.gatherRepoMetadata()
+            self.payload.release()
+            if not self.payload.baseRepo:
+                communication.send_message(self.__class__.__name__,
+                                           METADATA_ERROR_MESSAGE)
+                communication.send_ready(self.__class__.__name__)
+                self._error = True
+            else:
+                communication.send_ready(self.__class__.__name__)
+                communication.send_ready("SoftwareSelectionSpoke")
 
     @property
     def completed(self):
