@@ -83,15 +83,9 @@ class PasswordSpoke(NormalSpoke):
             return _("Root password is not set")
 
     def apply(self):
-        if self._password:
-            self.data.rootpw.password = cryptPassword(self._password)
-            self.data.rootpw.isCrypted = True
-            self.data.rootpw.lock = False
-        else:
-            # Blank password case, disable the account
-            self.data.rootpw.lock = True
-            self.data.rootpw.password = ''
-            self.data.rootpw.isCrypted = False
+        self.data.rootpw.password = cryptPassword(self._password)
+        self.data.rootpw.isCrypted = True
+        self.data.rootpw.lock = False
 
     @property
     def completed(self):
@@ -104,6 +98,10 @@ class PasswordSpoke(NormalSpoke):
         self._error = False
         pw = self.pw.get_text()
         confirm = self.confirm.get_text()
+
+        if not pw and not confirm:
+            self._error = _("You must provide and confirm a password.")
+            return False
 
         try:
             self._error = validatePassword(pw, confirm)
