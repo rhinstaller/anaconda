@@ -507,8 +507,7 @@ class SourceSpoke(NormalSpoke):
 
         communication.send_not_ready("SoftwareSelectionSpoke")
         try:
-            self.payload.updateBaseRepo(self.storage, fallback=False,
-                                        checkmount=False)
+            self.payload.updateBaseRepo(fallback=False, checkmount=False)
         except PayloadError as e:
             log.error("PayloadError: %s" % (e,))
             self._error = True

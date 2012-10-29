@@ -155,7 +155,7 @@ class YumPayload(PackagePayload):
         self._writeYumConfig()
         self._setup = True
 
-        self.updateBaseRepo(storage)
+        self.updateBaseRepo()
 
         # When setup is called, it's already in a separate thread. That thread
         # will try to select groups right after this returns, so make sure we
@@ -375,8 +375,7 @@ reposdir=%s
 
         return base_repo_name
 
-    def updateBaseRepo(self, storage, fallback=True, root=None,
-                       checkmount=True):
+    def updateBaseRepo(self, fallback=True, root=None, checkmount=True):
         """ Update the base repo based on self.data.method.
 
             - Tear down any previous base repo devices, symlinks, &c.
@@ -395,7 +394,7 @@ reposdir=%s
 
         # see if we can get a usable base repo from self.data.method
         try:
-            self._configureBaseRepo(storage, checkmount=checkmount)
+            self._configureBaseRepo(self.storage, checkmount=checkmount)
         except PayloadError as e:
             if not fallback:
                 for repo in self._yum.repos.repos.values():

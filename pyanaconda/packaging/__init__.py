@@ -220,7 +220,7 @@ class Payload(object):
         self.data.method.proxy = ""
         self.data.method.opts = None
 
-    def updateBaseRepo(self, storage):
+    def updateBaseRepo(self):
         """ Update the base repository from ksdata.method. """
         pass
 
@@ -744,7 +744,7 @@ if __name__ == "__main__":
     ksdata.method.url = "http://dl.fedoraproject.org/pub/fedora/linux/development/17/x86_64/os/"
 
     # now switch the base repo to what we set ksdata.method to just above
-    payload.updateBaseRepo(storage)
+    payload.updateBaseRepo()
     for repo in payload._yum.repos.repos.values():
         print repo.name, repo.enabled
 
