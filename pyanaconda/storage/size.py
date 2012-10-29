@@ -212,23 +212,24 @@ class Size(Decimal):
             newcheck = super(Size, self).__div__(Decimal(factor))
 
             if newcheck < 1000:
-                if places is not None:
-                    fmt = "%%.%df" % places
-                    retval = fmt % newcheck
+                # nice value, use this factor, prefix and abbr
+                break
+
+        if places is not None:
+            fmt = "%%.%df" % places
+            retval = fmt % newcheck
+        else:
+            retval = self._trimEnd("%f" % newcheck)
+
+        if max_places is not None:
+            (whole, point, fraction) = retval.partition(".")
+            if point and len(fraction) > max_places:
+                if max_places == 0:
+                    retval = whole
                 else:
-                    retval = self._trimEnd("%f" % newcheck)
+                    retval = "%s.%s" % (whole, fraction[:max_places])
 
-                if max_places is not None:
-                    (whole, point, fraction) = retval.partition(".")
-                    if point and len(fraction) > max_places:
-                        if max_places == 0:
-                            retval = whole
-                        else:
-                            retval = "%s.%s" % (whole, fraction[:max_places])
-
-                if abbr:
-                    return retval + " " + abbr + _("B")
-                else:
-                    return retval + " " + prefix + P_("byte", "bytes", newcheck)
-
-        return None
+        if abbr:
+            return retval + " " + abbr + _("B")
+        else:
+            return retval + " " + prefix + P_("byte", "bytes", newcheck)
