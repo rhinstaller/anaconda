@@ -1055,6 +1055,7 @@ def getKSNetworkData(device):
         if ap:
             ifcfg_suffix = ap.get_ssid()
 
+    ifcfg_suffix = ifcfg_suffix.replace(' ', '_')
     if ifcfg_suffix:
         device_cfg = NetworkDevice(netscriptsDir, ifcfg_suffix)
         device_cfg.loadIfcfgFile()
