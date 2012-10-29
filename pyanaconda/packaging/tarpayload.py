@@ -58,7 +58,7 @@ class TarPayload(ArchivePayload):
         self.archive = None
 
     def setup(self, storage):
-        super(TarPayload, self).setup()
+        super(TarPayload, self).setup(storage)
 
         try:
             self.archive = tarfile.open(self.image_file)

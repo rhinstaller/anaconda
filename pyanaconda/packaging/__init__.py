@@ -147,7 +147,6 @@ class Payload(object):
     def setup(self, storage):
         """ Do any payload-specific setup. """
         self.storage = storage
-        raise NotImplementedError()
 
     def preStorage(self):
         """ Do any payload-specific work necessary before writing the storage

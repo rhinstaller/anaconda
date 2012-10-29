@@ -53,6 +53,8 @@ _ = lambda x: gettext.ldgettext("anaconda", x)
 class LiveImagePayload(ImagePayload):
     """ A LivePayload copies the source image onto the target system. """
     def setup(self, storage):
+        super(LiveImagePayload, self).setup(storage)
+
         # Mount the live device and copy from it instead of the overlay at /
         osimg = storage.devicetree.getDeviceByPath(self.data.method.partition)
         if not stat.S_ISBLK(os.stat(osimg.path)[stat.ST_MODE]):

@@ -150,6 +150,8 @@ class YumPayload(PackagePayload):
         self._resetYum(root=root)
 
     def setup(self, storage):
+        super(YumPayload, self).setup(storage)
+
         self._writeYumConfig()
         self._setup = True
 
