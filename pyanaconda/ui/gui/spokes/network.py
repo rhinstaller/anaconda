@@ -347,11 +347,13 @@ class NetworkControlBox():
         device = self.selected_device()
         self.refresh_ui(device)
 
-    def active_connections(self):
+    def activated_connections(self):
         """Returns list of tuples (device_name, ssid), ssid is None for wired."""
         active_devs = []
 
         for con in self.client.get_active_connections():
+            if con.get_state() != NetworkManager.ActiveConnectionState.ACTIVATED:
+                continue
             device = con.get_devices()[0]
             if device.get_device_type() == NetworkManager.DeviceType.ETHERNET:
                 active_devs.append((device.get_iface(), None))
@@ -946,14 +948,14 @@ class NetworkSpoke(NormalSpoke):
     def completed(self):
         # TODO: check also if source requires updates when implemented
         return (self.data.method.method not in ("url", "nfs") or
-                len(self.network_control_box.active_connections()) > 0)
+                len(self.network_control_box.activated_connections()) > 0)
 
     @property
     def status(self):
         """ A short string describing which devices are connected. """
         msg = _("Not connected")
 
-        ac = self.network_control_box.active_connections()
+        ac = self.network_control_box.activated_connections()
         if ac:
             if len(ac) == 1:
                 device, ssid = ac[0]
@@ -1028,7 +1030,7 @@ class NetworkStandaloneSpoke(StandaloneSpoke):
 
     @property
     def completed(self):
-        return len(self.network_control_box.active_connections()) > 0
+        return len(self.network_control_box.activated_connections()) > 0
 
     def initialize(self):
         StandaloneSpoke.initialize(self)
