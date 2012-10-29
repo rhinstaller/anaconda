@@ -37,6 +37,12 @@ def _writeKS(ksdata):
 
     path = ROOT_PATH + "/root/anaconda-ks.cfg"
 
+    # Clear out certain sensitive information that kickstart doesn't have a
+    # way of representing encrypted.
+    for obj in [ksdata.autopart] + ksdata.logvol.dataList() + \
+               ksdata.partition.dataList() + ksdata.raid.dataList():
+        obj.passphrase = ""
+
     with open(path, "w") as f:
         f.write(str(ksdata))
 
