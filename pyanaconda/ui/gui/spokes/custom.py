@@ -935,6 +935,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                 self._error = mountpoint_validation_msgs[error]
                 self.window.set_info(Gtk.MessageType.WARNING, self._error)
                 self.window.show_all()
+                self._populate_right_side(selector)
                 return
 
         raid_level = self._get_raid_level()
@@ -960,6 +961,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         if error:
             self.window.set_info(Gtk.MessageType.WARNING, error)
             self.window.show_all()
+            self._populate_right_side(selector)
             return
 
         with ui_storage_logger():
