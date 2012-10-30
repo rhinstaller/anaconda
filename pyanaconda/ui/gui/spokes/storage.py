@@ -337,8 +337,7 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         self.data.autopart.encrypted = self.encrypted
         self.data.autopart.passphrase = self.passphrase
 
-        # no thanks, lvm
-        self.data.autopart.type = AUTOPART_TYPE_PLAIN
+        self.data.autopart.type = AUTOPART_TYPE_LVM
 
         self.clearPartType = CLEARPART_TYPE_NONE
 
