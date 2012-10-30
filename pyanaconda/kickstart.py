@@ -300,7 +300,8 @@ class Bootloader(commands.bootloader.F18_Bootloader):
             storage.bootloader.timeout = self.timeout
 
         # Throw out drives specified that don't exist.
-        disk_names = [d.name for d in storage.disks]
+        disk_names = [d.name for d in storage.disks
+                                if not d.format.hidden and not d.protected]
         for drive in self.driveorder[:]:
             if drive not in disk_names:
                 log.warning("requested drive %s in boot drive order doesn't exist" % drive)
@@ -1596,7 +1597,7 @@ def runTracebackScripts(scripts):
 def doKickstartStorage(storage, ksdata, instClass):
     """ Setup storage state from the kickstart data """
     ksdata.clearpart.execute(storage, ksdata, instClass)
-    if not storage.disks:
+    if not [d for d in storage.disks if not d.format.hidden]:
         return
     ksdata.bootloader.execute(storage, ksdata, instClass)
     ksdata.autopart.execute(storage, ksdata, instClass)

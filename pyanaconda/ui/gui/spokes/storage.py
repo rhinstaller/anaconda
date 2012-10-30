@@ -330,9 +330,16 @@ class StorageSpoke(NormalSpoke, StorageChecker):
 
         self._previous_autopart = False
 
+    def _applyDiskSelection(self, use_names):
+        onlyuse = use_names[:]
+        for disk in [d for d in self.storage.disks if d.name in onlyuse]:
+            onlyuse.extend([d for d in disk.ancestors if d.name not in onlyuse])
+
+        self.data.ignoredisk.onlyuse = onlyuse
+        self.data.clearpart.drives = use_names[:]
+
     def apply(self):
-        self.data.ignoredisk.onlyuse = self.selected_disks[:]
-        self.data.clearpart.drives = self.selected_disks[:]
+        self._applyDiskSelection(self.selected_disks)
         self.data.autopart.autopart = self.autopart
         self.data.autopart.encrypted = self.encrypted
         self.data.autopart.passphrase = self.passphrase
@@ -442,7 +449,10 @@ class StorageSpoke(NormalSpoke, StorageChecker):
 
     def refresh(self):
         # synchronize our local data store with the global ksdata
-        self.selected_disks = self.data.ignoredisk.onlyuse[:]
+        disk_names = [d.name for d in self.disks]
+        # don't put disks with hidden formats in selected_disks
+        self.selected_disks = [d for d in self.data.ignoredisk.onlyuse
+                                    if d in disk_names]
         self.autopart = self.data.autopart.autopart
         self.encrypted = self.data.autopart.encrypted
         self.passphrase = self.data.autopart.passphrase
@@ -492,7 +502,7 @@ class StorageSpoke(NormalSpoke, StorageChecker):
 
         # if there's only one disk, select it by default
         if len(self.disks) == 1 and not self.selected_disks:
-            self.data.ignoredisk.onlyuse = [self.disks[0].name]
+            self._applyDiskSelection([self.disks[0].name])
 
         # properties: kind, description, capacity, os, popup-info
         for disk in self.disks:
