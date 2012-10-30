@@ -388,12 +388,13 @@ class StorageSpoke(NormalSpoke, StorageChecker):
             self.errors = str(e).split("\n")
             communication.send_message(self.__class__.__name__,
                                    _("Failed to save storage configuration..."))
-            self.data.clearpart.type = CLEARPART_TYPE_NONE
-            self.data.clearpart.initAll = False
+            self.data.ignoredisk.drives = []
+            self.data.ignoredisk.onlyuse = []
             self.storage.config.update(self.data)
-            self.storage.autoPartType = self.data.autopart.type
             self.storage.reset()
             self.disks = getDisks(self.storage.devicetree)
+            # now set ksdata back to the user's specified config
+            self._applyDiskSelection(self.selected_disks)
         else:
             if self.autopart:
                 # this was already run as part of doAutoPartition. dumb.
