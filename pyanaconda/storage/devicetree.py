@@ -730,7 +730,7 @@ class DeviceTree(object):
         return device
 
     def addUdevMDDevice(self, info):
-        name = udev_device_get_name(info)
+        name = udev_device_get_md_name(info)
         log_method_call(self, name=name)
         uuid = udev_device_get_uuid(info)
         sysfs_path = udev_device_get_sysfs_path(info)
@@ -791,6 +791,9 @@ class DeviceTree(object):
         if disk is None:
             disk_name = os.path.basename(os.path.dirname(sysfs_path))
             disk_name = disk_name.replace('!','/')
+            if disk_name.startswith("md"):
+                disk_name = devicelibs.mdraid.name_from_md_node(disk_name)
+
             disk = self.getDeviceByName(disk_name)
 
         if disk is None:
@@ -887,16 +890,14 @@ class DeviceTree(object):
             kwargs["identifier"] = udev_device_get_fcoe_identifier(info)
             log.info("%s is an fcoe disk" % name)
         elif udev_device_get_md_container(info):
+            name = udev_device_get_md_name(info)
             diskType = MDRaidArrayDevice
             parentPath = udev_device_get_md_container(info)
-            if os.path.islink(parentPath):
-                parentPath = os.path.join(os.path.dirname(parentPath),
-                                          os.readlink(parentPath))
-
-            parentName = devicePathToName(os.path.normpath(parentPath))
+            parentName = devicePathToName(parentPath)
             container = self.getDeviceByName(parentName)
             if not container:
-                container_sysfs = "/class/block/" + parentName
+                parentSysName = devicelibs.mdraid.md_node_from_name(parentName)
+                container_sysfs = "/class/block/" + parentSysName
                 container_info = udev_get_block_device(container_sysfs)
                 if not container_info:
                     log.error("failed to find md container %s at %s"
@@ -1401,7 +1402,7 @@ class DeviceTree(object):
                     continue
 
                 if dev_uuid == md_uuid and dev_level == md_level:
-                    md_name = udev_device_get_name(dev)
+                    md_name = udev_device_get_md_name(dev)
                     md_metadata = dev.get("MD_METADATA")
                     break
 

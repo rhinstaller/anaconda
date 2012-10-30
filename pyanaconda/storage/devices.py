@@ -148,6 +148,9 @@ def devicePathToName(devicePath):
     if name.startswith("mapper/"):
         name = name[7:]
 
+    if name.startswith("md/"):
+        name = name[3:]
+
     return name
 
 

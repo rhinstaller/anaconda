@@ -259,9 +259,26 @@ def mdexamine(device):
 def md_node_from_name(name):
     named_path = "/dev/md/" + name
     try:
-        # /dev/mapper/ nodes are usually symlinks to /dev/dm-N
         node = os.path.basename(os.readlink(named_path))
     except OSError as e:
         raise MDRaidError("md_node_from_name failed: %s" % e)
     else:
         return node
+
+def name_from_md_node(node):
+    md_dir = "/dev/md"
+    name = None
+    # It's sad, but it's what we've got.
+    for link in os.listdir(md_dir):
+        full_path = "%s/%s" % (md_dir, link)
+        md_name = os.path.basename(os.readlink(full_path))
+        log.debug("link: %s -> %s" % (link, os.readlink(full_path)))
+        if md_name == node:
+            name = link
+            break
+
+    if not name:
+        raise MDRaidError("name_from_md_node(%s) failed" % node)
+
+    log.debug("returning %s" % name)
+    return name
