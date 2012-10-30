@@ -463,22 +463,11 @@ def udev_device_is_biosraid_member(info):
     return False
 
 def udev_device_get_dm_partition_disk(info):
-    try:
-        p_index = info["DM_NAME"].rindex("p")
-    except (KeyError, AttributeError, ValueError):
-        return None
-
-    if not info["DM_NAME"][p_index+1:].isdigit():
-        return None
-
-    return info["DM_NAME"][:p_index]
+    return re.sub(r'\d*$', '', udev_device_get_name(info))
 
 def udev_device_is_dm_partition(info):
-    if not udev_device_is_dm(info):
-        return False
-
-    diskname = udev_device_get_dm_partition_disk(info)
-    return diskname not in ("", None)
+    return (udev_device_is_dm(info) and
+            info.get("DM_UUID", "").split("-")[0].startswith("part"))
 
 def udev_device_is_multipath_member(info):
     """ Return True if the device is part of a multipath. """

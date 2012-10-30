@@ -1752,7 +1752,7 @@ class DMDevice(StorageDevice):
     def setupPartitions(self):
         log_method_call(self, name=self.name, kids=self.kids)
         rc = iutil.execWithRedirect("kpartx",
-                                ["-a", "-p", "p", self.path],
+                                ["-a", "-s", self.path],
                                 stdout = "/dev/tty5",
                                 stderr = "/dev/tty5")
         if rc:
@@ -1762,7 +1762,7 @@ class DMDevice(StorageDevice):
     def teardownPartitions(self):
         log_method_call(self, name=self.name, kids=self.kids)
         rc = iutil.execWithRedirect("kpartx",
-                                ["-d", "-p", "p", self.path],
+                                ["-d", "-s", self.path],
                                 stdout = "/dev/tty5",
                                 stderr = "/dev/tty5")
         if rc:
