@@ -370,6 +370,8 @@ class NetworkControlBox():
     def on_device_state_changed(self, *args):
         device = args[0]
         new_state = args[1]
+        if new_state == NetworkManager.DeviceState.SECONDARIES:
+            return
         self._refresh_carrier_info()
         read_config_values = (new_state == NetworkManager.DeviceState.ACTIVATED)
         if device == self.selected_device():
