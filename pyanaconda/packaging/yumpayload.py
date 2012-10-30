@@ -558,7 +558,7 @@ reposdir=%s
             self._setupNFS(INSTALL_TREE, method.server, method.dir, method.opts)
 
             # check for ISO images in the newly mounted dir
-            path = ISO_DIR
+            path = INSTALL_TREE
             if method.dir.endswith(".iso"):
                 # if the given URL includes a specific ISO image file, use it
                 image_file = os.path.basename(method.dir)
@@ -577,6 +577,17 @@ reposdir=%s
                 iutil.execWithRedirect("mount",
                                        ["--move", INSTALL_TREE, ISO_DIR],
                                        stderr="/dev/tty5", stdout="/dev/tty5")
+                # Mounts are kept track of in isys it seems
+                # Remove the count for the source
+                if isys.mountCount.has_key(INSTALL_TREE):
+                    if isys.mountCount[INSTALL_TREE] > 1:
+                        isys.mountCount[INSTALL_TREE] -= 1
+                    else:
+                        del(isys.mountCount[INSTALL_TREE])
+                # Add a count for the new location
+                if not isys.mountCount.has_key(ISO_DIR):
+                    isys.mountCount[ISO_DIR] = 0
+                isys.mountCount[ISO_DIR] += 1
                 # mount the ISO on a loop
                 image = os.path.normpath("%s/%s" % (ISO_DIR, image))
                 mountImage(image, INSTALL_TREE)
