@@ -1012,11 +1012,14 @@ class NetworkStandaloneSpoke(StandaloneSpoke):
         self._now_available = False
 
     def apply(self):
+        hostname = self.data.network.hostname
         self.data.network.network = []
         for dev in self.network_control_box.listed_devices:
             network_data = getKSNetworkData(dev)
             if network_data is not None:
                 self.data.network.network.append(network_data)
+        nd = kickstartNetworkData(hostname=hostname)
+        self.data.network.network.append(nd)
 
         self._now_available = self.completed
 
