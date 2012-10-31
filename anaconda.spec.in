@@ -300,6 +300,48 @@ update-desktop-database &> /dev/null || :
 /usr/lib/dracut/modules.d/80%{name}/*
 
 %changelog
+* Wed Oct 31 2012 Brian C. Lane <bcl@redhat.com> - 18.22-1
+- Revert "Update parsing of 'btrfs subvol list' to match its new output.
+  (#868468)" (dlehman)
+- Pass RAID level to btrfs volume constructor. (#866101) (dlehman)
+- Fix a traceback when removing non-existing partitions in custom. (#869839)
+  (dlehman)
+- Update parsing of 'btrfs subvol list' to match its new output. (#868468)
+  (dlehman)
+- Remove the word "review" from the label on the custom checkbutton. (#871109)
+  (dlehman)
+- Require that the root filesystem be created by anaconda. (#871104) (dlehman)
+- On error, reset the RHS to what it used to be (#869422). (clumens)
+- Don't prompt when in cmdline mode (#869685) (jkeating)
+- Force a root password to be set (#869675) (jkeating)
+- Network spoke: fix hostname handling in standalone spoke (#868535) (rvykydal)
+- Network spoke: fix config info update after switching device OFF and ON
+  (#871429) (rvykydal)
+- Network spoke: connected requires activated (not active) connection (#871129)
+  (rvykydal)
+- Blank out passphrases from /root/anaconda-ks.cfg (#868519). (clumens)
+- Setup package repo in the background (#870552) (jkeating)
+- check disklabels when calculating free space (#863892) (bcl)
+- updateBaseRepo does not need a storage argument. (clumens)
+- Fix up calling superclass setup methods in packaging (#870556). (clumens)
+- Fix a race condition with kickstarts (#868834) (jkeating)
+- run checkisomd5 from anaconda-diskroot (#848764) (bcl)
+- skip luks passphrase in exception dump (#868509) (bcl)
+- Replace ' ' with '_' when looking for ifcfg files (#869106) (rvykydal)
+- Remove storageComplete, which was only called from dispatch.py. (clumens)
+- Remove dispatch.py and its associated test case. (clumens)
+- Use a slightly different method to get supported languages (#858801, tagoh).
+  (clumens)
+- Fix problems when changing things in the software spoke (#868742, #869424).
+  (clumens)
+- Network spoke: fix callback arguments for device add/remove. (rvykydal)
+- display storage errors in text mode storage spoke (bcl)
+- only clear errors if re-running the check (#868707) (bcl)
+- set boot flag and name for EFI partition (#866106) (bcl)
+- clear pmbr_boot on EFI systems (#844551) (bcl)
+- Lots of UI layout tweaks (mizmo). (clumens)
+- /etc/sysconfig/keyboard doesn't support vconsole.xyz options. (notting)
+
 * Thu Oct 25 2012 Brian C. Lane <bcl@redhat.com> - 18.21-1
 - Add PowerNV as a recognized PPC platform (nacc)
 - anaconda should print unknown platform information (hamzy)
