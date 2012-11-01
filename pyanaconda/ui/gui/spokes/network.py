@@ -376,7 +376,7 @@ class NetworkControlBox():
         self._refresh_carrier_info()
         read_config_values = (new_state == NetworkManager.DeviceState.ACTIVATED)
         if device == self.selected_device():
-            self.refresh_ui(device, read_config_values)
+            self.refresh_ui(device, read_config_values, new_state)
 
     # TODO: remove/fix
     def on_active_connections_changed(self, *args):
@@ -598,7 +598,7 @@ class NetworkControlBox():
         for row in rows_to_remove:
             del(row)
 
-    def refresh_ui(self, device, read_config_values=True):
+    def refresh_ui(self, device, read_config_values=True, state=None):
 
         if not device:
             notebook = self.builder.get_object("notebook_types")
@@ -606,16 +606,16 @@ class NetworkControlBox():
             return
 
         self._refresh_device_type_page(device)
-        self._refresh_header_ui(device)
-        self._refresh_speed_hwaddr(device)
-        self._refresh_ap(device)
+        self._refresh_header_ui(device, state)
+        self._refresh_speed_hwaddr(device, state)
+        self._refresh_ap(device, state)
         if read_config_values:
             num_of_tries = 3
         else:
             num_of_tries = 0
-        self._refresh_device_cfg((device, num_of_tries))
+        self._refresh_device_cfg((device, num_of_tries), state)
 
-    def _refresh_device_cfg(self, dev_tries):
+    def _refresh_device_cfg(self, dev_tries, state):
         device, num_of_tries = dev_tries
         ipv4cfg = None
         ipv6cfg = None
@@ -635,8 +635,10 @@ class NetworkControlBox():
         elif dev_type == NetworkManager.DeviceType.WIFI:
             dt = "wireless"
 
+        if state is None:
+            state = device.get_state()
         if (ipv4cfg
-            and device.get_state() == NetworkManager.DeviceState.ACTIVATED):
+            and state == NetworkManager.DeviceState.ACTIVATED):
             addr = socket.inet_ntoa(struct.pack('=L',
                                                 ipv4cfg.get_addresses()[0].get_address()))
             self._set_device_info_value(dt, "ipv4", addr)
@@ -663,7 +665,7 @@ class NetworkControlBox():
         # TODO NM_GI_BUGS - segfaults on get_addres(), get_prefix()
         ipv6_addr = None
         if (ipv6cfg
-            and device.get_state() == NetworkManager.DeviceState.ACTIVATED):
+            and state == NetworkManager.DeviceState.ACTIVATED):
             config = dbus.SystemBus().get_object(NM_SERVICE, ipv6cfg.get_path())
             addr, prefix, gw = getNMObjProperty(config, ".IP6Config",
                                                 "Addresses")[0]
@@ -680,11 +682,13 @@ class NetworkControlBox():
 
         return False
 
-    def _refresh_ap(self, device):
+    def _refresh_ap(self, device, state=None):
         if device.get_device_type() != NetworkManager.DeviceType.WIFI:
             return
 
-        if device.get_state() == NetworkManager.DeviceState.UNAVAILABLE:
+        if state is None:
+            state = device.get_state()
+        if state == NetworkManager.DeviceState.UNAVAILABLE:
             ap_str = None
         else:
             active_ap = device.get_active_access_point()
@@ -701,7 +705,7 @@ class NetworkControlBox():
 
         self._set_device_info_value("wireless", "security", ap_str)
 
-        if device.get_state() == NetworkManager.DeviceState.UNAVAILABLE:
+        if state == NetworkManager.DeviceState.UNAVAILABLE:
             self.builder.get_object("heading_wireless_network_name").hide()
             self.builder.get_object("combobox_wireless_network_name").hide()
         else:
@@ -725,7 +729,7 @@ class NetworkControlBox():
                         break
             self._updating_device = False
 
-    def _refresh_speed_hwaddr(self, device):
+    def _refresh_speed_hwaddr(self, device, state=None):
         dev_type = device.get_device_type()
         if dev_type == NetworkManager.DeviceType.ETHERNET:
             dt = "wired"
@@ -734,7 +738,9 @@ class NetworkControlBox():
             dt = "wireless"
             speed = device.get_bitrate() / 1000
 
-        if device.get_state() == NetworkManager.DeviceState.UNAVAILABLE:
+        if state is None:
+            state = device.get_state()
+        if state == NetworkManager.DeviceState.UNAVAILABLE:
             speed_str = None
         elif speed:
             speed_str = _("%d Mb/s") % speed
@@ -755,7 +761,7 @@ class NetworkControlBox():
         for i in self.builder.get_object("liststore_devices"):
             i[DEVICES_COLUMN_TITLE] = self._dev_title(i[DEVICES_COLUMN_OBJECT])
 
-    def _refresh_header_ui(self, device):
+    def _refresh_header_ui(self, device, state=None):
         dev_type = device.get_device_type()
         if dev_type == NetworkManager.DeviceType.ETHERNET:
             dev_type_str = "wired"
@@ -771,7 +777,8 @@ class NetworkControlBox():
         self.builder.get_object("label_%s_device" % dev_type_str).set_label(
             "%s (%s)" % (self._dev_type_str(device), device.get_iface()))
 
-        state = device.get_state()
+        if state is None:
+            state = device.get_state()
         self.builder.get_object("label_%s_status" % dev_type_str).set_label(
             localized_string_of_device_state(device))
 
