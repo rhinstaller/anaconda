@@ -31,6 +31,8 @@
 """
 import os
 import stat
+from time import sleep
+from threading import Lock
 from pyanaconda import isys
 
 from . import *
@@ -46,6 +48,7 @@ log = logging.getLogger("anaconda")
 from pyanaconda.errors import *
 from pyanaconda import progress
 from pyanaconda.storage.size import Size
+from pyanaconda.threads import threadMgr, AnacondaThread
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
@@ -66,10 +69,34 @@ class LiveImagePayload(ImagePayload):
     def preInstall(self, packages=None, groups=None):
         """ Perform pre-installation tasks. """
         super(LiveImagePayload, self).preInstall(packages=packages, groups=groups)
-        progress.send_message(_("Installing software"))
+        progress.send_message(_("Installing software") + (" %d%%") % (0,))
+
+    def progress(self):
+        """Monitor the amount of disk space used on the target and source and
+           update the hub's progress bar.
+        """
+        source = os.statvfs(INSTALL_TREE)
+        source_size = source.f_frsize * (source.f_blocks - source.f_bfree)
+        mountpoints = self.storage.mountpoints.copy()
+        while self.pct < 100:
+            dest_size = 0
+            for mnt in mountpoints:
+                mnt_stat = os.statvfs(ROOT_PATH+mnt)
+                dest_size += mnt_stat.f_frsize * (mnt_stat.f_blocks - mnt_stat.f_bfree)
+
+            with self.pct_lock:
+                self.pct = int(100 * dest_size / source_size)
+
+            progress.send_message(_("Installing software") + (" %d%%") % (min(100,self.pct),))
+            sleep(0.777)
 
     def install(self):
         """ Install the payload. """
+        self.pct_lock = Lock()
+        self.pct = 0
+        threadMgr.add(AnacondaThread(name="AnaLiveProgressThread",
+                                     target=self.progress))
+
         cmd = "rsync"
         # preserve: permissions, owners, groups, ACL's, xattrs, times,
         #           symlinks, hardlinks
@@ -91,8 +118,16 @@ class LiveImagePayload(ImagePayload):
             if errorHandler.cb(exn) == ERROR_RAISE:
                 raise exn
 
+        # Wait for progress thread to finish
+        with self.pct_lock:
+            self.pct = 100
+        progressThread = threadMgr.get("AnaLiveProgressThread")
+        if progressThread:
+            progressThread.join()
+
     def postInstall(self):
         """ Perform post-installation tasks. """
+        progress.send_message(_("Performing post-install setup tasks"))
         isys.umount(INSTALL_TREE, removeDir=True)
 
         super(LiveImagePayload, self).postInstall()
