@@ -178,7 +178,7 @@
     <property name="startup_id">filler</property>
     <property name="mnemonics_visible">False</property>
     <property name="focus_visible">False</property>
-    <property name="window_name">KEYBOARD LAYOUT</property>
+    <property name="window_name" translatable="yes">KEYBOARD LAYOUT</property>
     <signal name="button-clicked" handler="on_back_clicked" swapped="no"/>
     <child internal-child="main_box">
       <object class="GtkBox" id="AnacondaSpokeWindow-main_box1">

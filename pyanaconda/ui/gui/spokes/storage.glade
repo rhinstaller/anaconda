@@ -675,7 +675,7 @@
     <property name="can_focus">False</property>
     <property name="startup_id">filler</property>
     <property name="mnemonics_visible">False</property>
-    <property name="window_name">INSTALLATION DESTINATION</property>
+    <property name="window_name" translatable="yes">INSTALLATION DESTINATION</property>
     <signal name="info-bar-clicked" handler="on_info_bar_clicked" swapped="no"/>
     <signal name="button-clicked" handler="on_back_clicked" swapped="no"/>
     <child internal-child="main_box">
