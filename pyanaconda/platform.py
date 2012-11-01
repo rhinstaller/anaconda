@@ -350,6 +350,15 @@ class ARM(Platform):
             self._armMachine = iutil.getARMMachine()
         return self._armMachine
 
+    def weight(self, fstype=None, mountpoint=None):
+        """Return the ARM platform-specific weight for the / partition.
+           On ARM images '/' must be the last partition, so we try to
+           weight it accordingly."""
+        if mountpoint == "/":
+            return -100
+        else:
+            return Platform.weight(self, fstype=fstype, mountpoint=mountpoint)
+
 class omapARM(ARM):
     _boot_stage1_format_types = ["vfat"]
     _boot_stage1_device_types = ["partition"]
