@@ -1782,8 +1782,9 @@ class Storage(object):
             return []
 
         # set up member devices
-        container_size = 0
+        container_size = factory.device_size
         add_disks = []
+        remove_disks = []
 
         if members is None:
             members = []
@@ -1791,23 +1792,19 @@ class Storage(object):
         if container:
             members = container.parents[:]
 
-        if container:
-            log.debug("using container %s with %d devices" % (container.name,
-                                len(self.devicetree.getChildren(container))))
-            container_size = factory.container_size_func(container, device)
-            log.debug("raw container size reported as %d" % container_size)
-
-        if members:
+        # XXX how can we detect/handle failure to use one or more of the disks?
+        if container and device:
+            # See if we need to add/remove any disks, but only if we are
+            # adjusting a device. When adding a new device to a container we do
+            # not want to modify the container's disk set.
             _disks = list(set([d for m in members for d in m.disks]))
 
-            # see if factory.disks contains disks not already in use
             add_disks = [d for d in factory.disks if d not in _disks]
-        else:
+            remove_disks = [d for d in _disks if d not in factory.disks]
+        elif not container:
+            # new container, so use the factory's disk set
             add_disks = factory.disks
 
-        device_space = factory.device_size
-        log.debug("device requires %d" % device_space)
-        container_size += device_space
         base_size = max(1, getFormat(factory.member_format).minSize)
 
         # XXX TODO: multiple member devices per disk
@@ -1815,7 +1812,20 @@ class Storage(object):
         # prepare already-defined member partitions for reallocation
         for member in members[:]:
             if isinstance(member, LUKSDevice):
+                if member.slave.disk in remove_disks:
+                    container.removeMember(member)
+                    self.destroyDevice(member)
+                    members.remove(member)
+
                 member = member.slave
+
+            if member.disk in remove_disks:
+                if member in container.parents:
+                    container.removeMember(member)
+                    members.remove(member)
+
+                self.destroyDevice(member)
+                continue
 
             member.req_base_size = base_size
             member.req_size = member.req_base_size
@@ -1849,6 +1859,12 @@ class Storage(object):
             new_members.append(member)
             if container:
                 container.addMember(member)
+
+        if container:
+            log.debug("using container %s with %d devices" % (container.name,
+                                len(self.devicetree.getChildren(container))))
+            container_size = factory.container_size_func(container, device)
+            log.debug("raw container size reported as %d" % container_size)
 
         log.debug("adding a %s with size %d" % (factory.set_class.__name__,
                                                 container_size))
@@ -1988,6 +2004,13 @@ class Storage(object):
         # TODO: striping, mirroring, &c
         # TODO: non-partition members (pv-on-md)
 
+        # setContainerMembers can modify these, so save them now
+        old_size = None
+        old_disks = []
+        if device:
+            old_size = device.size
+            old_disks = device.disks[:]
+
         members = []
         if device and device.type == "mdarray":
             members = device.parents
@@ -2045,19 +2068,27 @@ class Storage(object):
         if device:
             # We are adjusting the size of a device. The StorageDevice instance
             # exists, but the underlying device does not.
-            old_size = device.size
             e = None
             try:
                 factory.post_create()
             except StorageError as e:
                 log.error("device post-create method failed: %s" % e)
             else:
-                if not device.size:
-                    e = StorageError("failed to adjust device")
+                if device.size <= device.format.minSize:
+                    e = StorageError("failed to adjust device -- not enough free space in specified disks?")
 
             if e:
                 # Clean up by reverting the device to its previous size.
                 factory.size = old_size
+                factory.disks = old_disks
+                try:
+                    self.setContainerMembers(container, factory,
+                                             members=members, device=device)
+                except StorageError as e:
+                    # yes, we're replacing e here.
+                    log.error("failed to revert device size: %s" % e)
+                    raise ErrorRecoveryFailure("failed to revert device size")
+
                 factory.set_device_size(container, device=device)
                 try:
                     factory.post_create()
@@ -3207,6 +3238,10 @@ class PartitionFactory(DeviceFactory):
             device.req_size = base_size
             device.req_max_size = size
             device.req_grow = size > base_size
+
+            # this probably belongs somewhere else but this is our chance to
+            # update the disk set
+            device.req_disks = self.disks[:]
 
         return size
 

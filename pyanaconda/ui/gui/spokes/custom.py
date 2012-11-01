@@ -279,6 +279,59 @@ class ConfirmDeleteDialog(GUIObject):
     def run(self):
         return self.window.run()
 
+class DisksDialog(GUIObject):
+    builderObjects = ["disks_dialog", "disk_store", "disk_view"]
+    mainWidgetName = "disks_dialog"
+    uiFile = "spokes/custom.glade"
+
+    def __init__(self, *args, **kwargs):
+        self._disks = kwargs.pop("disks")
+        free = kwargs.pop("free")
+        self.selected = kwargs.pop("selected")[:]
+        GUIObject.__init__(self, *args, **kwargs)
+        self._store = self.builder.get_object("disk_store")
+        # populate the store
+        for disk in self._disks:
+            self._store.append([disk.description,
+                                str(Size(spec="%dMB" % disk.size)),
+                                str(free[disk.name][0]),
+                                disk.serial,
+                                disk.id])
+
+        treeview = self.builder.get_object("disk_view")
+        model = treeview.get_model()
+        itr = model.get_iter_first()
+        selected_ids = [d.id for d in self.selected]
+        selection = treeview.get_selection()
+        while itr:
+            disk_id = model.get_value(itr, 4)
+            if disk_id in selected_ids:
+                selection.select_iter(itr)
+
+            itr = model.iter_next(itr)
+
+    def on_cancel_clicked(self, button):
+        self.window.destroy()
+
+    def _get_disk_by_id(self, disk_id):
+        for disk in self._disks:
+            if disk.id == disk_id:
+                return disk
+
+    def on_select_clicked(self, button):
+        treeview = self.builder.get_object("disk_view")
+        model, paths = treeview.get_selection().get_selected_rows()
+        self.selected = []
+        for path in paths:
+            itr = model.get_iter(path)
+            disk_id = model.get_value(itr, 4)
+            self.selected.append(self._get_disk_by_id(disk_id))
+
+        self.window.destroy()
+
+    def run(self):
+        return self.window.run()
+
 class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
     builderObjects = ["customStorageWindow", "sizeAdjustment",
                       "partitionStore",
@@ -298,6 +351,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         self._fs_types = []             # list of supported fstypes
         self._unused_devices = None     # None indicates uninitialized
         self._free_space = Size(bytes=0)
+        self._device_disks = []
 
         self._initialized = False
 
@@ -1004,14 +1058,21 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         changed_raid_level = (current_device_type == device_type and
                               device_type in (None, AUTOPART_TYPE_BTRFS) and
                               old_raid_level != raid_level)
+        changed_disk_set = (set(device.disks) != set(self._device_disks))
 
         if changed_device_type or changed_raid_level:
             if changed_device_type:
                 log.info("changing device type from %s to %s"
                             % (current_device_type, device_type))
-            else:
+
+            if changed_raid_level:
                 log.info("changing raid level from %s to %s"
                             % (old_raid_level, raid_level))
+
+            if changed_disk_set:
+                log.info("changing disk set from %s to %s"
+                            % ([d.name for d in device.disks],
+                               [d.name for d in self._device_disks]))
 
             # remove the current device
             self.clear_errors()
@@ -1022,13 +1083,11 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                 return
 
             with ui_storage_logger():
-                # Use any disks with space in addition to any disks used by
-                # a defined container.
-                disks = [d for d in self._clearpartDevices
-                            if getattr(d.format, "free", 0) > 500]
+                disks = self._device_disks[:]
                 container = self.__storage.getContainer(factory)
-                if container:
-                    disks = list(set(disks).union(container.disks))
+                if container and changed_device_type:
+                    log.debug("overriding disk set with container's")
+                    disks = container.disks[:]
                 log.debug("disks: %s" % [d.name for d in disks])
                 try:
                     self._replace_device(device_type, size, fstype=fs_type,
@@ -1101,7 +1160,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         ## SIZE
         ##
         # new size means resize for existing devices and adjust for new ones
-        if int(size) != int(device.size):
+        if int(size) != int(device.size) or changed_disk_set:
             self.clear_errors()
             old_size = device.size
             if device.exists and device.resizable:
@@ -1121,11 +1180,16 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                         log.debug("new size: %s" % device.size)
                         log.debug("target size: %s" % device.targetSize)
             else:
+                if changed_disk_set:
+                    log.info("changing disk set from %s to %s"
+                                % ([d.name for d in device.disks],
+                                   [d.name for d in self._device_disks]))
+
                 with ui_storage_logger():
                     try:
                         self.__storage.newDevice(device_type, size,
                                                  device=device,
-                                                 disks=device.disks,
+                                                 disks=self._device_disks[:],
                                                  raid_level=raid_level)
                     except ErrorRecoveryFailure as e:
                         self._error = e
@@ -1320,7 +1384,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
     def _get_raid_disabled_features(self, raid_level):
         """ Return a list of disabled features based on raid level. """
         disabled = raid_disabled_features.get(raid_level, [])
-        disk_count = len(self._clearpartDevices)
+        disk_count = len(self._device_disks)
         # go through each feature's reference raid level, filtering any that
         # require more disks than we have available
         for feature in raid_features:
@@ -1365,7 +1429,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         # this device with various raid features enabled.
         with ui_storage_logger():
             factory = self.__storage.getDeviceFactory(factory_type, size,
-                                                      disks=self._clearpartDevices, 
+                                                      disks=self._device_disks,
                                                       raid_level=base_level)
 
         widget_dict = self._get_raid_widget_dict(device_type)
@@ -1436,6 +1500,9 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             use_dev = device.slave
         else:
             use_dev = device
+
+        self._device_disks = getattr(use_dev, "req_disks", use_dev.disks)
+        log.debug("updated device_disks to %s" % [d.name for d in self._device_disks])
 
         selectedDeviceLabel.set_text(selector.props.name)
         selectedDeviceDescLabel.set_text(self._description(selector.props.name))
@@ -1816,7 +1883,37 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             dialog.run()
 
     def on_configure_clicked(self, button):
-        pass
+        selector = self._current_selector
+        if not selector:
+            return
+
+        device = selector._device
+        if device.exists:
+            return
+
+        self.clear_errors()
+
+        dialog = DisksDialog(self.data,
+                             disks=self._clearpartDevices,
+                             free=self._currentFreeInfo,
+                             selected=self._device_disks)
+        with enlightbox(self.window, dialog.window):
+            rc = dialog.run()
+
+        if rc == 0:
+            return
+
+        disks = dialog.selected
+        log.debug("new disks for %s: %s" % (device.name,
+                                            [d.name for d in disks]))
+        if not disks:
+            self._error = "No disks selected. Keeping previous disk set."
+            self.window.set_info(Gtk.MessageType.INFO,
+                                 self._error)
+            self.window.show_all()
+            return
+
+        self._device_disks = disks
 
     def on_selector_clicked(self, selector):
         if not self._initialized:
