@@ -1089,6 +1089,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                     selector.props.name = (self._mountpointName(mountpoint) or
                                            selector._device.format.name)
 
+            self._devices = self.__storage.devices
             # update size props of all btrfs devices' selectors
             self._update_btrfs_selectors()
 
@@ -1139,6 +1140,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                                              device_configuration_error_msg)
                         self.window.show_all()
 
+                    self._devices = self.__storage.devices
+
             log.debug("updating selector size to '%s'"
                        % str(Size(spec="%f MB" % device.size)).upper())
             # update the selector's size property
@@ -1187,6 +1190,9 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             ## FORMATTING
             ##
             encryption_changed = (device != old_device)
+            if encryption_changed:
+                self._devices = self.__storage.devices
+
             fs_type_changed = (fs_type_short != old_fs_type)
             fs_exists = old_device.format.exists
             if encryption_changed or fs_type_changed or fs_exists:
@@ -1706,17 +1712,21 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             device.vg._removeLogVol(device)
             container = device.vg
             device_type = AUTOPART_TYPE_LVM
+            raid_level = None
         elif hasattr(device, "volume"):
             device.volume._removeSubVolume(device.name)
             container = device.volume
             device_type = AUTOPART_TYPE_BTRFS
+            raid_level = container.dataLevel
 
         if container and not container.exists and \
            self.__storage.devicetree.getChildren(container):
             # adjust container to size of remaining devices
             with ui_storage_logger():
-                # TODO: raid
-                factory = self.__storage.getDeviceFactory(device_type, 0)
+                factory = self.__storage.getDeviceFactory(device_type, 0,
+                                                          disks=container.disks,
+                                                          encrypted=container.encrypted,
+                                                          raid_level=raid_level)
                 parents = self.__storage.setContainerMembers(container, factory)
 
         # if this device has parents with no other children, remove them too

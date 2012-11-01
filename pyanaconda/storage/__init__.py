@@ -1771,7 +1771,8 @@ class Storage(object):
 
         return fstype
 
-    def setContainerMembers(self, container, factory, members=None):
+    def setContainerMembers(self, container, factory, members=None,
+                            device=None):
         """ Set up and return the container's member partitions. """
         if factory.member_list is not None:
             # short-circuit the logic below for partitions
@@ -1793,7 +1794,7 @@ class Storage(object):
         if container:
             log.debug("using container %s with %d devices" % (container.name,
                                 len(self.devicetree.getChildren(container))))
-            container_size = factory.container_size_func(container)
+            container_size = factory.container_size_func(container, device)
             log.debug("raw container size reported as %d" % container_size)
 
         if members:
@@ -1993,7 +1994,7 @@ class Storage(object):
 
         try:
             parents = self.setContainerMembers(container, factory,
-                                               members=members)
+                                               members=members, device=device)
         except PartitioningError as e:
             # If this is a new device, just clean up and get out.
             if device:
@@ -2011,7 +2012,8 @@ class Storage(object):
 
                 try:
                     self.setContainerMembers(container, factory,
-                                             members=members)
+                                             members=members,
+                                             device=device)
                 except StorageError as e:
                     log.error("failed to revert device size: %s" % e)
                     raise ErrorRecoveryFailure("failed to revert container")
@@ -2030,6 +2032,9 @@ class Storage(object):
                 raise
 
             self.createDevice(container)
+        elif container and not container.exists and \
+             hasattr(container, "dataLevel"):
+            container.dataLevel = factory.raid_level
 
         if container:
             parents = [container]
@@ -3148,9 +3153,14 @@ class DeviceFactory(object):
         """ Perform actions required after device creation. """
         pass
 
-    def container_size_func(self, container):
-        """ Return the total used space in the specified container. """
-        return container.size
+    def container_size_func(self, container, device=None):
+        """ Return the total space needed for the specified container. """
+        size = container.size
+        size += self.device_size
+        if device:
+            size -= device.size
+
+        return size
 
     @property
     def device_size(self):
@@ -3219,6 +3229,20 @@ class BTRFSFactory(DeviceFactory):
         kwargs["dataLevel"] = self.raid_level
         return getattr(self.storage, self.new_container_attr)(*args, **kwargs)
 
+    def container_size_func(self, container, device=None):
+        """ Return the total space needed for the specified container. """
+        if container.exists:
+            container_size = container.size
+        else:
+            container_size = sum([s.req_size for s in container.subvolumes])
+
+        if device:
+            size = self.device_size
+        else:
+            size = container_size + self.device_size
+
+        return size
+
     @property
     def device_size(self):
         # until we get/need something better
@@ -3248,8 +3272,14 @@ class LVMFactory(DeviceFactory):
             size_func_kwargs["striped"] = True
         return get_pv_space(self.size, len(self.disks), **size_func_kwargs)
 
-    def container_size_func(self, container):
-        return container.size - container.freeSpace
+    def container_size_func(self, container, device=None):
+        size = sum([p.size for p in container.parents])
+        size -= container.freeSpace
+        size += self.device_size
+        if device:
+            size -= get_pv_space(device.size, len(container.parents))
+
+        return size
 
     def set_device_size(self, container, device=None):
         size = self.size
