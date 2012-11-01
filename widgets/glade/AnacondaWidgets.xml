@@ -21,6 +21,9 @@
                 <property id="title" disabled="True" />
                 <property id="type" disabled="True" />
                 <property id="width-request" disabled="True" />
+
+                <property id="distribution" translatable="True" />
+                <property id="window-name" translatable="True" />
             </properties>
         </glade-widget-class>
 
@@ -83,6 +86,10 @@
                     </object>
                 </object>
             </internal-children>
+
+            <properties>
+                <property id="button-label" translatable="True" />
+            </properties>
         </glade-widget-class>
 
         <glade-widget-class title="Spoke Selector"
@@ -113,6 +120,11 @@
                         <type>GParamString</type>
                     </parameter-spec>
                 </property>
+
+                <property id="description" translatable="True" />
+                <property id="capacity" translatable="True" />
+                <property id="os" translatable="True" />
+                <property id="popup-info" translatable="True" />
             </properties>
         </glade-widget-class>
 
