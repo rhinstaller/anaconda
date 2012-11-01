@@ -298,6 +298,7 @@ class GUIObject(common.UIObject):
         from gi.repository import Gtk
 
         self.builder = Gtk.Builder()
+        self.builder.set_translation_domain("anaconda")
         self._window = None
 
         if self.builderObjects:
