@@ -436,18 +436,24 @@ sort_locations (TzLocation *a,
 
 static void
 set_location (AnacondaTimezoneMap *map,
-              TzLocation    *location) {
+              TzLocation    *location,
+              gboolean no_city) {
   AnacondaTimezoneMapPrivate *priv = map->priv;
   TzInfo *info;
 
-  priv->location = location;
+  info = tz_info_from_location (location);
 
-  info = tz_info_from_location (priv->location);
-
-  priv->selected_offset = tz_location_get_utc_offset (priv->location)
+  priv->selected_offset = tz_location_get_utc_offset (location)
     / (60.0*60.0) + ((info->daylight) ? -1.0 : 0.0);
 
-  g_signal_emit (map, signals[TIMEZONE_CHANGED], 0, priv->location->zone);
+  if (no_city) {
+      priv->location = NULL;
+      g_signal_emit (map, signals[TIMEZONE_CHANGED], 0, "");
+  }
+  else {
+      priv->location = location;
+      g_signal_emit (map, signals[TIMEZONE_CHANGED], 0, priv->location->zone);
+  }
 
   tz_info_free (info);
 }
@@ -514,7 +520,7 @@ button_press_event (GtkWidget      *widget,
   distances = g_list_sort (distances, (GCompareFunc) sort_locations);
 
 
-  set_location (ANACONDA_TIMEZONE_MAP (widget), (TzLocation*) distances->data);
+  set_location (ANACONDA_TIMEZONE_MAP (widget), (TzLocation*) distances->data, FALSE);
 
   g_list_free (distances);
 
@@ -572,6 +578,14 @@ anaconda_timezone_map_set_timezone (AnacondaTimezoneMap *map,
   guint i;
   char *real_tz;
   gboolean ret;
+  gboolean no_city = FALSE;
+
+  /* "" means reset to default -- Europe/London timezone without
+   *                              a pin (no_city) */
+  if (!g_strcmp0 (timezone, "")) {
+      timezone = "Europe/London";
+      no_city = TRUE;
+  }
 
   real_tz = tz_info_get_clean_name (map->priv->tzdb, timezone);
 
@@ -582,7 +596,7 @@ anaconda_timezone_map_set_timezone (AnacondaTimezoneMap *map,
       TzLocation *loc = locations->pdata[i];
 
       if (!g_strcmp0 (loc->zone, real_tz ? real_tz : timezone)) {
-          set_location (map, loc);
+          set_location (map, loc, no_city);
           ret = TRUE;
           break;
         }
@@ -604,5 +618,8 @@ anaconda_timezone_map_set_timezone (AnacondaTimezoneMap *map,
  */
 gchar *
 anaconda_timezone_map_get_timezone (AnacondaTimezoneMap *map) {
-    return map->priv->location->zone;
+    if (map->priv->location)
+        return map->priv->location->zone;
+    else
+        return "";
 }
