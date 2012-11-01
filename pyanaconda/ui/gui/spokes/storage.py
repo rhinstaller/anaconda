@@ -135,10 +135,15 @@ class InstallOptions1Dialog(GUIObject):
         self.window.destroy()
         return rc
 
-    def refresh(self, required_space, disks_size, disk_free, fs_free, autopart):
+    def refresh(self, required_space, disks_size, disk_free, fs_free, autopart,
+                autoPartType):
         self.custom = not autopart
         self.custom_checkbutton = self.builder.get_object("options1_custom_check")
         self.custom_checkbutton.set_active(self.custom)
+
+        self.autoPartType = autoPartType
+        self.autoPartTypeCombo = self.builder.get_object("options1_combo")
+        self.autoPartTypeCombo.set_active(self.autoPartType)
 
         options_label = self.builder.get_object("options1_label")
 
@@ -216,14 +221,22 @@ class InstallOptions1Dialog(GUIObject):
     def on_custom_toggled(self, checkbutton):
         self.custom = checkbutton.get_active()
 
+    def on_type_changed(self, combo):
+        self.autoPartType = combo.get_active()
+
 class InstallOptions2Dialog(InstallOptions1Dialog):
     builderObjects = ["options2_dialog"]
     mainWidgetName = "options2_dialog"
 
-    def refresh(self, required_space, disks_size, disk_free, fs_free, autopart):
+    def refresh(self, required_space, disks_size, disk_free, fs_free, autopart,
+                autoPartType):
         self.custom = not autopart
         self.custom_checkbutton = self.builder.get_object("options2_custom_check")
         self.custom_checkbutton.set_active(self.custom)
+
+        self.autoPartType = autoPartType
+        self.autoPartTypeCombo = self.builder.get_object("options2_combo")
+        self.autoPartTypeCombo.set_active(self.autoPartType)
 
         sw_text = self._get_sw_needs_text(required_space)
         label_text = _("%s\nThe disks you've selected have the following "
@@ -326,6 +339,7 @@ class StorageSpoke(NormalSpoke, StorageChecker):
             self.data.autopart.autopart = True
 
         self.autopart = self.data.autopart.autopart
+        self.autoPartType = None
         self.clearPartType = CLEARPART_TYPE_NONE
 
         self._previous_autopart = False
@@ -341,10 +355,9 @@ class StorageSpoke(NormalSpoke, StorageChecker):
     def apply(self):
         self._applyDiskSelection(self.selected_disks)
         self.data.autopart.autopart = self.autopart
+        self.data.autopart.type = self.autoPartType
         self.data.autopart.encrypted = self.encrypted
         self.data.autopart.passphrase = self.passphrase
-
-        self.data.autopart.type = AUTOPART_TYPE_LVM
 
         self.clearPartType = CLEARPART_TYPE_NONE
 
@@ -455,6 +468,9 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         self.selected_disks = [d for d in self.data.ignoredisk.onlyuse
                                     if d in disk_names]
         self.autopart = self.data.autopart.autopart
+        self.autoPartType = self.data.autopart.type
+        if self.autoPartType is None:
+            self.autoPartType = AUTOPART_TYPE_LVM
         self.encrypted = self.data.autopart.encrypted
         self.passphrase = self.data.autopart.passphrase
 
@@ -659,12 +675,13 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         else:
             dialog = InstallOptions3Dialog(self.data, payload=self.payload)
 
-        dialog.refresh(required_space, disks_size, disk_free, fs_free, self.autopart)
+        dialog.refresh(required_space, disks_size, disk_free, fs_free, self.autopart, self.autoPartType)
         rc = self.run_lightbox_dialog(dialog)
         if rc == dialog.RESPONSE_CONTINUE:
             # depending on custom/autopart, either set up autopart or show
             # custom partitioning ui
             self.autopart = not dialog.custom
+            self.autoPartType = dialog.autoPartType
 
             # even if they're not doing autopart, setting autopart.encrypted
             # establishes a default of encrypting new devices
@@ -691,6 +708,7 @@ class StorageSpoke(NormalSpoke, StorageChecker):
             self.on_back_clicked(self.window)
         elif rc == dialog.RESPONSE_RECLAIM:
             self.autopart = not dialog.custom
+            self.autoPartType = dialog.autoPartType
 
             # even if they're not doing autopart, setting autopart.encrypted
             # establishes a default of encrypting new devices
