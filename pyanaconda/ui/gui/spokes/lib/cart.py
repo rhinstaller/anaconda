@@ -121,10 +121,10 @@ class SelectedDisksDialog(GUIObject):
         size = str(Size(bytes=long(size))).upper()
         free = str(Size(bytes=long(free))).upper()
 
-        text = P_(("<b>%d disk; %s capacity; %s free space</b> "
-                   "(unpartitioned and in filesystems)"),
-                  ("<b>%d disks; %s capacity; %s free space</b> "
-                   "(unpartitioned and in filesystems)"),
+        text = P_("<b>%d disk; %s capacity; %s free space</b> "
+                   "(unpartitioned and in filesystems)",
+                  "<b>%d disks; %s capacity; %s free space</b> "
+                   "(unpartitioned and in filesystems)",
                   count) % (count, size, free)
         self._summary_label.set_markup(text)
 

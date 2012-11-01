@@ -241,7 +241,7 @@ class CreateNewPage(Page):
         label = self._createNewButton.get_children()[0]
         label.set_line_wrap(True)
         label.set_use_markup(True)
-        label.set_markup("""<span foreground='blue'><u>Click here to create them automatically.</u></span>""")
+        label.set_markup(_("<span foreground='blue'><u>Click here to create them automatically.</u></span>"))
 
         self._createNewButton.set_halign(Gtk.Align.START)
         self._createNewButton.connect("clicked", cb)
