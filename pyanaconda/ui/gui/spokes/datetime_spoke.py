@@ -366,7 +366,16 @@ class DatetimeSpoke(NormalSpoke):
         GLib.source_remove(self._update_datetime_timer_id)
         self._update_datetime_timer_id = None
 
-        self.data.timezone.timezone = self._tzmap.get_timezone()
+        new_tz = self._tzmap.get_timezone()
+
+        # get_timezone() may return "" if Etc/XXXXX is selected
+        if not new_tz:
+            # get selected "Etc/XXXXXX" zone
+            region = self._get_active_region()
+            city = self._get_active_city()
+            new_tz = region + "/" + city
+
+        self.data.timezone.timezone = new_tz
 
         if self._ntpSwitch.get_active():
             # turned ON
@@ -719,7 +728,16 @@ class DatetimeSpoke(NormalSpoke):
         if city and region:
             timezone = region + "/" + city
 
-        if timezone and (self._tzmap.get_timezone() != timezone):
+        if timezone is not None and region == "Etc":
+            # Etc timezones cannot be displayed on the map, so let's set the map
+            # to "" which sets it to "Europe/London" (UTC) without a city pin
+            self._tzmap.set_timezone("")
+
+            # Change to Etc/XXXXX emits timezone-changed with "" as timezone,
+            # so let's help it a bit.
+            self._tzmap.emit("timezone-changed", timezone)
+
+        elif timezone and (self._tzmap.get_timezone() != timezone):
             self._tzmap.set_timezone(timezone)
 
     def on_month_changed(self, *args):
@@ -736,13 +754,16 @@ class DatetimeSpoke(NormalSpoke):
     def on_timezone_changed(self, tz_map, timezone):
         fields = timezone.split("/", 1)
         if len(fields) == 1:
-            #initial ""
+            # timezone may be ""
             return
-        else:
-            region, city = fields
 
-        self._set_combo_selection(self._regionCombo, region)
-        self._set_combo_selection(self._cityCombo, city)
+        region, city = fields
+        if region != "Etc":
+            # If region is "Etc", TimezoneMap returns "" from get_timezone
+            # and changing comboboxes here would create an endless loop.
+            self._set_combo_selection(self._regionCombo, region)
+            self._set_combo_selection(self._cityCombo, city)
+
         os.environ["TZ"] = timezone
         self._update_datetime()
 

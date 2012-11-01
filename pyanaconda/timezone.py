@@ -34,6 +34,15 @@ from pyanaconda import iutil
 import logging
 log = logging.getLogger("anaconda")
 
+# The following zones are not in pytz.common_timezones and
+# Etc category in pytz.all_timezones includes some more,
+# however confusing ones (like UCT, GMT+0, GMT-0,...)
+ETC_ZONES = ['GMT+1', 'GMT+2', 'GMT+3', 'GMT+4', 'GMT+5', 'GMT+6', 'GMT+7',
+             'GMT+8', 'GMT+9', 'GMT+10', 'GMT+11', 'GMT+12',
+             'GMT-1', 'GMT-2', 'GMT-3', 'GMT-4', 'GMT-5', 'GMT-6', 'GMT-7',
+             'GMT-8', 'GMT-9', 'GMT-10', 'GMT-11', 'GMT-12', 'GMT-13',
+             'GMT-14', 'UTC', 'GMT']
+
 class TimezoneConfigError(Exception):
     """Exception class for timezone configuration related problems"""
     pass
@@ -163,6 +172,7 @@ def get_all_regions_and_timezones():
                 result[parts[0]] = set()
             result[parts[0]].add(parts[1])
 
+    result["Etc"] = set(ETC_ZONES)
     return result
 
 def is_valid_timezone(timezone):
@@ -174,5 +184,7 @@ def is_valid_timezone(timezone):
 
     """
 
-    return timezone in pytz.common_timezones
+    etc_zones = ["Etc/" + zone for zone in ETC_ZONES]
+
+    return timezone in pytz.common_timezones + etc_zones
 
