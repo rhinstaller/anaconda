@@ -891,6 +891,30 @@ if __name__ == "__main__":
         else:
             log.error("Unknown method: %s", (anaconda.methodstr,))
 
+    # Set the language before loading an interface, when it may be too late.
+    if opts.lang:
+        from pyanaconda.localization import Language, LOCALE_PREFERENCES, expand_langs
+
+        langObj = Language(LOCALE_PREFERENCES, territory=None)
+
+        # Given something other than the long format we prefer?  We need to
+        # dig through supported translations to figure out what the user
+        # meant.
+        if not opts.lang in langObj.translations:
+            foundLang = False
+
+            for trans in langObj.translations.keys():
+                if opts.lang in expand_langs(trans):
+                    opts.lang = trans
+                    foundLang = True
+                    break
+
+            if not foundLang:
+                opts.lang = "en_US.UTF-8"
+
+        langObj.set_install_lang(opts.lang)
+        ksdata.lang.lang = opts.lang
+
     # init threading before Gtk can do anything
     from pyanaconda.threads import initThreading, threadMgr, AnacondaThread
     initThreading()
