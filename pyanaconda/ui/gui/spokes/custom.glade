@@ -11,6 +11,7 @@
   <object class="GtkEntryCompletion" id="mountPointCompletion">
     <property name="model">mountPointStore</property>
   </object>
+  <object class="GtkAction" id="action1"/>
   <object class="GtkDialog" id="addDialog">
     <property name="can_focus">False</property>
     <property name="border_width">5</property>
@@ -29,12 +30,10 @@
             <child>
               <object class="GtkButton" id="addCancelButton">
                 <property name="label" translatable="yes">_Cancel</property>
-                <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
                 <property name="halign">end</property>
-                <property name="use_action_appearance">False</property>
                 <property name="use_underline">True</property>
               </object>
               <packing>
@@ -46,12 +45,10 @@
             <child>
               <object class="GtkButton" id="addConfirmButton">
                 <property name="label" translatable="yes">_Add mount point</property>
-                <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
                 <property name="halign">end</property>
-                <property name="use_action_appearance">False</property>
                 <property name="use_underline">True</property>
                 <signal name="clicked" handler="on_add_confirm_clicked" swapped="no"/>
               </object>
@@ -130,6 +127,10 @@
                 <property name="margin_bottom">12</property>
                 <property name="label" translatable="yes">More customization options are available
 after creating the mount point below.</property>
+                <attributes>
+                  <attribute name="font-desc" value="Cantarell 11"/>
+                  <attribute name="scale" value="1"/>
+                </attributes>
               </object>
               <packing>
                 <property name="left_attach">0</property>
@@ -178,7 +179,8 @@ after creating the mount point below.</property>
                     <property name="label" translatable="yes">That mount point is already in
 use.  Try something else?</property>
                     <attributes>
-                      <attribute name="scale" value="0.80000000000000004"/>
+                      <attribute name="font-desc" value="Cantarell 10"/>
+                      <attribute name="scale" value="1"/>
                       <attribute name="foreground" value="#ffff00000000"/>
                     </attributes>
                   </object>
@@ -227,11 +229,6 @@ use.  Try something else?</property>
       <action-widget response="1">addConfirmButton</action-widget>
     </action-widgets>
   </object>
-  <object class="GtkImage" id="addImage">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="icon_name">list-add-symbolic</property>
-  </object>
   <object class="GtkDialog" id="confirmDeleteDialog">
     <property name="can_focus">False</property>
     <property name="border_width">5</property>
@@ -250,6 +247,9 @@ use.  Try something else?</property>
             <property name="yalign">0</property>
             <property name="label" translatable="yes">Are you sure you want to delete all of the data on %s?</property>
             <property name="wrap">True</property>
+            <attributes>
+              <attribute name="font-desc" value="Cantarell 11"/>
+            </attributes>
           </object>
           <packing>
             <property name="expand">True</property>
@@ -295,11 +295,9 @@ use.  Try something else?</property>
             <child>
               <object class="GtkButton" id="deleteConfirmButton">
                 <property name="label" translatable="yes">_Delete It</property>
-                <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
-                <property name="use_action_appearance">False</property>
                 <property name="use_underline">True</property>
                 <signal name="clicked" handler="on_delete_confirm_clicked" swapped="no"/>
               </object>
@@ -353,91 +351,37 @@ use.  Try something else?</property>
         <child internal-child="alignment">
           <object class="GtkAlignment" id="AnacondaSpokeWindow-alignment1">
             <property name="can_focus">False</property>
+            <property name="hexpand">True</property>
+            <property name="vexpand">True</property>
             <property name="yalign">0</property>
-            <property name="xscale">0.89999997615814209</property>
-            <property name="yscale">0.5</property>
+            <property name="left_padding">24</property>
+            <property name="right_padding">24</property>
             <child internal-child="action_area">
               <object class="GtkBox" id="customStorageWindow-actionArea">
                 <property name="can_focus">False</property>
+                <property name="hexpand">True</property>
+                <property name="vexpand">True</property>
                 <property name="orientation">vertical</property>
                 <property name="spacing">6</property>
                 <child>
                   <object class="GtkGrid" id="grid1">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
-                    <property name="column_spacing">12</property>
-                    <child>
-                      <object class="GtkButtonBox" id="buttonbox1">
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="halign">start</property>
-                        <property name="layout_style">start</property>
-                        <child>
-                          <object class="GtkButton" id="addButton">
-                            <property name="use_action_appearance">False</property>
-                            <property name="visible">True</property>
-                            <property name="can_focus">True</property>
-                            <property name="receives_default">True</property>
-                            <property name="use_action_appearance">False</property>
-                            <property name="image">addImage</property>
-                            <signal name="clicked" handler="on_add_clicked" swapped="no"/>
-                          </object>
-                          <packing>
-                            <property name="expand">False</property>
-                            <property name="fill">True</property>
-                            <property name="position">0</property>
-                          </packing>
-                        </child>
-                        <child>
-                          <object class="GtkButton" id="removeButton">
-                            <property name="use_action_appearance">False</property>
-                            <property name="visible">True</property>
-                            <property name="can_focus">True</property>
-                            <property name="receives_default">True</property>
-                            <property name="use_action_appearance">False</property>
-                            <property name="image">removeImage</property>
-                            <signal name="clicked" handler="on_remove_clicked" swapped="no"/>
-                          </object>
-                          <packing>
-                            <property name="expand">False</property>
-                            <property name="fill">True</property>
-                            <property name="position">1</property>
-                          </packing>
-                        </child>
-                        <child>
-                          <object class="GtkButton" id="configureButton">
-                            <property name="use_action_appearance">False</property>
-                            <property name="visible">True</property>
-                            <property name="can_focus">True</property>
-                            <property name="receives_default">True</property>
-                            <property name="use_action_appearance">False</property>
-                            <property name="image">settingsImage</property>
-                            <signal name="clicked" handler="on_configure_clicked" swapped="no"/>
-                          </object>
-                          <packing>
-                            <property name="expand">False</property>
-                            <property name="fill">True</property>
-                            <property name="position">2</property>
-                          </packing>
-                        </child>
-                      </object>
-                      <packing>
-                        <property name="left_attach">0</property>
-                        <property name="top_attach">1</property>
-                        <property name="width">1</property>
-                        <property name="height">1</property>
-                      </packing>
-                    </child>
+                    <property name="hexpand">True</property>
+                    <property name="vexpand">True</property>
+                    <property name="column_spacing">24</property>
                     <child>
                       <object class="GtkScrolledWindow" id="partitionsScrolledWindow">
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
+                        <property name="hexpand">True</property>
                         <property name="vexpand">True</property>
                         <property name="shadow_type">in</property>
                         <child>
                           <object class="GtkViewport" id="partitionsViewport">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
+                            <property name="hexpand">True</property>
                             <child>
                               <placeholder/>
                             </child>
@@ -719,12 +663,10 @@ you'll be able to view their details here.</property>
                                     <child>
                                       <object class="GtkCheckButton" id="encryptCheckbox">
                                         <property name="label" translatable="yes">_Encrypt</property>
-                                        <property name="use_action_appearance">False</property>
                                         <property name="visible">True</property>
                                         <property name="can_focus">True</property>
                                         <property name="receives_default">False</property>
                                         <property name="halign">start</property>
-                                        <property name="use_action_appearance">False</property>
                                         <property name="use_underline">True</property>
                                         <property name="xalign">0</property>
                                         <property name="draw_indicator">True</property>
@@ -754,11 +696,9 @@ you'll be able to view their details here.</property>
                                                 <child>
                                                   <object class="GtkCheckButton" id="lvmRedundancyCheckbox">
                                                     <property name="label" translatable="yes">Redundancy (mirror)</property>
-                                                    <property name="use_action_appearance">False</property>
                                                     <property name="visible">True</property>
                                                     <property name="can_focus">True</property>
                                                     <property name="receives_default">False</property>
-                                                    <property name="use_action_appearance">False</property>
                                                     <property name="xalign">0</property>
                                                     <property name="draw_indicator">True</property>
                                                     <signal name="toggled" handler="on_raid_feature_toggled" swapped="no"/>
@@ -800,11 +740,9 @@ you'll be able to view their details here.</property>
                                                 <child>
                                                   <object class="GtkCheckButton" id="lvmPerformanceCheckbox">
                                                     <property name="label" translatable="yes">Optimized performance (stripe)</property>
-                                                    <property name="use_action_appearance">False</property>
                                                     <property name="visible">True</property>
                                                     <property name="can_focus">True</property>
                                                     <property name="receives_default">False</property>
-                                                    <property name="use_action_appearance">False</property>
                                                     <property name="xalign">0</property>
                                                     <property name="draw_indicator">True</property>
                                                     <signal name="toggled" handler="on_raid_feature_toggled" swapped="no"/>
@@ -855,11 +793,9 @@ you'll be able to view their details here.</property>
                                                 <child>
                                                   <object class="GtkCheckButton" id="raidRedundancyCheckbox">
                                                     <property name="label" translatable="yes">Redundancy (mirror)</property>
-                                                    <property name="use_action_appearance">False</property>
                                                     <property name="visible">True</property>
                                                     <property name="can_focus">True</property>
                                                     <property name="receives_default">False</property>
-                                                    <property name="use_action_appearance">False</property>
                                                     <property name="xalign">0</property>
                                                     <property name="draw_indicator">True</property>
                                                     <signal name="toggled" handler="on_raid_feature_toggled" swapped="no"/>
@@ -901,11 +837,9 @@ you'll be able to view their details here.</property>
                                                 <child>
                                                   <object class="GtkCheckButton" id="raidPerformanceCheckbox">
                                                     <property name="label" translatable="yes">Optimized performance (stripe)</property>
-                                                    <property name="use_action_appearance">False</property>
                                                     <property name="visible">True</property>
                                                     <property name="can_focus">True</property>
                                                     <property name="receives_default">False</property>
-                                                    <property name="use_action_appearance">False</property>
                                                     <property name="xalign">0</property>
                                                     <property name="draw_indicator">True</property>
                                                     <signal name="toggled" handler="on_raid_feature_toggled" swapped="no"/>
@@ -946,11 +880,9 @@ you'll be able to view their details here.</property>
                                                 <child>
                                                   <object class="GtkCheckButton" id="raidErrorCheckbox">
                                                     <property name="label" translatable="yes">Error detection (parity)</property>
-                                                    <property name="use_action_appearance">False</property>
                                                     <property name="visible">True</property>
                                                     <property name="can_focus">True</property>
                                                     <property name="receives_default">False</property>
-                                                    <property name="use_action_appearance">False</property>
                                                     <property name="xalign">0</property>
                                                     <property name="draw_indicator">True</property>
                                                     <signal name="toggled" handler="on_raid_feature_toggled" swapped="no"/>
@@ -992,11 +924,9 @@ you'll be able to view their details here.</property>
                                                 <child>
                                                   <object class="GtkCheckButton" id="raidDistErrorCheckbox">
                                                     <property name="label" translatable="yes">Distributed</property>
-                                                    <property name="use_action_appearance">False</property>
                                                     <property name="visible">True</property>
                                                     <property name="can_focus">True</property>
                                                     <property name="receives_default">False</property>
-                                                    <property name="use_action_appearance">False</property>
                                                     <property name="xalign">0</property>
                                                     <property name="draw_indicator">True</property>
                                                     <signal name="toggled" handler="on_raid_feature_toggled" swapped="no"/>
@@ -1025,12 +955,10 @@ you'll be able to view their details here.</property>
                                                 <child>
                                                   <object class="GtkCheckButton" id="raidRedundantErrorCheckbox">
                                                     <property name="label" translatable="yes">Redundant</property>
-                                                    <property name="use_action_appearance">False</property>
                                                     <property name="visible">True</property>
                                                     <property name="can_focus">True</property>
                                                     <property name="receives_default">False</property>
                                                     <property name="margin_left">6</property>
-                                                    <property name="use_action_appearance">False</property>
                                                     <property name="xalign">0</property>
                                                     <property name="draw_indicator">True</property>
                                                     <signal name="toggled" handler="on_raid_feature_toggled" swapped="no"/>
@@ -1106,11 +1034,9 @@ you'll be able to view their details here.</property>
                                                 <child>
                                                   <object class="GtkCheckButton" id="btrfsRedundancyCheckbox">
                                                     <property name="label" translatable="yes">Redundancy (mirror)</property>
-                                                    <property name="use_action_appearance">False</property>
                                                     <property name="visible">True</property>
                                                     <property name="can_focus">True</property>
                                                     <property name="receives_default">False</property>
-                                                    <property name="use_action_appearance">False</property>
                                                     <property name="xalign">0</property>
                                                     <property name="draw_indicator">True</property>
                                                     <signal name="toggled" handler="on_raid_feature_toggled" swapped="no"/>
@@ -1152,11 +1078,9 @@ you'll be able to view their details here.</property>
                                                 <child>
                                                   <object class="GtkCheckButton" id="btrfsPerformanceCheckbox">
                                                     <property name="label" translatable="yes">Optimized performance (stripe)</property>
-                                                    <property name="use_action_appearance">False</property>
                                                     <property name="visible">True</property>
                                                     <property name="can_focus">True</property>
                                                     <property name="receives_default">False</property>
-                                                    <property name="use_action_appearance">False</property>
                                                     <property name="xalign">0</property>
                                                     <property name="draw_indicator">True</property>
                                                     <signal name="toggled" handler="on_raid_feature_toggled" swapped="no"/>
@@ -1254,11 +1178,9 @@ you'll be able to view their details here.</property>
                                 <child>
                                   <object class="GtkButton" id="applyButton">
                                     <property name="label" translatable="yes">_Apply Changes</property>
-                                    <property name="use_action_appearance">False</property>
                                     <property name="visible">True</property>
                                     <property name="can_focus">True</property>
                                     <property name="receives_default">True</property>
-                                    <property name="use_action_appearance">False</property>
                                     <property name="use_underline">True</property>
                                     <signal name="clicked" handler="on_apply_clicked" swapped="no"/>
                                   </object>
@@ -1302,6 +1224,7 @@ you'll be able to view their details here.</property>
                                     <property name="can_focus">False</property>
                                     <property name="label" translatable="yes">Selected Device</property>
                                     <attributes>
+                                      <attribute name="font-desc" value="Cantarell Bold 10"/>
                                       <attribute name="weight" value="bold"/>
                                       <attribute name="scale" value="1.2"/>
                                     </attributes>
@@ -1319,6 +1242,7 @@ you'll be able to view their details here.</property>
                                     <property name="halign">end</property>
                                     <property name="label" translatable="yes">Device description</property>
                                     <attributes>
+                                      <attribute name="font-desc" value="Cantarell Italic 10"/>
                                       <attribute name="style" value="italic"/>
                                     </attributes>
                                   </object>
@@ -1352,6 +1276,9 @@ you'll be able to view their details here.</property>
                                 <property name="can_focus">False</property>
                                 <property name="label" translatable="yes">This device is encrypted and cannot be read without a valid passphrase. You may unlock it below.</property>
                                 <property name="wrap">True</property>
+                                <attributes>
+                                  <attribute name="font-desc" value="Cantarell 11"/>
+                                </attributes>
                               </object>
                               <packing>
                                 <property name="expand">False</property>
@@ -1369,6 +1296,9 @@ you'll be able to view their details here.</property>
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
                                     <property name="label" translatable="yes">Passphrase:</property>
+                                    <attributes>
+                                      <attribute name="font-desc" value="Cantarell 11"/>
+                                    </attributes>
                                   </object>
                                   <packing>
                                     <property name="expand">False</property>
@@ -1380,8 +1310,8 @@ you'll be able to view their details here.</property>
                                   <object class="GtkEntry" id="passphraseEntry">
                                     <property name="visible">True</property>
                                     <property name="can_focus">True</property>
-                                    <property name="invisible_char">●</property>
                                     <property name="visibility">False</property>
+                                    <property name="invisible_char">●</property>
                                   </object>
                                   <packing>
                                     <property name="expand">False</property>
@@ -1392,11 +1322,9 @@ you'll be able to view their details here.</property>
                                 <child>
                                   <object class="GtkButton" id="unlockButton">
                                     <property name="label" translatable="yes">_Unlock</property>
-                                    <property name="use_action_appearance">False</property>
                                     <property name="visible">True</property>
                                     <property name="can_focus">True</property>
                                     <property name="receives_default">True</property>
-                                    <property name="use_action_appearance">False</property>
                                     <property name="use_underline">True</property>
                                     <signal name="clicked" handler="on_unlock_clicked" swapped="no"/>
                                   </object>
@@ -1429,9 +1357,78 @@ you'll be able to view their details here.</property>
                         <property name="height">2</property>
                       </packing>
                     </child>
+                    <child>
+                      <object class="GtkToolbar" id="toolbar1">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="toolbar_style">icons</property>
+                        <property name="show_arrow">False</property>
+                        <property name="icon_size">1</property>
+                        <style>
+                            <class name="inline-toolbar"/>
+                        </style>
+                        <child>
+                          <object class="GtkToolButton" id="addButton">
+                            <property name="use_action_appearance">False</property>
+                            <property name="related_action">action1</property>
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <property name="tooltip_text" translatable="yes">Add a new mountpoint.</property>
+                            <property name="label" translatable="yes">addButton</property>
+                            <property name="use_underline">True</property>
+                            <property name="icon_name">list-add-symbolic</property>
+                            <signal name="clicked" handler="on_add_clicked" swapped="no"/>
+                          </object>
+                          <packing>
+                            <property name="expand">False</property>
+                            <property name="homogeneous">True</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkToolButton" id="removeButton">
+                            <property name="use_action_appearance">False</property>
+                            <property name="related_action">action1</property>
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <property name="tooltip_text" translatable="yes">Remove the selected mountpoint(s.)</property>
+                            <property name="label" translatable="yes">removeButton</property>
+                            <property name="use_underline">True</property>
+                            <property name="icon_name">list-remove-symbolic</property>
+                            <signal name="clicked" handler="on_remove_clicked" swapped="no"/>
+                          </object>
+                          <packing>
+                            <property name="expand">False</property>
+                            <property name="homogeneous">True</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkToolButton" id="configureButton">
+                            <property name="use_action_appearance">False</property>
+                            <property name="related_action">action1</property>
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <property name="tooltip_text" translatable="yes">Configure selected mountpoint.</property>
+                            <property name="label" translatable="yes">configureButton</property>
+                            <property name="use_underline">True</property>
+                            <property name="icon_name">preferences-system-symbolic</property>
+                            <signal name="clicked" handler="on_configure_clicked" swapped="no"/>
+                          </object>
+                          <packing>
+                            <property name="expand">False</property>
+                            <property name="homogeneous">True</property>
+                          </packing>
+                        </child>
+                      </object>
+                      <packing>
+                        <property name="left_attach">0</property>
+                        <property name="top_attach">1</property>
+                        <property name="width">1</property>
+                        <property name="height">1</property>
+                      </packing>
+                    </child>
                   </object>
                   <packing>
-                    <property name="expand">False</property>
+                    <property name="expand">True</property>
                     <property name="fill">True</property>
                     <property name="position">0</property>
                   </packing>
@@ -1449,8 +1446,8 @@ you'll be able to view their details here.</property>
           <object class="GtkGrid" id="grid2">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="margin_left">6</property>
-            <property name="margin_right">6</property>
+            <property name="margin_left">24</property>
+            <property name="margin_right">24</property>
             <property name="margin_bottom">6</property>
             <property name="row_spacing">6</property>
             <property name="column_spacing">12</property>
@@ -1562,14 +1559,12 @@ you'll be able to view their details here.</property>
             <child>
               <object class="GtkButton" id="finishPartitionsButton">
                 <property name="label" translatable="yes">_FINISH PARTITIONING</property>
-                <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
                 <property name="halign">end</property>
                 <property name="valign">start</property>
                 <property name="hexpand">True</property>
-                <property name="use_action_appearance">False</property>
                 <property name="use_underline">True</property>
                 <signal name="clicked" handler="on_finish_clicked" swapped="no"/>
               </object>
@@ -1583,12 +1578,10 @@ you'll be able to view their details here.</property>
             <child>
               <object class="GtkButton" id="summary_button">
                 <property name="label" translatable="yes">summary</property>
-                <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
                 <property name="halign">start</property>
-                <property name="use_action_appearance">False</property>
                 <property name="relief">none</property>
                 <property name="use_underline">True</property>
                 <property name="focus_on_click">False</property>
@@ -1815,16 +1808,6 @@ you'll be able to view their details here.</property>
       <action-widget response="0">cancel_button</action-widget>
       <action-widget response="1">select_button</action-widget>
     </action-widgets>
-  </object>
-  <object class="GtkImage" id="removeImage">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="icon_name">list-remove-symbolic</property>
-  </object>
-  <object class="GtkImage" id="settingsImage">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="icon_name">system-run-symbolic</property>
   </object>
   <object class="GtkAdjustment" id="sizeAdjustment">
     <property name="upper">100</property>
