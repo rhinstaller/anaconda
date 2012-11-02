@@ -300,6 +300,37 @@ update-desktop-database &> /dev/null || :
 /usr/lib/dracut/modules.d/80%{name}/*
 
 %changelog
+* Thu Nov 01 2012 Brian C. Lane <bcl@redhat.com> - 18.23-1
+- Update parsing of 'btrfs subvol list' to match its new output. (#868468)
+  (dlehman)
+- Add a way to select the default device type. (dlehman)
+- Enable specification of disk(s) for individual mountpoints. (#870569)
+  (dlehman)
+- Improve management of complex devices in custom spoke. (#865199) (dlehman)
+- Save btrfs subvols' requested size. (dlehman)
+- Reclaim extra set member growth evenly across members. (dlehman)
+- Give lvmpv a slightly more realistic minimum size. (dlehman)
+- Fix required space calculation for lvm. (dlehman)
+- Don't filter disks when scanning storage after autopart fails. (#866717)
+  (dlehman)
+- Fix detection of partitioned md devices. (#866519) (dlehman)
+- Correct handling of disks with hidden formats. (#866519) (dlehman)
+- Revert "Fall back to lvm autopart if the default fails." (dlehman)
+- Revert the default autopart type to lvm. (#870207) (dlehman)
+- Apparently necessary kpartx changes (#867593) (dlehman)
+- Mark a few more important strings for translation. (clumens)
+- If lang= was provided on the command line, set the installation language.
+  (clumens)
+- Make the decision to skip the welcome screen more complicated. (clumens)
+- Set a translation domain before loading a glade file. (clumens)
+- Don't decorate the NTP config dialog. (clumens)
+- Mark properties in existing glade files as translatable. (clumens)
+- Widget properties exposed via glade need to be marked as translatable.
+  (clumens)
+- Network spoke: don't try to call replace on None (traceback) (#869106)
+  (rvykydal)
+- Fix nfsiso repo selection (#871648) (jkeating)
+
 * Wed Oct 31 2012 Brian C. Lane <bcl@redhat.com> - 18.22-1
 - Revert "Update parsing of 'btrfs subvol list' to match its new output.
   (#868468)" (dlehman)
