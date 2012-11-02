@@ -152,6 +152,7 @@ class GraphicalUserInterface(UserInterface):
 
         meh_intf = meh.ui.gui.GraphicalIntf()
         exc_window = meh_intf.mainExceptionWindow(text, exn_file)
+        exc_window.main_window.set_decorated(False)
 
         # exception may appear before self._actions gets populated
         if len(self._actions) > 0:
