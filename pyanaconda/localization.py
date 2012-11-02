@@ -40,8 +40,19 @@ class LocalizationConfigError(Exception):
 
 class LocaleInfo(object):
 
-    def __init__(self, localedata):
+    def __init__(self, localedata, encoding="", script=""):
+        """
+        @param encoding: encoding from the locale specification, e.g. UTF-8
+                         (localedata object has no attribute for that)
+        @param script: script from the locale specification (e.g. latin)
+                       (changing localedata.script attribute results in
+                       problems)
+
+        """
+
         self._localedata = localedata
+        self._encoding = encoding or "UTF-8"
+        self._script = script
 
     @property
     def language(self):
@@ -53,11 +64,15 @@ class LocaleInfo(object):
 
     @property
     def script(self):
-        return self._localedata.script
+        return self._script
 
     @property
     def variant(self):
         return self._localedata.variant
+
+    @property
+    def encoding(self):
+        return self._encoding
 
     @property
     def english_name(self):
@@ -79,17 +94,14 @@ class LocaleInfo(object):
         formatstr = '{0.language}'
         if self.territory is not None:
             formatstr += '_{0.territory}'
-        if self.script is not None:
+        if self.encoding:
+            formatstr += '.{0.encoding}'
+        if self.script:
             formatstr += '@{0.script}'
         if self.variant is not None:
             formatstr += '#{0.variant}'
 
-        langcode = formatstr.format(self)
-        if "." not in langcode:
-            # add enconding suffix
-            langcode = langcode + ".UTF-8"
-
-        return langcode
+        return formatstr.format(self)
 
     def __str__(self):
         return self.english_name.encode('ascii', 'replace')
@@ -144,7 +156,11 @@ def get_all_locales():
         except babel.core.UnknownLocaleError:
             continue
 
-        locale = LocaleInfo(localedata)
+        # BUG: babel.Locale.parse does not parse @script
+        script = _get_locale_script(localename)
+        encoding = _get_locale_encoding(localename)
+
+        locale = LocaleInfo(localedata, encoding, script)
         if repr(locale) not in localeset:
             localeset.add(repr(locale))
             yield locale
@@ -168,7 +184,13 @@ def get_available_translations(domain=None, localedir=None):
         except babel.core.UnknownLocaleError:
             continue
 
-        yield LocaleInfo(localedata)
+        encoding = _get_locale_encoding(langcode)
+
+        # BUG: babel.Locale.parse does not parse @script
+        script = _get_locale_script(langcode)
+
+        localeinfo = LocaleInfo(localedata, encoding, script)
+        yield localeinfo
 
 def expand_langs(astring):
     """
@@ -219,6 +241,30 @@ def expand_langs(astring):
         langs.add("%s_%s@%s" % (base, loc, script))
 
     return list(langs)
+
+def _get_locale_encoding(locale):
+    """
+    If locale specification includes encoding (e.g. cs_CZ.UTF-8) returns
+    the encoding. Otherwise returns "".
+
+    """
+
+    if "@" in locale:
+        # remove @script suffix
+        locale = locale.split("@", -1)[0]
+
+    if "." in locale:
+        return locale.split(".", -1)[1]
+    else:
+        return ""
+
+def _get_locale_script(locale):
+    """Same as _get_locale_encoding but with the script."""
+
+    if "@" in locale:
+        return locale.split("@", -1)[1]
+    else:
+        return ""
 
 def write_language_configuration(lang, root):
     """
