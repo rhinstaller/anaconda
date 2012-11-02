@@ -558,7 +558,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         self._grabObjects()
         setViewportBackground(self.builder.get_object("availableSpaceViewport"), "#db3279")
         setViewportBackground(self.builder.get_object("totalSpaceViewport"), "#60605b")
-        setViewportBackground(self._partitionsViewport)
 
         # Set the background of the options notebook to slightly darker than
         # everything else, and give it a border.
