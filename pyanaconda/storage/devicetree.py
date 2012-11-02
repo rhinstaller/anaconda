@@ -788,6 +788,12 @@ class DeviceTree(object):
         sysfs_path = udev_device_get_sysfs_path(info)
         device = None
 
+        if name.startswith("md"):
+            name = devicelibs.mdraid.name_from_md_node(name)
+            device = self.getDeviceByName(name)
+            if device:
+                return device
+
         if disk is None:
             disk_name = os.path.basename(os.path.dirname(sysfs_path))
             disk_name = disk_name.replace('!','/')

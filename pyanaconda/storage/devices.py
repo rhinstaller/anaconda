@@ -1347,6 +1347,10 @@ class PartitionDevice(StorageDevice):
             dm_node = dm.dm_node_from_name(self.name)
             path = os.path.join("/sys", self.sysfsBlockDir, dm_node)
             self.sysfsPath = os.path.realpath(path)[4:]
+        elif isinstance(self.parents[0], MDRaidArrayDevice):
+            md_node = mdraid.md_node_from_name(self.name)
+            path = os.path.join("/sys", self.sysfsBlockDir, md_node)
+            self.sysfsPath = os.path.realpath(path)[4:]
         else:
             StorageDevice.updateSysfsPath(self)
 
