@@ -503,9 +503,6 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         self.local_disks_box = self.builder.get_object("local_disks_box")
         #specialized_disks_box = self.builder.get_object("specialized_disks_box")
 
-        viewport = self.builder.get_object("localViewport")
-        setViewportBackground(viewport)
-
         threadMgr.add(AnacondaThread(name="AnaStorageWatcher", target=self._initialize))
 
     def _initialize(self):
