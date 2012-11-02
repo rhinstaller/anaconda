@@ -688,10 +688,10 @@ you'll be able to view their details here.</property>
                                         <property name="can_focus">False</property>
                                         <property name="hexpand">True</property>
                                         <items>
-                                          <item translatable="yes">LVM</item>
-                                          <item translatable="yes">RAID</item>
                                           <item translatable="yes">Standard Partition</item>
                                           <item translatable="yes">BTRFS</item>
+                                          <item translatable="yes">LVM</item>
+                                          <item translatable="yes">RAID</item>
                                         </items>
                                         <signal name="changed" handler="on_device_type_changed" swapped="no"/>
                                       </object>
