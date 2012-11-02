@@ -26,6 +26,7 @@ import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
 N_ = lambda x: x
 
+# pylint: disable-msg=E0611
 from gi.repository import AnacondaWidgets, Gtk
 from pyanaconda.ui.gui.hubs.summary import SummaryHub
 from pyanaconda.ui.gui.spokes import StandaloneSpoke, NormalSpoke
@@ -81,12 +82,13 @@ class LanguageMixIn(object):
         #e.g. 'English (United States)' -> 'English'
         lang_name = store[itr][1]
         lang_name = lang_name.split()[0]
+        country = self.language.preferred_locale.territory
 
         #add one language-related and 'English (US)' layouts by default
         new_layouts = ['us']
-        language_layout = self._xklwrapper.get_default_language_layout(lang_name)
-        if language_layout and language_layout not in new_layouts:
-            new_layouts.append(language_layout)
+        default_layout = self._xklwrapper.get_default_lang_country_layout(lang_name, country)
+        if default_layout and default_layout not in new_layouts:
+            new_layouts.append(default_layout)
 
         for layout in new_layouts:
             self.data.keyboard.x_layouts.append(layout)

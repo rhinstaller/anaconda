@@ -290,6 +290,10 @@ class _Layout(object):
     def __str__(self):
         return '%s (%s)' % (self.name, self.desc)
 
+    def __eq__(self, obj):
+        return isinstance(obj, self.__class__) and \
+            self.name == obj.name
+
     @property
     def description(self):
         return self.desc
@@ -357,6 +361,7 @@ class XklWrapper(object):
 
         #this might take quite a long time
         self.configreg.foreach_language(self._get_language_variants, None)
+        self.configreg.foreach_country(self._get_country_variants, None)
 
         #'grp' means that we want layout (group) switching options
         self.configreg.foreach_option('grp', self._get_switch_option, None)
@@ -369,7 +374,9 @@ class XklWrapper(object):
             name = item_str(item.name)
             description = item_str(item.description)
 
-        self.name_to_show_str[name] = "%s (%s)" % (dest.encode("utf-8"), description.encode("utf-8"))
+        if dest:
+            self.name_to_show_str[name] = "%s (%s)" % (dest.encode("utf-8"),
+                                                       description.encode("utf-8"))
         self._variants_list.append(_Layout(name, description))
 
     def _get_language_variants(self, c_reg, item, user_data=None):
@@ -388,7 +395,7 @@ class XklWrapper(object):
 
         c_reg.foreach_country_variant(country_name, self._get_variant, None)
 
-        self._country_keyboard_variants[(country_name, country_desc)] = self._variants_list
+        self._country_keyboard_variants[country_name] = self._variants_list
 
     def _get_switch_option(self, c_reg, item, user_data=None):
         """Helper function storing layout switching options in foreach cycle"""
@@ -420,6 +427,26 @@ class XklWrapper(object):
 
         #first layout (should exist for every language)
         return language_layouts[0].name
+
+    def get_default_lang_country_layout(self, language, country):
+        """
+        Get default layout matching both language and country. If none such
+        layout is found, get default layout for language.
+
+        """
+
+        language_layouts = self._language_keyboard_variants.get(language, None)
+        country_layouts = self._country_keyboard_variants.get(country, None)
+        if not language_layouts:
+            return None
+
+        matches_both = (layout for layout in language_layouts
+                                if layout in country_layouts)
+
+        try:
+            return matches_both.next().name
+        except StopIteration:
+            return language_layouts[0].name
 
     def get_current_layout_name(self):
         """
