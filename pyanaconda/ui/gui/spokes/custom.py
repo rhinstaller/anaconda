@@ -1160,10 +1160,11 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         ## SIZE
         ##
         # new size means resize for existing devices and adjust for new ones
-        if int(size) != int(device.size) or changed_disk_set:
+        changed_size = (int(size) != int(device.size))
+        if changed_size or changed_disk_set:
             self.clear_errors()
             old_size = device.size
-            if device.exists and device.resizable:
+            if changed_size and device.exists and device.resizable:
                 with ui_storage_logger():
                     try:
                         self.__storage.resizeDevice(device, size)
@@ -1179,7 +1180,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                         log.debug("%r" % device)
                         log.debug("new size: %s" % device.size)
                         log.debug("target size: %s" % device.targetSize)
-            else:
+            elif not device.exists:
                 if changed_disk_set:
                     log.info("changing disk set from %s to %s"
                                 % ([d.name for d in device.disks],
@@ -1501,7 +1502,11 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         else:
             use_dev = device
 
-        self._device_disks = getattr(use_dev, "req_disks", use_dev.disks)
+        if hasattr(use_dev, "req_disks") and not use_dev.exists:
+            self._device_disks = use_dev.req_disks[:]
+        else:
+            self._device_disks = device.disks[:]
+
         log.debug("updated device_disks to %s" % [d.name for d in self._device_disks])
 
         selectedDeviceLabel.set_text(selector.props.name)
