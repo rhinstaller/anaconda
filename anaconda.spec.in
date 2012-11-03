@@ -300,6 +300,17 @@ update-desktop-database &> /dev/null || :
 /usr/lib/dracut/modules.d/80%{name}/*
 
 %changelog
+* Fri Nov 02 2012 Brian C. Lane <bcl@redhat.com> - 18.24-1
+- Network spoke: activate wifi connection after setting secrets (#871132)
+  (rvykydal)
+- Fix nfsiso as stage2 (#871554) (jkeating)
+- Fix traceback when saving changes to an existing partition. (#872446)
+  (dlehman)
+- Some more stuff for the mangleMap (#866730) (vpodzime)
+- Handle locale's encoding and script in a better way (vpodzime)
+- Fix remaining issues with md fwraid. (#872739) (dlehman)
+- Fix some label text that got clobbered in glade. (dlehman)
+
 * Thu Nov 01 2012 Brian C. Lane <bcl@redhat.com> - 18.23-1
 - Update parsing of 'btrfs subvol list' to match its new output. (#868468)
   (dlehman)
