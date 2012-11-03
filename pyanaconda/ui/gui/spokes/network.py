@@ -39,6 +39,7 @@ from pyanaconda.ui.gui import GUIObject
 from pyanaconda.ui.gui.spokes import NormalSpoke, StandaloneSpoke
 from pyanaconda.ui.gui.categories.software import SoftwareCategory
 from pyanaconda.ui.gui.hubs.summary import SummaryHub
+from pyanaconda.ui.gui.utils import gtk_call_once
 
 from pyanaconda.network import NetworkDevice, netscriptsDir, kickstartNetworkData, getActiveNetDevs
 
@@ -421,8 +422,8 @@ class NetworkControlBox():
             return
 
         con = self.find_active_connection_for_device(device)
+        ssid = None
         if not con and configuration_of_disconnected_devices_allowed:
-            ssid = None
             if device.get_device_type() == NetworkManager.DeviceType.WIFI:
                 ssid = self.selected_ssid
             con = self.find_connection_for_device(device, ssid)
@@ -432,13 +433,27 @@ class NetworkControlBox():
         else:
             return
 
+        # 871132 auto activate wireless connection after editing if it is not
+        # already activated (assume entering secrets)
+        activate = None
+        if (device.get_device_type() == NetworkManager.DeviceType.WIFI
+            and ssid and (device.get_iface(), ssid) not in self.activated_connections()):
+            activate = (con, device)
+
         self.builder.get_object("button_wired_options").set_sensitive(False)
         proc = subprocess.Popen(["nm-connection-editor", "--edit", "%s" % uuid])
 
-        GLib.child_watch_add(proc.pid, self.on_nmce_exited)
+        GLib.child_watch_add(proc.pid, self.on_nmce_exited, activate)
 
-    def on_nmce_exited(self, pid, condition):
+    def on_nmce_exited(self, pid, condition, activate):
         self.builder.get_object("button_wired_options").set_sensitive(True)
+        if activate:
+            con, device = activate
+            gtk_call_once(self._activate_connection_cb, con, device)
+
+    def _activate_connection_cb(self, con, device):
+        self.client.activate_connection(con, device,
+                                        None, None, None)
 
     def on_wireless_enabled(self, *args):
         switch = self.builder.get_object("device_wireless_off_switch")
