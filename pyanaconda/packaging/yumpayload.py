@@ -133,9 +133,14 @@ class YumPayload(PackagePayload):
             if self.install_device and \
                get_mount_device(ISO_DIR) == self.install_device.path:
                 self.install_device.teardown(recursive=True)
-            else:
-                # NFS
-                isys.umount(ISO_DIR, removeDir=False)
+            # The below code will fail when nfsiso is the stage2 source
+            # But if we don't do this we may not be able to switch from
+            # one nfsiso repo to another nfsiso repo.  We need to have a
+            # way to detect the stage2 state and work around it.
+            # Commenting out the below is a hack for F18.  FIXME
+            #else:
+            #    # NFS
+            #    isys.umount(ISO_DIR, removeDir=False)
 
         self.install_device = None
 
