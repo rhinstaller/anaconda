@@ -47,9 +47,9 @@ __all__ = ["SourceSpoke"]
 
 MOUNTPOINT = "/mnt/install/isodir"
 
-BASEREPO_SETUP_MESSAGE = _("Setting up installation source...")
-METADATA_DOWNLOAD_MESSAGE = _("Downloading package metadata...")
-METADATA_ERROR_MESSAGE = _("Error downloading package metadata...")
+BASEREPO_SETUP_MESSAGE = N_("Setting up installation source...")
+METADATA_DOWNLOAD_MESSAGE = N_("Downloading package metadata...")
+METADATA_ERROR_MESSAGE = N_("Error downloading package metadata...")
 
 class ProxyDialog(GUIObject):
     builderObjects = ["proxyDialog"]
@@ -515,7 +515,7 @@ class SourceSpoke(NormalSpoke):
         communication.send_not_ready("SoftwareSelectionSpoke")
         communication.send_not_ready(self.__class__.__name__)
         communication.send_message(self.__class__.__name__,
-                                   BASEREPO_SETUP_MESSAGE)
+                                   _(BASEREPO_SETUP_MESSAGE))
         # this sleep is lame, but without it the message above doesn't seem
         # to get processed by the hub in time, and is never shown.
         # FIXME this should get removed when we figure out how to ensure
@@ -537,12 +537,12 @@ class SourceSpoke(NormalSpoke):
         else:
             self._error = False
             communication.send_message(self.__class__.__name__,
-                                       METADATA_DOWNLOAD_MESSAGE)
+                                       _(METADATA_DOWNLOAD_MESSAGE))
             self.payload.gatherRepoMetadata()
             self.payload.release()
             if not self.payload.baseRepo:
                 communication.send_message(self.__class__.__name__,
-                                           METADATA_ERROR_MESSAGE)
+                                           _(METADATA_ERROR_MESSAGE))
                 communication.send_ready(self.__class__.__name__)
                 self._error = True
             else:
@@ -629,7 +629,7 @@ class SourceSpoke(NormalSpoke):
         if storageThread:
             storageThread.join()
 
-        communication.send_message(self.__class__.__name__, METADATA_DOWNLOAD_MESSAGE)
+        communication.send_message(self.__class__.__name__, _(METADATA_DOWNLOAD_MESSAGE))
 
         payloadThread = threadMgr.get("AnaPayloadThread")
         if payloadThread:
