@@ -253,7 +253,7 @@ class SoftwareSelectionSpoke(NormalSpoke):
             for grp in self.payload.groups:
                 if self.payload.environmentHasOption(self.environment, grp) or (self.payload._isGroupVisible(grp) and self.payload._groupHasInstallableMembers(grp)):
                     (name, desc) = self.payload.groupDescription(grp)
-                    selected = self.payload.groupSelected(grp)
+                    selected = grp in self.selectedGroups
 
                     self._addonStore.append([selected, "<b>%s</b>\n%s" % (name, desc), grp])
 
