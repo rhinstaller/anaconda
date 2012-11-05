@@ -110,9 +110,11 @@ class LiveImagePayload(ImagePayload):
         except (OSError, RuntimeError) as e:
             err = str(e)
         else:
-            err = None
             if rc != 0:
-                log.info("%s exited with code %d" % (cmd, rc))
+                err = "%s exited with code %d" % (cmd, rc)
+                log.error(err)
+            else:
+                err = None
 
         if err:
             exn = PayloadInstallError(err)
