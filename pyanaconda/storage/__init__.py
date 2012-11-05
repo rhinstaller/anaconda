@@ -3297,6 +3297,8 @@ class LVMFactory(DeviceFactory):
     new_container_attr = "newVG"
     new_device_attr = "newLV"
     container_list_attr = "vgs"
+    encrypt_members = True
+    encrypt_leaves = False
 
     @property
     def device_size(self):
