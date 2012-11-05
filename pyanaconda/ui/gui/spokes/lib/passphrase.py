@@ -85,6 +85,10 @@ class PassphraseDialog(GUIObject):
         # initialize with the previously set passphrase
         self.passphrase = self.data.autopart.passphrase
 
+        if not self.passphrase:
+            self._save_button.set_sensitive(False)
+            self._confirm_entry.set_sensitive(False)
+
         self._passphrase_entry.set_text(self.passphrase)
         self._confirm_entry.set_text(self.passphrase)
 
