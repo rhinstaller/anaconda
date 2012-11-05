@@ -2156,7 +2156,7 @@ class Storage(object):
                     members = container.parents
 
                 self.__cleanUpMemberDevices(members)
-                raise
+                raise StorageError(e)
 
             if factory.encrypted and factory.encrypt_leaves:
                 fmt = getFormat(luks_fmt_type,
