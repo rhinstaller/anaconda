@@ -966,6 +966,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         if encryption_checkbox.get_sensitive():
             encrypted = encryption_checkbox.get_active()
 
+        changed_encryption = (prev_encrypted != encrypted)
         log.debug("new encryption setting: %s" % encrypted)
 
         label_entry = self.builder.get_object("labelEntry")
@@ -1161,7 +1162,9 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         ##
         # new size means resize for existing devices and adjust for new ones
         changed_size = (int(size) != int(device.size))
-        if changed_size or changed_disk_set:
+        if changed_size or changed_disk_set or \
+           (changed_encryption and factory.encrypt_members and
+            not device.exists):
             self.clear_errors()
             old_size = device.size
             if changed_size and device.exists and device.resizable:
@@ -1191,6 +1194,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                         self.__storage.newDevice(device_type, size,
                                                  device=device,
                                                  disks=self._device_disks[:],
+                                                 encrypted=encrypted,
                                                  raid_level=raid_level)
                     except ErrorRecoveryFailure as e:
                         self._error = e
@@ -1222,34 +1226,39 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             ##
             ## ENCRYPTION
             ##
+
+            # for existing devices, we always encrypt the leaf
             old_fs_type = device.format.type
             old_device = device
-            if prev_encrypted and not encrypted:
-                log.info("removing encryption from %s" % device.name)
-                with ui_storage_logger():
-                    self.__storage.destroyDevice(device)
-                    self._devices.remove(device)
-                    old_device = device
-                    device = device.slave
-                    selector._device = device
-                    for s in self._accordion.allSelectors:
-                        if s._device == old_device:
-                            s._device = device
-            elif encrypted and not prev_encrypted:
-                log.info("applying encryption to %s" % device.name)
-                with ui_storage_logger():
-                    old_device = device
-                    new_fmt = getFormat("luks", device=device.path)
-                    self.__storage.formatDevice(device, new_fmt)
-                    luks_dev = LUKSDevice("luks-" + device.name,
-                                          parents=[device])
-                    self.__storage.createDevice(luks_dev)
-                    self._devices.append(luks_dev)
-                    device = luks_dev
-                    selector._device = device
-                    for s in self._accordion.allSelectors:
-                        if s._device == old_device:
-                            s._device = device
+
+            # if the encryption is on member devices it was handled above
+            if device.exists or factory.encrypt_leaves:
+                if prev_encrypted and not encrypted:
+                    log.info("removing encryption from %s" % device.name)
+                    with ui_storage_logger():
+                        self.__storage.destroyDevice(device)
+                        self._devices.remove(device)
+                        old_device = device
+                        device = device.slave
+                        selector._device = device
+                        for s in self._accordion.allSelectors:
+                            if s._device == old_device:
+                                s._device = device
+                elif encrypted and not prev_encrypted:
+                    log.info("applying encryption to %s" % device.name)
+                    with ui_storage_logger():
+                        old_device = device
+                        new_fmt = getFormat("luks", device=device.path)
+                        self.__storage.formatDevice(device, new_fmt)
+                        luks_dev = LUKSDevice("luks-" + device.name,
+                                              parents=[device])
+                        self.__storage.createDevice(luks_dev)
+                        self._devices.append(luks_dev)
+                        device = luks_dev
+                        selector._device = device
+                        for s in self._accordion.allSelectors:
+                            if s._device == old_device:
+                                s._device = device
 
             ##
             ## FORMATTING
@@ -1299,9 +1308,11 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                             new_selector.props.mountpoint = mountpoint or ""
                             new_selector.props.name = (self._mountpointName(mountpoint)
                                                        or device.format.name)
+                            new_selector._device = device
                         else:
                             self.add_new_selector(device)
 
+                self._populate_right_side(selector)
                 return
 
         ##
@@ -1547,8 +1558,13 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
         reformatCheckbox.set_active(not device.format.exists)
         reformatCheckbox.set_sensitive(use_dev.exists)
+
         encryptCheckbox.set_active(device.encrypted)
         encryptCheckbox.set_sensitive(reformatCheckbox.get_active())
+        if device.encrypted and device.exists:
+            # For existing devices, the encryption checkbutton should not be
+            # sensitive if the encryption is below the leaf layer.
+            encryptCheckbox.set_sensitive(use_dev.format.type == "luks")
 
         ##
         ## Set up the filesystem type combo.
