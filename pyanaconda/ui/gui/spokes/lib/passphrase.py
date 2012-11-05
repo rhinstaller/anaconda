@@ -61,6 +61,7 @@ class PassphraseDialog(GUIObject):
         self._confirm_entry.add_events(Gdk.EventMask.FOCUS_CHANGE_MASK)
 
         self._save_button = self.builder.get_object("passphrase_save_button")
+        self._save_button.set_can_default(True)
 
         # add the passphrase strength meter
         self._strength_bar = Gtk.LevelBar()
@@ -159,6 +160,8 @@ class PassphraseDialog(GUIObject):
         if not self._save_button.get_sensitive() and \
            entry.get_text() == self._passphrase_entry.get_text():
             self._save_button.set_sensitive(True)
+            self._save_button.grab_focus()
+            self._save_button.grab_default()
             self._set_entry_icon(entry, "", "")
 
     def on_confirm_editing_done(self, entry, *args):
@@ -172,6 +175,7 @@ class PassphraseDialog(GUIObject):
             self._save_button.set_sensitive(False)
         else:
             self._save_button.grab_focus()
+            self._save_button.grab_default()
 
     def on_save_clicked(self, button):
         self.passphrase = self._passphrase_entry.get_text()
