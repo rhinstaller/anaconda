@@ -1812,12 +1812,29 @@ class Storage(object):
         # prepare already-defined member partitions for reallocation
         for member in members[:]:
             if isinstance(member, LUKSDevice):
-                if member.slave.disk in remove_disks:
+                if member.slave.disk in remove_disks or not factory.encrypted:
                     container.removeMember(member)
                     self.destroyDevice(member)
                     members.remove(member)
+                    if not factory.encrypted:
+                        # encryption was toggled for the member devices
+                        self.formatDevice(member.slave,
+                                          getFormat(factory.member_format))
+                        members.append(member.slave)
+                        container.addMember(member.slave)
 
                 member = member.slave
+            elif factory.encrypted:
+                # encryption was toggled for the member devices
+                container.removeMember(member)
+                members.remove(member)
+                self.formatDevice(member, getFormat("luks"))
+                member = LUKSDevice("luks-%s" % member.name,
+                                    parents=[member],
+                                    format=getFormat(factory.member_format))
+                self.createDevice(member)
+                members.append(member)
+                container.addMember(member)
 
             if member.disk in remove_disks:
                 if member in container.parents:
@@ -2066,8 +2083,10 @@ class Storage(object):
         # this will set the device's size if a device is passed in
         size = factory.set_device_size(container, device=device)
         if device:
-            # We are adjusting the size of a device. The StorageDevice instance
-            # exists, but the underlying device does not.
+            # We are adjusting a defined device: size, disk set, encryption,
+            # raid level, fstype. The StorageDevice instance exists, but the
+            # underlying device does not.
+            # TODO: handle toggling of encryption for leaf device
             e = None
             try:
                 factory.post_create()
