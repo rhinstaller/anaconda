@@ -2144,6 +2144,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                                 message_type=Gtk.MessageType.ERROR,
                                 buttons=Gtk.ButtonsType.CLOSE,
                                 message_format=str(self._error))
+        dlg.set_decorated(False)
 
         with enlightbox(self.window, dlg):
             dlg.run()
