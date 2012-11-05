@@ -80,15 +80,15 @@ NOTEBOOK_LABEL_PAGE = 0
 NOTEBOOK_DETAILS_PAGE = 1
 NOTEBOOK_LUKS_PAGE = 2
 
-new_install_name = _("New %s %s Installation") % (productName, productVersion)
-unrecoverable_error_msg = _("Storage configuration reset due to unrecoverable "
-                            "error. Click for details.")
-device_configuration_error_msg = _("Device reconfiguration failed. Click for "
-                                   "details.")
+new_install_name = N_("New %s %s Installation") % (productName, productVersion)
+unrecoverable_error_msg = N_("Storage configuration reset due to unrecoverable "
+                             "error. Click for details.")
+device_configuration_error_msg = N_("Device reconfiguration failed. Click for "
+                                    "details.")
 
-empty_mountpoint_msg = _("Please enter a valid mountpoint.")
-invalid_mountpoint_msg = _("That mount point is invalid. Try something else?")
-mountpoint_in_use_msg = _("That mount point is already in use. Try something else?")
+empty_mountpoint_msg = N_("Please enter a valid mountpoint.")
+invalid_mountpoint_msg = N_("That mount point is invalid. Try something else?")
+mountpoint_in_use_msg = N_("That mount point is already in use. Try something else?")
 
 MOUNTPOINT_OK = 0
 MOUNTPOINT_INVALID = 1
@@ -100,10 +100,10 @@ mountpoint_validation_msgs = {MOUNTPOINT_OK: "",
                               MOUNTPOINT_IN_USE: mountpoint_in_use_msg,
                               MOUNTPOINT_EMPTY: empty_mountpoint_msg}
 
-DEVICE_TEXT_LVM = _("LVM")
-DEVICE_TEXT_MD = _("RAID")
-DEVICE_TEXT_PARTITION = _("Standard Partition")
-DEVICE_TEXT_BTRFS = _("BTRFS")
+DEVICE_TEXT_LVM = N_("LVM")
+DEVICE_TEXT_MD = N_("RAID")
+DEVICE_TEXT_PARTITION = N_("Standard Partition")
+DEVICE_TEXT_BTRFS = N_("BTRFS")
 
 # FIXME: use these everywhere instead of the AUTOPART_TYPE constants
 DEVICE_TYPE_LVM = 0
@@ -215,7 +215,7 @@ class AddDialog(GUIObject):
         self.mountpoint = self.builder.get_object("addMountPointEntry").get_text()
         self._error = validate_mountpoint(self.mountpoint, self.mountpoints,
                                           strict=False)
-        self._warningLabel.set_text(mountpoint_validation_msgs[self._error])
+        self._warningLabel.set_text(_(mountpoint_validation_msgs[self._error]))
         self.window.show_all()
         if self._error:
             return
@@ -751,7 +751,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         # ensures it's only added once.
         if not new_devices:
             page = CreateNewPage(self.on_create_clicked)
-            page.pageTitle = new_install_name
+            page.pageTitle = _(new_install_name)
             self._accordion.addPage(page, cb=self.on_page_clicked)
 
             if page.pageTitle not in page_order:
@@ -769,7 +769,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                 if device in self.bootLoaderDevices:
                     mounts[device.format.type] = device
 
-            new_root = Root(mounts=mounts, swaps=swaps, name=new_install_name)
+            new_root = Root(mounts=mounts, swaps=swaps, name=_(new_install_name))
             ui_roots.insert(0, new_root)
 
         # Add in all the existing (or autopart-created) operating systems.
@@ -778,7 +778,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             # Also, only include devices in an old page if the format is intact.
             if not [d for d in root.swaps + root.mounts.values()
                         if d in self._devices and d.disks and
-                           (root.name == new_install_name or d.format.exists)]:
+                           (root.name == _(new_install_name) or d.format.exists)]:
                 continue
 
             page = Page()
@@ -787,7 +787,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             for (mountpoint, device) in root.mounts.iteritems():
                 if device not in self._devices or \
                    not device.disks or \
-                   (root.name != new_install_name and not device.format.exists):
+                   (root.name != _(new_install_name) and not device.format.exists):
                     continue
 
                 selector = page.addDevice(self._mountpointName(mountpoint) or device.format.name, Size(spec="%f MB" % device.size), mountpoint, self.on_selector_clicked)
@@ -796,7 +796,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
             for device in root.swaps:
                 if device not in self._devices or \
-                   (root.name != new_install_name and not device.format.exists):
+                   (root.name != _(new_install_name) and not device.format.exists):
                     continue
 
                 selector = page.addDevice("Swap",
@@ -865,15 +865,15 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
     def add_new_selector(self, device):
         """ Add an entry for device to the new install Page. """
-        page = self._accordion._find_by_title(new_install_name).get_child()
+        page = self._accordion._find_by_title(_(new_install_name)).get_child()
         devices = [device]
         if not hasattr(page, "_members"):
             # remove the CreateNewPage and replace it with a regular Page
-            expander = self._accordion._find_by_title(new_install_name)
+            expander = self._accordion._find_by_title(_(new_install_name))
             expander.remove(expander.get_child())
 
             page = Page()
-            page.pageTitle = new_install_name
+            page.pageTitle = _(new_install_name)
             expander.add(page)
 
             # pull in all the existing swap devices
@@ -899,7 +899,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
     def _update_btrfs_selectors(self):
         """ Update all btrfs selectors' size properties. """
         # we're only updating selectors in the new root. problem?
-        page = self._accordion._find_by_title(new_install_name).get_child()
+        page = self._accordion._find_by_title(_(new_install_name)).get_child()
         if not hasattr(page, "_members"):
             return
 
@@ -986,7 +986,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         if mountpoint is not None and mountpoint != old_mountpoint:
             error = validate_mountpoint(mountpoint, self.__storage.mountpoints.keys())
             if error:
-                self._error = mountpoint_validation_msgs[error]
+                self._error = _(mountpoint_validation_msgs[error])
                 self.window.set_info(Gtk.MessageType.WARNING, self._error)
                 self.window.show_all()
                 self._populate_right_side(selector)
@@ -1002,11 +1002,11 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         error = None
         if device_type != AUTOPART_TYPE_PLAIN and mountpoint == "/boot/efi":
             error = (_("/boot/efi must be on a device of type %s")
-                     % DEVICE_TEXT_PARTITION)
+                     % _(DEVICE_TEXT_PARTITION))
         elif device_type != AUTOPART_TYPE_PLAIN and \
              fs_type_short in partition_only_format_types:
             error = (_("%s must be on a device of type %s")
-                     % (fs_type, DEVICE_TEXT_PARTITION))
+                     % (fs_type, _(DEVICE_TEXT_PARTITION)))
         elif mountpoint and encrypted and mountpoint.startswith("/boot"):
             error = _("%s cannot be encrypted") % mountpoint
         elif encrypted and fs_type_short in partition_only_format_types:
@@ -1098,14 +1098,14 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                 except ErrorRecoveryFailure as e:
                     self._error = e
                     self.window.set_info(Gtk.MessageType.WARNING,
-                                         unrecoverable_error_msg)
+                                         _(unrecoverable_error_msg))
                     self.window.show_all()
                     self._reset_storage()
                 except StorageError as e:
                     log.error("newDevice failed: %s" % e)
                     self._error = e
                     self.window.set_info(Gtk.MessageType.WARNING,
-                                         device_configuration_error_msg)
+                                         _(device_configuration_error_msg)) 
                     self.window.show_all()
 
                     # in this case we have removed the old device so we now have
@@ -1136,7 +1136,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                         self.clear_errors()
                         self._error = e
                         self.window.set_info(Gtk.MessageType.WARNING,
-                                             unrecoverable_error_msg)
+                                             _(unrecoverable_error_msg))
                         self.window.show_all()
                         self._reset_storage()
                 else:
@@ -1195,14 +1195,14 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                     except ErrorRecoveryFailure as e:
                         self._error = e
                         self.window.set_info(Gtk.MessageType.WARNING,
-                                             unrecoverable_error_msg)
+                                             _(unrecoverable_error_msg))
                         self.window.show_all()
                         self._reset_storage()
                     except StorageError as e:
                         log.error("newDevice failed: %s" % e)
                         self._error = e
                         self.window.set_info(Gtk.MessageType.WARNING,
-                                             device_configuration_error_msg)
+                                             _(device_configuration_error_msg))
                         self.window.show_all()
 
                     self._devices = self.__storage.devices
@@ -1285,7 +1285,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                         for page in self._accordion.allPages:
                             for _selector in getattr(page, "_members", []):
                                 if _selector._device in (device, old_device):
-                                    if page.pageTitle == new_install_name:
+                                    if page.pageTitle == _(new_install_name):
                                         new_selector = _selector
                                         continue
 
@@ -1471,14 +1471,14 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         device_type_text = typeCombo.get_active_text()
         log.info("getting device type for %s" % device_type_text)
         device_type = None
-        if device_type_text == DEVICE_TEXT_LVM:
-            device_type = DEVICE_TYPE_LVM
-        elif device_type_text == DEVICE_TEXT_MD:
-            device_type = DEVICE_TYPE_MD
-        elif device_type_text == DEVICE_TEXT_PARTITION:
-            device_type = DEVICE_TYPE_PARTITION
-        elif device_type_text == DEVICE_TEXT_BTRFS:
-            device_type = DEVICE_TYPE_BTRFS
+        if device_type_text == _(DEVICE_TEXT_LVM):
+            device_type = _(DEVICE_TYPE_LVM)
+        elif device_type_text == _(DEVICE_TEXT_MD):
+            device_type = _(DEVICE_TYPE_MD)
+        elif device_type_text == _(DEVICE_TEXT_PARTITION):
+            device_type = _(DEVICE_TYPE_PARTITION)
+        elif device_type_text == _(DEVICE_TEXT_BTRFS):
+            device_type = _(DEVICE_TYPE_BTRFS)
         else:
             log.error("unknown device type: '%s'" % device_type_text)
 
@@ -1591,10 +1591,10 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         md_pos = None
         md_included = False
         for idx, itr in enumerate(typeCombo.get_model()):
-            if itr[0] == DEVICE_TEXT_BTRFS:
+            if itr[0] == _(DEVICE_TEXT_BTRFS):
                 btrfs_pos = idx
                 btrfs_included = True
-            elif itr[0] == DEVICE_TEXT_MD:
+            elif itr[0] == _(DEVICE_TEXT_MD):
                 md_pos = idx
                 md_included = True
 
@@ -1602,7 +1602,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         include_md = (use_dev.type == "mdarray" or
                       len(self._clearpartDevices) > 1)
         if include_md and not md_included:
-            typeCombo.append_text(DEVICE_TEXT_MD)
+            typeCombo.append_text(_(DEVICE_TEXT_MD))
         elif md_included and not include_md:
             typeCombo.remove(md_pos)
 
@@ -1610,7 +1610,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         include_btrfs = (use_dev.format.type not in
                             partition_only_format_types + ["swap"])
         if include_btrfs and not btrfs_included:
-            typeCombo.append_text(DEVICE_TEXT_BTRFS)
+            typeCombo.append_text(_(DEVICE_TEXT_BTRFS))
         elif btrfs_included and not include_btrfs:
             typeCombo.remove(btrfs_pos)
 
@@ -1619,13 +1619,13 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         partition_pos = None
         lvm_pos = None
         for idx, itr in enumerate(typeCombo.get_model()):
-            if itr[0] == DEVICE_TEXT_BTRFS:
+            if itr[0] == _(DEVICE_TEXT_BTRFS):
                 btrfs_pos = idx
-            elif itr[0] == DEVICE_TEXT_MD:
+            elif itr[0] == _(DEVICE_TEXT_MD):
                 md_pos = idx
-            elif itr[0] == DEVICE_TEXT_PARTITION:
+            elif itr[0] == _(DEVICE_TEXT_PARTITION):
                 partition_pos = idx
-            elif itr[0] == DEVICE_TEXT_LVM:
+            elif itr[0] == _(DEVICE_TEXT_LVM):
                 lvm_pos = idx
 
         raid_level = None
@@ -1736,7 +1736,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                 log.error("error recovery failure")
                 self._error = e
                 self.window.set_info(Gtk.MessageType.ERROR,
-                                     unrecoverable_error_msg)
+                                     _(unrecoverable_error_msg))
                 self.window.show_all()
                 self._reset_storage()
             except StorageError as e:
@@ -1837,7 +1837,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
         log.debug("removing device '%s' from page %s" % (device, root_name))
 
-        if root_name == new_install_name:
+        if root_name == _(new_install_name):
             if device.exists:
                 # This is an existing device that was added to the new page.
                 # All we want to do is revert any changes to the device and

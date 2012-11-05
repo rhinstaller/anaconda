@@ -37,7 +37,7 @@ from pyanaconda import flags
 __all__ = ["KeyboardSpoke"]
 
 # %s will be replaced by key combination like Alt+Shift
-LAYOUT_SWITCHING_INFO = _("%s to switch layouts.")
+LAYOUT_SWITCHING_INFO = N_("%s to switch layouts.")
 
 def _show_layout(column, renderer, model, itr, wrapper):
     value = wrapper.name_to_show_str[model[itr][0]]
@@ -363,7 +363,7 @@ class KeyboardSpoke(NormalSpoke):
             first_option = self.data.keyboard.switch_options[0]
             desc = self._xkl_wrapper.switch_to_show_str[first_option]
 
-            self._layoutSwitchLabel.set_text(LAYOUT_SWITCHING_INFO % desc)
+            self._layoutSwitchLabel.set_text(_(LAYOUT_SWITCHING_INFO) % desc)
         else:
             self._layoutSwitchLabel.set_text(_("Layout switching not "
                                                "configured."))
