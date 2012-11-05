@@ -266,7 +266,8 @@ class InstallOptions3Dialog(InstallOptions1Dialog):
     builderObjects = ["options3_dialog"]
     mainWidgetName = "options3_dialog"
 
-    def refresh(self, required_space, disks_size, disk_free, fs_free, autopart):
+    def refresh(self, required_space, disks_size, disk_free, fs_free, autopart,
+                autoPartType):
         self.custom = not autopart
         sw_text = self._get_sw_needs_text(required_space)
         label_text = (_("%s\nYou don't have enough space available to install "
