@@ -715,6 +715,14 @@ class StorageSpoke(NormalSpoke, StorageChecker):
             if dialog.custom:
                 self.skipTo = "CustomPartitioningSpoke"
             else:
+                if self.encrypted:
+                    dialog = PassphraseDialog(self.data)
+                    rc = self.run_lightbox_dialog(dialog)
+                    if rc == 0:
+                        return
+
+                    self.passphrase = dialog.passphrase
+
                 self.apply()
 
                 resizeDialog = ResizeDialog(self.data, self.storage, self.payload)
