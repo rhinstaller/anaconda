@@ -1023,7 +1023,7 @@ class NetworkStandaloneSpoke(StandaloneSpoke):
         parent = self.builder.get_object("AnacondaStandaloneWindow-action_area5")
         parent.add(self.network_control_box.vbox)
 
-        self._initially_available = False
+        self._initially_available = self.completed
         self._now_available = False
 
     def apply(self):
@@ -1059,8 +1059,6 @@ class NetworkStandaloneSpoke(StandaloneSpoke):
     def refresh(self):
         StandaloneSpoke.refresh(self)
         self.network_control_box.refresh()
-
-        self._initially_available = self.completed
 
     def on_back_clicked(self, window):
         self.window.hide()
