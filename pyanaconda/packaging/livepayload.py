@@ -102,7 +102,8 @@ class LiveImagePayload(ImagePayload):
         #           symlinks, hardlinks
         # go recursively, include devices and special files, don't cross
         # file system boundaries
-        args = ["-pogAXtlHrDx", INSTALL_TREE+"/", ROOT_PATH]
+        args = ["-pogAXtlHrDx", "--exclude", "/dev/", "--exclude", "/proc/",
+                "--exclude", "/sys/", INSTALL_TREE+"/", ROOT_PATH]
         try:
             rc = iutil.execWithRedirect(cmd, args,
                                         stderr="/dev/tty5", stdout="/dev/tty5")
