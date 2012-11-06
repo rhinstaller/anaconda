@@ -113,36 +113,46 @@ class ResizeDialog(GUIObject):
 
         for disk in disks:
             # First add the disk itself.
+            if disk.partitioned:
+                editable = False
+                percent = 0
+                fstype = ""
+                diskReclaimableSpace = 0
+            else:
+                editable = True
+                percent = 100
+                fstype = disk.format.type
+                diskReclaimableSpace = disk.size
+
             itr = self._diskStore.append(None, [disk.id,
                                                 "%s %s" % (size_str(disk.size), disk.description),
-                                                "",
+                                                fstype,
                                                 "<span foreground='grey' style='italic'>%s total</span>",
-                                                0,
+                                                percent,
                                                 _(PRESERVE),
-                                                False])
+                                                editable])
 
-            diskReclaimableSpace = 0
+            if disk.partitioned:
+                # Then add all its partitions.
+                for dev in self.storage.devicetree.getChildren(disk):
+                    if dev.isExtended and disk.format.logicalPartitions:
+                        continue
 
-            # Then add all its partitions.
-            for dev in self.storage.devicetree.getChildren(disk):
-                if dev.isExtended and disk.format.logicalPartitions:
-                    continue
+                    # Devices that are not resizable are still deletable.
+                    if dev.resizable:
+                        freeSize = dev.size - dev.minSize
+                        canShrinkSomething = True
+                    else:
+                        freeSize = dev.size
 
-                # Devices that are not resizable are still deletable.
-                if dev.resizable:
-                    freeSize = dev.size - dev.minSize
-                    canShrinkSomething = True
-                else:
-                    freeSize = dev.size
-
-                self._diskStore.append(itr, [dev.id,
-                                             self._description(dev),
-                                             dev.format.type,
-                                             _("%s of %s") % (size_str(freeSize), size_str(dev.size)),
-                                             int((freeSize/dev.size) * 100),
-                                             _(PRESERVE),
-                                             True])
-                diskReclaimableSpace += freeSize
+                    self._diskStore.append(itr, [dev.id,
+                                                 self._description(dev),
+                                                 dev.format.type,
+                                                 _("%s of %s") % (size_str(freeSize), size_str(dev.size)),
+                                                 int((freeSize/dev.size) * 100),
+                                                 _(PRESERVE),
+                                                 True])
+                    diskReclaimableSpace += freeSize
 
             # And then go back and fill in the total reclaimable space for the
             # disk, now that we know what each partition has reclaimable.

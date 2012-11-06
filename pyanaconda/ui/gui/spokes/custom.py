@@ -610,13 +610,13 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
     @property
     def _clearpartDevices(self):
-        return [d for d in self._devices if d.name in self.data.clearpart.drives]
+        return [d for d in self._devices if d.name in self.data.clearpart.drives and d.partitioned]
 
     @property
     def unusedDevices(self):
         if self._unused_devices is None:
             self._unused_devices = [d for d in self.__storage.unusedDevices
-                                        if d.disks and not d.isDisk and
+                                        if d.disks and not d.partitioned and
                                            d.isleaf]
 
         return self._unused_devices
@@ -1577,6 +1577,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         btrfs_included = False
         md_pos = None
         md_included = False
+        disk_pos = None
+        disk_included = False
         for idx, itr in enumerate(typeCombo.get_model()):
             if itr[0] == _(DEVICE_TEXT_BTRFS):
                 btrfs_pos = idx
@@ -1584,6 +1586,11 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             elif itr[0] == _(DEVICE_TEXT_MD):
                 md_pos = idx
                 md_included = True
+            elif itr[0] == _(DEVICE_TEXT_DISK):
+                disk_pos = idx
+                disk_included = True
+
+        remove_indices = []
 
         # only include md if there are two or more disks
         include_md = (use_dev.type == "mdarray" or
@@ -1591,7 +1598,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         if include_md and not md_included:
             typeCombo.append_text(_(DEVICE_TEXT_MD))
         elif md_included and not include_md:
-            typeCombo.remove(md_pos)
+            remove_indices.append(md_pos)
 
         # if the format is swap the device type can't be btrfs
         include_btrfs = (use_dev.format.type not in
@@ -1599,7 +1606,17 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         if include_btrfs and not btrfs_included:
             typeCombo.append_text(_(DEVICE_TEXT_BTRFS))
         elif btrfs_included and not include_btrfs:
-            typeCombo.remove(btrfs_pos)
+            remove_indices.append(btrfs_pos)
+
+        # only include disk if the current device is a disk
+        include_disk = use_dev.isDisk
+        if include_disk and not disk_included:
+            typeCombo.append_text(_(DEVICE_TEXT_DISK))
+        elif disk_included and not include_disk:
+            remove_indices.append(disk_pos)
+
+        remove_indices.sort(reverse=True)
+        map(typeCombo.remove, remove_indices)
 
         md_pos = None
         btrfs_pos = None
@@ -1741,7 +1758,10 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         with ui_storage_logger():
             is_logical_partition = getattr(device, "isLogical", False)
             try:
-                self.__storage.destroyDevice(device)
+                if device.isDisk:
+                    self.__storage.initializeDisk(device)
+                else:
+                    self.__storage.destroyDevice(device)
             except StorageError as e:
                 log.error("failed to schedule device removal: %s" % e)
                 self._error = e
