@@ -108,7 +108,7 @@ def list_subvolumes(mountpoint):
     args = ["subvol", "list", mountpoint]
     buf = btrfs(args, capture=True)
     vols = []
-    for group in re.findall(r'ID (\d+) gen (\d+) top level (\d+) path (.+)\n', buf):
-        vols.append({"id": int(group[0]), "path": group[2]})
+    for group in re.findall(r'ID (\d+) gen \d+ top level \d+ path (.+)\n', buf):
+        vols.append({"id": int(group[0]), "path": group[1]})
 
     return vols
