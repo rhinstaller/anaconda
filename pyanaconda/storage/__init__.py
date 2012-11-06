@@ -773,7 +773,7 @@ class Storage(object):
                 devices.remove(leaf)
 
         if device.isDisk:
-            self.destroyFormat(device)
+            self.devicetree.registerAction(ActionDestroyFormat(device))
         else:
             self.destroyDevice(device)
 
