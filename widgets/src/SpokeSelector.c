@@ -190,26 +190,33 @@ static void anaconda_spoke_selector_init(AnacondaSpokeSelector *spoke) {
     /* Create the icons. */
     spoke->priv->icon = gtk_image_new_from_stock(DEFAULT_ICON, GTK_ICON_SIZE_DIALOG);
     gtk_image_set_pixel_size(GTK_IMAGE(spoke->priv->icon), 64);
-    gtk_widget_set_valign(spoke->priv->icon, GTK_ALIGN_START);
+    gtk_widget_set_valign(spoke->priv->icon, GTK_ALIGN_CENTER);
+    gtk_misc_set_padding(GTK_MISC(spoke->priv->icon), 12, 0);
 
     spoke->priv->incomplete_icon = gtk_image_new_from_icon_name("dialog-warning-symbolic", GTK_ICON_SIZE_MENU);
     gtk_widget_set_no_show_all(GTK_WIDGET(spoke->priv->incomplete_icon), TRUE);
     gtk_widget_set_visible(GTK_WIDGET(spoke->priv->incomplete_icon), FALSE);
     gtk_widget_set_valign(spoke->priv->incomplete_icon, GTK_ALIGN_START);
+    gtk_widget_set_hexpand(spoke->priv->incomplete_icon, FALSE);
+    gtk_misc_set_alignment(GTK_MISC(spoke->priv->incomplete_icon), 0, 1);
 
     /* Create the title label. */
     spoke->priv->title_label = gtk_label_new(NULL);
     markup = g_markup_printf_escaped("<span weight='bold' size='large'>%s</span>", _(DEFAULT_TITLE));
+    gtk_label_set_justify(GTK_LABEL(spoke->priv->title_label), GTK_JUSTIFY_LEFT);
     gtk_label_set_markup(GTK_LABEL(spoke->priv->title_label), markup);
-    gtk_misc_set_alignment(GTK_MISC(spoke->priv->title_label), 0, 0);
+    gtk_misc_set_alignment(GTK_MISC(spoke->priv->title_label), 0, 1);
+    gtk_widget_set_hexpand(GTK_WIDGET(spoke->priv->title_label), FALSE);
     g_free(markup);
 
     /* Create the status label. */
     spoke->priv->status_label = gtk_label_new(NULL);
     format_status_label(spoke, _(DEFAULT_STATUS));
+    gtk_label_set_justify(GTK_LABEL(spoke->priv->status_label), GTK_JUSTIFY_LEFT);
     gtk_misc_set_alignment(GTK_MISC(spoke->priv->status_label), 0, 0);
     gtk_label_set_ellipsize(GTK_LABEL(spoke->priv->status_label), PANGO_ELLIPSIZE_MIDDLE);
     gtk_label_set_max_width_chars(GTK_LABEL(spoke->priv->status_label), 45);
+    gtk_widget_set_hexpand(GTK_WIDGET(spoke->priv->status_label), FALSE);
 
     spoke->priv->status_provider = gtk_css_provider_new();
     gtk_css_provider_load_from_data(spoke->priv->status_provider, "GtkLabel { color: @text_color }", -1, NULL);
@@ -259,7 +266,6 @@ static void anaconda_spoke_selector_set_property(GObject *object, guint prop_id,
 
         case PROP_STATUS: {
             GtkStyleContext *context = gtk_widget_get_style_context(GTK_WIDGET(priv->status_label));
-
             format_status_label(widget, g_value_get_string(value));
 
             if (gtk_widget_get_sensitive(GTK_WIDGET(widget)))
