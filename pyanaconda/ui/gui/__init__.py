@@ -111,6 +111,10 @@ class GraphicalUserInterface(UserInterface):
         self._actions[0].window.set_property("distribution", _("%(productName)s %(productVersion)s INSTALLATION") % \
                                              {"productName": productName.upper(), "productVersion": productVersion})
 
+        # Set fonts app-wide, where possible
+        settings = Gtk.Settings.get_default()
+        settings.set_property("gtk-font-name", "Cantarell")
+
         self._actions[0].window.show_all()
         Gtk.main()
 
