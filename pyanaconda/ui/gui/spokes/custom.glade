@@ -360,6 +360,7 @@ use.  Try something else?</property>
             <child internal-child="action_area">
               <object class="GtkBox" id="customStorageWindow-actionArea">
                 <property name="can_focus">False</property>
+                <property name="margin_top">6</property>
                 <property name="hexpand">True</property>
                 <property name="vexpand">True</property>
                 <property name="orientation">vertical</property>
@@ -378,11 +379,13 @@ use.  Try something else?</property>
                         <property name="hexpand">True</property>
                         <property name="vexpand">True</property>
                         <property name="shadow_type">in</property>
+			<property name="min_content_width">325</property>
                         <child>
                           <object class="GtkViewport" id="partitionsViewport">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
                             <property name="hexpand">True</property>
+			    <property name="vexpand">True</property>
                             <child>
                               <placeholder/>
                             </child>
