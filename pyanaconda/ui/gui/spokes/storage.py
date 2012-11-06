@@ -348,7 +348,8 @@ class StorageSpoke(NormalSpoke, StorageChecker):
     def _applyDiskSelection(self, use_names):
         onlyuse = use_names[:]
         for disk in [d for d in self.storage.disks if d.name in onlyuse]:
-            onlyuse.extend([d for d in disk.ancestors if d.name not in onlyuse])
+            onlyuse.extend([d.name for d in disk.ancestors
+                                        if d.name not in onlyuse])
 
         self.data.ignoredisk.onlyuse = onlyuse
         self.data.clearpart.drives = use_names[:]
