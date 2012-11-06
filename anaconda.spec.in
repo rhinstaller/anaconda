@@ -300,6 +300,18 @@ update-desktop-database &> /dev/null || :
 /usr/lib/dracut/modules.d/80%{name}/*
 
 %changelog
+* Mon Nov 05 2012 Brian C. Lane <bcl@redhat.com> - 18.25-1
+- Fix up the InstallOptions3Dialog.refresh arguments (#873392). (clumens)
+- Mark strings at the top of spokes with N_; translate later with _ (#872791).
+  (clumens)
+- Do not decorate the dialog that appears when you click on storage info bar.
+  (clumens)
+- You have to give "raise" an exception if you're outside a handler (#872874).
+  (clumens)
+- Prompt for encryption passphrase in reclaim path. (#869391) (dlehman)
+- Prevent user from hitting save without entering a passphrase. (#869391)
+  (dlehman)
+
 * Fri Nov 02 2012 Brian C. Lane <bcl@redhat.com> - 18.24-1
 - Network spoke: activate wifi connection after setting secrets (#871132)
   (rvykydal)

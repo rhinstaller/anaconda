@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 18.23\n"
+"Project-Id-Version: anaconda 18.24\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2012-11-02 17:39-0700\n"
+"POT-Creation-Date: 2012-11-05 17:16-0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1493,40 +1493,40 @@ msgid "Install Destination"
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/storage.py:119
-#: pyanaconda/ui/gui/spokes/storage.py:436
+#: pyanaconda/ui/gui/spokes/storage.py:437
 msgid "No disks selected"
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/storage.py:126
-#: pyanaconda/ui/gui/spokes/storage.py:443
+#: pyanaconda/ui/gui/spokes/storage.py:444
 msgid "Error checking storage configuration"
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/storage.py:129
-#: pyanaconda/ui/gui/spokes/storage.py:445
+#: pyanaconda/ui/gui/spokes/storage.py:446
 msgid "Automatic partitioning selected"
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/storage.py:131
-#: pyanaconda/ui/gui/spokes/storage.py:447
+#: pyanaconda/ui/gui/spokes/storage.py:448
 msgid "Custom partitioning selected"
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/storage.py:167
-#: pyanaconda/ui/gui/spokes/storage.py:580
+#: pyanaconda/ui/gui/spokes/storage.py:581
 msgid ""
 "No disks detected.  Please shut down the computer, connect at least one "
 "disk, and restart to complete installation."
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/storage.py:169
-#: pyanaconda/ui/gui/spokes/storage.py:582
+#: pyanaconda/ui/gui/spokes/storage.py:583
 msgid "No disks selected; please select at least one disk to install to."
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/storage.py:184
 #: pyanaconda/ui/gui/spokes/source.py:626
-#: pyanaconda/ui/gui/spokes/storage.py:512
+#: pyanaconda/ui/gui/spokes/storage.py:513
 msgid "Probing storage..."
 msgstr ""
 
@@ -1540,7 +1540,7 @@ msgid "storage configuration failed: %s"
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/storage.py:277
-#: pyanaconda/ui/gui/spokes/storage.py:305
+#: pyanaconda/ui/gui/spokes/storage.py:306
 msgid "Checking storage configuration..."
 msgstr ""
 
@@ -1808,7 +1808,7 @@ msgstr ""
 msgid "Automatic partitioning failed. Click for details."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2174
+#: pyanaconda/ui/gui/spokes/custom.py:2175
 msgid "Failed to unlock encrypted block device. Click for details"
 msgstr ""
 
@@ -2073,7 +2073,7 @@ msgid ""
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/software.py:327
-#: pyanaconda/ui/gui/spokes/storage.py:746 pyanaconda/ui/gui/main.glade:36
+#: pyanaconda/ui/gui/spokes/storage.py:755 pyanaconda/ui/gui/main.glade:36
 msgid "_Quit"
 msgstr ""
 
@@ -2186,7 +2186,7 @@ msgid ""
 "reclaim space by shrinking or removing existing partitions."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.py:272
+#: pyanaconda/ui/gui/spokes/storage.py:273
 #, python-format
 msgid ""
 "%s\n"
@@ -2195,7 +2195,7 @@ msgid ""
 "available on the selected disks."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.py:283
+#: pyanaconda/ui/gui/spokes/storage.py:284
 #, python-format
 msgid ""
 "<b>You don't have enough space available to install %s</b>, even if you used "
@@ -2206,38 +2206,38 @@ msgid ""
 "quit the installer."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.py:323
+#: pyanaconda/ui/gui/spokes/storage.py:324
 #: pyanaconda/ui/gui/spokes/storage.glade:796
 msgid "INSTALLATION DESTINATION"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.py:396
+#: pyanaconda/ui/gui/spokes/storage.py:397
 msgid "Saving storage configuration..."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.py:403
+#: pyanaconda/ui/gui/spokes/storage.py:404
 msgid "Failed to save storage configuration..."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.py:491
+#: pyanaconda/ui/gui/spokes/storage.py:492
 msgid "Error checking storage configuration.  Click for details."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.py:573
+#: pyanaconda/ui/gui/spokes/storage.py:574
 #, python-format
 msgid "%d disk selected; %s capacity; %s free"
 msgid_plural "%d disks selected; %s capacity; %s free"
 msgstr[0] ""
 msgstr[1] ""
 
-#: pyanaconda/ui/gui/spokes/storage.py:743
+#: pyanaconda/ui/gui/spokes/storage.py:752
 msgid ""
 "The following errors were encountered when checking your storage "
 "configuration.  You can modify your storage layout\n"
 "or quit the installer."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.py:746
+#: pyanaconda/ui/gui/spokes/storage.py:755
 msgid "_Modify Storage Layout"
 msgstr ""
 
@@ -2294,20 +2294,20 @@ msgstr ""
 msgid "Passphrases do not match."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/lib/passphrase.py:110
+#: pyanaconda/ui/gui/spokes/lib/passphrase.py:114
 #: pyanaconda/ui/gui/spokes/lib/passphrase.glade:165
 msgid "Weak"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/lib/passphrase.py:113
+#: pyanaconda/ui/gui/spokes/lib/passphrase.py:117
 msgid "Fair"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/lib/passphrase.py:116
+#: pyanaconda/ui/gui/spokes/lib/passphrase.py:120
 msgid "Good"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/lib/passphrase.py:119
+#: pyanaconda/ui/gui/spokes/lib/passphrase.py:123
 msgid "Strong"
 msgstr ""
 
