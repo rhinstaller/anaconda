@@ -545,6 +545,7 @@ class SourceSpoke(NormalSpoke):
                                            _(METADATA_ERROR_MESSAGE))
                 communication.send_ready(self.__class__.__name__)
                 self._error = True
+                self.window.set_info(Gtk.MessageType.WARNING, _("Failed to set up install source, check the repo url"))
             else:
                 communication.send_ready(self.__class__.__name__)
                 communication.send_ready("SoftwareSelectionSpoke")
