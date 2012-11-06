@@ -36,6 +36,8 @@
 
 """
 
+from ConfigParser import MissingSectionHeaderError
+
 import os
 import shutil
 import sys
@@ -628,7 +630,13 @@ reposdir=%s
 
         if method.method:
             with _yum_lock:
-                self._yum.preconf.releasever = self._getReleaseVersion(url)
+                try:
+                    self._yum.preconf.releasever = self._getReleaseVersion(url)
+                except MissingSectionHeaderError as e:
+                    log.error("couldn't set releasever from base repo (%s): %s"
+                              % (method.method, e))
+                    self._removeYumRepo(BASE_REPO_NAME)
+                    raise PayloadSetupError("base repo is unusable")
 
             self._yumCacheDirHack()
             try:
