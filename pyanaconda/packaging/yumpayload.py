@@ -189,7 +189,11 @@ class YumPayload(PackagePayload):
 
             # Set some configuration parameters that don't get set through a config
             # file.  yum will know what to do with these.
-            self._yum.preconf.enabled_plugins = ["blacklist", "whiteout", "fastestmirror"]
+            # Enable all types of yum plugins. We're somewhat careful about what
+            # plugins we put in the environment.
+            self._yum.preconf.plugin_types = yum.plugins.ALL_TYPES
+            self._yum.preconf.enabled_plugins = ["blacklist", "whiteout", "fastestmirror",
+                                                 "langpacks"]
             self._yum.preconf.fn = "/tmp/anaconda-yum.conf"
             self._yum.preconf.root = root
             # set this now to the best default we've got ; we'll update it if/when
