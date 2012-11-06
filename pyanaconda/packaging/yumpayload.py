@@ -82,6 +82,9 @@ from pyanaconda.errors import *
 from pyanaconda.packaging import NoSuchGroup, NoSuchPackage
 import pyanaconda.progress as progress
 
+from pyanaconda.localization import expand_langs
+import itertools
+
 from pykickstart.constants import KS_MISSING_IGNORE
 
 default_repos = [productName.lower(), "rawhide"]
@@ -926,9 +929,14 @@ reposdir=%s
 
         if yum_groups:
             with _yum_lock:
-                groups = [g.groupid for g in yum_groups.get_groups() if g.langonly == lang]
+                langs = expand_langs(lang)
+                groups = map(lambda x: [g.groupid for g in
+                             yum_groups.get_groups() if g.langonly == x],
+                             langs)
 
-        return groups
+        # the map gives us a list of results, this set call reduces
+        # it down to a unique set, then list() makes it back into a list.
+        return list(set(itertools.chain(*groups)))
 
     def groupDescription(self, groupid):
         """ Return name/description tuple for the group specified by id. """
