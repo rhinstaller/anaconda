@@ -664,10 +664,14 @@ class StorageSpoke(NormalSpoke, StorageChecker):
             fs_free = sum([f[1] for f in free_space.itervalues()])
 
         required_space = self.payload.spaceRequired
-        log.debug("disk free: %s  fs free: %s  sw needs: %s" % (disk_free,
-                                                                fs_free,
-                                                                required_space))
-        if disk_free >= required_space:
+        auto_swap = Size(bytes=0)
+        for autoreq in self.storage.autoPartitionRequests:
+            if autoreq.fstype == "swap":
+                auto_swap += Size(spec="%d MB" % autoreq.size)
+
+        log.debug("disk free: %s  fs free: %s  sw needs: %s  auto swap: %s"
+                        % (disk_free, fs_free, required_space, auto_swap))
+        if disk_free >= required_space + auto_swap:
             dialog = InstallOptions1Dialog(self.data)
         elif disks_size >= required_space:
             dialog = InstallOptions2Dialog(self.data, payload=self.payload)
