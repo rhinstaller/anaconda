@@ -225,7 +225,7 @@ if [ $ARCH = sparc ]; then
 fi
 
 if [ $ARCH = i386 -o $ARCH = x86_64 ]; then
-    PACKAGESGR="$PACKAGESGR syslinux memtest86+" 
+    PACKAGESGR="$PACKAGESGR syslinux syslinux-perl memtest86+"
 fi
 
 if [ $ARCH = alpha ]; then
