@@ -128,7 +128,7 @@ def mangleLocale(inLocale):
                  "nl":  "nl_NL",  "nn":  "nn_NO",  "nso": "nso_ZA", "or":  "or_IN",
                  "pa":  "pa_IN",  "pl":  "pl_PL",  "pt":  "pt_PT",  "ro":  "ro_RO",
                  "ru":  "ru_RU",  "si":  "si_LK",  "sk":  "sk_SK",  "sl":  "sl_SI",
-                 "sq":  "sq_AL",  "sr":  "sr_RS",  "sr@latin": "sr_RS@latin",
+                 "sq":  "sq_AL",  "sr":  "sr_RS",  "sr@latin": "sr_Latn_RS",
                  "sv":  "sv_SE",  "ta":  "ta_IN",  "te":  "te_IN",  "tg":  "tg_TJ",
                  "th":  "th_TH",  "tr":  "tr_TR",  "uk":  "uk_UA",  "ur":  "ur_PK",
                  "vi":  "vi_VN",  "zu":  "zu_ZA"}
