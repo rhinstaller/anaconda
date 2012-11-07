@@ -57,6 +57,7 @@ from pyanaconda.storage.errors import NoDisksError
 from pyanaconda.storage.errors import NotEnoughFreeSpaceError
 from pyanaconda.storage.errors import ErrorRecoveryFailure
 from pyanaconda.storage.errors import CryptoError
+from pyanaconda.storage.errors import MDRaidError
 from pyanaconda.storage.devicelibs import mdraid
 from pyanaconda.storage.devices import LUKSDevice
 
@@ -1446,7 +1447,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         widget_dict = self._get_raid_widget_dict(device_type)
         try:
             base_size = factory.device_size
-        except ValueError as e:
+        except MDRaidError as e:
             log.error("failed to populate UI raid options: %s" % e)
             return
 
