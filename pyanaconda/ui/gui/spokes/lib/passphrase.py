@@ -30,16 +30,17 @@ from pyanaconda.ui.gui import GUIObject
 from pyanaconda import keyboard
 
 _ = lambda x: gettext.ldgettext("anaconda", x)
+N_ = lambda x: x
 P_ = lambda x, y, z: gettext.ldngettext("anaconda", x, y, z)
 
 __all__ = ["PassphraseDialog"]
 
-warning_label_template = _("Warning: Your current keyboard layout is <b>%s</b>."
-                           "If you change your keyboard layout, you may not be "
-                           "able to decrypt your disks after install.")
+warning_label_template = N_("Warning: Your current keyboard layout is <b>%s</b>."
+                            "If you change your keyboard layout, you may not be "
+                            "able to decrypt your disks after install.")
 
-ERROR_WEAK = _("You have provided a weak passphrase: %s")
-ERROR_NOT_MATCHING = _("Passphrases do not match.") 
+ERROR_WEAK = N_("You have provided a weak passphrase: %s")
+ERROR_NOT_MATCHING = N_("Passphrases do not match.") 
 
 class PassphraseDialog(GUIObject):
     builderObjects = ["passphrase_dialog"]
@@ -81,7 +82,7 @@ class PassphraseDialog(GUIObject):
         xkl_wrapper = keyboard.XklWrapper.get_instance()
         keymap_name = xkl_wrapper.get_current_layout_name()
         warning_label_text = warning_label_template % keymap_name
-        self._warning_label.set_markup(warning_label_text)
+        self._warning_label.set_markup(_(warning_label_text))
 
         # initialize with the previously set passphrase
         self.passphrase = self.data.autopart.passphrase
@@ -148,7 +149,7 @@ class PassphraseDialog(GUIObject):
             icon = "gtk-dialog-error"
             msg = ERROR_WEAK % self._pwq_error
             sensitive = False
-            self._set_entry_icon(entry, icon, msg)
+            self._set_entry_icon(entry, icon, _(msg))
 
         self._confirm_entry.set_sensitive(sensitive)
         if sensitive:
@@ -171,7 +172,7 @@ class PassphraseDialog(GUIObject):
             match = False
             icon = "gtk-dialog-error"
             msg = ERROR_NOT_MATCHING
-            self._set_entry_icon(entry, icon, msg)
+            self._set_entry_icon(entry, icon, _(msg))
             self._save_button.set_sensitive(False)
         else:
             self._save_button.grab_focus()

@@ -29,6 +29,7 @@ from pyanaconda.storage.size import Size
 import gettext
 
 _ = lambda x: gettext.ldgettext("anaconda", x)
+N_ = lambda x: x
 P_ = lambda x, y, z: gettext.ldngettext("anaconda", x, y, z)
 
 __all__ = ["ResizeDialog"]
@@ -41,9 +42,9 @@ PERCENT_COL = 4
 ACTION_COL = 5
 EDITABLE_COL = 6
 
-PRESERVE = _("Preserve")
-SHRINK = _("Shrink")
-DELETE = _("Delete")
+PRESERVE = N_("Preserve")
+SHRINK = N_("Shrink")
+DELETE = N_("Delete")
 
 def size_str(mb):
     if isinstance(mb, Size):
@@ -117,7 +118,7 @@ class ResizeDialog(GUIObject):
                                                 "",
                                                 "<span foreground='grey' style='italic'>%s total</span>",
                                                 0,
-                                                PRESERVE,
+                                                _(PRESERVE),
                                                 False])
 
             diskReclaimableSpace = 0
@@ -139,7 +140,7 @@ class ResizeDialog(GUIObject):
                                              dev.format.type,
                                              _("%s of %s") % (size_str(freeSize), size_str(dev.size)),
                                              int((freeSize/dev.size) * 100),
-                                             PRESERVE,
+                                             _(PRESERVE),
                                              True])
                 diskReclaimableSpace += freeSize
 
@@ -200,14 +201,14 @@ class ResizeDialog(GUIObject):
             return False
 
         device = self.storage.devicetree.getDeviceByID(ident)
-        if action == PRESERVE:
+        if action == _(PRESERVE):
             return False
-        if action == SHRINK:
+        if action == _(SHRINK):
             if device.resizable:
                 self._selectedReclaimableSpace += (device.size - device.minSize)
             else:
                 self._selectedReclaimableSpace += device.size
-        elif action == DELETE:
+        elif action == _(DELETE):
             self._selectedReclaimableSpace += device.size
 
         return False
@@ -239,14 +240,14 @@ class ResizeDialog(GUIObject):
         if not editable:
             return False
 
-        if action == PRESERVE:
+        if action == _(PRESERVE):
             return False
-        elif action == SHRINK:
+        elif action == _(SHRINK):
             if device.resizable:
                 self.storage.resizeDevice(device, device.minSize)
             else:
                 self.storage.recursiveRemove(device)
-        elif action == DELETE:
+        elif action == _(DELETE):
             self.storage.recursiveRemove(device)
 
         return False
