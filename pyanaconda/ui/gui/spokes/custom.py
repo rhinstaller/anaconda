@@ -49,6 +49,13 @@ from pyanaconda.storage.formats import getFormat
 from pyanaconda.storage.formats.fs import FS
 from pyanaconda.storage.size import Size
 from pyanaconda.storage import Root
+from pyanaconda.storage import DEVICE_TYPE_LVM
+from pyanaconda.storage import DEVICE_TYPE_BTRFS
+from pyanaconda.storage import DEVICE_TYPE_PARTITION
+from pyanaconda.storage import DEVICE_TYPE_MD
+from pyanaconda.storage import DEVICE_TYPE_DISK
+from pyanaconda.storage import getDeviceType
+from pyanaconda.storage import getRAIDLevel
 from pyanaconda.storage import findExistingInstallations
 from pyanaconda.storage.partitioning import doPartitioning
 from pyanaconda.storage.partitioning import doAutoPartition
@@ -105,12 +112,7 @@ DEVICE_TEXT_LVM = N_("LVM")
 DEVICE_TEXT_MD = N_("RAID")
 DEVICE_TEXT_PARTITION = N_("Standard Partition")
 DEVICE_TEXT_BTRFS = N_("BTRFS")
-
-# FIXME: use these everywhere instead of the AUTOPART_TYPE constants
-DEVICE_TYPE_LVM = 0
-DEVICE_TYPE_MD = 1
-DEVICE_TYPE_PARTITION = 2
-DEVICE_TYPE_BTRFS = 3
+DEVICE_TEXT_DISK = N_("Disk")
 
 options_page_dict = {DEVICE_TYPE_LVM: 0,
                      DEVICE_TYPE_MD: 1,
@@ -944,11 +946,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         log.debug("old size: %s" % device.size)
 
         device_type = self._get_current_device_type()
-        device_type_map = {DEVICE_TYPE_PARTITION: AUTOPART_TYPE_PLAIN,
-                           DEVICE_TYPE_BTRFS: AUTOPART_TYPE_BTRFS,
-                           DEVICE_TYPE_LVM: AUTOPART_TYPE_LVM,
-                           DEVICE_TYPE_MD: None}
-        device_type = device_type_map[device_type]
         log.debug("new device type: %s" % device_type)
 
         reformat = self.builder.get_object("reformatCheckbox").get_active()
@@ -1001,10 +998,10 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         ## VALIDATION
         ##
         error = None
-        if device_type != AUTOPART_TYPE_PLAIN and mountpoint == "/boot/efi":
+        if device_type != DEVICE_TYPE_PARTITION and mountpoint == "/boot/efi":
             error = (_("/boot/efi must be on a device of type %s")
                      % _(DEVICE_TEXT_PARTITION))
-        elif device_type != AUTOPART_TYPE_PLAIN and \
+        elif device_type != DEVICE_TYPE_PARTITION and \
              fs_type_short in partition_only_format_types:
             error = (_("%s must be on a device of type %s")
                      % (fs_type, _(DEVICE_TEXT_PARTITION)))
@@ -1034,30 +1031,15 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         ##
         ## DEVICE TYPE (early return)
         ##
-        device_types = {"partition": AUTOPART_TYPE_PLAIN,
-                        "lvmlv": AUTOPART_TYPE_LVM,
-                        "btrfs subvolume": AUTOPART_TYPE_BTRFS,
-                        "btrfs volume": AUTOPART_TYPE_BTRFS,
-                        "mdarray": None}
-        current_device_type = device.type
         use_dev = device
-        if current_device_type == "luks/dm-crypt":
-            current_device_type = device.slave.type
+        if device.type == "luks/dm-crypt":
             use_dev = device.slave
-        current_device_type = device_types.get(current_device_type)
-
-        old_raid_level = None
-        if current_device_type is None:
-            old_raid_level = mdraid.raidLevelString(use_dev.level)
-        elif current_device_type == AUTOPART_TYPE_BTRFS:
-            if hasattr(use_dev, "dataLevel"):
-                old_raid_level = use_dev.dataLevel or "single"
-            else:
-                old_raid_level = use_dev.volume.dataLevel or "single"
-
+        current_device_type = getDeviceType(device)
+        old_raid_level = getRAIDLevel(device)
         changed_device_type = (current_device_type != device_type)
         changed_raid_level = (current_device_type == device_type and
-                              device_type in (None, AUTOPART_TYPE_BTRFS) and
+                              device_type in (DEVICE_TYPE_MD,
+                                              DEVICE_TYPE_BTRFS) and
                               old_raid_level != raid_level)
         changed_disk_set = (set(device.disks) != set(self._device_disks))
 
@@ -1111,17 +1093,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
                     # in this case we have removed the old device so we now have
                     # to re-create it
-                    device_type = device_types.get(device.type)
-                    raid_level = None
-                    if hasattr(device, "level"):
-                        # md
-                        raid_level = mdraid.raidLevelString(device.level)
-                    elif hasattr(device, "dataLevel"):
-                        raid_level = device.dataLevel
-                    elif hasattr(device, "volume"):
-                        # btrfs subvol
-                        raid_level = device.volume.dataLevel
-
                     try:
                         # XXX FIXME: pass old raid level -- not new one
                         self._replace_device(device_type, device.size,
@@ -1430,17 +1401,15 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
             level_label = self.builder.get_object("raidLevelLabel")
             level_label.set_text(raid_level.upper())
-            factory_type = None
         elif device_type == DEVICE_TYPE_BTRFS:
             base_level = "single"
-            factory_type = AUTOPART_TYPE_BTRFS
         else:
             return
 
         # Create a DeviceFactory to use to calculate the disk space needs for
         # this device with various raid features enabled.
         with ui_storage_logger():
-            factory = self.__storage.getDeviceFactory(factory_type, size,
+            factory = self.__storage.getDeviceFactory(device_type, size,
                                                       disks=self._device_disks,
                                                       raid_level=base_level)
 
@@ -1483,13 +1452,15 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         log.info("getting device type for %s" % device_type_text)
         device_type = None
         if device_type_text == _(DEVICE_TEXT_LVM):
-            device_type = _(DEVICE_TYPE_LVM)
+            device_type = DEVICE_TYPE_LVM
         elif device_type_text == _(DEVICE_TEXT_MD):
-            device_type = _(DEVICE_TYPE_MD)
+            device_type = DEVICE_TYPE_MD
         elif device_type_text == _(DEVICE_TEXT_PARTITION):
-            device_type = _(DEVICE_TYPE_PARTITION)
+            device_type = DEVICE_TYPE_PARTITION
         elif device_type_text == _(DEVICE_TEXT_BTRFS):
-            device_type = _(DEVICE_TYPE_BTRFS)
+            device_type = DEVICE_TYPE_BTRFS
+        elif device_type_text == _(DEVICE_TEXT_DISK):
+            device_type = DEVICE_TYPE_DISK
         else:
             log.error("unknown device type: '%s'" % device_type_text)
 
@@ -1643,22 +1614,17 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                 partition_pos = idx
             elif itr[0] == _(DEVICE_TEXT_LVM):
                 lvm_pos = idx
+            elif itr[0] == _(DEVICE_TEXT_DISK):
+                disk_pos = idx
 
-        raid_level = None
-        if use_dev.type == "lvmlv":
-            # TODO: striping/mirroring
-            typeCombo.set_active(lvm_pos)
-        elif use_dev.type == "mdarray":
-            typeCombo.set_active(md_pos)
-            raid_level = mdraid.raidLevelString(use_dev.level)
-        elif use_dev.type == "partition":
-            typeCombo.set_active(partition_pos)
-        elif use_dev.type.startswith("btrfs"):
-            typeCombo.set_active(btrfs_pos)
-            if hasattr(use_dev, "volume"):
-                raid_level = use_dev.volume.dataLevel or "single"
-            else:
-                raid_level = use_dev.dataLevel or "single"
+        device_type = getDeviceType(device)
+        raid_level = getRAIDLevel(device)
+        type_index_map = {DEVICE_TYPE_PARTITION: partition_pos,
+                          DEVICE_TYPE_BTRFS: btrfs_pos,
+                          DEVICE_TYPE_LVM: lvm_pos,
+                          DEVICE_TYPE_MD: md_pos,
+                          DEVICE_TYPE_DISK: disk_pos}
+        typeCombo.set_active(type_index_map[device_type])
 
         # you can't change the type of an existing device
         typeCombo.set_sensitive(not device.exists)
@@ -1724,13 +1690,16 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         if mountpoint.lower() in ("swap", "biosboot", "prepboot"):
             mountpoint = None
 
-        device_type = self.data.autopart.type
-        if device_type != AUTOPART_TYPE_PLAIN and \
+        device_type_from_autopart = {AUTOPART_TYPE_LVM: DEVICE_TYPE_LVM,
+                                     AUTOPART_TYPE_PLAIN: DEVICE_TYPE_PARTITION,
+                                     AUTOPART_TYPE_BTRFS: DEVICE_TYPE_MD}
+        device_type = device_type_from_autopart[self.data.autopart.type]
+        if device_type != DEVICE_TYPE_PARTITION and \
              mountpoint == "/boot/efi":
-            device_type = AUTOPART_TYPE_PLAIN
-        elif device_type != AUTOPART_TYPE_PLAIN and \
+            device_type = DEVICE_TYPE_PARTITION
+        elif device_type != DEVICE_TYPE_PARTITION and \
              fstype in partition_only_format_types:
-            device_type = AUTOPART_TYPE_PLAIN
+            device_type = DEVICE_TYPE_PARTITION
 
         # some devices should never be encrypted
         if ((mountpoint and mountpoint.startswith("/boot")) or
@@ -1799,12 +1768,12 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         if hasattr(device, "vg"):
             device.vg._removeLogVol(device)
             container = device.vg
-            device_type = AUTOPART_TYPE_LVM
+            device_type = DEVICE_TYPE_LVM
             raid_level = None
         elif hasattr(device, "volume"):
             device.volume._removeSubVolume(device.name)
             container = device.volume
-            device_type = AUTOPART_TYPE_BTRFS
+            device_type = DEVICE_TYPE_BTRFS
             raid_level = container.dataLevel
 
         if container and not container.exists and \
@@ -2101,7 +2070,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         fs_type_sensitive = True
 
         # eventually LVM will be handled in the else clause
-        if new_type in (DEVICE_TYPE_PARTITION, DEVICE_TYPE_LVM):
+        if new_type in (DEVICE_TYPE_PARTITION, DEVICE_TYPE_LVM, DEVICE_TYPE_DISK):
             self._optionsNotebook.hide()
         else:
             self._optionsNotebook.show()

@@ -52,6 +52,7 @@ from devicelibs.crypto import generateBackupPassphrase
 from devicelibs.mpath import MultipathConfigWriter
 from devicelibs.edd import get_edd_dict
 from devicelibs.mdraid import get_member_space
+from devicelibs.mdraid import raidLevelString
 from devicelibs.lvm import get_pv_space
 from .partitioning import SameSizeSet
 from .partitioning import TotalSizeSet
@@ -70,6 +71,47 @@ _ = lambda x: gettext.ldgettext("anaconda", x)
 
 import logging
 log = logging.getLogger("storage")
+
+DEVICE_TYPE_LVM = 0
+DEVICE_TYPE_MD = 1
+DEVICE_TYPE_PARTITION = 2
+DEVICE_TYPE_BTRFS = 3
+DEVICE_TYPE_DISK = 4
+
+def getDeviceType(device):
+    device_types = {"partition": DEVICE_TYPE_PARTITION,
+                    "lvmlv": DEVICE_TYPE_LVM,
+                    "btrfs subvolume": DEVICE_TYPE_BTRFS,
+                    "btrfs volume": DEVICE_TYPE_BTRFS,
+                    "mdarray": DEVICE_TYPE_MD}
+
+    use_dev = device
+    if isinstance(device, LUKSDevice):
+        use_dev = device.slave
+
+    if use_dev.isDisk:
+        device_type = DEVICE_TYPE_DISK
+    else:
+        device_type = device_types.get(use_dev.type)
+
+    return device_type
+
+def getRAIDLevel(device):
+    # TODO: move this into StorageDevice
+    use_dev = device
+    if isinstance(device, LUKSDevice):
+        use_dev = device.slave
+
+    # TODO: lvm and perhaps pulling raid level from md pvs
+    raid_level = None
+    if hasattr(use_dev, "level"):
+        raid_level = raidLevelString(use_dev.level)
+    elif hasattr(use_dev, "dataLevel"):
+        raid_level = use_dev.dataLevel or "single"
+    elif hasattr(use_dev, "volume"):
+        raid_level = use_dev.volume.dataLevel or "single"
+
+    return raid_level
 
 def storageInitialize(storage, ksdata, protected):
     storage.shutdown()
@@ -1914,11 +1956,13 @@ class Storage(object):
         raid_level = kwargs.get("raid_level")
         encrypted = kwargs.get("encrypted", False)
 
-        class_table = {AUTOPART_TYPE_LVM: LVMFactory,
-                       AUTOPART_TYPE_BTRFS: BTRFSFactory,
-                       AUTOPART_TYPE_PLAIN: PartitionFactory}
+        class_table = {DEVICE_TYPE_LVM: LVMFactory,
+                       DEVICE_TYPE_BTRFS: BTRFSFactory,
+                       DEVICE_TYPE_PARTITION: PartitionFactory,
+                       DEVICE_TYPE_MD: MDFactory,
+                       DEVICE_TYPE_DISK: DiskFactory}
 
-        factory_class = class_table.get(device_type, MDFactory)
+        factory_class = class_table[device_type]
         log.debug("instantiating %s: %r, %s, %s, %s" % (factory_class,
                     self, size, [d.name for d in disks], raid_level))
         return factory_class(self, size, disks, raid_level, encrypted)
@@ -2003,8 +2047,8 @@ class Storage(object):
             if fstype == "swap":
                 mountpoint = None
 
-        if fstype == "swap" and device_type == AUTOPART_TYPE_BTRFS:
-            device_type = AUTOPART_TYPE_PLAIN
+        if fstype == "swap" and device_type == DEVICE_TYPE_BTRFS:
+            device_type = DEVICE_TYPE_PARTITION
 
         fmt_args = {}
         if label:
@@ -3219,6 +3263,12 @@ class DeviceFactory(object):
 
     def set_device_size(self, container, device=None):
         return self.size
+
+class DiskFactory(DeviceFactory):
+    type_desc = "disk"
+    # this is to protect against changes to these settings in the base class
+    encrypt_members = False
+    encrypt_leaves = True
 
 class PartitionFactory(DeviceFactory):
     type_desc = "partition"
