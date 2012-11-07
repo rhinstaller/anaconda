@@ -1041,7 +1041,10 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                               device_type in (DEVICE_TYPE_MD,
                                               DEVICE_TYPE_BTRFS) and
                               old_raid_level != raid_level)
-        changed_disk_set = (set(device.disks) != set(self._device_disks))
+        old_disk_set = device.disks
+        if hasattr(device, "req_disks") and not device.exists:
+            old_disk_set = device.req_disks
+        changed_disk_set = (set(old_disk_set) != set(self._device_disks))
 
         if changed_device_type or changed_raid_level:
             if changed_device_type:
