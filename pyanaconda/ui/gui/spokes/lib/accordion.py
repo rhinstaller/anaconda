@@ -148,7 +148,7 @@ class Page(Gtk.Box):
     def addDevice(self, name, size, mountpoint, cb):
         selector = MountpointSelector(name, str(size).upper(), mountpoint or "")
         selector.connect("button-press-event", self._onSelectorClicked, cb)
-        #selector.connect("key-release-event", self._onSelectorClicked, cb)
+        selector.connect("key-release-event", self._onSelectorClicked, cb)
         #selector.connect("focus-in-event", self._onSelectorClicked, cb)
         self._members.append(selector)
 
@@ -204,7 +204,7 @@ class UnknownPage(Page):
     def addDevice(self, name, size, mountpoint, cb):
         selector = MountpointSelector(name, str(size).upper(), mountpoint or "")
         selector.connect("button-press-event", self._onSelectorClicked, cb)
-        #selector.connect("key-release-event", self._onSelectorClicked, cb)
+        selector.connect("key-release-event", self._onSelectorClicked, cb)
         #selector.connect("focus-in-event", self._onSelectorClicked, cb)
 
         selector._device = None
