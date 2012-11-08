@@ -1,6 +1,6 @@
 Name: anaconda
 Version: 11.1.2.257
-Release: 1
+Release: 2
 License: GPL
 Summary: Graphical system installer
 Group: Applications/System
@@ -128,6 +128,11 @@ fi
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+
+* Thu Nov 8 2012 Radek Vykydal <rvykydal@redhat.com> 11.1.2.257-2
+- Require syslinux-perl in anaconda (rvykydal)
+  Related: rhbz#872225
+
 * Wed Nov 7 2012 Radek Vykydal <rvykydal@redhat.com> 11.1.2.257-1
 - Include syslinux-perl from split syslinux package (rvykydal)
   Resolves: rhbz#872225
