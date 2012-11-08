@@ -336,7 +336,7 @@ class Sparc(Platform):
 
 class ARM(Platform):
     _armMachine = None
-    bootloaderClass = bootloader.GRUB2
+    bootloaderClass = bootloader.UBOOT
     _boot_stage1_device_types = ["disk"]
     _boot_mbr_description = N_("Master Boot Record")
     _boot_descriptions = {"disk": _boot_mbr_description,
