@@ -51,7 +51,7 @@ Requires: libxml2-python, python, rpm-python >= 4.2-0.61
 Requires: anaconda = %{version}-%{release}
 Requires: createrepo >= 0.4.3-3.1, squashfs-tools, mkisofs
 %ifarch %{ix86} x86_64
-Requires: syslinux
+Requires: syslinux, syslinux-perl
 %endif
 %ifarch s390 s390x
 Requires: openssh
