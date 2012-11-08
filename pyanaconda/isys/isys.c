@@ -149,7 +149,10 @@ static PyObject * doUMount(PyObject * s, PyObject * args) {
         return NULL;
     }
 
+    Py_BEGIN_ALLOW_THREADS
     rc = doPwUmount(mntpoint, &err);
+    Py_END_ALLOW_THREADS
+
     if (rc == IMOUNT_ERR_ERRNO) {
         PyErr_SetFromErrno(PyExc_SystemError);
     } else if (rc) {
@@ -182,7 +185,10 @@ static PyObject * doMount(PyObject * s, PyObject * args) {
     if (!PyArg_ParseTuple(args, "sss|z", &fs, &device, &mntpoint,
 			  &flags)) return NULL;
 
+    Py_BEGIN_ALLOW_THREADS
     rc = doPwMount(device, mntpoint, fs, flags, &err);
+    Py_END_ALLOW_THREADS
+
     if (rc == IMOUNT_ERR_ERRNO)
 	PyErr_SetFromErrno(PyExc_SystemError);
     else if (rc) {
