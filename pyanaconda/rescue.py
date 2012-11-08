@@ -91,14 +91,6 @@ class RescueInterface(InstallInterfaceBase):
 	else:
 	    return OkCancelWindow(self.screen, title, text)
 
-    def enableNetwork(self):
-        if len(network.getDevices()) == 0:
-            return False
-        from textw.netconfig_text import NetworkConfiguratorText
-        w = NetworkConfiguratorText(self.screen, self)
-        ret = w.run()
-        return ret != INSTALL_BACK
-
     def passphraseEntryWindow(self, device):
         w = PassphraseEntryWindow(self.screen, device)
         passphrase = w.run()
@@ -210,18 +202,6 @@ def doRescue(rescue_mount, ksdata, platform):
             pass
 
     intf = RescueInterface()
-
-    # see if they would like networking enabled
-    if not network.hasActiveNetDev():
-        rc = ButtonChoiceWindow(intf.screen, _("Setup Networking"),
-            _("Do you want to start the network interfaces on "
-              "this system?"), [_("Yes"), _("No")])
-
-        if rc != _("No").lower():
-            if not intf.enableNetwork():
-                intf.messageWindow(_("No Network Available"),
-                    _("Unable to activate a networking device.  Networking "
-                      "will not be available in rescue mode."))
 
     # Early shell access with no disk access attempts
     if not rescue_mount:
