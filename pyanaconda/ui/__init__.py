@@ -63,6 +63,14 @@ class UserInterface(object):
     basepath = os.path.dirname(__file__)
     basemask = "pyanaconda.ui"
     paths = PathDict({})
+
+    @classmethod
+    def update_paths(cls, pathdict):
+        """Receives pathdict and appends it's contents to the current
+           class defined search path dictionary."""
+        for k,v in pathdict.iteritems():
+            cls.paths.setdefault(k, [])
+            cls.paths[k].extend(v)
     
     def setup(self, data):
         """Construct all the objects required to implement this interface.

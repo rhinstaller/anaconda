@@ -52,7 +52,7 @@ def doConfiguration(storage, payload, ksdata, instClass):
     from pyanaconda import progress
     from pyanaconda.kickstart import runPostScripts
 
-    progress.send_init(4)
+    progress.send_init(5)
 
     # Now run the execute methods of ksdata that require an installed system
     # to be present first.
@@ -78,6 +78,9 @@ def doConfiguration(storage, payload, ksdata, instClass):
         ksdata.rootpw.execute(storage, ksdata, instClass, u)
         ksdata.group.execute(storage, ksdata, instClass, u)
         ksdata.user.execute(storage, ksdata, instClass, u)
+
+    with progress_report(_("Configuring addons")):
+        ksdata.addon.execute(storage, ksdata, instClass, u)
 
     with progress_report(_("Running post install scripts")):
         runPostScripts(ksdata.scripts)

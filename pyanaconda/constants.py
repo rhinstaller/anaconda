@@ -38,6 +38,9 @@ MAX_PART_SIZE = 1024*1024*1024
 # install key related constants
 SKIP_KEY = -50
 
+# where to look for 3rd party addons
+ADDON_PATHS = ["/usr/share/anaconda/addons"]
+
 # pull in kickstart constants as well
 from pykickstart.constants import *
 

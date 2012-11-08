@@ -52,6 +52,8 @@ from pyanaconda import network
 from pyanaconda.simpleconfig import SimpleConfigFile
 from pyanaconda.users import getPassAlgo
 from pyanaconda.desktop import Desktop
+from .ui.common import collect
+from .addons import AddonSection, AddonData, AddonRegistry
 
 from pykickstart.base import KickstartCommand
 from pykickstart.constants import *
@@ -1350,12 +1352,37 @@ dataMap = {
 }
 
 superclass = returnClassForVersion()
-
+    
 class AnacondaKSHandler(superclass):
-    def __init__ (self):
+    AddonClassType = AddonData
+    
+    def __init__ (self, addon_paths = []):
         superclass.__init__(self, commandUpdates=commandMap, dataUpdates=dataMap)
         self.onPart = {}
 
+        # collect all kickstart addons for anaconda to addons dictionary
+        # which maps addon_id to it's own data structure based on BaseData
+        # with execute method
+        addons = {}
+
+        # collect all AddonData subclasses from
+        # for p in addon_paths: <p>/<plugin id>/ks/*.(py|so)
+        # and register them under <plugin id> name
+        for module_name, path in addon_paths:
+            addon_id = os.path.basename(os.path.dirname(os.path.abspath(path)))
+            if not os.path.isdir(path):
+                continue
+
+            classes = collect(module_name, path, lambda cls: issubclass(cls, self.AddonClassType))
+            if classes:
+                addons[addon_id] = classes[0](name = addon_id)
+        
+        # Prepare the final structures for 3rd party addons
+        self.addon = AddonRegistry(addons)    
+
+    def __str__(self):
+        return superclass.__str__(self) + "\n" +  str(self.addon)
+        
 class AnacondaPreParser(KickstartParser):
     # A subclass of KickstartParser that only looks for %pre scripts and
     # sets them up to be run.  All other scripts and commands are ignored.
@@ -1371,7 +1398,9 @@ class AnacondaPreParser(KickstartParser):
         self.registerSection(NullSection(self.handler, sectionOpen="%post"))
         self.registerSection(NullSection(self.handler, sectionOpen="%traceback"))
         self.registerSection(NullSection(self.handler, sectionOpen="%packages"))
-
+        self.registerSection(NullSection(self.handler, sectionOpen="%addon"))
+        
+    
 class AnacondaKSParser(KickstartParser):
     def __init__ (self, handler, followIncludes=True, errorsAreFatal=True,
                   missingIncludeIsFatal=True, scriptClass=AnacondaKSScript):
@@ -1389,7 +1418,8 @@ class AnacondaKSParser(KickstartParser):
         self.registerSection(PostScriptSection(self.handler, dataObj=self.scriptClass))
         self.registerSection(TracebackScriptSection(self.handler, dataObj=self.scriptClass))
         self.registerSection(PackageSection(self.handler))
-
+        self.registerSection(AddonSection(self.handler))
+        
 def preScriptPass(f):
     # The first pass through kickstart file processing - look for %pre scripts
     # and run them.  This must come in a separate pass in case a script
@@ -1408,7 +1438,7 @@ def preScriptPass(f):
 def parseKickstart(f):
     # preprocessing the kickstart file has already been handled in initramfs.
 
-    handler = AnacondaKSHandler()
+    handler = AnacondaKSHandler(ADDON_PATHS)
     ksparser = AnacondaKSParser(handler)
 
     # We need this so all the /dev/disk/* stuff is set up before parsing.

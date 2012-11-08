@@ -32,6 +32,7 @@
 
 import atexit, sys, os, re, time, subprocess
 from tempfile import mkstemp
+from pyanaconda import constants
 
 # keep up with process ID of the window manager if we start it
 wm_pid = None
@@ -828,7 +829,7 @@ if __name__ == "__main__":
         break
 
     if not ksdata:
-        ksdata = kickstart.AnacondaKSHandler()
+        ksdata = kickstart.AnacondaKSHandler(constants.ADDON_PATHS)
 
     if ksdata.rescue.rescue:
         anaconda.rescue = True

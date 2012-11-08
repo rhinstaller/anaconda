@@ -1,0 +1,142 @@
+# Methods and API for anaconda/firstboot 3rd party addons
+#
+# Copyright (C) 2012  Red Hat, Inc.
+#
+# This copyrighted material is made available to anyone wishing to use,
+# modify, copy, or redistribute it subject to the terms and conditions of
+# the GNU General Public License v.2, or (at your option) any later version.
+# This program is distributed in the hope that it will be useful, but WITHOUT
+# ANY WARRANTY expressed or implied, including the implied warranties of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General
+# Public License for more details.  You should have received a copy of the
+# GNU General Public License along with this program; if not, write to the
+# Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+# 02110-1301, USA.  Any Red Hat trademarks that are incorporated in the
+# source code or documentation are not subject to the GNU General Public
+# License and may only be used or replicated with the express permission of
+# Red Hat, Inc.
+#
+# Red Hat Author(s): Martin Sivak <msivak@redhat.com>
+#
+
+__all__ = ["AddonSection", "AddonRegistry", "AddonData", "collect_addon_paths"]
+
+import os
+from pykickstart.sections import Section
+    
+def collect_addon_paths(toplevel_addon_paths, ui_subdir="gui"):
+    """This method looks into the directories present
+       in toplevel_addon_paths and registers each subdirectory
+       as a new addon identified by that subdirectory name.
+
+       It then registers spokes, categories and data (ks)
+       paths for the application to use. By default is looks
+       for spokes and categories in <addon>/gui/ subdirectory
+       but that can be changed using the ui_subdir argument."""
+
+    module_paths = {
+        "spokes": [],
+        "ks": [],
+        "categories": []
+        }
+    
+    for path in toplevel_addon_paths:
+        try:
+            directories = os.listdir(path)
+        except OSError:
+            directories = []
+                
+        for addon_id in directories:
+            addon_ks_path = os.path.join(path, addon_id, "ks")
+            if os.path.isdir(addon_ks_path):
+                module_paths["ks"].append(("pyanaconda.addon.%s.ks.%%s" % addon_id, addon_ks_path))
+
+            addon_spoke_path = os.path.join(path, addon_id, ui_subdir, "spokes")
+            if os.path.isdir(addon_spoke_path):
+                module_paths["spokes"].append(("pyanaconda.addon.%s.spokes.%%s" % addon_id, addon_spoke_path))
+
+            addon_category_path = os.path.join(path, addon_id, ui_subdir, "categories")
+            if os.path.isdir(addon_spoke_path):
+                module_paths["categories"].append(("pyanaconda.addon.%s.categories.%%s" % addon_id, addon_category_path))
+
+    return module_paths
+
+class AddonRegistry(object):
+    """This class represents the ksdata.addons object and
+       maintains the ids and data structures for loaded
+       addons.
+
+       It acts as a proxy during kickstart save.
+    """
+       
+    def __init__(self, dictionary):
+        self.__dict__ = dictionary
+
+    def __str__(self):
+        return reduce(lambda acc,(id, addon): acc + "%%addon %s\n%s%%end\n" % (id, str(addon)),
+                      self.__dict__.iteritems(), "")
+
+    def execute(self, storage, ksdata, instClass):
+        """This method calls execute on all the registered addons."""
+        for k, v in self.__dict__.iteritems():
+            v.execute(storage, ksdata, instClass)
+        
+class AddonData(object):
+    """This is a common parent class for loading and storing
+       3rd party data to kickstart. It is instantiated by
+       kickstart parser and stored as ksdata.addons.<name>
+       to be used in the user interfaces.
+
+       The mandatory method handle_line receives all lines
+       from the corresponding addon section in kickstart and
+       the mandatory __str__ implementation is responsible for
+       returning the proper kickstart text (to be placed into
+       the %addon section) back.
+
+       There is also a mandatory method execute, which should
+       make all the described changes to the installed system.
+    """
+    
+    def __init__(self, name):
+        self.name = name
+        self.content = ""
+
+    def __str__(self):
+        return self.content
+
+    def execute(self, storage, ksdata, instClass):
+        """Make the changes to the underlying system."""
+        pass
+
+    def handle_line(self, line):
+        """Process one kickstart line."""
+        self.content += line
+
+class AddonSection(Section):
+    sectionOpen = "%addon"
+
+    def __init__(self, *args, **kwargs):
+        Section.__init__(self, *args, **kwargs)
+        self.addon_id = None
+
+    def handleLine(self, line):
+        if not self.handler:
+            return
+
+        if not self.addon_id:
+            return
+
+        addon = getattr(self.handler.addon, self.addon_id)
+        addon.handle_line(line)
+
+    def handleHeader(self, lineno, args):
+        """Process the arguments to the %addon header."""
+        Section.handleHeader(self, lineno, args)
+        op = KSOptionParser(version=self.version)
+        (opts, extra) = op.parse_args(args=args[1:], lineno=lineno)
+        self.addon_id = extra[0]
+
+        # if the addon is not registered, create dummy placeholder for it
+        if self.addon_id and not hasattr(self.handler.addon, self.addon_id):
+            setattr(self.handler.addon, self.addon_id, AnacondaKSAddon(self.addon_id))
+
