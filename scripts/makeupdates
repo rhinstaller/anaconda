@@ -205,7 +205,7 @@ def _compilableChanged(tag, compilable):
     return False
 
 def isysChanged(tag):
-    return _compilableChanged(tag, 'isys')
+    return _compilableChanged(tag, 'pyanaconda/isys')
 
 def widgetsChanged(tag):
     return _compilableChanged(tag, 'widgets')
@@ -220,9 +220,16 @@ def copyUpdatedIsys(updates, cwd):
 
     os.system('make')
 
-    isysmodule = os.path.realpath(cwd + '/isys/.libs/_isys.so')
+    # Updates get overlaid onto the runtime filesystem. Anaconda expects them
+    # to be in /run/install/updates, so put them in
+    # $updatedir/run/install/updates.
+    tmpupdates = updates.rstrip('/')
+    if not tmpupdates.endswith("/run/install/updates/pyanaconda"):
+        tmpupdates = os.path.join(tmpupdates, "run/install/updates/pyanaconda")
+
+    isysmodule = os.path.realpath(cwd + '/pyanaconda/isys/.libs/_isys.so')
     if os.path.isfile(isysmodule):
-        shutil.copy2(isysmodule, updates)
+        shutil.copy2(isysmodule, tmpupdates)
 
 def copyUpdatedWidgets(updates, cwd):
     os.chdir(cwd)
