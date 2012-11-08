@@ -1547,6 +1547,9 @@ class Storage(object):
                                     "please create a 1MB 'BIOS Boot' type "
                                     "partition.") % productName)
 
+            if not self.bootloader.check():
+                errors.extend(self.bootloader.errors)
+
         if not swaps:
             from pyanaconda.storage.size import Size
 

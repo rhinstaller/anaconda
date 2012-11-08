@@ -25,6 +25,7 @@ import sys
 import os
 import re
 import struct
+from parted import PARTITION_BIOS_GRUB
 
 from pyanaconda import iutil
 from pyanaconda.storage.devicelibs import mdraid
@@ -727,6 +728,10 @@ class BootLoader(object):
             t = 5
 
         return t
+
+    def check(self):
+        """ Run additional bootloader checks """
+        return True
 
     # pylint: disable-msg=E0102,E0202,E1101
     @timeout.setter
@@ -1546,6 +1551,40 @@ class GRUB2(GRUB):
         sync()
         self.stage2_device.format.sync(root=ROOT_PATH)
 
+    def check(self):
+        """ When installing to the mbr of a disk grub2 needs enough space
+        before the first partition in order to embed its core.img
+
+        Until we have a way to ask grub2 what the size is we check to make
+        sure it starts >= 512K, otherwise return an error.
+        """
+        ret = True
+        self.errors = []
+        self.warnings = []
+
+        for (stage1dev, stage2dev) in self.install_targets:
+            if stage1dev == stage2dev:
+                continue
+
+            # These are small enough to fit
+            if stage2dev.format.type in ("ext2", "ext3", "ext4") \
+               and stage2dev.type == "partition":
+                continue
+
+            # If the first partition starts too low show an error.
+            parts = stage1dev.format.partedDisk.partitions
+            for p in parts:
+                start = p.geometry.start * p.disk.device.sectorSize
+                if not p.getFlag(PARTITION_BIOS_GRUB) and start < 1024*512:
+                    msg = _("%s may not have enough space for grub2 to embed "
+                            "core.img when using the %s filesystem on %s") \
+                            % (stage1dev.name, stage2dev.format.type, stage2dev.type)
+                    log.error(msg)
+                    self.errors.append(msg)
+                    ret = False
+                    break
+        return ret
+
 class EFIGRUB(GRUB2):
     packages = ["grub2-efi", "efibootmgr", "shim"]
     can_dual_boot = False
@@ -1640,6 +1679,8 @@ class EFIGRUB(GRUB2):
         self.install()
         self.write_config()
 
+    def check(self):
+        return True
 
 class MacEFIGRUB(EFIGRUB):
     def mactel_config(self):
