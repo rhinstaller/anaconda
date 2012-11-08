@@ -25,6 +25,7 @@
 from pyanaconda.ui.tui.spokes import NormalTUISpoke
 from pyanaconda.ui.tui.simpleline import TextWidget, CheckboxWidget
 
+from pykickstart.constants import AUTOPART_TYPE_LVM
 from pyanaconda.storage.size import Size
 from pyanaconda.storage.errors import StorageError
 from pyanaconda.flags import flags
@@ -233,8 +234,7 @@ class StorageSpoke(NormalTUISpoke):
         self.data.ignoredisk.onlyuse = self.selected_disks[:]
         self.data.clearpart.drives = self.selected_disks[:]
 
-        # no thanks, lvm
-        self.data.autopart.type = AUTOPART_TYPE_PLAIN
+        self.data.autopart.type = AUTOPART_TYPE_LVM
 
         if self.autopart:
             self.clearPartType = CLEARPART_TYPE_ALL
