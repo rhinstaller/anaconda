@@ -300,6 +300,77 @@ update-desktop-database &> /dev/null || :
 /usr/lib/dracut/modules.d/80%{name}/*
 
 %changelog
+* Wed Nov 07 2012 Brian C. Lane <bcl@redhat.com> - 18.27-1
+- Mark more UI strings with N_ (#874276). (clumens)
+- Pressing Enter on the passphrase dialog should continue (#788556). (clumens)
+- Pressing Enter should activate the rightmost button on the detailed dialog.
+  (clumens)
+- Pressing enter on a MountpointSelector should display it on the RHS
+  (#873352). (clumens)
+- Make language groups work again (#873865) (jkeating)
+- Update payload if slower dhcp succeeds in network pre-hub spoke (#873468)
+  (rvykydal)
+- Fix group access after parsing btrfs subvol list output. (#868468) (dlehman)
+- Account for autopart swap size when checking free space. (dlehman)
+- ignoredisk.onlyuse contains names, not StorageDevice instances. (#873463)
+  (dlehman)
+- Correctly handle toggle of encryption state for devices. (#873445) (dlehman)
+- Handle changes to encryption state of container members. (#873445) (dlehman)
+- Change custom spoke to apply encryption to PVs, not LVs. (dlehman)
+- Widen the sidebar on custom partitioning (mizmo). (clumens)
+- Fix spacing and padding on SpokeSelectors (mizmo). (clumens)
+- Set the font globally (mizmo). (clumens)
+- Handle if we get something other than a .treeinfo file (#872012). (clumens)
+- If repo metadata fetching fails, set an info error message (#873605).
+  (clumens)
+- Enable yum langpacks plugin to get conditional packages (#868869) (jkeating)
+- Base whether an add-on is selected on the selectedGroups, not ksdata
+  (#873092). (clumens)
+- Add UTC and GMT-X timezones (#863199) (vpodzime)
+- TimezoneMap should handle "" timezone (vpodzime)
+- raise error on rsync failure (#868755) (bcl)
+- exclude bind mounts from rsync (#871637) (bcl)
+- Fix up the InstallOptions3Dialog.refresh arguments (#873392). (clumens)
+- Mark strings at the top of spokes with N_; translate later with _ (#872791).
+  (clumens)
+- Do not decorate the dialog that appears when you click on storage info bar.
+  (clumens)
+- You have to give "raise" an exception if you're outside a handler (#872874).
+  (clumens)
+- Prompt for encryption passphrase in reclaim path. (#869391) (dlehman)
+- Prevent user from hitting save without entering a passphrase. (#869391)
+  (dlehman)
+- Font and padding updates for the network spoke (mizmo). (clumens)
+- Fix alignment on the Add and Configure Mount Point dialogs. (clumens)
+- Network spoke: activate wifi connection after setting secrets (#871132)
+  (rvykydal)
+- Fix nfsiso as stage2 (#871554) (jkeating)
+- Fix traceback when saving changes to an existing partition. (#872446)
+  (dlehman)
+- Some more stuff for the mangleMap (#866730) (vpodzime)
+- Handle locale's encoding and script in a better way (vpodzime)
+- Use both language and country to guess layout (#861061) (vpodzime)
+- Fix remaining issues with md fwraid. (#872739) (dlehman)
+- Do not return None from Size.__str__ (#869405) (vpodzime)
+- Add a platform weight for ARM images (dmarlin)
+- Remove a bunch of stuff from the TODO list. (clumens)
+- Don't decorate the main exception window. (clumens)
+- Move the custom partitioning's Apply Changes button. (clumens)
+- Indent partition type options under the expander further. (clumens)
+- Left align the Label label, and indent the custom options further. (clumens)
+- Lots of custom partitioning UI changes (mizmo). (clumens)
+- Update fonts on the welcome language spoke (rlerch). (clumens)
+- Lots of storage spoke font and spacing changes (mizmo). (clumens)
+- Set the background of the custom partitioning accordion back to white
+  (mizmo). (clumens)
+- Set the Local Standard Disks background back to white (mizmo). (clumens)
+- Reorder Device Type options in custom part to match the Partition Type combo.
+  (clumens)
+- Use the same terminology for partitions as is in use on the custom spoke.
+  (clumens)
+- livecd specific code has moved (bcl)
+- Add progress percentage info to liveinst (bcl)
+
 * Thu Nov 01 2012 Brian C. Lane <bcl@redhat.com> - 18.23-1
 - Update parsing of 'btrfs subvol list' to match its new output. (#868468)
   (dlehman)
