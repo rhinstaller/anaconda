@@ -403,7 +403,7 @@ class XklWrapper(object):
         name = item_str(item.name)
 
         self._switching_options.append(name)
-        self.switch_to_show_str[name] = desc
+        self.switch_to_show_str[name] = desc.encode("utf-8")
 
     def get_available_layouts(self):
         """A generator yielding layouts (no need to store them as a bunch)"""
