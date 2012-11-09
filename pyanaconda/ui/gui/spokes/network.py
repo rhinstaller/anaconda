@@ -980,27 +980,35 @@ class NetworkSpoke(NormalSpoke):
     @property
     def status(self):
         """ A short string describing which devices are connected. """
-        msg = _("Not connected")
+        msg = _("Unknown")
 
-        ac = self.network_control_box.activated_connections()
-        if ac:
-            if len(ac) == 1:
-                device, ssid = ac[0]
-                if ssid:
-                    msg = _("Wireless (%s) connected to %s" %
-                            (device, ssid))
+        state = self.network_control_box.client.get_state()
+        if state == NetworkManager.State.CONNECTING:
+            msg = _("Connecting...")
+        elif state == NetworkManager.State.DISCONNECTING:
+            msg = _("Disconnecting...")
+        else:
+            ac = self.network_control_box.activated_connections()
+            if ac:
+                if len(ac) == 1:
+                    device, ssid = ac[0]
+                    if ssid:
+                        msg = _("Wireless (%s) connected to %s" %
+                                (device, ssid))
+                    else:
+                        msg = _("Wired (%s) connected") % device
                 else:
-                    msg = _("Wired (%s) connected") % device
+
+                    devlist = ", ".join(["%s" % device for device, ssid
+                                         in ac
+                                         if ssid is None] +
+                                        ["%s (%s)" % (device, ssid) for device, ssid
+                                         in ac
+                                         if ssid is not None])
+
+                    msg = _("Connected devices: %s") % devlist
             else:
-
-                devlist = ", ".join(["%s" % device for device, ssid
-                                     in ac
-                                     if ssid is None] +
-                                    ["%s (%s)" % (device, ssid) for device, ssid
-                                     in ac
-                                     if ssid is not None])
-
-                msg = _("Connected devices: %s") % devlist
+                msg = _("Not connected")
 
         if not self.network_control_box.listed_devices:
             msg = _("No network devices available")
