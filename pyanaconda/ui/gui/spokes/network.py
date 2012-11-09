@@ -987,8 +987,8 @@ class NetworkSpoke(NormalSpoke):
                 if len(ac) == 1:
                     device, ssid = ac[0]
                     if ssid:
-                        msg = _("Wireless (%s) connected to %s" %
-                                (device, ssid))
+                        msg = _("Wireless connected to %s" %
+                                ssid)
                     else:
                         msg = _("Wired (%s) connected") % device
                 else:
@@ -996,11 +996,11 @@ class NetworkSpoke(NormalSpoke):
                     devlist = ", ".join(["%s" % device for device, ssid
                                          in ac
                                          if ssid is None] +
-                                        ["%s (%s)" % (device, ssid) for device, ssid
+                                        ["%s" % ssid for device, ssid
                                          in ac
                                          if ssid is not None])
 
-                    msg = _("Connected devices: %s") % devlist
+                    msg = _("Connected: %s") % devlist
             else:
                 msg = _("Not connected")
 
