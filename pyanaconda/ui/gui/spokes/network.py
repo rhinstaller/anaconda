@@ -35,7 +35,7 @@
 from gi.repository import Gtk, AnacondaWidgets
 
 from pyanaconda.flags import flags
-from pyanaconda.ui.gui import GUIObject
+from pyanaconda.ui.gui import GUIObject, communication
 from pyanaconda.ui.gui.spokes import NormalSpoke, StandaloneSpoke
 from pyanaconda.ui.gui.categories.software import SoftwareCategory
 from pyanaconda.ui.gui.hubs.summary import SummaryHub
@@ -957,6 +957,9 @@ class NetworkSpoke(NormalSpoke):
     def __init__(self, *args, **kwargs):
         NormalSpoke.__init__(self, *args, **kwargs)
         self.network_control_box = NetworkControlBox(self.builder)
+        self.network_control_box.client.connect("notify::%s" %
+                                                NMClient.CLIENT_STATE, self.on_nm_state_changed)
+
 
     def apply(self):
         hostname = self.data.network.hostname
@@ -1015,6 +1018,9 @@ class NetworkSpoke(NormalSpoke):
     def refresh(self):
         NormalSpoke.refresh(self)
         self.network_control_box.refresh()
+
+    def on_nm_state_changed(self, *args):
+        communication.send_message(self.__class__.__name__, self.status)
 
 class NetworkStandaloneSpoke(StandaloneSpoke):
     builderObjects = ["networkStandaloneWindow", "networkControlBox_vbox", "liststore_wireless_network", "liststore_devices"]
