@@ -1391,7 +1391,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             sizeSpinner.set_tooltip_text(_("This file system may not be resized."))
 
         reformatCheckbox.set_active(not device.format.exists)
-        reformatCheckbox.set_sensitive(use_dev.exists)
+        reformatCheckbox.set_sensitive(use_dev.exists and
+                                       not use_dev.type.startswith("btrfs"))
 
         encryptCheckbox.set_active(device.encrypted)
         encryptCheckbox.set_sensitive(reformatCheckbox.get_active())
