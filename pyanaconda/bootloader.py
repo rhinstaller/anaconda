@@ -939,6 +939,9 @@ class BootLoader(object):
     #
     def write(self):
         """ Write the bootloader configuration and install the bootloader. """
+        if self.skip_bootloader:
+            return
+
         if self.update_only:
             self.update()
             return
@@ -1537,6 +1540,9 @@ class GRUB2(GRUB):
 
     def write(self):
         """ Write the bootloader configuration and install the bootloader. """
+        if self.skip_bootloader:
+            return
+
         if self.update_only:
             self.update()
             return
@@ -1670,6 +1676,9 @@ class EFIGRUB(GRUB2):
     #
     def write(self):
         """ Write the bootloader configuration and install the bootloader. """
+        if self.skip_bootloader:
+            return
+
         if self.update_only:
             self.update()
             return
@@ -2238,10 +2247,11 @@ def writeBootLoader(storage, payload, instClass):
     """
     from pyanaconda.errors import errorHandler, ERROR_RAISE
 
-    stage1_device = storage.bootloader.stage1_device
-    log.info("bootloader stage1 target device is %s" % stage1_device.name)
-    stage2_device = storage.bootloader.stage2_device
-    log.info("bootloader stage2 target device is %s" % stage2_device.name)
+    if not storage.bootloader.skip_bootloader:
+        stage1_device = storage.bootloader.stage1_device
+        log.info("bootloader stage1 target device is %s" % stage1_device.name)
+        stage2_device = storage.bootloader.stage2_device
+        log.info("bootloader stage2 target device is %s" % stage2_device.name)
 
     # get a list of installed kernel packages
     kernel_versions = payload.kernelVersionList
@@ -2267,6 +2277,10 @@ def writeBootLoader(storage, payload, instClass):
 
     # write out /etc/sysconfig/kernel
     writeSysconfigKernel(storage, version)
+
+    if storage.bootloader.skip_bootloader:
+        log.info("skipping bootloader install per user request")
+        return
 
     # now add an image for each of the other kernels
     for version in kernel_versions:

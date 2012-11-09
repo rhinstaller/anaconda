@@ -1510,7 +1510,7 @@ class Storage(object):
             warnings.append(_("Installing on a FireWire device.  This may "
                               "or may not produce a working system."))
 
-        if self.data and self.data.bootloader.location is not None:
+        if self.bootloader and not self.bootloader.skip_bootloader:
             stage1 = self.bootloader.stage1_device
             if not stage1:
                 errors.append(_("you have not created a bootloader stage1 "
@@ -1672,6 +1672,10 @@ class Storage(object):
         """ Propagate ksdata into BootLoader. """
         if not self.bootloader or not self.data:
             log.warning("either ksdata or bootloader data missing")
+            return
+
+        if self.bootloader.skip_bootloader:
+            log.info("user specified that bootloader install be skipped")
             return
 
         self.bootloader.stage1_disk = self.devicetree.resolveDevice(self.data.bootloader.bootDrive)

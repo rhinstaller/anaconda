@@ -133,7 +133,7 @@ def _schedulePartitions(storage, disks):
             continue
 
         elif request.fstype in ("prepboot", "efi", "hfs+") and \
-             stage1_device:
+             (storage.bootloader.skip_bootloader or stage1_device):
             # there should never be a need for more than one of these
             # partitions, so skip them.
             log.info("skipping unneeded stage1 %s request" % request.fstype)
@@ -152,8 +152,9 @@ def _schedulePartitions(storage, disks):
                              any([p.format.type == "biosboot"
                                     for p in storage.partitions
                                         if p.disk == stage1_device]))
-            if not (stage1_device and stage1_device.isDisk and
-                    is_gpt and not has_bios_boot):
+            if (storage.bootloader.skip_bootloader or
+                not (stage1_device and stage1_device.isDisk and
+                    is_gpt and not has_bios_boot)):
                 # there should never be a need for more than one of these
                 # partitions, so skip them.
                 log.info("skipping unneeded stage1 %s request" % request.fstype)

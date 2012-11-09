@@ -281,6 +281,7 @@ class Bootloader(commands.bootloader.F18_Bootloader):
             storage.bootloader.update_only = True
 
         if not location:
+            storage.bootloader.skip_bootloader = True
             return
 
         if self.appendLine:
