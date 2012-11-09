@@ -2105,7 +2105,15 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             test_fmt = getFormat("btrfs")
             include_btrfs = test_fmt.supported and test_fmt.formattable
             fs_type_sensitive = False
-            raid_level = "single"
+            with ui_storage_logger():
+                factory = self.__storage.getDeviceFactory(DEVICE_TYPE_BTRFS, 0)
+                container = self.__storage.getContainer(factory)
+
+            if container:
+                raid_level = container.dataLevel or "single"
+            else:
+                # here I suppose we could alter the default based on disk count
+                raid_level = "single"
         elif new_type == DEVICE_TYPE_MD:
             raid_level = "raid0"
 
