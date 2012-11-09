@@ -568,9 +568,11 @@ class SourceSpoke(NormalSpoke):
         from pyanaconda.threads import threadMgr
         if threadMgr.get("AnaCheckSoftwareThread"):
             return _("Checking software dependencies...")
-        if not self.ready:
+        elif not self.ready:
             return _("Not ready")
-        if self.data.method.method == "url":
+        elif self._error:
+            return _("Error setting up software source")
+        elif self.data.method.method == "url":
             return self.data.method.url
         elif self.data.method.method == "nfs":
             return _("NFS server %s") % self.data.method.server
@@ -578,13 +580,10 @@ class SourceSpoke(NormalSpoke):
             return _("CD/DVD drive")
         elif self.data.method.method == "harddrive":
             return os.path.basename(self._currentIsoFile)
+        elif self.payload.baseRepo:
+            return _("Closest mirror")
         else:
-            if self.payload.baseRepo:
-                return _("Closest mirror")
-            elif self._error:
-                return _("Error setting up software source")
-            else:
-                return _("Nothing selected")
+            return _("Nothing selected")
 
     def _grabObjects(self):
         self._autodetectButton = self.builder.get_object("autodetectRadioButton")
