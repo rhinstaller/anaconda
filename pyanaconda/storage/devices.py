@@ -4113,5 +4113,4 @@ class BTRFSSubVolumeDevice(BTRFSDevice):
         if not mountpoint:
             raise RuntimeError("btrfs subvol destroy requires mounted volume")
         btrfs.delete_subvolume(mountpoint, self.name)
-        self.volume._removeSubVolume(self.name)
         self.volume._undo_temp_mount()

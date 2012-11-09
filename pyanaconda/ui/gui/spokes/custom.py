@@ -1649,12 +1649,10 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         # should this be in DeviceTree._removeDevice?
         container = None
         if hasattr(device, "vg"):
-            device.vg._removeLogVol(device)
             container = device.vg
             device_type = DEVICE_TYPE_LVM
             raid_level = None
         elif hasattr(device, "volume"):
-            device.volume._removeSubVolume(device.name)
             container = device.volume
             device_type = DEVICE_TYPE_BTRFS
             raid_level = container.dataLevel
