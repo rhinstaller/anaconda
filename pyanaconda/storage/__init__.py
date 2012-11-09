@@ -39,6 +39,7 @@ from pyanaconda.flags import flags
 from pyanaconda import tsort
 from pyanaconda.errors import *
 from pyanaconda.bootloader import BootLoaderError
+from pyanaconda.anaconda_log import log_method_call
 
 from errors import *
 from devices import *
@@ -1823,6 +1824,11 @@ class Storage(object):
     def setContainerMembers(self, container, factory, members=None,
                             device=None):
         """ Set up and return the container's member partitions. """
+        log_members = []
+        if members:
+            log_members = [str(m) for m in members]
+        log_method_call(self, container=container, factory=factory,
+                        members=log_members, device=device)
         if factory.member_list is not None:
             # short-circuit the logic below for partitions
             return factory.member_list
@@ -1841,8 +1847,12 @@ class Storage(object):
         if container:
             members = container.parents[:]
 
+        # The basis for whether we are modifying a member set versus creating
+        # one must be the member list, as container will be None when modifying
+        # the member set of an md array.
+
         # XXX how can we detect/handle failure to use one or more of the disks?
-        if container and device:
+        if members and device:
             # See if we need to add/remove any disks, but only if we are
             # adjusting a device. When adding a new device to a container we do
             # not want to modify the container's disk set.
@@ -1850,7 +1860,7 @@ class Storage(object):
 
             add_disks = [d for d in factory.disks if d not in _disks]
             remove_disks = [d for d in _disks if d not in factory.disks]
-        elif not container:
+        elif not members:
             # new container, so use the factory's disk set
             add_disks = factory.disks
 
@@ -2043,6 +2053,7 @@ class Storage(object):
                 we raise ErrorRecoveryFailure to alert the caller that things
                 will likely be in an inconsistent state.
         """
+        log_method_call(self, device_type, size, **kwargs)
         mountpoint = kwargs.get("mountpoint")
         fstype = kwargs.get("fstype")
         label = kwargs.get("label")
