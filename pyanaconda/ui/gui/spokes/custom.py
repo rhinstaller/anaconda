@@ -70,6 +70,7 @@ from pyanaconda.storage.devicelibs import mdraid
 from pyanaconda.storage.devices import LUKSDevice
 
 from pyanaconda.ui.gui import GUIObject
+from pyanaconda.ui.gui import communication
 from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.gui.spokes.storage import StorageChecker
 from pyanaconda.ui.gui.spokes.lib.cart import SelectedDisksDialog
@@ -390,7 +391,10 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
         # set up bootloader and check the configuration
         self.storage.setUpBootLoader()
+
+        StorageChecker.errors = []
         StorageChecker.run(self)
+        communication.send_ready("StorageSpoke", justUpdate=True)
 
     @property
     def indirect(self):
