@@ -482,10 +482,8 @@ class Payload(object):
             device.format.setup(mountpoint=mountpoint)
         except StorageError as e:
             log.error("mount failed: %s" % e)
-            exn = PayloadSetupError(str(e))
-            if errorHandler.cb(exn) == ERROR_RAISE:
-                device.teardown(recursive=True)
-                raise exn
+            device.teardown(recursive=True)
+            raise PayloadSetupError(str(e))
 
     def _setupNFS(self, mountpoint, server, path, options):
         """ Prepare an NFS directory for use as a package source. """
@@ -511,10 +509,7 @@ class Payload(object):
         try:
             isys.mount(url, mountpoint, fstype="nfs", options=options)
         except SystemError as e:
-            log.error("mount failed: %s" % e)
-            exn = PayloadSetupError(str(e))
-            if errorHandler.cb(exn) == ERROR_RAISE:
-                raise exn
+            raise PayloadSetupError(str(e))
 
     ###
     ### METHODS FOR INSTALLING THE PAYLOAD
