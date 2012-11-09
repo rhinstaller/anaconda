@@ -32,6 +32,9 @@ from pyanaconda.ui.gui import GUIObject
 from pyanaconda.ui.gui.categories import collect_categories
 from pyanaconda.ui.gui.spokes import StandaloneSpoke, collect_spokes
 
+import logging
+log = logging.getLogger("anaconda")
+
 class Hub(GUIObject, common.Hub):
     """A Hub is an overview UI screen.  A Hub consists of one or more grids of
        configuration options that the user may choose from.  Each grid is
@@ -261,6 +264,7 @@ class Hub(GUIObject, common.Hub):
                     self._notReadySpokes.append(spoke)
 
                 self._updateContinueButton()
+                log.info("spoke is not ready: %s" % spoke)
             elif code == communication.HUB_CODE_READY:
                 self._updateCompleteness(spoke)
 
@@ -268,6 +272,7 @@ class Hub(GUIObject, common.Hub):
                     self._notReadySpokes.remove(spoke)
 
                 self._updateContinueButton()
+                log.info("spoke is ready: %s" % spoke)
 
                 # If this is a real kickstart install (the kind with an input ks file)
                 # and all spokes are now completed, we should skip ahead to the next
@@ -288,6 +293,7 @@ class Hub(GUIObject, common.Hub):
                             self.continueButton.emit("clicked")
             elif code == communication.HUB_CODE_MESSAGE:
                 spoke.selector.set_property("status", args[1])
+                log.info("setting %s status to: %s" % (spoke, args[1]))
 
             q.task_done()
 

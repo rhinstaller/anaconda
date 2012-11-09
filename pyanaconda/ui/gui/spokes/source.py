@@ -560,7 +560,6 @@ class SourceSpoke(NormalSpoke):
         # By default, the source spoke is not ready.  We have to wait until
         # storageInitialize is done to know whether or not there's local
         # devices potentially holding install media.
-        log.info('source spoke ready: %s' % self._ready)
         return (self._ready and not threadMgr.get("AnaPayloadMDThread") and
                 not threadMgr.get("AnaCheckSoftwareThread"))
 
