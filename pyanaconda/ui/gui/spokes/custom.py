@@ -1097,14 +1097,13 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                     # in this case we have removed the old device so we now have
                     # to re-create it
                     try:
-                        # XXX FIXME: pass old raid level -- not new one
-                        self._replace_device(device_type, device.size,
-                                             disks=disks,
+                        self._replace_device(current_device_type, device.size,
+                                             disks=old_disk_set,
                                              fstype=device.format.type,
                                              mountpoint=old_mountpoint,
                                              label=old_label,
-                                             raid_level=raid_level,
-                                             encrypted=encrypted,
+                                             raid_level=old_raid_level,
+                                             encrypted=prev_encrypted,
                                              selector=selector)
                     except StorageError as e:
                         # failed to recover.
