@@ -1860,17 +1860,30 @@ class Storage(object):
 
         # prepare already-defined member partitions for reallocation
         for member in members[:]:
-            if isinstance(member, LUKSDevice):
-                if member.slave.disk in remove_disks or not factory.encrypted:
+            if any([d in remove_disks for d in member.disks]):
+                if isinstance(member, LUKSDevice):
                     container.removeMember(member)
                     self.destroyDevice(member)
                     members.remove(member)
-                    if not factory.encrypted:
-                        # encryption was toggled for the member devices
-                        self.formatDevice(member.slave,
-                                          getFormat(factory.member_format))
-                        members.append(member.slave)
-                        container.addMember(member.slave)
+                    member = member.slave
+                else:
+                    container.removeMember(member)
+                    members.remove(member)
+
+                self.destroyDevice(member)
+                continue
+
+            if isinstance(member, LUKSDevice):
+                if not factory.encrypted:
+                    # encryption was toggled for the member devices
+                    container.removeMember(member)
+                    self.destroyDevice(member)
+                    members.remove(member)
+
+                    self.formatDevice(member.slave,
+                                      getFormat(factory.member_format))
+                    members.append(member.slave)
+                    container.addMember(member.slave)
 
                 member = member.slave
             elif factory.encrypted:
@@ -1884,14 +1897,6 @@ class Storage(object):
                 self.createDevice(member)
                 members.append(member)
                 container.addMember(member)
-
-            if member.disk in remove_disks:
-                if member in container.parents:
-                    container.removeMember(member)
-                    members.remove(member)
-
-                self.destroyDevice(member)
-                continue
 
             member.req_base_size = base_size
             member.req_size = member.req_base_size
