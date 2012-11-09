@@ -286,9 +286,6 @@ class NetworkControlBox():
         # NM Client
         self.client.connect("device-added", self.on_device_added)
         self.client.connect("device-removed", self.on_device_removed)
-        # TODO (active_connections_changed)
-        #self.client.connect("notify::%s" % NMClient.CLIENT_ACTIVE_CONNECTIONS,
-        #                    self.on_active_connections_changed)
 
         self.builder.get_object("device_wired_off_switch").connect("notify::active",
                                                              self.on_device_off_toggled)
@@ -377,11 +374,6 @@ class NetworkControlBox():
         read_config_values = (new_state == NetworkManager.DeviceState.ACTIVATED)
         if device == self.selected_device():
             self.refresh_ui(device, read_config_values, new_state)
-
-    # TODO: remove/fix
-    def on_active_connections_changed(self, *args):
-        device = self.selected_device()
-        self.refresh_ui(device)
 
     def on_wireless_ap_changed_cb(self, combobox, *args):
         if self._updating_device:
@@ -958,8 +950,10 @@ class NetworkSpoke(NormalSpoke):
         NormalSpoke.__init__(self, *args, **kwargs)
         self.network_control_box = NetworkControlBox(self.builder)
         self.network_control_box.client.connect("notify::%s" %
-                                                NMClient.CLIENT_STATE, self.on_nm_state_changed)
-
+                                                NMClient.CLIENT_STATE,
+                                                self.on_nm_state_changed)
+        for device in self.network_control_box.client.get_devices():
+            device.connect("state-changed", self.on_device_state_changed)
 
     def apply(self):
         hostname = self.data.network.hostname
@@ -1028,6 +1022,16 @@ class NetworkSpoke(NormalSpoke):
         self.network_control_box.refresh()
 
     def on_nm_state_changed(self, *args):
+        gtk_call_once(self._update_status)
+
+    def on_device_state_changed(self, *args):
+        new_state = args[1]
+        if new_state in (NetworkManager.DeviceState.ACTIVATED,
+                         NetworkManager.DeviceState.DISCONNECTED,
+                         NetworkManager.DeviceState.UNAVAILABLE):
+            gtk_call_once(self._update_status)
+
+    def _update_status(self):
         communication.send_message(self.__class__.__name__, self.status)
 
 class NetworkStandaloneSpoke(StandaloneSpoke):
