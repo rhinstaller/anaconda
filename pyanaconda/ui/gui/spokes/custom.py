@@ -21,6 +21,7 @@
 #
 
 # TODO:
+# - empty size when adding a mountpoint is no longer using all available space
 # - Deleting an LV is not reflected in available space in the bottom left.
 #   - this is only true for preexisting LVs
 # - Device descriptions, suggested sizes, etc. should be moved out into a support file.
@@ -351,6 +352,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         self._current_selector = None
         self._when_create_text = ""
         self._devices = []
+        self._media_disks = []
         self._fs_types = []             # list of supported fstypes
         self._unused_devices = None     # None indicates uninitialized
         self._free_space = Size(bytes=0)
@@ -358,179 +360,33 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
         self._initialized = False
 
-    def _propagate_actions(self, actions):
-        """ Register actions from the UI with the main Storage instance. """
-        for ui_action in actions:
-            ui_device = ui_action.device
-            if isinstance(ui_device, LUKSDevice) and ui_device.exists:
-                # LUKS device that was unlocked during this spoke visit
-                # The ids won't match in this case because we instantiated the
-                # LUKSDevice both in the spoke's devicetree and in the main one.
-                device = self.storage.devicetree.getDeviceByName(ui_device.name)
-            else:
-                device = self.storage.devicetree.getDeviceByID(ui_device.id)
-
-            if device is None:
-                # This device does not exist in the main devicetree.
-                #
-                # That means it was created in the ui. If it is still present in
-                # the ui device list, schedule a create action for it. If not,
-                # just ignore it.
-                if not ui_action.isCreate or ui_device not in self._devices:
-                    # this is a device that was created and then destroyed here
-                    continue
-
-            args = [device]
-            if ui_action.isResize:
-                args.append(ui_device.targetSize)
-
-            if ui_action.isCreate and ui_action.isFormat:
-                if ui_device.format.type == "disklabel":
-                    # A DiskLabel instance will have partitions already in it.
-                    args.append(getFormat("disklabel",
-                                          device=ui_device.path,
-                                          labelType=ui_device.format.labelType))
-                else:
-                    args.append(ui_device.format)
-
-            if ui_action.isCreate and ui_action.isDevice:
-                # We're going to just move the already-defined device into the
-                # main devicetree, but first we need to replace its parents
-                # with the corresponding devices from the main devicetree
-                # instead of the ones from our local devicetree.
-                parents = [self.storage.devicetree.getDeviceByID(p.id)
-                            for p in ui_device.parents]
-
-                if hasattr(ui_device, "partedPartition"):
-                    # This cleans up any references to parted.Disk instances
-                    # that only exist in our local devicetree.
-                    ui_device.partedPartition = None
-
-                    req_disks = [self.storage.devicetree.getDeviceByID(p.id)
-                                    for p in ui_device.req_disks]
-                    ui_device.req_disks = req_disks
-
-                # If we somehow ended up with a different number of parents
-                # go ahead and take a dump on the floor.
-                assert(len(parents) == len(ui_device.parents))
-                ui_device.parents = parents
-                args = [ui_device]
-
-            log.debug("duplicating action '%s'" % ui_action)
-            action = ui_action.__class__(*args)
-            self.storage.devicetree.registerAction(action)
-
     def apply(self):
         self.clear_errors()
-        ui_devicetree = self.__storage.devicetree
 
-        log.debug("converting custom spoke changes into actions")
-        for action in ui_devicetree.findActions():
-            log.debug("%s" % action)
+        # unhide any removable install media we hid prior to partitioning
+        with ui_storage_logger():
+            for disk in reversed(self._media_disks):
+                self.__storage.devicetree.unhide(disk)
 
-        # Find any LUKS devices that have been unlocked in this visit to the
-        # custom spoke and find their descendant devices before we do anything
-        # else.
-        ui_luks_devices = [d for d in self._devices
-                                if isinstance(d, LUKSDevice) and
-                                   d.exists and not
-                                   self.storage.devicetree.getDeviceByID(d.id)]
-        for ui_luks_device in ui_luks_devices:
-            if ui_luks_device not in self._devices:
-                # since removed
-                continue
+        # We can't overwrite the main Storage instance because all the other
+        # spokes have references to it that would get invalidated, but we can
+        # achieve the same effect by updating/replacing a few key attributes.
+        self.storage.devicetree._devices = self.__storage.devicetree._devices
+        self.storage.devicetree._actions = self.__storage.devicetree._actions
+        self.storage.devicetree._hidden = self.__storage.devicetree._hidden
+        self.storage.devicetree.names = self.__storage.devicetree.names
+        self.storage.roots = self.__storage.roots
 
-            ui_slave = ui_luks_device.slave
-            slave = self.storage.devicetree.getDeviceByID(ui_slave.id)
-            slave.format.passphrase = ui_slave.format._LUKS__passphrase
-            luks_device = LUKSDevice(slave.format.mapName,
-                                     parents=[slave],
-                                     exists=True)
-            luks_device.setup()
-            self.storage.savePassphrase(slave)
-            self.storage.devicetree._addDevice(luks_device)
-
-        # XXX What if the user has changed storage config in the shell?
-        if ui_luks_devices:
-            self.storage.devicetree.populate()
-
-        # schedule actions for device removals, resizes
-        actions = ui_devicetree.findActions(type="destroy")
-        partition_destroys = [a for a in actions
-                                if a.device.type == "partition"]
-        actions.extend(ui_devicetree.findActions(type="resize"))
-        self._propagate_actions(actions)
-
-        # register all disklabel create actions
-        actions = ui_devicetree.findActions(type="create", object="format")
-        disklabel_creates = [a for a in actions
-                                if a.device.format.type == "disklabel"]
-        self._propagate_actions(disklabel_creates)
-
-        # register partition create actions, including formatting
-        actions = ui_devicetree.findActions(type="create")
-        partition_creates = [a for a in actions if a.device.type == "partition"]
-        self._propagate_actions(partition_creates)
-
-        # catch changed size of partitions defined prior to this visit
-        for ui_device in self.__storage.partitions:
-            device = self.storage.devicetree.getDeviceByID(ui_device.id)
-            if device and not device.exists and ui_device.size != device.size:
-                device.req_base_size = ui_device.req_base_size
-                device.req_size = ui_device.req_size
-
-        if partition_creates or partition_destroys:
-            try:
-                doPartitioning(self.storage)
-            except Exception as e:
-                # TODO: error handling
-                raise
-
-        # catch changed size of non-partition devices defined prior to this
-        # visit
-        for ui_device in self.__storage.devices:
-            if ui_device in self.__storage.partitions:
-                # did partitions before doPartitioning
-                continue
-
-            device = self.storage.devicetree.getDeviceByID(ui_device.id)
-            if device and not device.exists and ui_device.size != device.size:
-                device._size = ui_device._size
-
-        # register all other create actions
-        already_handled = disklabel_creates + partition_creates
-        actions = [a for a in ui_devicetree.findActions(type="create")
-                        if a not in already_handled]
-        self._propagate_actions(actions)
-
-        # check for changes that do not use actions
-        for ui_device in self.__storage.devices:
-            device = self.storage.devicetree.getDeviceByID(ui_device.id)
-            if not device:
-                continue
-
-            if device.format.mountable and \
-               ui_device.format.mountpoint != device.format.mountpoint:
-                device.format.mountpoint = ui_device.format.mountpoint
-
-            # we can only label new formats as of now
-            if hasattr(device.format, "label") and \
-               not device.format.exists and \
-               ui_device.format.label != device.format.label:
-                device.format.label = ui_device.format.label
-
-            # if this device was removed from the new installation it should be
-            # completely reset to its initial state
-            if ui_device.format == ui_device.originalFormat and \
-               ui_device.size == ui_device.currentSize:
-                self.storage.resetDevice(device)
-
-        # apply global passphrase to all new encrypted devices
+        # update the global passphrase
         self.data.autopart.passphrase = self.passphrase
+
+        # make sure any device/passphrase pairs we've obtained are remebered
         for device in self.storage.devices:
-            if device.format.type == "luks" and not device.format.exists:
-                log.debug("using global passphrase for %s" % device.name)
-                device.format.passphrase = self.data.autopart.passphrase
+            if device.format.type == "luks" and not device.exists:
+                if not device.format.hasKey:
+                    device.format.passphrase = self.passphrase
+
+                self.storage.savePassphrase(device)
 
         # set up bootloader and check the configuration
         self.storage.setUpBootLoader()
@@ -678,11 +534,12 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
     def _reset_storage(self):
         self.__storage = self.storage.copy()
-        self.__storage.devicetree._actions = [] # keep things simple
+        self._media_disks = []
 
         # hide removable disks containing install media
         for disk in self.__storage.disks:
             if disk.removable and disk.protected:
+                self._media_disks.append(disk)
                 self.__storage.devicetree.hide(disk)
 
         self._devices = self.__storage.devices

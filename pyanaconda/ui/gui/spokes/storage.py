@@ -464,6 +464,8 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         self._update_summary()
 
     def refresh(self):
+        self.disks = getDisks(self.storage.devicetree)
+
         # synchronize our local data store with the global ksdata
         disk_names = [d.name for d in self.disks]
         # don't put disks with hidden formats in selected_disks
