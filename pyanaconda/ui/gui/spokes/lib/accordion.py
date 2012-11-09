@@ -237,14 +237,14 @@ class CreateNewPage(Page):
         label.set_line_wrap(True)
         self._createBox.add(label)
 
-        self._createNewButton = Gtk.Button("")
+        self._createNewButton = Gtk.LinkButton("", label=_("Click here to create them automatically."))
         label = self._createNewButton.get_children()[0]
         label.set_line_wrap(True)
-        label.set_use_markup(True)
-        label.set_markup(_("<span foreground='blue'><u>Click here to create them automatically.</u></span>"))
 
+        self._createNewButton.set_has_tooltip(False)
         self._createNewButton.set_halign(Gtk.Align.START)
         self._createNewButton.connect("clicked", cb)
+        self._createNewButton.connect("activate-link", lambda *args: Gtk.true())
         self._createBox.add(self._createNewButton)
 
         label = Gtk.Label(_("Or, create new mount points below with the '+' icon."))
