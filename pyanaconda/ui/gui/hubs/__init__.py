@@ -22,6 +22,7 @@
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
 
+# pylint: disable-msg=E0611
 from gi.repository import GLib
 
 from pyanaconda.flags import flags
@@ -196,10 +197,12 @@ class Hub(GUIObject, common.Hub):
     def _updateCompleteness(self, spoke):
         spoke.selector.set_sensitive(spoke.ready)
         spoke.selector.set_property("status", spoke.status)
+        spoke.selector.set_tooltip_markup(spoke.status)
         spoke.selector.set_incomplete(not spoke.completed)
         self._handleCompleteness(spoke)
 
     def _handleCompleteness(self, spoke):
+        # pylint: disable-msg=E0611
         from gi.repository import Gtk
 
         # Add the spoke to the incomplete list if it's now incomplete, and make
