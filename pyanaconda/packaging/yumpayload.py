@@ -611,14 +611,25 @@ reposdir=%s
             url = method.url
             sslverify = not (method.noverifyssl or flags.noverifyssl)
         elif method.method == "cdrom" or (checkmount and not method.method):
-            # Did dracut leave the DVD mounted for us?
+            # Did dracut leave the DVD or NFS mounted for us?
             device = get_mount_device("/run/install/repo")
             # Only look at the dracut mount if we don't already have a cdrom
             if device and not self.install_device:
                 self.install_device = storage.devicetree.getDeviceByPath(device)
                 url = "file:///run/install/repo"
                 if not method.method:
-                    method.method = "cdrom"
+                    # See if this is a nfs mount
+                    if ':' in device:
+                        # prepend nfs: to the url as that's what the parser
+                        # wants.  Note we don't get options from this, but
+                        # that's OK for the UI at least.
+                        options, host, path = iutil.parseNfsUrl("nfs:%s" %
+                                                                device)
+                        method.method = "nfs"
+                        method.server = host
+                        method.dir = path
+                    else:
+                        method.method = "cdrom"
             else:
                 # cdrom or no method specified -- check for media
                 if not self.install_device:
