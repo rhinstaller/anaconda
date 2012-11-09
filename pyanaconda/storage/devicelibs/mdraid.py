@@ -240,12 +240,11 @@ def mdexamine(device):
                                  stderr="/dev/tty5").split()
 
     info = {}
-    if vars:
-        try:
-            info["device"] = vars[1]
-            vars = vars[2:]
-        except IndexError:
-            return {}
+    if len(vars) > 1 and vars[1].startswith("/dev/md"):
+        info["device"] = vars[1]
+        vars = vars[2:]
+    elif len(vars) > 1:
+        vars = vars[1:]
 
     for var in vars:
         (name, equals, value) = var.partition("=")

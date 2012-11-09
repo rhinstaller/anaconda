@@ -1418,17 +1418,13 @@ class DeviceTree(object):
 
             if not md_name:
                 md_path = md_info.get("device", "")
-                md_name = devicePathToName(md_info.get("device", ""))
-                if md_name:
-                    try:
-                        # md_name can be md<minor>, md/<minor>, or md/<name>
-                        if md_name.startswith("md/"):
-                            md_name = md_name[3:]
-                        else:
-                            md_name = md_name[2:]
-                    except (IndexError, ValueError):
-                        md_name = None
-                    else:
+                if md_path:
+                    md_name = devicePathToName(md_path)
+                    if re.match(r'md\d+$', md_name):
+                        # md0 -> 0
+                        md_name = md_name[2:]
+
+                    if md_name:
                         array = self.getDeviceByName(md_name)
                         if array and array.uuid != md_uuid:
                             md_name = None
