@@ -631,9 +631,11 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         # refreshed.
         if self._previous_autopart:
             self._previous_autopart = False
-            actions = self.storage.devicetree.findActions(type="create")
-            for action in reversed(actions):
-                self.storage.devicetree.cancelAction(action)
+            for partition in self.storage.partitions[:]:
+                # check if it's been removed in a previous iteration
+                if not partition.exists and \
+                   partition in self.storage.partitions:
+                    self.storage.recursiveRemove(partition)
 
         # hide/unhide disks as requested
         for disk in self.disks:
