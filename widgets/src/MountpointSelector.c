@@ -196,7 +196,6 @@ static void anaconda_mountpoint_selector_init(AnacondaMountpointSelector *mountp
     pixmap_path = find_pixmap("right-arrow-icon.png");
     mountpoint->priv->arrow = gtk_image_new_from_file(pixmap_path);
     gtk_widget_set_no_show_all(GTK_WIDGET(mountpoint->priv->arrow), TRUE);
-    gtk_widget_set_margin_right(GTK_WIDGET(mountpoint->priv->arrow), 6);
     g_free(pixmap_path);
 
     /* Set some properties. */
@@ -230,6 +229,7 @@ static void anaconda_mountpoint_selector_init(AnacondaMountpointSelector *mountp
     gtk_grid_attach(GTK_GRID(mountpoint->priv->grid), mountpoint->priv->size_label, 1, 0, 1, 2);
     gtk_grid_attach(GTK_GRID(mountpoint->priv->grid), mountpoint->priv->arrow, 2, 0, 1, 2);
     gtk_grid_attach(GTK_GRID(mountpoint->priv->grid), mountpoint->priv->mountpoint_label, 0, 1, 1, 2);
+    gtk_widget_set_margin_right(GTK_WIDGET(mountpoint->priv->grid), 12);
 
     gtk_container_add(GTK_CONTAINER(mountpoint), mountpoint->priv->grid);
 }
