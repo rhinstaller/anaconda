@@ -303,3 +303,7 @@ class LanguageSpoke(LanguageMixIn, NormalSpoke):
         (store, itr) = selected.get_selected()
 
         return store[itr][0]
+
+    @property
+    def showable(self):
+        return False
