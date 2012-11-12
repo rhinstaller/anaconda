@@ -1561,7 +1561,13 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         mountpoint = dialog.mountpoint
         log.debug("requested size = %s  ; available space = %s"
                     % (dialog.size, self._free_space))
-        size = dialog.size
+
+        # if no size was entered, request as much of the free space as possible
+        if dialog.size.convertTo(spec="mb") < 1:
+            size = self._free_space
+        else:
+            size = dialog.size
+
         fstype = self.storage.getFSType(mountpoint)
         encrypted = self.data.autopart.encrypted
 
