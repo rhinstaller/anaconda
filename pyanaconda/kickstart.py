@@ -51,6 +51,7 @@ from pyanaconda import timezone
 from pyanaconda import localization
 from pyanaconda.simpleconfig import SimpleConfigFile
 from pyanaconda.users import getPassAlgo
+from pyanaconda.desktop import Desktop
 
 from pykickstart.base import KickstartCommand
 from pykickstart.constants import *
@@ -1394,12 +1395,16 @@ class VolGroupData(commands.volgroup.FC16_VolGroupData):
                 request.reserved_percent = self.reserved_percent
 
 class XConfig(commands.xconfig.F14_XConfig):
-    def execute(self):
+    def execute(self, *args):
+        desktop = Desktop()
         if self.startX:
-            self.anaconda.desktop.setDefaultRunLevel(5)
+            desktop.setDefaultRunLevel(5)
 
         if self.defaultdesktop:
-            self.anaconda.desktop.setDefaultDesktop(self.defaultdesktop)
+            desktop.setDefaultDesktop(self.defaultdesktop)
+
+        # now write it out
+        desktop.write()
 
 class ZFCP(commands.zfcp.F14_ZFCP):
     def parse(self, args):
