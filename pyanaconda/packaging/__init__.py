@@ -575,11 +575,14 @@ class Payload(object):
             log.error("systemd is not installed -- can't set default target")
             return
 
+        # If X was already requested we don't have to continue
+        if self.data.xconfig.startX:
+            return
+
         try:
             import rpm
         except ImportError:
-            log.info("failed to import rpm -- defaulting to multi-user.target")
-            default_target = "multi-user.target"
+            log.info("failed to import rpm -- not adjusting default runlevel")
         else:
             ts = rpm.TransactionSet(ROOT_PATH)
 
@@ -587,14 +590,9 @@ class Payload(object):
             if ts.dbMatch("provides", 'service(graphical-login)').count() and \
                ts.dbMatch('provides', 'xorg-x11-server-Xorg').count() and \
                not flags.usevnc:
-                default_target = "graphical.target"
-            else:
-                default_target = "multi-user.target"
-
-        symlink_path = ROOT_PATH + '/etc/systemd/system/default.target'
-        if os.path.islink(symlink_path):
-            os.unlink(symlink_path)
-        os.symlink('/usr/lib/systemd/system/' + default_target, symlink_path)
+                # We only manipulate the ksdata.  The symlink is made later
+                # during the config write out.
+                self.data.xconfig.startX = True
 
     def dracutSetupArgs(self):
         args = []
