@@ -66,6 +66,7 @@ def doConfiguration(storage, payload, ksdata, instClass):
         ksdata.timezone.execute(storage, ksdata, instClass)
         ksdata.lang.execute(storage, ksdata, instClass)
         ksdata.firewall.execute(storage, ksdata, instClass)
+        ksdata.xconfig.execute(storage, ksdata, instClass)
 
     with progress_report(_("Writing network configuration")):
         writeNetworkConf(storage, ksdata, instClass)
