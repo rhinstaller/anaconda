@@ -128,8 +128,9 @@ class GraphicalUserInterface(UserInterface):
                                 message_type=Gtk.MessageType.ERROR,
                                 buttons=Gtk.ButtonsType.NONE,
                                 message_format=message)
+        dlg.set_decorated(False)
         dlg.add_button(_("_Exit Installer"), 0)
-        
+
         with enlightbox(self._actions[0].window, dlg):
             dlg.run()
             dlg.destroy()
@@ -141,6 +142,7 @@ class GraphicalUserInterface(UserInterface):
                                 message_type=Gtk.MessageType.QUESTION,
                                 buttons=Gtk.ButtonsType.NONE,
                                 message_format=message)
+        dlg.set_decorated(False)
         dlg.add_buttons(_("_No"), 0, _("_Yes"), 1)
         dlg.set_default_response(1)
 
