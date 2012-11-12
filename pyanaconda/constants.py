@@ -92,3 +92,6 @@ DMI_CHASSIS_VENDOR = "/sys/class/dmi/id/chassis_vendor"
 # VNC questions
 USEVNC = _("Start VNC")
 USETEXT = _("Use text mode")
+
+# Runlevel files
+RUNLEVELS = {3: 'multi-user.target', 5: 'graphical.target'}
