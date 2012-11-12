@@ -2194,14 +2194,7 @@ class Storage(object):
                 mountpoint = None
                 fmt_args = {}
 
-            try:
-                device = factory.new_device(parents=parents,
-                                            size=size,
-                                            fmt_type=fstype,
-                                            mountpoint=mountpoint,
-                                            fmt_args=fmt_args)
-            except StorageError as e:
-                log.error("device instance creation failed: %s" % e)
+            def _container_post_error():
                 # Clean up. If there is a container and it has other devices,
                 # try to revert it. If there is a container and it has no other
                 # devices, remove it. If there is not a container, remove all of
@@ -2221,6 +2214,15 @@ class Storage(object):
                 else:
                     self.__cleanUpMemberDevices(parents)
 
+            try:
+                device = factory.new_device(parents=parents,
+                                            size=size,
+                                            fmt_type=fstype,
+                                            mountpoint=mountpoint,
+                                            fmt_args=fmt_args)
+            except StorageError as e:
+                log.error("device instance creation failed: %s" % e)
+                _container_post_error()
                 raise
 
             self.createDevice(device)
@@ -2234,14 +2236,8 @@ class Storage(object):
                     e = StorageError("failed to create device")
 
             if e:
-                # Clean up by destroying members, container, and device.
                 self.destroyDevice(device)
-                members = device.parents
-                if container:
-                    self.destroyDevice(container)
-                    members = container.parents
-
-                self.__cleanUpMemberDevices(members)
+                _container_post_error()
                 raise StorageError(e)
 
             if factory.encrypted and factory.encrypt_leaves:
