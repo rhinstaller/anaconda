@@ -21,7 +21,7 @@
 
 import string, os
 from simpleconfig import SimpleConfigFile
-from pyanaconda.constants import ROOT_PATH
+from pyanaconda.constants import ROOT_PATH, RUNLEVELS
 
 import logging
 log = logging.getLogger("anaconda")
@@ -32,7 +32,7 @@ class Desktop (SimpleConfigFile):
 # to start in
 #
     def setDefaultRunLevel(self, runlevel):
-        if str(runlevel) != "3" and str(runlevel) != "5":
+        if int(runlevel) not in RUNLEVELS:
             raise RuntimeError, "Desktop::setDefaultRunLevel() - Must specify runlevel as 3 or 5!"
         self.runlevel = runlevel
 
@@ -55,26 +55,11 @@ class Desktop (SimpleConfigFile):
             f.write(str (self))
             f.close()
 
-        try:
-            inittab = open (ROOT_PATH + '/etc/inittab', 'r')
-        except IOError:
-            log.warning ("there is no inittab, bad things will happen!")
-            return
-        lines = inittab.readlines ()
-        inittab.close ()
-        inittab = open (ROOT_PATH + '/etc/inittab', 'w')        
-        for line in lines:
-            if len (line) > 3 and line[:3] == "id:":
-                fields = string.split (line, ':')
-                fields[1] = str (self.runlevel)
-                line = string.join (fields, ':')
-            inittab.write (line)
-        inittab.close ()
-
         if not os.path.isdir(ROOT_PATH + '/etc/systemd/system'):
             log.warning("there is no /etc/systemd/system directory, cannot update default.target!")
             return
         default_target = ROOT_PATH + '/etc/systemd/system/default.target'
         if os.path.islink(default_target):
             os.unlink(default_target)
-        os.symlink('/lib/systemd/system/runlevel' + str(self.runlevel) + '.target', default_target)
+        os.symlink('/lib/systemd/system/%s' % RUNLEVELS[self.runlevel],
+                   default_target)
