@@ -70,6 +70,7 @@ from pyanaconda import iutil
 from pyanaconda.iutil import ProxyString, ProxyStringError
 from pyanaconda import isys
 from pyanaconda.network import hasActiveNetDev
+from pyanaconda.storage.size import Size
 
 from pyanaconda.image import opticalInstallMedia
 from pyanaconda.image import mountImage
@@ -121,7 +122,6 @@ class YumPayload(PackagePayload):
 
     def reset(self, root=None):
         """ Reset this instance to its initial (unconfigured) state. """
-        from pyanaconda.storage.size import Size
 
         # cdrom: install_device.teardown (INSTALL_TREE)
         # hd: umount INSTALL_TREE, install_device.teardown (ISO_DIR)
@@ -1066,8 +1066,6 @@ reposdir=%s
         return self._space_required
 
     def calculateSpaceNeeds(self):
-        from pyanaconda.storage.size import Size
-
         # XXX this will only be useful if you've run checkSoftwareSelection
         total = 0
         with _yum_lock:
@@ -1265,6 +1263,29 @@ reposdir=%s
         else:
             rpm.addMacro("__file_context_path", "%{nil}")
 
+    def _transactionErrors(self, errors):
+        spaceNeeded = {}
+        retval = ""
+
+        # RPM can give us a bunch of potential errors, but we really only
+        # care about a handful.
+        for (descr, (ty, mount, need)) in errors:
+            log.error(descr)
+
+            if ty == rpm.RPMPROB_DISKSPACE:
+                spaceNeeded[mount] = need
+
+        # Now that we've found the ones we are interested in, create an
+        # error string to match.
+        if spaceNeeded:
+            retval += _("You need more space on the following "
+                        "file systems:\n")
+
+            for (mount, need) in spaceNeeded.items():
+                retval += "%s on %s\n" % (Size(need), mount)
+
+        return retval
+
     def install(self):
         """ Install the payload. """
         from yum.Errors import PackageSackError, RepoError, YumBaseError, YumRPMTransError
@@ -1310,19 +1331,17 @@ reposdir=%s
             try:
                 self._yum.runTransaction(cb=rpmcb)
             except PackageSackError as e:
-                log.error("error running transaction: %s" % e)
+                log.error("error [1] running transaction: %s" % e)
                 exn = PayloadInstallError(str(e))
                 if errorHandler.cb(exn) == ERROR_RAISE:
                     raise exn
             except YumRPMTransError as e:
-                log.error("error running transaction: %s" % e)
-                for error in e.errors:
-                    log.error(error[0])
-                exn = PayloadInstallError(str(e))
+                log.error("error [2] running transaction: %s" % e)
+                exn = PayloadInstallError(self._transactionErrors(e.errors))
                 if errorHandler.cb(exn) == ERROR_RAISE:
                     raise exn
             except YumBaseError as e:
-                log.error("error [2] running transaction: %s" % e)
+                log.error("error [3] running transaction: %s" % e)
                 for error in e.errors:
                     log.error("%s" % error[0])
                 exn = PayloadInstallError(str(e))
