@@ -19,14 +19,14 @@
 # Author(s): Matt Wilson <msw@redhat.com>
 #
 
-import string, os
+import os
 from simpleconfig import SimpleConfigFile
 from pyanaconda.constants import ROOT_PATH, RUNLEVELS
 
 import logging
 log = logging.getLogger("anaconda")
 
-class Desktop (SimpleConfigFile):
+class Desktop(SimpleConfigFile):
 #
 # This class represents the default desktop to run and the default runlevel
 # to start in
@@ -45,14 +45,14 @@ class Desktop (SimpleConfigFile):
     def getDefaultDesktop(self):
         return self.get("DESKTOP")
 
-    def __init__ (self):
-        SimpleConfigFile.__init__ (self)
+    def __init__(self):
+        super(Desktop, self).__init__()
         self.runlevel = 3
 
     def write(self):
         if self.getDefaultDesktop():
             f = open(ROOT_PATH + "/etc/sysconfig/desktop", "w")
-            f.write(str (self))
+            f.write(str(self))
             f.close()
 
         if not os.path.isdir(ROOT_PATH + '/etc/systemd/system'):
