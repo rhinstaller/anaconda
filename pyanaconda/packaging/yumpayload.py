@@ -1339,7 +1339,8 @@ reposdir=%s
                 log.error("error [2] running transaction: %s" % e)
                 exn = PayloadInstallError(self._transactionErrors(e.errors))
                 if errorHandler.cb(exn) == ERROR_RAISE:
-                    raise exn
+                    progress.send_quit(1)
+                    sys.exit(1)
             except YumBaseError as e:
                 log.error("error [3] running transaction: %s" % e)
                 for error in e.errors:
