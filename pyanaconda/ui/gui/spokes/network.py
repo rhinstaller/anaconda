@@ -617,8 +617,10 @@ class NetworkControlBox():
             ipv4cfg = device.get_ip4_config()
             ipv6cfg = device.get_ip6_config()
             if not ipv4cfg and not ipv6cfg:
-                GLib.timeout_add(300, self._refresh_device_cfg, (device,
-                                                                 num_of_tries-1))
+                GLib.timeout_add(300,
+                                 self._refresh_device_cfg,
+                                 (device, num_of_tries-1),
+                                 state)
                 return False
 
         dev_type = device.get_device_type()
