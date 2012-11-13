@@ -724,6 +724,7 @@ class StorageSpoke(NormalSpoke, StorageChecker):
 
             if dialog.custom:
                 self.skipTo = "CustomPartitioningSpoke"
+                self.on_back_clicked(self.window)
             else:
                 if self.encrypted:
                     dialog = PassphraseDialog(self.data)
@@ -734,19 +735,19 @@ class StorageSpoke(NormalSpoke, StorageChecker):
                     self.passphrase = dialog.passphrase
 
                 self.apply()
-
-                resizeDialog = ResizeDialog(self.data, self.storage, self.payload)
-                resizeDialog.refresh(disks)
-
-                # resizeDialog handles okay/cancel on its own, so we can throw
-                # out the return value.
-                self.run_lightbox_dialog(resizeDialog)
-                self.window.emit("button-clicked")
-                return
-
-            self.on_back_clicked(self.window)
+                GLib.idle_add(self._show_resize_dialog, disks)
         elif rc == dialog.RESPONSE_QUIT:
             raise SystemExit("user-selected exit")
+
+    def _show_resize_dialog(self, disks):
+        resizeDialog = ResizeDialog(self.data, self.storage, self.payload)
+        resizeDialog.refresh(disks)
+
+        # resizeDialog handles okay/cancel on its own, so we can throw out the
+        # return value.
+        self.run_lightbox_dialog(resizeDialog)
+        self.window.emit("button-clicked")
+        return False
 
     def on_add_disk_clicked(self, button):
         print "ADD DISK CLICKED"
