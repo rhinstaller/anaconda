@@ -1,6 +1,6 @@
 Name: anaconda
-Version: 11.1.2.257
-Release: 2
+Version: 11.1.2.258
+Release: 1
 License: GPL
 Summary: Graphical system installer
 Group: Applications/System
@@ -128,6 +128,10 @@ fi
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+
+* Tue Nov 13 2012 Radek Vykydal <rvykydal@redhat.com> 11.1.2.258-1
+- Add extra modules that are not in the kernel package (vpodzime)
+  Related: rhbz#754213
 
 * Thu Nov 8 2012 Radek Vykydal <rvykydal@redhat.com> 11.1.2.257-2
 - Require syslinux-perl in anaconda (rvykydal)
