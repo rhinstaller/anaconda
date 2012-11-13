@@ -264,12 +264,10 @@ gboolean anaconda_disk_overview_clicked(AnacondaDiskOverview *widget, GdkEvent *
 
 static void anaconda_disk_overview_toggle_background(AnacondaDiskOverview *widget) {
     if (widget->priv->chosen) {
-        GdkRGBA color;
-        gdk_rgba_parse(&color, "#4a90d9");
-        gtk_widget_override_background_color(GTK_WIDGET(widget), GTK_STATE_FLAG_NORMAL, &color);
+	gtk_widget_set_state_flags(GTK_WIDGET(widget), GTK_STATE_FLAG_SELECTED, FALSE);
     }
     else
-        gtk_widget_override_background_color(GTK_WIDGET(widget), GTK_STATE_FLAG_NORMAL, NULL);
+	gtk_widget_unset_state_flags(GTK_WIDGET(widget), GTK_STATE_FLAG_SELECTED);
 }
 
 static void anaconda_disk_overview_finalize(AnacondaDiskOverview *widget) {
@@ -316,7 +314,7 @@ static void anaconda_disk_overview_set_property(GObject *object, guint prop_id, 
     switch(prop_id) {
         case PROP_DESCRIPTION: {
             char *markup = g_markup_printf_escaped("<span weight='bold' size='large'>%s</span>", g_value_get_string(value));
-            gtk_label_set_markup(GTK_LABEL(priv->description_label), markup);
+	    gtk_label_set_markup(GTK_LABEL(priv->description_label), markup);
             g_free(markup);
             break;
         }
