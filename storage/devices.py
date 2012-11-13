@@ -1871,7 +1871,7 @@ class LVMVolumeGroupDevice(DMDevice):
         self.lv_sizes = []
         self.lv_attr = []
         self.hasDuplicate = False
-        self.reserved_percent = 0
+        self.reserved_percent = 50
         self.reserved_space = 0
 
         # circular references, here I come
@@ -1942,6 +1942,8 @@ class LVMVolumeGroupDevice(DMDevice):
         elif self.reserved_percent:
             args.append("--reserved-percent=%d" % self.reserved_percent)
 
+        if self.reserved_percent or self.reserved_space:
+            f.write("# %s has space reserved for future upgrades\n" % (self.name,))
         f.write("#volgroup %s %s %s" % (self.name, " ".join(args), " ".join(pvs)))
         if s:
             f.write(" %s" % s)
