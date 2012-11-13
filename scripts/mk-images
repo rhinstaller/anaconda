@@ -53,6 +53,9 @@ INFINIBANDMODS="ib_ipoib"
 MSHVMODS="hv_storvsc hv_mouse hv_netvsc hv_vmbus"
 INITRDMODS="$USBMODS $FIREWIREMODS $IDEMODS $SCSIMODS $FSMODS $LVMMODS $RAIDMODS $CRYPTOMODS $BTERMMODS $COMMONMODS $PCMCIASOCKMODS $INFINIBANDMODS $MSHVMODS =scsi =net"
 
+# packages with modules not included in kernel
+EXTRAMODSPACKAGES="kmod-gfs kmod-gfs-PAE kmod-gfs-xen"
+
 # Set, verify, and create paths
     KERNELPATH=$1
     TOPDESTPATH=$2
@@ -865,6 +868,23 @@ for KERNELARCH in $arches; do
 	echo "$KERNELROOT/$KERNELDIR/${KERNELNAME}-$version does not exist"
 	exit 1
     fi
+
+    # add extra modules
+    for package in $EXTRAMODSPACKAGES; do
+        packagePath=(findPackage $KERNELPATH $package)
+        if [ "$KERNELARCH" = "i586" -a ! -f "$packagePath" ]; then
+	        echo "No i586 $package, trying i686..."
+	        KERNELARCH="i686"
+	        packagePath=$(findPackage $KERNELPATH $package)
+        fi
+
+        if [ ! -f "$packagePath" ]; then
+            echo "$package doesn't exist for $KERNELARCH.  skipping"
+	        continue
+        fi
+
+        rpm2cpio $packagePath | (cd $KERNELROOT; cpio --quiet -iumd)
+    done
 
     allmods=$(find $KERNELROOT/lib/modules/$version -name *.ko)
 
