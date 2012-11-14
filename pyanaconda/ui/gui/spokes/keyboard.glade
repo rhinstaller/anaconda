@@ -415,6 +415,7 @@
                               <object class="GtkTextView" id="layoutTextView">
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
+                                <property name="border_width">6</property>
                                 <property name="buffer">layoutTestBuffer</property>
                               </object>
                             </child>
