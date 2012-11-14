@@ -92,10 +92,11 @@ class FakeDisk(object):
 
 def getDisks(devicetree, fake=False):
     if not fake:
-        disks = [d for d in devicetree.devices if d.isDisk and
-                                                  not d.format.hidden and
-                                                  not (d.protected and
-                                                       d.removable)]
+        devices = devicetree.devices + devicetree._hidden
+        disks = [d for d in devices if d.isDisk and
+                                       not d.format.hidden and
+                                       not (d.protected and
+                                            d.removable)]
     else:
         disks = []
         disks.append(FakeDisk("sda", size=300000, free=10000, serial="00001",
