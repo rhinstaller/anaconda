@@ -567,56 +567,80 @@ reposdir=%s
             self.install_device = device
             url = "file://" + INSTALL_TREE
         elif method.method == "nfs":
-            # Mount the NFS share on INSTALL_TREE. If it ends up being nfsiso
-            # we will move the mountpoint to ISO_DIR.
-            self._setupNFS(INSTALL_TREE, method.server, method.dir, method.opts)
+            # See if we already have stuff mounted due to dracut
+            isodev = get_mount_device(DRACUT_ISODIR)
+            device = get_mount_device(DRACUT_REPODIR)
+            # See if dracut dealt with nfsiso
+            if isodev:
+                options, host, path = iutil.parseNfsUrl('nfs:%s' % isodev)
+                # See if the dir holding the iso is what we want
+                # and also if we have an iso mounted to /run/install/repo
+                if path in isodev and DRACUT_ISODIR in device:
+                    # Everything should be setup
+                    url = "file://" + DRACUT_REPODIR
+            else:
+                # see if the nfs dir is mounted
+                needmount = True
+                if device:
+                    options, host, path = iutil.parseNfsUrl('nfs:%s' % device)
+                    if path in device:
+                        needmount = False
+                        path = DRACUT_REPODIR
+                if needmount:
+                    # Mount the NFS share on INSTALL_TREE. If it ends up
+                    # being nfsiso we will move the mountpoint to ISO_DIR.
+                    self._setupNFS(INSTALL_TREE, method.server, method.dir,
+                                   method.opts)
+                    path = INSTALL_TREE
 
-            # check for ISO images in the newly mounted dir
-            path = INSTALL_TREE
-            if method.dir.endswith(".iso"):
-                # if the given URL includes a specific ISO image file, use it
-                image_file = os.path.basename(method.dir)
-                path = os.path.normpath("%s/%s" % (path, image_file))
+                # check for ISO images in the newly mounted dir
+                if method.dir.endswith(".iso"):
+                    # if the given URL includes a specific ISO image file, use it
+                    image_file = os.path.basename(method.dir)
+                    path = os.path.normpath("%s/%s" % (path, image_file))
 
-            image = findFirstIsoImage(path)
+                image = findFirstIsoImage(path)
 
-            # it appears there are ISO images in the dir, so assume they want to
-            # install from one of them
-            if image:
-                # move the mount to ISO_DIR
-                # work around inability to move shared filesystems
-                iutil.execWithRedirect("mount",
-                                       ["--make-rprivate", "/"],
-                                       stderr="/dev/tty5", stdout="/dev/tty5")
-                iutil.execWithRedirect("mount",
-                                       ["--move", INSTALL_TREE, ISO_DIR],
-                                       stderr="/dev/tty5", stdout="/dev/tty5")
-                # Mounts are kept track of in isys it seems
-                # Remove the count for the source
-                if isys.mountCount.has_key(INSTALL_TREE):
-                    if isys.mountCount[INSTALL_TREE] > 1:
-                        isys.mountCount[INSTALL_TREE] -= 1
-                    else:
-                        del(isys.mountCount[INSTALL_TREE])
-                # Add a count for the new location
-                if not isys.mountCount.has_key(ISO_DIR):
-                    isys.mountCount[ISO_DIR] = 0
-                isys.mountCount[ISO_DIR] += 1
-                # mount the ISO on a loop
-                image = os.path.normpath("%s/%s" % (ISO_DIR, image))
-                mountImage(image, INSTALL_TREE)
+                # it appears there are ISO images in the dir, so assume they want to
+                # install from one of them
+                if image:
+                    # move the mount to ISO_DIR
+                    # work around inability to move shared filesystems
+                    iutil.execWithRedirect("mount",
+                                           ["--make-rprivate", "/"],
+                                           stderr="/dev/tty5", stdout="/dev/tty5")
+                    iutil.execWithRedirect("mount",
+                                           ["--move", INSTALL_TREE, ISO_DIR],
+                                           stderr="/dev/tty5", stdout="/dev/tty5")
+                    # Mounts are kept track of in isys it seems
+                    # Remove the count for the source
+                    if isys.mountCount.has_key(INSTALL_TREE):
+                        if isys.mountCount[INSTALL_TREE] > 1:
+                            isys.mountCount[INSTALL_TREE] -= 1
+                        else:
+                            del(isys.mountCount[INSTALL_TREE])
+                    # Add a count for the new location
+                    if not isys.mountCount.has_key(ISO_DIR):
+                        isys.mountCount[ISO_DIR] = 0
+                    isys.mountCount[ISO_DIR] += 1
+                    # mount the ISO on a loop
+                    image = os.path.normpath("%s/%s" % (ISO_DIR, image))
+                    mountImage(image, INSTALL_TREE)
 
-            url = "file://" + INSTALL_TREE
+                    url = "file://" + INSTALL_TREE
+                else:
+                    # Fall back to the mount path instead of a mounted iso
+                    url = "file://" + path
         elif method.method == "url":
             url = method.url
             sslverify = not (method.noverifyssl or flags.noverifyssl)
         elif method.method == "cdrom" or (checkmount and not method.method):
             # Did dracut leave the DVD or NFS mounted for us?
-            device = get_mount_device("/run/install/repo")
+            device = get_mount_device(DRACUT_REPODIR)
             # Only look at the dracut mount if we don't already have a cdrom
             if device and not self.install_device:
                 self.install_device = storage.devicetree.getDeviceByPath(device)
-                url = "file:///run/install/repo"
+                url = "file://" + DRACUT_REPODIR
                 if not method.method:
                     # See if this is a nfs mount
                     if ':' in device:
