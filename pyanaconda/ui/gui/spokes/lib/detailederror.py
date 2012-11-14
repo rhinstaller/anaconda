@@ -58,8 +58,9 @@ class DetailedErrorDialog(GUIObject):
             for button in buttons:
                 widget = self.window.add_button(button, i)
 
-                # Quit buttons should always appear left-most.
-                if button == _("_Quit"):
+                # Quit buttons should always appear left-most, unless it's the
+                # only button.  Then it should appear on the right.
+                if button == _("_Quit") and len(buttons) > 1:
                     buttonbox.set_child_secondary(widget, True)
 
                 i += 1
