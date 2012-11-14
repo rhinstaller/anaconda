@@ -227,6 +227,14 @@ class ErrorHandler(object):
         self.ui.showError(message)
         return ERROR_RAISE
 
+    def _dependencyErrorHandler(self, *args, **kwargs):
+        message = _("The following software marked for installation has errors.  "
+                    "This is likely caused by an error with\nyour installation source.")
+        details = "\n".join(sorted(kwargs["exception"].message))
+
+        self.ui.showDetailedError(message, details)
+        return ERROR_RAISE
+
     def cb(self, exn, *args, **kwargs):
         """This method is the callback that all error handling should pass
            through.  The return value is one of the ERROR_* constants defined
@@ -259,7 +267,8 @@ class ErrorHandler(object):
                 "NoSuchGroup": self._noSuchGroupHandler,
                 "NoSuchPackage": self._noSuchPackageHandler,
                 "ScriptError": self._scriptErrorHandler,
-                "PayloadInstallError": self._payloadInstallHandler}
+                "PayloadInstallError": self._payloadInstallHandler,
+                "DependencyError": self._dependencyErrorHandler}
 
         if exn.__class__.__name__ in _map:
             kwargs["exception"] = exn

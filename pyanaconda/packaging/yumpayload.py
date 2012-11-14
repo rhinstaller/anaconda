@@ -1234,7 +1234,17 @@ reposdir=%s
             self._setUpMedia(self.install_device)
 
         self._writeInstallConfig()
-        self.checkSoftwareSelection()
+
+        # We have this block twice.  For kickstart installs, this is the only
+        # place dependencies will be checked.  If a dependency error is hit
+        # here, there's nothing the user can do about it since you cannot go
+        # back to the first hub.
+        try:
+            self.checkSoftwareSelection()
+        except DependencyError as e:
+            if errorHandler.cb(e) == ERROR_RAISE:
+                progress.send_quit(1)
+                sys.exit(1)
 
         # doPreInstall
         # create mountpoints for protected device mountpoints (?)

@@ -136,6 +136,17 @@ class GraphicalUserInterface(UserInterface):
             dlg.destroy()
 
     @gtk_thread_wait
+    def showDetailedError(self, message, details):
+        from pyanaconda.ui.gui.spokes.lib.detailederror import DetailedErrorDialog
+        dlg = DetailedErrorDialog(None, buttons=[_("_Quit")],
+                                  label=message)
+
+        with enlightbox(self._actions[0].window, dlg.window):
+            dlg.refresh(details)
+            rc = dlg.run()
+            dlg.window.destroy()
+
+    @gtk_thread_wait
     def showYesNoQuestion(self, message):
         from gi.repository import AnacondaWidgets, Gtk
         dlg = Gtk.MessageDialog(flags=Gtk.DialogFlags.MODAL,

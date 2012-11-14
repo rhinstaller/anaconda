@@ -173,6 +173,9 @@ class TextUserInterface(ui.UserInterface):
         error_window = ErrorDialog(self._app, message)
         self._app.switch_screen(error_window)
 
+    def showDetailedError(self, message, details):
+        self.showError(message + "\n\n" + details)
+
     def showYesNoQuestion(self, message):
         """Display a dialog with the given message that presents the user a yes
            or no choice.  This method returns True if the yes choice is selected,
