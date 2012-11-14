@@ -1840,7 +1840,11 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
         log.debug("page clicked: %s" % getattr(page, "pageTitle", None))
         if self._current_selector:
-            self._save_right_side(self._current_selector)
+            nb_page = self._partitionsNotebook.get_current_page()
+            log.debug("notebook page = %s" % nb_page)
+            if nb_page != NOTEBOOK_LUKS_PAGE:
+                self._save_right_side(self._current_selector)
+
             self._current_selector.set_chosen(False)
             self._current_selector = None
 
