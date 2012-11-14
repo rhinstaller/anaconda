@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.258
+Version: 11.1.2.259
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -128,6 +128,12 @@ fi
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+
+* Tue Nov 14 2012 Radek Vykydal <rvykydal@redhat.com> 11.1.2.259-1
+- Revert 5737408dd5293e5d003d552d3ea919c01417d9d4 targeting gfs support (vpodzime)
+  Related: rhbz#754213
+- Revert 64aa1c709a30f3fb6604a2dde13d780fabdcc4af targeting gfs support (vpodzime)
+  Related: rhbz#754213
 
 * Tue Nov 13 2012 Radek Vykydal <rvykydal@redhat.com> 11.1.2.258-1
 - Add extra modules that are not in the kernel package (vpodzime)
