@@ -847,6 +847,8 @@
     <child internal-child="main_box">
       <object class="GtkBox" id="AnacondaSpokeWindow-main_box1">
         <property name="can_focus">False</property>
+        <property name="hexpand">True</property>
+        <property name="vexpand">True</property>
         <property name="orientation">vertical</property>
         <property name="spacing">6</property>
         <child internal-child="nav_area">
@@ -862,21 +864,25 @@
         <child internal-child="alignment">
           <object class="GtkAlignment" id="AnacondaSpokeWindow-alignment1">
             <property name="can_focus">False</property>
+            <property name="hexpand">True</property>
+            <property name="vexpand">True</property>
             <property name="xalign">0</property>
             <property name="yalign">0</property>
             <property name="xscale">1</property>
-            <property name="yscale">0.5</property>
-            <property name="left_padding">24</property>
-            <property name="right_padding">24</property>
+            <property name="yscale">1</property>
             <child internal-child="action_area">
               <object class="GtkBox" id="storageWindow-action_area1">
                 <property name="can_focus">False</property>
+                <property name="hexpand">True</property>
+                <property name="vexpand">True</property>
                 <property name="orientation">vertical</property>
                 <property name="spacing">6</property>
                 <child>
                   <object class="GtkLabel" id="label1">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
+                    <property name="margin_left">24</property>
+                    <property name="margin_right">24</property>
                     <property name="xalign">0</property>
                     <property name="label" translatable="yes">Local Standard Disks</property>
                     <property name="track_visited_links">False</property>
@@ -895,6 +901,8 @@
                   <object class="GtkScrolledWindow" id="localScrolledWindow">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <property name="margin_left">24</property>
+                    <property name="margin_right">24</property>
                     <property name="hexpand">True</property>
                     <property name="vscrollbar_policy">never</property>
                     <property name="shadow_type">in</property>
@@ -902,12 +910,14 @@
                       <object class="GtkViewport" id="localViewport">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
+                        <property name="hexpand">True</property>
                         <child>
                           <object class="GtkBox" id="local_disks_box">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
                             <property name="margin_left">6</property>
                             <property name="margin_right">6</property>
+                            <property name="hexpand">True</property>
                             <property name="spacing">30</property>
                             <child>
                               <placeholder/>
@@ -923,6 +933,103 @@
                     <property name="position">1</property>
                   </packing>
                 </child>
+                <child>
+                  <object class="GtkGrid" id="grid3">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="margin_left">6</property>
+                    <property name="margin_right">6</property>
+                    <property name="margin_bottom">6</property>
+                    <property name="hexpand">True</property>
+                    <property name="row_spacing">6</property>
+                    <property name="column_spacing">6</property>
+                    <child>
+                      <object class="GtkButton" id="continue_button">
+                        <property name="label" translatable="yes">_Continue</property>
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="receives_default">True</property>
+                        <property name="halign">end</property>
+                        <property name="valign">end</property>
+                        <property name="hexpand">True</property>
+                        <property name="use_underline">True</property>
+                        <property name="xalign">1</property>
+                        <signal name="clicked" handler="on_continue_clicked" swapped="no"/>
+                      </object>
+                      <packing>
+                        <property name="left_attach">1</property>
+                        <property name="top_attach">1</property>
+                        <property name="width">1</property>
+                        <property name="height">2</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkButton" id="summary_button">
+                        <property name="label" translatable="yes">Full disk summary and options...</property>
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="receives_default">True</property>
+                        <property name="halign">start</property>
+                        <property name="margin_left">18</property>
+                        <property name="relief">none</property>
+                        <property name="use_underline">True</property>
+                        <property name="focus_on_click">False</property>
+                        <property name="xalign">0</property>
+                        <signal name="clicked" handler="on_summary_clicked" swapped="no"/>
+                      </object>
+                      <packing>
+                        <property name="left_attach">0</property>
+                        <property name="top_attach">2</property>
+                        <property name="width">1</property>
+                        <property name="height">1</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkLabel" id="summary_label">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="halign">start</property>
+                        <property name="margin_left">18</property>
+                        <property name="label" translatable="yes">summary</property>
+                        <attributes>
+                          <attribute name="font-desc" value="Cantarell 10"/>
+                        </attributes>
+                      </object>
+                      <packing>
+                        <property name="left_attach">0</property>
+                        <property name="top_attach">1</property>
+                        <property name="width">1</property>
+                        <property name="height">1</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkCheckButton" id="encryption_checkbutton">
+                        <property name="label" translatable="yes">Encrypt my data. I'll set a passphrase later.</property>
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="receives_default">False</property>
+                        <property name="halign">end</property>
+                        <property name="xalign">0</property>
+                        <property name="draw_indicator">True</property>
+                      </object>
+                      <packing>
+                        <property name="left_attach">1</property>
+                        <property name="top_attach">0</property>
+                        <property name="width">1</property>
+                        <property name="height">1</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <placeholder/>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="pack_type">end</property>
+                    <property name="position">3</property>
+                  </packing>
+                </child>
               </object>
             </child>
           </object>
@@ -930,100 +1037,6 @@
             <property name="expand">True</property>
             <property name="fill">True</property>
             <property name="position">1</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkGrid" id="grid3">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="margin_left">6</property>
-            <property name="margin_right">6</property>
-            <property name="margin_bottom">6</property>
-            <property name="row_spacing">6</property>
-            <property name="column_spacing">6</property>
-            <child>
-              <object class="GtkButton" id="continue_button">
-                <property name="label" translatable="yes">_Continue</property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">True</property>
-                <property name="halign">end</property>
-                <property name="valign">end</property>
-                <property name="hexpand">True</property>
-                <property name="use_underline">True</property>
-                <property name="xalign">1</property>
-                <signal name="clicked" handler="on_continue_clicked" swapped="no"/>
-              </object>
-              <packing>
-                <property name="left_attach">1</property>
-                <property name="top_attach">1</property>
-                <property name="width">1</property>
-                <property name="height">2</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkButton" id="summary_button">
-                <property name="label" translatable="yes">Full disk summary and options...</property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">True</property>
-                <property name="halign">start</property>
-                <property name="relief">none</property>
-                <property name="use_underline">True</property>
-                <property name="focus_on_click">False</property>
-                <property name="xalign">0</property>
-                <signal name="clicked" handler="on_summary_clicked" swapped="no"/>
-              </object>
-              <packing>
-                <property name="left_attach">0</property>
-                <property name="top_attach">2</property>
-                <property name="width">1</property>
-                <property name="height">1</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkLabel" id="summary_label">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="halign">start</property>
-                <property name="margin_left">6</property>
-                <property name="label" translatable="yes">summary</property>
-                <attributes>
-                  <attribute name="font-desc" value="Cantarell 10"/>
-                </attributes>
-              </object>
-              <packing>
-                <property name="left_attach">0</property>
-                <property name="top_attach">1</property>
-                <property name="width">1</property>
-                <property name="height">1</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkCheckButton" id="encryption_checkbutton">
-                <property name="label" translatable="yes">Encrypt my data. I'll set a passphrase later.</property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">False</property>
-                <property name="halign">end</property>
-                <property name="xalign">0</property>
-                <property name="draw_indicator">True</property>
-              </object>
-              <packing>
-                <property name="left_attach">1</property>
-                <property name="top_attach">0</property>
-                <property name="width">1</property>
-                <property name="height">1</property>
-              </packing>
-            </child>
-            <child>
-              <placeholder/>
-            </child>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="position">2</property>
           </packing>
         </child>
       </object>
