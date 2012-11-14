@@ -269,21 +269,21 @@ static void anaconda_mountpoint_selector_set_property(GObject *object, guint pro
 
     switch(prop_id) {
         case PROP_NAME: {
-            char *markup = g_markup_printf_escaped("<span fgcolor='black' size='large' weight='bold'>%s</span>", g_value_get_string(value));
+            char *markup = g_markup_printf_escaped("<span size='large' weight='bold'>%s</span>", g_value_get_string(value)); 
             gtk_label_set_markup(GTK_LABEL(priv->name_label), markup);
             g_free(markup);
             break;
         }
 
         case PROP_SIZE: {
-            char *markup = g_markup_printf_escaped("<span fgcolor='black' size='large' weight='bold'>%s</span>", g_value_get_string(value));
+            char *markup = g_markup_printf_escaped("<span size='large' weight='bold'>%s</span>", g_value_get_string(value)); 
             gtk_label_set_markup(GTK_LABEL(priv->size_label), markup);
             g_free(markup);
             break;
         }
 
         case PROP_MOUNTPOINT: {
-            char *markup = g_markup_printf_escaped("<span fgcolor='grey' size='small'>%s</span>", g_value_get_string(value));
+            char *markup = g_markup_printf_escaped("<span size='small'>%s</span>", g_value_get_string(value));
             gtk_label_set_markup(GTK_LABEL(priv->mountpoint_label), markup);
             g_free(markup);
             break;
@@ -311,12 +311,15 @@ static gboolean anaconda_mountpoint_selector_focus_changed(GtkWidget *widget, Gd
 
 static void anaconda_mountpoint_selector_toggle_background(AnacondaMountpointSelector *widget) {
     if (widget->priv->chosen) {
-        GdkRGBA color;
-        gdk_rgba_parse(&color, "#4a90d9");
-        gtk_widget_override_background_color(GTK_WIDGET(widget), GTK_STATE_FLAG_NORMAL, &color);
+        gtk_widget_set_state_flags(GTK_WIDGET(widget), GTK_STATE_FLAG_SELECTED, FALSE);
+        gtk_widget_override_color(GTK_WIDGET(widget->priv->mountpoint_label), GTK_STATE_FLAG_SELECTED, NULL);
     }
-    else
-       gtk_widget_override_background_color(GTK_WIDGET(widget), GTK_STATE_FLAG_NORMAL, NULL);
+    else {
+        GdkRGBA color;
+        gtk_widget_unset_state_flags(GTK_WIDGET(widget), GTK_STATE_FLAG_SELECTED);
+        gdk_rgba_parse(&color, "#555555");
+        gtk_widget_override_color(GTK_WIDGET(widget->priv->mountpoint_label), GTK_STATE_FLAG_NORMAL, &color);
+    }
 }
 
 /**
