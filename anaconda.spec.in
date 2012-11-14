@@ -135,8 +135,6 @@ Requires: python-nss
 Requires: tigervnc-server-minimal
 Requires: pytz
 Requires: libxklavier
-#libxklavier requires iso-codes, but does not have it as Requires: (see #813833)
-Requires: iso-codes
 Requires: libgnomekbd
 %ifarch %livearches
 Requires: usermode
