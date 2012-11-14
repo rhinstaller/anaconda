@@ -136,9 +136,11 @@ raid_level_features = {"raid0": ["Performance"],
 # disabled features by raid_level
 raid_disabled_features = {"raid1": ["Error", "DistError", "RedundantError"],
                           "raid10": ["Error", "DistError", "RedundantError"],
-                          "raid4": ["Redundancy", "DistError", "RedundantError"],
-                          "raid5": ["Redundancy", "Error", "RedundantError"],
-                          "raid6": ["Redundancy", "Error", "DistError"]}
+                          "raid4": ["Performance", "Redundancy", "DistError", "RedundantError"],
+                          "raid5": ["Performance", "Redundancy", "Error", "RedundantError"],
+                          "raid6": ["Performance", "Redundancy", "Error", "DistError"],
+                          None: ["Error", "DistError", "RedundantError"],
+}
 
 # reference raid level by feature name
 feature_raid_levels = {"Performance": "raid0",
@@ -872,6 +874,15 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             error = _("%s cannot be encrypted") % fs_type
         elif mountpoint == "/" and device.format.exists and not reformat:
             error = _("You must create a new filesystem on the root device.")
+        elif device_type == DEVICE_TYPE_MD and raid_level in (None, "single"):
+            error = _("Devices of type %s require a valid RAID level selection.") % DEVICE_TEXT_MD
+
+        if not error and raid_level not in (None, "single"):
+            md_level = mdraid.raidLevel(raid_level)
+            min_disks = mdraid.get_raid_min_members(md_level)
+            if len(self._device_disks) < min_disks:
+                error = _("The RAID level you have selected requires more "
+                          "disks than you currently have selected.")
 
         if error:
             self.window.set_info(Gtk.MessageType.WARNING, error)
@@ -1579,7 +1590,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
         device_type_from_autopart = {AUTOPART_TYPE_LVM: DEVICE_TYPE_LVM,
                                      AUTOPART_TYPE_PLAIN: DEVICE_TYPE_PARTITION,
-                                     AUTOPART_TYPE_BTRFS: DEVICE_TYPE_MD}
+                                     AUTOPART_TYPE_BTRFS: DEVICE_TYPE_BTRFS}
         device_type = device_type_from_autopart[self.data.autopart.type]
         if device_type != DEVICE_TYPE_PARTITION and \
              mountpoint == "/boot/efi":
