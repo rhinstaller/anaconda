@@ -47,7 +47,7 @@ from pyanaconda.ui.gui.spokes.lib.passphrase import PassphraseDialog
 from pyanaconda.ui.gui.spokes.lib.detailederror import DetailedErrorDialog
 from pyanaconda.ui.gui.spokes.lib.resize import ResizeDialog
 from pyanaconda.ui.gui.categories.storage import StorageCategory
-from pyanaconda.ui.gui.utils import enlightbox, gtk_thread_wait
+from pyanaconda.ui.gui.utils import enlightbox, gtk_call_once, gtk_thread_wait
 
 from pyanaconda.kickstart import doKickstartStorage
 from pyanaconda.storage.size import Size
@@ -706,14 +706,14 @@ class StorageSpoke(NormalSpoke, StorageChecker):
 
                 self.passphrase = dialog.passphrase
 
-            self.on_back_clicked(self.window)
+            gtk_call_once(self.window.emit, "button-clicked")
         elif rc == dialog.RESPONSE_CANCEL:
             # stay on this spoke
             print "user chose to continue disk selection"
         elif rc == dialog.RESPONSE_MODIFY_SW:
             # go to software spoke
             self.skipTo = "SoftwareSelectionSpoke"
-            self.on_back_clicked(self.window)
+            gtk_call_once(self.window.emit, "button-clicked")
         elif rc == dialog.RESPONSE_RECLAIM:
             self.autopart = not dialog.custom
             self.autoPartType = dialog.autoPartType
@@ -725,7 +725,7 @@ class StorageSpoke(NormalSpoke, StorageChecker):
 
             if dialog.custom:
                 self.skipTo = "CustomPartitioningSpoke"
-                self.on_back_clicked(self.window)
+                gtk_call_once(self.window.emit, "button-clicked")
             else:
                 if self.encrypted:
                     dialog = PassphraseDialog(self.data)
@@ -736,7 +736,7 @@ class StorageSpoke(NormalSpoke, StorageChecker):
                     self.passphrase = dialog.passphrase
 
                 self.apply()
-                GLib.idle_add(self._show_resize_dialog, disks)
+                gtk_call_once(self._show_resize_dialog, disks)
         elif rc == dialog.RESPONSE_QUIT:
             raise SystemExit("user-selected exit")
 
@@ -747,8 +747,7 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         # resizeDialog handles okay/cancel on its own, so we can throw out the
         # return value.
         self.run_lightbox_dialog(resizeDialog)
-        self.window.emit("button-clicked")
-        return False
+        gtk_call_once(self.window.emit, "button-clicked")
 
     def on_add_disk_clicked(self, button):
         print "ADD DISK CLICKED"
