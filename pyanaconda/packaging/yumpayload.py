@@ -59,6 +59,10 @@ except ImportError:
 
 try:
     import yum
+    # This is a bit of a hack to short circuit yum's internal logging
+    # handler setup.  We already set one up so we don't need it to run.
+    # yum may give us an API to fiddle this at a later time.
+    yum.logginglevels._added_handlers = True
 except ImportError:
     log.error("import of yum failed")
     yum = None
@@ -204,12 +208,14 @@ class YumPayload(PackagePayload):
             # set this now to the best default we've got ; we'll update it if/when
             # we get a base repo set up
             self._yum.preconf.releasever = self._getReleaseVersion(None)
-            # Hammer the yum logs to nothing, we log around yum.  This is
-            # to prevent stuff from leaking to the screen.  Need a less hammer
-            # approach to this so that we could have rich yum logs but clean
-            # screens
-            self._yum.preconf.debuglevel = 0
-            self._yum.preconf.errorlevel = 0
+            # Set the yum verbosity to 6, and update yum's internal logger
+            # objects to the debug level.  This is a bit of a hack requiring
+            # internal knowledge of yum, that will hopefully go away in the
+            # future with API improvements.
+            self._yum.preconf.debuglevel = 6
+            self._yum.preconf.errorlevel = 6
+            self._yum.logger.setLevel(logging.DEBUG)
+            self._yum.verbose_logger.setLevel(logging.DEBUG)
 
         self.txID = None
 

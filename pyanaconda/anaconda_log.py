@@ -161,6 +161,13 @@ class AnacondaLog:
                             minLevel=logging.DEBUG)
         self.forwardToSyslog(packaging_logger)
 
+        # Create the yum logger and link it to packaging
+        yum_logger = logging.getLogger("yum")
+        yum_logger.setLevel(logging.DEBUG)
+        self.addFileHandler(PACKAGING_LOG_FILE, yum_logger,
+                            minLevel=logging.DEBUG)
+        self.forwardToSyslog(yum_logger)
+
         # Create a second logger for just the stuff we want to dup on
         # stdout.  Anything written here will also get passed up to the
         # parent loggers for processing and possibly be written to the
