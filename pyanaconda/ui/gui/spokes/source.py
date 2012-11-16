@@ -41,11 +41,10 @@ from pyanaconda.ui.gui.utils import enlightbox, gtk_thread_wait
 from pyanaconda.iutil import ProxyString, ProxyStringError
 from pyanaconda.ui.gui.utils import gtk_call_once
 from pyanaconda.threads import threadMgr, AnacondaThread
-from pyanaconda.packaging import PayloadError
+from pyanaconda.packaging import PayloadError, get_mount_paths
+from pyanaconda.constants import DRACUT_ISODIR, ISO_DIR
 
 __all__ = ["SourceSpoke"]
-
-MOUNTPOINT = "/mnt/install/isodir"
 
 BASEREPO_SETUP_MESSAGE = N_("Setting up installation source...")
 METADATA_DOWNLOAD_MESSAGE = N_("Downloading package metadata...")
@@ -208,20 +207,26 @@ class IsoChooser(GUIObject):
         GUIObject.refresh(self)
         self._chooser = self.builder.get_object("isoChooser")
         self._chooser.connect("current-folder-changed", self.on_folder_changed)
-        self._chooser.set_filename(MOUNTPOINT + "/" + currentFile)
+        self._chooser.set_filename(ISO_DIR + "/" + currentFile)
 
     def run(self, dev):
         retval = None
 
         unmount = not dev.format.status
-        dev.format.mount(mountpoint=MOUNTPOINT)
+        mounts = get_mount_paths(dev.path)
+        # We have to check both ISO_DIR and the DRACUT_ISODIR because we
+        # still reference both, even though /mnt/install is a symlink to
+        # /run/install.  Finding mount points doesn't handle the symlink
+        if ISO_DIR not in mounts and DRACUT_ISODIR not in mounts:
+            # We're not mounted to either location, so do the mount
+            dev.format.mount(mountpoint=ISO_DIR)
 
         # If any directory was chosen, return that.  Otherwise, return None.
         rc = self.window.run()
         if rc:
             f = self._chooser.get_filename()
             if f:
-                retval = f.replace(MOUNTPOINT, "")
+                retval = f.replace(ISO_DIR, "")
 
         if unmount:
             dev.format.unmount()
@@ -238,8 +243,8 @@ class IsoChooser(GUIObject):
         if not d:
             return
 
-        if not d.startswith(MOUNTPOINT):
-            chooser.set_current_folder(MOUNTPOINT)
+        if not d.startswith(ISO_DIR):
+            chooser.set_current_folder(ISO_DIR)
 
 class AdditionalReposDialog(GUIObject):
     builderObjects = ["additionalReposDialog", "peopleRepositories", "peopleRepositoriesFilter"]
@@ -579,6 +584,8 @@ class SourceSpoke(NormalSpoke):
         elif self.data.method.method == "cdrom":
             return _("CD/DVD drive")
         elif self.data.method.method == "harddrive":
+            if not self._currentIsoFile:
+                return _("Error setting up software source")
             return os.path.basename(self._currentIsoFile)
         elif self.payload.baseRepo:
             return _("Closest mirror")
@@ -646,7 +653,7 @@ class SourceSpoke(NormalSpoke):
             cdrom = self.payload.install_device
             chosen = True
         else:
-            cdrom = opticalInstallMedia(self.storage.devicetree, mountpoint=MOUNTPOINT)
+            cdrom = opticalInstallMedia(self.storage.devicetree)
 
         if cdrom:
             @gtk_thread_wait
@@ -737,8 +744,13 @@ class SourceSpoke(NormalSpoke):
             self.builder.get_object("nfsOptsEntry").set_text(self.data.method.opts or "")
         elif self.data.method.method == "harddrive":
             self._isoButton.set_active(True)
+            self._isoBox.set_sensitive(True)
+            self._verifyIsoButton.set_sensitive(True)
 
-            self._isoChooserButton.set_label(os.path.basename(self._currentIsoFile))
+            if self._currentIsoFile:
+                self._isoChooserButton.set_label(os.path.basename(self._currentIsoFile))
+            else:
+                self._isoChooserButton.set_label("")
             self._isoChooserButton.set_use_underline(False)
         else:
             # No method was given in advance, so now we need to make a sensible
@@ -837,8 +849,14 @@ class SourceSpoke(NormalSpoke):
         dialog = MediaCheckDialog(self.data)
         with enlightbox(self.window, dialog.window):
             unmount = not p.format.status
-            p.format.mount(mountpoint=MOUNTPOINT)
-            dialog.run(MOUNTPOINT + "/" + f)
+            mounts = get_mount_paths(p.path)
+            # We have to check both ISO_DIR and the DRACUT_ISODIR because we
+            # still reference both, even though /mnt/install is a symlink to
+            # /run/install.  Finding mount points doesn't handle the symlink
+            if ISO_DIR not in mounts and DRACUT_ISODIR not in mounts:
+                # We're not mounted to either location, so do the mount
+                p.format.mount(mountpoint=ISO_DIR)
+            dialog.run(ISO_DIR + "/" + f)
             if unmount:
                 p.format.unmount()
 

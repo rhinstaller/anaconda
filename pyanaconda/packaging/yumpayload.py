@@ -491,8 +491,17 @@ reposdir=%s
 
     @property
     def ISOImage(self):
-        if self.data.method.method == "harddrive":
-            return get_mount_device(INSTALL_TREE)[len(ISO_DIR)+1:]
+        if not self.data.method.method == "harddrive":
+            return None
+        # This could either be mounted to INSTALL_TREE or on
+        # DRACUT_REPODIR if dracut did the mount.
+        dev = get_mount_device(INSTALL_TREE)
+        if dev:
+            return dev[len(ISO_DIR)+1:]
+        dev = get_mount_device(DRACUT_REPODIR)
+        if dev:
+            return dev[len(DRACUT_ISODIR)+1:]
+        return None
 
     def _setUpMedia(self, device):
         method = self.data.method
@@ -554,6 +563,9 @@ reposdir=%s
         method = self.data.method
         sslverify = True
         url = None
+        # See if we already have stuff mounted due to dracut
+        isodev = get_mount_device(DRACUT_ISODIR)
+        device = get_mount_device(DRACUT_REPODIR)
 
         if method.method == "harddrive":
             if method.biospart:
@@ -561,15 +573,21 @@ reposdir=%s
                 devspec = method.biospart
             else:
                 devspec = method.partition
-
-            device = storage.devicetree.resolveDevice(devspec)
-            self._setUpMedia(device)
-            self.install_device = device
-            url = "file://" + INSTALL_TREE
+                needmount = True
+                # See if we used this method for stage2, thus dracut left it
+                if isodev and method.partition and method.partition in isodev \
+                and DRACUT_ISODIR in device:
+                    # Everything should be setup
+                    url = "file://" + DRACUT_REPODIR
+                    needmount = False
+                    # We don't setup an install_device here
+                    # because we can't tear it down
+            isodevice = storage.devicetree.resolveDevice(devspec)
+            if needmount:
+                self._setUpMedia(isodevice)
+                url = "file://" + INSTALL_TREE
+                self.install_device = isodevice
         elif method.method == "nfs":
-            # See if we already have stuff mounted due to dracut
-            isodev = get_mount_device(DRACUT_ISODIR)
-            device = get_mount_device(DRACUT_REPODIR)
             # See if dracut dealt with nfsiso
             if isodev:
                 options, host, path = iutil.parseNfsUrl('nfs:%s' % isodev)
