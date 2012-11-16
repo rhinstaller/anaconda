@@ -973,9 +973,8 @@ if __name__ == "__main__":
         doRescue(anaconda.rescue_mount, ksdata, anaconda.platform)
 
     threadMgr.add(AnacondaThread(name="AnaStorageThread", target=storageInitialize, args=(anaconda.storage, ksdata, anaconda.protected)))
+    threadMgr.add(AnacondaThread(name="AnaNetworkThread", target=networkInitialize, args=(ksdata,)))
     threadMgr.add(AnacondaThread(name="AnaPayloadThread", target=payloadInitialize, args=(anaconda.storage, ksdata, anaconda.payload)))
-    # TODO start dhcp in thread if we have no connection
-    networkInitialize(ksdata)
 
     atexit.register(exitHandler, ksdata.reboot, anaconda.storage)
 

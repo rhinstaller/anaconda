@@ -658,6 +658,12 @@ def payloadInitialize(storage, ksdata, payload):
     if storageThread:
         storageThread.join()
 
+    # FIXME: condition for cases where we don't want network
+    # (set and use payload.needsNetwork ?)
+    networkThread = threadMgr.get("AnaNetworkThread")
+    if networkThread:
+        networkThread.join()
+
     payload.setup(storage)
 
 def show_groups(payload):

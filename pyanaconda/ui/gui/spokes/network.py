@@ -61,6 +61,9 @@ _ = lambda x: gettext.ldgettext("anaconda", x)
 N_ = lambda x: x
 P_ = lambda x, y, z: gettext.ldngettext("anaconda", x, y, z)
 
+import logging
+log = logging.getLogger("anaconda")
+
 # These are required for dbus API use we need because of
 # NM_GI_BUGS: 767998, 773678
 NM_SERVICE = "org.freedesktop.NetworkManager"
@@ -1051,6 +1054,7 @@ class NetworkStandaloneSpoke(StandaloneSpoke):
         parent.add(self.network_control_box.vbox)
 
         self._initially_available = self.completed
+        log.debug("network standalone spoke (init): completed: %s" % self._initially_available)
         self._now_available = False
 
     def apply(self):
@@ -1065,6 +1069,7 @@ class NetworkStandaloneSpoke(StandaloneSpoke):
 
         self._now_available = self.completed
 
+        log.debug("network standalone spoke (apply) payload: %s completed: %s" % (self.payload.baseRepo, self._now_available))
         if not self.payload.baseRepo and not self._initially_available and self._now_available:
             from pyanaconda.packaging import payloadInitialize
             from pyanaconda.threads import threadMgr, AnacondaThread

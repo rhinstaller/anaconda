@@ -486,28 +486,6 @@ def waitForDevicesActivation(devices):
 
     return waited_devs_props.keys()
 
-# write out current configuration state and wait for NetworkManager
-# to bring the device up, watch NM state and return to the caller
-# once we have a state
-def waitForConnection():
-    bus = dbus.SystemBus()
-    nm = bus.get_object(isys.NM_SERVICE, isys.NM_MANAGER_PATH)
-    props = dbus.Interface(nm, isys.DBUS_PROPS_IFACE)
-
-    i = 0
-    while i < CONNECTION_TIMEOUT:
-        state = props.Get(isys.NM_SERVICE, "State")
-        if nmIsConnected(state):
-            return True
-        i += 1
-        time.sleep(1)
-
-    state = props.Get(isys.NM_SERVICE, "State")
-    if nmIsConnected(state):
-        return True
-
-    return False
-
 # get a kernel cmdline string for dracut needed for access to storage host
 def dracutSetupArgs(networkStorageDevice):
 
@@ -916,6 +894,38 @@ def writeNetworkConf(storage, ksdata, instClass):
     disableNMForStorageDevices(storage)
     autostartFCoEDevices(storage, ksdata)
 
+def wait_for_dhcp():
+    """If NM is in connecting state, wait for connection.
+    Return value: NM has got connection."""
+    bus = dbus.SystemBus()
+    nm = bus.get_object(isys.NM_SERVICE, isys.NM_MANAGER_PATH)
+    props = dbus.Interface(nm, isys.DBUS_PROPS_IFACE)
+    state = props.Get(isys.NM_SERVICE, "State")
+
+    if state == isys.NM_STATE_CONNECTING:
+        log.debug("waiting for connecting NM (dhcp?)")
+    else:
+        return False
+
+    i = 0
+    while (state == isys.NM_STATE_CONNECTING and
+           i < CONNECTION_TIMEOUT):
+        state = props.Get(isys.NM_SERVICE, "State")
+        if nmIsConnected(state):
+            log.debug("connected, waited %d seconds" % i)
+            return True
+        i += 1
+        time.sleep(1)
+
+    log.debug("not connected, waited %d of %d secs" % (i, CONNECTION_TIMEOUT))
+    return False
+
+def update_hostname(ksdata):
+    hostname = getHostname()
+    log.debug("updating hostname %s" % hostname)
+    nd = kickstartNetworkData(hostname=hostname)
+    ksdata.network.network.append(nd)
+
 # networking initialization and ksdata object update
 def networkInitialize(ksdata):
     from pyanaconda.kickstart import NetworkData
@@ -925,6 +935,8 @@ def networkInitialize(ksdata):
         createMissingDefaultIfcfgs()
 
     if ksdata.network.hostname is None:
-        hostname = getHostname()
-        nd = kickstartNetworkData(hostname=hostname)
-        ksdata.network.network.append(nd)
+        update_hostname(ksdata)
+
+    # auto default dhcp connection would be activated by NM service
+    if wait_for_dhcp():
+        update_hostname(ksdata)
