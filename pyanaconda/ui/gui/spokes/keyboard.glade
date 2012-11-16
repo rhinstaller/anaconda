@@ -299,6 +299,7 @@
                             </style>
                             <child>
                               <object class="GtkToolButton" id="addLayoutButton">
+                                <property name="width_request">42</property>
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
                                 <property name="label" translatable="yes">Add layout</property>
@@ -313,6 +314,7 @@
                             </child>
                             <child>
                               <object class="GtkToolButton" id="removeLayoutButton">
+                                <property name="width_request">42</property>
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
                                 <property name="label" translatable="yes">Remove layout</property>
@@ -327,6 +329,7 @@
                             </child>
                             <child>
                               <object class="GtkToolButton" id="upButton">
+                                <property name="width_request">42</property>
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
                                 <property name="label" translatable="yes">Move selected layout up</property>
@@ -341,6 +344,7 @@
                             </child>
                             <child>
                               <object class="GtkToolButton" id="downButton">
+                                <property name="width_request">42</property>
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
                                 <property name="label" translatable="yes">Move selected layout down</property>
@@ -355,6 +359,8 @@
                             </child>
                             <child>
                               <object class="GtkToolButton" id="previewButton">
+                                <property name="width_request">42</property>
+                                <property name="height_request">36</property>
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
                                 <property name="label" translatable="yes">Preview layout</property>

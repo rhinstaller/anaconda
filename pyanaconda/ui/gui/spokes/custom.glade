@@ -345,9 +345,9 @@ use.  Try something else?</property>
             <property name="can_focus">False</property>
             <property name="hexpand">True</property>
             <property name="vexpand">True</property>
-            <property name="yalign">0</property>
             <property name="xscale">1</property>
             <property name="yscale">1</property>
+            <property name="yalign">0</property>
             <property name="left_padding">24</property>
             <property name="right_padding">24</property>
             <child internal-child="action_area">
@@ -1342,6 +1342,7 @@ you'll be able to view their details here.</property>
                     </child>
                     <child>
                       <object class="GtkToolbar" id="toolbar1">
+                        <property name="height_request">36</property>
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="toolbar_style">icons</property>
@@ -1354,6 +1355,8 @@ you'll be able to view their details here.</property>
                           <object class="GtkToolButton" id="addButton">
                             <property name="use_action_appearance">False</property>
                             <property name="related_action">action1</property>
+                            <property name="width_request">42</property>
+                            <property name="height_request">36</property>
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
                             <property name="tooltip_text" translatable="yes">Add a new mountpoint.</property>
@@ -1371,6 +1374,8 @@ you'll be able to view their details here.</property>
                           <object class="GtkToolButton" id="removeButton">
                             <property name="use_action_appearance">False</property>
                             <property name="related_action">action1</property>
+                            <property name="width_request">42</property>
+                            <property name="height_request">36</property>
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
                             <property name="tooltip_text" translatable="yes">Remove the selected mountpoint(s.)</property>
@@ -1388,6 +1393,8 @@ you'll be able to view their details here.</property>
                           <object class="GtkToolButton" id="configureButton">
                             <property name="use_action_appearance">False</property>
                             <property name="related_action">action1</property>
+                            <property name="width_request">42</property>
+                            <property name="height_request">36</property>
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
                             <property name="tooltip_text" translatable="yes">Configure selected mountpoint.</property>
