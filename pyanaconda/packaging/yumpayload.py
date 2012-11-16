@@ -569,6 +569,8 @@ reposdir=%s
         method = self.data.method
         sslverify = True
         url = None
+        mirrorlist = None
+
         # See if we already have stuff mounted due to dracut
         isodev = get_mount_device(DRACUT_ISODIR)
         device = get_mount_device(DRACUT_REPODIR)
@@ -657,6 +659,7 @@ reposdir=%s
                     url = "file://" + path
         elif method.method == "url":
             url = method.url
+            mirrorlist = method.mirrorlist
             sslverify = not (method.noverifyssl or flags.noverifyssl)
         elif method.method == "cdrom" or (checkmount and not method.method):
             # Did dracut leave the DVD or NFS mounted for us?
@@ -702,7 +705,7 @@ reposdir=%s
 
             self._yumCacheDirHack()
             try:
-                self._addYumRepo(BASE_REPO_NAME, url,
+                self._addYumRepo(BASE_REPO_NAME, url, mirrorlist=mirrorlist,
                                  proxyurl=method.proxy, sslverify=sslverify)
             except MetadataError as e:
                 log.error("base repo (%s/%s) not valid -- removing it"

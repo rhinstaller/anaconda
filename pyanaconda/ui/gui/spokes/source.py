@@ -471,6 +471,7 @@ class SourceSpoke(NormalSpoke):
                 return
         elif self._http_active() or self._ftp_active():
             url = self._urlEntry.get_text().strip()
+            mirrorlist = False
 
             # If the user didn't fill in the URL entry, just return as if they
             # selected nothing.
@@ -485,14 +486,23 @@ class SourceSpoke(NormalSpoke):
                 url = "ftp://" + url
             elif self._protocolComboBox.get_active() == 1 and not url.startswith("http://"):
                 url = "http://" + url
+                mirrorlist = self._mirrorlistCheckbox.get_active()
             elif self._protocolComboBox.get_active() == 2 and not url.startswith("https://"):
                 url = "https://" + url
+                mirrorlist = self._mirrorlistCheckbox.get_active()
 
-            if old_source.method == "url" and old_source.url == url:
+            if old_source.method == "url" and \
+               ((not mirrorlist and old_source.url == url) or \
+                (mirrorlist and old_source.mirrorlist == url)):
                 return
 
             self.data.method.method = "url"
-            self.data.method.url = url
+            if mirrorlist:
+                self.data.method.mirrorlist = url
+                self.data.method.url = ""
+            else:
+                self.data.method.url = url
+                self.data.method.mirrorlist = ""
         elif self._nfs_active():
             url = self._urlEntry.get_text().strip()
 
@@ -578,7 +588,7 @@ class SourceSpoke(NormalSpoke):
         elif self._error:
             return _("Error setting up software source")
         elif self.data.method.method == "url":
-            return self.data.method.url
+            return self.data.method.url or self.data.method.mirrorlist
         elif self.data.method.method == "nfs":
             return _("NFS server %s") % self.data.method.server
         elif self.data.method.method == "cdrom":
@@ -604,6 +614,8 @@ class SourceSpoke(NormalSpoke):
         self._urlEntry = self.builder.get_object("urlEntry")
         self._protocolComboBox = self.builder.get_object("protocolComboBox")
         self._isoChooserButton = self.builder.get_object("isoChooserButton")
+
+        self._mirrorlistCheckbox = self.builder.get_object("mirrorlistCheckbox")
 
         self._verifyIsoButton = self.builder.get_object("verifyIsoButton")
 
@@ -722,7 +734,7 @@ class SourceSpoke(NormalSpoke):
         if self.data.method.method == "url":
             self._networkButton.set_active(True)
 
-            proto = self.data.method.url
+            proto = self.data.method.url or self.data.method.mirrorlist
             if proto.startswith("http:"):
                 self._protocolComboBox.set_active(1)
                 l = 7
@@ -735,6 +747,7 @@ class SourceSpoke(NormalSpoke):
 
             self._urlEntry.set_sensitive(True)
             self._urlEntry.set_text(proto[l:])
+            self._mirrorlistCheckbox.set_active(bool(self.data.method.mirrorlist))
         elif self.data.method.method == "nfs":
             self._networkButton.set_active(True)
             self._protocolComboBox.set_active(4)
@@ -878,7 +891,8 @@ class SourceSpoke(NormalSpoke):
         # method that's not the mirror list, or an NFS method.
         self._urlEntry.set_sensitive(self._http_active() or self._ftp_active() or self._nfs_active())
 
-        # Only allow the proxy button to be clicked if a proxy makes sense for
+        # Only allow thse widgets to be shown if it makes sense for the
         # the currently selected protocol.
         proxyButton.set_sensitive(self._http_active() or self._mirror_active())
         nfsOptsBox.set_visible(self._nfs_active())
+        self._mirrorlistCheckbox.set_visible(self._http_active())
