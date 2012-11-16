@@ -17,6 +17,7 @@
 # Red Hat, Inc.
 #
 # Red Hat Author(s): David Lehman <dlehman@redhat.com>
+#                    Chris Lumens <clumens@redhat.com>
 #
 
 from gi.repository import Gtk
@@ -52,6 +53,8 @@ class SelectedDisksDialog(GUIObject):
     uiFile = "spokes/lib/cart.glade"
 
     def initialize(self, disks, free, showRemove=True):
+        self._previousID = None
+
         for disk in disks:
             self._store.append([False,
                                 disk.description,
@@ -68,6 +71,10 @@ class SelectedDisksDialog(GUIObject):
         if not disks:
             return
 
+        # Don't select a boot device if no boot device is asked for.
+        if self.data.bootloader.location == "none":
+            return
+
         # Set up the default boot device.  Use what's in the ksdata if anything,
         # then fall back to the first device.
         default_id = None
@@ -79,8 +86,10 @@ class SelectedDisksDialog(GUIObject):
         if not default_id:
             default_id = self.disks[0].id
 
+        # And then select it in the UI.
         for row in self._store:
             if row[ID_COL] == default_id:
+                self._previousID = row[ID_COL]
                 row[IS_BOOT_COL] = True
                 break
 
@@ -157,13 +166,19 @@ class SelectedDisksDialog(GUIObject):
         self._update_summary()
 
     def on_close_clicked(self, button):
-        # Save the boot device setting.
+        # Save the boot device setting, if something was selected.
         for row in self._store:
             if row[IS_BOOT_COL]:
                 for disk in self.disks:
                     if disk.id == row[ID_COL]:
                         self.data.bootloader.bootDrive = disk.name
+                        self.data.bootloader.location = "mbr"
                         return
+
+        # No device was selected.  The user does not want to install
+        # a bootloader.
+        self.data.bootloader.bootDrive = None
+        self.data.bootloader.location = "none"
 
     def on_selection_changed(self, *args):
         model, itr = self._selection.get_selected()
@@ -180,4 +195,6 @@ class SelectedDisksDialog(GUIObject):
             row[IS_BOOT_COL] = False
 
         # Now set the currently selected device to be the boot target.
-        self._store[itr][IS_BOOT_COL] = True
+        if self._store[itr][ID_COL] != self._previousID:
+            self._store[itr][IS_BOOT_COL] = True
+            self._previousID = self._store[itr][ID_COL]
