@@ -1528,6 +1528,8 @@ class Storage(object):
                 self.bootloader.is_valid_stage2_device(stage2)
                 errors.extend(self.bootloader.errors)
                 warnings.extend(self.bootloader.warnings)
+                if not self.bootloader.check():
+                    errors.extend(self.bootloader.errors)
 
             #
             # check that GPT boot disk on BIOS system has a BIOS boot partition
@@ -1547,9 +1549,6 @@ class Storage(object):
                                     "disk label format (GPT). To continue, "
                                     "please create a 1MB 'BIOS Boot' type "
                                     "partition.") % productName)
-
-            if not self.bootloader.check():
-                errors.extend(self.bootloader.errors)
 
         if not swaps:
             from pyanaconda.storage.size import Size
