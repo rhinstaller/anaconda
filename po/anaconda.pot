@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 13.21.182\n"
+"Project-Id-Version: anaconda 13.21.183\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2012-10-26 14:39-0400\n"
+"POT-Creation-Date: 2012-11-16 13:46-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -124,8 +124,8 @@ msgstr ""
 msgid "_Exit installer"
 msgstr ""
 
-#: bootloader.py:60 image.py:92 image.py:253 kickstart.py:1501
-#: kickstart.py:1545 upgrade.py:58 yuminstall.py:1428 yuminstall.py:1607
+#: bootloader.py:60 image.py:92 image.py:253 kickstart.py:1502
+#: kickstart.py:1546 upgrade.py:58 yuminstall.py:1428 yuminstall.py:1607
 #: iw/partition_gui.py:1629 storage/__init__.py:2086
 msgid "_Continue"
 msgstr ""
@@ -158,8 +158,8 @@ msgstr ""
 msgid "In progress"
 msgstr ""
 
-#: cmdline.py:88 gui.py:1315 kickstart.py:1283 kickstart.py:1363
-#: kickstart.py:1371 kickstart.py:1410 kickstart.py:1418 text.py:396
+#: cmdline.py:88 gui.py:1315 kickstart.py:1284 kickstart.py:1364
+#: kickstart.py:1372 kickstart.py:1411 kickstart.py:1419 text.py:396
 #, python-format
 msgid ""
 "The following error was found while parsing the kickstart configuration "
@@ -605,63 +605,63 @@ msgid ""
 "%s"
 msgstr ""
 
-#: kickstart.py:1382
+#: kickstart.py:1383
 #, python-format
 msgid "Error processing %%ksappend lines: %s"
 msgstr ""
 
-#: kickstart.py:1385
+#: kickstart.py:1386
 #, python-format
 msgid "Unknown error processing %%ksappend lines: %s"
 msgstr ""
 
-#: kickstart.py:1441 livecd.py:228
+#: kickstart.py:1442 livecd.py:228
 msgid "Post-Installation"
 msgstr ""
 
-#: kickstart.py:1442
+#: kickstart.py:1443
 msgid "Running post-installation scripts"
 msgstr ""
 
-#: kickstart.py:1458
+#: kickstart.py:1459
 msgid "Pre-Installation"
 msgstr ""
 
-#: kickstart.py:1459
+#: kickstart.py:1460
 msgid "Running pre-installation scripts"
 msgstr ""
 
-#: kickstart.py:1492
+#: kickstart.py:1493
 msgid "Missing Package"
 msgstr ""
 
-#: kickstart.py:1493
+#: kickstart.py:1494
 #, python-format
 msgid ""
 "You have specified that the package '%s' should be installed.  This package "
 "does not exist. Would you like to continue or abort this installation?"
 msgstr ""
 
-#: kickstart.py:1499 kickstart.py:1543
+#: kickstart.py:1500 kickstart.py:1544
 msgid "_Abort"
 msgstr ""
 
-#: kickstart.py:1500 kickstart.py:1544
+#: kickstart.py:1501 kickstart.py:1545
 msgid "_Ignore All"
 msgstr ""
 
-#: kickstart.py:1535
+#: kickstart.py:1536
 msgid "Missing Group"
 msgstr ""
 
-#: kickstart.py:1536
+#: kickstart.py:1537
 #, python-format
 msgid ""
 "You have specified that the group '%s' should be installed. This group does "
 "not exist. Would you like to continue or abort this installation?"
 msgstr ""
 
-#: kickstart.py:1659
+#: kickstart.py:1660
 #, python-format
 msgid ""
 "The kickstart configuration file is missing required information that "
@@ -4656,31 +4656,31 @@ msgstr ""
 msgid "lvs failed for %s"
 msgstr ""
 
-#: storage/devices.py:823 storage/devices.py:1547 storage/devices.py:2616
+#: storage/devices.py:823 storage/devices.py:1547 storage/devices.py:2618
 msgid "large"
 msgstr ""
 
-#: storage/devices.py:825 storage/devices.py:1553 storage/devices.py:2622
+#: storage/devices.py:825 storage/devices.py:1553 storage/devices.py:2624
 msgid "small"
 msgstr ""
 
-#: storage/devices.py:1323 storage/devices.py:2084 storage/devices.py:2549
-#: storage/devices.py:3077 storage/devices.py:3564
+#: storage/devices.py:1323 storage/devices.py:2086 storage/devices.py:2551
+#: storage/devices.py:3079 storage/devices.py:3566
 msgid "Creating"
 msgstr ""
 
-#: storage/devices.py:1324 storage/devices.py:2085 storage/devices.py:2550
-#: storage/devices.py:3078
+#: storage/devices.py:1324 storage/devices.py:2087 storage/devices.py:2552
+#: storage/devices.py:3080
 #, python-format
 msgid "Creating device %s"
 msgstr ""
 
-#: storage/devices.py:2665
+#: storage/devices.py:2667
 #, python-format
 msgid "A RAID%d set requires atleast %d members"
 msgstr ""
 
-#: storage/devices.py:3565
+#: storage/devices.py:3567
 #, python-format
 msgid "Creating file %s"
 msgstr ""
