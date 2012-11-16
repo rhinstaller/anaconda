@@ -959,6 +959,72 @@ def update_hostname(ksdata):
     nd = kickstartNetworkData(hostname=hostname)
     ksdata.network.network.append(nd)
 
+def get_device_name(devspec):
+
+    devices = getDevices()
+    devname = None
+
+    if not devspec:
+        if "ksdevice" in flags.cmdline:
+            msg = "ksdevice boot parameter"
+            devname = get_ksdevice_name(flags.cmdline["ksdevice"])
+        elif hasActiveNetDev():
+            # device activated in stage 1 by network kickstart command
+            msg = "first active device"
+            devname = getActiveNetDevs()[0]
+        else:
+            msg = "first device found"
+            devname = min(devices)
+        log.info("unspecified network --device in kickstart, using %s (%s)" %
+                 (devname, msg))
+    else:
+        if devspec.lower() == "ibft":
+            devname = ""
+        if devspec.lower() == "link":
+            for dev in sorted(devices):
+                if isys.getLinkStatus(dev):
+                    devname = dev
+                    break
+            else:
+                log.error("Kickstart: No network device with link found")
+        elif devspec.lower() == "bootif":
+            if "BOOTIF" in flags.cmdline:
+                # MAC address like 01-aa-bb-cc-dd-ee-ff
+                devname = flags.cmdline["BOOTIF"][3:]
+                devname = devname.replace("-",":")
+            else:
+                log.error("Using --device=bootif without BOOTIF= boot option supplied")
+        else: devname = devspec
+
+    if devname not in devices:
+        for d in devices:
+            if isys.getMacAddress(d).lower() == devname.lower():
+                devname = d
+                break
+
+    return devname
+
+def setOnboot(ksdata):
+    for network_data in ksdata.network.network:
+
+        devname = get_device_name(network_data.device)
+        if not devname:
+            log.error("Kickstart: The provided network interface %s does not exist" % devname)
+            continue
+
+        dev = NetworkDevice(netscriptsDir, devname)
+        try:
+            dev.loadIfcfgFile()
+        except IOError as e:
+            log.info("Can't load ifcfg file %s, %s" % (dev.path, e))
+            continue
+
+        if network_data.onboot:
+            dev.set (("ONBOOT", "yes"))
+        else:
+            dev.set (("ONBOOT", "no"))
+        dev.writeIfcfgFile()
+
 # networking initialization and ksdata object update
 def networkInitialize(ksdata):
     from pyanaconda.kickstart import NetworkData
@@ -966,6 +1032,11 @@ def networkInitialize(ksdata):
     if not flags.imageInstall:
         # XXX: this should go to anaconda dracut
         createMissingDefaultIfcfgs()
+
+    # we set ONBOOT value using network --activate activate in dracut
+    # to get devices activated by NM, so set proper ONBOOT value
+    # based on --onboot here
+    setOnboot(ksdata)
 
     if ksdata.network.hostname is None:
         update_hostname(ksdata)
