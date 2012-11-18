@@ -2672,7 +2672,6 @@ class MDRaidArrayDevice(StorageDevice):
         self._memberDevices = numeric_type(memberDevices)
         self.sysfsPath = "/devices/virtual/block/%s" % name
         self.chunkSize = 512.0 / 1024.0         # chunk size in MB
-        self.superBlockSize = 2.0               # superblock size in MB
 
         if not isinstance(metadataVersion, str):
             self.metadataVersion = "1.1"
@@ -2697,6 +2696,62 @@ class MDRaidArrayDevice(StorageDevice):
             # really high minors to arrays it has no config entry for
             open("/etc/mdadm.conf", "a").write("ARRAY %s UUID=%s\n"
                                                 % (self.path, self.uuid))
+
+    @property
+    def rawArraySize(self):
+        """ Calculate the raw array size without taking into account space
+        reserved for metadata or chunkSize alignment.
+
+        This is used to calculate the superBlockSize for v1.1 and v1.2
+        metadata.
+
+        Returns the raw size in MB
+        """
+        smallestMemberSize = self.smallestMember.size
+        if self.level == mdraid.RAID0:
+            size = self.memberDevices * smallestMemberSize
+        elif self.level == mdraid.RAID1:
+            size = smallestMemberSize
+        elif self.level == mdraid.RAID4:
+            size = (self.memberDevices - 1) * smallestMemberSize
+        elif self.level == mdraid.RAID5:
+            size = (self.memberDevices - 1) * smallestMemberSize
+        elif self.level == mdraid.RAID6:
+            size = (self.memberDevices - 2) * smallestMemberSize
+        elif self.level == mdraid.RAID10:
+            size = (self.memberDevices / 2.0) * smallestMemberSize
+        else:
+            size = smallestMemberSize
+            log.error("unknown RAID level %s" % (self.level))
+        log.debug("raw RAID %s size == %s" % (self.level, size))
+        return size
+
+    @property
+    def superBlockSize(self):
+        """ mdadm has different amounts of space reserved for its use depending
+        on the metadata type and size of the array.
+
+        0.9 use 2.0 MB
+        1.0 use 2.0 MB
+        1.1 or 1.2 use the formula lifted from mdadm/super1.c to calculate it
+        based on the array size.
+        """
+        # mdadm 3.2.4 made a major change in the amount of space used for 1.1 and 1.2
+        # in order to reserve space for reshaping. See commit 508a7f16 in the
+        # upstream mdadm repository.
+        if self.metadataVersion not in ["1.1", "1.2"]:
+            return 2.0
+
+        array_size = self.rawArraySize
+        # MDADM: We try to leave 0.1% at the start for reshape
+        # MDADM: operations, but limit this to 128Meg (0.1% of 10Gig)
+        # MDADM: which is plenty for efficient reshapes
+        # NOTE: In the mdadm code this is in 512b sectors. Converted to use MB
+        headroom = 128
+        while headroom << 10 > array_size:
+            headroom >>= 1
+        log.info("Using %sMB superBlockSize" % (headroom))
+        return headroom
 
     @property
     def smallestMember(self):
