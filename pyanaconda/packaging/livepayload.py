@@ -109,14 +109,12 @@ class LiveImagePayload(ImagePayload):
                                         stderr="/dev/tty5", stdout="/dev/tty5")
         except (OSError, RuntimeError) as e:
             err = str(e)
+            log.error(err)
         else:
-            if rc != 0:
-                err = "%s exited with code %d" % (cmd, rc)
-                log.error(err)
-            else:
-                err = None
+            err = None
+            log.error("%s exited with code %d" % (cmd, rc))
 
-        if err:
+        if err or rc == 12:
             exn = PayloadInstallError(err)
             if errorHandler.cb(exn) == ERROR_RAISE:
                 raise exn
