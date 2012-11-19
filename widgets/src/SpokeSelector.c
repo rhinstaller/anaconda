@@ -18,6 +18,7 @@
  */
 
 #include <gdk/gdk.h>
+#include <glib.h>
 #include <pango/pango.h>
 
 #include "SpokeSelector.h"
@@ -149,16 +150,21 @@ GtkWidget *anaconda_spoke_selector_new() {
 }
 
 static void format_status_label(AnacondaSpokeSelector *spoke, const char *markup) {
+    gchar *escaped;
     PangoAttrList *attrs;
 
     attrs = pango_attr_list_new();
     pango_attr_list_insert(attrs, pango_attr_style_new(PANGO_STYLE_ITALIC));
     pango_attr_list_insert(attrs, pango_attr_scale_new(PANGO_SCALE_LARGE));
 
-    gtk_label_set_markup(GTK_LABEL(spoke->priv->status_label), markup);
+    /* Ampersands (and maybe other characters) in status text need to be escaped. */
+    escaped = g_markup_escape_text(markup, -1);
+
+    gtk_label_set_markup(GTK_LABEL(spoke->priv->status_label), escaped);
     gtk_label_set_attributes(GTK_LABEL(spoke->priv->status_label), attrs);
 
     pango_attr_list_unref(attrs);
+    g_free(escaped);
 }
 
 static void anaconda_spoke_selector_init(AnacondaSpokeSelector *spoke) {
