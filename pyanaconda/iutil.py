@@ -210,7 +210,8 @@ def execWithCapture(command, argv, stdin = None, stderr = None, root='/',
         return ""
 
     def chroot():
-        os.chroot(root)
+        if root is not None:
+            os.chroot(root)
 
     def closefds ():
         stdinclose()
