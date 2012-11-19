@@ -610,6 +610,7 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         dialog.refresh([d for d in self.disks if d.name in self.selected_disks],
                        free_space)
         rc = self.run_lightbox_dialog(dialog)
+
         # update selected disks since some may have been removed
         self.selected_disks = [d.name for d in dialog.disks]
 
@@ -619,7 +620,14 @@ class StorageSpoke(NormalSpoke, StorageChecker):
             name = overview.get_property("popup-info").partition("|")[0].strip()
 
             overview.set_chosen(name in self.selected_disks)
+
         self._update_summary()
+
+        if self.data.bootloader.location == "none":
+            self.window.set_info(Gtk.MessageType.WARNING, _("You have chosen to skip bootloader installation.  Your system may not be bootable."))
+            self.window.show_all()
+        else:
+            self.window.clear_info()
 
     def run_lightbox_dialog(self, dialog):
         with enlightbox(self.window, dialog.window):
