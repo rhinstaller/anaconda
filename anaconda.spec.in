@@ -301,7 +301,9 @@ update-desktop-database &> /dev/null || :
 
 %changelog
 * Sun Nov 18 2012 Brian C. Lane <bcl@redhat.com> - 18.29.1-1
--  ()
+- New version. (bcl)
+- only call bootloader.check() if bootloader is setup (#875278) (bcl)
+- Don't try to save changes to a locked luks device. (#876180) (dlehman)
 
 * Mon Nov 12 2012 Brian C. Lane <bcl@redhat.com> - 18.29-1
 - Quit after handling transaction errors. (clumens)
