@@ -1695,10 +1695,6 @@ class DeviceTree(object):
                     self.addIgnoredDisk(parent.name)
                 devicelibs.lvm.lvm_cc_addFilterRejectRegexp(parent.name)
 
-        # Address the inconsistencies present in the tree leaves.
-        for leaf in filter(lambda leaf: leaf.type == "lvmvg" and not leaf.complete, self.leaves):
-            leafInconsistencies(leaf)
-
         for md in [d for d in self.leaves if d.type == "mdarray" and len(d.parents) < d.memberDevices]:
             log.debug("removing incomplete/degraded md array %s" % md.name)
             try:
