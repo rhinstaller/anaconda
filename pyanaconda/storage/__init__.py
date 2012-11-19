@@ -1130,7 +1130,7 @@ class Storage(object):
                                           swap=swap,
                                           mountpoint=mountpoint)
 
-        if name in self.names:
+        if "%s-%s" % (vg.name, name) in self.names:
             raise ValueError("name already in use")
 
         return LVMLogicalVolumeDevice(name, *args, **kwargs)
