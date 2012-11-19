@@ -89,6 +89,7 @@ __all__ = ["CustomPartitioningSpoke"]
 NOTEBOOK_LABEL_PAGE = 0
 NOTEBOOK_DETAILS_PAGE = 1
 NOTEBOOK_LUKS_PAGE = 2
+NOTEBOOK_UNEDITABLE_PAGE = 3
 
 new_install_name = N_("New %s %s Installation") % (productName, productVersion)
 unrecoverable_error_msg = N_("Storage configuration reset due to unrecoverable "
@@ -800,9 +801,12 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             # just-removed device
             return
 
+        if self._partitionsNotebook.get_current_page() != NOTEBOOK_DETAILS_PAGE:
+            return
+
         log.info("ui: saving changes to device %s" % device.name)
 
-        # TODO: member type, disk set
+        # TODO: member type
 
         size = self.builder.get_object("sizeSpinner").get_value()
         log.debug("new size: %s" % size)
@@ -1814,7 +1818,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             log.debug("new selector: %s" % selector._device)
             nb_page = self._partitionsNotebook.get_current_page()
             log.debug("notebook page = %s" % nb_page)
-            if nb_page != NOTEBOOK_LUKS_PAGE:
+            if nb_page == NOTEBOOK_DETAILS_PAGE:
                 self._save_right_side(self._current_selector)
 
             self._current_selector.set_chosen(False)
@@ -1826,6 +1830,17 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             selectedDeviceDescLabel = self.builder.get_object("encryptedDeviceDescriptionLabel")
             selectedDeviceLabel.set_text(selector.props.name)
             selectedDeviceDescLabel.set_text(self._description(selector.props.name))
+            selector.set_chosen(True)
+            self._current_selector = selector
+            self._configButton.set_sensitive(False)
+            self._removeButton.set_sensitive(True)
+            return
+        elif getDeviceType(selector._device) is None:
+            self._partitionsNotebook.set_current_page(NOTEBOOK_UNEDITABLE_PAGE)
+            selectedDeviceLabel = self.builder.get_object("uneditableDeviceLabel")
+            selectedDeviceDescLabel = self.builder.get_object("uneditableDeviceDescriptionLabel")
+            selectedDeviceLabel.set_text(selector._device.name)
+            selectedDeviceDescLabel.set_text(self._description(selector._device.type))
             selector.set_chosen(True)
             self._current_selector = selector
             self._configButton.set_sensitive(False)
@@ -1853,7 +1868,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         if self._current_selector:
             nb_page = self._partitionsNotebook.get_current_page()
             log.debug("notebook page = %s" % nb_page)
-            if nb_page != NOTEBOOK_LUKS_PAGE:
+            if nb_page == NOTEBOOK_DETAILS_PAGE:
                 self._save_right_side(self._current_selector)
 
             self._current_selector.set_chosen(False)
