@@ -263,13 +263,13 @@ def execWithCapture(command, argv, stdin = None, stderr = None, root='/',
         # if we have anything other than a clean exit, and we get the fatal
         # option, raise the OSError.
         if proc.returncode and fatal:
-            raise OSError('Non-zero return code: %s' % proc.returncode)
+            raise RuntimeError('Error running ' + command + ': Non-zero return code: %s' % proc.returncode)
     except OSError as e:
         log.error ("Error running " + command + ": " + e.strerror)
-        closefds()
         raise RuntimeError, "Error running " + command + ": " + e.strerror
+    finally:
+        closefds()
 
-    closefds()
     return rc
 
 def execWithCallback(command, argv, stdin = None, stdout = None,

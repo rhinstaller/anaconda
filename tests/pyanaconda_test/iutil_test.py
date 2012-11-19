@@ -1,4 +1,5 @@
 import mock
+import sys
 
 class IutilTest(mock.TestCase):
     def setUp(self):
@@ -24,3 +25,13 @@ class IutilTest(mock.TestCase):
         iutil.os.makedirs.assert_called_with("/mnt/sysimage/etc")
         iutil.shutil.copy.assert_called_with("/etc/securetty",
                                              "/mnt/sysimage/etc/securetty")
+
+    def testExecCaptureNonZeroFatal (self):
+        import iutil
+        try:
+            argv = ["-c", "import sys; sys.exit(3);"]
+            iutil.execWithCapture(sys.executable, argv, root=None, fatal=True)
+        except RuntimeError, ex:
+            self.assertIn("return code: 3", str(ex))
+        else:
+            self.fail("RuntimeError not raised")
