@@ -300,6 +300,9 @@ update-desktop-database &> /dev/null || :
 /usr/lib/dracut/modules.d/80%{name}/*
 
 %changelog
+* Sun Nov 18 2012 Brian C. Lane <bcl@redhat.com> - 18.29.1-1
+-  ()
+
 * Mon Nov 12 2012 Brian C. Lane <bcl@redhat.com> - 18.29-1
 - Quit after handling transaction errors. (clumens)
 - Add a function to display relevant transaction errors (#873106). (clumens)
