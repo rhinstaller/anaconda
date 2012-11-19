@@ -1832,6 +1832,10 @@ class Storage(object):
             # short-circuit the logic below for partitions
             return factory.member_list
 
+        if container and container.exists:
+            # don't try to modify an existing container
+            return container.parents
+
         if factory.container_size_func is None:
             return []
 
@@ -1988,9 +1992,17 @@ class Storage(object):
                     self, size, [d.name for d in disks], raid_level))
         return factory_class(self, size, disks, raid_level, encrypted)
 
-    def getContainer(self, factory, device=None):
+    def getContainer(self, factory, device=None, container_name=None):
+        # XXX would it be useful to implement this as a series of fallbacks
+        #     instead of mutually exclusive branches?
         container = None
-        if device:
+        if container_name:
+            container = self.devicetree.getDeviceByName(container_name)
+            if container and container not in factory.container_list:
+                log.debug("specified container name %s is wrong type (%s)"
+                            % (container_name, container.type))
+                container = None
+        elif device:
             if hasattr(device, "vg"):
                 container = device.vg
             elif hasattr(device, "volume"):
@@ -2032,6 +2044,9 @@ class Storage(object):
 
                 raid_level          (btrfs/md/lvm only) RAID level (string)
 
+                name                name for new device
+                container_name      name of requested container
+
                 device              an already-defined but non-existent device
                                     to adjust instead of creating a new device
 
@@ -2059,10 +2074,18 @@ class Storage(object):
         disks = kwargs.get("disks")
         encrypted = kwargs.get("encrypted", self.data.autopart.encrypted)
 
+        name = kwargs.get("name")
+        container_name = kwargs.get("container_name")
+
         device = kwargs.get("device")
 
         # md, btrfs
         raid_level = kwargs.get("raid_level")
+
+        # we can't do anything with existing devices
+        if device and device.exists:
+            log.info("newDevice refusing to change device %s" % device)
+            return
 
         if not fstype:
             fstype = self.getFSType(mountpoint=mountpoint)
@@ -2082,7 +2105,9 @@ class Storage(object):
             raise StorageError("no disks specified for new device")
 
         self.size_sets = [] # clear this since there are no growable reqs now
-        container = self.getContainer(factory, device=device)
+
+        container = self.getContainer(factory, device=device,
+                                      container_name=container_name)
 
         # TODO: striping, mirroring, &c
         # TODO: non-partition members (pv-on-md)
@@ -2129,8 +2154,12 @@ class Storage(object):
         # set up container
         if not container and factory.new_container_attr:
             log.debug("creating new container")
+            if container_name:
+                kwa = {"name": container_name}
+            else:
+                kwa = {}
             try:
-                container = factory.new_container(parents=parents)
+                container = factory.new_container(parents=parents, **kwa)
             except StorageError as e:
                 log.error("failed to create new device: %s" % e)
                 # Clean up by destroying the newly created member devices.
@@ -2213,12 +2242,18 @@ class Storage(object):
                 else:
                     self.__cleanUpMemberDevices(parents)
 
+            if name:
+                kwa = {"name": name}
+            else:
+                kwa = {}
+
             try:
                 device = factory.new_device(parents=parents,
                                             size=size,
                                             fmt_type=fstype,
                                             mountpoint=mountpoint,
-                                            fmt_args=fmt_args)
+                                            fmt_args=fmt_args,
+                                            **kwa)
             except StorageError as e:
                 log.error("device instance creation failed: %s" % e)
                 _container_post_error()

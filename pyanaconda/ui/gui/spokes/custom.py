@@ -21,13 +21,17 @@
 #
 
 # TODO:
-# - empty size when adding a mountpoint is no longer using all available space
+# - Add a way for users to specify the names of md, lv, subvol devices.
+# - We should either remove boot disk selection from the cart we show from here
+#   or re-partition when it gets changed to make a best-effort at keeping up.
+# - Add new LVs to existing VG if creating a new VG fails outright.
 # - Deleting an LV is not reflected in available space in the bottom left.
 #   - this is only true for preexisting LVs
 # - Device descriptions, suggested sizes, etc. should be moved out into a support file.
 # - Tabbing behavior in the accordion is weird.
 # - Update feature space costs when size spinner changes.
-# - Either disable stripe/mirror for LVM or implement it for device creation.
+# - Implement striping and mirroring for LVM.
+# - Implement container management for btrfs.
 # - If you click to add a mountpoint while editing a device the lightbox
 #   screenshot is taken prior to the ui update so the background shows the old
 #   size and free space while you're deciding on a size for the new device.
@@ -92,6 +96,7 @@ NOTEBOOK_LUKS_PAGE = 2
 NOTEBOOK_UNEDITABLE_PAGE = 3
 
 new_install_name = N_("New %s %s Installation") % (productName, productVersion)
+new_vg_text = N_("Create a new volume group ...")
 unrecoverable_error_msg = N_("Storage configuration reset due to unrecoverable "
                              "error. Click for details.")
 device_configuration_error_msg = N_("Device reconfiguration failed. Click for "
@@ -340,6 +345,69 @@ class DisksDialog(GUIObject):
     def run(self):
         return self.window.run()
 
+class VolumeGroupDialog(GUIObject):
+    builderObjects = ["vg_dialog", "disk_store", "vg_disk_view"]
+    mainWidgetName = "vg_dialog"
+    uiFile = "spokes/custom.glade"
+
+    def __init__(self, *args, **kwargs):
+        self._disks = kwargs.pop("disks")
+        free = kwargs.pop("free")
+        self.name = kwargs.pop("name") or ""
+        self.selected = kwargs.pop("selected")[:]
+        GUIObject.__init__(self, *args, **kwargs)
+
+        self.builder.get_object("vg_name_entry").set_text(self.name)
+
+        self._store = self.builder.get_object("disk_store")
+        # populate the store
+        for disk in self._disks:
+            self._store.append([disk.description,
+                                str(Size(spec="%dMB" % disk.size)),
+                                str(free[disk.name][0]),
+                                disk.serial,
+                                disk.id])
+
+        treeview = self.builder.get_object("vg_disk_view")
+        model = treeview.get_model()
+        itr = model.get_iter_first()
+
+        selected_ids = [d.id for d in self.selected]
+        log.debug("selected: %s" % [d.name for d in self.selected])
+        log.debug("selected: %s" % selected_ids)
+        selection = treeview.get_selection()
+        while itr:
+            disk_id = model.get_value(itr, 4)
+            log.debug("store: %d" % disk_id)
+            if disk_id in selected_ids:
+                selection.select_iter(itr)
+
+            itr = model.iter_next(itr)
+
+    def on_cancel_clicked(self, button):
+        self.window.destroy()
+
+    def _get_disk_by_id(self, disk_id):
+        for disk in self._disks:
+            if disk.id == disk_id:
+                return disk
+
+    def on_save_clicked(self, button):
+        treeview = self.builder.get_object("vg_disk_view")
+        model, paths = treeview.get_selection().get_selected_rows()
+        self.selected = []
+        for path in paths:
+            itr = model.get_iter(path)
+            disk_id = model.get_value(itr, 4)
+            self.selected.append(self._get_disk_by_id(disk_id))
+
+        self.name = self.builder.get_object("vg_name_entry").get_text()
+
+        self.window.destroy()
+
+    def run(self):
+        return self.window.run()
+
 class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
     builderObjects = ["customStorageWindow", "sizeAdjustment",
                       "partitionStore",
@@ -360,7 +428,9 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         self._fs_types = []             # list of supported fstypes
         self._unused_devices = None     # None indicates uninitialized
         self._free_space = Size(bytes=0)
+
         self._device_disks = []
+        self._device_container_name = None
 
         self._initialized = False
 
@@ -826,7 +896,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         prev_encrypted = device.encrypted
         log.debug("old encryption setting: %s" % prev_encrypted)
         encryption_checkbox = self.builder.get_object("encryptCheckbox")
-        encrypted = None
         encrypted = encryption_checkbox.get_active()
 
         changed_encryption = (prev_encrypted != encrypted)
@@ -893,6 +962,13 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             self._populate_right_side(selector)
             return
 
+        # XXX Now we have to do something squirrely with the encryption setting.
+        # We've done the checks for things that cannot be on an encrypted
+        # device. From here on out, it means "encrypt new devices we create",
+        # which we don't want to do in the event that encryption is already
+        # present below the surface of an existing device stack.
+        encrypted = encrypted and encryption_checkbox.get_sensitive()
+
         with ui_storage_logger():
             # create a new factory using the appropriate size and type
             factory = self.__storage.getDeviceFactory(device_type, size,
@@ -919,9 +995,22 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         old_disk_set = device.disks
         if hasattr(device, "req_disks") and not device.exists:
             old_disk_set = device.req_disks
+
         changed_disk_set = (set(old_disk_set) != set(self._device_disks))
 
-        if changed_device_type or changed_raid_level:
+        changed_container = False
+        old_container_name = None
+        container = self.__storage.getContainer(factory)
+        if not changed_device_type and device_type == DEVICE_TYPE_LVM:
+            old_container = self.__storage.getContainer(factory,
+                                                        device=device)
+            container = self.__storage.getContainer(factory,
+                                                    container_name=self._device_container_name)
+            if self._device_container_name != old_container.name:
+                old_container_name = old_container.name
+                changed_container = True
+
+        if changed_device_type or changed_raid_level or changed_container:
             if changed_device_type:
                 log.info("changing device type from %s to %s"
                             % (current_device_type, device_type))
@@ -935,6 +1024,10 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                             % ([d.name for d in device.disks],
                                [d.name for d in self._device_disks]))
 
+            if changed_container:
+                log.info("changing container from %s to %s"
+                            % (old_container.name, self._device_container_name))
+
             # remove the current device
             self.clear_errors()
             root = self._current_selector._root
@@ -945,7 +1038,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
             with ui_storage_logger():
                 disks = self._device_disks[:]
-                container = self.__storage.getContainer(factory)
                 if container and changed_device_type:
                     log.debug("overriding disk set with container's")
                     disks = container.disks[:]
@@ -955,6 +1047,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                                          disks=disks, mountpoint=mountpoint,
                                          label=label, raid_level=raid_level,
                                          encrypted=encrypted,
+                                         container_name=self._device_container_name,
                                          selector=selector)
                 except ErrorRecoveryFailure as e:
                     self._error = e
@@ -977,6 +1070,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                                              label=old_label,
                                              raid_level=old_raid_level,
                                              encrypted=prev_encrypted,
+                                             container_name=old_container_name,
                                              selector=selector)
                     except StorageError as e:
                         # failed to recover.
@@ -1039,6 +1133,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                                                  device=device,
                                                  disks=self._device_disks[:],
                                                  encrypted=encrypted,
+                                                 container_name=self._device_container_name,
                                                  raid_level=raid_level)
                     except ErrorRecoveryFailure as e:
                         self._error = e
@@ -1361,6 +1456,13 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
         log.debug("updated device_disks to %s" % [d.name for d in self._device_disks])
 
+        if hasattr(use_dev, "vg"):
+            self._device_container_name = use_dev.vg.name
+        else:
+            self._device_container_name = None
+
+        log.debug("updated device_vg_name to %s" % self._device_container_name)
+
         selectedDeviceLabel.set_text(selector.props.name)
         selectedDeviceDescLabel.set_text(self._description(selector.props.name))
 
@@ -1515,9 +1617,10 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         typeCombo.set_active(type_index_map[device_type])
 
         # you can't change the type of an existing device
-        typeCombo.set_sensitive(not device.exists)
+        typeCombo.set_sensitive(not use_dev.exists)
 
         self._populate_raid(raid_level, device.size)
+        self._populate_lvm(device=use_dev)
         self.builder.get_object("optionsNotebook").set_sensitive(not device.exists)
 
     ###
@@ -1802,6 +1905,94 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
         self._device_disks = disks
 
+    def run_vg_editor(self, vg=None, name=None):
+        if vg:
+            vg_name = vg.name
+        elif name:
+            vg_name = name
+
+        dialog = VolumeGroupDialog(self.data,
+                                   name=vg_name,
+                                   disks=self._clearpartDevices,
+                                   free=self._currentFreeInfo,
+                                   selected=self._device_disks)
+
+        with enlightbox(self.window, dialog.window):
+            rc = dialog.run()
+
+        if rc == 0:
+            return
+
+        disks = dialog.selected
+        name = dialog.name
+        log.debug("new disks for %s: %s" % (name, [d.name for d in disks]))
+        if not disks:
+            self._error = "No disks selected. Not saving changes."
+            self.window.set_info(Gtk.MessageType.INFO,
+                                 self._error)
+            self.window.show_all()
+            return
+
+        log.debug("new VG name: %s" % name)
+        if name != vg_name and name in self.__storage.names:
+            self._error = _("Volume Group name %s is already in use. Not "
+                            "saving changes.")
+            self.window.set_info(Gtk.MessageType.INFO,
+                                 self._error)
+            self.window.show_all()
+            return
+
+        self._device_disks = disks
+        self._device_container_name = name
+
+    def on_modify_vg_clicked(self, button):
+        vg_name = self.builder.get_object("volumeGroupCombo").get_active_text()
+
+        vg = self.__storage.devicetree.getDeviceByName(vg_name)
+
+        # pass the name along with any found vg since we could be modifying a
+        # vg that hasn't been instantiated yet
+        self.run_vg_editor(vg=vg, name=vg_name)
+
+        log.debug("%s -> %s" % (vg_name, self._device_container_name))
+        if vg_name == self._device_container_name:
+            return
+
+        log.debug("renaming VG %s to %s" % (vg_name, self._device_container_name))
+        if vg:
+            self.__storage.devicetree.names.remove(vg.name)
+            self.__storage.devicetree.names.append(self._device_container_name)
+            vg.name = self._device_container_name
+
+        vg_combo = self.builder.get_object("volumeGroupCombo")
+        for idx, data in enumerate(vg_combo.get_model()):
+            # we're looking for the original vg name
+            if data[0] == vg_name:
+                vg_combo.remove(idx)
+                vg_combo.insert_text(idx, self._device_container_name)
+                vg_combo.set_active(idx)
+                break
+
+    def on_vg_changed(self, combo):
+        vg_name = combo.get_active_text()
+        log.debug("new vg selection: %s" % vg_name)
+        if vg_name == new_vg_text:
+            # run the vg editor dialog with a default name and disk set
+            hostname = self.data.network.hostname
+            name = self.__storage.suggestContainerName(hostname=hostname)
+            self.run_vg_editor(name=name)
+            for idx, data in enumerate(combo.get_model()):
+                if data[0] == new_vg_text:
+                    combo.insert_text(idx, self._device_container_name)
+                    combo.set_active(idx)
+                    break
+        else:
+            self._device_container_name = vg_name
+
+        vg = self.__storage.devicetree.getDeviceByName(self._device_container_name)
+        vg_exists = getattr(vg, "exists", False)    # might not be in the tree
+        self.builder.get_object("modifyVGButton").set_sensitive(not vg_exists)
+
     def on_selector_clicked(self, selector):
         if not self._initialized:
             return
@@ -1963,6 +2154,52 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                                  hasattr(fmt, "label"))
         mountPointEntry.set_sensitive(fmt.mountable)
 
+    def _populate_lvm(self, device=None):
+        """ Set up the vg widgets for lvm or hide them for other types. """
+        device_type = self._get_current_device_type()
+        if device is None:
+            if self._current_selector is None:
+                return
+
+            device = self._current_selector._device
+
+        vg_combo = self.builder.get_object("volumeGroupCombo")
+        vg_button = self.builder.get_object("modifyVGButton")
+        vg_label = self.builder.get_object("volumeGroupLabel")
+        if device_type == DEVICE_TYPE_LVM:
+            # set up the vg widgets and then bail out
+            if self._device_container_name:
+                default_vg = self._device_container_name
+            else:
+                with ui_storage_logger():
+                    factory = self.__storage.getDeviceFactory(DEVICE_TYPE_LVM,
+                                                              0)
+                    container = self.__storage.getContainer(factory)
+                    default_vg = getattr(container, "name", None)
+
+            vg_combo.remove_all()
+            vgs = self.__storage.vgs
+            for vg in vgs:
+                vg_combo.append_text(vg.name)
+                if default_vg and vg.name == default_vg:
+                    vg_combo.set_active(vgs.index(vg))
+
+            vg_combo.append_text(new_vg_text)
+            if default_vg is None:
+                vg_combo.set_active(len(vg_combo.get_model()))
+
+            vg_combo.show()
+            vg_button.show()
+            vg_label.show()
+
+            # make the combo and button insensitive for existing LVs
+            can_change_vg = (device is not None and not device.exists)
+            vg_combo.set_sensitive(can_change_vg)
+        else:
+            vg_label.hide()
+            vg_combo.hide()
+            vg_button.hide()
+
     def on_device_type_changed(self, combo):
         if not self._initialized:
             return
@@ -2003,8 +2240,12 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         elif new_type == DEVICE_TYPE_MD:
             raid_level = "raid0"
 
+        # lvm uses the RHS to set disk set. no foolish minds here.
+        self._configButton.set_sensitive(new_type != DEVICE_TYPE_LVM)
+
         size = self.builder.get_object("sizeSpinner").get_value()
         self._populate_raid(raid_level, size)
+        self._populate_lvm()
 
         # begin btrfs magic
         fsCombo = self.builder.get_object("fileSystemTypeCombo")
