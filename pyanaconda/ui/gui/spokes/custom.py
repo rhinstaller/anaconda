@@ -682,8 +682,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             page = UnknownPage()
             page.pageTitle = _("Unknown")
 
-            for u in self.unusedDevices:
-                selector = page.addDevice(u.format.name, Size(spec="%f MB" % u.size), None, self.on_selector_clicked)
+            for u in sorted(self.unusedDevices, key=lambda d: d.name):
+                selector = page.addDevice(u.name, Size(spec="%f MB" % u.size), u.format.name, self.on_selector_clicked)
                 selector._device = u
 
             page.show_all()
