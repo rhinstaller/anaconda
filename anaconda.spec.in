@@ -222,6 +222,10 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Mon Nov 19 2012 Brian C. Lane <bcl@redhat.com> - 13.21.185-1
+- update mdraid superBlock space calculation (bcl)
+  Resolves: rhbz#876450
+
 * Fri Nov 16 2012 Brian C. Lane <bcl@redhat.com> - 13.21.184-1
 - Reserve 50% of VG for interactive installs (bcl)
   Resolves: rhbz#875918
