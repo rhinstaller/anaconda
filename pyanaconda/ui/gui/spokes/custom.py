@@ -1505,10 +1505,12 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
         encryptCheckbox.set_active(device.encrypted)
         encryptCheckbox.set_sensitive(reformatCheckbox.get_active())
-        if device.encrypted and device.exists:
-            # For existing devices, the encryption checkbutton should not be
-            # sensitive if the encryption is below the leaf layer.
-            encryptCheckbox.set_sensitive(use_dev.format.type == "luks")
+        ancestors = use_dev.ancestors
+        ancestors.remove(use_dev)
+        if any([a.format.type == "luks" and a.format.exists for a in ancestors]):
+            # The encryption checkbutton should not be sensitive if there is
+            # existing encryption below the leaf layer.
+            encryptCheckbox.set_sensitive(False)
 
         ##
         ## Set up the filesystem type combo.
