@@ -48,11 +48,15 @@ static void anaconda_lb_move_window_to_parent(GtkWidget *parent,
         return;
 
     p_window = gtk_widget_get_window (parent);
+    w_window = gtk_widget_get_window (GTK_WIDGET(window));
+
+    if (!GDK_IS_WINDOW(p_window) || !GDK_IS_WINDOW(w_window))
+        return;
+
     pwidth = gdk_window_get_width (p_window);
     pheight = gdk_window_get_height (p_window);
     gdk_window_get_position(p_window, &px, &py);
 
-    w_window = gtk_widget_get_window (GTK_WIDGET(window));
     width = gdk_window_get_width (w_window);
     height = gdk_window_get_height (w_window);
     gdk_window_get_position(w_window, &x, &y);
