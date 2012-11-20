@@ -1992,15 +1992,15 @@ class Storage(object):
                     self, size, [d.name for d in disks], raid_level))
         return factory_class(self, size, disks, raid_level, encrypted)
 
-    def getContainer(self, factory, device=None, container_name=None):
+    def getContainer(self, factory, device=None, name=None, existing=False):
         # XXX would it be useful to implement this as a series of fallbacks
         #     instead of mutually exclusive branches?
         container = None
-        if container_name:
-            container = self.devicetree.getDeviceByName(container_name)
+        if name:
+            container = self.devicetree.getDeviceByName(name)
             if container and container not in factory.container_list:
                 log.debug("specified container name %s is wrong type (%s)"
-                            % (container_name, container.type))
+                            % (name, container.type))
                 container = None
         elif device:
             if hasattr(device, "vg"):
@@ -2010,6 +2010,13 @@ class Storage(object):
         else:
             containers = [c for c in factory.container_list if not c.exists]
             if containers:
+                container = containers[0]
+
+        if container is None and existing:
+            containers = [c for c in factory.container_list if c.exists]
+            if containers:
+                containers.sort(key=lambda c: getattr(c, "freeSpace", c.size),
+                                reverse=True)
                 container = containers[0]
 
         return container
@@ -2107,7 +2114,7 @@ class Storage(object):
         self.size_sets = [] # clear this since there are no growable reqs now
 
         container = self.getContainer(factory, device=device,
-                                      container_name=container_name)
+                                      name=container_name)
 
         # TODO: striping, mirroring, &c
         # TODO: non-partition members (pv-on-md)

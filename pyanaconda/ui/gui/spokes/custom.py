@@ -24,7 +24,6 @@
 # - Add a way for users to specify the names of md, lv, subvol devices.
 # - We should either remove boot disk selection from the cart we show from here
 #   or re-partition when it gets changed to make a best-effort at keeping up.
-# - Add new LVs to existing VG if creating a new VG fails outright.
 # - Deleting an LV is not reflected in available space in the bottom left.
 #   - this is only true for preexisting LVs
 # - Device descriptions, suggested sizes, etc. should be moved out into a support file.
@@ -35,6 +34,7 @@
 # - If you click to add a mountpoint while editing a device the lightbox
 #   screenshot is taken prior to the ui update so the background shows the old
 #   size and free space while you're deciding on a size for the new device.
+# - DeviceTree.populate brings back deleted devices when unlocking LUKS.
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
@@ -121,6 +121,11 @@ DEVICE_TEXT_MD = N_("RAID")
 DEVICE_TEXT_PARTITION = N_("Standard Partition")
 DEVICE_TEXT_BTRFS = N_("BTRFS")
 DEVICE_TEXT_DISK = N_("Disk")
+
+device_text_map = {DEVICE_TYPE_LVM: DEVICE_TEXT_LVM,
+                   DEVICE_TYPE_MD: DEVICE_TEXT_MD,
+                   DEVICE_TYPE_PARTITION: DEVICE_TEXT_PARTITION,
+                   DEVICE_TYPE_BTRFS: DEVICE_TEXT_BTRFS}
 
 options_page_dict = {DEVICE_TYPE_LVM: 0,
                      DEVICE_TYPE_MD: 1,
@@ -1005,7 +1010,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             old_container = self.__storage.getContainer(factory,
                                                         device=device)
             container = self.__storage.getContainer(factory,
-                                                    container_name=self._device_container_name)
+                                                    name=self._device_container_name)
             if self._device_container_name != old_container.name:
                 old_container_name = old_container.name
                 changed_container = True
@@ -1706,12 +1711,13 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             encrypted = False
 
         disks = self._clearpartDevices
+        size = float(size.convertTo(spec="mb"))
         self.clear_errors()
 
         with ui_storage_logger():
             try:
                 self.__storage.newDevice(device_type,
-                                         size=float(size.convertTo(spec="mb")),
+                                         size=size,
                                          fstype=fstype,
                                          mountpoint=mountpoint,
                                          encrypted=encrypted,
@@ -1724,16 +1730,40 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                 self._reset_storage()
             except StorageError as e:
                 log.error("newDevice failed: %s" % e)
-                self._error = e
-                self.set_error(_("Failed to add new device. Click for "
-                                 "details."))
-                self.window.show_all()
-            except OverflowError as e:
-                log.error("invalid size set for partition")
-                self._error = e
-                self.set_error(_("Invalid partition size set. Use a "
-                                 "valid integer."))
-                self.window.show_all()
+                log.debug("trying to find an existing container to use")
+                factory = self.__storage.getDeviceFactory(device_type, size)
+                container = self.__storage.getContainer(factory, existing=True)
+                log.debug("found container %s" % container)
+                if container:
+                    try:
+                        self.__storage.newDevice(device_type,
+                                                 size=size,
+                                                 fstype=fstype,
+                                                 mountpoint=mountpoint,
+                                                 encrypted=encrypted,
+                                                 disks=disks,
+                                                 container_name=container.name)
+                    except StorageError as e2:
+                        log.error("newDevice failed w/ old container: %s" % e2)
+                    else:
+                        type_str = device_text_map[device_type]
+                        self.set_info(_("Added new %s to existing "
+                                        "container %s.")
+                                      % (type_str, container.name))
+                        self.window.show_all()
+                        e = None
+
+                if e:
+                    self._error = e
+                    self.set_error(_("Failed to add new device. Click for "
+                                     "details."))
+                    self.window.show_all()
+             except OverflowError as e:
+                 log.error("invalid size set for partition")
+                 self._error = e
+                 self.set_error(_("Invalid partition size set. Use a "
+                                  "valid integer."))
+                 self.window.show_all()
 
         self._devices = self.__storage.devices
         self._do_refresh()
