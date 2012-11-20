@@ -827,8 +827,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         log.debug("old encryption setting: %s" % prev_encrypted)
         encryption_checkbox = self.builder.get_object("encryptCheckbox")
         encrypted = None
-        if encryption_checkbox.get_sensitive():
-            encrypted = encryption_checkbox.get_active()
+        encrypted = encryption_checkbox.get_active()
 
         changed_encryption = (prev_encrypted != encrypted)
         log.debug("new encryption setting: %s" % encrypted)
