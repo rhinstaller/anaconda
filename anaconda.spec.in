@@ -297,6 +297,45 @@ update-desktop-database &> /dev/null || :
 /usr/lib/dracut/modules.d/80%{name}/*
 
 %changelog
+* Mon Nov 19 2012 Brian C. Lane <bcl@redhat.com> - 18.30-1
+- only raise rsync error on error 12 (#868755) (bcl)
+- Dump default auto connection's ifcfg file instead of writing a new one
+  (#870922) (rvykydal)
+- Number timezones starting with 1 (#859342) (msivak)
+- only call bootloader.check() if bootloader is setup (#875278) (bcl)
+- Fix operator precedence when checking for the presence of transifex-client.
+  (clumens)
+- Make the custom and keyboard toolbar buttons larger (mizmo). (clumens)
+- More changes to leave the spoke via a glib idle call, not calling directly.
+  (clumens)
+- Hide the custom addon button. (clumens)
+- Enable verbose yum logging once more (jkeating)
+- rm transifex-client buildreq; check and install only if needed (sbueno)
+- Handle nfsiso leavings by dracut (#876223) (jkeating)
+- Prevent some raid-related tracebacks. (#874034) (dlehman)
+- Don't try to save changes to a locked luks device. (#876180) (dlehman)
+- Keyboard test layout padding fix (mizmo). (clumens)
+- Correct colors for selected items in mountpoint selector widget (mizmo).
+  (clumens)
+- Include hidden disks in the storage spoke's list of devices (#875475).
+  (clumens)
+- Make the DetailedErrorDialog taller by default (#874620). (clumens)
+- If there's only a Quit button, don't make it secondary. (clumens)
+- Handle package dependency errors on kickstart installs too (#865073).
+  (clumens)
+- Remove iso-codes dependency, libxklavier has it fixed now (vpodzime)
+- Rework custom partitioning alignment too (mizmo). (clumens)
+- Attempt to fix the shrunken storage UI (mizmo). (clumens)
+- Do not allow TreeView search in AddLayout dialog (#876131) (vpodzime)
+- DiskOverview widget selection color correction (mizmo). (clumens)
+- Use the main loop to control displaying the resize dialog. (clumens)
+- Use ksdata to set default runlevel (jkeating)
+- Execute xconfig data (#874868) (jkeating)
+- Write out xconfig data when executed (jkeating)
+- Code cleanups (jkeating)
+- Link to the correct default target (jkeating)
+- Add a mapping of old run level to new systemd target (jkeating)
+
 * Mon Nov 12 2012 Brian C. Lane <bcl@redhat.com> - 18.29-1
 - Quit after handling transaction errors. (clumens)
 - Add a function to display relevant transaction errors (#873106). (clumens)
