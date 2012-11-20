@@ -108,14 +108,16 @@ class LiveImagePayload(ImagePayload):
             rc = iutil.execWithRedirect(cmd, args,
                                         stderr="/dev/tty5", stdout="/dev/tty5")
         except (OSError, RuntimeError) as e:
+            msg = None
             err = str(e)
             log.error(err)
         else:
             err = None
-            log.error("%s exited with code %d" % (cmd, rc))
+            msg = "%s exited with code %d" % (cmd, rc)
+            log.info(msg)
 
         if err or rc == 12:
-            exn = PayloadInstallError(err)
+            exn = PayloadInstallError(err or msg)
             if errorHandler.cb(exn) == ERROR_RAISE:
                 raise exn
 
