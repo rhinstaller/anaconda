@@ -80,6 +80,10 @@ class ResizeDialog(GUIObject):
 
         self._resizeButton = self.builder.get_object("resizeButton")
 
+        self._preserveButton = self.builder.get_object("preserveButton")
+        self._shrinkButton = self.builder.get_object("shrinkButton")
+        self._deleteButton = self.builder.get_object("deleteButton")
+
     def _description(self, part):
         # First, try to find the partition in some known Root.  If we find
         # it, return the mountpoint as the description.
@@ -105,11 +109,6 @@ class ResizeDialog(GUIObject):
         self._selectedReclaimableSpace = 0
 
         canShrinkSomething = False
-
-        # Shouldn't have to do this outside of glade, but see:
-        # https://bugzilla.gnome.org/show_bug.cgi?id=685003
-        renderer = self.builder.get_object("actionRenderer")
-        renderer.set_property("editable", True)
 
         for disk in disks:
             # First add the disk itself.
@@ -189,6 +188,30 @@ class ResizeDialog(GUIObject):
             text = _("Total selected space to reclaim: <b>%s</b>") % size_str(selectedReclaimable)
             self._selected_label.set_markup(text)
 
+    def _update_buttons(self, row):
+        # If this is a disk header, it's not editable, so make all the
+        # buttons insensitive.
+        self._preserveButton.set_sensitive(row[EDITABLE_COL])
+        self._shrinkButton.set_sensitive(row[EDITABLE_COL])
+        self._deleteButton.set_sensitive(row[EDITABLE_COL])
+
+        if not row[EDITABLE_COL]:
+            return
+
+        # If the selected filesystem does not support shrinking, make that
+        # button insensitive.
+        device = self.storage.devicetree.getDeviceByID(row[DEVICE_ID_COL])
+        self._shrinkButton.set_sensitive(device.resizable)
+
+        # Then, disable the button for whatever action is currently selected.
+        # It doesn't make a lot of sense to allow clicking that.
+        if row[ACTION_COL] == _(PRESERVE):
+            self._preserveButton.set_sensitive(False)
+        elif row[ACTION_COL] == _(SHRINK):
+            self._shrinkButton.set_sensitive(False)
+        elif row[ACTION_COL] == _(DELETE):
+            self._deleteButton.set_sensitive(False)
+
     def refresh(self, disks):
         super(ResizeDialog, self).refresh()
 
@@ -223,14 +246,26 @@ class ResizeDialog(GUIObject):
 
         return False
 
-    def on_action_changed(self, combo, path, itr, *args):
-        diskItr = self._diskStore.get_iter_from_string(path)
-        selectedRow = self._diskStore[diskItr]
+    def on_preserve_clicked(self, button):
+        self._actionChanged(PRESERVE)
 
-        selectedAction = self._actionStore[itr][0]
+    def on_shrink_clicked(self, button):
+        self._actionChanged(SHRINK)
+
+    def on_delete_clicked(self, button):
+        self._actionChanged(DELETE)
+
+    def _actionChanged(self, newAction):
+        selection = self.builder.get_object("diskView-selection")
+        (model, itr) = selection.get_selected()
+
+        if not itr:
+            return
+
+        selectedRow = self._diskStore[itr]
 
         # Put the selected action into the store as well.
-        selectedRow[ACTION_COL] = selectedAction
+        selectedRow[ACTION_COL] = _(newAction)
 
         # And then we're keeping a running tally of how much space the user
         # has selected to reclaim, so reflect that in the UI.
@@ -241,6 +276,8 @@ class ResizeDialog(GUIObject):
         got = Size(spec="%s MB" % self._selectedReclaimableSpace)
         need = self.payload.spaceRequired
         self._resizeButton.set_sensitive(got >= need)
+
+        self._update_buttons(selectedRow)
 
     def _scheduleActions(self, model, path, itr, *args):
         (editable, action, ident) = model.get(itr, EDITABLE_COL, ACTION_COL, DEVICE_ID_COL)
@@ -264,3 +301,24 @@ class ResizeDialog(GUIObject):
 
     def on_resize_clicked(self, *args):
         self._diskStore.foreach(self._scheduleActions, None)
+
+    def on_row_clicked(self, view, path, column):
+        # This handles when the user clicks on a row in the view.  We use it
+        # only for expanding/collapsing disk headers.
+        if view.row_expanded(path):
+            view.collapse_row(path)
+        else:
+            view.expand_row(path, True)
+
+    def on_selection_changed(self, selection):
+        # This handles when the selection changes.  It's very similar to what
+        # on_row_clicked above does, but this handler only deals with changes in
+        # selection.  Thus, clicking on a disk header to collapse it and then
+        # immediately clicking on it again to expand it would not work when
+        # dealt with here.
+        (model, itr) = selection.get_selected()
+
+        if not itr:
+            return
+
+        self._update_buttons(self._diskStore[itr])
