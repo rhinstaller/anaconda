@@ -300,6 +300,21 @@ update-desktop-database &> /dev/null || :
 /usr/lib/dracut/modules.d/80%{name}/*
 
 %changelog
+* Tue Nov 20 2012 Brian C. Lane <bcl@redhat.com> - 18.29.2-1
+- Prevent false positives when checking for encryption change. (dlehman)
+- Don't add incomplete VGs to the LVM reject filter. (#878225) (dlehman)
+- Show device names for devices in the Unknown page/subsection. (#855646)
+  (dlehman)
+- Add a page to the custom RHS notebook for uneditable devices. (#875942)
+  (dlehman)
+- Handle hd iso leavings by dracut (#876897) (jkeating)
+- Handle nfsiso leavings by dracut (#876223) (jkeating)
+- show error when rsync fails (#868755) (cherry picked from commit
+  c90d1bc1fb038c010a22a373fed47933aac074b9) (bcl)
+- only raise rsync error on error 12 (#868755) (cherry picked from commit
+  2032f1ee0d43df6e0cddf4004fd71a2ce7b63c67) (bcl)
+- fixup changelog for 18.29.1-1 (bcl)
+
 * Sun Nov 18 2012 Brian C. Lane <bcl@redhat.com> - 18.29.1-1
 - New version. (bcl)
 - only call bootloader.check() if bootloader is setup (#875278) (bcl)
