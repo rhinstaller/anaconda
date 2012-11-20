@@ -19,7 +19,7 @@
 
 if IS_LIVEINST_ARCH
 iconsdir        = $(datadir)/icons/hicolor/32x32/apps
-dist_icons_DATA = anaconda.png
+dist_icons_DATA = liveinst.png
 endif
 
 MAINTAINERCLEANFILES = Makefile.in
