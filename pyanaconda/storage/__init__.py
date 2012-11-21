@@ -1867,6 +1867,11 @@ class Storage(object):
             # new container, so use the factory's disk set
             add_disks = factory.disks
 
+        # drop any new disks that don't have free space
+        min_free = min(500, factory.size)
+        add_disks = [d for d in add_disks if d.partitioned and
+                                             d.format.free >= min_free]
+
         base_size = max(1, getFormat(factory.member_format).minSize)
 
         # XXX TODO: multiple member devices per disk
