@@ -1914,6 +1914,10 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         if device.exists:
             return
 
+        if self._get_current_device_type() == DEVICE_TYPE_LVM:
+            # LVM disk set management happens through VG edit on RHS
+            return
+
         self.clear_errors()
 
         dialog = DisksDialog(self.data,
