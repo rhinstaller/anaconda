@@ -25,7 +25,6 @@ from pyanaconda.storage import turnOnFilesystems
 from pyanaconda.bootloader import writeBootLoader
 from pyanaconda.progress import progress_report
 from pyanaconda.users import createLuserConf, getPassAlgo, Users
-from pyanaconda.network import writeNetworkConf
 from pyanaconda import flags
 from pyanaconda import timezone
 
@@ -70,7 +69,7 @@ def doConfiguration(storage, payload, ksdata, instClass):
 
     if not flags.flags.imageInstall:
         with progress_report(_("Writing network configuration")):
-            writeNetworkConf(storage, ksdata, instClass)
+            ksdata.network.execute(storage, ksdata, instClass)
 
     # Creating users and groups requires some pre-configuration.
     with progress_report(_("Creating users")):

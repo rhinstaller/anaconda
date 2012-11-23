@@ -242,6 +242,4 @@ class Anaconda(object):
         network.copyConfigToPath(ROOT_PATH)
         if not self.ksdata:
             self.instClass.setNetworkOnbootDefault()
-        network.disableNMForStorageDevices(self.storage)
-        network.autostartFCoEDevices(self.storage)
         self.desktop.write()

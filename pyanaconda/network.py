@@ -38,7 +38,6 @@ import simpleconfig
 import re
 from flags import flags
 from simpleconfig import IfcfgFile
-from pyanaconda.constants import ROOT_PATH
 import urlgrabber.grabber
 from pyanaconda.storage.devices import FcoeDiskDevice, iScsiDiskDevice
 
@@ -589,11 +588,12 @@ def dracutBootArguments(ifcfg, storage_ipaddr, hostname=None):
 
 def kickstartNetworkData(ifcfg=None, hostname=None):
 
-    from pyanaconda.kickstart import NetworkData
+    from pyanaconda.kickstart import AnacondaKSHandler
+    handler = AnacondaKSHandler()
     kwargs = {}
 
     if not ifcfg and hostname:
-        return NetworkData(hostname=hostname, bootProto="")
+        return handler.NetworkData(hostname=hostname, bootProto="")
 
     # ipv4 and ipv6
     if not ifcfg.get("ESSID"):
@@ -664,7 +664,7 @@ def kickstartNetworkData(ifcfg=None, hostname=None):
             hostname != "localhost.localdomain"):
             kwargs["hostname"] = hostname
 
-    return NetworkData(**kwargs)
+    return handler.NetworkData(**kwargs)
 
 def getSSIDs(devices_to_scan=None):
 
@@ -858,11 +858,11 @@ def disableIPV6(rootpath):
             f.write("options ipv6 disable=1\n")
             f.close()
 
-def disableNMForStorageDevices(storage):
+def disableNMForStorageDevices(rootpath, storage):
     for devname in getDevices():
         if (usedByFCoE(devname, storage) or
             usedByRootOnISCSI(devname, storage)):
-            dev = NetworkDevice(ROOT_PATH + netscriptsDir, devname)
+            dev = NetworkDevice(rootpath + netscriptsDir, devname)
             if os.access(dev.path, os.R_OK):
                 dev.loadIfcfgFile()
                 dev.set(('NM_CONTROLLED', 'no'))
@@ -874,10 +874,10 @@ def disableNMForStorageDevices(storage):
                             devname)
 
 # sets ONBOOT=yes (and its mirror value in ksdata) for devices used by FCoE
-def autostartFCoEDevices(storage, ksdata):
+def autostartFCoEDevices(rootpath, storage, ksdata):
     for devname in getDevices():
         if usedByFCoE(devname, storage):
-            dev = NetworkDevice(ROOT_PATH + netscriptsDir, devname)
+            dev = NetworkDevice(rootpath + netscriptsDir, devname)
             if os.access(dev.path, os.R_OK):
                 dev.loadIfcfgFile()
                 dev.set(('ONBOOT', 'yes'))
@@ -912,20 +912,20 @@ def usedByRootOnISCSI(iface, storage):
 
     return False
 
-def writeNetworkConf(storage, ksdata, instClass):
-    write_hostname(ROOT_PATH, ksdata, overwrite=flags.livecdInstall)
-    write_sysconfig_network(ROOT_PATH, ksdata, overwrite=flags.livecdInstall)
-    disableIPV6(ROOT_PATH)
+def write_network_config(storage, ksdata, instClass, rootpath):
+    write_hostname(rootpath, ksdata, overwrite=flags.livecdInstall)
+    write_sysconfig_network(rootpath, ksdata, overwrite=flags.livecdInstall)
+    disableIPV6(rootpath)
     if not flags.imageInstall:
-        copyIfcfgFiles(ROOT_PATH)
-        copyDhclientConfFiles(ROOT_PATH)
-        copyFileToPath("/etc/resolv.conf", ROOT_PATH, overwrite=flags.livecdInstall)
+        copyIfcfgFiles(rootpath)
+        copyDhclientConfFiles(rootpath)
+        copyFileToPath("/etc/resolv.conf", rootpath, overwrite=flags.livecdInstall)
     # TODO the default for ONBOOT needs to be lay down
     # before newui we didn't set it for kickstart installs
     instClass.setNetworkOnbootDefault(ksdata)
     # NM_CONTROLLED is not mirrored in ksdata
-    disableNMForStorageDevices(storage)
-    autostartFCoEDevices(storage, ksdata)
+    disableNMForStorageDevices(rootpath, storage)
+    autostartFCoEDevices(rootpath, storage, ksdata)
 
 def wait_for_dhcp():
     """If NM is in connecting state, wait for connection.
@@ -1027,7 +1027,6 @@ def setOnboot(ksdata):
 
 # networking initialization and ksdata object update
 def networkInitialize(ksdata):
-    from pyanaconda.kickstart import NetworkData
 
     if not flags.imageInstall:
         # XXX: this should go to anaconda dracut

@@ -42,13 +42,13 @@ from constants import *
 import shlex
 import sys
 import urlgrabber
-import network
 import pykickstart.commands as commands
 from storage.devices import *
 from pyanaconda import keyboard
 from pyanaconda import ntp
 from pyanaconda import timezone
 from pyanaconda import localization
+from pyanaconda import network
 from pyanaconda.simpleconfig import SimpleConfigFile
 from pyanaconda.users import getPassAlgo
 from pyanaconda.desktop import Desktop
@@ -754,10 +754,9 @@ class Logging(commands.logging.FC6_Logging):
                 remote_server = "%s:%s" %(self.host, self.port)
             logger.updateRemote(remote_server)
 
-class NetworkData(commands.network.F16_NetworkData):
-    def execute(self):
-        # it happens in writeNetworkConf
-        pass
+class Network(commands.network.F18_Network):
+    def execute(self, storage, ksdata, instClass):
+        network.write_network_config(storage, ksdata, instClass, ROOT_PATH)
 
 class MultiPath(commands.multipath.FC6_MultiPath):
     def parse(self, args):
@@ -1319,6 +1318,7 @@ commandMap = {
         "logging": Logging,
         "logvol": LogVol,
         "multipath": MultiPath,
+        "network": Network,
         "part": Partition,
         "partition": Partition,
         "raid": Raid,
@@ -1335,7 +1335,6 @@ commandMap = {
 dataMap = {
         "BTRFSData": BTRFSData,
         "LogVolData": LogVolData,
-        "NetworkData": NetworkData,
         "PartData": PartitionData,
         "RaidData": RaidData,
         "VolGroupData": VolGroupData,
