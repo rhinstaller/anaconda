@@ -366,6 +366,7 @@ class NetworkControlBox():
     # Signal handlers.
     def on_device_selection_changed(self, *args):
         device = self.selected_device()
+        log.debug("network: selected device %s" % device.get_iface())
         self.refresh_ui(device)
 
     def on_device_state_changed(self, *args):
@@ -390,6 +391,8 @@ class NetworkControlBox():
         self.selected_ssid = ssid_target
         if ap_obj_path == "ap-other...":
             return
+
+        log.info("network: access point changed: %s" % ssid_target)
 
         if we_dont_have_nm_applet_as_secrets_agent:
             if self.find_active_connection_for_device(device):
@@ -435,6 +438,7 @@ class NetworkControlBox():
             and ssid and (device.get_iface(), ssid) not in self.activated_connections()):
             activate = (con, device)
 
+        log.info("network: configuring connection %s device %s ssid %s" % (uuid, device.get_iface(), ssid))
         self.builder.get_object("button_wired_options").set_sensitive(False)
         proc = subprocess.Popen(["nm-connection-editor", "--edit", "%s" % uuid])
 
@@ -462,6 +466,9 @@ class NetworkControlBox():
 
         active = switch.get_active()
         device = self.selected_device()
+
+        log.info("network: device %s switched %s" %
+                  (device.get_iface(), "on" if active else "off"))
 
         dev_type = device.get_device_type()
         if dev_type == NetworkManager.DeviceType.ETHERNET:
