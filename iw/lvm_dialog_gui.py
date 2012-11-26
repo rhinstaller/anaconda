@@ -1405,26 +1405,25 @@ class VolumeGroupEditor:
 	maintable.set_row_spacing(row, 0)
         row = row + 1
 
-        if self.vg.reservedSpace:
-            maintable.attach(createAlignedLabel(_("Reserved Space:")),
-                             0, 1, row, row + 1, gtk.EXPAND|gtk.FILL,
-                             gtk.SHRINK)
-            lbox = gtk.HBox()
-            self.reservedSpaceLabel = gtk.Label("")
-            labelalign = gtk.Alignment()
-            labelalign.set(1.0, 0.5, 0.0, 0.0)
-            labelalign.add(self.reservedSpaceLabel)
-            lbox.pack_start(labelalign, False, False)
-            self.reservedPercentLabel = gtk.Label("")
-            labelalign = gtk.Alignment()
-            labelalign.set(1.0, 0.5, 0.0, 0.0)
-            labelalign.add(self.reservedPercentLabel)
-            lbox.pack_start(labelalign, False, False, padding=10)
+        maintable.attach(createAlignedLabel(_("Reserved Space:")),
+                         0, 1, row, row + 1, gtk.EXPAND|gtk.FILL,
+                         gtk.SHRINK)
+        lbox = gtk.HBox()
+        self.reservedSpaceLabel = gtk.Label("")
+        labelalign = gtk.Alignment()
+        labelalign.set(1.0, 0.5, 0.0, 0.0)
+        labelalign.add(self.reservedSpaceLabel)
+        lbox.pack_start(labelalign, False, False)
+        self.reservedPercentLabel = gtk.Label("")
+        labelalign = gtk.Alignment()
+        labelalign.set(1.0, 0.5, 0.0, 0.0)
+        labelalign.add(self.reservedPercentLabel)
+        lbox.pack_start(labelalign, False, False, padding=10)
 
-            maintable.attach(lbox, 1, 2, row, row + 1, gtk.EXPAND|gtk.FILL,
-                             gtk.SHRINK)
-            maintable.set_row_spacing(row, 0)
-            row = row + 1
+        maintable.attach(lbox, 1, 2, row, row + 1, gtk.EXPAND|gtk.FILL,
+                         gtk.SHRINK)
+        maintable.set_row_spacing(row, 0)
+        row = row + 1
 
         maintable.attach(createAlignedLabel(_("Free Space:")), 0, 1, row,
 			 row + 1, gtk.EXPAND|gtk.FILL, gtk.SHRINK)
