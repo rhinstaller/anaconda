@@ -222,6 +222,10 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Mon Nov 26 2012 Brian C. Lane <bcl@redhat.com> - 13.21.186-1
+- always show reserved space in lvm dialog (bcl)
+  Resolves: rhbz#879667
+
 * Mon Nov 19 2012 Brian C. Lane <bcl@redhat.com> - 13.21.185-1
 - update mdraid superBlock space calculation (bcl)
   Resolves: rhbz#876450
