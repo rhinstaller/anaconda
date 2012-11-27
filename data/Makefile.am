@@ -24,7 +24,7 @@ CLEANFILES = *~
 ksdir                 = $(datadir)/$(PACKAGE_NAME)
 dist_ks_DATA          = interactive-defaults.ks
 
-udevdir               = /lib/udev/rules.d
+udevdir               = $(prefix)/lib/udev/rules.d
 dist_udev_DATA        = 70-anaconda.rules
 
 tmuxdir               = $(datadir)/$(PACKAGE_NAME)

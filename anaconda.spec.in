@@ -28,7 +28,6 @@ BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 %define libselinuxver 1.6
 %define pykickstartver 1.99.22
 %define rpmpythonver 4.2-0.61
-%define slangver 2.0.6-2
 %define yumver 3.4.3-32
 %define partedver 1.8.1
 %define pypartedver 2.5-2
@@ -45,6 +44,9 @@ BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 %define libblkidver 2.17.1-1
 %define fcoeutilsver 1.0.12-3.20100323git
 %define firewalldver 0.2.9-1
+%define pythonurlgrabberver 3.9.1-5
+%define utillinuxver 2.15.1
+%define syslinuxver 3.73
 
 BuildRequires: audit-libs-devel
 BuildRequires: bzip2-devel
@@ -70,16 +72,15 @@ BuildRequires: libselinux-devel >= %{libselinuxver}
 BuildRequires: libsepol-devel
 BuildRequires: libxklavier-devel
 BuildRequires: libxml2-python
-BuildRequires: newt-devel
 BuildRequires: pango-devel
 BuildRequires: pykickstart >= %{pykickstartver}
 BuildRequires: python-devel
 BuildRequires: python-pyblock >= %{pythonpyblockver}
-BuildRequires: python-urlgrabber >= 3.9.1-5
+BuildRequires: python-urlgrabber >= %{pythonurlgrabberver}
 BuildRequires: python-nose
 BuildRequires: rpm-devel
 BuildRequires: rpm-python >= %{rpmpythonver}
-BuildRequires: slang-devel >= %{slangver}
+BuildRequires: systemd
 BuildRequires: xmlto
 BuildRequires: yum >= %{yumver}
 BuildRequires: zlib-devel
@@ -104,7 +105,7 @@ Requires: parted >= %{partedver}
 Requires: pyparted >= %{pypartedver}
 Requires: yum >= %{yumver}
 Requires: libxml2-python
-Requires: python-urlgrabber >= 3.9.1-5
+Requires: python-urlgrabber >= %{pythonurlgrabberver}
 Requires: system-logos
 Requires: pykickstart >= %{pykickstartver}
 Requires: device-mapper >= %{dmver}
@@ -119,14 +120,13 @@ Requires: dmidecode
 %endif
 Requires: python-pyblock >= %{pythonpyblockver}
 Requires: libuser-python
-Requires: newt-python
 Requires: authconfig
 Requires: firewalld >= %{firewalldver}
 Requires: cryptsetup-luks
 Requires: python-cryptsetup >= %{pythoncryptsetupver}
 Requires: mdadm
 Requires: lvm2
-Requires: util-linux >= 2.15.1
+Requires: util-linux >= %{utillinuxver}
 Requires: dbus-python
 Requires: python-pwquality
 Requires: python-bugzilla
@@ -147,7 +147,7 @@ Requires: hfsplus-tools
 Requires: genisoimage >= %{genisoimagever}
 Requires: GConf2 >= %{gconfversion}
 %ifarch %{ix86} x86_64
-Requires: syslinux >= 3.73
+Requires: syslinux >= %{syslinuxver}
 Requires: makebootfat
 Requires: device-mapper
 %endif
@@ -177,7 +177,7 @@ Obsoletes: anaconda-images <= 10
 Provides: anaconda-images = %{version}-%{release}
 Obsoletes: anaconda-runtime < %{version}-%{release}
 Provides: anaconda-runtime = %{version}-%{release}
-Obsoletes: booty
+Obsoletes: booty <= 0.107-1
 
 %description
 The anaconda package contains the program which was used to install your
@@ -256,9 +256,9 @@ update-desktop-database &> /dev/null || :
 %doc docs/command-line.txt
 %doc docs/install-methods.txt
 %doc docs/mediacheck.txt
-/lib/systemd/system/*
-/lib/systemd/system-generators/*
-/lib/udev/rules.d/70-anaconda.rules
+%{_unitdir}/*
+%{_prefix}/lib/systemd/system-generators/*
+%{_prefix}/lib/udev/rules.d/70-anaconda.rules
 %{_bindir}/instperf
 %{_sbindir}/anaconda
 %{_sbindir}/handle-sshpw
@@ -281,20 +281,23 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %files widgets
+%defattr(-,root,root)
 %{_libdir}/libAnacondaWidgets.so.*
 %{_libdir}/girepository*/AnacondaWidgets*typelib
 %{_libdir}/python*/site-packages/gi/overrides/*
 %{_datadir}/anaconda/tzmapdata/*
 
 %files widgets-devel
+%defattr(-,root,root)
 %{_libdir}/libAnacondaWidgets.so
 %{_includedir}/*
 %{_datadir}/glade/catalogs/AnacondaWidgets.xml
 %{_datadir}/gtk-doc
 
 %files dracut
-%dir /usr/lib/dracut/modules.d/80%{name}
-/usr/lib/dracut/modules.d/80%{name}/*
+%defattr(-,root,root)
+%dir %{_prefix}/lib/dracut/modules.d/80%{name}
+%{_prefix}/lib/dracut/modules.d/80%{name}/*
 
 %changelog
 * Wed Nov 28 2012 Brian C. Lane <bcl@redhat.com> - 18.32-1
@@ -689,7 +692,7 @@ update-desktop-database &> /dev/null || :
 - Yet more TODO list updates. (clumens)
 - Don't display "None" in the name of a root. (clumens)
 - Fix configuration of protected wireless connections (#855526) (rvykydal)
-- Fix graphical kickstart with %packages data (jkeating)
+- Fix graphical kickstart with %%packages data (jkeating)
 - Add password validation to text password spoke (jkeating)
 - Make use of the validatePassword routine from users.py (jkeating)
 - Add a password verification method to users.py (jkeating)
@@ -1299,7 +1302,7 @@ update-desktop-database &> /dev/null || :
 
 * Mon Aug 13 2012 Chris Lumens <clumens@redhat.com> - 18.4-1
 - dracut: fix inst.ks.sendmac (#826657) (wwoods)
-- dracut: suppress ks errors from missing %include (wwoods)
+- dracut: suppress ks errors from missing %%include (wwoods)
 - dracut: add comment to run_kickstart() (wwoods)
 - Remove unused writeKS methods. (clumens)
 - Only show unused devices that haven't been removed/deleted. (dlehman)
@@ -1745,7 +1748,7 @@ update-desktop-database &> /dev/null || :
 - Do not reactivate network device needlessly on s390 (#739846) (rvykydal)
 - Start NM in loader on s390 until we have systemd init here too (#733680)
   (rvykydal)
-- Revert "Set debug_package to %{nil} so we don't strip our binaries."
+- Revert "Set debug_package to %%{nil} so we don't strip our binaries."
   (akozumpl)
 - Fix createUser and createGroup to work with kickstart defaults (#739428)
   (bcl)
@@ -1798,7 +1801,7 @@ update-desktop-database &> /dev/null || :
 - ut: cleanup after firewall_test.py (akozumpl)
 - ut: move tests/fw_test.py to tests/pyanaconda_test/firewall_test.py
   (akozumpl)
-- Close out the yum history before running %post scripts (#730857). (clumens)
+- Close out the yum history before running %%post scripts (#730857). (clumens)
 - Remove unused attribute 'bootable' from DeviceFormat classes. (dlehman)
 - Allow btrfs stage2 with grub2. (#732594) (dlehman)
 - Clean up return values of GRUB2._gpt_disk_has_bios_boot. (dlehman)
@@ -2225,7 +2228,7 @@ update-desktop-database &> /dev/null || :
 * Mon Mar 28 2011 Chris Lumens <clumens@redhat.com> - 16.3-1
 - Use a more general EnvironmentError to catch timezone-file errors. (akozumpl)
 - Add shell command to upd-bootiso (bcl)
-- Set debug_package to %{nil} so we don't strip our binaries. (pjones)
+- Set debug_package to %%{nil} so we don't strip our binaries. (pjones)
 - Return values, not strings (bcl)
 - Use proper store types for DataComboBoxes. (akozumpl)
 - Fixup rindex usage (#678086) (bcl)
@@ -2390,7 +2393,7 @@ update-desktop-database &> /dev/null || :
 - Fix loading translations in loader (#677648). (clumens)
 - Don't always attempt to load updates on kickstart installs (#677131). (clumens)
 - s390x has firstboot now (dcantrell)
-- Don't fail on missing %includes during loader kickstart processing (#676940). (clumens)
+- Don't fail on missing %%includes during loader kickstart processing (#676940). (clumens)
 - Prompt for media check on DVD installs (#676551). (clumens)
 - Tighten the focus of the dogtail and X try/except blocks. (dlehman)
 - Stop overriding ext[234] filesystem defaults. (dlehman)
@@ -2629,8 +2632,8 @@ update-desktop-database &> /dev/null || :
 - There's no need to pass exclusiveDisks to doPartitioning separately.
   (dlehman)
 - Move storage device scanning parameters into a separate class. (dlehman)
-- Don't ignore %packages if --default is given (#621349, dcantrell). (clumens)
-- Don't traceback when displaying %post error messages (#654074). (clumens)
+- Don't ignore %%packages if --default is given (#621349, dcantrell). (clumens)
+- Don't traceback when displaying %%post error messages (#654074). (clumens)
 - Display a warning message on TAINT_HARDWARE_UNSUPPORTED (#623140). (clumens)
 - If getting .treeinfo fails, try treeinfo (#635065). (clumens)
 - instPath -> rootPath (clumens)
@@ -2657,7 +2660,7 @@ update-desktop-database &> /dev/null || :
 - Remove writeRpmPlatform, adjust callers. (#651132, #650490) (notting)
 - Import as "pyanaconda.anaconda_log", not "anaconda_log". (clumens)
 - A little too much got deleted from imount.c. (clumens)
-- Remove the popping portion of kickstart %pre script notification. (clumens)
+- Remove the popping portion of kickstart %%pre script notification. (clumens)
 - Add pyanaconda/.libs to the PYTHONPATH for pylint. (clumens)
 - Ignore several false positives and import errors while running pylint.
   (clumens)
@@ -2853,7 +2856,7 @@ update-desktop-database &> /dev/null || :
 - gui: hide text in the proxy password field (#611825). (akozumpl)
 - logging: be smarter logging UI module import errors. (akozumpl)
 - text.messageWindow(): make it more resilient to the input. (akozumpl)
-- Log that we are running %pre scripts to the console (#640256). (clumens)
+- Log that we are running %%pre scripts to the console (#640256). (clumens)
 - Preset default config for immediate Close in nm-c-e enablement (#636526)
   (rvykydal)
 - Fix non-dhcp network enablement in stage 2 (#640951) (rvykydal)

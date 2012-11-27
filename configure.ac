@@ -61,14 +61,6 @@ AC_CHECK_LIB([iscsi], [libiscsi_get_firmware_network_config],
              [AC_SUBST(ISCSI_LIBS, [-liscsi])],
              [AC_MSG_FAILURE([*** libiscsi not usable.])])
 
-AC_CHECK_LIB([newt], [newtInit],
-             [AC_SUBST(NEWT_LIBS, [-lnewt])],
-             [AC_MSG_FAILURE([*** libnewt not usable.])])
-
-AC_CHECK_LIB([slang], [SLang_get_int_size],
-             [AC_SUBST(SLANG_LIBS, [-lslang])],
-             [AC_MSG_FAILURE([*** libslang not usable.])])
-
 AC_CHECK_LIB([z], [zlibVersion],
              [AC_SUBST(ZLIB_LIBS, [-lz])],
              [AC_MSG_FAILURE([*** libz not usable.])])

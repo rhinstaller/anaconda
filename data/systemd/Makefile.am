@@ -17,8 +17,8 @@
 #
 # Author: Chris Lumens <clumens@redhat.com>
 
-systemddir = /lib/systemd/system
-generatordir = /lib/systemd/system-generators
+systemddir = $(prefix)/lib/systemd/system
+generatordir = $(prefix)/lib/systemd/system-generators
 
 dist_systemd_DATA = anaconda.service \
 		    anaconda-direct.service \
