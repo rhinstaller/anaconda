@@ -2213,6 +2213,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                     container = self.__storage.getContainer(factory)
                     default_vg = getattr(container, "name", None)
 
+            log.debug("default vg is %s" % default_vg)
             vg_combo.remove_all()
             vgs = self.__storage.vgs
             for vg in vgs:
@@ -2220,9 +2221,15 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                 if default_vg and vg.name == default_vg:
                     vg_combo.set_active(vgs.index(vg))
 
+            if default_vg is None:
+                hostname = self.data.network.hostname
+                default_vg = self.__storage.suggestContainerName(hostname=hostname)
+                vg_combo.append_text(default_vg)
+                vg_combo.set_active(len(vg_combo.get_model()) - 1)
+
             vg_combo.append_text(new_vg_text)
             if default_vg is None:
-                vg_combo.set_active(len(vg_combo.get_model()))
+                vg_combo.set_active(len(vg_combo.get_model()) - 1)
 
             vg_combo.show()
             vg_button.show()
