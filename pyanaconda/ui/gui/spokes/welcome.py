@@ -66,6 +66,17 @@ class LanguageMixIn(object):
             if lang_timezone:
                 self.data.timezone.timezone = lang_timezone
 
+        lang_country = self.language.preferred_locale.territory
+        self._set_keyboard_defaults(store[itr][1], lang_country)
+
+    def _set_keyboard_defaults(self, lang_name, country):
+        """
+        Set default keyboard settings (layouts, layout switching).
+
+        @param lang_name: name of the selected language (e.g. "Czech")
+
+        """
+
         #remove all X layouts that are not valid X layouts (unsupported)
         #from the ksdata
         #XXX: could go somewhere else, but we need X running and we have
@@ -80,20 +91,24 @@ class LanguageMixIn(object):
 
         #get language name without any additional specifications
         #e.g. 'English (United States)' -> 'English'
-        lang_name = store[itr][1]
         lang_name = lang_name.split()[0]
-        country = self.language.preferred_locale.territory
 
-        #add one language-related and 'English (US)' layouts by default
-        new_layouts = ['us']
-        default_layout = self._xklwrapper.get_default_lang_country_layout(lang_name, country)
-        if default_layout and default_layout not in new_layouts:
-            new_layouts.append(default_layout)
+        default_layout = self._xklwrapper.get_default_lang_country_layout(lang_name,
+                                                                          country)
+        if default_layout:
+            new_layouts = [default_layout]
+        else:
+            new_layouts = ["us"]
 
-        for layout in new_layouts:
-            self.data.keyboard.x_layouts.append(layout)
-            if flags.can_touch_runtime_system("add runtime X layout"):
-                self._xklwrapper.add_layout(layout)
+        checkbutton = self.builder.get_object("setKeyboardCheckButton")
+        if not checkbutton.get_active() and "us" not in new_layouts:
+            #user doesn't want only the language-default layout, prepend
+            #'English (US)' layout
+            new_layouts.insert(0, "us")
+
+        self.data.keyboard.x_layouts = new_layouts
+        if flags.can_touch_runtime_system("replace runtime X layouts"):
+            self._xklwrapper.replace_layouts(new_layouts)
 
         if len(new_layouts) >= 2 and not self.data.keyboard.switch_options:
             #initialize layout switching if needed
