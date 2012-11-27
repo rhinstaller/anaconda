@@ -297,6 +297,30 @@ update-desktop-database &> /dev/null || :
 /usr/lib/dracut/modules.d/80%{name}/*
 
 %changelog
+* Mon Nov 26 2012 Brian C. Lane <bcl@redhat.com> - 18.31-1
+- Rename icons for liveinst (conflict with redhat-logos) (#878037) (rvykydal)
+- Rework actions in the resize dialog to avoid shortcomings (#866209, #867770).
+  (clumens)
+- Check that everything's a GDK window before attempting to manipulate it.
+  (clumens)
+- On live installs, the progress hub should have a Quit button (#854904).
+  (clumens)
+- If no bootloader is to be installed, pop up a warning. (clumens)
+- Escape ampersands in spoke status text. (clumens)
+- Allow not setting any boot device via the UI (#867469). (clumens)
+- Allow specifying whether the URL you've given is a mirrorlist or not
+  (#868558). (clumens)
+- Prevent false positives when checking for encryption change. (dlehman)
+- Don't add incomplete VGs to the LVM reject filter. (#878225) (dlehman)
+- Show device names for devices in the Unknown page/subsection. (#855646)
+  (dlehman)
+- Add a page to the custom RHS notebook for uneditable devices. (#875942)
+  (dlehman)
+- Fix error in iutil.execCapture when fatal and non-zero exit (stefw)
+- Allow iutil.execWithCapture to work without a chroot (stefw)
+- Handle hd iso leavings by dracut (#876897) (jkeating)
+- show error when rsync fails (#868755) (bcl)
+
 * Mon Nov 19 2012 Brian C. Lane <bcl@redhat.com> - 18.30-1
 - only raise rsync error on error 12 (#868755) (bcl)
 - Dump default auto connection's ifcfg file instead of writing a new one
