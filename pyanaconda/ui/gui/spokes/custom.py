@@ -1388,6 +1388,9 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             base_size = factory.device_size
         except MDRaidError as e:
             log.error("failed to populate UI raid options: %s" % e)
+            self._error = e
+            self.set_warning(str(e))
+            self.window.show_all()
             return
 
         active = raid_level_features[raid_level]
@@ -1940,6 +1943,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             return
 
         self._device_disks = disks
+        self._populate_raid(self._get_raid_level(),
+                            self.builder.get_object("sizeSpinner").get_value())
 
     def run_vg_editor(self, vg=None, name=None):
         if vg:
