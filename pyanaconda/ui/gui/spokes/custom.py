@@ -1632,6 +1632,13 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                                      _("Failed to add new device. Click for "
                                        "details."))
                 self.window.show_all()
+            except OverflowError as e:
+                log.error("invalid size set for partition")
+                self._error = e
+                self.window.set_info(Gtk.MessageType.ERROR,
+                                     _("Invalid partition size set. Use a "
+                                        "valid integer."))
+                self.window.show_all()
 
         self._devices = self.__storage.devices
         self._do_refresh()
