@@ -1568,27 +1568,27 @@ class GRUB2(GRUB):
         self.errors = []
         self.warnings = []
 
-        for (stage1dev, stage2dev) in self.install_targets:
-            if stage1dev == stage2dev:
-                continue
+        if self.stage1_device == self.stage2_device:
+            return ret
 
-            # These are small enough to fit
-            if stage2dev.format.type in ("ext2", "ext3", "ext4") \
-               and stage2dev.type == "partition":
-                continue
+        # These are small enough to fit
+        if self.stage2_device.format.type in ("ext2", "ext3", "ext4") \
+           and self.stage2_device.type == "partition":
+            return ret
 
-            # If the first partition starts too low show an error.
-            parts = stage1dev.format.partedDisk.partitions
-            for p in parts:
-                start = p.geometry.start * p.disk.device.sectorSize
-                if not p.getFlag(PARTITION_BIOS_GRUB) and start < 1024*512:
-                    msg = _("%s may not have enough space for grub2 to embed "
-                            "core.img when using the %s filesystem on %s") \
-                            % (stage1dev.name, stage2dev.format.type, stage2dev.type)
-                    log.error(msg)
-                    self.errors.append(msg)
-                    ret = False
-                    break
+        # If the first partition starts too low show an error.
+        parts = self.stage1_disk.format.partedDisk.partitions
+        for p in parts:
+            start = p.geometry.start * p.disk.device.sectorSize
+            if not p.getFlag(PARTITION_BIOS_GRUB) and start < 1024*512:
+                msg = _("%s may not have enough space for grub2 to embed "
+                        "core.img when using the %s filesystem on %s") \
+                        % (self.stage1_device.name, self.stage2_device.format.type, self.stage2_device.type)
+                log.error(msg)
+                self.errors.append(msg)
+                ret = False
+                break
+
         return ret
 
 class EFIGRUB(GRUB2):
