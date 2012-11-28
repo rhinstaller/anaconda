@@ -248,6 +248,9 @@ class NTPconfigDialog(GUIObject):
         self._serversStore.set_value(itr, 2, not old_value)
 
     def on_server_edited(self, renderer, path, new_text, *args):
+        if not path:
+            return
+
         itr = self._serversStore.get_iter(path)
 
         if self._serversStore[itr][0] == new_text:
