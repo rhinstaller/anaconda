@@ -545,10 +545,9 @@ class SourceSpoke(NormalSpoke):
             communication.send_message(self.__class__.__name__,
                                        _("Failed to set up install source"))
             if not self.data.method.proxy:
-                self.window.set_info(Gtk.MessageType.WARNING, _("Failed to set up install source, check the repo url"))
+                gtk_call_once(self.window.set_info, Gtk.MessageType.WARNING, _("Failed to set up install source, check the repo url"))
             else:
-                self.window.set_info(Gtk.MessageType.WARNING, _("Failed to set up install source, check the repo url and proxy settings"))
-            communication.send_ready(self.__class__.__name__)
+                gtk_call_once(self.window.set_info, Gtk.MessageType.WARNING, _("Failed to set up install source, check the repo url and proxy settings"))
         else:
             self._error = False
             communication.send_message(self.__class__.__name__,
@@ -560,10 +559,11 @@ class SourceSpoke(NormalSpoke):
                                            _(METADATA_ERROR_MESSAGE))
                 communication.send_ready(self.__class__.__name__)
                 self._error = True
-                self.window.set_info(Gtk.MessageType.WARNING, _("Failed to set up install source, check the repo url"))
+                gtk_call_once(self.window.set_info, Gtk.MessageType.WARNING, _("Failed to set up install source, check the repo url"))
             else:
-                communication.send_ready(self.__class__.__name__)
                 communication.send_ready("SoftwareSelectionSpoke")
+        finally:
+            communication.send_ready(self.__class__.__name__)
 
     @property
     def completed(self):
