@@ -1909,12 +1909,12 @@ class Storage(object):
                 container.removeMember(member)
                 members.remove(member)
                 self.formatDevice(member, getFormat("luks"))
-                member = LUKSDevice("luks-%s" % member.name,
+                luks_member = LUKSDevice("luks-%s" % member.name,
                                     parents=[member],
                                     format=getFormat(factory.member_format))
-                self.createDevice(member)
-                members.append(member)
-                container.addMember(member)
+                self.createDevice(luks_member)
+                members.append(luks_member)
+                container.addMember(luks_member)
 
             member.req_base_size = base_size
             member.req_size = member.req_base_size
@@ -1959,7 +1959,10 @@ class Storage(object):
                                                 container_size))
         size_set = factory.set_class(members, container_size)
         self.size_sets.append(size_set)
-        for member in members:
+        for member in members[:]:
+            if isinstance(member, LUKSDevice):
+                member = member.slave
+
             member.req_max_size = size_set.size
 
         try:
