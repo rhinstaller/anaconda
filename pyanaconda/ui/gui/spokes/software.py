@@ -260,9 +260,9 @@ class SoftwareSelectionSpoke(NormalSpoke):
         self._selectFlag = True
 
         if self._errorMsgs:
-            self.window.set_info(Gtk.MessageType.WARNING, _("Error checking software dependencies.  Click for details."))
+            self.set_warning(_("Error checking software dependencies.  Click for details."))
         else:
-            self.window.clear_info()
+            self.clear_info()
 
     def _get_selected_addons(self):
         return [row[2] for row in self._addonStore if row[0]]

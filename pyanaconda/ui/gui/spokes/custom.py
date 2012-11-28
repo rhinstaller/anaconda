@@ -851,8 +851,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             error = validate_mountpoint(mountpoint, self.__storage.mountpoints.keys())
             if error:
                 self._error = _(mountpoint_validation_msgs[error])
-                self.window.set_info(Gtk.MessageType.WARNING, self._error)
-                self.window.show_all()
+                self.set_warning(self._error)
                 self._populate_right_side(selector)
                 return
 
@@ -888,8 +887,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                           "disks than you currently have selected.")
 
         if error:
-            self.window.set_info(Gtk.MessageType.WARNING, error)
-            self.window.show_all()
+            self.set_warning(error)
             self._populate_right_side(selector)
             return
 
@@ -958,16 +956,12 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                                          selector=selector)
                 except ErrorRecoveryFailure as e:
                     self._error = e
-                    self.window.set_info(Gtk.MessageType.WARNING,
-                                         _(unrecoverable_error_msg))
-                    self.window.show_all()
+                    self.set_warning(_(unrecoverable_error_msg))
                     self._reset_storage()
                 except StorageError as e:
                     log.error("newDevice failed: %s" % e)
                     self._error = e
-                    self.window.set_info(Gtk.MessageType.WARNING,
-                                         _(device_configuration_error_msg)) 
-                    self.window.show_all()
+                    self.set_warning(_(device_configuration_error_msg)) 
 
                     # in this case we have removed the old device so we now have
                     # to re-create it
@@ -984,9 +978,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                         # failed to recover.
                         self.clear_errors()
                         self._error = e
-                        self.window.set_info(Gtk.MessageType.WARNING,
-                                             _(unrecoverable_error_msg))
-                        self.window.show_all()
+                        self.set_warning(_(unrecoverable_error_msg))
                         self._reset_storage()
                 else:
                     # you can't change the type of an existing device, so we
@@ -1023,10 +1015,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                         log.error("failed to schedule device resize: %s" % e)
                         device.size = old_size
                         self._error = e
-                        self.window.set_info(Gtk.MessageType.WARNING,
-                                             _("Device resize request failed. "
-                                               "Click for details."))
-                        self.window.show_all()
+                        self.set_warning(_("Device resize request failed. "
+                                           "Click for details."))
                     else:
                         log.debug("%r" % device)
                         log.debug("new size: %s" % device.size)
@@ -1046,16 +1036,12 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                                                  raid_level=raid_level)
                     except ErrorRecoveryFailure as e:
                         self._error = e
-                        self.window.set_info(Gtk.MessageType.WARNING,
-                                             _(unrecoverable_error_msg))
-                        self.window.show_all()
+                        self.set_warning(_(unrecoverable_error_msg))
                         self._reset_storage()
                     except StorageError as e:
                         log.error("newDevice failed: %s" % e)
                         self._error = e
-                        self.window.set_info(Gtk.MessageType.WARNING,
-                                             _(device_configuration_error_msg))
-                        self.window.show_all()
+                        self.set_warning(_(device_configuration_error_msg))
 
                     self._devices = self.__storage.devices
 
@@ -1132,10 +1118,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                         log.error("failed to register device format action: %s" % e)
                         device.format = old_format
                         self._error = e
-                        self.window.set_info(Gtk.MessageType.WARNING,
-                                             _("Device reformat request failed. "
-                                               "Click for details."))
-                        self.window.show_all()
+                        self.set_warning(_("Device reformat request failed. "
+                                           "Click for details."))
                     else:
                         # first, remove this selector from any old install page(s)
                         new_selector = None
@@ -1621,24 +1605,18 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             except ErrorRecoveryFailure as e:
                 log.error("error recovery failure")
                 self._error = e
-                self.window.set_info(Gtk.MessageType.ERROR,
-                                     _(unrecoverable_error_msg))
-                self.window.show_all()
+                self.set_error(_(unrecoverable_error_msg))
                 self._reset_storage()
             except StorageError as e:
                 log.error("newDevice failed: %s" % e)
                 self._error = e
-                self.window.set_info(Gtk.MessageType.ERROR,
-                                     _("Failed to add new device. Click for "
-                                       "details."))
-                self.window.show_all()
+                self.set_error(_("Failed to add new device. Click for "
+                                 "details."))
             except OverflowError as e:
                 log.error("invalid size set for partition")
                 self._error = e
-                self.window.set_info(Gtk.MessageType.ERROR,
-                                     _("Invalid partition size set. Use a "
-                                        "valid integer."))
-                self.window.show_all()
+                self.set_error(_("Invalid partition size set. Use a "
+                                 "valid integer."))
 
         self._devices = self.__storage.devices
         self._do_refresh()
@@ -1656,10 +1634,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             except StorageError as e:
                 log.error("failed to schedule device removal: %s" % e)
                 self._error = e
-                self.window.set_info(Gtk.MessageType.WARNING,
-                                     _("Device removal request failed. Click "
-                                       "for details."))
-                self.window.show_all()
+                self.set_warning(_("Device removal request failed. Click "
+                                   "for details."))
             else:
                 if is_logical_partition:
                     self.__storage.removeEmptyExtendedPartitions()
@@ -1807,9 +1783,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                                             [d.name for d in disks]))
         if not disks:
             self._error = "No disks selected. Keeping previous disk set."
-            self.window.set_info(Gtk.MessageType.INFO,
-                                 self._error)
-            self.window.show_all()
+            self.set_info(self._error)
             return
 
         self._device_disks = disks
@@ -1905,24 +1879,18 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                 # No handling should be required for this.
                 log.error("doAutoPartition failed: %s" % e)
                 self._error = e
-                self.window.set_info(Gtk.MessageType.ERROR,
-                                     _("No disks selected."))
-                self.window.show_all()
+                self.set_error(_("No disks selected."))
             except NotEnoughFreeSpaceError as e:
                 # No handling should be required for this.
                 log.error("doAutoPartition failed: %s" % e)
                 self._error = e
-                self.window.set_info(Gtk.MessageType.ERROR,
-                                     _("Not enough free space on selected disks."))
-                self.window.show_all()
+                self.set_error(_("Not enough free space on selected disks."))
             except StorageError as e:
                 log.error("doAutoPartition failed: %s" % e)
                 self._reset_storage()
                 self._error = e
-                self.window.set_info(Gtk.MessageType.ERROR,
-                                     _("Automatic partitioning failed. Click "
-                                       "for details."))
-                self.window.show_all()
+                self.set_error(_("Automatic partitioning failed. Click "
+                                 "for details."))
             else:
                 self._devices = self.__storage.devices
             finally:
@@ -2050,7 +2018,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
     def clear_errors(self):
         self._error = None
-        self.window.clear_info()
+        self.clear_info()
 
     def on_info_bar_clicked(self, *args):
         log.debug("info bar clicked: %s (%s)" % (self._error, args))
@@ -2088,10 +2056,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             self._error = e
             device.format.passphrase = None
             entry.set_text("")
-            self.window.set_info(Gtk.MessageType.WARNING,
-                                 _("Failed to unlock encrypted block device. "
-                                   "Click for details"))
-            self.window.show_all()
+            self.set_warning(_("Failed to unlock encrypted block device. "
+                               "Click for details"))
             return
 
         log.info("unlocked %s, now going to populate devicetree..." % device.name)

@@ -337,8 +337,6 @@ class GUIObject(common.UIObject):
         raise IOError("Could not load UI file '%s' for object '%s'" % (self.uiFile, self))
 
     def _handlePrntScreen(self, window, event):
-        from gi.repository import Gdk
-
         global _screenshotIndex
 
         if event.keyval != Gdk.KEY_Print:
@@ -404,6 +402,38 @@ class GUIObject(common.UIObject):
             self._window = self.builder.get_object(self.mainWidgetName)
 
         return self._window
+
+    def clear_info(self):
+        """Clear any info bar from the bottom of the screen."""
+        self.window.clear_info()
+
+    def set_error(self, msg):
+        """Display an info bar along the bottom of the screen with the provided
+           message.  This method is used to display critical errors anaconda
+           may not be able to do anything about, but that the user may.  A
+           suitable background color and icon will be displayed.
+        """
+        self.window.set_info(msg)
+        self.window.show_all()
+
+    def set_info(self, msg):
+        """Display an info bar along the bottom of the screen with the provided
+           message.  This method is used to display informational text -
+           non-critical warnings during partitioning, for instance.  The user
+           should investigate these messages but doesn't have to.  A suitable
+           background color and icon will be displayed.
+        """
+        self.window.set_info(msg)
+        self.window.show_all()
+
+    def set_warning(self, msg):
+        """Display an info bar along the bottom of the screen with the provided
+           message.  This method is used to display errors the user needs to
+           attend to in order to continue installation.  This is the bulk of
+           messages.  A suitable background color and icon will be displayed.
+        """
+        self.window.set_info(msg)
+        self.window.show_all()
 
 class QuitDialog(GUIObject):
     builderObjects = ["quitDialog"]

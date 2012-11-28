@@ -205,9 +205,6 @@ class Hub(GUIObject, common.Hub):
         self._handleCompleteness(spoke)
 
     def _handleCompleteness(self, spoke):
-        # pylint: disable-msg=E0611
-        from gi.repository import Gtk
-
         # Add the spoke to the incomplete list if it's now incomplete, and make
         # sure it's not on the list if it's now complete.  Then show the box if
         # it's needed and hide it if it's not.
@@ -221,14 +218,14 @@ class Hub(GUIObject, common.Hub):
         self._updateContinueButton()
 
         if len(self._incompleteSpokes) == 0:
-            self.window.clear_info()
+            self.clear_info()
         else:
             if flags.automatedInstall:
                 msg = _("When all items marked with this icon are complete, installation will automatically continue.")
             else:
                 msg = _("Please complete items marked with this icon before continuing to the next step.")
 
-            self.window.set_info(Gtk.MessageType.WARNING, msg)
+            self.set_warning(msg)
 
     @property
     def continuePossible(self):

@@ -400,20 +400,7 @@ GtkWidget *anaconda_base_window_get_alignment(AnacondaBaseWindow *win) {
     return win->priv->alignment;
 }
 
-/**
- * anaconda_base_window_set_info:
- * @win: a #AnacondaBaseWindow
- * @ty: a #GtkMessageType
- * @msg: a message
- *
- * Causes an info bar to be shown at the bottom of the screen with the provided
- * message.  The type argument is used to determine the background color of the
- * info bar area.  Only one message may be shown at a time.  In order to show
- * a second message, anaconda_base_window_clear_info must first be called.
- *
- * Since: 1.0
- */
-void anaconda_base_window_set_info(AnacondaBaseWindow *win, GtkMessageType ty, const char *msg) {
+static void anaconda_base_window_set_info_bar(AnacondaBaseWindow *win, GtkMessageType ty, const char *msg) {
     GtkWidget *label, *image, *content_area;
 
     if (win->priv->info_shown)
@@ -450,6 +437,51 @@ void anaconda_base_window_set_info(AnacondaBaseWindow *win, GtkMessageType ty, c
     gtk_widget_show(win->priv->info_bar);
 
     win->priv->info_shown = TRUE;
+}
+
+/**
+ * anaconda_base_window_set_error:
+ * @win: a #AnacondaBaseWindow
+ * @msg: a message
+ *
+ * Causes an info bar to be shown at the bottom of the screen with the provided
+ * message.  Only one message may be shown at a time.  In order to show
+ * a second message, anaconda_base_window_clear_info must first be called.
+ *
+ * Since: 1.0
+ */
+void anaconda_base_window_set_error(AnacondaBaseWindow *win, const char *msg) {
+    anaconda_base_window_set_info_bar(win, GTK_MESSAGE_ERROR, msg);
+}
+
+/**
+ * anaconda_base_window_set_info:
+ * @win: a #AnacondaBaseWindow
+ * @msg: a message
+ *
+ * Causes an info bar to be shown at the bottom of the screen with the provided
+ * message.  Only one message may be shown at a time.  In order to show
+ * a second message, anaconda_base_window_clear_info must first be called.
+ *
+ * Since: 1.0
+ */
+void anaconda_base_window_set_info(AnacondaBaseWindow *win, const char *msg) {
+    anaconda_base_window_set_info_bar(win, GTK_MESSAGE_INFO, msg);
+}
+
+/**
+ * anaconda_base_window_set_warning:
+ * @win: a #AnacondaBaseWindow
+ * @msg: a message
+ *
+ * Causes an info bar to be shown at the bottom of the screen with the provided
+ * message.  Only one message may be shown at a time.  In order to show
+ * a second message, anaconda_base_window_clear_info must first be called.
+ *
+ * Since: 1.0
+ */
+void anaconda_base_window_set_warning(AnacondaBaseWindow *win, const char *msg) {
+    anaconda_base_window_set_info_bar(win, GTK_MESSAGE_WARNING, msg);
 }
 
 static gboolean anaconda_base_window_info_bar_clicked(GtkWidget *wiget, GdkEvent *event, AnacondaBaseWindow *win) {

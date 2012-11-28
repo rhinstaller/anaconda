@@ -423,7 +423,7 @@ class DatetimeSpoke(NormalSpoke):
         if not has_active_network:
             self._show_no_network_warning()
         else:
-            self.window.clear_info()
+            self.clear_info()
             gtk_call_once(self._config_dialog.refresh_servers_state)
 
         if flags.can_touch_runtime_system("get NTP service state"):
@@ -792,13 +792,11 @@ class DatetimeSpoke(NormalSpoke):
         footer_alignment.set_sensitive(sensitive)
 
     def _show_no_network_warning(self):
-        self.window.set_info(Gtk.MessageType.WARNING,
-                             _("You need to set up networking first if you "\
-                               "want to use NTP"))
+        self.set_warning(_("You need to set up networking first if you "\
+                           "want to use NTP"))
 
     def _show_no_ntp_server_warning(self):
-        self.window.set_info(Gtk.MessageType.WARNING,
-                             _("You have no working NTP server configured"))
+        self.set_warning(_("You have no working NTP server configured"))
 
     def on_ntp_switched(self, switch, *args):
         if switch.get_active():
@@ -812,7 +810,7 @@ class DatetimeSpoke(NormalSpoke):
                 switch.set_active(False)
                 return
             else:
-                self.window.clear_info()
+                self.clear_info()
 
                 working_server = self._config_dialog.working_server
                 if working_server is None:
@@ -856,5 +854,5 @@ class DatetimeSpoke(NormalSpoke):
             if self._config_dialog.working_server is None:
                 self._show_no_ntp_server_warning()
             else:
-                self.window.clear_info()
+                self.clear_info()
 

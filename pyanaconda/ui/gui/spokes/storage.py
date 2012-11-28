@@ -493,7 +493,7 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         self._update_summary()
 
         if self.errors:
-            self.window.set_info(Gtk.MessageType.WARNING, _("Error checking storage configuration.  Click for details."))
+            self.set_warning(_("Error checking storage configuration.  Click for details."))
 
     def initialize(self):
         from pyanaconda.ui.gui.utils import setViewportBackground
@@ -579,11 +579,11 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         summary_label.set_text(summary)
 
         if len(self.disks) == 0:
-            self.window.set_info(Gtk.MessageType.WARNING, _("No disks detected.  Please shut down the computer, connect at least one disk, and restart to complete installation."))
+            self.set_warning(_("No disks detected.  Please shut down the computer, connect at least one disk, and restart to complete installation."))
         elif count == 0:
-            self.window.set_info(Gtk.MessageType.WARNING, _("No disks selected; please select at least one disk to install to."))
+            self.set_warning(_("No disks selected; please select at least one disk to install to."))
         else:
-            self.window.clear_info()
+            self.clear_info()
 
         self.builder.get_object("continue_button").set_sensitive(count > 0)
         self.builder.get_object("summary_label").set_sensitive(count > 0)
@@ -624,10 +624,9 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         self._update_summary()
 
         if self.data.bootloader.location == "none":
-            self.window.set_info(Gtk.MessageType.WARNING, _("You have chosen to skip bootloader installation.  Your system may not be bootable."))
-            self.window.show_all()
+            self.set_warning(_("You have chosen to skip bootloader installation.  Your system may not be bootable."))
         else:
-            self.window.clear_info()
+            self.clear_info()
 
     def run_lightbox_dialog(self, dialog):
         with enlightbox(self.window, dialog.window):

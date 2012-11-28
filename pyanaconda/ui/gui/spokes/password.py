@@ -120,16 +120,15 @@ class PasswordSpoke(NormalSpoke):
 
         # if no errors, clear the info for next time we go into the spoke
         self._password = pw
-        self.window.clear_info()
+        self.clear_info()
         self._error = False
         return True
 
     def on_back_clicked(self, button):
         if self._validatePassword():
-            self.window.clear_info()
+            self.clear_info()
             NormalSpoke.on_back_clicked(self, button)
         else:
-            self.window.clear_info()
-            self.window.set_info(Gtk.MessageType.WARNING, self._error)
+            self.clear_info()
+            self.set_warning(self._error)
             self.pw.grab_focus()
-            self.window.show_all()

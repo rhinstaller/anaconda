@@ -71,7 +71,9 @@ void        anaconda_base_window_retranslate (AnacondaBaseWindow *win);
 gboolean    anaconda_base_window_get_beta (AnacondaBaseWindow *win);
 void        anaconda_base_window_set_beta (AnacondaBaseWindow *win, gboolean is_beta);
 
-void        anaconda_base_window_set_info    (AnacondaBaseWindow *win, GtkMessageType ty, const char *msg);
+void        anaconda_base_window_set_error   (AnacondaBaseWindow *win, const char *msg);
+void        anaconda_base_window_set_info    (AnacondaBaseWindow *win, const char *msg);
+void        anaconda_base_window_set_warning (AnacondaBaseWindow *win, const char *msg);
 void        anaconda_base_window_clear_info  (AnacondaBaseWindow *win);
 
 GtkWidget  *anaconda_base_window_get_action_area   (AnacondaBaseWindow *win);
