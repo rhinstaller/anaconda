@@ -2266,7 +2266,7 @@ class Storage(object):
                                             mountpoint=mountpoint,
                                             fmt_args=fmt_args,
                                             **kwa)
-            except StorageError as e:
+            except (StorageError, ValueError) as e:
                 log.error("device instance creation failed: %s" % e)
                 _container_post_error()
                 raise

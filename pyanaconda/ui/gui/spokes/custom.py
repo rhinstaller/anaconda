@@ -21,7 +21,7 @@
 #
 
 # TODO:
-# - Add a way for users to specify the names of md, lv, subvol devices.
+# - Add a way for users to specify the names of subvols.
 # - We should either remove boot disk selection from the cart we show from here
 #   or re-partition when it gets changed to make a best-effort at keeping up.
 # - Deleting an LV is not reflected in available space in the bottom left.
@@ -436,6 +436,11 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
         self._device_disks = []
         self._device_container_name = None
+        self._device_name_dict = {DEVICE_TYPE_LVM: None,
+                                  DEVICE_TYPE_MD: None,
+                                  DEVICE_TYPE_PARTITION: "",
+                                  DEVICE_TYPE_BTRFS: "",
+                                  DEVICE_TYPE_DISK: ""}
 
         self._initialized = False
 
@@ -879,9 +884,23 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         if self._partitionsNotebook.get_current_page() != NOTEBOOK_DETAILS_PAGE:
             return
 
+        use_dev = device
+        if device.type == "luks/dm-crypt":
+            use_dev = device.slave
+
         log.info("ui: saving changes to device %s" % device.name)
 
         # TODO: member type
+        old_name = getattr(use_dev, "lvname", use_dev.name)
+        name = old_name
+        changed_name = False
+        name_entry = self.builder.get_object("nameEntry")
+        if name_entry.get_sensitive():
+            name = name_entry.get_text()
+            changed_name = (name != old_name)
+
+        log.debug("old_name: %s" % old_name)
+        log.debug("new_name: %s" % name)
 
         size = self.builder.get_object("sizeSpinner").get_value()
         log.debug("new size: %s" % size)
@@ -987,9 +1006,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         ##
         ## DEVICE TYPE (early return)
         ##
-        use_dev = device
-        if device.type == "luks/dm-crypt":
-            use_dev = device.slave
         current_device_type = getDeviceType(device)
         old_raid_level = getRAIDLevel(device)
         changed_device_type = (current_device_type != device_type)
@@ -1051,7 +1067,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                     self._replace_device(device_type, size, fstype=fs_type,
                                          disks=disks, mountpoint=mountpoint,
                                          label=label, raid_level=raid_level,
-                                         encrypted=encrypted,
+                                         encrypted=encrypted, name=name,
                                          container_name=self._device_container_name,
                                          selector=selector)
                 except ErrorRecoveryFailure as e:
@@ -1075,6 +1091,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                                              label=old_label,
                                              raid_level=old_raid_level,
                                              encrypted=prev_encrypted,
+                                             name=old_name,
                                              container_name=old_container_name,
                                              selector=selector)
                     except StorageError as e:
@@ -1163,6 +1180,20 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
             self._updateSpaceDisplay()
             self._populate_right_side(selector)
+
+
+        ##
+        ## NAME
+        ##
+        if changed_name:
+            use_dev._name = name
+            new_name = use_dev.name
+            if new_name in self.__storage.names:
+                use_dev._name = old_name
+                self.set_info(_("Specified name %s already in use.") % new_name)
+            else:
+                if old_name == selector.props.name:
+                    selector.props.name = new_name
 
         if reformat:
             ##
@@ -1445,6 +1476,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         reformatCheckbox = self.builder.get_object("reformatCheckbox")
         labelEntry = self.builder.get_object("labelEntry")
         mountPointEntry = self.builder.get_object("mountPointEntry")
+        nameEntry = self.builder.get_object("nameEntry")
         selectedDeviceLabel = self.builder.get_object("selectedDeviceLabel")
         selectedDeviceDescLabel = self.builder.get_object("selectedDeviceDescLabel")
         sizeSpinner = self.builder.get_object("sizeSpinner")
@@ -1473,6 +1505,9 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
         selectedDeviceLabel.set_text(selector.props.name)
         selectedDeviceDescLabel.set_text(self._description(selector.props.name))
+
+        device_name = getattr(use_dev, "lvname", use_dev.name)
+        nameEntry.set_text(device_name)
 
         mountPointEntry.set_text(getattr(device.format, "mountpoint", "") or "")
         mountPointEntry.set_sensitive(hasattr(device.format, "mountpoint"))
@@ -1624,6 +1659,23 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                           DEVICE_TYPE_LVM: lvm_pos,
                           DEVICE_TYPE_MD: md_pos,
                           DEVICE_TYPE_DISK: disk_pos}
+
+        for _type in self._device_name_dict.iterkeys():
+            if _type == device_type:
+                self._device_name_dict[_type] = device_name
+                continue
+            elif _type not in (DEVICE_TYPE_LVM, DEVICE_TYPE_MD):
+                continue
+
+            swap = (device.format.type == "swap")
+            mountpoint = getattr(device.format, "mountpoint", None)
+
+            with ui_storage_logger():
+                name = self.__storage.suggestDeviceName(swap=swap,
+                                                        mountpoint=mountpoint)
+
+            self._device_name_dict[_type] = name
+
         typeCombo.set_active(type_index_map[device_type])
 
         # you can't change the type of an existing device
@@ -1632,6 +1684,9 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         self._populate_raid(raid_level, device.size)
         self._populate_lvm(device=use_dev)
         self.builder.get_object("optionsNotebook").set_sensitive(not device.exists)
+        # do this last in case this was set sensitive in on_device_type_changed
+        if use_dev.exists:
+            nameEntry.set_sensitive(False)
 
     ###
     ### SIGNAL HANDLERS
@@ -2294,6 +2349,10 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         size = self.builder.get_object("sizeSpinner").get_value()
         self._populate_raid(raid_level, size)
         self._populate_lvm()
+
+        nameEntry = self.builder.get_object("nameEntry")
+        nameEntry.set_sensitive(new_type in (DEVICE_TYPE_LVM, DEVICE_TYPE_MD))
+        nameEntry.set_text(self._device_name_dict[new_type])
 
         # begin btrfs magic
         fsCombo = self.builder.get_object("fileSystemTypeCombo")
