@@ -1773,6 +1773,16 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         self.clear_errors()
 
         with ui_storage_logger():
+            factory = self.__storage.getDeviceFactory(device_type, size)
+            container = self.__storage.getContainer(factory)
+
+            if container:
+                # don't override user-initiated changes to a defined container
+                if factory.encrypt_members:
+                    encrypted = container.encrypted
+
+                disks = container.disks
+
             try:
                 self.__storage.newDevice(device_type,
                                          size=size,
@@ -1789,7 +1799,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             except StorageError as e:
                 log.error("newDevice failed: %s" % e)
                 log.debug("trying to find an existing container to use")
-                factory = self.__storage.getDeviceFactory(device_type, size)
                 container = self.__storage.getContainer(factory, existing=True)
                 log.debug("found container %s" % container)
                 if container:
