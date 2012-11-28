@@ -1540,6 +1540,13 @@ class PartitionDevice(StorageDevice):
             self.partedPartition = self.disk.originalFormat.partedDisk.getPartitionByPath(self.path)
             raise
 
+        if self.disk.format.exists:
+            # If the new/current disklabel is the same as the original one, we
+            # have to duplicate the removal on the other copy of the DiskLabel.
+            part = self.disk.format.partedDisk.getPartitionByPath(self.path)
+            self.disk.format.removePartition(part)
+            self.disk.format.commit()
+
     def deactivate(self):
         """
         This is never called. For instructional purposes only.
