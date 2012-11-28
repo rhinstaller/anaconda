@@ -294,13 +294,22 @@ class AnacondaYumRepo(YumRepository):
         else:
             return False
 
-    def dirCleanup(self):
+    def dirCleanup(self, upgrade=False):
         cachedir = self.getAttribute('cachedir')
 
         if os.path.isdir(cachedir):
-            if not self.needsNetwork() or self.name == "Installation Repo" or self.id.startswith("anaconda-"):
+            if upgrade:
+                log.debug("Removing contents of %s" % (cachedir))
+                for f in filter(os.path.isfile, glob.glob("%s/*" % (cachedir))):
+                    try:
+                        os.unlink(f)
+                    except Exception, e:
+                        log.debug("error %s removing: %s" %(e,f))
+            elif not self.needsNetwork() or self.name == "Installation Repo" or self.id.startswith("anaconda-"):
+                log.debug("Removing cachedir: %s" % (cachedir))
                 shutil.rmtree(cachedir)
             else:
+                log.debug("Removing headers and packages from %s" % (cachedir))
                 if os.path.exists("%s/headers" % cachedir):
                     shutil.rmtree("%s/headers" % cachedir)
                 if os.path.exists("%s/packages" % cachedir):
@@ -920,6 +929,14 @@ class AnacondaYum(YumSorter):
 
         self.repos.setCacheDir(self.conf.cachedir)
 
+        # When upgrading cleanup the yum cache and enable the addons
+        # This has to be called after setCacheDir
+        if self.anaconda.id.getUpgrade():
+            for repo in extraRepos:
+                repo.dirCleanup(upgrade=True)
+                repo.enable()
+                log.info("enabled %s for upgrade" % (repo.name))
+
         if os.path.exists("%s/boot/upgrade/install.img" % self.anaconda.rootPath):
             log.info("REMOVING stage2 image from %s /boot/upgrade" % self.anaconda.rootPath )
             try:
@@ -1312,13 +1329,6 @@ debuglevel=6
         iutil.writeRpmPlatform()
         self.ayum = AnacondaYum(anaconda)
         self.ayum.setup()
-
-        if anaconda.id.getUpgrade():
-            # If we are doing an upgrade, we need to enable all repos,
-            # so that packages from them get updated.
-            for repo in self.ayum.repos.repos.itervalues():
-                repo.enable()
-
         self.ayum.doMacros()
 
         # If any enabled repositories require networking, go ahead and bring
