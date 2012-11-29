@@ -787,16 +787,16 @@ class SourceSpoke(NormalSpoke):
         return not flags.livecdInstall
 
     def _mirror_active(self):
-        return self._protocolComboBox.get_active_text().startswith("Closest")
+        return self._protocolComboBox.get_active() == 0
 
     def _http_active(self):
-        return self._protocolComboBox.get_active_text().startswith("http")
+        return self._protocolComboBox.get_active() in [1, 2]
 
     def _ftp_active(self):
-        return self._protocolComboBox.get_active_text().startswith("ftp")
+        return self._protocolComboBox.get_active() == 3
 
     def _nfs_active(self):
-        return self._protocolComboBox.get_active_text().startswith("nfs")
+        return self._protocolComboBox.get_active() == 4
 
     def _get_selected_media(self):
         dev = None
