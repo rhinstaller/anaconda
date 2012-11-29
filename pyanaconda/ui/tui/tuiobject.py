@@ -48,12 +48,3 @@ class TUIObject(tui.UIScreen, common.UIObject):
     def refresh(self, args = None):
         """Put everything to display into self.window list."""
         tui.UIScreen.refresh(self, args)
-
-    def retranslate(self):
-        """After language is changed, this method ensures that all the
-        texts on screen are translated. It only needs to refresh the
-        screen in text mode, as translation will happen automatically
-        and there is no way to change labels on previously displayed content."""
-
-        # redraw
-        self.app.switch_screen(self)

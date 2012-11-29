@@ -233,10 +233,6 @@ class WelcomeLanguageSpoke(LanguageMixIn, StandaloneSpoke):
         StandaloneSpoke.__init__(self, *args)
         LanguageMixIn.__init__(self)
 
-    def retranslate(self):
-        StandaloneSpoke.retranslate(self)
-        LanguageMixIn.retranslate(self)
-
     def refresh(self):
         StandaloneSpoke.refresh(self)
         LanguageMixIn.refresh(self, "welcomeWindowContentBox")
@@ -282,10 +278,6 @@ class LanguageSpoke(LanguageMixIn, NormalSpoke):
     def initialize(self):
         LanguageMixIn.initialize(self)
         NormalSpoke.initialize(self)
-
-    def retranslate(self):
-        NormalSpoke.retranslate(self)
-        LanguageMixIn.retranslate(self)
 
     def refresh(self):
         NormalSpoke.refresh(self)

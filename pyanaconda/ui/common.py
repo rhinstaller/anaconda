@@ -57,13 +57,6 @@ class UIObject(object):
         """
         pass
 
-    def retranslate(self):
-        """This method should be called when the current language is changed
-           in order to update the UI for the new language.  Since we don't get
-           any toolkit help for this, it is largely a manual process.
-        """
-        pass
-
     def refresh(self):
         """Perform whatever actions are necessary to reset the UI immediately
            before it is displayed.  This method is called every time a screen
