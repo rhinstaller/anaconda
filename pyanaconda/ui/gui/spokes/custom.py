@@ -95,7 +95,7 @@ NOTEBOOK_DETAILS_PAGE = 1
 NOTEBOOK_LUKS_PAGE = 2
 NOTEBOOK_UNEDITABLE_PAGE = 3
 
-new_install_name = N_("New %s %s Installation") % (productName, productVersion)
+new_install_name = N_("New %s %s Installation")
 new_vg_text = N_("Create a new volume group ...")
 unrecoverable_error_msg = N_("Storage configuration reset due to unrecoverable "
                              "error. Click for details.")
@@ -650,6 +650,10 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
         self._updateSpaceDisplay()
 
+    @property
+    def translated_new_install_name(self):
+        return _(new_install_name) % (productName, productVersion)
+
     def _do_refresh(self):
         # block mountpoint selector signal handler for now
         self._initialized = False
@@ -697,7 +701,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         # ensures it's only added once.
         if not new_devices:
             page = CreateNewPage(self.on_create_clicked)
-            page.pageTitle = _(new_install_name)
+            page.pageTitle = self.translated_new_install_name
             self._accordion.addPage(page, cb=self.on_page_clicked)
 
             if page.pageTitle not in page_order:
@@ -715,7 +719,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                 if device in self.bootLoaderDevices:
                     mounts[device.format.type] = device
 
-            new_root = Root(mounts=mounts, swaps=swaps, name=_(new_install_name))
+            new_root = Root(mounts=mounts, swaps=swaps, name=self.translated_new_install_name)
             ui_roots.insert(0, new_root)
 
         # Add in all the existing (or autopart-created) operating systems.
@@ -724,7 +728,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             # Also, only include devices in an old page if the format is intact.
             if not [d for d in root.swaps + root.mounts.values()
                         if d in self._devices and d.disks and
-                           (root.name == _(new_install_name) or d.format.exists)]:
+                           (root.name == self.translated_new_install_name or d.format.exists)]:
                 continue
 
             page = Page()
@@ -733,7 +737,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             for (mountpoint, device) in root.mounts.iteritems():
                 if device not in self._devices or \
                    not device.disks or \
-                   (root.name != _(new_install_name) and not device.format.exists):
+                   (root.name != self.translated_new_install_name and not device.format.exists):
                     continue
 
                 selector = page.addDevice(self._mountpointName(mountpoint) or device.format.name, Size(spec="%f MB" % device.size), mountpoint, self.on_selector_clicked)
@@ -742,7 +746,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
             for device in root.swaps:
                 if device not in self._devices or \
-                   (root.name != _(new_install_name) and not device.format.exists):
+                   (root.name != self.translated_new_install_name and not device.format.exists):
                     continue
 
                 selector = page.addDevice("Swap",
@@ -811,15 +815,15 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
     def add_new_selector(self, device):
         """ Add an entry for device to the new install Page. """
-        page = self._accordion._find_by_title(_(new_install_name)).get_child()
+        page = self._accordion._find_by_title(self.translated_new_install_name).get_child()
         devices = [device]
         if not hasattr(page, "_members"):
             # remove the CreateNewPage and replace it with a regular Page
-            expander = self._accordion._find_by_title(_(new_install_name))
+            expander = self._accordion._find_by_title(self.translated_new_install_name)
             expander.remove(expander.get_child())
 
             page = Page()
-            page.pageTitle = _(new_install_name)
+            page.pageTitle = self.translated_new_install_name
             expander.add(page)
 
             # pull in all the existing swap devices
@@ -845,7 +849,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
     def _update_btrfs_selectors(self):
         """ Update all btrfs selectors' size properties. """
         # we're only updating selectors in the new root. problem?
-        page = self._accordion._find_by_title(_(new_install_name)).get_child()
+        page = self._accordion._find_by_title(self.translated_new_install_name).get_child()
         if not hasattr(page, "_members"):
             return
 
@@ -1266,7 +1270,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                         for page in self._accordion.allPages:
                             for _selector in getattr(page, "_members", []):
                                 if _selector._device in (device, old_device):
-                                    if page.pageTitle == _(new_install_name):
+                                    if page.pageTitle == self.translated_new_install_name:
                                         new_selector = _selector
                                         continue
 
@@ -1922,7 +1926,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
         log.debug("removing device '%s' from page %s" % (device, root_name))
 
-        if root_name == _(new_install_name):
+        if root_name == self.translated_new_install_name:
             if device.exists:
                 # This is an existing device that was added to the new page.
                 # All we want to do is revert any changes to the device and
