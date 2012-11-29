@@ -222,6 +222,10 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Thu Nov 29 2012 Brian C. Lane <bcl@redhat.com> - 13.21.187-1
+- cleanup addon repo cache dirs before upgrade (bcl)
+  Resolves: rhbz#746925
+
 * Mon Nov 26 2012 Brian C. Lane <bcl@redhat.com> - 13.21.186-1
 - always show reserved space in lvm dialog (bcl)
   Resolves: rhbz#879667
