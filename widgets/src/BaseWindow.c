@@ -17,6 +17,8 @@
  * Author: Chris Lumens <clumens@redhat.com>
  */
 
+#include <libintl.h>
+#include <stdlib.h>
 #include <string.h>
 
 #include "BaseWindow.h"
@@ -522,9 +524,17 @@ void anaconda_base_window_clear_info(AnacondaBaseWindow *win) {
  *
  * Since: 1.0
  */
-void anaconda_base_window_retranslate(AnacondaBaseWindow *win) {
+void anaconda_base_window_retranslate(AnacondaBaseWindow *win, const char *lang) {
     char *markup;
     GValue distro = G_VALUE_INIT;
+
+    setenv("LANGUAGE", lang, 1);
+    setlocale(LC_ALL, "");
+
+    {
+        extern int _nl_msg_cat_cntr;
+        ++_nl_msg_cat_cntr;
+    }
 
     g_value_init(&distro, G_TYPE_STRING);
     g_value_set_string(&distro, _(win->priv->orig_distro));

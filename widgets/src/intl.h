@@ -23,7 +23,7 @@
 #include "../config.h"
 #include "gettext.h"
 
-#define _(x) gettext(x)
+#define _(x) dgettext("anaconda", x)
 #define N_(String) String
 
 #ifdef ENABLE_NLS

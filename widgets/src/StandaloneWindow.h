@@ -72,7 +72,7 @@ GType       anaconda_standalone_window_get_type (void);
 GtkWidget  *anaconda_standalone_window_new      ();
 gboolean    anaconda_standalone_window_get_may_continue  (AnacondaStandaloneWindow *win);
 void        anaconda_standalone_window_set_may_continue  (AnacondaStandaloneWindow *win, gboolean may_continue);
-void        anaconda_standalone_window_retranslate       (AnacondaStandaloneWindow *win);
+void        anaconda_standalone_window_retranslate       (AnacondaStandaloneWindow *win, const char *lang);
 
 G_END_DECLS
 

@@ -205,8 +205,8 @@ void anaconda_standalone_window_set_may_continue(AnacondaStandaloneWindow *win,
  *
  * Since: 1.0
  */
-void anaconda_standalone_window_retranslate(AnacondaStandaloneWindow *win) {
-    anaconda_base_window_retranslate(ANACONDA_BASE_WINDOW(win));
+void anaconda_standalone_window_retranslate(AnacondaStandaloneWindow *win, const char *lang) {
+    anaconda_base_window_retranslate(ANACONDA_BASE_WINDOW(win), lang);
     gtk_button_set_label(GTK_BUTTON(win->priv->quit_button), _(QUIT_TEXT));
     gtk_button_set_label(GTK_BUTTON(win->priv->continue_button), _(CONTINUE_TEXT));
 }

@@ -147,7 +147,7 @@ class LanguageMixIn(object):
         before = self._origStrings[widget]
         widget.set_label(_(before))
 
-    def retranslate(self):
+    def retranslate(self, lang):
         # Change the translations on labels and buttons that do not have
         # substitution text.
         for name in ["pickLanguageLabel", "betaWarnTitle", "betaWarnDesc",
@@ -166,7 +166,7 @@ class LanguageMixIn(object):
         welcomeLabel.set_label(xlated)
 
         # And of course, don't forget the underlying window.
-        self.window.retranslate()
+        self.window.retranslate(lang)
 
     def refresh(self, displayArea):
         store = self.builder.get_object("languageStore")
@@ -234,7 +234,7 @@ class LanguageMixIn(object):
             lang = store[selected[0]][2]
             self.language.set_install_lang(lang)
             self.language.set_system_lang(lang)
-            self.retranslate()
+            self.retranslate(lang)
 
     def on_clear_icon_clicked(self, entry, icon_pos, event):
         if icon_pos == Gtk.EntryIconPosition.SECONDARY:
