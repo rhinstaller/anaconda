@@ -132,3 +132,4 @@ class PasswordSpoke(NormalSpoke):
             self.clear_info()
             self.set_warning(self._error)
             self.pw.grab_focus()
+            self.window.show_all()

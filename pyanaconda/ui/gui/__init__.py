@@ -414,7 +414,6 @@ class GUIObject(common.UIObject):
            suitable background color and icon will be displayed.
         """
         self.window.set_info(msg)
-        self.window.show_all()
 
     def set_info(self, msg):
         """Display an info bar along the bottom of the screen with the provided
@@ -424,7 +423,6 @@ class GUIObject(common.UIObject):
            background color and icon will be displayed.
         """
         self.window.set_info(msg)
-        self.window.show_all()
 
     def set_warning(self, msg):
         """Display an info bar along the bottom of the screen with the provided
@@ -433,7 +431,6 @@ class GUIObject(common.UIObject):
            messages.  A suitable background color and icon will be displayed.
         """
         self.window.set_info(msg)
-        self.window.show_all()
 
 class QuitDialog(GUIObject):
     builderObjects = ["quitDialog"]

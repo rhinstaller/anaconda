@@ -852,6 +852,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             if error:
                 self._error = _(mountpoint_validation_msgs[error])
                 self.set_warning(self._error)
+                self.window.show_all()
                 self._populate_right_side(selector)
                 return
 
@@ -888,6 +889,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
         if error:
             self.set_warning(error)
+            self.window.show_all()
             self._populate_right_side(selector)
             return
 
@@ -957,11 +959,13 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                 except ErrorRecoveryFailure as e:
                     self._error = e
                     self.set_warning(_(unrecoverable_error_msg))
+                    self.window.show_all()
                     self._reset_storage()
                 except StorageError as e:
                     log.error("newDevice failed: %s" % e)
                     self._error = e
                     self.set_warning(_(device_configuration_error_msg)) 
+                    self.window.show_all()
 
                     # in this case we have removed the old device so we now have
                     # to re-create it
@@ -979,6 +983,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                         self.clear_errors()
                         self._error = e
                         self.set_warning(_(unrecoverable_error_msg))
+                        self.window.show_all()
                         self._reset_storage()
                 else:
                     # you can't change the type of an existing device, so we
@@ -1017,6 +1022,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                         self._error = e
                         self.set_warning(_("Device resize request failed. "
                                            "Click for details."))
+                        self.window.show_all()
                     else:
                         log.debug("%r" % device)
                         log.debug("new size: %s" % device.size)
@@ -1037,11 +1043,13 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                     except ErrorRecoveryFailure as e:
                         self._error = e
                         self.set_warning(_(unrecoverable_error_msg))
+                        self.window.show_all()
                         self._reset_storage()
                     except StorageError as e:
                         log.error("newDevice failed: %s" % e)
                         self._error = e
                         self.set_warning(_(device_configuration_error_msg))
+                        self.window.show_all()
 
                     self._devices = self.__storage.devices
 
@@ -1120,6 +1128,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                         self._error = e
                         self.set_warning(_("Device reformat request failed. "
                                            "Click for details."))
+                        self.window.show_all()
                     else:
                         # first, remove this selector from any old install page(s)
                         new_selector = None
@@ -1606,17 +1615,20 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                 log.error("error recovery failure")
                 self._error = e
                 self.set_error(_(unrecoverable_error_msg))
+                self.window.show_all()
                 self._reset_storage()
             except StorageError as e:
                 log.error("newDevice failed: %s" % e)
                 self._error = e
                 self.set_error(_("Failed to add new device. Click for "
                                  "details."))
+                self.window.show_all()
             except OverflowError as e:
                 log.error("invalid size set for partition")
                 self._error = e
                 self.set_error(_("Invalid partition size set. Use a "
                                  "valid integer."))
+                self.window.show_all()
 
         self._devices = self.__storage.devices
         self._do_refresh()
@@ -1636,6 +1648,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                 self._error = e
                 self.set_warning(_("Device removal request failed. Click "
                                    "for details."))
+                self.window.show_all()
             else:
                 if is_logical_partition:
                     self.__storage.removeEmptyExtendedPartitions()
@@ -1784,6 +1797,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         if not disks:
             self._error = "No disks selected. Keeping previous disk set."
             self.set_info(self._error)
+            self.window.show_all()
             return
 
         self._device_disks = disks
@@ -1880,17 +1894,20 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                 log.error("doAutoPartition failed: %s" % e)
                 self._error = e
                 self.set_error(_("No disks selected."))
+                self.window.show_all()
             except NotEnoughFreeSpaceError as e:
                 # No handling should be required for this.
                 log.error("doAutoPartition failed: %s" % e)
                 self._error = e
                 self.set_error(_("Not enough free space on selected disks."))
+                self.window.show_all()
             except StorageError as e:
                 log.error("doAutoPartition failed: %s" % e)
                 self._reset_storage()
                 self._error = e
                 self.set_error(_("Automatic partitioning failed. Click "
                                  "for details."))
+                self.window.show_all()
             else:
                 self._devices = self.__storage.devices
             finally:
@@ -2058,6 +2075,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             entry.set_text("")
             self.set_warning(_("Failed to unlock encrypted block device. "
                                "Click for details"))
+            self.window.show_all()
             return
 
         log.info("unlocked %s, now going to populate devicetree..." % device.name)
