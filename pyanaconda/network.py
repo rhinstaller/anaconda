@@ -35,6 +35,7 @@ import time
 import dbus
 import tempfile
 import simpleconfig
+import re
 from flags import flags
 from simpleconfig import IfcfgFile
 from pyanaconda.constants import ROOT_PATH
@@ -53,6 +54,10 @@ networkConfFile = "%s/network" % (sysconfigDir)
 ipv6ConfFile = "/etc/modprobe.d/ipv6.conf"
 ifcfgLogFile = "/tmp/ifcfg.log"
 CONNECTION_TIMEOUT = 45
+
+# part of a valid hostname between two periods (cannot start nor end with '-')
+# for more info about '(?!-)' and '(?<!-)' see 're' module documentation
+HOSTNAME_PART_RE = re.compile("(?!-)[A-Z\d-]{1,63}(?<!-)$", re.IGNORECASE)
 
 # Setup special logging for ifcfg NM interface
 from pyanaconda import anaconda_log
@@ -75,24 +80,40 @@ class IPMissing(Exception):
     pass
 
 def sanityCheckHostname(hostname):
+    """
+    Check if the given string is (syntactically) a valid hostname.
+
+    @param hostname: a string to check
+    @returns: a pair containing boolean value (valid or invalid) and
+              an error message (if applicable)
+    @rtype: (bool, str)
+
+    """
+
     if not hostname:
-        return None
+        return (False, _("Hostname cannot be None or an empty string."))
 
     if len(hostname) > 255:
-        return _("Hostname must be 255 or fewer characters in length.")
+        return (False, _("Hostname must be 255 or fewer characters in length."))
 
     validStart = string.ascii_letters + string.digits
     validAll = validStart + ".-"
 
     if hostname[0] not in validStart:
-        return _("Hostname must start with a valid character in the ranges "
-                 "'a-z', 'A-Z', or '0-9'")
+        return (False, _("Hostname must start with a valid character in the "
+                         "ranges 'a-z', 'A-Z', or '0-9'"))
 
-    for char in hostname[1:]:
-        if char not in validAll:
-            return _("Hostnames can only contain the characters 'a-z', 'A-Z', '0-9', '-', or '.'")
+    if hostname.endswith("."):
+        # hostname can end with '.', but the regexp used below would not match
+        hostname = hostname[:-1]
 
-    return None
+    if not all(HOSTNAME_PART_RE.match(part) for part in hostname.split(".")):
+        return (False, _("Hostnames can only contain the characters 'a-z', "
+                         "'A-Z', '0-9', '-', or '.', parts between periods "
+                         "must contain something and cannot start or end with "
+                         "'-'."))
+
+    return (True, "")
 
 # Return a list of IP addresses for all active devices.
 def getIPs():

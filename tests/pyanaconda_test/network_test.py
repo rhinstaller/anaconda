@@ -47,28 +47,28 @@ class NetworkTest(mock.TestCase):
 
     def sanity_check_hostname_1_test(self):
         import pyanaconda.network
-        ret = pyanaconda.network.sanityCheckHostname('desktop')
-        self.assertEqual(ret, None)
+        (valid, err) = pyanaconda.network.sanityCheckHostname('desktop')
+        self.assertTrue(valid)
 
     def sanity_check_hostname_2_test(self):
         import pyanaconda.network
-        ret = pyanaconda.network.sanityCheckHostname('')
-        self.assertEqual(ret, None)
+        (valid, err) = pyanaconda.network.sanityCheckHostname('')
+        self.assertFalse(valid)
 
     def sanity_check_hostname_3_test(self):
         import pyanaconda.network
-        ret = pyanaconda.network.sanityCheckHostname('c'*256)
-        self.assertNotEqual(ret, None)
+        (valid, err) = pyanaconda.network.sanityCheckHostname('c'*256)
+        self.assertFalse(valid)
 
     def sanity_check_hostname_4_test(self):
         import pyanaconda.network
-        ret = pyanaconda.network.sanityCheckHostname('_asf')
-        self.assertNotEqual(ret, None)
+        (valid, err) = pyanaconda.network.sanityCheckHostname('_asf')
+        self.assertFalse(valid)
 
     def sanity_check_hostname_5_test(self):
         import pyanaconda.network
-        ret = pyanaconda.network.sanityCheckHostname('a?f')
-        self.assertNotEqual(ret, None)
+        (valid, err) = pyanaconda.network.sanityCheckHostname('a?f')
+        self.assertFalse(valid)
 
     def get_default_hostname_1_test(self):
         import pyanaconda.network
