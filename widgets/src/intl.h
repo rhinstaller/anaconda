@@ -27,7 +27,7 @@
 #define N_(String) String
 
 #ifdef ENABLE_NLS
-#define P_(String) g_dgettext(GETTEXT_PACKAGE "-properties",String)
+#define P_(String) g_dgettext("anaconda-properties",String)
 #else
 #define P_(String) (String)
 #endif

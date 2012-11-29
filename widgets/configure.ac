@@ -36,6 +36,8 @@ AC_PROG_CXX
 AC_PROG_LIBTOOL
 AC_PROG_LN_S
 
+AM_GNU_GETTEXT([external])
+
 GOBJECT_INTROSPECTION_CHECK([0.6.7])
 
 m4_ifdef([GTK_DOC_CHECK], [
@@ -50,7 +52,7 @@ PKG_CHECK_MODULES([GTK], [gtk+-x11-3.0 >= 3.0])
 PKG_CHECK_MODULES([GLIB], [glib-2.0])
 PKG_CHECK_EXISTS([gobject-introspection-1.0 >= 1.30])
 
-AC_CHECK_HEADERS([string.h])
+AC_CHECK_HEADERS([libintl.h string.h])
 
 AC_CONFIG_FILES([Makefile
                  doc/Makefile
