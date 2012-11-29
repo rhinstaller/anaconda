@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 18.30\n"
+"Project-Id-Version: anaconda 18.31\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2012-11-26 16:35-0800\n"
+"POT-Creation-Date: 2012-11-28 16:44-0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -151,7 +151,7 @@ msgstr ""
 msgid "%s cannot be of type %s"
 msgstr ""
 
-#: pyanaconda/bootloader.py:1585
+#: pyanaconda/bootloader.py:1584
 #, python-format
 msgid ""
 "%s may not have enough space for grub2 to embed core.img when using the %s "
@@ -1716,8 +1716,8 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: pyanaconda/ui/gui/spokes/custom.py:683
-#: pyanaconda/ui/gui/spokes/network.py:572
-#: pyanaconda/ui/gui/spokes/network.py:979
+#: pyanaconda/ui/gui/spokes/network.py:575
+#: pyanaconda/ui/gui/spokes/network.py:982
 msgid "Unknown"
 msgstr ""
 
@@ -1804,23 +1804,27 @@ msgstr ""
 msgid "Failed to add new device. Click for details."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:1653
+#: pyanaconda/ui/gui/spokes/custom.py:1639
+msgid "Invalid partition size set. Use a valid integer."
+msgstr ""
+
+#: pyanaconda/ui/gui/spokes/custom.py:1660
 msgid "Device removal request failed. Click for details."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:1902
+#: pyanaconda/ui/gui/spokes/custom.py:1909
 msgid "No disks selected."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:1909
+#: pyanaconda/ui/gui/spokes/custom.py:1916
 msgid "Not enough free space on selected disks."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:1916
+#: pyanaconda/ui/gui/spokes/custom.py:1923
 msgid "Automatic partitioning failed. Click for details."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2085
+#: pyanaconda/ui/gui/spokes/custom.py:2092
 msgid "Failed to unlock encrypted block device. Click for details"
 msgstr ""
 
@@ -1862,144 +1866,144 @@ msgstr ""
 msgid "Layout switching not configured."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:89
+#: pyanaconda/ui/gui/spokes/network.py:92
 msgid "Status unknown (missing)"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:93
+#: pyanaconda/ui/gui/spokes/network.py:96
 msgid "Status unknown"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:95
+#: pyanaconda/ui/gui/spokes/network.py:98
 msgid "Unmanaged"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:98
+#: pyanaconda/ui/gui/spokes/network.py:101
 msgid "Firmware missing"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:101
+#: pyanaconda/ui/gui/spokes/network.py:104
 msgid "Cable unplugged"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:103
+#: pyanaconda/ui/gui/spokes/network.py:106
 msgid "Unavailable"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:105
+#: pyanaconda/ui/gui/spokes/network.py:108
 msgid "Disconnected"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:110
+#: pyanaconda/ui/gui/spokes/network.py:113
 msgid "Connecting"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:112
+#: pyanaconda/ui/gui/spokes/network.py:115
 msgid "Authentication required"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:114
+#: pyanaconda/ui/gui/spokes/network.py:117
 msgid "Connected"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:116
+#: pyanaconda/ui/gui/spokes/network.py:119
 msgid "Disconnecting"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:118
+#: pyanaconda/ui/gui/spokes/network.py:121
 msgid "Connection failed"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:561
+#: pyanaconda/ui/gui/spokes/network.py:564
 msgid "unplugged"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:574
+#: pyanaconda/ui/gui/spokes/network.py:577
 msgid "Ethernet"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:576
+#: pyanaconda/ui/gui/spokes/network.py:579
 msgid "Wireless"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:670
+#: pyanaconda/ui/gui/spokes/network.py:673
 #: pyanaconda/ui/gui/spokes/network.glade:344
 #: pyanaconda/ui/gui/spokes/network.glade:720
 msgid "IPv4 Address"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:671
+#: pyanaconda/ui/gui/spokes/network.py:674
 #: pyanaconda/ui/gui/spokes/network.glade:358
 #: pyanaconda/ui/gui/spokes/network.glade:734
 #: pyanaconda/ui/gui/spokes/network.glade:1375
 msgid "IPv6 Address"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:673
-#: pyanaconda/ui/gui/spokes/network.py:675
+#: pyanaconda/ui/gui/spokes/network.py:676
+#: pyanaconda/ui/gui/spokes/network.py:678
 #: pyanaconda/ui/gui/spokes/network.glade:1361
 msgid "IP Address"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:740
+#: pyanaconda/ui/gui/spokes/network.py:743
 #, python-format
 msgid "%d Mb/s"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:917
+#: pyanaconda/ui/gui/spokes/network.py:920
 msgid "WEP"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:920
+#: pyanaconda/ui/gui/spokes/network.py:923
 msgid "WPA"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:923
+#: pyanaconda/ui/gui/spokes/network.py:926
 msgid "WPA2"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:927
+#: pyanaconda/ui/gui/spokes/network.py:930
 msgid "Enterprise"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:932 widgets/src/SpokeSelector.c:54
+#: pyanaconda/ui/gui/spokes/network.py:935 widgets/src/SpokeSelector.c:54
 msgid "None"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:946
+#: pyanaconda/ui/gui/spokes/network.py:949
 #: pyanaconda/ui/gui/spokes/network.glade:37
 #: pyanaconda/ui/gui/spokes/network.glade:106
 msgid "NETWORK CONFIGURATION"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:983
+#: pyanaconda/ui/gui/spokes/network.py:986
 msgid "Connecting..."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:985
+#: pyanaconda/ui/gui/spokes/network.py:988
 msgid "Disconnecting..."
-msgstr ""
-
-#: pyanaconda/ui/gui/spokes/network.py:992
-#, python-format
-msgid "Wireless connected to %s"
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/network.py:995
 #, python-format
+msgid "Wireless connected to %s"
+msgstr ""
+
+#: pyanaconda/ui/gui/spokes/network.py:998
+#, python-format
 msgid "Wired (%s) connected"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1005
+#: pyanaconda/ui/gui/spokes/network.py:1008
 #, python-format
 msgid "Connected: %s"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1007
+#: pyanaconda/ui/gui/spokes/network.py:1010
 msgid "Not connected"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1010
+#: pyanaconda/ui/gui/spokes/network.py:1013
 #: pyanaconda/ui/gui/spokes/network.glade:2127
 msgid "No network devices available"
 msgstr ""
@@ -2738,28 +2742,28 @@ msgstr ""
 msgid "Test the selected layout below:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/keyboard.glade:441
+#: pyanaconda/ui/gui/spokes/keyboard.glade:442
 msgid "Alt + Shift to switch layouts."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/keyboard.glade:455
+#: pyanaconda/ui/gui/spokes/keyboard.glade:456
 msgid "_Options"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/keyboard.glade:572
+#: pyanaconda/ui/gui/spokes/keyboard.glade:573
 msgid "LAYOUT SWITCHING OPTIONS"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/keyboard.glade:589
+#: pyanaconda/ui/gui/spokes/keyboard.glade:590
 msgid ""
 "Which combination(s) would you prefer for switching between keyboard layouts?"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/keyboard.glade:625
+#: pyanaconda/ui/gui/spokes/keyboard.glade:626
 msgid "use"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/keyboard.glade:638
+#: pyanaconda/ui/gui/spokes/keyboard.glade:639
 msgid "description"
 msgstr ""
 
