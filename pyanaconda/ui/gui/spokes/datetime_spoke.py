@@ -220,6 +220,19 @@ class NTPconfigDialog(GUIObject):
         self._threads_counter += 1
 
     def _add_server(self, server):
+        """
+        Checks if a given server is a valid hostname and if yes, adds it
+        to the list of servers.
+
+        @param server: string containing hostname
+
+        """
+
+        (valid, error) = network.sanityCheckHostname(server)
+        if not valid:
+            log.error("'%s' is not a valid hostname: %s" % (server, error))
+            return
+
         for row in self._serversStore:
             if row[0] == server:
                 #do not add duplicate items
@@ -249,6 +262,11 @@ class NTPconfigDialog(GUIObject):
 
     def on_server_edited(self, renderer, path, new_text, *args):
         if not path:
+            return
+
+        (valid, error) = network.sanityCheckHostname(new_text)
+        if not valid:
+            log.error("'%s' is not a valid hostname: %s" % (new_text, error))
             return
 
         itr = self._serversStore.get_iter(path)
