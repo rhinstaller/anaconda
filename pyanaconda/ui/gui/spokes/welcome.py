@@ -136,7 +136,26 @@ class LanguageMixIn(object):
 
         self._languageStoreFilter.set_visible_func(self._matchesEntry, None)
 
+    def _retranslate_one(self, widgetName):
+        widget = self.builder.get_object(widgetName)
+        if not widget:
+            return
+
+        if not widget in self._origStrings:
+            self._origStrings[widget] = widget.get_label()
+
+        before = self._origStrings[widget]
+        widget.set_label(_(before))
+
     def retranslate(self):
+        # Change the translations on labels and buttons that do not have
+        # substitution text.
+        for name in ["pickLanguageLabel", "betaWarnTitle", "betaWarnDesc",
+                     "quitButton", "continueButton"]:
+            self._retranslate_one(name)
+
+        # The welcome label is special - it has text that needs to be
+        # substituted.
         welcomeLabel = self.builder.get_object(self._labelName)
 
         if not welcomeLabel in self._origStrings:
@@ -145,6 +164,9 @@ class LanguageMixIn(object):
         before = self._origStrings[welcomeLabel]
         xlated = _(before) % (productName.upper(), productVersion)
         welcomeLabel.set_label(xlated)
+
+        # And of course, don't forget the underlying window.
+        self.window.retranslate()
 
     def refresh(self, displayArea):
         store = self.builder.get_object("languageStore")
