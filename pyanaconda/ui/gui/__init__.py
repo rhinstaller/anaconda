@@ -23,6 +23,8 @@ import meh.ui.gui
 
 from gi.repository import Gdk
 
+from pyanaconda.product import distributionText, isFinal
+
 from pyanaconda.ui import UserInterface, common
 from pyanaconda.ui.gui.utils import enlightbox, gtk_thread_wait
 
@@ -100,16 +102,13 @@ class GraphicalUserInterface(UserInterface):
 
             sys.exit(0)
 
-        from pyanaconda.product import isFinal, productName, productVersion
-
         # If we set these values on the very first window shown, they will get
         # propagated to later ones.
         self._actions[0].initialize()
         self._actions[0].refresh()
 
         self._actions[0].window.set_beta(not isFinal)
-        self._actions[0].window.set_property("distribution", _("%(productName)s %(productVersion)s INSTALLATION") % \
-                                             {"productName": productName.upper(), "productVersion": productVersion})
+        self._actions[0].window.set_property("distribution", distributionText().upper())
 
         # Set fonts app-wide, where possible
         settings = Gtk.Settings.get_default()
@@ -216,7 +215,7 @@ class GraphicalUserInterface(UserInterface):
 
         self._actions[1].initialize()
         self._actions[1].window.set_beta(self._actions[0].window.get_beta())
-        self._actions[1].window.set_property("distribution", self._actions[0].window.get_property("distribution"))
+        self._actions[1].window.set_property("distribution", distributionText().upper())
 
         if not self._actions[1].showable:
             self._actions[0].window.hide()

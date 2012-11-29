@@ -290,7 +290,7 @@ static void anaconda_base_window_set_property(GObject *object, guint prop_id, co
 
     switch(prop_id) {
         case PROP_DISTRIBUTION: {
-            char *markup = g_markup_printf_escaped("<span size='large'>%s</span>", g_value_get_string(value));
+            char *markup = g_markup_printf_escaped("<span size='large'>%s</span>", _(g_value_get_string(value)));
             gtk_label_set_markup(GTK_LABEL(priv->distro_label), markup);
             g_free(markup);
 
@@ -301,7 +301,7 @@ static void anaconda_base_window_set_property(GObject *object, guint prop_id, co
         }
 
         case PROP_WINDOW_NAME: {
-            char *markup = g_markup_printf_escaped("<span weight='bold' size='large'>%s</span>", g_value_get_string(value));
+            char *markup = g_markup_printf_escaped("<span weight='bold' size='large'>%s</span>", _(g_value_get_string(value)));
             gtk_label_set_markup(GTK_LABEL(priv->name_label), markup);
             g_free(markup);
 

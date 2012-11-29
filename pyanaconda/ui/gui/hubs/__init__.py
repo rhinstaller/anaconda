@@ -26,6 +26,7 @@ _ = lambda x: gettext.ldgettext("anaconda", x)
 from gi.repository import GLib
 
 from pyanaconda.flags import flags
+from pyanaconda.product import distributionText
 
 from pyanaconda.ui import common
 from pyanaconda.ui.gui import GUIObject
@@ -93,10 +94,8 @@ class Hub(GUIObject, common.Hub):
 
         action.refresh()
 
-        # Set various properties on the new Spoke based upon what was set
-        # on the Hub.
         action.window.set_beta(self.window.get_beta())
-        action.window.set_property("distribution", self.window.get_property("distribution"))
+        action.window.set_property("distribution", distributionText().upper())
 
         action.window.set_transient_for(self.window)
         action.window.show_all()

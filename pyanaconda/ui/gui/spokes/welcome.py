@@ -34,7 +34,7 @@ from pyanaconda.ui.gui.utils import enlightbox
 from pyanaconda.ui.gui.categories.localization import LocalizationCategory
 
 from pyanaconda.localization import Language, LOCALE_PREFERENCES, expand_langs
-from pyanaconda.product import isFinal, productName, productVersion
+from pyanaconda.product import distributionText, isFinal, productName, productVersion
 from pyanaconda import keyboard
 from pyanaconda import timezone
 from pyanaconda import flags
@@ -166,6 +166,7 @@ class LanguageMixIn(object):
         welcomeLabel.set_label(xlated)
 
         # And of course, don't forget the underlying window.
+        self.window.set_property("distribution", distributionText().upper())
         self.window.retranslate(lang)
 
     def refresh(self, displayArea):

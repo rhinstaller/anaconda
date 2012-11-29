@@ -20,6 +20,9 @@
 import ConfigParser
 import os
 
+import gettext
+_ = lambda x: gettext.ldgettext("anaconda", x)
+
 # First, load in the defaults.  In order of precedence:  contents of
 # .buildstamp, environment, stupid last ditch hardcoded defaults.
 config = ConfigParser.ConfigParser()
@@ -46,3 +49,7 @@ if not productArch and productStamp.index(".") != -1:
     productArch = productStamp[productStamp.index(".")+1:]
 if productVersion == "development":
     productVersion = "rawhide"
+
+def distributionText():
+    return _("%(productName)s %(productVersion)s INSTALLATION") % \
+             {"productName": productName, "productVersion": productVersion}
