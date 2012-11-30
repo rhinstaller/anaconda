@@ -348,6 +348,7 @@ class MakeBumpVer:
                                             newVersion, self.release))
 
         for msg, rhbz in rpmlog:
+            msg = re.sub('(?<!%)%%(?!%)|(?<!%%)%(?!%%)', '%%', msg)
             sublines = textwrap.wrap(msg, 77)
             f.write("- %s\n" % sublines[0])
 
