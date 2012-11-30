@@ -136,7 +136,6 @@ def getFirstRealIP():
 
 # Try to determine what the hostname should be for this system
 def getHostname():
-    resetResolver()
 
     hn = None
 
@@ -721,10 +720,6 @@ def ifaceForHostIP(host):
         return ""
 
     return routeInfo[routeInfo.index("dev") + 1]
-
-def resetResolver():
-    isys.resetResolv()
-    urlgrabber.grabber.reset_curl_obj()
 
 def setHostname(hn):
     if flags.imageInstall:

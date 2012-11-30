@@ -91,7 +91,6 @@ static PyObject * doSwapoff(PyObject * s, PyObject * args);
 static PyObject * doWipeRaidSuperblock(PyObject * s, PyObject * args);
 static PyObject * doGetRaidChunkSize(PyObject * s, PyObject * args);
 static PyObject * doDevSpaceFree(PyObject * s, PyObject * args);
-static PyObject * doResetResolv(PyObject * s, PyObject * args);
 static PyObject * doExt2Dirty(PyObject * s, PyObject * args);
 static PyObject * doExt2HasJournal(PyObject * s, PyObject * args);
 static PyObject * doEjectCdrom(PyObject * s, PyObject * args);
@@ -120,7 +119,6 @@ static PyMethodDef isysModuleMethods[] = {
     { "getraidchunk", (PyCFunction) doGetRaidChunkSize, METH_VARARGS, NULL },
     { "mount", (PyCFunction) doMount, METH_VARARGS, NULL },
     { "umount", (PyCFunction) doUMount, METH_VARARGS, NULL },
-    { "resetresolv", (PyCFunction) doResetResolv, METH_VARARGS, NULL },
     { "swapon",  (PyCFunction) doSwapon, METH_VARARGS, NULL },
     { "swapoff",  (PyCFunction) doSwapoff, METH_VARARGS, NULL },
     { "isPseudoTTY", (PyCFunction) doisPseudoTTY, METH_VARARGS, NULL},
@@ -273,18 +271,6 @@ static PyObject * doPrefixToNetmask (PyObject * s, PyObject * args) {
         return NULL;
 
     return Py_BuildValue("s", dst);
-}
-
-static PyObject * doResetResolv(PyObject * s, PyObject * args) {
-    if (!PyArg_ParseTuple(args, "")) {
-        return NULL;
-    }
-
-    /* reinit the resolver so DNS changes take affect */
-    res_init();
-
-    Py_INCREF(Py_None);
-    return Py_None;
 }
 
 static PyObject * doWipeRaidSuperblock(PyObject * s, PyObject * args) {

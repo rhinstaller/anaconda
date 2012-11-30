@@ -406,7 +406,6 @@ class NetworkConfiguratorText:
             dev.writeIfcfgFile()
             return False
 
-        network.resetResolver()
         return True
 
     def _ipv4MethodToggled(self, *args):
