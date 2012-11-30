@@ -81,8 +81,8 @@ class PassphraseDialog(GUIObject):
         # update the warning label with the currently selected keymap
         xkl_wrapper = keyboard.XklWrapper.get_instance()
         keymap_name = xkl_wrapper.get_current_layout_name()
-        warning_label_text = warning_label_template % keymap_name
-        self._warning_label.set_markup(_(warning_label_text))
+        warning_label_text = _(warning_label_template) % keymap_name
+        self._warning_label.set_markup(warning_label_text)
 
         # initialize with the previously set passphrase
         self.passphrase = self.data.autopart.passphrase
@@ -147,9 +147,9 @@ class PassphraseDialog(GUIObject):
         sensitive = True
         if self._pwq_error:
             icon = "gtk-dialog-error"
-            msg = ERROR_WEAK % self._pwq_error
+            msg = _(ERROR_WEAK) % self._pwq_error
             sensitive = False
-            self._set_entry_icon(entry, icon, _(msg))
+            self._set_entry_icon(entry, icon, msg)
 
         self._confirm_entry.set_sensitive(sensitive)
         if sensitive:
