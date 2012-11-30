@@ -46,8 +46,10 @@ class GraphicalUserInterface(UserInterface):
         UserInterface.__init__(self, storage, payload, instclass)
 
         self._actions = []
-        self._hubs = []
+        self._currentAction = None
         self._ui = None
+
+        self.data = None
 
         # This is a hack to make sure the AnacondaWidgets library gets loaded
         # before the introspection stuff.
@@ -61,40 +63,40 @@ class GraphicalUserInterface(UserInterface):
 
         busyCursor()
 
-        self._hubs.extend([SummaryHub, ProgressHub])
-
-        # First, grab a list of all the standalone spokes.
+        hubs = [SummaryHub, ProgressHub]
         path = os.path.join(os.path.dirname(__file__), "spokes")
-        actionClasses = self.getActionClasses("pyanaconda.ui.gui.spokes.%s", path, self._hubs, StandaloneSpoke)
 
-        # Instantiate all hubs and their pre/post standalone spokes, passing
-        # the arguments defining our spoke API and setting up continue/quit
-        # signal handlers.
-        for klass in actionClasses:
-            obj = klass(data, self.storage, self.payload, self.instclass)
+        self._actions = self.getActionClasses("pyanaconda.ui.gui.spokes.%s", path, hubs, StandaloneSpoke)
+        self.data = data
 
-            # If we are doing a kickstart install, some standalone spokes
-            # could already be filled out.  In taht case, we do not want
-            # to display them.
-            if isinstance(obj, StandaloneSpoke) and obj.completed:
-                del(obj)
-                continue
+    def _instantiateAction(self, actionClass):
+        from spokes import StandaloneSpoke
 
-            obj.register_event_cb("continue", self._on_continue_clicked)
-            obj.register_event_cb("quit", self._on_quit_clicked)
+        # Instantiate an action on-demand, passing the arguments defining our
+        # spoke API and setting up continue/quit signal handlers.
+        obj = actionClass(self.data, self.storage, self.payload, self.instclass)
 
-            self._actions.append(obj)
+        # If we are doing a kickstart install, some standalone spokes
+        # could already be filled out.  In that case, we do not want
+        # to display them.
+        if isinstance(obj, StandaloneSpoke) and obj.completed:
+            del(obj)
+            return None
+
+        obj.register_event_cb("continue", self._on_continue_clicked)
+        obj.register_event_cb("quit", self._on_quit_clicked)
+
+        return obj
 
     def run(self):
         from gi.repository import Gtk
-
-        unbusyCursor()
 
         if Gtk.main_level() > 0:
             # Gtk main loop running. That means python-meh caught exception
             # and runs its main loop. Do not crash Gtk by running another one
             # from a different thread and just wait until python-meh is
             # finished, then quit.
+            unbusyCursor()
             log.error("Unhandled exception caught, waiting for python-meh to "\
                       "exit")
             while Gtk.main_level() > 0:
@@ -102,19 +104,30 @@ class GraphicalUserInterface(UserInterface):
 
             sys.exit(0)
 
-        # If we set these values on the very first window shown, they will get
-        # propagated to later ones.
-        self._actions[0].initialize()
-        self._actions[0].refresh()
+        while not self._currentAction:
+            self._currentAction = self._instantiateAction(self._actions[0])
+            if not self._currentAction:
+                self._actions.pop(0)
 
-        self._actions[0].window.set_beta(not isFinal)
-        self._actions[0].window.set_property("distribution", distributionText().upper())
+            if not self._actions:
+                sys.exit(0)
+                return
+
+        self._currentAction.initialize()
+
+        # Do this at the last possible minute.
+        unbusyCursor()
+
+        self._currentAction.refresh()
+
+        self._currentAction.window.set_beta(not isFinal)
+        self._currentAction.window.set_property("distribution", distributionText().upper())
 
         # Set fonts app-wide, where possible
         settings = Gtk.Settings.get_default()
         settings.set_property("gtk-font-name", "Cantarell")
 
-        self._actions[0].window.show_all()
+        self._currentAction.window.show_all()
         Gtk.main()
 
     ###
@@ -130,7 +143,7 @@ class GraphicalUserInterface(UserInterface):
         dlg.set_decorated(False)
         dlg.add_button(_("_Exit Installer"), 0)
 
-        with enlightbox(self._actions[0].window, dlg):
+        with enlightbox(self._currentAction.window, dlg):
             dlg.run()
             dlg.destroy()
 
@@ -140,7 +153,7 @@ class GraphicalUserInterface(UserInterface):
         dlg = DetailedErrorDialog(None, buttons=[_("_Quit")],
                                   label=message)
 
-        with enlightbox(self._actions[0].window, dlg.window):
+        with enlightbox(self._currentAction.window, dlg.window):
             dlg.refresh(details)
             rc = dlg.run()
             dlg.window.destroy()
@@ -156,7 +169,7 @@ class GraphicalUserInterface(UserInterface):
         dlg.add_buttons(_("_No"), 0, _("_Yes"), 1)
         dlg.set_default_response(1)
 
-        with enlightbox(self._actions[0].window, dlg):
+        with enlightbox(self._currentAction.window, dlg):
             rc = dlg.run()
             dlg.destroy()
 
@@ -172,7 +185,7 @@ class GraphicalUserInterface(UserInterface):
 
         # exception may appear before self._actions gets populated
         if len(self._actions) > 0:
-            lightbox = AnacondaWidgets.lb_show_over(self._actions[0].window)
+            lightbox = AnacondaWidgets.lb_show_over(self._currentAction.window)
             exc_window.main_window.set_transient_for(lightbox)
 
         # without WindowGroup, python-meh's window is insensitive if it appears
@@ -195,14 +208,15 @@ class GraphicalUserInterface(UserInterface):
             sys.exit(0)
             return
 
+        nextAction = None
         ndx = 0
 
         # If the current action wants us to jump to an arbitrary point ahead,
         # look for where that is now.
-        if self._actions[0].skipTo:
+        if self._currentAction.skipTo:
             found = False
             for ndx in range(1, len(self._actions)):
-                if self._actions[ndx].__class__.__name__ == self._actions[0].skipTo:
+                if self._actions[ndx].__class__.__name__ == self._currentAction.skipTo:
                     found = True
                     break
 
@@ -213,27 +227,40 @@ class GraphicalUserInterface(UserInterface):
             if found:
                 self._actions = [self._actions[0]] + self._actions[ndx:]
 
-        self._actions[1].initialize()
-        self._actions[1].window.set_beta(self._actions[0].window.get_beta())
-        self._actions[1].window.set_property("distribution", distributionText().upper())
+        # _instantiateAction returns None for actions that should not be
+        # displayed (because they're already completed, for instance) so skip
+        # them here.
+        while not nextAction:
+            nextAction = self._instantiateAction(self._actions[1])
+            if not nextAction:
+                self._actions.pop(1)
 
-        if not self._actions[1].showable:
-            self._actions[0].window.hide()
+            if not self._actions:
+                sys.exit(0)
+                return
+
+        nextAction.initialize()
+        nextAction.window.set_beta(self._currentAction.window.get_beta())
+        nextAction.window.set_property("distribution", distributionText().upper())
+
+        if not nextAction.showable:
+            self._currentAction.window.hide()
             self._actions.pop(0)
             self._on_continue_clicked()
             return
 
-        self._actions[1].refresh()
+        nextAction.refresh()
 
         # Do this last.  Setting up curAction could take a while, and we want
         # to leave something on the screen while we work.
-        self._actions[1].window.show_all()
-        self._actions[0].window.hide()
+        nextAction.window.show_all()
+        self._currentAction.window.hide()
+        self._currentAction = nextAction
         self._actions.pop(0)
 
     def _on_quit_clicked(self):
         dialog = QuitDialog(None)
-        with enlightbox(self._actions[0].window, dialog.window):
+        with enlightbox(self._currentAction.window, dialog.window):
             rc = dialog.run()
             dialog.window.destroy()
 
