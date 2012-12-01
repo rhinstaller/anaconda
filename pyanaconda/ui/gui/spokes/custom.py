@@ -1825,7 +1825,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                     self.set_error(_("Failed to add new device. Click for "
                                      "details."))
                     self.window.show_all()
-             except OverflowError as e:
+            except OverflowError as e:
                  log.error("invalid size set for partition")
                  self._error = e
                  self.set_error(_("Invalid partition size set. Use a "
