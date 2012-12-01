@@ -300,6 +300,34 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/lib/dracut/modules.d/80%{name}/*
 
 %changelog
+* Fri Nov 30 2012 Brian C. Lane <bcl@redhat.com> - 18.33-1
+- Escape single percent signs in RPM changelog entries. (dcantrell)
+- Fixes for PkgWrangler review. (dcantrell)
+- Don't let defaults override user-specified container settings. (#879702)
+  (dlehman)
+- Fix partition allocation when enabling container encryption. (#879702)
+  (dlehman)
+- Remove partitions from all appropriate DiskLabel instances. (#870586)
+  (dlehman)
+- Add a way for users to set the names of lvm and md devices. (dlehman)
+- Update the RAID-specific UI after changing the device's disk set. (dlehman)
+- Correctly handle the default vg not having been instantiated yet. (dlehman)
+- Drop requested container disks that don't have enough space. (#873293)
+  (dlehman)
+- Don't allow LVM disk set selection via configure button. (dlehman)
+- Try to add new device to an existing container if disks are full. (dlehman)
+- Fix code to lock encryption checkbutton for LV in existing VG (#877871)
+  (dlehman)
+- Add support for changing a new LV's VG. (dlehman)
+- Fix check for in-use LV name to include VG name. (#875477) (dlehman)
+- Remove the automatic show_all from those info_bar related functions.
+  (clumens)
+- Add set_info, set_error, set_warning functions to the BaseWindow object.
+  (clumens)
+- set_info functions may not be called from outside the main thread (#873600).
+  (clumens)
+- Test if path is valid before using it (NTPConfigDialog) (vpodzime)
+
 * Wed Nov 28 2012 Brian C. Lane <bcl@redhat.com> - 18.32-1
 - Bootloader checking should work in terms of self.stage1/2_ attrs (#880277).
   (clumens)
