@@ -41,6 +41,7 @@ RECLAIMABLE_COL = 3
 PERCENT_COL = 4
 ACTION_COL = 5
 EDITABLE_COL = 6
+TOOLTIP_COL = 7
 
 PRESERVE = N_("Preserve")
 SHRINK = N_("Shrink")
@@ -118,7 +119,7 @@ class ResizeDialog(GUIObject):
                 fstype = ""
                 diskReclaimableSpace = 0
             else:
-                editable = True
+                editable = not disk.protected
                 percent = 100
                 fstype = disk.format.type
                 diskReclaimableSpace = disk.size
@@ -129,7 +130,8 @@ class ResizeDialog(GUIObject):
                                                 "<span foreground='grey' style='italic'>%s total</span>",
                                                 percent,
                                                 _(PRESERVE),
-                                                editable])
+                                                editable,
+                                                _("Whole disks are not editable.")])
 
             if disk.partitioned:
                 # Then add all its partitions.
@@ -144,13 +146,19 @@ class ResizeDialog(GUIObject):
                     else:
                         freeSize = dev.size
 
+                    if dev.protected:
+                        tooltip = _("This device contains the installation source.")
+                    else:
+                        tooltip = None
+
                     self._diskStore.append(itr, [dev.id,
                                                  self._description(dev),
                                                  dev.format.type,
                                                  _("%s of %s") % (size_str(freeSize), size_str(dev.size)),
                                                  int((freeSize/dev.size) * 100),
                                                  _(PRESERVE),
-                                                 True])
+                                                 not dev.protected,
+                                                 tooltip])
                     diskReclaimableSpace += freeSize
 
             # And then go back and fill in the total reclaimable space for the

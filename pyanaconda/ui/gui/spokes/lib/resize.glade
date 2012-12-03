@@ -17,6 +17,8 @@
       <column type="gchararray"/>
       <!-- column-name diskEditable -->
       <column type="gboolean"/>
+      <!-- column-name diskTooltip -->
+      <column type="gchararray"/>
     </columns>
   </object>
   <object class="GtkDialog" id="resizeDialog">
@@ -126,6 +128,7 @@
                     <property name="model">diskStore</property>
                     <property name="enable_search">False</property>
                     <property name="enable_tree_lines">True</property>
+                    <property name="tooltip_column">7</property>
                     <signal name="row-activated" handler="on_row_clicked" swapped="no"/>
                     <child internal-child="selection">
                       <object class="GtkTreeSelection" id="diskView-selection">
