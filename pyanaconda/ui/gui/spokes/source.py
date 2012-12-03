@@ -459,7 +459,8 @@ class SourceSpoke(NormalSpoke):
 
             self.data.method.method = "harddrive"
             self.data.method.partition = part.name
-            self.data.method.dir = self._currentIsoFile
+            # The / gets stripped off by payload.ISOImage
+            self.data.method.dir = "/" + self._currentIsoFile
             if (old_source.method == "harddrive" and
                 old_source.partition == self.data.method.partition and
                 old_source.dir == self.data.method.dir):

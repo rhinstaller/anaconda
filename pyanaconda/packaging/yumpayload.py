@@ -500,11 +500,11 @@ reposdir=%s
         if not self.data.method.method == "harddrive":
             return None
         # This could either be mounted to INSTALL_TREE or on
-        # DRACUT_REPODIR if dracut did the mount.
+        # DRACUT_ISODIR if dracut did the mount.
         dev = get_mount_device(INSTALL_TREE)
         if dev:
             return dev[len(ISO_DIR)+1:]
-        dev = get_mount_device(DRACUT_REPODIR)
+        dev = get_mount_device(DRACUT_ISODIR)
         if dev:
             return dev[len(DRACUT_ISODIR)+1:]
         return None
