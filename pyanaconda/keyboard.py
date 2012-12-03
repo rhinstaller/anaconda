@@ -374,10 +374,14 @@ class XklWrapper(object):
             name = item_str(item.name)
             description = item_str(item.description)
 
-        if dest:
-            self.name_to_show_str[name] = "%s (%s)" % (dest.encode("utf-8"),
-                                                       description.encode("utf-8"))
-        self._variants_list.append(_Layout(name, description))
+        #if this layout has already been added for some other language,
+        #do not add it again (would result in duplicates in our lists)
+        if name not in self.name_to_show_str:
+            if dest:
+                self.name_to_show_str[name] = "%s (%s)" % (dest.encode("utf-8"),
+                                                    description.encode("utf-8"))
+
+            self._variants_list.append(_Layout(name, description))
 
     def _get_language_variants(self, c_reg, item, user_data=None):
         #helper "global" variable
