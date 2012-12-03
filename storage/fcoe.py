@@ -129,7 +129,7 @@ class fcoe(object):
                                "e:1", "a:1", "w:1" ],
                                stdout = "/dev/tty5", stderr="/dev/tty5")
             iutil.execWithRedirect("fipvlan", [ "-c", "-s", "-f",
-                                               "'-fcoe'", nic],
+                                               "-fcoe", nic],
                                stdout = "/dev/tty5", stderr="/dev/tty5")
         else:
             if auto_vlan:
@@ -137,7 +137,7 @@ class fcoe(object):
                 iutil.execWithRedirect("modprobe", ["8021q"],
                                        stdout = "/dev/tty5", stderr="/dev/tty5")
                 iutil.execWithRedirect("fipvlan", ['-c', '-s', '-f',
-                                                   "'-fcoe'",  nic],
+                                                   "-fcoe",  nic],
                                     stdout = "/dev/tty5", stderr="/dev/tty5")
             else:
                 f = open("/sys/module/libfcoe/parameters/create", "w")
