@@ -132,7 +132,9 @@ def get_mount_device(mountpoint):
         log.debug("found backing file %s for loop device %s" % (mount_device,
                                                                 loop_name))
 
-    log.debug("%s is mounted on %s" % (mount_device, mountpoint))
+    if mount_device:
+        log.debug("%s is mounted on %s" % (mount_device, mountpoint))
+
     return mount_device
 
 class Payload(object):
@@ -465,14 +467,21 @@ class Payload(object):
         """ Prepare an install CD/DVD for use as a package source. """
         log.info("setting up device %s and mounting on %s" % (device.name,
                                                               mountpoint))
-        if os.path.ismount(mountpoint):
-            mdev = get_mount_device(mountpoint)
-            log.warning("%s is already mounted on %s" % (mdev, mountpoint))
+        # Is there a symlink involved?  If so, let's get the actual path.
+        # This is to catch /run/install/isodir vs. /mnt/install/isodir, for
+        # instance.
+        realMountpoint = os.path.realpath(mountpoint)
+
+        if os.path.ismount(realMountpoint):
+            mdev = get_mount_device(realMountpoint)
+            if mdev:
+                log.warning("%s is already mounted on %s" % (mdev, mountpoint))
+
             if mdev == device.path:
                 return
             else:
                 try:
-                    isys.umount(mountpoint, removeDir=False)
+                    isys.umount(realMountpoint, removeDir=False)
                 except Exception as e:
                     log.error(str(e))
                     log.info("umount failed -- mounting on top of it")
