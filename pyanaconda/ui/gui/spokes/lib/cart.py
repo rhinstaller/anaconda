@@ -101,6 +101,8 @@ class SelectedDisksDialog(GUIObject):
         self._selection = self.builder.get_object("disk_selection")
         self._summary_label = self.builder.get_object("summary_label")
 
+        self._set_button = self.builder.get_object("set_as_boot_button")
+
         # clear out the store and repopulate it from the devicetree
         self._store.clear()
         self.initialize(disks, free, showRemove=showRemove)
@@ -180,21 +182,39 @@ class SelectedDisksDialog(GUIObject):
         self.data.bootloader.bootDrive = None
         self.data.bootloader.location = "none"
 
+    def _toggle_button_text(self, row):
+        if row[IS_BOOT_COL]:
+            self._set_button.set_label(_("_Do not install bootloader"))
+        else:
+            self._set_button.set_label(_("_Set as Boot Device"))
+
     def on_selection_changed(self, *args):
         model, itr = self._selection.get_selected()
-        if itr:
-            print "new selection: %s" % model.get_value(itr, SERIAL_COL)
+        if not itr:
+            return
+
+        self._toggle_button_text(self._store[itr])
 
     def on_set_as_boot_clicked(self, button):
         model, itr = self._selection.get_selected()
         if not itr:
             return
 
-        # First make sure the previous device is unselected.
-        for row in self._store:
-            row[IS_BOOT_COL] = False
+        # There's only two cases:
+        if self._store[itr][ID_COL] == self._previousID:
+            # Either the user clicked on the device they'd previously selected,
+            # in which case we are just toggling here.
+            self._store[itr][IS_BOOT_COL] = not self._store[itr][IS_BOOT_COL]
+        else:
+            # Or they clicked on a different device.  First we unselect the
+            # previously selected device.
+            for row in self._store:
+                if row[ID_COL] == self._previousID:
+                    row[IS_BOOT_COL] = not row[IS_BOOT_COL]
+                    break
 
-        # Now set the currently selected device to be the boot target.
-        if self._store[itr][ID_COL] != self._previousID:
-            self._store[itr][IS_BOOT_COL] = True
+            # Then we select the new row.
+            self._store[itr][IS_BOOT_COL] = not self._store[itr][IS_BOOT_COL]
             self._previousID = self._store[itr][ID_COL]
+
+        self._toggle_button_text(self._store[itr])
