@@ -398,7 +398,7 @@ class GUIObject(common.UIObject):
            may not be able to do anything about, but that the user may.  A
            suitable background color and icon will be displayed.
         """
-        self.window.set_info(msg)
+        self.window.set_error(msg)
 
     def set_info(self, msg):
         """Display an info bar along the bottom of the screen with the provided
@@ -415,7 +415,7 @@ class GUIObject(common.UIObject):
            attend to in order to continue installation.  This is the bulk of
            messages.  A suitable background color and icon will be displayed.
         """
-        self.window.set_info(msg)
+        self.window.set_warning(msg)
 
 class QuitDialog(GUIObject):
     builderObjects = ["quitDialog"]
