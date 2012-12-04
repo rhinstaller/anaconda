@@ -412,6 +412,7 @@ class addDriveDialog(object):
 
         storage.fcoe.fcoe().addSan(nic=nic, dcb=dcb, auto_vlan=auto_vlan,
                                    intf=self.anaconda.intf)
+        storage.fcoe.fcoe().ksnics.append(nic)
 
         screen.popWindow()
         return INSTALL_OK
