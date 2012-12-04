@@ -133,8 +133,8 @@ def get_layouts_xorg_conf(keyboard):
 def write_keyboard_config(keyboard, root, convert=True, weight=0):
     """
     Function that writes files with layouts configuration to
-    $root/etc/X11/xorg.conf.d/01-anaconda-layouts.conf,
-    $root/etc/sysconfig/keyboard and $root/etc/vconsole.conf.
+    $root/etc/X11/xorg.conf.d/01-anaconda-layouts.conf and
+    $root/etc/vconsole.conf.
 
     @param keyboard: ksdata.keyboard object
     @param root: path to the root of the installed system
@@ -162,9 +162,6 @@ def write_keyboard_config(keyboard, root, convert=True, weight=0):
     xconf_dir = os.path.normpath(root + "/etc/X11/xorg.conf.d")
     xconf_file = "%0.2d-anaconda-keyboard.conf" % weight
 
-    sysconf_dir = os.path.normpath(root + "/etc/sysconfig")
-    sysconf_file = "keyboard"
-
     vcconf_dir = os.path.normpath(root + "/etc")
     vcconf_file = "vconsole.conf"
 
@@ -185,13 +182,6 @@ def write_keyboard_config(keyboard, root, convert=True, weight=0):
             errors.append("Cannot write X keyboard configuration file")
 
     if keyboard.vc_keymap:
-        try:
-            with open(os.path.join(sysconf_dir, sysconf_file), "w") as fobj:
-                fobj.write('KEYMAP="%s"\n' % keyboard.vc_keymap)
-
-        except IOError as ioerr:
-            errors.append("Cannot write sysconfig keyboard configuration file")
-
         try:
             with open(os.path.join(vcconf_dir, vcconf_file), "w") as fobj:
                 fobj.write('KEYMAP="%s"\n' % keyboard.vc_keymap)
