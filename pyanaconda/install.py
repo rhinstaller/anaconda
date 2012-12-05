@@ -132,6 +132,6 @@ def doInstall(storage, payload, ksdata, instClass):
 
     # Do bootloader.
     with progress_report(_("Installing bootloader")):
-        writeBootLoader(storage, payload, instClass)
+        writeBootLoader(storage, payload, instClass, ksdata)
 
     progress.send_complete()

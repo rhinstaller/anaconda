@@ -130,6 +130,28 @@ def get_layouts_xorg_conf(keyboard):
 
     return ret
 
+def populate_missing_items(keyboard):
+    """
+    Function that populates keyboard.vc_keymap and keyboard.x_layouts if
+    they are missing. By invoking LocaledWrapper's methods this function
+    MODIFIES CONFIGURATION FILES.
+
+    @type keyboard: ksdata.keyboard object
+
+    """
+
+    localed = LocaledWrapper()
+
+    if keyboard.x_layouts and not keyboard.vc_keymap:
+        keyboard.vc_keymap = localed.set_and_convert_layout(keyboard.x_layouts[0])
+
+    if not keyboard.vc_keymap:
+        keyboard.vc_keymap = "us"
+
+    if not keyboard.x_layouts:
+        c_lay_var = localed.set_and_convert_keymap(keyboard.vc_keymap)
+        keyboard.x_layouts.append(c_lay_var)
+
 def write_keyboard_config(keyboard, root, convert=True, weight=0):
     """
     Function that writes files with layouts configuration to
@@ -144,20 +166,8 @@ def write_keyboard_config(keyboard, root, convert=True, weight=0):
 
     """
 
-    localed = LocaledWrapper()
-
     if convert:
-        # populate vc_keymap and x_layouts if they are missing
-        if keyboard.x_layouts and not keyboard.vc_keymap:
-            keyboard.vc_keymap = \
-                        localed.set_and_convert_layout(keyboard.x_layouts[0])
-
-        if not keyboard.vc_keymap:
-            keyboard.vc_keymap = "us"
-
-        if not keyboard.x_layouts:
-            c_lay_var = localed.set_and_convert_keymap(keyboard.vc_keymap)
-            keyboard.x_layouts.append(c_lay_var)
+        populate_missing_items(keyboard)
 
     xconf_dir = os.path.normpath(root + "/etc/X11/xorg.conf.d")
     xconf_file = "%0.2d-anaconda-keyboard.conf" % weight
@@ -190,6 +200,22 @@ def write_keyboard_config(keyboard, root, convert=True, weight=0):
 
     if errors:
         raise KeyboardConfigError("\n".join(errors))
+
+def dracut_setup_args(keyboard):
+    """
+    Function returning dracut setup args for the given keyboard configuration.
+
+    @type keyboard: ksdata.keyboard object
+
+    """
+
+    if not keyboard.vc_keymap:
+        populate_missing_items(keyboard)
+
+    args = set()
+    args.add("vconsole.keymap=%s" % keyboard.vc_keymap)
+
+    return args
 
 def _try_to_load_keymap(keymap):
     """
