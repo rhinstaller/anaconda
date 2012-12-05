@@ -1209,7 +1209,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             old_device = device
 
             # if the encryption is on member devices it was handled above
-            if device.exists or factory.encrypt_leaves:
+            if changed_encryption and (device.exists or factory.encrypt_leaves):
                 if prev_encrypted and not encrypted:
                     log.info("removing encryption from %s" % device.name)
                     with ui_storage_logger():
