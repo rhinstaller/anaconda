@@ -2236,6 +2236,17 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
         encryption_checkbutton = self.builder.get_object("encryptCheckbox")
         encryption_checkbutton.set_sensitive(active)
+        if self._current_selector:
+            device = self._current_selector._device
+            if device.type == "luks/dm-crypt":
+                device = device.slave
+
+            ancestors = device.ancestors
+            ancestors.remove(device)
+            if any([a.format.type == "luks" and a.format.exists for a in ancestors]):
+                # The encryption checkbutton should not be sensitive if there is
+                # existing encryption below the leaf layer.
+                encryption_checkbutton.set_sensitive(False)
 
         fs_combo = self.builder.get_object("fileSystemTypeCombo")
         fs_combo.set_sensitive(active)
