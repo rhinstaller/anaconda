@@ -399,7 +399,7 @@ class StorageSpoke(NormalSpoke, StorageChecker):
             doKickstartStorage(self.storage, self.data, self.instclass)
         except StorageError as e:
             log.error("storage configuration failed: %s" % e)
-            self.errors = str(e).split("\n")
+            StorageChecker.errors = str(e).split("\n")
             communication.send_message(self.__class__.__name__,
                                    _("Failed to save storage configuration..."))
             self.data.ignoredisk.drives = []
@@ -412,7 +412,7 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         else:
             if self.autopart:
                 # this was already run as part of doAutoPartition. dumb.
-                self.errors = []
+                StorageChecker.errors = []
                 self.run()
         finally:
             self._ready = True

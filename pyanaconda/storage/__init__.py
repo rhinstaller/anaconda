@@ -1410,6 +1410,31 @@ class Storage(object):
         self.devicetree.setDiskImages(self.config.diskImages)
         self.devicetree.setupDiskImages()
 
+    @property
+    def fileSystemFreeSpace(self):
+        mountpoints = ["/", "/usr"]
+        free = 0
+        btrfs_volumes = []
+        for mountpoint in mountpoints:
+            device = self.mountpoints.get(mountpoint)
+            if not device:
+                continue
+
+            # don't count the size of btrfs volumes repeatedly when multiple
+            # subvolumes are present
+            if isinstance(device, BTRFSSubVolumeDevice):
+                if device.volume in btrfs_volumes:
+                    continue
+                else:
+                    btrfs_volumes.append(device.volume)
+
+            if device.format.exists:
+                free += device.format.free
+            else:
+                free += device.size
+
+        return free
+
     def sanityCheck(self):
         """ Run a series of tests to verify the storage configuration.
 
