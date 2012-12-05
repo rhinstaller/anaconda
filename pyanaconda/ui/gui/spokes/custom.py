@@ -944,8 +944,13 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         old_mountpoint = getattr(device.format, "mountpoint", "") or ""
         log.debug("old mountpoint: %s" % old_mountpoint)
         log.debug("new mountpoint: %s" % mountpoint)
-        if mountpoint is not None and mountpoint != old_mountpoint:
-            error = validate_mountpoint(mountpoint, self.__storage.mountpoints.keys())
+        if mountpoint is not None and (reformat or
+                                       mountpoint != old_mountpoint):
+            mountpoints = self.__storage.mountpoints.copy()
+            if old_mountpoint:
+                del mountpoints[old_mountpoint]
+
+            error = validate_mountpoint(mountpoint, mountpoints.keys())
             if error:
                 self._error = _(mountpoint_validation_msgs[error])
                 self.set_warning(self._error)
