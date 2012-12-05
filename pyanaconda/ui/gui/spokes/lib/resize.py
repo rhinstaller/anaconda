@@ -142,7 +142,8 @@ class ResizeDialog(GUIObject):
                     # Devices that are not resizable are still deletable.
                     if dev.resizable:
                         freeSize = dev.size - dev.minSize
-                        canShrinkSomething = True
+                        if not dev.protected:
+                            canShrinkSomething = True
                     else:
                         freeSize = dev.size
 
