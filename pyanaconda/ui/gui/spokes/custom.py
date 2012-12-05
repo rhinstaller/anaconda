@@ -638,9 +638,10 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
         # Make sure the storage spoke execute method has finished before we
         # copy the storage instance.
-        t = threadMgr.get("AnaExecuteStorageThread")
-        if t:
-            t.join()
+        for thread_name in ["AnaExecuteStorageThread", "AnaStorageThread"]:
+            t = threadMgr.get(thread_name)
+            if t:
+                t.join()
 
         self.passphrase = self.data.autopart.passphrase
         self._reset_storage()
