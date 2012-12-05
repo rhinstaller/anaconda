@@ -2037,8 +2037,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         log.debug("new disks for %s: %s" % (name, [d.name for d in disks]))
         if not disks:
             self._error = "No disks selected. Not saving changes."
-            self.window.set_info(Gtk.MessageType.INFO,
-                                 self._error)
+            self.set_info(self._error)
             self.window.show_all()
             return
 
@@ -2046,8 +2045,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         if name != vg_name and name in self.__storage.names:
             self._error = _("Volume Group name %s is already in use. Not "
                             "saving changes.")
-            self.window.set_info(Gtk.MessageType.INFO,
-                                 self._error)
+            self.set_info(self._error)
             self.window.show_all()
             return
 
