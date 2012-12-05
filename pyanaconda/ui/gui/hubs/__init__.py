@@ -89,6 +89,8 @@ class Hub(GUIObject, common.Hub):
         self._notReadySpokes = []
         self._spokes = {}
 
+        self._checker = None
+
     def _runSpoke(self, action):
         from gi.repository import Gtk
 
@@ -214,10 +216,11 @@ class Hub(GUIObject, common.Hub):
             if spoke not in self._incompleteSpokes:
                 self._incompleteSpokes.append(spoke)
 
-        self._updateContinueButton()
-
+        self.clear_info()
         if len(self._incompleteSpokes) == 0:
-            self.clear_info()
+            if self._checker and not self._checker.check():
+                self.set_warning(self._checker.error_message)
+                self.window.show_all()
         else:
             if flags.automatedInstall:
                 msg = _("When all items marked with this icon are complete, installation will automatically continue.")
@@ -225,10 +228,13 @@ class Hub(GUIObject, common.Hub):
                 msg = _("Please complete items marked with this icon before continuing to the next step.")
 
             self.set_warning(msg)
+            self.window.show_all()
+
+        self._updateContinueButton()
 
     @property
     def continuePossible(self):
-        return len(self._incompleteSpokes) == 0 and len(self._notReadySpokes) == 0
+        return len(self._incompleteSpokes) == 0 and len(self._notReadySpokes) == 0 and getattr(self._checker, "success", True)
         
     def _updateContinueButton(self):
         self.continueButton.set_sensitive(self.continuePossible)

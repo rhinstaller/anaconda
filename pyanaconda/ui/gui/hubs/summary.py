@@ -20,6 +20,7 @@
 #
 
 from pyanaconda.ui.gui.hubs import Hub
+from pyanaconda.ui.lib.space import FileSystemSpaceChecker
 
 __all__ = ["SummaryHub"]
 
@@ -28,7 +29,31 @@ class SummaryHub(Hub):
     mainWidgetName = "summaryWindow"
     uiFile = "hubs/summary.glade"
 
-    # FIXME:  I really hate this.
+    def __init__(self, data, storage, payload, instclass):
+        """Create a new Hub instance.
+
+           The arguments this base class accepts defines the API that Hubs
+           have to work with.  A Hub does not get free reign over everything
+           in the anaconda class, as that would be a big mess.  Instead, a
+           Hub may count on the following:
+
+           ksdata       -- An instance of a pykickstart Handler object.  The
+                           Hub uses this to populate its UI with defaults
+                           and to pass results back after it has run.
+           storage      -- An instance of storage.Storage.  This is useful for
+                           determining what storage devices are present and how
+                           they are configured.
+           payload      -- An instance of a packaging.Payload subclass.  This
+                           is useful for displaying and selecting packages to
+                           install, and in carrying out the actual installation.
+           instclass    -- An instance of a BaseInstallClass subclass.  This
+                           is useful for determining distribution-specific
+                           installation information like default package
+                           selections and default partitioning.
+        """
+        super(SummaryHub, self).__init__(data, storage, payload, instclass)
+
+        self._checker = FileSystemSpaceChecker(storage, payload)
 
     @property
     def continueButton(self):
