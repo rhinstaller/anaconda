@@ -300,6 +300,41 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/lib/dracut/modules.d/80%{name}/*
 
 %changelog
+* Tue Dec 04 2012 Brian C. Lane <bcl@redhat.com> - 18.35-1
+- Fix a bug when switching back to an HDISO install source (#879612). (clumens)
+- Lower case the DONE button on media check. (clumens)
+- Change mirrorlist checkbox text (#883191). (clumens)
+- Change the bootloader button to indicate you can also not install one.
+  (clumens)
+- Stop writing /etc/sysconfig/keyboard (#871543) (mschmidt)
+- Stop writing /etc/sysconfig/i18n (#871543) (mschmidt)
+- Write /etc/hostname (#871543) (mschmidt)
+- Correct doing string substitution for encryption. (clumens)
+- Add install.py to POTFILES.in so a lot more strings can be translated.
+  (clumens)
+- Only instantiate main line action objects when they are needed. (clumens)
+- Add a category to POTFILES.in so "USER SETTINGS" gets translated. (clumens)
+- Make sure product info and spoke titles are translated throughout. (clumens)
+- Substitute on new_install_name when it's needed, not at the top of custom.py.
+  (clumens)
+- Compare the protocol combox box on position, not text. (clumens)
+- When we retranslate the welcome window, inform glibc. (clumens)
+- Add gettext checks to widgets/configure.ac. (clumens)
+- The initial welcome screen is the only one that needs to do retranslation.
+  (clumens)
+- Remove the generic retranslate method from the python portion of the UI.
+  (clumens)
+- Do not allow manipulating protected devices in the reclaim dialog (#882147).
+  (clumens)
+- ISOImage needs to look at /run/install/source for the mounted image
+  (#879142). (clumens)
+- Minor TODO list update. (clumens)
+- Get rid of the unneeded action1. (clumens)
+- Do not list some layouts twice (#882526) (vpodzime)
+- Check if the given NTP server is a valid hostname (#865869) (vpodzime)
+- Improve and document network.sanityCheckHostname (vpodzime)
+- don't write network settings on image install (bcl)
+
 * Sat Dec 01 2012 Brian C. Lane <bcl@redhat.com> - 18.34-1
 - remove extra space in custom.py (bcl)
 
