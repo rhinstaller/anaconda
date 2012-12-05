@@ -2238,7 +2238,7 @@ def writeSysconfigKernel(storage, version):
         f.write("HYPERVISOR_ARGS=logging=vga,serial,memory\n")
     f.close()
 
-def writeBootLoader(storage, payload, instClass):
+def writeBootLoader(storage, payload, instClass, ksdata):
     """ Write bootloader configuration to disk.
 
         When we get here, the bootloader will already have a default linux
@@ -2304,7 +2304,8 @@ def writeBootLoader(storage, payload, instClass):
     #                                 language=anaconda.instLanguage,
     #                                 network=anaconda.network)
     storage.bootloader.set_boot_args(storage=storage,
-                                     payload=payload)
+                                     payload=payload,
+                                     keyboard=ksdata.keyboard)
 
     try:
         storage.bootloader.write()

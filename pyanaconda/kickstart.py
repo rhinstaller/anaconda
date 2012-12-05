@@ -1292,6 +1292,9 @@ class Keyboard(commands.keyboard.F18_Keyboard):
     def execute(self, *args):
         keyboard.write_keyboard_config(self, ROOT_PATH)
 
+    def dracutSetupArgs(self, *args):
+        return keyboard.dracut_setup_args(self)
+
 ###
 ### HANDLERS
 ###
