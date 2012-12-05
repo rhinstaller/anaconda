@@ -156,7 +156,7 @@ class YumPayload(PackagePayload):
         # This value comes from a default install of the x86_64 Fedora 18.  It
         # is meant as a best first guess only.  Once package metadata is
         # available we can use that as a better value.
-        self._space_required = Size(spec="2800 MB")
+        self._space_required = Size(spec="3000 MB")
 
         self._groups = None
         self._packages = []
@@ -1123,7 +1123,8 @@ reposdir=%s
             for txmbr in self._yum.tsInfo.getMembers():
                 total += getattr(txmbr.po, "installedsize", 0)
 
-        total += total * 0.10   # add 10% to account for metadata, &c
+        total += total * 0.35   # add 35% to account for the fact that the above
+                                # method is laughably inaccurate
         self._space_required = Size(bytes=total)
 
         return self._space_required
