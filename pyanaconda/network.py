@@ -233,13 +233,21 @@ def logIfcfgFile(path, message=""):
         f = open(path, 'r')
         content = f.read()
         f.close()
+    else:
+        content = "file not found"
     ifcfglog.debug("%s%s:\n%s" % (message, path, content))
 
 def logIfcfgFiles(message=""):
-    devprops = isys.getDeviceProperties(dev=None)
-    for device in devprops:
-        path = "%s/ifcfg-%s" % (netscriptsDir, device)
-        logIfcfgFile(path, message)
+    ifcfglog.debug("content of files (%s):" % message)
+    for name in os.listdir(netscriptsDir):
+        if name.startswith("ifcfg-"):
+            if name == 'ifcfg-lo':
+                continue
+            path = os.path.join(netscriptsDir, name)
+            f = open(path, 'r')
+            content = f.read()
+            f.close()
+            ifcfglog.debug("%s:\n%s" % (path, content))
 
 class NetworkDevice(IfcfgFile):
 
@@ -297,25 +305,20 @@ class NetworkDevice(IfcfgFile):
         self.writeIfcfgFile()
 
     def loadIfcfgFile(self):
-        ifcfglog.debug("%s:\n%s" % (self.path, self.fileContent()))
-        ifcfglog.debug("NetworkDevice %s:\n%s" % (self.iface, self.__str__()))
-        ifcfglog.debug("loadIfcfgFile %s from %s" % (self.iface, self.path))
+        ifcfglog.debug("loadIfcfFile %s" % self.path)
 
         self.clear()
         IfcfgFile.read(self)
         self._dirty = False
 
-        ifcfglog.debug("NetworkDevice %s:\n%s" % (self.iface, self.__str__()))
-
     def writeIfcfgFile(self):
         # Write out the file only if there is a key whose
         # value has been changed since last load of ifcfg file.
-        ifcfglog.debug("%s:\n%s" % (self.path, self.fileContent()))
-        ifcfglog.debug("NetworkDevice %s:\n%s" % (self.iface, self.__str__()))
         ifcfglog.debug("writeIfcfgFile %s to %s%s" % (self.iface, self.path,
                                                   ("" if self._dirty else " not needed")))
-
         if self._dirty:
+            ifcfglog.debug("old %s:\n%s" % (self.path, self.fileContent()))
+            ifcfglog.debug("writing NetworkDevice %s:\n%s" % (self.iface, self.__str__()))
             IfcfgFile.write(self)
             self._dirty = False
 
@@ -442,9 +445,19 @@ class WirelessNetworkDevice(NetworkDevice):
 def get_NM_object(path):
     return dbus.SystemBus().get_object(isys.NM_SERVICE, path)
 
-# Handle default auto connections created by NM upon start
-# For server, those will be turned off in NetworkManager.conf
 def createMissingDefaultIfcfgs():
+    """
+    Create or dump missing default ifcfg file for wired devices.
+    For default auto connections created by NM upon start - which happens
+    in case of missing ifcfg file - rename the connection using device name
+    and dump its ifcfg file. (For server, default auto connections will
+    be turned off in NetworkManager.conf.)
+    If there is no default auto connection for a device, create default
+    ifcfg file.
+    Returns True if any ifcfg file was created or dumped.
+
+    """
+    rv = False
     nm = get_NM_object(isys.NM_MANAGER_PATH)
     dev_paths = nm.GetDevices()
     settings = get_NM_object(isys.NM_SETTINGS_PATH)
@@ -471,10 +484,14 @@ def createMissingDefaultIfcfgs():
             if con_hwaddr.upper() == hwaddr.upper():
                 setting['connection']['id'] = interface
                 con.Update(setting)
+                rv = True
+                log.debug("network: dumped ifcfg file for default autoconnection on %s" % interface)
                 break
         else:
             # if there is no connection, create default ifcfg
             device_cfg.setDefaultConfig()
+            rv = True
+    return rv
 
 def getDevices():
     # TODO: filter with existence of ifcfg file?
@@ -1023,9 +1040,12 @@ def setOnboot(ksdata):
 # networking initialization and ksdata object update
 def networkInitialize(ksdata):
 
+    log.debug("network: devices found %s" % getDevices())
+    logIfcfgFiles("network initialization")
     if not flags.imageInstall:
         # XXX: this should go to anaconda dracut
-        createMissingDefaultIfcfgs()
+        if createMissingDefaultIfcfgs():
+            logIfcfgFiles("ifcfgs created")
 
     # we set ONBOOT value using network --activate activate in dracut
     # to get devices activated by NM, so set proper ONBOOT value

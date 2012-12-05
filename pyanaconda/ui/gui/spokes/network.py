@@ -41,7 +41,7 @@ from pyanaconda.ui.gui.categories.software import SoftwareCategory
 from pyanaconda.ui.gui.hubs.summary import SummaryHub
 from pyanaconda.ui.gui.utils import gtk_call_once
 
-from pyanaconda.network import NetworkDevice, netscriptsDir, kickstartNetworkData, getActiveNetDevs
+from pyanaconda.network import NetworkDevice, netscriptsDir, kickstartNetworkData, getActiveNetDevs, logIfcfgFiles
 
 from gi.repository import GLib, GObject, Pango, Gio, NetworkManager, NMClient
 import dbus
@@ -449,6 +449,7 @@ class NetworkControlBox():
         if activate:
             con, device = activate
             gtk_call_once(self._activate_connection_cb, con, device)
+        logIfcfgFiles("nm-c-e run")
 
     def _activate_connection_cb(self, con, device):
         self.client.activate_connection(con, device,
