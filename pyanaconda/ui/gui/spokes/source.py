@@ -465,6 +465,9 @@ class SourceSpoke(NormalSpoke):
                 old_source.partition == self.data.method.partition and
                 old_source.dir == self.data.method.dir):
                 return
+
+            # Make sure anaconda doesn't touch this device.
+            part.protected = True
         elif self._mirror_active():
             # this preserves the url for later editing
             self.data.method.method = None
@@ -522,6 +525,13 @@ class SourceSpoke(NormalSpoke):
                 old_source.dir == self.data.method.dir and
                 old_source.opts == self.data.method.opts):
                 return
+
+        # If the user moved from an HDISO method to some other, we need to
+        # clear the protected bit on that device.
+        if old_source.method == "harddrive" and old_source.partition:
+            dev = self.storage.devicetree.getDeviceByName(old_source.partition)
+            if dev:
+                dev.protected = False
 
         threadMgr.add(AnacondaThread(name="AnaPayloadMDThread",
                                      target=self.getRepoMetadata))

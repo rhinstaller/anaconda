@@ -1965,6 +1965,9 @@ class DeviceTree(object):
     def teardownAll(self):
         """ Run teardown methods on all devices. """
         for device in self.leaves:
+            if device.protected:
+                continue
+
             try:
                 device.teardown(recursive=True)
             except StorageError as e:
