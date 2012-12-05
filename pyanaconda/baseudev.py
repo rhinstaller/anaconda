@@ -92,3 +92,4 @@ def udev_trigger(subsystem=None, action="add", name=None):
         argv.append("--sysname-match=%s" % name)
 
     iutil.execWithRedirect("udevadm", argv, stderr="/dev/null")
+    udev_settle()
