@@ -329,7 +329,7 @@ class Storage(object):
                                      iscsi=self.iscsi,
                                      dasd=self.dasd)
         self.fsset = FSSet(self.devicetree)
-        self.roots = {}
+        self.roots = []
         self.services = set()
 
     def doIt(self):
