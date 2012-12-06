@@ -109,8 +109,11 @@ def doInstall(storage, payload, ksdata, instClass):
     steps = len(storage.devicetree.findActions(type="create", object="format")) + \
             len(storage.devicetree.findActions(type="resize", object="format")) + \
             len(storage.devicetree.findActions(type="migrate", object="format"))
-    steps += 4  # packages setup, packages, bootloader, post install
+    steps += 5  # pre setup phase, packages setup, packages, bootloader, post install
     progress.send_init(steps)
+
+    with progress_report(_("Setting up the install environment")):
+        ksdata.addon.setup(storage, ksdata, instClass)
 
     # Do partitioning.
     payload.preStorage()

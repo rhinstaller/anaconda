@@ -18,7 +18,7 @@
 #
 # Red Hat Author(s): Chris Lumens <clumens@redhat.com>
 #
-import importlib, inspect, os, sys, time
+import inspect, os, sys, time
 import meh.ui.gui
 
 from gi.repository import Gdk

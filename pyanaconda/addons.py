@@ -39,7 +39,7 @@ def collect_addon_paths(toplevel_addon_paths, ui_subdir="gui"):
         "ks": [],
         "categories": []
         }
-    
+
     for path in toplevel_addon_paths:
         try:
             directories = os.listdir(path)
@@ -68,7 +68,7 @@ class AddonRegistry(object):
 
        It acts as a proxy during kickstart save.
     """
-       
+
     def __init__(self, dictionary):
         self.__dict__ = dictionary
 
@@ -76,11 +76,20 @@ class AddonRegistry(object):
         return reduce(lambda acc,(id, addon): acc + "%%addon %s\n%s%%end\n" % (id, str(addon)),
                       self.__dict__.iteritems(), "")
 
-    def execute(self, storage, ksdata, instClass):
+    # pylint: disable-msg=C0103
+    def execute(self, storage, ksdata, instClass, users):
         """This method calls execute on all the registered addons."""
         for k, v in self.__dict__.iteritems():
-            v.execute(storage, ksdata, instClass)
-        
+            if hasattr(v, "execute"):
+                v.execute(storage, ksdata, instClass, users)
+
+    def setup(self, storage, ksdata, instClass):
+        """This method calls setup on all the registered addons."""
+        for k, v in self.__dict__.iteritems():
+            if hasattr(v, "setup"):
+                v.setup(storage, ksdata, instClass)
+
+
 class AddonData(object):
     """This is a common parent class for loading and storing
        3rd party data to kickstart. It is instantiated by
@@ -96,7 +105,7 @@ class AddonData(object):
        There is also a mandatory method execute, which should
        make all the described changes to the installed system.
     """
-    
+
     def __init__(self, name):
         self.name = name
         self.content = ""
@@ -104,8 +113,21 @@ class AddonData(object):
     def __str__(self):
         return self.content
 
-    def execute(self, storage, ksdata, instClass):
-        """Make the changes to the underlying system."""
+    # pylint: disable-msg=C0103
+    def setup(self, storage, ksdata, instClass):
+        """Make the changes to the install system.
+
+           This method is called before the installation
+           is started and directly from spokes. It must be possible
+           to call it multiple times without breaking the environment."""
+        pass
+
+    def execute(self, storage, ksdata, instClass, users):
+        """Make the changes to the underlying system.
+
+           This method is called only once in the post-install
+           setup phase.
+        """
         pass
 
     def handle_line(self, line):
@@ -133,10 +155,10 @@ class AddonSection(Section):
         """Process the arguments to the %addon header."""
         Section.handleHeader(self, lineno, args)
         op = KSOptionParser(version=self.version)
-        (opts, extra) = op.parse_args(args=args[1:], lineno=lineno)
+        (_opts, extra) = op.parse_args(args=args[1:], lineno=lineno)
         self.addon_id = extra[0]
 
         # if the addon is not registered, create dummy placeholder for it
         if self.addon_id and not hasattr(self.handler.addon, self.addon_id):
-            setattr(self.handler.addon, self.addon_id, AnacondaKSAddon(self.addon_id))
+            setattr(self.handler.addon, self.addon_id, AddonData(self.addon_id))
 
