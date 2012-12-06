@@ -2053,7 +2053,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         log.debug("new VG name: %s" % name)
         if name != vg_name and name in self.__storage.names:
             self._error = _("Volume Group name %s is already in use. Not "
-                            "saving changes.")
+                            "saving changes.") % name
             self.set_info(self._error)
             self.window.show_all()
             return
