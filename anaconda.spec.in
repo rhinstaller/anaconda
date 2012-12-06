@@ -300,6 +300,28 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/lib/dracut/modules.d/80%{name}/*
 
 %changelog
+* Wed Dec 05 2012 Brian C. Lane <bcl@redhat.com> - 18.36-1
+- Call udev_settle from inside udev_trigger. (dlehman)
+- Prevent enabling the encryption checkbutton erroneously. (dlehman)
+- Make sure Storage is initialized before refreshing the custom spoke.
+  (dlehman)
+- Fix initialization of Storage.roots to use a list. (#884270) (dlehman)
+- Don't allow reformat without setting a mountpoint. (#883076) (dlehman)
+- Fix check for toggled encryption checkbutton. (#882722) (dlehman)
+- Make sure FS minSize is never greater than its currentSize. (#876547)
+  (dlehman)
+- When considering whether anything can be shrunk, throw out protected devs.
+  (clumens)
+- In the UI, mark the HDISO source device as protected (#879610). (clumens)
+- update mdraid superBlock space calculation (#883483) (bcl)
+- Remove resetResolver function, we don't need it anymore (#868695) (rvykydal)
+- Network spoke: improve logging. (rvykydal)
+- Unify writeNetworkConf with other modules (rename, put in ks.execute)
+  (rvykydal)
+- Fix network command --onboot and --activate options. (rvykydal)
+- Fix two calls of self.window.set_info (#883632) (vpodzime)
+- Use BaseWindow.set_warning and set_error in GUIObject's methods (vpodzime)
+
 * Tue Dec 04 2012 Brian C. Lane <bcl@redhat.com> - 18.35-1
 - Fix a bug when switching back to an HDISO install source (#879612). (clumens)
 - Lower case the DONE button on media check. (clumens)
