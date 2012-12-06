@@ -356,7 +356,7 @@ class XklWrapper(object):
         #'grp' means that we want layout (group) switching options
         self.configreg.foreach_option('grp', self._get_switch_option, None)
 
-    def _get_variant(self, c_reg, item, subitem, dest):
+    def _get_variant(self, c_reg, item, subitem, lang):
         if subitem:
             name = item_str(item.name) + " (" + item_str(subitem.name) + ")"
             description = item_str(subitem.description)
@@ -366,11 +366,13 @@ class XklWrapper(object):
 
         #if this layout has already been added for some other language,
         #do not add it again (would result in duplicates in our lists)
-        if name not in self.name_to_show_str:
-            if dest:
-                self.name_to_show_str[name] = "%s (%s)" % (dest.encode("utf-8"),
+        if lang and name not in self.name_to_show_str:
+            self.name_to_show_str[name] = "%s (%s)" % (lang.encode("utf-8"),
                                                     description.encode("utf-8"))
-
+            self._variants_list.append(_Layout(name, description))
+        elif lang is None:
+            #if lang is None, we are iterating over countries not languages
+            #and should just append the layout to the list
             self._variants_list.append(_Layout(name, description))
 
     def _get_language_variants(self, c_reg, item, user_data=None):
