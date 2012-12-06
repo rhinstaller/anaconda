@@ -448,7 +448,6 @@ def createMissingDefaultIfcfgs():
     nm = get_NM_object(isys.NM_MANAGER_PATH)
     dev_paths = nm.GetDevices()
     settings = get_NM_object(isys.NM_SETTINGS_PATH)
-    con_paths = settings.ListConnections()
     for devpath in dev_paths:
         device = get_NM_object(devpath)
         device_props_iface = dbus.Interface(device, isys.DBUS_PROPS_IFACE)
@@ -462,6 +461,7 @@ def createMissingDefaultIfcfgs():
             continue
         # check if there is a connection for the device (default autoconnection)
         hwaddr = device_props_iface.Get(isys.NM_DEVICE_WIRED_IFACE, "HwAddress")
+        con_paths = settings.ListConnections()
         for con_path in con_paths:
             con = get_NM_object(con_path)
             setting = con.GetSettings()
