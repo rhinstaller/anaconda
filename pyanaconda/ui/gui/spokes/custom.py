@@ -495,6 +495,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         self._removeButton = self.builder.get_object("removeButton")
         self._configButton = self.builder.get_object("configureButton")
 
+        self._reformatCheckbox = self.builder.get_object("reformatCheckbox")
+
     def initialize(self):
         NormalSpoke.initialize(self)
 
@@ -914,7 +916,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         device_type = self._get_current_device_type()
         log.debug("new device type: %s" % device_type)
 
-        reformat = self.builder.get_object("reformatCheckbox").get_active()
+        reformat = self._reformatCheckbox.get_active()
         log.debug("reformat: %s" % reformat)
 
         fs_type_combo = self.builder.get_object("fileSystemTypeCombo")
@@ -1483,7 +1485,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
     def _populate_right_side(self, selector):
         log.debug("populate_right_side: %s" % selector._device)
         encryptCheckbox = self.builder.get_object("encryptCheckbox")
-        reformatCheckbox = self.builder.get_object("reformatCheckbox")
         labelEntry = self.builder.get_object("labelEntry")
         mountPointEntry = self.builder.get_object("mountPointEntry")
         nameEntry = self.builder.get_object("nameEntry")
@@ -1552,12 +1553,13 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         else:
             sizeSpinner.set_tooltip_text(_("This file system may not be resized."))
 
-        reformatCheckbox.set_active(not device.format.exists)
-        reformatCheckbox.set_sensitive(use_dev.exists and
-                                       not use_dev.type.startswith("btrfs"))
+        self._reformatCheckbox.set_active(not device.format.exists)
+        self._reformatCheckbox.set_sensitive(not device.protected and
+                                             use_dev.exists and
+                                             not use_dev.type.startswith("btrfs"))
 
         encryptCheckbox.set_active(device.encrypted)
-        encryptCheckbox.set_sensitive(reformatCheckbox.get_active())
+        encryptCheckbox.set_sensitive(self._reformatCheckbox.get_active())
         ancestors = use_dev.ancestors
         ancestors.remove(use_dev)
         if any([a.format.type == "luks" and a.format.exists for a in ancestors]):
@@ -1595,7 +1597,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
            device.originalFormat.type not in self._fs_types:
             fsCombo.append_text(device.originalFormat.name)
 
-        fsCombo.set_sensitive(reformatCheckbox.get_active())
+        fsCombo.set_sensitive(self._reformatCheckbox.get_sensitive() and
+                              self._reformatCheckbox.get_active())
 
         ##
         ## Set up the device type combo.
@@ -2154,8 +2157,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         selector.set_chosen(True)
         self._current_selector = selector
 
-        self._configButton.set_sensitive(True)
-        self._removeButton.set_sensitive(True)
+        self._configButton.set_sensitive(not selector._device.protected)
+        self._removeButton.set_sensitive(not selector._device.protected)
         return True
 
     def on_page_clicked(self, page):
@@ -2272,9 +2275,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         fmt = getFormat(new_type)
         mountPointEntry = self.builder.get_object("mountPointEntry")
         labelEntry = self.builder.get_object("labelEntry")
-        reformat_checkbox = self.builder.get_object("reformatCheckbox")
         # FIXME: can't set a label on an existing format as of now
-        labelEntry.set_sensitive(reformat_checkbox.get_active() and
+        labelEntry.set_sensitive(self._reformatCheckbox.get_active() and
                                  hasattr(fmt, "label"))
         mountPointEntry.set_sensitive(fmt.mountable)
 
@@ -2406,7 +2408,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             active_index = len(fsCombo.get_model()) - 1
 
         fsCombo.set_active(active_index)
-        fsCombo.set_sensitive(fs_type_sensitive)
+        fsCombo.set_sensitive(self._reformatCheckbox.get_sensitive() and
+                              fs_type_sensitive)
         # end btrfs magic
 
     def clear_errors(self):
