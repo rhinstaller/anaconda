@@ -468,6 +468,7 @@ class SourceSpoke(NormalSpoke):
 
             # Make sure anaconda doesn't touch this device.
             part.protected = True
+            self.storage.config.protectedDevSpecs.append(part.name)
         elif self._mirror_active():
             # this preserves the url for later editing
             self.data.method.method = None
@@ -529,6 +530,9 @@ class SourceSpoke(NormalSpoke):
         # If the user moved from an HDISO method to some other, we need to
         # clear the protected bit on that device.
         if old_source.method == "harddrive" and old_source.partition:
+            if old_source.partition in self.storage.config.protectedDevSpecs:
+                self.storage.config.protectedDevSpecs.remove(old_source.partition)
+
             dev = self.storage.devicetree.getDeviceByName(old_source.partition)
             if dev:
                 dev.protected = False
