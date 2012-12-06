@@ -38,7 +38,11 @@ def findFirstIsoImage(path):
 
     Returns the basename of the image
     """
-    flush = os.stat(path)
+    try:
+        flush = os.stat(path)
+    except OSError:
+        return None
+
     arch = _arch
 
     if os.path.isfile(path) and path.endswith(".iso"):
