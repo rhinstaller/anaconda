@@ -2157,7 +2157,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         selector.set_chosen(True)
         self._current_selector = selector
 
-        self._configButton.set_sensitive(not selector._device.protected)
+        self._configButton.set_sensitive(not selector._device.protected and
+                                         getDeviceType(selector._device) != DEVICE_TYPE_LVM)
         self._removeButton.set_sensitive(not selector._device.protected)
         return True
 
