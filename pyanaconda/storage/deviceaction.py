@@ -523,7 +523,7 @@ class ActionDestroyFormat(DeviceAction):
               obsolete a format destroy action on an existing one
         """
         return (self.device.id == action.device.id and
-                self.obj == self.obj and
+                self.obj == action.obj and
                 (self.id > action.id or
                  (self.id == action.id and not self.format.exists)) and
                 not (action.format.exists and not self.format.exists))
