@@ -370,8 +370,6 @@ class StorageSpoke(NormalSpoke, StorageChecker):
             self.storage.bootloader.stage1_disk = None
             self.storage.bootloader.stage1_device = None
 
-        self.data.bootloader.location = "mbr"
-
         self.data.clearpart.initAll = True
         self.data.clearpart.type = self.clearPartType
         self.storage.config.update(self.data)
