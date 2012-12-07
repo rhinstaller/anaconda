@@ -1540,7 +1540,8 @@ class PartitionDevice(StorageDevice):
             self.partedPartition = self.disk.originalFormat.partedDisk.getPartitionByPath(self.path)
             raise
 
-        if self.disk.format.exists:
+        if self.disk.format.exists and \
+           self.disk.format.partedDisk != self.disk.originalFormat.partedDisk:
             # If the new/current disklabel is the same as the original one, we
             # have to duplicate the removal on the other copy of the DiskLabel.
             part = self.disk.format.partedDisk.getPartitionByPath(self.path)
