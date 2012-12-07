@@ -2321,17 +2321,17 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             if default_vg is None:
                 vg_combo.set_active(len(vg_combo.get_model()) - 1)
 
-            vg_combo.show()
-            vg_button.show()
-            vg_label.show()
+            for widget in [vg_label, vg_combo, vg_button]:
+                widget.set_no_show_all(False)
+                widget.show()
 
             # make the combo and button insensitive for existing LVs
             can_change_vg = (device is not None and not device.exists)
             vg_combo.set_sensitive(can_change_vg)
         else:
-            vg_label.hide()
-            vg_combo.hide()
-            vg_button.hide()
+            for widget in [vg_label, vg_combo, vg_button]:
+                widget.set_no_show_all(True)
+                widget.hide()
 
     def on_device_type_changed(self, combo):
         if not self._initialized:
