@@ -176,7 +176,7 @@ class ProgressHub(Hub):
 
         if flags.livecdInstall:
             continueText = self.builder.get_object("rebootLabel")
-            continueText.set_text("%s is now successfully installed on your system and ready"
+            continueText.set_text("%s is now successfully installed on your system and ready "
                                   "for you to use!  When you are ready, reboot your system to start using it!")
             self.continueButton.set_label("_Quit")
 
