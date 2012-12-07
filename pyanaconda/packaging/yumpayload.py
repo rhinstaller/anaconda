@@ -1161,6 +1161,9 @@ reposdir=%s
         """
         self._selectYumGroup("core")
 
+        if self.data.packages.default and self.environments:
+            self.selectEnvironment(self.environments[0])
+
         for package in self.data.packages.packageList:
             try:
                 self._selectYumPackage(package)
