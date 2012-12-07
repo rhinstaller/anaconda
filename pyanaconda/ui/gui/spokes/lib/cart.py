@@ -179,7 +179,7 @@ class SelectedDisksDialog(GUIObject):
 
         # No device was selected.  The user does not want to install
         # a bootloader.
-        self.data.bootloader.bootDrive = None
+        self.data.bootloader.bootDrive = ""
         self.data.bootloader.location = "none"
 
     def _toggle_button_text(self, row):
