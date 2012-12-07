@@ -1769,11 +1769,9 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                                      AUTOPART_TYPE_PLAIN: DEVICE_TYPE_PARTITION,
                                      AUTOPART_TYPE_BTRFS: DEVICE_TYPE_BTRFS}
         device_type = device_type_from_autopart[self.data.autopart.type]
-        if device_type != DEVICE_TYPE_PARTITION and \
-             mountpoint == "/boot/efi":
-            device_type = DEVICE_TYPE_PARTITION
-        elif device_type != DEVICE_TYPE_PARTITION and \
-             fstype in partition_only_format_types:
+        if (device_type != DEVICE_TYPE_PARTITION and
+            (mountpoint.startswith("/boot") or
+             fstype in partition_only_format_types)):
             device_type = DEVICE_TYPE_PARTITION
 
         # some devices should never be encrypted
