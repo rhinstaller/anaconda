@@ -300,6 +300,24 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/lib/dracut/modules.d/80%{name}/*
 
 %changelog
+* Fri Dec 07 2012 Brian C. Lane <bcl@redhat.com> - 18.37-1
+- Honor user request via UI to not install a bootloader. (#885240) (dlehman)
+- Handle partition removals regardless of deepcopy. (#884896) (dlehman)
+- Default to partitions for /boot* instead of just /boot/efi. (#884606)
+  (dlehman)
+- Fix a logic error in ActionDestroyFormat.obsoletes. (#885004) (dlehman)
+- Take device type into account when making the config button sensitive
+  (#885051). (clumens)
+- Hide VG-related widgets when displaying a non-LV mountpoint first (#885131).
+  (clumens)
+- Put the bad VG name into the error message (#884359). (clumens)
+- Add/remove the HDISO source from protectedDevSpecs (#882147). (clumens)
+- If path doesn't exist, don't traceback.  Return None. (clumens)
+- Do not allow deleting or editing a protected device in custom part (#884599).
+  (clumens)
+- Use updated connection settings object for default auto config files
+  (#883383) (rvykydal)
+
 * Wed Dec 05 2012 Brian C. Lane <bcl@redhat.com> - 18.36-1
 - Call udev_settle from inside udev_trigger. (dlehman)
 - Prevent enabling the encryption checkbutton erroneously. (dlehman)
