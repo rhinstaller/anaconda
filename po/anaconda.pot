@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 13.21.186\n"
+"Project-Id-Version: anaconda 13.21.187\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2012-11-29 09:48-0800\n"
+"POT-Creation-Date: 2012-12-10 15:50-0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -124,8 +124,8 @@ msgstr ""
 msgid "_Exit installer"
 msgstr ""
 
-#: bootloader.py:60 image.py:92 image.py:253 kickstart.py:1502
-#: kickstart.py:1546 upgrade.py:58 yuminstall.py:1438 yuminstall.py:1617
+#: bootloader.py:60 image.py:92 image.py:253 kickstart.py:1501
+#: kickstart.py:1545 upgrade.py:58 yuminstall.py:1438 yuminstall.py:1617
 #: iw/partition_gui.py:1629 storage/__init__.py:2086
 msgid "_Continue"
 msgstr ""
@@ -158,8 +158,8 @@ msgstr ""
 msgid "In progress"
 msgstr ""
 
-#: cmdline.py:88 gui.py:1315 kickstart.py:1284 kickstart.py:1364
-#: kickstart.py:1372 kickstart.py:1411 kickstart.py:1419 text.py:396
+#: cmdline.py:88 gui.py:1315 kickstart.py:1283 kickstart.py:1363
+#: kickstart.py:1371 kickstart.py:1410 kickstart.py:1418 text.py:396
 #, python-format
 msgid ""
 "The following error was found while parsing the kickstart configuration "
@@ -467,8 +467,8 @@ msgstr ""
 #: image.py:291 livecd.py:198 livecd.py:440 partIntfHelpers.py:240 text.py:359
 #: text.py:363 yuminstall.py:446 yuminstall.py:982 yuminstall.py:1097
 #: yuminstall.py:1102 yuminstall.py:1376 yuminstall.py:1443 yuminstall.py:1641
-#: yuminstall.py:1663 iw/advanced_storage.py:385 iw/advanced_storage.py:396
-#: iw/advanced_storage.py:456 iw/autopart_type.py:95 iw/cleardisks_gui.py:44
+#: yuminstall.py:1663 iw/advanced_storage.py:385 iw/advanced_storage.py:398
+#: iw/advanced_storage.py:458 iw/autopart_type.py:95 iw/cleardisks_gui.py:44
 #: iw/cleardisks_gui.py:54 iw/filter_gui.py:437 iw/osbootwidget.py:211
 #: iw/osbootwidget.py:221 iw/raid_dialog_gui.py:220 iw/task_gui.py:54
 #: iw/task_gui.py:152 iw/task_gui.py:305 iw/task_gui.py:472
@@ -605,63 +605,63 @@ msgid ""
 "%s"
 msgstr ""
 
-#: kickstart.py:1383
+#: kickstart.py:1382
 #, python-format
 msgid "Error processing %%ksappend lines: %s"
 msgstr ""
 
-#: kickstart.py:1386
+#: kickstart.py:1385
 #, python-format
 msgid "Unknown error processing %%ksappend lines: %s"
 msgstr ""
 
-#: kickstart.py:1442 livecd.py:228
+#: kickstart.py:1441 livecd.py:228
 msgid "Post-Installation"
 msgstr ""
 
-#: kickstart.py:1443
+#: kickstart.py:1442
 msgid "Running post-installation scripts"
 msgstr ""
 
-#: kickstart.py:1459
+#: kickstart.py:1458
 msgid "Pre-Installation"
 msgstr ""
 
-#: kickstart.py:1460
+#: kickstart.py:1459
 msgid "Running pre-installation scripts"
 msgstr ""
 
-#: kickstart.py:1493
+#: kickstart.py:1492
 msgid "Missing Package"
 msgstr ""
 
-#: kickstart.py:1494
+#: kickstart.py:1493
 #, python-format
 msgid ""
 "You have specified that the package '%s' should be installed.  This package "
 "does not exist. Would you like to continue or abort this installation?"
 msgstr ""
 
-#: kickstart.py:1500 kickstart.py:1544
+#: kickstart.py:1499 kickstart.py:1543
 msgid "_Abort"
 msgstr ""
 
-#: kickstart.py:1501 kickstart.py:1545
+#: kickstart.py:1500 kickstart.py:1544
 msgid "_Ignore All"
 msgstr ""
 
-#: kickstart.py:1536
+#: kickstart.py:1535
 msgid "Missing Group"
 msgstr ""
 
-#: kickstart.py:1537
+#: kickstart.py:1536
 #, python-format
 msgid ""
 "You have specified that the group '%s' should be installed. This group does "
 "not exist. Would you like to continue or abort this installation?"
 msgstr ""
 
-#: kickstart.py:1660
+#: kickstart.py:1659
 #, python-format
 msgid ""
 "The kickstart configuration file is missing required information that "
@@ -4656,31 +4656,31 @@ msgstr ""
 msgid "lvs failed for %s"
 msgstr ""
 
-#: storage/devices.py:823 storage/devices.py:1547 storage/devices.py:2618
+#: storage/devices.py:823 storage/devices.py:1547 storage/devices.py:2616
 msgid "large"
 msgstr ""
 
-#: storage/devices.py:825 storage/devices.py:1553 storage/devices.py:2624
+#: storage/devices.py:825 storage/devices.py:1553 storage/devices.py:2622
 msgid "small"
 msgstr ""
 
-#: storage/devices.py:1323 storage/devices.py:2086 storage/devices.py:2551
-#: storage/devices.py:3134 storage/devices.py:3621
+#: storage/devices.py:1323 storage/devices.py:2084 storage/devices.py:2549
+#: storage/devices.py:3132 storage/devices.py:3619
 msgid "Creating"
 msgstr ""
 
-#: storage/devices.py:1324 storage/devices.py:2087 storage/devices.py:2552
-#: storage/devices.py:3135
+#: storage/devices.py:1324 storage/devices.py:2085 storage/devices.py:2550
+#: storage/devices.py:3133
 #, python-format
 msgid "Creating device %s"
 msgstr ""
 
-#: storage/devices.py:2667
+#: storage/devices.py:2665
 #, python-format
 msgid "A RAID%d set requires atleast %d members"
 msgstr ""
 
-#: storage/devices.py:3622
+#: storage/devices.py:3620
 #, python-format
 msgid "Creating file %s"
 msgstr ""

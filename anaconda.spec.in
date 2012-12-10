@@ -222,6 +222,16 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Mon Dec 10 2012 Brian C. Lane <bcl@redhat.com> - 13.21.188-1
+- Revert "Reserve 50% of VG for interactive installs (bcl)"
+  Resolves: rhbz#875918
+  Resolves: rhbz#884761
+- Fix fipvlan -f argument once more and for good (rvykydal)
+  Related: rhbz#836321
+- Generate kickstart fcoe commands for devices added in UI (rvykydal)
+  Related: rhbz#813998
+  Resolves: rhbz#813998
+
 * Thu Nov 29 2012 Brian C. Lane <bcl@redhat.com> - 13.21.187-1
 - cleanup addon repo cache dirs before upgrade (bcl)
   Resolves: rhbz#746925
