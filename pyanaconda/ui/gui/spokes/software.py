@@ -81,7 +81,7 @@ class SoftwareSelectionSpoke(NormalSpoke):
 
         # Don't redo dep solving if nothing's changed.
         if row[2] == self._origEnvironment and set(addons) == set(self._origAddons) and \
-           not self._clickedRemove:
+           not self._clickedRemove and self.txid_valid:
             return
 
         self._selectFlag = False
@@ -122,8 +122,7 @@ class SoftwareSelectionSpoke(NormalSpoke):
     @property
     def completed(self):
         processingDone = not threadMgr.get("AnaCheckSoftwareThread") and \
-                         not self._errorMsgs and \
-                         self._tx_id == self.payload.txID
+                         not self._errorMsgs and self.txid_valid
 
         if flags.automatedInstall and packagesSeen:
             return processingDone
@@ -152,6 +151,9 @@ class SoftwareSelectionSpoke(NormalSpoke):
 
         if not self.ready:
             return _("Installation source not set up")
+
+        if not self.txid_valid:
+            return _("Source changed - please verify")
 
         row = self._get_selected_environment()
         if not row:
@@ -276,6 +278,10 @@ class SoftwareSelectionSpoke(NormalSpoke):
             return None
 
         return self._environmentStore[itr]
+
+    @property
+    def txid_valid(self):
+        return self._tx_id == self.payload.txID
 
     # Signal handlers
     def on_environment_toggled(self, renderer, path):
