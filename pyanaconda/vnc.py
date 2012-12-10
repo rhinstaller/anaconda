@@ -170,6 +170,7 @@ class VncServer:
 
     def startServer(self):
         self.log.info(_("Starting VNC..."))
+        network.wait_for_dhcp()
 
         # Lets call it from here for now.
         try:
