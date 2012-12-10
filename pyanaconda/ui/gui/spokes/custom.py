@@ -1770,7 +1770,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                                      AUTOPART_TYPE_BTRFS: DEVICE_TYPE_BTRFS}
         device_type = device_type_from_autopart[self.data.autopart.type]
         if (device_type != DEVICE_TYPE_PARTITION and
-            (mountpoint.startswith("/boot") or
+            ((mountpoint and mountpoint.startswith("/boot")) or
              fstype in partition_only_format_types)):
             device_type = DEVICE_TYPE_PARTITION
 
