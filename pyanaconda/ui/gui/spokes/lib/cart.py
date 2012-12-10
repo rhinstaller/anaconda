@@ -210,11 +210,11 @@ class SelectedDisksDialog(GUIObject):
             # previously selected device.
             for row in self._store:
                 if row[ID_COL] == self._previousID:
-                    row[IS_BOOT_COL] = not row[IS_BOOT_COL]
+                    row[IS_BOOT_COL] = False
                     break
 
             # Then we select the new row.
-            self._store[itr][IS_BOOT_COL] = not self._store[itr][IS_BOOT_COL]
+            self._store[itr][IS_BOOT_COL] = True
             self._previousID = self._store[itr][ID_COL]
 
         self._toggle_button_text(self._store[itr])
