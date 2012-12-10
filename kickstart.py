@@ -1160,8 +1160,7 @@ class VolGroupData(commands.volgroup.F16_VolGroupData):
             storage.createDevice(request)
             if self.reserved_space:
                 request.reserved_space = self.reserved_space
-                request.reserved_percent = 0
-            else:
+            elif self.reserved_percent:
                 request.reserved_percent = self.reserved_percent
 
 class XConfig(commands.xconfig.F10_XConfig):
