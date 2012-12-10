@@ -41,7 +41,7 @@ from pyanaconda.ui.gui.utils import enlightbox, gtk_thread_wait
 from pyanaconda.iutil import ProxyString, ProxyStringError
 from pyanaconda.ui.gui.utils import gtk_call_once
 from pyanaconda.threads import threadMgr, AnacondaThread
-from pyanaconda.packaging import PayloadError, get_mount_paths
+from pyanaconda.packaging import PayloadError, get_mount_paths, MetadataError
 from pyanaconda.constants import DRACUT_ISODIR, ISO_DIR
 
 __all__ = ["SourceSpoke"]
@@ -576,7 +576,19 @@ class SourceSpoke(NormalSpoke):
                 self._error = True
                 gtk_call_once(self.set_warning, _("Failed to set up install source, check the repo url"))
             else:
-                communication.send_ready("SoftwareSelectionSpoke")
+                try:
+                    # Grabbing the list of groups could potentially take a long time the
+                    # first time (yum does a lot of magic property stuff, some of which
+                    # involves side effects like network access) so go ahead and grab
+                    # them now. These are properties with side-effects, just accessing
+                    # them will trigger yum.
+                    e = self.payload.environments
+                    g = self.payload.groups
+                except MetadataError:
+                    communication.send_message("SoftwareSelectionSpoke",
+                                               _("No installation source available"))
+                else:
+                    communication.send_ready("SoftwareSelectionSpoke")
         finally:
             communication.send_ready(self.__class__.__name__)
 
