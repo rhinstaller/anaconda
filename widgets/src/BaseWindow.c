@@ -90,7 +90,7 @@ struct _AnacondaBaseWindowPrivate {
     gboolean    is_beta, info_shown;
     GtkWidget  *main_box, *event_box, *info_bar;
     GtkWidget  *alignment;
-    GtkWidget  *nav_area, *action_area;
+    GtkWidget  *nav_box, *nav_area, *action_area;
     GtkWidget  *name_label, *distro_label, *beta_label;
 
     /* Untranslated versions of various things. */
@@ -209,13 +209,19 @@ static void anaconda_base_window_init(AnacondaBaseWindow *win) {
     /* Then the navigation area that sits as the first item in the main box
      * for every Window class.
      */
+
+    win->priv->nav_box = gtk_event_box_new();
+    gtk_widget_set_app_paintable(win->priv->nav_box, TRUE);
+    gtk_box_pack_start(GTK_BOX(win->priv->main_box), win->priv->nav_box, FALSE, FALSE, 0);
+
     win->priv->nav_area = gtk_grid_new();
     gtk_grid_set_row_homogeneous(GTK_GRID(win->priv->nav_area), FALSE);
     gtk_grid_set_column_homogeneous(GTK_GRID(win->priv->nav_area), FALSE);
     gtk_widget_set_margin_left(win->priv->nav_area, 6);
     gtk_widget_set_margin_right(win->priv->nav_area, 6);
     gtk_widget_set_margin_top(win->priv->nav_area, 6);
-    gtk_box_pack_start(GTK_BOX(win->priv->main_box), win->priv->nav_area, FALSE, FALSE, 0);
+
+    gtk_container_add(GTK_CONTAINER(win->priv->nav_box), win->priv->nav_area);
 
     /* Second in the main box is an alignment, because we want to be able
      * to control the amount of space the Window's content takes up on the
@@ -372,6 +378,20 @@ GtkWidget *anaconda_base_window_get_action_area(AnacondaBaseWindow *win) {
  */
 GtkWidget *anaconda_base_window_get_nav_area(AnacondaBaseWindow *win) {
     return win->priv->nav_area;
+}
+
+/**
+ * anaconda_base_window_get_nav_area_background_window:
+ * @win: a #AnacondaBaseWindow
+ *
+ * Returns the event box that houses background window of the navigation area of @win.
+ *
+ * Returns: (transfer none): The event box
+ *
+ * Since: 1.0
+ */
+GtkWidget *anaconda_base_window_get_nav_area_background_window(AnacondaBaseWindow *win) {
+    return win->priv->nav_box;
 }
 
 /**
@@ -576,6 +596,8 @@ anaconda_base_window_buildable_get_internal_child (GtkBuildable *buildable,
         return G_OBJECT(anaconda_base_window_get_main_box(ANACONDA_BASE_WINDOW(buildable)));
     else if (!strcmp(childname, "nav_area"))
         return G_OBJECT(ANACONDA_BASE_WINDOW(buildable)->priv->nav_area);
+    else if (!strcmp(childname, "nav_box"))
+        return G_OBJECT(ANACONDA_BASE_WINDOW(buildable)->priv->nav_box);
     else if (!strcmp(childname, "alignment"))
         return G_OBJECT(ANACONDA_BASE_WINDOW(buildable)->priv->alignment);
     else if (!strcmp(childname, "action_area"))

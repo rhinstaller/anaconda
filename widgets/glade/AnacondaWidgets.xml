@@ -38,7 +38,9 @@
 
             <internal-children>
                 <object name="main_box">
-                    <object name="nav_area" />
+                    <object name="nav_box">
+                        <object name="nav_area" />
+                    </object>
                     <object name="alignment">
                         <object name="action_area" />
                     </object>
@@ -58,7 +60,9 @@
 
             <internal-children>
                 <object name="main_box">
-                    <object name="nav_area" />
+                    <object name="nav_box">
+                        <object name="nav_area" />
+                    </object>
                     <object name="alignment">
                         <object name="action_area">
                             <object name="scrolled_window" />
@@ -80,7 +84,9 @@
 
             <internal-children>
                 <object name="main_box">
-                    <object name="nav_area" />
+                    <object name="nav_box">
+                        <object name="nav_area" />
+                    </object>
                     <object name="alignment">
                         <object name="action_area" />
                     </object>
