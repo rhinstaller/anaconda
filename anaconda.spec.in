@@ -222,6 +222,13 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Tue Dec 11 2012 Brian C. Lane <bcl@redhat.com> - 13.21.190-1
+- Don't perform unnecessary str formatting on boot dev name (sbueno+anaconda)
+  Resolves: rhbz#875652
+- Generate kickstart fcoe commands for devices added in UI (rvykydal)
+  Related: rhbz#813998
+  Resolves: rhbz#813998
+
 * Mon Dec 10 2012 Brian C. Lane <bcl@redhat.com> - 13.21.189-1
 
 * Mon Dec 10 2012 Brian C. Lane <bcl@redhat.com> - 13.21.188-1
