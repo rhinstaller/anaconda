@@ -222,6 +222,8 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Mon Dec 10 2012 Brian C. Lane <bcl@redhat.com> - 13.21.189-1
+
 * Mon Dec 10 2012 Brian C. Lane <bcl@redhat.com> - 13.21.188-1
 - Revert "Reserve 50% of VG for interactive installs (bcl)"
   Resolves: rhbz#875918
