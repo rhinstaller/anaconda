@@ -388,12 +388,10 @@ def addFcoeDrive(anaconda):
             continue
 
         try:
-            nic = store.get_value(iter, 1)
-            anaconda.id.storage.fcoe.addSan(nic,
+            anaconda.id.storage.fcoe.addSan(store.get_value(iter, 1),
                                             dcb=dcb_cb.get_active(),
                                             auto_vlan=auto_vlan_cb.get_active(),
                                             intf=anaconda.intf)
-            anaconda.id.storage.fcoe.ksnics.append(nic)
         except IOError as e:
             anaconda.intf.messageWindow(_("Error"), str(e))
             rc = gtk.RESPONSE_CANCEL
