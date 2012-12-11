@@ -2408,6 +2408,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
         fsCombo.set_active(active_index)
         fsCombo.set_sensitive(self._reformatCheckbox.get_sensitive() and
+                              self._reformatCheckbox.get_active() and
                               fs_type_sensitive)
         # end btrfs magic
 
