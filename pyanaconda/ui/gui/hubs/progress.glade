@@ -11,11 +11,15 @@
       <object class="GtkBox" id="AnacondaHubWindow-main_box1">
         <property name="can_focus">False</property>
         <property name="orientation">vertical</property>
-        <child internal-child="nav_area">
-          <object class="GtkGrid" id="AnacondaHubWindow-nav_area1">
-            <property name="can_focus">False</property>
-            <child>
-              <placeholder/>
+        <child internal-child="nav_box">
+          <object class="GtkEventBox" id="AnacondaHubWindow-nav_box1">
+            <child internal-child="nav_area">
+              <object class="GtkGrid" id="AnacondaHubWindow-nav_area1">
+                <property name="can_focus">False</property>
+                <child>
+                  <placeholder/>
+                </child>
+              </object>
             </child>
           </object>
           <packing>

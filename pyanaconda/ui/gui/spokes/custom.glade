@@ -326,18 +326,22 @@ use.  Try something else?</property>
         <property name="can_focus">False</property>
         <property name="orientation">vertical</property>
         <property name="spacing">6</property>
-        <child internal-child="nav_area">
-          <object class="GtkGrid" id="AnacondaSpokeWindow-nav_area1">
-            <property name="can_focus">False</property>
-            <property name="margin_left">6</property>
-            <property name="margin_right">6</property>
-            <property name="margin_top">6</property>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">False</property>
-            <property name="position">0</property>
-          </packing>
+        <child internal-child="nav_box">
+           <object class="GtkEventBox" id="AnacondaSpokeWindow-nav_box1">
+              <child internal-child="nav_area">
+                <object class="GtkGrid" id="AnacondaSpokeWindow-nav_area1">
+                  <property name="can_focus">False</property>
+                  <property name="margin_left">6</property>
+                  <property name="margin_right">6</property>
+                  <property name="margin_top">6</property>
+                </object>
+              </child>
+           </object>
+           <packing>
+             <property name="expand">False</property>
+             <property name="fill">False</property>
+             <property name="position">0</property>
+           </packing>
         </child>
         <child internal-child="alignment">
           <object class="GtkAlignment" id="AnacondaSpokeWindow-alignment1">
