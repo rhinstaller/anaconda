@@ -101,12 +101,8 @@ def getBootDevString(line):
     return dev
 
 def getBootDevList(line):
-    devs = string.split(line, '=')[1]
-    rets = []
-    for dev in devs:
-        dev = getBootDevString("=%s" % (dev,))
-        rets.append(dev)
-    return string.join(rets)
+    dev = string.split(line, '=')[1]
+    return getBootDevString("=%s" % (dev,))
 
 def getBootloaderTypeAndBoot(instRoot, storage):
     haveGrubConf = 1
