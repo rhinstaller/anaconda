@@ -230,6 +230,7 @@ update-desktop-database &> /dev/null || :
   Resolves: rhbz#813998
 
 * Mon Dec 10 2012 Brian C. Lane <bcl@redhat.com> - 13.21.189-1
+- Revert "Generate kickstart fcoe commands for devices added in UI"
 
 * Mon Dec 10 2012 Brian C. Lane <bcl@redhat.com> - 13.21.188-1
 - Revert "Reserve 50% of VG for interactive installs (bcl)"
