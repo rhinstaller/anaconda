@@ -478,6 +478,9 @@ class LogVolData(commands.logvol.RHEL6_LogVolData):
 
         storage.doAutoPart = False
 
+        # we might have truncated or otherwise changed the specified vg name
+        vgname = anaconda.id.ksdata.onPart.get(self.vgname, self.vgname)
+
         if self.mountpoint == "swap":
             type = "swap"
             self.mountpoint = ""
@@ -495,7 +498,7 @@ class LogVolData(commands.logvol.RHEL6_LogVolData):
             raise KickstartValueError, formatErrorMsg(self.lineno, msg="The mount point \"%s\" is not valid." % (self.mountpoint,))
 
         # Check that the VG this LV is a member of has already been specified.
-        vg = devicetree.getDeviceByName(self.vgname)
+        vg = devicetree.getDeviceByName(vgname)
         if not vg:
             raise KickstartValueError, formatErrorMsg(self.lineno, msg="No volume group exists with the name \"%s\".  Specify volume groups before logical volumes." % self.vgname)
 
@@ -1162,6 +1165,8 @@ class VolGroupData(commands.volgroup.F16_VolGroupData):
                 request.reserved_space = self.reserved_space
             elif self.reserved_percent:
                 request.reserved_percent = self.reserved_percent
+
+            anaconda.id.ksdata.onPart[self.vgname] = request.name
 
 class XConfig(commands.xconfig.F10_XConfig):
     def execute(self, anaconda):

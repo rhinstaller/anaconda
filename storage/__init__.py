@@ -808,6 +808,11 @@ class Storage(object):
 
         if kwargs.has_key("name"):
             name = kwargs.pop("name")
+            safe_name = safeLvmName(name)
+            if safe_name != name:
+                log.warning("using '%s' instead of specified name '%s'"
+                                % (safe_name, name))
+                name = safe_name
         else:
             name = self.createSuggestedVGName(self.anaconda.id.network)
 
