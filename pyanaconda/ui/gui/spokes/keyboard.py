@@ -286,6 +286,10 @@ class KeyboardSpoke(NormalSpoke):
     def initialize(self):
         NormalSpoke.initialize(self)
 
+        if flags.can_touch_runtime_system("hide runtime keyboard configuration "
+                                          "warning"):
+            self.builder.get_object("warningBox").hide()
+
         # We want to store layouts' names but show layouts as
         # 'language (description)'.
         layoutColumn = self.builder.get_object("layoutColumn")
