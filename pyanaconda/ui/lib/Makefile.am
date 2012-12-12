@@ -1,4 +1,4 @@
-# Copyright (C) 2011, 2012  Red Hat, Inc.
+# Copyright (C) 2012  Red Hat, Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU Lesser General Public License as published
@@ -15,10 +15,8 @@
 #
 # Author: Chris Lumens <clumens@redhat.com>
 
-SUBDIRS = gui lib tui
-
 MAINTAINERCLEANFILES = Makefile.in
 
-pkgpyexecdir = $(pyexecdir)/py$(PACKAGE_NAME)
-uidir        = $(pkgpyexecdir)/ui
-ui_PYTHON    = *.py
+pkgpyexecdir  = $(pyexecdir)/py$(PACKAGE_NAME)
+commondir     = $(pkgpyexecdir)/ui/lib
+common_PYTHON = *.py

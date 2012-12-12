@@ -271,6 +271,7 @@ AC_CONFIG_FILES([Makefile
                  pyanaconda/storage/devicelibs/Makefile
                  pyanaconda/storage/formats/Makefile
                  pyanaconda/ui/Makefile
+                 pyanaconda/ui/lib/Makefile
                  pyanaconda/ui/gui/categories/Makefile
                  pyanaconda/ui/gui/hubs/Makefile
                  pyanaconda/ui/gui/spokes/Makefile
