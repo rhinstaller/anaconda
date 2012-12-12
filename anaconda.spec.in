@@ -300,6 +300,18 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/lib/dracut/modules.d/80%{name}/*
 
 %changelog
+* Tue Dec 11 2012 Brian C. Lane <bcl@redhat.com> - 18.37.1-1
+- In interactive installs, default to bootloader in the MBR (#885284).
+  (clumens)
+- Make sure software selection is checked against filesystem space. (#853636)
+  (dlehman)
+- Update default install size and disk space estimate. (dlehman)
+- Add checkbox for setting language default layout (#866887) (vpodzime)
+- Fix getting country layout variants (vpodzime)
+- Wait for slower dhcp before running vnc server (#868777) (rvykydal)
+- Network spoke: fix NMClient signal callback arguments (#885488) (rvykydal)
+- Add logging for networking and improve logging of ifcfg files (rvykydal)
+
 * Fri Dec 07 2012 Brian C. Lane <bcl@redhat.com> - 18.37-1
 - Honor user request via UI to not install a bootloader. (#885240) (dlehman)
 - Handle partition removals regardless of deepcopy. (#884896) (dlehman)

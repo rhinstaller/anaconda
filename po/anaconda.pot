@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 18.36\n"
+"Project-Id-Version: anaconda 18.37.0\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2012-12-07 17:27-0800\n"
+"POT-Creation-Date: 2012-12-11 16:23-0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -241,7 +241,7 @@ msgid "Running post install scripts"
 msgstr ""
 
 #: pyanaconda/install.py:130 pyanaconda/packaging/livepayload.py:133
-#: pyanaconda/packaging/yumpayload.py:1608
+#: pyanaconda/packaging/yumpayload.py:1609
 msgid "Performing post-install setup tasks"
 msgstr ""
 
@@ -569,11 +569,11 @@ msgstr ""
 msgid "Starting VNC..."
 msgstr ""
 
-#: pyanaconda/vnc.py:213
+#: pyanaconda/vnc.py:214
 msgid "The VNC server is now running."
 msgstr ""
 
-#: pyanaconda/vnc.py:217
+#: pyanaconda/vnc.py:218
 msgid ""
 "\n"
 "\n"
@@ -584,7 +584,7 @@ msgid ""
 "\n"
 msgstr ""
 
-#: pyanaconda/vnc.py:222
+#: pyanaconda/vnc.py:223
 msgid ""
 "\n"
 "\n"
@@ -594,7 +594,7 @@ msgid ""
 "\n"
 msgstr ""
 
-#: pyanaconda/vnc.py:226
+#: pyanaconda/vnc.py:227
 msgid ""
 "\n"
 "\n"
@@ -602,7 +602,7 @@ msgid ""
 "\n"
 msgstr ""
 
-#: pyanaconda/vnc.py:228
+#: pyanaconda/vnc.py:229
 msgid ""
 "\n"
 "\n"
@@ -610,7 +610,7 @@ msgid ""
 "\n"
 msgstr ""
 
-#: pyanaconda/vnc.py:248
+#: pyanaconda/vnc.py:249
 msgid ""
 "VNC password provided was not at least 6 characters long.\n"
 "Please enter a new one.  Leave blank for no password."
@@ -637,7 +637,7 @@ msgstr[1] ""
 msgid "Preparing to install"
 msgstr ""
 
-#: pyanaconda/yuminstall.py:135 pyanaconda/packaging/yumpayload.py:1513
+#: pyanaconda/yuminstall.py:135 pyanaconda/packaging/yumpayload.py:1514
 msgid "Preparing transaction from installation source"
 msgstr ""
 
@@ -808,7 +808,7 @@ msgstr ""
 msgid "package for incorrect os"
 msgstr ""
 
-#: pyanaconda/yuminstall.py:1082 pyanaconda/packaging/yumpayload.py:1342
+#: pyanaconda/yuminstall.py:1082 pyanaconda/packaging/yumpayload.py:1343
 msgid "You need more space on the following file systems:\n"
 msgstr ""
 
@@ -963,15 +963,15 @@ msgstr ""
 msgid "Installing software"
 msgstr ""
 
-#: pyanaconda/packaging/yumpayload.py:1279
+#: pyanaconda/packaging/yumpayload.py:1280
 msgid "Starting package installation process"
 msgstr ""
 
-#: pyanaconda/packaging/yumpayload.py:1533
+#: pyanaconda/packaging/yumpayload.py:1534
 msgid "Upgrading"
 msgstr ""
 
-#: pyanaconda/packaging/yumpayload.py:1535
+#: pyanaconda/packaging/yumpayload.py:1536
 msgid "Installing"
 msgstr ""
 
@@ -1016,68 +1016,68 @@ msgstr ""
 msgid "You must create a new filesystem on the root device."
 msgstr ""
 
-#: pyanaconda/storage/__init__.py:1438
+#: pyanaconda/storage/__init__.py:1463
 #, python-format
 msgid ""
 "You have not defined a root partition (/), which is required for "
 "installation of %s to continue."
 msgstr ""
 
-#: pyanaconda/storage/__init__.py:1443
+#: pyanaconda/storage/__init__.py:1468
 #, python-format
 msgid ""
 "Your root partition is less than 250 megabytes which is usually too small to "
 "install %s."
 msgstr ""
 
-#: pyanaconda/storage/__init__.py:1457
+#: pyanaconda/storage/__init__.py:1482
 msgid ""
 "This platform requires /boot on a dedicated partition or logical volume.  If "
 "you do not want a /boot volume, you must place / on a dedicated non-LVM "
 "partition."
 msgstr ""
 
-#: pyanaconda/storage/__init__.py:1466
+#: pyanaconda/storage/__init__.py:1491
 #, python-format
 msgid ""
 "Your %(mount)s partition is less than %(size)s megabytes which is lower than "
 "recommended for a normal %(productName)s install."
 msgstr ""
 
-#: pyanaconda/storage/__init__.py:1476
+#: pyanaconda/storage/__init__.py:1501
 #, python-format
 msgid ""
 "Your %(mount)s partition is too small for %(format)s formatting (allowable "
 "size is %(minSize)d MB to %(maxSize)d MB)"
 msgstr ""
 
-#: pyanaconda/storage/__init__.py:1481
+#: pyanaconda/storage/__init__.py:1506
 #, python-format
 msgid ""
 "Your %(mount)s partition is too large for %(format)s formatting (allowable "
 "size is %(minSize)d MB to %(maxSize)d MB)"
 msgstr ""
 
-#: pyanaconda/storage/__init__.py:1508
+#: pyanaconda/storage/__init__.py:1533
 msgid ""
 "Installing on a USB device.  This may or may not produce a working system."
 msgstr ""
 
-#: pyanaconda/storage/__init__.py:1511
+#: pyanaconda/storage/__init__.py:1536
 msgid ""
 "Installing on a FireWire device.  This may or may not produce a working "
 "system."
 msgstr ""
 
-#: pyanaconda/storage/__init__.py:1517
+#: pyanaconda/storage/__init__.py:1542
 msgid "you have not created a bootloader stage1 target device"
 msgstr ""
 
-#: pyanaconda/storage/__init__.py:1526
+#: pyanaconda/storage/__init__.py:1551
 msgid "You have not created a bootable partition."
 msgstr ""
 
-#: pyanaconda/storage/__init__.py:1547
+#: pyanaconda/storage/__init__.py:1572
 #, python-format
 msgid ""
 "Your BIOS-based system needs a special partition to boot with %s's new disk "
@@ -1085,7 +1085,7 @@ msgid ""
 "partition."
 msgstr ""
 
-#: pyanaconda/storage/__init__.py:1560
+#: pyanaconda/storage/__init__.py:1585
 #, python-format
 msgid ""
 "You have not specified a swap partition.  %(requiredMem)s MB of memory is "
@@ -1093,13 +1093,13 @@ msgid ""
 "have %(installedMem)s MB."
 msgstr ""
 
-#: pyanaconda/storage/__init__.py:1566
+#: pyanaconda/storage/__init__.py:1591
 msgid ""
 "You have not specified a swap partition.  Although not strictly required in "
 "all cases, it will significantly improve performance for most installations."
 msgstr ""
 
-#: pyanaconda/storage/__init__.py:1572
+#: pyanaconda/storage/__init__.py:1597
 msgid ""
 "At least one of your swap devices does not have a UUID, which is common in "
 "swap space created using older versions of mkswap. These devices will be "
@@ -1107,27 +1107,27 @@ msgid ""
 "paths can change under a variety of circumstances. "
 msgstr ""
 
-#: pyanaconda/storage/__init__.py:1582
+#: pyanaconda/storage/__init__.py:1607
 #, python-format
 msgid ""
 "This mount point is invalid.  The %s directory must be on the / file system."
 msgstr ""
 
-#: pyanaconda/storage/__init__.py:1586
+#: pyanaconda/storage/__init__.py:1611
 #, python-format
 msgid "The mount point %s must be on a linux file system."
 msgstr ""
 
-#: pyanaconda/storage/__init__.py:3172
+#: pyanaconda/storage/__init__.py:3197
 #, python-format
 msgid "Linux on %s"
 msgstr ""
 
-#: pyanaconda/storage/__init__.py:3177
+#: pyanaconda/storage/__init__.py:3202
 msgid "Unknown Linux"
 msgstr ""
 
-#: pyanaconda/storage/__init__.py:3179
+#: pyanaconda/storage/__init__.py:3204
 #, python-format
 msgid "%(product)s Linux %(version)s for %(arch)s"
 msgstr ""
@@ -1664,13 +1664,13 @@ msgstr ""
 msgid "USER SETTINGS"
 msgstr ""
 
-#: pyanaconda/ui/gui/hubs/__init__.py:223
+#: pyanaconda/ui/gui/hubs/__init__.py:226
 msgid ""
 "When all items marked with this icon are complete, installation will "
 "automatically continue."
 msgstr ""
 
-#: pyanaconda/ui/gui/hubs/__init__.py:225
+#: pyanaconda/ui/gui/hubs/__init__.py:228
 msgid ""
 "Please complete items marked with this icon before continuing to the next "
 "step."
@@ -1746,8 +1746,8 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: pyanaconda/ui/gui/spokes/custom.py:770
-#: pyanaconda/ui/gui/spokes/network.py:582
-#: pyanaconda/ui/gui/spokes/network.py:989
+#: pyanaconda/ui/gui/spokes/network.py:583
+#: pyanaconda/ui/gui/spokes/network.py:990
 msgid "Unknown"
 msgstr ""
 
@@ -1959,96 +1959,96 @@ msgstr ""
 msgid "Connection failed"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:571
+#: pyanaconda/ui/gui/spokes/network.py:572
 msgid "unplugged"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:584
+#: pyanaconda/ui/gui/spokes/network.py:585
 msgid "Ethernet"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:586
+#: pyanaconda/ui/gui/spokes/network.py:587
 msgid "Wireless"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:680
+#: pyanaconda/ui/gui/spokes/network.py:681
 #: pyanaconda/ui/gui/spokes/network.glade:344
 #: pyanaconda/ui/gui/spokes/network.glade:720
 msgid "IPv4 Address"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:681
+#: pyanaconda/ui/gui/spokes/network.py:682
 #: pyanaconda/ui/gui/spokes/network.glade:358
 #: pyanaconda/ui/gui/spokes/network.glade:734
 #: pyanaconda/ui/gui/spokes/network.glade:1375
 msgid "IPv6 Address"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:683
-#: pyanaconda/ui/gui/spokes/network.py:685
+#: pyanaconda/ui/gui/spokes/network.py:684
+#: pyanaconda/ui/gui/spokes/network.py:686
 #: pyanaconda/ui/gui/spokes/network.glade:1361
 msgid "IP Address"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:750
+#: pyanaconda/ui/gui/spokes/network.py:751
 #, python-format
 msgid "%d Mb/s"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:927
+#: pyanaconda/ui/gui/spokes/network.py:928
 msgid "WEP"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:930
+#: pyanaconda/ui/gui/spokes/network.py:931
 msgid "WPA"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:933
+#: pyanaconda/ui/gui/spokes/network.py:934
 msgid "WPA2"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:937
+#: pyanaconda/ui/gui/spokes/network.py:938
 msgid "Enterprise"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:942 widgets/src/SpokeSelector.c:54
+#: pyanaconda/ui/gui/spokes/network.py:943 widgets/src/SpokeSelector.c:54
 msgid "None"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:956
+#: pyanaconda/ui/gui/spokes/network.py:957
 #: pyanaconda/ui/gui/spokes/network.glade:37
 #: pyanaconda/ui/gui/spokes/network.glade:106
 msgid "NETWORK CONFIGURATION"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:993
+#: pyanaconda/ui/gui/spokes/network.py:994
 msgid "Connecting..."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:995
+#: pyanaconda/ui/gui/spokes/network.py:996
 msgid "Disconnecting..."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1002
+#: pyanaconda/ui/gui/spokes/network.py:1003
 #, python-format
 msgid "Wireless connected to %s"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1005
+#: pyanaconda/ui/gui/spokes/network.py:1006
 #, python-format
 msgid "Wired (%s) connected"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1015
+#: pyanaconda/ui/gui/spokes/network.py:1016
 #, python-format
 msgid "Connected: %s"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1017
+#: pyanaconda/ui/gui/spokes/network.py:1018
 msgid "Not connected"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1020
+#: pyanaconda/ui/gui/spokes/network.py:1021
 #: pyanaconda/ui/gui/spokes/network.glade:2127
 msgid "No network devices available"
 msgstr ""
@@ -2315,7 +2315,7 @@ msgstr ""
 msgid "_Modify Storage Layout"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/welcome.py:295
+#: pyanaconda/ui/gui/spokes/welcome.py:310
 msgid "LANGUAGE"
 msgstr ""
 
@@ -2996,6 +2996,10 @@ msgstr ""
 
 #: pyanaconda/ui/gui/spokes/welcome.glade:327
 msgid "englishName"
+msgstr ""
+
+#: pyanaconda/ui/gui/spokes/welcome.glade:381
+msgid "Set _keyboard to default layout for selected language."
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/custom.glade:37
