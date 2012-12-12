@@ -300,6 +300,38 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/lib/dracut/modules.d/80%{name}/*
 
 %changelog
+* Tue Dec 11 2012 Brian C. Lane <bcl@redhat.com> - 18.38-1
+- In interactive installs, default to bootloader in the MBR (#885284).
+  (clumens)
+- Make sure software selection is checked against filesystem space. (#853636)
+  (dlehman)
+- Update default install size and disk space estimate. (dlehman)
+- Add checkbox for setting language default layout (#866887) (vpodzime)
+- Change testing area label to something more appropriate (KeyboardSpoke)
+  (vpodzime)
+- Fix getting country layout variants (vpodzime)
+- Wait for slower dhcp before running vnc server (#868777) (rvykydal)
+- Network spoke: fix NMClient signal callback arguments (#885488) (rvykydal)
+- Add logging for networking and improve logging of ifcfg files (rvykydal)
+- Honor user request via UI to not install a bootloader. (#885240) (dlehman)
+- Handle partition removals regardless of deepcopy. (#884896) (dlehman)
+- Default to partitions for /boot* instead of just /boot/efi. (#884606)
+  (dlehman)
+- Fix a logic error in ActionDestroyFormat.obsoletes. (#885004) (dlehman)
+- Take device type into account when making the config button sensitive
+  (#885051). (clumens)
+- Hide VG-related widgets when displaying a non-LV mountpoint first (#885131).
+  (clumens)
+- Install default system for %%packages --default (#869978) (bcl)
+- Fix a typo in the live cd completion text (#884373). (clumens)
+- Do not allow deleting or editing a protected device in custom part (#884599).
+  (clumens)
+- If path doesn't exist, don't traceback.  Return None. (clumens)
+- Add/remove the HDISO source from protectedDevSpecs (#882147). (clumens)
+- Put the bad VG name into the error message (#884359). (clumens)
+- Use updated connection settings object for default auto config files
+  (#883383) (rvykydal)
+
 * Wed Dec 05 2012 Brian C. Lane <bcl@redhat.com> - 18.36-1
 - Call udev_settle from inside udev_trigger. (dlehman)
 - Prevent enabling the encryption checkbutton erroneously. (dlehman)
