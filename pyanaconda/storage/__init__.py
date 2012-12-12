@@ -1071,6 +1071,11 @@ class Storage(object):
 
         if kwargs.has_key("name"):
             name = kwargs.pop("name")
+            safe_name = self.safeDeviceName(name)
+            if safe_name != name:
+                log.warning("using '%s' instead of specified name '%s'"
+                                % (safe_name, name))
+                name = safe_name
         else:
             swap = getattr(kwargs.get("format"), "type", None) == "swap"
             mountpoint = getattr(kwargs.get("format"), "mountpoint", None)
@@ -1089,6 +1094,11 @@ class Storage(object):
 
         if kwargs.has_key("name"):
             name = kwargs.pop("name")
+            safe_name = self.safeDeviceName(name)
+            if safe_name != name:
+                log.warning("using '%s' instead of specified name '%s'"
+                                % (safe_name, name))
+                name = safe_name
         else:
             hostname = ""
             if self.data and self.data.network.hostname is not None:
