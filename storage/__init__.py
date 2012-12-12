@@ -834,14 +834,11 @@ class Storage(object):
         if kwargs.has_key("name"):
             name = kwargs.pop("name")
             # make sure the specified name is sensible
-            safe_vg_name = safeLvmName(vg.name)
-            full_name = "%s-%s" % (safe_vg_name, name)
-            safe_name = safeLvmName(full_name)
-            if safe_name != full_name:
-                new_name = safe_name[len(safe_vg_name)+1:]
+            safe_name = safeLvmName(name)
+            if safe_name != name:
                 log.warning("using '%s' instead of specified name '%s'"
-                                % (new_name, name))
-                name = new_name
+                                % (safe_name, name))
+                name = safe_name
         else:
             if kwargs.get("format") and kwargs["format"].type == "swap":
                 swap = True
