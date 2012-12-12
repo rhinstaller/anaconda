@@ -300,6 +300,15 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/lib/dracut/modules.d/80%{name}/*
 
 %changelog
+* Wed Dec 12 2012 Brian C. Lane <bcl@redhat.com> - 18.37.2-1
+- Add a gradient background to spoke headers (mizmo, clumens). (clumens)
+- Only allow changing filesystem type if the reformat combo is checked
+  (#885906). (clumens)
+- Install default system for %%packages --default (#869978) (cherry picked from
+  commit 10cd57a15081250e69052bd68101a62fcf9ce095) (bcl)
+- Include the new lib directory in the package (#886319, #886470). (clumens)
+- It's possible for mountpoint to be None (#885279). (clumens)
+
 * Tue Dec 11 2012 Brian C. Lane <bcl@redhat.com> - 18.37.1-1
 - In interactive installs, default to bootloader in the MBR (#885284).
   (clumens)
