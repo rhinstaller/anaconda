@@ -485,6 +485,15 @@ class XklWrapper(object):
 
         return groups_names[state.group]
 
+    def activate_default_layout(self):
+        """
+        Activates default layout (the first one in the list of configured
+        layouts).
+
+        """
+
+        self._engine.lock_group(0)
+
     def is_valid_layout(self, layout):
         """Return if given layout is valid layout or not"""
 

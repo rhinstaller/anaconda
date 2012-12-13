@@ -433,14 +433,18 @@ class KeyboardSpoke(NormalSpoke):
             return
 
         (store, cur) = selection.get_selected()
-        prev = cur.copy()
-        prev = store.iter_previous(prev)
+        prev = store.iter_previous(cur)
         if not prev:
             return
 
         store.swap(cur, prev)
         if flags.can_touch_runtime_system("reorder runtime X layouts"):
             self._flush_layouts_to_X()
+
+        if not store.iter_previous(cur):
+            #layout is first in the list (set as default), activate it
+            self._xkl_wrapper.activate_default_layout()
+
         selection.emit("changed")
 
     def on_down_clicked(self, button):
@@ -449,6 +453,10 @@ class KeyboardSpoke(NormalSpoke):
             return
 
         (store, cur) = selection.get_selected()
+
+        #if default layout (first in the list) changes we need to activate it
+        activate_default = not store.iter_previous(cur)
+
         nxt = store.iter_next(cur)
         if not nxt:
             return
@@ -456,6 +464,10 @@ class KeyboardSpoke(NormalSpoke):
         store.swap(cur, nxt)
         if flags.can_touch_runtime_system("reorder runtime X layouts"):
             self._flush_layouts_to_X()
+
+        if activate_default:
+            self._xkl_wrapper.activate_default_layout()
+
         selection.emit("changed")
 
     def on_preview_clicked(self, button):
