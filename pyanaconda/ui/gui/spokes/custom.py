@@ -1597,8 +1597,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
            device.originalFormat.type not in self._fs_types:
             fsCombo.append_text(device.originalFormat.name)
 
-        fsCombo.set_sensitive(self._reformatCheckbox.get_sensitive() and
-                              self._reformatCheckbox.get_active())
+        fsCombo.set_sensitive(self._reformatCheckbox.get_active())
 
         ##
         ## Set up the device type combo.
@@ -2407,8 +2406,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             active_index = len(fsCombo.get_model()) - 1
 
         fsCombo.set_active(active_index)
-        fsCombo.set_sensitive(self._reformatCheckbox.get_sensitive() and
-                              self._reformatCheckbox.get_active() and
+        fsCombo.set_sensitive(self._reformatCheckbox.get_active() and
                               fs_type_sensitive)
         # end btrfs magic
 
