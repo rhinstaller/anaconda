@@ -94,6 +94,7 @@ NOTEBOOK_LABEL_PAGE = 0
 NOTEBOOK_DETAILS_PAGE = 1
 NOTEBOOK_LUKS_PAGE = 2
 NOTEBOOK_UNEDITABLE_PAGE = 3
+NOTEBOOK_INCOMPLETE_PAGE = 4
 
 new_install_name = N_("New %s %s Installation")
 new_vg_text = N_("Create a new volume group ...")
@@ -563,6 +564,10 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             self._unused_devices = [d for d in self.__storage.unusedDevices
                                         if d.disks and not d.partitioned and
                                            d.isleaf]
+            # add incomplete VGs and MDs
+            incomplete = [d for d in self.__storage.devicetree._devices
+                                if not getattr(d, "complete", True)]
+            self._unused_devices.extend(incomplete)
 
         return self._unused_devices
 
@@ -2121,22 +2126,40 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
             self._current_selector.set_chosen(False)
 
+        no_edit = False
         if selector._device.format.type == "luks" and \
            selector._device.format.exists:
             self._partitionsNotebook.set_current_page(NOTEBOOK_LUKS_PAGE)
             selectedDeviceLabel = self.builder.get_object("encryptedDeviceLabel")
             selectedDeviceDescLabel = self.builder.get_object("encryptedDeviceDescriptionLabel")
-            selectedDeviceLabel.set_text(selector.props.name)
-            selectedDeviceDescLabel.set_text(self._description(selector.props.name))
-            selector.set_chosen(True)
-            self._current_selector = selector
-            self._configButton.set_sensitive(False)
-            self._removeButton.set_sensitive(True)
-            return
+            no_edit = True
+        elif not getattr(selector._device, "complete", True):
+            self._partitionsNotebook.set_current_page(NOTEBOOK_INCOMPLETE_PAGE)
+            selectedDeviceLabel = self.builder.get_object("incompleteDeviceLabel")
+            selectedDeviceDescLabel = self.builder.get_object("incompleteDeviceDescriptionLabel")
+            optionsLabel = self.builder.get_object("incompleteDeviceOptionsLabel")
+
+            if selector._device.type == "mdarray":
+                total = selector._device.memberDevices
+                missing = total - len(selector._device.parents)
+                txt = _("This Software RAID array is missing %d of %d member "
+                        "partitions. You can remove it or select a different "
+                        "device.") % (missing, total)
+            else:
+                total = selector._device.pvCount
+                missing = total - len(selector._device.parents)
+                txt = _("This LVM Volume Group is missing %d of %d physical "
+                        "volumes. You can remove it or select a different "
+                        "device.") % (missing, total)
+            optionsLabel.set_text(txt)
+            no_edit = True
         elif getDeviceType(selector._device) is None:
             self._partitionsNotebook.set_current_page(NOTEBOOK_UNEDITABLE_PAGE)
             selectedDeviceLabel = self.builder.get_object("uneditableDeviceLabel")
             selectedDeviceDescLabel = self.builder.get_object("uneditableDeviceDescriptionLabel")
+            no_edit = True
+
+        if no_edit:
             selectedDeviceLabel.set_text(selector._device.name)
             selectedDeviceDescLabel.set_text(self._description(selector._device.type))
             selector.set_chosen(True)

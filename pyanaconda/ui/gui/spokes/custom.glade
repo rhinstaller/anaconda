@@ -1504,6 +1504,94 @@ you'll be able to view their details here.</property>
                         <child type="tab">
                           <placeholder/>
                         </child>
+                        <child>
+                          <object class="GtkBox" id="incompleteDeviceBox">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <property name="orientation">vertical</property>
+                            <property name="spacing">6</property>
+                            <child>
+                              <object class="GtkBox" id="box5">
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <property name="spacing">6</property>
+                                <child>
+                                  <object class="GtkLabel" id="incompleteDeviceLabel">
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">False</property>
+                                    <property name="label" translatable="yes">Selected Device</property>
+                                    <attributes>
+                                      <attribute name="font-desc" value="Cantarell Bold 10"/>
+                                      <attribute name="weight" value="bold"/>
+                                      <attribute name="scale" value="1.2"/>
+                                    </attributes>
+                                  </object>
+                                  <packing>
+                                    <property name="expand">False</property>
+                                    <property name="fill">True</property>
+                                    <property name="position">0</property>
+                                  </packing>
+                                </child>
+                                <child>
+                                  <object class="GtkLabel" id="incompleteDeviceDescriptionLabel">
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">False</property>
+                                    <property name="halign">end</property>
+                                    <property name="label" translatable="yes">Device description</property>
+                                    <attributes>
+                                      <attribute name="font-desc" value="Cantarell Italic 10"/>
+                                      <attribute name="style" value="italic"/>
+                                    </attributes>
+                                  </object>
+                                  <packing>
+                                    <property name="expand">False</property>
+                                    <property name="fill">True</property>
+                                    <property name="position">1</property>
+                                  </packing>
+                                </child>
+                              </object>
+                              <packing>
+                                <property name="expand">False</property>
+                                <property name="fill">True</property>
+                                <property name="position">0</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkSeparator" id="separator4">
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                              </object>
+                              <packing>
+                                <property name="expand">False</property>
+                                <property name="fill">True</property>
+                                <property name="position">1</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkLabel" id="incompleteDeviceOptionsLabel">
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <property name="yalign">0.43000000715255737</property>
+                                <property name="label" translatable="yes">This %s device is missing %d of %d %s. You can remove it or select a different device.</property>
+                                <property name="wrap">True</property>
+                                <attributes>
+                                  <attribute name="font-desc" value="Cantarell 11"/>
+                                </attributes>
+                              </object>
+                              <packing>
+                                <property name="expand">False</property>
+                                <property name="fill">True</property>
+                                <property name="position">2</property>
+                              </packing>
+                            </child>
+                          </object>
+                          <packing>
+                            <property name="position">4</property>
+                          </packing>
+                        </child>
+                        <child type="tab">
+                          <placeholder/>
+                        </child>
                       </object>
                       <packing>
                         <property name="left_attach">1</property>

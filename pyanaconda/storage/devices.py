@@ -2169,6 +2169,15 @@ class LVMVolumeGroupDevice(DMDevice):
     def _destroy(self):
         """ Destroy the device. """
         log_method_call(self, self.name, status=self.status)
+        if not self.complete:
+            for pv in self.pvs:
+                # Remove the PVs from the ignore filter so we can wipe them.
+                lvm.lvm_cc_removeFilterRejectRegexp(pv.name)
+
+            # Don't run vgremove or vgreduce since there may be another VG with
+            # the same name that we want to keep/use.
+            return
+
         lvm.vgreduce(self.name, [], rm=True)
         lvm.vgdeactivate(self.name)
         lvm.vgremove(self.name)
@@ -3000,6 +3009,10 @@ class MDRaidArrayDevice(StorageDevice):
                 rc = True
 
         return rc
+
+    @property
+    def complete(self):
+        return (self.memberDevices <= len(self.parents)) or not self.exists
 
     @property
     def devices(self):
