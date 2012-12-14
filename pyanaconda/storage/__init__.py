@@ -186,25 +186,12 @@ def turnOnFilesystems(storage):
     except Exception as e:
         raise
 
-    if not upgrade:
-        storage.turnOnSwap()
-        # FIXME:  For livecd, skipRoot needs to be True.
-        storage.mountFilesystems(raiseErrors=False,
-                                 readOnly=False,
-                                 skipRoot=False)
-        writeEscrowPackets(storage)
-    else:
-        if upgrade_migrate:
-            # we should write out a new fstab with the migrated fstype
-            shutil.copyfile("%s/etc/fstab" % ROOT_PATH,
-                            "%s/etc/fstab.anaconda" % ROOT_PATH)
-            storage.fsset.write()
-
-        # and make sure /dev is mounted so we can read the bootloader
-        getFormat("bind",
-                  device="/dev",
-                  mountpoint="/dev",
-                  exists=True).mount(chroot=ROOT_PATH)
+    storage.turnOnSwap()
+    # FIXME:  For livecd, skipRoot needs to be True.
+    storage.mountFilesystems(raiseErrors=False,
+                             readOnly=False,
+                             skipRoot=False)
+    writeEscrowPackets(storage)
 
 def writeEscrowPackets(storage):
     escrowDevices = filter(lambda d: d.format.type == "luks" and \
@@ -833,7 +820,7 @@ class Storage(object):
             if disk.format.labelType in magic_partitions:
                 number = magic_partitions[disk.format.labelType]
                 # remove the magic partition
-                for part in storage.partitions:
+                for part in disk.format.partitions:
                     if part.disk == disk and part.partedPartition.number == number:
                         log.debug("removing %s" % part.name)
                         # We can't schedule the magic partition for removal
@@ -2875,7 +2862,7 @@ class FSSet(object):
 
             try:
                 device.setup()
-            except Exception as msg:
+            except Exception as e:
                 if errorHandler.cb(e, device) == ERROR_RAISE:
                     raise
                 else:
