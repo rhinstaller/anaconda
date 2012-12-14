@@ -777,6 +777,9 @@ class DeviceTree(object):
         # something must be wrong -- if all of the slaves we in
         # the tree, this device should be as well
         if device is None:
+            if name is None:
+                name = udev_device_get_name(info)
+
             log.error("failed to scan md array %s" % name)
             try:
                 devicelibs.mdraid.mddeactivate("/dev/" + name)
