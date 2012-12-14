@@ -150,8 +150,7 @@ class InstallOptions1Dialog(GUIObject):
 
         options_text = (_("You have plenty of space to install <b>%s</b>, so "
                           "we can automatically\n"
-                          "configure the rest of the installation for you.\n\n"
-                          "You're all set!")
+                          "configure the rest of the installation for you.")
                         % productName)
         options_label.set_markup(options_text)
 
