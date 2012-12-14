@@ -4121,7 +4121,7 @@ class BTRFSVolumeDevice(BTRFSDevice):
         for name, subvol in self.subvolumes:
             if subvol.exists:
                 continue
-            subvolume.create(mountpoint=self._temp_dir_prefix)
+            subvol.create(mountpoint=self._temp_dir_prefix)
         self._undo_temp_mount()
 
     def removeSubVolume(self, name):
