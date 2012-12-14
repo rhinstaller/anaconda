@@ -398,7 +398,7 @@ class DeviceTree(object):
             dev.volume._removeSubVolume(dev.name)
 
         self._devices.remove(dev)
-        if dev.name in self.names:
+        if dev.name in self.names and getattr(dev, "complete", True):
             self.names.remove(dev.name)
         log.info("removed %s %s (id %d) from device tree" % (dev.type,
                                                               dev.name,
@@ -1318,16 +1318,16 @@ class DeviceTree(object):
         # lookup/create the VG and LVs
         try:
             vg_name = udev_device_get_vg_name(info)
+            vg_uuid = udev_device_get_vg_uuid(info)
         except KeyError:
             # no vg name means no vg -- we're done with this pv
             return
 
-        vg_device = self.getDeviceByName(vg_name)
+        vg_device = self.getDeviceByUuid(vg_uuid)
         if vg_device:
             vg_device._addDevice(device)
         else:
             try:
-                vg_uuid = udev_device_get_vg_uuid(info)
                 vg_size = udev_device_get_vg_size(info)
                 vg_free = udev_device_get_vg_free(info)
                 pe_size = udev_device_get_vg_extent_size(info)
@@ -1434,7 +1434,8 @@ class DeviceTree(object):
                     if md_name:
                         array = self.getDeviceByName(md_name)
                         if array and array.uuid != md_uuid:
-                            md_name = None
+                            log.error("found multiple devices with the name %s"
+                                        % md_name)
 
             log.info("using name %s for md array containing member %s"
                         % (md_name, device.name))
@@ -1687,25 +1688,15 @@ class DeviceTree(object):
             log.info("got format: %s" % device.format)
 
     def _handleInconsistencies(self):
-        def leafInconsistencies(device):
-            devicelibs.lvm.lvm_cc_addFilterRejectRegexp(device.name)
-            devicelibs.lvm.blacklistVG(device.name)
-            for parent in device.parents:
-                if parent.type == "partition":
-                    parent.format.inconsistentVG = True
-                    parent.protected = True
-                else:
-                    self.addIgnoredDisk(parent.name)
-                devicelibs.lvm.lvm_cc_addFilterRejectRegexp(parent.name)
+        for vg in [d for d in self.devices if d.type == "lvmvg"]:
+            if vg.complete:
+                continue
 
-        for md in [d for d in self.leaves if d.type == "mdarray" and len(d.parents) < d.memberDevices]:
-            log.debug("removing incomplete/degraded md array %s" % md.name)
-            try:
-                md.teardown()
-            except StorageError as e:
-                log.error("failed to deactivate %s: %s" % (md.name, e))
-
-            self._removeDevice(md)
+            # Make sure lvm doesn't get confused by PVs that belong to
+            # incomplete VGs. We will remove the PVs from the blacklist when/if
+            # the time comes to remove the incomplete VG and its PVs.
+            for pv in vg.pvs:
+                devicelibs.lvm.lvm_cc_addFilterRejectRegexp(pv.name)
 
     def hide(self, device):
         for d in self.getChildren(device):
@@ -2050,6 +2041,9 @@ class DeviceTree(object):
 
         found = None
         for device in self._devices:
+            if not getattr(device, "complete", True):
+                continue
+
             if device.name == name:
                 found = device
                 break
@@ -2071,6 +2065,9 @@ class DeviceTree(object):
         leaf = None
         other = None
         for device in self._devices:
+            if not getattr(device, "complete", True):
+                continue
+
             if (device.path == path or
                 ((device.type == "lvmlv" or device.type == "lvmvg") and
                  device.path == path.replace("--","-"))):
@@ -2107,6 +2104,9 @@ class DeviceTree(object):
         """ List of device instances """
         devices = []
         for device in self._devices:
+            if not getattr(device, "complete", True):
+                continue
+
             if device.uuid and device.uuid in [d.uuid for d in devices] and \
                not isinstance(device, NoDevice):
                 raise DeviceTreeError("duplicate uuids in device tree")
