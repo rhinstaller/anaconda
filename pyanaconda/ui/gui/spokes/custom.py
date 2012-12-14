@@ -2094,6 +2094,9 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
     def on_vg_changed(self, combo):
         vg_name = combo.get_active_text()
         log.debug("new vg selection: %s" % vg_name)
+        if vg_name is None:
+            return
+
         if vg_name == new_vg_text:
             # run the vg editor dialog with a default name and disk set
             hostname = self.data.network.hostname
