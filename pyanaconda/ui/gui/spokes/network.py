@@ -41,7 +41,7 @@ from pyanaconda.ui.gui.categories.software import SoftwareCategory
 from pyanaconda.ui.gui.hubs.summary import SummaryHub
 from pyanaconda.ui.gui.utils import gtk_call_once
 
-from pyanaconda.network import NetworkDevice, netscriptsDir, kickstartNetworkData, getActiveNetDevs, logIfcfgFiles, update_hostname
+from pyanaconda.network import NetworkDevice, netscriptsDir, kickstartNetworkData, getActiveNetDevs, logIfcfgFiles, update_hostname, sanityCheckHostname
 
 from gi.repository import GLib, GObject, Pango, Gio, NetworkManager, NMClient
 import dbus
@@ -301,6 +301,8 @@ class NetworkControlBox(object):
                                                            self.on_edit_connection)
         self.builder.get_object("button_wireless_options").connect("clicked",
                                                               self.on_edit_connection)
+        self.entry_hostname = self.builder.get_object("entry_hostname")
+
 
     @property
     def vbox(self):
@@ -951,11 +953,11 @@ class NetworkControlBox(object):
 
     @property
     def hostname(self):
-        return self.builder.get_object("entry_hostname").get_text()
+        return self.entry_hostname.get_text()
 
     @hostname.setter
     def hostname(self, value):
-        self.builder.get_object("entry_hostname").set_text(value)
+        self.entry_hostname.set_text(value)
 
 class NetworkSpoke(NormalSpoke):
     builderObjects = ["networkWindow", "liststore_wireless_network", "liststore_devices"]
@@ -1065,6 +1067,19 @@ class NetworkSpoke(NormalSpoke):
             update_hostname(self.data)
             self.network_control_box.hostname = self.data.network.hostname
 
+    def on_back_clicked(self, button):
+        hostname = self.network_control_box.hostname
+        (valid, error) = sanityCheckHostname(hostname)
+        if not valid:
+            self.clear_info()
+            msg = _("Hostname is not valid: %s") % error
+            self.set_warning(msg)
+            self.network_control_box.entry_hostname.grab_focus()
+            self.window.show_all()
+        else:
+            self.clear_info()
+            NormalSpoke.on_back_clicked(self, button)
+
 class NetworkStandaloneSpoke(StandaloneSpoke):
     builderObjects = ["networkStandaloneWindow", "networkControlBox_vbox", "liststore_wireless_network", "liststore_devices"]
     mainWidgetName = "networkStandaloneWindow"
@@ -1121,6 +1136,19 @@ class NetworkStandaloneSpoke(StandaloneSpoke):
     def refresh(self):
         StandaloneSpoke.refresh(self)
         self.network_control_box.refresh()
+
+    def _on_continue_clicked(self, cb):
+        hostname = self.network_control_box.hostname
+        (valid, error) = sanityCheckHostname(hostname)
+        if not valid:
+            self.clear_info()
+            msg = _("Hostname is not valid: %s") % error
+            self.set_warning(msg)
+            self.network_control_box.entry_hostname.grab_focus()
+            self.window.show_all()
+        else:
+            self.clear_info()
+            StandaloneSpoke._on_continue_clicked(self, cb)
 
     def on_back_clicked(self, window):
         self.window.hide()
