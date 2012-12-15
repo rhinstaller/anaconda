@@ -300,6 +300,17 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/lib/dracut/modules.d/80%{name}/*
 
 %changelog
+* Fri Dec 14 2012 Brian C. Lane <bcl@redhat.com> - 18.37.3-1
+- Fix a couple pylint errors (#867125). (cherry picked from commit
+  037bdac4f6f213d36d5e6cc61cd236ed8f0842a1) (clumens)
+- Fix an undefined variable error (#867129). (cherry picked from commit
+  6fd9b3b97afddc89606151b25bb69ac13ad77984) (clumens)
+- The fs type combo should be sensitive when reformat is checked (#887201).
+  (clumens)
+- Remove idiomatic, hard to translate text (#865598). (cherry picked from
+  commit 5fcf7584334df4fd2cd26c11b607a7901b408a17) (clumens)
+- recheck software when source changes (#875599) (bcl)
+
 * Wed Dec 12 2012 Brian C. Lane <bcl@redhat.com> - 18.37.2-1
 - Add a gradient background to spoke headers (mizmo, clumens). (clumens)
 - Only allow changing filesystem type if the reformat combo is checked
