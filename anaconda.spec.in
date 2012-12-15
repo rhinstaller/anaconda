@@ -222,6 +222,14 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Fri Dec 14 2012 Brian C. Lane <bcl@redhat.com> - 13.21.191-1
+- include .ssh.hmac in image (bcl)
+  Resolves: rhbz#886479
+- Pass lv name sans vg name to safeLvmName. (dlehman)
+  Resolves: rhbz#886150
+- Validate and correct vg names as needed. (dlehman)
+  Related: rhbz#747278
+
 * Tue Dec 11 2012 Brian C. Lane <bcl@redhat.com> - 13.21.190-1
 - Don't perform unnecessary str formatting on boot dev name (sbueno+anaconda)
   Resolves: rhbz#875652
