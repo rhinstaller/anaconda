@@ -153,10 +153,12 @@ class AddLayoutDialog(GUIObject):
 
     def on_layout_view_button_press(self, widget, event, *args):
         # BUG: Gdk.EventType.2BUTTON_PRESS results in syntax error
-        if event.type == getattr(Gdk.EventType, "2BUTTON_PRESS"):
-            # double-click should close the dialog
-            button = self.builder.get_object("confirmAddButton")
-            button.emit("clicked")
+        if event.type == getattr(Gdk.EventType, "2BUTTON_PRESS") and \
+                self._confirmAddButton.get_sensitive():
+            # double-click should close the dialog if something is selected
+            # (i.e. the Add button is sensitive)
+            # @see on_add_layout_selection_changed
+            self._confirmAddButton.emit("clicked")
 
         # let the other actions happen as well
         return False
