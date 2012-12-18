@@ -467,7 +467,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
         # make sure any device/passphrase pairs we've obtained are remebered
         for device in self.storage.devices:
-            if device.format.type == "luks" and not device.exists:
+            if device.format.type == "luks" and not device.format.exists:
                 if not device.format.hasKey:
                     device.format.passphrase = self.passphrase
 
