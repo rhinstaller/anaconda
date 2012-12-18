@@ -1402,7 +1402,12 @@ class NTFS(FS):
     def resizeArgs(self):
         # You must supply at least two '-f' options to ntfsresize or
         # the proceed question will be presented to you.
-        targetSize = (mib / mb) * self.targetSize # convert MiB to MB
+
+        # FIXME: This -1 is because our partition alignment calculations plus
+        # converting back and forth between MiB and MB means the filesystem is
+        # getting resized to be slightly larger than the partition holding it.
+        # This hack just makes the filesystem fit.
+        targetSize = (mib / mb) * (self.targetSize-1) # convert MiB to MB
         argv = ["-ff", "-s", "%dM" % (targetSize,), self.device]
         return argv
 
