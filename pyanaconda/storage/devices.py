@@ -2669,7 +2669,7 @@ class MDRaidArrayDevice(StorageDevice):
                 len(parents) < mdraid.get_raid_min_members(self.level)):
             for dev in self.parents:
                 dev.removeChild()
-            raise ValueError, P_("A RAID%(raidLevel)d set requires at least %(minMembers)d member",
+            raise DeviceError, P_("A RAID%(raidLevel)d set requires at least %(minMembers)d member",
                                  "A RAID%(raidLevel)d set requires at least %(minMembers)d members",
                                  mdraid.get_raid_min_members(self.level)) % \
                                  {"raidLevel": self.level, "minMembers": mdraid.get_raid_min_members(self.level)}
