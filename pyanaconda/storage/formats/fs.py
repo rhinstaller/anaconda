@@ -505,23 +505,7 @@ class FS(DeviceFormat):
                     {"type": self.type, "device": self.device}
 
             msg = self._fsckErrorMessage(ret)
-
-            # FIXME:  Bluh?
-            if False:
-                help = _("Errors like this usually mean there is a problem "
-                         "with the filesystem that will require user "
-                         "interaction to repair.  Before restarting "
-                         "installation, reboot to rescue mode or another "
-                         "system that allows you to repair the filesystem "
-                         "interactively.  Restart installation after you "
-                         "have corrected the problems on the filesystem.")
-
-                intf.messageWindow(_("Unrecoverable Error"),
-                                   hdr + "\n\n" + msg + "\n\n" + help,
-                                   custom_icon='error')
-                sys.exit(0)
-            else:
-                raise FSError(hdr + msg)
+            raise FSError(hdr + msg)
 
     def loadModule(self):
         """Load whatever kernel module is required to support this filesystem."""
