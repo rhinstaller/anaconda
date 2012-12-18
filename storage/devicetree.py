@@ -2099,8 +2099,10 @@ class DeviceTree(object):
                                             friendly_names=self.mpathFriendlyNames)
 
         devices = udev_get_block_devices()
-        (singles, mpaths, partitions) = devicelibs.mpath.identifyMultipaths(devices)
-        devices = singles + reduce(list.__add__, mpaths, []) + partitions
+        if os.access("/etc/multipath.conf", os.R_OK):
+            (singles, mpaths, partitions) = devicelibs.mpath.identifyMultipaths(devices)
+            devices = singles + reduce(list.__add__, mpaths, []) + partitions
+
         # remember all the devices idenitfyMultipaths() gave us at this point
         old_devices = {}
         for dev in devices:

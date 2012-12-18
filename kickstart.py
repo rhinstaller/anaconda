@@ -22,6 +22,7 @@ from storage.deviceaction import *
 from storage.devices import LUKSDevice
 from storage.devicelibs.lvm import getPossiblePhysicalExtents
 from storage.devicelibs.mpath import MultipathConfigWriter, identifyMultipaths
+from storage.devicelibs.mpath import writeMultipathConf
 from storage.formats import getFormat
 from storage.partitioning import clearPartitions
 from storage.partitioning import shouldClear
@@ -63,7 +64,7 @@ from anaconda_log import logger, logLevelMap, setHandlersLevel
 
 # deviceMatches is called early, before any multipaths can possibly be coalesced
 # so it needs to know about them in some additional way
-multipaths = None
+multipaths = []
 
 class AnacondaKSScript(Script):
     def run(self, chroot, serial, intf = None):
@@ -184,11 +185,10 @@ def getEscrowCertificate(anaconda, url):
 def detect_multipaths():
     global multipaths
     mcw = MultipathConfigWriter()
-    cfg = mcw.write(friendly_names=True)
-    with open("/etc/multipath.conf", "w+") as mpath_cfg:
-        mpath_cfg.write(cfg)
-    devices = udev_get_block_devices()
-    (singles, multipaths, partitions) = identifyMultipaths(devices)
+    writeMultipathConf(writer=mcw, friendly_names=True)
+    if os.access("/etc/multipath.conf", os.R_OK):
+        devices = udev_get_block_devices()
+        (singles, multipaths, partitions) = identifyMultipaths(devices)
 
 def deviceMatches(spec):
     full_spec = spec
