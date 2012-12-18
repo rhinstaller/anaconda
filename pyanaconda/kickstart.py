@@ -53,7 +53,7 @@ from pyanaconda.simpleconfig import SimpleConfigFile
 from pyanaconda.users import getPassAlgo
 from pyanaconda.desktop import Desktop
 from .ui.common import collect
-from .addons import AddonSection, AddonData, AddonRegistry
+from .addons import AddonSection, AddonData, AddonRegistry, collect_addon_paths
 
 from pykickstart.base import KickstartCommand
 from pykickstart.constants import *
@@ -1438,7 +1438,8 @@ def preScriptPass(f):
 def parseKickstart(f):
     # preprocessing the kickstart file has already been handled in initramfs.
 
-    handler = AnacondaKSHandler(ADDON_PATHS)
+    addon_paths = collect_addon_paths(ADDON_PATHS)
+    handler = AnacondaKSHandler(addon_paths["ks"])
     ksparser = AnacondaKSParser(handler)
 
     # We need this so all the /dev/disk/* stuff is set up before parsing.
