@@ -429,6 +429,8 @@ static void anaconda_base_window_set_info_bar(AnacondaBaseWindow *win, GtkMessag
         return;
 
     label = gtk_label_new(_(msg));
+    gtk_label_set_line_wrap(GTK_LABEL(label), TRUE);
+    gtk_label_set_line_wrap_mode(GTK_LABEL(label), PANGO_WRAP_WORD);
     gtk_widget_show(label);
 
     win->priv->info_bar = gtk_info_bar_new();
