@@ -32,8 +32,6 @@
 
 import atexit, sys, os, re, time, subprocess
 from tempfile import mkstemp
-from pyanaconda import constants
-
 # keep up with process ID of the window manager if we start it
 wm_pid = None
 
@@ -642,6 +640,8 @@ if __name__ == "__main__":
     # this handles setting up updates for pypackages to minimize the set needed
     setupPythonUpdates()
     setupPythonPath()
+
+    from pyanaconda import constants
 
     # do this early so we can set flags before initializing logging
     from pyanaconda.flags import flags
