@@ -329,7 +329,7 @@ class GraphicalUserInterface(UserInterface):
 
         self._currentAction.refresh()
 
-        self._currentAction.window.set_beta(not self._isFinal())
+        self._currentAction.window.set_beta(not self._isFinal)
         self._currentAction.window.set_property("distribution", self._distributionText().upper())
 
         # Set fonts app-wide, where possible
