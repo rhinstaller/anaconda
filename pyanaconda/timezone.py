@@ -134,6 +134,7 @@ def get_all_territory_timezones(territory):
     except KeyError:
         timezones = list()
 
+    timezones = [zone.encode("utf-8") for zone in timezones]
     return timezones
 
 
