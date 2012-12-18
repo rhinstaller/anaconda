@@ -1041,7 +1041,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         container = self.__storage.getContainer(factory)
         if not changed_device_type and device_type == DEVICE_TYPE_LVM:
             old_container = self.__storage.getContainer(factory,
-                                                        device=device)
+                                                        device=use_dev)
             container = self.__storage.getContainer(factory,
                                                     name=self._device_container_name)
             if self._device_container_name != old_container.name:
