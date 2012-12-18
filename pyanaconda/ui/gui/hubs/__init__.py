@@ -142,7 +142,7 @@ class Hub(GUIObject, common.Hub):
         
         box = Gtk.VBox(False, 6)
 
-        for c in categories:
+        for c in sorted(categories, key=lambda c: c.title):
             obj = c()
 
             selectors = []
