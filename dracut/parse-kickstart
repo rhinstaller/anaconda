@@ -257,6 +257,9 @@ def ksnet_to_ifcfg(net, filename=None):
         dev = find_devname(dev)
     if not dev:
         return
+    if not os.path.isdir("/sys/class/net/%s" % dev):
+        log.info("can't find device %s" % dev)
+        return
     ifcfg = dict()
     if filename is None:
         filename = "/tmp/ifcfg/ifcfg-%s" % dev
