@@ -300,6 +300,23 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/lib/dracut/modules.d/80%{name}/*
 
 %changelog
+* Tue Dec 18 2012 Brian C. Lane <bcl@redhat.com> - 18.37.4-1
+- Always set passphrase for newly encrypted devices. (#888560) (dlehman)
+- Encode unicode strings returned by pytz.country_timezones() (#887236)
+  (vpodzime)
+- Revert "Remove idiomatic, hard to translate text (#865598)." (bcl)
+- Handle edit of preexisting encrypted lv. (#885378) (dlehman)
+- Don't allow resize of devices with no/unrecognized formatting. (#869841)
+  (dlehman)
+- Don't resize NTFS partitions to smaller than the filesystem on them
+  (#885912). (clumens)
+- Set line wrap on the info bar (#888112). (clumens)
+- Don't crash when vg edit triggers spurious change event. (#883699) (dlehman)
+- Add handling for incomplete lvm/md devices. (#876441) (dlehman)
+- Fallback to mdN if no name was found for incomplete md array. (#873224)
+  (dlehman)
+- Add product.py to POTFILES (#858628). (clumens)
+
 * Fri Dec 14 2012 Brian C. Lane <bcl@redhat.com> - 18.37.3-1
 - Fix a couple pylint errors (#867125). (cherry picked from commit
   037bdac4f6f213d36d5e6cc61cd236ed8f0842a1) (clumens)
