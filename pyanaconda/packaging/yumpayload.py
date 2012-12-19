@@ -94,8 +94,8 @@ from pykickstart.constants import KS_MISSING_IGNORE
 
 default_repos = [productName.lower(), "rawhide"]
 
-from threading import Lock
-_yum_lock = Lock()
+from threading import RLock
+_yum_lock = RLock()
 
 _yum_cache_dir = "/tmp/yum.cache"
 
@@ -272,6 +272,8 @@ reposdir=%s
             Write out repo config files for all enabled repos, then
             create a new YumBase instance with the new filesystem tree as its
             install root.
+
+            This needs to be called from inside a yum_lock
         """
         self._repos_dir = "/tmp/yum.repos.d"
         if not os.path.isdir(self._repos_dir):
@@ -387,11 +389,12 @@ reposdir=%s
     def baseRepo(self):
         repo_names = [BASE_REPO_NAME] + default_repos
         base_repo_name = None
-        for repo_name in repo_names:
-            if repo_name in self.repos and \
-               self._yum.repos.getRepo(repo_name).enabled:
-                base_repo_name = repo_name
-                break
+        with _yum_lock:
+            for repo_name in repo_names:
+                if repo_name in self.repos and \
+                   self._yum.repos.getRepo(repo_name).enabled:
+                    base_repo_name = repo_name
+                    break
 
         return base_repo_name
 
@@ -417,9 +420,10 @@ reposdir=%s
             self._configureBaseRepo(self.storage, checkmount=checkmount)
         except PayloadError as e:
             if not fallback:
-                for repo in self._yum.repos.repos.values():
-                    if repo.enabled:
-                        self.disableRepo(repo.id)
+                with _yum_lock:
+                    for repo in self._yum.repos.repos.values():
+                        if repo.enabled:
+                            self.disableRepo(repo.id)
                 raise
 
             # this preserves the method details while disabling it
@@ -428,11 +432,12 @@ reposdir=%s
         finally:
             self._yumCacheDirHack()
 
-        if BASE_REPO_NAME not in self._yum.repos.repos.keys():
-            log.info("using default repos from local yum configuration")
-            if self._yum.conf.yumvar['releasever'] == "rawhide" and \
-               "rawhide" in self.repos:
-                self.enableRepo("rawhide")
+        with _yum_lock:
+            if BASE_REPO_NAME not in self._yum.repos.repos.keys():
+                log.info("using default repos from local yum configuration")
+                if self._yum.conf.yumvar['releasever'] == "rawhide" and \
+                   "rawhide" in self.repos:
+                    self.enableRepo("rawhide")
 
         # set up addon repos
         # FIXME: driverdisk support
@@ -448,50 +453,52 @@ reposdir=%s
                 self.removeRepo(repo.name)
 
         # now disable and/or remove any repos that don't make sense
-        for repo in self._yum.repos.repos.values():
-            # Rules for which repos to enable/disable/remove
-            #
-            # - always remove
-            #     - source, debuginfo
-            # - disable if isFinal
-            #     - rawhide, development
-            # - disable all other built-in repos if rawhide is enabled
-            # - remove any repo when not isFinal and repo not enabled
-            # - if a base repo is defined, disable any repo not defined by
-            #   the user that is not the base repo
-            #
-            # FIXME: updates needs special handling
-            if repo.id in self.addOns:
-                continue
+        with _yum_lock:
+            for repo in self._yum.repos.repos.values():
+                # Rules for which repos to enable/disable/remove
+                #
+                # - always remove
+                #     - source, debuginfo
+                # - disable if isFinal
+                #     - rawhide, development
+                # - disable all other built-in repos if rawhide is enabled
+                # - remove any repo when not isFinal and repo not enabled
+                # - if a base repo is defined, disable any repo not defined by
+                #   the user that is not the base repo
+                #
+                # FIXME: updates needs special handling
+                if repo.id in self.addOns:
+                    continue
 
-            if "-source" in repo.id or "-debuginfo" in repo.id:
-                self._removeYumRepo(repo.id)
-            elif isFinal and ("rawhide" in repo.id or "development" in repo.id):
-                # XXX the "development" part seems a bit heavy handed
-                self._removeYumRepo(repo.id)
-            elif self._yum.conf.yumvar['releasever'] == "rawhide" and \
-                 "rawhide" in self.repos and \
-                 self._yum.repos.getRepo("rawhide").enabled and \
-                 repo.id != "rawhide":
-                self.disableRepo(repo.id)
-            elif self.data.method.method and \
-                 repo.id != BASE_REPO_NAME and \
-                 repo.id not in [r.name for r in self.data.repo.dataList()]:
-                # if a method/repo was given, disable all default repos
-                self.disableRepo(repo.id)
+                if "-source" in repo.id or "-debuginfo" in repo.id:
+                    self._removeYumRepo(repo.id)
+                elif isFinal and ("rawhide" in repo.id or "development" in repo.id):
+                    # XXX the "development" part seems a bit heavy handed
+                    self._removeYumRepo(repo.id)
+                elif self._yum.conf.yumvar['releasever'] == "rawhide" and \
+                     "rawhide" in self.repos and \
+                     self._yum.repos.getRepo("rawhide").enabled and \
+                     repo.id != "rawhide":
+                    self.disableRepo(repo.id)
+                elif self.data.method.method and \
+                     repo.id != BASE_REPO_NAME and \
+                     repo.id not in [r.name for r in self.data.repo.dataList()]:
+                    # if a method/repo was given, disable all default repos
+                    self.disableRepo(repo.id)
 
     def gatherRepoMetadata(self):
         # now go through and get metadata for all enabled repos
         log.info("gathering repo metadata")
         for repo_id in self.repos:
-            repo = self._yum.repos.getRepo(repo_id)
-            if repo.enabled:
-                try:
-                    self._getRepoMetadata(repo)
-                except PayloadError as e:
-                    log.error("failed to grab repo metadata for %s: %s"
-                              % (repo_id, e))
-                    self.disableRepo(repo_id)
+            with _yum_lock:
+                repo = self._yum.repos.getRepo(repo_id)
+                if repo.enabled:
+                    try:
+                        self._getRepoMetadata(repo)
+                    except PayloadError as e:
+                        log.error("failed to grab repo metadata for %s: %s"
+                                  % (repo_id, e))
+                        self.disableRepo(repo_id)
 
         log.info("metadata retrieval complete")
 
@@ -825,10 +832,11 @@ reposdir=%s
         # if this is an NFS repo, we'll want to unmount the NFS mount after
         # removing the repo
         mountpoint = None
-        yum_repo = self._yum.repos.getRepo(repo_id)
-        ks_repo = self.getRepo(repo_id)
-        if yum_repo and ks_repo and ks_repo.baseurl.startswith("nfs:"):
-            mountpoint = yum_repo.baseurl[0][7:]    # strip leading "file://"
+        with _yum_lock:
+            yum_repo = self._yum.repos.getRepo(repo_id)
+            ks_repo = self.getRepo(repo_id)
+            if yum_repo and ks_repo and ks_repo.baseurl.startswith("nfs:"):
+                mountpoint = yum_repo.baseurl[0][7:]    # strip leading "file://"
 
         self._removeYumRepo(repo_id)
         super(YumPayload, self).removeRepo(repo_id)
@@ -843,13 +851,15 @@ reposdir=%s
         """ Enable a repo as specified by id. """
         log.debug("enabling repo %s" % repo_id)
         if repo_id in self.repos:
-            self._yum.repos.enableRepo(repo_id)
+            with _yum_lock:
+                self._yum.repos.enableRepo(repo_id)
 
     def disableRepo(self, repo_id):
         """ Disable a repo as specified by id. """
         log.debug("disabling repo %s" % repo_id)
         if repo_id in self.repos:
-            self._yum.repos.disableRepo(repo_id)
+            with _yum_lock:
+                self._yum.repos.disableRepo(repo_id)
 
             self._groups = None
             self._packages = []
@@ -1134,13 +1144,14 @@ reposdir=%s
     ###
     def _removeTxSaveFile(self):
         # remove the transaction save file
-        if self._yum._ts_save_file:
-            try:
-                os.unlink(self._yum._ts_save_file)
-            except (OSError, IOError):
-                pass
-            else:
-                self._yum._ts_save_file = None
+        with _yum_lock:
+            if self._yum._ts_save_file:
+                try:
+                    os.unlink(self._yum._ts_save_file)
+                except (OSError, IOError):
+                    pass
+                else:
+                    self._yum._ts_save_file = None
 
     def _handleMissing(self, exn):
         if self.data.packages.handleMissing == KS_MISSING_IGNORE:
@@ -1205,7 +1216,8 @@ reposdir=%s
 
         if self.skipBroken:
             log.info("running software check with skip_broken = True")
-            self._yum.conf.skip_broken = True
+            with _yum_lock:
+                self._yum.conf.skip_broken = True
 
         self.release()
         self.deleteYumTS()
@@ -1238,8 +1250,9 @@ reposdir=%s
                 raise DependencyError(msgs)
 
         self.calculateSpaceNeeds()
-        log.info("%d packages selected totalling %s"
-                 % (len(self._yum.tsInfo.getMembers()), self.spaceRequired))
+        with _yum_lock:
+            log.info("%d packages selected totalling %s"
+                     % (len(self._yum.tsInfo.getMembers()), self.spaceRequired))
 
     def selectKernelPackage(self):
         kernels = self.kernelPackages
@@ -1260,11 +1273,11 @@ reposdir=%s
                 # select module packages for this kernel
 
                 # select the devel package if gcc will be installed
-                if self._yum.tsInfo.matchNaevr(name="gcc"):
-                    log.info("selecting %s-devel" % kernel)
-                    # XXX might need explicit arch specification
-                    self._selectYumPackage("%s-devel" % kernel)
-
+                with _yum_lock:
+                    if self._yum.tsInfo.matchNaevr(name="gcc"):
+                        log.info("selecting %s-devel" % kernel)
+                        # XXX might need explicit arch specification
+                        self._selectYumPackage("%s-devel" % kernel)
                 break
 
         if not selected:
@@ -1288,7 +1301,8 @@ reposdir=%s
         if self.install_device:
             self._setUpMedia(self.install_device)
 
-        self._writeInstallConfig()
+        with _yum_lock:
+            self._writeInstallConfig()
 
         # We have this block twice.  For kickstart installs, this is the only
         # place dependencies will be checked.  If a dependency error is hit
@@ -1462,20 +1476,21 @@ reposdir=%s
 
     def postInstall(self):
         """ Perform post-installation tasks. """
-        self._yum.close()
+        with _yum_lock:
+            self._yum.close()
 
-        # clean up repo tmpdirs
-        self._yum.cleanPackages()
-        self._yum.cleanHeaders()
+            # clean up repo tmpdirs
+            self._yum.cleanPackages()
+            self._yum.cleanHeaders()
 
-        # remove cache dirs of install-specific repos
-        for repo in self._yum.repos.listEnabled():
-            if repo.name == BASE_REPO_NAME or repo.id.startswith("anaconda-"):
-                shutil.rmtree(repo.cachedir)
+            # remove cache dirs of install-specific repos
+            for repo in self._yum.repos.listEnabled():
+                if repo.name == BASE_REPO_NAME or repo.id.startswith("anaconda-"):
+                    shutil.rmtree(repo.cachedir)
 
-        # clean the yum cache on upgrade
-        if self.data.upgrade.upgrade:
-            self._yum.cleanMetadata()
+            # clean the yum cache on upgrade
+            if self.data.upgrade.upgrade:
+                self._yum.cleanMetadata()
 
         # TODO: on preupgrade, remove the preupgrade dir
 
