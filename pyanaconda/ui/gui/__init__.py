@@ -74,6 +74,8 @@ class GUIObject(common.UIObject):
     mainWidgetName = None
     uiFile = ""
 
+    screenshots_directory = "/tmp/anaconda-screenshots"
+    
     def __init__(self, data):
         """Create a new UIObject instance, including loading its uiFile and
            all UI-related objects.
@@ -134,10 +136,11 @@ class GUIObject(common.UIObject):
             return
 
         # Make sure the screenshot directory exists.
-        if not os.access("/tmp/anaconda-screenshots", os.W_OK):
-            os.mkdir("/tmp/anaconda-screenshots")
+        if not os.access(self.screenshots_directory, os.W_OK):
+            os.mkdir(self.screenshots_directory)
 
-        fn = "/tmp/anaconda-screenshots/screenshot-%04d.png" % _screenshotIndex
+        fn = os.path.join(self.screenshots_directory,
+                          "screenshot-%04d.png" % _screenshotIndex)
 
         win = window.get_window()
         width = win.get_width()
