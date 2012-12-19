@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 13.21.190\n"
+"Project-Id-Version: anaconda 13.21.191\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2012-12-14 16:15-0800\n"
+"POT-Creation-Date: 2012-12-18 17:20-0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -577,7 +577,7 @@ msgid ""
 "After shutdown, please perform a manual IPL from %s to continue installation."
 msgstr ""
 
-#: kickstart.py:120
+#: kickstart.py:121
 #, python-format
 msgid ""
 "There was an error running the kickstart script at line %(lineno)s.  You may "
@@ -585,18 +585,18 @@ msgid ""
 "be aborted.  Press the OK button to exit the installer."
 msgstr ""
 
-#: kickstart.py:128 kickstart.py:130
+#: kickstart.py:129 kickstart.py:131
 msgid "Scriptlet Failure"
 msgstr ""
 
-#: kickstart.py:154
+#: kickstart.py:155
 #, python-format
 msgid ""
 "Escrow certificate with url %s requires network to be enabled in loader or "
 "configured in kickstart file."
 msgstr ""
 
-#: kickstart.py:169
+#: kickstart.py:170
 #, python-format
 msgid ""
 "The following error was encountered while downloading the escrow "

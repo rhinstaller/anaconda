@@ -222,6 +222,10 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Tue Dec 18 2012 Brian C. Lane <bcl@redhat.com> - 13.21.192-1
+- Fix handling of nompath option. (dlehman)
+  Related: rhbz#821042
+
 * Fri Dec 14 2012 Brian C. Lane <bcl@redhat.com> - 13.21.191-1
 - include .ssh.hmac in image (bcl)
   Resolves: rhbz#886479
