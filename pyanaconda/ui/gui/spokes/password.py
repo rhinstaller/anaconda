@@ -31,12 +31,13 @@ import string
 
 from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.gui.categories.user_settings import UserSettingsCategory
+from pyanaconda.ui.common import FirstbootSpokeMixIn
 #from _isys import isCapsLockEnabled
 
 __all__ = ["PasswordSpoke"]
 
 
-class PasswordSpoke(NormalSpoke):
+class PasswordSpoke(FirstbootSpokeMixIn, NormalSpoke):
     builderObjects = ["passwordWindow"]
 
     mainWidgetName = "passwordWindow"
@@ -47,10 +48,6 @@ class PasswordSpoke(NormalSpoke):
     icon = "dialog-password-symbolic"
     title = N_("ROOT PASSWORD")
 
-    @classmethod
-    def firstboot(cls):
-        return True
-    
     def __init__(self, *args):
         NormalSpoke.__init__(self, *args)
         self._password = None

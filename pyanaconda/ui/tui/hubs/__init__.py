@@ -56,6 +56,10 @@ class TUIHub(TUIObject, common.Hub):
 
             # sort them according to their priority
             for s in sorted(spokes, key = lambda s: s.priority):
+                # Check if this spoke is to be shown in anaconda
+                if not s.should_run("anaconda", self.data):
+                    continue
+                
                 spoke = s(app, data, storage, payload, instclass)
                 spoke.initialize()
 

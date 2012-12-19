@@ -116,25 +116,37 @@ class UIObject(object):
         return self._data
 
 class FirstbootSpokeMixIn(object):
-    """This MixIn class marks Spokes as usable for Firstboot."""
-
+    """This MixIn class marks Spokes as usable for Firstboot
+       and Anaconda.
+    """
     @classmethod
-    def configure_tag(cls):
-        """This method defines textual id (or list of those) that will
-           be written into the after-install customization status
-           file for the firstboot and GIE to know that the spoke was
-           configured in anaconda."""
-        return None
-
-    @classmethod
-    def firstboot(cls):
+    def should_run(cls, environment, data):
         """This method is responsible for beginning Spoke initialization
            in the firstboot environment (even before __init__).
 
-           It should return True if the spoke is to be shown on the
-           FirstbootHub and False if it should be skipped."""
-        return True
-    
+           It should return True if the spoke is to be shown
+           and False if it should be skipped.
+
+           It might be called multiple times, with or without (None)
+           the data argument.
+        """
+        return environment in ("anaconda", "firstboot")
+
+class FirstbootOnlySpokeMixIn(object):
+    """This MixIn class marks Spokes as usable for Firstboot."""
+    @classmethod
+    def should_run(cls, environment, data):
+        """This method is responsible for beginning Spoke initialization
+           in the firstboot environment (even before __init__).
+
+           It should return True if the spoke is to be shown and False
+           if it should be skipped.
+
+           It might be called multiple times, with or without (None)
+           the data argument.
+        """
+        return environment in ("firstboot")
+
 class Spoke(UIObject):
     """A Spoke is a single configuration screen.  There are several different
        places where a Spoke can be displayed, each of which will have its own
@@ -197,11 +209,31 @@ class Spoke(UIObject):
         self.instclass = instclass
         self.applyOnSkip = False
 
+    @classmethod
+    def should_run(cls, environment, data):
+        """This method is responsible for beginning Spoke initialization.
+
+           It should return True if the spoke is to be shown while in
+           <environment> and False if it should be skipped.
+
+           It might be called multiple times, with or without (None)
+           the data argument.
+        """
+        return environment in ("anaconda")
+
     def apply(self):
         """Apply the selections made on this Spoke to the object's preset
            data object.  This method must be provided by every subclass.
         """
         raise NotImplementedError
+
+    @property
+    def configured(self):
+        """This method returns a list of textual ids that should
+           be written into the after-install customization status
+           file for the firstboot and GIE to know that the spoke was
+           configured and what value groups were provided."""
+        return ["%s.%s" % (self.__class__.__module__, self.__class__.__name__)]
 
     @property
     def completed(self):
