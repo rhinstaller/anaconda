@@ -965,11 +965,18 @@ def wait_for_dhcp():
     log.debug("not connected, waited %d of %d secs" % (i, CONNECTION_TIMEOUT))
     return False
 
-def update_hostname(ksdata):
-    hostname = getHostname()
+def update_hostname(ksdata, hostname=None):
+    if not hostname:
+        hostname = getHostname()
     log.debug("updating hostname %s" % hostname)
-    nd = kickstartNetworkData(hostname=hostname)
-    ksdata.network.network.append(nd)
+    hostname_found = False
+    for nd in ksdata.network.network:
+        if nd.hostname:
+            nd.hostname = hostname
+            hostname_found = True
+    if not hostname_found:
+        nd = kickstartNetworkData(hostname=hostname)
+        ksdata.network.network.append(nd)
 
 def get_device_name(devspec):
 
