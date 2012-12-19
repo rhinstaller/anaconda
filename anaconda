@@ -404,7 +404,7 @@ def startDebugger(signum, frame):
     import epdb
     epdb.serve(skip=1)
 
-def setupDisplay(anaconda, opts):
+def setupDisplay(anaconda, opts, addon_paths=None):
     from pyanaconda.ui.tui.simpleline import App
     from pyanaconda.ui.tui.spokes.askvnc import AskVNCSpoke
     from pykickstart.constants import DISPLAY_MODE_TEXT
@@ -581,7 +581,7 @@ def setupDisplay(anaconda, opts):
         doStartupX11Actions()
 
     # with X running we can initialize the UI interface
-    anaconda.initInterface()
+    anaconda.initInterface(addon_paths)
 
     anaconda.instClass.configure(anaconda)
 
@@ -807,6 +807,9 @@ if __name__ == "__main__":
 
     os.system("udevadm control --env=ANACONDA=1")
 
+    # Collect all addon paths
+    addon_paths = collect_addon_paths(constants.ADDON_PATHS)
+
     # If we were given a kickstart file on the command line, parse (but do not
     # execute) that now.  Otherwise, load in defaults from kickstart files
     # shipped with the installation media.
@@ -829,7 +832,6 @@ if __name__ == "__main__":
         break
 
     if not ksdata:
-        addon_paths = collect_addon_paths(constants.ADDON_PATHS)
         ksdata = kickstart.AnacondaKSHandler(addon_paths["ks"])
 
     if ksdata.rescue.rescue:
@@ -922,7 +924,7 @@ if __name__ == "__main__":
     initThreading()
 
     # now start the interface
-    setupDisplay(anaconda, opts)
+    setupDisplay(anaconda, opts, addon_paths)
 
     # Set flag to prompt for missing ks data
     if anaconda.displayMode == 'c':

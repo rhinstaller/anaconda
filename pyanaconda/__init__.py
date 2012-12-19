@@ -205,7 +205,7 @@ class Anaconda(object):
             f.write("--- traceback: %s ---\n" % filename)
             f.write(dump_text + "\n")
 
-    def initInterface(self):
+    def initInterface(self, addon_paths=None):
         if self._intf:
             raise RuntimeError, "Second attempt to initialize the InstallInterface"
 
@@ -220,6 +220,9 @@ class Anaconda(object):
         else:
             raise RuntimeError("Unsupported displayMode: %s" % self.displayMode)
 
+        if addon_paths:
+            self._intf.update_paths(addon_paths)
+        
     def writeXdriver(self, root = None):
         # this should go away at some point, but until it does, we
         # need to keep it around.
