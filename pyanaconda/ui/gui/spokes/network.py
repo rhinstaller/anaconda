@@ -41,7 +41,7 @@ from pyanaconda.ui.gui.categories.software import SoftwareCategory
 from pyanaconda.ui.gui.hubs.summary import SummaryHub
 from pyanaconda.ui.gui.utils import gtk_call_once
 
-from pyanaconda.network import NetworkDevice, netscriptsDir, kickstartNetworkData, getActiveNetDevs, logIfcfgFiles
+from pyanaconda.network import NetworkDevice, netscriptsDir, kickstartNetworkData, getActiveNetDevs, logIfcfgFiles, update_hostname
 
 from gi.repository import GLib, GObject, Pango, Gio, NetworkManager, NMClient
 import dbus
@@ -222,7 +222,7 @@ class CellRendererSecurity(Gtk.CellRendererPixbuf):
 
         self.set_property("icon-name", self.icon_name)
 
-class NetworkControlBox():
+class NetworkControlBox(object):
 
     supported_device_types = [
         NetworkManager.DeviceType.ETHERNET,
@@ -949,6 +949,14 @@ class NetworkControlBox():
         return [row[DEVICES_COLUMN_OBJECT] for
                 row in self.builder.get_object("liststore_devices")]
 
+    @property
+    def hostname(self):
+        return self.builder.get_object("entry_hostname").get_text()
+
+    @hostname.setter
+    def hostname(self, value):
+        self.builder.get_object("entry_hostname").set_text(value)
+
 class NetworkSpoke(NormalSpoke):
     builderObjects = ["networkWindow", "liststore_wireless_network", "liststore_devices"]
     mainWidgetName = "networkWindow"
@@ -962,6 +970,7 @@ class NetworkSpoke(NormalSpoke):
     def __init__(self, *args, **kwargs):
         NormalSpoke.__init__(self, *args, **kwargs)
         self.network_control_box = NetworkControlBox(self.builder)
+        self.network_control_box.hostname = self.data.network.hostname
         self.network_control_box.client.connect("notify::%s" %
                                                 NMClient.CLIENT_STATE,
                                                 self.on_nm_state_changed)
@@ -969,14 +978,14 @@ class NetworkSpoke(NormalSpoke):
             device.connect("state-changed", self.on_device_state_changed)
 
     def apply(self):
-        hostname = self.data.network.hostname
+        # TODO: sanity check
         self.data.network.network = []
         for dev in self.network_control_box.listed_devices:
             network_data = getKSNetworkData(dev)
             if network_data is not None:
                 self.data.network.network.append(network_data)
-        nd = kickstartNetworkData(hostname=hostname)
-        self.data.network.network.append(nd)
+        hostname = self.network_control_box.hostname
+        update_hostname(self.data, hostname)
 
     @property
     def completed(self):
@@ -1036,6 +1045,7 @@ class NetworkSpoke(NormalSpoke):
 
     def on_nm_state_changed(self, *args):
         gtk_call_once(self._update_status)
+        gtk_call_once(self._update_hostname)
 
     def on_device_state_changed(self, *args):
         new_state = args[1]
@@ -1046,6 +1056,11 @@ class NetworkSpoke(NormalSpoke):
 
     def _update_status(self):
         communication.send_message(self.__class__.__name__, self.status)
+
+    def _update_hostname(self):
+        if self.network_control_box.hostname == "localhost.localdomain":
+            update_hostname(self.data)
+            self.network_control_box.hostname = self.data.network.hostname
 
 class NetworkStandaloneSpoke(StandaloneSpoke):
     builderObjects = ["networkStandaloneWindow", "networkControlBox_vbox", "liststore_wireless_network", "liststore_devices"]
@@ -1058,22 +1073,26 @@ class NetworkStandaloneSpoke(StandaloneSpoke):
     def __init__(self, *args, **kwargs):
         StandaloneSpoke.__init__(self, *args, **kwargs)
         self.network_control_box = NetworkControlBox(self.builder)
+        self.network_control_box.hostname = self.data.network.hostname
         parent = self.builder.get_object("AnacondaStandaloneWindow-action_area5")
         parent.add(self.network_control_box.vbox)
+
+        self.network_control_box.client.connect("notify::%s" %
+                                                NMClient.CLIENT_STATE,
+                                                self.on_nm_state_changed)
 
         self._initially_available = self.completed
         log.debug("network standalone spoke (init): completed: %s" % self._initially_available)
         self._now_available = False
 
     def apply(self):
-        hostname = self.data.network.hostname
         self.data.network.network = []
         for dev in self.network_control_box.listed_devices:
             network_data = getKSNetworkData(dev)
             if network_data is not None:
                 self.data.network.network.append(network_data)
-        nd = kickstartNetworkData(hostname=hostname)
-        self.data.network.network.append(nd)
+        hostname = self.network_control_box.hostname
+        update_hostname(self.data, hostname)
 
         self._now_available = self.completed
 
@@ -1103,6 +1122,15 @@ class NetworkStandaloneSpoke(StandaloneSpoke):
     def on_back_clicked(self, window):
         self.window.hide()
         Gtk.main_quit()
+
+    # Use case: slow dhcp has connected when on spoke
+    def on_nm_state_changed(self, *args):
+        gtk_call_once(self._update_hostname)
+
+    def _update_hostname(self):
+        if self.network_control_box.hostname == "localhost.localdomain":
+            update_hostname(self.data)
+            self.network_control_box.hostname = self.data.network.hostname
 
 def getKSNetworkData(device):
     retval = None
