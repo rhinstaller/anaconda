@@ -131,11 +131,15 @@ class TextUserInterface(ui.UserInterface):
 
     basemask = "pyanaconda.ui.tui"
     basepath = os.path.dirname(__file__)
+    updatepath = "/tmp/updates/pyanaconda/ui/tui"
+
     paths = ui.UserInterface.paths + {
             "spokes": [(basemask + ".spokes.%s",
-                        os.path.join(basepath, "spokes"))],
+                        os.path.join(path, "spokes"))
+                        for path in (updatepath, basepath)],
             "hubs": [(basemask + ".hubs.%s",
-                      os.path.join(basepath, "hubs"))]
+                      os.path.join(path, "hubs"))
+                      for path in (updatepath, basepath)]
             }
     
     def _list_hubs(self):

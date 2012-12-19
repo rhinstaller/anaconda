@@ -122,8 +122,13 @@ class GUIObject(common.UIObject):
 
     def _findUIFile(self):
         path = os.environ.get("UIPATH", "./:/tmp/updates/:/tmp/updates/ui/:/usr/share/anaconda/ui/")
-        for d in path.split(":"):
-            testPath = os.path.normpath(d + self.uiFile)
+        dirs = path.split(":")
+
+        # append the directory where this UIObject is defined
+        dirs.append(os.path.dirname(inspect.getfile(self.__class__)))
+
+        for d in dirs:
+            testPath = os.path.join(d, self.uiFile)
             if os.path.isfile(testPath) and os.access(testPath, os.R_OK):
                 return testPath
 
@@ -238,13 +243,18 @@ class GraphicalUserInterface(UserInterface):
 
     basemask = "pyanaconda.ui.gui"
     basepath = os.path.dirname(__file__)
+    updatepath = "/tmp/updates/pyanaconda/ui/gui"
+
     paths = UserInterface.paths + {
             "categories": [(basemask + ".categories.%s",
-                        os.path.join(basepath, "categories"))],
+                        os.path.join(path, "categories"))
+                        for path in (updatepath, basepath)],
             "spokes": [(basemask + ".spokes.%s",
-                        os.path.join(basepath, "spokes"))],
+                        os.path.join(path, "spokes"))
+                        for path in (updatepath, basepath)],
             "hubs": [(basemask + ".hubs.%s",
-                      os.path.join(basepath, "hubs"))]
+                      os.path.join(path, "hubs"))
+                      for path in (updatepath, basepath)]
             }
         
     def _list_hubs(self):
