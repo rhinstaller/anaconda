@@ -438,11 +438,17 @@ def collect(module_pattern, path, pred):
     """
 
     retval = []
-    for module_file in os.listdir(path):
+    try:
+        contents = os.listdir(path)
+    # when the directory "path" does not exist
+    except OSError:
+        return []
+    
+    for module_file in contents:
         if (not module_file.endswith(".py")) and \
            (not module_file.endswith(".so")):
             continue
-        
+
         if module_file == "__init__.py":
             continue
 
@@ -453,8 +459,8 @@ def collect(module_pattern, path, pred):
 
         mod_info = None
         module = None
-        
-        try:    
+
+        try:
             imp.acquire_lock()
             mod_info = imp.find_module(mod_name, [path])
             module = sys.modules.get(module_pattern % mod_name)
@@ -473,3 +479,4 @@ def collect(module_pattern, path, pred):
             retval.append(val)
 
     return retval
+
