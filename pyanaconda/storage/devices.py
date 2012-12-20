@@ -2974,6 +2974,22 @@ class MDRaidArrayDevice(StorageDevice):
         self.devices.remove(device)
         device.removeChild()
 
+    def addMember(self, member):
+        if member in self.parents:
+            raise ValueError("member is already part of this array")
+
+        # for the time being we will not allow adding members to existing arrays
+        if self.exists:
+            raise DeviceError("cannot add member to existing array", self.name)
+
+        self.parents.append(member)
+        member.addChild()
+        self.memberDevices += 1
+
+    def removeMember(self, member):
+        self._removeDevice(member)
+        self.memberDevices -= 1
+
     @property
     def status(self):
         """ This device's status.
