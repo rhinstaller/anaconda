@@ -1861,6 +1861,9 @@ class Storage(object):
 
         if container:
             members = container.parents[:]
+        elif members:
+            # mdarray
+            container = device
 
         # The basis for whether we are modifying a member set versus creating
         # one must be the member list, as container will be None when modifying
@@ -1892,12 +1895,15 @@ class Storage(object):
         for member in members[:]:
             if any([d in remove_disks for d in member.disks]):
                 if isinstance(member, LUKSDevice):
-                    container.removeMember(member)
+                    if container:
+                        container.removeMember(member)
                     self.destroyDevice(member)
                     members.remove(member)
                     member = member.slave
                 else:
-                    container.removeMember(member)
+                    if container:
+                        container.removeMember(member)
+
                     members.remove(member)
 
                 self.destroyDevice(member)
@@ -1906,19 +1912,24 @@ class Storage(object):
             if isinstance(member, LUKSDevice):
                 if not factory.encrypted:
                     # encryption was toggled for the member devices
-                    container.removeMember(member)
+                    if container:
+                        container.removeMember(member)
+
                     self.destroyDevice(member)
                     members.remove(member)
 
                     self.formatDevice(member.slave,
                                       getFormat(factory.member_format))
                     members.append(member.slave)
-                    container.addMember(member.slave)
+                    if container:
+                        container.addMember(member.slave)
 
                 member = member.slave
             elif factory.encrypted:
                 # encryption was toggled for the member devices
-                container.removeMember(member)
+                if container:
+                    container.removeMember(member)
+
                 members.remove(member)
                 self.formatDevice(member, getFormat("luks"))
                 luks_member = LUKSDevice("luks-%s" % member.name,
@@ -1926,7 +1937,8 @@ class Storage(object):
                                     format=getFormat(factory.member_format))
                 self.createDevice(luks_member)
                 members.append(luks_member)
-                container.addMember(luks_member)
+                if container:
+                    container.addMember(luks_member)
 
             member.req_base_size = base_size
             member.req_size = member.req_base_size
@@ -2148,7 +2160,7 @@ class Storage(object):
 
         members = []
         if device and device.type == "mdarray":
-            members = device.parents
+            members = device.parents[:]
 
         try:
             parents = self.setContainerMembers(container, factory,
@@ -3500,6 +3512,10 @@ class MDFactory(DeviceFactory):
     @property
     def device_size(self):
         return get_member_space(self.size, len(self.disks),
+                                level=self.raid_level)
+
+    def container_size_func(self, container, device=None):
+        return get_member_space(self.size, len(container.parents),
                                 level=self.raid_level)
 
     def new_device(self, *args, **kwargs):
