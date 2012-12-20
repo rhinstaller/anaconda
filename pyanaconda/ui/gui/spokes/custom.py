@@ -910,6 +910,9 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         if name_entry.get_sensitive():
             name = name_entry.get_text()
             changed_name = (name != old_name)
+        else:
+            # name entry insensitive means we don't control the name
+            name = None
 
         log.debug("old_name: %s" % old_name)
         log.debug("new_name: %s" % name)
