@@ -300,6 +300,66 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/lib/dracut/modules.d/80%{name}/*
 
 %changelog
+* Wed Dec 19 2012 Brian C. Lane <bcl@redhat.com> - 18.39-1
+- Add more yum locking to yumpayload (#860022) (bcl)
+- The percent bar can go in the same column as the space label. (clumens)
+- Don't resize NTFS partitions to smaller than the filesystem on them
+  (#885912). (clumens)
+- Remove some unused error handling code from old UI. (clumens)
+- Don't generate ifcfg files for non-existing devices in parse-kickstart
+  (#886647) (rvykydal)
+- Encode unicode strings returned by pytz.country_timezones() (#887236)
+  (vpodzime)
+- Always set passphrase for newly encrypted devices. (#888560) (dlehman)
+- Handle edit of preexisting encrypted lv. (#885378) (dlehman)
+- Raise DeviceError instead of ValueError from device ctor. (#888089) (dlehman)
+- Set line wrap on the info bar (#888112). (clumens)
+- Don't crash when vg edit triggers spurious change event. (#883699) (dlehman)
+- Add handling for incomplete lvm/md devices. (#876441) (dlehman)
+- Fallback to mdN if no name was found for incomplete md array. (#873224)
+  (dlehman)
+- Add product.py to POTFILES (#858628). (clumens)
+- Sort categories in GUI alphabetically (msivak)
+- Fix typo in variable name (msivak)
+- Collect addon paths properly (msivak)
+- Move the import constants line below setupPythonUpdates (msivak)
+- Only close AddLayout dialog on double-click if something is selected
+  (#887371) (vpodzime)
+- Add warning to keyboard spoke on live installations (#886463) (vpodzime)
+- Split ksdata execute and setup methods for addons (msivak)
+- Add support for KS %%addon section and the API+code to use it (msivak)
+- Import collected modules only once (msivak)
+- Update run-spoke to use paths (msivak)
+- Export QuitDialog and it's message string (msivak)
+- Update the hack we use to preload AnacondaWidgets - we need to load the
+  typelib not just the .so file (msivak)
+- Add FirstbootMixIn (msivak)
+- Move the path definitions to Interface and pass it to the Hubs from there
+  (msivak)
+- Make TUI ready for getting spokes from multiple directories (msivak)
+- Make GUI more reusable and support multiple directories for spokes and
+  categories (msivak)
+- Modify collect so it works with directories with missing __init__.py (msivak)
+- Split completed and mandatory attributes (msivak)
+- Move info about possible actions below the free space info (vpodzime)
+- Fix a couple pylint errors (#867125). (clumens)
+- Fix an undefined variable error (#867129). (clumens)
+- The fs type combo should be sensitive when reformat is checked (#887201).
+  (clumens)
+- Remove idiomatic, hard to translate text (#865598). (clumens)
+- Activate default layout when it is changed (#882440) (vpodzime)
+- Validate and correct vg names as needed. (dlehman)
+- Don't allow resize of devices with no/unrecognized formatting. (#869841)
+  (dlehman)
+- Add keyboard dracut setup args (#875567) (vpodzime)
+- recheck software when source changes (#875599) (bcl)
+- Include the new lib directory in the package (#886319, #886470). (clumens)
+- Add a gradient background to spoke headers (mizmo, clumens). (clumens)
+- Only allow changing filesystem type if the reformat combo is checked
+  (#885906). (clumens)
+- It's possible for mountpoint to be None (#885279). (clumens)
+- Explicitly set True/False in the bootloader setting (#885381). (clumens)
+
 * Tue Dec 11 2012 Brian C. Lane <bcl@redhat.com> - 18.38-1
 - In interactive installs, default to bootloader in the MBR (#885284).
   (clumens)
