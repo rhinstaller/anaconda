@@ -608,7 +608,7 @@ reposdir=%s
                 options, host, path = iutil.parseNfsUrl('nfs:%s' % isodev)
                 # See if the dir holding the iso is what we want
                 # and also if we have an iso mounted to /run/install/repo
-                if path in isodev and DRACUT_ISODIR in device:
+                if path and path in isodev and DRACUT_ISODIR in device:
                     # Everything should be setup
                     url = "file://" + DRACUT_REPODIR
             else:
@@ -616,7 +616,7 @@ reposdir=%s
                 needmount = True
                 if device:
                     options, host, path = iutil.parseNfsUrl('nfs:%s' % device)
-                    if path in device:
+                    if path and path in device:
                         needmount = False
                         path = DRACUT_REPODIR
                 if needmount:
