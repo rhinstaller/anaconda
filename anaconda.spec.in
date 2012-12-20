@@ -47,6 +47,7 @@ BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 %define pythonurlgrabberver 3.9.1-5
 %define utillinuxver 2.15.1
 %define syslinuxver 3.73
+%define dracutver 024-16
 
 BuildRequires: audit-libs-devel
 BuildRequires: bzip2-devel
@@ -205,7 +206,7 @@ documentation for working with this library.
 %package dracut
 Summary: The anaconda dracut module
 BuildArch: noarch
-Requires: dracut >= 19
+Requires: dracut >= %{dracutver}
 Requires: dracut-network
 Requires: xz
 Requires: pykickstart
