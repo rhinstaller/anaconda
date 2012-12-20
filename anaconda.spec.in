@@ -300,6 +300,10 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/lib/dracut/modules.d/80%{name}/*
 
 %changelog
+* Wed Dec 19 2012 Brian C. Lane <bcl@redhat.com> - 18.37.5-1
+- Network spoke: add sanity check for hostname setting (#856456) (rvykydal)
+- Network spoke: add hostname setting (#856456) (rvykydal)
+
 * Tue Dec 18 2012 Brian C. Lane <bcl@redhat.com> - 18.37.4-1
 - Always set passphrase for newly encrypted devices. (#888560) (dlehman)
 - Encode unicode strings returned by pytz.country_timezones() (#887236)
