@@ -615,7 +615,11 @@ reposdir=%s
                 if needmount:
                     # Mount the NFS share on INSTALL_TREE. If it ends up
                     # being nfsiso we will move the mountpoint to ISO_DIR.
-                    self._setupNFS(INSTALL_TREE, method.server, method.dir,
+                    if method.dir.endswith(".iso"):
+                        nfsdir = os.path.dirname(method.dir)
+                    else:
+                        nfsdir = method.dir
+                    self._setupNFS(INSTALL_TREE, method.server, nfsdir,
                                    method.opts)
                     path = INSTALL_TREE
 
