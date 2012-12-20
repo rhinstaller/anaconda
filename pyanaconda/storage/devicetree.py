@@ -513,7 +513,9 @@ class DeviceTree(object):
                 if part.partType and part.isLogical and part.disk == dep.disk:
                     logicals.append(part)
 
-        for device in self.devices:
+        incomplete = [d for d in self._devices
+                            if not getattr(d, "complete", True)]
+        for device in self.devices + incomplete:
             if device.dependsOn(dep):
                 dependents.append(device)
             else:
