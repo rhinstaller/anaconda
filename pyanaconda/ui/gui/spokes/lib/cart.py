@@ -48,11 +48,11 @@ def size_str(mb):
     return str(Size(spec=spec)).upper()
 
 class SelectedDisksDialog(GUIObject):
-    builderObjects = ["selected_disks_dialog", "disk_store"]
+    builderObjects = ["selected_disks_dialog", "disk_store", "disk_tree_view"]
     mainWidgetName = "selected_disks_dialog"
     uiFile = "spokes/lib/cart.glade"
 
-    def initialize(self, disks, free, showRemove=True):
+    def initialize(self, disks, free, showRemove=True, setBoot=True):
         self._previousID = None
 
         for disk in disks:
@@ -67,6 +67,9 @@ class SelectedDisksDialog(GUIObject):
 
         if not showRemove:
             self.builder.get_object("remove_button").hide()
+
+        if not setBoot:
+            self._set_button.hide()
 
         if not disks:
             return
@@ -93,10 +96,10 @@ class SelectedDisksDialog(GUIObject):
                 row[IS_BOOT_COL] = True
                 break
 
-    def refresh(self, disks, free, showRemove=True):
+    def refresh(self, disks, free, showRemove=True, setBoot=True):
         super(SelectedDisksDialog, self).refresh()
 
-        self._view = self.builder.get_object("disk_view")
+        self._view = self.builder.get_object("disk_tree_view")
         self._store = self.builder.get_object("disk_store")
         self._selection = self.builder.get_object("disk_selection")
         self._summary_label = self.builder.get_object("summary_label")
@@ -105,7 +108,7 @@ class SelectedDisksDialog(GUIObject):
 
         # clear out the store and repopulate it from the devicetree
         self._store.clear()
-        self.initialize(disks, free, showRemove=showRemove)
+        self.initialize(disks, free, showRemove=showRemove, setBoot=setBoot)
 
     def run(self):
         rc = self.window.run()
