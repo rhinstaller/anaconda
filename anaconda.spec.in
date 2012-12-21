@@ -301,6 +301,27 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/lib/dracut/modules.d/80%{name}/*
 
 %changelog
+* Fri Dec 21 2012 Brian C. Lane <bcl@redhat.com> - 18.37.7-1
+- Add more yum locking to yumpayload (#860022) (bcl)
+- add setKeyboardCheckButton to list of things to translate (#889352) (cherry
+  picked from commit ea461492d20af7f8e2e5539ccade0cce03cc48a4) (bcl)
+- Mark for translation and show translated some more GUI elements (#877658)
+  (vpodzime)
+- Translate storage errors (#877658) (vpodzime)
+- Don't allow changing the boot disk from inside the custom spoke. (#889585)
+  (dlehman)
+- Add help text and a help button to the custom storage spoke. (#889570)
+  (dlehman)
+- Allow /boot on btrfs subvol if using grub2. (#888603,868465) (dlehman)
+- Don't keep old device name when switching to btrfs in custom. (dlehman)
+- Fix container member set management for md arrays. (#889101) (dlehman)
+- Include incomplete devices when listing dependant devices. (#889330)
+  (dlehman)
+- remove the don't use upgrades checkbox from source (#889366) (bcl)
+- Remove Shrink button from reclaim dialog (#875944) (bcl)
+- Add keyboard dracut setup args (#875567) (vpodzime)
+- Add warning to keyboard spoke on live installations (#886463) (vpodzime)
+
 * Thu Dec 20 2012 Brian C. Lane <bcl@redhat.com> - 18.37.6-1
 - Use systemd to run checkisomd5 (#874486) (cherry picked from commit
   e824b44ac7ef4d096a6606775da740448440e11e) (harald)
