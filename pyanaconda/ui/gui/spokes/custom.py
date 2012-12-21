@@ -2001,7 +2001,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
         with enlightbox(self.window, dialog.window):
             dialog.refresh(self._clearpartDevices, self._currentFreeInfo,
-                           showRemove=False)
+                           showRemove=False, setBoot=False)
             dialog.run()
 
     def on_help_clicked(self, button):
