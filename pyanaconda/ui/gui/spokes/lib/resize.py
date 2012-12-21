@@ -82,7 +82,7 @@ class ResizeDialog(GUIObject):
         self._resizeButton = self.builder.get_object("resizeButton")
 
         self._preserveButton = self.builder.get_object("preserveButton")
-        self._shrinkButton = self.builder.get_object("shrinkButton")
+#        self._shrinkButton = self.builder.get_object("shrinkButton")
         self._deleteButton = self.builder.get_object("deleteButton")
 
     def _description(self, part):
@@ -177,12 +177,12 @@ class ResizeDialog(GUIObject):
                         "for this installation.  Removing a filesystem will permanently delete all "
                         "of the data it contains.")
 
-        if canShrinkSomething:
-            description += "\n\n"
-            description += _("There is also free space available in pre-existing filesystems.  "
-                             "While it's risky and we recommend you back up your data first, you "
-                             "can recover that free disk space and make it available for this "
-                             "installation below.")
+#        if canShrinkSomething:
+#            description += "\n\n"
+#            description += _("There is also free space available in pre-existing filesystems.  "
+#                             "While it's risky and we recommend you back up your data first, you "
+#                             "can recover that free disk space and make it available for this "
+#                             "installation below.")
 
         self._reclaimDescLabel.set_text(description)
 
@@ -201,7 +201,7 @@ class ResizeDialog(GUIObject):
         # If this is a disk header, it's not editable, so make all the
         # buttons insensitive.
         self._preserveButton.set_sensitive(row[EDITABLE_COL])
-        self._shrinkButton.set_sensitive(row[EDITABLE_COL])
+#        self._shrinkButton.set_sensitive(row[EDITABLE_COL])
         self._deleteButton.set_sensitive(row[EDITABLE_COL])
 
         if not row[EDITABLE_COL]:
@@ -210,14 +210,14 @@ class ResizeDialog(GUIObject):
         # If the selected filesystem does not support shrinking, make that
         # button insensitive.
         device = self.storage.devicetree.getDeviceByID(row[DEVICE_ID_COL])
-        self._shrinkButton.set_sensitive(device.resizable)
+#        self._shrinkButton.set_sensitive(device.resizable)
 
         # Then, disable the button for whatever action is currently selected.
         # It doesn't make a lot of sense to allow clicking that.
         if row[ACTION_COL] == _(PRESERVE):
             self._preserveButton.set_sensitive(False)
-        elif row[ACTION_COL] == _(SHRINK):
-            self._shrinkButton.set_sensitive(False)
+#        elif row[ACTION_COL] == _(SHRINK):
+#            self._shrinkButton.set_sensitive(False)
         elif row[ACTION_COL] == _(DELETE):
             self._deleteButton.set_sensitive(False)
 
