@@ -301,6 +301,14 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/lib/dracut/modules.d/80%{name}/*
 
 %changelog
+* Thu Dec 20 2012 Brian C. Lane <bcl@redhat.com> - 18.37.6-1
+- Use systemd to run checkisomd5 (#874486) (cherry picked from commit
+  e824b44ac7ef4d096a6606775da740448440e11e) (harald)
+- fixup direct nfs iso url handling (#879187) (bcl)
+- fixup nfs repo install code (#879187) (bcl)
+- Don't generate ifcfg files for non-existing devices in parse-kickstart
+  (#886647) (rvykydal)
+
 * Wed Dec 19 2012 Brian C. Lane <bcl@redhat.com> - 18.37.5-1
 - Network spoke: add sanity check for hostname setting (#856456) (rvykydal)
 - Network spoke: add hostname setting (#856456) (rvykydal)
