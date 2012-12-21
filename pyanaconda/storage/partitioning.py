@@ -288,7 +288,7 @@ def doAutoPartition(storage, data):
         return
 
     if not storage.partitioned:
-        raise NoDisksError("No usable disks selected")
+        raise NoDisksError(_("No usable disks selected"))
 
     disks = _getCandidateDisks(storage)
     devs = _scheduleImplicitPartitions(storage, disks)
@@ -296,8 +296,8 @@ def doAutoPartition(storage, data):
     log.debug("devs: %s" % devs)
 
     if disks == []:
-        raise NotEnoughFreeSpaceError("Not enough free space on disks for "
-                                      "automatic partitioning")
+        raise NotEnoughFreeSpaceError(_("Not enough free space on disks for "
+                                      "automatic partitioning"))
 
     _schedulePartitions(storage, disks)
 
@@ -626,7 +626,7 @@ def addPartition(disklabel, free, part_type, size):
         end = disklabel.endAlignment.alignNearest(free, end)
         log.debug("adjusted length from %d to %d" % (length, end - start + 1))
         if start > end:
-            raise PartitioningError("unable to allocate aligned partition")
+            raise PartitioningError(_("unable to allocate aligned partition"))
 
     new_geom = parted.Geometry(device=disklabel.partedDevice,
                                start=start,
@@ -634,7 +634,7 @@ def addPartition(disklabel, free, part_type, size):
 
     max_length = disklabel.partedDisk.maxPartitionLength
     if max_length and new_geom.length > max_length:
-        raise PartitioningError("requested size exceeds maximum allowed")
+        raise PartitioningError(_("requested size exceeds maximum allowed"))
 
     # create the partition and add it to the disk
     partition = parted.Partition(disk=disklabel.partedDisk,
@@ -725,7 +725,7 @@ def doPartitioning(storage):
 
     """
     if not hasattr(storage.platform, "diskLabelTypes"):
-        raise StorageError("can't allocate partitions without platform data")
+        raise StorageError(_("can't allocate partitions without platform data"))
 
     disks = storage.partitioned
     if storage.config.exclusiveDisks:
@@ -736,7 +736,7 @@ def doPartitioning(storage):
             disk.setup()
         except DeviceError as (msg, name):
             log.error("failed to set up disk %s: %s" % (name, msg))
-            raise PartitioningError("disk %s inaccessible" % disk.name)
+            raise PartitioningError(_("disk %s inaccessible") % disk.name)
 
     partitions = storage.partitions[:]
     for part in storage.partitions:
@@ -790,17 +790,15 @@ def doPartitioning(storage):
         for part in [p for p in storage.partitions if not p.exists]:
             problem = part.checkSize()
             if problem < 0:
-                raise PartitioningError("partition is too small for %s formatting "
-                                        "(allowable size is %d MB to %d MB)"
-                                        % (part.format.name,
-                                           part.format.minSize,
-                                           part.format.maxSize))
+                raise PartitioningError(_("partition is too small for %(format)s formatting "
+                                        "(allowable size is %(minSize)d MB to %(maxSize)d MB)")
+                                        % {"format": part.format.name, "minSize": part.format.minSize,
+                                            "maxSize": part.format.maxSize})
             elif problem > 0:
-                raise PartitioningError("partition is too large for %s formatting "
-                                        "(allowable size is %d MB to %d MB)"
-                                        % (part.format.name,
-                                           part.format.minSize,
-                                           part.format.maxSize))
+                raise PartitioningError(_("partition is too large for %(format)s formatting "
+                                        "(allowable size is %(minSize)d MB to %(maxSize)d MB)")
+                                        % {"format": part.format.name, "minSize": part.format.minSize,
+                                            "maxSize": part.format.maxSize})
 
 def allocatePartitions(storage, disks, partitions, freespace):
     """ Allocate partitions based on requested features.
@@ -1038,7 +1036,7 @@ def allocatePartitions(storage, disks, partitions, freespace):
                 break
 
         if free is None:
-            raise PartitioningError("not enough free space on disks")
+            raise PartitioningError(_("not enough free space on disks"))
 
         _disk = use_disk
         disklabel = _disk.format
@@ -1059,8 +1057,8 @@ def allocatePartitions(storage, disks, partitions, freespace):
                                           boot=boot,
                                           grow=_part.req_grow)
             if not free:
-                raise PartitioningError("not enough free space after "
-                                        "creating extended partition")
+                raise PartitioningError(_("not enough free space after "
+                                        "creating extended partition"))
 
         partition = addPartition(disklabel, free, part_type, _part.req_size)
         log.debug("created partition %s of %dMB and added it to %s" %
@@ -1231,7 +1229,7 @@ class Chunk(object):
         if request.growth < amount:
             log.error("tried to reclaim %d from request with %d of growth"
                         % (amount, request.growth))
-            raise ValueError("cannot reclaim more than request has grown")
+            raise ValueError(_("cannot reclaim more than request has grown"))
 
         request.growth -= amount
         self.pool += amount
@@ -1411,8 +1409,8 @@ class DiskChunk(Chunk):
     def addRequest(self, req):
         """ Add a Request to this chunk. """
         if not isinstance(req, PartitionRequest):
-            raise ValueError("DiskChunk requests must be of type "
-                             "PartitionRequest")
+            raise ValueError(_("DiskChunk requests must be of type "
+                             "PartitionRequest"))
 
         if not self.requests:
             # when adding the first request to the chunk, adjust the pool
@@ -1424,8 +1422,8 @@ class DiskChunk(Chunk):
                 # start sector is beyond the maximum allowed end sector, we
                 # cannot continue
                 log.error("chunk start sector is beyond disklabel maximum")
-                raise PartitioningError("partitions allocated outside "
-                                        "disklabel limits")
+                raise PartitioningError(_("partitions allocated outside "
+                                        "disklabel limits"))
 
             new_pool = chunk_end - self.geometry.start + 1
             if new_pool != self.pool:
@@ -1504,8 +1502,8 @@ class VGChunk(Chunk):
     def addRequest(self, req):
         """ Add a Request to this chunk. """
         if not isinstance(req, LVRequest):
-            raise ValueError("VGChunk requests must be of type "
-                             "LVRequest")
+            raise ValueError(_("VGChunk requests must be of type "
+                             "LVRequest"))
 
         super(VGChunk, self).addRequest(req)
 
@@ -1933,7 +1931,7 @@ def growLVM(storage):
         if total_free < 0:
             # by now we have allocated the PVs so if there isn't enough
             # space in the VG we have a real problem
-            raise PartitioningError("not enough space for LVM requests")
+            raise PartitioningError(_("not enough space for LVM requests"))
         elif not total_free:
             log.debug("vg %s has no free space" % vg.name)
             continue
