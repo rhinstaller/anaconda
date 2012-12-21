@@ -166,7 +166,7 @@ class LanguageMixIn(object):
         # Change the translations on labels and buttons that do not have
         # substitution text.
         for name in ["pickLanguageLabel", "betaWarnTitle", "betaWarnDesc",
-                     "quitButton", "continueButton"]:
+                     "quitButton", "continueButton", "setKeyboardCheckButton"]:
             self._retranslate_one(name)
 
         # The welcome label is special - it has text that needs to be
