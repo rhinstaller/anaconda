@@ -2166,15 +2166,15 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             if selector._device.type == "mdarray":
                 total = selector._device.memberDevices
                 missing = total - len(selector._device.parents)
-                txt = _("This Software RAID array is missing %d of %d member "
+                txt = _("This Software RAID array is missing %(missingMembers)d of %(totalMembers)d member "
                         "partitions. You can remove it or select a different "
-                        "device.") % (missing, total)
+                        "device.") % {"missingMembers": missing, "totalMembers": total}
             else:
                 total = selector._device.pvCount
                 missing = total - len(selector._device.parents)
-                txt = _("This LVM Volume Group is missing %d of %d physical "
+                txt = _("This LVM Volume Group is missing %(missingPVs)d of %(totalPVs)d physical "
                         "volumes. You can remove it or select a different "
-                        "device.") % (missing, total)
+                        "device.") % {"missingPVs": missing, "totalPVs": total}
             optionsLabel.set_text(txt)
             no_edit = True
         elif getDeviceType(selector._device) is None:

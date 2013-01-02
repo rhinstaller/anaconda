@@ -1582,9 +1582,10 @@ class GRUB2(GRUB):
         for p in parts:
             start = p.geometry.start * p.disk.device.sectorSize
             if not p.getFlag(PARTITION_BIOS_GRUB) and start < 1024*512:
-                msg = _("%s may not have enough space for grub2 to embed "
-                        "core.img when using the %s filesystem on %s") \
-                        % (self.stage1_device.name, self.stage2_device.format.type, self.stage2_device.type)
+                msg = _("%(deviceName)s may not have enough space for grub2 to embed "
+                        "core.img when using the %(fsType)s filesystem on %(deviceType)s") \
+                        % {"deviceName": self.stage1_device.name, "fsType": self.stage2_device.format.type,
+                           "deviceType": self.stage2_device.type}
                 log.error(msg)
                 self.errors.append(msg)
                 ret = False
