@@ -462,7 +462,7 @@ class FS(DeviceFormat):
             raise FSResizeError(e, self.device)
 
         if ret:
-            raise FSResizeError("resize failed: %s" % ret.rc, self.device)
+            raise FSResizeError("resize failed: %s" % ret, self.device)
 
         self.doCheck()
 
