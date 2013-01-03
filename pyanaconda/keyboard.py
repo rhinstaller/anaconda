@@ -440,15 +440,31 @@ class XklWrapper(object):
         return self._switching_options
 
     def get_default_language_layout(self, language):
-        """Get the default layout for a given language"""
+        """Get the default layout for a given language."""
+
+        layouts = self.get_language_layouts(language)
+        if layouts:
+            #first layout (should exist for every language)
+            return layouts[0].name
+        else:
+            return None
+
+    def get_language_layouts(self, language):
+        """Get layouts for a given language."""
 
         language_layouts = self._language_keyboard_variants.get(language, None)
 
-        if not language_layouts:
-            return None
+        if language_layouts:
+            return language_layouts
 
-        #first layout (should exist for every language)
-        return language_layouts[0].name
+        #else try some magic and if everything fails, return None
+        for (lang, layouts) in self._language_keyboard_variants.iteritems():
+            #XXX: some languages are returned in a weird form from the
+            #     libxklavier iterations (e.g. "Greek, Modern (1453-)")
+            if lang.startswith(language):
+                return layouts
+
+        return None
 
     def get_default_lang_country_layout(self, language, country):
         """
@@ -457,7 +473,7 @@ class XklWrapper(object):
 
         """
 
-        language_layouts = self._language_keyboard_variants.get(language, None)
+        language_layouts = self.get_language_layouts(language)
         country_layouts = self._country_keyboard_variants.get(country, None)
         if not language_layouts:
             return None
