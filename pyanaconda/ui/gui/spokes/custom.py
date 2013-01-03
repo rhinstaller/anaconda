@@ -2201,7 +2201,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         selector.set_chosen(True)
         self._current_selector = selector
 
-        self._configButton.set_sensitive(not selector._device.protected and
+        self._configButton.set_sensitive(not selector._device.exists and
+                                         not selector._device.protected and
                                          getDeviceType(selector._device) != DEVICE_TYPE_LVM)
         self._removeButton.set_sensitive(not selector._device.protected)
         return True
@@ -2419,7 +2420,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             raid_level = "raid0"
 
         # lvm uses the RHS to set disk set. no foolish minds here.
-        self._configButton.set_sensitive(new_type != DEVICE_TYPE_LVM)
+        exists = self._current_selector and self._current_selector._device.exists
+        self._configButton.set_sensitive(not exists and new_type != DEVICE_TYPE_LVM)
 
         size = self.builder.get_object("sizeSpinner").get_value()
         self._populate_raid(raid_level, size)
