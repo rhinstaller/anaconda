@@ -28,6 +28,7 @@ from hubs.progress import ProgressHub
 from spokes import StandaloneSpoke
 
 import os
+import site
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
@@ -132,14 +133,17 @@ class TextUserInterface(ui.UserInterface):
     basemask = "pyanaconda.ui.tui"
     basepath = os.path.dirname(__file__)
     updatepath = "/tmp/updates/pyanaconda/ui/tui"
+    sitepackages = [os.path.join(dir, "pyanaconda", "ui", "tui")
+                    for dir in site.getsitepackages()]
+    pathlist = set([updatepath, basepath] + sitepackages)
 
     paths = ui.UserInterface.paths + {
             "spokes": [(basemask + ".spokes.%s",
                         os.path.join(path, "spokes"))
-                        for path in (updatepath, basepath)],
+                        for path in pathlist],
             "hubs": [(basemask + ".hubs.%s",
                       os.path.join(path, "hubs"))
-                      for path in (updatepath, basepath)]
+                      for path in pathlist]
             }
     
     def _list_hubs(self):

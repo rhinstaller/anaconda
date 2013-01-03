@@ -18,7 +18,7 @@
 #
 # Red Hat Author(s): Chris Lumens <clumens@redhat.com>
 #
-import inspect, os, sys, time
+import inspect, os, sys, time, site
 import meh.ui.gui
 
 from gi.repository import Gdk
@@ -244,17 +244,20 @@ class GraphicalUserInterface(UserInterface):
     basemask = "pyanaconda.ui.gui"
     basepath = os.path.dirname(__file__)
     updatepath = "/tmp/updates/pyanaconda/ui/gui"
+    sitepackages = [os.path.join(dir, "pyanaconda", "ui", "gui")
+                    for dir in site.getsitepackages()]
+    pathlist = set([updatepath, basepath] + sitepackages)
 
     paths = UserInterface.paths + {
             "categories": [(basemask + ".categories.%s",
                         os.path.join(path, "categories"))
-                        for path in (updatepath, basepath)],
+                        for path in pathlist],
             "spokes": [(basemask + ".spokes.%s",
                         os.path.join(path, "spokes"))
-                        for path in (updatepath, basepath)],
+                        for path in pathlist],
             "hubs": [(basemask + ".hubs.%s",
                       os.path.join(path, "hubs"))
-                      for path in (updatepath, basepath)]
+                      for path in pathlist]
             }
         
     def _list_hubs(self):

@@ -496,8 +496,16 @@ def collect(module_pattern, path, pred):
             imp.acquire_lock()
             mod_info = imp.find_module(mod_name, [path])
             module = sys.modules.get(module_pattern % mod_name)
+
+            # do not load module if any module with the same name
+            # is already imported
             if not module:
                 module = imp.load_module(module_pattern % mod_name, *mod_info)
+
+            # do not collect classes when the module is already imported
+            # from different path than we are traversing
+            if mod_info[1] != module.__file__:
+                continue
             imp.release_lock()
         except ImportError:
             continue
