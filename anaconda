@@ -642,6 +642,7 @@ if __name__ == "__main__":
     setupPythonPath()
 
     from pyanaconda import constants
+    from pyanaconda import addons
 
     # do this early so we can set flags before initializing logging
     from pyanaconda.flags import flags
@@ -808,7 +809,7 @@ if __name__ == "__main__":
     os.system("udevadm control --env=ANACONDA=1")
 
     # Collect all addon paths
-    addon_paths = collect_addon_paths(constants.ADDON_PATHS)
+    addon_paths = addons.collect_addon_paths(constants.ADDON_PATHS)
 
     # If we were given a kickstart file on the command line, parse (but do not
     # execute) that now.  Otherwise, load in defaults from kickstart files
