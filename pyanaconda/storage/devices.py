@@ -3947,6 +3947,7 @@ class BTRFSDevice(StorageDevice):
     def updateSysfsPath(self):
         """ Update this device's sysfs path. """
         log_method_call(self, self.name, status=self.status)
+        self.parents[0].updateSysfsPath()
         self.sysfsPath = self.parents[0].sysfsPath
         log.debug("%s sysfsPath set to %s" % (self.name, self.sysfsPath))
 
