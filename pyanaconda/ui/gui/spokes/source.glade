@@ -186,7 +186,8 @@
                         <property name="can_focus">False</property>
                         <property name="hexpand">True</property>
                         <property name="xalign">0</property>
-                        <property name="label" translatable="yes">Fedora People Repositories</property>
+                        <property name="label" translatable="yes">_Fedora People Repositories</property>
+                        <property name="use_underline">True</property>
                       </object>
                     </child>
                   </object>
@@ -303,7 +304,8 @@
                         <property name="can_focus">False</property>
                         <property name="hexpand">True</property>
                         <property name="xalign">0</property>
-                        <property name="label" translatable="yes">Standard YUM repository:</property>
+                        <property name="label" translatable="yes">_Standard YUM repository:</property>
+                        <property name="use_underline">True</property>
                       </object>
                     </child>
                   </object>
@@ -665,8 +667,10 @@ TeXlive 2012 repository</col>
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="xalign">0</property>
-                        <property name="label" translatable="yes">&lt;b&gt;Proxy URL&lt;/b&gt;</property>
+                        <property name="label" translatable="yes">&lt;b&gt;_Proxy URL&lt;/b&gt;</property>
                         <property name="use_markup">True</property>
+                        <property name="use_underline">True</property>
+                        <property name="mnemonic_widget">proxyURLEntry</property>
                       </object>
                       <packing>
                         <property name="left_attach">0</property>
@@ -740,8 +744,10 @@ TeXlive 2012 repository</col>
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="xalign">0</property>
-                        <property name="label" translatable="yes">&lt;b&gt;Username&lt;/b&gt;</property>
+                        <property name="label" translatable="yes">&lt;b&gt;User_name&lt;/b&gt;</property>
                         <property name="use_markup">True</property>
+                        <property name="use_underline">True</property>
+                        <property name="mnemonic_widget">proxyUsernameEntry</property>
                       </object>
                       <packing>
                         <property name="left_attach">0</property>
@@ -755,8 +761,10 @@ TeXlive 2012 repository</col>
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="xalign">0</property>
-                        <property name="label" translatable="yes">&lt;b&gt;Password&lt;/b&gt;</property>
+                        <property name="label" translatable="yes">&lt;b&gt;Pass_word&lt;/b&gt;</property>
                         <property name="use_markup">True</property>
+                        <property name="use_underline">True</property>
+                        <property name="mnemonic_widget">proxyPasswordEntry</property>
                       </object>
                       <packing>
                         <property name="left_attach">0</property>
@@ -832,6 +840,7 @@ TeXlive 2012 repository</col>
         <property name="orientation">vertical</property>
         <child internal-child="nav_box">
           <object class="GtkEventBox" id="AnacondaSpokeWindow-nav_box1">
+            <property name="can_focus">False</property>
             <child internal-child="nav_area">
               <object class="GtkGrid" id="AnacondaSpokeWindow-nav_area1">
                 <property name="can_focus">False</property>
@@ -985,7 +994,9 @@ TeXlive 2012 repository</col>
                       <object class="GtkLabel" id="label6">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="label" translatable="yes">Device:</property>
+                        <property name="label" translatable="yes">D_evice:</property>
+                        <property name="use_underline">True</property>
+                        <property name="mnemonic_widget">isoPartitionCombo</property>
                       </object>
                       <packing>
                         <property name="expand">False</property>
@@ -1083,12 +1094,6 @@ TeXlive 2012 repository</col>
                         <property name="row_spacing">6</property>
                         <property name="column_spacing">6</property>
                         <child>
-                          <placeholder/>
-                        </child>
-                        <child>
-                          <placeholder/>
-                        </child>
-                        <child>
                           <object class="GtkComboBoxText" id="protocolComboBox">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
@@ -1179,7 +1184,9 @@ TeXlive 2012 repository</col>
                           <object class="GtkLabel" id="label3">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
-                            <property name="label" translatable="yes">NFS mount options:</property>
+                            <property name="label" translatable="yes">NFS mount _options:</property>
+                            <property name="use_underline">True</property>
+                            <property name="mnemonic_widget">nfsOptsEntry</property>
                           </object>
                           <packing>
                             <property name="expand">False</property>
@@ -1237,7 +1244,7 @@ TeXlive 2012 repository</col>
                 </child>
                 <child>
                   <object class="GtkCheckButton" id="noUpdatesCheckbox">
-                    <property name="label" translatable="yes">D_on't install the latest available software updates. Install the default versions provided by the install source above.</property>
+                    <property name="label" translatable="yes">Don't install the latest available software _updates. Install the default versions provided by the install source above.</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">False</property>

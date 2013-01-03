@@ -237,9 +237,10 @@ class CreateNewPage(Page):
         label.set_line_wrap(True)
         self._createBox.add(label)
 
-        self._createNewButton = Gtk.LinkButton("", label=_("Click here to create them automatically."))
+        self._createNewButton = Gtk.LinkButton("", label=_("_Click here to create them automatically."))
         label = self._createNewButton.get_children()[0]
         label.set_line_wrap(True)
+        label.set_use_underline(True)
 
         self._createNewButton.set_has_tooltip(False)
         self._createNewButton.set_halign(Gtk.Align.START)

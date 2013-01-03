@@ -49,10 +49,11 @@
             </child>
             <child>
               <object class="GtkButton" id="passphrase_save_button">
-                <property name="label" translatable="yes">Save Passphrase</property>
+                <property name="label" translatable="yes">_Save Passphrase</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
+                <property name="use_underline">True</property>
                 <signal name="clicked" handler="on_save_clicked" swapped="no"/>
               </object>
               <packing>
@@ -94,7 +95,10 @@
               <object class="GtkLabel" id="passphrase_entry_label">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="label" translatable="yes">Passphrase:</property>
+                <property name="xalign">0</property>
+                <property name="label" translatable="yes">_Passphrase:</property>
+                <property name="use_underline">True</property>
+                <property name="mnemonic_widget">passphrase_entry</property>
               </object>
               <packing>
                 <property name="left_attach">0</property>
@@ -124,7 +128,10 @@
               <object class="GtkLabel" id="confirm_entry_label">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="label" translatable="yes">Confirm:</property>
+                <property name="xalign">0</property>
+                <property name="label" translatable="yes">_Confirm:</property>
+                <property name="use_underline">True</property>
+                <property name="mnemonic_widget">confirm_entry</property>
               </object>
               <packing>
                 <property name="left_attach">0</property>

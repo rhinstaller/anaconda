@@ -137,8 +137,10 @@
                 <property name="can_focus">False</property>
                 <property name="margin_top">6</property>
                 <property name="xalign">1</property>
-                <property name="label" translatable="yes">&lt;b&gt;Desired Capacity:&lt;/b&gt;</property>
+                <property name="label" translatable="yes">&lt;b&gt;_Desired Capacity:&lt;/b&gt;</property>
                 <property name="use_markup">True</property>
+                <property name="use_underline">True</property>
+                <property name="mnemonic_widget">sizeEntry</property>
               </object>
               <packing>
                 <property name="left_attach">0</property>
@@ -152,8 +154,10 @@
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="xalign">0</property>
-                <property name="label" translatable="yes">&lt;b&gt;Mount Point:&lt;/b&gt;</property>
+                <property name="label" translatable="yes">&lt;b&gt;M_ount Point:&lt;/b&gt;</property>
                 <property name="use_markup">True</property>
+                <property name="use_underline">True</property>
+                <property name="mnemonic_widget">addMountPointEntry</property>
               </object>
               <packing>
                 <property name="left_attach">0</property>
@@ -320,10 +324,11 @@ use.  Try something else?</property>
         </child>
         <child>
           <object class="GtkCheckButton" id="removeAllCheckbox">
-            <property name="label" translatable="yes">Delete all other filesystems in the %s root as well.</property>
+            <property name="label" translatable="yes">Delete _all other filesystems in the %s root as well.</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="receives_default">False</property>
+            <property name="use_underline">True</property>
             <property name="xalign">0</property>
             <property name="draw_indicator">True</property>
           </object>
@@ -556,8 +561,10 @@ you'll be able to view their details here.</property>
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
                                     <property name="xalign">0</property>
-                                    <property name="label" translatable="yes">&lt;b&gt;Mount Point:&lt;/b&gt;</property>
+                                    <property name="label" translatable="yes">&lt;b&gt;M_ount Point:&lt;/b&gt;</property>
                                     <property name="use_markup">True</property>
+                                    <property name="use_underline">True</property>
+                                    <property name="mnemonic_widget">mountPointEntry</property>
                                   </object>
                                   <packing>
                                     <property name="left_attach">0</property>
@@ -586,8 +593,10 @@ you'll be able to view their details here.</property>
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
                                     <property name="xalign">0</property>
-                                    <property name="label" translatable="yes">&lt;b&gt;Label:&lt;/b&gt;</property>
+                                    <property name="label" translatable="yes">&lt;b&gt;_Label:&lt;/b&gt;</property>
                                     <property name="use_markup">True</property>
+                                    <property name="use_underline">True</property>
+                                    <property name="mnemonic_widget">labelEntry</property>
                                   </object>
                                   <packing>
                                     <property name="left_attach">0</property>
@@ -602,8 +611,10 @@ you'll be able to view their details here.</property>
                                     <property name="can_focus">False</property>
                                     <property name="halign">end</property>
                                     <property name="xalign">0</property>
-                                    <property name="label" translatable="yes">&lt;b&gt;Desired Capacity (MB):&lt;/b&gt;</property>
+                                    <property name="label" translatable="yes">&lt;b&gt;_Desired Capacity (MB):&lt;/b&gt;</property>
                                     <property name="use_markup">True</property>
+                                    <property name="use_underline">True</property>
+                                    <property name="mnemonic_widget">sizeSpinner</property>
                                   </object>
                                   <packing>
                                     <property name="left_attach">2</property>
@@ -649,7 +660,9 @@ you'll be able to view their details here.</property>
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
                                     <property name="xalign">0</property>
-                                    <property name="label" translatable="yes">Name:</property>
+                                    <property name="label" translatable="yes">_Name:</property>
+                                    <property name="use_underline">True</property>
+                                    <property name="mnemonic_widget">nameEntry</property>
                                     <attributes>
                                       <attribute name="weight" value="bold"/>
                                     </attributes>
@@ -710,8 +723,10 @@ you'll be able to view their details here.</property>
                                         <property name="visible">True</property>
                                         <property name="can_focus">False</property>
                                         <property name="xalign">0</property>
-                                        <property name="label" translatable="yes">&lt;b&gt;Device Type:&lt;/b&gt;</property>
+                                        <property name="label" translatable="yes">&lt;b&gt;Device _Type:&lt;/b&gt;</property>
                                         <property name="use_markup">True</property>
+                                        <property name="use_underline">True</property>
+                                        <property name="mnemonic_widget">deviceTypeCombo</property>
                                       </object>
                                       <packing>
                                         <property name="left_attach">0</property>
@@ -725,8 +740,10 @@ you'll be able to view their details here.</property>
                                         <property name="visible">True</property>
                                         <property name="can_focus">False</property>
                                         <property name="xalign">0</property>
-                                        <property name="label" translatable="yes">&lt;b&gt;File System:&lt;/b&gt;</property>
+                                        <property name="label" translatable="yes">&lt;b&gt;File _System:&lt;/b&gt;</property>
                                         <property name="use_markup">True</property>
+                                        <property name="use_underline">True</property>
+                                        <property name="mnemonic_widget">fileSystemTypeCombo</property>
                                       </object>
                                       <packing>
                                         <property name="left_attach">0</property>
@@ -804,10 +821,11 @@ you'll be able to view their details here.</property>
                                                 <property name="can_focus">False</property>
                                                 <child>
                                                   <object class="GtkCheckButton" id="lvmRedundancyCheckbox">
-                                                    <property name="label" translatable="yes">Redundancy (mirror)</property>
+                                                    <property name="label" translatable="yes">Redundancy (_mirror)</property>
                                                     <property name="visible">True</property>
                                                     <property name="can_focus">True</property>
                                                     <property name="receives_default">False</property>
+                                                    <property name="use_underline">True</property>
                                                     <property name="xalign">0</property>
                                                     <property name="draw_indicator">True</property>
                                                     <signal name="toggled" handler="on_raid_feature_toggled" swapped="no"/>
@@ -848,10 +866,11 @@ you'll be able to view their details here.</property>
                                                 <property name="can_focus">False</property>
                                                 <child>
                                                   <object class="GtkCheckButton" id="lvmPerformanceCheckbox">
-                                                    <property name="label" translatable="yes">Optimized performance (stripe)</property>
+                                                    <property name="label" translatable="yes">Optimi_zed performance (stripe)</property>
                                                     <property name="visible">True</property>
                                                     <property name="can_focus">True</property>
                                                     <property name="receives_default">False</property>
+                                                    <property name="use_underline">True</property>
                                                     <property name="xalign">0</property>
                                                     <property name="draw_indicator">True</property>
                                                     <signal name="toggled" handler="on_raid_feature_toggled" swapped="no"/>
@@ -901,10 +920,11 @@ you'll be able to view their details here.</property>
                                                 <property name="can_focus">False</property>
                                                 <child>
                                                   <object class="GtkCheckButton" id="raidRedundancyCheckbox">
-                                                    <property name="label" translatable="yes">Redundancy (mirror)</property>
+                                                    <property name="label" translatable="yes">Redundancy (_mirror)</property>
                                                     <property name="visible">True</property>
                                                     <property name="can_focus">True</property>
                                                     <property name="receives_default">False</property>
+                                                    <property name="use_underline">True</property>
                                                     <property name="xalign">0</property>
                                                     <property name="draw_indicator">True</property>
                                                     <signal name="toggled" handler="on_raid_feature_toggled" swapped="no"/>
@@ -945,10 +965,11 @@ you'll be able to view their details here.</property>
                                                 <property name="can_focus">False</property>
                                                 <child>
                                                   <object class="GtkCheckButton" id="raidPerformanceCheckbox">
-                                                    <property name="label" translatable="yes">Optimized performance (stripe)</property>
+                                                    <property name="label" translatable="yes">Optimi_zed performance (stripe)</property>
                                                     <property name="visible">True</property>
                                                     <property name="can_focus">True</property>
                                                     <property name="receives_default">False</property>
+                                                    <property name="use_underline">True</property>
                                                     <property name="xalign">0</property>
                                                     <property name="draw_indicator">True</property>
                                                     <signal name="toggled" handler="on_raid_feature_toggled" swapped="no"/>
@@ -988,10 +1009,11 @@ you'll be able to view their details here.</property>
                                                 <property name="can_focus">False</property>
                                                 <child>
                                                   <object class="GtkCheckButton" id="raidErrorCheckbox">
-                                                    <property name="label" translatable="yes">Error detection (parity)</property>
+                                                    <property name="label" translatable="yes">Error detection (_parity)</property>
                                                     <property name="visible">True</property>
                                                     <property name="can_focus">True</property>
                                                     <property name="receives_default">False</property>
+                                                    <property name="use_underline">True</property>
                                                     <property name="xalign">0</property>
                                                     <property name="draw_indicator">True</property>
                                                     <signal name="toggled" handler="on_raid_feature_toggled" swapped="no"/>
@@ -1032,10 +1054,11 @@ you'll be able to view their details here.</property>
                                                 <property name="margin_left">12</property>
                                                 <child>
                                                   <object class="GtkCheckButton" id="raidDistErrorCheckbox">
-                                                    <property name="label" translatable="yes">Distributed</property>
+                                                    <property name="label" translatable="yes">D_istributed</property>
                                                     <property name="visible">True</property>
                                                     <property name="can_focus">True</property>
                                                     <property name="receives_default">False</property>
+                                                    <property name="use_underline">True</property>
                                                     <property name="xalign">0</property>
                                                     <property name="draw_indicator">True</property>
                                                     <signal name="toggled" handler="on_raid_feature_toggled" swapped="no"/>
@@ -1063,11 +1086,12 @@ you'll be able to view their details here.</property>
                                                 </child>
                                                 <child>
                                                   <object class="GtkCheckButton" id="raidRedundantErrorCheckbox">
-                                                    <property name="label" translatable="yes">Redundant</property>
+                                                    <property name="label" translatable="yes">Red_undant</property>
                                                     <property name="visible">True</property>
                                                     <property name="can_focus">True</property>
                                                     <property name="receives_default">False</property>
                                                     <property name="margin_left">6</property>
+                                                    <property name="use_underline">True</property>
                                                     <property name="xalign">0</property>
                                                     <property name="draw_indicator">True</property>
                                                     <signal name="toggled" handler="on_raid_feature_toggled" swapped="no"/>
@@ -1142,10 +1166,11 @@ you'll be able to view their details here.</property>
                                                 <property name="can_focus">False</property>
                                                 <child>
                                                   <object class="GtkCheckButton" id="btrfsRedundancyCheckbox">
-                                                    <property name="label" translatable="yes">Redundancy (mirror)</property>
+                                                    <property name="label" translatable="yes">Redundancy (_mirror)</property>
                                                     <property name="visible">True</property>
                                                     <property name="can_focus">True</property>
                                                     <property name="receives_default">False</property>
+                                                    <property name="use_underline">True</property>
                                                     <property name="xalign">0</property>
                                                     <property name="draw_indicator">True</property>
                                                     <signal name="toggled" handler="on_raid_feature_toggled" swapped="no"/>
@@ -1186,10 +1211,11 @@ you'll be able to view their details here.</property>
                                                 <property name="can_focus">False</property>
                                                 <child>
                                                   <object class="GtkCheckButton" id="btrfsPerformanceCheckbox">
-                                                    <property name="label" translatable="yes">Optimized performance (stripe)</property>
+                                                    <property name="label" translatable="yes">Optimi_zed performance (stripe)</property>
                                                     <property name="visible">True</property>
                                                     <property name="can_focus">True</property>
                                                     <property name="receives_default">False</property>
+                                                    <property name="use_underline">True</property>
                                                     <property name="xalign">0</property>
                                                     <property name="draw_indicator">True</property>
                                                     <signal name="toggled" handler="on_raid_feature_toggled" swapped="no"/>
@@ -1241,10 +1267,11 @@ you'll be able to view their details here.</property>
                                     </child>
                                     <child>
                                       <object class="GtkCheckButton" id="reformatCheckbox">
-                                        <property name="label" translatable="yes">Reformat</property>
+                                        <property name="label" translatable="yes">_Reformat</property>
                                         <property name="visible">True</property>
                                         <property name="can_focus">True</property>
                                         <property name="receives_default">False</property>
+                                        <property name="use_underline">True</property>
                                         <property name="xalign">0</property>
                                         <property name="draw_indicator">True</property>
                                         <signal name="toggled" handler="on_reformat_toggled" swapped="no"/>
@@ -1260,7 +1287,9 @@ you'll be able to view their details here.</property>
                                       <object class="GtkLabel" id="volumeGroupLabel">
                                         <property name="visible">True</property>
                                         <property name="can_focus">False</property>
-                                        <property name="label" translatable="yes">Volume Group:</property>
+                                        <property name="label" translatable="yes">_Volume Group:</property>
+                                        <property name="use_underline">True</property>
+                                        <property name="mnemonic_widget">volumeGroupCombo</property>
                                         <attributes>
                                           <attribute name="weight" value="bold"/>
                                         </attributes>
@@ -1289,10 +1318,11 @@ you'll be able to view their details here.</property>
                                     </child>
                                     <child>
                                       <object class="GtkButton" id="modifyVGButton">
-                                        <property name="label" translatable="yes">Modify ...</property>
+                                        <property name="label" translatable="yes">Modif_y...</property>
                                         <property name="visible">True</property>
                                         <property name="can_focus">True</property>
                                         <property name="receives_default">True</property>
+                                        <property name="use_underline">True</property>
                                         <signal name="clicked" handler="on_modify_vg_clicked" swapped="no"/>
                                       </object>
                                       <packing>
@@ -1433,7 +1463,8 @@ you'll be able to view their details here.</property>
                                   <object class="GtkLabel" id="passphraseLabel">
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
-                                    <property name="label" translatable="yes">Passphrase:</property>
+                                    <property name="label" translatable="yes">_Passphrase:</property>
+                                    <property name="use_underline">True</property>
                                     <attributes>
                                       <attribute name="font-desc" value="Cantarell 11"/>
                                     </attributes>
@@ -1450,6 +1481,7 @@ you'll be able to view their details here.</property>
                                     <property name="can_focus">True</property>
                                     <property name="visibility">False</property>
                                     <property name="invisible_char">●</property>
+                                    <accelerator key="p" signal="grab-focus" modifiers="GDK_MOD1_MASK"/>
                                   </object>
                                   <packing>
                                     <property name="expand">False</property>
@@ -2034,7 +2066,9 @@ you'll be able to view their details here.</property>
                   <object class="GtkLabel" id="label15">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
-                    <property name="label" translatable="yes">Name:</property>
+                    <property name="label" translatable="yes">_Name:</property>
+                    <property name="use_underline">True</property>
+                    <property name="mnemonic_widget">vg_name_entry</property>
                   </object>
                   <packing>
                     <property name="expand">False</property>
@@ -2047,6 +2081,7 @@ you'll be able to view their details here.</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="invisible_char">●</property>
+                <accelerator key="n" signal="grab-focus" modifiers="GDK_MOD1_MASK"/>
                   </object>
                   <packing>
                     <property name="expand">False</property>

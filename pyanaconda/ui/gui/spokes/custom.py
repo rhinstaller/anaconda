@@ -633,8 +633,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
         summaryLabel = self._summaryButton.get_children()[0]
         count = len(self.data.clearpart.drives)
-        summary = P_("%d storage device selected",
-                     "%d storage devices selected",
+        summary = P_("%d _storage device selected",
+                     "%d _storage devices selected",
                      count) % count
 
         summaryLabel.set_use_markup(True)

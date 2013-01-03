@@ -209,7 +209,9 @@
                   <object class="GtkToolButton" id="preserveButton">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
-                    <property name="label" translatable="yes">Preserve</property>
+                    <property name="label" translatable="yes">_Preserve</property>
+                    <property name="use_underline">True</property>
+                    <accelerator key="p" signal="clicked" modifiers="GDK_MOD1_MASK"/>
                     <signal name="clicked" handler="on_preserve_clicked" swapped="no"/>
                   </object>
                   <packing>
@@ -221,7 +223,9 @@
                   <object class="GtkToolButton" id="shrinkButton">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
-                    <property name="label" translatable="yes">Shrink</property>
+                    <property name="label" translatable="yes">_Shrink</property>
+                    <property name="use_underline">True</property>
+                    <accelerator key="s" signal="clicked" modifiers="GDK_MOD1_MASK"/>
                     <signal name="clicked" handler="on_shrink_clicked" swapped="no"/>
                   </object>
                   <packing>
@@ -233,7 +237,9 @@
                   <object class="GtkToolButton" id="deleteButton">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
-                    <property name="label" translatable="yes">Delete</property>
+                    <property name="label" translatable="yes">_Delete</property>
+                    <property name="use_underline">True</property>
+                    <accelerator key="d" signal="clicked" modifiers="GDK_MOD1_MASK"/>
                     <signal name="clicked" handler="on_delete_clicked" swapped="no"/>
                   </object>
                   <packing>
