@@ -42,14 +42,13 @@ stdoutLog = logging.getLogger("anaconda.stdout")
 class VncServer:
 
     def __init__(self, display="1", root="/", ip=None, name=None,
-                desktop="Desktop", password="", vncconnecthost="",
+                password="", vncconnecthost="",
                 vncconnectport="", log_file="/tmp/vncserver.log",
                 pw_file="/tmp/vncpassword"):
         self.display = display
         self.root = root
         self.ip = ip
         self.name = name
-        self.desktop = desktop
         self.password = password
         self.vncconnecthost = vncconnecthost
         self.vncconnectport = vncconnectport
@@ -58,6 +57,10 @@ class VncServer:
         self.connxinfo = None
         self.anaconda = None
         self.log = logging.getLogger("anaconda.stdout")
+
+        self.desktop = _("%(productName)s %(productVersion)s installation")\
+                       % {'productName': product.productName,
+                          'productVersion': product.productVersion}
 
     def setVNCPassword(self):
         """Set the vnc server password. Output to file. """
@@ -77,14 +80,19 @@ class VncServer:
     def initialize(self):
         """Here is were all the relative vars get initialized. """
 
-        self.ip = network.getFirstRealIP()
+        # Network may be slow. Try for 5 seconds
+        tries = 5
+        while tries:
+            self.ip = network.getFirstRealIP()
+            if self.ip:
+                break
+            time.sleep(1)
+            tries -= 1
 
         if not self.ip:
-            # Raise this here which will be caught higher up
-            raise Exception("No IP addresses found.")
+            return
 
         ipstr = self.ip
-
         try:
             hinfo = socket.gethostbyaddr(ipstr)
         except Exception as e:
@@ -112,10 +120,6 @@ class VncServer:
                            % {'productName': product.productName,
                               'productVersion': product.productVersion,
                               'name': self.name}
-        else:
-            self.desktop = _("%(productName)s %(productVersion)s installation")\
-                           % {'productName': product.productName,
-                              'productVersion': product.productVersion}
 
     def openlogfile(self):
         try:
@@ -166,7 +170,9 @@ class VncServer:
         if self.connxinfo != None:
             self.log.info(_("Please manually connect your vnc client to %s to begin the install.") % (self.connxinfo,))
         else:
-            self.log.info(_("Please manually connect your vnc client to begin the install."))
+            self.log.info(_("Please manually connect your vnc client to <IP ADDRESS>:%s "
+                            "to begin the install. Switch to the shell (Ctrl-B 2) and "
+                            "run 'ip addr' to find the <IP ADDRESS>.") % (self.display,))
 
     def startServer(self):
         self.log.info(_("Starting VNC..."))
