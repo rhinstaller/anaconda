@@ -475,7 +475,7 @@ class XklWrapper(object):
 
         language_layouts = self.get_language_layouts(language)
         country_layouts = self._country_keyboard_variants.get(country, None)
-        if not language_layouts:
+        if not language_layouts and not country_layouts:
             return None
 
         matches_both = (layout for layout in language_layouts
@@ -484,7 +484,10 @@ class XklWrapper(object):
         try:
             return matches_both.next().name
         except StopIteration:
-            return language_layouts[0].name
+            if country_layouts:
+                return country_layouts[0].name
+            else:
+                return language_layouts[0].name
 
     def get_current_layout_name(self):
         """
