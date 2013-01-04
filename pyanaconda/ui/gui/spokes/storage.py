@@ -321,7 +321,7 @@ class StorageSpoke(NormalSpoke, StorageChecker):
 
     # other candidates: computer-symbolic, folder-symbolic
     icon = "drive-harddisk-symbolic"
-    title = N_("INSTALLATION DESTINATION")
+    title = N_("INSTALLATION _DESTINATION")
 
     def __init__(self, *args, **kwargs):
         NormalSpoke.__init__(self, *args, **kwargs)

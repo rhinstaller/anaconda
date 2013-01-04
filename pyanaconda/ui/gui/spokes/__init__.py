@@ -58,11 +58,6 @@ class Spoke(GUIObject):
         """
         pass
 
-    def initialize(self):
-        GUIObject.initialize(self)
-
-        self.window.set_property("window-name", self.title or "")
-
 class StandaloneSpoke(Spoke, common.StandaloneSpoke):
     def __init__(self, data, storage, payload, instclass):
         Spoke.__init__(self, data)

@@ -425,7 +425,7 @@ class SourceSpoke(NormalSpoke):
     category = SoftwareCategory
 
     icon = "media-optical-symbolic"
-    title = N_("INSTALLATION SOURCE")
+    title = N_("_INSTALLATION SOURCE")
 
     def __init__(self, *args, **kwargs):
         NormalSpoke.__init__(self, *args, **kwargs)

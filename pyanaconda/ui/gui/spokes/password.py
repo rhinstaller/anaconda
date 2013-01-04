@@ -46,7 +46,7 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalSpoke):
     category = UserSettingsCategory
 
     icon = "dialog-password-symbolic"
-    title = N_("ROOT PASSWORD")
+    title = N_("_ROOT PASSWORD")
 
     def __init__(self, *args):
         NormalSpoke.__init__(self, *args)

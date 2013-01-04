@@ -954,7 +954,7 @@ class NetworkSpoke(NormalSpoke):
     mainWidgetName = "networkWindow"
     uiFile = "spokes/network.glade"
 
-    title = N_("NETWORK CONFIGURATION")
+    title = N_("_NETWORK CONFIGURATION")
     icon = "network-transmit-receive-symbolic"
 
     category = SoftwareCategory

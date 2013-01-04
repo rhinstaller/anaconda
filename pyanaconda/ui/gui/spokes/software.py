@@ -50,7 +50,7 @@ class SoftwareSelectionSpoke(NormalSpoke):
     category = SoftwareCategory
 
     icon = "package-x-generic-symbolic"
-    title = N_("SOFTWARE SELECTION")
+    title = N_("_SOFTWARE SELECTION")
 
     def __init__(self, *args, **kwargs):
         NormalSpoke.__init__(self, *args, **kwargs)

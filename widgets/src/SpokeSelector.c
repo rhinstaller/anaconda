@@ -210,7 +210,8 @@ static void anaconda_spoke_selector_init(AnacondaSpokeSelector *spoke) {
     spoke->priv->title_label = gtk_label_new(NULL);
     markup = g_markup_printf_escaped("<span weight='bold' size='large'>%s</span>", _(DEFAULT_TITLE));
     gtk_label_set_justify(GTK_LABEL(spoke->priv->title_label), GTK_JUSTIFY_LEFT);
-    gtk_label_set_markup(GTK_LABEL(spoke->priv->title_label), markup);
+    gtk_label_set_markup_with_mnemonic(GTK_LABEL(spoke->priv->title_label), markup);
+    gtk_label_set_mnemonic_widget(GTK_LABEL(spoke->priv->title_label), GTK_WIDGET(spoke));
     gtk_misc_set_alignment(GTK_MISC(spoke->priv->title_label), 0, 1);
     gtk_widget_set_hexpand(GTK_WIDGET(spoke->priv->title_label), FALSE);
     g_free(markup);
@@ -284,7 +285,7 @@ static void anaconda_spoke_selector_set_property(GObject *object, guint prop_id,
 
         case PROP_TITLE: {
             char *markup = g_markup_printf_escaped("<span weight='bold' size='large'>%s</span>", g_value_get_string(value));
-            gtk_label_set_markup(GTK_LABEL(priv->title_label), markup);
+            gtk_label_set_markup_with_mnemonic(GTK_LABEL(priv->title_label), markup);
             g_free(markup);
             break;
         }
