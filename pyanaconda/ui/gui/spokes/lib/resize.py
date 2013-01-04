@@ -103,6 +103,12 @@ class ResizeDialog(GUIObject):
         else:
             return ""
 
+    def _get_tooltip(self, device):
+        if device.protected:
+            return _("This device contains the installation source.")
+        else:
+            return None
+
     def populate(self, disks):
         totalDisks = 0
         totalReclaimableSpace = 0
@@ -113,14 +119,13 @@ class ResizeDialog(GUIObject):
 
         for disk in disks:
             # First add the disk itself.
+            editable = not disk.protected
+            percent = 100
+
             if disk.partitioned:
-                editable = False
-                percent = 0
                 fstype = ""
                 diskReclaimableSpace = 0
             else:
-                editable = not disk.protected
-                percent = 100
                 fstype = disk.format.type
                 diskReclaimableSpace = disk.size
 
@@ -131,7 +136,7 @@ class ResizeDialog(GUIObject):
                                                 percent,
                                                 _(PRESERVE),
                                                 editable,
-                                                _("Whole disks are not editable.")])
+                                                self._get_tooltip(disk)])
 
             if disk.partitioned:
                 # Then add all its partitions.
@@ -147,11 +152,6 @@ class ResizeDialog(GUIObject):
                     else:
                         freeSize = dev.size
 
-                    if dev.protected:
-                        tooltip = _("This device contains the installation source.")
-                    else:
-                        tooltip = None
-
                     self._diskStore.append(itr, [dev.id,
                                                  self._description(dev),
                                                  dev.format.type,
@@ -159,7 +159,7 @@ class ResizeDialog(GUIObject):
                                                  int((freeSize/dev.size) * 100),
                                                  _(PRESERVE),
                                                  not dev.protected,
-                                                 tooltip])
+                                                 self._get_tooltip(dev)])
                     diskReclaimableSpace += freeSize
 
             # And then go back and fill in the total reclaimable space for the
@@ -198,10 +198,12 @@ class ResizeDialog(GUIObject):
             self._selected_label.set_markup(text)
 
     def _update_buttons(self, row):
-        # If this is a disk header, it's not editable, so make all the
-        # buttons insensitive.
+        device = self.storage.devicetree.getDeviceByID(row[DEVICE_ID_COL])
+
+        # Disks themselves may be editable in certain ways, but they are never
+        # shrinkable.
         self._preserveButton.set_sensitive(row[EDITABLE_COL])
-        self._shrinkButton.set_sensitive(row[EDITABLE_COL])
+        self._shrinkButton.set_sensitive(row[EDITABLE_COL] and not device.isDisk)
         self._deleteButton.set_sensitive(row[EDITABLE_COL])
 
         if not row[EDITABLE_COL]:
@@ -209,7 +211,6 @@ class ResizeDialog(GUIObject):
 
         # If the selected filesystem does not support shrinking, make that
         # button insensitive.
-        device = self.storage.devicetree.getDeviceByID(row[DEVICE_ID_COL])
         self._shrinkButton.set_sensitive(device.resizable)
 
         # Then, disable the button for whatever action is currently selected.
@@ -271,10 +272,27 @@ class ResizeDialog(GUIObject):
         if not itr:
             return
 
+        # Handle the row selected when a button was pressed.
         selectedRow = self._diskStore[itr]
-
-        # Put the selected action into the store as well.
         selectedRow[ACTION_COL] = _(newAction)
+
+        # If that row is a disk header, we need to process all the partitions
+        # it contains.
+        device = self.storage.devicetree.getDeviceByID(selectedRow[DEVICE_ID_COL])
+        if device.isDisk and device.partitioned:
+            partItr = model.iter_children(itr)
+            while partItr:
+                self._diskStore[partItr][ACTION_COL] = _(newAction)
+
+                # If the user marked a whole disk for deletion, they can't go in and
+                # un-delete partitions under it.
+                if newAction == _(DELETE):
+                    self._diskStore[partItr][EDITABLE_COL] = False
+                elif newAction == _(PRESERVE):
+                    part = self.storage.devicetree.getDeviceByID(self._diskStore[partItr][DEVICE_ID_COL])
+                    self._diskStore[partItr][EDITABLE_COL] = not part.protected
+
+                partItr = model.iter_next(partItr)
 
         # And then we're keeping a running tally of how much space the user
         # has selected to reclaim, so reflect that in the UI.
