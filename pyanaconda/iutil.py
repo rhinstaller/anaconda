@@ -420,18 +420,34 @@ def execConsole():
     except OSError as e:
         raise RuntimeError, "Error running /bin/sh: " + e.strerror
 
-## Get the size of a directory and all its subdirectories.
-# @param dir The name of the directory to find the size of.
-# @return The size of the directory in kilobytes.
 def getDirSize(dir):
+    """ Get the size of a directory and all its subdirectories.
+    @param dir The name of the directory to find the size of.
+    @return The size of the directory in kilobytes.
+    """
     def getSubdirSize(dir):
-	# returns size in bytes
-        mydev = os.lstat(dir)[stat.ST_DEV]
+        # returns size in bytes
+        try:
+            mydev = os.lstat(dir)[stat.ST_DEV]
+        except OSError as e:
+            log.debug("failed to stat %s: %s" % (dir, e))
+            return 0
+
+        try:
+            dirlist = os.listdir(dir)
+        except OSError as e:
+            log.debug("failed to listdir %s: %s" % (dir, e))
+            return 0
 
         dsize = 0
-        for f in os.listdir(dir):
-	    curpath = '%s/%s' % (dir, f)
-	    sinfo = os.lstat(curpath)
+        for f in dirlist:
+            curpath = '%s/%s' % (dir, f)
+            try:
+                sinfo = os.lstat(curpath)
+            except OSError as e:
+                log.debug("failed to stat %s/%s: %s" % (dir, f, e))
+                continue
+
             if stat.S_ISDIR(sinfo[stat.ST_MODE]):
                 if os.path.ismount(curpath):
                     continue
@@ -439,8 +455,6 @@ def getDirSize(dir):
                     dsize += getSubdirSize(curpath)
             elif stat.S_ISREG(sinfo[stat.ST_MODE]):
                 dsize += sinfo[stat.ST_SIZE]
-            else:
-                pass
 
         return dsize
     return getSubdirSize(dir)/1024
