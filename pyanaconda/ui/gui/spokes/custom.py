@@ -196,6 +196,8 @@ def validate_mountpoint(mountpoint, used_mountpoints, strict=True):
         valid = MOUNTPOINT_IN_USE
     elif not mountpoint:
         valid = MOUNTPOINT_EMPTY
+    elif mountpoint.startswith("/dev"):
+        valid = MOUNTPOINT_INVALID
     elif (mountpoint.lower() not in fake_mountpoints and
           ((len(mountpoint) > 1 and mountpoint.endswith("/")) or
            not mountpoint.startswith("/") or
