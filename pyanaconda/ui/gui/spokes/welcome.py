@@ -122,7 +122,7 @@ class LanguageMixIn(object):
         if flags.flags.automatedInstall:
             return self.data.lang.lang and self.data.lang.lang != ""
         else:
-            return self.data.lang.lang and self.data.lang.lang != "" and isFinal
+            return False
 
     def initialize(self):
         store = self.builder.get_object("languageStore")
