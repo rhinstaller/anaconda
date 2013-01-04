@@ -301,6 +301,11 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/lib/dracut/modules.d/80%{name}/*
 
 %changelog
+* Thu Jan 03 2013 Brian C. Lane <bcl@redhat.com> - 18.37.9-1
+- Update physical device's sysfs path for btrfs (sub)volumes. (#891443)
+  (dlehman)
+- Raise DeviceError instead of ValueError from device ctor. (#888089) (dlehman)
+
 * Fri Dec 21 2012 Brian C. Lane <bcl@redhat.com> - 18.37.8-1
 - hook up help window close button (#889570) (cherry picked from commit
   128aa94a4dabfde0e7d3b14ddcec6b88a9308b08) (bcl)
