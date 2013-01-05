@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 18.37.8\n"
+"Project-Id-Version: anaconda 18.37.9\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2013-01-03 16:57-0800\n"
+"POT-Creation-Date: 2013-01-04 15:54-0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -297,11 +297,11 @@ msgstr ""
 msgid "_Exit installer"
 msgstr ""
 
-#: pyanaconda/iutil.py:884
+#: pyanaconda/iutil.py:898
 msgid "the device containing /boot"
 msgstr ""
 
-#: pyanaconda/iutil.py:886
+#: pyanaconda/iutil.py:900
 #, python-format
 msgid ""
 "After shutdown, please perform a manual IPL from %s to continue installation."
@@ -531,54 +531,58 @@ msgstr ""
 msgid "Your system is mounted under the %s directory."
 msgstr ""
 
-#: pyanaconda/vnc.py:110
-#, python-format
-msgid "%(productName)s %(productVersion)s installation on host %(name)s"
-msgstr ""
-
-#: pyanaconda/vnc.py:116
+#: pyanaconda/vnc.py:61
 #, python-format
 msgid "%(productName)s %(productVersion)s installation"
 msgstr ""
 
-#: pyanaconda/vnc.py:133
+#: pyanaconda/vnc.py:118
+#, python-format
+msgid "%(productName)s %(productVersion)s installation on host %(name)s"
+msgstr ""
+
+#: pyanaconda/vnc.py:137
 #, python-format
 msgid "Attempting to connect to vnc client on host %s..."
 msgstr ""
 
-#: pyanaconda/vnc.py:147
+#: pyanaconda/vnc.py:151
 msgid "Connected!"
 msgstr ""
 
-#: pyanaconda/vnc.py:150
+#: pyanaconda/vnc.py:154
 msgid "Will try to connect again in 15 seconds..."
 msgstr ""
 
-#: pyanaconda/vnc.py:156
+#: pyanaconda/vnc.py:160
 #, python-format
 msgid "Giving up attempting to connect after %d try!\n"
 msgid_plural "Giving up attempting to connect after %d tries!\n"
 msgstr[0] ""
 msgstr[1] ""
 
-#: pyanaconda/vnc.py:167
+#: pyanaconda/vnc.py:171
 #, python-format
 msgid "Please manually connect your vnc client to %s to begin the install."
 msgstr ""
 
-#: pyanaconda/vnc.py:169
-msgid "Please manually connect your vnc client to begin the install."
+#: pyanaconda/vnc.py:173
+#, python-format
+msgid ""
+"Please manually connect your vnc client to <IP ADDRESS>:%s to begin the "
+"install. Switch to the shell (Ctrl-B 2) and run 'ip addr' to find the <IP "
+"ADDRESS>."
 msgstr ""
 
-#: pyanaconda/vnc.py:172
+#: pyanaconda/vnc.py:178
 msgid "Starting VNC..."
 msgstr ""
 
-#: pyanaconda/vnc.py:214
+#: pyanaconda/vnc.py:220
 msgid "The VNC server is now running."
 msgstr ""
 
-#: pyanaconda/vnc.py:218
+#: pyanaconda/vnc.py:224
 msgid ""
 "\n"
 "\n"
@@ -589,7 +593,7 @@ msgid ""
 "\n"
 msgstr ""
 
-#: pyanaconda/vnc.py:223
+#: pyanaconda/vnc.py:229
 msgid ""
 "\n"
 "\n"
@@ -599,7 +603,7 @@ msgid ""
 "\n"
 msgstr ""
 
-#: pyanaconda/vnc.py:227
+#: pyanaconda/vnc.py:233
 msgid ""
 "\n"
 "\n"
@@ -607,7 +611,7 @@ msgid ""
 "\n"
 msgstr ""
 
-#: pyanaconda/vnc.py:229
+#: pyanaconda/vnc.py:235
 msgid ""
 "\n"
 "\n"
@@ -615,7 +619,7 @@ msgid ""
 "\n"
 msgstr ""
 
-#: pyanaconda/vnc.py:249
+#: pyanaconda/vnc.py:255
 msgid ""
 "VNC password provided was not at least 6 characters long.\n"
 "Please enter a new one.  Leave blank for no password."

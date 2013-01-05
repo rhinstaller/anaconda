@@ -301,6 +301,11 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/lib/dracut/modules.d/80%{name}/*
 
 %changelog
+* Fri Jan 04 2013 Brian C. Lane <bcl@redhat.com> - 18.37.10-1
+- Only skip welcome screen for ks installs (#891755) (bcl)
+- protect getDirSize from vanishing files (#891759) (bcl)
+- start vnc without ip address (#832510) (bcl)
+
 * Thu Jan 03 2013 Brian C. Lane <bcl@redhat.com> - 18.37.9-1
 - Update physical device's sysfs path for btrfs (sub)volumes. (#891443)
   (dlehman)
