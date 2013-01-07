@@ -1481,7 +1481,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                 delta = factory.device_size - base_size
                 label.set_text("+%s" % str(Size(spec="%fmb" % delta)).upper())
             else:
-                label.set_text("(not enough disks)")
+                label.set_text(_("(not enough disks)"))
 
             # some features are not available to some raid levels
             button.set_sensitive(feature not in disabled)
