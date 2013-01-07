@@ -1758,14 +1758,13 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
         dialog = AddDialog(self.data,
                            mountpoints=self.__storage.mountpoints.keys())
-        with enlightbox(self.window, dialog.window):
-            dialog.refresh()
-            rc = dialog.run()
+        dialog.refresh()
+        rc = dialog.run()
 
-            if rc != 1:
-                # user cancel
-                dialog.window.destroy()
-                return
+        if rc != 1:
+            # user cancel
+            dialog.window.destroy()
+            return
 
         # create a device of the default type, using any disks, with an
         # appropriate fstype and mountpoint
