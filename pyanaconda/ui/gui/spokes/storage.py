@@ -422,6 +422,8 @@ class StorageSpoke(NormalSpoke, StorageChecker):
     def completed(self):
         return (threadMgr.get("AnaExecuteStorageThread") is None and
                 threadMgr.get("AnaCheckStorageThread") is None and
+                (self.data.ignoredisk.onlyuse != [] or
+                 flags.automatedInstall) and
                 self.storage.rootDevice is not None and
                 not self.errors)
 
