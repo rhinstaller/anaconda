@@ -2202,6 +2202,9 @@ class Storage(object):
 
         # set up container
         if not container and factory.new_container_attr:
+            if not parents:
+                raise StorageError("not enough free space on disks")
+
             log.debug("creating new container")
             if container_name:
                 kwa = {"name": container_name}
