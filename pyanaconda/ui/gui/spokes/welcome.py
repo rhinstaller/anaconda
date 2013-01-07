@@ -27,7 +27,7 @@ _ = lambda x: gettext.ldgettext("anaconda", x)
 N_ = lambda x: x
 
 # pylint: disable-msg=E0611
-from gi.repository import AnacondaWidgets, Gtk
+from gi.repository import AnacondaWidgets, Gtk, Pango
 from pyanaconda.ui.gui.hubs.summary import SummaryHub
 from pyanaconda.ui.gui.spokes import StandaloneSpoke, NormalSpoke
 from pyanaconda.ui.gui.utils import enlightbox
@@ -209,7 +209,10 @@ class LanguageMixIn(object):
         store.append(['<span lang="%s">%s</span>' % (re.sub('\..*', '', setting), native), english, setting])
 
     def _matchesEntry(self, model, itr, *args):
-        native = model[itr][0]
+        # Need to strip out the pango markup before attempting to match.
+        # Otherwise, starting to type "span" for "spanish" will match everything
+        # due to the enclosing span tag.
+        (success, attrs, native, accel) = Pango.parse_markup(model[itr][0], -1, "_")
         english = model[itr][1]
         entry = self._languageEntry.get_text().strip()
 
