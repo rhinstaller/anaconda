@@ -3028,7 +3028,12 @@ class MDRaidArrayDevice(StorageDevice):
 
     @property
     def complete(self):
-        return (self.memberDevices <= len(self.parents)) or not self.exists
+        if self.type == "mdbiosraidarray":
+            members = len(self.parents[0].parents)
+        else:
+            members = len(self.parents)
+
+        return (self.memberDevices <= members) or not self.exists
 
     @property
     def devices(self):
