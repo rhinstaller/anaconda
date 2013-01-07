@@ -1147,10 +1147,6 @@ class NetworkStandaloneSpoke(StandaloneSpoke):
             self.clear_info()
             StandaloneSpoke._on_continue_clicked(self, cb)
 
-    def on_back_clicked(self, window):
-        self.window.hide()
-        Gtk.main_quit()
-
     # Use case: slow dhcp has connected when on spoke
     def on_nm_state_changed(self, *args):
         gtk_call_once(self._update_hostname)

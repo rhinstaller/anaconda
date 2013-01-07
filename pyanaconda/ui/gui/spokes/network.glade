@@ -35,7 +35,6 @@
     <property name="can_focus">False</property>
     <property name="startup_id">filler</property>
     <property name="window_name" translatable="yes">NETWORK CONFIGURATION</property>
-    <signal name="quit-clicked" handler="on_back_clicked" swapped="no"/>
     <child internal-child="main_box">
       <object class="GtkBox" id="AnacondaStandaloneWindow-main_box5">
         <property name="can_focus">False</property>
