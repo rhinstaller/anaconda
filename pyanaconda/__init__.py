@@ -47,7 +47,6 @@ class Anaconda(object):
         import desktop
         from flags import flags
 
-        self._backend = None
         self._bootloader = None
         self.canReIPL = False
         self.desktop = desktop.Desktop()
@@ -82,14 +81,6 @@ class Anaconda(object):
 
         # *sigh* we still need to be able to write this out
         self.xdriver = None
-
-    @property
-    def backend(self):
-        if not self._backend:
-            b = self.instClass.getBackend()
-            self._backend = apply(b, (self, ))
-
-        return self._backend
 
     @property
     def bootloader(self):

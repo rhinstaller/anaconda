@@ -78,9 +78,6 @@ class BaseInstallClass(object):
                                self.name)
         return self._l10n_domain
 
-    def postAction(self, anaconda):
-        anaconda.backend.postAction(anaconda)
-
     # modifies the uri from installmethod.getMethodUri() to take into
     # account any installclass specific things including multiple base
     # repositories.  takes a string or list of strings, returns a dict
@@ -93,10 +90,6 @@ class BaseInstallClass(object):
 
     def setPackageSelection(self, anaconda):
 	pass
-
-    def setGroupSelection(self, anaconda):
-        grps = anaconda.backend.getDefaultGroups(anaconda)
-        map(lambda x: anaconda.backend.selectGroup(x), grps)
 
     def getBackend(self):
         # The default is to return None here, which means anaconda should

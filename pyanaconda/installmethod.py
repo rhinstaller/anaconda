@@ -44,4 +44,3 @@ def doMethodComplete(anaconda):
     dev = _ejectDevice()
     if dev:
         dracut_eject(dev.path)
-    anaconda.backend.complete(anaconda)

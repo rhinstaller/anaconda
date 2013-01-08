@@ -75,7 +75,6 @@ class InstallClass(BaseInstallClass):
 
     def setGroupSelection(self, anaconda):
         BaseInstallClass.setGroupSelection(self, anaconda)
-        map(lambda x: anaconda.backend.selectGroup(x), ["core"])
 
     def productMatches(self, oldprod):
         if oldprod is None:
