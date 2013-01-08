@@ -472,7 +472,7 @@ class SourceSpoke(NormalSpoke):
         elif self._mirror_active():
             # this preserves the url for later editing
             self.data.method.method = None
-            if not old_source.method:
+            if not old_source.method and self.payload.baseRepo:
                 return
         elif self._http_active() or self._ftp_active():
             url = self._urlEntry.get_text().strip()
