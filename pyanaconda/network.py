@@ -738,15 +738,6 @@ def ifaceForHostIP(host):
 
     return routeInfo[routeInfo.index("dev") + 1]
 
-def setHostname(hn):
-    if flags.imageInstall:
-        log.info("image install -- not setting hostname")
-        return
-
-    log.info("setting installation environment hostname to %s" % hn)
-    iutil.execWithRedirect("hostname", ["-v", hn ],
-                           stdout="/dev/tty5", stderr="/dev/tty5")
-
 def copyFileToPath(file, destPath='', overwrite=False):
     if not os.path.isfile(file):
         return False
@@ -810,6 +801,15 @@ def get_ifcfg_value(iface, key, root_path=""):
     dev = NetworkDevice(os.path.normpath(root_path + netscriptsDir), iface)
     dev.loadIfcfgFile()
     return dev.get(key)
+
+def set_hostname(hn):
+    if flags.imageInstall:
+        log.info("image install -- not setting hostname")
+        return
+
+    log.info("setting installation environment hostname to %s" % hn)
+    iutil.execWithRedirect("hostname", ["-v", hn ],
+                           stdout="/dev/tty5", stderr="/dev/tty5")
 
 def write_hostname(rootpath, ksdata, overwrite=False):
     cfgfile = os.path.normpath(rootpath + hostnameFile)
@@ -926,6 +926,7 @@ def usedByRootOnISCSI(iface, storage):
 
 def write_network_config(storage, ksdata, instClass, rootpath):
     write_hostname(rootpath, ksdata, overwrite=flags.livecdInstall)
+    set_hostname(ksdata.network.hostname)
     write_sysconfig_network(rootpath, ksdata, overwrite=flags.livecdInstall)
     disableIPV6(rootpath)
     if not flags.imageInstall:
