@@ -86,7 +86,7 @@ ISO_DIR = MOUNT_DIR + "/isodir"
 INSTALL_TREE = MOUNT_DIR + "/source"
 BASE_REPO_NAME = "anaconda"
 
-# NOTE: this should be LANG.CODESET, e.g. en_US.UTF-8
+# NOTE: this should be LANG_TERRITORY.CODESET, e.g. en_US.UTF-8
 DEFAULT_LANG = "en_US.UTF-8"
 
 DRACUT_SHUTDOWN_EJECT = "/run/initramfs/usr/lib/dracut/hooks/shutdown/99anaconda-eject.sh"

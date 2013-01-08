@@ -27,6 +27,7 @@ import re
 
 import babel
 
+from pyanaconda.constants import DEFAULT_LANG
 
 LOCALE_PREFERENCES = {}
 
@@ -353,8 +354,8 @@ class Language(object):
         self.translations = {repr(locale):locale
                              for locale in get_available_translations()}
         self.locales = {repr(locale):locale for locale in get_all_locales()}
-        self.preferred_translation = self.translations['en_US.UTF-8']
-        self.preferred_locales = [self.locales['en_US.UTF-8']]
+        self.preferred_translation = self.translations[DEFAULT_LANG]
+        self.preferred_locales = [self.locales[DEFAULT_LANG]]
         self.preferred_locale = self.preferred_locales[0]
 
         self.all_preferences = preferences
