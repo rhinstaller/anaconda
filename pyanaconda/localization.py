@@ -19,9 +19,9 @@
 # Red Hat Author(s): Martin Gracik <mgracik@redhat.com>
 #
 
-from collections import defaultdict, deque, OrderedDict
+from collections import defaultdict, deque
 import gettext
-import locale
+import locale as locale_mod
 import os
 import re
 
@@ -31,6 +31,12 @@ import babel
 LOCALE_PREFERENCES = {}
 
 LOCALE_CONF_FILE_PATH = "/etc/locale.conf"
+
+#e.g. 'SR_RS.UTF-8@latin'
+LANGCODE_RE = re.compile(r'(?P<language>[A-Za-z]+)'
+                         r'(_(?P<territory>[A-Za-z]+))?'
+                         r'(\.(?P<codeset>[-\w]+))?'
+                         r'(@(?P<modifier>[-\w]+))?')
 
 class LocalizationConfigError(Exception):
     """Exception class for localization configuration related problems"""
@@ -193,6 +199,26 @@ def get_available_translations(domain=None, localedir=None):
         localeinfo = LocaleInfo(localedata, encoding, script)
         yield localeinfo
 
+def parse_langcode(langcode):
+    """
+    For a given langcode (e.g. 'SR_RS.UTF-8@latin') returns a dictionary
+    with the following keys and example values:
+
+    'language' : 'SR'
+    'territory' : 'RS'
+    'codeset' : 'UTF-8'
+    'modifier' : 'latin'
+
+    or None if the given string doesn't match the LANGCODE_RE.
+
+    """
+
+    match = LANGCODE_RE.match(langcode)
+    if match:
+        return match.groupdict()
+    else:
+        return None
+
 def expand_langs(astring):
     """
     Converts a single language into a "language search path". For example,
@@ -206,37 +232,29 @@ def expand_langs(astring):
 
     langs = set([astring])
 
-    base = None
-    loc = None
-    encoding = None
-    script = None
+    lang_dict = parse_langcode(astring)
 
-    if "@" in astring:
-        (astring, script) = astring.split("@", 1)
+    if not lang_dict:
+        return list(langs)
 
-    if "." in astring:
-        (astring, encoding) = astring.split(".", 1)
-
-    if "_" in astring:
-        (astring, loc) = astring.split("_", 1)
-
-    base = astring
+    base, loc, enc, script = [lang_dict[key] for key in ("language",
+                                      "territory", "codeset", "modifier")]
 
     if not base:
         return list(langs)
 
-    if not encoding:
-        encoding = "UTF-8"
+    if not enc:
+        enc = "UTF-8"
 
     langs.add(base)
-    langs.add("%s.%s" % (base, encoding))
+    langs.add("%s.%s" % (base, enc))
 
     if loc:
         langs.add("%s_%s" % (base, loc))
-        langs.add("%s_%s.%s" %(base, loc, encoding))
+        langs.add("%s_%s.%s" %(base, loc, enc))
     if script:
         langs.add("%s@%s" % (base, script))
-        langs.add("%s.%s@%s" % (base, encoding, script))
+        langs.add("%s.%s@%s" % (base, enc, script))
 
     if loc and script:
         langs.add("%s_%s@%s" % (base, loc, script))
@@ -307,13 +325,19 @@ class PreferredLocale(object):
     def __init__(self, localeset):
         self._localedict = {repr(locale):locale for locale in localeset}
 
-    def get_all_locales(self, preferences=[]):
+    def get_all_locales(self, preferences=None):
+        if preferences is None:
+            preferences = []
         preferences = filter(self._localedict.__contains__, preferences)
-        inside, outside = partition(self._localedict.keys(), func=lambda x: x in preferences)
-        sorted_locales = [self._localedict[localename] for localename in list(inside) + list(outside)]
+        inside, outside = partition(self._localedict.keys(),
+                                    func=lambda x: x in preferences)
+        sorted_locales = [self._localedict[localename]
+                          for localename in list(inside) + list(outside)]
         return sorted_locales
 
-    def get_preferred_locale(self, preferences=[]):
+    def get_preferred_locale(self, preferences=None):
+        if preferences is None:
+            preferences = []
         try:
             return self.get_all_locales(preferences)[0]
         except IndexError:
@@ -322,8 +346,12 @@ class PreferredLocale(object):
 
 class Language(object):
 
-    def __init__(self, preferences={}, territory=None):
-        self.translations = {repr(locale):locale for locale in get_available_translations()}
+    def __init__(self, preferences=None, territory=None):
+        if preferences is None:
+            preferences = {}
+
+        self.translations = {repr(locale):locale
+                             for locale in get_available_translations()}
         self.locales = {repr(locale):locale for locale in get_all_locales()}
         self.preferred_translation = self.translations['en_US.UTF-8']
         self.preferred_locales = [self.locales['en_US.UTF-8']]
@@ -335,6 +363,8 @@ class Language(object):
         if self.territory:
             self._get_preferred_translation_and_locales()
 
+        self.install_lang = DEFAULT_LANG
+        self.system_lang = DEFAULT_LANG
     def _get_preferred_translation_and_locales(self):
         # get locales from territory
         locales_from_territory = PreferredLocale.from_territory(self.territory)
@@ -380,19 +410,13 @@ class Language(object):
         # if territory is not set, use the one from preferred locale
         self.territory = self.territory or self.preferred_locale.territory
 
-    @staticmethod
-    def parse_langcode(langcode):
-        pattern = re.compile(r'(?P<language>[A-Za-z]+)(_(?P<territory>[A-Za-z]+))?(\.(?P<codeset>[-\w]+))?(@(?P<modifier>[-\w]+))?')
-        m = pattern.match(langcode)
-        return m.groupdict()
-
     @property
     def install_lang_as_dict(self):
-        self.parse_langcode(self.install_lang)
+        parse_langcode(self.install_lang)
 
     @property
     def system_lang_as_dict(self):
-        self.parse_langcode(self.system_lang)
+        parse_langcode(self.system_lang)
 
     def set_install_lang(self, langcode):
         self.install_lang = langcode
@@ -401,8 +425,8 @@ class Language(object):
         os.environ['LC_NUMERIC'] = 'C'
 
         try:
-            locale.setlocale(locale.LC_ALL, '')
-        except locale.Error:
+            locale_mod.setlocale(locale_mod.LC_ALL, '')
+        except locale_mod.Error:
             pass
 
         # XXX this is the sort of thing which you should never do,
