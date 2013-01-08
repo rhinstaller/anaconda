@@ -401,6 +401,12 @@ class VolumeGroupDialog(GUIObject):
                 return disk
 
     def on_save_clicked(self, button):
+        # If no name was entered, quit the dialog as if they did nothing.
+        name = self.builder.get_object("vg_name_entry").get_text().strip()
+        if not name:
+            self.window.destroy()
+            return
+
         treeview = self.builder.get_object("vg_disk_view")
         model, paths = treeview.get_selection().get_selected_rows()
         self.selected = []
@@ -409,7 +415,7 @@ class VolumeGroupDialog(GUIObject):
             disk_id = model.get_value(itr, 4)
             self.selected.append(self._get_disk_by_id(disk_id))
 
-        self.name = self.builder.get_object("vg_name_entry").get_text()
+        self.name = name
 
         self.window.destroy()
 
