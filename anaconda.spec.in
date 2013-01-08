@@ -222,6 +222,12 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Tue Jan 08 2013 Brian C. Lane <bcl@redhat.com> - 13.21.193-1
+- catch runtime errors and display message to user (sbueno+anaconda)
+  Resolves: rhbz#730023
+- raise OSError with an error code and error string (sbueno+anaconda)
+  Resolves: rhbz#730023
+
 * Tue Dec 18 2012 Brian C. Lane <bcl@redhat.com> - 13.21.192-1
 - Fix handling of nompath option. (dlehman)
   Related: rhbz#821042
