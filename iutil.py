@@ -245,7 +245,7 @@ def execWithCapture(command, argv, stdin = None, stderr = None, root='/',
         # if we have anything other than a clean exit, and we get the fatal
         # option, raise the OSError.
         if proc.returncode and fatal:
-            raise OSError('Non-zero return code: %s' % proc.returncode)
+            raise OSError(proc.returncode, errStr)
     except OSError as e:
         log.error ("Error running " + command + ": " + e.strerror)
         closefds()
