@@ -249,6 +249,12 @@ def writeBootloader(anaconda):
                                _("No kernel packages were installed on the "
                                  "system.  Bootloader configuration "
                                  "will not be changed."))
+    except RuntimeError:
+        w.pop()
+        if anaconda.intf:
+            anaconda.intf.messageWindow(_("Warning"),
+                                _("There was an error installing the bootloader.  "
+                                  "The system may not be bootable"))
 
     dosync()
 
