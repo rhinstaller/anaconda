@@ -301,6 +301,15 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/lib/dracut/modules.d/80%{name}/*
 
 %changelog
+* Mon Jan 07 2013 Brian C. Lane <bcl@redhat.com> - 18.37.11-1
+- Fix Quit button in standalone network spoke (#892120) (rvykydal)
+- Force disk selection for interactive installs. (#888293) (cherry picked from
+  commit 91fea0af242760e0ad83c1f467993ca091098b63) (dlehman)
+- Fix completeness check for md fwraid arrays. (#892621) (dlehman)
+- Fix handling of failure to create a new container. (#892046) (dlehman)
+- Do not lightbox the Add Mountpoint dialog (#875291). (clumens)
+- Try fallback if none exactly matching language is found (#891487) (vpodzime)
+
 * Fri Jan 04 2013 Brian C. Lane <bcl@redhat.com> - 18.37.10-1
 - Only skip welcome screen for ks installs (#891755) (bcl)
 - protect getDirSize from vanishing files (#891759) (bcl)
