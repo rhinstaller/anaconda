@@ -22,11 +22,13 @@ Beyond
 ======
 - "Choose Disks" dialog before hub #1.
 - Add device names to tooltips for DiskOverviews, etc.?
+- Allow specifying the target of resizing on the reclaim dialog.
 - Code quality:
     - Docstrings and comments are lacking.
     - Split out especially large spokes (storage.py, custom.py) into logically separate
       files.
 - Device filtering.
+- Fix lightboxed dialogs on custom partitioning.
 - Progress reporting for metadata downloading could be handy.
 - Spokes should have some way to tell if other spokes are ready (see _software_is_ready
   in storage.py).
