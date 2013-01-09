@@ -134,13 +134,6 @@ class CmdLineTest(mock.TestCase):
         self.assertRaises(Exception, intf.passphraseEntryWindow, DEVICE)
         sys.stdout.close()
         self.assertTrue(DEVICE in self.fs[self.TMP_STDOUT])
-        
-    def installinterface_getlukspassphrase_test(self):
-        import pyanaconda.cmdline
-        pyanaconda.cmdline.time.sleep = mock.Mock(side_effect=Exception)
-        
-        intf = pyanaconda.cmdline.InstallInterface()
-        self.assertRaises(Exception, intf.getLUKSPassphrase, 'foo')
     
     def installinterface_enablenetwork_test(self):
         import pyanaconda.cmdline

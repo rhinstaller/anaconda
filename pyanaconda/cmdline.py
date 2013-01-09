@@ -127,11 +127,6 @@ class InstallInterface(InstallInterfaceBase):
         errtxt += "\n(passphraseEntryWindow: '%s')" % (device,)
         raise RuntimeError(errtxt)
 
-    def getLUKSPassphrase(self, passphrase = "", isglobal = False):
-        errtxt = _("Can't have a question in command line mode!")
-        errtxt += "\n(getLUKSPassphrase)"
-        raise RuntimeError(errtxt)
-
     def enableNetwork(self):
         errtxt = "(enableNetwork)\n"
         errtxt += _("Can't have a question in command line mode!")
