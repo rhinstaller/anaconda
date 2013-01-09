@@ -584,7 +584,6 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         else:
             self.clear_info()
 
-        self.builder.get_object("continue_button").set_sensitive(count > 0)
         self.builder.get_object("summary_label").set_sensitive(count > 0)
 
     def _update_disk_list(self):
@@ -634,7 +633,7 @@ class StorageSpoke(NormalSpoke, StorageChecker):
 
         return rc
 
-    def on_continue_clicked(self, button):
+    def on_back_clicked(self, button):
         # Remove all non-existing devices if autopart was active when we last
         # refreshed.
         if self._previous_autopart:
@@ -657,6 +656,11 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         # show the installation options dialog
         disks = [d for d in self.disks if d.name in self.selected_disks]
         disks_size = sum(Size(spec="%f MB" % d.size) for d in disks)
+
+        # No disks selected?  The user wants to back out of the storage spoke.
+        if not disks:
+            NormalSpoke.on_back_clicked(self, button)
+            return
 
         # Figure out if the existing disk labels will work on this platform
         # you need to have at least one of the platform's labels in order for
@@ -713,14 +717,14 @@ class StorageSpoke(NormalSpoke, StorageChecker):
 
                 self.passphrase = dialog.passphrase
 
-            gtk_call_once(self.window.emit, "button-clicked")
+            NormalSpoke.on_back_clicked(self, button)
         elif rc == dialog.RESPONSE_CANCEL:
             # stay on this spoke
-            print "user chose to continue disk selection"
+            return
         elif rc == dialog.RESPONSE_MODIFY_SW:
             # go to software spoke
             self.skipTo = "SoftwareSelectionSpoke"
-            gtk_call_once(self.window.emit, "button-clicked")
+            NormalSpoke.on_back_clicked(self, button)
         elif rc == dialog.RESPONSE_RECLAIM:
             self.autopart = not dialog.custom
             self.autoPartType = dialog.autoPartType
@@ -732,7 +736,7 @@ class StorageSpoke(NormalSpoke, StorageChecker):
 
             if dialog.custom:
                 self.skipTo = "CustomPartitioningSpoke"
-                gtk_call_once(self.window.emit, "button-clicked")
+                NormalSpoke.on_back_clicked(self, button)
             else:
                 if self.encrypted:
                     dialog = PassphraseDialog(self.data)

@@ -951,26 +951,6 @@
                     <property name="row_spacing">6</property>
                     <property name="column_spacing">6</property>
                     <child>
-                      <object class="GtkButton" id="continue_button">
-                        <property name="label" translatable="yes">_Continue</property>
-                        <property name="visible">True</property>
-                        <property name="can_focus">True</property>
-                        <property name="receives_default">True</property>
-                        <property name="halign">end</property>
-                        <property name="valign">end</property>
-                        <property name="hexpand">True</property>
-                        <property name="use_underline">True</property>
-                        <property name="xalign">1</property>
-                        <signal name="clicked" handler="on_continue_clicked" swapped="no"/>
-                      </object>
-                      <packing>
-                        <property name="left_attach">1</property>
-                        <property name="top_attach">1</property>
-                        <property name="width">1</property>
-                        <property name="height">2</property>
-                      </packing>
-                    </child>
-                    <child>
                       <object class="GtkButton" id="summary_button">
                         <property name="label" translatable="yes">_Full disk summary and options...</property>
                         <property name="visible">True</property>
@@ -1016,13 +996,15 @@
                         <property name="can_focus">True</property>
                         <property name="receives_default">False</property>
                         <property name="halign">end</property>
-                        <property name="xalign">0</property>
+                        <property name="valign">end</property>
+                        <property name="hexpand">True</property>
+                        <property name="xalign">1</property>
                         <property name="draw_indicator">True</property>
                         <property name="use_underline">True</property>
                       </object>
                       <packing>
                         <property name="left_attach">1</property>
-                        <property name="top_attach">0</property>
+                        <property name="top_attach">2</property>
                         <property name="width">1</property>
                         <property name="height">1</property>
                       </packing>
