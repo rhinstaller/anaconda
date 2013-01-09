@@ -82,7 +82,7 @@ def udev_settle():
     # lots of disks, or with slow disks
     argv = ["settle", "--timeout=300"]
 
-    iutil.execWithRedirect("udevadm", argv, stderr="/dev/null")
+    iutil.execWithRedirect("udevadm", argv)
 
 def udev_trigger(subsystem=None, action="add", name=None):
     argv = ["trigger", "--action=%s" % action]
@@ -91,5 +91,5 @@ def udev_trigger(subsystem=None, action="add", name=None):
     if name:
         argv.append("--sysname-match=%s" % name)
 
-    iutil.execWithRedirect("udevadm", argv, stderr="/dev/null")
+    iutil.execWithRedirect("udevadm", argv)
     udev_settle()

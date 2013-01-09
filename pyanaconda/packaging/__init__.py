@@ -572,8 +572,6 @@ class Payload(object):
             iutil.execWithRedirect("new-kernel-pkg",
                                    ["--mkinitrd", "--dracut",
                                     "--depmod", "--install", kernel],
-                                   stdout="/dev/null",
-                                   stderr="/dev/null",
                                    root=ROOT_PATH)
         self._createdInitrds = True
 

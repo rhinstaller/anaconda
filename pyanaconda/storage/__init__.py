@@ -123,8 +123,7 @@ def storageInitialize(storage, ksdata, protected):
 
     # XXX I don't understand why I have to do this, but this is needed to
     #     populate the udev db
-    iutil.execWithRedirect("udevadm", ["control", "--property=ANACONDA=1"],
-                           stdout="/dev/tty5", stderr="/dev/tty5")
+    iutil.execWithRedirect("udevadm", ["control", "--property=ANACONDA=1"])
     udev_trigger(subsystem="block", action="change")
 
     # Before we set up the storage system, we need to know which disks to
@@ -160,8 +159,7 @@ def turnOnFilesystems(storage):
         if (flags.livecdInstall and not flags.imageInstall and not storage.fsset.active):
             # turn off any swaps that we didn't turn on
             # needed for live installs
-            iutil.execWithRedirect("swapoff", ["-a"],
-                                   stdout = "/dev/tty5", stderr="/dev/tty5")
+            iutil.execWithRedirect("swapoff", ["-a"])
         storage.devicetree.teardownAll()
 
     try:

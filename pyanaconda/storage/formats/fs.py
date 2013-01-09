@@ -260,8 +260,7 @@ class FS(DeviceFormat):
                 values = []
                 argv = self._defaultInfoOptions + [ self.device ]
 
-                buf = iutil.execWithCapture(self.infofsProg, argv,
-                                            stderr="/dev/tty5")
+                buf = iutil.execWithCapture(self.infofsProg, argv)
 
                 for line in buf.splitlines():
                     found = False
@@ -364,10 +363,7 @@ class FS(DeviceFormat):
         argv = self._getFormatOptions(options=options)
 
         try:
-            ret = iutil.execWithRedirect(self.mkfsProg,
-                                         argv,
-                                         stdout="/dev/tty5",
-                                         stderr="/dev/tty5")
+            ret = iutil.execWithRedirect(self.mkfsProg, argv)
         except Exception as e:
             raise FormatCreateError(e, self.device)
 
@@ -421,9 +417,7 @@ class FS(DeviceFormat):
                      % (self.device, self.targetSize))
         try:
             ret = iutil.execWithRedirect(self.resizefsProg,
-                                         self.resizeArgs,
-                                         stdout="/dev/tty5",
-                                         stderr="/dev/tty5")
+                                         self.resizeArgs)
         except Exception as e:
             raise FSResizeError(e, self.device)
 
@@ -460,9 +454,7 @@ class FS(DeviceFormat):
 
         try:
             ret = iutil.execWithRedirect(self.fsckProg,
-                                         self._getCheckArgs(),
-                                         stdout="/dev/tty5",
-                                         stderr="/dev/tty5")
+                                         self._getCheckArgs())
         except Exception as e:
             raise FSError("filesystem check failed: %s" % e)
 
@@ -482,9 +474,7 @@ class FS(DeviceFormat):
 
         for module in self._modules:
             try:
-                rc = iutil.execWithRedirect("modprobe", [module],
-                                            stdout="/dev/tty5",
-                                            stderr="/dev/tty5")
+                rc = iutil.execWithRedirect("modprobe", [module])
             except Exception as e:
                 log.error("Could not load kernel module %s: %s" % (module, e))
                 self._supported = False
@@ -627,9 +617,7 @@ class FS(DeviceFormat):
             raise FSError("device does not exist")
 
         argv = self._getLabelArgs(label)
-        rc = iutil.execWithRedirect(self.labelfsProg,
-                                    argv,
-                                    stderr="/dev/tty5")
+        rc = iutil.execWithRedirect(self.labelfsProg, argv)
         if rc:
             raise FSError("label failed")
 
@@ -845,9 +833,7 @@ class Ext2FS(FS):
             rc = iutil.execWithRedirect("tune2fs",
                                         ["-U",
                                          "random",
-                                         self.device],
-                                        stdout="/dev/tty5",
-                                        stderr="/dev/tty5")
+                                         self.device])
         except Exception as e:
             err = str(e)
         else:
@@ -869,8 +855,7 @@ class Ext2FS(FS):
             if self.exists and os.path.exists(self.device):
                 # get block size
                 buf = iutil.execWithCapture(self.infofsProg,
-                                            ["-h", self.device],
-                                            stderr="/dev/tty5")
+                                            ["-h", self.device])
                 for line in buf.splitlines():
                     if line.startswith("Block size:"):
                         blockSize = int(line.split(" ")[-1])
@@ -885,8 +870,7 @@ class Ext2FS(FS):
 
                 # get minimum size according to resize2fs
                 buf = iutil.execWithCapture(self.resizefsProg,
-                                            ["-P", self.device],
-                                            stderr="/dev/tty5")
+                                            ["-P", self.device])
                 for line in buf.splitlines():
                     if "minimum size of the filesystem:" not in line:
                         continue
@@ -1201,14 +1185,12 @@ class XFS(FS):
 
         try:
             iutil.execWithRedirect("xfs_freeze", ["-f", self.mountpoint],
-                                   stdout="/dev/tty5", stderr="/dev/tty5",
                                    root=root)
         except (RuntimeError, OSError) as e:
             log.error("failed to run xfs_freeze: %s" % e)
 
         try:
             iutil.execWithRedirect("xfs_freeze", ["-u", self.mountpoint],
-                                   stdout="/dev/tty5", stderr="/dev/tty5",
                                    root=root)
         except (RuntimeError, OSError) as e:
             log.error("failed to run xfs_freeze: %s" % e)
@@ -1294,8 +1276,7 @@ class NTFS(FS):
                iutil.find_program_in_path(self.resizefsProg):
                 minSize = None
                 buf = iutil.execWithCapture(self.resizefsProg,
-                                            ["-m", self.device],
-                                            stderr = "/dev/tty5")
+                                            ["-m", self.device])
                 for l in buf.split("\n"):
                     if not l.startswith("Minsize"):
                         continue

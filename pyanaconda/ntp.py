@@ -163,8 +163,7 @@ def one_time_sync(server, callback=None):
 
     """
 
-    ret = iutil.execWithRedirect("rdate", ["-s", server], stdout="/dev/tty5",
-                                 stderr="/dev/tty5")
+    ret = iutil.execWithRedirect("rdate", ["-s", server])
 
     success = ret == 0
 

@@ -158,9 +158,7 @@ def get_pv_space(size, disks, pesize=LVM_PE_SIZE,
     return space
 
 def lvm(args):
-    ret = iutil.execWithRedirect("lvm", args,
-                                 stdout = "/dev/tty5",
-                                 stderr = "/dev/tty5")
+    ret = iutil.execWithRedirect("lvm", args)
     if ret:
         raise LVMError("running lvm " + " ".join(args) + " failed")
 
@@ -214,8 +212,7 @@ def pvinfo(device):
             config_args + \
             [device]
 
-    rc = iutil.execWithCapture("lvm", args,
-                                stderr = "/dev/tty5")
+    rc = iutil.execWithCapture("lvm", args)
     vals = rc.split()
     if not vals:
         raise LVMError("pvinfo failed for %s" % device)
@@ -302,9 +299,7 @@ def vginfo(vg_name):
             config_args + \
             [vg_name]
 
-    buf = iutil.execWithCapture("lvm",
-                                args,
-                                stderr="/dev/tty5")
+    buf = iutil.execWithCapture("lvm", args)
     info = buf.split()
     if len(info) != 7:
         raise LVMError(_("vginfo failed for %s" % vg_name))
@@ -321,9 +316,7 @@ def lvs(vg_name):
             config_args + \
             [vg_name]
 
-    buf = iutil.execWithCapture("lvm",
-                                args,
-                                stderr="/dev/tty5")
+    buf = iutil.execWithCapture("lvm", args)
 
     lvs = {}
     for line in buf.splitlines():
@@ -345,9 +338,7 @@ def lvorigin(vg_name, lv_name):
             config_args + \
             ["%s/%s" % (vg_name, lv_name)]
 
-    buf = iutil.execWithCapture("lvm",
-                                args,
-                                stderr="/dev/tty5")
+    buf = iutil.execWithCapture("lvm", args)
 
     try:
         origin = buf.splitlines()[0].strip()

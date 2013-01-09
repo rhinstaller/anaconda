@@ -309,9 +309,7 @@ class DeviceFormat(object):
         log_method_call(self, device=self.device,
                         type=self.type, status=self.status)
         try:
-            rc = execWithRedirect("wipefs", ["-a", self.device],
-                                  stderr="/dev/tty5",
-                                  stdout="/dev/tty5")
+            rc = execWithRedirect("wipefs", ["-a", self.device])
         except Exception as e:
             err = str(e)
         else:

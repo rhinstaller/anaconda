@@ -878,9 +878,7 @@ def numeric_type(num):
 
 def reIPL(ipldev):
     try:
-        rc = execWithRedirect("chreipl", ["node", "/dev/" + ipldev],
-                              stdout = "/dev/tty5",
-                              stderr = "/dev/tty5")
+        rc = execWithRedirect("chreipl", ["node", "/dev/" + ipldev])
     except RuntimeError as e:
         rc = True
         log.info("Unable to set reIPL device to %s: %s",
@@ -1030,8 +1028,7 @@ def _run_systemctl(command, service):
     """
 
     service_name = service + ".service"
-    ret = execWithRedirect("systemctl", [command, service_name], stdin=None,
-                           stdout="/dev/tty5", stderr="/dev/tty5")
+    ret = execWithRedirect("systemctl", [command, service_name])
 
     return ret
 
@@ -1094,8 +1091,7 @@ def vtActivate(num):
     """
 
     try:
-        ret = execWithRedirect("chvt", [str(num)], stdout="/dev/tty5",
-                                stderr="/dev/tty5")
+        ret = execWithRedirect("chvt", [str(num)])
     except OSError as oserr:
         ret = -1
         log.error("Failed to run chvt: %s", oserr.strerror)

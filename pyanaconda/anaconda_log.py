@@ -43,6 +43,7 @@ DATE_FORMAT = "%H:%M:%S"
 MAIN_LOG_FILE = "/tmp/anaconda.log"
 MAIN_LOG_TTY = "/dev/tty3"
 PROGRAM_LOG_FILE = "/tmp/program.log"
+PROGRAM_LOG_TTY = "/dev/tty5"
 STORAGE_LOG_FILE = "/tmp/storage.log"
 PACKAGING_LOG_FILE = "/tmp/packaging.log"
 ANACONDA_SYSLOG_FACILITY = SysLogHandler.LOG_LOCAL1
@@ -152,6 +153,9 @@ class AnacondaLog:
         program_logger.setLevel(logging.DEBUG)
         self.addFileHandler(PROGRAM_LOG_FILE, program_logger,
                             minLevel=logging.DEBUG)
+        self.addFileHandler(PROGRAM_LOG_TTY, program_logger,
+                            fmtStr=TTY_FORMAT,
+                            autoLevel=True)
         self.forwardToSyslog(program_logger)
 
         # Create the packaging logger.

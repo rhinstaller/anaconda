@@ -237,8 +237,7 @@ def _try_to_load_keymap(keymap):
     ret = 0
 
     try:
-        ret = iutil.execWithRedirect("loadkeys", [keymap], stdout="/dev/tty5",
-                                     stderr="/dev/tty5")
+        ret = iutil.execWithRedirect("loadkeys", [keymap])
     except OSError as oserr:
         msg = "'loadkeys' command not available (%s)" % oserr.strerror
         raise KeyboardConfigError(msg)

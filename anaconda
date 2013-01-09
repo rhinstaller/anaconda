@@ -125,13 +125,11 @@ def set_x_resolution(runres):
         try:
             log.info("Setting the screen resolution to: %s.", runres)
             iutil.execWithRedirect("xrandr", 
-                                   ["-d", ":1", "-s", runres],
-                                   stdout="/dev/tty5", stderr="/dev/tty5")
+                                   ["-d", ":1", "-s", runres])
         except RuntimeError as e:
             log.error("The X resolution not set")
             iutil.execWithRedirect("xrandr",
-                                   ["-d", ":1", "-q"],
-                                   stdout="/dev/tty5", stderr="/dev/tty5")
+                                   ["-d", ":1", "-q"])
 
 def setupPythonUpdates():
     from distutils.sysconfig import get_python_lib

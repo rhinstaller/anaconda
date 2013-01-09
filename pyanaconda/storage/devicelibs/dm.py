@@ -33,9 +33,7 @@ import logging
 log = logging.getLogger("storage")
 
 def dm_setup(args):
-    ret = iutil.execWithRedirect("dmsetup", args,
-                                 stdout = "/dev/tty5",
-                                 stderr = "/dev/tty5")
+    ret = iutil.execWithRedirect("dmsetup", args)
     if ret:
         raise DMError(ret.stderr)
 

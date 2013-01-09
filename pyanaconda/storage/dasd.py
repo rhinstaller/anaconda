@@ -81,8 +81,6 @@ class DASD:
             return
 
         self.started = True
-        out = "/dev/tty5"
-        err = "/dev/tty5"
 
         if not iutil.isS390():
             return
@@ -173,19 +171,16 @@ class DASD:
             try:
                 if intf and self.totalCylinders:
                     ret = iutil.execWithCallback(self.dasdfmt, arglist,
-                                                 stdout=out, stderr=err,
                                                  callback=update,
                                                  callback_data=pw,
                                                  echo=False)
                     rc = ret.rc
                 elif intf:
                     ret = iutil.execWithPulseProgress(self.dasdfmt, arglist,
-                                                      stdout=out, stderr=err,
                                                       progress=pw)
                     rc = ret.rc
                 else:
-                    rc = iutil.execWithRedirect(self.dasdfmt, arglist,
-                                                stdout=out, stderr=err)
+                    rc = iutil.execWithRedirect(self.dasdfmt, arglist)
             except Exception as e:
                 raise DasdFormatError(e, bypath)
 

@@ -125,8 +125,7 @@ class ZFCPDevice:
 
         if not os.path.exists(online):
             log.info("Freeing zFCP device %s" % (self.devnum,))
-            iutil.execWithRedirect("zfcp_cio_free", ["-d", self.devnum],
-                                   stdout="/dev/tty5", stderr="/dev/tty5")
+            iutil.execWithRedirect("zfcp_cio_free", ["-d", self.devnum])
 
         if not os.path.exists(online):
             raise ValueError, _(

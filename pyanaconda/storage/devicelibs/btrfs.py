@@ -34,12 +34,10 @@ log = logging.getLogger("storage")
 
 def btrfs(args, capture=False):
     kwargs = {}
-    kwargs["stderr"] = "/dev/tty5"
     if capture:
         exec_func = iutil.execWithCapture
     else:
         exec_func = iutil.execWithRedirect
-        kwargs["stdout"] = "/dev/tty5"
 
     ret = exec_func("btrfs", args, **kwargs)
     if ret and not capture:
@@ -65,8 +63,7 @@ def create_volume(devices, label=None, data=None, metadata=None):
 
     args.extend(devices)
 
-    ret = iutil.execWithRedirect("mkfs.btrfs", args,
-                                 stdout="/dev/tty5", stderr="/dev/tty5")
+    ret = iutil.execWithRedirect("mkfs.btrfs", args)
     if ret:
         raise BTRFSError(ret)
 

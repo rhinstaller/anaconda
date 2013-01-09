@@ -169,9 +169,7 @@ def get_member_space(size, disks, level=None):
     return space * disks
 
 def mdadm(args):
-    ret = iutil.execWithRedirect("mdadm", args,
-                                 stdout = "/dev/tty5",
-                                 stderr = "/dev/tty5")
+    ret = iutil.execWithRedirect("mdadm", args)
     if ret:
         raise MDRaidError("running mdadm " + " ".join(args) + " failed")
 
@@ -236,8 +234,7 @@ def mddeactivate(device):
 
 def mdexamine(device):
     vars = iutil.execWithCapture("mdadm",
-                                 ["--examine", "--brief", device],
-                                 stderr="/dev/tty5").split()
+                                 ["--examine", "--brief", device]).split()
 
     info = {}
     if len(vars) > 1 and vars[1].startswith("/dev/md"):

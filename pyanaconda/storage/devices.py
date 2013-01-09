@@ -1766,9 +1766,7 @@ class DMDevice(StorageDevice):
     def setupPartitions(self):
         log_method_call(self, name=self.name, kids=self.kids)
         rc = iutil.execWithRedirect("kpartx",
-                                ["-a", "-s", self.path],
-                                stdout = "/dev/tty5",
-                                stderr = "/dev/tty5")
+                                ["-a", "-s", self.path])
         if rc:
             raise DMError("partition activation failed for '%s'" % self.name)
         udev_settle()
@@ -1776,9 +1774,7 @@ class DMDevice(StorageDevice):
     def teardownPartitions(self):
         log_method_call(self, name=self.name, kids=self.kids)
         rc = iutil.execWithRedirect("kpartx",
-                                ["-d", "-s", self.path],
-                                stdout = "/dev/tty5",
-                                stderr = "/dev/tty5")
+                                ["-d", "-s", self.path])
         if rc:
             raise DMError("partition deactivation failed for '%s'" % self.name)
         udev_settle()
@@ -3377,9 +3373,7 @@ class MultipathDevice(DMDevice):
         if self.exists and os.path.exists(self.path):
             #self.teardownPartitions()
             #rc = iutil.execWithRedirect("multipath",
-            #                    ['-f', self.name],
-            #                    stdout = "/dev/tty5",
-            #                    stderr = "/dev/tty5")
+            #                    ['-f', self.name])
             #if rc:
             #    raise MPathError("multipath deactivation failed for '%s'" %
             #                    self.name)
@@ -3399,9 +3393,7 @@ class MultipathDevice(DMDevice):
                         controllable=self.controllable)
         udev_settle()
         rc = iutil.execWithRedirect("multipath",
-                            [self.name],
-                            stdout = "/dev/tty5",
-                            stderr = "/dev/tty5")
+                            [self.name])
         if rc:
             raise MPathError("multipath activation failed for '%s'" %
                             self.name, hardware_fault=True)

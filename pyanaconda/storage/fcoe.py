@@ -34,13 +34,11 @@ _fcoe_module_loaded = False
 def has_fcoe():
     global _fcoe_module_loaded
     if not _fcoe_module_loaded:
-        iutil.execWithRedirect("modprobe", [ "fcoe" ],
-                               stdout = "/dev/tty5", stderr="/dev/tty5")
+        iutil.execWithRedirect("modprobe", [ "fcoe" ])
         _fcoe_module_loaded = True
         if "bnx2x" in iutil.lsmod():
             log.info("fcoe: loading bnx2fc")
-            iutil.execWithRedirect("modprobe", [ "bnx2fc" ],
-                                   stdout = "/dev/tty5", stderr="/dev/tty5")
+            iutil.execWithRedirect("modprobe", [ "bnx2fc" ])
 
     return os.access("/sys/module/fcoe", os.X_OK)
 
@@ -69,12 +67,10 @@ class fcoe(object):
     def _stabilize(self):
         # I have no clue how long we need to wait, this ought to do the trick
         time.sleep(10)
-        iutil.execWithRedirect("udevadm", [ "settle" ],
-                               stdout = "/dev/tty5", stderr="/dev/tty5")
+        iutil.execWithRedirect("udevadm", [ "settle" ])
 
     def _startEDD(self):
-        rc = iutil.execWithCapture("/usr/libexec/fcoe/fcoe_edd.sh", [ "-i" ],
-                                   stderr="/dev/tty5")
+        rc = iutil.execWithCapture("/usr/libexec/fcoe/fcoe_edd.sh", [ "-i" ])
         if not rc.startswith("NIC="):
             log.info("No FCoE EDD info found: %s" % rc.rstrip())
             return
@@ -101,8 +97,7 @@ class fcoe(object):
         if self.lldpadStarted:
             return
 
-        iutil.execWithRedirect("lldpad", [ "-d" ],
-                               stdout = "/dev/tty5", stderr="/dev/tty5")
+        iutil.execWithRedirect("lldpad", [ "-d" ])
         self.lldpadStarted = True
 
     def addSan(self, nic, dcb=False, auto_vlan=True):
@@ -112,27 +107,21 @@ class fcoe(object):
         log.info("Activating FCoE SAN attached to %s, dcb: %s autovlan: %s" %
                  (nic, dcb, auto_vlan))
 
-        iutil.execWithRedirect("ip", [ "link", "set", nic, "up" ],
-                               stdout = "/dev/tty5", stderr="/dev/tty5")
+        iutil.execWithRedirect("ip", [ "link", "set", nic, "up" ])
 
         if dcb:
             self._startLldpad()
-            iutil.execWithRedirect("dcbtool", [ "sc", nic, "dcb", "on" ],
-                               stdout = "/dev/tty5", stderr="/dev/tty5")
+            iutil.execWithRedirect("dcbtool", [ "sc", nic, "dcb", "on" ])
             iutil.execWithRedirect("dcbtool", [ "sc", nic, "app:fcoe",
-                               "e:1", "a:1", "w:1" ],
-                               stdout = "/dev/tty5", stderr="/dev/tty5")
+                                                "e:1", "a:1", "w:1" ])
             iutil.execWithRedirect("fipvlan", [ "-c", "-s", "-f",
-                                               "'-fcoe'", nic],
-                               stdout = "/dev/tty5", stderr="/dev/tty5")
+                                               "'-fcoe'", nic])
         else:
             if auto_vlan:
                 # certain network configrations require the VLAN layer module:
-                iutil.execWithRedirect("modprobe", ["8021q"],
-                                       stdout = "/dev/tty5", stderr="/dev/tty5")
+                iutil.execWithRedirect("modprobe", ["8021q"])
                 iutil.execWithRedirect("fipvlan", ['-c', '-s', '-f',
-                                                   "'-fcoe'",  nic],
-                                    stdout = "/dev/tty5", stderr="/dev/tty5")
+                                                   "'-fcoe'",  nic])
             else:
                 f = open("/sys/module/libfcoe/parameters/create", "w")
                 f.write(nic)

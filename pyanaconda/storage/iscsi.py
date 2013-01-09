@@ -198,16 +198,12 @@ class iscsi(object):
             iscsi_iface_name = "iface%d" % len(self.ifaces)
             #iscsiadm -m iface -I iface0 --op=new
             iutil.execWithRedirect("iscsiadm",
-                                   ["-m", "iface", "-I", iscsi_iface_name, "--op=new"],
-                                   stdout="/dev/tty5",
-                                   stderr="/dev/tty5")
+                                   ["-m", "iface", "-I", iscsi_iface_name, "--op=new"])
             #iscsiadm -m iface -I iface0 --op=update -n iface.net_ifacename -v eth0
             iutil.execWithRedirect("iscsiadm",
                                    ["-m", "iface", "-I", iscsi_iface_name,
                                     "--op=update", "-n",
-                                    "iface.net_ifacename", "-v", iface],
-                                   stdout="/dev/tty5",
-                                   stderr="/dev/tty5")
+                                    "iface.net_ifacename", "-v", iface])
 
             self.ifaces[iscsi_iface_name] = iface
             log.debug("created_interface %s:%s" % (iscsi_iface_name, iface))
@@ -219,9 +215,7 @@ class iscsi(object):
             #iscsiadm -m iface -I iface0 --op=delete
             iutil.execWithRedirect("iscsiadm",
                                    ["-m", "iface", "-I", iscsi_iface_name,
-                                    "--op=delete"],
-                                   stdout="/dev/tty5",
-                                   stderr="/dev/tty5")
+                                    "--op=delete"])
         self.ifaces = {}
 
     def startup(self):
@@ -252,8 +246,7 @@ class iscsi(object):
                 os.makedirs(fulldir, 0755)
 
         log.info("iSCSI startup")
-        iutil.execWithRedirect('modprobe', ['-a'] + ISCSI_MODULES,
-                               stdout="/dev/tty5", stderr="/dev/tty5")
+        iutil.execWithRedirect('modprobe', ['-a'] + ISCSI_MODULES)
         # iscsiuio is needed by Broadcom offload cards (bnx2i). Currently
         # not present in iscsi-initiator-utils for Fedora.
         try:
@@ -263,11 +256,9 @@ class iscsi(object):
             log.info("iscsi: iscsiuio not found.")
         else:
             log.debug("iscsi: iscsiuio is at %s" % iscsiuio)
-            iutil.execWithRedirect(iscsiuio, [],
-                                   stdout="/dev/tty5", stderr="/dev/tty5")
+            iutil.execWithRedirect(iscsiuio, [])
         # run the daemon
-        iutil.execWithRedirect(ISCSID, [],
-                               stdout="/dev/tty5", stderr="/dev/tty5")
+        iutil.execWithRedirect(ISCSID, [])
         time.sleep(1)
 
         self._startIBFT()

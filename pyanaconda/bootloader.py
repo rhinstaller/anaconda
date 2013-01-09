@@ -1277,7 +1277,6 @@ class GRUB(BootLoader):
 
     def install(self):
         rc = iutil.execWithRedirect("grub-install", ["--just-copy"],
-                                    stdout="/dev/tty5", stderr="/dev/tty5",
                                     root=ROOT_PATH)
         if rc:
             raise BootLoaderError("bootloader install failed")
@@ -1299,7 +1298,6 @@ class GRUB(BootLoader):
             args = ["--batch", "--no-floppy",
                     "--device-map=%s" % self.device_map_file]
             rc = iutil.execWithRedirect("grub", args,
-                                        stdout="/dev/tty5", stderr="/dev/tty5",
                                         stdin=pread, root=ROOT_PATH)
             os.close(pread)
             if rc:
@@ -1468,7 +1466,6 @@ class GRUB2(GRUB):
         os.close(pwrite)
         buf = iutil.execWithCapture("grub2-mkpasswd-pbkdf2", [],
                                     stdin=pread,
-                                    stderr="/dev/tty5",
                                     root=ROOT_PATH)
         os.close(pread)
         self.encrypted_password = buf.split()[-1].strip()
@@ -1513,16 +1510,14 @@ class GRUB2(GRUB):
                                                    self.default.version)
         rc = iutil.execWithRedirect("grub2-set-default",
                                     [entry_title],
-                                    root=ROOT_PATH,
-                                    stdout="/dev/tty5", stderr="/dev/tty5")
+                                    root=ROOT_PATH)
         if rc:
             log.error("failed to set default menu entry to %s" % productName)
 
         # now tell grub2 to generate the main configuration file
         rc = iutil.execWithRedirect("grub2-mkconfig",
                                     ["-o", self.config_file],
-                                    root=ROOT_PATH,
-                                    stdout="/dev/tty5", stderr="/dev/tty5")
+                                    root=ROOT_PATH)
         if rc:
             raise BootLoaderError("failed to write bootloader configuration")
 
@@ -1543,7 +1538,6 @@ class GRUB2(GRUB):
                 grub_args.insert(0, '--force')
 
             rc = iutil.execWithRedirect("grub2-install", grub_args,
-                                        stdout="/dev/tty5", stderr="/dev/tty5",
                                         root=ROOT_PATH,
                                         env_prune=['MALLOC_PERTURB_'])
             if rc:
@@ -1645,8 +1639,7 @@ class EFIGRUB(GRUB2):
                     continue
 
                 rc = self.efibootmgr("-b", slot_id, "-B",
-                                     root=ROOT_PATH,
-                                     stdout="/dev/tty5", stderr="/dev/tty5")
+                                     root=ROOT_PATH)
                 if rc:
                     raise BootLoaderError("failed to remove old efi boot entry")
 
@@ -1670,8 +1663,7 @@ class EFIGRUB(GRUB2):
                              "-d", boot_disk.path, "-p", boot_part_num,
                              "-l",
                              self.efi_dir_as_efifs_dir + "\\shim.efi",
-                             root=ROOT_PATH,
-                             stdout="/dev/tty5", stderr="/dev/tty5")
+                             root=ROOT_PATH)
         if rc:
             raise BootLoaderError("failed to set new efi boot target")
 
@@ -1707,8 +1699,7 @@ class MacEFIGRUB(EFIGRUB):
     def mactel_config(self):
         if os.path.exists(ROOT_PATH + "/usr/libexec/mactel-boot-setup"):
             rc = iutil.execWithRedirect("/usr/libexec/mactel-boot-setup", [],
-                                        root=ROOT_PATH,
-                                        stdout="/dev/tty5", stderr="/dev/tty5")
+                                        root=ROOT_PATH)
             if rc:
                 log.error("failed to configure Mac bootloader")
 
@@ -1843,7 +1834,6 @@ class Yaboot(YabootSILOBase):
     def install(self):
         args = ["-f", "-C", self.config_file]
         rc = iutil.execWithRedirect(self.prog, args,
-                                    stdout="/dev/tty5", stderr="/dev/tty5",
                                     root=ROOT_PATH)
         if rc:
             raise BootLoaderError("bootloader installation failed")
@@ -1874,8 +1864,7 @@ class IPSeriesYaboot(Yaboot):
         log.debug("updatePowerPCBootList: self.stage1_device.path = %s" % self.stage1_device.path)
 
         buf = iutil.execWithCapture("nvram",
-                                    ["--print-config=boot-device"],
-                                    stderr="/dev/tty5")
+                                    ["--print-config=boot-device"])
 
         if len(buf) == 0:
             log.error ("FAIL: nvram --print-config=boot-device")
@@ -1885,8 +1874,7 @@ class IPSeriesYaboot(Yaboot):
         log.debug("updatePowerPCBootList: boot_list = %s" % boot_list)
 
         buf = iutil.execWithCapture("ofpathname",
-                                    [self.stage1_device.path],
-                                    stderr="/dev/tty5")
+                                    [self.stage1_device.path])
 
         if len(buf) > 0:
             boot_disk = buf.strip()
@@ -1903,8 +1891,7 @@ class IPSeriesYaboot(Yaboot):
 
         update_value = "boot-device=%s" % " ".join(boot_list)
 
-        rc = iutil.execWithRedirect("nvram", ["--update-config", update_value],
-                                    stdout="/dev/tty5", stderr="/dev/tty5")
+        rc = iutil.execWithRedirect("nvram", ["--update-config", update_value])
         if rc:
             log.error("FAIL: nvram --update-config %s" % update_value)
         else:
@@ -1936,8 +1923,7 @@ class IPSeriesGRUB2(GRUB2):
         log.debug("updateNVRAMBootList: self.stage1_device.path = %s" % self.stage1_device.path)
 
         buf = iutil.execWithCapture("nvram",
-                                    ["--print-config=boot-device"],
-                                    stderr="/dev/tty5")
+                                    ["--print-config=boot-device"])
 
         if len(buf) == 0:
             log.error ("Failed to determine nvram boot device")
@@ -1947,8 +1933,7 @@ class IPSeriesGRUB2(GRUB2):
         log.debug("updateNVRAMBootList: boot_list = %s" % boot_list)
 
         buf = iutil.execWithCapture("ofpathname",
-                                    [self.stage1_device.path],
-                                    stderr="/dev/tty5")
+                                    [self.stage1_device.path])
 
         if len(buf) > 0:
             boot_disk = buf.strip()
@@ -1962,8 +1947,7 @@ class IPSeriesGRUB2(GRUB2):
 
         update_value = "boot-device=%s" % " ".join(boot_list)
 
-        rc = iutil.execWithRedirect("nvram", ["--update-config", update_value],
-                                    stdout="/dev/tty5", stderr="/dev/tty5")
+        rc = iutil.execWithRedirect("nvram", ["--update-config", update_value])
         if rc:
             log.error("Failed to update new boot device order")
 
@@ -2069,7 +2053,6 @@ class ZIPL(BootLoader):
 
     def install(self):
         buf = iutil.execWithCapture("zipl", [],
-                                    stderr="/dev/tty5",
                                     root=ROOT_PATH,
                                     fatal=True)
         for line in buf.splitlines():
@@ -2164,9 +2147,7 @@ class SILO(YabootSILOBase):
         else:
             args.append("-U")
 
-        rc = iutil.execWithRedirect("silo", args,
-                                    stdout="/dev/tty5", stderr="/dev/tty5",
-                                    root=ROOT_PATH)
+        rc = iutil.execWithRedirect("silo", args, root=ROOT_PATH)
 
         if rc:
             raise BootLoaderError("bootloader install failed")
@@ -2205,9 +2186,7 @@ class UBOOT(BootLoader):
     def install(self):
         _outfile = "%s/boot.scr" % self.config_dir
         args = ["-p", self.config_file, _outfile]
-        rc = iutil.execWithRedirect("cp", args,
-                                    stdout="/dev/tty5", stderr="/dev/tty5",
-                                    root=ROOT_PATH)
+        rc = iutil.execWithRedirect("cp", args, root=ROOT_PATH)
 
         if rc:
             raise BootLoaderError("bootloader install failed")

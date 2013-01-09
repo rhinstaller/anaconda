@@ -238,9 +238,7 @@ class Authconfig(commands.authconfig.FC3_Authconfig):
             args += ["--enablefingerprint"]
 
         try:
-            iutil.execWithRedirect("/usr/sbin/authconfig", args,
-                                   stdout="/dev/tty5", stderr="/dev/tty5",
-                                   root=ROOT_PATH)
+            iutil.execWithRedirect("/usr/sbin/authconfig", args, root=ROOT_PATH)
         except RuntimeError as msg:
             log.error("Error running /usr/sbin/authconfig %s: %s", args, msg)
 
@@ -484,9 +482,7 @@ class Firewall(commands.firewall.F14_Firewall):
             msg = _("%s is missing. Cannot setup firewall.") % (cmd,)
             raise KickstartError(msg)
         else:
-            iutil.execWithRedirect(cmd, args,
-                                   stdout="/dev/tty5", stderr="/dev/tty5",
-                                   root=ROOT_PATH)
+            iutil.execWithRedirect(cmd, args, root=ROOT_PATH)
 
 class Firstboot(commands.firstboot.FC3_Firstboot):
     def execute(self, *args):
@@ -502,7 +498,6 @@ class Firstboot(commands.firstboot.FC3_Firstboot):
             f.close()
 
         iutil.execWithRedirect("systemctl", [action, "firstboot-graphical.service"],
-                               stdout="/dev/tty5", stderr="/dev/tty5",
                                root=ROOT_PATH)
 
 class Group(commands.group.F12_Group):
@@ -1176,12 +1171,10 @@ class Services(commands.services.FC6_Services):
 
         if disabled:
             iutil.execWithRedirect("systemctl", ["disable"] + disabled,
-                                   stdout="/dev/tty5", stderr="/dev/tty5",
                                    root=ROOT_PATH)
 
         if enabled:
             iutil.execWithRedirect("systemctl", ["enable"] + enabled,
-                                   stdout="/dev/tty5", stderr="/dev/tty5",
                                    root=ROOT_PATH)
 
 class Timezone(commands.timezone.F18_Timezone):

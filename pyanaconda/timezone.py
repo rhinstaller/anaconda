@@ -115,7 +115,7 @@ def save_hw_clock(timezone):
     else:
         args.append("--local")
 
-    iutil.execWithRedirect(cmd, args, stdout="/dev/tty5", stderr="/dev/tty5")
+    iutil.execWithRedirect(cmd, args)
 
 
 def get_all_territory_timezones(territory):

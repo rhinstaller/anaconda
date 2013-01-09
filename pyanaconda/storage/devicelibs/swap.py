@@ -42,9 +42,7 @@ def mkswap(device, label=''):
         argv.extend(["-L", label])
     argv.append(device)
 
-    ret = iutil.execWithRedirect("mkswap", argv,
-                                 stderr = "/dev/tty5",
-                                 stdout = "/dev/tty5")
+    ret = iutil.execWithRedirect("mkswap", argv)
 
     if ret:
         raise SwapError("mkswap failed for '%s'" % device)
@@ -85,18 +83,13 @@ def swapon(device, priority=None):
         argv.extend(["-p", "%d" % priority])
     argv.append(device)
         
-    rc = iutil.execWithRedirect("swapon",
-                                argv,
-                                stderr = "/dev/tty5",
-                                stdout = "/dev/tty5")
+    rc = iutil.execWithRedirect("swapon", argv)
 
     if rc:
         raise SwapError("swapon failed for '%s'" % device)
 
 def swapoff(device):
-    rc = iutil.execWithRedirect("swapoff", [device],
-                                stderr = "/dev/tty5",
-                                stdout = "/dev/tty5")
+    rc = iutil.execWithRedirect("swapoff", [device])
 
     if rc:
         raise SwapError("swapoff failed for '%s'" % device)

@@ -35,16 +35,12 @@ log = logging.getLogger("storage")
 def losetup(args, capture=False):
     if capture:
         exec_func = iutil.execWithCapture
-        exec_kwargs = {}
     else:
         exec_func = iutil.execWithRedirect
-        exec_kwargs = {"stdout": "/dev/tty5"}
 
     try:
         # ask losetup what this loop device's backing device is
-        ret = exec_func("losetup", args,
-                        stderr="/dev/tty5",
-                        **exec_kwargs)
+        ret = exec_func("losetup", args)
     except RuntimeError as e:
         raise LoopError(str(e))
 

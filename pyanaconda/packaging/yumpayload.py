@@ -644,11 +644,9 @@ reposdir=%s
                     # move the mount to ISO_DIR
                     # work around inability to move shared filesystems
                     iutil.execWithRedirect("mount",
-                                           ["--make-rprivate", "/"],
-                                           stderr="/dev/tty5", stdout="/dev/tty5")
+                                           ["--make-rprivate", "/"])
                     iutil.execWithRedirect("mount",
-                                           ["--move", INSTALL_TREE, ISO_DIR],
-                                           stderr="/dev/tty5", stdout="/dev/tty5")
+                                           ["--move", INSTALL_TREE, ISO_DIR])
                     # Mounts are kept track of in isys it seems
                     # Remove the count for the source
                     if isys.mountCount.has_key(INSTALL_TREE):

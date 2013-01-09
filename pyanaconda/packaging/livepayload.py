@@ -105,8 +105,7 @@ class LiveImagePayload(ImagePayload):
         args = ["-pogAXtlHrDx", "--exclude", "/dev/", "--exclude", "/proc/",
                 "--exclude", "/sys/", INSTALL_TREE+"/", ROOT_PATH]
         try:
-            rc = iutil.execWithRedirect(cmd, args,
-                                        stderr="/dev/tty5", stdout="/dev/tty5")
+            rc = iutil.execWithRedirect(cmd, args)
         except (OSError, RuntimeError) as e:
             msg = None
             err = str(e)
