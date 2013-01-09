@@ -2,9 +2,9 @@
 import re
 
 from ..udev import udev_device_is_disk
-from pyanaconda import iutil
-from pyanaconda.flags import flags
-from pyanaconda.anaconda_log import log_method_call
+from .. import util
+from ..flags import flags
+from ..storage_log import log_method_call
 
 import logging
 log = logging.getLogger("storage")
@@ -106,9 +106,9 @@ class MultipathTopology(object):
             map(lambda line: log.debug(line.rstrip()), conf)
             log.debug("(end of /etc/multipath.conf)")
         self._mpath_topology = parseMultipathOutput(
-            iutil.execWithCapture("multipath", ["-d",]))
+            util.capture_output(["multipath", "-d"]))
         self._mpath_topology.update(parseMultipathOutput(
-                iutil.execWithCapture("multipath", ["-ll",])))
+            util.capture_output(["multipath", "-ll"])))
 
         delete_keys = []
         for (mp, disks) in self._mpath_topology.items():
@@ -268,7 +268,7 @@ blacklist {
         return ret
 
     def writeConfig(self, friendly_names=True):
-        if not flags.mpath:
+        if not flags.multipath:
             # not writing out a multipath.conf will effectively blacklist all
             # mpath which will prevent any of them from being activated during
             # install
@@ -279,7 +279,7 @@ blacklist {
             mpath_cfg.write(cfg)
 
 def flush_mpaths():
-    iutil.execWithRedirect("multipath", ["-F"])
-    check_output = iutil.execWithCapture("multipath", ["-ll"]).strip()
+    util.run_program(["multipath", "-F"])
+    check_output = util.capture_output(["multipath", "-ll"]).strip()
     if check_output:
         log.error("multipath: some devices could not be flushed")

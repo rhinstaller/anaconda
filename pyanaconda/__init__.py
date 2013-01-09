@@ -30,7 +30,7 @@
 
 import os, time, string
 import sys
-import iutil
+from pyanaconda.storage import arch
 import isys
 from constants import ROOT_PATH
 from tempfile import mkstemp
@@ -71,7 +71,7 @@ class Anaconda(object):
         self.rescue = False
         self.rescue_mount = True
         self.rootParts = None
-        self.simpleFilter = not iutil.isS390()
+        self.simpleFilter = not arch.isS390()
         self.stage2 = None
         self._storage = None
         self.updateSrc = None

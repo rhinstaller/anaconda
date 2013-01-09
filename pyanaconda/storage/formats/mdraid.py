@@ -22,12 +22,12 @@
 
 import os
 
-from pyanaconda.anaconda_log import log_method_call
-from pyanaconda.flags import flags
+from ..storage_log import log_method_call
 from parted import PARTITION_RAID
 from ..errors import *
 from ..devicelibs import mdraid
 from . import DeviceFormat, register_device_format
+from ..flags import flags
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
@@ -113,8 +113,7 @@ class MDRaidMember(DeviceFormat):
 # nodmraid -> Wether to use BIOS RAID or not
 # Note the anaconda cmdline has not been parsed yet when we're first imported,
 # so we can not use flags.dmraid here
-if not flags.cmdline.has_key("noiswmd") and \
-   not flags.cmdline.has_key("nodmraid"):
+if not flags.noiswmd and flags.dmraid:
     MDRaidMember._udevTypes.append("isw_raid_member")
 
 register_device_format(MDRaidMember)

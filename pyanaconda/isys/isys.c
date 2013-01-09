@@ -24,7 +24,6 @@
 #include <errno.h>
 #define u32 __u32
 #include <fcntl.h>
-#include <ext2fs/ext2fs.h>
 /* Need to tell loop.h what the actual dev_t type is. */
 #undef dev_t
 #if defined(__alpha) || (defined(__sparc__) && defined(__arch64__))
@@ -47,8 +46,6 @@
 #include <sys/vfs.h>
 #include <unistd.h>
 #include <resolv.h>
-#include <scsi/scsi.h>
-#include <scsi/scsi_ioctl.h>
 #include <sys/vt.h>
 #include <sys/types.h>
 #include <sys/socket.h>
@@ -58,12 +55,8 @@
 #include <libgen.h>
 #include <linux/cdrom.h>
 #include <linux/major.h>
-#include <linux/raid/md_u.h>
-#include <linux/raid/md_p.h>
 #include <signal.h>
 #include <execinfo.h>
-
-#include <blkid/blkid.h>
 
 #include <X11/Xlib.h>
 #include <X11/XKBlib.h>
@@ -71,12 +64,10 @@
 
 #include "iface.h"
 #include "isys.h"
-#include "imount.h"
 #include "ethtool.h"
 #include "lang.h"
 #include "eddsupport.h"
 #include "auditd.h"
-#include "imount.h"
 #include "log.h"
 #include "mem.h"
 
@@ -84,16 +75,7 @@
 #define CDROMEJECT 0x5309
 #endif
 
-static PyObject * doMount(PyObject * s, PyObject * args);
-static PyObject * doUMount(PyObject * s, PyObject * args);
-static PyObject * doSwapon(PyObject * s, PyObject * args);
-static PyObject * doSwapoff(PyObject * s, PyObject * args);
-static PyObject * doWipeRaidSuperblock(PyObject * s, PyObject * args);
-static PyObject * doGetRaidChunkSize(PyObject * s, PyObject * args);
 static PyObject * doDevSpaceFree(PyObject * s, PyObject * args);
-static PyObject * doExt2Dirty(PyObject * s, PyObject * args);
-static PyObject * doExt2HasJournal(PyObject * s, PyObject * args);
-static PyObject * doEjectCdrom(PyObject * s, PyObject * args);
 static PyObject * doisPseudoTTY(PyObject * s, PyObject * args);
 static PyObject * doisVioConsole(PyObject * s);
 static PyObject * doSync(PyObject * s, PyObject * args);
@@ -103,7 +85,6 @@ static PyObject * py_bind_textdomain_codeset(PyObject * o, PyObject * args);
 static PyObject * doSegvHandler(PyObject *s, PyObject *args);
 static PyObject * doAuditDaemon(PyObject *s);
 static PyObject * doPrefixToNetmask(PyObject *s, PyObject *args);
-static PyObject * doGetBlkidData(PyObject * s, PyObject * args);
 static PyObject * doIsCapsLockEnabled(PyObject * s, PyObject * args);
 static PyObject * doGetLinkStatus(PyObject * s, PyObject * args);
 static PyObject * doGetAnacondaVersion(PyObject * s, PyObject * args);
@@ -111,16 +92,7 @@ static PyObject * doInitLog(PyObject * s);
 static PyObject * doTotalMemory(PyObject * s);
 
 static PyMethodDef isysModuleMethods[] = {
-    { "ejectcdrom", (PyCFunction) doEjectCdrom, METH_VARARGS, NULL },
-    { "e2dirty", (PyCFunction) doExt2Dirty, METH_VARARGS, NULL },
-    { "e2hasjournal", (PyCFunction) doExt2HasJournal, METH_VARARGS, NULL },
     { "devSpaceFree", (PyCFunction) doDevSpaceFree, METH_VARARGS, NULL },
-    { "wiperaidsb", (PyCFunction) doWipeRaidSuperblock, METH_VARARGS, NULL },
-    { "getraidchunk", (PyCFunction) doGetRaidChunkSize, METH_VARARGS, NULL },
-    { "mount", (PyCFunction) doMount, METH_VARARGS, NULL },
-    { "umount", (PyCFunction) doUMount, METH_VARARGS, NULL },
-    { "swapon",  (PyCFunction) doSwapon, METH_VARARGS, NULL },
-    { "swapoff",  (PyCFunction) doSwapoff, METH_VARARGS, NULL },
     { "isPseudoTTY", (PyCFunction) doisPseudoTTY, METH_VARARGS, NULL},
     { "isVioConsole", (PyCFunction) doisVioConsole, METH_NOARGS, NULL},
     { "sync", (PyCFunction) doSync, METH_VARARGS, NULL},
@@ -130,7 +102,6 @@ static PyMethodDef isysModuleMethods[] = {
     { "handleSegv", (PyCFunction) doSegvHandler, METH_VARARGS, NULL },
     { "auditdaemon", (PyCFunction) doAuditDaemon, METH_NOARGS, NULL },
     { "prefix2netmask", (PyCFunction) doPrefixToNetmask, METH_VARARGS, NULL },
-    { "getblkid", (PyCFunction) doGetBlkidData, METH_VARARGS, NULL },
     { "isCapsLockEnabled", (PyCFunction) doIsCapsLockEnabled, METH_VARARGS, NULL },
     { "getLinkStatus", (PyCFunction) doGetLinkStatus, METH_VARARGS, NULL },
     { "getAnacondaVersion", (PyCFunction) doGetAnacondaVersion, METH_VARARGS, NULL },
@@ -139,121 +110,11 @@ static PyMethodDef isysModuleMethods[] = {
     { NULL, NULL, 0, NULL }
 } ;
 
-static PyObject * doUMount(PyObject * s, PyObject * args) {
-    char *err = NULL, *mntpoint = NULL;
-    int rc;
-
-    if (!PyArg_ParseTuple(args, "s", &mntpoint)) {
-        return NULL;
-    }
-
-    Py_BEGIN_ALLOW_THREADS
-    rc = doPwUmount(mntpoint, &err);
-    Py_END_ALLOW_THREADS
-
-    if (rc == IMOUNT_ERR_ERRNO) {
-        PyErr_SetFromErrno(PyExc_SystemError);
-    } else if (rc) {
-        PyObject *tuple = PyTuple_New(2);
-
-        PyTuple_SetItem(tuple, 0, PyInt_FromLong(rc));
-
-        if (err == NULL) {
-            Py_INCREF(Py_None);
-            PyTuple_SetItem(tuple, 1, Py_None);
-        } else {
-            PyTuple_SetItem(tuple, 1, PyString_FromString(err));
-        }
-
-        PyErr_SetObject(PyExc_SystemError, tuple);
-    }
-
-    if (rc) {
-        return NULL;
-    }
-
-    Py_INCREF(Py_None);
-    return Py_None;
-}
-
-static PyObject * doMount(PyObject * s, PyObject * args) {
-    char *err = NULL, *fs, *device, *mntpoint, *flags = NULL;
-    int rc;
-
-    if (!PyArg_ParseTuple(args, "sss|z", &fs, &device, &mntpoint,
-			  &flags)) return NULL;
-
-    Py_BEGIN_ALLOW_THREADS
-    rc = doPwMount(device, mntpoint, fs, flags, &err);
-    Py_END_ALLOW_THREADS
-
-    if (rc == IMOUNT_ERR_ERRNO)
-	PyErr_SetFromErrno(PyExc_SystemError);
-    else if (rc) {
-        PyObject *tuple = PyTuple_New(2);
-
-        PyTuple_SetItem(tuple, 0, PyInt_FromLong(rc));
-
-        if (err == NULL) {
-            Py_INCREF(Py_None);
-            PyTuple_SetItem(tuple, 1, Py_None);
-        } else {
-            PyTuple_SetItem(tuple, 1, PyString_FromString(err));
-        }
-
-        PyErr_SetObject(PyExc_SystemError, tuple);
-    }
-
-    if (rc) return NULL;
-
-    Py_INCREF(Py_None);
-    return Py_None;
-}
-
 #define BOOT_SIGNATURE	0xaa55	/* boot signature */
 #define BOOT_SIG_OFFSET	510	/* boot signature offset */
 
-int swapoff(const char * path);
-int swapon(const char * path, int priorty);
-
-static PyObject * doSwapoff (PyObject * s, PyObject * args) {
-    char * path;
-
-    if (!PyArg_ParseTuple(args, "s", &path)) return NULL;
-
-    if (swapoff (path)) {
-	PyErr_SetFromErrno(PyExc_SystemError);
-	return NULL;
-    }
-    
-    Py_INCREF(Py_None);
-    return Py_None;
-}
-
-static PyObject * doSwapon (PyObject * s, PyObject * args) {
-    char * path;
-
-    if (!PyArg_ParseTuple(args, "s", &path)) return NULL;
-
-    if (swapon (path, 0)) {
-	PyErr_SetFromErrno(PyExc_SystemError);
-	return NULL;
-    }
-    
-    Py_INCREF(Py_None);
-    return Py_None;
-}
-
 void init_isys(void) {
-    PyObject * m, * d;
-
-    m = Py_InitModule("_isys", isysModuleMethods);
-    d = PyModule_GetDict(m);
-
-    PyDict_SetItemString(d, "MIN_RAM", PyInt_FromLong(MIN_RAM));
-    PyDict_SetItemString(d, "MIN_GUI_RAM", PyInt_FromLong(MIN_GUI_RAM));
-    PyDict_SetItemString(d, "GUI_INSTALL_EXTRA_RAM", PyInt_FromLong(GUI_INSTALL_EXTRA_RAM));
-    PyDict_SetItemString(d, "EARLY_SWAP_RAM", PyInt_FromLong(EARLY_SWAP_RAM));
+    Py_InitModule("_isys", isysModuleMethods);
 }
 
 static PyObject * doPrefixToNetmask (PyObject * s, PyObject * args) {
@@ -271,70 +132,6 @@ static PyObject * doPrefixToNetmask (PyObject * s, PyObject * args) {
         return NULL;
 
     return Py_BuildValue("s", dst);
-}
-
-static PyObject * doWipeRaidSuperblock(PyObject * s, PyObject * args) {
-    int fd;
-    unsigned long size;
-    struct mdp_super_t * sb;
-
-    if (!PyArg_ParseTuple(args, "i", &fd)) return NULL;
-
-    if (ioctl(fd, BLKGETSIZE, &size)) {
-	PyErr_SetFromErrno(PyExc_SystemError);
-	return NULL;
-    }
-
-    /* put the size in 1k blocks */
-    size >>= 1;
-
-    if (lseek64(fd, ((off64_t) 512) * (off64_t) MD_NEW_SIZE_SECTORS(size), SEEK_SET) < 0) {
-	PyErr_SetFromErrno(PyExc_SystemError);
-	return NULL;
-    } 
-
-    sb = malloc(sizeof(mdp_super_t));
-    sb = memset(sb, '\0', sizeof(mdp_super_t));
-
-    if (write(fd, sb, sizeof(sb)) != sizeof(sb)) {
-	PyErr_SetFromErrno(PyExc_SystemError);
-	return NULL;
-    }
-
-    return Py_None;
-}
-
-static PyObject * doGetRaidChunkSize(PyObject * s, PyObject * args) {
-    int fd;
-    unsigned long size;
-    mdp_super_t sb;
-
-    if (!PyArg_ParseTuple(args, "i", &fd)) return NULL;
-
-    if (ioctl(fd, BLKGETSIZE, &size)) {
-	PyErr_SetFromErrno(PyExc_SystemError);
-	return NULL;
-    }
-
-    /* put the size in 1k blocks */
-    size >>= 1;
-
-    if (lseek64(fd, ((off64_t) 512) * (off64_t) MD_NEW_SIZE_SECTORS(size), SEEK_SET) < 0) {
-	PyErr_SetFromErrno(PyExc_SystemError);
-	return NULL;
-    } 
-
-    if (read(fd, &sb, sizeof(sb)) != sizeof(sb)) {
-	PyErr_SetFromErrno(PyExc_SystemError);
-	return NULL;
-    }
-
-    if (sb.md_magic != MD_SB_MAGIC) {
-	PyErr_SetString(PyExc_ValueError, "bad md magic on device");
-	return NULL;
-    }
-
-    return Py_BuildValue("i", sb.chunk_size / 1024);
 }
 
 static int get_bits(unsigned long long v) {
@@ -369,67 +166,6 @@ static PyObject * doDevSpaceFree(PyObject * s, PyObject * args) {
         size = ~0LLU;
 
     return PyLong_FromUnsignedLongLong(size>>20);
-}
-
-static PyObject * doExt2Dirty(PyObject * s, PyObject * args) {
-    char * device;
-    ext2_filsys fsys;
-    int rc;
-    int clean;
-
-    if (!PyArg_ParseTuple(args, "s", &device)) return NULL;
-
-    rc = ext2fs_open(device, EXT2_FLAG_FORCE, 0, 0, unix_io_manager,
-		     &fsys);
-    if (rc) {
-	Py_INCREF(Py_None);
-	return Py_None;
-    }
-
-    clean = fsys->super->s_state & EXT2_VALID_FS;
-
-    ext2fs_close(fsys);
-
-    return Py_BuildValue("i", !clean); 
-}
-static PyObject * doExt2HasJournal(PyObject * s, PyObject * args) {
-    char * device;
-    ext2_filsys fsys;
-    int rc;
-    int hasjournal;
-
-    if (!PyArg_ParseTuple(args, "s", &device)) return NULL;
-    rc = ext2fs_open(device, EXT2_FLAG_FORCE, 0, 0, unix_io_manager,
-		     &fsys);
-    if (rc) {
-	Py_INCREF(Py_None);
-	return Py_None;
-    }
-
-    hasjournal = fsys->super->s_feature_compat & EXT3_FEATURE_COMPAT_HAS_JOURNAL;
-
-    ext2fs_close(fsys);
-
-    return Py_BuildValue("i", hasjournal); 
-}
-
-static PyObject * doEjectCdrom(PyObject * s, PyObject * args) {
-    int fd;
-
-    if (!PyArg_ParseTuple(args, "i", &fd)) return NULL;
-
-    /* Ask it to unlock the door and then eject the disc. There's really
-     * nothing to do if unlocking doesn't work, so just eject without
-     * worrying about it. -- pjones
-     */
-    ioctl(fd, CDROM_LOCKDOOR, 0);
-    if (ioctl(fd, CDROMEJECT, 1)) {
-	PyErr_SetFromErrno(PyExc_SystemError);
-	return NULL;
-    }
-
-    Py_INCREF(Py_None);
-    return Py_None;
 }
 
 static PyObject * doisPseudoTTY(PyObject * s, PyObject * args) {
@@ -520,34 +256,6 @@ static PyObject * doSegvHandler(PyObject *s, PyObject *args) {
 
 static PyObject * doAuditDaemon(PyObject *s) {
     audit_daemonize();
-    Py_INCREF(Py_None);
-    return Py_None;
-}
-
-static PyObject * doGetBlkidData(PyObject * s, PyObject * args) {
-    char * dev, * key;
-    blkid_cache cache;
-    blkid_dev bdev = NULL;
-    blkid_tag_iterate titer;
-    const char * type, * data;
-
-    if (!PyArg_ParseTuple(args, "ss", &dev, &key)) return NULL;
-
-    blkid_get_cache(&cache, NULL);
-
-    bdev = blkid_get_dev(cache, dev, BLKID_DEV_NORMAL);
-    if (bdev == NULL)
-        goto out;
-    titer = blkid_tag_iterate_begin(bdev);
-    while (blkid_tag_next(titer, &type, &data) >= 0) {
-        if (!strcmp(type, key)) {
-            blkid_tag_iterate_end(titer);
-            return Py_BuildValue("s", data);
-        }
-    }
-    blkid_tag_iterate_end(titer);
-
- out:
     Py_INCREF(Py_None);
     return Py_None;
 }

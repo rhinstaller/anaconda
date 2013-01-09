@@ -26,10 +26,8 @@ log = logging.getLogger("anaconda")
 import parted
 
 from pyanaconda import bootloader
-from pyanaconda.storage.devicelibs import mdraid
-from pyanaconda.constants import DMI_CHASSIS_VENDOR
+from pyanaconda.storage import arch
 
-import iutil
 from flags import flags
 
 import gettext
@@ -233,7 +231,7 @@ class MacEFI(EFI):
         return ret
 
 class PPC(Platform):
-    _ppcMachine = iutil.getPPCMachine()
+    _ppcMachine = arch.getPPCMachine()
     bootloaderClass = bootloader.GRUB2
     _boot_stage1_device_types = ["partition"]
 
@@ -347,7 +345,7 @@ class ARM(Platform):
     @property
     def armMachine(self):
         if not self._armMachine:
-            self._armMachine = iutil.getARMMachine()
+            self._armMachine = arch.getARMMachine()
         return self._armMachine
 
     def weight(self, fstype=None, mountpoint=None):
@@ -393,10 +391,10 @@ def getPlatform():
     """Check the architecture of the system and return an instance of a
        Platform subclass to match.  If the architecture could not be determined,
        raise an exception."""
-    if iutil.isPPC():
-        ppcMachine = iutil.getPPCMachine()
+    if arch.isPPC():
+        ppcMachine = arch.getPPCMachine()
 
-        if (ppcMachine == "PMac" and iutil.getPPCMacGen() == "NewWorld"):
+        if (ppcMachine == "PMac" and arch.getPPCMacGen() == "NewWorld"):
             return NewWorldPPC()
         elif ppcMachine in ["iSeries", "pSeries"]:
             return IPSeriesPPC()
@@ -404,19 +402,19 @@ def getPlatform():
             return PS3()
         else:
             raise SystemError, "Unsupported PPC machine type: %s" % ppcMachine
-    elif iutil.isS390():
+    elif arch.isS390():
         return S390()
-    elif iutil.isSparc():
+    elif arch.isSparc():
         return Sparc()
-    elif iutil.isEfi():
-        if iutil.isMactel():
+    elif arch.isEfi():
+        if arch.isMactel():
             return MacEFI()
         else:
             return EFI()
-    elif iutil.isX86():
+    elif arch.isX86():
         return X86()
-    elif iutil.isARM():
-        armMachine = iutil.getARMMachine()
+    elif arch.isARM():
+        armMachine = arch.getARMMachine()
         if armMachine == "omap":
             return omapARM()
         else:

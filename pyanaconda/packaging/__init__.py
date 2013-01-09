@@ -53,6 +53,8 @@ log = logging.getLogger("packaging")
 
 from pyanaconda.errors import *
 from pyanaconda.storage.errors import StorageError
+from pyanaconda.storage import util
+from pyanaconda.storage import arch
 #from pyanaconda.progress import progress
 
 from pyanaconda.product import productName, productVersion
@@ -481,7 +483,7 @@ class Payload(object):
                 return
             else:
                 try:
-                    isys.umount(realMountpoint, removeDir=False)
+                    util.umount(realMountpoint)
                 except Exception as e:
                     log.error(str(e))
                     log.info("umount failed -- mounting on top of it")
@@ -507,8 +509,8 @@ class Payload(object):
             else:
                 log.debug("%s already has something mounted on it" % mountpoint)
                 try:
-                    isys.umount(mountpoint, removeDir=False)
-                except Exception as e:
+                    util.umount(mountpoint)
+                except OSError as e:
                     log.error(str(e))
                     log.info("umount failed -- mounting on top of it")
 
@@ -516,8 +518,8 @@ class Payload(object):
         url = "%s:%s" % (server, path)
 
         try:
-            isys.mount(url, mountpoint, fstype="nfs", options=options)
-        except SystemError as e:
+            util.mount(url, mountpoint, fstype="nfs", options=options)
+        except OSError as e:
             raise PayloadSetupError(str(e))
 
     ###
@@ -652,7 +654,7 @@ class PackagePayload(Payload):
             kernels.insert(0, "kernel-PAE")
 
         # most ARM systems use platform-specific kernels
-        if iutil.isARM():
+        if arch.isARM():
             if self.storage.platform.armMachine is not None:
                 kernels = ["kernel-%s" % self.storage.platform.armMachine]
 

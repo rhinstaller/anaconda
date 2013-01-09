@@ -30,6 +30,7 @@ from collections import OrderedDict
 
 from pyanaconda import localization
 from pyanaconda import iutil
+from pyanaconda.storage import arch
 
 import logging
 log = logging.getLogger("anaconda")
@@ -105,7 +106,7 @@ def save_hw_clock(timezone):
 
     """
 
-    if iutil.isS390():
+    if arch.isS390():
         return
 
     cmd = "hwclock"

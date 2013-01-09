@@ -111,9 +111,10 @@ import _ped
 import block
 
 from errors import *
-from pyanaconda.iutil import notify_kernel, numeric_type
-from pyanaconda.flags import flags
-from pyanaconda.anaconda_log import log_method_call
+import util
+import arch
+from flags import flags
+from storage_log import log_method_call
 from udev import *
 from formats import get_device_format_class, getFormat, DeviceFormat
 
@@ -474,9 +475,9 @@ class StorageDevice(Device):
 
         self.uuid = uuid
         self._format = None
-        self._size = numeric_type(size)
-        self.major = numeric_type(major)
-        self.minor = numeric_type(minor)
+        self._size = util.numeric_type(size)
+        self.major = util.numeric_type(major)
+        self.minor = util.numeric_type(minor)
         self.sysfsPath = sysfsPath
         self._serial = serial
         self._vendor = vendor
@@ -665,7 +666,7 @@ class StorageDevice(Device):
 
         path = os.path.normpath("/sys/%s" % self.sysfsPath)
         try:
-            notify_kernel(path, action="change")
+            util.notify_kernel(path, action="change")
         except (ValueError, IOError) as e:
             log.warning("failed to notify kernel of change: %s" % e)
 
@@ -1169,7 +1170,7 @@ class PartitionDevice(StorageDevice):
             self.req_name = name
             self.req_partType = partType
             self.req_primary = primary
-            self.req_max_size = numeric_type(maxsize)
+            self.req_max_size = util.numeric_type(maxsize)
             self.req_grow = grow
             self.req_bootable = bootable
 
@@ -1376,7 +1377,7 @@ class PartitionDevice(StorageDevice):
     def _setBootable(self, bootable):
         """ Set the bootable flag for this partition. """
         if self.partedPartition:
-            if iutil.isS390():
+            if arch.isS390():
                 return
             if self.flagAvailable(parted.PARTITION_BOOT):
                 if bootable:
@@ -1765,16 +1766,14 @@ class DMDevice(StorageDevice):
 
     def setupPartitions(self):
         log_method_call(self, name=self.name, kids=self.kids)
-        rc = iutil.execWithRedirect("kpartx",
-                                ["-a", "-s", self.path])
+        rc = util.run_program(["kpartx", "-a", "-s", self.path])
         if rc:
             raise DMError("partition activation failed for '%s'" % self.name)
         udev_settle()
 
     def teardownPartitions(self):
         log_method_call(self, name=self.name, kids=self.kids)
-        rc = iutil.execWithRedirect("kpartx",
-                                ["-d", "-s", self.path])
+        rc = util.run_program(["kpartx", "-d", "-s", self.path])
         if rc:
             raise DMError("partition deactivation failed for '%s'" % self.name)
         udev_settle()
@@ -1985,11 +1984,11 @@ class LVMVolumeGroupDevice(DMDevice):
                           exists=exists, sysfsPath=sysfsPath)
 
         self.uuid = uuid
-        self.free = numeric_type(free)
-        self.peSize = numeric_type(peSize)
-        self.peCount = numeric_type(peCount)
-        self.peFree = numeric_type(peFree)
-        self.pvCount = numeric_type(pvCount)
+        self.free = util.numeric_type(free)
+        self.peSize = util.numeric_type(peSize)
+        self.peCount = util.numeric_type(peCount)
+        self.peFree = util.numeric_type(peFree)
+        self.pvCount = util.numeric_type(pvCount)
         self.lv_names = []
         self.lv_uuids = []
         self.lv_sizes = []
@@ -2321,7 +2320,7 @@ class LVMVolumeGroupDevice(DMDevice):
 
     def align(self, size, roundup=None):
         """ Align a size to a multiple of physical extent size. """
-        size = numeric_type(size)
+        size = util.numeric_type(size)
 
         if roundup:
             round = math.ceil
@@ -2425,10 +2424,10 @@ class LVMLogicalVolumeDevice(DMDevice):
 
         if not self.exists:
             self.req_grow = grow
-            self.req_max_size = numeric_type(maxsize)
+            self.req_max_size = util.numeric_type(maxsize)
             # XXX should we enforce that req_size be pe-aligned?
             self.req_size = self._size
-            self.req_percent = numeric_type(percent)
+            self.req_percent = util.numeric_type(percent)
 
         if self.singlePV:
             # make sure there is at least one PV that can hold this LV
@@ -2471,7 +2470,7 @@ class LVMLogicalVolumeDevice(DMDevice):
         return self.stripes > 1
 
     def _setSize(self, size):
-        size = self.vg.align(numeric_type(size))
+        size = self.vg.align(util.numeric_type(size))
         log.debug("trying to set lv %s size to %dMB" % (self.name, size))
         if size <= self.vg.freeSpace + self.vgSpaceUsed:
             self._size = size
@@ -2671,8 +2670,8 @@ class MDRaidArrayDevice(StorageDevice):
                                  {"raidLevel": self.level, "minMembers": mdraid.get_raid_min_members(self.level)}
 
         self.uuid = uuid
-        self._totalDevices = numeric_type(totalDevices)
-        self._memberDevices = numeric_type(memberDevices)
+        self._totalDevices = util.numeric_type(totalDevices)
+        self._memberDevices = util.numeric_type(memberDevices)
 
         self.chunkSize = 512.0 / 1024.0         # chunk size in MB
 
@@ -3372,8 +3371,7 @@ class MultipathDevice(DMDevice):
         """
         if self.exists and os.path.exists(self.path):
             #self.teardownPartitions()
-            #rc = iutil.execWithRedirect("multipath",
-            #                    ['-f', self.name])
+            #rc = util.run_program(["multipath", '-f', self.name])
             #if rc:
             #    raise MPathError("multipath deactivation failed for '%s'" %
             #                    self.name)
@@ -3392,8 +3390,7 @@ class MultipathDevice(DMDevice):
         log_method_call(self, self.name, orig=orig, status=self.status,
                         controllable=self.controllable)
         udev_settle()
-        rc = iutil.execWithRedirect("multipath",
-                            [self.name])
+        rc = util.run_program(["multipath", self.name])
         if rc:
             raise MPathError("multipath activation failed for '%s'" %
                             self.name, hardware_fault=True)
@@ -3555,7 +3552,7 @@ class DirectoryDevice(FileDevice):
     def _create(self):
         """ Create the device. """
         log_method_call(self, self.name, status=self.status)
-        iutil.mkdirChain(self.path)
+        util.makedirs(self.path)
 
 
 class LoopDevice(StorageDevice):
@@ -3775,8 +3772,6 @@ class OpticalDevice(StorageDevice):
 
     def eject(self):
         """ Eject the drawer. """
-        from pyanaconda import _isys
-
         log_method_call(self, self.name, status=self.status)
         if not self.exists:
             raise DeviceError("device has not been created", self.name)
@@ -3788,16 +3783,10 @@ class OpticalDevice(StorageDevice):
             log.info("noeject in effect, not ejecting cdrom")
             return
 
-        # Make a best effort attempt to do the eject.  If it fails, it's not
-        # critical.
-        fd = os.open(self.path, os.O_RDONLY | os.O_NONBLOCK)
-
         try:
-            _isys.ejectcdrom(fd)
-        except SystemError as e:
+            util.run_program(["eject", self.name]) 
+        except OSError as e:
             log.warning("error ejecting cdrom %s: %s" % (self.name, e))
-
-        os.close(fd)
 
 
 class ZFCPDiskDevice(DiskDevice):

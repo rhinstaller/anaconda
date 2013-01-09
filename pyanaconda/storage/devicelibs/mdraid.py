@@ -22,7 +22,7 @@
 
 import os
 
-from pyanaconda import iutil
+from .. import util
 from ..errors import *
 
 import gettext
@@ -169,7 +169,7 @@ def get_member_space(size, disks, level=None):
     return space * disks
 
 def mdadm(args):
-    ret = iutil.execWithRedirect("mdadm", args)
+    ret = util.run_program(["mdadm"] + args)
     if ret:
         raise MDRaidError("running mdadm " + " ".join(args) + " failed")
 
@@ -233,17 +233,17 @@ def mddeactivate(device):
         raise MDRaidError("mddeactivate failed for %s: %s" % (device, msg))
 
 def mdexamine(device):
-    vars = iutil.execWithCapture("mdadm",
-                                 ["--examine", "--brief", device]).split()
+    _vars = util.capture_output(["mdadm",
+                                 "--examine", "--brief", device]).split()
 
     info = {}
-    if len(vars) > 1 and vars[1].startswith("/dev/md"):
-        info["device"] = vars[1]
-        vars = vars[2:]
-    elif len(vars) > 1:
-        vars = vars[1:]
+    if len(_vars) > 1 and _vars[1].startswith("/dev/md"):
+        info["device"] = _vars[1]
+        _vars = _vars[2:]
+    elif len(_vars) > 1:
+        _vars = _vars[1:]
 
-    for var in vars:
+    for var in _vars:
         (name, equals, value) = var.partition("=")
         if not equals:
             continue

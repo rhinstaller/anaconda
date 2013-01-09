@@ -23,13 +23,12 @@
 import os
 import copy
 
-from pyanaconda.flags import flags
-
-from pyanaconda.anaconda_log import log_method_call
-from pyanaconda import iutil
+from ..storage_log import log_method_call
 import parted
 import _ped
 from ..errors import *
+from .. import arch
+from ..flags import flags
 from ..udev import udev_settle
 from . import DeviceFormat, register_device_format
 
@@ -172,7 +171,7 @@ class DiskLabel(DeviceFormat):
             # Set the boot flag on the GPT PMBR, this helps some BIOS systems boot
             if self._partedDisk.isFlagAvailable(parted.DISK_GPT_PMBR_BOOT):
                 # MAC can boot as EFI or as BIOS, neither should have PMBR boot set
-                if iutil.isEfi() or iutil.isMactel():
+                if arch.isEfi() or arch.isMactel():
                     self._partedDisk.unsetFlag(parted.DISK_GPT_PMBR_BOOT)
                     log.debug("Clear pmbr_boot on %s" % (self._partedDisk,))
                 else:

@@ -23,7 +23,7 @@
 import os
 
 import block
-from pyanaconda import iutil
+from .. import util
 from ..errors import *
 
 import gettext
@@ -33,25 +33,18 @@ import logging
 log = logging.getLogger("storage")
 
 def dm_setup(args):
-    ret = iutil.execWithRedirect("dmsetup", args)
+    ret = util.run_program(["dmsetup"] + args)
     if ret:
-        raise DMError(ret.stderr)
+        raise DMError("Failed to run dmsetup %s" % " ".join(args))
 
 def dm_create_linear(map_name, device, length, uuid):
     table = "0 %d linear %s 0" % (length, device)
     args = ["create", map_name, "--uuid", uuid, "--table", "%s" % table]
-    try:
-        dm_setup(args)
-    except DMError as msg:
-        raise DMError("dm_create_linear (%s, %d, %s) failed: %s"
-                                % (map_name, length, device, msg))
+    dm_setup(args)
 
 def dm_remove(map_name):
     args = ["remove", map_name]
-    try:
-        dm_setup(args)
-    except DMError as msg:
-        raise DMError("dm_remove (%s) failed: %s" % (map_name, msg))
+    dm_setup(args)
 
 def name_from_dm_node(dm_node):
     # first, try sysfs

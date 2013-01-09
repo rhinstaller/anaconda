@@ -44,6 +44,7 @@ import sys
 import urlgrabber
 import pykickstart.commands as commands
 from storage.devices import *
+from pyanaconda.storage import arch
 from pyanaconda import keyboard
 from pyanaconda import ntp
 from pyanaconda import timezone
@@ -849,7 +850,7 @@ class PartitionData(commands.partition.F18_PartData):
             if self.onPart:
                 ksdata.onPart[kwargs["name"]] = self.onPart
         elif self.mountpoint == "/boot/efi":
-            if iutil.isMactel():
+            if arch.isMactel():
                 type = "hfs+"
             else:
                 type = "EFI System Partition"

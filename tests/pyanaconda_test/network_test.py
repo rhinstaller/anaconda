@@ -211,8 +211,8 @@ class NetworkTest(mock.TestCase):
 
     def networkdevice_str_test(self):
         import pyanaconda.network
-        pyanaconda.network.iutil = mock.Mock()
-        pyanaconda.network.iutil.isS390.return_value = False
+        pyanaconda.network.arch = mock.Mock()
+        pyanaconda.network.arch.isS390.return_value = False
 
         nd = pyanaconda.network.NetworkDevice(self.NETSCRIPTSDIR, self.DEVICE)
         nd.info = {'HWADDR': '00:11:22:50:55:50', 'DEVICE': 'eth0', 'TYPE': 'Ethernet'}
@@ -381,8 +381,8 @@ class NetworkTest(mock.TestCase):
 
     def iface_for_host_ip_test(self):
         import pyanaconda.network
-        pyanaconda.network.iutil = mock.Mock()
-        pyanaconda.network.iutil.execWithCapture.return_value = \
+        pyanaconda.network.arch = mock.Mock()
+        pyanaconda.network.arch.execWithCapture.return_value = \
             "10.0.0.2 dev eth0  src 10.0.0.1"
 
         ret = pyanaconda.network.ifaceForHostIP('10.0.0.2')

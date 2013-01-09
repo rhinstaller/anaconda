@@ -19,17 +19,17 @@
 
 pkgpyexecdir = $(pyexecdir)/py$(PACKAGE_NAME)
 
-ISYS_SRCS = devices.c imount.c lang.c \
+ISYS_SRCS = devices.c lang.c \
             isofs.c linkdetect.c vio.c ethtool.c eddsupport.c iface.c \
             auditd.c log.c mem.c
 
 dist_noinst_HEADERS = *.h
 
-ISYS_CFLAGS = -DVERSION='"$(PACKAGE_VERSION)"' $(NFS_CFLAGS) \
+ISYS_CFLAGS = -DVERSION='"$(PACKAGE_VERSION)"' \
               $(NETWORKMANAGER_CFLAGS) $(LIBNL_CFLAGS) $(LIBNM_GLIB_CFLAGS) \
               $(SELINUX_CFLAGS)
-ISYS_LIBS   = $(RESOLV_LIBS) $(EXT2FS_LIBS) $(ZLIB_LIBS) \
-              $(DEVMAPPER_LIBS) $(BLKID_LIBS) $(X11_LIBS) $(SELINUX_LIBS) \
+ISYS_LIBS   = $(RESOLV_LIBS) $(ZLIB_LIBS) \
+              $(DEVMAPPER_LIBS) $(X11_LIBS) $(SELINUX_LIBS) \
               $(LIBNL_LIBS) $(LIBNM_GLIB_LIBS)
 
 isysdir     = $(pkgpyexecdir)/isys

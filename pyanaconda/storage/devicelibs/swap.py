@@ -21,18 +21,17 @@
 #
 
 import resource
-
-from pyanaconda import iutil
 import os
 
 from ..errors import *
+from .. import util
 from . import dm
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
 
 import logging
-log = logging.getLogger("anaconda")
+log = logging.getLogger("storage")
 
 def mkswap(device, label=''):
     # We use -f to force since mkswap tends to refuse creation on lvs with
@@ -42,7 +41,7 @@ def mkswap(device, label=''):
         argv.extend(["-L", label])
     argv.append(device)
 
-    ret = iutil.execWithRedirect("mkswap", argv)
+    ret = util.run_program(["mkswap"] + argv)
 
     if ret:
         raise SwapError("mkswap failed for '%s'" % device)
@@ -83,13 +82,13 @@ def swapon(device, priority=None):
         argv.extend(["-p", "%d" % priority])
     argv.append(device)
         
-    rc = iutil.execWithRedirect("swapon", argv)
+    rc = util.run_program(["swapon"] + argv)
 
     if rc:
         raise SwapError("swapon failed for '%s'" % device)
 
 def swapoff(device):
-    rc = iutil.execWithRedirect("swapoff", [device])
+    rc = util.run_program(["swapoff", device])
 
     if rc:
         raise SwapError("swapoff failed for '%s'" % device)
@@ -127,7 +126,7 @@ def swapSuggestion(quiet=False, hibernation=False):
 
     """
 
-    mem = iutil.memInstalled()/1024
+    mem = util.total_memory()/1024
     mem = ((mem/16)+1)*16
     if not quiet:
         log.info("Detected %sM of memory", mem)

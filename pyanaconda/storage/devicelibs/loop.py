@@ -22,7 +22,7 @@
 
 import os
 
-from pyanaconda import iutil
+from .. import util
 from ..errors import *
 
 import gettext
@@ -34,15 +34,15 @@ log = logging.getLogger("storage")
 
 def losetup(args, capture=False):
     if capture:
-        exec_func = iutil.execWithCapture
+        exec_func = util.capture_output
     else:
-        exec_func = iutil.execWithRedirect
+        exec_func = util.run_program
 
     try:
         # ask losetup what this loop device's backing device is
-        ret = exec_func("losetup", args)
-    except RuntimeError as e:
-        raise LoopError(str(e))
+        ret = exec_func(["losetup"] + args)
+    except OSError as e:
+        raise LoopError(e.strerror)
 
     return ret
 

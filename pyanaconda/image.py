@@ -17,11 +17,14 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-import isys, iutil
+import isys
 import os, os.path, stat, sys
+from pyanaconda.storage import util
 from constants import *
 
 from errors import *
+
+import pyanaconda.storage.arch
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
@@ -29,7 +32,7 @@ _ = lambda x: gettext.ldgettext("anaconda", x)
 import logging
 log = logging.getLogger("anaconda")
 
-_arch = iutil.getArch()
+_arch = pyanaconda.storage.arch.getArch()
 
 def findFirstIsoImage(path):
     """
@@ -59,12 +62,12 @@ def findFirstIsoImage(path):
 
         log.debug("mounting %s on /mnt/install/cdimage", what)
         try:
-            isys.mount(what, "/mnt/install/cdimage", fstype="iso9660", readOnly=True)
-        except SystemError:
+            util.mount(what, "/mnt/install/cdimage", fstype="iso9660", options="ro")
+        except OSError:
             continue
 
         if not os.access("/mnt/install/cdimage/.discinfo", os.R_OK):
-            isys.umount("/mnt/install/cdimage", removeDir=False)
+            util.umount("/mnt/install/cdimage")
             continue
 
         log.debug("Reading .discinfo")
@@ -78,14 +81,14 @@ def findFirstIsoImage(path):
         if discArch != arch:
             log.warning("findFirstIsoImage: architectures mismatch: %s, %s" %
                         (discArch, arch))
-            isys.umount("/mnt/install/cdimage", removeDir=False)
+            util.umount("/mnt/install/cdimage")
             continue
 
         # If there's no repodata, there's no point in trying to
         # install from it.
         if not os.access("/mnt/install/cdimage/repodata", os.R_OK):
             log.warning("%s doesn't have repodata, skipping" %(what,))
-            isys.umount("/mnt/install/cdimage", removeDir=False)
+            util.umount("/mnt/install/cdimage")
             continue
 
         # warn user if images appears to be wrong size
@@ -96,7 +99,7 @@ def findFirstIsoImage(path):
                 raise exn
 
         log.info("Found disc at %s" % fn)
-        isys.umount("/mnt/install/cdimage", removeDir=False)
+        util.umount("/mnt/install/cdimage")
         return fn
 
     return None
@@ -149,8 +152,8 @@ def mountImageDirectory(method, storage):
 
         while True:
             try:
-                isys.mount(url, ISO_DIR, options=method.options)
-            except SystemError as e:
+                util.mount(url, ISO_DIR, fstype="nfs", options=method.options)
+            except OSError as e:
                 log.error("couldn't mount ISO source directory: %s" % e)
                 exn = MediaMountError(str(e))
                 if errorHandler.cb(exn) == ERROR_RAISE:
@@ -172,8 +175,8 @@ def mountImage(isodir, tree):
             image = os.path.normpath("%s/%s" % (isodir, image))
 
         try:
-            isys.mount(image, tree, fstype = 'iso9660', readOnly = True)
-        except SystemError:
+            util.mount(image, tree, fstype = 'iso9660', options="ro")
+        except OSError:
             exn = MissingImageError()
             if errorHandler.cb(exn) == ERROR_RAISE:
                 raise exn
@@ -211,7 +214,7 @@ def potentialHdisoSources(devicetree):
 
 def umountImage(tree):
     if os.path.ismount(tree):
-        isys.umount(tree, removeDir=False)
+        util.umount(tree)
 
 def unmountCD(dev):
     if not dev:

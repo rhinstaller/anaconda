@@ -409,13 +409,15 @@ def setupDisplay(anaconda, opts, addon_paths=None):
     from pyanaconda.ui.tui.spokes.askvnc import AskVNCSpoke
     from pykickstart.constants import DISPLAY_MODE_TEXT
     from pyanaconda import network
+    from pyanaconda.storage import arch
+    from pyanaconda.storage import util
 
     graphical_failed = 0
     vncS = vnc.VncServer()          # The vnc Server object.
     vncS.anaconda = anaconda
 
     anaconda.displayMode = opts.display_mode
-    anaconda.isHeadless = opts.isHeadless or iutil.isS390()
+    anaconda.isHeadless = opts.isHeadless or arch.isS390()
 
     if opts.vnc:
         flags.usevnc = 1
@@ -456,7 +458,7 @@ def setupDisplay(anaconda, opts, addon_paths=None):
             vncS.vncconnectport = anaconda.ksdata.vnc.port
 
     # disable VNC over text question when not enough memory is available
-    if iutil.memInstalled() < isys.MIN_GUI_RAM:
+    if util.total_memory() < isys.MIN_GUI_RAM:
         flags.vncquestion = False
 
     # disable VNC question if text mode is requested and this is a ks install

@@ -22,7 +22,6 @@
 #            Michael Fulbright <msf@redhat.com>
 #
 
-import inspect
 import logging
 from logging.handlers import SysLogHandler, SYSLOG_UDP_PORT
 import os
@@ -31,7 +30,7 @@ import sys
 import types
 import warnings
 
-import iutil
+from pyanaconda.storage import arch
 from flags import flags
 
 DEFAULT_TTY_LEVEL = logging.INFO
@@ -48,6 +47,9 @@ STORAGE_LOG_FILE = "/tmp/storage.log"
 PACKAGING_LOG_FILE = "/tmp/packaging.log"
 ANACONDA_SYSLOG_FACILITY = SysLogHandler.LOG_LOCAL1
 
+from threading import Lock
+program_log_lock = Lock()
+
 logLevelMap = {"debug": logging.DEBUG, "info": logging.INFO,
                "warning": logging.WARNING, "error": logging.ERROR,
                "critical": logging.CRITICAL}
@@ -60,46 +62,6 @@ def autoSetLevel(handler, value):
 def setHandlersLevel(logger, level):
     map(lambda hdlr: hdlr.setLevel(level),
         filter (lambda hdlr: hasattr(hdlr, "autoSetLevel") and hdlr.autoSetLevel, logger.handlers))
-
-def function_name_and_depth():
-    IGNORED_FUNCS = ["function_name_and_depth",
-                     "log_method_call",
-                     "log_method_return"]
-    stack = inspect.stack()
-
-    for i, frame in enumerate(stack):
-        methodname = frame[3]
-        if methodname not in IGNORED_FUNCS:
-            return (methodname, len(stack) - i)
-
-    return ("unknown function?", 0)
-
-def log_method_call(d, *args, **kwargs):
-    classname = d.__class__.__name__
-    (methodname, depth) = function_name_and_depth()
-    spaces = depth * ' '
-    fmt = "%s%s.%s:"
-    fmt_args = [spaces, classname, methodname]
-
-    for arg in args:
-        fmt += " %s ;"
-        fmt_args.append(arg)
-
-    for k, v in kwargs.items():
-        fmt += " %s: %s ;"
-        if "pass" in k.lower() and v:
-            v = "Skipped"
-        fmt_args.extend([k, v])
-
-    logging.getLogger("storage").debug(fmt % tuple(fmt_args))
-
-def log_method_return(d, retval):
-    classname = d.__class__.__name__
-    (methodname, depth) = function_name_and_depth()
-    spaces = depth * ' '
-    fmt = "%s%s.%s returned %s"
-    fmt_args = (spaces, classname, methodname, retval)
-    logging.getLogger("storage").debug(fmt % fmt_args)
 
 class AnacondaSyslogHandler(SysLogHandler):
     def __init__(self,
@@ -143,7 +105,7 @@ class AnacondaLog:
             logger.setLevel(logging.DEBUG)
             self.forwardToSyslog(logger)
             # Logging of basic stuff and storage to tty3.
-            if not iutil.isS390() and os.access(MAIN_LOG_TTY, os.W_OK):
+            if not arch.isS390() and os.access(MAIN_LOG_TTY, os.W_OK):
                 self.addFileHandler(MAIN_LOG_TTY, logger,
                                     fmtStr=TTY_FORMAT,
                                     autoLevel=True)

@@ -25,17 +25,6 @@
 
 #include <glib.h>
 
-/* The *_RAM sizes are all in KB */
-#if defined(__powerpc64__) || defined(__sparc__)
-  #define MIN_RAM                 768*1024
-  #define GUI_INSTALL_EXTRA_RAM   512*1024
-#else
-  #define MIN_RAM                 512 * 1024
-  #define GUI_INSTALL_EXTRA_RAM   0 * 1024
-#endif
-#define MIN_GUI_RAM             MIN_RAM + GUI_INSTALL_EXTRA_RAM
-#define EARLY_SWAP_RAM          896 * 1024
-
 #define MEMINFO "/proc/meminfo"
 
 guint64 totalMemory(void);

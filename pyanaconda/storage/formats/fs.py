@@ -31,14 +31,13 @@ import os
 import sys
 import tempfile
 import selinux
-from pyanaconda import isys
 
 from ..errors import *
 from . import DeviceFormat, register_device_format
-from pyanaconda import iutil
-from pyanaconda.flags import flags
+from .. import util
+from ..flags import flags
 from parted import fileSystemType
-from pyanaconda.anaconda_log import log_method_call
+from ..storage_log import log_method_call
 
 import logging
 log = logging.getLogger("storage")
@@ -255,12 +254,12 @@ class FS(DeviceFormat):
         size = self._size
 
         if self.infofsProg and self.exists and not size and \
-           iutil.find_program_in_path(self.infofsProg):
+           util.find_program_in_path(self.infofsProg):
             try:
                 values = []
                 argv = self._defaultInfoOptions + [ self.device ]
 
-                buf = iutil.execWithCapture(self.infofsProg, argv)
+                buf = util.capture_output([self.infofsProg] + argv)
 
                 for line in buf.splitlines():
                     found = False
@@ -363,8 +362,8 @@ class FS(DeviceFormat):
         argv = self._getFormatOptions(options=options)
 
         try:
-            ret = iutil.execWithRedirect(self.mkfsProg, argv)
-        except Exception as e:
+            ret = util.run_program([self.mkfsProg] + argv)
+        except OSError as e:
             raise FormatCreateError(e, self.device)
 
         if ret:
@@ -416,9 +415,8 @@ class FS(DeviceFormat):
             log.info("Minimum size changed, setting targetSize on %s to %s" \
                      % (self.device, self.targetSize))
         try:
-            ret = iutil.execWithRedirect(self.resizefsProg,
-                                         self.resizeArgs)
-        except Exception as e:
+            ret = util.run_program([self.resizefsProg] + self.resizeArgs)
+        except OSError as e:
             raise FSResizeError(e, self.device)
 
         if ret:
@@ -453,9 +451,8 @@ class FS(DeviceFormat):
             raise FSError("device does not exist")
 
         try:
-            ret = iutil.execWithRedirect(self.fsckProg,
-                                         self._getCheckArgs())
-        except Exception as e:
+            ret = util.run_program([self.fsckProg] + self._getCheckArgs())
+        except OSError as e:
             raise FSError("filesystem check failed: %s" % e)
 
         if self._fsckFailed(ret):
@@ -474,8 +471,8 @@ class FS(DeviceFormat):
 
         for module in self._modules:
             try:
-                rc = iutil.execWithRedirect("modprobe", [module])
-            except Exception as e:
+                rc = util.run_program(["modprobe", module])
+            except OSError as e:
                 log.error("Could not load kernel module %s: %s" % (module, e))
                 self._supported = False
                 return
@@ -551,9 +548,9 @@ class FS(DeviceFormat):
         #
         #mountpoint = os.path.join(chroot, mountpoint)
         chrootedMountpoint = os.path.normpath("%s/%s" % (chroot, mountpoint))
-        iutil.mkdirChain(chrootedMountpoint)
+        util.makedirs(chrootedMountpoint)
         if flags.selinux:
-            ret = isys.resetFileContext(mountpoint, chroot)
+            ret = util.reset_file_context(mountpoint, chroot)
             log.info("set SELinux context for mountpoint %s to %s" \
                      % (mountpoint, ret))
 
@@ -561,11 +558,13 @@ class FS(DeviceFormat):
         if not options or not isinstance(options, str):
             options = self.options
 
+        if isinstance(self, BindFS):
+            options = "bind," + options
+
         try: 
-            rc = isys.mount(self.device, chrootedMountpoint, 
+            rc = util.mount(self.device, chrootedMountpoint,
                             fstype=self.mountType,
-                            options=options,
-                            bindMount=isinstance(self, BindFS))
+                            options=options)
         except Exception as e:
             raise FSError("mount failed: %s" % e)
 
@@ -573,11 +572,11 @@ class FS(DeviceFormat):
             raise FSError("mount failed: %s" % rc)
 
         if flags.selinux and "ro" not in options.split(","):
-            ret = isys.resetFileContext(mountpoint, chroot)
+            ret = util.reset_file_context(mountpoint, chroot)
             log.info("set SELinux context for newly mounted filesystem "
                      "root at %s to %s" %(mountpoint, ret))
-            isys.setFileContext("%s/lost+found" % mountpoint,
-                                lost_and_found_context, chroot)
+            util.set_file_context("%s/lost+found" % mountpoint,
+                               lost_and_found_context, chroot)
 
         self._mountpoint = chrootedMountpoint
 
@@ -593,7 +592,7 @@ class FS(DeviceFormat):
         if not os.path.exists(self._mountpoint):
             raise FSError("mountpoint does not exist")
 
-        rc = isys.umount(self._mountpoint, removeDir = False)
+        rc = util.umount(self._mountpoint)
         if rc:
             raise FSError("umount failed")
 
@@ -617,7 +616,7 @@ class FS(DeviceFormat):
             raise FSError("device does not exist")
 
         argv = self._getLabelArgs(label)
-        rc = iutil.execWithRedirect(self.labelfsProg, argv)
+        rc = util.run_program([self.labelfsProg] + argv)
         if rc:
             raise FSError("label failed")
 
@@ -625,7 +624,7 @@ class FS(DeviceFormat):
         self.notifyKernel()
 
     def _getRandomUUID(self):
-        uuid = iutil.execWithCapture("uuidgen", []).strip()
+        uuid = util.capture_output(["uuidgen"]).strip()
         return uuid
 
     def writeRandomUUID(self):
@@ -668,7 +667,7 @@ class FS(DeviceFormat):
             if not prog:
                 continue
 
-            if not iutil.find_program_in_path(prog):
+            if not util.find_program_in_path(prog):
                 return False
 
         return True
@@ -830,11 +829,8 @@ class Ext2FS(FS):
 
         err = None
         try:
-            rc = iutil.execWithRedirect("tune2fs",
-                                        ["-U",
-                                         "random",
-                                         self.device])
-        except Exception as e:
+            rc = util.run_program(["tune2fs", "-U", "random", self.device])
+        except OSError as e:
             err = str(e)
         else:
             if rc:
@@ -854,8 +850,7 @@ class Ext2FS(FS):
 
             if self.exists and os.path.exists(self.device):
                 # get block size
-                buf = iutil.execWithCapture(self.infofsProg,
-                                            ["-h", self.device])
+                buf = util.capture_output([self.infofsProg, "-h", self.device])
                 for line in buf.splitlines():
                     if line.startswith("Block size:"):
                         blockSize = int(line.split(" ")[-1])
@@ -869,8 +864,8 @@ class Ext2FS(FS):
                                   "on %s" % (self.mountType, self.device))
 
                 # get minimum size according to resize2fs
-                buf = iutil.execWithCapture(self.resizefsProg,
-                                            ["-P", self.device])
+                buf = util.capture_output([self.resizefsProg,
+                                           "-P", self.device])
                 for line in buf.splitlines():
                     if "minimum size of the filesystem:" not in line:
                         continue
@@ -1067,7 +1062,7 @@ class GFS2(FS):
     def supported(self):
         """ Is this filesystem a supported type? """
         supported = self._supported
-        if flags.cmdline.has_key("gfs2"):
+        if flags.gfs2:
             supported = self.utilsAvailable
 
         return supported
@@ -1099,7 +1094,7 @@ class JFS(FS):
     def supported(self):
         """ Is this filesystem a supported type? """
         supported = self._supported
-        if flags.cmdline.has_key("jfs"):
+        if flags.jfs:
             supported = self.utilsAvailable
 
         return supported
@@ -1133,7 +1128,7 @@ class ReiserFS(FS):
     def supported(self):
         """ Is this filesystem a supported type? """
         supported = self._supported
-        if flags.cmdline.has_key("reiserfs"):
+        if flags.reiserfs:
             supported = self.utilsAvailable
 
         return supported
@@ -1184,15 +1179,13 @@ class XFS(FS):
             return
 
         try:
-            iutil.execWithRedirect("xfs_freeze", ["-f", self.mountpoint],
-                                   root=root)
-        except (RuntimeError, OSError) as e:
+            util.run_program(["xfs_freeze", "-f", self.mountpoint], root=root)
+        except OSError as e:
             log.error("failed to run xfs_freeze: %s" % e)
 
         try:
-            iutil.execWithRedirect("xfs_freeze", ["-u", self.mountpoint],
-                                   root=root)
-        except (RuntimeError, OSError) as e:
+            util.run_program(["xfs_freeze", "-u", self.mountpoint], root=root)
+        except OSError as e:
             log.error("failed to run xfs_freeze: %s" % e)
 
 register_device_format(XFS)
@@ -1273,10 +1266,9 @@ class NTFS(FS):
             # we try one time to determine the minimum size.
             size = self._minSize
             if self.exists and os.path.exists(self.device) and \
-               iutil.find_program_in_path(self.resizefsProg):
+               util.find_program_in_path(self.resizefsProg):
                 minSize = None
-                buf = iutil.execWithCapture(self.resizefsProg,
-                                            ["-m", self.device])
+                buf = util.run_program([self.resizefsProg, "-m", self.device])
                 for l in buf.split("\n"):
                     if not l.startswith("Minsize"):
                         continue

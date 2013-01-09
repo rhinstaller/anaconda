@@ -31,16 +31,13 @@ import copy
 import nss.nss
 import parted
 
-from pyanaconda import isys
-from pyanaconda import iutil
 from pyanaconda.constants import *
 from pykickstart.constants import *
-from pyanaconda.flags import flags
 from pyanaconda import tsort
 from pyanaconda.errors import *
 from pyanaconda.bootloader import BootLoaderError
-from pyanaconda.anaconda_log import log_method_call
 
+from storage_log import log_method_call
 from errors import *
 from devices import *
 from devicetree import DeviceTree
@@ -63,6 +60,14 @@ import iscsi
 import fcoe
 import zfcp
 import dasd
+import util
+import arch
+import flags
+
+if flags.installer_mode:
+    from pyanaconda import isys
+else:
+    isys = None
 
 import shelve
 import contextlib
@@ -123,7 +128,7 @@ def storageInitialize(storage, ksdata, protected):
 
     # XXX I don't understand why I have to do this, but this is needed to
     #     populate the udev db
-    iutil.execWithRedirect("udevadm", ["control", "--property=ANACONDA=1"])
+    util.run_program(["udevadm", "control", "--property=ANACONDA=1"])
     udev_trigger(subsystem="block", action="change")
 
     # Before we set up the storage system, we need to know which disks to
@@ -137,30 +142,24 @@ def storageInitialize(storage, ksdata, protected):
         storage.config.protectedDevSpecs.extend(protected)
         storage.reset()
 
-        if not flags.livecdInstall and not storage.protectedDevices:
-            if anaconda.upgrade:
-                return
-            else:
-                raise UnknownSourceDeviceError(protected)
+        if not flags.live_install and not storage.protectedDevices:
+            raise UnknownSourceDeviceError(protected)
     else:
         storage.reset()
 
     # kickstart uses all the disks
-    if flags.automatedInstall:
+    if flags.automated_install:
         if not ksdata.ignoredisk.onlyuse:
             ksdata.ignoredisk.onlyuse = [d.name for d in storage.disks \
                                          if d.name not in ksdata.ignoredisk.ignoredisk]
             log.debug("onlyuse is now: %s" % (",".join(ksdata.ignoredisk.onlyuse)))
 
 def turnOnFilesystems(storage):
-    upgrade = "preupgrade" in flags.cmdline
-
-    if not upgrade:
-        if (flags.livecdInstall and not flags.imageInstall and not storage.fsset.active):
-            # turn off any swaps that we didn't turn on
-            # needed for live installs
-            iutil.execWithRedirect("swapoff", ["-a"])
-        storage.devicetree.teardownAll()
+    if (flags.live_install and not flags.image_install and not storage.fsset.active):
+        # turn off any swaps that we didn't turn on
+        # needed for live installs
+        util.run_program(["swapoff", "-a"])
+    storage.devicetree.teardownAll()
 
     try:
         storage.doIt()
@@ -394,7 +393,7 @@ class Storage(object):
         if self.data:
             self.config.update(self.data)
 
-        if not flags.imageInstall:
+        if not flags.image_install:
             self.iscsi.startup()
             self.fcoe.startup()
             self.zfcp.startup()
@@ -402,9 +401,6 @@ class Storage(object):
                               self.config.exclusiveDisks,
                               self.config.initializeDisks)
         clearPartType = self.config.clearPartType # save this before overriding it
-        if self.data and self.data.upgrade.upgrade:
-            self.config.clearPartType = CLEARPART_TYPE_NONE
-
         if self.dasd:
             # Reset the internal dasd list (823534)
             self.dasd.clear_device_list()
@@ -1300,7 +1296,7 @@ class Storage(object):
         else:
             template = prefix
 
-        if flags.imageInstall:
+        if flags.image_install:
             template = "%s_image" % template
 
         names = self.names
@@ -1429,11 +1425,14 @@ class Storage(object):
             a really small /, etc).  Returns (errors, warnings) where
             each is a list of strings.
         """
-        checkSizes = [('/usr', 250), ('/tmp', 50), ('/var', 384),
-                      ('/home', 100), ('/boot', 75)]
         warnings = []
         errors = []
 
+        if not flags.installer_mode:
+            return (errors, warnings)
+
+        checkSizes = [('/usr', 250), ('/tmp', 50), ('/var', 384),
+                      ('/home', 100), ('/boot', 75)]
         mustbeonlinuxfs = ['/', '/var', '/tmp', '/usr', '/home', '/usr/share', '/usr/lib']
         mustbeonroot = ['/bin','/dev','/sbin','/etc','/lib','/root', '/mnt', 'lost+found', '/proc']
 
@@ -1462,7 +1461,7 @@ class Storage(object):
         # restricted to a single PV.  The backend support is there, but there are
         # no UI hook-ups to drive that functionality, but I do not personally
         # care.  --dcantrell
-        if iutil.isS390() and \
+        if arch.isS390() and \
            not self.mountpoints.has_key('/boot') and \
            root.type == 'lvmlv' and not root.singlePV:
             errors.append(_("This platform requires /boot on a dedicated "
@@ -1494,9 +1493,11 @@ class Storage(object):
                               % {"mount":mount, "format": device.format.name,
                                  "minSize": device.minSize, "maxSize": device.maxSize})
 
+        # FIXME: this does not work, but probably should
+        """
         usb_disks = []
         firewire_disks = []
-        for disk in self.disks:
+        #for disk in self.disks:
             if isys.driveUsesModule(disk.name, ["usb-storage", "ub"]):
                 usb_disks.append(disk)
             elif isys.driveUsesModule(disk.name, ["sbp2", "firewire-sbp2"]):
@@ -1521,6 +1522,7 @@ class Storage(object):
         if uses_firewire:
             warnings.append(_("Installing on a FireWire device.  This may "
                               "or may not produce a working system."))
+        """
 
         if self.bootloader and not self.bootloader.skip_bootloader:
             stage1 = self.bootloader.stage1_device
@@ -1564,7 +1566,7 @@ class Storage(object):
         if not swaps:
             from pyanaconda.storage.size import Size
 
-            installed = Size(spec="%s kb" % iutil.memInstalled())
+            installed = Size(spec="%s kb" % util.total_memory())
             required = Size(spec="%s kb" % isys.EARLY_SWAP_RAM)
 
             if installed < required:
@@ -1820,7 +1822,7 @@ class Storage(object):
         elif mountpoint == "/boot":
             fstype = self.defaultBootFSType
         elif mountpoint == "/boot/efi":
-            if iutil.isMactel():
+            if arch.isMactel():
                 fstype = "hfs+"
             else:
                 fstype = "efi"
@@ -2354,10 +2356,10 @@ def mountExistingSystem(fsset, rootDevice,
         readOnly = ""
 
     if rootDevice.protected and os.path.ismount("/mnt/install/isodir"):
-        isys.mount("/mnt/install/isodir",
+        util.mount("/mnt/install/isodir",
                    rootPath,
                    fstype=rootDevice.format.type,
-                   bindMount=True)
+                   options="bind")
     else:
         rootDevice.setup()
         rootDevice.format.mount(chroot=rootPath,
@@ -2979,9 +2981,9 @@ class FSSet(object):
             f.close()
         else:
             log.info("not writing out mpath configuration")
-        iutil.copy_to_sysimage("/etc/multipath/wwids")
+        util.copy_to_system("/etc/multipath/wwids")
         if self.devicetree.mpathFriendlyNames:
-            iutil.copy_to_sysimage("/etc/multipath/bindings")
+            util.copy_to_system("/etc/multipath/bindings")
 
     def crypttab(self):
         # if we are upgrading, do we want to update crypttab?
@@ -3125,7 +3127,7 @@ def getReleaseString():
     relVer = None
 
     try:
-        relArch = iutil.execWithCapture("arch", [], root=ROOT_PATH).strip()
+        relArch = util.capture_output(["arch"], root=ROOT_PATH).strip()
     except:
         relArch = None
 
@@ -3149,7 +3151,7 @@ def getReleaseString():
 
 def findExistingInstallations(devicetree):
     if not os.path.exists(ROOT_PATH):
-        iutil.mkdirChain(ROOT_PATH)
+        util.makedirs(ROOT_PATH)
 
     roots = []
     for device in devicetree.leaves:

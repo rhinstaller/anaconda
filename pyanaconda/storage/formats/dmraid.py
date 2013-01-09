@@ -20,8 +20,8 @@
 # Red Hat Author(s): Dave Lehman <dlehman@redhat.com>
 #
 
-from pyanaconda.anaconda_log import log_method_call
-from pyanaconda.flags import flags
+from ..storage_log import log_method_call
+from ..flags import flags
 from ..errors import *
 from . import DeviceFormat, register_device_format
 
@@ -102,12 +102,12 @@ class DMRaidMember(DeviceFormat):
         raise DMRaidMemberError("destruction of dmraid members is non-sense")
 
 
-if not flags.cmdline.has_key("noiswmd"):
+if not flags.noiswmd:
     DMRaidMember._udevTypes.remove("isw_raid_member")
 
 # The anaconda cmdline has not been parsed yet when we're first imported,
 # so we can not use flags.dmraid here
-if flags.cmdline.has_key("nodmraid"):
+if not flags.dmraid:
     DMRaidMember._udevTypes = []
 
 register_device_format(DMRaidMember)

@@ -23,13 +23,13 @@ import string
 import os
 from pyanaconda.constants import *
 from udev import udev_settle
+from . import util
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
 
-from pyanaconda import iutil
 import logging
-log = logging.getLogger("anaconda")
+log = logging.getLogger("storage")
 
 def loggedWriteLineToFile(fn, value):
     f = open(fn, "w")
@@ -125,7 +125,7 @@ class ZFCPDevice:
 
         if not os.path.exists(online):
             log.info("Freeing zFCP device %s" % (self.devnum,))
-            iutil.execWithRedirect("zfcp_cio_free", ["-d", self.devnum])
+            util.run_program(["zfcp_cio_free", "-d", self.devnum])
 
         if not os.path.exists(online):
             raise ValueError, _(

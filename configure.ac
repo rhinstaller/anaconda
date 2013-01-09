@@ -49,18 +49,6 @@ AC_CHECK_LIB([audit], [audit_open],
              [AC_SUBST(AUDIT_LIBS, [-laudit])],
              [AC_MSG_FAILURE([*** libaudit not usable.])])
 
-AC_CHECK_LIB([blkid], [blkid_get_cache],
-             [AC_SUBST(BLKID_LIBS, [-lblkid])],
-             [AC_MSG_FAILURE([*** libblkid not usable.])])
-
-AC_CHECK_LIB([ext2fs], [ext2fs_initialize],
-             [AC_SUBST(EXT2FS_LIBS, [-lext2fs])],
-             [AC_MSG_FAILURE([*** libext2fs not usable.])])
-
-AC_CHECK_LIB([iscsi], [libiscsi_get_firmware_network_config],
-             [AC_SUBST(ISCSI_LIBS, [-liscsi])],
-             [AC_MSG_FAILURE([*** libiscsi not usable.])])
-
 AC_CHECK_LIB([z], [zlibVersion],
              [AC_SUBST(ZLIB_LIBS, [-lz])],
              [AC_MSG_FAILURE([*** libz not usable.])])

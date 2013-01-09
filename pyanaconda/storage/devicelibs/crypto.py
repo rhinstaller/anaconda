@@ -22,7 +22,6 @@
 
 import os
 from pycryptsetup import CryptSetup
-from pyanaconda import iutil
 
 from ..errors import *
 

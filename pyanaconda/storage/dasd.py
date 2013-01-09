@@ -19,17 +19,17 @@
 # Red Hat Author(s): David Cantrell <dcantrell@redhat.com>
 #
 
-from pyanaconda import iutil
 import sys
 import os
 from pyanaconda.storage.errors import DasdFormatError
 from pyanaconda.storage.devices import deviceNameToDiskByPath
+from pyanaconda.storage import util
+from pyanaconda.storage import arch
 from pyanaconda.constants import *
-from pyanaconda.flags import flags
 from pyanaconda.baseudev import udev_trigger
 
 import logging
-log = logging.getLogger("anaconda")
+log = logging.getLogger("storage")
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
@@ -82,7 +82,7 @@ class DASD:
 
         self.started = True
 
-        if not iutil.isS390():
+        if not arch.isS390():
             return
 
         # Trigger udev data about the dasd devices on the system
@@ -140,8 +140,7 @@ class DASD:
         # gather total cylinder count
         argv = ["-t", "-v"] + self.commonArgv
         for dasd, bypath in self._dasdlist:
-            buf = iutil.execWithCapture(self.dasdfmt, argv + ["/dev/" + dasd],
-                                        stderr=err)
+            buf = util.capture_output([self.dasdfmt, argv, "/dev/" + dasd])
             for line in buf.splitlines():
                 if line.startswith("Drive Geometry: "):
                     # line will look like this:
@@ -169,18 +168,7 @@ class DASD:
             arglist = argv + ["/dev/" + dasd]
 
             try:
-                if intf and self.totalCylinders:
-                    ret = iutil.execWithCallback(self.dasdfmt, arglist,
-                                                 callback=update,
-                                                 callback_data=pw,
-                                                 echo=False)
-                    rc = ret.rc
-                elif intf:
-                    ret = iutil.execWithPulseProgress(self.dasdfmt, arglist,
-                                                      progress=pw)
-                    rc = ret.rc
-                else:
-                    rc = iutil.execWithRedirect(self.dasdfmt, arglist)
+                rc = util.run_program([self.dasdfmt] + arglist)
             except Exception as e:
                 raise DasdFormatError(e, bypath)
 

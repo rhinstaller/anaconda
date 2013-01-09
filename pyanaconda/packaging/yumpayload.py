@@ -72,9 +72,10 @@ from pyanaconda.flags import flags
 
 from pyanaconda import iutil
 from pyanaconda.iutil import ProxyString, ProxyStringError
-from pyanaconda import isys
 from pyanaconda.network import hasActiveNetDev
 from pyanaconda.storage.size import Size
+from pyanaconda.storage import util
+from pyanaconda.storage import arch
 
 from pyanaconda.image import opticalInstallMedia
 from pyanaconda.image import mountImage
@@ -136,7 +137,7 @@ class YumPayload(PackagePayload):
                get_mount_device(INSTALL_TREE) == self.install_device.path:
                 self.install_device.teardown(recursive=True)
             else:
-                isys.umount(INSTALL_TREE, removeDir=False)
+                util.umount(INSTALL_TREE)
 
         if os.path.ismount(ISO_DIR) and not flags.testing:
             if self.install_device and \
@@ -149,7 +150,7 @@ class YumPayload(PackagePayload):
             # Commenting out the below is a hack for F18.  FIXME
             #else:
             #    # NFS
-            #    isys.umount(ISO_DIR, removeDir=False)
+            #    util.umount(ISO_DIR)
 
         self.install_device = None
 
@@ -647,17 +648,6 @@ reposdir=%s
                                            ["--make-rprivate", "/"])
                     iutil.execWithRedirect("mount",
                                            ["--move", INSTALL_TREE, ISO_DIR])
-                    # Mounts are kept track of in isys it seems
-                    # Remove the count for the source
-                    if isys.mountCount.has_key(INSTALL_TREE):
-                        if isys.mountCount[INSTALL_TREE] > 1:
-                            isys.mountCount[INSTALL_TREE] -= 1
-                        else:
-                            del(isys.mountCount[INSTALL_TREE])
-                    # Add a count for the new location
-                    if not isys.mountCount.has_key(ISO_DIR):
-                        isys.mountCount[ISO_DIR] = 0
-                    isys.mountCount[ISO_DIR] += 1
                     # mount the ISO on a loop
                     image = os.path.normpath("%s/%s" % (ISO_DIR, image))
                     mountImage(image, INSTALL_TREE)
@@ -845,7 +835,7 @@ reposdir=%s
 
         if mountpoint and os.path.ismount(mountpoint):
             try:
-                isys.umount(mountpoint, removeDir=False)
+                util.umount(mountpoint, removeDir=False)
             except SystemError as e:
                 log.error("failed to unmount nfs repo %s: %s" % (mountpoint, e))
 
@@ -1512,7 +1502,7 @@ class RPMCallback(object):
 
         self.total_actions = 0
         self.completed_actions = None   # will be set to 0 when starting tx
-        self.base_arch = iutil.getArch()
+        self.base_arch = arch.getArch()
 
     def _get_txmbr(self, key):
         """ Return a (name, TransactionMember) tuple from cb key. """

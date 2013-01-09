@@ -27,9 +27,6 @@ from operator import add, sub, gt, lt
 import parted
 from pykickstart.constants import *
 
-from pyanaconda.constants import *
-from pyanaconda.errors import *
-
 from errors import *
 from deviceaction import *
 from devices import PartitionDevice, LUKSDevice, devicePathToName

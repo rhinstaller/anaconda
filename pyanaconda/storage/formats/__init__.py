@@ -24,10 +24,10 @@ import os
 
 from pyanaconda.product import productName
 from pyanaconda.baseudev import udev_get_device
-from pyanaconda.iutil import notify_kernel
-from pyanaconda.iutil import get_sysfs_path_by_name
-from pyanaconda.iutil import execWithRedirect
-from pyanaconda.anaconda_log import log_method_call
+from ..util import notify_kernel
+from ..util import get_sysfs_path_by_name
+from ..util import run_program
+from ..storage_log import log_method_call
 from ..errors import *
 from ..devicelibs.dm import dm_node_from_name
 from ..devicelibs.mdraid import md_node_from_name
@@ -309,8 +309,8 @@ class DeviceFormat(object):
         log_method_call(self, device=self.device,
                         type=self.type, status=self.status)
         try:
-            rc = execWithRedirect("wipefs", ["-a", self.device])
-        except Exception as e:
+            rc = run_program(["wipefs", "-a", self.device])
+        except OSError as e:
             err = str(e)
         else:
             err = ""

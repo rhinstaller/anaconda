@@ -24,12 +24,12 @@ import os
 import math
 import re
 
-from pyanaconda import iutil
 import logging
 log = logging.getLogger("storage")
 
+from .. import util
+from .. import arch
 from ..errors import *
-from pyanaconda.constants import *
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
@@ -41,7 +41,7 @@ LVM_PE_START = 1.0      # MB
 LVM_PE_SIZE = 4.0       # MB
 
 def has_lvm():
-    if iutil.find_program_in_path("lvm"):
+    if util.find_program_in_path("lvm"):
         for line in open("/proc/devices").readlines():
             if "device-mapper" in line.split():
                 return True
@@ -134,7 +134,7 @@ def getPossiblePhysicalExtents(floor=0):
 
 def getMaxLVSize():
     """ Return the maximum size (in MB) of a logical volume. """
-    if iutil.getArch() in ("x86_64", "ppc64", "alpha", "ia64", "s390", "sparc"): #64bit architectures
+    if arch.getArch() in ("x86_64", "ppc64", "alpha", "ia64", "s390", "sparc"): #64bit architectures
         return (8*1024*1024*1024*1024) #Max is 8EiB (very large number..)
     else:
         return (16*1024*1024) #Max is 16TiB
@@ -158,7 +158,7 @@ def get_pv_space(size, disks, pesize=LVM_PE_SIZE,
     return space
 
 def lvm(args):
-    ret = iutil.execWithRedirect("lvm", args)
+    ret = util.run_program(["lvm"] + args)
     if ret:
         raise LVMError("running lvm " + " ".join(args) + " failed")
 
@@ -212,7 +212,7 @@ def pvinfo(device):
             config_args + \
             [device]
 
-    rc = iutil.execWithCapture("lvm", args)
+    rc = util.capture_output(["lvm"] + args)
     vals = rc.split()
     if not vals:
         raise LVMError("pvinfo failed for %s" % device)
@@ -299,7 +299,7 @@ def vginfo(vg_name):
             config_args + \
             [vg_name]
 
-    buf = iutil.execWithCapture("lvm", args)
+    buf = util.capture_output(["lvm"] + args)
     info = buf.split()
     if len(info) != 7:
         raise LVMError(_("vginfo failed for %s" % vg_name))
@@ -316,7 +316,7 @@ def lvs(vg_name):
             config_args + \
             [vg_name]
 
-    buf = iutil.execWithCapture("lvm", args)
+    buf = util.capture_output(["lvm"] + args)
 
     lvs = {}
     for line in buf.splitlines():
@@ -338,7 +338,7 @@ def lvorigin(vg_name, lv_name):
             config_args + \
             ["%s/%s" % (vg_name, lv_name)]
 
-    buf = iutil.execWithCapture("lvm", args)
+    buf = util.capture_output(["lvm"] + args)
 
     try:
         origin = buf.splitlines()[0].strip()

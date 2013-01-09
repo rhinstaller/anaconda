@@ -23,7 +23,7 @@
 import os
 import re
 
-from pyanaconda import iutil
+import util
 from errors import *
 from pyanaconda.baseudev import *
 
@@ -270,7 +270,7 @@ def udev_device_get_wwid(udev_info):
     """ The WWID of a device is typically just its serial number, but with
         colons in the name to make it more readable. """
     serial = udev_device_get_serial(udev_info)
-    return iutil.insert_colons(serial) if serial else ""
+    return util.insert_colons(serial) if serial else ""
 
 def udev_device_get_vendor(udev_info):
     """ Get the vendor of the device as reported by udev. """

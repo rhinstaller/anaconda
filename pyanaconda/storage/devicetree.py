@@ -40,11 +40,11 @@ import devicelibs.mpath
 import devicelibs.loop
 import devicelibs.edd
 from udev import *
-from pyanaconda import iutil
+import util
 from pyanaconda import platform
 from pyanaconda import tsort
-from pyanaconda.flags import flags
-from pyanaconda.anaconda_log import log_method_call, log_method_return
+from flags import flags
+from storage_log import log_method_call, log_method_return
 import parted
 import _ped
 
@@ -534,7 +534,7 @@ class DeviceTree(object):
              udev_device_is_dm_crypt(info) or
              (udev_device_is_md(info) and not
               udev_device_get_md_container(info)))):
-            if iutil.get_sysfs_attr(info["sysfs_path"], 'ro') == '1':
+            if util.get_sysfs_attr(info["sysfs_path"], 'ro') == '1':
                 log.debug("Ignoring read only device %s" % name)
                 self.addIgnoredDisk(name)
                 return True
@@ -1599,7 +1599,7 @@ class DeviceTree(object):
     def updateDeviceFormat(self, device):
         log.info("updating format of device: %s" % device)
         try:
-            iutil.notify_kernel("/sys%s" % device.sysfsPath)
+            util.notify_kernel("/sys%s" % device.sysfsPath)
         except (ValueError, IOError) as e:
             log.warning("failed to notify kernel of change: %s" % e)
 
@@ -2189,10 +2189,10 @@ class DeviceTree(object):
             attr = None
             if "subvol=" in options:
                 attr = "name"
-                val = iutil.get_option_value("subvol", options)
+                val = util.get_option_value("subvol", options)
             elif "subvolid=" in options:
                 attr = "vol_id"
-                val = iutil.get_option_value("subvolid", options)
+                val = util.get_option_value("subvolid", options)
 
             if attr and val:
                 for subvol in device.subvolumes:
