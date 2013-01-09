@@ -335,7 +335,6 @@ class GraphicalUserInterface(UserInterface):
                 self._actions.pop(0)
 
             if not self._actions:
-                sys.exit(0)
                 return
 
         self._currentAction.initialize()
@@ -428,9 +427,11 @@ class GraphicalUserInterface(UserInterface):
     ### SIGNAL HANDLING METHODS
     ###
     def _on_continue_clicked(self):
+        from gi.repository import Gtk
+        
         # If we're on the last screen, clicking Continue quits.
         if len(self._actions) == 1:
-            sys.exit(0)
+            Gtk.main_quit()
             return
 
         nextAction = None
