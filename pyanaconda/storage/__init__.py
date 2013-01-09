@@ -2371,7 +2371,7 @@ def mountExistingSystem(fsset, rootDevice,
     # check for dirty filesystems
     dirtyDevs = []
     for device in fsset.mountpoints.values():
-        if not hasattr(device.format, "isDirty"):
+        if not hasattr(device.format, "needsFSCheck"):
             continue
 
         try:
@@ -2380,7 +2380,7 @@ def mountExistingSystem(fsset, rootDevice,
             # we'll catch this in the main loop
             continue
 
-        if device.format.isDirty:
+        if device.format.needsFSCheck:
             log.info("%s contains a dirty %s filesystem" % (device.path,
                                                             device.format.type))
             dirtyDevs.append(device.path)

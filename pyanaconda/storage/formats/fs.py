@@ -644,7 +644,7 @@ class FS(DeviceFormat):
         raise NotImplementedError("FS does not implement writeRandomUUID")
 
     @property
-    def isDirty(self):
+    def needsFSCheck(self):
         return False
 
     @property
@@ -816,6 +816,11 @@ class Ext2FS(FS):
     _fsProfileSpecifier = "-T"
     partedSystem = fileSystemType["ext2"]
 
+    def __init__(self, *args, **kwargs):
+        self.dirty = False
+        self.errors = False
+        super(Ext2FS, self).__init__(*args, **kwargs)
+
     def _fsckFailed(self, rc):
         for errorCode in self._fsckErrors.keys():
             if rc & errorCode:
@@ -869,7 +874,10 @@ class Ext2FS(FS):
                 for line in buf.splitlines():
                     if line.startswith("Block size:"):
                         blockSize = int(line.split(" ")[-1])
-                        break
+
+                    if line.startswith("Filesystem state:"):
+                        self.dirty = "not clean" in line
+                        self.errors = "with errors" in line
 
                 if blockSize is None:
                     raise FSError("failed to get block size for %s filesystem "
@@ -909,8 +917,8 @@ class Ext2FS(FS):
         return self._minInstanceSize
 
     @property
-    def isDirty(self):
-        return isys.ext2IsDirty(self.device)
+    def needsFSCheck(self):
+        return self.dirty or self.errors
 
     @property
     def resizeArgs(self):
@@ -932,6 +940,10 @@ class Ext3FS(Ext2FS):
     # with regard to this maximum filesystem size, but if they're doing such
     # things they should know the implications of their chosen block size.
     _maxSize = 16 * 1024 * 1024
+
+    @property
+    def needsFSCheck(self):
+        return self.errors
 
 register_device_format(Ext3FS)
 
