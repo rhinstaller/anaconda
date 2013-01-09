@@ -1308,6 +1308,31 @@ class Keyboard(commands.keyboard.F18_Keyboard):
     def dracutSetupArgs(self, *args):
         return keyboard.dracut_setup_args(self)
 
+
+class SpokeRegistry(dict):
+    """This class represents the ksdata.firstboot object and
+       maintains the ids of all user configured spokes.
+
+       The information is then used by inital_setup and GIE
+       to hide already configured spokes.
+    """
+
+    def __str__(self):
+        # do not write anything into kickstart
+        return ""
+
+    # pylint: disable-msg=C0103
+    def execute(self, storage, ksdata, instClass, users):
+        path = os.path.join(ROOT_PATH, "var", "lib", "inital-setup")
+        try:
+            os.makedirs(path, 0755)
+        except OSError:
+            pass
+        f = open(os.path.join(path, "configured.ini"), "a")
+        for k,v in self.iteritems():
+            f.write("%s=%s\n" % (k, v))
+        f.close()
+
 ###
 ### HANDLERS
 ###
@@ -1381,6 +1406,9 @@ class AnacondaKSHandler(superclass):
             classes = collect(module_name, path, lambda cls: issubclass(cls, self.AddonClassType))
             if classes:
                 addons[addon_id] = classes[0](name = addon_id)
+
+        # Prepare the structure to track configured spokes
+        self.configured_spokes = SpokeRegistry()
         
         # Prepare the final structures for 3rd party addons
         self.addon = AddonRegistry(addons)    

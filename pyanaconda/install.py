@@ -81,7 +81,8 @@ def doConfiguration(storage, payload, ksdata, instClass):
 
     with progress_report(_("Configuring addons")):
         ksdata.addon.execute(storage, ksdata, instClass, u)
-
+        ksdata.configured_spokes.execute(storage, ksdata, instClass, u)
+        
     with progress_report(_("Running post install scripts")):
         runPostScripts(ksdata.scripts)
 
