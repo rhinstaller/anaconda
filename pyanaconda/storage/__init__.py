@@ -164,12 +164,6 @@ def turnOnFilesystems(storage):
                                    stdout = "/dev/tty5", stderr="/dev/tty5")
         storage.devicetree.teardownAll()
 
-    upgrade_migrate = False
-    if upgrade:
-        for d in storage.migratableDevices:
-            if d.format.migrate:
-                upgrade_migrate = True
-
     try:
         storage.doIt()
     except FSResizeError as e:
@@ -179,9 +173,6 @@ def turnOnFilesystems(storage):
             details = e.args[1]
 
         if errorHandler.cb(e, e.args[0], details=details) == ERROR_RAISE:
-            raise
-    except FSMigrateError as e:
-        if errorHandler.cb(e, e.args[0], e.args[1]) == ERROR_RAISE:
             raise
     except Exception as e:
         raise
@@ -1747,10 +1738,6 @@ class Storage(object):
         return self.fsset.mountpoints
 
     @property
-    def migratableDevices(self):
-        return self.fsset.migratableDevices
-
-    @property
     def rootDevice(self):
         return self.fsset.rootDevice
 
@@ -2712,7 +2699,6 @@ class FSSet(object):
         if fstype != "auto" and ftype != dtype:
             log.info("fstab says %s at %s is %s" % (dtype, mountpoint, ftype))
             if fmt.testMount():
-                # XXX we should probably disallow migration for this fs
                 device.format = fmt
             else:
                 device.teardown()
@@ -2963,16 +2949,6 @@ class FSSet(object):
 
                 if mountpoint == path:
                     return device
-
-    @property
-    def migratableDevices(self):
-        """ List of devices whose filesystems can be migrated. """
-        migratable = []
-        for device in self.devices:
-            if device.format.migratable and device.format.exists:
-                migratable.append(device)
-
-        return migratable
 
     def write(self):
         """ write out all config files based on the set of filesystems """

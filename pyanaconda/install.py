@@ -108,8 +108,7 @@ def doInstall(storage, payload, ksdata, instClass):
     # We really only care about actions that affect filesystems, since
     # those are the ones that take the most time.
     steps = len(storage.devicetree.findActions(type="create", object="format")) + \
-            len(storage.devicetree.findActions(type="resize", object="format")) + \
-            len(storage.devicetree.findActions(type="migrate", object="format"))
+            len(storage.devicetree.findActions(type="resize", object="format"))
     steps += 5  # pre setup phase, packages setup, packages, bootloader, post install
     progress.send_init(steps)
 

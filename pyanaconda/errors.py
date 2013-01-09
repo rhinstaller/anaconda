@@ -106,12 +106,6 @@ class ErrorHandler(object):
         self.ui.showError(message)
         return ERROR_RAISE
 
-    def _fsMigrateHandler(self, *args, **kwargs):
-        message = _("An error occurred while migrating the filesystem on device %s.") % args[0]
-        message += "\n\n%s" % args[1]
-        self.ui.showError(message)
-        return ERROR_RAISE
-
     def _noDisksHandler(self, *args, **kwargs):
         message = _("An error has occurred - no valid devices were found on "
                     "which to create new file systems.  Please check your "
@@ -256,7 +250,6 @@ class ErrorHandler(object):
         _map = {"KickstartError": self._kickstartErrorHandler,
                 "PartitioningError": self._partitionErrorHandler,
                 "FSResizeError": self._fsResizeHandler,
-                "FSMigrateError": self._fsMigrateHandler,
                 "NoDisksError": self._noDisksHandler,
                 "DirtyFSError": self._dirtyFSHandler,
                 "FSTabTypeMismatchError": self._fstabTypeMismatchHandler,

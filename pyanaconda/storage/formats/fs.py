@@ -117,15 +117,12 @@ class FS(DeviceFormat):
     _labelfs = ""                        # labeling utility
     _fsck = ""                           # fs check utility
     _fsckErrors = {}                     # fs check command error codes & msgs
-    _migratefs = ""                      # fs migration utility
     _infofs = ""                         # fs info utility
     _defaultFormatOptions = []           # default options passed to mkfs
     _defaultMountOptions = ["defaults"]  # default options passed to mount
     _defaultLabelOptions = []
     _defaultCheckOptions = []
-    _defaultMigrateOptions = []
     _defaultInfoOptions = []
-    _migrationTarget = None
     _existingSizeFields = []
     _fsProfileSpecifier = None           # mkfs option specifying fsprofile
 
@@ -187,8 +184,7 @@ class FS(DeviceFormat):
         d = super(FS, self).dict
         d.update({"mountpoint": self.mountpoint, "size": self._size,
                   "label": self.label, "targetSize": self.targetSize,
-                  "mountable": self.mountable,
-                  "migratable": self.migratable})
+                  "mountable": self.mountable})
         return d
 
     def _setTargetSize(self, newsize):
@@ -383,36 +379,6 @@ class FS(DeviceFormat):
 
         if self.label:
             self.writeLabel(self.label)
-
-    def doMigrate(self):
-        if not self.exists:
-            raise FSError("filesystem has not been created")
-
-        if not self.migratable or not self.migrate:
-            return
-
-        if not os.path.exists(self.device):
-            raise FSError("device does not exist")
-
-        argv = self._defaultMigrateOptions[:]
-        argv.append(self.device)
-        try:
-            rc = iutil.execWithRedirect(self.migratefsProg,
-                                        argv,
-                                        stdout = "/dev/tty5",
-                                        stderr = "/dev/tty5")
-        except Exception as e:
-            raise FSMigrateError("filesystem migration failed: %s" % e,
-                                 self.device)
-
-        if rc:
-            raise FSMigrateError("filesystem migration failed: %s" % rc,
-                                 self.device)
-
-        # the other option is to actually replace this instance with an
-        # instance of the new filesystem type.
-        self._type = self.migrationTarget
-        self._mountType = self.migrationTarget
 
     @property
     def resizeArgs(self):
@@ -702,18 +668,9 @@ class FS(DeviceFormat):
         return self._labelfs
 
     @property
-    def migratefsProg(self):
-        """ Program used to migrate filesystems of this type. """
-        return self._migratefs
-
-    @property
     def infofsProg(self):
         """ Program used to get information for this filesystem type. """
         return self._infofs
-
-    @property
-    def migrationTarget(self):
-        return self._migrationTarget
 
     @property
     def utilsAvailable(self):
@@ -789,34 +746,6 @@ class FS(DeviceFormat):
 
     options = property(_getOptions, _setOptions)
 
-    def _isMigratable(self):
-        """ Can filesystems of this type be migrated? """
-        return bool(self._migratable and self.migratefsProg and
-                    iutil.find_program_in_path(self.migratefsProg) and
-                    self.migrationTarget)
-
-    migratable = property(_isMigratable)
-
-    def _setMigrate(self, migrate):
-        if not migrate:
-            self._migrate = migrate
-            return
-
-        if self.migratable and self.exists:
-            self._migrate = migrate
-        else:
-            raise ValueError("cannot set migrate on non-migratable filesystem")
-
-    migrate = property(lambda f: f._migrate, lambda f,m: f._setMigrate(m))
-
-    @property
-    def type(self):
-        _type = self._type
-        if self.migrate:
-            _type = self.migrationTarget
-
-        return _type
-
     @property
     def mountType(self):
         if not self._mountType:
@@ -881,10 +810,6 @@ class Ext2FS(FS):
     _defaultCheckOptions = ["-f", "-p", "-C", "0"]
     _dump = True
     _check = True
-    _migratable = True
-    _migrationTarget = "ext3"
-    _migratefs = "tune2fs"
-    _defaultMigrateOptions = ["-j"]
     _infofs = "dumpe2fs"
     _defaultInfoOptions = ["-h"]
     _existingSizeFields = ["Block count:", "Block size:"]
@@ -905,18 +830,6 @@ class Ext2FS(FS):
                 msg += "\n" + self._fsckErrors[errorCode]
 
         return msg.strip()
-
-    def doMigrate(self):
-        # if journal already exists skip
-        if isys.ext2HasJournal(self.device):
-            log.info("Skipping migration of %s, has a journal already."
-                     % self.device)
-            return
-
-        FS.doMigrate(self)
-
-    def doFormat(self, *args, **kwargs):
-        FS.doFormat(self, *args, **kwargs)
 
     def writeRandomUUID(self):
         if not self.exists:
@@ -1011,9 +924,7 @@ class Ext3FS(Ext2FS):
     """ ext3 filesystem. """
     _type = "ext3"
     _defaultFormatOptions = ["-t", "ext3"]
-    _migratable = False
     _modules = ["ext3"]
-    _defaultMigrateOptions = ["-O", "extents"]
     partedSystem = fileSystemType["ext3"]
 
     # It is possible for a user to specify an fsprofile that defines a blocksize
@@ -1029,7 +940,6 @@ class Ext4FS(Ext3FS):
     """ ext4 filesystem. """
     _type = "ext4"
     _defaultFormatOptions = ["-t", "ext4"]
-    _migratable = False
     _modules = ["ext4"]
     partedSystem = fileSystemType["ext4"]
 
@@ -1460,7 +1370,6 @@ class Iso9660FS(FS):
     _linuxNative = False
     _dump = False
     _check = False
-    _migratable = False
     _defaultMountOptions = ["ro"]
 
 register_device_format(Iso9660FS)

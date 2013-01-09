@@ -151,7 +151,6 @@ class DeviceFormat(object):
     _packages = []                      # required packages
     _services = []                      # required services
     _resizable = False                  # can be resized
-    _migratable = False                 # can be migrated
     _maxSize = 0                        # maximum size in MB
     _minSize = 0                        # minimum size in MB
     _dump = False
@@ -173,7 +172,6 @@ class DeviceFormat(object):
         self.exists = kwargs.get("exists")
         self.options = kwargs.get("options")
         self._majorminor = None
-        self._migrate = False
 
         # don't worry about existence if this is a DeviceFormat instance
         #if self.__class__ is DeviceFormat:
@@ -381,15 +379,6 @@ class DeviceFormat(object):
     def resizable(self):
         """ Can formats of this type be resized? """
         return self._resizable and self.exists
-
-    @property
-    def migratable(self):
-        """ Can formats of this type be migrated? """
-        return self._migratable
-
-    @property
-    def migrate(self):
-        return self._migrate
 
     @property
     def linuxNative(self):

@@ -370,7 +370,7 @@ class DeviceTree(object):
             # add the device back into the tree
             self._addDevice(action.device)
         elif action.isFormat and \
-             (action.isCreate or action.isMigrate or action.isResize):
+             (action.isCreate or action.isResize):
             action.cancel()
 
         self._actions.remove(action)

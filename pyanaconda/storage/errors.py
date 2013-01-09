@@ -81,9 +81,6 @@ class FSError(DeviceFormatError):
 class FSResizeError(FSError):
     pass
 
-class FSMigrateError(FSError):
-    pass
-
 class DirtyFSError(FSError):
     pass
 
