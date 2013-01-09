@@ -88,10 +88,9 @@ DEVICES_COLUMN_TITLE  = 2
 DEVICES_COLUMN_OBJECT = 3
 
 
-def localized_string_of_device_state(device):
+def localized_string_of_device_state(device, state):
     str = _("Status unknown (missing)")
 
-    state = device.get_state()
     if state == NetworkManager.DeviceState.UNKNOWN:
         str = _("Status unknown")
     elif state == NetworkManager.DeviceState.UNMANAGED:
@@ -787,7 +786,7 @@ class NetworkControlBox(object):
         if state is None:
             state = device.get_state()
         self.builder.get_object("label_%s_status" % dev_type_str).set_label(
-            localized_string_of_device_state(device))
+            localized_string_of_device_state(device, state))
 
         switch = self.builder.get_object("device_%s_off_switch" % dev_type_str)
         if dev_type_str == "wired":
