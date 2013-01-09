@@ -34,7 +34,7 @@ from pyanaconda.ui.tui.simpleline.base import ExitAllMainLoops
 __all__ = ["ProgressHub"]
 
 class ProgressHub(TUIHub):
-    title = _("Installation Hub")
+    title = _("Progress")
 
     def __init__(self, app, ksdata, storage, payload, instclass):
         TUIHub.__init__(self, app, ksdata, storage, payload, instclass)

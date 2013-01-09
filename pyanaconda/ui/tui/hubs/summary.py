@@ -29,7 +29,7 @@ import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
 
 class SummaryHub(TUIHub):
-    title = _("Install hub")
+    title = _("Installation")
     categories = ["source", "localization", "destination", "password"]
 
     def __init__(self, app, data, storage, payload, instclass):
