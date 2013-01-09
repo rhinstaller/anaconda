@@ -469,7 +469,9 @@ class XklWrapper(object):
     def get_default_lang_country_layout(self, language, country):
         """
         Get default layout matching both language and country. If none such
-        layout is found, get default layout for language.
+        layout is found, get default layout for language. If no layout for
+        the given language is found but there is layout for the given country,
+        return the one for the country.
 
         """
 
@@ -477,6 +479,12 @@ class XklWrapper(object):
         country_layouts = self._country_keyboard_variants.get(country, None)
         if not language_layouts and not country_layouts:
             return None
+
+        if not country_layouts:
+            return language_layouts[0].name
+
+        if not language_layouts:
+            return country_layouts[0].name
 
         matches_both = (layout for layout in language_layouts
                                 if layout in country_layouts)
