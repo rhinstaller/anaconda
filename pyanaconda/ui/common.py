@@ -494,22 +494,48 @@ def collect(module_pattern, path, pred):
 
         try:
             imp.acquire_lock()
-            mod_info = imp.find_module(mod_name, [path])
+            (fo, module_path, module_flags) = imp.find_module(mod_name, [path])
             module = sys.modules.get(module_pattern % mod_name)
 
             # do not load module if any module with the same name
             # is already imported
             if not module:
-                module = imp.load_module(module_pattern % mod_name, *mod_info)
+                module = imp.load_module(module_pattern % mod_name,
+                                         fo, module_path, module_flags)
 
+
+            # get the filenames without the extensions so we can compare those
+            # with the .py[co]? equivalence in mind
+            # - we do not have to care about files without extension as the
+            #   condition at the beginning of the for loop filters out those
+            # - module_flags[0] contains the extension of the module imp found
+            candidate_name = module_path[:module_path.rindex(module_flags[0])]
+            loaded_name, loaded_ext = module.__file__.rsplit(".", 1)
+
+            # restore the extension dot eaten by split
+            loaded_ext = "." + loaded_ext
+            
             # do not collect classes when the module is already imported
             # from different path than we are traversing
-            if mod_info[1] != module.__file__:
+            # this condition checks the module name without file extension
+            if candidate_name != loaded_name:
                 continue
-            imp.release_lock()
+
+            # if the candidate file is .py[co]? and the loaded is not (.so)
+            # skip the file as well
+            if module_flags[0].startswith(".py") and not loaded_ext.startswith(".py"):
+                continue
+
+            # if the candidate file is not .py[co]? and the loaded is
+            # skip the file as well
+            if not module_flags[0].startswith(".py") and loaded_ext.startswith(".py"):
+                continue
+            
         except ImportError:
             continue
         finally:
+            imp.release_lock()
+
             if mod_info and mod_info[0]:
                 mod_info[0].close()
 
