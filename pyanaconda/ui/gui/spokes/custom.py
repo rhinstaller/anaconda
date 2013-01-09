@@ -80,7 +80,7 @@ from pyanaconda.ui.gui.spokes.storage import StorageChecker
 from pyanaconda.ui.gui.spokes.lib.cart import SelectedDisksDialog
 from pyanaconda.ui.gui.spokes.lib.passphrase import PassphraseDialog
 from pyanaconda.ui.gui.spokes.lib.accordion import *
-from pyanaconda.ui.gui.utils import enlightbox, setViewportBackground
+from pyanaconda.ui.gui.utils import setViewportBackground
 from pyanaconda.ui.gui.categories.storage import StorageCategory
 
 from gi.repository import Gtk
@@ -163,6 +163,16 @@ feature_raid_levels = {"Performance": "raid0",
 
 partition_only_format_types = ["efi", "hfs+", "prepboot", "biosboot",
                                "appleboot"]
+
+# XXX: Hack, hack, hack.  For some reason displaying lightboxed dialogs on the
+# custom storage spoke means that redisplaying those dialogs later never works
+# and the UI looks frozen.  So I'm just going to override the real enlightbox
+# method here with one that does nothing.  Hopefully this will be fixed and I
+# can remove the hack.
+@contextmanager
+def enlightbox(mainWindow, dialog):
+    dialog.set_decorated(True)
+    yield
 
 class UIStorageFilter(logging.Filter):
     def filter(self, record):
