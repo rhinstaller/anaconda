@@ -3779,10 +3779,6 @@ class OpticalDevice(StorageDevice):
         #try to umount and close device before ejecting
         self.teardown()
 
-        if flags.cmdline.has_key('noeject'):
-            log.info("noeject in effect, not ejecting cdrom")
-            return
-
         try:
             util.run_program(["eject", self.name]) 
         except OSError as e:
