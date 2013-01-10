@@ -162,7 +162,9 @@ Requires: nm-connection-editor
 Requires: dhclient
 Requires: anaconda-yum-plugins
 Requires: libselinux-python >= %{libselinuxver}
+%ifnarch s390 s390x
 Requires: fcoe-utils >= %{fcoeutilsver}
+%endif
 Requires: kbd
 Requires: chrony
 Requires: rdate
