@@ -239,10 +239,6 @@ def availableClasses(showHidden=0):
 	    else:
 		sortOrder = 0
 
-	    if obj.__dict__.has_key('arch'):
-                if obj.arch != iutil.getArch():
-                    obj.hidden = 1
-
             if obj.hidden == 0 or showHidden == 1:
                 list.append(((obj.name, obj, obj.pixmap), sortOrder))
         except ImportError as e:
