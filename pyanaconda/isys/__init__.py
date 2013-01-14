@@ -37,7 +37,7 @@ import stat
 import posix
 import sys
 from pyanaconda import iutil
-from pyanaconda.storage import arch
+import blivet.arch
 import re
 import struct
 import dbus
@@ -71,7 +71,7 @@ NM_DEVICE_TYPE_ETHERNET = 1
 
 DBUS_PROPS_IFACE = "org.freedesktop.DBus.Properties"
 
-if arch.getArch() in ("sparc", "ppc64"):
+if blivet.arch.getArch() in ("sparc", "ppc64"):
     MIN_RAM = 768 * 1024
     GUI_INSTALL_EXTRA_RAM = 512 * 1024
 else:
@@ -255,7 +255,7 @@ def isPaeAvailable():
         return isPAE
 
     isPAE = False
-    if not arch.isX86():
+    if not blivet.arch.isX86():
         return isPAE
 
     f = open("/proc/cpuinfo", "r")

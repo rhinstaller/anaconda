@@ -19,7 +19,7 @@
 # Red Hat Author(s): David Lehman <dlehman@redhat.com>
 #
 
-from pyanaconda.storage.size import Size
+from blivet.size import Size
 
 import gettext
 

@@ -30,9 +30,9 @@ import types
 
 from constants import *
 from product import *
-from storage.partspec import *
-from storage.devicelibs import swap
-from storage.platform import platform
+from blivet.partspec import *
+from blivet.devicelibs import swap
+from blivet.platform import platform
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)

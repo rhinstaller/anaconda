@@ -12,7 +12,6 @@ pyanaconda/installinterfacebase.py
 pyanaconda/iutil.py
 pyanaconda/kickstart.py
 pyanaconda/network.py
-pyanaconda/platform.py
 pyanaconda/product.py
 pyanaconda/rescue.py
 pyanaconda/vnc.py
@@ -26,31 +25,6 @@ pyanaconda/packaging/__init__.py
 pyanaconda/packaging/livepayload.py
 pyanaconda/packaging/tarpayload.py
 pyanaconda/packaging/yumpayload.py
-
-# Storage module source files
-pyanaconda/storage/__init__.py
-pyanaconda/storage/dasd.py
-pyanaconda/storage/deviceaction.py
-pyanaconda/storage/devicelibs/crypto.py
-pyanaconda/storage/devicelibs/dm.py
-pyanaconda/storage/devicelibs/lvm.py
-pyanaconda/storage/devicelibs/mdraid.py
-pyanaconda/storage/devicelibs/swap.py
-pyanaconda/storage/devices.py
-pyanaconda/storage/devicetree.py
-pyanaconda/storage/fcoe.py
-pyanaconda/storage/formats/__init__.py
-pyanaconda/storage/formats/disklabel.py
-pyanaconda/storage/formats/dmraid.py
-pyanaconda/storage/formats/fs.py
-pyanaconda/storage/formats/luks.py
-pyanaconda/storage/formats/lvmpv.py
-pyanaconda/storage/formats/mdraid.py
-pyanaconda/storage/formats/multipath.py
-pyanaconda/storage/formats/swap.py
-pyanaconda/storage/iscsi.py
-pyanaconda/storage/partitioning.py
-pyanaconda/storage/zfcp.py
 
 # Interfaces
 pyanaconda/ui/common.py

@@ -111,10 +111,7 @@ PKG_CHECK_MODULES([GDK], [gdk-3.0])
 PKG_CHECK_MODULES([NETWORKMANAGER], [NetworkManager >= 0.7.1])
 PKG_CHECK_MODULES([LIBNL], [libnl-1 >= 1.0])
 PKG_CHECK_MODULES([LIBNM_GLIB], [libnm-glib >= 0.7.1 libnm-util >= 0.7.1])
-PKG_CHECK_MODULES([DEVMAPPER], [devmapper >= 1.02.17])
 PKG_CHECK_MODULES([LIBCURL], [libcurl >= 7.19.5])
-PKG_CHECK_MODULES([RPM], [rpm >= 4.8.0])
-PKG_CHECK_MODULES([LIBARCHIVE], [libarchive >= 2.7.902a])
 
 # Set $RPM_OPT_FLAGS if we don't have it
 if test -z $RPM_OPT_FLAGS ; then
@@ -123,32 +120,12 @@ else
     CFLAGS="$CFLAGS $RPM_OPT_FLAGS"
 fi
 
-# SELinux support can be enabled or disabled
-AC_ARG_ENABLE(selinux,
-    AC_HELP_STRING([--enable-selinux],
-                   [enable SELinux support (default is yes)]),
-    [selinux=$enableval],
-    [selinux=yes])
-if test x$selinux = xyes ; then
-    AC_CHECK_LIB([selinux], [matchpathcon], [],
-        [AC_MSG_FAILURE([*** libselinux not usable.])])
-    AC_CHECK_LIB([selinux], [lsetfilecon], [],
-        [AC_MSG_FAILURE([*** libselinux not usable.])])
-
-    selinux_libs="-lselinux -laudit"
-    AC_SUBST(SELINUX_CFLAGS, [-DUSESELINUX=1])
-    AC_SUBST(SELINUX_LIBS, [$selinux_libs])
-fi
-
 # NFS support can, in theory, be enabled or disabled
 AC_ARG_ENABLE(nfs,
     AC_HELP_STRING([--enable-nfs],
                    [enable NFS support (default is yes)]),
     [nfs=$enableval],
     [nfs=yes])
-if test x$selinux = xyes ; then
-    AC_SUBST(NFS_CFLAGS, [-DHAVE_NFS])
-fi
 
 # IPv6 support can be enabled or disabled
 AC_ARG_ENABLE(ipv6,
@@ -255,9 +232,6 @@ AC_CONFIG_FILES([Makefile
                  pyanaconda/Makefile
                  pyanaconda/isys/Makefile
                  pyanaconda/packaging/Makefile
-                 pyanaconda/storage/Makefile
-                 pyanaconda/storage/devicelibs/Makefile
-                 pyanaconda/storage/formats/Makefile
                  pyanaconda/ui/Makefile
                  pyanaconda/ui/lib/Makefile
                  pyanaconda/ui/gui/categories/Makefile
@@ -274,8 +248,6 @@ AC_CONFIG_FILES([Makefile
                  tests/Makefile
                  tests/mock/Makefile
                  tests/kickstart_test/Makefile
-                 tests/storage_test/Makefile
-                 tests/storage_test/devicelibs_test/Makefile
                  tests/pylint/Makefile
                  tests/regex/Makefile
                  tests/pyanaconda_test/Makefile

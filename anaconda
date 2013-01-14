@@ -409,8 +409,8 @@ def setupDisplay(anaconda, opts, addon_paths=None):
     from pyanaconda.ui.tui.spokes.askvnc import AskVNCSpoke
     from pykickstart.constants import DISPLAY_MODE_TEXT
     from pyanaconda import network
-    from pyanaconda.storage import arch
-    from pyanaconda.storage import util
+    from blivet import arch
+    import blivet.util
 
     graphical_failed = 0
     vncS = vnc.VncServer()          # The vnc Server object.
@@ -458,7 +458,7 @@ def setupDisplay(anaconda, opts, addon_paths=None):
             vncS.vncconnectport = anaconda.ksdata.vnc.port
 
     # disable VNC over text question when not enough memory is available
-    if util.total_memory() < isys.MIN_GUI_RAM:
+    if blivet.util.total_memory() < isys.MIN_GUI_RAM:
         flags.vncquestion = False
 
     # disable VNC question if text mode is requested and this is a ks install
@@ -930,8 +930,8 @@ if __name__ == "__main__":
     from pyanaconda.threads import initThreading, threadMgr, AnacondaThread
     initThreading()
 
-    from pyanaconda import storage
-    storage.enable_installer_mode()
+    import blivet
+    blivet.enable_installer_mode()
 
     # now start the interface
     setupDisplay(anaconda, opts, addon_paths)
@@ -977,7 +977,7 @@ if __name__ == "__main__":
         # this is lame, but make things match what we expect (#443408)
         opts.lang = opts.lang.replace(".utf8", ".UTF-8")
 
-    from pyanaconda.storage import storageInitialize
+    from blivet import storageInitialize
     from pyanaconda.packaging import payloadInitialize
     from pyanaconda.network import networkInitialize, wait_for_connecting_NM_thread
 

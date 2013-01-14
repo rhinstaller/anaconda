@@ -32,7 +32,7 @@ import signal
 import time
 from flags import flags
 import kickstart
-import storage.errors
+import blivet.errors
 from pyanaconda.constants import ROOT_PATH
 from gi.repository import GLib
 
@@ -73,7 +73,7 @@ class AnacondaExceptionHandler(ExceptionHandler):
                                                                   obj)
             return False
 
-        if issubclass(ty, storage.errors.StorageError) and value.hardware_fault:
+        if issubclass(ty, blivet.errors.StorageError) and value.hardware_fault:
             hw_error_msg = _("The installation was stopped due to what "
                              "seems to be a problem with your hardware. "
                              "The exact error message is:\n\n%s.\n\n "

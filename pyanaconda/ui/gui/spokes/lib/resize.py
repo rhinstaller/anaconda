@@ -24,7 +24,7 @@ from __future__ import division
 from gi.repository import Gtk
 
 from pyanaconda.ui.gui import GUIObject
-from pyanaconda.storage.size import Size
+from blivet.size import Size
 
 import gettext
 

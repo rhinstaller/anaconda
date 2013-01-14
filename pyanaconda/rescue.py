@@ -28,8 +28,8 @@ from flags import flags
 import sys
 import os
 import isys
-from storage import mountExistingSystem
-from storage.errors import StorageError
+from blivet import mountExistingSystem
+from blivet.errors import StorageError
 from installinterfacebase import InstallInterfaceBase
 import iutil
 import shutil
@@ -192,7 +192,7 @@ def runShell(screen = None, msg=""):
         screen.finish()
 
 def doRescue(rescue_mount, ksdata):
-    import storage
+    import blivet
 
     for file in [ "services", "protocols", "group", "joe", "man.config",
                   "nsswitch.conf", "selinux", "mke2fs.conf" ]:
@@ -242,9 +242,9 @@ def doRescue(rescue_mount, ksdata):
 
             break
 
-    sto = storage.Storage(ksdata)
-    storage.storageInitialize(sto, ksdata, [])
-    roots = storage.findExistingInstallations(sto.devicetree)
+    sto = blivet.Blivet(ksdata=ksdata)
+    blivet.storageInitialize(sto, ksdata, [])
+    roots = blivet.findExistingInstallations(sto.devicetree)
 
     if not roots:
         root = None

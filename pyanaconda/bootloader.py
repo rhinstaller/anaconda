@@ -28,15 +28,15 @@ import struct
 from parted import PARTITION_BIOS_GRUB
 
 from pyanaconda import iutil
-from pyanaconda.storage.devicelibs import mdraid
+from blivet.devicelibs import mdraid
 from pyanaconda.isys import sync, getMacAddress
 from pyanaconda.product import productName
 from pyanaconda.flags import flags
 from pyanaconda.constants import *
-from pyanaconda.storage.errors import StorageError
-from pyanaconda.storage.fcoe import fcoe
+from blivet.errors import StorageError
+from blivet.fcoe import fcoe
 import pyanaconda.network
-from pyanaconda.storage import platform
+from blivet import platform
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
@@ -756,7 +756,7 @@ class BootLoader(object):
 
             Keyword Arguments:
 
-                storage - a pyanaconda.storage.Storage instance
+                storage - a blivet.Storage instance
 
             All other arguments are expected to have a dracutSetupArgs()
             method.
@@ -774,7 +774,7 @@ class BootLoader(object):
         #
 
         # storage
-        from pyanaconda.storage.devices import NetworkStorageDevice
+        from blivet.devices import NetworkStorageDevice
         dracut_devices = [storage.rootDevice]
         if self.stage2_device != storage.rootDevice:
             dracut_devices.append(self.stage2_device)

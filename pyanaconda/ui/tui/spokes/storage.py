@@ -26,8 +26,8 @@ from pyanaconda.ui.tui.spokes import NormalTUISpoke
 from pyanaconda.ui.tui.simpleline import TextWidget, CheckboxWidget
 
 from pykickstart.constants import AUTOPART_TYPE_LVM
-from pyanaconda.storage.size import Size
-from pyanaconda.storage.errors import StorageError
+from blivet.size import Size
+from blivet.errors import StorageError
 from pyanaconda.flags import flags
 from pyanaconda.kickstart import doKickstartStorage
 from pyanaconda.threads import threadMgr, AnacondaThread

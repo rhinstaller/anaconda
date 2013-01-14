@@ -21,7 +21,7 @@
 #
 
 from pyanaconda.constants import ROOT_PATH
-from pyanaconda.storage import turnOnFilesystems
+from blivet import turnOnFilesystems
 from pyanaconda.bootloader import writeBootLoader
 from pyanaconda.progress import progress_report
 from pyanaconda.users import createLuserConf, getPassAlgo, Users

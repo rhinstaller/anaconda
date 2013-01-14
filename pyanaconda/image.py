@@ -19,12 +19,12 @@
 
 import isys
 import os, os.path, stat, sys
-from pyanaconda.storage import util
 from constants import *
 
 from errors import *
 
-import pyanaconda.storage.arch
+import blivet.util
+import blivet.arch
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
@@ -32,7 +32,7 @@ _ = lambda x: gettext.ldgettext("anaconda", x)
 import logging
 log = logging.getLogger("anaconda")
 
-_arch = pyanaconda.storage.arch.getArch()
+_arch = blivet.arch.getArch()
 
 def findFirstIsoImage(path):
     """
@@ -62,12 +62,12 @@ def findFirstIsoImage(path):
 
         log.debug("mounting %s on /mnt/install/cdimage", what)
         try:
-            util.mount(what, "/mnt/install/cdimage", fstype="iso9660", options="ro")
+            blivet.util.mount(what, "/mnt/install/cdimage", fstype="iso9660", options="ro")
         except OSError:
             continue
 
         if not os.access("/mnt/install/cdimage/.discinfo", os.R_OK):
-            util.umount("/mnt/install/cdimage")
+            blivet.util.umount("/mnt/install/cdimage")
             continue
 
         log.debug("Reading .discinfo")
@@ -81,14 +81,14 @@ def findFirstIsoImage(path):
         if discArch != arch:
             log.warning("findFirstIsoImage: architectures mismatch: %s, %s" %
                         (discArch, arch))
-            util.umount("/mnt/install/cdimage")
+            blivet.util.umount("/mnt/install/cdimage")
             continue
 
         # If there's no repodata, there's no point in trying to
         # install from it.
         if not os.access("/mnt/install/cdimage/repodata", os.R_OK):
             log.warning("%s doesn't have repodata, skipping" %(what,))
-            util.umount("/mnt/install/cdimage")
+            blivet.util.umount("/mnt/install/cdimage")
             continue
 
         # warn user if images appears to be wrong size
@@ -99,7 +99,7 @@ def findFirstIsoImage(path):
                 raise exn
 
         log.info("Found disc at %s" % fn)
-        util.umount("/mnt/install/cdimage")
+        blivet.util.umount("/mnt/install/cdimage")
         return fn
 
     return None
@@ -152,7 +152,7 @@ def mountImageDirectory(method, storage):
 
         while True:
             try:
-                util.mount(url, ISO_DIR, fstype="nfs", options=method.options)
+                blivet.util.mount(url, ISO_DIR, fstype="nfs", options=method.options)
             except OSError as e:
                 log.error("couldn't mount ISO source directory: %s" % e)
                 exn = MediaMountError(str(e))
@@ -175,7 +175,7 @@ def mountImage(isodir, tree):
             image = os.path.normpath("%s/%s" % (isodir, image))
 
         try:
-            util.mount(image, tree, fstype = 'iso9660', options="ro")
+            blivet.util.mount(image, tree, fstype = 'iso9660', options="ro")
         except OSError:
             exn = MissingImageError()
             if errorHandler.cb(exn) == ERROR_RAISE:
@@ -214,7 +214,7 @@ def potentialHdisoSources(devicetree):
 
 def umountImage(tree):
     if os.path.ismount(tree):
-        util.umount(tree)
+        blivet.util.umount(tree)
 
 def unmountCD(dev):
     if not dev:

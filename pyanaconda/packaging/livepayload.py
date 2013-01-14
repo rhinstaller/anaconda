@@ -46,8 +46,8 @@ log = logging.getLogger("anaconda")
 
 from pyanaconda.errors import *
 from pyanaconda import progress
-from pyanaconda.storage.size import Size
-from pyanaconda.storage import util
+from blivet.size import Size
+import blivet.util
 from pyanaconda.threads import threadMgr, AnacondaThread
 
 import gettext
@@ -64,7 +64,7 @@ class LiveImagePayload(ImagePayload):
             exn = PayloadSetupError("%s is not a valid block device" % (self.data.method.partition,))
             if errorHandler.cb(exn) == ERROR_RAISE:
                 raise exn
-        util.mount(osimg.path, INSTALL_TREE, fstype="auto", options="ro")
+        blivet.util.mount(osimg.path, INSTALL_TREE, fstype="auto", options="ro")
 
     def preInstall(self, packages=None, groups=None):
         """ Perform pre-installation tasks. """
@@ -128,7 +128,7 @@ class LiveImagePayload(ImagePayload):
     def postInstall(self):
         """ Perform post-installation tasks. """
         progress.send_message(_("Performing post-install setup tasks"))
-        util.umount(INSTALL_TREE)
+        blivet.util.umount(INSTALL_TREE)
 
         super(LiveImagePayload, self).postInstall()
         self._recreateInitrds()

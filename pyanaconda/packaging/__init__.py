@@ -52,10 +52,10 @@ import logging
 log = logging.getLogger("packaging")
 
 from pyanaconda.errors import *
-from pyanaconda.storage.errors import StorageError
-from pyanaconda.storage import util
-from pyanaconda.storage import arch
-from pyanaconda.storage.platform import platform
+from blivet.errors import StorageError
+import blivet.util
+import blivet.arch
+from blivet.platform import platform
 #from pyanaconda.progress import progress
 
 from pyanaconda.product import productName, productVersion
@@ -129,7 +129,7 @@ def get_mount_device(mountpoint):
             break
 
     if mount_device and re.match(r'/dev/loop\d+$', mount_device):
-        from pyanaconda.storage.devicelibs import loop
+        from blivet.devicelibs import loop
         loop_name = os.path.basename(mount_device)
         mount_device = loop.get_backing_file(loop_name)
         log.debug("found backing file %s for loop device %s" % (mount_device,
@@ -484,7 +484,7 @@ class Payload(object):
                 return
             else:
                 try:
-                    util.umount(realMountpoint)
+                    blivet.util.umount(realMountpoint)
                 except Exception as e:
                     log.error(str(e))
                     log.info("umount failed -- mounting on top of it")
@@ -510,7 +510,7 @@ class Payload(object):
             else:
                 log.debug("%s already has something mounted on it" % mountpoint)
                 try:
-                    util.umount(mountpoint)
+                    blivet.util.umount(mountpoint)
                 except OSError as e:
                     log.error(str(e))
                     log.info("umount failed -- mounting on top of it")
@@ -519,7 +519,7 @@ class Payload(object):
         url = "%s:%s" % (server, path)
 
         try:
-            util.mount(url, mountpoint, fstype="nfs", options=options)
+            blivet.util.mount(url, mountpoint, fstype="nfs", options=options)
         except OSError as e:
             raise PayloadSetupError(str(e))
 
@@ -655,7 +655,7 @@ class PackagePayload(Payload):
             kernels.insert(0, "kernel-PAE")
 
         # most ARM systems use platform-specific kernels
-        if arch.isARM():
+        if blivet.arch.isARM():
             if platform.armMachine is not None:
                 kernels = ["kernel-%s" % platform.armMachine]
 
@@ -717,7 +717,7 @@ def write_txmbrs(payload, filename):
 if __name__ == "__main__":
     import os
     import sys
-    import pyanaconda.storage as _storage
+    import blivet
     from pykickstart.version import makeVersion
     from pyanaconda.packaging.yumpayload import YumPayload
 
@@ -732,7 +732,7 @@ if __name__ == "__main__":
     #ksdata.method.url = "http://dl.fedoraproject.org/pub/fedora/linux/development/17/x86_64/os/"
 
     # set up storage
-    storage = _storage.Storage(data=ksdata)
+    storage = blivet.Blivet(ksdata=ksdata)
     storage.reset()
 
     # set up the payload

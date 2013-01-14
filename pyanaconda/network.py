@@ -39,8 +39,8 @@ import re
 from flags import flags
 from simpleconfig import IfcfgFile
 import urlgrabber.grabber
-from pyanaconda.storage.devices import FcoeDiskDevice, iScsiDiskDevice
-from pyanaconda.storage import arch
+from blivet.devices import FcoeDiskDevice, iScsiDiskDevice
+import blivet.arch
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
@@ -272,7 +272,7 @@ class NetworkDevice(IfcfgFile):
     def __str__(self):
         s = ""
         keys = self.info.keys()
-        if arch.isS390() and ("HWADDR" in keys):
+        if blivet.arch.isS390() and ("HWADDR" in keys):
             keys.remove("HWADDR")
         # make sure we include autoneg in the ethtool line
         if 'ETHTOOL_OPTS' in keys:
@@ -597,7 +597,7 @@ def dracutBootArguments(ifcfg, storage_ipaddr, hostname=None):
 
     nettype = ifcfg.get("NETTYPE")
     subchannels = ifcfg.get("SUBCHANNELS")
-    if arch.isS390() and nettype and subchannels:
+    if blivet.arch.isS390() and nettype and subchannels:
         znet = "rd.znet=%s,%s" % (nettype, subchannels)
         options = ifcfg.get("OPTIONS").strip("'\"")
         if options:

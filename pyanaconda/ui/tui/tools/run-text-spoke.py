@@ -13,7 +13,7 @@ from pyanaconda import anaconda_log
 anaconda_log.init()
 
 from pyanaconda.installclass import DefaultInstall
-from pyanaconda.storage import Storage
+from blivet import Blivet
 from pyanaconda.threads import initThreading
 from pyanaconda.packaging.yumpayload import YumPayload
 from pykickstart.version import makeVersion
@@ -79,7 +79,7 @@ if not spokeClass:
 print "Running %s %s from %s" % (spokeText, spokeClass, spokeModule)
 
 ksdata = makeVersion()
-storage = Storage(data=ksdata)
+storage = Blivet(ksdata=ksdata)
 storage.reset()
 instclass = DefaultInstall()
 app = App("TEST HARNESS", yes_or_no_question = YesNoDialog)

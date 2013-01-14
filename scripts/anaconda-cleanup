@@ -40,9 +40,9 @@ pyanaconda.anaconda_log.init()
 
 from pyanaconda import iutil
 
-from pyanaconda.storage import StorageDiscoveryConfig
-from pyanaconda.storage.devicetree import DeviceTree
-from pyanaconda.storage import devicelibs
+from blivet import StorageDiscoveryConfig
+from blivet.devicetree import DeviceTree
+from blivet import devicelibs
 
 storage_config = StorageDiscoveryConfig()
 

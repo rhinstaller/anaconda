@@ -30,7 +30,7 @@ from collections import OrderedDict
 
 from pyanaconda import localization
 from pyanaconda import iutil
-from pyanaconda.storage import arch
+from blivet import arch
 
 import logging
 log = logging.getLogger("anaconda")

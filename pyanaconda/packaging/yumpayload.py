@@ -73,9 +73,9 @@ from pyanaconda.flags import flags
 from pyanaconda import iutil
 from pyanaconda.iutil import ProxyString, ProxyStringError
 from pyanaconda.network import hasActiveNetDev
-from pyanaconda.storage.size import Size
-from pyanaconda.storage import util
-from pyanaconda.storage import arch
+from blivet.size import Size
+import blivet.util
+import blivet.arch
 
 from pyanaconda.image import opticalInstallMedia
 from pyanaconda.image import mountImage
@@ -137,7 +137,7 @@ class YumPayload(PackagePayload):
                get_mount_device(INSTALL_TREE) == self.install_device.path:
                 self.install_device.teardown(recursive=True)
             else:
-                util.umount(INSTALL_TREE)
+                blivet.util.umount(INSTALL_TREE)
 
         if os.path.ismount(ISO_DIR) and not flags.testing:
             if self.install_device and \
@@ -150,7 +150,7 @@ class YumPayload(PackagePayload):
             # Commenting out the below is a hack for F18.  FIXME
             #else:
             #    # NFS
-            #    util.umount(ISO_DIR)
+            #    blivet.util.umount(ISO_DIR)
 
         self.install_device = None
 
@@ -835,7 +835,7 @@ reposdir=%s
 
         if mountpoint and os.path.ismount(mountpoint):
             try:
-                util.umount(mountpoint, removeDir=False)
+                blivet.util.umount(mountpoint)
             except SystemError as e:
                 log.error("failed to unmount nfs repo %s: %s" % (mountpoint, e))
 
@@ -1502,7 +1502,7 @@ class RPMCallback(object):
 
         self.total_actions = 0
         self.completed_actions = None   # will be set to 0 when starting tx
-        self.base_arch = arch.getArch()
+        self.base_arch = blivet.arch.getArch()
 
     def _get_txmbr(self, key):
         """ Return a (name, TransactionMember) tuple from cb key. """

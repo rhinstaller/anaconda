@@ -17,7 +17,7 @@
 #
 # Author: Martin Sivak <msivak@redhat.com>
 
-SUBDIRS = installclasses isys storage ui packaging
+SUBDIRS = installclasses isys ui packaging
 
 MAINTAINERCLEANFILES = Makefile.in
 

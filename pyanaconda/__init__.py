@@ -155,8 +155,8 @@ class Anaconda(object):
     @property
     def storage(self):
         if not self._storage:
-            import storage
-            self._storage = storage.Storage(data=self.ksdata)
+            import blivet
+            self._storage = blivet.Blivet(ksdata=self.ksdata)
 
         return self._storage
 

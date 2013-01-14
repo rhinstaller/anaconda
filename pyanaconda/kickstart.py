@@ -19,17 +19,18 @@
 #
 
 from pyanaconda.errors import ScriptError, errorHandler
-from storage.deviceaction import *
-from storage.devices import LUKSDevice
-from storage.devicelibs.lvm import getPossiblePhysicalExtents
-from storage.devicelibs.mpath import MultipathConfigWriter, MultipathTopology
-from storage.devicelibs import swap
-from storage.formats import getFormat
-from storage.partitioning import doPartitioning
-from storage.partitioning import growLVM
-import storage.iscsi
-import storage.fcoe
-import storage.zfcp
+from blivet.deviceaction import *
+from blivet.devices import LUKSDevice
+from blivet.devicelibs.lvm import getPossiblePhysicalExtents
+from blivet.devicelibs.mpath import MultipathConfigWriter, MultipathTopology
+from blivet.devicelibs import swap
+from blivet.formats import getFormat
+from blivet.partitioning import doPartitioning
+from blivet.partitioning import growLVM
+import blivet.iscsi
+import blivet.fcoe
+import blivet.zfcp
+import blivet.arch
 
 import glob
 import iutil
@@ -43,7 +44,6 @@ import shlex
 import sys
 import urlgrabber
 import pykickstart.commands as commands
-from pyanaconda.storage import arch
 from pyanaconda import keyboard
 from pyanaconda import ntp
 from pyanaconda import timezone
@@ -244,7 +244,7 @@ class Authconfig(commands.authconfig.FC3_Authconfig):
 
 class AutoPart(commands.autopart.F18_AutoPart):
     def execute(self, storage, ksdata, instClass):
-        from pyanaconda.storage.partitioning import doAutoPartition
+        from blivet.partitioning import doAutoPartition
 
         if not self.autopart:
             return
@@ -451,7 +451,7 @@ class Fcoe(commands.fcoe.F13_Fcoe):
         if fc.nic not in isys.getDeviceProperties():
             raise KickstartValueError, formatErrorMsg(self.lineno, msg="Specified nonexistent nic %s in fcoe command" % fc.nic)
 
-        storage.fcoe.fcoe().addSan(nic=fc.nic, dcb=fc.dcb, auto_vlan=True)
+        blivet.fcoe.fcoe().addSan(nic=fc.nic, dcb=fc.dcb, auto_vlan=True)
 
         return fc
 
@@ -546,7 +546,7 @@ class Iscsi(commands.iscsi.F17_Iscsi):
             if tg.iface not in active_ifaces:
                 raise KickstartValueError, formatErrorMsg(self.lineno, msg="network interface %s required by iscsi %s target is not up" % (tg.iface, tg.target))
 
-        mode = storage.iscsi.iscsi().mode
+        mode = blivet.iscsi.iscsi().mode
         if mode == "none":
             if tg.iface:
                 storage.iscsi.iscsi().create_interfaces(active_ifaces)
@@ -555,7 +555,7 @@ class Iscsi(commands.iscsi.F17_Iscsi):
             raise KickstartValueError, formatErrorMsg(self.lineno, msg="iscsi --iface must be specified (binding used) either for all targets or for none")
 
         try:
-            storage.iscsi.iscsi().addTarget(tg.ipaddr, tg.port, tg.user,
+            blivet.iscsi.iscsi().addTarget(tg.ipaddr, tg.port, tg.user,
                                             tg.password, tg.user_in,
                                             tg.password_in,
                                             target=tg.target,
@@ -573,7 +573,7 @@ class IscsiName(commands.iscsiname.FC6_IscsiName):
     def parse(self, args):
         retval = commands.iscsiname.FC6_IscsiName.parse(self, args)
 
-        storage.iscsi.iscsi().initiator = self.iscsiname
+        blivet.iscsi.iscsi().initiator = self.iscsiname
         return retval
 
 class Lang(commands.lang.FC3_Lang):
@@ -849,7 +849,7 @@ class PartitionData(commands.partition.F18_PartData):
             if self.onPart:
                 ksdata.onPart[kwargs["name"]] = self.onPart
         elif self.mountpoint == "/boot/efi":
-            if arch.isMactel():
+            if blivet.arch.isMactel():
                 type = "hfs+"
             else:
                 type = "EFI System Partition"
@@ -1288,7 +1288,7 @@ class ZFCP(commands.zfcp.F14_ZFCP):
     def parse(self, args):
         fcp = commands.zfcp.F14_ZFCP.parse(self, args)
         try:
-            storage.zfcp.ZFCP().addFCP(fcp.devnum, fcp.wwpn, fcp.fcplun)
+            blivet.zfcp.ZFCP().addFCP(fcp.devnum, fcp.wwpn, fcp.fcplun)
         except ValueError as e:
             log.warning(str(e))
 
@@ -1471,9 +1471,9 @@ def parseKickstart(f):
     # We need this so all the /dev/disk/* stuff is set up before parsing.
     udev_trigger(subsystem="block", action="change")
     # So that drives onlined by these can be used in the ks file
-    storage.iscsi.iscsi().startup()
-    storage.fcoe.fcoe().startup()
-    storage.zfcp.ZFCP().startup()
+    blivet.iscsi.iscsi().startup()
+    blivet.fcoe.fcoe().startup()
+    blivet.zfcp.ZFCP().startup()
     # Note we do NOT call dasd.startup() here, that does not online drives, but
     # only checks if they need formatting, which requires zerombr to be known
     detect_multipaths()
