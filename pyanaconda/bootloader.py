@@ -36,6 +36,7 @@ from pyanaconda.constants import *
 from pyanaconda.storage.errors import StorageError
 from pyanaconda.storage.fcoe import fcoe
 import pyanaconda.network
+from pyanaconda import platform as _platform
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
@@ -43,7 +44,6 @@ N_ = lambda x: x
 
 import logging
 log = logging.getLogger("storage")
-
 
 def get_boot_block(device, seek_blocks=0):
     status = device.status
@@ -2190,6 +2190,26 @@ class UBOOT(BootLoader):
 
         if rc:
             raise BootLoaderError("bootloader install failed")
+
+
+# every platform that wants a bootloader needs to be in this dict
+bootloader_by_platform = {_platform.X86: GRUB2,
+                          _platform.EFI: EFIGRUB,
+                          _platform.MacEFI: MacEFIGRUB,
+                          _platform.PPC: GRUB2,
+                          _platform.IPSeriesPPC: IPSeriesGRUB2,
+                          _platform.NewWorldPPC: MacYaboot,
+                          _platform.S390: ZIPL,
+                          _platform.Sparc: SILO,
+                          _platform.ARM: UBOOT,
+                          _platform.omapARM: UBOOT}
+
+def get_bootloader(platform):
+    platform_name = platform.__class__.__name__
+    cls = bootloader_by_platform.get(platform.__class__, BootLoader)
+    log.info("bootloader %s on %s platform" % (cls.__name__, platform_name))
+    return cls(platform)
+
 
 # anaconda-specific functions
 

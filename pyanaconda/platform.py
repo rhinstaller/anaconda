@@ -25,7 +25,6 @@ log = logging.getLogger("anaconda")
 
 import parted
 
-from pyanaconda import bootloader
 from pyanaconda.storage import arch
 
 from flags import flags
@@ -44,7 +43,6 @@ class Platform(object):
     _minimumSector = 0
     _packages = []
 
-    bootloaderClass = bootloader.BootLoader
     # requirements for bootloader stage1 devices
     _boot_stage1_device_types = []
     _boot_stage1_format_types = []
@@ -151,7 +149,6 @@ class Platform(object):
             return 0
 
 class X86(Platform):
-    bootloaderClass = bootloader.GRUB2
     _boot_stage1_device_types = ["disk"]
     _boot_mbr_description = N_("Master Boot Record")
     _boot_descriptions = {"disk": _boot_mbr_description,
@@ -184,7 +181,6 @@ class X86(Platform):
             return 0
 
 class EFI(Platform):
-    bootloaderClass = bootloader.EFIGRUB
 
     _boot_stage1_format_types = ["efi"]
     _boot_stage1_device_types = ["partition"]
@@ -215,8 +211,6 @@ class EFI(Platform):
             return 0
 
 class MacEFI(EFI):
-    bootloaderClass = bootloader.MacEFIGRUB
-
     _boot_stage1_format_types = ["hfs+"]
     _boot_efi_description = N_("Apple EFI Boot Partition")
     _non_linux_format_types = ["hfs+"]
@@ -232,7 +226,6 @@ class MacEFI(EFI):
 
 class PPC(Platform):
     _ppcMachine = arch.getPPCMachine()
-    bootloaderClass = bootloader.GRUB2
     _boot_stage1_device_types = ["partition"]
 
     @property
@@ -240,7 +233,6 @@ class PPC(Platform):
         return self._ppcMachine
 
 class IPSeriesPPC(PPC):
-    bootloaderClass = bootloader.IPSeriesGRUB2
     _boot_stage1_format_types = ["prepboot"]
     _boot_stage1_max_end_mb = 10
     _boot_prep_description = N_("PReP Boot Partition")
@@ -264,7 +256,6 @@ class IPSeriesPPC(PPC):
             return 0
 
 class NewWorldPPC(PPC):
-    bootloaderClass = bootloader.MacYaboot
     _boot_stage1_format_types = ["appleboot"]
     _boot_apple_description = N_("Apple Bootstrap Partition")
     _boot_descriptions = {"partition": _boot_apple_description}
@@ -291,7 +282,6 @@ class PS3(PPC):
     pass
 
 class S390(Platform):
-    bootloaderClass = bootloader.ZIPL
     _packages = ["s390utils"]
     _disklabel_types = ["msdos", "dasd"]
     _boot_stage1_device_types = ["disk", "partition"]
@@ -319,7 +309,6 @@ class S390(Platform):
         return super(S390, self).requiredDiskLabelType(device_type)
 
 class Sparc(Platform):
-    bootloaderClass = bootloader.SILO
     _boot_stage1_format_types = []
     _boot_stage1_mountpoints = []
     _boot_stage1_max_end_mb = None
@@ -334,7 +323,6 @@ class Sparc(Platform):
 
 class ARM(Platform):
     _armMachine = None
-    bootloaderClass = bootloader.UBOOT
     _boot_stage1_device_types = ["disk"]
     _boot_mbr_description = N_("Master Boot Record")
     _boot_descriptions = {"disk": _boot_mbr_description,

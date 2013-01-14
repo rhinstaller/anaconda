@@ -21,7 +21,7 @@
 
 import string
 import os
-from pyanaconda.constants import *
+from . import ROOT_PATH
 from udev import udev_settle
 from . import util
 

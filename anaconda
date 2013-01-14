@@ -658,6 +658,9 @@ if __name__ == "__main__":
     anaconda_log.init()
     anaconda_log.logger.setupVirtio()
 
+    from pyanaconda import network
+    network.setup_ifcfg_log()
+
     log = logging.getLogger("anaconda")
     stdoutLog = logging.getLogger("anaconda.stdout")
 
@@ -926,6 +929,9 @@ if __name__ == "__main__":
     # init threading before Gtk can do anything
     from pyanaconda.threads import initThreading, threadMgr, AnacondaThread
     initThreading()
+
+    from pyanaconda import storage
+    storage.enable_installer_mode()
 
     # now start the interface
     setupDisplay(anaconda, opts, addon_paths)

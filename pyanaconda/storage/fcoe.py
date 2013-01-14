@@ -20,8 +20,8 @@
 import os
 from . import util
 from pyanaconda.baseudev import udev_settle
-from pyanaconda import isys
-from pyanaconda.constants import ROOT_PATH
+#from pyanaconda import isys
+from . import ROOT_PATH
 import logging
 import time
 log = logging.getLogger("storage")
@@ -76,9 +76,9 @@ class fcoe(object):
             return
 
         (key, val) = rc.strip().split("=", 1)
-        if val not in isys.getDeviceProperties():
-            log.error("Unknown FCoE NIC found in EDD: %s, ignoring" % val)
-            return
+        #if val not in isys.getDeviceProperties():
+        #    log.error("Unknown FCoE NIC found in EDD: %s, ignoring" % val)
+        #    return
 
         log.info("FCoE NIC found in EDD: %s" % val)
         self.addSan(val, dcb=True, auto_vlan=True)

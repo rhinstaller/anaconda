@@ -37,6 +37,16 @@ _ = lambda x: gettext.ldgettext("anaconda", x)
 import logging
 log = logging.getLogger("storage")
 
+from contextlib import contextmanager
+
+@contextmanager
+def progress_report_stub(message):
+    yield
+
+try:
+    from pyanaconda.progress import progress_report
+except ImportError:
+    progress_report = progress_report_stub
 
 # The values are just hints as to the ordering.
 # Eg: fsmod and devmod ordering depends on the mod (shrink -v- grow)
@@ -405,8 +415,6 @@ class ActionCreateFormat(DeviceAction):
             self.origFormat = getFormat(None)
 
     def execute(self):
-        from pyanaconda.progress import progress_report
-
         msg = _("Creating %(type)s on %(device)s") % {"type": self.device.format.type, "device": self.device.path}
         with progress_report(msg):
             self.device.setup()
@@ -545,8 +553,6 @@ class ActionResizeFormat(DeviceAction):
         self.device.format.targetSize = newsize
 
     def execute(self):
-        from pyanaconda.progress import progress_report
-
         msg = _("Resizing filesystem on %(device)s") % {"device": self.device.path}
         with progress_report(msg):
             self.device.setup(orig=True)

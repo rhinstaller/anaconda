@@ -25,7 +25,7 @@ from pyanaconda.storage.errors import DasdFormatError
 from pyanaconda.storage.devices import deviceNameToDiskByPath
 from pyanaconda.storage import util
 from pyanaconda.storage import arch
-from pyanaconda.constants import *
+from . import ROOT_PATH
 from pyanaconda.baseudev import udev_trigger
 
 import logging

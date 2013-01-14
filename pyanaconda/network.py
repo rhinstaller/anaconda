@@ -61,19 +61,22 @@ DEFAULT_HOSTNAME = "localhost.localdomain"
 # for more info about '(?!-)' and '(?<!-)' see 're' module documentation
 HOSTNAME_PART_RE = re.compile("(?!-)[A-Z\d-]{1,63}(?<!-)$", re.IGNORECASE)
 
-# Setup special logging for ifcfg NM interface
-from pyanaconda import anaconda_log
-logger = logging.getLogger("ifcfg")
-logger.setLevel(logging.DEBUG)
-anaconda_log.logger.addFileHandler(ifcfgLogFile, logger, logging.DEBUG)
-if os.access("/dev/tty3", os.W_OK):
-    anaconda_log.logger.addFileHandler("/dev/tty3", logger,
-                                       anaconda_log.DEFAULT_TTY_LEVEL,
-                                       anaconda_log.TTY_FORMAT,
-                                       autoLevel=True)
-anaconda_log.logger.forwardToSyslog(logger)
+ifcfglog = None
+def setup_ifcfg_log():
+    # Setup special logging for ifcfg NM interface
+    from pyanaconda import anaconda_log
+    global ifcfglog
+    logger = logging.getLogger("ifcfg")
+    logger.setLevel(logging.DEBUG)
+    anaconda_log.logger.addFileHandler(ifcfgLogFile, logger, logging.DEBUG)
+    if os.access("/dev/tty3", os.W_OK):
+        anaconda_log.logger.addFileHandler("/dev/tty3", logger,
+                                           anaconda_log.DEFAULT_TTY_LEVEL,
+                                           anaconda_log.TTY_FORMAT,
+                                           autoLevel=True)
+    anaconda_log.logger.forwardToSyslog(logger)
 
-ifcfglog = logging.getLogger("ifcfg")
+    ifcfglog = logging.getLogger("ifcfg")
 
 class IPError(Exception):
     pass

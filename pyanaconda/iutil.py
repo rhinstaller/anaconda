@@ -183,7 +183,8 @@ def mkdirChain(dir):
 
 def isConsoleOnVirtualTerminal():
     # XXX PJFIX is there some way to ask the kernel this instead?
-    if isS390():
+    # XXX we don't want to have to import storage from here
+    if os.uname()[4].startswith("s390"):
         return False
     return not flags.serial
 

@@ -20,6 +20,15 @@
 # Red Hat Author(s): Dave Lehman <dlehman@redhat.com>
 #
 
+##
+## Default stub values for installer-specific stuff that gets set up in
+## enable_installer_mode.
+##
+isys = None
+ROOT_PATH = '/'
+shortProductName = ''
+bootLoaderError = Exception
+
 import os
 import time
 import stat
@@ -31,11 +40,8 @@ import copy
 import nss.nss
 import parted
 
-from pyanaconda.constants import *
 from pykickstart.constants import *
 from pyanaconda import tsort
-from pyanaconda.errors import *
-from pyanaconda.bootloader import BootLoaderError
 
 from storage_log import log_method_call
 from errors import *
@@ -62,12 +68,7 @@ import zfcp
 import dasd
 import util
 import arch
-import flags
-
-if flags.installer_mode:
-    from pyanaconda import isys
-else:
-    isys = None
+from flags import flags
 
 import shelve
 import contextlib
@@ -77,6 +78,21 @@ _ = lambda x: gettext.ldgettext("anaconda", x)
 
 import logging
 log = logging.getLogger("storage")
+
+def enable_installer_mode():
+    global isys
+    global ROOT_PATH
+    global shortProductName
+    global get_bootloader
+    global BootLoaderError
+
+    from pyanaconda import isys
+    from pyanaconda.constants import ROOT_PATH
+    from pyanaconda.constants import shortProductName
+    from pyanaconda.bootloader import get_bootloader
+    from pyanaconda.bootloader import BootLoaderError
+
+    flags.installer_mode = True
 
 DEVICE_TYPE_LVM = 0
 DEVICE_TYPE_MD = 1
@@ -120,6 +136,9 @@ def getRAIDLevel(device):
     return raid_level
 
 def storageInitialize(storage, ksdata, protected):
+    from pyanaconda.flags import flags as anaconda_flags
+    flags.update_from_anaconda_flags(anaconda_flags)
+
     storage.shutdown()
 
     # touch /dev/.in_sysinit so that /lib/udev/rules.d/65-md-incremental.rules
@@ -155,6 +174,9 @@ def storageInitialize(storage, ksdata, protected):
             log.debug("onlyuse is now: %s" % (",".join(ksdata.ignoredisk.onlyuse)))
 
 def turnOnFilesystems(storage):
+    if not flags.installer_mode:
+        return
+
     if (flags.live_install and not flags.image_install and not storage.fsset.active):
         # turn off any swaps that we didn't turn on
         # needed for live installs
@@ -1669,8 +1691,10 @@ class Storage(object):
 
     @property
     def bootloader(self):
-        if self._bootloader is None and self.platform is not None:
-            self._bootloader = self.platform.bootloaderClass(self.platform)
+        if self._bootloader is None and self.platform is not None and \
+           flags.installer_mode:
+            self._bootloader = get_bootloader(self.platform)
+
         return self._bootloader
 
     def updateBootLoaderDiskList(self):
@@ -2801,6 +2825,9 @@ class FSSet(object):
 
     def turnOnSwap(self, rootPath="", upgrading=None):
         """ Activate the system's swap space. """
+        if not flags.installer_mode:
+            return
+
         for device in self.swapDevices:
             if isinstance(device, FileDevice):
                 # set up FileDevices' parents now that they are accessible
@@ -2828,6 +2855,9 @@ class FSSet(object):
     def mountFilesystems(self, rootPath="", readOnly=None,
                          skipRoot=False, raiseErrors=None):
         """ Mount the system's filesystems. """
+        if not flags.installer_mode:
+            return
+
         devices = self.mountpoints.values() + self.swapDevices
         devices.extend([self.dev, self.devshm, self.devpts, self.sysfs,
                         self.proc, self.selinux, self.usb])

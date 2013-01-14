@@ -30,10 +30,10 @@
 
 import os, time, string
 import sys
-from pyanaconda.storage import arch
-import isys
 from constants import ROOT_PATH
 from tempfile import mkstemp
+
+from pyanaconda.bootloader import get_bootloader
 
 import logging
 log = logging.getLogger("anaconda")
@@ -71,7 +71,9 @@ class Anaconda(object):
         self.rescue = False
         self.rescue_mount = True
         self.rootParts = None
-        self.simpleFilter = not arch.isS390()
+
+        # use os.uname because it's too early to be importing storage
+        self.simpleFilter = not os.uname()[4].startswith('s390')
         self.stage2 = None
         self._storage = None
         self.updateSrc = None
@@ -85,7 +87,7 @@ class Anaconda(object):
     @property
     def bootloader(self):
         if not self._bootloader:
-            self._bootloader = self.platform.bootloaderClass(self.platform)
+            self._bootloader = get_bootloader(self.platform)
 
         return self._bootloader
 

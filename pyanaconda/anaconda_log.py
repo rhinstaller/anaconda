@@ -30,7 +30,6 @@ import sys
 import types
 import warnings
 
-from pyanaconda.storage import arch
 from flags import flags
 
 DEFAULT_TTY_LEVEL = logging.INFO
@@ -105,7 +104,9 @@ class AnacondaLog:
             logger.setLevel(logging.DEBUG)
             self.forwardToSyslog(logger)
             # Logging of basic stuff and storage to tty3.
-            if not arch.isS390() and os.access(MAIN_LOG_TTY, os.W_OK):
+            # XXX Use os.uname here since it's too early to be importing the
+            #     storage module.
+            if not os.uname()[4].startswith('s390') and os.access(MAIN_LOG_TTY, os.W_OK):
                 self.addFileHandler(MAIN_LOG_TTY, logger,
                                     fmtStr=TTY_FORMAT,
                                     autoLevel=True)
