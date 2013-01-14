@@ -301,7 +301,7 @@ class StorageChecker(object):
             log.warn(w)
 
 class StorageSpoke(NormalSpoke, StorageChecker):
-    builderObjects = ["storageWindow"]
+    builderObjects = ["storageWindow", "addSpecializedImage"]
     mainWidgetName = "storageWindow"
     uiFile = "spokes/storage.glade"
 
@@ -501,13 +501,23 @@ class StorageSpoke(NormalSpoke, StorageChecker):
 
         NormalSpoke.initialize(self)
 
+        # Wouldn't it be nice if glade knew how to do this?
         label = self.builder.get_object("summary_button").get_children()[0]
         markup = "<span foreground='blue'><u>%s</u></span>" % label.get_text()
         label.set_use_markup(True)
         label.set_markup(markup)
 
+        specializedButton = self.builder.get_object("addSpecializedButton")
+
+        # It's uh... uh... it's down there somewhere, let me take another look.
+        label = specializedButton.get_children()[0].get_children()[0].get_children()[1]
+        markup = "<span size='large'><b>%s</b></span>" % label.get_text()
+        label.set_use_markup(True)
+        label.set_markup(markup)
+        specializedButton.show_all()
+
         self.local_disks_box = self.builder.get_object("local_disks_box")
-        #specialized_disks_box = self.builder.get_object("specialized_disks_box")
+        self.specialized_disks_box = self.builder.get_object("specialized_disks_box")
 
         threadMgr.add(AnacondaThread(name="AnaStorageWatcher", target=self._initialize))
 
@@ -781,8 +791,8 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         rc = self.run_lightbox_dialog(resizeDialog)
         return rc
 
-    def on_add_disk_clicked(self, button):
-        print "ADD DISK CLICKED"
+    def on_specialized_clicked(self, button):
+        return
 
     def on_info_bar_clicked(self, *args):
         if self.errors:
