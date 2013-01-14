@@ -55,6 +55,7 @@ from pyanaconda.errors import *
 from pyanaconda.storage.errors import StorageError
 from pyanaconda.storage import util
 from pyanaconda.storage import arch
+from pyanaconda.storage.platform import platform
 #from pyanaconda.progress import progress
 
 from pyanaconda.product import productName, productVersion
@@ -655,8 +656,8 @@ class PackagePayload(Payload):
 
         # most ARM systems use platform-specific kernels
         if arch.isARM():
-            if self.storage.platform.armMachine is not None:
-                kernels = ["kernel-%s" % self.storage.platform.armMachine]
+            if platform.armMachine is not None:
+                kernels = ["kernel-%s" % platform.armMachine]
 
         return kernels
 
@@ -717,7 +718,6 @@ if __name__ == "__main__":
     import os
     import sys
     import pyanaconda.storage as _storage
-    import pyanaconda.platform as _platform
     from pykickstart.version import makeVersion
     from pyanaconda.packaging.yumpayload import YumPayload
 
@@ -731,9 +731,8 @@ if __name__ == "__main__":
     #ksdata.method.url = "http://husky/install/f17/os/"
     #ksdata.method.url = "http://dl.fedoraproject.org/pub/fedora/linux/development/17/x86_64/os/"
 
-    # set up storage and platform
-    platform = _platform.getPlatform()
-    storage = _storage.Storage(data=ksdata, platform=platform)
+    # set up storage
+    storage = _storage.Storage(data=ksdata)
     storage.reset()
 
     # set up the payload

@@ -26,7 +26,7 @@ from pyanaconda.storage.devices import deviceNameToDiskByPath
 from pyanaconda.storage import util
 from pyanaconda.storage import arch
 from . import ROOT_PATH
-from pyanaconda.baseudev import udev_trigger
+from .udev import udev_trigger
 
 import logging
 log = logging.getLogger("storage")

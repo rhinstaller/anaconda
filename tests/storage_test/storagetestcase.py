@@ -44,7 +44,7 @@ class StorageTestCase(TestCase):
         pyanaconda.iutil.execWithRedirect = Mock()
         pyanaconda.iutil.execWithCapture = Mock()
         pyanaconda.iutil.execWithPulseProgress = Mock()
-        pyanaconda.baseudev = Mock()
+        pyanaconda.storage.udev = Mock()
 
         self.anaconda = Mock()
         self.setUpStorage()

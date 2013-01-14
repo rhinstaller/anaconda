@@ -983,7 +983,7 @@ if __name__ == "__main__":
 
     if anaconda.rescue:
         from pyanaconda.rescue import doRescue
-        doRescue(anaconda.rescue_mount, ksdata, anaconda.platform)
+        doRescue(anaconda.rescue_mount, ksdata)
 
 
     networkInitialize(ksdata)

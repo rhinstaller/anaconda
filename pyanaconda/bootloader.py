@@ -36,7 +36,7 @@ from pyanaconda.constants import *
 from pyanaconda.storage.errors import StorageError
 from pyanaconda.storage.fcoe import fcoe
 import pyanaconda.network
-from pyanaconda import platform as _platform
+from pyanaconda.storage import platform
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
@@ -250,10 +250,7 @@ class BootLoader(object):
 
     _trusted_boot = False
 
-    def __init__(self, platform=None):
-        # pyanaconda.platform.Platform instance
-        self.platform = platform
-
+    def __init__(self):
         self.boot_args = Arguments()
         self.dracut_args = Arguments()
 
@@ -371,11 +368,11 @@ class BootLoader(object):
     #
     @property
     def disklabel_types(self):
-        return self.platform._disklabel_types
+        return platform.platform._disklabel_types
 
     @property
     def device_descriptions(self):
-        return self.platform.bootStage1ConstraintDict["descriptions"]
+        return platform.platform.bootStage1ConstraintDict["descriptions"]
 
     #
     # constraint checking for target devices
@@ -556,7 +553,7 @@ class BootLoader(object):
         self.errors = []
         self.warnings = []
         valid = True
-        constraint = self.platform.bootStage1ConstraintDict
+        constraint = platform.platform.bootStage1ConstraintDict
 
         if device is None:
             return False
@@ -699,7 +696,7 @@ class BootLoader(object):
                                      desc=self.stage2_description):
             valid = False
 
-        non_linux_format_types = self.platform._non_linux_format_types
+        non_linux_format_types = platform.platform._non_linux_format_types
         if non_linux and \
            not self._is_valid_format(device,
                                      format_types=non_linux_format_types):
@@ -982,8 +979,8 @@ class GRUB(BootLoader):
 
     packages = ["grub"]
 
-    def __init__(self, platform=None):
-        super(GRUB, self).__init__(platform=platform)
+    def __init__(self):
+        super(GRUB, self).__init__()
         self.encrypted_password = ""
 
     #
@@ -1365,8 +1362,8 @@ class GRUB2(GRUB):
         else:
             return ["ext4", "ext3", "ext2", "btrfs", "xfs"]
 
-    def __init__(self, platform=None):
-        super(GRUB2, self).__init__(platform=platform)
+    def __init__(self):
+        super(GRUB2, self).__init__()
         self.boot_args.add("$([ -x /usr/sbin/rhcrashkernel-param ] && "\
                            "/usr/sbin/rhcrashkernel-param || :)")
 
@@ -1607,8 +1604,8 @@ class EFIGRUB(GRUB2):
     def _config_dir(self):
         return "efi/EFI/%s" % (self.efi_dir,)
 
-    def __init__(self, platform=None):
-        super(EFIGRUB, self).__init__(platform=platform)
+    def __init__(self):
+        super(EFIGRUB, self).__init__()
         self.efi_dir = 'BOOT'
 
     def efibootmgr(self, *args, **kwargs):
@@ -2003,8 +2000,8 @@ class ZIPL(BootLoader):
     image_label_attr = "short_label"
     preserve_args = ["cio_ignore"]
 
-    def __init__(self, platform=None):
-        super(ZIPL, self).__init__(platform=platform)
+    def __init__(self):
+        super(ZIPL, self).__init__()
         self.stage1_name = None
 
     #
@@ -2193,22 +2190,22 @@ class UBOOT(BootLoader):
 
 
 # every platform that wants a bootloader needs to be in this dict
-bootloader_by_platform = {_platform.X86: GRUB2,
-                          _platform.EFI: EFIGRUB,
-                          _platform.MacEFI: MacEFIGRUB,
-                          _platform.PPC: GRUB2,
-                          _platform.IPSeriesPPC: IPSeriesGRUB2,
-                          _platform.NewWorldPPC: MacYaboot,
-                          _platform.S390: ZIPL,
-                          _platform.Sparc: SILO,
-                          _platform.ARM: UBOOT,
-                          _platform.omapARM: UBOOT}
+bootloader_by_platform = {platform.X86: GRUB2,
+                          platform.EFI: EFIGRUB,
+                          platform.MacEFI: MacEFIGRUB,
+                          platform.PPC: GRUB2,
+                          platform.IPSeriesPPC: IPSeriesGRUB2,
+                          platform.NewWorldPPC: MacYaboot,
+                          platform.S390: ZIPL,
+                          platform.Sparc: SILO,
+                          platform.ARM: UBOOT,
+                          platform.omapARM: UBOOT}
 
-def get_bootloader(platform):
-    platform_name = platform.__class__.__name__
-    cls = bootloader_by_platform.get(platform.__class__, BootLoader)
+def get_bootloader():
+    platform_name = platform.platform.__class__.__name__
+    cls = bootloader_by_platform.get(platform.platform.__class__, BootLoader)
     log.info("bootloader %s on %s platform" % (cls.__name__, platform_name))
-    return cls(platform)
+    return cls()
 
 
 # anaconda-specific functions

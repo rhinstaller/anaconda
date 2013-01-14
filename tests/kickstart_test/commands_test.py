@@ -40,14 +40,14 @@ class CommandVersionTestCase(TestCase):
             'pyanaconda.storage.devicelibs.lvm',
             'pyanaconda.storage.iscsi',
             'pyanaconda.storage.fcoe',
+            'pyanaconda.storage.udev',
             'pyanaconda.storage.zfcp',
             'iutil',
             'constants',
             'flags',
             'anaconda_log',
             'parted',
-            'block',
-            'baseudev'])
+            'block'])
 
         import pyanaconda.anaconda_log
         pyanaconda.anaconda_log.init()

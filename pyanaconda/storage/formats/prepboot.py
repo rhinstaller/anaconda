@@ -21,6 +21,7 @@
 #
 
 from ..errors import *
+from .. import platform
 from . import DeviceFormat, register_device_format
 from parted import PARTITION_PREP
 import os
@@ -80,8 +81,7 @@ class PPCPRePBoot(DeviceFormat):
 
     @property
     def supported(self):
-        from pyanaconda import platform
-        return isinstance(platform.getPlatform(), platform.IPSeriesPPC)
+        return isinstance(platform.platform, platform.IPSeriesPPC)
 
 register_device_format(PPCPRePBoot)
 

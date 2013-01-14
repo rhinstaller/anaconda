@@ -41,7 +41,6 @@ import nss.nss
 import parted
 
 from pykickstart.constants import *
-from pyanaconda import tsort
 
 from storage_log import log_method_call
 from errors import *
@@ -69,6 +68,7 @@ import dasd
 import util
 import arch
 from flags import flags
+from platform import platform as _platform
 
 import shelve
 import contextlib
@@ -278,17 +278,14 @@ class StorageDiscoveryConfig(object):
         self.zeroMbr = ksdata.zerombr.zerombr
 
 class Storage(object):
-    def __init__(self, data=None, platform=None):
+    def __init__(self, data=None):
         """ Create a Storage instance.
 
             Keyword Arguments:
 
                 data        -   a pykickstart Handler instance
-                platform    -   a Platform instance
-
         """
         self.data = data
-        self.platform = platform
         self._bootloader = None
 
         self.config = StorageDiscoveryConfig()
@@ -784,9 +781,6 @@ class Storage(object):
                 - Needs some error handling
 
         """
-        if not hasattr(self.platform, "diskLabelTypes"):
-            raise StorageError("can't clear partitions without platform data")
-
         # Sort partitions by descending partition number to minimize confusing
         # things like multiple "destroy sda5" actions due to parted renumbering
         # partitions. This can still happen through the UI but it makes sense to
@@ -842,10 +836,7 @@ class Storage(object):
         destroy_action = ActionDestroyFormat(disk)
         self.devicetree.registerAction(destroy_action)
 
-        if self.platform:
-            labelType = self.platform.bestDiskLabelType(disk)
-        else:
-            labelType = None
+        labelType = _platform.bestDiskLabelType(disk)
 
         # create a new disklabel on the disk
         newLabel = getFormat("disklabel", device=disk.path,
@@ -1049,7 +1040,7 @@ class Storage(object):
             if fmt:
                 mountpoint = getattr(fmt, "mountpoint", None)
 
-                kwargs["weight"] = self.platform.weight(mountpoint=mountpoint,
+                kwargs["weight"] = _platform.weight(mountpoint=mountpoint,
                                                         fstype=fmt.type)
 
 
@@ -1569,7 +1560,7 @@ class Storage(object):
             #
             # check that GPT boot disk on BIOS system has a BIOS boot partition
             #
-            if self.platform.weight(fstype="biosboot") and \
+            if _platform.weight(fstype="biosboot") and \
                stage1 and stage1.isDisk and \
                getattr(stage1.format, "labelType", None) == "gpt":
                 missing = True
@@ -1645,8 +1636,7 @@ class Storage(object):
     @property
     def packages(self):
         pkgs = set()
-        if self.platform:
-            pkgs.update(self.platform.packages)
+        pkgs.update(_platform.packages)
 
         if self.bootloader:
             pkgs.update(self.bootloader.packages)
@@ -1691,9 +1681,8 @@ class Storage(object):
 
     @property
     def bootloader(self):
-        if self._bootloader is None and self.platform is not None and \
-           flags.installer_mode:
-            self._bootloader = get_bootloader(self.platform)
+        if self._bootloader is None and flags.installer_mode:
+            self._bootloader = get_bootloader()
 
         return self._bootloader
 

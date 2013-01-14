@@ -35,6 +35,7 @@ import selinux
 from ..errors import *
 from . import DeviceFormat, register_device_format
 from .. import util
+from .. import platform
 from ..flags import flags
 from parted import fileSystemType
 from ..storage_log import log_method_call
@@ -975,9 +976,7 @@ class EFIFS(FATFS):
 
     @property
     def supported(self):
-        from pyanaconda import platform
-        p = platform.getPlatform()
-        return (isinstance(p, platform.EFI) and
+        return (isinstance(platform.platform, platform.EFI) and
                 self.utilsAvailable)
 
 register_device_format(EFIFS)
@@ -1210,8 +1209,7 @@ class AppleBootstrapFS(HFS):
 
     @property
     def supported(self):
-        from pyanaconda import platform
-        return (isinstance(platform.getPlatform(), platform.NewWorldPPC)
+        return (isinstance(platform.platform, platform.NewWorldPPC)
                 and self.utilsAvailable)
 
 register_device_format(AppleBootstrapFS)

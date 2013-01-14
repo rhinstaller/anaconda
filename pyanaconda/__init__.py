@@ -63,7 +63,6 @@ class Anaconda(object):
         self._network = None
         self.opts = None
         self._payload = None
-        self._platform = None
         self.proxy = None
         self.proxyUsername = None
         self.proxyPassword = None
@@ -87,7 +86,7 @@ class Anaconda(object):
     @property
     def bootloader(self):
         if not self._bootloader:
-            self._bootloader = get_bootloader(self.platform)
+            self._bootloader = get_bootloader()
 
         return self._bootloader
 
@@ -141,14 +140,6 @@ class Anaconda(object):
         return self._payload
 
     @property
-    def platform(self):
-        if not self._platform:
-            from pyanaconda import platform
-            self._platform = platform.getPlatform()
-
-        return self._platform
-
-    @property
     def protected(self):
         import stat
 
@@ -165,7 +156,7 @@ class Anaconda(object):
     def storage(self):
         if not self._storage:
             import storage
-            self._storage = storage.Storage(data=self.ksdata, platform=self.platform)
+            self._storage = storage.Storage(data=self.ksdata)
 
         return self._storage
 

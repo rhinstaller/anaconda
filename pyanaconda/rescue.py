@@ -191,7 +191,7 @@ def runShell(screen = None, msg=""):
     if screen:
         screen.finish()
 
-def doRescue(rescue_mount, ksdata, platform):
+def doRescue(rescue_mount, ksdata):
     import storage
 
     for file in [ "services", "protocols", "group", "joe", "man.config",
@@ -242,7 +242,7 @@ def doRescue(rescue_mount, ksdata, platform):
 
             break
 
-    sto = storage.Storage(ksdata, platform)
+    sto = storage.Storage(ksdata)
     storage.storageInitialize(sto, ksdata, [])
     roots = storage.findExistingInstallations(sto.devicetree)
 

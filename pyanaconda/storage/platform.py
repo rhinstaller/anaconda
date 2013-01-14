@@ -21,13 +21,13 @@
 #
 import os
 import logging
-log = logging.getLogger("anaconda")
+log = logging.getLogger("storage")
 
 import parted
 
-from pyanaconda.storage import arch
-
-from flags import flags
+from . import arch
+from .flags import flags
+from .partspec import PartSpec
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
@@ -69,6 +69,9 @@ class Platform(object):
             # move GPT to the top of the list
             self._disklabel_types.remove("gpt")
             self._disklabel_types.insert(0, "gpt")
+
+    def __call__(self):
+        return self
 
     @property
     def diskLabelTypes(self):
@@ -128,13 +131,12 @@ class Platform(object):
     @property
     def packages (self):
         _packages = self._packages
-        if flags.cmdline.get('fips', None) == '1':
+        if flags.boot_cmdline.get('fips', None) == '1':
             _packages.append('dracut-fips')
         return _packages
 
     def setDefaultPartitioning(self):
         """Return the default platform-specific partitioning information."""
-        from storage.partspec import PartSpec
         return [PartSpec(mountpoint="/boot",
                          size=500, weight=self.weight(mountpoint="/boot"))]
 
@@ -165,7 +167,6 @@ class X86(Platform):
 
     def setDefaultPartitioning(self):
         """Return the default platform-specific partitioning information."""
-        from storage.partspec import PartSpec
         ret = Platform.setDefaultPartitioning(self)
         ret.append(PartSpec(fstype="biosboot", size=1,
                             weight=self.weight(fstype="biosboot")))
@@ -194,7 +195,6 @@ class EFI(Platform):
     _non_linux_format_types = ["vfat", "ntfs", "hpfs"]
 
     def setDefaultPartitioning(self):
-        from storage.partspec import PartSpec
         ret = Platform.setDefaultPartitioning(self)
         ret.append(PartSpec(mountpoint="/boot/efi", fstype="efi", size=20,
                             maxSize=200,
@@ -217,7 +217,6 @@ class MacEFI(EFI):
     _packages = ["mactel-boot"]
 
     def setDefaultPartitioning(self):
-        from storage.partspec import PartSpec
         ret = Platform.setDefaultPartitioning(self)
         ret.append(PartSpec(mountpoint="/boot/efi", fstype="hfs+", size=20,
                             maxSize=200,
@@ -240,7 +239,6 @@ class IPSeriesPPC(PPC):
     _disklabel_types = ["msdos"]
 
     def setDefaultPartitioning(self):
-        from storage.partspec import PartSpec
         ret = PPC.setDefaultPartitioning(self)
         ret.append(PartSpec(fstype="prepboot", size=4,
                             weight=self.weight(fstype="prepboot")))
@@ -263,7 +261,6 @@ class NewWorldPPC(PPC):
     _non_linux_format_types = ["hfs", "hfs+"]
 
     def setDefaultPartitioning(self):
-        from storage.partspec import PartSpec
         ret = Platform.setDefaultPartitioning(self)
         ret.append(PartSpec(fstype="appleboot", size=1, maxSize=1,
                             weight=self.weight(fstype="appleboot")))
@@ -296,7 +293,6 @@ class S390(Platform):
 
     def setDefaultPartitioning(self):
         """Return the default platform-specific partitioning information."""
-        from storage.partspec import PartSpec
         return [PartSpec(mountpoint="/boot", size=500,
                          weight=self.weight(mountpoint="/boot"), lv=True,
                          singlePV=True)]
@@ -354,7 +350,6 @@ class omapARM(ARM):
 
     def setDefaultPartitioning(self):
         """Return the ARM-OMAP platform-specific partitioning information."""
-        from storage.partspec import PartSpec
         ret = [PartSpec(mountpoint="/boot/uboot", fstype="vfat",
                         size=20, maxSize=200, grow=True,
                         weight=self.weight(fstype="vfat", mountpoint="/boot/uboot"))]
@@ -409,3 +404,6 @@ def getPlatform():
             return ARM()
     else:
         raise SystemError, "Could not determine system architecture."
+
+global platform
+platform = getPlatform()

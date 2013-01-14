@@ -25,7 +25,6 @@ ANACDIR = $(top_builddir)/pyanaconda
 TESTS_ENVIRONMENT = PYTHONPATH=$(top_builddir)/tests:$(ANACDIR)/isys/.libs:$(ANACDIR):$(top_builddir)
 
 TESTS = backend_test.py \
-    baseudev_test.py \
     bootloader_test.py \
     cmdline_test.py \
     desktop_test.py \

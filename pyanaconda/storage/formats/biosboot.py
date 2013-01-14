@@ -23,6 +23,7 @@
 from parted import PARTITION_BIOS_GRUB
 
 from ..errors import *
+from .. import platform
 from . import DeviceFormat, register_device_format
 
 class BIOSBoot(DeviceFormat):
@@ -53,8 +54,7 @@ class BIOSBoot(DeviceFormat):
 
     @property
     def supported(self):
-        from pyanaconda import platform
-        return isinstance(platform.getPlatform(), platform.X86)
+        return isinstance(platform.platform, platform.X86)
 
 register_device_format(BIOSBoot)
 

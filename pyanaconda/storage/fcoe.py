@@ -19,7 +19,7 @@
 
 import os
 from . import util
-from pyanaconda.baseudev import udev_settle
+from .udev import udev_settle
 #from pyanaconda import isys
 from . import ROOT_PATH
 import logging

@@ -41,8 +41,8 @@ import devicelibs.loop
 import devicelibs.edd
 from udev import *
 import util
-from pyanaconda import platform
-from pyanaconda import tsort
+from platform import platform
+import tsort
 from flags import flags
 from storage_log import log_method_call, log_method_return
 import parted
@@ -96,8 +96,6 @@ class DeviceTree(object):
         self.iscsi = iscsi
         self.dasd = dasd
         self.mpathFriendlyNames = getattr(conf, "mpathFriendlyNames", True)
-
-        self.platform = platform.getPlatform()
 
         self.diskImages = {}
         images = getattr(conf, "diskImages", {})
@@ -1064,7 +1062,7 @@ class DeviceTree(object):
 
         # we're going to pass the "best" disklabel type into the DiskLabel
         # constructor, but it only has meaning for non-existent disklabels.
-        labelType = self.platform.bestDiskLabelType(device)
+        labelType = platform.bestDiskLabelType(device)
 
         try:
             format = getFormat("disklabel",

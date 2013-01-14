@@ -53,6 +53,7 @@ from pyanaconda.ui.gui.utils import enlightbox, gtk_call_once, gtk_thread_wait
 from pyanaconda.kickstart import doKickstartStorage
 from pyanaconda.storage.size import Size
 from pyanaconda.storage.errors import StorageError
+from pyanaconda.storage.platform import platform
 from pyanaconda.threads import threadMgr, AnacondaThread
 from pyanaconda.product import productName
 from pyanaconda.flags import flags
@@ -668,7 +669,7 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         # any of the free space to be useful.
         disk_labels = set([disk.format.labelType for disk in disks \
                                                  if hasattr(disk.format, "labelType")])
-        platform_labels = set(self.storage.platform.diskLabelTypes)
+        platform_labels = set(platform.diskLabelTypes)
         if disk_labels and platform_labels.isdisjoint(disk_labels):
             disk_free = 0
             fs_free = 0

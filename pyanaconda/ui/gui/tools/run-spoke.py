@@ -30,7 +30,6 @@ from pyanaconda.installclass import DefaultInstall
 from pyanaconda.storage import Storage
 from pyanaconda.threads import initThreading
 from pyanaconda.packaging.yumpayload import YumPayload
-from pyanaconda.platform import getPlatform
 from pykickstart.version import makeVersion
 
 # Don't worry with fcoe, iscsi, dasd, any of that crud.
@@ -89,9 +88,8 @@ if not spokeClass:
 
 print "Running %s %s from %s" % (spokeText, spokeClass, spokeModule)
 
-platform = getPlatform()
 ksdata = makeVersion()
-storage = Storage(data=ksdata, platform=platform)
+storage = Storage(data=ksdata)
 storage.reset()
 instclass = DefaultInstall()
 

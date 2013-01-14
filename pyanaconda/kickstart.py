@@ -43,7 +43,6 @@ import shlex
 import sys
 import urlgrabber
 import pykickstart.commands as commands
-from storage.devices import *
 from pyanaconda.storage import arch
 from pyanaconda import keyboard
 from pyanaconda import ntp

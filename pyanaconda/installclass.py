@@ -32,6 +32,7 @@ from constants import *
 from product import *
 from storage.partspec import *
 from storage.devicelibs import swap
+from storage.platform import platform
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
@@ -105,7 +106,7 @@ class BaseInstallClass(object):
                                  size=500, grow=True, requiredSpace=50*1024,
                                  btr=True, lv=True, encrypted=True)]
 
-        bootreqs = storage.platform.setDefaultPartitioning()
+        bootreqs = platform.setDefaultPartitioning()
         if bootreqs:
             autorequests.extend(bootreqs)
 

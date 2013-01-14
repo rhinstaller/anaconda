@@ -721,9 +721,6 @@ def doPartitioning(storage):
             None
 
     """
-    if not hasattr(storage.platform, "diskLabelTypes"):
-        raise StorageError(_("can't allocate partitions without platform data"))
-
     disks = storage.partitioned
     if storage.config.exclusiveDisks:
         disks = [d for d in disks if d.name in storage.config.exclusiveDisks]
