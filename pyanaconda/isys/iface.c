@@ -178,8 +178,6 @@ char *iface_ip2str(char *ifname, int family) {
         return NULL;
     }
 
-    g_type_init();
-
     client = nm_client_new();
     if (!client) {
         return NULL;
@@ -420,8 +418,6 @@ gboolean is_nm_connected(void) {
     NMState state;
     NMClient *client = NULL;
 
-    g_type_init();
-
     client = nm_client_new();
     if (!client)
         return FALSE;
@@ -440,8 +436,6 @@ gboolean is_nm_running(void) {
     gboolean running;
     NMClient *client = NULL;
 
-    g_type_init();
-
     client = nm_client_new();
     if (!client)
         return FALSE;
@@ -455,8 +449,6 @@ gboolean is_iface_activated(char * ifname) {
     int i, state;
     NMClient *client = NULL;
     const GPtrArray *devices;
-
-    g_type_init();
 
     client = nm_client_new();
     if (!client)
