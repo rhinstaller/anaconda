@@ -456,8 +456,12 @@ class FilterWindow(InstallWindow):
                            udev_get_block_devices())
 
         writeMultipathConf(friendly_names=True)
+        if os.path.exists("/etc/multipath.conf"):
+            (new_singlepaths, new_mpaths, new_partitions) = identifyMultipaths(new_disks)
+        else:
+            new_singlepaths = new_disks
+            new_mpaths = []
 
-        (new_singlepaths, new_mpaths, new_partitions) = identifyMultipaths(new_disks)
         (new_raids, new_nonraids) = self.split_list(lambda d: isRAID(d) and not isCCISS(d),
                                                     new_singlepaths)
 
@@ -622,14 +626,18 @@ class FilterWindow(InstallWindow):
                        udev_get_block_devices())
 
         writeMultipathConf(friendly_names=True)
+        if os.path.exists("/etc/multipath.conf"):
+            # identifyMultipaths() uses 'multipath -d' and 'multipath -ll' to find
+            # mpath devices. In case there are devices already set up they won't
+            # show up (or show up with a wrong name). Flush those first.
+            log.info("filter_gui: flushing all multipath devices.")
+            flush_mpaths()
 
-        # identifyMultipaths() uses 'multipath -d' and 'multipath -ll' to find
-        # mpath devices. In case there are devices already set up they won't
-        # show up (or show up with a wrong name). Flush those first.
-        log.info("filter_gui: flushing all multipath devices.")
-        flush_mpaths()
+            (singlepaths, mpaths, partitions) = identifyMultipaths(disks)
+        else:
+            mpaths = []
+            singlepaths = disks
 
-        (singlepaths, mpaths, partitions) = identifyMultipaths(disks)
         # The device list could be really long, so we really only want to
         # iterate over it the bare minimum of times.  Dividing this list up
         # now means fewer elements to iterate over later.
