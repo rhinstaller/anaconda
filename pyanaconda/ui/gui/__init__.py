@@ -419,9 +419,9 @@ class GraphicalUserInterface(UserInterface):
 
         return exc_window
 
-    def saveExceptionWindow(self, account_manager, signature, *args, **kwargs):
+    def saveExceptionWindow(self, signature, *args, **kwargs):
         meh_intf = meh.ui.gui.GraphicalIntf()
-        meh_intf.saveExceptionWindow(account_manager, signature)
+        meh_intf.saveExceptionWindow(signature)
 
     ###
     ### SIGNAL HANDLING METHODS
