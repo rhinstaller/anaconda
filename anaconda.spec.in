@@ -222,6 +222,10 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Tue Jan 15 2013 Brian C. Lane <bcl@redhat.com> - 13.21.194-1
+- Fix nompath handling in advanced storage filter path. (dlehman)
+  Resolves: rhbz#821042
+
 * Tue Jan 08 2013 Brian C. Lane <bcl@redhat.com> - 13.21.193-1
 - catch runtime errors and display message to user (sbueno+anaconda)
   Resolves: rhbz#730023
