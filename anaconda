@@ -958,9 +958,8 @@ if __name__ == "__main__":
     ksdata.packages.multiLib = opts.multiLib
 
     from pyanaconda import exception
-    if anaconda.displayMode == 'g':
-        # comment out the next line to make exceptions non-fatal
-        anaconda.mehConfig = exception.initExceptionHandling(anaconda)
+    # comment out the next line to make exceptions non-fatal
+    anaconda.mehConfig = exception.initExceptionHandling(anaconda)
 
     # add our own additional signal handlers
     signal.signal(signal.SIGUSR1, lambda signum, frame:

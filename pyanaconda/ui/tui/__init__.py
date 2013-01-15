@@ -29,6 +29,7 @@ from spokes import StandaloneSpoke
 
 import os
 import site
+import meh.ui.text
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
@@ -228,3 +229,11 @@ class TextUserInterface(ui.UserInterface):
         question_window = YesNoDialog(self._app, message)
         self._app.switch_screen_modal(question_window)
         return question_window.answer
+
+    def mainExceptionWindow(self, text, exn_file, *args, **kwargs):
+        meh_intf = meh.ui.text.TextIntf()
+        return meh_intf.mainExceptionWindow(text, exn_file, *args, **kwargs)
+
+    def saveExceptionWindow(self, signature, *args, **kwargs):
+        meh_intf = meh.ui.text.TextIntf()
+        return meh_intf.saveExceptionWindow(signature, *args, **kwargs)
