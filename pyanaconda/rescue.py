@@ -22,7 +22,7 @@
 
 from snack import *
 from constants import *
-from textw.constants_text import *
+from constants_text import *
 from text import WaitWindow, OkCancelWindow, ProgressWindow, PassphraseEntryWindow, stepToClasses
 from flags import flags
 import sys
