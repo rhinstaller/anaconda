@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 18.39\n"
+"Project-Id-Version: anaconda 19.1\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2013-01-11 17:42-0800\n"
+"POT-Creation-Date: 2013-01-14 17:13-0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2294,16 +2294,20 @@ msgstr ""
 msgid "Delete"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/lib/resize.py:108
+#: pyanaconda/ui/gui/spokes/lib/resize.py:109
 msgid "This device contains the installation source."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/lib/resize.py:158
+#: pyanaconda/ui/gui/spokes/lib/resize.py:150
 #, python-format
-msgid "%s of %s"
+msgid "%(freeSize)s of %(devSize)s"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/lib/resize.py:175
+#: pyanaconda/ui/gui/spokes/lib/resize.py:156
+msgid "Not resizeable"
+msgstr ""
+
+#: pyanaconda/ui/gui/spokes/lib/resize.py:177
 msgid ""
 "You don't have enough free space available for this installation.\n"
 "\n"
@@ -2312,21 +2316,21 @@ msgid ""
 "data it contains."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/lib/resize.py:182
+#: pyanaconda/ui/gui/spokes/lib/resize.py:184
 msgid ""
 "There is also free space available in pre-existing filesystems.  While it's "
 "risky and we recommend you back up your data first, you can recover that "
 "free disk space and make it available for this installation below."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/lib/resize.py:191
+#: pyanaconda/ui/gui/spokes/lib/resize.py:193
 #, python-format
 msgid "<b>%s disk; %s reclaimable space</b> (in filesystems)"
 msgid_plural "<b>%s disks; %s reclaimable space</b> (in filesystems)"
 msgstr[0] ""
 msgstr[1] ""
 
-#: pyanaconda/ui/gui/spokes/lib/resize.py:197
+#: pyanaconda/ui/gui/spokes/lib/resize.py:199
 #, python-format
 msgid "Total selected space to reclaim: <b>%s</b>"
 msgstr ""
@@ -3265,31 +3269,31 @@ msgstr ""
 msgid "Reclaimable Space"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/lib/resize.glade:180
+#: pyanaconda/ui/gui/spokes/lib/resize.glade:173
 msgid "Action"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/lib/resize.glade:212
+#: pyanaconda/ui/gui/spokes/lib/resize.glade:198
 msgid "_Preserve"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/lib/resize.glade:226
-msgid "_Shrink"
-msgstr ""
-
-#: pyanaconda/ui/gui/spokes/lib/resize.glade:240
+#: pyanaconda/ui/gui/spokes/lib/resize.glade:214
 msgid "_Delete"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/lib/resize.glade:263
+#: pyanaconda/ui/gui/spokes/lib/resize.glade:230
+msgid "_Shrink to"
+msgstr ""
+
+#: pyanaconda/ui/gui/spokes/lib/resize.glade:275
 msgid "<b>%s disks; %s reclaimable space</b> (in filesystems)"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/lib/resize.glade:278
+#: pyanaconda/ui/gui/spokes/lib/resize.glade:290
 msgid "Total selected space to reclaim:  <b>%s</b>"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/lib/resize.glade:293
+#: pyanaconda/ui/gui/spokes/lib/resize.glade:305
 msgid "Installation requires a total of <b>%s</b> for system data."
 msgstr ""
 

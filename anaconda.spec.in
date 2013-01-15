@@ -303,6 +303,9 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/lib/dracut/modules.d/80%{name}/*
 
 %changelog
+* Mon Jan 14 2013 Brian C. Lane <bcl@redhat.com> - 19.1-1
+-  ()
+
 * Fri Jan 11 2013 Brian C. Lane <bcl@redhat.com> - 18.40-1
 - Prepare structures to save spoke completenes for firstboot and GIE (msivak)
 - Do not call exit at the end of GUI interface, just quit the main loop
