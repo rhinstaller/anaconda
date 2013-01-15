@@ -112,34 +112,6 @@ class RescueTest(mock.TestCase):
         ret = ri.enableNetwork(anaconda)
         self.assertFalse(ret)
 
-    def rescueinterface_enablenetwork_2_test(self):
-        import pyanaconda.rescue
-        import pyanaconda.textw.netconfig_text
-        pyanaconda.rescue.INSTALL_BACK = -1
-        pyanaconda.textw.netconfig_text.NetworkConfiguratorText = mock.Mock()
-        pyanaconda.textw.netconfig_text.NetworkConfiguratorText().run.return_value =\
-            "foo"
-        anaconda = mock.Mock()
-        anaconda.network.netdevices = {'foo': 'as'}
-
-        ri = pyanaconda.rescue.RescueInterface()
-        ret = ri.enableNetwork(anaconda)
-        self.assertTrue(ret)
-
-    def rescueinterface_enablenetwork_3_test(self):
-        import pyanaconda.rescue
-        import pyanaconda.textw.netconfig_text
-        pyanaconda.rescue.INSTALL_BACK = "foo"
-        pyanaconda.textw.netconfig_text.NetworkConfiguratorText = mock.Mock()
-        pyanaconda.textw.netconfig_text.NetworkConfiguratorText().run.return_value =\
-            pyanaconda.rescue.INSTALL_BACK
-        anaconda = mock.Mock()
-        anaconda.network.netdevices = {'bar': 'asdf'}
-
-        ri = pyanaconda.rescue.RescueInterface()
-        ret = ri.enableNetwork(anaconda)
-        self.assertFalse(ret)
-
     def rescueinterface_passphraseentrywindow_test(self):
         import pyanaconda.rescue
         RET = ('secret', False)
