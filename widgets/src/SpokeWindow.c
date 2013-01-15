@@ -61,6 +61,7 @@ G_DEFINE_TYPE(AnacondaSpokeWindow, anaconda_spoke_window, ANACONDA_TYPE_BASE_WIN
 static void anaconda_spoke_window_get_property(GObject *object, guint prop_id, GValue *value, GParamSpec *pspec);
 static void anaconda_spoke_window_set_property(GObject *object, guint prop_id, const GValue *value, GParamSpec *pspec);
 
+static void anaconda_spoke_window_realize(GtkWidget *widget, gpointer user_data);
 static void anaconda_spoke_window_button_clicked(GtkButton *button,
                                                  AnacondaSpokeWindow *win);
 
@@ -124,44 +125,13 @@ GtkWidget *anaconda_spoke_window_new() {
 }
 
 static void anaconda_spoke_window_init(AnacondaSpokeWindow *win) {
-    GError *error;
-    GtkWidget *nav_area, *nav_box;
-    GdkPixbuf *pixbuf;
-    cairo_pattern_t *pattern;
-    cairo_surface_t *surface;
-    cairo_t *cr;
+    GtkWidget *nav_area;
 
     win->priv = G_TYPE_INSTANCE_GET_PRIVATE(win,
                                             ANACONDA_TYPE_SPOKE_WINDOW,
                                             AnacondaSpokeWindowPrivate);
 
-    /* Set the background gradient in the header.  If we fail to load the
-     * background for any reason, just print an error message and display the
-     * header without an image.
-     */
-    error = NULL;
-    pixbuf = gdk_pixbuf_new_from_file("/usr/share/anaconda/pixmaps/anaconda_spoke_header.png", &error);
-    if (!pixbuf) {
-        fprintf(stderr, "could not load header background: %s\n", error->message);
-        g_error_free(error);
-    } else {
-        nav_box = anaconda_base_window_get_nav_area_background_window(ANACONDA_BASE_WINDOW(win));
-        gtk_widget_set_size_request(nav_box, -1, gdk_pixbuf_get_height (pixbuf));
-        gtk_widget_realize(nav_box);
-
-        surface = gdk_window_create_similar_surface(gtk_widget_get_window(nav_box), CAIRO_CONTENT_COLOR_ALPHA,
-                                                    gdk_pixbuf_get_width(pixbuf), gdk_pixbuf_get_height(pixbuf));
-        cr = cairo_create(surface);
-
-        gdk_cairo_set_source_pixbuf(cr, pixbuf, 0, 0);
-        cairo_paint(cr);
-        cairo_destroy(cr);
-        pattern = cairo_pattern_create_for_surface(surface);
-        cairo_surface_destroy(surface);
-
-        cairo_pattern_set_extend(pattern, CAIRO_EXTEND_REPEAT);
-        gdk_window_set_background_pattern(gtk_widget_get_window(nav_box), pattern);
-    }
+    g_signal_connect(win, "map", G_CALLBACK(anaconda_spoke_window_realize), NULL);
 
     /* Set some default properties. */
     gtk_window_set_modal(GTK_WINDOW(win), TRUE);
@@ -179,6 +149,43 @@ static void anaconda_spoke_window_init(AnacondaSpokeWindow *win) {
     /* And then put the button into the navigation area. */
     nav_area = anaconda_base_window_get_nav_area(ANACONDA_BASE_WINDOW(win));
     gtk_grid_attach(GTK_GRID(nav_area), win->priv->button, 0, 1, 1, 1);
+}
+
+static void anaconda_spoke_window_realize(GtkWidget *widget, gpointer user_data) {
+    GError *error;
+    GdkPixbuf *pixbuf;
+    cairo_pattern_t *pattern;
+    cairo_surface_t *surface;
+    cairo_t *cr;
+
+    AnacondaSpokeWindow *window = ANACONDA_SPOKE_WINDOW(widget);
+
+    /* Set the background gradient in the header.  If we fail to load the
+     * background for any reason, just print an error message and display the
+     * header without an image.
+     */
+    error = NULL;
+    pixbuf = gdk_pixbuf_new_from_file("/usr/share/anaconda/pixmaps/anaconda_spoke_header.png", &error);
+    if (!pixbuf) {
+        fprintf(stderr, "could not load header background: %s\n", error->message);
+        g_error_free(error);
+    } else {
+        GtkWidget *nav_box = anaconda_base_window_get_nav_area_background_window(ANACONDA_BASE_WINDOW(window));
+        gtk_widget_set_size_request(nav_box, -1, gdk_pixbuf_get_height (pixbuf));
+
+        surface = gdk_window_create_similar_surface(gtk_widget_get_window(nav_box), CAIRO_CONTENT_COLOR_ALPHA,
+                                                    gdk_pixbuf_get_width(pixbuf), gdk_pixbuf_get_height(pixbuf));
+        cr = cairo_create(surface);
+
+        gdk_cairo_set_source_pixbuf(cr, pixbuf, 0, 0);
+        cairo_paint(cr);
+        cairo_destroy(cr);
+        pattern = cairo_pattern_create_for_surface(surface);
+        cairo_surface_destroy(surface);
+
+        cairo_pattern_set_extend(pattern, CAIRO_EXTEND_REPEAT);
+        gdk_window_set_background_pattern(gtk_widget_get_window(nav_box), pattern);
+    }
 }
 
 static void anaconda_spoke_window_button_clicked(GtkButton *button,
