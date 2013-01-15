@@ -295,7 +295,6 @@ def parseOptions(argv=None, cmdline=None):
 def setupPythonPath():
     # First add our updates path
     sys.path.insert(0, '/tmp/updates/')
-    sys.path.append('/usr/share/system-config-date')
 
 def setupEnvironment():
     # Silly GNOME stuff

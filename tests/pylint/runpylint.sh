@@ -86,10 +86,7 @@ for i in $(find pyanaconda -type f -name '*py'); do
       sys.path.insert(2, "pyanaconda/isys"); \
       sys.path.insert(3, "pyanaconda"); \
       sys.path.insert(4, "pyanaconda/.libs"); \
-      sys.path.insert(5, "pyanaconda/iw"); \
-      sys.path.insert(6, "pyanaconda/textw"); \
-      sys.path.insert(7, "/usr/share/system-config-date"); \
-      sys.path.insert(8, "/usr/share/system-config-keyboard")' \
+      sys.path.insert(6, "pyanaconda/textw")' \
     -i y -r n --disable=C,R --rcfile=/dev/null \
     $DISABLED_WARN_OPTIONS \
     $DISABLED_ERR_OPTIONS \
