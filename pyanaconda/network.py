@@ -465,7 +465,7 @@ def createMissingDefaultIfcfgs():
         device = get_NM_object(devpath)
         device_props_iface = dbus.Interface(device, isys.DBUS_PROPS_IFACE)
         devicetype = device_props_iface.Get(isys.NM_DEVICE_IFACE, "DeviceType")
-        if devicetype == isys.NM_DEVICE_TYPE_WIFI:
+        if devicetype != isys.NM_DEVICE_TYPE_ETHERNET:
             continue
         # if there is no ifcfg file for the device
         interface = str(device_props_iface.Get(isys.NM_DEVICE_IFACE, "Interface"))
