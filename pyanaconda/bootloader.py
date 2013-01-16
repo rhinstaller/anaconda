@@ -232,12 +232,15 @@ class BootLoader(object):
     stage2_raid_levels = []
     stage2_raid_metadata = []
     stage2_raid_member_types = []
-    stage2_format_types = ["ext4", "ext3", "ext2"]
     stage2_mountpoints = ["/boot", "/"]
     stage2_bootable = False
     stage2_must_be_primary = True
     stage2_description = N_("/boot filesystem")
     stage2_max_end_mb = 2 * 1024 * 1024
+
+    @property
+    def stage2_format_types(self):
+        return ["ext4", "ext3", "ext2"]
 
     # this is so stupid...
     global_preserve_args = ["speakup_synth", "apic", "noapic", "apm", "ide",
@@ -1351,11 +1354,17 @@ class GRUB2(GRUB):
     can_update = True
 
     # requirements for boot devices
-    stage2_format_types = ["ext4", "ext3", "ext2", "btrfs", "xfs"]
     stage2_device_types = ["partition", "mdarray", "lvmlv", "btrfs volume",
                            "btrfs subvolume"]
     stage2_raid_levels = [mdraid.RAID0, mdraid.RAID1, mdraid.RAID4,
                           mdraid.RAID5, mdraid.RAID6, mdraid.RAID10]
+
+    @property
+    def stage2_format_types(self):
+        if productName.startswith("Red Hat Enterprise Linux"):
+            return ["xfs", "ext4", "ext3", "ext2", "btrfs"]
+        else:
+            return ["ext4", "ext3", "ext2", "btrfs", "xfs"]
 
     def __init__(self, platform=None):
         super(GRUB2, self).__init__(platform=platform)
@@ -1998,6 +2007,13 @@ class ZIPL(BootLoader):
     # stage2 device requirements
     stage2_device_types = ["partition", "mdarray", "lvmlv"]
     stage2_device_raid_levels = [mdraid.RAID1]
+
+    @property
+    def stage2_format_types(self):
+        if productName.startswith("Red Hat Enterprise Linux"):
+            return ["xfs", "ext4", "ext3", "ext2"]
+        else:
+            return ["ext4", "ext3", "ext2", "xfs"]
 
     image_label_attr = "short_label"
     preserve_args = ["cio_ignore"]

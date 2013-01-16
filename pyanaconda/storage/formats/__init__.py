@@ -22,6 +22,7 @@
 
 import os
 
+from pyanaconda.product import productName
 from pyanaconda.baseudev import udev_get_device
 from pyanaconda.iutil import notify_kernel
 from pyanaconda.iutil import get_sysfs_path_by_name
@@ -48,7 +49,10 @@ def register_device_format(fmt_class):
     log.debug("registered device format class %s as %s" % (fmt_class.__name__,
                                                            fmt_class._type))
 
-default_fstypes = ("ext4", "ext3", "ext2")
+default_fstypes = ["ext4", "ext3", "ext2"]
+if productName.startswith("Red Hat Enterprise Linux"):
+    default_fstypes.insert(0, "xfs")
+
 def get_default_filesystem_type():
     for fstype in default_fstypes:
         try:
