@@ -75,7 +75,7 @@ class GUIObject(common.UIObject):
     uiFile = ""
 
     screenshots_directory = "/tmp/anaconda-screenshots"
-    
+
     def __init__(self, data):
         """Create a new UIObject instance, including loading its uiFile and
            all UI-related objects.
@@ -204,7 +204,7 @@ class QuitDialog(GUIObject):
     uiFile = "main.glade"
 
     MESSAGE = ""
-    
+
     def run(self):
         if self.MESSAGE:
             self.builder.get_object("quit_message").set_label(_(self.MESSAGE))
@@ -218,7 +218,7 @@ class GraphicalUserInterface(UserInterface):
     def __init__(self, storage, payload, instclass,
                  distributionText = distributionText, isFinal = isFinal,
                  quitDialog = QuitDialog):
-        
+
         UserInterface.__init__(self, storage, payload, instclass)
 
         self._actions = []
@@ -283,7 +283,7 @@ class GraphicalUserInterface(UserInterface):
 
     def setup(self, data):
         busyCursor()
-        
+
         self._actions = self.getActionClasses(self._list_hubs())
         self.data = data
 
@@ -324,7 +324,7 @@ class GraphicalUserInterface(UserInterface):
         if hasattr(obj, "set_path"):
             obj.set_path("spokes", self.paths["spokes"])
             obj.set_path("categories", self.paths["categories"])
-            
+
         # If we are doing a kickstart install, some standalone spokes
         # could already be filled out.  In that case, we do not want
         # to display them.
@@ -428,7 +428,7 @@ class GraphicalUserInterface(UserInterface):
     ###
     def _on_continue_clicked(self):
         from gi.repository import Gtk
-        
+
         # If we're on the last screen, clicking Continue quits.
         if len(self._actions) == 1:
             Gtk.main_quit()
@@ -534,4 +534,4 @@ def unbusyCursor():
     window = Gdk.get_default_root_window()
     window.set_cursor(Gdk.Cursor(Gdk.CursorType.ARROW))
 
-    
+

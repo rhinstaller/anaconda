@@ -76,7 +76,7 @@ class UserInterface(object):
         for k,v in pathdict.iteritems():
             cls.paths.setdefault(k, [])
             cls.paths[k].extend(v)
-    
+
     def setup(self, data):
         """Construct all the objects required to implement this interface.
            This method must be provided by all subclasses.
@@ -147,7 +147,7 @@ class UserInterface(object):
                                        getattr(obj, "preForHub", False) or getattr(obj, "postForHub", False)))
 
         return standalones
-    
+
     def _orderActionClasses(self, spokes, hubs):
         """Order all the Hub and Spoke classes which should be enqueued for
            processing according to their pre/post dependencies.
