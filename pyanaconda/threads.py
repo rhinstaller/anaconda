@@ -35,6 +35,7 @@ class ThreadManager(object):
     """
     def __init__(self):
         self._objs = {}
+        self._errors = {}
 
     def __call__(self):
         return self
@@ -47,6 +48,7 @@ class ThreadManager(object):
             raise KeyError
 
         self._objs[obj.name] = obj
+        self._errors[obj.name] = None
         obj.start()
 
     def remove(self, name):
@@ -65,6 +67,32 @@ class ThreadManager(object):
            Return None if no such object exists.
         """
         return self._objs.get(name)
+
+    def wait(self, name):
+        """Wait for the thread to exit and if the thread exited with an error
+           re-raise it here.
+        """
+        if self.exists(name):
+            self.get(name).join()
+        if self._errors.get(name) is not None:
+            raise self._errors[name][0], self._errors[name][1], self._errors[name][2]
+
+    def set_error(self, name, *exc_info):
+        """Set the error data for a thread
+
+           The exception data is expected to be the tuple from sys.exc_info()
+        """
+        self._errors[name] = exc_info
+
+    def get_error(self, name):
+        """Get the error data for a thread using its name
+        """
+        return self._errors.get(name)
+
+    def any_errors(self):
+        """Return True of there have been any errors in any threads
+        """
+        return any(self._errors.values())
 
 class AnacondaThread(threading.Thread):
     """A threading.Thread subclass that exists only for a couple purposes:
@@ -92,6 +120,7 @@ class AnacondaThread(threading.Thread):
         except KeyboardInterrupt:
             raise
         except:
+            threadMgr.set_error(self.name, *sys.exc_info())
             sys.excepthook(*sys.exc_info())
         finally:
             threadMgr.remove(self.name)
