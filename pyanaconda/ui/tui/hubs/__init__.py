@@ -50,6 +50,7 @@ class TUIHub(TUIObject, common.Hub):
         self._keys = {}       # holds spokes referenced by their user input key
         self._spoke_count = 0
 
+    def setup(self, environment="anaconda"):
         # look for spokes having category present in self.categories
         for c in self.categories:
             spokes = collect_spokes(self.paths["spokes"], c)
@@ -57,10 +58,10 @@ class TUIHub(TUIObject, common.Hub):
             # sort them according to their priority
             for s in sorted(spokes, key = lambda s: s.priority):
                 # Check if this spoke is to be shown in anaconda
-                if not s.should_run("anaconda", self.data):
+                if not s.should_run(environment, self.data):
                     continue
-                
-                spoke = s(app, data, storage, payload, instclass)
+
+                spoke = s(self.app, self.data, self.storage, self.payload, self.instclass)
                 spoke.initialize()
 
                 if not spoke.showable:

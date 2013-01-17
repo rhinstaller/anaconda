@@ -344,6 +344,14 @@ class UIScreen(object):
         # list that holds the content to be printed out
         self._window = []
 
+        # index of the page (subset of screen) shown during show_all
+        # indexing starts with 0
+        self._page = 0
+
+    def setup(self, environment):
+        """Do additional setup right before this screen is used."""
+        pass
+
     def refresh(self, args = None):
         """Method which prepares the content desired on the screen to self._window.
 

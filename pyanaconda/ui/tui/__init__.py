@@ -112,6 +112,8 @@ class YesNoDialog(tui.UIScreen):
 class TextUserInterface(ui.UserInterface):
     """This is the main class for Text user interface."""
 
+    ENVIRONMENT = "anaconda"
+
     def __init__(self, storage, payload, instclass):
         """
         For detailed description of the arguments see
@@ -145,7 +147,7 @@ class TextUserInterface(ui.UserInterface):
                       os.path.join(path, "hubs"))
                       for path in pathlist]
             }
-    
+
     def _list_hubs(self):
         """returns the list of hubs to use"""
         return [SummaryHub, ProgressHub]
@@ -153,7 +155,7 @@ class TextUserInterface(ui.UserInterface):
     def _is_standalone(self, spoke):
         """checks if the passed spoke is standalone"""
         return isinstance(spoke, StandaloneSpoke)
-    
+
     def setup(self, data):
         """Construct all the objects required to implement this interface.
            This method must be provided by all subclasses.
@@ -165,7 +167,7 @@ class TextUserInterface(ui.UserInterface):
         path = os.path.join(os.path.dirname(__file__), "spokes")
         spokes = self._collectActionClasses(self.paths["spokes"], StandaloneSpoke)
         actionClasses = self._orderActionClasses(spokes, _hubs)
-        
+
         for klass in actionClasses:
             obj = klass(self._app, data, self.storage, self.payload, self.instclass)
 
@@ -178,6 +180,8 @@ class TextUserInterface(ui.UserInterface):
 
             if hasattr(obj, "set_path"):
                 obj.set_path("spokes", self.paths["spokes"])
+
+            obj.setup(self.ENVIRONMENT)
 
             self._app.schedule_screen(obj)
 
