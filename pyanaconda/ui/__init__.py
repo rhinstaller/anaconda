@@ -64,6 +64,11 @@ class UserInterface(object):
     basemask = "pyanaconda.ui"
     paths = PathDict({})
 
+    @property
+    def tty_num(self):
+        """Returns the number of tty the UserInterface is running on."""
+        raise NotImplementedError
+
     @classmethod
     def update_paths(cls, pathdict):
         """Receives pathdict and appends it's contents to the current
@@ -82,6 +87,15 @@ class UserInterface(object):
         """Run the interface.  This should do little more than just pass
            through to something else's run method, but is provided here in
            case more is needed.  This method must be provided by all subclasses.
+        """
+        raise NotImplementedError
+
+    @property
+    def meh_interface(self):
+        """
+        Returns an interface for exception handling (defined by python-meh's
+        AbstractIntf class).
+
         """
         raise NotImplementedError
 
@@ -156,15 +170,3 @@ class UserInterface(object):
                                         key=lambda obj: obj.priority))
 
         return actionClasses
-
-    def mainExceptionWindow(self, text, exn_file):
-        """Return window with the exception and buttons for debugging, bug
-           reporting and exitting the installer.
-
-           This method will be called only when unhandled exception appears.
-        """
-        raise NotImplementedError
-
-    def saveExceptionWindow(self, account_manager, signature):
-        """Show a window that provides a way to report a bug."""
-        raise NotImplementedError

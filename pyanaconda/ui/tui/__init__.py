@@ -132,6 +132,7 @@ class TextUserInterface(ui.UserInterface):
 
         ui.UserInterface.__init__(self, storage, payload, instclass)
         self._app = None
+        self._meh_interface = meh.ui.text.TextIntf()
 
     basemask = "pyanaconda.ui.tui"
     basepath = os.path.dirname(__file__)
@@ -148,6 +149,14 @@ class TextUserInterface(ui.UserInterface):
                       os.path.join(path, "hubs"))
                       for path in pathlist]
             }
+
+    @property
+    def tty_num(self):
+        return 1
+
+    @property
+    def meh_interface(self):
+        return self._meh_interface
 
     def _list_hubs(self):
         """returns the list of hubs to use"""
@@ -229,11 +238,3 @@ class TextUserInterface(ui.UserInterface):
         question_window = YesNoDialog(self._app, message)
         self._app.switch_screen_modal(question_window)
         return question_window.answer
-
-    def mainExceptionWindow(self, text, exn_file, *args, **kwargs):
-        meh_intf = meh.ui.text.TextIntf()
-        return meh_intf.mainExceptionWindow(text, exn_file, *args, **kwargs)
-
-    def saveExceptionWindow(self, signature, *args, **kwargs):
-        meh_intf = meh.ui.text.TextIntf()
-        return meh_intf.saveExceptionWindow(signature, *args, **kwargs)

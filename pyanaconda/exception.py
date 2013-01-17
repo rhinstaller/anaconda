@@ -43,6 +43,17 @@ _ = lambda x: gettext.ldgettext("anaconda", x)
 
 
 class AnacondaExceptionHandler(ExceptionHandler):
+
+    def __init__(self, confObj, intfClass, exnClass, tty_num):
+        """
+        @see: python-meh's ExceptionHandler
+        @param tty_num: the number of tty the interface is running on
+
+        """
+
+        ExceptionHandler.__init__(self, confObj, intfClass, exnClass)
+        self._intf_tty_num = tty_num
+
     def handleException(self, (ty, value, tb), obj):
 
         def run_handleException_on_idle(args_tuple):
@@ -60,7 +71,7 @@ class AnacondaExceptionHandler(ExceptionHandler):
             super(AnacondaExceptionHandler, self).handleException((ty, value, tb),
                                                                   obj)
             return False
-            
+
         if issubclass(ty, storage.errors.StorageError) and value.hardware_fault:
             hw_error_msg = _("The installation was stopped due to what "
                              "seems to be a problem with your hardware. "
@@ -105,9 +116,8 @@ class AnacondaExceptionHandler(ExceptionHandler):
             pass
 
     def runDebug(self, (ty, value, tb)):
-        # vtActivate does not work on certain ppc64 machines, so just skip
-        # that and continue with the rest of the debugger setup.
-        iutil.vtActivate(1)
+        if self._intf_tty_num != 1:
+            iutil.vtActivate(1)
 
         pidfl = "/tmp/vncshell.pid"
         if os.path.exists(pidfl) and os.path.isfile(pidfl):
@@ -137,7 +147,8 @@ class AnacondaExceptionHandler(ExceptionHandler):
         import pdb
         pdb.post_mortem (tb)
 
-        iutil.vtActivate(6)
+        if self._intf_tty_num != 1:
+            iutil.vtActivate(self._intf_tty_num)
 
 def initExceptionHandling(anaconda):
     fileList = [ "/tmp/anaconda.log", "/tmp/packaging.log",
@@ -164,7 +175,8 @@ def initExceptionHandling(anaconda):
                                 "payload._yum"],
                   localSkipList=[ "passphrase", "password" ],
                   fileList=fileList)
-    handler = AnacondaExceptionHandler(conf, anaconda.intf, ReverseExceptionDump)
+    handler = AnacondaExceptionHandler(conf, anaconda.intf.meh_interface,
+                                       ReverseExceptionDump, anaconda.intf.tty_num)
     handler.install(anaconda)
 
     return conf

@@ -230,7 +230,9 @@ class GraphicalUserInterface(UserInterface):
         self._distributionText = distributionText
         self._isFinal = isFinal
         self._quitDialog = quitDialog
-    
+        self._mehInterface = GraphicalExceptionHandlingIface(
+                                    self.lightbox_over_current_action)
+
         # This is a hack to make sure the AnacondaWidgets library gets loaded
         # before glade tries to use Anaconda types
         # glade file should contain the following line to make this seamless
@@ -259,7 +261,15 @@ class GraphicalUserInterface(UserInterface):
                       os.path.join(path, "hubs"))
                       for path in pathlist]
             }
-        
+
+    @property
+    def tty_num(self):
+        return 6
+
+    @property
+    def meh_interface(self):
+        return self._mehInterface
+
     def _list_hubs(self):
         """Return a list of Hub classes to be imported to this interface"""
         from .hubs.summary import SummaryHub
@@ -288,6 +298,20 @@ class GraphicalUserInterface(UserInterface):
 
         # Second, order them according to their relationship
         return self._orderActionClasses(standalones, hubs)
+
+    def lightbox_over_current_action(self, window):
+        """
+        Creates lightbox over current action for the given window. Or
+        DOES NOTHING IF THERE ARE NO ACTIONS.
+
+        """
+
+        from gi.repository import AnacondaWidgets
+
+        # if there are no actions (not populated yet), we can do nothing
+        if len(self._actions) > 0:
+            lightbox = AnacondaWidgets.lb_show_over(self._currentAction.window)
+            window.main_window.set_transient_for(lightbox)
 
     def _instantiateAction(self, actionClass):
         from spokes import StandaloneSpoke
@@ -399,30 +423,6 @@ class GraphicalUserInterface(UserInterface):
 
         return bool(rc)
 
-
-    def mainExceptionWindow(self, text, exn_file, *args, **kwargs):
-        from gi.repository import Gtk, AnacondaWidgets
-
-        meh_intf = meh.ui.gui.GraphicalIntf()
-        exc_window = meh_intf.mainExceptionWindow(text, exn_file)
-        exc_window.main_window.set_decorated(False)
-
-        # exception may appear before self._actions gets populated
-        if len(self._actions) > 0:
-            lightbox = AnacondaWidgets.lb_show_over(self._currentAction.window)
-            exc_window.main_window.set_transient_for(lightbox)
-
-        # without WindowGroup, python-meh's window is insensitive if it appears
-        # above a spoke (Gtk.Window running its own Gtk.main loop)
-        window_group = Gtk.WindowGroup()
-        window_group.add_window(exc_window.main_window)
-
-        return exc_window
-
-    def saveExceptionWindow(self, signature, *args, **kwargs):
-        meh_intf = meh.ui.gui.GraphicalIntf()
-        meh_intf.saveExceptionWindow(signature)
-
     ###
     ### SIGNAL HANDLING METHODS
     ###
@@ -493,7 +493,38 @@ class GraphicalUserInterface(UserInterface):
         if rc == 1:
             sys.exit(0)
 
+class GraphicalExceptionHandlingIface(meh.ui.gui.GraphicalIntf):
+    """
+    Class inheriting from python-meh's GraphicalIntf and overriding methods
+    that need some modification in Anaconda.
 
+    """
+
+    def __init__(self, lightbox_func):
+        """
+        @param lightbox_func: a function that creates lightbox for a given
+                              window
+        @type lightbox_func: GtkWindow -> None
+
+        """
+
+        self._lightbox_func = lightbox_func
+
+    def mainExceptionWindow(self, text, exn_file, *args, **kwargs):
+        from gi.repository import Gtk
+
+        meh_intf = meh.ui.gui.GraphicalIntf()
+        exc_window = meh_intf.mainExceptionWindow(text, exn_file)
+        exc_window.main_window.set_decorated(False)
+
+        self._lightbox_func(exc_window)
+
+        # without WindowGroup, python-meh's window is insensitive if it appears
+        # above a spoke (Gtk.Window running its own Gtk.main loop)
+        window_group = Gtk.WindowGroup()
+        window_group.add_window(exc_window.main_window)
+
+        return exc_window
 
 def busyCursor():
     window = Gdk.get_default_root_window()
