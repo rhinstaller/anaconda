@@ -165,6 +165,7 @@ Requires: libselinux-python >= %{libselinuxver}
 %ifnarch s390 s390x
 Requires: fcoe-utils >= %{fcoeutilsver}
 %endif
+Requires: device-mapper-multipath
 Requires: kbd
 Requires: chrony
 Requires: rdate
