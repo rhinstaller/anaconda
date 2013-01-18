@@ -178,6 +178,8 @@ def initExceptionHandling(anaconda):
                   fileList=fileList)
 
     conf.register_callback("lsblk_output", lsblk_callback, attchmnt_only=True)
+    conf.register_callback("nmcli_dev_list", nmcli_dev_list_callback,
+                           attchmnt_only=True)
 
     handler = AnacondaExceptionHandler(conf, anaconda.intf.meh_interface,
                                        ReverseExceptionDump, anaconda.intf.tty_num)
@@ -189,6 +191,11 @@ def lsblk_callback():
     """Callback to get info about block devices."""
 
     return iutil.execWithCapture("lsblk", ["--perms", "--fs", "--bytes"])
+
+def nmcli_dev_list_callback():
+    """Callback to get info about network devices."""
+
+    return iutil.execWithCapture("nmcli", ["dev", "list"])
 
 def test_exception_handling():
     """
