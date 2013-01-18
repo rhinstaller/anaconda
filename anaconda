@@ -959,7 +959,6 @@ if __name__ == "__main__":
 
     if image_count:
         anaconda.storage.setupDiskImages()
-        anaconda.simpleFilter = True
 
     # sets yum's multilib_policy to "all" (as opposed to "best")
     ksdata.packages.multiLib = opts.multiLib

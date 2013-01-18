@@ -71,8 +71,6 @@ class Anaconda(object):
         self.rescue_mount = True
         self.rootParts = None
 
-        # use os.uname because it's too early to be importing storage
-        self.simpleFilter = not os.uname()[4].startswith('s390')
         self.stage2 = None
         self._storage = None
         self.updateSrc = None
