@@ -1358,6 +1358,7 @@ class GRUB2(GRUB):
                            "btrfs subvolume"]
     stage2_raid_levels = [mdraid.RAID0, mdraid.RAID1, mdraid.RAID4,
                           mdraid.RAID5, mdraid.RAID6, mdraid.RAID10]
+    stage2_raid_metadata = ["0", "0.90", "1.0", "1.2"]
 
     @property
     def stage2_format_types(self):
