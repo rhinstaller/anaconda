@@ -2313,6 +2313,26 @@ int activateDevice(struct loaderData_s * loaderData, iface_t * iface) {
             }
         }
 
+        if (loaderData->bonding_slaves) {
+            gchar **slaves = NULL;
+            int i;
+
+            if ((slaves = g_strsplit(loaderData->bonding_slaves, ",", 0)) != NULL) {
+                for (i=0; i < g_strv_length(slaves); i++) {
+                    if (slaves[i] != NULL && g_strcmp0(slaves[i], "")) {
+                        if (is_iface_activated(slaves[i])) {
+                            logMessage(INFO, "bond slave device %s is already activated", slaves[i]);
+                            if ((rc = disconnectDevice(slaves[i])) != 0) {
+                                logMessage(ERROR, "device disconnection failed with return code %d", rc);
+                            }
+                        }
+                    }
+                }
+                g_strfreev(slaves);
+            }
+        }
+
+
         /* we don't want to end up asking about interface more than once
          * if we're in a kickstart-ish case (#100724) */
         loaderData->netDev_set = 1;
