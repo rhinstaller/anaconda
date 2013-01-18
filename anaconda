@@ -352,6 +352,9 @@ def check_memory(anaconda, opts, display_mode=None):
                     "terminal.")
     nolivecd_extra = _(" Starting text mode.")
 
+    if opts.rescue:
+        return
+
     if not display_mode:
         display_mode = anaconda.displayMode
 
