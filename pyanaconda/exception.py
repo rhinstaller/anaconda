@@ -1,7 +1,7 @@
 #
 # exception.py - general exception formatting and saving
 #
-# Copyright (C) 2000-2012 Red Hat, Inc.
+# Copyright (C) 2000-2013 Red Hat, Inc.
 # All rights reserved.
 #
 # This program is free software; you can redistribute it and/or modify
@@ -19,6 +19,7 @@
 #
 # Author(s): Chris Lumens <clumens@redhat.com>
 #            David Cantrell <dcantrell@redhat.com>
+#            Vratislav Podzimek <vpodzime@redhat.com>
 #
 from meh.handler import *
 from meh.dump import *
@@ -175,11 +176,19 @@ def initExceptionHandling(anaconda):
                                 "payload._yum"],
                   localSkipList=[ "passphrase", "password" ],
                   fileList=fileList)
+
+    conf.register_callback("lsblk_output", lsblk_callback, attchmnt_only=True)
+
     handler = AnacondaExceptionHandler(conf, anaconda.intf.meh_interface,
                                        ReverseExceptionDump, anaconda.intf.tty_num)
     handler.install(anaconda)
 
     return conf
+
+def lsblk_callback():
+    """Callback to get info about block devices."""
+
+    return iutil.execWithCapture("lsblk", ["--perms", "--fs", "--bytes"])
 
 def test_exception_handling():
     """
