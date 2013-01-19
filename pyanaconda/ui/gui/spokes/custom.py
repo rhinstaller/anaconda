@@ -128,39 +128,6 @@ device_text_map = {DEVICE_TYPE_LVM: DEVICE_TEXT_LVM,
                    DEVICE_TYPE_PARTITION: DEVICE_TEXT_PARTITION,
                    DEVICE_TYPE_BTRFS: DEVICE_TEXT_BTRFS}
 
-options_page_dict = {DEVICE_TYPE_LVM: 0,
-                     DEVICE_TYPE_MD: 1,
-                     DEVICE_TYPE_BTRFS: 2}
-
-# raid feature names. These are the basis for some UI widget names.
-raid_features = ["Performance", "Redundancy", "Error", "DistError",
-                 "RedundantError"]
-
-# feature names by raid level
-raid_level_features = {"raid0": ["Performance"],
-                       "raid1": ["Redundancy"],
-                       "raid10": ["Performance", "Redundancy"],
-                       "raid4": ["Performance", "Error"],
-                       "raid5": ["Performance", "DistError"],
-                       "raid6": ["Performance", "RedundantError"],
-                       "single": []}
-
-# disabled features by raid_level
-raid_disabled_features = {"raid1": ["Error", "DistError", "RedundantError"],
-                          "raid10": ["Error", "DistError", "RedundantError"],
-                          "raid4": ["Performance", "Redundancy", "DistError", "RedundantError"],
-                          "raid5": ["Performance", "Redundancy", "Error", "RedundantError"],
-                          "raid6": ["Performance", "Redundancy", "Error", "DistError"],
-                          None: ["Error", "DistError", "RedundantError"],
-}
-
-# reference raid level by feature name
-feature_raid_levels = {"Performance": "raid0",
-                       "Redundancy": "raid1",
-                       "Error": "raid4",
-                       "DistError": "raid5",
-                       "RedundantError": "raid6"}
-
 partition_only_format_types = ["efi", "hfs+", "prepboot", "biosboot",
                                "appleboot"]
 
@@ -449,7 +416,7 @@ class HelpDialog(GUIObject):
 
 class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
     builderObjects = ["customStorageWindow", "sizeAdjustment",
-                      "partitionStore",
+                      "partitionStore", "raidStoreFiltered", "raidLevelStore",
                       "addImage", "removeImage", "settingsImage"]
     mainWidgetName = "customStorageWindow"
     uiFile = "spokes/custom.glade"
@@ -523,8 +490,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         self._partitionsViewport = self.builder.get_object("partitionsViewport")
         self._partitionsNotebook = self.builder.get_object("partitionsNotebook")
 
-        self._optionsNotebook = self.builder.get_object("optionsNotebook")
-
         self._addButton = self.builder.get_object("addButton")
         self._removeButton = self.builder.get_object("removeButton")
         self._configButton = self.builder.get_object("configureButton")
@@ -541,12 +506,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         setViewportBackground(self.builder.get_object("availableSpaceViewport"), "#db3279")
         setViewportBackground(self.builder.get_object("totalSpaceViewport"), "#60605b")
 
-        # Set the background of the options notebook to slightly darker than
-        # everything else, and give it a border.
-        provider = Gtk.CssProvider()
-        provider.load_from_data("GtkNotebook { background-color: shade(@theme_bg_color, 0.95); border-width: 1px; border-style: solid; border-color: @borders; }")
-        context = self._optionsNotebook.get_style_context()
-        context.add_provider(provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
+        raidStoreFilter = self.builder.get_object("raidStoreFiltered")
+        raidStoreFilter.set_visible_func(self._raid_level_visible)
 
         self._accordion = Accordion()
         self._partitionsViewport.add(self._accordion)
@@ -1361,113 +1322,64 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                 # from other pages since we haven't altered the filesystem
                 self.add_new_selector(device)
 
-    def _get_raid_widget_dict(self, device_type):
-        """ Return dict of widget tuples with feature keys for device_type. """
-        if device_type == DEVICE_TYPE_MD:
-            prefix = "raid"
+    def _raid_level_visible(self, model, itr, user_data):
+        device_type = self._get_current_device_type()
+        if device_type == DEVICE_TYPE_LVM:
+            return model[itr][1]
+        elif device_type == DEVICE_TYPE_MD:
+            return model[itr][2]
         elif device_type == DEVICE_TYPE_BTRFS:
-            prefix = "btrfs"
-        elif device_type == DEVICE_TYPE_LVM:
-            prefix = "lvm"
-        else:
-            return {}
-
-        widget_dict = {}
-        for feature in raid_features:
-            button = self.builder.get_object("%s%sCheckbox" % (prefix, feature))
-            label = self.builder.get_object("%s%sLabel" % (prefix, feature))
-            if button and label:
-                widget_dict[feature] = (button, label)
-
-        return widget_dict
+            return model[itr][3]
 
     def _get_raid_level(self):
-        """ Return the raid level string based on the current ui selections. """
-        device_type = self._get_current_device_type()
-        widget_dict = self._get_raid_widget_dict(device_type)
-        if not widget_dict:
-            return None
+        combo = self.builder.get_object("raidLevelCombo")
+        itr = combo.get_active_iter()
+        store = combo.get_model()
 
-        active = []
-        for feature in raid_features:
-            if feature not in widget_dict:
-                continue
+        if not itr:
+            return
 
-            (button, label) = widget_dict[feature]
-            if button.get_active():
-                active.append(feature)
-
-        raid_level = None
-        for (level, feature_set) in raid_level_features.items():
-            if set(active) == set(feature_set):
-                raid_level = level
-                break
-
-        if raid_level is None:
-            # this is okay for lvm or btrfs but not for md until we add linear
-            log.error("UI: failed to get raid level (%s)" % active)
-
-        return raid_level
-
-    def on_raid_feature_toggled(self, widget):
-        new_state = widget.get_active()
-        log.debug("widget %s new state: %s" % (widget, new_state))
-
-        raid_level = self._get_raid_level()
-
-        # now that we've established a raid level, update disabled features
-        self._update_disabled_raid_features(raid_level)
-
-    def _get_raid_disabled_features(self, raid_level):
-        """ Return a list of disabled features based on raid level. """
-        disabled = raid_disabled_features.get(raid_level, [])
-        disk_count = len(self._device_disks)
-        # go through each feature's reference raid level, filtering any that
-        # require more disks than we have available
-        for feature in raid_features:
-            # XXX we're using the mdraid rules for min members
-            level = mdraid.raidLevel(feature_raid_levels[feature])
-            min_disks = mdraid.get_raid_min_members(level)
-            if min_disks > disk_count and feature not in disabled:
-                disabled.append(feature)
-
-        return disabled
-
-    def _update_disabled_raid_features(self, raid_level):
-        """ Update disabled feature widgets based on raid level. """
-        device_type = self._get_current_device_type()
-        widget_dict = self._get_raid_widget_dict(device_type)
-        disabled = self._get_raid_disabled_features(raid_level)
-        for feature in raid_features:
-            if feature not in widget_dict:
-                continue
-
-            (button, label) = widget_dict[feature]
-            button.set_sensitive(feature not in disabled)
+        return store[itr][0].split()[0].lower()
 
     def _populate_raid(self, raid_level, size):
         """ Set up the raid-specific portion of the device details. """
         device_type = self._get_current_device_type()
         log.debug("populate_raid: %s, %s" % (device_type, raid_level))
 
+        raid_label = self.builder.get_object("raidLevelLabel")
+        raid_combo = self.builder.get_object("raidLevelCombo")
+
         if device_type == DEVICE_TYPE_MD:
             base_level = "raid0"    # FIXME: should be linear
-
-            level_label = self.builder.get_object("raidLevelLabel")
-            level_label.set_text(raid_level.upper())
         elif device_type == DEVICE_TYPE_BTRFS:
             base_level = "single"
         else:
+            for widget in [raid_label, raid_combo]:
+                widget.set_no_show_all(True)
+                widget.hide()
+
             return
+
+        if not raid_level:
+            raid_level = base_level
+
+        # Set a default RAID level in the combo.
+        for (i, row) in enumerate(raid_combo.get_model()):
+            if row[0].startswith(raid_level.upper()):
+                raid_combo.set_active(i)
+                break
+
+        for widget in [raid_label, raid_combo]:
+            widget.set_no_show_all(False)
+            widget.show()
 
         # Create a DeviceFactory to use to calculate the disk space needs for
         # this device with various raid features enabled.
         with ui_storage_logger():
             factory = self.__storage.getDeviceFactory(device_type, size,
                                                       disks=self._device_disks,
-                                                      raid_level=base_level)
+                                                      raid_level=raid_level)
 
-        widget_dict = self._get_raid_widget_dict(device_type)
         try:
             base_size = factory.device_size
         except MDRaidError as e:
@@ -1477,31 +1389,13 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             self.window.show_all()
             return
 
-        active = raid_level_features[raid_level]
-        disabled = self._get_raid_disabled_features(raid_level)
-        for feature in raid_features:
-            if feature not in widget_dict:
-                # this feature isn't supported for this device type
-                continue
-
-            (button, label) = widget_dict[feature]
-
-            # is this feature enabled for the current raid level?
-            button.set_active(feature in active)
-
-            # what is the incremental disk space requirement for this feature?
-            # TODO: update this when the size spinner changes
-            level = mdraid.raidLevel(feature_raid_levels[feature])
-            min_disks = mdraid.get_raid_min_members(level)
-            if min_disks <= len(factory.disks):
-                factory.raid_level = feature_raid_levels[feature]
-                delta = factory.device_size - base_size
-                label.set_text("+%s" % str(Size(spec="%fmb" % delta)).upper())
-            else:
-                label.set_text(_("(not enough disks)"))
-
-            # some features are not available to some raid levels
-            button.set_sensitive(feature not in disabled)
+        # what is the incremental disk space requirement for this feature?
+        # TODO: update this when the size spinner changes
+        level = self._get_raid_level()
+        min_disks = mdraid.get_raid_min_members(level)
+        if min_disks <= len(factory.disks):
+            factory.raid_level = level
+            delta = factory.device_size - base_size
 
     def _get_current_device_type(self):
         typeCombo = self.builder.get_object("deviceTypeCombo")
@@ -1736,7 +1630,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
         self._populate_raid(raid_level, device.size)
         self._populate_lvm(device=use_dev)
-        self.builder.get_object("optionsNotebook").set_sensitive(not device.exists)
         # do this last in case this was set sensitive in on_device_type_changed
         if use_dev.exists:
             nameEntry.set_sensitive(False)
@@ -2413,13 +2306,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         include_btrfs = False
         fs_type_sensitive = True
 
-        # eventually LVM will be handled in the else clause
-        if new_type in (DEVICE_TYPE_PARTITION, DEVICE_TYPE_LVM, DEVICE_TYPE_DISK):
-            self._optionsNotebook.hide()
-        else:
-            self._optionsNotebook.show()
-            self._optionsNotebook.set_current_page(options_page_dict[new_type])
-
         raid_level = None
         if new_type == DEVICE_TYPE_BTRFS:
             # add btrfs to the fstype combo and lock it in
@@ -2477,6 +2363,9 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         fsCombo.set_sensitive(self._reformatCheckbox.get_active() and
                               fs_type_sensitive)
         # end btrfs magic
+
+        raidStoreFilter = self.builder.get_object("raidStoreFiltered")
+        raidStoreFilter.refilter()
 
     def clear_errors(self):
         self._error = None
