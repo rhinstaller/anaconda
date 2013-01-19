@@ -1120,9 +1120,7 @@ class NetworkStandaloneSpoke(StandaloneSpoke):
             from pyanaconda.packaging import payloadInitialize
             from pyanaconda.threads import threadMgr, AnacondaThread
 
-            payloadThread = threadMgr.get("AnaPayloadThread")
-            if payloadThread:
-                payloadThread.join()
+            threadMgr.wait("AnaPayloadThread")
 
             threadMgr.add(AnacondaThread(name="AnaPayloadThread", target=payloadInitialize, args=(self.storage, self.data, self.payload)))
 

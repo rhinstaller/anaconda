@@ -124,9 +124,7 @@ class LiveImagePayload(ImagePayload):
         # Wait for progress thread to finish
         with self.pct_lock:
             self.pct = 100
-        progressThread = threadMgr.get("AnaLiveProgressThread")
-        if progressThread:
-            progressThread.join()
+        threadMgr.wait("AnaLiveProgressThread")
 
     def postInstall(self):
         """ Perform post-installation tasks. """

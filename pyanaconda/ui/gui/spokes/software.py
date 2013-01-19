@@ -178,9 +178,7 @@ class SoftwareSelectionSpoke(NormalSpoke):
     def _initialize(self):
         communication.send_message(self.__class__.__name__, _("Downloading package metadata..."))
 
-        payloadThread = threadMgr.get("AnaPayloadThread")
-        if payloadThread:
-            payloadThread.join()
+        threadMgr.wait("AnaPayloadThread")
 
         communication.send_message(self.__class__.__name__, _("Downloading group metadata..."))
 
@@ -189,9 +187,7 @@ class SoftwareSelectionSpoke(NormalSpoke):
         if flags.automatedInstall and packagesSeen:
             # We don't want to do a full refresh, just
             # join the metadata thread
-            mdGatherThread = threadMgr.get("AnaPayloadMDThread")
-            if mdGatherThread:
-                mdGatherThread.join()
+            threadMgr.wait("AnaPayloadMDThread")
         else:
             if not self._first_refresh():
                 return
@@ -222,9 +218,7 @@ class SoftwareSelectionSpoke(NormalSpoke):
     def refresh(self):
         NormalSpoke.refresh(self)
 
-        mdGatherThread = threadMgr.get("AnaPayloadMDThread")
-        if mdGatherThread:
-            mdGatherThread.join()
+        threadMgr.wait("AnaPayloadMDThread")
 
         self._environmentStore = self.builder.get_object("environmentStore")
         self._environmentStore.clear()

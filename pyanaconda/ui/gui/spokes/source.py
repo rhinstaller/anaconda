@@ -678,15 +678,11 @@ class SourceSpoke(NormalSpoke):
 
         communication.send_message(self.__class__.__name__, _("Probing storage..."))
 
-        storageThread = threadMgr.get("AnaStorageThread")
-        if storageThread:
-            storageThread.join()
+        threadMgr.wait("AnaStorageThread")
 
         communication.send_message(self.__class__.__name__, _(METADATA_DOWNLOAD_MESSAGE))
 
-        payloadThread = threadMgr.get("AnaPayloadThread")
-        if payloadThread:
-            payloadThread.join()
+        threadMgr.wait("AnaPayloadThread")
 
         added = False
         cdrom = None

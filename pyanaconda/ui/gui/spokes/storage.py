@@ -513,9 +513,7 @@ class StorageSpoke(NormalSpoke, StorageChecker):
     def _initialize(self):
         communication.send_message(self.__class__.__name__, _("Probing storage..."))
 
-        storageThread = threadMgr.get("AnaStorageThread")
-        if storageThread:
-            storageThread.join()
+        threadMgr.wait("AnaStorageThread")
 
         self.disks = getDisks(self.storage.devicetree)
 

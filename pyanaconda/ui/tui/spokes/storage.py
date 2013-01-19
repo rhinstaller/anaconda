@@ -183,11 +183,9 @@ class StorageSpoke(NormalTUISpoke):
         NormalTUISpoke.refresh(self, args)
 
         # Join the initialization thread to block on it
-        initThread = threadMgr.get("AnaStorageWatcher")
-        if initThread:
-            # This print is foul.  Need a better message display
-            print(_("Probing storage..."))
-            initThread.join()
+        # This print is foul.  Need a better message display
+        print(_("Probing storage..."))
+        threadMgr.wait("AnaStorageWatcher")
 
         # synchronize our local data store with the global ksdata
         # Commment out because there is no way to select a disk right
@@ -301,9 +299,7 @@ class StorageSpoke(NormalTUISpoke):
         # Secondary initialize so wait for the storage thread
         # to complete before populating our disk list
 
-        storageThread = threadMgr.get("AnaStorageThread")
-        if storageThread:
-            storageThread.join()
+        threadMgr.wait("AnaStorageThread")
 
         self.disks = sorted(getDisks(self.storage.devicetree),
                             key=lambda d: d.name)
