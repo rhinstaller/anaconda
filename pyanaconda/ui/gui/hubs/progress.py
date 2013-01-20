@@ -178,6 +178,7 @@ class ProgressHub(Hub):
             continueText = self.builder.get_object("rebootLabel")
             continueText.set_text(_("%s is now successfully installed on your system and ready "
                                     "for you to use!  When you are ready, reboot your system to start using it!"))
+            continueText.set_line_wrap(True)
             self.continueButton.set_label("_Quit")
 
         self._progressBar = self.builder.get_object("progressBar")
