@@ -1350,7 +1350,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         raid_combo = self.builder.get_object("raidLevelCombo")
 
         if device_type == DEVICE_TYPE_MD:
-            base_level = "raid0"    # FIXME: should be linear
+            base_level = "raid1"    # FIXME: should be linear
         elif device_type == DEVICE_TYPE_BTRFS:
             base_level = "single"
         else:
@@ -2322,7 +2322,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                 # here I suppose we could alter the default based on disk count
                 raid_level = "single"
         elif new_type == DEVICE_TYPE_MD:
-            raid_level = "raid0"
+            raid_level = "raid1"
 
         # lvm uses the RHS to set disk set. no foolish minds here.
         exists = self._current_selector and self._current_selector._device.exists
