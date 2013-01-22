@@ -1,3 +1,4 @@
+# vim: set fileencoding=utf8
 # Mountpoint selector accordion and page classes
 #
 # Copyright (C) 2012  Red Hat, Inc.
@@ -229,16 +230,20 @@ class CreateNewPage(Page):
         self.pageTitle = ""
 
         # Create a box where we store the "Here's how you create a new blah" info.
-        self._createBox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=6)
+        self._createBox = Gtk.Grid()
+        self._createBox.set_row_spacing(6)
+        self._createBox.set_column_spacing(6)
         self._createBox.set_margin_left(16)
 
-        label = Gtk.Label(_("You haven't created any mount points for your %s %s installation yet:") % (productName, productVersion))
-        label.set_alignment(0, 0.5)
+        label = Gtk.Label(_("You haven't created any mount points for your %s %s installation yet.  You can:") % (productName, productVersion))
         label.set_line_wrap(True)
-        self._createBox.add(label)
+        self._createBox.attach(label, 0, 0, 2, 1)
+
+        self._createBox.attach(Gtk.Label("•"), 0, 1, 1, 1)
 
         self._createNewButton = Gtk.LinkButton("", label=_("_Click here to create them automatically."))
         label = self._createNewButton.get_children()[0]
+        label.set_alignment(0, 0.5)
         label.set_line_wrap(True)
         label.set_use_underline(True)
 
@@ -246,11 +251,20 @@ class CreateNewPage(Page):
         self._createNewButton.set_halign(Gtk.Align.START)
         self._createNewButton.connect("clicked", cb)
         self._createNewButton.connect("activate-link", lambda *args: Gtk.true())
-        self._createBox.add(self._createNewButton)
+        self._createBox.attach(self._createNewButton, 1, 1, 1, 1)
 
-        label = Gtk.Label(_("Or, create new mount points below with the '+' icon."))
+        self._createBox.attach(Gtk.Label("•"), 0, 2, 1, 1)
+
+        label = Gtk.Label(_("Create new mount points by clicking the '+' button."))
         label.set_alignment(0, 0.5)
         label.set_line_wrap(True)
-        self._createBox.add(label)
+        self._createBox.attach(label, 1, 2, 1, 1)
+
+        self._createBox.attach(Gtk.Label("•"), 0, 3, 1, 1)
+
+        label = Gtk.Label(_("Or, assign new mount points to existing partitions after selecting them below."))
+        label.set_alignment(0, 0.5)
+        label.set_line_wrap(True)
+        self._createBox.attach(label, 1, 3, 1, 1)
 
         self.add(self._createBox)
