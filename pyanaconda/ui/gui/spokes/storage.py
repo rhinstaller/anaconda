@@ -576,6 +576,10 @@ class StorageSpoke(NormalSpoke, StorageChecker):
                       count) % (count, str(Size(spec="%s MB" % capacity)), free))
         summary_label = self.builder.get_object("summary_label")
         summary_label.set_text(summary)
+        summary_label.set_sensitive(count > 0)
+
+        summary_button = self.builder.get_object("summary_button")
+        summary_button.set_visible(count > 0)
 
         if len(self.disks) == 0:
             self.set_warning(_("No disks detected.  Please shut down the computer, connect at least one disk, and restart to complete installation."))
@@ -583,8 +587,6 @@ class StorageSpoke(NormalSpoke, StorageChecker):
             self.set_warning(_("No disks selected; please select at least one disk to install to."))
         else:
             self.clear_info()
-
-        self.builder.get_object("summary_label").set_sensitive(count > 0)
 
     def _update_disk_list(self):
         """ Update self.selected_disks based on the UI. """
