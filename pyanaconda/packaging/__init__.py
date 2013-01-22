@@ -98,48 +98,6 @@ class DependencyError(PayloadError):
 class PayloadInstallError(PayloadError):
     pass
 
-def get_mount_paths(dev):
-    mounts = open("/proc/mounts").readlines()
-    mount_paths = []
-    for mount in mounts:
-        try:
-            (device, path, rest) = mount.split(None, 2)
-        except ValueError:
-            continue
-
-        if dev == device:
-            mount_paths.append(path)
-
-    if mount_paths:
-        log.debug("%s is mounted on %s" % (dev, ', '.join(mount_paths)))
-    return mount_paths
-
-def get_mount_device(mountpoint):
-    import re
-    mounts = open("/proc/mounts").readlines()
-    mount_device = None
-    for mount in mounts:
-        try:
-            (device, path, rest) = mount.split(None, 2)
-        except ValueError:
-            continue
-
-        if path == mountpoint:
-            mount_device = device
-            break
-
-    if mount_device and re.match(r'/dev/loop\d+$', mount_device):
-        from blivet.devicelibs import loop
-        loop_name = os.path.basename(mount_device)
-        mount_device = loop.get_backing_file(loop_name)
-        log.debug("found backing file %s for loop device %s" % (mount_device,
-                                                                loop_name))
-
-    if mount_device:
-        log.debug("%s is mounted on %s" % (mount_device, mountpoint))
-
-    return mount_device
-
 class Payload(object):
     """ Payload is an abstract class for OS install delivery methods. """
     def __init__(self, data):
@@ -476,7 +434,7 @@ class Payload(object):
         realMountpoint = os.path.realpath(mountpoint)
 
         if os.path.ismount(realMountpoint):
-            mdev = get_mount_device(realMountpoint)
+            mdev = blivet.util.get_mount_device(realMountpoint)
             if mdev:
                 log.warning("%s is already mounted on %s" % (mdev, mountpoint))
 
@@ -501,7 +459,7 @@ class Payload(object):
         """ Prepare an NFS directory for use as a package source. """
         log.info("mounting %s:%s:%s on %s" % (server, path, options, mountpoint))
         if os.path.ismount(mountpoint):
-            dev = get_mount_device(mountpoint)
+            dev = blivet.util.get_mount_device(mountpoint)
             _server, colon, _path = dev.partition(":")
             if colon == ":" and server == _server and path == _path:
                 log.debug("%s:%s already mounted on %s" % (server, path,

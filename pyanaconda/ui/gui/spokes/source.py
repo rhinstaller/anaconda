@@ -42,8 +42,10 @@ from pyanaconda.ui.gui.utils import enlightbox, gtk_thread_wait
 from pyanaconda.iutil import ProxyString, ProxyStringError
 from pyanaconda.ui.gui.utils import gtk_call_once
 from pyanaconda.threads import threadMgr, AnacondaThread
-from pyanaconda.packaging import PayloadError, get_mount_paths, MetadataError
+from pyanaconda.packaging import PayloadError, MetadataError
 from pyanaconda.constants import DRACUT_ISODIR, ISO_DIR
+
+from blivet.util import get_mount_paths
 
 __all__ = ["SourceSpoke"]
 

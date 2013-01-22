@@ -134,14 +134,14 @@ class YumPayload(PackagePayload):
         # nfsiso: umount INSTALL_TREE, umount ISO_DIR
         if os.path.ismount(INSTALL_TREE) and not flags.testing:
             if self.install_device and \
-               get_mount_device(INSTALL_TREE) == self.install_device.path:
+               blivet.util.get_mount_device(INSTALL_TREE) == self.install_device.path:
                 self.install_device.teardown(recursive=True)
             else:
                 blivet.util.umount(INSTALL_TREE)
 
         if os.path.ismount(ISO_DIR) and not flags.testing:
             if self.install_device and \
-               get_mount_device(ISO_DIR) == self.install_device.path:
+               blivet.util.get_mount_device(ISO_DIR) == self.install_device.path:
                 self.install_device.teardown(recursive=True)
             # The below code will fail when nfsiso is the stage2 source
             # But if we don't do this we may not be able to switch from
@@ -509,10 +509,10 @@ reposdir=%s
             return None
         # This could either be mounted to INSTALL_TREE or on
         # DRACUT_ISODIR if dracut did the mount.
-        dev = get_mount_device(INSTALL_TREE)
+        dev = blivet.util.get_mount_device(INSTALL_TREE)
         if dev:
             return dev[len(ISO_DIR)+1:]
-        dev = get_mount_device(DRACUT_ISODIR)
+        dev = blivet.util.get_mount_device(DRACUT_ISODIR)
         if dev:
             return dev[len(DRACUT_ISODIR)+1:]
         return None
@@ -553,7 +553,8 @@ reposdir=%s
                     method.dir = method.dir[1:]
         # Check to see if the device is already mounted, in which case
         # we don't need to mount it again
-        elif method.method == "cdrom" and get_mount_paths(device.path):
+        elif method.method == "cdrom" and \
+             blivet.util.get_mount_paths(device.path):
                 return
         else:
             device.format.setup(mountpoint=INSTALL_TREE)
@@ -580,8 +581,8 @@ reposdir=%s
         mirrorlist = None
 
         # See if we already have stuff mounted due to dracut
-        isodev = get_mount_device(DRACUT_ISODIR)
-        device = get_mount_device(DRACUT_REPODIR)
+        isodev = blivet.util.get_mount_device(DRACUT_ISODIR)
+        device = blivet.util.get_mount_device(DRACUT_REPODIR)
 
         if method.method == "harddrive":
             if method.biospart:
@@ -662,7 +663,7 @@ reposdir=%s
             sslverify = not (method.noverifyssl or flags.noverifyssl)
         elif method.method == "cdrom" or (checkmount and not method.method):
             # Did dracut leave the DVD or NFS mounted for us?
-            device = get_mount_device(DRACUT_REPODIR)
+            device = blivet.util.get_mount_device(DRACUT_REPODIR)
             # Only look at the dracut mount if we don't already have a cdrom
             if device and not self.install_device:
                 self.install_device = storage.devicetree.getDeviceByPath(device)
