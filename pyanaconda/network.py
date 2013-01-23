@@ -1045,24 +1045,24 @@ def setOnboot(ksdata):
             dev.set (("ONBOOT", "no"))
         dev.writeIfcfgFile()
 
-# networking initialization and ksdata object update
 def networkInitialize(ksdata):
 
     log.debug("network: devices found %s" % getDevices())
     logIfcfgFiles("network initialization")
+
     if not flags.imageInstall:
-        # XXX: this should go to anaconda dracut
         if createMissingDefaultIfcfgs():
             logIfcfgFiles("ifcfgs created")
 
-    # we set ONBOOT value using network --activate activate in dracut
-    # to get devices activated by NM, so set proper ONBOOT value
-    # based on --onboot here
+    # For kickstart network --activate option we set ONBOOT=yes
+    # in dracut to get devices activated by NM. The real network --onboot
+    # value is set here.
     setOnboot(ksdata)
 
     if ksdata.network.hostname is None:
         update_hostname(ksdata)
 
-    # auto default dhcp connection would be activated by NM service
+def networkWaitForDhcp(ksdata):
+    # connection (e.g. auto default dhcp) is activated by NM service
     if wait_for_dhcp():
         update_hostname(ksdata)
