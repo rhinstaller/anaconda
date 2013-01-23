@@ -1,4 +1,4 @@
-# vim: set fileencoding=utf8
+# vim: set fileencoding=utf-8
 # Mountpoint selector accordion and page classes
 #
 # Copyright (C) 2012  Red Hat, Inc.
