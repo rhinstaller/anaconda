@@ -54,6 +54,7 @@ hostnameFile = "/etc/hostname"
 ipv6ConfFile = "/etc/modprobe.d/ipv6.conf"
 ifcfgLogFile = "/tmp/ifcfg.log"
 CONNECTION_TIMEOUT = 45
+DEFAULT_HOSTNAME = "localhost.localdomain"
 
 # part of a valid hostname between two periods (cannot start nor end with '-')
 # for more info about '(?!-)' and '(?<!-)' see 're' module documentation
@@ -157,8 +158,8 @@ def getHostname():
     if not hn or hn in ('(none)', 'localhost', 'localhost.localdomain'):
         hn = socket.gethostname()
 
-    if not hn or hn in ('(none)', 'localhost'):
-        hn = 'localhost.localdomain'
+    if not hn or hn in ('(none)', 'localhost', 'localhost.localdomain'):
+        hn = DEFAULT_HOSTNAME
 
     return hn
 
@@ -677,7 +678,7 @@ def kickstartNetworkData(ifcfg=None, hostname=None):
         kwargs["hostname"] = ifcfg.get("DHCP_HOSTNAME")
     elif ifcfg.get("BOOTPROTO").lower != "dhcp":
         if (hostname and
-            hostname != "localhost.localdomain"):
+            hostname != DEFAULT_HOSTNAME):
             kwargs["hostname"] = hostname
 
     return handler.NetworkData(**kwargs)

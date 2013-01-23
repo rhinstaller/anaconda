@@ -41,7 +41,7 @@ from pyanaconda.ui.gui.categories.software import SoftwareCategory
 from pyanaconda.ui.gui.hubs.summary import SummaryHub
 from pyanaconda.ui.gui.utils import gtk_call_once
 
-from pyanaconda.network import NetworkDevice, netscriptsDir, kickstartNetworkData, getActiveNetDevs, logIfcfgFiles, update_hostname_data, sanityCheckHostname, getHostname
+from pyanaconda.network import NetworkDevice, netscriptsDir, kickstartNetworkData, getActiveNetDevs, logIfcfgFiles, update_hostname_data, sanityCheckHostname, getHostname, DEFAULT_HOSTNAME
 
 from gi.repository import GLib, GObject, Pango, Gio, NetworkManager, NMClient
 import dbus
@@ -1062,7 +1062,7 @@ class NetworkSpoke(NormalSpoke):
         communication.send_message(self.__class__.__name__, self.status)
 
     def _update_hostname(self):
-        if self.network_control_box.hostname == "localhost.localdomain":
+        if self.network_control_box.hostname == DEFAULT_HOSTNAME:
             hostname = getHostname()
             update_hostname_data(self.data, hostname)
             self.network_control_box.hostname = self.data.network.hostname
@@ -1155,7 +1155,7 @@ class NetworkStandaloneSpoke(StandaloneSpoke):
         gtk_call_once(self._update_hostname)
 
     def _update_hostname(self):
-        if self.network_control_box.hostname == "localhost.localdomain":
+        if self.network_control_box.hostname == DEFAULT_HOSTNAME:
             hostname = getHostname()
             update_hostname_data(self.data, hostname)
             self.network_control_box.hostname = self.data.network.hostname
