@@ -132,15 +132,21 @@ class Hub(GUIObject, common.Hub):
             ret[c] = collect_spokes(self.paths["spokes"], c.__name__)
 
         return ret
-            
+
     def _createBox(self):
         from gi.repository import Gtk, AnacondaWidgets
         from pyanaconda.ui.gui.utils import setViewportBackground
 
         cats_and_spokes = self._collectCategoriesAndSpokes()
         categories = cats_and_spokes.keys()
-        
-        box = Gtk.VBox(False, 6)
+
+        grid = Gtk.Grid()
+        grid.set_row_spacing(6)
+        grid.set_column_spacing(6)
+        grid.set_column_homogeneous(True)
+        grid.set_margin_bottom(12)
+
+        row = 0
 
         for c in sorted(categories, key=lambda c: c.title):
             obj = c()
@@ -206,16 +212,28 @@ class Hub(GUIObject, common.Hub):
             label = Gtk.Label("<span font-desc=\"Sans 14\">%s</span>" % _(obj.title))
             label.set_use_markup(True)
             label.set_halign(Gtk.Align.START)
+            label.set_margin_top(12)
             label.set_margin_bottom(12)
-            box.pack_start(label, False, True, 0)
+            grid.attach(label, 0, row, 2, 1)
+            row += 1
 
-            grid = obj.grid(selectors)
-            grid.set_margin_left(12)
-            box.pack_start(grid, False, True, 0)
+            col = 0
+            for selector in selectors:
+                selector.set_margin_left(12)
+                grid.attach(selector, col, row, 1, 1)
+                col = int(not col)
+                if col == 0:
+                    row += 1
+
+            # If this category contains an odd number of selectors, the above
+            # row += 1 will not have run for the last row, which puts the next
+            # category's title in the wrong place.
+            if len(selectors) % 2:
+                row += 1
 
         spokeArea = self.window.get_spoke_area()
         viewport = Gtk.Viewport()
-        viewport.add(box)
+        viewport.add(grid)
         spokeArea.add(viewport)
 
         setViewportBackground(viewport)

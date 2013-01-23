@@ -43,34 +43,6 @@ class SpokeCategory(object):
     displayOnHub = None
     title = N_("DEFAULT TITLE")
 
-    def grid(self, selectors):
-        """Construct a Gtk.Grid consisting of two columns from the provided
-           list of selectors.
-        """
-        from gi.repository import Gtk
-
-        if len(selectors) == 0:
-            return None
-
-        row = 0
-        col = 0
-
-        g = Gtk.Grid()
-        g.set_row_homogeneous(True)
-        g.set_column_homogeneous(True)
-        g.set_row_spacing(6)
-        g.set_column_spacing(6)
-        g.set_margin_bottom(12)
-
-        for selector in selectors:
-            g.attach(selector, col, row, 1, 1)
-
-            col = int(not col)
-            if col == 0:
-                row += 1
-
-        return g
-
 def collect_categories(mask_paths):
     """Return a list of all category subclasses. Look for them in modules
        imported as module_mask % basename(f) where f is name of all files in path.
@@ -80,4 +52,3 @@ def collect_categories(mask_paths):
         categories.extend(collect(mask, path, lambda obj: getattr(obj, "displayOnHub", None) != None))
         
     return categories
-
