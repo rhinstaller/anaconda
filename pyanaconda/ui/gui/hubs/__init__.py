@@ -262,7 +262,7 @@ class Hub(GUIObject, common.Hub):
         self.continueButton.set_sensitive(self.continuePossible)
 
     def _update_spokes(self):
-        from pyanaconda.ui.gui import communication
+        from pyanaconda.ui import communication
         import Queue
 
         q = communication.hubQ

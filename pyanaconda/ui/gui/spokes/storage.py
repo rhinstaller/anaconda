@@ -40,7 +40,8 @@
 
 from gi.repository import Gdk, GLib, Gtk
 from gi.repository import AnacondaWidgets
-from pyanaconda.ui.gui import GUIObject, communication
+from pyanaconda.ui import communication
+from pyanaconda.ui.gui import GUIObject
 from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.gui.spokes.lib.cart import SelectedDisksDialog
 from pyanaconda.ui.gui.spokes.lib.passphrase import PassphraseDialog

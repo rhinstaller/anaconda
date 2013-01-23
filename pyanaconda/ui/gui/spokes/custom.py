@@ -73,8 +73,8 @@ from pyanaconda.storage.errors import MDRaidError
 from pyanaconda.storage.devicelibs import mdraid
 from pyanaconda.storage.devices import LUKSDevice
 
+from pyanaconda.ui import communication
 from pyanaconda.ui.gui import GUIObject
-from pyanaconda.ui.gui import communication
 from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.gui.spokes.storage import StorageChecker
 from pyanaconda.ui.gui.spokes.lib.cart import SelectedDisksDialog

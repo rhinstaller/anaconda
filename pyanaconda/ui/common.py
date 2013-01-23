@@ -279,7 +279,7 @@ class Spoke(UIObject):
            A spoke's status line on the Hub can also be overloaded to provide
            information about why a Spoke is not yet ready, or if an error has
            occurred when setting it up.  This can be done by calling
-           send_message from pyanaconda.ui.gui.communication with the target
+           send_message from pyanaconda.ui.communication with the target
            Spoke's class name and the message to be displayed.
 
            If the Spoke was not yet ready when send_message was called, the
@@ -330,7 +330,7 @@ class NormalSpoke(Spoke):
            long-lived process (like storage probing) before it's ready.
 
            A Spoke may be marked as ready or not by calling send_ready or
-           send_not_ready from pyanaconda.ui.gui.communication with the
+           send_not_ready from pyanaconda.ui.communication with the
            target Spoke's class name.
 
            While a Spoke is not ready, a progress message may be shown to

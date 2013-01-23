@@ -34,7 +34,8 @@ from gi.repository import AnacondaWidgets, GLib, Gtk
 
 from pyanaconda.flags import flags
 from pyanaconda.image import opticalInstallMedia, potentialHdisoSources
-from pyanaconda.ui.gui import GUIObject, communication
+from pyanaconda.ui import communication
+from pyanaconda.ui.gui import GUIObject
 from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.gui.categories.software import SoftwareCategory
 from pyanaconda.ui.gui.utils import enlightbox, gtk_thread_wait

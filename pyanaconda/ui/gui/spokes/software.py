@@ -27,7 +27,7 @@ from pyanaconda.flags import flags
 from pyanaconda.kickstart import packagesSeen
 from pyanaconda.threads import threadMgr, AnacondaThread
 
-from pyanaconda.ui.gui import communication
+from pyanaconda.ui import communication
 from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.gui.spokes.lib.detailederror import DetailedErrorDialog
 from pyanaconda.ui.gui.utils import enlightbox, gtk_thread_wait
