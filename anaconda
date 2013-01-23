@@ -716,6 +716,7 @@ if __name__ == "__main__":
     # reset python's default SIGINT handler
     signal.signal(signal.SIGINT, signal.SIG_DFL)
     signal.signal(signal.SIGSEGV, isys.handleSegv)
+    signal.signal(signal.SIGTERM, lambda num, frame: sys.exit(1))
 
     setupEnvironment()
     # make sure we have /var/log soon, some programs fail to start without it
