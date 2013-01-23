@@ -54,6 +54,7 @@ from pyanaconda.ui.gui.utils import enlightbox, gtk_call_once, gtk_thread_wait
 from pyanaconda.kickstart import doKickstartStorage
 from blivet import empty_device
 from blivet.size import Size
+from blivet.devices import MultipathDevice
 from blivet.errors import StorageError
 from blivet.platform import platform
 from pyanaconda.threads import threadMgr, AnacondaThread
@@ -453,6 +454,15 @@ class StorageSpoke(NormalSpoke, StorageChecker):
 
         return msg
 
+    @property
+    def localOverviews(self):
+        return self.local_disks_box.get_children()
+
+    @property
+    def advancedOverviews(self):
+        return filter(lambda child: isinstance(child, AnacondaWidgets.DiskOverview),
+                      self.specialized_disks_box.get_children())
+
     def _on_disk_clicked(self, overview, event):
         # This handler only runs for these two kinds of events, and only for
         # activate-type keys (space, enter) in the latter event's case.
@@ -483,9 +493,23 @@ class StorageSpoke(NormalSpoke, StorageChecker):
 
         self._previous_autopart = self.autopart
 
+        # First, remove all non-button children of the advanced box.
+        for child in self.advancedOverviews:
+            child.destroy()
+
+        # Advanced disks are different.  Because there can potentially be a lot
+        # of them, we do not display them in the box by default.  Instead, only
+        # those selected in the filter UI are displayed.  This means refresh
+        # needs to know to create and destroy overviews as appropriate.
+        for name in self.data.ignoredisk.onlyuse:
+            obj = self.storage.devicetree.getDeviceByName(name)
+            if isLocalDisk(obj):
+                continue
+
+            self._add_disk_overview(obj, self.specialized_disks_box)
+
         # update the selections in the ui
-        overviews = self.local_disks_box.get_children()
-        for overview in overviews:
+        for overview in self.localOverviews + self.advancedOverviews:
             name = overview.get_property("name")
             overview.set_chosen(name in self.selected_disks)
 
@@ -530,7 +554,15 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         size = size_str(disk.size)
         popup_info = "%s" % disk.serial
 
-        overview = AnacondaWidgets.DiskOverview(disk.description,
+        # We don't want to display the whole huge WWID for a multipath device.
+        # That makes the DO way too wide.
+        if isinstance(disk, MultipathDevice):
+            desc = disk.wwid.split(":")
+            description = ":".join(desc[0:3]) + "..." + ":".join(desc[-5:-1])
+        else:
+            description = disk.description
+
+        overview = AnacondaWidgets.DiskOverview(description,
                                                 kind,
                                                 size,
                                                 disk.name,
@@ -546,6 +578,8 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         overview.connect("key-release-event", self._on_disk_clicked)
         overview.show_all()
 
+        self._update_summary()
+
     def _initialize(self):
         communication.send_message(self.__class__.__name__, _("Probing storage..."))
 
@@ -557,11 +591,10 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         if len(self.disks) == 1 and not self.selected_disks:
             self._applyDiskSelection([self.disks[0].name])
 
-        for disk in self.disks:
-            if isLocalDisk(disk):
-                self._add_disk_overview(disk, self.local_disks_box)
-            else:
-                self._add_disk_overview(disk, self.specialized_disks_box)
+        # Don't handle specialized devices here.  They are handled by refresh,
+        # given that they can come and go by visiting the filter spoke.
+        for disk in filter(isLocalDisk, self.disks):
+            self._add_disk_overview(disk, self.local_disks_box)
 
         self._ready = True
         communication.send_ready(self.__class__.__name__)
@@ -600,8 +633,7 @@ class StorageSpoke(NormalSpoke, StorageChecker):
 
     def _update_disk_list(self):
         """ Update self.selected_disks based on the UI. """
-        overviews = self.local_disks_box.get_children()
-        for overview in overviews:
+        for overview in self.localOverviews + self.advancedOverviews:
             selected = overview.get_chosen()
             name = overview.get_property("name")
 
@@ -625,8 +657,7 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         self.selected_disks = [d.name for d in dialog.disks]
 
         # update the UI to reflect changes to self.selected_disks
-        overviews = self.local_disks_box.get_children()
-        for overview in overviews:
+        for overview in self.localOverviews:
             name = overview.get_property("name")
 
             overview.set_chosen(name in self.selected_disks)
@@ -745,15 +776,12 @@ class StorageSpoke(NormalSpoke, StorageChecker):
             elif dialog.continue_response == dialog.RESPONSE_CONTINUE_CUSTOM:
                 self.autopart = False
                 self.skipTo = "CustomPartitioningSpoke"
-
-            NormalSpoke.on_back_clicked(self, button)
         elif rc == dialog.RESPONSE_CANCEL:
             # stay on this spoke
             return
         elif rc == dialog.RESPONSE_MODIFY_SW:
             # go to software spoke
             self.skipTo = "SoftwareSelectionSpoke"
-            NormalSpoke.on_back_clicked(self, button)
         elif rc == dialog.RESPONSE_RECLAIM:
             self.autoPartType = dialog.autoPartType
             self.encrypted = dialog.encrypted
@@ -766,8 +794,6 @@ class StorageSpoke(NormalSpoke, StorageChecker):
                 # User pressed cancel on the reclaim dialog, so don't leave
                 # the storage spoke.
                 return
-
-            NormalSpoke.on_back_clicked(self, button)
         elif rc == dialog.RESPONSE_QUIT:
             raise SystemExit("user-selected exit")
         elif rc == dialog.RESPONSE_CUSTOM:
@@ -776,7 +802,9 @@ class StorageSpoke(NormalSpoke, StorageChecker):
             self.encrypted = dialog.encrypted
 
             self.skipTo = "CustomPartitioningSpoke"
-            NormalSpoke.on_back_clicked(self, button)
+
+        self.applyOnSkip = True
+        NormalSpoke.on_back_clicked(self, button)
 
     def _show_resize_dialog(self, disks):
         resizeDialog = ResizeDialog(self.data, self.storage, self.payload)
@@ -786,7 +814,16 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         return rc
 
     def on_specialized_clicked(self, button):
-        return
+        # Don't want to run apply or execute in this case, since we have to
+        # collect some more disks first.  The user will be back to this spoke.
+        self.applyOnSkip = False
+
+        # However, we do want to apply current selections so the disk cart off
+        # the filter spoke will display the correct information.
+        self._applyDiskSelection(self.selected_disks)
+
+        self.skipTo = "FilterSpoke"
+        NormalSpoke.on_back_clicked(self, button)
 
     def on_info_bar_clicked(self, *args):
         if self.errors:
