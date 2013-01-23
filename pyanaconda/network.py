@@ -966,9 +966,7 @@ def wait_for_connecting_NM():
     log.debug("not connected, waited %d of %d secs" % (i, CONNECTION_TIMEOUT))
     return False
 
-def update_hostname(ksdata, hostname=None):
-    if not hostname:
-        hostname = getHostname()
+def update_hostname_data(ksdata, hostname):
     log.debug("updating hostname %s" % hostname)
     hostname_found = False
     for nd in ksdata.network.network:
@@ -1060,9 +1058,11 @@ def networkInitialize(ksdata):
     setOnboot(ksdata)
 
     if ksdata.network.hostname is None:
-        update_hostname(ksdata)
+        hostname = getHostname()
+        update_hostname_data(ksdata, hostname)
 
 def wait_for_connecting_NM_thread(ksdata):
     # connection (e.g. auto default dhcp) is activated by NM service
     if wait_for_connecting_NM():
-        update_hostname(ksdata)
+        hostname = getHostname()
+        update_hostname_data(ksdata, hostname)
