@@ -669,7 +669,7 @@ def payloadInitialize(storage, ksdata, payload):
 
     # FIXME: condition for cases where we don't want network
     # (set and use payload.needsNetwork ?)
-    networkThread = threadMgr.get("AnaWaitForDhcpThread")
+    networkThread = threadMgr.get("AnaWaitForConnectingNMThread")
     if networkThread:
         networkThread.join()
 

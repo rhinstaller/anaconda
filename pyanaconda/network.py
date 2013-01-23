@@ -940,7 +940,7 @@ def write_network_config(storage, ksdata, instClass, rootpath):
     disableNMForStorageDevices(rootpath, storage)
     autostartFCoEDevices(rootpath, storage, ksdata)
 
-def wait_for_dhcp():
+def wait_for_connecting_NM():
     """If NM is in connecting state, wait for connection.
     Return value: NM has got connection."""
     bus = dbus.SystemBus()
@@ -1062,7 +1062,7 @@ def networkInitialize(ksdata):
     if ksdata.network.hostname is None:
         update_hostname(ksdata)
 
-def networkWaitForDhcp(ksdata):
+def wait_for_connecting_NM_thread(ksdata):
     # connection (e.g. auto default dhcp) is activated by NM service
-    if wait_for_dhcp():
+    if wait_for_connecting_NM():
         update_hostname(ksdata)
