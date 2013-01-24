@@ -52,7 +52,17 @@ class ProgressHub(TUIHub):
         while True:
             # Attempt to get a message out of the queue for how we should update
             # the progress bar.  If there's no message, don't error out.
-            (code, args) = q.get()
+            # Also flush the communication Queue at least once a second and
+            # process it's events so we can react to async evens (like a thread
+            # throwing an exception)
+            while True:
+                try:
+                    (code, args) = q.get(timeout = 1)
+                    break
+                except Queue.Empty:
+                    pass
+                finally:
+                    self.app.process_events()
 
             if code == progress.PROGRESS_CODE_INIT:
                 # Text mode doesn't have a finite progress bar

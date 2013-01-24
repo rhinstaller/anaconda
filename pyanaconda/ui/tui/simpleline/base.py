@@ -22,6 +22,10 @@
 __all__ = ["App", "UIScreen", "Widget"]
 
 import readline
+import Queue
+import getpass
+from pyanaconda.threads import threadMgr, AnacondaThread
+from pyanaconda.ui.communication import HUB_CODE_INPUT
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
@@ -35,7 +39,6 @@ class ExitMainLoop(Exception):
     """This exception ends the outermost mainloop. Used internally when dialogs
        close."""
     pass
-
 
 class App(object):
     """This is the main class for TUI screen handling. It is responsible for
@@ -55,7 +58,7 @@ class App(object):
     STOP_MAINLOOP = False
     NOP = None
 
-    def __init__(self, title, yes_or_no_question = None, width = 80):
+    def __init__(self, title, yes_or_no_question = None, width = 80, queue = None):
         """
         :param title: application title for whenever we need to display app name
         :type title: unicode
@@ -72,6 +75,20 @@ class App(object):
         self._width = width
         self.quit_question = yes_or_no_question
 
+        # async control queue
+        if queue:
+            self.queue = queue
+        else:
+            self.queue = Queue.Queue()
+
+        # ensure unique thread names
+        self._in_thread_counter = 0
+
+        # event handlers
+        # key: event id
+        # value: list of tuples (callback, data)
+        self._handlers = {}
+
         # screen stack contains triplets
         #  UIScreen to show
         #  arguments for it's show method
@@ -80,6 +97,50 @@ class App(object):
         #   - True = execute new loop
         #   - False = already running loop, exit when window closes
         self._screens = []
+
+    def register_event_handler(self, event, callback, data = None):
+        """This method registers a callback which will be called
+           when message "event" is encountered during process_events.
+
+           The callback has to accept two arguments:
+             - the received message in the form of (type, [arguments])
+             - the data registered with the handler
+
+           :param event: the id of the event we want to react on
+           :type event: number|string
+
+           :param callback: the callback function
+           :type callback: func(event_message, data)
+
+           :param data: optional data to pass to callback
+           :type data: anything
+        """
+        if not event in self._handlers:
+            self._handlers[event] = []
+        self._handlers[event].append((callback, data))
+
+    def _thread_input(self, queue, prompt, hidden):
+        """This method is responsible for interruptible user input. It is expected
+        to be used in a thread started on demand by the App class and returns the
+        input via the communication Queue.
+
+        :param queue: communication queue to be used
+        :type queue: Queue.Queue instance
+
+        :param prompt: prompt to be displayed
+        :type prompt: str
+
+        :param hidden: whether typed characters should be echoed or not
+        :type hidden: bool
+
+        """
+
+        if hidden:
+            data = getpass.getpass(prompt)
+        else:
+            data = raw_input(prompt)
+
+        queue.put((HUB_CODE_INPUT, [data]))
 
     def switch_screen(self, ui, args = None):
         """Schedules a screen to replace the current one.
@@ -227,6 +288,9 @@ class App(object):
 
         # run until there is nothing else to display
         while self._screens:
+            # process asynchronous events
+            self.process_events()
+
             # if redraw is needed, separate the content on the screen from the
             # stuff we are about to display now
             if self._redraw:
@@ -275,10 +339,38 @@ class App(object):
             except ExitAllMainLoops:
                 raise
 
-    def raw_input(self, prompt):
-        """This method reads one input from user. Its basic form has only one line,
-        but we might need to override it for more complex apps or testing."""
-        return raw_input(prompt)
+    def process_events(self, return_at = None):
+        """This method processes incoming async messages and returns
+           when a specific message is encountered or when the queue
+           is empty.
+
+           If return_at message was specified, the received
+           message is returned.
+
+           If the message does not fit return_at, but handlers are
+           defined then it processes all handlers for this message
+        """
+        while return_at or not self.queue.empty():
+            event = self.queue.get()
+            if event[0] == return_at:
+                return event
+            elif event[0] in self._handlers:
+                for handler, data in self._handlers[event[0]]:
+                    handler(event, data)
+
+    def raw_input(self, prompt, hidden=False):
+        """This method reads one input from user. Its basic form has only one
+        line, but we might need to override it for more complex apps or testing."""
+
+        thread_name = "AnaInputThread%d" % self._in_thread_counter
+        self._in_thread_counter += 1
+        input_thread = AnacondaThread(name=thread_name,
+                                      target=self._thread_input,
+                                      args=(self.queue, prompt, hidden))
+        input_thread.daemon = True
+        threadMgr.add(input_thread)
+        event = self.process_events(return_at=HUB_CODE_INPUT)
+        return event[1][0] # return the user input
 
     def input(self, args, key):
         """Method called internally to process unhandled input key presses.

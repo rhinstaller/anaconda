@@ -25,7 +25,6 @@ from pyanaconda.ui.tui.simpleline import TextWidget
 from pyanaconda.ui.tui import YesNoDialog
 from pyanaconda.users import validatePassword
 from pwquality import PWQError
-import getpass
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
@@ -65,8 +64,8 @@ class PasswordSpoke(NormalTUISpoke):
 
     def prompt(self, args = None):
         """Overriden prompt as password typing is special."""
-        pw = getpass.getpass(_("Password: "))
-        confirm = getpass.getpass(_("Password (confirm): "))
+        pw = self._app.raw_input(_("Password: "), hidden=True)
+        confirm = self._app.raw_input(_("Password (confirm): "), hidden=True)
 
         error = None
         # just returning an error is either blank or mismatched

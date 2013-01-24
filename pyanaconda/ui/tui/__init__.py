@@ -21,6 +21,7 @@
 
 from pyanaconda import ui
 from pyanaconda.ui import common
+from pyanaconda.ui import communication
 from pyanaconda.flags import flags
 import simpleline as tui
 from hubs.summary import SummaryHub
@@ -170,7 +171,7 @@ class TextUserInterface(ui.UserInterface):
         """Construct all the objects required to implement this interface.
            This method must be provided by all subclasses.
         """
-        self._app = tui.App(u"Anaconda", yes_or_no_question = YesNoDialog)
+        self._app = tui.App(u"Anaconda", yes_or_no_question=YesNoDialog, queue=communication.hubQ)
         _hubs = self._list_hubs()
 
         # First, grab a list of all the standalone spokes.

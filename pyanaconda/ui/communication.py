@@ -37,9 +37,13 @@ hubQ = Queue.Queue()
 # _READY - [spoke_name, justUpdate]
 # _NOT_READY - [spoke_name]
 # _MESSAGE - [spoke_name, string]
+# _INPUT - [string]
+# _EXCEPTION - [exc]
 HUB_CODE_READY = 0
 HUB_CODE_NOT_READY = 1
 HUB_CODE_MESSAGE = 2
+HUB_CODE_INPUT = 3
+HUB_CODE_EXCEPTION = 4
 
 # Convenience methods to put things into the queue without the user having to
 # know the details of the queue.
@@ -56,3 +60,14 @@ def send_not_ready(spoke):
 
 def send_message(spoke, msg):
     hubQ.put((HUB_CODE_MESSAGE, [spoke, msg]))
+
+def send_input(data):
+    """This message represents an async input string from the user."""
+    hubQ.put((HUB_CODE_INPUT, [data]))
+
+def send_exception(exception):
+    """This message contains the exception which happened somewhere,
+       usually used to report thread failures to the main thread so
+       python-meh can handle it properly.
+    """
+    hubQ.put((HUB_CODE_EXCEPTION, [exception]))
