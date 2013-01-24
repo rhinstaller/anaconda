@@ -286,29 +286,6 @@ class NetworkDevice(IfcfgFile):
 
         return s
 
-    # anaconda doesn't actually need this configuration, but if we don't write
-    # it to the installed system then 'ifup' doesn't work after install.
-    # FIXME: make 'ifup' use its own defaults!
-    def setDefaultConfig(self):
-        ifcfglog.debug("NetworkDevice %s: setDefaultConfig()" % self.iface)
-        self.set(("DEVICE", self.iface),
-                 ("BOOTPROTO", "dhcp"),
-                 ("ONBOOT", "no")) # for "security", or something
-
-        try:
-            mac = open("/sys/class/net/%s/address" % self.iface).read().strip()
-            self.set(("HWADDR", mac.upper()))
-        except IOError as e:
-            ifcfglog.warning("HWADDR: %s" % str(e))
-
-        try:
-            uuid = open("/proc/sys/kernel/random/uuid").read().strip()
-            self.set(("UUID", uuid))
-        except IOError as e:
-            ifcfglog.warning("UUID: %s" % str(e))
-
-        self.writeIfcfgFile()
-
     def loadIfcfgFile(self):
         ifcfglog.debug("loadIfcfFile %s" % self.path)
 
@@ -489,8 +466,7 @@ def createMissingDefaultIfcfgs():
             settings['connection']['id'] = interface
             con.Update(settings)
         else:
-            # if there is no connection, create default ifcfg
-            device_cfg.setDefaultConfig()
+            log.debug("network: no ifcfg file for %s" % interface)
         rv = True
 
     return rv
