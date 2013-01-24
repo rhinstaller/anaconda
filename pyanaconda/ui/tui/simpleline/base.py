@@ -21,9 +21,11 @@
 
 __all__ = ["App", "UIScreen", "Widget"]
 
+import sys
 import readline
 import Queue
 import getpass
+import threading
 from pyanaconda.threads import threadMgr, AnacondaThread
 from pyanaconda.ui.communication import hubQ
 from pyanaconda import constants
@@ -31,6 +33,8 @@ from pyanaconda import constants
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
 N_ = lambda x: x
+
+RAW_INPUT_LOCK = threading.Lock()
 
 def send_exception(queue, ex):
     queue.put((hubQ.HUB_CODE_EXCEPTION, [ex]))
@@ -146,7 +150,18 @@ class App(object):
         if hidden:
             data = getpass.getpass(prompt)
         else:
-            data = raw_input(prompt)
+            sys.stdout.write(prompt)
+            sys.stdout.flush()
+            # XXX: only one raw_input can run at a time, don't schedule another
+            # one as it would cause weird behaviour and block other packages'
+            # raw_inputs
+            if not RAW_INPUT_LOCK.acquire(False):
+                # raw_input is already running
+                return
+            else:
+                # lock acquired, we can run raw_input
+                data = raw_input()
+                RAW_INPUT_LOCK.release()
 
         queue.put((hubQ.HUB_CODE_INPUT, [data]))
 
@@ -270,8 +285,8 @@ class App(object):
                 self._redraw = False
             except ExitMainLoop:
                 raise
-            except Exception as ex:
-                send_exception(self.queue, ex)
+            except Exception:
+                send_exception(self.queue, sys.exc_info())
                 return False
 
         else:
@@ -329,8 +344,8 @@ class App(object):
                     prompt = last_screen.prompt(self._screens[-1][1])
                 except ExitMainLoop:
                     raise
-                except Exception as ex:
-                    send_exception(self.queue, ex)
+                except Exception:
+                    send_exception(self.queue, sys.exc_info())
                     continue
 
                 # None means prompt handled the input by itself
@@ -386,8 +401,8 @@ class App(object):
                         handler(event, data)
                     except ExitMainLoop:
                         raise
-                    except Exception as ex:
-                        send_exception(self.queue, ex)
+                    except Exception:
+                        send_exception(self.queue, sys.exc_info())
 
     def raw_input(self, prompt, hidden=False):
         """This method reads one input from user. Its basic form has only one
@@ -427,8 +442,8 @@ class App(object):
                     return True
             except ExitMainLoop:
                 raise
-            except Exception as ex:
-                send_exception(self.queue, ex)
+            except Exception:
+                send_exception(self.queue, sys.exc_info())
                 return False
 
         # global close command

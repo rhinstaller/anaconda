@@ -33,7 +33,9 @@ import time
 from flags import flags
 import kickstart
 import blivet.errors
+from pyanaconda.ui.communication import hubQ
 from pyanaconda.constants import ROOT_PATH, THREAD_EXCEPTION_HANDLING_TEST
+from pyanaconda.threads import threadMgr
 
 # pylint: disable-msg=E0611
 from gi.repository import GLib
@@ -57,19 +59,27 @@ class AnacondaExceptionHandler(ExceptionHandler):
         ExceptionHandler.__init__(self, confObj, intfClass, exnClass)
         self._intf_tty_num = tty_num
 
+    def run_handleException(self, dump_info):
+        """
+        Helper method with one argument only so that it can be registered
+        with GLib.idle_add() to run on idle or called from a handler.
+
+        :type dump_info: an instance of the meh.DumpInfo class
+
+        """
+
+        super(AnacondaExceptionHandler, self).handleException(dump_info)
+        return False
+
     def handleException(self, dump_info):
+        """
+        Our own handleException method doing some additional stuff before
+        calling the original python-meh's one.
 
-        def run_handleException_on_idle(dump_info):
-            """
-            Helper function with one argument only so that it can be registered
-            with GLib.idle_add() to run on idle.
+        :type dump_info: an instance of the meh.DumpInfo class
+        :see: python-meh's ExceptionHandler.handleException
 
-            :type dump_info: an instance of the meh.DumpInfo class
-
-            """
-
-            super(AnacondaExceptionHandler, self).handleException(dump_info)
-            return False
+        """
 
         ty = dump_info.exc_info.type
         value = dump_info.exc_info.value
@@ -86,22 +96,43 @@ class AnacondaExceptionHandler(ExceptionHandler):
                 # pylint: disable-msg=E0611
                 from gi.repository import Gtk
 
+                # XXX: Gtk stopped raising RuntimeError if it fails to
+                # initialize. Horay! But will it stay like this? Let's be
+                # cautious and raise the exception on our own to work in both
+                # cases
+                (initialized, args) = Gtk.init_check(None)
+                if not initialized:
+                    raise RuntimeError()
+
                 if Gtk.main_level() > 0:
                     # main loop is running, don't crash it by running another one
                     # potentially from a different thread
-                    GLib.idle_add(run_handleException_on_idle, dump_info)
+                    GLib.idle_add(self.run_handleException, dump_info)
                 else:
+                    log.info("running handler")
                     super(AnacondaExceptionHandler, self).handleException(
-                                                                      dump_info)
+                                                            dump_info)
 
             except RuntimeError:
                 # X not running (Gtk cannot be initialized)
-                print "An unknown error has occured, look at the "\
-                      "/tmp/anaconda-tb* file(s) for more details"
-                super(AnacondaExceptionHandler, self).handleException(dump_info)
+                if threadMgr.in_main_thread():
+                    print "An unknown error has occured, look at the "\
+                        "/tmp/anaconda-tb* file(s) for more details"
+                    # in the main thread, run exception handler
+                    super(AnacondaExceptionHandler, self).handleException(
+                                                            dump_info)
+                else:
+                    # not in the main thread, just send message with exception
+                    # data and let message handler run the exception handler in
+                    # the main thread
+                    exc_info = dump_info.exc_info
+                    hubQ.send_exception((exc_info.type,
+                                         exc_info.value,
+                                         exc_info.stack))
 
     def postWriteHook(self, dump_info):
         anaconda = dump_info.object
+
         # See if /mnt/sysimage is present and put exception there as well
         if os.access("/mnt/sysimage/root", os.X_OK):
             try:
@@ -234,8 +265,7 @@ f%s(msg, non_ascii)
     msg = "NOTABUG: testing exception handling"
 
     # raise exception from a separate thread
-    # XXX: may create a circular dependency if imported globally
-    from pyanaconda.threads import AnacondaThread, threadMgr
+    from pyanaconda.threads import AnacondaThread
     threadMgr.add(AnacondaThread(name=THREAD_EXCEPTION_HANDLING_TEST,
                                  target=raise_exception,
                                  args=(msg, non_ascii)))

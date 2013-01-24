@@ -21,6 +21,7 @@
 
 from pyanaconda import ui
 from pyanaconda.ui import common
+from pyanaconda.ui.communication import hubQ
 from pyanaconda.flags import flags
 import simpleline as tui
 from hubs.summary import SummaryHub
@@ -29,11 +30,29 @@ from spokes import StandaloneSpoke
 from tuiobject import YesNoDialog, ErrorDialog
 
 import os
+import sys
 import site
 import meh.ui.text
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
+
+def exception_msg_handler(event, data):
+    """
+    Handler for the HUB_CODE_EXCEPTION message in the hubQ.
+
+    :param event: event data
+    :type event: (event_type, message_data)
+    :param data: additional data
+    :type data: any
+
+    """
+
+    # get data from the event data structure
+    (event_type, msg_data) = event
+
+    # msg_data is a list
+    sys.excepthook(*msg_data[0])
 
 class TextUserInterface(ui.UserInterface):
     """This is the main class for Text user interface."""
@@ -118,7 +137,13 @@ class TextUserInterface(ui.UserInterface):
            This method must be provided by all subclasses.
         """
         self._app = tui.App(self.productTitle, yes_or_no_question = YesNoDialog,
-                            quit_message = self.quitMessage)
+                            quit_message = self.quitMessage, queue = hubQ.q)
+
+        # tell python-meh it should use our raw_input
+        self._meh_interface.set_io_handler(meh.ui.text.IOHandler(in_func=self._app.raw_input))
+
+        # register handler for the exception messages
+        self._app.register_event_handler(hubQ.HUB_CODE_EXCEPTION, exception_msg_handler)
         _hubs = self._list_hubs()
 
         # First, grab a list of all the standalone spokes.
