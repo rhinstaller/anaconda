@@ -61,8 +61,6 @@ struct _AnacondaSpokeSelectorPrivate {
     GtkWidget *title_label;
     GtkWidget *status_label;
     GdkCursor *cursor;
-
-    GtkCssProvider *status_provider;
 };
 
 G_DEFINE_TYPE(AnacondaSpokeSelector, anaconda_spoke_selector, GTK_TYPE_EVENT_BOX)
@@ -157,6 +155,11 @@ static void format_status_label(AnacondaSpokeSelector *spoke, const char *markup
     pango_attr_list_insert(attrs, pango_attr_style_new(PANGO_STYLE_ITALIC));
     pango_attr_list_insert(attrs, pango_attr_scale_new(PANGO_SCALE_LARGE));
 
+    if (anaconda_spoke_selector_get_incomplete(spoke) &&
+        gtk_widget_get_sensitive(GTK_WIDGET(spoke))) {
+        pango_attr_list_insert(attrs, pango_attr_foreground_new(0xcccc, 0x1a1a, 0x1a1a));
+    }
+
     /* Ampersands (and maybe other characters) in status text need to be escaped. */
     escaped = g_markup_escape_text(markup, -1);
 
@@ -225,9 +228,6 @@ static void anaconda_spoke_selector_init(AnacondaSpokeSelector *spoke) {
     gtk_label_set_max_width_chars(GTK_LABEL(spoke->priv->status_label), 45);
     gtk_widget_set_hexpand(GTK_WIDGET(spoke->priv->status_label), FALSE);
 
-    spoke->priv->status_provider = gtk_css_provider_new();
-    gtk_css_provider_load_from_data(spoke->priv->status_provider, "GtkLabel { color: @text_color }", -1, NULL);
-
     /* Add everything to the grid, add the grid to the widget. */
     gtk_grid_attach(GTK_GRID(spoke->priv->grid), spoke->priv->icon, 0, 0, 1, 2);
     gtk_grid_attach(GTK_GRID(spoke->priv->grid), spoke->priv->title_label, 1, 0, 1, 1);
@@ -272,14 +272,7 @@ static void anaconda_spoke_selector_set_property(GObject *object, guint prop_id,
            break;
 
         case PROP_STATUS: {
-            GtkStyleContext *context = gtk_widget_get_style_context(GTK_WIDGET(priv->status_label));
             format_status_label(widget, g_value_get_string(value));
-
-            if (gtk_widget_get_sensitive(GTK_WIDGET(widget)))
-                gtk_style_context_add_provider(context, GTK_STYLE_PROVIDER(priv->status_provider), GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
-            else
-                gtk_style_context_remove_provider(context, GTK_STYLE_PROVIDER(priv->status_provider));
-
             break;
         }
 
@@ -321,6 +314,11 @@ gboolean anaconda_spoke_selector_get_incomplete(AnacondaSpokeSelector *spoke) {
 void anaconda_spoke_selector_set_incomplete(AnacondaSpokeSelector *spoke, gboolean is_incomplete) {
     spoke->priv->is_incomplete = is_incomplete;
     gtk_widget_set_visible(GTK_WIDGET(spoke->priv->incomplete_icon), is_incomplete);
+
+    /* We need to update the status label's color, in case this spoke was
+     * previously incomplete but now is not (or the other way around).
+     */
+    format_status_label(spoke, gtk_label_get_text(GTK_LABEL(spoke->priv->status_label)));
 }
 
 static gboolean anaconda_spoke_selector_focus_changed(GtkWidget *widget, GdkEventFocus *event, gpointer user_data) {
