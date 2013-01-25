@@ -164,9 +164,32 @@ static gchar *find_pixmap(const gchar *file) {
     return NULL;
 }
 
+static void format_name_label(AnacondaMountpointSelector *widget, const char *value) {
+    char *markup;
+
+    markup = g_markup_printf_escaped("<span fgcolor='black' size='large' weight='bold'>%s</span>", value);
+    gtk_label_set_markup(GTK_LABEL(widget->priv->name_label), markup);
+    g_free(markup);
+}
+
+static void format_size_label(AnacondaMountpointSelector *widget, const char *value) {
+    char *markup;
+
+    markup = g_markup_printf_escaped("<span fgcolor='black' size='large' weight='bold'>%s</span>", value);
+    gtk_label_set_markup(GTK_LABEL(widget->priv->size_label), markup);
+    g_free(markup);
+}
+
+static void format_mountpoint_label(AnacondaMountpointSelector *widget, const char *value) {
+    char *markup;
+
+    markup = g_markup_printf_escaped("<span fgcolor='grey' size='small'>%s</span>", value);
+    gtk_label_set_markup(GTK_LABEL(widget->priv->mountpoint_label), markup);
+    g_free(markup);
+}
+
 static void anaconda_mountpoint_selector_init(AnacondaMountpointSelector *mountpoint) {
     gchar *pixmap_path;
-    char *markup;
 
     mountpoint->priv = G_TYPE_INSTANCE_GET_PRIVATE(mountpoint,
                                                    ANACONDA_TYPE_MOUNTPOINT_SELECTOR,
@@ -203,26 +226,20 @@ static void anaconda_mountpoint_selector_init(AnacondaMountpointSelector *mountp
 
     /* Create the name label. */
     mountpoint->priv->name_label = gtk_label_new(NULL);
-    markup = g_markup_printf_escaped("<span fgcolor='black' size='large' weight='bold'>%s</span>", _(DEFAULT_NAME));
-    gtk_label_set_markup(GTK_LABEL(mountpoint->priv->name_label), markup);
+    format_name_label(mountpoint, _(DEFAULT_NAME));
     gtk_misc_set_alignment(GTK_MISC(mountpoint->priv->name_label), 0, 0);
     gtk_widget_set_hexpand(GTK_WIDGET(mountpoint->priv->name_label), TRUE);
-    g_free(markup);
 
     /* Create the size label. */
     mountpoint->priv->size_label = gtk_label_new(NULL);
-    markup = g_markup_printf_escaped("<span fgcolor='black' size='large' weight='bold'>%s</span>", _(DEFAULT_SIZE));
-    gtk_label_set_markup(GTK_LABEL(mountpoint->priv->size_label), markup);
+    format_size_label(mountpoint, _(DEFAULT_SIZE));
     gtk_misc_set_alignment(GTK_MISC(mountpoint->priv->size_label), 0, 0.5);
-    g_free(markup);
 
     /* Create the mountpoint label. */
     mountpoint->priv->mountpoint_label = gtk_label_new(NULL);
-    markup = g_markup_printf_escaped("<span fgcolor='grey' size='small'>%s</span>", DEFAULT_MOUNTPOINT);
-    gtk_label_set_markup(GTK_LABEL(mountpoint->priv->mountpoint_label), markup);
+    format_mountpoint_label(mountpoint, DEFAULT_MOUNTPOINT);
     gtk_misc_set_alignment(GTK_MISC(mountpoint->priv->mountpoint_label), 0, 0);
     gtk_widget_set_hexpand(GTK_WIDGET(mountpoint->priv->mountpoint_label), TRUE);
-    g_free(markup);
 
     /* Add everything to the grid, add the grid to the widget. */
     gtk_grid_attach(GTK_GRID(mountpoint->priv->grid), mountpoint->priv->name_label, 0, 0, 1, 1);
@@ -265,27 +282,20 @@ static void anaconda_mountpoint_selector_get_property(GObject *object, guint pro
 
 static void anaconda_mountpoint_selector_set_property(GObject *object, guint prop_id, const GValue *value, GParamSpec *pspec) {
     AnacondaMountpointSelector *widget = ANACONDA_MOUNTPOINT_SELECTOR(object);
-    AnacondaMountpointSelectorPrivate *priv = widget->priv;
 
     switch(prop_id) {
         case PROP_NAME: {
-            char *markup = g_markup_printf_escaped("<span size='large' weight='bold'>%s</span>", g_value_get_string(value)); 
-            gtk_label_set_markup(GTK_LABEL(priv->name_label), markup);
-            g_free(markup);
+            format_name_label(widget, g_value_get_string(value));
             break;
         }
 
         case PROP_SIZE: {
-            char *markup = g_markup_printf_escaped("<span size='large' weight='bold'>%s</span>", g_value_get_string(value)); 
-            gtk_label_set_markup(GTK_LABEL(priv->size_label), markup);
-            g_free(markup);
+            format_size_label(widget, g_value_get_string(value));
             break;
         }
 
         case PROP_MOUNTPOINT: {
-            char *markup = g_markup_printf_escaped("<span size='small'>%s</span>", g_value_get_string(value));
-            gtk_label_set_markup(GTK_LABEL(priv->mountpoint_label), markup);
-            g_free(markup);
+            format_mountpoint_label(widget, g_value_get_string(value));
             break;
         }
     }
