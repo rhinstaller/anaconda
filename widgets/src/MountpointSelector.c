@@ -31,7 +31,7 @@
  * @short_description: A graphical way to select a mount point.
  *
  * A #AnacondaMountpointSelector is a widget that appears on the custom partitioning
- * Mountpoint and allows the user to select a single mount point to do additional
+ * spoke and allows the user to select a single mount point to do additional
  * configuration.
  *
  * As a #AnacondaMountpointSelector is a subclass of a #GtkEventBox, any signals

@@ -133,6 +133,8 @@ static void anaconda_base_window_class_init(AnacondaBaseWindowClass *klass) {
      *
      * The name of the currently displayed window, displayed in the upper
      * left corner of all windows with a title throughout installation.
+     * StandaloneWindows should not have a title, so no name will be displayed
+     * for those.
      *
      * Since: 1.0
      */
@@ -151,7 +153,8 @@ static void anaconda_base_window_class_init(AnacondaBaseWindowClass *klass) {
      * @window: the window that received the signal
      *
      * Emitted when a visible info bar at the bottom of the window has been clicked
-     * (pressed and released).
+     * (pressed and released).  This allows, for instance, popping up a dialog with
+     * more detailed information.
      *
      * Since: 1.0
      */
@@ -189,6 +192,9 @@ static void anaconda_base_window_init(AnacondaBaseWindow *win) {
     win->priv->is_beta = FALSE;
     win->priv->info_shown = FALSE;
 
+    /* These store the original English strings so that when we retranslate
+     * later, we have the source strings available to feed into _().
+     */
     win->priv->orig_name = NULL;
     win->priv->orig_distro = NULL;
     win->priv->orig_beta = NULL;
@@ -259,7 +265,7 @@ static void anaconda_base_window_init(AnacondaBaseWindow *win) {
 
     win->priv->orig_distro = g_strdup(DEFAULT_DISTRIBUTION);
 
-    /* Create the betanag label. */
+    /* Create the beta label. */
     win->priv->beta_label = gtk_label_new(NULL);
     markup = g_markup_printf_escaped("<span foreground='red' weight='bold' size='large'>%s</span>", _(DEFAULT_BETA));
     gtk_label_set_markup(GTK_LABEL(win->priv->beta_label), markup);
@@ -323,7 +329,7 @@ static void anaconda_base_window_set_property(GObject *object, guint prop_id, co
  * anaconda_base_window_get_beta:
  * @win: a #AnacondaBaseWindow
  *
- * Returns whether or not this window is set to display the betanag warning.
+ * Returns whether or not this window is set to display the beta label.
  *
  * Returns: Whether @win is set to display the betanag warning
  *
@@ -338,8 +344,8 @@ gboolean anaconda_base_window_get_beta(AnacondaBaseWindow *win) {
  * @win: a #AnacondaBaseWindow
  * @is_beta: %TRUE to display the betanag warning
  *
- * Sets up the window to display the betanag warning in red along the top of
- * the screen.
+ * Sets up the window to display the beta label in red along the top of the
+ * screen.
  *
  * Since: 1.0
  */
@@ -356,7 +362,8 @@ void anaconda_base_window_set_beta(AnacondaBaseWindow *win, gboolean is_beta) {
  * anaconda_base_window_get_action_area:
  * @win: a #AnacondaBaseWindow
  *
- * Returns the action area of @win.
+ * Returns the action area of @win.  This is the area of the screen where most
+ * of the widgets the user interacts with will live.
  *
  * Returns: (transfer none): The action area
  *
@@ -370,7 +377,9 @@ GtkWidget *anaconda_base_window_get_action_area(AnacondaBaseWindow *win) {
  * anaconda_base_window_get_nav_area:
  * @win: a #AnacondaBaseWindow
  *
- * Returns the navigation area of @win.
+ * Returns the navigation area of @win.  This is the area at the top of the
+ * screen displaying the window's title (if it has one), distribution, and
+ * so forth.
  *
  * Returns: (transfer none): The navigation area
  *
@@ -385,6 +394,8 @@ GtkWidget *anaconda_base_window_get_nav_area(AnacondaBaseWindow *win) {
  * @win: a #AnacondaBaseWindow
  *
  * Returns the event box that houses background window of the navigation area of @win.
+ * Currently, this is only used by #AnacondaSpokeWindow to have a place to store the
+ * gradient image.  This function should probably not be used elsewhere.
  *
  * Returns: (transfer none): The event box
  *
@@ -398,7 +409,10 @@ GtkWidget *anaconda_base_window_get_nav_area_background_window(AnacondaBaseWindo
  * anaconda_base_window_get_main_box:
  * @win: a #AnacondaBaseWindow
  *
- * Returns the main content area of @win.
+ * Returns the main content area of @win.  This widget holds both the action_area
+ * and the nav_area.  Currently, this is only used by #AnacondaStandaloneWindow
+ * as a place to store the extra Continue button.  This function should probably
+ * not be used elsewhere.
  *
  * Returns: (transfer none): The main content area
  *
@@ -412,7 +426,9 @@ GtkWidget *anaconda_base_window_get_main_box(AnacondaBaseWindow *win) {
  * anaconda_base_window_get_alignment:
  * @win: a #AnacondaBaseWindow
  *
- * Returns the internal alignment widget of @win.
+ * Returns the internal alignment widget of @win.  Currently, this is only used
+ * by #AnacondaHubWindow to set different alignment values than the spokes have.
+ * This function should probably not be used elsewhere.
  *
  * Returns: (transfer none): The alignment widget
  *
@@ -553,6 +569,7 @@ void anaconda_base_window_retranslate(AnacondaBaseWindow *win, const char *lang)
     setenv("LANGUAGE", lang, 1);
     setlocale(LC_ALL, "");
 
+    /* This bit is internal gettext magic. */
     {
         extern int _nl_msg_cat_cntr;
         ++_nl_msg_cat_cntr;
@@ -594,6 +611,10 @@ static GObject *
 anaconda_base_window_buildable_get_internal_child (GtkBuildable *buildable,
                                                    GtkBuilder *builder,
                                                    const gchar *childname) {
+    /* Note that if you add more internal children and want them to be accessible,
+     * all their parents must also be made accessible.  This goes all the way up
+     * to the top level.
+     */
     if (!strcmp(childname, "main_box"))
         return G_OBJECT(anaconda_base_window_get_main_box(ANACONDA_BASE_WINDOW(buildable)));
     else if (!strcmp(childname, "nav_area"))

@@ -35,7 +35,7 @@
  * configuration and allows for a place to click to do further configuration.
  *
  * Some Spokes can have their initial configuration guessed, while others
- * (specifically storage) requires the user to do something.  For those that
+ * (specifically storage) require the user to do something.  For those that
  * the user has not entered, the selector may be set as incomplete.  See
  * #anaconda_spoke_selector_get_incomplete and #anaconda_spoke_selector_set_incomplete.
  *
@@ -103,7 +103,8 @@ static void anaconda_spoke_selector_class_init(AnacondaSpokeSelectorClass *klass
      * The :status string is text displayed underneath the spoke's :title and
      * also beside the :icon.  This text very briefly describes what has been
      * selected on the spoke associated with this selector.  For instance, it
-     * might be set up to "English" for a language-related spoke.
+     * might be set up to "English" for a language-related spoke.  Special
+     * formatting will be applied to error status text for incomplete spokes.
      *
      * Since: 1.0
      */
@@ -119,7 +120,9 @@ static void anaconda_spoke_selector_class_init(AnacondaSpokeSelectorClass *klass
      * AnacondaSpokeSelector:title:
      *
      * The :title of this selector, which will be displayed large and bold
-     * beside the :icon.
+     * beside the :icon.  The title string should contain a keyboard mnemonic
+     * (a letter preceeded by an underscore), in which case this will be the
+     * keystroke that can be used to focus this selector.
      *
      * Since: 1.0
      */
@@ -155,6 +158,7 @@ static void format_status_label(AnacondaSpokeSelector *spoke, const char *markup
     pango_attr_list_insert(attrs, pango_attr_style_new(PANGO_STYLE_ITALIC));
     pango_attr_list_insert(attrs, pango_attr_scale_new(PANGO_SCALE_LARGE));
 
+    /* Display error text in a dark red color to draw the user's attention. */
     if (anaconda_spoke_selector_get_incomplete(spoke) &&
         gtk_widget_get_sensitive(GTK_WIDGET(spoke))) {
         pango_attr_list_insert(attrs, pango_attr_foreground_new(0xcccc, 0x1a1a, 0x1a1a));
@@ -208,6 +212,13 @@ static void anaconda_spoke_selector_init(AnacondaSpokeSelector *spoke) {
     gtk_widget_set_valign(spoke->priv->icon, GTK_ALIGN_CENTER);
     gtk_misc_set_padding(GTK_MISC(spoke->priv->icon), 12, 0);
 
+    /* This little warning icon will be displayed near the title when the
+     * spoke is incomplete.  We just make it here in advance so we don't have
+     * to make/destroy it on demand.
+     */
+    /* FIXME: This should really be displayed over the corner of the spoke's
+     * icon because it looks like it's floating off in space right now.
+     */
     spoke->priv->incomplete_icon = gtk_image_new_from_icon_name("dialog-warning-symbolic", GTK_ICON_SIZE_MENU);
     gtk_widget_set_no_show_all(GTK_WIDGET(spoke->priv->incomplete_icon), TRUE);
     gtk_widget_set_visible(GTK_WIDGET(spoke->priv->incomplete_icon), FALSE);

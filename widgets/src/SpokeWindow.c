@@ -77,8 +77,8 @@ static void anaconda_spoke_window_class_init(AnacondaSpokeWindowClass *klass) {
      * AnacondaSpokeWindow:button-label:
      *
      * The :button-label string is the text used to label the button displayed
-     * in the upper lefthand of the window.  By default, this is a back button
-     * but could be anything else appropriate.
+     * in the upper lefthand of the window.  By default, this button says Done,
+     * but it could be changed to anything appropriate.
      *
      * Since: 1.0
      */
@@ -96,7 +96,10 @@ static void anaconda_spoke_window_class_init(AnacondaSpokeWindowClass *klass) {
      *
      * Emitted when the button in the upper left corner has been activated
      * (pressed and released).  This is commonly the button that takes the user
-     * back to the hub, but could do other things.
+     * back to the hub, but could do other things.  Note that we do not want
+     * to trap people in spokes, so there should always be a way back to the
+     * hub via this signal, even if it involves canceling some operation or
+     * resetting things.
      *
      * Since: 1.0
      */
@@ -136,7 +139,7 @@ static void anaconda_spoke_window_init(AnacondaSpokeWindow *win) {
     /* Set some default properties. */
     gtk_window_set_modal(GTK_WINDOW(win), TRUE);
 
-    /* Create the buttons. */
+    /* Create the button. */
     win->priv->button = gtk_button_new_with_mnemonic(DEFAULT_BUTTON_LABEL);
     gtk_widget_set_halign(win->priv->button, GTK_ALIGN_START);
 
