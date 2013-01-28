@@ -146,21 +146,20 @@ def getDeviceProperties(dev=None):
     else:
         return None
 
-# Get the MAC address for a network device.
 def getMacAddress(dev):
+    """Return MAC address of device. "" if not found"""
     if dev == '' or dev is None:
-        return False
+        return ""
 
     device_props_iface = getDeviceProperties(dev=dev)
     if device_props_iface is None:
-        return None
+        return ""
 
-    device_macaddr = None
+    device_macaddr = ""
     try:
         device_macaddr = device_props_iface.Get(NM_DEVICE_WIRED_IFACE, "HwAddress").upper()
     except dbus.exceptions.DBusException as e:
-        if e.get_dbus_name() != 'org.freedesktop.DBus.Error.InvalidArgs':
-            raise
+        log.debug("getMacAddress %s: %s" % (dev, e))
     return device_macaddr
 
 # Determine if a network device is a wireless device.

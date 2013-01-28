@@ -994,6 +994,8 @@ def get_device_name(devspec):
             if isys.getMacAddress(d).lower() == devname.lower():
                 devname = d
                 break
+        else:
+            return ""
 
     return devname
 
@@ -1002,7 +1004,7 @@ def setOnboot(ksdata):
 
         devname = get_device_name(network_data.device)
         if not devname:
-            log.error("Kickstart: The provided network interface %s does not exist" % devname)
+            log.error("Kickstart: The provided network interface %s does not exist" % network_data.device)
             continue
 
         con = get_NM_connection(devname, spec_type="iface")
