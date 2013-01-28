@@ -52,7 +52,7 @@ sysconfigDir = "/etc/sysconfig"
 netscriptsDir = "%s/network-scripts" % (sysconfigDir)
 networkConfFile = "%s/network" % (sysconfigDir)
 hostnameFile = "/etc/hostname"
-ipv6ConfFile = "/etc/modprobe.d/ipv6.conf"
+ipv6ConfFile = "/etc/sysctl.d/anaconda.conf"
 ifcfgLogFile = "/tmp/ifcfg.log"
 CONNECTION_TIMEOUT = 45
 DEFAULT_HOSTNAME = "localhost.localdomain"
@@ -840,14 +840,11 @@ def disableIPV6(rootpath):
     if ('noipv6' in flags.cmdline
         and not any(get_ifcfg_value(dev, 'IPV6INIT') == "yes"
                     for dev in getDevices())):
-        if os.path.exists(cfgfile):
-            log.warning('Not disabling ipv6, %s exists' % cfgfile)
-        else:
-            log.info('Disabling ipv6 on target system')
-            f = open(cfgfile, "w")
-            f.write("# Anaconda disabling ipv6\n")
-            f.write("options ipv6 disable=1\n")
-            f.close()
+        log.info('Disabling ipv6 on target system')
+        with open(cfgfile, "a") as f:
+            f.write("# Anaconda disabling ipv6 (noipv6 option)\n")
+            f.write("net.ipv6.conf.all.disable_ipv6=1\n")
+            f.write("net.ipv6.conf.default.disable_ipv6=1\n")
 
 def disableNMForStorageDevices(rootpath, storage):
     for devname in getDevices():
