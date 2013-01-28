@@ -812,7 +812,11 @@ def get_ksdevice_name(ksspec=""):
 # note that NetworkDevice.get returns "" if key is not found
 def get_ifcfg_value(iface, key, root_path=""):
     dev = NetworkDevice(os.path.normpath(root_path + netscriptsDir), iface)
-    dev.loadIfcfgFile()
+    try:
+        dev.loadIfcfgFile()
+    except IOError as e:
+        log.debug("get_ifcfg_value %s %s: %s" % (iface, key, e))
+        return ""
     return dev.get(key)
 
 def set_hostname(hn):
