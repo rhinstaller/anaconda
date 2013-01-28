@@ -74,7 +74,7 @@ class AddonRegistry(object):
         self.__dict__ = dictionary
 
     def __str__(self):
-        return reduce(lambda acc,(id, addon): acc + "%%addon %s\n%s%%end\n" % (id, str(addon)),
+        return reduce(lambda acc,(id, addon): acc + str(addon),
                       self.__dict__.iteritems(), "")
 
     # pylint: disable-msg=C0103
@@ -112,7 +112,7 @@ class AddonData(object):
         self.content = ""
 
     def __str__(self):
-        return self.content
+        return "%%addon %s\n%s%%end\n" % (self.name, self.content)
 
     # pylint: disable-msg=C0103
     def setup(self, storage, ksdata, instClass):
