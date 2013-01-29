@@ -126,7 +126,7 @@ def get_layouts_xorg_conf(keyboard):
         ret += '"' + ','.join(keyboard.switch_options) + '"\n'
 
     #section footer
-    ret += 'EndSection'
+    ret += 'EndSection\n'
 
     return ret
 
