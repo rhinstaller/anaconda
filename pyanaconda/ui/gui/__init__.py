@@ -264,7 +264,7 @@ class GraphicalUserInterface(UserInterface):
 
     @property
     def tty_num(self):
-        return 6
+        return 7
 
     @property
     def meh_interface(self):
