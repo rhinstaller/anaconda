@@ -201,7 +201,7 @@ def _compilableChanged(tag, compilable):
             continue
 
         if file.startswith('Makefile') or file.endswith('.h') or \
-           file.endswith('.c'):
+           file.endswith('.c') or file.endswith('.py'):
             return True
 
     return False
@@ -227,11 +227,18 @@ def copyUpdatedIsys(updates, cwd):
     # $updatedir/run/install/updates.
     tmpupdates = updates.rstrip('/')
     if not tmpupdates.endswith("/run/install/updates/pyanaconda"):
-        tmpupdates = os.path.join(tmpupdates, "run/install/updates/pyanaconda")
+        tmpupdates = os.path.join(tmpupdates, "run/install/updates/pyanaconda/isys")
+
+    if not os.path.isdir(tmpupdates):
+        os.makedirs(tmpupdates)
 
     isysmodule = os.path.realpath(cwd + '/pyanaconda/isys/.libs/_isys.so')
+    isysinit = os.path.realpath(cwd + '/pyanaconda/isys/__init__.py')
+
     if os.path.isfile(isysmodule):
         shutil.copy2(isysmodule, tmpupdates)
+    if os.path.isfile(isysinit):
+        shutil.copy2(isysinit, tmpupdates)
 
 def copyUpdatedWidgets(updates, cwd):
     os.chdir(cwd)
