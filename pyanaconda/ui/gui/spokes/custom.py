@@ -654,7 +654,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
     def translated_new_install_name(self):
         return _(new_install_name) % (productName, productVersion)
 
-    def _do_refresh(self):
+    def _do_refresh(self, mountpointToShow=None):
         # block mountpoint selector signal handler for now
         self._initialized = False
         if self._current_selector:
@@ -785,7 +785,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                 break
 
         self._initialized = True
-        self.on_page_clicked(self._accordion.currentPage())
+        self.on_page_clicked(self._accordion.currentPage(),
+                             mountpointToShow=mountpointToShow)
 
     ###
     ### RIGHT HAND SIDE METHODS
@@ -1786,7 +1787,10 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                  self.window.show_all()
 
         self._devices = self.__storage.devices
-        self._do_refresh()
+        if not self._error:
+            self._do_refresh(mountpointToShow=mountpoint)
+        else:
+            self._do_refresh()
         self._updateSpaceDisplay()
 
     def _destroy_device(self, device):
@@ -1844,18 +1848,25 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             if parent.kids == 0 and not parent.isDisk:
                 self._destroy_device(parent)
 
-    def _show_first_mountpoint(self, page=None):
+    def _show_mountpoint(self, page=None, mountpoint=None):
         if not self._initialized:
             return
 
-        # Make sure there's something displayed on the RHS.  Just default to
-        # the first mountpoint in the page.
+        # Make sure there's something displayed on the RHS.  If a page and
+        # mountpoint within that page is given, display that.  Otherwise, just
+        # default to the first selector available.
         if not page:
             page = self._accordion.currentPage()
 
         log.debug("show first mountpoint: %s" % getattr(page, "pageTitle", None))
         if getattr(page, "_members", []):
-            self.on_selector_clicked(page._members[0])
+            if mountpoint:
+                for member in page._members:
+                    if member.get_property("mountpoint") == mountpoint:
+                        self.on_selector_clicked(member)
+                        break
+            else:
+                self.on_selector_clicked(page._members[0])
         else:
             self._current_selector = None
 
@@ -2128,7 +2139,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         self._removeButton.set_sensitive(not selector._device.protected)
         return True
 
-    def on_page_clicked(self, page):
+    def on_page_clicked(self, page, mountpointToShow=None):
         if not self._initialized:
             return
 
@@ -2142,7 +2153,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             self._current_selector.set_chosen(False)
             self._current_selector = None
 
-        self._show_first_mountpoint(page=page)
+        self._show_mountpoint(page=page, mountpoint=mountpointToShow)
 
         # This is called when a Page header is clicked upon so we can support
         # deleting an entire installation at once and displaying something
