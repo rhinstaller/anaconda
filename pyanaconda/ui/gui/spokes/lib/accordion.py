@@ -155,6 +155,7 @@ class Page(Gtk.Box):
 
         selector._device = None
         selector._root = None
+        selector.customizeIsOpen = False
 
         if self._mountpointType(mountpoint) == DATA_DEVICE:
             self._dataBox.add(selector)
@@ -210,6 +211,7 @@ class UnknownPage(Page):
 
         selector._device = None
         selector._root = None
+        selector.customizeIsOpen = False
 
         self._members.append(selector)
         self.add(selector)
