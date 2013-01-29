@@ -703,8 +703,7 @@ class SourceSpoke(NormalSpoke):
         if cdrom:
             @gtk_thread_wait
             def gtk_action_1():
-                selector = AnacondaWidgets.DiskOverview(cdrom.format.label or "", "drive-removable-media", "")
-                selector.path = cdrom.path
+                selector = AnacondaWidgets.DiskOverview(cdrom.format.label or "", "drive-removable-media", "", cdrom.name)
                 selector.set_chosen(chosen)
                 self._autodetectMediaBox.pack_start(selector, False, False, 0)
 

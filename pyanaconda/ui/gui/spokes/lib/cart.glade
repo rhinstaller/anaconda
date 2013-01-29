@@ -11,7 +11,7 @@
       <column type="gchararray"/>
       <!-- column-name free -->
       <column type="gchararray"/>
-      <!-- column-name id -->
+      <!-- column-name name -->
       <column type="gchararray"/>
       <!-- column-name unique -->
       <column type="gint"/>
@@ -158,11 +158,11 @@
                           </object>
                         </child>
                         <child>
-                          <object class="GtkTreeViewColumn" id="id_column">
+                          <object class="GtkTreeViewColumn" id="name_column">
                             <property name="spacing">6</property>
-                            <property name="title" translatable="yes">Id</property>
+                            <property name="title" translatable="yes">Name</property>
                             <child>
-                              <object class="GtkCellRendererText" id="id_renderer"/>
+                              <object class="GtkCellRendererText" id="name_renderer"/>
                               <attributes>
                                 <attribute name="text">4</attribute>
                               </attributes>

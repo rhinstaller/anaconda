@@ -36,7 +36,7 @@ IS_BOOT_COL = 0
 DESCRIPTION_COL = 1
 SIZE_COL = 2
 FREE_SPACE_COL = 3
-SERIAL_COL = 4
+NAME_COL = 4
 ID_COL = 5
 
 def size_str(mb):
@@ -57,10 +57,10 @@ class SelectedDisksDialog(GUIObject):
 
         for disk in disks:
             self._store.append([False,
-                                disk.description,
+                                "%s (%s)" % (disk.description, disk.serial),
                                 size_str(disk.size),
                                 size_str(free[disk.name][0]),
-                                disk.serial,
+                                disk.name,
                                 disk.id])
         self.disks = disks[:]
         self._update_summary()

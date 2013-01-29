@@ -42,7 +42,7 @@ enum {
     PROP_DESCRIPTION = 1,
     PROP_KIND,
     PROP_CAPACITY,
-    PROP_OS,
+    PROP_NAME,
     PROP_POPUP_INFO
 };
 
@@ -50,7 +50,7 @@ enum {
 #define DEFAULT_DESCRIPTION   N_("New Device")
 #define DEFAULT_KIND          "drive-harddisk"
 #define DEFAULT_CAPACITY      N_("0 MB")
-#define DEFAULT_OS            ""
+#define DEFAULT_NAME          ""
 #define DEFAULT_POPUP_INFO    ""
 
 #define ICON_SIZE             125
@@ -60,7 +60,7 @@ struct _AnacondaDiskOverviewPrivate {
     GtkWidget *kind;
     GtkWidget *description_label;
     GtkWidget *capacity_label;
-    GtkWidget *os_label;
+    GtkWidget *name_label;
     GtkWidget *tooltip;
 
     GdkCursor *cursor;
@@ -136,18 +136,20 @@ static void anaconda_disk_overview_class_init(AnacondaDiskOverviewClass *klass) 
                                                         G_PARAM_READWRITE));
 
     /**
-     * AnacondaDiskOverview:os:
+     * AnacondaDiskOverview:name:
      *
-     * The :os string describes any operating system found on this device.
+     * The :name string provides this device's node name (like 'sda').  Note
+     * that these names aren't guaranteed to be consistent across reboots but
+     * their use is so ingrained that we need to continue displaying them.
      *
      * Since: 1.0
      */
     g_object_class_install_property(object_class,
-                                    PROP_OS,
-                                    g_param_spec_string("os",
-                                                        P_("Operating System"),
-                                                        P_("Installed OS on this drive"),
-                                                        DEFAULT_OS,
+                                    PROP_NAME,
+                                    g_param_spec_string("name",
+                                                        P_("Device node name"),
+                                                        P_("Device node name"),
+                                                        DEFAULT_NAME,
                                                         G_PARAM_READWRITE));
 
     /**
@@ -226,17 +228,14 @@ static void anaconda_disk_overview_init(AnacondaDiskOverview *widget) {
     gtk_label_set_markup(GTK_LABEL(widget->priv->description_label), markup);
     g_free(markup);
 
-    /* Create the OS label.  By default there is no operating system, so just
-     * create a new label here so we have a place for later, should an OS be
-     * specified.
-     */
-    widget->priv->os_label = gtk_label_new(NULL);
+    /* Create the name label. */
+    widget->priv->name_label = gtk_label_new(NULL);
 
     /* Add everything to the vbox, add the vbox to the widget. */
     gtk_container_add(GTK_CONTAINER(widget->priv->vbox), widget->priv->capacity_label);
     gtk_container_add(GTK_CONTAINER(widget->priv->vbox), widget->priv->kind);
     gtk_container_add(GTK_CONTAINER(widget->priv->vbox), widget->priv->description_label);
-    gtk_container_add(GTK_CONTAINER(widget->priv->vbox), widget->priv->os_label);
+    gtk_container_add(GTK_CONTAINER(widget->priv->vbox), widget->priv->name_label);
 
     gtk_container_add(GTK_CONTAINER(widget), widget->priv->vbox);
 
@@ -297,8 +296,8 @@ static void anaconda_disk_overview_get_property(GObject *object, guint prop_id, 
             g_value_set_string (value, gtk_label_get_text(GTK_LABEL(priv->capacity_label)));
             break;
 
-        case PROP_OS:
-            g_value_set_string (value, gtk_label_get_text(GTK_LABEL(priv->os_label)));
+        case PROP_NAME:
+            g_value_set_string (value, gtk_label_get_text(GTK_LABEL(priv->name_label)));
             break;
 
         case PROP_POPUP_INFO:
@@ -331,19 +330,11 @@ static void anaconda_disk_overview_set_property(GObject *object, guint prop_id, 
             break;
         }
 
-        case PROP_OS: {
-            /* If no OS is given, set the label to blank.  This will prevent
-             * seeing a strange brown blob with no text in the middle of
-             * nowhere.
-             */
-            if (!strcmp(g_value_get_string(value), ""))
-               gtk_label_set_text(GTK_LABEL(priv->os_label), NULL);
-            else {
-                char *markup = g_markup_printf_escaped("<span foreground='white' background='brown'>%s</span>", g_value_get_string(value));
-                gtk_label_set_markup(GTK_LABEL(priv->os_label), markup);
-                g_free(markup);
-                break;
-            }
+        case PROP_NAME: {
+            char *markup = g_markup_printf_escaped("<span size='large'>%s</span>", g_value_get_string(value));
+            gtk_label_set_markup(GTK_LABEL(priv->name_label), markup);
+            g_free(markup);
+            break;
         }
 
         case PROP_POPUP_INFO: {

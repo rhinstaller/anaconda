@@ -489,7 +489,7 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         # update the selections in the ui
         overviews = self.local_disks_box.get_children()
         for overview in overviews:
-            name = overview.get_property("popup-info").partition("|")[0].strip()
+            name = overview.get_property("name")
             overview.set_chosen(name in self.selected_disks)
 
         self._update_summary()
@@ -531,13 +531,14 @@ class StorageSpoke(NormalSpoke, StorageChecker):
                 kind = "drive-harddisk"
 
             size = size_str(disk.size)
-            popup_info = "%s | %s" % (disk.name, disk.serial)
+            popup_info = "%s" % disk.serial
 
             @gtk_thread_wait
             def gtk_action():
                 overview = AnacondaWidgets.DiskOverview(disk.description,
                                                         kind,
                                                         size,
+                                                        disk.name,
                                                         popup=popup_info)
                 self.local_disks_box.pack_start(overview, False, False, 0)
 
@@ -553,7 +554,7 @@ class StorageSpoke(NormalSpoke, StorageChecker):
                 self._update_summary()
 
             gtk_action()
-                
+
         self._ready = True
         communication.send_ready(self.__class__.__name__)
 
@@ -593,9 +594,9 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         """ Update self.selected_disks based on the UI. """
         overviews = self.local_disks_box.get_children()
         for overview in overviews:
-            name = overview.get_property("popup-info").partition("|")[0].strip()
-
             selected = overview.get_chosen()
+            name = overview.get_property("name")
+
             if selected and name not in self.selected_disks:
                 self.selected_disks.append(name)
 
@@ -618,7 +619,7 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         # update the UI to reflect changes to self.selected_disks
         overviews = self.local_disks_box.get_children()
         for overview in overviews:
-            name = overview.get_property("popup-info").partition("|")[0].strip()
+            name = overview.get_property("name")
 
             overview.set_chosen(name in self.selected_disks)
 
