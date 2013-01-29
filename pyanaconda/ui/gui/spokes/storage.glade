@@ -885,6 +885,26 @@
                 <property name="orientation">vertical</property>
                 <property name="spacing">6</property>
                 <child>
+                  <object class="GtkLabel" id="label7">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="margin_left">18</property>
+                    <property name="margin_top">6</property>
+                    <property name="margin_bottom">6</property>
+                    <property name="xalign">0</property>
+                    <property name="label" translatable="yes">Select the device(s) you'd like to install to.  They will be left untouched until you click on the main menu's "Begin Installation" button.</property>
+                    <property name="wrap">True</property>
+                    <attributes>
+                      <attribute name="font-desc" value="Cantarell 12"/>
+                    </attributes>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">0</property>
+                  </packing>
+                </child>
+                <child>
                   <object class="GtkLabel" id="label1">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
@@ -901,7 +921,7 @@
                   <packing>
                     <property name="expand">False</property>
                     <property name="fill">True</property>
-                    <property name="position">0</property>
+                    <property name="position">1</property>
                   </packing>
                 </child>
                 <child>
@@ -937,7 +957,24 @@
                   <packing>
                     <property name="expand">False</property>
                     <property name="fill">True</property>
-                    <property name="position">1</property>
+                    <property name="position">2</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkLabel" id="label6">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="margin_right">24</property>
+                    <property name="xalign">1</property>
+                    <property name="label" translatable="yes">Disks left unselected here will not be touched.</property>
+                    <attributes>
+                      <attribute name="font-desc" value="Cantarell Italic 10"/>
+                    </attributes>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">3</property>
                   </packing>
                 </child>
                 <child>
@@ -952,16 +989,16 @@
                     <property name="column_spacing">6</property>
                     <child>
                       <object class="GtkButton" id="summary_button">
-                        <property name="label" translatable="yes">_Full disk summary and options...</property>
+                        <property name="label" translatable="yes">_Full disk summary and bootloader...</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">True</property>
+                        <property name="no_show_all">True</property>
                         <property name="halign">start</property>
                         <property name="margin_left">18</property>
                         <property name="relief">none</property>
                         <property name="use_underline">True</property>
                         <property name="focus_on_click">False</property>
-                        <property name="no_show_all">True</property>
                         <property name="xalign">0</property>
                         <signal name="clicked" handler="on_summary_clicked" swapped="no"/>
                       </object>
@@ -1013,12 +1050,18 @@
                     <child>
                       <placeholder/>
                     </child>
+                    <child>
+                      <placeholder/>
+                    </child>
+                    <child>
+                      <placeholder/>
+                    </child>
                   </object>
                   <packing>
                     <property name="expand">False</property>
                     <property name="fill">True</property>
                     <property name="pack_type">end</property>
-                    <property name="position">3</property>
+                    <property name="position">4</property>
                   </packing>
                 </child>
               </object>
