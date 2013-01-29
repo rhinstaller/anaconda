@@ -186,6 +186,38 @@ def copyUpdatedIsys(updates, cwd):
     if os.path.isfile(isysmodule):
         shutil.copy2(isysmodule, updates)
 
+def addRpms(updates, add_rpms):
+    """Add the files from an rpm to the update
+
+    This installs the files from any of the standard bin/, sbin/, lib/ and
+    /lib64/ paths into the top of the updates directory tree so that they
+    will be picked up by the installer. Other files are left in place.
+    """
+    # Because of how anaconda extends pythonpath we cannot have any binaries
+    # with these names in the top of the updates.img
+    # TODO: Fix this by adding /tmp/updates/bin to PATH in loader and putting
+    #       all the binaries in there instead.
+    PKGNAMES=("block", "yum", "rpmUtils", "urlgrabber", "pykickstart", "parted", "meh")
+
+    if not updates:
+        return
+
+    for rpm in add_rpms:
+        cmd = "cd %s && rpm2cpio %s | cpio -dium" % (updates, rpm)
+        sys.stdout.write(cmd+"\n")
+        os.system(cmd)
+
+    # At this point the rpm contents are all in their own paths. We need the
+    # libraries and binaries to be at the top of the updates image tree.
+    for d in [a+b for a in ("/", "/usr/", "/usr/local/")
+                  for b in ("bin/", "sbin/", "lib/", "/lib64/")]:
+        if not os.path.isdir(updates+d):
+            continue
+
+        for f in os.listdir(updates+d):
+            if f not in PKGNAMES:
+                shutil.move(updates+d+"/"+f, updates)
+
 def createUpdatesImage(cwd, updates):
     os.chdir(updates)
     os.system("find . | cpio -c -o | gzip -9cv > %s/updates.img" % (cwd,))
@@ -199,6 +231,7 @@ def usage(cmd):
     sys.stdout.write("    -h, --help       Display this help and exit.\n")
     sys.stdout.write("    -t, --tag        Make image from TAG to HEAD.\n")
     sys.stdout.write("    -o, --offset     Make image from (latest_tag - OFFSET) to HEAD.\n")
+    sys.stdout.write("    -a, --add        Add contents of rpm to the update\n")
 
 def main(argv):
     prog = os.path.basename(sys.argv[0])
@@ -210,10 +243,11 @@ def main(argv):
     tag = None
     opts = []
     offset = 0
+    add_rpms = []
 
     try:
-        opts, args = getopt.getopt(sys.argv[1:], 't:o:kc?',
-                                   ['tag=', 'offset=',
+        opts, args = getopt.getopt(sys.argv[1:], 't:o:a:kc?',
+                                   ['tag=', 'offset=', "add=",
                                     'keep', 'compile', 'help'])
     except getopt.GetoptError:
         help = True
@@ -229,6 +263,8 @@ def main(argv):
             tag = a
         elif o in ('-o', '--offset'):
             offset = int(a)
+        elif o in ('-a', '--add'):
+            add_rpms.append(os.path.abspath(a))
         else:
             unknown = True
 
@@ -259,6 +295,9 @@ def main(argv):
     if compile:
         if isysChanged(tag):
             copyUpdatedIsys(updates, cwd)
+
+    if add_rpms:
+        addRpms(updates, add_rpms)
 
     createUpdatesImage(cwd, updates)
 
