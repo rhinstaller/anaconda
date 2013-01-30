@@ -658,7 +658,7 @@ def kickstartNetworkData(ifcfg=None, hostname=None):
         ifcfg.get('IPV6INIT') == "no"):
         kwargs["noipv6"] = True
     else:
-        if ifcfg.get('IPV6_AUTOCONF') == "yes":
+        if ifcfg.get('IPV6_AUTOCONF') in ("yes", ""):
             kwargs["ipv6"] = "auto"
         else:
             if ifcfg.get('IPV6ADDR'):
