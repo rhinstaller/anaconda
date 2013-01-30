@@ -155,15 +155,18 @@ class AnacondaLog:
     def addFileHandler (self, file, addToLogger, minLevel=DEFAULT_TTY_LEVEL,
                         fmtStr=ENTRY_FORMAT,
                         autoLevel=False):
-        if isinstance(file, types.StringTypes):
-            logfileHandler = logging.FileHandler(file)
-        else:
-            logfileHandler = logging.StreamHandler(file)
+        try:
+            if isinstance(file, types.StringTypes):
+                logfileHandler = logging.FileHandler(file)
+            else:
+                logfileHandler = logging.StreamHandler(file)
 
-        logfileHandler.setLevel(minLevel)
-        logfileHandler.setFormatter(logging.Formatter(fmtStr, DATE_FORMAT))
-        autoSetLevel(logfileHandler, autoLevel)
-        addToLogger.addHandler(logfileHandler)
+            logfileHandler.setLevel(minLevel)
+            logfileHandler.setFormatter(logging.Formatter(fmtStr, DATE_FORMAT))
+            autoSetLevel(logfileHandler, autoLevel)
+            addToLogger.addHandler(logfileHandler)
+        except IOError:
+            pass
 
     def forwardToSyslog(self, logger):
         """Forward everything that goes in the logger to the syslog daemon.
