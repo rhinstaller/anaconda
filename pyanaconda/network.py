@@ -652,6 +652,17 @@ def kickstartNetworkData(ifcfg=None, hostname=None):
             # note that --gateway is common for ipv4 and ipv6
             if ifcfg.get('GATEWAY'):
                 kwargs["gateway"] = ifcfg.get('GATEWAY')
+        elif ifcfg.get('IPADDR0'):
+            kwargs["bootProto"] = "static"
+            kwargs["ip"] = ifcfg.get('IPADDR0')
+            prefix  = ifcfg.get('PREFIX0')
+            if prefix:
+                netmask = isys.prefix2netmask(int(prefix))
+                kwargs["netmask"] = netmask
+            # note that --gateway is common for ipv4 and ipv6
+            if ifcfg.get('GATEWAY0'):
+                kwargs["gateway"] = ifcfg.get('GATEWAY0')
+
 
     # ipv6
     if (not ifcfg.get('IPV6INIT') or
