@@ -29,6 +29,7 @@ log = logging.getLogger("anaconda")
 # pylint: disable-msg=E0611
 from gi.repository import AnacondaWidgets, GLib, Gtk, Gdk
 
+from pyanaconda.ui.common import FirstbootSpokeMixIn
 from pyanaconda.ui.gui import GUIObject
 from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.gui.categories.localization import LocalizationCategory
@@ -281,7 +282,7 @@ class NTPconfigDialog(GUIObject):
 
         self._refresh_server_working(itr)
 
-class DatetimeSpoke(NormalSpoke):
+class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
     builderObjects = ["datetimeWindow",
                       "days", "months", "years", "regions", "cities",
                       "upImage", "upImage1", "upImage2", "downImage",
