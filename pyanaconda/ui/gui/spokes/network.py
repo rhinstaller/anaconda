@@ -1173,7 +1173,11 @@ def getKSNetworkData(device):
     if ifcfg_suffix:
         ifcfg_suffix = ifcfg_suffix.replace(' ', '_')
         device_cfg = NetworkDevice(netscriptsDir, ifcfg_suffix)
-        device_cfg.loadIfcfgFile()
+        try:
+            device_cfg.loadIfcfgFile()
+        except IOError as e:
+            log.debug("getKSNetworkData %s: %s" % (ifcfg_suffix, e))
+            return None
         retval = kickstartNetworkData(ifcfg=device_cfg)
         if device.get_iface() in getActiveNetDevs():
             retval.activate = True
