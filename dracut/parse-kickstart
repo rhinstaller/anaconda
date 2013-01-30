@@ -291,12 +291,14 @@ def ksnet_to_ifcfg(net, filename=None):
     else:
         ifcfg['IPV6INIT'] = "yes"
 
-    if net.ipv6 == 'dhcp':
-        ifcfg['DHCPV6C'] = "yes"
-    elif net.ipv6 == 'auto':
-        ifcfg['IPV6_AUTOCONF'] = "yes" # NOTE: redundant (this is the default)
-    elif ':' in net.ipv6:
-        ifcfg['IPV6ADDR'] = net.ipv6
+        if net.ipv6 == 'dhcp':
+            ifcfg['DHCPV6C'] = "yes"
+            ifcfg['IPV6_AUTOCONF'] = "no"
+        elif net.ipv6 == 'auto':
+            ifcfg['IPV6_AUTOCONF'] = "yes" # NOTE: redundant (this is the default)
+        elif ':' in net.ipv6:
+            ifcfg['IPV6ADDR'] = net.ipv6
+            ifcfg['IPV6_AUTOCONF'] = "no"
 
     # misc stuff
     if net.mtu:
