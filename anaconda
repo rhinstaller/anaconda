@@ -133,6 +133,7 @@ def set_x_resolution(runres):
 
 def setupPythonUpdates():
     from distutils.sysconfig import get_python_lib
+    import gi.overrides
 
     # Temporary hack for F18 alpha to symlink updates and product directories
     # into tmpfs.  To be removed after beta in order to directly use content
@@ -165,6 +166,8 @@ def setupPythonUpdates():
         # Symlink over everything that's in the python libdir but not in
         # the updates directory.
         symlink_updates(dest, d)
+
+    gi.overrides.__path__.insert(0, "/run/install/updates")
 
     import glob
     import shutil
