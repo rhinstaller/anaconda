@@ -227,7 +227,7 @@ class UnknownPage(Page):
 # of this class will be packed into the Accordion first and then when the new installation
 # is created, it will be removed and replaced with a Page for it.
 class CreateNewPage(Page):
-    def __init__(self, cb):
+    def __init__(self, cb, partitionsToReuse=True):
         Gtk.Box.__init__(self, orientation=Gtk.Orientation.VERTICAL, spacing=6)
         self.pageTitle = ""
 
@@ -262,11 +262,12 @@ class CreateNewPage(Page):
         label.set_line_wrap(True)
         self._createBox.attach(label, 1, 2, 1, 1)
 
-        self._createBox.attach(Gtk.Label("•"), 0, 3, 1, 1)
+        if partitionsToReuse:
+            self._createBox.attach(Gtk.Label("•"), 0, 3, 1, 1)
 
-        label = Gtk.Label(_("Or, assign new mount points to existing partitions after selecting them below."))
-        label.set_alignment(0, 0.5)
-        label.set_line_wrap(True)
-        self._createBox.attach(label, 1, 3, 1, 1)
+            label = Gtk.Label(_("Or, assign new mount points to existing partitions after selecting them below."))
+            label.set_alignment(0, 0.5)
+            label.set_line_wrap(True)
+            self._createBox.attach(label, 1, 3, 1, 1)
 
         self.add(self._createBox)

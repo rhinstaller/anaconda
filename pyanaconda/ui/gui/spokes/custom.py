@@ -700,7 +700,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         # If we've not yet run autopart, add an instance of CreateNewPage.  This
         # ensures it's only added once.
         if not new_devices:
-            page = CreateNewPage(self.on_create_clicked)
+            page = CreateNewPage(self.on_create_clicked, partitionsToReuse=bool(ui_roots))
             page.pageTitle = self.translated_new_install_name
             self._accordion.addPage(page, cb=self.on_page_clicked)
 
