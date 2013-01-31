@@ -239,13 +239,17 @@ class CreateNewPage(Page):
 
         label = Gtk.Label(_("You haven't created any mount points for your %s %s installation yet.  You can:") % (productName, productVersion))
         label.set_line_wrap(True)
+        label.set_alignment(0, 0.5)
         self._createBox.attach(label, 0, 0, 2, 1)
 
-        self._createBox.attach(Gtk.Label("•"), 0, 1, 1, 1)
+        dot = Gtk.Label("•")
+        dot.set_hexpand(False)
+        self._createBox.attach(dot, 0, 1, 1, 1)
 
         self._createNewButton = Gtk.LinkButton("", label=_("_Click here to create them automatically."))
         label = self._createNewButton.get_children()[0]
         label.set_alignment(0, 0.5)
+        label.set_hexpand(True)
         label.set_line_wrap(True)
         label.set_use_underline(True)
 
@@ -255,18 +259,24 @@ class CreateNewPage(Page):
         self._createNewButton.connect("activate-link", lambda *args: Gtk.true())
         self._createBox.attach(self._createNewButton, 1, 1, 1, 1)
 
-        self._createBox.attach(Gtk.Label("•"), 0, 2, 1, 1)
+        dot = Gtk.Label("•")
+        dot.set_hexpand(False)
+        self._createBox.attach(dot, 0, 2, 1, 1)
 
         label = Gtk.Label(_("Create new mount points by clicking the '+' button."))
         label.set_alignment(0, 0.5)
+        label.set_hexpand(True)
         label.set_line_wrap(True)
         self._createBox.attach(label, 1, 2, 1, 1)
 
         if partitionsToReuse:
-            self._createBox.attach(Gtk.Label("•"), 0, 3, 1, 1)
+            dot = Gtk.Label("•")
+            dot.set_hexpand(False)
+            self._createBox.attach(dot, 0, 3, 1, 1)
 
             label = Gtk.Label(_("Or, assign new mount points to existing partitions after selecting them below."))
             label.set_alignment(0, 0.5)
+            label.set_hexpand(True)
             label.set_line_wrap(True)
             self._createBox.attach(label, 1, 3, 1, 1)
 
