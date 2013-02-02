@@ -242,6 +242,61 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/lib/dracut/modules.d/80%{name}/*
 
 %changelog
+* Fri Feb 01 2013 Brian C. Lane <bcl@redhat.com> - 19.3-1
+- unpack product.img to correct location (#869098) (bcl)
+- Fix including _isys.so and isys/__init__.py in updates.img (vpodzime)
+- Fix typo "DHCPV6" (rvykydal)
+- Don't crash on wireless connections created in Live CD desktop (#895736)
+  (rvykydal)
+- Adapt ifcfg -> ksdata mapping to NM change from IPADDR to IPADDR0. (rvykydal)
+- Fix static and dhcp of network --ipv6 command (set IPV6_AUTOCONF=no)
+  (rvykydal)
+- NM defaults to IPV6_AUTOCONF=yes (rvykydal)
+- Fix up spacing on installation options dialog buttons a little bit. (clumens)
+- Ignore double clicks on the DiskOverviews (#902467). (clumens)
+- When the user creates a new mountpoint, display it by default (#886039).
+  (clumens)
+- Add device node name information to the storage spoke and disk cart
+  (#902617). (clumens)
+- Do not include disks that have 0 size (#903131, #904977). (clumens)
+- Preserve the state of the Customize... expanders on custom storage (#883134).
+  (clumens)
+- Make it a little more clear what's happening on the disk selection spoke
+  (#903498). (clumens)
+- Move Xorg to vt7 (bcl)
+- Network: read ipv6 configuration type from NM settings instead of ifcfg file
+  (rvykydal)
+- Don't fail on missing ifcfg file when setting default ONBOOT (#904817)
+  (rvykydal)
+- Don't fail on invalid network --device kickstart specification. (rvykydal)
+- Ignore ipv6 for a device (IPV6INIT=no) only for noipv6 option. (rvykydal)
+- Network: fix disabling of ipv6 (noipv6 option) (rvykydal)
+- Stop writing /etc/sysconfig/network (#895900) (rvykydal)
+- We dont create missing ifcfg files on our own in anaconda anymore. (rvykydal)
+- Use NM dbus interface to modify ifcfg configuration (#893892) (rvykydal)
+- Document FileSystemSpaceChecker. (clumens)
+- Add the customization category to POTFILES.in. (clumens)
+- Add a license and overview to the g-i overrides file. (clumens)
+- Create/clarify some documentation in the custom widgets. (clumens)
+- Condense string formatting in a couple custom widgets. (clumens)
+- Remove the widget-specific TODO list. (clumens)
+- Add selinux to the list of parameters we pass on (#895860). (clumens)
+- Display error status messages in a darker red color. (clumens)
+- Add newline at the end of xorg.conf generated from ksdata (vpodzime)
+- Move pyanaconda.packaging.get_mount_* into blivet.util. (dlehman)
+- Remove obsolete references to simpleFilter. (dlehman)
+- Remove the storage module and replace it with blivet. (dlehman)
+- Move tsort, platform, and baseudev into storage. (dlehman)
+- Start laying groundwork for splitting storage out of pyanaconda. (dlehman)
+- Remove anaconda flag checking from OpticalDevice.eject. (dlehman)
+- Remove unused functions and move storage-specific utils to storage. (dlehman)
+- Remove installclass arch filtering. (dlehman)
+- Handle sending program output to tty5 through the logging setup. (dlehman)
+- Use dumpe2fs output to determine dirty fs. (dlehman)
+- Remove filesystem migration code. (dlehman)
+- Use threadMgr.wait to check threads (bcl)
+- Add error reporting to threadMgr (bcl)
+
 * Fri Jan 25 2013 Brian C. Lane <bcl@redhat.com> - 19.2-1
 - Use only one large grid for the hubs. (clumens)
 - Indicate nothing will happen until "Begin Installation" is clicked (#883195).
