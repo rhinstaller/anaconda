@@ -242,6 +242,10 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/lib/dracut/modules.d/80%{name}/*
 
 %changelog
+* Mon Feb 04 2013 Brian C. Lane <bcl@redhat.com> - 19.4-1
+- Remove libcurl requirement from configure.ac. (dlehman)
+- DMI_CHASSIS_VENDOR has moved into blivet. (dlehman)
+
 * Fri Feb 01 2013 Brian C. Lane <bcl@redhat.com> - 19.3-1
 - unpack product.img to correct location (#869098) (bcl)
 - Fix including _isys.so and isys/__init__.py in updates.img (vpodzime)
