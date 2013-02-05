@@ -50,7 +50,6 @@ NM_MANAGER_PATH = "/org/freedesktop/NetworkManager"
 NM_SETTINGS_PATH = "/org/freedesktop/NetworkManager/Settings"
 NM_MANAGER_IFACE = "org.freedesktop.NetworkManager"
 NM_ACTIVE_CONNECTION_IFACE = "org.freedesktop.NetworkManager.Connection.Active"
-NM_CONNECTION_IFACE = "org.freedesktop.NetworkManager.Settings.Connection"
 NM_DEVICE_IFACE = "org.freedesktop.NetworkManager.Device"
 NM_DEVICE_WIRED_IFACE = "org.freedesktop.NetworkManager.Device.Wired"
 NM_IP4CONFIG_IFACE = "org.freedesktop.NetworkManager.IP4Config"
@@ -112,13 +111,6 @@ def sync ():
 # @return True if ISO image, False otherwise.
 def isIsoImage(file):
     return _isys.isisoimage(file)
-
-# Return number of network devices
-def getNetworkDeviceCount():
-    bus = dbus.SystemBus()
-    nm = bus.get_object(NM_SERVICE, NM_MANAGER_PATH)
-    devlist = nm.get_dbus_method("GetDevices")()
-    return len(devlist)
 
 # Get a D-Bus interface for the specified device's (e.g., eth0) properties.
 # If dev=None, return a hash of the form 'hash[dev] = props_iface' that
