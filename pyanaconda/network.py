@@ -22,7 +22,7 @@
 #            Mike Fulbright <msf@redhat.com>
 #            Brent Fox <bfox@redhat.com>
 #            David Cantrell <dcantrell@redhat.com>
-#
+#            Radek Vykydal <rvykydal@redhat.com>
 
 import string
 import shutil
@@ -77,12 +77,6 @@ def setup_ifcfg_log():
     anaconda_log.logger.forwardToSyslog(logger)
 
     ifcfglog = logging.getLogger("ifcfg")
-
-class IPError(Exception):
-    pass
-
-class IPMissing(Exception):
-    pass
 
 def sanityCheckHostname(hostname):
     """
@@ -166,25 +160,6 @@ def getHostname():
         hn = DEFAULT_HOSTNAME
 
     return hn
-
-# sanity check an IP string.
-def sanityCheckIPString(ip_string):
-    if not ip_string.strip():
-        raise IPMissing, _("IP address is missing.")
-
-    if '.' in ip_string[1:] and ':' not in ip_string:
-        family = socket.AF_INET
-        errstr = _("IPv4 addresses must contain four numbers between 0 and 255, separated by periods.")
-    elif ':' in ip_string[1:] and '.' not in ip_string:
-        family = socket.AF_INET6
-        errstr = _("'%s' is not a valid IPv6 address.") % ip_string
-    else:
-        raise IPError, _("'%s' is an invalid IP address.") % ip_string
-
-    try:
-        socket.inet_pton(family, ip_string)
-    except socket.error:
-        raise IPError, errstr
 
 def nmIsConnected(state):
     return state in (isys.NM_STATE_CONNECTED_LOCAL,
@@ -325,29 +300,6 @@ class NetworkDevice(IfcfgFile):
     def keyfilePath(self):
         return os.path.join(self.dir, "keys-%s" % self.iface)
 
-    def writeWepkeyFile(self, dir=None, overwrite=True):
-        if not self.wepkey:
-            return False
-        if not dir:
-            keyfile = self.keyfilePath
-        else:
-            keyfile = os.path.join(dir, os.path.basename(self.keyfilePath))
-
-        if not overwrite and os.path.isfile(keyfile):
-            return False
-
-        fd, newifcfg = tempfile.mkstemp(prefix="keys-%s" % self.iface, text=False)
-        os.write(fd, "KEY1=%s\n" % self.wepkey)
-        os.close(fd)
-
-        os.chmod(newifcfg, 0644)
-        try:
-            os.remove(keyfile)
-        except OSError as e:
-            if e.errno != 2:
-                raise
-        shutil.move(newifcfg, keyfile)
-
     def fileContent(self):
         if not os.path.exists(self.path):
             return ""
@@ -355,77 +307,6 @@ class NetworkDevice(IfcfgFile):
         content = f.read()
         f.close()
         return content
-
-    def setGateway(self, gw):
-        if ':' in gw:
-            self.set(('IPV6_DEFAULTGW', gw))
-        else:
-            self.set(('GATEWAY', gw))
-
-    def unsetDNS(self):
-        """Unset all DNS* ifcfg parameters."""
-        i = 1
-        while True:
-            if self.get("DNS%d" % i):
-                self.unset("DNS%d" %i)
-            else:
-                break
-            i += 1
-
-    def setDNS(self, ns):
-        dns = ns.split(',')
-        i = 1
-        for addr in dns:
-            addr = addr.strip()
-            dnslabel = "DNS%d" % (i,)
-            self.set((dnslabel, addr))
-            i += 1
-
-class WirelessNetworkDevice(NetworkDevice):
-
-    """
-    This class overwrites NetworkDevice's, IfcfgFile's and SimpleConfigFile's
-    methods to prevent working with per-device ifcfgfiles (which doesn't make
-    sense with wifi devices)
-    """
-
-    def __init__(self, iface):
-        self.info = dict()
-        self.iface = iface
-        self.dir = ""
-
-    def clear(self):
-        self.info = dict()
-
-    #method __str__ can be left untouched
-
-    def loadIfcfgFile(self):
-        pass
-
-    def writeIfcfgFile(self):
-        pass
-
-    def set(self, *args):
-        msg = "".join(["%s=%s" % (key, val) for (key, val) in args])
-        for (key, val) in args:
-            self.info[simpleconfig.uppercase_ASCII_string(key)] = val
-
-    #not used, remove?
-    def fileContent(self):
-        return ""
-
-    #@property path can be left untouched (code using it skips nonexisting
-    #ifcfg files
-
-    def read(self):
-        #same return value as IfcfgFile.read()
-        return len(self.info)
-
-    def write(self):
-        pass
-
-def get_NM_object(path):
-    return dbus.SystemBus().get_object(isys.NM_SERVICE, path)
 
 def createMissingDefaultIfcfgs():
     """
@@ -509,32 +390,6 @@ def get_NM_connection(connection_spec, spec_type="hwaddr"):
 
 def getDevices():
     return isys.getDeviceProperties().keys()
-
-def waitForDevicesActivation(devices):
-    waited_devs_props = {}
-
-    bus = dbus.SystemBus()
-    nm = bus.get_object(isys.NM_SERVICE, isys.NM_MANAGER_PATH)
-    device_paths = nm.get_dbus_method("GetDevices")()
-    for device_path in device_paths:
-        device = bus.get_object(isys.NM_SERVICE, device_path)
-        device_props_iface = dbus.Interface(device, isys.DBUS_PROPS_IFACE)
-        iface = str(device_props_iface.Get(isys.NM_DEVICE_IFACE, "Interface"))
-        if iface in devices:
-            waited_devs_props[iface] = device_props_iface
-
-    i = 0
-    while True:
-        for dev, device_props_iface in waited_devs_props.items():
-            state = device_props_iface.Get(isys.NM_DEVICE_IFACE, "State")
-            if state == isys.NM_DEVICE_STATE_ACTIVATED:
-                waited_devs_props.pop(dev)
-        if len(waited_devs_props) == 0 or i >= CONNECTION_TIMEOUT:
-            break
-        i += 1
-        time.sleep(1)
-
-    return waited_devs_props.keys()
 
 # get a kernel cmdline string for dracut needed for access to storage host
 def dracutSetupArgs(networkStorageDevice):
@@ -705,47 +560,6 @@ def kickstartNetworkData(ifcfg=None, hostname=None):
             kwargs["hostname"] = hostname
 
     return handler.NetworkData(**kwargs)
-
-def getSSIDs(devices_to_scan=None):
-
-    rv = {}
-    bus = dbus.SystemBus()
-    nm = bus.get_object(isys.NM_SERVICE, isys.NM_MANAGER_PATH)
-    device_paths = nm.get_dbus_method("GetDevices")()
-
-    for device_path in device_paths:
-
-        device = bus.get_object(isys.NM_SERVICE, device_path)
-        device_props_iface = dbus.Interface(device, isys.DBUS_PROPS_IFACE)
-        # interface name, eg. "eth0", "wlan0"
-        dev = str(device_props_iface.Get(isys.NM_DEVICE_IFACE, "Interface"))
-
-        if (isys.isWirelessDevice(dev) and
-            (not devices_to_scan or dev in devices_to_scan)):
-
-            i = 0
-            log.info("scanning APs for %s" % dev)
-            while i < 5:
-                ap_paths = device.GetAccessPoints(dbus_interface='org.freedesktop.NetworkManager.Device.Wireless')
-                if ap_paths:
-                    break
-                time.sleep(0.5)
-                i += 0.5
-
-            ssids = []
-            for ap_path in ap_paths:
-                ap = bus.get_object(isys.NM_SERVICE, ap_path)
-                ap_props = dbus.Interface(ap, isys.DBUS_PROPS_IFACE)
-                ssid_bytearray = ap_props.Get(isys.NM_ACCESS_POINT_IFACE, "Ssid")
-                ssid = "".join((str(b) for b in ssid_bytearray))
-                ssids.append(ssid)
-            log.info("APs found for %s: %s" % (dev, str(ssids)))
-            # XXX there can be duplicates in a list, but maybe
-            # we want to keep them when/if we differentiate on something
-            # more then just ssids; for now, remove them
-            rv[dev]=list(set(ssids))
-
-    return rv
 
 def ifaceForHostIP(host):
     route = iutil.execWithCapture("ip", [ "route", "get", "to", host ])
