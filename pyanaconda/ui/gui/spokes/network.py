@@ -68,12 +68,6 @@ log = logging.getLogger("anaconda")
 # These are required for dbus API use we need because of
 # NM_GI_BUGS: 767998, 773678
 NM_SERVICE = "org.freedesktop.NetworkManager"
-NM_MANAGER_PATH = "/org/freedesktop/NetworkManager"
-NM_SETTINGS_PATH = "/org/freedesktop/NetworkManager/Settings"
-NM_MANAGER_IFACE = "org.freedesktop.NetworkManager"
-NM_SETTINGS_IFACE = "org.freedesktop.NetworkManager.Settings"
-NM_CONNECTION_IFACE = "org.freedesktop.NetworkManager.Settings.Connection"
-NM_DEVICE_IFACE = "org.freedesktop.NetworkManager.Device"
 NM_802_11_AP_FLAGS_PRIVACY = 0x1
 NM_802_11_AP_SEC_NONE = 0x0
 NM_802_11_AP_SEC_KEY_MGMT_802_1X = 0x200
