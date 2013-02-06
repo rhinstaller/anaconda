@@ -50,6 +50,7 @@ PKG_PROG_PKG_CONFIG
 PKG_CHECK_MODULES([GLADEUI], [gladeui-2.0 >= 3.10])
 PKG_CHECK_MODULES([GTK], [gtk+-x11-3.0 >= 3.0])
 PKG_CHECK_MODULES([GLIB], [glib-2.0])
+PKG_CHECK_MODULES([LIBXKLAVIER], [libxklavier >= 5.2.1])
 PKG_CHECK_EXISTS([gobject-introspection-1.0 >= 1.30])
 
 AC_CHECK_HEADERS([libintl.h string.h])

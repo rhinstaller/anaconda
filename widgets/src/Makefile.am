@@ -33,6 +33,7 @@ GISOURCES = BaseWindow.c \
 	 SpokeWindow.c \
 	 StandaloneWindow.c \
 	 TimezoneMap.c \
+	 LayoutIndicator.c \
 	 lightbox.c
 
 GIHDRS = BaseWindow.h \
@@ -43,6 +44,7 @@ GIHDRS = BaseWindow.h \
 	 SpokeWindow.h \
 	 StandaloneWindow.h \
 	 TimezoneMap.h \
+	 LayoutIndicator.h \
 	 lightbox.h
 
 NONGISOURCES = tz.c
@@ -59,10 +61,10 @@ TZMAPDATA = '"tzmapdata"'
 noinst_HEADERS = gettext.h intl.h
 
 lib_LTLIBRARIES = libAnacondaWidgets.la
-libAnacondaWidgets_la_CFLAGS = $(GTK_CFLAGS) $(GLADEUI_CFLAGS) -Wall -g\
+libAnacondaWidgets_la_CFLAGS = $(GTK_CFLAGS) $(GLADEUI_CFLAGS) $(LIBXKLAVIER_CFLAGS) -Wall -g\
 			       -DWIDGETS_DATADIR=$(WIDGETSDATA)\
 			       -DTZMAP_DATADIR=$(TZMAPDATA)
-libAnacondaWidgets_la_LIBADD = $(GTK_LIBS) $(GLADEUI_LIBS)
+libAnacondaWidgets_la_LIBADD = $(GTK_LIBS) $(GLADEUI_LIBS) $(LIBXKLAVIER_LIBS)
 libAnacondaWidgets_la_LDFLAGS = $(LTLIBINTL)
 libAnacondaWidgets_la_SOURCES = $(SOURCES) $(HDRS) \
 	  glade-adaptor.c
@@ -76,7 +78,7 @@ AnacondaWidgets-1.0.gir: libAnacondaWidgets.la
 AnacondaWidgets_1_0_gir_FILES = $(GISOURCES) $(GIHDRS)
 AnacondaWidgets_1_0_gir_LIBS = libAnacondaWidgets.la
 AnacondaWidgets_1_0_gir_SCANNERFLAGS = --warn-all --identifier-prefix=Anaconda --symbol-prefix=anaconda
-AnacondaWidgets_1_0_gir_INCLUDES = Gtk-3.0
+AnacondaWidgets_1_0_gir_INCLUDES = Gtk-3.0 Xkl-1.0
 
 INTROSPECTION_GIRS = AnacondaWidgets-1.0.gir
 

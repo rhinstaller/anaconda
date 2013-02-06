@@ -142,6 +142,15 @@
 	        <property id="spacing" default="6" visible="False" />
 	    </properties>
 	</glade-widget-class>
+
+    <glade-widget-class title="Layout Indicator"
+			            name="AnacondaLayoutIndicator"
+			            icon-name="widget-gtk-label"
+			            generic-name="AnacondaLayoutIndicator">
+      <properties>
+        <property id="label-width" default="12" />
+      </properties>
+	</glade-widget-class>
     </glade-widget-classes>
 
     <glade-widget-group name="anaconda-windows" title="Anaconda Windows">
@@ -157,5 +166,6 @@
     <glade-widget-group name="anaconda-misc-widgets" title="Anaconda Miscellaneous Widgets">
         <glade-widget-class-ref name="AnacondaSpokeSelector" />
         <glade-widget-class-ref name="AnacondaTimezoneMap" />
+        <glade-widget-class-ref name="AnacondaLayoutIndicator" />
     </glade-widget-group>
 </glade-catalog>
