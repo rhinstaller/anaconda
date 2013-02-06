@@ -568,23 +568,6 @@
               </packing>
             </child>
             <child>
-              <object class="GtkButton" id="options3_modify_sw_button">
-                <property name="label" translatable="yes">_Modify software selection</property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">True</property>
-                <property name="tooltip_text" translatable="yes">Please wait... software metadata still loading.</property>
-                <property name="border_width">6</property>
-                <property name="use_underline">True</property>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="position">1</property>
-                <property name="non_homogeneous">True</property>
-              </packing>
-            </child>
-            <child>
               <object class="GtkButton" id="options3_cancel_button">
                 <property name="label" translatable="yes">_Cancel</property>
                 <property name="visible">True</property>
@@ -764,7 +747,6 @@
     </child>
     <action-widgets>
       <action-widget response="4">options3_quit_button</action-widget>
-      <action-widget response="2">options3_modify_sw_button</action-widget>
       <action-widget response="0">options3_cancel_button</action-widget>
     </action-widgets>
   </object>

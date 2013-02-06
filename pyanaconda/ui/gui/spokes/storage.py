@@ -198,9 +198,15 @@ class InstallOptions1Dialog(GUIObject):
         fs_free_text = size_str(fs_free)
         self.fs_free_label.set_text(fs_free_text)
 
+    def _modify_sw_link_clicked(self, label, uri):
+        if self._software_is_ready():
+            self.window.response(self.RESPONSE_MODIFY_SW)
+
+        return True
+
     def _get_sw_needs_text(self, required_space):
         required_space_text = size_str(required_space)
-        sw_text = (_("Your current <b>%s</b> software selection requires "
+        sw_text = (_("Your current <a href=\"\"><b>%s</b> software selection</a> requires "
                       "<b>%s</b> of available space.")
                    % (productName, required_space_text))
         return sw_text
@@ -215,7 +221,6 @@ class InstallOptions1Dialog(GUIObject):
 
     def _check_for_storage_thread(self, button):
         if self._software_is_ready():
-            button.set_sensitive(True)
             button.set_has_tooltip(False)
             button.show_all()
 
@@ -224,14 +229,13 @@ class InstallOptions1Dialog(GUIObject):
         else:
             return True
 
-    def _add_button_watcher(self, widgetName):
+    def _add_modify_watcher(self, widgetName):
         # If the payload fetching thread is still running, the user can't go to
         # modify the software selection screen.  Thus, we have to set the button
         # insensitive and wait until software selection is ready to go.
-        modify_button = self.builder.get_object(widgetName)
+        modify_widget = self.builder.get_object(widgetName)
         if not self._software_is_ready():
-            modify_button.set_sensitive(False)
-            GLib.timeout_add_seconds(1, self._check_for_storage_thread, modify_button)
+            GLib.timeout_add_seconds(1, self._check_for_storage_thread, modify_widget)
 
     # signal handlers
     def on_type_changed(self, combo):
@@ -249,7 +253,10 @@ class InstallOptions2Dialog(InstallOptions1Dialog):
         sw_text = self._get_sw_needs_text(required_space)
         label_text = _("%s\nThe disks you've selected have the following "
                        "amounts of free space:") % sw_text
-        self.builder.get_object("options2_label1").set_markup(label_text)
+        label = self.builder.get_object("options2_label1")
+        label.set_markup(label_text)
+        label.set_tooltip_text(_("Please wait... software metadata still loading."))
+        label.connect("activate-link", self._modify_sw_link_clicked)
 
         self.disk_free_label = self.builder.get_object("options2_disk_free_label")
         self.fs_free_label = self.builder.get_object("options2_fs_free_label")
@@ -261,6 +268,8 @@ class InstallOptions2Dialog(InstallOptions1Dialog):
                        "partitions on your own in the custom partitioning "
                        "interface.") % productName
         self.builder.get_object("options2_label2").set_markup(label_text)
+
+        self._add_modify_watcher("options2_label1")
 
     @property
     def continue_response(self):
@@ -276,7 +285,10 @@ class InstallOptions3Dialog(InstallOptions1Dialog):
                         "<b>%s</b>, even if you used all of the free space\n"
                         "available on the selected disks.")
                       % (sw_text, productName))
-        self.builder.get_object("options3_label1").set_markup(label_text)
+        label = self.builder.get_object("options3_label1")
+        label.set_markup(label_text)
+        label.set_tooltip_text(_("Please wait... software metadata still loading."))
+        label.connect("activate-link", self._modify_sw_link_clicked)
 
         self.disk_free_label = self.builder.get_object("options3_disk_free_label")
         self.fs_free_label = self.builder.get_object("options3_fs_free_label")
@@ -290,7 +302,7 @@ class InstallOptions3Dialog(InstallOptions1Dialog):
                        "version of <b>%s</b>, or quit the installer.") % (productName, productName)
         self.builder.get_object("options3_label2").set_markup(label_text)
 
-        self._add_button_watcher("options3_modify_sw_button")
+        self._add_modify_watcher("options3_label1")
 
     @property
     def continue_response(self):
