@@ -124,11 +124,19 @@ class InstallOptions1Dialog(GUIObject):
     mainWidgetName = "options1_dialog"
     uiFile = "spokes/storage.glade"
 
+    # Response ID codes for all the various buttons on all the dialogs.
     RESPONSE_CANCEL = 0
     RESPONSE_CONTINUE = 1
     RESPONSE_MODIFY_SW = 2
     RESPONSE_RECLAIM = 3
     RESPONSE_QUIT = 4
+    RESPONSE_CUSTOM = 5
+
+    # Which radiobutton is selected on the options1 dialog?
+    RESPONSE_CONTINUE_NONE = -1
+    RESPONSE_CONTINUE_AUTOPART = 0
+    RESPONSE_CONTINUE_RECLAIM = 1
+    RESPONSE_CONTINUE_CUSTOM = 2
 
     def __init__(self, *args, **kwargs):
         self.payload = kwargs.pop("payload", None)
@@ -139,28 +147,51 @@ class InstallOptions1Dialog(GUIObject):
         self.window.destroy()
         return rc
 
-    def refresh(self, required_space, disks_size, disk_free, fs_free, autopart,
-                autoPartType):
-        self.custom = not autopart
-        self.custom_checkbutton = self.builder.get_object("options1_custom_check")
-        self.custom_checkbutton.set_active(self.custom)
-
+    def refresh(self, required_space, disk_free, fs_free, autoPartType):
         self.autoPartType = autoPartType
         self.autoPartTypeCombo = self.builder.get_object("options1_combo")
         self.autoPartTypeCombo.set_active(self.autoPartType)
 
         options_label = self.builder.get_object("options1_label")
 
-        options_text = (_("You have plenty of space to install <b>%s</b>, so "
-                          "we can automatically\n"
-                          "configure the rest of the installation for you.")
-                        % productName)
+        options_text = _("You have <b>%(freeSpace)s</b> of free space, which is "
+                         "enough to install %(productName)s.  What would you "
+                         "like to do?") % {"freeSpace": disk_free, "productName": productName}
         options_label.set_markup(options_text)
 
-    def _set_free_space_labels(self, disks_size, disk_free, fs_free):
-        disks_size_text = size_str(disks_size)
-        self.disks_size_label.set_text(disks_size_text)
+        label = self.builder.get_object("options1_autopart_radio").get_children()[0]
+        label.set_markup(_("<span font-desc=\"Cantarell 11\">A_utomatically "
+                           "configure my %(productName)s installation to the "
+                           "disk(s) I selected and return me to the main "
+                           "menu.</span>") % {"productName": productName})
+        label.set_line_wrap(True)
+        label.set_use_underline(True)
 
+        label = self.builder.get_object("options1_reclaim_radio").get_children()[0]
+        label.set_markup(_("<span font-desc=\"Cantarell 11\">I want more space. "
+                           "_Guide me through shrinking and/or removing partitions "
+                           "so I can have more space for %(productName)s.</span>") % {"productName": productName})
+        label.set_line_wrap(True)
+        label.set_use_underline(True)
+
+        label = self.builder.get_object("options1_custom_radio").get_children()[0]
+        label.set_markup(_("<span font-desc=\"Cantarell 11\">I want to review/_modify "
+                           "my disk partitions before continuing.</span>"))
+        label.set_line_wrap(True)
+        label.set_use_underline(True)
+
+    @property
+    def continue_response(self):
+        if self.builder.get_object("options1_autopart_radio").get_active():
+            return self.RESPONSE_CONTINUE_AUTOPART
+        elif self.builder.get_object("options1_reclaim_radio").get_active():
+            return self.RESPONSE_CONTINUE_RECLAIM
+        elif self.builder.get_object("options1_custom_radio").get_active():
+            return self.RESPONSE_CONTINUE_CUSTOM
+        else:
+            return self.RESPONSE_CONTINUE_NONE
+
+    def _set_free_space_labels(self, disk_free, fs_free):
         disk_free_text = size_str(disk_free)
         self.disk_free_label.set_text(disk_free_text)
 
@@ -203,27 +234,6 @@ class InstallOptions1Dialog(GUIObject):
             GLib.timeout_add_seconds(1, self._check_for_storage_thread, modify_button)
 
     # signal handlers
-    def on_cancel_clicked(self, button):
-        # return to the spoke without making any changes
-        print "CANCEL CLICKED"
-
-    def on_quit_clicked(self, button):
-        print "QUIT CLICKED"
-
-    def on_modify_sw_clicked(self, button):
-        # switch to the software selection hub
-        print "MODIFY SOFTWARE CLICKED"
-
-    def on_reclaim_clicked(self, button):
-        # show reclaim screen/dialog
-        print "RECLAIM CLICKED"
-
-    def on_continue_clicked(self, button):
-        print "CONTINUE CLICKED"
-
-    def on_custom_toggled(self, checkbutton):
-        self.custom = checkbutton.get_active()
-
     def on_type_changed(self, combo):
         self.autoPartType = combo.get_active()
 
@@ -231,12 +241,7 @@ class InstallOptions2Dialog(InstallOptions1Dialog):
     builderObjects = ["options2_dialog"]
     mainWidgetName = "options2_dialog"
 
-    def refresh(self, required_space, disks_size, disk_free, fs_free, autopart,
-                autoPartType):
-        self.custom = not autopart
-        self.custom_checkbutton = self.builder.get_object("options2_custom_check")
-        self.custom_checkbutton.set_active(self.custom)
-
+    def refresh(self, required_space, disk_free, fs_free, autoPartType):
         self.autoPartType = autoPartType
         self.autoPartTypeCombo = self.builder.get_object("options2_combo")
         self.autoPartTypeCombo.set_active(self.autoPartType)
@@ -248,30 +253,24 @@ class InstallOptions2Dialog(InstallOptions1Dialog):
 
         self.disk_free_label = self.builder.get_object("options2_disk_free_label")
         self.fs_free_label = self.builder.get_object("options2_fs_free_label")
-        self.disks_size_label = self.builder.get_object("options2_disks_size_label")
-        self._set_free_space_labels(disks_size, disk_free, fs_free)
+        self._set_free_space_labels(disk_free, fs_free)
 
-        label_text = (_("<b>You don't have enough space available to install "
-                        "%s</b>, but we can help you\n"
-                        "reclaim space by shrinking or removing existing partitions.")
-                      % productName)
+        label_text = _("<b>You don't have enough space available to install "
+                       "%s</b>.  You can shrink or remove existing partitions "
+                       "via our guided reclaim space tool, or you can adjust your "
+                       "partitions on your own in the custom partitioning "
+                       "interface.") % productName
         self.builder.get_object("options2_label2").set_markup(label_text)
 
-        self._add_button_watcher("options2_modify_sw_button")
-
-    def on_custom_toggled(self, checkbutton):
-        super(InstallOptions2Dialog, self).on_custom_toggled(checkbutton)
-        self.builder.get_object("options2_cancel_button").set_sensitive(not self.custom)
-        sensitive = not self.custom and self._software_is_ready()
-        self.builder.get_object("options2_modify_sw_button").set_sensitive(sensitive)
+    @property
+    def continue_response(self):
+        return self.RESPONSE_CONTINUE_NONE
 
 class InstallOptions3Dialog(InstallOptions1Dialog):
     builderObjects = ["options3_dialog"]
     mainWidgetName = "options3_dialog"
 
-    def refresh(self, required_space, disks_size, disk_free, fs_free, autopart,
-                autoPartType):
-        self.custom = not autopart
+    def refresh(self, required_space, disk_free, fs_free, autoPartType):
         sw_text = self._get_sw_needs_text(required_space)
         label_text = (_("%s\nYou don't have enough space available to install "
                         "<b>%s</b>, even if you used all of the free space\n"
@@ -281,8 +280,7 @@ class InstallOptions3Dialog(InstallOptions1Dialog):
 
         self.disk_free_label = self.builder.get_object("options3_disk_free_label")
         self.fs_free_label = self.builder.get_object("options3_fs_free_label")
-        self.disks_size_label = self.builder.get_object("options3_disks_size_label")
-        self._set_free_space_labels(disks_size, disk_free, fs_free)
+        self._set_free_space_labels(disk_free, fs_free)
 
         label_text = _("<b>You don't have enough space available to install "
                        "%s</b>, even if you used all of the free space\n"
@@ -293,6 +291,10 @@ class InstallOptions3Dialog(InstallOptions1Dialog):
         self.builder.get_object("options3_label2").set_markup(label_text)
 
         self._add_button_watcher("options3_modify_sw_button")
+
+    @property
+    def continue_response(self):
+        return self.RESPONSE_CONTINUE_NONE
 
 class StorageChecker(object):
     errors = []
@@ -637,6 +639,23 @@ class StorageSpoke(NormalSpoke, StorageChecker):
 
         return rc
 
+    def _check_encrypted(self):
+        # even if they're not doing autopart, setting autopart.encrypted
+        # establishes a default of encrypting new devices
+        encrypt_button = self.builder.get_object("encryption_checkbutton")
+        self.encrypted = encrypt_button.get_active()
+
+        if not self.encrypted:
+            return True
+
+        dialog = PassphraseDialog(self.data)
+        rc = self.run_lightbox_dialog(dialog)
+        if rc == 0:
+            return False
+
+        self.passphrase = dialog.passphrase
+        return True
+
     def on_back_clicked(self, button):
         # Remove all non-existing devices if autopart was active when we last
         # refreshed.
@@ -698,28 +717,23 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         else:
             dialog = InstallOptions3Dialog(self.data, payload=self.payload)
 
-        dialog.refresh(required_space, disks_size, disk_free, fs_free, self.autopart, self.autoPartType)
+        dialog.refresh(required_space, disk_free, fs_free, self.autoPartType)
         rc = self.run_lightbox_dialog(dialog)
         if rc == dialog.RESPONSE_CONTINUE:
-            # depending on custom/autopart, either set up autopart or show
-            # custom partitioning ui
-            self.autopart = not dialog.custom
             self.autoPartType = dialog.autoPartType
 
-            # even if they're not doing autopart, setting autopart.encrypted
-            # establishes a default of encrypting new devices
-            encrypt_button = self.builder.get_object("encryption_checkbutton")
-            self.encrypted = encrypt_button.get_active()
+            if not self._check_encrypted():
+                return
 
-            if dialog.custom:
+            if dialog.continue_response == dialog.RESPONSE_CONTINUE_AUTOPART:
+                self.autopart = True
+            elif dialog.continue_response == dialog.RESPONSE_CONTINUE_RECLAIM:
+                self.apply()
+                gtk_call_once(self._show_resize_dialog, disks)
+                return
+            elif dialog.continue_response == dialog.RESPONSE_CONTINUE_CUSTOM:
+                self.autopart = False
                 self.skipTo = "CustomPartitioningSpoke"
-            elif self.encrypted:
-                dialog = PassphraseDialog(self.data)
-                rc = self.run_lightbox_dialog(dialog)
-                if rc == 0:
-                    return
-
-                self.passphrase = dialog.passphrase
 
             NormalSpoke.on_back_clicked(self, button)
         elif rc == dialog.RESPONSE_CANCEL:
@@ -730,30 +744,20 @@ class StorageSpoke(NormalSpoke, StorageChecker):
             self.skipTo = "SoftwareSelectionSpoke"
             NormalSpoke.on_back_clicked(self, button)
         elif rc == dialog.RESPONSE_RECLAIM:
-            self.autopart = not dialog.custom
             self.autoPartType = dialog.autoPartType
+            if not self._check_encrypted():
+                return
 
-            # even if they're not doing autopart, setting autopart.encrypted
-            # establishes a default of encrypting new devices
-            encrypt_button = self.builder.get_object("encryption_checkbutton")
-            self.encrypted = encrypt_button.get_active()
-
-            if dialog.custom:
-                self.skipTo = "CustomPartitioningSpoke"
-                NormalSpoke.on_back_clicked(self, button)
-            else:
-                if self.encrypted:
-                    dialog = PassphraseDialog(self.data)
-                    rc = self.run_lightbox_dialog(dialog)
-                    if rc == 0:
-                        return
-
-                    self.passphrase = dialog.passphrase
-
-                self.apply()
-                gtk_call_once(self._show_resize_dialog, disks)
+            self.apply()
+            gtk_call_once(self._show_resize_dialog, disks)
         elif rc == dialog.RESPONSE_QUIT:
             raise SystemExit("user-selected exit")
+        elif rc == dialog.RESPONSE_CUSTOM:
+            self.autopart = False
+            self.autoPartType = dialog.autoPartType
+
+            self.skipTo = "CustomPartitioningSpoke"
+            NormalSpoke.on_back_clicked(self, button)
 
     def _show_resize_dialog(self, disks):
         resizeDialog = ResizeDialog(self.data, self.storage, self.payload)

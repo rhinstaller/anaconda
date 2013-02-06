@@ -31,7 +31,6 @@
                 <property name="halign">start</property>
                 <property name="border_width">6</property>
                 <property name="use_underline">True</property>
-                <signal name="clicked" handler="on_cancel_clicked" swapped="no"/>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -49,18 +48,19 @@
                 <property name="receives_default">True</property>
                 <property name="border_width">6</property>
                 <property name="use_underline">True</property>
-                <signal name="clicked" handler="on_continue_clicked" swapped="no"/>
               </object>
               <packing>
                 <property name="expand">False</property>
                 <property name="fill">True</property>
                 <property name="position">1</property>
+                <property name="non_homogeneous">True</property>
               </packing>
             </child>
           </object>
           <packing>
             <property name="expand">False</property>
             <property name="fill">True</property>
+            <property name="pack_type">end</property>
             <property name="position">0</property>
           </packing>
         </child>
@@ -92,7 +92,7 @@
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="xalign">0</property>
-                <property name="label" translatable="yes">Here we'll describe what your options are.</property>
+                <property name="label">Here we'll describe what your options are.</property>
                 <property name="wrap">True</property>
                 <attributes>
                   <attribute name="font-desc" value="Cantarell 11"/>
@@ -102,6 +102,59 @@
                 <property name="expand">False</property>
                 <property name="fill">True</property>
                 <property name="position">1</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkRadioButton" id="options1_autopart_radio">
+                <property name="label">Here's the autopart label.</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">False</property>
+                <property name="use_underline">True</property>
+                <property name="xalign">0</property>
+                <property name="active">True</property>
+                <property name="draw_indicator">True</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">2</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkRadioButton" id="options1_reclaim_radio">
+                <property name="label">Here's the reclaim label.</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">False</property>
+                <property name="use_underline">True</property>
+                <property name="xalign">0</property>
+                <property name="active">True</property>
+                <property name="draw_indicator">True</property>
+                <property name="group">options1_autopart_radio</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">3</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkRadioButton" id="options1_custom_radio">
+                <property name="label">Here's the custom label.</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">False</property>
+                <property name="use_underline">True</property>
+                <property name="xalign">0</property>
+                <property name="active">True</property>
+                <property name="draw_indicator">True</property>
+                <property name="group">options1_autopart_radio</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">4</property>
               </packing>
             </child>
             <child>
@@ -162,25 +215,7 @@
               <packing>
                 <property name="expand">False</property>
                 <property name="fill">True</property>
-                <property name="position">2</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkCheckButton" id="options1_custom_check">
-                <property name="label" translatable="yes">Let me customize the _partitioning of the disks instead.</property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">False</property>
-                <property name="use_underline">True</property>
-                <property name="xalign">0</property>
-                <property name="draw_indicator">True</property>
-                <signal name="toggled" handler="on_custom_toggled" swapped="no"/>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="pack_type">end</property>
-                <property name="position">3</property>
+                <property name="position">5</property>
               </packing>
             </child>
           </object>
@@ -225,7 +260,6 @@
                 <property name="receives_default">True</property>
                 <property name="border_width">6</property>
                 <property name="use_underline">True</property>
-                <signal name="clicked" handler="on_cancel_clicked" swapped="no"/>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -235,43 +269,43 @@
               </packing>
             </child>
             <child>
-              <object class="GtkButton" id="options2_modify_sw_button">
-                <property name="label" translatable="yes">_Modify software selection</property>
+              <object class="GtkButton" id="options2_custom_button">
+                <property name="label" translatable="yes">_Custom partitioning</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
-                <property name="tooltip_text" translatable="yes">Please wait... software metadata still loading.</property>
                 <property name="border_width">6</property>
                 <property name="use_underline">True</property>
-                <signal name="clicked" handler="on_modify_sw_clicked" swapped="no"/>
               </object>
               <packing>
                 <property name="expand">False</property>
                 <property name="fill">True</property>
                 <property name="position">1</property>
+                <property name="non_homogeneous">True</property>
               </packing>
             </child>
             <child>
               <object class="GtkButton" id="options2_reclaim_button">
-                <property name="label" translatable="yes">Reclaim _space</property>
+                <property name="label" translatable="yes">_Reclaim space</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="has_focus">True</property>
                 <property name="receives_default">True</property>
                 <property name="border_width">6</property>
                 <property name="use_underline">True</property>
-                <signal name="clicked" handler="on_reclaim_clicked" swapped="no"/>
               </object>
               <packing>
                 <property name="expand">False</property>
                 <property name="fill">True</property>
                 <property name="position">2</property>
+                <property name="non_homogeneous">True</property>
               </packing>
             </child>
           </object>
           <packing>
             <property name="expand">False</property>
             <property name="fill">True</property>
+            <property name="pack_type">end</property>
             <property name="position">0</property>
           </packing>
         </child>
@@ -397,42 +431,6 @@
                     <property name="height">1</property>
                   </packing>
                 </child>
-                <child>
-                  <object class="GtkLabel" id="options2_disks_size_label">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="xalign">1</property>
-                    <property name="label" translatable="yes">disks size</property>
-                    <attributes>
-                      <attribute name="font-desc" value="Cantarell Bold 11"/>
-                      <attribute name="weight" value="bold"/>
-                    </attributes>
-                  </object>
-                  <packing>
-                    <property name="left_attach">0</property>
-                    <property name="top_attach">2</property>
-                    <property name="width">1</property>
-                    <property name="height">1</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkLabel" id="options2_disks_size_desc_label">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="xalign">0</property>
-                    <property name="label" translatable="yes">Space in selected disks reclaimable by deleting existing partitions.</property>
-                    <property name="wrap">True</property>
-                    <attributes>
-                      <attribute name="font-desc" value="Cantarell 11"/>
-                    </attributes>
-                  </object>
-                  <packing>
-                    <property name="left_attach">1</property>
-                    <property name="top_attach">2</property>
-                    <property name="width">1</property>
-                    <property name="height">1</property>
-                  </packing>
-                </child>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -518,24 +516,6 @@
                 <property name="position">4</property>
               </packing>
             </child>
-            <child>
-              <object class="GtkCheckButton" id="options2_custom_check">
-                <property name="label" translatable="yes">I don't need help; let me customize disk _partitioning.</property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">False</property>
-                <property name="use_underline">True</property>
-                <property name="xalign">0</property>
-                <property name="draw_indicator">True</property>
-                <signal name="toggled" handler="on_custom_toggled" swapped="no"/>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="pack_type">end</property>
-                <property name="position">5</property>
-              </packing>
-            </child>
           </object>
           <packing>
             <property name="expand">False</property>
@@ -547,7 +527,7 @@
     </child>
     <action-widgets>
       <action-widget response="0">options2_cancel_button</action-widget>
-      <action-widget response="2">options2_modify_sw_button</action-widget>
+      <action-widget response="5">options2_custom_button</action-widget>
       <action-widget response="3">options2_reclaim_button</action-widget>
     </action-widgets>
   </object>
@@ -579,7 +559,6 @@
                 <property name="receives_default">True</property>
                 <property name="border_width">6</property>
                 <property name="use_underline">True</property>
-                <signal name="clicked" handler="on_quit_clicked" swapped="no"/>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -597,12 +576,12 @@
                 <property name="tooltip_text" translatable="yes">Please wait... software metadata still loading.</property>
                 <property name="border_width">6</property>
                 <property name="use_underline">True</property>
-                <signal name="clicked" handler="on_modify_sw_clicked" swapped="no"/>
               </object>
               <packing>
                 <property name="expand">False</property>
                 <property name="fill">True</property>
                 <property name="position">1</property>
+                <property name="non_homogeneous">True</property>
               </packing>
             </child>
             <child>
@@ -614,18 +593,19 @@
                 <property name="receives_default">True</property>
                 <property name="border_width">6</property>
                 <property name="use_underline">True</property>
-                <signal name="clicked" handler="on_cancel_clicked" swapped="no"/>
               </object>
               <packing>
                 <property name="expand">False</property>
                 <property name="fill">True</property>
                 <property name="position">2</property>
+                <property name="non_homogeneous">True</property>
               </packing>
             </child>
           </object>
           <packing>
             <property name="expand">False</property>
             <property name="fill">True</property>
+            <property name="pack_type">end</property>
             <property name="position">0</property>
           </packing>
         </child>
@@ -745,42 +725,6 @@
                   <packing>
                     <property name="left_attach">1</property>
                     <property name="top_attach">1</property>
-                    <property name="width">1</property>
-                    <property name="height">1</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkLabel" id="options3_disks_size_label">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="xalign">1</property>
-                    <property name="label" translatable="yes">disks size</property>
-                    <attributes>
-                      <attribute name="font-desc" value="Cantarell Bold 11"/>
-                      <attribute name="weight" value="bold"/>
-                    </attributes>
-                  </object>
-                  <packing>
-                    <property name="left_attach">0</property>
-                    <property name="top_attach">2</property>
-                    <property name="width">1</property>
-                    <property name="height">1</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkLabel" id="options3_disks_size_desc_label">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="xalign">0</property>
-                    <property name="label" translatable="yes">Space in selected disks reclaimable by deleting existing partitions.</property>
-                    <property name="wrap">True</property>
-                    <attributes>
-                      <attribute name="font-desc" value="Cantarell 11"/>
-                    </attributes>
-                  </object>
-                  <packing>
-                    <property name="left_attach">1</property>
-                    <property name="top_attach">2</property>
                     <property name="width">1</property>
                     <property name="height">1</property>
                   </packing>
@@ -1028,9 +972,9 @@
                         <property name="halign">end</property>
                         <property name="valign">end</property>
                         <property name="hexpand">True</property>
+                        <property name="use_underline">True</property>
                         <property name="xalign">1</property>
                         <property name="draw_indicator">True</property>
-                        <property name="use_underline">True</property>
                       </object>
                       <packing>
                         <property name="left_attach">1</property>
