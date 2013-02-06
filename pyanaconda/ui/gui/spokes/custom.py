@@ -192,7 +192,7 @@ def validate_mountpoint(mountpoint, used_mountpoints, strict=True):
     return valid
 
 class AddDialog(GUIObject):
-    builderObjects = ["addDialog", "mountPointStore", "mountPointCompletion"]
+    builderObjects = ["addDialog", "mountPointStore", "mountPointCompletion", "mountPointEntryBuffer"]
     mainWidgetName = "addDialog"
     uiFile = "spokes/custom.glade"
 
@@ -205,13 +205,14 @@ class AddDialog(GUIObject):
 
         store = self.builder.get_object("mountPointStore")
         populate_mountpoint_store(store, self.mountpoints)
+        self.builder.get_object("addMountPointEntry").set_model(store)
 
         completion = self.builder.get_object("mountPointCompletion")
         completion.set_text_column(0)
         completion.set_popup_completion(True)
 
     def on_add_confirm_clicked(self, button, *args):
-        self.mountpoint = self.builder.get_object("addMountPointEntry").get_text()
+        self.mountpoint = self.builder.get_object("addMountPointEntry").get_active_text()
         self._error = validate_mountpoint(self.mountpoint, self.mountpoints,
                                           strict=False)
         self._warningLabel.set_text(_(mountpoint_validation_msgs[self._error]))
@@ -417,7 +418,8 @@ class HelpDialog(GUIObject):
 class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
     builderObjects = ["customStorageWindow", "sizeAdjustment",
                       "partitionStore", "raidStoreFiltered", "raidLevelStore",
-                      "addImage", "removeImage", "settingsImage"]
+                      "addImage", "removeImage", "settingsImage",
+                      "mountPointCompletion", "mountPointStore"]
     mainWidgetName = "customStorageWindow"
     uiFile = "spokes/custom.glade"
 
