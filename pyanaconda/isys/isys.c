@@ -84,9 +84,7 @@ static PyObject * printObject(PyObject * s, PyObject * args);
 static PyObject * py_bind_textdomain_codeset(PyObject * o, PyObject * args);
 static PyObject * doSegvHandler(PyObject *s, PyObject *args);
 static PyObject * doAuditDaemon(PyObject *s);
-static PyObject * doPrefixToNetmask(PyObject *s, PyObject *args);
 static PyObject * doIsCapsLockEnabled(PyObject * s, PyObject * args);
-static PyObject * doGetLinkStatus(PyObject * s, PyObject * args);
 static PyObject * doGetAnacondaVersion(PyObject * s, PyObject * args);
 static PyObject * doInitLog(PyObject * s);
 static PyObject * doTotalMemory(PyObject * s);
@@ -101,9 +99,7 @@ static PyMethodDef isysModuleMethods[] = {
     { "bind_textdomain_codeset", (PyCFunction) py_bind_textdomain_codeset, METH_VARARGS, NULL},
     { "handleSegv", (PyCFunction) doSegvHandler, METH_VARARGS, NULL },
     { "auditdaemon", (PyCFunction) doAuditDaemon, METH_NOARGS, NULL },
-    { "prefix2netmask", (PyCFunction) doPrefixToNetmask, METH_VARARGS, NULL },
     { "isCapsLockEnabled", (PyCFunction) doIsCapsLockEnabled, METH_VARARGS, NULL },
-    { "getLinkStatus", (PyCFunction) doGetLinkStatus, METH_VARARGS, NULL },
     { "getAnacondaVersion", (PyCFunction) doGetAnacondaVersion, METH_VARARGS, NULL },
     { "initLog", (PyCFunction) doInitLog, METH_VARARGS, NULL },
     { "total_memory", (PyCFunction) doTotalMemory, METH_NOARGS, NULL },
@@ -115,23 +111,6 @@ static PyMethodDef isysModuleMethods[] = {
 
 void init_isys(void) {
     Py_InitModule("_isys", isysModuleMethods);
-}
-
-static PyObject * doPrefixToNetmask (PyObject * s, PyObject * args) {
-    int prefix = 0;
-    struct in_addr *mask = NULL;
-    char dst[INET_ADDRSTRLEN+1];
-
-    if (!PyArg_ParseTuple(args, "i", &prefix))
-        return NULL;
-
-    if ((mask = iface_prefix2netmask(prefix)) == NULL)
-        return NULL;
-
-    if (inet_ntop(AF_INET, mask, dst, INET_ADDRSTRLEN) == NULL)
-        return NULL;
-
-    return Py_BuildValue("s", dst);
 }
 
 static int get_bits(unsigned long long v) {
@@ -278,20 +257,6 @@ static PyObject * doIsCapsLockEnabled(PyObject * s, PyObject * args) {
     }
 
     return PyBool_FromLong(state.locked_mods & LockMask);
-}
-
-static PyObject * doGetLinkStatus(PyObject * s, PyObject * args) {
-    char *dev = NULL;
-
-    if (!PyArg_ParseTuple(args, "s", &dev)) {
-        return NULL;
-    }
-
-    if (get_link_status(dev) == 1) {
-        return PyBool_FromLong(1);
-    }
-
-    return PyBool_FromLong(0);
 }
 
 static PyObject * doGetAnacondaVersion(PyObject * s, PyObject * args) {

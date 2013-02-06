@@ -34,7 +34,6 @@ import blivet.arch
 
 import glob
 import iutil
-import isys
 import os
 import os.path
 import tempfile
@@ -448,7 +447,7 @@ class Fcoe(commands.fcoe.F13_Fcoe):
     def parse(self, args):
         fc = commands.fcoe.F13_Fcoe.parse(self, args)
 
-        if fc.nic not in isys.getDeviceProperties():
+        if fc.nic not in network.getDevices():
             raise KickstartValueError, formatErrorMsg(self.lineno, msg="Specified nonexistent nic %s in fcoe command" % fc.nic)
 
         blivet.fcoe.fcoe().addSan(nic=fc.nic, dcb=fc.dcb, auto_vlan=True)

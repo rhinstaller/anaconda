@@ -45,31 +45,6 @@ import dbus
 import logging
 log = logging.getLogger("anaconda")
 
-NM_SERVICE = "org.freedesktop.NetworkManager"
-NM_MANAGER_PATH = "/org/freedesktop/NetworkManager"
-NM_SETTINGS_PATH = "/org/freedesktop/NetworkManager/Settings"
-NM_MANAGER_IFACE = "org.freedesktop.NetworkManager"
-NM_ACTIVE_CONNECTION_IFACE = "org.freedesktop.NetworkManager.Connection.Active"
-NM_DEVICE_IFACE = "org.freedesktop.NetworkManager.Device"
-NM_DEVICE_WIRED_IFACE = "org.freedesktop.NetworkManager.Device.Wired"
-NM_IP4CONFIG_IFACE = "org.freedesktop.NetworkManager.IP4Config"
-NM_IP6CONFIG_IFACE = "org.freedesktop.NetworkManager.IP6Config"
-NM_ACCESS_POINT_IFACE = "org.freedesktop.NetworkManager.AccessPoint"
-
-NM_STATE_UNKNOWN = 0
-NM_STATE_ASLEEP = 10
-NM_STATE_DISCONNECTED = 20
-NM_STATE_DISCONNECTING = 30
-NM_STATE_CONNECTING = 40
-NM_STATE_CONNECTED_LOCAL = 50
-NM_STATE_CONNECTED_SITE = 60
-NM_STATE_CONNECTED_GLOBAL = 70
-NM_DEVICE_STATE_ACTIVATED = 100
-NM_DEVICE_TYPE_WIFI = 2
-NM_DEVICE_TYPE_ETHERNET = 1
-
-DBUS_PROPS_IFACE = "org.freedesktop.DBus.Properties"
-
 if blivet.arch.getArch() in ("sparc", "ppc64"):
     MIN_RAM = 768 * 1024
     GUI_INSTALL_EXTRA_RAM = 512 * 1024
@@ -112,133 +87,6 @@ def sync ():
 def isIsoImage(file):
     return _isys.isisoimage(file)
 
-# Get a D-Bus interface for the specified device's (e.g., eth0) properties.
-# If dev=None, return a hash of the form 'hash[dev] = props_iface' that
-# contains all device properties for all interfaces that NetworkManager knows
-# about.
-def getDeviceProperties(dev=None):
-    bus = dbus.SystemBus()
-    nm = bus.get_object(NM_SERVICE, NM_MANAGER_PATH)
-    devlist = nm.get_dbus_method("GetDevices")()
-    all = {}
-
-    for path in devlist:
-        device = bus.get_object(NM_SERVICE, path)
-        device_props_iface = dbus.Interface(device, DBUS_PROPS_IFACE)
-
-        device_interface = str(device_props_iface.Get(NM_DEVICE_IFACE, "Interface"))
-
-        if dev is None:
-            all[device_interface] = device_props_iface
-        elif device_interface == dev:
-            return device_props_iface
-
-    if dev is None:
-        return all
-    else:
-        return None
-
-def getMacAddress(dev):
-    """Return MAC address of device. "" if not found"""
-    if dev == '' or dev is None:
-        return ""
-
-    device_props_iface = getDeviceProperties(dev=dev)
-    if device_props_iface is None:
-        return ""
-
-    device_macaddr = ""
-    try:
-        device_macaddr = device_props_iface.Get(NM_DEVICE_WIRED_IFACE, "HwAddress").upper()
-    except dbus.exceptions.DBusException as e:
-        log.debug("getMacAddress %s: %s" % (dev, e))
-    return device_macaddr
-
-# Determine if a network device is a wireless device.
-def isWirelessDevice(dev_name):
-    bus = dbus.SystemBus()
-    nm = bus.get_object(NM_SERVICE, NM_MANAGER_PATH)
-    devlist = nm.get_dbus_method("GetDevices")()
-
-    for path in devlist:
-        device = bus.get_object(NM_SERVICE, path)
-        device_props_iface = dbus.Interface(device, DBUS_PROPS_IFACE)
-
-        iface = device_props_iface.Get(NM_DEVICE_IFACE, "Interface")
-        if iface == dev_name:
-            device_type = device_props_iface.Get(NM_DEVICE_IFACE, "DeviceType")
-            return device_type == NM_DEVICE_TYPE_WIFI
-
-    return False
-
-
-# Get IP addresses for a network device.
-# Returns list of ipv4 or ipv6 addresses, depending
-# on version parameter. ipv4 is default.
-def getIPAddresses(dev, version=4):
-    if dev == '' or dev is None:
-       return None
-
-    device_props_iface = getDeviceProperties(dev=dev)
-    if device_props_iface is None:
-        return None
-
-    bus = dbus.SystemBus()
-
-    addresses = []
-
-    if version == 4:
-        ip4_config_path = device_props_iface.Get(NM_DEVICE_IFACE, 'Ip4Config')
-        if ip4_config_path != '/':
-            ip4_config_obj = bus.get_object(NM_SERVICE, ip4_config_path)
-            ip4_config_props = dbus.Interface(ip4_config_obj, DBUS_PROPS_IFACE)
-
-            # addresses (3-element list:  ipaddr, netmask, gateway)
-            addrs = ip4_config_props.Get(NM_IP4CONFIG_IFACE, "Addresses")
-            for addr in addrs:
-                try:
-                    tmp = struct.pack('I', addr[0])
-                    ipaddr = socket.inet_ntop(socket.AF_INET, tmp)
-                    addresses.append(ipaddr)
-                except ValueError as e:
-                    log.debug("Exception caught trying to convert IP address %s: %s" %
-                    (addr, e))
-    elif version == 6:
-        ip6_config_path = device_props_iface.Get(NM_DEVICE_IFACE, 'Ip6Config')
-        if ip6_config_path != '/':
-            ip6_config_obj = bus.get_object(NM_SERVICE, ip6_config_path)
-            ip6_config_props = dbus.Interface(ip6_config_obj, DBUS_PROPS_IFACE)
-
-            addrs = ip6_config_props.Get(NM_IP6CONFIG_IFACE, "Addresses")
-            for addr in addrs:
-                try:
-                    addrstr = "".join(str(byte) for byte in addr[0])
-                    ipaddr = socket.inet_ntop(socket.AF_INET6, addrstr)
-                    # XXX - should we prefer Global or Site-Local types?
-                    #       does NM prefer them?
-                    addresses.append(ipaddr)
-                except ValueError as e:
-                    log.debug("Exception caught trying to convert IP address %s: %s" %
-                    (addr, e))
-    else:
-        raise ValueError, "invalid IP version %d" % version
-
-    return addresses
-
-def prefix2netmask(prefix):
-    return _isys.prefix2netmask(prefix)
-
-def netmask2prefix (netmask):
-    prefix = 0
-
-    while prefix < 33:
-        if (prefix2netmask(prefix) == netmask):
-            return prefix
-
-        prefix += 1
-
-    return prefix
-
 isPAE = None
 def isPaeAvailable():
     global isPAE
@@ -259,9 +107,6 @@ def isPaeAvailable():
             break
 
     return isPAE
-
-def getLinkStatus(dev):
-    return _isys.getLinkStatus(dev)
 
 def getAnacondaVersion():
     return _isys.getAnacondaVersion()

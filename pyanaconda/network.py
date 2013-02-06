@@ -26,7 +26,6 @@
 
 import string
 import shutil
-import isys
 import iutil
 import socket
 import struct
@@ -57,6 +56,31 @@ ifcfgLogFile = "/tmp/ifcfg.log"
 CONNECTION_TIMEOUT = 45
 DEFAULT_HOSTNAME = "localhost.localdomain"
 
+NM_SERVICE = "org.freedesktop.NetworkManager"
+NM_MANAGER_PATH = "/org/freedesktop/NetworkManager"
+NM_SETTINGS_PATH = "/org/freedesktop/NetworkManager/Settings"
+NM_MANAGER_IFACE = "org.freedesktop.NetworkManager"
+NM_ACTIVE_CONNECTION_IFACE = "org.freedesktop.NetworkManager.Connection.Active"
+NM_DEVICE_IFACE = "org.freedesktop.NetworkManager.Device"
+NM_DEVICE_WIRED_IFACE = "org.freedesktop.NetworkManager.Device.Wired"
+NM_IP4CONFIG_IFACE = "org.freedesktop.NetworkManager.IP4Config"
+NM_IP6CONFIG_IFACE = "org.freedesktop.NetworkManager.IP6Config"
+NM_ACCESS_POINT_IFACE = "org.freedesktop.NetworkManager.AccessPoint"
+
+NM_STATE_UNKNOWN = 0
+NM_STATE_ASLEEP = 10
+NM_STATE_DISCONNECTED = 20
+NM_STATE_DISCONNECTING = 30
+NM_STATE_CONNECTING = 40
+NM_STATE_CONNECTED_LOCAL = 50
+NM_STATE_CONNECTED_SITE = 60
+NM_STATE_CONNECTED_GLOBAL = 70
+NM_DEVICE_STATE_ACTIVATED = 100
+NM_DEVICE_TYPE_WIFI = 2
+NM_DEVICE_TYPE_ETHERNET = 1
+
+DBUS_PROPS_IFACE = "org.freedesktop.DBus.Properties"
+
 # part of a valid hostname between two periods (cannot start nor end with '-')
 # for more info about '(?!-)' and '(?<!-)' see 're' module documentation
 HOSTNAME_PART_RE = re.compile("(?!-)[A-Z\d-]{1,63}(?<!-)$", re.IGNORECASE)
@@ -77,6 +101,134 @@ def setup_ifcfg_log():
     anaconda_log.logger.forwardToSyslog(logger)
 
     ifcfglog = logging.getLogger("ifcfg")
+
+# Get a D-Bus interface for the specified device's (e.g., eth0) properties.
+# If dev=None, return a hash of the form 'hash[dev] = props_iface' that
+# contains all device properties for all interfaces that NetworkManager knows
+# about.
+def getDeviceProperties(dev=None):
+    bus = dbus.SystemBus()
+    nm = bus.get_object(NM_SERVICE, NM_MANAGER_PATH)
+    devlist = nm.get_dbus_method("GetDevices")()
+    all = {}
+
+    for path in devlist:
+        device = bus.get_object(NM_SERVICE, path)
+        device_props_iface = dbus.Interface(device, DBUS_PROPS_IFACE)
+
+        device_interface = str(device_props_iface.Get(NM_DEVICE_IFACE, "Interface"))
+
+        if dev is None:
+            all[device_interface] = device_props_iface
+        elif device_interface == dev:
+            return device_props_iface
+
+    if dev is None:
+        return all
+    else:
+        return None
+
+def getMacAddress(dev):
+    """Return MAC address of device. "" if not found"""
+    if dev == '' or dev is None:
+        return ""
+
+    device_props_iface = getDeviceProperties(dev=dev)
+    if device_props_iface is None:
+        return ""
+
+    device_macaddr = ""
+    try:
+        device_macaddr = device_props_iface.Get(NM_DEVICE_WIRED_IFACE, "HwAddress").upper()
+    except dbus.exceptions.DBusException as e:
+        log.debug("getMacAddress %s: %s" % (dev, e))
+    return device_macaddr
+
+def getLinkStatus(dev):
+    """Return carrier status of device, None if not found"""
+
+    device_props_iface = getDeviceProperties(dev=dev)
+    if device_props_iface is None:
+        return None
+
+    carrier = None
+    try:
+        carrier = device_props_iface.Get(NM_DEVICE_WIRED_IFACE, "Carrier").upper()
+    except dbus.exceptions.DBusException as e:
+        log.debug("getLinkStatus %s: %s" % (dev, e))
+    return carrier
+
+# Determine if a network device is a wireless device.
+def isWirelessDevice(dev_name):
+    bus = dbus.SystemBus()
+    nm = bus.get_object(NM_SERVICE, NM_MANAGER_PATH)
+    devlist = nm.get_dbus_method("GetDevices")()
+
+    for path in devlist:
+        device = bus.get_object(NM_SERVICE, path)
+        device_props_iface = dbus.Interface(device, DBUS_PROPS_IFACE)
+
+        iface = device_props_iface.Get(NM_DEVICE_IFACE, "Interface")
+        if iface == dev_name:
+            device_type = device_props_iface.Get(NM_DEVICE_IFACE, "DeviceType")
+            return device_type == NM_DEVICE_TYPE_WIFI
+
+    return False
+
+
+# Get IP addresses for a network device.
+# Returns list of ipv4 or ipv6 addresses, depending
+# on version parameter. ipv4 is default.
+def getIPAddresses(dev, version=4):
+    if dev == '' or dev is None:
+       return None
+
+    device_props_iface = getDeviceProperties(dev=dev)
+    if device_props_iface is None:
+        return None
+
+    bus = dbus.SystemBus()
+
+    addresses = []
+
+    if version == 4:
+        ip4_config_path = device_props_iface.Get(NM_DEVICE_IFACE, 'Ip4Config')
+        if ip4_config_path != '/':
+            ip4_config_obj = bus.get_object(NM_SERVICE, ip4_config_path)
+            ip4_config_props = dbus.Interface(ip4_config_obj, DBUS_PROPS_IFACE)
+
+            # addresses (3-element list:  ipaddr, netmask, gateway)
+            addrs = ip4_config_props.Get(NM_IP4CONFIG_IFACE, "Addresses")
+            for addr in addrs:
+                try:
+                    tmp = struct.pack('I', addr[0])
+                    ipaddr = socket.inet_ntop(socket.AF_INET, tmp)
+                    addresses.append(ipaddr)
+                except ValueError as e:
+                    log.debug("Exception caught trying to convert IP address %s: %s" %
+                    (addr, e))
+    elif version == 6:
+        ip6_config_path = device_props_iface.Get(NM_DEVICE_IFACE, 'Ip6Config')
+        if ip6_config_path != '/':
+            ip6_config_obj = bus.get_object(NM_SERVICE, ip6_config_path)
+            ip6_config_props = dbus.Interface(ip6_config_obj, DBUS_PROPS_IFACE)
+
+            addrs = ip6_config_props.Get(NM_IP6CONFIG_IFACE, "Addresses")
+            for addr in addrs:
+                try:
+                    addrstr = "".join(str(byte) for byte in addr[0])
+                    ipaddr = socket.inet_ntop(socket.AF_INET6, addrstr)
+                    # XXX - should we prefer Global or Site-Local types?
+                    #       does NM prefer them?
+                    addresses.append(ipaddr)
+                except ValueError as e:
+                    log.debug("Exception caught trying to convert IP address %s: %s" %
+                    (addr, e))
+    else:
+        raise ValueError, "invalid IP version %d" % version
+
+    return addresses
+
 
 def sanityCheckHostname(hostname):
     """
@@ -119,8 +271,8 @@ def getIPs():
     ips = []
     for devname in getActiveNetDevs():
         try:
-            ips += (isys.getIPAddresses(devname, version=4) +
-                   isys.getIPAddresses(devname, version=6))
+            ips += (getIPAddresses(devname, version=4) +
+                    getIPAddresses(devname, version=6))
         except Exception as e:
             log.warning("Got an exception trying to get the ip addr "
                         "of %s: %s" % (devname, e))
@@ -133,6 +285,30 @@ def getFirstRealIP():
             return ip
     return None
 
+def netmask2prefix(netmask):
+    prefix = 0
+
+    while prefix < 33:
+        if (prefix2netmask(prefix) == netmask):
+            return prefix
+
+        prefix += 1
+
+    return prefix
+
+def prefix2netmask(prefix):
+    """ Convert prefix (CIDR bits) to netmask """
+    bytes = []
+    for i in range(4):
+        if prefix >= 8:
+            bytes.append(255)
+            prefix -= 8
+        else:
+            bytes.append(256 - 2**(8-prefix))
+            prefix = 0
+    netmask = ".".join(str(byte) for byte in bytes)
+    return netmask
+
 # Try to determine what the hostname should be for this system
 def getHostname():
 
@@ -140,8 +316,8 @@ def getHostname():
 
     # First address (we prefer ipv4) of last device (as it used to be) wins
     for dev in getActiveNetDevs():
-        addrs = (isys.getIPAddresses(dev, version=4) +
-                 isys.getIPAddresses(dev, version=6))
+        addrs = (getIPAddresses(dev, version=4) +
+                 getIPAddresses(dev, version=6))
         for ipaddr in addrs:
             try:
                 hinfo = socket.gethostbyaddr(ipaddr)
@@ -162,16 +338,16 @@ def getHostname():
     return hn
 
 def nmIsConnected(state):
-    return state in (isys.NM_STATE_CONNECTED_LOCAL,
-                     isys.NM_STATE_CONNECTED_SITE,
-                     isys.NM_STATE_CONNECTED_GLOBAL)
+    return state in (NM_STATE_CONNECTED_LOCAL,
+                     NM_STATE_CONNECTED_SITE,
+                     NM_STATE_CONNECTED_GLOBAL)
 
 def hasActiveNetDev():
     try:
         bus = dbus.SystemBus()
-        nm = bus.get_object(isys.NM_SERVICE, isys.NM_MANAGER_PATH)
-        props = dbus.Interface(nm, isys.DBUS_PROPS_IFACE)
-        state = props.Get(isys.NM_SERVICE, "State")
+        nm = bus.get_object(NM_SERVICE, NM_MANAGER_PATH)
+        props = dbus.Interface(nm, DBUS_PROPS_IFACE)
+        state = props.Get(NM_SERVICE, "State")
 
         return nmIsConnected(state)
     except:
@@ -186,21 +362,21 @@ def getActiveNetDevs():
     active_devs = set()
 
     bus = dbus.SystemBus()
-    nm = bus.get_object(isys.NM_SERVICE, isys.NM_MANAGER_PATH)
-    nm_props_iface = dbus.Interface(nm, isys.DBUS_PROPS_IFACE)
+    nm = bus.get_object(NM_SERVICE, NM_MANAGER_PATH)
+    nm_props_iface = dbus.Interface(nm, DBUS_PROPS_IFACE)
 
-    active_connections = nm_props_iface.Get(isys.NM_MANAGER_IFACE, "ActiveConnections")
+    active_connections = nm_props_iface.Get(NM_MANAGER_IFACE, "ActiveConnections")
 
     for connection in active_connections:
-        active_connection = bus.get_object(isys.NM_SERVICE, connection)
-        active_connection_props_iface = dbus.Interface(active_connection, isys.DBUS_PROPS_IFACE)
-        devices = active_connection_props_iface.Get(isys.NM_ACTIVE_CONNECTION_IFACE, 'Devices')
+        active_connection = bus.get_object(NM_SERVICE, connection)
+        active_connection_props_iface = dbus.Interface(active_connection, DBUS_PROPS_IFACE)
+        devices = active_connection_props_iface.Get(NM_ACTIVE_CONNECTION_IFACE, 'Devices')
 
         for device_path in devices:
-            device = bus.get_object(isys.NM_SERVICE, device_path)
-            device_props_iface = dbus.Interface(device, isys.DBUS_PROPS_IFACE)
+            device = bus.get_object(NM_SERVICE, device_path)
+            device_props_iface = dbus.Interface(device, DBUS_PROPS_IFACE)
 
-            interface_name = device_props_iface.Get(isys.NM_DEVICE_IFACE, 'Interface')
+            interface_name = device_props_iface.Get(NM_DEVICE_IFACE, 'Interface')
             active_devs.add(interface_name)
 
     ret = list(active_devs)
@@ -308,6 +484,10 @@ class NetworkDevice(IfcfgFile):
         f.close()
         return content
 
+
+def get_NM_object(path):
+    return dbus.SystemBus().get_object(NM_SERVICE, path)
+
 def createMissingDefaultIfcfgs():
     """
     Create or dump missing default ifcfg file for wired devices.
@@ -321,25 +501,25 @@ def createMissingDefaultIfcfgs():
 
     """
     rv = False
-    nm = get_NM_object(isys.NM_MANAGER_PATH)
+    nm = get_NM_object(NM_MANAGER_PATH)
     dev_paths = nm.GetDevices()
     for devpath in dev_paths:
 
         # for each ethernet device
         device = get_NM_object(devpath)
-        device_props_iface = dbus.Interface(device, isys.DBUS_PROPS_IFACE)
-        devicetype = device_props_iface.Get(isys.NM_DEVICE_IFACE, "DeviceType")
-        if devicetype != isys.NM_DEVICE_TYPE_ETHERNET:
+        device_props_iface = dbus.Interface(device, DBUS_PROPS_IFACE)
+        devicetype = device_props_iface.Get(NM_DEVICE_IFACE, "DeviceType")
+        if devicetype != NM_DEVICE_TYPE_ETHERNET:
             continue
 
         # if there is no ifcfg file for the device
-        interface = str(device_props_iface.Get(isys.NM_DEVICE_IFACE, "Interface"))
+        interface = str(device_props_iface.Get(NM_DEVICE_IFACE, "Interface"))
         device_cfg = NetworkDevice(netscriptsDir, interface)
         if os.access(device_cfg.path, os.R_OK):
             continue
 
         # check if there is a connection for the device (default autoconnection)
-        hwaddr = device_props_iface.Get(isys.NM_DEVICE_WIRED_IFACE, "HwAddress")
+        hwaddr = device_props_iface.Get(NM_DEVICE_WIRED_IFACE, "HwAddress")
         con = get_NM_connection(hwaddr)
         if con:
             log.debug("network: dumping ifcfg file for default autoconnection on %s" % interface)
@@ -355,15 +535,15 @@ def createMissingDefaultIfcfgs():
 def get_NM_connection(connection_spec, spec_type="hwaddr"):
 
     if spec_type == "iface":
-        nm = get_NM_object(isys.NM_MANAGER_PATH)
+        nm = get_NM_object(NM_MANAGER_PATH)
         dev_paths = nm.GetDevices()
         for devpath in dev_paths:
             device = get_NM_object(devpath)
-            device_props_iface = dbus.Interface(device, isys.DBUS_PROPS_IFACE)
-            interface = str(device_props_iface.Get(isys.NM_DEVICE_IFACE, "Interface"))
+            device_props_iface = dbus.Interface(device, DBUS_PROPS_IFACE)
+            interface = str(device_props_iface.Get(NM_DEVICE_IFACE, "Interface"))
             if interface == connection_spec:
                 try:
-                    connection_spec = str(device_props_iface.Get(isys.NM_DEVICE_WIRED_IFACE, "HwAddress"))
+                    connection_spec = str(device_props_iface.Get(NM_DEVICE_WIRED_IFACE, "HwAddress"))
                     spec_type = "hwaddr"
                 except dbus.DBusException as e:
                     log.debug("get_NM_settings (interface %s) %s" % (interface, e))
@@ -371,7 +551,7 @@ def get_NM_connection(connection_spec, spec_type="hwaddr"):
                 break
 
     if spec_type == "hwaddr":
-        settings = get_NM_object(isys.NM_SETTINGS_PATH)
+        settings = get_NM_object(NM_SETTINGS_PATH)
         con_paths = settings.ListConnections()
         for con_path in con_paths:
             con = get_NM_object(con_path)
@@ -389,7 +569,7 @@ def get_NM_connection(connection_spec, spec_type="hwaddr"):
     return None
 
 def getDevices():
-    return isys.getDeviceProperties().keys()
+    return getDeviceProperties().keys()
 
 # get a kernel cmdline string for dracut needed for access to storage host
 def dracutSetupArgs(networkStorageDevice):
@@ -449,7 +629,7 @@ def dracutBootArguments(ifcfg, storage_ipaddr, hostname=None):
                 netmask = ifcfg.get('netmask')
                 prefix  = ifcfg.get('prefix')
                 if not netmask and prefix:
-                    netmask = isys.prefix2netmask(int(prefix))
+                    netmask = prefix2netmask(int(prefix))
 
                 netargs.add("ip=%s::%s:%s:%s:%s:none" % (ifcfg.get('ipaddr'),
                            gateway, netmask, hostname, devname))
@@ -501,7 +681,7 @@ def kickstartNetworkData(ifcfg=None, hostname=None):
             netmask = ifcfg.get('NETMASK')
             prefix  = ifcfg.get('PREFIX')
             if not netmask and prefix:
-                netmask = isys.prefix2netmask(int(prefix))
+                netmask = prefix2netmask(int(prefix))
             if netmask:
                 kwargs["netmask"] = netmask
             # note that --gateway is common for ipv4 and ipv6
@@ -512,7 +692,7 @@ def kickstartNetworkData(ifcfg=None, hostname=None):
             kwargs["ip"] = ifcfg.get('IPADDR0')
             prefix  = ifcfg.get('PREFIX0')
             if prefix:
-                netmask = isys.prefix2netmask(int(prefix))
+                netmask = prefix2netmask(int(prefix))
                 kwargs["netmask"] = netmask
             # note that --gateway is common for ipv4 and ipv6
             if ifcfg.get('GATEWAY0'):
@@ -618,17 +798,17 @@ def get_ksdevice_name(ksspec=""):
         if ksdevice == dev:
             break
         # "link"
-        elif ksdevice == 'link' and isys.getLinkStatus(dev):
+        elif ksdevice == 'link' and getLinkStatus(dev):
             ksdevice = dev
             break
         # "XX:XX:XX:XX:XX:XX" (mac address)
         elif ':' in ksdevice:
-            if ksdevice.upper() == isys.getMacAddress(dev):
+            if ksdevice.upper() == getMacAddress(dev):
                 ksdevice = dev
                 break
         # "bootif" and BOOTIF==XX:XX:XX:XX:XX:XX
         elif ksdevice == 'bootif':
-            if bootif_mac == isys.getMacAddress(dev):
+            if bootif_mac == getMacAddress(dev):
                 ksdevice = dev
                 break
 
@@ -761,19 +941,19 @@ def wait_for_connecting_NM():
     """If NM is in connecting state, wait for connection.
     Return value: NM has got connection."""
     bus = dbus.SystemBus()
-    nm = bus.get_object(isys.NM_SERVICE, isys.NM_MANAGER_PATH)
-    props = dbus.Interface(nm, isys.DBUS_PROPS_IFACE)
-    state = props.Get(isys.NM_SERVICE, "State")
+    nm = bus.get_object(NM_SERVICE, NM_MANAGER_PATH)
+    props = dbus.Interface(nm, DBUS_PROPS_IFACE)
+    state = props.Get(NM_SERVICE, "State")
 
-    if state == isys.NM_STATE_CONNECTING:
+    if state == NM_STATE_CONNECTING:
         log.debug("waiting for connecting NM (dhcp?)")
     else:
         return False
 
     i = 0
-    while (state == isys.NM_STATE_CONNECTING and
+    while (state == NM_STATE_CONNECTING and
            i < CONNECTION_TIMEOUT):
-        state = props.Get(isys.NM_SERVICE, "State")
+        state = props.Get(NM_SERVICE, "State")
         if nmIsConnected(state):
             log.debug("connected, waited %d seconds" % i)
             return True
@@ -817,7 +997,7 @@ def get_device_name(devspec):
             devname = ""
         if devspec.lower() == "link":
             for dev in sorted(devices):
-                if isys.getLinkStatus(dev):
+                if getLinkStatus(dev):
                     devname = dev
                     break
             else:
@@ -833,7 +1013,7 @@ def get_device_name(devspec):
 
     if devname not in devices:
         for d in devices:
-            if isys.getMacAddress(d).lower() == devname.lower():
+            if getMacAddress(d).lower() == devname.lower():
                 devname = d
                 break
         else:

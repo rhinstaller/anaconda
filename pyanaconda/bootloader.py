@@ -29,7 +29,7 @@ from parted import PARTITION_BIOS_GRUB
 
 from pyanaconda import iutil
 from blivet.devicelibs import mdraid
-from pyanaconda.isys import sync, getMacAddress
+from pyanaconda.isys import sync
 from pyanaconda.product import productName
 from pyanaconda.flags import flags
 from pyanaconda.constants import *
@@ -842,7 +842,7 @@ class BootLoader(object):
         # Dracut needs the explicit ifname= because biosdevname
         # fails to rename the iface (because of BFS booting from it).
         for nic, dcb, auto_vlan in fcoe().nics:
-            hwaddr = getMacAddress(nic)
+            hwaddr = network.getMacAddress(nic)
             self.boot_args.add("ifname=%s:%s" % (nic, hwaddr.lower()))
 
         #
