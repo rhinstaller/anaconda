@@ -69,7 +69,7 @@ _ = lambda x: gettext.ldgettext("anaconda", x)
 import logging
 log = logging.getLogger("anaconda")
 stderrLog = logging.getLogger("anaconda.stderr")
-storage_log = logging.getLogger("storage")
+storage_log = logging.getLogger("blivet")
 stdoutLog = logging.getLogger("anaconda.stdout")
 from anaconda_log import logger, logLevelMap, setHandlersLevel,\
     DEFAULT_TTY_LEVEL

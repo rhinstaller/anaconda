@@ -95,7 +95,7 @@ class AnacondaLog:
         warnings.showwarning = self.showwarning
 
         # Create the storage logger.
-        storage_logger = logging.getLogger("storage")
+        storage_logger = logging.getLogger("blivet")
         self.addFileHandler(STORAGE_LOG_FILE, storage_logger,
                             minLevel=logging.DEBUG)
 

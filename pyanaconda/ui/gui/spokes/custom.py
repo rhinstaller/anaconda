@@ -147,7 +147,7 @@ class UIStorageFilter(logging.Filter):
 
 @contextmanager
 def ui_storage_logger():
-    storage_log = logging.getLogger("storage")
+    storage_log = logging.getLogger("blivet")
     f = UIStorageFilter()
     storage_log.addFilter(f)
     yield
