@@ -130,22 +130,6 @@ def getDeviceProperties(dev=None):
     else:
         return None
 
-def getMacAddress(dev):
-    """Return MAC address of device. "" if not found"""
-    if dev == '' or dev is None:
-        return ""
-
-    device_props_iface = getDeviceProperties(dev=dev)
-    if device_props_iface is None:
-        return ""
-
-    device_macaddr = ""
-    try:
-        device_macaddr = device_props_iface.Get(NM_DEVICE_WIRED_IFACE, "HwAddress").upper()
-    except dbus.exceptions.DBusException as e:
-        log.debug("getMacAddress %s: %s" % (dev, e))
-    return device_macaddr
-
 # Get IP addresses for a network device.
 # Returns list of ipv4 or ipv6 addresses, depending
 # on version parameter. ipv4 is default.
@@ -746,12 +730,22 @@ def get_ksdevice_name(ksspec=""):
                 break
         # "XX:XX:XX:XX:XX:XX" (mac address)
         elif ':' in ksdevice:
-            if ksdevice.upper() == getMacAddress(dev):
+            try:
+                hwaddr = nm.nm_device_hwaddress(dev)
+            except ValueError as e:
+                log.debug("get_ksdevice_name: %s" % e)
+                continue
+            if ksdevice.lower() == hwaddr.lower():
                 ksdevice = dev
                 break
         # "bootif" and BOOTIF==XX:XX:XX:XX:XX:XX
         elif ksdevice == 'bootif':
-            if bootif_mac == getMacAddress(dev):
+            try:
+                hwaddr = nm.nm_device_hwaddress(dev)
+            except ValueError as e:
+                log.debug("get_ksdevice_name: %s" % e)
+                continue
+            if bootif_mac.lower() == hwaddr.lower():
                 ksdevice = dev
                 break
 
@@ -961,7 +955,12 @@ def get_device_name(devspec):
 
     if devname not in devices:
         for d in devices:
-            if getMacAddress(d).lower() == devname.lower():
+            try:
+                hwaddr = nm.nm_device_hwaddress(d)
+            except ValueError as e:
+                log.debug("get_device_name: %s" % e)
+                continue
+            if hwaddr.lower() == devname.lower():
                 devname = d
                 break
         else:

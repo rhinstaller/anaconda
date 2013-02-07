@@ -36,6 +36,7 @@ from pyanaconda.constants import *
 from blivet.errors import StorageError
 from blivet.fcoe import fcoe
 import pyanaconda.network
+from pyanaconda.nm import nm_device_hwaddress
 from blivet import platform
 
 import gettext
@@ -842,7 +843,7 @@ class BootLoader(object):
         # Dracut needs the explicit ifname= because biosdevname
         # fails to rename the iface (because of BFS booting from it).
         for nic, dcb, auto_vlan in fcoe().nics:
-            hwaddr = network.getMacAddress(nic)
+            hwaddr = nm_device_hwaddress(nic)
             self.boot_args.add("ifname=%s:%s" % (nic, hwaddr.lower()))
 
         #
