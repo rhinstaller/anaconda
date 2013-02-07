@@ -28,10 +28,8 @@ import string
 import shutil
 import iutil
 import socket
-import struct
 import os
 import time
-import dbus
 import tempfile
 import simpleconfig
 import re
@@ -57,31 +55,6 @@ ipv6ConfFile = "/etc/sysctl.d/anaconda.conf"
 ifcfgLogFile = "/tmp/ifcfg.log"
 CONNECTION_TIMEOUT = 45
 DEFAULT_HOSTNAME = "localhost.localdomain"
-
-NM_SERVICE = "org.freedesktop.NetworkManager"
-NM_MANAGER_PATH = "/org/freedesktop/NetworkManager"
-NM_SETTINGS_PATH = "/org/freedesktop/NetworkManager/Settings"
-NM_MANAGER_IFACE = "org.freedesktop.NetworkManager"
-NM_ACTIVE_CONNECTION_IFACE = "org.freedesktop.NetworkManager.Connection.Active"
-NM_DEVICE_IFACE = "org.freedesktop.NetworkManager.Device"
-NM_DEVICE_WIRED_IFACE = "org.freedesktop.NetworkManager.Device.Wired"
-NM_IP4CONFIG_IFACE = "org.freedesktop.NetworkManager.IP4Config"
-NM_IP6CONFIG_IFACE = "org.freedesktop.NetworkManager.IP6Config"
-NM_ACCESS_POINT_IFACE = "org.freedesktop.NetworkManager.AccessPoint"
-
-NM_STATE_UNKNOWN = 0
-NM_STATE_ASLEEP = 10
-NM_STATE_DISCONNECTED = 20
-NM_STATE_DISCONNECTING = 30
-NM_STATE_CONNECTING = 40
-NM_STATE_CONNECTED_LOCAL = 50
-NM_STATE_CONNECTED_SITE = 60
-NM_STATE_CONNECTED_GLOBAL = 70
-NM_DEVICE_STATE_ACTIVATED = 100
-NM_DEVICE_TYPE_WIFI = 2
-NM_DEVICE_TYPE_ETHERNET = 1
-
-DBUS_PROPS_IFACE = "org.freedesktop.DBus.Properties"
 
 # part of a valid hostname between two periods (cannot start nor end with '-')
 # for more info about '(?!-)' and '(?<!-)' see 're' module documentation
@@ -313,9 +286,6 @@ class NetworkDevice(IfcfgFile):
         f.close()
         return content
 
-
-def get_NM_object(path):
-    return dbus.SystemBus().get_object(NM_SERVICE, path)
 
 def dumpMissingDefaultIfcfgs():
     """
