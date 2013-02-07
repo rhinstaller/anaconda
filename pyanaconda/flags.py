@@ -67,6 +67,7 @@ class Flags(object):
         self.noverifyssl = False
         self.imageInstall = False
         self.automatedInstall = False
+        self.dirInstall = False
         # for non-physical consoles like some ppc and sgi altix,
         # we need to preserve the console device and not try to
         # do things like bogl on them.  this preserves what that
@@ -188,6 +189,10 @@ def can_touch_runtime_system(msg):
 
     if flags.imageInstall:
         log.info("Not doing '%s' in image installation" % msg)
+        return False
+
+    if flags.dirInstall:
+        log.info("Not doing '%s' in directory installation" % msg)
         return False
 
     if flags.testing:

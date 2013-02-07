@@ -111,8 +111,9 @@ def doInstall(storage, payload, ksdata, instClass):
 
     # Do partitioning.
     payload.preStorage()
-    turnOnFilesystems(storage)
-    if not flags.flags.livecdInstall:
+
+    turnOnFilesystems(storage, mountOnly=flags.flags.dirInstall)
+    if not flags.flags.livecdInstall and not flags.flags.dirInstall:
         storage.write()
 
     # Do packaging.
@@ -131,7 +132,8 @@ def doInstall(storage, payload, ksdata, instClass):
         payload.postInstall()
 
     # Do bootloader.
-    with progress_report(_("Installing bootloader")):
-        writeBootLoader(storage, payload, instClass, ksdata)
+    if not flags.flags.dirInstall:
+        with progress_report(_("Installing bootloader")):
+            writeBootLoader(storage, payload, instClass, ksdata)
 
     progress.send_complete()
