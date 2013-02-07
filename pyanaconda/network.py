@@ -271,7 +271,7 @@ def sanityCheckHostname(hostname):
 # Return a list of IP addresses for all active devices.
 def getIPs():
     ips = []
-    for devname in getActiveNetDevs():
+    for devname in nm.nm_activated_devices():
         try:
             ips += (getIPAddresses(devname, version=4) +
                     getIPAddresses(devname, version=6))
@@ -317,7 +317,7 @@ def getHostname():
     hn = None
 
     # First address (we prefer ipv4) of last device (as it used to be) wins
-    for dev in getActiveNetDevs():
+    for dev in nm.nm_activated_devices():
         addrs = (getIPAddresses(dev, version=4) +
                  getIPAddresses(dev, version=6))
         for ipaddr in addrs:
@@ -354,36 +354,6 @@ def hasActiveNetDev():
         return nmIsConnected(state)
     except:
         return flags.testing
-
-# Return a list of device names (e.g., eth0) for all active devices.
-# Returning a list here even though we will almost always have one
-# device.  NM uses lists throughout its D-Bus communication, so trying
-# to follow suit here.  Also, if this uses a list now, we can think
-# about multihomed hosts during installation later.
-def getActiveNetDevs():
-    active_devs = set()
-
-    bus = dbus.SystemBus()
-    nm = bus.get_object(NM_SERVICE, NM_MANAGER_PATH)
-    nm_props_iface = dbus.Interface(nm, DBUS_PROPS_IFACE)
-
-    active_connections = nm_props_iface.Get(NM_MANAGER_IFACE, "ActiveConnections")
-
-    for connection in active_connections:
-        active_connection = bus.get_object(NM_SERVICE, connection)
-        active_connection_props_iface = dbus.Interface(active_connection, DBUS_PROPS_IFACE)
-        devices = active_connection_props_iface.Get(NM_ACTIVE_CONNECTION_IFACE, 'Devices')
-
-        for device_path in devices:
-            device = bus.get_object(NM_SERVICE, device_path)
-            device_props_iface = dbus.Interface(device, DBUS_PROPS_IFACE)
-
-            interface_name = device_props_iface.Get(NM_DEVICE_IFACE, 'Interface')
-            active_devs.add(interface_name)
-
-    ret = list(active_devs)
-    ret.sort()
-    return ret
 
 def logIfcfgFile(path, message=""):
     content = ""
@@ -985,7 +955,7 @@ def get_device_name(devspec):
         elif hasActiveNetDev():
             # device activated in stage 1 by network kickstart command
             msg = "first active device"
-            devname = getActiveNetDevs()[0]
+            devname = nm.nm_activated_devices()[0]
         else:
             msg = "first device found"
             devname = min(devices)

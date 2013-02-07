@@ -542,7 +542,7 @@ class Iscsi(commands.iscsi.F17_Iscsi):
         tg = commands.iscsi.F17_Iscsi.parse(self, args)
 
         if tg.iface:
-            active_ifaces = network.getActiveNetDevs()
+            active_ifaces = nm.nm_activated_devices()
             if tg.iface not in active_ifaces:
                 raise KickstartValueError, formatErrorMsg(self.lineno, msg="network interface %s required by iscsi %s target is not up" % (tg.iface, tg.target))
 

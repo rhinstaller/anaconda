@@ -42,7 +42,8 @@ from pyanaconda.ui.gui.categories.software import SoftwareCategory
 from pyanaconda.ui.gui.hubs.summary import SummaryHub
 from pyanaconda.ui.gui.utils import gtk_call_once
 
-from pyanaconda.network import NetworkDevice, netscriptsDir, kickstartNetworkData, getActiveNetDevs, logIfcfgFiles, update_hostname_data, sanityCheckHostname, getHostname, DEFAULT_HOSTNAME
+from pyanaconda.network import NetworkDevice, netscriptsDir, kickstartNetworkData, logIfcfgFiles, update_hostname_data, sanityCheckHostname, getHostname, DEFAULT_HOSTNAME
+from pyanaconda.nm import nm_activated_devices
 
 from gi.repository import GLib, GObject, Pango, Gio, NetworkManager, NMClient
 import dbus
@@ -1173,7 +1174,7 @@ def getKSNetworkData(device):
             log.debug("getKSNetworkData %s: %s" % (ifcfg_suffix, e))
             return None
         retval = kickstartNetworkData(ifcfg=device_cfg)
-        if device.get_iface() in getActiveNetDevs():
+        if device.get_iface() in nm_activated_devices():
             retval.activate = True
 
     return retval
