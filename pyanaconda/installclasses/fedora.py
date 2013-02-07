@@ -21,6 +21,7 @@ from pyanaconda.installclass import BaseInstallClass
 from pyanaconda.constants import *
 from pyanaconda.product import *
 from pyanaconda import network
+from pyanaconda import nm
 
 import os, types
 import gettext
@@ -115,13 +116,13 @@ class InstallClass(BaseInstallClass):
 
     def setNetworkOnbootDefault(self, ksdata):
         # if something's already enabled, we can just leave the config alone
-        for devName in network.getDevices():
+        for devName in nm.nm_devices():
             if not network.isWirelessDevice(devName) and \
                network.get_ifcfg_value(devName, "ONBOOT", ROOT_PATH) == "yes":
                 return
 
         # the default otherwise: bring up the first wired netdev with link
-        for devName in network.getDevices():
+        for devName in nm.nm_devices():
             if (not network.isWirelessDevice(devName) and
                 network.getLinkStatus(devName)):
                 dev = network.NetworkDevice(ROOT_PATH + network.netscriptsDir, devName)

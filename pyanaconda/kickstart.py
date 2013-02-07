@@ -48,6 +48,7 @@ from pyanaconda import ntp
 from pyanaconda import timezone
 from pyanaconda import localization
 from pyanaconda import network
+from pyanaconda import nm
 from pyanaconda.simpleconfig import SimpleConfigFile
 from pyanaconda.users import getPassAlgo
 from pyanaconda.desktop import Desktop
@@ -447,7 +448,7 @@ class Fcoe(commands.fcoe.F13_Fcoe):
     def parse(self, args):
         fc = commands.fcoe.F13_Fcoe.parse(self, args)
 
-        if fc.nic not in network.getDevices():
+        if fc.nic not in nm.nm_devices():
             raise KickstartValueError, formatErrorMsg(self.lineno, msg="Specified nonexistent nic %s in fcoe command" % fc.nic)
 
         blivet.fcoe.fcoe().addSan(nic=fc.nic, dcb=fc.dcb, auto_vlan=True)

@@ -41,6 +41,8 @@ import urlgrabber.grabber
 from blivet.devices import FcoeDiskDevice, iScsiDiskDevice
 import blivet.arch
 
+from pyanaconda import nm
+
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
 
@@ -568,9 +570,6 @@ def get_NM_connection(connection_spec, spec_type="hwaddr"):
 
     return None
 
-def getDevices():
-    return getDeviceProperties().keys()
-
 # get a kernel cmdline string for dracut needed for access to storage host
 def dracutSetupArgs(networkStorageDevice):
 
@@ -581,7 +580,7 @@ def dracutSetupArgs(networkStorageDevice):
     else:
         nic = networkStorageDevice.nic
 
-    if nic not in getDevices():
+    if nic not in nm.nm_devices():
         log.error('Unknown network interface: %s' % nic)
         return ""
 
@@ -780,7 +779,7 @@ def copyIfcfgFiles(destPath):
 # /etc/dhcp/dhclient-DEVICE.conf
 # TODORV: do we really don't want overwrite on live cd?
 def copyDhclientConfFiles(destPath):
-    for devName in getDevices():
+    for devName in nm.nm_devices():
         dhclientfile = os.path.join("/etc/dhcp/dhclient-%s.conf" % devName)
         copyFileToPath(dhclientfile, destPath)
 
@@ -793,7 +792,7 @@ def get_ksdevice_name(ksspec=""):
     bootif_mac = None
     if ksdevice == 'bootif' and "BOOTIF" in flags.cmdline:
         bootif_mac = flags.cmdline["BOOTIF"][3:].replace("-", ":").upper()
-    for dev in sorted(getDevices()):
+    for dev in sorted(nm.nm_devices()):
         # "eth0"
         if ksdevice == dev:
             break
@@ -861,7 +860,7 @@ def disableIPV6(rootpath):
     cfgfile = os.path.normpath(rootpath + ipv6ConfFile)
     if ('noipv6' in flags.cmdline
         and all(get_NM_settings_value(dev, "ipv6", "method") == "ignore"
-                for dev in getDevices())):
+                for dev in nm.nm_devices())):
         log.info('Disabling ipv6 on target system')
         with open(cfgfile, "a") as f:
             f.write("# Anaconda disabling ipv6 (noipv6 option)\n")
@@ -869,7 +868,7 @@ def disableIPV6(rootpath):
             f.write("net.ipv6.conf.default.disable_ipv6=1\n")
 
 def disableNMForStorageDevices(rootpath, storage):
-    for devname in getDevices():
+    for devname in nm.nm_devices():
         if (usedByFCoE(devname, storage) or
             usedByRootOnISCSI(devname, storage)):
             dev = NetworkDevice(rootpath + netscriptsDir, devname)
@@ -885,7 +884,7 @@ def disableNMForStorageDevices(rootpath, storage):
 
 # sets ONBOOT=yes (and its mirror value in ksdata) for devices used by FCoE
 def autostartFCoEDevices(rootpath, storage, ksdata):
-    for devname in getDevices():
+    for devname in nm.nm_devices():
         if usedByFCoE(devname, storage):
             dev = NetworkDevice(rootpath + netscriptsDir, devname)
             if os.access(dev.path, os.R_OK):
@@ -976,7 +975,7 @@ def update_hostname_data(ksdata, hostname):
 
 def get_device_name(devspec):
 
-    devices = getDevices()
+    devices = nm.nm_devices()
     devname = None
 
     if not devspec:
@@ -1040,7 +1039,7 @@ def setOnboot(ksdata):
 
 def networkInitialize(ksdata):
 
-    log.debug("network: devices found %s" % getDevices())
+    log.debug("network: devices found %s" % nm.nm_devices())
     logIfcfgFiles("network initialization")
 
     if not flags.imageInstall:
