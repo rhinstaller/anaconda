@@ -675,19 +675,6 @@ def set_hostname(hn):
     iutil.execWithRedirect("hostname", ["-v", hn ],
                            stdout="/dev/tty5", stderr="/dev/tty5")
 
-def get_NM_settings_value(iface, key1, key2):
-    value = ""
-    con = get_NM_connection(iface, spec_type="iface")
-    if con:
-        settings = con.GetSettings()
-        try:
-            value = settings[key1][key2]
-        except KeyError:
-            log.debug("Can't find setting %s %s for %s" % (key1, key2, iface))
-    else:
-        log.debug("Can't find connection settings for %s" % iface)
-    return value
-
 def write_hostname(rootpath, ksdata, overwrite=False):
     cfgfile = os.path.normpath(rootpath + hostnameFile)
     if (os.path.isfile(cfgfile) and not overwrite):
@@ -702,7 +689,7 @@ def write_hostname(rootpath, ksdata, overwrite=False):
 def disableIPV6(rootpath):
     cfgfile = os.path.normpath(rootpath + ipv6ConfFile)
     if ('noipv6' in flags.cmdline
-        and all(get_NM_settings_value(dev, "ipv6", "method") == "ignore"
+        and all(nm.nm_device_setting_value(dev, "ipv6", "method") == "ignore"
                 for dev in nm.nm_devices())):
         log.info('Disabling ipv6 on target system')
         with open(cfgfile, "a") as f:
