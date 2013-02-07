@@ -123,8 +123,13 @@ class InstallClass(BaseInstallClass):
 
         # the default otherwise: bring up the first wired netdev with link
         for devName in nm.nm_devices():
-            if (not network.isWirelessDevice(devName) and
-                network.getLinkStatus(devName)):
+            if network.isWirelessDevice(devName):
+                continue
+            try:
+                link_up = nm.nm_device_carrier(devName)
+            except ValueError as e:
+                continue
+            if link_up:
                 dev = network.NetworkDevice(ROOT_PATH + network.netscriptsDir, devName)
                 dev.loadIfcfgFile()
                 dev.set(('ONBOOT', 'yes'))

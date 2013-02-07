@@ -146,20 +146,6 @@ def getMacAddress(dev):
         log.debug("getMacAddress %s: %s" % (dev, e))
     return device_macaddr
 
-def getLinkStatus(dev):
-    """Return carrier status of device, None if not found"""
-
-    device_props_iface = getDeviceProperties(dev=dev)
-    if device_props_iface is None:
-        return None
-
-    carrier = None
-    try:
-        carrier = device_props_iface.Get(NM_DEVICE_WIRED_IFACE, "Carrier").upper()
-    except dbus.exceptions.DBusException as e:
-        log.debug("getLinkStatus %s: %s" % (dev, e))
-    return carrier
-
 # Determine if a network device is a wireless device.
 def isWirelessDevice(dev_name):
     bus = dbus.SystemBus()
@@ -767,9 +753,15 @@ def get_ksdevice_name(ksspec=""):
         if ksdevice == dev:
             break
         # "link"
-        elif ksdevice == 'link' and getLinkStatus(dev):
-            ksdevice = dev
-            break
+        elif ksdevice == 'link':
+            try:
+                link_up = nm.nm_device_carrier(dev)
+            except ValueError as e:
+                log.debug("get_ksdevice_name: %s" % e)
+                continue
+            if link_up:
+                ksdevice = dev
+                break
         # "XX:XX:XX:XX:XX:XX" (mac address)
         elif ':' in ksdevice:
             if ksdevice.upper() == getMacAddress(dev):
@@ -966,7 +958,12 @@ def get_device_name(devspec):
             devname = ""
         if devspec.lower() == "link":
             for dev in sorted(devices):
-                if getLinkStatus(dev):
+                try:
+                    link_up = nm.nm_device_carrier(dev)
+                except ValueError as e:
+                    log.debug("get_device_name: %s" % e)
+                    continue
+                if link_up:
                     devname = dev
                     break
             else:
