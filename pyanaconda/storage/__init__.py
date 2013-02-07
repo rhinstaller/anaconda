@@ -153,45 +153,53 @@ def storageInitialize(storage, ksdata, protected):
                                          if d.name not in ksdata.ignoredisk.ignoredisk]
             log.debug("onlyuse is now: %s" % (",".join(ksdata.ignoredisk.onlyuse)))
 
-def turnOnFilesystems(storage):
-    upgrade = "preupgrade" in flags.cmdline
+def turnOnFilesystems(storage, mountOnly=False):
+    """ storage = storage object
+        mountOnly = only mount the filesystems, don't execute storage actions
+    """
+    if not mountOnly:
+        upgrade = "preupgrade" in flags.cmdline
 
-    if not upgrade:
-        if (flags.livecdInstall and not flags.imageInstall and not storage.fsset.active):
-            # turn off any swaps that we didn't turn on
-            # needed for live installs
-            iutil.execWithRedirect("swapoff", ["-a"],
-                                   stdout = "/dev/tty5", stderr="/dev/tty5")
-        storage.devicetree.teardownAll()
+        if not upgrade:
+            if (flags.livecdInstall and not flags.imageInstall and not storage.fsset.active):
+                # turn off any swaps that we didn't turn on
+                # needed for live installs
+                iutil.execWithRedirect("swapoff", ["-a"],
+                                       stdout = "/dev/tty5", stderr="/dev/tty5")
+            storage.devicetree.teardownAll()
 
-    upgrade_migrate = False
-    if upgrade:
-        for d in storage.migratableDevices:
-            if d.format.migrate:
-                upgrade_migrate = True
+        upgrade_migrate = False
+        if upgrade:
+            for d in storage.migratableDevices:
+                if d.format.migrate:
+                    upgrade_migrate = True
 
-    try:
-        storage.doIt()
-    except FSResizeError as e:
-        if os.path.exists("/tmp/resize.out"):
-            details = open("/tmp/resize.out", "r").read()
-        else:
-            details = e.args[1]
+        try:
+            storage.doIt()
+        except FSResizeError as e:
+            if os.path.exists("/tmp/resize.out"):
+                details = open("/tmp/resize.out", "r").read()
+            else:
+                details = e.args[1]
 
-        if errorHandler.cb(e, e.args[0], details=details) == ERROR_RAISE:
+            if errorHandler.cb(e, e.args[0], details=details) == ERROR_RAISE:
+                raise
+        except FSMigrateError as e:
+            if errorHandler.cb(e, e.args[0], e.args[1]) == ERROR_RAISE:
+                raise
+        except Exception as e:
             raise
-    except FSMigrateError as e:
-        if errorHandler.cb(e, e.args[0], e.args[1]) == ERROR_RAISE:
-            raise
-    except Exception as e:
-        raise
 
-    storage.turnOnSwap()
+        # TODO: Should we turn on swap?
+        storage.turnOnSwap()
+
     # FIXME:  For livecd, skipRoot needs to be True.
     storage.mountFilesystems(raiseErrors=False,
                              readOnly=False,
                              skipRoot=False)
-    writeEscrowPackets(storage)
+
+    if not mountOnly:
+        writeEscrowPackets(storage)
 
 def writeEscrowPackets(storage):
     escrowDevices = filter(lambda d: d.format.type == "luks" and \
