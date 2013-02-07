@@ -130,60 +130,6 @@ def getDeviceProperties(dev=None):
     else:
         return None
 
-# Get IP addresses for a network device.
-# Returns list of ipv4 or ipv6 addresses, depending
-# on version parameter. ipv4 is default.
-def getIPAddresses(dev, version=4):
-    if dev == '' or dev is None:
-       return None
-
-    device_props_iface = getDeviceProperties(dev=dev)
-    if device_props_iface is None:
-        return None
-
-    bus = dbus.SystemBus()
-
-    addresses = []
-
-    if version == 4:
-        ip4_config_path = device_props_iface.Get(NM_DEVICE_IFACE, 'Ip4Config')
-        if ip4_config_path != '/':
-            ip4_config_obj = bus.get_object(NM_SERVICE, ip4_config_path)
-            ip4_config_props = dbus.Interface(ip4_config_obj, DBUS_PROPS_IFACE)
-
-            # addresses (3-element list:  ipaddr, netmask, gateway)
-            addrs = ip4_config_props.Get(NM_IP4CONFIG_IFACE, "Addresses")
-            for addr in addrs:
-                try:
-                    tmp = struct.pack('I', addr[0])
-                    ipaddr = socket.inet_ntop(socket.AF_INET, tmp)
-                    addresses.append(ipaddr)
-                except ValueError as e:
-                    log.debug("Exception caught trying to convert IP address %s: %s" %
-                    (addr, e))
-    elif version == 6:
-        ip6_config_path = device_props_iface.Get(NM_DEVICE_IFACE, 'Ip6Config')
-        if ip6_config_path != '/':
-            ip6_config_obj = bus.get_object(NM_SERVICE, ip6_config_path)
-            ip6_config_props = dbus.Interface(ip6_config_obj, DBUS_PROPS_IFACE)
-
-            addrs = ip6_config_props.Get(NM_IP6CONFIG_IFACE, "Addresses")
-            for addr in addrs:
-                try:
-                    addrstr = "".join(str(byte) for byte in addr[0])
-                    ipaddr = socket.inet_ntop(socket.AF_INET6, addrstr)
-                    # XXX - should we prefer Global or Site-Local types?
-                    #       does NM prefer them?
-                    addresses.append(ipaddr)
-                except ValueError as e:
-                    log.debug("Exception caught trying to convert IP address %s: %s" %
-                    (addr, e))
-    else:
-        raise ValueError, "invalid IP version %d" % version
-
-    return addresses
-
-
 def sanityCheckHostname(hostname):
     """
     Check if the given string is (syntactically) a valid hostname.
@@ -225,8 +171,8 @@ def getIPs():
     ips = []
     for devname in nm.nm_activated_devices():
         try:
-            ips += (getIPAddresses(devname, version=4) +
-                    getIPAddresses(devname, version=6))
+            ips += (nm.nm_device_ip_addresses(devname, version=4) +
+                    nm.nm_device_ip_addresses(devname, version=6))
         except Exception as e:
             log.warning("Got an exception trying to get the ip addr "
                         "of %s: %s" % (devname, e))
@@ -270,8 +216,8 @@ def getHostname():
 
     # First address (we prefer ipv4) of last device (as it used to be) wins
     for dev in nm.nm_activated_devices():
-        addrs = (getIPAddresses(dev, version=4) +
-                 getIPAddresses(dev, version=6))
+        addrs = (nm.nm_device_ip_addresses(dev, version=4) +
+                 nm.nm_device_ip_addresses(dev, version=6))
         for ipaddr in addrs:
             try:
                 hinfo = socket.gethostbyaddr(ipaddr)
