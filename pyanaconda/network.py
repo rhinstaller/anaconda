@@ -217,17 +217,6 @@ def nmIsConnected(state):
                      NM_STATE_CONNECTED_SITE,
                      NM_STATE_CONNECTED_GLOBAL)
 
-def hasActiveNetDev():
-    try:
-        bus = dbus.SystemBus()
-        nm = bus.get_object(NM_SERVICE, NM_MANAGER_PATH)
-        props = dbus.Interface(nm, DBUS_PROPS_IFACE)
-        state = props.Get(NM_SERVICE, "State")
-
-        return nmIsConnected(state)
-    except:
-        return flags.testing
-
 def logIfcfgFile(path, message=""):
     content = ""
     if os.access(path, os.R_OK):
@@ -841,7 +830,7 @@ def get_device_name(devspec):
         if "ksdevice" in flags.cmdline:
             msg = "ksdevice boot parameter"
             devname = get_ksdevice_name(flags.cmdline["ksdevice"])
-        elif hasActiveNetDev():
+        elif nm.nm_is_connected():
             # device activated in stage 1 by network kickstart command
             msg = "first active device"
             devname = nm.nm_activated_devices()[0]

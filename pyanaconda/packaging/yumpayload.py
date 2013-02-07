@@ -71,7 +71,7 @@ from pyanaconda.flags import flags
 
 from pyanaconda import iutil
 from pyanaconda.iutil import ProxyString, ProxyStringError
-from pyanaconda.network import hasActiveNetDev
+from pyanaconda.nm import nm_is_connected
 from blivet.size import Size
 import blivet.util
 import blivet.arch
@@ -733,7 +733,7 @@ reposdir=%s
 
             url = "file://" + mountpoint
 
-        if self._repoNeedsNetwork(repo) and not hasActiveNetDev():
+        if self._repoNeedsNetwork(repo) and not nm_is_connected():
             raise NoNetworkError
 
         proxy = repo.proxy or self.data.method.proxy
@@ -976,7 +976,7 @@ reposdir=%s
         from yum.Errors import RepoError, GroupsError
         with _yum_lock:
             if not self._groups:
-                if not self.needsNetwork or hasActiveNetDev():
+                if not self.needsNetwork or nm_is_connected():
                     try:
                         self._groups = self._yum.comps
                     except (RepoError, GroupsError) as e:
@@ -1088,7 +1088,7 @@ reposdir=%s
 
         with _yum_lock:
             if not self._packages:
-                if self.needsNetwork and not hasActiveNetDev():
+                if self.needsNetwork and not nm_is_connected():
                     raise NoNetworkError
 
                 try:

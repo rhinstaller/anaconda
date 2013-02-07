@@ -153,7 +153,7 @@ def getEscrowCertificate(escrowCerts, url):
         return escrowCerts[url]
 
     needs_net = not url.startswith("/") and not url.startswith("file:")
-    if needs_net and not network.hasActiveNetDev():
+    if needs_net and not nm.nm_is_connected():
         msg = _("Escrow certificate %s requires the network.") % url
         raise KickstartError(msg)
 

@@ -37,6 +37,7 @@ from pyanaconda.ui.gui.utils import enlightbox, gtk_thread_nowait, gtk_call_once
 from pyanaconda import timezone
 from pyanaconda import iutil
 from pyanaconda import network
+from pyanaconda import nm
 from pyanaconda import ntp
 from pyanaconda import flags
 from pyanaconda.threads import threadMgr, AnacondaThread
@@ -446,7 +447,7 @@ class DatetimeSpoke(NormalSpoke):
 
         self._update_datetime()
 
-        has_active_network = network.hasActiveNetDev()
+        has_active_network = nm.nm_is_connected()
         if not has_active_network:
             self._show_no_network_warning()
         else:
@@ -894,7 +895,7 @@ class DatetimeSpoke(NormalSpoke):
                 #cannot touch runtime system, not much to do here
                 return
 
-            if not network.hasActiveNetDev():
+            if not nm.nm_is_connected():
                 self._show_no_network_warning()
                 switch.set_active(False)
                 return
