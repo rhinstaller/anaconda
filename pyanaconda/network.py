@@ -104,31 +104,6 @@ def setup_ifcfg_log():
 
     ifcfglog = logging.getLogger("ifcfg")
 
-# Get a D-Bus interface for the specified device's (e.g., eth0) properties.
-# If dev=None, return a hash of the form 'hash[dev] = props_iface' that
-# contains all device properties for all interfaces that NetworkManager knows
-# about.
-def getDeviceProperties(dev=None):
-    bus = dbus.SystemBus()
-    nm = bus.get_object(NM_SERVICE, NM_MANAGER_PATH)
-    devlist = nm.get_dbus_method("GetDevices")()
-    all = {}
-
-    for path in devlist:
-        device = bus.get_object(NM_SERVICE, path)
-        device_props_iface = dbus.Interface(device, DBUS_PROPS_IFACE)
-
-        device_interface = str(device_props_iface.Get(NM_DEVICE_IFACE, "Interface"))
-
-        if dev is None:
-            all[device_interface] = device_props_iface
-        elif device_interface == dev:
-            return device_props_iface
-
-    if dev is None:
-        return all
-    else:
-        return None
 
 def sanityCheckHostname(hostname):
     """
