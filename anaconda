@@ -49,7 +49,7 @@ def exitHandler(rebootData, storage, exitCode=None):
         while True:
             time.sleep(10000)
 
-    if image_count:
+    if image_count or flags.dirInstall:
         anaconda.storage.umountFilesystems(ignoreErrors=True, swapoff=False)
         devicetree = anaconda.storage.devicetree
         devicetree.teardownAll()
@@ -59,7 +59,8 @@ def exitHandler(rebootData, storage, exitCode=None):
                 loop.controllable = True
             device.deactivate(recursive=True)
 
-    if not flags.imageInstall and not flags.livecdInstall:
+    if not flags.imageInstall and not flags.livecdInstall \
+       and not flags.dirInstall:
         from pykickstart.constants import KS_SHUTDOWN, KS_WAIT, KS_REBOOT
         from pyanaconda.iutil import dracut_eject
 
@@ -281,6 +282,7 @@ def parseOptions(argv=None, cmdline=None):
     op.add_option("--updates", dest="updateSrc", action="store", type="string")
     op.add_option("--dlabel", action="store_true", default=False)
     op.add_option("--image", action="append", dest="images", default=[])
+    op.add_option("--dirinstall", action="store_true", default=False)
     op.add_option("--memcheck", action="store_true", default=True)
     op.add_option("--nomemcheck", action="store_false", dest="memcheck")
     op.add_option("--leavebootorder", action="store_true", default=False)
@@ -650,10 +652,8 @@ if __name__ == "__main__":
     from pyanaconda import addons
 
     # do this early so we can set flags before initializing logging
-    from pyanaconda.flags import flags
+    from pyanaconda.flags import flags, can_touch_runtime_system
     (opts, args, depr) = parseOptions(cmdline=flags.cmdline)
-    if opts.images:
-        flags.imageInstall = True
 
     # Set up logging as early as possible.
     import logging
@@ -670,6 +670,14 @@ if __name__ == "__main__":
     if os.geteuid() != 0:
         stdoutLog.error("anaconda must be run as root.")
         sys.exit(0)
+
+    if opts.images and opts.dirinstall:
+        stdoutLog.error("--images and --dirinstall cannot be used at the same time")
+        sys.exit(0)
+    elif opts.images:
+        flags.imageInstall = True
+    elif opts.dirinstall:
+        flags.dirInstall = True
 
     # see if we're on s390x and if we've got an ssh connection
     uname = os.uname()
@@ -794,7 +802,7 @@ if __name__ == "__main__":
     flags.mpath = opts.mpath
     flags.selinux = opts.selinux
 
-    if not flags.livecdInstall and not flags.imageInstall:
+    if can_touch_runtime_system("start audit daemon"):
         startAuditDaemon()
 
     # setup links required for all install types
@@ -989,18 +997,20 @@ if __name__ == "__main__":
 
 
     networkInitialize(ksdata)
-    threadMgr.add(AnacondaThread(name="AnaStorageThread", target=storageInitialize, args=(anaconda.storage, ksdata, anaconda.protected)))
+    if not flags.dirInstall:
+        threadMgr.add(AnacondaThread(name="AnaStorageThread", target=storageInitialize, args=(anaconda.storage, ksdata, anaconda.protected)))
     threadMgr.add(AnacondaThread(name="AnaWaitForConnectingNMThread", target=wait_for_connecting_NM_thread, args=(ksdata,)))
     threadMgr.add(AnacondaThread(name="AnaPayloadThread", target=payloadInitialize, args=(anaconda.storage, ksdata, anaconda.payload)))
 
     atexit.register(exitHandler, ksdata.reboot, anaconda.storage)
 
     # setup ntp servers and start NTP daemon if not requested otherwise
-    if (not flags.imageInstall) and anaconda.ksdata.timezone.ntpservers:
-        ntp.save_servers_to_config(anaconda.ksdata.timezone.ntpservers)
+    if can_touch_runtime_system("start chronyd"):
+        if anaconda.ksdata.timezone.ntpservers:
+            ntp.save_servers_to_config(anaconda.ksdata.timezone.ntpservers)
 
-    if not anaconda.ksdata.timezone.nontp:
-        iutil.start_service("chronyd")
+        if not anaconda.ksdata.timezone.nontp:
+            iutil.start_service("chronyd")
 
     # FIXME:  This will need to be made cleaner once this file starts to take
     # shape with the new UI code.

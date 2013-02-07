@@ -450,6 +450,10 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         return self._ready
 
     @property
+    def showable(self):
+        return not flags.dirInstall
+
+    @property
     def status(self):
         """ A short string describing the current status of storage setup. """
         msg = _("No disks selected")
