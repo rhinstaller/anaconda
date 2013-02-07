@@ -49,18 +49,17 @@ from pykickstart.constants import *
 from pyanaconda.product import productName, productVersion
 from pyanaconda.threads import threadMgr
 
+from blivet import devicefactory
 from blivet.formats import device_formats
 from blivet.formats import getFormat
 from blivet.formats.fs import FS
 from blivet.size import Size
 from blivet import Root
-from blivet import DEVICE_TYPE_LVM
-from blivet import DEVICE_TYPE_BTRFS
-from blivet import DEVICE_TYPE_PARTITION
-from blivet import DEVICE_TYPE_MD
-from blivet import DEVICE_TYPE_DISK
-from blivet import getDeviceType
-from blivet import getRAIDLevel
+from blivet.devicefactory import DEVICE_TYPE_LVM
+from blivet.devicefactory import DEVICE_TYPE_BTRFS
+from blivet.devicefactory import DEVICE_TYPE_PARTITION
+from blivet.devicefactory import DEVICE_TYPE_MD
+from blivet.devicefactory import DEVICE_TYPE_DISK
 from blivet import findExistingInstallations
 from blivet.partitioning import doPartitioning
 from blivet.partitioning import doAutoPartition
@@ -863,7 +862,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
     def _replace_device(self, *args, **kwargs):
         """ Create a replacement device and update the device selector. """
         selector = kwargs.pop("selector", None)
-        self.__storage.newDevice(*args, **kwargs)
+        self.__storage.factoryDevice(*args, **kwargs)
 
         self._devices = self.__storage.devices
 
@@ -1010,7 +1009,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
         with ui_storage_logger():
             # create a new factory using the appropriate size and type
-            factory = self.__storage.getDeviceFactory(device_type, size,
+            factory = devicefactory.get_device_factory(self.__storage,
+                                                      device_type, size,
                                                       disks=device.disks,
                                                       encrypted=encrypted,
                                                       raid_level=raid_level)
@@ -1021,8 +1021,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         ##
         ## DEVICE TYPE (early return)
         ##
-        current_device_type = getDeviceType(device)
-        old_raid_level = getRAIDLevel(device)
+        current_device_type = devicefactory.get_device_type(device)
+        old_raid_level = devicefactory.get_raid_level(device)
         changed_device_type = (current_device_type != device_type)
         changed_raid_level = (current_device_type == device_type and
                               device_type in (DEVICE_TYPE_MD,
@@ -1036,12 +1036,10 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
         changed_container = False
         old_container_name = None
-        container = self.__storage.getContainer(factory)
+        container = factory.get_container()
         if not changed_device_type and device_type == DEVICE_TYPE_LVM:
-            old_container = self.__storage.getContainer(factory,
-                                                        device=use_dev)
-            container = self.__storage.getContainer(factory,
-                                                    name=self._device_container_name)
+            old_container = factory.get_container(device=use_dev)
+            container = factory.get_container(name=self._device_container_name)
             if self._device_container_name != old_container.name:
                 old_container_name = old_container.name
                 changed_container = True
@@ -1091,7 +1089,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                     self.window.show_all()
                     self._reset_storage()
                 except StorageError as e:
-                    log.error("newDevice failed: %s" % e)
+                    log.error("factoryDevice failed: %s" % e)
                     self._error = e
                     self.set_warning(_(device_configuration_error_msg)) 
                     self.window.show_all()
@@ -1166,7 +1164,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
                 with ui_storage_logger():
                     try:
-                        self.__storage.newDevice(device_type, size,
+                        self.__storage.factoryDevice(device_type, size,
                                                  device=device,
                                                  disks=self._device_disks[:],
                                                  encrypted=encrypted,
@@ -1178,7 +1176,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                         self.window.show_all()
                         self._reset_storage()
                     except StorageError as e:
-                        log.error("newDevice failed: %s" % e)
+                        log.error("factoryDevice failed: %s" % e)
                         self._error = e
                         self.set_warning(_(device_configuration_error_msg))
                         self.window.show_all()
@@ -1377,7 +1375,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         # Create a DeviceFactory to use to calculate the disk space needs for
         # this device with various raid features enabled.
         with ui_storage_logger():
-            factory = self.__storage.getDeviceFactory(device_type, size,
+            factory = devicefactory.get_device_factory(self.__storage,
+                                                      device_type, size,
                                                       disks=self._device_disks,
                                                       raid_level=raid_level)
 
@@ -1605,8 +1604,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             elif itr[0] == _(DEVICE_TEXT_DISK):
                 disk_pos = idx
 
-        device_type = getDeviceType(device)
-        raid_level = getRAIDLevel(device)
+        device_type = devicefactory.get_device_type(device)
+        raid_level = devicefactory.get_raid_level(device)
         type_index_map = {DEVICE_TYPE_PARTITION: partition_pos,
                           DEVICE_TYPE_BTRFS: btrfs_pos,
                           DEVICE_TYPE_LVM: lvm_pos,
@@ -1729,8 +1728,9 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         self.clear_errors()
 
         with ui_storage_logger():
-            factory = self.__storage.getDeviceFactory(device_type, size)
-            container = self.__storage.getContainer(factory)
+            factory = devicefactory.get_device_factory(self.__storage,
+                                                     device_type, size)
+            container = factory.get_container()
 
             if container:
                 # don't override user-initiated changes to a defined container
@@ -1740,7 +1740,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                 disks = container.disks
 
             try:
-                self.__storage.newDevice(device_type,
+                self.__storage.factoryDevice(device_type,
                                          size=size,
                                          fstype=fstype,
                                          mountpoint=mountpoint,
@@ -1753,13 +1753,13 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                 self.window.show_all()
                 self._reset_storage()
             except StorageError as e:
-                log.error("newDevice failed: %s" % e)
+                log.error("factoryDevice failed: %s" % e)
                 log.debug("trying to find an existing container to use")
-                container = self.__storage.getContainer(factory, existing=True)
+                container = factory.get_container(existing=True)
                 log.debug("found container %s" % container)
                 if container:
                     try:
-                        self.__storage.newDevice(device_type,
+                        self.__storage.factoryDevice(device_type,
                                                  size=size,
                                                  fstype=fstype,
                                                  mountpoint=mountpoint,
@@ -1767,7 +1767,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                                                  disks=disks,
                                                  container_name=container.name)
                     except StorageError as e2:
-                        log.error("newDevice failed w/ old container: %s" % e2)
+                        log.error("factoryDevice failed w/ old container: %s" % e2)
                     else:
                         type_str = device_text_map[device_type]
                         self.set_info(_("Added new %s to existing "
@@ -1839,11 +1839,12 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
            self.__storage.devicetree.getChildren(container):
             # adjust container to size of remaining devices
             with ui_storage_logger():
-                factory = self.__storage.getDeviceFactory(device_type, 0,
+                factory = devicefactory.get_device_factory(self.__storage,
+                                                          device_type, 0,
                                                           disks=container.disks,
                                                           encrypted=container.encrypted,
                                                           raid_level=raid_level)
-                parents = self.__storage.setContainerMembers(container, factory)
+                parents = factory.set_container_members(container)
 
         # if this device has parents with no other children, remove them too
         for parent in device.parents:
@@ -2111,7 +2112,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                         "device.") % {"missingPVs": missing, "totalPVs": total}
             optionsLabel.set_text(txt)
             no_edit = True
-        elif getDeviceType(selector._device) is None:
+        elif devicefactory.get_device_type(selector._device) is None:
             self._partitionsNotebook.set_current_page(NOTEBOOK_UNEDITABLE_PAGE)
             selectedDeviceLabel = self.builder.get_object("uneditableDeviceLabel")
             selectedDeviceDescLabel = self.builder.get_object("uneditableDeviceDescriptionLabel")
@@ -2137,7 +2138,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
         self._configButton.set_sensitive(not selector._device.exists and
                                          not selector._device.protected and
-                                         getDeviceType(selector._device) != DEVICE_TYPE_LVM)
+                                         devicefactory.get_device_type(selector._device) != DEVICE_TYPE_LVM)
         self._removeButton.set_sensitive(not selector._device.protected)
         return True
 
@@ -2278,9 +2279,10 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                 default_vg = self._device_container_name
             else:
                 with ui_storage_logger():
-                    factory = self.__storage.getDeviceFactory(DEVICE_TYPE_LVM,
-                                                              0)
-                    container = self.__storage.getContainer(factory)
+                    factory = devicefactory.get_device_factory(self.__storage,
+                                                             DEVICE_TYPE_LVM,
+                                                             0)
+                    container = factory.get_container()
                     default_vg = getattr(container, "name", None)
 
             log.debug("default vg is %s" % default_vg)
@@ -2335,8 +2337,9 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             include_btrfs = test_fmt.supported and test_fmt.formattable
             fs_type_sensitive = False
             with ui_storage_logger():
-                factory = self.__storage.getDeviceFactory(DEVICE_TYPE_BTRFS, 0)
-                container = self.__storage.getContainer(factory)
+                factory = devicefactory.get_device_factory(self.__storage,
+                                                         DEVICE_TYPE_BTRFS, 0)
+                container = factory.get_container()
 
             if container:
                 raid_level = container.dataLevel or "single"
