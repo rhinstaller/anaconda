@@ -22,8 +22,6 @@
 
 # TODO:
 # - Add a way for users to specify the names of subvols.
-# - We should either remove boot disk selection from the cart we show from here
-#   or re-partition when it gets changed to make a best-effort at keeping up.
 # - Deleting an LV is not reflected in available space in the bottom left.
 #   - this is only true for preexisting LVs
 # - Device descriptions, suggested sizes, etc. should be moved out into a support file.
@@ -531,24 +529,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                 fsCombo.append_text(obj.name)
                 self._fs_types.append(obj.name)
 
-    def _mountpointName(self, mountpoint):
-        # If there's a mount point, apply a kind of lame scheme to it to figure
-        # out what the name should be.  Basically, just look for the last directory
-        # in the mount point's path and capitalize the first letter.  So "/boot"
-        # becomes "Boot", and "/usr/local" becomes "Local".
-        if mountpoint == "/":
-            return "Root"
-        elif mountpoint != None:
-            try:
-                lastSlash = mountpoint.rindex("/")
-            except ValueError:
-                # No slash in the mount point?  I suppose that's possible.
-                return None
-
-            return mountpoint[lastSlash+1:].capitalize()
-        else:
-            return None
-
     @property
     def _clearpartDevices(self):
         return [d for d in self._devices if d.name in self.data.clearpart.drives and d.partitioned]
@@ -741,8 +721,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                    (root.name != self.translated_new_install_name and not device.format.exists):
                     continue
 
-                selector = page.addDevice(self._mountpointName(mountpoint) or device.format.name, Size(spec="%f MB" % device.size), mountpoint, self.on_selector_clicked)
-                selector._device = device
+                selector = page.addSelector(device, self.on_selector_clicked,
+                                            mountpoint=mountpoint)
                 selector._root = root
 
             for device in root.swaps:
@@ -750,10 +730,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                    (root.name != self.translated_new_install_name and not device.format.exists):
                     continue
 
-                selector = page.addDevice("Swap",
-                                          Size(spec="%f MB" % device.size),
-                                          None, self.on_selector_clicked)
-                selector._device = device
+                selector = page.addSelector(device, self.on_selector_clicked)
                 selector._root = root
 
             page.show_all()
@@ -768,8 +745,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             page.pageTitle = _("Unknown")
 
             for u in sorted(self.unusedDevices, key=lambda d: d.name):
-                selector = page.addDevice(u.name, Size(spec="%f MB" % u.size), u.format.name, self.on_selector_clicked)
-                selector._device = u
+                page.addSelector(u, self.on_selector_clicked)
 
             page.show_all()
             self._accordion.addPage(page, cb=self.on_page_clicked)
@@ -835,16 +811,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             devices.extend(self.bootLoaderDevices)
 
         for _device in devices:
-            mountpoint = getattr(_device.format, "mountpoint", "") or ""
-
-            if _device.format.type == "swap":
-                name = "Swap"
-            else:
-                name = self._mountpointName(mountpoint) or _device.format.name
-
-            selector = page.addDevice(name, Size(spec="%f MB" % _device.size),
-                                      mountpoint, self.on_selector_clicked)
-            selector._device = _device
+            page.addSelector(_device, self.on_selector_clicked)
 
         page.show_all()
 
@@ -857,7 +824,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
         for selector in page._members:
             if selector._device.type.startswith("btrfs"):
-                selector.props.size = str(Size(spec="%f MB" % selector._device.size)).upper()
+                selectorFromDevice(selector._device, selector=selector)
 
     def _replace_device(self, *args, **kwargs):
         """ Create a replacement device and update the device selector. """
@@ -871,8 +838,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             max_id = max([d.id for d in self._devices])
 
             # update the selector with the new device and its size
-            selector._device = self.__storage.devicetree.getDeviceByID(max_id)
-            selector.props.size = str(Size(spec="%f MB" % selector._device.size)).upper()
+            selectorFromDevice(self.__storage.devicetree.getDeviceByID(max_id),
+                               selector=selector)
 
     def _save_right_side(self, selector):
         """ Save settings from RHS and apply changes to the device.
@@ -1118,10 +1085,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                     # you can't change the type of an existing device, so we
                     # don't need to concern ourselves with adding a new
                     # selector to the new page
-                    selector.props.mountpoint = (mountpoint or
-                                                 selector._device.format.name)
-                    selector.props.name = (self._mountpointName(mountpoint) or
-                                           selector._device.format.name)
+                    selectorFromDevice(device, selector=selector)
 
             self._devices = self.__storage.devices
             # update size props of all btrfs devices' selectors
@@ -1186,7 +1150,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             log.debug("updating selector size to '%s'"
                        % str(Size(spec="%f MB" % device.size)).upper())
             # update the selector's size property
-            selector.props.size = str(Size(spec="%f MB" % device.size)).upper()
+            selectorFromDevice(device, selector=selector)
 
             # update size props of all btrfs devices' selectors
             self._update_btrfs_selectors()
@@ -1290,10 +1254,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
                         # either update the existing selector or add a new one
                         if new_selector:
-                            new_selector.props.mountpoint = mountpoint or ""
-                            new_selector.props.name = (self._mountpointName(mountpoint)
-                                                       or device.format.name)
-                            new_selector._device = device
+                            selectorFromDevice(device, selector=new_selector)
                         else:
                             self.add_new_selector(device)
 
@@ -1313,9 +1274,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             log.debug("updating mountpoint to %s" % mountpoint)
             device.format.mountpoint = mountpoint
             if old_mountpoint:
-                selector.props.mountpoint = mountpoint
-                selector.props.name = (self._mountpointName(mountpoint)
-                                       or selector._device.format.name)
+                selectorFromDevice(device, selector=selector)
             else:
                 # add an entry to the new page but do not remove any entries
                 # from other pages since we haven't altered the filesystem
@@ -1432,7 +1391,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
         # We want to preserve the state of the customize expander so that it's
         # open should you open it and then look at some other device instead.
-        expander.set_expanded(selector.customizeIsOpen)
+        expander.set_expanded(selector._customizeIsOpen)
 
         device = selector._device
         if device.type == "luks/dm-crypt":
@@ -1672,7 +1631,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         if not self._current_selector:
             return
 
-        self._current_selector.customizeIsOpen = not self._current_selector.customizeIsOpen
+        self._current_selector._customizeIsOpen = not self._current_selector._customizeIsOpen
 
     def on_add_clicked(self, button):
         self._save_right_side(self._current_selector)

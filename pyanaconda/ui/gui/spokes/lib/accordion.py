@@ -23,17 +23,72 @@
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
 
+from blivet.size import Size
+
 from pyanaconda.product import productName, productVersion
 
 from gi.repository.AnacondaWidgets import MountpointSelector
 from gi.repository import Gtk
 
 __all__ = ["DATA_DEVICE", "SYSTEM_DEVICE",
+           "selectorFromDevice",
            "Accordion",
            "Page", "UnknownPage", "CreateNewPage"]
 
 DATA_DEVICE = 0
 SYSTEM_DEVICE = 1
+
+def mountpointName(mountpoint):
+    # If there's a mount point, apply a kind of lame scheme to it to figure
+    # out what the name should be.  Basically, just look for the last directory
+    # in the mount point's path and capitalize the first letter.  So "/boot"
+    # becomes "Boot", and "/usr/local" becomes "Local".
+    if mountpoint == "/":
+        return "Root"
+    elif mountpoint != None:
+        try:
+            lastSlash = mountpoint.rindex("/")
+        except ValueError:
+            # No slash in the mount point?  I suppose that's possible.
+            return None
+
+        return mountpoint[lastSlash+1:].capitalize()
+    else:
+        return None
+
+def selectorFromDevice(device, selector=None, mountpoint=""):
+    """Create a MountpointSelector from a Device object template.  This
+       method should be used whenever constructing a new selector, or when
+       setting a bunch of attributes on an existing selector.  For just
+       changing the name or size, it's probably fine to do it by hand.
+
+       This method returns the selector created.
+
+       If given a selector parameter, attributes will be set on that object
+       instead of creating a new one.  The optional mountpoint parameter
+       allows for specifying the mountpoint if it cannot be determined from
+       the device (like for a Root specifying an existing installation).
+    """
+    mp = mountpoint or getattr(device.format, "mountpoint", "")
+
+    if device.format.type == "swap":
+        name = "Swap"
+    else:
+        name = mountpointName(mp) or device.format.name
+
+    size = Size(spec="%f MB" % device.size)
+
+    if not selector:
+        selector = MountpointSelector(name, str(size).upper(), mp)
+        selector._root = None
+        selector._customizeIsOpen = False
+    else:
+        selector.props.name = name
+        selector.props.size = str(size).upper()
+        selector.props.mountpoint = mp
+
+    selector._device = device
+    return selector
 
 # An Accordion is a box that goes on the left side of the custom partitioning spoke.  It
 # stores multiple expanders which are here called Pages.  These Pages correspond to
@@ -146,18 +201,13 @@ class Page(Gtk.Box):
         label.set_margin_left(24)
         return label
 
-    def addDevice(self, name, size, mountpoint, cb):
-        selector = MountpointSelector(name, str(size).upper(), mountpoint or "")
+    def addSelector(self, device, cb, mountpoint=""):
+        selector = selectorFromDevice(device, mountpoint=mountpoint)
         selector.connect("button-press-event", self._onSelectorClicked, cb)
         selector.connect("key-release-event", self._onSelectorClicked, cb)
-        #selector.connect("focus-in-event", self._onSelectorClicked, cb)
         self._members.append(selector)
 
-        selector._device = None
-        selector._root = None
-        selector.customizeIsOpen = False
-
-        if self._mountpointType(mountpoint) == DATA_DEVICE:
+        if self._mountpointType(selector.props.mountpoint) == DATA_DEVICE:
             self._dataBox.add(selector)
         else:
             self._systemBox.add(selector)
@@ -203,15 +253,10 @@ class UnknownPage(Page):
         self._members = []
         self.pageTitle = ""
 
-    def addDevice(self, name, size, mountpoint, cb):
-        selector = MountpointSelector(name, str(size).upper(), mountpoint or "")
+    def addSelector(self, device, cb, mountpoint=""):
+        selector = selectorFromDevice(device, mountpoint=mountpoint)
         selector.connect("button-press-event", self._onSelectorClicked, cb)
         selector.connect("key-release-event", self._onSelectorClicked, cb)
-        #selector.connect("focus-in-event", self._onSelectorClicked, cb)
-
-        selector._device = None
-        selector._root = None
-        selector.customizeIsOpen = False
 
         self._members.append(selector)
         self.add(selector)
