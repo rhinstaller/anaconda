@@ -146,24 +146,6 @@ def getMacAddress(dev):
         log.debug("getMacAddress %s: %s" % (dev, e))
     return device_macaddr
 
-# Determine if a network device is a wireless device.
-def isWirelessDevice(dev_name):
-    bus = dbus.SystemBus()
-    nm = bus.get_object(NM_SERVICE, NM_MANAGER_PATH)
-    devlist = nm.get_dbus_method("GetDevices")()
-
-    for path in devlist:
-        device = bus.get_object(NM_SERVICE, path)
-        device_props_iface = dbus.Interface(device, DBUS_PROPS_IFACE)
-
-        iface = device_props_iface.Get(NM_DEVICE_IFACE, "Interface")
-        if iface == dev_name:
-            device_type = device_props_iface.Get(NM_DEVICE_IFACE, "DeviceType")
-            return device_type == NM_DEVICE_TYPE_WIFI
-
-    return False
-
-
 # Get IP addresses for a network device.
 # Returns list of ipv4 or ipv6 addresses, depending
 # on version parameter. ipv4 is default.
