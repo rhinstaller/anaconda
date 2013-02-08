@@ -26,11 +26,8 @@ dist_systemd_DATA = anaconda.service \
 		    anaconda-tmux@.service \
 		    anaconda-shell@.service \
 		    instperf.service \
-		    anaconda-sshd.service \
-		    anaconda-cleanup-initramfs.service
+		    anaconda-sshd.service
 
 dist_generator_SCRIPTS = anaconda-generator
-
-dist_sbin_SCRIPTS = anaconda-cleanup-initramfs
 
 MAINTAINERCLEANFILES = Makefile.in
