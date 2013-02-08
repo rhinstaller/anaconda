@@ -212,11 +212,6 @@ def getHostname():
 
     return hn
 
-def nmIsConnected(state):
-    return state in (NM_STATE_CONNECTED_LOCAL,
-                     NM_STATE_CONNECTED_SITE,
-                     NM_STATE_CONNECTED_GLOBAL)
-
 def logIfcfgFile(path, message=""):
     content = ""
     if os.access(path, os.R_OK):
@@ -787,25 +782,19 @@ def write_network_config(storage, ksdata, instClass, rootpath):
 def wait_for_connecting_NM():
     """If NM is in connecting state, wait for connection.
     Return value: NM has got connection."""
-    bus = dbus.SystemBus()
-    nm = bus.get_object(NM_SERVICE, NM_MANAGER_PATH)
-    props = dbus.Interface(nm, DBUS_PROPS_IFACE)
-    state = props.Get(NM_SERVICE, "State")
 
-    if state == NM_STATE_CONNECTING:
+    if nm.nm_is_connecting():
         log.debug("waiting for connecting NM (dhcp?)")
     else:
         return False
 
     i = 0
-    while (state == NM_STATE_CONNECTING and
-           i < CONNECTION_TIMEOUT):
-        state = props.Get(NM_SERVICE, "State")
-        if nmIsConnected(state):
-            log.debug("connected, waited %d seconds" % i)
-            return True
+    while nm.nm_is_connecting() and i < CONNECTION_TIMEOUT:
         i += 1
         time.sleep(1)
+        if nm.nm_is_connected():
+            log.debug("connected, waited %d seconds" % i)
+            return True
 
     log.debug("not connected, waited %d of %d secs" % (i, CONNECTION_TIMEOUT))
     return False
