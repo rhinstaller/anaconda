@@ -439,6 +439,11 @@ class SourceSpoke(NormalSpoke):
     def apply(self):
         import copy
 
+        # If askmethod was provided on the command line, entering the source
+        # spoke wipes that out.
+        if flags.askmethod:
+            flags.askmethod = False
+
         old_source = copy.copy(self.data.method)
 
         if self._autodetectButton.get_active():

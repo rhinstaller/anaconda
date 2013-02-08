@@ -235,6 +235,7 @@ def parseOptions(argv=None, cmdline=None):
     op.add_option("--multilib", dest="multiLib", action="store_true", default=False)
 
     op.add_option("-m", "--method", dest="method", default=None)
+    op.add_option("--askmethod", dest="askmethod", action="store_true", default=False)
     op.add_option("--repo", dest="method", default=None)
     op.add_option("--stage2", dest="stage2", default=None)
     op.add_option("--noverifyssl", action="store_true", default=False)
@@ -654,6 +655,9 @@ if __name__ == "__main__":
     # do this early so we can set flags before initializing logging
     from pyanaconda.flags import flags, can_touch_runtime_system
     (opts, args, depr) = parseOptions(cmdline=flags.cmdline)
+
+    if opts.askmethod:
+        flags.askmethod = True
 
     # Set up logging as early as possible.
     import logging

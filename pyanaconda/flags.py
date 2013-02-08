@@ -68,6 +68,7 @@ class Flags(object):
         self.imageInstall = False
         self.automatedInstall = False
         self.dirInstall = False
+        self.askmethod = False
         # for non-physical consoles like some ppc and sgi altix,
         # we need to preserve the console device and not try to
         # do things like bogl on them.  this preserves what that

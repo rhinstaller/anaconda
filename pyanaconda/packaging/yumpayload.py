@@ -25,7 +25,6 @@
     TODO
         - document all methods
         - YumPayload
-            - preupgrade
             - write test cases
             - more logging in key methods
             - handling of proxy needs cleanup
@@ -415,6 +414,17 @@ reposdir=%s
 
         # start with a fresh YumBase instance
         self.reset(root=root)
+
+        # If askmethod was given on the command line, we don't want to do
+        # anything.  Just disable all repos and return.  This should avoid
+        # metadata fetching.
+        if flags.askmethod:
+            with _yum_lock:
+                for repo in self._yum.repos.repos.values():
+                    self.disableRepo(repo.id)
+
+            self._yumCacheDirHack()
+            return
 
         # see if we can get a usable base repo from self.data.method
         try:
