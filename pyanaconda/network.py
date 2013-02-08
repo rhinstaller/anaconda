@@ -317,85 +317,38 @@ class NetworkDevice(IfcfgFile):
 def get_NM_object(path):
     return dbus.SystemBus().get_object(NM_SERVICE, path)
 
-def createMissingDefaultIfcfgs():
+def dumpMissingDefaultIfcfgs():
     """
-    Create or dump missing default ifcfg file for wired devices.
+    Dump missing default ifcfg file for wired devices.
     For default auto connections created by NM upon start - which happens
     in case of missing ifcfg file - rename the connection using device name
     and dump its ifcfg file. (For server, default auto connections will
     be turned off in NetworkManager.conf.)
-    If there is no default auto connection for a device, create default
-    ifcfg file.
-    Returns True if any ifcfg file was created or dumped.
+    The connection id (and consequently ifcfg file) is set to device name.
+    Returns True if any ifcfg file was dumped.
 
     """
     rv = False
-    nm = get_NM_object(NM_MANAGER_PATH)
-    dev_paths = nm.GetDevices()
-    for devpath in dev_paths:
 
+    for devname in nm.nm_devices():
         # for each ethernet device
-        device = get_NM_object(devpath)
-        device_props_iface = dbus.Interface(device, DBUS_PROPS_IFACE)
-        devicetype = device_props_iface.Get(NM_DEVICE_IFACE, "DeviceType")
-        if devicetype != NM_DEVICE_TYPE_ETHERNET:
+        # FIXME add more types (infiniband, bond...?)
+        if not nm.nm_device_type_is_ethernet(devname):
             continue
 
         # if there is no ifcfg file for the device
-        interface = str(device_props_iface.Get(NM_DEVICE_IFACE, "Interface"))
-        device_cfg = NetworkDevice(netscriptsDir, interface)
+        device_cfg = NetworkDevice(netscriptsDir, devname)
         if os.access(device_cfg.path, os.R_OK):
             continue
 
-        # check if there is a connection for the device (default autoconnection)
-        hwaddr = device_props_iface.Get(NM_DEVICE_WIRED_IFACE, "HwAddress")
-        con = get_NM_connection(hwaddr)
-        if con:
-            log.debug("network: dumping ifcfg file for default autoconnection on %s" % interface)
-            settings = con.GetSettings()
-            settings['connection']['id'] = interface
-            con.Update(settings)
-        else:
-            log.debug("network: no ifcfg file for %s" % interface)
+        try:
+            nm.nm_update_settings_of_device(devname, 'connection', 'id', devname)
+            log.debug("network: dumping ifcfg file for default autoconnection on %s" % devname)
+        except nm.DeviceSettingsNotFoundError as e:
+            log.debug("network: no ifcfg file for %s" % devname)
         rv = True
 
     return rv
-
-def get_NM_connection(connection_spec, spec_type="hwaddr"):
-
-    if spec_type == "iface":
-        nm = get_NM_object(NM_MANAGER_PATH)
-        dev_paths = nm.GetDevices()
-        for devpath in dev_paths:
-            device = get_NM_object(devpath)
-            device_props_iface = dbus.Interface(device, DBUS_PROPS_IFACE)
-            interface = str(device_props_iface.Get(NM_DEVICE_IFACE, "Interface"))
-            if interface == connection_spec:
-                try:
-                    connection_spec = str(device_props_iface.Get(NM_DEVICE_WIRED_IFACE, "HwAddress"))
-                    spec_type = "hwaddr"
-                except dbus.DBusException as e:
-                    log.debug("get_NM_settings (interface %s) %s" % (interface, e))
-                    return None
-                break
-
-    if spec_type == "hwaddr":
-        settings = get_NM_object(NM_SETTINGS_PATH)
-        con_paths = settings.ListConnections()
-        for con_path in con_paths:
-            con = get_NM_object(con_path)
-            setting = con.GetSettings()
-            try:
-                con_hwaddr_bytearray = setting['802-3-ethernet']['mac-address']
-            except KeyError:
-                log.debug("no mac-address setting found for %s" % con_path)
-                continue
-            con_hwaddr = ":".join("%02X" % byte for byte in
-                                  con_hwaddr_bytearray)
-            if con_hwaddr.upper() == connection_spec.upper():
-                return con
-
-    return None
 
 # get a kernel cmdline string for dracut needed for access to storage host
 def dracutSetupArgs(networkStorageDevice):
@@ -862,14 +815,11 @@ def setOnboot(ksdata):
             log.error("Kickstart: The provided network interface %s does not exist" % network_data.device)
             continue
 
-        con = get_NM_connection(devname, spec_type="iface")
-        if con:
+        try:
+            nm.nm_update_settings_of_device(devname, 'connection', 'autoconnect', network_data.onboot)
             ifcfglog.debug("setting autoconnect (ONBOOT) of %s to %s" % (devname, network_data.onboot))
-            settings = con.GetSettings()
-            settings['connection']['autoconnect'] = network_data.onboot
-            con.Update(settings)
-        else:
-            log.debug("Can't find connection settings for %s" % devname)
+        except nm.DeviceSettingsNotFoundError as e:
+            log.debug("setOnboot: %s" % e)
 
 def networkInitialize(ksdata):
 
@@ -877,7 +827,7 @@ def networkInitialize(ksdata):
     logIfcfgFiles("network initialization")
 
     if not flags.imageInstall:
-        if createMissingDefaultIfcfgs():
+        if dumpMissingDefaultIfcfgs():
             logIfcfgFiles("ifcfgs created")
 
     # For kickstart network --activate option we set ONBOOT=yes
