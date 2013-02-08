@@ -38,7 +38,8 @@ dist_dracut_SCRIPTS = module-setup.sh \
 		      fetch-kickstart-disk \
 		      fetch-updates-disk \
 		      parse-kickstart \
-		      anaconda-modprobe.sh
+		      anaconda-modprobe.sh \
+		      save-initramfs.sh
 
 
 MAINTAINERCLEANFILES = Makefile.in
