@@ -800,7 +800,6 @@ class DatetimeSpoke(NormalSpoke):
 
         # update "old" values
         self._old_city = city
-        print "Storing %s" % city
 
     def on_entry_left(self, entry, *args):
         # user clicked somewhere else or hit TAB => finished editing
