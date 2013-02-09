@@ -329,6 +329,7 @@ def dracut_eject(device):
 
     try:
         if not os.path.exists(DRACUT_SHUTDOWN_EJECT):
+            mkdirChain(os.path.dirname(DRACUT_SHUTDOWN_EJECT))
             f = open(DRACUT_SHUTDOWN_EJECT, "w")
             f.write("#!/bin/sh\n")
             f.write("# Created by Anaconda\n")
