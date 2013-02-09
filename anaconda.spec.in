@@ -242,6 +242,19 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/lib/dracut/modules.d/80%{name}/*
 
 %changelog
+* Fri Feb 08 2013 Brian C. Lane <bcl@redhat.com> - 19.5-1
+- Add --dirinstall command (bcl)
+- Convert the mount point entry to one containing a drop down. (clumens)
+- Move the Modify SW button into a link in the text. (clumens)
+- Rework all the dialogs after you click Done on the storage spoke (#903501).
+  (clumens)
+- Overrides for the Gdk have _2BUTTON_PRESS defined (vpodzime)
+- Add entries with completions to the comboboxes (DatetimeSpoke) (vpodzime)
+- Make the custom partitioning bullet points take up less horizontal space.
+  (clumens)
+- Don't say you can reuse existing mountpoints unless there are some. (clumens)
+- Point gobject-introspection at our updates directory for overrides. (clumens)
+
 * Mon Feb 04 2013 Brian C. Lane <bcl@redhat.com> - 19.4-1
 - Remove libcurl requirement from configure.ac. (dlehman)
 - DMI_CHASSIS_VENDOR has moved into blivet. (dlehman)
