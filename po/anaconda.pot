@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 18.37.10\n"
+"Project-Id-Version: anaconda 18.37.11\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2013-01-07 16:44-0800\n"
+"POT-Creation-Date: 2013-02-08 17:32-0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,24 +18,24 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: anaconda:344
+#: anaconda:346
 #, c-format
 msgid ""
 "%s requires %s MB of memory to install, but you only have %s MB on this "
 "machine.\n"
 msgstr ""
 
-#: anaconda:346
+#: anaconda:348
 #, c-format
 msgid ""
 "The %s graphical installer requires %s MB of memory, but you only have %s MB."
 msgstr ""
 
-#: anaconda:351
+#: anaconda:353
 msgid "Not enough RAM"
 msgstr ""
 
-#: anaconda:352
+#: anaconda:354
 msgid ""
 " Try the text mode installer by running:\n"
 "\n"
@@ -44,37 +44,37 @@ msgid ""
 " from a root terminal."
 msgstr ""
 
-#: anaconda:355
+#: anaconda:357
 msgid " Starting text mode."
 msgstr ""
 
-#: anaconda:382 pyanaconda/rescue.py:268 pyanaconda/rescue.py:301
+#: anaconda:384 pyanaconda/rescue.py:268 pyanaconda/rescue.py:301
 #: pyanaconda/rescue.py:314 pyanaconda/rescue.py:382 pyanaconda/rescue.py:398
 #: pyanaconda/rescue.py:409
 msgid "OK"
 msgstr ""
 
-#: anaconda:484
+#: anaconda:486
 msgid ""
 "Text mode provides a limited set of installation options. It does not allow "
 "you to specify your own partitioning layout or package selections. Would you "
 "like to use VNC mode instead?"
 msgstr ""
 
-#: anaconda:508
+#: anaconda:510
 msgid "DISPLAY variable not set. Starting text mode."
 msgstr ""
 
-#: anaconda:516
+#: anaconda:518
 msgid "Graphical installation is not available. Starting text mode."
 msgstr ""
 
-#: anaconda:627
+#: anaconda:629
 #, c-format
 msgid "Please ssh install@%s to begin the install."
 msgstr ""
 
-#: anaconda:629
+#: anaconda:631
 msgid "Please ssh install@<host> to continue installation."
 msgstr ""
 
@@ -240,12 +240,12 @@ msgstr ""
 msgid "Running post install scripts"
 msgstr ""
 
-#: pyanaconda/install.py:130 pyanaconda/packaging/livepayload.py:133
+#: pyanaconda/install.py:131 pyanaconda/packaging/livepayload.py:133
 #: pyanaconda/packaging/yumpayload.py:1631
 msgid "Performing post-install setup tasks"
 msgstr ""
 
-#: pyanaconda/install.py:134
+#: pyanaconda/install.py:136
 msgid "Installing bootloader"
 msgstr ""
 
@@ -984,109 +984,109 @@ msgstr ""
 msgid "Installing"
 msgstr ""
 
-#: pyanaconda/storage/__init__.py:974
+#: pyanaconda/storage/__init__.py:982
 msgid "This partition is holding the data for the hard drive install."
 msgstr ""
 
-#: pyanaconda/storage/__init__.py:979
+#: pyanaconda/storage/__init__.py:987
 msgid "You cannot delete a partition of a LDL formatted DASD."
 msgstr ""
 
-#: pyanaconda/storage/__init__.py:985
+#: pyanaconda/storage/__init__.py:993
 #, python-format
 msgid "This device is part of the RAID device %s."
 msgstr ""
 
-#: pyanaconda/storage/__init__.py:988
+#: pyanaconda/storage/__init__.py:996
 msgid "This device is part of a RAID device."
 msgstr ""
 
-#: pyanaconda/storage/__init__.py:991
+#: pyanaconda/storage/__init__.py:999
 msgid "This device is part of an inconsistent LVM Volume Group."
 msgstr ""
 
-#: pyanaconda/storage/__init__.py:996
+#: pyanaconda/storage/__init__.py:1004
 #, python-format
 msgid "This device is part of the LVM volume group '%s'."
 msgstr ""
 
-#: pyanaconda/storage/__init__.py:999
+#: pyanaconda/storage/__init__.py:1007
 msgid "This device is part of a LVM volume group."
 msgstr ""
 
-#: pyanaconda/storage/__init__.py:1015
+#: pyanaconda/storage/__init__.py:1023
 msgid ""
 "This device is an extended partition which contains logical partitions that "
 "cannot be deleted:\n"
 "\n"
 msgstr ""
 
-#: pyanaconda/storage/__init__.py:1262 pyanaconda/ui/gui/spokes/custom.py:1006
+#: pyanaconda/storage/__init__.py:1270 pyanaconda/ui/gui/spokes/custom.py:1006
 msgid "You must create a new filesystem on the root device."
 msgstr ""
 
-#: pyanaconda/storage/__init__.py:1450
+#: pyanaconda/storage/__init__.py:1458
 #, python-format
 msgid ""
 "You have not defined a root partition (/), which is required for "
 "installation of %s to continue."
 msgstr ""
 
-#: pyanaconda/storage/__init__.py:1455
+#: pyanaconda/storage/__init__.py:1463
 #, python-format
 msgid ""
 "Your root partition is less than 250 megabytes which is usually too small to "
 "install %s."
 msgstr ""
 
-#: pyanaconda/storage/__init__.py:1469
+#: pyanaconda/storage/__init__.py:1477
 msgid ""
 "This platform requires /boot on a dedicated partition or logical volume.  If "
 "you do not want a /boot volume, you must place / on a dedicated non-LVM "
 "partition."
 msgstr ""
 
-#: pyanaconda/storage/__init__.py:1478
+#: pyanaconda/storage/__init__.py:1486
 #, python-format
 msgid ""
 "Your %(mount)s partition is less than %(size)s megabytes which is lower than "
 "recommended for a normal %(productName)s install."
 msgstr ""
 
-#: pyanaconda/storage/__init__.py:1488
+#: pyanaconda/storage/__init__.py:1496
 #, python-format
 msgid ""
 "Your %(mount)s partition is too small for %(format)s formatting (allowable "
 "size is %(minSize)d MB to %(maxSize)d MB)"
 msgstr ""
 
-#: pyanaconda/storage/__init__.py:1493
+#: pyanaconda/storage/__init__.py:1501
 #, python-format
 msgid ""
 "Your %(mount)s partition is too large for %(format)s formatting (allowable "
 "size is %(minSize)d MB to %(maxSize)d MB)"
 msgstr ""
 
-#: pyanaconda/storage/__init__.py:1520
+#: pyanaconda/storage/__init__.py:1528
 msgid ""
 "Installing on a USB device.  This may or may not produce a working system."
 msgstr ""
 
-#: pyanaconda/storage/__init__.py:1523
+#: pyanaconda/storage/__init__.py:1531
 msgid ""
 "Installing on a FireWire device.  This may or may not produce a working "
 "system."
 msgstr ""
 
-#: pyanaconda/storage/__init__.py:1529
+#: pyanaconda/storage/__init__.py:1537
 msgid "you have not created a bootloader stage1 target device"
 msgstr ""
 
-#: pyanaconda/storage/__init__.py:1538
+#: pyanaconda/storage/__init__.py:1546
 msgid "You have not created a bootable partition."
 msgstr ""
 
-#: pyanaconda/storage/__init__.py:1559
+#: pyanaconda/storage/__init__.py:1567
 #, python-format
 msgid ""
 "Your BIOS-based system needs a special partition to boot with %s's new disk "
@@ -1094,7 +1094,7 @@ msgid ""
 "partition."
 msgstr ""
 
-#: pyanaconda/storage/__init__.py:1572
+#: pyanaconda/storage/__init__.py:1580
 #, python-format
 msgid ""
 "You have not specified a swap partition.  %(requiredMem)s MB of memory is "
@@ -1102,13 +1102,13 @@ msgid ""
 "have %(installedMem)s MB."
 msgstr ""
 
-#: pyanaconda/storage/__init__.py:1578
+#: pyanaconda/storage/__init__.py:1586
 msgid ""
 "You have not specified a swap partition.  Although not strictly required in "
 "all cases, it will significantly improve performance for most installations."
 msgstr ""
 
-#: pyanaconda/storage/__init__.py:1584
+#: pyanaconda/storage/__init__.py:1592
 msgid ""
 "At least one of your swap devices does not have a UUID, which is common in "
 "swap space created using older versions of mkswap. These devices will be "
@@ -1116,27 +1116,27 @@ msgid ""
 "paths can change under a variety of circumstances. "
 msgstr ""
 
-#: pyanaconda/storage/__init__.py:1594
+#: pyanaconda/storage/__init__.py:1602
 #, python-format
 msgid ""
 "This mount point is invalid.  The %s directory must be on the / file system."
 msgstr ""
 
-#: pyanaconda/storage/__init__.py:1598
+#: pyanaconda/storage/__init__.py:1606
 #, python-format
 msgid "The mount point %s must be on a linux file system."
 msgstr ""
 
-#: pyanaconda/storage/__init__.py:3199
+#: pyanaconda/storage/__init__.py:3207
 #, python-format
 msgid "Linux on %s"
 msgstr ""
 
-#: pyanaconda/storage/__init__.py:3204
+#: pyanaconda/storage/__init__.py:3212
 msgid "Unknown Linux"
 msgstr ""
 
-#: pyanaconda/storage/__init__.py:3206
+#: pyanaconda/storage/__init__.py:3214
 #, python-format
 msgid "%(product)s Linux %(version)s for %(arch)s"
 msgstr ""
@@ -1589,63 +1589,63 @@ msgstr ""
 msgid "Install Destination"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/storage.py:120
-#: pyanaconda/ui/gui/spokes/storage.py:439
+#: pyanaconda/ui/tui/spokes/storage.py:124
+#: pyanaconda/ui/gui/spokes/storage.py:443
 msgid "No disks selected"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/storage.py:127
-#: pyanaconda/ui/gui/spokes/storage.py:446
+#: pyanaconda/ui/tui/spokes/storage.py:131
+#: pyanaconda/ui/gui/spokes/storage.py:450
 msgid "Error checking storage configuration"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/storage.py:130
-#: pyanaconda/ui/gui/spokes/storage.py:448
+#: pyanaconda/ui/tui/spokes/storage.py:134
+#: pyanaconda/ui/gui/spokes/storage.py:452
 msgid "Automatic partitioning selected"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/storage.py:132
-#: pyanaconda/ui/gui/spokes/storage.py:450
+#: pyanaconda/ui/tui/spokes/storage.py:136
+#: pyanaconda/ui/gui/spokes/storage.py:454
 msgid "Custom partitioning selected"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/storage.py:168
-#: pyanaconda/ui/gui/spokes/storage.py:582
+#: pyanaconda/ui/tui/spokes/storage.py:172
+#: pyanaconda/ui/gui/spokes/storage.py:586
 msgid ""
 "No disks detected.  Please shut down the computer, connect at least one "
 "disk, and restart to complete installation."
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/storage.py:170
-#: pyanaconda/ui/gui/spokes/storage.py:584
+#: pyanaconda/ui/tui/spokes/storage.py:174
+#: pyanaconda/ui/gui/spokes/storage.py:588
 msgid "No disks selected; please select at least one disk to install to."
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/storage.py:185
+#: pyanaconda/ui/tui/spokes/storage.py:189
 #: pyanaconda/ui/gui/spokes/source.py:671
-#: pyanaconda/ui/gui/spokes/storage.py:514
+#: pyanaconda/ui/gui/spokes/storage.py:518
 msgid "Probing storage..."
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/storage.py:263
+#: pyanaconda/ui/tui/spokes/storage.py:267
 msgid "Generating updated storage configuration"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/storage.py:268
+#: pyanaconda/ui/tui/spokes/storage.py:272
 #, python-format
 msgid "storage configuration failed: %s"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/storage.py:277
+#: pyanaconda/ui/tui/spokes/storage.py:281
 #: pyanaconda/ui/gui/spokes/storage.py:307
 msgid "Checking storage configuration..."
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/storage.py:311
+#: pyanaconda/ui/tui/spokes/storage.py:315
 msgid "Autopartitioning Options"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/storage.py:342
+#: pyanaconda/ui/tui/spokes/storage.py:346
 msgid ""
 "Installation requires partitioning of your hard drive.  Select what space to "
 "use for the install target."
@@ -1714,7 +1714,7 @@ msgid "_Exit Installer"
 msgstr ""
 
 #: pyanaconda/ui/gui/__init__.py:153 pyanaconda/ui/gui/spokes/software.py:333
-#: pyanaconda/ui/gui/spokes/storage.py:770 pyanaconda/ui/gui/main.glade:36
+#: pyanaconda/ui/gui/spokes/storage.py:774 pyanaconda/ui/gui/main.glade:36
 #: pyanaconda/ui/gui/hubs/summary.glade:77 widgets/src/StandaloneWindow.c:52
 msgid "_Quit"
 msgstr ""
@@ -2495,31 +2495,31 @@ msgstr ""
 msgid "Failed to save storage configuration..."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.py:496
+#: pyanaconda/ui/gui/spokes/storage.py:500
 msgid "Error checking storage configuration.  Click for details."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.py:575
+#: pyanaconda/ui/gui/spokes/storage.py:579
 #, python-format
 msgid "%d disk selected; %s capacity; %s free"
 msgid_plural "%d disks selected; %s capacity; %s free"
 msgstr[0] ""
 msgstr[1] ""
 
-#: pyanaconda/ui/gui/spokes/storage.py:627
+#: pyanaconda/ui/gui/spokes/storage.py:631
 msgid ""
 "You have chosen to skip bootloader installation.  Your system may not be "
 "bootable."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.py:767
+#: pyanaconda/ui/gui/spokes/storage.py:771
 msgid ""
 "The following errors were encountered when checking your storage "
 "configuration.  You can modify your storage layout\n"
 "or quit the installer."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.py:770
+#: pyanaconda/ui/gui/spokes/storage.py:774
 msgid "_Modify Storage Layout"
 msgstr ""
 
