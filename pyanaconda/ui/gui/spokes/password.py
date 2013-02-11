@@ -85,7 +85,8 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalSpoke):
 
     @property
     def mandatory(self):
-        return not self.data.user.userList
+        return not any(user for user in self.data.user.userList
+                            if "wheel" in user.groups)
         
     def apply(self):
         self.data.rootpw.password = cryptPassword(self._password)
