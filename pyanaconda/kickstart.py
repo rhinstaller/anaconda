@@ -74,8 +74,6 @@ stdoutLog = logging.getLogger("anaconda.stdout")
 from anaconda_log import logger, logLevelMap, setHandlersLevel,\
     DEFAULT_TTY_LEVEL
 
-packagesSeen = False
-
 # deviceMatches is called early, before any multipaths can possibly be coalesced
 # so it needs to know about them in some additional way: have the topology ready.
 topology = None
@@ -1484,8 +1482,6 @@ def parseKickstart(f):
         errorHandler.cb(KickstartError(), e)
         sys.exit(1)
 
-    global packagesSeen
-    packagesSeen = ksparser.getSection("%packages").timesSeen > 0
     return handler
 
 def appendPostScripts(ksdata):

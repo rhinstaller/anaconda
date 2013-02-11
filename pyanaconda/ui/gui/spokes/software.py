@@ -24,7 +24,6 @@ _ = lambda x: gettext.ldgettext("anaconda", x)
 N_ = lambda x: x
 
 from pyanaconda.flags import flags
-from pyanaconda.kickstart import packagesSeen
 from pyanaconda.threads import threadMgr, AnacondaThread
 
 from pyanaconda.ui import communication
@@ -124,7 +123,7 @@ class SoftwareSelectionSpoke(NormalSpoke):
         processingDone = not threadMgr.get("AnaCheckSoftwareThread") and \
                          not self._errorMsgs and self.txid_valid
 
-        if flags.automatedInstall and packagesSeen:
+        if flags.automatedInstall and self.data.packages.seen:
             return processingDone
         else:
             return self._get_selected_environment() is not None and processingDone
@@ -164,7 +163,7 @@ class SoftwareSelectionSpoke(NormalSpoke):
             # Kickstart installs with %packages will have a row selected, unless
             # they did an install without a desktop environment.  This should
             # catch that one case.
-            if flags.automatedInstall and packagesSeen:
+            if flags.automatedInstall and self.data.packages.seen:
                 return _("Custom software selected")
 
             return _("Nothing selected")
@@ -184,7 +183,7 @@ class SoftwareSelectionSpoke(NormalSpoke):
 
         # we have no way to select environments with kickstart right now
         # so don't try.
-        if flags.automatedInstall and packagesSeen:
+        if flags.automatedInstall and self.data.packages.seen:
             # We don't want to do a full refresh, just
             # join the metadata thread
             threadMgr.wait("AnaPayloadMDThread")
