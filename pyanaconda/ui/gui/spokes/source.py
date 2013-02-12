@@ -568,9 +568,9 @@ class SourceSpoke(NormalSpoke):
             communication.send_message(self.__class__.__name__,
                                        _("Failed to set up install source"))
             if not self.data.method.proxy:
-                gtk_call_once(self.set_warning, _("Failed to set up install source, check the repo url"))
+                gtk_call_once(self.set_warning, _("Failed to set up installation source; check the repo url"))
             else:
-                gtk_call_once(self.set_warning, _("Failed to set up install source, check the repo url and proxy settings"))
+                gtk_call_once(self.set_warning, _("Failed to set up installation source; check the repo url and proxy settings"))
         else:
             self._error = False
             communication.send_message(self.__class__.__name__,
@@ -582,7 +582,7 @@ class SourceSpoke(NormalSpoke):
                                            _(METADATA_ERROR_MESSAGE))
                 communication.send_ready(self.__class__.__name__)
                 self._error = True
-                gtk_call_once(self.set_warning, _("Failed to set up install source, check the repo url"))
+                gtk_call_once(self.set_warning, _("Failed to set up installation source; check the repo url"))
             else:
                 try:
                     # Grabbing the list of groups could potentially take a long time the

@@ -112,7 +112,7 @@ def doInstall(storage, payload, ksdata, instClass):
     steps += 5  # pre setup phase, packages setup, packages, bootloader, post install
     progress.send_init(steps)
 
-    with progress_report(_("Setting up the install environment")):
+    with progress_report(_("Setting up the installation environment")):
         ksdata.addons.setup(storage, ksdata, instClass)
 
     # Do partitioning.
@@ -134,7 +134,7 @@ def doInstall(storage, payload, ksdata, instClass):
     if flags.flags.livecdInstall:
         storage.write()
 
-    with progress_report(_("Performing post-install setup tasks")):
+    with progress_report(_("Performing post-installation setup tasks")):
         payload.postInstall()
 
     # Do bootloader.
