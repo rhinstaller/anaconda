@@ -415,10 +415,12 @@ reposdir=%s
         # start with a fresh YumBase instance
         self.reset(root=root)
 
-        # If askmethod was given on the command line, we don't want to do
+        # If this is a kickstart install and no method has been set up, or
+        # askmethod was given on the command line, we don't want to do
         # anything.  Just disable all repos and return.  This should avoid
         # metadata fetching.
-        if flags.askmethod:
+        if (not self.data.method.method and flags.automatedInstall) or \
+           flags.askmethod:
             with _yum_lock:
                 for repo in self._yum.repos.repos.values():
                     self.disableRepo(repo.id)

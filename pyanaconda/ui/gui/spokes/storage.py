@@ -436,12 +436,15 @@ class StorageSpoke(NormalSpoke, StorageChecker):
 
     @property
     def completed(self):
-        return (threadMgr.get("AnaExecuteStorageThread") is None and
-                threadMgr.get("AnaCheckStorageThread") is None and
-                (self.data.ignoredisk.onlyuse != [] or
-                 flags.automatedInstall) and
-                self.storage.rootDevice is not None and
-                not self.errors)
+        retval = (threadMgr.get("AnaExecuteStorageThread") is None and
+                  threadMgr.get("AnaCheckStorageThread") is None and
+                  self.storage.rootDevice is not None and
+                  not self.errors)
+
+        if flags.automatedInstall:
+            return retval and self.data.bootloader.seen
+        else:
+            return retval
 
     @property
     def ready(self):
@@ -457,7 +460,12 @@ class StorageSpoke(NormalSpoke, StorageChecker):
     def status(self):
         """ A short string describing the current status of storage setup. """
         msg = _("No disks selected")
-        if self.data.ignoredisk.onlyuse:
+
+        if flags.automatedInstall and not self.storage.rootDevice:
+            return msg
+        elif flags.automatedInstall and not self.data.bootloader.seen:
+            msg = _("No bootloader configured")
+        elif self.data.ignoredisk.onlyuse:
             msg = P_(("%d disk selected"),
                      ("%d disks selected"),
                      len(self.data.ignoredisk.onlyuse)) % len(self.data.ignoredisk.onlyuse)
@@ -642,6 +650,8 @@ class StorageSpoke(NormalSpoke, StorageChecker):
             overview.set_chosen(name in self.selected_disks)
 
         self._update_summary()
+
+        self.data.bootloader.seen = True
 
         if self.data.bootloader.location == "none":
             self.set_warning(_("You have chosen to skip bootloader installation.  Your system may not be bootable."))

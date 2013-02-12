@@ -366,14 +366,15 @@ class DatetimeSpoke(NormalSpoke):
         self._update_datetime_timer_id = None
         if timezone.is_valid_timezone(self.data.timezone.timezone):
             self._tzmap.set_timezone(self.data.timezone.timezone)
-        else:
+        elif not flags.flags.automatedInstall:
             log.warning("%s is not a valid timezone, falling back to default "\
                         "(%s)" % (self.data.timezone.timezone, DEFAULT_TZ))
             self._tzmap.set_timezone(DEFAULT_TZ)
             self.data.timezone.timezone = DEFAULT_TZ
 
-        if not flags.can_touch_runtime_system("modify system time and date"):
-            self._set_date_time_setting_sensitive(False)
+        if self.data.timezone.timezone:
+            if not flags.can_touch_runtime_system("modify system time and date"):
+                self._set_date_time_setting_sensitive(False)
 
         self._config_dialog = NTPconfigDialog(self.data)
         self._config_dialog.initialize()
@@ -385,9 +386,10 @@ class DatetimeSpoke(NormalSpoke):
                 return _("%s timezone") % self.data.timezone.timezone
             else:
                 return _("Invalid timezone")
-
-        else:
+        elif self._tzmap.get_timezone():
             return _("%s timezone") % self._tzmap.get_timezone()
+        else:
+            return _("Nothing selected")
 
     def apply(self):
         GLib.source_remove(self._update_datetime_timer_id)
@@ -403,6 +405,7 @@ class DatetimeSpoke(NormalSpoke):
             new_tz = region + "/" + city
 
         self.data.timezone.timezone = new_tz
+        self.data.timezone.seen = True
 
         if self._ntpSwitch.get_active():
             # turned ON
@@ -430,7 +433,10 @@ class DatetimeSpoke(NormalSpoke):
 
     @property
     def completed(self):
-        return timezone.is_valid_timezone(self.data.timezone.timezone)
+        if flags.flags.automatedInstall and not self.data.timezone.seen:
+            return False
+        else:
+            return timezone.is_valid_timezone(self.data.timezone.timezone)
 
     @property
     def mandatory(self):

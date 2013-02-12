@@ -68,10 +68,7 @@ class SoftwareSelectionSpoke(NormalSpoke):
         self._origAddons = []
         self._origEnvironment = None
 
-    def apply(self):
-        # NOTE:  Other apply methods work directly with the ksdata, but this
-        # one does not.  However, selectGroup/deselectGroup modifies ksdata as
-        # part of its operation.  So this is fine.
+    def _apply(self):
         row = self._get_selected_environment()
         if not row:
             return
@@ -100,6 +97,10 @@ class SoftwareSelectionSpoke(NormalSpoke):
         threadMgr.add(AnacondaThread(name="AnaCheckSoftwareThread",
                                      target=self.checkSoftwareSelection))
 
+    def apply(self):
+        self._apply()
+        self.data.packages.seen = True
+
     def checkSoftwareSelection(self):
         from pyanaconda.packaging import DependencyError
         communication.send_message(self.__class__.__name__,
@@ -123,15 +124,15 @@ class SoftwareSelectionSpoke(NormalSpoke):
         processingDone = not threadMgr.get("AnaCheckSoftwareThread") and \
                          not self._errorMsgs and self.txid_valid
 
-        if flags.automatedInstall and self.data.packages.seen:
-            return processingDone
+        if flags.automatedInstall:
+            return processingDone and self.data.packages.seen
         else:
             return self._get_selected_environment() is not None and processingDone
 
     @property
     def mandatory(self):
         return True
-        
+
     @property
     def ready(self):
         # By default, the software selection spoke is not ready.  We have to
@@ -184,8 +185,7 @@ class SoftwareSelectionSpoke(NormalSpoke):
         # we have no way to select environments with kickstart right now
         # so don't try.
         if flags.automatedInstall and self.data.packages.seen:
-            # We don't want to do a full refresh, just
-            # join the metadata thread
+            # We don't want to do a full refresh, just join the metadata thread
             threadMgr.wait("AnaPayloadMDThread")
         else:
             if not self._first_refresh():
@@ -196,7 +196,7 @@ class SoftwareSelectionSpoke(NormalSpoke):
 
         # If packages were provided by an input kickstart file (or some other means),
         # we should do dependency solving here.
-        self.apply()
+        self._apply()
 
     @gtk_thread_wait
     def _first_refresh(self):

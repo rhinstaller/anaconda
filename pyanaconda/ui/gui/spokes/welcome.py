@@ -60,6 +60,12 @@ class LanguageMixIn(object):
         self.language.select_translation(lang)
         self.data.lang.lang = lang
 
+        # Skip timezone and keyboard default setting for kickstart installs.
+        # The user may have provided these values via kickstart and if not, we
+        # need to prompt for them.
+        if flags.flags.automatedInstall:
+            return
+
         #TODO: better use GeoIP data once it is available
         if self.language.territory and not self.data.timezone.timezone:
             lang_timezone = timezone.get_preferred_timezone(self.language.territory)

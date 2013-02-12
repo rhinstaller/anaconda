@@ -602,12 +602,15 @@ class SourceSpoke(NormalSpoke):
 
     @property
     def completed(self):
-        return not self._error and self.status and self.status != _("Nothing selected")
+        if flags.automatedInstall and not self.data.method.method:
+            return False
+        else:
+            return not self._error and self.status and self.status != _("Nothing selected")
 
     @property
     def mandatory(self):
         return True
-        
+
     @property
     def ready(self):
         from pyanaconda.threads import threadMgr
@@ -702,7 +705,7 @@ class SourceSpoke(NormalSpoke):
         if self.data.method.method == "cdrom":
             cdrom = self.payload.install_device
             chosen = True
-        else:
+        elif not flags.automatedInstall:
             cdrom = opticalInstallMedia(self.storage.devicetree)
 
         if cdrom:

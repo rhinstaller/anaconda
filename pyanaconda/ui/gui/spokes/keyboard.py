@@ -269,15 +269,18 @@ class KeyboardSpoke(NormalSpoke):
     def apply(self):
         # Clear and repopulate self.data with actual values
         self.data.keyboard.x_layouts = list()
+        self.data.keyboard.seen = True
+
         for row in self._store:
             self.data.keyboard.x_layouts.append(row[0])
         # FIXME:  Set the keyboard layout here, too.
 
     @property
     def completed(self):
-        # The keyboard spoke is always completed, as it does not require you do
-        # anything.  There's always a default selected.
-        return True
+        if flags.flags.automatedInstall and not self.data.keyboard.seen:
+            return False
+        else:
+            return True
 
     @property
     def status(self):

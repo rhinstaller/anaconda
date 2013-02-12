@@ -127,7 +127,10 @@ class StorageSpoke(NormalTUISpoke):
     def status(self):
         """ A short string describing the current status of storage setup. """
         msg = _("No disks selected")
-        if self.data.ignoredisk.onlyuse:
+
+        if flags.automatedInstall and not self.storage.rootDevice:
+            return msg
+        elif self.data.ignoredisk.onlyuse:
             msg = P_(("%d disk selected"),
                      ("%d disks selected"),
                      len(self.data.ignoredisk.onlyuse)) % len(self.data.ignoredisk.onlyuse)
