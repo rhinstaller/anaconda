@@ -16,7 +16,7 @@ depends() {
 
 install() {
     # binaries we want in initramfs
-    dracut_install eject
+    dracut_install eject -o pigz
     # anaconda
     inst "$moddir/anaconda-lib.sh" "/lib/anaconda-lib.sh"
     inst_hook cmdline 25 "$moddir/parse-anaconda-options.sh"
