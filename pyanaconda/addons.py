@@ -50,15 +50,15 @@ def collect_addon_paths(toplevel_addon_paths, ui_subdir="gui"):
         for addon_id in directories:
             addon_ks_path = os.path.join(path, addon_id, "ks")
             if os.path.isdir(addon_ks_path):
-                module_paths["ks"].append(("pyanaconda.addon.%s.ks.%%s" % addon_id, addon_ks_path))
+                module_paths["ks"].append(("%s.ks.%%s" % addon_id, addon_ks_path))
 
             addon_spoke_path = os.path.join(path, addon_id, ui_subdir, "spokes")
             if os.path.isdir(addon_spoke_path):
-                module_paths["spokes"].append(("pyanaconda.addon.%s.spokes.%%s" % addon_id, addon_spoke_path))
+                module_paths["spokes"].append(("%s.%s.spokes.%%s" % (addon_id, ui_subdir), addon_spoke_path))
 
             addon_category_path = os.path.join(path, addon_id, ui_subdir, "categories")
             if os.path.isdir(addon_spoke_path):
-                module_paths["categories"].append(("pyanaconda.addon.%s.categories.%%s" % addon_id, addon_category_path))
+                module_paths["categories"].append(("%s.%s.categories.%%s" % (addon_id, ui_subdir), addon_category_path))
 
     return module_paths
 

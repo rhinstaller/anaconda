@@ -25,6 +25,7 @@ import imp
 import inspect
 import copy
 import sys
+import types
 
 class PathDict(dict):
     """Dictionary class supporting + operator"""
@@ -500,8 +501,32 @@ def collect(module_pattern, path, pred):
             # do not load module if any module with the same name
             # is already imported
             if not module:
-                module = imp.load_module(module_pattern % mod_name,
-                                         fo, module_path, module_flags)
+                # try importing the module the standard way first
+                # uses sys.path and the module's full name!
+                try:
+                    __import__(module_pattern % mod_name)
+                    module = sys.modules[module_pattern % mod_name]
+
+                # if it fails (package-less addon?) try importing single file
+                # and filling up the package structure voids
+                except ImportError:
+                    # prepare dummy modules to prevent RuntimeWarnings
+                    module_parts = (module_pattern % mod_name).split(".")
+
+                    # remove the last name as it will be inserted by the import
+                    module_parts.pop()
+
+                    # make sure all "parent" modules are in sys.modules
+                    for l in range(len(module_parts)):
+                        module_part_name = ".".join(module_parts[:l+1])
+                        if module_part_name not in sys.modules:
+                            module_part = types.ModuleType(module_part_name)
+                            module_part.__path__ = [path]
+                            sys.modules[module_part_name] = module_part
+
+                    # load the collected module
+                    module = imp.load_module(module_pattern % mod_name,
+                                             fo, module_path, module_flags)
 
 
             # get the filenames without the extensions so we can compare those
