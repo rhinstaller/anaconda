@@ -95,8 +95,6 @@ class ProxyDialog(GUIObject):
         self._proxyAuthBox.set_sensitive(button.get_active())
 
     def refresh(self):
-        import re
-
         GUIObject.refresh(self)
 
         self._proxyCheck = self.builder.get_object("enableProxyCheck")
@@ -435,6 +433,7 @@ class SourceSpoke(NormalSpoke):
         self._currentIsoFile = None
         self._ready = False
         self._error = False
+        self._proxyChange = False
 
     def apply(self):
         import copy
@@ -480,7 +479,8 @@ class SourceSpoke(NormalSpoke):
         elif self._mirror_active():
             # this preserves the url for later editing
             self.data.method.method = None
-            if not old_source.method and self.payload.baseRepo:
+            if not old_source.method and self.payload.baseRepo and \
+               not self._proxyChange:
                 return
         elif self._http_active() or self._ftp_active():
             url = self._urlEntry.get_text().strip()
@@ -504,7 +504,7 @@ class SourceSpoke(NormalSpoke):
                 url = "https://" + url
                 mirrorlist = self._mirrorlistCheckbox.get_active()
 
-            if old_source.method == "url" and \
+            if old_source.method == "url" and not self._proxyChange and \
                ((not mirrorlist and old_source.url == url) or \
                 (mirrorlist and old_source.mirrorlist == url)):
                 return
@@ -887,10 +887,12 @@ class SourceSpoke(NormalSpoke):
                 self._verifyIsoButton.set_sensitive(True)
 
     def on_proxy_clicked(self, button):
+        old_proxy = self.data.method.proxy
         dialog = ProxyDialog(self.data)
         with enlightbox(self.window, dialog.window):
             dialog.refresh()
             dialog.run()
+        self._proxyChange = old_proxy != self.data.method.proxy
 
     def on_verify_iso_clicked(self, button):
         p = self._get_selected_partition()
