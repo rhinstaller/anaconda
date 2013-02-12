@@ -1402,13 +1402,13 @@ class AnacondaKSHandler(superclass):
 
         # Prepare the structure to track configured spokes
         self.configured_spokes = SpokeRegistry()
-        
+
         # Prepare the final structures for 3rd party addons
-        self.addon = AddonRegistry(addons)    
+        self.addons = AddonRegistry(addons)
 
     def __str__(self):
-        return superclass.__str__(self) + "\n" +  str(self.addon)
-        
+        return superclass.__str__(self) + "\n" +  str(self.addons)
+
 class AnacondaPreParser(KickstartParser):
     # A subclass of KickstartParser that only looks for %pre scripts and
     # sets them up to be run.  All other scripts and commands are ignored.

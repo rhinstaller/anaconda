@@ -148,7 +148,7 @@ class AddonSection(Section):
         if not self.addon_id:
             return
 
-        addon = getattr(self.handler.addon, self.addon_id)
+        addon = getattr(self.handler.addons, self.addon_id)
         addon.handle_line(line)
 
     def handleHeader(self, lineno, args):

@@ -80,7 +80,7 @@ def doConfiguration(storage, payload, ksdata, instClass):
         ksdata.user.execute(storage, ksdata, instClass, u)
 
     with progress_report(_("Configuring addons")):
-        ksdata.addon.execute(storage, ksdata, instClass, u)
+        ksdata.addons.execute(storage, ksdata, instClass, u)
         ksdata.configured_spokes.execute(storage, ksdata, instClass, u)
         
     with progress_report(_("Running post install scripts")):
@@ -113,7 +113,7 @@ def doInstall(storage, payload, ksdata, instClass):
     progress.send_init(steps)
 
     with progress_report(_("Setting up the install environment")):
-        ksdata.addon.setup(storage, ksdata, instClass)
+        ksdata.addons.setup(storage, ksdata, instClass)
 
     # Do partitioning.
     payload.preStorage()
