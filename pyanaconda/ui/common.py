@@ -541,7 +541,15 @@ def collect(module_pattern, path, pred):
 
         p = lambda obj: inspect.isclass(obj) and pred(obj)
 
-        for (name, val) in inspect.getmembers(module, p):
+        # if __all__ is defined in the module, use it
+        if not hasattr(module, "__all__"):
+            members = inspect.getmembers(module, p)
+        else:
+            members = [(name, getattr(module, name))
+                       for name in module.__all__
+                       if p(getattr(module, name))]
+        
+        for (name, val) in members:
             retval.append(val)
 
     return retval
