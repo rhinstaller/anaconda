@@ -10,12 +10,10 @@ URL:     http://fedoraproject.org/wiki/Anaconda
 
 # To generate Source0 do:
 # git clone http://git.fedorahosted.org/git/anaconda.git
-# git checkout -b archive-branch anaconda-%{version}-%{release}
+# git checkout -b archive-branch anaconda-%%{version}-%%{release}
 # ./autogen.sh
 # make dist
 Source0: %{name}-%{version}.tar.bz2
-
-BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 # Versions of required components (done so we make sure the buildrequires
 # match the requires versions of things).
@@ -167,20 +165,17 @@ runtime on NFS/HTTP/FTP servers or local disks.
 %{__make} %{?_smp_mflags}
 
 %install
-%{__rm} -rf %{buildroot}
-%{__make} install DESTDIR=%{buildroot}
+%{__make_install}
 find %{buildroot} -type f -name "*.la" | xargs %{__rm}
 
 %ifarch %livearches
-desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_datadir}/applications/liveinst.desktop
+desktop-file-install ---dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_datadir}/applications/liveinst.desktop
 %else
 %{__rm} -rf %{buildroot}%{_bindir}/liveinst %{buildroot}%{_sbindir}/liveinst
 %endif
 
 %find_lang %{name}
 
-%clean
-%{__rm} -rf %{buildroot}
 
 %ifarch %livearches
 %post
@@ -193,7 +188,6 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %files -f %{name}.lang
-%defattr(-,root,root)
 %doc COPYING
 %doc docs/command-line.txt
 %doc docs/install-methods.txt
@@ -223,21 +217,18 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %files widgets
-%defattr(-,root,root)
 %{_libdir}/libAnacondaWidgets.so.*
 %{_libdir}/girepository*/AnacondaWidgets*typelib
 %{_libdir}/python*/site-packages/gi/overrides/*
 %{_datadir}/anaconda/tzmapdata/*
 
 %files widgets-devel
-%defattr(-,root,root)
 %{_libdir}/libAnacondaWidgets.so
 %{_includedir}/*
 %{_datadir}/glade/catalogs/AnacondaWidgets.xml
 %{_datadir}/gtk-doc
 
 %files dracut
-%defattr(-,root,root)
 %dir %{_prefix}/lib/dracut/modules.d/80%{name}
 %{_prefix}/lib/dracut/modules.d/80%{name}/*
 
