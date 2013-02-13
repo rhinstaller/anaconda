@@ -147,10 +147,14 @@ class InstallOptions1Dialog(GUIObject):
         self.window.destroy()
         return rc
 
-    def refresh(self, required_space, disk_free, fs_free, autoPartType):
+    def refresh(self, required_space, disk_free, fs_free, autoPartType, encrypted):
         self.autoPartType = autoPartType
         self.autoPartTypeCombo = self.builder.get_object("options1_combo")
         self.autoPartTypeCombo.set_active(self.autoPartType)
+
+        self.encrypted = encrypted
+        self.encryptCheckbutton = self.builder.get_object("encryption1_checkbutton")
+        self.encryptCheckbutton.set_active(self.encrypted)
 
         options_label = self.builder.get_object("options1_label")
 
@@ -241,14 +245,21 @@ class InstallOptions1Dialog(GUIObject):
     def on_type_changed(self, combo):
         self.autoPartType = combo.get_active()
 
+    def on_encrypt_toggled(self, checkbox):
+        self.encrypted = checkbox.get_active()
+
 class InstallOptions2Dialog(InstallOptions1Dialog):
     builderObjects = ["options2_dialog"]
     mainWidgetName = "options2_dialog"
 
-    def refresh(self, required_space, disk_free, fs_free, autoPartType):
+    def refresh(self, required_space, disk_free, fs_free, autoPartType, encrypted):
         self.autoPartType = autoPartType
         self.autoPartTypeCombo = self.builder.get_object("options2_combo")
         self.autoPartTypeCombo.set_active(self.autoPartType)
+
+        self.encrypted = encrypted
+        self.encryptCheckbutton = self.builder.get_object("encryption2_checkbutton")
+        self.encryptCheckbutton.set_active(self.encrypted)
 
         sw_text = self._get_sw_needs_text(required_space)
         label_text = _("%s\nThe disks you've selected have the following "
@@ -279,7 +290,7 @@ class InstallOptions3Dialog(InstallOptions1Dialog):
     builderObjects = ["options3_dialog"]
     mainWidgetName = "options3_dialog"
 
-    def refresh(self, required_space, disk_free, fs_free, autoPartType):
+    def refresh(self, required_space, disk_free, fs_free, autoPartType, encrypted):
         sw_text = self._get_sw_needs_text(required_space)
         label_text = (_("%s\nYou don't have enough space available to install "
                         "<b>%s</b>, even if you used all of the free space\n"
@@ -509,9 +520,6 @@ class StorageSpoke(NormalSpoke, StorageChecker):
 
         self._previous_autopart = self.autopart
 
-        encrypt_checkbutton = self.builder.get_object("encryption_checkbutton")
-        encrypt_checkbutton.set_active(self.encrypted)
-
         # update the selections in the ui
         overviews = self.local_disks_box.get_children()
         for overview in overviews:
@@ -668,9 +676,6 @@ class StorageSpoke(NormalSpoke, StorageChecker):
     def _check_encrypted(self):
         # even if they're not doing autopart, setting autopart.encrypted
         # establishes a default of encrypting new devices
-        encrypt_button = self.builder.get_object("encryption_checkbutton")
-        self.encrypted = encrypt_button.get_active()
-
         if not self.encrypted:
             return True
 
@@ -743,10 +748,12 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         else:
             dialog = InstallOptions3Dialog(self.data, payload=self.payload)
 
-        dialog.refresh(required_space, disk_free, fs_free, self.autoPartType)
+        dialog.refresh(required_space, disk_free, fs_free, self.autoPartType,
+                       self.encrypted)
         rc = self.run_lightbox_dialog(dialog)
         if rc == dialog.RESPONSE_CONTINUE:
             self.autoPartType = dialog.autoPartType
+            self.encrypted = dialog.encrypted
 
             if not self._check_encrypted():
                 return
@@ -771,6 +778,8 @@ class StorageSpoke(NormalSpoke, StorageChecker):
             NormalSpoke.on_back_clicked(self, button)
         elif rc == dialog.RESPONSE_RECLAIM:
             self.autoPartType = dialog.autoPartType
+            self.encrypted = dialog.encrypted
+
             if not self._check_encrypted():
                 return
 
@@ -781,6 +790,7 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         elif rc == dialog.RESPONSE_CUSTOM:
             self.autopart = False
             self.autoPartType = dialog.autoPartType
+            self.encrypted = dialog.encrypted
 
             self.skipTo = "CustomPartitioningSpoke"
             NormalSpoke.on_back_clicked(self, button)
