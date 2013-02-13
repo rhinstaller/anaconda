@@ -440,6 +440,7 @@ class StorageSpoke(NormalSpoke, StorageChecker):
             if self.autopart:
                 # this was already run as part of doAutoPartition. dumb.
                 StorageChecker.errors = []
+                StorageChecker.warnings = []
                 self.run()
         finally:
             self._ready = True
@@ -483,6 +484,8 @@ class StorageSpoke(NormalSpoke, StorageChecker):
 
             if self.errors:
                 msg = _("Error checking storage configuration")
+            elif self.warnings:
+                msg = _("Warning checking storage configuration")
             elif self.data.autopart.autopart:
                 msg = _("Automatic partitioning selected")
             else:
@@ -530,6 +533,8 @@ class StorageSpoke(NormalSpoke, StorageChecker):
 
         if self.errors:
             self.set_warning(_("Error checking storage configuration.  Click for details."))
+        elif self.warnings:
+            self.set_warning(_("Warning checking storage configuration.  Click for details."))
 
     def initialize(self):
         from pyanaconda.ui.gui.utils import setViewportBackground
@@ -808,23 +813,31 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         print "ADD DISK CLICKED"
 
     def on_info_bar_clicked(self, *args):
-        if not self.errors:
-            return
+        if self.errors:
+            label = _("The following errors were encountered when checking your storage "
+                      "configuration.  You can modify your storage layout\nor quit the "
+                      "installer.")
 
-        label = _("The following errors were encountered when checking your storage "
-                  "configuration.  You can modify your storage layout\nor quit the "
-                  "installer.")
-        dialog = DetailedErrorDialog(self.data, buttons=[_("_Quit"), _("_Modify Storage Layout")], label=label)
-        with enlightbox(self.window, dialog.window):
-            errors = "\n".join(self.errors)
-            dialog.refresh(errors)
-            rc = dialog.run()
+            dialog = DetailedErrorDialog(self.data, buttons=[_("_Quit"), _("_Modify Storage Layout")], label=label)
+            with enlightbox(self.window, dialog.window):
+                errors = "\n".join(self.errors)
+                dialog.refresh(errors)
+                rc = dialog.run()
 
-        dialog.window.destroy()
+            dialog.window.destroy()
 
-        if rc == 0:
-            # Quit.
-            sys.exit(0)
-        elif rc == 1:
-            # Close the dialog so the user can change selections.
-            pass
+            if rc == 0:
+                # Quit.
+                sys.exit(0)
+        elif self.warnings:
+            label = _("The following warnings were encountered when checking your storage "
+                      "configuration.  These are not fatal, but you may wish to make "
+                      "changes to your storage layout.")
+
+            dialog = DetailedErrorDialog(self.data, buttons=[_("_OK")], label=label)
+            with enlightbox(self.window, dialog.window):
+                warnings = "\n".join(self.warnings)
+                dialog.refresh(warnings)
+                rc = dialog.run()
+
+            dialog.window.destroy()
