@@ -49,7 +49,15 @@ def augmentEnv():
                })
     return env
 
-def _run_program(argv, root='/', stdin=None, env_prune=None):
+def _run_program(argv, root='/', stdin=None, stdout=None, env_prune=None):
+    """ Run an external program, log the output and return it to the caller
+        @param argv The command to run and argument
+        @param root The directory to chroot to before running command.
+        @param stdin The file object to read stdin from.
+        @param stdout Optional file object to write stdout and stderr to.
+        @param env_prune environment variable to remove before execution
+        @return The return code of the command and the output
+    """
     if env_prune is None:
         env_prune = []
 
@@ -75,6 +83,8 @@ def _run_program(argv, root='/', stdin=None, env_prune=None):
             if out:
                 for line in out.splitlines():
                     program_log.info(line)
+                    if stdout:
+                        stdout.write(line)
 
         except OSError as e:
             program_log.error("Error running %s: %s" % (argv[0], e.strerror))
@@ -84,41 +94,44 @@ def _run_program(argv, root='/', stdin=None, env_prune=None):
 
     return (proc.returncode, out)
 
-## Run an external program and redirect the output to a file.
-# @param command The command to run.
-# @param argv A list of arguments.
-# @param stdin The file descriptor to read stdin from.
-# @param stdout The file descriptor to redirect stdout to.
-# @param stderr The file descriptor to redirect stderr to.
-# @param root The directory to chroot to before running command.
-# @return The return code of command.
-def execWithRedirect(command, argv, stdin = None, stdout = None,
-                     stderr = None, root = '/', env_prune=[]):
+def execWithRedirect(command, argv, stdin=None, stdout=None,
+                     stderr=None, root='/', env_prune=[]):
+    """ Run an external program and redirect the output to a file.
+        @param command The command to run
+        @param argv The argument list
+        @param stdin The file object to read stdin from.
+        @param stdout Optional file object to redirect stdout and stderr to.
+        @param stderr not used
+        @param root The directory to chroot to before running command.
+        @param env_prune environment variable to remove before execution
+        @return The return code of the command
+    """
     if flags.testing:
         log.info("not running command because we're testing: %s %s"
                    % (command, " ".join(argv)))
         return 0
 
     argv = [command] + argv
-    return _run_program(argv, stdin=stdin, root=root, env_prune=env_prune)[0]
+    return _run_program(argv, stdin=stdin, stdout=stdout, root=root, env_prune=env_prune)[0]
 
-## Run an external program and capture standard out.
-# @param command The command to run.
-# @param argv A list of arguments.
-# @param stdin The file descriptor to read stdin from.
-# @param stderr The file descriptor to redirect stderr to.
-# @param root The directory to chroot to before running command.
-# @param fatal Boolean to determine if non-zero exit is fatal.
-# @return The output of command from stdout.
-def execWithCapture(command, argv, stdin = None, stderr = None, root='/',
-                    fatal = False):
+def execWithCapture(command, argv, stdin=None, stderr=None, root='/',
+                    fatal=False):
+    """ Run an external program and capture standard out and err.
+        @param command The command to run
+        @param argv The argument list
+        @param stdin The file object to read stdin from.
+        @param stderr not used
+        @param root The directory to chroot to before running command.
+        @param fatal not used
+        @return The output of the command
+    """
     if flags.testing:
         log.info("not running command because we're testing: %s %s"
                     % (command, " ".join(argv)))
         return ""
 
     argv = [command] + argv
-    return _run_program(argv, stdin=stdin, root=root)[1]
+    return _run_program(argv, stdin=stdin, stdout=stdout, root=root)[1]
 
 ## Run a shell.
 def execConsole():

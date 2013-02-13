@@ -85,8 +85,7 @@ def startMetacityWM():
         try:
             args = ['--display', ':1',
                     '--sm-disable']
-            iutil.execWithRedirect('metacity', args,
-                                   stdout='/dev/null', stderr='/dev/null')
+            iutil.execWithRedirect('metacity', args)
         except BaseException as e:
             # catch all possible exceptions
             log.error("Problems running the window manager: %s" % str(e))

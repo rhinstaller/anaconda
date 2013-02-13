@@ -595,8 +595,7 @@ def set_hostname(hn):
         return
 
     log.info("setting installation environment hostname to %s" % hn)
-    iutil.execWithRedirect("hostname", ["-v", hn ],
-                           stdout="/dev/tty5", stderr="/dev/tty5")
+    iutil.execWithRedirect("hostname", ["-v", hn ])
 
 def write_hostname(rootpath, ksdata, overwrite=False):
     cfgfile = os.path.normpath(rootpath + hostnameFile)

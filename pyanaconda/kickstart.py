@@ -79,7 +79,17 @@ from anaconda_log import logger, logLevelMap, setHandlersLevel,\
 topology = None
 
 class AnacondaKSScript(KSScript):
+    """ Execute a kickstart script
+
+        This will write the script to a file named /tmp/ks-script- before
+        execution.
+        Output is logged by the program logger, the path specified by --log
+        or to /tmp/ks-script-*.log
+    """
     def run(self, chroot):
+        """ Run the kickstart script
+            @param chroot directory path to chroot into before execution
+        """
         if self.inChroot:
             scriptRoot = chroot
         else:
@@ -91,9 +101,9 @@ class AnacondaKSScript(KSScript):
         os.close(fd)
         os.chmod(path, 0700)
 
-        # Always log stdout/stderr from scripts.  Using --logfile just lets you
+        # Always log stdout/stderr from scripts.  Using --log just lets you
         # pick where it goes.  The script will also be logged to program.log
-        # because of execWithRedirect, and to anaconda.log if the script fails.
+        # because of execWithRedirect.
         if self.logfile:
             if self.inChroot:
                 messages = "%s/%s" % (scriptRoot, self.logfile)
@@ -108,26 +118,13 @@ class AnacondaKSScript(KSScript):
             # chroot later.
             messages = "/tmp/%s.log" % os.path.basename(path)
 
-        rc = iutil.execWithRedirect(self.interp, ["/tmp/%s" % os.path.basename(path)],
-                                    stdin = messages, stdout = messages, stderr = messages,
-                                    root = scriptRoot)
+        with open(messages, "w") as fp:
+            rc = iutil.execWithRedirect(self.interp, ["/tmp/%s" % os.path.basename(path)],
+                                        stdin=fp, stdout=fp,
+                                        root = scriptRoot)
 
-        # Always log an error.  Only fail if we have a handle on the
-        # windowing system and the kickstart file included --erroronfail.
         if rc != 0:
             log.error("Error code %s running the kickstart script at line %s" % (rc, self.lineno))
-
-            if os.path.isfile(messages):
-                try:
-                    f = open(messages, "r")
-                except IOError as e:
-                    err = None
-                else:
-                    err = f.readlines()
-                    f.close()
-                    for l in err:
-                        log.error("\t%s" % l)
-
             if self.errorOnFail:
                 errorHandler.cb(ScriptError(), self.lineno, err)
                 sys.exit(0)
