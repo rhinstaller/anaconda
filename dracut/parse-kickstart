@@ -269,8 +269,8 @@ def ksnet_to_ifcfg(net, filename=None):
             os.makedirs("/tmp/ifcfg")
     ifcfg['DEVICE'] = dev
     ifcfg['HWADDR'] = readsysfile("/sys/class/net/%s/address" % dev)
-    uuid = str(uuid.uuid4())
-    ifcfg['UUID'] = uuid
+    if_uuid = str(uuid.uuid4())
+    ifcfg['UUID'] = if_uuid
     # we set real ONBOOT value in anaconda, here
     # we use it to activate devcies by NM on start
     ifcfg['ONBOOT'] = "yes" if net.activate else "no"
@@ -313,7 +313,7 @@ def ksnet_to_ifcfg(net, filename=None):
     if net.bootProto == 'dhcp':
         srcpath = "/tmp/dhclient.%s.lease" % dev
         dstdir = "/tmp/ifcfg-leases"
-        dstpath = "%s/dhclient-%s-%s.lease" % (dstdir, uuid, dev)
+        dstpath = "%s/dhclient-%s-%s.lease" % (dstdir, if_uuid, dev)
         if os.path.exists(srcpath):
             if not os.path.isdir(dstdir):
                 os.makedirs(dstdir)
