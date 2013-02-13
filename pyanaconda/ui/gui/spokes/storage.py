@@ -815,7 +815,7 @@ class StorageSpoke(NormalSpoke, StorageChecker):
     def on_info_bar_clicked(self, *args):
         if self.errors:
             label = _("The following errors were encountered when checking your storage "
-                      "configuration.  You can modify your storage layout\nor quit the "
+                      "configuration.  You can modify your storage layout or quit the "
                       "installer.")
 
             dialog = DetailedErrorDialog(self.data, buttons=[_("_Quit"), _("_Modify Storage Layout")], label=label)
