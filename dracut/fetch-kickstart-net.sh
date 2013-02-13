@@ -36,11 +36,12 @@ if [ "$kickstart" = "nfs:auto" ]; then
         fi
       done
     } < /tmp/net.$netif.lease
-    # filename is appended with '$IP_ADDR-kickstart' if ending in '/'
-    if [ "${filename%/}" != "$filename" ]; then
-        filename="${filename}${new_ip_address}-kickstart"
-    fi
     kickstart="nfs:$server:$filename"
+fi
+
+# kickstart is appended with '$IP_ADDR-kickstart' if ending in '/'
+if [ "${kickstart%/}" != "$kickstart" ]; then
+    kickstart="${kickstart}${new_ip_address}-kickstart"
 fi
 
 info "anaconda fetching kickstart from $kickstart"
