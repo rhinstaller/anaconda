@@ -180,6 +180,7 @@ def initExceptionHandling(anaconda):
     conf.register_callback("lsblk_output", lsblk_callback, attchmnt_only=True)
     conf.register_callback("nmcli_dev_list", nmcli_dev_list_callback,
                            attchmnt_only=True)
+    conf.register_callback("type", lambda: "anaconda", attchmnt_only=True)
 
     handler = AnacondaExceptionHandler(conf, anaconda.intf.meh_interface,
                                        ReverseExceptionDump, anaconda.intf.tty_num)
