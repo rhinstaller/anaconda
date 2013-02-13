@@ -34,6 +34,7 @@ from pyanaconda.ui import common
 from pyanaconda.ui.gui import GUIObject
 from pyanaconda.ui.gui.categories import collect_categories
 from pyanaconda.ui.gui.spokes import StandaloneSpoke, collect_spokes
+from pyanaconda.ui.gui.utils import gtk_call_once
 
 import logging
 log = logging.getLogger("anaconda")
@@ -85,7 +86,11 @@ class Hub(GUIObject, common.Hub):
         GUIObject.__init__(self, data)
         common.Hub.__init__(self, data, storage, payload, instclass)
 
-        self._autoContinue = False
+        # enable the autoContinue feature if we are in kickstart
+        # mode, but if the user interacts with the hub, it will be
+        # disabled again
+        self._autoContinue = flags.automatedInstall
+        
         self._incompleteSpokes = []
         self._inSpoke = False
         self._notReadySpokes = []
@@ -262,10 +267,7 @@ class Hub(GUIObject, common.Hub):
                 self.set_warning(self._checker.error_message)
                 self.window.show_all()
         else:
-            if flags.automatedInstall:
-                msg = _("When all items marked with this icon are complete, installation will automatically continue.")
-            else:
-                msg = _("Please complete items marked with this icon before continuing to the next step.")
+            msg = _("Please complete items marked with this icon before continuing to the next step.")
 
             self.set_warning(msg)
             self.window.show_all()
@@ -330,9 +332,10 @@ class Hub(GUIObject, common.Hub):
 
                     if self.continuePossible:
                         if self._inSpoke:
-                            self._autoContinue = True
-                        elif q.empty():
-                            self.continueButton.emit("clicked")
+                            self._autoContinue = False
+                        elif self._autoContinue and q.empty():
+                            # enqueue the emit to the Gtk message queue
+                            gtk_call_once(self.continueButton.emit, "clicked")
             elif code == communication.HUB_CODE_MESSAGE:
                 spoke.selector.set_property("status", args[1])
                 log.info("setting %s status to: %s" % (spoke, args[1]))
@@ -370,6 +373,15 @@ class Hub(GUIObject, common.Hub):
         if selector:
             selector.grab_focus()
 
+        # On automated kickstart installs, our desired behavior is to display
+        # the hub while background processes work, then skip to the progress
+        # hub immediately after everything's done.
+        # However if the user proves his intent to change the kickstarted
+        # values by entering any of the spokes, we need to disable the
+        # autoContinue feature and wait for the user to explicitly state
+        # that he is done configuring by pressing the continue button.
+        self._autoContinue = False
+        
         self._inSpoke = True
         self._runSpoke(spoke)
         self._inSpoke = False
@@ -388,10 +400,4 @@ class Hub(GUIObject, common.Hub):
 
             self._on_spoke_clicked(self._spokes[dest].selector, None, self._spokes[dest])
 
-        # On automated kickstart installs, our desired behavior is to display
-        # the hub while background processes work, then skip to the progress
-        # hub immediately after everything's done.  However, this allows for
-        # the possibility that the user will be on a hub when everything
-        # finishes.  We need to wait until they're done, and then continue.
-        if self._autoContinue:
-            self.continueButton.emit("clicked")
+
