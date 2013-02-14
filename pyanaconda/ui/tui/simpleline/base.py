@@ -193,11 +193,15 @@ class App(object):
             # and skip the input processing once, to redisplay the screen first
             self.redraw()
             input_needed = False
-        else:
+        elif self._redraw:
             # get the widget tree from the screen and show it in the screen
             input_needed = screen.refresh(args)
             screen.window.show_all()
             self._redraw = False
+        else:
+            # this can happen only in case there was invalid input and prompt
+            # should be shown again
+            input_needed = True
 
         return input_needed
 
@@ -231,7 +235,7 @@ class App(object):
             try:
                 # draw the screen if redraw is needed or the screen changed
                 # (unlikely to happen separately, but just be sure)
-                if self._redraw or last_screen != self._screens[-1]:
+                if self._redraw or last_screen != self._screens[-1][0]:
                     # we have fresh screen, reset error counter
                     error_counter = 0
                     if not self._do_redraw():
