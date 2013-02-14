@@ -34,6 +34,8 @@ from constants import ROOT_PATH
 from tempfile import mkstemp
 
 from pyanaconda.bootloader import get_bootloader
+from pyanaconda import constants
+from pyanaconda import addons
 
 import logging
 log = logging.getLogger("anaconda")
@@ -195,16 +197,24 @@ class Anaconda(object):
             from pyanaconda.ui.gui import GraphicalUserInterface
             self._intf = GraphicalUserInterface(self.storage, self.payload,
                                                 self.instClass)
+
+            # needs to be refreshed now we know if gui or tui will take place
+            addon_paths = addons.collect_addon_paths(constants.ADDON_PATHS,
+                                                     ui_subdir="gui")
         elif self.displayMode in ['t', 'c']: # text and command line are the same
             from pyanaconda.ui.tui import TextUserInterface
             self._intf = TextUserInterface(self.storage, self.payload,
                                            self.instClass)
+
+            # needs to be refreshed now we know if gui or tui will take place
+            addon_paths = addons.collect_addon_paths(constants.ADDON_PATHS,
+                                                     ui_subdir="tui")
         else:
             raise RuntimeError("Unsupported displayMode: %s" % self.displayMode)
 
         if addon_paths:
             self._intf.update_paths(addon_paths)
-        
+
     def writeXdriver(self, root = None):
         # this should go away at some point, but until it does, we
         # need to keep it around.
