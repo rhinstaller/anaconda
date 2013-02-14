@@ -166,7 +166,7 @@ runtime on NFS/HTTP/FTP servers or local disks.
 %{__make} %{?_smp_mflags}
 
 %install
-%{__make_install}
+%{make_install}
 find %{buildroot} -type f -name "*.la" | xargs %{__rm}
 
 %ifarch %livearches
@@ -200,7 +200,6 @@ update-desktop-database &> /dev/null || :
 %{_sbindir}/anaconda
 %{_sbindir}/handle-sshpw
 %{_sbindir}/logpicker
-%{_sbindir}/anaconda-cleanup-initramfs
 %{_datadir}/anaconda
 %{_prefix}/libexec/anaconda
 %{_libdir}/python*/site-packages/pyanaconda/*
