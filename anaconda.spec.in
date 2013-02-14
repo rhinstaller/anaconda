@@ -234,6 +234,48 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/lib/dracut/modules.d/80%{name}/*
 
 %changelog
+* Thu Feb 14 2013 Brian C. Lane <bcl@redhat.com> - 19.6-1
+- fix uuid reference in parse-kickstart (bcl)
+- Fixup kickstart script logging (bcl)
+- Tell libreport the crash happened in Anaconda (#885690) (vpodzime)
+- Restore older behavior regarding ks argument without a file name (#910550).
+  (clumens)
+- Move the encryption checkbox to the dialog (bcl)
+- re-fetch metadata when proxy settings change (bcl)
+- Apply some fixes to the spec file (#909592, metherid (clumens)
+- install -> installation in a couple user-visible strings. (clumens)
+- Restore support for partial kickstart files (#887254). (clumens)
+- Get rid of packagesSeen. (clumens)
+- Remove debugging print (DatetimeSpoke) (vpodzime)
+- Honor modules' __all__ when doing collect (msivak)
+- Use ksdata.addons instead of ksdata.addon and add ADDON_PATHS to sys.path
+  (vpodzime)
+- Remove unused modules (dbus) and stuff from network.py (rvykydal)
+- Replace get_NM_connection() using new nm module. (rvykydal)
+- Replace get_NM_settings_value() using new nm module (rvykydal)
+- Replace nmIsConnected() using new nm module (rvykydal)
+- Replace hasActiveNetDev() using new nm module (rvykydal)
+- Replace getDevicesProperies() using new nm module (rvykydal)
+- Replace getIPAddresses() using new nm module (rvykydal)
+- Replace getMacAddress() using new nm module (rvykydal)
+- Replace isWirelessDevice() using new nm module (rvykydal)
+- Replace getLinkStatus() using new nm module (rvykydal)
+- Replace getActiveNetDevs() using new nm module (rvykydal)
+- Replace getDevices() using new nm module (rvykydal)
+- Move NM dbus calls to separate module. (rvykydal)
+- Move networking functions from isys to network module. (rvykydal)
+- Remove unused stuff from network.py (rvykydal)
+- Remove unused networking stuff from isys (rvykydal)
+- Network spoke: remove unused NM path and interface constants (rvykydal)
+- Add 'eject' to the anaconda initramfs (wwoods)
+- Ensure hookdir exists before creating eject script (wwoods)
+- remove anaconda-cleanup-initramfs.service (wwoods)
+- Add dracut/save-initramfs.sh (wwoods)
+- Bring back the askmethod parameter (#889887). (clumens)
+- Add a new selectorFromDevice method to the accordion. (clumens)
+- The storage logger is now the blivet logger. (dlehman)
+- DeviceFactory has moved from blivet to blivet.devicefactory. (dlehman)
+
 * Fri Feb 08 2013 Brian C. Lane <bcl@redhat.com> - 19.5-1
 - Add --dirinstall command (bcl)
 - Convert the mount point entry to one containing a drop down. (clumens)
