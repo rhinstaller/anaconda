@@ -44,6 +44,9 @@ ETC_ZONES = ['GMT+1', 'GMT+2', 'GMT+3', 'GMT+4', 'GMT+5', 'GMT+6', 'GMT+7',
              'GMT-8', 'GMT-9', 'GMT-10', 'GMT-11', 'GMT-12', 'GMT-13',
              'GMT-14', 'UTC', 'GMT']
 
+NTP_PACKAGE = "chrony"
+NTP_SERVICE = "chronyd"
+
 class TimezoneConfigError(Exception):
     """Exception class for timezone configuration related problems"""
     pass

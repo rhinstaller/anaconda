@@ -37,6 +37,7 @@ import iutil
 import os
 import os.path
 import tempfile
+import flags as flags_module
 from flags import flags
 from constants import *
 import shlex
@@ -46,6 +47,7 @@ import pykickstart.commands as commands
 from pyanaconda import keyboard
 from pyanaconda import ntp
 from pyanaconda import timezone
+from pyanaconda.timezone import NTP_PACKAGE, NTP_SERVICE
 from pyanaconda import localization
 from pyanaconda import network
 from pyanaconda import nm
@@ -1179,6 +1181,39 @@ class Timezone(commands.timezone.F18_Timezone):
         #TODO: Do we need to set it to False in case of dual-boot?
         #default to UTC HW clock in Anaconda
         self.isUtc = True
+        self._added_chrony = False
+        self._enabled_chrony = False
+
+    def setup(self, ksdata):
+        if self.nontp:
+            if iutil.service_running(NTP_SERVICE) and \
+                    flags_module.can_touch_runtime_system("stop NTP service"):
+                ret = iutil.stop_service(NTP_SERVICE)
+                if ret != 0:
+                    log.error("Failed to stop NTP service")
+
+            if self._added_chrony and NTP_PACKAGE in ksdata.packages.packageList:
+                ksdata.packages.packageList.remove(NTP_PACKAGE)
+                self._added_chrony = False
+
+            if self._enabled_chrony and NTP_SERVICE in ksdata.services.enabled:
+                ksdata.services.enabled.remove(NTP_SERVICE)
+                self._enabled_chrony = False
+
+        else:
+            if not iutil.service_running(NTP_SERVICE) and \
+                    flags_module.can_touch_runtime_system("start NTP service"):
+                ret = iutil.start_service(NTP_SERVICE)
+                if ret != 0:
+                    log.error("Failed to start NTP service")
+
+            if not NTP_PACKAGE in ksdata.packages.packageList:
+                ksdata.packages.packageList.append(NTP_PACKAGE)
+                self._added_chrony = True
+
+            if not NTP_SERVICE in ksdata.services.enabled:
+                ksdata.services.enabled.append(NTP_SERVICE)
+                self._enabled_chrony = True
 
     def execute(self, *args):
         # write out timezone configuration

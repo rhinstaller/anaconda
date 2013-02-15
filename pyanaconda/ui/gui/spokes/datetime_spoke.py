@@ -35,6 +35,7 @@ from pyanaconda.ui.gui.categories.localization import LocalizationCategory
 from pyanaconda.ui.gui.utils import enlightbox, gtk_thread_nowait, gtk_call_once
 
 from pyanaconda import timezone
+from pyanaconda.timezone import NTP_SERVICE
 from pyanaconda import iutil
 from pyanaconda import network
 from pyanaconda import nm
@@ -154,7 +155,7 @@ class NTPconfigDialog(GUIObject):
 
             if flags.can_touch_runtime_system("save NTP servers configuration"):
                 ntp.save_servers_to_config(new_servers)
-                iutil.restart_service("chronyd")
+                iutil.restart_service(NTP_SERVICE)
 
         #Cancel clicked, window destroyed...
         else:
@@ -357,8 +358,6 @@ class DatetimeSpoke(NormalSpoke):
         self._radioButton24h = self.builder.get_object("timeFormatRB")
 
         self._ntpSwitch = self.builder.get_object("networkTimeSwitch")
-        self._added_chrony = False
-        self._enabled_chrony = False
 
         if self._radioButton24h.get_active():
             self._set_amPm_part_sensitive(False)
@@ -392,44 +391,21 @@ class DatetimeSpoke(NormalSpoke):
             return _("Nothing selected")
 
     def apply(self):
-        GLib.source_remove(self._update_datetime_timer_id)
-        self._update_datetime_timer_id = None
-
-        new_tz = self._tzmap.get_timezone()
-
-        # get_timezone() may return "" if Etc/XXXXX is selected
-        if not new_tz:
-            # get selected "Etc/XXXXXX" zone
-            region = self._get_active_region()
-            city = self._get_active_city()
-            new_tz = region + "/" + city
+        # we could use self._tzmap.get_timezone() here, but it returns "" if
+        # Etc/XXXXXX timezone is selected
+        region = self._get_active_region()
+        city = self._get_active_city()
+        new_tz = region + "/" + city
 
         self.data.timezone.timezone = new_tz
         self.data.timezone.seen = True
 
-        if self._ntpSwitch.get_active():
-            # turned ON
-            self.data.timezone.nontp = False
-            if not "chrony" in self.data.packages.packageList:
-                self.data.packages.packageList.append("chrony")
-                self._added_chrony = True
+        self.data.timezone.nontp = not self._ntpSwitch.get_active()
 
-            if not "chronyd" in self.data.services.enabled and \
-                    not "chronyd" in self.data.services.disabled:
-                self.data.services.enabled.append("chronyd")
-                self._enabled_chrony = True
-        else:
-            # turned OFF
-            self.data.timezone.nontp = True
-            if self._added_chrony and ("chrony" in
-                                        self.data.packages.packageList):
-                self.data.packages.packageList.remove("chrony")
-                self._added_chrony = False
-
-            if self._enabled_chrony and ("chronyd" in
-                                            self.data.services.enabled):
-                self.data.services.enabled.remove("chronyd")
-                self._enabled_chrony = False
+    def execute(self):
+        GLib.source_remove(self._update_datetime_timer_id)
+        self._update_datetime_timer_id = None
+        self.data.timezone.setup(self.data)
 
     @property
     def completed(self):
@@ -461,7 +437,7 @@ class DatetimeSpoke(NormalSpoke):
             gtk_call_once(self._config_dialog.refresh_servers_state)
 
         if flags.can_touch_runtime_system("get NTP service state"):
-            ntp_working = has_active_network and iutil.service_running("chronyd")
+            ntp_working = has_active_network and iutil.service_running(NTP_SERVICE)
         else:
             ntp_working = not self.data.timezone.nontp
 
@@ -915,12 +891,12 @@ class DatetimeSpoke(NormalSpoke):
                     #the time as drastically as we need
                     ntp.one_time_sync_async(working_server)
 
-            ret = iutil.start_service("chronyd")
+            ret = iutil.start_service(NTP_SERVICE)
             self._set_date_time_setting_sensitive(False)
 
             #if starting chronyd failed and chronyd is not running,
             #set switch back to OFF
-            if (ret != 0) and not iutil.service_running("chronyd"):
+            if (ret != 0) and not iutil.service_running(NTP_SERVICE):
                 switch.set_active(False)
 
         else:
@@ -930,11 +906,11 @@ class DatetimeSpoke(NormalSpoke):
                 return
 
             self._set_date_time_setting_sensitive(True)
-            ret = iutil.stop_service("chronyd")
+            ret = iutil.stop_service(NTP_SERVICE)
 
             #if stopping chronyd failed and chronyd is running,
             #set switch back to ON
-            if (ret != 0) and iutil.service_running("chronyd"):
+            if (ret != 0) and iutil.service_running(NTP_SERVICE):
                 switch.set_active(True)
 
     def on_ntp_config_clicked(self, *args):
