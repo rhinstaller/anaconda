@@ -27,6 +27,7 @@ from blivet.devicelibs import swap
 from blivet.formats import getFormat
 from blivet.partitioning import doPartitioning
 from blivet.partitioning import growLVM
+from blivet import udev
 import blivet.iscsi
 import blivet.fcoe
 import blivet.zfcp
@@ -175,7 +176,7 @@ def detect_multipaths():
     cfg = mcw.write(friendly_names=True)
     with open("/etc/multipath.conf", "w+") as mpath_cfg:
         mpath_cfg.write(cfg)
-    devices = udev_get_block_devices()
+    devices = udev.udev_get_block_devices()
     topology = MultipathTopology(devices)
 
 def deviceMatches(spec):
@@ -184,8 +185,8 @@ def deviceMatches(spec):
         full_spec = os.path.normpath("/dev/" + full_spec)
 
     # the regular case
-    matches = udev_resolve_glob(full_spec)
-    dev = udev_resolve_devspec(full_spec)
+    matches = udev.udev_resolve_glob(full_spec)
+    dev = udev.udev_resolve_devspec(full_spec)
     # udev_resolve_devspec returns None if there's no match, but we don't
     # want that ending up in the list.
     if dev and dev not in matches:
@@ -193,8 +194,8 @@ def deviceMatches(spec):
 
     # now see if any mpaths and mpath members match
     for members in topology.multipaths_iter():
-        mpath_name = udev_device_get_multipath_name(members[0])
-        member_names = map(udev_device_get_name, members)
+        mpath_name = udev.udev_device_get_multipath_name(members[0])
+        member_names = map(udev.udev_device_get_name, members)
         if mpath_name == spec or (dev in member_names):
             # append the entire mpath
             matches.append(mpath_name)
@@ -315,7 +316,7 @@ class Bootloader(commands.bootloader.F18_Bootloader):
         else:
             self.bootDrive = disk_names[0]
 
-        spec = udev_resolve_devspec(self.bootDrive)
+        spec = udev.udev_resolve_devspec(self.bootDrive)
         drive = storage.devicetree.getDeviceByName(spec)
         storage.bootloader.stage1_disk = drive
 
@@ -375,7 +376,7 @@ class BTRFSData(commands.btrfs.F17_BTRFSData):
         if self.preexist:
             device = devicetree.getDeviceByName(self.name)
             if not device:
-                device = udev_resolve_devspec(self.name)
+                device = udev.udev_resolve_devspec(self.name)
 
             if not device:
                 raise KickstartValueError, formatErrorMsg(self.lineno, msg="Specified nonexistent BTRFS volume %s in btrfs command" % self.name)
@@ -865,7 +866,7 @@ class PartitionData(commands.partition.F18_PartData):
             if not self.onPart:
                 raise KickstartValueError, formatErrorMsg(self.lineno, msg="--noformat used without --onpart")
 
-            dev = devicetree.getDeviceByName(udev_resolve_devspec(self.onPart))
+            dev = devicetree.getDeviceByName(udev.udev_resolve_devspec(self.onPart))
             if not dev:
                 raise KickstartValueError, formatErrorMsg(self.lineno, msg="No preexisting partition with the name \"%s\" was found." % self.onPart)
 
@@ -906,7 +907,7 @@ class PartitionData(commands.partition.F18_PartData):
         if self.disk:
             names = [self.disk, "mapper/" + self.disk]
             for n in names:
-                disk = devicetree.getDeviceByName(udev_resolve_devspec(n))
+                disk = devicetree.getDeviceByName(udev.udev_resolve_devspec(n))
                 # if this is a multipath member promote it to the real mpath
                 if disk and disk.format.type == "multipath_member":
                     mpath_device = storage.devicetree.getChildren(disk)[0]
@@ -938,7 +939,7 @@ class PartitionData(commands.partition.F18_PartData):
         # take place there.  Also, we only support a subset of all the options
         # on pre-existing partitions.
         if self.onPart:
-            device = devicetree.getDeviceByName(udev_resolve_devspec(self.onPart))
+            device = devicetree.getDeviceByName(udev.udev_resolve_devspec(self.onPart))
             if not device:
                 raise KickstartValueError, formatErrorMsg(self.lineno, msg="Specified nonexistent partition %s in partition command" % self.onPart)
 
@@ -1499,7 +1500,7 @@ def parseKickstart(f):
     ksparser = AnacondaKSParser(handler)
 
     # We need this so all the /dev/disk/* stuff is set up before parsing.
-    udev_trigger(subsystem="block", action="change")
+    udev.udev_trigger(subsystem="block", action="change")
     # So that drives onlined by these can be used in the ks file
     blivet.iscsi.iscsi().startup()
     blivet.fcoe.fcoe().startup()
