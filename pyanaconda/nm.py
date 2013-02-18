@@ -411,13 +411,13 @@ if __name__ == "__main__":
         print devname
 
         try:
-            type = nm_device_type(devname)
+            devtype = nm_device_type(devname)
         except UnknownDeviceError as e:
             print "     %s" % e
-            type = None
-        if type == NetworkManager.DeviceType.ETHERNET:
+            devtype = None
+        if devtype == NetworkManager.DeviceType.ETHERNET:
             print "     type %s" % "ETHERNET"
-        elif type == NetworkManager.DeviceType.WIFI:
+        elif devtype == NetworkManager.DeviceType.WIFI:
             print "     type %s" % "WIFI"
             wireless_device = devname
 
