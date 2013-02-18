@@ -95,7 +95,7 @@ anaconda_auto_updates() {
         unpack_updates_img $dir/updates.img /updates
     fi
     if [ -e $dir/product.img ]; then
-        unpack_updates_img $dir/product.img /updates/tmp/product
+        unpack_updates_img $dir/product.img /updates
     fi
 }
 

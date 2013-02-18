@@ -58,7 +58,7 @@ case $repo in
             updates=$(fetch_url $repo/images/updates.img)
             [ -n "$updates" ] && unpack_updates_img $updates /updates
             product=$(fetch_url $repo/images/product.img)
-            [ -n "$product" ] && unpack_updates_img $product /updates/tmp/product
+            [ -n "$product" ] && unpack_updates_img $product /updates
             /sbin/dmsquash-live-root $runtime
         fi
     ;;
