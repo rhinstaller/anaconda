@@ -358,21 +358,12 @@ def nm_device_setting_value(name, key1, key2):
         value = None
     return value
 
-def _update_settings_libdbus(settings_path, key1, key2, value):
-    """Update setting key1, key2 with value."""
-    import dbus
-    con = dbus.SystemBus().get_object("org.freedesktop.NetworkManager", settings_path)
-    settings = con.GetSettings()
-    try:
-        # TODO: create key1 if missing?
-        settings[key1][key2] = value
-    except KeyError:
-        return False
-    con.Update(settings)
-    return True
-
-def nm_update_settings_of_device(name, key1, key2, value):
+def nm_update_settings_of_device(name, key1, key2, value, default_type_str=None):
     """Update setting key1, key2 of device name with value.
+
+       The type of value is determined from existing settings of device.
+       If setting for key1, key2 does not exist, default_type_str is used or
+       the type is inferred from the value supplied (string and bool only).
 
        Exceptions:
        UnknownDeviceError - device was not found
@@ -381,27 +372,80 @@ def nm_update_settings_of_device(name, key1, key2, value):
     settings_path = _device_settings(name)
     if not settings_path:
         raise DeviceSettingsNotFoundError(name)
-    return _update_settings_libdbus(_device_settings(name), key1, key2, value)
+    return _update_settings(_device_settings(name), key1, key2, value, default_type_str)
 
+def _update_settings(settings_path, key1, key2, value, default_type_str=None):
+    """Update setting key1, key2 of object specified by settings_path with value.
 
-#def _update_settings(settings_path, key1, key2, value):
-#    """Update settings"""
-#    proxy = _get_proxy(object_path=settings_path, interface_name="org.freedesktop.NetworkManager.Settings.Connection")
-#    args = None
-#    settings = proxy.call_sync("GetSettings",
-#                               args,
-#                               Gio.DBusCallFlags.NONE,
-#                               -1,
-#                               None)
-#    # FIXME need to figure out how to create updated
-#    # GVariant and convert value to GVariant
-#    # to do this: settings[0][key1][key2] = value
-#    proxy.call_sync("Update",
-#                    settings,
-#                    Gio.DBusCallFlags.NONE,
-#                    -1,
-#                    None)
-#
+       The type of value is determined from existing setting.
+       If setting for key1, key2 does not exist, default_type_str is used or
+       the type is inferred from the value supplied (string and bool only).
+    """
+    proxy = _get_proxy(object_path=settings_path, interface_name="org.freedesktop.NetworkManager.Settings.Connection")
+    args = None
+    settings = proxy.call_sync("GetSettings",
+                               args,
+                               Gio.DBusCallFlags.NONE,
+                               -1,
+                               None)
+    new_settings = _gvariant_settings(settings, key1, key2, value, default_type_str)
+
+    proxy.call_sync("Update",
+                    new_settings,
+                    Gio.DBusCallFlags.NONE,
+                    -1,
+                    None)
+
+def _gvariant_settings(settings, updated_key1, updated_key2, value, default_type_str=None):
+    """Update setting of updated_key1, updated_key2 of settings object with value.
+
+       The type of value is determined from existing setting.
+       If setting for key1, key2 does not exist, default_type_str is used or
+       the type is inferred from the value supplied (string and bool only).
+    """
+
+    type_str = default_type_str
+
+    # build copy of GVariant settings as mutable python object
+    new_settings = {}
+    dict1 = settings.get_child_value(0)
+
+    # loop over first level dict (key1)
+    for key1_idx in range(dict1.n_children()):
+
+        key_dict2 = dict1.get_child_value(key1_idx)
+        key1 = key_dict2.get_child_value(0).unpack()
+        new_settings[key1] = {}
+        dict2 = key_dict2.get_child_value(1)
+
+        # loop over second level dict (key2)
+        for key2_idx in range(dict2.n_children()):
+
+            key_val = dict2.get_child_value(key2_idx)
+            key2 = key_val.get_child_value(0).unpack()
+            val = key_val.get_child_value(1).get_child_value(0)
+
+            # get type string of updated value
+            if key1 == updated_key1 and key2 == updated_key2:
+                type_str = val.get_type_string()
+
+            # copy old value to new python object
+            new_settings[key1][key2] = val
+
+    if type_str is None:
+        # infer the new value type for string and boolean
+        if type(value) is type(True):
+            type_str = 'b'
+        if type(value) is type(''):
+            type_str = 's'
+
+    if type_str is not None:
+        if updated_key1 not in new_settings:
+            new_settings[updated_key1] = {}
+        new_settings[updated_key1][updated_key2] = GLib.Variant(type_str, value)
+
+    return GLib.Variant(settings.get_type_string(), (new_settings,))
+
 
 if __name__ == "__main__":
     print "NM state: %s:" % nm_state()
@@ -489,7 +533,7 @@ if __name__ == "__main__":
     key1 = "connection"
     key2 = "autoconnect"
     original_value = nm_device_setting_value(devname, key1, key2)
-    print "Setting value %s %s: %s" % (key1, key2, original_value)
+    print "Value of setting %s %s: %s" % (key1, key2, original_value)
     # None means default in this case, which is true
     if original_value in (None, True):
         new_value = False
@@ -498,7 +542,11 @@ if __name__ == "__main__":
 
     print "Updating to %s" % new_value
     nm_update_settings_of_device(devname, key1, key2, new_value)
-    print "Setting value %s %s: %s" % (key1, key2, nm_device_setting_value(devname, key1, key2))
+    print "Value of setting %s %s: %s" % (key1, key2, nm_device_setting_value(devname, key1, key2))
+    nm_update_settings_of_device(devname, key1, key2, original_value)
+    print "Value of setting %s %s: %s" % (key1, key2, nm_device_setting_value(devname, key1, key2))
+    nm_update_settings_of_device(devname, key1, key2, original_value, "b")
+    print "Value of setting %s %s: %s" % (key1, key2, nm_device_setting_value(devname, key1, key2))
 
     nm_update_settings_of_device(devname, key1, "nonexisting", new_value)
     nm_update_settings_of_device(devname, "nonexisting", "nonexisting", new_value)
@@ -512,3 +560,10 @@ if __name__ == "__main__":
             nm_update_settings_of_device(wireless_device, key1, key2, new_value)
         except DeviceSettingsNotFoundError as e:
             print "%s" % e
+
+    #nm_update_settings_of_device(devname, "connection", "id", "test")
+    #nm_update_settings_of_device(devname, "connection", "timestamp", 11111111)
+    #nm_update_settings_of_device(devname, "802-3-ethernet", "mac-address", [55,55,55,55,55,55])
+    #nm_update_settings_of_device(devname, "ipv6", "method", "auto")
+    #nm_update_settings_of_device(devname, "connection", "autoconnect", True)
+    #nm_update_settings_of_device(devname, "connection", "autoconnect", False, "b")
