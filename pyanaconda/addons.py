@@ -23,7 +23,8 @@ __all__ = ["AddonSection", "AddonRegistry", "AddonData", "collect_addon_paths"]
 
 import os
 from pykickstart.sections import Section
-    
+from pykickstart.options import KSOptionParser
+
 def collect_addon_paths(toplevel_addon_paths, ui_subdir="gui"):
     """This method looks into the directories present
        in toplevel_addon_paths and registers each subdirectory
@@ -159,6 +160,6 @@ class AddonSection(Section):
         self.addon_id = extra[0]
 
         # if the addon is not registered, create dummy placeholder for it
-        if self.addon_id and not hasattr(self.handler.addon, self.addon_id):
-            setattr(self.handler.addon, self.addon_id, AddonData(self.addon_id))
+        if self.addon_id and not hasattr(self.handler.addons, self.addon_id):
+            setattr(self.handler.addons, self.addon_id, AddonData(self.addon_id))
 
