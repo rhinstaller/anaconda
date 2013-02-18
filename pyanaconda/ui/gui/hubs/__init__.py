@@ -387,8 +387,8 @@ class Hub(GUIObject, common.Hub):
         self._inSpoke = False
 
         # Now update the selector with the current status and completeness.
-        if not spoke.indirect:
-            for sp in self._spokes.itervalues():
+        for sp in self._spokes.itervalues():
+            if not sp.indirect:
                 self._updateCompleteness(sp)
 
         # And then if that spoke wants us to jump straight to another one,
