@@ -51,6 +51,7 @@ from pyanaconda.ui.gui.categories.storage import StorageCategory
 from pyanaconda.ui.gui.utils import enlightbox, gtk_call_once, gtk_thread_wait
 
 from pyanaconda.kickstart import doKickstartStorage
+from blivet import empty_device
 from blivet.size import Size
 from blivet.errors import StorageError
 from blivet.platform import platform
@@ -140,6 +141,7 @@ class InstallOptions1Dialog(GUIObject):
 
     def __init__(self, *args, **kwargs):
         self.payload = kwargs.pop("payload", None)
+        self.showReclaim = kwargs.pop("showReclaim", None)
         GUIObject.__init__(self, *args, **kwargs)
 
     def run(self):
@@ -171,12 +173,16 @@ class InstallOptions1Dialog(GUIObject):
         label.set_line_wrap(True)
         label.set_use_underline(True)
 
-        label = self.builder.get_object("options1_reclaim_radio").get_children()[0]
-        label.set_markup(_("<span font-desc=\"Cantarell 11\">I want more space. "
-                           "_Guide me through shrinking and/or removing partitions "
-                           "so I can have more space for %(productName)s.</span>") % {"productName": productName})
-        label.set_line_wrap(True)
-        label.set_use_underline(True)
+        radio = self.builder.get_object("options1_reclaim_radio")
+        if self.showReclaim:
+            label = radio.get_children()[0]
+            label.set_markup(_("<span font-desc=\"Cantarell 11\">I want more space. "
+                               "_Guide me through shrinking and/or removing partitions "
+                               "so I can have more space for %(productName)s.</span>") % {"productName": productName})
+            label.set_line_wrap(True)
+            label.set_use_underline(True)
+        else:
+            radio.hide()
 
         label = self.builder.get_object("options1_custom_radio").get_children()[0]
         label.set_markup(_("<span font-desc=\"Cantarell 11\">I want to review/_modify "
@@ -747,7 +753,9 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         log.debug("disk free: %s  fs free: %s  sw needs: %s  auto swap: %s"
                         % (disk_free, fs_free, required_space, auto_swap))
         if disk_free >= required_space + auto_swap:
-            dialog = InstallOptions1Dialog(self.data)
+            showReclaim = not all(map(lambda dev: empty_device(dev, self.storage.devicetree),
+                                      self.disks))
+            dialog = InstallOptions1Dialog(self.data, showReclaim=showReclaim)
         elif disks_size >= required_space:
             dialog = InstallOptions2Dialog(self.data, payload=self.payload)
         else:
