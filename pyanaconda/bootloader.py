@@ -1346,6 +1346,7 @@ class GRUB2(GRUB):
     defaults_file = "/etc/default/grub"
     can_dual_boot = True
     can_update = True
+    terminal_type = "console"
 
     # requirements for boot devices
     stage2_device_types = ["partition", "mdarray", "lvmlv", "btrfs volume",
@@ -1439,6 +1440,8 @@ class GRUB2(GRUB):
         if self.console and self.console.startswith("ttyS"):
             defaults.write("GRUB_TERMINAL=\"serial console\"\n")
             defaults.write("GRUB_SERIAL_COMMAND=\"%s\"\n" % self.serial_command)
+        else:
+            defaults.write("GRUB_TERMINAL_OUTPUT=\"%s\"\n" % self.terminal_type)
 
         # this is going to cause problems for systems containing multiple
         # linux installations or even multiple boot entries with different
@@ -1900,6 +1903,7 @@ class IPSeriesGRUB2(GRUB2):
     # to present the disk as a bootable target.  If stage2_bootable is False, then the PReP partition
     # will be marked bootable. Confusing.
     stage2_bootable = False
+    terminal_type = "ofconsole"
 
     #
     # installation
