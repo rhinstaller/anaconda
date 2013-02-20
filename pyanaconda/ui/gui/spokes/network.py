@@ -363,6 +363,9 @@ class NetworkControlBox(object):
     # Signal handlers.
     def on_device_selection_changed(self, *args):
         device = self.selected_device()
+        if not device:
+            return
+
         log.debug("network: selected device %s" % device.get_iface())
         self.refresh_ui(device)
 
