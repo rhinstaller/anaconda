@@ -600,6 +600,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
         summaryLabel.set_use_markup(True)
         summaryLabel.set_markup("<span foreground='blue'><u>%s</u></span>" % summary)
+        summaryLabel.set_use_underline(True)
 
     def _reset_storage(self):
         self.__storage = self.storage.copy()
