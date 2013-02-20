@@ -1353,11 +1353,13 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
         # what is the incremental disk space requirement for this feature?
         # TODO: update this when the size spinner changes
-        level = self._get_raid_level()
-        min_disks = mdraid.get_raid_min_members(level)
-        if min_disks <= len(factory.disks):
-            factory.raid_level = level
-            delta = factory.device_size - base_size
+        raid_level = self._get_raid_level()
+        if raid_level not in (None, "single"):
+            md_level = mdraid.raidLevel(raid_level)
+            min_disks = mdraid.get_raid_min_members(md_level)
+            if min_disks <= len(factory.disks):
+                factory.raid_level = md_level
+                delta = factory.device_size - base_size
 
     def _get_current_device_type(self):
         typeCombo = self.builder.get_object("deviceTypeCombo")
