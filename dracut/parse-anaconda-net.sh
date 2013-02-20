@@ -5,6 +5,15 @@ net_conf=/etc/cmdline.d/75-anaconda-network-options.conf
 
 check_depr_arg "dns" "nameserver=%s"
 
+mac_to_bootif() {
+    local bootif=${1}
+    local IFS=':'
+    bootif=$(for i in ${bootif} ; do echo -n $i-; done)
+    bootif=${bootif%-}
+    bootif="01-$bootif"
+    echo $bootif
+}
+
 # handle ksdevice (tell us which device to use for ip= stuff later)
 export ksdevice=""
 ksdev_val=$(getarg ksdevice=)
@@ -16,15 +25,20 @@ if [ -n "$ksdev_val" ]; then
         ibft)
             warn "'ksdevice=ibft' is deprecated. Using 'ip=ibft' instead."
             echo "ip=ibft" > $net_conf
-            ksdevice="ibft0"
         ;;
         bootif)
             warn "'ksdevice=bootif' does nothing (BOOTIF is used by default if present)"
         ;;
         ??:??:??:??:??:??)
-            warn "'ksdevice=<MAC>' is deprecated. Using 'ifname=ksdev0:<MAC>' instead."
-            ksdevice="ksdev0"
-            echo "ifname=$ksdevice:$ksdev_val" > $net_conf
+
+            BOOTIF=$(getarg 'BOOTIF=')
+            if [ -n "$BOOTIF" ] ; then
+                warn "'ksdevice=<MAC>' is deprecated. Supplied BOOTIF takes precedence."
+            else
+                bootif=$(mac_to_bootif "$ksdev_val")
+                warn "'ksdevice=<MAC>' is deprecated. Using BOOTIF=$bootif instead."
+                echo "BOOTIF=$bootif" > $net_conf
+            fi
         ;;
         *) ksdevice="$ksdev_val" ;;
     esac
