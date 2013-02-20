@@ -218,7 +218,7 @@ def copyUpdatedIsys(updates, cwd):
     if not os.path.isfile('Makefile'):
         if not os.path.isfile('configure'):
             os.system('./autogen.sh')
-        os.system('./configure')
+        os.system('./configure --prefix=`rpm --eval %_prefix`')
 
     os.system('make')
 
@@ -257,7 +257,7 @@ def copyUpdatedWidgets(updates, cwd):
     if not os.path.isfile('Makefile'):
         if not os.path.isfile('configure'):
             os.system('./autogen.sh')
-        os.system('./configure --enable-gtk-doc --enable-introspection')
+        os.system('./configure --prefix=`rpm --eval %_prefix` --enable-gtk-doc --enable-introspection')
 
     os.system('make')
 
