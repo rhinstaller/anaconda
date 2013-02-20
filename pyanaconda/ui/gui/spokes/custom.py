@@ -263,6 +263,8 @@ class ConfirmDeleteDialog(GUIObject):
         label = self.builder.get_object("confirmLabel")
 
         self._removeAll = self.builder.get_object("removeAllCheckbox")
+        if rootName and "_" in rootName:
+            rootName = rootName.replace("_", "__")
         self._removeAll.set_label(self._removeAll.get_label() % rootName)
         self._removeAll.set_sensitive(rootName is not None)
 
