@@ -233,6 +233,11 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/lib/dracut/modules.d/80%{name}/*
 
 %changelog
+* Thu Feb 21 2013 Brian C. Lane <bcl@redhat.com> - 19.8-1
+- Add more stuff to the exception reporting skip list. (clumens)
+- Compare Sizes to Sizes in the reclaim dialog (#913484). (clumens)
+- The disk cart summary does not need a mnemonic. (clumens)
+
 * Wed Feb 20 2013 Brian C. Lane <bcl@redhat.com> - 19.7-1
 - Fix RAID level test (bcl)
 - unpack product.img to /updates (#911873) (bcl)
