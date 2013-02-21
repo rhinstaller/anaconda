@@ -35,6 +35,7 @@ Source0: %{name}-%{version}.tar.bz2
 %define pythonurlgrabberver 3.9.1-5
 %define utillinuxver 2.15.1
 %define dracutver 024-16
+%define isomd5sum 1.0.10
 
 BuildRequires: audit-libs-devel
 BuildRequires: gettext >= %{gettextver}
@@ -102,7 +103,7 @@ Requires: GConf2 >= %{gconfversion}
 %ifarch s390 s390x
 Requires: openssh
 %endif
-Requires: isomd5sum
+Requires: isomd5sum >= %{isomd5sum}
 Requires: yum-utils >= %{yumutilsver}
 Requires: NetworkManager >= %{nmver}
 Requires: nm-connection-editor
