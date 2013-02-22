@@ -69,7 +69,10 @@ def selectorFromDevice(device, selector=None, mountpoint=""):
        allows for specifying the mountpoint if it cannot be determined from
        the device (like for a Root specifying an existing installation).
     """
-    mp = mountpoint or getattr(device.format, "mountpoint", "")
+    if hasattr(device.format, "mountpoint") and device.format.mountpoint is not None:
+        mp = device.format.mountpoint
+    else:
+        mp = mountpoint
 
     if device.format.type == "swap":
         name = "Swap"
