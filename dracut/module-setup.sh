@@ -34,6 +34,7 @@ install() {
     inst_hook pre-pivot 50 "$moddir/anaconda-copy-ks.sh"
     inst_hook pre-pivot 50 "$moddir/anaconda-copy-cmdline.sh"
     inst_hook pre-pivot 99 "$moddir/save-initramfs.sh"
+    inst_hook pre-shutdown 50 "$moddir/anaconda-pre-shutdown.sh"
     # kickstart parsing, WOOOO
     inst_hook initqueue/online 10 "$moddir/fetch-kickstart-net.sh"
     inst "$moddir/fetch-kickstart-disk" "/sbin/fetch-kickstart-disk"
