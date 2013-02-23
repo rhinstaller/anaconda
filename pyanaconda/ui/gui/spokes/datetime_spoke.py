@@ -403,7 +403,8 @@ class DatetimeSpoke(NormalSpoke):
         self.data.timezone.nontp = not self._ntpSwitch.get_active()
 
     def execute(self):
-        GLib.source_remove(self._update_datetime_timer_id)
+        if self._update_datetime_timer_id is not None:
+            GLib.source_remove(self._update_datetime_timer_id)
         self._update_datetime_timer_id = None
         self.data.timezone.setup(self.data)
 
