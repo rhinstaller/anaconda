@@ -27,6 +27,9 @@ import copy
 import sys
 import types
 
+import logging
+log = logging.getLogger("anaconda")
+
 class PathDict(dict):
     """Dictionary class supporting + operator"""
     def __add__(self, ext):
@@ -556,7 +559,8 @@ def collect(module_pattern, path, pred):
             if not module_flags[0].startswith(".py") and loaded_ext.startswith(".py"):
                 continue
             
-        except ImportError:
+        except ImportError as imperr:
+            log.error("Failed to import module in collect: %s" % imperr)
             continue
         finally:
             imp.release_lock()
