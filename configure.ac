@@ -171,7 +171,7 @@ rel="`awk '/Release:/ { split($2, r, "%"); print r[[1]] }' anaconda.spec.in`"
 AC_SUBST(PACKAGE_RELEASE, [$rel])
 
 # Set $(ARCH) and arch-related tests
-s_arch="`uname -m | sed -e s/i.86/i386/ -e s/sparc.*/sparc/ -e s/ppc.*/ppc/`"
+s_arch="`uname -m | sed -e s/i.86/i386/ -e s/ppc.*/ppc/`"
 AC_SUBST(ARCH, [$s_arch])
 
 AM_CONDITIONAL(IS_LIVEINST_ARCH,
@@ -194,9 +194,6 @@ AM_CONDITIONAL(IS_S390,
 
 AM_CONDITIONAL(IS_X86_64,
   [test x$s_arch == xx86_64])
-
-AM_CONDITIONAL(IS_SPARC,
-  [test x$s_arch == xsparc || test x$s_arch == xsparc64])
 
 AC_CONFIG_SUBDIRS([widgets])
 

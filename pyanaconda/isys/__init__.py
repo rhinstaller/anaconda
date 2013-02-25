@@ -45,7 +45,7 @@ import dbus
 import logging
 log = logging.getLogger("anaconda")
 
-if blivet.arch.getArch() in ("sparc", "ppc64"):
+if blivet.arch.getArch() in ("ppc64"):
     MIN_RAM = 768 * 1024
     GUI_INSTALL_EXTRA_RAM = 512 * 1024
 else:

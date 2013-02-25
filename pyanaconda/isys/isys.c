@@ -26,7 +26,7 @@
 #include <fcntl.h>
 /* Need to tell loop.h what the actual dev_t type is. */
 #undef dev_t
-#if defined(__alpha) || (defined(__sparc__) && defined(__arch64__))
+#if defined(__alpha)
 #define dev_t unsigned int
 #else
 #if defined(__x86_64__)
