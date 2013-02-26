@@ -181,7 +181,7 @@ class Accordion(Gtk.Box):
 # comprise a single installed OS into two categories - Data filesystems and System filesystems.
 # Each filesystem is described by a single MountpointSelector.
 class Page(Gtk.Box):
-    def __init__(self):
+    def __init__(self, title):
         Gtk.Box.__init__(self, orientation=Gtk.Orientation.VERTICAL, spacing=6)
 
         # Create the Data label and a box to store all its members in.
@@ -195,7 +195,7 @@ class Page(Gtk.Box):
         self.add(self._systemBox)
 
         self._members = []
-        self.pageTitle = ""
+        self.pageTitle = title
 
     def _make_category_label(self, name):
         label = Gtk.Label()
@@ -250,11 +250,11 @@ class Page(Gtk.Box):
         cb(selector)
 
 class UnknownPage(Page):
-    def __init__(self):
+    def __init__(self, title):
         # For this type of page, there's only one place to store members.
         Gtk.Box.__init__(self, orientation=Gtk.Orientation.VERTICAL, spacing=6)
         self._members = []
-        self.pageTitle = ""
+        self.pageTitle = title
 
     def addSelector(self, device, cb, mountpoint=""):
         selector = selectorFromDevice(device, mountpoint=mountpoint)
@@ -275,9 +275,9 @@ class UnknownPage(Page):
 # of this class will be packed into the Accordion first and then when the new installation
 # is created, it will be removed and replaced with a Page for it.
 class CreateNewPage(Page):
-    def __init__(self, cb, partitionsToReuse=True):
+    def __init__(self, title, cb, partitionsToReuse=True):
         Gtk.Box.__init__(self, orientation=Gtk.Orientation.VERTICAL, spacing=6)
-        self.pageTitle = ""
+        self.pageTitle = title
 
         # Create a box where we store the "Here's how you create a new blah" info.
         self._createBox = Gtk.Grid()

@@ -684,8 +684,9 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         # If we've not yet run autopart, add an instance of CreateNewPage.  This
         # ensures it's only added once.
         if not new_devices:
-            page = CreateNewPage(self.on_create_clicked, partitionsToReuse=bool(ui_roots))
-            page.pageTitle = self.translated_new_install_name
+            page = CreateNewPage(self.translated_new_install_name,
+                                 self.on_create_clicked,
+                                 partitionsToReuse=bool(ui_roots))
             self._accordion.addPage(page, cb=self.on_page_clicked)
 
             if page.pageTitle not in page_order:
@@ -715,8 +716,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                            (root.name == self.translated_new_install_name or d.format.exists)]:
                 continue
 
-            page = Page()
-            page.pageTitle = root.name
+            page = Page(root.name)
 
             for (mountpoint, device) in root.mounts.iteritems():
                 if device not in self._devices or \
@@ -744,8 +744,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
         # Anything that doesn't go with an OS we understand?  Put it in the Other box.
         if self.unusedDevices:
-            page = UnknownPage()
-            page.pageTitle = _("Unknown")
+            page = UnknownPage(_("Unknown"))
 
             for u in sorted(self.unusedDevices, key=lambda d: d.name):
                 page.addSelector(u, self.on_selector_clicked)
@@ -803,8 +802,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             expander = self._accordion._find_by_title(self.translated_new_install_name)
             expander.remove(expander.get_child())
 
-            page = Page()
-            page.pageTitle = self.translated_new_install_name
+            page = Page(self.translated_new_install_name)
             expander.add(page)
 
             # pull in all the existing swap devices
