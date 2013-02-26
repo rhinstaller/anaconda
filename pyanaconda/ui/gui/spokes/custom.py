@@ -834,6 +834,11 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             selectorFromDevice(self.__storage.devicetree.getDeviceByID(max_id),
                                selector=selector)
 
+    def _update_device_in_selectors(self, old_device):
+        for s in self._accordion.allSelectors:
+            if s._device == old_device:
+                s._device = device
+
     def _save_right_side(self, selector):
         """ Save settings from RHS and apply changes to the device.
 
@@ -1184,9 +1189,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                         old_device = device
                         device = device.slave
                         selector._device = device
-                        for s in self._accordion.allSelectors:
-                            if s._device == old_device:
-                                s._device = device
+                        self._update_device_in_selectors(old_device)
                 elif encrypted and not prev_encrypted:
                     log.info("applying encryption to %s" % device.name)
                     with ui_storage_logger():
@@ -1199,9 +1202,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                         self._devices.append(luks_dev)
                         device = luks_dev
                         selector._device = device
-                        for s in self._accordion.allSelectors:
-                            if s._device == old_device:
-                                s._device = device
+                        self._update_device_in_selectors(old_device)
 
             ##
             ## FORMATTING
@@ -1233,17 +1234,16 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                     else:
                         # first, remove this selector from any old install page(s)
                         new_selector = None
-                        for page in self._accordion.allPages:
-                            for _selector in page.members:
-                                if _selector._device in (device, old_device):
-                                    if page.pageTitle == self.translated_new_install_name:
-                                        new_selector = _selector
-                                        continue
+                        for (page, _selector) in self._accordion.allMembers:
+                            if _selector._device in (device, old_device):
+                                if page.pageTitle == self.translated_new_install_name:
+                                    new_selector = _selector
+                                    continue
 
-                                    page.removeSelector(_selector)
-                                    if not page.members:
-                                        log.debug("removing empty page %s" % page.pageTitle)
-                                        self._accordion.removePage(page.pageTitle)
+                                page.removeSelector(_selector)
+                                if not page.members:
+                                    log.debug("removing empty page %s" % page.pageTitle)
+                                    self._accordion.removePage(page.pageTitle)
 
                         # either update the existing selector or add a new one
                         if new_selector:
@@ -1816,16 +1816,18 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             page = self._current_page
 
         log.debug("show first mountpoint: %s" % page.pageTitle)
-        if page.members:
-            if mountpoint:
-                for member in page.members:
-                    if member.get_property("mountpoint") == mountpoint:
-                        self.on_selector_clicked(member)
-                        break
-            else:
-                self.on_selector_clicked(page.members[0])
-        else:
+        if not page.members:
             self._current_selector = None
+            return
+
+        if not mountpoint:
+            self.on_selector_clicked(page.members[0])
+            return
+
+        for member in page.members:
+            if member.get_property("mountpoint") == mountpoint:
+                self.on_selector_clicked(member)
+                break
 
     def on_remove_clicked(self, button):
         # Nothing displayed on the RHS?  Nothing to remove.
@@ -2024,20 +2026,23 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         vg_exists = getattr(vg, "exists", False)    # might not be in the tree
         self.builder.get_object("modifyVGButton").set_sensitive(not vg_exists)
 
+    def _save_current_selector(self):
+        log.debug("current selector: %s" % self._current_selector._device)
+        nb_page = self._partitionsNotebook.get_current_page()
+        log.debug("notebook page = %s" % nb_page)
+        if nb_page == NOTEBOOK_DETAILS_PAGE:
+            self._save_right_side(self._current_selector)
+
+        self._current_selector.set_chosen(False)
+
     def on_selector_clicked(self, selector):
         if not self._initialized:
             return
 
         # Take care of the previously chosen selector.
         if self._current_selector and self._initialized:
-            log.debug("current selector: %s" % self._current_selector._device)
+            self._save_current_selector()
             log.debug("new selector: %s" % selector._device)
-            nb_page = self._partitionsNotebook.get_current_page()
-            log.debug("notebook page = %s" % nb_page)
-            if nb_page == NOTEBOOK_DETAILS_PAGE:
-                self._save_right_side(self._current_selector)
-
-            self._current_selector.set_chosen(False)
 
         no_edit = False
         if selector._device.format.type == "luks" and \
@@ -2102,12 +2107,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
         log.debug("page clicked: %s" % page.pageTitle)
         if self._current_selector:
-            nb_page = self._partitionsNotebook.get_current_page()
-            log.debug("notebook page = %s" % nb_page)
-            if nb_page == NOTEBOOK_DETAILS_PAGE:
-                self._save_right_side(self._current_selector)
-
-            self._current_selector.set_chosen(False)
+            self._save_current_selector()
             self._current_selector = None
 
         self._show_mountpoint(page=page, mountpoint=mountpointToShow)
