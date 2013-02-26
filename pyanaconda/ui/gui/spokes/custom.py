@@ -638,6 +638,20 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
     def translated_new_install_name(self):
         return _(new_install_name) % (productName, productVersion)
 
+    @property
+    def _current_page(self):
+        # The current page is really a function of the current selector.
+        # Whatever selector on the LHS is selected, the current page is the
+        # page containing that selector.
+        if not self._current_selector:
+            return None
+
+        for page in self._accordion.allPages:
+            if self._current_selector in page.members:
+                return page
+
+        return None
+
     def _do_refresh(self, mountpointToShow=None):
         # block mountpoint selector signal handler for now
         self._initialized = False
@@ -647,8 +661,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
         # We can only have one page expanded at a time.
         page_order = []
-        if self._accordion.currentPage():
-            page_order.append(self._accordion.currentPage().pageTitle)
+        if self._current_page:
+            page_order.append(self._current_page.pageTitle)
 
         # Make sure we start with a clean slate.
         self._accordion.removeAllPages()
@@ -764,8 +778,10 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                 break
 
         self._initialized = True
-        self.on_page_clicked(self._accordion.currentPage(),
-                             mountpointToShow=mountpointToShow)
+        currentPage = self._current_page
+        if currentPage:
+            self.on_page_clicked(self.currentPage,
+                                 mountpointToShow=mountpointToShow)
 
     ###
     ### RIGHT HAND SIDE METHODS
@@ -1818,7 +1834,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         # mountpoint within that page is given, display that.  Otherwise, just
         # default to the first selector available.
         if not page:
-            page = self._accordion.currentPage()
+            page = self._current_page
 
         log.debug("show first mountpoint: %s" % getattr(page, "pageTitle", None))
         if page.members:
@@ -1837,7 +1853,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         if not self._current_selector:
             return
 
-        page = self._accordion.currentPage()
+        page = self._current_page
         selector = self._current_selector
         device = self._current_selector._device
         root_name = None
