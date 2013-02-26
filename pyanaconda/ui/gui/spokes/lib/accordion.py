@@ -132,6 +132,12 @@ class Accordion(Gtk.Box):
     def allSelectors(self):
         return [s for p in self.allPages for s in p.members]
 
+    @property
+    def allMembers(self):
+        for page in self.allPages:
+            for member in page.members:
+                yield (page, member)
+
     def expandPage(self, pageTitle):
         page = self._find_by_title(pageTitle)
         if not page:
