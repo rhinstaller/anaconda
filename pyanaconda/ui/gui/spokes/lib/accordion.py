@@ -158,15 +158,6 @@ class Accordion(Gtk.Box):
         self._expanders = []
 
     def _onExpanded(self, obj, cb=None):
-        # Set all other expanders to closed, but don't do anything to the
-        # expander this method was called on.  It's already been handled by
-        # the default activate signal handler.
-        for expander in self._expanders:
-            if expander == obj:
-                continue
-
-            expander.set_expanded(False)
-
         if cb:
             cb(obj.get_child())
 

@@ -659,11 +659,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             self._current_selector.set_chosen(False)
             self._current_selector = None
 
-        # We can only have one page expanded at a time.
-        page_order = []
-        if self._current_page:
-            page_order.append(self._current_page.pageTitle)
-
         # Make sure we start with a clean slate.
         self._accordion.removeAllPages()
 
@@ -702,9 +697,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                                  self.on_create_clicked,
                                  partitionsToReuse=bool(ui_roots))
             self._accordion.addPage(page, cb=self.on_page_clicked)
-
-            if page.pageTitle not in page_order:
-                page_order.append(page.pageTitle)
 
             self._partitionsNotebook.set_current_page(NOTEBOOK_LABEL_PAGE)
             label = self.builder.get_object("whenCreateLabel")
@@ -753,9 +745,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             page.show_all()
             self._accordion.addPage(page, cb=self.on_page_clicked)
 
-            if root.name not in page_order:
-                page_order.append(root.name)
-
         # Anything that doesn't go with an OS we understand?  Put it in the Other box.
         if self.unusedDevices:
             page = UnknownPage(_("Unknown"))
@@ -766,22 +755,12 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             page.show_all()
             self._accordion.addPage(page, cb=self.on_page_clicked)
 
-            if page.pageTitle not in page_order:
-                page_order.append(page.pageTitle)
-
-        for page_name in page_order:
-            try:
-                self._accordion.expandPage(page_name)
-            except LookupError:
-                continue
-            else:
-                break
-
+        # And then open the first page by default.  Most of the time, this will
+        # be fine since it'll be the new installation page.
         self._initialized = True
-        currentPage = self._current_page
-        if currentPage:
-            self.on_page_clicked(self.currentPage,
-                                 mountpointToShow=mountpointToShow)
+        firstPage = self._accordion.allPages[0]
+        self._accordion.expandPage(firstPage.pageTitle)
+        self.on_page_clicked(firstPage, mountpointToShow=mountpointToShow)
 
     ###
     ### RIGHT HAND SIDE METHODS
