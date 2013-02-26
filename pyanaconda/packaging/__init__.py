@@ -600,10 +600,6 @@ class ArchivePayload(ImagePayload):
     pass
 
 class PackagePayload(Payload):
-    def __init__(self, *args, **kwargs):
-        Payload.__init__(self, *args, **kwargs)
-        self.skipBroken = False
-
     """ A PackagePayload installs a set of packages onto the target system. """
     @property
     def kernelPackages(self):

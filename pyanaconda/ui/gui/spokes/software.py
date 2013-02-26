@@ -35,8 +35,6 @@ from .source import AdditionalReposDialog
 
 from pykickstart.parser import Group
 
-from gi.repository import GLib
-
 import sys
 
 __all__ = ["SoftwareSelectionSpoke"]
@@ -64,7 +62,6 @@ class SoftwareSelectionSpoke(NormalSpoke):
         self._addRepoDialog = AdditionalReposDialog(self.data)
 
         # Used for detecting whether anything's changed in the spoke.
-        self._clickedRemove = False
         self._origAddons = []
         self._origEnvironment = None
 
@@ -77,7 +74,7 @@ class SoftwareSelectionSpoke(NormalSpoke):
 
         # Don't redo dep solving if nothing's changed.
         if row[2] == self._origEnvironment and set(addons) == set(self._origAddons) and \
-           not self._clickedRemove and self.txid_valid:
+           self.txid_valid:
             return
 
         self._selectFlag = False
@@ -88,7 +85,6 @@ class SoftwareSelectionSpoke(NormalSpoke):
             self.payload.selectGroup(group)
 
         # And then save these values so we can check next time.
-        self._clickedRemove = False
         self._origAddons = addons
         self._origEnvironment = self.environment
 
@@ -325,10 +321,8 @@ class SoftwareSelectionSpoke(NormalSpoke):
 
         label = _("The following software marked for installation has errors.  "
                   "This is likely caused by an error with\nyour installation source.  "
-                  "You can attempt to remove these packages from your installation.\n"
-                  "change your installation source, or quit the installer.")
+                  "You can change your installation source or quit the installer.")
         dialog = DetailedErrorDialog(self.data, buttons=[_("_Quit"), _("_Cancel"),
-                                                         _("_Remove Packages"),
                                                          _("_Modify Software Source")],
                                                 label=label)
         with enlightbox(self.window, dialog.window):
@@ -344,17 +338,6 @@ class SoftwareSelectionSpoke(NormalSpoke):
             # Close the dialog so the user can change selections.
             pass
         elif rc == 2:
-            # This setting is just so we know to try re-resolving dependencies
-            # even if the user didn't change any other settings.
-            self._clickedRemove = True
-
-            # Attempt to remove the affected packages.  For yum payloads, we
-            # do this by just attempting to re-resolve dependencies with
-            # skip_broken set.
-            self._errorMsgs = None
-            self.payload.skipBroken = True
-            self.window.emit("button-clicked")
-        elif rc == 3:
             # Send the user to the installation source spoke.
             self.skipTo = "SourceSpoke"
             self.window.emit("button-clicked")
