@@ -1815,7 +1815,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         if not page:
             page = self._current_page
 
-        log.debug("show first mountpoint: %s" % getattr(page, "pageTitle", None))
+        log.debug("show first mountpoint: %s" % page.pageTitle)
         if page.members:
             if mountpoint:
                 for member in page.members:
@@ -2100,7 +2100,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         if not self._initialized:
             return
 
-        log.debug("page clicked: %s" % getattr(page, "pageTitle", None))
+        log.debug("page clicked: %s" % page.pageTitle)
         if self._current_selector:
             nb_page = self._partitionsNotebook.get_current_page()
             log.debug("notebook page = %s" % nb_page)
