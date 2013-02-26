@@ -130,7 +130,7 @@ class Accordion(Gtk.Box):
 
     @property
     def allSelectors(self):
-        return [s for p in self.allPages for s in getattr(p, "_members", [])]
+        return [s for p in self.allPages for s in p.members]
 
     def currentPage(self):
         for e in self._expanders:
@@ -194,7 +194,7 @@ class Page(Gtk.Box):
         self._systemBox.add(self._make_category_label(_("SYSTEM")))
         self.add(self._systemBox)
 
-        self._members = []
+        self.members = []
         self.pageTitle = title
 
     def _make_category_label(self, name):
@@ -208,7 +208,7 @@ class Page(Gtk.Box):
         selector = selectorFromDevice(device, mountpoint=mountpoint)
         selector.connect("button-press-event", self._onSelectorClicked, cb)
         selector.connect("key-release-event", self._onSelectorClicked, cb)
-        self._members.append(selector)
+        self.members.append(selector)
 
         if self._mountpointType(selector.props.mountpoint) == DATA_DEVICE:
             self._dataBox.add(selector)
@@ -223,7 +223,7 @@ class Page(Gtk.Box):
         else:
             self._systemBox.remove(selector)
 
-        self._members.remove(selector)
+        self.members.remove(selector)
 
     def _mountpointType(self, mountpoint):
         if not mountpoint:
@@ -253,7 +253,7 @@ class UnknownPage(Page):
     def __init__(self, title):
         # For this type of page, there's only one place to store members.
         Gtk.Box.__init__(self, orientation=Gtk.Orientation.VERTICAL, spacing=6)
-        self._members = []
+        self.members = []
         self.pageTitle = title
 
     def addSelector(self, device, cb, mountpoint=""):
@@ -261,14 +261,14 @@ class UnknownPage(Page):
         selector.connect("button-press-event", self._onSelectorClicked, cb)
         selector.connect("key-release-event", self._onSelectorClicked, cb)
 
-        self._members.append(selector)
+        self.members.append(selector)
         self.add(selector)
 
         return selector
 
     def removeSelector(self, selector):
         self.remove(selector)
-        self._members.remove(selector)
+        self.members.remove(selector)
 
 # This is a special Page that is displayed when no new installation has been automatically
 # created, and shows the user how to go about doing that.  The intention is that an instance
@@ -277,6 +277,7 @@ class UnknownPage(Page):
 class CreateNewPage(Page):
     def __init__(self, title, cb, partitionsToReuse=True):
         Gtk.Box.__init__(self, orientation=Gtk.Orientation.VERTICAL, spacing=6)
+        self.members = []
         self.pageTitle = title
 
         # Create a box where we store the "Here's how you create a new blah" info.

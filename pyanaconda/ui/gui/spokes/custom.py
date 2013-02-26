@@ -797,7 +797,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         """ Add an entry for device to the new install Page. """
         page = self._accordion._find_by_title(self.translated_new_install_name).get_child()
         devices = [device]
-        if not hasattr(page, "_members"):
+        if page.members:
             # remove the CreateNewPage and replace it with a regular Page
             expander = self._accordion._find_by_title(self.translated_new_install_name)
             expander.remove(expander.get_child())
@@ -820,10 +820,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         """ Update all btrfs selectors' size properties. """
         # we're only updating selectors in the new root. problem?
         page = self._accordion._find_by_title(self.translated_new_install_name).get_child()
-        if not hasattr(page, "_members"):
-            return
-
-        for selector in page._members:
+        for selector in page.members:
             if selector._device.type.startswith("btrfs"):
                 selectorFromDevice(selector._device, selector=selector)
 
@@ -1242,14 +1239,14 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                         # first, remove this selector from any old install page(s)
                         new_selector = None
                         for page in self._accordion.allPages:
-                            for _selector in getattr(page, "_members", []):
+                            for _selector in page.members:
                                 if _selector._device in (device, old_device):
                                     if page.pageTitle == self.translated_new_install_name:
                                         new_selector = _selector
                                         continue
 
                                     page.removeSelector(_selector)
-                                    if not page._members:
+                                    if not page.members:
                                         log.debug("removing empty page %s" % page.pageTitle)
                                         self._accordion.removePage(page.pageTitle)
 
@@ -1824,14 +1821,14 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             page = self._accordion.currentPage()
 
         log.debug("show first mountpoint: %s" % getattr(page, "pageTitle", None))
-        if getattr(page, "_members", []):
+        if page.members:
             if mountpoint:
-                for member in page._members:
+                for member in page.members:
                     if member.get_property("mountpoint") == mountpoint:
                         self.on_selector_clicked(member)
                         break
             else:
-                self.on_selector_clicked(page._members[0])
+                self.on_selector_clicked(page.members[0])
         else:
             self._current_selector = None
 
@@ -1879,7 +1876,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                     return
 
             if dialog.deleteAll:
-                for dev in [s._device for s in page._members]:
+                for dev in [s._device for s in page.members]:
                     self._destroy_device(dev)
             else:
                 self._destroy_device(device)
