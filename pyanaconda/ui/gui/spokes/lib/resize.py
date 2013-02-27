@@ -114,6 +114,7 @@ class ResizeDialog(GUIObject):
         totalDisks = 0
         totalReclaimableSpace = 0
 
+        self._initialFreeSpace = Size(0)
         self._selectedReclaimableSpace = 0
 
         canShrinkSomething = False
@@ -180,6 +181,7 @@ class ResizeDialog(GUIObject):
                                              False,
                                              self._get_tooltip(disk),
                                              float(converted)])
+                self._initialFreeSpace += diskFree
 
             # And then go back and fill in the total reclaimable space for the
             # disk, now that we know what each partition has reclaimable.
@@ -249,8 +251,13 @@ class ResizeDialog(GUIObject):
             self._deleteButton.set_sensitive(False)
 
     def _update_reclaim_button(self, got):
+        # The reclaim button is sensitive if two conditions are met:
+        # (1) There's enough available space (existing free/unpartitioned space,
+        #     shrink space, etc.) on all disks.
+        # (2) At least one destructive action has been chosen.  We can detect
+        #     this by checking whether got is non-zero.
         need = self.payload.spaceRequired
-        self._resizeButton.set_sensitive(got >= need)
+        self._resizeButton.set_sensitive(got+self._initialFreeSpace >= need and got > Size(0))
 
     def refresh(self, disks):
         super(ResizeDialog, self).refresh()
