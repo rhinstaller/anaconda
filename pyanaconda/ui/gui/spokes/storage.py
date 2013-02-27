@@ -775,8 +775,10 @@ class StorageSpoke(NormalSpoke, StorageChecker):
                 self.autopart = True
             elif dialog.continue_response == dialog.RESPONSE_CONTINUE_RECLAIM:
                 self.apply()
-                gtk_call_once(self._show_resize_dialog, disks)
-                return
+                if not self._show_resize_dialog(disks):
+                    # User pressed cancel on the reclaim dialog, so don't leave
+                    # the storage spoke.
+                    return
             elif dialog.continue_response == dialog.RESPONSE_CONTINUE_CUSTOM:
                 self.autopart = False
                 self.skipTo = "CustomPartitioningSpoke"
@@ -797,7 +799,12 @@ class StorageSpoke(NormalSpoke, StorageChecker):
                 return
 
             self.apply()
-            gtk_call_once(self._show_resize_dialog, disks)
+            if not self._show_resize_dialog(disks):
+                # User pressed cancel on the reclaim dialog, so don't leave
+                # the storage spoke.
+                return
+
+            NormalSpoke.on_back_clicked(self, button)
         elif rc == dialog.RESPONSE_QUIT:
             raise SystemExit("user-selected exit")
         elif rc == dialog.RESPONSE_CUSTOM:
@@ -812,10 +819,8 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         resizeDialog = ResizeDialog(self.data, self.storage, self.payload)
         resizeDialog.refresh(disks)
 
-        # resizeDialog handles okay/cancel on its own, so we can throw out the
-        # return value.
-        self.run_lightbox_dialog(resizeDialog)
-        gtk_call_once(self.window.emit, "button-clicked")
+        rc = self.run_lightbox_dialog(resizeDialog)
+        return rc
 
     def on_add_disk_clicked(self, button):
         print "ADD DISK CLICKED"
