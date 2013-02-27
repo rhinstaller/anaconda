@@ -131,6 +131,24 @@ device_text_map = {DEVICE_TYPE_LVM: DEVICE_TEXT_LVM,
 partition_only_format_types = ["efi", "hfs+", "prepboot", "biosboot",
                                "appleboot"]
 
+def size_from_entry(entry):
+    size_text = entry.get_text().strip()
+
+    # if no unit was specified, default to MB
+    if not re.search(r'[A-Za-z]+$', size_text):
+        size_text += "MB"
+
+    try:
+        size = Size(spec=size_text)
+    except Exception:
+        return None
+    else:
+        # Minimium size for ui-created partitions is 1MB.
+        if size.convertTo(spec="mb") < 1:
+            size = Size(spec="1mb")
+
+    return size
+
 # XXX: Hack, hack, hack.  For some reason displaying lightboxed dialogs on the
 # custom storage spoke means that redisplaying those dialogs later never works
 # and the UI looks frozen.  So I'm just going to override the real enlightbox
@@ -220,21 +238,7 @@ class AddDialog(GUIObject):
         if self._error:
             return
 
-        size_text = self.builder.get_object("sizeEntry").get_text().strip()
-
-        # if no unit was specified, default to MB
-        if not re.search(r'[A-Za-z]+$', size_text):
-            size_text += "MB"
-
-        try:
-            self.size = Size(spec=size_text)
-        except Exception:
-            pass
-        else:
-            # Minimum size for ui-created partitions is 1MB.
-            if self.size.convertTo(spec="mb") < 1:
-                self.size = Size(spec="1mb")
-
+        self.size = size_from_entry(self.builder.get_object("addSizeEntry"))
         self.window.destroy()
 
     def refresh(self):
@@ -418,7 +422,7 @@ class HelpDialog(GUIObject):
         self.window.destroy()
 
 class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
-    builderObjects = ["customStorageWindow", "sizeAdjustment",
+    builderObjects = ["customStorageWindow",
                       "partitionStore", "raidStoreFiltered", "raidLevelStore",
                       "addImage", "removeImage", "settingsImage",
                       "mountPointCompletion", "mountPointStore"]
@@ -499,6 +503,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         self._configButton = self.builder.get_object("configureButton")
 
         self._reformatCheckbox = self.builder.get_object("reformatCheckbox")
+        self._sizeEntry = self.builder.get_object("sizeEntry")
 
     def initialize(self):
         NormalSpoke.initialize(self)
@@ -887,7 +892,9 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         log.debug("old_name: %s" % old_name)
         log.debug("new_name: %s" % name)
 
-        size = self.builder.get_object("sizeSpinner").get_value()
+        size = size_from_entry(self._sizeEntry)
+        if size:
+            size = int(size.convertTo(spec="MB"))
         log.debug("new size: %s" % size)
         log.debug("old size: %s" % device.size)
 
@@ -1108,7 +1115,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         ## SIZE
         ##
         # new size means resize for existing devices and adjust for new ones
-        changed_size = (int(size) != int(device.size))
+        changed_size = (size != int(device.size))
         if changed_size or changed_disk_set or \
            (changed_encryption and factory.encrypt_members and
             not device.exists):
@@ -1117,6 +1124,12 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             if changed_size and device.exists and device.resizable:
                 with ui_storage_logger():
                     try:
+                        # If no size was specified, we just want to grow to
+                        # the maximum.  But resizeDevice doesn't take None for
+                        # a value.
+                        if not size:
+                            size = device.maxSize
+
                         self.__storage.resizeDevice(device, size)
                     except StorageError as e:
                         log.error("failed to schedule device resize: %s" % e)
@@ -1308,6 +1321,11 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         device_type = self._get_current_device_type()
         log.debug("populate_raid: %s, %s" % (device_type, raid_level))
 
+        # If size comes in as a Size, convert it to a number.  A None is
+        # fine, though.
+        if size and isinstance(size, Size):
+            size = int(size.convertTo(spec="MB"))
+
         raid_label = self.builder.get_object("raidLevelLabel")
         raid_combo = self.builder.get_object("raidLevelCombo")
 
@@ -1390,7 +1408,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         nameEntry = self.builder.get_object("nameEntry")
         selectedDeviceLabel = self.builder.get_object("selectedDeviceLabel")
         selectedDeviceDescLabel = self.builder.get_object("selectedDeviceDescLabel")
-        sizeSpinner = self.builder.get_object("sizeSpinner")
         typeCombo = self.builder.get_object("deviceTypeCombo")
         fsCombo = self.builder.get_object("fileSystemTypeCombo")
 
@@ -1435,23 +1452,13 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         else:
             labelEntry.set_tooltip_text(_("This file system does not support labels."))
 
-        if device.exists:
-            min_size = device.minSize
-            max_size = device.maxSize
-        else:
-            min_size = max(device.format.minSize, 1.0)
-            max_size = device.size + float(self._free_space.convertTo(spec="mb")) # FIXME
+        self._sizeEntry.set_text(str(Size(spec="%d MB" % device.size)))
+        self._sizeEntry.set_sensitive(device.resizable or not device.exists)
 
-        log.debug("min: %s  max: %s  current: %s" % (min_size, max_size, device.size))
-        sizeSpinner.set_range(min_size,
-                              max_size)
-        sizeSpinner.set_value(device.size)
-        sizeSpinner.set_sensitive(device.resizable or not device.exists)
-
-        if sizeSpinner.get_sensitive():
-            sizeSpinner.props.has_tooltip = False
+        if self._sizeEntry.get_sensitive():
+            self._sizeEntry.props.has_tooltip = False
         else:
-            sizeSpinner.set_tooltip_text(_("This file system may not be resized."))
+            self._sizeEntry.set_tooltip_text(_("This file system may not be resized."))
 
         self._reformatCheckbox.set_active(not device.format.exists)
         self._reformatCheckbox.set_sensitive(not device.protected and
@@ -1944,8 +1951,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             return
 
         self._device_disks = disks
-        self._populate_raid(self._get_raid_level(),
-                            self.builder.get_object("sizeSpinner").get_value())
+        self._populate_raid(self._get_raid_level(), size_from_entry(self._sizeEntry))
 
     def run_vg_editor(self, vg=None, name=None):
         if vg:
@@ -2317,8 +2323,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         exists = self._current_selector and self._current_selector._device.exists
         self._configButton.set_sensitive(not exists and new_type != DEVICE_TYPE_LVM)
 
-        size = self.builder.get_object("sizeSpinner").get_value()
-        self._populate_raid(raid_level, size)
+        self._populate_raid(raid_level, size_from_entry(self._sizeEntry))
         self._populate_lvm()
 
         nameEntry = self.builder.get_object("nameEntry")
