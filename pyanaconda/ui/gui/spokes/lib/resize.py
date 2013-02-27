@@ -174,8 +174,7 @@ class ResizeDialog(GUIObject):
 
         self._update_labels(totalDisks, totalReclaimableSpace, 0)
 
-        description = _("You don't have enough free space available for this installation.\n\n"
-                        "You can remove existing filesystems you no longer need to free up space "
+        description = _("You can remove existing filesystems you no longer need to free up space "
                         "for this installation.  Removing a filesystem will permanently delete all "
                         "of the data it contains.")
 
