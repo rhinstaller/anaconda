@@ -53,12 +53,18 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalSpoke):
         self._password = None
         self._error = False
         self._oldweak = None
+        self._kickstarted = False
 
     def initialize(self):
         NormalSpoke.initialize(self)
         # place holders for the text boxes
         self.pw = self.builder.get_object("pw")
         self.confirm = self.builder.get_object("confirm")
+
+        self._kickstarted = self.data.rootpw.seen
+        if self._kickstarted:
+            self.pw.set_placeholder_text(_("The password was set by kickstart."))
+            self.confirm.set_placeholder_text(_("The password was set by kickstart."))
 
     def refresh(self):
 #        self.setCapsLockLabel()
@@ -76,7 +82,9 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalSpoke):
     def status(self):
         if self._error:
             return _("Error setting root password")
-        if self.data.rootpw.password:
+        elif self._kickstarted:
+            return _("Root password was set by kickstart")
+        elif self.data.rootpw.password:
             return _("Root password is set")
         elif self.data.rootpw.lock:
             return _("Root account is disabled")
@@ -87,11 +95,17 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalSpoke):
     def mandatory(self):
         return not any(user for user in self.data.user.userList
                             if "wheel" in user.groups)
-        
+
     def apply(self):
+        if self._password == "" and self._kickstarted:
+            return
+
         self.data.rootpw.password = cryptPassword(self._password)
         self.data.rootpw.isCrypted = True
         self.data.rootpw.lock = False
+        self._kickstarted = False
+        self.pw.set_placeholder_text("")
+        self.confirm.set_placeholder_text("")
 
     @property
     def completed(self):
@@ -106,8 +120,11 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalSpoke):
         confirm = self.confirm.get_text()
 
         if not pw and not confirm:
-            self._error = _("You must provide and confirm a password.")
-            return False
+            if self._kickstarted:
+                return True
+            else:
+                self._error = _("You must provide and confirm a password.")
+                return False
 
         try:
             self._error = validatePassword(pw, confirm)
