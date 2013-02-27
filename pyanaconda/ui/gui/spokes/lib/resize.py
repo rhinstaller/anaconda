@@ -118,6 +118,8 @@ class ResizeDialog(GUIObject):
 
         canShrinkSomething = False
 
+        free_space = self.storage.getFreeSpace(disks=disks)
+
         for disk in disks:
             # First add the disk itself.
             editable = not disk.protected
@@ -164,6 +166,20 @@ class ResizeDialog(GUIObject):
                                                  self._get_tooltip(dev),
                                                  dev.size])
                     diskReclaimableSpace += freeSize
+
+            # And then add another uneditable line that lists how much space is
+            # already free in the disk.
+            diskFree = free_space[disk.name][0]
+            converted = diskFree.convertTo(spec="mb")
+            if int(converted):
+                self._diskStore.append(itr, [disk.id,
+                                             _("""<span foreground='grey' style='italic'>Free space</span>"""),
+                                             "",
+                                             "<span foreground='grey' style='italic'>%s</span>" % size_str(diskFree),
+                                             _(PRESERVE),
+                                             False,
+                                             self._get_tooltip(disk),
+                                             float(converted)])
 
             # And then go back and fill in the total reclaimable space for the
             # disk, now that we know what each partition has reclaimable.
