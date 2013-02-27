@@ -841,7 +841,7 @@ class SourceSpoke(NormalSpoke):
         dev = None
         for child in self._autodetectMediaBox.get_children():
             if child.get_chosen():
-                dev = child
+                dev = child.props.name
                 break
 
         return dev
@@ -923,7 +923,7 @@ class SourceSpoke(NormalSpoke):
 
         dialog = MediaCheckDialog(self.data)
         with enlightbox(self.window, dialog.window):
-            dialog.run(dev.path)
+            dialog.run("/dev/" + dev)
 
     def on_protocol_changed(self, combo):
         proxyButton = self.builder.get_object("proxyButton")
