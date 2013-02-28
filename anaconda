@@ -64,7 +64,7 @@ def exitHandler(rebootData, storage, exitCode=None):
         from pykickstart.constants import KS_SHUTDOWN, KS_WAIT, KS_REBOOT
         from pyanaconda.iutil import dracut_eject
 
-        if rebootData.eject:
+        if flags.eject or rebootData.eject:
             for drive in storage.devicetree.devices:
                 if drive.type != "cdrom":
                     continue
@@ -286,6 +286,7 @@ def parseOptions(argv=None, cmdline=None):
     op.add_option("--memcheck", action="store_true", default=True)
     op.add_option("--nomemcheck", action="store_false", dest="memcheck")
     op.add_option("--leavebootorder", action="store_true", default=False)
+    op.add_option("--noeject", action="store_false", dest="eject", default=True)
 
     # some defaults change based on cmdline flags
     if cmdline is not None:
@@ -808,6 +809,7 @@ if __name__ == "__main__":
     flags.dmraid = opts.dmraid
     flags.mpath = opts.mpath
     flags.selinux = opts.selinux
+    flags.eject = opts.eject
 
     if can_touch_runtime_system("start audit daemon"):
         startAuditDaemon()
@@ -841,6 +843,7 @@ if __name__ == "__main__":
     ksdata = None
     if opts.ksfile:
         flags.automatedInstall = True
+        flags.eject = False
         files = [opts.ksfile]
     else:
         files = ["/tmp/updates/interactive-defaults.ks",
