@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2011-2012  Red Hat, Inc.
+ * Copyright (C) 2011-2013  Red Hat, Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -20,6 +20,8 @@
 #include "BaseWindow.h"
 #include "StandaloneWindow.h"
 #include "intl.h"
+
+#include <gdk/gdkkeysyms.h>
 
 /**
  * SECTION: StandaloneWindow
@@ -63,6 +65,8 @@ static void anaconda_standalone_window_quit_clicked(GtkButton *button,
                                                     AnacondaStandaloneWindow *win);
 static void anaconda_standalone_window_continue_clicked(GtkButton *button,
                                                         AnacondaStandaloneWindow *win);
+static void anaconda_standalone_window_realize(GtkWidget *widget,
+                                               AnacondaStandaloneWindow *win);
 
 G_DEFINE_TYPE(AnacondaStandaloneWindow, anaconda_standalone_window, ANACONDA_TYPE_BASE_WINDOW)
 
@@ -149,6 +153,23 @@ static void anaconda_standalone_window_init(AnacondaStandaloneWindow *win) {
     gtk_container_add(GTK_CONTAINER(win->priv->button_box), win->priv->continue_button);
 
     gtk_box_pack_start(GTK_BOX(main_box), win->priv->button_box, FALSE, TRUE, 0);
+
+    /* It would be handy for F12 to continue to work like it did in the old
+     * UI, by skipping you to the next screen.
+     */
+    g_signal_connect(win, "realize", G_CALLBACK(anaconda_standalone_window_realize), win);
+}
+
+static void anaconda_standalone_window_realize(GtkWidget *widget,
+                                               AnacondaStandaloneWindow *win) {
+    GtkAccelGroup *accel_group = gtk_accel_group_new();
+    gtk_window_add_accel_group(GTK_WINDOW(win), accel_group);
+    gtk_widget_add_accelerator(win->priv->continue_button,
+                               "clicked",
+                               accel_group,
+                               GDK_KEY_F12,
+                               0,
+                               0);
 }
 
 static void anaconda_standalone_window_quit_clicked(GtkButton *button,

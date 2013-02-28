@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2011  Red Hat, Inc.
+ * Copyright (C) 2011-2013  Red Hat, Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -20,6 +20,8 @@
 #include "BaseWindow.h"
 #include "SpokeWindow.h"
 #include "intl.h"
+
+#include <gdk/gdkkeysyms.h>
 
 /**
  * SECTION: SpokeWindow
@@ -155,6 +157,7 @@ static void anaconda_spoke_window_init(AnacondaSpokeWindow *win) {
 }
 
 static void anaconda_spoke_window_realize(GtkWidget *widget, gpointer user_data) {
+    GtkAccelGroup *accel_group;
     GError *error;
     GdkPixbuf *pixbuf;
     cairo_pattern_t *pattern;
@@ -189,6 +192,16 @@ static void anaconda_spoke_window_realize(GtkWidget *widget, gpointer user_data)
         cairo_pattern_set_extend(pattern, CAIRO_EXTEND_REPEAT);
         gdk_window_set_background_pattern(gtk_widget_get_window(nav_box), pattern);
     }
+
+    /* Pressing F12 should send you back to the hub, similar to how the old UI worked. */
+    accel_group = gtk_accel_group_new();
+    gtk_window_add_accel_group(GTK_WINDOW(window), accel_group);
+    gtk_widget_add_accelerator(window->priv->button,
+                               "clicked",
+                               accel_group,
+                               GDK_KEY_F12,
+                               0,
+                               0);
 }
 
 static void anaconda_spoke_window_button_clicked(GtkButton *button,
