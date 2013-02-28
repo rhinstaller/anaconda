@@ -566,7 +566,7 @@ class SourceSpoke(NormalSpoke):
             log.error("PayloadError: %s" % (e,))
             self._error = True
             communication.send_message(self.__class__.__name__,
-                                       _("Failed to set up install source"))
+                                       _("Failed to set up installation source"))
             if not self.data.method.proxy:
                 gtk_call_once(self.set_warning, _("Failed to set up installation source; check the repo url"))
             else:

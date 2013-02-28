@@ -127,7 +127,7 @@ class LiveImagePayload(ImagePayload):
 
     def postInstall(self):
         """ Perform post-installation tasks. """
-        progress.send_message(_("Performing post-install setup tasks"))
+        progress.send_message(_("Performing post-installation setup tasks"))
         blivet.util.umount(INSTALL_TREE)
 
         super(LiveImagePayload, self).postInstall()

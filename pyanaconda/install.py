@@ -83,7 +83,7 @@ def doConfiguration(storage, payload, ksdata, instClass):
         ksdata.addons.execute(storage, ksdata, instClass, u)
         ksdata.configured_spokes.execute(storage, ksdata, instClass, u)
         
-    with progress_report(_("Running post install scripts")):
+    with progress_report(_("Running post-installation scripts")):
         runPostScripts(ksdata.scripts)
 
     # Write the kickstart file to the installed system (or, copy the input

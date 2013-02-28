@@ -1624,7 +1624,7 @@ class RPMCallback(object):
             # take a very long time.  So when it closes the last package, just
             # display the message.
             if self.completed_actions == self.total_actions:
-                progress.send_message(_("Performing post-install setup tasks"))
+                progress.send_message(_("Performing post-installation setup tasks"))
         elif event == rpm.RPMCALLBACK_UNINST_START:
             # update status that we're cleaning up %key
             #progress.set_text(_("Cleaning up %s" % key))

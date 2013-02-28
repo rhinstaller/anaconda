@@ -45,8 +45,8 @@ class AskVNCSpoke(NormalTUISpoke):
                               "start VNC to connect to "
                               "this computer from another "
                               "computer and perform a "
-                              "graphical install or continue "
-                              "with a text mode install?")
+                              "graphical installation or continue "
+                              "with a text mode installation?")
 
         self._choices = (USEVNC, USETEXT)
         self._usevnc = False
