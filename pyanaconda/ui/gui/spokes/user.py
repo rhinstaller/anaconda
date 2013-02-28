@@ -178,6 +178,18 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke):
             self.username: True
             }
 
+        # indicate when the password was set by kickstart
+        self._user.password_kickstarted = self.data.user.seen
+        if self._user.password_kickstarted:
+            self.usepassword.set_active(self._user.password != "")
+            if not self._user.isCrypted:
+                self.pw.set_text(self._user.password)
+                self.confirm.set_text(self._user.password)
+            else:
+                self.usepassword.set_active(True)
+                self.pw.set_placeholder_text(_("The password was set by kickstart."))
+                self.confirm.set_placeholder_text(_("The password was set by kickstart."))
+
         # set up passphrase quality checker
         self._pwq = pwquality.PWQSettings()
         self._pwq.read_config()
@@ -197,7 +209,8 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke):
         if self.usepassword.get_active():
             self._checkPassword()
 
-        if self.username.get_text() and self.usepassword.get_active():
+        if self.username.get_text() and self.usepassword.get_active() and \
+           self._user.password == "":
             self.pw.grab_focus()
         elif self.fullname.get_text():
             self.username.grab_focus()
@@ -221,12 +234,29 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke):
         return (not self.data.rootpw.password) or self.data.rootpw.lock
 
     def apply(self):
-        if self.username.get_text():
-            self._user.name = self.username.get_text()
-            self._user.gecos = self.fullname.get_text()
-            self._user.password = cryptPassword(self.pw.get_text())
-            self._user.isCrypted = True
+        # set the password only if the user enters anything to the text entry
+        # this should preserve the kickstart based password
+        if self.usepassword.get_active():
+            if self.pw.get_text():
+                self._user.password_kickstarted = False
+                self._user.password = cryptPassword(self.pw.get_text())
+                self._user.isCrypted = True
+                self.pw.set_placeholder_text("")
+                self.confirm.set_placeholder_text("")
 
+        # reset the password when the user unselects it
+        else:
+            self.pw.set_placeholder_text("")
+            self.confirm.set_placeholder_text("")
+            self._user.password = ""
+            self._user.isCrypted = False
+            self._user.password_kickstarted = False
+
+        self._user.name = self.username.get_text()
+        self._user.gecos = self.fullname.get_text()
+
+        # the user will be created only if the username is set
+        if self._user.name:
             if self.admin.get_active() and \
                self._wheel.name not in self._user.groups:
                 self._user.groups.append(self._wheel.name)
@@ -408,10 +438,19 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke):
         self.admin.set_active(self._wheel.name in self._user.groups)
 
     def on_back_clicked(self, button):
-        if not self.usepassword.get_active() or self._validatePassword():
+        # Return if:
+        # - no password is required
+        # - password is set by kickstart and password text entry is empty
+        # - password is set by dialog and _validatePassword returns True
+        if not self.usepassword.get_active() or \
+           (self.pw.get_text() == "" and \
+            self.pw.get_text() == self.confirm.get_text() and \
+            self._user.password_kickstarted) or \
+           self._validatePassword():
             self._error = False
             self.clear_info()
             NormalSpoke.on_back_clicked(self, button)
+        # Show the confirmation message if the password is not acceptable
         else:
             self.clear_info()
             self.set_warning(self._error)
