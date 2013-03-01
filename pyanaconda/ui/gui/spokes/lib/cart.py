@@ -22,6 +22,7 @@
 
 from gi.repository import Gtk
 
+from pyanaconda.ui.lib.disks import size_str
 from pyanaconda.ui.gui import GUIObject
 from blivet.size import Size
 
@@ -38,14 +39,6 @@ SIZE_COL = 2
 FREE_SPACE_COL = 3
 NAME_COL = 4
 ID_COL = 5
-
-def size_str(mb):
-    if isinstance(mb, Size):
-        spec = str(mb)
-    else:
-        spec = "%s mb" % mb
-
-    return str(Size(spec=spec)).upper()
 
 class SelectedDisksDialog(GUIObject):
     builderObjects = ["selected_disks_dialog", "disk_store", "disk_tree_view"]

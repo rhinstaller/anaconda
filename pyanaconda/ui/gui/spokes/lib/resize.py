@@ -23,6 +23,7 @@ from __future__ import division
 
 from gi.repository import Gtk
 
+from pyanaconda.ui.lib.disks import size_str
 from pyanaconda.ui.gui import GUIObject
 from blivet.size import Size
 
@@ -46,14 +47,6 @@ RESIZE_TARGET_COL = 7
 PRESERVE = N_("Preserve")
 SHRINK = N_("Shrink")
 DELETE = N_("Delete")
-
-def size_str(mb):
-    if isinstance(mb, Size):
-        spec = str(mb)
-    else:
-        spec = "%s mb" % mb
-
-    return str(Size(spec=spec)).upper()
 
 class ResizeDialog(GUIObject):
     builderObjects = ["actionStore", "diskStore", "resizeDialog"]

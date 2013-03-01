@@ -22,6 +22,7 @@
 # which has the same license and authored by David Lehman <dlehman@redhat.com>
 #
 
+from pyanaconda.ui.lib.disks import getDisks
 from pyanaconda.ui.tui.spokes import NormalTUISpoke
 from pyanaconda.ui.tui.simpleline import TextWidget, CheckboxWidget
 
@@ -50,44 +51,6 @@ CLEARNONE = _("Use Free Space")
 
 parttypes = {CLEARALL: CLEARPART_TYPE_ALL, CLEARLINUX: CLEARPART_TYPE_LINUX,
              CLEARNONE: CLEARPART_TYPE_NONE}
-
-class FakeDiskLabel(object):
-    def __init__(self, free=0):
-        self.free = free
-
-class FakeDisk(object):
-    def __init__(self, name, size=0, free=0, partitioned=True, vendor=None,
-                 model=None, serial=None, removable=False):
-        self.name = name
-        self.size = size
-        self.format = FakeDiskLabel(free=free)
-        self.partitioned = partitioned
-        self.vendor = vendor
-        self.model = model
-        self.serial = serial
-        self.removable = removable
-
-    @property
-    def description(self):
-        return "%s %s" % (self.vendor, self.model)
-
-def getDisks(devicetree, fake=False):
-    if not fake:
-        disks = [d for d in devicetree.devices if d.isDisk and
-                                                  d.size > 0 and
-                                                  not d.format.hidden and
-                                                  not (d.protected and
-                                                       d.removable)]
-    else:
-        disks = []
-        disks.append(FakeDisk("sda", size=300000, free=10000, serial="00001",
-                              vendor="Seagate", model="Monster"))
-        disks.append(FakeDisk("sdb", size=300000, free=300000, serial="00002",
-                              vendor="Seagate", model="Monster"))
-        disks.append(FakeDisk("sdc", size=8000, free=2100, removable=True,
-                              vendor="SanDisk", model="Cruzer", serial="00003"))
-
-    return disks
 
 class StorageSpoke(NormalTUISpoke):
     title = _("Install Destination")

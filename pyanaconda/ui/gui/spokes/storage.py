@@ -41,6 +41,7 @@
 from gi.repository import Gdk, GLib, Gtk
 from gi.repository import AnacondaWidgets
 from pyanaconda.ui import communication
+from pyanaconda.ui.lib.disks import getDisks, size_str
 from pyanaconda.ui.gui import GUIObject
 from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.gui.spokes.lib.cart import SelectedDisksDialog
@@ -72,53 +73,6 @@ import logging
 log = logging.getLogger("anaconda")
 
 __all__ = ["StorageSpoke"]
-
-class FakeDiskLabel(object):
-    def __init__(self, free=0):
-        self.free = free
-
-class FakeDisk(object):
-    def __init__(self, name, size=0, free=0, partitioned=True, vendor=None,
-                 model=None, serial=None, removable=False):
-        self.name = name
-        self.size = size
-        self.format = FakeDiskLabel(free=free)
-        self.partitioned = partitioned
-        self.vendor = vendor
-        self.model = model
-        self.serial = serial
-        self.removable = removable
-
-    @property
-    def description(self):
-        return "%s %s" % (self.vendor, self.model)
-
-def getDisks(devicetree, fake=False):
-    if not fake:
-        devices = devicetree.devices + devicetree._hidden
-        disks = [d for d in devices if d.isDisk and
-                                       d.size > 0 and
-                                       not d.format.hidden and
-                                       not (d.protected and
-                                            d.removable)]
-    else:
-        disks = []
-        disks.append(FakeDisk("sda", size=300000, free=10000, serial="00001",
-                              vendor="Seagate", model="Monster"))
-        disks.append(FakeDisk("sdb", size=300000, free=300000, serial="00002",
-                              vendor="Seagate", model="Monster"))
-        disks.append(FakeDisk("sdc", size=8000, free=2100, removable=True,
-                              vendor="SanDisk", model="Cruzer", serial="00003"))
-
-    return disks
-
-def size_str(mb):
-    if isinstance(mb, Size):
-        spec = str(mb)
-    else:
-        spec = "%s mb" % mb
-
-    return str(Size(spec=spec)).upper()
 
 class InstallOptions1Dialog(GUIObject):
     builderObjects = ["options1_dialog"]
