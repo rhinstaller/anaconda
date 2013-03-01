@@ -41,7 +41,7 @@
 from gi.repository import Gdk, GLib, Gtk
 from gi.repository import AnacondaWidgets
 from pyanaconda.ui import communication
-from pyanaconda.ui.lib.disks import getDisks, size_str
+from pyanaconda.ui.lib.disks import getDisks, isLocalDisk, size_str
 from pyanaconda.ui.gui import GUIObject
 from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.gui.spokes.lib.cart import SelectedDisksDialog
@@ -318,9 +318,9 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         self._ready = False
         self.selected_disks = self.data.ignoredisk.onlyuse[:]
 
-        # This list gets set up once in initialize and should not be modified
-        # except perhaps to add advanced devices. It will remain the full list
-        # of disks that can be included in the install.
+        # This list contains all possible disks that can be included in the install.
+        # All types of advanced disks should be set up for us ahead of time, so
+        # there should be no need to modify this list.
         self.disks = []
 
         if not flags.automatedInstall:
