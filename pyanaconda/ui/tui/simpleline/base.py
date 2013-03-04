@@ -25,19 +25,23 @@ import readline
 import Queue
 import getpass
 from pyanaconda.threads import threadMgr, AnacondaThread
-from pyanaconda.ui.communication import HUB_CODE_INPUT
+from pyanaconda.ui.communication import HUB_CODE_EXCEPTION, HUB_CODE_INPUT
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
 
-class ExitAllMainLoops(Exception):
-    """This exception ends the whole App mainloop structure. App.run() quits
-       after it is processed."""
-    pass
+def send_exception(queue, ex):
+    queue.put((HUB_CODE_EXCEPTION, [ex]))
+
 
 class ExitMainLoop(Exception):
     """This exception ends the outermost mainloop. Used internally when dialogs
        close."""
+    pass
+
+class ExitAllMainLoops(ExitMainLoop):
+    """This exception ends the whole App mainloop structure. App.run() quits
+       after it is processed."""
     pass
 
 class App(object):
@@ -256,9 +260,16 @@ class App(object):
             input_needed = False
         elif self._redraw:
             # get the widget tree from the screen and show it in the screen
-            input_needed = screen.refresh(args)
-            screen.window.show_all()
-            self._redraw = False
+            try:
+                input_needed = screen.refresh(args)
+                screen.window.show_all()
+                self._redraw = False
+            except ExitMainLoop:
+                raise
+            except Exception as ex:
+                send_exception(self.queue, ex)
+                return False
+
         else:
             # this can happen only in case there was invalid input and prompt
             # should be shown again
@@ -309,7 +320,13 @@ class App(object):
                 last_screen = self._screens[-1][0]
 
                 # get the screen's prompt
-                prompt = last_screen.prompt(self._screens[-1][1])
+                try:
+                    prompt = last_screen.prompt(self._screens[-1][1])
+                except ExitMainLoop:
+                    raise
+                except Exception as ex:
+                    send_exception(self.queue, ex)
+                    continue
 
                 # None means prompt handled the input by itself
                 # ask for redraw and continue
@@ -329,15 +346,15 @@ class App(object):
                 if error_counter >= 5:
                     self.redraw()
 
-            # end just this loop
-            except ExitMainLoop:
-                break
-
             # propagate higher to end all loops
             # not really needed here, but we might need
             # more processing in the future
             except ExitAllMainLoops:
                 raise
+
+            # end just this loop
+            except ExitMainLoop:
+                break
 
     def process_events(self, return_at = None):
         """This method processes incoming async messages and returns
@@ -356,7 +373,12 @@ class App(object):
                 return event
             elif event[0] in self._handlers:
                 for handler, data in self._handlers[event[0]]:
-                    handler(event, data)
+                    try:
+                        handler(event, data)
+                    except ExitMainLoop:
+                        raise
+                    except Exception as ex:
+                        send_exception(self.queue, ex)
 
     def raw_input(self, prompt, hidden=False):
         """This method reads one input from user. Its basic form has only one
@@ -389,9 +411,15 @@ class App(object):
 
         # delegate the handling to active screen first
         if self._screens:
-            key = self._screens[-1][0].input(args, key)
-            if key is None:
-                return True
+            try:
+                key = self._screens[-1][0].input(args, key)
+                if key is None:
+                    return True
+            except ExitMainLoop:
+                raise
+            except Exception as ex:
+                send_exception(self.queue, ex)
+                return False
 
         # global close command
         if self._screens and (key == _('c')):
