@@ -434,6 +434,7 @@ class SourceSpoke(NormalSpoke):
         self._ready = False
         self._error = False
         self._proxyChange = False
+        self._cdrom = None
 
     def apply(self):
         import copy
@@ -446,12 +447,11 @@ class SourceSpoke(NormalSpoke):
         old_source = copy.copy(self.data.method)
 
         if self._autodetectButton.get_active():
-            dev = self._get_selected_media()
-            if not dev:
+            if not self._cdrom:
                 return
 
             self.data.method.method = "cdrom"
-            self.payload.install_device = dev
+            self.payload.install_device = self._cdrom
             if old_source.method == "cdrom":
                 # XXX maybe we should always redo it for cdrom in case they
                 #     switched disks
@@ -653,7 +653,7 @@ class SourceSpoke(NormalSpoke):
     def _grabObjects(self):
         self._autodetectButton = self.builder.get_object("autodetectRadioButton")
         self._autodetectBox = self.builder.get_object("autodetectBox")
-        self._autodetectMediaBox = self.builder.get_object("autodetectMediaBox")
+        self._autodetectLabel = self.builder.get_object("autodetectLabel")
         self._isoButton = self.builder.get_object("isoRadioButton")
         self._isoBox = self.builder.get_object("isoBox")
         self._networkButton = self.builder.get_object("networkRadioButton")
@@ -672,7 +672,6 @@ class SourceSpoke(NormalSpoke):
 
     def initialize(self):
         from pyanaconda.threads import threadMgr, AnacondaThread
-        from pyanaconda.ui.gui.utils import setViewportBackground
 
         NormalSpoke.initialize(self)
 
@@ -683,9 +682,6 @@ class SourceSpoke(NormalSpoke):
         self._autodetectButton.connect("toggled", self.on_source_toggled, self._autodetectBox)
         self._isoButton.connect("toggled", self.on_source_toggled, self._isoBox)
         self._networkButton.connect("toggled", self.on_source_toggled, self._networkBox)
-
-        viewport = self.builder.get_object("autodetectViewport")
-        setViewportBackground(viewport)
 
         threadMgr.add(AnacondaThread(name="AnaSourceWatcher", target=self._initialize))
 
@@ -701,25 +697,21 @@ class SourceSpoke(NormalSpoke):
         threadMgr.wait("AnaPayloadThread")
 
         added = False
-        cdrom = None
-        chosen = False
 
         # If we've previously set up to use a CD/DVD method, the media has
         # already been mounted by payload.setup.  We can't try to mount it
         # again.  So just use what we already know to create the selector.
         # Otherwise, check to see if there's anything available.
         if self.data.method.method == "cdrom":
-            cdrom = self.payload.install_device
-            chosen = True
+            self._cdrom = self.payload.install_device
         elif not flags.automatedInstall:
-            cdrom = opticalInstallMedia(self.storage.devicetree)
+            self._cdrom = opticalInstallMedia(self.storage.devicetree)
 
-        if cdrom:
+        if self._cdrom:
             @gtk_thread_wait
             def gtk_action_1():
-                selector = AnacondaWidgets.DiskOverview(cdrom.format.label or "", "drive-removable-media", "", cdrom.name)
-                selector.set_chosen(chosen)
-                self._autodetectMediaBox.pack_start(selector, False, False, 0)
+                text = "%s /dev/%s" % (self._cdrom.format.label or "", self._cdrom.name)
+                self._autodetectLabel.set_text(text)
 
             gtk_action_1()
             added = True
@@ -843,15 +835,6 @@ class SourceSpoke(NormalSpoke):
     def _nfs_active(self):
         return self._protocolComboBox.get_active() == 4
 
-    def _get_selected_media(self):
-        dev = None
-        for child in self._autodetectMediaBox.get_children():
-            if child.get_chosen():
-                dev = child.props.name
-                break
-
-        return dev
-
     def _get_selected_partition(self):
         store = self.builder.get_object("partitionStore")
         combo = self.builder.get_object("isoPartitionCombo")
@@ -922,14 +905,12 @@ class SourceSpoke(NormalSpoke):
                 p.format.unmount()
 
     def on_verify_media_clicked(self, button):
-        dev = self._get_selected_media()
-
-        if not dev:
+        if not self._cdrom:
             return
 
         dialog = MediaCheckDialog(self.data)
         with enlightbox(self.window, dialog.window):
-            dialog.run("/dev/" + dev)
+            dialog.run("/dev/" + self._cdrom.name)
 
     def on_protocol_changed(self, combo):
         proxyButton = self.builder.get_object("proxyButton")

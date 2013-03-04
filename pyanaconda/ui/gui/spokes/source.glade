@@ -913,31 +913,13 @@ TeXlive 2012 repository</col>
                     <property name="margin_left">24</property>
                     <property name="spacing">6</property>
                     <child>
-                      <object class="GtkScrolledWindow" id="autodetectWindow">
+                      <object class="GtkLabel" id="autodetectLabel">
                         <property name="visible">True</property>
-                        <property name="can_focus">True</property>
-                        <property name="vscrollbar_policy">never</property>
-                        <property name="shadow_type">out</property>
-                        <child>
-                          <object class="GtkViewport" id="autodetectViewport">
-                            <property name="visible">True</property>
-                            <property name="can_focus">False</property>
-                            <property name="shadow_type">out</property>
-                            <child>
-                              <object class="GtkBox" id="autodetectMediaBox">
-                                <property name="visible">True</property>
-                                <property name="can_focus">False</property>
-                                <property name="orientation">vertical</property>
-                                <child>
-                                  <placeholder/>
-                                </child>
-                              </object>
-                            </child>
-                          </object>
-                        </child>
+                        <property name="can_focus">False</property>
+                        <property name="label" translatable="yes">device label goes here</property>
                       </object>
                       <packing>
-                        <property name="expand">True</property>
+                        <property name="expand">False</property>
                         <property name="fill">True</property>
                         <property name="position">0</property>
                       </packing>
