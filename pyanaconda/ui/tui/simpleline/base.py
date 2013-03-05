@@ -341,6 +341,10 @@ class App(object):
                 # increment the error counter
                 if not self.input(self._screens[-1][1], c):
                     error_counter += 1
+                else:
+                    # input was successfully processed, but no other screen was
+                    # scheduled, just redraw the screen to display current state
+                    self.redraw()
 
                 # redraw the screen after 5 bad inputs
                 if error_counter >= 5:
