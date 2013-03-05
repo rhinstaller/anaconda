@@ -116,7 +116,9 @@ class TextUserInterface(ui.UserInterface):
 
     ENVIRONMENT = "anaconda"
 
-    def __init__(self, storage, payload, instclass):
+    def __init__(self, storage, payload, instclass,
+                 productTitle = u"Anaconda", isFinal = True,
+                 quitMessage = None):
         """
         For detailed description of the arguments see
         the parent class.
@@ -129,11 +131,31 @@ class TextUserInterface(ui.UserInterface):
 
         :param instclass: install class reference
         :type instclass: instance of install class
+
+        :param productTitle: the name of the product
+        :type productTitle: unicode string
+
+        :param isFinal: Boolean that marks the release
+                        as final (True) or development
+                        (False) version.
+        :type isFinal: bool
+        
+        :param quitMessage: The text to be used in quit
+                            dialog question. It should not
+                            be translated to allow for change
+                            of language.
+        :type quitMessage: unicode string
+
+
         """
 
         ui.UserInterface.__init__(self, storage, payload, instclass)
         self._app = None
         self._meh_interface = meh.ui.text.TextIntf()
+
+        self.productTitle = productTitle
+        self.isFinal = isFinal
+        self.quitMessage = quitMessage
 
     basemask = "pyanaconda.ui.tui"
     basepath = os.path.dirname(__file__)
@@ -171,7 +193,8 @@ class TextUserInterface(ui.UserInterface):
         """Construct all the objects required to implement this interface.
            This method must be provided by all subclasses.
         """
-        self._app = tui.App(u"Anaconda", yes_or_no_question=YesNoDialog, queue=communication.hubQ)
+        self._app = tui.App(self.productTitle, yes_or_no_question = YesNoDialog,
+                            quit_message = self.quitMessage)
         _hubs = self._list_hubs()
 
         # First, grab a list of all the standalone spokes.

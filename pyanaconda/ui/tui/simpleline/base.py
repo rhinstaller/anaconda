@@ -29,6 +29,7 @@ from pyanaconda.ui.communication import HUB_CODE_EXCEPTION, HUB_CODE_INPUT
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
+N_ = lambda x: x
 
 def send_exception(queue, ex):
     queue.put((HUB_CODE_EXCEPTION, [ex]))
@@ -62,7 +63,8 @@ class App(object):
     STOP_MAINLOOP = False
     NOP = None
 
-    def __init__(self, title, yes_or_no_question = None, width = 80, queue = None):
+    def __init__(self, title, yes_or_no_question = None, width = 80, queue = None,
+                 quit_message = None):
         """
         :param title: application title for whenever we need to display app name
         :type title: unicode
@@ -78,6 +80,7 @@ class App(object):
         self._spacer = "\n".join(2*[width*"="])
         self._width = width
         self.quit_question = yes_or_no_question
+        self.quit_message = quit_message or N_(u"Do you really want to quit?")
 
         # async control queue
         if queue:
@@ -433,7 +436,7 @@ class App(object):
         # global quit command
         elif self._screens and (key == _('q')):
             if self.quit_question:
-                d = self.quit_question(self, _(u"Do you really want to quit?"))
+                d = self.quit_question(self, _(self.quit_message))
                 self.switch_screen_modal(d)
                 if d.answer:
                     raise ExitAllMainLoops()
