@@ -413,7 +413,7 @@ class NetworkControlBox(object):
                                                     None, None)
 
     def on_device_added(self, client, device, *args):
-        self.add_device(device)
+        self.add_device_to_list(device)
 
     def on_device_removed(self, client, device, *args):
         self.remove_device(device)
@@ -492,8 +492,16 @@ class NetworkControlBox(object):
         elif dev_type == NetworkManager.DeviceType.WIFI:
             self.client.wireless_set_enabled(active)
 
+
     def on_add_device_clicked(self, *args):
-        self.add_device("bond")
+        dialog = self.builder.get_object("add_device_dialog")
+        rc = dialog.run()
+        dialog.hide()
+        if rc == 1:
+            ai = self.builder.get_object("combobox_add_device").get_active_iter()
+            model = self.builder.get_object("liststore_add_device")
+            dev_type = model.get[ai][1][0]
+            self.add_device(dev_type)
 
     def add_device(self, type):
         log.info("network: adding device of type %s" % type)
@@ -1009,7 +1017,7 @@ class NetworkControlBox(object):
         self.entry_hostname.set_text(value)
 
 class NetworkSpoke(NormalSpoke):
-    builderObjects = ["networkWindow", "liststore_wireless_network", "liststore_devices"]
+    builderObjects = ["networkWindow", "liststore_wireless_network", "liststore_devices", "add_device_dialog", "liststore_add_device"]
     mainWidgetName = "networkWindow"
     uiFile = "spokes/network.glade"
 
@@ -1131,7 +1139,7 @@ class NetworkSpoke(NormalSpoke):
             NormalSpoke.on_back_clicked(self, button)
 
 class NetworkStandaloneSpoke(StandaloneSpoke):
-    builderObjects = ["networkStandaloneWindow", "networkControlBox_vbox", "liststore_wireless_network", "liststore_devices"]
+    builderObjects = ["networkStandaloneWindow", "networkControlBox_vbox", "liststore_wireless_network", "liststore_devices", "add_device_dialog", "liststore_add_device"]
     mainWidgetName = "networkStandaloneWindow"
     uiFile = "spokes/network.glade"
 
