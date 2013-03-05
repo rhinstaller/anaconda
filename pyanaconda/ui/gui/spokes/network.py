@@ -222,14 +222,17 @@ class NetworkControlBox(object):
     supported_device_types = [
         NetworkManager.DeviceType.ETHERNET,
         NetworkManager.DeviceType.WIFI,
+        NetworkManager.DeviceType.BOND,
     ]
 
     def __init__(self, builder):
 
         self.builder = builder
 
-        # these buttons are only for vpn and proxy
-        self.builder.get_object("add_toolbutton").set_sensitive(False)
+        # button for creating of virtual bond and vlan devices
+        self.builder.get_object("add_toolbutton").set_sensitive(True)
+        self.builder.get_object("add_toolbutton").connect("clicked",
+                                                           self.on_add_device_clicked)
         self.builder.get_object("remove_toolbutton").set_sensitive(False)
 
         not_supported = ["start_hotspot_button",
@@ -238,7 +241,6 @@ class NetworkControlBox(object):
                          "heading_hotspot_security_key",
                          "label_hotspot_network_name",
                          "label_hotspot_security_key",
-                         "devices_toolbar",
                          "hbox54",
                         ]
 
@@ -249,6 +251,8 @@ class NetworkControlBox(object):
                                    for type in ["wired", "wireless"]
                                    for value in ["ipv4", "ipv6", "dns", "route"]]
         do_not_show_in_refresh += ["%s_wired_subnet" % widget
+                                   for widget in ["heading", "label"]]
+        do_not_show_in_refresh += ["%s_wired_slaves" % widget
                                    for widget in ["heading", "label"]]
 
         for id in not_supported + do_not_show_in_refresh:
@@ -332,7 +336,7 @@ class NetworkControlBox(object):
 
     def initialize(self):
         for device in self.client.get_devices():
-            self.add_device(device)
+            self.add_device_to_list(device)
 
         treeview = self.builder.get_object("treeview_devices")
         devices_store = self.builder.get_object("liststore_devices")
@@ -472,7 +476,8 @@ class NetworkControlBox(object):
                   (device.get_iface(), "on" if active else "off"))
 
         dev_type = device.get_device_type()
-        if dev_type == NetworkManager.DeviceType.ETHERNET:
+        if dev_type in (NetworkManager.DeviceType.ETHERNET,
+                        NetworkManager.DeviceType.BOND):
             if active:
                 cons = self.remote_settings.list_connections()
                 dev_cons = device.filter_connections(cons)
@@ -486,6 +491,20 @@ class NetworkControlBox(object):
                 device.disconnect(None, None)
         elif dev_type == NetworkManager.DeviceType.WIFI:
             self.client.wireless_set_enabled(active)
+
+    def on_add_device_clicked(self, *args):
+        self.add_device("bond")
+
+    def add_device(self, type):
+        log.info("network: adding device of type %s" % type)
+        self.builder.get_object("add_toolbutton").set_sensitive(False)
+        proc = subprocess.Popen(["nm-connection-editor", "--create", "--type=%s" % type])
+
+        GLib.child_watch_add(proc.pid, self.on_nmce_adding_exited)
+
+    def on_nmce_adding_exited(self, pid, condition):
+        self.builder.get_object("add_toolbutton").set_sensitive(True)
+        logIfcfgFiles("nm-c-e run")
 
     def selected_device(self):
         selection = self.builder.get_object("treeview_devices").get_selection()
@@ -505,6 +524,10 @@ class NetworkControlBox(object):
                 settings = con.get_setting_wireless()
                 if ssid and ssid != settings.get_ssid():
                     continue
+            elif con_type == NetworkManager.SETTING_BOND_SETTING_NAME:
+                settings = con.get_setting_bond()
+                if device.get_iface() == settings.get_virtual_iface_name():
+                    return con
             else:
                 continue
             con_hwaddr = ":".join("%02X" % ord(bytechar) for bytechar in settings.get_mac_address())
@@ -524,7 +547,7 @@ class NetworkControlBox(object):
         liststore"""
         return False
 
-    def add_device(self, device):
+    def add_device_to_list(self, device):
         if self._device_is_stored(device):
             return
 
@@ -544,6 +567,11 @@ class NetworkControlBox(object):
         icon_name = ""
         dev_type = device.get_device_type()
         if  dev_type == NetworkManager.DeviceType.ETHERNET:
+            if device.get_state() == NetworkManager.DeviceState.UNAVAILABLE:
+                icon_name = "network-wired-disconnected"
+            else:
+                icon_name = "network-wired"
+        elif  dev_type == NetworkManager.DeviceType.BOND:
             if device.get_state() == NetworkManager.DeviceState.UNAVAILABLE:
                 icon_name = "network-wired-disconnected"
             else:
@@ -585,6 +613,8 @@ class NetworkControlBox(object):
             title = _("Ethernet")
         elif dev_type == NetworkManager.DeviceType.WIFI:
             title = _("Wireless")
+        elif dev_type == NetworkManager.DeviceType.BOND:
+            title = _("Bond")
         else:
             title = ""
         return title
@@ -610,6 +640,7 @@ class NetworkControlBox(object):
 
         self._refresh_device_type_page(device)
         self._refresh_header_ui(device, state)
+        self._refresh_slaves(device)
         self._refresh_speed_hwaddr(device, state)
         self._refresh_ap(device, state)
         if read_config_values:
@@ -639,6 +670,8 @@ class NetworkControlBox(object):
             dt = "wired"
         elif dev_type == NetworkManager.DeviceType.WIFI:
             dt = "wireless"
+        elif dev_type == NetworkManager.DeviceType.BOND:
+            dt = "wired"
 
         if state is None:
             state = device.get_state()
@@ -734,6 +767,13 @@ class NetworkControlBox(object):
                         break
             self._updating_device = False
 
+    def _refresh_slaves(self, device):
+        dev_type = device.get_device_type()
+        if dev_type == NetworkManager.DeviceType.BOND:
+            slaves = ",".join(s.get_iface()
+                for s in device.get_slaves())
+            self._set_device_info_value("wired", "slaves", slaves)
+
     def _refresh_speed_hwaddr(self, device, state=None):
         dev_type = device.get_device_type()
         if dev_type == NetworkManager.DeviceType.ETHERNET:
@@ -742,6 +782,9 @@ class NetworkControlBox(object):
         elif dev_type == NetworkManager.DeviceType.WIFI:
             dt = "wireless"
             speed = device.get_bitrate() / 1000
+        else:
+            dt = "wired"
+            speed = None
 
         if state is None:
             state = device.get_state()
@@ -759,6 +802,12 @@ class NetworkControlBox(object):
         dev_type = device.get_device_type()
         if dev_type == NetworkManager.DeviceType.ETHERNET:
             notebook.set_current_page(0)
+            self.builder.get_object("heading_wired_slaves").hide()
+            self.builder.get_object("label_wired_slaves").hide()
+        elif dev_type == NetworkManager.DeviceType.BOND:
+            notebook.set_current_page(0)
+            self.builder.get_object("heading_wired_slaves").show()
+            self.builder.get_object("label_wired_slaves").show()
         elif dev_type == NetworkManager.DeviceType.WIFI:
             notebook.set_current_page(1)
 
@@ -772,6 +821,8 @@ class NetworkControlBox(object):
             dev_type_str = "wired"
         elif dev_type == NetworkManager.DeviceType.WIFI:
             dev_type_str = "wireless"
+        elif dev_type == NetworkManager.DeviceType.BOND:
+            dev_type_str = "wired"
 
         if dev_type_str == "wired":
             # update icon according to device status
