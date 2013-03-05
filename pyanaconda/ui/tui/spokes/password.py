@@ -48,7 +48,9 @@ class PasswordSpoke(NormalTUISpoke):
 
     @property
     def status(self):
-        if self.data.rootpw.password:
+        if self.data.rootpw.password and self.data.rootpw.seen:
+            return _("Password was set by kickstart.")
+        elif self.data.rootpw.password:
             return _("Password is set.")
         elif self.data.rootpw.lock:
             return _("Root account is disabled.")
@@ -92,3 +94,4 @@ class PasswordSpoke(NormalTUISpoke):
         self.data.rootpw.password = cryptPassword(self._password)
         self.data.rootpw.isCrypted = True
         self.data.rootpw.lock = False
+        self.data.rootpw.seen = False
