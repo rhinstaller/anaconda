@@ -56,7 +56,7 @@ def strip_accents(s):
 class AdvancedUserDialog(GUIObject):
     builderObjects = ["advancedUserDialog", "uid", "gid"]
     mainWidgetName = "advancedUserDialog"
-    uiFile = "advanced_user.glade"
+    uiFile = "spokes/advanced_user.glade"
 
     def __init__(self, user, groupDict, data):
         GUIObject.__init__(self, data)
