@@ -139,7 +139,7 @@ class Payload(object):
     @property
     def addOns(self):
         """ A list of addon repo identifiers. """
-        return []
+        return [r.name for r in self.data.repo.dataList()]
 
     @property
     def baseRepo(self):
@@ -147,6 +147,14 @@ class Payload(object):
         return None
 
     def getRepo(self, repo_id):
+        """ Return the package repo object. """
+        raise NotImplementedError()
+
+    def isRepoEnabled(self, repo_id):
+        """ Return True if repo is enabled. """
+        raise NotImplementedError()
+
+    def getAddOnRepo(self, repo_id):
         """ Return a ksdata Repo instance matching the specified repo id. """
         repo = None
         for r in self.data.repo.dataList():

@@ -297,7 +297,7 @@ reposdir=%s
 
         for repo in self._yum.repos.listEnabled():
             cfg_path = "%s/%s.repo" % (self._repos_dir, repo.id)
-            ks_repo = self.getRepo(repo.id)
+            ks_repo = self.getAddOnRepo(repo.id)
             with open(cfg_path, "w") as f:
                 f.write("[%s]\n" % repo.id)
                 f.write("name=Install - %s\n" % repo.id)
@@ -398,10 +398,6 @@ reposdir=%s
         return _repos
 
     @property
-    def addOns(self):
-        return [r.name for r in self.data.repo.dataList()]
-
-    @property
     def baseRepo(self):
         repo_names = [BASE_REPO_NAME] + default_repos
         base_repo_name = None
@@ -413,6 +409,20 @@ reposdir=%s
                     break
 
         return base_repo_name
+
+    def getRepo(self, repo_id):
+        """ Return the yum repo object. """
+        with _yum_lock:
+            repo = self._yum.repos.getRepo(repo_id)
+
+        return repo
+
+    def isRepoEnabled(self, repo_id):
+        """ Return True if repo is enabled. """
+        try:
+            return self.getRepo(repo_id).enabled
+        except Exception:
+            return False
 
     def updateBaseRepo(self, fallback=True, root=None, checkmount=True):
         """ Update the base repo based on self.data.method.
@@ -855,7 +865,7 @@ reposdir=%s
         mountpoint = None
         with _yum_lock:
             yum_repo = self._yum.repos.getRepo(repo_id)
-            ks_repo = self.getRepo(repo_id)
+            ks_repo = self.getAddOnRepo(repo_id)
             if yum_repo and ks_repo and ks_repo.baseurl.startswith("nfs:"):
                 mountpoint = yum_repo.baseurl[0][7:]    # strip leading "file://"
 

@@ -41,13 +41,13 @@ class PackagingTest(mock.TestCase):
 
         # verify the repo was added
         self.assertEqual(self.payload.data.repo.dataList(), [repo])
-        self.assertEqual(self.payload.getRepo(repo_name), repo)
+        self.assertEqual(self.payload.getAddOnRepo(repo_name), repo)
 
         # remove the repo
         self.payload.removeRepo(repo_name)
 
         # verify the repo was removed
-        self.assertEqual(self.payload.getRepo(repo_name), None)
+        self.assertEqual(self.payload.getAddOnRepo(repo_name), None)
 
     def payload_group_test(self):
         import pykickstart.constants
