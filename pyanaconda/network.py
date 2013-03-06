@@ -195,17 +195,22 @@ def logIfcfgFile(path, message=""):
         content = "file not found"
     ifcfglog.debug("%s%s:\n%s" % (message, path, content))
 
+def _ifcfg_files(directory):
+    rv = []
+    for name in os.listdir(directory):
+        if name.startswith("ifcfg-"):
+            if name == "ifcfg-lo":
+                continue
+            rv.append(name)
+    return rv
+
 def logIfcfgFiles(message=""):
     ifcfglog.debug("content of files (%s):" % message)
-    for name in os.listdir(netscriptsDir):
-        if name.startswith("ifcfg-"):
-            if name == 'ifcfg-lo':
-                continue
-            path = os.path.join(netscriptsDir, name)
-            f = open(path, 'r')
+    for name in _ifcfg_files(netscriptsDir):
+        path = os.path.join(netscriptsDir, name)
+        with open(path, "r") as f:
             content = f.read()
-            f.close()
-            ifcfglog.debug("%s:\n%s" % (path, content))
+        ifcfglog.debug("%s:\n%s" % (path, content))
 
 class NetworkDevice(IfcfgFile):
 
@@ -410,6 +415,10 @@ def kickstartNetworkData(ifcfg=None, hostname=None):
     if not ifcfg and hostname:
         return handler.NetworkData(hostname=hostname, bootProto="")
 
+    # no network command for bond slaves
+    if ifcfg.get("MASTER"):
+        return None
+
     # ipv4 and ipv6
     if not ifcfg.get("ESSID"):
         kwargs["device"] = ifcfg.iface
@@ -490,7 +499,59 @@ def kickstartNetworkData(ifcfg=None, hostname=None):
             hostname != DEFAULT_HOSTNAME):
             kwargs["hostname"] = hostname
 
+    # bonding
+    # FIXME: dracut has only BOND_OPTS
+    if ifcfg.get("BONDING_MASTER") == "yes" or ifcfg.get("TYPE") == "Bond":
+        slaves = get_bond_slaves_from_ifcfgs([ifcfg.iface, ifcfg.get("UUID")])
+        if slaves:
+            kwargs["bondslaves"] = ",".join(slaves)
+        bondopts = ifcfg.get("BONDING_OPTS")
+        if bondopts:
+            sep = ","
+            if sep in bondopts:
+                sep = ";"
+            kwargs["bondopts"] = sep.join(bondopts.split())
+
     return handler.NetworkData(**kwargs)
+
+def get_bond_master_ifcfg_name(devname):
+    """Name of ifcfg file of bond device devname"""
+
+    for filename in _ifcfg_files(netscriptsDir):
+        ifcfg = NetworkDevice(netscriptsDir, filename[6:])
+        ifcfg.loadIfcfgFile()
+        # FIXME: dracut has only BOND_OPTS
+        if ifcfg.get("BONDING_MASTER") == "yes" or ifcfg.get("TYPE") == "Bond":
+            if ifcfg.get("DEVICE") == devname:
+                return filename
+
+def get_bond_slaves_from_ifcfgs(master_specs):
+    """List of slave device names of master specified by master_specs.
+
+       master_specs is a list containing device name of master (dracut)
+       and/or master's connection uuid
+    """
+    slaves = []
+
+    for filename in _ifcfg_files(netscriptsDir):
+        ifcfg = NetworkDevice(netscriptsDir, filename[6:])
+        ifcfg.loadIfcfgFile()
+        master = ifcfg.get("MASTER")
+        if master in master_specs:
+            device = ifcfg.get("DEVICE")
+            if device:
+                slaves.append(device)
+            else:
+                hwaddr = ifcfg.get("HWADDR")
+                for devname in nm.nm_devices():
+                    try:
+                        h = nm.nm_device_property(devname, "PermHwAddress")
+                    except nm.PropertyNotFoundError:
+                        pass
+                    if h.upper() == hwaddr.upper():
+                        slaves.append(devname)
+                        break
+    return slaves
 
 def ifaceForHostIP(host):
     route = iutil.execWithCapture("ip", [ "route", "get", "to", host ])

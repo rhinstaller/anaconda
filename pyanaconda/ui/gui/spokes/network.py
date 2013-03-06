@@ -42,7 +42,7 @@ from pyanaconda.ui.gui.categories.software import SoftwareCategory
 from pyanaconda.ui.gui.hubs.summary import SummaryHub
 from pyanaconda.ui.gui.utils import gtk_call_once
 
-from pyanaconda.network import NetworkDevice, netscriptsDir, kickstartNetworkData, logIfcfgFiles, update_hostname_data, sanityCheckHostname, getHostname, DEFAULT_HOSTNAME
+from pyanaconda.network import NetworkDevice, netscriptsDir, kickstartNetworkData, logIfcfgFiles, update_hostname_data, sanityCheckHostname, getHostname, DEFAULT_HOSTNAME, get_bond_master_ifcfg_name
 from pyanaconda.nm import nm_activated_devices
 
 from gi.repository import GLib, GObject, Pango, Gio, NetworkManager, NMClient
@@ -1046,6 +1046,8 @@ class NetworkSpoke(NormalSpoke):
         hostname = self.network_control_box.hostname
         update_hostname_data(self.data, hostname)
 
+        log.debug("network: apply ksdata %s" % self.data.network)
+
     @property
     def completed(self):
         # TODO: check also if source requires updates when implemented
@@ -1170,6 +1172,8 @@ class NetworkStandaloneSpoke(StandaloneSpoke):
         hostname = self.network_control_box.hostname
         update_hostname_data(self.data, hostname)
 
+        log.debug("network: apply ksdata %s" % self.data.network)
+
         self._now_available = self.completed
 
         log.debug("network standalone spoke (apply) payload: %s completed: %s" % (self.payload.baseRepo, self._now_available))
@@ -1226,6 +1230,8 @@ def getKSNetworkData(device):
         ap = device.get_active_access_point()
         if ap:
             ifcfg_suffix = ap.get_ssid()
+    elif device.get_device_type() == NetworkManager.DeviceType.BOND:
+        ifcfg_suffix = get_bond_master_ifcfg_name(device.get_iface())[6:]
 
     if ifcfg_suffix:
         ifcfg_suffix = ifcfg_suffix.replace(' ', '_')
@@ -1236,7 +1242,7 @@ def getKSNetworkData(device):
             log.debug("getKSNetworkData %s: %s" % (ifcfg_suffix, e))
             return None
         retval = kickstartNetworkData(ifcfg=device_cfg)
-        if device.get_iface() in nm_activated_devices():
+        if retval and device.get_iface() in nm_activated_devices():
             retval.activate = True
 
     return retval
