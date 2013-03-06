@@ -357,11 +357,17 @@ class NetworkControlBox(object):
             if con.get_state() != NetworkManager.ActiveConnectionState.ACTIVATED:
                 continue
             device = con.get_devices()[0]
-            if device.get_device_type() == NetworkManager.DeviceType.ETHERNET:
-                active_devs.append((device.get_iface(), None))
-            elif device.get_device_type() == NetworkManager.DeviceType.WIFI:
-                active_devs.append((device.get_iface(),
-                                    device.get_active_access_point().get_ssid()))
+            dev_type, dev_name, dev_info = device.get_device_type(), None, None
+            if dev_type == NetworkManager.DeviceType.ETHERNET:
+                dev_name = device.get_iface()
+            elif dev_type == NetworkManager.DeviceType.WIFI:
+                dev_name = device.get_iface()
+                dev_info = device.get_active_access_point().get_ssid()
+            elif dev_type == NetworkManager.DeviceType.BOND:
+                dev_name = device.get_iface()
+                dev_info = [d.get_iface() for d in device.get_slaves()]
+            if dev_name:
+                active_devs.append((dev_name, dev_type, dev_info))
         return active_devs
 
     # Signal handlers.
@@ -438,8 +444,8 @@ class NetworkControlBox(object):
         # 871132 auto activate wireless connection after editing if it is not
         # already activated (assume entering secrets)
         activate = None
-        if (device.get_device_type() == NetworkManager.DeviceType.WIFI
-            and ssid and (device.get_iface(), ssid) not in self.activated_connections()):
+        if (device.get_device_type() == NetworkManager.DeviceType.WIFI and ssid
+            and (device.get_iface(), NetworkManager.DeviceType.WIFI, ssid) not in self.activated_connections()):
             activate = (con, device)
 
         log.info("network: configuring connection %s device %s ssid %s" % (uuid, device.get_iface(), ssid))
@@ -1070,23 +1076,34 @@ class NetworkSpoke(NormalSpoke):
         else:
             ac = self.network_control_box.activated_connections()
             if ac:
+                # Don't show bond slaves
+                slaves = []
+                for name, type, info in ac:
+                    if type == NetworkManager.DeviceType.BOND:
+                        slaves.extend(info)
+                if slaves:
+                    ac = [(name, type, info)
+                          for name, type, info in ac
+                          if name not in slaves]
+
                 if len(ac) == 1:
-                    device, ssid = ac[0]
-                    if ssid:
-                        msg = _("Wireless connected to %s" %
-                                ssid)
-                    else:
-                        msg = _("Wired (%s) connected") % device
+                    name, type, info = ac[0]
+                    if type == NetworkManager.DeviceType.ETHERNET:
+                        msg = _("Wired (%s) connected") % name
+                    elif type == NetworkManager.DeviceType.WIFI:
+                        msg = _("Wireless connected to %s" % info)
+                    elif type == NetworkManager.DeviceType.BOND:
+                        msg = _("Bond %s (%s) connected" % (name, ",".join(info)))
                 else:
-
-                    devlist = ", ".join(["%s" % device for device, ssid
-                                         in ac
-                                         if ssid is None] +
-                                        ["%s" % ssid for device, ssid
-                                         in ac
-                                         if ssid is not None])
-
-                    msg = _("Connected: %s") % devlist
+                    devlist = []
+                    for name, type, info in ac:
+                        if type == NetworkManager.DeviceType.ETHERNET:
+                            devlist.append("%s" % name)
+                        elif type == NetworkManager.DeviceType.WIFI:
+                            devlist.append("%s" % info)
+                        elif type == NetworkManager.DeviceType.BOND:
+                            devlist.append("%s (%s)" % (name, ",".join(info)))
+                    msg = _("Connected: %s") % ", ".join(devlist)
             else:
                 msg = _("Not connected")
 
