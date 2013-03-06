@@ -94,9 +94,25 @@ from pykickstart.constants import KS_MISSING_IGNORE
 
 default_repos = [productName.lower(), "rawhide"]
 
-from threading import RLock
-_yum_lock = RLock()
+import inspect
+import threading
+_private_yum_lock = threading.RLock()
 
+class YumLock(object):
+    def __enter__(self):
+        frame = inspect.stack()[2]
+        threadName = threading.currentThread().name
+
+        log.info("about to acquire _yum_lock for %s at %s:%s (%s)" % (threadName, frame[1], frame[2], frame[3]))
+        _private_yum_lock.acquire()
+        log.info("have _yum_lock for %s" % threadName)
+        return _private_yum_lock
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        _private_yum_lock.release()
+        log.info("gave up _yum_lock for %s" % threading.currentThread().name)
+
+_yum_lock = YumLock()
 _yum_cache_dir = "/tmp/yum.cache"
 
 class YumPayload(PackagePayload):
