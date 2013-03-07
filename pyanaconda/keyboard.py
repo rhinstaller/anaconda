@@ -292,8 +292,9 @@ def activate_keyboard(keyboard):
 def item_str(s):
     """Convert a zero-terminated byte array to a proper str"""
 
-    i = s.find(b'\x00')
-    return s[:i].decode("utf-8") #there are some non-ascii layout descriptions
+    i = s.index(0)
+    s = "".join(chr(char) for char in s[:i] if char in xrange(256))
+    return s.decode("utf-8") #there are some non-ascii layout descriptions
 
 class _Layout(object):
     """Internal class representing a single layout variant"""
