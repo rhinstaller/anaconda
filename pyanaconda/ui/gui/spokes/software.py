@@ -24,6 +24,7 @@ _ = lambda x: gettext.ldgettext("anaconda", x)
 N_ = lambda x: x
 
 from pyanaconda.flags import flags
+from pyanaconda.packaging import MetadataError
 from pyanaconda.threads import threadMgr, AnacondaThread
 
 from pyanaconda.ui import communication
@@ -184,8 +185,25 @@ class SoftwareSelectionSpoke(NormalSpoke):
             # We don't want to do a full refresh, just join the metadata thread
             threadMgr.wait("AnaPayloadMDThread")
         else:
+            # Grabbing the list of groups could potentially take a long time
+            # at first (yum does a lot of magic property stuff, some of which
+            # involves side effects like network access.  We need to reference
+            # them here, outside of the main thread, to not block the UI.
+            try:
+                self.payload.environments
+                self.payload.groups
+            except MetadataError:
+                communication.send_message(self.__class__.__name__,
+                                           _("No installation source available"))
+                return
+
+            # And then having done all that slow downloading, we need to do the first
+            # refresh of the UI here so there's an environment selected by default.
+            # This happens inside the main thread by necessity.  We can't do anything
+            # that takes any real amount of time, or it'll block the UI from updating.
             if not self._first_refresh():
                 return
+
         self.payload.release()
 
         communication.send_ready(self.__class__.__name__)
@@ -196,12 +214,6 @@ class SoftwareSelectionSpoke(NormalSpoke):
 
     @gtk_thread_wait
     def _first_refresh(self):
-        # Grabbing the list of groups could potentially take a long time the
-        # first time (yum does a lot of magic property stuff, some of which
-        # involves side effects like network access) so go ahead and grab
-        # them once now.
-        from pyanaconda.packaging import MetadataError
-
         try:
             self.refresh()
             return True
