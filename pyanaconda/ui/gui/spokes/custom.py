@@ -2367,6 +2367,11 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
     def on_reset_clicked(self, *args):
         self.refresh()
 
+    # This callback is for the button that has anaconda go back and rescan the
+    # disks to pick up whatever changes the user made outside our control.
+    def on_refresh_clicked(self, *args):
+        pass
+
     def on_info_bar_clicked(self, *args):
         log.debug("info bar clicked: %s (%s)" % (self._error, args))
         if not self._error:

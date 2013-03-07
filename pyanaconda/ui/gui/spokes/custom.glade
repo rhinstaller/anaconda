@@ -1321,12 +1321,11 @@ use.  Try something else?</property>
                         </child>
                         <child>
                           <object class="GtkToolButton" id="removeButton">
-                            <property name="use_action_appearance">False</property>
                             <property name="width_request">42</property>
                             <property name="height_request">36</property>
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
-                            <property name="tooltip_text" translatable="yes">Remove the selected mountpoint(s.)</property>
+                            <property name="tooltip_text" translatable="yes">Remove the selected mountpoint(s).</property>
                             <property name="label" translatable="yes">removeButton</property>
                             <property name="use_underline">True</property>
                             <property name="icon_name">list-remove-symbolic</property>
@@ -1356,11 +1355,26 @@ use.  Try something else?</property>
                           </packing>
                         </child>
                         <child>
+                          <object class="GtkToolButton" id="refreshButton">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <property name="tooltip_text" translatable="yes">Reload storage configuration from disk.</property>
+                            <property name="label" translatable="yes">Refresh</property>
+                            <property name="use_underline">True</property>
+                            <property name="icon_name">view-refresh-symbolic</property>
+                            <signal name="clicked" handler="on_refresh_clicked" swapped="no"/>
+                          </object>
+                          <packing>
+                            <property name="expand">False</property>
+                            <property name="homogeneous">True</property>
+                          </packing>
+                        </child>
+                        <child>
                           <object class="GtkToolButton" id="helpButton">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
+                            <property name="tooltip_text" translatable="yes">Click for help.</property>
                             <property name="label" translatable="yes">Help</property>
-                            <property name="tooltip_text" translatable="yes">Click for help</property>
                             <property name="use_underline">True</property>
                             <property name="icon_name">system-help-symbolic</property>
                             <signal name="clicked" handler="on_help_clicked" swapped="no"/>
