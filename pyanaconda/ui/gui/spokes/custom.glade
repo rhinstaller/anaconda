@@ -400,7 +400,7 @@ use.  Try something else?</property>
     <property name="can_focus">False</property>
     <property name="startup_id">filler</property>
     <property name="window_name" translatable="yes">MANUAL PARTITIONING</property>
-    <property name="button_label" translatable="yes">_Back to destination selection</property>
+    <property name="button_label" translatable="yes">_Done</property>
     <signal name="info-bar-clicked" handler="on_info_bar_clicked" swapped="no"/>
     <signal name="button-clicked" handler="on_back_clicked" swapped="no"/>
     <child internal-child="main_box">
@@ -1493,25 +1493,6 @@ use.  Try something else?</property>
                       <packing>
                         <property name="left_attach">1</property>
                         <property name="top_attach">0</property>
-                        <property name="width">1</property>
-                        <property name="height">1</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkButton" id="finishPartitionsButton">
-                        <property name="label" translatable="yes">_Finish Partitioning</property>
-                        <property name="visible">True</property>
-                        <property name="can_focus">True</property>
-                        <property name="receives_default">True</property>
-                        <property name="halign">end</property>
-                        <property name="valign">start</property>
-                        <property name="hexpand">True</property>
-                        <property name="use_underline">True</property>
-                        <signal name="clicked" handler="on_finish_clicked" swapped="no"/>
-                      </object>
-                      <packing>
-                        <property name="left_attach">2</property>
-                        <property name="top_attach">1</property>
                         <property name="width">1</property>
                         <property name="height">1</property>
                       </packing>

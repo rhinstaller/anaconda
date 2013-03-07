@@ -1,6 +1,6 @@
 # Custom partitioning classes.
 #
-# Copyright (C) 2012  Red Hat, Inc.
+# Copyright (C) 2012, 2013  Red Hat, Inc.
 #
 # This copyrighted material is made available to anyone wishing to use,
 # modify, copy, or redistribute it subject to the terms and conditions of
@@ -77,6 +77,7 @@ from pyanaconda.ui.gui.spokes.storage import StorageChecker
 from pyanaconda.ui.gui.spokes.lib.cart import SelectedDisksDialog
 from pyanaconda.ui.gui.spokes.lib.passphrase import PassphraseDialog
 from pyanaconda.ui.gui.spokes.lib.accordion import *
+from pyanaconda.ui.gui.spokes.lib.summary import ActionSummaryDialog
 from pyanaconda.ui.gui.utils import setViewportBackground
 from pyanaconda.ui.gui.categories.storage import StorageCategory
 
@@ -1598,14 +1599,11 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
     ###
 
     def on_back_clicked(self, button):
-        self.skipTo = "StorageSpoke"
-        NormalSpoke.on_back_clicked(self, button)
-
-    # Use the default back action here, since the finish button takes the user
-    # to the install summary screen.
-    def on_finish_clicked(self, button):
+        # First, save anything from the currently displayed mountpoint.
         self._save_right_side(self._current_selector)
 
+        # Then if they did anything that resulted in new LUKS devices, we need
+        # to prompt for passphrases.
         new_luks = any([d for d in self.__storage.devices
                             if d.format.type == "luks" and
                                not d.format.exists])
@@ -1619,6 +1617,20 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                 return
 
             self.passphrase = dialog.passphrase
+
+        # And then display the summary screen.  From there, the user will either
+        # head back to the hub, or stay on the custom screen.
+        self.__storage.devicetree.pruneActions()
+        self.__storage.devicetree.sortActions()
+
+        dialog = ActionSummaryDialog(self.data)
+        with enlightbox(self.window, dialog.window):
+            dialog.refresh(self.__storage.devicetree.findActions())
+            rc = dialog.run()
+
+        if rc == 0:
+            # Cancel.  Stay on the custom screen.
+            return
 
         NormalSpoke.on_back_clicked(self, button)
 
