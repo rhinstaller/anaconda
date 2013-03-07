@@ -163,8 +163,6 @@ def copyUpdatedFiles(tag, updates, cwd):
             install_to_dir(file, "usr/share/anaconda")
         elif file == "data/liveinst/liveinst":
             install_to_dir(file, "usr/sbin")
-        elif file == "data/70-anaconda.rules":
-            install_to_dir(file, "lib/udev/rules.d")
         elif file.startswith("data/pixmaps"):
             install_to_dir(file, "usr/share/anaconda/pixmaps")
         elif file.startswith("data/ui/"):

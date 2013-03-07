@@ -22,7 +22,6 @@ from pyanaconda.errors import ScriptError, errorHandler
 from blivet.deviceaction import *
 from blivet.devices import LUKSDevice
 from blivet.devicelibs.lvm import getPossiblePhysicalExtents
-from blivet.devicelibs.mpath import MultipathConfigWriter, MultipathTopology
 from blivet.devicelibs import swap
 from blivet.formats import getFormat
 from blivet.partitioning import doPartitioning
@@ -169,15 +168,6 @@ def getEscrowCertificate(escrowCerts, url):
         f.close()
 
     return escrowCerts[url]
-
-def detect_multipaths():
-    global topology
-    mcw = MultipathConfigWriter()
-    cfg = mcw.write(friendly_names=True)
-    with open("/etc/multipath.conf", "w+") as mpath_cfg:
-        mpath_cfg.write(cfg)
-    devices = udev.udev_get_block_devices()
-    topology = MultipathTopology(devices)
 
 def deviceMatches(spec):
     full_spec = spec
@@ -1521,7 +1511,6 @@ def parseKickstart(f):
     blivet.zfcp.ZFCP().startup()
     # Note we do NOT call dasd.startup() here, that does not online drives, but
     # only checks if they need formatting, which requires zerombr to be known
-    detect_multipaths()
 
     try:
         ksparser.readKickstart(f)

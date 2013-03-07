@@ -208,7 +208,6 @@ update-desktop-database &> /dev/null || :
 %doc docs/mediacheck.txt
 %{_unitdir}/*
 %{_prefix}/lib/systemd/system-generators/*
-%{_prefix}/lib/udev/rules.d/70-anaconda.rules
 %{_bindir}/instperf
 %{_sbindir}/anaconda
 %{_sbindir}/handle-sshpw

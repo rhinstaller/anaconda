@@ -28,7 +28,6 @@ dist_dracut_SCRIPTS = module-setup.sh \
 		      repo-genrules.sh \
 		      kickstart-genrules.sh \
 		      updates-genrules.sh \
-		      anaconda-udevprop.sh \
 		      anaconda-ks-sendheaders.sh \
 		      anaconda-netroot.sh \
 		      anaconda-diskroot \

@@ -111,8 +111,6 @@ done
 # unmount anything that shouldn't be mounted prior to install
 anaconda-cleanup $ANACONDA $*
 
-/sbin/udevadm control --env=ANACONDA=1
-
 # Set up the updates, if provided.
 if [ ! -z "$UPDATES" ]; then
     if [ -e /tmp/updates.img -o -e /tmp/updates ]; then
