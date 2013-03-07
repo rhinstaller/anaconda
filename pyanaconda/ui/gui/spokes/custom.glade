@@ -1498,6 +1498,25 @@ use.  Try something else?</property>
                       </packing>
                     </child>
                     <child>
+                      <object class="GtkButton" id="resetButton">
+                        <property name="label" translatable="yes">_Reset All</property>
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="receives_default">True</property>
+                        <property name="halign">end</property>
+                        <property name="valign">start</property>
+                        <property name="hexpand">True</property>
+                        <property name="use_underline">True</property>
+                        <signal name="clicked" handler="on_reset_clicked" swapped="no"/>
+                      </object>
+                      <packing>
+                        <property name="left_attach">2</property>
+                        <property name="top_attach">1</property>
+                        <property name="width">1</property>
+                        <property name="height">1</property>
+                      </packing>
+                    </child>
+                    <child>
                       <object class="GtkButton" id="summary_button">
                         <property name="label" translatable="yes">summary</property>
                         <property name="visible">True</property>

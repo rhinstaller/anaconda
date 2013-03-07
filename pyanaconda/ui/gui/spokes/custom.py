@@ -2362,6 +2362,11 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         self._error = None
         self.clear_info()
 
+    # This callback is for the button that just resets the UI to anaconda's
+    # current understanding of the disk layout.
+    def on_reset_clicked(self, *args):
+        self.refresh()
+
     def on_info_bar_clicked(self, *args):
         log.debug("info bar clicked: %s (%s)" % (self._error, args))
         if not self._error:
