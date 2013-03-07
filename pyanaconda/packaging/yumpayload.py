@@ -486,10 +486,10 @@ reposdir=%s
             except NoNetworkError as e:
                 log.error("repo %s needs an active network connection"
                           % repo.name)
-                self.removeRepo(repo.name)
+                self.disableRepo(repo.name)
             except PayloadError as e:
                 log.error("repo %s setup failed: %s" % (repo.name, e))
-                self.removeRepo(repo.name)
+                self.disableRepo(repo.name)
 
         # now disable and/or remove any repos that don't make sense
         with _yum_lock:
