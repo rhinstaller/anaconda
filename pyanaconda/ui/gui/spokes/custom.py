@@ -77,6 +77,7 @@ from pyanaconda.ui.gui.spokes.storage import StorageChecker
 from pyanaconda.ui.gui.spokes.lib.cart import SelectedDisksDialog
 from pyanaconda.ui.gui.spokes.lib.passphrase import PassphraseDialog
 from pyanaconda.ui.gui.spokes.lib.accordion import *
+from pyanaconda.ui.gui.spokes.lib.refresh import RefreshDialog
 from pyanaconda.ui.gui.spokes.lib.summary import ActionSummaryDialog
 from pyanaconda.ui.gui.utils import setViewportBackground
 from pyanaconda.ui.gui.categories.storage import StorageCategory
@@ -2370,7 +2371,28 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
     # This callback is for the button that has anaconda go back and rescan the
     # disks to pick up whatever changes the user made outside our control.
     def on_refresh_clicked(self, *args):
-        pass
+        dialog = RefreshDialog(self.data, self.storage)
+        with enlightbox(self.window, dialog.window):
+            rc = dialog.run()
+            dialog.window.destroy()
+
+        if rc == 1:
+            # User hit OK on the dialog, indicating they stayed on the dialog
+            # until rescanning completed and now needs to go back to the
+            # main storage spoke.
+            self.skipTo = "StorageSpoke"
+        elif rc != 2:
+            # User either hit cancel on the dialog or closed it via escape, so
+            # there was no rescanning done.
+            # NOTE: rc == 2 means the user clicked on the link that takes them
+            # back to the hub.
+            return
+
+        # Can't use this spoke's on_back_clicked method as that will try to
+        # save the right hand side, which is no longer valid.  The user must
+        # go back and select their disks all over again since whatever they
+        # did on the shell could have changed what disks are available.
+        NormalSpoke.on_back_clicked(self, None)
 
     def on_info_bar_clicked(self, *args):
         log.debug("info bar clicked: %s (%s)" % (self._error, args))
