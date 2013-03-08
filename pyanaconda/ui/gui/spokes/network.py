@@ -223,6 +223,7 @@ class NetworkControlBox(object):
         NetworkManager.DeviceType.ETHERNET,
         NetworkManager.DeviceType.WIFI,
         NetworkManager.DeviceType.BOND,
+        NetworkManager.DeviceType.VLAN,
     ]
 
     def __init__(self, builder):
@@ -483,7 +484,8 @@ class NetworkControlBox(object):
 
         dev_type = device.get_device_type()
         if dev_type in (NetworkManager.DeviceType.ETHERNET,
-                        NetworkManager.DeviceType.BOND):
+                        NetworkManager.DeviceType.BOND,
+                        NetworkManager.DeviceType.VLAN):
             if active:
                 cons = self.remote_settings.list_connections()
                 dev_cons = device.filter_connections(cons)
@@ -528,26 +530,37 @@ class NetworkControlBox(object):
         return model.get(iter, DEVICES_COLUMN_OBJECT)[0]
 
     def find_connection_for_device(self, device, ssid=None):
-        dev_hwaddr = device.get_hw_address()
+        dev_type = device.get_device_type()
         cons = self.remote_settings.list_connections()
         for con in cons:
             con_type = con.get_setting_connection().get_connection_type()
-            if con_type == NetworkManager.SETTING_WIRED_SETTING_NAME:
-                settings = con.get_setting_wired()
-            elif con_type == NetworkManager.SETTING_WIRELESS_SETTING_NAME:
-                settings = con.get_setting_wireless()
-                if ssid and ssid != settings.get_ssid():
+            if dev_type == NetworkManager.DeviceType.ETHERNET:
+                if con_type != NetworkManager.SETTING_WIRED_SETTING_NAME:
                     continue
-            elif con_type == NetworkManager.SETTING_BOND_SETTING_NAME:
+                settings = con.get_setting_wired()
+                con_hwaddr = ":".join("%02X" % ord(bytechar) for bytechar in settings.get_mac_address())
+                if con_hwaddr == device.get_hw_address():
+                    return con
+            elif dev_type == NetworkManager.DeviceType.WIFI:
+                if con_type != NetworkManager.SETTING_WIRELESS_SETTING_NAME:
+                    continue
+                settings = con.get_setting_wireless()
+                if ssid == settings.get_ssid():
+                    return con
+            elif dev_type == NetworkManager.DeviceType.BOND:
+                if con_type != NetworkManager.SETTING_BOND_SETTING_NAME:
+                    continue
                 settings = con.get_setting_bond()
                 if device.get_iface() == settings.get_virtual_iface_name():
                     return con
+            elif dev_type == NetworkManager.DeviceType.VLAN:
+                if con_type != NetworkManager.SETTING_VLAN_SETTING_NAME:
+                    continue
+                settings = con.get_setting_vlan()
+                if device.get_iface() == settings.get_interface_name():
+                    return con
             else:
-                continue
-            con_hwaddr = ":".join("%02X" % ord(bytechar) for bytechar in settings.get_mac_address())
-            if con_hwaddr == dev_hwaddr:
-                return con
-        return None
+                return None
 
     def find_active_connection_for_device(self, device):
         cons = self.client.get_active_connections()
@@ -586,6 +599,11 @@ class NetworkControlBox(object):
             else:
                 icon_name = "network-wired"
         elif  dev_type == NetworkManager.DeviceType.BOND:
+            if device.get_state() == NetworkManager.DeviceState.UNAVAILABLE:
+                icon_name = "network-wired-disconnected"
+            else:
+                icon_name = "network-wired"
+        elif  dev_type == NetworkManager.DeviceType.VLAN:
             if device.get_state() == NetworkManager.DeviceState.UNAVAILABLE:
                 icon_name = "network-wired-disconnected"
             else:
@@ -629,6 +647,8 @@ class NetworkControlBox(object):
             title = _("Wireless")
         elif dev_type == NetworkManager.DeviceType.BOND:
             title = _("Bond")
+        elif dev_type == NetworkManager.DeviceType.VLAN:
+            title = _("Vlan")
         else:
             title = ""
         return title
@@ -685,6 +705,8 @@ class NetworkControlBox(object):
         elif dev_type == NetworkManager.DeviceType.WIFI:
             dt = "wireless"
         elif dev_type == NetworkManager.DeviceType.BOND:
+            dt = "wired"
+        elif dev_type == NetworkManager.DeviceType.VLAN:
             dt = "wired"
 
         if state is None:
@@ -796,7 +818,10 @@ class NetworkControlBox(object):
         elif dev_type == NetworkManager.DeviceType.WIFI:
             dt = "wireless"
             speed = device.get_bitrate() / 1000
-        else:
+        elif dev_type == NetworkManager.DeviceType.BOND:
+            dt = "wired"
+            speed = None
+        elif dev_type == NetworkManager.DeviceType.VLAN:
             dt = "wired"
             speed = None
 
@@ -836,6 +861,8 @@ class NetworkControlBox(object):
         elif dev_type == NetworkManager.DeviceType.WIFI:
             dev_type_str = "wireless"
         elif dev_type == NetworkManager.DeviceType.BOND:
+            dev_type_str = "wired"
+        elif dev_type == NetworkManager.DeviceType.VLAN:
             dev_type_str = "wired"
 
         if dev_type_str == "wired":
