@@ -365,6 +365,10 @@ class NetworkControlBox(object):
             elif dev_type == NetworkManager.DeviceType.BOND:
                 dev_name = device.get_iface()
                 dev_info = [d.get_iface() for d in device.get_slaves()]
+            elif dev_type == NetworkManager.DeviceType.VLAN:
+                dev_name = device.get_iface()
+                parent = nm_device_setting_value(dev_name, "vlan", "parent")
+                dev_info = [parent, str(device.get_vlan_id())]
             if dev_name:
                 active_devs.append((dev_name, dev_type, dev_info))
         return active_devs
@@ -1148,6 +1152,8 @@ class NetworkSpoke(NormalSpoke):
                         msg = _("Wireless connected to %s" % info)
                     elif type == NetworkManager.DeviceType.BOND:
                         msg = _("Bond %s (%s) connected" % (name, ",".join(info)))
+                    if type == NetworkManager.DeviceType.VLAN:
+                        msg = _("Vlan %s (%s, ID %s) connected") % (name, info[0], info[1])
                 else:
                     devlist = []
                     for name, type, info in ac:
@@ -1157,6 +1163,8 @@ class NetworkSpoke(NormalSpoke):
                             devlist.append("%s" % info)
                         elif type == NetworkManager.DeviceType.BOND:
                             devlist.append("%s (%s)" % (name, ",".join(info)))
+                        if type == NetworkManager.DeviceType.VLAN:
+                            devlist.append("%s" % name)
                     msg = _("Connected: %s") % ", ".join(devlist)
             else:
                 msg = _("Not connected")
