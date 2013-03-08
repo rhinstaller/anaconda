@@ -28,7 +28,6 @@
 #   see we_dont_have_nm_applet_as_secrets_agent
 # - callback on NM_CLIENT_ACTIVE_CONNECTIONS
 # - support connection to hidden network (ap-other)
-# - device_is_stored
 # - NMClient.CLIENT_WIRELESS_ENABLED callback (hw switch?) - test
 # - nm-c-e run: blocking? logging?
 
@@ -537,7 +536,8 @@ class NetworkControlBox(object):
                 if con_type != NetworkManager.SETTING_WIRED_SETTING_NAME:
                     continue
                 settings = con.get_setting_wired()
-                con_hwaddr = ":".join("%02X" % ord(bytechar) for bytechar in settings.get_mac_address())
+                con_hwaddr = ":".join("%02X" % ord(bytechar)
+                                      for bytechar in settings.get_mac_address())
                 if con_hwaddr == device.get_hw_address():
                     return con
             elif dev_type == NetworkManager.DeviceType.WIFI:
@@ -569,8 +569,12 @@ class NetworkControlBox(object):
         return None
 
     def _device_is_stored(self, nm_device):
-        """TODO check that device with Udi of nm_device is already in
-        liststore"""
+        """Check that device with Udi of nm_device is already in liststore"""
+        udi = nm_device.get_udi()
+        model = self.builder.get_object("liststore_devices")
+        for row in model:
+            if udi == row[DEVICES_COLUMN_OBJECT].get_udi():
+                return True
         return False
 
     def add_device_to_list(self, device):
