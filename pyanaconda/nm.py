@@ -264,8 +264,16 @@ def _device_settings(name):
        Exceptions:
        UnknownDeviceError - device was not found
     """
-    hwaddr_str = nm_device_hwaddress(name)
-    return _settings_for_hwaddr(hwaddr_str)
+    devtype = nm_device_type(name)
+    if devtype == NetworkManager.DeviceType.BOND:
+        settings = _find_settings(name, 'bond', 'interface-name')
+    elif devtype == NetworkManager.DeviceType.VLAN:
+        settings = _find_settings(name, 'vlan', 'interface-name')
+    else:
+        hwaddr_str = nm_device_hwaddress(name)
+        settings = _settings_for_hwaddr(hwaddr_str)
+
+    return settings
 
 def _settings_for_ap(ssid):
     """Return object path of wireless access point settings.
