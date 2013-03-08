@@ -43,7 +43,7 @@ from pyanaconda.ui.gui.hubs.summary import SummaryHub
 from pyanaconda.ui.gui.utils import gtk_call_once
 
 from pyanaconda.network import NetworkDevice, netscriptsDir, kickstartNetworkData, logIfcfgFiles, update_hostname_data, sanityCheckHostname, getHostname, DEFAULT_HOSTNAME, get_bond_master_ifcfg_name
-from pyanaconda.nm import nm_activated_devices
+from pyanaconda.nm import nm_activated_devices, nm_device_setting_value
 
 from gi.repository import GLib, GObject, Pango, Gio, NetworkManager, NMClient
 import dbus
@@ -251,10 +251,9 @@ class NetworkControlBox(object):
                                    for widget in ["heading", "label"]
                                    for type in ["wired", "wireless"]
                                    for value in ["ipv4", "ipv6", "dns", "route"]]
-        do_not_show_in_refresh += ["%s_wired_subnet" % widget
-                                   for widget in ["heading", "label"]]
-        do_not_show_in_refresh += ["%s_wired_slaves" % widget
-                                   for widget in ["heading", "label"]]
+        do_not_show_in_refresh += ["%s_wired_%s" % (widget, value)
+                                   for widget in ["heading", "label"]
+                                   for value in ["slaves", "vlanid", "parent"]]
 
         for id in not_supported + do_not_show_in_refresh:
             self.builder.get_object(id).set_no_show_all(True)
@@ -675,6 +674,7 @@ class NetworkControlBox(object):
         self._refresh_device_type_page(device)
         self._refresh_header_ui(device, state)
         self._refresh_slaves(device)
+        self._refresh_parent_vlanid(device)
         self._refresh_speed_hwaddr(device, state)
         self._refresh_ap(device, state)
         if read_config_values:
@@ -810,6 +810,13 @@ class NetworkControlBox(object):
                 for s in device.get_slaves())
             self._set_device_info_value("wired", "slaves", slaves)
 
+    def _refresh_parent_vlanid(self, device):
+        dev_type = device.get_device_type()
+        if dev_type == NetworkManager.DeviceType.VLAN:
+            self._set_device_info_value("wired", "vlanid", str(device.get_vlan_id()))
+            parent = nm_device_setting_value(device.get_iface(), "vlan", "parent")
+            self._set_device_info_value("wired", "parent", parent)
+
     def _refresh_speed_hwaddr(self, device, state=None):
         dev_type = device.get_device_type()
         if dev_type == NetworkManager.DeviceType.ETHERNET:
@@ -843,10 +850,26 @@ class NetworkControlBox(object):
             notebook.set_current_page(0)
             self.builder.get_object("heading_wired_slaves").hide()
             self.builder.get_object("label_wired_slaves").hide()
+            self.builder.get_object("heading_wired_vlanid").hide()
+            self.builder.get_object("label_wired_vlanid").hide()
+            self.builder.get_object("heading_wired_parent").hide()
+            self.builder.get_object("label_wired_parent").hide()
         elif dev_type == NetworkManager.DeviceType.BOND:
             notebook.set_current_page(0)
             self.builder.get_object("heading_wired_slaves").show()
             self.builder.get_object("label_wired_slaves").show()
+            self.builder.get_object("heading_wired_vlanid").hide()
+            self.builder.get_object("label_wired_vlanid").hide()
+            self.builder.get_object("heading_wired_parent").hide()
+            self.builder.get_object("label_wired_parent").hide()
+        elif dev_type == NetworkManager.DeviceType.VLAN:
+            notebook.set_current_page(0)
+            self.builder.get_object("heading_wired_slaves").hide()
+            self.builder.get_object("label_wired_slaves").hide()
+            self.builder.get_object("heading_wired_vlanid").hide()
+            self.builder.get_object("label_wired_vlanid").hide()
+            self.builder.get_object("heading_wired_parent").hide()
+            self.builder.get_object("label_wired_parent").hide()
         elif dev_type == NetworkManager.DeviceType.WIFI:
             notebook.set_current_page(1)
 
