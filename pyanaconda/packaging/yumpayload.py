@@ -481,6 +481,8 @@ reposdir=%s
         # set up addon repos
         # FIXME: driverdisk support
         for repo in self.data.repo.dataList():
+            if not repo.enabled:
+                continue
             try:
                 self.configureAddOnRepo(repo)
             except NoNetworkError as e:
@@ -773,7 +775,70 @@ reposdir=%s
                          exclude=repo.excludepkgs, includepkgs=repo.includepkgs,
                          proxyurl=proxy, sslverify=sslverify)
 
-        # TODO: enable addons via treeinfo
+        addons = self._getAddons(url or repo.mirrorlist,
+                                 proxy,
+                                 sslverify)
+
+        # Addons are added to the kickstart, but are disabled by default
+        for addon in addons:
+            # Does this repo already exist? If so, it was already added and may have
+            # been edited by the user so skip adding it again.
+            if self.getAddOnRepo(addon[1]):
+                log.debug("Skipping %s, already exists." % addon[1])
+                continue
+
+            log.info("Adding addon repo %s" % addon[1])
+            ks_repo = self.data.RepoData(name=addon[1],
+                                         baseurl=addon[2],
+                                         proxy=repo.proxy,
+                                         enabled=False)
+            self.data.repo.dataList().append(ks_repo)
+
+    def _getAddons(self, baseurl, proxy_url, sslverify):
+        """ Check the baseurl or mirrorlist for a repository, see if it has any
+            valid addon repos and if so, return a list of (repo name, repo URL).
+
+            :param baseurl: url of the repo
+            :type baseurl: string
+            :param proxy_url: Full URL of optional proxy or ""
+            :type proxy_url: string
+            :param sslverify: True if SSL certificate should be varified
+            :type sslverify: bool
+            :returns: list of tuples of addons (id, name, url)
+            :rtype: list of tuples
+        """
+        retval = []
+
+        # If there's no .treeinfo for this repo, don't bother looking for addons.
+        treeinfo = self._getTreeInfo(baseurl, proxy_url, sslverify)
+        if not treeinfo:
+            return retval
+
+        # We need to know which variant is being installed so we know what addons
+        # are valid options.
+        try:
+            c = ConfigParser.ConfigParser()
+            ConfigParser.ConfigParser.read(c, treeinfo)
+            variant = c.get("general", "variant")
+        except ConfigParser.Error:
+            return retval
+
+        section = "variant-%s" % variant
+        if c.has_section(section) and c.has_option(section, "addons"):
+            validAddons = c.get(section, "addons").split(",")
+        else:
+            return retval
+        log.debug("Addons found: %s" % validAddons)
+
+        for addon in validAddons:
+            addonSection = "addon-%s" % addon
+            if not c.has_section(addonSection) or not c.has_option(addonSection, "repository"):
+                continue
+
+            url = "%s/%s" % (baseurl, c.get(addonSection, "repository"))
+            retval.append((addon, c.get(addonSection, "name"), url))
+
+        return retval
 
     def _getRepoMetadata(self, yumrepo):
         """ Retrieve repo metadata if we don't already have it. """
@@ -885,6 +950,7 @@ reposdir=%s
         if repo_id in self.repos:
             with _yum_lock:
                 self._yum.repos.enableRepo(repo_id)
+        super(YumPayload, self).enableRepo(repo_id)
 
     def disableRepo(self, repo_id):
         """ Disable a repo as specified by id. """
@@ -895,6 +961,7 @@ reposdir=%s
 
             self._groups = None
             self._packages = []
+        super(YumPayload, self).disableRepo(repo_id)
 
     ###
     ### METHODS FOR WORKING WITH ENVIRONMENTS
