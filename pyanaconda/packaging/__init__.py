@@ -377,16 +377,36 @@ class Payload(object):
     ##
     ## METHODS FOR TREE VERIFICATION
     ##
-    def _getTreeInfo(self, url, sslverify, proxies):
-        """ Retrieve treeinfo and return the path to the local file. """
+    def _getTreeInfo(self, url, proxy_url, sslverify):
+        """ Retrieve treeinfo and return the path to the local file.
+
+            :param baseurl: url of the repo
+            :type baseurl: string
+            :param proxy_url: Optional full proxy URL of or ""
+            :type proxy_url: string
+            :param sslverify: True if SSL certificate should be varified
+            :type sslverify: bool
+            :returns: Path to retrieved .treeinfo file or None
+            :rtype: string or None
+        """
         if not url:
             return None
 
-        log.debug("retrieving treeinfo from %s (proxies: %s ; sslverify: %s)"
-                    % (url, proxies, sslverify))
+        log.debug("retrieving treeinfo from %s (proxy: %s ; sslverify: %s)"
+                    % (url, proxy_url, sslverify))
 
         ugopts = {"ssl_verify_peer": sslverify,
                   "ssl_verify_host": sslverify}
+
+        proxies = {}
+        if proxy_url:
+            try:
+                proxy = ProxyString(proxy_url)
+                proxies = {"http": proxy.url,
+                           "https": proxy.url}
+            except ProxyStringError as e:
+                log.info("Failed to parse proxy for _getTreeInfo %s: %s" \
+                         % (proxy_url, e))
 
         ug = URLGrabber()
         try:
@@ -411,17 +431,7 @@ class Payload(object):
         log.debug("getting release version from tree at %s (%s)" % (url,
                                                                     version))
 
-        proxies = {}
-        if self.data.method.proxy:
-            try:
-                proxy = ProxyString(self.data.method.proxy)
-                proxies = {"http": proxy.url,
-                           "https": proxy.url}
-            except ProxyStringError as e:
-                log.info("Failed to parse proxy for _getReleaseVersion %s: %s" \
-                         % (self.data.method.proxy, e))
-
-        treeinfo = self._getTreeInfo(url, not flags.noverifyssl, proxies)
+        treeinfo = self._getTreeInfo(url, self.data.method.proxy, not flags.noverifyssl)
         if treeinfo:
             c = ConfigParser.ConfigParser()
             c.read(treeinfo)
