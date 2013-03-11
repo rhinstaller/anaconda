@@ -41,7 +41,7 @@ from pyanaconda.ui.gui.categories.software import SoftwareCategory
 from pyanaconda.ui.gui.hubs.summary import SummaryHub
 from pyanaconda.ui.gui.utils import gtk_call_once
 
-from pyanaconda.network import NetworkDevice, netscriptsDir, kickstartNetworkData, logIfcfgFiles, update_hostname_data, sanityCheckHostname, getHostname, DEFAULT_HOSTNAME, get_bond_master_ifcfg_name
+from pyanaconda.network import NetworkDevice, netscriptsDir, kickstartNetworkData, logIfcfgFiles, update_hostname_data, sanityCheckHostname, getHostname, DEFAULT_HOSTNAME, get_bond_master_ifcfg_name, get_vlan_ifcfg_name
 from pyanaconda.nm import nm_activated_devices, nm_device_setting_value
 
 from gi.repository import GLib, GObject, Pango, Gio, NetworkManager, NMClient
@@ -1311,6 +1311,8 @@ def getKSNetworkData(device):
             ifcfg_suffix = ap.get_ssid()
     elif device.get_device_type() == NetworkManager.DeviceType.BOND:
         ifcfg_suffix = get_bond_master_ifcfg_name(device.get_iface())[6:]
+    elif device.get_device_type() == NetworkManager.DeviceType.VLAN:
+        ifcfg_suffix = get_vlan_ifcfg_name(device.get_iface())[6:]
 
     if ifcfg_suffix:
         ifcfg_suffix = ifcfg_suffix.replace(' ', '_')

@@ -512,6 +512,11 @@ def kickstartNetworkData(ifcfg=None, hostname=None):
                 sep = ";"
             kwargs["bondopts"] = sep.join(bondopts.split())
 
+    # vlan
+    if ifcfg.get("VLAN") == "yes" or ifcfg.get("TYPE") == "Vlan":
+        kwargs["device"] = ifcfg.get("PHYSDEV")
+        kwargs["vlanid"] = ifcfg.get("VLAN_ID")
+
     return handler.NetworkData(**kwargs)
 
 def get_bond_master_ifcfg_name(devname):
@@ -522,6 +527,16 @@ def get_bond_master_ifcfg_name(devname):
         ifcfg.loadIfcfgFile()
         # FIXME: dracut has only BOND_OPTS
         if ifcfg.get("BONDING_MASTER") == "yes" or ifcfg.get("TYPE") == "Bond":
+            if ifcfg.get("DEVICE") == devname:
+                return filename
+
+def get_vlan_ifcfg_name(devname):
+    """Name of ifcfg file of vlan device devname"""
+
+    for filename in _ifcfg_files(netscriptsDir):
+        ifcfg = NetworkDevice(netscriptsDir, filename[6:])
+        ifcfg.loadIfcfgFile()
+        if ifcfg.get("VLAN") == "yes" or ifcfg.get("TYPE") == "Vlan":
             if ifcfg.get("DEVICE") == devname:
                 return filename
 
