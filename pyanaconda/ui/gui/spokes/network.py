@@ -41,7 +41,7 @@ from pyanaconda.ui.gui.categories.software import SoftwareCategory
 from pyanaconda.ui.gui.hubs.summary import SummaryHub
 from pyanaconda.ui.gui.utils import gtk_call_once
 
-from pyanaconda.network import NetworkDevice, netscriptsDir, kickstartNetworkData, logIfcfgFiles, update_hostname_data, sanityCheckHostname, getHostname, DEFAULT_HOSTNAME, get_bond_master_ifcfg_name, get_vlan_ifcfg_name
+from pyanaconda import network
 from pyanaconda.nm import nm_activated_devices, nm_device_setting_value
 
 from gi.repository import GLib, GObject, Pango, Gio, NetworkManager, NMClient
@@ -462,7 +462,7 @@ class NetworkControlBox(object):
         if activate:
             con, device = activate
             gtk_call_once(self._activate_connection_cb, con, device)
-        logIfcfgFiles("nm-c-e run")
+        network.logIfcfgFiles("nm-c-e run")
 
     def _activate_connection_cb(self, con, device):
         self.client.activate_connection(con, device,
@@ -522,7 +522,7 @@ class NetworkControlBox(object):
 
     def on_nmce_adding_exited(self, pid, condition):
         self.builder.get_object("add_toolbutton").set_sensitive(True)
-        logIfcfgFiles("nm-c-e run")
+        network.logIfcfgFiles("nm-c-e run")
 
     def selected_device(self):
         selection = self.builder.get_object("treeview_devices").get_selection()
@@ -1108,7 +1108,7 @@ class NetworkSpoke(NormalSpoke):
             if network_data is not None:
                 self.data.network.network.append(network_data)
         hostname = self.network_control_box.hostname
-        update_hostname_data(self.data, hostname)
+        network.update_hostname_data(self.data, hostname)
 
         log.debug("network: apply ksdata %s" % self.data.network)
 
@@ -1201,14 +1201,14 @@ class NetworkSpoke(NormalSpoke):
         communication.send_message(self.__class__.__name__, self.status)
 
     def _update_hostname(self):
-        if self.network_control_box.hostname == DEFAULT_HOSTNAME:
-            hostname = getHostname()
-            update_hostname_data(self.data, hostname)
+        if self.network_control_box.hostname == network.DEFAULT_HOSTNAME:
+            hostname = network.getHostname()
+            network.update_hostname_data(self.data, hostname)
             self.network_control_box.hostname = self.data.network.hostname
 
     def on_back_clicked(self, button):
         hostname = self.network_control_box.hostname
-        (valid, error) = sanityCheckHostname(hostname)
+        (valid, error) = network.sanityCheckHostname(hostname)
         if not valid:
             self.clear_info()
             msg = _("Hostname is not valid: %s") % error
@@ -1249,7 +1249,7 @@ class NetworkStandaloneSpoke(StandaloneSpoke):
             if network_data is not None:
                 self.data.network.network.append(network_data)
         hostname = self.network_control_box.hostname
-        update_hostname_data(self.data, hostname)
+        network.update_hostname_data(self.data, hostname)
 
         log.debug("network: apply ksdata %s" % self.data.network)
 
@@ -1278,7 +1278,7 @@ class NetworkStandaloneSpoke(StandaloneSpoke):
 
     def _on_continue_clicked(self, cb):
         hostname = self.network_control_box.hostname
-        (valid, error) = sanityCheckHostname(hostname)
+        (valid, error) = network.sanityCheckHostname(hostname)
         if not valid:
             self.clear_info()
             msg = _("Hostname is not valid: %s") % error
@@ -1294,9 +1294,9 @@ class NetworkStandaloneSpoke(StandaloneSpoke):
         gtk_call_once(self._update_hostname)
 
     def _update_hostname(self):
-        if self.network_control_box.hostname == DEFAULT_HOSTNAME:
-            hostname = getHostname()
-            update_hostname_data(self.data, hostname)
+        if self.network_control_box.hostname == network.DEFAULT_HOSTNAME:
+            hostname = network.getHostname()
+            network.update_hostname_data(self.data, hostname)
             self.network_control_box.hostname = self.data.network.hostname
 
 def getKSNetworkData(device):
@@ -1310,19 +1310,19 @@ def getKSNetworkData(device):
         if ap:
             ifcfg_suffix = ap.get_ssid()
     elif device.get_device_type() == NetworkManager.DeviceType.BOND:
-        ifcfg_suffix = get_bond_master_ifcfg_name(device.get_iface())[6:]
+        ifcfg_suffix = network.get_bond_master_ifcfg_name(device.get_iface())[6:]
     elif device.get_device_type() == NetworkManager.DeviceType.VLAN:
-        ifcfg_suffix = get_vlan_ifcfg_name(device.get_iface())[6:]
+        ifcfg_suffix = network.get_vlan_ifcfg_name(device.get_iface())[6:]
 
     if ifcfg_suffix:
         ifcfg_suffix = ifcfg_suffix.replace(' ', '_')
-        device_cfg = NetworkDevice(netscriptsDir, ifcfg_suffix)
+        device_cfg = network.NetworkDevice(network.netscriptsDir, ifcfg_suffix)
         try:
             device_cfg.loadIfcfgFile()
         except IOError as e:
             log.debug("getKSNetworkData %s: %s" % (ifcfg_suffix, e))
             return None
-        retval = kickstartNetworkData(ifcfg=device_cfg)
+        retval = network.kickstartNetworkData(ifcfg=device_cfg)
         if retval and device.get_iface() in nm_activated_devices():
             retval.activate = True
 
