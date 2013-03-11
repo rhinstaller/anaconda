@@ -68,7 +68,16 @@ class TUISpoke(TUIObject, tui.Widget, Spoke):
     def render(self, width):
         """Render the summary representation for Hub to internal buffer."""
         tui.Widget.render(self, width)
-        c = tui.CheckboxWidget(completed = self.completed, title = self.title, text = self.status)
+
+        if self.mandatory and not self.completed:
+            key = "!"
+            completed = True
+        else:
+            key = "x"
+            completed = self.completed
+
+        c = tui.CheckboxWidget(key = key, completed = completed,
+                               title = self.title, text = self.status)
         c.render(width)
         self.draw(c)
 
