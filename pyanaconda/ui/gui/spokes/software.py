@@ -32,7 +32,6 @@ from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.gui.spokes.lib.detailederror import DetailedErrorDialog
 from pyanaconda.ui.gui.utils import enlightbox, gtk_thread_wait
 from pyanaconda.ui.gui.categories.software import SoftwareCategory
-from .source import AdditionalReposDialog
 
 from pykickstart.parser import Group
 
@@ -59,8 +58,6 @@ class SoftwareSelectionSpoke(NormalSpoke):
         self.selectedGroups = []
         self.excludedGroups = []
         self.environment = None
-
-        self._addRepoDialog = AdditionalReposDialog(self.data)
 
         # Used for detecting whether anything's changed in the spoke.
         self._origAddons = []
