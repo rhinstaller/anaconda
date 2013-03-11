@@ -347,6 +347,16 @@ def ksnet_to_ifcfg(net, filename=None):
             log.info("writing ifcfg %s for slave %s of bond %s" % (slave_filename, slave, dev))
             write_ifcfg(slave_filename, slave_ifcfg)
 
+    if net.vlanid:
+        interface_name = "%s.%s" % (dev, net.vlanid)
+        ifcfg.pop('HWADDR')
+        ifcfg['TYPE'] = "Vlan"
+        ifcfg['VLAN'] = "yes"
+        ifcfg['NAME'] = "VLAN connection %s" % interface_name
+        ifcfg['DEVICE'] = interface_name
+        ifcfg['PHYSDEV'] = dev
+        filename = "/tmp/ifcfg/ifcfg-%s" % interface_name
+
     log.info("writing ifcfg %s for %s" % (filename, dev))
     if write_ifcfg(filename, ifcfg):
         return filename
