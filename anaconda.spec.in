@@ -234,6 +234,35 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/lib/dracut/modules.d/80%{name}/*
 
 %changelog
+* Mon Mar 11 2013 Brian C. Lane <bcl@redhat.com> - 19.10-1
+- Bonding support: GUI - hub status information (#906263) (rvykydal)
+- Bonding support: GUI - generate kickstart network command for bonds (#906263)
+  (rvykydal)
+- Bonding support: GUI - add device dialog (#906263) (rvykydal)
+- Bonding support: GUI - add device dialog (glade) (#906263) (rvykydal)
+- Bonding support: GUI - device list, configuration and adding bond (#906263)
+  (rvykydal)
+- Bonding support: GUI - Slaves line in Wired tab (glade) (#906263) (rvykydal)
+- Crypt the root we get from the user (#918991). (jkeating)
+- Adapt to the new libxklavier's behaviour (vpodzime)
+- We use python-meh's interfaces instead of Anaconda's (vpodzime)
+- Redraw screen in case of valid input and nothing new scheduled (vpodzime)
+- Fix two places where we are locking up the main thread (#886680). (clumens)
+- Log when we acquire and release the _yum_lock (dlehman, clumens). (clumens)
+- Do not fail when the logging stream cannot be opened (in initial-setup..)
+  (msivak)
+- Mark DateTime spoke as usable for Firstboot (msivak)
+- Fix a missing import and move the addon KS output template (msivak)
+- Make the TUI mainloop more resistant to screen implementation errors (msivak)
+- Teach TUI how to react on async events (msivak)
+- Could not load UI file advanced_user.glade (hamzy)
+- Don't try to remove the timer when it's None (DatetimeSpoke) (vpodzime)
+- Log failed imports in the collect functions (vpodzime)
+- remove the remnants of sparc support (dennis)
+- Remove installmethod.py (dead code) (wwoods)
+- Make default media eject behavior match old behavior (wwoods)
+- Silence "cp: cannot stat '/etc/cmdline'..." error message (wwoods)
+
 * Fri Mar 01 2013 Brian C. Lane <bcl@redhat.com> - 19.9-1
 - Behave nice when root password is set by kickstart (msivak)
 - Password spoke is mandatory if the created user is not an admin (msivak)
