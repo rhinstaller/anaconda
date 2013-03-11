@@ -1139,6 +1139,17 @@ class RaidData(commands.raid.F18_RaidData):
                                      parents=request)
             storage.createDevice(luksdev)
 
+class RepoData(commands.repo.F15_RepoData):
+    def __init__(self, *args, **kwargs):
+        """ Add enabled kwarg
+
+            :param enabled: The repo has been enabled
+            :type enabled: bool
+        """
+        self.enabled = kwargs.pop("enabled", True)
+
+        commands.repo.F15_RepoData.__init__(self, *args, **kwargs)
+
 class RootPw(commands.rootpw.F18_RootPw):
     def execute(self, storage, ksdata, instClass, users):
         algo = getPassAlgo(ksdata.authconfig.authconfig)
@@ -1402,6 +1413,7 @@ dataMap = {
         "LogVolData": LogVolData,
         "PartData": PartitionData,
         "RaidData": RaidData,
+        "RepoData": RepoData,
         "VolGroupData": VolGroupData,
 }
 

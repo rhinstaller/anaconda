@@ -152,7 +152,11 @@ class Payload(object):
 
     def isRepoEnabled(self, repo_id):
         """ Return True if repo is enabled. """
-        raise NotImplementedError()
+        repo = self.getAddOnRepo(repo_id)
+        if repo:
+            return repo.enabled
+        else:
+            return False
 
     def getAddOnRepo(self, repo_id):
         """ Return a ksdata Repo instance matching the specified repo id. """
@@ -223,10 +227,14 @@ class Payload(object):
             repos.pop(idx)
 
     def enableRepo(self, repo_id):
-        raise NotImplementedError()
+        repo = self.getAddOnRepo(repo_id)
+        if repo:
+            repo.enabled = True
 
     def disableRepo(self, repo_id):
-        raise NotImplementedError()
+        repo = self.getAddOnRepo(repo_id)
+        if repo:
+            repo.enabled = False
 
     ###
     ### METHODS FOR WORKING WITH ENVIRONMENTS

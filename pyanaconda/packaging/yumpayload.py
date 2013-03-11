@@ -422,7 +422,7 @@ reposdir=%s
         try:
             return self.getRepo(repo_id).enabled
         except Exception:
-            return False
+            return super(YumPayload, self).isRepoEnabled(repo_id)
 
     def updateBaseRepo(self, fallback=True, root=None, checkmount=True):
         """ Update the base repo based on self.data.method.
