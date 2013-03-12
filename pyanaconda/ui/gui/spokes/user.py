@@ -25,7 +25,7 @@ N_ = lambda x: x
 
 from gi.repository import Gtk
 
-from pyanaconda.users import cryptPassword, validatePassword
+from pyanaconda.users import cryptPassword, validatePassword, guess_username
 from pwquality import PWQError
 
 from pyanaconda.ui.gui.spokes import NormalSpoke
@@ -34,24 +34,9 @@ from pyanaconda.ui.gui.categories.user_settings import UserSettingsCategory
 from pyanaconda.ui.common import FirstbootSpokeMixIn
 from pyanaconda.ui.gui.utils import enlightbox
 
-import unicodedata
 import pwquality
 
 __all__ = ["UserSpoke", "AdvancedUserDialog"]
-
-def strip_accents(s):
-    """This function takes arbitrary unicode string
-    and returns it with all the diacritics removed.
-
-    :param s: arbitrary string
-    :type s: unicode
-
-    :return: s with diacritics removed
-    :rtype: unicode
-
-    """
-    return ''.join((c for c in unicodedata.normalize('NFD', s)
-                      if unicodedata.category(c) != 'Mn'))
 
 class AdvancedUserDialog(GUIObject):
     builderObjects = ["advancedUserDialog", "uid", "gid"]
@@ -305,12 +290,8 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke):
         It guesses the username and hostname, strips diacritics
         and make those lowercase.
         """
-
-        fullname = self.fullname.get_text().split()
-        username = fullname[-1].decode("utf-8").lower()
-        if len(fullname) > 1:
-            username = fullname[0][0].decode("utf-8").lower() + username
-        username = strip_accents(username).encode("utf-8")
+        fullname = self.fullname.get_text()
+        username = guess_username(fullname)
 
         # after the text is updated in guesser, the guess has to be reenabled
         if self.guesser[self.username]:
