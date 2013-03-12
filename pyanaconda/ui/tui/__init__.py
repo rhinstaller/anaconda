@@ -224,7 +224,7 @@ class TextUserInterface(ui.UserInterface):
            through to something else's run method, but is provided here in
            case more is needed.  This method must be provided by all subclasses.
         """
-        self._app.run()
+        return self._app.run()
 
     ###
     ### MESSAGE HANDLING METHODS

@@ -41,8 +41,8 @@ class ExitMainLoop(Exception):
     pass
 
 class ExitAllMainLoops(ExitMainLoop):
-    """This exception ends the whole App mainloop structure. App.run() quits
-       after it is processed."""
+    """This exception ends the whole App mainloop structure. App.run() returns
+       False after the exception is processed."""
     pass
 
 class App(object):
@@ -287,8 +287,9 @@ class App(object):
 
         try:
             self._mainloop()
+            return True
         except ExitAllMainLoops:
-            pass
+            return False
 
     def _mainloop(self):
         """Single mainloop. Do not use directly, start the application using run()."""
