@@ -29,6 +29,7 @@ import os.path
 import iutil
 import pwquality
 from pyanaconda.constants import ROOT_PATH
+from pyanaconda.iutil import strip_accents
 
 import logging
 log = logging.getLogger("anaconda")
@@ -148,6 +149,22 @@ def validatePassword(pw, confirm, minlen=6):
         settings.check(pw, None, "root")
 
     return None
+
+def guess_username(fullname):
+    fullname = fullname.split()
+
+    # use last name word (at the end in most of the western countries..)
+    if len(fullname) > 0:
+        username = fullname[-1].decode("utf-8").lower()
+    else:
+        username = u""
+
+    # and prefix it with the first name inital
+    if len(fullname) > 1:
+        username = fullname[0][0].decode("utf-8").lower() + username
+
+    username = strip_accents(username).encode("utf-8")
+    return username
 
 class Users:
     def __init__ (self):

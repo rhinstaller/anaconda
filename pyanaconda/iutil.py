@@ -29,6 +29,7 @@ import errno
 import subprocess
 import threading
 import re
+import unicodedata
 
 from flags import flags
 from constants import *
@@ -480,3 +481,16 @@ class ProxyString(object):
     def __str__(self):
         return self.url
 
+def strip_accents(s):
+    """This function takes arbitrary unicode string
+    and returns it with all the diacritics removed.
+
+    :param s: arbitrary string
+    :type s: unicode
+
+    :return: s with diacritics removed
+    :rtype: unicode
+
+    """
+    return ''.join((c for c in unicodedata.normalize('NFD', s)
+                      if unicodedata.category(c) != 'Mn'))
