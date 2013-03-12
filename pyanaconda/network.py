@@ -390,9 +390,9 @@ def dracutBootArguments(ifcfg, storage_ipaddr, hostname=None):
                 netargs.add("ip=%s::%s:%s:%s:%s:none" % (ifcfg.get('ipaddr'),
                            gateway, netmask, hostname, devname))
 
-    hwaddr = ifcfg.get("HWADDR")
-    if hwaddr:
-        netargs.add("ifname=%s:%s" % (devname, hwaddr.lower()))
+        hwaddr = ifcfg.get("HWADDR")
+        if hwaddr:
+            netargs.add("ifname=%s:%s" % (devname, hwaddr.lower()))
 
     nettype = ifcfg.get("NETTYPE")
     subchannels = ifcfg.get("SUBCHANNELS")
