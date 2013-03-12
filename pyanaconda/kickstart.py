@@ -1095,7 +1095,7 @@ class RaidData(commands.raid.F18_RaidData):
             removeExistingFormat(device, storage)
             devicetree.registerAction(ActionCreateFormat(device, kwargs["format"]))
         else:
-            if devicename and devicename in [a.name for a in storage.mdarrays]:
+            if devicename and devicename in (a.name for a in storage.mdarrays):
                 raise KickstartValueError(formatErrorMsg(self.lineno, msg="The Software RAID array name \"%s\" is already in use." % devicename))
 
             # If a previous device has claimed this mount point, delete the
@@ -1287,7 +1287,7 @@ class VolGroupData(commands.volgroup.FC16_VolGroupData):
             dev = devicetree.getDeviceByName(self.vgname)
             if not dev:
                 raise KickstartValueError, formatErrorMsg(self.lineno, msg="No preexisting VG with the name \"%s\" was found." % self.vgname)
-        elif self.vgname in [vg.name for vg in storage.vgs]:
+        elif self.vgname in (vg.name for vg in storage.vgs):
             raise KickstartValueError(formatErrorMsg(self.lineno, msg="The volume group name \"%s\" is already in use." % self.vgname))
         else:
             request = storage.newVG(parents=pvs,

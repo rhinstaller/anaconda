@@ -249,8 +249,8 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke):
                  self._wheel.name in self._user.groups:
                 self._user.groups.remove(self._wheel.name)
 
-            self.data.group.groupList += [self._groupDict[g] for g in self._user.groups
-                                                             if g != self._wheel.name]
+            self.data.group.groupList += (self._groupDict[g] for g in self._user.groups
+                                                             if g != self._wheel.name)
 
             if self._user not in self.data.user.userList:
                 self.data.user.userList.append(self._user)

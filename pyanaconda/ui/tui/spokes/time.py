@@ -35,7 +35,7 @@ class TimeZoneSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
         NormalTUISpoke.__init__(self, app, data, storage, payload, instclass)
 
     def initialize(self):
-        self._timezones = dict([(k, sorted(v)) for k,v in timezone.get_all_regions_and_timezones().iteritems()])
+        self._timezones = dict((k, sorted(v)) for k,v in timezone.get_all_regions_and_timezones().iteritems())
         self._regions = [r for r in self._timezones]
         self._lower_regions = [r.lower() for r in self._timezones]
 

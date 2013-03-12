@@ -107,7 +107,7 @@ class SimpleConfigFile(object):
            self.info[uppercase_ASCII_string(key)] = value
 
     def unset(self, *keys):
-        for key in [uppercase_ASCII_string(k) for k in keys]:
+        for key in (uppercase_ASCII_string(k) for k in keys):
             if key in self.info:
                del self.info[key]
 

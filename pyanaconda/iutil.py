@@ -476,7 +476,7 @@ class ProxyString(object):
         """
         components = ["url", "noauth_url", "protocol", "host", "port",
                       "username", "password"]
-        return dict([(k, getattr(self, k)) for k in components]) 
+        return dict((k, getattr(self, k)) for k in components)
 
     def __str__(self):
         return self.url

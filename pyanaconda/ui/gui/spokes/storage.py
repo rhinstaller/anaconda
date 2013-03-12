@@ -381,9 +381,9 @@ class StorageSpoke(NormalSpoke, StorageChecker):
 
     def _applyDiskSelection(self, use_names):
         onlyuse = use_names[:]
-        for disk in [d for d in self.storage.disks if d.name in onlyuse]:
-            onlyuse.extend([d.name for d in disk.ancestors
-                                        if d.name not in onlyuse])
+        for disk in (d for d in self.storage.disks if d.name in onlyuse):
+            onlyuse.extend(d.name for d in disk.ancestors
+                           if d.name not in onlyuse)
 
         self.data.ignoredisk.onlyuse = onlyuse
         self.data.clearpart.drives = use_names[:]
@@ -730,8 +730,8 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         # Figure out if the existing disk labels will work on this platform
         # you need to have at least one of the platform's labels in order for
         # any of the free space to be useful.
-        disk_labels = set([disk.format.labelType for disk in disks \
-                                                 if hasattr(disk.format, "labelType")])
+        disk_labels = set(disk.format.labelType for disk in disks
+                              if hasattr(disk.format, "labelType"))
         platform_labels = set(platform.diskLabelTypes)
         if disk_labels and platform_labels.isdisjoint(disk_labels):
             disk_free = 0
@@ -741,8 +741,8 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         else:
             free_space = self.storage.getFreeSpace(disks=disks,
                                                    clearPartType=CLEARPART_TYPE_NONE)
-            disk_free = sum([f[0] for f in free_space.itervalues()])
-            fs_free = sum([f[1] for f in free_space.itervalues()])
+            disk_free = sum(f[0] for f in free_space.itervalues())
+            fs_free = sum(f[1] for f in free_space.itervalues())
 
         required_space = self.payload.spaceRequired
         auto_swap = Size(bytes=0)

@@ -346,7 +346,7 @@ class BootLoader(object):
     def images(self):
         """ List of OS images that will be included in the configuration. """
         all_images = self.linux_images
-        all_images.extend([i for i in self.chain_images if i.label])
+        all_images.extend(i for i in self.chain_images if i.label)
         return all_images
 
     def clear_images(self):
@@ -1084,7 +1084,7 @@ class GRUB(BootLoader):
         salt_chars = string.letters + string.digits + './'
 
         rand_gen = random.SystemRandom()
-        salt += "".join([rand_gen.choice(salt_chars) for i in range(salt_len)])
+        salt += "".join(rand_gen.choice(salt_chars) for i in range(salt_len))
         self.encrypted_password = crypt.crypt(self.password, salt)
 
     def write_config_password(self, config):

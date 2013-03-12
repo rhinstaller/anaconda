@@ -283,5 +283,5 @@ def collect_categories(mask_paths):
     for mask, path in mask_paths:
         classes.extend(collect(mask, path, lambda obj: hasattr(obj, "category") and obj.category != None and obj.category != ""))
         
-    categories = set([c.category for c in classes])
+    categories = set(c.category for c in classes)
     return categories

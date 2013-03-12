@@ -57,7 +57,7 @@ class AnacondaOptionParser(OptionParser):
         bootargs = [a for a in args if not a.startswith('-')]
         do_bootarg = kwargs.pop("bootarg", True)
         option = OptionParser.add_option(self, *flags, **kwargs)
-        bootargs += [flag[2:] for flag in option._long_opts]
+        bootargs += (flag[2:] for flag in option._long_opts)
         if do_bootarg:
             for b in bootargs:
                 if b in self._boot_arg:

@@ -724,8 +724,8 @@ class NetworkControlBox(object):
             addr = socket.inet_ntoa(struct.pack('=L',
                                                 ipv4cfg.get_addresses()[0].get_address()))
             self._set_device_info_value(dt, "ipv4", addr)
-            dnss = " ".join([socket.inet_ntoa(struct.pack('=L', addr))
-                             for addr in ipv4cfg.get_nameservers()])
+            dnss = " ".join(socket.inet_ntoa(struct.pack('=L', addr))
+                             for addr in ipv4cfg.get_nameservers())
             self._set_device_info_value(dt, "dns", dnss)
             gateway = socket.inet_ntoa(struct.pack('=L',
                                                    ipv4cfg.get_addresses()[0].get_gateway()))

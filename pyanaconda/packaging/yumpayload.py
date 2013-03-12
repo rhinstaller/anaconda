@@ -354,7 +354,7 @@ reposdir=%s
 
         # trigger setup of self._yum.config
         log.debug("installation yum config repos: %s"
-                  % ",".join([r.id for r in self._yum.repos.listEnabled()]))
+                  % ",".join(r.id for r in self._yum.repos.listEnabled()))
 
     # YUMFIXME: there should be a way to reset package sacks without all this
     #           knowledge of the yum internals or, better yet, some convenience
@@ -511,7 +511,7 @@ reposdir=%s
                     self.disableRepo(repo.id)
                 elif self.data.method.method and \
                      repo.id != BASE_REPO_NAME and \
-                     repo.id not in [r.name for r in self.data.repo.dataList()]:
+                     repo.id not in (r.name for r in self.data.repo.dataList()):
                     # if a method/repo was given, disable all default repos
                     self.disableRepo(repo.id)
 

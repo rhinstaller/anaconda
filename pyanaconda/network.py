@@ -268,7 +268,7 @@ class NetworkDevice(IfcfgFile):
     def set(self, *args):
         # If we are changing value of a key set _dirty flag
         # informing that ifcfg file needs to be synced.
-        s = " ".join(["%s=%s" % key_val for key_val in args])
+        s = " ".join("%s=%s" % key_val for key_val in args)
         ifcfglog.debug("NetworkDevice %s set: %s" %
                        (self.iface, s))
         for (key, data) in args:

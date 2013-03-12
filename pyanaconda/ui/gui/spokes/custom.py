@@ -575,7 +575,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
     def _setCurrentFreeSpace(self):
         """Add up all the free space on selected disks and return it as a Size."""
-        self._free_space = sum([f[0] for f in self._currentFreeInfo.values()])
+        self._free_space = sum(f[0] for f in self._currentFreeInfo.values())
 
     def _currentTotalSpace(self):
         """Add up the sizes of all selected disks and return it as a Size."""
@@ -705,8 +705,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             label.set_text(self._when_create_text % (productName, productVersion))
         else:
             swaps = [d for d in new_devices if d.format.type == "swap"]
-            mounts = dict([(d.format.mountpoint, d) for d in new_devices
-                                if getattr(d.format, "mountpoint", None)])
+            mounts = dict((d.format.mountpoint, d) for d in new_devices
+                                if getattr(d.format, "mountpoint", None))
 
             for device in new_devices:
                 if device in self.bootLoaderDevices:
@@ -830,7 +830,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
         if selector:
             # newest device should be the one with the highest id
-            max_id = max([d.id for d in self._devices])
+            max_id = max(d.id for d in self._devices)
 
             # update the selector with the new device and its size
             selectorFromDevice(self.__storage.devicetree.getDeviceByID(max_id),
@@ -1458,7 +1458,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         encryptCheckbox.set_sensitive(self._reformatCheckbox.get_active())
         ancestors = use_dev.ancestors
         ancestors.remove(use_dev)
-        if any([a.format.type == "luks" and a.format.exists for a in ancestors]):
+        if any(a.format.type == "luks" and a.format.exists for a in ancestors):
             # The encryption checkbutton should not be sensitive if there is
             # existing encryption below the leaf layer.
             encryptCheckbox.set_sensitive(False)
@@ -1605,9 +1605,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
         # Then if they did anything that resulted in new LUKS devices, we need
         # to prompt for passphrases.
-        new_luks = any([d for d in self.__storage.devices
-                            if d.format.type == "luks" and
-                               not d.format.exists])
+        new_luks = any(d for d in self.__storage.devices
+                       if d.format.type == "luks" and not d.format.exists)
         if new_luks:
             dialog = PassphraseDialog(self.data)
             with enlightbox(self.window, dialog.window):
@@ -1886,7 +1885,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                     return
 
             if dialog.deleteAll:
-                for dev in [s._device for s in page.members]:
+                for dev in (s._device for s in page.members):
                     self._destroy_device(dev)
             else:
                 self._destroy_device(device)
@@ -2194,7 +2193,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
             ancestors = device.ancestors
             ancestors.remove(device)
-            if any([a.format.type == "luks" and a.format.exists for a in ancestors]):
+            if any(a.format.type == "luks" and a.format.exists for a in ancestors):
                 # The encryption checkbutton should not be sensitive if there is
                 # existing encryption below the leaf layer.
                 encryption_checkbutton.set_sensitive(False)

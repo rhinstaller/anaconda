@@ -606,7 +606,7 @@ class Widget(object):
 
     def __unicode__(self):
         """Method to render the screen when printing as unicode string."""
-        return u"\n".join([u"".join(l) for l in self._buffer])
+        return u"\n".join(u"".join(l) for l in self._buffer)
 
     def setxy(self, row, col):
         """Sets cursor position.

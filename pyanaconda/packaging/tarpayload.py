@@ -69,7 +69,7 @@ class TarPayload(ArchivePayload):
 
     @property
     def requiredSpace(self):
-        byte_count = sum([m.size for m in self.archive.getmembers()])
+        byte_count = sum(m.size for m in self.archive.getmembers())
         return byte_count / (1024.0 * 1024.0)   # FIXME: Size
 
     @property
