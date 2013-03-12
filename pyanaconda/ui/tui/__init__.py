@@ -21,12 +21,12 @@
 
 from pyanaconda import ui
 from pyanaconda.ui import common
-from pyanaconda.ui import communication
 from pyanaconda.flags import flags
 import simpleline as tui
 from hubs.summary import SummaryHub
 from hubs.progress import ProgressHub
 from spokes import StandaloneSpoke
+from tuiobject import YesNoDialog, ErrorDialog
 
 import os
 import site
@@ -34,82 +34,6 @@ import meh.ui.text
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
-
-class ErrorDialog(tui.UIScreen):
-    """Dialog screen for reporting errors to user."""
-
-    title = _("Error")
-
-    def __init__(self, app, message):
-        """
-        :param app: the running application reference
-        :type app: instance of App class
-
-        :param message: the message to show to the user
-        :type message: unicode
-        """
-
-        tui.UIScreen.__init__(self, app)
-        self._message = message
-
-    def refresh(self, args = None):
-        tui.UIScreen.refresh(self, args)
-        text = tui.TextWidget(self._message)
-        self._window.append(tui.CenterWidget(text))
-
-    def prompt(self, args = None):
-        return _("Press enter to exit.")
-
-    def input(self, args, key):
-        """This dialog is closed by any input."""
-        self.close()
-
-class YesNoDialog(tui.UIScreen):
-    """Dialog screen for Yes - No questions."""
-
-    title = _("Question")
-
-    def __init__(self, app, message):
-        """
-        :param app: the running application reference
-        :type app: instance of App class
-
-        :param message: the message to show to the user
-        :type message: unicode
-        """
-
-        tui.UIScreen.__init__(self, app)
-        self._message = message
-        self._response = None
-
-    def refresh(self, args = None):
-        tui.UIScreen.refresh(self, args)
-        text = tui.TextWidget(self._message)
-        self._window.append(tui.CenterWidget(text))
-        self._window.append(u"")
-        return True
-
-    def prompt(self, args):
-        return _("Please respond 'yes' or 'no': ")
-
-    def input(self, args, key):
-        if key == _("yes"):
-            self._response = True
-            self.close()
-            return None
-
-        elif key == _("no"):
-            self._response = False
-            self.close()
-            return None
-
-        else:
-            return False
-
-    @property
-    def answer(self):
-        """The response can be True (yes), False (no) or None (no response)."""
-        return self._response
 
 class TextUserInterface(ui.UserInterface):
     """This is the main class for Text user interface."""
