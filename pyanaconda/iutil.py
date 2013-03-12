@@ -481,6 +481,42 @@ class ProxyString(object):
     def __str__(self):
         return self.url
 
+def getdeepattr(obj, name):
+    """This behaves as the standard getattr, but supports
+       composite (containing dots) attribute names.
+
+       As an example:
+
+       >>> import os
+       >>> from os.path import split
+       >>> getdeepattr(os, "path.split") == split
+       True
+    """
+
+    for attr in name.split("."):
+        obj = getattr(obj, attr)
+    return obj
+
+def setdeepattr(obj, name, value):
+    """This behaves as the standard setattr, but supports
+       composite (containing dots) attribute names.
+
+       As an example:
+
+       >>> class O:
+       >>>   pass
+       >>> a = O()
+       >>> a.b = O()
+       >>> a.b.c = O()
+       >>> setdeepattr(a, "b.c.d", True)
+       >>> a.b.c.d
+       True
+    """
+    path = name.split(".")
+    for attr in path[:-1]:
+        obj = getattr(obj, attr)
+    return setattr(obj, path[-1], value)
+
 def strip_accents(s):
     """This function takes arbitrary unicode string
     and returns it with all the diacritics removed.

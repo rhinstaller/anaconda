@@ -18,15 +18,19 @@
 #
 # Red Hat Author(s): Martin Sivak <msivak@redhat.com>
 #
-from .. import simpleline as tui
-from pyanaconda.ui.tui.tuiobject import TUIObject
+from pyanaconda.ui.tui import simpleline as tui
+from pyanaconda.ui.tui.tuiobject import TUIObject, YesNoDialog
 from pyanaconda.ui.common import Spoke, StandaloneSpoke, NormalSpoke, PersonalizationSpoke, collect
-import os
+from pyanaconda.users import validatePassword
+from pwquality import PWQError
+import re
+from collections import namedtuple
+from pyanaconda.iutil import setdeepattr, getdeepattr
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
 
-__all__ = ["TUISpoke", "StandaloneSpoke", "NormalSpoke", "PersonalizationSpoke",
+__all__ = ["TUISpoke", "EditTUISpoke", "EditTUIDialog", "StandaloneSpoke", "NormalSpoke", "PersonalizationSpoke",
            "collect_spokes", "collect_categories"]
 
 class TUISpoke(TUIObject, tui.Widget, Spoke):
@@ -81,10 +85,184 @@ class TUISpoke(TUIObject, tui.Widget, Spoke):
         c.render(width)
         self.draw(c)
 
-class StandaloneTUISpoke(TUISpoke, StandaloneSpoke):
+class NormalTUISpoke(TUISpoke, NormalSpoke):
     pass
 
-class NormalTUISpoke(TUISpoke, NormalSpoke):
+EditTUISpokeEntry = namedtuple("EditTUISpokeEntry", ["title", "attribute", "aux", "visible"])
+
+class EditTUIDialog(NormalTUISpoke):
+    """Spoke/dialog used to read new value of textual or password data"""
+
+    title = _("New value")
+    PASSWORD = re.compile(".*")
+
+    def __init__(self, app, data, storage, payload, instclass):
+        NormalTUISpoke.__init__(self, app, data, storage, payload, instclass)
+        self.value = None
+
+    def refresh(self, args):
+        self._window = []
+        self.value = None
+        return True
+
+    def prompt(self, entry):
+        if entry.aux == self.PASSWORD:
+            pw = self._app.raw_input(_("%s: ") % entry.title, hidden=True)
+            confirm = self._app.raw_input(_("%s (confirm): ") % entry.title, hidden=True)
+            error = None
+            # just returning an error is either blank or mismatched
+            # passwords.  Raising is because of poor quality.
+            try:
+                error = validatePassword(pw, confirm)
+                if error:
+                    print(error)
+                    return None
+            except PWQError as (e, msg):
+                error = _("You have provided a weak password: %s. " % msg)
+                error += _("\nWould you like to use it anyway?")
+                question_window = YesNoDialog(self._app, error)
+                self._app.switch_screen_modal(question_window)
+                if not question_window.answer:
+                    return None
+
+            self.value = pw
+            return None
+        else:
+            return _("Enter new value for '%s' and press enter\n") % entry.title
+
+    def input(self, entry, key):
+        if entry.aux.match(key):
+            self.value = key
+            self.close()
+            return True
+        else:
+            return NormalTUISpoke.input(self, entry, key)
+
+class OneShotEditTUIDialog(EditTUIDialog):
+    """The same as EditTUIDialog, but closes automatically after
+       the value is read
+    """
+
+    def prompt(self, entry):
+        ret = EditTUIDialog.prompt(self, entry)
+        if ret is None:
+            self.close()
+        return ret
+
+class EditTUISpoke(NormalTUISpoke):
+    """Spoke with declarative semantics, it contains
+       a list of titles, attribute names and regexps
+       that specify the fields of an object the user
+       allowed to edit.
+    """
+
+    # self.data's subattribute name
+    # empty string means __init__ will provide
+    # something else
+    edit_data = ""
+
+    # constants to be used in the aux field
+    # and mark the entry as a password or checkbox field
+    PASSWORD = EditTUIDialog.PASSWORD
+    CHECK = "check"
+
+    # list of fields in the format of named tuples like:
+    # EditTUISpokeEntry(title, attribute, aux, visible)
+    # title     - Nontranslated title of the entry
+    # attribute - The edited object's attribute name
+    # aux       - Compiled regular expression or one of the
+    #             two constants from above.
+    #             It will be used to check the value typed
+    #             by user and to show the proper entry
+    #             for password, text or checkbox.
+    # visible   - True, False or a function that accepts
+    #             two arguments - self and the edited object
+    #             It is evaluated and used to display or
+    #             hide this attribute's entry
+    edit_fields = [
+    ]
+
+    def __init__(self, app, data, storage, payload, instclass):
+        NormalTUISpoke.__init__(self, app, data, storage, payload, instclass)
+        self.dialog = OneShotEditTUIDialog(app, data, storage, payload, instclass)
+
+        # self.args should hold the object this Spoke is supposed
+        # to edit
+        self.args = None
+
+    def refresh(self, args = None):
+        NormalTUISpoke.refresh(self, args)
+
+        if args:
+            self.args = args
+        elif self.edit_data:
+            self.args = self.data
+            for key in self.edit_data.split("."):
+                self.args = getattr(self.args, key)
+
+        def _prep_text(i, entry):
+            number = tui.TextWidget("%2d)" % i)
+            title = tui.TextWidget(_(entry.title))
+            value = getdeepattr(self.args, entry.attribute)
+            value = tui.TextWidget(value)
+
+            return tui.ColumnWidget([(3, [number]), (None, [title, value])], 1)
+
+        def _prep_check(i, entry):
+            number = tui.TextWidget("%2d)" % i)
+            value = getdeepattr(self.args, entry.attribute)
+            ch = tui.CheckboxWidget(title=_(entry.title), completed=bool(value))
+
+            return tui.ColumnWidget([(3, [number]), (None, [ch])], 1)
+
+        def _prep_password(i, entry):
+            number = tui.TextWidget("%2d)" % i)
+            title = tui.TextWidget(_(entry.title))
+            value = getdeepattr(self.args, entry.attribute)
+            value = tui.TextWidget("".join(["*"] * len(value)))
+
+            return tui.ColumnWidget([(3, [number]), (None, [title, value])], 1)
+
+        for idx,entry in enumerate(self.edit_fields):
+            if callable(entry.visible) and not entry.visible(self, self.args):
+                continue
+            elif not callable(entry.visible) and not entry.visible:
+                continue
+
+            entry_type = entry.aux
+            if entry_type == self.PASSWORD:
+                w = _prep_password(idx+1, entry)
+            elif entry_type == self.CHECK:
+                w = _prep_check(idx+1, entry)
+            else:
+                w = _prep_text(idx+1, entry)
+
+            self._window.append(w)
+
+        return True
+
+    def input(self, args, key):
+        try:
+            idx = int(key) - 1
+            if idx >= 0 and idx < len(self.edit_fields):
+                if self.edit_fields[idx].aux == self.CHECK:
+                    setdeepattr(self.args, self.edit_fields[idx].attribute,
+                                not getdeepattr(self.args, self.edit_fields[idx][1]))
+                    self.app.redraw()
+                    self.apply()
+                else:
+                    self.app.switch_screen_modal(self.dialog, self.edit_fields[idx])
+                    if self.dialog.value is not None:
+                        setdeepattr(self.args, self.edit_fields[idx].attribute,
+                                    self.dialog.value)
+                        self.apply()
+                return True
+        except ValueError:
+            pass
+
+        return NormalTUISpoke.input(self, args, key)
+
+class StandaloneTUISpoke(TUISpoke, StandaloneSpoke):
     pass
 
 class PersonalizationTUISpoke(TUISpoke, PersonalizationSpoke):
