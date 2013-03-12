@@ -131,7 +131,7 @@ def execWithCapture(command, argv, stdin=None, stderr=None, root='/',
         return ""
 
     argv = [command] + argv
-    return _run_program(argv, stdin=stdin, stdout=stdout, root=root)[1]
+    return _run_program(argv, stdin=stdin, root=root)[1]
 
 ## Run a shell.
 def execConsole():
