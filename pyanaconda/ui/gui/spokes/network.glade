@@ -2,24 +2,6 @@
 <interface>
   <!-- interface-requires gtk+ 3.0 -->
   <!-- interface-requires AnacondaWidgets 1.0 -->
-  <object class="GtkListStore" id="liststore_add_device">
-    <columns>
-      <!-- column-name label -->
-      <column type="gchararray"/>
-      <!-- column-name type -->
-      <column type="gchararray"/>
-    </columns>
-    <data>
-      <row>
-        <col id="0" translatable="yes">Bond</col>
-        <col id="1" translatable="yes">bond</col>
-      </row>
-      <row>
-        <col id="0" translatable="yes">Vlan</col>
-        <col id="1" translatable="yes">vlan</col>
-      </row>
-    </data>
-  </object>
   <object class="GtkDialog" id="add_device_dialog">
     <property name="can_focus">False</property>
     <property name="border_width">5</property>
@@ -80,7 +62,9 @@
               <object class="GtkLabel" id="label_add_device">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="label" translatable="yes">Select the type of device you wish to add.</property>
+                <property name="label" translatable="yes">_Select the type of device you wish to add</property>
+                <property name="use_underline">True</property>
+                <property name="mnemonic_widget">combobox_add_device</property>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -120,6 +104,24 @@
       <action-widget response="0">button_add_device_cancel</action-widget>
       <action-widget response="1">button_add_device_create</action-widget>
     </action-widgets>
+  </object>
+  <object class="GtkListStore" id="liststore_add_device">
+    <columns>
+      <!-- column-name label -->
+      <column type="gchararray"/>
+      <!-- column-name type -->
+      <column type="gchararray"/>
+    </columns>
+    <data>
+      <row>
+        <col id="0" translatable="yes">Bond</col>
+        <col id="1" translatable="yes">bond</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">Vlan</col>
+        <col id="1" translatable="yes">vlan</col>
+      </row>
+    </data>
   </object>
   <object class="GtkListStore" id="liststore_devices">
     <columns>
@@ -161,6 +163,7 @@
         <property name="spacing">6</property>
         <child internal-child="nav_box">
           <object class="GtkEventBox" id="AnacondaStandaloneWindow-nav_box5">
+            <property name="can_focus">False</property>
             <child internal-child="nav_area">
               <object class="GtkGrid" id="AnacondaStandaloneWindow-nav_area5">
                 <property name="can_focus">False</property>
@@ -233,6 +236,7 @@ updates available for you.</property>
         <property name="orientation">vertical</property>
         <child internal-child="nav_box">
           <object class="GtkEventBox" id="AnacondaSpokeWindow-nav_box1">
+            <property name="can_focus">False</property>
             <child internal-child="nav_area">
               <object class="GtkGrid" id="AnacondaSpokeWindow-nav_area1">
                 <property name="can_focus">False</property>
@@ -247,11 +251,9 @@ updates available for you.</property>
         </child>
         <child internal-child="alignment">
           <object class="GtkAlignment" id="AnacondaSpokeWindow-alignment1">
-            <property name="margin_top">12</property>
             <property name="can_focus">False</property>
+            <property name="margin_top">12</property>
             <property name="yalign">0</property>
-            <property name="xscale">1</property>
-            <property name="yscale">1</property>
             <property name="bottom_padding">48</property>
             <property name="left_padding">24</property>
             <property name="right_padding">24</property>
@@ -667,36 +669,6 @@ updates available for you.</property>
                                           </packing>
                                         </child>
                                         <child>
-                                          <placeholder/>
-                                        </child>
-                                        <child>
-                                          <placeholder/>
-                                        </child>
-                                        <child>
-                                          <placeholder/>
-                                        </child>
-                                        <child>
-                                          <placeholder/>
-                                        </child>
-                                        <child>
-                                          <placeholder/>
-                                        </child>
-                                        <child>
-                                          <placeholder/>
-                                        </child>
-                                        <child>
-                                          <placeholder/>
-                                        </child>
-                                        <child>
-                                          <placeholder/>
-                                        </child>
-                                        <child>
-                                          <placeholder/>
-                                        </child>
-                                        <child>
-                                          <placeholder/>
-                                        </child>
-                                        <child>
                                           <object class="GtkLabel" id="label_wired_mac">
                                             <property name="visible">True</property>
                                             <property name="can_focus">False</property>
@@ -763,6 +735,36 @@ updates available for you.</property>
                                             <property name="width">1</property>
                                             <property name="height">1</property>
                                           </packing>
+                                        </child>
+                                        <child>
+                                          <placeholder/>
+                                        </child>
+                                        <child>
+                                          <placeholder/>
+                                        </child>
+                                        <child>
+                                          <placeholder/>
+                                        </child>
+                                        <child>
+                                          <placeholder/>
+                                        </child>
+                                        <child>
+                                          <placeholder/>
+                                        </child>
+                                        <child>
+                                          <placeholder/>
+                                        </child>
+                                        <child>
+                                          <placeholder/>
+                                        </child>
+                                        <child>
+                                          <placeholder/>
+                                        </child>
+                                        <child>
+                                          <placeholder/>
+                                        </child>
+                                        <child>
+                                          <placeholder/>
                                         </child>
                                       </object>
                                       <packing>
