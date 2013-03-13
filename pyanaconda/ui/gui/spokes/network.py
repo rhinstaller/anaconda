@@ -1147,13 +1147,17 @@ class NetworkSpoke(NormalSpoke):
                 if len(ac) == 1:
                     name, type, info = ac[0]
                     if type == NetworkManager.DeviceType.ETHERNET:
-                        msg = _("Wired (%s) connected") % name
+                        msg = _("Wired (%(interface_name)s) connected") \
+                              % {"interface_name": name}
                     elif type == NetworkManager.DeviceType.WIFI:
-                        msg = _("Wireless connected to %s") % info
+                        msg = _("Wireless connected to %(access_point)s") \
+                              % {"access_point" : info}
                     elif type == NetworkManager.DeviceType.BOND:
-                        msg = _("Bond %s (%s) connected") % (name, ",".join(info))
+                        msg = _("Bond %(interface_name)s (%(list_of_slaves)s) connected") \
+                              % {"interface_name": name, "list_of_slaves": ",".join(info)}
                     if type == NetworkManager.DeviceType.VLAN:
-                        msg = _("Vlan %s (%s, ID %s) connected") % (name, info[0], info[1])
+                        msg = _("Vlan %(interface_name)s (%(parent_device)s, ID %(vlanid)s) connected") \
+                              % {"interface_name": name, "parent_device": info[0], "vlanid": info[1]}
                 else:
                     devlist = []
                     for name, type, info in ac:
@@ -1165,7 +1169,8 @@ class NetworkSpoke(NormalSpoke):
                             devlist.append("%s (%s)" % (name, ",".join(info)))
                         if type == NetworkManager.DeviceType.VLAN:
                             devlist.append("%s" % name)
-                    msg = _("Connected: %s") % ", ".join(devlist)
+                    msg = _("Connected: %(list_of_interface_names)s") \
+                          % {"list_of_interface_names": ", ".join(devlist)}
             else:
                 msg = _("Not connected")
 
