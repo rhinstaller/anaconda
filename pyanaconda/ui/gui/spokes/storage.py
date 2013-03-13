@@ -557,6 +557,37 @@ class StorageSpoke(NormalSpoke, StorageChecker):
 
         threadMgr.add(AnacondaThread(name="AnaStorageWatcher", target=self._initialize))
 
+    def _add_disk_overview(self, disk, box):
+        if disk.removable:
+            kind = "drive-removable-media"
+        else:
+            kind = "drive-harddisk"
+
+        size = size_str(disk.size)
+        popup_info = "%s" % disk.serial
+
+        @gtk_thread_wait
+        def gtk_action():
+            overview = AnacondaWidgets.DiskOverview(disk.description,
+                                                    kind,
+                                                    size,
+                                                    disk.name,
+                                                    popup=popup_info)
+            box.pack_start(overview, False, False, 0)
+
+            # FIXME: this will need to get smarter
+            #
+            # maybe a little function that resolves each item in onlyuse using
+            # udev_resolve_devspec and compares that to the DiskDevice?
+            overview.set_chosen(disk.name in self.selected_disks)
+            overview.connect("button-press-event", self._on_disk_clicked)
+            overview.connect("key-release-event", self._on_disk_clicked)
+            overview.show_all()
+
+            self._update_summary()
+
+        gtk_action()
+
     def _initialize(self):
         communication.send_message(self.__class__.__name__, _("Probing storage..."))
 
@@ -568,37 +599,11 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         if len(self.disks) == 1 and not self.selected_disks:
             self._applyDiskSelection([self.disks[0].name])
 
-        # properties: kind, description, capacity, os, popup-info
         for disk in self.disks:
-            if disk.removable:
-                kind = "drive-removable-media"
+            if isLocalDisk(disk):
+                self._add_disk_overview(disk, self.local_disks_box)
             else:
-                kind = "drive-harddisk"
-
-            size = size_str(disk.size)
-            popup_info = "%s" % disk.serial
-
-            @gtk_thread_wait
-            def gtk_action():
-                overview = AnacondaWidgets.DiskOverview(disk.description,
-                                                        kind,
-                                                        size,
-                                                        disk.name,
-                                                        popup=popup_info)
-                self.local_disks_box.pack_start(overview, False, False, 0)
-
-                # FIXME: this will need to get smarter
-                #
-                # maybe a little function that resolves each item in onlyuse using
-                # udev_resolve_devspec and compares that to the DiskDevice?
-                overview.set_chosen(disk.name in self.selected_disks)
-                overview.connect("button-press-event", self._on_disk_clicked)
-                overview.connect("key-release-event", self._on_disk_clicked)
-                overview.show_all()
-
-                self._update_summary()
-
-            gtk_action()
+                self._add_disk_overview(disk, self.specialized_disks_box)
 
         self._ready = True
         communication.send_ready(self.__class__.__name__)
