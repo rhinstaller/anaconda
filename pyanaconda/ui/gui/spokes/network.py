@@ -1149,9 +1149,9 @@ class NetworkSpoke(NormalSpoke):
                     if type == NetworkManager.DeviceType.ETHERNET:
                         msg = _("Wired (%s) connected") % name
                     elif type == NetworkManager.DeviceType.WIFI:
-                        msg = _("Wireless connected to %s" % info)
+                        msg = _("Wireless connected to %s") % info
                     elif type == NetworkManager.DeviceType.BOND:
-                        msg = _("Bond %s (%s) connected" % (name, ",".join(info)))
+                        msg = _("Bond %s (%s) connected") % (name, ",".join(info))
                     if type == NetworkManager.DeviceType.VLAN:
                         msg = _("Vlan %s (%s, ID %s) connected") % (name, info[0], info[1])
                 else:
