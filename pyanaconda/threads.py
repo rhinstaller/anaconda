@@ -64,9 +64,14 @@ class ThreadManager(object):
 
     def get(self, name):
         """Given an object name, see if it exists and return the object.
-           Return None if no such object exists.
+           Return None if no such object exists.  Additionally, this method
+           will re-raise any uncaught exception in the thread.
         """
-        return self._objs.get(name)
+        obj = self._objs.get(name)
+        if obj:
+            self.raise_error(name)
+
+        return obj
 
     def wait(self, name):
         """Wait for the thread to exit and if the thread exited with an error
@@ -74,8 +79,8 @@ class ThreadManager(object):
         """
         if self.exists(name):
             self.get(name).join()
-        if self._errors.get(name) is not None:
-            raise self._errors[name][0], self._errors[name][1], self._errors[name][2]
+
+        self.raise_error(name)
 
     def set_error(self, name, *exc_info):
         """Set the error data for a thread
@@ -93,6 +98,13 @@ class ThreadManager(object):
         """Return True of there have been any errors in any threads
         """
         return any(self._errors.values())
+
+    def raise_error(self, name):
+        """If a thread has failed due to an exception, raise it into the main
+           thread.
+        """
+        if self._errors.get(name):
+            raise self._errors[name][0], self._errors[name][1], self._errors[name][2]
 
 class AnacondaThread(threading.Thread):
     """A threading.Thread subclass that exists only for a couple purposes:
