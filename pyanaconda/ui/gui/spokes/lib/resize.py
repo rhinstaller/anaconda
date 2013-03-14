@@ -320,9 +320,9 @@ class ResizeDialog(GUIObject):
 
                 # If the user marked a whole disk for deletion, they can't go in and
                 # un-delete partitions under it.
-                if newAction == _(DELETE):
+                if newAction == DELETE:
                     self._diskStore[partItr][EDITABLE_COL] = False
-                elif newAction == _(PRESERVE):
+                elif newAction == PRESERVE:
                     part = self.storage.devicetree.getDeviceByID(self._diskStore[partItr][DEVICE_ID_COL])
                     self._diskStore[partItr][EDITABLE_COL] = not part.protected
 
