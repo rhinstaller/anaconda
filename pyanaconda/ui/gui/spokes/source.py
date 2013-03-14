@@ -526,7 +526,14 @@ class SourceSpoke(NormalSpoke):
                 return
 
             self.data.method.method = "nfs"
-            (self.data.method.server, self.data.method.dir) = url.split(":", 2)
+            try:
+                (self.data.method.server, self.data.method.dir) = url.split(":", 2)
+            except ValueError as e:
+                log.error("ValueError: %s" % (e,))
+                gtk_call_once(self.set_warning, _("Failed to set up installation source; check the repo url"))
+                self._error = True
+                return
+
             self.data.method.opts = self.builder.get_object("nfsOptsEntry").get_text() or ""
 
             if (old_source.method == "nfs" and
