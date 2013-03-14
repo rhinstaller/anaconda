@@ -260,7 +260,7 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke):
 
     @property
     def completed(self):
-        return self._user in self.data.user.userList
+        return len(self.data.user.userList) > 0
 
     def _passwordDisabler(self, editable = None, data = None):
         """Called by Gtk callback when the "Use password" check
