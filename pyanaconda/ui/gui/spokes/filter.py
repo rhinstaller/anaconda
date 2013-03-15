@@ -310,10 +310,12 @@ class FilterSpoke(NormalSpoke):
                       RaidPage(self.storage, self.builder),
                       ZPage(self.storage, self.builder)]
 
+        self._addAdditionalCombo = self.builder.get_object("addAdditionalCombo")
         self._notebook = self.builder.get_object("advancedNotebook")
 
         if not arch.isS390():
             self._notebook.remove_page(-1)
+            self._addAdditionalCombo.remove(3)
 
         self._store = self.builder.get_object("diskStore")
         self._addDisksButton = self.builder.get_object("addDisksButton")
@@ -425,6 +427,9 @@ class FilterSpoke(NormalSpoke):
             self.selected_disks.remove(self._store[itr][3])
 
         self._update_summary()
+
+    def on_add_additional_changed(self, *args):
+        pass
 
     ##
     ## SEARCH TAB SIGNAL HANDLERS
