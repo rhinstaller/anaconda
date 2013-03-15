@@ -587,6 +587,7 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         communication.send_message(self.__class__.__name__, _("Probing storage..."))
 
         threadMgr.wait("AnaStorageThread")
+        threadMgr.wait("AnaCustomStorageInit")
 
         self.disks = getDisks(self.storage.devicetree)
 

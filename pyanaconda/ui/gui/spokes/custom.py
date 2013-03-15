@@ -45,7 +45,7 @@ import re
 from pykickstart.constants import *
 
 from pyanaconda.product import productName, productVersion
-from pyanaconda.threads import threadMgr
+from pyanaconda.threads import AnacondaThread, threadMgr
 
 from blivet import devicefactory
 from blivet.formats import device_formats
@@ -79,7 +79,7 @@ from pyanaconda.ui.gui.spokes.lib.passphrase import PassphraseDialog
 from pyanaconda.ui.gui.spokes.lib.accordion import *
 from pyanaconda.ui.gui.spokes.lib.refresh import RefreshDialog
 from pyanaconda.ui.gui.spokes.lib.summary import ActionSummaryDialog
-from pyanaconda.ui.gui.utils import setViewportBackground
+from pyanaconda.ui.gui.utils import setViewportBackground, gtk_thread_wait
 from pyanaconda.ui.gui.categories.storage import StorageCategory
 
 from gi.repository import Gtk
@@ -518,8 +518,16 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         # Populate the list of valid filesystem types from the format classes.
         # Unfortunately, we have to narrow them down a little bit more because
         # this list will include things like PVs and RAID members.
-        fsCombo = self.builder.get_object("fileSystemTypeCombo")
-        fsCombo.remove_all()
+        self.fsCombo = self.builder.get_object("fileSystemTypeCombo")
+        self.fsCombo.remove_all()
+
+        threadMgr.add(AnacondaThread(name="AnaCustomStorageInit", target=self._initialize))
+
+    def _initialize(self):
+        @gtk_thread_wait
+        def gtk_action(name):
+            self.fsCombo.append_text(name)
+
         self._fs_types = []
         for cls in device_formats.itervalues():
             obj = cls()
@@ -530,7 +538,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                             (isinstance(obj, FS) or
                              obj.type in ["biosboot", "prepboot", "swap"]))
             if supported_fs:
-                fsCombo.append_text(obj.name)
+                gtk_action(obj.name)
                 self._fs_types.append(obj.name)
 
     @property
