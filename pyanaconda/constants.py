@@ -82,6 +82,7 @@ MOUNT_DIR = "/mnt/install"
 DRACUT_REPODIR = "/run/install/repo"
 DRACUT_ISODIR = "/run/install/source"
 ISO_DIR = MOUNT_DIR + "/isodir"
+IMAGE_DIR = MOUNT_DIR + "/image"
 INSTALL_TREE = MOUNT_DIR + "/source"
 BASE_REPO_NAME = "anaconda"
 

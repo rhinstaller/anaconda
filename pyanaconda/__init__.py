@@ -127,6 +127,9 @@ class Anaconda(object):
                 if flags.livecdInstall:
                     from pyanaconda.packaging.livepayload import LiveImagePayload
                     klass = LiveImagePayload
+                elif self.ksdata.method.method == "liveimg":
+                    from pyanaconda.packaging.livepayload import LiveImageKSPayload
+                    klass = LiveImageKSPayload
                 else:
                     from pyanaconda.packaging.yumpayload import YumPayload
                     klass = YumPayload

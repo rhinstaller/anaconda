@@ -153,7 +153,7 @@ class SoftwareSelectionSpoke(NormalSpoke):
 
     @property
     def showable(self):
-        return not flags.livecdInstall
+        return not flags.livecdInstall and not self.data.method.method == "liveimg"
 
     @property
     def status(self):
