@@ -469,46 +469,31 @@ def setupDisplay(anaconda, opts, addon_paths=None):
 
     # disable VNC over text question when not enough memory is available
     if blivet.util.total_memory() < isys.MIN_GUI_RAM:
+        stdoutLog.warning("Not asking for VNC because current memory (%d) < MIN_GUI_RAM (%d)" % (iutil.memInstalled(), isys.MIN_GUI_RAM))
         flags.vncquestion = False
 
     # disable VNC question if text mode is requested and this is a ks install
     if anaconda.displayMode == 't' and flags.automatedInstall:
+        stdoutLog.warning("Not asking for VNC because of an automated install")
         flags.vncquestion = False
 
     # disable VNC question if we were explicitly asked for text in kickstart
     if anaconda.ksdata.displaymode.displayMode == DISPLAY_MODE_TEXT:
+        stdoutLog.warning("Not asking for VNC because text mode was explicitly asked for in kickstart")
         flags.vncquestion = False
 
     # disable VNC question if we don't have network
     if not nm_is_connected():
+        stdoutLog.warning("Not asking for VNC because we don't have a network")
         flags.vncquestion = False
 
-    # disable VNC question if we don't have X
+    # disable VNC question if we don't have Xvnc
     if not os.access('/usr/bin/Xvnc', os.X_OK):
+        stdoutLog.warning("Not asking for VNC because we don't have Xvnc")
         flags.vncquestion = False
 
     if os.environ.has_key('DISPLAY'):
         flags.preexisting_x11 = True
-
-    if anaconda.displayMode == 't' and flags.vncquestion:
-        #we prefer vnc over text mode, so ask about that
-        message = _("Text mode provides a limited set of installation "
-                    "options. It does not allow you to specify your "
-                    "own partitioning layout or package selections. "
-                    "Would you like to use VNC mode instead?")
-
-        app = App("VNC Question")
-        spoke = AskVNCSpoke(app, anaconda.ksdata, message=message)
-        app.schedule_screen(spoke)
-        app.run()
-
-        if anaconda.ksdata.vnc.enabled:
-            anaconda.displayMode = 'g'
-            flags.usevnc = 1
-            vncS.password = anaconda.ksdata.vnc.password
-
-    log.info("Display mode = %s" % anaconda.displayMode)
-    check_memory(anaconda, opts)
 
     # Should we try to start Xorg?
     want_x = anaconda.displayMode == 'g' and \
@@ -529,6 +514,26 @@ def setupDisplay(anaconda, opts, addon_paths=None):
         time.sleep(2)
         anaconda.displayMode = 't'
         want_x = False
+
+    if anaconda.displayMode == 't' and flags.vncquestion:
+        #we prefer vnc over text mode, so ask about that
+        message = _("Text mode provides a limited set of installation "
+                    "options. It does not allow you to specify your "
+                    "own partitioning layout or package selections. "
+                    "Would you like to use VNC mode instead?")
+
+        app = App("VNC Question")
+        spoke = AskVNCSpoke(app, anaconda.ksdata, message=message)
+        app.schedule_screen(spoke)
+        app.run()
+
+        if anaconda.ksdata.vnc.enabled:
+            anaconda.displayMode = 'g'
+            flags.usevnc = 1
+            vncS.password = anaconda.ksdata.vnc.password
+
+    log.info("Display mode = %s" % anaconda.displayMode)
+    check_memory(anaconda, opts)
 
     if want_x:
         # The following code depends on no SIGCHLD being delivered,
