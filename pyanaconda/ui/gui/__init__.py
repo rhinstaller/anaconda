@@ -362,10 +362,6 @@ class GraphicalUserInterface(UserInterface):
                 return
 
         self._currentAction.initialize()
-
-        # Do this at the last possible minute.
-        unbusyCursor()
-
         self._currentAction.refresh()
 
         self._currentAction.window.set_beta(not self._isFinal)
@@ -376,6 +372,10 @@ class GraphicalUserInterface(UserInterface):
         settings.set_property("gtk-font-name", "Cantarell")
 
         self._currentAction.window.show_all()
+
+        # Do this at the last possible minute.
+        unbusyCursor()
+
         Gtk.main()
 
     ###
