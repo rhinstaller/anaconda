@@ -29,11 +29,12 @@ log = logging.getLogger("anaconda")
 # pylint: disable-msg=E0611
 from gi.repository import AnacondaWidgets, GLib, Gtk, Gdk
 
+from pyanaconda.ui.communication import hubQ
 from pyanaconda.ui.common import FirstbootSpokeMixIn
 from pyanaconda.ui.gui import GUIObject
 from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.gui.categories.localization import LocalizationCategory
-from pyanaconda.ui.gui.utils import enlightbox, gtk_action_nowait, gtk_call_once
+from pyanaconda.ui.gui.utils import enlightbox, gtk_action_nowait, gtk_action_wait, gtk_call_once
 
 from pyanaconda import timezone
 from pyanaconda.timezone import NTP_SERVICE
@@ -311,27 +312,6 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
         self._citiesStore = self.builder.get_object("cities")
         self._tzmap = self.builder.get_object("tzmap")
 
-        self._regions_zones = timezone.get_all_regions_and_timezones()
-
-        for day in xrange(1, 32):
-            self.add_to_store(self._daysStore, day)
-
-        self._months_nums = dict()
-        for i in xrange(1, 13):
-            #a bit hacky way, but should return the translated string
-            #TODO: how to handle language change? Clear and populate again?
-            month = datetime.date(2000, i, 1).strftime('%B')
-            self.add_to_store(self._monthsStore, month)
-            self._months_nums[month] = i
-
-        for year in xrange(1990, 2051):
-            self.add_to_store(self._yearsStore, year)
-
-        for region in self._regions_zones.keys():
-            self.add_to_store(self._regionsStore, region)
-            for city in self._regions_zones[region]:
-                self.add_to_store(self._citiesStore, city)
-
         # we need to know it the new value is the same as previous or not
         self._old_region = None
         self._old_city = None
@@ -360,6 +340,30 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
 
         self._ntpSwitch = self.builder.get_object("networkTimeSwitch")
 
+        self._regions_zones = timezone.get_all_regions_and_timezones()
+
+        threadMgr.add(AnacondaThread(name="AnaDateTimeThread", target=self._initialize))
+
+    def _initialize(self):
+        for day in xrange(1, 32):
+            self.add_to_store(self._daysStore, day)
+
+        self._months_nums = dict()
+        for i in xrange(1, 13):
+            #a bit hacky way, but should return the translated string
+            #TODO: how to handle language change? Clear and populate again?
+            month = datetime.date(2000, i, 1).strftime('%B')
+            self.add_to_store(self._monthsStore, month)
+            self._months_nums[month] = i
+
+        for year in xrange(1990, 2051):
+            self.add_to_store(self._yearsStore, year)
+
+        for region in self._regions_zones.keys():
+            self.add_to_store(self._regionsStore, region)
+            for city in self._regions_zones[region]:
+                self.add_to_store(self._citiesStore, city)
+
         if self._radioButton24h.get_active():
             self._set_amPm_part_sensitive(False)
 
@@ -378,6 +382,8 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
 
         self._config_dialog = NTPconfigDialog(self.data)
         self._config_dialog.initialize()
+
+        hubQ.send_ready(self.__class__.__name__, False)
 
     @property
     def status(self):
@@ -408,6 +414,10 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
             GLib.source_remove(self._update_datetime_timer_id)
         self._update_datetime_timer_id = None
         self.data.timezone.setup(self.data)
+
+    @property
+    def ready(self):
+        return not threadMgr.get("AnaDateTimeThread")
 
     @property
     def completed(self):
@@ -445,6 +455,7 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
 
         self._ntpSwitch.set_active(ntp_working)
 
+    @gtk_action_nowait
     def add_to_store(self, store, item):
         store.append([item])
 
