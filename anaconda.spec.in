@@ -234,6 +234,58 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/lib/dracut/modules.d/80%{name}/*
 
 %changelog
+* Mon Mar 18 2013 Brian C. Lane <bcl@redhat.com> - 19.11-1
+- Don't create temporary lists if not needed (vpodzime)
+- Fix reclaiming disk space for non-us installations. (rvykydal)
+- Allow for raising thread exceptions when threadMgr.get is called (bcl,
+  clumens). (clumens)
+- Hook up the new refresh dialog. (clumens)
+- Add a dialog prompting the user to refresh anaconda's view of storage.
+  (clumens)
+- Add a refresh button to the custom partitioning toolbar. (clumens)
+- Add a reset button to the bottom right of the custom spoke. (clumens)
+- Hook up the new action summary dialog. (clumens)
+- Add a summary screen of actions to be performed on all disks. (clumens)
+- Catch error when incorrect nfs address entered (sbueno+anaconda)
+- Use GDBus also for connection settings update. (rvykydal)
+- Network spoke: improve message format parametrization for translators
+  (rvykydal)
+- Don't set ibft device renaming for dracut, let it just do its job (#828505)
+  (rvykydal)
+- Mark Timezone selection as firstboot spoke (msivak)
+- Add user creation spoke to TUI (msivak)
+- Refactor TUI password spoke to use the declarative EditTUISpoke (msivak)
+- Use guess_username from pyanaconda.users in gui.spokes.UserSpoke (msivak)
+- Add declarative EditTUISpoke (msivak)
+- Allow modyfying exit question in TUI (msivak)
+- Return False from TUI.run() if it was exited prematurely (msivak)
+- Add guess_username function to users.py (msivak)
+- Mark incomplete mandatory spokes in text mode (msivak)
+- Network spoke: move formatting parameters out of translation function
+  (rvykydal)
+- Network spoke: add keyboard accelerator to add device combobox (#906263)
+  (rvykydal)
+- Network spoke: don't decorate add_device_dialog (#906263) (rvykydal)
+- Don't pass undefined stdout from execWithCapture. (rvykydal)
+- Network spoke: import network module instead of list of too many functions
+  (rvykydal)
+- Vlan support: kickstart (#906272) (rvykydal)
+- Vlan support: generate kickstart (#906272) (rvykydal)
+- Vlan support: GUI - hub status information (#906272) (rvykydal)
+- Network spoke: check whether added network device is already in list
+  (#906272) (rvykydal)
+- Vlan support: GUI - add "Vlan ID" and "Parent" to vlan tab (#906272)
+  (rvykydal)
+- Return correct nm_device_setting_value for bonds and vlans (#906272)
+  (rvykydal)
+- Vlan support: GUI - show vlan devices (#906272) (rvykydal)
+- Vlan support: GUI - add "Parent" and "Vlan ID" info (glade) (#906272)
+  (rvykydal)
+- Vlan support: GUI - add vlan device (glade) (#906272) (rvykydal)
+- Show that password was set by kickstart in TUI (msivak)
+- Add settable quit message to TUI (msivak)
+- Check _current_action for not being None before using it (vpodzime)
+
 * Mon Mar 11 2013 Brian C. Lane <bcl@redhat.com> - 19.10-1
 - Bonding support: GUI - hub status information (#906263) (rvykydal)
 - Bonding support: GUI - generate kickstart network command for bonds (#906263)
