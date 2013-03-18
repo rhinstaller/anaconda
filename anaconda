@@ -653,6 +653,12 @@ if __name__ == "__main__":
     setupPythonUpdates()
     setupPythonPath()
 
+    # init threading before Gtk can do anything and before we start using threads
+    # initThreading initializes the threadMgr instance, import it afterwards
+    from pyanaconda.threads import initThreading, AnacondaThread
+    initThreading()
+    from pyanaconda.threads import threadMgr
+
     from pyanaconda import constants
     from pyanaconda import addons
 
@@ -946,10 +952,6 @@ if __name__ == "__main__":
 
         langObj.set_install_lang(opts.lang)
         ksdata.lang.lang = opts.lang
-
-    # init threading before Gtk can do anything
-    from pyanaconda.threads import initThreading, threadMgr, AnacondaThread
-    initThreading()
 
     import blivet
     blivet.enable_installer_mode()

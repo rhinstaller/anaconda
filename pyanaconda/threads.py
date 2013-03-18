@@ -27,7 +27,10 @@ import threading
 class ThreadManager(object):
     """A singleton class for managing threads and processes.
 
-       Note:  This manager makes one assumption that contradicts python's
+       Notes:
+       THE INSTANCE HAS TO BE CREATED IN THE MAIN THREAD!
+
+       This manager makes one assumption that contradicts python's
        threading module documentation.  In this class, we assume that thread
        names are unique and meaningful.  This is an okay assumption for us
        to make given that anaconda is only ever going to have a handful of
@@ -36,6 +39,7 @@ class ThreadManager(object):
     def __init__(self):
         self._objs = {}
         self._errors = {}
+        self._main_thread = threading.current_thread()
 
     def __call__(self):
         return self
@@ -106,6 +110,12 @@ class ThreadManager(object):
         if self._errors.get(name):
             raise self._errors[name][0], self._errors[name][1], self._errors[name][2]
 
+    def in_main_thread(self):
+        """Return True if it is run in the main thread."""
+
+        cur_thread = threading.current_thread()
+        return cur_thread is self._main_thread
+
 class AnacondaThread(threading.Thread):
     """A threading.Thread subclass that exists only for a couple purposes:
 
@@ -139,11 +149,15 @@ class AnacondaThread(threading.Thread):
             log.info("Thread Done: %s (%s)" % (self.name, self.ident))
 
 def initThreading():
-    """Set up threading for anaconda's use.  This method must be called before
+    """Set up threading for anaconda's use. This method must be called before
        any GTK or threading code is called, or else threads will only run when
-       an event is triggered in the GTK main loop.
+       an event is triggered in the GTK main loop. And IT HAS TO BE CALLED IN
+       THE MAIN THREAD.
     """
     from gi.repository import GObject
     GObject.threads_init()
 
-threadMgr = ThreadManager()
+    global threadMgr
+    threadMgr = ThreadManager()
+
+threadMgr = None
