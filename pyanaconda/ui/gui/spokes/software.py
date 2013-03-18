@@ -30,7 +30,7 @@ from pyanaconda.threads import threadMgr, AnacondaThread
 from pyanaconda.ui import communication
 from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.gui.spokes.lib.detailederror import DetailedErrorDialog
-from pyanaconda.ui.gui.utils import enlightbox, gtk_thread_wait
+from pyanaconda.ui.gui.utils import enlightbox, gtk_action_wait
 from pyanaconda.ui.gui.categories.software import SoftwareCategory
 
 from pykickstart.parser import Group
@@ -209,7 +209,7 @@ class SoftwareSelectionSpoke(NormalSpoke):
         # we should do dependency solving here.
         self._apply()
 
-    @gtk_thread_wait
+    @gtk_action_wait
     def _first_refresh(self):
         try:
             self.refresh()

@@ -33,7 +33,7 @@ from pyanaconda.ui.common import FirstbootSpokeMixIn
 from pyanaconda.ui.gui import GUIObject
 from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.gui.categories.localization import LocalizationCategory
-from pyanaconda.ui.gui.utils import enlightbox, gtk_thread_nowait, gtk_call_once
+from pyanaconda.ui.gui.utils import enlightbox, gtk_action_nowait, gtk_call_once
 
 from pyanaconda import timezone
 from pyanaconda.timezone import NTP_SERVICE
@@ -177,7 +177,7 @@ class NTPconfigDialog(GUIObject):
 
         """
 
-        @gtk_thread_nowait
+        @gtk_action_nowait
         def set_store_value(arg_tuple):
             """
             We need a function for this, because this way it can be added to
@@ -211,7 +211,7 @@ class NTPconfigDialog(GUIObject):
                                     itr, 1, SERVER_NOK))
         self._epoch_lock.release()
 
-    @gtk_thread_nowait
+    @gtk_action_nowait
     def _refresh_server_working(self, itr):
         """ Runs a new thread with _set_server_ok_nok(itr) as a taget. """
 

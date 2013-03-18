@@ -49,7 +49,7 @@ from pyanaconda.ui.gui.spokes.lib.passphrase import PassphraseDialog
 from pyanaconda.ui.gui.spokes.lib.detailederror import DetailedErrorDialog
 from pyanaconda.ui.gui.spokes.lib.resize import ResizeDialog
 from pyanaconda.ui.gui.categories.storage import StorageCategory
-from pyanaconda.ui.gui.utils import enlightbox, gtk_call_once, gtk_thread_wait
+from pyanaconda.ui.gui.utils import enlightbox, gtk_call_once, gtk_action_wait
 
 from pyanaconda.kickstart import doKickstartStorage
 from blivet import empty_device

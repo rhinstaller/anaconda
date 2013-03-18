@@ -38,7 +38,7 @@ from pyanaconda.ui import communication
 from pyanaconda.ui.gui import GUIObject
 from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.gui.categories.software import SoftwareCategory
-from pyanaconda.ui.gui.utils import enlightbox, gtk_thread_wait
+from pyanaconda.ui.gui.utils import enlightbox, gtk_action_wait
 from pyanaconda.iutil import ProxyString, ProxyStringError, cmp_obj_attrs
 from pyanaconda.ui.gui.utils import gtk_call_once
 from pyanaconda.threads import threadMgr, AnacondaThread
@@ -569,7 +569,7 @@ class SourceSpoke(NormalSpoke):
             self._cdrom = opticalInstallMedia(self.storage.devicetree)
 
         if self._cdrom:
-            @gtk_thread_wait
+            @gtk_action_wait
             def gtk_action_1():
                 self._autodetectDeviceLabel.set_text(_("Device: %s") % self._cdrom.name)
                 self._autodetectLabel.set_text(_("Label: %s") % self._cdrom.format.label or "")

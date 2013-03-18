@@ -1,6 +1,6 @@
 # Miscellaneous UI functions
 #
-# Copyright (C) 2012  Red Hat, Inc.
+# Copyright (C) 2012, 2013 Red Hat, Inc.
 #
 # This copyrighted material is made available to anyone wishing to use,
 # modify, copy, or redistribute it subject to the terms and conditions of
@@ -17,7 +17,12 @@
 # Red Hat, Inc.
 #
 # Red Hat Author(s): Chris Lumens <clumens@redhat.com>
+#                    Martin Sivak <msivak@redhat.com>
+#                    Vratislav Podzimek <vpodzime@redhat.com>
 #
+
+from pyanaconda.threads import threadMgr
+
 from contextlib import contextmanager
 from gi.repository import Gdk, Gtk, GLib
 import Queue
@@ -25,21 +30,19 @@ import Queue
 def gtk_call_once(func, *args):
     """Wrapper for GLib.idle_add call that ensures the func is called
        only once.
-    """ 
+    """
     def wrap(args):
         func(*args)
         return False
-    
+
     GLib.idle_add(wrap, args)
 
-def gtk_thread_wait(func):
-    """Decorator method which causes every call of the decorated function
-       to be executed in the context of Gtk main loop and returns the ret
-       value after the decorated method finishes.
-
-       Method decorated by this decorator must not be called from inside
-       of the Gtk main loop. It will cause a hang.
+def gtk_action_wait(func):
+    """Decorator method which ensures every call of the decorated function to be
+       executed in the context of Gtk main loop even if called from a non-main
+       thread and returns the ret value after the decorated method finishes.
     """
+
     queue = Queue.Queue()
 
     def _idle_method(q_args):
@@ -51,19 +54,23 @@ def gtk_thread_wait(func):
         return False
 
     def _call_method(*args):
-        """The new body for the decorated method. It uses closure bound
-           queue variable which is valid until the reference to this method
-           is destroyed."""
+        """The new body for the decorated method. If needed, it uses closure
+           bound queue variable which is valid until the reference to this
+           method is destroyed."""
+        if threadMgr.in_main_thread():
+            # nothing special has to be done in the main thread
+            return func(*args)
+
         GLib.idle_add(_idle_method, (queue, args))
         return queue.get()
 
     return _call_method
 
 
-def gtk_thread_nowait(func):
-    """Decorator method which causes every call of the decorated function
-       to be executed in the context of Gtk main loop. The new method does
-       not wait for the callback to finish.
+def gtk_action_nowait(func):
+    """Decorator method which ensures every call of the decorated function to be
+       executed in the context of Gtk main loop even if called from a non-main
+       thread. The new method does not wait for the callback to finish.
     """
 
     def _idle_method(args):
@@ -75,6 +82,11 @@ def gtk_thread_nowait(func):
     def _call_method(*args):
         """The new body for the decorated method.
         """
+        if threadMgr.in_main_thread():
+            # nothing special has to be done in the main thread
+            func(*args)
+            return
+
         GLib.idle_add(_idle_method, args)
 
     return _call_method

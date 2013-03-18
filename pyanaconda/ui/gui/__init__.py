@@ -26,7 +26,7 @@ from gi.repository import Gdk
 from pyanaconda.product import distributionText, isFinal
 
 from pyanaconda.ui import UserInterface, common
-from pyanaconda.ui.gui.utils import enlightbox, gtk_thread_wait
+from pyanaconda.ui.gui.utils import enlightbox, gtk_action_wait
 from pyanaconda.product import isFinal, productName, productVersion
 import os.path
 
@@ -381,7 +381,7 @@ class GraphicalUserInterface(UserInterface):
     ###
     ### MESSAGE HANDLING METHODS
     ###
-    @gtk_thread_wait
+    @gtk_action_wait
     def showError(self, message):
         from gi.repository import AnacondaWidgets, Gtk
         dlg = Gtk.MessageDialog(flags=Gtk.DialogFlags.MODAL,
@@ -395,7 +395,7 @@ class GraphicalUserInterface(UserInterface):
             dlg.run()
             dlg.destroy()
 
-    @gtk_thread_wait
+    @gtk_action_wait
     def showDetailedError(self, message, details):
         from pyanaconda.ui.gui.spokes.lib.detailederror import DetailedErrorDialog
         dlg = DetailedErrorDialog(None, buttons=[_("_Quit")],
@@ -406,7 +406,7 @@ class GraphicalUserInterface(UserInterface):
             rc = dlg.run()
             dlg.window.destroy()
 
-    @gtk_thread_wait
+    @gtk_action_wait
     def showYesNoQuestion(self, message):
         from gi.repository import AnacondaWidgets, Gtk
         dlg = Gtk.MessageDialog(flags=Gtk.DialogFlags.MODAL,

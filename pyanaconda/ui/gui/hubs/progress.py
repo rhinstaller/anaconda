@@ -36,7 +36,7 @@ from pyanaconda.flags import flags
 from pykickstart.constants import KS_WAIT, KS_SHUTDOWN, KS_REBOOT
 
 from pyanaconda.ui.gui.hubs import Hub
-from pyanaconda.ui.gui.utils import gtk_thread_nowait, gtk_call_once
+from pyanaconda.ui.gui.utils import gtk_action_nowait, gtk_call_once
 
 __all__ = ["ProgressHub"]
 
@@ -249,7 +249,7 @@ class ProgressHub(Hub):
 
         gtk_call_once(self._progressLabel.set_text, message)
 
-    @gtk_thread_nowait
+    @gtk_action_nowait
     def _progress_bar_complete(self):
         self._progressBar.set_fraction(1.0)
         self._progressLabel.set_text(_("Complete!"))
