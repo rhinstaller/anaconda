@@ -1,0 +1,413 @@
+Anaconda Boot Options
+=====================
+Will Woods <wwoods@redhat.com>
+v17.0, June 6 2012: Rewrite for F17 changes.
+
+// written in asciidoc: http://www.methods.co.nz/asciidoc/
+// here's a few macros to improve readability in the text below..
+:dracutdoc:    http://www.kernel.org/pub/linux/utils/boot/dracut/dracut.html
+:dracutkernel: {dracutdoc}#dracutcmdline7[`dracut.kernel(7)`]
+:dracutnet:    {dracutdoc}#_network[the "Network" section of `dracut.kernel(7)`]
+:dracutdebug:  {dracutdoc}#_troubleshooting[dracut "Troubleshooting" guide]
+:fedoraboot:   http://docs.fedoraproject.org/en-US/Fedora/16/html/Installation_Guide/ch-Boot-x86.html#s2-x86-starting-bootopts
+:anacondalogging: https://fedoraproject.org/wiki/Anaconda/Logging
+
+
+These are the boot options that are useful when starting Anaconda. For more
+information on using Anaconda options, refer to {fedoraboot}["Appendix A. Boot
+Options" in the _Fedora Installation Guide_].
+
+Anaconda bootup is handled by dracut, so most of the kernel arguments handled
+by dracut are also valid. See {dracutkernel} for details on those options.
+
+Throughout this guide, installer-specific options are prefixed with
+`inst.` (e.g. `inst.ks`). The `inst` prefix is optional; `ks` still works
+just fine. _The `inst` prefix may be required in a future release._
+
+[[repo]]
+Installation Source
+-------------------
+
+.Installable Trees
+[NOTE]
+==============================================================================
+An _installable tree_ is a directory structure containing installer
+images, packages, and repodata.
+footnote:[an installable tree must contain a valid `.treeinfo` file for
+`inst.repo` or `inst.stage2` to work.]
+
+Usually this is either a copy of the DVD media (or loopback-mounted DVD
+image), or the `<arch>/os/` directory on the Fedora mirrors.
+==============================================================================
+
+=== inst.repo ===
+This gives the location of the _Install Source_ - that is, the place where the
+installer can find its images and packages. It can be specified in a few
+different ways:
+
+`inst.repo=cdrom`::
+Search the system's CDROM drives for installer media. _This is the default._
+
+`inst.repo=cdrom:<device>`::
+Look for installer media in the specified disk device.
+
+`inst.repo=hd:<device>:<path>`::
+Mount the given disk partition and install from the given path.
+
+`inst.repo=[http,https,ftp]://<host>/<path>`::
+Look for an installable tree at the given URL.
+
+`inst.repo=nfs:[<options>:]<server>:/<path>`::
+Mount the given NFS server and path. Uses NFS version *3* by default.
++
+You can specify what version of the NFS protocol to use by adding +nfsvers=X+
+to the `options`.
+
+[[diskdev]]
+.Disk Device Names
+[NOTE]
+======================================================================
+Disk devices may be specified with any of the following forms:
+
+Kernel Device Name::
+    `/dev/sda1`, `sdb2`
+Filesystem Label::
+    `LABEL=FLASH`, `LABEL=Fedora`, `CDLABEL=Fedora\x2017\x20x86_64`
+Filesystem UUID::
+    `UUID=8176c7bf-04ff-403a-a832-9557f94e61db`
+
+Non-alphanumeric characters should be escaped with +\xNN+, where
+'NN' is the hexidecimal representation of the character (e.g. +\x20+ for
+the space character (' ').
+======================================================================
+
+=== inst.stage2 ===
+This specifies the location to fetch the _only_ the installer runtime image.
+The packages will be ignored. Otherwise the same as `inst.repo`.
+
+*NOTE*: `inst.stage2` expects a _directory_ like `inst.repo`. If you need to
+provide a URL to an _image_ to be used, try `root=live:<url>` instead.
+
+[[kickstart]]
+Kickstart
+---------
+
+=== inst.ks ===
+Give the location of a kickstart file to be used to automate the install. Uses
+the same formats as `inst.repo`.
+
+If `<path>` is omitted, `/ks.cfg` is assumed.
+
+If `inst.ks` is used without a value, the installer will look for
+`nfs:<next_server>:/<filename>`:
+
+* `<next_server>` is the DHCP "next-server" option, or the IP of the DHCP server itself,
+* `<filename>` is the DHCP "filename" option, or `/kickstart/`, and
+* if the filename given ends in `/`, `<ip>-kickstart` is added
+* example:
+** DHCP server: `192.168.122.1`
+** client address: `192.168.122.100`
+*** kickstart file: `nfs:192.168.122.1:/kickstart/192.168.122.100-kickstart`
+
+==== inst.ks.sendmac ====
+Add headers to outgoing HTTP requests which include the MAC addresses of all
+network interfaces. The headers are of the form:
+
+* `X-RHN-Provisioning-MAC-0: eth0 01:23:45:67:89:ab`
+
+This is helpful when using `inst.ks=http...` to provision systems.
+
+==== inst.ks.sendsn ====
+Add a header to outgoing HTTP requests which includes the system's serial
+number. footnote:[as read from `/sys/class/dmi/id/product_serial`]
+The header is of the form:
+
+* `X-System-Serial-Number: <serial>`
+
+[[network]]
+Network Options
+---------------
+Initial network setup is handled by dracut. For detailed information consult
+{dracutnet}.
+
+The most common dracut network options are covered here, along with some
+installer-specific options.
+
+=== ip ===
+Configure one (or more) network interfaces. You can use multiple `ip`
+arguments to configure multiple interfaces, but if you do you must specify an
+interface for _every_ `ip=` argument, *and* you must specify which interface
+is the primary boot interface with `bootdev`.
+
+Accepts a few different forms; the most common are:
+
+`ip=<dhcp|dhcp6|auto6|ibft>`::
+Try to bring up *every interface* using the given autoconf method.  _Defaults
+to `ip=dhcp` if network is required by `inst.repo`, `inst.ks`, `inst.updates`,
+etc._
+
+`ip=<interface>:<autoconf>`::
+Bring up *only one interface* using the given autoconf method, e.g.
+`ip=eth0:dhcp`.
+
+`ip=<ip>::<gateway>:<netmask>:<hostname>:<interface>:none`::
+Bring up the given interface with a static network config, where:
+  `<ip>`::: The client IP address. IPv6 addresses may be specified by putting
+            them in square brackets, like so: `[2001:DB8::1]`.
+  `<gateway>`::: The default gateway. IPv6 addresses are accepted here too.
+  `<netmask>`::: The netmask (e.g. `255.255.255.0`) or prefix (e.g. `64`).
+  `<hostname>`::: Hostname for the client machine. _Optional_.
+
+`ip=<ip>::<gateway>:<netmask>:<hostname>:<interface>:<autoconf>`::
+Bring up the given interface with the given autoconf method, but override the
+automatically obtained IP/gateway/etc. with the provided values.
++
+Technically all of the items are optional, so if you want to use dhcp but also
+set a hostname you can do `ip=::::<hostname>::dhcp`.
+
+=== nameserver ===
+Specify the address of a nameserver to use. _May be used multiple times._
+
+=== bootdev ===
+Specify which interface is the boot device. _**Required** if multiple ip=
+options are used._
+
+=== ifname ===
+`ifname=<interface>:<MAC>`::
+Assign the given interface name to the network device with the given MAC. _May
+be used multiple times._
+
+=== inst.dhcpclass ===
+Set the DHCP vendor class identifier. (ISC `dhcpd` will see this value as
+"option vendor-class-identifier").
+
+_Defaults to `anaconda-$(uname -srm)`_. footnote:[For Fedora 17 this should be
+something like 'anaconda-Linux 3.3.4-4.fc17.x86_64 x86_64']
+
+
+Console / Display Options
+-------------------------
+
+[[console]]
+=== console ===
+This is a kernel option that specifies what device to use as the primary
+console. For example, if your console should be on the first serial port, use
+`console=ttyS0`.
+
+You can use multiple `console=` options; boot message will be displayed on
+all consoles, but anaconda will put its display on the _last_ console listed.
+
+Using this option implies `text`.
+
+=== inst.lang ===
+Set the language to be used during installation. This should be a language
+that's valid for use with the `lang` kickstart command.
+
+=== inst.keymap ===
+Set the keyboard layout to use. This should be something valid for use with
+the `keyboard` kickstart command.
+
+=== inst.cmdline ===
+Force command line install mode. This mode simply prints out text and does not
+allow any interaction. All options must be specified in a kickstart or on the
+command line.
+
+=== inst.graphical ===
+Make the installer to run in graphical mode. _This is the default._
+
+=== inst.text ===
+Force the installer to use a very limited text-based UI. Unless you're using a
+kickstart this probably isn't a good idea; you should use VNC instead.
+
+=== inst.vnc ===
+Run the installer GUI in a VNC session. You will need a VNC client application
+to interact with the installer. VNC sharing is enabled, so multiple clients
+may connect.
+
+A system installed with VNC will start in text mode (runlevel 3).
+
+_Consider setting a vnc password_ (see below).
+
+==== inst.vncpassword ====
+Set a password on the VNC server used by the installer.
+
+==== inst.vncconnect ====
+`inst.vncconnect=<host>[:<port>]`::
+Once the install starts, connect to a listening VNC client at the given host.
+Default port is 5900.
++
+Use with `vncviewer -listen`.
+
+=== inst.headless ===
+Specify that the machine being installed onto doesn't have any display
+hardware, and that anaconda shouldn't bother looking for it.
+
+=== inst.xdriver ===
+Specify the X driver that should be used during installation and on the
+installed system.
+
+=== inst.usefbx ===
+Use the framebuffer X driver (`fbdev`) rather than a hardware-specific driver.
+
+Equivalent to `inst.xdriver=fbdev`.
+
+=== inst.sshd ===
+Start up `sshd` during system installation. You can then ssh in while the
+installation progresses to debug or monitor its progress.
+
+*NOTE*: The `root` account has _no password by default_. You can set one using
+the `sshpw` kickstart command.
+
+Debugging and Troubleshooting
+-----------------------------
+
+=== inst.mediacheck ===
+Verify the installer media before starting the install.
+
+=== inst.rescue ===
+Run the rescue environment. This is useful for trying to diagnose and fix
+broken systems.
+
+=== inst.updates ===
+Give the location of an `updates.img` to be applied to the installer runtime.
+Takes the same arguments as `inst.repo` and `inst.ks`.
+
+If no `<path>` is given, `/updates.img` is assumed.
+
+=== inst.loglevel ===
+`inst.loglevel=<debug|info|warning|error|critical>`::
+Set the minimum level required for messages to be logged on a terminal (log
+files always contain messages of all levels). The default value is `info`.
+
+=== inst.syslog ===
+`inst.syslog=<host>[:<port>]`::
+Once installation is running, send log messages to the syslog process on
+the given host. The default port is 514 (UDP).
++
+Requires the remote syslog process to accept incoming connections.
+
+=== inst.virtiolog ===
+Forward logs through the named virtio port (a character device at
+`/dev/virtio-ports/<name>`). A port named `org.fedoraproject.anaconda.log.0`
+will be used by default, if found.
++
+For more information see {anacondalogging}.
+
+=== inst.autostep ===
+Normally, if the information needed by a given installer screen has
+already been provided, the installer will skip that screen (for example, if
+you specify `lang=en`, the language screen is skipped.)
+
+This option forces the installer to display those screens briefly before
+stepping through to the next one.
+
+This is mostly used with the `autoscreenshot` kickstart command to get
+automated screenshots of the installer.
+
+=== inst.debug ===
+Use `inst.debug=1` to add a "debug" button to the UI, which allows dropping
+into a Python debugger.
+
+=== inst.traceback ===
+Intentionally raise an exception to make the installer crash with a traceback.
+This is for testing our crash-handling code. _Don't use it unless you want the
+installer to crash._
+
+=== inst.upgradeany ===
+Normally the installer does a sanity check of `/etc/redhat-release` and
+refuses to upgrade anything too old for it to handle. You can use this to
+force it to upgrade anyway. _Use at your own risk._
+
+Deprecated Options
+------------------
+
+These options should _still be accepted by the installer_, but they're
+deprecated and may be removed soon.
+
+=== method ===
+This is just an alias for `inst.repo`.
+
+=== repo=nfsiso:... ===
+The difference between an installable tree and a dir with an `.iso` file is
+autodetected, so this is the same as `inst.repo=nfs:`...
+
+=== dns ===
+Use `nameserver` instead. Note that `nameserver` does not take comma-separated
+lists; just use multiple `nameserver` options.
+
+=== netmask, gateway, hostname ===
+These can be provided as part of the <<network,`ip`>> option.
+
+=== ip=bootif ===
+A PXE-supplied BOOTIF option will be used automatically, so there's no need
+for this.
+
+=== blacklist, nofirewire ===
+
+`modprobe` handles blacklisting kernel modules on its own; try
+`modprobe.blacklist=<mod1>,<mod2>...`
+
+You can blacklist the firewire module with `modprobe.blacklist=firewire_ohci`.
+
+Removed Options
+---------------
+
+These options are obsolete and have been removed.
+
+=== askmethod, asknetwork ===
+Anaconda's initramfs is now is completely non-interactive, so these have been
+removed.
+
+Instead, specify a <<repo,repo>> or use appropriate <<network,network>>
+options.
+
+=== serial ===
+This option was never intended for public use; it was supposed to be used to
+force anaconda to use `/dev/ttyS0` as its console when testing it on a live
+machine.
+
+Use `console=ttyS0` or similar instead. See <<console,console>> for details.
+
+=== updates ===
+Plain `updates` is no longer supported. Use `inst.updates=hd:<dev>[:<img>]`,
+discussed above.
+
+=== ksdevice=link ===
+This is the default behavior when using ip autoconf.
+
+=== essid, wepkey, wpakey ===
+Dracut doesn't support wireless networking, so these don't do anything.
+
+=== ethtool ===
+Who needs to force half-duplex 10-base-T anymore?
+
+=== gdb ===
+This was used to debug `loader`, so it has been removed. There are plenty of
+options for debugging dracut-based initramfs - see the {dracutdebug}.
+
+=== ks=floppy ===
+We no longer support floppy drives. Try `ks=hd:<device>` instead.
+
+=== display ===
+For remote display of the UI, use `inst.vnc`.
+
+=== utf8 ===
+All this option actually did was set `TERM=vt100`. The default `TERM` setting
+works fine these days, so this was no longer necessary.
+
+=== noipv6  ===
+ipv6 is built into the kernel and can't be removed. You should be able to
+disable it with `ipv6.disable`, though.
+
+Future Options
+--------------
+These options are not present in Fedora 17 but will return in a future
+version.
+
+=== dd, driverdisk ===
+Support for Driver Update Disks will return in Fedora 18.
+
+=== proxy ===
+Support for commandline-configured network proxies will return in Fedora 18.
+
+// vim: set tw=78 syntax=asciidoc:
