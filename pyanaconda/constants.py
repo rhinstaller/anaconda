@@ -124,3 +124,18 @@ THREAD_INSTALL = "AnaInstallThread"
 THREAD_CONFIGURATION = "AnaConfigurationThread"
 THREAD_ISCSI_DISCOVER = "AnaIscsiDiscoverThread"
 THREAD_ISCSI_LOGIN = "AnaIscsiLoginThread"
+THREAD_GEOLOCATION_REFRESH = "AnaGeolocationRefreshThread"
+
+# Geolocation constants
+
+# geolocation providers
+# - values are used by the geoloc CLI/boot option
+GEOLOC_PROVIDER_MIRROR_MANAGER = "provider_mirror_manager"
+GEOLOC_PROVIDER_HOSTIP = "provider_hostip"
+GEOLOC_PROVIDER_GOOGLE_WIFI = "provider_google_wifi"
+# geocoding provider
+GEOLOC_GEOCODER_NOMINATIM = "geocoder_nominatim"
+# default providers
+GEOLOC_DEFAULT_PROVIDER = GEOLOC_PROVIDER_MIRROR_MANAGER
+GEOLOC_DEFAULT_GEOCODER = GEOLOC_GEOCODER_NOMINATIM
+
