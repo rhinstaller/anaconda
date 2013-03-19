@@ -216,7 +216,7 @@ class ErrorHandler(object):
         else:
             message = _("The following error occurred while installing.  This is "
                         "a fatal error and installation will be aborted.")
-            message += "\n\n" + str(kwargs["exception"])
+        message += "\n\n" + str(kwargs["exception"])
 
         self.ui.showError(message)
         return ERROR_RAISE
