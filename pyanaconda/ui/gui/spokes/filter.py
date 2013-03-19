@@ -47,7 +47,32 @@ DiskStoreRow = namedtuple("DiskStoreRow", ["visible", "selected", "mutable",
                                            "lun", "ccw"])
 
 class FilterPage(object):
+    """A FilterPage is the logic behind one of the notebook tabs on the filter
+       UI spoke.  Each page has its own specific filtered model overlaid on top
+       of a common model that holds all non-advanced disks.
+
+       A Page is created once, when the filter spoke is initialized.  It is
+       setup multiple times - each time the spoke is revisited.  When the Page
+       is setup, it is given a complete view of all disks that belong on this
+       Page.  This is because certain pages may require populating a combo with
+       all vendor names, or other similar tasks.
+
+       This class is just a base class.  One subclass should be created for each
+       more specialized type of page.  Only one instance of each subclass should
+       ever be created.
+    """
     def __init__(self, storage, builder):
+        """Create a new FilterPage instance.
+
+           Instance attributes:
+
+           builder      -- A reference to the Gtk.Builder instance containing
+                           this page's UI elements.
+           filterActive -- Whether the user has chosen to filter results down
+                           on this page.  If set, visible_func should take the
+                           filter UI elements into account.
+           storage      -- An instance of a blivet object.
+        """
         self.builder = builder
         self.storage = storage
         self._model = None
@@ -55,12 +80,39 @@ class FilterPage(object):
         self.filterActive = False
 
     def ismember(self, device):
+        """Does device belong on this page?  This function should taken into
+           account what kind of thing device is.  It should not be concerned
+           with any sort of filtering settings.  It only determines whether
+           device belongs.
+        """
         return True
 
     def setup(self, store, selectedNames, disks):
+        """Do whatever setup of the UI is necessary before this page can be
+           displayed.  This function is called every time the filter spoke
+           is revisited, and thus must first do any cleanup that is necessary.
+
+           The setup function is passed a reference to the master store, a list
+           of names of disks the user has selected (either from a previous visit
+           or via kickstart), and a list of all disk objects that belong on this
+           page as determined from the ismember method.
+
+           At the least, this method should add all the disks to the store.  It
+           may also need to populate combos and other lists as appropriate.
+        """
         pass
 
     def visible_func(self, model, itr, *args):
+        """This method is called for every row (disk) in the store, in order to
+           determine if it should be displayed on this page or not.  This method
+           should take into account whether filterActive is set, perhaps whether
+           something in pyanaconda.flags is setup, and other settings to make
+           a final decision.  Because filtering can be complicated, many pages
+           will want to farm this decision out to another method.
+
+           The return value is a boolean indicating whether the row is visible
+           or not.
+        """
         return True
 
 class SearchPage(FilterPage):
