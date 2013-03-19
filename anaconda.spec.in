@@ -234,6 +234,30 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/lib/dracut/modules.d/80%{name}/*
 
 %changelog
+* Tue Mar 19 2013 Brian C. Lane <bcl@redhat.com> - 19.12-1
+- _model -> model in filter.py. (clumens)
+- Add some documentation to FilterPage. (clumens)
+- Add the advanced storage UI and hook it up. (clumens)
+- Don't wrap the DO creation in gtk_thread_wait. (clumens)
+- Add a button to the specialized window to bring up the add dialog. (clumens)
+- Filter out multipath devices from the getDisks results. (clumens)
+- Reduce duplicated code between the GUI and TUI. (clumens)
+- Set the horizontal and vertical scales to what we want. (clumens)
+- Move DiskOverview creation out into its own method. (clumens)
+- Add a slot on the storage spoke for display of advanced storage. (clumens)
+- Log the actual exception for getPackage (bcl)
+- Add the addon repos from a repo's treeinfo file (bcl)
+- Disable failed repos, not remove them (bcl)
+- Add repo addon to source spoke (bcl)
+- Remove the previous addon repo code and UI (bcl)
+- Addon repo glade changes (bcl)
+- Enable updates repo by default (bcl)
+- Adjust _getTreeInfo so that proxy_url can be passed (bcl)
+- Add enable flag to RepoData object (bcl)
+- Modify repo interface in packaging (bcl)
+- Change the source DiskOverview to a label (bcl)
+- Display the reason for payloadInstallHandler error (bcl)
+
 * Mon Mar 18 2013 Brian C. Lane <bcl@redhat.com> - 19.11-1
 - Don't create temporary lists if not needed (vpodzime)
 - Fix reclaiming disk space for non-us installations. (rvykydal)
