@@ -75,7 +75,7 @@ class FilterPage(object):
         """
         self.builder = builder
         self.storage = storage
-        self._model = None
+        self.model = None
 
         self.filterActive = False
 
@@ -118,8 +118,8 @@ class FilterPage(object):
 class SearchPage(FilterPage):
     def __init__(self, storage, builder):
         FilterPage.__init__(self, storage, builder)
-        self._model = self.builder.get_object("searchModel")
-        self._model.set_visible_func(self.visible_func)
+        self.model = self.builder.get_object("searchModel")
+        self.model.set_visible_func(self.visible_func)
 
         self._lunEntry = self.builder.get_object("searchLUNEntry")
         self._wwidEntry = self.builder.get_object("searchWWIDEntry")
@@ -152,8 +152,8 @@ class SearchPage(FilterPage):
 class MultipathPage(FilterPage):
     def __init__(self, storage, builder):
         FilterPage.__init__(self, storage, builder)
-        self._model = self.builder.get_object("multipathModel")
-        self._model.set_visible_func(self.visible_func)
+        self.model = self.builder.get_object("multipathModel")
+        self.model.set_visible_func(self.visible_func)
 
         self._wwidEntry = self.builder.get_object("multipathWWIDEntry")
 
@@ -226,8 +226,8 @@ class MultipathPage(FilterPage):
 class OtherPage(FilterPage):
     def __init__(self, storage, builder):
         FilterPage.__init__(self, storage, builder)
-        self._model = self.builder.get_object("otherModel")
-        self._model.set_visible_func(self.visible_func)
+        self.model = self.builder.get_object("otherModel")
+        self.model.set_visible_func(self.visible_func)
 
     def ismember(self, device):
         return isinstance(device, iScsiDiskDevice) or isinstance(device, FcoeDiskDevice)
@@ -240,8 +240,8 @@ class OtherPage(FilterPage):
 class RaidPage(FilterPage):
     def __init__(self, storage, builder):
         FilterPage.__init__(self, storage, builder)
-        self._model = self.builder.get_object("raidModel")
-        self._model.set_visible_func(self.visible_func)
+        self.model = self.builder.get_object("raidModel")
+        self.model.set_visible_func(self.visible_func)
 
     def ismember(self, device):
         return isinstance(device, MDRaidArrayDevice) and device.isDisk
@@ -257,8 +257,8 @@ class RaidPage(FilterPage):
 class ZPage(FilterPage):
     def __init__(self, storage, builder):
         FilterPage.__init__(self, storage, builder)
-        self._model = self.builder.get_object("zModel")
-        self._model.set_visible_func(self.visible_func)
+        self.model = self.builder.get_object("zModel")
+        self.model.set_visible_func(self.visible_func)
 
         self._isS390 = arch.isS390()
 
