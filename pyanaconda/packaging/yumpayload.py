@@ -1687,11 +1687,12 @@ class RPMCallback(object):
                     exn = PayloadInstallError("failed to get package")
                     if errorHandler.cb(exn, package=txmbr.po) == ERROR_RAISE:
                         raise exn
-                except (yum.Errors.NoMoreMirrorsRepoError, IOError):
+                except (yum.Errors.NoMoreMirrorsRepoError, IOError) as e:
                     if os.path.exists(txmbr.po.localPkg()):
                         os.unlink(txmbr.po.localPkg())
                         log.debug("retrying download of %s" % txmbr.po)
                         continue
+                    log.error("getPackage error: %s" % (e,))
                     exn = PayloadInstallError("failed to open package")
                     if errorHandler.cb(exn, package=txmbr.po) == ERROR_RAISE:
                         raise exn
