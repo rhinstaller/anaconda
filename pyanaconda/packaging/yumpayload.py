@@ -233,6 +233,13 @@ class YumPayload(PackagePayload):
 
         self.txID = None
 
+    def _writeLangpacksConfig(self):
+        langs = [self.data.lang.lang] + self.data.lang.addsupport
+        log.debug("configuring langpacks for %s" % langs)
+        with open("/etc/yum/pluginconf.d/langpacks.conf", "a") as f:
+            f.write("# Added by Anaconda\n")
+            f.write("langpack_locales = %s\n" % ", ".join(langs))
+
     def _writeYumConfig(self):
         """ Write out anaconda's main yum configuration file. """
         buf = """
@@ -345,6 +352,7 @@ reposdir=%s
 
         releasever = self._yum.conf.yumvar['releasever']
         self._writeYumConfig()
+        self._writeLangpacksConfig()
         self._resetYum(root=ROOT_PATH, keep_cache=True)
         log.debug("setting releasever to previous value of %s" % releasever)
         self._yum.preconf.releasever = releasever
@@ -1100,20 +1108,23 @@ reposdir=%s
 
         return groups
 
-    def languageGroups(self, lang):
-        groups = []
+    def languageGroups(self):
         yum_groups = self._yumGroups
+        if not yum_groups:
+            return []
 
-        if yum_groups:
-            with _yum_lock:
-                langs = expand_langs(lang)
-                groups = map(lambda x: [g.groupid for g in
-                             yum_groups.get_groups() if g.langonly == x],
-                             langs)
+        lang_codes = [self.data.lang.lang] + self.data.lang.addsupport
+        lang_groups = set()
 
-        # the map gives us a list of results, this set call reduces
-        # it down to a unique set, then list() makes it back into a list.
-        return list(set(itertools.chain(*groups)))
+        with _yum_lock:
+            groups = yum_groups.get_groups()
+            for lang_code in lang_codes:
+                for lang_code_guess in expand_langs(lang_code):
+                    for group in groups:
+                        if group.langonly == lang_code_guess:
+                            lang_groups.add(group.groupid)
+
+        return list(lang_groups)
 
     def groupDescription(self, groupid):
         """ Return name/description tuple for the group specified by id. """

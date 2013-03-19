@@ -126,7 +126,7 @@ def doInstall(storage, payload, ksdata, instClass):
     # system is bootable and configurable, and some other packages in order
     # to finish setting up the system.
     packages = storage.packages + ["authconfig", "firewalld"]
-    payload.preInstall(packages=packages, groups=payload.languageGroups(ksdata.lang.lang))
+    payload.preInstall(packages=packages, groups=payload.languageGroups())
     payload.install()
 
     if flags.flags.livecdInstall:

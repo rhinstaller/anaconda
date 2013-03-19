@@ -547,9 +547,9 @@ class IscsiName(commands.iscsiname.FC6_IscsiName):
         blivet.iscsi.iscsi().initiator = self.iscsiname
         return retval
 
-class Lang(commands.lang.FC3_Lang):
+class Lang(commands.lang.F19_Lang):
     def __init__(self, *args, **kwargs):
-        commands.lang.FC3_Lang.__init__(self, *args, **kwargs)
+        commands.lang.F19_Lang.__init__(self, *args, **kwargs)
         if not self.lang and not flags.automatedInstall:
             self.lang = DEFAULT_LANG
 
