@@ -97,3 +97,6 @@ USETEXT = _("Use text mode")
 
 # Runlevel files
 RUNLEVELS = {3: 'multi-user.target', 5: 'graphical.target'}
+
+# Network
+NETWORK_CONNECTION_TIMEOUT = 45  # in seconds

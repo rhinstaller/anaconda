@@ -40,6 +40,7 @@ from blivet.devices import FcoeDiskDevice, iScsiDiskDevice
 import blivet.arch
 
 from pyanaconda import nm
+from pyanaconda.constants import NETWORK_CONNECTION_TIMEOUT
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
@@ -53,7 +54,6 @@ networkConfFile = "%s/network" % (sysconfigDir)
 hostnameFile = "/etc/hostname"
 ipv6ConfFile = "/etc/sysctl.d/anaconda.conf"
 ifcfgLogFile = "/tmp/ifcfg.log"
-CONNECTION_TIMEOUT = 45
 DEFAULT_HOSTNAME = "localhost.localdomain"
 
 # part of a valid hostname between two periods (cannot start nor end with '-')
@@ -776,14 +776,14 @@ def wait_for_connecting_NM():
         return False
 
     i = 0
-    while nm.nm_is_connecting() and i < CONNECTION_TIMEOUT:
+    while nm.nm_is_connecting() and i < NETWORK_CONNECTION_TIMEOUT:
         i += 1
         time.sleep(1)
         if nm.nm_is_connected():
             log.debug("connected, waited %d seconds" % i)
             return True
 
-    log.debug("not connected, waited %d of %d secs" % (i, CONNECTION_TIMEOUT))
+    log.debug("not connected, waited %d of %d secs" % (i, NETWORK_CONNECTION_TIMEOUT))
     return False
 
 def update_hostname_data(ksdata, hostname):
