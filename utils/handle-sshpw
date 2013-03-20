@@ -34,7 +34,7 @@ ksfile = '/run/install/ks.cfg'
 if not os.path.exists(ksfile):
     sys.exit()
 
-ksparser = KickstartParser(makeVersion())
+ksparser = KickstartParser(makeVersion(), missingIncludeIsFatal=False)
 ksparser.readKickstart(ksfile)
 
 # we need to have a libuser.conf that points to the installer root for
