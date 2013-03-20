@@ -71,7 +71,7 @@ class UserSpoke(FirstbootSpokeMixIn, EditTUISpoke):
 
     @property
     def mandatory(self):
-        return True
+        return (not self.data.rootpw.password) or self.data.rootpw.lock
 
     @property
     def status(self):

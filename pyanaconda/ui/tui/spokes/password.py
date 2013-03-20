@@ -43,7 +43,8 @@ class PasswordSpoke(FirstbootSpokeMixIn, EditTUIDialog):
 
     @property
     def mandatory(self):
-        return True
+        return not any(user for user in self.data.user.userList
+                       if "wheel" in user.groups)
 
     @property
     def status(self):
