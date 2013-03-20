@@ -1,6 +1,6 @@
 # Disk resizing dialog
 #
-# Copyright (C) 2012  Red Hat, Inc.
+# Copyright (C) 2012-2013  Red Hat, Inc.
 #
 # This copyrighted material is made available to anyone wishing to use,
 # modify, copy, or redistribute it subject to the terms and conditions of
@@ -43,6 +43,7 @@ ACTION_COL = 4
 EDITABLE_COL = 5
 TOOLTIP_COL = 6
 RESIZE_TARGET_COL = 7
+NAME_COL = 8
 
 PRESERVE = N_("Preserve")
 SHRINK = N_("Shrink")
@@ -132,7 +133,8 @@ class ResizeDialog(GUIObject):
                                                 _(PRESERVE),
                                                 editable,
                                                 self._get_tooltip(disk),
-                                                disk.size])
+                                                disk.size,
+                                                disk.name])
 
             if disk.partitioned:
                 # Then add all its partitions.
@@ -158,7 +160,8 @@ class ResizeDialog(GUIObject):
                                                  _(PRESERVE),
                                                  not dev.protected,
                                                  self._get_tooltip(dev),
-                                                 dev.size])
+                                                 dev.size,
+                                                 dev.name])
                     diskReclaimableSpace += freeSize
 
             # And then add another uneditable line that lists how much space is
@@ -173,7 +176,8 @@ class ResizeDialog(GUIObject):
                                              _(PRESERVE),
                                              False,
                                              self._get_tooltip(disk),
-                                             float(converted)])
+                                             float(converted),
+                                             ""])
                 self._initialFreeSpace += diskFree
 
             # And then go back and fill in the total reclaimable space for the

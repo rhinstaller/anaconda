@@ -19,6 +19,8 @@
       <column type="gchararray"/>
       <!-- column-name diskResizeTarget -->
       <column type="gfloat"/>
+      <!-- column-name diskName -->
+      <column type="gchararray"/>
     </columns>
   </object>
   <object class="GtkDialog" id="resizeDialog">
@@ -142,6 +144,17 @@
                           <object class="GtkCellRendererText" id="diskRenderer"/>
                           <attributes>
                             <attribute name="markup">1</attribute>
+                          </attributes>
+                        </child>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkTreeViewColumn" id="nameColumn">
+                        <property name="title" translatable="yes">Name</property>
+                        <child>
+                          <object class="GtkCellRendererText" id="nameRenderer"/>
+                          <attributes>
+                            <attribute name="text">8</attribute>
                           </attributes>
                         </child>
                       </object>
