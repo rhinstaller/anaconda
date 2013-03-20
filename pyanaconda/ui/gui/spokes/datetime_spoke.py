@@ -867,9 +867,11 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
     def _show_no_network_warning(self):
         self.set_warning(_("You need to set up networking first if you "\
                            "want to use NTP"))
+        self.window.show_all()
 
     def _show_no_ntp_server_warning(self):
         self.set_warning(_("You have no working NTP server configured"))
+        self.window.show_all()
 
     def on_ntp_switched(self, switch, *args):
         if switch.get_active():
@@ -914,6 +916,8 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
             #set switch back to ON
             if (ret != 0) and iutil.service_running(NTP_SERVICE):
                 switch.set_active(True)
+
+            self.clear_info()
 
     def on_ntp_config_clicked(self, *args):
         self._config_dialog.refresh()
