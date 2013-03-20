@@ -560,6 +560,9 @@ class Payload(object):
                                    ["--mkinitrd", "--dracut",
                                     "--depmod", "--install", kernel],
                                    root=ROOT_PATH)
+            iutil.execWithRedirect("new-kernel-pkg",
+                                   ["--rpmposttrans", kernel],
+                                   root=ROOT_PATH)
         self._createdInitrds = True
 
 

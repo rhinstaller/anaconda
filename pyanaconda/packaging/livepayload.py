@@ -103,7 +103,7 @@ class LiveImagePayload(ImagePayload):
         # go recursively, include devices and special files, don't cross
         # file system boundaries
         args = ["-pogAXtlHrDx", "--exclude", "/dev/", "--exclude", "/proc/",
-                "--exclude", "/sys/", INSTALL_TREE+"/", ROOT_PATH]
+                "--exclude", "/sys/", "--exclude", "/run/", INSTALL_TREE+"/", ROOT_PATH]
         try:
             rc = iutil.execWithRedirect(cmd, args)
         except (OSError, RuntimeError) as e:
