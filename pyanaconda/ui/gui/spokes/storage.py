@@ -552,7 +552,10 @@ class StorageSpoke(NormalSpoke, StorageChecker):
             kind = "drive-harddisk"
 
         size = size_str(disk.size)
-        popup_info = "%s" % disk.serial
+        if disk.serial:
+            popup_info = "%s" % disk.serial
+        else:
+            popup_info = None
 
         # We don't want to display the whole huge WWID for a multipath device.
         # That makes the DO way too wide.
