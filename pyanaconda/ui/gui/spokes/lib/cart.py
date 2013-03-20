@@ -98,6 +98,7 @@ class SelectedDisksDialog(GUIObject):
         self._summary_label = self.builder.get_object("summary_label")
 
         self._set_button = self.builder.get_object("set_as_boot_button")
+        self._remove_button = self.builder.get_object("remove_button")
 
         # clear out the store and repopulate it from the devicetree
         self._store.clear()
@@ -162,6 +163,10 @@ class SelectedDisksDialog(GUIObject):
             self._store[0][IS_BOOT_COL] = True
 
         self._update_summary()
+
+        # If no disks are available in the cart anymore, grey out the buttons.
+        self._set_button.set_sensitive(len(self._store) > 0)
+        self._remove_button.set_sensitive(len(self._store) > 0)
 
     def on_close_clicked(self, button):
         # Save the boot device setting, if something was selected.
