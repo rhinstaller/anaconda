@@ -164,58 +164,41 @@
               </packing>
             </child>
             <child>
-              <object class="GtkExpander" id="options1_expander">
+              <object class="GtkBox" id="box1">
                 <property name="visible">True</property>
-                <property name="can_focus">True</property>
+                <property name="can_focus">False</property>
+                <property name="margin_top">12</property>
+                <property name="spacing">6</property>
                 <child>
-                  <object class="GtkBox" id="box1">
+                  <object class="GtkLabel" id="label3">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
-                    <property name="margin_left">30</property>
-                    <property name="spacing">6</property>
-                    <child>
-                      <object class="GtkLabel" id="label3">
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="label" translatable="yes">&lt;b&gt;Partition type:&lt;/b&gt;</property>
-                        <property name="use_markup">True</property>
-                      </object>
-                      <packing>
-                        <property name="expand">False</property>
-                        <property name="fill">True</property>
-                        <property name="position">0</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkComboBoxText" id="options1_combo">
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="active">2</property>
-                        <items>
-                          <item translatable="yes">Standard Partition</item>
-                          <item translatable="yes">BTRFS</item>
-                          <item translatable="yes">LVM</item>
-                        </items>
-                        <signal name="changed" handler="on_type_changed" swapped="no"/>
-                      </object>
-                      <packing>
-                        <property name="expand">False</property>
-                        <property name="fill">True</property>
-                        <property name="position">1</property>
-                      </packing>
-                    </child>
+                    <property name="label" translatable="yes">&lt;b&gt;Partition scheme:&lt;/b&gt;</property>
+                    <property name="use_markup">True</property>
                   </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">0</property>
+                  </packing>
                 </child>
-                <child type="label">
-                  <object class="GtkLabel" id="label2">
+                <child>
+                  <object class="GtkComboBoxText" id="options1_combo">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
-                    <property name="label" translatable="yes">Partition _scheme configuration</property>
-                    <property name="use_underline">True</property>
-                    <attributes>
-                      <attribute name="font-desc" value="Cantarell 11"/>
-                    </attributes>
+                    <property name="active">2</property>
+                    <items>
+                      <item translatable="yes">Standard Partition</item>
+                      <item translatable="yes">BTRFS</item>
+                      <item translatable="yes">LVM</item>
+                    </items>
+                    <signal name="changed" handler="on_type_changed" swapped="no"/>
                   </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">1</property>
+                  </packing>
                 </child>
               </object>
               <packing>
@@ -480,58 +463,41 @@
               </packing>
             </child>
             <child>
-              <object class="GtkExpander" id="options2_expander">
+              <object class="GtkBox" id="box2">
                 <property name="visible">True</property>
-                <property name="can_focus">True</property>
+                <property name="can_focus">False</property>
+                <property name="margin_top">12</property>
+                <property name="spacing">6</property>
                 <child>
-                  <object class="GtkBox" id="box2">
+                  <object class="GtkLabel" id="label4">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
-                    <property name="margin_left">30</property>
-                    <property name="spacing">6</property>
-                    <child>
-                      <object class="GtkLabel" id="label4">
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="label" translatable="yes">&lt;b&gt;Partition type:&lt;/b&gt;</property>
-                        <property name="use_markup">True</property>
-                      </object>
-                      <packing>
-                        <property name="expand">False</property>
-                        <property name="fill">True</property>
-                        <property name="position">0</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkComboBoxText" id="options2_combo">
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="active">2</property>
-                        <items>
-                          <item translatable="yes">Standard Partition</item>
-                          <item translatable="yes">BTRFS</item>
-                          <item translatable="yes">LVM</item>
-                        </items>
-                        <signal name="changed" handler="on_type_changed" swapped="no"/>
-                      </object>
-                      <packing>
-                        <property name="expand">False</property>
-                        <property name="fill">True</property>
-                        <property name="position">1</property>
-                      </packing>
-                    </child>
+                    <property name="label" translatable="yes">&lt;b&gt;Partition scheme:&lt;/b&gt;</property>
+                    <property name="use_markup">True</property>
                   </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">0</property>
+                  </packing>
                 </child>
-                <child type="label">
-                  <object class="GtkLabel" id="label5">
+                <child>
+                  <object class="GtkComboBoxText" id="options2_combo">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
-                    <property name="label" translatable="yes">Partition _scheme configuration</property>
-                    <property name="use_underline">True</property>
-                    <attributes>
-                      <attribute name="font-desc" value="Cantarell 11"/>
-                    </attributes>
+                    <property name="active">2</property>
+                    <items>
+                      <item translatable="yes">Standard Partition</item>
+                      <item translatable="yes">BTRFS</item>
+                      <item translatable="yes">LVM</item>
+                    </items>
+                    <signal name="changed" handler="on_type_changed" swapped="no"/>
                   </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">1</property>
+                  </packing>
                 </child>
               </object>
               <packing>
