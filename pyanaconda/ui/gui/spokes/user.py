@@ -103,11 +103,9 @@ class AdvancedUserDialog(GUIObject):
                 self._user.uid = None
 
             if self.builder.get_object("c_gid").get_active():
-                pass
-                #self._user.gid = int(self.builder.get_widget("gid").get_value())
+                self._user.gid = int(self.builder.get_widget("gid").get_value())
             else:
-                #self._user.gid = None
-                pass
+                self._user.gid = None
 
             groups = self.builder.get_object("t_groups").get_text().split(",")
             self._user.groups = []

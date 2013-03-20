@@ -239,6 +239,8 @@ class Users:
                         libuser default is used.
            uid       -- The UID for the new user.  If none is given, the next
                         available one is used.
+           gid       -- The GID for the new user.  If none is given, the next
+                        available one is used.
         """
         childpid = os.fork()
         root = kwargs.get("root", "/mnt/sysimage")
@@ -256,6 +258,9 @@ class Users:
 
                 userEnt = self.admin.initUser(user_name)
                 groupEnt = self.admin.initGroup(user_name)
+
+                if kwargs.get("gid", -1) >= 0:
+                    groupEnt.set(libuser.GIDNUMBER, kwargs["gid"])
 
                 grpLst = filter(lambda grp: grp,
                                 map(lambda name: self.admin.lookupGroupByName(name), kwargs.get("groups", [])))
