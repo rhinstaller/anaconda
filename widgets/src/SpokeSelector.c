@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2011  Red Hat, Inc.
+ * Copyright (C) 2011-2013  Red Hat, Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,6 +18,7 @@
  */
 
 #include <gdk/gdk.h>
+#include <gio/gio.h>
 #include <glib.h>
 #include <pango/pango.h>
 
@@ -56,8 +57,10 @@ enum {
 
 struct _AnacondaSpokeSelectorPrivate {
     gboolean   is_incomplete;
+    gchar     *icon_name;
+
     GtkWidget *grid;
-    GtkWidget *icon, *incomplete_icon;
+    GtkWidget *icon;
     GtkWidget *title_label;
     GtkWidget *status_label;
     GdkCursor *cursor;
@@ -182,6 +185,64 @@ static void format_title_label(AnacondaSpokeSelector *widget, const char *label)
     g_free(markup);
 }
 
+static void set_icon(AnacondaSpokeSelector *widget, const char *icon_name) {
+    GError *err = NULL;
+    GIcon *base_icon, *emblem_icon, *icon;
+    GEmblem *emblem = NULL;
+
+    GtkIconTheme *icon_theme;
+    GtkIconInfo *icon_info;
+    GdkPixbuf *pixbuf;
+
+    if (!icon_name)
+        return;
+
+    if (widget->priv->icon)
+        gtk_widget_destroy(widget->priv->icon);
+
+    if (widget->priv->is_incomplete) {
+        base_icon = g_icon_new_for_string(icon_name, &err);
+        if (!base_icon) {
+            fprintf(stderr, "could not create icon: %s\n", err->message);
+            g_error_free(err);
+            return;
+        }
+
+        emblem_icon = g_icon_new_for_string("dialog-warning-symbolic", &err);
+        if (!emblem_icon) {
+            fprintf(stderr, "could not create emblem: %s\n", err->message);
+            g_error_free(err);
+        } else {
+            emblem = g_emblem_new(emblem_icon);
+        }
+
+        icon = g_emblemed_icon_new(base_icon, emblem);
+    }
+    else {
+        icon = g_icon_new_for_string(icon_name, &err);
+        if (!icon) {
+            fprintf(stderr, "could not create icon: %s\n", err->message);
+            g_error_free(err);
+            return;
+        }
+    }
+
+    /* GTK doesn't want to emblem a symbolic icon, so for now here's a
+     * workaround.
+     */
+    icon_theme = gtk_icon_theme_get_default();
+    icon_info = gtk_icon_theme_lookup_by_gicon(icon_theme,
+                                               icon,
+                                               64, 0);
+    pixbuf = gtk_icon_info_load_icon(icon_info, NULL);
+
+    widget->priv->icon = gtk_image_new_from_pixbuf(pixbuf);
+    gtk_image_set_pixel_size(GTK_IMAGE(widget->priv->icon), 64);
+    gtk_widget_set_valign(widget->priv->icon, GTK_ALIGN_START);
+    gtk_misc_set_padding(GTK_MISC(widget->priv->icon), 12, 0);
+    gtk_grid_attach(GTK_GRID(widget->priv->grid), widget->priv->icon, 0, 0, 1, 2);
+}
+
 static void anaconda_spoke_selector_init(AnacondaSpokeSelector *spoke) {
     spoke->priv = G_TYPE_INSTANCE_GET_PRIVATE(spoke,
                                               ANACONDA_TYPE_SPOKE_SELECTOR,
@@ -206,25 +267,9 @@ static void anaconda_spoke_selector_init(AnacondaSpokeSelector *spoke) {
     spoke->priv->grid = gtk_grid_new();
     gtk_grid_set_column_spacing(GTK_GRID(spoke->priv->grid), 6);
 
-    /* Create the icons. */
-    spoke->priv->icon = gtk_image_new_from_stock(DEFAULT_ICON, GTK_ICON_SIZE_DIALOG);
-    gtk_image_set_pixel_size(GTK_IMAGE(spoke->priv->icon), 64);
-    gtk_widget_set_valign(spoke->priv->icon, GTK_ALIGN_CENTER);
-    gtk_misc_set_padding(GTK_MISC(spoke->priv->icon), 12, 0);
-
-    /* This little warning icon will be displayed near the title when the
-     * spoke is incomplete.  We just make it here in advance so we don't have
-     * to make/destroy it on demand.
-     */
-    /* FIXME: This should really be displayed over the corner of the spoke's
-     * icon because it looks like it's floating off in space right now.
-     */
-    spoke->priv->incomplete_icon = gtk_image_new_from_icon_name("dialog-warning-symbolic", GTK_ICON_SIZE_MENU);
-    gtk_widget_set_no_show_all(GTK_WIDGET(spoke->priv->incomplete_icon), TRUE);
-    gtk_widget_set_visible(GTK_WIDGET(spoke->priv->incomplete_icon), FALSE);
-    gtk_widget_set_valign(spoke->priv->incomplete_icon, GTK_ALIGN_START);
-    gtk_widget_set_hexpand(spoke->priv->incomplete_icon, FALSE);
-    gtk_misc_set_alignment(GTK_MISC(spoke->priv->incomplete_icon), 0, 1);
+    /* Create the icon. */
+    spoke->priv->icon_name = g_strdup(DEFAULT_ICON);
+    set_icon(spoke, spoke->priv->icon_name);
 
     /* Create the title label. */
     spoke->priv->title_label = gtk_label_new(NULL);
@@ -243,10 +288,10 @@ static void anaconda_spoke_selector_init(AnacondaSpokeSelector *spoke) {
     gtk_label_set_max_width_chars(GTK_LABEL(spoke->priv->status_label), 45);
     gtk_widget_set_hexpand(GTK_WIDGET(spoke->priv->status_label), FALSE);
 
-    /* Add everything to the grid, add the grid to the widget. */
-    gtk_grid_attach(GTK_GRID(spoke->priv->grid), spoke->priv->icon, 0, 0, 1, 2);
+    /* Add everything to the grid, add the grid to the widget.  The icon is attached by
+     * the call to set_icon earlier.
+     */
     gtk_grid_attach(GTK_GRID(spoke->priv->grid), spoke->priv->title_label, 1, 0, 1, 1);
-    gtk_grid_attach(GTK_GRID(spoke->priv->grid), spoke->priv->incomplete_icon, 2, 0, 1, 1);
     gtk_grid_attach(GTK_GRID(spoke->priv->grid), spoke->priv->status_label, 1, 1, 2, 1);
 
     gtk_container_add(GTK_CONTAINER(spoke), spoke->priv->grid);
@@ -262,7 +307,7 @@ static void anaconda_spoke_selector_get_property(GObject *object, guint prop_id,
 
     switch(prop_id) {
         case PROP_ICON:
-           g_value_set_object (value, (GObject *)priv->icon);
+           g_value_set_string(value, priv->icon_name);
            break;
 
         case PROP_STATUS:
@@ -277,14 +322,16 @@ static void anaconda_spoke_selector_get_property(GObject *object, guint prop_id,
 
 static void anaconda_spoke_selector_set_property(GObject *object, guint prop_id, const GValue *value, GParamSpec *pspec) {
     AnacondaSpokeSelector *widget = ANACONDA_SPOKE_SELECTOR(object);
-    AnacondaSpokeSelectorPrivate *priv = widget->priv;
 
     switch(prop_id) {
         case PROP_ICON:
-           gtk_image_set_from_icon_name(GTK_IMAGE(priv->icon), g_value_get_string(value), GTK_ICON_SIZE_DIALOG);
-           gtk_image_set_pixel_size(GTK_IMAGE(priv->icon), 64);
-           gtk_widget_set_valign(priv->icon, GTK_ALIGN_START);
-           break;
+            if (widget->priv->icon_name)
+                g_free(widget->priv->icon_name);
+
+            widget->priv->icon_name = g_strdup(g_value_get_string(value));
+            set_icon(widget, widget->priv->icon_name);
+            gtk_widget_show_all(widget->priv->icon);
+            break;
 
         case PROP_STATUS: {
             format_status_label(widget, g_value_get_string(value));
@@ -326,7 +373,10 @@ gboolean anaconda_spoke_selector_get_incomplete(AnacondaSpokeSelector *spoke) {
  */
 void anaconda_spoke_selector_set_incomplete(AnacondaSpokeSelector *spoke, gboolean is_incomplete) {
     spoke->priv->is_incomplete = is_incomplete;
-    gtk_widget_set_visible(GTK_WIDGET(spoke->priv->incomplete_icon), is_incomplete);
+
+    /* Update the icon we are displaying, complete with any warning emblem. */
+    set_icon(spoke, spoke->priv->icon_name);
+    gtk_widget_show_all(spoke->priv->icon);
 
     /* We need to update the status label's color, in case this spoke was
      * previously incomplete but now is not (or the other way around).
