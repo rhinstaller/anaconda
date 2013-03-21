@@ -287,7 +287,6 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke):
 
         if editable.get_text() == "":
             self.guesser[editable] = True
-            self._guessNames()
         else:
             self.guesser[editable] = False
 
