@@ -495,7 +495,9 @@ class Firstboot(commands.firstboot.FC3_Firstboot):
             f = open(ROOT_PATH + "/etc/reconfigSys", "w+")
             f.close()
 
-        iutil.execWithRedirect("systemctl", [action, "firstboot-graphical.service"],
+        iutil.execWithRedirect("systemctl", [action, "firstboot-graphical.service",
+                                                     "initial-setup-graphical.service",
+                                                     "initial-setup-text.service"],
                                root=ROOT_PATH)
 
 class Group(commands.group.F12_Group):
