@@ -647,11 +647,11 @@ class PackagePayload(Payload):
 def payloadInitialize(storage, ksdata, payload):
     from pyanaconda.threads import threadMgr
 
-    threadMgr.wait("AnaStorageThread")
+    threadMgr.wait(THREAD_STORAGE)
 
     # FIXME: condition for cases where we don't want network
     # (set and use payload.needsNetwork ?)
-    threadMgr.wait("AnaWaitForConnectingNMThread")
+    threadMgr.wait(THREAD_WAIT_FOR_CONNECTING_NM)
 
     payload.setup(storage)
 

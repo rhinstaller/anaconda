@@ -26,6 +26,7 @@ import Queue
 import getpass
 from pyanaconda.threads import threadMgr, AnacondaThread
 from pyanaconda.ui.communication import HUB_CODE_EXCEPTION, HUB_CODE_INPUT
+from pyanaconda import constants
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
@@ -392,7 +393,8 @@ class App(object):
         """This method reads one input from user. Its basic form has only one
         line, but we might need to override it for more complex apps or testing."""
 
-        thread_name = "AnaInputThread%d" % self._in_thread_counter
+        thread_name = "%s%d" % (constants.THREAD_INPUT_BASENAME,
+                                self._in_thread_counter)
         self._in_thread_counter += 1
         input_thread = AnacondaThread(name=thread_name,
                                       target=self._thread_input,

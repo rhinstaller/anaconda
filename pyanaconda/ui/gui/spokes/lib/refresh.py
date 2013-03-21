@@ -24,6 +24,7 @@ from gi.repository import GLib, Gtk
 
 from pyanaconda.threads import threadMgr, AnacondaThread
 from pyanaconda.ui.gui import GUIObject
+from pyanaconda import constants
 
 from blivet import storageInitialize
 
@@ -52,7 +53,7 @@ class RefreshDialog(GUIObject):
         return rc
 
     def _check_rescan(self, *args):
-        if threadMgr.get("AnaStorageThread"):
+        if threadMgr.get(constants.THREAD_STORAGE):
             self._elapsed += 1
 
             # If more than five seconds has elapsed since the rescan started,
@@ -90,7 +91,7 @@ class RefreshDialog(GUIObject):
 
         # And now to fire up the storage reinitialization.
         protectedNames = map(lambda d: d.name, self.storage.protectedDevices)
-        threadMgr.add(AnacondaThread(name="AnaStorageThread", target=storageInitialize,
+        threadMgr.add(AnacondaThread(name=constants.THREAD_STORAGE, target=storageInitialize,
                                      args=(self.storage, self.data, protectedNames)))
 
         self._elapsed = 0

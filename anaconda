@@ -1010,9 +1010,9 @@ if __name__ == "__main__":
 
     networkInitialize(ksdata)
     if not flags.dirInstall:
-        threadMgr.add(AnacondaThread(name="AnaStorageThread", target=storageInitialize, args=(anaconda.storage, ksdata, anaconda.protected)))
-    threadMgr.add(AnacondaThread(name="AnaWaitForConnectingNMThread", target=wait_for_connecting_NM_thread, args=(ksdata,)))
-    threadMgr.add(AnacondaThread(name="AnaPayloadThread", target=payloadInitialize, args=(anaconda.storage, ksdata, anaconda.payload)))
+        threadMgr.add(AnacondaThread(name=constants.THREAD_STORAGE, target=storageInitialize, args=(anaconda.storage, ksdata, anaconda.protected)))
+    threadMgr.add(AnacondaThread(name=constants.THREAD_WAIT_FOR_CONNECTING_NM, target=wait_for_connecting_NM_thread, args=(ksdata,)))
+    threadMgr.add(AnacondaThread(name=constants.THREAD_PAYLOAD, target=payloadInitialize, args=(anaconda.storage, ksdata, anaconda.payload)))
 
     atexit.register(exitHandler, ksdata.reboot, anaconda.storage)
 

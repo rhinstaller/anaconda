@@ -30,6 +30,7 @@ import shutil
 
 from pyanaconda import iutil
 from pyanaconda.threads import threadMgr, AnacondaThread
+from pyanaconda.constants import THREAD_SYNC_TIME_BASENAME
 
 NTP_CONFIG_FILE = "/etc/chrony.conf"
 
@@ -185,7 +186,7 @@ def one_time_sync_async(server, callback=None):
 
     """
 
-    thread_name = "AnaSyncTime_%s" % server
+    thread_name = "%s_%s" % (THREAD_SYNC_TIME_BASENAME, server)
     if threadMgr.get(thread_name):
         #syncing with the same server running
         return

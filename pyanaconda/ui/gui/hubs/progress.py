@@ -33,7 +33,7 @@ import sys
 from pyanaconda.localization import expand_langs
 from pyanaconda.product import productName
 from pyanaconda.flags import flags
-from pykickstart.constants import KS_WAIT, KS_SHUTDOWN, KS_REBOOT
+from pykickstart.constants import KS_WAIT, KS_SHUTDOWN, KS_REBOOT, THREAD_INSTALL, THREAD_CONFIGURATION
 
 from pyanaconda.ui.gui.hubs import Hub
 from pyanaconda.ui.gui.utils import gtk_action_nowait, gtk_call_once
@@ -67,7 +67,7 @@ class ProgressHub(Hub):
             self._start_ransom_notes()
 
         self._progress_id = GLib.timeout_add(250, self._update_progress, self._configuration_done)
-        threadMgr.add(AnacondaThread(name="AnaConfigurationThread", target=doConfiguration,
+        threadMgr.add(AnacondaThread(name=THREAD_CONFIGURATION, target=doConfiguration,
                                      args=(self.storage, self.payload, self.data, self.instclass)))
 
     def _start_ransom_notes(self):
@@ -217,7 +217,7 @@ class ProgressHub(Hub):
 
         self._start_ransom_notes()
         self._progress_id = GLib.timeout_add(250, self._update_progress, self._install_done)
-        threadMgr.add(AnacondaThread(name="AnaInstallThread", target=doInstall,
+        threadMgr.add(AnacondaThread(name=THREAD_INSTALL, target=doInstall,
                                      args=(self.storage, self.payload, self.data, self.instclass)))
 
     def _updateContinueButton(self):

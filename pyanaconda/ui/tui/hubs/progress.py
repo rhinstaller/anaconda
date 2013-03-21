@@ -26,7 +26,7 @@ import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
 
 from pyanaconda.flags import flags
-from pykickstart.constants import KS_SHUTDOWN, KS_REBOOT
+from pykickstart.constants import KS_SHUTDOWN, KS_REBOOT, THREAD_INSTALL, THREAD_CONFIGURATION
 
 from pyanaconda.ui.tui.hubs import TUIHub
 from pyanaconda.ui.tui.simpleline.base import ExitAllMainLoops
@@ -101,14 +101,14 @@ class ProgressHub(TUIHub):
         # We print this here because we don't really use the window object
         print(self.title)
 
-        threadMgr.add(AnacondaThread(name="AnaInstallThread", target=doInstall,
+        threadMgr.add(AnacondaThread(name=THREAD_INSTALL, target=doInstall,
                                      args=(self.storage, self.payload, self.data,
                                            self.instclass)))
 
         # This will run until we're all done with the install thread.
         self._update_progress()
 
-        threadMgr.add(AnacondaThread(name="AnaConfigurationThread", target=doConfiguration,
+        threadMgr.add(AnacondaThread(name=THREAD_CONFIGURATION, target=doConfiguration,
                                      args=(self.storage, self.payload, self.data,
                                            self.instclass)))
 

@@ -26,6 +26,7 @@ N_ = lambda x: x
 from pyanaconda.flags import flags
 from pyanaconda.packaging import MetadataError
 from pyanaconda.threads import threadMgr, AnacondaThread
+from pyanaconda import constants
 
 from pyanaconda.ui import communication
 from pyanaconda.ui.gui.spokes import NormalSpoke
@@ -88,7 +89,7 @@ class SoftwareSelectionSpoke(NormalSpoke):
 
         communication.send_not_ready(self.__class__.__name__)
         communication.send_not_ready("SourceSpoke")
-        threadMgr.add(AnacondaThread(name="AnaCheckSoftwareThread",
+        threadMgr.add(AnacondaThread(name=constants.THREAD_CHECK_SOFTWARE,
                                      target=self.checkSoftwareSelection))
 
     def apply(self):
@@ -115,7 +116,7 @@ class SoftwareSelectionSpoke(NormalSpoke):
 
     @property
     def completed(self):
-        processingDone = not threadMgr.get("AnaCheckSoftwareThread") and \
+        processingDone = not threadMgr.get(constants.THREAD_CHECK_SOFTWARE) and \
                          not self._errorMsgs and self.txid_valid
 
         if flags.automatedInstall:
@@ -133,9 +134,10 @@ class SoftwareSelectionSpoke(NormalSpoke):
         # wait until the installation source spoke is completed.  This could be
         # because the user filled something out, or because we're done fetching
         # repo metadata from the mirror list, or we detected a DVD/CD.
-        return (not threadMgr.get("AnaSoftwareWatcher") and
-                not threadMgr.get("AnaPayloadMDThread") and
-                not threadMgr.get("AnaCheckSoftwareThread") and
+
+        return (not threadMgr.get(constants.THREAD_SOFTWARE_WATCHER) and
+                not threadMgr.get(constants.THREAD_PAYLOAD_MD) and
+                not threadMgr.get(constants.THREAD_CHECK_SOFTWARE) and
                 self.payload.baseRepo is not None)
 
     @property
@@ -167,12 +169,13 @@ class SoftwareSelectionSpoke(NormalSpoke):
 
     def initialize(self):
         NormalSpoke.initialize(self)
-        threadMgr.add(AnacondaThread(name="AnaSoftwareWatcher", target=self._initialize))
+        threadMgr.add(AnacondaThread(name=constants.THREAD_SOFTWARE_WATCHER,
+                      target=self._initialize))
 
     def _initialize(self):
         communication.send_message(self.__class__.__name__, _("Downloading package metadata..."))
 
-        threadMgr.wait("AnaPayloadThread")
+        threadMgr.wait(constants.THREAD_PAYLOAD)
 
         communication.send_message(self.__class__.__name__, _("Downloading group metadata..."))
 
@@ -180,7 +183,7 @@ class SoftwareSelectionSpoke(NormalSpoke):
         # so don't try.
         if flags.automatedInstall and self.data.packages.seen:
             # We don't want to do a full refresh, just join the metadata thread
-            threadMgr.wait("AnaPayloadMDThread")
+            threadMgr.wait(constants.THREAD_PAYLOAD_MD)
         else:
             # Grabbing the list of groups could potentially take a long time
             # at first (yum does a lot of magic property stuff, some of which
@@ -222,7 +225,7 @@ class SoftwareSelectionSpoke(NormalSpoke):
     def refresh(self):
         NormalSpoke.refresh(self)
 
-        threadMgr.wait("AnaPayloadMDThread")
+        threadMgr.wait(constants.THREAD_PAYLOAD_MD)
 
         self._environmentStore = self.builder.get_object("environmentStore")
         self._environmentStore.clear()

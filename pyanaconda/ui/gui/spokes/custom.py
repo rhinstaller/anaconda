@@ -46,6 +46,7 @@ from pykickstart.constants import *
 
 from pyanaconda.product import productName, productVersion
 from pyanaconda.threads import AnacondaThread, threadMgr
+from pyanaconda.constants import THREAD_EXECUTE_STORAGE, THREAD_STORAGE, THREAD_CUSTOM_STORAGE_INIT
 
 from blivet import devicefactory
 from blivet.formats import device_formats
@@ -521,7 +522,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         self.fsCombo = self.builder.get_object("fileSystemTypeCombo")
         self.fsCombo.remove_all()
 
-        threadMgr.add(AnacondaThread(name="AnaCustomStorageInit", target=self._initialize))
+        threadMgr.add(AnacondaThread(name=THREAD_CUSTOM_STORAGE_INIT, target=self._initialize))
 
     def _initialize(self):
         @gtk_thread_wait
@@ -633,7 +634,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
         # Make sure the storage spoke execute method has finished before we
         # copy the storage instance.
-        for thread_name in ["AnaExecuteStorageThread", "AnaStorageThread"]:
+        for thread_name in [THREAD_EXECUTE_STORAGE, THREAD_STORAGE]:
             threadMgr.wait(thread_name)
 
         self.passphrase = self.data.autopart.passphrase

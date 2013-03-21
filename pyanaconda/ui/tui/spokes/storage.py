@@ -32,6 +32,7 @@ from blivet.errors import StorageError
 from pyanaconda.flags import flags
 from pyanaconda.kickstart import doKickstartStorage
 from pyanaconda.threads import threadMgr, AnacondaThread
+from pyanaconda import constants
 
 from pykickstart.constants import *
 
@@ -76,7 +77,7 @@ class StorageSpoke(NormalTUISpoke):
     def ready(self):
         # By default, the storage spoke is not ready.  We have to wait until
         # storageInitialize is done.
-        return self._ready and not threadMgr.get("AnaStorageWatcher")
+        return self._ready and not threadMgr.get(constants.THREAD_STORAGE_WATCHER)
 
     @property
     def mandatory(self):
@@ -156,7 +157,7 @@ class StorageSpoke(NormalTUISpoke):
         # Join the initialization thread to block on it
         # This print is foul.  Need a better message display
         print(_("Probing storage..."))
-        threadMgr.wait("AnaStorageWatcher")
+        threadMgr.wait(constants.THREAD_STORAGE_WATCHER)
 
         # synchronize our local data store with the global ksdata
         # Commment out because there is no way to select a disk right
@@ -260,7 +261,7 @@ class StorageSpoke(NormalTUISpoke):
     def initialize(self):
         NormalTUISpoke.initialize(self)
 
-        threadMgr.add(AnacondaThread(name="AnaStorageWatcher",
+        threadMgr.add(AnacondaThread(name=constants.THREAD_STORAGE_WATCHER,
                                      target=self._initialize))
 
         self.selected_disks = self.data.ignoredisk.onlyuse[:]
@@ -270,7 +271,7 @@ class StorageSpoke(NormalTUISpoke):
         # Secondary initialize so wait for the storage thread
         # to complete before populating our disk list
 
-        threadMgr.wait("AnaStorageThread")
+        threadMgr.wait(constants.THREAD_STORAGE)
 
         self.disks = sorted(getDisks(self.storage.devicetree),
                             key=lambda d: d.name)

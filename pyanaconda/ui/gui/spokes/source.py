@@ -43,7 +43,7 @@ from pyanaconda.iutil import ProxyString, ProxyStringError, cmp_obj_attrs
 from pyanaconda.ui.gui.utils import gtk_call_once
 from pyanaconda.threads import threadMgr, AnacondaThread
 from pyanaconda.packaging import PayloadError, MetadataError
-from pyanaconda.constants import DRACUT_ISODIR, ISO_DIR, BASE_REPO_NAME
+from pyanaconda import constants
 
 from blivet.util import get_mount_paths
 
@@ -215,7 +215,7 @@ class IsoChooser(GUIObject):
         GUIObject.refresh(self)
         self._chooser = self.builder.get_object("isoChooser")
         self._chooser.connect("current-folder-changed", self.on_folder_changed)
-        self._chooser.set_filename(ISO_DIR + "/" + currentFile)
+        self._chooser.set_filename(constants.ISO_DIR + "/" + currentFile)
 
     def run(self, dev):
         retval = None
@@ -225,16 +225,16 @@ class IsoChooser(GUIObject):
         # We have to check both ISO_DIR and the DRACUT_ISODIR because we
         # still reference both, even though /mnt/install is a symlink to
         # /run/install.  Finding mount points doesn't handle the symlink
-        if ISO_DIR not in mounts and DRACUT_ISODIR not in mounts:
+        if constants.ISO_DIR not in mounts and constants.DRACUT_ISODIR not in mounts:
             # We're not mounted to either location, so do the mount
-            dev.format.mount(mountpoint=ISO_DIR)
+            dev.format.mount(mountpoint=constants.ISO_DIR)
 
         # If any directory was chosen, return that.  Otherwise, return None.
         rc = self.window.run()
         if rc:
             f = self._chooser.get_filename()
             if f:
-                retval = f.replace(ISO_DIR, "")
+                retval = f.replace(constants.ISO_DIR, "")
 
         if unmount:
             dev.format.unmount()
@@ -251,8 +251,8 @@ class IsoChooser(GUIObject):
         if not d:
             return
 
-        if not d.startswith(ISO_DIR):
-            chooser.set_current_folder(ISO_DIR)
+        if not d.startswith(constants.ISO_DIR):
+            chooser.set_current_folder(constants.ISO_DIR)
 
 class SourceSpoke(NormalSpoke):
     builderObjects = ["isoChooser", "isoFilter", "partitionStore", "sourceWindow", "dirImage", "repoStore"]
@@ -282,7 +282,7 @@ class SourceSpoke(NormalSpoke):
         repos_changed = self._update_payload_repos()
 
         if method_changed or repos_changed:
-            threadMgr.add(AnacondaThread(name="AnaPayloadMDThread",
+            threadMgr.add(AnacondaThread(name=constants.THREAD_PAYLOAD_MD,
                                          target=self.getRepoMetadata))
             self.clear_info()
 
@@ -470,14 +470,14 @@ class SourceSpoke(NormalSpoke):
     def ready(self):
         from pyanaconda.threads import threadMgr
         return (self._ready and
-                not threadMgr.get("AnaPayloadMDThread") and
-                not threadMgr.get("AnaSoftwareWatcher") and
-                not threadMgr.get("AnaCheckSoftwareThread"))
+                not threadMgr.get(constants.THREAD_PAYLOAD_MD) and
+                not threadMgr.get(constants.THREAD_SOFTWARE_WATCHER) and
+                not threadMgr.get(constants.THREAD_CHECK_SOFTWARE))
 
     @property
     def status(self):
         from pyanaconda.threads import threadMgr
-        if threadMgr.get("AnaCheckSoftwareThread"):
+        if threadMgr.get(constants.THREAD_CHECK_SOFTWARE):
             return _("Checking software dependencies...")
         elif not self.ready:
             return _("Not ready")
@@ -544,18 +544,18 @@ class SourceSpoke(NormalSpoke):
         self._isoButton.connect("toggled", self.on_source_toggled, self._isoBox)
         self._networkButton.connect("toggled", self.on_source_toggled, self._networkBox)
 
-        threadMgr.add(AnacondaThread(name="AnaSourceWatcher", target=self._initialize))
+        threadMgr.add(AnacondaThread(name=constants.THREAD_SOURCE_WATCHER, target=self._initialize))
 
     def _initialize(self):
         from pyanaconda.threads import threadMgr
 
         communication.send_message(self.__class__.__name__, _("Probing storage..."))
 
-        threadMgr.wait("AnaStorageThread")
+        threadMgr.wait(constants.THREAD_STORAGE)
 
         communication.send_message(self.__class__.__name__, _(METADATA_DOWNLOAD_MESSAGE))
 
-        threadMgr.wait("AnaPayloadThread")
+        threadMgr.wait(constants.THREAD_PAYLOAD)
 
         added = False
 
@@ -761,10 +761,10 @@ class SourceSpoke(NormalSpoke):
             # We have to check both ISO_DIR and the DRACUT_ISODIR because we
             # still reference both, even though /mnt/install is a symlink to
             # /run/install.  Finding mount points doesn't handle the symlink
-            if ISO_DIR not in mounts and DRACUT_ISODIR not in mounts:
+            if constants.ISO_DIR not in mounts and constants.DRACUT_ISODIR not in mounts:
                 # We're not mounted to either location, so do the mount
-                p.format.mount(mountpoint=ISO_DIR)
-            dialog.run(ISO_DIR + "/" + f)
+                p.format.mount(mountpoint=constants.ISO_DIR)
+            dialog.run(constants.ISO_DIR + "/" + f)
             if unmount:
                 p.format.unmount()
 
@@ -834,7 +834,7 @@ class SourceSpoke(NormalSpoke):
         repos = self.payload.addOns
         log.debug("Setting up repos: %s" % repos)
         for name in repos:
-            if name in [BASE_REPO_NAME, "updates"]:
+            if name in [constants.BASE_REPO_NAME, "updates"]:
                 continue
 
             repo = self.payload.getAddOnRepo(name)

@@ -33,7 +33,7 @@ import time
 from flags import flags
 import kickstart
 import blivet.errors
-from pyanaconda.constants import ROOT_PATH
+from pyanaconda.constants import ROOT_PATH, THREAD_EXCEPTION_HANDLING_TEST
 from gi.repository import GLib
 
 import logging
@@ -230,6 +230,6 @@ f%s(msg, non_ascii)
     # raise exception from a separate thread
     # XXX: may create a circular dependency if imported globally
     from pyanaconda.threads import AnacondaThread, threadMgr
-    threadMgr.add(AnacondaThread(name="AnaExceptionHandlingTest",
+    threadMgr.add(AnacondaThread(name=THREAD_EXCEPTION_HANDLING_TEST,
                                  target=raise_exception,
                                  args=(msg, non_ascii)))

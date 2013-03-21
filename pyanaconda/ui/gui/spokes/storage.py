@@ -60,6 +60,7 @@ from blivet.platform import platform
 from pyanaconda.threads import threadMgr, AnacondaThread
 from pyanaconda.product import productName
 from pyanaconda.flags import flags
+from pyanaconda import constants
 
 from pykickstart.constants import *
 
@@ -179,9 +180,9 @@ class InstallOptions1Dialog(GUIObject):
     # Methods to handle sensitivity of the modify button.
     def _software_is_ready(self):
         # FIXME:  Would be nicer to just ask the spoke if it's ready.
-        return (not threadMgr.get("AnaPayloadThread") and
-                not threadMgr.get("AnaSoftwareWatcher") and
-                not threadMgr.get("AnaCheckSoftwareThread") and
+        return (not threadMgr.get(constants.THREAD_PAYLOAD) and
+                not threadMgr.get(constants.THREAD_SOFTWARE_WATCHER) and
+                not threadMgr.get(constants.THREAD_CHECK_SOFTWARE) and
                 self.payload.baseRepo is not None)
 
     def _check_for_storage_thread(self, button):
@@ -287,7 +288,7 @@ class StorageChecker(object):
 
     def run(self):
         communication.send_not_ready(self._mainSpokeClass)
-        threadMgr.add(AnacondaThread(name="AnaCheckStorageThread",
+        threadMgr.add(AnacondaThread(name=constants.THREAD_CHECK_STORAGE,
                                      target=self.checkStorage))
 
     def checkStorage(self):
@@ -375,7 +376,7 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         # Spawn storage execution as a separate thread so there's no big delay
         # going back from this spoke to the hub while StorageChecker.run runs.
         # Yes, this means there's a thread spawning another thread.  Sorry.
-        threadMgr.add(AnacondaThread(name="AnaExecuteStorageThread",
+        threadMgr.add(AnacondaThread(name=constants.THREAD_EXECUTE_STORAGE,
                                      target=self._doExecute))
 
     def _doExecute(self):
@@ -409,8 +410,8 @@ class StorageSpoke(NormalSpoke, StorageChecker):
 
     @property
     def completed(self):
-        retval = (threadMgr.get("AnaExecuteStorageThread") is None and
-                  threadMgr.get("AnaCheckStorageThread") is None and
+        retval = (threadMgr.get(constants.THREAD_EXECUTE_STORAGE) is None and
+                  threadMgr.get(constants.THREAD_CHECK_STORAGE) is None and
                   self.storage.rootDevice is not None and
                   not self.errors)
 
@@ -543,7 +544,8 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         self.local_disks_box = self.builder.get_object("local_disks_box")
         self.specialized_disks_box = self.builder.get_object("specialized_disks_box")
 
-        threadMgr.add(AnacondaThread(name="AnaStorageWatcher", target=self._initialize))
+        threadMgr.add(AnacondaThread(name=constants.THREAD_STORAGE_WATCHER,
+                      target=self._initialize))
 
     def _add_disk_overview(self, disk, box):
         if disk.removable:
@@ -586,8 +588,8 @@ class StorageSpoke(NormalSpoke, StorageChecker):
     def _initialize(self):
         communication.send_message(self.__class__.__name__, _("Probing storage..."))
 
-        threadMgr.wait("AnaStorageThread")
-        threadMgr.wait("AnaCustomStorageInit")
+        threadMgr.wait(constants.THREAD_STORAGE)
+        threadMgr.wait(constants.THREAD_CUSTOM_STORAGE_INIT)
 
         self.disks = getDisks(self.storage.devicetree)
 

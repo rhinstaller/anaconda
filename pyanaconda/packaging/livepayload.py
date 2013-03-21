@@ -94,7 +94,7 @@ class LiveImagePayload(ImagePayload):
         """ Install the payload. """
         self.pct_lock = Lock()
         self.pct = 0
-        threadMgr.add(AnacondaThread(name="AnaLiveProgressThread",
+        threadMgr.add(AnacondaThread(name=THREAD_LIVE_PROGRESS,
                                      target=self.progress))
 
         cmd = "rsync"
@@ -123,7 +123,7 @@ class LiveImagePayload(ImagePayload):
         # Wait for progress thread to finish
         with self.pct_lock:
             self.pct = 100
-        threadMgr.wait("AnaLiveProgressThread")
+        threadMgr.wait(THREAD_LIVE_PROGRESS)
 
     def postInstall(self):
         """ Perform post-installation tasks. """

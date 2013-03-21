@@ -34,6 +34,7 @@
 from gi.repository import Gtk, AnacondaWidgets
 
 from pyanaconda.flags import flags
+from pyanaconda import constants
 from pyanaconda.ui import communication
 from pyanaconda.ui.gui import GUIObject
 from pyanaconda.ui.gui.spokes import NormalSpoke, StandaloneSpoke
@@ -1265,9 +1266,9 @@ class NetworkStandaloneSpoke(StandaloneSpoke):
             from pyanaconda.packaging import payloadInitialize
             from pyanaconda.threads import threadMgr, AnacondaThread
 
-            threadMgr.wait("AnaPayloadThread")
+            threadMgr.wait(constants.THREAD_PAYLOAD)
 
-            threadMgr.add(AnacondaThread(name="AnaPayloadThread", target=payloadInitialize, args=(self.storage, self.data, self.payload)))
+            threadMgr.add(AnacondaThread(name=constants.THREAD_PAYLOAD, target=payloadInitialize, args=(self.storage, self.data, self.payload)))
 
     @property
     def completed(self):

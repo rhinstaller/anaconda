@@ -100,3 +100,22 @@ RUNLEVELS = {3: 'multi-user.target', 5: 'graphical.target'}
 
 # Network
 NETWORK_CONNECTION_TIMEOUT = 45  # in seconds
+
+# Thread names
+THREAD_EXECUTE_STORAGE = "AnaExecuteStorageThread"
+THREAD_STORAGE = "AnaStorageThread"
+THREAD_STORAGE_WATCHER = "AnaStorageWatcher"
+THREAD_CHECK_STORAGE = "AnaCheckStorageThread"
+THREAD_CUSTOM_STORAGE_INIT = "AnaCustomStorageInit"
+THREAD_WAIT_FOR_CONNECTING_NM = "AnaWaitForConnectingNMThread"
+THREAD_PAYLOAD = "AnaPayloadThread"
+THREAD_PAYLOAD_MD = "AnaPayloadMDThread"
+THREAD_INPUT_BASENAME = "AnaInputThread"
+THREAD_SYNC_TIME_BASENAME = "AnaSyncTime"
+THREAD_EXCEPTION_HANDLING_TEST = "AnaExceptionHandlingTest"
+THREAD_LIVE_PROGRESS = "AnaLiveProgressThread"
+THREAD_SOFTWARE_WATCHER = "AnaSoftwareWatcher"
+THREAD_CHECK_SOFTWARE = "AnaCheckSoftwareThread"
+THREAD_SOURCE_WATCHER = "AnaSourceWatcher"
+THREAD_INSTALL = "AnaInstallThread"
+THREAD_CONFIGURATION = "AnaConfigurationThread"
