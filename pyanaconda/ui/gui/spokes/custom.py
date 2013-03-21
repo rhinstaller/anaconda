@@ -843,22 +843,33 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
     def _replace_device(self, *args, **kwargs):
         """ Create a replacement device and update the device selector. """
         selector = kwargs.pop("selector", None)
-        self.__storage.factoryDevice(*args, **kwargs)
+        new_device = self.__storage.factoryDevice(*args, **kwargs)
 
         self._devices = self.__storage.devices
 
         if selector:
-            # newest device should be the one with the highest id
-            max_id = max(d.id for d in self._devices)
-
             # update the selector with the new device and its size
-            selectorFromDevice(self.__storage.devicetree.getDeviceByID(max_id),
+            selectorFromDevice(new_device,
                                selector=selector)
 
-    def _update_device_in_selectors(self, old_device):
+    def _update_device_in_selectors(self, old_device, new_device):
         for s in self._accordion.allSelectors:
             if s._device == old_device:
-                s._device = device
+                selectorFromDevice(new_device, selector=s)
+
+    def _update_all_devices_in_selectors(self):
+        for s in self._accordion.allSelectors:
+            replaced = False
+            for new_device in self.__storage.devices:
+                if (s._device.name == new_device.name and
+                    s._device.type == new_device.type and
+                    s._device.format.type == new_device.format.type):
+                    selectorFromDevice(new_device, selector=s)
+                    replaced = True
+                    break
+
+            if not replaced:
+                log.warning("failed to replace device: %s" % s._device)
 
     def _save_right_side(self, selector):
         """ Save settings from RHS and apply changes to the device.
@@ -882,7 +893,9 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
         log.info("ui: saving changes to device %s" % device.name)
 
-        # TODO: member type
+        # TODO: member type (as a device type?)
+
+        # NAME
         old_name = getattr(use_dev, "lvname", use_dev.name)
         name = old_name
         changed_name = False
@@ -894,41 +907,60 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             # name entry insensitive means we don't control the name
             name = None
 
-        log.debug("old_name: %s" % old_name)
-        log.debug("new_name: %s" % name)
+        log.debug("old name: %s" % old_name)
+        log.debug("new name: %s" % name)
 
+        # SIZE
+        old_size = device.size
         size = size_from_entry(self._sizeEntry)
         if size:
             size = int(size.convertTo(spec="MB"))
+        changed_size = ((use_dev.resizable or not use_dev.exists) and
+                        size != int(old_size))
+        log.debug("old size: %s" % old_size)
         log.debug("new size: %s" % size)
-        log.debug("old size: %s" % device.size)
 
+        # DEVICE TYPE
         device_type = self._get_current_device_type()
+        old_device_type = devicefactory.get_device_type(device)
+        changed_device_type = (old_device_type != device_type)
+        log.debug("old device type: %s" % old_device_type)
         log.debug("new device type: %s" % device_type)
 
+        # REFORMAT
         reformat = self._reformatCheckbox.get_active()
         log.debug("reformat: %s" % reformat)
 
+        # FS TYPE
+        old_fs_type = device.format.type
         fs_type_combo = self.builder.get_object("fileSystemTypeCombo")
         fs_type_index = fs_type_combo.get_active()
         fs_type = fs_type_combo.get_model()[fs_type_index][0]
+        fs_type_short = getFormat(fs_type).type
+        changed_fs_type = (old_fs_type != fs_type_short)
+        log.debug("old fs type: %s" % old_fs_type)
         log.debug("new fs type: %s" % fs_type)
 
-        prev_encrypted = device.encrypted
-        log.debug("old encryption setting: %s" % prev_encrypted)
+        # ENCRYPTION
+        old_encrypted = isinstance(device, LUKSDevice)
         encryption_checkbox = self.builder.get_object("encryptCheckbox")
         encrypted = encryption_checkbox.get_active()
-
-        changed_encryption = (prev_encrypted != encrypted)
+        changed_encryption = (old_encrypted != encrypted)
+        log.debug("old encryption setting: %s" % old_encrypted)
         log.debug("new encryption setting: %s" % encrypted)
 
+        # FS LABEL
         label_entry = self.builder.get_object("labelEntry")
         label = ""
         if label_entry.get_sensitive():
             label = label_entry.get_text()
 
         old_label = getattr(device.format, "label", "") or ""
+        changed_label = (label != old_label)
+        log.debug("old label: %s" % old_label)
+        log.debug("new_label: %s" % label)
 
+        # MOUNTPOINT
         mountpoint = None   # None means format type is not mountable
         mountPointEntry = self.builder.get_object("mountPointEntry")
         if mountPointEntry.get_sensitive():
@@ -951,9 +983,17 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                 self._populate_right_side(selector)
                 return
 
-        raid_level = self._get_raid_level()
+        changed_mountpoint = (old_mountpoint != mountpoint)
 
-        fs_type_short = getFormat(fs_type).type
+        # RAID LEVEL
+        raid_level = self._get_raid_level()
+        old_raid_level = devicefactory.get_raid_level(device)
+        changed_raid_level = (old_device_type == device_type and
+                              device_type in (DEVICE_TYPE_MD,
+                                              DEVICE_TYPE_BTRFS) and
+                              old_raid_level != raid_level)
+        log.debug("old raid level: %s" % old_raid_level)
+        log.debug("new raid level: %s" % raid_level)
 
         ##
         ## VALIDATION
@@ -988,13 +1028,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             self._populate_right_side(selector)
             return
 
-        # XXX Now we have to do something squirrely with the encryption setting.
-        # We've done the checks for things that cannot be on an encrypted
-        # device. From here on out, it means "encrypt new devices we create",
-        # which we don't want to do in the event that encryption is already
-        # present below the surface of an existing device stack.
-        encrypted = encrypted and encryption_checkbox.get_sensitive()
-
         with ui_storage_logger():
             # create a new factory using the appropriate size and type
             factory = devicefactory.get_device_factory(self.__storage,
@@ -1003,214 +1036,190 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                                                       encrypted=encrypted,
                                                       raid_level=raid_level)
 
-        # for member type, we'll have to adjust the member set.
-        # XXX not going to worry about this for now
-
-        ##
-        ## DEVICE TYPE (early return)
-        ##
-        current_device_type = devicefactory.get_device_type(device)
-        old_raid_level = devicefactory.get_raid_level(device)
-        changed_device_type = (current_device_type != device_type)
-        changed_raid_level = (current_device_type == device_type and
-                              device_type in (DEVICE_TYPE_MD,
-                                              DEVICE_TYPE_BTRFS) and
-                              old_raid_level != raid_level)
-        old_disk_set = device.disks
-        if hasattr(device, "req_disks") and not device.exists:
-            old_disk_set = device.req_disks
-
-        changed_disk_set = (set(old_disk_set) != set(self._device_disks))
-
+        # CONTAINER
         changed_container = False
         old_container_name = None
+        container_name = self._device_container_name
         container = factory.get_container()
-        if not changed_device_type and device_type == DEVICE_TYPE_LVM:
+        old_container_encrypted = False
+        old_container = None
+        if not changed_device_type:
             old_container = factory.get_container(device=use_dev)
-            container = factory.get_container(name=self._device_container_name)
-            if self._device_container_name != old_container.name:
+            if old_container:
                 old_container_name = old_container.name
+                old_container_encrypted = old_container.encrypted
+
+            container = factory.get_container(name=container_name)
+            if old_container and container_name != old_container.name:
                 changed_container = True
 
-        if changed_device_type or changed_raid_level or changed_container:
-            if changed_device_type:
-                log.info("changing device type from %s to %s"
-                            % (current_device_type, device_type))
+        log.debug("old container: %s" % old_container_name)
+        log.debug("new container: %s" % container_name)
 
-            if changed_raid_level:
-                log.info("changing raid level from %s to %s"
-                            % (old_raid_level, raid_level))
+        # eventually this will be controlled by the "edit container" dialog
+        container_encrypted = getattr(container, "encrypted", False)
+        changed_container_encrypted = (container_encrypted != old_container_encrypted)
 
-            if changed_disk_set:
-                log.info("changing disk set from %s to %s"
-                            % ([d.name for d in device.disks],
-                               [d.name for d in self._device_disks]))
+        # DISK SET
+        old_disks = device.disks
+        if hasattr(device, "req_disks") and not device.exists:
+            old_disks = device.req_disks
 
-            if changed_container:
-                log.info("changing container from %s to %s"
-                            % (old_container.name, self._device_container_name))
+        disks = self._device_disks[:]
+        if container and changed_device_type:
+            log.debug("overriding disk set with container's")
+            disks = container.disks[:]
+        changed_disk_set = (set(old_disks) != set(disks))
+        log.debug("old disks: %s" % [d.name for d in old_disks])
+        log.debug("new disks: %s" % [d.name for d in disks])
 
-            # remove the current device
-            self.clear_errors()
-            root = self._current_selector._root
-            self._destroy_device(device)
-            if device in self._devices:
-                # the removal failed. don't continue.
+        changed = (changed_name or changed_size or changed_device_type or
+                   changed_label or changed_mountpoint or changed_disk_set or
+                   changed_encryption or changed_raid_level or
+                   changed_container or changed_container_encrypted)
+
+        if not use_dev.exists:
+            if not changed:
+                log.debug("nothing changed for new device")
                 return
 
+            self.clear_errors()
+
+            #
+            # Handle change of device type and change of container
+            #
+            if changed_device_type or changed_container:
+                # remove the current device
+                root = self._current_selector._root
+                self._destroy_device(device)
+                if device in self._devices:
+                    # the removal failed. don't continue.
+                    log.error("device removal failed")
+                    return
+
+                _device = None
+                _old_device = None
+            else:
+                _device = device
+
             with ui_storage_logger():
-                disks = self._device_disks[:]
-                if container and changed_device_type:
-                    log.debug("overriding disk set with container's")
-                    disks = container.disks[:]
-                log.debug("disks: %s" % [d.name for d in disks])
                 try:
                     self._replace_device(device_type, size, fstype=fs_type,
                                          disks=disks, mountpoint=mountpoint,
                                          label=label, raid_level=raid_level,
                                          encrypted=encrypted, name=name,
-                                         container_name=self._device_container_name,
+                                         container_name=container_name,
+                                         container_encrypted=container_encrypted,
+                                         device=_device,
                                          selector=selector)
-                except ErrorRecoveryFailure as e:
-                    self._error = e
-                    self.set_warning(_(unrecoverable_error_msg))
-                    self.window.show_all()
-                    self._reset_storage()
                 except StorageError as e:
                     log.error("factoryDevice failed: %s" % e)
+                    # the factory's error handling has replaced all of the
+                    # devices with copies, so update the selectors' devices
+                    # accordingly
+                    self._update_all_devices_in_selectors()
                     self._error = e
                     self.set_warning(_(device_configuration_error_msg)) 
                     self.window.show_all()
 
-                    # in this case we have removed the old device so we now have
-                    # to re-create it
-                    try:
-                        self._replace_device(current_device_type, device.size,
-                                             disks=old_disk_set,
-                                             fstype=device.format.type,
-                                             mountpoint=old_mountpoint,
-                                             label=old_label,
-                                             raid_level=old_raid_level,
-                                             encrypted=prev_encrypted,
-                                             name=old_name,
-                                             container_name=old_container_name,
-                                             selector=selector)
-                    except StorageError as e:
-                        # failed to recover.
-                        self.clear_errors()
-                        self._error = e
-                        self.set_warning(_(unrecoverable_error_msg))
-                        self.window.show_all()
-                        self._reset_storage()
-                else:
-                    # you can't change the type of an existing device, so we
-                    # don't need to concern ourselves with adding a new
-                    # selector to the new page
-                    selectorFromDevice(device, selector=selector)
+                    if _device is None:
+                        # in this case we have removed the old device so we now have
+                        # to re-create it
+                        try:
+                            self._replace_device(old_device_type, device.size,
+                                                 disks=old_disks,
+                                                 fstype=old_fstype,
+                                                 mountpoint=old_mountpoint,
+                                                 label=old_label,
+                                                 raid_level=old_raid_level,
+                                                 encrypted=old_encrypted,
+                                                 name=old_name,
+                                                 container_name=old_container_name,
+                                                 container_encrypted=old_container_encrypted,
+                                                 selector=selector)
+                        except StorageError as e:
+                            # failed to recover.
+                            self.refresh()  # this calls self.clear_errors
+                            self._error = e
+                            self.set_warning(_(unrecoverable_error_msg))
+                            self.window.show_all()
+                            return
 
+            self._update_device_in_selectors(device, selector._device)
             self._devices = self.__storage.devices
+
             # update size props of all btrfs devices' selectors
             self._update_btrfs_selectors()
 
             self._updateSpaceDisplay()
+
             self._populate_right_side(selector)
+            log.debug("leaving save_right_side")
             return
 
         ##
-        ## SIZE
+        ## Handle changes to preexisting devices
         ##
-        # new size means resize for existing devices and adjust for new ones
-        changed_size = (size != int(device.size))
-        if changed_size or changed_disk_set or \
-           (changed_encryption and factory.encrypt_members and
-            not device.exists):
-            self.clear_errors()
-            old_size = device.size
-            if changed_size and device.exists and device.resizable:
-                with ui_storage_logger():
-                    try:
-                        # If no size was specified, we just want to grow to
-                        # the maximum.  But resizeDevice doesn't take None for
-                        # a value.
-                        if not size:
-                            size = device.maxSize
 
-                        self.__storage.resizeDevice(device, size)
-                    except StorageError as e:
-                        log.error("failed to schedule device resize: %s" % e)
-                        device.size = old_size
-                        self._error = e
-                        self.set_warning(_("Device resize request failed. "
-                                           "Click for details."))
-                        self.window.show_all()
-                    else:
-                        log.debug("%r" % device)
-                        log.debug("new size: %s" % device.size)
-                        log.debug("target size: %s" % device.targetSize)
-            elif not device.exists:
-                if changed_disk_set:
-                    log.info("changing disk set from %s to %s"
-                                % ([d.name for d in device.disks],
-                                   [d.name for d in self._device_disks]))
+        # Handle deactivation of the reformat checkbutton after having committed
+        # a reformat.
+        if not reformat and (not use_dev.format.exists or
+                             not device.format.exists):
+            # figure out the existing device and reset it
+            if not use_dev.format.exists:
+                original_device = use_dev
+            else:
+                original_device = device
 
-                with ui_storage_logger():
-                    try:
-                        self.__storage.factoryDevice(device_type, size,
-                                                 device=device,
-                                                 disks=self._device_disks[:],
-                                                 encrypted=encrypted,
-                                                 container_name=self._device_container_name,
-                                                 raid_level=raid_level)
-                    except ErrorRecoveryFailure as e:
-                        self._error = e
-                        self.set_warning(_(unrecoverable_error_msg))
-                        self.window.show_all()
-                        self._reset_storage()
-                    except StorageError as e:
-                        log.error("factoryDevice failed: %s" % e)
-                        self._error = e
-                        self.set_warning(_(device_configuration_error_msg))
-                        self.window.show_all()
+            log.debug("resetting device %s" % original_device.name)
 
-                    self._devices = self.__storage.devices
+            with ui_storage_logger():
+                self.__storage.resetDevice(original_device)
 
-            log.debug("updating selector size to '%s'"
-                       % str(Size(spec="%f MB" % device.size)).upper())
-            # update the selector's size property
-            selectorFromDevice(device, selector=selector)
+        if changed_size and device.resizable:
+            log.debug("scheduling resize of device %s to %s MB"
+                        % (device.name, size))
+            # If no size was specified, we just want to grow to
+            # the maximum.  But resizeDevice doesn't take None for
+            # a value.
+            if not size:
+                size = device.maxSize
+
+            with ui_storage_logger():
+                try:
+                    self.__storage.resizeDevice(device, size)
+                except StorageError as e:
+                    log.error("failed to schedule device resize: %s" % e)
+                    device.size = old_size
+                    self._error = e
+                    self.set_warning(_("Device resize request failed. "
+                                       "Click for details."))
+                    self.window.show_all()
+                else:
+                    log.debug("%r" % device)
+                    log.debug("new size: %s" % device.size)
+                    log.debug("target size: %s" % device.targetSize)
+
+                    # update the selector's size property
+                    selectorFromDevice(device, selector=selector)
 
             # update size props of all btrfs devices' selectors
             self._update_btrfs_selectors()
-
             self._updateSpaceDisplay()
-            self._populate_right_side(selector)
 
-
-        ##
-        ## NAME
-        ##
-        if changed_name:
-            use_dev._name = name
-            new_name = use_dev.name
-            if new_name in self.__storage.names:
-                use_dev._name = old_name
-                self.set_info(_("Specified name %s already in use.") % new_name)
-            else:
-                if old_name == selector.props.name:
-                    selector.props.name = new_name
-
-        if reformat:
-            ##
-            ## ENCRYPTION
-            ##
-
-            # for existing devices, we always encrypt the leaf
-            old_fs_type = device.format.type
-            old_device = device
-
-            # if the encryption is on member devices it was handled above
-            if changed_encryption and (device.exists or factory.encrypt_leaves):
-                if prev_encrypted and not encrypted:
+        # it's possible that reformat is active but fstype is unchanged, in
+        # which case we're not going to schedule another reformat unless
+        # encryption got toggled
+        do_reformat = (reformat and (encryption_changed or
+                                     fs_type_changed or
+                                     device.format.exists))
+        if do_reformat:
+            self.clear_errors()
+            #
+            # ENCRYPTION
+            #
+            if changed_encryption:
+                if not encrypted:
                     log.info("removing encryption from %s" % device.name)
                     with ui_storage_logger():
                         self.__storage.destroyDevice(device)
@@ -1218,8 +1227,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                         old_device = device
                         device = device.slave
                         selector._device = device
-                        self._update_device_in_selectors(old_device)
-                elif encrypted and not prev_encrypted:
+                        self._update_device_in_selectors(old_device, device)
+                elif encrypted:
                     log.info("applying encryption to %s" % device.name)
                     with ui_storage_logger():
                         old_device = device
@@ -1231,76 +1240,84 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                         self._devices.append(luks_dev)
                         device = luks_dev
                         selector._device = device
-                        self._update_device_in_selectors(old_device)
+                        self._update_device_in_selectors(old_device, device)
 
-            ##
-            ## FORMATTING
-            ##
-            encryption_changed = (device != old_device)
-            if encryption_changed:
                 self._devices = self.__storage.devices
 
-            fs_type_changed = (fs_type_short != old_fs_type)
-            fs_exists = old_device.format.exists
-            if encryption_changed or fs_type_changed or fs_exists:
-                log.info("scheduling reformat of %s as %s" % (device.name,
-                                                              fs_type_short))
-                self.clear_errors()
-                with ui_storage_logger():
-                    old_format = device.format
-                    new_format = getFormat(fs_type,
-                                           mountpoint=mountpoint, label=label,
-                                           device=device.path)
-                    try:
-                        self.__storage.formatDevice(device, new_format)
-                    except StorageError as e:
-                        log.error("failed to register device format action: %s" % e)
-                        device.format = old_format
-                        self._error = e
-                        self.set_warning(_("Device reformat request failed. "
-                                           "Click for details."))
-                        self.window.show_all()
+            #
+            # FORMATTING
+            #
+            log.info("scheduling reformat of %s as %s" % (device.name,
+                                                          fs_type_short))
+            with ui_storage_logger():
+                old_format = device.format
+                new_format = getFormat(fs_type,
+                                       mountpoint=mountpoint, label=label,
+                                       device=device.path)
+                try:
+                    self.__storage.formatDevice(device, new_format)
+                except StorageError as e:
+                    log.error("failed to register device format action: %s" % e)
+                    device.format = old_format
+                    self._error = e
+                    self.set_warning(_("Device reformat request failed. "
+                                       "Click for details."))
+                    self.window.show_all()
+                else:
+                    # first, remove this selector from any old install page(s)
+                    new_selector = None
+                    for (page, _selector) in self._accordion.allMembers:
+                        if _selector._device in (device, old_device):
+                            if page.pageTitle == self.translated_new_install_name:
+                                new_selector = _selector
+                                continue
+
+                            page.removeSelector(_selector)
+                            if not page.members:
+                                log.debug("removing empty page %s" % page.pageTitle)
+                                self._accordion.removePage(page.pageTitle)
+
+                    # either update the existing selector or add a new one
+                    if new_selector:
+                        selectorFromDevice(device, selector=new_selector)
                     else:
-                        # first, remove this selector from any old install page(s)
-                        new_selector = None
-                        for (page, _selector) in self._accordion.allMembers:
-                            if _selector._device in (device, old_device):
-                                if page.pageTitle == self.translated_new_install_name:
-                                    new_selector = _selector
-                                    continue
+                        self.add_new_selector(device)
 
-                                page.removeSelector(_selector)
-                                if not page.members:
-                                    log.debug("removing empty page %s" % page.pageTitle)
-                                    self._accordion.removePage(page.pageTitle)
+        if not do_reformat:
+            # Set various attributes that do not require actions.
+            if old_label != label and hasattr(device.format, "label") and \
+               not device.format.exists:
+                self.clear_errors()
+                log.debug("updating label on %s to %s" % (device.name, label))
+                device.format.label = label
 
-                        # either update the existing selector or add a new one
-                        if new_selector:
-                            selectorFromDevice(device, selector=new_selector)
-                        else:
-                            self.add_new_selector(device)
+            if mountpoint and old_mountpoint != mountpoint:
+                self.clear_errors()
+                log.debug("updating mountpoint of %s to %s" % (device.name,
+                                                               mountpoint))
+                device.format.mountpoint = mountpoint
+                if old_mountpoint:
+                    selectorFromDevice(device, selector=selector)
+                else:
+                    # add an entry to the new page but do not remove any entries
+                    # from other pages since we haven't altered the filesystem
+                    self.add_new_selector(device)
 
-                self._populate_right_side(selector)
-                return
-
-        ##
-        ## FORMATTING ATTRIBUTES
-        ##
-        # Set various attributes that do not require actions.
-        if old_label != label and hasattr(device.format, "label") and \
-           not device.format.exists:
-            log.debug("updating label to %s" % label)
-            device.format.label = label
-
-        if mountpoint and old_mountpoint != mountpoint:
-            log.debug("updating mountpoint to %s" % mountpoint)
-            device.format.mountpoint = mountpoint
-            if old_mountpoint:
-                selectorFromDevice(device, selector=selector)
+        #
+        # NAME
+        #
+        if changed_name:
+            self.clear_errors()
+            use_dev._name = name
+            new_name = use_dev.name
+            log.debug("changing name of %s to %s" % (old_name, new_name))
+            if new_name in self.__storage.names:
+                use_dev._name = old_name
+                self.set_info(_("Specified name %s already in use.") % new_name)
             else:
-                # add an entry to the new page but do not remove any entries
-                # from other pages since we haven't altered the filesystem
-                self.add_new_selector(device)
+                selectorFromDevice(device, selector=selector)
+
+        self._populate_right_side(selector)
 
     def _raid_level_visible(self, model, itr, user_data):
         device_type = self._get_current_device_type()
@@ -1357,33 +1374,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         for widget in [raid_label, raid_combo]:
             widget.set_no_show_all(False)
             widget.show()
-
-        # Create a DeviceFactory to use to calculate the disk space needs for
-        # this device with various raid features enabled.
-        with ui_storage_logger():
-            factory = devicefactory.get_device_factory(self.__storage,
-                                                      device_type, size,
-                                                      disks=self._device_disks,
-                                                      raid_level=raid_level)
-
-        try:
-            base_size = factory.device_size
-        except MDRaidError as e:
-            log.error("failed to populate UI raid options: %s" % e)
-            self._error = e
-            self.set_warning(str(e))
-            self.window.show_all()
-            return
-
-        # what is the incremental disk space requirement for this feature?
-        # TODO: update this when the size spinner changes
-        raid_level = self._get_raid_level()
-        if raid_level not in (None, "single"):
-            md_level = mdraid.raidLevel(raid_level)
-            min_disks = mdraid.get_raid_min_members(md_level)
-            if min_disks <= len(factory.disks):
-                factory.raid_level = md_level
-                delta = factory.device_size - base_size
 
     def _get_current_device_type(self):
         typeCombo = self.builder.get_object("deviceTypeCombo")
@@ -1445,6 +1435,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         mountPointEntry.set_text(getattr(device.format, "mountpoint", "") or "")
         mountPointEntry.set_sensitive(device.format.mountable)
 
+        # FIXME: Make sure you cannot set a label for specific btrfs subvols
         labelEntry.set_text(getattr(device.format, "label", "") or "")
         # We could label existing formats that have a labelFsProg if we added an
         # ActionLabelFormat class.
@@ -1470,7 +1461,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                                              use_dev.exists and
                                              not use_dev.type.startswith("btrfs"))
 
-        encryptCheckbox.set_active(device.encrypted)
+        encryptCheckbox.set_active(isinstance(device, LUKSDevice))
         encryptCheckbox.set_sensitive(self._reformatCheckbox.get_active())
         ancestors = use_dev.ancestors
         ancestors.remove(use_dev)
@@ -1605,6 +1596,9 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         # you can't change the type of an existing device
         typeCombo.set_sensitive(not use_dev.exists)
 
+        # you can't encrypt a btrfs subvolume -- only the volume/container
+        encryptCheckbox.set_sensitive(device_type != DEVICE_TYPE_BTRFS)
+
         self._populate_raid(raid_level, device.size)
         self._populate_lvm(device=use_dev)
         # do this last in case this was set sensitive in on_device_type_changed
@@ -1677,7 +1671,13 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             size = dialog.size
 
         fstype = self.storage.getFSType(mountpoint)
+
+        # The encryption setting as applied here means "encrypt leaf devices".
+        # If you want "encrypt my VG/PVs" you'll have to either use the autopart
+        # button or wait until we have a way to control container-level
+        # encryption.
         encrypted = self.data.autopart.encrypted
+        encrypt_container = False
 
         # we're doing nothing here to ensure that bootable requests end up on
         # the boot disk, but the weight from platform should take care of this
@@ -1709,12 +1709,9 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             factory = devicefactory.get_device_factory(self.__storage,
                                                      device_type, size)
             container = factory.get_container()
-
             if container:
                 # don't override user-initiated changes to a defined container
-                if factory.encrypt_members:
-                    encrypted = container.encrypted
-
+                encrypt_container = container.encrypted
                 disks = container.disks
 
             try:
@@ -1723,17 +1720,12 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                                          fstype=fstype,
                                          mountpoint=mountpoint,
                                          encrypted=encrypted,
+                                         container_encrypted=encrypt_container,
                                          disks=disks)
-            except ErrorRecoveryFailure as e:
-                log.error("error recovery failure")
-                self._error = e
-                self.set_error(_(unrecoverable_error_msg))
-                self.window.show_all()
-                self._reset_storage()
             except StorageError as e:
                 log.error("factoryDevice failed: %s" % e)
                 log.debug("trying to find an existing container to use")
-                container = factory.get_container(existing=True)
+                container = factory.get_container(allow_existing=True)
                 log.debug("found container %s" % container)
                 if container:
                     try:
@@ -1753,6 +1745,10 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                                       % (type_str, container.name))
                         self.window.show_all()
                         e = None
+
+                # the factory's error handling has replaced all of the devices
+                # with copies, so update the selectors' devices accordingly
+                self._update_all_devices_in_selectors()
 
                 if e:
                     self._error = e
@@ -1820,9 +1816,9 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                 factory = devicefactory.get_device_factory(self.__storage,
                                                           device_type, 0,
                                                           disks=container.disks,
-                                                          encrypted=container.encrypted,
+                                                          container_encrypted=container.encrypted,
                                                           raid_level=raid_level)
-                parents = factory.set_container_members(container)
+                factory.configure()
 
         # if this device has parents with no other children, remove them too
         for parent in device.parents:
@@ -2209,6 +2205,13 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                 # The encryption checkbutton should not be sensitive if there is
                 # existing encryption below the leaf layer.
                 encryption_checkbutton.set_sensitive(False)
+
+        # you can't encrypt a btrfs subvolume -- only the volume/container
+        device_type = self._get_current_device_type()
+        if device_type == DEVICE_TYPE_BTRFS:
+            encryption_checkbutton.set_active(False)
+
+        encryption_checkbutton.set_sensitive(device_type != DEVICE_TYPE_BTRFS)
 
         fs_combo = self.builder.get_object("fileSystemTypeCombo")
         fs_combo.set_sensitive(active)
