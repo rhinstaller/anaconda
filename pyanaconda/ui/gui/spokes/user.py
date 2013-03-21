@@ -51,7 +51,7 @@ class AdvancedUserDialog(GUIObject):
     def initialize(self):
         GUIObject.initialize(self)
 
-    def _apply_checkboxes(self, _editable, data = None):
+    def _apply_checkboxes(self, _editable = None, data = None):
         """Update the state of this screen according to the
         checkbox states on the screen. It is called from
         the toggled Gtk event.
@@ -71,6 +71,14 @@ class AdvancedUserDialog(GUIObject):
             t_home.set_text(self._user.homedir)
         elif self._user.name:
             t_home.set_text("/home/%s" % self._user.name)
+
+        c_home = self.builder.get_object("c_home")
+        c_home.set_active(bool(self._user.homedir))
+        c_uid = self.builder.get_object("c_uid")
+        c_uid.set_active(bool(self._user.uid))
+        c_gid = self.builder.get_object("c_gid")
+        c_gid.set_active(bool(self._user.gid))
+        self._apply_checkboxes()
 
         groups = []
         for group_name in self._user.groups:
