@@ -40,7 +40,7 @@ class TimeZoneSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
         self._lower_regions = [r.lower() for r in self._timezones]
 
         self._zones = ["%s/%s" % (region, z) for region in self._timezones for z in self._timezones[region]]
-        self._lower_zones = [z.lower() for region in self._timezones for z in self._timezones[region]] # for lowercase lookup
+        self._lower_zones = [z.lower().replace("_", " ") for region in self._timezones for z in self._timezones[region]] # for lowercase lookup
 
         self._selection = ""
 
@@ -105,8 +105,8 @@ class TimeZoneSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
         except (ValueError, IndexError):
             pass
 
-        if key.lower() in self._lower_zones:
-            id = self._lower_zones.index(key.lower())
+        if key.lower().replace("_", " ") in self._lower_zones:
+            id = self._lower_zones.index(key.lower().replace("_", " "))
             self._selection = self._zones[id]
             self.apply()
             self.close()
