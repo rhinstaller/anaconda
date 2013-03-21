@@ -426,10 +426,12 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke):
 
     def on_back_clicked(self, button):
         # Return if:
+        # - no user is requested (empty username)
         # - no password is required
         # - password is set by kickstart and password text entry is empty
         # - password is set by dialog and _validatePassword returns True
-        if not self.usepassword.get_active() or \
+        if not self.username.get_text() or \
+           not self.usepassword.get_active() or \
            (self.pw.get_text() == "" and \
             self.pw.get_text() == self.confirm.get_text() and \
             self._user.password_kickstarted) or \
