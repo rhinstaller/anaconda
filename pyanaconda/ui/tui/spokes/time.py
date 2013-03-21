@@ -46,7 +46,7 @@ class TimeZoneSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
 
     @property
     def completed(self):
-        return bool(self.data.timezone.timezone or self._selection)
+        return bool(self.data.timezone.timezone)
 
     @property
     def mandatory(self):
@@ -56,8 +56,6 @@ class TimeZoneSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
     def status(self):
         if self.data.timezone.timezone:
             return _("%s timezone") % self.data.timezone.timezone
-        elif self._selection:
-            return _("%s timezone") % self._selection
         else:
             return _("Timezone is not set.")
 
