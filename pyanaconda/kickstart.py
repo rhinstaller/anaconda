@@ -1422,8 +1422,8 @@ superclass = returnClassForVersion()
 class AnacondaKSHandler(superclass):
     AddonClassType = AddonData
     
-    def __init__ (self, addon_paths = []):
-        superclass.__init__(self, commandUpdates=commandMap, dataUpdates=dataMap)
+    def __init__ (self, addon_paths = [], commandUpdates=commandMap, dataUpdates=dataMap):
+        superclass.__init__(self, commandUpdates=commandUpdates, dataUpdates=dataUpdates)
         self.onPart = {}
 
         # collect all kickstart addons for anaconda to addons dictionary
