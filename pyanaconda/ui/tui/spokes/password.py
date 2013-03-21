@@ -20,7 +20,7 @@
 #                    Jesse Keating <jkeating@redhat.com>
 #
 
-from pyanaconda.ui.tui.spokes import EditTUIDialog
+from pyanaconda.ui.tui.spokes import EditTUIDialog, EditTUISpokeEntry
 from pyanaconda.ui.common import FirstbootSpokeMixIn
 from pyanaconda.ui.tui.simpleline import TextWidget
 from pyanaconda.users import cryptPassword
@@ -66,7 +66,7 @@ class PasswordSpoke(FirstbootSpokeMixIn, EditTUIDialog):
 
     def prompt(self, args = None):
         """Overriden prompt as password typing is special."""
-        EditTUIDialog.prompt(self, (_("Password"), "", EditTUIDialog.PASSWORD, True))
+        EditTUIDialog.prompt(self, EditTUISpokeEntry(_("Password"), "", EditTUIDialog.PASSWORD, True))
         if self.value == None:
             return
 

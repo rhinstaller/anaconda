@@ -30,7 +30,7 @@ from pyanaconda.iutil import setdeepattr, getdeepattr
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
 
-__all__ = ["TUISpoke", "EditTUISpoke", "EditTUIDialog", "StandaloneSpoke", "NormalSpoke", "PersonalizationSpoke",
+__all__ = ["TUISpoke", "EditTUISpoke", "EditTUIDialog", "EditTUISpokeEntry", "StandaloneSpoke", "NormalSpoke", "PersonalizationSpoke",
            "collect_spokes", "collect_categories"]
 
 class TUISpoke(TUIObject, tui.Widget, Spoke):
