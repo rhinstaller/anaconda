@@ -261,7 +261,7 @@
                 </child>
                 <child>
                   <object class="GtkLabel" id="pickLanguageLabel">
-		    <property name="height_request">45</property>
+                   <property name="height_request">45</property>
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <property name="valign">start</property>
@@ -365,6 +365,7 @@
                             <property name="invisible_char">●</property>
                             <property name="invisible_char_set">True</property>
                             <property name="secondary_icon_name">edit-clear-symbolic</property>
+                            <property name="placeholder_text">Type here to search.</property>
                             <signal name="changed" handler="on_entry_changed" swapped="no"/>
                             <signal name="icon-release" handler="on_clear_icon_clicked" swapped="no"/>
                           </object>
