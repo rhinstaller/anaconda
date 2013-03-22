@@ -1421,7 +1421,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         nameEntry.set_text(device_name)
 
         mountPointEntry.set_text(getattr(device.format, "mountpoint", "") or "")
-        mountPointEntry.set_sensitive(hasattr(device.format, "mountpoint"))
+        mountPointEntry.set_sensitive(device.format.mountable)
 
         labelEntry.set_text(getattr(device.format, "label", "") or "")
         # We could label existing formats that have a labelFsProg if we added an
