@@ -234,6 +234,45 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/lib/dracut/modules.d/80%{name}/*
 
 %changelog
+* Fri Mar 22 2013 Brian C. Lane <bcl@redhat.com> - 19.13-1
+- Set Tip text on the create user spoke. (dcantrell)
+- Use space instead of underscore when user uses the timezone name (#924352)
+  (msivak)
+- Use only self.data in TUI timezone spoke's status (msivak)
+- Use the named tuple in root password dialog (#924138) (msivak)
+- Add message instructing users they can type to search for language.
+  (sbueno+anaconda)
+- Don't unbusy the cursor until the first action is ready to display. (clumens)
+- Move custom storage setup into its own thread. (clumens)
+- When you turn off NTP, clear the warning along the bottom of the screen.
+  (clumens)
+- If the disk has no serial number, don't give the DiskOverview a popup.
+  (clumens)
+- Reorder the columns on the shopping cart so name is next to description.
+  (clumens)
+- Add device node names to the resize dialog as a new column. (clumens)
+- Use an emblem for indicating spokes have not been completed. (clumens)
+- If you remove all the disks in the shopping cart, disable the buttons.
+  (clumens)
+- Apply a style to the network spoke's toolbar. (clumens)
+- Add a little more space between the updates checkbox and the add repo stuff.
+  (clumens)
+- Remove the partition scheme expanders. (clumens)
+- Don't error out if a ks %%include is missing when looking for sshpw
+  (#923627). (clumens)
+- Do not guess username immediately when user clears it (#924184) (msivak)
+- Do not require password when no user is requested (#924150) (msivak)
+- Refresh the checkboxes on AdvancedUser dialog properly (#924257) (msivak)
+- Allow setting the default GID of the new user. (msivak)
+- Add call to new-kernel-pkg --rpmposttrans (#922988) (bcl)
+- Make our gtk_* decorators safer and more intelligent (vpodzime)
+- Add method for checking if in main thread to the ThreadManager (vpodzime)
+- Port the mandatory logic for User and Password spokes from GUI to TUI
+  (msivak)
+- Use only self.data to determine completeness in User spoke (msivak)
+- Make firstboot kickstart command aware of initial-setup (msivak)
+- Add command and data updates to AnacondaKSHandler's __init__ (msivak)
+
 * Tue Mar 19 2013 Brian C. Lane <bcl@redhat.com> - 19.12-1
 - _model -> model in filter.py. (clumens)
 - Add some documentation to FilterPage. (clumens)
