@@ -135,6 +135,13 @@ class AddonData(object):
         """Process one kickstart line."""
         self.content += line
 
+    def finalize(self):
+        """No additional data will come.
+
+           Addon should check if all mandatory attributes were populated.
+        """
+        pass
+
 class AddonSection(Section):
     sectionOpen = "%addon"
 
@@ -163,3 +170,9 @@ class AddonSection(Section):
         if self.addon_id and not hasattr(self.handler.addons, self.addon_id):
             setattr(self.handler.addons, self.addon_id, AddonData(self.addon_id))
 
+    def finalize(self):
+        """Let addon know no additional data will come."""
+        Section.finalize()
+
+        addon = getattr(self.handler.addons, self.addon_id)
+        addon.finalize()
