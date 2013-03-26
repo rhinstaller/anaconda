@@ -803,7 +803,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         """ Add an entry for device to the new install Page. """
         page = self._accordion._find_by_title(self.translated_new_install_name).get_child()
         devices = [device]
-        if page.members:
+        if not page.members:
             # remove the CreateNewPage and replace it with a regular Page
             expander = self._accordion._find_by_title(self.translated_new_install_name)
             expander.remove(expander.get_child())
