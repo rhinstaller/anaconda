@@ -2030,13 +2030,13 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         if vg_name is None:
             return
 
-        if vg_name == new_vg_text:
+        if vg_name == _(new_vg_text):
             # run the vg editor dialog with a default name and disk set
             hostname = self.data.network.hostname
             name = self.__storage.suggestContainerName(hostname=hostname)
             self.run_vg_editor(name=name)
             for idx, data in enumerate(combo.get_model()):
-                if data[0] == new_vg_text:
+                if data[0] == _(new_vg_text):
                     combo.insert_text(idx, self._device_container_name)
                     combo.set_active(idx)
                     break
@@ -2274,7 +2274,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                 vg_combo.append_text(default_vg)
                 vg_combo.set_active(len(vg_combo.get_model()) - 1)
 
-            vg_combo.append_text(new_vg_text)
+            vg_combo.append_text(_(new_vg_text))
             if default_vg is None:
                 vg_combo.set_active(len(vg_combo.get_model()) - 1)
 
