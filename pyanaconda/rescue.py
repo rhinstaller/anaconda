@@ -38,6 +38,7 @@ import re
 import network
 import subprocess
 from pykickstart.constants import *
+import meh.ui.text
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
@@ -97,6 +98,14 @@ class RescueInterface(InstallInterfaceBase):
         w.pop()
         return passphrase
 
+    @property
+    def meh_interface(self):
+        return self._meh_interface
+
+    @property
+    def tty_num(self):
+        return 1
+
     def shutdown (self):
         self.screen.finish()
 
@@ -109,6 +118,18 @@ class RescueInterface(InstallInterfaceBase):
     def __init__(self):
         InstallInterfaceBase.__init__(self)
         self.screen = SnackScreen()
+        self._meh_interface = RescueExceptionHandlingIface(self.screen)
+
+class RescueExceptionHandlingIface(meh.ui.text.TextIntf):
+    def __init__(self, snack_screen, *args, **kwargs):
+        meh.ui.text.TextIntf.__init__(self, *args, **kwargs)
+        self._snack_running = True
+        self._snack_screen = snack_screen
+
+    def __getattr__(self, attr):
+        if self._snack_running:
+            self._snack_screen.finish()
+            self._snack_running = False
 
 def makeFStab(instPath = ""):
     if os.access("/proc/mounts", os.R_OK):
@@ -191,7 +212,7 @@ def runShell(screen = None, msg=""):
     if screen:
         screen.finish()
 
-def doRescue(rescue_mount, ksdata):
+def doRescue(intf, rescue_mount, ksdata):
     import blivet
 
     for file in [ "services", "protocols", "group", "joe", "man.config",
@@ -200,8 +221,6 @@ def doRescue(rescue_mount, ksdata):
             os.symlink('/mnt/runtime/etc/' + file, '/etc/' + file)
         except OSError:
             pass
-
-    intf = RescueInterface()
 
     # Early shell access with no disk access attempts
     if not rescue_mount:

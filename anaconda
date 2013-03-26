@@ -964,6 +964,10 @@ if __name__ == "__main__":
     # now start the interface
     setupDisplay(anaconda, opts, addon_paths)
 
+    if anaconda.rescue:
+        from pyanaconda import rescue
+        anaconda.intf = rescue.RescueInterface()
+
     # Set flag to prompt for missing ks data
     if anaconda.displayMode == 'c':
         flags.ksprompt = False
@@ -1009,9 +1013,7 @@ if __name__ == "__main__":
     from pyanaconda.network import networkInitialize, wait_for_connecting_NM_thread
 
     if anaconda.rescue:
-        from pyanaconda.rescue import doRescue
-        doRescue(anaconda.rescue_mount, ksdata)
-
+        rescue.doRescue(anaconda.intf, anaconda.rescue_mount, ksdata)
 
     networkInitialize(ksdata)
     if not flags.dirInstall:
