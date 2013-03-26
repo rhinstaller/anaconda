@@ -111,7 +111,7 @@ class AdvancedUserDialog(GUIObject):
                 self._user.uid = None
 
             if self.builder.get_object("c_gid").get_active():
-                self._user.gid = int(self.builder.get_widget("gid").get_value())
+                self._user.gid = int(self.builder.get_object("gid").get_value())
             else:
                 self._user.gid = None
 
