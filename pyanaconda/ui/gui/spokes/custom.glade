@@ -680,7 +680,7 @@ use.  Try something else?</property>
                                   <object class="GtkSpinButton" id="sizeSpinner">
                                     <property name="visible">True</property>
                                     <property name="can_focus">True</property>
-                                    <property name="halign">end</property>
+                                    <property name="halign">start</property>
                                     <property name="invisible_char">●</property>
                                     <property name="width_chars">7</property>
                                     <property name="invisible_char_set">True</property>
@@ -694,24 +694,10 @@ use.  Try something else?</property>
                                     <property name="height">1</property>
                                   </packing>
                                 </child>
-                              </object>
-                              <packing>
-                                <property name="expand">False</property>
-                                <property name="fill">True</property>
-                                <property name="position">2</property>
-                              </packing>
-                            </child>
-                            <child>
-                              <object class="GtkExpander" id="customizeExpander">
-                                <property name="visible">True</property>
-                                <property name="can_focus">True</property>
-                                <property name="use_underline">True</property>
-                                <signal name="activate" handler="on_customize_activated" swapped="no"/>
                                 <child>
                                   <object class="GtkGrid" id="grid3">
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
-                                    <property name="margin_left">30</property>
                                     <property name="row_spacing">6</property>
                                     <property name="column_spacing">6</property>
                                     <child>
@@ -753,6 +739,8 @@ use.  Try something else?</property>
                                         <property name="visible">True</property>
                                         <property name="can_focus">False</property>
                                         <property name="hexpand">True</property>
+                                        <property name="entry_text_column">0</property>
+                                        <property name="id_column">1</property>
                                         <items>
                                           <item translatable="yes">Standard Partition</item>
                                           <item translatable="yes">BTRFS</item>
@@ -773,6 +761,8 @@ use.  Try something else?</property>
                                         <property name="visible">True</property>
                                         <property name="can_focus">False</property>
                                         <property name="hexpand">True</property>
+                                        <property name="entry_text_column">0</property>
+                                        <property name="id_column">1</property>
                                         <signal name="changed" handler="on_fs_type_changed" swapped="no"/>
                                       </object>
                                       <packing>
@@ -909,20 +899,18 @@ use.  Try something else?</property>
                                       <placeholder/>
                                     </child>
                                   </object>
-                                </child>
-                                <child type="label">
-                                  <object class="GtkLabel" id="label3">
-                                    <property name="visible">True</property>
-                                    <property name="can_focus">False</property>
-                                    <property name="label" translatable="yes">Device and file system _options...</property>
-                                    <property name="use_underline">True</property>
-                                  </object>
+                                  <packing>
+                                    <property name="left_attach">0</property>
+                                    <property name="top_attach">4</property>
+                                    <property name="width">2</property>
+                                    <property name="height">1</property>
+                                  </packing>
                                 </child>
                               </object>
                               <packing>
                                 <property name="expand">False</property>
                                 <property name="fill">True</property>
-                                <property name="position">3</property>
+                                <property name="position">2</property>
                               </packing>
                             </child>
                             <child>
@@ -940,7 +928,7 @@ use.  Try something else?</property>
                               <packing>
                                 <property name="expand">False</property>
                                 <property name="fill">True</property>
-                                <property name="position">4</property>
+                                <property name="position">3</property>
                               </packing>
                             </child>
                           </object>

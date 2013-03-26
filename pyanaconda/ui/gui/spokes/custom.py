@@ -1393,11 +1393,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         sizeSpinner = self.builder.get_object("sizeSpinner")
         typeCombo = self.builder.get_object("deviceTypeCombo")
         fsCombo = self.builder.get_object("fileSystemTypeCombo")
-        expander = self.builder.get_object("customizeExpander")
-
-        # We want to preserve the state of the customize expander so that it's
-        # open should you open it and then look at some other device instead.
-        expander.set_expanded(selector._customizeIsOpen)
 
         device = selector._device
         if device.type == "luks/dm-crypt":
@@ -1642,12 +1637,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             return
 
         NormalSpoke.on_back_clicked(self, button)
-
-    def on_customize_activated(self, expander):
-        if not self._current_selector:
-            return
-
-        self._current_selector._customizeIsOpen = not self._current_selector._customizeIsOpen
 
     def on_add_clicked(self, button):
         self._save_right_side(self._current_selector)

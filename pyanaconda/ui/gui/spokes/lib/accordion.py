@@ -84,7 +84,6 @@ def selectorFromDevice(device, selector=None, mountpoint=""):
     if not selector:
         selector = MountpointSelector(name, str(size).upper(), mp)
         selector._root = None
-        selector._customizeIsOpen = False
     else:
         selector.props.name = name
         selector.props.size = str(size).upper()
