@@ -81,6 +81,8 @@ class AnacondaExceptionHandler(ExceptionHandler):
 
         """
 
+        log.debug("running handleException")
+
         ty = dump_info.exc_info.type
         value = dump_info.exc_info.value
 
@@ -107,21 +109,28 @@ class AnacondaExceptionHandler(ExceptionHandler):
                 if Gtk.main_level() > 0:
                     # main loop is running, don't crash it by running another one
                     # potentially from a different thread
+                    log.debug("Gtk running, queuing exception handler to the "
+                             "main loop")
                     GLib.idle_add(self.run_handleException, dump_info)
                 else:
-                    log.info("running handler")
+                    log.debug("Gtk not running, starting Gtk and running "
+                             "exception handler in it")
                     super(AnacondaExceptionHandler, self).handleException(
                                                             dump_info)
 
             except RuntimeError:
+                log.debug("Gtk cannot be initialized")
                 # X not running (Gtk cannot be initialized)
                 if threadMgr.in_main_thread():
+                    log.debug("In the main thread, running exception handler")
                     print "An unknown error has occured, look at the "\
                         "/tmp/anaconda-tb* file(s) for more details"
                     # in the main thread, run exception handler
                     super(AnacondaExceptionHandler, self).handleException(
                                                             dump_info)
                 else:
+                    log.debug("In a non-main thread, sending a message with "
+                             "exception data")
                     # not in the main thread, just send message with exception
                     # data and let message handler run the exception handler in
                     # the main thread
