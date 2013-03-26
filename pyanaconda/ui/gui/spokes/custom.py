@@ -80,7 +80,7 @@ from pyanaconda.ui.gui.spokes.lib.passphrase import PassphraseDialog
 from pyanaconda.ui.gui.spokes.lib.accordion import *
 from pyanaconda.ui.gui.spokes.lib.refresh import RefreshDialog
 from pyanaconda.ui.gui.spokes.lib.summary import ActionSummaryDialog
-from pyanaconda.ui.gui.utils import setViewportBackground, gtk_thread_wait
+from pyanaconda.ui.gui.utils import setViewportBackground, gtk_action_wait
 from pyanaconda.ui.gui.categories.storage import StorageCategory
 
 from gi.repository import Gtk
@@ -525,7 +525,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         threadMgr.add(AnacondaThread(name=THREAD_CUSTOM_STORAGE_INIT, target=self._initialize))
 
     def _initialize(self):
-        @gtk_thread_wait
+        @gtk_action_wait
         def gtk_action(name):
             self.fsCombo.append_text(name)
 
