@@ -304,7 +304,8 @@ def ksnet_to_ifcfg(net, filename=None):
     if net.mtu:
         ifcfg['MTU'] = net.mtu
     if net.nameserver:
-        ifcfg['DNS1'] = net.nameserver
+        for i, ip in enumerate(net.nameserver.split(",")):
+            ifcfg["DNS%d" % i+1] = ip
     if net.nodefroute:
         ifcfg['DEFROUTE'] = "no"
 
