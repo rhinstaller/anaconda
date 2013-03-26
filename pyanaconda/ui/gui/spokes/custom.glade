@@ -613,24 +613,6 @@ use.  Try something else?</property>
                                   </packing>
                                 </child>
                                 <child>
-                                  <object class="GtkLabel" id="label5">
-                                    <property name="visible">True</property>
-                                    <property name="can_focus">False</property>
-                                    <property name="halign">end</property>
-                                    <property name="xalign">0</property>
-                                    <property name="label" translatable="yes">&lt;b&gt;_Desired Capacity (MB):&lt;/b&gt;</property>
-                                    <property name="use_markup">True</property>
-                                    <property name="use_underline">True</property>
-                                    <property name="mnemonic_widget">sizeSpinner</property>
-                                  </object>
-                                  <packing>
-                                    <property name="left_attach">2</property>
-                                    <property name="top_attach">2</property>
-                                    <property name="width">1</property>
-                                    <property name="height">1</property>
-                                  </packing>
-                                </child>
-                                <child>
                                   <object class="GtkEntry" id="labelEntry">
                                     <property name="visible">True</property>
                                     <property name="can_focus">True</property>
@@ -639,24 +621,6 @@ use.  Try something else?</property>
                                   </object>
                                   <packing>
                                     <property name="left_attach">1</property>
-                                    <property name="top_attach">2</property>
-                                    <property name="width">1</property>
-                                    <property name="height">1</property>
-                                  </packing>
-                                </child>
-                                <child>
-                                  <object class="GtkSpinButton" id="sizeSpinner">
-                                    <property name="visible">True</property>
-                                    <property name="can_focus">True</property>
-                                    <property name="halign">end</property>
-                                    <property name="invisible_char">●</property>
-                                    <property name="width_chars">7</property>
-                                    <property name="invisible_char_set">True</property>
-                                    <property name="adjustment">sizeAdjustment</property>
-                                    <property name="numeric">True</property>
-                                  </object>
-                                  <packing>
-                                    <property name="left_attach">3</property>
                                     <property name="top_attach">2</property>
                                     <property name="width">1</property>
                                     <property name="height">1</property>
@@ -695,16 +659,40 @@ use.  Try something else?</property>
                                   </packing>
                                 </child>
                                 <child>
-                                  <placeholder/>
+                                  <object class="GtkLabel" id="label5">
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">False</property>
+                                    <property name="halign">end</property>
+                                    <property name="xalign">0</property>
+                                    <property name="label" translatable="yes">&lt;b&gt;_Desired Capacity (MB):&lt;/b&gt;</property>
+                                    <property name="use_markup">True</property>
+                                    <property name="use_underline">True</property>
+                                    <property name="mnemonic_widget">sizeSpinner</property>
+                                  </object>
+                                  <packing>
+                                    <property name="left_attach">0</property>
+                                    <property name="top_attach">3</property>
+                                    <property name="width">1</property>
+                                    <property name="height">1</property>
+                                  </packing>
                                 </child>
                                 <child>
-                                  <placeholder/>
-                                </child>
-                                <child>
-                                  <placeholder/>
-                                </child>
-                                <child>
-                                  <placeholder/>
+                                  <object class="GtkSpinButton" id="sizeSpinner">
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">True</property>
+                                    <property name="halign">end</property>
+                                    <property name="invisible_char">●</property>
+                                    <property name="width_chars">7</property>
+                                    <property name="invisible_char_set">True</property>
+                                    <property name="adjustment">sizeAdjustment</property>
+                                    <property name="numeric">True</property>
+                                  </object>
+                                  <packing>
+                                    <property name="left_attach">1</property>
+                                    <property name="top_attach">3</property>
+                                    <property name="width">1</property>
+                                    <property name="height">1</property>
+                                  </packing>
                                 </child>
                               </object>
                               <packing>
@@ -899,9 +887,6 @@ use.  Try something else?</property>
                                       </packing>
                                     </child>
                                     <child>
-                                      <placeholder/>
-                                    </child>
-                                    <child>
                                       <object class="GtkComboBox" id="raidLevelCombo">
                                         <property name="visible">True</property>
                                         <property name="can_focus">False</property>
@@ -919,6 +904,9 @@ use.  Try something else?</property>
                                         <property name="width">1</property>
                                         <property name="height">1</property>
                                       </packing>
+                                    </child>
+                                    <child>
+                                      <placeholder/>
                                     </child>
                                   </object>
                                 </child>
