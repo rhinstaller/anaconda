@@ -25,7 +25,7 @@ import readline
 import Queue
 import getpass
 from pyanaconda.threads import threadMgr, AnacondaThread
-from pyanaconda.ui.communication import HUB_CODE_EXCEPTION, HUB_CODE_INPUT
+from pyanaconda.ui.communication import hubQ
 from pyanaconda import constants
 
 import gettext
@@ -33,7 +33,7 @@ _ = lambda x: gettext.ldgettext("anaconda", x)
 N_ = lambda x: x
 
 def send_exception(queue, ex):
-    queue.put((HUB_CODE_EXCEPTION, [ex]))
+    queue.put((hubQ.HUB_CODE_EXCEPTION, [ex]))
 
 
 class ExitMainLoop(Exception):
@@ -148,7 +148,7 @@ class App(object):
         else:
             data = raw_input(prompt)
 
-        queue.put((HUB_CODE_INPUT, [data]))
+        queue.put((hubQ.HUB_CODE_INPUT, [data]))
 
     def switch_screen(self, ui, args = None):
         """Schedules a screen to replace the current one.
@@ -401,7 +401,7 @@ class App(object):
                                       args=(self.queue, prompt, hidden))
         input_thread.daemon = True
         threadMgr.add(input_thread)
-        event = self.process_events(return_at=HUB_CODE_INPUT)
+        event = self.process_events(return_at=hubQ.HUB_CODE_INPUT)
         return event[1][0] # return the user input
 
     def input(self, args, key):

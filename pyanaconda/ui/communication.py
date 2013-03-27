@@ -20,6 +20,8 @@
 
 import Queue
 
+from pyanaconda.queue import QueueFactory
+
 # A queue to be used for communicating information from a spoke back to its
 # hub.  This information includes things like marking spokes as ready and
 # updating the status line to tell the user why a spoke is not yet available.
@@ -30,44 +32,10 @@ import Queue
 # Arguments vary based on the code given, but the first argument must always
 # be the name of the class of the spoke to be acted upon.  See below for more
 # details.
-hubQ = Queue.Queue()
+hubQ = QueueFactory("hub")
 
-# Arguments:
-#
-# _READY - [spoke_name, justUpdate]
-# _NOT_READY - [spoke_name]
-# _MESSAGE - [spoke_name, string]
-# _INPUT - [string]
-# _EXCEPTION - [exc]
-HUB_CODE_READY = 0
-HUB_CODE_NOT_READY = 1
-HUB_CODE_MESSAGE = 2
-HUB_CODE_INPUT = 3
-HUB_CODE_EXCEPTION = 4
-
-# Convenience methods to put things into the queue without the user having to
-# know the details of the queue.
-def send_ready(spoke, justUpdate=False):
-    """Tell the hub that a spoke given by the name "spoke" has become ready,
-       and that it should be made sensitive on the hub.  Some processing may
-       also occur after a spoke has become ready.  However, if the justUpdate
-       parameter is True, no processing will occur.
-    """
-    hubQ.put((HUB_CODE_READY, [spoke, justUpdate]))
-
-def send_not_ready(spoke):
-    hubQ.put((HUB_CODE_NOT_READY, [spoke]))
-
-def send_message(spoke, msg):
-    hubQ.put((HUB_CODE_MESSAGE, [spoke, msg]))
-
-def send_input(data):
-    """This message represents an async input string from the user."""
-    hubQ.put((HUB_CODE_INPUT, [data]))
-
-def send_exception(exception):
-    """This message contains the exception which happened somewhere,
-       usually used to report thread failures to the main thread so
-       python-meh can handle it properly.
-    """
-    hubQ.put((HUB_CODE_EXCEPTION, [exception]))
+hubQ.addMessage("ready", 2)             # spoke_name, justUpdate
+hubQ.addMessage("not_ready", 1)         # spoke_name
+hubQ.addMessage("message", 2)           # spoke_name, string
+hubQ.addMessage("input", 1)             # string
+hubQ.addMessage("exception", 1)         # exception

@@ -35,7 +35,7 @@ from gi.repository import Gtk, AnacondaWidgets
 
 from pyanaconda.flags import flags
 from pyanaconda import constants
-from pyanaconda.ui import communication
+from pyanaconda.ui.communication import hubQ
 from pyanaconda.ui.gui import GUIObject
 from pyanaconda.ui.gui.spokes import NormalSpoke, StandaloneSpoke
 from pyanaconda.ui.gui.categories.software import SoftwareCategory
@@ -1204,7 +1204,7 @@ class NetworkSpoke(NormalSpoke):
             gtk_call_once(self._update_status)
 
     def _update_status(self):
-        communication.send_message(self.__class__.__name__, self.status)
+        hubQ.send_message(self.__class__.__name__, self.status)
 
     def _update_hostname(self):
         if self.network_control_box.hostname == network.DEFAULT_HOSTNAME:

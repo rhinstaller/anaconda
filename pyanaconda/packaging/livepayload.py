@@ -45,7 +45,7 @@ import logging
 log = logging.getLogger("anaconda")
 
 from pyanaconda.errors import *
-from pyanaconda import progress
+from pyanaconda.progress import progressQ
 from blivet.size import Size
 import blivet.util
 from pyanaconda.threads import threadMgr, AnacondaThread
@@ -69,7 +69,7 @@ class LiveImagePayload(ImagePayload):
     def preInstall(self, packages=None, groups=None):
         """ Perform pre-installation tasks. """
         super(LiveImagePayload, self).preInstall(packages=packages, groups=groups)
-        progress.send_message(_("Installing software") + (" %d%%") % (0,))
+        progressQ.send_message(_("Installing software") + (" %d%%") % (0,))
 
     def progress(self):
         """Monitor the amount of disk space used on the target and source and
@@ -87,7 +87,7 @@ class LiveImagePayload(ImagePayload):
             with self.pct_lock:
                 self.pct = int(100 * dest_size / source_size)
 
-            progress.send_message(_("Installing software") + (" %d%%") % (min(100,self.pct),))
+            progressQ.send_message(_("Installing software") + (" %d%%") % (min(100,self.pct),))
             sleep(0.777)
 
     def install(self):
@@ -127,7 +127,7 @@ class LiveImagePayload(ImagePayload):
 
     def postInstall(self):
         """ Perform post-installation tasks. """
-        progress.send_message(_("Performing post-installation setup tasks"))
+        progressQ.send_message(_("Performing post-installation setup tasks"))
         blivet.util.umount(INSTALL_TREE)
 
         super(LiveImagePayload, self).postInstall()

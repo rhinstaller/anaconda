@@ -40,7 +40,7 @@
 
 from gi.repository import Gdk, GLib, Gtk
 from gi.repository import AnacondaWidgets
-from pyanaconda.ui import communication
+from pyanaconda.ui.communication import hubQ
 from pyanaconda.ui.lib.disks import getDisks, isLocalDisk, size_str
 from pyanaconda.ui.gui import GUIObject
 from pyanaconda.ui.gui.spokes import NormalSpoke
@@ -287,16 +287,15 @@ class StorageChecker(object):
     _mainSpokeClass = "StorageSpoke"
 
     def run(self):
-        communication.send_not_ready(self._mainSpokeClass)
+        hubQ.send_not_ready(self._mainSpokeClass)
         threadMgr.add(AnacondaThread(name=constants.THREAD_CHECK_STORAGE,
                                      target=self.checkStorage))
 
     def checkStorage(self):
-        communication.send_message(self._mainSpokeClass,
-                                   _("Checking storage configuration..."))
+        hubQ.send_message(self._mainSpokeClass, _("Checking storage configuration..."))
         (StorageChecker.errors,
          StorageChecker.warnings) = self.storage.sanityCheck()
-        communication.send_ready(self._mainSpokeClass, justUpdate=True)
+        hubQ.send_ready(self._mainSpokeClass, True)
         for e in StorageChecker.errors:
             log.error(e)
         for w in StorageChecker.warnings:
@@ -381,16 +380,14 @@ class StorageSpoke(NormalSpoke, StorageChecker):
 
     def _doExecute(self):
         self._ready = False
-        communication.send_not_ready(self.__class__.__name__)
-        communication.send_message(self.__class__.__name__,
-                               _("Saving storage configuration..."))
+        hubQ.send_not_ready(self.__class__.__name__)
+        hubQ.send_message(self.__class__.__name__, _("Saving storage configuration..."))
         try:
             doKickstartStorage(self.storage, self.data, self.instclass)
         except StorageError as e:
             log.error("storage configuration failed: %s" % e)
             StorageChecker.errors = str(e).split("\n")
-            communication.send_message(self.__class__.__name__,
-                                   _("Failed to save storage configuration..."))
+            hubQ.send_message(self.__class__.__name__, _("Failed to save storage configuration..."))
             self.data.ignoredisk.drives = []
             self.data.ignoredisk.onlyuse = []
             self.storage.config.update(self.data)
@@ -406,7 +403,7 @@ class StorageSpoke(NormalSpoke, StorageChecker):
                 self.run()
         finally:
             self._ready = True
-            communication.send_ready(self.__class__.__name__, justUpdate=True)
+            hubQ.send_ready(self.__class__.__name__, False)
 
     @property
     def completed(self):
@@ -586,7 +583,7 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         self._update_summary()
 
     def _initialize(self):
-        communication.send_message(self.__class__.__name__, _("Probing storage..."))
+        hubQ.send_message(self.__class__.__name__, _("Probing storage..."))
 
         threadMgr.wait(constants.THREAD_STORAGE)
         threadMgr.wait(constants.THREAD_CUSTOM_STORAGE_INIT)
@@ -603,7 +600,7 @@ class StorageSpoke(NormalSpoke, StorageChecker):
             self._add_disk_overview(disk, self.local_disks_box)
 
         self._ready = True
-        communication.send_ready(self.__class__.__name__)
+        hubQ.send_ready(self.__class__.__name__, False)
 
     def _update_summary(self):
         """ Update the summary based on the UI. """

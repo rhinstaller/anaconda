@@ -34,7 +34,7 @@ from gi.repository import AnacondaWidgets, GLib, Gtk
 
 from pyanaconda.flags import flags
 from pyanaconda.image import opticalInstallMedia, potentialHdisoSources
-from pyanaconda.ui import communication
+from pyanaconda.ui.communication import hubQ
 from pyanaconda.ui.gui import GUIObject
 from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.gui.categories.software import SoftwareCategory
@@ -405,10 +405,9 @@ class SourceSpoke(NormalSpoke):
         return True
 
     def getRepoMetadata(self):
-        communication.send_not_ready("SoftwareSelectionSpoke")
-        communication.send_not_ready(self.__class__.__name__)
-        communication.send_message(self.__class__.__name__,
-                                   _(BASEREPO_SETUP_MESSAGE))
+        hubQ.send_not_ready("SoftwareSelectionSpoke")
+        hubQ.send_not_ready(self.__class__.__name__)
+        hubQ.send_message(self.__class__.__name__, _(BASEREPO_SETUP_MESSAGE))
         # this sleep is lame, but without it the message above doesn't seem
         # to get processed by the hub in time, and is never shown.
         # FIXME this should get removed when we figure out how to ensure
@@ -420,22 +419,19 @@ class SourceSpoke(NormalSpoke):
         except PayloadError as e:
             log.error("PayloadError: %s" % (e,))
             self._error = True
-            communication.send_message(self.__class__.__name__,
-                                       _("Failed to set up installation source"))
+            hubQ.send_message(self.__class__.__name__, _("Failed to set up installation source"))
             if not self.data.method.proxy:
                 gtk_call_once(self.set_warning, _("Failed to set up installation source; check the repo url"))
             else:
                 gtk_call_once(self.set_warning, _("Failed to set up installation source; check the repo url and proxy settings"))
         else:
             self._error = False
-            communication.send_message(self.__class__.__name__,
-                                       _(METADATA_DOWNLOAD_MESSAGE))
+            hubQ.send_message(self.__class__.__name__, _(METADATA_DOWNLOAD_MESSAGE))
             self.payload.gatherRepoMetadata()
             self.payload.release()
             if not self.payload.baseRepo:
-                communication.send_message(self.__class__.__name__,
-                                           _(METADATA_ERROR_MESSAGE))
-                communication.send_ready(self.__class__.__name__)
+                hubQ.send_message(self.__class__.__name__, _(METADATA_ERROR_MESSAGE))
+                hubQ.send_ready(self.__class__.__name__, False)
                 self._error = True
                 gtk_call_once(self.set_warning, _("Failed to set up installation source; check the repo url"))
             else:
@@ -448,12 +444,12 @@ class SourceSpoke(NormalSpoke):
                     e = self.payload.environments
                     g = self.payload.groups
                 except MetadataError:
-                    communication.send_message("SoftwareSelectionSpoke",
-                                               _("No installation source available"))
+                    hubQ.send_message("SoftwareSelectionSpoke",
+                                      _("No installation source available"))
                 else:
-                    communication.send_ready("SoftwareSelectionSpoke")
+                    hubQ.send_ready("SoftwareSelectionSpoke", False)
         finally:
-            communication.send_ready(self.__class__.__name__)
+            hubQ.send_ready(self.__class__.__name__, False)
 
     @property
     def completed(self):
@@ -549,11 +545,11 @@ class SourceSpoke(NormalSpoke):
     def _initialize(self):
         from pyanaconda.threads import threadMgr
 
-        communication.send_message(self.__class__.__name__, _("Probing storage..."))
+        hubQ.send_message(self.__class__.__name__, _("Probing storage..."))
 
         threadMgr.wait(constants.THREAD_STORAGE)
 
-        communication.send_message(self.__class__.__name__, _(METADATA_DOWNLOAD_MESSAGE))
+        hubQ.send_message(self.__class__.__name__, _(METADATA_DOWNLOAD_MESSAGE))
 
         threadMgr.wait(constants.THREAD_PAYLOAD)
 
@@ -592,7 +588,7 @@ class SourceSpoke(NormalSpoke):
         # FIXME
 
         self._ready = True
-        communication.send_ready(self.__class__.__name__)
+        hubQ.send_ready(self.__class__.__name__, False)
 
     def refresh(self):
         NormalSpoke.refresh(self)

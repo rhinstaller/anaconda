@@ -28,7 +28,7 @@ from pyanaconda.packaging import MetadataError
 from pyanaconda.threads import threadMgr, AnacondaThread
 from pyanaconda import constants
 
-from pyanaconda.ui import communication
+from pyanaconda.ui.communication import hubQ
 from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.gui.spokes.lib.detailederror import DetailedErrorDialog
 from pyanaconda.ui.gui.utils import enlightbox, gtk_action_wait
@@ -87,8 +87,8 @@ class SoftwareSelectionSpoke(NormalSpoke):
         self._origAddons = addons
         self._origEnvironment = self.environment
 
-        communication.send_not_ready(self.__class__.__name__)
-        communication.send_not_ready("SourceSpoke")
+        hubQ.send_not_ready(self.__class__.__name__)
+        hubQ.send_not_ready("SourceSpoke")
         threadMgr.add(AnacondaThread(name=constants.THREAD_CHECK_SOFTWARE,
                                      target=self.checkSoftwareSelection))
 
@@ -98,21 +98,19 @@ class SoftwareSelectionSpoke(NormalSpoke):
 
     def checkSoftwareSelection(self):
         from pyanaconda.packaging import DependencyError
-        communication.send_message(self.__class__.__name__,
-                                   _("Checking software dependencies..."))
+        hubQ.send_message(self.__class__.__name__, _("Checking software dependencies..."))
         try:
             self.payload.checkSoftwareSelection()
         except DependencyError as e:
             self._errorMsgs = "\n".join(sorted(e.message))
-            communication.send_message(self.__class__.__name__,
-                                       _("Error checking software dependencies"))
+            hubQ.send_message(self.__class__.__name__, _("Error checking software dependencies"))
             self._tx_id = None
         else:
             self._errorMsgs = None
             self._tx_id = self.payload.txID
         finally:
-            communication.send_ready(self.__class__.__name__)
-            communication.send_ready("SourceSpoke")
+            hubQ.send_ready(self.__class__.__name__, False)
+            hubQ.send_ready("SourceSpoke", False)
 
     @property
     def completed(self):
@@ -173,11 +171,11 @@ class SoftwareSelectionSpoke(NormalSpoke):
                       target=self._initialize))
 
     def _initialize(self):
-        communication.send_message(self.__class__.__name__, _("Downloading package metadata..."))
+        hubQ.send_message(self.__class__.__name__, _("Downloading package metadata..."))
 
         threadMgr.wait(constants.THREAD_PAYLOAD)
 
-        communication.send_message(self.__class__.__name__, _("Downloading group metadata..."))
+        hubQ.send_message(self.__class__.__name__, _("Downloading group metadata..."))
 
         # we have no way to select environments with kickstart right now
         # so don't try.
@@ -193,8 +191,8 @@ class SoftwareSelectionSpoke(NormalSpoke):
                 self.payload.environments
                 self.payload.groups
             except MetadataError:
-                communication.send_message(self.__class__.__name__,
-                                           _("No installation source available"))
+                hubQ.send_message(self.__class__.__name__,
+                                  _("No installation source available"))
                 return
 
             # And then having done all that slow downloading, we need to do the first
@@ -206,7 +204,7 @@ class SoftwareSelectionSpoke(NormalSpoke):
 
         self.payload.release()
 
-        communication.send_ready(self.__class__.__name__)
+        hubQ.send_ready(self.__class__.__name__, False)
 
         # If packages were provided by an input kickstart file (or some other means),
         # we should do dependency solving here.
@@ -218,8 +216,7 @@ class SoftwareSelectionSpoke(NormalSpoke):
             self.refresh()
             return True
         except MetadataError:
-            communication.send_message(self.__class__.__name__,
-                                       _("No installation source available"))
+            hubQ.send_message(self.__class__.__name__, _("No installation source available"))
             return False
 
     def refresh(self):

@@ -282,10 +282,10 @@ class Hub(GUIObject, common.Hub):
         self.continueButton.set_sensitive(self.continuePossible)
 
     def _update_spokes(self):
-        from pyanaconda.ui import communication
+        from pyanaconda.ui.communication import hubQ
         import Queue
 
-        q = communication.hubQ
+        q = hubQ.q
 
         # Grab all messages that may have appeared since last time this method ran.
         while True:
@@ -301,7 +301,7 @@ class Hub(GUIObject, common.Hub):
                 q.task_done()
                 continue
 
-            if code == communication.HUB_CODE_NOT_READY:
+            if code == hubQ.HUB_CODE_NOT_READY:
                 self._updateCompleteness(spoke)
 
                 if spoke not in self._notReadySpokes:
@@ -309,7 +309,7 @@ class Hub(GUIObject, common.Hub):
 
                 self._updateContinueButton()
                 log.info("spoke is not ready: %s" % spoke)
-            elif code == communication.HUB_CODE_READY:
+            elif code == hubQ.HUB_CODE_READY:
                 self._updateCompleteness(spoke)
 
                 if spoke in self._notReadySpokes:
@@ -336,7 +336,7 @@ class Hub(GUIObject, common.Hub):
                         elif self._autoContinue and q.empty():
                             # enqueue the emit to the Gtk message queue
                             gtk_call_once(self.continueButton.emit, "clicked")
-            elif code == communication.HUB_CODE_MESSAGE:
+            elif code == hubQ.HUB_CODE_MESSAGE:
                 spoke.selector.set_property("status", args[1])
                 log.info("setting %s status to: %s" % (spoke, args[1]))
 

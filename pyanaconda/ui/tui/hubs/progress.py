@@ -44,10 +44,10 @@ class ProgressHub(TUIHub):
     def _update_progress(self):
         """Handle progress updates from install thread."""
 
-        from pyanaconda import progress
+        from pyanaconda.progress import progressQ
         import Queue
 
-        q = progress.progressQ
+        q = progressQ.q
 
         # Grab all messages may have appeared since last time this method ran.
         while True:
@@ -65,10 +65,10 @@ class ProgressHub(TUIHub):
                 finally:
                     self.app.process_events()
 
-            if code == progress.PROGRESS_CODE_INIT:
+            if code == progressQ.PROGRESS_CODE_INIT:
                 # Text mode doesn't have a finite progress bar
                 pass
-            elif code == progress.PROGRESS_CODE_STEP:
+            elif code == progressQ.PROGRESS_CODE_STEP:
                 # Instead of updating a progress bar, we just print a pip
                 # but print it without a new line.
                 sys.stdout.write('.')
@@ -76,14 +76,14 @@ class ProgressHub(TUIHub):
                 # Use _stepped as an indication to if we need a newline before
                 # the next message
                 self._stepped = True
-            elif code == progress.PROGRESS_CODE_MESSAGE:
+            elif code == progressQ.PROGRESS_CODE_MESSAGE:
                 # This should already be translated
                 if self._stepped:
                     # Get a new line in case we've done a step before
                     self._stepped = False
                     print('')
                 print(args[0])
-            elif code == progress.PROGRESS_CODE_COMPLETE:
+            elif code == progressQ.PROGRESS_CODE_COMPLETE:
                 # There shouldn't be any more progress updates, so return
                 q.task_done()
 

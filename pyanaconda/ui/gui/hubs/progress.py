@@ -78,10 +78,10 @@ class ProgressHub(Hub):
         self._rnotes_id = GLib.timeout_add_seconds(60, self._cycle_rnotes)
 
     def _update_progress(self, callback = None):
-        from pyanaconda import progress
+        from pyanaconda.progress import progressQ
         import Queue
 
-        q = progress.progressQ
+        q = progressQ.q
 
         # Grab all messages may have appeared since last time this method ran.
         while True:
@@ -92,13 +92,13 @@ class ProgressHub(Hub):
             except Queue.Empty:
                 break
 
-            if code == progress.PROGRESS_CODE_INIT:
+            if code == progressQ.PROGRESS_CODE_INIT:
                 self._init_progress_bar(args[0])
-            elif code == progress.PROGRESS_CODE_STEP:
+            elif code == progressQ.PROGRESS_CODE_STEP:
                 self._step_progress_bar()
-            elif code == progress.PROGRESS_CODE_MESSAGE:
+            elif code == progressQ.PROGRESS_CODE_MESSAGE:
                 self._update_progress_message(args[0])
-            elif code == progress.PROGRESS_CODE_COMPLETE:
+            elif code == progressQ.PROGRESS_CODE_COMPLETE:
                 # There shouldn't be any more progress bar updates, so return False
                 # to indicate this method should be removed from the idle loop.  Also,
                 # stop the rnotes cycling and display the finished message.
@@ -109,7 +109,7 @@ class ProgressHub(Hub):
                     callback()
 
                 return False
-            elif code == progress.PROGRESS_CODE_QUIT:
+            elif code == progressQ.PROGRESS_CODE_QUIT:
                 sys.exit(args[0])
 
             q.task_done()

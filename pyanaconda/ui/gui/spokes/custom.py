@@ -71,7 +71,7 @@ from blivet.errors import MDRaidError
 from blivet.devicelibs import mdraid
 from blivet.devices import LUKSDevice
 
-from pyanaconda.ui import communication
+from pyanaconda.ui.communication import hubQ
 from pyanaconda.ui.gui import GUIObject
 from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.gui.spokes.storage import StorageChecker
@@ -482,7 +482,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
         StorageChecker.errors = []
         StorageChecker.run(self)
-        communication.send_ready("StorageSpoke", justUpdate=True)
+        hubQ.send_ready("StorageSpoke", True)
 
     @property
     def indirect(self):

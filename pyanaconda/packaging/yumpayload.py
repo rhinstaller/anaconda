@@ -85,7 +85,7 @@ _ = lambda x: gettext.ldgettext("anaconda", x)
 
 from pyanaconda.errors import *
 from pyanaconda.packaging import NoSuchGroup, NoSuchPackage
-import pyanaconda.progress as progress
+from pyanaconda.progress import progressQ
 
 from pyanaconda.localization import expand_langs
 import itertools
@@ -1261,7 +1261,7 @@ reposdir=%s
             # still continue for a bit before the quit message is processed.
             # Doing a sys.exit also ensures the running thread quits before
             # it can do anything else.
-            progress.send_quit(1)
+            progressQ.send_quit(1)
             sys.exit(1)
 
     def _applyYumSelections(self):
@@ -1387,7 +1387,7 @@ reposdir=%s
     def preInstall(self, packages=None, groups=None):
         """ Perform pre-installation tasks. """
         super(YumPayload, self).preInstall()
-        progress.send_message(_("Starting package installation process"))
+        progressQ.send_message(_("Starting package installation process"))
 
         self._requiredPackages = packages
         self._requiredGroups = groups
@@ -1406,7 +1406,7 @@ reposdir=%s
             self.checkSoftwareSelection()
         except DependencyError as e:
             if errorHandler.cb(e) == ERROR_RAISE:
-                progress.send_quit(1)
+                progressQ.send_quit(1)
                 sys.exit(1)
 
         # doPreInstall
@@ -1500,7 +1500,7 @@ reposdir=%s
                 self._yum.ts.setFlags(rpm.RPMTRANS_FLAG_TEST)
 
             log.info("running transaction")
-            progress.send_step()
+            progressQ.send_step()
             try:
                 self._yum.runTransaction(cb=rpmcb)
             except PackageSackError as e:
@@ -1512,7 +1512,7 @@ reposdir=%s
                 log.error("error [2] running transaction: %s" % e)
                 exn = PayloadInstallError(self._transactionErrors(e.errors))
                 if errorHandler.cb(exn) == ERROR_RAISE:
-                    progress.send_quit(1)
+                    progressQ.send_quit(1)
                     sys.exit(1)
             except YumBaseError as e:
                 log.error("error [3] running transaction: %s" % e)
@@ -1523,7 +1523,7 @@ reposdir=%s
                     raise exn
             else:
                 log.info("transaction complete")
-                progress.send_step()
+                progressQ.send_step()
             finally:
                 self._yum.ts.close()
                 iutil.resetRpmDb()
@@ -1623,7 +1623,7 @@ class RPMCallback(object):
         """ Yum install callback. """
         if event == rpm.RPMCALLBACK_TRANS_START:
             if amount == 6:
-                progress.send_message(_("Preparing transaction from installation source"))
+                progressQ.send_message(_("Preparing transaction from installation source"))
             self.total_actions = total
             self.completed_actions = 0
         elif event == rpm.RPMCALLBACK_TRANS_PROGRESS:
@@ -1663,7 +1663,7 @@ class RPMCallback(object):
                 self.install_log.write(log_msg+"\n")
                 self.install_log.flush()
 
-                progress.send_message(progress_msg)
+                progressQ.send_message(progress_msg)
 
             self.package_file = None
             repo = self._yum.repos.getRepo(txmbr.po.repoid)
@@ -1719,7 +1719,7 @@ class RPMCallback(object):
             # take a very long time.  So when it closes the last package, just
             # display the message.
             if self.completed_actions == self.total_actions:
-                progress.send_message(_("Performing post-installation setup tasks"))
+                progressQ.send_message(_("Performing post-installation setup tasks"))
         elif event == rpm.RPMCALLBACK_UNINST_START:
             # update status that we're cleaning up %key
             #progress.set_text(_("Cleaning up %s" % key))

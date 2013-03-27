@@ -23,7 +23,7 @@
 from pyanaconda.constants import ROOT_PATH
 from blivet import turnOnFilesystems
 from pyanaconda.bootloader import writeBootLoader
-from pyanaconda.progress import progress_report
+from pyanaconda.progress import progress_report, progressQ
 from pyanaconda.users import createLuserConf, getPassAlgo, Users
 from pyanaconda import flags
 from pyanaconda import timezone
@@ -49,10 +49,9 @@ def _writeKS(ksdata):
     os.chmod(path, 0600)
 
 def doConfiguration(storage, payload, ksdata, instClass):
-    from pyanaconda import progress
     from pyanaconda.kickstart import runPostScripts
 
-    progress.send_init(5)
+    progressQ.send_init(5)
 
     # Now run the execute methods of ksdata that require an installed system
     # to be present first.
@@ -90,7 +89,7 @@ def doConfiguration(storage, payload, ksdata, instClass):
     # kickstart file over if one exists).
     _writeKS(ksdata)
 
-    progress.send_complete()
+    progressQ.send_complete()
 
 def doInstall(storage, payload, ksdata, instClass):
     """Perform an installation.  This method takes the ksdata as prepared by
@@ -98,7 +97,6 @@ def doInstall(storage, payload, ksdata, instClass):
        The two main tasks for this are putting filesystems onto disks and
        installing packages onto those filesystems.
     """
-    from pyanaconda import progress
     from pyanaconda.kickstart import runPostScripts
 
     # First save system time to HW clock.
@@ -110,7 +108,7 @@ def doInstall(storage, payload, ksdata, instClass):
     steps = len(storage.devicetree.findActions(type="create", object="format")) + \
             len(storage.devicetree.findActions(type="resize", object="format"))
     steps += 5  # pre setup phase, packages setup, packages, bootloader, post install
-    progress.send_init(steps)
+    progressQ.send_init(steps)
 
     with progress_report(_("Setting up the installation environment")):
         ksdata.addons.setup(storage, ksdata, instClass)
@@ -142,4 +140,4 @@ def doInstall(storage, payload, ksdata, instClass):
         with progress_report(_("Installing bootloader")):
             writeBootLoader(storage, payload, instClass, ksdata)
 
-    progress.send_complete()
+    progressQ.send_complete()
