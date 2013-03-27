@@ -38,6 +38,10 @@ from pyanaconda.product import distributionText, isFinal, productName, productVe
 from pyanaconda import keyboard
 from pyanaconda import timezone
 from pyanaconda import flags
+from pyanaconda import geoloc
+
+import logging
+log = logging.getLogger("anaconda")
 
 __all__ = ["WelcomeLanguageSpoke", "LanguageSpoke"]
 
@@ -66,11 +70,18 @@ class LanguageMixIn(object):
         if flags.flags.automatedInstall:
             return
 
-        #TODO: better use GeoIP data once it is available
-        if self.language.territory and not self.data.timezone.timezone:
+        lang_timezone = None
+        # check the geolocation data for territory code
+        geoloc_territory = geoloc.get_territory_code()
+        if geoloc_territory:
+            lang_timezone = timezone.get_preferred_timezone(geoloc_territory)
+        # if no data is provided by Geolocation,
+        # try to get timezone from the current language
+        elif self.language.territory and not self.data.timezone.timezone:
             lang_timezone = timezone.get_preferred_timezone(self.language.territory)
-            if lang_timezone:
-                self.data.timezone.timezone = lang_timezone
+
+        if lang_timezone:
+            self.data.timezone.timezone = lang_timezone
 
         lang_country = self.language.preferred_locale.territory
         self._set_keyboard_defaults(store[itr][1], lang_country)
@@ -137,12 +148,22 @@ class LanguageMixIn(object):
         self._selection = self.builder.get_object(self._selectionName)
         self._view = self.builder.get_object(self._viewName)
 
-        # TODO We can use the territory from geoip here
+        # We can use the territory from geolocation here
         # to preselect the translation, when it's available.
-        # Until then, use None.
-        territory = None
+        territory = geoloc.get_territory_code()
         self.language = Language(LOCALE_PREFERENCES, territory=territory)
-
+        # check if there is one and only one locale for the territory
+        if len(self.language.preferred_locales) != 1:
+            log.info("Didn't get a single locale from Geolocation,"
+                        " falling back to default locale.")
+            self.language = Language(LOCALE_PREFERENCES, territory=None)
+            # Explanation:
+            # Some territories have multiple locales,
+            # for example, the Switzerland has:
+            # de_CH, it_CH and fr_CH
+            # As there is no clear order of preference for them,
+            # it is safer to just fall back to the default locale.            
+        
         # fill the list with available translations
         for _code, trans in sorted(self.language.translations.items()):
             self._addLanguage(store, trans.display_name,
@@ -151,8 +172,14 @@ class LanguageMixIn(object):
         # select the preferred translation if there wasn't any
         (store, itr) = self._selection.get_selected()
         if not itr:
-            lang = self.data.lang.lang or \
-                   self.language.preferred_translation.short_name
+            # check if a language was set by kickstart
+            # NOTE: seen means the language was "seen" in
+            # kickstart or boot option, so it overrides
+            # the language detected by geolocation
+            if self.data.lang.lang and self.data.lang.seen:
+                lang = self.data.lang.lang
+            else:
+                lang = self.language.preferred_translation.short_name            
             self._selectLanguage(store, lang)
 
         self._languageStoreFilter.set_visible_func(self._matchesEntry, None)

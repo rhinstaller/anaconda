@@ -274,6 +274,9 @@ def parseOptions(argv=None, cmdline=None):
     op.add_option("--noiscsi", dest="iscsi", action="store_false", default=False)
     op.add_option("--iscsi", action="store_true")
 
+    # Geolocation
+    op.add_option("--geoloc")
+
     # Miscellaneous
     op.add_option("--module", action="append", default=[])
     op.add_option("--nomount", dest="rescue_nomount", action="store_true", default=False)
@@ -673,6 +676,7 @@ if __name__ == "__main__":
 
     from pyanaconda import constants
     from pyanaconda import addons
+    from pyanaconda import geoloc
 
     # do this early so we can set flags before initializing logging
     from pyanaconda.flags import flags, can_touch_runtime_system
@@ -1032,6 +1036,32 @@ if __name__ == "__main__":
 
     atexit.register(exitHandler, ksdata.reboot, anaconda.storage)
 
+    # check if geolocation should be enabled for this type of installation
+    use_geolocation = True
+    if flags.imageInstall or flags.dirInstall:
+        use_geolocation = False
+    # and also check if it was not disabled by boot option
+    else: 
+        # flags.cmdline.getbool is used as it handles values such as
+        # 0, no, off and also nogeoloc as False
+        # and other values or geoloc not being present as True
+        use_geolocation = flags.cmdline.getbool('geoloc', True)
+        
+
+    if use_geolocation:
+        provider_id = constants.GEOLOC_DEFAULT_PROVIDER
+        # check if a provider was specified by an option
+        if opts.geoloc is not None:
+            parsed_id = geoloc.get_provider_id_from_option(opts.geoloc)
+            if parsed_id is None:
+                log.error('geoloc: wrong provider id specified: %s' %
+                        opts.geoloc)
+            else:
+                provider_id = parsed_id           
+        # instantiate the geolocation module and start location data refresh
+        geoloc.init_geolocation(provider_id=provider_id)
+        geoloc.refresh()
+    
     # setup ntp servers and start NTP daemon if not requested otherwise
     if can_touch_runtime_system("start chronyd"):
         if anaconda.ksdata.timezone.ntpservers:
