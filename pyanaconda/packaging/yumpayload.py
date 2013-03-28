@@ -41,7 +41,7 @@ import os
 import shutil
 import sys
 import time
-import tempfile
+from pyanaconda.iutil import execReadlines
 
 from . import *
 
@@ -92,6 +92,7 @@ import itertools
 
 from pykickstart.constants import KS_MISSING_IGNORE
 
+YUM_PLUGINS = ["blacklist", "whiteout", "fastestmirror", "langpacks"]
 default_repos = [productName.lower(), "rawhide"]
 
 import inspect
@@ -217,21 +218,12 @@ class YumPayload(PackagePayload):
             # Enable all types of yum plugins. We're somewhat careful about what
             # plugins we put in the environment.
             self._yum.preconf.plugin_types = yum.plugins.ALL_TYPES
-            self._yum.preconf.enabled_plugins = ["blacklist", "whiteout", "fastestmirror",
-                                                 "langpacks"]
+            self._yum.preconf.enabled_plugins = YUM_PLUGINS
             self._yum.preconf.fn = "/tmp/anaconda-yum.conf"
             self._yum.preconf.root = root
             # set this now to the best default we've got ; we'll update it if/when
             # we get a base repo set up
             self._yum.preconf.releasever = self._getReleaseVersion(None)
-            # Set the yum verbosity to 6, and update yum's internal logger
-            # objects to the debug level.  This is a bit of a hack requiring
-            # internal knowledge of yum, that will hopefully go away in the
-            # future with API improvements.
-            self._yum.preconf.debuglevel = 6
-            self._yum.preconf.errorlevel = 6
-            self._yum.logger.setLevel(logging.DEBUG)
-            self._yum.verbose_logger.setLevel(logging.DEBUG)
 
         self.txID = None
 
@@ -246,6 +238,8 @@ metadata_expire=never
 pluginpath=/usr/lib/yum-plugins,/tmp/updates/yum-plugins
 pluginconfpath=/etc/yum/pluginconf.d,/tmp/updates/pluginconf.d
 plugins=1
+debuglevel=3
+errorlevel=6
 reposdir=%s
 """ % (_yum_cache_dir, self._repos_dir)
 
@@ -1460,82 +1454,81 @@ reposdir=%s
         return retval
 
     def install(self):
-        """ Install the payload. """
-        from yum.Errors import PackageSackError, RepoError, YumBaseError, YumRPMTransError
+        """ Install the payload.
 
-        log.info("preparing transaction")
-        log.debug("initialize transaction set")
+            This writes out the yum transaction and then uses a Process thread
+            to execute it in a totally separate process.
+
+            It monitors the status of the install and logs debug info, updates
+            the progress meter and cleans up when it is done.
+        """
+        progress_map = {
+            "PROGRESS_PREP"    : _("Preparing transaction from installation source"),
+            "PROGRESS_INSTALL" : _("Installing"),
+            "PROGRESS_POST"    : _("Performing post-installation setup tasks")
+        }
+
+        ts_file = ROOT_PATH+"/anaconda-yum.yumtx"
         with _yum_lock:
-            self._yum.initActionTs()
+            # Save the transaction, this will be loaded and executed by the new
+            # process.
+            self._yum.save_ts(ts_file)
 
-            if rpmUtils and rpmUtils.arch.isMultiLibArch():
-                self._yum.ts.ts.setColor(3)
+            # Try and clean up yum before the fork
+            self.release()
+            self.deleteYumTS()
+            self._yum.close()
 
-            log.debug("populate transaction set")
-            try:
-                # uses dsCallback.transactionPopulation
-                self._yum.populateTs(keepold=0)
-            except RepoError as e:
-                log.error("error populating transaction: %s" % e)
-                exn = PayloadInstallError(str(e))
-                if errorHandler.cb(exn) == ERROR_RAISE:
-                    raise exn
+        script_log = "/tmp/rpm-script.log"
+        release = self._getReleaseVersion(None)
 
-            log.debug("check transaction set")
-            self._yum.ts.check()
-            log.debug("order transaction set")
-            self._yum.ts.order()
-            self._yum.ts.clean()
+        args = ["--config", "/tmp/anaconda-yum.conf",
+                "--tsfile", ts_file,
+                "--rpmlog", script_log,
+                "--installroot", ROOT_PATH,
+                "--release", release,
+                "--arch", blivet.arch.getArch()]
 
-            # Write scriptlet output to a file to be logged later
-            script_log = tempfile.NamedTemporaryFile(delete=False)
-            self._yum.ts.ts.scriptFd = script_log.fileno()
-            rpm.setLogFile(script_log)
-
-            # create the install callback
-            rpmcb = RPMCallback(self._yum, script_log,
-                                upgrade=self.data.upgrade.upgrade)
-
-            if flags.testing:
-                self._yum.ts.setFlags(rpm.RPMTRANS_FLAG_TEST)
-
-            log.info("running transaction")
-            progressQ.send_step()
-            try:
-                self._yum.runTransaction(cb=rpmcb)
-            except PackageSackError as e:
-                log.error("error [1] running transaction: %s" % e)
-                exn = PayloadInstallError(str(e))
-                if errorHandler.cb(exn) == ERROR_RAISE:
-                    raise exn
-            except YumRPMTransError as e:
-                log.error("error [2] running transaction: %s" % e)
-                exn = PayloadInstallError(self._transactionErrors(e.errors))
-                if errorHandler.cb(exn) == ERROR_RAISE:
-                    progressQ.send_quit(1)
-                    sys.exit(1)
-            except YumBaseError as e:
-                log.error("error [3] running transaction: %s" % e)
-                for error in e.errors:
-                    log.error("%s" % error[0])
-                exn = PayloadInstallError(str(e))
-                if errorHandler.cb(exn) == ERROR_RAISE:
-                    raise exn
-            else:
-                log.info("transaction complete")
-                progressQ.send_step()
-            finally:
-                self._yum.ts.close()
-                iutil.resetRpmDb()
-                script_log.close()
-
-                # log the contents of the scriptlet logfile
+        log.info("Running anaconda-yum to install packages")
+        # Watch output for progress, debug and error information
+        install_errors = []
+        try:
+            for line in execReadlines("anaconda-yum", args):
+                if line.startswith("PROGRESS_"):
+                    key, text = line.split(":", 2)
+                    msg = progress_map[key] + text
+                    progressQ.send_message(msg)
+                    log.debug(msg)
+                elif line.startswith("DEBUG:"):
+                    log.debug(line[6:])
+                elif line.startswith("INFO:"):
+                    log.info(line[5:])
+                elif line.startswith("WARN:"):
+                    log.warn(line[5:])
+                elif line.startswith("ERROR:"):
+                    log.error(line[6:])
+                    install_errors.append(line[6:])
+                else:
+                    log.debug(line)
+        except IOError as e:
+            log.error("Error running anaconda-yum: %s" % e)
+            exn = PayloadInstallError(str(e))
+            if errorHandler.cb(exn) == ERROR_RAISE:
+                raise exn
+        finally:
+            # log the contents of the scriptlet logfile if any
+            if os.path.exists(script_log):
                 log.info("==== start rpm scriptlet logs ====")
-                with open(script_log.name) as f:
+                with open(script_log) as f:
                     for l in f:
                         log.info(l)
                 log.info("==== end rpm scriptlet logs ====")
-                os.unlink(script_log.name)
+                os.unlink(script_log)
+
+        if install_errors:
+            exn = PayloadInstallError("\n".join(install_errors))
+            if errorHandler.cb(exn) == ERROR_RAISE:
+                raise exn
 
     def writeMultiLibConfig(self):
         if not self.data.packages.multiLib:
@@ -1571,8 +1564,6 @@ reposdir=%s
     def postInstall(self):
         """ Perform post-installation tasks. """
         with _yum_lock:
-            self._yum.close()
-
             # clean up repo tmpdirs
             self._yum.cleanPackages()
             self._yum.cleanHeaders()
@@ -1594,145 +1585,3 @@ reposdir=%s
 
         super(YumPayload, self).postInstall()
 
-class RPMCallback(object):
-    def __init__(self, yb, log, upgrade=False):
-        self._yum = yb              # yum.YumBase
-        self.install_log = log      # logfile for yum script logs
-        self.upgrade = upgrade      # boolean
-
-        self.package_file = None    # file instance (package file management)
-
-        self.total_actions = 0
-        self.completed_actions = None   # will be set to 0 when starting tx
-        self.base_arch = blivet.arch.getArch()
-
-    def _get_txmbr(self, key):
-        """ Return a (name, TransactionMember) tuple from cb key. """
-        if hasattr(key, "po"):
-            # New-style callback, key is a TransactionMember
-            txmbr = key
-            name = key.name
-        else:
-            # cleanup/remove error
-            name = key
-            txmbr = None
-
-        return (name, txmbr)
-
-    def callback(self, event, amount, total, key, userdata):
-        """ Yum install callback. """
-        if event == rpm.RPMCALLBACK_TRANS_START:
-            if amount == 6:
-                progressQ.send_message(_("Preparing transaction from installation source"))
-            self.total_actions = total
-            self.completed_actions = 0
-        elif event == rpm.RPMCALLBACK_TRANS_PROGRESS:
-            # amount / total complete
-            pass
-        elif event == rpm.RPMCALLBACK_TRANS_STOP:
-            # we are done
-            pass
-        elif event == rpm.RPMCALLBACK_INST_OPEN_FILE:
-            # update status that we're installing/upgrading %h
-            # return an open fd to the file
-            txmbr = self._get_txmbr(key)[1]
-
-            # If self.completed_actions is still None, that means this package
-            # is being opened to retrieve a %pretrans script. Don't log that
-            # we're installing the package unless we've been called with a
-            # TRANS_START event.
-            if self.completed_actions is not None:
-                if self.upgrade:
-                    mode = _("Upgrading")
-                else:
-                    mode = _("Installing")
-
-                self.completed_actions += 1
-                msg_format = "%s %s (%d/%d)"
-                progress_package = txmbr.name
-                if txmbr.arch not in ["noarch", self.base_arch]:
-                    progress_package = "%s.%s" % (txmbr.name, txmbr.arch)
-
-                progress_msg =  msg_format % (mode, progress_package,
-                                              self.completed_actions,
-                                              self.total_actions)
-                log_msg = msg_format % (mode, txmbr.po,
-                                        self.completed_actions,
-                                        self.total_actions)
-                log.info(log_msg)
-                self.install_log.write(log_msg+"\n")
-                self.install_log.flush()
-
-                progressQ.send_message(progress_msg)
-
-            self.package_file = None
-            repo = self._yum.repos.getRepo(txmbr.po.repoid)
-
-            while self.package_file is None:
-                try:
-                    # checkfunc gets passed to yum's use of URLGrabber which
-                    # then calls it with the file being fetched. verifyPkg
-                    # makes sure the checksum matches the one in the metadata.
-                    #
-                    # From the URLGrab documents:
-                    # checkfunc=(function, ('arg1', 2), {'kwarg': 3})
-                    # results in a callback like:
-                    #   function(obj, 'arg1', 2, kwarg=3)
-                    #     obj.filename = '/tmp/stuff'
-                    #     obj.url = 'http://foo.com/stuff'
-                    checkfunc = (self._yum.verifyPkg, (txmbr.po, 1), {})
-                    package_path = repo.getPackage(txmbr.po, checkfunc=checkfunc)
-                except URLGrabError as e:
-                    log.error("URLGrabError: %s" % (e,))
-                    exn = PayloadInstallError("failed to get package")
-                    if errorHandler.cb(exn, package=txmbr.po) == ERROR_RAISE:
-                        raise exn
-                except (yum.Errors.NoMoreMirrorsRepoError, IOError) as e:
-                    if os.path.exists(txmbr.po.localPkg()):
-                        os.unlink(txmbr.po.localPkg())
-                        log.debug("retrying download of %s" % txmbr.po)
-                        continue
-                    log.error("getPackage error: %s" % (e,))
-                    exn = PayloadInstallError("failed to open package")
-                    if errorHandler.cb(exn, package=txmbr.po) == ERROR_RAISE:
-                        raise exn
-                except yum.Errors.RepoError:
-                    continue
-
-                self.package_file = open(package_path)
-
-            return self.package_file.fileno()
-        elif event == rpm.RPMCALLBACK_INST_CLOSE_FILE:
-            # close and remove the last opened file
-            # update count of installed/upgraded packages
-            package_path = self.package_file.name
-            self.package_file.close()
-            self.package_file = None
-
-            if package_path.startswith(_yum_cache_dir):
-                try:
-                    os.unlink(package_path)
-                except OSError as e:
-                    log.debug("unable to remove file %s" % e.strerror)
-
-            # rpm doesn't tell us when it's started post-trans stuff which can
-            # take a very long time.  So when it closes the last package, just
-            # display the message.
-            if self.completed_actions == self.total_actions:
-                progressQ.send_message(_("Performing post-installation setup tasks"))
-        elif event == rpm.RPMCALLBACK_UNINST_START:
-            # update status that we're cleaning up %key
-            #progress.set_text(_("Cleaning up %s" % key))
-            pass
-        elif event in (rpm.RPMCALLBACK_CPIO_ERROR,
-                       rpm.RPMCALLBACK_UNPACK_ERROR,
-                       rpm.RPMCALLBACK_SCRIPT_ERROR):
-            name = self._get_txmbr(key)[0]
-
-            # Script errors store whether or not they're fatal in "total".  So,
-            # we should only error out for fatal script errors or the cpio and
-            # unpack problems.
-            if event != rpm.RPMCALLBACK_SCRIPT_ERROR or total:
-                exn = PayloadInstallError("cpio, unpack, or fatal script error")
-                if errorHandler.cb(exn, package=name) == ERROR_RAISE:
-                    raise exn
