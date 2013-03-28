@@ -1,0 +1,340 @@
+#!/usr/bin/python
+#
+# Copyright (C) 2013  Red Hat, Inc.
+#
+# This copyrighted material is made available to anyone wishing to use,
+# modify, copy, or redistribute it subject to the terms and conditions of
+# the GNU General Public License v.2, or (at your option) any later version.
+# This program is distributed in the hope that it will be useful, but WITHOUT
+# ANY WARRANTY expressed or implied, including the implied warranties of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General
+# Public License for more details.  You should have received a copy of the
+# GNU General Public License along with this program; if not, write to the
+# Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+# 02110-1301, USA.  Any Red Hat trademarks that are incorporated in the
+# source code or documentation are not subject to the GNU General Public
+# License and may only be used or replicated with the express permission of
+# Red Hat, Inc.
+#
+# Red Hat Author(s): Brian C. Lane <bcl@redhat.com>
+#
+import logging
+import os
+import sys
+import argparse
+import rpm
+import rpmUtils
+import yum
+from urlgrabber.grabber import URLGrabError
+
+YUM_PLUGINS = ["blacklist", "whiteout", "fastestmirror", "langpacks"]
+
+def setup_parser():
+    """ Setup argparse with supported arguments
+
+        :rtype: ArgumentParser
+    """
+    parser = argparse.ArgumentParser(description="anaconda-yum")
+    parser.add_argument("-a", "--arch", required=True, help="Arch to install")
+    parser.add_argument("-c", "--config", help="Path to yum config file", default="/tmp/anaconda-yum.conf")
+    parser.add_argument("-t", "--tsfile", required=True, help="Path to yum transaction file")
+    parser.add_argument("-l", "--rpmlog", help="Path to rpm script logfile", default="/tmp/rpm-script.log")
+    parser.add_argument("-r", "--release", required=True, help="Release version")
+    parser.add_argument("-i", "--installroot", help="Path to top directory of installroot", default="/mnt/sysimage")
+    parser.add_argument("-T", "--test", action="store_true", help="Test transaction, don't actually install")
+    parser.add_argument("-d", "--debug", action="store_true", help="Extra debugging output")
+
+    return parser
+
+
+def run_yum_transaction(release, arch, yum_conf, install_root, ts_file, script_log,
+                        testing=False, debug=False):
+    """ Execute a yum transaction loaded from a transaction file
+
+        :param release: The release version to use
+        :type release: string
+        :param arch: The arch to install
+        :type arch: string
+        :param yum_conf: Path to yum config file to use
+        :type yum_conf: string
+        :param install_root: Path to install root
+        :type install_root: string
+        :param ts_file: Path to yum transaction file to load and execute
+        :type ts_file: string
+        :param script_log: Path to file to store rpm script logs in
+        :type script_log: string
+        :param testing: True sets RPMTRANS_FLAG_TEST (default is false)
+        :type testing: bool
+        :returns: Nothing
+
+        This is used to run the yum transaction in a separate process, preventing
+        problems with threads and rpm chrooting during the install.
+    """
+    from yum.Errors import PackageSackError, RepoError, YumBaseError, YumRPMTransError
+
+    # remove some environmental variables that can cause problems with package scripts
+    env_remove = ('DISPLAY', 'DBUS_SESSION_BUS_ADDRESS')
+    [os.environ.pop(k) for k in env_remove if k in os.environ]
+
+    try:
+        # Setup the basics, point to the config file and install_root
+        yb = yum.YumBase()
+        yb.use_txmbr_in_callback = True
+
+        # Set some configuration parameters that don't get set through a config
+        # file.  yum will know what to do with these.
+        # Enable all types of yum plugins. We're somewhat careful about what
+        # plugins we put in the environment.
+        yb.preconf.plugin_types = yum.plugins.ALL_TYPES
+        yb.preconf.enabled_plugins = YUM_PLUGINS
+        yb.preconf.fn = yum_conf
+        yb.preconf.root = install_root
+        yb.preconf.releasever = release
+
+        if debug:
+            yb.preconf.debuglevel = 10
+            yb.preconf.errorlevel = 10
+            yb.preconf.rpmverbosity = "debug"
+
+        # Setup yum cache dir outside the installroot
+        if yb.conf.cachedir.startswith(yb.conf.installroot):
+            root = yb.conf.installroot
+            yb.conf.cachedir = yb.conf.cachedir[len(root):]
+
+        # Load the transaction file and execute it
+        yb.load_ts(ts_file)
+        yb.initActionTs()
+
+        if rpmUtils and rpmUtils.arch.isMultiLibArch():
+            yb.ts.ts.setColor(3)
+
+        print("DEBUG: populate transaction set")
+        try:
+            # uses dsCallback.transactionPopulation
+            yb.populateTs(keepold=0)
+        except RepoError as e:
+            print("ERROR: error populating transaction: %s" % e)
+            print("QUIT:")
+            return
+
+        print("DEBUG: check transaction set")
+        yb.ts.check()
+        print("DEBUG: order transaction set")
+        yb.ts.order()
+        yb.ts.clean()
+
+        # Write scriptlet output to a file to be logged later
+        logfile = open(script_log, "w")
+        yb.ts.ts.scriptFd = logfile.fileno()
+        rpm.setLogFile(logfile)
+
+        # create the install callback
+        rpmcb = RPMCallback(yb, arch, logfile, debug)
+
+        if testing:
+            yb.ts.setFlags(rpm.RPMTRANS_FLAG_TEST)
+
+        print("INFO: running transaction")
+        try:
+            yb.runTransaction(cb=rpmcb)
+        except PackageSackError as e:
+            print("ERROR: PackageSackError: %s" % e)
+        except YumRPMTransError as e:
+            print("ERROR: YumRPMTransError: %s" % e)
+        except YumBaseError as e:
+            print("ERROR: YumBaseError: %s" % e)
+            for error in e.errors:
+                print("ERROR:    %s" % error)
+        else:
+            print("INFO: transaction complete")
+        finally:
+            yb.ts.close()
+            logfile.close()
+    except Exception as e:
+        print("ERROR: transaction error: %s" % e)
+    finally:
+        print("QUIT:")
+
+
+class RPMCallback(object):
+    """ Custom RPMTransaction Callback class. You need one of these to actually
+        make a transaction work.
+        If you subclass it, make sure you preserve the behavior of
+        inst_open_file and inst_close_file, or nothing will actually happen.
+    """
+    callback_map = dict((rpm.__dict__[k], k[12:].lower())
+                         for k in rpm.__dict__
+                         if k.startswith('RPMCALLBACK_'))
+
+    def callback(self, what, amount, total, key, data):
+        """ Handle calling appropriate method, if it exists.
+        """
+        if what not in self.callback_map:
+            print("DEBUG: Ignoring unknown callback number %i", what)
+            return
+        name = self.callback_map[what]
+        func = getattr(self, name, None)
+        if callable(func):
+            return func(amount, total, key, data)
+
+    def __init__(self, yb, arch, log, debug=False):
+        """ :param yb: YumBase object
+            :type yb: YumBase
+            :param log: script logfile
+            :type log: string
+            :param statusQ: status communication back to other process
+            :type statusQ: Queue
+        """
+        self.yb = yb                # yum.YumBase
+        self.base_arch = arch
+        self.install_log = log      # logfile for yum script logs
+        self.debug = debug
+
+        self.package_file = None    # file instance (package file management)
+        self.total_actions = 0
+        self.completed_actions = None   # will be set to 0 when starting tx
+
+    def _get_txmbr(self, key):
+        """ Return a (name, TransactionMember) tuple from cb key. """
+        if hasattr(key, "po"):
+            # New-style callback, key is a TransactionMember
+            txmbr = key
+            name = key.name
+        else:
+            # cleanup/remove error
+            name = key
+            txmbr = None
+
+        return (name, txmbr)
+
+    def trans_start(self, amount, total, key, data):
+        """ Start of the install transaction
+
+            Reset the actions counter and save the total to be completed.
+        """
+        if amount == 6:
+            print("PROGRESS_PREP:")
+        self.total_actions = total
+        self.completed_actions = 0
+
+    def inst_open_file(self, amount, total, key, data):
+        """ Open a file for installation
+
+            :returns: open file descriptor
+            :rtype: int
+        """
+        txmbr = self._get_txmbr(key)[1]
+        if self.debug:
+            print("DEBUG: txmbr = %s" % txmbr)
+
+        # If self.completed_actions is still None, that means this package
+        # is being opened to retrieve a %pretrans script. Don't log that
+        # we're installing the package unless trans_start() has been called.
+        if self.completed_actions is not None:
+            self.completed_actions += 1
+            msg_format = "%s (%d/%d)"
+            progress_package = txmbr.name
+            if txmbr.arch not in ["noarch", self.base_arch]:
+                progress_package = "%s.%s" % (txmbr.name, txmbr.arch)
+
+            progress_msg =  msg_format % (progress_package,
+                                          self.completed_actions,
+                                          self.total_actions)
+            log_msg = msg_format % (txmbr.po,
+                                    self.completed_actions,
+                                    self.total_actions)
+            self.install_log.write(log_msg+"\n")
+            print("PROGRESS_INSTALL: %s" % progress_msg)
+
+        try:
+            repo = self.yb.repos.getRepo(txmbr.po.repoid)
+        except Exception as e:
+            print("ERROR: getRepo failed: %s" % e)
+            raise Exception("rpmcallback getRepo failed")
+
+        self.package_file = None
+        while self.package_file is None:
+            try:
+                # checkfunc gets passed to yum's use of URLGrabber which
+                # then calls it with the file being fetched. verifyPkg
+                # makes sure the checksum matches the one in the metadata.
+                #
+                # From the URLGrab documents:
+                # checkfunc=(function, ('arg1', 2), {'kwarg': 3})
+                # results in a callback like:
+                #   function(obj, 'arg1', 2, kwarg=3)
+                #     obj.filename = '/tmp/stuff'
+                #     obj.url = 'http://foo.com/stuff'
+                checkfunc = (self.yb.verifyPkg, (txmbr.po, 1), {})
+                if self.debug:
+                    print("DEBUG: getPackage %s" % txmbr.name)
+                package_path = repo.getPackage(txmbr.po, checkfunc=checkfunc)
+            except URLGrabError as e:
+                print("ERROR: URLGrabError: %s" % e)
+                raise Exception("rpmcallback failed")
+            except (yum.Errors.NoMoreMirrorsRepoError, IOError) as e:
+                if os.path.exists(txmbr.po.localPkg()):
+                    os.unlink(txmbr.po.localPkg())
+                    print("DEBUG: retrying download of %s" % txmbr.po)
+                    continue
+                print("ERROR: getPackage error: %s" % e)
+                raise Exception("getPackage failed")
+            except yum.Errors.RepoError as e:
+                print("DEBUG: RepoError: %s" % e)
+                continue
+
+            self.package_file = open(package_path)
+
+        if self.debug:
+            print("DEBUG: opening package %s" % self.package_file.name)
+        return self.package_file.fileno()
+
+    def inst_close_file(self, amount, total, key, data):
+        """ close and remove the file
+
+            Update the count of installed packages
+        """
+        package_path = self.package_file.name
+        self.package_file.close()
+        self.package_file = None
+
+        if package_path.startswith(self.yb.conf.cachedir):
+            try:
+                os.unlink(package_path)
+            except OSError as e:
+                print("WARN: unable to remove file %s" % e.strerror)
+
+        # rpm doesn't tell us when it's started post-trans stuff which can
+        # take a very long time.  So when it closes the last package, just
+        # display the message.
+        if self.completed_actions == self.total_actions:
+            print("PROGRESS_POST:")
+
+    def cpio_error(self, amount, total, key, data):
+        name = self._get_txmbr(key)[0]
+        print("ERROR: cpio error with package %s" % name)
+        raise Exception("cpio error")
+
+    def unpack_error(self, amount, total, key, data):
+        name = self._get_txmbr(key)[0]
+        print("ERROR: unpack error with package %s" % name)
+        raise Exception("unpack error")
+
+    def script_error(self, amount, total, key, data):
+        name = self._get_txmbr(key)[0]
+        # Script errors store whether or not they're fatal in "total".
+        if total:
+            print("ERROR: script error with package %s" % name)
+            raise Exception("script error")
+
+
+if __name__ == "__main__":
+    parser = setup_parser()
+    args = parser.parse_args()
+
+    # force output to be flushed
+    sys.stdout = os.fdopen(sys.stdout.fileno(), 'w', 0)
+
+    run_yum_transaction(args.release, args.arch, args.config, args.installroot,
+                        args.tsfile, args.rpmlog, args.test, args.debug)
+
