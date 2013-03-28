@@ -234,6 +234,28 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/lib/dracut/modules.d/80%{name}/*
 
 %changelog
+* Thu Mar 28 2013 Brian C. Lane <bcl@redhat.com> - 19.14-1
+- Handle the end of the %%addon section (vpodzime)
+- Don't allow setting a mountpoint for an fstype we cannot mount. (dlehman)
+- Fix a bug I introduced with 3c78c1a5c. (clumens)
+- Get rid of the customization expanders on custom partitioning. (clumens)
+- Translate the "Create a new volume group..." text (#892782). (clumens)
+- Move the Desired Capacity label and spinner into its own row (#907883,
+  #904999). (clumens)
+- move Xorg test up so we might start vnc instead (hamzy)
+- Set word wrapping on the label telling you how to switch layouts (#924885).
+  (clumens)
+- gtk_thread_wait -> gtk_action_wait in custom.py (#926926). (clumens)
+- Support multiple values for kicstart network --namserver= in dracut (#917481)
+  (rvykydal)
+- get_widget -> get_object (#927898). (clumens)
+- THREAD_* constants are in pyanaconda, not pykickstart. (clumens)
+- Network spoke: fix model access thinko in Add device dialog (rvykydal)
+- Use constants for thread names (mkolman)
+- Move network connection timeout from network to constants (mkolman)
+- udev-settle.service is now systemd-udev-settle.service (wwoods)
+- Add boot-options.txt (wwoods)
+
 * Fri Mar 22 2013 Brian C. Lane <bcl@redhat.com> - 19.13-1
 - Set Tip text on the create user spoke. (dcantrell)
 - Use space instead of underscore when user uses the timezone name (#924352)
