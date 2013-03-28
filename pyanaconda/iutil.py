@@ -21,15 +21,15 @@
 #
 
 import glob
-import os, string, stat, sys
-import shutil
-import signal
+import os
+import stat
 import os.path
 import errno
 import subprocess
-import threading
 import re
 import unicodedata
+from threading import Thread
+from Queue import Queue, Empty
 
 from flags import flags
 from constants import *
@@ -133,6 +133,68 @@ def execWithCapture(command, argv, stdin=None, stderr=None, root='/',
 
     argv = [command] + argv
     return _run_program(argv, stdin=stdin, root=root)[1]
+
+def execReadlines(command, argv, stdin=None, root='/', env_prune=None):
+    """ Execute an external command and return the line output of the command
+        in real-time.
+
+        @param command The command to run
+        @param argv The argument list
+        @param stdin The file object to read stdin from.
+        @param stdout Optional file object to redirect stdout and stderr to.
+        @param stderr not used
+        @param root The directory to chroot to before running command.
+        @param env_prune environment variable to remove before execution
+
+        Output from the file is not logged to program.log
+        This returns a generator with the lines from the command until it has finished
+    """
+    if env_prune is None:
+        env_prune = []
+
+    # Return the lines from stdout via a Queue
+    def queue_lines(out, queue):
+        for line in iter(out.readline, b''):
+            queue.put(line.strip())
+        out.close()
+
+    def chroot():
+        if root and root != '/':
+            os.chroot(root)
+
+    argv = [command] + argv
+    with program_log_lock:
+        program_log.info("Running... %s" % " ".join(argv))
+
+    env = augmentEnv()
+    for var in env_prune:
+        env.pop(var, None)
+    try:
+        proc = subprocess.Popen(argv,
+                                stdin=stdin,
+                                stdout=subprocess.PIPE,
+                                stderr=subprocess.STDOUT,
+                                bufsize=1,
+                                preexec_fn=chroot, cwd=root, env=env)
+    except OSError as e:
+        program_log.error("Error running %s: %s" % (argv[0], e.strerror))
+        raise
+
+    q = Queue()
+    t = Thread(target=queue_lines, args=(proc.stdout, q))
+    t.daemon = True # thread dies with the program
+    t.start()
+
+    while True:
+        try:
+            line = q.get(timeout=.1)
+            yield line
+            q.task_done()
+        except Empty:
+            if proc.poll() is not None:
+                break
+    q.join()
+
 
 ## Run a shell.
 def execConsole():
