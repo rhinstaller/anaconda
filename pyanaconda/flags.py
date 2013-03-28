@@ -70,11 +70,6 @@ class Flags(object):
         self.dirInstall = False
         self.askmethod = False
         self.eject = True
-        # for non-physical consoles like some ppc and sgi altix,
-        # we need to preserve the console device and not try to
-        # do things like bogl on them.  this preserves what that
-        # device is
-        self.virtpconsole = None
         self.gpt = False
         self.leavebootorder = False
         self.testing = False

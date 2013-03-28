@@ -882,8 +882,6 @@ class BootLoader(object):
             self.console = console[0]
             if len(console) > 1:
                 self.console_options = console[1]
-        elif flags.virtpconsole:
-            self.console = re.sub("^/dev/", "", flags.virtpconsole)
 
     def write_config_console(self, config):
         """Write console-related configuration lines."""

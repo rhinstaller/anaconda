@@ -247,7 +247,6 @@ def parseOptions(argv=None, cmdline=None):
     op.add_option("--resolution", dest="runres", default=None)
     op.add_option("--serial", action="store_true", default=False)
     op.add_option("--usefbx", dest="xdriver", action="store_const", const="fbdev")
-    op.add_option("--virtpconsole")
     op.add_option("--vnc", action="store_true", default=False)
     op.add_option("--vncconnect")
     op.add_option("--vncpassword", default="")
@@ -444,8 +443,6 @@ def setupDisplay(anaconda, opts, addon_paths=None):
 
     if opts.serial:
         flags.serial = True
-    if opts.virtpconsole:
-        flags.virtpconsole = opts.virtpconsole
 
     if opts.xdriver:
         anaconda.xdriver = opts.xdriver
