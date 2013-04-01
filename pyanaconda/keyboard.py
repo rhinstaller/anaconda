@@ -20,22 +20,25 @@
 #
 
 """
-This module include functions and classes for dealing with multiple layouts
-in Anaconda. It wraps the libxklavier functionality to protect Anaconda
-from dealing with its "nice" API that looks like a Lisp-influenced
-"good old C".
+This module include functions and classes for dealing with multiple layouts in
+Anaconda. It wraps the libxklavier functionality to protect Anaconda from
+dealing with its "nice" API that looks like a Lisp-influenced "good old C" and
+also systemd-localed functionality.
 
-It provides a XklWrapper class with several methods that can be used
-for listing and various modifications of keyboard layouts settings.
+It provides a XklWrapper class with several methods that can be used for listing
+and various modifications of keyboard layouts settings and LocaledWrapper class
+with methods for setting, getting and mutually converting X layouts and VConsole
+keymaps.
 
 """
 
 import os
-import dbus
 from pyanaconda import iutil
+from pyanaconda.safe_dbus import dbus_call_safe_sync, dbus_get_property_safe_sync
+from pyanaconda.safe_dbus import DBUS_SYSTEM_BUS_ADDR
 
 # pylint: disable-msg=E0611
-from gi.repository import Xkl
+from gi.repository import Xkl, Gio, GLib
 
 import logging
 log = logging.getLogger("anaconda")
@@ -640,27 +643,17 @@ class LocaledWrapperError(KeyboardConfigError):
 
 class LocaledWrapper(object):
     """
-    Class wrapping systemd-localed daemon functionality.
+    Class wrapping systemd-localed daemon functionality. By using safe_dbus
+    module it tries to prevent failures related to threads and main loops.
 
     """
 
     def __init__(self):
-        bus = dbus.SystemBus()
-
-        try:
-            localed = bus.get_object(LOCALED_SERVICE, LOCALED_OBJECT_PATH)
-        except dbus.DBusException:
-            raise LocaledWrapperError("Failed to get locale object")
-
-        try:
-            self._locale_iface = dbus.Interface(localed, LOCALED_IFACE)
-        except dbus.DBusException:
-            raise LocaledWrapperError("Failed to get locale interface")
-
-        try:
-            self._props_iface = dbus.Interface(localed, dbus.PROPERTIES_IFACE)
-        except dbus.DBusException:
-            raise LocaledWrapperError("Failed to get properties interface")
+        self._connection = Gio.DBusConnection.new_for_address_sync(
+                             DBUS_SYSTEM_BUS_ADDR,
+                             Gio.DBusConnectionFlags.AUTHENTICATION_CLIENT|
+                             Gio.DBusConnectionFlags.MESSAGE_BUS_CONNECTION,
+                             None, None)
 
     def set_and_convert_keymap(self, keymap):
         """
@@ -677,21 +670,26 @@ class LocaledWrapper(object):
         # where convert indicates whether the keymap should be converted
         # to X11 layout and user_interaction indicates whether PolicyKit
         # should ask for credentials or not
-        try:
-            self._locale_iface.SetVConsoleKeyboard(keymap, "", True, False)
-        except dbus.DBusException:
-            msg = "Failed to call SetVConsoleKeyboard method"
-            raise LocaledWrapperError(msg)
+        args = GLib.Variant('(ssbb)', (keymap, "", True, False))
 
-        try:
-            layout = self._props_iface.Get(LOCALED_IFACE, "X11Layout")
-        except dbus.DBusException:
-            raise LocaledWrapperError("locale has no X11Layout property")
+        dbus_call_safe_sync(LOCALED_SERVICE, LOCALED_OBJECT_PATH, LOCALED_IFACE,
+                            "SetVConsoleKeyboard", args, self._connection)
 
-        try:
-            variant = self._props_iface.Get(LOCALED_IFACE, "X11Variant")
-        except dbus.DBusException:
-            raise LocaledWrapperError("locale has no X11Variant property")
+        layout = dbus_get_property_safe_sync(LOCALED_SERVICE,
+                                             LOCALED_OBJECT_PATH,
+                                             LOCALED_IFACE,
+                                             "X11Layout",
+                                             self._connection)
+
+        variant = dbus_get_property_safe_sync(LOCALED_SERVICE,
+                                              LOCALED_OBJECT_PATH,
+                                              LOCALED_IFACE,
+                                              "X11Variant",
+                                              self._connection)
+
+        # returned GVariants are unpacked to a tuple with single element
+        layout = layout[0]
+        variant = variant[0]
 
         return _join_layout_variant(layout, variant)
 
@@ -712,13 +710,15 @@ class LocaledWrapper(object):
         # where convert indicates whether the keymap should be converted
         # to X11 layout and user_interaction indicates whether PolicyKit
         # should ask for credentials or not
-        try:
-            self._locale_iface.SetX11Keyboard(layout, "", variant, "", True, False)
-        except dbus.DBusException:
-            msg = "Failed to call SetX11Keyboard method"
-            raise LocaledWrapperError(msg)
+        args = GLib.Variant("(ssssbb)", (layout, "", variant, "", True, False))
+        dbus_call_safe_sync(LOCALED_SERVICE, LOCALED_OBJECT_PATH, LOCALED_IFACE,
+                            "SetX11Keyboard", args, self._connection)
 
-        try:
-            return self._props_iface.Get(LOCALED_IFACE, "VConsoleKeymap")
-        except dbus.DBusException:
-            raise LocaledWrapperError("locale has no VConsoleKeymap property")
+        keymap = dbus_get_property_safe_sync(LOCALED_SERVICE,
+                                             LOCALED_OBJECT_PATH,
+                                             LOCALED_IFACE,
+                                             "VConsoleKeymap",
+                                             self._connection)
+
+        # returned GVariant is unpacked to a tuple with single element
+        return keymap[0]
