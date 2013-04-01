@@ -505,6 +505,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         self._reformatCheckbox = self.builder.get_object("reformatCheckbox")
         self._sizeEntry = self.builder.get_object("sizeEntry")
 
+        self._applyButton = self.builder.get_object("applyButton")
+
     def initialize(self):
         NormalSpoke.initialize(self)
 
@@ -649,6 +651,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         self._setCurrentFreeSpace()
 
         self._updateSpaceDisplay()
+        self._applyButton.set_sensitive(False)
 
     @property
     def translated_new_install_name(self):
@@ -777,6 +780,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         firstPage = self._accordion.allPages[0]
         self._accordion.expandPage(firstPage.pageTitle)
         self.on_page_clicked(firstPage, mountpointToShow=mountpointToShow)
+
+        self._applyButton.set_sensitive(False)
 
     ###
     ### RIGHT HAND SIDE METHODS
@@ -2111,6 +2116,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         selector.set_chosen(True)
         self._current_selector = selector
 
+        self._applyButton.set_sensitive(False)
         self._configButton.set_sensitive(not selector._device.exists and
                                          not selector._device.protected and
                                          devicefactory.get_device_type(selector._device) != DEVICE_TYPE_LVM)
@@ -2414,6 +2420,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
     def on_apply_clicked(self, button):
         """ call _save_right_side, then, perhaps, populate_right_side. """
         self._save_right_side(self._current_selector)
+        self._applyButton.set_sensitive(False)
 
     def on_unlock_clicked(self, button):
         """ try to open the luks device, populate, then call _do_refresh. """
@@ -2454,6 +2461,9 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         self._unused_devices = None     # why do we cache this?
         self._current_selector = None
         self._do_refresh()
+
+    def on_value_changed(self, *args):
+        self._applyButton.set_sensitive(True)
 
 help_text_template = N_("""You have chosen to manually set up the filesystems for your new %(productName)s installation. Before you begin, you might want to take a minute to learn the lay of the land. Quite a bit has changed.
 
