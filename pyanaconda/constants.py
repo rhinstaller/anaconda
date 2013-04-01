@@ -101,6 +101,9 @@ RUNLEVELS = {3: 'multi-user.target', 5: 'graphical.target'}
 # Network
 NETWORK_CONNECTION_TIMEOUT = 45  # in seconds
 
+# DBus
+DEFAULT_DBUS_TIMEOUT = -1       # use default
+
 # Thread names
 THREAD_EXECUTE_STORAGE = "AnaExecuteStorageThread"
 THREAD_STORAGE = "AnaStorageThread"

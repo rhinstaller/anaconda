@@ -24,6 +24,8 @@ from gi.repository import NetworkManager
 import struct
 import socket
 
+from pyanaconda.constants import DEFAULT_DBUS_TIMEOUT
+
 device_type_interfaces = {
     NetworkManager.DeviceType.ETHERNET: "org.freedesktop.NetworkManager.Device.Wired",
     NetworkManager.DeviceType.WIFI: "org.freedesktop.NetworkManager.Device.Wireless",
@@ -103,7 +105,7 @@ def nm_devices():
     devices = proxy.call_sync("GetDevices",
                               args,
                               Gio.DBusCallFlags.NONE,
-                              -1,
+                              DEFAULT_DBUS_TIMEOUT,
                               None)
 
     devices = devices.unpack()[0]
@@ -145,7 +147,7 @@ def nm_device_property(name, property):
         device = proxy.call_sync("GetDeviceByIpIface",
                                   args,
                                   Gio.DBusCallFlags.NONE,
-                                  -1,
+                                  DEFAULT_DBUS_TIMEOUT,
                                   None)
     except Exception as e:
         if "org.freedesktop.NetworkManager.UnknownDevice" in e.message:
@@ -304,7 +306,7 @@ def _find_settings(value, key1, key2, format_value=lambda x:x):
     connections = proxy.call_sync("ListConnections",
                                   args,
                                   Gio.DBusCallFlags.NONE,
-                                  -1,
+                                  DEFAULT_DBUS_TIMEOUT,
                                   None)
 
     for con in connections.unpack()[0]:
@@ -313,7 +315,7 @@ def _find_settings(value, key1, key2, format_value=lambda x:x):
         settings = proxy.call_sync("GetSettings",
                                    args,
                                    Gio.DBusCallFlags.NONE,
-                                   -1,
+                                   DEFAULT_DBUS_TIMEOUT,
                                    None)
         settings = settings.unpack()[0]
         try:
@@ -348,7 +350,7 @@ def nm_device_setting_value(name, key1, key2):
     settings = proxy.call_sync("GetSettings",
                                args,
                                Gio.DBusCallFlags.NONE,
-                               -1,
+                               DEFAULT_DBUS_TIMEOUT,
                                None)
     settings = settings.unpack()[0]
     try:
@@ -386,14 +388,14 @@ def _update_settings(settings_path, key1, key2, value, default_type_str=None):
     settings = proxy.call_sync("GetSettings",
                                args,
                                Gio.DBusCallFlags.NONE,
-                               -1,
+                               DEFAULT_DBUS_TIMEOUT,
                                None)
     new_settings = _gvariant_settings(settings, key1, key2, value, default_type_str)
 
     proxy.call_sync("Update",
                     new_settings,
                     Gio.DBusCallFlags.NONE,
-                    -1,
+                    DEFAULT_DBUS_TIMEOUT,
                     None)
 
 def _gvariant_settings(settings, updated_key1, updated_key2, value, default_type_str=None):
