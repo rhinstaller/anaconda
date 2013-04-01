@@ -421,14 +421,14 @@ Groups that do not already exist will be created; specify their GID in parenthes
     </action-widgets>
   </object>
   <object class="GtkAdjustment" id="gid">
-    <property name="lower">500</property>
+    <property name="lower">1000</property>
     <property name="upper">32535</property>
     <property name="value">1000</property>
     <property name="step_increment">1</property>
     <property name="page_increment">10</property>
   </object>
   <object class="GtkAdjustment" id="uid">
-    <property name="lower">500</property>
+    <property name="lower">1000</property>
     <property name="upper">32535</property>
     <property name="value">1000</property>
     <property name="step_increment">1</property>

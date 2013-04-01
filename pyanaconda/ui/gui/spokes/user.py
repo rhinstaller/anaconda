@@ -80,6 +80,9 @@ class AdvancedUserDialog(GUIObject):
         c_gid.set_active(bool(self._user.gid))
         self._apply_checkboxes()
 
+        self.builder.get_object("spin_uid").update()
+        self.builder.get_object("spin_gid").update()
+
         groups = []
         for group_name in self._user.groups:
             group = self._groupDict[group_name]
