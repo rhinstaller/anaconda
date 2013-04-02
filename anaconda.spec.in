@@ -234,6 +234,18 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/lib/dracut/modules.d/80%{name}/*
 
 %changelog
+* Tue Apr 02 2013 Brian C. Lane <bcl@redhat.com> - 19.15-1
+- Fix two small problems with the UID/GID spin buttons (#929173, #929138).
+  (clumens)
+- The Update Settings button should only be sensitive if you change something.
+  (clumens)
+- Move datetime spoke initialization into its own thread, too. (clumens)
+- Make it more clear nothing will happen immediately on custom storage
+  (#883195). (clumens)
+- Replace the custom part size spinner with an entry. (clumens)
+- Add a factory class for our various communications queues. (clumens)
+- Make exception handling in the rescue mode work (#926913) (vpodzime)
+
 * Thu Mar 28 2013 Brian C. Lane <bcl@redhat.com> - 19.14-1
 - Handle the end of the %%addon section (vpodzime)
 - Don't allow setting a mountpoint for an fstype we cannot mount. (dlehman)
