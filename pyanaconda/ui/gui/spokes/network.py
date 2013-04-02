@@ -511,7 +511,7 @@ class NetworkControlBox(object):
         if rc == 1:
             ai = self.builder.get_object("combobox_add_device").get_active_iter()
             model = self.builder.get_object("liststore_add_device")
-            dev_type = model[ai][1][0]
+            dev_type = model[ai][1]
             self.add_device(dev_type)
 
     def add_device(self, type):
