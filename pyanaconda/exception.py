@@ -166,6 +166,7 @@ def initExceptionHandling(anaconda):
 
     conf = Config(programName="anaconda",
                   programVersion=isys.getAnacondaVersion(),
+                  programArch=os.uname()[4],
                   attrSkipList=["_intf._actions",
                                 "_intf._currentAction._xklwrapper",
                                 "_intf._currentAction.language.translations",
