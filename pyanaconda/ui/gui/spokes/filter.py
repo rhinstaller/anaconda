@@ -137,10 +137,38 @@ class SearchPage(FilterPage):
         self._lunEntry = self.builder.get_object("searchLUNEntry")
         self._wwidEntry = self.builder.get_object("searchWWIDEntry")
 
+        self._portCombo = self.builder.get_object("searchPortCombo")
+        self._targetEntry = self.builder.get_object("searchTargetEntry")
+        self._lunEntry = self.builder.get_object("searchLUNEntry")
+
     def setup(self, store, selectedNames, disks):
         self._combo = self.builder.get_object("searchTypeCombo")
         self._combo.set_active(0)
         self._combo.emit("changed")
+
+    def _port_equal(self, device):
+        active = self._portCombo.get_active_text()
+        if active and hasattr(device, "node"):
+            return device.node.port == active
+        else:
+            return True
+
+    def _target_equal(self, device):
+        active = self._targetEntry.get_text().strip()
+        if active:
+            return active in getattr(device, "initiator", "")
+        else:
+            return True
+
+    def _lun_equal(self, device):
+        active = self._lunEntry.get_text().strip()
+        if active and hasattr(device, "node"):
+            try:
+                return int(active) == device.node.tpgt
+            except ValueError:
+                return True
+        else:
+            return True
 
     def _filter_func(self, device):
         if not self.filterActive:
@@ -151,7 +179,7 @@ class SearchPage(FilterPage):
         if filterBy == 0:
             return True
         elif filterBy == 1:
-            return True
+            return self._port_equal(device) and self._target_equal(device) and self._lun_equal(device)
         elif filterBy == 2:
             return hasattr(device, "wwid") and self._wwidEntry.get_text() in device.wwid
         elif filterBy == 3:
@@ -168,6 +196,8 @@ class MultipathPage(FilterPage):
         self.model = self.builder.get_object("multipathModel")
         self.model.set_visible_func(self.visible_func)
 
+        self._icCombo = self.builder.get_object("multipathInterconnectCombo")
+        self._vendorCombo = self.builder.get_object("multipathVendorCombo")
         self._wwidEntry = self.builder.get_object("multipathWWIDEntry")
 
     def ismember(self, device):
@@ -196,8 +226,8 @@ class MultipathPage(FilterPage):
         self._combo.set_active(0)
         self._combo.emit("changed")
 
-        self.setupCombo(self.builder.get_object("multipathVendorCombo"), vendors)
-        self.setupCombo(self.builder.get_object("multipathInterconnectCombo"), interconnects)
+        self.setupCombo(self._vendorCombo, vendors)
+        self.setupCombo(self._icCombo, interconnects)
 
     def _filter_func(self, device):
         if not self.filterActive:
@@ -227,6 +257,10 @@ class OtherPage(FilterPage):
         FilterPage.__init__(self, storage, builder)
         self.model = self.builder.get_object("otherModel")
         self.model.set_visible_func(self.visible_func)
+
+        self._icCombo = self.builder.get_object("otherInterconnectCombo")
+        self._idEntry = self.builder.get_object("otherIDEntry")
+        self._vendorCombo = self.builder.get_object("otherVendorCombo")
 
     def ismember(self, device):
         return isinstance(device, iScsiDiskDevice) or isinstance(device, FcoeDiskDevice)
@@ -273,13 +307,32 @@ class OtherPage(FilterPage):
         self._combo.set_active(0)
         self._combo.emit("changed")
 
-        self.setupCombo(self.builder.get_object("otherVendorCombo"), vendors)
-        self.setupCombo(self.builder.get_object("otherInterconnectCombo"), interconnects)
+        self.setupCombo(self._vendorCombo, vendors)
+        self.setupCombo(self._icCombo, interconnects)
+
+    def _filter_func(self, device):
+        if not self.filterActive:
+            return True
+
+        filterBy = self._combo.get_active()
+
+        if filterBy == 0:
+            return True
+        elif filterBy == 1:
+            return device.vendor == self._vendorCombo.get_active_text()
+        elif filterBy == 2:
+            return device.bus == self._icCombo.get_active_text()
+        elif filterBy == 3:
+            for link in device.deviceLinks:
+                if "by-path" in link:
+                    return self._idEntry.get_text().strip() in link
+
+            return False
 
     def visible_func(self, model, itr, *args):
         obj = DiskStoreRow._make(model[itr])
         device = self.storage.devicetree.getDeviceByName(obj.name)
-        return self.ismember(device)
+        return self.ismember(device) and self._filter_func(device)
 
 class RaidPage(FilterPage):
     def __init__(self, storage, builder):
