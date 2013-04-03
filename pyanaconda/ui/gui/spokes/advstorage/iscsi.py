@@ -298,6 +298,8 @@ class ISCSIDialog(GUIObject):
         if threadMgr.get(constants.THREAD_ISCSI_LOGIN):
             return True
 
+        anyLeft = False
+
         spinner = self.builder.get_object("loginSpinner")
         spinner.stop()
         spinner.hide()
@@ -312,6 +314,7 @@ class ISCSIDialog(GUIObject):
             for row in self._store:
                 if row[1]:
                     row[0] = True
+                    anyLeft = True
 
                     # And make the login button sensitive if there are any more
                     # nodes to login to.
@@ -323,6 +326,9 @@ class ISCSIDialog(GUIObject):
             # Once a node has been logged into, it doesn't make much sense to let
             # the user cancel.  Cancel what, exactly?
             self._cancelButton.set_sensitive(False)
+
+        if not anyLeft:
+            self.window.response(1)
 
         return False
 
