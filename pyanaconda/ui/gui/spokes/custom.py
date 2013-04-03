@@ -1367,7 +1367,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
         # Set a default RAID level in the combo.
         for (i, row) in enumerate(raid_combo.get_model()):
-            if row[0].startswith(raid_level.upper()):
+            if row[0].upper().startswith(raid_level.upper()):
                 raid_combo.set_active(i)
                 break
 
