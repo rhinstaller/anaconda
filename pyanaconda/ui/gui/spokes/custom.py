@@ -2336,6 +2336,12 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         exists = self._current_selector and self._current_selector._device.exists
         self._configButton.set_sensitive(not exists and new_type != DEVICE_TYPE_LVM)
 
+        # this has to be done before calling populate_raid since it will need
+        # the raid level combo to contain the relevant raid levels for the new
+        # device type
+        raidStoreFilter = self.builder.get_object("raidStoreFiltered")
+        raidStoreFilter.refilter()
+
         self._populate_raid(raid_level, size_from_entry(self._sizeEntry))
         self._populate_lvm()
 
@@ -2370,9 +2376,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         fsCombo.set_sensitive(self._reformatCheckbox.get_active() and
                               fs_type_sensitive)
         # end btrfs magic
-
-        raidStoreFilter = self.builder.get_object("raidStoreFiltered")
-        raidStoreFilter.refilter()
 
     def clear_errors(self):
         self._error = None
