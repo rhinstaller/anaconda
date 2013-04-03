@@ -35,6 +35,7 @@ from pyanaconda.flags import flags
 from pyanaconda.ui.lib.disks import getDisks, isLocalDisk, size_str
 from pyanaconda.ui.gui.utils import enlightbox
 from pyanaconda.ui.gui.spokes import NormalSpoke
+from pyanaconda.ui.gui.spokes.advstorage.iscsi import ISCSIDialog
 from pyanaconda.ui.gui.spokes.lib.cart import SelectedDisksDialog
 from pyanaconda.ui.gui.categories.storage import StorageCategory
 
@@ -230,6 +231,51 @@ class OtherPage(FilterPage):
     def ismember(self, device):
         return isinstance(device, iScsiDiskDevice) or isinstance(device, FcoeDiskDevice)
 
+    def _long_identifier(self, disk):
+        # For iSCSI devices, we want the long ip-address:port-iscsi-tgtname-lun-XX
+        # identifier, but blivet doesn't expose that in any useful way and I don't
+        # want to go asking udev.  Instead, we dig around in the deviceLinks and
+        # default to the name if we can't figure anything else out.
+        for link in disk.deviceLinks:
+            if "by-path" in link:
+                lastSlash = link.rindex("/")+1
+                return link[lastSlash:]
+
+        return disk.name
+
+    def setup(self, store, selectedNames, disks):
+        vendors = []
+        interconnects = []
+
+        for disk in disks:
+            selected = disk.name in selectedNames
+
+            if hasattr(disk, "node"):
+                port = str(disk.node.port)
+                lun = str(disk.node.tpgt)
+            else:
+                port = ""
+                lun = ""
+
+            store.append([True, selected, not disk.protected,
+                          disk.name, "", disk.model, size_str(disk.size),
+                          disk.vendor, disk.bus, disk.serial,
+                          self._long_identifier(disk), "", port, getattr(disk, "initiator", ""),
+                          lun, ""])
+
+            if not disk.vendor in vendors:
+                vendors.append(disk.vendor)
+
+            if not disk.bus in interconnects:
+                interconnects.append(disk.bus)
+
+        self._combo = self.builder.get_object("otherTypeCombo")
+        self._combo.set_active(0)
+        self._combo.emit("changed")
+
+        self.setupCombo(self.builder.get_object("otherVendorCombo"), vendors)
+        self.setupCombo(self.builder.get_object("otherInterconnectCombo"), interconnects)
+
     def visible_func(self, model, itr, *args):
         obj = DiskStoreRow._make(model[itr])
         device = self.storage.devicetree.getDeviceByName(obj.name)
@@ -310,6 +356,8 @@ class FilterSpoke(NormalSpoke):
 
         self._addAdditionalCombo = self.builder.get_object("addAdditionalCombo")
         self._notebook = self.builder.get_object("advancedNotebook")
+
+        self._addAdditionalCombo.set_active(0)
 
         if not arch.isS390():
             self._notebook.remove_page(-1)
@@ -426,8 +474,29 @@ class FilterSpoke(NormalSpoke):
 
         self._update_summary()
 
-    def on_add_additional_changed(self, *args):
-        pass
+    def on_add_additional_changed(self, widget, *args):
+        active = widget.get_active()
+
+        if active == 0:
+            # Nothing.
+            return
+        elif active == 1:
+            # iSCSI
+            dialog = ISCSIDialog(self.data, self.storage)
+
+            with enlightbox(self.window, dialog.window):
+                dialog.refresh()
+                dialog.run()
+        elif active == 2:
+            # FCoE
+            pass
+        elif active == 3:
+            # ZFCP
+            pass
+
+        # We now need to refresh so any new disks picked up by adding advanced
+        # storage are displayed in the UI.
+        self.refresh()
 
     ##
     ## SEARCH TAB SIGNAL HANDLERS
@@ -452,6 +521,20 @@ class FilterSpoke(NormalSpoke):
         notebook = self.builder.get_object("multipathTypeNotebook")
         findButton = self.builder.get_object("multipathFindButton")
         clearButton = self.builder.get_object("multipathClearButton")
+
+        findButton.set_sensitive(ndx != 0)
+        clearButton.set_sensitive(ndx != 0)
+        notebook.set_current_page(ndx)
+
+    ##
+    ## OTHER TAB SIGNAL HANDLERS
+    ##
+    def on_other_type_combo_changed(self, combo):
+        ndx = combo.get_active()
+
+        notebook = self.builder.get_object("otherTypeNotebook")
+        findButton = self.builder.get_object("otherFindButton")
+        clearButton = self.builder.get_object("otherClearButton")
 
         findButton.set_sensitive(ndx != 0)
         clearButton.set_sensitive(ndx != 0)

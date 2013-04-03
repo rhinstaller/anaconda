@@ -1,4 +1,4 @@
-# Copyright (C) 2011, 2012  Red Hat, Inc.
+# Copyright (C) 2013  Red Hat, Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU Lesser General Public License as published
@@ -15,13 +15,11 @@
 #
 # Author: Chris Lumens <clumens@redhat.com>
 
-SUBDIRS = advstorage lib
-
 MAINTAINERCLEANFILES = Makefile.in
 
 pkgpyexecdir     = $(pyexecdir)/py$(PACKAGE_NAME)
-spokesdir        = $(pkgpyexecdir)/ui/gui/spokes
+spokesdir        = $(pkgpyexecdir)/ui/gui/spokes/advstorage
 spokes_PYTHON    = *.py
 
-uidir            = $(datadir)/$(PACKAGE_NAME)/ui/spokes
+uidir            = $(datadir)/$(PACKAGE_NAME)/ui/spokes/advstorage
 dist_ui_DATA     = *.glade

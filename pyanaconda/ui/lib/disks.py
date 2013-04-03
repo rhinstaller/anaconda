@@ -20,7 +20,7 @@
 #                    Chris Lumens <clumens@redhat.com>
 #
 
-from blivet.devices import MultipathDevice
+from blivet.devices import MultipathDevice, iScsiDiskDevice
 from blivet.size import Size
 
 __all__ = ["FakeDiskLabel", "FakeDisk", "getDisks", "isLocalDisk", "size_str"]
@@ -65,7 +65,7 @@ def getDisks(devicetree, fake=False):
     return disks
 
 def isLocalDisk(disk):
-    return not isinstance(disk, MultipathDevice)
+    return not isinstance(disk, MultipathDevice) and not isinstance(disk, iScsiDiskDevice)
 
 def size_str(mb):
     if isinstance(mb, Size):
