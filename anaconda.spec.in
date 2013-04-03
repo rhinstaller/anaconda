@@ -36,6 +36,8 @@ Source0: %{name}-%{version}.tar.bz2
 %define utillinuxver 2.15.1
 %define dracutver 024-25
 %define isomd5sum 1.0.10
+%define fcoeutilsver 1.0.12-3.20100323git
+%define iscsiver 6.2.0.870-3
 
 BuildRequires: audit-libs-devel
 BuildRequires: gettext >= %{gettextver}
@@ -115,6 +117,16 @@ Requires: chrony
 Requires: rdate
 Requires: rsync
 Requires: hostname
+%ifnarch s390 s390x
+Requires: fcoe-utils >= %{fcoeutilsver}
+%endif
+Requires: iscsi-initiator-utils >= %{iscsiver}
+%ifarch %{ix86} x86_64 ia64
+Requires: dmidecode
+%if ! 0%{?rhel}
+Requires: hfsplus-tools
+%endif
+%endif
 Obsoletes: anaconda-images <= 10
 Provides: anaconda-images = %{version}-%{release}
 Obsoletes: anaconda-runtime < %{version}-%{release}
