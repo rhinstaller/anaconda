@@ -416,7 +416,7 @@ class SourceSpoke(NormalSpoke):
         time.sleep(1)
         try:
             self.payload.updateBaseRepo(fallback=False, checkmount=False)
-        except PayloadError as e:
+        except (OSError, PayloadError) as e:
             log.error("PayloadError: %s" % (e,))
             self._error = True
             hubQ.send_message(self.__class__.__name__, _("Failed to set up installation source"))
