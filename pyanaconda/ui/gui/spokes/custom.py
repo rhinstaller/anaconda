@@ -1500,8 +1500,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
            device.originalFormat.type not in self._fs_types:
             fsCombo.append_text(device.originalFormat.name)
 
-        fsCombo.set_sensitive(self._reformatCheckbox.get_active())
-
         ##
         ## Set up the device type combo.
         ##
@@ -1592,6 +1590,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             self._device_name_dict[_type] = name
 
         typeCombo.set_active(type_index_map[device_type])
+        fsCombo.set_sensitive(self._reformatCheckbox.get_active() and
+                              device_type != DEVICE_TYPE_BTRFS)
 
         # you can't change the type of an existing device
         typeCombo.set_sensitive(not use_dev.exists)
