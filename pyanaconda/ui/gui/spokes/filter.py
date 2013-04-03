@@ -349,11 +349,11 @@ class FilterSpoke(NormalSpoke):
         for disk in itertools.ifilterfalse(isLocalDisk, self.disks):
             if self.pages[1].ismember(disk):
                 multipathDisks.append(disk)
-            elif self.disks[2].ismember(disk):
+            elif self.pages[2].ismember(disk):
                 otherDisks.append(disk)
-            elif self.disks[3].ismember(disk):
+            elif self.pages[3].ismember(disk):
                 raidDisks.append(disk)
-            elif self.disks[4].ismember(disk):
+            elif self.pages[4].ismember(disk):
                 zDisks.append(disk)
 
         self.pages[0].setup(self._store, self.selected_disks, [])
