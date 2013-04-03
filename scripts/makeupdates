@@ -227,18 +227,15 @@ def copyUpdatedIsys(updates, cwd):
     # $updatedir/run/install/updates.
     tmpupdates = updates.rstrip('/')
     if not tmpupdates.endswith("/run/install/updates/pyanaconda"):
-        tmpupdates = os.path.join(tmpupdates, "run/install/updates/pyanaconda/isys")
+        tmpupdates = os.path.join(tmpupdates, "run/install/updates/pyanaconda")
 
     if not os.path.isdir(tmpupdates):
         os.makedirs(tmpupdates)
 
     isysmodule = os.path.realpath(cwd + '/pyanaconda/isys/.libs/_isys.so')
-    isysinit = os.path.realpath(cwd + '/pyanaconda/isys/__init__.py')
 
     if os.path.isfile(isysmodule):
         shutil.copy2(isysmodule, tmpupdates)
-    if os.path.isfile(isysinit):
-        shutil.copy2(isysinit, tmpupdates)
 
 def copyUpdatedWidgets(updates, cwd):
     os.chdir(cwd)
