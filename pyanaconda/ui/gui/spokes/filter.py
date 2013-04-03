@@ -103,6 +103,12 @@ class FilterPage(object):
         """
         pass
 
+    def clear(self):
+        """Blank out any filtering-related fields on this page and return them
+           to their defaults.  This is called when the Clear button is clicked.
+        """
+        pass
+
     def visible_func(self, model, itr, *args):
         """This method is called for every row (disk) in the store, in order to
            determine if it should be displayed on this page or not.  This method
@@ -139,7 +145,6 @@ class SearchPage(FilterPage):
 
         self._portCombo = self.builder.get_object("searchPortCombo")
         self._targetEntry = self.builder.get_object("searchTargetEntry")
-        self._lunEntry = self.builder.get_object("searchLUNEntry")
 
     def setup(self, store, selectedNames, disks):
         self._combo = self.builder.get_object("searchTypeCombo")
@@ -152,6 +157,12 @@ class SearchPage(FilterPage):
                 ports.append(str(disk.node.port))
 
         self.setupCombo(self.builder.get_object("searchPortCombo"), ports)
+
+    def clear(self):
+        self._lunEntry.set_text("")
+        self._portCombo.set_active(0)
+        self._targetEntry.set_text("")
+        self._wwidEntry.set_text("")
 
     def _port_equal(self, device):
         active = self._portCombo.get_active_text()
@@ -236,6 +247,11 @@ class MultipathPage(FilterPage):
         self.setupCombo(self._vendorCombo, vendors)
         self.setupCombo(self._icCombo, interconnects)
 
+    def clear(self):
+        self._icCombo.set_active(0)
+        self._vendorCombo.set_active(0)
+        self._wwidEntry.set_text("")
+
     def _filter_func(self, device):
         if not self.filterActive:
             return True
@@ -316,6 +332,11 @@ class OtherPage(FilterPage):
 
         self.setupCombo(self._vendorCombo, vendors)
         self.setupCombo(self._icCombo, interconnects)
+
+    def clear(self):
+        self._icCombo.set_active(0)
+        self._idEntry.set_text("")
+        self._vendorCombo.set_active(0)
 
     def _filter_func(self, device):
         if not self.filterActive:
@@ -518,6 +539,7 @@ class FilterSpoke(NormalSpoke):
         n = self._notebook.get_current_page()
         self.pages[n].filterActive = False
         self.pages[n].model.refilter()
+        self.pages[n].clear()
 
     def on_page_switched(self, notebook, newPage, newPageNum, *args):
         self.pages[newPageNum].model.refilter()
