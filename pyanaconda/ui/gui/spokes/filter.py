@@ -146,6 +146,13 @@ class SearchPage(FilterPage):
         self._combo.set_active(0)
         self._combo.emit("changed")
 
+        ports = []
+        for disk in disks:
+            if hasattr(disk, "node"):
+                ports.append(str(disk.node.port))
+
+        self.setupCombo(self.builder.get_object("searchPortCombo"), ports)
+
     def _port_equal(self, device):
         active = self._portCombo.get_active_text()
         if active and hasattr(device, "node"):
@@ -435,6 +442,7 @@ class FilterSpoke(NormalSpoke):
 
         self._store.clear()
 
+        allDisks = []
         multipathDisks = []
         otherDisks = []
         raidDisks = []
@@ -455,7 +463,9 @@ class FilterSpoke(NormalSpoke):
             elif self.pages[4].ismember(disk):
                 zDisks.append(disk)
 
-        self.pages[0].setup(self._store, self.selected_disks, [])
+            allDisks.append(disk)
+
+        self.pages[0].setup(self._store, self.selected_disks, allDisks)
         self.pages[1].setup(self._store, self.selected_disks, multipathDisks)
         self.pages[2].setup(self._store, self.selected_disks, otherDisks)
         self.pages[3].setup(self._store, self.selected_disks, raidDisks)
