@@ -115,6 +115,18 @@ class FilterPage(object):
         """
         return True
 
+    def setupCombo(self, combo, items):
+        """Populate a given GtkComboBoxText instance with a list of items.  The
+           combo will first be cleared, so this method is suitable for calling
+           repeatedly.  The first item in the list will be selected by default.
+        """
+        combo.remove_all()
+        for i in sorted(items):
+            combo.append_text(i)
+
+        if items:
+            combo.set_active(0)
+
 class SearchPage(FilterPage):
     def __init__(self, storage, builder):
         FilterPage.__init__(self, storage, builder)
@@ -169,7 +181,7 @@ class MultipathPage(FilterPage):
             selected = disk.name in selectedNames
 
             store.append([True, selected, not disk.protected,
-                          disk.name, "", disk.model,size_str(disk.size),
+                          disk.name, "", disk.model, size_str(disk.size),
                           disk.vendor, disk.bus, disk.serial,
                           disk.wwid, "\n".join(paths), "", "",
                           "", ""])
@@ -183,22 +195,8 @@ class MultipathPage(FilterPage):
         self._combo.set_active(0)
         self._combo.emit("changed")
 
-        self._vendorCombo = self.builder.get_object("multipathVendorCombo")
-        self._icCombo = self.builder.get_object("multipathInterconnectCombo")
-
-        self._vendorCombo.remove_all()
-        for v in sorted(vendors):
-            self._vendorCombo.append_text(v)
-
-        self._icCombo.remove_all()
-        for i in sorted(interconnects):
-            self._icCombo.append_text(i)
-
-        if vendors:
-            self._vendorCombo.set_active(0)
-
-        if interconnects:
-            self._icCombo.set_active(0)
+        self.setupCombo(self.builder.get_object("multipathVendorCombo"), vendors)
+        self.setupCombo(self.builder.get_object("multipathInterconnectCombo"), interconnects)
 
     def _filter_func(self, device):
         if not self.filterActive:
