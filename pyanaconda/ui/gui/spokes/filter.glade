@@ -141,7 +141,6 @@
                               <item translatable="yes">None</item>
                               <item translatable="yes">Port / Target / LUN #</item>
                               <item translatable="yes">Target WWID</item>
-                              <item translatable="yes">Target LUN</item>
                             </items>
                             <signal name="changed" handler="on_search_type_changed" swapped="no"/>
                           </object>
@@ -304,42 +303,7 @@
                               <placeholder/>
                             </child>
                             <child>
-                              <object class="GtkBox" id="searchLUNBox">
-                                <property name="visible">True</property>
-                                <property name="can_focus">False</property>
-                                <property name="hexpand">True</property>
-                                <property name="spacing">6</property>
-                                <child>
-                                  <object class="GtkLabel" id="label19">
-                                    <property name="visible">True</property>
-                                    <property name="can_focus">False</property>
-                                    <property name="label" translatable="yes">_LUN:</property>
-                                    <property name="use_underline">True</property>
-                                    <property name="mnemonic_widget">searchLUEntry</property>
-                                  </object>
-                                  <packing>
-                                    <property name="expand">False</property>
-                                    <property name="fill">True</property>
-                                    <property name="position">0</property>
-                                  </packing>
-                                </child>
-                                <child>
-                                  <object class="GtkEntry" id="searchLUEntry">
-                                    <property name="visible">True</property>
-                                    <property name="can_focus">True</property>
-                                    <property name="invisible_char">●</property>
-                                    <property name="width_chars">30</property>
-                                  </object>
-                                  <packing>
-                                    <property name="expand">False</property>
-                                    <property name="fill">True</property>
-                                    <property name="position">1</property>
-                                  </packing>
-                                </child>
-                              </object>
-                              <packing>
-                                <property name="position">3</property>
-                              </packing>
+                              <placeholder/>
                             </child>
                             <child type="tab">
                               <placeholder/>
