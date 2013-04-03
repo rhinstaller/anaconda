@@ -1405,6 +1405,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         selectedDeviceDescLabel = self.builder.get_object("selectedDeviceDescLabel")
         typeCombo = self.builder.get_object("deviceTypeCombo")
         fsCombo = self.builder.get_object("fileSystemTypeCombo")
+        raidLevelCombo = self.builder.get_object("raidLevelCombo")
 
         device = selector._device
         if device.type == "luks/dm-crypt":
@@ -1595,6 +1596,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
         # you can't change the type of an existing device
         typeCombo.set_sensitive(not use_dev.exists)
+        raidLevelCombo.set_sensitive(not use_dev.exists)
 
         # you can't encrypt a btrfs subvolume -- only the volume/container
         encryptCheckbox.set_sensitive(device_type != DEVICE_TYPE_BTRFS)
