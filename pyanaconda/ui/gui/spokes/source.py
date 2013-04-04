@@ -476,7 +476,7 @@ class SourceSpoke(NormalSpoke):
         if threadMgr.get(constants.THREAD_CHECK_SOFTWARE):
             return _("Checking software dependencies...")
         elif not self.ready:
-            return _("Not ready")
+            return _(BASEREPO_SETUP_MESSAGE)
         elif self._error or not self.payload.baseRepo:
             return _("Error setting up software source")
         elif self.data.method.method == "url":
