@@ -469,7 +469,7 @@ def setupDisplay(anaconda, opts, addon_paths=None):
 
     # disable VNC over text question when not enough memory is available
     if blivet.util.total_memory() < isys.MIN_GUI_RAM:
-        stdoutLog.warning("Not asking for VNC because current memory (%d) < MIN_GUI_RAM (%d)" % (iutil.memInstalled(), isys.MIN_GUI_RAM))
+        stdoutLog.warning("Not asking for VNC because current memory (%d) < MIN_GUI_RAM (%d)" % (blivet.util.total_memory(), isys.MIN_GUI_RAM))
         flags.vncquestion = False
 
     # disable VNC question if text mode is requested and this is a ks install
