@@ -1671,7 +1671,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                     % (dialog.size, self._free_space))
 
         # if no size was entered, request as much of the free space as possible
-        if dialog.size.convertTo(spec="mb") < 1:
+        if dialog.size is not None and dialog.size.convertTo(spec="mb") < 1:
             size = self._free_space
         else:
             size = dialog.size
