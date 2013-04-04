@@ -101,6 +101,10 @@ _private_yum_lock = threading.RLock()
 
 class YumLock(object):
     def __enter__(self):
+        if isFinal:
+            _private_yum_lock.acquire()
+            return _private_yum_lock
+
         frame = inspect.stack()[2]
         threadName = threading.currentThread().name
 
@@ -111,7 +115,9 @@ class YumLock(object):
 
     def __exit__(self, exc_type, exc_val, exc_tb):
         _private_yum_lock.release()
-        log.info("gave up _yum_lock for %s" % threading.currentThread().name)
+
+        if not isFinal:
+            log.info("gave up _yum_lock for %s" % threading.currentThread().name)
 
 _yum_lock = YumLock()
 _yum_cache_dir = "/tmp/yum.cache"
