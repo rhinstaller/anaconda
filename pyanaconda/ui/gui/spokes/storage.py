@@ -403,7 +403,7 @@ class StorageSpoke(NormalSpoke, StorageChecker):
                 self.run()
         finally:
             self._ready = True
-            hubQ.send_ready(self.__class__.__name__, False)
+            hubQ.send_ready(self.__class__.__name__, True)
 
     @property
     def completed(self):
