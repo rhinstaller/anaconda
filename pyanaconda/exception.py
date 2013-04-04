@@ -34,6 +34,8 @@ from flags import flags
 import kickstart
 import blivet.errors
 from pyanaconda.constants import ROOT_PATH, THREAD_EXCEPTION_HANDLING_TEST
+
+# pylint: disable-msg=E0611
 from gi.repository import GLib
 
 import logging
@@ -55,23 +57,22 @@ class AnacondaExceptionHandler(ExceptionHandler):
         ExceptionHandler.__init__(self, confObj, intfClass, exnClass)
         self._intf_tty_num = tty_num
 
-    def handleException(self, (ty, value, tb), obj):
+    def handleException(self, dump_info):
 
-        def run_handleException_on_idle(args_tuple):
+        def run_handleException_on_idle(dump_info):
             """
             Helper function with one argument only so that it can be registered
             with GLib.idle_add() to run on idle.
 
-            @param args_tuple: ((ty, value, tb), obj)
+            @type dump_info: an instance of the meh.DumpInfo class
 
             """
 
-            trace, obj = args_tuple
-            ty, value, tb = trace
-
-            super(AnacondaExceptionHandler, self).handleException((ty, value, tb),
-                                                                  obj)
+            super(AnacondaExceptionHandler, self).handleException(dump_info)
             return False
+
+        ty = dump_info.exc_info.type
+        value = dump_info.exc_info.value
 
         if issubclass(ty, blivet.errors.StorageError) and value.hardware_fault:
             hw_error_msg = _("The installation was stopped due to what "
@@ -82,25 +83,25 @@ class AnacondaExceptionHandler(ExceptionHandler):
             sys.exit(0)
         else:
             try:
+                # pylint: disable-msg=E0611
                 from gi.repository import Gtk
 
                 if Gtk.main_level() > 0:
                     # main loop is running, don't crash it by running another one
                     # potentially from a different thread
-                    GLib.idle_add(run_handleException_on_idle,
-                                    ((ty, value, tb), obj))
+                    GLib.idle_add(run_handleException_on_idle, dump_info)
                 else:
                     super(AnacondaExceptionHandler, self).handleException(
-                                                        (ty, value, tb), obj)
+                                                                      dump_info)
 
             except RuntimeError:
                 # X not running (Gtk cannot be initialized)
                 print "An unknown error has occured, look at the "\
                       "/tmp/anaconda-tb* file(s) for more details"
-                super(AnacondaExceptionHandler, self).handleException(
-                                                        (ty, value, tb), obj)
+                super(AnacondaExceptionHandler, self).handleException(dump_info)
 
-    def postWriteHook(self, (ty, value, tb), anaconda):
+    def postWriteHook(self, dump_info):
+        anaconda = dump_info.object
         # See if /mnt/sysimage is present and put exception there as well
         if os.access("/mnt/sysimage/root", os.X_OK):
             try:
@@ -116,7 +117,7 @@ class AnacondaExceptionHandler(ExceptionHandler):
         except:
             pass
 
-    def runDebug(self, (ty, value, tb)):
+    def runDebug(self, exc_info):
         if self._intf_tty_num != 1:
             iutil.vtActivate(1)
 
@@ -146,7 +147,7 @@ class AnacondaExceptionHandler(ExceptionHandler):
         print("Use 'continue' command to quit the debugger and get back to "\
               "the main window")
         import pdb
-        pdb.post_mortem (tb)
+        pdb.post_mortem(exc_info.stack)
 
         if self._intf_tty_num != 1:
             iutil.vtActivate(self._intf_tty_num)
