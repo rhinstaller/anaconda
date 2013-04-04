@@ -453,7 +453,7 @@ class SourceSpoke(NormalSpoke):
 
     @property
     def completed(self):
-        if flags.automatedInstall and not self.data.method.method:
+        if flags.automatedInstall and (not self.data.method.method or not self.payload.baseRepo):
             return False
         else:
             return not self._error and self.status and self.status != _("Nothing selected")
@@ -477,7 +477,7 @@ class SourceSpoke(NormalSpoke):
             return _("Checking software dependencies...")
         elif not self.ready:
             return _("Not ready")
-        elif self._error:
+        elif self._error or not self.payload.baseRepo:
             return _("Error setting up software source")
         elif self.data.method.method == "url":
             return self.data.method.url or self.data.method.mirrorlist

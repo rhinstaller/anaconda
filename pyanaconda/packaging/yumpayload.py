@@ -186,7 +186,7 @@ class YumPayload(PackagePayload):
         self._writeYumConfig()
         self._setup = True
 
-        self.updateBaseRepo()
+        self.updateBaseRepo(fallback=not flags.automatedInstall)
 
         # When setup is called, it's already in a separate thread. That thread
         # will try to select groups right after this returns, so make sure we
@@ -451,13 +451,14 @@ reposdir=%s
         # see if we can get a usable base repo from self.data.method
         try:
             self._configureBaseRepo(self.storage, checkmount=checkmount)
-        except PayloadError as e:
+        except (MetadataError, PayloadError) as e:
             if not fallback:
                 with _yum_lock:
                     for repo in self._yum.repos.repos.values():
                         if repo.enabled:
                             self.disableRepo(repo.id)
-                raise
+
+                return
 
             # this preserves the method details while disabling it
             self.data.method.method = None
