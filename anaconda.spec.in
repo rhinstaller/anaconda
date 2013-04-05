@@ -234,6 +234,19 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/lib/dracut/modules.d/80%{name}/*
 
 %changelog
+* Thu Apr 04 2013 Brian C. Lane <bcl@redhat.com> - 19.16-1
+- Modify LocaledWrapper to use our safe_dbus module (#928287) (vpodzime)
+- Add module providing safe DBus operations (vpodzime)
+- Define a DEFAULT_DBUS_TIMEOUT constant and use it (vpodzime)
+- Execute the yum transaction in another process (bcl)
+- Add anaconda-yum (bcl)
+- Add execReadlines utility (bcl)
+- Use namedtuple instead of our magic tuples (vpodzime)
+- Tell python-meh architecture of the anaconda package (vpodzime)
+- Add release number to the result of getAnacondaVersion (vpodzime)
+- Fix _isys.so location in the updates.img (vpodzime)
+- Network spoke: Fix reading of device type from combobox (#947120) (rvykydal)
+
 * Tue Apr 02 2013 Brian C. Lane <bcl@redhat.com> - 19.15-1
 - Fix two small problems with the UID/GID spin buttons (#929173, #929138).
   (clumens)
