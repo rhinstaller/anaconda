@@ -68,12 +68,13 @@ class VncServer:
         r, w = os.pipe()
         os.write(w, "%s\n" % self.password)
 
-        # the -f option makes sure vncpasswd does not ask for the password again
-        rc = iutil.execWithRedirect("vncpasswd", ["-f"],
-                                    stdin=r, stdout=self.pw_file)
+        with open(self.pw_file, "w") as pw_file:
+            # the -f option makes sure vncpasswd does not ask for the password again
+            rc = iutil.execWithRedirect("vncpasswd", ["-f"],
+                                        stdin=r, stdout=pw_file)
 
-        os.close(r)
-        os.close(w)
+            os.close(r)
+            os.close(w)
 
         return rc
 
