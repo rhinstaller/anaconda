@@ -1672,7 +1672,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
         # if no size was entered, request as much of the free space as possible
         if dialog.size is not None and dialog.size.convertTo(spec="mb") < 1:
-            size = self._free_space
+            size = None
         else:
             size = dialog.size
 
@@ -1700,7 +1700,9 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             encrypted = False
 
         disks = self._clearpartDevices
-        size = float(size.convertTo(spec="mb"))
+        if size is not None:
+            size = float(size.convertTo(spec="mb"))
+
         self.clear_errors()
 
         with ui_storage_logger():
