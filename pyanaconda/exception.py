@@ -49,8 +49,8 @@ class AnacondaExceptionHandler(ExceptionHandler):
 
     def __init__(self, confObj, intfClass, exnClass, tty_num):
         """
-        @see: python-meh's ExceptionHandler
-        @param tty_num: the number of tty the interface is running on
+        :see: python-meh's ExceptionHandler
+        :param tty_num: the number of tty the interface is running on
 
         """
 
@@ -64,7 +64,7 @@ class AnacondaExceptionHandler(ExceptionHandler):
             Helper function with one argument only so that it can be registered
             with GLib.idle_add() to run on idle.
 
-            @type dump_info: an instance of the meh.DumpInfo class
+            :type dump_info: an instance of the meh.DumpInfo class
 
             """
 

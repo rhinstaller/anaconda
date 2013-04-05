@@ -46,7 +46,7 @@ def ntp_server_working(server):
     """
     Runs rdate to try to connect to the $server (timeout may take some time).
 
-    @return: True if the given server is reachable and working, False otherwise
+    :return: True if the given server is reachable and working, False otherwise
 
     """
 
@@ -64,8 +64,8 @@ def get_servers_from_config(conf_file_path=NTP_CONFIG_FILE,
     Goes through the chronyd's configuration file looking for lines starting
     with 'server'.
 
-    @return: servers found in the chronyd's configuration
-    @rtype: list
+    :return: servers found in the chronyd's configuration
+    :rtype: list
 
     """
 
@@ -92,8 +92,8 @@ def save_servers_to_config(servers, conf_file_path=NTP_CONFIG_FILE,
     the given ones. If the out_file is not None, then it is used for the
     resulting config.
 
-    @type servers: iterable
-    @param out_file_path: path to the file used for the resulting config
+    :type servers: iterable
+    :param out_file_path: path to the file used for the resulting config
 
     """
 
@@ -157,10 +157,10 @@ def one_time_sync(server, callback=None):
     function is blocking and will not return until the time gets synced or
     querying server fails (may take some time before timeouting).
 
-    @param server: NTP server
-    @param callback: callback function to run after sync or failure
-    @type callback: a function taking one boolean argument (success)
-    @return: True if the sync was successful, False otherwise
+    :param server: NTP server
+    :param callback: callback function to run after sync or failure
+    :type callback: a function taking one boolean argument (success)
+    :return: True if the sync was successful, False otherwise
 
     """
 
@@ -180,9 +180,9 @@ def one_time_sync_async(server, callback=None):
     returns. Use callback argument to specify the function called when the
     new thread finishes if needed.
 
-    @param server: NTP server
-    @param callback: callback function to run after sync or failure
-    @type callback: a function taking one boolean argument (success)
+    :param server: NTP server
+    :param callback: callback function to run after sync or failure
+    :type callback: a function taking one boolean argument (success)
 
     """
 

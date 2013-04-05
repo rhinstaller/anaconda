@@ -51,22 +51,22 @@ def dbus_call_safe_sync(service, obj_path, iface, method, args,
     new connection is established. Safely means that it is a synchronous,
     thread-safe call not using any main loop.
 
-    @param service: DBus service to use
-    @type service: str
-    @param obj_path: object path of the object to call method on
-    @type obj_path: str
-    @param iface: interface to use
-    @type iface: str
-    @param method: name of the method to call
-    @type method: str
-    @param args: arguments to pass to the method
-    @type args: GVariant
-    @param connection: connection to use (if None, a new connection is
+    :param service: DBus service to use
+    :type service: str
+    :param obj_path: object path of the object to call method on
+    :type obj_path: str
+    :param iface: interface to use
+    :type iface: str
+    :param method: name of the method to call
+    :type method: str
+    :param args: arguments to pass to the method
+    :type args: GVariant
+    :param connection: connection to use (if None, a new connection is
                        established)
-    @type connection: Gio.DBusConnection
-    @return: unpacked value returned by the method
-    @rtype: tuple with elements that depend on the method
-    @raise DBusCallError: if some DBus related error appears
+    :type connection: Gio.DBusConnection
+    :return: unpacked value returned by the method
+    :rtype: tuple with elements that depend on the method
+    :raise DBusCallError: if some DBus related error appears
 
     """
 
@@ -96,22 +96,22 @@ def dbus_get_property_safe_sync(service, obj_path, iface, prop_name,
     """
     Get value of a given property of a given object provided by a given service.
 
-    @param service: DBus service to use
-    @type service: str
-    @param obj_path: object path
-    @type obj_path: str
-    @param iface: interface to use
-    @type iface: str
-    @param prop_name: name of the property
-    @type prop_name: str
-    @param connection: connection to use (if None, a new connection is
+    :param service: DBus service to use
+    :type service: str
+    :param obj_path: object path
+    :type obj_path: str
+    :param iface: interface to use
+    :type iface: str
+    :param prop_name: name of the property
+    :type prop_name: str
+    :param connection: connection to use (if None, a new connection is
                        established)
-    @type connection: Gio.DBusConnection
-    @return: unpacked value of the property
-    @rtype: tuple with elements that depend on the type of the property
-    @raise DBusCallError: when the internal dbus_call_safe_sync invocation
+    :type connection: Gio.DBusConnection
+    :return: unpacked value of the property
+    :rtype: tuple with elements that depend on the type of the property
+    :raise DBusCallError: when the internal dbus_call_safe_sync invocation
                           raises an exception
-    @raise DBusPropertyError: when the given object doesn't have the given
+    :raise DBusPropertyError: when the given object doesn't have the given
                               property
 
     """

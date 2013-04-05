@@ -180,8 +180,8 @@ def can_touch_runtime_system(msg):
     """
     Guard that should be used before doing actions that modify runtime system.
 
-    @param msg: message to be logged in case that runtime system cannot be touched
-    @rtype: bool
+    :param msg: message to be logged in case that runtime system cannot be touched
+    :rtype: bool
 
     """
 

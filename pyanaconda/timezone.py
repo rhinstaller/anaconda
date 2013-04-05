@@ -55,9 +55,9 @@ def write_timezone_config(timezone, root):
     """
     Write timezone configuration for the system specified by root.
 
-    @param timezone: ksdata.timezone object
-    @param root: path to the root
-    @raise: TimezoneConfigError
+    :param timezone: ksdata.timezone object
+    :param root: path to the root
+    :raise: TimezoneConfigError
 
     """
 
@@ -105,7 +105,7 @@ def save_hw_clock(timezone):
     """
     Save system time to HW clock.
 
-    @param timezone: ksdata.timezone object
+    :param timezone: ksdata.timezone object
 
     """
 
@@ -126,7 +126,7 @@ def get_all_territory_timezones(territory):
     """
     Return the list of timezones for a given territory.
 
-    @param territory: either localization.LocaleInfo or territory
+    :param territory: either localization.LocaleInfo or territory
 
     """
 
@@ -148,7 +148,7 @@ def get_preferred_timezone(territory):
     simply returns the first timezone in the list of timezones for a given
     territory.
 
-    @param territory: either localization.LocaleInfo or territory
+    :param territory: either localization.LocaleInfo or territory
 
     """
 
@@ -163,7 +163,7 @@ def get_all_regions_and_timezones():
     """
     Get a dictionary mapping the regions to the list of their timezones.
 
-    @rtype: dict
+    :rtype: dict
 
     """
 
@@ -184,8 +184,8 @@ def is_valid_timezone(timezone):
     """
     Check if a given string is an existing timezone.
 
-    @type timezone: str
-    @rtype: bool
+    :type timezone: str
+    :rtype: bool
 
     """
 

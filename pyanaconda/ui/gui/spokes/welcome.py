@@ -79,7 +79,7 @@ class LanguageMixIn(object):
         """
         Set default keyboard settings (layouts, layout switching).
 
-        @param lang_name: name of the selected language (e.g. "Czech")
+        :param lang_name: name of the selected language (e.g. "Czech")
 
         """
 

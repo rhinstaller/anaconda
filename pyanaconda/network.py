@@ -82,10 +82,10 @@ def sanityCheckHostname(hostname):
     """
     Check if the given string is (syntactically) a valid hostname.
 
-    @param hostname: a string to check
-    @returns: a pair containing boolean value (valid or invalid) and
+    :param hostname: a string to check
+    :returns: a pair containing boolean value (valid or invalid) and
               an error message (if applicable)
-    @rtype: (bool, str)
+    :rtype: (bool, str)
 
     """
 

@@ -502,9 +502,9 @@ class GraphicalExceptionHandlingIface(meh.ui.gui.GraphicalIntf):
 
     def __init__(self, lightbox_func):
         """
-        @param lightbox_func: a function that creates lightbox for a given
+        :param lightbox_func: a function that creates lightbox for a given
                               window
-        @type lightbox_func: GtkWindow -> None
+        :type lightbox_func: GtkWindow -> None
 
         """
 

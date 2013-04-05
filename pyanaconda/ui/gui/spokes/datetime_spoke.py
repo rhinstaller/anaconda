@@ -174,7 +174,7 @@ class NTPconfigDialog(GUIObject):
         If the server is working, set its data to SERVER_OK, otherwise set its
         data to SERVER_NOK.
 
-        @param itr: iterator of the $server's row in the self._serversStore
+        :param itr: iterator of the $server's row in the self._serversStore
 
         """
 
@@ -185,7 +185,7 @@ class NTPconfigDialog(GUIObject):
             the MainLoop with thread-safe GLib.idle_add (but only with one
             argument).
 
-            @param arg_tuple: (store, itr, column, value)
+            :param arg_tuple: (store, itr, column, value)
 
             """
 
@@ -228,7 +228,7 @@ class NTPconfigDialog(GUIObject):
         Checks if a given server is a valid hostname and if yes, adds it
         to the list of servers.
 
-        @param server: string containing hostname
+        :param server: string containing hostname
 
         """
 
@@ -653,7 +653,7 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
         """
         Get the selected item of the combobox.
 
-        @return: selected item or None
+        :return: selected item or None
 
         """
 
@@ -737,7 +737,7 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
 
     def on_region_changed(self, combo, *args):
         """
-        @see: on_city_changed
+        :see: on_city_changed
 
         """
 

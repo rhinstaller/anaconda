@@ -371,7 +371,7 @@ def _run_systemctl(command, service):
     """
     Runs 'systemctl command service.service'
 
-    @return: exit status of the systemctl
+    :return: exit status of the systemctl
 
     """
 
@@ -423,9 +423,9 @@ def vtActivate(num):
     """
     Try to switch to tty number $num.
 
-    @type num: int
-    @return: whether the switch was successful or not
-    @rtype: bool
+    :type num: int
+    :return: whether the switch was successful or not
+    :rtype: bool
 
     """
 

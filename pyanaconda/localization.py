@@ -48,9 +48,9 @@ class LocaleInfo(object):
 
     def __init__(self, localedata, encoding="", script=""):
         """
-        @param encoding: encoding from the locale specification, e.g. UTF-8
+        :param encoding: encoding from the locale specification, e.g. UTF-8
                          (localedata object has no attribute for that)
-        @param script: script from the locale specification (e.g. latin)
+        :param script: script from the locale specification (e.g. latin)
                        (changing localedata.script attribute results in
                        problems)
 
@@ -227,7 +227,7 @@ def expand_langs(astring):
     "fr", "fr_FR", "fr_FR.UTF-8@euro", "fr.UTF-8@euro", "fr_FR@euro",
     "fr_FR.UTF-8", "fr@euro", "fr.UTF-8"
 
-    @rtype: list of strings
+    :rtype: list of strings
 
     """
 
@@ -290,8 +290,8 @@ def write_language_configuration(lang, root):
     """
     Write language configuration to the $root/etc/locale.conf file.
 
-    @param lang: ksdata.lang object
-    @param root: path to the root of the installed system
+    :param lang: ksdata.lang object
+    :param root: path to the root of the installed system
 
     """
 

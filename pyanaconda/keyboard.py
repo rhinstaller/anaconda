@@ -57,8 +57,8 @@ def _parse_layout_variant(layout):
     Parse layout and variant from the string that may look like 'layout' or
     'layout (variant)'.
 
-    @return: the (layout, variant) pair, where variant can be ""
-    @rtype: tuple
+    :return: the (layout, variant) pair, where variant can be ""
+    :rtype: tuple
 
     """
 
@@ -77,10 +77,10 @@ def _join_layout_variant(layout, variant=""):
     Join layout and variant to form the commonly used 'layout (variant)'
     or 'layout' (if variant is missing) format.
 
-    @type layout: string
-    @type variant: string
-    @return: 'layout (variant)' or 'layout' string
-    @rtype: string
+    :type layout: string
+    :type variant: string
+    :return: 'layout (variant)' or 'layout' string
+    :rtype: string
 
     """
 
@@ -93,8 +93,8 @@ def get_layouts_xorg_conf(keyboard):
     """
     Get the xorg.conf content setting up layouts in the ksdata.
 
-    @param keyboard: ksdata.keyboard object
-    @rtype: str
+    :param keyboard: ksdata.keyboard object
+    :rtype: str
 
     """
 
@@ -139,7 +139,7 @@ def populate_missing_items(keyboard):
     they are missing. By invoking LocaledWrapper's methods this function
     MODIFIES CONFIGURATION FILES.
 
-    @type keyboard: ksdata.keyboard object
+    :type keyboard: ksdata.keyboard object
 
     """
 
@@ -161,11 +161,11 @@ def write_keyboard_config(keyboard, root, convert=True, weight=0):
     $root/etc/X11/xorg.conf.d/01-anaconda-layouts.conf and
     $root/etc/vconsole.conf.
 
-    @param keyboard: ksdata.keyboard object
-    @param root: path to the root of the installed system
-    @param convert: whether to convert specified values to get the missing
+    :param keyboard: ksdata.keyboard object
+    :param root: path to the root of the installed system
+    :param convert: whether to convert specified values to get the missing
                     ones
-    @param weight: weight (prefix) of the xorg.conf file written out
+    :param weight: weight (prefix) of the xorg.conf file written out
 
     """
 
@@ -208,7 +208,7 @@ def dracut_setup_args(keyboard):
     """
     Function returning dracut setup args for the given keyboard configuration.
 
-    @type keyboard: ksdata.keyboard object
+    :type keyboard: ksdata.keyboard object
 
     """
 
@@ -226,9 +226,9 @@ def _try_to_load_keymap(keymap):
     successfull or not. It can be used to test if given string is VConsole
     keymap or not, but in case it is given valid keymap, IT REALLY LOADS IT!.
 
-    @type keymap: string
-    @raise KeyboardConfigError: if loadkeys command is not available
-    @return: True if given string was a valid keymap and thus was loaded,
+    :type keymap: string
+    :raise KeyboardConfigError: if loadkeys command is not available
+    :return: True if given string was a valid keymap and thus was loaded,
              False otherwise
 
     """
@@ -251,8 +251,8 @@ def activate_keyboard(keyboard):
     """
     Try to setup VConsole keymap and X11 layouts as specified in kickstart.
 
-    @param keyboard: ksdata.keyboard object
-    @type keyboard: ksdata.keyboard object
+    :param keyboard: ksdata.keyboard object
+    :type keyboard: ksdata.keyboard object
 
     """
 
@@ -504,7 +504,7 @@ class XklWrapper(object):
         """
         Get current activated X layout's name
 
-        @return: current activated X layout's name (e.g. "Czech (qwerty)")
+        :return: current activated X layout's name (e.g. "Czech (qwerty)")
 
         """
 
@@ -538,8 +538,8 @@ class XklWrapper(object):
         were zipped) are used for the construction of real layouts (e.g.
         'cz (qwerty)').
 
-        @param layout: either 'layout' or 'layout (variant)'
-        @raise XklWrapperError: if the given layout cannot be added
+        :param layout: either 'layout' or 'layout (variant)'
+        :raise XklWrapperError: if the given layout cannot be added
 
         """
 
@@ -564,8 +564,8 @@ class XklWrapper(object):
 
         See also the documentation for the add_layout method.
 
-        @param layout: either 'layout' or 'layout (variant)'
-        @raise XklWrapperError: if the given layout cannot be removed
+        :param layout: either 'layout' or 'layout (variant)'
+        :raise XklWrapperError: if the given layout cannot be removed
 
         """
 
@@ -594,9 +594,9 @@ class XklWrapper(object):
         Method that replaces the layouts defined in the current X configuration
         with the new ones given.
 
-        @param layouts_list: list of layouts defined as either 'layout' or
+        :param layouts_list: list of layouts defined as either 'layout' or
                              'layout (variant)'
-        @raise XklWrapperError: if layouts cannot be replaced with the new ones
+        :raise XklWrapperError: if layouts cannot be replaced with the new ones
 
         """
 
@@ -620,9 +620,9 @@ class XklWrapper(object):
         Method that sets options for layout switching. It replaces the old
         options with the new ones.
 
-        @param options: layout switching options to be set
-        @type options: list or generator
-        @raise XklWrapperError: if the old options cannot be replaced with the
+        :param options: layout switching options to be set
+        :type options: list or generator
+        :raise XklWrapperError: if the old options cannot be replaced with the
                                 new ones
 
         """
@@ -660,9 +660,9 @@ class LocaledWrapper(object):
         Method that sets VConsole keymap and returns X11 layout and
         variant that (systemd-localed thinks) match given keymap best.
 
-        @return: string containing "layout (variant)" or "layout" if variant
+        :return: string containing "layout (variant)" or "layout" if variant
                  is missing
-        @rtype: string
+        :rtype: string
 
         """
 
@@ -699,8 +699,8 @@ class LocaledWrapper(object):
         and returns VConsole keymap that (systemd-localed thinks) matches
         given layout and variant best.
 
-        @return: a keymap matching layout and variant best
-        @rtype: string
+        :return: a keymap matching layout and variant best
+        :rtype: string
 
         """
 
