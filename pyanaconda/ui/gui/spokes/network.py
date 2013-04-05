@@ -338,6 +338,8 @@ class NetworkControlBox(object):
 
     def initialize(self):
         for device in self.client.get_devices():
+            device.connect("notify::ip4-config", self.on_device_config_changed)
+            device.connect("notify::ip6-config", self.on_device_config_changed)
             self.add_device_to_list(device)
 
         treeview = self.builder.get_object("treeview_devices")
@@ -393,9 +395,12 @@ class NetworkControlBox(object):
         if new_state == NetworkManager.DeviceState.SECONDARIES:
             return
         self._refresh_carrier_info()
-        read_config_values = (new_state == NetworkManager.DeviceState.ACTIVATED)
         if device == self.selected_device():
-            self.refresh_ui(device, read_config_values, new_state)
+            self.refresh_ui(device, new_state)
+
+    def on_device_config_changed(self, device, *args):
+        if device == self.selected_device():
+            self.refresh_ui(device)
 
     def on_wireless_ap_changed_cb(self, combobox, *args):
         if self._updating_device:
@@ -690,7 +695,7 @@ class NetworkControlBox(object):
         for row in rows_to_remove:
             del(row)
 
-    def refresh_ui(self, device, read_config_values=True, state=None):
+    def refresh_ui(self, device, state=None):
 
         if not device:
             notebook = self.builder.get_object("notebook_types")
@@ -703,27 +708,12 @@ class NetworkControlBox(object):
         self._refresh_parent_vlanid(device)
         self._refresh_speed_hwaddr(device, state)
         self._refresh_ap(device, state)
-        if read_config_values:
-            num_of_tries = 3
-        else:
-            num_of_tries = 0
-        self._refresh_device_cfg((device, num_of_tries), state)
+        self._refresh_device_cfg(device, state)
 
-    def _refresh_device_cfg(self, dev_tries, state):
-        device, num_of_tries = dev_tries
-        ipv4cfg = None
-        ipv6cfg = None
+    def _refresh_device_cfg(self, device, state):
 
-        # We might need to wait for config objects to become available
-        if num_of_tries > 0:
-            ipv4cfg = device.get_ip4_config()
-            ipv6cfg = device.get_ip6_config()
-            if not ipv4cfg and not ipv6cfg:
-                GLib.timeout_add(300,
-                                 self._refresh_device_cfg,
-                                 (device, num_of_tries-1),
-                                 state)
-                return False
+        if state is None:
+            state = device.get_state()
 
         dev_type = device.get_device_type()
         if dev_type == NetworkManager.DeviceType.ETHERNET:
@@ -735,10 +725,14 @@ class NetworkControlBox(object):
         elif dev_type == NetworkManager.DeviceType.VLAN:
             dt = "wired"
 
-        if state is None:
-            state = device.get_state()
-        if (ipv4cfg
-            and state == NetworkManager.DeviceState.ACTIVATED):
+        if state == NetworkManager.DeviceState.ACTIVATED:
+            ipv4cfg = device.get_ip4_config()
+            ipv6cfg = device.get_ip6_config()
+        else:
+            ipv4cfg = None
+            ipv6cfg = None
+
+        if ipv4cfg:
             addr = socket.inet_ntoa(struct.pack('=L',
                                                 ipv4cfg.get_addresses()[0].get_address()))
             self._set_device_info_value(dt, "ipv4", addr)
@@ -764,8 +758,7 @@ class NetworkControlBox(object):
 
         # TODO NM_GI_BUGS - segfaults on get_addres(), get_prefix()
         ipv6_addr = None
-        if (ipv6cfg
-            and state == NetworkManager.DeviceState.ACTIVATED):
+        if ipv6cfg:
             config = dbus.SystemBus().get_object(NM_SERVICE, ipv6cfg.get_path())
             addr, prefix, gw = getNMObjProperty(config, ".IP6Config",
                                                 "Addresses")[0]
