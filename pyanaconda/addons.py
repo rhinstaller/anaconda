@@ -172,7 +172,7 @@ class AddonSection(Section):
 
     def finalize(self):
         """Let addon know no additional data will come."""
-        Section.finalize()
+        Section.finalize(self)
 
         addon = getattr(self.handler.addons, self.addon_id)
         addon.finalize()
