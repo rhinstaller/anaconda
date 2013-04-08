@@ -562,7 +562,8 @@ def get_bond_slaves_from_ifcfgs(master_specs):
                     try:
                         h = nm.nm_device_property(devname, "PermHwAddress")
                     except nm.PropertyNotFoundError:
-                        pass
+                        log.debug("can't get PermHwAddress of devname %s" % devname)
+                        continue
                     if h.upper() == hwaddr.upper():
                         slaves.append(devname)
                         break
