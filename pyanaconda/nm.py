@@ -124,8 +124,13 @@ def nm_activated_devices():
     active_connections = proxy.get_cached_property("ActiveConnections").unpack()
     for ac in active_connections:
         proxy = _get_proxy(object_path=ac, interface_name="org.freedesktop.NetworkManager.Connection.Active")
-        devices = proxy.get_cached_property("Devices").unpack()
-        for device in devices:
+        state = proxy.get_cached_property("State")
+        if state != NetworkManager.ActiveConnectionState.ACTIVATED:
+            continue
+        devices = proxy.get_cached_property("Devices")
+        if not devices:
+            continue
+        for device in devices.unpack():
             proxy = _get_proxy(object_path=device, interface_name="org.freedesktop.NetworkManager.Device")
             interfaces.append(proxy.get_cached_property("Interface").unpack())
 
