@@ -65,6 +65,7 @@ def _run_program(argv, root='/', stdin=None, stdout=None, env_prune=None):
     def chroot():
         if root and root != '/':
             os.chroot(root)
+            os.chdir("/")
 
     with program_log_lock:
         program_log.info("Running... %s" % " ".join(argv))
@@ -161,6 +162,7 @@ def execReadlines(command, argv, stdin=None, root='/', env_prune=None):
     def chroot():
         if root and root != '/':
             os.chroot(root)
+            os.chdir("/")
 
     argv = [command] + argv
     with program_log_lock:
