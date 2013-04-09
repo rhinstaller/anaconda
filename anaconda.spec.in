@@ -218,7 +218,6 @@ update-desktop-database &> /dev/null || :
 %{_libdir}/python*/site-packages/log_picker/*
 %{_bindir}/analog
 %{_bindir}/anaconda-cleanup
-%{_bindir}/anaconda-yum
 %ifarch %livearches
 %{_bindir}/liveinst
 %{_sbindir}/liveinst

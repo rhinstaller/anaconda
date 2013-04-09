@@ -1495,7 +1495,7 @@ reposdir=%s
         # Watch output for progress, debug and error information
         install_errors = []
         try:
-            for line in execReadlines("anaconda-yum", args):
+            for line in execReadlines("/usr/libexec/anaconda/anaconda-yum", args):
                 if line.startswith("PROGRESS_"):
                     key, text = line.split(":", 2)
                     msg = progress_map[key] + text

@@ -170,7 +170,7 @@ def copyUpdatedFiles(tag, updates, cwd):
         elif file.startswith("data/post-scripts/"):
             install_to_dir(file, "usr/share/anaconda/post-scripts")
         elif file.endswith("anaconda-yum"):
-            install_to_dir(file, "usr/bin")
+            install_to_dir(file, "usr/libexec/anaconda")
         elif file.find('/') != -1:
             fields = file.split('/')
             subdir = fields[0]
