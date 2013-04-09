@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 19.15\n"
+"Project-Id-Version: anaconda 19.16\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2013-04-04 16:59-0700\n"
+"POT-Creation-Date: 2013-04-09 15:00-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -206,7 +206,7 @@ msgid "Setting up the installation environment"
 msgstr ""
 
 #: pyanaconda/install.py:135 pyanaconda/packaging/livepayload.py:130
-#: pyanaconda/packaging/yumpayload.py:1468
+#: pyanaconda/packaging/yumpayload.py:1475
 msgid "Performing post-installation setup tasks"
 msgstr ""
 
@@ -265,12 +265,12 @@ msgid ""
 "After shutdown, please perform a manual IPL from %s to continue installation."
 msgstr ""
 
-#: pyanaconda/kickstart.py:155
+#: pyanaconda/kickstart.py:154
 #, python-format
 msgid "Escrow certificate %s requires the network."
 msgstr ""
 
-#: pyanaconda/kickstart.py:163
+#: pyanaconda/kickstart.py:162
 #, python-format
 msgid ""
 "The following error was encountered while downloading the escrow "
@@ -279,12 +279,12 @@ msgid ""
 "%s"
 msgstr ""
 
-#: pyanaconda/kickstart.py:480
+#: pyanaconda/kickstart.py:470
 #, python-format
 msgid "%s is missing. Cannot setup firewall."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1572
+#: pyanaconda/kickstart.py:1561
 msgid "Running pre-installation scripts"
 msgstr ""
 
@@ -430,37 +430,37 @@ msgstr ""
 msgid "%(productName)s %(productVersion)s installation"
 msgstr ""
 
-#: pyanaconda/vnc.py:118
+#: pyanaconda/vnc.py:119
 #, python-format
 msgid "%(productName)s %(productVersion)s installation on host %(name)s"
 msgstr ""
 
-#: pyanaconda/vnc.py:137
+#: pyanaconda/vnc.py:138
 #, python-format
 msgid "Attempting to connect to vnc client on host %s..."
 msgstr ""
 
-#: pyanaconda/vnc.py:151
+#: pyanaconda/vnc.py:152
 msgid "Connected!"
 msgstr ""
 
-#: pyanaconda/vnc.py:154
+#: pyanaconda/vnc.py:155
 msgid "Will try to connect again in 15 seconds..."
 msgstr ""
 
-#: pyanaconda/vnc.py:160
+#: pyanaconda/vnc.py:161
 #, python-format
 msgid "Giving up attempting to connect after %d try!\n"
 msgid_plural "Giving up attempting to connect after %d tries!\n"
 msgstr[0] ""
 msgstr[1] ""
 
-#: pyanaconda/vnc.py:171
+#: pyanaconda/vnc.py:172
 #, python-format
 msgid "Please manually connect your vnc client to %s to begin the install."
 msgstr ""
 
-#: pyanaconda/vnc.py:173
+#: pyanaconda/vnc.py:174
 #, python-format
 msgid ""
 "Please manually connect your vnc client to <IP ADDRESS>:%s to begin the "
@@ -468,15 +468,15 @@ msgid ""
 "ADDRESS>."
 msgstr ""
 
-#: pyanaconda/vnc.py:178
+#: pyanaconda/vnc.py:179
 msgid "Starting VNC..."
 msgstr ""
 
-#: pyanaconda/vnc.py:220
+#: pyanaconda/vnc.py:221
 msgid "The VNC server is now running."
 msgstr ""
 
-#: pyanaconda/vnc.py:224
+#: pyanaconda/vnc.py:225
 msgid ""
 "\n"
 "\n"
@@ -487,7 +487,7 @@ msgid ""
 "\n"
 msgstr ""
 
-#: pyanaconda/vnc.py:229
+#: pyanaconda/vnc.py:230
 msgid ""
 "\n"
 "\n"
@@ -497,7 +497,7 @@ msgid ""
 "\n"
 msgstr ""
 
-#: pyanaconda/vnc.py:233
+#: pyanaconda/vnc.py:234
 msgid ""
 "\n"
 "\n"
@@ -505,7 +505,7 @@ msgid ""
 "\n"
 msgstr ""
 
-#: pyanaconda/vnc.py:235
+#: pyanaconda/vnc.py:236
 msgid ""
 "\n"
 "\n"
@@ -513,7 +513,7 @@ msgid ""
 "\n"
 msgstr ""
 
-#: pyanaconda/vnc.py:255
+#: pyanaconda/vnc.py:256
 msgid ""
 "VNC password provided was not at least 6 characters long.\n"
 "Please enter a new one.  Leave blank for no password."
@@ -563,19 +563,19 @@ msgstr ""
 msgid "Installing software"
 msgstr ""
 
-#: pyanaconda/packaging/yumpayload.py:1384
+#: pyanaconda/packaging/yumpayload.py:1391
 msgid "Starting package installation process"
 msgstr ""
 
-#: pyanaconda/packaging/yumpayload.py:1448
+#: pyanaconda/packaging/yumpayload.py:1455
 msgid "You need more space on the following file systems:\n"
 msgstr ""
 
-#: pyanaconda/packaging/yumpayload.py:1466
+#: pyanaconda/packaging/yumpayload.py:1473
 msgid "Preparing transaction from installation source"
 msgstr ""
 
-#: pyanaconda/packaging/yumpayload.py:1467
+#: pyanaconda/packaging/yumpayload.py:1474
 msgid "Installing"
 msgstr ""
 
@@ -1033,59 +1033,59 @@ msgid ""
 "bootloader configuration on some PPC platforms."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:963
+#: pyanaconda/ui/gui/spokes/custom.py:1003
 #, python-format
 msgid "/boot/efi must be on a device of type %s"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:967
+#: pyanaconda/ui/gui/spokes/custom.py:1007
 #, python-format
 msgid "%s must be on a device of type %s"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:970
-#: pyanaconda/ui/gui/spokes/custom.py:972
+#: pyanaconda/ui/gui/spokes/custom.py:1010
+#: pyanaconda/ui/gui/spokes/custom.py:1012
 #, python-format
 msgid "%s cannot be encrypted"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:974
+#: pyanaconda/ui/gui/spokes/custom.py:1014
 msgid "You must create a new filesystem on the root device."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:976
+#: pyanaconda/ui/gui/spokes/custom.py:1016
 #, python-format
 msgid "Devices of type %s require a valid RAID level selection."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:982
+#: pyanaconda/ui/gui/spokes/custom.py:1022
 msgid ""
 "The RAID level you have selected requires more disks than you currently have "
 "selected."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:1143
+#: pyanaconda/ui/gui/spokes/custom.py:1195
 msgid "Device resize request failed. Click for details."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:1197
+#: pyanaconda/ui/gui/spokes/custom.py:1263
+msgid "Device reformat request failed. Click for details."
+msgstr ""
+
+#: pyanaconda/ui/gui/spokes/custom.py:1316
 #, python-format
 msgid "Specified name %s already in use."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:1260
-msgid "Device reformat request failed. Click for details."
-msgstr ""
-
-#: pyanaconda/ui/gui/spokes/custom.py:1458
+#: pyanaconda/ui/gui/spokes/custom.py:1450
 msgid "This file system does not support labels."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:1466
+#: pyanaconda/ui/gui/spokes/custom.py:1458
 msgid "This file system may not be resized."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:1749
+#: pyanaconda/ui/gui/spokes/custom.py:1745
 #, python-format
 msgid "Added new %s to existing container %s."
 msgstr ""
@@ -1133,11 +1133,11 @@ msgstr ""
 msgid "Automatic partitioning failed. Click for details."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2442
+#: pyanaconda/ui/gui/spokes/custom.py:2452
 msgid "Failed to unlock encrypted block device. Click for details"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2468
+#: pyanaconda/ui/gui/spokes/custom.py:2478
 #, python-format
 msgid ""
 "You have chosen to manually set up the filesystems for your new "
@@ -1592,10 +1592,6 @@ msgstr ""
 #: pyanaconda/ui/gui/spokes/source.py:426
 msgid ""
 "Failed to set up installation source; check the repo url and proxy settings"
-msgstr ""
-
-#: pyanaconda/ui/gui/spokes/source.py:479
-msgid "Not ready"
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/source.py:481
