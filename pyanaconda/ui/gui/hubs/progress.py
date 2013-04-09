@@ -147,12 +147,12 @@ class ProgressHub(Hub):
         # We first look for rnotes in paths containing the language, then in
         # directories without the language component.  You know, just in case.
         langs = expand_langs(os.environ["LANG"]) + [""]
-        paths = ["/tmp/updates/pixmaps/rnotes/%s/*.png",
-                 "/tmp/product/pixmaps/rnotes/%s/*.png",
-                 "/usr/share/anaconda/pixmaps/rnotes/%s/*.png"]
+        paths = ["/tmp/updates/pixmaps/rnotes/%s/",
+                 "/tmp/product/pixmaps/rnotes/%s/",
+                 "/usr/share/anaconda/pixmaps/rnotes/%s/"]
 
         for (l, d) in itertools.product(langs, paths):
-            pixmaps = glob.glob(d % l)
+            pixmaps = glob.glob((d % l) + "*.png") + glob.glob((d % l) + "*.jpg")
             if len(pixmaps) > 0:
                 return pixmaps
 
