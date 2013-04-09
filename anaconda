@@ -245,7 +245,6 @@ def parseOptions(argv=None, cmdline=None):
     op.add_option("--headless", dest="isHeadless", action="store_true", default=False)
     op.add_option("--nofb")
     op.add_option("--resolution", dest="runres", default=None)
-    op.add_option("--serial", action="store_true", default=False)
     op.add_option("--usefbx", dest="xdriver", action="store_const", const="fbdev")
     op.add_option("--vnc", action="store_true", default=False)
     op.add_option("--vncconnect")
@@ -440,9 +439,6 @@ def setupDisplay(anaconda, opts, addon_paths=None):
             if len(cargs) > 1 and len(cargs[1]) > 0:
                 if len(cargs[1]) > 0:
                     vncS.vncconnectport = cargs[1]
-
-    if opts.serial:
-        flags.serial = True
 
     if opts.xdriver:
         anaconda.xdriver = opts.xdriver

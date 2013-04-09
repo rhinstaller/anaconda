@@ -259,12 +259,17 @@ def mkdirChain(dir):
 
         log.error("could not create directory %s: %s" % (dir, e.strerror))
 
-def isConsoleOnVirtualTerminal():
-    # XXX PJFIX is there some way to ask the kernel this instead?
-    # XXX we don't want to have to import storage from here
-    if os.uname()[4].startswith("s390"):
-        return False
-    return not flags.serial
+def get_active_console(dev="console"):
+    while True:
+        try:
+            dev = open("/sys/class/tty/%s/active" % dev).read().split()[-1]
+        except (IOError, IndexError):
+            break
+    return dev
+
+def isConsoleOnVirtualTerminal(dev="console"):
+    console = get_active_console(dev)
+    return console.rstrip('01243456789') == 'tty'
 
 def strip_markup(text):
     if text.find("<") == -1:

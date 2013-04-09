@@ -97,7 +97,9 @@ def parse_serial_opt(arg):
                 bits, and "f" is flow control ("r" for RTS or
                 omit it).  Default is "9600n8".
     but note that everything after the baud rate is optional, so these are
-    all valid: 9600, 19200n, 38400n8, 9600e7r"""
+    all valid: 9600, 19200n, 38400n8, 9600e7r.
+    Also note that the kernel assumes 1 stop bit; this can't be changed.
+    """
     opts = serial_opts()
     m = re.match('\d+', arg)
     if m is None:
@@ -877,11 +879,9 @@ class BootLoader(object):
 
     def _set_console(self):
         """ Set console options based on boot arguments. """
-        if flags.serial:
-            console = flags.cmdline.get("console", "ttyS0").split(",", 1)
-            self.console = console[0]
-            if len(console) > 1:
-                self.console_options = console[1]
+        console = flags.cmdline.get("console", "")
+        console = os.path.basename(console)
+        self.console, x, self.console_options = console.partition(",")
 
     def write_config_console(self, config):
         """Write console-related configuration lines."""
@@ -1129,7 +1129,7 @@ class GRUB(BootLoader):
 
         self.write_config_console(config)
 
-        if not flags.serial:
+        if iutil.isConsoleOnVirtualTerminal(self.console):
             splash = "splash.xpm.gz"
             splash_path = os.path.normpath("%s/boot/%s/%s" % (ROOT_PATH,
                                                         self.splash_dir,

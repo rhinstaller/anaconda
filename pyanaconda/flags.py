@@ -49,7 +49,6 @@ class Flags(object):
         self.dlabel = 0
         self.ibft = 1
         self.iscsi = 0
-        self.serial = 0
         self.usevnc = 0
         self.vncquestion = True
         self.mpath = 1
