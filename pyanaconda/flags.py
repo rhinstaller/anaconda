@@ -45,14 +45,11 @@ class Flags(object):
 
     def __init__(self, read_cmdline=True):
         self.__dict__['_in_init'] = True
-        self.test = 0
         self.livecdInstall = 0
         self.dlabel = 0
         self.ibft = 1
         self.iscsi = 0
         self.serial = 0
-        self.autostep = 0
-        self.autoscreenshot = 0
         self.usevnc = 0
         self.vncquestion = True
         self.mpath = 1
