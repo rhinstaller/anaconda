@@ -43,13 +43,13 @@ Credentials = namedtuple("Credentials", ["style",
 
 NodeStoreRow = namedtuple("NodeStoreRow", ["selected", "notLoggedIn", "name"])
 
-def login_no_credentials(builder):
+def discover_no_credentials(builder):
     return Credentials(STYLE_NONE,
                        builder.get_object("targetEntry").get_text(),
                        builder.get_object("initiatorEntry").get_text(),
                        "", "", "", "")
 
-def login_chap(builder):
+def discover_chap(builder):
     return Credentials(STYLE_CHAP,
                        builder.get_object("targetEntry").get_text(),
                        builder.get_object("initiatorEntry").get_text(),
@@ -57,7 +57,7 @@ def login_chap(builder):
                        builder.get_object("chapPasswordEntry").get_text(),
                        "", "")
 
-def login_reverse_chap(builder):
+def discover_reverse_chap(builder):
     return Credentials(STYLE_REVERSE_CHAP,
                        builder.get_object("targetEntry").get_text(),
                        builder.get_object("initiatorEntry").get_text(),
@@ -66,7 +66,38 @@ def login_reverse_chap(builder):
                        builder.get_object("rchapReverseUsername").get_text(),
                        builder.get_object("rchapReversePassword").get_text())
 
-def login_credentials_valid(credentials):
+# This list maps the current page from the authNotebook to a function to grab
+# credentials out of the UI.  This works as long as authNotebook keeps the
+# filler page at the front.
+discoverMap = [discover_no_credentials, discover_chap, discover_reverse_chap]
+
+def login_no_credentials(builder):
+    return Credentials(STYLE_NONE,
+                       "", "",
+                       "", "", "", "")
+
+def login_chap(builder):
+    return Credentials(STYLE_CHAP,
+                       "", "",
+                       builder.get_object("loginChapUsernameEntry").get_text(),
+                       builder.get_object("loginChapPasswordEntry").get_text(),
+                       "", "")
+
+def login_reverse_chap(builder):
+    return Credentials(STYLE_REVERSE_CHAP,
+                       "", "",
+                       builder.get_object("loginRchapUsernameEntry").get_text(),
+                       builder.get_object("loginRchapPasswordEntry").get_text(),
+                       builder.get_object("loginRchapReverseUsername").get_text(),
+                       builder.get_object("loginRchapReversePassword").get_text())
+
+# And this list maps the current page from the loginAuthNotebook to a function
+# to grab credentials out of the UI.  This works as long as loginAuthNotebook
+# keeps the filler page at the front, and we check to make sure "Use the
+# credentials from discovery" is not selected first.
+loginMap = [login_no_credentials, login_chap, login_reverse_chap]
+
+def credentials_valid(credentials):
     if credentials.style == STYLE_NONE:
         return True
     elif credentials.style == STYLE_CHAP:
@@ -74,11 +105,6 @@ def login_credentials_valid(credentials):
     elif credentials.style == STYLE_REVERSE_CHAP:
         return credentials.username.strip() != "" and credentials.password != "" and \
                credentials.rUsername.strip() != "" and credentials.rPassword != ""
-
-# This list maps the current page from the authNotebook to a function to grab
-# credentials out of the UI.  This works as long as authNotebook keeps the
-# filler page at the front.
-loginMap = [login_no_credentials, login_chap, login_reverse_chap]
 
 class ISCSIDialog(GUIObject):
     builderObjects = ["iscsiDialog", "nodeStore", "nodeStoreFiltered"]
@@ -90,7 +116,7 @@ class ISCSIDialog(GUIObject):
         self.storage = storage
         self.iscsi = self.storage.iscsi()
 
-        self._discoveryError = False
+        self._discoveryError = None
         self._loginError = False
 
         self._discoveredNodes = []
@@ -103,6 +129,8 @@ class ISCSIDialog(GUIObject):
         self._loginButton = self.builder.get_object("loginButton")
         self._loginAuthTypeCombo = self.builder.get_object("loginAuthTypeCombo")
         self._loginAuthNotebook = self.builder.get_object("loginAuthNotebook")
+        self._loginGrid = self.builder.get_object("loginGrid")
+        self._loginConditionNotebook = self.builder.get_object("loginConditionNotebook")
 
         self._configureGrid = self.builder.get_object("configureGrid")
         self._conditionNotebook = self.builder.get_object("conditionNotebook")
@@ -120,9 +148,9 @@ class ISCSIDialog(GUIObject):
 
         self.builder.get_object("nodeStoreFiltered").set_visible_column(1)
 
-        initiatorEntry = self.builder.get_object("initiatorEntry")
-        initiatorEntry.set_text(self.iscsi.initiator)
-        initiatorEntry.set_sensitive(self.iscsi.initiatorSet)
+        self._initiatorEntry = self.builder.get_object("initiatorEntry")
+        self._initiatorEntry.set_text(self.iscsi.initiator)
+        self._initiatorEntry.set_sensitive(not self.iscsi.initiatorSet)
 
     @property
     def selectedNames(self):
@@ -142,7 +170,7 @@ class ISCSIDialog(GUIObject):
 
         # When we change the notebook, we also need to reverify the credentials
         # in order to set the Start button sensitivity.
-        self.on_login_field_changed()
+        self.on_discover_field_changed()
 
     def _discover(self, credentials):
         # This needs to be in its own thread, not marked with gtk_action_* because it's
@@ -158,10 +186,11 @@ class ISCSIDialog(GUIObject):
                                                         r_username=credentials.rUsername,
                                                         r_password=credentials.rPassword)
         except IOError as e:
-            self._discoveryError = True
+            self._discoveryError = str(e)
+            return
 
         if len(self._discoveredNodes) == 0:
-            self._discoveryError = True
+            self._discoveryError = "No nodes discovered."
 
     def _check_discover(self, *args):
         if threadMgr.get(constants.THREAD_ISCSI_DISCOVER):
@@ -176,8 +205,10 @@ class ISCSIDialog(GUIObject):
         if self._discoveryError:
             # Failure.  Display some error message and leave the user on the
             # dialog to try again.
-            self._discoveryError = False
+            self.builder.get_object("discoveryErrorLabel").set_text(self._discoveryError)
+            self._discoveryError = None
             self._conditionNotebook.set_current_page(2)
+            self._set_configure_sensitive(True)
         else:
             # Success.  Now populate the node store and kick the user on over to
             # that subscreen.
@@ -189,6 +220,13 @@ class ISCSIDialog(GUIObject):
         self._cancelButton.set_sensitive(True)
         return False
 
+    def _set_configure_sensitive(self, sensitivity):
+        for child in self._configureGrid.get_children():
+            if child == self._initiatorEntry:
+                self._initiatorEntry.set_sensitive(not self.iscsi.initiatorSet)
+            elif child != self._conditionNotebook:
+                child.set_sensitive(sensitivity)
+
     def on_start_clicked(self, *args):
         # First, update some widgets to not be usable while discovery happens.
         self._startButton.hide()
@@ -196,18 +234,11 @@ class ISCSIDialog(GUIObject):
         self._okButton.set_sensitive(False)
 
         self._conditionNotebook.set_current_page(1)
+        self._set_configure_sensitive(False)
+        self._initiatorEntry.set_sensitive(False)
 
-        # Mark all children of the configureGrid as insensitive, except for the
-        # wait box.
-        for child in self._configureGrid.get_children():
-            if child != self._conditionNotebook:
-                child.set_sensitive(False)
-
-        # Now get the login credentials.
-        credentials = loginMap[self._authNotebook.get_current_page()](self.builder)
-
-        # FIXME
-        # Verify credentials, setting the UI if required.
+        # Now get the node discovery credentials.
+        credentials = discoverMap[self._authNotebook.get_current_page()](self.builder)
 
         discoveredLabel = self.builder.get_object("discoveredLabel")
         discoveredLabel.set_markup(discoveredLabel.get_label() % {"initiatorName": credentials.initiator,
@@ -239,10 +270,10 @@ class ISCSIDialog(GUIObject):
         stripped = text.strip()
         return "." in stripped and ":" in stripped
 
-    def on_login_field_changed(self, *args):
+    def on_discover_field_changed(self, *args):
         # Make up a credentials object so we can test if it's valid.
-        credentials = loginMap[self._authNotebook.get_current_page()](self.builder)
-        sensitive = self._target_ip_valid() and self._initiator_name_valid() and login_credentials_valid(credentials)
+        credentials = discoverMap[self._authNotebook.get_current_page()](self.builder)
+        sensitive = self._target_ip_valid() and self._initiator_name_valid() and credentials_valid(credentials)
         self._startButton.set_sensitive(sensitive)
 
     ##
@@ -256,8 +287,12 @@ class ISCSIDialog(GUIObject):
         # We should select the first node by default.
         self._store[0][0] = True
 
-    def on_discovered_type_changed(self, widget, *args):
+    def on_login_type_changed(self, widget, *args):
         self._loginAuthNotebook.set_current_page(widget.get_active())
+
+        # When we change the notebook, we also need to reverify the credentials
+        # in order to set the Log In button sensitivity.
+        self.on_login_field_changed()
 
     def on_row_toggled(self, button, path):
         if not path:
@@ -271,7 +306,7 @@ class ISCSIDialog(GUIObject):
         itr = self._store.get_iter(path)
         self._store[itr][0] = True
 
-    def _login(self):
+    def _login(self, credentials):
         for row in self._store:
             obj = NodeStoreRow._make(row)
 
@@ -280,9 +315,13 @@ class ISCSIDialog(GUIObject):
 
             for node in self._discoveredNodes:
                 if obj.notLoggedIn and node.name == obj.name:
-                    (rc, msg) = self.iscsi.log_into_node(node)
+                    (rc, msg) = self.iscsi.log_into_node(node,
+                                                         username=credentials.username,
+                                                         password=credentials.password,
+                                                         r_username=credentials.rUsername,
+                                                         r_password=credentials.rPassword)
                     if not rc:
-                        print msg
+                        self._loginError = msg
                         return
 
                     row[1] = False
@@ -298,17 +337,21 @@ class ISCSIDialog(GUIObject):
         if threadMgr.get(constants.THREAD_ISCSI_LOGIN):
             return True
 
-        anyLeft = False
-
         spinner = self.builder.get_object("loginSpinner")
         spinner.stop()
         spinner.hide()
 
         if self._loginError:
-            self._loginError = False
+            self.builder.get_object("loginErrorLabel").set_text(self._loginError)
+            self._loginError = None
+            self._loginConditionNotebook.set_current_page(1)
             self._cancelButton.set_sensitive(True)
             self._loginButton.set_sensitive(True)
         else:
+            anyLeft = False
+
+            self._loginConditionNotebook.set_current_page(0)
+
             # Select the now-first target for the user in case they want to
             # log into another one.
             for row in self._store:
@@ -327,21 +370,54 @@ class ISCSIDialog(GUIObject):
             # the user cancel.  Cancel what, exactly?
             self._cancelButton.set_sensitive(False)
 
-        if not anyLeft:
-            self.window.response(1)
+            if not anyLeft:
+                self.window.response(1)
 
+        self._set_login_sensitive(True)
         return False
 
+    def _set_login_sensitive(self, sensitivity):
+        for child in self._loginGrid.get_children():
+            if child != self._loginConditionNotebook:
+                child.set_sensitive(sensitivity)
+
     def on_login_clicked(self, *args):
-        # Make the buttons unusable while we work.
+        # Make the buttons UI while we work.
         self._okButton.set_sensitive(False)
         self._cancelButton.set_sensitive(False)
         self._loginButton.set_sensitive(False)
+
+        self._loginConditionNotebook.set_current_page(0)
+        self._set_login_sensitive(False)
 
         spinner = self.builder.get_object("loginSpinner")
         spinner.start()
         spinner.set_visible(True)
         spinner.show()
 
-        threadMgr.add(AnacondaThread(name=constants.THREAD_ISCSI_LOGIN, target=self._login))
+        # Are we reusing the credentials from the discovery step?  If so, grab them
+        # out of the UI again here.  They should still be there.
+        page = self._loginAuthNotebook.get_current_page()
+        if page == 3:
+            credentials = discoverMap[self._authNotebook.get_current_page()](self.builder)
+        else:
+            credentials = loginMap[page](self.builder)
+
+        threadMgr.add(AnacondaThread(name=constants.THREAD_ISCSI_LOGIN, target=self._login,
+                                     args=(credentials,)))
         GLib.timeout_add(250, self._check_login)
+
+    def on_login_field_changed(self, *args):
+        # Make up a credentials object so we can test if it's valid.
+        credentials = loginMap[self._loginAuthNotebook.get_current_page()](self.builder)
+        self._loginButton.set_sensitive(credentials_valid(credentials))
+
+    ##
+    ## GLOBAL SIGNAL HANDLERS
+    ##
+
+    def on_password_focused(self, entry, event, *args):
+        entry.set_visibility(True)
+
+    def on_password_unfocused(self, entry, event, *args):
+        entry.set_visibility(False)
