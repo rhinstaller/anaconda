@@ -200,6 +200,24 @@ class GUIObject(common.UIObject):
         """
         self.window.set_warning(msg)
 
+    def on_password_focused(self, entry, event, *args):
+        """When a password entry is focused, this callback allows for showing
+           the contents of the entry.  Along with on_password_unfocused, this
+           has the effect of hiding the entry when the user's not directly
+           editing it, and showing it when they are.
+        """
+        entry.set_visibility(True)
+        return False
+
+    def on_password_unfocused(self, entry, event, *args):
+        """When a password entry is unfocused, this callback allows for hiding
+           the contents of the entry.  Along with on_password_focused, this
+           has the effect of hiding the entry when the user's not directly
+           editing it, and showing it when they are.
+        """
+        entry.set_visibility(False)
+        return False
+
 class QuitDialog(GUIObject):
     builderObjects = ["quitDialog"]
     mainWidgetName = "quitDialog"

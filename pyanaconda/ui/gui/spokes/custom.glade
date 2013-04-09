@@ -1072,6 +1072,8 @@ until you click on the main menu's 'Begin Installation' button.</property>
                                     <property name="visibility">False</property>
                                     <property name="invisible_char">●</property>
                                     <accelerator key="p" signal="grab-focus" modifiers="GDK_MOD1_MASK"/>
+                                    <signal name="focus-in-event" handler="on_password_focused" swapped="no"/>
+                                    <signal name="focus-out-event" handler="on_password_unfocused" swapped="no"/>
                                   </object>
                                   <packing>
                                     <property name="expand">False</property>

@@ -116,6 +116,8 @@
                 <property name="width_chars">32</property>
                 <signal name="changed" handler="on_passphrase_changed" swapped="no"/>
                 <signal name="focus-out-event" handler="on_passphrase_editing_done" swapped="no"/>
+                <signal name="focus-out-event" handler="on_password_unfocused" swapped="no"/>
+                <signal name="focus-in-event" handler="on_password_focused" swapped="no"/>
               </object>
               <packing>
                 <property name="left_attach">1</property>
@@ -149,6 +151,8 @@
                 <property name="width_chars">32</property>
                 <signal name="changed" handler="on_confirm_changed" swapped="no"/>
                 <signal name="focus-out-event" handler="on_confirm_editing_done" swapped="no"/>
+                <signal name="focus-out-event" handler="on_password_unfocused" swapped="no"/>
+                <signal name="focus-in-event" handler="on_password_focused" swapped="no"/>
               </object>
               <packing>
                 <property name="left_attach">1</property>
