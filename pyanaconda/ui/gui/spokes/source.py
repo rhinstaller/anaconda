@@ -278,13 +278,8 @@ class SourceSpoke(NormalSpoke):
         if flags.askmethod:
             flags.askmethod = False
 
-        method_changed = self._method_changed()
-        repos_changed = self._update_payload_repos()
-
-        if method_changed or repos_changed:
-            threadMgr.add(AnacondaThread(name=constants.THREAD_PAYLOAD_MD,
-                                         target=self.getRepoMetadata))
-            self.clear_info()
+        threadMgr.add(AnacondaThread(name=constants.THREAD_PAYLOAD_MD, target=self.getRepoMetadata))
+        self.clear_info()
 
     def _method_changed(self):
         """ Check to see if the install method has changed.
@@ -450,6 +445,10 @@ class SourceSpoke(NormalSpoke):
                     hubQ.send_ready("SoftwareSelectionSpoke", False)
         finally:
             hubQ.send_ready(self.__class__.__name__, False)
+
+    @property
+    def changed(self):
+        return self._method_changed() or self._update_payload_repos()
 
     @property
     def completed(self):

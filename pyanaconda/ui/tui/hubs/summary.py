@@ -45,7 +45,8 @@ class SummaryHub(TUIHub):
 
             print('')
             for spoke in spokes:
-                spoke.execute()
+                if spoke.changed:
+                    spoke.execute()
 
     # override the prompt so that we can skip user input on kickstarts
     # where all the data is in hand.  If not in hand, do the actual prompt.

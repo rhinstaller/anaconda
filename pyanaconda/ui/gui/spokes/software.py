@@ -71,11 +71,6 @@ class SoftwareSelectionSpoke(NormalSpoke):
 
         addons = self._get_selected_addons()
 
-        # Don't redo dep solving if nothing's changed.
-        if row[2] == self._origEnvironment and set(addons) == set(self._origAddons) and \
-           self.txid_valid:
-            return
-
         self._selectFlag = False
         self.payload.data.packages.groupList = []
         self.payload.selectEnvironment(row[2])
@@ -121,6 +116,21 @@ class SoftwareSelectionSpoke(NormalSpoke):
             return processingDone and self.data.packages.seen
         else:
             return self._get_selected_environment() is not None and processingDone
+
+    @property
+    def changed(self):
+        row = self._get_selected_environment()
+        if not row:
+            return True
+
+        addons = self._get_selected_addons()
+
+        # Don't redo dep solving if nothing's changed.
+        if row[2] == self._origEnvironment and set(addons) == set(self._origAddons) and \
+           self.txid_valid:
+            return False
+
+        return True
 
     @property
     def mandatory(self):

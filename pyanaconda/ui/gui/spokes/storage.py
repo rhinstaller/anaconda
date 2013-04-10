@@ -333,6 +333,8 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         self.clearPartType = CLEARPART_TYPE_NONE
 
         self._previous_autopart = False
+        self._initial_selected_disks = []
+        self._initial_bootloader_disk = None
 
     def _applyDiskSelection(self, use_names):
         onlyuse = use_names[:]
@@ -404,6 +406,14 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         finally:
             self._ready = True
             hubQ.send_ready(self.__class__.__name__, True)
+
+    @property
+    def changed(self):
+        disksChanged = set(self._initial_selected_disks) != set(self.selected_disks)
+        bootloaderChanged = not bool(self.data.bootloader.bootDrive) or \
+                            self._initial_bootloader_disk != self.data.bootloader.bootDrive
+
+        return disksChanged or bootloaderChanged
 
     @property
     def completed(self):
@@ -512,6 +522,12 @@ class StorageSpoke(NormalSpoke, StorageChecker):
             overview.set_chosen(name in self.selected_disks)
 
         self._update_summary()
+
+        # This list is used to determine if anything has changed in storage
+        # configuration since the user entered the spoke.  If not, we shouldn't
+        # do anything when Done is clicked.
+        self._initial_selected_disks = self.selected_disks[:]
+        self._initial_bootloader_disk = self.data.bootloader.bootDrive
 
         if self.errors:
             self.set_warning(_("Error checking storage configuration.  Click for details."))
@@ -696,6 +712,11 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         return True
 
     def on_back_clicked(self, button):
+        # Did the user change anything?  If not, this method is a no-op.
+        if not self.changed:
+            NormalSpoke.on_back_clicked(self, button)
+            return
+
         # Remove all non-existing devices if autopart was active when we last
         # refreshed.
         if self._previous_autopart:

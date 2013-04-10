@@ -232,6 +232,15 @@ class Spoke(UIObject):
         raise NotImplementedError
 
     @property
+    def changed(self):
+        """Have the values on the spoke changed since the last time it was
+           run?  If not, the apply and execute methods will be skipped.  This
+           is to avoid the spoke doing potentially long-lived and destructive
+           actions that are completely unnecessary.
+        """
+        return True
+
+    @property
     def configured(self):
         """This method returns a list of textual ids that should
            be written into the after-install customization status
@@ -257,7 +266,7 @@ class Spoke(UIObject):
            Spokes are mandatory unless marked as not being so.
         """
         return True
-    
+
     def execute(self):
         """Cause the data object to take effect on the target system.  This will
            usually be as simple as calling one or more of the execute methods on

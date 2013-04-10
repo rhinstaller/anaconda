@@ -116,7 +116,7 @@ class Hub(GUIObject, common.Hub):
         Gtk.main()
         action.window.set_transient_for(None)
 
-        if not action.skipTo or (action.skipTo and action.applyOnSkip):
+        if action.changed and (not action.skipTo or (action.skipTo and action.applyOnSkip)):
             action.apply()
             action.execute()
 
@@ -128,7 +128,7 @@ class Hub(GUIObject, common.Hub):
         """
 
         ret = {}
-        
+
         # Collect all the categories this hub displays, then collect all the
         # spokes belonging to all those categories.
         categories = sorted(filter(lambda c: c.displayOnHub == self.__class__, collect_categories(self.paths["categories"])),
@@ -206,7 +206,7 @@ class Hub(GUIObject, common.Hub):
                 spoke.selector.connect("key-release-event", self._on_spoke_clicked, spoke)
 
                 # If this is a kickstart install, attempt to execute any provided ksdata now.
-                if flags.automatedInstall and spoke.ready:
+                if flags.automatedInstall and spoke.ready and spoke.changed:
                     spoke.execute()
 
                 selectors.append(spoke.selector)
@@ -327,7 +327,7 @@ class Hub(GUIObject, common.Hub):
                     # _createBox skipped.  Now that it's become ready, do it.  Note
                     # that we also provide a way to skip this processing (see comments
                     # communication.py) to prevent getting caught in a loop.
-                    if not args[1]:
+                    if not args[1] and spoke.changed:
                         spoke.execute()
 
                     if self.continuePossible:
