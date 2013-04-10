@@ -38,24 +38,6 @@ __all__ = ["DATA_DEVICE", "SYSTEM_DEVICE",
 DATA_DEVICE = 0
 SYSTEM_DEVICE = 1
 
-def mountpointName(mountpoint):
-    # If there's a mount point, apply a kind of lame scheme to it to figure
-    # out what the name should be.  Basically, just look for the last directory
-    # in the mount point's path and capitalize the first letter.  So "/boot"
-    # becomes "Boot", and "/usr/local" becomes "Local".
-    if mountpoint == "/":
-        return "Root"
-    elif mountpoint != None:
-        try:
-            lastSlash = mountpoint.rindex("/")
-        except ValueError:
-            # No slash in the mount point?  I suppose that's possible.
-            return None
-
-        return mountpoint[lastSlash+1:].capitalize()
-    else:
-        return None
-
 def selectorFromDevice(device, selector=None, mountpoint=""):
     """Create a MountpointSelector from a Device object template.  This
        method should be used whenever constructing a new selector, or when
@@ -71,21 +53,20 @@ def selectorFromDevice(device, selector=None, mountpoint=""):
     """
     if hasattr(device.format, "mountpoint") and device.format.mountpoint is not None:
         mp = device.format.mountpoint
-    else:
+    elif mountpoint:
         mp = mountpoint
-
-    if device.format.type == "swap":
-        name = "Swap"
+    elif device.format.name:
+        mp = device.format.name
     else:
-        name = mountpointName(mp) or device.format.name
+        mp = _("Unknown")
 
     size = Size(spec="%f MB" % device.size)
 
     if not selector:
-        selector = MountpointSelector(name, str(size).upper(), mp)
+        selector = MountpointSelector(device.name, str(size).upper(), mp)
         selector._root = None
     else:
-        selector.props.name = name
+        selector.props.name = device.name
         selector.props.size = str(size).upper()
         selector.props.mountpoint = mp
 

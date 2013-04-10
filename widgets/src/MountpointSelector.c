@@ -45,7 +45,7 @@ enum {
     PROP_MOUNTPOINT
 };
 
-#define DEFAULT_NAME        N_("Root")
+#define DEFAULT_NAME        ""
 #define DEFAULT_SIZE        N_("0 GB")
 #define DEFAULT_MOUNTPOINT  ""
 
@@ -80,7 +80,9 @@ static void anaconda_mountpoint_selector_class_init(AnacondaMountpointSelectorCl
     /**
      * AnacondaMountpointSelector:name:
      *
-     * The :name string is the primary text displayed for a given mountpoint.
+     * The :name string is the secondary text displayed for this widget.  It is
+     * commonly going to be the name of the device node containing this
+     * mountpoint.
      *
      * Since: 1.0
      */
@@ -111,7 +113,8 @@ static void anaconda_mountpoint_selector_class_init(AnacondaMountpointSelectorCl
     /**
      * AnacondaMountpointSelector:mountpoint:
      *
-     * The :mountpoint string is where on the filesystem this is mounted.
+     * The :mountpoint string is the primary text displayed for this widget.
+     * It shows where on the filesystem this device is mounted.
      *
      * Since: 1.0
      */
@@ -164,11 +167,11 @@ static gchar *find_pixmap(const gchar *file) {
     return NULL;
 }
 
-static void format_name_label(AnacondaMountpointSelector *widget, const char *value) {
+static void format_mountpoint_label(AnacondaMountpointSelector *widget, const char *value) {
     char *markup;
 
     markup = g_markup_printf_escaped("<span fgcolor='black' size='large' weight='bold'>%s</span>", value);
-    gtk_label_set_markup(GTK_LABEL(widget->priv->name_label), markup);
+    gtk_label_set_markup(GTK_LABEL(widget->priv->mountpoint_label), markup);
     g_free(markup);
 }
 
@@ -180,11 +183,11 @@ static void format_size_label(AnacondaMountpointSelector *widget, const char *va
     g_free(markup);
 }
 
-static void format_mountpoint_label(AnacondaMountpointSelector *widget, const char *value) {
+static void format_name_label(AnacondaMountpointSelector *widget, const char *value) {
     char *markup;
 
     markup = g_markup_printf_escaped("<span fgcolor='grey' size='small'>%s</span>", value);
-    gtk_label_set_markup(GTK_LABEL(widget->priv->mountpoint_label), markup);
+    gtk_label_set_markup(GTK_LABEL(widget->priv->name_label), markup);
     g_free(markup);
 }
 
@@ -242,10 +245,10 @@ static void anaconda_mountpoint_selector_init(AnacondaMountpointSelector *mountp
     gtk_widget_set_hexpand(GTK_WIDGET(mountpoint->priv->mountpoint_label), TRUE);
 
     /* Add everything to the grid, add the grid to the widget. */
-    gtk_grid_attach(GTK_GRID(mountpoint->priv->grid), mountpoint->priv->name_label, 0, 0, 1, 1);
+    gtk_grid_attach(GTK_GRID(mountpoint->priv->grid), mountpoint->priv->mountpoint_label, 0, 0, 1, 1);
     gtk_grid_attach(GTK_GRID(mountpoint->priv->grid), mountpoint->priv->size_label, 1, 0, 1, 2);
     gtk_grid_attach(GTK_GRID(mountpoint->priv->grid), mountpoint->priv->arrow, 2, 0, 1, 2);
-    gtk_grid_attach(GTK_GRID(mountpoint->priv->grid), mountpoint->priv->mountpoint_label, 0, 1, 1, 2);
+    gtk_grid_attach(GTK_GRID(mountpoint->priv->grid), mountpoint->priv->name_label, 0, 1, 1, 2);
     gtk_widget_set_margin_right(GTK_WIDGET(mountpoint->priv->grid), 12);
 
     gtk_container_add(GTK_CONTAINER(mountpoint), mountpoint->priv->grid);
