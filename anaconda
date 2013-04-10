@@ -637,6 +637,20 @@ def prompt_for_ssh():
     else:
         stdoutLog.info(_("Please ssh install@<host> to continue installation."))
 
+def cleanPStore():
+    """remove files stored in nonvolatile ram created by the pstore subsystem"""
+
+    # files in pstore are linux (not distribution) specific, but we want to
+    # make sure the entirity of them are removed so as to ensure that there
+    # is sufficient free space on the flash part.  On some machines this will
+    # take effect immediately, which is the best case.  Unfortunately on some,
+    # an intervening reboot is needed."""
+    try:
+        for root, dirs, files in os.walk("/sys/fs/pstore"):
+            for f in files:
+                os.unlink("%s/%s" % (root,f))
+    except OSError:
+        pass
 
 if __name__ == "__main__":
     print "Starting installer, one moment..."
@@ -1007,6 +1021,8 @@ if __name__ == "__main__":
 
     if anaconda.rescue:
         rescue.doRescue(anaconda.intf, anaconda.rescue_mount, ksdata)
+    else:
+        cleanPStore()
 
     networkInitialize(ksdata)
     if not flags.dirInstall:
