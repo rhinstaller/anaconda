@@ -263,12 +263,6 @@ class Bootloader(commands.bootloader.F18_Bootloader):
         else:
             location = self.location
 
-        if self.upgrade and not flags.cmdline.has_key("preupgrade"):
-            raise KickstartValueError, formatErrorMsg(self.lineno, msg="Selected upgrade mode for bootloader but not doing an upgrade")
-
-        if self.upgrade and storage.bootloader.can_update:
-            storage.bootloader.update_only = True
-
         if not location:
             storage.bootloader.skip_bootloader = True
             return

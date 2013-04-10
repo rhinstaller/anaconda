@@ -52,8 +52,6 @@ class BaseInstallClass(object):
     _descriptionFields = ()
     name = "base"
     pkgstext = ""
-    # default to showing the upgrade option
-    showUpgrade = True
     bootloaderTimeoutDefault = None
     bootloaderExtraArgs = []
     _l10n_domain = None

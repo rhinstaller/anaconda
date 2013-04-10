@@ -114,8 +114,6 @@ class ErrorHandler(object):
         return ERROR_RAISE
 
     def _dirtyFSHandler(self, *args, **kwargs):
-        # FIXME: for rescue it must be possible to continue, but for upgrade
-        #        it must be fatal
         devs = kwargs.pop("devices")
         message = _("The following file systems for your Linux system were "
                     "not unmounted cleanly.  Would you like to mount them "

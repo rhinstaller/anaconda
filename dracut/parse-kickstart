@@ -140,7 +140,7 @@ class DisplayMode(commands.displaymode.FC3_DisplayMode):
         elif self.displayMode == DISPLAY_MODE_GRAPHICAL:
             return "inst.graphical"
 
-# TODO: keymap, lang... device? upgrade? selinux?
+# TODO: keymap, lang... device? selinux?
 
 dracutCmds = {
     'cdrom': Method,

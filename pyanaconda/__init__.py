@@ -76,8 +76,6 @@ class Anaconda(object):
         self.stage2 = None
         self._storage = None
         self.updateSrc = None
-        self.upgrade = flags.cmdline.has_key("preupgrade")
-        self.upgradeRoot = None
         self.mehConfig = None
 
         # *sigh* we still need to be able to write this out

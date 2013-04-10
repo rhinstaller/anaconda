@@ -156,7 +156,7 @@ def initExceptionHandling(anaconda):
     fileList = [ "/tmp/anaconda.log", "/tmp/packaging.log",
                  "/tmp/program.log", "/tmp/storage.log", "/tmp/ifcfg.log",
                  "/tmp/yum.log", ROOT_PATH + "/root/install.log",
-                 ROOT_PATH + "/root/upgrade.log", "/proc/cmdline" ]
+                 "/proc/cmdline" ]
     if flags.livecdInstall:
         fileList.extend(["/var/log/messages"])
     else:

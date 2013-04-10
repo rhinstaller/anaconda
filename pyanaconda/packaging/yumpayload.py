@@ -1336,8 +1336,6 @@ reposdir=%s
                 log.debug("success")
             elif self.data.packages.handleMissing == KS_MISSING_IGNORE:
                 log.debug("ignoring missing due to ks config")
-            elif self.data.upgrade.upgrade:
-                log.debug("ignoring unresolved deps on upgrade")
             else:
                 for msg in msgs:
                     log.warning(msg)
@@ -1413,14 +1411,11 @@ reposdir=%s
         # doPreInstall
         # create mountpoints for protected device mountpoints (?)
         # write static configs (storage, modprobe.d/anaconda.conf, network, keyboard)
-        #   on upgrade, just make sure /etc/mtab is a symlink to /proc/self/mounts
 
-        if not self.data.upgrade.upgrade:
-            # this adds nofsync, which speeds things up but carries a risk of
-            # rpmdb data loss if a crash occurs. that's why we only do it on
-            # initial install and not for upgrades.
-            rpm.addMacro("__dbi_htconfig",
-                         "hash nofsync %{__dbi_other} %{__dbi_perms}")
+        # nofsync speeds things up at the risk of rpmdb data loss in a crash.
+        # But if we crash mid-install you're boned anyway, so who cares?
+        rpm.addMacro("__dbi_htconfig",
+                     "hash nofsync %{__dbi_other} %{__dbi_perms}")
 
         if self.data.packages.excludeDocs:
             rpm.addMacro("_excludedocs", "1")
@@ -1579,12 +1574,6 @@ reposdir=%s
             for repo in self._yum.repos.listEnabled():
                 if repo.name == BASE_REPO_NAME or repo.id.startswith("anaconda-"):
                     shutil.rmtree(repo.cachedir)
-
-            # clean the yum cache on upgrade
-            if self.data.upgrade.upgrade:
-                self._yum.cleanMetadata()
-
-        # TODO: on preupgrade, remove the preupgrade dir
 
         self._removeTxSaveFile()
 

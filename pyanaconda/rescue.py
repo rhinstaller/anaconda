@@ -267,7 +267,7 @@ def doRescue(intf, rescue_mount, ksdata):
 
     if not roots:
         root = None
-    elif len(roots) == 1 or ksdata.upgrade.upgrade:
+    elif len(roots) == 1:
         root = roots[0]
     else:
         height = min (len (roots), 12)
