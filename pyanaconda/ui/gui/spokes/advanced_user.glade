@@ -31,7 +31,8 @@
             </child>
             <child>
               <object class="GtkButton" id="button1">
-                <property name="label" translatable="yes">Save Changes</property>
+                <property name="label" translatable="yes">_Save Changes</property>
+                <property name="use_underline">True</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
