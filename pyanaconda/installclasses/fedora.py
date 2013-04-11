@@ -27,47 +27,17 @@ import os, types
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
 
-from decimal import Decimal
-
 class InstallClass(BaseInstallClass):
     # name has underscore used for mnemonics, strip if you dont need it
     id = "fedora"
     name = N_("_Fedora")
-    _description = N_("The default installation of %s includes a set of "
-                      "software applicable for general internet usage. "
-                      "You can optionally select a different set of software "
-                      "now.")
-    _descriptionFields = (productName,)
     sortPriority = 10000
     if productName.startswith("Red Hat Enterprise"):
         hidden = 1
 
-    tasks = [(N_("Graphical Desktop"),
-              ["admin-tools", "base", "base-x", "core", "editors", "fonts",
-               "games", "gnome-desktop", "graphical-internet", "graphics",
-               "hardware-support", "input-methods", "java", "office",
-               "printing", "sound-and-video", "text-internet"]),
-             (N_("Software Development"),
-              ["base", "base-x", "core", "development-libs",
-               "development-tools", "editors", "fonts", "gnome-desktop",
-               "gnome-software-development", "graphical-internet", "graphics",
-               "hardware-support", "input-methods", "java", "sound-and-video", "text-internet",
-               "x-software-development"]),
-             (N_("Web Server"),
-              ["admin-tools", "base", "base-x", "core", "editors",
-               "gnome-desktop", "graphical-internet", "hardware-support",
-               "java", "text-internet", "web-server"]),
-             (N_("Minimal"), ["core"])]
-
     _l10n_domain = "anaconda"
 
     efi_dir = "fedora"
-
-    def getPackagePaths(self, uri):
-        if not type(uri) == types.ListType:
-            uri = [uri,]
-
-        return {'Installation Repo': uri}
 
     def configure(self, anaconda):
 	BaseInstallClass.configure(self, anaconda)
@@ -75,44 +45,6 @@ class InstallClass(BaseInstallClass):
 
     def setGroupSelection(self, anaconda):
         BaseInstallClass.setGroupSelection(self, anaconda)
-
-    def productMatches(self, oldprod):
-        if oldprod is None:
-            return False
-
-        if oldprod.startswith(productName):
-            return True
-
-        productUpgrades = {
-                "Fedora Core": ("Red Hat Linux", ),
-                "Fedora": ("Fedora Core", )
-        }
-
-        if productUpgrades.has_key(productName):
-            acceptable = productUpgrades[productName]
-        else:
-            acceptable = ()
-
-        for p in acceptable:
-            if oldprod.startswith(p):
-                return True
-
-        return False
-
-    def versionMatches(self, oldver):
-        if oldver is None:
-            return False
-
-        try:
-            oldVer = Decimal(oldver)
-            # Trim off any "-Alpha" or "-Beta".
-            newVer = Decimal(productVersion.split('-')[0])
-        except Exception:
-            return True
-
-        # This line means we do not support upgrading from anything older
-        # than two versions ago!
-        return newVer >= oldVer and newVer - oldVer <= 2
 
     def setNetworkOnbootDefault(self, ksdata):
         # if something's already enabled, we can just leave the config alone

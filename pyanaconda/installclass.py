@@ -45,13 +45,7 @@ from flags import flags
 class BaseInstallClass(object):
     # default to not being hidden
     hidden = 0
-    pixmap = None
-    showMinimal = 1
-    showLoginChoice = 0
-    _description = ""
-    _descriptionFields = ()
     name = "base"
-    pkgstext = ""
     bootloaderTimeoutDefault = None
     bootloaderExtraArgs = []
     _l10n_domain = None
@@ -60,19 +54,8 @@ class BaseInstallClass(object):
     # Blivet uses by default.
     defaultFS = None
 
-    # list of of (txt, grplist) tuples for task selection screen
-    tasks = []
-
     # don't select this class by default
     default = 0
-
-    # by default, place this under the "install" category; it gets it's
-    # own toplevel category otherwise
-    parentClass = ( _("Install on System"), "install.png" )
-
-    def _get_description(self):
-        return _(self._description) % self._descriptionFields
-    description = property(_get_description)
 
     @property
     def l10n_domain(self):
@@ -80,16 +63,6 @@ class BaseInstallClass(object):
             raise RuntimeError("Localization domain for '%s' not set." %
                                self.name)
         return self._l10n_domain
-
-    # modifies the uri from installmethod.getMethodUri() to take into
-    # account any installclass specific things including multiple base
-    # repositories.  takes a string or list of strings, returns a dict
-    # with string keys and list values {%repo: %uri_list}
-    def getPackagePaths(self, uri):
-        if not type(uri) == types.ListType:
-            uri = [uri,]
-
-        return {'base': uri}
 
     def setPackageSelection(self, anaconda):
 	pass
@@ -129,33 +102,6 @@ class BaseInstallClass(object):
         anaconda.bootloader.timeout = self.bootloaderTimeoutDefault
         anaconda.bootloader.boot_args.update(self.bootloaderExtraArgs)
 
-    def versionMatches(self, oldver):
-        pass
-
-    def productMatches(self, oldprod):
-        pass
-
-    def productUpgradable(self, arch, oldprod, oldver):
-        """ Return a tuple with:
-            (Upgradable True|False, dict of tests and status)
-
-            The dict has True|False for: product, version, arch tests.
-        """
-        def archesEq(a, b):
-            import re
-
-            if re.match("i.86", a) and re.match("i.86", b):
-                return True
-            else:
-                return a == b
-
-        result = { "product" : self.productMatches(oldprod),
-                   "version"  : self.versionMatches(oldver),
-                   "arch"     : archesEq(arch, productArch)
-                 }
-
-        return (all(result.values()), result)
-
     # sets default ONBOOT values and updates ksdata accordingly
     def setNetworkOnbootDefault(self, ksdata):
         pass
@@ -172,8 +118,8 @@ def availableClasses(showHidden=0):
     global allClasses_hidden
 
     def _ordering(first, second):
-        ((name1, obj, logo), priority1) = first
-        ((name2, obj, logo), priority2) = second
+        ((name1, obj), priority1) = first
+        ((name2, obj), priority2) = second
 
         if priority1 < priority2:
             return -1
@@ -243,7 +189,7 @@ def availableClasses(showHidden=0):
 		sortOrder = 0
 
             if obj.hidden == 0 or showHidden == 1:
-                list.append(((obj.name, obj, obj.pixmap), sortOrder))
+                list.append(((obj.name, obj), sortOrder))
         except ImportError as e:
             log.warning ("module import of %s failed: %s" % (mainName, sys.exc_type))
             if flags.debug: raise
@@ -267,18 +213,18 @@ def getBaseInstallClass():
     avail = availableClasses(showHidden = 0)
 
     if len(avail) == 1:
-        (cname, cobject, clogo) = avail[0]
+        (cname, cobject) = avail[0]
         log.info("using only installclass %s" %(cname,))
     elif len(allavail) == 1:
-        (cname, cobject, clogo) = allavail[0]
+        (cname, cobject) = allavail[0]
         log.info("using only installclass %s" %(cname,))
 
     # Use the highest priority install class if more than one found.
     elif len(avail) > 1:
-        (cname, cobject, clogo) = avail.pop()
+        (cname, cobject) = avail.pop()
         log.info('%s is the highest priority installclass, using it' % cname)
     elif len(allavail) > 1:
-        (cname, cobject, clogo) = allavail.pop()
+        (cname, cobject) = allavail.pop()
         log.info('%s is the highest priority installclass, using it' % cname)
 
     # Default to the base installclass if nothing else is found.
