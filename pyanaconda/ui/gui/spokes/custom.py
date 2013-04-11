@@ -1210,7 +1210,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         # it's possible that reformat is active but fstype is unchanged, in
         # which case we're not going to schedule another reformat unless
         # encryption got toggled
-        do_reformat = (reformat and (encryption_changed or
+        do_reformat = (reformat and (changed_encryption or
                                      fs_type_changed or
                                      device.format.exists))
         if do_reformat:
