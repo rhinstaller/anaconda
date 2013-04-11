@@ -140,15 +140,18 @@ class Anaconda(object):
     @property
     def protected(self):
         import stat
-
+        specs = []
         if os.path.exists("/run/initramfs/livedev") and \
            stat.S_ISBLK(os.stat("/run/initramfs/livedev")[stat.ST_MODE]):
-            return [os.readlink("/run/initramfs/livedev")]
-        elif self.methodstr and self.methodstr.startswith("hd:"):
-            method = self.methodstr[3:]
-            return [method.split(":", 3)[0]]
-        else:
-            return []
+            specs.append(os.readlink("/run/initramfs/livedev"))
+
+        if self.methodstr and self.methodstr.startswith("hd:"):
+            specs.append(self.methodstr[3:].split(":", 3)[0])
+
+        if self.stage2 and self.stage2.startswith("hd:"):
+            specs.append(self.stage2[3:].split(":", 3)[0])
+
+        return specs
 
     @property
     def storage(self):
