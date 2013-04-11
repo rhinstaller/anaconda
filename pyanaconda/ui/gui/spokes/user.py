@@ -70,7 +70,9 @@ class AdvancedUserDialog(GUIObject):
         if self._user.homedir:
             t_home.set_text(self._user.homedir)
         elif self._user.name:
-            t_home.set_text("/home/%s" % self._user.name)
+            homedir = "/home/" + self._user.name
+            t_home.set_text(homedir)
+            self._user.homedir = homedir
 
         c_home = self.builder.get_object("c_home")
         c_home.set_active(bool(self._user.homedir))
@@ -167,6 +169,7 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke):
         self.confirm = self.builder.get_object("t_verifypassword")
         self.admin = self.builder.get_object("c_admin")
         self.usepassword = self.builder.get_object("c_usepassword")
+        self.b_advanced = self.builder.get_object("b_advanced")
 
         self.guesser = {
             self.username: True
@@ -210,6 +213,8 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke):
             self.username.grab_focus()
         else:
             self.fullname.grab_focus()
+
+        self.b_advanced.set_sensitive(bool(self._user.name))
 
     @property
     def status(self):
@@ -290,8 +295,10 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke):
 
         if editable.get_text() == "":
             self.guesser[editable] = True
+            self.b_advanced.set_sensitive(False)
         else:
             self.guesser[editable] = False
+            self.b_advanced.set_sensitive(True)
 
     def _guessNames(self, editable = None, data = None):
         """Called by Gtk callback when the full name field changes.
