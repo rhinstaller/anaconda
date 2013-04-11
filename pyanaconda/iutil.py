@@ -260,16 +260,25 @@ def mkdirChain(dir):
         log.error("could not create directory %s: %s" % (dir, e.strerror))
 
 def get_active_console(dev="console"):
-    while True:
-        try:
-            dev = open("/sys/class/tty/%s/active" % dev).read().split()[-1]
-        except (IOError, IndexError):
-            break
+    '''Find the active console device.
+
+    Some tty devices (/dev/console, /dev/tty0) aren't actual devices;
+    they just redirect input and output to the real console device(s).
+
+    These 'fake' ttys have an 'active' sysfs attribute, which lists the real
+    console device(s). (If there's more than one, the *last* one in the list
+    is the primary console.)
+    '''
+    # If there's an 'active' attribute, this is a fake console..
+    while os.path.exists("/sys/class/tty/%s/active" % dev):
+        # So read the name of the real, primary console out of the file.
+        dev = open("/sys/class/tty/%s/active" % dev).read().split()[-1]
     return dev
 
 def isConsoleOnVirtualTerminal(dev="console"):
-    console = get_active_console(dev)
-    return console.rstrip('01243456789') == 'tty'
+    console = get_active_console(dev)          # e.g. 'tty1', 'ttyS0', 'hvc1'
+    consoletype = console.rstrip('0123456789') # remove the number
+    return consoletype == 'tty'
 
 def strip_markup(text):
     if text.find("<") == -1:
