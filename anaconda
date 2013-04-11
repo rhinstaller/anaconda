@@ -954,8 +954,8 @@ if __name__ == "__main__":
         # Given something other than the long format we prefer?  We need to
         # dig through supported translations to figure out what the user
         # meant.
+        foundLang = False
         if not opts.lang in langObj.translations:
-            foundLang = False
 
             for trans in langObj.translations.keys():
                 if opts.lang in expand_langs(trans):
@@ -964,10 +964,13 @@ if __name__ == "__main__":
                     break
 
             if not foundLang:
-                opts.lang = "en_US.UTF-8"
+                opts.lang = constants.DEFAULT_LANG
 
         langObj.set_install_lang(opts.lang)
         ksdata.lang.lang = opts.lang
+        # report if a language specified by the user
+        # or a default was used
+        ksdata.lang.seen = foundLang
 
     import blivet
     blivet.enable_installer_mode()
