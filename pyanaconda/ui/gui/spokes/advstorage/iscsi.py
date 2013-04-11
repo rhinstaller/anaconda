@@ -27,6 +27,7 @@ from gi.repository import GLib, Gtk
 from pyanaconda import constants
 from pyanaconda.threads import threadMgr, AnacondaThread
 from pyanaconda.ui.gui import GUIObject
+from pyanaconda import nm
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
@@ -41,7 +42,7 @@ Credentials = namedtuple("Credentials", ["style",
                                          "targetIP", "initiator", "username",
                                          "password", "rUsername", "rPassword"])
 
-NodeStoreRow = namedtuple("NodeStoreRow", ["selected", "notLoggedIn", "name"])
+NodeStoreRow = namedtuple("NodeStoreRow", ["selected", "notLoggedIn", "name", "iface"])
 
 def discover_no_credentials(builder):
     return Credentials(STYLE_NONE,
@@ -135,6 +136,10 @@ class ISCSIDialog(GUIObject):
         self._configureGrid = self.builder.get_object("configureGrid")
         self._conditionNotebook = self.builder.get_object("conditionNotebook")
 
+        self._bindCheckbox = self.builder.get_object("bindCheckbutton")
+        self._bindCheckbox.set_active(bool(self.iscsi.ifaces))
+        self._bindCheckbox.set_sensitive(self.iscsi.mode == "none")
+
         self._startButton = self.builder.get_object("startButton")
         self._okButton = self.builder.get_object("okButton")
         self._cancelButton = self.builder.get_object("cancelButton")
@@ -172,12 +177,21 @@ class ISCSIDialog(GUIObject):
         # in order to set the Start button sensitivity.
         self.on_discover_field_changed()
 
-    def _discover(self, credentials):
+    def _discover(self, credentials, bind):
         # This needs to be in its own thread, not marked with gtk_action_* because it's
         # called from on_start_clicked, which is in the GTK main loop.  Those decorators
         # won't do anything special in that case.
         if not self.iscsi.initiatorSet:
             self.iscsi.initiator = credentials.initiator
+
+        # interfaces created here affect nodes that iscsi.discover would return
+        if self.iscsi.mode == "none" and not bind:
+            self.iscsi.delete_interfaces()
+        elif (self.iscsi.mode == "bind"
+              or self.iscsi.mode == "none" and bind):
+            activated = set(nm.nm_activated_devices())
+            created = set(self.iscsi.ifaces.values())
+            self.iscsi.create_interfaces(activated - created)
 
         try:
             self._discoveredNodes = self.iscsi.discover(credentials.targetIP,
@@ -224,6 +238,8 @@ class ISCSIDialog(GUIObject):
         for child in self._configureGrid.get_children():
             if child == self._initiatorEntry:
                 self._initiatorEntry.set_sensitive(not self.iscsi.initiatorSet)
+            elif child == self._bindCheckbox:
+                self._bindCheckbox.set_sensitive(sensitivity and self.iscsi.mode == "none")
             elif child != self._conditionNotebook:
                 child.set_sensitive(sensitivity)
 
@@ -244,11 +260,13 @@ class ISCSIDialog(GUIObject):
         discoveredLabel.set_markup(discoveredLabel.get_label() % {"initiatorName": credentials.initiator,
                                                                   "targetAddress": credentials.targetIP})
 
+        bind = self._bindCheckbox.get_active()
+
         spinner = self.builder.get_object("waitSpinner")
         spinner.start()
 
         threadMgr.add(AnacondaThread(name=constants.THREAD_ISCSI_DISCOVER, target=self._discover,
-                                     args=(credentials,)))
+                                     args=(credentials, bind)))
         GLib.timeout_add(250, self._check_discover)
 
     # When the initiator name, ip address, and any auth fields are filled in
@@ -282,7 +300,8 @@ class ISCSIDialog(GUIObject):
 
     def _add_nodes(self, nodes):
         for node in nodes:
-            self._store.append([False, True, node.name])
+            iface =  self.iscsi.ifaces.get(node.iface, node.iface)
+            self._store.append([False, True, node.name, iface])
 
         # We should select the first node by default.
         self._store[0][0] = True

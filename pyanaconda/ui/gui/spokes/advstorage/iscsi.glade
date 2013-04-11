@@ -643,6 +643,23 @@
                       </object>
                       <packing>
                         <property name="left_attach">0</property>
+                        <property name="top_attach">7</property>
+                        <property name="width">3</property>
+                        <property name="height">1</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkCheckButton" id="bindCheckbutton">
+                        <property name="label" translatable="yes">_Bind targets to network interfaces</property>
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="receives_default">False</property>
+                        <property name="xalign">0</property>
+                        <property name="use_underline">True</property>
+                        <property name="draw_indicator">True</property>
+                      </object>
+                      <packing>
+                        <property name="left_attach">0</property>
                         <property name="top_attach">6</property>
                         <property name="width">3</property>
                         <property name="height">1</property>
@@ -716,6 +733,17 @@
                                   <object class="GtkCellRendererText" id="nodeNameRenderer"/>
                                   <attributes>
                                     <attribute name="text">2</attribute>
+                                  </attributes>
+                                </child>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="GtkTreeViewColumn" id="treeviewcolumn1">
+                                <property name="title" translatable="yes">Interface</property>
+                                <child>
+                                  <object class="GtkCellRendererText" id="cellrenderertext1"/>
+                                  <attributes>
+                                    <attribute name="text">3</attribute>
                                   </attributes>
                                 </child>
                               </object>
@@ -1246,6 +1274,8 @@
       <!-- column-name nodeNotLoggedIn -->
       <column type="gboolean"/>
       <!-- column-name nodeName -->
+      <column type="gchararray"/>
+      <!-- column-name nodeIface -->
       <column type="gchararray"/>
     </columns>
   </object>
