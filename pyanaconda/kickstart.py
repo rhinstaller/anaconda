@@ -76,10 +76,6 @@ stdoutLog = logging.getLogger("anaconda.stdout")
 from anaconda_log import logger, logLevelMap, setHandlersLevel,\
     DEFAULT_TTY_LEVEL
 
-# deviceMatches is called early, before any multipaths can possibly be coalesced
-# so it needs to know about them in some additional way: have the topology ready.
-topology = None
-
 class AnacondaKSScript(KSScript):
     """ Execute a kickstart script
 
@@ -181,15 +177,6 @@ def deviceMatches(spec):
     # want that ending up in the list.
     if dev and dev not in matches:
         matches.append(dev)
-
-    # now see if any mpaths and mpath members match
-    for members in topology.multipaths_iter():
-        mpath_name = udev.udev_device_get_multipath_name(members[0])
-        member_names = map(udev.udev_device_get_name, members)
-        if mpath_name == spec or (dev in member_names):
-            # append the entire mpath
-            matches.append(mpath_name)
-            matches.extend(member_names)
 
     return matches
 
