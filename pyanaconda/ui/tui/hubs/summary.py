@@ -32,8 +32,9 @@ class SummaryHub(TUIHub):
     title = _("Installation")
     categories = ["source", "localization", "destination", "password"]
 
-    def __init__(self, app, data, storage, payload, instclass):
-        TUIHub.__init__(self, app, data, storage, payload, instclass)
+    def setup(self, environment="anaconda"):
+        TUIHub.setup(self, environment=environment)
+
         if flags.automatedInstall:
             sys.stdout.write(_("Starting automated install"))
             sys.stdout.flush()
