@@ -21,18 +21,11 @@
 #
 
 # TODO:
-# - Add a way for users to specify the names of subvols.
 # - Deleting an LV is not reflected in available space in the bottom left.
 #   - this is only true for preexisting LVs
 # - Device descriptions, suggested sizes, etc. should be moved out into a support file.
 # - Tabbing behavior in the accordion is weird.
-# - Update feature space costs when size spinner changes.
 # - Implement striping and mirroring for LVM.
-# - Implement container management for btrfs.
-# - If you click to add a mountpoint while editing a device the lightbox
-#   screenshot is taken prior to the ui update so the background shows the old
-#   size and free space while you're deciding on a size for the new device.
-# - DeviceTree.populate brings back deleted devices when unlocking LUKS.
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
@@ -59,6 +52,7 @@ from blivet.devicefactory import DEVICE_TYPE_BTRFS
 from blivet.devicefactory import DEVICE_TYPE_PARTITION
 from blivet.devicefactory import DEVICE_TYPE_MD
 from blivet.devicefactory import DEVICE_TYPE_DISK
+from blivet.devicefactory import get_raid_level
 from blivet import findExistingInstallations
 from blivet.partitioning import doPartitioning
 from blivet.partitioning import doAutoPartition
@@ -97,7 +91,12 @@ NOTEBOOK_UNEDITABLE_PAGE = 3
 NOTEBOOK_INCOMPLETE_PAGE = 4
 
 new_install_name = N_("New %s %s Installation")
-new_vg_text = N_("Create a new volume group ...")
+new_container_text = N_("Create a new %(container_type)s ...")
+container_dialog_title = N_("CONFIGURE %(container_type)s")
+container_dialog_text = N_("Please create a name for this %(container_type)s "
+                           "and select at least one disk below.")
+lvm_container_name = N_("Volume Group")
+btrfs_container_name = N_("Volume")
 unrecoverable_error_msg = N_("Storage configuration reset due to unrecoverable "
                              "error. Click for details.")
 device_configuration_error_msg = N_("Device reconfiguration failed. Click for "
@@ -106,6 +105,15 @@ device_configuration_error_msg = N_("Device reconfiguration failed. Click for "
 empty_mountpoint_msg = N_("Please enter a valid mountpoint.")
 invalid_mountpoint_msg = N_("That mount point is invalid. Try something else?")
 mountpoint_in_use_msg = N_("That mount point is already in use. Try something else?")
+
+raid_level_not_enough_disks_msg = N_("The RAID level you have selected (%s) "
+                                     "requires more disks (%d) than you "
+                                     "currently have selected (%d).")
+empty_name_msg = N_("Please enter a valid name.")
+invalid_name_msg = N_("That name is invalid. Try something else?")
+
+container_type_names = {DEVICE_TYPE_LVM: lvm_container_name,
+                        DEVICE_TYPE_BTRFS: btrfs_container_name}
 
 MOUNTPOINT_OK = 0
 MOUNTPOINT_INVALID = 1
@@ -328,19 +336,45 @@ class DisksDialog(GUIObject):
     def run(self):
         return self.window.run()
 
-class VolumeGroupDialog(GUIObject):
-    builderObjects = ["vg_dialog", "disk_store", "vg_disk_view"]
-    mainWidgetName = "vg_dialog"
+class ContainerDialog(GUIObject):
+    builderObjects = ["container_dialog", "disk_store", "container_disk_view",
+                      "containerRaidStoreFiltered", "containerRaidLevelLabel",
+                      "containerRaidLevelCombo", "raidLevelStore",
+                      "containerEncryptedCheckbox"]
+    mainWidgetName = "container_dialog"
     uiFile = "spokes/custom.glade"
 
     def __init__(self, *args, **kwargs):
+        # these are all absolutely required. not getting them is fatal.
         self._disks = kwargs.pop("disks")
         free = kwargs.pop("free")
-        self.name = kwargs.pop("name") or ""
         self.selected = kwargs.pop("selected")[:]
+        self.name = kwargs.pop("name") or "" # make sure it's a string
+        self.device_type = kwargs.pop("device_type")
+
+        # these are less critical
+        self.raid_level = kwargs.pop("raid_level", None) or None # not ""
+        self.encrypted = kwargs.pop("encrypted", False)
+        self.exists = kwargs.pop("exists", False)
+
+        self._error = None
         GUIObject.__init__(self, *args, **kwargs)
 
-        self.builder.get_object("vg_name_entry").set_text(self.name)
+        # set up the dialog labels with device-type-specific text
+        container_type = container_type_names.get(self.device_type,
+                                                  _("container"))
+        title_text = container_dialog_title % {"container_type": container_type.upper()}
+        title_label = self.builder.get_object("container_dialog_title_label")
+        title_label.set_text(title_text)
+
+        dialog_text = container_dialog_text % {"container_type": container_type.lower()}
+        dialog_label = self.builder.get_object("container_dialog_label")
+        dialog_label.set_text(dialog_text)
+
+        # populate the dialog widgets
+        name_entry = self.builder.get_object("container_name_entry")
+        name_entry.set_text(self.name)
+        name_entry.set_sensitive(not self.exists)
 
         self._store = self.builder.get_object("disk_store")
         # populate the store
@@ -351,21 +385,32 @@ class VolumeGroupDialog(GUIObject):
                                 disk.serial,
                                 disk.id])
 
-        treeview = self.builder.get_object("vg_disk_view")
+        treeview = self.builder.get_object("container_disk_view")
         model = treeview.get_model()
         itr = model.get_iter_first()
 
         selected_ids = [d.id for d in self.selected]
-        log.debug("selected: %s" % [d.name for d in self.selected])
-        log.debug("selected: %s" % selected_ids)
         selection = treeview.get_selection()
         while itr:
             disk_id = model.get_value(itr, 4)
-            log.debug("store: %d" % disk_id)
             if disk_id in selected_ids:
                 selection.select_iter(itr)
 
             itr = model.iter_next(itr)
+
+        treeview.set_sensitive(not self.exists)
+
+        # XXX how will this be related to the device encryption setting?
+        encryptCheckbutton = self.builder.get_object("containerEncryptedCheckbox")
+        encryptCheckbutton.set_active(self.encrypted)
+        encryptCheckbutton.set_sensitive(not self.exists)
+
+        # set up the raid level combo
+        # XXX how will this be related to the device raid level setting?
+        raidStoreFilter = self.builder.get_object("containerRaidStoreFiltered")
+        raidStoreFilter.set_visible_func(self._raid_level_visible)
+        raidStoreFilter.refilter()
+        self._populate_raid()
 
     def on_cancel_clicked(self, button):
         self.window.destroy()
@@ -376,14 +421,32 @@ class VolumeGroupDialog(GUIObject):
                 return disk
 
     def on_save_clicked(self, button):
-        # If no name was entered, quit the dialog as if they did nothing.
-        name = self.builder.get_object("vg_name_entry").get_text().strip()
-        if not name:
+        if self.exists:
             self.window.destroy()
             return
 
-        treeview = self.builder.get_object("vg_disk_view")
+        # If no name was entered, quit the dialog as if they did nothing.
+        name = self.builder.get_object("container_name_entry").get_text().strip()
+        if not name:
+            self._error = _(empty_name_msg)
+            self.builder.get_object("containerErrorLabel").set_text(self._error)
+            self.window.show_all()
+            return
+
+        treeview = self.builder.get_object("container_disk_view")
         model, paths = treeview.get_selection().get_selected_rows()
+
+        raid_level = self._get_raid_level()
+        if raid_level:
+            md_level = mdraid.raidLevel(raid_level)
+            min_disks = mdraid.get_raid_min_members(md_level)
+            if len(paths) < min_disks:
+                self._error = (_(raid_level_not_enough_disks_msg)
+                               % (raid_level, min_disks, len(paths)))
+                self.builder.get_object("containerErrorLabel").set_text(self._error)
+                self.window.show_all()
+                return
+
         self.selected = []
         for path in paths:
             itr = model.get_iter(path)
@@ -391,11 +454,69 @@ class VolumeGroupDialog(GUIObject):
             self.selected.append(self._get_disk_by_id(disk_id))
 
         self.name = name
+        self.raid_level = raid_level
+        self.encrypted = self.builder.get_object("containerEncryptedCheckbox").get_active()
 
+        self.builder.get_object("containerErrorLabel").set_text("")
         self.window.destroy()
 
     def run(self):
-        return self.window.run()
+        while True:
+            self._error = None
+            rc = self.window.run()
+            if not self._error:
+                return rc
+
+    def _raid_level_visible(self, model, itr, user_data):
+        # This is weird because for lvm's container-wide raid we use md.
+        if self.device_type == DEVICE_TYPE_LVM:
+            return model[itr][4]
+        elif self.device_type == DEVICE_TYPE_BTRFS:
+            return model[itr][3]
+
+    def _get_raid_level(self):
+        combo = self.builder.get_object("containerRaidLevelCombo")
+        itr = combo.get_active_iter()
+        store = combo.get_model()
+
+        if not itr:
+            return
+
+        selected_level_string = store[itr][0]   # eg: "RAID1 (Redundancy)"
+        level = selected_level_string.split()[0].lower()    # -> "raid1"
+        if level == "none":
+            level = None
+
+        return level
+
+    def _populate_raid(self):
+        """ Set up the raid-specific portion of the device details. """
+        raid_label = self.builder.get_object("containerRaidLevelLabel")
+        raid_combo = self.builder.get_object("containerRaidLevelCombo")
+
+        if self.device_type not in [DEVICE_TYPE_LVM, DEVICE_TYPE_BTRFS]:
+            for widget in [raid_label, raid_combo]:
+                widget.set_no_show_all(True)
+                widget.hide()
+
+            return
+
+        raid_level = self.raid_level
+        if not raid_level or raid_level == "single":
+            raid_level = "None"
+
+        # Set a default RAID level in the combo.
+        for (i, row) in enumerate(raid_combo.get_model()):
+            log.debug("container dialog: raid level %s" % row[0])
+            if row[0].upper().startswith(raid_level.upper()):
+                raid_combo.set_active(i)
+                break
+
+        for widget in [raid_label, raid_combo]:
+            widget.set_no_show_all(False)
+            widget.show()
+
+        raid_combo.set_sensitive(not self.exists)
 
 class HelpDialog(GUIObject):
     builderObjects = ["help_dialog", "help_text_view", "help_text_buffer"]
@@ -435,6 +556,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
         self._device_disks = []
         self._device_container_name = None
+        self._device_container_raid_level = None
         self._device_name_dict = {DEVICE_TYPE_LVM: None,
                                   DEVICE_TYPE_MD: None,
                                   DEVICE_TYPE_PARTITION: "",
@@ -822,13 +944,12 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
         page.show_all()
 
-    def _update_btrfs_selectors(self):
+    def _update_selectors(self):
         """ Update all btrfs selectors' size properties. """
         # we're only updating selectors in the new root. problem?
         page = self._accordion._find_by_title(self.translated_new_install_name).get_child()
         for selector in page.members:
-            if selector._device.type.startswith("btrfs"):
-                selectorFromDevice(selector._device, selector=selector)
+            selectorFromDevice(selector._device, selector=selector)
 
     def _replace_device(self, *args, **kwargs):
         """ Create a replacement device and update the device selector. """
@@ -1009,8 +1130,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             md_level = mdraid.raidLevel(raid_level)
             min_disks = mdraid.get_raid_min_members(md_level)
             if len(self._device_disks) < min_disks:
-                error = _("The RAID level you have selected requires more "
-                          "disks than you currently have selected.")
+                error = (_(raid_level_not_enough_disks_msg)
+                         % (raid_level, min_disks, len(self._device_disks)))
 
         if error:
             self.set_warning(error)
@@ -1032,12 +1153,14 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         container_name = self._device_container_name
         container = factory.get_container()
         old_container_encrypted = False
+        old_container_raid_level = None
         old_container = None
         if not changed_device_type:
             old_container = factory.get_container(device=use_dev)
             if old_container:
                 old_container_name = old_container.name
                 old_container_encrypted = old_container.encrypted
+                old_container_raid_level = get_raid_level(old_container)
 
             container = factory.get_container(name=container_name)
             if old_container and container_name != old_container.name:
@@ -1046,9 +1169,15 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         log.debug("old container: %s" % old_container_name)
         log.debug("new container: %s" % container_name)
 
-        # eventually this will be controlled by the "edit container" dialog
-        container_encrypted = getattr(container, "encrypted", False)
+        container_encrypted = self._device_container_encrypted
+        log.debug("old container encrypted: %s" % old_container_encrypted)
+        log.debug("new container encrypted: %s" % container_encrypted)
         changed_container_encrypted = (container_encrypted != old_container_encrypted)
+
+        container_raid_level = self._device_container_raid_level
+        log.debug("old container raid level: %s" % old_container_raid_level)
+        log.debug("new container raid level: %s" % container_raid_level)
+        changed_container_raid_level = (old_container_raid_level != container_raid_level)
 
         # DISK SET
         old_disks = device.disks
@@ -1063,10 +1192,13 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         log.debug("old disks: %s" % [d.name for d in old_disks])
         log.debug("new disks: %s" % [d.name for d in disks])
 
+        # XXX prevent multiple raid or encryption layers?
+
         changed = (changed_name or changed_size or changed_device_type or
                    changed_label or changed_mountpoint or changed_disk_set or
                    changed_encryption or changed_raid_level or
-                   changed_container or changed_container_encrypted)
+                   changed_container or changed_container_encrypted or
+                   changed_container_raid_level)
 
         if not use_dev.exists:
             if not changed:
@@ -1100,6 +1232,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                                          encrypted=encrypted, name=name,
                                          container_name=container_name,
                                          container_encrypted=container_encrypted,
+                                         container_raid_level=container_raid_level,
                                          device=_device,
                                          selector=selector)
                 except StorageError as e:
@@ -1126,6 +1259,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                                                  name=old_name,
                                                  container_name=old_container_name,
                                                  container_encrypted=old_container_encrypted,
+                                                 container_raid_level=old_container_raid_level,
                                                  selector=selector)
                         except StorageError as e:
                             # failed to recover.
@@ -1139,7 +1273,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             self._devices = self.__storage.devices
 
             # update size props of all btrfs devices' selectors
-            self._update_btrfs_selectors()
+            self._update_selectors()
 
             self._updateSpaceDisplay()
 
@@ -1194,7 +1328,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                     selectorFromDevice(device, selector=selector)
 
             # update size props of all btrfs devices' selectors
-            self._update_btrfs_selectors()
+            self._update_selectors()
             self._updateSpaceDisplay()
 
         # it's possible that reformat is active but fstype is unchanged, in
@@ -1327,25 +1461,23 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         if not itr:
             return
 
-        return store[itr][0].split()[0].lower()
+        selected_level_string = store[itr][0]   # eg: "RAID1 (Redundancy)"
+        level = selected_level_string.split()[0].lower()    # -> "raid1"
+        if level == "none":
+            level = None
 
-    def _populate_raid(self, raid_level, size):
+        return level
+
+    def _populate_raid(self, raid_level):
         """ Set up the raid-specific portion of the device details. """
         device_type = self._get_current_device_type()
         log.debug("populate_raid: %s, %s" % (device_type, raid_level))
-
-        # If size comes in as a Size, convert it to a number.  A None is
-        # fine, though.
-        if size and isinstance(size, Size):
-            size = int(size.convertTo(spec="MB"))
 
         raid_label = self.builder.get_object("raidLevelLabel")
         raid_combo = self.builder.get_object("raidLevelCombo")
 
         if device_type == DEVICE_TYPE_MD:
-            base_level = "raid1"    # FIXME: should be linear
-        elif device_type == DEVICE_TYPE_BTRFS:
-            base_level = "single"
+            base_level = "raid1"
         else:
             for widget in [raid_label, raid_combo]:
                 widget.set_no_show_all(True)
@@ -1413,10 +1545,20 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
         if hasattr(use_dev, "vg"):
             self._device_container_name = use_dev.vg.name
+            self._device_container_raid_level = get_raid_level(use_dev.vg)
+            self._device_container_encrypted = use_dev.vg.encrypted
+        elif hasattr(use_dev, "volume"):
+            self._device_container_name = use_dev.volume.name
+            self._device_container_raid_level = get_raid_level(use_dev.volume)
+            self._device_container_encrypted = use_dev.volume.encrypted
         else:
             self._device_container_name = None
+            self._device_container_raid_level = None
+            self._device_container_encrypted = False
 
-        log.debug("updated device_vg_name to %s" % self._device_container_name)
+        log.debug("updated device_container_name to %s" % self._device_container_name)
+        log.debug("updated device_container_raid_level to %s" % self._device_container_raid_level)
+        log.debug("updated device_container_encrypted to %s" % self._device_container_encrypted)
 
         selectedDeviceLabel.set_text(selector.props.name)
         selectedDeviceDescLabel.set_text(self._description(selector.props.name))
@@ -1589,11 +1731,16 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         typeCombo.set_sensitive(not use_dev.exists)
         raidLevelCombo.set_sensitive(not use_dev.exists)
 
+        # FIXME: device encryption should be mutually exclusive with container
+        # encryption
+
+        # FIXME: device raid should be mutually exclusive with container raid
+
         # you can't encrypt a btrfs subvolume -- only the volume/container
         encryptCheckbox.set_sensitive(device_type != DEVICE_TYPE_BTRFS)
 
-        self._populate_raid(raid_level, device.size)
-        self._populate_lvm(device=use_dev)
+        self._populate_raid(raid_level)
+        self._populate_container(device=use_dev)
         # do this last in case this was set sensitive in on_device_type_changed
         if use_dev.exists:
             nameEntry.set_sensitive(False)
@@ -1948,19 +2095,25 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             return
 
         self._device_disks = disks
-        self._populate_raid(self._get_raid_level(), size_from_entry(self._sizeEntry))
+        self._populate_raid(self._get_raid_level())
 
-    def run_vg_editor(self, vg=None, name=None):
-        if vg:
-            vg_name = vg.name
+    def run_container_editor(self, container=None, name=None):
+        if container:
+            container_name = container.name
+            raid_level = get_raid_level(container)
         elif name:
-            vg_name = name
+            container_name = name
+            raid_level = None
 
-        dialog = VolumeGroupDialog(self.data,
-                                   name=vg_name,
-                                   disks=self._clearpartDevices,
-                                   free=self._currentFreeInfo,
-                                   selected=self._device_disks)
+        dialog = ContainerDialog(self.data,
+                                 device_type=self._get_current_device_type(),
+                                 name=container_name,
+                                 raid_level=self._device_container_raid_level,
+                                 encrypted=self._device_container_encrypted,
+                                 disks=self._clearpartDevices,
+                                 free=self._currentFreeInfo,
+                                 selected=self._device_disks,
+                                 exists=getattr(container, "exists", False))
 
         with enlightbox(self.window, dialog.window):
             rc = dialog.run()
@@ -1977,67 +2130,98 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             self.window.show_all()
             return
 
-        log.debug("new VG name: %s" % name)
-        if name != vg_name and name in self.__storage.names:
+        log.debug("new container name: %s" % name)
+        if name != container_name and name in self.__storage.names:
             self._error = _("Volume Group name %s is already in use. Not "
                             "saving changes.") % name
             self.set_info(self._error)
             self.window.show_all()
             return
 
+        if (set(disks) != set(self._device_disks) or
+            name != container_name or
+            dialog.raid_level != self._device_container_raid_level or
+            dialog.encrypted != self._device_container_encrypted):
+            self._applyButton.set_sensitive(True)
+
+        log.debug("new container raid level: %s" % dialog.raid_level)
+        log.debug("new container encrypted: %s" % dialog.encrypted)
+
         self._device_disks = disks
         self._device_container_name = name
+        self._device_container_raid_level = dialog.raid_level
+        self._device_container_encrypted = dialog.encrypted
 
-    def on_modify_vg_clicked(self, button):
-        vg_name = self.builder.get_object("volumeGroupCombo").get_active_text()
+    def on_modify_container_clicked(self, button):
+        container_name = self.builder.get_object("containerCombo").get_active_text()
 
-        vg = self.__storage.devicetree.getDeviceByName(vg_name)
+        container = self.__storage.devicetree.getDeviceByName(container_name)
 
         # pass the name along with any found vg since we could be modifying a
         # vg that hasn't been instantiated yet
-        self.run_vg_editor(vg=vg, name=vg_name)
+        self.run_container_editor(container=container, name=container_name)
 
-        log.debug("%s -> %s" % (vg_name, self._device_container_name))
-        if vg_name == self._device_container_name:
+        log.debug("%s -> %s" % (container_name, self._device_container_name))
+        if container_name == self._device_container_name:
             return
 
-        log.debug("renaming VG %s to %s" % (vg_name, self._device_container_name))
-        if vg:
-            self.__storage.devicetree.names.remove(vg.name)
-            self.__storage.devicetree.names.append(self._device_container_name)
-            vg.name = self._device_container_name
+        log.debug("renaming container %s to %s" % (container_name, self._device_container_name))
+        if container:
+            # btrfs volume name/label does not go in the name list
+            if container.name in self.__storage.devicetree.names:
+                self.__storage.devicetree.names.remove(container.name)
+                self.__storage.devicetree.names.append(self._device_container_name)
 
-        vg_combo = self.builder.get_object("volumeGroupCombo")
-        for idx, data in enumerate(vg_combo.get_model()):
+            container.name = self._device_container_name
+
+        container_combo = self.builder.get_object("containerCombo")
+        for idx, data in enumerate(container_combo.get_model()):
             # we're looking for the original vg name
-            if data[0] == vg_name:
-                vg_combo.remove(idx)
-                vg_combo.insert_text(idx, self._device_container_name)
-                vg_combo.set_active(idx)
+            if data[0] == container_name:
+                container_combo.remove(idx)
+                container_combo.insert_text(idx, self._device_container_name)
+                container_combo.set_active(idx)
                 break
 
-    def on_vg_changed(self, combo):
-        vg_name = combo.get_active_text()
-        log.debug("new vg selection: %s" % vg_name)
-        if vg_name is None:
+        self._update_selectors()
+
+    def on_container_changed(self, combo):
+        container_name = combo.get_active_text()
+        log.debug("new container selection: %s" % container_name)
+        if container_name is None:
             return
 
-        if vg_name == _(new_vg_text):
+        if container_name == combo.get_active_text():
+            log.debug("spurious call -- bailing")
+            return
+
+        device_type = self._get_current_device_type()
+        container_type = container_type_names[device_type].lower()
+        new_text = _(new_container_text) % {"container_type": container_type}
+        if container_name == new_text:
             # run the vg editor dialog with a default name and disk set
             hostname = self.data.network.hostname
             name = self.__storage.suggestContainerName(hostname=hostname)
-            self.run_vg_editor(name=name)
+            self.run_container_editor(name=name)
             for idx, data in enumerate(combo.get_model()):
-                if data[0] == _(new_vg_text):
+                if data[0] == new_text:
                     combo.insert_text(idx, self._device_container_name)
-                    combo.set_active(idx)
-                    break
+                    combo.set_active(idx)   # triggers a call to this method
+                    return
         else:
-            self._device_container_name = vg_name
+            self._device_container_name = container_name
 
-        vg = self.__storage.devicetree.getDeviceByName(self._device_container_name)
-        vg_exists = getattr(vg, "exists", False)    # might not be in the tree
-        self.builder.get_object("modifyVGButton").set_sensitive(not vg_exists)
+        container = self.__storage.devicetree.getDeviceByName(self._device_container_name)
+        container_exists = getattr(container, "exists", False)    # might not be in the tree
+
+        if container:
+            self._device_container_raid_level = get_raid_level(container)
+            self._device_container_encrypted = container.encrypted
+        else:
+            self._device_container_raid_level = None
+            self._device_container_encrypted = self.data.autopart.encrypted
+
+        self.builder.get_object("modifyContainerButton").set_sensitive(not container_exists)
 
     def _save_current_selector(self):
         log.debug("current selector: %s" % self._current_selector._device)
@@ -2236,7 +2420,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                                  hasattr(fmt, "label"))
         mountPointEntry.set_sensitive(fmt.mountable)
 
-    def _populate_lvm(self, device=None):
+    def _populate_container(self, device=None):
         """ Set up the vg widgets for lvm or hide them for other types. """
         device_type = self._get_current_device_type()
         if device is None:
@@ -2244,49 +2428,65 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                 return
 
             device = self._current_selector._device
+            if isinstance(device, LUKSDevice):
+                device = device.slave
 
-        vg_combo = self.builder.get_object("volumeGroupCombo")
-        vg_button = self.builder.get_object("modifyVGButton")
-        vg_label = self.builder.get_object("volumeGroupLabel")
-        if device_type == DEVICE_TYPE_LVM:
+        container_combo = self.builder.get_object("containerCombo")
+        container_button = self.builder.get_object("modifyContainerButton")
+        container_label = self.builder.get_object("containerLabel")
+        if device_type in (DEVICE_TYPE_LVM, DEVICE_TYPE_BTRFS):
             # set up the vg widgets and then bail out
-            if self._device_container_name:
-                default_vg = self._device_container_name
+            if devicefactory.get_device_type(device) == device_type:
+                _device = device
             else:
-                with ui_storage_logger():
-                    factory = devicefactory.get_device_factory(self.__storage,
-                                                             DEVICE_TYPE_LVM,
-                                                             0)
-                    container = factory.get_container()
-                    default_vg = getattr(container, "name", None)
+                _device = None
 
-            log.debug("default vg is %s" % default_vg)
-            vg_combo.remove_all()
-            vgs = self.__storage.vgs
-            for vg in vgs:
-                vg_combo.append_text(vg.name)
-                if default_vg and vg.name == default_vg:
-                    vg_combo.set_active(vgs.index(vg))
+            with ui_storage_logger():
+                factory = devicefactory.get_device_factory(self.__storage,
+                                                         device_type,
+                                                         0)
+                container = factory.get_container(device=_device)
+                default_container = getattr(container, "name", None)
 
-            if default_vg is None:
+            container_type_text = container_type_names[device_type]
+            container_label.set_text(container_type_text.title())
+            container_combo.remove_all()
+            if device_type == DEVICE_TYPE_LVM:
+                containers = self.__storage.vgs
+            else:
+                containers = self.__storage.btrfsVolumes
+
+            default_seen = False
+            for c in containers:
+                container_combo.append_text(c.name)
+                if default_container and c.name == default_container:
+                    default_seen = True
+                    container_combo.set_active(containers.index(c))
+
+            if default_container is None:
                 hostname = self.data.network.hostname
-                default_vg = self.__storage.suggestContainerName(hostname=hostname)
-                vg_combo.append_text(default_vg)
-                vg_combo.set_active(len(vg_combo.get_model()) - 1)
+                default_container = self.__storage.suggestContainerName(hostname=hostname)
 
-            vg_combo.append_text(_(new_vg_text))
-            if default_vg is None:
-                vg_combo.set_active(len(vg_combo.get_model()) - 1)
+            log.debug("default container is %s" % default_container)
+            self._device_container_name = default_container
 
-            for widget in [vg_label, vg_combo, vg_button]:
+            if not default_seen:
+                container_combo.append_text(default_container)
+                container_combo.set_active(len(container_combo.get_model()) - 1)
+
+            container_combo.append_text(_(new_container_text) % {"container_type": container_type_text.lower()})
+            if default_container is None:
+                container_combo.set_active(len(container_combo.get_model()) - 1)
+
+            for widget in [container_label, container_combo, container_button]:
                 widget.set_no_show_all(False)
                 widget.show()
 
             # make the combo and button insensitive for existing LVs
-            can_change_vg = (device is not None and not device.exists)
-            vg_combo.set_sensitive(can_change_vg)
+            can_change_container = (device is not None and not device.exists)
+            container_combo.set_sensitive(can_change_container)
         else:
-            for widget in [vg_label, vg_combo, vg_button]:
+            for widget in [container_label, container_combo, container_button]:
                 widget.set_no_show_all(True)
                 widget.hide()
 
@@ -2334,8 +2534,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         raidStoreFilter = self.builder.get_object("raidStoreFiltered")
         raidStoreFilter.refilter()
 
-        self._populate_raid(raid_level, size_from_entry(self._sizeEntry))
-        self._populate_lvm()
+        self._populate_raid(raid_level)
+        self._populate_container()
 
         nameEntry = self.builder.get_object("nameEntry")
         nameEntry.set_sensitive(new_type in (DEVICE_TYPE_LVM, DEVICE_TYPE_MD))
