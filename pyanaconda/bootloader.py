@@ -540,7 +540,7 @@ class BootLoader(object):
         # partition means "use the stage2 device for a stage1 device"
         self.stage2_is_preferred_stage1 = True
 
-    def is_valid_stage1_device(self, device):
+    def is_valid_stage1_device(self, device, early=False):
         """ Return True if the device is a valid stage1 target device.
 
             Also collect lists of errors and warnings.
@@ -550,7 +550,12 @@ class BootLoader(object):
             disklabel is a valid stage1 target, while some platforms require
             a special device. Some examples of these special devices are EFI
             system partitions on EFI machines, PReP boot partitions on
-            iSeries, and Apple bootstrap partitions on Mac. """
+            iSeries, and Apple bootstrap partitions on Mac.
+
+            The 'early' keyword argument is a boolean flag indicating whether
+            or not this check is being performed at a point where the mountpoint
+            cannot be expected to be set for things like EFI system partitions.
+        """
         self.errors = []
         self.warnings = []
         valid = True
@@ -607,9 +612,14 @@ class BootLoader(object):
             log.info("ignoring anaconda boot disk")
             valid = False
 
+        if early:
+            mountpoints = []
+        else:
+            mountpoints = constraint["mountpoints"]
+
         if not self._is_valid_format(device,
                                      format_types=constraint["format_types"],
-                                     mountpoints=constraint["mountpoints"],
+                                     mountpoints=mountpoints,
                                      desc=description):
             valid = False
 
