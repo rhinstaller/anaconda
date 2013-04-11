@@ -32,6 +32,7 @@ class InstallClass(BaseInstallClass):
     _descriptionFields = (productName,)
     sortPriority = 10000
     hidden = 1
+    defaultFS = "xfs"
 
     bootloaderTimeoutDefault = 5
     bootloaderExtraArgs = []

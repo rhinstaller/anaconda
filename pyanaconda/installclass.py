@@ -56,6 +56,10 @@ class BaseInstallClass(object):
     bootloaderExtraArgs = []
     _l10n_domain = None
 
+    # The default filesystem type to use.  If None, we will use whatever
+    # Blivet uses by default.
+    defaultFS = None
+
     # list of of (txt, grplist) tuples for task selection screen
     tasks = []
 

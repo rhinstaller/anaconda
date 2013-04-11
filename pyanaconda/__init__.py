@@ -159,6 +159,9 @@ class Anaconda(object):
             import blivet
             self._storage = blivet.Blivet(ksdata=self.ksdata)
 
+            if self.instClass.defaultFS:
+                self._storage.setDefaultFSType(self.instClass.defaultFS)
+
         return self._storage
 
     def dumpState(self):
