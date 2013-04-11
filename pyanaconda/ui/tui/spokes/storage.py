@@ -59,19 +59,25 @@ class StorageSpoke(NormalTUISpoke):
 
     def __init__(self, app, data, storage, payload, instclass):
         NormalTUISpoke.__init__(self, app, data, storage, payload, instclass)
-        self.selected_disks = self.data.ignoredisk.onlyuse[:]
 
         self._ready = False
+        self.selected_disks = self.data.ignoredisk.onlyuse[:]
 
         # This list gets set up once in initialize and should not be modified
         # except perhaps to add advanced devices. It will remain the full list
         # of disks that can be included in the install.
         self.disks = []
         self.errors = []
+        self.warnings = []
 
     @property
     def completed(self):
-        return bool(self.storage.rootDevice and not self.errors)
+        retval = bool(self.storage.rootDevice and not self.errors)
+
+        if flags.automatedInstall:
+            return retval and self.data.bootloader.seen
+        else:
+            return retval
 
     @property
     def ready(self):
@@ -94,6 +100,8 @@ class StorageSpoke(NormalTUISpoke):
 
         if flags.automatedInstall and not self.storage.rootDevice:
             return msg
+        elif flags.automatedInstall and not self.data.bootloader.seen:
+            msg = _("No bootloader configured")
         elif self.data.ignoredisk.onlyuse:
             msg = P_(("%d disk selected"),
                      ("%d disks selected"),
@@ -101,6 +109,8 @@ class StorageSpoke(NormalTUISpoke):
 
             if self.errors:
                 msg = _("Error checking storage configuration")
+            elif self.warnings:
+                msg = _("Warning checking storage configuration")
             # Maybe show what type of clearpart and which disks selected?
             elif self.data.autopart.autopart:
                 msg = _("Automatic partitioning selected")
@@ -148,6 +158,8 @@ class StorageSpoke(NormalTUISpoke):
         # Append storage errors to the summary
         if self.errors:
             summary = summary + "\n" + "\n".join(self.errors)
+        elif self.warnings:
+            summary = summary + "\n" + "\n".join(self.warnings)
 
         return summary
 
@@ -249,12 +261,12 @@ class StorageSpoke(NormalTUISpoke):
             self._ready = True
         else:
             print(_("Checking storage configuration..."))
-            (self.errors, warnings) = self.storage.sanityCheck()
+            (self.errors, self.warnings) = self.storage.sanityCheck()
             self._ready = True
             for e in self.errors:
                 log.error(e)
                 print e
-            for w in warnings:
+            for w in self.warnings:
                 log.warn(w)
                 print w
 
