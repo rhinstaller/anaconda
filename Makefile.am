@@ -63,6 +63,20 @@ scratch: po-pull
 	$(MAKE) ARCHIVE_TAG=HEAD dist
 	git checkout -- po/$(PACKAGE_NAME).pot
 
+scratch-bumpver: po-pull
+	@opts="-n $(PACKAGE_NAME) -v $(PACKAGE_VERSION) -r $(PACKAGE_RELEASE) -b $(PACKAGE_BUGREPORT)" ; \
+	if [ ! -z "$(IGNORE)" ]; then \
+		opts="$${opts} -i $(IGNORE)" ; \
+	fi ; \
+	if [ ! -z "$(MAP)" ]; then \
+		opts="$${opts} -m $(MAP)" ; \
+	fi ; \
+	if [ ! -z "$(BZDEBUG)" ]; then \
+		opts="$${opts} -d" ; \
+	fi ; \
+	scripts/makebumpver $${opts} || exit 1 ; \
+	$(MAKE) -C po $(PACKAGE_NAME).pot-update ; 
+
 release:
 	$(MAKE) dist && $(MAKE) tag && git checkout -- po/$(PACKAGE_NAME).pot
 
