@@ -53,6 +53,13 @@ BASEREPO_SETUP_MESSAGE = N_("Setting up installation source...")
 METADATA_DOWNLOAD_MESSAGE = N_("Downloading package metadata...")
 METADATA_ERROR_MESSAGE = N_("Error downloading package metadata...")
 
+# These need to be in the same order as the items in protocolComboBox in source.glade.
+PROTOCOL_HTTP = 0
+PROTOCOL_HTTPS = 1
+PROTOCOL_FTP = 2
+PROTOCOL_NFS = 3
+PROTOCOL_MIRROR = 4
+
 # Repo Store Columns
 REPO_ENABLED_COL = 0
 REPO_NAME_COL = 1
@@ -554,6 +561,11 @@ class SourceSpoke(NormalSpoke):
 
         added = False
 
+        # If there's no fallback mirror to use, we should just disable that option
+        # in the UI.
+        if not self.payload.mirrorEnabled:
+            self._protocolComboBox.remove(PROTOCOL_MIRROR)
+
         # If we've previously set up to use a CD/DVD method, the media has
         # already been mounted by payload.setup.  We can't try to mount it
         # again.  So just use what we already know to create the selector.
@@ -621,7 +633,7 @@ class SourceSpoke(NormalSpoke):
 
         # We default to the mirror list, and then if the method tells us
         # something different later, we can change it.
-        self._protocolComboBox.set_active(0)
+        self._protocolComboBox.set_active(PROTOCOL_MIRROR)
         self._urlEntry.set_sensitive(False)
 
         # Set up the default state of UI elements.
@@ -630,13 +642,13 @@ class SourceSpoke(NormalSpoke):
 
             proto = self.data.method.url or self.data.method.mirrorlist
             if proto.startswith("http:"):
-                self._protocolComboBox.set_active(1)
+                self._protocolComboBox.set_active(PROTOCOL_HTTP)
                 l = 7
             elif proto.startswith("https:"):
-                self._protocolComboBox.set_active(2)
+                self._protocolComboBox.set_active(PROTOCOL_HTTPS)
                 l = 8
             elif proto.startswith("ftp:"):
-                self._protocolComboBox.set_active(3)
+                self._protocolComboBox.set_active(PROTOCOL_FTP)
                 l = 6
 
             self._urlEntry.set_sensitive(True)
@@ -644,7 +656,7 @@ class SourceSpoke(NormalSpoke):
             self._mirrorlistCheckbox.set_active(bool(self.data.method.mirrorlist))
         elif self.data.method.method == "nfs":
             self._networkButton.set_active(True)
-            self._protocolComboBox.set_active(4)
+            self._protocolComboBox.set_active(PROTOCOL_NFS)
 
             self._urlEntry.set_text("%s:%s" % (self.data.method.server, self.data.method.dir))
             self._urlEntry.set_sensitive(True)
@@ -683,16 +695,16 @@ class SourceSpoke(NormalSpoke):
         return not flags.livecdInstall
 
     def _mirror_active(self):
-        return self._protocolComboBox.get_active() == 0
+        return self._protocolComboBox.get_active() == PROTOCOL_MIRROR
 
     def _http_active(self):
-        return self._protocolComboBox.get_active() in [1, 2]
+        return self._protocolComboBox.get_active() in [PROTOCOL_HTTP, PROTOCOL_HTTPS]
 
     def _ftp_active(self):
-        return self._protocolComboBox.get_active() == 3
+        return self._protocolComboBox.get_active() == PROTOCOL_FTP
 
     def _nfs_active(self):
-        return self._protocolComboBox.get_active() == 4
+        return self._protocolComboBox.get_active() == PROTOCOL_NFS
 
     def _get_selected_partition(self):
         store = self.builder.get_object("partitionStore")

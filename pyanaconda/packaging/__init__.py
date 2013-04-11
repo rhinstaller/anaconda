@@ -146,6 +146,13 @@ class Payload(object):
         """ The identifier of the current base repo. """
         return None
 
+    @property
+    def mirrorEnabled(self):
+        """Is the closest/fastest mirror option enabled?  This does not make
+           sense for those payloads that do not support this concept.
+        """
+        return True
+
     def getRepo(self, repo_id):
         """ Return the package repo object. """
         raise NotImplementedError()
