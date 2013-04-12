@@ -245,6 +245,21 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/lib/dracut/modules.d/80%{name}/*
 
 %changelog
+* Thu Apr 11 2013 Brian C. Lane <bcl@redhat.com> - 19.18-1
+- Revert "Revert "Don't emit "gfxterm" in grub2 configs (#821355)"" (pjones)
+- Make "s" a hotkey for "Save Changes" on Advanced User Configuration. (pjones)
+- Clean up tracebacks saved in pstore space (#950709) (pjones)
+- Move anaconda-yum to /usr/libexec/anaconda/ (bcl)
+- Cleanup: remove dead upgrade code (wwoods)
+- Fix console= persistence, remove serial (#928269) (wwoods)
+- Revert "Don't emit "gfxterm" in grub2 configs (#821355)" (pjones)
+- Disable grub2-mkconfig's submenus by default. (pjones)
+- Don't emit "gfxterm" in grub2 configs (#821355) (pjones)
+- updates to boot-options.txt (wwoods)
+- flags.py: remove unused flags (wwoods)
+- remove flags.virtpconsole (wwoods)
+- Call os.chdir("/") after calling os.chroot (vpodzime)
+
 * Tue Apr 09 2013 Brian C. Lane <bcl@redhat.com> - 19.17-1
 - Pass open file to execWithRedirect for vncpasswd (#948638) (bcl)
 - Fix ip= saving in parse-kickstart (hamzy)

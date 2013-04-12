@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 19.16\n"
+"Project-Id-Version: anaconda 19.17\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2013-04-09 15:00-0700\n"
+"POT-Creation-Date: 2013-04-11 17:33-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,24 +18,24 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: anaconda:350
+#: anaconda:348
 #, c-format
 msgid ""
 "%s requires %s MB of memory to install, but you only have %s MB on this "
 "machine.\n"
 msgstr ""
 
-#: anaconda:352
+#: anaconda:350
 #, c-format
 msgid ""
 "The %s graphical installer requires %s MB of memory, but you only have %s MB."
 msgstr ""
 
-#: anaconda:357
+#: anaconda:355
 msgid "Not enough RAM"
 msgstr ""
 
-#: anaconda:358
+#: anaconda:356
 msgid ""
 " Try the text mode installer by running:\n"
 "\n"
@@ -44,114 +44,114 @@ msgid ""
 " from a root terminal."
 msgstr ""
 
-#: anaconda:361
+#: anaconda:359
 msgid " Starting text mode."
 msgstr ""
 
-#: anaconda:391 pyanaconda/rescue.py:287 pyanaconda/rescue.py:320
+#: anaconda:389 pyanaconda/rescue.py:287 pyanaconda/rescue.py:320
 #: pyanaconda/rescue.py:333 pyanaconda/rescue.py:401 pyanaconda/rescue.py:417
 #: pyanaconda/rescue.py:428
 msgid "OK"
 msgstr ""
 
-#: anaconda:504
+#: anaconda:497
 msgid "DISPLAY variable not set. Starting text mode."
 msgstr ""
 
-#: anaconda:512
+#: anaconda:505
 msgid "Graphical installation is not available. Starting text mode."
 msgstr ""
 
-#: anaconda:520
+#: anaconda:513
 msgid ""
 "Text mode provides a limited set of installation options. It does not allow "
 "you to specify your own partitioning layout or package selections. Would you "
 "like to use VNC mode instead?"
 msgstr ""
 
-#: anaconda:643
+#: anaconda:636
 #, c-format
 msgid "Please ssh install@%s to begin the install."
 msgstr ""
 
-#: anaconda:645
+#: anaconda:638
 msgid "Please ssh install@<host> to continue installation."
 msgstr ""
 
-#: pyanaconda/bootloader.py:239
+#: pyanaconda/bootloader.py:241
 msgid "/boot filesystem"
 msgstr ""
 
-#: pyanaconda/bootloader.py:390
+#: pyanaconda/bootloader.py:392
 #, python-format
 msgid ""
 "RAID sets that contain '%s' must have one of the following raid levels: %s."
 msgstr ""
 
-#: pyanaconda/bootloader.py:398
+#: pyanaconda/bootloader.py:400
 #, python-format
 msgid ""
 "RAID sets that contain '%s' must have one of the following metadata "
 "versions: %s."
 msgstr ""
 
-#: pyanaconda/bootloader.py:406
+#: pyanaconda/bootloader.py:408
 #, python-format
 msgid ""
 "RAID sets that contain '%s' must have one of the following device types: %s."
 msgstr ""
 
-#: pyanaconda/bootloader.py:422
+#: pyanaconda/bootloader.py:424
 #, python-format
 msgid "%s must have one of the following disklabel types: %s."
 msgstr ""
 
-#: pyanaconda/bootloader.py:434
+#: pyanaconda/bootloader.py:436
 #, python-format
 msgid "%s cannot be of type %s."
 msgstr ""
 
-#: pyanaconda/bootloader.py:440
+#: pyanaconda/bootloader.py:442
 #, python-format
 msgid "%s must be mounted on one of %s."
 msgstr ""
 
-#: pyanaconda/bootloader.py:452
+#: pyanaconda/bootloader.py:454
 #, python-format
 msgid "%s must be between %d and %d MB in size"
 msgstr ""
 
-#: pyanaconda/bootloader.py:457
+#: pyanaconda/bootloader.py:459
 #, python-format
 msgid "%s must not be smaller than %dMB."
 msgstr ""
 
-#: pyanaconda/bootloader.py:466
+#: pyanaconda/bootloader.py:468
 #, python-format
 msgid "%s must not be larger than %dMB."
 msgstr ""
 
-#: pyanaconda/bootloader.py:484
+#: pyanaconda/bootloader.py:486
 #, python-format
 msgid "%s must be within the first %dMB of the disk."
 msgstr ""
 
-#: pyanaconda/bootloader.py:494
+#: pyanaconda/bootloader.py:496
 #, python-format
 msgid "%s must be on a primary partition."
 msgstr ""
 
-#: pyanaconda/bootloader.py:618 pyanaconda/bootloader.py:708
+#: pyanaconda/bootloader.py:620 pyanaconda/bootloader.py:710
 #, python-format
 msgid "%s cannot be on an encrypted block device."
 msgstr ""
 
-#: pyanaconda/bootloader.py:666
+#: pyanaconda/bootloader.py:668
 #, python-format
 msgid "%s cannot be of type %s"
 msgstr ""
 
-#: pyanaconda/bootloader.py:1587
+#: pyanaconda/bootloader.py:1589
 #, python-format
 msgid ""
 "%(deviceName)s may not have enough space for grub2 to embed core.img when "
@@ -206,7 +206,7 @@ msgid "Setting up the installation environment"
 msgstr ""
 
 #: pyanaconda/install.py:135 pyanaconda/packaging/livepayload.py:130
-#: pyanaconda/packaging/yumpayload.py:1475
+#: pyanaconda/packaging/yumpayload.py:1470
 msgid "Performing post-installation setup tasks"
 msgstr ""
 
@@ -214,7 +214,7 @@ msgstr ""
 msgid "Installing bootloader"
 msgstr ""
 
-#: pyanaconda/installclass.py:69
+#: pyanaconda/installclass.py:67
 msgid "Install on System"
 msgstr ""
 
@@ -255,11 +255,11 @@ msgstr ""
 msgid "_Exit installer"
 msgstr ""
 
-#: pyanaconda/iutil.py:300
+#: pyanaconda/iutil.py:307
 msgid "the device containing /boot"
 msgstr ""
 
-#: pyanaconda/iutil.py:302
+#: pyanaconda/iutil.py:309
 #, python-format
 msgid ""
 "After shutdown, please perform a manual IPL from %s to continue installation."
@@ -279,12 +279,12 @@ msgid ""
 "%s"
 msgstr ""
 
-#: pyanaconda/kickstart.py:470
+#: pyanaconda/kickstart.py:464
 #, python-format
 msgid "%s is missing. Cannot setup firewall."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1561
+#: pyanaconda/kickstart.py:1555
 msgid "Running pre-installation scripts"
 msgstr ""
 
@@ -563,19 +563,19 @@ msgstr ""
 msgid "Installing software"
 msgstr ""
 
-#: pyanaconda/packaging/yumpayload.py:1391
+#: pyanaconda/packaging/yumpayload.py:1389
 msgid "Starting package installation process"
 msgstr ""
 
-#: pyanaconda/packaging/yumpayload.py:1455
+#: pyanaconda/packaging/yumpayload.py:1450
 msgid "You need more space on the following file systems:\n"
 msgstr ""
 
-#: pyanaconda/packaging/yumpayload.py:1473
+#: pyanaconda/packaging/yumpayload.py:1468
 msgid "Preparing transaction from installation source"
 msgstr ""
 
-#: pyanaconda/packaging/yumpayload.py:1474
+#: pyanaconda/packaging/yumpayload.py:1469
 msgid "Installing"
 msgstr ""
 
@@ -1951,61 +1951,61 @@ msgid "Total selected space to reclaim: <b>%s</b>"
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/advanced_user.glade:34
-msgid "Save Changes"
+msgid "_Save Changes"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/advanced_user.glade:64
+#: pyanaconda/ui/gui/spokes/advanced_user.glade:65
 msgid "ADVANCED USER CONFIGURATION"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/advanced_user.glade:83
+#: pyanaconda/ui/gui/spokes/advanced_user.glade:84
 msgid "Home Directory"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/advanced_user.glade:102
+#: pyanaconda/ui/gui/spokes/advanced_user.glade:103
 msgid "Create a _home directory for this user."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/advanced_user.glade:129
+#: pyanaconda/ui/gui/spokes/advanced_user.glade:130
 msgid "Home _directory:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/advanced_user.glade:173
+#: pyanaconda/ui/gui/spokes/advanced_user.glade:174
 msgid "User and Group IDs"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/advanced_user.glade:192
+#: pyanaconda/ui/gui/spokes/advanced_user.glade:193
 msgid "Specify a _user ID manually:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/advanced_user.glade:210
+#: pyanaconda/ui/gui/spokes/advanced_user.glade:211
 msgid "Specify a _group ID manually:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/advanced_user.glade:274
+#: pyanaconda/ui/gui/spokes/advanced_user.glade:275
 msgid "Group Membership"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/advanced_user.glade:297
+#: pyanaconda/ui/gui/spokes/advanced_user.glade:298
 msgid "_Add user to the following groups:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/advanced_user.glade:331
+#: pyanaconda/ui/gui/spokes/advanced_user.glade:332
 msgid "wheel, my-team (1245), project-x (29935)"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/advanced_user.glade:348
+#: pyanaconda/ui/gui/spokes/advanced_user.glade:349
 msgid ""
 "You may input a comma-separated list of group names and group IDs here.\n"
 "Groups that do not already exist will be created; specify their GID in "
 "parentheses. "
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/advanced_user.glade:364
+#: pyanaconda/ui/gui/spokes/advanced_user.glade:365
 msgid "Example:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/advanced_user.glade:383
+#: pyanaconda/ui/gui/spokes/advanced_user.glade:384
 msgid "Tip:"
 msgstr ""
 
