@@ -21,6 +21,8 @@
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
 
+from pyanaconda.ui.tui import TextUserInterface
+
 __all__ = ["ERROR_RAISE", "ERROR_CONTINUE", "ERROR_RETRY",
            "ErrorHandler",
            "InvalidImageSizeError", "MissingImageError", "MediaUnmountError",
@@ -264,6 +266,9 @@ class ErrorHandler(object):
         if exn.__class__.__name__ in _map:
             kwargs["exception"] = exn
             rc = _map[exn.__class__.__name__](*args, **kwargs)
+
+            if isinstance(self.ui, TextUserInterface):
+                self.ui.run()
 
         return rc
 
