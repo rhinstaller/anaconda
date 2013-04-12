@@ -1360,6 +1360,8 @@ until you click on the main menu's 'Begin Installation' button.</property>
                         </child>
                         <child>
                           <object class="GtkToolButton" id="refreshButton">
+                            <property name="width_request">42</property>
+                            <property name="height_request">36</property>
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
                             <property name="tooltip_text" translatable="yes">Reload storage configuration from disk.</property>
@@ -1375,6 +1377,8 @@ until you click on the main menu's 'Begin Installation' button.</property>
                         </child>
                         <child>
                           <object class="GtkToolButton" id="helpButton">
+                            <property name="width_request">42</property>
+                            <property name="height_request">36</property>
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
                             <property name="tooltip_text" translatable="yes">Click for help.</property>
