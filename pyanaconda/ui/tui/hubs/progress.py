@@ -91,6 +91,8 @@ class ProgressHub(TUIHub):
                 if self._stepped:
                     print('')
                 return True
+            elif code == progressQ.PROGRESS_CODE_QUIT:
+                sys.exit(args[0])
 
             q.task_done()
         return True
