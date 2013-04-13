@@ -21,7 +21,8 @@
 import inspect, os, sys, time, site
 import meh.ui.gui
 
-from gi.repository import Gdk
+# pylint: disable-msg=E0611
+from gi.repository import Gdk, Gtk, AnacondaWidgets
 
 from pyanaconda.product import distributionText, isFinal
 
@@ -105,8 +106,6 @@ class GUIObject(common.UIObject):
 
         self.skipTo = None
         self.applyOnSkip = False
-
-        from gi.repository import Gtk
 
         self.builder = Gtk.Builder()
         self.builder.set_translation_domain("anaconda")
@@ -338,7 +337,9 @@ class GraphicalUserInterface(UserInterface):
         return obj
 
     def run(self):
-        from gi.repository import Gtk
+        (success, args) = Gtk.init_check(None)
+        if not success:
+            raise RuntimeError("Failed to initialize Gtk")
 
         if Gtk.main_level() > 0:
             # Gtk main loop running. That means python-meh caught exception
@@ -383,7 +384,6 @@ class GraphicalUserInterface(UserInterface):
     ###
     @gtk_action_wait
     def showError(self, message):
-        from gi.repository import AnacondaWidgets, Gtk
         dlg = Gtk.MessageDialog(flags=Gtk.DialogFlags.MODAL,
                                 message_type=Gtk.MessageType.ERROR,
                                 buttons=Gtk.ButtonsType.NONE,
@@ -427,8 +427,6 @@ class GraphicalUserInterface(UserInterface):
     ### SIGNAL HANDLING METHODS
     ###
     def _on_continue_clicked(self):
-        from gi.repository import Gtk
-
         # If we're on the last screen, clicking Continue quits.
         if len(self._actions) == 1:
             Gtk.main_quit()
@@ -511,8 +509,6 @@ class GraphicalExceptionHandlingIface(meh.ui.gui.GraphicalIntf):
         self._lightbox_func = lightbox_func
 
     def mainExceptionWindow(self, text, exn_file, *args, **kwargs):
-        from gi.repository import Gtk
-
         meh_intf = meh.ui.gui.GraphicalIntf()
         exc_window = meh_intf.mainExceptionWindow(text, exn_file)
         exc_window.main_window.set_decorated(False)
