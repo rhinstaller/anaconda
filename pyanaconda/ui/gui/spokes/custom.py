@@ -80,7 +80,7 @@ from pyanaconda.ui.gui.spokes.lib.passphrase import PassphraseDialog
 from pyanaconda.ui.gui.spokes.lib.accordion import *
 from pyanaconda.ui.gui.spokes.lib.refresh import RefreshDialog
 from pyanaconda.ui.gui.spokes.lib.summary import ActionSummaryDialog
-from pyanaconda.ui.gui.utils import setViewportBackground, gtk_action_wait
+from pyanaconda.ui.gui.utils import setViewportBackground, gtk_action_wait, enlightbox
 from pyanaconda.ui.gui.categories.storage import StorageCategory
 
 from gi.repository import Gtk
@@ -148,16 +148,6 @@ def size_from_entry(entry):
             size = Size(spec="1mb")
 
     return size
-
-# XXX: Hack, hack, hack.  For some reason displaying lightboxed dialogs on the
-# custom storage spoke means that redisplaying those dialogs later never works
-# and the UI looks frozen.  So I'm just going to override the real enlightbox
-# method here with one that does nothing.  Hopefully this will be fixed and I
-# can remove the hack.
-@contextmanager
-def enlightbox(mainWindow, dialog):
-    dialog.set_decorated(True)
-    yield
 
 class UIStorageFilter(logging.Filter):
     def filter(self, record):
@@ -1920,7 +1910,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
     def on_help_clicked(self, button):
         help_window = HelpDialog(self.data)
-        help_window.run()
+        with enlightbox(self.window, help_window.window):
+            help_window.run()
 
     def on_configure_clicked(self, button):
         selector = self._current_selector
