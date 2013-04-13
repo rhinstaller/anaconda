@@ -94,8 +94,10 @@ def gtk_action_nowait(func):
 
 @contextmanager
 def enlightbox(mainWindow, dialog):
+    from pyanaconda.ui.gui import ANACONDA_WINDOW_GROUP
     from gi.repository import AnacondaWidgets
     lightbox = AnacondaWidgets.lb_show_over(mainWindow)
+    ANACONDA_WINDOW_GROUP.add_window(lightbox)
     dialog.set_transient_for(lightbox)
     yield
     lightbox.destroy()

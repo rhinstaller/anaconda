@@ -41,6 +41,8 @@ __all__ = ["GraphicalUserInterface", "UIObject", "busyCursor", "unbusyCursor", "
 
 _screenshotIndex = 0
 
+ANACONDA_WINDOW_GROUP = Gtk.WindowGroup()
+
 class GUIObject(common.UIObject):
     """This is the base class from which all other GUI classes are derived.  It
        thus contains only attributes and methods that are common to everything
@@ -116,6 +118,7 @@ class GUIObject(common.UIObject):
         else:
             self.builder.add_from_file(self._findUIFile())
 
+        ANACONDA_WINDOW_GROUP.add_window(self.window)
         self.builder.connect_signals(self)
         self.window.connect("key-release-event", self._handlePrntScreen)
 
@@ -310,6 +313,7 @@ class GraphicalUserInterface(UserInterface):
         # if there are no actions (not populated yet), we can do nothing
         if len(self._actions) > 0 and self._currentAction:
             lightbox = AnacondaWidgets.lb_show_over(self._currentAction.window)
+            ANACONDA_WINDOW_GROUP.add_window(lightbox)
             window.main_window.set_transient_for(lightbox)
 
     def _instantiateAction(self, actionClass):
@@ -515,8 +519,8 @@ class GraphicalExceptionHandlingIface(meh.ui.gui.GraphicalIntf):
 
         self._lightbox_func(exc_window)
 
-        # without WindowGroup, python-meh's window is insensitive if it appears
-        # above a spoke (Gtk.Window running its own Gtk.main loop)
+        # without a new GtkWindowGroup, python-meh's window is insensitive if it
+        # appears above a spoke (Gtk.Window running its own Gtk.main loop)
         window_group = Gtk.WindowGroup()
         window_group.add_window(exc_window.main_window)
 
