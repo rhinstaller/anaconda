@@ -1449,7 +1449,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         else:
             labelEntry.set_tooltip_text(_("This file system does not support labels."))
 
-        self._sizeEntry.set_text(str(Size(spec="%d MB" % device.size)))
+        self._sizeEntry.set_text(Size(spec="%d MB" % device.size).humanReadable(max_places=None))
         self._sizeEntry.set_sensitive(device.resizable or not device.exists)
 
         if self._sizeEntry.get_sensitive():
