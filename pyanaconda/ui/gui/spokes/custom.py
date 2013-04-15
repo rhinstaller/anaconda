@@ -1128,7 +1128,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                         try:
                             self._replace_device(old_device_type, device.size,
                                                  disks=old_disks,
-                                                 fstype=old_fstype,
+                                                 fstype=old_fs_type,
                                                  mountpoint=old_mountpoint,
                                                  label=old_label,
                                                  raid_level=old_raid_level,
