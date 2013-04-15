@@ -106,7 +106,7 @@ class InstallOptions1Dialog(GUIObject):
         self.window.destroy()
         return rc
 
-    def refresh(self, required_space, disk_free, fs_free, autoPartType, encrypted):
+    def refresh(self, required_space, auto_swap, disk_free, fs_free, autoPartType, encrypted):
         self.autoPartType = autoPartType
         self.autoPartTypeCombo = self.builder.get_object("options1_combo")
         self.autoPartTypeCombo.set_active(self.autoPartType)
@@ -171,11 +171,15 @@ class InstallOptions1Dialog(GUIObject):
 
         return True
 
-    def _get_sw_needs_text(self, required_space):
+    def _get_sw_needs_text(self, required_space, auto_swap):
         required_space_text = size_str(required_space)
-        sw_text = (_("Your current <a href=\"\"><b>%s</b> software selection</a> requires "
-                      "<b>%s</b> of available space.")
-                   % (productName, required_space_text))
+        sw_text = (_("Your current <a href=\"\"><b>%(product)s</b> software "
+                     "selection</a> requires <b>%(total)s</b> of available "
+                     "space, including <b>%(software)s</b> for software and "
+                     "<b>%(swap)s</b> for swap space.")
+                   % {"product": productName,
+                      "total": required_space + auto_swap,
+                      "software": required_space, "swap": auto_swap})
         return sw_text
 
     # Methods to handle sensitivity of the modify button.
@@ -215,7 +219,7 @@ class InstallOptions2Dialog(InstallOptions1Dialog):
     builderObjects = ["options2_dialog"]
     mainWidgetName = "options2_dialog"
 
-    def refresh(self, required_space, disk_free, fs_free, autoPartType, encrypted):
+    def refresh(self, required_space, auto_swap, disk_free, fs_free, autoPartType, encrypted):
         self.autoPartType = autoPartType
         self.autoPartTypeCombo = self.builder.get_object("options2_combo")
         self.autoPartTypeCombo.set_active(self.autoPartType)
@@ -224,8 +228,8 @@ class InstallOptions2Dialog(InstallOptions1Dialog):
         self.encryptCheckbutton = self.builder.get_object("encryption2_checkbutton")
         self.encryptCheckbutton.set_active(self.encrypted)
 
-        sw_text = self._get_sw_needs_text(required_space)
-        label_text = _("%s\nThe disks you've selected have the following "
+        sw_text = self._get_sw_needs_text(required_space, auto_swap)
+        label_text = _("%s The disks you've selected have the following "
                        "amounts of free space:") % sw_text
         label = self.builder.get_object("options2_label1")
         label.set_markup(label_text)
@@ -253,12 +257,12 @@ class InstallOptions3Dialog(InstallOptions1Dialog):
     builderObjects = ["options3_dialog"]
     mainWidgetName = "options3_dialog"
 
-    def refresh(self, required_space, disk_free, fs_free, autoPartType, encrypted):
-        sw_text = self._get_sw_needs_text(required_space)
-        label_text = (_("%s\nYou don't have enough space available to install "
-                        "<b>%s</b>, even if you used all of the free space\n"
+    def refresh(self, required_space, auto_swap, disk_free, fs_free, autoPartType, encrypted):
+        sw_text = self._get_sw_needs_text(required_space, auto_swap)
+        label_text = (_("%(sw_text)s You don't have enough space available to install "
+                        "<b>%(product)s</b>, even if you used all of the free space "
                         "available on the selected disks.")
-                      % (sw_text, productName))
+                      % {"sw_text": sw_text, "product": productName})
         label = self.builder.get_object("options3_label1")
         label.set_markup(label_text)
         label.set_tooltip_text(_("Please wait... software metadata still loading."))
@@ -269,9 +273,9 @@ class InstallOptions3Dialog(InstallOptions1Dialog):
         self._set_free_space_labels(disk_free, fs_free)
 
         label_text = _("<b>You don't have enough space available to install "
-                       "%s</b>, even if you used all of the free space\n"
+                       "%s</b>, even if you used all of the free space "
                        "available on the selected disks.  You could add more "
-                       "disks for additional space,\n"
+                       "disks for additional space, "
                        "modify your software selection to install a smaller "
                        "version of <b>%s</b>, or quit the installer.") % (productName, productName)
         self.builder.get_object("options3_label2").set_markup(label_text)
@@ -783,7 +787,7 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         else:
             dialog = InstallOptions3Dialog(self.data, payload=self.payload)
 
-        dialog.refresh(required_space, disk_free, fs_free, self.autoPartType,
+        dialog.refresh(required_space, auto_swap, disk_free, fs_free, self.autoPartType,
                        self.encrypted)
         rc = self.run_lightbox_dialog(dialog)
         if rc == dialog.RESPONSE_CONTINUE:
