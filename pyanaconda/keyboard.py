@@ -32,6 +32,7 @@ keymaps.
 
 """
 
+import types
 import os
 from pyanaconda import iutil
 from pyanaconda.safe_dbus import dbus_call_safe_sync, dbus_get_property_safe_sync
@@ -295,8 +296,16 @@ def activate_keyboard(keyboard):
 def item_str(s):
     """Convert a zero-terminated byte array to a proper str"""
 
-    i = s.index(0)
-    s = "".join(chr(char) for char in s[:i] if char in xrange(256))
+    # depending of version of libxklavier and the tools generating introspection
+    # data the value of 's' can be either byte string or list of integers
+    if type(s) == types.StringType:
+        i = s.find(b'\x00')
+        s = s[:i]
+    elif type(s) == types.ListType:
+        # XXX: this is the wrong case that should be fixed (rhbz#920595)
+        i = s.index(0)
+        s = "".join(chr(char) for char in s[:i] if char in xrange(256))
+
     return s.decode("utf-8") #there are some non-ascii layout descriptions
 
 class _Layout(object):
