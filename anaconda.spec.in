@@ -245,6 +245,15 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/lib/dracut/modules.d/80%{name}/*
 
 %changelog
+* Mon Apr 15 2013 Brian C. Lane <bcl@redhat.com> - 19.19-1
+- Show device size with full precision to avoid spurious resize. (#951276)
+  (dlehman)
+- Fix another typo (old_fstype->old_fs_type). (#951593) (dlehman)
+- Fix typo encryption_changed->changed_encryption. (#950700) (dlehman)
+- Remove some remnants of old multipath code. (#951259) (dlehman)
+- Protect the block device containing the stage2 image. (dlehman)
+- Clarify code for iutil.get_active_console() etc. (wwoods)
+
 * Thu Apr 11 2013 Brian C. Lane <bcl@redhat.com> - 19.18-1
 - Revert "Revert "Don't emit "gfxterm" in grub2 configs (#821355)"" (pjones)
 - Make "s" a hotkey for "Save Changes" on Advanced User Configuration. (pjones)
