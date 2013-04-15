@@ -435,14 +435,11 @@ class FilterSpoke(NormalSpoke):
                       RaidPage(self.storage, self.builder),
                       ZPage(self.storage, self.builder)]
 
-        self._addAdditionalCombo = self.builder.get_object("addAdditionalCombo")
         self._notebook = self.builder.get_object("advancedNotebook")
-
-        self._addAdditionalCombo.set_active(0)
 
         if not arch.isS390():
             self._notebook.remove_page(-1)
-            self._addAdditionalCombo.remove(3)
+            self.builder.get_object("addZFCPButton").destroy()
 
         self._store = self.builder.get_object("diskStore")
         self._addDisksButton = self.builder.get_object("addDisksButton")
@@ -559,29 +556,22 @@ class FilterSpoke(NormalSpoke):
 
         self._update_summary()
 
-    def on_add_additional_changed(self, widget, *args):
-        active = widget.get_active()
+    def on_add_iscsi_clicked(self, widget, *args):
+        dialog = ISCSIDialog(self.data, self.storage)
 
-        if active == 0:
-            # Nothing.
-            return
-        elif active == 1:
-            # iSCSI
-            dialog = ISCSIDialog(self.data, self.storage)
-
-            with enlightbox(self.window, dialog.window):
-                dialog.refresh()
-                dialog.run()
-        elif active == 2:
-            # FCoE
-            pass
-        elif active == 3:
-            # ZFCP
-            pass
+        with enlightbox(self.window, dialog.window):
+            dialog.refresh()
+            dialog.run()
 
         # We now need to refresh so any new disks picked up by adding advanced
         # storage are displayed in the UI.
         self.refresh()
+
+    def on_add_fcoe_clicked(self, widget, *args):
+        pass
+
+    def on_add_zfcp_clicked(self, widget, *args):
+        pass
 
     ##
     ## SEARCH TAB SIGNAL HANDLERS
