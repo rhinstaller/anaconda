@@ -10,6 +10,8 @@
       <column type="gchararray"/>
       <!-- column-name addonName -->
       <column type="gchararray"/>
+      <!-- column-name addonSeparator -->
+      <column type="gboolean"/>
     </columns>
   </object>
   <object class="GtkListStore" id="environmentStore">
@@ -84,7 +86,7 @@
                         <property name="margin_bottom">6</property>
                         <property name="hexpand">True</property>
                         <property name="xalign">0</property>
-                        <property name="label" translatable="yes">Choose your environment</property>
+                        <property name="label" translatable="yes">Base Environment</property>
                         <attributes>
                           <attribute name="font-desc" value="Cantarell 12"/>
                           <attribute name="weight" value="normal"/>
@@ -104,7 +106,7 @@
                         <property name="margin_bottom">6</property>
                         <property name="hexpand">True</property>
                         <property name="xalign">0</property>
-                        <property name="label" translatable="yes">Choose your add-ons</property>
+                        <property name="label" translatable="yes">Add-Ons for Selected Environment</property>
                         <attributes>
                           <attribute name="font-desc" value="Cantarell 12"/>
                           <attribute name="weight" value="normal"/>

@@ -67,6 +67,9 @@ class SoftwareSelectionSpoke(NormalSpoke):
         self._origAddons = []
         self._origEnvironment = None
 
+        # We need to tell the addon view whether something is a separator or not.
+        self.builder.get_object("addonView").set_row_separator_func(self._addon_row_is_separator, None)
+
     def _apply(self):
         row = self._get_selected_environment()
         if not row:
@@ -261,16 +264,42 @@ class SoftwareSelectionSpoke(NormalSpoke):
 
         self.refreshAddons()
 
+    def _addon_row_is_separator(self, model, itr, *args):
+        # The last column of the model tells us if this row is a separator or not.
+        return model[itr][3]
+
+    def _addAddon(self, grp):
+        (name, desc) = self.payload.groupDescription(grp)
+        selected = grp in self.selectedGroups
+
+        self._addonStore.append([selected, "<b>%s</b>\n%s" % (name, desc), grp, False])
+
     def refreshAddons(self):
         self._addonStore = self.builder.get_object("addonStore")
         self._addonStore.clear()
         if self.environment:
-            for grp in self.payload.groups:
-                if self.payload.environmentHasOption(self.environment, grp) or (self.payload._isGroupVisible(grp) and self.payload._groupHasInstallableMembers(grp)):
-                    (name, desc) = self.payload.groupDescription(grp)
-                    selected = grp in self.selectedGroups
+            # First, we make up two lists:  One of addons specific to this environment,
+            # and one of all the others.  The environment-specific ones will be displayed
+            # first and then a separator, and then the generic ones.  This is to make it
+            # a little more obvious that the thing on the left side of the screen and the
+            # thing on the right side of the screen are related.
+            specific = []
+            generic = []
 
-                    self._addonStore.append([selected, "<b>%s</b>\n%s" % (name, desc), grp])
+            for grp in self.payload.groups:
+                if self.payload.environmentHasOption(self.environment, grp):
+                    specific.append(grp)
+                elif self.payload._isGroupVisible(grp) and self.payload._groupHasInstallableMembers(grp):
+                    generic.append(grp)
+
+            for grp in specific:
+                self._addAddon(grp)
+
+            # This marks a separator in the view.
+            self._addonStore.append([False, "", "", True])
+
+            for grp in generic:
+                self._addAddon(grp)
 
         self._selectFlag = True
 
