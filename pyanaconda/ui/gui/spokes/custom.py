@@ -1211,13 +1211,14 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         # which case we're not going to schedule another reformat unless
         # encryption got toggled
         do_reformat = (reformat and (changed_encryption or
-                                     fs_type_changed or
+                                     changed_fs_type or
                                      device.format.exists))
         if do_reformat:
             self.clear_errors()
             #
             # ENCRYPTION
             #
+            old_device = None
             if changed_encryption:
                 if not encrypted:
                     log.info("removing encryption from %s" % device.name)
