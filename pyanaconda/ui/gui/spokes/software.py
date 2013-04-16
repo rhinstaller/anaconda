@@ -1,6 +1,6 @@
 # Software selection spoke classes
 #
-# Copyright (C) 2011-2012  Red Hat, Inc.
+# Copyright (C) 2011-2013  Red Hat, Inc.
 #
 # This copyrighted material is made available to anyone wishing to use,
 # modify, copy, or redistribute it subject to the terms and conditions of
@@ -22,6 +22,9 @@
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
 N_ = lambda x: x
+
+# pylint: disable-msg=E0611
+from gi.repository import Gdk, Gtk
 
 from pyanaconda.flags import flags
 from pyanaconda.packaging import MetadataError
@@ -259,8 +262,6 @@ class SoftwareSelectionSpoke(NormalSpoke):
         self.refreshAddons()
 
     def refreshAddons(self):
-        from gi.repository import Gtk
-
         self._addonStore = self.builder.get_object("addonStore")
         self._addonStore.clear()
         if self.environment:
@@ -316,6 +317,15 @@ class SoftwareSelectionSpoke(NormalSpoke):
         self.environment = self._environmentStore[path][2]
         self.refreshAddons()
 
+    def on_environment_selection_changed(self, selection):
+        (model, itr) = selection.get_selected()
+        if not itr:
+            return
+
+        # Only do something if the row's not previously been selected.
+        if not model[itr][0]:
+            self.on_environment_toggled(None, model.get_path(itr))
+
     def on_addon_toggled(self, renderer, path):
         selected = not self._addonStore[path][0]
         group = self._addonStore[path][2]
@@ -329,6 +339,29 @@ class SoftwareSelectionSpoke(NormalSpoke):
 
         elif not selected and group in self.selectedGroups:
             self.selectedGroups.remove(group)
+
+    def on_addon_view_clicked(self, view, event, *args):
+        if event and not event.type in [Gdk.EventType.BUTTON_RELEASE, Gdk.EventType.KEY_RELEASE]:
+            return
+
+        if event and event.type == Gdk.EventType.KEY_RELEASE and \
+           event.keyval not in [Gdk.KEY_space, Gdk.KEY_Return, Gdk.KEY_ISO_Enter, Gdk.KEY_KP_Enter, Gdk.KEY_KP_Space]:
+              return
+
+        selection = view.get_selection()
+        (model, itr) = selection.get_selected()
+        if not itr:
+            return
+
+        # If the user clicked on the first column, they've clicked on the checkbox which was
+        # handled separately from this signal handler.  Handling it again here will result in
+        # the checkbox being toggled yet again.  So, we need to return in that case.
+        (path, col) = view.get_cursor()
+        if not col or col.get_title() == "Selected":
+            return
+
+        # Always do something here, since addons can be toggled.
+        self.on_addon_toggled(None, model.get_path(itr))
 
     def on_custom_clicked(self, button):
         with enlightbox(self.window, self._addRepoDialog.window):
