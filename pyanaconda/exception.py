@@ -172,6 +172,10 @@ def initExceptionHandling(anaconda):
                                 "_intf._currentAction._xklwrapper",
                                 "_intf._currentAction.language.translations",
                                 "_intf._currentAction.language.locales",
+                                "_intf._currentAction._spokes[\"PasswordSpoke\"]._oldweak",
+                                "_intf._currentAction._spokes[\"PasswordSpoke\"]._password",
+                                "_intf._currentAction._spokes[\"UserSpoke\"]._password",
+                                "_intf._currentAction._spokes[\"UserSpoke\"]._oldweak",
                                 "_intf.storage.bootloader.password",
                                 "_intf.storage.data",
                                 "_intf.storage.encryptionPassphrase",
@@ -179,7 +183,7 @@ def initExceptionHandling(anaconda):
                                 "_bootloader.password",
                                 "payload._groups",
                                 "payload._yum"],
-                  localSkipList=[ "passphrase", "password" ],
+                  localSkipList=[ "passphrase", "password", "_oldweak", "_password" ],
                   fileList=fileList)
 
     conf.register_callback("lsblk_output", lsblk_callback, attchmnt_only=True)
