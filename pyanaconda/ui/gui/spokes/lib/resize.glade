@@ -23,6 +23,11 @@
       <column type="gchararray"/>
     </columns>
   </object>
+  <object class="GtkAdjustment" id="resizeAdjustment">
+    <property name="upper">100</property>
+    <property name="step_increment">1</property>
+    <property name="page_increment">10</property>
+  </object>
   <object class="GtkDialog" id="resizeDialog">
     <property name="height_request">550</property>
     <property name="can_focus">False</property>
@@ -260,9 +265,9 @@
                     <property name="can_focus">True</property>
                     <property name="margin_left">12</property>
                     <property name="margin_right">12</property>
+                    <property name="adjustment">resizeAdjustment</property>
                     <property name="round_digits">1</property>
                     <property name="digits">0</property>
-                    <property name="value_pos">bottom</property>
                     <signal name="format-value" handler="resize_slider_format" swapped="no"/>
                     <signal name="value-changed" handler="on_resize_value_changed" swapped="no"/>
                   </object>

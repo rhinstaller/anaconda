@@ -50,7 +50,7 @@ SHRINK = N_("Shrink")
 DELETE = N_("Delete")
 
 class ResizeDialog(GUIObject):
-    builderObjects = ["actionStore", "diskStore", "resizeDialog"]
+    builderObjects = ["actionStore", "diskStore", "resizeDialog", "resizeAdjustment"]
     mainWidgetName = "resizeDialog"
     uiFile = "spokes/lib/resize.glade"
 
@@ -213,6 +213,35 @@ class ResizeDialog(GUIObject):
             text = _("Total selected space to reclaim: <b>%s</b>") % size_str(selectedReclaimable)
             self._selected_label.set_markup(text)
 
+    def _setup_slider(self, device, value):
+        """Set up the slider for this device, pulling out any previously given
+           shrink value as the default.  This also sets up the ticks on the
+           slider and keyboard support.  Any devices that are not resizable
+           will not have a slider displayed, so they do not need to be worried
+           with here.
+        """
+        self._resizeSlider.set_range(device.minSize, device.size)
+        self._resizeSlider.set_value(value)
+
+        # The slider needs to be keyboard-accessible.  We'll make small movements change in
+        # 1% increments, and large movements in 5% increments.
+        distance = device.size - device.minSize
+        onePercent = distance*0.01
+        fivePercent = distance*0.05
+        twentyPercent = distance*0.2
+
+        adjustment = self.builder.get_object("resizeAdjustment")
+        adjustment.configure(value, device.minSize, device.size, onePercent, fivePercent, 0)
+
+        # And then the slider needs a couple tick marks for easier navigation.
+        self._resizeSlider.clear_marks()
+        for i in range(1, 5):
+            self._resizeSlider.add_mark(device.minSize + i*twentyPercent, Gtk.PositionType.BOTTOM, None)
+
+        # Finally, add tick marks for the ends.
+        self._resizeSlider.add_mark(device.minSize, Gtk.PositionType.BOTTOM, size_str(device.minSize))
+        self._resizeSlider.add_mark(device.size, Gtk.PositionType.BOTTOM, size_str(device.size))
+
     def _update_action_buttons(self, row):
         device = self.storage.devicetree.getDeviceByID(row[DEVICE_ID_COL])
 
@@ -221,7 +250,7 @@ class ResizeDialog(GUIObject):
         self._preserveButton.set_sensitive(row[EDITABLE_COL])
         self._shrinkButton.set_sensitive(row[EDITABLE_COL] and not device.isDisk)
         self._deleteButton.set_sensitive(row[EDITABLE_COL])
-        self._resizeSlider.set_sensitive(False)
+        self._resizeSlider.set_visible(False)
 
         if not row[EDITABLE_COL]:
             return
@@ -230,12 +259,7 @@ class ResizeDialog(GUIObject):
         # button insensitive.
         self._shrinkButton.set_sensitive(device.resizable)
 
-        # Set up the slider for this device, pulling out any previously
-        # given shrink value as the default.  Even if the device is not
-        # resizeable, we want to set up the right numbers here so it doesn't
-        # look weird.
-        self._resizeSlider.set_range(device.minSize, device.size)
-        self._resizeSlider.set_value(row[RESIZE_TARGET_COL])
+        self._setup_slider(device, row[RESIZE_TARGET_COL])
 
         # Then, disable the button for whatever action is currently selected.
         # It doesn't make a lot of sense to allow clicking that.
@@ -243,7 +267,7 @@ class ResizeDialog(GUIObject):
             self._preserveButton.set_sensitive(False)
         elif row[ACTION_COL] == _(SHRINK):
             self._shrinkButton.set_sensitive(False)
-            self._resizeSlider.set_sensitive(True)
+            self._resizeSlider.set_visible(True)
         elif row[ACTION_COL] == _(DELETE):
             self._deleteButton.set_sensitive(False)
 
