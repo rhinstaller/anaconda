@@ -118,18 +118,7 @@ class RescueInterface(InstallInterfaceBase):
     def __init__(self):
         InstallInterfaceBase.__init__(self)
         self.screen = SnackScreen()
-        self._meh_interface = RescueExceptionHandlingIface(self.screen)
-
-class RescueExceptionHandlingIface(meh.ui.text.TextIntf):
-    def __init__(self, snack_screen, *args, **kwargs):
-        meh.ui.text.TextIntf.__init__(self, *args, **kwargs)
-        self._snack_running = True
-        self._snack_screen = snack_screen
-
-    def __getattr__(self, attr):
-        if self._snack_running:
-            self._snack_screen.finish()
-            self._snack_running = False
+        self._meh_interface = meh.ui.text.TextIntf()
 
 def makeFStab(instPath = ""):
     if os.access("/proc/mounts", os.R_OK):
@@ -212,8 +201,29 @@ def runShell(screen = None, msg=""):
     if screen:
         screen.finish()
 
+def _exception_handler_wrapper(orig_except_handler, screen, *args):
+    """
+    Helper function that wraps the exception handler with snack shutdown.
+
+    :param orig_except_handler: original exception handler that should be run
+                                after the wrapping changes are done
+    :type orig_except_handler: exception handler as can be set as sys.excepthook
+    :param screen: snack screen that should be shut down before further actions
+    :type screen: snack screen
+
+    """
+
+    screen.finish()
+    return orig_except_handler(*args)
+
 def doRescue(intf, rescue_mount, ksdata):
     import blivet
+
+    # XXX: hook the exception handler wrapper that turns off snack first
+    orig_hook = sys.excepthook
+    sys.excepthook = lambda ty, val, tb: _exception_handler_wrapper(orig_hook,
+                                                                    intf.screen,
+                                                                    ty, val, tb)
 
     for file in [ "services", "protocols", "group", "joe", "man.config",
                   "nsswitch.conf", "selinux", "mke2fs.conf" ]:
