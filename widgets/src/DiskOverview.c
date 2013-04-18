@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2011-2012  Red Hat, Inc.
+ * Copyright (C) 2011-2013  Red Hat, Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,6 +18,7 @@
  */
 
 #include <gdk/gdk.h>
+#include <gio/gio.h>
 #include <string.h>
 
 #include "DiskOverview.h"
@@ -53,11 +54,11 @@ enum {
 #define DEFAULT_NAME          ""
 #define DEFAULT_POPUP_INFO    ""
 
-#define ICON_SIZE             125
+#define ICON_SIZE             128
 
 struct _AnacondaDiskOverviewPrivate {
     GtkWidget *vbox;
-    GtkWidget *kind;
+    GtkWidget *kind_icon;
     GtkWidget *description_label;
     GtkWidget *capacity_label;
     GtkWidget *name_label;
@@ -65,6 +66,7 @@ struct _AnacondaDiskOverviewPrivate {
 
     GdkCursor *cursor;
 
+    gchar *kind;
     gboolean chosen;
 };
 
@@ -186,6 +188,50 @@ GtkWidget *anaconda_disk_overview_new() {
     return g_object_new(ANACONDA_TYPE_DISK_OVERVIEW, NULL);
 }
 
+static void set_icon(AnacondaDiskOverview *widget, const char *icon_name) {
+    GError *err = NULL;
+    GIcon *base_icon, *emblem_icon, *icon;
+    GEmblem *emblem = NULL;
+
+    if (!icon_name)
+        return;
+
+    if (widget->priv->kind_icon)
+        gtk_widget_destroy(widget->priv->kind_icon);
+
+    if (widget->priv->chosen) {
+        base_icon = g_icon_new_for_string(icon_name, &err);
+        if (!base_icon) {
+            fprintf(stderr, "could not create icon: %s\n", err->message);
+            g_error_free(err);
+            return;
+        }
+
+        emblem_icon = g_icon_new_for_string("/usr/share/anaconda/pixmaps/anaconda-selected-icon.svg", &err);
+        if (!emblem_icon) {
+            fprintf(stderr, "could not create emblem: %s\n", err->message);
+            g_error_free(err);
+        }
+        else {
+            emblem = g_emblem_new(emblem_icon);
+        }
+
+        icon = g_emblemed_icon_new(base_icon, emblem);
+        g_object_unref(base_icon);
+    }
+    else {
+        icon = g_icon_new_for_string(icon_name, &err);
+        if (!icon) {
+            fprintf(stderr, "could not create icon: %s\n", err->message);
+            g_error_free(err);
+            return;
+        }
+    }
+
+    widget->priv->kind_icon = gtk_image_new_from_gicon(icon, GTK_ICON_SIZE_DIALOG);
+    gtk_image_set_pixel_size(GTK_IMAGE(widget->priv->kind_icon), ICON_SIZE);
+}
+
 /* Initialize the widgets in a newly allocated DiskOverview. */
 static void anaconda_disk_overview_init(AnacondaDiskOverview *widget) {
     char *markup;
@@ -219,8 +265,7 @@ static void anaconda_disk_overview_init(AnacondaDiskOverview *widget) {
     g_free(markup);
 
     /* Create the spoke's icon. */
-    widget->priv->kind = gtk_image_new_from_icon_name(DEFAULT_KIND, GTK_ICON_SIZE_DIALOG);
-    gtk_image_set_pixel_size(GTK_IMAGE(widget->priv->kind), ICON_SIZE);
+    set_icon(widget, DEFAULT_KIND);
 
     /* Create the description label. */
     widget->priv->description_label = gtk_label_new(NULL);
@@ -233,7 +278,7 @@ static void anaconda_disk_overview_init(AnacondaDiskOverview *widget) {
 
     /* Add everything to the vbox, add the vbox to the widget. */
     gtk_container_add(GTK_CONTAINER(widget->priv->vbox), widget->priv->capacity_label);
-    gtk_container_add(GTK_CONTAINER(widget->priv->vbox), widget->priv->kind);
+    gtk_container_add(GTK_CONTAINER(widget->priv->vbox), widget->priv->kind_icon);
     gtk_container_add(GTK_CONTAINER(widget->priv->vbox), widget->priv->description_label);
     gtk_container_add(GTK_CONTAINER(widget->priv->vbox), widget->priv->name_label);
 
@@ -264,11 +309,15 @@ gboolean anaconda_disk_overview_clicked(AnacondaDiskOverview *widget, GdkEvent *
 }
 
 static void anaconda_disk_overview_toggle_background(AnacondaDiskOverview *widget) {
-    if (widget->priv->chosen) {
-	gtk_widget_set_state_flags(GTK_WIDGET(widget), GTK_STATE_FLAG_SELECTED, FALSE);
-    }
+    if (widget->priv->chosen)
+        gtk_widget_set_state_flags(GTK_WIDGET(widget), GTK_STATE_FLAG_SELECTED, FALSE);
     else
-	gtk_widget_unset_state_flags(GTK_WIDGET(widget), GTK_STATE_FLAG_SELECTED);
+        gtk_widget_unset_state_flags(GTK_WIDGET(widget), GTK_STATE_FLAG_SELECTED);
+
+    set_icon(widget, widget->priv->kind);
+    gtk_container_add(GTK_CONTAINER(widget->priv->vbox), widget->priv->kind_icon);
+    gtk_box_reorder_child(GTK_BOX(widget->priv->vbox), widget->priv->kind_icon, 1);
+    gtk_widget_show(widget->priv->kind_icon);
 }
 
 static void anaconda_disk_overview_finalize(AnacondaDiskOverview *widget) {
@@ -291,7 +340,7 @@ static void anaconda_disk_overview_get_property(GObject *object, guint prop_id, 
             break;
 
         case PROP_KIND:
-            g_value_set_object (value, (GObject *)priv->kind);
+            g_value_set_object (value, (GObject *)priv->kind_icon);
             break;
 
         case PROP_CAPACITY:
@@ -315,14 +364,19 @@ static void anaconda_disk_overview_set_property(GObject *object, guint prop_id, 
     switch(prop_id) {
         case PROP_DESCRIPTION: {
             char *markup = g_markup_printf_escaped("<span weight='bold' size='large'>%s</span>", g_value_get_string(value));
-	    gtk_label_set_markup(GTK_LABEL(priv->description_label), markup);
+            gtk_label_set_markup(GTK_LABEL(priv->description_label), markup);
             g_free(markup);
             break;
         }
 
         case PROP_KIND:
-            gtk_image_set_from_icon_name(GTK_IMAGE(priv->kind), g_value_get_string(value), GTK_ICON_SIZE_DIALOG);
-            gtk_image_set_pixel_size(GTK_IMAGE(priv->kind), ICON_SIZE);
+            if (widget->priv->kind)
+                g_free(widget->priv->kind);
+
+            widget->priv->kind = g_strdup(g_value_get_string(value));
+            set_icon(widget, widget->priv->kind);
+            gtk_container_add(GTK_CONTAINER(widget->priv->vbox), widget->priv->kind_icon);
+            gtk_box_reorder_child(GTK_BOX(widget->priv->vbox), widget->priv->kind_icon, 1);
             break;
 
         case PROP_CAPACITY: {
