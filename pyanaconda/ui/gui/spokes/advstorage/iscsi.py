@@ -409,7 +409,12 @@ class ISCSIDialog(GUIObject):
 
     def on_login_field_changed(self, *args):
         # Make up a credentials object so we can test if it's valid.
-        credentials = loginMap[self._loginAuthNotebook.get_current_page()](self.builder)
+        page = self._loginAuthNotebook.get_current_page()
+        if page == 3:
+            credentials = discoverMap[self._authNotebook.get_current_page()](self.builder)
+        else:
+            credentials = loginMap[page](self.builder)
+
         self._loginButton.set_sensitive(credentials_valid(credentials))
 
     ##
