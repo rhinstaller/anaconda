@@ -1606,6 +1606,20 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         # First, save anything from the currently displayed mountpoint.
         self._save_right_side(self._current_selector)
 
+        # And then display the summary screen.  From there, the user will either
+        # head back to the hub, or stay on the custom screen.
+        self.__storage.devicetree.pruneActions()
+        self.__storage.devicetree.sortActions()
+
+        dialog = ActionSummaryDialog(self.data)
+        with enlightbox(self.window, dialog.window):
+            dialog.refresh(self.__storage.devicetree.findActions())
+            rc = dialog.run()
+
+        if rc == 0:
+            # Cancel.  Stay on the custom screen.
+            return
+
         # Then if they did anything that resulted in new LUKS devices, we need
         # to prompt for passphrases.
         new_luks = any(d for d in self.__storage.devices
@@ -1620,20 +1634,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                 return
 
             self.passphrase = dialog.passphrase
-
-        # And then display the summary screen.  From there, the user will either
-        # head back to the hub, or stay on the custom screen.
-        self.__storage.devicetree.pruneActions()
-        self.__storage.devicetree.sortActions()
-
-        dialog = ActionSummaryDialog(self.data)
-        with enlightbox(self.window, dialog.window):
-            dialog.refresh(self.__storage.devicetree.findActions())
-            rc = dialog.run()
-
-        if rc == 0:
-            # Cancel.  Stay on the custom screen.
-            return
 
         NormalSpoke.on_back_clicked(self, button)
 
