@@ -1102,15 +1102,7 @@ class NetworkSpoke(NormalSpoke):
             device.connect("state-changed", self.on_device_state_changed)
 
     def apply(self):
-        # TODO: sanity check
-        self.data.network.network = []
-        for dev in self.network_control_box.listed_devices:
-            network_data = getKSNetworkData(dev)
-            if network_data is not None:
-                self.data.network.network.append(network_data)
-        hostname = self.network_control_box.hostname
-        network.update_hostname_data(self.data, hostname)
-
+        _update_network_ksdata(self.data, self.network_control_box)
         log.debug("network: apply ksdata %s" % self.data.network)
 
     @property
@@ -1187,6 +1179,8 @@ class NetworkSpoke(NormalSpoke):
     def initialize(self):
         NormalSpoke.initialize(self)
         self.network_control_box.initialize()
+        if not self.data.network.seen:
+            _update_network_data(self.data, self.network_control_box)
 
     def refresh(self):
         NormalSpoke.refresh(self)
@@ -1225,6 +1219,7 @@ class NetworkSpoke(NormalSpoke):
             self.clear_info()
             NormalSpoke.on_back_clicked(self, button)
 
+
 class NetworkStandaloneSpoke(StandaloneSpoke):
     builderObjects = ["networkStandaloneWindow", "networkControlBox_vbox", "liststore_wireless_network", "liststore_devices", "add_device_dialog", "liststore_add_device"]
     mainWidgetName = "networkStandaloneWindow"
@@ -1249,13 +1244,7 @@ class NetworkStandaloneSpoke(StandaloneSpoke):
         self._now_available = False
 
     def apply(self):
-        self.data.network.network = []
-        for dev in self.network_control_box.listed_devices:
-            network_data = getKSNetworkData(dev)
-            if network_data is not None:
-                self.data.network.network.append(network_data)
-        hostname = self.network_control_box.hostname
-        network.update_hostname_data(self.data, hostname)
+        _update_network_data(self.data, self.network_control_box)
 
         log.debug("network: apply ksdata %s" % self.data.network)
 
@@ -1304,6 +1293,15 @@ class NetworkStandaloneSpoke(StandaloneSpoke):
             hostname = network.getHostname()
             network.update_hostname_data(self.data, hostname)
             self.network_control_box.hostname = self.data.network.hostname
+
+def _update_network_data(data, ncb):
+    data.network.network = []
+    for dev in ncb.listed_devices:
+        network_data = getKSNetworkData(dev)
+        if network_data is not None:
+            data.network.network.append(network_data)
+    hostname = ncb.hostname
+    network.update_hostname_data(data, hostname)
 
 def getKSNetworkData(device):
     retval = None
