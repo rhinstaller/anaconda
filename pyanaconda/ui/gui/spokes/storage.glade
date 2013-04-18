@@ -868,10 +868,12 @@
                           <object class="GtkBox" id="local_disks_box">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
+                            <property name="events">GDK_KEY_RELEASE_MASK | GDK_STRUCTURE_MASK</property>
                             <property name="margin_left">6</property>
                             <property name="margin_right">6</property>
                             <property name="hexpand">True</property>
                             <property name="spacing">30</property>
+                            <signal name="key-release-event" handler="on_disks_key_released" swapped="no"/>
                             <child>
                               <placeholder/>
                             </child>

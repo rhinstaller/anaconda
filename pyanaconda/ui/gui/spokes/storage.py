@@ -38,8 +38,9 @@
 
 """
 
-from gi.repository import Gdk, GLib, Gtk
-from gi.repository import AnacondaWidgets
+# pylint: disable-msg=E0611
+from gi.repository import Gdk, GLib, Gtk, AnacondaWidgets
+
 from pyanaconda.ui.communication import hubQ
 from pyanaconda.ui.lib.disks import getDisks, isLocalDisk, size_str
 from pyanaconda.ui.gui import GUIObject
@@ -878,3 +879,12 @@ class StorageSpoke(NormalSpoke, StorageChecker):
                 rc = dialog.run()
 
             dialog.window.destroy()
+
+    def on_disks_key_released(self, box, event):
+        # if Ctrl-A was pressed, select all disks
+        if bool(event.state & Gdk.ModifierType.CONTROL_MASK) and \
+                (event.keyval in (Gdk.KEY_a, Gdk.KEY_A)):
+            for overview in box.get_children():
+                overview.set_chosen(True)
+
+        self._update_disk_list()
