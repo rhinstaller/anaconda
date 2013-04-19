@@ -29,12 +29,14 @@ import itertools
 
 from blivet import arch
 from blivet.devices import DASDDevice, FcoeDiskDevice, iScsiDiskDevice, MultipathDevice, MDRaidArrayDevice, ZFCPDiskDevice
+from blivet.fcoe import has_fcoe
 
 from pyanaconda.flags import flags
 
 from pyanaconda.ui.lib.disks import getDisks, isLocalDisk, size_str
 from pyanaconda.ui.gui.utils import enlightbox
 from pyanaconda.ui.gui.spokes import NormalSpoke
+from pyanaconda.ui.gui.spokes.advstorage.fcoe import FCoEDialog
 from pyanaconda.ui.gui.spokes.advstorage.iscsi import ISCSIDialog
 from pyanaconda.ui.gui.spokes.lib.cart import SelectedDisksDialog
 from pyanaconda.ui.gui.categories.storage import StorageCategory
@@ -441,6 +443,9 @@ class FilterSpoke(NormalSpoke):
             self._notebook.remove_page(-1)
             self.builder.get_object("addZFCPButton").destroy()
 
+        if not has_fcoe():
+            self.builder.get_object("addFCOEButton").destroy()
+
         self._store = self.builder.get_object("diskStore")
         self._addDisksButton = self.builder.get_object("addDisksButton")
 
@@ -568,7 +573,15 @@ class FilterSpoke(NormalSpoke):
         self.refresh()
 
     def on_add_fcoe_clicked(self, widget, *args):
-        pass
+        dialog = FCoEDialog(self.data, self.storage)
+
+        with enlightbox(self.window, dialog.window):
+            dialog.refresh()
+            dialog.run()
+
+        # We now need to refresh so any new disks picked up by adding advanced
+        # storage are displayed in the UI.
+        self.refresh()
 
     def on_add_zfcp_clicked(self, widget, *args):
         pass
