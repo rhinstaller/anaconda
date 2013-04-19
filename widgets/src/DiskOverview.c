@@ -295,6 +295,7 @@ gboolean anaconda_disk_overview_clicked(AnacondaDiskOverview *widget, GdkEvent *
     /* This handler runs for mouse presses and key releases.  For key releases, it only
      * runs for activate-type keys (enter, space, etc.).
      */
+    gtk_widget_grab_focus(GTK_WIDGET(widget));
     if (event->type != GDK_BUTTON_PRESS && event->type != GDK_KEY_RELEASE)
         return FALSE;
     else if (event->type == GDK_KEY_RELEASE &&
