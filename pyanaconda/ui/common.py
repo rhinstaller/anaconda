@@ -567,8 +567,11 @@ def collect(module_pattern, path, pred):
             # skip the file as well
             if not module_flags[0].startswith(".py") and loaded_ext.startswith(".py"):
                 continue
-            
+
         except ImportError as imperr:
+            if "pyanaconda" in module_path:
+                # failure when importing our own module:
+                raise
             log.error("Failed to import module in collect: %s" % imperr)
             continue
         finally:
