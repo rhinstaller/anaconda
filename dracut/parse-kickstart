@@ -221,7 +221,7 @@ def ksnet_to_dracut(args, lineno, net, bootdev=False):
     elif net.ipv6 == "dhcp":
         autoconf="dhcp6"
     elif net.ipv6:
-        ip="[{0.ipv6}]::{0.gateway}:{0.netmask}:" \
+        ip="[{0.ipv6}]::{0.ipv6gateway}:{0.netmask}:" \
            "{0.hostname}:{0.device}:none:{0.mtu}".format(net)
 
     if autoconf:
@@ -299,6 +299,8 @@ def ksnet_to_ifcfg(net, filename=None):
         if net.ipv6 == 'dhcp':
             ifcfg['DHCPV6C'] = "yes"
             ifcfg['IPV6_AUTOCONF'] = "no"
+            if net.ipv6gateway:
+                ifcfg['IPV6_DEFAULTGW'] = net.ipv6gateway
         elif net.ipv6 == 'auto':
             ifcfg['IPV6_AUTOCONF'] = "yes" # NOTE: redundant (this is the default)
         elif ':' in net.ipv6:

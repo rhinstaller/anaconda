@@ -470,7 +470,7 @@ def kickstartNetworkData(ifcfg=None, hostname=None):
             if ifcfg.get('IPV6ADDR'):
                 kwargs["ipv6"] = ifcfg.get('IPV6ADDR')
                 if ifcfg.get('IPV6_DEFAULTGW'):
-                    kwargs["gateway"] = ifcfg.get('IPV6_DEFAULTGW')
+                    kwargs["ipv6gateway"] = ifcfg.get('IPV6_DEFAULTGW')
             if ifcfg.get('DHCPV6C') == "yes":
                 kwargs["ipv6"] = "dhcp"
 
