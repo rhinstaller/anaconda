@@ -581,9 +581,12 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         else:
             description = disk.description
 
+        free = self.storage.getFreeSpace(disks=[disk])[disk.name][0]
+
         overview = AnacondaWidgets.DiskOverview(description,
                                                 kind,
                                                 size,
+                                                _("%s free") % size_str(free),
                                                 disk.name,
                                                 popup=popup_info)
         box.pack_start(overview, False, False, 0)

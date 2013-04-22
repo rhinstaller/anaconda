@@ -63,10 +63,11 @@ SpokeSelector = override(SpokeSelector)
 __all__.append('SpokeSelector')
 
 class DiskOverview(Anaconda.DiskOverview):
-    def __init__(self, description, kind, capacity, name, popup=None):
+    def __init__(self, description, kind, capacity, free, name, popup=None):
         Anaconda.DiskOverview.__init__(self)
         self.set_property("description", description)
         self.set_property("kind", kind)
+        self.set_property("free", free)
         self.set_property("capacity", capacity)
         self.set_property("name", name)
 

@@ -42,6 +42,7 @@
 enum {
     PROP_DESCRIPTION = 1,
     PROP_KIND,
+    PROP_FREE,
     PROP_CAPACITY,
     PROP_NAME,
     PROP_POPUP_INFO
@@ -51,16 +52,17 @@ enum {
 #define DEFAULT_DESCRIPTION   N_("New Device")
 #define DEFAULT_KIND          "drive-harddisk"
 #define DEFAULT_CAPACITY      N_("0 MB")
+#define DEFAULT_FREE          N_("0 MB")
 #define DEFAULT_NAME          ""
 #define DEFAULT_POPUP_INFO    ""
 
 #define ICON_SIZE             128
 
 struct _AnacondaDiskOverviewPrivate {
-    GtkWidget *vbox;
+    GtkWidget *grid;
     GtkWidget *kind_icon;
     GtkWidget *description_label;
-    GtkWidget *capacity_label;
+    GtkWidget *capacity_label, *free_label;
     GtkWidget *name_label;
     GtkWidget *tooltip;
 
@@ -135,6 +137,22 @@ static void anaconda_disk_overview_class_init(AnacondaDiskOverviewClass *klass) 
                                                         P_("Capacity"),
                                                         P_("The drive size (including units)"),
                                                         DEFAULT_CAPACITY,
+                                                        G_PARAM_READWRITE));
+
+    /**
+     * AnacondaDiskOverview:free:
+     *
+     * The :free string is the amount of free, unpartitioned space on the disk,
+     * plus units.
+     *
+     * Since: 1.0
+     */
+    g_object_class_install_property(object_class,
+                                    PROP_FREE,
+                                    g_param_spec_string("free",
+                                                        P_("Free space"),
+                                                        P_("The drive's unpartitioned free space (including units)"),
+                                                        DEFAULT_FREE,
                                                         G_PARAM_READWRITE));
 
     /**
@@ -254,9 +272,11 @@ static void anaconda_disk_overview_init(AnacondaDiskOverview *widget) {
     /* Set some properties. */
     widget->priv->chosen = FALSE;
 
-    /* Create the vbox. */
-    widget->priv->vbox = gtk_box_new(GTK_ORIENTATION_VERTICAL, 6);
-    gtk_container_set_border_width(GTK_CONTAINER(widget->priv->vbox), 6);
+    /* Create the grid. */
+    widget->priv->grid = gtk_grid_new();
+    gtk_grid_set_row_spacing(GTK_GRID(widget->priv->grid), 6);
+    gtk_grid_set_column_spacing(GTK_GRID(widget->priv->grid), 6);
+    gtk_container_set_border_width(GTK_CONTAINER(widget->priv->grid), 6);
 
     /* Create the capacity label. */
     widget->priv->capacity_label = gtk_label_new(NULL);
@@ -275,14 +295,24 @@ static void anaconda_disk_overview_init(AnacondaDiskOverview *widget) {
 
     /* Create the name label. */
     widget->priv->name_label = gtk_label_new(NULL);
+    gtk_widget_set_halign(widget->priv->name_label, GTK_ALIGN_END);
 
-    /* Add everything to the vbox, add the vbox to the widget. */
-    gtk_container_add(GTK_CONTAINER(widget->priv->vbox), widget->priv->capacity_label);
-    gtk_container_add(GTK_CONTAINER(widget->priv->vbox), widget->priv->kind_icon);
-    gtk_container_add(GTK_CONTAINER(widget->priv->vbox), widget->priv->description_label);
-    gtk_container_add(GTK_CONTAINER(widget->priv->vbox), widget->priv->name_label);
+    /* Create the free space label. */
+    widget->priv->free_label = gtk_label_new(NULL);
+    gtk_widget_set_halign(widget->priv->free_label, GTK_ALIGN_START);
+    markup = g_markup_printf_escaped("<span size='large'>%s</span>", _(DEFAULT_FREE));
+    gtk_label_set_markup(GTK_LABEL(widget->priv->capacity_label), markup);
+    g_free(markup);
 
-    gtk_container_add(GTK_CONTAINER(widget), widget->priv->vbox);
+    /* Add everything to the grid, add the grid to the widget. */
+    gtk_grid_attach(GTK_GRID(widget->priv->grid), widget->priv->capacity_label, 0, 0, 3, 1);
+    gtk_grid_attach(GTK_GRID(widget->priv->grid), widget->priv->kind_icon, 0, 1, 3, 1);
+    gtk_grid_attach(GTK_GRID(widget->priv->grid), widget->priv->description_label, 0, 2, 3, 1);
+    gtk_grid_attach(GTK_GRID(widget->priv->grid), widget->priv->name_label, 0, 3, 1, 1);
+    gtk_grid_attach(GTK_GRID(widget->priv->grid), gtk_label_new("/"), 1, 3, 1, 1);
+    gtk_grid_attach(GTK_GRID(widget->priv->grid), widget->priv->free_label, 2, 3, 1, 1);
+
+    gtk_container_add(GTK_CONTAINER(widget), widget->priv->grid);
 
     /* We need to handle button-press-event in order to change the background color. */
     g_signal_connect(widget, "button-press-event", G_CALLBACK(anaconda_disk_overview_clicked), NULL);
@@ -316,8 +346,7 @@ static void anaconda_disk_overview_toggle_background(AnacondaDiskOverview *widge
         gtk_widget_unset_state_flags(GTK_WIDGET(widget), GTK_STATE_FLAG_SELECTED);
 
     set_icon(widget, widget->priv->kind);
-    gtk_container_add(GTK_CONTAINER(widget->priv->vbox), widget->priv->kind_icon);
-    gtk_box_reorder_child(GTK_BOX(widget->priv->vbox), widget->priv->kind_icon, 1);
+    gtk_grid_attach(GTK_GRID(widget->priv->grid), widget->priv->kind_icon, 0, 1, 3, 1);
     gtk_widget_show(widget->priv->kind_icon);
 }
 
@@ -342,6 +371,10 @@ static void anaconda_disk_overview_get_property(GObject *object, guint prop_id, 
 
         case PROP_KIND:
             g_value_set_object (value, (GObject *)priv->kind_icon);
+            break;
+
+        case PROP_FREE:
+            g_value_set_string (value, gtk_label_get_text(GTK_LABEL(priv->free_label)));
             break;
 
         case PROP_CAPACITY:
@@ -376,9 +409,15 @@ static void anaconda_disk_overview_set_property(GObject *object, guint prop_id, 
 
             widget->priv->kind = g_strdup(g_value_get_string(value));
             set_icon(widget, widget->priv->kind);
-            gtk_container_add(GTK_CONTAINER(widget->priv->vbox), widget->priv->kind_icon);
-            gtk_box_reorder_child(GTK_BOX(widget->priv->vbox), widget->priv->kind_icon, 1);
+            gtk_grid_attach(GTK_GRID(widget->priv->grid), widget->priv->kind_icon, 0, 1, 3, 1);
             break;
+
+        case PROP_FREE: {
+            char *markup = g_markup_printf_escaped("<span size='large'>%s</span>", g_value_get_string(value));
+            gtk_label_set_markup(GTK_LABEL(priv->free_label), markup);
+            g_free(markup);
+            break;
+        }
 
         case PROP_CAPACITY: {
             char *markup = g_markup_printf_escaped("<span size='large'>%s</span>", g_value_get_string(value));
