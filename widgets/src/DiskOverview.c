@@ -340,11 +340,6 @@ gboolean anaconda_disk_overview_clicked(AnacondaDiskOverview *widget, GdkEvent *
 }
 
 static void anaconda_disk_overview_toggle_background(AnacondaDiskOverview *widget) {
-    if (widget->priv->chosen)
-        gtk_widget_set_state_flags(GTK_WIDGET(widget), GTK_STATE_FLAG_SELECTED, FALSE);
-    else
-        gtk_widget_unset_state_flags(GTK_WIDGET(widget), GTK_STATE_FLAG_SELECTED);
-
     set_icon(widget, widget->priv->kind);
     gtk_grid_attach(GTK_GRID(widget->priv->grid), widget->priv->kind_icon, 0, 1, 3, 1);
     gtk_widget_show(widget->priv->kind_icon);
