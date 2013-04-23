@@ -246,6 +246,65 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/lib/dracut/modules.d/80%{name}/*
 
 %changelog
+* Mon Apr 22 2013 Brian C. Lane <bcl@redhat.com> - 19.21-1
+- Set seen for lang from option & use constant for default (mkolman)
+- Hook the Geolocation module to Anaconda (mkolman)
+- Add geolocation module (mkolman)
+- Add logging to exception handling (vpodzime)
+- Run exception handling in the main thread also in TUI (vpodzime)
+- Update network ksdata with cmdline options (#893784) (rvykydal)
+- Return network devices actually activated (instead of just active) (#949002)
+  (rvykydal)
+- Don't traceback if we can't find PermHwAddr when looking for slaves (#949341)
+  (rvykydal)
+- Add support for iSCSI iface binding. (rvykydal)
+- Fix a traceback when handling node login authentication. (clumens)
+- Add a requirement on python-IPy now. (clumens)
+- Display individual buttons on the filter UI instead of a combo. (clumens)
+- Hook up authentication for iSCSI discovery and node login. (clumens)
+- When the clear button is clicked on the filter spoke, clear out the fields.
+  (clumens)
+- Remove the extra "Target LUN" search option. (clumens)
+- If all iSCSI nodes have been logged into, leave the dialog. (clumens)
+- Populate the port combo on the filter spoke's search page. (clumens)
+- Hook up filtering for iSCSI devices. (clumens)
+- Add initial iSCSI support to the advanced storage UI. (clumens)
+- Add a generic function to FilterPage for setting up a GtkComboBoxText.
+  (clumens)
+- self.disks -> self.pages in filter UI refresh method. (clumens)
+- Add a button to bring up the Add Additional dialogs. (clumens)
+- Remove pixmaps no longer needed by newui. (clumens)
+- Add a checkmark on a DiskOverview when it is selected. (clumens)
+- Make a couple UI modifications to the resize slider. (clumens)
+- Make several changes to how addons are displayed (#873498). (clumens)
+- Allow clicking on environment and addon text to toggle them (#928010).
+  (clumens)
+- Fix scrolling problems on the environment side of software selection
+  (#928008). (clumens)
+- Handle quit messages on the text progress UI hub (#895756). (clumens)
+- If there's an error while in text mode, display it. (clumens)
+- Force sizes on the network toolbar buttons (#951580). (clumens)
+- Disable the "Closest mirror" option if there's no fastestmirror plugin
+  (#876135). (clumens)
+- Move text UI summary hub setup into the setup method (#927315, #950956).
+  (clumens)
+- Bring the text storage spoke a little more in line with the graphical one.
+  (clumens)
+- Make a home directory for the user by default (#950792). (clumens)
+- Add some padding under the ransom notes on the progress hub. (clumens)
+- Remove a lot of ancient crud from the installclasses. (clumens)
+- Set the default fs type on RHEL (#951088). (clumens)
+- Add a Spoke.changed attribute. (clumens)
+- Display device names on MountpointSelectors (#888872). (clumens)
+- Add signal handlers for controlling password entry visibility. (clumens)
+- Ransom notes can be either PNGs or JPGs. (clumens)
+- dracut/parse-kickstart: handle network --mtu (wwoods)
+- Exclude a couple more password variables from dumps (bcl)
+- Enlightbox dialogs in the custom spoke (vpodzime)
+- Create and use GtkWindowGroup for our windows (vpodzime)
+- We can import Gtk globally now (vpodzime)
+- Handle both types of data we can get from libxklavier (#950921) (vpodzime)
+
 * Tue Apr 16 2013 Brian C. Lane <bcl@redhat.com> - 19.20-1
 - Fix two more syntax errors in the custom spoke. (#952662) (dlehman)
 
