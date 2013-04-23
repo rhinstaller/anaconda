@@ -166,6 +166,7 @@ class Anaconda(object):
         return self._storage
 
     def dumpState(self):
+        from meh import ExceptionInfo
         from meh.dump import ReverseExceptionDump
         from inspect import stack as _stack
         from traceback import format_stack
@@ -173,7 +174,8 @@ class Anaconda(object):
         # Skip the frames for dumpState and the signal handler.
         stack = _stack()[2:]
         stack.reverse()
-        exn = ReverseExceptionDump((None, None, stack), self.mehConfig)
+        exn = ReverseExceptionDump(ExceptionInfo(None, None, stack),
+                                   self.mehConfig)
 
         # gather up info on the running threads
         threads = "\nThreads\n-------\n"
