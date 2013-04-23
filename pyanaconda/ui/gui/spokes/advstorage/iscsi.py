@@ -230,6 +230,11 @@ class ISCSIDialog(GUIObject):
             self._iscsiNotebook.set_current_page(1)
             self._okButton.set_sensitive(True)
 
+            # If some form of login credentials were used for discovery,
+            # default to using the same for login.
+            if self._authTypeCombo.get_active() != 0:
+                self._loginAuthTypeCombo.set_active(3)
+
         # We always want to enable this button, in case the user's had enough.
         self._cancelButton.set_sensitive(True)
         return False
