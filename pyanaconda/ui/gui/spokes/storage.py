@@ -888,10 +888,21 @@ class StorageSpoke(NormalSpoke, StorageChecker):
             dialog.window.destroy()
 
     def on_disks_key_released(self, box, event):
-        # if Ctrl-A was pressed, select all disks
-        if bool(event.state & Gdk.ModifierType.CONTROL_MASK) and \
-                (event.keyval in (Gdk.KEY_a, Gdk.KEY_A)):
-            for overview in box.get_children():
-                overview.set_chosen(True)
+        # we want to react only on Ctrl-A being pressed
+        if not bool(event.state & Gdk.ModifierType.CONTROL_MASK) or \
+                (event.keyval not in (Gdk.KEY_a, Gdk.KEY_A)):
+            return
+
+        # select disks in the right box
+        if box is self.local_disks_box:
+            overviews = self.localOverviews
+        elif box is self.specialized_disks_box:
+            overviews = self.advancedOverviews
+        else:
+            # no other box contains disk overviews
+            return
+
+        for overview in overviews:
+            overview.set_chosen(True)
 
         self._update_disk_list()
