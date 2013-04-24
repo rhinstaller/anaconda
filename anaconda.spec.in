@@ -57,6 +57,9 @@ BuildRequires: libnl-devel >= %{libnlver}
 BuildRequires: libxklavier-devel
 BuildRequires: pango-devel
 BuildRequires: pykickstart >= %{pykickstartver}
+%if ! 0%{?rhel}
+BuildRequires: python-bugzilla
+%endif
 BuildRequires: python-devel
 BuildRequires: python-urlgrabber >= %{pythonurlgrabberver}
 BuildRequires: python-nose
@@ -95,7 +98,6 @@ Requires: firewalld >= %{firewalldver}
 Requires: util-linux >= %{utillinuxver}
 Requires: dbus-python
 Requires: python-pwquality
-Requires: python-bugzilla
 Requires: python-IPy
 Requires: python-nss
 Requires: tigervnc-server-minimal
