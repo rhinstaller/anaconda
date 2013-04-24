@@ -23,6 +23,8 @@
 from blivet.devices import MultipathDevice, iScsiDiskDevice
 from blivet.size import Size
 
+from pyanaconda.flags import flags
+
 __all__ = ["FakeDiskLabel", "FakeDisk", "getDisks", "isLocalDisk", "size_str"]
 
 class FakeDiskLabel(object):
@@ -47,7 +49,10 @@ class FakeDisk(object):
 
 def getDisks(devicetree, fake=False):
     if not fake:
-        devices = devicetree.devices + devicetree._hidden
+        devices = devicetree.devices
+        if not flags.imageInstall:
+            devices += devicetree._hidden
+
         disks = [d for d in devices if d.isDisk and
                                        d.size > 0 and
                                        not d.format.hidden and
