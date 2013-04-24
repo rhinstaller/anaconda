@@ -1125,6 +1125,9 @@ class RepoData(commands.repo.F15_RepoData):
 
 class RootPw(commands.rootpw.F18_RootPw):
     def execute(self, storage, ksdata, instClass, users):
+        if not self.password and not flags.automatedInstall:
+            self.lock = True
+
         algo = getPassAlgo(ksdata.authconfig.authconfig)
         users.setRootPassword(self.password, self.isCrypted, self.lock, algo)
 
