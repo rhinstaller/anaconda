@@ -549,7 +549,7 @@ use.  Try something else?</property>
                     <property name="label" translatable="yes">RAID Level:</property>
                   </object>
                   <packing>
-                    <property name="expand">True</property>
+                    <property name="expand">False</property>
                     <property name="fill">True</property>
                     <property name="position">0</property>
                   </packing>
@@ -567,7 +567,7 @@ use.  Try something else?</property>
                     </child>
                   </object>
                   <packing>
-                    <property name="expand">True</property>
+                    <property name="expand">False</property>
                     <property name="fill">True</property>
                     <property name="position">1</property>
                   </packing>
@@ -584,6 +584,7 @@ use.  Try something else?</property>
                   <packing>
                     <property name="expand">False</property>
                     <property name="fill">True</property>
+                    <property name="pack_type">end</property>
                     <property name="position">2</property>
                   </packing>
                 </child>
@@ -685,8 +686,6 @@ use.  Try something else?</property>
             <property name="hexpand">True</property>
             <property name="vexpand">True</property>
             <property name="yalign">0</property>
-            <property name="xscale">0</property>
-            <property name="yscale">0.5</property>
             <property name="left_padding">24</property>
             <property name="right_padding">24</property>
             <child internal-child="action_area">
