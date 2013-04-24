@@ -115,9 +115,11 @@ class LangsupportSpoke(NormalSpoke):
     @property
     def status(self):
         # TODO: translate
-        infos = set(self._find_localeinfos_for_code(self.data.lang.lang, self.locale_infos_for_data)[:1])
+        infos = self._find_localeinfos_for_code(self.data.lang.lang, self.locale_infos_for_data)[:1]
         for code in self.data.lang.addsupport:
-            infos.update(self._find_localeinfos_for_code(code, self.locale_infos_for_data))
+            for info in self._find_localeinfos_for_code(code, self.locale_infos_for_data):
+                if info not in infos:
+                    infos.append(info)
         return ", ".join(info.english_name for info in infos)
 
     @property
