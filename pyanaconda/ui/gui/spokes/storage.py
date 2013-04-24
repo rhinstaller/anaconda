@@ -341,6 +341,9 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         self._initial_selected_disks = []
         self._initial_bootloader_disk = None
 
+        self._last_clicked_overview = None
+        self._cur_clicked_overview = None
+
     def _applyDiskSelection(self, use_names):
         onlyuse = use_names[:]
         for disk in (d for d in self.storage.disks if d.name in onlyuse):
@@ -486,8 +489,53 @@ class StorageSpoke(NormalSpoke, StorageChecker):
            event.keyval not in [Gdk.KEY_space, Gdk.KEY_Return, Gdk.KEY_ISO_Enter, Gdk.KEY_KP_Enter, Gdk.KEY_KP_Space]:
               return
 
+        if event.type == Gdk.EventType.BUTTON_PRESS and \
+                event.state & Gdk.ModifierType.SHIFT_MASK:
+            # clicked with Shift held down
+
+            if self._last_clicked_overview is None:
+                # nothing clicked before, cannot apply Shift-click
+                return
+
+            local_overviews = self.localOverviews
+            advanced_overviews = self.advancedOverviews
+
+            # find out which list of overviews the clicked one belongs to
+            if overview in local_overviews:
+                from_overviews = local_overviews
+            elif overview in advanced_overviews:
+                from_overviews = advanced_overviews
+            else:
+                # should never happen, but if it does, no other actions should be done
+                return
+
+            if self._last_clicked_overview in from_overviews:
+                # get index of the last clicked overview
+                last_idx = from_overviews.index(self._last_clicked_overview)
+            else:
+                # overview from the other list clicked before, cannot apply "Shift-click"
+                return
+
+            # get index and state of the clicked overview
+            cur_idx = from_overviews.index(overview)
+            state = self._last_clicked_overview.get_chosen()
+
+            if cur_idx > last_idx:
+                copy_to = from_overviews[last_idx:cur_idx+1]
+            else:
+                copy_to = from_overviews[cur_idx:last_idx]
+
+            # copy the state of the last clicked overview to the ones between it and the
+            # one clicked with the Shift held down
+            for disk_overview in copy_to:
+                disk_overview.set_chosen(state)
+
         self._update_disk_list()
         self._update_summary()
+
+    def _on_disk_focus_in(self, overview, event):
+        self._last_clicked_overview = self._cur_clicked_overview
+        self._cur_clicked_overview = overview
 
     def refresh(self):
         self.disks = getDisks(self.storage.devicetree)
@@ -602,6 +650,7 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         overview.set_chosen(disk.name in self.selected_disks)
         overview.connect("button-press-event", self._on_disk_clicked)
         overview.connect("key-release-event", self._on_disk_clicked)
+        overview.connect("focus-in-event", self._on_disk_focus_in)
         overview.show_all()
 
         self._update_summary()
