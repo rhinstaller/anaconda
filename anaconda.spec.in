@@ -246,6 +246,21 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/lib/dracut/modules.d/80%{name}/*
 
 %changelog
+* Wed Apr 24 2013 Brian C. Lane <bcl@redhat.com> - 19.22-1
+- Container management improvements. (dlehman)
+- Include swap-related disk space needs in storage options dialogs. (#951269)
+  (dlehman)
+- Show the summary screen before the luks passphrase dialog. (dlehman)
+- Add language support spoke (#912364) (rvykydal)
+- Add kickstart lang --addsupport option (#912364) (rvykydal)
+- Add network --ipv6gateway kickstart option (#905226) (rvykydal)
+- Remove pre-18.0 history from anaconda.spec. (clumens)
+- Add free space information to DiskOverviews (#949746). (clumens)
+- Raise exception if our module fails to be imported (vpodzime)
+- Fix exception handling in rescue mode (vpodzime)
+- Select all disks when Ctrl+A is pressed (#864707) (vpodzime)
+- DiskOverview needs to grab focus if clicked (vpodzime)
+
 * Mon Apr 22 2013 Brian C. Lane <bcl@redhat.com> - 19.21-1
 - Set seen for lang from option & use constant for default (mkolman)
 - Hook the Geolocation module to Anaconda (mkolman)
