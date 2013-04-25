@@ -1338,6 +1338,33 @@ reposdir=%s
         self.selectKernelPackage()
         self.selectRequiredPackages()
 
+    def _addDriverRepos(self):
+        """ Add driver repositories and packages
+        """
+        # Drivers are loaded by anaconda-dracut, their repos are copied
+        # into /run/install/DD-X where X is a number starting at 1. The list of
+        # packages that were selected is in /run/install/dd_packages
+
+        # Add repositories
+        dir_num = 1
+        repo_template="/run/install/DD-%d/%s/"
+        while True:
+            repo = repo_template % (dir_num, blivet.arch.getArch())
+            if not os.path.isdir(repo+"repodata"):
+                break
+            ks_repo = self.data.RepoData(name="DD-%d" % dir_num,
+                                         baseurl="file://"+repo,
+                                         enabled=True)
+            self.addRepo(ks_repo)
+            dir_num += 1
+
+        # Add packages
+        if not os.path.exists("/run/install/dd_packages"):
+            return
+        with open("/run/install/dd_packages", "r") as f:
+            for line in f:
+                self._requiredPackages.append(line.strip())
+
     def checkSoftwareSelection(self):
         log.info("checking software selection")
         self.txID = time.time()
@@ -1418,6 +1445,8 @@ reposdir=%s
 
         self._requiredPackages = packages
         self._requiredGroups = groups
+
+        self._addDriverRepos()
 
         if self.install_device:
             self._setUpMedia(self.install_device)
