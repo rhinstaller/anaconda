@@ -810,7 +810,10 @@ def get_device_name(devspec):
         elif nm.nm_is_connected():
             # device activated in stage 1 by network kickstart command
             msg = "first active device"
-            devname = nm.nm_activated_devices()[0]
+            try:
+                devname = nm.nm_activated_devices()[0]
+            except IndexError:
+                log.debug("get_device_name: NM is connected but no activated devices found")
         else:
             msg = "first device found"
             devname = min(devices)
@@ -840,7 +843,7 @@ def get_device_name(devspec):
                 log.error("Using --device=bootif without BOOTIF= boot option supplied")
         else: devname = devspec
 
-    if devname not in devices:
+    if devname and devname not in devices:
         for d in devices:
             try:
                 hwaddr = nm.nm_device_hwaddress(d)
