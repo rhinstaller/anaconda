@@ -419,7 +419,7 @@ def setupDisplay(anaconda, opts, addon_paths=None):
     from pyanaconda.ui.tui.simpleline import App
     from pyanaconda.ui.tui.spokes.askvnc import AskVNCSpoke
     from pykickstart.constants import DISPLAY_MODE_TEXT
-    from pyanaconda.nm import nm_is_connected
+    from pyanaconda.nm import nm_is_connected, nm_is_connecting
     from blivet import arch
     import blivet.util
 
@@ -479,7 +479,7 @@ def setupDisplay(anaconda, opts, addon_paths=None):
         flags.vncquestion = False
 
     # disable VNC question if we don't have network
-    if not nm_is_connected():
+    if not nm_is_connected() and not nm_is_connecting():
         stdoutLog.warning("Not asking for VNC because we don't have a network")
         flags.vncquestion = False
 
