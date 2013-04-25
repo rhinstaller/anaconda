@@ -882,12 +882,23 @@ reposdir=%s
         """ Add a yum repo to the YumBase instance. """
         from yum.Errors import RepoError
 
+        needsAdding = True
+
         # First, delete any pre-existing repo with the same name.
+        # First, check for any pre-existing repo with the same name.
         with _yum_lock:
             if name in self._yum.repos.repos:
-                self._yum.repos.delete(name)
+                if not baseurl and not mirrorlist:
+                    # This is a repo we already have a config file in /etc/anaconda.repos.d,
+                    # so we just need to enable it here.  See the kickstart docs for the repo
+                    # command.
+                    self.enableRepo(name)
+                    obj = self._yum.repos.repos[name]
+                    needsAdding = False
+                else:
+                    self._yum.repos.delete(name)
 
-        if proxyurl:
+        if proxyurl and needsAdding:
             try:
                 proxy = ProxyString(proxyurl)
                 kwargs["proxy"] = proxy.noauth_url
@@ -902,11 +913,12 @@ reposdir=%s
         log.debug("adding yum repo %s with baseurl %s and mirrorlist %s"
                     % (name, baseurl, mirrorlist))
         with _yum_lock:
-            # Then add it to yum's internal structures.
-            obj = self._yum.add_enable_repo(name,
-                                            baseurl=[baseurl],
-                                            mirrorlist=mirrorlist,
-                                            **kwargs)
+            if needsAdding:
+                # Then add it to yum's internal structures.
+                obj = self._yum.add_enable_repo(name,
+                                                baseurl=[baseurl],
+                                                mirrorlist=mirrorlist,
+                                                **kwargs)
 
             # this will trigger retrieval of repomd.xml, which is small and yet
             # gives us some assurance that the repo config is sane
