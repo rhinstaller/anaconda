@@ -151,6 +151,7 @@ class LanguageMixIn(object):
         # to preselect the translation, when it's available.
         territory = geoloc.get_territory_code()
         self.language = Language(LOCALE_PREFERENCES, territory=territory)
+
         # check if there is one and only one locale for the territory
         if len(self.language.preferred_locales) != 1:
             log.info("Didn't get a single locale from Geolocation,"
@@ -161,14 +162,17 @@ class LanguageMixIn(object):
             # for example, the Switzerland has:
             # de_CH, it_CH and fr_CH
             # As there is no clear order of preference for them,
-            # it is safer to just fall back to the default locale.            
-        
+            # it is safer to just fall back to the default locale
+
         # fill the list with available translations
         for _code, trans in sorted(self.language.translations.items()):
             self._addLanguage(store, trans.display_name,
                               trans.english_name, trans.short_name)
 
-        # select the preferred translation if there wasn't any
+        # Move the default language (whatever was provided on the command line,
+        # or by kickstart, or by geoip, or English if nothing else) to the top
+        # of the list and select it by default.  People find it confusing to be
+        # dropped into the middle of a scrollable list.
         (store, itr) = self._selection.get_selected()
         if not itr:
             # check if a language was set by kickstart
@@ -178,8 +182,15 @@ class LanguageMixIn(object):
             if self.data.lang.lang and self.data.lang.seen:
                 lang = self.data.lang.lang
             else:
-                lang = self.language.preferred_translation.short_name            
-            self._selectLanguage(store, lang)
+                lang = self.language.preferred_translation.short_name
+
+            itr = self._selectLanguage(store, lang)
+
+        # store is the filtered store, and itr is an iter on it.  We need to
+        # convert to an iter on the underlying store.
+        itr = store.convert_iter_to_child_iter(itr)
+        store = store.get_model()
+        store.move_after(itr, None)
 
         self._languageStoreFilter.set_visible_func(self._matchesEntry, None)
 
@@ -274,6 +285,8 @@ class LanguageMixIn(object):
         selection.select_iter(itr)
         path = store.get_path(itr)
         treeview.scroll_to_cell(path)
+
+        return itr
 
     # Signal handlers.
     def on_selection_changed(self, selection):
