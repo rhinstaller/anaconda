@@ -29,9 +29,8 @@ N_ = lambda x: x
 # pylint: disable-msg=E0611
 from gi.repository import AnacondaWidgets, Gtk, Pango
 from pyanaconda.ui.gui.hubs.summary import SummaryHub
-from pyanaconda.ui.gui.spokes import StandaloneSpoke, NormalSpoke
+from pyanaconda.ui.gui.spokes import StandaloneSpoke
 from pyanaconda.ui.gui.utils import enlightbox
-from pyanaconda.ui.gui.categories.localization import LocalizationCategory
 
 from pyanaconda.localization import Language, LOCALE_PREFERENCES, expand_langs
 from pyanaconda.product import distributionText, isFinal, productName, productVersion
@@ -43,7 +42,7 @@ from pyanaconda import geoloc
 import logging
 log = logging.getLogger("anaconda")
 
-__all__ = ["WelcomeLanguageSpoke", "LanguageSpoke"]
+__all__ = ["WelcomeLanguageSpoke"]
 
 class LanguageMixIn(object):
     builderObjects = ["languageStore", "languageStoreFilter"]
@@ -333,43 +332,3 @@ class WelcomeLanguageSpoke(LanguageMixIn, StandaloneSpoke):
             sys.exit(0)
         else:
             StandaloneSpoke._on_continue_clicked(self, cb)
-
-
-class LanguageSpoke(LanguageMixIn, NormalSpoke):
-    mainWidgetName = "languageSpokeWindow"
-    uiFile = "spokes/welcome.glade"
-    builderObjects = LanguageMixIn.builderObjects + [mainWidgetName, WelcomeLanguageSpoke.mainWidgetName]
-
-    category = LocalizationCategory
-
-    icon = "accessories-character-map-symbolic"
-    title = N_("LANGUAGE")
-
-    def __init__(self, *args):
-        NormalSpoke.__init__(self, *args)
-        LanguageMixIn.__init__(self)
-
-    def initialize(self):
-        LanguageMixIn.initialize(self)
-        NormalSpoke.initialize(self)
-
-    def refresh(self):
-        NormalSpoke.refresh(self)
-        LanguageMixIn.refresh(self, "languageSpokeWindowContentBox")
-
-    @property
-    def completed(self):
-        # The language spoke is always completed, as it does not require you do
-        # anything.  There's always a default selected.
-        return True
-
-    @property
-    def status(self):
-        selected = self.builder.get_object(self._selectionName)
-        (store, itr) = selected.get_selected()
-
-        return store[itr][0]
-
-    @property
-    def showable(self):
-        return False
