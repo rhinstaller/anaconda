@@ -43,6 +43,17 @@ find_runtime() {
     done
 }
 
+find_tty() {
+    # find the real tty for /dev/console
+    local tty="console"
+    while [ -f /sys/class/tty/$tty/active ]; do
+        tty=$(< /sys/class/tty/$tty/active)
+        tty=${tty##* } # last item in the list
+    done
+    echo $tty
+}
+
+
 repodir="/run/install/repo"
 isodir="/run/install/isodir"
 rulesfile="/etc/udev/rules.d/90-anaconda.rules"

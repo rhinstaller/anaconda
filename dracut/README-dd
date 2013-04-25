@@ -1,0 +1,51 @@
+Driver Update Disk Handling
+
+anaconda-dracut takes advantage of dracut's hooks in order to load driver
+modules before the rest of the installer is executed.
+
+
+cmdline hook
+    parse-anaconda-dd.sh
+    parses the inst.dd/dd arguments for URIs and saves all of them into $dd_args
+    and calls set_neednet if network is needed to retrieve a driver rpm
+    The files will be downloaded when the network device online hook is executed.
+
+initqueue/online
+    fetch-driver-net.sh
+    If URLs are passed to inst.dd they are all downloaded into /tmp/DD-net/
+
+pre-trigger hook
+    driver-updates.sh
+    Looks for devices labeled OEMDRV and starts the systemd service for the UI
+    Also saves the initial state of the module list and uses udev to trigger
+    loading of existing modules.
+
+pre-pivot hook
+    driver-updates-net.sh
+    Check for network downloaded driver rpms and start the systemd service to
+    load the drivers.
+
+    anaconda-depmod.sh
+    If any drivers were installed or downloaded run depmod on the $NEWROOT
+
+
+Systemd Services
+    driver-updates@.service and driver-updates-net@.service
+    These services launch the driver update UI (/bin/driver-updates). The -net
+    version passes the path to the rpm's that have been downloaded from the
+    network. They handle connecting the tty so that the user can select drivers
+    if inst.dd has been passed on the cmdline.
+
+
+driver-updates
+    This searches disks labeled OEMDRV for driver update repositories and
+    optionally lets the user pick individual drivers. It will also search
+    unlabeled devices if they are passed on the kernel cmdline with
+    inst.dd=/dev/sdb2
+
+    Pass it the path to a directory of rpms (eg. downloaded from the
+    network) and it will install them before checking for additional OEMDRV
+    labeled devices.
+
+    Pass inst.dd with no parameters and it will prompt the user for specific
+    drivers to load using a simple text user interface.

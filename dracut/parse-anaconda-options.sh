@@ -127,5 +127,8 @@ fi
 # make sure we get ifcfg for every interface that comes up
 echo 'save_netinfo $netif' > $hookdir/initqueue/online/anaconda-ifcfg.sh
 
+# Driver Update Disk
+warn_renamed_arg "dd" "inst.dd"
+
 # re-read the commandline args
 unset CMDLINE

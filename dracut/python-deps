@@ -26,24 +26,22 @@ def pyfiles(moddir):
                 yield os.path.join(curdir, f)
 
 # OK. Use modulefinder to find all the modules etc. this script uses!
-
-finder = ModuleFinder()
-finder.run_script(sys.argv[1]) # parse the script
-
 mods = []
 deps = []
+for script in sys.argv[1:]:
+    finder = ModuleFinder()
+    finder.run_script(script) # parse the script
+    for name, mod in finder.modules.iteritems():
+        if not mod.__file__: # this module is builtin, so we can skip it
+            continue
 
-for name, mod in finder.modules.iteritems():
-    if not mod.__file__: # this module is builtin, so we can skip it
-        continue
+        if mod.__file__ not in deps: # grab the file itself
+            deps.append(mod.__file__)
 
-    if mod.__file__ not in deps: # grab the file itself
-        deps.append(mod.__file__)
-
-    moddir = moduledir(mod.__file__)  # if it's part of a module...
-    if moddir and moddir not in mods: #
-        deps += list(pyfiles(moddir)) # ...get the whole module
-        mods.append(moddir)
+        moddir = moduledir(mod.__file__)  # if it's part of a module...
+        if moddir and moddir not in mods: #
+            deps += list(pyfiles(moddir)) # ...get the whole module
+            mods.append(moddir)
 
 # Include some bits that the python install itself needs
 print get_makefile_filename()
