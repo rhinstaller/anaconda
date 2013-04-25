@@ -175,6 +175,13 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke):
             self.username: True
             }
 
+        # set up passphrase quality checker
+        self._pwq = pwquality.PWQSettings()
+        self._pwq.read_config()
+
+        self.pw_bar = self.builder.get_object("password_bar")
+        self.pw_label = self.builder.get_object("password_label")
+
         # indicate when the password was set by kickstart
         self._user.password_kickstarted = self.data.user.seen
         if self._user.password_kickstarted:
@@ -186,13 +193,6 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke):
                 self.usepassword.set_active(True)
                 self.pw.set_placeholder_text(_("The password was set by kickstart."))
                 self.confirm.set_placeholder_text(_("The password was set by kickstart."))
-
-        # set up passphrase quality checker
-        self._pwq = pwquality.PWQSettings()
-        self._pwq.read_config()
-
-        self.pw_bar = self.builder.get_object("password_bar")
-        self.pw_label = self.builder.get_object("password_label")
 
         self._advanced = AdvancedUserDialog(self._user, self._groupDict,
                                             self.data)
