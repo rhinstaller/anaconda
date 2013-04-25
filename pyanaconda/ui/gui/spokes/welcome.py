@@ -140,12 +140,18 @@ class LanguageMixIn(object):
         else:
             return False
 
+    def _row_is_separator(self, model, itr, *args):
+        return model[itr][3]
+
     def initialize(self):
         store = self.builder.get_object("languageStore")
         self._languageStoreFilter = self.builder.get_object("languageStoreFilter")
         self._languageEntry = self.builder.get_object("languageEntry")
         self._selection = self.builder.get_object(self._selectionName)
         self._view = self.builder.get_object(self._viewName)
+
+        # We need to tell the view whether something is a separator or not.
+        self._view.set_row_separator_func(self._row_is_separator, None)
 
         # We can use the territory from geolocation here
         # to preselect the translation, when it's available.
@@ -191,6 +197,10 @@ class LanguageMixIn(object):
         itr = store.convert_iter_to_child_iter(itr)
         store = store.get_model()
         store.move_after(itr, None)
+
+        # And then we add a separator after the default chosen language.
+        newItr = store.insert(1)
+        store.set(newItr, 0, "", 1, "", 2, "", 3, True)
 
         self._languageStoreFilter.set_visible_func(self._matchesEntry, None)
 
@@ -249,7 +259,8 @@ class LanguageMixIn(object):
         self._languageStoreFilter.refilter()
 
     def _addLanguage(self, store, native, english, setting):
-        store.append(['<span lang="%s">%s</span>' % (re.sub('\..*', '', setting), native), english, setting])
+        lang = '<span lang="%s">%s</span>' % (re.sub('\..*', '', setting), native)
+        store.append([lang, english, setting, False])
 
     def _matchesEntry(self, model, itr, *args):
         # Need to strip out the pango markup before attempting to match.
@@ -273,7 +284,10 @@ class LanguageMixIn(object):
 
     def _selectLanguage(self, store, language):
         itr = store.get_iter_first()
-        while itr and language not in expand_langs(store[itr][2]):
+
+        # store[itr][3] is True if this row is a separator in the view, so we
+        # want to skip those.
+        while itr and not store[itr][3] and language not in expand_langs(store[itr][2]):
             itr = store.iter_next(itr)
 
         # If we were provided with an unsupported language, just use the default.

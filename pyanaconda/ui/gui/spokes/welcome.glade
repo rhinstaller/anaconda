@@ -193,6 +193,8 @@
       <column type="gchararray"/>
       <!-- column-name langSetting -->
       <column type="gchararray"/>
+      <!-- column-name separator -->
+      <column type="gboolean"/>
     </columns>
   </object>
   <object class="GtkTreeModelFilter" id="languageStoreFilter">
