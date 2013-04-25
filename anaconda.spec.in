@@ -38,6 +38,8 @@ Source0: %{name}-%{version}.tar.bz2
 %define isomd5sum 1.0.10
 %define fcoeutilsver 1.0.12-3.20100323git
 %define iscsiver 6.2.0.870-3
+%define rpmver 4.10.0
+%define libarchivever 3.0.4
 
 BuildRequires: audit-libs-devel
 BuildRequires: gettext >= %{gettextver}
@@ -64,6 +66,8 @@ BuildRequires: NetworkManager-devel >= %{nmver}
 BuildRequires: NetworkManager-glib-devel >= %{nmver}
 BuildRequires: dbus-devel >= %{dbusver}
 BuildRequires: dbus-python
+BuildRequires: rpm-devel >= %{rpmver}
+BuildRequires: libarchive-devel >= %{libarchivever}
 %ifarch %livearches
 BuildRequires: desktop-file-utils
 %endif
@@ -159,7 +163,6 @@ documentation for working with this library.
 
 %package dracut
 Summary: The anaconda dracut module
-BuildArch: noarch
 Requires: dracut >= %{dracutver}
 Requires: dracut-network
 Requires: xz
@@ -244,6 +247,7 @@ update-desktop-database &> /dev/null || :
 %files dracut
 %dir %{_prefix}/lib/dracut/modules.d/80%{name}
 %{_prefix}/lib/dracut/modules.d/80%{name}/*
+%{_prefix}/libexec/anaconda/dd_*
 
 %changelog
 * Wed Apr 24 2013 Brian C. Lane <bcl@redhat.com> - 19.22-1

@@ -111,6 +111,8 @@ PKG_CHECK_MODULES([GDK], [gdk-3.0])
 PKG_CHECK_MODULES([NETWORKMANAGER], [NetworkManager >= 0.7.1])
 PKG_CHECK_MODULES([LIBNL], [libnl-1 >= 1.0])
 PKG_CHECK_MODULES([LIBNM_GLIB], [libnm-glib >= 0.7.1 libnm-util >= 0.7.1])
+PKG_CHECK_MODULES([RPM], [rpm >= 4.10.0])
+PKG_CHECK_MODULES([LIBARCHIVE], [libarchive >= 3.0.4])
 
 # Set $RPM_OPT_FLAGS if we don't have it
 if test -z $RPM_OPT_FLAGS ; then
@@ -254,6 +256,7 @@ AC_CONFIG_FILES([Makefile
                  tests/logpicker_test/logmining_test/Makefile
                  data/post-scripts/Makefile
                  utils/Makefile
+                 utils/dd/Makefile
                  utils/log_picker/Makefile
                  utils/log_picker/sending/Makefile])
 AC_OUTPUT

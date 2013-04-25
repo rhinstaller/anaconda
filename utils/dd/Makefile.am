@@ -1,6 +1,6 @@
 # utils/Makefile.am for anaconda
 #
-# Copyright (C) 2009  Red Hat, Inc.
+# Copyright (C) 2009-2013  Red Hat, Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU Lesser General Public License as published
@@ -17,8 +17,13 @@
 #
 # Author: David Cantrell <dcantrell@redhat.com>
 
-SUBDIRS = log_picker dd
+utilsdir            = $(libexecdir)/$(PACKAGE_NAME)
+utils_PROGRAMS      = dd_list dd_extract
 
-dist_sbin_SCRIPTS    = logpicker handle-sshpw
+dd_list_LDADD = $(RPM_LIBS) $(LIBARCHIVE_LIBS)
+dd_list_SOURCES = rpmutils.c dd_list.c rpmutils.h dd_utils.h
+
+dd_extract_LDADD = $(LIBARCHIVE_LIBS) $(RPM_LIBS)
+dd_extract_SOURCES = rpmutils.c dd_extract.c rpmutils.h dd_utils.h
 
 MAINTAINERCLEANFILES = Makefile.in
