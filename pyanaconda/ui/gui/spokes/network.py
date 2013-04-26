@@ -1102,7 +1102,7 @@ class NetworkSpoke(NormalSpoke):
             device.connect("state-changed", self.on_device_state_changed)
 
     def apply(self):
-        _update_network_ksdata(self.data, self.network_control_box)
+        _update_network_data(self.data, self.network_control_box)
         log.debug("network: apply ksdata %s" % self.data.network)
 
     @property
