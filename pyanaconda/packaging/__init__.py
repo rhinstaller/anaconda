@@ -272,7 +272,7 @@ class Payload(object):
     def groups(self):
         raise NotImplementedError()
 
-    def languageGroups(self, lang):
+    def languageGroups(self):
         return []
 
     def groupDescription(self, groupid):
