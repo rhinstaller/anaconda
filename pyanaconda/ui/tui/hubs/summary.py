@@ -53,7 +53,7 @@ class SummaryHub(TUIHub):
     # where all the data is in hand.  If not in hand, do the actual prompt.
     def prompt(self, args=None):
         if flags.automatedInstall and \
-        all(spoke.completed for spoke in self._keys.values()):
+        all(spoke.completed for spoke in self._keys.values() if spoke.mandatory):
             self.close()
             return None
         if not flags.ksprompt:

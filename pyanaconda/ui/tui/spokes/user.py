@@ -67,7 +67,7 @@ class UserSpoke(FirstbootSpokeMixIn, EditTUISpoke):
 
     @property
     def completed(self):
-        return self.data.user.userList
+        return len(self.data.user.userList) > 0
 
     @property
     def mandatory(self):
