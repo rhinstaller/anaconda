@@ -313,7 +313,14 @@ static void anaconda_base_window_set_property(GObject *object, guint prop_id, co
         }
 
         case PROP_WINDOW_NAME: {
-            char *markup = g_markup_printf_escaped("<span weight='bold' size='large'>%s</span>", _(g_value_get_string(value)));
+            char *markup;
+
+            /* Do not translate an empty string here. */
+            if (strcmp(g_value_get_string(value), "") == 0)
+                markup = g_markup_printf_escaped("<span weight='bold' size='large'></span>");
+            else
+                markup = g_markup_printf_escaped("<span weight='bold' size='large'>%s</span>", _(g_value_get_string(value)));
+
             gtk_label_set_markup(GTK_LABEL(priv->name_label), markup);
             g_free(markup);
 
