@@ -376,9 +376,8 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
             self._tzmap.set_timezone(DEFAULT_TZ)
             self.data.timezone.timezone = DEFAULT_TZ
 
-        if self.data.timezone.timezone:
-            if not flags.can_touch_runtime_system("modify system time and date"):
-                self._set_date_time_setting_sensitive(False)
+        if not flags.can_touch_runtime_system("modify system time and date"):
+            self._set_date_time_setting_sensitive(False)
 
         self._config_dialog = NTPconfigDialog(self.data)
         self._config_dialog.initialize()
