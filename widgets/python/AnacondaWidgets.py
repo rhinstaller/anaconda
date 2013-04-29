@@ -76,3 +76,10 @@ class DiskOverview(Anaconda.DiskOverview):
 
 DiskOverview = override(DiskOverview)
 __all__.append('DiskOverview')
+
+class TimezoneMap(Anaconda.TimezoneMap):
+    def set_timezone(self, timezone, no_signal=False):
+        Anaconda.TimezoneMap.set_timezone(self, timezone, no_signal)
+
+TimezoneMap = override(TimezoneMap)
+__all__.append('TimezoneMap')

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2012 Red Hat, Inc
+ * Copyright (C) 2012-2013 Red Hat, Inc
  *
  * Heavily based on the gnome-control-center code,
  * Copyright (c) 2010 Intel, Inc
@@ -74,7 +74,8 @@ GType anaconda_timezone_map_get_type (void) G_GNUC_CONST;
 GtkWidget *anaconda_timezone_map_new (void);
 
 gboolean anaconda_timezone_map_set_timezone (AnacondaTimezoneMap *map,
-                                       const gchar   *timezone);
+                                             const gchar   *timezone,
+                                             gboolean no_signal);
 
 gchar *anaconda_timezone_map_get_timezone (AnacondaTimezoneMap *map);
 

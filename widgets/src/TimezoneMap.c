@@ -1,4 +1,4 @@
-/* Copyright (C) 2012 Red Hat, Inc
+/* Copyright (C) 2012-2013 Red Hat, Inc
  *
  * Heavily based on the code from gnome-control-center, Copyright (C) 2010 Intel, Inc.
  * Written by Thomas Wood <thomas.wood@intel.com>
@@ -437,7 +437,8 @@ sort_locations (TzLocation *a,
 static void
 set_location (AnacondaTimezoneMap *map,
               TzLocation    *location,
-              gboolean no_city) {
+              gboolean no_city,
+              gboolean no_signal) {
   AnacondaTimezoneMapPrivate *priv = map->priv;
   TzInfo *info;
 
@@ -448,11 +449,13 @@ set_location (AnacondaTimezoneMap *map,
 
   if (no_city) {
       priv->location = NULL;
-      g_signal_emit (map, signals[TIMEZONE_CHANGED], 0, "");
+      if (!no_signal)
+          g_signal_emit (map, signals[TIMEZONE_CHANGED], 0, "");
   }
   else {
       priv->location = location;
-      g_signal_emit (map, signals[TIMEZONE_CHANGED], 0, priv->location->zone);
+      if (!no_signal)
+          g_signal_emit (map, signals[TIMEZONE_CHANGED], 0, priv->location->zone);
   }
 
   tz_info_free (info);
@@ -520,7 +523,7 @@ button_press_event (GtkWidget      *widget,
   distances = g_list_sort (distances, (GCompareFunc) sort_locations);
 
 
-  set_location (ANACONDA_TIMEZONE_MAP (widget), (TzLocation*) distances->data, FALSE);
+  set_location (ANACONDA_TIMEZONE_MAP (widget), (TzLocation*) distances->data, FALSE, FALSE);
 
   g_list_free (distances);
 
@@ -565,6 +568,7 @@ anaconda_timezone_map_init (AnacondaTimezoneMap *self) {
  * anaconda_timezone_map_set_timezone:
  * @map: an #AnacondaTimezoneMap
  * @timezone: timezone name
+ * @no_signal: whether the timezone-changed signal should be emitted or not
  *
  * Modifies the map to show @timezone as selected. Also modifies the internal
  * data of the @map.
@@ -573,7 +577,8 @@ anaconda_timezone_map_init (AnacondaTimezoneMap *self) {
  */
 gboolean
 anaconda_timezone_map_set_timezone (AnacondaTimezoneMap *map,
-                              const gchar   *timezone) {
+                                    const gchar   *timezone,
+                                    gboolean no_signal) {
   GPtrArray *locations;
   guint i;
   char *real_tz;
@@ -596,7 +601,7 @@ anaconda_timezone_map_set_timezone (AnacondaTimezoneMap *map,
       TzLocation *loc = locations->pdata[i];
 
       if (!g_strcmp0 (loc->zone, real_tz ? real_tz : timezone)) {
-          set_location (map, loc, no_city);
+          set_location (map, loc, no_city, no_signal);
           ret = TRUE;
           break;
         }
