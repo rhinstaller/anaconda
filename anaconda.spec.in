@@ -119,7 +119,7 @@ Requires: anaconda-yum-plugins
 Requires: libselinux-python >= %{libselinuxver}
 Requires: kbd
 Requires: chrony
-Requires: ntpdate
+Requires: rdate
 Requires: rsync
 Requires: hostname
 %ifnarch s390 s390x
@@ -250,47 +250,6 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
-* Thu May 09 2013 Brian C. Lane <bcl@redhat.com> - 19.25-1
-- Change the buttons on the quit dialog. (clumens)
-- Add FONT=latarcyrheb-sun16 to /etc/vconsole.conf (vpodzime)
-- Use ntpdate instead of rdate (#950267) (vpodzime)
-- Add layouts with a country if not added with a language (#960569) (vpodzime)
-- Fixup xconf keymap code for text/dirinstall (bcl)
-- Bump pykickstart to 1.99.30 for liveimg support (bcl)
-- Add kickstart liveimg install command (bcl)
-- Make sure all threads are done before install (bcl)
-- Make sure stage1_disk isn't empty (#950487) (bcl)
-- Add /boot/efi to suggested mountpoints (#960677) (bcl)
-- Add extlinux command-line option. (mattdm)
-- Add extlinux as a bootloader type. (mattdm)
-- Bump the pykickstart requirement for the extlinux patches. (clumens)
-- Revert "Busy cursor when applying changes in the custom spoke" (mkolman)
-- Revert "Context manager for doing things with busied cursor" (mkolman)
-- Use the F19 bootloader class from pykickstart, for --extlinux (mattdm)
-- Transform bootloader --extlinux to extlinux command-line option (mattdm)
-- Rework the layout of the storage spoke for low resolution setups. (clumens)
-- Fix lower resolution display problems on the filter spoke. (clumens)
-- Don't show iscsi passwords when focused, either.  Enjoy typing blind.
-  (clumens)
-- Add a couple more things to .gitignore. (clumens)
-- Remove the bootloader class's obsoletes attribute. (clumens)
-- Disable sort indicators on the filter UI. (clumens)
-- Remove the Viewport from the disk shopping cart. (clumens)
-- Cleaning up some of the TUI storage code (sbueno+anaconda)
-- Add ability in TUI for users to select partitioning scheme. (sbueno+anaconda)
-- Use the firmware-provided language if it's something we support. (pjones)
-- Use systemd-localed for writing out xorg conf file (#958714) (vpodzime)
-- Busy cursor when applying changes in the custom spoke (vpodzime)
-- Make sure the "unbusy cursor" is used for the exception window (vpodzime)
-- Context manager for doing things with busied cursor (vpodzime)
-- Revert "Add signal handlers for controlling password entry visibility."
-  (#958608). (clumens)
-- Force a password to be set if option checked in TUI. (#927956)
-  (sbueno+anaconda)
-- Fix a minor display issue in TUI. (sbueno+anaconda)
-- hostname has dropped -v option (bcl)
-- Only override proxy and noverifyssl if specified (#880482) (bcl)
-
 * Fri May 03 2013 Brian C. Lane <bcl@redhat.com> - 19.24-1
 - Fix check for early exit from on_container_changed. (dlehman)
 - Add ability to manipulate container sizes directly. (dlehman)
