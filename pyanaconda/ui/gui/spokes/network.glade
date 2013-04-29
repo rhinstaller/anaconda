@@ -2444,7 +2444,9 @@ updates available for you.</property>
                           <object class="GtkLabel" id="label_hostname">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
-                            <property name="label" translatable="yes">Hostname:</property>
+                            <property name="label" translatable="yes">_Hostname:</property>
+                            <property name="use_underline">True</property>
+                            <property name="mnemonic_widget">entry_hostname</property>
                           </object>
                           <packing>
                             <property name="expand">False</property>
