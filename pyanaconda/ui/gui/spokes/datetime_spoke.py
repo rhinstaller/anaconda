@@ -1,6 +1,6 @@
 # Datetime configuration spoke class
 #
-# Copyright (C) 2012 Red Hat, Inc.
+# Copyright (C) 2012-2013 Red Hat, Inc.
 #
 # This copyrighted material is made available to anyone wishing to use,
 # modify, copy, or redistribute it subject to the terms and conditions of
@@ -369,11 +369,11 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
 
         self._update_datetime_timer_id = None
         if timezone.is_valid_timezone(self.data.timezone.timezone):
-            self._tzmap.set_timezone(self.data.timezone.timezone)
+            self._set_timezone(self.data.timezone.timezone)
         elif not flags.flags.automatedInstall:
             log.warning("%s is not a valid timezone, falling back to default "\
                         "(%s)" % (self.data.timezone.timezone, DEFAULT_TZ))
-            self._tzmap.set_timezone(DEFAULT_TZ)
+            self._set_timezone(DEFAULT_TZ)
             self.data.timezone.timezone = DEFAULT_TZ
 
         if not flags.can_touch_runtime_system("modify system time and date"):
@@ -436,7 +436,7 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
         self._start_updating_timer_id = None
 
         if timezone.is_valid_timezone(self.data.timezone.timezone):
-            self._tzmap.set_timezone(self.data.timezone.timezone)
+            self._set_timezone(self.data.timezone.timezone)
 
         self._update_datetime()
 
@@ -453,6 +453,28 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
             ntp_working = not self.data.timezone.nontp
 
         self._ntpSwitch.set_active(ntp_working)
+
+    def _set_timezone(self, timezone):
+        """
+        Sets timezone to the city/region comboboxes and the timezone map.
+
+        :param timezone: timezone to set
+        :type timezone: str
+        :return: if successfully set or not
+        :rtype: bool
+
+        """
+
+        parts = timezone.split("/", 1)
+        if len(parts) != 2:
+            # invalid timezone cannot be set
+            return False
+
+        region, city = parts
+        self._set_combo_selection(self._regionCombo, region)
+        self._set_combo_selection(self._cityCombo, city)
+
+        return True
 
     @gtk_action_nowait
     def add_to_store(self, store, item):
@@ -666,8 +688,7 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
     def _restore_old_city_region(self):
         """Restore stored "old" (or last valid) values."""
 
-        self._set_combo_selection(self._regionCombo, self._old_region)
-        self._set_combo_selection(self._cityCombo, self._old_city)
+        self._set_timezone(self._old_region + "/" + self._old_city)
 
     def on_up_hours_clicked(self, *args):
         self._stop_and_maybe_start_time_updating()
@@ -741,6 +762,7 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
         """
 
         region = self._get_active_region()
+
         if not region or region == self._old_region:
             # region entry being edited or old_value chosen, no action needed
             # @see: on_city_changed
@@ -779,18 +801,17 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
 
         if city and region:
             timezone = region + "/" + city
+        else:
+            # both city and region are needed to form a valid timezone
+            return
 
-        if timezone is not None and region == "Etc":
+        if region == "Etc":
             # Etc timezones cannot be displayed on the map, so let's set the map
             # to "" which sets it to "Europe/London" (UTC) without a city pin
-            self._tzmap.set_timezone("")
-
-            # Change to Etc/XXXXX emits timezone-changed with "" as timezone,
-            # so let's help it a bit.
-            self._tzmap.emit("timezone-changed", timezone)
-
-        elif timezone and (self._tzmap.get_timezone() != timezone):
-            self._tzmap.set_timezone(timezone)
+            self._tzmap.set_timezone("", no_signal=True)
+        else:
+            # we don't want the timezone-changed signal to be emitted
+            self._tzmap.set_timezone(timezone, no_signal=True)
 
         # update "old" values
         self._old_city = city
@@ -838,20 +859,10 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
         self._daysFilter.refilter()
 
     def on_timezone_changed(self, tz_map, timezone):
-        fields = timezone.split("/", 1)
-        if len(fields) == 1:
-            # timezone may be ""
-            return
-
-        region, city = fields
-        if region != "Etc":
-            # If region is "Etc", TimezoneMap returns "" from get_timezone
-            # and changing comboboxes here would create an endless loop.
-            self._set_combo_selection(self._regionCombo, region)
-            self._set_combo_selection(self._cityCombo, city)
-
-        os.environ["TZ"] = timezone
-        self._update_datetime()
+        if self._set_timezone(timezone):
+            # timezone successfully set
+            os.environ["TZ"] = timezone
+            self._update_datetime()
 
     def on_timeformat_changed(self, button24h, *args):
         hours = int(self._hoursLabel.get_text())
