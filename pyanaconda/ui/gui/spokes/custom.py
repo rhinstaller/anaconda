@@ -207,6 +207,22 @@ def validate_mountpoint(mountpoint, used_mountpoints, strict=True):
 
     return valid
 
+def really_hide(widget):
+    """Some widgets need to be both hidden, and have no_show_all set on them
+       to prevent them from being shown later when the screen is redrawn.
+       This method takes care of that.
+    """
+    widget.set_no_show_all(True)
+    widget.hide()
+
+def really_show(widget):
+    """Some widgets need to have no_show_all unset before they can also be
+       shown, so they are displayed later when the screen is redrawn.  This
+       method takes care of that.
+    """
+    widget.set_no_show_all(False)
+    widget.show()
+
 class AddDialog(GUIObject):
     builderObjects = ["addDialog", "mountPointStore", "mountPointCompletion", "mountPointEntryBuffer"]
     mainWidgetName = "addDialog"
@@ -495,10 +511,7 @@ class ContainerDialog(GUIObject):
         raid_combo = self.builder.get_object("containerRaidLevelCombo")
 
         if self.device_type not in [DEVICE_TYPE_LVM, DEVICE_TYPE_BTRFS]:
-            for widget in [raid_label, raid_combo]:
-                widget.set_no_show_all(True)
-                widget.hide()
-
+            map(really_hide, [raid_label, raid_combo])
             return
 
         raid_level = self.raid_level
@@ -512,10 +525,7 @@ class ContainerDialog(GUIObject):
                 raid_combo.set_active(i)
                 break
 
-        for widget in [raid_label, raid_combo]:
-            widget.set_no_show_all(False)
-            widget.show()
-
+        map(really_show, [raid_label, raid_combo])
         fancy_set_sensitive(raid_combo, not self.exists)
 
 class HelpDialog(GUIObject):
@@ -1480,10 +1490,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         if device_type == DEVICE_TYPE_MD:
             base_level = "raid1"
         else:
-            for widget in [self._raidLevelLabel, self._raidLevelCombo]:
-                widget.set_no_show_all(True)
-                widget.hide()
-
+            map(really_hide, [self._raidLevelLabel, self._raidLevelCombo])
             return
 
         if not raid_level:
@@ -1495,9 +1502,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                 self._raidLevelCombo.set_active(i)
                 break
 
-        for widget in [self._raidLevelLabel, self._raidLevelCombo]:
-            widget.set_no_show_all(False)
-            widget.show()
+        map(really_show, [self._raidLevelLabel, self._raidLevelCombo])
 
     def _get_current_device_type(self):
         device_type_text = self._typeCombo.get_active_text()
@@ -2465,17 +2470,13 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             if default_container is None:
                 container_combo.set_active(len(container_combo.get_model()) - 1)
 
-            for widget in [container_label, container_combo, container_button]:
-                widget.set_no_show_all(False)
-                widget.show()
+            map(really_show, [container_label, container_combo, container_button])
 
             # make the combo and button insensitive for existing LVs
             can_change_container = (device is not None and not device.exists)
             fancy_set_sensitive(container_combo, can_change_container)
         else:
-            for widget in [container_label, container_combo, container_button]:
-                widget.set_no_show_all(True)
-                widget.hide()
+            map(really_hide, [container_label, container_combo, container_button])
 
     def on_device_type_changed(self, combo):
         if not self._initialized:
