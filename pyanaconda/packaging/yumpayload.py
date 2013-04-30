@@ -1032,6 +1032,20 @@ reposdir=%s
                 return True
         return False
 
+    def environmentOptionIsDefault(self, environmentid, grpid):
+        groups = self._yumGroups
+        if not groups:
+            return False
+
+        with _yum_lock:
+            if not groups.has_environment(environmentid):
+                raise NoSuchGroup(environmentid)
+
+            environment = groups.return_environment(environmentid)
+            if grpid in environment.defaultoptions:
+                return True
+        return False
+
     def environmentDescription(self, environmentid):
         """ Return name/description tuple for the environment specified by id. """
         groups = self._yumGroups

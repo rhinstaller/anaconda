@@ -73,6 +73,9 @@ class SoftwareSelectionSpoke(NormalSpoke):
             return
 
         addons = self._get_selected_addons()
+        for group in addons:
+            if group not in self.selectedGroups:
+              self.selectedGroups.append(group)
 
         self._selectFlag = False
         self.payload.data.packages.groupList = []
@@ -267,7 +270,11 @@ class SoftwareSelectionSpoke(NormalSpoke):
 
     def _addAddon(self, grp):
         (name, desc) = self.payload.groupDescription(grp)
-        selected = grp in self.selectedGroups
+        # If no groups are selected, select the default groups
+        if not self._origEnvironment:
+            selected = self.payload.environmentOptionIsDefault(self.environment, grp)
+        else:
+            selected = grp in self.selectedGroups
 
         self._addonStore.append([selected, "<b>%s</b>\n%s" % (name, desc), grp, False])
 
