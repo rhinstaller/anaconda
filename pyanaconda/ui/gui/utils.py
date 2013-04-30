@@ -112,3 +112,13 @@ def setViewportBackground(vp, color="@theme_bg_color"):
     provider.load_from_data("GtkViewport { background-color: %s }" % color)
     context = vp.get_style_context()
     context.add_provider(provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
+
+def fancy_set_sensitive(widget, value):
+    """Set the sensitivity of a widget, and then set the sensitivity of
+       all widgets it is a mnemonic widget for.  This has the effect of
+       marking both an entry and its label as sensitive/insensitive, for
+       instance.
+    """
+    widget.set_sensitive(value)
+    for w in widget.list_mnemonic_labels():
+        w.set_sensitive(value)

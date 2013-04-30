@@ -74,7 +74,7 @@ from pyanaconda.ui.gui.spokes.lib.passphrase import PassphraseDialog
 from pyanaconda.ui.gui.spokes.lib.accordion import *
 from pyanaconda.ui.gui.spokes.lib.refresh import RefreshDialog
 from pyanaconda.ui.gui.spokes.lib.summary import ActionSummaryDialog
-from pyanaconda.ui.gui.utils import setViewportBackground, gtk_action_wait, enlightbox
+from pyanaconda.ui.gui.utils import setViewportBackground, gtk_action_wait, enlightbox, fancy_set_sensitive
 from pyanaconda.ui.gui.categories.storage import StorageCategory
 
 from gi.repository import Gtk
@@ -372,8 +372,9 @@ class ContainerDialog(GUIObject):
         dialog_label.set_text(dialog_text)
 
         # populate the dialog widgets
-        self._nameEntry.set_text(self.name)
-        self._nameEntry.set_sensitive(not self.exists)
+        name_entry = self.builder.get_object("container_name_entry")
+        name_entry.set_text(self.name)
+        fancy_set_sensitive(name_entry, not self.exists)
 
         self._store = self.builder.get_object("disk_store")
         # populate the store
@@ -515,7 +516,7 @@ class ContainerDialog(GUIObject):
             widget.set_no_show_all(False)
             widget.show()
 
-        raid_combo.set_sensitive(not self.exists)
+        fancy_set_sensitive(raid_combo, not self.exists)
 
 class HelpDialog(GUIObject):
     builderObjects = ["help_dialog", "help_text_view", "help_text_buffer"]
@@ -1559,7 +1560,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         self._nameEntry.set_text(device_name)
 
         self._mountPointEntry.set_text(getattr(device.format, "mountpoint", "") or "")
-        self._mountPointEntry.set_sensitive(device.format.mountable)
+        fancy_set_sensitive(self._mountPointEntry, device.format.mountable)
 
         # FIXME: Make sure you cannot set a label for specific btrfs subvols
         self._labelEntry.set_text(getattr(device.format, "label", "") or "")
@@ -1567,7 +1568,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         # ActionLabelFormat class.
         can_label = (hasattr(device.format, "label") and
                      not device.format.exists)
-        self._labelEntry.set_sensitive(can_label)
+        fancy_set_sensitive(self._labelEntry, can_label)
 
         if hasattr(device.format, "label"):
             self._labelEntry.props.has_tooltip = False
@@ -1575,7 +1576,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             self._labelEntry.set_tooltip_text(_("This file system does not support labels."))
 
         self._sizeEntry.set_text(Size(spec="%d MB" % device.size).humanReadable(max_places=None))
-        self._sizeEntry.set_sensitive(device.resizable or not device.exists)
+        fancy_set_sensitive(self._sizeEntry, device.resizable or not device.exists)
 
         if self._sizeEntry.get_sensitive():
             self._sizeEntry.props.has_tooltip = False
@@ -1583,9 +1584,9 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             self._sizeEntry.set_tooltip_text(_("This file system may not be resized."))
 
         self._reformatCheckbox.set_active(not device.format.exists)
-        self._reformatCheckbox.set_sensitive(not device.protected and
-                                             use_dev.exists and
-                                             not use_dev.type.startswith("btrfs"))
+        fancy_set_sensitive(self._reformatCheckbox, not device.protected and
+                                                          use_dev.exists and
+                                                          not use_dev.type.startswith("btrfs"))
 
         self._encryptCheckbox.set_active(isinstance(device, LUKSDevice))
         self._encryptCheckbox.set_sensitive(self._reformatCheckbox.get_active())
@@ -1716,12 +1717,12 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             self._device_name_dict[_type] = name
 
         self._typeCombo.set_active(type_index_map[device_type])
-        self._fsCombo.set_sensitive(self._reformatCheckbox.get_active() and
-                                    device_type != DEVICE_TYPE_BTRFS)
+        fancy_set_sensitive(self._fsCombo, self._reformatCheckbox.get_active() and
+                                           device_type != DEVICE_TYPE_BTRFS)
 
         # you can't change the type of an existing device
-        self._typeCombo.set_sensitive(not use_dev.exists)
-        self._raidLevelCombo.set_sensitive(not use_dev.exists)
+        fancy_set_sensitive(self._typeCombo, not use_dev.exists)
+        fancy_set_sensitive(self._raidLevelCombo, not use_dev.exists)
 
         # FIXME: device encryption should be mutually exclusive with container
         # encryption
@@ -1729,13 +1730,13 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         # FIXME: device raid should be mutually exclusive with container raid
 
         # you can't encrypt a btrfs subvolume -- only the volume/container
-        self._encryptCheckbox.set_sensitive(device_type != DEVICE_TYPE_BTRFS)
+        fancy_set_sensitive(self._encryptCheckbox, device_type != DEVICE_TYPE_BTRFS)
 
         self._populate_raid(raid_level)
         self._populate_container(device=use_dev)
         # do this last in case this was set sensitive in on_device_type_changed
         if use_dev.exists:
-            self._nameEntry.set_sensitive(False)
+            fancy_set_sensitive(self._nameEntry, False)
 
     ###
     ### SIGNAL HANDLERS
@@ -2381,8 +2382,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             self._encryptCheckbox.set_active(False)
 
         self._encryptCheckbox.set_sensitive(device_type != DEVICE_TYPE_BTRFS)
-
-        self._fsCombo.set_sensitive(active)
+        fancy_set_sensitive(self._fsCombo, active)
 
         # The label entry can only be sensitive if reformat is active and the
         # currently selected filesystem can be labeled.
@@ -2391,7 +2391,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             fmt = getFormat(self._fsCombo.get_active_text())
             label_active = active and hasattr(fmt, "label")
 
-        self._labelEntry.set_sensitive(label_active)
+        fancy_set_sensitive(self._labelEntry, label_active)
 
     def on_fs_type_changed(self, combo):
         if not self._initialized:
@@ -2403,9 +2403,9 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         log.debug("fs type changed: %s" % new_type)
         fmt = getFormat(new_type)
         # FIXME: can't set a label on an existing format as of now
-        self._labelEntry.set_sensitive(self._reformatCheckbox.get_active() and
-                                      hasattr(fmt, "label"))
-        self._mountPointEntry.set_sensitive(fmt.mountable)
+        fancy_set_sensitive(self._labelEntry, self._reformatCheckbox.get_active() and
+                                              hasattr(fmt, "label"))
+        fancy_set_sensitive(self._mountPointEntry, fmt.mountable)
 
     def _populate_container(self, device=None):
         """ Set up the vg widgets for lvm or hide them for other types. """
@@ -2471,7 +2471,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
             # make the combo and button insensitive for existing LVs
             can_change_container = (device is not None and not device.exists)
-            container_combo.set_sensitive(can_change_container)
+            fancy_set_sensitive(container_combo, can_change_container)
         else:
             for widget in [container_label, container_combo, container_button]:
                 widget.set_no_show_all(True)
@@ -2523,7 +2523,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         self._populate_raid(raid_level)
         self._populate_container()
 
-        self._nameEntry.set_sensitive(new_type in (DEVICE_TYPE_LVM, DEVICE_TYPE_MD))
+        fancy_set_sensitive(self._nameEntry, new_type in (DEVICE_TYPE_LVM, DEVICE_TYPE_MD))
         self._nameEntry.set_text(self._device_name_dict[new_type])
 
         # begin btrfs magic
@@ -2549,8 +2549,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             active_index = len(self._fsCombo.get_model()) - 1
 
         self._fsCombo.set_active(active_index)
-        self._fsCombo.set_sensitive(self._reformatCheckbox.get_active() and
-                                    fs_type_sensitive)
+        fancy_set_sensitive(self._fsCombo, self._reformatCheckbox.get_active() and
+                                           fs_type_sensitive)
         # end btrfs magic
 
     def clear_errors(self):
