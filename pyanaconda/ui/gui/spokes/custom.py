@@ -1316,35 +1316,39 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                 self.__storage.resetDevice(original_device)
 
         if changed_size and device.resizable:
-            log.debug("scheduling resize of device %s to %s MB"
-                        % (device.name, size))
             # If no size was specified, we just want to grow to
             # the maximum.  But resizeDevice doesn't take None for
             # a value.
             if not size:
                 size = device.maxSize
 
-            with ui_storage_logger():
-                try:
-                    self.__storage.resizeDevice(device, size)
-                except StorageError as e:
-                    log.error("failed to schedule device resize: %s" % e)
-                    device.size = old_size
-                    self._error = e
-                    self.set_warning(_("Device resize request failed. "
-                                       "Click for details."))
-                    self.window.show_all()
-                else:
-                    log.debug("%r" % device)
-                    log.debug("new size: %s" % device.size)
-                    log.debug("target size: %s" % device.targetSize)
+            # And then we need to re-check that the max size is actually
+            # different from the current size.
+            if size != device.size:
+                log.debug("scheduling resize of device %s to %s MB"
+                            % (device.name, size))
 
-                    # update the selector's size property
-                    selectorFromDevice(device, selector=selector)
+                with ui_storage_logger():
+                    try:
+                        self.__storage.resizeDevice(device, size)
+                    except StorageError as e:
+                        log.error("failed to schedule device resize: %s" % e)
+                        device.size = old_size
+                        self._error = e
+                        self.set_warning(_("Device resize request failed. "
+                                           "Click for details."))
+                        self.window.show_all()
+                    else:
+                        log.debug("%r" % device)
+                        log.debug("new size: %s" % device.size)
+                        log.debug("target size: %s" % device.targetSize)
 
-            # update size props of all btrfs devices' selectors
-            self._update_selectors()
-            self._updateSpaceDisplay()
+                        # update the selector's size property
+                        selectorFromDevice(device, selector=selector)
+
+                # update size props of all btrfs devices' selectors
+                self._update_selectors()
+                self._updateSpaceDisplay()
 
         # it's possible that reformat is active but fstype is unchanged, in
         # which case we're not going to schedule another reformat unless
