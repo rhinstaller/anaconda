@@ -418,7 +418,7 @@ use.  Try something else?</property>
                 <property name="can_focus">False</property>
                 <property name="spacing">6</property>
                 <child>
-                  <object class="GtkLabel" id="label15">
+                  <object class="GtkLabel" id="nameLabel">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <property name="label" translatable="yes">_Name:</property>
@@ -850,7 +850,7 @@ use.  Try something else?</property>
                                   </packing>
                                 </child>
                                 <child>
-                                  <object class="GtkLabel" id="label4">
+                                  <object class="GtkLabel" id="labelLabel">
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
                                     <property name="xalign">0</property>
@@ -882,7 +882,7 @@ use.  Try something else?</property>
                                   </packing>
                                 </child>
                                 <child>
-                                  <object class="GtkLabel" id="label13">
+                                  <object class="GtkLabel" id="nameLabel">
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
                                     <property name="xalign">0</property>
@@ -915,7 +915,7 @@ use.  Try something else?</property>
                                   </packing>
                                 </child>
                                 <child>
-                                  <object class="GtkLabel" id="label5">
+                                  <object class="GtkLabel" id="sizeLabel">
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
                                     <property name="halign">end</property>
@@ -955,7 +955,7 @@ use.  Try something else?</property>
                                     <property name="row_spacing">6</property>
                                     <property name="column_spacing">6</property>
                                     <child>
-                                      <object class="GtkLabel" id="label9">
+                                      <object class="GtkLabel" id="deviceTypeLabel">
                                         <property name="visible">True</property>
                                         <property name="can_focus">False</property>
                                         <property name="xalign">0</property>
@@ -972,7 +972,7 @@ use.  Try something else?</property>
                                       </packing>
                                     </child>
                                     <child>
-                                      <object class="GtkLabel" id="label10">
+                                      <object class="GtkLabel" id="fileSystemTypeLabel">
                                         <property name="visible">True</property>
                                         <property name="can_focus">False</property>
                                         <property name="xalign">0</property>

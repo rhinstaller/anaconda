@@ -372,9 +372,8 @@ class ContainerDialog(GUIObject):
         dialog_label.set_text(dialog_text)
 
         # populate the dialog widgets
-        name_entry = self.builder.get_object("container_name_entry")
-        name_entry.set_text(self.name)
-        name_entry.set_sensitive(not self.exists)
+        self._nameEntry.set_text(self.name)
+        self._nameEntry.set_sensitive(not self.exists)
 
         self._store = self.builder.get_object("disk_store")
         # populate the store
@@ -610,27 +609,39 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         self._partitionsViewport = self.builder.get_object("partitionsViewport")
         self._partitionsNotebook = self.builder.get_object("partitionsNotebook")
 
-        self._addButton = self.builder.get_object("addButton")
-        self._removeButton = self.builder.get_object("removeButton")
-        self._configButton = self.builder.get_object("configureButton")
+        self._whenCreateLabel = self.builder.get_object("whenCreateLabel")
 
+        # Buttons
+        self._addButton = self.builder.get_object("addButton")
+        self._applyButton = self.builder.get_object("applyButton")
+        self._configButton = self.builder.get_object("configureButton")
+        self._removeButton = self.builder.get_object("removeButton")
+
+        # Detailed configuration stuff
+        self._encryptCheckbox = self.builder.get_object("encryptCheckbox")
+        self._fsCombo = self.builder.get_object("fileSystemTypeCombo")
+        self._labelEntry = self.builder.get_object("labelEntry")
+        self._mountPointEntry = self.builder.get_object("mountPointEntry")
+        self._nameEntry = self.builder.get_object("nameEntry")
+        self._raidLevelCombo = self.builder.get_object("raidLevelCombo")
+        self._raidLevelLabel = self.builder.get_object("raidLevelLabel")
         self._reformatCheckbox = self.builder.get_object("reformatCheckbox")
         self._sizeEntry = self.builder.get_object("sizeEntry")
+        self._typeCombo = self.builder.get_object("deviceTypeCombo")
 
-        self._applyButton = self.builder.get_object("applyButton")
+        # Stores
+        self._raidStoreFilter = self.builder.get_object("raidStoreFiltered")
 
     def initialize(self):
         NormalSpoke.initialize(self)
-
-        label = self.builder.get_object("whenCreateLabel")
-        self._when_create_text = label.get_text()
-
         self._grabObjects()
+
+        self._when_create_text = self._whenCreateLabel.get_text()
+
         setViewportBackground(self.builder.get_object("availableSpaceViewport"), "#db3279")
         setViewportBackground(self.builder.get_object("totalSpaceViewport"), "#60605b")
 
-        raidStoreFilter = self.builder.get_object("raidStoreFiltered")
-        raidStoreFilter.set_visible_func(self._raid_level_visible)
+        self._raidStoreFilter.set_visible_func(self._raid_level_visible)
 
         self._accordion = Accordion()
         self._partitionsViewport.add(self._accordion)
@@ -638,15 +649,14 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         # Populate the list of valid filesystem types from the format classes.
         # Unfortunately, we have to narrow them down a little bit more because
         # this list will include things like PVs and RAID members.
-        self.fsCombo = self.builder.get_object("fileSystemTypeCombo")
-        self.fsCombo.remove_all()
+        self._fsCombo.remove_all()
 
         threadMgr.add(AnacondaThread(name=THREAD_CUSTOM_STORAGE_INIT, target=self._initialize))
 
     def _initialize(self):
         @gtk_action_wait
         def gtk_action(name):
-            self.fsCombo.append_text(name)
+            self._fsCombo.append_text(name)
 
         self._fs_types = []
         for cls in device_formats.itervalues():
@@ -830,8 +840,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             self._accordion.addPage(page, cb=self.on_page_clicked)
 
             self._partitionsNotebook.set_current_page(NOTEBOOK_LABEL_PAGE)
-            label = self.builder.get_object("whenCreateLabel")
-            label.set_text(self._when_create_text % (productName, productVersion))
+            self._whenCreateLabel.set_text(self._when_create_text % (productName, productVersion))
         else:
             swaps = [d for d in new_devices if d.format.type == "swap"]
             mounts = dict((d.format.mountpoint, d) for d in new_devices
@@ -1010,9 +1019,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         old_name = getattr(use_dev, "lvname", use_dev.name)
         name = old_name
         changed_name = False
-        name_entry = self.builder.get_object("nameEntry")
-        if name_entry.get_sensitive():
-            name = name_entry.get_text()
+        if self._nameEntry.get_sensitive():
+            name = self._nameEntry.get_text()
             changed_name = (name != old_name)
         else:
             # name entry insensitive means we don't control the name
@@ -1044,9 +1052,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
         # FS TYPE
         old_fs_type = device.format.type
-        fs_type_combo = self.builder.get_object("fileSystemTypeCombo")
-        fs_type_index = fs_type_combo.get_active()
-        fs_type = fs_type_combo.get_model()[fs_type_index][0]
+        fs_type_index = self._fsCombo.get_active()
+        fs_type = self._fsCombo.get_model()[fs_type_index][0]
         fs_type_short = getFormat(fs_type).type
         changed_fs_type = (old_fs_type != fs_type_short)
         log.debug("old fs type: %s" % old_fs_type)
@@ -1054,17 +1061,15 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
         # ENCRYPTION
         old_encrypted = isinstance(device, LUKSDevice)
-        encryption_checkbox = self.builder.get_object("encryptCheckbox")
-        encrypted = encryption_checkbox.get_active()
+        encrypted = self._encryptCheckbox.get_active()
         changed_encryption = (old_encrypted != encrypted)
         log.debug("old encryption setting: %s" % old_encrypted)
         log.debug("new encryption setting: %s" % encrypted)
 
         # FS LABEL
-        label_entry = self.builder.get_object("labelEntry")
         label = ""
-        if label_entry.get_sensitive():
-            label = label_entry.get_text()
+        if self._labelEntry.get_sensitive():
+            label = self._labelEntry.get_text()
 
         old_label = getattr(device.format, "label", "") or ""
         changed_label = (label != old_label)
@@ -1073,9 +1078,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
         # MOUNTPOINT
         mountpoint = None   # None means format type is not mountable
-        mountPointEntry = self.builder.get_object("mountPointEntry")
-        if mountPointEntry.get_sensitive():
-            mountpoint = mountPointEntry.get_text()
+        if self._mountPointEntry.get_sensitive():
+            mountpoint = self._mountPointEntry.get_text()
 
         old_mountpoint = getattr(device.format, "mountpoint", "") or ""
         log.debug("old mountpoint: %s" % old_mountpoint)
@@ -1454,9 +1458,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             return model[itr][3]
 
     def _get_raid_level(self):
-        combo = self.builder.get_object("raidLevelCombo")
-        itr = combo.get_active_iter()
-        store = combo.get_model()
+        itr = self._raidLevelCombo.get_active_iter()
+        store = self._raidLevelCombo.get_model()
 
         if not itr:
             return
@@ -1473,13 +1476,10 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         device_type = self._get_current_device_type()
         log.debug("populate_raid: %s, %s" % (device_type, raid_level))
 
-        raid_label = self.builder.get_object("raidLevelLabel")
-        raid_combo = self.builder.get_object("raidLevelCombo")
-
         if device_type == DEVICE_TYPE_MD:
             base_level = "raid1"
         else:
-            for widget in [raid_label, raid_combo]:
+            for widget in [self._raidLevelLabel, self._raidLevelCombo]:
                 widget.set_no_show_all(True)
                 widget.hide()
 
@@ -1489,18 +1489,17 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             raid_level = base_level
 
         # Set a default RAID level in the combo.
-        for (i, row) in enumerate(raid_combo.get_model()):
+        for (i, row) in enumerate(self._raidLevelCombo.get_model()):
             if row[0].upper().startswith(raid_level.upper()):
-                raid_combo.set_active(i)
+                self._raidLevelCombo.set_active(i)
                 break
 
-        for widget in [raid_label, raid_combo]:
+        for widget in [self._raidLevelLabel, self._raidLevelCombo]:
             widget.set_no_show_all(False)
             widget.show()
 
     def _get_current_device_type(self):
-        typeCombo = self.builder.get_object("deviceTypeCombo")
-        device_type_text = typeCombo.get_active_text()
+        device_type_text = self._typeCombo.get_active_text()
         log.info("getting device type for %s" % device_type_text)
         device_type = None
         if device_type_text == _(DEVICE_TEXT_LVM):
@@ -1520,15 +1519,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
     def _populate_right_side(self, selector):
         log.debug("populate_right_side: %s" % selector._device)
-        encryptCheckbox = self.builder.get_object("encryptCheckbox")
-        labelEntry = self.builder.get_object("labelEntry")
-        mountPointEntry = self.builder.get_object("mountPointEntry")
-        nameEntry = self.builder.get_object("nameEntry")
         selectedDeviceLabel = self.builder.get_object("selectedDeviceLabel")
         selectedDeviceDescLabel = self.builder.get_object("selectedDeviceDescLabel")
-        typeCombo = self.builder.get_object("deviceTypeCombo")
-        fsCombo = self.builder.get_object("fileSystemTypeCombo")
-        raidLevelCombo = self.builder.get_object("raidLevelCombo")
 
         device = selector._device
         if device.type == "luks/dm-crypt":
@@ -1564,23 +1556,23 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         selectedDeviceDescLabel.set_text(self._description(selector.props.name))
 
         device_name = getattr(use_dev, "lvname", use_dev.name)
-        nameEntry.set_text(device_name)
+        self._nameEntry.set_text(device_name)
 
-        mountPointEntry.set_text(getattr(device.format, "mountpoint", "") or "")
-        mountPointEntry.set_sensitive(device.format.mountable)
+        self._mountPointEntry.set_text(getattr(device.format, "mountpoint", "") or "")
+        self._mountPointEntry.set_sensitive(device.format.mountable)
 
         # FIXME: Make sure you cannot set a label for specific btrfs subvols
-        labelEntry.set_text(getattr(device.format, "label", "") or "")
+        self._labelEntry.set_text(getattr(device.format, "label", "") or "")
         # We could label existing formats that have a labelFsProg if we added an
         # ActionLabelFormat class.
         can_label = (hasattr(device.format, "label") and
                      not device.format.exists)
-        labelEntry.set_sensitive(can_label)
+        self._labelEntry.set_sensitive(can_label)
 
         if hasattr(device.format, "label"):
-            labelEntry.props.has_tooltip = False
+            self._labelEntry.props.has_tooltip = False
         else:
-            labelEntry.set_tooltip_text(_("This file system does not support labels."))
+            self._labelEntry.set_tooltip_text(_("This file system does not support labels."))
 
         self._sizeEntry.set_text(Size(spec="%d MB" % device.size).humanReadable(max_places=None))
         self._sizeEntry.set_sensitive(device.resizable or not device.exists)
@@ -1595,14 +1587,14 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                                              use_dev.exists and
                                              not use_dev.type.startswith("btrfs"))
 
-        encryptCheckbox.set_active(isinstance(device, LUKSDevice))
-        encryptCheckbox.set_sensitive(self._reformatCheckbox.get_active())
+        self._encryptCheckbox.set_active(isinstance(device, LUKSDevice))
+        self._encryptCheckbox.set_sensitive(self._reformatCheckbox.get_active())
         ancestors = use_dev.ancestors
         ancestors.remove(use_dev)
         if any(a.format.type == "luks" and a.format.exists for a in ancestors):
             # The encryption checkbutton should not be sensitive if there is
             # existing encryption below the leaf layer.
-            encryptCheckbox.set_sensitive(False)
+            self._encryptCheckbox.set_sensitive(False)
 
         ##
         ## Set up the filesystem type combo.
@@ -1610,29 +1602,29 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
         # remove any fs types that aren't supported
         remove_indices = []
-        for idx, data in enumerate(fsCombo.get_model()):
+        for idx, data in enumerate(self._fsCombo.get_model()):
             fs_type = data[0]
             if fs_type not in self._fs_types:
                 remove_indices.insert(0, idx)
                 continue
 
             if fs_type == device.format.name:
-                fsCombo.set_active(idx)
+                self._fsCombo.set_active(idx)
 
         for remove_idx in remove_indices:
-            fsCombo.remove(remove_idx)
+            self._fsCombo.remove(remove_idx)
 
         # if the current device has unsupported formatting, add an entry for it
         if device.format.name not in self._fs_types:
-            fsCombo.append_text(device.format.name)
-            fsCombo.set_active(len(fsCombo.get_model()) - 1)
+            self._fsCombo.append_text(device.format.name)
+            self._fsCombo.set_active(len(self._fsCombo.get_model()) - 1)
 
         # Give them a way to reset to original formatting. Whenever we add a
         # "reformat this" widget this will need revisiting.
         if device.exists and \
            device.format.type != device.originalFormat.type and \
            device.originalFormat.type not in self._fs_types:
-            fsCombo.append_text(device.originalFormat.name)
+            self._fsCombo.append_text(device.originalFormat.name)
 
         ##
         ## Set up the device type combo.
@@ -1644,7 +1636,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         md_included = False
         disk_pos = None
         disk_included = False
-        for idx, itr in enumerate(typeCombo.get_model()):
+        for idx, itr in enumerate(self._typeCombo.get_model()):
             if itr[0] == _(DEVICE_TEXT_BTRFS):
                 btrfs_pos = idx
                 btrfs_included = True
@@ -1661,7 +1653,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         include_md = (use_dev.type == "mdarray" or
                       len(self._clearpartDevices) > 1)
         if include_md and not md_included:
-            typeCombo.append_text(_(DEVICE_TEXT_MD))
+            self._typeCombo.append_text(_(DEVICE_TEXT_MD))
         elif md_included and not include_md:
             remove_indices.append(md_pos)
 
@@ -1669,25 +1661,25 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         include_btrfs = (use_dev.format.type not in
                             partition_only_format_types + ["swap"])
         if include_btrfs and not btrfs_included:
-            typeCombo.append_text(_(DEVICE_TEXT_BTRFS))
+            self._typeCombo.append_text(_(DEVICE_TEXT_BTRFS))
         elif btrfs_included and not include_btrfs:
             remove_indices.append(btrfs_pos)
 
         # only include disk if the current device is a disk
         include_disk = use_dev.isDisk
         if include_disk and not disk_included:
-            typeCombo.append_text(_(DEVICE_TEXT_DISK))
+            self._typeCombo.append_text(_(DEVICE_TEXT_DISK))
         elif disk_included and not include_disk:
             remove_indices.append(disk_pos)
 
         remove_indices.sort(reverse=True)
-        map(typeCombo.remove, remove_indices)
+        map(self._typeCombo.remove, remove_indices)
 
         md_pos = None
         btrfs_pos = None
         partition_pos = None
         lvm_pos = None
-        for idx, itr in enumerate(typeCombo.get_model()):
+        for idx, itr in enumerate(self._typeCombo.get_model()):
             if itr[0] == _(DEVICE_TEXT_BTRFS):
                 btrfs_pos = idx
             elif itr[0] == _(DEVICE_TEXT_MD):
@@ -1723,13 +1715,13 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
             self._device_name_dict[_type] = name
 
-        typeCombo.set_active(type_index_map[device_type])
-        fsCombo.set_sensitive(self._reformatCheckbox.get_active() and
-                              device_type != DEVICE_TYPE_BTRFS)
+        self._typeCombo.set_active(type_index_map[device_type])
+        self._fsCombo.set_sensitive(self._reformatCheckbox.get_active() and
+                                    device_type != DEVICE_TYPE_BTRFS)
 
         # you can't change the type of an existing device
-        typeCombo.set_sensitive(not use_dev.exists)
-        raidLevelCombo.set_sensitive(not use_dev.exists)
+        self._typeCombo.set_sensitive(not use_dev.exists)
+        self._raidLevelCombo.set_sensitive(not use_dev.exists)
 
         # FIXME: device encryption should be mutually exclusive with container
         # encryption
@@ -1737,13 +1729,13 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         # FIXME: device raid should be mutually exclusive with container raid
 
         # you can't encrypt a btrfs subvolume -- only the volume/container
-        encryptCheckbox.set_sensitive(device_type != DEVICE_TYPE_BTRFS)
+        self._encryptCheckbox.set_sensitive(device_type != DEVICE_TYPE_BTRFS)
 
         self._populate_raid(raid_level)
         self._populate_container(device=use_dev)
         # do this last in case this was set sensitive in on_device_type_changed
         if use_dev.exists:
-            nameEntry.set_sensitive(False)
+            self._nameEntry.set_sensitive(False)
 
     ###
     ### SIGNAL HANDLERS
@@ -2370,8 +2362,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
     def on_reformat_toggled(self, widget):
         active = widget.get_active()
 
-        encryption_checkbutton = self.builder.get_object("encryptCheckbox")
-        encryption_checkbutton.set_sensitive(active)
+        self._encryptCheckbox.set_sensitive(active)
         if self._current_selector:
             device = self._current_selector._device
             if device.type == "luks/dm-crypt":
@@ -2382,27 +2373,25 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             if any(a.format.type == "luks" and a.format.exists for a in ancestors):
                 # The encryption checkbutton should not be sensitive if there is
                 # existing encryption below the leaf layer.
-                encryption_checkbutton.set_sensitive(False)
+                self._encryptCheckbox.set_sensitive(False)
 
         # you can't encrypt a btrfs subvolume -- only the volume/container
         device_type = self._get_current_device_type()
         if device_type == DEVICE_TYPE_BTRFS:
-            encryption_checkbutton.set_active(False)
+            self._encryptCheckbox.set_active(False)
 
-        encryption_checkbutton.set_sensitive(device_type != DEVICE_TYPE_BTRFS)
+        self._encryptCheckbox.set_sensitive(device_type != DEVICE_TYPE_BTRFS)
 
-        fs_combo = self.builder.get_object("fileSystemTypeCombo")
-        fs_combo.set_sensitive(active)
+        self._fsCombo.set_sensitive(active)
 
         # The label entry can only be sensitive if reformat is active and the
         # currently selected filesystem can be labeled.
         label_active = active
         if active:
-            fmt = getFormat(fs_combo.get_active_text())
+            fmt = getFormat(self._fsCombo.get_active_text())
             label_active = active and hasattr(fmt, "label")
 
-        label_entry = self.builder.get_object("labelEntry")
-        label_entry.set_sensitive(label_active)
+        self._labelEntry.set_sensitive(label_active)
 
     def on_fs_type_changed(self, combo):
         if not self._initialized:
@@ -2413,12 +2402,10 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             return
         log.debug("fs type changed: %s" % new_type)
         fmt = getFormat(new_type)
-        mountPointEntry = self.builder.get_object("mountPointEntry")
-        labelEntry = self.builder.get_object("labelEntry")
         # FIXME: can't set a label on an existing format as of now
-        labelEntry.set_sensitive(self._reformatCheckbox.get_active() and
-                                 hasattr(fmt, "label"))
-        mountPointEntry.set_sensitive(fmt.mountable)
+        self._labelEntry.set_sensitive(self._reformatCheckbox.get_active() and
+                                      hasattr(fmt, "label"))
+        self._mountPointEntry.set_sensitive(fmt.mountable)
 
     def _populate_container(self, device=None):
         """ Set up the vg widgets for lvm or hide them for other types. """
@@ -2531,19 +2518,16 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         # this has to be done before calling populate_raid since it will need
         # the raid level combo to contain the relevant raid levels for the new
         # device type
-        raidStoreFilter = self.builder.get_object("raidStoreFiltered")
-        raidStoreFilter.refilter()
+        self._raidStoreFilter.refilter()
 
         self._populate_raid(raid_level)
         self._populate_container()
 
-        nameEntry = self.builder.get_object("nameEntry")
-        nameEntry.set_sensitive(new_type in (DEVICE_TYPE_LVM, DEVICE_TYPE_MD))
-        nameEntry.set_text(self._device_name_dict[new_type])
+        self._nameEntry.set_sensitive(new_type in (DEVICE_TYPE_LVM, DEVICE_TYPE_MD))
+        self._nameEntry.set_text(self._device_name_dict[new_type])
 
         # begin btrfs magic
-        fsCombo = self.builder.get_object("fileSystemTypeCombo")
-        model = fsCombo.get_model()
+        model = self._fsCombo.get_model()
         btrfs_included = False
         btrfs_pos = None
         for idx, data in enumerate(model):
@@ -2551,22 +2535,22 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                 btrfs_included = True
                 btrfs_pos = idx
 
-        active_index = fsCombo.get_active()
-        fstype = fsCombo.get_active_text()
+        active_index = self._fsCombo.get_active()
+        fstype = self._fsCombo.get_active_text()
         if btrfs_included and not include_btrfs:
             for i in range(0, len(model)):
                 if fstype == "btrfs" and \
                    model[i][0] == self.storage.defaultFSType:
                     active_index = i
                     break
-            fsCombo.remove(btrfs_pos)
+            self._fsCombo.remove(btrfs_pos)
         elif include_btrfs and not btrfs_included:
-            fsCombo.append_text("btrfs")
-            active_index = len(fsCombo.get_model()) - 1
+            self._fsCombo.append_text("btrfs")
+            active_index = len(self._fsCombo.get_model()) - 1
 
-        fsCombo.set_active(active_index)
-        fsCombo.set_sensitive(self._reformatCheckbox.get_active() and
-                              fs_type_sensitive)
+        self._fsCombo.set_active(active_index)
+        self._fsCombo.set_sensitive(self._reformatCheckbox.get_active() and
+                                    fs_type_sensitive)
         # end btrfs magic
 
     def clear_errors(self):
