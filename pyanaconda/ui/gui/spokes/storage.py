@@ -416,8 +416,9 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         disksChanged = set(self._initial_selected_disks) != set(self.selected_disks)
         bootloaderChanged = not bool(self.data.bootloader.bootDrive) or \
                             self._initial_bootloader_disk != self.data.bootloader.bootDrive
+        autopartChanged = self.autopart != self.data.autopart.autopart
 
-        return disksChanged or bootloaderChanged
+        return disksChanged or bootloaderChanged or autopartChanged
 
     @property
     def completed(self):
@@ -766,7 +767,7 @@ class StorageSpoke(NormalSpoke, StorageChecker):
 
     def on_back_clicked(self, button):
         # Did the user change anything?  If not, this method is a no-op.
-        if not self.changed:
+        if not self.changed and self.autopart:
             NormalSpoke.on_back_clicked(self, button)
             return
 
