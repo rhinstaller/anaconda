@@ -2524,7 +2524,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         self._populate_raid(raid_level)
         self._populate_container()
 
-        fancy_set_sensitive(self._nameEntry, new_type in (DEVICE_TYPE_LVM, DEVICE_TYPE_MD))
+        fancy_set_sensitive(self._nameEntry, new_type in (DEVICE_TYPE_BTRFS, DEVICE_TYPE_LVM, DEVICE_TYPE_MD))
         self._nameEntry.set_text(self._device_name_dict[new_type])
 
         # begin btrfs magic
