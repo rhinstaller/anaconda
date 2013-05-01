@@ -1462,7 +1462,7 @@ class AnacondaKSParser(KickstartParser):
         self.registerSection(TracebackScriptSection(self.handler, dataObj=self.scriptClass))
         self.registerSection(PackageSection(self.handler))
         self.registerSection(AddonSection(self.handler))
-        
+
 def preScriptPass(f):
     # The first pass through kickstart file processing - look for %pre scripts
     # and run them.  This must come in a separate pass in case a script
@@ -1472,7 +1472,9 @@ def preScriptPass(f):
     try:
         ksparser.readKickstart(f)
     except KickstartError as e:
-        errorHandler.cb(KickstartError(), e)
+        # We do not have an interface here yet, so we cannot use our error
+        # handling callback.
+        print e
         sys.exit(1)
 
     # run %pre scripts
@@ -1497,7 +1499,9 @@ def parseKickstart(f):
     try:
         ksparser.readKickstart(f)
     except KickstartError as e:
-        errorHandler.cb(KickstartError(), e)
+        # We do not have an interface here yet, so we cannot use our error
+        # handling callback.
+        print e
         sys.exit(1)
 
     return handler
