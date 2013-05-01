@@ -23,10 +23,7 @@ from snack import *
 import string
 from constants_text import *
 from constants import *
-
-import gettext
-_ = lambda x: gettext.ldgettext("anaconda", x)
-P_ = lambda x, y, z: gettext.ldngettext("anaconda", x, y, z)
+from pyanaconda.i18n import _
 
 class WaitWindow:
     def pop(self):

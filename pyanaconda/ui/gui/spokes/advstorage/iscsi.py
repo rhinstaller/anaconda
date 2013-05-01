@@ -28,9 +28,7 @@ from pyanaconda import constants
 from pyanaconda.threads import threadMgr, AnacondaThread
 from pyanaconda.ui.gui import GUIObject
 from pyanaconda import nm
-
-import gettext
-_ = lambda x: gettext.ldgettext("anaconda", x)
+from pyanaconda.i18n import _
 
 __all__ = ["ISCSIDialog"]
 

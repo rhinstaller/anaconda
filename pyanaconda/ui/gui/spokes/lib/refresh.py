@@ -25,11 +25,9 @@ from gi.repository import GLib, Gtk
 from pyanaconda.threads import threadMgr, AnacondaThread
 from pyanaconda.ui.gui import GUIObject
 from pyanaconda import constants
+from pyanaconda.i18n import _
 
 from blivet import storageInitialize
-
-import gettext
-_ = lambda x: gettext.ldgettext("anaconda", x)
 
 __all__ = ["RefreshDialog"]
 

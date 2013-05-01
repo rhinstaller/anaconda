@@ -19,15 +19,13 @@
 # Red Hat Author(s): Chris Lumens <clumens@redhat.com>
 #
 
-import gettext
-_ = lambda x: gettext.ldgettext("anaconda", x)
-
 import os
 
 # pylint: disable-msg=E0611
 from gi.repository import GLib
 
 from pyanaconda.flags import flags
+from pyanaconda.i18n import _
 from pyanaconda.product import distributionText
 
 from pyanaconda.ui import common

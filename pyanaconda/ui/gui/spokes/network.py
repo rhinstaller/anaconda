@@ -34,6 +34,7 @@
 from gi.repository import Gtk, AnacondaWidgets
 
 from pyanaconda.flags import flags
+from pyanaconda.i18n import _, N_, P_
 from pyanaconda import constants
 from pyanaconda.ui.communication import hubQ
 from pyanaconda.ui.gui import GUIObject
@@ -57,11 +58,6 @@ dbus.mainloop.glib.DBusGMainLoop(set_as_default=True)
 import ctypes
 ctypes.cdll.LoadLibrary("libnm-util.so.2")
 nm_utils = ctypes.CDLL("libnm-util.so.2")
-
-import gettext
-_ = lambda x: gettext.ldgettext("anaconda", x)
-N_ = lambda x: x
-P_ = lambda x, y, z: gettext.ldngettext("anaconda", x, y, z)
 
 import logging
 log = logging.getLogger("anaconda")

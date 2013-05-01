@@ -38,10 +38,7 @@ from blivet.fcoe import fcoe
 import pyanaconda.network
 from pyanaconda.nm import nm_device_hwaddress
 from blivet import platform
-
-import gettext
-_ = lambda x: gettext.ldgettext("anaconda", x)
-N_ = lambda x: x
+from pyanaconda.i18n import _, N_
 
 import logging
 log = logging.getLogger("anaconda")

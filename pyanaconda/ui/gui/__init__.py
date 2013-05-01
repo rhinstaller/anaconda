@@ -24,15 +24,13 @@ import meh.ui.gui
 # pylint: disable-msg=E0611
 from gi.repository import Gdk, Gtk, AnacondaWidgets
 
+from pyanaconda.i18n import _
 from pyanaconda.product import distributionText, isFinal
 
 from pyanaconda.ui import UserInterface, common
 from pyanaconda.ui.gui.utils import enlightbox, gtk_action_wait
 from pyanaconda.product import isFinal, productName, productVersion
 import os.path
-
-import gettext
-_ = lambda x: gettext.ldgettext("anaconda", x)
 
 import logging
 log = logging.getLogger("anaconda")

@@ -18,8 +18,7 @@
 #
 
 from pyanaconda.constants import *
-import gettext
-_ = lambda x: gettext.ldgettext("anaconda", x)
+from pyanaconda.i18n import _, N_
 
 class Translator:
     """A simple class to facilitate on-the-fly translation for newt buttons"""

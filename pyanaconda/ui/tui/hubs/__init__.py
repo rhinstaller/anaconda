@@ -23,8 +23,7 @@ from pyanaconda.ui.tui.tuiobject import TUIObject
 from pyanaconda.ui.tui.spokes import collect_spokes
 from pyanaconda.ui import common
 
-import gettext
-_ = lambda x: gettext.ldgettext("anaconda", x)
+from pyanaconda.i18n import _
 
 class TUIHub(TUIObject, common.Hub):
     """Base Hub class implementing the pyanaconda.ui.common.Hub interface.

@@ -21,10 +21,7 @@
 
 from blivet.size import Size
 
-import gettext
-
-_ = lambda x: gettext.ldgettext("anaconda", x)
-N_ = lambda x: x
+from pyanaconda.i18n import _, N_
 
 import logging
 log = logging.getLogger("anaconda")

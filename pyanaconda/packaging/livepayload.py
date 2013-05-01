@@ -49,9 +49,7 @@ from pyanaconda.progress import progressQ
 from blivet.size import Size
 import blivet.util
 from pyanaconda.threads import threadMgr, AnacondaThread
-
-import gettext
-_ = lambda x: gettext.ldgettext("anaconda", x)
+from pyanaconda.i18n import _
 
 class LiveImagePayload(ImagePayload):
     """ A LivePayload copies the source image onto the target system. """

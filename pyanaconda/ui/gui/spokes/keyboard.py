@@ -20,10 +20,6 @@
 #                    Vratislav Podzimek <vpodzime@redhat.com>
 #
 
-import gettext
-_ = lambda x: gettext.ldgettext("anaconda", x)
-N_ = lambda x: x
-
 # pylint: disable-msg=E0611
 from gi.repository import GLib, Gkbd, Gtk, Gdk
 
@@ -33,6 +29,7 @@ from pyanaconda.ui.gui.categories.localization import LocalizationCategory
 from pyanaconda.ui.gui.utils import enlightbox, gtk_call_once
 from pyanaconda import keyboard
 from pyanaconda import flags
+from pyanaconda.i18n import _, N_
 
 __all__ = ["KeyboardSpoke"]
 

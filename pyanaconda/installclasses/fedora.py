@@ -22,10 +22,9 @@ from pyanaconda.constants import *
 from pyanaconda.product import *
 from pyanaconda import network
 from pyanaconda import nm
+from pyanaconda.i18n import _
 
 import os, types
-import gettext
-_ = lambda x: gettext.ldgettext("anaconda", x)
 
 class InstallClass(BaseInstallClass):
     # name has underscore used for mnemonics, strip if you dont need it

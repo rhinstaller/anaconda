@@ -71,6 +71,7 @@ from pyanaconda.flags import flags
 
 from pyanaconda import iutil
 from pyanaconda.iutil import ProxyString, ProxyStringError
+from pyanaconda.i18n import _
 from pyanaconda.nm import nm_is_connected
 from blivet.size import Size
 import blivet.util
@@ -79,9 +80,6 @@ import blivet.arch
 from pyanaconda.image import opticalInstallMedia
 from pyanaconda.image import mountImage
 from pyanaconda.image import findFirstIsoImage
-
-import gettext
-_ = lambda x: gettext.ldgettext("anaconda", x)
 
 from pyanaconda.errors import *
 from pyanaconda.packaging import NoSuchGroup, NoSuchPackage

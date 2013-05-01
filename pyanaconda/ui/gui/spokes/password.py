@@ -19,15 +19,11 @@
 # Red Hat Author(s): Jesse Keating <jkeating@redhat.com>
 #
 
-import gettext
-_ = lambda x: gettext.ldgettext("anaconda", x)
-N_ = lambda x: x
-
 from gi.repository import Gtk
 
+from pyanaconda.i18n import _, N_
 from pyanaconda.users import cryptPassword, validatePassword
 from pwquality import PWQError
-import string
 
 from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.gui.categories.user_settings import UserSettingsCategory

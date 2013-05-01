@@ -19,10 +19,9 @@
 # Author(s): Erik Troan <ewt@redhat.com>
 #
 
+from pyanaconda.i18n import _, N_
+
 import re
-import gettext
-_ = lambda x: gettext.ldgettext("anaconda", x)
-N_ = lambda x: x
 
 SELINUX_DEFAULT = 1
 

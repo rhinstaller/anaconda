@@ -41,9 +41,7 @@ import blivet.arch
 
 from pyanaconda import nm
 from pyanaconda.constants import NETWORK_CONNECTION_TIMEOUT
-
-import gettext
-_ = lambda x: gettext.ldgettext("anaconda", x)
+from pyanaconda.i18n import _
 
 import logging
 log = logging.getLogger("anaconda")

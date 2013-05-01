@@ -20,6 +20,7 @@
 #
 
 from pyanaconda import ui
+from pyanaconda.i18n import _
 from pyanaconda.ui import common
 from pyanaconda.ui.communication import hubQ
 from pyanaconda.flags import flags
@@ -33,9 +34,6 @@ import os
 import sys
 import site
 import meh.ui.text
-
-import gettext
-_ = lambda x: gettext.ldgettext("anaconda", x)
 
 def exception_msg_handler(event, data):
     """

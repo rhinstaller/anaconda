@@ -18,11 +18,9 @@
 #
 # Author(s): Hans de Goede <hdegoede@redhat.com>
 
-import gettext
 import sys
 
-_ = lambda x: gettext.ldgettext("anaconda", x)
-P_ = lambda x, y, z: gettext.ldngettext("anaconda", x, y, z)
+from pyanaconda.i18n import _
 
 import logging
 log = logging.getLogger("anaconda")

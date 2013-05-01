@@ -19,9 +19,8 @@
 # Red Hat Author(s): Chris Lumens <clumens@redhat.com>
 #
 
-N_ = lambda x: x
-
 import os.path
+from pyanaconda.i18n import N_
 from pyanaconda.ui.common import collect
 
 __all__ = ["SpokeCategory", "collect_categories"]

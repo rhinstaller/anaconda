@@ -20,10 +20,7 @@
 #                    Martin Sivak <msivak@redhat.com>
 #
 
-import gettext
 import time
-_ = lambda x: gettext.ldgettext("anaconda", x)
-N_ = lambda x: x
 
 import logging
 log = logging.getLogger("anaconda")
@@ -33,6 +30,7 @@ import os.path
 from gi.repository import AnacondaWidgets, GLib, Gtk
 
 from pyanaconda.flags import flags
+from pyanaconda.i18n import _, N_
 from pyanaconda.image import opticalInstallMedia, potentialHdisoSources
 from pyanaconda.ui.communication import hubQ
 from pyanaconda.ui.gui import GUIObject

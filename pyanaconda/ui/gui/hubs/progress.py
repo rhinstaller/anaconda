@@ -21,15 +21,13 @@
 
 from __future__ import division
 
-import gettext
-_ = lambda x: gettext.ldgettext("anaconda", x)
-
 from gi.repository import GLib, Gtk
 
 import itertools
 import os
 import sys
 
+from pyanaconda.i18n import _
 from pyanaconda.localization import expand_langs
 from pyanaconda.product import productName
 from pyanaconda.flags import flags

@@ -36,13 +36,11 @@ from tempfile import mkstemp
 from pyanaconda.bootloader import get_bootloader
 from pyanaconda import constants
 from pyanaconda import addons
+from pyanaconda.i18n import _
 
 import logging
 log = logging.getLogger("anaconda")
 stdoutLog = logging.getLogger("anaconda.stdout")
-
-import gettext
-_ = lambda x: gettext.ldgettext("anaconda", x)
 
 class Anaconda(object):
     def __init__(self):

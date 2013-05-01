@@ -27,9 +27,7 @@ from pyanaconda.progress import progress_report, progressQ
 from pyanaconda.users import createLuserConf, getPassAlgo, Users
 from pyanaconda import flags
 from pyanaconda import timezone
-
-import gettext
-_ = lambda x: gettext.ldgettext("anaconda", x)
+from pyanaconda.i18n import _
 
 def _writeKS(ksdata):
     import os

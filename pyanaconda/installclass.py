@@ -28,14 +28,12 @@ import string
 import imputil
 import types
 
+from pyanaconda.i18n import _
 from constants import *
 from product import *
 from blivet.partspec import *
 from blivet.devicelibs import swap
 from blivet.platform import platform
-
-import gettext
-_ = lambda x: gettext.ldgettext("anaconda", x)
 
 import logging
 log = logging.getLogger("anaconda")

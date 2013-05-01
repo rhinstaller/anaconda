@@ -22,11 +22,8 @@
 from pyanaconda.ui.tui.spokes import NormalTUISpoke
 from pyanaconda.ui.tui.simpleline import TextWidget, ColumnWidget
 from pyanaconda.constants import USEVNC, USETEXT
+from pyanaconda.i18n import _
 import getpass
-
-import gettext
-_ = lambda x: gettext.ldgettext("anaconda", x)
-
 
 class AskVNCSpoke(NormalTUISpoke):
     title = _("VNC")

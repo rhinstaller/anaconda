@@ -19,12 +19,9 @@
 # Red Hat Author(s): Radek Vykydal <rvykydal@redhat.com>
 #
 
-import gettext
-_ = lambda x: gettext.ldgettext("anaconda", x)
-N_ = lambda x: x
-
 from gi.repository import Gtk, Pango
 from pyanaconda.flags import flags
+from pyanaconda.i18n import _, N_
 from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.gui.categories.localization import LocalizationCategory
 from pyanaconda.localization import Language, LOCALE_PREFERENCES, expand_langs

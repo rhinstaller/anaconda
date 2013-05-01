@@ -1,6 +1,6 @@
-# Software category classes
+# Translation functions we use all over the place
 #
-# Copyright (C) 2011  Red Hat, Inc.
+# Copyright (C) 2013  Red Hat, Inc.
 #
 # This copyrighted material is made available to anyone wishing to use,
 # modify, copy, or redistribute it subject to the terms and conditions of
@@ -19,12 +19,10 @@
 # Red Hat Author(s): Chris Lumens <clumens@redhat.com>
 #
 
-from pyanaconda.i18n import N_
-from pyanaconda.ui.gui.categories import SpokeCategory
-from pyanaconda.ui.gui.hubs.summary import SummaryHub
+__all__ = ["_", "N_", "P_"]
 
-__all__ = ["SoftwareCategory"]
+import gettext
 
-class SoftwareCategory(SpokeCategory):
-    displayOnHub = SummaryHub
-    title = N_("SOFTWARE")
+_ = lambda x: gettext.ldgettext("anaconda", x)
+N_ = lambda x: x
+P_ = lambda x, y, z: gettext.ldngettext("anaconda", x, y, z)

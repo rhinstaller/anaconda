@@ -39,9 +39,7 @@ import network
 import subprocess
 from pykickstart.constants import *
 import meh.ui.text
-
-import gettext
-_ = lambda x: gettext.ldgettext("anaconda", x)
+from pyanaconda.i18n import _
 
 import logging
 log = logging.getLogger("anaconda")

@@ -20,8 +20,7 @@
 import ConfigParser
 import os
 
-import gettext
-_ = lambda x: gettext.ldgettext("anaconda", x)
+from pyanaconda.i18n import _
 
 # First, load in the defaults.  In order of precedence:  contents of
 # .buildstamp, environment, stupid last ditch hardcoded defaults.

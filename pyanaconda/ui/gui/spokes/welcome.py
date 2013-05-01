@@ -22,10 +22,6 @@
 import sys
 import re
 
-import gettext
-_ = lambda x: gettext.ldgettext("anaconda", x)
-N_ = lambda x: x
-
 # pylint: disable-msg=E0611
 from gi.repository import AnacondaWidgets, Gtk, Pango
 from pyanaconda.ui.gui.hubs.summary import SummaryHub
@@ -38,6 +34,7 @@ from pyanaconda import keyboard
 from pyanaconda import timezone
 from pyanaconda import flags
 from pyanaconda import geoloc
+from pyanaconda.i18n import _, N_
 
 import logging
 log = logging.getLogger("anaconda")

@@ -61,16 +61,12 @@ from blivet.platform import platform
 from pyanaconda.threads import threadMgr, AnacondaThread
 from pyanaconda.product import productName
 from pyanaconda.flags import flags
+from pyanaconda.i18n import _, N_, P_
 from pyanaconda import constants
 
 from pykickstart.constants import *
 
-import gettext
 import sys
-
-_ = lambda x: gettext.ldgettext("anaconda", x)
-N_ = lambda x: x
-P_ = lambda x, y, z: gettext.ldngettext("anaconda", x, y, z)
 
 import logging
 log = logging.getLogger("anaconda")

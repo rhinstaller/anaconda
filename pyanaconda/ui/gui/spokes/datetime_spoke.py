@@ -19,10 +19,6 @@
 # Red Hat Author(s): Vratislav Podzimek <vpodzime@redhat.com>
 #
 
-import gettext
-_ = lambda x: gettext.ldgettext("anaconda", x)
-N_ = lambda x: x
-
 import logging
 log = logging.getLogger("anaconda")
 
@@ -36,6 +32,7 @@ from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.gui.categories.localization import LocalizationCategory
 from pyanaconda.ui.gui.utils import enlightbox, gtk_action_nowait, gtk_action_wait, gtk_call_once
 
+from pyanaconda.i18n import _, N_
 from pyanaconda import timezone
 from pyanaconda.timezone import NTP_SERVICE
 from pyanaconda import iutil

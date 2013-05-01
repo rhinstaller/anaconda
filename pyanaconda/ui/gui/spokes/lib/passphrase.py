@@ -28,10 +28,7 @@ import pwquality
 from pyanaconda.ui.gui import GUIObject
 
 from pyanaconda import keyboard
-
-_ = lambda x: gettext.ldgettext("anaconda", x)
-N_ = lambda x: x
-P_ = lambda x, y, z: gettext.ldngettext("anaconda", x, y, z)
+from pyanaconda.i18n import _, N_, P_
 
 __all__ = ["PassphraseDialog"]
 

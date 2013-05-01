@@ -20,11 +20,9 @@
 # Red Hat Author(s): Chris Lumens <clumens@redhat.com>
 #
 
-import gettext
-_ = lambda x: gettext.ldgettext("anaconda", x)
-
 from blivet.size import Size
 
+from pyanaconda.i18n import _
 from pyanaconda.product import productName, productVersion
 
 from gi.repository.AnacondaWidgets import MountpointSelector

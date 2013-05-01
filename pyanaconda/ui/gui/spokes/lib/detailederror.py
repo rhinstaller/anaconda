@@ -21,10 +21,8 @@
 
 from gi.repository import Gtk
 
+from pyanaconda.i18n import _
 from pyanaconda.ui.gui import GUIObject
-
-import gettext
-_ = lambda x: gettext.ldgettext("anaconda", x)
 
 __all__ = ["DetailedErrorDialog"]
 

@@ -22,14 +22,10 @@
 
 from gi.repository import Gtk
 
+from pyanaconda.i18n import _, P_
 from pyanaconda.ui.lib.disks import size_str
 from pyanaconda.ui.gui import GUIObject
 from blivet.size import Size
-
-import gettext
-
-_ = lambda x: gettext.ldgettext("anaconda", x)
-P_ = lambda x, y, z: gettext.ldngettext("anaconda", x, y, z)
 
 __all__ = ["SelectedDisksDialog"]
 

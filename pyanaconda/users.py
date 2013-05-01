@@ -30,12 +30,10 @@ import iutil
 import pwquality
 from pyanaconda.constants import ROOT_PATH
 from pyanaconda.iutil import strip_accents
+from pyanaconda.i18n import _
 
 import logging
 log = logging.getLogger("anaconda")
-
-import gettext
-_ = lambda x: gettext.ldgettext("anaconda", x)
 
 def createLuserConf(instPath, algoname='sha512'):
     """ Writes a libuser.conf for instPath.

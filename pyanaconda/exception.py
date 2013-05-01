@@ -36,16 +36,13 @@ import blivet.errors
 from pyanaconda.ui.communication import hubQ
 from pyanaconda.constants import ROOT_PATH, THREAD_EXCEPTION_HANDLING_TEST
 from pyanaconda.threads import threadMgr
+from pyanaconda.i18n import _
 
 # pylint: disable-msg=E0611
 from gi.repository import GLib
 
 import logging
 log = logging.getLogger("anaconda")
-
-import gettext
-_ = lambda x: gettext.ldgettext("anaconda", x)
-
 
 class AnacondaExceptionHandler(ExceptionHandler):
 

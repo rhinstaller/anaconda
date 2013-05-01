@@ -19,10 +19,9 @@
 # Red Hat Author(s): Martin Sivak <msivak@redhat.com>
 #
 
+from pyanaconda.i18n import _
 from pyanaconda.ui import common
 import simpleline as tui
-import gettext
-_ = lambda x: gettext.ldgettext("anaconda", x)
 
 class ErrorDialog(tui.UIScreen):
     """Dialog screen for reporting errors to user."""

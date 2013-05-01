@@ -26,9 +26,7 @@ from pwquality import PWQError
 import re
 from collections import namedtuple
 from pyanaconda.iutil import setdeepattr, getdeepattr
-
-import gettext
-_ = lambda x: gettext.ldgettext("anaconda", x)
+from pyanaconda.i18n import _
 
 __all__ = ["TUISpoke", "EditTUISpoke", "EditTUIDialog", "EditTUISpokeEntry", "StandaloneSpoke", "NormalSpoke", "PersonalizationSpoke",
            "collect_spokes", "collect_categories"]

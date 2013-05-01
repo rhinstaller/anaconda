@@ -32,10 +32,8 @@ from threading import Thread
 from Queue import Queue, Empty
 
 from flags import flags
+from pyanaconda.i18n import _
 from constants import *
-
-import gettext
-_ = lambda x: gettext.ldgettext("anaconda", x)
 
 import logging
 log = logging.getLogger("anaconda")

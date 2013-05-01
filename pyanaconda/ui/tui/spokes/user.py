@@ -25,11 +25,9 @@ from pyanaconda.ui.common import FirstbootSpokeMixIn
 from pyanaconda.ui.tui.simpleline import TextWidget
 from pyanaconda.ui.tui import YesNoDialog
 from pyanaconda.users import guess_username
+from pyanaconda.i18n import _
 
 import re
-import gettext
-
-_ = lambda x: gettext.ldgettext("anaconda", x)
 
 __all__ = ["UserSpoke"]
 

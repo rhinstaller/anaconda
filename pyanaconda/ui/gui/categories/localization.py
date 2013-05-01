@@ -19,8 +19,7 @@
 # Red Hat Author(s): Chris Lumens <clumens@redhat.com>
 #
 
-N_ = lambda x: x
-
+from pyanaconda.i18n import N_
 from pyanaconda.ui.gui.categories import SpokeCategory
 from pyanaconda.ui.gui.hubs.summary import SummaryHub
 

@@ -22,10 +22,8 @@
 import time
 import sys
 
-import gettext
-_ = lambda x: gettext.ldgettext("anaconda", x)
-
 from pyanaconda.flags import flags
+from pyanaconda.i18n import _
 from pyanaconda.constants import THREAD_INSTALL, THREAD_CONFIGURATION
 from pykickstart.constants import KS_SHUTDOWN, KS_REBOOT
 

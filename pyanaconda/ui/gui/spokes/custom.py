@@ -27,16 +27,12 @@
 # - Tabbing behavior in the accordion is weird.
 # - Implement striping and mirroring for LVM.
 
-import gettext
-_ = lambda x: gettext.ldgettext("anaconda", x)
-N_ = lambda x: x
-P_ = lambda x, y, z: gettext.ldngettext("anaconda", x, y, z)
-
 from contextlib import contextmanager
 import re
 
 from pykickstart.constants import *
 
+from pyanaconda.i18n import _, N_, P_
 from pyanaconda.product import productName, productVersion
 from pyanaconda.threads import AnacondaThread, threadMgr
 from pyanaconda.constants import THREAD_EXECUTE_STORAGE, THREAD_STORAGE, THREAD_CUSTOM_STORAGE_INIT

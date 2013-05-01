@@ -18,9 +18,7 @@
 #
 # Author(s): Chris Lumens <clumens@redhat.com>
 
-import gettext
-_ = lambda x: gettext.ldgettext("anaconda", x)
-
+from pyanaconda.i18n import _
 from pyanaconda.ui.tui import TextUserInterface
 
 __all__ = ["ERROR_RAISE", "ERROR_CONTINUE", "ERROR_RETRY",

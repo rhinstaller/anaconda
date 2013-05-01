@@ -54,6 +54,7 @@ from pyanaconda import nm
 from pyanaconda.simpleconfig import SimpleConfigFile
 from pyanaconda.users import getPassAlgo
 from pyanaconda.desktop import Desktop
+from pyanaconda.i18n import _
 from .ui.common import collect
 from .addons import AddonSection, AddonData, AddonRegistry, collect_addon_paths
 
@@ -64,9 +65,6 @@ from pykickstart.parser import KickstartParser
 from pykickstart.parser import Script as KSScript
 from pykickstart.sections import *
 from pykickstart.version import returnClassForVersion
-
-import gettext
-_ = lambda x: gettext.ldgettext("anaconda", x)
 
 import logging
 log = logging.getLogger("anaconda")

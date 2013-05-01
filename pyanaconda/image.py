@@ -21,13 +21,11 @@ import isys
 import os, os.path, stat, sys
 from constants import *
 
+from pyanaconda.i18n import _
 from errors import *
 
 import blivet.util
 import blivet.arch
-
-import gettext
-_ = lambda x: gettext.ldgettext("anaconda", x)
 
 import logging
 log = logging.getLogger("anaconda")

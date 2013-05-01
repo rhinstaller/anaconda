@@ -22,11 +22,9 @@
 
 from pyanaconda.ui.tui.hubs import TUIHub
 from pyanaconda.flags import flags
+from pyanaconda.i18n import _
 import sys
 import time
-
-import gettext
-_ = lambda x: gettext.ldgettext("anaconda", x)
 
 class SummaryHub(TUIHub):
     title = _("Installation")

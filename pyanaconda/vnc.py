@@ -28,12 +28,9 @@ import socket
 import subprocess
 import iutil
 
+from pyanaconda.i18n import _, P_
 from pyanaconda.ui.tui.simpleline import App
 from pyanaconda.ui.tui.spokes.askvnc import VNCPassSpoke
-
-import gettext
-_ = lambda x: gettext.ldgettext("anaconda", x)
-P_ = lambda x, y, z: gettext.ldngettext("anaconda", x, y, z)
 
 import logging
 log = logging.getLogger("anaconda")

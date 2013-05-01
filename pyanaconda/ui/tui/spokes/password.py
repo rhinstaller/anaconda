@@ -24,10 +24,7 @@ from pyanaconda.ui.tui.spokes import EditTUIDialog, EditTUISpokeEntry
 from pyanaconda.ui.common import FirstbootSpokeMixIn
 from pyanaconda.ui.tui.simpleline import TextWidget
 from pyanaconda.users import cryptPassword
-
-import gettext
-_ = lambda x: gettext.ldgettext("anaconda", x)
-
+from pyanaconda.i18n import _
 
 class PasswordSpoke(FirstbootSpokeMixIn, EditTUIDialog):
     title = _("Set root password")

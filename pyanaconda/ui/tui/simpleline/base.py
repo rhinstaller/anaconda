@@ -29,10 +29,7 @@ import threading
 from pyanaconda.threads import threadMgr, AnacondaThread
 from pyanaconda.ui.communication import hubQ
 from pyanaconda import constants
-
-import gettext
-_ = lambda x: gettext.ldgettext("anaconda", x)
-N_ = lambda x: x
+from pyanaconda.i18n import _, N_
 
 RAW_INPUT_LOCK = threading.Lock()
 
