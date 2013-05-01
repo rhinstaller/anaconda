@@ -49,6 +49,8 @@ from blivet.devicefactory import DEVICE_TYPE_PARTITION
 from blivet.devicefactory import DEVICE_TYPE_MD
 from blivet.devicefactory import DEVICE_TYPE_DISK
 from blivet.devicefactory import get_raid_level
+from blivet.devicefactory import SIZE_POLICY_AUTO
+from blivet.devicefactory import SIZE_POLICY_MAX
 from blivet import findExistingInstallations
 from blivet.partitioning import doPartitioning
 from blivet.partitioning import doAutoPartition
@@ -352,7 +354,8 @@ class ContainerDialog(GUIObject):
     builderObjects = ["container_dialog", "disk_store", "container_disk_view",
                       "containerRaidStoreFiltered", "containerRaidLevelLabel",
                       "containerRaidLevelCombo", "raidLevelStore",
-                      "containerEncryptedCheckbox"]
+                      "containerSizeCombo", "containerSizeEntry",
+                      "containerSizeLabel", "containerEncryptedCheckbox"]
     mainWidgetName = "container_dialog"
     uiFile = "spokes/custom.glade"
 
@@ -368,6 +371,9 @@ class ContainerDialog(GUIObject):
         self.raid_level = kwargs.pop("raid_level", None) or None # not ""
         self.encrypted = kwargs.pop("encrypted", False)
         self.exists = kwargs.pop("exists", False)
+
+        self.size_policy = kwargs.pop("size_policy", SIZE_POLICY_AUTO)
+        self.size = kwargs.pop("size", 0)
 
         self._error = None
         GUIObject.__init__(self, *args, **kwargs)
@@ -386,7 +392,6 @@ class ContainerDialog(GUIObject):
         # populate the dialog widgets
         name_entry = self.builder.get_object("container_name_entry")
         name_entry.set_text(self.name)
-        fancy_set_sensitive(name_entry, not self.exists)
 
         self._store = self.builder.get_object("disk_store")
         # populate the store
@@ -410,12 +415,9 @@ class ContainerDialog(GUIObject):
 
             itr = model.iter_next(itr)
 
-        treeview.set_sensitive(not self.exists)
-
         # XXX how will this be related to the device encryption setting?
         encryptCheckbutton = self.builder.get_object("containerEncryptedCheckbox")
         encryptCheckbutton.set_active(self.encrypted)
-        encryptCheckbutton.set_sensitive(not self.exists)
 
         # set up the raid level combo
         # XXX how will this be related to the device raid level setting?
@@ -423,6 +425,25 @@ class ContainerDialog(GUIObject):
         raidStoreFilter.set_visible_func(self._raid_level_visible)
         raidStoreFilter.refilter()
         self._populate_raid()
+
+        self.sizeCombo = self.builder.get_object("containerSizeCombo")
+        self.sizeEntry = self.builder.get_object("containerSizeEntry")
+        self.sizeLabel = self.builder.get_object("containerSizeLabel")
+        size = Size(spec="%d mb" % self.size)
+        self.sizeEntry.set_text(size.humanReadable(max_places=None))
+        if self.size_policy == SIZE_POLICY_AUTO:
+            self.sizeCombo.set_active(0)
+        elif self.size_policy == SIZE_POLICY_MAX:
+            self.sizeCombo.set_active(1)
+        else:
+            self.sizeCombo.set_active(2)
+
+        if self.exists:
+            fancy_set_sensitive(name_entry, False)
+            treeview.set_sensitive(False)
+            fancy_set_sensitive(encryptCheckbutton, False)
+            fancy_set_sensitive(self.sizeCombo, False)
+            self.sizeEntry.set_sensitive(False)
 
     def on_cancel_clicked(self, button):
         self.window.destroy()
@@ -459,6 +480,20 @@ class ContainerDialog(GUIObject):
                 self.window.show_all()
                 return
 
+        idx = self.sizeCombo.get_active()
+        if idx == 0:
+            size = SIZE_POLICY_AUTO
+        elif idx == 1:
+            size = SIZE_POLICY_MAX
+        elif idx == 2:
+            size = size_from_entry(self.sizeEntry)
+            if size:
+                size = int(size.convertTo(spec="MB"))
+            elif size is None:
+                size = SIZE_POLICY_MAX
+
+        # now save the changes
+
         self.selected = []
         for path in paths:
             itr = model.get_iter(path)
@@ -468,6 +503,7 @@ class ContainerDialog(GUIObject):
         self.name = name
         self.raid_level = raid_level
         self.encrypted = self.builder.get_object("containerEncryptedCheckbox").get_active()
+        self.size_policy = size
 
         self.builder.get_object("containerErrorLabel").set_text("")
         self.window.destroy()
@@ -478,6 +514,15 @@ class ContainerDialog(GUIObject):
             rc = self.window.run()
             if not self._error:
                 return rc
+
+    def on_size_changed(self, combo):
+        active_index = combo.get_active()
+        if active_index == 0:
+            self.sizeEntry.set_sensitive(False)
+        elif active_index == 1:
+            self.sizeEntry.set_sensitive(False)
+        else:
+            self.sizeEntry.set_sensitive(True)
 
     def _raid_level_visible(self, model, itr, user_data):
         # This is weird because for lvm's container-wide raid we use md.
@@ -563,6 +608,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         self._device_disks = []
         self._device_container_name = None
         self._device_container_raid_level = None
+        self._device_container_size = SIZE_POLICY_AUTO
         self._device_name_dict = {DEVICE_TYPE_LVM: None,
                                   DEVICE_TYPE_MD: None,
                                   DEVICE_TYPE_PARTITION: "",
@@ -1109,7 +1155,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
         # RAID LEVEL
         raid_level = self._get_raid_level()
-        old_raid_level = devicefactory.get_raid_level(device)
+        old_raid_level = get_raid_level(device)
         changed_raid_level = (old_device_type == device_type and
                               device_type in (DEVICE_TYPE_MD,
                                               DEVICE_TYPE_BTRFS) and
@@ -1166,12 +1212,15 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         old_container_encrypted = False
         old_container_raid_level = None
         old_container = None
+        old_container_size = SIZE_POLICY_AUTO
         if not changed_device_type:
             old_container = factory.get_container(device=use_dev)
             if old_container:
                 old_container_name = old_container.name
                 old_container_encrypted = old_container.encrypted
                 old_container_raid_level = get_raid_level(old_container)
+                old_container_size = getattr(old_container, "size_policy",
+                                                            old_container.size)
 
             container = factory.get_container(name=container_name)
             if old_container and container_name != old_container.name:
@@ -1189,6 +1238,11 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         log.debug("old container raid level: %s" % old_container_raid_level)
         log.debug("new container raid level: %s" % container_raid_level)
         changed_container_raid_level = (old_container_raid_level != container_raid_level)
+
+        container_size = self._device_container_size
+        log.debug("old container size request: %s" % old_container_size)
+        log.debug("new container size request: %s" % container_size)
+        changed_container_size = (old_container_size != container_size)
 
         # DISK SET
         old_disks = device.disks
@@ -1208,8 +1262,9 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         changed = (changed_name or changed_size or changed_device_type or
                    changed_label or changed_mountpoint or changed_disk_set or
                    changed_encryption or changed_raid_level or
+                   changed_fs_type or
                    changed_container or changed_container_encrypted or
-                   changed_container_raid_level)
+                   changed_container_raid_level or changed_container_size)
 
         if not use_dev.exists:
             if not changed:
@@ -1244,6 +1299,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                                          container_name=container_name,
                                          container_encrypted=container_encrypted,
                                          container_raid_level=container_raid_level,
+                                         container_size=container_size,
                                          device=_device,
                                          selector=selector)
                 except StorageError as e:
@@ -1271,6 +1327,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                                                  container_name=old_container_name,
                                                  container_encrypted=old_container_encrypted,
                                                  container_raid_level=old_container_raid_level,
+                                                 container_size=old_container_size,
                                                  selector=selector)
                         except StorageError as e:
                             # failed to recover.
@@ -1545,18 +1602,22 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             self._device_container_name = use_dev.vg.name
             self._device_container_raid_level = get_raid_level(use_dev.vg)
             self._device_container_encrypted = use_dev.vg.encrypted
+            self._device_container_size = use_dev.vg.size_policy
         elif hasattr(use_dev, "volume"):
             self._device_container_name = use_dev.volume.name
             self._device_container_raid_level = get_raid_level(use_dev.volume)
             self._device_container_encrypted = use_dev.volume.encrypted
+            self._device_container_size = use_dev.volume.size_policy
         else:
             self._device_container_name = None
             self._device_container_raid_level = None
             self._device_container_encrypted = False
+            self._device_container_size = SIZE_POLICY_AUTO
 
         log.debug("updated device_container_name to %s" % self._device_container_name)
         log.debug("updated device_container_raid_level to %s" % self._device_container_raid_level)
         log.debug("updated device_container_encrypted to %s" % self._device_container_encrypted)
+        log.debug("updated device_container_size to %s" % self._device_container_size)
 
         selectedDeviceLabel.set_text(selector.props.name)
         selectedDeviceDescLabel.set_text(self._description(selector.props.name))
@@ -1815,7 +1876,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         # button or wait until we have a way to control container-level
         # encryption.
         encrypted = self.data.autopart.encrypted
-        encrypt_container = False
 
         # we're doing nothing here to ensure that bootable requests end up on
         # the boot disk, but the weight from platform should take care of this
@@ -1847,10 +1907,14 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             factory = devicefactory.get_device_factory(self.__storage,
                                                      device_type, size)
             container = factory.get_container()
+            kwargs = {}
             if container:
                 # don't override user-initiated changes to a defined container
-                encrypt_container = container.encrypted
                 disks = container.disks
+                kwargs = {"container_encrypted": container.encrypted,
+                          "container_raid_level": get_raid_level(container),
+                          "container_size": getattr(container, "size_policy",
+                                                               container.size)}
 
             try:
                 self.__storage.factoryDevice(device_type,
@@ -1858,14 +1922,20 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                                          fstype=fstype,
                                          mountpoint=mountpoint,
                                          encrypted=encrypted,
-                                         container_encrypted=encrypt_container,
-                                         disks=disks)
+                                         disks=disks,
+                                         **kwargs)
             except StorageError as e:
                 log.error("factoryDevice failed: %s" % e)
                 log.debug("trying to find an existing container to use")
                 container = factory.get_container(allow_existing=True)
                 log.debug("found container %s" % container)
                 if container:
+                    # don't override user-initiated changes to a defined container
+                    disks = container.disks
+                    kwargs = {"container_encrypted": container.encrypted,
+                              "container_raid_level": get_raid_level(container),
+                              "container_size": getattr(container, "size_policy",
+                                                                   container.size)}
                     try:
                         self.__storage.factoryDevice(device_type,
                                                  size=size,
@@ -1873,7 +1943,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                                                  mountpoint=mountpoint,
                                                  encrypted=encrypted,
                                                  disks=disks,
-                                                 container_name=container.name)
+                                                 container_name=container.name,
+                                                 **kwargs)
                     except StorageError as e2:
                         log.error("factoryDevice failed w/ old container: %s" % e2)
                     else:
@@ -1941,21 +2012,26 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         if hasattr(device, "vg"):
             container = device.vg
             device_type = DEVICE_TYPE_LVM
-            raid_level = None
         elif hasattr(device, "volume"):
             container = device.volume
             device_type = DEVICE_TYPE_BTRFS
-            raid_level = container.dataLevel
 
+        # adjust container to size of remaining devices, if auto-sized
         if container and not container.exists and \
-           self.__storage.devicetree.getChildren(container):
-            # adjust container to size of remaining devices
+           self.__storage.devicetree.getChildren(container) and \
+           container.size_policy == SIZE_POLICY_AUTO:
+            cont_encrypted = container.encrypted
+            cont_raid = get_raid_level(container)
+            cont_size = container.size_policy
+            cont_name = container.name
             with ui_storage_logger():
                 factory = devicefactory.get_device_factory(self.__storage,
-                                                          device_type, 0,
-                                                          disks=container.disks,
-                                                          container_encrypted=container.encrypted,
-                                                          raid_level=raid_level)
+                                            device_type, 0,
+                                            disks=container.disks,
+                                            container_name=cont_name,
+                                            container_encrypted=cont_encrypted,
+                                            container_raid_level=cont_raid,
+                                            container_size=cont_size)
                 factory.configure()
 
         # if this device has parents with no other children, remove them too
@@ -2096,18 +2172,27 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         self._populate_raid(self._get_raid_level())
 
     def run_container_editor(self, container=None, name=None):
+        size = 0
+        size_policy = self._device_container_size
         if container:
             container_name = container.name
             raid_level = get_raid_level(container)
+            size = container.size
+            size_policy = container.size_policy
         elif name:
             container_name = name
             raid_level = None
+            if name != self._device_container_name:
+                # creating a new container -- switch to the default
+                size_policy = SIZE_POLICY_AUTO
 
         dialog = ContainerDialog(self.data,
                                  device_type=self._get_current_device_type(),
                                  name=container_name,
                                  raid_level=self._device_container_raid_level,
                                  encrypted=self._device_container_encrypted,
+                                 size_policy=size_policy,
+                                 size=size,
                                  disks=self._clearpartDevices,
                                  free=self._currentFreeInfo,
                                  selected=self._device_disks,
@@ -2144,11 +2229,13 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
         log.debug("new container raid level: %s" % dialog.raid_level)
         log.debug("new container encrypted: %s" % dialog.encrypted)
+        log.debug("new container size: %s" % dialog.size_policy)
 
         self._device_disks = disks
         self._device_container_name = name
         self._device_container_raid_level = dialog.raid_level
         self._device_container_encrypted = dialog.encrypted
+        self._device_container_size = dialog.size_policy
 
     def on_modify_container_clicked(self, button):
         container_name = self.builder.get_object("containerCombo").get_active_text()
@@ -2170,7 +2257,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                 self.__storage.devicetree.names.remove(container.name)
                 self.__storage.devicetree.names.append(self._device_container_name)
 
-            container.name = self._device_container_name
+            # until there's a setter for btrfs volume name 
+            container._name = self._device_container_name
 
         container_combo = self.builder.get_object("containerCombo")
         for idx, data in enumerate(container_combo.get_model()):
@@ -2215,9 +2303,12 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         if container:
             self._device_container_raid_level = get_raid_level(container)
             self._device_container_encrypted = container.encrypted
+            self._device_container_size = getattr(container, "size_policy",
+                                                             container.size)
         else:
             self._device_container_raid_level = None
             self._device_container_encrypted = self.data.autopart.encrypted
+            self._device_container_size = SIZE_POLICY_AUTO
 
         self.builder.get_object("modifyContainerButton").set_sensitive(not container_exists)
 
@@ -2348,6 +2439,10 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                 self.window.show_all()
             else:
                 self._devices = self.__storage.devices
+                # mark all new containers for automatic size management
+                for device in self._devices:
+                    if not device.exists and hasattr(device, "size_policy"):
+                        device.size_policy = SIZE_POLICY_AUTO
             finally:
                 self.__storage.doAutoPart = False
                 log.debug("finished automatic partitioning")
@@ -2426,6 +2521,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         container_combo = self.builder.get_object("containerCombo")
         container_button = self.builder.get_object("modifyContainerButton")
         container_label = self.builder.get_object("containerLabel")
+        container_size_policy = SIZE_POLICY_AUTO
         if device_type in (DEVICE_TYPE_LVM, DEVICE_TYPE_BTRFS):
             # set up the vg widgets and then bail out
             if devicefactory.get_device_type(device) == device_type:
@@ -2439,6 +2535,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                                                          0)
                 container = factory.get_container(device=_device)
                 default_container = getattr(container, "name", None)
+                if container:
+                    container_size_policy = container.size_policy
 
             container_type_text = container_type_names[device_type]
             container_label.set_text(container_type_text.title())
@@ -2461,6 +2559,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
             log.debug("default container is %s" % default_container)
             self._device_container_name = default_container
+            self._device_container_size = container_size_policy
 
             if not default_seen:
                 container_combo.append_text(default_container)
