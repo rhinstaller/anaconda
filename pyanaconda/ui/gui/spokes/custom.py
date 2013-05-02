@@ -681,6 +681,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         self._reformatCheckbox = self.builder.get_object("reformatCheckbox")
         self._sizeEntry = self.builder.get_object("sizeEntry")
         self._typeCombo = self.builder.get_object("deviceTypeCombo")
+        self._modifyContainerButton = self.builder.get_object("modifyContainerButton")
 
         # Stores
         self._raidStoreFilter = self.builder.get_object("raidStoreFiltered")
@@ -2260,6 +2261,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             # until there's a setter for btrfs volume name 
             container._name = self._device_container_name
 
+        container_exists = getattr(container, "exists", False)
         container_combo = self.builder.get_object("containerCombo")
         for idx, data in enumerate(container_combo.get_model()):
             # we're looking for the original vg name
@@ -2267,6 +2269,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                 container_combo.remove(idx)
                 container_combo.insert_text(idx, self._device_container_name)
                 container_combo.set_active(idx)
+                self._modifyContainerButton.set_sensitive(not container_exists)
                 break
 
         self._update_selectors()
@@ -2277,8 +2280,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         if container_name is None:
             return
 
-        if container_name == combo.get_active_text():
-            log.debug("spurious call -- bailing")
+        if self._device_container_name == container_name:
             return
 
         device_type = self._get_current_device_type()
@@ -2310,7 +2312,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             self._device_container_encrypted = self.data.autopart.encrypted
             self._device_container_size = SIZE_POLICY_AUTO
 
-        self.builder.get_object("modifyContainerButton").set_sensitive(not container_exists)
+        self._modifyContainerButton.set_sensitive(not container_exists)
 
     def _save_current_selector(self):
         log.debug("current selector: %s" % self._current_selector._device)
@@ -2519,7 +2521,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                 device = device.slave
 
         container_combo = self.builder.get_object("containerCombo")
-        container_button = self.builder.get_object("modifyContainerButton")
         container_label = self.builder.get_object("containerLabel")
         container_size_policy = SIZE_POLICY_AUTO
         if device_type in (DEVICE_TYPE_LVM, DEVICE_TYPE_BTRFS):
@@ -2569,13 +2570,15 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             if default_container is None:
                 container_combo.set_active(len(container_combo.get_model()) - 1)
 
-            map(really_show, [container_label, container_combo, container_button])
+            map(really_show, [container_label, container_combo, self._modifyContainerButton])
 
             # make the combo and button insensitive for existing LVs
             can_change_container = (device is not None and not device.exists)
             fancy_set_sensitive(container_combo, can_change_container)
+            container_exists = getattr(container, "exists", False)
+            self._modifyContainerButton.set_sensitive(not container_exists)
         else:
-            map(really_hide, [container_label, container_combo, container_button])
+            map(really_hide, [container_label, container_combo, self._modifyContainerButton])
 
     def on_device_type_changed(self, combo):
         if not self._initialized:
