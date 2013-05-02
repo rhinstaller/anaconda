@@ -27,6 +27,7 @@ log = logging.getLogger("anaconda")
 
 import os.path
 
+# pylint: disable-msg=E0611
 from gi.repository import AnacondaWidgets, GLib, Gtk
 
 from pyanaconda.flags import flags
@@ -347,10 +348,10 @@ class SourceSpoke(NormalSpoke):
             # revisited.
             if self._ftp_active() and not url.startswith("ftp://"):
                 url = "ftp://" + url
-            elif self._protocolComboBox.get_active() == 1 and not url.startswith("http://"):
+            elif self._protocolComboBox.get_active() == PROTOCOL_HTTP and not url.startswith("http://"):
                 url = "http://" + url
                 mirrorlist = self._mirrorlistCheckbox.get_active()
-            elif self._protocolComboBox.get_active() == 2 and not url.startswith("https://"):
+            elif self._protocolComboBox.get_active() == PROTOCOL_HTTPS and not url.startswith("https://"):
                 url = "https://" + url
                 mirrorlist = self._mirrorlistCheckbox.get_active()
 
