@@ -93,7 +93,7 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalSpoke):
                             if "wheel" in user.groups)
 
     def apply(self):
-        if self._password == "" and self._kickstarted:
+        if self._password is None and self._kickstarted:
             return
 
         self.data.rootpw.password = cryptPassword(self._password)
