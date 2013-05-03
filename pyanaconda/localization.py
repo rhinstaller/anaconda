@@ -24,6 +24,8 @@ import gettext
 import locale as locale_mod
 import os
 import re
+import logging
+log = logging.getLogger("anaconda")
 
 import babel
 
@@ -354,8 +356,11 @@ class Language(object):
         self.translations = {repr(locale):locale
                              for locale in get_available_translations()}
         self.locales = {repr(locale):locale for locale in get_all_locales()}
-        self.preferred_translation = self.translations[DEFAULT_LANG]
-        self.preferred_locales = [self.locales[DEFAULT_LANG]]
+
+        self.system_lang = self._get_firmware_language()
+        self.install_lang = self.system_lang
+        self.preferred_translation = self.translations[self.system_lang]
+        self.preferred_locales = [self.locales[self.system_lang]]
         self.preferred_locale = self.preferred_locales[0]
 
         self.all_preferences = preferences
@@ -364,8 +369,45 @@ class Language(object):
         if self.territory:
             self._get_preferred_translation_and_locales()
 
-        self.install_lang = DEFAULT_LANG
-        self.system_lang = DEFAULT_LANG
+    def _get_firmware_language(self):
+        try:
+            n = "/sys/firmware/efi/efivars/PlatformLang-8be4df61-93ca-11d2-aa0d-00e098032b8c"
+            d = open(n, 'r', 0).read()
+        except:
+            return DEFAULT_LANG
+
+        try:
+            # the contents of the file are:
+            # 4-bytes of attribute data that we don't care about
+            # NUL terminated ASCII string like 'en-US'.
+            if len(d) < 10:
+                log.debug("PlatformLang was too short")
+                raise ValueError
+            d = d[4:]
+            if d[2] != '-':
+                log.debug("PlatformLang was malformed")
+                raise ValueError
+
+            # they use - and we use _, so fix it...
+            d = d[:2] + '_' + d[3:-1]
+
+            # UEFI 2.3.1 Errata C specifies 2 aliases in common use that
+            # aren't part of RFC 4646, but are allowed in PlatformLang.
+            # Because why make anything simple?
+            if d.startswith('zh_chs'):
+                d = 'zh_Hans'
+            elif d.startswith('zh_cht'):
+                d = 'zh_Hant'
+            d += '.UTF-8'
+
+            if not self.translations.has_key(d):
+                log.debug("PlatformLang was \"%s\", which is unsupported." % d)
+                raise ValueError
+            log.debug("Using UEFI PlatformLang \"%s\" as our language." % d)
+            return d
+        except ValueError:
+            return DEFAULT_LANG
+
     def _get_preferred_translation_and_locales(self):
         # get locales from territory
         locales_from_territory = PreferredLocale.from_territory(self.territory)
