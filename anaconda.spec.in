@@ -250,6 +250,33 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri May 03 2013 Brian C. Lane <bcl@redhat.com> - 19.24-1
+- Fix check for early exit from on_container_changed. (dlehman)
+- Add ability to manipulate container sizes directly. (dlehman)
+- Don't lock users who chose custom storage out. (dlehman)
+- Don't allow unhiding of hidden disks during disk image installs. (#956020)
+  (dlehman)
+- Add layout indicator to the LUKS passphrase dialog (vpodzime)
+- Add layout indicator to the BaseWindow (vpodzime)
+- LayoutIndicator widget (vpodzime)
+- self._password is set to None not "" initially (#958723) (vpodzime)
+- Use constants for protocol's order instead of magic numbers (vpodzime)
+- Support setting the name of a btrfs subvol (#892363). (clumens)
+- If there are errors processing the kickstart file early on, just print them.
+  (clumens)
+- Stop defining _, N_, and P_ all over the place. (clumens)
+- Fix a probably rare traceback in resizing from the custom part UI. (clumens)
+- Add methods to do some hiding/showing that we do several different places.
+  (clumens)
+- Make it more obvious which fields on custom part are editable (#958251).
+  (clumens)
+- Clean up some of the get_object usage in custom.py. (clumens)
+- Streamline DatetimeSpoke's timezone updating (#953311) (vpodzime)
+- Allow setting timezone on the map without signal (vpodzime)
+- Sensitivity of the date&time settings doesn't depend on timezone (vpodzime)
+- Give the RAID level label on custom a mnemonic widget. (clumens)
+- Give the hostname entry a keyboard shortcut. (clumens)
+
 * Mon Apr 29 2013 Brian C. Lane <bcl@redhat.com> - 19.23-1
 - Only check mandatory spokes in automated install (#956960,#895258) (bcl)
 - Add scratch-bumpver target (bcl)
