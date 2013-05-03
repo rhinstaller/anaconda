@@ -907,8 +907,10 @@ if __name__ == "__main__":
     kickstart.appendPostScripts(ksdata)
 
     # cmdline flags override kickstart settings
-    ksdata.method.proxy = anaconda.proxy
-    ksdata.method.noverifyssl = flags.noverifyssl
+    if anaconda.proxy:
+        ksdata.method.proxy = anaconda.proxy
+    if flags.noverifyssl:
+        ksdata.method.noverifyssl = flags.noverifyssl
 
     # set ksdata.method based on anaconda.method if it isn't already set
     if anaconda.methodstr and not ksdata.method.method:
