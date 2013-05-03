@@ -21,6 +21,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "LayoutIndicator.h"
 #include "BaseWindow.h"
 #include "intl.h"
 
@@ -85,6 +86,7 @@ enum {
 #define DEFAULT_DISTRIBUTION  N_("DISTRIBUTION INSTALLATION")
 #define DEFAULT_WINDOW_NAME   N_("SPOKE NAME")
 #define DEFAULT_BETA          N_("PRE-RELEASE / TESTING")
+#define LAYOUT_INDICATOR_LABEL_WIDTH 10
 
 struct _AnacondaBaseWindowPrivate {
     gboolean    is_beta, info_shown;
@@ -92,6 +94,7 @@ struct _AnacondaBaseWindowPrivate {
     GtkWidget  *alignment;
     GtkWidget  *nav_box, *nav_area, *action_area;
     GtkWidget  *name_label, *distro_label, *beta_label;
+    GtkWidget  *layout_indicator;
 
     /* Untranslated versions of various things. */
     gchar *orig_name, *orig_distro, *orig_beta;
@@ -100,6 +103,7 @@ struct _AnacondaBaseWindowPrivate {
 static void anaconda_base_window_get_property(GObject *object, guint prop_id, GValue *value, GParamSpec *pspec);
 static void anaconda_base_window_set_property(GObject *object, guint prop_id, const GValue *value, GParamSpec *pspec);
 static void anaconda_base_window_buildable_init(GtkBuildableIface *iface);
+static void format_beta_label(AnacondaBaseWindow *window, const char *markup);
 
 static gboolean anaconda_base_window_info_bar_clicked(GtkWidget *widget, GdkEvent *event, AnacondaBaseWindow *win);
 
@@ -267,18 +271,26 @@ static void anaconda_base_window_init(AnacondaBaseWindow *win) {
 
     /* Create the beta label. */
     win->priv->beta_label = gtk_label_new(NULL);
-    markup = g_markup_printf_escaped("<span foreground='red' weight='bold' size='large'>%s</span>", _(DEFAULT_BETA));
-    gtk_label_set_markup(GTK_LABEL(win->priv->beta_label), markup);
-    g_free(markup);
+    format_beta_label(win, _(DEFAULT_BETA));
     gtk_misc_set_alignment(GTK_MISC(win->priv->beta_label), 0, 0);
     gtk_widget_set_no_show_all(win->priv->beta_label, TRUE);
 
     win->priv->orig_beta = g_strdup(DEFAULT_BETA);
 
+    /* Create the layout indicator */
+    win->priv->layout_indicator = anaconda_layout_indicator_new();
+    anaconda_layout_indicator_set_label_width(ANACONDA_LAYOUT_INDICATOR(win->priv->layout_indicator),
+                                              LAYOUT_INDICATOR_LABEL_WIDTH);
+    gtk_widget_set_halign(win->priv->layout_indicator, GTK_ALIGN_START);
+    gtk_widget_set_hexpand(win->priv->layout_indicator, FALSE);
+    gtk_widget_set_margin_top(win->priv->layout_indicator, 6);
+    gtk_widget_set_margin_bottom(win->priv->layout_indicator, 6);
+
     /* Add everything to the nav area. */
     gtk_grid_attach(GTK_GRID(win->priv->nav_area), win->priv->name_label, 0, 0, 1, 1);
     gtk_grid_attach(GTK_GRID(win->priv->nav_area), win->priv->distro_label, 1, 0, 1, 1);
     gtk_grid_attach(GTK_GRID(win->priv->nav_area), win->priv->beta_label, 1, 1, 1, 1);
+    gtk_grid_attach(GTK_GRID(win->priv->nav_area), win->priv->layout_indicator, 1, 2, 1, 1);
 }
 
 static void anaconda_base_window_get_property(GObject *object, guint prop_id, GValue *value, GParamSpec *pspec) {
@@ -570,7 +582,6 @@ void anaconda_base_window_clear_info(AnacondaBaseWindow *win) {
  * Since: 1.0
  */
 void anaconda_base_window_retranslate(AnacondaBaseWindow *win, const char *lang) {
-    char *markup;
     GValue distro = G_VALUE_INIT;
 
     setenv("LANGUAGE", lang, 1);
@@ -597,10 +608,7 @@ void anaconda_base_window_retranslate(AnacondaBaseWindow *win, const char *lang)
         anaconda_base_window_set_property((GObject *) win, PROP_WINDOW_NAME, &name, NULL);
     }
 
-    markup = g_markup_printf_escaped("<span foreground='red' weight='bold' size='large'>%s</span>",
-                                     _(win->priv->orig_beta));
-    gtk_label_set_markup(GTK_LABEL(win->priv->beta_label), markup);
-    g_free(markup);
+    format_beta_label(win, _(win->priv->orig_beta));
 }
 
 static GtkBuildableIface *parent_buildable_iface;
@@ -641,3 +649,26 @@ static void anaconda_base_window_buildable_init (GtkBuildableIface *iface) {
     iface->add_child = anaconda_base_window_buildable_add_child;
     iface->get_internal_child = anaconda_base_window_buildable_get_internal_child;
 }
+
+static void format_beta_label (AnacondaBaseWindow *window, const char *markup) {
+    gchar *escaped;
+    PangoAttrList *attrs;
+
+    /* define attributes -- medium size, bold weight and red text color */
+    attrs = pango_attr_list_new();
+    pango_attr_list_insert(attrs, pango_attr_scale_new(PANGO_SCALE_MEDIUM));
+    pango_attr_list_insert(attrs, pango_attr_weight_new(PANGO_WEIGHT_BOLD));
+    pango_attr_list_insert(attrs, pango_attr_foreground_new(0xfdfd, 0x1010, 0x1010));
+
+    /* Some characters may need to be escaped. */
+    escaped = g_markup_escape_text(markup, -1);
+
+    gtk_label_set_markup(GTK_LABEL(window->priv->beta_label), escaped);
+    gtk_label_set_attributes(GTK_LABEL(window->priv->beta_label), attrs);
+
+    pango_attr_list_unref(attrs);
+    g_free(escaped);
+}
+
+
+

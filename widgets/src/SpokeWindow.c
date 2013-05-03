@@ -144,6 +144,9 @@ static void anaconda_spoke_window_init(AnacondaSpokeWindow *win) {
     /* Create the button. */
     win->priv->button = gtk_button_new_with_mnemonic(DEFAULT_BUTTON_LABEL);
     gtk_widget_set_halign(win->priv->button, GTK_ALIGN_START);
+    gtk_widget_set_vexpand(win->priv->button, FALSE);
+    gtk_widget_set_valign(win->priv->button, GTK_ALIGN_END);
+    gtk_widget_set_margin_bottom(win->priv->button, 6);
 
     /* Hook up some signals for that button.  The signal handlers here will
      * just raise our own custom signals for the whole window.
@@ -153,7 +156,7 @@ static void anaconda_spoke_window_init(AnacondaSpokeWindow *win) {
 
     /* And then put the button into the navigation area. */
     nav_area = anaconda_base_window_get_nav_area(ANACONDA_BASE_WINDOW(win));
-    gtk_grid_attach(GTK_GRID(nav_area), win->priv->button, 0, 1, 1, 1);
+    gtk_grid_attach(GTK_GRID(nav_area), win->priv->button, 0, 1, 1, 2);
 }
 
 static void anaconda_spoke_window_realize(GtkWidget *widget, gpointer user_data) {
